@@ -82,4 +82,6 @@ EXTRA_DIST = \
 	pydiadoc.py \
 	scascale.py \
 	select_by.py \
-	gtkcons.py
+	gtkcons.py \
+	makefile.msc
+

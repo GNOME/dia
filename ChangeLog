@@ -1,3 +1,13 @@
+2005-03-27  Hans Breuer  <hans@breuer.org>
+
+	* app/Makefile.am : removed some pixmap/*.xpm from EXTRA_DIST
+	* app/pixmaps.h : removed arrow.xpm
+	* lib/Makefile.am : added diamarshal
+	* plug-ins/python/Makefile.am : added makefile.msc to EXTRA_DIST
+	=> makes 'make dist' pass and produce a useable package
+
+	* po/*.po : 'noise' profuced by make dist
+
 2005-03-24  Lars Clausen  <lars@raeder.dk>
 
 	* objects/flowchart/parallelogram.c (pgram_update_data): 

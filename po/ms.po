@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-08 01:35+0800\n"
+"POT-Creation-Date: 2005-03-27 16:18+0200\n"
 "PO-Revision-Date: 2003-10-29 00:29+0800\n"
 "Last-Translator: MIMOS Open Source Development Group <azah@mimos.my>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
@@ -14,103 +14,121 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:173
+#: app/app_procs.c:228
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "Ralat %s: tidak tahu bagaimana mengeksport ke %s\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:237
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "Ralat %s: nama fail input dan output adalah sama: %s"
 
-#: app/app_procs.c:191
+#: app/app_procs.c:246
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Ralat %s: fail input %s tidak sah\n"
 
 #. if (!quiet)
-#: app/app_procs.c:197
+#: app/app_procs.c:291
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:239
-#, c-format
-msgid "Can't find output format %s\n"
+#: app/app_procs.c:437
+#, fuzzy, c-format
+msgid "Can't find output format/filter %s\n"
 msgstr "Tak menjumpai format output %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:323
+#: app/app_procs.c:524
 #, c-format
-msgid "Export to file format and exit.  Supported formats are: %s"
-msgstr "Eksport ke format fail dan keluar. Format yg disokong adalah: %s"
+msgid "Select the filter/format out of: %s"
+msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:332
+#: app/app_procs.c:543 app/app_procs.c:567
 msgid "Export loaded file and exit"
 msgstr "Eksport fail yang dimuatkan dan keluar"
 
-#: app/app_procs.c:332 app/diaconv.c:94
+#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
-#: app/app_procs.c:334
-msgid "FORMAT"
-msgstr "FORMAT"
+#. &export_format_string
+#: app/app_procs.c:545 app/app_procs.c:569
+msgid "TYPE"
+msgstr ""
 
-#: app/app_procs.c:337
+#: app/app_procs.c:547 app/app_procs.c:572
+#, fuzzy
+msgid "Export graphics size"
+msgstr "Format eksport untuk digunakan"
+
+#: app/app_procs.c:547 app/app_procs.c:572
+msgid "WxH"
+msgstr ""
+
+#. 13.3.2004 sampo@iki.fi
+#: app/app_procs.c:549 app/app_procs.c:574
+msgid "Show only specified layers (e.g. when exporting)"
+msgstr ""
+
+#: app/app_procs.c:549 app/app_procs.c:574
+msgid "LAYER,LAYER,..."
+msgstr ""
+
+#: app/app_procs.c:551 app/app_procs.c:576
 msgid "Don't show the splash screen"
 msgstr "Jangan papar skrin splash"
 
-#: app/app_procs.c:339
+#: app/app_procs.c:553 app/app_procs.c:578
+msgid "Send error messages to stderr instead of showing dialogs."
+msgstr ""
+
+#: app/app_procs.c:555 app/app_procs.c:580
 msgid "Display credits list and exit"
 msgstr "Papar senarai kredit dan keluar"
 
-#: app/app_procs.c:341
+#: app/app_procs.c:557 app/app_procs.c:582
+msgid "Generate verbose output"
+msgstr ""
+
+#: app/app_procs.c:559 app/app_procs.c:584
 msgid "Display version and exit"
 msgstr "Papar versi dan keluar"
 
-#: app/app_procs.c:343 app/diaconv.c:95
+#: app/app_procs.c:585 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "papar maklumat bantuan ini"
 
-#: app/app_procs.c:375
+#: app/app_procs.c:633
 msgid "Can't connect to session manager!\n"
 msgstr "Tak dapat  menyambung ke pengurus sessi!\n"
 
-#: app/app_procs.c:390 app/diaconv.c:119
-msgid "[OPTION...] [FILE...]"
-msgstr "[OPSYEN...] [FAIL...]"
-
-#: app/app_procs.c:394 app/diaconv.c:126
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Ralat pada opsyen %s: %s.\n"
-"Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
-"ada.\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:413
+#: app/app_procs.c:665
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia Versi %s dikompil %s, %s\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:667
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versi %s\n"
 
-#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Tak menjumpai objek piawai bila mencari object-libs, keluar...\n"
 
-#: app/app_procs.c:589
+#: app/app_procs.c:772
+#, fuzzy
+msgid "Diagram1.dia"
+msgstr "Diagram%d.dia"
+
+#: app/app_procs.c:814
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -120,7 +138,7 @@ msgstr ""
 "terangkan bagaimana anda boleh menyebabkan mesej ini muncul.\n"
 
 #. no standard buttons
-#: app/app_procs.c:601
+#: app/app_procs.c:827
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -130,21 +148,21 @@ msgstr ""
 " Adakah anda pasti untuk keluar Dia\n"
 "tanpa menyimpannya?"
 
-#: app/app_procs.c:605
+#: app/app_procs.c:830
 msgid "Quit Dia"
 msgstr "Keluar Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:660
+#: app/app_procs.c:883
 msgid "Thank you for using Dia.\n"
 msgstr "Terima kasih kerana menggunakan Dia.\n"
 
-#: app/app_procs.c:674 app/app_procs.c:681
+#: app/app_procs.c:900 app/app_procs.c:907
 msgid "Could not create per-user Dia config directory"
 msgstr "Tak dapat mencipta direktori konfigurasi per-pengguna Dia"
 
-#: app/app_procs.c:683
+#: app/app_procs.c:909
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -153,9 +171,60 @@ msgstr ""
 "pastikan bahawa pembolehubah persekitaran titik HOME ada dalam direktori "
 "yang wujud."
 
-#: app/app_procs.c:705 app/diaconv.c:249
+#: app/app_procs.c:931 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objek dan penapis dalam ke dia"
+
+#: app/app_procs.c:973 app/diaconv.c:121
+msgid "[OPTION...] [FILE...]"
+msgstr "[OPSYEN...] [FAIL...]"
+
+#: app/app_procs.c:976 app/diaconv.c:128
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Ralat pada opsyen %s: %s.\n"
+"Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
+"ada.\n"
+
+#: app/app_procs.c:1000
+#, fuzzy
+msgid "[FILE...]"
+msgstr "[OPSYEN...] [FAIL...]"
+
+#: app/app_procs.c:1015
+#, c-format
+msgid "'%s' not found!\n"
+msgstr ""
+
+#: app/app_procs.c:1094
+msgid ""
+"The original author of Dia was:\n"
+"\n"
+msgstr ""
+
+#: app/app_procs.c:1099
+msgid ""
+"\n"
+"The current maintainers of Dia are:\n"
+"\n"
+msgstr ""
+
+#: app/app_procs.c:1104
+msgid ""
+"\n"
+"Other authors are:\n"
+"\n"
+msgstr ""
+
+#: app/app_procs.c:1109
+msgid ""
+"\n"
+"Dia is documented by:\n"
+"\n"
+msgstr ""
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -169,28 +238,28 @@ msgstr ""
 "Autosimpan fail yang wujud.\n"
 "Sila pilih yang mana anda mahu pulihkan."
 
-#: app/color_area.c:316 app/color_area.c:363
+#: app/color_area.c:317 app/color_area.c:364
 msgid "Select foreground color"
 msgstr "Pilih warna latardepan"
 
-#: app/color_area.c:317 app/color_area.c:364
+#: app/color_area.c:318 app/color_area.c:365
 msgid "Select background color"
 msgstr "Pilih warna latarbelakang"
 
-#: app/commands.c:132
+#: app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: app/commands.c:200
+#: app/commands.c:205
 msgid "No existing object to paste.\n"
 msgstr "Tiada objek yang wujud untuk ditampal.\n"
 
-#: app/commands.c:470 app/commands.c:508
+#: app/commands.c:528 app/commands.c:566
 msgid "Could not find help directory"
 msgstr "tak menjumpai direktori bantuan"
 
-#: app/commands.c:477
+#: app/commands.c:535
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -204,45 +273,47 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:547
+#: app/commands.c:605
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>, Merlimau. 2002"
 
-#: app/commands.c:561 dia.desktop.in.h:1
+#: app/commands.c:619
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:563
+#: app/commands.c:621
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Hakcipta (C) 1998-2002 The Free Software Foundation dan penulisnya"
 
-#: app/commands.c:564
+#: app/commands.c:622
+#, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
-"Please visit http://www.lysator.liu.se/~alla/dia for more information."
+"Please visit http://www.gnome.org/projects/dia for more information."
 msgstr ""
 "Dia merupakan program untuk melukis diagram berstruktur. \n"
 "Sila lawat http://www.lysator.liu.se/~alla/dia untuk maklumat lanjut."
 
-#: app/commands.c:603
+#: app/commands.c:661
 msgid "About Dia"
 msgstr "Perihal Dia"
 
-#: app/commands.c:646
+#: app/commands.c:704
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s oleh Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:652
+#: app/commands.c:710
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Penyenggara: Lars Clausen and Cyrille Chepelov"
 
-#: app/commands.c:656
-msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
+#: app/commands.c:714
+#, fuzzy
+msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr "Sila lawat http://www.lysator.liu.se/~alla/dia untuk lebih maklumat"
 
-#: app/commands.c:661
+#: app/commands.c:719
 msgid "Contributors:"
 msgstr "Penyumbang:"
 
@@ -258,52 +329,62 @@ msgstr "Objek tiada default."
 msgid "Defaults: "
 msgstr "Default:"
 
-#: app/dia-props.c:75
+#: app/dia-props.c:85
 msgid "Diagram Properties"
 msgstr "Ciri-ciri Diagram"
 
-#: app/dia-props.c:110
+#: app/dia-props.c:119
 msgid "Dynamic grid"
 msgstr "Grid dinamik"
 
-#: app/dia-props.c:118
+#: app/dia-props.c:127
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:122
+#: app/dia-props.c:131
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:127
+#: app/dia-props.c:136
 msgid "Spacing"
 msgstr "Jarak ruang"
 
-#: app/dia-props.c:147
+#: app/dia-props.c:156
 msgid "Visible spacing"
 msgstr "Jarakruang kelihatan"
 
-#: app/dia-props.c:167
+#. Hexes!
+#: app/dia-props.c:177 app/preferences.c:162
+msgid "Hex grid"
+msgstr ""
+
+#: app/dia-props.c:185
+msgid "Hex grid size"
+msgstr ""
+
+#: app/dia-props.c:198
 msgid "Grid"
 msgstr "Grid"
 
-#: app/dia-props.c:178 lib/diagramdata.c:62
+#: app/dia-props.c:209 lib/diagramdata.c:83
 msgid "Background"
 msgstr "LatarBelakang"
 
-#: app/dia-props.c:189 app/preferences.c:103
+#: app/dia-props.c:220 app/preferences.c:105
 msgid "Grid Lines"
 msgstr "Garisan Grid"
 
-#: app/dia-props.c:200
+#: app/dia-props.c:231
 msgid "Page Breaks"
 msgstr "Hentian Halaman"
 
-#: app/dia-props.c:211
-msgid "Colours"
+#: app/dia-props.c:242
+#, fuzzy
+msgid "Colors"
 msgstr "Warna"
 
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:230
+#: app/dia-props.c:263
 #, c-format
 msgid "Diagram Properties: %s"
 msgstr "Ciri-ciri Diagram: %s"
@@ -311,6 +392,24 @@ msgstr "Ciri-ciri Diagram: %s"
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "Tak dapat menginitialisasikan Bonobo!"
+
+#: app/diacanvas.c:121
+#, fuzzy
+msgid "X position"
+msgstr "Posisi"
+
+#: app/diacanvas.c:122
+msgid "X position of child widget"
+msgstr ""
+
+#: app/diacanvas.c:131
+#, fuzzy
+msgid "Y position"
+msgstr "Posisi"
+
+#: app/diacanvas.c:132
+msgid "Y position of child widget"
+msgstr ""
 
 #. &export_file_format
 #: app/diaconv.c:92
@@ -330,7 +429,7 @@ msgstr "Fail eksport untuk digunakan"
 msgid "Quiet operation"
 msgstr "Operasi Senyap"
 
-#: app/diaconv.c:147
+#: app/diaconv.c:149
 #, c-format
 msgid ""
 "Error: No arguments found.\n"
@@ -340,12 +439,12 @@ msgstr ""
 "Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
 "ada.\n"
 
-#: app/diaconv.c:157
+#: app/diaconv.c:159
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
 msgstr "Ralat %s : boleh hanya nyatakan hanya satu -t atau -o."
 
-#: app/diaconv.c:163
+#: app/diaconv.c:165
 #, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
@@ -355,17 +454,17 @@ msgstr ""
 "Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
 "ada.\n"
 
-#: app/diaconv.c:172
+#: app/diaconv.c:174
 #, c-format
 msgid "%s error: no input file."
 msgstr "Ralat %s: tiada fail input."
 
-#: app/diaconv.c:225
+#: app/diaconv.c:227
 #, c-format
 msgid "%s error: only one input file expected."
 msgstr "Ralat %s: hanya satu fail input dijangka."
 
-#: app/diaconv.c:238
+#: app/diaconv.c:240
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr "Ralat %s : pustaka popt tak wujud pada sistem ini"
@@ -450,7 +549,7 @@ msgstr "/_Ciri-ciri"
 msgid "/_Hide this type"
 msgstr "/_Sembunyi jenis ini"
 
-#: app/diagram_tree_window.c:76
+#: app/diagram_tree_window.c:73
 msgid "Diagram tree"
 msgstr "Pepohon diagram"
 
@@ -458,8 +557,7 @@ msgstr "Pepohon diagram"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Batal"
 
@@ -517,11 +615,11 @@ msgstr "oleh"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:786 app/pagesetup.c:73
+#: app/diapagelayout.c:786 app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Tetapan Halaman"
 
-#: app/disp_callbacks.c:78 app/properties.c:153
+#: app/disp_callbacks.c:83 app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -529,11 +627,12 @@ msgstr ""
 "Objek ini tidak menyokong Undo/Redo.\n"
 "Maklumat Undo dihapuskan."
 
-#: app/disp_callbacks.c:220
-msgid "No object menu"
-msgstr "Tiada menu objek"
+#: app/disp_callbacks.c:118
+#, fuzzy
+msgid "Properties..."
+msgstr "_Ciri-ciri..."
 
-#: app/disp_callbacks.c:856
+#: app/disp_callbacks.c:938
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -541,15 +640,25 @@ msgstr ""
 "Objek yang anda jatuhkan tidak boleh dipadankan kedalam asalnya. \n"
 "Samada meluaskan objek asal, atau menjatuhkan objek ketempat lain."
 
-#: app/display.c:93
+#: app/display.c:92
 msgid "Diagram modified!"
 msgstr "Diagram diubahsuai!"
 
-#: app/display.c:992
+#: app/display.c:116
+#, fuzzy, c-format
+msgid "Selection of %d objects"
+msgstr "Helaian dan Objek"
+
+#: app/display.c:126
+#, fuzzy, c-format
+msgid "Selected '%s'"
+msgstr "_Pilih"
+
+#: app/display.c:1024
 msgid "<unnamed>"
 msgstr "<TiadaNama>"
 
-#: app/display.c:994
+#: app/display.c:1026
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -558,11 +667,11 @@ msgstr ""
 "Dokumen '%s' tidak akan \n"
 "disimpan. Simpan sekarang?"
 
-#: app/display.c:1005
+#: app/display.c:1037
 msgid "Close Diagram"
 msgstr "Tutup Diagram"
 
-#: app/display.c:1010
+#: app/display.c:1042
 msgid "Discard Changes"
 msgstr "Abaikan Perubahan"
 
@@ -570,77 +679,90 @@ msgstr "Abaikan Perubahan"
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
-#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
-#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
+#: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
+#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
+#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
+#: plug-ins/metapost/render_metapost.c:964
+#: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1067
+#: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Tak dapat buka fail output %s: %s\n"
 
-#: app/export_png.c:124
+#: app/export_png.c:142
 msgid "Could not create PNG write structure"
 msgstr "Tidak boleh cipta struktur penulisan PNG"
 
-#: app/export_png.c:133
+#: app/export_png.c:151
 msgid "Could not create PNG header info structure"
 msgstr "Tidak boleh cipta struktur pengepala maklumat PNG"
 
-#: app/export_png.c:141
+#: app/export_png.c:159
 msgid "Error occurred while writing PNG"
 msgstr "Ralat berlaku ketika menulis PNG"
 
 #  Create a dialog
 #. Create a dialog
-#: app/export_png.c:265
+#: app/export_png.c:299
 msgid "PNG Export Options"
 msgstr "Opsyen Pengeksportan PNG"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
+#: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "Eksport"
 
-#: app/export_png.c:271
+#: app/export_png.c:305
 msgid "Image width:"
 msgstr "Lebar imej:"
 
-#: app/export_png.c:274
+#: app/export_png.c:308
 msgid "Image height:"
 msgstr "Tinggi imej:"
 
-#: app/export_png.c:319
+#: app/export_png.c:354
 msgid "Portable Network Graphics"
 msgstr "Grafik Rangkaian Mudahalih"
 
-#: app/filedlg.c:113 app/filedlg.c:380
+#: app/filedlg.c:127 app/filedlg.c:493
 msgid "By extension"
 msgstr "Mengikut penghujungan"
 
-#: app/filedlg.c:172
+#: app/filedlg.c:200
 msgid "Open Diagram"
 msgstr "Buka Diagram"
 
-#: app/filedlg.c:200
+#: app/filedlg.c:228
 msgid "Open Options"
 msgstr "Opsyen Pembukaan"
 
-#: app/filedlg.c:208 app/filedlg.c:495
+#: app/filedlg.c:236 app/filedlg.c:628
 msgid "Determine file type:"
 msgstr "Tentukan jenis fail:"
 
-#: app/filedlg.c:245
+#: app/filedlg.c:252 app/filedlg.c:641
+#, fuzzy
+msgid "All Files"
+msgstr "Fail"
+
+#: app/filedlg.c:257 app/filedlg.c:646
+#, fuzzy
+msgid "Supported Formats"
+msgstr "Sekat operasi"
+
+#: app/filedlg.c:293
+#, fuzzy
 msgid ""
-"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 "Beberapa aksara dalam nama fail adalah bukan UTF-* pengekodan setempat "
 "anda.\n"
 "Sesuatu akan terputus."
 
-#: app/filedlg.c:251 app/filedlg.c:422
+#: app/filedlg.c:300 app/filedlg.c:538
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -649,21 +771,21 @@ msgstr ""
 "Fail '%s' sudah wujud.\n"
 "Adakah anda ingin menindihnya?"
 
-#: app/filedlg.c:259 app/filedlg.c:428
+#: app/filedlg.c:308 app/filedlg.c:545
 msgid "File already exists"
 msgstr "Fail tersedia ada."
 
-#: app/filedlg.c:292
+#: app/filedlg.c:351
 msgid "Save Diagram"
 msgstr "Simpan Diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:297
+#: app/filedlg.c:362
 msgid "Compress diagram files"
 msgstr "Mampatkan fail diagram"
 
-#: app/filedlg.c:306
+#: app/filedlg.c:371
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -672,7 +794,7 @@ msgstr ""
 "melajukan proses muatan dan simpanan.  Beberapa program teks tidak boleh "
 "memanipulasikan fail mampatan."
 
-#: app/filedlg.c:447
+#: app/filedlg.c:567
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -681,19 +803,19 @@ msgstr ""
 "Tak dapat menentukan tapisan eksport\n"
 " digunakan untuk menyimpan '%s'"
 
-#: app/filedlg.c:465
+#: app/filedlg.c:590
 msgid "Export Diagram"
 msgstr "Eksport Diagram"
 
-#: app/filedlg.c:487
+#: app/filedlg.c:620
 msgid "Export Options"
 msgstr "Opsyen Eksport"
 
-#: app/interface.c:43
+#: app/interface.c:54
 msgid "Modify object(s)"
 msgstr "Objek diubahsuai"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:55
 msgid "Modify"
 msgstr "Ubahsuai"
 
@@ -702,91 +824,106 @@ msgstr "Ubahsuai"
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
-#: objects/FS/function.c:975
+#: app/interface.c:59 app/interface.c:60 objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Besarkan"
 
-#: app/interface.c:53
+#: app/interface.c:64
 msgid "Scroll around the diagram"
 msgstr "Skrol sekeliling diagram"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:65
 msgid "Scroll"
 msgstr "Skrol"
 
-#. PROP_STD_TEXT_ALIGNMENT,
-#. PROP_STD_TEXT_FONT,
-#. PROP_STD_TEXT_HEIGHT,
-#. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
-#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
-#: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:154
-#: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
-#: objects/UML/small_package.c:121 objects/UML/state.c:134
-#: objects/UML/usecase.c:131
+#: app/interface.c:69 app/interface.c:70 lib/properties.c:77
+#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:122
+#: objects/UML/classicon.c:143 objects/UML/component.c:128
+#: objects/UML/component_feature.c:154 objects/UML/node.c:127
+#: objects/UML/note.c:121 objects/UML/object.c:147
+#: objects/UML/small_package.c:128 objects/UML/state.c:141
+#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
+#: objects/network/basestation.c:131 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Teks"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:74 app/interface.c:75
 msgid "Box"
 msgstr "Kotak"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:79 app/interface.c:80
 msgid "Ellipse"
 msgstr "Elips"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:84 app/interface.c:85
 msgid "Polygon"
 msgstr "Poligon"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:89 app/interface.c:90
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
-#: objects/standard/line.c:247
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:225
 msgid "Line"
 msgstr "Garisan"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:99 app/interface.c:100
 msgid "Arc"
 msgstr "Arca"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:104 app/interface.c:105
 msgid "Zigzagline"
 msgstr "Garisan Zigzag"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:109 app/interface.c:110
 msgid "Polyline"
 msgstr "Polyline"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:114 app/interface.c:115
 msgid "Bezierline"
 msgstr "Bezierline"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:119 app/interface.c:120
 msgid "Image"
 msgstr "Imej"
 
-#: app/interface.c:371
+#: app/interface.c:392
 msgid "Diagram menu."
 msgstr "Menu diagram"
 
-#: app/interface.c:480
+#: app/interface.c:430
+msgid "Pops up the Navigation window."
+msgstr ""
+
+#: app/interface.c:512
 msgid "Zoom"
 msgstr "Zum"
 
-#: app/interface.c:494
+#: app/interface.c:527
 msgid "Toggles snap-to-grid for this window."
 msgstr "Togol snap-ke-grid bagi tetingkap ini."
 
-#: app/interface.c:538
+#: app/interface.c:590
 msgid "NULL tooldata in tool_select_update"
 msgstr "tooldata NULL pada tool_select_update"
 
-#: app/interface.c:1020
+#: app/interface.c:870
+#, fuzzy, c-format
+msgid "No sheet named %s"
+msgstr "Nama helaian:"
+
+#: app/interface.c:902
+#, fuzzy
+msgid "Other sheets"
+msgstr ""
+"%s\n"
+"Helaian pengguna"
+
+#: app/interface.c:960 sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr "Lain-lain"
+
+#: app/interface.c:1021
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -796,7 +933,7 @@ msgstr ""
 "segiempat hitam dan putih. Anak panah kecil saling tukar warna. Klik dua "
 "kali untuk menukar warna"
 
-#: app/interface.c:1035
+#: app/interface.c:1036
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -804,7 +941,7 @@ msgstr ""
 "Lebar garisan. Klik atas garisan untuk set piawai lebar garisan bagi objek "
 "baru.  Klik dua kali untuk setkan lebar garisan lebih sempurna."
 
-#: app/interface.c:1067
+#: app/interface.c:1076
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -812,7 +949,7 @@ msgstr ""
 "Gaya anak panah pada permulaan garisan baru. Klik untuk mengambil anak "
 "panah, atau setkan parameter anak panah dengan Perincian..."
 
-#: app/interface.c:1072
+#: app/interface.c:1081
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -820,7 +957,7 @@ msgstr ""
 "Gaya garisan untuk garisan baru. Klik untuk mengambil gaya garisan, atau "
 "setkan parameter gaya garisan dengan Perincian..."
 
-#: app/interface.c:1077
+#: app/interface.c:1095
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -828,81 +965,62 @@ msgstr ""
 "Gaya anak panah pada permulaan garisan baru. Klik untuk mengambil anak "
 "panah, atau setkan parameter anak panah dengan Perincian..."
 
-#: app/interface.c:1185
+#: app/interface.c:1202
 msgid "Diagram Editor"
 msgstr "Editor Diagram"
 
-#: app/layer_dialog.c:70
+#: app/layer_dialog.c:69
 msgid "New Layer"
 msgstr "Lapisan Baru"
 
-#: app/layer_dialog.c:71
+#: app/layer_dialog.c:70
 msgid "Raise Layer"
 msgstr "Angkat Lapisan"
 
-#: app/layer_dialog.c:72
+#: app/layer_dialog.c:71
 msgid "Lower Layer"
 msgstr "Turunkan Lapisan"
 
-#: app/layer_dialog.c:73
+#: app/layer_dialog.c:72
 msgid "Delete Layer"
 msgstr "Padam Lapisan"
 
-#: app/layer_dialog.c:214
+#: app/layer_dialog.c:193
 msgid "Layers"
 msgstr "Lapisan"
 
-#: app/layer_dialog.c:228
-msgid "Diagrams:"
+#: app/layer_dialog.c:207
+#, fuzzy
+msgid "Diagram:"
 msgstr "Diagram:"
 
-#: app/layer_dialog.c:273
-msgid "Close"
-msgstr "Tutup"
-
-#: app/layer_dialog.c:319
-msgid "New layer"
+#: app/layer_dialog.c:313
+#, fuzzy, c-format
+msgid "New layer %d"
 msgstr "Lapisan Baru"
 
-#: app/layer_dialog.c:525
+#: app/layer_dialog.c:521
 msgid "none"
 msgstr "tiada"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:952
 msgid "Edit Layer Attributes"
 msgstr "Edit Atribut Lapisan"
 
-#: app/layer_dialog.c:990
+#: app/layer_dialog.c:971
 msgid "Layer name:"
 msgstr "Nama lapisan:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/paginate_psprint.c:268
-msgid "OK"
-msgstr "OK"
-
-#: app/lineprops_area.c:429
-msgid "Arrow Properties"
-msgstr "Ciri-ciri Panah"
-
-#: app/lineprops_area.c:505 app/lineprops_area.c:702
-msgid "Details..."
-msgstr "Terperinci..."
-
-#: app/lineprops_area.c:658
-msgid "Line Style Properties"
-msgstr "Ciri-ciri gaya Garisan"
-
-#: app/linewidth_area.c:239 lib/properties.h:475
+#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Lebar Garisan"
 
-#: app/linewidth_area.c:251
+#: app/linewidth_area.c:258
 msgid "Line width:"
 msgstr "Lebar Garisan:"
 
-#: app/load_save.c:245
+#: app/load_save.c:260
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -910,15 +1028,7 @@ msgstr ""
 "Ralat memuatkan diagram.\n"
 "Objek terpaut tidak dijumpai dalam dokumen."
 
-#: app/load_save.c:248
-msgid ""
-"Error loading diagram.\n"
-"connection point does not exist."
-msgstr ""
-"Ralat memuatkan diagram.\n"
-"Titik sambungan tidak wujud."
-
-#: app/load_save.c:251
+#: app/load_save.c:263
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -926,22 +1036,31 @@ msgstr ""
 "Ralat memuatkan diagram.\n"
 "pemegang sambungan tidak wujud."
 
-#: app/load_save.c:273
+#: app/load_save.c:280
+#, fuzzy, c-format
+msgid ""
+"Error loading diagram.\n"
+"connection point %s does not exist."
+msgstr ""
+"Ralat memuatkan diagram.\n"
+"Titik sambungan tidak wujud."
+
+#: app/load_save.c:305
 #, fuzzy, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Tidak dapat mencari objek piawai"
 
-#: app/load_save.c:318
+#: app/load_save.c:351
 msgid "You must specify a file, not a directory.\n"
 msgstr "Anda mesti nyatakan satu fail, bukannya direktori:\n"
 
-#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
+#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1171
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Tak dapat membuka fail '%s' untuk dibaca:\n"
 
-#: app/load_save.c:342 app/load_save.c:347
+#: app/load_save.c:375 app/load_save.c:380
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -950,7 +1069,7 @@ msgstr ""
 "Ralat memuatkan diagram %s.\n"
 "Jenis fail tak diketahui."
 
-#: app/load_save.c:354
+#: app/load_save.c:387
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -959,7 +1078,7 @@ msgstr ""
 "Ralat memuatkan diagram %s.\n"
 "Bukan fail Dia"
 
-#: app/load_save.c:551
+#: app/load_save.c:592
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -970,736 +1089,508 @@ msgstr ""
 "%s.\n"
 "Fail sah Dia ditentukan sekurang-kurangnya satu lapisan."
 
-#: app/load_save.c:900
+#: app/load_save.c:946
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Gagal menyimpan fail'%s'.\n"
 
-#: app/load_save.c:970 app/load_save.c:975
-msgid "Native Dia Diagram"
+#: app/load_save.c:1018 app/load_save.c:1023
+#, fuzzy
+msgid "Dia Diagram File"
 msgstr "Diagram Dia Tabii"
 
-#: app/menus.c:50 app/menus.c:70
-msgid "_New diagram"
-msgstr "Diagram ba_ru"
-
-#: app/menus.c:50 app/menus.c:70
-msgid "Create new diagram"
-msgstr "Cipta diagram baru"
-
-#: app/menus.c:54
-msgid "_Diagram tree"
-msgstr "Pepohon _diagram"
-
-#: app/menus.c:54
-msgid "Show diagram tree"
-msgstr "Papar pepohon diagram"
-
-#: app/menus.c:56
-msgid "_Sheets and Objects..."
-msgstr "_Helaian dan Objek..."
-
-#: app/menus.c:57
-msgid "Modify sheets and their objects"
-msgstr "Ubahsuai helaian dan objeknya"
-
-#: app/menus.c:61
-msgid "P_lugins..."
-msgstr "P_lug-in..."
-
-#: app/menus.c:76
-msgid "_Export..."
-msgstr "_Eksport..."
-
-#: app/menus.c:80
-msgid "Page Set_up..."
-msgstr "T_etapan Halaman..."
-
-#: app/menus.c:82
-msgid "_Print Diagram..."
-msgstr "_Cetak Diagram..."
-
-#: app/menus.c:97
-msgid "_Delete"
-msgstr "Pa_dam"
-
-#: app/menus.c:103
-msgid "Copy Text"
-msgstr "Salin Teks"
-
-#: app/menus.c:104
-msgid "Cut Text"
-msgstr "Potong Teks"
-
-#: app/menus.c:105
-msgid "Paste _Text"
-msgstr "Tepek _Teks"
-
-#: app/menus.c:129
-msgid "Zoom _In"
-msgstr "Zoom _Masuk"
-
-#: app/menus.c:129
-msgid "Zoom in 50%"
-msgstr "Zoom masuk 50%"
-
-#: app/menus.c:130
-msgid "Zoom _Out"
-msgstr "Zoom _Keluar"
-
-#: app/menus.c:130
-msgid "Zoom out 50%"
-msgstr "Zoom keluar 50%"
-
-#: app/menus.c:131
-msgid "_Zoom"
-msgstr "_Zoom"
-
-#: app/menus.c:133
-msgid "Diagram Properties..."
-msgstr "Ciri-ciri Diagram..."
-
-#: app/menus.c:135
-msgid "_AntiAliased"
-msgstr "_Antialias"
-
-#. TODO: Show Menu Bar  F9.  Hub's cool code.
-#: app/menus.c:139
-msgid "Show _Grid"
-msgstr "Papar _Grid"
-
-#: app/menus.c:141
-msgid "_Snap To Grid"
-msgstr "_Snap ke Grid"
-
-#: app/menus.c:143
-msgid "Show _Rulers"
-msgstr "Papar _Pembaris"
-
-#: app/menus.c:145
-msgid "Show _Connection Points"
-msgstr "Papar Titik _Sambungan"
-
-#: app/menus.c:148
-msgid "New _View"
-msgstr "_Paparan Baru"
-
-#: app/menus.c:149
-msgid "Show _All"
-msgstr "Papar Semu_a"
-
-#: app/menus.c:150
-msgid "Redraw"
-msgstr "Ulanglukis"
-
-#: app/menus.c:155
-msgid "Replace"
-msgstr "Ganti"
-
-#: app/menus.c:157
-msgid "Union"
-msgstr "Kesatuan"
-
-#: app/menus.c:159
-msgid "Intersect"
-msgstr "Bersilang"
-
-#. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:161 app/sheets_dialog.c:784 objects/FS/function.c:695
-#: objects/FS/function.c:847 objects/FS/function.c:849
-msgid "Remove"
-msgstr "Buang"
-
-#: app/menus.c:163 app/menus.c:171
-msgid "Invert"
-msgstr "Songsang"
-
-#: app/menus.c:169
-msgid "All"
-msgstr "Semua"
-
-#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1135
-msgid "None"
-msgstr "Tiada"
-
-#: app/menus.c:172
-msgid "Connected"
-msgstr "Tersambung"
-
-#: app/menus.c:173
-msgid "Transitive"
-msgstr "Transitif"
-
-#: app/menus.c:174
-msgid "Same Type"
-msgstr "Jenis Sama"
-
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
-msgid "Left"
-msgstr "Kiri"
-
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
-msgid "Center"
-msgstr "Tengah"
-
-# ui/galeon.glade.h:268
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
-msgid "Right"
-msgstr "Kanan"
-
-#: app/menus.c:185 app/menus.c:195
-msgid "Equal Distance"
-msgstr "Jarak Sama"
-
-#: app/menus.c:186 app/menus.c:196
-msgid "Adjacent"
-msgstr "Bersebelahan"
-
-#: app/menus.c:191
-msgid "Top"
-msgstr "Atas"
-
-#: app/menus.c:192
-msgid "Middle"
-msgstr "Tengah"
-
-#: app/menus.c:193
-msgid "Bottom"
-msgstr "Bawah"
-
-#: app/menus.c:201
-msgid "Send to _Back"
-msgstr "Hantar ke _Belakang"
-
-#: app/menus.c:202
-msgid "Bring to _Front"
-msgstr "Bawa ke _Depan"
-
-#: app/menus.c:203
-msgid "Send Backwards"
-msgstr "Hantar ke Belakang"
-
-#: app/menus.c:204
-msgid "Bring Forwards"
-msgstr "Bawa Ke Depan"
-
-#: app/menus.c:206
-msgid "_Group"
-msgstr "_Kumpulan"
-
-#: app/menus.c:207
-msgid "_Ungroup"
-msgstr "_Nyahkumpul"
-
-#: app/menus.c:209
-msgid "_Parent"
-msgstr "_Ibubapa"
-
-#: app/menus.c:210
-msgid "_Unparent"
-msgstr "_Nyah Ibubapa"
-
-#: app/menus.c:211
-msgid "_Unparent Children"
-msgstr "_Nyah Ibubapa Anak"
-
-#: app/menus.c:213
-msgid "Align _Horizontal"
-msgstr "Jajar Meng_ufuk"
-
-#: app/menus.c:214
-msgid "Align _Vertical"
-msgstr "Jajar Me_negak"
-
-#: app/menus.c:216
-msgid "_Properties..."
-msgstr "_Ciri-ciri..."
-
-#: app/menus.c:241
-msgid "_Layers"
-msgstr "_Lapisan"
-
-#: app/menus.c:267
-msgid "_Select"
-msgstr "_Pilih"
-
-#: app/menus.c:268
-msgid "_Objects"
-msgstr "_Objek"
-
-#: app/menus.c:269
-msgid "_Tools"
-msgstr "_Alatan"
-
-#: app/menus.c:270
-msgid "_Dialogs"
-msgstr "_Dialog"
-
-#: app/menus.c:271
-msgid "_Input Methods"
-msgstr "Kaedah _Input"
-
-#: app/menus.c:272
-msgid "_Help"
-msgstr "_Bantuan"
-
-#: app/menus.c:283 app/menus.c:318
+#: app/menus.c:49 app/menus.c:87
 msgid "/_File"
 msgstr "/_Fail"
 
-#: app/menus.c:285 app/menus.c:320
+#: app/menus.c:51 app/menus.c:89
 msgid "/File/_New"
 msgstr "/Fail/Ba_ru"
 
-#: app/menus.c:287 app/menus.c:322
+#: app/menus.c:53 app/menus.c:91
 msgid "/File/_Open..."
 msgstr "/Fail/_Buka..."
 
-#. recent file list is dynamically inserted here
-#: app/menus.c:289 app/menus.c:294 app/menus.c:298 app/menus.c:300
-#: app/menus.c:329 app/menus.c:333
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
+#: app/menus.c:102 app/menus.c:106
 msgid "/File/---"
 msgstr "/Fail/---"
 
-#: app/menus.c:290
+#: app/menus.c:58
 msgid "/File/_Diagram tree"
 msgstr "/Fail/Pepohon _diagram"
 
-#: app/menus.c:292
+#: app/menus.c:60
 msgid "/File/Sheets and Objects..."
 msgstr "/Fail/Helaian dan Objek..."
 
-#: app/menus.c:295
+#: app/menus.c:63
 msgid "/File/_Preferences..."
 msgstr "/Fail/Ke_utamaan..."
 
-#: app/menus.c:297
+#: app/menus.c:65
 msgid "/File/P_lugins..."
 msgstr "/Fail/P_lugin..."
 
-#: app/menus.c:301 app/menus.c:337
+#: app/menus.c:70 app/menus.c:110
 msgid "/File/_Quit"
 msgstr "/Fail/_Keluar"
 
-#: app/menus.c:303 app/menus.c:467
+#: app/menus.c:72 app/menus.c:257
 msgid "/_Help"
 msgstr "/_Bantuan"
 
-#: app/menus.c:305 app/menus.c:469
-msgid "/Help/_Manual"
-msgstr "/Bantuan/_Manual"
+#: app/menus.c:74 app/menus.c:259
+#, fuzzy
+msgid "/Help/_Contents"
+msgstr "/Bantuan/_Perihal..."
 
-#: app/menus.c:307 app/menus.c:471
+#: app/menus.c:76 app/menus.c:261
 msgid "/Help/---"
 msgstr "/_Bantuan/---"
 
-#: app/menus.c:308 app/menus.c:472
+#: app/menus.c:77 app/menus.c:262
 msgid "/Help/_About..."
 msgstr "/Bantuan/_Perihal..."
 
-#: app/menus.c:324
+#: app/menus.c:96
 msgid "/File/_Save"
 msgstr "/Fail/_Simpan"
 
-#: app/menus.c:326
+#: app/menus.c:98
 msgid "/File/Save _As..."
 msgstr "/Fail/Simpan Seb_agai..."
 
-#: app/menus.c:328
+#: app/menus.c:100
 msgid "/File/_Export..."
 msgstr "/Fail/_Eksport..."
 
-#: app/menus.c:330
+#: app/menus.c:103
 msgid "/File/Page Set_up..."
 msgstr "/Fail/T_etapan Halaman..."
 
-#: app/menus.c:331
+#: app/menus.c:104
 msgid "/File/_Print Diagram..."
 msgstr "/Fail/_Cetak Diagram..."
 
-#: app/menus.c:334
+#: app/menus.c:107
 msgid "/File/_Close"
 msgstr "/Fail/_Tutup"
 
-#: app/menus.c:339
+#: app/menus.c:112
 msgid "/_Edit"
 msgstr "/_Edit"
 
-#: app/menus.c:341
+#: app/menus.c:114
 msgid "/Edit/_Undo"
 msgstr "/Edit/_Nyahcara"
 
-#: app/menus.c:343
+#: app/menus.c:116
 msgid "/Edit/_Redo"
 msgstr "/Edit/_Ulangcara"
 
-#: app/menus.c:345 app/menus.c:354
+#: app/menus.c:118 app/menus.c:128
 msgid "/Edit/---"
 msgstr "/Edit/---"
 
-#: app/menus.c:346
+#: app/menus.c:119
 msgid "/Edit/_Copy"
 msgstr "/Edit/_Salin"
 
-#: app/menus.c:348
+#: app/menus.c:121
 msgid "/Edit/C_ut"
 msgstr "/Edit/_Potong"
 
-#: app/menus.c:350
+#: app/menus.c:123
 msgid "/Edit/_Paste"
 msgstr "/Edit/_Tepek"
 
-#: app/menus.c:352
+#: app/menus.c:125
+#, fuzzy
+msgid "/Edit/_Duplicate"
+msgstr "/Edit/Pa_dam"
+
+#: app/menus.c:126
 msgid "/Edit/_Delete"
 msgstr "/Edit/Pa_dam"
 
-#: app/menus.c:355
+#: app/menus.c:129
 msgid "/Edit/Copy Text"
 msgstr "/Edit/Salin Teks"
 
-#: app/menus.c:356
+#: app/menus.c:131
 msgid "/Edit/Cut Text"
 msgstr "/Edit/Potong Teks"
 
-#: app/menus.c:357
+#: app/menus.c:133
 msgid "/Edit/Paste _Text"
 msgstr "/Edit/Tepek Teks"
 
-#: app/menus.c:358
+#: app/menus.c:135
+#, fuzzy
+msgid "/_Diagram"
+msgstr "Diagram:"
+
+#: app/menus.c:137
+#, fuzzy
+msgid "/Diagram/_Properties..."
+msgstr "Ciri-ciri Diagram..."
+
+#: app/menus.c:139
+#, fuzzy
+msgid "/Diagram/_Layers..."
+msgstr "/Dialog/_Lapisan..."
+
+#: app/menus.c:140
 msgid "/_View"
 msgstr "/_Lihat"
 
-#: app/menus.c:360
+#: app/menus.c:142
 msgid "/View/Zoom _In"
 msgstr "/Pergi/Zoom _Masuk"
 
-#: app/menus.c:362
+#: app/menus.c:144
 msgid "/View/Zoom _Out"
 msgstr "/Lihat/Zoom _Keluar"
 
-#: app/menus.c:364
+#: app/menus.c:146
 msgid "/View/_Zoom"
 msgstr "/Lihat/_Zum"
 
-#: app/menus.c:366
+#: app/menus.c:148
+#, fuzzy
+msgid "/View/Zoom/1600%"
+msgstr "/Lihat/Zum/100%"
+
+#: app/menus.c:149
+#, fuzzy
+msgid "/View/Zoom/800%"
+msgstr "/Lihat/Zum/400%"
+
+#: app/menus.c:150
 msgid "/View/Zoom/400%"
 msgstr "/Lihat/Zum/400%"
 
-#: app/menus.c:367
+#: app/menus.c:151
 msgid "/View/Zoom/283%"
 msgstr "/Lihat/Zum/283%"
 
-#: app/menus.c:368
+#: app/menus.c:152
 msgid "/View/Zoom/200%"
 msgstr "/Lihat/Zum/200%"
 
-#: app/menus.c:369
+#: app/menus.c:153
 msgid "/View/Zoom/141%"
 msgstr "/Lihat/Zum/141%"
 
-#: app/menus.c:370
+#: app/menus.c:154
 msgid "/View/Zoom/100%"
 msgstr "/Lihat/Zum/100%"
 
-#: app/menus.c:372
+#: app/menus.c:156
 msgid "/View/Zoom/85%"
 msgstr "/Lihat/Zum/85%"
 
-#: app/menus.c:373
+#: app/menus.c:157
 msgid "/View/Zoom/70.7%"
 msgstr "/Lihat/Zum/70.7%"
 
-#: app/menus.c:374
+#: app/menus.c:158
 msgid "/View/Zoom/50%"
 msgstr "/Lihat/Zum/50%"
 
-#: app/menus.c:375
+#: app/menus.c:159
 msgid "/View/Zoom/35.4%"
 msgstr "/Lihat/Zum/35.4%"
 
-#: app/menus.c:376
+#: app/menus.c:160
 msgid "/View/Zoom/25%"
 msgstr "/Lihat/Zum/25%"
 
-#: app/menus.c:377 app/menus.c:386
+#: app/menus.c:161 app/menus.c:170
 msgid "/View/---"
 msgstr "/Lihat/---"
 
-#: app/menus.c:378
-msgid "/View/Diagram Properties..."
-msgstr "/Lihat/Ciri-ciri Diagram..."
+#: app/menus.c:162
+msgid "/View/Fullscr_een"
+msgstr ""
 
-#: app/menus.c:380
+#: app/menus.c:164
 msgid "/View/_AntiAliased"
 msgstr "/Lihat/_Antialias"
 
-#: app/menus.c:382
+#: app/menus.c:166
 msgid "/View/Show _Grid"
 msgstr "/Lihat/Papar _Grid"
 
-#: app/menus.c:383
+#: app/menus.c:167
 msgid "/View/_Snap To Grid"
 msgstr "/Lihat/_Petik ke Grid"
 
-#: app/menus.c:384
+#: app/menus.c:168
 msgid "/View/Show _Rulers"
 msgstr "/Lihat/Papar _Pembaris"
 
-#: app/menus.c:385
+#: app/menus.c:169
 msgid "/View/Show _Connection Points"
 msgstr "/Lihat/Papar Titik _Sambungan"
 
-#: app/menus.c:387
+#: app/menus.c:171
 msgid "/View/New _View"
 msgstr "/Lihat/_Paparan Baru"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:389
+#: app/menus.c:173
 msgid "/View/Show _All"
 msgstr "/Lihat/Papar Semu_a"
 
-#: app/menus.c:390
+#: app/menus.c:175
 msgid "/View/Re_draw"
 msgstr "/Lihat/Ulang_lukis"
 
-#: app/menus.c:391
-msgid "/_Select"
-msgstr "/_Pilih"
-
-#: app/menus.c:393
-msgid "/Select/All"
-msgstr "/Pilih/Semua"
-
-#: app/menus.c:394
-msgid "/Select/None"
-msgstr "/Pilih/Tiada"
-
-#: app/menus.c:395 app/menus.c:408
-msgid "/Select/Invert"
-msgstr "/Pilih/Songsang"
-
-#: app/menus.c:396
-msgid "/Select/Connected"
-msgstr "/Pilih/Tersambung"
-
-#: app/menus.c:397
-msgid "/Select/Transitive"
-msgstr "/Pilih/Transitif"
-
-#: app/menus.c:398
-msgid "/Select/Same Type"
-msgstr "/Pilih/Sama Jenis"
-
-#: app/menus.c:399
-msgid "/Select/---"
-msgstr "/Pilih/---"
-
-#: app/menus.c:400
-msgid "/Select/Replace"
-msgstr "/Pilih/Ganti"
-
-#: app/menus.c:402
-msgid "/Select/Union"
-msgstr "/Pilih/Kesatuan"
-
-#: app/menus.c:404
-msgid "/Select/Intersect"
-msgstr "/Pilih/Persilangan"
-
-#: app/menus.c:406
-msgid "/Select/Remove"
-msgstr "/Pilih/Buang"
-
-#: app/menus.c:410
+#: app/menus.c:177
 msgid "/_Objects"
 msgstr "/_Objek"
 
-#: app/menus.c:412
+#: app/menus.c:179
 msgid "/Objects/Send to _Back"
 msgstr "/Objek/Hantar ke _Belakang"
 
-#: app/menus.c:413
+#: app/menus.c:181
 msgid "/Objects/Bring to _Front"
 msgstr "/Objek/Bawa ke _Hadapan"
 
-#: app/menus.c:414
+#: app/menus.c:183
 msgid "/Objects/Send Backwards"
 msgstr "/Objek/Hantar Ke belakang"
 
-#: app/menus.c:415
+#: app/menus.c:185
 msgid "/Objects/Bring Forwards"
 msgstr "/Objek/Bawa ke Depan"
 
-#: app/menus.c:416 app/menus.c:420 app/menus.c:424 app/menus.c:441
+#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
 msgid "/Objects/---"
 msgstr "/Objek/---"
 
-#: app/menus.c:417
+#: app/menus.c:188
 msgid "/Objects/_Group"
 msgstr "/Objek/_Kumpulan"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:419
+#: app/menus.c:190
 msgid "/Objects/_Ungroup"
 msgstr "/Objek/_Nyahkumpul"
 
-#: app/menus.c:421
+#: app/menus.c:192
 msgid "/Objects/_Parent"
 msgstr "/Objek/_Ibubapa"
 
-#: app/menus.c:422
+#: app/menus.c:193
 msgid "/Objects/_Unparent"
 msgstr "/Objek/_Nyah Ibubapa"
 
-#: app/menus.c:423
+#: app/menus.c:194
 msgid "/Objects/_Unparent Children"
 msgstr "/Objek/Kanak _tanpaibubapa"
 
-#: app/menus.c:425
-msgid "/Objects/Align _Horizontal"
-msgstr "/Objek/Jajaran Meng_ufuk"
-
-#: app/menus.c:427
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objek/Jajaran Mengufuk/Kiri"
-
-#: app/menus.c:428
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objek/Jajaran Mengufuk/Tengah"
-
-#: app/menus.c:429
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objek/Jajaran Mengufuk/Kanan"
-
-#: app/menus.c:430
-msgid "/Objects/Align Horizontal/---"
-msgstr "/Objek/Jajaran Mengufuk/---"
-
-#: app/menus.c:431
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objek/Jajaran Mengufuk/Sama Jarak"
-
-#: app/menus.c:432
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objek/Jajaran Mengufuk/Bersebelahan"
-
-#: app/menus.c:433
-msgid "/Objects/Align _Vertical"
+#: app/menus.c:196
+#, fuzzy
+msgid "/Objects/Align"
 msgstr "/Objek/Jajaran Me_negak"
 
-#: app/menus.c:435
-msgid "/Objects/Align Vertical/Top"
+#: app/menus.c:198
+#, fuzzy
+msgid "/Objects/Align/Left"
+msgstr "/Objek/Jajaran Mengufuk/Kiri"
+
+#: app/menus.c:200
+#, fuzzy
+msgid "/Objects/Align/Center"
+msgstr "/Objek/Jajaran Mengufuk/Tengah"
+
+#: app/menus.c:202
+#, fuzzy
+msgid "/Objects/Align/Right"
+msgstr "/Objek/Jajaran Mengufuk/Kanan"
+
+#: app/menus.c:204 app/menus.c:208
+#, fuzzy
+msgid "/Objects/Align/---"
+msgstr "/Objek/---"
+
+#: app/menus.c:205
+#, fuzzy
+msgid "/Objects/Align/Top"
 msgstr "/Objek/Jajaran Menegak/Atas"
 
-#: app/menus.c:436
-msgid "/Objects/Align Vertical/Middle"
+#: app/menus.c:206
+#, fuzzy
+msgid "/Objects/Align/Middle"
 msgstr "/Objek/Jajaran Menegak/Tengah"
 
-#: app/menus.c:437
-msgid "/Objects/Align Vertical/Bottom"
+#: app/menus.c:207
+#, fuzzy
+msgid "/Objects/Align/Bottom"
 msgstr "/Objek/Jajaran Menegak/Bawah"
 
-#: app/menus.c:438
-msgid "/Objects/Align Vertical/---"
-msgstr "/Objek/Jajaran Menegak/---"
+#: app/menus.c:209
+#, fuzzy
+msgid "/Objects/Align/Spread Out Horizontally"
+msgstr "/Objek/Jajaran Meng_ufuk"
 
-#: app/menus.c:439
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objek/Jajaran Menegak/Sama Jarak"
+#: app/menus.c:210
+#, fuzzy
+msgid "/Objects/Align/Spread Out Vertically"
+msgstr "/Objek/Jajaran Me_negak"
 
-#: app/menus.c:440
-msgid "/Objects/Align Vertical/Adjacent"
+#: app/menus.c:211
+#, fuzzy
+msgid "/Objects/Align/Adjacent"
 msgstr "/Objek/Jajaran Menegak/Bersebelahan"
 
-#: app/menus.c:442
+#: app/menus.c:212
+#, fuzzy
+msgid "/Objects/Align/Stacked"
+msgstr "/Objek/Jajaran Me_negak"
+
+#: app/menus.c:214
 msgid "/Objects/_Properties..."
 msgstr "/Objek/_Ciri-ciri..."
 
-#: app/menus.c:443
+#: app/menus.c:216
+msgid "/_Select"
+msgstr "/_Pilih"
+
+#: app/menus.c:218
+msgid "/Select/All"
+msgstr "/Pilih/Semua"
+
+#: app/menus.c:219
+msgid "/Select/None"
+msgstr "/Pilih/Tiada"
+
+#: app/menus.c:220
+msgid "/Select/Invert"
+msgstr "/Pilih/Songsang"
+
+#: app/menus.c:221 app/menus.c:225
+msgid "/Select/---"
+msgstr "/Pilih/---"
+
+#: app/menus.c:222
+msgid "/Select/Transitive"
+msgstr "/Pilih/Transitif"
+
+#: app/menus.c:223
+msgid "/Select/Connected"
+msgstr "/Pilih/Tersambung"
+
+#: app/menus.c:224
+msgid "/Select/Same Type"
+msgstr "/Pilih/Sama Jenis"
+
+#: app/menus.c:226
+msgid "/Select/Replace"
+msgstr "/Pilih/Ganti"
+
+#: app/menus.c:228
+msgid "/Select/Union"
+msgstr "/Pilih/Kesatuan"
+
+#: app/menus.c:230
+#, fuzzy
+msgid "/Select/Intersection"
+msgstr "/Pilih/Persilangan"
+
+#: app/menus.c:232
+msgid "/Select/Remove"
+msgstr "/Pilih/Buang"
+
+#. Cannot also be called Invert, duplicate names caused keybinding problems
+#: app/menus.c:235
+#, fuzzy
+msgid "/Select/Inverse"
+msgstr "/Pilih/Songsang"
+
+#: app/menus.c:237
 msgid "/_Tools"
 msgstr "/_Alatan"
 
-#: app/menus.c:445
+#: app/menus.c:239
 msgid "/Tools/Modify"
 msgstr "/Alatan/Ubahsuai"
 
-#: app/menus.c:446
+#: app/menus.c:240
 msgid "/Tools/Magnify"
 msgstr "/Alatan/Perbesar"
 
-#: app/menus.c:447
+#: app/menus.c:241
 msgid "/Tools/Scroll"
 msgstr "/Alatan/Skrol"
 
-#: app/menus.c:448
+#: app/menus.c:242
 msgid "/Tools/Text"
 msgstr "/Alatan/Teks"
 
-#: app/menus.c:449
+#: app/menus.c:243
 msgid "/Tools/Box"
 msgstr "/Alatan/Kotak"
 
-#: app/menus.c:450
+#: app/menus.c:244
 msgid "/Tools/Ellipse"
 msgstr "/Alatan/Elips"
 
-#: app/menus.c:451
+#: app/menus.c:245
 msgid "/Tools/Polygon"
 msgstr "/Alatan/Poligon"
 
-#: app/menus.c:452
+#: app/menus.c:246
 msgid "/Tools/Beziergon"
 msgstr "/Alatan/Beziergon"
 
-#: app/menus.c:453 app/menus.c:459
+#: app/menus.c:247 app/menus.c:253
 msgid "/Tools/---"
 msgstr "/Alatan/---"
 
-#: app/menus.c:454
+#: app/menus.c:248
 msgid "/Tools/Line"
 msgstr "/Alatan/Garisan"
 
-#: app/menus.c:455
+#: app/menus.c:249
 msgid "/Tools/Arc"
 msgstr "/Alatan/Arca"
 
-#: app/menus.c:456
+#: app/menus.c:250
 msgid "/Tools/Zigzagline"
 msgstr "/Alatan/Garisan-zigzag"
 
-#: app/menus.c:457
+#: app/menus.c:251
 msgid "/Tools/Polyline"
 msgstr "/Tools/Polyline"
 
-#: app/menus.c:458
+#: app/menus.c:252
 msgid "/Tools/Bezierline"
 msgstr "/Tools/Bezierline"
 
-#: app/menus.c:460
+#: app/menus.c:254
 msgid "/Tools/Image"
 msgstr "/Alatan/Imej"
 
-#: app/menus.c:461
-msgid "/_Dialogs"
-msgstr "/_Dialog"
-
-#: app/menus.c:463
-msgid "/Dialogs/_Layers..."
-msgstr "/Dialog/_Lapisan..."
-
-#: app/menus.c:465
+#: app/menus.c:255
 msgid "/_Input Methods"
 msgstr "/Kaedah _Input"
 
-#: app/menus.c:644
+#: app/menus.c:427
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL dataalat dalam pemilihan_menu_alat"
 
-#: app/menus.c:811
+#: app/menus.c:525
 msgid "Diagram Menu"
 msgstr "Menu Diagram"
 
-#: app/menus.c:1187
+#: app/menus.c:660
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1708,91 +1599,101 @@ msgstr ""
 "Tidak boleh mencari menu kemasukan '%s'!nIni mungkin problem i18n (cuba "
 "LANG=C)."
 
-#: app/modify_tool.c:315
+#: app/modify_tool.c:327
 msgid "Couldn't get GTK settings"
 msgstr "Tidak perolehi tetapan GTK"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:243
 msgid "Select Printer"
 msgstr "Pilih Pencetak"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Pencetak"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Fail"
 
-#: app/paginate_psprint.c:353
-#, c-format
-msgid "Could not run command '%s'"
+#: app/paginate_psprint.c:284
+msgid "OK"
+msgstr "OK"
+
+#: app/paginate_psprint.c:379
+#, fuzzy, c-format
+msgid "Could not run command '%s': %s"
 msgstr "Tak dapat melaksanakan arahan '%s'"
 
-#: app/paginate_psprint.c:356
-#, c-format
-msgid "Could not open '%s' for writing"
+#: app/paginate_psprint.c:382
+#, fuzzy, c-format
+msgid "Could not open '%s' for writing: %s"
 msgstr "Tidak boleh buka '%s' untuk ditulis"
 
-#: app/paginate_psprint.c:381
-msgid "Error occured while printing"
-msgstr "Ralat berlaku ketika mencetak"
+#: app/paginate_psprint.c:399
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr ""
+
+#: app/paginate_psprint.c:410
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr ""
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
 msgstr "Plug-in"
 
-#: app/plugin-manager.c:256
+#: app/plugin-manager.c:255
 msgid "Loaded"
 msgstr "Dimuatkan"
 
-#: app/plugin-manager.c:263 objects/UML/class.c:106
-#: objects/UML/large_package.c:121
+#: app/plugin-manager.c:262 objects/UML/class.c:111
+#: objects/UML/large_package.c:130
 msgid "Name"
 msgstr "Nama"
 
-#: app/plugin-manager.c:269
+#: app/plugin-manager.c:268
 msgid "Description"
 msgstr "Huraian"
 
-#: app/plugin-manager.c:278
+#: app/plugin-manager.c:277
 msgid "Load at Startup"
 msgstr "Dimuatkan pada Permulaan"
 
-#: app/plugin-manager.c:285
+#: app/plugin-manager.c:284
 msgid "File Name"
 msgstr "Nama Fail"
 
 # kerana tak muat
-#: app/preferences.c:100
+#: app/preferences.c:102
 msgid "User Interface"
 msgstr "Antaramuka Pengguna"
 
-#: app/preferences.c:101
+#: app/preferences.c:103
 msgid "Diagram Defaults"
 msgstr "Default Diagram"
 
-#: app/preferences.c:102
+#: app/preferences.c:104
 msgid "View Defaults"
 msgstr "Paparan Default"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid "Diagram Tree"
 msgstr "Pepohon Diagram"
 
-#: app/preferences.c:118
+#: app/preferences.c:120
 msgid "Reset tools after create"
 msgstr "Ulangtetap alatan selepas mencipta"
 
-#: app/preferences.c:119
+#: app/preferences.c:121
 msgid "Compress saved files"
 msgstr "Mampatkan fail disimpan"
 
-#: app/preferences.c:120
+#: app/preferences.c:122
 msgid "Number of undo levels:"
 msgstr "Bilangan aras nyahcara:"
 
-#: app/preferences.c:121
+#: app/preferences.c:123
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1800,44 +1701,45 @@ msgstr ""
 "Pemilihan seretan songsang\n"
 "objek persilangan"
 
-#: app/preferences.c:122
+#: app/preferences.c:124
 msgid "Recent documents list size:"
 msgstr "Saiz senarai dokumen kebelakangan:"
 
-#: app/preferences.c:123
+#: app/preferences.c:125
 msgid "Use menu bar"
 msgstr "Guna bar menu"
 
-#: app/preferences.c:125
+#: app/preferences.c:127
 msgid "Keep tool box on top of diagram windows"
 msgstr "Kekalkan kekotak alat di atas tetingkap diagram"
 
-#: app/preferences.c:127
+#: app/preferences.c:129
 msgid "New diagram:"
 msgstr "Diagram baru:"
 
-#: app/preferences.c:128
+#: app/preferences.c:130
 msgid "Portrait"
 msgstr "Potret"
 
-#: app/preferences.c:130
+#: app/preferences.c:132
 msgid "Paper type:"
 msgstr "Jenis kertas:"
 
-#: app/preferences.c:133
-msgid "Background Colour:"
+#: app/preferences.c:135
+#, fuzzy
+msgid "Background Color:"
 msgstr "Warna Latar Belakang:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "New window:"
 msgstr "Tetingkap baru:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Width:"
 msgstr "Lebar:"
 
 # ui/galeon.glade.h:268
-#: app/preferences.c:138
+#: app/preferences.c:140
 msgid "Height:"
 msgstr "Tinggi:"
 
@@ -1845,74 +1747,75 @@ msgstr "Tinggi:"
 # Jika takut risiko, Jangan bicara tentang Perjuangan
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Magnify:"
 msgstr "Perbesar:"
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Connection Points:"
 msgstr "Titik Sambungan: "
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
+#: app/preferences.c:145 app/preferences.c:149 app/preferences.c:155
 msgid "Visible"
 msgstr "Tampak"
 
-#: app/preferences.c:146
+#: app/preferences.c:148
 msgid "Page breaks:"
 msgstr "Hentian halaman:"
 
-#: app/preferences.c:148 app/preferences.c:158
-msgid "Colour:"
+#: app/preferences.c:150 app/preferences.c:160
+#, fuzzy
+msgid "Color:"
 msgstr "Warna:"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Solid lines"
 msgstr "Garisan tegar"
 
-#: app/preferences.c:154
+#: app/preferences.c:156
 msgid "Snap to"
 msgstr "Petik pada"
 
-#: app/preferences.c:155
+#: app/preferences.c:157
 msgid "Dynamic grid resizing"
 msgstr "Grid dinamik saiz semula"
 
-#: app/preferences.c:156
+#: app/preferences.c:158
 msgid "X Size:"
 msgstr "Saiz X:"
 
-#: app/preferences.c:157
+#: app/preferences.c:159
 msgid "Y Size:"
 msgstr "Saiz Y:"
 
-#: app/preferences.c:159
+#: app/preferences.c:161
 msgid "Lines per major line"
 msgstr "Garisan setiap garisan major"
 
-#: app/preferences.c:177
+#: app/preferences.c:163
+#, fuzzy
+msgid "Hex Size:"
+msgstr "Saiz X:"
+
+#: app/preferences.c:179
 msgid "Diagram tree window:"
 msgstr "Tetingkap pepohon diagram"
 
-#: app/preferences.c:179
+#: app/preferences.c:181
 msgid "Save hidden object types"
 msgstr "Simpan jenis objek tersembunyi"
 
-#: app/preferences.c:308
-#, c-format
-msgid "Could not open `%s' for writing"
-msgstr "Tidak dapat membuka %s untuk ditulis"
-
-#: app/preferences.c:586 lib/prop_inttypes.c:151
+#: app/preferences.c:386 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ya"
 
-#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:153
-#: lib/prop_inttypes.c:179
+#: app/preferences.c:386 app/preferences.c:397 lib/prop_inttypes.c:160
+#: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Tidak"
 
-#: app/preferences.c:699
+#: app/preferences.c:499
 msgid "Preferences"
 msgstr "Keutamaan"
 
@@ -1920,45 +1823,46 @@ msgstr "Keutamaan"
 msgid "Object properties"
 msgstr "Ciri-ciri objek"
 
-#: app/properties.c:81
+#: app/properties.c:80
 msgid "This object has no properties."
 msgstr "Objek ini tidak mempunyai ciri-ciri."
 
-#: app/properties.c:203
+#: app/properties.c:202
 msgid "Properties: "
 msgstr "Ciri-ciri:"
 
-#: app/properties.c:207
+#: app/properties.c:206
 msgid "Object properties:"
 msgstr "Ciri-ciri objek:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
-#: app/recent_files.c:137
+#: app/recent_files.c:61
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox>/Fail/Plugin..."
 
-#: app/recent_files.c:259
+#: app/recent_files.c:70 app/recent_files.c:143
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Fail/Keluar"
 
-#: app/recent_files.c:295
-msgid "Can't open history file for writing."
-msgstr "Tak dapat membuka fail sejarah untuk ditulis"
-
-#: app/render_eps.c:140
+#: app/render_eps.c:145
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Postscript encapsulate (gunakan fon Pango)"
 
-#: app/render_eps.c:149
+#: app/render_eps.c:154
+#, fuzzy
+msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgstr "Postscript encapsulate (gunakan fon Pango)"
+
+#: app/render_eps.c:164
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Postscript encapsulate (gunakan fon Latin-1 PostScript "
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:268
+#: app/render_libart.c:318 lib/dialibartrenderer.c:288
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Mod isian tak disokong dinyatakan!\n"
 
-#: app/sheets.c:154
+#: app/sheets.c:155
 #, c-format
 msgid ""
 "%s\n"
@@ -1967,7 +1871,7 @@ msgstr ""
 "%s\n"
 "Helaian sistem"
 
-#: app/sheets.c:156
+#: app/sheets.c:157
 #, c-format
 msgid ""
 "%s\n"
@@ -1976,7 +1880,7 @@ msgstr ""
 "%s\n"
 "Helaian pengguna"
 
-#: app/sheets.c:271
+#: app/sheets.c:272
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1984,17 +1888,18 @@ msgstr ""
 "Tidak boleh mendapatkan simbol 'jenis_biasa' daripada mana-mana modul.\n"
 "Pengeditan bentuk tidak aktif."
 
-#: app/sheets.c:373
+#: app/sheets.c:380
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Wiget tidak dijumpai: %s"
 
-#: app/sheets.c:448
+#: app/sheets.c:455
 msgid "SVG Shape"
 msgstr "Bentuk SVG"
 
-#: app/sheets.c:450
-msgid "Programmed Object"
+#: app/sheets.c:457
+#, fuzzy
+msgid "Programmed DiaObject"
 msgstr "Objek Diprogram"
 
 #: app/sheets_dialog.c:83
@@ -2029,13 +1934,13 @@ msgstr "_Edit"
 msgid "Revert"
 msgstr "Berbalik"
 
-#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:829
-#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1981
-#: objects/UML/class_dialog.c:2500
+#: app/sheets_dialog.c:354
 msgid "New"
 msgstr "Baru"
 
-#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
+#: objects/Istar/actor.c:145 objects/Istar/other.c:148
+#: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
 msgid "Type"
 msgstr "Jenis"
 
@@ -2056,7 +1961,7 @@ msgid "Sheet name:"
 msgstr "Nama helaian:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Hentian Baris"
 
@@ -2064,8 +1969,9 @@ msgstr "Hentian Baris"
 msgid "Edit Attributes"
 msgstr "Edit Atribut"
 
-#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:24
-msgid "Object"
+#: app/sheets_dialog.c:583
+#, fuzzy
+msgid "DiaObject"
 msgstr "Objek"
 
 #: app/sheets_dialog.c:599 app/sheets_dialog.c:692
@@ -2073,8 +1979,10 @@ msgid "Description:"
 msgstr "Huraian:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
+#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
+#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
+#: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
+#: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
 msgid "Type:"
 msgstr "Jenis:"
 
@@ -2082,17 +1990,24 @@ msgstr "Jenis:"
 msgid "Sheet"
 msgstr "Helaian"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
-#: objects/ER/relationship.c:138 objects/UML/association.c:199
-#: objects/UML/association.c:1112 objects/UML/class_dialog.c:866
-#: objects/UML/class_dialog.c:1793 objects/UML/class_dialog.c:2023
-#: objects/UML/class_dialog.c:2537 objects/UML/dependency.c:128
-#: objects/UML/generalization.c:124 objects/UML/realizes.c:125
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
+#: objects/ER/relationship.c:140 objects/UML/association.c:237
+#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
+#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
+#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Nama:"
 
+#. Translators: Menu item Verb/Channel/Export/Remove
+#: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
+#: objects/FS/function.c:860
+msgid "Remove"
+msgstr "Buang"
+
 #: app/sheets_dialog.c:809
-msgid "Object:"
+#, fuzzy
+msgid "DiaObject:"
 msgstr "Objek:"
 
 #: app/sheets_dialog.c:836
@@ -2146,55 +2061,55 @@ msgstr ""
 "%s\n"
 "Jenis tidak ditentukan"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Namafail mesti berakhir dengan '%s': '%s'"
 
-#: app/sheets_dialog_callbacks.c:807
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Ralat memeriksa %s: %s"
 
-#: app/sheets_dialog_callbacks.c:827
+#: app/sheets_dialog_callbacks.c:828
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Tak dapat mentafsir fail bentuk '%s'"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
 msgstr "Helaian mesti mempunyai nama"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Tak dapat membuka '%s' : %s"
 
-#: app/sheets_dialog_callbacks.c:1643
+#: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Tak dapat membuka '%s' untuk ditulis"
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
 msgstr "pengguna"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "Fail: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Tarikh: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr "Kepada: %s"
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
 msgstr "tambah bentuk di sini"
 
@@ -2207,119 +2122,156 @@ msgstr "Memuatkan ..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: dia.desktop.in.h:2
-msgid "Diagram editor"
-msgstr "Editor diagram"
+#: dia.desktop.in.h:1
+#, fuzzy
+msgid "Dia Diagram Editor"
+msgstr "Editor Diagram"
 
-#: lib/arrows.c:39
+#: dia.desktop.in.h:2
+#, fuzzy
+msgid "Edit your Diagrams"
+msgstr "Eksport Diagram"
+
+#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
+msgid "None"
+msgstr "Tiada"
+
+#: lib/arrows.c:41
 msgid "Lines"
 msgstr "Baris"
 
-#: lib/arrows.c:40
+#: lib/arrows.c:42
 msgid "Hollow Triangle"
 msgstr "Lekuk Segitiga"
 
-#: lib/arrows.c:41
+#: lib/arrows.c:43
 msgid "Filled Triangle"
 msgstr "Segitiga Berisi"
 
-#: lib/arrows.c:42
+#: lib/arrows.c:44
 msgid "Unfilled Triangle"
 msgstr "Segitiga tak diisi"
 
-#: lib/arrows.c:43
+#: lib/arrows.c:45
 msgid "Hollow Diamond"
 msgstr "Lekuk Berlian"
 
-#: lib/arrows.c:44
+#: lib/arrows.c:46
 msgid "Filled Diamond"
 msgstr "Berlian Terisi"
 
-#: lib/arrows.c:45
+#: lib/arrows.c:47
 msgid "Half Diamond"
 msgstr "Separuh Berlian "
 
-#: lib/arrows.c:46
+#: lib/arrows.c:48
 msgid "Half Head"
 msgstr "Kepala Separuh"
 
-#: lib/arrows.c:47
+#: lib/arrows.c:49
 msgid "Slashed Cross"
 msgstr "Garis condong Bersilang"
 
-#: lib/arrows.c:48
+#: lib/arrows.c:50
 msgid "Filled Ellipse"
 msgstr "Elips Berisi"
 
-#: lib/arrows.c:49
+#: lib/arrows.c:51
 msgid "Hollow Ellipse"
 msgstr "Elips kosong"
 
-#: lib/arrows.c:50
+#: lib/arrows.c:52
 msgid "Filled Dot"
 msgstr "Dot Berisi"
 
-#: lib/arrows.c:51
+#: lib/arrows.c:53
 msgid "Dimension Origin"
 msgstr "Dimensi Asalan"
 
-#: lib/arrows.c:52
+#: lib/arrows.c:54
 msgid "Blanked Dot"
 msgstr "Dot Kosong"
 
-#: lib/arrows.c:53
-msgid "Double Hollow triangle"
+#: lib/arrows.c:55
+#, fuzzy
+msgid "Double Hollow Triangle"
 msgstr "Segitiga Berganda Kosong"
 
-#: lib/arrows.c:54
-msgid "Double Filled triangle"
+#: lib/arrows.c:56
+#, fuzzy
+msgid "Double Filled Triangle"
 msgstr "Segitiga Terisi berganda"
 
-#: lib/arrows.c:55
+#: lib/arrows.c:57
+#, fuzzy
+msgid "Filled Dot and Triangle"
+msgstr "Segitiga Berisi"
+
+#: lib/arrows.c:58
 msgid "Filled Box"
 msgstr "Kotak Berisi"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:59
 msgid "Blanked Box"
 msgstr "Kotak Kosong"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:60
 msgid "Slashed"
 msgstr "Garis condong"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:61
 msgid "Integral Symbol"
 msgstr "Simbol pengamiran"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:62
 msgid "Crow Foot"
 msgstr "Kaki Gagak"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:63
 msgid "Cross"
 msgstr "Silang"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:64
+msgid "1-or-many"
+msgstr ""
+
+#: lib/arrows.c:65
+msgid "0-or-many"
+msgstr ""
+
+#: lib/arrows.c:66
+msgid "1-or-0"
+msgstr ""
+
+#: lib/arrows.c:67
+msgid "1 exactly"
+msgstr ""
+
+#: lib/arrows.c:68
 msgid "Filled Concave"
 msgstr "Cekung Berisi"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:69
 msgid "Blanked Concave"
 msgstr "Cekung Kosong"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:70
 msgid "Round"
 msgstr "Bulat"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:71
 msgid "Open Round"
 msgstr "Bulat Terbuka"
+
+#: lib/arrows.c:72
+msgid "Backslash"
+msgstr ""
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Ralat dalaman: Setkan jenis penjuru bagi titik akhir bezier"
 
-#: lib/dia_xml.c:147
+#: lib/dia_xml.c:154
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2328,26 +2280,26 @@ msgstr ""
 "Fail %s tidak mempunyai spesfikasi pengekodan;\n"
 "dianggap ia dikodkan dalam %s"
 
-#: lib/dia_xml.c:466
+#: lib/dia_xml.c:471
 msgid "Taking point value of non-point node."
 msgstr "Ambil nilai titik nod bukan-titik"
 
-#: lib/dia_xml.c:478
+#: lib/dia_xml.c:482
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nilai titik x \"%s\" %f tidak betul; buangkannya"
 
-#: lib/dia_xml.c:486
+#: lib/dia_xml.c:489
 msgid "Error parsing point."
 msgstr "Ralat menghantar titik"
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:494
+#: lib/dia_xml.c:497
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nilai titik y \"%s\" %f tidak betul; buangkannya"
 
-#: lib/dia_xml.c:856
+#: lib/dia_xml.c:865
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2356,6 +2308,14 @@ msgstr ""
 "Aksara setempat anda setkan adalah UTF-8.  Kerana isu dengan libxml1 dan "
 "fail sokongan dihasilkan oleh versi dia sebelumnya, anda akan menghadapi "
 "masalah. Sila laporkan kepada dia-list@gnome.org jika anda melihat mesej ini."
+
+#: lib/diaarrowchooser.c:251
+msgid "Arrow Properties"
+msgstr "Ciri-ciri Panah"
+
+#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
+msgid "Details..."
+msgstr "Terperinci..."
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
@@ -2400,12 +2360,16 @@ msgstr "_Pralihat:"
 msgid "Font Selection"
 msgstr "Pemilihan Font"
 
-#: lib/filter.c:120
+#: lib/dialinechooser.c:297
+msgid "Line Style Properties"
+msgstr "Ciri-ciri gaya Garisan"
+
+#: lib/filter.c:126
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Penapis eksport gandaan dengan nama unik %s"
 
-#: lib/font.c:87
+#: lib/font.c:89
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Tidak boleh memuatkan fon %s.\n"
@@ -2435,7 +2399,7 @@ msgstr "Terdapat %d mesej yang sama."
 msgid "Notice"
 msgstr "Notis"
 
-#: lib/object_defaults.c:123
+#: lib/object_defaults.c:127
 #, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
@@ -2448,12 +2412,12 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: lib/plug-ins.c:228
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Tidak boleh membuat kesimpulan laluan yang betul bagi `%s'"
 
-#: lib/plug-ins.c:234
+#: lib/plug-ins.c:233
 #, c-format
 msgid ""
 "Could not load plugin '%s'\n"
@@ -2462,25 +2426,25 @@ msgstr ""
 "Tidak boleh memuatkan plugin '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Tidak boleh menjumpai fungsi awalan plugin dalam '%s'"
 
-#: lib/plug-ins.c:249
+#: lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Simbol hilang 'dia_plugin_init'"
 
-#: lib/plug-ins.c:257 lib/plug-ins.c:265
+#: lib/plug-ins.c:256 lib/plug-ins.c:264
 msgid "dia_plugin_init() call failed"
 msgstr "panggilan awalan_plugin_dia() gagal"
 
-#: lib/plug-ins.c:284
+#: lib/plug-ins.c:283
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s Plugin tidak boleh dimuatkan"
 
-#: lib/plug-ins.c:372
+#: lib/plug-ins.c:371
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2489,139 +2453,190 @@ msgstr ""
 "tak dapat buka `%s'\n"
 "`%s'"
 
-#: lib/properties.c:71 lib/properties.h:478
-msgid "Line colour"
-msgstr "Warna garisan"
+#: lib/prop_text.c:466
+#, c-format
+msgid "Group with %d objects"
+msgstr ""
 
-#: lib/properties.c:72 lib/properties.h:481
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
+msgid "Left"
+msgstr "Kiri"
+
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
+msgid "Center"
+msgstr "Tengah"
+
+# ui/galeon.glade.h:268
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
+msgid "Right"
+msgstr "Kanan"
+
+#: lib/properties.c:71 objects/chronogram/chronoline.c:179
+#: objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Warna garis"
+
+#: lib/properties.c:72 lib/properties.h:492 lib/properties.h:495
 msgid "Line style"
 msgstr "Gaya garisan"
 
-#: lib/properties.c:73 lib/properties.h:485
-msgid "Fill colour"
+#: lib/properties.c:73
+#, fuzzy
+msgid "Fill color"
 msgstr "Warna isian"
 
-#: lib/properties.c:74 lib/properties.h:488
+#: lib/properties.c:74 lib/properties.h:505
 msgid "Draw background"
 msgstr "Lukis latar belakang"
 
-#: lib/properties.c:75 lib/properties.h:492
+#: lib/properties.c:75 lib/properties.h:509
 msgid "Start arrow"
 msgstr "Mula panah"
 
-#: lib/properties.c:76 lib/properties.h:495
+#: lib/properties.c:76 lib/properties.h:512
 msgid "End arrow"
 msgstr "Akhir panah"
 
-#: lib/properties.c:78 lib/properties.h:505
+#: lib/properties.c:78 lib/properties.h:522
 msgid "Text alignment"
 msgstr "Jajaran teks"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
+#. all this just to make the defaults selectable ...
+#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
-#: objects/chronogram/chronoref.c:164
+#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Fon"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Saiz fon"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+#, fuzzy
+msgid "Text color"
+msgstr "Warna teks"
+
+#: lib/properties.h:486 lib/properties.h:489
+msgid "Line colour"
+msgstr "Warna garisan"
+
+#: lib/properties.h:499 lib/properties.h:502
+msgid "Fill colour"
+msgstr "Warna isian"
+
+#: lib/properties.h:539
 msgid "Text colour"
 msgstr "Warna teks"
 
-#: lib/widgets.c:197
-msgid "Other fonts..."
+#: lib/proplist.c:163
+#, c-format
+msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
+msgstr ""
+
+#: lib/widgets.c:347
+#, fuzzy
+msgid "Other fonts"
 msgstr "Fon lain..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:417
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Tidak menjumpai keluarga font bagi  %s\n"
 
-#. We hit the Other fonts... entry
-#: lib/widgets.c:342
-msgid "Select font"
-msgstr "Pilih font"
-
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:652 objects/FS/function.c:1063
+#: lib/widgets.c:756 objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Tegar"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:762
 msgid "Dashed"
 msgstr "Sengkang"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:768
 msgid "Dash-Dot"
 msgstr "Sengkang-Bintik"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:774
 msgid "Dash-Dot-Dot"
 msgstr "Sengkang-Bintik-Bintik"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:780
 msgid "Dotted"
 msgstr "Berbintik"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:694
+#: lib/widgets.c:799
 msgid "Dash length: "
 msgstr "Panjang sengkang:"
 
-#: lib/widgets.c:848
+#: lib/widgets.c:927
 msgid "Select color"
 msgstr "Pilih warna"
 
-#: lib/widgets.c:1046
-msgid "Length: "
-msgstr "Panjang:"
+#: lib/widgets.c:993
+msgid "More colors..."
+msgstr ""
 
-#: lib/widgets.c:1059
-msgid "Width: "
-msgstr "Lebar:"
+#: lib/widgets.c:1118
+#, fuzzy
+msgid "More arrows"
+msgstr "Panah berdot"
 
-#: lib/widgets.c:1187
+#: lib/widgets.c:1131
+#, fuzzy
+msgid "Size: "
+msgstr "Sai_z:"
+
+#: lib/widgets.c:1276
 msgid "Select image file"
 msgstr "Pilih fail imej"
 
-#: lib/widgets.c:1221
+#: lib/widgets.c:1312
 msgid "Browse"
 msgstr "Lungsur"
 
-#: objects/ER/attribute.c:153
+#: lib/widgets.c:1908
+#, fuzzy
+msgid "Reset menu"
+msgstr "Guna bar menu"
+
+#: objects/ER/attribute.c:155
 msgid "Key:"
 msgstr "Kekunci:"
 
-#: objects/ER/attribute.c:155
+#: objects/ER/attribute.c:157
 msgid "Weak key:"
 msgstr "Kunci lemah:"
 
-#: objects/ER/attribute.c:157
+#: objects/ER/attribute.c:159
 msgid "Derived:"
 msgstr "Diterbit:"
 
-#: objects/ER/attribute.c:159
+#: objects/ER/attribute.c:161
 msgid "Multivalue:"
 msgstr "Pelbagai nilai:"
 
-#: objects/ER/attribute.c:421 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:434 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Atribut"
 
-#: objects/ER/entity.c:132
+#: objects/ER/entity.c:137
 msgid "Weak:"
 msgstr "Lemah:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:139
+#, fuzzy
+msgid "Associative:"
+msgstr "Aktif"
+
+#: objects/ER/entity.c:413 objects/UML/classicon.c:128 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entiti"
 
@@ -2634,58 +2649,60 @@ msgid "Total:"
 msgstr "Jumlah:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
-#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:177
-#: objects/UML/dependency.c:365 objects/UML/generalization.c:361
-#: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
+#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:457
+#: objects/UML/association.c:774 objects/UML/component_feature.c:183
+#: objects/UML/dependency.c:372 objects/UML/generalization.c:368
+#: objects/UML/realizes.c:359 objects/UML/transition.c:156
+#: objects/standard/zigzagline.c:346
 msgid "Add segment"
 msgstr "Tambah segmen"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
-#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:178
-#: objects/UML/dependency.c:366 objects/UML/generalization.c:362
-#: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
+#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:458
+#: objects/UML/association.c:775 objects/UML/component_feature.c:184
+#: objects/UML/dependency.c:373 objects/UML/generalization.c:369
+#: objects/UML/realizes.c:360 objects/UML/transition.c:157
+#: objects/standard/zigzagline.c:347
 msgid "Delete segment"
 msgstr "Hapuskan segmen"
 
-#: objects/ER/relationship.c:140
+#: objects/ER/relationship.c:142
 msgid "Left Cardinality:"
 msgstr "Kardinal Kiri:"
 
-#: objects/ER/relationship.c:142
+#: objects/ER/relationship.c:144
 msgid "Right Cardinality:"
 msgstr "Kardinal Kanan:"
 
-#: objects/ER/relationship.c:144
+#: objects/ER/relationship.c:146
 msgid "Rotate:"
 msgstr "Putar:"
 
-#: objects/ER/relationship.c:146
+#: objects/ER/relationship.c:148
 msgid "Identifying:"
 msgstr "Pengecam:"
 
-#: objects/ER/relationship.c:449 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:457 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Hubungan"
 
 #. Translators: Menu item Noun/Energy
 #: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
-#: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1085
+#: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Tenaga"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
-#: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1061
+#: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1072
 msgid "Material"
 msgstr "Bahan"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
-#: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1023
-#: objects/FS/function.c:1025 objects/FS/function.c:1161
-#: objects/FS/function.c:1163
+#: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
+#: objects/FS/function.c:1036 objects/FS/function.c:1172
+#: objects/FS/function.c:1174
 msgid "Signal"
 msgstr "Isyarat"
 
@@ -2693,991 +2710,992 @@ msgstr "Isyarat"
 msgid "Function structure diagram objects"
 msgstr "Fungsi struktur objek diagram"
 
-#: objects/FS/function.c:140
+#: objects/FS/function.c:142
 msgid "Wish function"
 msgstr "Mengharap fungsi"
 
-#: objects/FS/function.c:142
+#: objects/FS/function.c:144
 msgid "User function"
 msgstr "Fungsi pengguna"
 
 #. Translators: Menu item Verb
-#: objects/FS/function.c:665
+#: objects/FS/function.c:676
 msgid "Verb"
 msgstr "Kata kerja"
 
 #. Translators: Menu item Verb/Channel
-#: objects/FS/function.c:667 objects/FS/function.c:669
-#: objects/FS/function.c:709
+#: objects/FS/function.c:678 objects/FS/function.c:680
+#: objects/FS/function.c:720
 msgid "Channel"
 msgstr "Saluran"
 
 #. Translators: Menu item Verb/Channel/Import
-#: objects/FS/function.c:671 objects/FS/function.c:673
+#: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "Import"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:675
+#: objects/FS/function.c:686 objects/KAOS/metabinrel.c:163
 msgid "Input"
 msgstr "Input"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: objects/FS/function.c:677
+#: objects/FS/function.c:688
 msgid "Receive"
 msgstr "Terima"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#: objects/FS/function.c:679 objects/FS/function.c:951
+#: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "Izin"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: objects/FS/function.c:681
+#: objects/FS/function.c:692
 msgid "Form Entrance"
 msgstr "Borang Kemasukan"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#: objects/FS/function.c:683 objects/FS/function.c:917
+#: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "Cekup"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: objects/FS/function.c:689
+#: objects/FS/function.c:700
 msgid "Discharge"
 msgstr "Abaikan"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: objects/FS/function.c:691
+#: objects/FS/function.c:702
 msgid "Eject"
 msgstr "Eject"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: objects/FS/function.c:693
+#: objects/FS/function.c:704
 msgid "Dispose"
 msgstr "Buang"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#: objects/FS/function.c:697 objects/FS/function.c:699
-#: objects/FS/function.c:717
+#: objects/FS/function.c:708 objects/FS/function.c:710
+#: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Pemindahan"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#: objects/FS/function.c:701 objects/FS/function.c:703
+#: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "Pengangkutan"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: objects/FS/function.c:705
+#: objects/FS/function.c:716
 msgid "Lift"
 msgstr "Lif"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: objects/FS/function.c:707
+#: objects/FS/function.c:718
 msgid "Move"
 msgstr "Pindah"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#: objects/FS/function.c:711 objects/FS/function.c:713
+#: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Pindah"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: objects/FS/function.c:715
+#: objects/FS/function.c:726
 msgid "Conduct"
 msgstr "Urus"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: objects/FS/function.c:719
+#: objects/FS/function.c:730
 msgid "Convey"
 msgstr "Bawa"
 
 #. Translators: Menu item Verb/Channel/Guide
-#: objects/FS/function.c:721 objects/FS/function.c:723
-#: objects/FS/function.c:725
+#: objects/FS/function.c:732 objects/FS/function.c:734
+#: objects/FS/function.c:736
 msgid "Guide"
 msgstr "Panduan"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: objects/FS/function.c:727
+#: objects/FS/function.c:738
 msgid "Direct"
 msgstr "Langsung"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: objects/FS/function.c:729
+#: objects/FS/function.c:740
 msgid "Straighten"
 msgstr "Meluruskan"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: objects/FS/function.c:731
+#: objects/FS/function.c:742
 msgid "Steer"
 msgstr "Kemudi"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: objects/FS/function.c:733
+#: objects/FS/function.c:744
 msgid "Translate"
 msgstr "Terjemah"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#: objects/FS/function.c:735 objects/FS/function.c:737
+#: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Putar"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: objects/FS/function.c:739
+#: objects/FS/function.c:750
 msgid "Turn"
 msgstr "Pasang"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: objects/FS/function.c:741
+#: objects/FS/function.c:752
 msgid "Spin"
 msgstr "Putar"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#: objects/FS/function.c:743 objects/FS/function.c:745
+#: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Benarkan DOF"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: objects/FS/function.c:747
+#: objects/FS/function.c:758
 msgid "Constrain"
 msgstr "Sekat"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: objects/FS/function.c:749
+#: objects/FS/function.c:760
 msgid "Unlock"
 msgstr "Tidak berkunci"
 
 #. Translators: Menu item Verb/Support
-#: objects/FS/function.c:751 objects/FS/function.c:753
+#: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "Sokongan"
 
 #. Translators: Menu item Verb/Support/Stop
-#: objects/FS/function.c:755 objects/FS/function.c:757
+#: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Henti"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: objects/FS/function.c:759
+#: objects/FS/function.c:770
 msgid "Insulate"
 msgstr "Menebat"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: objects/FS/function.c:761
+#: objects/FS/function.c:772
 msgid "Protect"
 msgstr "Lindung"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#: objects/FS/function.c:763 objects/FS/function.c:953
+#: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Cegah"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: objects/FS/function.c:765
+#: objects/FS/function.c:776
 msgid "Shield"
 msgstr "Lindung"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: objects/FS/function.c:767
+#: objects/FS/function.c:778
 msgid "Inhibit"
 msgstr "Sekat"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#: objects/FS/function.c:769 objects/FS/function.c:771
+#: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Menstabil"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: objects/FS/function.c:773
+#: objects/FS/function.c:784
 msgid "Steady"
 msgstr "Sedia"
 
 #. Translators: Menu item Verb/Support/Secure
-#: objects/FS/function.c:775 objects/FS/function.c:777
+#: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "Selamat"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#: objects/FS/function.c:779 objects/FS/function.c:811
+#: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "Kepil"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: objects/FS/function.c:781
+#: objects/FS/function.c:792
 msgid "Mount"
 msgstr "Lekap"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:783 sheets/ciscomisc.sheet.in.h:21
+#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:21
 msgid "Lock"
 msgstr "Kunci"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: objects/FS/function.c:785
+#: objects/FS/function.c:796
 msgid "Fasten"
 msgstr "Mengukuhkan"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: objects/FS/function.c:787
+#: objects/FS/function.c:798
 msgid "Hold"
 msgstr "Pegang"
 
 #. Translators: Menu item Verb/Support/Position
-#: objects/FS/function.c:789 objects/FS/function.c:791
+#: objects/FS/function.c:800 objects/FS/function.c:802
+#: objects/Istar/actor.c:70
 msgid "Position"
 msgstr "Posisi"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: objects/FS/function.c:793
+#: objects/FS/function.c:804
 msgid "Orient"
 msgstr "Tentukan"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: objects/FS/function.c:795
+#: objects/FS/function.c:806
 msgid "Align"
 msgstr "Jajar"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#: objects/FS/function.c:797 objects/FS/function.c:1039
+#: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Letakkan"
 
 #. Translators: Menu item Verb/Connect
-#: objects/FS/function.c:799 objects/FS/function.c:801
+#: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "Sambung"
 
 #. Translators: Menu item Verb/Connect/Couple
-#: objects/FS/function.c:803 objects/FS/function.c:805
+#: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "Pasangan"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: objects/FS/function.c:807
+#: objects/FS/function.c:818
 msgid "Join"
 msgstr "Sertai"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: objects/FS/function.c:809
+#: objects/FS/function.c:820
 msgid "Assemble"
 msgstr "Kumpul"
 
 #. Translators: Menu item Verb/Connect/Mix
-#: objects/FS/function.c:813 objects/FS/function.c:815
+#: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "Adun"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: objects/FS/function.c:817
+#: objects/FS/function.c:828
 msgid "Combine"
 msgstr "Gabung"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: objects/FS/function.c:819
+#: objects/FS/function.c:830
 msgid "Blend"
 msgstr "Campur"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: objects/FS/function.c:821
+#: objects/FS/function.c:832
 msgid "Add"
 msgstr "Tambah"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: objects/FS/function.c:823
+#: objects/FS/function.c:834
 msgid "Pack"
 msgstr "Pek"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: objects/FS/function.c:825
+#: objects/FS/function.c:836
 msgid "Coalesce"
 msgstr "Coalesce"
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:827 objects/FS/function.c:829 sheets/UML.sheet.in.h:5
+#: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Cabang"
 
 #. Translators: Menu item Verb/Branch/Separate
-#: objects/FS/function.c:831 objects/FS/function.c:833
-#: objects/FS/function.c:835
+#: objects/FS/function.c:842 objects/FS/function.c:844
+#: objects/FS/function.c:846
 msgid "Separate"
 msgstr "Pisahkan"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: objects/FS/function.c:837
+#: objects/FS/function.c:848
 msgid "Switch"
 msgstr "Tukar"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: objects/FS/function.c:839
+#: objects/FS/function.c:850
 msgid "Divide"
 msgstr "Bahagi"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: objects/FS/function.c:841
+#: objects/FS/function.c:852
 msgid "Release"
 msgstr "Keluaran"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: objects/FS/function.c:843
+#: objects/FS/function.c:854
 msgid "Detach"
 msgstr "Leraikan"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: objects/FS/function.c:845
+#: objects/FS/function.c:856
 msgid "Disconnect"
 msgstr "Putus"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: objects/FS/function.c:851
+#: objects/FS/function.c:862
 msgid "Cut"
 msgstr "Potong"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: objects/FS/function.c:853
+#: objects/FS/function.c:864
 msgid "Polish"
 msgstr "Polish"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: objects/FS/function.c:855
+#: objects/FS/function.c:866
 msgid "Sand"
 msgstr "Pasir"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: objects/FS/function.c:857
+#: objects/FS/function.c:868
 msgid "Drill"
 msgstr "Gerudi"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: objects/FS/function.c:859
+#: objects/FS/function.c:870
 msgid "Lathe"
 msgstr "Lathe"
 
 #. Translators: Menu item Verb/Branch/Refine
-#: objects/FS/function.c:861 objects/FS/function.c:863
+#: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "Tapis"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: objects/FS/function.c:865
+#: objects/FS/function.c:876
 msgid "Purify"
 msgstr "Bersihkan"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: objects/FS/function.c:867
+#: objects/FS/function.c:878
 msgid "Strain"
 msgstr "Tegangkan"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: objects/FS/function.c:869
+#: objects/FS/function.c:880
 msgid "Filter"
 msgstr "Penapis"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: objects/FS/function.c:871
+#: objects/FS/function.c:882
 msgid "Percolate"
 msgstr "Tapis"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: objects/FS/function.c:873
+#: objects/FS/function.c:884
 msgid "Clear"
 msgstr "Kosongkan"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#: objects/FS/function.c:875 objects/FS/function.c:877
+#: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Agih"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: objects/FS/function.c:879
+#: objects/FS/function.c:890
 msgid "Diverge"
 msgstr "Mencapah"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: objects/FS/function.c:881
+#: objects/FS/function.c:892
 msgid "Scatter"
 msgstr "Menabur"
 
 # Whisper <-- tuala wanita?
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: objects/FS/function.c:883
+#: objects/FS/function.c:894
 msgid "Disperse"
 msgstr "Selerak"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#: objects/FS/function.c:885 objects/FS/function.c:899
+#: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Sebar"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: objects/FS/function.c:887
+#: objects/FS/function.c:898
 msgid "Empty"
 msgstr "Kosong"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#: objects/FS/function.c:889 objects/FS/function.c:891
+#: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Suraikan"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: objects/FS/function.c:893
+#: objects/FS/function.c:904
 msgid "Absorb"
 msgstr "Serap"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: objects/FS/function.c:895
+#: objects/FS/function.c:906
 msgid "Dampen"
 msgstr "Melembapkan"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: objects/FS/function.c:897
+#: objects/FS/function.c:908
 msgid "Dispel"
 msgstr "Hilangkan"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: objects/FS/function.c:901
+#: objects/FS/function.c:912
 msgid "Resist"
 msgstr "Tahan"
 
 #. Translators: Menu item Verb/Provision
-#: objects/FS/function.c:903 objects/FS/function.c:905
+#: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "Peruntukan"
 
 #. Translators: Menu item Verb/Provision/Store
-#: objects/FS/function.c:907 objects/FS/function.c:909
+#: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "Setor"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: objects/FS/function.c:911
+#: objects/FS/function.c:922
 msgid "Contain"
 msgstr "Mengandungi"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: objects/FS/function.c:913
+#: objects/FS/function.c:924
 msgid "Collect"
 msgstr "Kutip"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: objects/FS/function.c:915
+#: objects/FS/function.c:926
 msgid "Reserve"
 msgstr "Simpan"
 
 #. Translators: Menu item Verb/Provision/Supply
-#: objects/FS/function.c:919 objects/FS/function.c:921
+#: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "Bekal"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: objects/FS/function.c:923
+#: objects/FS/function.c:934
 msgid "Fill"
 msgstr "Isi"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: objects/FS/function.c:925
+#: objects/FS/function.c:936
 msgid "Provide"
 msgstr "Sediakan"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: objects/FS/function.c:927
+#: objects/FS/function.c:938
 msgid "Replenish"
 msgstr "Menambah"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: objects/FS/function.c:929
+#: objects/FS/function.c:940
 msgid "Expose"
 msgstr "Dedah"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:942 sheets/Flowchart.sheet.in.h:8
 msgid "Extract"
 msgstr "Ekstrak"
 
 #. Translators: Menu item Verb/Control Magnitude
-#: objects/FS/function.c:933 objects/FS/function.c:935
+#: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Magnitud Kawalan"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#: objects/FS/function.c:937 objects/FS/function.c:939
+#: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Dorongan"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: objects/FS/function.c:941
+#: objects/FS/function.c:952
 msgid "Start"
 msgstr "Mula"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: objects/FS/function.c:943
+#: objects/FS/function.c:954
 msgid "Initiate"
 msgstr "Permulaan"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#: objects/FS/function.c:945 objects/FS/function.c:947
+#: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Selaras"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#: objects/FS/function.c:949 objects/FS/function.c:1167
-#: objects/UML/classicon.c:122
+#: objects/FS/function.c:960 objects/FS/function.c:1178
+#: objects/UML/classicon.c:126
 msgid "Control"
 msgstr "Kawalan"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: objects/FS/function.c:955
+#: objects/FS/function.c:966
 msgid "Enable"
 msgstr "Hidupkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: objects/FS/function.c:957
+#: objects/FS/function.c:968
 msgid "Disable"
 msgstr "Dimatikan"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: objects/FS/function.c:959
+#: objects/FS/function.c:970
 msgid "Limit"
 msgstr "Had"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: objects/FS/function.c:961
+#: objects/FS/function.c:972
 msgid "Interrupt"
 msgstr "Gangguan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#: objects/FS/function.c:963 objects/FS/function.c:965
+#: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "Tukar"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: objects/FS/function.c:967
+#: objects/FS/function.c:978
 msgid "Increase"
 msgstr "Naikkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: objects/FS/function.c:969
+#: objects/FS/function.c:980
 msgid "Decrease"
 msgstr "Kurangkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: objects/FS/function.c:971
+#: objects/FS/function.c:982
 msgid "Amplify"
 msgstr "Kuatkan bunyi"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: objects/FS/function.c:973
+#: objects/FS/function.c:984
 msgid "Reduce"
 msgstr "Kurangkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: objects/FS/function.c:977
+#: objects/FS/function.c:988
 msgid "Normalize"
 msgstr "Normalkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: objects/FS/function.c:979
+#: objects/FS/function.c:990
 msgid "Multiply"
 msgstr "Darab"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
-#: objects/FS/function.c:981
+#: objects/FS/function.c:992
 msgid "Scale"
 msgstr "Skala"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: objects/FS/function.c:983
+#: objects/FS/function.c:994
 msgid "Rectify"
 msgstr "Betulkan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: objects/FS/function.c:985
+#: objects/FS/function.c:996
 msgid "Adjust"
 msgstr "Selaraskan"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#: objects/FS/function.c:987 objects/FS/function.c:989
+#: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "Borang"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: objects/FS/function.c:991
+#: objects/FS/function.c:1002
 msgid "Compact"
 msgstr "Padat"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: objects/FS/function.c:993
+#: objects/FS/function.c:1004
 msgid "Crush"
 msgstr "Hancur"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: objects/FS/function.c:995
+#: objects/FS/function.c:1006
 msgid "Shape"
 msgstr "Bentuk"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: objects/FS/function.c:997
+#: objects/FS/function.c:1008
 msgid "Compress"
 msgstr "Mampat"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: objects/FS/function.c:999
+#: objects/FS/function.c:1010
 msgid "Pierce"
 msgstr "Menembusi"
 
 #. Translators: Menu item Verb/Convert
-#: objects/FS/function.c:1001 objects/FS/function.c:1003
+#: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Tukar"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: objects/FS/function.c:1005
+#: objects/FS/function.c:1016
 msgid "Transform"
 msgstr "Jelmakan"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: objects/FS/function.c:1007
+#: objects/FS/function.c:1018
 msgid "Liquefy"
 msgstr "Cairkan"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: objects/FS/function.c:1009
+#: objects/FS/function.c:1020
 msgid "Solidify"
 msgstr "Mengeraskan"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: objects/FS/function.c:1011
+#: objects/FS/function.c:1022
 msgid "Evaporate"
 msgstr "Sejatkan"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: objects/FS/function.c:1013
+#: objects/FS/function.c:1024
 msgid "Sublimate"
 msgstr "Mengubahkan"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: objects/FS/function.c:1015
+#: objects/FS/function.c:1026
 msgid "Condense"
 msgstr "Ringkaskan"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: objects/FS/function.c:1017
+#: objects/FS/function.c:1028
 msgid "Integrate"
 msgstr "Kamir"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: objects/FS/function.c:1019
+#: objects/FS/function.c:1030
 msgid "Differentiate"
 msgstr "Perbezaan"
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:1021 sheets/EML.sheet.in.h:5
+#: objects/FS/function.c:1032 sheets/EML.sheet.in.h:5
 msgid "Process"
 msgstr "Proses"
 
 #. Translators: Menu item Verb/Signal/Sense
-#: objects/FS/function.c:1027 objects/FS/function.c:1029
+#: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Makna"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: objects/FS/function.c:1031
+#: objects/FS/function.c:1042
 msgid "Perceive"
 msgstr "Melihat"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: objects/FS/function.c:1033
+#: objects/FS/function.c:1044
 msgid "Recognize"
 msgstr "Mengecam"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: objects/FS/function.c:1035
+#: objects/FS/function.c:1046
 msgid "Discern"
 msgstr "Mencerap"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: objects/FS/function.c:1037
+#: objects/FS/function.c:1048
 msgid "Check"
 msgstr "Periksa"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: objects/FS/function.c:1041
+#: objects/FS/function.c:1052
 msgid "Verify"
 msgstr "Tentusah"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#: objects/FS/function.c:1043 objects/FS/function.c:1045
+#: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Tandakan"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: objects/FS/function.c:1047
+#: objects/FS/function.c:1058
 msgid "Mark"
 msgstr "Tanda"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:5
+#: objects/FS/function.c:1060 sheets/Flowchart.sheet.in.h:6
 msgid "Display"
 msgstr "Papar"
 
 #. Translators: Menu item Verb/Signal/Measure
-#: objects/FS/function.c:1051 objects/FS/function.c:1053
+#: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Ukur"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: objects/FS/function.c:1055
+#: objects/FS/function.c:1066
 msgid "Calculate"
 msgstr "Kalkulator"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: objects/FS/function.c:1057
+#: objects/FS/function.c:1068
 msgid "Represent"
 msgstr "Wakil"
 
 #. Translators: Menu item Noun
-#: objects/FS/function.c:1059
+#: objects/FS/function.c:1070
 msgid "Noun"
 msgstr "Kata nama"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: objects/FS/function.c:1065
+#: objects/FS/function.c:1076
 msgid "Liquid"
 msgstr "Cecair"
 
 #. Translators: Menu item Noun/Material/Gas
-#: objects/FS/function.c:1067
+#: objects/FS/function.c:1078
 msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#: objects/FS/function.c:1069 objects/FS/function.c:1071
-#: objects/FS/function.c:1155
+#: objects/FS/function.c:1080 objects/FS/function.c:1082
+#: objects/FS/function.c:1166
 msgid "Human"
 msgstr "Manusia"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: objects/FS/function.c:1073
+#: objects/FS/function.c:1084
 msgid "Hand"
 msgstr "Tangan"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: objects/FS/function.c:1075
+#: objects/FS/function.c:1086
 msgid "Foot"
 msgstr "Kaki"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: objects/FS/function.c:1077
+#: objects/FS/function.c:1088
 msgid "Head"
 msgstr "Kepala"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: objects/FS/function.c:1079
+#: objects/FS/function.c:1090
 msgid "Finger"
 msgstr "Finger"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: objects/FS/function.c:1081
+#: objects/FS/function.c:1092
 msgid "Toe"
 msgstr "Jari kaki"
 
 #. Translators: Menu item Noun/Material/Biological
-#: objects/FS/function.c:1083
+#: objects/FS/function.c:1094
 msgid "Biological"
 msgstr "Biologikal"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: objects/FS/function.c:1087
+#: objects/FS/function.c:1098
 msgid "Mechanical"
 msgstr "Mekanikal"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: objects/FS/function.c:1089
+#: objects/FS/function.c:1100
 msgid "Mech. Energy"
 msgstr "Tenaga Mekanikal"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: objects/FS/function.c:1091
+#: objects/FS/function.c:1102
 msgid "Translation"
 msgstr "Terjemahan"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: objects/FS/function.c:1093
+#: objects/FS/function.c:1104
 msgid "Force"
 msgstr "Daya"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: objects/FS/function.c:1095
+#: objects/FS/function.c:1106
 msgid "Rotation"
 msgstr "Kilasan"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: objects/FS/function.c:1097
+#: objects/FS/function.c:1108
 msgid "Torque"
 msgstr "Tork"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: objects/FS/function.c:1099
+#: objects/FS/function.c:1110
 msgid "Random Motion"
 msgstr "Pergerakan Rawak"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: objects/FS/function.c:1101
+#: objects/FS/function.c:1112
 msgid "Vibration"
 msgstr "Getaran"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: objects/FS/function.c:1103
+#: objects/FS/function.c:1114
 msgid "Rotational Energy"
 msgstr "Tenaga Pemusingan"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: objects/FS/function.c:1105
+#: objects/FS/function.c:1116
 msgid "Translational Energy"
 msgstr "Tenaga Terjemahan"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: objects/FS/function.c:1107
+#: objects/FS/function.c:1118
 msgid "Electrical"
 msgstr "Elektronik"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: objects/FS/function.c:1109
+#: objects/FS/function.c:1120
 msgid "Electricity"
 msgstr "Elektrik"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: objects/FS/function.c:1111
+#: objects/FS/function.c:1122
 msgid "Voltage"
 msgstr "Voltan"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: objects/FS/function.c:1113
+#: objects/FS/function.c:1124
 msgid "Current"
 msgstr "Semasa"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: objects/FS/function.c:1115
+#: objects/FS/function.c:1126
 msgid "Hydraulic"
 msgstr "Hidrolik"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: objects/FS/function.c:1117
+#: objects/FS/function.c:1128
 msgid "Pressure"
 msgstr "Tekanan"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: objects/FS/function.c:1119
+#: objects/FS/function.c:1130
 msgid "Volumetric Flow"
 msgstr "Aliran Volumetrik"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: objects/FS/function.c:1121
+#: objects/FS/function.c:1132
 msgid "Thermal"
 msgstr "Haba"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: objects/FS/function.c:1123
+#: objects/FS/function.c:1134
 msgid "Heat"
 msgstr "Haba"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: objects/FS/function.c:1125
+#: objects/FS/function.c:1136
 msgid "Conduction"
 msgstr "Pengalir"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: objects/FS/function.c:1127
+#: objects/FS/function.c:1138
 msgid "Convection"
 msgstr "Pemanasan"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#: objects/FS/function.c:1129 objects/FS/function.c:1137
+#: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Radiasi"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: objects/FS/function.c:1131
+#: objects/FS/function.c:1142
 msgid "Pneumatic"
 msgstr "Pneumatik"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: objects/FS/function.c:1133
+#: objects/FS/function.c:1144
 msgid "Chemical"
 msgstr "Kimia"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: objects/FS/function.c:1135
+#: objects/FS/function.c:1146
 msgid "Radioactive"
 msgstr "Radioaktif"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: objects/FS/function.c:1139
+#: objects/FS/function.c:1150
 msgid "Microwaves"
 msgstr "Gelombang mikro"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: objects/FS/function.c:1141
+#: objects/FS/function.c:1152
 msgid "Radio waves"
 msgstr "Gelombang Radio"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: objects/FS/function.c:1143
+#: objects/FS/function.c:1154
 msgid "X-Rays"
 msgstr "Sinar-X"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: objects/FS/function.c:1145
+#: objects/FS/function.c:1156
 msgid "Gamma Rays"
 msgstr "Sinaran Gamma"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: objects/FS/function.c:1147
+#: objects/FS/function.c:1158
 msgid "Acoustic Energy"
 msgstr "Tenaga Akustik"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: objects/FS/function.c:1149
+#: objects/FS/function.c:1160
 msgid "Optical Energy"
 msgstr "Tenaga Optikal"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: objects/FS/function.c:1151
+#: objects/FS/function.c:1162
 msgid "Solar Energy"
 msgstr "Tenaga Solar"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: objects/FS/function.c:1153
+#: objects/FS/function.c:1164
 msgid "Magnetic Energy"
 msgstr "Tenaga Magnet"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: objects/FS/function.c:1157
+#: objects/FS/function.c:1168
 msgid "Human Motion"
 msgstr "Pergerakan Manusia"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: objects/FS/function.c:1159
+#: objects/FS/function.c:1170
 msgid "Human Force"
 msgstr "Kuasa Manusia"
 
 #. Translators: Menu item Noun/Signal/Status
-#: objects/FS/function.c:1165
+#: objects/FS/function.c:1176
 msgid "Status"
 msgstr "Status"
 
-#: objects/FS/function.c:1169
+#: objects/FS/function.c:1180
 msgid "User/Device Fn"
 msgstr "Pengguna/Peranti Fn"
 
-#: objects/FS/function.c:1170
+#: objects/FS/function.c:1181
 msgid "Wish Fn"
 msgstr "Kehendak Fn"
 
@@ -3810,7 +3828,9 @@ msgid "Vergent type:"
 msgstr "Jenis Vergent:"
 
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/standard/line.c:241
+#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
+#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
+#: objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Tambah titik sambungan"
 
@@ -3822,23 +3842,25 @@ msgstr "Padam titik sambungan"
 msgid "GRAFCET OR/AND vergent"
 msgstr "vergent GRAFCET OR/AND"
 
-#: objects/Misc/analog_clock.c:136
-msgid "Arrow colour"
+#: objects/Misc/analog_clock.c:137
+#, fuzzy
+msgid "Arrow color"
 msgstr "Warna panah"
 
-#: objects/Misc/analog_clock.c:138
+#: objects/Misc/analog_clock.c:139
 msgid "Arrow line width"
 msgstr "Lebar garis panah"
 
-#: objects/Misc/analog_clock.c:140
-msgid "Seconds arrow colour"
+#: objects/Misc/analog_clock.c:141
+#, fuzzy
+msgid "Seconds arrow color"
 msgstr "warna panah kedua"
 
-#: objects/Misc/analog_clock.c:142
+#: objects/Misc/analog_clock.c:143
 msgid "Seconds arrow line width"
 msgstr "Lebar garisan panah kedua"
 
-#: objects/Misc/analog_clock.c:144
+#: objects/Misc/analog_clock.c:145
 msgid "Show hours"
 msgstr "Papar jam"
 
@@ -3847,7 +3869,8 @@ msgid "Miscellaneous objects"
 msgstr "Objek Lain-lain"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:334
+#: objects/SADT/arrow.c:134 objects/UML/class.c:142
+#: objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normal"
 
@@ -3883,13 +3906,13 @@ msgstr ""
 "Untuk mempertingkatkan pembacaan dengan mudah, aliran yang bermula dan "
 "berakhir secara menegak boleh dirender kelabu."
 
-#: objects/SADT/arrow.c:572
+#: objects/SADT/arrow.c:463
 msgid "SADT Arrow"
 msgstr "Panah SADT"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:150
-#: objects/flowchart/diamond.c:148 objects/flowchart/ellipse.c:147
-#: objects/flowchart/parallelogram.c:152
+#: objects/SADT/box.c:137 objects/flowchart/box.c:152
+#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
+#: objects/flowchart/parallelogram.c:154
 msgid "Text padding"
 msgstr "Lapik teks"
 
@@ -3901,7 +3924,9 @@ msgstr "Aktiviti/Pengecam Data"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Pengecam yang mana muncul pada sudut bawah kiri Kotak"
 
-#: objects/SADT/box.c:446 objects/standard/line.c:242
+#: objects/SADT/box.c:446 objects/Istar/other.c:470
+#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
+#: objects/KAOS/other.c:526 objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Hapuskan titik sambungan?"
 
@@ -3913,404 +3938,460 @@ msgstr "Kekotak SADT"
 msgid "SADT diagram objects"
 msgstr "Objek diagram SADT"
 
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/UML/activity.c:317
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: objects/UML/actor.c:349 objects/UML/actor.c:351 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Pelakon"
 
-#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2071
+#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
 msgid "Direction:"
 msgstr "Hala:"
 
-#: objects/UML/association.c:1142
+#: objects/UML/association.c:1192
 msgid "From A to B"
 msgstr "Daripada A ke B"
 
-#: objects/UML/association.c:1149
+#: objects/UML/association.c:1199
 msgid "From B to A"
 msgstr "Daripada B ke A"
 
-#: objects/UML/association.c:1173 objects/UML/association.c:1181
+#: objects/UML/association.c:1223 objects/UML/association.c:1231
 msgid "Side A"
 msgstr "Bahagian A"
 
-#: objects/UML/association.c:1175 objects/UML/association.c:1183
+#: objects/UML/association.c:1225 objects/UML/association.c:1233
 msgid "Side B"
 msgstr "Bahagian B"
 
-#: objects/UML/association.c:1189
+#: objects/UML/association.c:1239
 msgid "Role:"
 msgstr "Tugas:"
 
-#: objects/UML/association.c:1201
+#: objects/UML/association.c:1251
 msgid "Multiplicity:"
 msgstr "Pendaraban"
 
+#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
+#: objects/UML/class_dialog.c:1876
+msgid "Visibility:"
+msgstr "Penglihatan:"
+
+#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
+#: objects/UML/class_dialog.c:1885
+msgid "Public"
+msgstr "Awam"
+
+#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
+#: objects/UML/class_dialog.c:1893
+msgid "Private"
+msgstr "Persendirian"
+
+#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
+#: objects/UML/class_dialog.c:1901
+msgid "Protected"
+msgstr "Dilindungi"
+
+#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
+#: objects/UML/class_dialog.c:1909
+msgid "Implementation"
+msgstr "Implementasi"
+
 #. Show arrow:
-#: objects/UML/association.c:1212
+#: objects/UML/association.c:1320
 msgid "Show arrow"
 msgstr "Papar panah"
 
 #. Aggregate
-#: objects/UML/association.c:1218
+#: objects/UML/association.c:1326
 msgid "Aggregate"
 msgstr "Agregat"
 
 #. Composition
-#: objects/UML/association.c:1226
+#: objects/UML/association.c:1334
 msgid "Composition"
 msgstr "Karangan"
 
-#: objects/UML/class.c:108 objects/UML/classicon.c:131
-#: objects/UML/component.c:117 objects/UML/large_package.c:119
-#: objects/UML/object.c:144 objects/UML/small_package.c:117
-msgid "Stereotype"
-msgstr "Stereotaip"
-
-#: objects/UML/class.c:110 objects/UML/class_dialog.c:359
-#: sheets/SDL.sheet.in.h:3
-msgid "Comment"
-msgstr "Komen"
-
-#: objects/UML/class.c:112 objects/UML/class_dialog.c:291
-#: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
-msgid "Abstract"
-msgstr "Abstrak"
-
-#: objects/UML/class.c:114 objects/UML/class_dialog.c:300
-msgid "Suppress Attributes"
-msgstr "Sekat Atribut"
-
-#: objects/UML/class.c:116
-msgid "Suppress Operations"
-msgstr "Sekat Operasi"
-
-#: objects/UML/class.c:118
-msgid "Visible Attributes"
-msgstr "Atribut Kelihatan"
-
-#: objects/UML/class.c:120
-msgid "Visible Operations"
-msgstr "Operasi Kelihatan"
-
-#: objects/UML/class.c:122
-msgid "Visible Comments"
-msgstr "Komen kelihatan"
-
-#. Attributes page:
-#: objects/UML/class.c:125 objects/UML/class_dialog.c:801
-#: objects/UML/object.c:148
-msgid "Attributes"
-msgstr "Atribut"
-
-#. Operations page:
-#: objects/UML/class.c:127 objects/UML/class_dialog.c:1725
-msgid "Operations"
-msgstr "Operasi"
-
-#: objects/UML/class.c:130
-msgid "Template"
-msgstr "Templat"
-
-#. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
-#: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
+#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
+#: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Kelas"
 
-#: objects/UML/class.c:184
-msgid "Show comments"
+#: objects/UML/class.c:113 objects/UML/classicon.c:137
+#: objects/UML/component.c:124 objects/UML/large_package.c:128
+#: objects/UML/object.c:149 objects/UML/small_package.c:124
+msgid "Stereotype"
+msgstr "Stereotaip"
+
+#: objects/UML/class.c:115 objects/UML/class.c:152
+#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Komen"
+
+#: objects/UML/class.c:117 objects/UML/class.c:146
+#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
+#: objects/UML/class_dialog.c:1940
+msgid "Abstract"
+msgstr "Abstrak"
+
+#: objects/UML/class.c:119
+msgid "Template"
+msgstr "Templat"
+
+#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
+msgid "Suppress Attributes"
+msgstr "Sekat Atribut"
+
+#: objects/UML/class.c:124
+msgid "Suppress Operations"
+msgstr "Sekat Operasi"
+
+#: objects/UML/class.c:126
+msgid "Visible Attributes"
+msgstr "Atribut Kelihatan"
+
+#: objects/UML/class.c:128
+msgid "Visible Operations"
+msgstr "Operasi Kelihatan"
+
+#: objects/UML/class.c:130
+msgid "Visible Comments"
+msgstr "Komen kelihatan"
+
+#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
+#, fuzzy
+msgid "Wrap Operations"
+msgstr "Operasi"
+
+#: objects/UML/class.c:134
+#, fuzzy
+msgid "Wrap after char"
+msgstr "Kad penyesuaian PC"
+
+#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
+msgid "Polymorphic"
+msgstr "Polymorphic"
+
+#: objects/UML/class.c:148
+#, fuzzy
+msgid "Classname"
+msgstr "Nama kelas:"
+
+#: objects/UML/class.c:150
+#, fuzzy
+msgid "Abstract Classname"
+msgstr "Kelas Abstrak"
+
+#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+msgid " "
+msgstr ""
+
+#: objects/UML/class.c:171 objects/UML/object.c:153
+msgid "Attributes"
+msgstr "Atribut"
+
+#: objects/UML/class.c:173
+msgid "Operations"
+msgstr "Operasi"
+
+#: objects/UML/class.c:241
+#, fuzzy
+msgid "Show Comments"
 msgstr "Papar komen"
 
-#: objects/UML/class_dialog.c:261
+#. Class page:
+#: objects/UML/class_dialog.c:265
+#, fuzzy
+msgid "_Class"
+msgstr "Kelas"
+
+#: objects/UML/class_dialog.c:273
 msgid "Class name:"
 msgstr "Nama kelas:"
 
-#: objects/UML/class_dialog.c:273 objects/UML/class_dialog.c:1817
-#: objects/UML/dependency.c:130 objects/UML/generalization.c:126
-#: objects/UML/realizes.c:127
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
+#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Stereotaip"
 
-#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:902
-#: objects/UML/class_dialog.c:1935 objects/UML/class_dialog.c:2059
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
+#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
 msgid "Comment:"
 msgstr "Komen:"
 
-#: objects/UML/class_dialog.c:297
+#: objects/UML/class_dialog.c:302
 msgid "Attributes visible"
 msgstr "Atribut dapat dilihat"
 
-#: objects/UML/class_dialog.c:306
+#: objects/UML/class_dialog.c:311
 msgid "Operations visible"
 msgstr "Operasi dapat dilihat"
 
-#: objects/UML/class_dialog.c:309
+#: objects/UML/class_dialog.c:314
 msgid "Suppress operations"
 msgstr "Sekat operasi"
 
-#: objects/UML/class_dialog.c:315
+#: objects/UML/class_dialog.c:328
+msgid "Wrap after this length: "
+msgstr ""
+
+#: objects/UML/class_dialog.c:335
 msgid "Comments visible"
 msgstr "Komen boleh lihat"
 
 #. head line
-#: objects/UML/class_dialog.c:325
+#: objects/UML/class_dialog.c:348
 msgid "Kind"
 msgstr "Jenis"
 
 # Saiz bra
-#: objects/UML/class_dialog.c:330
+#: objects/UML/class_dialog.c:353
 msgid "Size"
 msgstr "Saiz"
 
-#: objects/UML/class_dialog.c:339
-msgid "Polymorphic"
-msgstr "Polymorphic"
-
-#: objects/UML/class_dialog.c:349
+#: objects/UML/class_dialog.c:372
 msgid "Class Name"
 msgstr "Nama Kelas"
 
-#: objects/UML/class_dialog.c:354
+#: objects/UML/class_dialog.c:377
 msgid "Abstract Class"
 msgstr "Kelas Abstrak"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:371
+#: objects/UML/class_dialog.c:394
+#, fuzzy
+msgid "Text Color"
+msgstr "Warna teks"
+
+#: objects/UML/class_dialog.c:402
 msgid "Foreground Color"
 msgstr "Warna Latar Depan"
 
-#: objects/UML/class_dialog.c:379
+#: objects/UML/class_dialog.c:410
 msgid "Background Color"
 msgstr "Warna Latar Belakang"
 
-#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1759
-#: objects/UML/class_dialog.c:1988 objects/UML/class_dialog.c:2506
-msgid "Delete"
-msgstr "Padam"
+#. Attributes page:
+#: objects/UML/class_dialog.c:840
+#, fuzzy
+msgid "_Attributes"
+msgstr "Atribut"
 
-#: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
-#: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
+#, fuzzy
+msgid "_New"
+msgstr "Baru"
+
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
+msgid "_Delete"
+msgstr "Pa_dam"
+
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
+#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
 msgid "Move up"
 msgstr "Naik atas"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
-#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
+#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
+#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
 msgid "Move down"
 msgstr "Turun bawah"
 
-#: objects/UML/class_dialog.c:858
+#: objects/UML/class_dialog.c:897
 msgid "Attribute data"
 msgstr "Data atribut"
 
-#: objects/UML/class_dialog.c:890
+#: objects/UML/class_dialog.c:929
 msgid "Value:"
 msgstr "Nilai:"
 
-#: objects/UML/class_dialog.c:915 objects/UML/class_dialog.c:1830
-msgid "Visibility:"
-msgstr "Penglihatan:"
-
-#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1839
-msgid "Public"
-msgstr "Awam"
-
-#: objects/UML/class_dialog.c:932 objects/UML/class_dialog.c:1847
-msgid "Private"
-msgstr "Persendirian"
-
-#: objects/UML/class_dialog.c:940 objects/UML/class_dialog.c:1855
-msgid "Protected"
-msgstr "Dilindungi"
-
-#: objects/UML/class_dialog.c:948 objects/UML/class_dialog.c:1863
-msgid "Implementation"
-msgstr "Implementasi"
-
-#: objects/UML/class_dialog.c:964 objects/UML/class_dialog.c:1879
+#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
 msgid "Class scope"
 msgstr "Skop kelas"
 
-#: objects/UML/class_dialog.c:1783
+#. Operations page:
+#: objects/UML/class_dialog.c:1771
+#, fuzzy
+msgid "_Operations"
+msgstr "Operasi"
+
+#: objects/UML/class_dialog.c:1829
 msgid "Operation data"
 msgstr "Data operasi"
 
-#: objects/UML/class_dialog.c:1885
+#: objects/UML/class_dialog.c:1931
 msgid "Inheritance type:"
 msgstr "Jenis pewarisan:"
 
-#: objects/UML/class_dialog.c:1902
+#: objects/UML/class_dialog.c:1948
 msgid "Polymorphic (virtual)"
 msgstr "Polymorhic (maya)"
 
-#: objects/UML/class_dialog.c:1910
+#: objects/UML/class_dialog.c:1956
 msgid "Leaf (final)"
 msgstr "Dedaun (akhir)"
 
-#: objects/UML/class_dialog.c:1928
+#: objects/UML/class_dialog.c:1974
 msgid "Query"
 msgstr "Kueri"
 
-#: objects/UML/class_dialog.c:1952
+#: objects/UML/class_dialog.c:1998
 msgid "Parameters:"
 msgstr "Parameter:"
 
-#: objects/UML/class_dialog.c:2014
+#: objects/UML/class_dialog.c:2060
 msgid "Parameter data"
 msgstr "Data parameter"
 
-#: objects/UML/class_dialog.c:2047
+#: objects/UML/class_dialog.c:2092
 msgid "Def. value:"
 msgstr "Nilai default:"
 
-#: objects/UML/class_dialog.c:2080
+#: objects/UML/class_dialog.c:2123
 msgid "Undefined"
 msgstr "Tak tertakrif"
 
-#: objects/UML/class_dialog.c:2088
+#: objects/UML/class_dialog.c:2131
 msgid "In"
 msgstr "Masuk"
 
-#: objects/UML/class_dialog.c:2097
+#: objects/UML/class_dialog.c:2140
 msgid "Out"
 msgstr "Keluar"
 
-#: objects/UML/class_dialog.c:2106
+#: objects/UML/class_dialog.c:2149
 msgid "In & Out"
 msgstr "Dalam & Keluar"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2466
-msgid "Templates"
+#: objects/UML/class_dialog.c:2513
+#, fuzzy
+msgid "_Templates"
 msgstr "Templat"
 
-#: objects/UML/class_dialog.c:2472 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Kelas templat"
 
-#: objects/UML/class_dialog.c:2529
+#: objects/UML/class_dialog.c:2576
 msgid "Formal parameter data"
 msgstr "Terlalu banyak parameter"
 
-#: objects/UML/classicon.c:123
+#: objects/UML/classicon.c:127
 msgid "Boundary"
 msgstr "Sempadan"
 
-#: objects/UML/classicon.c:133
+#: objects/UML/classicon.c:139
 msgid "Is object"
 msgstr "Adalah objek"
 
-#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Sudut"
 
-#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Bekas"
 
-#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Sumber Acara"
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Peristiwa Lenyap"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
-#: objects/UML/constraint.c:121
+#: objects/UML/constraint.c:125
 msgid "Constraint:"
 msgstr "Pengekangan:"
 
-#: objects/UML/dependency.c:132
+#: objects/UML/dependency.c:137
 msgid "Show arrow:"
 msgstr "Papar panah:"
 
-#: objects/UML/implements.c:122
+#: objects/UML/implements.c:128
 msgid "Interface:"
 msgstr "Antaramuka:"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:144
 msgid "Draw focus of control:"
 msgstr "Lukis fokus bagi kawalan:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:146
 msgid "Draw destruction mark:"
 msgstr "Tanda kehancuran lukisan:"
 
-#: objects/UML/lifeline.c:409
+#: objects/UML/lifeline.c:417
 msgid "Add connection points"
 msgstr "Tambah titik sambungan"
 
-#: objects/UML/lifeline.c:410
+#: objects/UML/lifeline.c:418
 msgid "Remove connection points"
 msgstr "Buang titik sambungan"
 
-#: objects/UML/lifeline.c:414
+#: objects/UML/lifeline.c:422
 msgid "UML Lifeline"
 msgstr "Perhubungan UML"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:135
 msgid "Call"
 msgstr "Panggil"
 
 # Jahaman?
-#: objects/UML/message.c:132
+#: objects/UML/message.c:136
 msgid "Create"
 msgstr "Cipta"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:137
 msgid "Destroy"
 msgstr "Musnah"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:138
 msgid "Simple"
 msgstr "Ringkas"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:139
 msgid "Return"
 msgstr "Kembali"
 
-#: objects/UML/message.c:136
+#: objects/UML/message.c:140
 msgid "Send"
 msgstr "Hantar"
 
-#: objects/UML/message.c:137
+#: objects/UML/message.c:141
 msgid "Recursive"
 msgstr "Rekursif"
 
-#: objects/UML/message.c:144
+#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
 msgid "Message:"
 msgstr "Mesej:"
 
-#: objects/UML/message.c:146
+#: objects/UML/message.c:152
 msgid "Message type:"
 msgstr "Jenis mesej:"
 
-#: objects/UML/object.c:146
+#: objects/UML/object.c:151
 msgid "Explicit state"
 msgstr "Keadaan eksplisit"
 
-#: objects/UML/object.c:151
+#: objects/UML/object.c:156
 msgid "Active object"
 msgstr "Objek aktif"
 
-#: objects/UML/object.c:153
+#: objects/UML/object.c:158
 msgid "Show attributes"
 msgstr "Papar atribut"
 
-#: objects/UML/object.c:155
+#: objects/UML/object.c:160
 msgid "Multiple instance"
 msgstr "Contoh gandaan"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:400
+#: objects/UML/state.c:390
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4321,19 +4402,46 @@ msgstr ""
 "Opsyen ini tiada lagi pada versi akan datang.\n"
 "Sila gunakan objek Keadaan Permulaan/Akhiran sebagai ganti\n"
 
-#: objects/UML/state_term.c:122
+#: objects/UML/state_term.c:120
 msgid "Is final"
 msgstr "Terakhir"
 
-#: objects/UML/uml.c:64
+#: objects/UML/transition.c:129
+#, fuzzy
+msgid "Trigger"
+msgstr "Finger"
+
+#: objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr ""
+
+#: objects/UML/transition.c:131
+#, fuzzy
+msgid "Action"
+msgstr "Pelakon"
+
+#: objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr ""
+
+#: objects/UML/transition.c:133
+#, fuzzy
+msgid "Guard"
+msgstr "Grid"
+
+#: objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr ""
+
+#: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "Objek diagram Gabungan Permodelan Bahasa"
 
-#: objects/UML/usecase.c:125
+#: objects/UML/usecase.c:132
 msgid "Text outside"
 msgstr "Teks diluar"
 
-#: objects/UML/usecase.c:127
+#: objects/UML/usecase.c:134
 msgid "Collaboration"
 msgstr "Kerjasama"
 
@@ -4412,10 +4520,6 @@ msgstr "Warna data"
 msgid "Data line width"
 msgstr "Lebar garis data"
 
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-msgid "Line color"
-msgstr "Warna garis"
-
 #: objects/chronogram/chronoref.c:144
 msgid "Time data"
 msgstr "Data masa"
@@ -4440,28 +4544,29 @@ msgstr "Tersendiri"
 msgid "Custom XML shapes loader"
 msgstr "Pemuat bentuk XML biasa"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
 msgid "Flip horizontal"
 msgstr "Flip mengufuk"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
 msgid "Flip vertical"
 msgstr "Flip menegak"
 
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1448
 msgid "Flip Horizontal"
 msgstr "Flip Mengufuk"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1449
 msgid "Flip Vertical"
 msgstr "Flip Menegak"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1486
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Tidak dapat membuka fail '%s' bagi jenis objek '%s'."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:150 objects/standard/box.c:150
+#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
 msgid "Corner radius"
 msgstr "Jejari penjuru"
 
@@ -4469,9 +4574,243 @@ msgstr "Jejari penjuru"
 msgid "Flowchart objects"
 msgstr "objek cartalir"
 
-#: objects/flowchart/parallelogram.c:150
+#: objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
 msgstr "Sudut ricih"
+
+#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+#, fuzzy
+msgid "Unspecified"
+msgstr "Tak tertakrif"
+
+#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
+#, fuzzy
+msgid "Agent"
+msgstr "Tambah segmen"
+
+#: objects/Istar/actor.c:71
+#, fuzzy
+msgid "Role"
+msgstr "Tugas:"
+
+#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
+msgid "Softgoal"
+msgstr ""
+
+#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
+#, fuzzy
+msgid "Goal"
+msgstr "Normal"
+
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/KAOS/goal.c:158
+#, fuzzy
+msgid "Goal Type"
+msgstr "Jenis Sama"
+
+#: objects/Istar/istar.c:46
+#, fuzzy
+msgid "Istar diagram"
+msgstr "/Isih _diagram"
+
+#: objects/Istar/link.c:154
+#, fuzzy
+msgid "Positive Contrib"
+msgstr "Posisi"
+
+#: objects/Istar/link.c:155
+#, fuzzy
+msgid "Negative contrib"
+msgstr "Pembolehubah output negatif"
+
+#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr "Kebergantungan"
+
+#: objects/Istar/link.c:157
+#, fuzzy
+msgid "Decomposition"
+msgstr "Karangan"
+
+#: objects/Istar/link.c:158
+msgid "Means-Ends"
+msgstr ""
+
+#: objects/Istar/other.c:73
+#, fuzzy
+msgid "Resource"
+msgstr "Kurangkan"
+
+#: objects/Istar/other.c:74
+msgid "Task"
+msgstr ""
+
+#: objects/Istar/other.c:475
+#, fuzzy
+msgid "i* other"
+msgstr "Bunyi penghala"
+
+#: objects/Jackson/domain.c:79
+msgid "Given Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:80
+msgid "Designed Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:81
+#, fuzzy
+msgid "Machine Domain"
+msgstr "Wanita Mac"
+
+#: objects/Jackson/domain.c:97
+#, fuzzy
+msgid "Causal"
+msgstr "Panggil"
+
+#: objects/Jackson/domain.c:98
+#, fuzzy
+msgid "Biddable"
+msgstr "Tengah"
+
+#: objects/Jackson/domain.c:99
+#, fuzzy
+msgid "Lexical"
+msgstr "Kimia"
+
+#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
+#, fuzzy
+msgid "Domain Type"
+msgstr "Jenis Sama"
+
+#: objects/Jackson/domain.c:181
+msgid "Domain Kind"
+msgstr ""
+
+#: objects/Jackson/domain.c:182
+#, fuzzy
+msgid "Optional kind which appears in the lower right corner of the Domain"
+msgstr "Pengecam yang mana muncul pada sudut bawah kiri Kotak"
+
+#: objects/Jackson/domain.c:537
+#, fuzzy
+msgid "Jackson domain"
+msgstr "Wanita Mac"
+
+#: objects/Jackson/jackson.c:47
+#, fuzzy
+msgid "Jackson diagram"
+msgstr "Cipta diagram baru"
+
+#: objects/Jackson/phenomenon.c:134
+#, fuzzy
+msgid "Shared"
+msgstr "Bentuk"
+
+#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
+#, fuzzy
+msgid "Requirement"
+msgstr "Wakil"
+
+#: objects/KAOS/goal.c:82
+msgid "Assumption"
+msgstr ""
+
+#: objects/KAOS/goal.c:83
+#, fuzzy
+msgid "Obstacle"
+msgstr "Abstrak"
+
+#: objects/KAOS/goal.c:578
+msgid "KAOS goal"
+msgstr ""
+
+#: objects/KAOS/kaos.c:49
+#, fuzzy
+msgid "KAOS diagram"
+msgstr "Diagram baru:"
+
+#: objects/KAOS/metaandorrel.c:151
+#, fuzzy
+msgid "AND Refinement"
+msgstr "AND vergent"
+
+#: objects/KAOS/metaandorrel.c:152
+msgid "Complete AND Refinement"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:153
+#, fuzzy
+msgid "OR Refinement"
+msgstr "Tapis"
+
+#: objects/KAOS/metaandorrel.c:154
+#, fuzzy
+msgid "Operationalization"
+msgstr "Data operasi"
+
+#: objects/KAOS/metaandorrel.c:161
+#, fuzzy
+msgid "Text:"
+msgstr "Teks"
+
+#: objects/KAOS/metabinrel.c:155
+#, fuzzy
+msgid "Contributes"
+msgstr "Penyumbang:"
+
+#: objects/KAOS/metabinrel.c:156
+#, fuzzy
+msgid "Obstructs"
+msgstr "Abstrak"
+
+#: objects/KAOS/metabinrel.c:157
+#, fuzzy
+msgid "Conflicts"
+msgstr "Urus"
+
+#: objects/KAOS/metabinrel.c:158
+#, fuzzy
+msgid "Responsibility"
+msgstr "Penglihatan:"
+
+#: objects/KAOS/metabinrel.c:159
+#, fuzzy
+msgid "Monitors"
+msgstr "Monitor"
+
+#: objects/KAOS/metabinrel.c:160
+#, fuzzy
+msgid "Controls"
+msgstr "Kawalan"
+
+#: objects/KAOS/metabinrel.c:161
+msgid "CapableOf"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:162
+msgid "Performs"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:164
+#, fuzzy
+msgid "Output"
+msgstr "Input/Output"
+
+#: objects/KAOS/other.c:531
+#, fuzzy
+msgid "KAOS other"
+msgstr "Penghala IAD"
+
+#: objects/network/basestation.c:133
+#, fuzzy
+msgid "Sectors"
+msgstr "Pelakon"
+
+#: objects/network/basestation.c:388 objects/network/basestation.c:390
+#, fuzzy
+msgid "Base Station"
+msgstr "Orientasi"
 
 #: objects/network/bus.c:599
 msgid "Add Handle"
@@ -4481,33 +4820,110 @@ msgstr "Tambah Pengendali"
 msgid "Delete Handle"
 msgstr "Padam Pengendali"
 
-#: objects/network/network.c:41
+#: objects/network/network.c:43
 msgid "Network diagram objects"
 msgstr "Objek diagram Rangkaian"
+
+#: objects/network/radiocell.c:130
+#, fuzzy
+msgid "Macro Cell"
+msgstr "Panggilan Makro"
+
+#: objects/network/radiocell.c:131
+#, fuzzy
+msgid "Micro Cell"
+msgstr "Panggilan Makro"
+
+#: objects/network/radiocell.c:132
+msgid "Pico Cell"
+msgstr ""
+
+#: objects/network/radiocell.c:138
+msgid "Radius"
+msgstr ""
+
+#: objects/network/radiocell.c:140
+#, fuzzy
+msgid "Cell Type:"
+msgstr "Jenis:"
+
+#: objects/network/radiocell.c:152
+msgid "Subscribers"
+msgstr ""
 
 #: objects/standard/arc.c:131
 msgid "Curve distance"
 msgstr "Jarak lengkung"
 
-#: objects/standard/bezier.c:542 objects/standard/beziergon.c:500
+#: objects/standard/bezier.c:137 objects/standard/line.c:141
+#: objects/standard/polyline.c:135
+#, fuzzy
+msgid "Line gaps"
+msgstr "Baris"
+
+#: objects/standard/bezier.c:139 objects/standard/line.c:143
+#: objects/standard/polyline.c:137
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/bezier.c:141 objects/standard/line.c:145
+#: objects/standard/polyline.c:139
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/bezier.c:732 objects/standard/beziergon.c:488
 msgid "Add Segment"
 msgstr "Tambah Segmen"
 
-#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
+#: objects/standard/bezier.c:733 objects/standard/beziergon.c:489
 msgid "Delete Segment"
 msgstr "Hapus Segmen"
 
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:503
+#: objects/standard/bezier.c:735 objects/standard/beziergon.c:491
 msgid "Symmetric control"
 msgstr "Kawalan simetrik"
 
-#: objects/standard/bezier.c:547 objects/standard/beziergon.c:505
+#: objects/standard/bezier.c:737 objects/standard/beziergon.c:493
 msgid "Smooth control"
 msgstr "Kawalan lancar"
 
-#: objects/standard/bezier.c:549 objects/standard/beziergon.c:507
+#: objects/standard/bezier.c:739 objects/standard/beziergon.c:495
 msgid "Cusp control"
 msgstr "Kawalan bucu"
+
+#: objects/standard/box.c:137 objects/standard/ellipse.c:131
+#, fuzzy
+msgid "Free"
+msgstr "Daya"
+
+#: objects/standard/box.c:138 objects/standard/ellipse.c:132
+#, fuzzy
+msgid "Fixed"
+msgstr "Fail"
+
+#: objects/standard/box.c:139 objects/standard/box.c:694
+#, fuzzy
+msgid "Square"
+msgstr "Selamat"
+
+#: objects/standard/box.c:152 objects/standard/ellipse.c:144
+#, fuzzy
+msgid "Aspect ratio"
+msgstr "Kekalkan nisbah aspek"
+
+#: objects/standard/box.c:690 objects/standard/ellipse.c:668
+#, fuzzy
+msgid "Free aspect"
+msgstr "Kekalkan nisbah aspek"
+
+#: objects/standard/box.c:692 objects/standard/ellipse.c:670
+msgid "Fixed aspect"
+msgstr ""
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:672
+#, fuzzy
+msgid "Circle"
+msgstr "Menembusi"
 
 #: objects/standard/image.c:130
 msgid "Image file"
@@ -4522,7 +4938,7 @@ msgid "Keep aspect ratio"
 msgstr "Kekalkan nisbah aspek"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:669 objects/standard/image.c:680
+#: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -4532,36 +4948,68 @@ msgstr ""
 "Gunakan fail '%s' sebagai ganti\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:712
+#: objects/standard/image.c:689 objects/standard/image.c:711
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Imej fail '%s' tidak dijumpai.\n"
 
-#: objects/standard/line.c:136
+#: objects/standard/line.c:132
 msgid "Arrows"
 msgstr "Panah"
 
-#: objects/standard/line.c:141
+#: objects/standard/line.c:137
 msgid "Start point"
 msgstr "Titik mula"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
-#: objects/standard/line.c:143
+#: objects/standard/line.c:139
 msgid "End point"
 msgstr "Titik akhir:"
 
-#: objects/standard/polygon.c:460 objects/standard/polyline.c:496
+#: objects/standard/polygon.c:460 objects/standard/polyline.c:605
 msgid "Add Corner"
 msgstr "Tambah Sudut"
 
-#: objects/standard/polygon.c:461 objects/standard/polyline.c:497
+#: objects/standard/polygon.c:461 objects/standard/polyline.c:606
 msgid "Delete Corner"
 msgstr "Padam Sudut"
 
 #: objects/standard/standard.c:45
 msgid "Standard objects"
 msgstr "Objek piawai"
+
+#: plug-ins/cairo/diacairo.c:1031
+msgid "Cairo PostScript"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1040
+msgid "Cairo Portable Document Format"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1049
+msgid "Cairo PNG"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1057
+msgid "Cairo PNG (with alpha)"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1066
+msgid "Cairo WMF"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1075
+msgid "Cairo old WMF"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1084
+msgid "Cairo Clipboard"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1127
+msgid "Cairo based Rendering"
+msgstr ""
 
 #: plug-ins/cgm/cgm.c:1109
 msgid ""
@@ -4575,11 +5023,11 @@ msgstr ""
 msgid "Computer Graphics Metafile"
 msgstr "Metafail Grafik Komputer"
 
-#: plug-ins/cgm/cgm.c:1379
+#: plug-ins/cgm/cgm.c:1390
 msgid "Computer Graphics Metafile export filter"
 msgstr "Penapis eksport Metafail Grafik Komputer"
 
-#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Fail Saling Tukar Lukisan"
 
@@ -4601,27 +5049,53 @@ msgstr "baca_kod_dxf gagal\n"
 msgid "Unknown dxf code %d\n"
 msgstr "Kod dxf %d tidak diketahui\n"
 
-#: plug-ins/dxf/dxf.c:37
+#: plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Penapis import dan eksport Fail Saling Tukar Lukisan "
 
-#: plug-ins/hpgl/hpgl.c:772
+#: plug-ins/gprint/diagnomeprint.c:79
+#, c-format
+msgid ""
+"GNOME Print Backend\n"
+" '%s'\n"
+" not available"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:110
+msgid "GNOME PostScript"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:119
+msgid "GNOME Portable Document Format"
+msgstr ""
+
+# rujuk buku statistik
+#: plug-ins/gprint/diagnomeprint.c:128
+#, fuzzy
+msgid "GNOME Scalable Vector Graphic"
+msgstr "Grafik Vektor Berskala"
+
+#: plug-ins/gprint/diagnomeprint.c:159
+msgid "GNOME Print based Rendering"
+msgstr ""
+
+#: plug-ins/hpgl/hpgl.c:758
 msgid "HP Graphics Language"
 msgstr "Bahasa Grafik HP"
 
-#: plug-ins/hpgl/hpgl.c:786
+#: plug-ins/hpgl/hpgl.c:783
 msgid "HP Graphics Language export filter"
 msgstr "Penapis eksport bahasa Grafik HP"
 
-#: plug-ins/metapost/metapost.c:34
+#: plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
 msgstr "Penapis eksport TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:867
+#: plug-ins/metapost/render_metapost.c:1033
 msgid "TeX Metapost macros"
 msgstr "Makro TeX Metapost"
 
-#: plug-ins/pixbuf/pixbuf.c:95
+#: plug-ins/pixbuf/pixbuf.c:90
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -4632,15 +5106,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
-msgid "GdkPixbuf bitmap"
-msgstr "GdkPixbuf bitmap"
-
-#: plug-ins/pixbuf/pixbuf.c:187
+#: plug-ins/pixbuf/pixbuf.c:197
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf berdarsarkan eksport/import bitmap"
 
-#: plug-ins/pstricks/pstricks.c:14
+#: plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
 msgstr "Penapis eksport TeX Pstricks"
 
@@ -4648,11 +5118,11 @@ msgstr "Penapis eksport TeX Pstricks"
 msgid "Not valid UTF8"
 msgstr "UTF8 tidak sah"
 
-#: plug-ins/pstricks/render_pstricks.c:871
+#: plug-ins/pstricks/render_pstricks.c:877
 msgid "TeX PSTricks macros"
 msgstr "Makro TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Tidak boleh membuka: '%s' untuk ditulis.\n"
@@ -4661,12 +5131,13 @@ msgstr "Tidak boleh membuka: '%s' untuk ditulis.\n"
 msgid "Python scripting support"
 msgstr "Sokongan skrip Python"
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr "Tidak boleh eksport png tanpa libart"
 
-#: plug-ins/shape/shape-export.c:498
-msgid "dia shape file"
+#: plug-ins/shape/shape-export.c:497
+#, fuzzy
+msgid "Dia Shape File"
 msgstr "Bentuk fail dia"
 
 #: plug-ins/shape/shape.c:36
@@ -4674,77 +5145,60 @@ msgid "dia shape export filter"
 msgstr "Penapis eksport bentuk dia"
 
 # rujuk buku statistik
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "Grafik Vektor Berskala"
 
-#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
-#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
-#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
-#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
-#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
-#: plug-ins/xfig/xfig-import.c:403
+#: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
+#: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
+#: plug-ins/xfig/xfig-import.c:224 plug-ins/xfig/xfig-import.c:261
+#: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
+#: plug-ins/xfig/xfig-import.c:362 plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
 msgstr "Tidak dapat mencari objek piawai"
 
-#: plug-ins/svg/svg-import.c:230
-msgid "Unexpected SVG path element"
-msgstr "Elemen laluan SVG tidak dijangka"
-
-#: plug-ins/svg/svg-import.c:288
-msgid "Courier"
-msgstr "Surat"
-
-#: plug-ins/svg/svg-import.c:591
-msgid "Could not find SVG namespace."
-msgstr "Tidak boleh mencari ruang nama SVG."
-
-#: plug-ins/svg/svg-import.c:597
+#: plug-ins/svg/svg-import.c:650
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elemen akar adalah '%s' -- dijangkakan."
 
-#: plug-ins/svg/svg.c:37
+#: plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Penapis import dan eksport Grafik Vektor Berskala"
 
-#: plug-ins/wmf/wmf.cpp:1100
+#: plug-ins/wmf/wmf.cpp:1249
 msgid "Windows Meta File"
 msgstr "Fail Meta Tetingkap"
 
-#: plug-ins/wmf/wmf.cpp:1114
+#: plug-ins/wmf/wmf.cpp:1265
 msgid "WMF export filter"
 msgstr "Penapis eksport WMF"
 
-#: plug-ins/wpg/wpg.c:1181
+#: plug-ins/wpg/wpg.c:1183
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Jenis/versi fail: %s tidak disokong.\n"
 
-#: plug-ins/wpg/wpg.c:1311 plug-ins/wpg/wpg.c:1318
+#: plug-ins/wpg/wpg.c:1313 plug-ins/wpg/wpg.c:1320
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1332
+#: plug-ins/wpg/wpg.c:1348
 msgid "WordPerfect Graphics export filter"
 msgstr "Penapis eksport Grafik WordPerfect"
 
-#: plug-ins/xfig/xfig-export.c:428
-msgid "Arrow type none -- shouldn't happen\n"
-msgstr "Jenis anak panah kosong -- tidak seharusnya berlaku\n"
-
-#: plug-ins/xfig/xfig-export.c:442
+#: plug-ins/xfig/xfig-export.c:454
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Format FIG tidak bersesuaian dengan gaya anak panah %s, gunakan anak panah "
 "mudah.\n"
 
-#: plug-ins/xfig/xfig-export.c:463
+#: plug-ins/xfig/xfig-export.c:475
 msgid "No more user-definable colors - using black"
 msgstr "Tiada lagi warna pengguna-tertakrif - gunakan hitam"
 
-#: plug-ins/xfig/xfig-export.c:1136
+#: plug-ins/xfig/xfig-export.c:1149
 msgid "XFig format"
 msgstr "Format XFig"
 
@@ -4777,188 +5231,188 @@ msgstr "Ralat apabila membaca kepala anak panah\n"
 msgid "Unknown arrow type %d\n"
 msgstr "Jenis anak panah %d tak diketahui\n"
 
-#: plug-ins/xfig/xfig-import.c:712
+#: plug-ins/xfig/xfig-import.c:731
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Tidak boleh membaca info elips: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:780
+#: plug-ins/xfig/xfig-import.c:799
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Tidak dapat membuang fail: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:795
+#: plug-ins/xfig/xfig-import.c:814
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Tidak boleh membaca petikan bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:813
+#: plug-ins/xfig/xfig-import.c:832
 msgid "Negative corner radius, negating"
 msgstr "Penjuru radius negatif, negating"
 
-#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
+#: plug-ins/xfig/xfig-import.c:876 plug-ins/xfig/xfig-import.c:1192
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Subjenis polyline tak diketahui: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1058
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Tidak dapat membaca info spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
+#: plug-ins/xfig/xfig-import.c:1045 plug-ins/xfig/xfig-import.c:1063
 msgid "Cannot convert approximated spline yet."
 msgstr "Tidak boleh tukar anggaran spline lagi."
 
-#: plug-ins/xfig/xfig-import.c:1084
+#: plug-ins/xfig/xfig-import.c:1103
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subjenis spline tak diketahui: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1147
+#: plug-ins/xfig/xfig-import.c:1166
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Tidak dapat membaca info lengkok:  %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1237
+#: plug-ins/xfig/xfig-import.c:1256
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Tidak dapat membaca info teks: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1278
+#: plug-ins/xfig/xfig-import.c:1319
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Tidak dapat mengenalpasti objek FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1286
+#: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
 msgstr "Kawasan berakhir di luar kawasan\n"
 
-#: plug-ins/xfig/xfig-import.c:1305
+#: plug-ins/xfig/xfig-import.c:1346
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Tidak dapat membaca warna: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1350
+#: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Tidak dapat membaca kumpulan tambahan: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1361
+#: plug-ins/xfig/xfig-import.c:1402
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Jenis objek tak diketahui %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1384
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' bukan salah satu `%s' atau `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1394
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Ralat membaca saiz kertas: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1404
+#: plug-ins/xfig/xfig-import.c:1447
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Saiz kertas `%s' tak diketahui, gunakan piawai\n"
 
-#: plug-ins/xfig/xfig-import.c:1416
+#: plug-ins/xfig/xfig-import.c:1459
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Ralat membaca orientasi kertas: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1426
+#: plug-ins/xfig/xfig-import.c:1469
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Ralat membaca justifikasi: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1436
+#: plug-ins/xfig/xfig-import.c:1479
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Ralat membaca unit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1450
+#: plug-ins/xfig/xfig-import.c:1493
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Ralat membaca pembesaran: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1461
+#: plug-ins/xfig/xfig-import.c:1504
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Ralat membaca pelbagai halaman penunjuk : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1472
+#: plug-ins/xfig/xfig-import.c:1515
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Ralat membaca warna lutsinar: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
-#: plug-ins/xfig/xfig-import.c:1554
+#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
+#: plug-ins/xfig/xfig-import.c:1597
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Ralat membaca fail FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
+#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
 msgid "Premature end of FIG file\n"
 msgstr "Akhir fail FIG matang\n"
 
-#: plug-ins/xfig/xfig-import.c:1492
+#: plug-ins/xfig/xfig-import.c:1535
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Ralat membaca resolusi: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1523
+#: plug-ins/xfig/xfig-import.c:1566
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Tidak dilihat seperti fail FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1529
+#: plug-ins/xfig/xfig-import.c:1572
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Ini adalah FIG versi %d.Fail %d, Saya mungkin tidak memahaminya\n"
 
-#: plug-ins/xfig/xfig-import.c:1577
+#: plug-ins/xfig/xfig-import.c:1620
 msgid "XFig File Format"
 msgstr "Fail Format XFig"
 
-#: plug-ins/xfig/xfig.c:39
+#: plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
 msgstr "Penapis import dan eksport Format Fig"
 
-#: plug-ins/xslt/xslt.c:93
+#: plug-ins/xslt/xslt.c:102
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Ralat semasa mengurai %s\n"
 
-#: plug-ins/xslt/xslt.c:101
+#: plug-ins/xslt/xslt.c:110
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Ralat semasa mengurai lembaran gaya %s\n"
 
-#: plug-ins/xslt/xslt.c:107
+#: plug-ins/xslt/xslt.c:116
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Ralat semasa menggunakan lembaran gaya %s\n"
 
-#: plug-ins/xslt/xslt.c:115
+#: plug-ins/xslt/xslt.c:124
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Ralat semasa mengurai lembaran gaya: %s\n"
 
-#: plug-ins/xslt/xslt.c:123
+#: plug-ins/xslt/xslt.c:132
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Ralat semasa menggunakan lembaran gaya: %s\n"
 
-#: plug-ins/xslt/xslt.c:303
+#: plug-ins/xslt/xslt.c:317
 msgid "XSL Transformation filter"
 msgstr "Penapis Pemindahan XSL"
 
-#: plug-ins/xslt/xslt.c:327
+#: plug-ins/xslt/xslt.c:341
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr "Tiada fail konfigurasi sah dijumpai bagi plugin XSLT, tidak dimuatkan."
 
@@ -4974,173 +5428,420 @@ msgstr "Dari:"
 msgid "To:"
 msgstr "Ke:"
 
-#: sheets/Assorted.sheet.in.h:1
+#. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
+#. Leave as is for now, renaming too much hassle.
+#. Will probably need to split into seperate sheets soon anyway.
+#: sheets/Assorted.sheet.in.h:4
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
 "Pelbagai koleksi Poligon, Beziergons dan bermacam-macam lagi Bentuk Geometrik"
 
-#: sheets/Assorted.sheet.in.h:2
+#. Please talk to me before making any changes to this sheet
+#: sheets/Assorted.sheet.in.h:6
 msgid "Assorted"
 msgstr "Kepelbagaian"
 
-#: sheets/Assorted.sheet.in.h:3
+#: sheets/Assorted.sheet.in.h:7
 msgid "Chevron"
 msgstr "Chevron"
 
-#: sheets/Assorted.sheet.in.h:4
+#: sheets/Assorted.sheet.in.h:8
 msgid "Curved eight point star"
 msgstr "Lapan titik bintang melengkung"
 
-#: sheets/Assorted.sheet.in.h:5
+#: sheets/Assorted.sheet.in.h:9
 msgid "Curved four point star"
 msgstr "Empat titik bintang melengkung"
 
-#: sheets/Assorted.sheet.in.h:6
+#: sheets/Assorted.sheet.in.h:10
 msgid "Diamond"
 msgstr "Berlian"
 
-#: sheets/Assorted.sheet.in.h:7
+#: sheets/Assorted.sheet.in.h:11
 msgid "Down arrow"
 msgstr "Anak Panah bawah"
 
-#: sheets/Assorted.sheet.in.h:8
+#: sheets/Assorted.sheet.in.h:12
 msgid "Eight point star"
 msgstr "Lapan titik bintang"
 
-#: sheets/Assorted.sheet.in.h:9
+#: sheets/Assorted.sheet.in.h:13
+#, fuzzy
+msgid "Five point star"
+msgstr "Tujuh titik bintang"
+
+#: sheets/Assorted.sheet.in.h:14
 msgid "Four point star"
 msgstr "Empat titik bintang"
 
-#: sheets/Assorted.sheet.in.h:10
+#: sheets/Assorted.sheet.in.h:15
 msgid "Heart"
 msgstr "Hati"
 
-#: sheets/Assorted.sheet.in.h:11
+#: sheets/Assorted.sheet.in.h:16
 msgid "Heptagon. Seven sided shape"
 msgstr "Heptagon. Bentuk tujuh sisi"
 
-#: sheets/Assorted.sheet.in.h:12
+#: sheets/Assorted.sheet.in.h:17
 msgid "Hexagon. Six sided shape"
 msgstr "Heksagon. Bentuk enam sisi"
 
-#: sheets/Assorted.sheet.in.h:13
+#: sheets/Assorted.sheet.in.h:18
 msgid "Horizontal parallelogram"
 msgstr "Parallelogram mengufuk"
 
-#: sheets/Assorted.sheet.in.h:14
+#: sheets/Assorted.sheet.in.h:19
 msgid "Isoceles triangle"
 msgstr "Segitiga Isoceles"
 
-#: sheets/Assorted.sheet.in.h:15
+#: sheets/Assorted.sheet.in.h:20
 msgid "Left arrow"
 msgstr "Anak Panah Kiri"
 
-#: sheets/Assorted.sheet.in.h:16
+#: sheets/Assorted.sheet.in.h:21
 msgid "Left-right arrow"
 msgstr "Anak Panah kiri-kanan"
 
-#: sheets/Assorted.sheet.in.h:17
+#: sheets/Assorted.sheet.in.h:22
 msgid "Left-right-up arrow"
 msgstr "Anak Panah kiri-kanan-naik"
 
-#: sheets/Assorted.sheet.in.h:18
+#: sheets/Assorted.sheet.in.h:23
 msgid "Left-up arrow"
 msgstr "Anak Panah kiri-naik"
 
-#: sheets/Assorted.sheet.in.h:19
+#: sheets/Assorted.sheet.in.h:24
 msgid "Maltese cross"
 msgstr "Maltese bersilang"
 
-#: sheets/Assorted.sheet.in.h:20
+#: sheets/Assorted.sheet.in.h:25
 msgid "Notched left arrow"
 msgstr "Anak panah kiri ditakik"
 
-#: sheets/Assorted.sheet.in.h:21
+#: sheets/Assorted.sheet.in.h:26
 msgid "Notched right arrow"
 msgstr "Anak panah kanan ditakik"
 
-#: sheets/Assorted.sheet.in.h:22
+#: sheets/Assorted.sheet.in.h:27
 msgid "Octogon. Eight sided shape"
 msgstr "Oktogon. Bentuk lapan sisi"
 
-#: sheets/Assorted.sheet.in.h:23
+#: sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
 msgstr "Anak panah blok pentagon"
 
-#: sheets/Assorted.sheet.in.h:24
+#: sheets/Assorted.sheet.in.h:29
 msgid "Pentagon. Five sided shape"
 msgstr "Pentagom. Bentuk lima sisi"
 
-#: sheets/Assorted.sheet.in.h:25
+#: sheets/Assorted.sheet.in.h:30
 msgid "Perfect circle"
 msgstr "Bulatan penuh"
 
-#: sheets/Assorted.sheet.in.h:26
+#: sheets/Assorted.sheet.in.h:31
 msgid "Perfect square, height equals width"
 msgstr "Segiempat penuh, tinggi sama dengan lebar"
 
-#: sheets/Assorted.sheet.in.h:27
+#: sheets/Assorted.sheet.in.h:32
 msgid "Quad arrow"
 msgstr "Anak Panah Quad"
 
-#: sheets/Assorted.sheet.in.h:28
+#: sheets/Assorted.sheet.in.h:33
 msgid "Quarter circle"
 msgstr "Suku bulatan"
 
-#: sheets/Assorted.sheet.in.h:29
+#: sheets/Assorted.sheet.in.h:34
 msgid "Quarter moon"
 msgstr "Suku bulan"
 
 # ui/galeon.glade.h:268
-#: sheets/Assorted.sheet.in.h:30
+#: sheets/Assorted.sheet.in.h:35
 msgid "Right angle triangle"
 msgstr "Sudut kanan segitiga"
 
-#: sheets/Assorted.sheet.in.h:31
+#: sheets/Assorted.sheet.in.h:36
 msgid "Right arrow"
 msgstr "Anak panah kanan"
 
-#: sheets/Assorted.sheet.in.h:32
+#: sheets/Assorted.sheet.in.h:37
 msgid "Seven point star"
 msgstr "Tujuh titik bintang"
 
-#: sheets/Assorted.sheet.in.h:33
+#: sheets/Assorted.sheet.in.h:38
 msgid "Sharp eight point star"
 msgstr "Lapan titik bintang tajam"
 
-#: sheets/Assorted.sheet.in.h:34
+#: sheets/Assorted.sheet.in.h:39
 msgid "Six point star"
 msgstr "Enam titik bintang"
 
-#: sheets/Assorted.sheet.in.h:35
+#: sheets/Assorted.sheet.in.h:40
 msgid "Sun"
 msgstr "Sun"
 
-#: sheets/Assorted.sheet.in.h:36
+#: sheets/Assorted.sheet.in.h:41
 msgid "Swiss cross"
 msgstr "Silang Swiss"
 
-#: sheets/Assorted.sheet.in.h:37
+#: sheets/Assorted.sheet.in.h:42
 msgid "Trapezoid"
 msgstr "Trapezoid"
 
-#: sheets/Assorted.sheet.in.h:38
+#: sheets/Assorted.sheet.in.h:43
+#, fuzzy
+msgid "Turn-up arrow"
+msgstr "Anak Panah kiri-naik"
+
+#: sheets/Assorted.sheet.in.h:44
 msgid "Up arrow"
 msgstr "Anak panah atas"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:45
 msgid "Up-down arrow"
 msgstr "Anak panah Atas-bawah"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:46
 msgid "Up-down-left arrow"
 msgstr "Panah Naik-turun-kiri"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
 msgstr "Parallelogram Menegak"
+
+#: sheets/ChemEng.sheet.in.h:1
+msgid "AC Generator"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:2
+#, fuzzy
+msgid "Air Cooler"
+msgstr "Tambah Sudut"
+
+#: sheets/ChemEng.sheet.in.h:3
+msgid "Autoclave"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:4
+#, fuzzy
+msgid "Axial Flow Fan"
+msgstr "Benarkan DOF"
+
+#: sheets/ChemEng.sheet.in.h:5
+#, fuzzy
+msgid "Basic Filter"
+msgstr "Penapis"
+
+#: sheets/ChemEng.sheet.in.h:6
+msgid "Centrifugal Pump or Fan"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:7
+#, fuzzy
+msgid "Centrifuge"
+msgstr "Pusat penempatan firewall"
+
+#. For: zenith
+#: sheets/ChemEng.sheet.in.h:9
+#, fuzzy
+msgid "ChemEng"
+msgstr "Tukar"
+
+#: sheets/ChemEng.sheet.in.h:10
+msgid "Clarifier or Settling Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:11
+msgid "Collection for chemical engineering"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:12
+#, fuzzy
+msgid "Compressor or Turbine"
+msgstr "Mampatkan fail diagram"
+
+#: sheets/ChemEng.sheet.in.h:13
+#, fuzzy
+msgid "Covered tank"
+msgstr "Tukar"
+
+#: sheets/ChemEng.sheet.in.h:14
+msgid "Cyclone and hydrocyclone"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:15
+#, fuzzy
+msgid "Double-Pipe Exchanger"
+msgstr "Segitiga Terisi berganda"
+
+#: sheets/ChemEng.sheet.in.h:16
+msgid "Ejector or Injector"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:17
+msgid "Fan or Stirrer"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:18
+msgid "Fixed-Sheet Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:19
+msgid "Floating-Head or U-Tube Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:20
+msgid "Fluid Contacting Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:21
+msgid "Forced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:22
+msgid "Gas Holder, basic"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:23
+msgid "Heating/Cooling Coil"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:24
+msgid "Heating/Cooling Coil, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:25
+msgid "Induced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:26
+msgid "Kettle Reboiler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:27
+msgid "Knock-out Drum (with demister pad)"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:28
+#, fuzzy
+msgid "Measurement"
+msgstr "Ukur"
+
+#: sheets/ChemEng.sheet.in.h:29
+#, fuzzy
+msgid "Mixer"
+msgstr "Adun"
+
+#: sheets/ChemEng.sheet.in.h:30
+#, fuzzy
+msgid "Open Tank"
+msgstr "Bulat Terbuka"
+
+#: sheets/ChemEng.sheet.in.h:31
+msgid "Plate Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:32
+#, fuzzy
+msgid "Pneumatic Line"
+msgstr "Pneumatik"
+
+#: sheets/ChemEng.sheet.in.h:33
+msgid "Pneumatic Line, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:34
+msgid "Positive Displacement Rotary Pump or Compressor"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:35
+msgid "Reactor or Absorption Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:36
+msgid "Reciprocating Compressor or Pump"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:37
+#, fuzzy
+msgid "Regulable Valve"
+msgstr "Selaras"
+
+#: sheets/ChemEng.sheet.in.h:38
+msgid "Regulable Valve, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:39
+msgid "Sealed Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:40
+#, fuzzy
+msgid "Simple Furnace"
+msgstr "Pencetak ringkas"
+
+#: sheets/ChemEng.sheet.in.h:41
+msgid "Simple Heat Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:42
+msgid "Simple Heat Exchanger, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:43
+#, fuzzy
+msgid "Simple Vessel"
+msgstr "Modem ringkas"
+
+#: sheets/ChemEng.sheet.in.h:44
+msgid "Spray Drier"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:45
+msgid "Spraying Device"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:46
+#, fuzzy
+msgid "Storage Sphere"
+msgstr "Penghala storan"
+
+#: sheets/ChemEng.sheet.in.h:47
+msgid "Tank with Fixed Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:48
+msgid "Tank with Floating Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:49
+msgid "Tray Column, detailed"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:50
+msgid "Tray Column, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:51
+#, fuzzy
+msgid "Valve"
+msgstr "Nilai:"
+
+#: sheets/ChemEng.sheet.in.h:52
+#, fuzzy
+msgid "Valve, vertical"
+msgstr "Flip menegak"
+
+#: sheets/ChemEng.sheet.in.h:53
+#, fuzzy
+msgid "Water Cooler"
+msgstr "Aras air"
+
+#: sheets/ChemEng.sheet.in.h:54
+#, fuzzy
+msgid "Water Cooler, vertical"
+msgstr "Aras air"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
@@ -5210,63 +5911,67 @@ msgstr "Mikrofon"
 msgid "NMOS transistor"
 msgstr "Transistor NMOS"
 
-#: sheets/Circuit.sheet.in.h:18
+#.
+#.
+#: sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
 msgstr "Transistor dwipolar NPN"
 
-#: sheets/Circuit.sheet.in.h:19
+#: sheets/Circuit.sheet.in.h:21
 msgid "Operational amplifier"
 msgstr "Pengoperasian amplifier"
 
-#: sheets/Circuit.sheet.in.h:20
+#: sheets/Circuit.sheet.in.h:22
 msgid "PMOS transistor"
 msgstr "Transistor PMOS"
 
-#: sheets/Circuit.sheet.in.h:21
+#.
+#.
+#: sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
 msgstr "Transistor dwipolar PNP"
 
-#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
 msgstr "Pembesarsuara"
 
-#: sheets/Circuit.sheet.in.h:23
+#: sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned LED"
 msgstr "LED dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:24
+#: sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned capacitor"
 msgstr "Kapastior dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:25
+#: sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned diode"
 msgstr "Diode dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned fuse"
 msgstr "Fius dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:27
+#: sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned inductor"
 msgstr "Induktor dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:28
+#: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned inductor (European)"
 msgstr "Induktor dijajarkan menegak (Eropah)"
 
-#: sheets/Circuit.sheet.in.h:29
+#: sheets/Circuit.sheet.in.h:33
 msgid "Vertically aligned powersource"
 msgstr "Sumber kuasa dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:30
+#: sheets/Circuit.sheet.in.h:34
 msgid "Vertically aligned resistor"
 msgstr "Perintang dijajarkan menegak"
 
-#: sheets/Circuit.sheet.in.h:31
+#: sheets/Circuit.sheet.in.h:35
 msgid "Vertically aligned resistor (European)"
 msgstr "Perintang dijajarkan menegak (Eropah)"
 
-#: sheets/Circuit.sheet.in.h:32
+#: sheets/Circuit.sheet.in.h:36
 msgid "Vertically aligned zener diode"
 msgstr "Zener diode dijajarkan menegak"
 
@@ -5326,6 +6031,138 @@ msgstr "Pembolehubah output mudah terima"
 msgid "Simple output variable"
 msgstr "Pembolehubah output mudah"
 
+#: sheets/Cybernetics.sheet.in.h:1
+msgid "Constant factor below -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:2
+msgid "Constant factor between 0 and -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:3
+msgid "Constant factor between 0 and 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:4
+msgid "Constant factor greater 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:5
+msgid "Constant negative shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:6
+msgid "Constant positive shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:7
+msgid "Cybernetics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:8
+#, fuzzy
+msgid "Elements of cybernetic circuits"
+msgstr "Komponen bagi litar elektrik"
+
+#: sheets/Cybernetics.sheet.in.h:9
+msgid "Full wave rectifier (absolute value)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:10
+msgid "Half wave rectifier or ramp input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:11
+msgid "High pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:12
+msgid "Integrator - input bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:13
+msgid "Integrator - input left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:14
+msgid "Integrator - input right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:15
+msgid "Integrator - input top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:16
+msgid "Low pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:17
+#, fuzzy
+msgid "Product"
+msgstr "Urus"
+
+#: sheets/Cybernetics.sheet.in.h:18
+msgid "Relay characteristic (sigma)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:19
+msgid "Saturation characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:20
+msgid "Sensor - bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:21
+msgid "Sensor - left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:22
+msgid "Sensor - right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:23
+msgid "Sensor - top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:24
+msgid "Sigmoid characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:25
+msgid "Sine characteristic or input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:26
+#, fuzzy
+msgid "Sum"
+msgstr "Sun"
+
+#: sheets/Cybernetics.sheet.in.h:27
+msgid "Sum, subtracting bottom input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:28
+msgid "Sum, subtracting left input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:29
+msgid "Sum, subtracting right input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:30
+msgid "Sum, subtracting top input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:31
+msgid "Template for custom characteristics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:32
+#, fuzzy
+msgid "Time delay"
+msgstr "Data masa"
+
 #: sheets/EML.sheet.in.h:1
 msgid "EML"
 msgstr "EML"
@@ -5359,44 +6196,86 @@ msgid "Weak entity"
 msgstr "Entiti Lemah"
 
 #: sheets/Electric.sheet.in.h:1
-msgid "Command organ of a relay"
-msgstr "Arahan perpindahan organ"
-
-#: sheets/Electric.sheet.in.h:2
 msgid "Components for electric circuits"
 msgstr "Komponen bagi litar elektrik"
 
-#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
+#: sheets/Electric.sheet.in.h:2 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Sambungan titik"
 
-#: sheets/Electric.sheet.in.h:4
+#: sheets/Electric.sheet.in.h:3
 msgid "Electric"
 msgstr "Elektrik"
 
+#: sheets/Electric.sheet.in.h:4
+#, fuzzy
+msgid "Lamp or indicator light (horizontal)"
+msgstr "Lampu atau penunjuk cahaya"
+
 #: sheets/Electric.sheet.in.h:5
-msgid "Lamp or indicator light"
+#, fuzzy
+msgid "Lamp or indicator light (vertical)"
 msgstr "Lampu atau penunjuk cahaya"
 
 #: sheets/Electric.sheet.in.h:6
-msgid "Normally closed contact"
+#, fuzzy
+msgid "Normally closed contact (horizontal)"
 msgstr "Kebiasaannya hubungan tutup"
 
 #: sheets/Electric.sheet.in.h:7
-msgid "Normally closed position switch"
-msgstr "Kebiasaannya pertukaran kedudukan tutup"
+#, fuzzy
+msgid "Normally closed contact (vertical)"
+msgstr "Kebiasaannya hubungan tutup"
 
 #: sheets/Electric.sheet.in.h:8
-msgid "Normally open contact"
-msgstr "Kebiasaannya hubungan buka"
+#, fuzzy
+msgid "Normally closed position switch (horizontal)"
+msgstr "Kebiasaannya pertukaran kedudukan tutup"
 
 #: sheets/Electric.sheet.in.h:9
-msgid "Normally open position switch"
-msgstr "Kebiasanaanya pertukaran kedudukan buka"
+#, fuzzy
+msgid "Normally closed position switch (vertical)"
+msgstr "Kebiasaannya pertukaran kedudukan tutup"
 
 #: sheets/Electric.sheet.in.h:10
-msgid "Relay"
-msgstr "Siaran"
+#, fuzzy
+msgid "Normally open contact (horizontal)"
+msgstr "Kebiasaannya hubungan buka"
+
+#: sheets/Electric.sheet.in.h:11
+#, fuzzy
+msgid "Normally open contact (vertical)"
+msgstr "Kebiasaannya hubungan buka"
+
+#: sheets/Electric.sheet.in.h:12
+#, fuzzy
+msgid "Normally open position switch (horizontal)"
+msgstr "Kebiasanaanya pertukaran kedudukan buka"
+
+#: sheets/Electric.sheet.in.h:13
+#, fuzzy
+msgid "Normally open position switch (vertical)"
+msgstr "Kebiasanaanya pertukaran kedudukan buka"
+
+#: sheets/Electric.sheet.in.h:14
+#, fuzzy
+msgid "Relay (horizontal)"
+msgstr "Flip mengufuk"
+
+#: sheets/Electric.sheet.in.h:15
+#, fuzzy
+msgid "Relay (vertical)"
+msgstr "Flip menegak"
+
+#: sheets/Electric.sheet.in.h:16
+#, fuzzy
+msgid "The command organ of a relay (horizontal)"
+msgstr "Arahan perpindahan organ"
+
+#: sheets/Electric.sheet.in.h:17
+#, fuzzy
+msgid "The command organ of a relay (vertical)"
+msgstr "Arahan perpindahan organ"
 
 #: sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
@@ -5418,115 +6297,118 @@ msgstr "Fungsi"
 msgid "Orthogonal polyline flow"
 msgstr "Aliran Ortogon polygaris"
 
-#: sheets/Flowchart.sheet.in.h:1
+#. XXX
+#: sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
 msgstr "Kumpul semak"
 
-#: sheets/Flowchart.sheet.in.h:2
+#: sheets/Flowchart.sheet.in.h:3
 msgid "Connector"
 msgstr "Penyambung"
 
-#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:4 sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Keputusan"
 
-#: sheets/Flowchart.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:5
 msgid "Delay"
 msgstr "Tangguh"
 
-#: sheets/Flowchart.sheet.in.h:6
+#: sheets/Flowchart.sheet.in.h:7
 msgid "Document"
 msgstr "Dokumen"
 
-#: sheets/Flowchart.sheet.in.h:8
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Flowchart"
 msgstr "Cartalir"
 
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:10
 msgid "Input/Output"
 msgstr "Input/Output"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:11
 msgid "Internal storage"
 msgstr "Storan dalaman"
 
-#: sheets/Flowchart.sheet.in.h:11
+#: sheets/Flowchart.sheet.in.h:12
 msgid "Magnetic disk"
 msgstr "Cakera magnetik"
 
-#: sheets/Flowchart.sheet.in.h:12
+#: sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic drum"
 msgstr "Dram magnetik"
 
-#: sheets/Flowchart.sheet.in.h:13
+#: sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic tape"
 msgstr "Pita magnetik"
 
-#: sheets/Flowchart.sheet.in.h:14
+#: sheets/Flowchart.sheet.in.h:15
 msgid "Manual input"
 msgstr "Input Manual"
 
-#: sheets/Flowchart.sheet.in.h:15
+#: sheets/Flowchart.sheet.in.h:16
 msgid "Manual operation"
 msgstr "Operasi Manual"
 
-#: sheets/Flowchart.sheet.in.h:16
+#: sheets/Flowchart.sheet.in.h:17
 msgid "Merge"
 msgstr "Gabung"
 
-#: sheets/Flowchart.sheet.in.h:17
+#: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
 msgstr "Objek untuk melukis cartaalir"
 
-#: sheets/Flowchart.sheet.in.h:18
+#. XXX
+#: sheets/Flowchart.sheet.in.h:20
 msgid "Off page connector"
 msgstr "Halaman penyambung tutup"
 
-#: sheets/Flowchart.sheet.in.h:19
+#: sheets/Flowchart.sheet.in.h:21
 msgid "Offline storage"
 msgstr "Storan tutup talian"
 
-#: sheets/Flowchart.sheet.in.h:20
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Or"
 msgstr "Atau"
 
-#: sheets/Flowchart.sheet.in.h:21
+#: sheets/Flowchart.sheet.in.h:23
 msgid "Predefined process"
 msgstr "Proses ditentukan semula"
 
-#: sheets/Flowchart.sheet.in.h:22
+#: sheets/Flowchart.sheet.in.h:24
 msgid "Preparation"
 msgstr "Persediaan"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:25
 msgid "Process/Auxiliary Operation"
 msgstr "Proses/Operasi bantuan"
 
-#: sheets/Flowchart.sheet.in.h:24
+#: sheets/Flowchart.sheet.in.h:26
 msgid "Punched card"
 msgstr "Kad masuk"
 
-#: sheets/Flowchart.sheet.in.h:25
+#: sheets/Flowchart.sheet.in.h:27
 msgid "Punched tape"
 msgstr "Pita masuk"
 
-#: sheets/Flowchart.sheet.in.h:26
+#: sheets/Flowchart.sheet.in.h:28
 msgid "Sort"
 msgstr "Isih"
 
-#: sheets/Flowchart.sheet.in.h:27
+#. XXX
+#: sheets/Flowchart.sheet.in.h:30
 msgid "Summing junction"
 msgstr "Penjumlahan simpang"
 
-#: sheets/Flowchart.sheet.in.h:28
+#: sheets/Flowchart.sheet.in.h:31
 msgid "Terminal Interrupt"
 msgstr "Gangguan terminal"
 
-#: sheets/Flowchart.sheet.in.h:29
+#: sheets/Flowchart.sheet.in.h:32
 msgid "Transaction file"
 msgstr "Transaksi fail"
 
-#: sheets/Flowchart.sheet.in.h:30
+#: sheets/Flowchart.sheet.in.h:33
 msgid "Transmittal tape"
 msgstr "Pita siaran"
 
@@ -5562,9 +6444,322 @@ msgstr "OR vergent"
 msgid "Objects to design GRAFCET charts"
 msgstr "Objek untuk merekabentuk carta GRAFCET"
 
-#: sheets/GRAFCET.sheet.in.h:14
+#: sheets/GRAFCET.sheet.in.h:14 sheets/UML.sheet.in.h:30
 msgid "Transition"
 msgstr "Peralihan"
+
+#: sheets/IsometricMap.sheet.in.h:1
+msgid "Block 1, 2:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:2
+msgid "Block 2, 2:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:3
+msgid "Block 3, 4:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:4
+msgid "Block 4, 4:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:5
+msgid "Block 5, 3:3"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:6
+msgid "Block 6, 4:6"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:7
+#, fuzzy
+msgid "Block 7"
+msgstr "Tidak berkunci"
+
+#: sheets/IsometricMap.sheet.in.h:8
+msgid "Car 1, Front View"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:9
+msgid "Car 2, Rear View"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:10
+#, fuzzy
+msgid "Corner 1"
+msgstr "Surat"
+
+#: sheets/IsometricMap.sheet.in.h:11
+#, fuzzy
+msgid "Corner 2"
+msgstr "Surat"
+
+#: sheets/IsometricMap.sheet.in.h:12
+#, fuzzy
+msgid "Crossroads"
+msgstr "Silang"
+
+#: sheets/IsometricMap.sheet.in.h:13
+msgid "Elevated Road"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:14
+#, fuzzy
+msgid "Factory"
+msgstr "Sudut"
+
+#: sheets/IsometricMap.sheet.in.h:15
+msgid "Footbridge, Pedestrian Bridge"
+msgstr ""
+
+#. use dc:description instead?
+#: sheets/IsometricMap.sheet.in.h:17
+msgid "Isometric Directional Map Shapes"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:18
+msgid "Long Straight Road Section"
+msgstr ""
+
+#. use dc:title instead?
+#: sheets/IsometricMap.sheet.in.h:20
+msgid "Map, Isometric"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:21
+msgid "One Way Road Sign"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:22
+#, fuzzy
+msgid "River"
+msgstr "Berbalik"
+
+#: sheets/IsometricMap.sheet.in.h:23
+#, fuzzy
+msgid "Road Section"
+msgstr "Kilasan"
+
+#: sheets/IsometricMap.sheet.in.h:24
+#, fuzzy
+msgid "Roof1"
+msgstr "Rotor"
+
+#: sheets/IsometricMap.sheet.in.h:25
+#, fuzzy
+msgid "T-Junction"
+msgstr "Fungsi"
+
+#: sheets/IsometricMap.sheet.in.h:26
+msgid "Train 1, angled downward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:27
+msgid "Train 2, angled upward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:28
+msgid "Tree 1"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:1
+msgid "An i* agent"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:2
+msgid "An i* decomposition link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:3
+msgid "An i* dependency link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:4
+msgid "An i* goal"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:5
+msgid "An i* means-ends link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:6
+msgid "An i* negative contribution"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:7
+#, fuzzy
+msgid "An i* position"
+msgstr "Karangan"
+
+#: sheets/Istar.sheet.in.h:8
+msgid "An i* positive contribution"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:9
+msgid "An i* resource"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:10
+msgid "An i* role"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:11
+msgid "An i* softgoal"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:12
+msgid "An i* task"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:13
+msgid "An i* unspecified actor"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:14
+msgid "An i* unspecified link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:15
+#, fuzzy
+msgid "Objects to design i* diagrams"
+msgstr "Objek untuk merekabentuk diagram SADT"
+
+#: sheets/Istar.sheet.in.h:16
+msgid "RE-i*"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:1
+msgid "A Jackson designed domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:2
+msgid "A Jackson given domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:3
+msgid "A Jackson machine domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:4
+msgid "A Jackson requirement"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:5
+msgid "A Jackson requirement phenomenon"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:6
+msgid "A Jackson shared phenomenon"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:7
+#, fuzzy
+msgid "Objects to design Jackson diagrams"
+msgstr "Objek untuk merekabentuk diagram SADT"
+
+#: sheets/Jackson.sheet.in.h:8
+msgid "RE-Jackson"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:1
+msgid "A KAOS AND refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:2
+msgid "A KAOS OR refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:3
+#, fuzzy
+msgid "A KAOS agent"
+msgstr "Tambah Segmen"
+
+#: sheets/KAOS.sheet.in.h:4
+msgid "A KAOS assumption"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:5
+msgid "A KAOS binary conflict"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:6
+msgid "A KAOS capable-of"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:7
+msgid "A KAOS complete AND refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:8
+msgid "A KAOS complete OR refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:9
+msgid "A KAOS contribution"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:10
+msgid "A KAOS control link"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:11
+msgid "A KAOS goal"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:12
+msgid "A KAOS input"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:13
+msgid "A KAOS monitor link"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:14
+msgid "A KAOS obstacle"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:15
+msgid "A KAOS obstruction"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:16
+#, fuzzy
+msgid "A KAOS operation"
+msgstr "Operasi"
+
+#: sheets/KAOS.sheet.in.h:17
+msgid "A KAOS operationalization"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:18
+msgid "A KAOS output"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:19
+msgid "A KAOS performs"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:20
+msgid "A KAOS requirement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:21
+msgid "A KAOS responsibility"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:22
+msgid "A KAOS softgoal"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:23
+#, fuzzy
+msgid "Objects to design KAOS diagrams"
+msgstr "Objek untuk merekabentuk diagram SADT"
+
+#: sheets/KAOS.sheet.in.h:24
+msgid "RE-KAOS"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -5645,10 +6840,6 @@ msgstr "Komponen Peralatan Pelanggan telefon bimbit Tentera U.S."
 #: sheets/Misc.sheet.in.h:2
 msgid "Folder"
 msgstr "Folder"
-
-#: sheets/Misc.sheet.in.h:3
-msgid "Misc"
-msgstr "Lain-lain"
 
 #: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
@@ -5854,10 +7045,6 @@ msgstr "Komponen"
 msgid "Constraint, place a constraint on something"
 msgstr "Kekangan, letakkan kekangan dalam sesuatu"
 
-#: sheets/UML.sheet.in.h:10
-msgid "Dependency"
-msgstr "Kebergantungan"
-
 #: sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
 msgstr "Editor bagi Diagram Struktur Statik UML"
@@ -5898,6 +7085,10 @@ msgstr "Nod"
 msgid "Note"
 msgstr "Nota"
 
+#: sheets/UML.sheet.in.h:24
+msgid "Object"
+msgstr "Objek"
+
 #: sheets/UML.sheet.in.h:25
 msgid "Realizes, implements a specific interface"
 msgstr "Perlaksanaan, laksanakan antarmuka spesifik"
@@ -5906,11 +7097,11 @@ msgstr "Perlaksanaan, laksanakan antarmuka spesifik"
 msgid "Small package"
 msgstr "Pakej Kecil"
 
-#: sheets/UML.sheet.in.h:30
+#: sheets/UML.sheet.in.h:31
 msgid "UML"
 msgstr "UML"
 
-#: sheets/UML.sheet.in.h:31
+#: sheets/UML.sheet.in.h:32
 msgid "Use case"
 msgstr "Guna huruf kecil/besar"
 
@@ -7027,146 +8218,159 @@ msgid "Pieces of a jigsaw"
 msgstr "Serpihan jigsaw"
 
 #: sheets/network.sheet.in.h:1
+msgid "24 Port Patch Panel"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
 msgid "3 1/2 inch diskette"
 msgstr "Disket 3 1/2 inci"
 
-#: sheets/network.sheet.in.h:2
+#: sheets/network.sheet.in.h:3
 msgid "ATM switch symbol"
 msgstr "Simbol swtich ATM"
 
-#: sheets/network.sheet.in.h:3
+#: sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
 msgstr "Antena bagi transmisi tanpawayar"
 
-#: sheets/network.sheet.in.h:4
+#: sheets/network.sheet.in.h:5
 msgid "Bigtower PC"
 msgstr "PC Menarabesar"
 
-#: sheets/network.sheet.in.h:5
+#: sheets/network.sheet.in.h:6
 msgid "Computer"
 msgstr "Komputer"
 
-#: sheets/network.sheet.in.h:6
+#: sheets/network.sheet.in.h:7
 msgid "Desktop PC"
 msgstr "PC Desktop "
 
-#: sheets/network.sheet.in.h:7
+#: sheets/network.sheet.in.h:8
 msgid "Digitizing board"
 msgstr "Mendigitkan papan "
 
-#: sheets/network.sheet.in.h:8
+#: sheets/network.sheet.in.h:9
 msgid "Ethernet bus"
 msgstr "Bas Internet"
 
-#: sheets/network.sheet.in.h:9
+#: sheets/network.sheet.in.h:10
 msgid "External DAT drive"
 msgstr "Pemacu Luaran DAT"
 
-#: sheets/network.sheet.in.h:10
+#: sheets/network.sheet.in.h:11
 msgid "Firewall router"
 msgstr "Penghala firewall"
 
-#: sheets/network.sheet.in.h:11
+#: sheets/network.sheet.in.h:12
 msgid "Laptop PC"
 msgstr "PC Laptop"
 
-#: sheets/network.sheet.in.h:12
+#: sheets/network.sheet.in.h:13
 msgid "Miditower PC"
 msgstr "PC Menara sederhana"
 
-#: sheets/network.sheet.in.h:13
+#: sheets/network.sheet.in.h:14
 msgid "Minitower PC"
 msgstr "PC menaramini"
 
-#: sheets/network.sheet.in.h:14
+#: sheets/network.sheet.in.h:15
 msgid "Mobile phone"
 msgstr "Telefon bimbit"
 
-#: sheets/network.sheet.in.h:15
+#: sheets/network.sheet.in.h:16
+msgid "Mobile telephony base station"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+#, fuzzy
+msgid "Mobile telephony cell"
+msgstr "Telefon bimbit"
+
+#: sheets/network.sheet.in.h:18
 msgid "Modular switching system"
 msgstr "Sistem pertukaran bermodul"
 
-#: sheets/network.sheet.in.h:16
+#: sheets/network.sheet.in.h:19
 msgid "Monitor"
 msgstr "Monitor"
 
-#: sheets/network.sheet.in.h:17
+#: sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Rangkaian"
 
-#: sheets/network.sheet.in.h:18
+#: sheets/network.sheet.in.h:21
 msgid "Network cloud"
 msgstr "Awan rangkaian"
 
-#: sheets/network.sheet.in.h:19
+#: sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
 msgstr "Objek untuk mereka diagram rangkaian"
 
-#: sheets/network.sheet.in.h:20
+#: sheets/network.sheet.in.h:23
 msgid "Plotter"
 msgstr "Pemplot"
 
-#: sheets/network.sheet.in.h:21
+#: sheets/network.sheet.in.h:24
 msgid "RJ45 wall-plug"
 msgstr "Plug-dinding RJ45"
 
-#: sheets/network.sheet.in.h:22
+#: sheets/network.sheet.in.h:25
 msgid "Router symbol"
 msgstr "Simbol penghala"
 
-#: sheets/network.sheet.in.h:23
+#: sheets/network.sheet.in.h:26
 msgid "Simple modem"
 msgstr "Modem ringkas"
 
-#: sheets/network.sheet.in.h:24
+#: sheets/network.sheet.in.h:27
 msgid "Simple printer"
 msgstr "Pencetak ringkas"
 
-#: sheets/network.sheet.in.h:25
+#: sheets/network.sheet.in.h:28
 msgid "Speaker with integrated amplifier"
 msgstr "Pembesar suara dengan amplifier bersepadu"
 
-#: sheets/network.sheet.in.h:26
+#: sheets/network.sheet.in.h:29
 msgid "Speaker without amplifier"
 msgstr "Pembesar tanpa amplifier"
 
-#: sheets/network.sheet.in.h:27
+#: sheets/network.sheet.in.h:30
 msgid "Stackable hub or switch"
 msgstr "Kebolehtindanan hub atau switch"
 
-#: sheets/network.sheet.in.h:28
+#: sheets/network.sheet.in.h:31
 msgid "Storage"
 msgstr "Storan"
 
-#: sheets/network.sheet.in.h:29
+#: sheets/network.sheet.in.h:32
 msgid "Switch symbol"
 msgstr "Tukar simbol"
 
-#: sheets/network.sheet.in.h:30
+#: sheets/network.sheet.in.h:33
 msgid "Telephone"
 msgstr "Telefon"
 
-#: sheets/network.sheet.in.h:31
+#: sheets/network.sheet.in.h:34
 msgid "UNIX workstation"
 msgstr "StesyenKerja UNIX"
 
-#: sheets/network.sheet.in.h:32
+#: sheets/network.sheet.in.h:35
 msgid "WAN connection"
 msgstr "Sambungan WAN"
 
-#: sheets/network.sheet.in.h:33
+#: sheets/network.sheet.in.h:36
 msgid "WAN link"
 msgstr "Pautan WAN"
 
-#: sheets/network.sheet.in.h:34
+#: sheets/network.sheet.in.h:37
 msgid "Wall-plug for the scEAD cabling system"
 msgstr "Plug-dinding untuk sistem kabel scEAD"
 
-#: sheets/network.sheet.in.h:35
+#: sheets/network.sheet.in.h:38
 msgid "Workstation monitor"
 msgstr "Monitor stesyenkerja"
 
-#: sheets/network.sheet.in.h:36
+#: sheets/network.sheet.in.h:39
 msgid "ZIP disk"
 msgstr "Cakera ZIP"
 
@@ -7201,3 +8405,240 @@ msgstr "Pangkalandata Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Pelayan replikasi Sybase"
+
+#~ msgid "Export to file format and exit.  Supported formats are: %s"
+#~ msgstr "Eksport ke format fail dan keluar. Format yg disokong adalah: %s"
+
+#~ msgid "FORMAT"
+#~ msgstr "FORMAT"
+
+#~ msgid "No object menu"
+#~ msgstr "Tiada menu objek"
+
+#~ msgid "Close"
+#~ msgstr "Tutup"
+
+#~ msgid "_New diagram"
+#~ msgstr "Diagram ba_ru"
+
+#~ msgid "_Diagram tree"
+#~ msgstr "Pepohon _diagram"
+
+#~ msgid "Show diagram tree"
+#~ msgstr "Papar pepohon diagram"
+
+#~ msgid "_Sheets and Objects..."
+#~ msgstr "_Helaian dan Objek..."
+
+#~ msgid "Modify sheets and their objects"
+#~ msgstr "Ubahsuai helaian dan objeknya"
+
+#~ msgid "P_lugins..."
+#~ msgstr "P_lug-in..."
+
+#~ msgid "_Export..."
+#~ msgstr "_Eksport..."
+
+#~ msgid "Page Set_up..."
+#~ msgstr "T_etapan Halaman..."
+
+#~ msgid "_Print Diagram..."
+#~ msgstr "_Cetak Diagram..."
+
+#~ msgid "Copy Text"
+#~ msgstr "Salin Teks"
+
+#~ msgid "Cut Text"
+#~ msgstr "Potong Teks"
+
+#~ msgid "Paste _Text"
+#~ msgstr "Tepek _Teks"
+
+#~ msgid "Zoom _In"
+#~ msgstr "Zoom _Masuk"
+
+#~ msgid "Zoom in 50%"
+#~ msgstr "Zoom masuk 50%"
+
+#~ msgid "Zoom _Out"
+#~ msgstr "Zoom _Keluar"
+
+#~ msgid "Zoom out 50%"
+#~ msgstr "Zoom keluar 50%"
+
+#~ msgid "_Zoom"
+#~ msgstr "_Zoom"
+
+#~ msgid "_AntiAliased"
+#~ msgstr "_Antialias"
+
+#~ msgid "Show _Grid"
+#~ msgstr "Papar _Grid"
+
+#~ msgid "_Snap To Grid"
+#~ msgstr "_Snap ke Grid"
+
+#~ msgid "Show _Rulers"
+#~ msgstr "Papar _Pembaris"
+
+#~ msgid "Show _Connection Points"
+#~ msgstr "Papar Titik _Sambungan"
+
+#~ msgid "New _View"
+#~ msgstr "_Paparan Baru"
+
+#~ msgid "Show _All"
+#~ msgstr "Papar Semu_a"
+
+#~ msgid "Redraw"
+#~ msgstr "Ulanglukis"
+
+#~ msgid "Replace"
+#~ msgstr "Ganti"
+
+#~ msgid "Union"
+#~ msgstr "Kesatuan"
+
+#~ msgid "Intersect"
+#~ msgstr "Bersilang"
+
+#~ msgid "Invert"
+#~ msgstr "Songsang"
+
+#~ msgid "All"
+#~ msgstr "Semua"
+
+#~ msgid "Connected"
+#~ msgstr "Tersambung"
+
+#~ msgid "Transitive"
+#~ msgstr "Transitif"
+
+#~ msgid "Equal Distance"
+#~ msgstr "Jarak Sama"
+
+#~ msgid "Adjacent"
+#~ msgstr "Bersebelahan"
+
+#~ msgid "Top"
+#~ msgstr "Atas"
+
+#~ msgid "Bottom"
+#~ msgstr "Bawah"
+
+#~ msgid "Send to _Back"
+#~ msgstr "Hantar ke _Belakang"
+
+#~ msgid "Bring to _Front"
+#~ msgstr "Bawa ke _Depan"
+
+#~ msgid "Send Backwards"
+#~ msgstr "Hantar ke Belakang"
+
+#~ msgid "Bring Forwards"
+#~ msgstr "Bawa Ke Depan"
+
+#~ msgid "_Group"
+#~ msgstr "_Kumpulan"
+
+#~ msgid "_Ungroup"
+#~ msgstr "_Nyahkumpul"
+
+#~ msgid "_Parent"
+#~ msgstr "_Ibubapa"
+
+#~ msgid "_Unparent"
+#~ msgstr "_Nyah Ibubapa"
+
+#~ msgid "_Unparent Children"
+#~ msgstr "_Nyah Ibubapa Anak"
+
+#~ msgid "Align _Horizontal"
+#~ msgstr "Jajar Meng_ufuk"
+
+#~ msgid "Align _Vertical"
+#~ msgstr "Jajar Me_negak"
+
+#~ msgid "_Layers"
+#~ msgstr "_Lapisan"
+
+#~ msgid "_Objects"
+#~ msgstr "_Objek"
+
+#~ msgid "_Tools"
+#~ msgstr "_Alatan"
+
+#~ msgid "_Dialogs"
+#~ msgstr "_Dialog"
+
+#~ msgid "_Input Methods"
+#~ msgstr "Kaedah _Input"
+
+#~ msgid "_Help"
+#~ msgstr "_Bantuan"
+
+#~ msgid "/Help/_Manual"
+#~ msgstr "/Bantuan/_Manual"
+
+#~ msgid "/View/Diagram Properties..."
+#~ msgstr "/Lihat/Ciri-ciri Diagram..."
+
+#~ msgid "/Objects/Align Horizontal/---"
+#~ msgstr "/Objek/Jajaran Mengufuk/---"
+
+#~ msgid "/Objects/Align Horizontal/Equal Distance"
+#~ msgstr "/Objek/Jajaran Mengufuk/Sama Jarak"
+
+#~ msgid "/Objects/Align Horizontal/Adjacent"
+#~ msgstr "/Objek/Jajaran Mengufuk/Bersebelahan"
+
+#~ msgid "/Objects/Align Vertical/---"
+#~ msgstr "/Objek/Jajaran Menegak/---"
+
+#~ msgid "/Objects/Align Vertical/Equal Distance"
+#~ msgstr "/Objek/Jajaran Menegak/Sama Jarak"
+
+#~ msgid "/_Dialogs"
+#~ msgstr "/_Dialog"
+
+#~ msgid "Error occured while printing"
+#~ msgstr "Ralat berlaku ketika mencetak"
+
+#~ msgid "Could not open `%s' for writing"
+#~ msgstr "Tidak dapat membuka %s untuk ditulis"
+
+#~ msgid "Can't open history file for writing."
+#~ msgstr "Tak dapat membuka fail sejarah untuk ditulis"
+
+#~ msgid "Diagram editor"
+#~ msgstr "Editor diagram"
+
+#~ msgid "Select font"
+#~ msgstr "Pilih font"
+
+#~ msgid "Length: "
+#~ msgstr "Panjang:"
+
+#~ msgid "Width: "
+#~ msgstr "Lebar:"
+
+#~ msgid "Helvetica"
+#~ msgstr "Helvetica"
+
+#~ msgid "Delete"
+#~ msgstr "Padam"
+
+#~ msgid "GdkPixbuf bitmap"
+#~ msgstr "GdkPixbuf bitmap"
+
+#~ msgid "Unexpected SVG path element"
+#~ msgstr "Elemen laluan SVG tidak dijangka"
+
+#~ msgid "Could not find SVG namespace."
+#~ msgstr "Tidak boleh mencari ruang nama SVG."
+
+#~ msgid "Arrow type none -- shouldn't happen\n"
+#~ msgstr "Jenis anak panah kosong -- tidak seharusnya berlaku\n"
+
+#~ msgid "Relay"
+#~ msgstr "Siaran"

@@ -197,4 +197,4 @@ $(srcdir)/diamarshal.c: $(srcdir)/diamarshal.h
 	&& rm -f xgen-gwmc xgen-gwmc~
 
 
-EXTRA_DIST = libdia.def makefile.msc
+EXTRA_DIST = libdia.def makefile.msc diamarshal.list

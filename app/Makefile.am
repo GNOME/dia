@@ -221,30 +221,27 @@ EXTRA_DIST = \
 	dia.def \
 	dia.ico \
 	dia.rc \
-	pixmaps/arrow.xpm \
+	\
+	pixmaps/swap.xpm \
 	pixmaps/default.xpm \
-	pixmaps/delete.xpm \
-	pixmaps/eye.xbm \
+	pixmaps/magnify.xpm \
+	pixmaps/scroll.xpm \
+	\
+	pixmaps/portrait.xpm \
+	pixmaps/landscape.xpm \
+	\
 	pixmaps/hand-open-data.xbm \
 	pixmaps/hand-open-mask.xbm \
 	pixmaps/hand-closed-data.xbm \
 	pixmaps/hand-closed-mask.xbm \
-	pixmaps/landscape.xpm \
-	pixmaps/line_break.xpm \
-	pixmaps/lower.xpm \
-	pixmaps/magnify.xpm \
 	pixmaps/magnify-plus-data.xbm \
 	pixmaps/magnify-plus-mask.xbm \
 	pixmaps/magnify-minus-data.xbm \
 	pixmaps/magnify-minus-mask.xbm \
+	\
+	pixmaps/missing.xpm \
 	pixmaps/n_a.xpm \
-	pixmaps/new.xpm \
-	pixmaps/portrait.xpm \
-	pixmaps/raise.xpm \
-	pixmaps/scroll.xpm \
-	pixmaps/snap-to-grid.xpm \
-	pixmaps/snap-to-grid-mask.xpm \
-	pixmaps/swap.xpm
+	pixmaps/line_break.xpm
 
 run_dia.sh$(EXEEXT): Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

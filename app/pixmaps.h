@@ -18,7 +18,6 @@
 
 /* This file is ONLY included in interface.c */
 
-#include "pixmaps/arrow.xpm"
 #include "pixmaps/swap.xpm"
 #include "pixmaps/default.xpm"
 #include "pixmaps/magnify.xpm"

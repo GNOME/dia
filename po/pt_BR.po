@@ -12,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-18 11:16+0100\n"
+"POT-Creation-Date: 2005-03-27 16:18+0200\n"
 "PO-Revision-Date: 2005-03-20 02:04-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:228
 #, c-format
@@ -30,112 +30,110 @@ msgstr "erro %s: não é possível exportar para %s\n"
 msgid "%s error: input and output file name is identical: %s"
 msgstr "erro %s: os nomes dos arquivos de entrada e saída são idênticos: %s"
 
-#: app/app_procs.c:245
+#: app/app_procs.c:246
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário um arquivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:290
+#: app/app_procs.c:291
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:436
+#: app/app_procs.c:437
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Impossível localizar o formato de filtro %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:523
+#: app/app_procs.c:524
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Selecione o filtro/formato fora de: %s"
 
 #. &export_file_name
-#: app/app_procs.c:542 app/app_procs.c:566
+#: app/app_procs.c:543 app/app_procs.c:567
 msgid "Export loaded file and exit"
 msgstr "Exportar o arquivo carregado e sair"
 
-#: app/app_procs.c:542 app/app_procs.c:566 app/diaconv.c:94
+#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
-#: app/app_procs.c:544 app/app_procs.c:568
+#: app/app_procs.c:545 app/app_procs.c:569
 msgid "TYPE"
 msgstr "TIPO"
 
-#: app/app_procs.c:546 app/app_procs.c:571
+#: app/app_procs.c:547 app/app_procs.c:572
 msgid "Export graphics size"
 msgstr "Tamanho do gráfico exportado"
 
-#: app/app_procs.c:546 app/app_procs.c:571
+#: app/app_procs.c:547 app/app_procs.c:572
 msgid "WxH"
 msgstr "LxA"
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:548 app/app_procs.c:573
+#: app/app_procs.c:549 app/app_procs.c:574
 msgid "Show only specified layers (e.g. when exporting)"
 msgstr "Mostrar apenas camadas especificadas (por exemplo, quando exportando)"
 
-#: app/app_procs.c:548 app/app_procs.c:573
+#: app/app_procs.c:549 app/app_procs.c:574
 msgid "LAYER,LAYER,..."
 msgstr "CAMADA,CAMADA,..."
 
-#: app/app_procs.c:550 app/app_procs.c:575
+#: app/app_procs.c:551 app/app_procs.c:576
 msgid "Don't show the splash screen"
 msgstr "Não mostrar a tela de abertura"
 
-#: app/app_procs.c:552 app/app_procs.c:577
+#: app/app_procs.c:553 app/app_procs.c:578
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar mensagens de erro pra stderr ao contrário de mostrar diálogos."
 
-#: app/app_procs.c:554 app/app_procs.c:579
+#: app/app_procs.c:555 app/app_procs.c:580
 msgid "Display credits list and exit"
 msgstr "Mostrar a lista de créditos e sair"
 
-#: app/app_procs.c:556 app/app_procs.c:581
+#: app/app_procs.c:557 app/app_procs.c:582
 msgid "Generate verbose output"
 msgstr "Gerar saída do interpretador"
 
-#: app/app_procs.c:558 app/app_procs.c:583
+#: app/app_procs.c:559 app/app_procs.c:584
 msgid "Display version and exit"
 msgstr "Mostrar a versão e sair"
 
-#: app/app_procs.c:584 app/diaconv.c:95
+#: app/app_procs.c:585 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: app/app_procs.c:632
+#: app/app_procs.c:633
 msgid "Can't connect to session manager!\n"
 msgstr "Impossível se conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:664
+#: app/app_procs.c:665
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versão do Dia %s, compilado %s %s\n"
 
-#: app/app_procs.c:666
+#: app/app_procs.c:667
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versão do Dia %s\n"
 
-#: app/app_procs.c:728 app/app_procs.c:730 app/diaconv.c:201 app/diaconv.c:203
-#, c-format
+#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Impossível encontrar os objetos padrão ao procurar object-libs, saindo...\n"
 
-#: app/app_procs.c:771
+#: app/app_procs.c:772
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: app/app_procs.c:813
+#: app/app_procs.c:814
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -144,7 +142,7 @@ msgstr ""
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
 #. no standard buttons
-#: app/app_procs.c:826
+#: app/app_procs.c:827
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -154,21 +152,21 @@ msgstr ""
 "Tem certeza de que deseja sair do Dia\n"
 "sem salvá-los?"
 
-#: app/app_procs.c:829
+#: app/app_procs.c:830
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:882
+#: app/app_procs.c:883
 msgid "Thank you for using Dia.\n"
 msgstr "Obrigado por utilizar o Dia.\n"
 
-#: app/app_procs.c:899 app/app_procs.c:906
+#: app/app_procs.c:900 app/app_procs.c:907
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: app/app_procs.c:908
+#: app/app_procs.c:909
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -177,15 +175,15 @@ msgstr ""
 "Certifique-se de que a variável de ambiente HOME aponta para um diretório "
 "existente."
 
-#: app/app_procs.c:930 app/diaconv.c:251
+#: app/app_procs.c:931 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: app/app_procs.c:972 app/diaconv.c:121
+#: app/app_procs.c:973 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [ARQUIVO...]"
 
-#: app/app_procs.c:975 app/diaconv.c:128
+#: app/app_procs.c:976 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -194,16 +192,16 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: app/app_procs.c:999
+#: app/app_procs.c:1000
 msgid "[FILE...]"
 msgstr "[ARQUIVO...]"
 
-#: app/app_procs.c:1014
+#: app/app_procs.c:1015
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' não encontrado!\n"
 
-#: app/app_procs.c:1093
+#: app/app_procs.c:1094
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -211,7 +209,7 @@ msgstr ""
 "O autor original do Dia foi:\n"
 "\n"
 
-#: app/app_procs.c:1098
+#: app/app_procs.c:1099
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -221,7 +219,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: app/app_procs.c:1103
+#: app/app_procs.c:1104
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -231,7 +229,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: app/app_procs.c:1108
+#: app/app_procs.c:1109
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -717,7 +715,6 @@ msgid "PNG Export Options"
 msgstr "Opções de exportação PNG"
 
 #. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "Exportar"
@@ -1109,9 +1106,6 @@ msgstr "/Arquivo/_Novo"
 msgid "/File/_Open..."
 msgstr "/Arquivo/_Abrir..."
 
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
@@ -1966,8 +1960,6 @@ msgid "Name:"
 msgstr "Nome:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
 #: objects/FS/function.c:860
 msgid "Remove"
@@ -2653,9 +2645,6 @@ msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#. Translators: Menu item Verb/Signal/Signal
-#. Translators: Menu item Noun/Signal
-#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
@@ -2681,15 +2670,12 @@ msgid "Verb"
 msgstr "Verbo"
 
 #. Translators: Menu item Verb/Channel
-#. Translators: Menu item Verb/Channel/Channel
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:678 objects/FS/function.c:680
 #: objects/FS/function.c:720
 msgid "Channel"
 msgstr "Canal"
 
 #. Translators: Menu item Verb/Channel/Import
-#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "Importar"
@@ -2705,7 +2691,6 @@ msgid "Receive"
 msgstr "Receber"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "Permitir"
@@ -2716,7 +2701,6 @@ msgid "Form Entrance"
 msgstr "Entrada de Formulário"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "Capturar"
@@ -2737,15 +2721,12 @@ msgid "Dispose"
 msgstr "Colocar"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:708 objects/FS/function.c:710
 #: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Transferir"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "Transportar"
@@ -2761,7 +2742,6 @@ msgid "Move"
 msgstr "Mover"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Transmitir"
@@ -2777,8 +2757,6 @@ msgid "Convey"
 msgstr "Transportar"
 
 #. Translators: Menu item Verb/Channel/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:732 objects/FS/function.c:734
 #: objects/FS/function.c:736
 msgid "Guide"
@@ -2805,7 +2783,6 @@ msgid "Translate"
 msgstr "Traduzir"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Rotacionar"
@@ -2821,7 +2798,6 @@ msgid "Spin"
 msgstr "Girar"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Permitir DOF"
@@ -2837,13 +2813,11 @@ msgid "Unlock"
 msgstr "Desbloquear"
 
 #. Translators: Menu item Verb/Support
-#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "Suporte"
 
 #. Translators: Menu item Verb/Support/Stop
-#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2860,7 +2834,6 @@ msgid "Protect"
 msgstr "Proteger"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Prevenir"
@@ -2876,7 +2849,6 @@ msgid "Inhibit"
 msgstr "Inibir"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Estabilizar"
@@ -2887,13 +2859,11 @@ msgid "Steady"
 msgstr "Firmar"
 
 #. Translators: Menu item Verb/Support/Secure
-#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "Defender"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "Anexar"
@@ -2919,7 +2889,6 @@ msgid "Hold"
 msgstr "Manter"
 
 #. Translators: Menu item Verb/Support/Position
-#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:800 objects/FS/function.c:802
 #: objects/Istar/actor.c:70
 msgid "Position"
@@ -2936,19 +2905,16 @@ msgid "Align"
 msgstr "Alinhar"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Localizar"
 
 #. Translators: Menu item Verb/Connect
-#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "Conectar"
 
 #. Translators: Menu item Verb/Connect/Couple
-#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "Emparelhar"
@@ -2964,7 +2930,6 @@ msgid "Assemble"
 msgstr "Montar"
 
 #. Translators: Menu item Verb/Connect/Mix
-#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "Misturar"
@@ -2995,14 +2960,11 @@ msgid "Coalesce"
 msgstr "Incorporar"
 
 #. Translators: Menu item Verb/Branch
-#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Ramificar"
 
 #. Translators: Menu item Verb/Branch/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:842 objects/FS/function.c:844
 #: objects/FS/function.c:846
 msgid "Separate"
@@ -3059,7 +3021,6 @@ msgid "Lathe"
 msgstr "Tornear"
 
 #. Translators: Menu item Verb/Branch/Refine
-#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "Refinar"
@@ -3090,7 +3051,6 @@ msgid "Clear"
 msgstr "Limpar"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Distribuir"
@@ -3111,7 +3071,6 @@ msgid "Disperse"
 msgstr "Dispersar"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Difundir"
@@ -3122,7 +3081,6 @@ msgid "Empty"
 msgstr "Esvaziar"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Dissipar"
@@ -3148,13 +3106,11 @@ msgid "Resist"
 msgstr "Resistir"
 
 #. Translators: Menu item Verb/Provision
-#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "Provisionar"
 
 #. Translators: Menu item Verb/Provision/Store
-#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "Armazenar"
@@ -3175,7 +3131,6 @@ msgid "Reserve"
 msgstr "Reservar"
 
 #. Translators: Menu item Verb/Provision/Supply
-#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "Fornecer"
@@ -3206,13 +3161,11 @@ msgid "Extract"
 msgstr "Extrair"
 
 #. Translators: Menu item Verb/Control Magnitude
-#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Controlar Magnitude"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Ativar"
@@ -3228,13 +3181,11 @@ msgid "Initiate"
 msgstr "Iniciar"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Regular"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
 #: objects/UML/classicon.c:126
 msgid "Control"
@@ -3261,7 +3212,6 @@ msgid "Interrupt"
 msgstr "Interromper"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "Mudar"
@@ -3312,7 +3262,6 @@ msgid "Adjust"
 msgstr "Ajustar"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "Formar"
@@ -3343,7 +3292,6 @@ msgid "Pierce"
 msgstr "Perfurar"
 
 #. Translators: Menu item Verb/Convert
-#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Converter"
@@ -3394,7 +3342,6 @@ msgid "Process"
 msgstr "Processar"
 
 #. Translators: Menu item Verb/Signal/Sense
-#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Sentir"
@@ -3425,7 +3372,6 @@ msgid "Verify"
 msgstr "Verificar"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Indicar"
@@ -3441,7 +3387,6 @@ msgid "Display"
 msgstr "Mostrar"
 
 #. Translators: Menu item Verb/Signal/Measure
-#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Medir"
@@ -3472,8 +3417,6 @@ msgid "Gas"
 msgstr "Gás"
 
 #. Translators: Menu item Noun/Material/Human
-#. Translators: Menu item Noun/Material/Human/Human
-#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1080 objects/FS/function.c:1082
 #: objects/FS/function.c:1166
 msgid "Human"
@@ -3615,7 +3558,6 @@ msgid "Convection"
 msgstr "Convecção"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Radiação"
@@ -3907,9 +3849,9 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "Seta SADT"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:150
-#: objects/flowchart/diamond.c:148 objects/flowchart/ellipse.c:147
-#: objects/flowchart/parallelogram.c:152
+#: objects/SADT/box.c:137 objects/flowchart/box.c:152
+#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
+#: objects/flowchart/parallelogram.c:154
 msgid "Text padding"
 msgstr "Espaço ao redor do texto"
 
@@ -4532,20 +4474,20 @@ msgstr "Inverter horizontalmente"
 msgid "Flip vertical"
 msgstr "Inverter verticalmente"
 
-#: objects/custom/custom_object.c:1443
+#: objects/custom/custom_object.c:1448
 msgid "Flip Horizontal"
 msgstr "Inverter Horizontalmente"
 
-#: objects/custom/custom_object.c:1444
+#: objects/custom/custom_object.c:1449
 msgid "Flip Vertical"
 msgstr "Inverter Verticalmente"
 
-#: objects/custom/custom_object.c:1481
+#: objects/custom/custom_object.c:1486
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Impossível abrir ícone %s para o tipo de objeto '%s'."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:150
+#: objects/flowchart/box.c:150 objects/standard/box.c:150
 #: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
 msgid "Corner radius"
 msgstr "Raio dos cantos"
@@ -4554,7 +4496,7 @@ msgstr "Raio dos cantos"
 msgid "Flowchart objects"
 msgstr "Objetos de fluxograma"
 
-#: objects/flowchart/parallelogram.c:150
+#: objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
 msgstr "Ângulo de cisalhamento"
 
@@ -4871,7 +4813,6 @@ msgid "Keep aspect ratio"
 msgstr "Manter a mesma taxa de proporção"
 
 #. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
@@ -5339,11 +5280,11 @@ msgstr "Erro ao analisar folha de estilos: %s\n"
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Erro ao aplicar folha de estilos: %s\n"
 
-#: plug-ins/xslt/xslt.c:313
+#: plug-ins/xslt/xslt.c:317
 msgid "XSL Transformation filter"
 msgstr "Filtro de Transformação XSL"
 
-#: plug-ins/xslt/xslt.c:337
+#: plug-ins/xslt/xslt.c:341
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Nenhum arquivo de configuração válido encontrado para o plugin XSLT, não "
