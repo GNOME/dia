@@ -796,7 +796,7 @@ draw_string(RendererSVG *renderer,
     style = g_strconcat(style, "; text-anchor: start", NULL);
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-anchor: center", NULL);
+    style = g_strconcat(style, "; text-anchor: middle", NULL);
     break;
   case ALIGN_RIGHT:
     style = g_strconcat(style, "; text-anchor: end", NULL);
