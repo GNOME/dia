@@ -69,6 +69,7 @@ OBJECTS = \
 	orth_conn.obj \
 	paper.obj \
 	parent.obj \
+	persistence.obj \
 	plug-ins.obj \
 	poly_conn.obj \
 	polyshape.obj \

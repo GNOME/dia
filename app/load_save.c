@@ -939,8 +939,8 @@ diagram_cleanup_autosave(Diagram *dia)
   struct stat statbuf;
 
   savefile = dia->autosavefilename;
-  printf("Cleaning up autosave %s for %s\n", savefile, dia->filename);
   if (savefile == NULL) return;
+  printf("Cleaning up autosave %s for %s\n", savefile, dia->filename);
 
   if (stat(savefile, &statbuf) == 0) { /* Success */
     unlink(savefile);

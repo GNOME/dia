@@ -26,6 +26,7 @@
 #include "arrows.h"
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
+#include "persistence.h"
 
 #include <stdlib.h>
 #include <glib.h>
@@ -443,9 +444,12 @@ dia_font_selector_init (DiaFontSelector *fs)
 
     for (other_fonts = g_list_last(other_fonts);
 	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
-      printf("Adding font %s\n", (gchar*)other_fonts->data);
+      
       gchar *lowername = g_ascii_strdown((gchar*)other_fonts->data,
 					 strlen((gchar*)other_fonts->data));
+
+      printf("Adding font %s\n", (gchar*)other_fonts->data);
+
       dia_font_selector_add_font(lowername,
 				 (gchar*)other_fonts->data, TRUE);
       g_free(lowername);

@@ -164,12 +164,12 @@ struct _DiaRendererClass
   /* Draw a rounded rectangle, given its upper-left and lower-right corners */
   void (*draw_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
-                             Color *color, real rounding);
+                             Color *color, real radius);
   /* Same a DrawRoundedRectangleFunc, except the rectangle is filled using the
      current fill style */
   void (*fill_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
-                             Color *color, real rounding);
+                             Color *color, real radius);
 
   void (*draw_line_with_arrows)  (DiaRenderer *renderer, 
                                   Point *start, Point *end, 

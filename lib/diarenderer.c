@@ -109,10 +109,10 @@ static real get_text_width (DiaRenderer *renderer,
 
 static void draw_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
-                               Color *color, real rounding);
+                               Color *color, real radius);
 static void fill_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
-                               Color *color, real rounding);
+                               Color *color, real radius);
 static void draw_line_with_arrows  (DiaRenderer *renderer, 
                                     Point *start, Point *end, 
                                     real line_width,

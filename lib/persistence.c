@@ -107,6 +107,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
 
   if (string != NULL) {
     gchar **strings = g_strsplit(string, "\n", -1);
+    PersistentList *plist;
     GList *list = NULL;
     int i;
     for (i = 0; strings[i] != NULL; i++) {
@@ -114,7 +115,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
     }
     /* This frees the strings, too? */
     g_strfreev(strings);
-    PersistentList *plist = g_new(PersistentList, 1);
+    plist = g_new(PersistentList, 1);
     plist->glist = list;
     plist->role = role;
     plist->sorted = FALSE;

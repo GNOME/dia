@@ -40,6 +40,10 @@
 #define export Export
 #endif
 
+// it's so ugly --hb ;(
+// include before, cause it has extern "C" already
+
+#if 1
 extern "C" {
 
 #include "paginate_gdiprint.h"
@@ -52,6 +56,7 @@ extern "C" {
 #include "message.h"
 
 }
+#endif
 
 namespace W32 {
 #include <windows.h>

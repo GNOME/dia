@@ -135,8 +135,10 @@ OBJECTS = \
 
 !IFDEF OBJ_network
 OBJECTS = \
+	basestation.obj \
 	bus.obj \
 	network.obj \
+	radiocell.obj \
 	wanlink.obj
 !ENDIF
 

@@ -32,6 +32,7 @@ OBJECTS = \
 	cursor.obj \
 	cut_n_paste.obj \
 	defaults.obj \
+	diacanvas.obj \
 	diagram.obj \
 	diagram_tree.obj \
 	diagram_tree_menu.obj \
@@ -55,9 +56,9 @@ OBJECTS = \
 	gtkvwrapbox.obj \
 	gtkwrapbox.obj \
 	handle_ops.obj \
+	highlight.obj \
 	interface.obj \
 	layer_dialog.obj \
-#	lineprops_area.obj \
 	linewidth_area.obj \
 	load_save.obj \
 	magnify.obj \
@@ -69,7 +70,6 @@ OBJECTS = \
 	pagesetup.obj \
 	paginate_gdiprint.obj \
 	paginate_psprint.obj \
-	persistence.obj \
 	plugin-manager.obj \
 	preferences.obj \
 	properties.obj \

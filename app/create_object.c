@@ -24,6 +24,7 @@
 #include "preferences.h"
 #include "undo.h"
 #include "cursor.h"
+#include "highlight.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);

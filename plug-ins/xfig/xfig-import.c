@@ -1283,8 +1283,10 @@ fig_read_text(FILE *file, DiagramData *dia) {
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	}
     } else {
-	if (font == -1) font = "Times Roman"; /* "Default font" - wazzat? */
-	if (font < 0 || font > 34) {
+	if (font == -1) {
+	    /* "Default font" - wazzat? */
+	    tprop->attr.font = dia_font_new_from_legacy_name("Times Roman");
+	} else if (font < 0 || font > 34) {
 	    message_warning("Can't find Postscript font nr. %d, using sans\n", font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	} else {

@@ -21,6 +21,7 @@
 #include <string.h> /* strlen() */
 
 #include "dia_dirs.h"
+#include "message.h"
 #ifdef G_OS_WIN32
 #include <windows.h>
 #include <direct.h>

@@ -34,6 +34,7 @@
 
 #include "layer_dialog.h"
 #include "persistence.h"
+#include "widgets.h"
 
 #include "pixmaps/eye.xbm"
 #include "pixmaps/new.xpm"

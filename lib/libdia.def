@@ -11,8 +11,6 @@ EXPORTS
  apply_textattr_properties
  apply_textstr_properties
  arrow_draw
- arrow_draw
- arrow_draw
 
  attribute_first_data
  attribute_num_data
@@ -148,7 +146,7 @@ EXPORTS
  dia_alignment_selector_new
  dia_alignment_selector_set_alignment
  dia_arrow_chooser_new
- dia_arrow_chooser_set_arrow_type
+ dia_arrow_chooser_set_arrow
  dia_arrow_chooser_get_arrow_type
  dia_arrow_chooser_get_type
  dia_arrow_selector_get_arrow
@@ -160,6 +158,8 @@ EXPORTS
  dia_color_selector_new
  dia_color_selector_set_color
  dia_config_filename
+
+ arrow_type_from_name
 
  dia_file_selector_get_file
  dia_file_selector_get_type
@@ -182,6 +182,7 @@ EXPORTS
  dia_font_new_from_legacy_name
  dia_font_new_from_style
  dia_font_ref
+ dia_font_scaled_ascent
  dia_font_scaled_build_layout
  dia_font_scaled_string_width
  dia_font_set_any_family
@@ -196,6 +197,7 @@ EXPORTS
  dia_font_selector_set_font
 
  dia_gdk_renderer_get_type
+ dia_gdk_renderer_set_dashes
 
  dia_get_data_directory
  dia_get_lib_directory
@@ -224,6 +226,9 @@ EXPORTS
  dia_line_style_selector_get_type
  dia_line_style_selector_new
  dia_line_style_selector_set_linestyle
+
+ dia_line_chooser_get_type
+ dia_line_chooser_set_line_style
 
  dia_list_plugins
 
@@ -271,6 +276,8 @@ EXPORTS
  dia_transform_length
  dia_transform_coords
  dia_untransform_length
+
+ dia_toggle_button_new_with_images
 
  dia_sort_sheets
  get_sheets_list
@@ -452,7 +459,6 @@ EXPORTS
  pdtpp_true
 
  persistence_load
- persistence_restore_window
  persistence_save
  persistence_register_window
  persistence_register_window_create
@@ -464,6 +470,16 @@ EXPORTS
  persistent_list_add
  persistent_list_set_max_length
  persistent_list_remove
+ persistence_register_boolean
+ persistence_register_color
+ persistence_register_integer
+ persistence_register_real
+ persistence_register_string
+ persistence_set_boolean
+ persistence_set_color
+ persistence_set_integer
+ persistence_set_real
+ persistence_set_string
 
  point_add
  point_convex

@@ -35,6 +35,8 @@
 #include "diagramdata.h"
 #include "parent.h"
 
+G_BEGIN_DECLS
+
 /** This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {

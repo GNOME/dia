@@ -32,6 +32,7 @@
 #include <pango/pangoft2.h>
 #endif
 #include <gdk/gdk.h>
+#include <gtk/gtk.h> /* just for gtk_get_default_language() */
 
 #include "font.h"
 #include "message.h"

@@ -48,8 +48,10 @@ static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			  DDisplay *ddisp);
 static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
 				DDisplay *ddisp);
-void modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, 
-			   Point *clickedpoint);
+static void modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, 
+                                  Point *clickedpoint);
+static void modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, 
+                                   Point *clickedpoint);
 
 
 Tool *
