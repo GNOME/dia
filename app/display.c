@@ -665,6 +665,7 @@ update_snap_grid_status(DDisplay *ddisp)
   GtkWidget *image = NULL;
   GdkPixmap       *pixmap;
   gint            xsize, ysize;
+  GtkWidget *child;
 
   if (ddisp->grid.snap) {
     image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
@@ -688,8 +689,9 @@ update_snap_grid_status(DDisplay *ddisp)
       
     }
   }
-  gtk_container_remove(GTK_CONTAINER(ddisp->grid_status),
-		       gtk_bin_get_child(GTK_BIN(ddisp->grid_status)));
+  child = gtk_bin_get_child(GTK_BIN(ddisp->grid_status));
+  if (child != NULL)
+    gtk_container_remove(GTK_CONTAINER(ddisp->grid_status), child);
 
   gtk_image_get_pixmap(GTK_IMAGE(image), &pixmap, NULL);
   gdk_drawable_get_size(GDK_DRAWABLE(pixmap), &xsize, &ysize);
