@@ -31,6 +31,7 @@
 #include "commands.h"
 #include "dia_dirs.h"
 #include "diagram_tree_window.h"
+#include "intl.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 static const GtkTargetEntry create_object_targets[] = {
@@ -745,6 +746,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   int rows;
   GtkStyle *style;
   GSList *tmp;
+  gchar *str;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -819,8 +821,14 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 
     tool_setup_drag_source(button, data, pixmap, mask);
 
+#ifndef GTK_TALKS_UTF8
+    str = charconv_utf8_to_local8 (_(sheet_obj->description));
+    gtk_tooltips_set_tip (tool_tips, button, str, NULL);
+    g_free (str);
+#else
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(sheet_obj->description), NULL);
+#endif
   }
 }
 
@@ -828,6 +836,7 @@ static void
 fill_sheet_menu(void)
 {
   GSList *tmp;
+  gchar *str;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_menu),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -840,7 +849,13 @@ fill_sheet_menu(void)
     if (sheet->objects == NULL)
       continue;
 
+#ifndef GTK_TALKS_UTF8
+    str = charconv_utf8_to_local8 (_(sheet->name));
+    menuitem = gtk_menu_item_new_with_label (str);
+    g_free (str);
+#else
     menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
+#endif
     gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);

@@ -1,3 +1,10 @@
+2002-01-30  Akira TAGOH  <tagoh@redhat.com>
+
+	* app/interface.c (fill_sheet_wbox): needs to convert UTF-8 to locale
+	encoding for tooltips, if GTK_TALKS_UTF8 isn't defined.
+	(fill_sheet_menu): needs to convert UTF-8 to locale encoding for menu
+	items. if GTK_TALKS_UTF8 isn't defined.
+
 2002-01-29  Akira TAGOH  <tagoh@redhat.com>
 
 	* objects/UML/class.c (umlclass_calculate_data): fixed malloc size.
