@@ -24,7 +24,6 @@ app/linewidth_area.c
 app/load_save.c
 app/menus.c
 app/pagesetup.c
-app/paginate_gnomeprint.c
 app/paginate_psprint.c
 app/plugin-manager.c
 app/preferences.c
