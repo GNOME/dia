@@ -117,7 +117,11 @@ EXTRA_DIST = \
 	pixmaps/scroll.xpm \
 	pixmaps/swap.xpm \
 	pixmaps/portrait.xpm \
-	pixmaps/landscape.xpm
+	pixmaps/landscape.xpm \
+	pixmaps/hand-open-data.xbm \
+	pixmaps/hand-open-mask.xbm \
+	pixmaps/hand-closed-data.xbm \
+	pixmaps/hand-closed-mask.xbm
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
