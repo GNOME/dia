@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Cisco - Router</_name>
+  <_description>Router shapes by Cisco</_description>
+  <contents>
+    <object name="Cisco - Cisco 1000">
+    <_description>Cisco 1000</_description>
+    </object>
+    <object name="Cisco - 7500ARS (7513) Router">
+    <_description>7500ARS (7513)</_description>
+    </object>
+    <object name="Cisco - 7505 Router">
+    <_description>7505</_description>
+    </object>
+    <object name="Cisco - 7507 Router">
+    <_description>7507</_description>
+    </object>
+    <object name="Cisco - ATM Router">
+    <_description>ATM Router</_description>
+    </object>
+    <object name="Cisco - ATM Tag Switch Router">
+    <_description>ATM Tag Switch Router</_description>
+    </object>
+    <object name="Cisco - ATM Tag Sw Gigabit Router">
+    <_description>ATM Tag Sw Gigabit Router</_description>
+    </object>
+    <object name="Cisco - Broadband router">
+    <_description>Broadband router</_description>
+    </object>
+    <object name="Cisco - Content Service Router">
+    <_description>Content Service Router</_description>
+    </object>
+    <object name="Cisco - Gigabit Switch Router (ATM Tag)">
+    <_description>Gigabit Switch Router (ATM Tag)</_description>
+    </object>
+    <object name="Cisco - IAD router">
+    <_description>IAD router</_description>
+    </object>
+    <object name="Cisco - IP Telephony Router">
+    <_description>IP Telephony Router</_description>
+    </object>
+    <object name="Cisco - NetFlow router">
+    <_description>NetFlow router</_description>
+    </object>
+    <object name="Cisco - Optical Services Router">
+    <_description>Optical Services Router</_description>
+    </object>
+    <object name="Cisco - Router">
+    <_description>Router</_description>
+    </object>
+    <object name="Cisco - Router in building">
+    <_description>Router in building</_description>
+    </object>
+    <object name="Cisco - Router with Firewall">
+    <_description>Router with Firewall</_description>
+    </object>
+    <object name="Cisco - Router with Silicon Switch">
+    <_description>Router with Silicon Switch</_description>
+    </object>
+    <object name="Cisco - Storage Router">
+    <_description>Storage Router</_description>
+    </object>
+    <object name="Cisco - TDM router">
+    <_description>TDM router</_description>
+    </object>
+    <object name="Cisco - uBR910">
+    <_description>uBR910</_description>
+    </object>
+    <object name="Cisco - Voice router">
+    <_description>Voice router</_description>
+    </object>
+    <object name="Cisco - Wavelength router">
+    <_description>Wavelength router</_description>
+    </object>
+    <object name="Cisco - Workgroup 5000">
+    <_description>Workgroup 5000 Multilayer Switch</_description>
+    </object>
+    <object name="Cisco - Workgroup 5002">
+    <_description>Workgroup 5002 Multilayer Switch</_description>
+    </object>
+    <object name="Cisco - Workgroup 5500">
+    <_description>Workgroup 5500 Multilayer Switch</_description>
+    </object>
+  </contents>
+</sheet>

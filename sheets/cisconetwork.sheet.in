@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Cisco - Network</_name>
+  <_description>Network shapes by Cisco</_description>
+  <contents>
+    <object name="Cisco - 15200">
+    <_description>15200</_description>
+    </object>
+    <object name="Cisco - 3174 (desktop) cluster controller">
+    <_description>3174 (desktop) cluster controller</_description>
+    </object>
+    <object name="Cisco - 3X74 (floor) cluster controller">
+    <_description>3X74 (floor) cluster controller</_description>
+    </object>
+    <object name="Cisco - 6701">
+    <_description>6701</_description>
+    </object>
+    <object name="Cisco - 6705">
+    <_description>6705 Integrated Access Device</_description>
+    </object>
+    <object name="Cisco - 6732">
+    <_description>6732 Multiservice Access Platform</_description>
+    </object>
+    <object name="Cisco - 10700">
+    <_description>10700</_description>
+    </object>
+    <object name="Cisco - AccessPoint">
+    <_description>AccessPoint</_description>
+    </object>
+    <object name="Cisco - ADM">
+    <_description>ADM</_description>
+    </object>
+    <object name="Cisco - ASIC Processor">
+    <_description>ASIC Processor</_description>
+    </object>
+    <object name="Cisco - ATA">
+    <_description>ATA</_description>
+    </object>
+    <object name="Cisco - ATM 3800">
+    <_description>ATM 3800</_description>
+    </object>
+    <object name="Cisco - Bridge">
+    <_description>Bridge</_description>
+    </object>
+    <object name="Cisco - BBSM">
+    <_description>BBSM</_description>
+    </object>
+    <object name="Cisco - BTS 10200">
+    <_description>BTS 10200</_description>
+    </object>
+    <object name="Cisco - Cable Modem">
+    <_description>Cable Modem</_description>
+    </object>
+    <object name="Cisco - CallManager">
+    <_description>CallManager</_description>
+    </object>
+    <object name="Cisco - Catalyst Access Gateway">
+    <_description>Catalyst Access Gateway</_description>
+    </object>
+    <object name="Cisco - CDDI-FDDI">
+    <_description>CDDI-FDDI</_description>
+    </object>
+    <object name="Cisco - CDM Content Distribution Manager">
+    <_description>CDM Content Distribution Manager</_description>
+    </object>
+    <object name="Cisco - Centri Firewall">
+    <_description>Centri Firewall</_description>
+    </object>
+    <object name="Cisco - Content Engine (Cache Director)">
+    <_description>Content Engine (Cache Director)</_description>
+    </object>
+    <object name="Cisco - Content Transformation Engine (CTE)">
+    <_description>Content Transformation Engine (CTE)</_description>
+    </object>
+    <object name="Cisco - CSU/DSU">
+    <_description>CSU/DSU</_description>
+    </object>
+    <object name="Cisco - Distributed Director">
+    <_description>Distributed Director</_description>
+    </object>
+    <object name="Cisco - DPT">
+    <_description>DPT</_description>
+    </object>
+    <object name="Cisco - DSLAM">
+    <_description>DSLAM</_description>
+    </object>
+    <object name="Cisco - DWDM Filter">
+    <_description>DWDM Filter</_description>
+    </object>
+    <object name="Cisco - FDDI Ring">
+    <_description>FDDI Ring</_description>
+    </object>
+    <object name="Cisco - FC Storage">
+    <_description>FC Storage</_description>
+    </object>
+    <object name="Cisco - Firewall">
+    <_description>Firewall</_description>
+    </object>
+    <object name="Cisco - Front End Processor">
+    <_description>Front End Processor</_description>
+    </object>
+    <object name="Cisco - General appliance">
+    <_description>General appliance</_description>
+    </object>
+    <object name="Cisco - Generic gateway">
+    <_description>Generic gateway</_description>
+    </object>
+    <object name="Cisco - Generic processor">
+    <_description>Generic processor</_description>
+    </object>
+    <object name="Cisco - ICM">
+    <_description>ICM</_description>
+    </object>
+    <object name="Cisco - ICS">
+    <_description>ICS</_description>
+    </object>
+    <object name="Cisco - IOS Firewall">
+    <_description>IOS Firewall</_description>
+    </object>
+    <object name="Cisco - IP">
+    <_description>IP</_description>
+    </object>
+    <object name="Cisco - IP DSL">
+    <_description>IP DSL</_description>
+    </object>
+    <object name="Cisco - IPTC">
+    <_description>IPTC</_description>
+    </object>
+    <object name="Cisco - IPTV content manager">
+    <_description>IPTV content manager</_description>
+    </object>
+    <object name="Cisco - LocalDirector">
+    <_description>LocalDirector</_description>
+    </object>
+    <object name="Cisco - LongReach CPE">
+    <_description>LongReach CPE</_description>
+    </object>
+    <object name="Cisco - MAS Gateway">
+    <_description>MAS Gateway</_description>
+    </object>
+    <object name="Cisco - ME 1100">
+    <_description>ME 1100</_description>
+    </object>
+    <object name="Cisco - Metro 1500">
+    <_description>Metro 1500</_description>
+    </object>
+    <object name="Cisco - NetRanger">
+    <_description>NetRanger Intrusion Detection System</_description>
+    </object>
+    <object name="Cisco - NetSonar">
+    <_description>NetSonar Security Scanner</_description>
+    </object>
+    <object name="Cisco - Network Management">
+    <_description>Network Management</_description>
+    </object>
+    <object name="Cisco - ONS15500">
+    <_description>ONS15500 DWDM Platform</_description>
+    </object>
+    <object name="Cisco - Optical Amplifier">
+    <_description>Optical Amplifier</_description>
+    </object>
+    <object name="Cisco - Optical Transport">
+    <_description>Optical Transport</_description>
+    </object>
+    <object name="Cisco - PC Adapter Card">
+    <_description>PC Adapter Card</_description>
+    </object>
+    <object name="Cisco - PC Router Card">
+    <_description>PC Router Card</_description>
+    </object>
+    <object name="Cisco - PIX Firewall">
+    <_description>PIX Firewall</_description>
+    </object>
+    <object name="Cisco - Protocol Translator">
+    <_description>Protocol Translator</_description>
+    </object>
+    <object name="Cisco - PXF">
+    <_description>PXF</_description>
+    </object>
+    <object name="Cisco - RateMUX">
+    <_description>RateMUX</_description>
+    </object>
+    <object name="Cisco - Repeater">
+    <_description>Repeater</_description>
+    </object>
+    <object name="Cisco - SC2200 (Signalling Controller)">
+    <_description>SC2200 (Signalling Controller)</_description>
+    </object>
+    <object name="Cisco - STP">
+    <_description>STP</_description>
+    </object>
+    <object name="Cisco - System controller">
+    <_description>System controller</_description>
+    </object>
+    <object name="Cisco - Transpath">
+    <_description>Transpath</_description>
+    </object>
+    <object name="Cisco - Universal Gateway">
+    <_description>Universal Gateway</_description>
+    </object>
+    <object name="Cisco - VIP">
+    <_description>VIP</_description>
+    </object>
+    <object name="Cisco - VPN concentrator">
+    <_description>VPN concentrator</_description>
+    </object>
+    <object name="Cisco - VPN Gateway">
+    <_description>VPN Gateway</_description>
+    </object>
+    <object name="Cisco - Virtual switch controller (VSC 3000)">
+    <_description>Virtual switch controller (VSC 3000)</_description>
+    </object>
+    <object name="Cisco - Wireless Bridge">
+    <_description>Wireless Bridge</_description>
+    </object>
+    <object name="Cisco - Cloud">
+    <_description>Cloud</_description>
+    </object>
+    <object name="Cisco - Modem">
+    <_description>Modem</_description>
+    </object>
+    <object name="Cisco - MUX">
+    <_description>MUX</_description>
+    </object>
+    <object name="Cisco - Octel">
+    <_description>Octel</_description>
+    </object>
+    <object name="Cisco - PAD X.28">
+    <_description>PAD X.28</_description>
+    </object>
+    <object name="Cisco - PAD">
+    <_description>PAD</_description>
+    </object>
+    <object name="Cisco - PBX">
+    <_description>PBX</_description>
+    </object>
+  </contents>
+</sheet>

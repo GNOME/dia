@@ -5,7 +5,9 @@ sheet_in_files = \
   Flowchart.sheet.in Circuit.sheet.in Contact.sheet.in GRAFCET.sheet.in \
   chronogram.sheet.in SADT.sheet.in Pneumatic.sheet.in Electric.sheet.in \
   civil.sheet.in jigsaw.sheet.in MSE.sheet.in SDL.sheet.in Logic.sheet.in \
-  EML.sheet.in Misc.sheet.in Assorted.sheet.in
+  EML.sheet.in Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
+  ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
+  ciscorouter.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 
