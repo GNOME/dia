@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 03:10+0100\n"
-"PO-Revision-Date: 2004-01-16 07:10 :40+0000\n"
+"PO-Revision-Date: 2004-01-31 07:10 :40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1155,7 +1155,7 @@ msgstr ""
 
 #: app/menus.c:267
 msgid "_Select"
-msgstr "Tóg dath"
+msgstr "_Roghnaigh"
 
 #: app/menus.c:268
 msgid "_Objects"
@@ -1175,7 +1175,7 @@ msgstr ""
 
 #: app/menus.c:272
 msgid "_Help"
-msgstr "C_abhair"
+msgstr "C_uidiú"
 
 #: app/menus.c:283 app/menus.c:318
 msgid "/_File"
@@ -1218,19 +1218,19 @@ msgstr "/Comhad/_Éirigh As"
 
 #: app/menus.c:303 app/menus.c:467
 msgid "/_Help"
-msgstr "/C_abhair"
+msgstr "/C_uidiú"
 
 #: app/menus.c:305 app/menus.c:469
 msgid "/Help/_Manual"
-msgstr "/Cabhair/_Labhleabhar"
+msgstr "/Cuidiú/_Lábhleabhar"
 
 #: app/menus.c:307 app/menus.c:471
 msgid "/Help/---"
-msgstr "/Cabhair/---"
+msgstr "/Cuidiú/---"
 
 #: app/menus.c:308 app/menus.c:472
 msgid "/Help/_About..."
-msgstr "/Cabhair/_Faoi..."
+msgstr "/Cuidiú/_Faoi..."
 
 #: app/menus.c:324
 msgid "/File/_Save"
@@ -1402,51 +1402,51 @@ msgstr ""
 
 #: app/menus.c:391
 msgid "/_Select"
-msgstr "/_Tóg"
+msgstr "/__Roghnaigh"
 
 #: app/menus.c:393
 msgid "/Select/All"
-msgstr "/Tóg/Gach rud"
+msgstr "/Roghnaigh/Gach rud"
 
 #: app/menus.c:394
 msgid "/Select/None"
-msgstr "/Tóg/Tada"
+msgstr "/Roghnaigh/Tada"
 
 #: app/menus.c:395 app/menus.c:408
 msgid "/Select/Invert"
-msgstr "/Tóg/Invert"
+msgstr "/Roghnaigh/Invert"
 
 #: app/menus.c:396
 msgid "/Select/Connected"
-msgstr "/Tóg/Connected"
+msgstr "/Roghnaigh/Connected"
 
 #: app/menus.c:397
 msgid "/Select/Transitive"
-msgstr "/Tóg/Transitive"
+msgstr "/Roghnaigh/Transitive"
 
 #: app/menus.c:398
 msgid "/Select/Same Type"
-msgstr "Tóg/Same Type"
+msgstr "Roghnaigh/Same Type"
 
 #: app/menus.c:399
 msgid "/Select/---"
-msgstr "Tóg/---"
+msgstr "Roghnaigh/---"
 
 #: app/menus.c:400
 msgid "/Select/Replace"
-msgstr "Tóg/Replace"
+msgstr "/Roghnaigh/Replace"
 
 #: app/menus.c:402
 msgid "/Select/Union"
-msgstr "/Tóg/Union"
+msgstr "/Roghnaigh/Union"
 
 #: app/menus.c:404
 msgid "/Select/Intersect"
-msgstr "/Tóg/Intersect"
+msgstr "/Roghnaigh/Intersect"
 
 #: app/menus.c:406
 msgid "/Select/Remove"
-msgstr "/Tóg/Scríos"
+msgstr "/Roghnaigh/Scríos"
 
 #: app/menus.c:410
 msgid "/_Objects"
@@ -1650,7 +1650,7 @@ msgstr ""
 
 #: app/paginate_psprint.c:228
 msgid "Select Printer"
-msgstr "Tóg Clódóir"
+msgstr "Roghnaigh Clódóir"
 
 #: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
@@ -1689,7 +1689,7 @@ msgstr "Ainm"
 
 #: app/plugin-manager.c:269
 msgid "Description"
-msgstr ""
+msgstr "Tuarascail"
 
 #: app/plugin-manager.c:278
 msgid "Load at Startup"
@@ -1755,7 +1755,7 @@ msgstr "Portráid"
 
 #: app/preferences.c:130
 msgid "Paper type:"
-msgstr "Cinéal Páipéir:"
+msgstr "Saghas Páipéir:"
 
 #: app/preferences.c:133
 msgid "Background Colour:"
@@ -1784,7 +1784,7 @@ msgstr ""
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
 #: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
 msgid "Visible"
-msgstr "Sa Lar"
+msgstr ""
 
 #: app/preferences.c:146
 msgid "Page breaks:"
@@ -1959,7 +1959,7 @@ msgstr "Nua"
 
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794
 msgid "Type"
-msgstr "Cinéal"
+msgstr "Saghas"
 
 #: app/sheets_dialog.c:377
 msgid "Browse..."
@@ -1971,7 +1971,7 @@ msgstr ""
 
 #: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
-msgstr ""
+msgstr "tuarascail:"
 
 #: app/sheets_dialog.c:425
 msgid "Sheet name:"
@@ -1992,13 +1992,13 @@ msgstr ""
 
 #: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
-msgstr ""
+msgstr "Tuarascail:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
 #: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
 #: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
 msgid "Type:"
-msgstr "Cinéal:"
+msgstr "Saghas:"
 
 #: app/sheets_dialog.c:656
 msgid "Sheet"
@@ -2991,7 +2991,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: objects/FS/function.c:873
 msgid "Clear"
-msgstr "Glan"
+msgstr "Bánaigh"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #: objects/FS/function.c:875 objects/FS/function.c:877
@@ -3803,11 +3803,11 @@ msgstr ""
 
 #: objects/SADT/box.c:446 objects/standard/line.c:242
 msgid "Delete connection point"
-msgstr "/Radharc/Show _Connection Points"
+msgstr ""
 
 #: objects/SADT/box.c:451
 msgid "SADT box"
-msgstr ""
+msgstr "Bosca SADT"
 
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
@@ -4974,7 +4974,7 @@ msgstr "Deis"
 
 #: sheets/Assorted.sheet.in.h:32
 msgid "Seven point star"
-msgstr "/Tóg/Intersect"
+msgstr "/Roghnaigh/Intersect"
 
 #: sheets/Assorted.sheet.in.h:33
 msgid "Sharp eight point star"
@@ -6938,7 +6938,7 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:10
 msgid "Firewall router"
-msgstr "Tóg dath"
+msgstr ""
 
 #: sheets/network.sheet.in.h:11
 msgid "Laptop PC"
