@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * filter.c: definitions for adding new loaders and export filters.
- * Copyright (C) 1998 James Henstridge
+ * Copyright (C) 1999 James Henstridge
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
