@@ -649,4 +649,12 @@ dialogs_layers_callback(GtkWidget *widget, gpointer data)
 }
 
 
+void
+objects_align_callback(GtkWidget *widget, gpointer data)
+{
+  int align = (int)data;
+  object_list_align(ddisplay_active()->diagram->data->selected, align);
+  ddisplay_add_update_all(ddisplay_active());
+  diagram_flush(ddisplay_active()->diagram);     
+}
 

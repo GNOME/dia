@@ -82,7 +82,16 @@ static GtkItemFactoryEntry display_menu_items[] =
   {"/Objects/Place _Over",    NULL,         objects_place_over_callback, 0},
   {"/Objects/sep1",           NULL,         NULL,                        0, "<Separator>"},
   {"/Objects/_Group",         NULL,         objects_group_callback,      0},
-  {"/Objects/_Ungroup",       NULL,         objects_ungroup_callback,    0},
+  {"/Objects/_Ungroup",       NULL,         objects_ungroup_callback,    0},    
+  {"/Objects/sep1",           NULL,         NULL,                        0, "<Separator>"},
+  {"/Objects/_Align",         NULL,         NULL,                        0, "<Branch>"},
+  {"/Objects/Align/Left",     NULL,         objects_align_callback,      1},
+  {"/Objects/Align/Center",   NULL,         objects_align_callback,      2},
+  {"/Objects/Align/Right",    NULL,         objects_align_callback,      3},
+  {"/Objects/Align/Top",      NULL,         objects_align_callback,      4},
+  {"/Objects/Align/VCenter",  NULL,         objects_align_callback,      8},
+  {"/Objects/Align/Bottom",   NULL,         objects_align_callback,     12},
+
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
   {"/_Dialogs",               NULL,         NULL,                        0, "<Branch>"},
   {"/Dialogs/_Properties",    NULL,         dialogs_properties_callback,0},

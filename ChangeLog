@@ -1,3 +1,16 @@
+1998-12-21  Alexander Larsson  <alla@lysator.liu.se>
+
+	This is the asierra-981220 patch done by asierra@servidor.unam.mx.
+		
+	* app/commands.[ch]:
+	Added objects_align_callback().
+
+	* app/menus.c:
+	Added align objects to menu.
+
+	* app/object_ops.[ch]:
+	Add object_list_align().
+	
 1998-12-17  Alexander Larsson  <alla@lysator.liu.se>
 	* app/layer_dialog.[ch]:
 	New files. Handles the layers dialog. Needs a bugfix for glib to

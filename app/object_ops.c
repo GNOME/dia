@@ -213,3 +213,79 @@ object_list_move_delta(GList *objects, Point *delta)
   }
 }
 
+
+/* Align. Maybe this enum should be in a header file
+ 
+enum {
+    DIA_NO_HALIGN=0,
+    DIA_ALIGN_LEFT,
+    DIA_ALIGN_HCENTER,
+    DIA_ALIGN_RIGHT,
+    DIA_NO_VALIGN=0,
+    DIA_ALIGN_TOP=4,
+    DIA_ALIGN_VCENTER=8,
+    DIA_ALIGN_BOTTOM=12
+};
+
+ Todo:
+ * H eq. distance
+ * v eq. distance
+ */
+
+
+void
+object_list_align(GList *objects, int align)
+{
+  GList *list;
+  Object *obj;
+  Point pos;
+  real dx;
+  int halign, valign;
+  real w=0, h=0, x, y, x1 = 1000, y1 = 1000, x2 = -1000, y2 = -1000;  
+
+  list = objects;
+  
+  halign = align & 3;
+  valign = (align >> 2) & 3;
+    
+  /* get block's corners */
+  while (list != NULL) {
+    obj = (Object *) list->data;
+    
+    pos = obj->position;
+    w = obj->bounding_box.right - obj->bounding_box.left;
+    h = obj->bounding_box.bottom - obj->bounding_box.top;
+           
+    if (x1 > pos.x) x1 = pos.x;
+    if (y1 > pos.y) y1 = pos.y;
+    if (x2 < pos.x+w) x2 = pos.x+w;
+    if (y2 < pos.y+h) y2 = pos.y+h; 
+      
+    list = g_list_next(list);
+  }
+    
+  list = objects;
+
+  x = x1 + (x2 - x1)*(halign-1)/2;
+  y = y1 + (y2 - y1)*(valign-1)/2;
+    
+  /* Move objects */
+  while (list != NULL) {
+    obj = (Object *) list->data;
+    pos = obj->position;
+      
+    if (halign > 0) {  
+	dx = -(halign-1)*(obj->bounding_box.right - obj->bounding_box.left)/2;
+	pos.x = x + dx;
+    }
+
+    if (valign > 0) {  
+	dx = -(valign-1)*(obj->bounding_box.bottom - obj->bounding_box.top)/2;
+	pos.y = y + dx;
+    }
+      
+    obj->ops->move(obj, &pos);
+    list = g_list_next(list);
+  }
+}
+
