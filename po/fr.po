@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-04-04 00:35+0200\n"
+"POT-Creation-Date: 2001-04-07 15:03+0200\n"
 "PO-Revision-Date: 2001-04-05 00:31+0200\n"
 "Last-Translator: Cyrille Chépélov <chepelov@calixo.net>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -424,7 +424,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:195 lib/properties.h:383
+#: app/interface.c:58 app/menus.c:195 lib/properties.h:359
+#: lib/properties.h:383
 msgid "Text"
 msgstr "Texte"
 
@@ -516,7 +517,10 @@ msgstr "tooldata NULL dans tool_select_update"
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
-msgstr "Couleurs de trait et de fond. Les carrés noir et blancs réinitialisent les couleurs. La flèche permute ces couleurs. Un double clic permet de les changer."
+msgstr ""
+"Couleurs de trait et de fond. Les carrés noir et blancs réinitialisent les "
+"couleurs. La flèche permute ces couleurs. Un double clic permet de les "
+"changer."
 
 #: app/interface.c:1033
 msgid "Diagram Editor"
@@ -574,7 +578,7 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216
+#: app/linewidth_area.c:216 lib/properties.h:335
 msgid "Line width"
 msgstr "Largeur de ligne"
 
@@ -612,8 +616,8 @@ msgstr ""
 "Erreur au chargement du diagramme %s.\n"
 "La prise en compte de la connexion n'existe pas."
 
-#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:493 plug-ins/wpg/wpg.c:1038
-#: plug-ins/xfig/xfig-import.c:1391
+#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1038
+#: plug-ins/xfig/xfig-import.c:949
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ne peut ouvrir « %s » en lecture.\n"
@@ -1487,6 +1491,24 @@ msgstr "Dia v %s"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Erreur interne : `Setting corner type of endpoint of bezier'"
 
+#: lib/dia_xml.c:267
+msgid "Taking point value of non-point node."
+msgstr "Prend une valeur d'un noeud non-point comme un point."
+
+#: lib/dia_xml.c:276
+#, c-format
+msgid "Incorrect x Point value %f; discarding it."
+msgstr "Valeur x=%f d'un Point incorrecte ; rejetée."
+
+#: lib/dia_xml.c:284
+msgid "Error parsing point."
+msgstr "Erreur d'interprétation d'un point."
+
+#: lib/dia_xml.c:291
+#, c-format
+msgid "Incorrect y Point value %f; discarding it."
+msgstr "Valeur y=%f d'un Point incorrecte ; rejetée."
+
 #: lib/font.c:389
 #, c-format
 msgid ""
@@ -1551,47 +1573,48 @@ msgstr "Ne peut ouvrir « %s »"
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
-#: lib/properties.h:377
+#: lib/properties.h:338 lib/properties.h:377
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.h:378
+#: lib/properties.h:341 lib/properties.h:378
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.h:379
+#: lib/properties.h:345 lib/properties.h:379
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.h:380 objects/custom/custom_object.c:356
-#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
-#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
-#: objects/standard/beziergon.c:222 objects/standard/box.c:232
-#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
+#: lib/properties.h:348 lib/properties.h:380
+#: objects/custom/custom_object.c:356 objects/flowchart/box.c:317
+#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
+#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
+#: objects/standard/box.c:232 objects/standard/ellipse.c:220
+#: objects/standard/polygon.c:226
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.h:381
+#: lib/properties.h:352 lib/properties.h:381
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.h:382
+#: lib/properties.h:355 lib/properties.h:382
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.h:384
+#: lib/properties.h:362 lib/properties.h:384
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.h:385
+#: lib/properties.h:365 lib/properties.h:385
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.h:386
+#: lib/properties.h:368 lib/properties.h:386
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.h:387
+#: lib/properties.h:371 lib/properties.h:387
 msgid "Text colour"
 msgstr "Couleur du texte"
 
@@ -2608,11 +2631,11 @@ msgstr "Retourner verticalement"
 msgid "Alignment:"
 msgstr "Alignement :"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1352
 msgid "Flip Horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1339
+#: objects/custom/custom_object.c:1353
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
@@ -2702,7 +2725,7 @@ msgid "Show border:"
 msgstr "Montrer la bordure :"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:853 objects/standard/image.c:864
+#: objects/standard/image.c:851 objects/standard/image.c:862
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2712,7 +2735,7 @@ msgstr ""
 "Utilisation du fichier image « %s » à la place\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:870 objects/standard/image.c:896
+#: objects/standard/image.c:868 objects/standard/image.c:894
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Le fichier image « %s » n'a pas été trouvé.\n"
@@ -2761,7 +2784,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtre d'export Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:547
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:631
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2814,145 +2837,145 @@ msgstr "Filtre d'export WordPerfect"
 msgid "Fig Format import filter"
 msgstr "Filtre d'import depuis le format Fig"
 
-#: plug-ins/xfig/xfig-import.c:712
+#: plug-ins/xfig/xfig-import.c:270
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Erreur pendant la lecture du %d-ième point (de %d points) : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:731
+#: plug-ins/xfig/xfig-import.c:289
 msgid "Error while reading arrowhead\n"
 msgstr "Erreur lors de la lecture d'une tête de flèche\n"
 
-#: plug-ins/xfig/xfig-import.c:805
+#: plug-ins/xfig/xfig-import.c:363
 msgid "Patterns are not implemented\n"
 msgstr "Les motifs ne sont pas encore implémentés\n"
 
-#: plug-ins/xfig/xfig-import.c:850
+#: plug-ins/xfig/xfig-import.c:408
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "N'a pu lire les données de l'ellipse : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:1045
+#: plug-ins/xfig/xfig-import.c:442 plug-ins/xfig/xfig-import.c:603
 #, c-format
 msgid "Line style %d not supported\n"
 msgstr "Style de ligne %d non supporté.\n"
 
-#: plug-ins/xfig/xfig-import.c:961
+#: plug-ins/xfig/xfig-import.c:519
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "N'a pu lire les données de la polyligne : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:976
+#: plug-ins/xfig/xfig-import.c:534
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "N'a pu lire le bit retourné: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1019
+#: plug-ins/xfig/xfig-import.c:577
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Type de polyligne inconnu : %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1113
+#: plug-ins/xfig/xfig-import.c:671
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Information de texte illisible : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1159
+#: plug-ins/xfig/xfig-import.c:717
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "N'a pu identifier l'objet FIG : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1173
+#: plug-ins/xfig/xfig-import.c:731
 msgid "Compound end outside compound\n"
 msgstr "Fin de composite hors du composite\n"
 
-#: plug-ins/xfig/xfig-import.c:1196
+#: plug-ins/xfig/xfig-import.c:754
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Couleur illisible : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1225
+#: plug-ins/xfig/xfig-import.c:783
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Ne peut lire l'extension de groupe : %s\n"
 
 #. Arc.
 #. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:1235
+#: plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Object type %d not implemented yet\n"
 msgstr "Type d'objet %d pas encore implémenté\n"
 
-#: plug-ins/xfig/xfig-import.c:1238
+#: plug-ins/xfig/xfig-import.c:796
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Type d'objet %d inconnu\n"
 
-#: plug-ins/xfig/xfig-import.c:1257
+#: plug-ins/xfig/xfig-import.c:815
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' n'est ni `%s' ni `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1267
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Erreur lors de la lecture de la taille du papier : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1289
+#: plug-ins/xfig/xfig-import.c:847
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Erreur lors de la lecture de l'orientation du papier : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1299
+#: plug-ins/xfig/xfig-import.c:857
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Erreur lors de la lecture de la justification : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1309
+#: plug-ins/xfig/xfig-import.c:867
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Erreur lors de la lecture des unités : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1323
+#: plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Erreur lors de la lecture du facteur d'échelle : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1334
+#: plug-ins/xfig/xfig-import.c:892
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Erreur lors de la lecture de l'indicateur de multi-pagination : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:903
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Erreur lors de la lecture de la couleur transparente : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1354 plug-ins/xfig/xfig-import.c:1410
+#: plug-ins/xfig/xfig-import.c:912 plug-ins/xfig/xfig-import.c:968
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Erreur lors de la lecture du fichier FIG : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1356 plug-ins/xfig/xfig-import.c:1412
+#: plug-ins/xfig/xfig-import.c:914 plug-ins/xfig/xfig-import.c:970
 msgid "Premature end of FIG file\n"
 msgstr "Fin prématurée de fichier FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:1365
+#: plug-ins/xfig/xfig-import.c:923
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Erreur lors de la lecture de la résolution : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1397
+#: plug-ins/xfig/xfig-import.c:955
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ceci ne semble pas être un fichier Fig : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1403
+#: plug-ins/xfig/xfig-import.c:961
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Ceci est un fichier FIG version %d.%d, je peux ne pas le comprendre\n"
 
-#: plug-ins/xfig/xfig-import.c:1456
+#: plug-ins/xfig/xfig-import.c:1014
 msgid "XFig File Format"
 msgstr "Format de fichier XFig"
 
@@ -3147,15 +3170,16 @@ msgstr "Format de fichier XFig"
 #~ "used.\n"
 #~ "Please upgrade it."
 #~ msgstr ""
-#~ "La bibliothèque d'objets \"%s\" provient d'une ancienne version de Dia et ne "
-#~ "peut pas être utilisée.\n"
+#~ "La bibliothèque d'objets \"%s\" provient d'une ancienne version de Dia et "
+#~ "ne peut pas être utilisée.\n"
 #~ "Il faut mettre à jour la bibliothèque."
 
 #~ msgid ""
 #~ "The object library \"%s\" is from an later version of Dia.\n"
 #~ "You need to upgrade Dia to use it."
 #~ msgstr ""
-#~ "La bibliothèque d'objets \"%s\" provient d'une version plus récente de Dia.\n"
+#~ "La bibliothèque d'objets \"%s\" provient d'une version plus récente de "
+#~ "Dia.\n"
 #~ "Il faut mettre à jour Dia pour utiliser cette bibliothèque."
 
 #~ msgid ""
