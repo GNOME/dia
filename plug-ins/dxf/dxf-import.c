@@ -119,6 +119,10 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     Object *line_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
     GPtrArray *props;
+    PointProperty *ptprop;
+    LinestyleProperty *lsprop;
+    ColorProperty *cprop;
+    RealProperty *rprop;
 
     real line_width = 0.1;
     LineStyle style = LINESTYLE_SOLID;
@@ -161,21 +165,22 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 		
     props = prop_list_from_descs(dxf_prop_descs,pdtpp_true);
     g_assert(props->len == 5);
-    
-    ((PointProperty *)(g_ptr_array_index(props,0)))->point_data.x = start.x;
-    ((PointProperty *)(g_ptr_array_index(props,0)))->point_data.y = start.y;
 
-    ((PointProperty *)(g_ptr_array_index(props,1)))->point_data.x = end.x;
-    ((PointProperty *)(g_ptr_array_index(props,1)))->point_data.y = end.y;
-    
+    ptprop = g_ptr_array_index(props,0);
+    ptprop->point_data = start;
 
-    ((ColorProperty *)(g_ptr_array_index(props,2)))->color_data = 
-        line_colour;
+    ptprop = g_ptr_array_index(props,1);
+    ptprop->point_data = end;
 
-    ((RealProperty *)(g_ptr_array_index(props,3)))->real_data = line_width;
+    cprop = g_ptr_array_index(props,2);
+    cprop->color_data = line_colour;
 
-    ((LinestyleProperty *)(g_ptr_array_index(props,4)))->style = style;
-    ((LinestyleProperty *)(g_ptr_array_index(props,4)))->dash = 1.0;
+    rprop = g_ptr_array_index(props,3);
+    rprop->real_data = line_width;
+
+    lsprop = g_ptr_array_index(props,4);
+    lsprop->style = style;
+    lsprop->dash = 1.0;
 
     line_obj->ops->set_props(line_obj, props);
 

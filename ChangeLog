@@ -1,3 +1,12 @@
+2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
+
+	* lib/properties.h: added comments next to the PROP_TYPEs to tell
+	which C Property subclass to use.
+	
+	* plug-ins/dxf/dxf-import.c: (read_entity_line_dxf): Removed the
+	cast-ridden form of setting properties in a list, in favour for
+	the "local pointers" form. I'll take any better offer...
+
 2001-08-14  Cyrille Chepelov <chepelov@calixo.net>
 	
 	* lib/font.c: fprintf(...) --> fprintf(format...)

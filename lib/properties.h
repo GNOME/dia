@@ -146,60 +146,61 @@ struct _PropertyOps {
 typedef const gchar *PropertyType;
 
 /* Basic types (can be used as building blocks) : */
-#define PROP_TYPE_INVALID "invalid"
-#define PROP_TYPE_NOOP "noop"
-#define PROP_TYPE_UNIMPLEMENTED "unimplemented"
+#define PROP_TYPE_INVALID "invalid"   /* InvalidProperty */
+#define PROP_TYPE_NOOP "noop"         /* NoopProperty */
+#define PROP_TYPE_UNIMPLEMENTED "unimplemented" /* UnimplementedProperty */
 
 /* Integral types : */
-#define PROP_TYPE_CHAR "char"
-#define PROP_TYPE_BOOL "bool"
-#define PROP_TYPE_INT "int"
-#define PROP_TYPE_INTARRAY "intarray"
-#define PROP_TYPE_ENUM "enum"
-#define PROP_TYPE_ENUMARRAY "enumarray"
+#define PROP_TYPE_CHAR "char"             /* CharProperty */
+#define PROP_TYPE_BOOL "bool"             /* BoolProperty */
+#define PROP_TYPE_INT "int"               /* IntProperty */
+#define PROP_TYPE_INTARRAY "intarray"     /* IntarrayProperty */
+#define PROP_TYPE_ENUM "enum"             /* EnumProperty */
+#define PROP_TYPE_ENUMARRAY "enumarray"   /* EnumarrayProperty */
 
 /* Text types : */
-#define PROP_TYPE_MULTISTRING "multistring" /* same as STRING but with 
-                                              (gint)extra_data lines*/
-#define PROP_TYPE_STRING "string"
-#define PROP_TYPE_FILE "file"
-#define PROP_TYPE_TEXT "text" /* can't be visible */
+#define PROP_TYPE_MULTISTRING "multistring"  /* StringProperty */
+/* (same as STRING but with (gint)extra_data lines) */
+#define PROP_TYPE_STRING "string"            /* StringProperty */
+#define PROP_TYPE_FILE "file"                /* StringProperty */
+#define PROP_TYPE_TEXT "text" /* can't be visible */ /* TextProperty */
 
 /* Geometric types : */
-#define PROP_TYPE_REAL "real"
-#define PROP_TYPE_POINT "point"
-#define PROP_TYPE_POINTARRAY "pointarray"
-#define PROP_TYPE_BEZPOINT "bezpoint"
-#define PROP_TYPE_BEZPOINTARRAY "bezpointarray"
-#define PROP_TYPE_RECT "rect"
-#define PROP_TYPE_ENDPOINTS "endpoints"
-#define PROP_TYPE_CONNPOINT_LINE "connpoint_line"
+#define PROP_TYPE_REAL "real"                /* RealProperty */
+#define PROP_TYPE_POINT "point"              /* PointProperty */
+#define PROP_TYPE_POINTARRAY "pointarray"    /* PointarrayProperty */
+#define PROP_TYPE_BEZPOINT "bezpoint"        /* BezPointProperty */
+#define PROP_TYPE_BEZPOINTARRAY "bezpointarray" /* BezPointarrayProperty */
+#define PROP_TYPE_RECT "rect"                /* RectProperty */
+#define PROP_TYPE_ENDPOINTS "endpoints"      /* EndpointsProperty */
+#define PROP_TYPE_CONNPOINT_LINE "connpoint_line"  /* Connpoint_LineProperty */
 
 /* Attribute types : */
-#define PROP_TYPE_LINESTYLE "linestyle"
-#define PROP_TYPE_ARROW "arrow"
-#define PROP_TYPE_COLOUR "colour"
-#define PROP_TYPE_FONT "font"
+#define PROP_TYPE_LINESTYLE "linestyle"    /* LinestyleProperty */
+#define PROP_TYPE_ARROW "arrow"            /* ArrowProperty */
+#define PROP_TYPE_COLOUR "colour"          /* ColorProperty */
+#define PROP_TYPE_FONT "font"              /* FontProperty */
 
 /* Widget types : */
-#define PROP_TYPE_STATIC "static" /* tooltip is used as a (potentially big) 
-                                      static label*/
-#define PROP_TYPE_BUTTON "button" /* tooltip is the button's label. 
-                                         Put an empty description. */
-#define PROP_TYPE_NOTEBOOK_BEGIN "nb_begin"
-#define PROP_TYPE_NOTEBOOK_END "nb_end"
-#define PROP_TYPE_NOTEBOOK_PAGE "nb_page"
-#define PROP_TYPE_MULTICOL_BEGIN "mc_begin"
-#define PROP_TYPE_MULTICOL_END "mc_end"
-#define PROP_TYPE_MULTICOL_COLUMN "mc_col"
-#define PROP_TYPE_FRAME_BEGIN "f_begin"
-#define PROP_TYPE_FRAME_END "f_end"
-#define PROP_TYPE_LIST "list" /* offset is a GPtrArray of (const gchar *).
-                                 offset2 is a gint, index of the 
-                                 active item, -1 if none active. */
+#define PROP_TYPE_STATIC "static"          /* StaticProperty */
+/* (tooltip is used as a (potentially big) static label) */
+#define PROP_TYPE_BUTTON "button"          /* ButtonProperty */
+/* (tooltip is the button's label. Put an empty description). */
+#define PROP_TYPE_NOTEBOOK_BEGIN "nb_begin" /* NotebookProperty */
+#define PROP_TYPE_NOTEBOOK_END "nb_end"     /* NotebookProperty */
+#define PROP_TYPE_NOTEBOOK_PAGE "nb_page"   /* NotebookProperty */
+#define PROP_TYPE_MULTICOL_BEGIN "mc_begin" /* MulticolProperty */
+#define PROP_TYPE_MULTICOL_END "mc_end"     /* MulticolProperty */
+#define PROP_TYPE_MULTICOL_COLUMN "mc_col"  /* MulticolProperty */
+#define PROP_TYPE_FRAME_BEGIN "f_begin" /* FrameProperty */
+#define PROP_TYPE_FRAME_END "f_end"     /* FrameProperty */
+#define PROP_TYPE_LIST "list"  /* ListProperty */
+/* (offset is a GPtrArray of (const gchar *). offset2 is a gint, index of the 
+   active item, -1 if none active.) */
+
 /* Special types : */
-#define PROP_TYPE_SARRAY "sarray"
-#define PROP_TYPE_DARRAY "darray"
+#define PROP_TYPE_SARRAY "sarray" /* ArrayProperty */
+#define PROP_TYPE_DARRAY "darray" /* ArrayProperty */
 
 /* **************************************************************** */
 
