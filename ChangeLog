@@ -1,4 +1,11 @@
-2004-03-05  Lars Clausen  <larsrc@linux.local>
+2004-03-05  Lars Clausen  <lars@raeder.dk>
+
+	* sheets/Electric.sheet.in: Added patch from padro@lsi.upc.es
+	(lluis padro) (#130887): Extended Electric shapes with vertical
+	versions. 
+
+	* sheets/Cybernetics.sheet.in: Normalize shape descriptions (never
+	start with "Create a" or "A", always capitalize first word).
 
 	* objects/standard/ellipse.c: Patch from Grégoire Dooms
 	<dooms@info.ucl.ac.be>: Add extra connection point in center of
