@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
-"PO-Revision-Date: 2001-06-08 03:01+0200\n"
+"POT-Creation-Date: 2001-06-10 01:11+0200\n"
+"PO-Revision-Date: 2001-06-10 01:12+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,15 +36,15 @@ msgstr "Visa inte startbilden"
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -54,22 +54,22 @@ msgstr ""
 "Kör \"%s --help\" för att se en fullständig lista över tillgängliga "
 "kommandoradsalternativ.\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:248 app/app_procs.c:250
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:275
 msgid "Need valid input file\n"
 msgstr "Behöver en giltig indatafil\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:341 app/app_procs.c:347
 msgid "Quit, are you sure?"
 msgstr "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:354
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -77,21 +77,21 @@ msgstr ""
 "Det finns diagram som har ändrats.\n"
 "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:364 app/app_procs.c:369
 msgid "Quit"
 msgstr "Avsluta"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:381 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:456 app/app_procs.c:463
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:462
+#: app/app_procs.c:465
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -99,7 +99,7 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:484
+#: app/app_procs.c:487
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
@@ -432,7 +432,6 @@ msgid "Create Text"
 msgstr "Skapa text"
 
 #: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
 msgid "Text"
 msgstr "Text"
 
@@ -584,7 +583,7 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -1506,53 +1505,6 @@ msgstr "Läser in..."
 msgid "Dia v %s"
 msgstr "Dia v. %s"
 
-#: lib/properties.c:1256 lib/properties.h:345
-msgid "Line colour"
-msgstr "Linjefärg"
-
-#: lib/properties.c:1257 lib/properties.h:348
-msgid "Line style"
-msgstr "Linjetyp"
-
-#: lib/properties.c:1258 lib/properties.h:352
-msgid "Fill colour"
-msgstr "Fyllningsfärg"
-
-#: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
-#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
-#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
-#: objects/standard/box.c:232 objects/standard/ellipse.c:220
-#: objects/standard/polygon.c:226
-msgid "Draw background"
-msgstr "Rita bakgrund"
-
-#: lib/properties.c:1260 lib/properties.h:359
-msgid "Start arrow"
-msgstr "Startpil"
-
-#: lib/properties.c:1261 lib/properties.h:362
-msgid "End arrow"
-msgstr "Slutpil"
-
-#: lib/properties.c:1263 lib/properties.h:369
-msgid "Text alignment"
-msgstr "Textjustering"
-
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
-msgid "Font"
-msgstr "Typsnitt"
-
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
-msgid "Font size"
-msgstr "Typsnittsstorlek"
-
-#: lib/properties.c:1266 lib/properties.h:378
-msgid "Text colour"
-msgstr "Textfärg"
-
 #: lib/plug-ins.c:211
 #, c-format
 msgid "Could not deduce correct path for `%s'"
@@ -1608,6 +1560,52 @@ msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 #: lib/properties.c:382 lib/properties.c:414
 msgid "No edit widget"
 msgstr "Ingen redigeringskomponent"
+
+#: lib/properties.c:1256
+msgid "Line colour"
+msgstr "Linjefärg"
+
+#: lib/properties.c:1257
+msgid "Line style"
+msgstr "Linjetyp"
+
+#: lib/properties.c:1258
+msgid "Fill colour"
+msgstr "Fyllningsfärg"
+
+#: lib/properties.c:1259 objects/custom/custom_object.c:362
+#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
+#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
+#: objects/standard/beziergon.c:222 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
+msgid "Draw background"
+msgstr "Rita bakgrund"
+
+#: lib/properties.c:1260
+msgid "Start arrow"
+msgstr "Startpil"
+
+#: lib/properties.c:1261
+msgid "End arrow"
+msgstr "Slutpil"
+
+#: lib/properties.c:1263
+msgid "Text alignment"
+msgstr "Textjustering"
+
+#: lib/properties.c:1264 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/transition.c:140
+msgid "Font"
+msgstr "Typsnitt"
+
+#: lib/properties.c:1265 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/transition.c:142
+msgid "Font size"
+msgstr "Typsnittsstorlek"
+
+#: lib/properties.c:1266
+msgid "Text colour"
+msgstr "Textfärg"
 
 #: lib/message.c:120
 msgid "Notice"
@@ -1739,9 +1737,9 @@ msgid "Taking point value of non-point node."
 msgstr "Tar punktvärde hos nod som inte är en punkt."
 
 #: lib/dia_xml.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Ogiltigt y-värde \"%s\" %f; kastar det."
+msgstr "Ogiltigt x-punktvärde \"%s\" %f; kastar det."
 
 #: lib/dia_xml.c:293
 msgid "Error parsing point."
@@ -1751,7 +1749,7 @@ msgstr "Fel vid tolkning av punkt."
 #: lib/dia_xml.c:301
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Ogiltigt y-värde \"%s\" %f; kastar det."
+msgstr "Ogiltigt y-punktvärde \"%s\" %f; kastar det."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -1909,7 +1907,7 @@ msgstr "Tillåt"
 
 #: objects/FS/function.c:616
 msgid "Form Entrance"
-msgstr "Formpost"
+msgstr "Formuläringång"
 
 #: objects/FS/function.c:617 objects/FS/function.c:734
 msgid "Capture"
@@ -1958,7 +1956,7 @@ msgstr "Genomför"
 
 #: objects/FS/function.c:635
 msgid "Convey"
-msgstr "Ge"
+msgstr "Transportera"
 
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
@@ -2019,7 +2017,7 @@ msgstr "Isolera"
 
 #: objects/FS/function.c:656
 msgid "Protect"
-msgstr "Försvara"
+msgstr "Skydda"
 
 #: objects/FS/function.c:657 objects/FS/function.c:752
 msgid "Prevent"
@@ -2027,11 +2025,11 @@ msgstr "Förebygg"
 
 #: objects/FS/function.c:658
 msgid "Shield"
-msgstr "Skydda"
+msgstr "Dölj"
 
 #: objects/FS/function.c:659
 msgid "Inhibit"
-msgstr "Ärv"
+msgstr "Begränsa"
 
 #: objects/FS/function.c:660 objects/FS/function.c:661
 msgid "Stabilize"
@@ -2079,7 +2077,7 @@ msgstr "Justera"
 
 #: objects/FS/function.c:674 objects/FS/function.c:795
 msgid "Locate"
-msgstr "Lokalisera"
+msgstr "Sök"
 
 #: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
@@ -2136,7 +2134,7 @@ msgstr "Växla"
 
 #: objects/FS/function.c:695
 msgid "Divide"
-msgstr "Dividera"
+msgstr "Dela"
 
 #: objects/FS/function.c:696
 msgid "Release"
@@ -2160,7 +2158,7 @@ msgstr "Polera"
 
 #: objects/FS/function.c:703
 msgid "Sand"
-msgstr "Sandpappra"
+msgstr "Slipa"
 
 #: objects/FS/function.c:704
 msgid "Drill"
@@ -2200,7 +2198,7 @@ msgstr "Distribuera"
 
 #: objects/FS/function.c:715
 msgid "Diverge"
-msgstr "DIvergera"
+msgstr "Divergera"
 
 #: objects/FS/function.c:716
 msgid "Scatter"
@@ -2240,7 +2238,7 @@ msgstr "Motstå"
 
 #: objects/FS/function.c:727 objects/FS/function.c:728
 msgid "Provision"
-msgstr "Proviantera"
+msgstr "Förbered"
 
 #: objects/FS/function.c:729 objects/FS/function.c:730
 msgid "Store"
@@ -3121,11 +3119,11 @@ msgstr "Visa pil:"
 msgid "Interface:"
 msgstr "Gränssnitt:"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:140
 msgid "Draw focus of control:"
 msgstr "Rita kontrollens fokus:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:142
 msgid "Draw destruction mark:"
 msgstr "Rita ödeläggelsemarkering:"
 
@@ -3529,7 +3527,7 @@ msgid "Fig Format import and export filter"
 msgstr "Import- och exportfilter för fig-format"
 
 #: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
+msgid "Polygon import is not implemented yet"
 msgstr "Polygonimport är inte implementerat än"
 
 #: plug-ins/xfig/xfig-import.c:74

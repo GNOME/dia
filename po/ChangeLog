@@ -1,3 +1,10 @@
+2001-06-10  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated and fixed Swedish translation. Thanks to
+	Jörgen Tegnér <jorgen.tegner@post.utfors.se>,
+	Jan D. <jan.djarv@mbox200.swipnet.se>, and
+	Göran Uddeborg <goeran@uddeborg.pp.se> for their input.
+
 2001-06-08  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* *.po: updated all po files (didn't touch any translation).
