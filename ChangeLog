@@ -1,3 +1,10 @@
+1999-05-15  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/class.[ch]:
+	Some indentation cleanup.
+	Added wrap_lines variable to class.
+	I'll fix the line break stuff tomorrow.
+
 1999-05-13  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/dummy_dep.h:
