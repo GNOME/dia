@@ -1,7 +1,8 @@
 2003-07-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/menus.c: Wrong GNOME paren fixed.
-
+	* app/menus.c: Wrong GNOME paren fixed.  Correct callbacks for
+	GNOME parent menu items.
+	
 	* app/authors.h: Added Vadim to contributors list.
 
 2003-07-12  Lars Clausen  <lrclause@cs.uiuc.edu>
