@@ -34,6 +34,7 @@
 #include "lazyprops.h"
 #include "connpoint_line.h"
 #include "properties.h"
+#include "polyshape.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
@@ -59,4 +60,5 @@ static void *dummy_dep[] G_GNUC_UNUSED = {
   connpointline_create, /* connpoint_line.o */
   neworthconn_update_data, /* neworth_conn.o */
   object_create_props_dialog, /* properties.o */
+  polyshape_init, /* polyshape.o */
 };
