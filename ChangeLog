@@ -1,3 +1,10 @@
+2002-12-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/standard/ellipse.c (ellipse_distance_from): 
+	* lib/geometry.c (distance_ellipse_point): Ellipse now uses the
+	correct distance function.  Could be faster, but it's not really
+	essential. 
+
 2002-12-07  Lars Clausen <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: Changed global_size_one to more correct 28.35.

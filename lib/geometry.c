@@ -393,6 +393,10 @@ real
 distance_ellipse_point(const Point *centre, real width, real height,
 		       real line_width, const Point *point)
 {
+  /* A faster intersection method would be to scaled the ellipse and the
+   * point to where the ellipse is a circle, intersect with the circle, 
+   * then scale back.
+   */
   real w2 = width*width, h2 = height*height;
   real scale, rad, dist;
   Point pt;

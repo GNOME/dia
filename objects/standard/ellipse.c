@@ -163,8 +163,14 @@ ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 static real
 ellipse_distance_from(Ellipse *ellipse, Point *point)
 {
-  Object *obj = &ellipse->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  Element *elem = &ellipse->element;
+  Point center;
+
+  center.x = elem->corner.x+elem->width/2;
+  center.y = elem->corner.y+elem->height/2;
+
+  return distance_ellipse_point(&center, elem->width, elem->height,
+				ellipse->border_width, point);
 }
 
 static void
