@@ -105,7 +105,9 @@ plug-ins/hpgl/hpgl.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 #plug-ins/python/python.c	: not in Makefile.am
-#plug-ins/wmf/wmf.cpp		: not in Makefile.am
-plug-ins/wpg/wpg.c
+plug-ins/shape/shape-export.c
+plug-ins/shape/shape.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg.c
+#plug-ins/wmf/wmf.cpp		: not in Makefile.am
+plug-ins/wpg/wpg.c
