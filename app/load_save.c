@@ -921,8 +921,8 @@ diagram_save(Diagram *dia, const char *filename)
   }
 
   dia->unsaved = FALSE;
-  diagram_set_modified (dia, FALSE);
   undo_mark_save(dia->undo);
+  diagram_set_modified (dia, FALSE);
 
   diagram_cleanup_autosave(dia);
 

@@ -1,3 +1,16 @@
+2004-05-05  Lars Clausen  <lars@raeder.dk>
+
+	* app/dia-props.c (diagram_properties_respond): 
+	* app/diagram.c (diagram_set_modified): 
+	* app/undo.c: 
+	* app/disp_callbacks.c: 
+	* app/commands.c: 
+	* app/load_save.c (diagram_save): 
+	Better handling of undo and modified status -- only diagram
+	properties and page setup explicitly set modified status, all
+	other important changes should be done through the undo stack
+	now.
+
 2004-05-04  Lars Clausen  <lars@raeder.dk>
 
 	* app/app_procs.c (app_init): Consistently open a new diagram if

@@ -214,32 +214,38 @@ diagram_destroy(Diagram *dia)
 gboolean
 diagram_is_modified(Diagram *dia)
 {
-  return dia->mollified;
+  return dia->mollified || !undo_is_saved(dia->undo);
 }
 
+/** We might just have change the diagrams modified status.
+ * This doesn't set the status, but merely updates the display.
+ */
 void
 diagram_modified(Diagram *dia)
 {
-  diagram_set_modified(dia, TRUE);
+  GSList *displays;
+  displays = dia->displays;
+  while (displays != NULL) {
+    DDisplay *display = (DDisplay*) displays->data;
+    ddisplay_update_statusbar(display);
+    displays = g_slist_next(displays);
+  }
+  if (diagram_is_modified(dia)) dia->autosaved = FALSE;
+  /*  diagram_set_modified(dia, TRUE);*/
 }
 
+/** Set this diagram explicitly modified.  This should not be called
+ * by things that change the undo stack, as those modifications are
+ * noticed through changes in the undo stack.
+ */
 void
 diagram_set_modified(Diagram *dia, int modified)
 {
-  GSList *displays;
-
   if (dia->mollified != modified)
   {
     dia->mollified = modified;
-    displays = dia->displays;
-    while (displays != NULL)
-    {
-      DDisplay *display = (DDisplay*) displays->data;
-      ddisplay_update_statusbar(display);
-      displays = g_slist_next(displays);
-    }
   }
-  dia->autosaved = FALSE;
+  diagram_modified(dia);
 }
 
 /* ************ Functions that check for menu sensitivity ********* */

@@ -375,11 +375,11 @@ static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
   object_add_updates(obj, ddisp->diagram);
 
   if (modified) {
-    diagram_modified(ddisp->diagram);
     if (obj_change != NULL) {
       undo_object_change(ddisp->diagram, obj, obj_change);
       undo_set_transactionpoint(ddisp->diagram->undo);
     }
+    diagram_modified(ddisp->diagram);
   }
 
   diagram_flush(ddisp->diagram);
@@ -942,9 +942,9 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   list = g_list_prepend(NULL, obj);
   undo_insert_objects(ddisp->diagram, list, 1);
   diagram_update_extents(ddisp->diagram);
-  diagram_modified(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
+  diagram_modified(ddisp->diagram);
   if (prefs.reset_tools_after_create)
     tool_reset();
   return obj;
