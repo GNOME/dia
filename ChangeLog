@@ -1,3 +1,9 @@
+2000-10-09  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/shape_info.c (parse_path): apply patch from
+	Robert Young <robertdotyoung@dsto.defence.gov.au> to fix bug
+	#25221
+
 2000-10-08  James Henstridge  <james@daa.com.au>
 
 	* objects/standard/image.c (image_set_props): if the file could not

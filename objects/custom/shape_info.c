@@ -343,9 +343,10 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       last_control = bez.p1;
       last_open = bez.p1;
 
-      /* if there is some unclosed commands, add them as a GE_PATH */
+      /* if there is some unclosed commands, add them as a GE_PATH,
+       * except if the previous command was also a move */
       if (points->len > 0 &&
-	  g_array_index(points, BezPoint, 0).type != BEZ_MOVE_TO) {
+	  g_array_index(points, BezPoint, points->len).type != BEZ_MOVE_TO) {
 	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
 					  points->len * sizeof(BezPoint));
 	el->type = GE_PATH;
