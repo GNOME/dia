@@ -1,3 +1,7 @@
+2002-12-14  Christophe Merlet  <redfox@redfoxcenter.org>
+
+	* fr.po: Updated French translation and converted to UTF-8.
+
 2002-10-04  Vincent van Adrighem  <V.vanAdrighem@dirck.mine.nu>
 
 	* nl.po: Dutch translation updated by Jan-Willem Harmanny.
@@ -84,7 +88,7 @@
 
         * pt.po: Updated Portuguese translation.
 
-2002-01-05  Christophe Merlet  <redfox@eikonex.org>
+2002-01-05  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -129,7 +133,7 @@
 
 	* nn.po: Updated Norwegian (nynorsk) translation.
 
-2001-11-09  Christophe Merlet  <redfox@eikonex.org>
+2001-11-09  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -171,7 +175,7 @@
 	* sv.po: Corrected Swedish translation. Thanks to
 	Jan Djärv <jan.djarv@mbox200.swipnet.se>.
 
-2001-09-22  Christophe Merlet  <redfox@eikonex.org>
+2001-09-22  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -348,7 +352,7 @@
 
 	* no.po: Updated Norwegian translation.
 
-2001-05-17  Christophe Merlet  <redfox@eikonex.org>
+2001-05-17  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation from contributions of
 	Frédéric Boiteux <furgarat@free.fr> for Debian GNU/Linux.
@@ -357,7 +361,7 @@
 
 	* fr.po: Updated French translation.
 
-2001-05-07  Christophe Merlet  <redfox@eikonex.org>
+2001-05-07  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -475,7 +479,7 @@
 	* no.po: Updated Norwegian (bokmål) translation.
 	* POTFILES.in: Added xfig plugin.
 	
-2001-02-16  Christophe Merlet  <redfox@eikonex.org>
+2001-02-16  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -516,7 +520,7 @@
 	* ru.po: updated russian translation.
 	* POTFILES.in: updated.
 	
-2001-01-10  Christophe Merlet  <redfox@eikonex.org>
+2001-01-10  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -532,7 +536,7 @@
 
 	* no.po: Updated Norwegian (bokmål) translation.
 	
-2001-01-04  Christophe Merlet  <redfox@eikonex.org>
+2001-01-04  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
@@ -545,7 +549,7 @@
 	* tr.po: Committed updated translation by
 		Burak ILGICIOGLU <ilgici@turk.net>.
 
-2000-12-13  Christophe Merlet  <redfox@eikonex.org>
+2000-12-13  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
 
