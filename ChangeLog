@@ -10,6 +10,10 @@
 	firewall router (upon request from Cyril Lacoux
 	<clacoux@easter-eggs.com>)
 
+	* configure.in (didn't rename to configure.ac): autoconf 2.50
+	constructs were used ; added an AC_PREREQ call to guard against
+	older autoconfs.
+	
 2001-07-27  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.c: minor clean-ups with the event delivery code.

@@ -1,6 +1,9 @@
 dnl Process this -*- m4 -*- file with autoconf to produce a configure script.
 AC_INIT(app/diagram.c)
 
+AC_PREREQ(2.50)
+AC_REVISION($Revision$)
+
 AM_INIT_AUTOMAKE(dia, 0.88.1)
 
 dnl Specify a header configuration file

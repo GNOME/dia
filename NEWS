@@ -9,11 +9,12 @@ addition to the popup menu.
 computed.
 * all Lazyprop objects have been converted to Standard Properties
 instead.
+* autoconf-2.50 is now mandatory if you want to call ./autogen.sh.
 * gettext-0.10.38 is now mandatory if you want to call ./autogen.sh.
 In general, don't call ./autogen.sh at all if your system is not on
 the bleeding edge.
 * a few new shapes.
-
+ 
 dia-0.88:  11-May-2001
 * Input method support should work correctly now.
 * SVG shape files now use namespace from final W3C recommendation.
