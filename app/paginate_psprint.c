@@ -212,7 +212,7 @@ diagram_print_ps(Diagram *dia)
    * needed anymore because the pipe handling - which never worked on win32
    * anyway - is replace by "native" postscript printing now ...
    */
-  __sighandler_t old_action;
+  void *old_action;
 #endif
 
   /* create the dialog */

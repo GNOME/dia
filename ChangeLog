@@ -1,3 +1,10 @@
+2004-07-13  Lars Clausen  <lars@raeder.dk>
+
+	* app/paginate_psprint.c (diagram_print_ps): Give usable type for
+	signal handler function -- Solaris uses a direct function type
+	that's different from what Linux has, but a void * will always
+	hold it.
+
 2004-07-13  Steffen Macke <sdteffen@web.de>
 
 	* samples/Istar.dia:
