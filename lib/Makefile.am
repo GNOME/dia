@@ -40,6 +40,8 @@ libdia_a_SOURCES =  \
 		connection.h \
 		orth_conn.c \
 		orth_conn.h \
+		neworth_conn.c \
+		neworth_conn.h \
 		poly_conn.c \
 		poly_conn.h \
 		bezier_conn.c \

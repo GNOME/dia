@@ -1,3 +1,10 @@
+2000-01-27 Cyrille Chepelov <chepelov@calixo.net>
+	* lib/neworth_conn.[ch]: (NEW) Temporary (hopefully) fork of orth_conn,
+	but connpoint_line-based, so that there's a connection point at the 
+	middle of each segment. Currently only the SADT arrow uses this.
+
+	* objects/SADT/* (NEW): SADT (both idf0 and idf1) support.
+	
 2000-01-26 Cyrille Chepelov <chepelov@calixo.net>
 	* lib/lazyprops.[ch]:(NEW) Added a bunch of macros for loading, 
 	saving and editing of properties (and default properties). 

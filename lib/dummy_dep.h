@@ -23,6 +23,7 @@
 #include "render_store.h"
 #include "render_object.h"
 #include "orth_conn.h"
+#include "neworth_conn.h"
 #include "arrows.h"
 #include "utils.h"
 #include "poly_conn.h"
@@ -52,5 +53,6 @@ static void *dummy_dep[] G_GNUC_UNUSED = {
   new_object_state_change, /* objchange.o */
   intl_score_locale, /* intl.o */
   __propdlg_build_arrow, /* lazyprops.o */
-  connpointline_create /* connpoint_line.o */
+  connpointline_create, /* connpoint_line.o */
+  neworthconn_update_data /* neworth_conn.o */
 };

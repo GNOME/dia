@@ -1,0 +1,24 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SADT</name>
+  <description xml:lang="fr">Objets pour l'écriture de diagrammes SADT.
+  </description>
+  <description>Objects to design SADT diagrams.
+  </description>
+  <contents>
+    <object name="SADT - arrow">
+      <description xml:lang="fr">Une flux de données/activité</description>
+      <description>A data/activity flow</description>
+    </object>
+    <object name="SADT - box">
+      <description xml:lang="fr">Une boîte d'activité/données</description>
+      <description>An activity/data box</description>
+    </object>
+    <object name="SADT - annotation">
+      <description xml:lang="fr">Une annotation de flux</description>
+      <description>A flow annotation</description>
+    </object>
+
+  </contents>
+</sheet>

@@ -12,7 +12,8 @@ SHEETS = \
 	Circuit.sheet \
 	Contact.sheet \
 	GRAFCET.sheet \
-	chronogram.sheet
+	chronogram.sheet \
+	SADT.sheet
 
 EXTRA_DIST = $(SHEETS)
 
