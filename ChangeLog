@@ -1,5 +1,18 @@
 2002-02-02  Akira TAGOH  <tagoh@redhat.com>
 
+	* app/layer_dialog.c (dia_layer_update_from_layer):
+	(layer_dialog_edit_layer): need to convert to locale encoding
+	if GTK_DOESNT_TALK_UTF8_WE_DO is defined.
+	(edit_layer_ok_callback):
+	need to convert to UTF8 if GTK_DOESNT_TALK_UTF8_WE_DO is defined.
+
+	* lib/diagramdata.c (new_diagram_data): ditto.
+
+	* app/layer_dialog.c (layer_dialog_new_callback): ditto.
+
+	* lib/diagramdata.c (new_layer): use utfchar instead of char for
+	argument.
+
 	* lib/widgets.c: if HAVE_FREETYPE isn't defined, it can't build. fixed.
 	(dia_font_selector_set_styles): when HAVE_FREETYPE is defined only,
 	it's needed for now. also this function needs prototype declaration.

@@ -31,41 +31,47 @@
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
 DiagramData *
-new_diagram_data(void)
+new_diagram_data (void)
 {
-  DiagramData *data;
-  Layer *first_layer;
+	DiagramData *data;
+	Layer *first_layer;
+	utfchar *utfstr;
    
-  data = g_new(DiagramData, 1);
+	data = g_new (DiagramData, 1);
    
-  data->extents.left = 0.0; 
-  data->extents.right = 10.0; 
-  data->extents.top = 0.0; 
-  data->extents.bottom = 10.0; 
+	data->extents.left = 0.0; 
+	data->extents.right = 10.0; 
+	data->extents.top = 0.0; 
+	data->extents.bottom = 10.0; 
  
-  data->bg_color = color_white;
+	data->bg_color = color_white;
 
-  get_paper_info(&data->paper, -1);
+	get_paper_info (&data->paper, -1);
 
-  data->grid.width_x = 1.0;
-  data->grid.width_y = 1.0;
-  data->grid.visible_x = 1;
-  data->grid.visible_y = 1;
+	data->grid.width_x = 1.0;
+	data->grid.width_y = 1.0;
+	data->grid.visible_x = 1;
+	data->grid.visible_y = 1;
 
-  data->guides.nhguides = 0;
-  data->guides.hguides = NULL;
-  data->guides.nvguides = 0;
-  data->guides.vguides = NULL;
+	data->guides.nhguides = 0;
+	data->guides.hguides = NULL;
+	data->guides.nvguides = 0;
+	data->guides.vguides = NULL;
 
-  first_layer = new_layer(g_strdup(_("Background")));
-  data->layers = g_ptr_array_new();
-  g_ptr_array_add(data->layers, first_layer);
-  data->active_layer = first_layer;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utfstr = charconv_local8_to_utf8 (_("Background"));
+#else
+	utfstr = g_strdup (_("Background"));
+#endif
+	first_layer = new_layer (utfstr);
+	data->layers = g_ptr_array_new ();
+	g_ptr_array_add (data->layers, first_layer);
+	data->active_layer = first_layer;
 
-  data->selected_count = 0;
-  data->selected = NULL;
+	data->selected_count = 0;
+	data->selected = NULL;
   
-  return data;
+	return data;
 }
 
 void
@@ -88,7 +94,7 @@ diagram_data_destroy(DiagramData *data)
 }
 
 Layer *
-new_layer(char *name)
+new_layer(utfchar *name)
 {
   Layer *layer;
 
