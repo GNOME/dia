@@ -1,3 +1,7 @@
+2004-10-29  Alexander Shopov  <ash@contact.bg>
+
+	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
+
 2004-12-29  Lars Clausen  <lars@raeder.dk>
 
 	* configure.in: Make gnomeprint be truly off by default (typo) and

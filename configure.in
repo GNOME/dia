@@ -248,7 +248,7 @@ dnl
 GETTEXT_PACKAGE=dia
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Needed for glib gettext])
-ALL_LINGUAS="am az be bs ca cs da de el en_CA en_GB es fi fr ga gu hr hu is it ja ko mk mn ml ms nb nl nn no pl pt pt_BR ro ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
+ALL_LINGUAS="am az be bg bs ca cs da de el en_CA en_GB es fi fr ga gu hr hu is it ja ko mk mn ml ms nb nl nn no pl pt pt_BR ro ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 dnl INTLOBJS doesn't seem to always get subst'ed, but I believe it's
