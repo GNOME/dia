@@ -1,3 +1,15 @@
+1999-08-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/diagram.[ch] (diagram_redraw_all):
+	Added function that redraws all diagrams.
+
+	* app/preferences.c (prefs_apply):
+	Call diagram_redraw_all when prefs are changed.
+
+	* app/render_svg.c:
+	Don't use xmlEncodeEntitiesReentrant(). It doesn't exist on
+	older libxml's, and the old version works good enought here.
+	
 1999-08-17  James Henstridge  <james@daa.com.au>
 
 	* lib/widgets.c: changed handlers that were connected to the GtkButton

@@ -667,9 +667,9 @@ draw_string(RendererSVG *renderer,
   char buf[512], *style, *tmp;
   real saved_width;
 
-  enc = xmlEncodeEntitiesReentrant(renderer->doc, text);
+  enc = xmlEncodeEntities(renderer->doc, text);
   node = xmlNewChild(renderer->root, NULL, "text", enc);
-  free(enc);
+  /*free(enc); */ /* Not used, because i don't call xmlEncodeEntitiesReentrant() */
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;

@@ -387,6 +387,7 @@ prefs_apply(GtkWidget *widget, gpointer data)
 {
   prefs_update_prefs_from_dialog();
   prefs_save();
+  diagram_redraw_all();
   return 1;
 }
 

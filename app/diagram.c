@@ -374,6 +374,25 @@ diagram_is_selected(Diagram *diagram, Object *obj)
 }
 
 void
+diagram_redraw_all()
+{
+  GList *list;
+  Diagram *dia;
+
+  list = open_diagrams;
+
+  while (list != NULL) {
+    dia = (Diagram *) list->data;
+
+    diagram_add_update_all(dia);
+    diagram_flush(dia);
+
+    list = g_list_next(list);
+  }
+  return FALSE;
+}
+
+void
 diagram_add_update_all(Diagram *dia)
 {
   GSList *l;
