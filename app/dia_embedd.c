@@ -163,7 +163,7 @@ view_factory (BonoboEmbeddable *embeddable,
   
   gtk_signal_connect(GTK_OBJECT (view), "activate",
 		     GTK_SIGNAL_FUNC (dia_view_activate), view_data);
-  
+
   gtk_signal_connect(GTK_OBJECT (view), "system_exception",
 		     GTK_SIGNAL_FUNC (dia_view_system_exception), view_data);
 
@@ -371,31 +371,31 @@ int
 main (int argc, char **argv)
 {
   GtkWidget *menuitem;
-  
+
   init_server_factory (argc, argv);
   factory = init_dia_factory ();
 
   app_init(0, NULL);
   app_splash_done();
-  
+
 #ifdef GNOME
-  menuitem = menus_get_item_from_path("<Toolbox>/File/New diagram");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/New diagram", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Open...");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/Open...", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Exit");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/Exit", NULL);
   gtk_widget_hide(menuitem);
 #else
-  menuitem = menus_get_item_from_path("<Toolbox>/File/New");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/New", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Open");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/Open", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/sep1");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/sep1", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Quit");
+  menuitem = menus_get_item_from_path("<Toolbox>/File/Quit", NULL);
   gtk_widget_hide(menuitem);
 #endif
-  
+
 
   gtk_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
 		      "last_unref",

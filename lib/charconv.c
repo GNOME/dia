@@ -4,7 +4,7 @@
  * charconv.c: simple wrapper around unicode_iconv until we get dia to use
  * utf8 internally.
  * Copyright (C) 2001 Cyrille Chepelov <chepelov@calixo.net>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -28,12 +28,13 @@
 #ifdef HAVE_UNICODE
 #include <string.h>
 #include <unicode.h>
+#include <errno.h>
 
 #ifdef HAVE_LANGINFO_CODESET
 #include <langinfo.h>
 #else /* HAVE_LANGINFO_CODESET */
 #ifndef EFAULT_8BIT_CHARSET /* this is a hack until dia talks utf8 internally. */
-#define EFAULT_8BIT_CHARSET "ISO-8859-1" 
+#define EFAULT_8BIT_CHARSET "ISO-8859-1"
 #endif /* !EFAULT_8BIT_CHARSET */
 #define CODESET
 static const char *nl_langinfo(void) {
@@ -45,11 +46,11 @@ static const char *nl_langinfo(void) {
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
 
-static void 
+static void
 check_conv_l2u(void){
   if (conv_u2l==(unicode_iconv_t)0) {
     conv_u2l = unicode_iconv_open(nl_langinfo(CODESET),"UTF-8");
-  } 
+  }
   if (conv_l2u==(unicode_iconv_t)0) {
     conv_l2u = unicode_iconv_open("UTF-8",nl_langinfo(CODESET));
   } 

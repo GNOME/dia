@@ -1,3 +1,9 @@
+2001-05-29  Steffen Macke     <sdteffen@yahoo.com>
+
+	* lib/charconv.c : added #include <errno.h>
+
+	* app/dia_embedd.c : updated menus_get_item_from_path usage
+	
 2001-05-27  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/ps-utf8.c: Strings in Symbol fonts were incorrectly rendered.
