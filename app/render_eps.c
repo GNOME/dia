@@ -45,6 +45,7 @@
 #include "message.h"
 #include "diagramdata.h"
 #include "charconv.h" 
+#include "font.h"
 
 #ifdef HAVE_UNICODE
 #include <unicode.h>
@@ -302,6 +303,102 @@ dump_pfb_chunk(FILE *from, FILE *file) {
   return 1;
 }
 
+#define CHUNKSIZE 4000
+
+/* Taken from ttfps */
+void 
+eps_dump_truetype_body(FILE *out, int fd)
+{
+  unsigned char *buffer;
+  int i,j;
+
+  lseek(fd,0,SEEK_SET);
+
+  buffer=malloc(CHUNKSIZE);
+
+  fprintf(out,"/sfnts [");
+  for(;;) {
+    i=read(fd,buffer,CHUNKSIZE);
+    if(i==0)
+      break;
+    fprintf(out,"\n<");
+    for(j=0;j<i;j++) {
+      if(j!=0 && j%36==0)
+        fprintf(out,"\n");
+      fprintf(out,"%02X",(int)buffer[j]);
+    }
+    fprintf(out,"00>");         /* Adobe bug? */
+    if(i<CHUNKSIZE)
+      break;
+  }
+  fprintf(out,"\n] def\n");
+}
+
+#define NAMEBUF_SIZE 1000
+static void
+eps_dump_truetype(FILE *in, FILE *out, DiaFont *font) {
+  int nglyphs;
+  int n, i;
+  FT_Face face = font_get_freetype_face(font);
+  char *namebuf[NAMEBUF_SIZE];
+
+  TT_Header *head = (TT_Header *)FT_Get_Sfnt_Table(face, 0);
+  if (head == NULL) {
+    g_warning("Couldn't dump font %s\n", font_get_psfontname(font));
+    return;
+  }
+
+  fprintf(out,"%%!PS-TrueTypeFont\n");
+  //  if(pt->maxMemType42)
+  //    fprintf(out,"%%%%VMUsage: %ld %ld\n",pt->minMemType42, pt->maxMemType42);
+  fprintf(out,"%d dict begin\n",11);
+  // Hopefully this shall be the ps name
+  fprintf(out,"/FontName /%s def\n", font_get_psfontname(font));
+  fprintf(out,"/Encoding StandardEncoding def\n");
+  fprintf(out,"/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n");
+  fprintf(out,"/FontBBox [%ld %ld %ld %ld] def\n",
+	  head->xMin, head->yMin,
+	  head->xMax, head->yMax);
+  fprintf(out,"/FontType 42 def\n");
+  fprintf(out,"/FontInfo 8 dict dup begin\n");
+  // Is this Table_Version or Font_Revision?
+  fprintf(out,"/version (%d.%d) def\n",
+	  (head->Font_Revision>>16)&0xFFFF,
+	  head->Font_Revision&0xFFFF);
+  fprintf(out,"end readonly def\n");
+
+  eps_dump_truetype_body(out, fileno(in));
+
+  nglyphs = face->num_glyphs;
+
+  fprintf(out,"/CharStrings %d dict dup begin\n", nglyphs);
+
+  if (!head->Mac_Style) {
+    for(n=i=0;i<nglyphs;i++) {
+      if(n!=0 && n%4==0)
+        fprintf(out,"\n");
+      FT_Get_Glyph_Name(face, i, namebuf, NAMEBUF_SIZE);
+      if (*namebuf) {
+        fprintf(out,"/%s %d def ",namebuf,i);
+        n++;
+      }
+    }
+  } else {
+    g_warning("No glyph names for %s, implement Mac encoding\n", 
+	      font_get_psfontname(font));
+    /*
+    for(i=0; i<258 && i<nglyphs; i++) {
+      fprintf(out,"/%s %d def ",macGlyphEncoding[i],i);
+      if(i!=0 && i%4==0)
+        fprintf(out,"\n");
+    }
+    */
+  }
+  fprintf(out,"end readonly def\n");
+  fprintf(out,"FontName currentdict end definefont pop\n");
+
+}
+
 /* Simplest version:  Just dump the font file directly.
  */
 static void
@@ -311,6 +408,7 @@ eps_dump_font_file(FILE *file, char *from_file, DiaFont *font) {
   int num_read;
   char first;
   int i;
+  FT_Face face = font_get_freetype_face(font);
 
   if (from == NULL) {
     printf("Can't open font file %s: %s\n", from_file, strerror(errno));
@@ -320,22 +418,24 @@ eps_dump_font_file(FILE *file, char *from_file, DiaFont *font) {
   fprintf(file, "%%%%BeginResource: font %s\n", 
 	  font_get_psfontname(font));
 
-  first = fgetc(from);
-  if (first == '%') {
-    // ASCII file, just copy it blindly
-    fputc('%', file);
-    while ((num_read = fread(buf, 1, 80, from)) != 0) {
-      fwrite(buf, 1, num_read, file);
-    }
+
+  if (FT_IS_SFNT(face)) { // Truetype font
+    eps_dump_truetype(from, file, font);
   } else {
-    // Binary file.
-    while (dump_pfb_chunk(from, file))
-      ;
+    first = fgetc(from);
+    if (first == '%') {
+      // ASCII file, just copy it blindly
+      fputc('%', file);
+      while ((num_read = fread(buf, 1, 80, from)) != 0) {
+	fwrite(buf, 1, num_read, file);
+      }
+    } else {
+      // Binary file.
+      while (dump_pfb_chunk(from, file))
+	;
+    }
   }
   fprintf(file, "\n%%%%EndResource\n");
-  if (!feof(from)) {
-    printf("Can't read font file: %s\n", strerror(errno));
-  }
   fclose(from);
 
   return;
@@ -630,6 +730,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   renderer->renderer.ops = &EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
+  inherit_renderer(&renderer->renderer);
 
   renderer->is_ps = 0;
   renderer->pagenum = 1;
