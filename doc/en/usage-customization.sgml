@@ -47,10 +47,9 @@
    </listitem>
    <listitem>
     <para>
-      Snap To allows makes objects 'snap' into a grid created by the program.
+      Snap To allows makes objects attract to a grid created by the program.
       This makes it easier for the user to align objects, as separate objects
-      snap to the same line.  <!-- Redo this definition...don't use the word
-      snapin it -->
+      snap to the same line. 
     </para>
    </listitem>
    <listitem>

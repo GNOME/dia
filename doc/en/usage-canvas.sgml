@@ -15,8 +15,16 @@
    <para>
     Gridlines are similar to the lines on graph paper.  They allow the user
     to easily align objects on the canvas.  The gridlines can be hidden by
-    going into File->Preferences->Grid Lines and clicking on the Visible button
-    to make it say No.
+    going into
+    <menuchoice>
+     <guimenu>
+      File
+     </guimenu>
+     <guimenuitem>
+      Preferences
+     </guimenuitem>
+    </menuchoice>.
+    In the Grid Lines tab, the user should click on the Visible button so it says No.
    </para>
   </sect2>
   <sect2 id="Rulers">
@@ -24,8 +32,9 @@
    <para>
     Rulers appear on the top and the left of the <application>Dia</application>
     canvas.  They show, in centimeters, how large your canvas is.
-    <!-- Discuss the arrows which show where the cursor is -->
    </para>
+   <para>
+    On each ruler exists an arrow.  The arrow moves on the ruler in coordination with where the mouse pointer is.  For example, if the user moves the mouse up, the vertical ruler's arrow will move up, indicating the change.  These arrows become useful when an object needs to line up exactly at a certain measurement point.
    <para>
     Rulers, unlike gridlines, cannot be removed.
    </para>

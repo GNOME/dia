@@ -1,3 +1,7 @@
+2001-01-21  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/*sgml: made just minor changes to a few lines; nothing major.
+
 2001-01-12  Michael Meeks  <michael@helixcode.com>
 
 	* app/dia_embedd.c (init_server_factory): do a bonobo_activate

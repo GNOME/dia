@@ -24,10 +24,10 @@
      </para>
     </note>
     <para>
-      By default, each new diagram comes with the default layer which it's called the <emphasis>Background</emphasis> layer. Of course you can change its name and settings to customize it to your needs as you can do with any other layer.    
+      By default, each new diagram comes with the default layer which it's called the <emphasis>Background</emphasis> layer. Of course you can change its name and settings to customize it to your needs as you can do with any other layer.   
     </para>
     <para>
-      You can create as many new layer as you want, <application>Dia</application> will put a new layer on top of all the layers that have been already created. <emphasis>Layers</emphasis> can be thought as a stack of transparent papers. Meaning that you will be able to change their stack order, decide whether or not to show them, draw any number of objects onto them and so on.
+      You can create as many layers as you want, <application>Dia</application> will put a new layer on top of all the layers that have been already created. <emphasis>Layers</emphasis> can be thought as a stack of transparent papers. Meaning that you will be able to change their stack order, decide whether or not to show them, draw any number of objects onto them and so on.
      </para>
      <para>
        All this can be manage through the <interface>Layers Dialog</interface>.

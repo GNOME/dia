@@ -3,7 +3,6 @@
 <sect1 id="selecting">
  <title>Selecting Objects</title>
  
-  <!-- (introductory info...)  -->
   <sect2 id="selecting-introduction">
   <title>Selection Introduction</title>
    <para>
@@ -24,8 +23,6 @@
        them each others, or to simply remove them from the diagram.
    </para>
    <note>
-     <!-- this note is for those that already know how to select objects but can't
-            do it. It's a quick link related to the Layer's problems.  -->
      <para>
         Only objects present in the current layer can be selected. If an object
         doesn't want to be select it's probably because it is situated in another
