@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+         xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+    <name>Civil - Vertical Pump</name>
+    <icon>vpump.xpm</icon>
+    <connections>
+      <point y="1" x="0"/>
+      <point y="-1" x="0"/>
+    </connections>
+    <aspectratio type="fixed"/>
+    <svg:svg width="1.0" height="1.0">
+        <svg:circle cx="0" cy="0" r="1" />
+      	<svg:line x1="0" y1="-1" x2="0.9571" y2="0.2896" />            
+	<svg:line x1="0" y1="-1" x2="-0.9571" y2="0.2896" />          
+    </svg:svg>   
+  </shape>                     

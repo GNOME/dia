@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+         xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+    <name>Civil - Vertical Compressor</name>
+    <icon>vcompressor.xpm</icon>
+    <connections>
+      <point x="0" y="1"/>
+      <point x="0" y="-1"/>
+    </connections>
+    <aspectratio type="fixed"/>
+    <svg:svg width="1.0" height="1.0">
+      <svg:circle cx="0" cy="0" r="1" />
+      <svg:line x1="0.34202014333" y1="-0.93969262079" x2="0.64278760969" y2="0.76604444312" />            
+      <svg:line x1="-0.34202014333" y1="-0.93969262079" x2="-0.64278760969" y2="0.76604444312" />            
+    </svg:svg>   
+  </shape>                     

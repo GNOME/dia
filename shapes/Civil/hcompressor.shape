@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+         xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+    <name>Civil - Horizontal Compressor</name>
+    <icon>hcompressor.xpm</icon>
+    <connections>
+      <point x="1" y="0"/>
+      <point x="-1" y="0"/>
+    </connections>
+    <aspectratio type="fixed"/>
+    <svg:svg width="1.0" height="1.0">
+        <svg:circle cx="0" cy="0" r="1" />
+      	<svg:line y1="0.34202014333" x1="0.93969262079" y2="0.64278760969" x2="-0.76604444312" />            
+	<svg:line y1="-0.34202014333" x1="0.93969262079" y2="-0.64278760969" x2="-0.76604444312" />          
+    </svg:svg>   
+  </shape>                     
