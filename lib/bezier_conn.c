@@ -148,79 +148,25 @@ bezierconn_move(BezierConn *bez, Point *to)
   }
 }
 
-/* use a NSEGS line segment approximation to deduce the distance to a
- * segment */
-
-#define NSEGS 5
-
-static real
-segment_distance(BezierConn *bez, Point *point, real line_width, int segnum)
-{
-  static real coeff[NSEGS+1][4];
-  static gboolean coeff_valid = FALSE;
-  int i;
-  real dist = G_MAXDOUBLE;
-  Point pt, prev;
-
-  /* only calculate these coefficients once -- slight speed increase */
-  if (!coeff_valid) {
-    for (i = 0; i <= NSEGS; i++) {
-      real t1 = ((real)i)/NSEGS, t2 = t1*t1, t3 = t1*t2;
-      real it1 = 1-t1, it2 = it1*it1, it3 = it1*it2;
-
-      coeff[i][0] = it3;
-      coeff[i][1] = 3 * t1 * it2;
-      coeff[i][2] = 3 * t2 * it1;
-      coeff[i][3] = t3;
-    }
-  }
-  coeff_valid = TRUE;
-
-  if (segnum == 0)
-    bez->points[0].p3 = bez->points[0].p1;
-  prev.x =
-    coeff[0][0] * bez->points[segnum].p3.x +
-    coeff[0][1] * bez->points[segnum+1].p1.x +
-    coeff[0][2] * bez->points[segnum+1].p2.x +
-    coeff[0][3] * bez->points[segnum+1].p3.x;
-  prev.y =
-    coeff[0][0] * bez->points[segnum].p3.y +
-    coeff[0][1] * bez->points[segnum+1].p1.y +
-    coeff[0][2] * bez->points[segnum+1].p2.y +
-    coeff[0][3] * bez->points[segnum+1].p3.y;
-  for (i = 1; i <= NSEGS; i++) {
-    pt.x =
-      coeff[i][0] * bez->points[segnum].p3.x +
-      coeff[i][1] * bez->points[segnum+1].p1.x +
-      coeff[i][2] * bez->points[segnum+1].p2.x +
-      coeff[i][3] * bez->points[segnum+1].p3.x;
-    pt.y =
-      coeff[i][0] * bez->points[segnum].p3.y +
-      coeff[i][1] * bez->points[segnum+1].p1.y +
-      coeff[i][2] * bez->points[segnum+1].p2.y +
-      coeff[i][3] * bez->points[segnum+1].p3.y;
-
-    dist = MIN(dist, distance_line_point(&prev, &pt, line_width, point));
-
-    prev = pt;
-  }
-  return dist;
-}
-
 int
 bezierconn_closest_segment(BezierConn *bez, Point *point, real line_width)
 {
+  Point last;
   int i;
   real dist = G_MAXDOUBLE;
   int closest;
 
   closest = 0;
+  last = bez->points[0].p1;
   for (i = 0; i < bez->numpoints - 1; i++) {
-    real new_dist = segment_distance(bez, point, line_width, i);
+    real new_dist = distance_bez_seg_point(&last, &bez->points[i+1].p1,
+				&bez->points[i+1].p2, &bez->points[i+1].p3,
+				line_width, point);
     if (new_dist < dist) {
       dist = new_dist;
       closest = i;
     }
+    last = bez->points[i+1].p3;
   }
   return closest;
 }
@@ -263,13 +209,8 @@ bezierconn_closest_handle(BezierConn *bez, Point *point)
 real
 bezierconn_distance_from(BezierConn *bez, Point *point, real line_width)
 {
-  int i;
-  real dist = G_MAXDOUBLE;
-  
-  for (i = 0; i < bez->numpoints - 1; i++) {
-    dist = MIN(dist, segment_distance(bez, point, line_width, i));
-  }
-  return dist;
+  return distance_bez_line_point(bez->points, bez->numpoints,
+				 line_width, point);
 }
 
 static void

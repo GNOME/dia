@@ -1,5 +1,14 @@
 2000-04-13  James Henstridge  <james@daa.com.au>
 
+	* lib/geometry.c (bez_point_distance_and_ray_crosses): fix up limit
+	on for loop.  Last set of coefficients were not beeing calculated,
+	which caused a bit of breakage.
+
+	* lib/bezier_conn.c (bezierconn_closest_segment): use the new
+	functions in geometry.c for calculating the closest segment.
+	(bezierconn_distance_from): use distance_bez_line_point to calculate
+	the distance.
+
 	* lib/geometry.c (distance_bez_line_point): new function to calculate
 	the distance from an open bezier line to a point.
 	(distance_bez_shape_point): new function to calculate the distance

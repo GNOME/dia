@@ -252,7 +252,7 @@ bez_point_distance_and_ray_crosses(Point *b1, Point *b2, Point *b3, Point *b4,
   Point prev, pt;
 
   if (!calculated_coeff) {
-    for (i = 0; i < NBEZ_SEGS; i++) {
+    for (i = 0; i <= NBEZ_SEGS; i++) {
       real t1 = ((real)i)/NBEZ_SEGS, t2 = t1*t1, t3 = t1*t2;
       real it1 = 1-t1, it2 = it1*it1, it3 = it1*it2;
 
