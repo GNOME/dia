@@ -1,3 +1,17 @@
+2000-06-07  James Henstridge  <james@daa.com.au>
+
+	* app/plugin-manager.c (get_plugin_manager): set some table
+	packing options to make it look a little nicer.
+
+	* plug-ins/hpgl/Makefile.am, plug-ins/wpg/Makefile.am: added
+	makefiles for these plug-ins.
+
+	* plug-ins/{hpgl,wmf,wpg}/*: removed dos style cariage returns.
+
+	* configure.in: added hpgl and wpg directories to build.  Added
+	note about whether gnome-print support was enabled, and noted that
+	it is not recommended.
+
 2000-06-06  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/{hpgl,wmf,wpg}/*: Hans Breuer's plug-ins.  They still need

@@ -187,7 +187,7 @@ get_plugin_manager(void)
   pm.name_label = gtk_label_new("");
   gtk_misc_set_alignment(GTK_MISC(pm.name_label), 0.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), pm.name_label, 1,2, 0,1,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(pm.name_label);
 
   label = gtk_label_new(_("File name:"));
@@ -199,7 +199,7 @@ get_plugin_manager(void)
   pm.file_label = gtk_label_new("");
   gtk_misc_set_alignment(GTK_MISC(pm.file_label), 0.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), pm.file_label, 1,2, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(pm.file_label);
 
   label = gtk_label_new(_("Description:"));
@@ -213,7 +213,7 @@ get_plugin_manager(void)
   gtk_label_set_justify(GTK_LABEL(pm.description_label), GTK_JUSTIFY_LEFT);
   gtk_label_set_line_wrap(GTK_LABEL(pm.description_label), TRUE);
   gtk_table_attach(GTK_TABLE(table), pm.description_label, 1,2, 2,3,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(pm.description_label);
 
   label = gtk_label_new(_("Loaded:"));
@@ -225,7 +225,7 @@ get_plugin_manager(void)
   pm.loaded_label = gtk_label_new("");
   gtk_misc_set_alignment(GTK_MISC(pm.loaded_label), 0.0, 0.5);
   gtk_table_attach(GTK_TABLE(table), pm.loaded_label, 1,2, 3,4,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(pm.loaded_label);
 
   pm.autoload_cbutton = gtk_check_button_new_with_label(

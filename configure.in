@@ -256,6 +256,8 @@ plug-ins/Makefile
 plug-ins/cgm/Makefile
 plug-ins/pstricks/Makefile
 plug-ins/dxf/Makefile
+plug-ins/hpgl/Makefile
+plug-ins/wpg/Makefile
 )
 
 echo "
@@ -269,5 +271,6 @@ Configuration:
 
 	Gnome support:				${GNOME}
 	Build bonobo component (not supported):	${enable_bonobo}
+        Gnome-print support (not recommended):  ${enable_gnome_print}
 
 Now type make to build dia."

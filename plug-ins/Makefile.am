@@ -1,1 +1,1 @@
-SUBDIRS = cgm pstricks dxf
+SUBDIRS = cgm pstricks dxf hpgl wpg
