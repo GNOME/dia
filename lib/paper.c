@@ -23,9 +23,6 @@
 #include <ctype.h>
 
 #include "paper.h"
-#ifndef _MSC_VER
-#include "../app/preferences.h"
-#endif
 
 /* Paper definitions stolen from gnome-libs.
  * All measurements are in centimetres. */

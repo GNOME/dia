@@ -1,3 +1,7 @@
+2002-08-18  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/paper.c: Removed app/preferences.h reference.
+
 2002-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/svg/svg-import.c: 
