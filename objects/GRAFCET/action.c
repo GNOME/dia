@@ -299,14 +299,18 @@ action_update_data(Action *action)
     p1.x = p2.x = x1;
 
     obj->connections[(2*i) + 2]->pos = p1;
+    obj->connections[(2*i) + 2]->directions = DIR_NORTH;
     obj->connections[(2*i) + 3]->pos = p2;
+    obj->connections[(2*i) + 3]->directions = DIR_SOUTH;
 
     x = x + chunksize + 2 * action->space_width; 
   }
   p1.y = p2.y = conn->endpoints[1].y;
   p1.x = left; p2.x = right;
   obj->connections[0]->pos = p1;
+  obj->connections[0]->directions = DIR_WEST;
   obj->connections[1]->pos = p2;
+  obj->connections[1]->directions = DIR_EAST;
 
   /* fix boundingbox for line_width: */
   action->labelbb.top -= ACTION_LINE_WIDTH/2;

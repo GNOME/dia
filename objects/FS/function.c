@@ -372,21 +372,38 @@ function_update_data(Function *pkg)
   elem->height = h - elem->corner.y;
 
   /* Update connections: */
-  pkg->connections[0].pos = elem->corner;
-  pkg->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[1].pos.y = elem->corner.y;
-  pkg->connections[2].pos.x = elem->corner.x + elem->width;
-  pkg->connections[2].pos.y = elem->corner.y;
-  pkg->connections[3].pos.x = elem->corner.x;
-  pkg->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[4].pos.x = elem->corner.x + elem->width;
-  pkg->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[5].pos.x = elem->corner.x;
-  pkg->connections[5].pos.y = elem->corner.y + elem->height;
-  pkg->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[6].pos.y = elem->corner.y + elem->height;
-  pkg->connections[7].pos.x = elem->corner.x + elem->width;
-  pkg->connections[7].pos.y = elem->corner.y + elem->height;
+  connpoint_update(&pkg->connections[0],
+		   elem->corner.x,
+		   elem->corner.y,
+		   DIR_NORTHWEST);
+  connpoint_update(&pkg->connections[1],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&pkg->connections[2],
+		   elem->corner.x + elem->width,
+		   elem->corner.y,
+		   DIR_NORTHEAST);
+  connpoint_update(&pkg->connections[3],
+		   elem->corner.x,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST);
+  connpoint_update(&pkg->connections[4],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_EAST);
+  connpoint_update(&pkg->connections[5],
+		   elem->corner.x,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHWEST);
+  connpoint_update(&pkg->connections[6],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&pkg->connections[7],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHEAST);
   
   element_update_boundingbox(elem);
 

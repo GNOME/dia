@@ -206,6 +206,7 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
   real se_len,pseudopoints;
   int i;
   GSList *elem;
+  gint dirs;
 
   point_copy(&se_vector, end);
   point_sub(&se_vector, start);
@@ -218,6 +219,11 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
   cpl->start = *start;
   cpl->end = *end;
   
+  if (fabs(se_vector.x) > fabs(se_vector.y))
+    dirs = DIR_NORTH|DIR_SOUTH;
+  else
+    dirs = DIR_EAST|DIR_WEST;
+
   pseudopoints = cpl->num_connections + 1; /* here, we count the start and end 
 					    points as eating real positions. */
   for (i=0, elem=cpl->connections; 
@@ -225,6 +231,7 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
        i++,elem=g_slist_next(elem)) {
     ConnectionPoint *cp = (ConnectionPoint *)(elem->data);
     cp->pos = se_vector;
+    cp->directions = dirs;
     point_scale(&cp->pos,se_len * (i+1.0)/pseudopoints);
     point_add(&cp->pos,start);
   }

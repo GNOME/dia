@@ -351,29 +351,45 @@ relationship_update_data(Relationship *relationship)
         6    
    */
   
-  relationship->connections[0].pos.x = elem->corner.x;
-  relationship->connections[0].pos.y = elem->corner.y + elem->height / 2.0;
+  connpoint_update(&relationship->connections[0],
+		   elem->corner.x,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST|DIR_NORTH|DIR_SOUTH);
 
-  relationship->connections[1].pos.x = elem->corner.x + elem->width / 4.0;
-  relationship->connections[1].pos.y = elem->corner.y + elem->height / 4.0;
+  connpoint_update(&relationship->connections[1],
+		   elem->corner.x + elem->width / 4.0,
+		   elem->corner.y + elem->height / 4.0,
+		   DIR_NORTHWEST);
 
-  relationship->connections[2].pos.x = elem->corner.x + elem->width / 2.0;
-  relationship->connections[2].pos.y = elem->corner.y;
+  connpoint_update(&relationship->connections[2],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y,
+		   DIR_NORTH|DIR_EAST|DIR_WEST);
   
-  relationship->connections[3].pos.x = elem->corner.x + 3.0 * elem->width / 4.0;
-  relationship->connections[3].pos.y = elem->corner.y + elem->height / 4.0;
+  connpoint_update(&relationship->connections[3],
+		   elem->corner.x + 3.0 * elem->width / 4.0,
+		   elem->corner.y + elem->height / 4.0,
+		   DIR_NORTHEAST);
   
-  relationship->connections[4].pos.x = elem->corner.x + elem->width;
-  relationship->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
+  connpoint_update(&relationship->connections[4],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_EAST|DIR_NORTH|DIR_SOUTH);
 
-  relationship->connections[5].pos.x = elem->corner.x + 3.0 * elem->width / 4.0;
-  relationship->connections[5].pos.y = elem->corner.y + 3.0 * elem->height / 4.0;
+  connpoint_update(&relationship->connections[5],
+		   elem->corner.x + 3.0 * elem->width / 4.0,
+		   elem->corner.y + 3.0 * elem->height / 4.0,
+		   DIR_SOUTHEAST);
   
-  relationship->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  relationship->connections[6].pos.y = elem->corner.y + elem->height;
+  connpoint_update(&relationship->connections[6],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH|DIR_EAST|DIR_WEST);
 
-  relationship->connections[7].pos.x = elem->corner.x + elem->width / 4.0;
-  relationship->connections[7].pos.y = elem->corner.y + 3.0 * elem->height / 4.0;
+  connpoint_update(&relationship->connections[7],
+		   elem->corner.x + elem->width / 4.0,
+		   elem->corner.y + 3.0 * elem->height / 4.0,
+		   DIR_SOUTHWEST);
 
   extra->border_trans = relationship->border_width / 2.0;
   element_update_boundingbox(elem);

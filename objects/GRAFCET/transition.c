@@ -242,7 +242,9 @@ transition_update_data(Transition *transition)
     (transition->south.pos.y + transition->B.y) / 2.0;
 
   obj->connections[0]->pos = transition->A;
+  obj->connections[0]->directions = DIR_EAST|DIR_WEST;
   obj->connections[1]->pos = transition->B;
+  obj->connections[1]->directions = DIR_EAST|DIR_WEST;
 
 
   element_update_boundingbox(elem);

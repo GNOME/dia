@@ -571,9 +571,11 @@ chronoline_update_data(Chronoline *chronoline)
       cp->pos.x = evt->x;
       if (chronoline->multibit) {
 	cp->pos.y = .5 * (chronoline->y_down + chronoline->y_up);
+	cp->directions = DIR_ALL;
       } else {
 	cp->pos.y = (evt->type==CLE_OFF?
 		     chronoline->y_down:chronoline->y_up);
+	cp->directions = (evt->type==CLE_OFF?DIR_SOUTH:DIR_NORTH);
       }
       i++;
       conn_elem = g_slist_next(conn_elem);

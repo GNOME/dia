@@ -299,11 +299,15 @@ vergent_update_data(Vergent *vergent)
     connpointline_update(vergent->north);
     connpointline_putonaline(vergent->north,&p0,&p1);
     vergent->northwest.pos = p0;
+    vergent->northwest.directions = DIR_NORTH;
     vergent->northeast.pos = p1;
+    vergent->northeast.directions = DIR_NORTH;
     connpointline_update(vergent->south);
     connpointline_putonaline(vergent->south,&p0,&p1);
     vergent->southwest.pos = p0;
+    vergent->southwest.directions = DIR_SOUTH;
     vergent->southeast.pos = p1;    
+    vergent->southeast.directions = DIR_SOUTH;
     break;
   case VERGENT_AND:
     extra->start_trans = 
@@ -318,12 +322,16 @@ vergent_update_data(Vergent *vergent)
     connpointline_update(vergent->north);
     connpointline_putonaline(vergent->north,&p0,&p1);
     vergent->northwest.pos = p0;
+    vergent->northwest.directions = DIR_NORTH;
     vergent->northeast.pos = p1;
+    vergent->northeast.directions = DIR_NORTH;
     p0.y = p1.y = p0.y + 2.0 *VERGENT_LINE_WIDTH;
     connpointline_update(vergent->south);
     connpointline_putonaline(vergent->south,&p0,&p1);
     vergent->southwest.pos = p0;
+    vergent->southwest.directions = DIR_SOUTH;
     vergent->southeast.pos = p1;
+    vergent->southeast.directions = DIR_SOUTH;
     break;
   }
   connection_update_handles(conn);

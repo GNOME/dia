@@ -1,5 +1,18 @@
 2003-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/Misc/analog_clock.c (analog_clock_update_arrow_tips): 
+	* objects/GRAFCET/vergent.c (vergent_update_data): 
+	* objects/GRAFCET/transition.c (transition_update_data): 
+	* objects/GRAFCET/action.c (action_update_data): 
+	* objects/GRAFCET/step.c (step_update_data): 
+	* objects/FS/function.c (function_update_data): 
+	* lib/connpoint_line.c (connpointline_putonaline): 
+	* objects/ER/attribute.c (attribute_update_data): 
+	* objects/ER/entity.c (entity_update_data): 
+	* objects/ER/relationship.c (relationship_update_data): 
+	* objects/chronogram/chronoline.c (chronoline_update_data): Set
+	directions for connection points.
+
 	* objects/UML/component.c (component_create): Set to allow
 	parenting. 
 

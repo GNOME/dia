@@ -287,21 +287,38 @@ entity_update_data(Entity *entity)
   elem->height = entity->font_height + 2*TEXT_BORDER_WIDTH_Y;
 
   /* Update connections: */
-  entity->connections[0].pos = elem->corner;
-  entity->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  entity->connections[1].pos.y = elem->corner.y;
-  entity->connections[2].pos.x = elem->corner.x + elem->width;
-  entity->connections[2].pos.y = elem->corner.y;
-  entity->connections[3].pos.x = elem->corner.x;
-  entity->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  entity->connections[4].pos.x = elem->corner.x + elem->width;
-  entity->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  entity->connections[5].pos.x = elem->corner.x;
-  entity->connections[5].pos.y = elem->corner.y + elem->height;
-  entity->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  entity->connections[6].pos.y = elem->corner.y + elem->height;
-  entity->connections[7].pos.x = elem->corner.x + elem->width;
-  entity->connections[7].pos.y = elem->corner.y + elem->height;
+  connpoint_update(&entity->connections[0],
+		    elem->corner.x,
+		    elem->corner.y,
+		    DIR_NORTHWEST);
+  connpoint_update(&entity->connections[1],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&entity->connections[2],
+		   elem->corner.x + elem->width,
+		   elem->corner.y,
+		   DIR_NORTHEAST);
+  connpoint_update(&entity->connections[3],
+		   elem->corner.x,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST);
+  connpoint_update(&entity->connections[4],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_EAST);
+  connpoint_update(&entity->connections[5],
+		   elem->corner.x,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHWEST);
+  connpoint_update(&entity->connections[6],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&entity->connections[7],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHEAST);
 
   extra->border_trans = entity->border_width/2.0;
   element_update_boundingbox(elem);

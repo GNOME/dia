@@ -334,22 +334,38 @@ attribute_update_data(Attribute *attribute)
   half_y = elem->height * M_SQRT1_2 / 2.0;
     
   /* Update connections: */
-  attribute->connections[0].pos.x = center.x - half_x;
-  attribute->connections[0].pos.y = center.y - half_y;
-  attribute->connections[1].pos.x = center.x;
-  attribute->connections[1].pos.y = elem->corner.y;
-  attribute->connections[2].pos.x = center.x + half_x;
-  attribute->connections[2].pos.y = center.y - half_y;
-  attribute->connections[3].pos.x = elem->corner.x;
-  attribute->connections[3].pos.y = center.y;
-  attribute->connections[4].pos.x = elem->corner.x + elem->width;
-  attribute->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  attribute->connections[5].pos.x = center.x - half_x;
-  attribute->connections[5].pos.y = center.y + half_y;
-  attribute->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  attribute->connections[6].pos.y = elem->corner.y + elem->height;
-  attribute->connections[7].pos.x = center.x + half_x;
-  attribute->connections[7].pos.y = center.y + half_y;
+  connpoint_update(&attribute->connections[0],
+		    center.x - half_x,
+		    center.y - half_y,
+		    DIR_NORTHWEST);
+  connpoint_update(&attribute->connections[1],
+		    center.x,
+		    elem->corner.y,
+		    DIR_NORTH);
+  connpoint_update(&attribute->connections[2],
+		    center.x + half_x,
+		    center.y - half_y,
+		    DIR_NORTHEAST);
+  connpoint_update(&attribute->connections[3],
+		    elem->corner.x,
+		    center.y,
+		    DIR_WEST);
+  connpoint_update(&attribute->connections[4],
+		    elem->corner.x + elem->width,
+		    elem->corner.y + elem->height / 2.0,
+		    DIR_EAST);
+  connpoint_update(&attribute->connections[5],
+		    center.x - half_x,
+		    center.y + half_y,
+		    DIR_SOUTHWEST);
+  connpoint_update(&attribute->connections[6],
+		    elem->corner.x + elem->width / 2.0,
+		    elem->corner.y + elem->height,
+		    DIR_SOUTH);
+  connpoint_update(&attribute->connections[7],
+		    center.x + half_x,
+		    center.y + half_y,
+		    DIR_SOUTHEAST);
 
   extra->border_trans = attribute->border_width/2.0;
   element_update_boundingbox(elem);
