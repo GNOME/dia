@@ -1,5 +1,11 @@
 2003-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* config.h.win32: 
+	* NEWS: 
+	* configure.in:
+	* dia.spec:
+	Prerelease version changes, version 0.91-pre1.
+
 	* app/sheets_dialog_callbacks.h: 
 	* app/sheets_dialog_callbacks.c: 
 	* app/sheets_dialog.c (create_sheets_main_dialog): 

@@ -1,10 +1,15 @@
-dia-0.91: XX-XXX-XXXX
+dia-0.91-pre1: 31-Jan-2003
 
-* Very likely to require libgtk2.0 instead of libgtk1.2. FIXME:
+* Requires libgtk2.0 instead of libgtk1.2. FIXME:
   document exactly what we need (do it in INSTALL too)
 
 * The XSLT plugin uses the gnome libxslt to export documents from 
   DIA. The library is not required at compile time.
+
+* Relies on FreeType (pangoft2) for all Unix-side text handling.
+
+* Since text handling is totally changed, old diagrams will have different
+  text sizes.  
 
 dia-0.90:  1-June-2002
 
