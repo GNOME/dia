@@ -1,3 +1,13 @@
+2003-08-07  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/create_object.c (create_object_button_press): 
+	* app/undo.[ch]: 
+	* app/diagram.c: Undo support for parenting.  Uses apply/revert in
+	undo only for manipulating the parent/child relationships.  Things
+	like removing an object doesn't use the undo functions for
+	parenting, so any updates to come (like to diagramtree) should be
+	done in those, too.
+
 2003-08-03  Hans Breuer  <hans@breuer.org>
 
 	* app/create_object.c : minor formating and g_new0 for
