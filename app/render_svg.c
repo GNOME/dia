@@ -820,7 +820,7 @@ draw_image(RendererSVG *renderer,
 }
 
 static void
-export_svg(DiagramData *data, const gchar *filename)
+export_svg(DiagramData *data, const gchar *filename, const gchar *diafilename)
 {
   RendererSVG *renderer;
 

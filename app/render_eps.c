@@ -136,8 +136,9 @@ static void print_reencode_font(FILE *file, char *fontname)
 }
 
 
-RendererEPS *
-new_eps_renderer(Diagram *dia, char *filename)
+static RendererEPS *
+create_eps_renderer(DiagramData *data, const char *filename,
+		    const char *diafilename)
 {
   RendererEPS *renderer;
   FILE *file;
@@ -167,7 +168,7 @@ new_eps_renderer(Diagram *dia, char *filename)
   renderer->saved_line_style = LINESTYLE_SOLID;
   
   time_now  = time(NULL);
-  extent = &dia->data->extents;
+  extent = &data->extents;
   
   scale = 28.346;
   
@@ -188,7 +189,7 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  "%%%%BeginSetup\n"
 	  "%%%%EndSetup\n"
 	  "%%%%EndComments\n",
-	  dia->filename,
+	  diafilename,
 	  VERSION,
 	  ctime(&time_now),
 	  name,
@@ -356,6 +357,12 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  -extent->left, -extent->bottom );
   
   return renderer;
+}
+
+RendererEPS *
+new_eps_renderer(Diagram *dia, gchar *filename)
+{
+  return create_eps_renderer(dia->data, filename, dia->filename);
 }
 
 void
@@ -1070,3 +1077,20 @@ draw_image(RendererEPS *renderer,
   fprintf(renderer->file, "\n");
 }
 
+/* --- export filter interface --- */
+static void
+export_eps(DiagramData *data, const gchar *filename, const gchar *diafilename)
+{
+  RendererEPS *renderer;
+
+  renderer = create_eps_renderer(data, filename, diafilename);
+  data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+  destroy_eps_renderer(renderer);
+}
+
+static const gchar *extensions[] = { "eps", "epsi", NULL };
+DiaExportFilter eps_export_filter = {
+  N_("Encapsulated Postscript"),
+  extensions,
+  export_eps
+};

@@ -25,6 +25,7 @@ typedef struct _RendererEPS RendererEPS;
 #include "geometry.h"
 #include "render.h"
 #include "display.h"
+#include "filter.h"
 
 struct _RendererEPS {
   Renderer renderer;
@@ -42,9 +43,7 @@ extern RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
 extern RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
 extern void destroy_eps_renderer(RendererEPS *renderer);
 
+extern DiaExportFilter eps_export_filter;
+
 #endif /* RENDER_EPS_H */
-
-
-
-
 
