@@ -36,6 +36,13 @@ UML:
  Class: * class can be object => underlined name
           (Is this really in UML? Can't find it in specs?)
  Aggregate: * Has some problems laying out the text at the ends.
+ Lifeline: * add properties dialog.
+           * make optional both the focus of control rectangle and  
+	     the possiblity to add a recursion rectangle.
+	   * add connection points to the focus of control rectangle
+	   * add destruction mark (optional)
+ Object:   * Add prop. dialog
+           * add attributes and explicit state
  All:   * Change some entries to comboboxes with pre-selectable texts.
           (Mostly stereotypes)
 

@@ -17,4 +17,7 @@ uml.lo
 note.lo
 usecase.lo
 actor.lo
+message.lo
+lifeline.lo
+object.lo
 libuml_objects.la

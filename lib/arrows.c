@@ -56,6 +56,24 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
 
 static void
 draw_lines(Renderer *renderer, Point *to, Point *from,
+	              real length, real width, real linewidth,
+	              Color *color)
+{
+      Point poly[3];
+    
+      calculate_arrow(poly, to, from, length, width);
+    
+      renderer->ops->set_linewidth(renderer, linewidth);
+      renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+      renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+      renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+    
+      renderer->ops->draw_polyline(renderer, poly, 3, color);
+}
+
+/* Only draw the upper part of the arrow */
+static void
+draw_halfhead(Renderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
 	   Color *color)
 {
@@ -68,7 +86,10 @@ draw_lines(Renderer *renderer, Point *to, Point *from,
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, poly, 3, color);
+  if (poly[0].y > poly[2].y) 
+      poly[0] = poly[2];
+    
+  renderer->ops->draw_line(renderer, &poly[0], &poly[1], color);
 }
 
 static void
@@ -183,6 +204,9 @@ arrow_draw(Renderer *renderer, ArrowType type,
     break;
   case ARROW_LINES:
     draw_lines(renderer, to, from, length, width, linewidth, fg_color);
+    break;
+  case ARROW_HALF_HEAD:
+    draw_halfhead(renderer, to, from, length, width, linewidth, fg_color);
     break;
   case ARROW_HOLLOW_TRIANGLE:
     fill_triangle(renderer, to, from, length, width, bg_color);

@@ -1,3 +1,20 @@
+1999-01-31  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/Makefile.in: 
+	* objects/UML/uml.c:
+	* objects/UML/lifeline.c: 
+	* objects/UML/object.c: 
+	* objects/UML/message.c:
+	* objects/UML/pixmaps/lifeline.xpm: 
+	* objects/UML/pixmaps/object.xpm: 
+	* objects/UML/pixmaps/message.xpm:
+	Added 3 new UML objects for dynamic modeling. To avoid internal 
+	conflicts, the name "objet" is used for object "object".	
+
+	* lib/arrows.[ch]: 
+	Added ARROW_HALF_HEAD arrow type to allow drawing asynchronous
+	UML messages.
+	
 1999-01-30  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/display.[ch]:

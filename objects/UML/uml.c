@@ -37,6 +37,9 @@ extern ObjectType smallpackage_type;
 extern ObjectType largepackage_type;
 extern ObjectType actor_type;
 extern ObjectType usecase_type;
+extern ObjectType lifeline_type;
+extern ObjectType objet_type;
+extern ObjectType message_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -49,8 +52,11 @@ void register_objects(void) {
   object_register_type(&constraint_type);
   object_register_type(&smallpackage_type);
   object_register_type(&largepackage_type);
-  object_register_type(&actor_type);    
-  object_register_type(&usecase_type);    
+  object_register_type(&actor_type);
+  object_register_type(&usecase_type);
+  object_register_type(&lifeline_type);
+  object_register_type(&objet_type);
+  object_register_type(&message_type);
 }
 
 extern SheetObject umlclass_sheetobj;
@@ -67,6 +73,9 @@ extern SheetObject smallpackage_sheetobj;
 extern SheetObject largepackage_sheetobj;
 extern SheetObject actor_sheetobj;
 extern SheetObject usecase_sheetobj;
+extern SheetObject lifeline_sheetobj;
+extern SheetObject objet_sheetobj;
+extern SheetObject message_sheetobj;
 
 int get_version(void) {
   return 0;
@@ -91,6 +100,10 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &largepackage_sheetobj);
   sheet_append_sheet_obj(sheet, &actor_sheetobj);
   sheet_append_sheet_obj(sheet, &usecase_sheetobj);
+  sheet_append_sheet_obj(sheet, &lifeline_sheetobj);
+  sheet_append_sheet_obj(sheet, &objet_sheetobj);
+  sheet_append_sheet_obj(sheet, &message_sheetobj);
+    
 
   register_sheet(sheet);
 }

@@ -19,7 +19,10 @@ libuml_objects_la_SOURCES = \
 			implements.c \
 			generalization.c \
 			association.c \
-			dependency.c
+			dependency.c \
+			message.c \
+			object.c \
+			lifeline.c 
 
 libuml_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 libuml_objects_la_LIBADD = @GTK_LIBS@

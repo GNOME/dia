@@ -21,13 +21,17 @@
 #include "geometry.h"
 #include "render.h"
 
+/* NOTE: Add new arrow types at the end, or the enums
+   will change order leading to file incompatibilities. */
+   
 typedef enum {
   ARROW_NONE,
   ARROW_LINES,
   ARROW_HOLLOW_TRIANGLE,
   ARROW_FILLED_TRIANGLE,
   ARROW_HOLLOW_DIAMOND,
-  ARROW_FILLED_DIAMOND
+  ARROW_FILLED_DIAMOND,
+  ARROW_HALF_HEAD
 } ArrowType;
 
 extern void arrow_draw(Renderer *renderer, ArrowType type,

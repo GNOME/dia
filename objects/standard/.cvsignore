@@ -11,3 +11,4 @@ line.lo
 standard.lo
 textobj.lo
 zigzagline.lo
+polyline.lo
