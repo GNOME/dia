@@ -1,3 +1,9 @@
+2001-04-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/shape/shape-export.c (new_shape_renderer): 
+	The name of a shape is now taken from the dir, to conform with
+	standard naming.
+
 2001-04-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/properties.c (properties_show): Added title containing

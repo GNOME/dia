@@ -187,6 +187,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   xmlNodePtr xml_node_ptr;
   gint i;
   gchar *png_filename;
+  char *shapename, *dirname, *sheetname, *fullname;
  
   file = fopen(filename, "w");
 
@@ -214,7 +215,16 @@ new_shape_renderer(DiagramData *data, const char *filename)
   renderer->svg_name_space = xmlNewNs(renderer->root, "http://www.w3.org/2000/svg", "svg");
   renderer->doc->root = renderer->root;
 
-  xmlNewChild(renderer->root, NULL, "name", g_basename(filename));
+  dirname = g_dirname(filename);
+  sheetname = g_basename(dirname);
+  shapename = g_strndup(g_basename(filename), strlen(g_basename(filename))-6);
+  fullname = g_malloc(strlen(sheetname)+3+strlen(shapename)+1);
+  sprintf(fullname, "%s - %s", sheetname, shapename);
+  g_free(dirname);
+  g_free(shapename);
+
+  xmlNewChild(renderer->root, NULL, "name", fullname);
+  g_free(fullname);
   point = strrchr(filename, '.');
   i = (int)(point-filename);
   point = g_strndup(filename, i);
