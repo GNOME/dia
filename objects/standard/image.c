@@ -752,7 +752,6 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
       diafile_dir = get_directory(filename);
 
-      printf("Saving: %s, diafile_dir=%s\n",  image->file, diafile_dir);
       if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */

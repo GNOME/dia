@@ -27,6 +27,7 @@
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
+#include "cut_n_paste.h"
 #include "layer_dialog.h"
 
 GList *open_diagrams = NULL;
