@@ -58,6 +58,7 @@ create_modify_tool(void)
   tool->gc = NULL;
   tool->state = STATE_NONE;
   tool->break_connections = 0;
+  tool->auto_scrolled = FALSE;
 
   tool->orig_pos = NULL;
   

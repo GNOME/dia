@@ -281,6 +281,7 @@ action_update_data(Action *action)
   
   left = x = conn->endpoints[1].x;
   right = left + action->label_width;
+  p1.x = conn->endpoints[1].x;
   p1.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
   p2.y = p1.y + ACTION_HEIGHT;
   connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);

@@ -1,5 +1,13 @@
 2002-05-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* objects/GRAFCET/action.c (action_update_data): Init x value of
+	click point for call to connpointlist_adjust_count.
+
+	* app/modify_tool.c (create_modify_tool): Init tool->auto_scrolled
+
+	* app/render_pixmap.c (new_pixmap_renderer): Moved first linestyle
+	setting to where values are inited.
+
 	* lib/polyshape.c (polyshape_init): Removed call to
 	polyshape_update_data that tried to use uninitialized data.
 
