@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-29 03:27+0200\n"
-"PO-Revision-Date: 2003-08-29 07:04+0200\n"
+"POT-Creation-Date: 2003-09-09 11:34+0200\n"
+"PO-Revision-Date: 2003-09-09 20:10+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -522,7 +522,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configurar página"
 
-#: app/disp_callbacks.c:78 app/properties.c:144
+#: app/disp_callbacks.c:78 app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -570,7 +570,7 @@ msgstr "Descartar los cambios"
 #: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -611,7 +611,7 @@ msgstr "Alto de la imagen:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:113 app/filedlg.c:383
+#: app/filedlg.c:113 app/filedlg.c:380
 msgid "By extension"
 msgstr "Por extensión"
 
@@ -623,7 +623,7 @@ msgstr "Abrir diagrama"
 msgid "Open Options"
 msgstr "Abrir opciones"
 
-#: app/filedlg.c:208 app/filedlg.c:498
+#: app/filedlg.c:208 app/filedlg.c:495
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
@@ -636,7 +636,7 @@ msgstr ""
 "codificación local.\n"
 "Algunas cosas no funcionarán."
 
-#: app/filedlg.c:251 app/filedlg.c:425
+#: app/filedlg.c:251 app/filedlg.c:422
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -645,7 +645,7 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Quiere sobreescribirlo?"
 
-#: app/filedlg.c:259 app/filedlg.c:431
+#: app/filedlg.c:259 app/filedlg.c:428
 msgid "File already exists"
 msgstr "El archivo ya existe"
 
@@ -655,11 +655,11 @@ msgstr "Guardar diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:300
+#: app/filedlg.c:297
 msgid "Compress diagram files"
 msgstr "Comprimir archivos del diagrama"
 
-#: app/filedlg.c:309
+#: app/filedlg.c:306
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -668,7 +668,7 @@ msgstr ""
 "incrementa la velocidad del cargado y el guardado. Algunos programas de "
 "texto no pueden manipular archivos comprimidos."
 
-#: app/filedlg.c:450
+#: app/filedlg.c:447
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -677,11 +677,11 @@ msgstr ""
 "No se pudo determinar qué filtro de exportación\n"
 "usar para guardar «%s»"
 
-#: app/filedlg.c:468
+#: app/filedlg.c:465
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: app/filedlg.c:490
+#: app/filedlg.c:487
 msgid "Export Options"
 msgstr "Exportar opciones"
 
@@ -927,7 +927,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
 #: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1505 plug-ins/xslt/xslt.c:78
+#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
@@ -1714,17 +1714,17 @@ msgstr "Impresora"
 msgid "File"
 msgstr "Archivo"
 
-#: app/paginate_psprint.c:342
+#: app/paginate_psprint.c:353
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "No se pudo ejecutar el comando «%s»"
 
-#: app/paginate_psprint.c:345
+#: app/paginate_psprint.c:356
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "No se pudo abrir «%s» para escritura"
 
-#: app/paginate_psprint.c:370
+#: app/paginate_psprint.c:381
 msgid "Error occured while printing"
 msgstr "Ocurrió un error mientras se imprimía"
 
@@ -1900,19 +1900,19 @@ msgstr "No"
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: app/properties.c:52
+#: app/properties.c:55
 msgid "Object properties"
 msgstr "Propiedades del objeto"
 
-#: app/properties.c:78
+#: app/properties.c:81
 msgid "This object has no properties."
 msgstr "Este objeto no tiene propiedades."
 
-#: app/properties.c:194
+#: app/properties.c:203
 msgid "Properties: "
 msgstr "Propiedades: "
 
-#: app/properties.c:198
+#: app/properties.c:207
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
@@ -4628,11 +4628,15 @@ msgstr "exportación/importación de mapa de bits basada en gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Filtro de exportación Pstricks de TeX"
 
-#: plug-ins/pstricks/render_pstricks.c:828
+#: plug-ins/pstricks/render_pstricks.c:650
+msgid "Not valid UTF8"
+msgstr "UTF-8 no válido"
+
+#: plug-ins/pstricks/render_pstricks.c:868
 msgid "TeX PSTricks macros"
 msgstr "Macros PSTricks de TeX"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
@@ -4659,11 +4663,11 @@ msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
-#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
-#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:213
-#: plug-ins/xfig/xfig-import.c:250 plug-ins/xfig/xfig-import.c:278
-#: plug-ins/xfig/xfig-import.c:315 plug-ins/xfig/xfig-import.c:351
-#: plug-ins/xfig/xfig-import.c:392
+#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
+#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
+#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
+#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
+#: plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
@@ -4688,11 +4692,11 @@ msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
-#: plug-ins/wmf/wmf.cpp:1089
+#: plug-ins/wmf/wmf.cpp:1100
 msgid "Windows Meta File"
 msgstr "Meta-archivo de Windows (WMF)"
 
-#: plug-ins/wmf/wmf.cpp:1103
+#: plug-ins/wmf/wmf.cpp:1114
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
@@ -4728,180 +4732,181 @@ msgstr "No más colores definibles por el usuario - se usará el negro"
 msgid "XFig format"
 msgstr "Formato XFig"
 
-#: plug-ins/xfig/xfig-import.c:461
+#: plug-ins/xfig/xfig-import.c:472
 msgid "Patterns are not supported by Dia"
 msgstr "Dia no admite patrones"
 
-#: plug-ins/xfig/xfig-import.c:489
+#: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
-#: plug-ins/xfig/xfig-import.c:493
+#: plug-ins/xfig/xfig-import.c:504
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "El estilo de línea %d no debería aparecer\n"
 
 # Cuidado con esto: en formato C hay que respetar el formato de la cadena. FVD
-#: plug-ins/xfig/xfig-import.c:562
+#: plug-ins/xfig/xfig-import.c:573
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Error leyendo el punto %dth de %d: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:584
+#: plug-ins/xfig/xfig-import.c:595
 msgid "Error while reading arrowhead\n"
 msgstr "Error leyendo cabeza de flecha\n"
 
-#: plug-ins/xfig/xfig-import.c:604
+#: plug-ins/xfig/xfig-import.c:615
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Tipo de flecha desconocida %d\n"
 
-#: plug-ins/xfig/xfig-import.c:701
+#: plug-ins/xfig/xfig-import.c:712
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "No se pudo leer información de elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:769
+#: plug-ins/xfig/xfig-import.c:780
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "No se pudo leer información de polilínea %s\n"
 
-#: plug-ins/xfig/xfig-import.c:784
+#: plug-ins/xfig/xfig-import.c:795
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "No se pudo leer bit cambiado: %s\n"
 
 # Se convertirá en positivo. FVD
-#: plug-ins/xfig/xfig-import.c:802
+#: plug-ins/xfig/xfig-import.c:813
 msgid "Negative corner radius, negating"
 msgstr "Radio de esquina negativo, se negará"
 
-#: plug-ins/xfig/xfig-import.c:846 plug-ins/xfig/xfig-import.c:1162
+#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Subtipo de polilínea desconocido: %d\n"
 
 # spline-->spline. FVD
-#: plug-ins/xfig/xfig-import.c:996 plug-ins/xfig/xfig-import.c:1028
+#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "No se pudo leer la información de la línea sp: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1015 plug-ins/xfig/xfig-import.c:1033
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
 msgstr "No se puede convertir aproximadamente todavía la línea sp."
 
-#: plug-ins/xfig/xfig-import.c:1073
+#: plug-ins/xfig/xfig-import.c:1084
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipo de línea sp desconocido: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1136
+#: plug-ins/xfig/xfig-import.c:1147
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "No se pudo leer la información del arco: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1226
+#: plug-ins/xfig/xfig-import.c:1237
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "No se pudo leer la información del texto: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1267
+#: plug-ins/xfig/xfig-import.c:1278
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "No se pudo identificar el objeto FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1274
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Compound end outside compound\n"
 msgstr "Fin de compuesto fuera de compuesto\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1305
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "No se pudo leer color %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1338
+#: plug-ins/xfig/xfig-import.c:1350
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "No se pudo leer grupo extendido %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1349
+#: plug-ins/xfig/xfig-import.c:1361
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Tipo de objeto desconocido %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1372
+#: plug-ins/xfig/xfig-import.c:1384
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' no es uno de `%s' o `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1382
+#: plug-ins/xfig/xfig-import.c:1394
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Error leyendo tamaño de papel: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1392
+#: plug-ins/xfig/xfig-import.c:1404
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Tamaño de papel `%s' desconocido, usando la opción por defecto\n"
 
-#: plug-ins/xfig/xfig-import.c:1404
+#: plug-ins/xfig/xfig-import.c:1416
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Error leyendo orientación de papel: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1414
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Error leyendo justificación: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1424
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Error leyendo unidades: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1438
+#: plug-ins/xfig/xfig-import.c:1450
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Error leyendo magnificación: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1449
+#: plug-ins/xfig/xfig-import.c:1461
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Error leyendo indicador de múltiples páginas: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1460
+#: plug-ins/xfig/xfig-import.c:1472
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Error leyendo color transparente: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1469 plug-ins/xfig/xfig-import.c:1524
+#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
+#: plug-ins/xfig/xfig-import.c:1554
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Error leyendo archivo FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1471 plug-ins/xfig/xfig-import.c:1526
+#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
 msgid "Premature end of FIG file\n"
 msgstr "Fin prematuro de archivo FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:1480
+#: plug-ins/xfig/xfig-import.c:1492
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Error leyendo resolución: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1511
+#: plug-ins/xfig/xfig-import.c:1523
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "No parece un archivo Fig: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1517
+#: plug-ins/xfig/xfig-import.c:1529
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Esto es un archivo FIG versión %d.%d, no puedo entenderlo\n"
 
-#: plug-ins/xfig/xfig-import.c:1558
+#: plug-ins/xfig/xfig-import.c:1577
 msgid "XFig File Format"
 msgstr "Formato de archivo XFig"
 
@@ -5350,7 +5355,7 @@ msgstr "Actuador de un relé"
 msgid "Components for electric circuits"
 msgstr "Componentes para circuitos eléctricos"
 
-#: sheets/Electric.sheet.in.h:3
+#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Punto de conexión"
 
@@ -5668,14 +5673,10 @@ msgid "5/3 distributor"
 msgstr "Distribuidor 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "Un punto de conexión"
-
-#: sheets/Pneumatic.sheet.in.h:8
 msgid "Air exhaust orifice"
 msgstr "Orificio para la salida de aire"
 
-#: sheets/Pneumatic.sheet.in.h:9
+#: sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Componentes para circuitos hidráulicos y neumáticos"
 
@@ -7193,6 +7194,9 @@ msgstr "Un servidor de datos sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
+
+#~ msgid "A connection point"
+#~ msgstr "Un punto de conexión"
 
 #~ msgid "Box with text inside"
 #~ msgstr "Caja con texto dentro"
