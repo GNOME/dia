@@ -27,11 +27,7 @@
 #include <math.h>
 #include <glib.h>
 
-#ifdef HAVE_GDK_PIXBUF
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#else
-#include <gdk_imlib.h>
-#endif
 
 #ifdef GNOME
 #include <gnome.h>
@@ -65,11 +61,7 @@
 #include "lib/properties.h"
 #include "dia-props.h"
 
-#ifdef HAVE_GDK_PIXBUF
 GdkPixbuf *logo;
-#else
-GdkImlibImage *logo;
-#endif
 
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
@@ -475,18 +467,13 @@ help_about_callback(GtkWidget *widget, gpointer data)
   if (!logo) {
       gchar* datadir = dia_get_data_directory(""); 
       g_snprintf(str, sizeof(str), "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
-#ifdef HAVE_GDK_PIXBUF
       logo = gdk_pixbuf_new_from_file(str);
-#else
-      logo = gdk_imlib_load_image(str);
-#endif
       g_free(datadir);
   }
 
   if (logo) {
-#ifdef HAVE_GDK_PIXBUF
-    GdkPixmap *pixmap;
-    GdkBitmap *bitmap;
+      GdkPixmap *pixmap;
+      GdkBitmap *bitmap;
 
       frame = gtk_frame_new (NULL);
       gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
@@ -497,16 +484,6 @@ help_about_callback(GtkWidget *widget, gpointer data)
       gpixmap = gtk_pixmap_new(pixmap, bitmap);
       gdk_pixmap_unref(pixmap);
       if (bitmap) gdk_bitmap_unref(bitmap);
-#else
-      gdk_imlib_render(logo, logo->rgb_width, logo->rgb_height);
-      frame = gtk_frame_new (NULL);
-      gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-      gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
-      gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
-
-      gpixmap = gtk_pixmap_new(logo->pixmap, logo->shape_mask);
-#endif
-
       gtk_container_add (GTK_CONTAINER(frame), gpixmap);
   }
 

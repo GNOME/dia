@@ -23,22 +23,17 @@
 #include "render.h"
 #include "dia_image.h"
 #include <gtk/gtkwidget.h>
-#ifdef HAVE_GDK_PIXBUF
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#else
-#include <gdk_imlib.h>
-#endif
 
 #include "pixmaps/broken.xpm"
 
 #define SCALING_CACHE
 
-#ifdef HAVE_GDK_PIXBUF
 struct _DiaImage {
-  GdkPixbuf *image; /* GdkPixbuf does its own refcount */
-  gchar *filename; /* ...buf doesn't remember the filename */
+  GdkPixbuf *image;
+  gchar *filename;
 #ifdef SCALING_CACHE
-  GdkPixbuf *scaled; /* ...and doesn't seem to cache the scaled versions */
+  GdkPixbuf *scaled; /* a cache of the last scaled version */
   int scaled_width, scaled_height;
 #endif
 };
@@ -46,6 +41,8 @@ struct _DiaImage {
 void 
 dia_image_init(void)
 {
+  gtk_widget_set_default_visual(gdk_rgb_get_visual());
+  gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
 }
 
 DiaImage
@@ -202,128 +199,3 @@ dia_image_filename(DiaImage image)
 {
   return image->filename;
 }
-
-#else /* HAVE_GDK_PIXBUF */
-struct _DiaImage {
-  GdkImlibImage *image;
-  int refcount;
-};
-
-void
-dia_image_init(void)
-{
-  gdk_imlib_init();
-  /* FIXME:  Is this a good idea? */
-  gtk_widget_set_default_visual(gdk_imlib_get_visual());
-  gtk_widget_set_default_colormap(gdk_imlib_get_colormap());
-}
-
-
-DiaImage
-dia_image_get_broken(void)
-{
-  static DiaImage broken = NULL;
-
-  if (broken == NULL) {
-    broken = g_new(struct _DiaImage, 1);
-    broken->image = gdk_imlib_create_image_from_xpm_data(broken_xpm);
-    broken->refcount = 0;
-  }
-
-  dia_image_add_ref(broken);
-  return broken;
-}
-
-DiaImage 
-dia_image_load(gchar *filename) 
-{
-  DiaImage dia_img;
-  GdkImlibImage *image;
-
-  image = gdk_imlib_load_image(filename);
-  if (image == NULL)
-    return NULL;
-
-  dia_img = g_new(struct _DiaImage, 1);
-  dia_img->image = image;
-  dia_img->refcount = 1;
-  return dia_img;
-}
-
-void
-dia_image_add_ref(DiaImage image)
-{
-  image->refcount++;
-}
-
-void
-dia_image_release(DiaImage image)
-{
-  image->refcount--;
-  if (image->refcount<=0)
-    gdk_imlib_destroy_image(image->image);
-}
-
-void
-dia_image_draw(DiaImage image, GdkWindow *window,
-	       int x, int y, int width, int height)
-{
-  gdk_imlib_paste_image(image->image, window,
-			x, y, width, height);
-} 
-
-int 
-dia_image_width(DiaImage image) 
-{
-  return (image->image)->rgb_width;
-}
-
-int 
-dia_image_height(DiaImage image)
-{
-  return (image->image)->rgb_height;
-}
-
-guint8 *
-dia_image_rgb_data(DiaImage image)
-{
-  guint8 *rgb_data;
-  int size = 3*image->image->rgb_width*image->image->rgb_height;
-
-  rgb_data = g_malloc(size);
-  g_memmove(rgb_data, image->image->rgb_data, size);
-  return rgb_data;
-}
-
-char *
-dia_image_filename(DiaImage image)
-{
-  return (image->image)->filename;
-}
-
-guint8 *
-dia_image_mask_data(DiaImage image)
-{
-  GdkImlibColor transparent;
-  guint8 *pixels;
-  guint8 *mask;
-  int i, size, trans;
-
-  gdk_imlib_get_image_shape(image->image, &transparent);
-
-  trans = (transparent.r<<16)+(transparent.g<<8)+transparent.b;
-
-  pixels = image->image->rgb_data;
-
-  size = image->image->rgb_width*image->image->rgb_height;
-
-  mask = g_malloc(size);
-
-  for (i = 0; i < size; i++) {
-    int col = (pixels[i*3]<<16)+(pixels[i*3+1]<<8)+pixels[i*3+2];
-    mask[i] = (col==trans?0:255);
-  }
-
-  return mask;
-}
-#endif HAVE_GDK_PIXBUF

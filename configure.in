@@ -123,15 +123,10 @@ AM_PATH_LIBART(2.1.0,dnl
  [have_libart=no])
 
 dnl
-dnl gdk_pixbuf or imlib
+dnl gdk_pixbuf
 dnl
 
-AM_PATH_GDK_PIXBUF(0.7.0,dnl
-  [have_gdkpixbuf=yes
-   AC_DEFINE(HAVE_GDK_PIXBUF) ],
-  [have_gdkbuf=no
-   AM_PATH_GDK_IMLIB(1.8.0,,dnl
-    AC_MSG_ERROR(you need either gdk-pixbuf or imlib installed)) ])
+AM_PATH_GDK_PIXBUF(0.7.0,,AC_MSG_ERROR([gdk-pixbuf >= 0.7.0 is required]))
 
 dnl
 dnl libpng

@@ -7,7 +7,6 @@ INCLUDES = \
 	$(DEBUG_FLAGS) \
 	$(XML_CFLAGS) \
 	$(GTK_CFLAGS) \
-	$(GDK_IMLIB_CFLAGS) \
         $(GNOME_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	$(GDK_PIXBUF_CFLAGS) \
@@ -142,7 +141,7 @@ EFENCE =
 dia_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
-	$(GDK_IMLIB_LIBS) $(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS)
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
@@ -153,7 +152,7 @@ dia_embedd_SOURCES = \
 
 dia_embedd_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) $(GDK_IMLIB_LIBS) \
+	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) \
 	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS)
 
 LDFLAGS = -export-dynamic

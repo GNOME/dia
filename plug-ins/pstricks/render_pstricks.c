@@ -224,7 +224,9 @@ new_pstricks_renderer(DiagramData *data, const char *filename,
 	"  \\newcommand{\\setlinecaps}[1]{}\n"
 	"\\fi\n"
 	"%% This way define your own fonts mapping (for example with ifthen)\n"
-	"%% \\newcommand{\\setfont}[2]{}\n",
+	"\\ifx\\setfont\\undefined\n"
+	"  \\newcommand{\\setfont}[2]{}\n"
+        "\\fi\n",
 	diafilename,
 	VERSION,
 	ctime(&time_now),

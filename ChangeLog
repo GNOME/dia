@@ -1,3 +1,23 @@
+2000-10-07  James Henstridge  <james@daa.com.au>
+
+	* app/Makefile.am (dia_LDADD): remove GDK_IMLIB_LIBS reference.
+
+	* lib/Makefile.am, app/Makefile.am (INCLUDES): remove
+	GDK_IMLIB_CFLAGS reference.
+
+	* app/commands.c (help_about_callback): remove imlib code.
+
+	* lib/dia_image.c: only include the pixbuf version of the image
+	routines.
+
+	* acconfig.h: remove the HAVE_GDK_PIXBUF flag from here.
+
+	* configure.in (CPPFLAGS): remove the check for imlib, as we now
+	require gdk-pixbuf.
+
+	* plug-ins/pstricks/render_pstricks.c (new_pstricks_renderer):
+	conditionally define \setfont as well.
+
 2000-10-05  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/pstricks/render_pstricks.c (new_pstricks_renderer): fix

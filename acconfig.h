@@ -54,9 +54,6 @@
 /* Define as 1 if you have gettext and don't want to use GNU gettext.  */
 #undef HAVE_GETTEXT
 
-/* define if you have gdk_pixbuf */
-#undef HAVE_GDK_PIXBUF
-
 /* define to enable XIM support */
 #undef USE_XIM
 

@@ -83,7 +83,7 @@ CPPFLAGS = \
 
 sheetdir = $(pkgdatadir)/sheets
 
-INCLUDES = -I$(top_srcdir)/intl $(GDK_IMLIB_CFLAGS) $(GDK_PIXBUF_CFLAGS) \
+INCLUDES = -I$(top_srcdir)/intl $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) -DDIA_SHEETDIR=\"$(sheetdir)\"
 
 EXTRA_DIST = \
