@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998, 1999 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -454,9 +454,12 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     message->type = (MessageType)data_int(attribute_first_data(attr));
 
-  message->text_width =
+  if (message->text)
+    message->text_width =
       font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
-
+  else
+    message->text_width = 0;
+  
   message->text_handle.id = HANDLE_MOVE_TEXT;
   message->text_handle.type = HANDLE_MINOR_CONTROL;
   message->text_handle.connect_type = HANDLE_NONCONNECTABLE;
@@ -541,8 +544,8 @@ fill_in_dialog(Message *message)
       button = GTK_TOGGLE_BUTTON(prop_dialog->m_recursive);
       break;
   }
-
-  gtk_toggle_button_set_active(button, TRUE);
+  if (button)
+    gtk_toggle_button_set_active(button, TRUE);
 }
 
 static GtkWidget *

@@ -1,3 +1,13 @@
+1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/lifeline.c:
+	Fixed bug in copy.
+	Patch from Andreas Jaeger <aj@arthur.rhein-neckar.de>.
+
+	* objects/UML/message.c:
+	Fixed bug loading messages with null-text.
+	Patch from Andreas Jaeger <aj@arthur.rhein-neckar.de>.
+
 1999-03-27  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* po/sv.po

@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998, 1999 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -346,6 +346,7 @@ lifeline_destroy(Lifeline *lifeline)
 static Object *
 lifeline_copy(Lifeline *lifeline)
 {
+  int i;
   Lifeline *newlifeline;
   Connection *conn, *newconn;
   Object *newobj;
@@ -357,6 +358,14 @@ lifeline_copy(Lifeline *lifeline)
   newobj = (Object *) newlifeline;
 
   connection_copy(conn, newconn);
+
+  for (i = 0; i < 6; i++) {
+    newobj->connections[i] = &newlifeline->connections[i];
+    newlifeline->connections[i].object = newobj;
+    newlifeline->connections[i].connected = NULL;
+    newlifeline->connections[i].pos = lifeline->connections[i].pos;
+    newlifeline->connections[i].last_pos = lifeline->connections[i].last_pos;
+  }
 
   newlifeline->boxbot_handle = lifeline->boxbot_handle;
   newobj->handles[2] = &newlifeline->boxbot_handle;
