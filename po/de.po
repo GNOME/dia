@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
 "POT-Creation-Date: 1999-07-27 00:41+0200\n"
-"PO-Revision-Date: 1999-07-28 00:04+02:00\n"
-"Last-Translator: Karsten Weiss <karsten@addx.au.s.shuttle.de>\n"
+"PO-Revision-Date: 1999-07-29 10:12+02:00\n"
+"Last-Translator: Matthias Warkus <mawa@iname.com>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -16,20 +16,20 @@ msgstr ""
 
 #: app/app_procs.c:128
 msgid "Export loaded file to postscript and exit"
-msgstr "Geladene Datei nach PostScript exportieren und beenden"
+msgstr "Geladene Datei als PostScript exportieren und beenden"
 
 #: app/app_procs.c:129
 msgid "OUTPUT"
-msgstr "OUTPUT"
+msgstr "AUSGABE"
 
 #: app/app_procs.c:146
 msgid "Can't connect to session manager!\n"
-msgstr "Kann keine Verbindung zum Session Manager aufnehmen!\n"
+msgstr "Kann keine Verbindung zum Sitzungsmanager aufnehmen!\n"
 
 #: app/app_procs.c:181 app/app_procs.c:183
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "Standard-Objekte wurden nicht gefunden. Abbruch...\n"
+msgstr "Standard-Objekte wurden bei der Suche nach Objektbibliotheken nicht gefunden. Abbruch...\n"
 
 #: app/app_procs.c:198
 msgid "Need valid input file\n"
@@ -69,7 +69,7 @@ msgstr ""
 #: app/app_procs.c:327
 #, c-format
 msgid "Couldn't open \"%s\".\n"
-msgstr "Kann \"%s\" nicht öffnen.\n"
+msgstr "Konnte \"%s\" nicht öffnen.\n"
 
 #: app/app_procs.c:340 app/app_procs.c:341 app/app_procs.c:376
 #: app/app_procs.c:377
@@ -84,7 +84,7 @@ msgstr ""
 #: app/app_procs.c:351 app/app_procs.c:352
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
-msgstr "Die Datei \"%s\" ist keine Dia Objektbibliothek.\n"
+msgstr "Die Datei \"%s\" ist keine Dia-Objektbibliothek.\n"
 
 #: app/app_procs.c:357 app/app_procs.c:358
 #, c-format
@@ -93,7 +93,7 @@ msgid ""
 "used.\n"
 "Please upgrade it."
 msgstr ""
-"Die Objektbibliothek \"%s\" ist von einer alten Dia Version und kann\n"
+"Die Objektbibliothek \"%s\" stammt von einer alten Dia-Version und kann\n"
 "nicht benutzt werden.\n"
 "Bitte upgraden."
 
@@ -103,7 +103,7 @@ msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
 "You need to upgrade Dia to use it."
 msgstr ""
-"Die Objektbibliothek \"%s\" ist von einer älteren Version von Dia.\n"
+"Die Objektbibliothek \"%s\" stammt von einer älteren Version von Dia.\n"
 "Sie müssen Dia aktualisieren, um es zu benutzen."
 
 #: app/app_procs.c:445
@@ -112,7 +112,7 @@ msgid ""
 "Unable to find register_sheets in library:\n"
 "%s"
 msgstr ""
-"register_sheets wurde in der Bibliohek nicht gefunden:\n"
+"register_sheets wurde nicht gefunden in der Bibliothek:\n"
 "%s"
 
 #: app/color_area.c:260 lib/widgets.c:491
@@ -155,12 +155,12 @@ msgstr "Aus XFig importieren"
 
 #: app/commands.c:429
 msgid "Export to postscript"
-msgstr "Nach PostScript exportieren"
+msgstr "Als PostScript exportieren"
 
 #: app/commands.c:467
 #, c-format
 msgid "Untitled-%d"
-msgstr "Unbenannt-%d"
+msgstr "Namenlos-%d"
 
 #: app/commands.c:528
 msgid "No existing object to paste.\n"
@@ -199,7 +199,7 @@ msgstr "Übernehmen"
 
 #: app/defaults.c:73
 msgid "This object has no defaults."
-msgstr "Dieses Objekt hat keine Voreinstellung."
+msgstr "Dieses Objekt hat keine Voreinstellungen."
 
 #: app/diagram.c:134
 msgid "/Edit/Copy"
@@ -270,12 +270,12 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Dieses Objekt unterstützt Undo/Redo nicht. \n"
-"Die Undo Information wurde gelöscht."
+"Dieses Objekt unterstützt Rückgängig/Wiederherstellen nicht. \n"
+"Die Information zum Rückgängigmachen wurde gelöscht."
 
 #: app/disp_callbacks.c:162
 msgid "No object menu"
-msgstr "Kein Objekt Menü"
+msgstr "Kein Objektmenü"
 
 #: app/display.c:59 app/display.c:60
 msgid "Zoom"
@@ -307,7 +307,7 @@ msgstr "/Ansicht/Gitter sichtbar"
 
 #: app/display.c:770
 msgid "/View/Snap To Grid"
-msgstr "/Ansicht/Am Gitter ausrichten"
+msgstr "/Ansicht/Am Gitter einrasten"
 
 #: app/display.c:772
 msgid "/View/Show Connection Points"
@@ -315,15 +315,15 @@ msgstr "/Ansicht/Verbindungspunkte anzeigen"
 
 #: app/grid.c:141
 msgid "Grid options"
-msgstr "Gitter-Optionen"
+msgstr "Gitteroptionen"
 
 #: app/grid.c:150
 msgid "Grid x size:"
-msgstr "X Gitterabstand:"
+msgstr "x-Gitterabstand:"
 
 #: app/grid.c:168
 msgid "Grid y size:"
-msgstr "Y Gitterabstand:"
+msgstr "y-Gitterabstand:"
 
 #: app/interface.c:57
 msgid "Modify object(s)"
@@ -363,7 +363,7 @@ msgstr "Zickzacklinie erzeugen"
 
 #: app/interface.c:93
 msgid "Create Polyline"
-msgstr "Polylinie erzeugen"
+msgstr "Polygon erzeugen"
 
 #: app/interface.c:97
 msgid "Create Image"
@@ -380,7 +380,7 @@ msgstr ""
 
 #: app/interface.c:590
 msgid "Diagram Editor"
-msgstr "Diagramm-Editor"
+msgstr "Diagrammeditor"
 
 #: app/layer_dialog.c:66
 msgid "New Layer"
@@ -388,11 +388,11 @@ msgstr "Neue Ebene"
 
 #: app/layer_dialog.c:67
 msgid "Raise Layer"
-msgstr "Ebene erhöhen"
+msgstr "Ebene anheben"
 
 #: app/layer_dialog.c:68
 msgid "Lower Layer"
-msgstr "Ebene senken"
+msgstr "Ebene absenken"
 
 #: app/layer_dialog.c:69
 msgid "Delete Layer"
@@ -436,7 +436,7 @@ msgid ""
 "Linked object not found in document."
 msgstr ""
 "Fehler beim Laden des Diagramms.\n"
-"Gelinktes Objekte wurde nicht im Dokument gefunden."
+"Gelinktes Objekt wurde nicht im Dokument gefunden."
 
 #: app/load_save.c:160
 #, c-format
@@ -463,7 +463,7 @@ msgid ""
 "Not a Dia file."
 msgstr ""
 "Fehler beim Laden des Diagramms %s.\n"
-"Keine Dia Datei."
+"Keine Dia-Datei."
 
 #: app/load_save.c:378 app/render_eps.c:152
 #, c-format
@@ -480,7 +480,7 @@ msgstr "Eine neues Diagramm erzeugen"
 
 #: app/menus.c:51
 msgid "_Export To EPS"
-msgstr "Nach EPS _exportieren"
+msgstr "Als EPS _exportieren"
 
 #: app/menus.c:86
 msgid "Zoom _In"
@@ -506,7 +506,7 @@ msgstr "_Zoom"
 
 #: app/menus.c:89
 msgid "Edit Grid..."
-msgstr "Gitter verändern..."
+msgstr "Gitter bearbeiten..."
 
 #: app/menus.c:90
 msgid "_Visible Grid"
@@ -544,7 +544,6 @@ msgstr "Mitte"
 msgid "Right"
 msgstr "Rechts"
 
-# CHECK - Gleiche Distanz?
 #: app/menus.c:108 app/menus.c:116
 msgid "Equal Distance"
 msgstr "Gleicher Abstand"
@@ -557,12 +556,10 @@ msgstr "Oben"
 msgid "Bottom"
 msgstr "Unten"
 
-# CHECK - Gibt es eine schönere/kürzere Übersetzung?
 #: app/menus.c:121
 msgid "Send to _Back"
 msgstr "Ganz nach hinten"
 
-# CHECK - Gibt es eine schönere/kürzere Übersetzung?
 #: app/menus.c:122
 msgid "Bring to _Front"
 msgstr "Ganz nach vorne"
@@ -630,7 +627,7 @@ msgstr "/_Hilfe"
 
 #: app/menus.c:168
 msgid "/Help/_About"
-msgstr "/Hilfe/_Über"
+msgstr "/Hilfe/_Info"
 
 #: app/menus.c:177
 msgid "/File/_Save"
@@ -642,7 +639,7 @@ msgstr "/Datei/Speichern _unter..."
 
 #: app/menus.c:179
 msgid "/File/_Export To EPS"
-msgstr "/Datei/Nach EPS _exportieren"
+msgstr "/Datei/Als EPS _exportieren"
 
 #: app/menus.c:181
 msgid "/File/_Close"
@@ -675,7 +672,7 @@ msgstr "/Bearbeiten/Rückgängig (_Undo)"
 
 #: app/menus.c:190
 msgid "/Edit/_Redo"
-msgstr "/Bearbeiten/Wiederholen (_Redo)"
+msgstr "/Bearbeiten/Wiederherstellen (_Redo)"
 
 #: app/menus.c:191
 msgid "/_View"
@@ -688,11 +685,11 @@ msgstr "/Ansicht/Vergrößern"
 
 #: app/menus.c:194
 msgid "/View/Zoom _Out"
-msgstr "/Ansicht/Zoom _Out"
+msgstr "/Ansicht/Verkleinern"
 
 #: app/menus.c:195
 msgid "/View/_Zoom"
-msgstr "/Ansicht/Verkleinern"
+msgstr "/Ansicht/_Zoom"
 
 #: app/menus.c:196
 #, c-format
@@ -717,7 +714,7 @@ msgstr "/Ansicht/Zoom/141%"
 #: app/menus.c:200
 #, c-format
 msgid "/View/Zoom/100%"
-msgstr "/Ansicht/Zoom/70.7%"
+msgstr "/Ansicht/Zoom/100%"
 
 #: app/menus.c:201
 #, c-format
@@ -746,7 +743,7 @@ msgstr "/Ansicht/Zoom/25%"
 
 #: app/menus.c:206
 msgid "/View/Edit Grid..."
-msgstr "/Ansicht/Gitter verändern..."
+msgstr "/Ansicht/Gitter bearbeiten..."
 
 #: app/menus.c:207
 msgid "/View/_Visible Grid"
@@ -754,7 +751,7 @@ msgstr "/Ansicht/Gitter sichtbar"
 
 #: app/menus.c:208
 msgid "/View/_Snap To Grid"
-msgstr "/Ansicht/Am Gitter ausrichten"
+msgstr "/Ansicht/Am Gitter einrasten"
 
 #: app/menus.c:209
 msgid "/View/Show _Rulers"
@@ -826,10 +823,9 @@ msgstr "/Dialoge/_Ebenen"
 msgid "User Interface"
 msgstr "Benutzerschnittstelle"
 
-# CHECK - Das ist eine Beschriftung eines Tabs "Ansicht Voreinstellung ist zu lang"
 #: app/preferences.c:70
 msgid "View Defaults"
-msgstr "Ansicht"
+msgstr "Darstellung"
 
 #: app/preferences.c:77
 msgid "Reset tools after create:"
@@ -841,7 +837,7 @@ msgstr "Dateien beim Speichern komprimieren:"
 
 #: app/preferences.c:79
 msgid "Number of undo levels:"
-msgstr "Anzahl Undo-Schritte:"
+msgstr "Anzahl Schritte, die zurückgenommen werden können:"
 
 #: app/preferences.c:81
 msgid "Grid:"
@@ -853,11 +849,11 @@ msgstr "Sichtbar:"
 
 #: app/preferences.c:83
 msgid "X Size:"
-msgstr "X Gitterabstand:"
+msgstr "x-Gitterabstand:"
 
 #: app/preferences.c:84
 msgid "Y Size:"
-msgstr "Y Gitterabstand:"
+msgstr "y-Gitterabstand:"
 
 #: app/preferences.c:86
 msgid "New window:"
@@ -885,7 +881,7 @@ msgstr "Einstellungen"
 
 #: app/properties.c:45
 msgid "Object properties"
-msgstr "Objekt-Eigenschaften"
+msgstr "Objekteigenschaften"
 
 #: app/properties.c:85
 msgid "This object has no properties."
@@ -901,7 +897,7 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"Warnung: Kein X Font für %s gefunden. \n"
+"Warnung: Keine X-Schriftart für %s gefunden,\n"
 "benutze stattdessen %s.\n"
 
 #: lib/font.c:398
@@ -921,7 +917,6 @@ msgstr "Warnung"
 msgid "Error"
 msgstr "Fehler"
 
-# CHECK
 #: lib/widgets.c:296
 msgid "Solid"
 msgstr "Durchgezogen"
@@ -930,12 +925,10 @@ msgstr "Durchgezogen"
 msgid "Dashed"
 msgstr "Gestrichelt"
 
-# CHECK
 #: lib/widgets.c:308
 msgid "Dash-Dot"
 msgstr "Strich-Punkt"
 
-# CHECK
 #: lib/widgets.c:314
 msgid "Dash-Dot-Dot"
 msgstr "Strich-Punkt-Punkt"
@@ -946,7 +939,7 @@ msgstr "Gepunktet"
 
 #: lib/widgets.c:338
 msgid "Dash length: "
-msgstr "Strich-Länge: "
+msgstr "Strichlänge: "
 
 #: lib/widgets.c:653 objects/UML/association.c:866
 msgid "None"
@@ -1058,10 +1051,9 @@ msgstr "Schwach"
 msgid "ER"
 msgstr "ER"
 
-# CHECK - Habe ich nicht übersetzt, da ER auch in Deutschland ein Begriff ist
 #: objects/ER/er.c:53
 msgid "Editor for Entity Relations Diagrams."
-msgstr "Editor für Entity Relationship Diagramme."
+msgstr "Editor für Entity-Relationship-Diagramme."
 
 #. type
 #: objects/ER/participation.c:97
@@ -1098,17 +1090,17 @@ msgstr "Identifizierend"
 #. type
 #: objects/FS/flow-ortho.c:134
 msgid "Create an orthogonal polyline flow"
-msgstr "Einen orthogonalen Polyline Fluß erzeugen"
+msgstr "Einen orthogonalen Polygon-Strom erzeugen"
 
 #: objects/FS/flow-ortho.c:566 objects/FS/flow-poly.c:632
 #: objects/FS/flow-poly.c:745 objects/FS/flow.c:629 objects/FS/flow.c:742
 msgid "Flow:"
-msgstr "Fluß:"
+msgstr "Strom:"
 
 #: objects/FS/flow-ortho.c:581 objects/FS/flow-poly.c:647
 #: objects/FS/flow-poly.c:761 objects/FS/flow.c:644 objects/FS/flow.c:758
 msgid "Flow type:"
-msgstr "Fluß-Typ:"
+msgstr "Stromtyp:"
 
 #.
 #: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:639
@@ -1135,17 +1127,17 @@ msgstr "Signal"
 # CHECK
 #: objects/FS/flow-ortho.c:678
 msgid "Orthflow:"
-msgstr "Orthfluß:"
+msgstr "Orth.-Strom:"
 
 # CHECK
 #: objects/FS/flow-ortho.c:694
 msgid "Orthflow type:"
-msgstr "Orthfluß Typ:"
+msgstr "Orth.-Strom-Typ:"
 
 #. type
 #: objects/FS/flow-poly.c:133 objects/FS/flow.c:133
 msgid "Create a flow"
-msgstr "Einen Fluß erzeugen"
+msgstr "Einen Strom erzeugen"
 
 #: objects/FS/fs.c:48
 msgid "FS"
@@ -1154,7 +1146,7 @@ msgstr "FS"
 # CHECK
 #: objects/FS/fs.c:49
 msgid "Editor for Function Structure Diagrams."
-msgstr "Editor für Funktionsstruktur Diagramme."
+msgstr "Editor für Funktionsstruktur-Diagramme."
 
 #. type
 #: objects/FS/function.c:110
@@ -1168,12 +1160,12 @@ msgstr "Funktion:"
 # CHECK
 #: objects/FS/function.c:517
 msgid "Wish function"
-msgstr "Wunsch-Funktion"
+msgstr "Wunschfunktion"
 
 # CHECK
 #: objects/FS/function.c:522
 msgid "User function"
-msgstr "Benutzer-Funktion"
+msgstr "Benutzerfunktion"
 
 #: objects/FS/function.c:559
 msgid "Channel"
@@ -1187,7 +1179,6 @@ msgstr "   Importieren"
 msgid "   Export"
 msgstr "   Exportieren"
 
-# CHECK
 #: objects/FS/function.c:562
 msgid "   Transfer"
 msgstr "   Übertragung"
@@ -1200,7 +1191,7 @@ msgstr "      Transport"
 # CHECK
 #: objects/FS/function.c:564
 msgid "      Transmit"
-msgstr "      Senden"
+msgstr "      Übermitteln"
 
 # CHECK - Correct translation?
 #: objects/FS/function.c:565
@@ -1391,7 +1382,7 @@ msgstr "Aggregat"
 #. Composition
 #: objects/UML/association.c:957
 msgid "Composition"
-msgstr "Komposition"
+msgstr "Zusammensetzung"
 
 #. type
 #: objects/UML/class.c:75
@@ -1401,7 +1392,7 @@ msgstr "Eine Klasse erzeugen"
 #. type
 #: objects/UML/class.c:84
 msgid "Create a template class"
-msgstr "Eine Template Klasse erzeugen"
+msgstr "Eine Klassenschablone erzeugen"
 
 #. Class page:
 #: objects/UML/class.c:628 objects/UML/class_dialog.c:90
@@ -1410,7 +1401,7 @@ msgstr "Klasse"
 
 #: objects/UML/class_dialog.c:96
 msgid "Class name:"
-msgstr "Klassen-Name:"
+msgstr "Klassenname:"
 
 # CHECK
 #: objects/UML/class_dialog.c:107 objects/UML/dependency.c:521
@@ -1525,16 +1516,16 @@ msgstr "Parameterdaten"
 
 #: objects/UML/class_dialog.c:1668
 msgid "Def. value:"
-msgstr "Std. Wert:"
+msgstr "Std.-Wert:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2029
 msgid "Templates"
-msgstr "Templates"
+msgstr "Schablonen"
 
 #: objects/UML/class_dialog.c:2035
 msgid "Template class"
-msgstr "Template Klasse"
+msgstr "Klassenschablone"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Formal parameter data"
@@ -1543,7 +1534,7 @@ msgstr "Formelle Parameterdaten"
 #. type
 #: objects/UML/classicon.c:116
 msgid "Create a class stereotype icon"
-msgstr "Eine Klassen-Stereotyp Icon erzeugen"
+msgstr "Ein Klassenstereotyp-Icon erzeugen"
 
 # CHECK
 #: objects/UML/classicon.c:575
@@ -1567,7 +1558,7 @@ msgstr "Eine Komponente erzeugen"
 #. type
 #: objects/UML/constraint.c:106
 msgid "Constraint, place a constraint on something."
-msgstr "Eine Beschränkung auf etwas setzen."
+msgstr "Eine Beschränkung auf etwas festlegen."
 
 #: objects/UML/constraint.c:466
 msgid "Constraint:"
@@ -1585,7 +1576,7 @@ msgstr "Pfeil anzeigen:"
 #. type
 #: objects/UML/generalization.c:107
 msgid "Generalization, class inheritance."
-msgstr "Generalisierung, Klassenvererbung."
+msgstr "Verallgemeinerung, Klassenvererbung."
 
 #. type
 #: objects/UML/implements.c:108
@@ -1628,7 +1619,7 @@ msgstr "Nachricht:"
 
 #: objects/UML/message.c:586
 msgid "Message type:"
-msgstr "Nachrichten Typ:"
+msgstr "Nachrichtentyp:"
 
 #.
 #: objects/UML/message.c:591
@@ -1724,7 +1715,7 @@ msgstr "UML"
 
 #: objects/UML/uml.c:100
 msgid "Editor for UML Static Structure Diagrams."
-msgstr "Editor für UML-Struktur-Diagramme."
+msgstr "Editor für statische UML-Struktur-Diagramme."
 
 # CHECK - Sollen man "Use Case" übersetzen?
 #. type
@@ -1739,7 +1730,7 @@ msgstr "Text außerhalb:"
 
 #: objects/UML/usecase.c:523
 msgid "Collaboration"
-msgstr "Kollaboration"
+msgstr "Zusammenarbeit"
 
 #. type
 #: objects/network/antenna.c:56
@@ -1749,7 +1740,7 @@ msgstr "Eine Antenne für drahtlose Übertragungen"
 #. type
 #: objects/network/bus.c:97
 msgid "Ethernet bus."
-msgstr "Ethernet Bus."
+msgstr "Ethernetbus."
 
 #: objects/network/bus.c:189
 msgid "Number of handles:"
@@ -1768,7 +1759,7 @@ msgstr "Das Symbol für Speicher. Festplatte oder Datenbank."
 #. type
 #: objects/network/flash.c:56
 msgid "A WAN Connection"
-msgstr "Eine WAN Verbindung"
+msgstr "Eine WAN-Verbindung"
 
 # CHECK - "stapelbar" trifft es wohl nicht ganz
 #. type
@@ -1784,7 +1775,7 @@ msgstr "Ein einfaches Modem"
 #. type
 #: objects/network/modularswitch.c:59
 msgid "A modular switching system"
-msgstr "Eine modulare Vermittlungssystem"
+msgstr "Ein modulares Vermittlungssystem"
 
 #. type
 #: objects/network/monitor.c:56
@@ -1807,12 +1798,12 @@ msgstr "Ein einfacher Drucker"
 #. type
 #: objects/network/rj45plug.c:56
 msgid "A RJ45 Wall-Plug"
-msgstr "Ein RJ45 Wandstecker"
+msgstr "Ein RJ45-Wandstecker"
 
 #. type
 #: objects/network/scead-plug.c:57
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "Ein Wandstecker für das scEAD Kabelsystem"
+msgstr "Ein Wandstecker für das scEAD-Kabelsystem"
 
 #: objects/standard/arc.c:202 objects/standard/line.c:201
 #: objects/standard/polyline.c:204 objects/standard/zigzagline.c:207
@@ -1924,12 +1915,12 @@ msgstr "Segment löschen"
 #. type
 #: objects/sybase/client.c:55
 msgid "A Sybase Client Application."
-msgstr "Eine Sybase Client-Anwendung."
+msgstr "Eine Sybase-Clientanwendung."
 
 #. type
 #: objects/sybase/dataserver.c:55
 msgid "A Sybase Dataserver."
-msgstr "Ein Sybase Datenserver."
+msgstr "Ein Sybase-Datenserver."
 
 # CHECK
 #. type
@@ -1941,13 +1932,13 @@ msgstr "Log Transfer Manager oder Rep Agent."
 #. type
 #: objects/sybase/repserver.c:55
 msgid "Sybase Replication Server."
-msgstr "Sybase Replikations Server."
+msgstr "Sybase-Replikationsserver."
 
 # CHECK
 #. type
 #: objects/sybase/rsm.c:55
 msgid "Replication Server Manager."
-msgstr "Replikations Server Manager."
+msgstr "Replikationsserver-Manager."
 
 # CHECK
 #. type
@@ -1962,4 +1953,4 @@ msgstr "Sybase"
 # CHECK
 #: objects/sybase/sybase.c:58
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objekte, mit denen Netzwerkdiagramme entworfen werden können"
+msgstr "Objekte, mit denen Sybase-Replikationsdiagramme entworfen werden können"
