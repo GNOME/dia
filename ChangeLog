@@ -5,6 +5,7 @@
 	* objects/uml/class.c
 	* objects/uml/classicon.c
 	* objects/uml/component.c
+	* objects/uml/large_package.c
 	* objects/uml/node.c
 	* objects/uml/note.c
 	* objects/uml/object.c

@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "uml.h"
 
@@ -92,6 +93,10 @@ static void largepackage_update_data(LargePackage *pkg);
 static GtkWidget *largepackage_get_properties(LargePackage *pkg);
 static ObjectChange *largepackage_apply_properties(LargePackage *pkg);
 
+static PropDescription *largepackage_describe_props(LargePackage *largepackage);
+static void largepackage_get_props(LargePackage *largepackage, Property *props, guint nprops);
+static void largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops);
+
 static LargePackageState *largepackage_get_state(LargePackage *pkg);
 static void largepackage_set_state(LargePackage *pkg,
 				 LargePackageState *state);
@@ -122,8 +127,50 @@ static ObjectOps largepackage_ops = {
   (MoveHandleFunc)      largepackage_move_handle,
   (GetPropertiesFunc)   largepackage_get_properties,
   (ApplyPropertiesFunc) largepackage_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   largepackage_describe_props,
+  (GetPropsFunc)        largepackage_get_props,
+  (SetPropsFunc)        largepackage_set_props
 };
+
+static PropDescription largepackage_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  /* XXX */
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+largepackage_describe_props(LargePackage *largepackage)
+{
+  if (largepackage_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(largepackage_props);
+  return largepackage_props;
+}
+
+static PropOffset largepackage_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+
+  { NULL, 0, 0 },
+};
+
+static void
+largepackage_get_props(LargePackage * largepackage, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)largepackage, largepackage_offsets, props, nprops))
+    return;
+}
+
+static void
+largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)largepackage, largepackage_offsets,
+		     props, nprops)) {
+  }
+  largepackage_update_data(largepackage);
+}
 
 static real
 largepackage_distance_from(LargePackage *pkg, Point *point)
