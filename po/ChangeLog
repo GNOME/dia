@@ -1,3 +1,9 @@
+2000-04-26  Kjartan Maraas  <kmaraas@online.no>
+
+	* POTFILES.in: Added missing files and removed lots
+	of files with no marked strings in them.
+	* no.po: Updated Norwegian translation.
+	
 2000-04-18  Pablo Saratxaga <pablo@mandrakesoft.com>
 
 	* ca.po: Added Catalan file
