@@ -48,11 +48,27 @@ static void
 dia_view_activate(BonoboView *view, gboolean activate,
 		  EmbeddedView *view_data)
 {
+  DDisplay *ddisp = view_data->display;
+
   bonobo_view_activate_notify(view, activate);
   if (activate) {
     toolbox_show();
+
+    gtk_widget_show(ddisp->origin);
+    gtk_widget_show(ddisp->hrule);
+    gtk_widget_show(ddisp->vrule);
+    gtk_widget_show(ddisp->hsb);
+    gtk_widget_show(ddisp->vsb);
+    gtk_widget_show(ddisp->zoom_status->parent);
   } else {
     toolbox_hide();
+
+    gtk_widget_hide(ddisp->origin);
+    gtk_widget_hide(ddisp->hrule);
+    gtk_widget_hide(ddisp->vrule);
+    gtk_widget_hide(ddisp->hsb);
+    gtk_widget_hide(ddisp->vsb);
+    gtk_widget_hide(ddisp->zoom_status->parent);
   }
 }
 
@@ -137,6 +153,13 @@ view_factory (BonoboEmbeddable *embeddable,
                       GTK_SIGNAL_FUNC (dia_view_display_destroy),
                       view_data);
   
+  gtk_widget_hide(view_data->display->origin);
+  gtk_widget_hide(view_data->display->hrule);
+  gtk_widget_hide(view_data->display->vrule);
+  gtk_widget_hide(view_data->display->hsb);
+  gtk_widget_hide(view_data->display->vsb);
+  gtk_widget_hide(view_data->display->zoom_status->parent);
+
   view = bonobo_view_new (view_data->display->shell);
   view_data->view = view;
   gtk_object_set_data (GTK_OBJECT (view), "view_data", view_data);

@@ -1,3 +1,8 @@
+2000-04-12  James Henstridge  <james@daa.com.au>
+
+	* app/plugin-manager.c (get_plugin_manager): use the GTK_DIALOG
+	macro if the dialog is a GtkDialog :(
+
 2000-04-11  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* objects/standard/polygon.c: Connectionpoints now properly

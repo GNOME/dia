@@ -38,7 +38,7 @@ endif
 
 bin_PROGRAMS = dia $(dia_embedd)
 
-gnorbadir = $sysconfdir)/CORBA/servers
+gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = $(dia_gnorba)
 
 dia_core_files = \

@@ -135,7 +135,7 @@ get_plugin_manager(void)
   gtk_window_set_title(GTK_WINDOW(pm.window), _("Plug-ins"));
   gtk_container_set_border_width(GTK_WINDOW(pm.window), 2);
   gtk_window_set_policy(GTK_WINDOW(pm.window), FALSE, TRUE, FALSE);
-  vbox = GNOME_DIALOG(pm.window)->vbox;
+  vbox = GTK_DIALOG(pm.window)->vbox;
 
   /* don't destroy dialog when window manager close button pressed */
   gtk_signal_connect(GTK_OBJECT(pm.window), "delete_event",
