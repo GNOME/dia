@@ -1,3 +1,8 @@
+2002-02-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/font.c (freetype_render_string): Kerning.  Very few fonts
+	seem to use it.
+
 2002-02-02  Akira TAGOH  <tagoh@redhat.com>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events): fixed crashes,
