@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-21 18:40+0100\n"
-"PO-Revision-Date: 2003-12-21 18:41+0100\n"
+"POT-Creation-Date: 2004-01-04 10:28+0100\n"
+"PO-Revision-Date: 2004-01-04 10:28+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -567,11 +567,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "¡Diagrama modificado!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -580,20 +580,20 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Descartar los cambios"
 
 #: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:816
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
+#: plug-ins/xfig/xfig-export.c:1086 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "No se pudo abrir archivo de salida «%s»: %s\n"
@@ -706,28 +706,28 @@ msgstr "Exportar diagrama"
 msgid "Export Options"
 msgstr "Exportar opciones"
 
-#: app/interface.c:45
+#: app/interface.c:46
 msgid "Modify object(s)"
 msgstr "Modificar objeto(s)"
 
-#: app/interface.c:46 app/menus.c:221
+#: app/interface.c:47 app/menus.c:221
 msgid "Modify"
 msgstr "Modificar"
 
 # Yo diría "Ampliar" FVD
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:50 app/interface.c:51 app/menus.c:222
+#: app/interface.c:51 app/interface.c:52 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Magnificar"
 
 # Esto es fuzzy, no? FVD
-#: app/interface.c:55
+#: app/interface.c:56
 msgid "Scroll around the diagram"
 msgstr "Desplazamiento sobre el diagrama"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
-#: app/interface.c:56 app/menus.c:223
+#: app/interface.c:57 app/menus.c:223
 msgid "Scroll"
 msgstr "Desplazamiento"
 
@@ -735,7 +735,7 @@ msgstr "Desplazamiento"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:61 app/interface.c:62 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:501 lib/properties.h:504 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -745,64 +745,68 @@ msgstr "Desplazamiento"
 msgid "Text"
 msgstr "Texto"
 
-#: app/interface.c:65 app/interface.c:66 app/menus.c:225
+#: app/interface.c:66 app/interface.c:67 app/menus.c:225
 msgid "Box"
 msgstr "Caja"
 
-#: app/interface.c:70 app/interface.c:71 app/menus.c:226
+#: app/interface.c:71 app/interface.c:72 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: app/interface.c:75 app/interface.c:76 app/menus.c:227
+#: app/interface.c:76 app/interface.c:77 app/menus.c:227
 msgid "Polygon"
 msgstr "Polígono"
 
-#: app/interface.c:80 app/interface.c:81 app/menus.c:228
+#: app/interface.c:81 app/interface.c:82 app/menus.c:228
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: app/interface.c:85 app/interface.c:86 app/menus.c:230
+#: app/interface.c:86 app/interface.c:87 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Línea"
 
-#: app/interface.c:90 app/interface.c:91 app/menus.c:231
+#: app/interface.c:91 app/interface.c:92 app/menus.c:231
 msgid "Arc"
 msgstr "Arco"
 
-#: app/interface.c:95 app/interface.c:96 app/menus.c:232
+#: app/interface.c:96 app/interface.c:97 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: app/interface.c:100 app/interface.c:101 app/menus.c:233
+#: app/interface.c:101 app/interface.c:102 app/menus.c:233
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: app/interface.c:105 app/interface.c:106 app/menus.c:234
+#: app/interface.c:106 app/interface.c:107 app/menus.c:234
 msgid "Bezierline"
 msgstr "Línea Bezier"
 
-#: app/interface.c:110 app/interface.c:111 app/menus.c:236
+#: app/interface.c:111 app/interface.c:112 app/menus.c:236
 msgid "Image"
 msgstr "Imagen"
 
-#: app/interface.c:373
+#: app/interface.c:375
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
-#: app/interface.c:482
+#: app/interface.c:413
+msgid "Pops up the Navigation window."
+msgstr "Emerge la ventana de navegación."
+
+#: app/interface.c:493
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: app/interface.c:496
+#: app/interface.c:507
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: app/interface.c:540
+#: app/interface.c:551
 msgid "NULL tooldata in tool_select_update"
 msgstr "tooldata NULL en tool_select_update"
 
-#: app/interface.c:1023
+#: app/interface.c:1034
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -812,7 +816,7 @@ msgstr ""
 "negro y blanco restablecen los colores. Las pequeñas flechas intercambian "
 "los colores. Doble pulsación para cambiar los colores."
 
-#: app/interface.c:1038
+#: app/interface.c:1049
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -821,7 +825,7 @@ msgstr ""
 "preestablecida para los objetos nuevos. Pulse dos veces para establecer la "
 "anchura más precisamente."
 
-#: app/interface.c:1070
+#: app/interface.c:1081
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -829,7 +833,7 @@ msgstr ""
 "Estilo de flecha al principio de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha en Detalles..."
 
-#: app/interface.c:1075
+#: app/interface.c:1086
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -837,7 +841,7 @@ msgstr ""
 "Estilo de línea para las líneas nuevas. Pulse para escoger un estilo de "
 "línea, o establezca los parámetros de estilo de línea en Detalles..."
 
-#: app/interface.c:1080
+#: app/interface.c:1091
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -845,7 +849,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha con Detalles..."
 
-#: app/interface.c:1188
+#: app/interface.c:1199
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1151,15 +1155,15 @@ msgstr "Transitivo"
 msgid "Same Type"
 msgstr "Mismo tipo"
 
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:531
+#: app/menus.c:181 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:554
 msgid "Left"
 msgstr "Izquierda"
 
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:466 lib/widgets.c:537
+#: app/menus.c:182 lib/properties.c:63 lib/properties.h:466 lib/widgets.c:560
 msgid "Center"
 msgstr "Centro"
 
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:543
+#: app/menus.c:183 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:566
 msgid "Right"
 msgstr "Derecha"
 
@@ -1948,11 +1952,11 @@ msgstr "Propiedades del objeto:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Caja de herramientas>/Archivo/Extensiones..."
 
-#: app/recent_files.c:259
+#: app/recent_files.c:265
 msgid "<Toolbox>/File/Quit"
 msgstr "<Caja de herramientas>/Archivo/Salir"
 
-#: app/recent_files.c:295
+#: app/recent_files.c:301
 msgid "Can't open history file for writing."
 msgstr "No se pudo abrir el archivo de historia para escritura."
 
@@ -2556,59 +2560,59 @@ msgstr "Color de texto"
 msgid "Other fonts..."
 msgstr "Otras tipografías..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:300
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:342
+#: lib/widgets.c:363
 msgid "Select font"
 msgstr "Seleccionar tipografía"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:652 objects/FS/function.c:1063
+#: lib/widgets.c:675 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Sólido"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:681
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:687
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:693
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:699
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:694
+#: lib/widgets.c:717
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: lib/widgets.c:848
+#: lib/widgets.c:871
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: lib/widgets.c:1046
+#: lib/widgets.c:1069
 msgid "Length: "
 msgstr "Longitud: "
 
-#: lib/widgets.c:1059
+#: lib/widgets.c:1082
 msgid "Width: "
 msgstr "Ancho: "
 
-#: lib/widgets.c:1187
+#: lib/widgets.c:1210
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: lib/widgets.c:1221
+#: lib/widgets.c:1244
 msgid "Browse"
 msgstr "Navegar"
 
@@ -2650,7 +2654,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:177
+#: objects/UML/association.c:747 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:365 objects/UML/generalization.c:361
 #: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
@@ -2658,7 +2662,7 @@ msgstr "Añadir segmento"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:178
+#: objects/UML/association.c:748 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:366 objects/UML/generalization.c:362
 #: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -4235,19 +4239,19 @@ msgstr "Límite"
 msgid "Is object"
 msgstr "Es objeto"
 
-#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Faceta"
 
-#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Receptáculo"
 
-#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Fuente de eventos"
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Sumidero de eventos"
 
@@ -4645,7 +4649,7 @@ msgstr "Filtro de exportación de HP Graphics Language"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportación Metapost de TeX"
 
-#: plug-ins/metapost/render_metapost.c:867
+#: plug-ins/metapost/render_metapost.c:876
 msgid "TeX Metapost macros"
 msgstr "Macros Metapost de TeX"
 
@@ -4758,22 +4762,18 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportación de WordPerfect Graphics"
 
-#: plug-ins/xfig/xfig-export.c:428
-msgid "Arrow type none -- shouldn't happen\n"
-msgstr "Ningún tipo de flecha -- no debería ocurrir\n"
-
-#: plug-ins/xfig/xfig-export.c:442
+#: plug-ins/xfig/xfig-export.c:441
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Formato FIG no tiene un estilo de flecha equivalente a %s, usando flecha "
 "simple.\n"
 
-#: plug-ins/xfig/xfig-export.c:463
+#: plug-ins/xfig/xfig-export.c:462
 msgid "No more user-definable colors - using black"
 msgstr "No más colores definibles por el usuario - se usará el negro"
 
-#: plug-ins/xfig/xfig-export.c:1136
+#: plug-ins/xfig/xfig-export.c:1135
 msgid "XFig format"
 msgstr "Formato XFig"
 
@@ -7244,6 +7244,9 @@ msgstr "Un servidor de datos sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
+
+#~ msgid "Arrow type none -- shouldn't happen\n"
+#~ msgstr "Ningún tipo de flecha -- no debería ocurrir\n"
 
 #~ msgid "%s error: can specify only one of -f or -o."
 #~ msgstr "%s error: sólo puede especificar -f o -o (no ambos)."
