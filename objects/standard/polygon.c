@@ -542,6 +542,7 @@ static void polygon_change_revert(struct PointChange *change, Object *obj)
 static ObjectChange *
 polygon_create_change (Polygon *polygon)
 {
+  return NULL;
 }
 
 

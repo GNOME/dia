@@ -34,9 +34,12 @@ dia_get_data_directory (const gchar* subdir)
     {
 	/* strip the name */
       if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
+      /* and one dir (bin) */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-  return g_strconcat (sLoc , ".." G_DIR_SEPARATOR_S, subdir, NULL); 
+  return g_strconcat (sLoc , subdir, NULL); 
 
 #else
   return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
@@ -58,9 +61,12 @@ dia_get_lib_directory (const gchar* subdir)
     {
 	/* strip the name */
       if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
+      /* and one dir (bin) */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-  return g_strconcat (sLoc , ".." G_DIR_SEPARATOR_S, subdir, NULL); 
+  return g_strconcat (sLoc , subdir, NULL); 
 
 #else
   return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);

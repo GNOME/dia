@@ -1,3 +1,24 @@
+2000-04-22  James Henstridge  <james@daa.com.au>
+
+	Hans's win32 patches:
+
+	* app/export_png.c: include message.h
+	* app/interface.c: include dia_dirs.h
+	* app/linewidth_area.c: check for rint
+	* app/main.c: include interface.h
+	* app/paginate_psprint.c: remove unused variable.
+	* app/preferences.c: include message.h
+	* app/render_svg.c: include stdlib.h
+	* app/select.c: include object_ops.h
+	* lib/dia_dirs.c: miscelaneous fixes for win32.
+	* lib/dia_image.c: include string.h
+	* lib/plug-ins.c: look for .dll files rather than .la files on win32.
+	* lib/properties.c: include stdlib.h
+	* lib/properties.h: define extra data for standard properties as
+	static variables on win32 (to get around dynamic linker problems).
+	* objects/standard/polygon.c: polygon_create_change missing return
+	statement.
+
 2000-04-18  Pablo Saratxaga <pablo@mandrakesoft.com>
 
 	* configure.in (ALL_LINGUAS): added Catalan

@@ -298,7 +298,11 @@ dia_register_plugins_in_dir(const gchar *directory)
   while ((dirp = readdir(dp)) != NULL) {
     gint len = strlen(dirp->d_name);
 
+#ifndef G_OS_WIN32
     if (len > 3 && !strcmp(&dirp->d_name[len-3], ".la")) {
+#else
+    if (len > 3) {
+#endif
       gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
 				    dirp->d_name, NULL);
 

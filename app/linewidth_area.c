@@ -19,6 +19,11 @@
 #include "attributes.h"
 #include "intl.h"
 
+#if !defined(rint)
+# include <math.h>
+# define rint(x) floor ((x) + 0.5)
+#endif
+
 #define BASE_WIDTH 0.05
 #define PIXELS_BETWEEN_LINES 6
 #define NUMLINES 5

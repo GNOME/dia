@@ -27,6 +27,8 @@
 
 #include "commands.h"
 
+#include "dia_dirs.h"
+
 ToolButton tool_data[] =
 {
   { (char **) arrow_xpm,
@@ -364,7 +366,11 @@ create_tools(GtkWidget *parent)
 
 #ifdef USE_WRAPBOX
     gtk_wrap_box_pack(GTK_WRAP_BOX(parent), button,
+# if 1 /* HB: IHMO even 13 buttons look better when stretched to parent */
+		      TRUE, TRUE, FALSE, TRUE);
+# else
 		      FALSE, TRUE, FALSE, TRUE);
+# endif
 #else
     gtk_table_attach (GTK_TABLE (table), button,
 		      (i % COLUMNS), (i % COLUMNS) + 1,

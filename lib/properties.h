@@ -27,6 +27,8 @@
 #include <stddef.h>
 #endif
 
+#include "intl.h"
+
 #include "geometry.h"
 #include "render.h"
 #include "arrows.h"
@@ -34,17 +36,6 @@
 #include "font.h"
 #include "object.h"
 #include "dia_xml.h"
-
-#ifdef G_OS_WIN32
-#  ifdef LIBDIA_COMPILATION
-#    define DIAVAR __declspec(dllexport)
-#  else
-#    define DIAVAR extern __declspec(dllimport)
-#  endif
-#else  /* !G_OS_WIN32 */
-#  define DIAVAR extern
-#endif
-
 
 #ifndef _prop_typedefs_defined
 #define _prop_typedefs_defined
@@ -305,8 +296,29 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
  * of a number of objects should be greater, making setting properties on
  * groups better. */
 
-DIAVAR PropNumData prop_std_line_width_data, prop_std_text_height_data;
-DIAVAR PropEnumData prop_std_text_align_data[];
+/* HB: exporting the following two vars by GIMPVAR==dllexport/dllimport, 
+ * does mean the pointers used below have to be calculated 
+ * at run-time by the loader, because they will exist
+ * only once in the process space and dynamic link libraries may be
+ * relocated. As a result their address is no longer constant. 
+ * Indeed it causes compile time errors with MSVC (initialzer 
+ * not a constant).
+ * To fix it they are moved form properties.c and declared as static 
+ * on Win32
+ */
+#ifdef G_OS_WIN32
+static PropNumData prop_std_line_width_data = { 0.0, 10.0, 0.01 };
+static PropNumData prop_std_text_height_data = { 0.1, 10.0, 0.1 };
+static PropEnumData prop_std_text_align_data[] = {
+  { N_("Left"), ALIGN_LEFT },
+  { N_("Center"), ALIGN_CENTER },
+  { N_("Right"), ALIGN_RIGHT },
+  { NULL, 0 }
+};
+#else
+extern PropNumData prop_std_line_width_data, prop_std_text_height_data;
+extern PropEnumData prop_std_text_align_data[];
+#endif
 
 #define PROP_STD_LINE_WIDTH \
   { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \

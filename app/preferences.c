@@ -37,6 +37,7 @@
 #include "intl.h"
 #include "widgets.h"
 #include "diagram.h"
+#include "message.h"
 #include "preferences.h"
 #include "dia_dirs.h"
 

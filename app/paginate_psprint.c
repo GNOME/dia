@@ -171,7 +171,6 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
   DDisplay *ddisp;
-  Diagram *dia;
 
   FILE *file;
   gboolean is_pipe;

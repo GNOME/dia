@@ -22,6 +22,7 @@
 #include "group.h"
 
 #include "load_save.h"
+#include "interface.h"
 
 int app_is_embedded(void)
 {

@@ -30,6 +30,7 @@
 #include "filter.h"
 #include "render_libart.h"
 #include "display.h"
+#include "message.h"
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */

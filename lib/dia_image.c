@@ -17,6 +17,7 @@
  */
 
 #include <config.h>
+#include <string.h> /* memmove */
 
 #include "geometry.h"
 #include "render.h"

@@ -20,6 +20,7 @@
  */
 
 #include <gtk/gtk.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "geometry.h"
@@ -1107,6 +1108,9 @@ object_save_props(Object *obj, ObjectNode obj_node)
 
 /* --------------------------------------- */
 
+#ifdef G_OS_WIN32
+/* moved to properties.h ... */
+#else
 /* standard property extra data members */
 PropNumData prop_std_line_width_data = { 0.0, 10.0, 0.01 };
 PropNumData prop_std_text_height_data = { 0.1, 10.0, 0.1 };
@@ -1116,3 +1120,4 @@ PropEnumData prop_std_text_align_data[] = {
   { N_("Right"), ALIGN_RIGHT },
   { NULL, 0 }
 };
+#endif
