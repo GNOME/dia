@@ -43,7 +43,7 @@
 #include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 
 #include "chronogram.h"
 #include "pixmaps/chronoref.xpm"

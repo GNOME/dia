@@ -36,7 +36,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 
 #include "sadt.h"
 
