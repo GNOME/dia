@@ -1,3 +1,24 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * diatransform.c - scaling indirection to connect display
+ *                  and renderers
+ * Copyright (C) 2002 Hans Breuer (refactoring)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 
 #include "diatransform.h"
 
@@ -89,6 +110,16 @@ dia_transform_length (DiaTransform *t, real len)
   return (len * *(t->factor));
 }
 
+/* Takes pixel length and returns real length */
+real
+dia_untransform_length(DiaTransform *t, real len)
+{
+  g_return_val_if_fail (DIA_IS_TRANSFORM (t), len);
+  g_return_val_if_fail (t != NULL && *t->factor != 0.0, len);
+
+  return len / *(t->factor);
+}
+
 void 
 dia_transform_coords (DiaTransform *t, 
                       coord x, coord y, 
@@ -101,4 +132,15 @@ dia_transform_coords (DiaTransform *t,
   *yi = ROUND ( (y - t->visible->top) * *(t->factor));
 }
 
+void 
+dia_transform_coords_double (DiaTransform *t, 
+                             coord x, coord y, 
+                             double *xd, double *yd)
+{
+  g_return_if_fail (DIA_IS_TRANSFORM (t));
+  g_return_if_fail (t != NULL && t->factor != NULL);
+
+  *xd = ROUND ( (x - t->visible->left) * *(t->factor));
+  *yd = ROUND ( (y - t->visible->top) * *(t->factor));
+}
 

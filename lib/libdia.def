@@ -207,6 +207,7 @@ EXPORTS
  dia_image_width
 
  dia_interactive_renderer_interface_get_type
+ dia_libart_renderer_get_type
 
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
@@ -249,6 +250,7 @@ EXPORTS
  dia_transform_new
  dia_transform_length
  dia_transform_coords
+ dia_untransform_length
 
  dia_sort_sheets
  get_sheets_list

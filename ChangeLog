@@ -1,3 +1,20 @@
+2002-10-07  Hans Breuer  <hans@breuer.org>
+
+	[Libart Renderer resurrected; almost it's compiling but
+	 almost instantly crashing :-]
+
+	* lib/dialibartrenderer.[hc] : new files, ported to DiaRenderer
+	* app/render_libart.[hc] : ported to DiaInteractiveRenderer
+	* lib/diatransform.[hc] : added dia_transform_coords_double()
+
+	* app/display.c : the right parameters for new_renderer_libart()
+	* app/export_png.c : ported, removed the blind Display hack
+
+	* app/makefile.msc lib/makefile.msc 
+	  lib/Makefile.am : updated
+
+	* lib/dia<|gdk|interactive>renderer.c : properly copyrighted
+
 2002-10-06  Hans Breuer  <hans@breuer.org>
 
 	See also: 

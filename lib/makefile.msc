@@ -9,13 +9,14 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
-	-I$(LIBART)\.. \
+	-DHAVE_LIBART $(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
-PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
-	$(LIBXML2_LIBS) $(ZLIB_LIBS)
+PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
+	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
+	$(LIBART_LIBS) 
 
 OBJECTS = \
 	arrows.obj \
@@ -33,6 +34,7 @@ OBJECTS = \
 	diagramdata.obj \
 	diagdkrenderer.obj \
 	diainteractiverenderer.obj \
+	dialibartrenderer.obj \
 	diarenderer.obj \
 	diasvgrenderer.obj \
 	dynamic_obj.obj \

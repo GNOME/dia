@@ -748,7 +748,9 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   height = ddisp->canvas->allocation.height;
 
   if (ddisp->aa_renderer){
-    ddisp->renderer = new_libart_renderer(ddisp, 1);
+    ddisp->renderer = new_libart_renderer(
+                         dia_transform_new (&ddisp->visible, 
+                                            &ddisp->zoom_factor), 1);
   } else {
     ddisp->renderer = new_gdk_renderer(ddisp);
   }
@@ -761,7 +763,9 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 {
   if (ddisp->renderer==NULL) {
     if (ddisp->aa_renderer)
-      ddisp->renderer = new_libart_renderer(ddisp, 1);
+      ddisp->renderer = new_libart_renderer(
+                           dia_transform_new (&ddisp->visible, 
+                                              &ddisp->zoom_factor), 1);
     else
       ddisp->renderer = new_gdk_renderer(ddisp);
   }

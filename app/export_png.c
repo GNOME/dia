@@ -29,7 +29,7 @@
 #include "intl.h"
 #include "filter.h"
 #include "render_libart.h"
-#include "display.h"
+#include "dialibartrenderer.h"
 #include "message.h"
 #include "app_procs.h"
 #include "dialogs.h"
@@ -62,12 +62,14 @@ static real export_png_aspect_ratio;
    The dialog is not used when dia is non-interactive (export mode)
 */
 static void
-export_png_ok(GtkButton *button, gpointer userdata) {
+export_png_ok(GtkButton *button, gpointer userdata) 
+{
   struct png_callback_data *cbdata = (struct png_callback_data *)userdata;
   DiagramData *data = cbdata->data;
+  DiaRenderer *renderer;
+  DiaLibartRenderer *la_renderer;
   Rectangle *ext = &data->extents;
-  DDisplay *ddisp;
-  RendererLibart *renderer;
+  Rectangle visible;
   guint32 width, height, band, row, i;
   real band_height;
   guint32 imagewidth, imageheight;
@@ -99,16 +101,13 @@ export_png_ok(GtkButton *button, gpointer userdata) {
   band = MIN(imageheight, BAND_HEIGHT);
   band_height = (real)band / imagezoom;
 
-  /* create a fake ddisp to keep the renderer happy */
-  ddisp = g_new0(DDisplay, 1);
-  ddisp->zoom_factor = imagezoom;
-  ddisp->visible = *ext;
-  ddisp->visible.bottom = MIN(ddisp->visible.bottom,
-			      ddisp->visible.top + band_height);
+  visible = *ext;
+  visible.bottom = MIN(visible.bottom,
+		       visible.top + band_height);
 
-  renderer = new_libart_renderer(ddisp, 0);
-  libart_renderer_set_size(renderer, NULL, imagewidth, band);
-  ddisp->renderer = (Renderer *)renderer;
+  renderer = new_libart_renderer(dia_transform_new (&visible, &imagezoom), 0);
+  la_renderer = DIA_LIBART_RENDERER (renderer);
+  dia_renderer_set_size(renderer, NULL, imagewidth, band);
 
   fp = fopen(cbdata->filename, "wb");
   if (fp == NULL) {
@@ -164,18 +163,18 @@ export_png_ok(GtkButton *button, gpointer userdata) {
   for (row = 0; row < imageheight; row += band) {
     /* render band */
     for (i = 0; i < imagewidth*band; i++) {
-      renderer->rgb_buffer[3*i]   = 0xff * data->bg_color.red;
-      renderer->rgb_buffer[3*i+1] = 0xff * data->bg_color.green;
-      renderer->rgb_buffer[3*i+2] = 0xff * data->bg_color.blue;
+      la_renderer->rgb_buffer[3*i]   = 0xff * data->bg_color.red;
+      la_renderer->rgb_buffer[3*i+1] = 0xff * data->bg_color.green;
+      la_renderer->rgb_buffer[3*i+2] = 0xff * data->bg_color.blue;
     }
-    data_render(data, (Renderer *)renderer, &ddisp->visible, NULL,NULL);
+    data_render(data, renderer, &visible, NULL,NULL);
     /* write rows to png file */
     for (i = 0; i < band; i++)
-      row_ptr[i] = renderer->rgb_buffer + 3 * i * imagewidth;
+      row_ptr[i] = la_renderer->rgb_buffer + 3 * i * imagewidth;
     png_write_rows(png, row_ptr, MIN(band, imageheight - row));
 
-    ddisp->visible.top    += band_height;
-    ddisp->visible.bottom += band_height;
+    visible.top    += band_height;
+    visible.bottom += band_height;
   }
   g_free(row_ptr);
   png_write_end(png, info);
@@ -183,8 +182,7 @@ export_png_ok(GtkButton *button, gpointer userdata) {
   fclose(fp);
 
  error:
-  destroy_libart_renderer(renderer);
-  g_free(ddisp);
+  g_object_unref(renderer);
   if (app_is_interactive()) {
     gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button),
 				  userdata);
@@ -215,7 +213,8 @@ export_png_cancel(GtkButton *button, gpointer userdata) {
 
 /* Adjust the aspect ratio */
 static void
-export_png_ratio(GtkAdjustment *limits, gpointer userdata) {
+export_png_ratio(GtkAdjustment *limits, gpointer userdata) 
+{
   /* This variable makes sure that we don't have a loopback effect. */
   static gboolean in_progress;
   if (in_progress) return;

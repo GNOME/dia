@@ -4,9 +4,9 @@ PACKAGE = dia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
 # -DWIN32 for newer libxml versions
-# not yet -DHAVE_LIBART -DHAVE_LIBPNG
+# not yet 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DWIN32  \
+	-DWIN32  -DHAVE_LIBART -DHAVE_LIBPNG \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
 	-I$(PRJ_TOP)\lib $(LIBART_CFLAGS)

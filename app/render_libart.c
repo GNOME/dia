@@ -22,220 +22,93 @@
 #include <string.h> /* strlen */
 #include <gdk/gdk.h>
 
+#include <libart_lgpl/art_rgb.h>
+
 #include "render_libart.h"
-#include "message.h"
-#include "font.h"
 
 #ifdef HAVE_LIBART
 
-#ifdef HAVE_FREETYPE
-#include <pango/pango.h>
-#include <pango/pangoft2.h>
-#elif defined G_OS_WIN32
-#include <pango/pango.h>
-#include <pango/pangowin32.h>
-#endif
+#include "dialibartrenderer.h"
+#include "font.h"
+#include "color.h"
 
-#include <libart_lgpl/art_point.h>
-#include <libart_lgpl/art_misc.h>
-#include <libart_lgpl/art_affine.h>
-#include <libart_lgpl/art_svp_vpath.h>
-#include <libart_lgpl/art_bpath.h>
-#include <libart_lgpl/art_vpath_bpath.h>
-#include <libart_lgpl/art_rgb.h>
-#include <libart_lgpl/art_rgb_svp.h>
-#include <libart_lgpl/art_rgb_affine.h>
-#include <libart_lgpl/art_rgb_rgba_affine.h>
-#include <libart_lgpl/art_rgb_bitmap_affine.h>
-#include <libart_lgpl/art_filterlevel.h>
-
-static void begin_render(RendererLibart *renderer, DiagramData *data);
-static void end_render(RendererLibart *renderer);
-static void set_linewidth(RendererLibart *renderer, real linewidth);
-static void set_linecaps(RendererLibart *renderer, LineCaps mode);
-static void set_linejoin(RendererLibart *renderer, LineJoin mode);
-static void set_linestyle(RendererLibart *renderer, LineStyle mode);
-static void set_dashlength(RendererLibart *renderer, real length);
-static void set_fillstyle(RendererLibart *renderer, FillStyle mode);
-static void set_font(RendererLibart *renderer, DiaFont *font, real height);
-static void draw_line(RendererLibart *renderer, 
-		      Point *start, Point *end, 
-		      Color *line_color);
-static void draw_polyline(RendererLibart *renderer, 
-			  Point *points, int num_points, 
-			  Color *line_color);
-static void draw_polygon(RendererLibart *renderer, 
-			 Point *points, int num_points, 
-			 Color *line_color);
-static void fill_polygon(RendererLibart *renderer, 
-			 Point *points, int num_points, 
-			 Color *line_color);
-static void draw_rect(RendererLibart *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void fill_rect(RendererLibart *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void draw_arc(RendererLibart *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void fill_arc(RendererLibart *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void draw_ellipse(RendererLibart *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
-static void fill_ellipse(RendererLibart *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
-static void draw_bezier(RendererLibart *renderer, 
-			BezPoint *points,
-			int numpoints,
-			Color *color);
-static void fill_bezier(RendererLibart *renderer, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *color);
-static void draw_string(RendererLibart *renderer,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color);
-static void draw_image(RendererLibart *renderer,
-		       Point *point,
-		       real width, real height,
-		       DiaImage image);
-
-static real get_text_width(RendererLibart *renderer,
+static real get_text_width(DiaRenderer *self,
 			   const char *text, int length);
 
-static void clip_region_clear(RendererLibart *renderer);
-static void clip_region_add_rect(RendererLibart *renderer,
+static void clip_region_clear(DiaRenderer *self);
+static void clip_region_add_rect(DiaRenderer *self,
 				 Rectangle *rect);
 
-static void draw_pixel_line(RendererLibart *renderer,
+static void draw_pixel_line(DiaRenderer *self,
 			    int x1, int y1,
 			    int x2, int y2,
 			    Color *color);
-static void draw_pixel_rect(RendererLibart *renderer,
+static void draw_pixel_rect(DiaRenderer *self,
 				 int x, int y,
 				 int width, int height,
 				 Color *color);
-static void fill_pixel_rect(RendererLibart *renderer,
+static void fill_pixel_rect(DiaRenderer *self,
 				 int x, int y,
 				 int width, int height,
 				 Color *color);
+static void set_size(DiaRenderer *self, GdkWindow *window,
+                     int width, int height);
+static void copy_to_window (DiaRenderer *self, GdkWindow *window,
+                            int x, int y, int width, int height);
 
-static void init_libart_renderer();
 
-static InteractiveRenderOps LibartInteractiveRenderOps = {
-  (GetTextWidthFunc) get_text_width,
+static void 
+dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface)
+{
+  iface->clip_region_clear = clip_region_clear;
+  iface->clip_region_add_rect = clip_region_add_rect;
+  iface->draw_pixel_line = draw_pixel_line;
+  iface->draw_pixel_rect = draw_pixel_rect;
+  iface->fill_pixel_rect = fill_pixel_rect;
+  iface->copy_to_window = copy_to_window;
+  iface->set_size = set_size;
+}
 
-  (ClipRegionClearFunc) clip_region_clear,
-  (ClipRegionAddRectangleFunc) clip_region_add_rect,
 
-  (DrawPixelLineFunc) draw_pixel_line,
-  (DrawPixelRectangleFunc) draw_pixel_rect,
-  (FillPixelRectangleFunc) fill_pixel_rect,
-};
+DiaRenderer *
+new_libart_renderer(DiaTransform *trans, int interactive)
+{
+  DiaLibartRenderer *renderer;
+  GType renderer_type = 0;
 
-static RenderOps *LibartRenderOps;
+  renderer = g_object_new(DIA_TYPE_LIBART_RENDERER, NULL);
+  renderer->transform = trans;
 
-/* Here we set the functions that we define for this renderer. */
+  if (interactive && !renderer->parent_instance.is_interactive)
+    {
+      static const GInterfaceInfo irenderer_iface_info = 
+      {
+        (GInterfaceInitFunc) dia_libart_renderer_iface_init,
+        NULL,           /* iface_finalize */
+        NULL            /* iface_data     */
+      };
+
+      renderer_type = DIA_TYPE_LIBART_RENDERER;
+      /* register the interactive renderer interface */
+      g_type_add_interface_static (renderer_type,
+                                   DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE,
+                                   &irenderer_iface_info);
+
+      renderer->parent_instance.is_interactive = 1;
+    }
+
+  return DIA_RENDERER (renderer);
+}
+
 static void
-init_libart_renderer() {
-  LibartRenderOps = create_renderops_table();
-  
-  LibartRenderOps->begin_render = (BeginRenderFunc) begin_render;
-  LibartRenderOps->end_render = (EndRenderFunc) end_render;
-
-  LibartRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-  LibartRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-  LibartRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-  LibartRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-  LibartRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-  LibartRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-  LibartRenderOps->set_font = (SetFontFunc) set_font;
-  
-  LibartRenderOps->draw_line = (DrawLineFunc) draw_line;
-  LibartRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
-  
-  LibartRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-  LibartRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
-
-  LibartRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-  LibartRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
-
-  LibartRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-  LibartRenderOps->fill_arc = (FillArcFunc) fill_arc;
-
-  LibartRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-  LibartRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
-
-  LibartRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-  LibartRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
-
-  LibartRenderOps->draw_string = (DrawStringFunc) draw_string;
-
-  LibartRenderOps->draw_image = (DrawImageFunc) draw_image;
-}
-
-RendererLibart *
-new_libart_renderer(DDisplay *ddisp, int interactive)
+set_size(DiaRenderer *self, GdkWindow *window,
+         int width, int height)
 {
-  RendererLibart *renderer;
-
-  if (LibartRenderOps == NULL)
-    init_libart_renderer();
-
-  renderer = g_new(RendererLibart, 1);
-  renderer->renderer.ops = LibartRenderOps;
-  renderer->renderer.is_interactive = interactive;
-  renderer->renderer.interactive_ops = &LibartInteractiveRenderOps;
-  renderer->ddisp = ddisp;
-
-  renderer->rgb_buffer = NULL;
-  renderer->renderer.pixel_width = 0;
-  renderer->renderer.pixel_height = 0;
-
-  renderer->line_width = 1.0;
-  renderer->cap_style = GDK_CAP_BUTT;
-  renderer->join_style = GDK_JOIN_MITER;
-  
-  renderer->saved_line_style = LINESTYLE_SOLID;
-  renderer->dash_enabled = 0;
-  renderer->dash_length = 10;
-  renderer->dot_length = 1;
-
-  renderer->font = NULL;
-
-  return renderer;
-}
-
-void
-destroy_libart_renderer(RendererLibart *renderer)
-{
-  if (renderer->rgb_buffer != NULL)
-    g_free(renderer->rgb_buffer);
-  if (renderer->font)
-    dia_font_unref(renderer->font);
-
-  g_free(renderer);
-}
-
-void
-libart_renderer_set_size(RendererLibart *renderer, GdkWindow *window,
-			 int width, int height)
-{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int i;
   
-  if ( (renderer->renderer.pixel_width==width) &&
-       (renderer->renderer.pixel_height==height) )
+  if ( (renderer->pixel_width==width) &&
+       (renderer->pixel_height==height) )
     return;
   
   if (renderer->rgb_buffer != NULL) {
@@ -245,22 +118,23 @@ libart_renderer_set_size(RendererLibart *renderer, GdkWindow *window,
   renderer->rgb_buffer = g_new (guint8, width * height * 3);
   for (i=0;i<width * height * 3;i++)
     renderer->rgb_buffer[i] = 0xff;
-  renderer->renderer.pixel_width = width;
-  renderer->renderer.pixel_height = height;
+  renderer->pixel_width = width;
+  renderer->pixel_height = height;
 }
 
-extern void
-renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
-			       int x, int y, int width, int height)
+static void
+copy_to_window (DiaRenderer *self, GdkWindow *window,
+                int x, int y, int width, int height)
 {
   static GdkGC *copy_gc = NULL;
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int w;
 
   if (copy_gc == NULL) {
     copy_gc = gdk_gc_new(window);
   }
 
-  w = renderer->renderer.pixel_width;
+  w = renderer->pixel_width;
   
   gdk_draw_rgb_image(window,
 		     copy_gc,
@@ -271,1124 +145,24 @@ renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
 		     w*3);
 }
 
-static guint32 color_to_abgr(Color *col)
-{
-  int rgba;
-
-  rgba = 0x0;
-  rgba |= (guint)(0xFF*col->blue) << 16;
-  rgba |= (guint)(0xFF*col->green) << 8;
-  rgba |= (guint)(0xFF*col->red);
-  
-  return rgba;
-}
-
-static guint32 color_to_rgba(Color *col)
-{
-  int rgba;
-
-  rgba = 0xFF;
-  rgba |= (guint)(0xFF*col->red) << 24;
-  rgba |= (guint)(0xFF*col->green) << 16;
-  rgba |= (guint)(0xFF*col->blue) << 8;
-  
-  return rgba;
-}
-
-static void
-begin_render(RendererLibart *renderer, DiagramData *data)
-{
-#ifdef HAVE_FREETYPE
-  /* pango_ft2_get_context API docs :
-   * ... Use of this function is discouraged, ...
-   */
-  dia_font_init(pango_ft2_get_context(10, 10));
-# define FONT_SCALE (1.0)
-#elif defined G_OS_WIN32
-  dia_font_init(pango_win32_get_context());
-  /* we need to scale but can't as simple as with ft2 */
-# define FONT_SCALE (1.0 / 22.0)
-#endif
-}
-
-static void
-end_render(RendererLibart *renderer)
-{
-  dia_font_init(gdk_pango_context_get());
-}
-
-
-
-static void
-set_linewidth(RendererLibart *renderer, real linewidth)
-{  /* 0 == hairline **/
-  renderer->line_width =
-    ddisplay_transform_length(renderer->ddisp, linewidth);
-
-  if (renderer->line_width<=0.5)
-    renderer->line_width = 0.5; /* Minimum 0.5 pixel. */
-}
-
-static void
-set_linecaps(RendererLibart *renderer, LineCaps mode)
-{
-  switch(mode) {
-  case LINECAPS_BUTT:
-    renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
-    break;
-  case LINECAPS_ROUND:
-    renderer->cap_style = ART_PATH_STROKE_CAP_ROUND;
-    break;
-  case LINECAPS_PROJECTING:
-    renderer->cap_style = ART_PATH_STROKE_CAP_SQUARE;
-    break;
-  }
-}
-
-static void
-set_linejoin(RendererLibart *renderer, LineJoin mode)
-{
-  switch(mode) {
-  case LINEJOIN_MITER:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
-    break;
-  case LINEJOIN_ROUND:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
-    break;
-  case LINEJOIN_BEVEL:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
-    break;
-  }
-}
-
-static void
-set_linestyle(RendererLibart *renderer, LineStyle mode)
-{
-  static double dash[10];
-  double hole_width;
-  
-  renderer->saved_line_style = mode;
-  switch(mode) {
-  case LINESTYLE_SOLID:
-    renderer->dash_enabled = 0;
-    break;
-  case LINESTYLE_DASHED:
-    renderer->dash_enabled = 1;
-    renderer->dash.offset = 0.0;
-    renderer->dash.n_dash = 2;
-    renderer->dash.dash = dash;
-    dash[0] = renderer->dash_length;
-    dash[1] = renderer->dash_length;
-    break;
-  case LINESTYLE_DASH_DOT:
-    renderer->dash_enabled = 1;
-    renderer->dash.offset = 0.0;
-    renderer->dash.n_dash = 4;
-    renderer->dash.dash = dash;
-    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-    if (hole_width<1.0)
-      hole_width = 1.0;
-    dash[0] = renderer->dash_length;
-    dash[1] = hole_width;
-    dash[2] = renderer->dot_length;
-    dash[3] = hole_width;
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    renderer->dash_enabled = 1;
-    renderer->dash.offset = 0.0;
-    renderer->dash.n_dash = 6;
-    renderer->dash.dash = dash;
-    hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3;
-    if (hole_width<1.0)
-      hole_width = 1.0;
-    dash[0] = renderer->dash_length;
-    dash[1] = hole_width;
-    dash[2] = renderer->dot_length;
-    dash[3] = hole_width;
-    dash[4] = renderer->dot_length;
-    dash[5] = hole_width;
-    break;
-  case LINESTYLE_DOTTED:
-    renderer->dash_enabled = 1;
-    renderer->dash.offset = 0.0;
-    renderer->dash.n_dash = 2;
-    renderer->dash.dash = dash;
-    dash[0] = renderer->dot_length;
-    dash[1] = renderer->dot_length;
-    break;
-  }
-}
-
-static void
-set_dashlength(RendererLibart *renderer, real length)
-{  /* dot = 10% of len */
-  real ddisp_len;
-
-  ddisp_len =
-    ddisplay_transform_length(renderer->ddisp, length);
-  
-  renderer->dash_length = ddisp_len;
-  renderer->dot_length = ddisp_len*0.1;
-  
-  if (renderer->dash_length<1.0)
-    renderer->dash_length = 1.0;
-  if (renderer->dash_length>255.0)
-    renderer->dash_length = 255.0;
-  if (renderer->dot_length<1.0)
-    renderer->dot_length = 1.0;
-  if (renderer->dot_length>255.0)
-    renderer->dot_length = 255.0;
-  set_linestyle(renderer, renderer->saved_line_style);
-}
-
-static void
-set_fillstyle(RendererLibart *renderer, FillStyle mode)
-{
-  switch(mode) {
-  case FILLSTYLE_SOLID:
-    break;
-  default:
-    message_error(_("gdk_renderer: Unsupported fill mode specified!\n"));
-  }
-}
-
-static void
-set_font(RendererLibart *renderer, DiaFont *font, real height)
-{
-  renderer->font_height = height * FONT_SCALE;
-  //    ddisplay_transform_length(renderer->ddisp, height);
-
-  if (renderer->font)
-    dia_font_unref(renderer->font);
-  renderer->font = dia_font_ref(font);
-}
-
-static void
-draw_line(RendererLibart *renderer, 
-	  Point *start, Point *end, 
-	  Color *line_color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-
-  rgba = color_to_rgba(line_color);
-  
-  vpath = art_new (ArtVpath, 3);
-  
-  ddisplay_transform_coords_double(ddisp, start->x, start->y, &x, &y);
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = x;
-  vpath[0].y = y;
-  
-  ddisplay_transform_coords_double(ddisp, end->x, end->y, &x, &y);
-  vpath[1].code = ART_LINETO;
-  vpath[1].x = x;
-  vpath[1].y = y;
-  
-  vpath[2].code = ART_END;
-  vpath[2].x = 0;
-  vpath[2].y = 0;
-
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-draw_polyline(RendererLibart *renderer, 
-	      Point *points, int num_points, 
-	      Color *line_color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-  int i;
-
-  rgba = color_to_rgba(line_color);
-  
-  vpath = art_new (ArtVpath, num_points+1);
-
-  for (i=0;i<num_points;i++) {
-    ddisplay_transform_coords_double(ddisp,
-				     points[i].x, points[i].y,
-				     &x, &y);
-    vpath[i].code = (i==0)?ART_MOVETO:ART_LINETO;
-    vpath[i].x = x;
-    vpath[i].y = y;
-  }
-  vpath[i].code = ART_END;
-  vpath[i].x = 0;
-  vpath[i].y = 0;
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-draw_polygon(RendererLibart *renderer, 
-	      Point *points, int num_points, 
-	      Color *line_color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-  int i;
-  
-  rgba = color_to_rgba(line_color);
-  
-  vpath = art_new (ArtVpath, num_points+2);
-
-  for (i=0;i<num_points;i++) {
-    ddisplay_transform_coords_double(ddisp,
-				     points[i].x, points[i].y,
-				     &x, &y);
-    vpath[i].code = (i==0)?ART_MOVETO:ART_LINETO;
-    vpath[i].x = x;
-    vpath[i].y = y;
-  }
-  ddisplay_transform_coords_double(ddisp,
-				   points[0].x, points[0].y,
-				   &x, &y);
-  vpath[i].code = ART_LINETO;
-  vpath[i].x = x;
-  vpath[i].y = y;
-  vpath[i+1].code = ART_END;
-  vpath[i+1].x = 0;
-  vpath[i+1].y = 0;
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-fill_polygon(RendererLibart *renderer, 
-	      Point *points, int num_points, 
-	      Color *color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-  int i;
-  
-  rgba = color_to_rgba(color);
-  
-  vpath = art_new (ArtVpath, num_points+2);
-
-  for (i=0;i<num_points;i++) {
-    ddisplay_transform_coords_double(ddisp,
-				     points[i].x, points[i].y,
-				     &x, &y);
-    vpath[i].code = (i==0)?ART_MOVETO:ART_LINETO;
-    vpath[i].x = x;
-    vpath[i].y = y;
-  }
-  ddisplay_transform_coords_double(ddisp,
-				   points[0].x, points[0].y,
-				   &x, &y);
-  vpath[i].code = ART_LINETO;
-  vpath[i].x = x;
-  vpath[i].y = y;
-  vpath[i+1].code = ART_END;
-  vpath[i+1].x = 0;
-  vpath[i+1].y = 0;
-  
-  svp = art_svp_from_vpath (vpath);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-draw_rect(RendererLibart *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  double top, bottom, left, right;
-    
-  ddisplay_transform_coords_double(ddisp, ul_corner->x, ul_corner->y,
-				   &left, &top);
-  ddisplay_transform_coords_double(ddisp, lr_corner->x, lr_corner->y,
-				   &right, &bottom);
-  
-  if ((left>right) || (top>bottom))
-    return;
-
-  rgba = color_to_rgba(color);
-  
-  vpath = art_new (ArtVpath, 6);
-
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = left;
-  vpath[0].y = top;
-  vpath[1].code = ART_LINETO;
-  vpath[1].x = right;
-  vpath[1].y = top;
-  vpath[2].code = ART_LINETO;
-  vpath[2].x = right;
-  vpath[2].y = bottom;
-  vpath[3].code = ART_LINETO;
-  vpath[3].x = left;
-  vpath[3].y = bottom;
-  vpath[4].code = ART_LINETO;
-  vpath[4].x = left;
-  vpath[4].y = top;
-  vpath[5].code = ART_END;
-  vpath[5].x = 0;
-  vpath[5].y = 0;
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-fill_rect(RendererLibart *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  double top, bottom, left, right;
-    
-  ddisplay_transform_coords_double(ddisp, ul_corner->x, ul_corner->y,
-				   &left, &top);
-  ddisplay_transform_coords_double(ddisp, lr_corner->x, lr_corner->y,
-				   &right, &bottom);
-  
-  if ((left>right) || (top>bottom))
-    return;
-
-  rgba = color_to_rgba(color);
-  
-  vpath = art_new (ArtVpath, 6);
-
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = left;
-  vpath[0].y = top;
-  vpath[1].code = ART_LINETO;
-  vpath[1].x = right;
-  vpath[1].y = top;
-  vpath[2].code = ART_LINETO;
-  vpath[2].x = right;
-  vpath[2].y = bottom;
-  vpath[3].code = ART_LINETO;
-  vpath[3].x = left;
-  vpath[3].y = bottom;
-  vpath[4].code = ART_LINETO;
-  vpath[4].x = left;
-  vpath[4].y = top;
-  vpath[5].code = ART_END;
-  vpath[5].x = 0;
-  vpath[5].y = 0;
-  
-  svp = art_svp_from_vpath (vpath);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-draw_arc(RendererLibart *renderer, 
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *line_color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  real dangle;
-  real circ;
-  double x,y;
-  int num_points;
-  double theta, dtheta;
-  int i;
-  
-  width = ddisplay_transform_length(renderer->ddisp, width);
-  height = ddisplay_transform_length(renderer->ddisp, height);
-  ddisplay_transform_coords_double(ddisp, center->x, center->y, &x, &y);
-
-
-  if ((width<0.0) || (height<0.0))
-    return;
-  
-  dangle = angle2-angle1;
-  if (dangle<0)
-    dangle += 360.0;
-
-  /* Over-approximate the circumference */
-  if (width>height)
-    circ = M_PI*width;
-  else
-    circ = M_PI*height;
-
-  circ *= dangle/360.0;
-  
-#define LEN_PER_SEGMENT 3.0
-
-  num_points = circ/LEN_PER_SEGMENT;
-  if (num_points<5) /* Don't be too coarse */
-    num_points = 5;
-
-  rgba = color_to_rgba(line_color);
-  
-  vpath = art_new (ArtVpath, num_points+1);
-
-  theta = M_PI*angle1/180.0;
-  dtheta = (M_PI*dangle/180.0)/(num_points-1);
-  for (i=0;i<num_points;i++) {
-    vpath[i].code = (i==0)?ART_MOVETO:ART_LINETO;
-    vpath[i].x = x + width/2.0*cos(theta);
-    vpath[i].y = y - height/2.0*sin(theta);
-    theta += dtheta;
-  }
-  vpath[i].code = ART_END;
-  vpath[i].x = 0;
-  vpath[i].y = 0;
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-fill_arc(RendererLibart *renderer, 
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  real dangle;
-  real circ;
-  double x,y;
-  int num_points;
-  double theta, dtheta;
-  int i;
-  
-  width = ddisplay_transform_length(renderer->ddisp, width);
-  height = ddisplay_transform_length(renderer->ddisp, height);
-  ddisplay_transform_coords_double(ddisp, center->x, center->y, &x, &y);
-
-  if ((width<0.0) || (height<0.0))
-    return;
-
-  dangle = angle2-angle1;
-  if (dangle<0)
-    dangle += 360.0;
-
-  /* Over-approximate the circumference */
-  if (width>height)
-    circ = M_PI*width;
-  else
-    circ = M_PI*height;
-
-  circ *= dangle/360.0;
-  
-#define LEN_PER_SEGMENT 3.0
-
-  num_points = circ/LEN_PER_SEGMENT;
-  if (num_points<5) /* Don't be too coarse */
-    num_points = 5;
-
-  rgba = color_to_rgba(color);
-  
-  vpath = art_new (ArtVpath, num_points+2+1);
-
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = x;
-  vpath[0].y = y;
-  theta = M_PI*angle1/180.0;
-  dtheta = (M_PI*dangle/180.0)/(num_points-1);
-  for (i=0;i<num_points;i++) {
-    vpath[i+1].code = ART_LINETO;
-    vpath[i+1].x = x + width/2.0*cos(theta);
-    vpath[i+1].y = y - height/2.0*sin(theta);
-    theta += dtheta;
-  }
-  vpath[i+1].code = ART_LINETO;
-  vpath[i+1].x = x;
-  vpath[i+1].y = y;
-  vpath[i+2].code = ART_END;
-  vpath[i+2].x = 0;
-  vpath[i+2].y = 0;
-  
-  svp = art_svp_from_vpath (vpath);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-draw_ellipse(RendererLibart *renderer, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-  draw_arc(renderer, center, width, height, 0.0, 360.0, color); 
-}
-
-static void
-fill_ellipse(RendererLibart *renderer, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-  fill_arc(renderer, center, width, height, 0.0, 360.0, color); 
-}
-
-static void
-draw_bezier(RendererLibart *renderer, 
-	    BezPoint *points,
-	    int numpoints, 
-	    Color *line_color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath, *vpath_dashed;
-  ArtBpath *bpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-  int i;
-
-  rgba = color_to_rgba(line_color);
-  
-  bpath = art_new (ArtBpath, numpoints+1);
-
-  for (i=0;i<numpoints;i++) {
-    switch(points[i].type) {
-    case BEZ_MOVE_TO:
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].code = ART_MOVETO;
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    case BEZ_LINE_TO:
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].code = ART_LINETO;
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    case BEZ_CURVE_TO:
-      bpath[i].code = ART_CURVETO;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].x1 = x;
-      bpath[i].y1 = y;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p2.x, points[i].p2.y,
-				       &x, &y);
-      bpath[i].x2 = x;
-      bpath[i].y2 = y;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p3.x, points[i].p3.y,
-				       &x, &y);
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    }
-  }
-  bpath[i].code = ART_END;
-  bpath[i].x1 = 0;
-  bpath[i].y1 = 0;
-
-  vpath = art_bez_path_to_vec(bpath, 0.25);
-  art_free(bpath);
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-fill_bezier(RendererLibart *renderer, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints, 
-	    Color *color)
-{
-  DDisplay *ddisp = renderer->ddisp;
-  ArtVpath *vpath;
-  ArtBpath *bpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  double x,y;
-  int i;
-
-  rgba = color_to_rgba(color);
-  
-  bpath = art_new (ArtBpath, numpoints+1);
-
-  for (i=0;i<numpoints;i++) {
-    switch(points[i].type) {
-    case BEZ_MOVE_TO:
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].code = ART_MOVETO;
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    case BEZ_LINE_TO:
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].code = ART_LINETO;
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    case BEZ_CURVE_TO:
-      bpath[i].code = ART_CURVETO;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p1.x, points[i].p1.y,
-				       &x, &y);
-      bpath[i].x1 = x;
-      bpath[i].y1 = y;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p2.x, points[i].p2.y,
-				       &x, &y);
-      bpath[i].x2 = x;
-      bpath[i].y2 = y;
-      ddisplay_transform_coords_double(ddisp,
-				       points[i].p3.x, points[i].p3.y,
-				       &x, &y);
-      bpath[i].x3 = x;
-      bpath[i].y3 = y;
-      break;
-    }
-  }
-  bpath[i].code = ART_END;
-  bpath[i].x1 = 0;
-  bpath[i].y1 = 0;
-
-  vpath = art_bez_path_to_vec(bpath, 0.25);
-  art_free(bpath);
-
-  svp = art_svp_from_vpath (vpath);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->renderer.pixel_width,
-		     renderer->renderer.pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-
-static void
-draw_string (RendererLibart *renderer,
-	     const gchar *text,
-	     Point *pos, Alignment alignment,
-	     Color *color)
-{
-  /* Not working with Pango */
-  DDisplay *ddisp = renderer->ddisp;
-  guint8 *bitmap = NULL;
-  double x,y;
-  Point start_pos;
-  PangoLayout* layout;
-  int width, height;
-  int i, j;
-  int iwidth;
-  int len;
-  double affine[6], tmpaffine[6];
-  double xpos, ypos;
-  guint32 rgba;
-  int rowstride;
-  double old_zoom;
-  double font_height;
-
-  point_copy(&start_pos,pos);
-
-  /* Something's screwed up with the zooming for fonts.
-     It's like it zooms double.  Yet removing some of the zooms
-     don't seem to work, either.
-  */
-  /*
-  old_zoom = ddisp->zoom_factor;
-  ddisp->zoom_factor = ddisp->zoom_factor;
-  */
-  switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
-						renderer->font_height,
-						ddisp->zoom_factor)/2;
-    break;
-  case ALIGN_RIGHT:
-    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
-						renderer->font_height,
-						ddisp->zoom_factor);
-    break;
-  }
- 
-  font_height = ddisplay_transform_length(ddisp, renderer->font_height);
-
-  start_pos.y -= dia_font_ascent(text, renderer->font,
-				 font_height);
-  ddisplay_transform_coords_double(ddisp, start_pos.x, start_pos.y, &x, &y);
-
-
-  layout = dia_font_scaled_build_layout(text,renderer->font,
-                                        font_height,
-                                        ddisp->zoom_factor);
-  /*
-  ddisp->zoom_factor = old_zoom;
-  */
-  pango_layout_get_pixel_size(layout, &width, &height);
-  /* Pango doesn't have a 'render to raw bits' function, so we have
-   * to render based on what other engines are available.
-   */
-#ifdef HAVE_FREETYPE
-  /* Freetype version */
- {
-   FT_Bitmap ftbitmap;
-   guint8 *graybitmap;
-   rowstride = 32*((width+31)/31);
-   
-   graybitmap = (guint8*)g_new0(guint8, height*rowstride);
-
-   ftbitmap.rows = height;
-   ftbitmap.width = width;
-   ftbitmap.pitch = rowstride;
-   ftbitmap.buffer = graybitmap;
-   ftbitmap.num_grays = 256;
-   ftbitmap.pixel_mode = ft_pixel_mode_grays;
-   ftbitmap.palette_mode = 0;
-   ftbitmap.palette = 0;
-   g_print("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
-   pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-#define DEPTH 4
-   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
-   for (i = 0; i < height; i++) {
-     for (j = 0; j < width; j++) {
-       bitmap[DEPTH*(i*rowstride+j)] = color->red;
-       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
-       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
-       bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap[i*rowstride+j];
-     }
-     //     bitmap[4*i+3] = graybitmap[i];
-   }
-   g_free(graybitmap);
- }
-#elif defined G_OS_WIN32
- /* duplicating from above, please let extending Pango be allowed, bug 94791 */
- {
-   PangoBitmap graybitmap;
-   rowstride = 32*((width+31)/31);
-   
-   graybitmap.rows = height;
-   graybitmap.width = width;
-   graybitmap.pitch = rowstride;
-   graybitmap.buffer = (guint8*)g_new0(guint8, height*rowstride);
-   graybitmap.num_grays = 256;
-   printf("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
-   pango_win32_render_layout_to_bitmap(&graybitmap, layout, 0, 0);
-#define DEPTH 4
-   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
-   for (i = 0; i < height; i++) {
-     for (j = 0; j < width; j++) {
-       bitmap[DEPTH*(i*rowstride+j)] = color->red;
-       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
-       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
-       bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap.buffer[i*rowstride+j];
-     }
-   }
-   g_free(graybitmap.buffer);
- }
-#endif
-
-  /* abuse_layout_object(layout,text); */
-  
-  g_object_unref(G_OBJECT(layout));
-
-  rgba = color_to_rgba(color);
-
-  art_affine_identity(affine);
-  art_affine_translate(tmpaffine, x, y);
-  art_affine_multiply(affine, affine, tmpaffine);
-  
-  if (bitmap != NULL)
-    art_rgb_rgba_affine (renderer->rgb_buffer,
-		    0, 0,
-		    renderer->renderer.pixel_width,
-		    renderer->renderer.pixel_height,
-		    renderer->renderer.pixel_width * 3,
-		    bitmap,
-		    width,
-		    height,
-		    rowstride*DEPTH,
-		    //rgba,
-		    affine,
-		    ART_FILTER_NEAREST, NULL);
-
-  g_free(bitmap);
-}
-
-static void
-draw_image(RendererLibart *renderer,
-	   Point *point,
-	   real width, real height,
-	   DiaImage image)
-{
-  double real_width, real_height;
-  double x,y;
-  int src_width, src_height;
-  guint8 *img_data;
-  guint8 *img_mask;
-  double affine[6];
-  int i,j;
-
-  /* Todo: Handle some kind of clipping! */
-  
-  real_width = ddisplay_transform_length(renderer->ddisp, width);
-  real_height = ddisplay_transform_length(renderer->ddisp, height);
-  ddisplay_transform_coords_double(renderer->ddisp, point->x, point->y,
-			    &x, &y);
-
-  img_data = dia_image_rgb_data(image);
-  img_mask = dia_image_mask_data(image);
-  src_width = dia_image_width(image);
-  src_height = dia_image_height(image);
-  
-  affine[0] = real_width/(double)src_width;
-  affine[1] = 0;
-  affine[2] = 0;
-  affine[3] = real_height/(double)src_height;
-  affine[4] = x;
-  affine[5] = y;
-
-#define ALPHA_TO_WHITE
-  if (img_mask) {
-    for (i = 0; i < src_width; i++) {
-      for (j = 0; j < src_height; j++) {
-	int index = i*src_height+j;
-#ifdef ALPHA_TO_WHITE
-	  img_data[index*3] = 255-(img_mask[index]*(255-img_data[index*3])/255);
-	  img_data[index*3+1] = 255-(img_mask[index]*(255-img_data[index*3+1])/255);
-	  img_data[index*3+2] = 255-(img_mask[index]*(255-img_data[index*3+2])/255);
-#else
-	  img_data[index*3] = img_data[index*3+1] =
-	    img_data[index*3+2] = 255;
-#endif
-      }
-    }
-  }
-
-  art_rgb_affine(renderer->rgb_buffer,
-		 0, 0,
-		 renderer->renderer.pixel_width,
-		 renderer->renderer.pixel_height,
-		 renderer->renderer.pixel_width*3,
-		 img_data, src_width, src_height, src_width*3,
-		 affine, ART_FILTER_NEAREST, NULL);
-
-  g_free(img_data);
-  g_free(img_mask);
-		 
-  /*  dia_image_draw(image,  renderer->pixmap, real_x, real_y,
-      real_width, real_height);*/
-}
-
 static real
-get_text_width(RendererLibart *renderer,
+get_text_width(DiaRenderer *self,
 	       const char *text, int length)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int iwidth;
   
   iwidth = dia_font_string_width(text, renderer->font, renderer->font_height);
 
-  return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
+  return dia_untransform_length(renderer->transform, (real) iwidth);
 }
 
 
 static void
-clip_region_clear(RendererLibart *renderer)
+clip_region_clear(DiaRenderer *self)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
+
   renderer->clip_rect_empty = 1;
   renderer->clip_rect.top = 0;
   renderer->clip_rect.bottom = 0;
@@ -1397,25 +171,25 @@ clip_region_clear(RendererLibart *renderer)
 }
 
 static void
-clip_region_add_rect(RendererLibart *renderer,
+clip_region_add_rect(DiaRenderer *self,
 		     Rectangle *rect)
 {
-  DDisplay *ddisp = renderer->ddisp;
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int x1,y1;
   int x2,y2;
   IntRectangle r;
 
-  ddisplay_transform_coords(ddisp, rect->left, rect->top,  &x1, &y1);
-  ddisplay_transform_coords(ddisp, rect->right, rect->bottom,  &x2, &y2);
+  dia_transform_coords(renderer->transform, rect->left, rect->top,  &x1, &y1);
+  dia_transform_coords(renderer->transform, rect->right, rect->bottom,  &x2, &y2);
 
   if (x1 < 0)
     x1 = 0;
   if (y1 < 0)
     y1 = 0;
-  if (x2 >= renderer->renderer.pixel_width)
-    x2 = renderer->renderer.pixel_width - 1;
-  if (y2 >= renderer->renderer.pixel_height)
-    y2 = renderer->renderer.pixel_height - 1;
+  if (x2 >= renderer->pixel_width)
+    x2 = renderer->pixel_width - 1;
+  if (y2 >= renderer->pixel_height)
+    y2 = renderer->pixel_height - 1;
   
   r.top = y1;
   r.bottom = y2;
@@ -1457,14 +231,15 @@ clip_region_add_rect(RendererLibart *renderer,
 
 /* Does no clipping! */
 static void
-draw_hline(RendererLibart *renderer,
+draw_hline(DiaRenderer *self,
 	   int x, int y, int length,
 	   guint8 r, guint8 g, guint8 b)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int stride;
   guint8 *ptr;
 
-  stride = renderer->renderer.pixel_width*3;
+  stride = renderer->pixel_width*3;
   ptr = renderer->rgb_buffer + x*3 + y*stride;
   if (length>=0)
     art_rgb_fill_run(ptr, r, g, b, length+1);
@@ -1472,14 +247,15 @@ draw_hline(RendererLibart *renderer,
 
 /* Does no clipping! */
 static void
-draw_vline(RendererLibart *renderer,
+draw_vline(DiaRenderer *self,
 	   int x, int y, int height,
 	   guint8 r, guint8 g, guint8 b)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int stride;
   guint8 *ptr;
 
-  stride = renderer->renderer.pixel_width*3;
+  stride = renderer->pixel_width*3;
   ptr = renderer->rgb_buffer + x*3 + y*stride;
   height+=y;
   while (y<=height) {
@@ -1492,11 +268,12 @@ draw_vline(RendererLibart *renderer,
 }
 
 static void
-draw_pixel_line(RendererLibart *renderer,
+draw_pixel_line(DiaRenderer *self,
 		int x1, int y1,
 		int x2, int y2,
 		Color *color)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   guint8 r,g,b;
   guint8 *ptr;
   int start, len;
@@ -1522,7 +299,7 @@ draw_pixel_line(RendererLibart *renderer,
     /* top line */
     if ( (y1>=renderer->clip_rect.top) &&
 	 (y1<=renderer->clip_rect.bottom) ) {
-      draw_hline(renderer, start, y1, len, r, g, b);
+      draw_hline(self, start, y1, len, r, g, b);
     }
     return;
   }
@@ -1535,7 +312,7 @@ draw_pixel_line(RendererLibart *renderer,
     /* left line */
     if ( (x1>=renderer->clip_rect.left) &&
 	 (x1<=renderer->clip_rect.right) ) {
-      draw_vline(renderer, x1, start, len, r, g, b);
+      draw_vline(self, x1, start, len, r, g, b);
     }
     return;
   }
@@ -1545,7 +322,7 @@ draw_pixel_line(RendererLibart *renderer,
    * It is also not very well tested.
    */
   
-  stride = renderer->renderer.pixel_width*3;
+  stride = renderer->pixel_width*3;
   clip_rect = &renderer->clip_rect;
   
   dx = x2-x1;
@@ -1642,11 +419,12 @@ draw_pixel_line(RendererLibart *renderer,
 }
 
 static void
-draw_pixel_rect(RendererLibart *renderer,
+draw_pixel_rect(DiaRenderer *self,
 		int x, int y,
 		int width, int height,
 		Color *color)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   guint8 r,g,b;
   int start, len;
   int stride;
@@ -1655,7 +433,7 @@ draw_pixel_rect(RendererLibart *renderer,
   g = color->green*0xff;
   b = color->blue*0xff;
 
-  stride = renderer->renderer.pixel_width*3;
+  stride = renderer->pixel_width*3;
   
   /* clip in x */
   start = x;
@@ -1665,13 +443,13 @@ draw_pixel_rect(RendererLibart *renderer,
   /* top line */
   if ( (y>=renderer->clip_rect.top) &&
        (y<=renderer->clip_rect.bottom) ) {
-    draw_hline(renderer, start, y, len, r, g, b);
+    draw_hline(self, start, y, len, r, g, b);
   }
 
   /* bottom line */
   if ( (y+height>=renderer->clip_rect.top) &&
        (y+height<=renderer->clip_rect.bottom) ) {
-    draw_hline(renderer, start, y+height, len, r, g, b);
+    draw_hline(self, start, y+height, len, r, g, b);
   }
 
   /* clip in y */
@@ -1682,22 +460,23 @@ draw_pixel_rect(RendererLibart *renderer,
   /* left line */
   if ( (x>=renderer->clip_rect.left) &&
        (x<renderer->clip_rect.right) ) {
-    draw_vline(renderer, x, start, len, r, g, b);
+    draw_vline(self, x, start, len, r, g, b);
   }
 
   /* right line */
   if ( (x+width>=renderer->clip_rect.left) &&
        (x+width<renderer->clip_rect.right) ) {
-    draw_vline(renderer, x+width, start, len, r, g, b);
+    draw_vline(self, x+width, start, len, r, g, b);
   }
 }
 
 static void
-fill_pixel_rect(RendererLibart *renderer,
+fill_pixel_rect(DiaRenderer *self,
 		int x, int y,
 		int width, int height,
 		Color *color)
 {
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   guint8 r,g,b;
   guint8 *ptr;
   int i;
@@ -1716,7 +495,7 @@ fill_pixel_rect(RendererLibart *renderer,
   g = color->green*0xff;
   b = color->blue*0xff;
   
-  stride = renderer->renderer.pixel_width*3;
+  stride = renderer->pixel_width*3;
   ptr = renderer->rgb_buffer + x*3 + y*stride;
   for (i=0;i<=height;i++) {
     art_rgb_fill_run(ptr, r, g, b, width+1);
@@ -1727,7 +506,7 @@ fill_pixel_rect(RendererLibart *renderer,
 #else
 
 DiaRenderer *
-new_libart_renderer(DDisplay *ddisp, int interactive)
+new_libart_renderer(DiaTransform *transform, int interactive)
 {
   return NULL;
 }

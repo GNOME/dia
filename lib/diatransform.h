@@ -19,6 +19,8 @@ typedef struct _DiaTransform DiaTransform;
 DiaTransform *dia_transform_new (Rectangle *rect, real* zoom);
 real dia_transform_length (DiaTransform *transform, real len);
 void dia_transform_coords (DiaTransform *transform, coord x, coord y, int *xi, int *yi);
+void dia_transform_coords_double (DiaTransform *transform, coord x, coord y, double *xd, double *yd);
+real dia_untransform_length(DiaTransform *t, real len);
 
 G_END_DECLS
 

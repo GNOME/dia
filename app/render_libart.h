@@ -18,9 +18,9 @@
 #ifndef RENDER_LIBART_H
 #define RENDER_LIBART_H
 
-#include "display.h"
 #include "diarenderer.h"
+#include "diatransform.h"
 
-DiaRenderer *new_libart_renderer(DDisplay *ddisp, int interactive);
+DiaRenderer *new_libart_renderer(DiaTransform *trans, int interactive);
 
 #endif /* RENDER_GDK_H */
