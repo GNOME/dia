@@ -27,18 +27,74 @@
 #include <string.h> /* strlen */
 
 #include <pango/pango.h>
+#include <pango/pangoft2.h>
+#include <gdk/gdk.h>
 
 #include "font.h"
 
 static PangoContext* pango_context = NULL;
 static real global_size_one = 20.0;
 
-PangoContext *
+static int
+compare(const void *p1, const void *p2) {
+  return g_ascii_strcasecmp(pango_font_family_get_name(*(PangoFontFamily **)p1),
+			    pango_font_family_get_name(*(PangoFontFamily **)p2));
+}
+
+void
 dia_font_init(PangoContext* pcontext)
 {
-  PangoContext *old = pango_context;
+  PangoContext *ft2context;
+  PangoContext *gdkcontext;
+  int nft2families, ngdkfamilies;
+  PangoFontFamily **ft2families, **gdkfamilies;
+  int i, j;
+  GList *fonts = NULL;
+  GList *badft2fonts = NULL;
+  GList *badgdkfonts = NULL;
   pango_context = pcontext;
-  return old;
+  /* Check through the fonts available for GDK and FT2 contexts to
+     find list of unambiguous fonts.  Once X and FreeType agrees on
+     font names, this can be removed. */
+#ifdef HAVE_FREETYPE
+  ft2context = pango_ft2_get_context(10,10);
+  gdkcontext = gdk_pango_context_get();
+  pango_context_list_families(ft2context, &ft2families, &nft2families);
+  pango_context_list_families(gdkcontext, &gdkfamilies, &ngdkfamilies);
+  qsort(ft2families, nft2families, sizeof(*ft2families),
+	compare);
+  qsort(gdkfamilies, ngdkfamilies, sizeof(*gdkfamilies),
+	compare);
+  i = 0; j = 0;
+  while (i < nft2families && j < ngdkfamilies) {
+    int cmp = compare(&ft2families[i], &gdkfamilies[j]);
+    if (cmp < 0) {
+      badft2fonts = g_list_append(badft2fonts, ft2families[i]);
+      i++;
+    } else if (cmp > 0) {
+      badgdkfonts = g_list_append(badgdkfonts, gdkfamilies[j]);
+      j++;
+    } else {
+      fonts = g_list_append(fonts, ft2families[i]);
+      i++;
+      j++;
+    }
+  }
+#endif
+}
+
+static GList *pango_contexts;
+
+void
+dia_font_push_context(PangoContext *pcontext) {
+  pango_contexts = g_list_prepend(pango_contexts, pango_context);
+  pango_context = pcontext;
+}
+
+void
+dia_font_pop_context() {
+  pango_context = (PangoContext*)pango_contexts->data;
+  pango_contexts = g_list_next(pango_contexts);
 }
 
     /* dia centimetres to pango device units */

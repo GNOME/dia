@@ -107,12 +107,14 @@ struct _DiaFont {
     /* mutable */ char* legacy_name;    
 };
 
-/* Set the PangoContext used to render text.  Returns the old context.
- * Keeping the old context is necessary to ensure that libart rendering
- * (AA & PNG) ends properly.
+/* Set the PangoContext used to render text.
  */
-PangoContext* dia_font_init(PangoContext* pcontext);
-                             
+void dia_font_init(PangoContext* pcontext);
+/* Start using a new context (for AA rendering) */
+void dia_font_push_context(PangoContext *pcontext);
+/* Go back to using the old context */
+void dia_font_pop_context();
+                         
                              
     /* Get a font matching family,style,height. MUST be freed with
        dia_font_unref(). */

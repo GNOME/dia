@@ -1,3 +1,10 @@
+2002-10-16  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/font.c (dia_font_init): 
+	* lib/font.h: 
+	Redesigned the font init/context pushing code.  Start of fix for
+	font name differences.
+	
 2002-10-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* app/sheets_dialog_callbacks.c: Fix a typo.
