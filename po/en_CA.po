@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.93+cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-24 08:30-0400\n"
-"PO-Revision-Date: 2004-05-24 08:30-0400\n"
-"Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
+"POT-Creation-Date: 2004-06-01 22:49-0400\n"
+"PO-Revision-Date: 2004-06-02 08:30-0400\n"
+"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,91 +32,91 @@ msgid "%s error: need valid input file %s\n"
 msgstr "%s error: need valid input file %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:246
+#: app/app_procs.c:257
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:294
+#: app/app_procs.c:305
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Can't find output format %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:381
+#: app/app_procs.c:392
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Export to file format and exit.  Supported formats are: %s"
 
 #. &export_file_name
-#: app/app_procs.c:390
+#: app/app_procs.c:401
 msgid "Export loaded file and exit"
 msgstr "Export loaded file and exit"
 
-#: app/app_procs.c:390 app/diaconv.c:94
+#: app/app_procs.c:401 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
-#: app/app_procs.c:392
+#: app/app_procs.c:403
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: app/app_procs.c:395
+#: app/app_procs.c:406
 msgid "Export graphics size"
 msgstr "Export graphics size"
 
-#: app/app_procs.c:395
+#: app/app_procs.c:406
 msgid "WxH"
 msgstr "WxH"
 
-#: app/app_procs.c:397
+#: app/app_procs.c:408
 msgid "Don't show the splash screen"
 msgstr "Don't show the splash screen"
 
-#: app/app_procs.c:399
+#: app/app_procs.c:410
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Send error messages to stderr instead of showing dialogs."
 
-#: app/app_procs.c:401
+#: app/app_procs.c:412
 msgid "Display credits list and exit"
 msgstr "Display credits list and exit"
 
-#: app/app_procs.c:403
+#: app/app_procs.c:414
 msgid "Display version and exit"
 msgstr "Display version and exit"
 
-#: app/app_procs.c:405 app/diaconv.c:95
+#: app/app_procs.c:416 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Show this help message"
 
-#: app/app_procs.c:444
+#: app/app_procs.c:455
 msgid "Can't connect to session manager!\n"
 msgstr "Can't connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:472
+#: app/app_procs.c:483
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compiled %s %s\n"
 
-#: app/app_procs.c:474
+#: app/app_procs.c:485
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:526 app/app_procs.c:528 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:537 app/app_procs.c:539 app/diaconv.c:201 app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 
-#: app/app_procs.c:569
+#: app/app_procs.c:580
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:608
+#: app/app_procs.c:619
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -124,8 +124,7 @@ msgstr ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 
-#. no standard buttons
-#: app/app_procs.c:620
+#: app/app_procs.c:631
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -135,22 +134,22 @@ msgstr ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 
-#: app/app_procs.c:624
+#: app/app_procs.c:635
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:675
+#: app/app_procs.c:686
 #, c-format
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: app/app_procs.c:691 app/app_procs.c:698
+#: app/app_procs.c:702 app/app_procs.c:709
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: app/app_procs.c:700
+#: app/app_procs.c:711
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -158,15 +157,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:722 app/diaconv.c:251
+#: app/app_procs.c:733 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:761 app/diaconv.c:121
+#: app/app_procs.c:772 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:765 app/diaconv.c:128
+#: app/app_procs.c:776 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -195,20 +194,20 @@ msgstr "Select foreground colour"
 msgid "Select background color"
 msgstr "Select background colour"
 
-#: app/commands.c:132
+#: app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: app/commands.c:200
+#: app/commands.c:205
 msgid "No existing object to paste.\n"
 msgstr "No existing object to paste.\n"
 
-#: app/commands.c:520 app/commands.c:558
+#: app/commands.c:528 app/commands.c:566
 msgid "Could not find help directory"
 msgstr "Could not find help directory"
 
-#: app/commands.c:527
+#: app/commands.c:535
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -222,21 +221,21 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:597
+#: app/commands.c:605
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
 
-#: app/commands.c:611 dia.desktop.in.h:1
+#: app/commands.c:619 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:613
+#: app/commands.c:621
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 
-#: app/commands.c:614
+#: app/commands.c:622
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -244,31 +243,31 @@ msgstr ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 
-#: app/commands.c:653
+#: app/commands.c:661
 msgid "About Dia"
 msgstr "About Dia"
 
-#: app/commands.c:696
+#: app/commands.c:704
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s by Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:702
+#: app/commands.c:710
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Maintainers: Lars Clausen and Cyrille Chepelov"
 
-#: app/commands.c:706
+#: app/commands.c:714
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 
-#: app/commands.c:711
+#: app/commands.c:719
 msgid "Contributors:"
 msgstr "Contributors:"
 
 #: app/defaults.c:43 app/defaults.c:146
-msgid "DiaObject defaults"
-msgstr "DiaObject defaults"
+msgid "Object defaults"
+msgstr "Object defaults"
 
 #: app/defaults.c:61
 msgid "This object has no defaults."
@@ -476,7 +475,7 @@ msgstr "Diagram tree"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1131 app/paginate_psprint.c:279
+#: app/dialogs.c:52 app/layer_dialog.c:983 app/paginate_psprint.c:275
 #: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Cancel"
@@ -538,7 +537,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Page Setup"
 
-#: app/disp_callbacks.c:79 app/properties.c:153
+#: app/disp_callbacks.c:81 app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -546,11 +545,11 @@ msgstr ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 
-#: app/disp_callbacks.c:114
+#: app/disp_callbacks.c:116
 msgid "Properties..."
 msgstr "Properties..."
 
-#: app/disp_callbacks.c:914
+#: app/disp_callbacks.c:908
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -583,7 +582,7 @@ msgstr "Close Diagram"
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
-#: app/export_png.c:134 app/load_save.c:888 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:890 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -628,7 +627,7 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:116 app/filedlg.c:385
+#: app/filedlg.c:116 app/filedlg.c:386
 msgid "By extension"
 msgstr "By extension"
 
@@ -873,16 +872,15 @@ msgstr "New layer"
 msgid "none"
 msgstr "none"
 
-#: app/layer_dialog.c:1093
+#: app/layer_dialog.c:945
 msgid "Edit Layer Attributes"
 msgstr "Edit Layer Attributes"
 
-#: app/layer_dialog.c:1112
+#: app/layer_dialog.c:964
 msgid "Layer name:"
 msgstr "Layer name:"
 
-#: app/layer_dialog.c:1121 app/paginate_psprint.c:271
-#: lib/diaarrowchooser.c:248
+#: app/layer_dialog.c:973 app/paginate_psprint.c:267 lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "OK"
 
@@ -895,7 +893,7 @@ msgstr "Line width"
 msgid "Line width:"
 msgstr "Line width:"
 
-#: app/load_save.c:245
+#: app/load_save.c:247
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -903,7 +901,7 @@ msgstr ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 
-#: app/load_save.c:248
+#: app/load_save.c:250
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -911,7 +909,7 @@ msgstr ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 
-#: app/load_save.c:265
+#: app/load_save.c:267
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -920,22 +918,22 @@ msgstr ""
 "Error loading diagram.\n"
 "connection point %s does not exist."
 
-#: app/load_save.c:290
+#: app/load_save.c:292
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Can't find parent %s of %s object\n"
 
-#: app/load_save.c:335
+#: app/load_save.c:337
 msgid "You must specify a file, not a directory.\n"
 msgstr "You must specify a file, not a directory.\n"
 
-#: app/load_save.c:342 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:344 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Couldn't open: '%s' for reading.\n"
 
-#: app/load_save.c:359 app/load_save.c:364
+#: app/load_save.c:361 app/load_save.c:366
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -944,7 +942,7 @@ msgstr ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 
-#: app/load_save.c:371
+#: app/load_save.c:373
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -953,7 +951,7 @@ msgstr ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 
-#: app/load_save.c:570
+#: app/load_save.c:572
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -964,12 +962,12 @@ msgstr ""
 "%s.\n"
 "A valid Dia file defines at least one layer."
 
-#: app/load_save.c:921
+#: app/load_save.c:923
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Failed to save file '%s'.\n"
 
-#: app/load_save.c:992 app/load_save.c:997
+#: app/load_save.c:994 app/load_save.c:999
 msgid "Native Dia Diagram"
 msgstr "Native Dia Diagram"
 
@@ -1438,34 +1436,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
-#: app/paginate_psprint.c:230
+#: app/paginate_psprint.c:226
 msgid "Select Printer"
 msgstr "Select Printer"
 
-#: app/paginate_psprint.c:242 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:238 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Printer"
 
-#: app/paginate_psprint.c:256 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:252 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: app/paginate_psprint.c:360
+#: app/paginate_psprint.c:356
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Could not run command '%s': %s"
 
-#: app/paginate_psprint.c:363
+#: app/paginate_psprint.c:359
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Could not open '%s' for writing: %s"
 
-#: app/paginate_psprint.c:382
+#: app/paginate_psprint.c:378
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Printing error: command '%s' returned %d\n"
 
-#: app/paginate_psprint.c:392
+#: app/paginate_psprint.c:388
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Printing error: command '%s' caused sigpipe."
@@ -1638,8 +1636,8 @@ msgid "Preferences"
 msgstr "Preferences"
 
 #: app/properties.c:55
-msgid "DiaObject properties"
-msgstr "DiaObject properties"
+msgid "Object properties"
+msgstr "Object properties"
 
 #: app/properties.c:81
 msgid "This object has no properties."
@@ -1650,8 +1648,8 @@ msgid "Properties: "
 msgstr "Properties: "
 
 #: app/properties.c:207
-msgid "DiaObject properties:"
-msgstr "DiaObject properties:"
+msgid "Object properties:"
+msgstr "Object properties:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
@@ -2202,7 +2200,7 @@ msgstr "There are %d similar messages."
 msgid "Notice"
 msgstr "Notice"
 
-#: lib/object_defaults.c:123
+#: lib/object_defaults.c:127
 #, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
@@ -4393,8 +4391,6 @@ msgstr "Draw border"
 msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:669 objects/standard/image.c:680
 #, c-format
 msgid ""
@@ -4547,7 +4543,7 @@ msgstr "Not valid UTF8"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1058
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Couldn't open: '%s' for writing.\n"
@@ -4602,11 +4598,11 @@ msgstr "root element was '%s' -- expecting 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics import and export filters"
 
-#: plug-ins/wmf/wmf.cpp:1100
+#: plug-ins/wmf/wmf.cpp:1122
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1114
+#: plug-ins/wmf/wmf.cpp:1138
 msgid "WMF export filter"
 msgstr "WMF export filter"
 
@@ -7364,8 +7360,3 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "Could not open `%s' for writing"
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "Can't open history file for writing."
