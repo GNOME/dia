@@ -109,8 +109,8 @@ struct _DiaColorSelectorClass
 
 GtkType    dia_color_selector_get_type  (void);
 GtkWidget* dia_color_selector_new       (void);
-void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
-void       dia_color_selector_set_color (DiaColorSelector *cs,
+void       dia_color_selector_get_color (GtkWidget *cs, Color *color);
+void       dia_color_selector_set_color (GtkWidget *cs,
 					 const Color *color);
 
 

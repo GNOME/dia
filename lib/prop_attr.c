@@ -302,14 +302,14 @@ colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
 static void 
 colorprop_reset_widget(ColorProperty *prop, WIDGET *widget)
 {
-  dia_color_selector_set_color(DIACOLORSELECTOR(widget),
+  dia_color_selector_set_color(widget,
                                &prop->color_data);
 }
 
 static void 
 colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget) 
 {
-  dia_color_selector_get_color(DIACOLORSELECTOR(widget),
+  dia_color_selector_get_color(widget,
                                &prop->color_data);
 }
 

@@ -1026,25 +1026,116 @@ dia_color_selector_get_type        (void)
   return dfs_type;
 }
 
+static void
+dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
+{
+  DiaDynamicMenu *ddm = g_object_get_data(G_OBJECT(userdata), "ddm");
+  GtkWidget *colorsel = GTK_COLOR_SELECTION_DIALOG(userdata);
+  GdkColor gcol;
+  
+  gtk_color_selection_get_current_color(
+	GTK_COLOR_SELECTION(
+	    GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel),
+	&gcol);
+
+  dia_dynamic_menu_select_entry(ddm,
+				g_strdup_printf("#%02X%02X%02X",
+						gcol.red/256, 
+						gcol.green/256,
+						gcol.blue/256));
+  gtk_widget_destroy(colorsel);
+}
+
+static void
+dia_color_selector_activate(DiaDynamicMenu *ddm, gchar *entry, gpointer data)
+{
+  printf("Activating %s\n", entry);
+}
+
+static void
+dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
+{
+  GtkColorSelectionDialog *dialog = gtk_color_selection_dialog_new(_("Select color"));
+  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
+
+  gchar *old_color = dia_dynamic_menu_get_entry(ddm);
+  /* Force history to the old place */
+  dia_dynamic_menu_select_entry(ddm, old_color);
+
+  gtk_color_selection_set_has_palette 
+    (GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel),
+     FALSE);
+  
+  gtk_widget_hide(dialog->help_button);
+  
+  gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
+		      (GtkSignalFunc) dia_color_selector_more_ok,
+		      dialog);  
+  gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
+			    (GtkSignalFunc) gtk_widget_destroy,
+			    GTK_OBJECT(dialog));
+  g_object_set_data(G_OBJECT(dialog), "ddm", ddm);
+
+  gtk_widget_show(GTK_WIDGET(dialog));
+}
+
 GtkWidget *
 dia_color_selector_new ()
 {
+#ifdef OLD_COLOR_SELECTOR
   return GTK_WIDGET ( gtk_type_new (dia_color_selector_get_type ()));
+#else
+  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors..."));
+  GtkWidget *ddm = dia_dynamic_menu_new_stringbased(otheritem,
+						    dia_color_selector_activate,
+						    NULL,
+						    "color-menu");
+  printf("Adding default entries...\n");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
+				     "#000000");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
+				     "#FFFFFF");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
+				     "#FF0000");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
+				     "#00FF00");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
+				     "#0000FF");
+  printf("done...\n");
+  g_signal_connect(G_OBJECT(otheritem), "activate",
+		   dia_color_selector_more_callback, ddm);
+  gtk_widget_show(otheritem);
+  return ddm;
+#endif
 }
 
 
 void
-dia_color_selector_get_color(DiaColorSelector *cs, Color *color)
+dia_color_selector_get_color(GtkWidget *widget, Color *color)
 {
+#ifdef OLD_COLOR_SELECTOR
+  DiaColorSelector *cs = DIA_COLOR_SELECTOR(widget);
   *color = cs->col;
+#else
+  gchar *entry = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(widget));
+  gint r, g, b;
+
+  sscanf(entry, "#%2x%2x%2x", &r, &g, &b);
+  printf("Setting color %s components %d %d %d\n", entry, r, g, b);
+  color->red = r / 255.0;
+  color->green = g / 255.0;
+  color->blue = b / 255.0;
+#endif
 }
 
 void
-dia_color_selector_set_color (DiaColorSelector *cs,
+dia_color_selector_set_color (GtkWidget *widget,
 			      const Color *color)
 {
   GdkColor col;
   
+#ifdef OLD_COLOR_SELECTOR
+  DiaColorSelector *cs = DIA_COLOR_SELECTOR(widget);
   cs->col = *color;
   if (cs->gc != NULL) {
     color_convert(&cs->col, &col);
@@ -1060,6 +1151,17 @@ dia_color_selector_set_color (DiaColorSelector *cs,
 	    GTK_COLOR_SELECTION_DIALOG(cs->col_sel)->colorsel),
 	&col);
   }
+#else
+  gint red, green, blue;
+  gchar *entry;
+  printf("Setting color %f,%f,%f\n", color->red, color->green, color->blue);
+  red = color->red * 255;
+  green = color->green * 255;
+  blue = color->blue * 255;
+  entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
+  printf("Setting color %d,%d,%d: %s\n", red, green, blue, entry);
+  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(widget), entry);
+#endif
 }
 
 
