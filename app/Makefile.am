@@ -13,7 +13,8 @@ print_files = \
 	paginate_psprint.h
 
 noinst_PROGRAMS = run_dia.sh #run_diaconv.sh diaconv
-#run_dia_sh_SOURCES = 
+
+run_dia_sh_SOURCES = 
 #run_diaconv_sh_SOURCES = 
 
 if HAVE_BONOBO
