@@ -292,9 +292,6 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     savedlg = gtk_file_selection_new(_("Save Diagram"));
     gtk_window_set_role(GTK_WINDOW(savedlg), "save_diagram");
     gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
-				    dia->filename ? dia->filename
-				    : "." G_DIR_SEPARATOR_S);
     /* Need better way to make it a reasonable size.  Isn't there some*/
     /* standard look for them (or is that just Gnome?)*/
     compressbutton = gtk_check_button_new_with_label(_("Compress diagram files"));
@@ -327,10 +324,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
-				    dia->filename ? dia->filename
-				    : "." G_DIR_SEPARATOR_S);
   }
+  gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
+				  dia->filename ? dia->filename
+				  : "." G_DIR_SEPARATOR_S);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
   gtk_widget_show(savedlg);
 }
