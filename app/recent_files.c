@@ -100,11 +100,12 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename,
     GtkAccelGroup *accel_group;
     
     basename = g_path_get_basename(filename);
-    basename = g_strdelimit(basename, "_", '\\');
+    /* g_strdelimit does not copy.*/
+    g_strdelimit(basename, "_", '\\');
     escaped  = g_strescape(basename, NULL);
-    //g_free(basename);
+    g_free(basename);
     basename = escaped;
-    basename = g_strdelimit(basename, "\\", '_');
+    g_strdelimit(basename, "\\", '_');
     
     label = g_strdup_printf("%d. %s", pos+1, basename);
     item = gtk_menu_item_new_with_label(label);

@@ -405,7 +405,7 @@ dia_object_defaults_save (const gchar *filename)
   ni.node = doc->xmlRootNode;
   ni.filename = real_filename;  
   ni.layer_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                         NULL, g_free);
+                                         g_free, g_free);
 
   g_hash_table_foreach (defaults_hash, _obj_store, &ni);
 

@@ -477,6 +477,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   delete_list = diagram_get_sorted_selected(ddisp->diagram);
   change = undo_delete_objects_children(ddisp->diagram, delete_list);
   (change->apply)(change, ddisp->diagram);
+  g_list_free(delete_list);
   
   diagram_modified(ddisp->diagram);
 

@@ -87,6 +87,7 @@ GList *parent_list_affected_hierarchy(GList *obj_list)
   }
 
   g_list_free(all_list);
+  g_hash_table_destroy(object_hash);
 
   return new_list;
 }

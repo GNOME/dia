@@ -1,5 +1,12 @@
 2004-06-07  Lars Clausen  <lars@raeder.dk>
 
+	* app/recent_files.c (recent_file_menuitem_create): 
+	* lib/persistence.c (persistence_save_list): 
+	* app/commands.c (edit_delete_callback): 
+	* lib/object_defaults.c (dia_object_defaults_save): 
+	* lib/parent.c (parent_list_affected_hierarchy): Killed leaks
+	(#142669)
+	
 	* lib/widgets.c (dia_toggle_button_new_with_images): Remove
 	debugging info.
 

@@ -374,8 +374,7 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   }
   
   data_add_string(new_attribute(listnode, "listvalue"), buf->str);
-  /* Does data_add_string keep the string?  If so, use TRUE */
-  g_string_free(buf, FALSE);
+  g_string_free(buf, TRUE);
 }
 
 static void
