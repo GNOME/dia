@@ -22,7 +22,7 @@
 #include "render.h"
 
 
-typedef struct DiaImage *DiaImage;
+typedef struct _DiaImage *DiaImage;
 
 
 extern void dia_image_init(void);

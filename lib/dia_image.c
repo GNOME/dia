@@ -34,7 +34,7 @@
 #define SCALING_CACHE
 
 #ifdef HAVE_GDK_PIXBUF
-struct DiaImage {
+struct _DiaImage {
   GdkPixbuf *image; /* GdkPixbuf does its own refcount */
   gchar *filename; /* ...buf doesn't remember the filename */
 #ifdef SCALING_CACHE
@@ -54,7 +54,7 @@ dia_image_get_broken(void)
   static DiaImage broken = NULL;
 
   if (broken == NULL) {
-    broken = g_new(struct DiaImage, 1);
+    broken = g_new(struct _DiaImage, 1);
     broken->image = gdk_pixbuf_new_from_xpm_data((const char **)broken_xpm);
   } else {
     gdk_pixbuf_ref(broken->image);
@@ -77,7 +77,7 @@ dia_image_load(gchar *filename)
   if (image == NULL)
     return NULL;
 
-  dia_img = g_new(struct DiaImage, 1);
+  dia_img = g_new(struct _DiaImage, 1);
   dia_img->image = image;
   /* We have a leak here, unless we add our own refcount */
   dia_img->filename = g_strdup(filename);
@@ -204,7 +204,7 @@ dia_image_filename(DiaImage image)
 }
 
 #else /* HAVE_GDK_PIXBUF */
-struct DiaImage {
+struct _DiaImage {
   GdkImlibImage *image;
   int refcount;
 };
@@ -225,7 +225,7 @@ dia_image_get_broken(void)
   static DiaImage broken = NULL;
 
   if (broken == NULL) {
-    broken = g_new(struct DiaImage, 1);
+    broken = g_new(struct _DiaImage, 1);
     broken->image = gdk_imlib_create_image_from_xpm_data(broken_xpm);
     broken->refcount = 0;
   }
@@ -244,7 +244,7 @@ dia_image_load(gchar *filename)
   if (image == NULL)
     return NULL;
 
-  dia_img = g_new(struct DiaImage, 1);
+  dia_img = g_new(struct _DiaImage, 1);
   dia_img->image = image;
   dia_img->refcount = 1;
   return dia_img;

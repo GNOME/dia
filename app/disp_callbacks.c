@@ -280,6 +280,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  break;
 
 	case 3:
+	  if (bevent->state & GDK_CONTROL_MASK) {
+	    /* for two button mouse users ... */
+	    popup_object_menu(ddisp, bevent);
+	    break;
+	  }
 	  popup_shell = ddisp->shell;
           display_update_menu_state(ddisp);
 #         ifdef GNOME

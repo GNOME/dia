@@ -1,3 +1,21 @@
+2000-05-26  James Henstridge  <james@daa.com.au>
+
+	* lib/font.c (suck_font): the black and white pixel values should be
+	taken from a 1 bit colormap rather than the default colormap.
+
+	Hans Breuer's Windows patches ...
+
+	* lib/font.c: use Courier New for fixed width font on windows
+	machines.
+
+	* lib/dia_image.h: change to "struct _DiaImage".
+
+	* lib/dia_image.c: change "struct DiaImage" to "struct _DiaImage"
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): allow ctrl+right
+	mouse button for object menu.  This will make two button mouse owners
+	happier.
+
 2000-05-25  James Henstridge  <james@daa.com.au>
 
 	* app/filedlg.c (file_open_ok_callback): use diagram_load here.

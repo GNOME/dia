@@ -158,6 +158,7 @@ FontData font_data[] = {
       "-adobe-times-bold-i-normal-*-%d-*-*-*-*-*-*-*"
     }
   },
+#ifndef G_OS_WIN32
   { "Courier",
     "Courier",
     { "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
@@ -182,6 +183,36 @@ FontData font_data[] = {
       NULL
     }
   },
+#else /* G_OS_WIN32 */
+  /* HB: force usage of true type font "Courier New", using the bitmap
+   * version causes scaling problems mainly with uml. FIXME: there
+   * must be a better way to do this ?
+   */
+  { "Courier",
+    "Courier",
+    { "-adobe-courier new-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+      NULL
+    }
+  },
+  { "Courier-Oblique",
+    "Courier-Oblique",
+    { "-adobe-courier new-medium-o-normal-*-%d-*-*-*-*-*-*-*",
+      NULL
+    }
+  },
+  { "Courier-Bold",
+    "Courier-Bold",
+    { "-adobe-courier new-bold-r-normal-*-%d-*-*-*-*-*-*-*",
+      NULL
+    }
+  },
+  { "Courier-BoldOblique",
+    "Courier-BoldOblique",
+    { "-adobe-courier new-bold-o-normal-*-%d-*-*-*-*-*-*-*",
+      NULL
+    }
+  },
+#endif
   { "Helvetica",
     "Helvetica",
     { "-adobe-helvetica-medium-r-normal-*-%d-*-*-*-*-*-*-*",
@@ -598,9 +629,10 @@ suck_font (GdkFont *font)
 	gc = gdk_gc_new (pixmap);
 	gdk_gc_set_font (gc, font);
 
-	black_pixel = color_gdk_black.pixel;
-	black.pixel = black_pixel;
-	white.pixel = color_gdk_white.pixel;
+	/* this is a black and white pixmap: */
+	black.pixel = 0;
+	white.pixel = 1;
+	black_pixel = black.pixel;
 	gdk_gc_set_foreground (gc, &white);
 	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
 
