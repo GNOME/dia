@@ -1,21 +1,22 @@
 # French translation of dia.
 # Copyright (C) 1999-2003 Free Software Foundation, Inc.
+#
 # Vincent Renardias <vincent@ldsol.com>, 1999-2000.
 # Fabrice Bellet <Fabrice.Bellet@imag.fr>, 1999.
 # Joaquim Fellmann <joaquim@hrnet.fr>, 2000.
 # Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2003.
 # Cyrille Chépélov <cyrille@chepelov.org>, 2001-2003
 # Frédéric Boiteux <furgarat@free.fr>, 2001.
-# Benoît DEJEAN <bnet@ifrance.com>, 2003.
+# Benoît Dejean <bnet@ifrance.com>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.92\n"
+"Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-20 10:56+0200\n"
-"PO-Revision-Date: 2003-10-20 13:40+0200\n"
-"Last-Translator: Cyrille Chépélov <cyrille@chepelov.org>\n"
-"Language-Team: Gnome French Team <gnomefr@traduc.org>\n"
+"POT-Creation-Date: 2003-11-08 10:51+0100\n"
+"PO-Revision-Date: 2003-11-08 10:31+0100\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,18 +24,18 @@ msgstr ""
 #: app/app_procs.c:173
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "erreur %s : ne sait pas comment exporter vers %s\n"
+msgstr "Erreur %s : ne sait pas comment exporter vers %s\n"
 
 #: app/app_procs.c:183
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
-"erreur %s : les noms des fichiers d'entrée et de sortie sont identiques : %s"
+"Erreur %s : les noms des fichiers d'entrée et de sortie sont identiques : %s"
 
 #: app/app_procs.c:191
 #, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "erreur %s : nécessite un fichier d'entrée valide %s\n"
+msgstr "Erreur %s : nécessite un fichier d'entrée valide %s\n"
 
 #. if (!quiet)
 #: app/app_procs.c:197
@@ -47,49 +48,53 @@ msgstr "%s --> %s\n"
 msgid "Can't find output format %s\n"
 msgstr "Impossible de trouver le format de sortie %s\n"
 
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:323
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr ""
+"Exporter vers un format de fichier et quitter. Les formats supportés sont : %"
+"s"
+
 #. &export_file_name
-#: app/app_procs.c:302
+#: app/app_procs.c:332
 msgid "Export loaded file and exit"
 msgstr "Exporter le fichier en PostScript et quitter"
 
-#: app/app_procs.c:302 app/diaconv.c:94
+#: app/app_procs.c:332 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SORTIE"
 
 #. &export_file_format
-#: app/app_procs.c:304
-msgid "Export to file format and exit"
-msgstr "Exporter vers un format de fichier et quitter"
+#: app/app_procs.c:334
+msgid "FORMAT"
+msgstr "FORMAT"
 
-#: app/app_procs.c:304 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#: app/app_procs.c:306
+#: app/app_procs.c:337
 msgid "Don't show the splash screen"
 msgstr "Ne pas afficher l'écran de démarrage"
 
-#: app/app_procs.c:308
+#: app/app_procs.c:339
 msgid "Display credits list and exit"
 msgstr "Affiche le générique et quitte"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:341
 msgid "Display version and exit"
 msgstr "Affiche la version et quitte"
 
-#: app/app_procs.c:312 app/diaconv.c:95
+#: app/app_procs.c:343 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Afficher ce message d'aide"
 
-#: app/app_procs.c:344
+#: app/app_procs.c:375
 msgid "Can't connect to session manager!\n"
 msgstr "Impossible de se connecter au gestionnaire de sessions !\n"
 
-#: app/app_procs.c:359 app/diaconv.c:119
+#: app/app_procs.c:390 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FICHIER...]"
 
-#: app/app_procs.c:363 app/diaconv.c:126
+#: app/app_procs.c:394 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -100,23 +105,23 @@ msgstr ""
 "commande.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:382
+#: app/app_procs.c:413
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compilé à %s le %s\n"
 
-#: app/app_procs.c:384
+#: app/app_procs.c:415
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:464 app/app_procs.c:466 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Impossible de trouver les objets standards dans object-libs, terminé...\n"
 
-#: app/app_procs.c:558
+#: app/app_procs.c:589
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -125,7 +130,7 @@ msgstr ""
 "à bugzilla.gnome.org en décrivant les manipulations qui causent ce message.\n"
 
 #. no standard buttons
-#: app/app_procs.c:570
+#: app/app_procs.c:601
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -135,21 +140,21 @@ msgstr ""
 "Voulez-vous vraiment quitter Dia\n"
 "sans les enregistrer ?"
 
-#: app/app_procs.c:574
+#: app/app_procs.c:605
 msgid "Quit Dia"
 msgstr "Quitter Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:629
+#: app/app_procs.c:660
 msgid "Thank you for using Dia.\n"
 msgstr "Merci d'utiliser Dia.\n"
 
-#: app/app_procs.c:643 app/app_procs.c:650
+#: app/app_procs.c:674 app/app_procs.c:681
 msgid "Could not create per-user Dia config directory"
 msgstr "Impossible de créer le répertoire de configuration personnel de Dia"
 
-#: app/app_procs.c:652
+#: app/app_procs.c:683
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -158,7 +163,7 @@ msgstr ""
 "Veuillez vérifier que la variable d'environnement HOME pointe vers un \n"
 "répertoire existant."
 
-#: app/app_procs.c:674 app/diaconv.c:249
+#: app/app_procs.c:705 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres internes de Dia"
 
@@ -326,6 +331,10 @@ msgstr "Impossible d'initialiser Bonobo !"
 msgid "Export format to use"
 msgstr "Format de fichiers d'exportation à utiliser"
 
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
+
 #. &export_file_name
 #: app/diaconv.c:94
 msgid "Export file name to use"
@@ -349,7 +358,7 @@ msgstr ""
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
 msgstr ""
-"erreur %s : il n'est possible de spécifier que -f ou -o mais pas les deux."
+"Erreur %s : il n'est possible de spécifier que -f ou -o mais pas les deux."
 
 #: app/diaconv.c:163
 #, c-format
@@ -357,24 +366,24 @@ msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"erreur %s : vous devez spécifier -t ou -o mais pas les deux.\n"
+"Erreur %s : vous devez spécifier -t ou -o mais pas les deux.\n"
 "Tapez « %s --help » pour voir une liste complète des options en ligne de "
 "commande.\n"
 
 #: app/diaconv.c:172
 #, c-format
 msgid "%s error: no input file."
-msgstr "erreur %s : nécessite un fichier d'entrée valide."
+msgstr "Erreur %s : nécessite un fichier d'entrée valide."
 
 #: app/diaconv.c:225
 #, c-format
 msgid "%s error: only one input file expected."
-msgstr "erreur %s : Dia n'accepte qu'un seul nom de fichiers en entrée."
+msgstr "Erreur %s : Dia n'accepte qu'un seul nom de fichiers en entrée."
 
 #: app/diaconv.c:238
 #, c-format
 msgid "%s error: popt library not available on this system"
-msgstr "erreur %s : la bibliothèque popt n'est pas disponible sur ce système"
+msgstr "Erreur %s : la bibliothèque popt n'est pas disponible sur ce système"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -382,15 +391,15 @@ msgstr "/_Trier les objets"
 
 #: app/diagram_tree_menu.c:46
 msgid "/Sort objects/by _name"
-msgstr "/Trier les objets/par _Nom"
+msgstr "/Trier les objets/par _nom"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr "/Trier les objets/par _Type"
+msgstr "/Trier les objets/par _yype"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr "/Trier les objets/Comme _Insérés"
+msgstr "/Trier les objets/comme _insérés"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
@@ -538,7 +547,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Pas de menu pour cet objet"
 
-#: app/disp_callbacks.c:865
+#: app/disp_callbacks.c:856
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -571,7 +580,7 @@ msgstr "Fermer le diagramme"
 msgid "Discard Changes"
 msgstr "Abandonner les changements"
 
-#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
+#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -579,7 +588,7 @@ msgstr "Abandonner les changements"
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
-msgstr "Impossible d'ouvrir « %s » : %s\n"
+msgstr "Impossible d'ouvrir le fichier de sortie « %s » : %s\n"
 
 #: app/export_png.c:124
 msgid "Could not create PNG write structure"
@@ -789,7 +798,10 @@ msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
-msgstr "Couleurs de trait et de fond pour les nouveaux objets. Les carrés noir et blancs réinitialisent les couleurs. La flèche permute ces couleurs. Un double clic permet de les changer."
+msgstr ""
+"Couleurs de trait et de fond pour les nouveaux objets. Les carrés noir et "
+"blancs réinitialisent les couleurs. La flèche permute ces couleurs. Un "
+"double clic permet de les changer."
 
 #: app/interface.c:1035
 msgid ""
@@ -898,7 +910,7 @@ msgstr "Largeur de ligne"
 msgid "Line width:"
 msgstr "Largeur de ligne :"
 
-#: app/load_save.c:220
+#: app/load_save.c:245
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -906,7 +918,7 @@ msgstr ""
 "Erreur au chargement du diagramme.\n"
 "Un objet attaché n'a pas été trouvé dans le document."
 
-#: app/load_save.c:223
+#: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -914,7 +926,7 @@ msgstr ""
 "Erreur au chargement du diagramme.\n"
 "Un point de connexion n'existe pas."
 
-#: app/load_save.c:226
+#: app/load_save.c:251
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -922,17 +934,22 @@ msgstr ""
 "Erreur au chargement du diagramme.\n"
 "Un point d'attache n'existe pas."
 
-#: app/load_save.c:276
+#: app/load_save.c:273
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "Impossible de trouver le parent %s de l'objet %s\n"
+
+#: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Vous devez spécifier un fichier, pas un répertoire.\n"
 
-#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Ne peut ouvrir « %s » pour le lire.\n"
+msgstr "Impossible d'ouvrir « %s » en lecture.\n"
 
-#: app/load_save.c:300 app/load_save.c:305
+#: app/load_save.c:342 app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -941,7 +958,7 @@ msgstr ""
 "Erreur au chargement du diagramme %s.\n"
 "Type du fichier inconnu."
 
-#: app/load_save.c:312
+#: app/load_save.c:354
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -950,7 +967,7 @@ msgstr ""
 "Erreur au chargement du diagramme %s.\n"
 "Il ne s'agit pas d'un fichier créé par Dia."
 
-#: app/load_save.c:509
+#: app/load_save.c:551
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -961,12 +978,12 @@ msgstr ""
 "%s.\n"
 "Un fichier Dia valide définit au moins un calque."
 
-#: app/load_save.c:839
+#: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Échec lors de l'enregistrement dans le fichier « %s ».\n"
 
-#: app/load_save.c:909 app/load_save.c:914
+#: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
 msgstr "Diagramme Dia natif"
 
@@ -1695,7 +1712,7 @@ msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
-"Ne peut trouver l'entrée de menu « %s » !\n"
+"Impossible de trouver l'entrée de menu « %s » !\n"
 "Ceci est probablement un problème d'internationalisation. (Rééssayez avec "
 "LANG=C)"
 
@@ -1929,7 +1946,7 @@ msgstr "<Toolbox>/Fichier/Quitter"
 
 #: app/recent_files.c:295
 msgid "Can't open history file for writing."
-msgstr "Ne peut ouvrir le fichier d'historique en écriture."
+msgstr "Impossible d'ouvrir le fichier d'historique en écriture."
 
 #: app/render_eps.c:140
 msgid "Encapsulated Postscript (using Pango fonts)"
@@ -2134,7 +2151,7 @@ msgstr ""
 #: app/sheets_dialog_callbacks.c:799
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "Un nom de fichiers doit se terminer par « %s » : « %s »"
+msgstr "Un nom de fichiers doit se terminer par « %s » : « %s »"
 
 #: app/sheets_dialog_callbacks.c:807
 #, c-format
@@ -2153,12 +2170,12 @@ msgstr "Une feuille doit avoir un nom"
 #: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
 #, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Impossible d'ouvrir « %s » : %s"
+msgstr "Impossible d'ouvrir « %s » : %s"
 
 #: app/sheets_dialog_callbacks.c:1643
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Impossible d'ouvrir « %s » pour y écrire."
+msgstr "Impossible d'ouvrir « %s » en écriture"
 
 #: app/sheets_dialog_callbacks.c:1652
 msgid "a user"
@@ -2531,7 +2548,7 @@ msgstr "Autres polices..."
 #: lib/widgets.c:299
 #, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr "N'a pu trouver aucune famille de police pour %s\n"
+msgstr "Impossible de trouver une famille de police pour %s\n"
 
 #. We hit the Other fonts... entry
 #: lib/widgets.c:342
@@ -4436,7 +4453,7 @@ msgstr "Retourner verticalement"
 #: objects/custom/custom_object.c:1456
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "N'a pu ouvrir le fichier icone %s pour l'objet de type '%s'."
+msgstr "Impossible d'ouvrir le fichier icône %s pour l'objet de type « %s »."
 
 #: objects/flowchart/box.c:148 objects/standard/box.c:132
 msgid "Corner radius"
@@ -4630,7 +4647,7 @@ msgstr "Macros TeX PSTricks"
 #: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Impossible d'ouvrir « %s » pour y écrire.\n"
+msgstr "Impossible d'ouvrir « %s » en écriture.\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
@@ -4638,7 +4655,7 @@ msgstr "Prise en charge du langage Python"
 
 #: plug-ins/shape/shape-export.c:471
 msgid "Can't export png without libart!"
-msgstr "Ne peut exporter en PNG sans libart !"
+msgstr "Impossible d'exporter en PNG sans libart !"
 
 #: plug-ins/shape/shape-export.c:498
 msgid "dia shape file"
@@ -4671,7 +4688,7 @@ msgstr "Courier"
 
 #: plug-ins/svg/svg-import.c:591
 msgid "Could not find SVG namespace."
-msgstr "Espace de nom SVG introuvable"
+msgstr "Espace de nom SVG introuvable."
 
 #: plug-ins/svg/svg-import.c:597
 #, c-format
@@ -4710,7 +4727,9 @@ msgstr "Type de flèche nul -- ne devrait jamais arriver\n"
 #: plug-ins/xfig/xfig-export.c:442
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "Le format FIG n'a aucun équivalent pour le type de flèche %s, utilisation de la flèche simple.\n"
+msgstr ""
+"Le format FIG n'a aucun équivalent pour le type de flèche %s, utilisation de "
+"la flèche simple.\n"
 
 #: plug-ins/xfig/xfig-export.c:463
 msgid "No more user-definable colors - using black"
@@ -4753,12 +4772,12 @@ msgstr "Type de flèche %d inconnu\n"
 #: plug-ins/xfig/xfig-import.c:712
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr "N'a pu lire les données de l'ellipse : %s\n"
+msgstr "Impossible de lire les informations de l'ellipse : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:780
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr "N'a pu lire les données de la polyligne : %s\n"
+msgstr "Impossible de lire les informations de la polyligne : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:795
 #, c-format
@@ -4777,13 +4796,13 @@ msgstr "Sous-type de polyligne inconnu : %d\n"
 #: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr "Impossible de lire les données de la spline : %s\n"
+msgstr "Impossible de lire les informations de la spline : %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
-msgstr "Ne peut pas encore convertir une spline approchée."
+msgstr "Impossible de convertir une spline approchée pour l'instant."
 
 #: plug-ins/xfig/xfig-import.c:1084
 #, c-format
@@ -4793,17 +4812,17 @@ msgstr "Sous-type de spline inconnu : %d\n"
 #: plug-ins/xfig/xfig-import.c:1147
 #, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr "Information d'arc illisible : %s\n"
+msgstr "Impossible de lire les informations de l'arc : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1237
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr "Information de texte illisible : %s\n"
+msgstr "Impossible de lire les informations du texte : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1278
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr "N'a pu identifier l'objet FIG : %s\n"
+msgstr "Impossible d'identifier l'objet FIG : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1286
 msgid "Compound end outside compound\n"
@@ -4812,7 +4831,7 @@ msgstr "Fin de composite hors du composite\n"
 #: plug-ins/xfig/xfig-import.c:1305
 #, c-format
 msgid "Couldn't read color: %s\n"
-msgstr "Couleur illisible : %s\n"
+msgstr "Impossible de lire la couleur : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1350
 #, c-format
@@ -6257,10 +6276,9 @@ msgstr "Bâtiment officiel"
 msgid "H.323"
 msgstr "H.323"
 
-# euh, ils veulent dire quoi là ???  -- CC
 #: sheets/ciscomisc.sheet.in.h:16
 msgid "HootPhone"
-msgstr ""
+msgstr "Combiné téléphonique"
 
 #: sheets/ciscomisc.sheet.in.h:17
 msgid "IP phone"
