@@ -22,6 +22,10 @@
 #include <glib.h>
 #include <tree.h>
 #include <parser.h>
+#include <string.h>
+
+#include "config.h"
+#include "intl.h"
 
 #include "sheet.h"
 #include "message.h"
@@ -192,6 +196,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     xmlFreeDoc(doc);
     return;
   }
+
+  contents = NULL;
   for (node = root->childs; node != NULL; node = node->next) {
     if (node->type != XML_ELEMENT_NODE)
       continue;
@@ -255,13 +261,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     sheet = new_sheet(name,description);
   
   for (node = contents->childs ; node != NULL; node = node->next) {
-    ObjectType *obj_type;
     SheetObject *sheet_obj;
     gboolean isobject = FALSE,isshape = FALSE;
     gchar *iconname = NULL;
 
     int subdesc_score = -1;
-    gchar *objdesc = NULL, *objicon = NULL;
+    gchar *objdesc = NULL;
 
     gint intdata = 0;
     gchar *chardata = NULL;

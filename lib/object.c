@@ -163,9 +163,28 @@ object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint)
   obj->num_connections++;
 
   obj->connections =
-    g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+    g_realloc(obj->connections, 
+	      obj->num_connections*sizeof(ConnectionPoint *));
   
   obj->connections[obj->num_connections-1] = conpoint;
+}
+
+void 
+object_add_connectionpoint_at(Object *obj, 
+			      ConnectionPoint *conpoint, int pos)
+{
+  int i;
+  
+  obj->num_connections++;
+
+  obj->connections =
+    g_realloc(obj->connections, 
+	      obj->num_connections*sizeof(ConnectionPoint *));
+
+  for (i=obj->num_connections-1; i > pos; i--) {
+    obj->connections[i] = obj->connections[i-1];
+  }
+  obj->connections[pos] = conpoint;
 }
 
 void
@@ -320,7 +339,7 @@ void
 object_register_type(ObjectType *type)
 {
   if (g_hash_table_lookup(object_type_table, type->name) != NULL) {
-    message_warning("Several object-types was named %s.\n"
+    message_warning("Several object-types were named %s.\n"
 		    "Only first one will be used.\n"
 		    "Some things might not work as expected.\n",
 		    type->name);

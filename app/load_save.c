@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <string.h>
 #include <glib.h>
 
 #include "config.h"
@@ -453,12 +454,35 @@ diagram_data_save(DiagramData *data, const char *filename)
   Layer *layer;
   AttributeNode attr;
   xmlNs *name_space;
+  char *bakname,*tmpname,*dirname,*p;
+  int mode,_umask;
+  int fildes;
   int ret;
    
-  file = fopen(filename, "wb");
+  /* build the temporary and backup file names */
+  dirname = g_strdup(filename);
+  p = strrchr((char *)dirname,'/');
+  if (p) {
+    *(p+1) = 0;
+  } else {
+    g_free(dirname);
+    dirname = g_strdup("./");
+  }
+  tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
+  bakname = g_strconcat(filename,"~",NULL);
+
+  /* open a temporary name, and fix the modes to match what fopen() would have
+     done (mkstemp() is (rightly so) a bit paranoid for what we do). */
+  fildes = mkstemp(tmpname);
+  _umask = umask(0); umask(_umask);
+  mode = 0666 & ~_umask;
+  ret = fchmod(fildes,mode);
+  file = fdopen(fildes,"wb");
+
+  /* Now write the data in the temporary file name. */
 
   if (file==NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    message_error(_("Couldn't open: '%s' for writing.\n"), tmpname);
     return FALSE;
   }
   fclose(file);
@@ -519,12 +543,27 @@ diagram_data_save(DiagramData *data, const char *filename)
   else
     xmlSetDocCompressMode(doc, 0);
     
-  ret = xmlSaveFile (filename, doc);
+  ret = xmlSaveFile (tmpname, doc);
   xmlFreeDoc(doc);
-  if (ret < 0)
-    return FALSE;
 
-  return TRUE;
+  if (ret < 0) {
+    /* Save failed; we clean our stuff up, without touching the file named
+       "filename" if it existed. */
+    unlink(tmpname);
+    g_free(tmpname);
+    g_free(dirname);
+    g_free(bakname);
+    return FALSE;
+  }
+  /* save succeeded. We kill the old backup file, move the old file into 
+     backup, and the temp file into the new saved file. */
+  unlink(bakname);
+  rename(filename,bakname);
+  ret = rename(tmpname,filename);
+  g_free(tmpname);
+  g_free(dirname);
+  g_free(bakname);
+  return (ret?FALSE:TRUE);
 }
 
 int
@@ -532,8 +571,10 @@ diagram_save(Diagram *dia, const char *filename)
 {
   gboolean res = diagram_data_save(dia->data, filename);
 
-  if (!res)
+  if (!res) {
+    message_error(_("Failed to save file '%s'.\n"), filename);    
     return res;
+  }
 
   dia->unsaved = FALSE;
   diagram_set_modified (dia, FALSE);

@@ -73,14 +73,15 @@ static void load_shapes_from_tree(const gchar *directory)
 
       if (!custom_object_load(filename,&ot,&so)) {
 	g_warning("could not load shape file %s",filename);
+      } else {
+	g_assert(ot); 
+	g_assert(so); 
+	g_assert(so->user_data);
+	/* maybe we ought to save so->user_data somewhere ? */
+	g_free(so); /* that's a bit unfortunate, because 
+		       we'll rebuild one soon */
+	object_register_type(ot);
       }
-      g_assert(ot); 
-      g_assert(so); 
-      g_assert(so->user_data);
-      /* maybe we ought to save so->user_data somewhere ? */
-      g_free(so); /* that's a bit unfortunate, because 
-		     we'll rebuild one soon */
-      object_register_type(ot);
     }
     g_free(filename);
   }
@@ -156,9 +157,12 @@ custom_object_load(gchar *filename, ObjectType **otype,
   if (!filename)
     return FALSE;
   info = shape_info_load(filename);
-  g_assert(info);
-  if (!info)
+  /*g_assert(info);*/
+  if (!info) {
+    *otype = NULL; 
+    *sheetobj = NULL;
     return FALSE;
+  }
   custom_object_new(info, otype, sheetobj);
   return TRUE;
 }

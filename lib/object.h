@@ -237,6 +237,9 @@ extern void object_remove_handle(Object *obj, Handle *handle);
 extern void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
 extern void object_remove_connectionpoint(Object *obj,
 					  ConnectionPoint *conpoint);
+extern void object_add_connectionpoint_at(Object *obj, 
+					  ConnectionPoint *conpoint,
+					  int pos);
 extern void object_connect(Object *obj, Handle *handle,
 			   ConnectionPoint *conpoint);
 extern void object_unconnect(Object *connected_obj, Handle *handle);

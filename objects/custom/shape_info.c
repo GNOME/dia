@@ -725,7 +725,7 @@ load_shape_info(const gchar *filename)
 {
   xmlDocPtr doc = xmlParseFile(filename);
   xmlNsPtr shape_ns, svg_ns;
-  xmlNodePtr node;
+  xmlNodePtr node,root;
   ShapeInfo *info;
   char *tmp;
   int descr_score = -1;
@@ -734,20 +734,25 @@ load_shape_info(const gchar *filename)
     g_warning("parse error for %s", filename);
     return NULL;
   }
-  if (!(shape_ns = xmlSearchNsByHref(doc, doc->root,
+  /* skip (emacs) comments */
+  root = doc->root;
+  while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
+  if (!root) return NULL;
+
+  if (!(shape_ns = xmlSearchNsByHref(doc, root,
 		"http://www.daa.com.au/~james/dia-shape-ns"))) {
     xmlFreeDoc(doc);
     g_warning("could not find shape namespace");
     return NULL;
   }
-  if (!(svg_ns = xmlSearchNsByHref(doc, doc->root,
+  if (!(svg_ns = xmlSearchNsByHref(doc, root,
 		"http://www.w3.org/Graphics/SVG/svg-19990730.dtd"))) {
     xmlFreeDoc(doc);
     g_warning("could not find svg namespace");
     return NULL;
   }
-  if (doc->root->ns != shape_ns || strcmp(doc->root->name, "shape")) {
-    g_warning("root element was %s -- expecting shape", doc->root->name);
+  if (root->ns != shape_ns || strcmp(root->name, "shape")) {
+    g_warning("root element was %s -- expecting shape", root->name);
     xmlFreeDoc(doc);
     return NULL;
   }
@@ -758,7 +763,7 @@ load_shape_info(const gchar *filename)
   info->shape_bounds.bottom = -DBL_MAX;
   info->shape_bounds.right = -DBL_MAX;
 
-  for (node = doc->root->childs; node != NULL; node = node->next) {
+  for (node = root->childs; node != NULL; node = node->next) {
     if (node->type != XML_ELEMENT_NODE)
       continue;
     if (node->ns == shape_ns && !strcmp(node->name, "name")) {
