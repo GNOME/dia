@@ -383,7 +383,7 @@ msgstr "Створити згин"
 
 #: app/interface.c:95
 msgid "Create Polyline"
-msgstr "Створити ломану"
+msgstr "Створити ламану"
 
 #: app/interface.c:99
 msgid "Create Bezierline"
@@ -1829,15 +1829,15 @@ msgstr ""
 
 #: objects/custom/custom_object.c:190
 msgid "A custom with text inside."
-msgstr ""
+msgstr "Дов╕льний об'╓кт з написом всередин╕"
 
 #: objects/custom/custom_object.c:1386
 msgid "Flip Horizontal"
-msgstr ""
+msgstr "Обернути горизонтально"
 
 #: objects/custom/custom_object.c:1387
 msgid "Flip Vertical"
-msgstr ""
+msgstr "Обернути вертикально"
 
 #: plug-ins/cgm/cgm.c:765
 msgid ""
@@ -1847,4 +1847,4 @@ msgstr ""
 
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "Computer Graphics Metafile"
