@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-08 03:23+0200\n"
+"POT-Creation-Date: 2003-08-26 11:29+0200\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -184,7 +184,7 @@ msgstr "Diagram%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Geen bestaande objecten om te plakken.\n"
 
-#: app/commands.c:470 app/commands.c:498
+#: app/commands.c:470 app/commands.c:508
 msgid "Could not find help directory"
 msgstr "Kan hulp map niet vinden"
 
@@ -202,19 +202,19 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:536
+#: app/commands.c:547
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Jan-Willem Harmanny <jwharmanny@hotmail.com>"
 
-#: app/commands.c:550 dia.desktop.in.h:1
+#: app/commands.c:561 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:552
+#: app/commands.c:563
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation en de auteurs"
 
-#: app/commands.c:553
+#: app/commands.c:564
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -222,25 +222,25 @@ msgstr ""
 "Dia is een programma om gestructureerde diagrammen mee te tekenen.\n"
 "Bezoek http://www.lysator.liu.se/~alla/dia voor meer informatie."
 
-#: app/commands.c:592
+#: app/commands.c:603
 msgid "About Dia"
 msgstr "Over Dia"
 
-#: app/commands.c:635
+#: app/commands.c:646
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia versie %s door Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:641
+#: app/commands.c:652
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Beheerders: Lars Clausen and Cyrille Chépélov"
 
-#: app/commands.c:645
+#: app/commands.c:656
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Bezoek http://www.lysator.liu.se/~alla/dia voor meer informatie"
 
-#: app/commands.c:650
+#: app/commands.c:661
 msgid "Contributors:"
 msgstr "Bijdragers:"
 
@@ -255,6 +255,63 @@ msgstr "Dit object heeft geen standaardwaarden."
 #: app/defaults.c:111
 msgid "Defaults: "
 msgstr "Standaardwaarden: "
+
+#: app/dia-props.c:75
+msgid "Diagram Properties"
+msgstr "Diagram Eigenschappen"
+
+#: app/dia-props.c:110
+#, fuzzy
+msgid "Dynamic grid"
+msgstr "Dynamisch het raster bijwerken"
+
+#: app/dia-props.c:118
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:122
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:127
+msgid "Spacing"
+msgstr "Spatiëring"
+
+#: app/dia-props.c:147
+msgid "Visible spacing"
+msgstr "Zichtbare spatiëring"
+
+#: app/dia-props.c:167
+msgid "Grid"
+msgstr "Rooster"
+
+#: app/dia-props.c:178 lib/diagramdata.c:62
+msgid "Background"
+msgstr "Achtergrond"
+
+#: app/dia-props.c:189 app/preferences.c:103
+msgid "Grid Lines"
+msgstr "Rooster Lijnen"
+
+#: app/dia-props.c:200
+#, fuzzy
+msgid "Page Breaks"
+msgstr "Pagina scheiding:"
+
+#: app/dia-props.c:211
+#, fuzzy
+msgid "Colours"
+msgstr "Kleur:"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:230
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Diagram eigenschappen: %s"
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Kan Bonobo niet initialiseren!"
 
 #. &export_file_format
 #: app/diaconv.c:92
@@ -309,10 +366,6 @@ msgstr "%s fout: slechts één invoer bestand verwacht."
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr "%s fout: popt bibliotheek niet beschikbaar op dit systeem"
-
-#: app/dia_embedd.c:352
-msgid "Could not initialize Bonobo!"
-msgstr "Kan Bonobo niet initialiseren!"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -464,45 +517,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Pagina Instellingen"
 
-#: app/dia-props.c:61
-msgid "Diagram Properties"
-msgstr "Diagram Eigenschappen"
-
-#: app/dia-props.c:96
-msgid "x"
-msgstr "x"
-
-#: app/dia-props.c:100
-msgid "y"
-msgstr "y"
-
-#: app/dia-props.c:105
-msgid "Spacing"
-msgstr "Spatiëring"
-
-#: app/dia-props.c:125
-msgid "Visible spacing"
-msgstr "Zichtbare spatiëring"
-
-#: app/dia-props.c:145
-msgid "Grid"
-msgstr "Rooster"
-
-#: app/dia-props.c:156
-msgid "Background Colour"
-msgstr "Achtergrondkleur"
-
-#: app/dia-props.c:167 lib/diagramdata.c:58
-msgid "Background"
-msgstr "Achtergrond"
-
-#. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:185
-#, c-format
-msgid "Diagram Properties: %s"
-msgstr "Diagram eigenschappen: %s"
-
-#: app/disp_callbacks.c:77 app/properties.c:141
+#: app/disp_callbacks.c:78 app/properties.c:144
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -510,11 +525,11 @@ msgstr ""
 "Dit object ondersteund geen Ongedaan Maken/Herhalen.\n"
 "Ongedaan Maak informatie verwijdert."
 
-#: app/disp_callbacks.c:219
+#: app/disp_callbacks.c:220
 msgid "No object menu"
 msgstr "Geen object menu"
 
-#: app/disp_callbacks.c:830
+#: app/disp_callbacks.c:865
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -547,7 +562,7 @@ msgstr "Diagram sluiten"
 msgid "Discard Changes"
 msgstr "Aanpassingen verwerpen"
 
-#: app/export_png.c:116 app/load_save.c:779 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
@@ -575,7 +590,7 @@ msgid "PNG Export Options"
 msgstr "PNG Export Opties"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:665 objects/FS/function.c:667
+#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
 msgid "Export"
 msgstr "Exporteren"
 
@@ -591,23 +606,23 @@ msgstr "Afbeelding hoogte:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:370
+#: app/filedlg.c:113 app/filedlg.c:383
 msgid "By extension"
 msgstr "Op extensie"
 
-#: app/filedlg.c:161
+#: app/filedlg.c:172
 msgid "Open Diagram"
 msgstr "Open Diagram"
 
-#: app/filedlg.c:189
+#: app/filedlg.c:200
 msgid "Open Options"
 msgstr "Open Opties"
 
-#: app/filedlg.c:197 app/filedlg.c:485
+#: app/filedlg.c:208 app/filedlg.c:498
 msgid "Determine file type:"
 msgstr "Bepaals bestandtype:"
 
-#: app/filedlg.c:234
+#: app/filedlg.c:245
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -615,7 +630,7 @@ msgstr ""
 "Sommige lettertekens in de bestandsnaam zijn niet gecodeerd in UTF-8 of uw\n"
 "lokale codering. Soms kunnen daardoor problemen optreden."
 
-#: app/filedlg.c:240 app/filedlg.c:412
+#: app/filedlg.c:251 app/filedlg.c:425
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -624,21 +639,21 @@ msgstr ""
 "Het bestand '%s' bestaat al.\n"
 "Wil je het overschrijven?"
 
-#: app/filedlg.c:248 app/filedlg.c:418
+#: app/filedlg.c:259 app/filedlg.c:431
 msgid "File already exists"
 msgstr "Bestand bestaat al"
 
-#: app/filedlg.c:283
+#: app/filedlg.c:292
 msgid "Save Diagram"
 msgstr "Diagram opslaan"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:291
+#: app/filedlg.c:300
 msgid "Compress diagram files"
 msgstr "Diagrambestanden comprimeren"
 
-#: app/filedlg.c:298
+#: app/filedlg.c:309
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -647,7 +662,7 @@ msgstr ""
 "oorspronkelijke formaat, en versnelt het laden en opslaan. Sommige tekst "
 "bewerkers kunnen gecomprimeerde bestanden niet veranderen."
 
-#: app/filedlg.c:437
+#: app/filedlg.c:450
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -656,11 +671,11 @@ msgstr ""
 "Kon niet bepalen welk export filter\n"
 "te gebruiken om '%s' op te slaan"
 
-#: app/filedlg.c:455
+#: app/filedlg.c:468
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: app/filedlg.c:477
+#: app/filedlg.c:490
 msgid "Export Options"
 msgstr "Export Opties"
 
@@ -670,11 +685,11 @@ msgstr "Wijzig object(en)"
 
 #: app/interface.c:44 app/menus.c:221
 msgid "Modify"
-msgstr "Wijzig"
+msgstr "Wijzigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: app/interface.c:48 app/interface.c:49 app/menus.c:222
-#: objects/FS/function.c:955
+#: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Vergroten"
 
@@ -691,11 +706,12 @@ msgstr "Schuif"
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
 #: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
-#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:123
-#: objects/UML/actor.c:114 objects/UML/classicon.c:137
-#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
-#: objects/UML/object.c:141 objects/UML/small_package.c:120
-#: objects/UML/state.c:133 objects/UML/usecase.c:130
+#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
+#: objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: objects/UML/component.c:121 objects/UML/component_feature.c:146
+#: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
+#: objects/UML/small_package.c:121 objects/UML/state.c:134
+#: objects/UML/usecase.c:131
 msgid "Text"
 msgstr "Tekst"
 
@@ -716,7 +732,7 @@ msgid "Beziergon"
 msgstr "Beziergon"
 
 #: app/interface.c:83 app/interface.c:84 app/menus.c:230
-#: objects/standard/line.c:246
+#: objects/standard/line.c:247
 msgid "Line"
 msgstr "Lijn"
 
@@ -756,7 +772,7 @@ msgstr "Schakel uitlijnen-op-raster in voor dit venster."
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:1014
+#: app/interface.c:1020
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -766,7 +782,7 @@ msgstr ""
 "witte vierkantjes resetten de kleuren. De kleine pijlen verwisselen de "
 "kleuren.Dubbelklik om de kleuren te wijzigen."
 
-#: app/interface.c:1029
+#: app/interface.c:1035
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -774,7 +790,7 @@ msgstr ""
 "Lijndikte. Klik op een lijn om de standaard lijndikte in te stellen voor "
 "nieuwe objecten. Dubbelklik om de lijndikte meer precies in te stellen."
 
-#: app/interface.c:1061
+#: app/interface.c:1067
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -782,7 +798,7 @@ msgstr ""
 "Pijl stijl aan het begin van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel de pijl-parameters in met Details..."
 
-#: app/interface.c:1066
+#: app/interface.c:1072
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -790,7 +806,7 @@ msgstr ""
 "Lijn stijl voor nieuwe lijnen. Klik om een lijn stijl te kiezen, of stel de "
 "lijn-parameters in met Details..."
 
-#: app/interface.c:1071
+#: app/interface.c:1077
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -798,7 +814,7 @@ msgstr ""
 "Pijl stijl aan het einde van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel pijl-parameters in met Details..."
 
-#: app/interface.c:1179
+#: app/interface.c:1185
 msgid "Diagram Editor"
 msgstr "Diagram Bewerken"
 
@@ -864,7 +880,7 @@ msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
 #: app/linewidth_area.c:239 lib/properties.h:475
-#: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Lijn breedte"
 
@@ -896,17 +912,17 @@ msgstr ""
 "Fout bij laden diagram.\n"
 "Verbindings 'handle' bestaat niet."
 
-#: app/load_save.c:275
+#: app/load_save.c:276
 msgid "You must specify a file, not a directory.\n"
 msgstr "Je moet een bestand specificeren, niet een directory.\n"
 
-#: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1505 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kon '%s' niet voor lezen openen.\n"
 
-#: app/load_save.c:291 app/load_save.c:296
+#: app/load_save.c:300 app/load_save.c:305
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -915,7 +931,7 @@ msgstr ""
 "Fout bij laden diagram %s.\n"
 "Onbekend bestandstype."
 
-#: app/load_save.c:303
+#: app/load_save.c:312
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -924,7 +940,7 @@ msgstr ""
 "Fout bij laden diagram %s.\n"
 "Geen Dia bestand."
 
-#: app/load_save.c:489
+#: app/load_save.c:509
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -935,12 +951,12 @@ msgstr ""
 "%s.\n"
 "Een geldig Dia bestand definieert minstens één laag."
 
-#: app/load_save.c:812
+#: app/load_save.c:839
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Kan bestand '%s' niet opslaan.\n"
 
-#: app/load_save.c:882 app/load_save.c:887
+#: app/load_save.c:909 app/load_save.c:914
 msgid "Native Dia Diagram"
 msgstr "Origineel Dia Diagram"
 
@@ -1018,7 +1034,7 @@ msgstr "Zoom uit (50%)"
 
 #: app/menus.c:131
 msgid "_Zoom"
-msgstr "_Zoom"
+msgstr "_Zoomen"
 
 #: app/menus.c:133
 msgid "Diagram Properties..."
@@ -1070,8 +1086,8 @@ msgid "Intersect"
 msgstr "Snijden"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:161 app/sheets_dialog.c:784 objects/FS/function.c:675
-#: objects/FS/function.c:827 objects/FS/function.c:829
+#: app/menus.c:161 app/sheets_dialog.c:784 objects/FS/function.c:695
+#: objects/FS/function.c:847 objects/FS/function.c:849
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -1083,7 +1099,7 @@ msgstr "Inverteren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1132
+#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1135
 msgid "None"
 msgstr "Geen"
 
@@ -1680,7 +1696,7 @@ msgstr "Kan GTK instellingen niet verkrijgen"
 msgid "Select Printer"
 msgstr "Selecteer Printer"
 
-#: app/paginate_psprint.c:240
+#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Printer"
 
@@ -1710,8 +1726,8 @@ msgstr "Plug-ins"
 msgid "Loaded"
 msgstr "Geladen"
 
-#: app/plugin-manager.c:263 objects/UML/class.c:105
-#: objects/UML/large_package.c:120
+#: app/plugin-manager.c:263 objects/UML/class.c:106
+#: objects/UML/large_package.c:121
 msgid "Name"
 msgstr "Naam"
 
@@ -1738,10 +1754,6 @@ msgstr "Diagram standaardwaarden"
 #: app/preferences.c:102
 msgid "View Defaults"
 msgstr "Weergave standaardwaarden"
-
-#: app/preferences.c:103
-msgid "Grid Lines"
-msgstr "Rooster Lijnen"
 
 #: app/preferences.c:104
 msgid "Diagram Tree"
@@ -1785,92 +1797,97 @@ msgstr "Nieuwe diagrammen:"
 
 #: app/preferences.c:128
 msgid "Portrait"
-msgstr "Portrait"
+msgstr "Staand"
 
 #: app/preferences.c:130
 msgid "Paper type:"
 msgstr "Papiersoort:"
 
-#: app/preferences.c:134
+#: app/preferences.c:133
+#, fuzzy
+msgid "Background Colour:"
+msgstr "Achtergrondkleur"
+
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "Nieuw venster:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "Breedte:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr "Vergroting:"
 
-#: app/preferences.c:140
+#: app/preferences.c:142
 msgid "Connection Points:"
 msgstr "Verbindingspunten:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:141 app/preferences.c:145 app/preferences.c:151
+#: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
 msgid "Visible"
 msgstr "Zichtbaar"
 
-#: app/preferences.c:144
+#: app/preferences.c:146
 msgid "Page breaks:"
 msgstr "Pagina scheiding:"
 
-#: app/preferences.c:146 app/preferences.c:156
+#: app/preferences.c:148 app/preferences.c:158
 msgid "Colour:"
 msgstr "Kleur:"
 
-#: app/preferences.c:147
+#: app/preferences.c:149
 msgid "Solid lines"
 msgstr "Massieve lijnen"
 
-#: app/preferences.c:152
+#: app/preferences.c:154
 msgid "Snap to"
 msgstr "Hecht aan"
 
-#: app/preferences.c:153
+#: app/preferences.c:155
 msgid "Dynamic grid resizing"
 msgstr "Dynamisch het raster bijwerken"
 
-#: app/preferences.c:154
+#: app/preferences.c:156
 msgid "X Size:"
 msgstr "X Grootte:"
 
-#: app/preferences.c:155
+#: app/preferences.c:157
 msgid "Y Size:"
 msgstr "Y Grootte:"
 
-#: app/preferences.c:157
+#: app/preferences.c:159
 msgid "Lines per major line"
 msgstr "Regels per hoofd-regel"
 
-#: app/preferences.c:172
+#: app/preferences.c:177
 msgid "Diagram tree window:"
 msgstr "Diagram boom venster:"
 
-#: app/preferences.c:174
+#: app/preferences.c:179
 msgid "Save hidden object types"
 msgstr "Bewaar verborgen object typen"
 
-#: app/preferences.c:303
+#: app/preferences.c:308
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kon `%s' niet openen voor schrijven"
 
-#: app/preferences.c:583 lib/prop_inttypes.c:151
+#: app/preferences.c:587 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:583 app/preferences.c:594 lib/prop_inttypes.c:153
+#: app/preferences.c:587 app/preferences.c:598 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nee"
 
-#: app/preferences.c:696
+#: app/preferences.c:700
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1882,11 +1899,11 @@ msgstr "Object eigenschappen"
 msgid "This object has no properties."
 msgstr "Dit object heeft geen eigenschappen."
 
-#: app/properties.c:191
+#: app/properties.c:194
 msgid "Properties: "
 msgstr "Eigenschappen:"
 
-#: app/properties.c:195
+#: app/properties.c:198
 msgid "Object properties:"
 msgstr "Object eigenschappen:"
 
@@ -1908,7 +1925,7 @@ msgstr "Kan geschiedenis bestand niet openen voor schrijven."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:269
+#: app/render_libart.c:318 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Niet ondersteunde vulmodus opgegeven!\n"
 
@@ -1983,9 +2000,9 @@ msgstr "Be_werken"
 msgid "Revert"
 msgstr "Terugdraaien"
 
-#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:828
-#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
-#: objects/UML/class_dialog.c:2499
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:829
+#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1981
+#: objects/UML/class_dialog.c:2500
 msgid "New"
 msgstr "Nieuw"
 
@@ -2018,7 +2035,7 @@ msgstr "Lijn Afbreking"
 msgid "Edit Attributes"
 msgstr "Bewerk Attributen"
 
-#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:21
+#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:24
 msgid "Object"
 msgstr "Object"
 
@@ -2026,9 +2043,9 @@ msgstr "Object"
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: app/sheets_dialog.c:618 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
-#: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
+#: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
+#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
 msgid "Type:"
 msgstr "Type:"
 
@@ -2036,12 +2053,12 @@ msgstr "Type:"
 msgid "Sheet"
 msgstr "Sheet"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:198
-#: objects/UML/association.c:1110 objects/UML/class_dialog.c:865
-#: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2022
-#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:127
-#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
+#: objects/ER/relationship.c:138 objects/UML/association.c:199
+#: objects/UML/association.c:1112 objects/UML/class_dialog.c:866
+#: objects/UML/class_dialog.c:1793 objects/UML/class_dialog.c:2023
+#: objects/UML/class_dialog.c:2537 objects/UML/dependency.c:128
+#: objects/UML/generalization.c:124 objects/UML/realizes.c:125
 msgid "Name:"
 msgstr "Naam:"
 
@@ -2261,13 +2278,9 @@ msgstr "Lege uitholling"
 msgid "Round"
 msgstr "Rond"
 
-#: lib/bezier_conn.c:532
+#: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Interne fout: Instellen van hoek type van eindpunt van bezier"
-
-#: lib/dialibartrenderer.c:1115
-msgid "This Dia version is compiled without libart/text support."
-msgstr "Deze versie van Dia is gecompileerd zonder libart/tekst ondersteuning."
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2308,11 +2321,6 @@ msgstr ""
 "er problemen mee krijgen. Stuur een bericht naar dia-list@gnome.org als u u "
 "deze melding krijgt."
 
-#: lib/font.c:87
-#, c-format
-msgid "Can't load font %s.\n"
-msgstr "Kan lettertype %s niet laden.\n"
-
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
 #: lib/diagtkfontsel.c:74
@@ -2321,7 +2329,7 @@ msgstr "abcdefghijk ABCDEFGHIJK"
 
 #: lib/diagtkfontsel.c:209
 msgid "Font name"
-msgstr "Lettertype naam:"
+msgstr "Lettertypenaam"
 
 #: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
@@ -2347,7 +2355,7 @@ msgstr "_Stijl:"
 
 #: lib/diagtkfontsel.c:333
 msgid "Si_ze:"
-msgstr "Formaat"
+msgstr "_Grootte:"
 
 #. create the text entry widget
 #: lib/diagtkfontsel.c:462
@@ -2357,6 +2365,15 @@ msgstr "_Voorbeeld:"
 #: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Lettertype-selectie"
+
+#: lib/dialibartrenderer.c:1115
+msgid "This Dia version is compiled without libart/text support."
+msgstr "Deze versie van Dia is gecompileerd zonder libart/tekst ondersteuning."
+
+#: lib/font.c:87
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr "Kan lettertype %s niet laden.\n"
 
 #: lib/message.c:78 lib/message.c:238
 msgid "Error"
@@ -2383,7 +2400,7 @@ msgstr "Er zijn %d gelijksoortige berichten."
 msgid "Notice"
 msgstr "Melding"
 
-#: lib/object_defaults.c:124
+#: lib/object_defaults.c:123
 #, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
@@ -2465,23 +2482,21 @@ msgstr "Eind pijl"
 msgid "Text alignment"
 msgstr "Tekst uitlijning"
 
-#: lib/properties.c:79 lib/properties.h:508
-#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
-#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
+#: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Lettertype"
 
-#: lib/properties.c:80 lib/properties.h:511
-#: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
-#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
-#: objects/GRAFCET/transition.c:143
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Lettergrootte"
 
-#: lib/properties.c:81 lib/properties.h:514
-#: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
-#: objects/GRAFCET/step.c:168
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:169
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Tekst kleur"
 
@@ -2500,7 +2515,7 @@ msgid "Select font"
 msgstr "Selecteer lettertype"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:652 objects/FS/function.c:1043
+#: lib/widgets.c:652 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Massief"
 
@@ -2545,155 +2560,31 @@ msgstr "Selecteer plaatje"
 msgid "Browse"
 msgstr "Bladeren"
 
-#: objects/bondgraph/bondgraph.c:39
-msgid "Bond graph objects"
-msgstr "Gebonden grafiek objecten"
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr "Chronogram diagram objecten"
-
-#: objects/chronogram/chronoline.c:147
-msgid "Data"
-msgstr "Gegevens"
-
-#: objects/chronogram/chronoline.c:149
-msgid "Data name"
-msgstr "Gegeven naam"
-
-#: objects/chronogram/chronoline.c:151
-msgid "Events"
-msgstr "Gebeurtenissen"
-
-#: objects/chronogram/chronoline.c:154
-msgid "Event specification"
-msgstr "Gebeurtenis specificatie"
-
-#: objects/chronogram/chronoline.c:155
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"@ tijd    zet de wijzer op een absolute tijd.\n"
-"( tijdsduur  zet het signaal omhoog, wacht daarna 'tijdsduur'.\n"
-") tijdsduur  zet het signaal omlaag, wacht daarna 'tijdsduur'.\n"
-"u tijdsduur  zet het signaal op \"onbekend\" status, wacht daarna "
-"'tijdsduur'.\n"
-"voorbeeld: @ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:161
-msgid "Parameters"
-msgstr "Parameters"
-
-#: objects/chronogram/chronoline.c:163 objects/chronogram/chronoref.c:145
-msgid "Start time"
-msgstr "Start tijd"
-
-#: objects/chronogram/chronoline.c:165 objects/chronogram/chronoref.c:147
-msgid "End time"
-msgstr "Stop tijd"
-
-#: objects/chronogram/chronoline.c:167
-msgid "Rise time"
-msgstr "Opkomst tijd"
-
-#: objects/chronogram/chronoline.c:169
-msgid "Fall time"
-msgstr "Afval tijd"
-
-#: objects/chronogram/chronoline.c:170
-msgid "Multi-bit data"
-msgstr "Gegevens bestaand uit meerdere bits"
-
-#: objects/chronogram/chronoline.c:172 objects/chronogram/chronoref.c:155
-msgid "Aspect"
-msgstr "Aspect"
-
-#: objects/chronogram/chronoline.c:174
-msgid "Data color"
-msgstr "Gegevenskleur"
-
-#: objects/chronogram/chronoline.c:176
-msgid "Data line width"
-msgstr "Gegevens lijn breedte"
-
-#: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
-msgid "Line color"
-msgstr "Lijn kleur"
-
-#: objects/chronogram/chronoref.c:143
-msgid "Time data"
-msgstr "Tijd gegevens"
-
-#: objects/chronogram/chronoref.c:149
-msgid "Major time step"
-msgstr "Grote tijd stap"
-
-#: objects/chronogram/chronoref.c:151
-msgid "Minor time step"
-msgstr "Kleine tijd stap"
-
-#: objects/chronogram/chronoref.c:161
-msgid "Minor step line width"
-msgstr "Kleine stap lijn breedte"
-
-#: objects/custom/custom.c:117
-msgid "Custom"
-msgstr "Aangepast"
-
-#: objects/custom/custom.c:117
-msgid "Custom XML shapes loader"
-msgstr "Aangepaste XML vormen lader"
-
-#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
-msgid "Flip horizontal"
-msgstr "Horizontaal kantelen"
-
-#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
-msgid "Flip vertical"
-msgstr "Verticaal kantelen"
-
-#: objects/custom/custom_object.c:1416
-msgid "Flip Horizontal"
-msgstr "Horizontaal Kantelen"
-
-#: objects/custom/custom_object.c:1417
-msgid "Flip Vertical"
-msgstr "Verticaal Kantelen"
-
-#: objects/custom/custom_object.c:1454
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr "Kan pictogram bestand %s voor object type '%s' niet openen."
-
-#: objects/ER/attribute.c:152
+#: objects/ER/attribute.c:153
 msgid "Key:"
 msgstr "Sleutel:"
 
-#: objects/ER/attribute.c:154
+#: objects/ER/attribute.c:155
 msgid "Weak key:"
 msgstr "Zwakke Sleutel:"
 
-#: objects/ER/attribute.c:156
+#: objects/ER/attribute.c:157
 msgid "Derived:"
 msgstr "Afgeleid:"
 
-#: objects/ER/attribute.c:158
+#: objects/ER/attribute.c:159
 msgid "Multivalue:"
 msgstr "Meerwaardig:"
 
-#: objects/ER/attribute.c:403 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:421 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribuut"
 
-#: objects/ER/entity.c:130
+#: objects/ER/entity.c:132
 msgid "Weak:"
 msgstr "Zwak:"
 
-#: objects/ER/entity.c:352 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:372 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entiteit"
 
@@ -2701,81 +2592,63 @@ msgstr "Entiteit"
 msgid "Entity/Relationship diagram objects"
 msgstr "Entiteit/Relatie diagram objecten"
 
-#: objects/ER/participation.c:114
+#: objects/ER/participation.c:115
 msgid "Total:"
 msgstr "Totaal:"
 
-#: objects/ER/participation.c:402 objects/FS/flow-ortho.c:640
-#: objects/GRAFCET/vector.c:309 objects/SADT/arrow.c:563
-#: objects/standard/zigzagline.c:334 objects/UML/association.c:745
-#: objects/UML/dependency.c:363 objects/UML/generalization.c:359
-#: objects/UML/realizes.c:350
+#: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
+#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
+#: objects/UML/association.c:747 objects/UML/component_feature.c:169
+#: objects/UML/dependency.c:365 objects/UML/generalization.c:361
+#: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Segment toevoegen"
 
-#: objects/ER/participation.c:403 objects/FS/flow-ortho.c:641
-#: objects/GRAFCET/vector.c:310 objects/SADT/arrow.c:564
-#: objects/standard/zigzagline.c:335 objects/UML/association.c:746
-#: objects/UML/dependency.c:364 objects/UML/generalization.c:360
-#: objects/UML/realizes.c:351
+#: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
+#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
+#: objects/UML/association.c:748 objects/UML/component_feature.c:170
+#: objects/UML/dependency.c:366 objects/UML/generalization.c:362
+#: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Segment verwijderen"
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:140
 msgid "Left Cardinality:"
 msgstr "Linker Cardinaliteit:"
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:142
 msgid "Right Cardinality:"
 msgstr "Rechter Cardinaliteit:"
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:144
 msgid "Rotate:"
 msgstr "Roteren:"
 
-#: objects/ER/relationship.c:145
+#: objects/ER/relationship.c:146
 msgid "Identifying:"
 msgstr "Identificeren:"
 
-#: objects/ER/relationship.c:431 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:449 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Relatie"
 
-#: objects/flowchart/box.c:147 objects/standard/box.c:131
-msgid "Corner radius"
-msgstr "Hoek radius"
-
-#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
-#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
-#: objects/SADT/box.c:136
-msgid "Text padding"
-msgstr "Tekst opvulling"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr "Stroomschema objecten"
-
-#: objects/flowchart/parallelogram.c:149
-msgid "Shear angle"
-msgstr "Scheer hoek"
-
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:572 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:637 objects/FS/function.c:1065
+#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
+#: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1085
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:573 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:638 objects/FS/function.c:1041
+#: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
+#: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1061
 msgid "Material"
 msgstr "Materiaal"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:574 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:639 objects/FS/function.c:1003
-#: objects/FS/function.c:1005 objects/FS/function.c:1141
-#: objects/FS/function.c:1143
+#: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
+#: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1023
+#: objects/FS/function.c:1025 objects/FS/function.c:1161
+#: objects/FS/function.c:1163
 msgid "Signal"
 msgstr "Signaal"
 
@@ -2783,1018 +2656,1018 @@ msgstr "Signaal"
 msgid "Function structure diagram objects"
 msgstr "Functie structuur diagram objecten"
 
-#: objects/FS/function.c:138
+#: objects/FS/function.c:140
 msgid "Wish function"
 msgstr "Wens functie"
 
-#: objects/FS/function.c:140
+#: objects/FS/function.c:142
 msgid "User function"
 msgstr "Gebruikersfunctie"
 
 #. Translators: Menu item Verb
-#: objects/FS/function.c:645
+#: objects/FS/function.c:665
 msgid "Verb"
 msgstr "Werkwoord"
 
 #. Translators: Menu item Verb/Channel
-#: objects/FS/function.c:647 objects/FS/function.c:649
-#: objects/FS/function.c:689
+#: objects/FS/function.c:667 objects/FS/function.c:669
+#: objects/FS/function.c:709
 msgid "Channel"
 msgstr "Kanaal"
 
 #. Translators: Menu item Verb/Channel/Import
-#: objects/FS/function.c:651 objects/FS/function.c:653
+#: objects/FS/function.c:671 objects/FS/function.c:673
 msgid "Import"
 msgstr "Importeren"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:655
+#: objects/FS/function.c:675
 msgid "Input"
 msgstr "Invoer"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: objects/FS/function.c:657
+#: objects/FS/function.c:677
 msgid "Receive"
 msgstr "Ontvangen"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#: objects/FS/function.c:659 objects/FS/function.c:931
+#: objects/FS/function.c:679 objects/FS/function.c:951
 msgid "Allow"
 msgstr "Toestaan"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: objects/FS/function.c:661
+#: objects/FS/function.c:681
 msgid "Form Entrance"
 msgstr "Formulier ingang"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#: objects/FS/function.c:663 objects/FS/function.c:897
+#: objects/FS/function.c:683 objects/FS/function.c:917
 msgid "Capture"
 msgstr "Opvangen"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: objects/FS/function.c:669
+#: objects/FS/function.c:689
 msgid "Discharge"
 msgstr "Ontladen"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: objects/FS/function.c:671
+#: objects/FS/function.c:691
 msgid "Eject"
 msgstr "Openen"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: objects/FS/function.c:673
+#: objects/FS/function.c:693
 msgid "Dispose"
 msgstr "Verwerpen"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#: objects/FS/function.c:677 objects/FS/function.c:679
-#: objects/FS/function.c:697
+#: objects/FS/function.c:697 objects/FS/function.c:699
+#: objects/FS/function.c:717
 msgid "Transfer"
 msgstr "Overdragen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#: objects/FS/function.c:681 objects/FS/function.c:683
+#: objects/FS/function.c:701 objects/FS/function.c:703
 msgid "Transport"
 msgstr "Transporteren"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: objects/FS/function.c:685
+#: objects/FS/function.c:705
 msgid "Lift"
 msgstr "Optillen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: objects/FS/function.c:687
+#: objects/FS/function.c:707
 msgid "Move"
 msgstr "Verplaatsen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#: objects/FS/function.c:691 objects/FS/function.c:693
+#: objects/FS/function.c:711 objects/FS/function.c:713
 msgid "Transmit"
 msgstr "Verzenden"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: objects/FS/function.c:695
+#: objects/FS/function.c:715
 msgid "Conduct"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: objects/FS/function.c:699
+#: objects/FS/function.c:719
 msgid "Convey"
 msgstr "Toevoeren"
 
 #. Translators: Menu item Verb/Channel/Guide
-#: objects/FS/function.c:701 objects/FS/function.c:703
-#: objects/FS/function.c:705
+#: objects/FS/function.c:721 objects/FS/function.c:723
+#: objects/FS/function.c:725
 msgid "Guide"
 msgstr "Gids"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: objects/FS/function.c:707
+#: objects/FS/function.c:727
 msgid "Direct"
 msgstr "Richting"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: objects/FS/function.c:709
+#: objects/FS/function.c:729
 msgid "Straighten"
 msgstr "Recht vooruit"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: objects/FS/function.c:711
+#: objects/FS/function.c:731
 msgid "Steer"
 msgstr "Sturen"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: objects/FS/function.c:713
+#: objects/FS/function.c:733
 msgid "Translate"
 msgstr "Vertalen"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#: objects/FS/function.c:715 objects/FS/function.c:717
+#: objects/FS/function.c:735 objects/FS/function.c:737
 msgid "Rotate"
 msgstr "Roteren"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: objects/FS/function.c:719
+#: objects/FS/function.c:739
 msgid "Turn"
 msgstr "Draaien"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: objects/FS/function.c:721
+#: objects/FS/function.c:741
 msgid "Spin"
 msgstr "Omwentelen"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#: objects/FS/function.c:723 objects/FS/function.c:725
+#: objects/FS/function.c:743 objects/FS/function.c:745
 msgid "Allow DOF"
 msgstr "Sta DOF toe"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: objects/FS/function.c:727
+#: objects/FS/function.c:747
 msgid "Constrain"
 msgstr "Beperken"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: objects/FS/function.c:729
+#: objects/FS/function.c:749
 msgid "Unlock"
 msgstr "Ontsluiten"
 
 #. Translators: Menu item Verb/Support
-#: objects/FS/function.c:731 objects/FS/function.c:733
+#: objects/FS/function.c:751 objects/FS/function.c:753
 msgid "Support"
 msgstr "Ondersteuning"
 
 #. Translators: Menu item Verb/Support/Stop
-#: objects/FS/function.c:735 objects/FS/function.c:737
+#: objects/FS/function.c:755 objects/FS/function.c:757
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Stoppen"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: objects/FS/function.c:739
+#: objects/FS/function.c:759
 msgid "Insulate"
 msgstr "Afzonderen"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: objects/FS/function.c:741
+#: objects/FS/function.c:761
 msgid "Protect"
 msgstr "Beschermen"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#: objects/FS/function.c:743 objects/FS/function.c:933
+#: objects/FS/function.c:763 objects/FS/function.c:953
 msgid "Prevent"
 msgstr "Voorkomen"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: objects/FS/function.c:745
+#: objects/FS/function.c:765
 msgid "Shield"
 msgstr "Afschermen"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: objects/FS/function.c:747
+#: objects/FS/function.c:767
 msgid "Inhibit"
 msgstr "Verhinderen"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#: objects/FS/function.c:749 objects/FS/function.c:751
+#: objects/FS/function.c:769 objects/FS/function.c:771
 msgid "Stabilize"
 msgstr "Stabiliseren"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: objects/FS/function.c:753
+#: objects/FS/function.c:773
 msgid "Steady"
 msgstr "Constant"
 
 #. Translators: Menu item Verb/Support/Secure
-#: objects/FS/function.c:755 objects/FS/function.c:757
+#: objects/FS/function.c:775 objects/FS/function.c:777
 msgid "Secure"
 msgstr "Beveiligen"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#: objects/FS/function.c:759 objects/FS/function.c:791
+#: objects/FS/function.c:779 objects/FS/function.c:811
 msgid "Attach"
 msgstr "Bijvoegen"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: objects/FS/function.c:761
+#: objects/FS/function.c:781
 msgid "Mount"
 msgstr "Monteren"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:763
+#: objects/FS/function.c:783 sheets/ciscomisc.sheet.in.h:21
 msgid "Lock"
 msgstr "Sluiten"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: objects/FS/function.c:765
+#: objects/FS/function.c:785
 msgid "Fasten"
 msgstr "Vastmaken"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: objects/FS/function.c:767
+#: objects/FS/function.c:787
 msgid "Hold"
 msgstr "Vasthouden"
 
 #. Translators: Menu item Verb/Support/Position
-#: objects/FS/function.c:769 objects/FS/function.c:771
+#: objects/FS/function.c:789 objects/FS/function.c:791
 msgid "Position"
 msgstr "Positie"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: objects/FS/function.c:773
+#: objects/FS/function.c:793
 msgid "Orient"
 msgstr "Orienteren"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: objects/FS/function.c:775
+#: objects/FS/function.c:795
 msgid "Align"
 msgstr "Uitlijnen"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#: objects/FS/function.c:777 objects/FS/function.c:1019
+#: objects/FS/function.c:797 objects/FS/function.c:1039
 msgid "Locate"
 msgstr "Lokaliseren"
 
 #. Translators: Menu item Verb/Connect
-#: objects/FS/function.c:779 objects/FS/function.c:781
+#: objects/FS/function.c:799 objects/FS/function.c:801
 msgid "Connect"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Connect/Couple
-#: objects/FS/function.c:783 objects/FS/function.c:785
+#: objects/FS/function.c:803 objects/FS/function.c:805
 msgid "Couple"
 msgstr "Koppelen"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: objects/FS/function.c:787
+#: objects/FS/function.c:807
 msgid "Join"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: objects/FS/function.c:789
+#: objects/FS/function.c:809
 msgid "Assemble"
 msgstr "Assembleren"
 
 #. Translators: Menu item Verb/Connect/Mix
-#: objects/FS/function.c:793 objects/FS/function.c:795
+#: objects/FS/function.c:813 objects/FS/function.c:815
 msgid "Mix"
 msgstr "Mengen"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: objects/FS/function.c:797
+#: objects/FS/function.c:817
 msgid "Combine"
 msgstr "Combineren"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: objects/FS/function.c:799
+#: objects/FS/function.c:819
 msgid "Blend"
 msgstr "Mengelen"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: objects/FS/function.c:801
+#: objects/FS/function.c:821
 msgid "Add"
 msgstr "Toevoegen"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: objects/FS/function.c:803
+#: objects/FS/function.c:823
 msgid "Pack"
 msgstr "Inpakken"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: objects/FS/function.c:805
+#: objects/FS/function.c:825
 msgid "Coalesce"
 msgstr "Aaneensluiten"
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:807 objects/FS/function.c:809 sheets/UML.sheet.in.h:5
+#: objects/FS/function.c:827 objects/FS/function.c:829 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Vertakken"
 
 #. Translators: Menu item Verb/Branch/Separate
-#: objects/FS/function.c:811 objects/FS/function.c:813
-#: objects/FS/function.c:815
+#: objects/FS/function.c:831 objects/FS/function.c:833
+#: objects/FS/function.c:835
 msgid "Separate"
 msgstr "Scheiden"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: objects/FS/function.c:817
+#: objects/FS/function.c:837
 msgid "Switch"
 msgstr "Schakelen"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: objects/FS/function.c:819
+#: objects/FS/function.c:839
 msgid "Divide"
 msgstr "Verdelen"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: objects/FS/function.c:821
+#: objects/FS/function.c:841
 msgid "Release"
 msgstr "Loslaten"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: objects/FS/function.c:823
+#: objects/FS/function.c:843
 msgid "Detach"
 msgstr "Losmaken"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: objects/FS/function.c:825
+#: objects/FS/function.c:845
 msgid "Disconnect"
 msgstr "Verbinding verbreken"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: objects/FS/function.c:831
+#: objects/FS/function.c:851
 msgid "Cut"
 msgstr "Knippen"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: objects/FS/function.c:833
+#: objects/FS/function.c:853
 msgid "Polish"
 msgstr "Uitvlakken"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: objects/FS/function.c:835
+#: objects/FS/function.c:855
 msgid "Sand"
 msgstr "Verzanden"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: objects/FS/function.c:837
+#: objects/FS/function.c:857
 msgid "Drill"
 msgstr "Boren"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: objects/FS/function.c:839
+#: objects/FS/function.c:859
 msgid "Lathe"
 msgstr "Ronddraaien"
 
 #. Translators: Menu item Verb/Branch/Refine
-#: objects/FS/function.c:841 objects/FS/function.c:843
+#: objects/FS/function.c:861 objects/FS/function.c:863
 msgid "Refine"
 msgstr "Verfijnen"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: objects/FS/function.c:845
+#: objects/FS/function.c:865
 msgid "Purify"
 msgstr "Louteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: objects/FS/function.c:847
+#: objects/FS/function.c:867
 msgid "Strain"
 msgstr "Aaneenschakelen"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: objects/FS/function.c:849
+#: objects/FS/function.c:869
 msgid "Filter"
 msgstr "Filteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: objects/FS/function.c:851
+#: objects/FS/function.c:871
 msgid "Percolate"
 msgstr "Filteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: objects/FS/function.c:853
+#: objects/FS/function.c:873
 msgid "Clear"
 msgstr "Wissen"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#: objects/FS/function.c:855 objects/FS/function.c:857
+#: objects/FS/function.c:875 objects/FS/function.c:877
 msgid "Distribute"
 msgstr "Distribueren"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: objects/FS/function.c:859
+#: objects/FS/function.c:879
 msgid "Diverge"
 msgstr "Afwijken"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: objects/FS/function.c:861
+#: objects/FS/function.c:881
 msgid "Scatter"
 msgstr "Verspreiden"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: objects/FS/function.c:863
+#: objects/FS/function.c:883
 msgid "Disperse"
 msgstr "Verstrooien"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#: objects/FS/function.c:865 objects/FS/function.c:879
+#: objects/FS/function.c:885 objects/FS/function.c:899
 msgid "Diffuse"
 msgstr "Vermengen"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: objects/FS/function.c:867
+#: objects/FS/function.c:887
 msgid "Empty"
 msgstr "Legen"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#: objects/FS/function.c:869 objects/FS/function.c:871
+#: objects/FS/function.c:889 objects/FS/function.c:891
 msgid "Dissipate"
 msgstr "Verdwijnen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: objects/FS/function.c:873
+#: objects/FS/function.c:893
 msgid "Absorb"
 msgstr "Absorberen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: objects/FS/function.c:875
+#: objects/FS/function.c:895
 msgid "Dampen"
 msgstr "Dempen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: objects/FS/function.c:877
+#: objects/FS/function.c:897
 msgid "Dispel"
 msgstr "Verdrijven"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: objects/FS/function.c:881
+#: objects/FS/function.c:901
 msgid "Resist"
 msgstr "Weerstaan"
 
 #. Translators: Menu item Verb/Provision
-#: objects/FS/function.c:883 objects/FS/function.c:885
+#: objects/FS/function.c:903 objects/FS/function.c:905
 msgid "Provision"
 msgstr "Bevoorrading"
 
 #. Translators: Menu item Verb/Provision/Store
-#: objects/FS/function.c:887 objects/FS/function.c:889
+#: objects/FS/function.c:907 objects/FS/function.c:909
 msgid "Store"
 msgstr "Opslaan"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: objects/FS/function.c:891
+#: objects/FS/function.c:911
 msgid "Contain"
 msgstr "Bevatten"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: objects/FS/function.c:893
+#: objects/FS/function.c:913
 msgid "Collect"
 msgstr "Verzamelen"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: objects/FS/function.c:895
+#: objects/FS/function.c:915
 msgid "Reserve"
 msgstr "Reserveren"
 
 #. Translators: Menu item Verb/Provision/Supply
-#: objects/FS/function.c:899 objects/FS/function.c:901
+#: objects/FS/function.c:919 objects/FS/function.c:921
 msgid "Supply"
 msgstr "Aanvoeren"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: objects/FS/function.c:903
+#: objects/FS/function.c:923
 msgid "Fill"
 msgstr "Vullen"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: objects/FS/function.c:905
+#: objects/FS/function.c:925
 msgid "Provide"
 msgstr "Voorzien van"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: objects/FS/function.c:907
+#: objects/FS/function.c:927
 msgid "Replenish"
 msgstr "Bijvullen"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: objects/FS/function.c:909
+#: objects/FS/function.c:929
 msgid "Expose"
 msgstr "Tentoonstellen"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:911 sheets/Flowchart.sheet.in.h:8
+#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
 msgstr "Afleiden"
 
 #. Translators: Menu item Verb/Control Magnitude
-#: objects/FS/function.c:913 objects/FS/function.c:915
+#: objects/FS/function.c:933 objects/FS/function.c:935
 msgid "Control Magnitude"
 msgstr "Controle Grootte"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#: objects/FS/function.c:917 objects/FS/function.c:919
+#: objects/FS/function.c:937 objects/FS/function.c:939
 msgid "Actuate"
 msgstr "Aandrijven"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: objects/FS/function.c:921
+#: objects/FS/function.c:941
 msgid "Start"
 msgstr "Starten"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: objects/FS/function.c:923
+#: objects/FS/function.c:943
 msgid "Initiate"
 msgstr "Beginnen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#: objects/FS/function.c:925 objects/FS/function.c:927
+#: objects/FS/function.c:945 objects/FS/function.c:947
 msgid "Regulate"
 msgstr "Reguleren"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#: objects/FS/function.c:929 objects/FS/function.c:1147
+#: objects/FS/function.c:949 objects/FS/function.c:1167
 #: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "Besturen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: objects/FS/function.c:935
+#: objects/FS/function.c:955
 msgid "Enable"
 msgstr "Aanzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: objects/FS/function.c:937
+#: objects/FS/function.c:957
 msgid "Disable"
-msgstr "Stopzetten"
+msgstr "Uitzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: objects/FS/function.c:939
+#: objects/FS/function.c:959
 msgid "Limit"
 msgstr "Begrenzen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: objects/FS/function.c:941
+#: objects/FS/function.c:961
 msgid "Interrupt"
 msgstr "Onderbreken"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#: objects/FS/function.c:943 objects/FS/function.c:945
+#: objects/FS/function.c:963 objects/FS/function.c:965
 msgid "Change"
 msgstr "Veranderen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: objects/FS/function.c:947
+#: objects/FS/function.c:967
 msgid "Increase"
 msgstr "Toenemen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: objects/FS/function.c:949
+#: objects/FS/function.c:969
 msgid "Decrease"
 msgstr "Afnemen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: objects/FS/function.c:951
+#: objects/FS/function.c:971
 msgid "Amplify"
 msgstr "Uitbreiden"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: objects/FS/function.c:953
+#: objects/FS/function.c:973
 msgid "Reduce"
 msgstr "Reduceren"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: objects/FS/function.c:957
+#: objects/FS/function.c:977
 msgid "Normalize"
 msgstr "Normaliseren"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: objects/FS/function.c:959
+#: objects/FS/function.c:979
 msgid "Multiply"
 msgstr "Vermenigvuldigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
-#: objects/FS/function.c:961
+#: objects/FS/function.c:981
 msgid "Scale"
 msgstr "Schalen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: objects/FS/function.c:963
+#: objects/FS/function.c:983
 msgid "Rectify"
 msgstr "Rechtzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: objects/FS/function.c:965
+#: objects/FS/function.c:985
 msgid "Adjust"
 msgstr "Afstemmen"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#: objects/FS/function.c:967 objects/FS/function.c:969
+#: objects/FS/function.c:987 objects/FS/function.c:989
 msgid "Form"
-msgstr "Grondvesten"
+msgstr "Formulier"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: objects/FS/function.c:971
+#: objects/FS/function.c:991
 msgid "Compact"
 msgstr "Compact"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: objects/FS/function.c:973
+#: objects/FS/function.c:993
 msgid "Crush"
 msgstr "Verpletteren"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: objects/FS/function.c:975
+#: objects/FS/function.c:995
 msgid "Shape"
 msgstr "Vorm"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: objects/FS/function.c:977
+#: objects/FS/function.c:997
 msgid "Compress"
 msgstr "Comprimeren"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: objects/FS/function.c:979
+#: objects/FS/function.c:999
 msgid "Pierce"
 msgstr "Doorsteken"
 
 #. Translators: Menu item Verb/Convert
-#: objects/FS/function.c:981 objects/FS/function.c:983
+#: objects/FS/function.c:1001 objects/FS/function.c:1003
 msgid "Convert"
 msgstr "Converteren"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: objects/FS/function.c:985
+#: objects/FS/function.c:1005
 msgid "Transform"
 msgstr "Transformeren"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: objects/FS/function.c:987
+#: objects/FS/function.c:1007
 msgid "Liquefy"
 msgstr "Vloeibaar maken"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: objects/FS/function.c:989
+#: objects/FS/function.c:1009
 msgid "Solidify"
 msgstr "Solide maken"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: objects/FS/function.c:991
+#: objects/FS/function.c:1011
 msgid "Evaporate"
 msgstr "Verdampen"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: objects/FS/function.c:993
+#: objects/FS/function.c:1013
 msgid "Sublimate"
 msgstr "Zuiveren"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: objects/FS/function.c:995
+#: objects/FS/function.c:1015
 msgid "Condense"
 msgstr "Condenseren"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: objects/FS/function.c:997
+#: objects/FS/function.c:1017
 msgid "Integrate"
 msgstr "Integreren"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: objects/FS/function.c:999
+#: objects/FS/function.c:1019
 msgid "Differentiate"
 msgstr "Differentiëren"
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:1001 sheets/EML.sheet.in.h:5
+#: objects/FS/function.c:1021 sheets/EML.sheet.in.h:5
 msgid "Process"
 msgstr "Verwerken"
 
 #. Translators: Menu item Verb/Signal/Sense
-#: objects/FS/function.c:1007 objects/FS/function.c:1009
+#: objects/FS/function.c:1027 objects/FS/function.c:1029
 msgid "Sense"
 msgstr "Gewaarworden"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: objects/FS/function.c:1011
+#: objects/FS/function.c:1031
 msgid "Perceive"
 msgstr "Bespeuren"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: objects/FS/function.c:1013
+#: objects/FS/function.c:1033
 msgid "Recognize"
 msgstr "Erkennen"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: objects/FS/function.c:1015
+#: objects/FS/function.c:1035
 msgid "Discern"
 msgstr "Onderscheiden"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: objects/FS/function.c:1017
+#: objects/FS/function.c:1037
 msgid "Check"
 msgstr "Checken"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: objects/FS/function.c:1021
+#: objects/FS/function.c:1041
 msgid "Verify"
 msgstr "Verifiëren"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#: objects/FS/function.c:1023 objects/FS/function.c:1025
+#: objects/FS/function.c:1043 objects/FS/function.c:1045
 msgid "Indicate"
 msgstr "Aangeven"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: objects/FS/function.c:1027
+#: objects/FS/function.c:1047
 msgid "Mark"
 msgstr "Markeren"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1029 sheets/Flowchart.sheet.in.h:5
+#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:5
 msgid "Display"
 msgstr "Weergave"
 
 #. Translators: Menu item Verb/Signal/Measure
-#: objects/FS/function.c:1031 objects/FS/function.c:1033
+#: objects/FS/function.c:1051 objects/FS/function.c:1053
 msgid "Measure"
 msgstr "Meten"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: objects/FS/function.c:1035
+#: objects/FS/function.c:1055
 msgid "Calculate"
 msgstr "Berekenen"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: objects/FS/function.c:1037
+#: objects/FS/function.c:1057
 msgid "Represent"
 msgstr "Representeren"
 
 #. Translators: Menu item Noun
-#: objects/FS/function.c:1039
+#: objects/FS/function.c:1059
 msgid "Noun"
 msgstr "Zelfstandig naamwoord"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: objects/FS/function.c:1045
+#: objects/FS/function.c:1065
 msgid "Liquid"
 msgstr "Vloeibaar"
 
 #. Translators: Menu item Noun/Material/Gas
-#: objects/FS/function.c:1047
+#: objects/FS/function.c:1067
 msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#: objects/FS/function.c:1049 objects/FS/function.c:1051
-#: objects/FS/function.c:1135
+#: objects/FS/function.c:1069 objects/FS/function.c:1071
+#: objects/FS/function.c:1155
 msgid "Human"
 msgstr "Menselijk"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: objects/FS/function.c:1053
+#: objects/FS/function.c:1073
 msgid "Hand"
 msgstr "Hand"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: objects/FS/function.c:1055
+#: objects/FS/function.c:1075
 msgid "Foot"
 msgstr "Voet"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: objects/FS/function.c:1057
+#: objects/FS/function.c:1077
 msgid "Head"
 msgstr "Hoofd"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: objects/FS/function.c:1059
+#: objects/FS/function.c:1079
 msgid "Finger"
 msgstr "Vinger"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: objects/FS/function.c:1061
+#: objects/FS/function.c:1081
 msgid "Toe"
 msgstr "Teen"
 
 #. Translators: Menu item Noun/Material/Biological
-#: objects/FS/function.c:1063
+#: objects/FS/function.c:1083
 msgid "Biological"
 msgstr "Biologisch"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: objects/FS/function.c:1067
+#: objects/FS/function.c:1087
 msgid "Mechanical"
 msgstr "Meganisch"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: objects/FS/function.c:1069
+#: objects/FS/function.c:1089
 msgid "Mech. Energy"
 msgstr "Meganische energie"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: objects/FS/function.c:1071
+#: objects/FS/function.c:1091
 msgid "Translation"
 msgstr "Overzetting"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: objects/FS/function.c:1073
+#: objects/FS/function.c:1093
 msgid "Force"
 msgstr "Kracht"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: objects/FS/function.c:1075
+#: objects/FS/function.c:1095
 msgid "Rotation"
 msgstr "Rotatie"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: objects/FS/function.c:1077
+#: objects/FS/function.c:1097
 msgid "Torque"
 msgstr "Koppel"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: objects/FS/function.c:1079
+#: objects/FS/function.c:1099
 msgid "Random Motion"
 msgstr "Willekeurige beweging"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: objects/FS/function.c:1081
+#: objects/FS/function.c:1101
 msgid "Vibration"
 msgstr "Trilling"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: objects/FS/function.c:1083
+#: objects/FS/function.c:1103
 msgid "Rotational Energy"
 msgstr "Middelpuntvliedende kracht"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: objects/FS/function.c:1085
+#: objects/FS/function.c:1105
 msgid "Translational Energy"
 msgstr "Overzettings energie"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: objects/FS/function.c:1087
+#: objects/FS/function.c:1107
 msgid "Electrical"
 msgstr "Electrisch"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: objects/FS/function.c:1089
+#: objects/FS/function.c:1109
 msgid "Electricity"
 msgstr "Electriciteit"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: objects/FS/function.c:1091
+#: objects/FS/function.c:1111
 msgid "Voltage"
 msgstr "Voltage"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: objects/FS/function.c:1093
+#: objects/FS/function.c:1113
 msgid "Current"
 msgstr "Stroom"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: objects/FS/function.c:1095
+#: objects/FS/function.c:1115
 msgid "Hydraulic"
 msgstr "Hydrolisch"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: objects/FS/function.c:1097
+#: objects/FS/function.c:1117
 msgid "Pressure"
 msgstr "Druk"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: objects/FS/function.c:1099
+#: objects/FS/function.c:1119
 msgid "Volumetric Flow"
 msgstr "Volumetrische stroom"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: objects/FS/function.c:1101
+#: objects/FS/function.c:1121
 msgid "Thermal"
 msgstr "Thermisch"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: objects/FS/function.c:1103
+#: objects/FS/function.c:1123
 msgid "Heat"
 msgstr "Hitte"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: objects/FS/function.c:1105
+#: objects/FS/function.c:1125
 msgid "Conduction"
 msgstr "Geleiding"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: objects/FS/function.c:1107
+#: objects/FS/function.c:1127
 msgid "Convection"
 msgstr "Verwijdering"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#: objects/FS/function.c:1109 objects/FS/function.c:1117
+#: objects/FS/function.c:1129 objects/FS/function.c:1137
 msgid "Radiation"
 msgstr "Straling"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: objects/FS/function.c:1111
+#: objects/FS/function.c:1131
 msgid "Pneumatic"
 msgstr "Pneumatisch"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: objects/FS/function.c:1113
+#: objects/FS/function.c:1133
 msgid "Chemical"
 msgstr "Chemisch"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: objects/FS/function.c:1115
+#: objects/FS/function.c:1135
 msgid "Radioactive"
 msgstr "Radioactief"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: objects/FS/function.c:1119
+#: objects/FS/function.c:1139
 msgid "Microwaves"
 msgstr "Microgolven"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: objects/FS/function.c:1121
+#: objects/FS/function.c:1141
 msgid "Radio waves"
 msgstr "Radiogolven"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: objects/FS/function.c:1123
+#: objects/FS/function.c:1143
 msgid "X-Rays"
 msgstr "X-straling"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: objects/FS/function.c:1125
+#: objects/FS/function.c:1145
 msgid "Gamma Rays"
 msgstr "Gamma straling"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: objects/FS/function.c:1127
+#: objects/FS/function.c:1147
 msgid "Acoustic Energy"
 msgstr "Akoustische energie"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: objects/FS/function.c:1129
+#: objects/FS/function.c:1149
 msgid "Optical Energy"
 msgstr "Optische energie"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: objects/FS/function.c:1131
+#: objects/FS/function.c:1151
 msgid "Solar Energy"
 msgstr "Zonne energie"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: objects/FS/function.c:1133
+#: objects/FS/function.c:1153
 msgid "Magnetic Energy"
 msgstr "Magnetische energie"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: objects/FS/function.c:1137
+#: objects/FS/function.c:1157
 msgid "Human Motion"
 msgstr "Menselijke beweging"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: objects/FS/function.c:1139
+#: objects/FS/function.c:1159
 msgid "Human Force"
 msgstr "Menselijke kracht"
 
 #. Translators: Menu item Noun/Signal/Status
-#: objects/FS/function.c:1145
+#: objects/FS/function.c:1165
 msgid "Status"
 msgstr "Status"
 
-#: objects/FS/function.c:1149
+#: objects/FS/function.c:1169
 msgid "User/Device Fn"
 msgstr "Gebruiker/Apparaat Fn"
 
-#: objects/FS/function.c:1150
+#: objects/FS/function.c:1170
 msgid "Wish Fn"
 msgstr "Wens Fn"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#: objects/GRAFCET/action.c:135 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Macro aanroep"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:135
 msgid "This action is a call to a macro-step"
 msgstr "Deze actie is een aanroep van een macro-stap"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:130
 msgid "Condition"
 msgstr "Voorwaarde"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:130
 msgid "The boolean equation of the condition"
 msgstr "De booleaanse vergelijking van de voorwaarde"
 
-#: objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/condition.c:132
 msgid "The condition's font"
 msgstr "Lettertype van de vergelijking"
 
-#: objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/condition.c:134
 msgid "The condition's font size"
 msgstr "Lettergrootte van de vergelijking"
 
-#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:146
+#: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
 msgid "Color"
 msgstr "Kleur"
 
-#: objects/GRAFCET/condition.c:136
+#: objects/GRAFCET/condition.c:137
 msgid "The condition's color"
 msgstr "Kleur van de vergelijking"
 
@@ -3802,108 +3675,108 @@ msgstr "Kleur van de vergelijking"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET diagram objecten"
 
-#: objects/GRAFCET/step.c:145 sheets/GRAFCET.sheet.in.h:13
+#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
 msgstr "Normale stap"
 
-#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:6
+#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
 msgstr "Eerste stap"
 
-#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:8
+#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
 msgstr "Macro start stap"
 
-#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:9
+#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
 msgstr "Macro stop stap"
 
-#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:7
+#: objects/GRAFCET/step.c:150 sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr "Macro aanroep stap"
 
-#: objects/GRAFCET/step.c:150
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr "Subprogramma aanroep stap"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:158
 msgid "Step name"
 msgstr "Stap naam"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:158
 msgid "The name of the step"
 msgstr "De naam van de stap"
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:161
 msgid "Step type"
 msgstr "Stap type"
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:161
 msgid "The kind of step"
 msgstr "Het soort stap"
 
-#: objects/GRAFCET/step.c:162
+#: objects/GRAFCET/step.c:163
 msgid "Active"
 msgstr "Actief"
 
-#: objects/GRAFCET/step.c:162
+#: objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Laat een rode stip zien om de activiteit van de stap te laten zien"
 
-#: objects/GRAFCET/transition.c:139
+#: objects/GRAFCET/transition.c:140
 msgid "Receptivity"
 msgstr "Ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:139
+#: objects/GRAFCET/transition.c:140
 msgid "The boolean equation of the receptivity"
 msgstr "De booleaanse vergelijking van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:141
+#: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font"
 msgstr "Lettertype van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:143
+#: objects/GRAFCET/transition.c:144
 msgid "The receptivity's font size"
 msgstr "Lettergrootte van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:146
+#: objects/GRAFCET/transition.c:147
 msgid "The receptivity's color"
 msgstr "Kleur van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/transition.c:148
 msgid "North point"
 msgstr "Noordelijk punt"
 
-#: objects/GRAFCET/transition.c:148
+#: objects/GRAFCET/transition.c:149
 msgid "South point"
 msgstr "Zuidelijk punt"
 
-#: objects/GRAFCET/vector.c:127
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Teken pijlpunten op opwaartse bogen:"
 
-#: objects/GRAFCET/vergent.c:121
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "OF"
 
-#: objects/GRAFCET/vergent.c:122
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "EN"
 
-#: objects/GRAFCET/vergent.c:133
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr "Type begrenzing:"
 
-#: objects/GRAFCET/vergent.c:394 objects/SADT/box.c:443
-#: objects/standard/line.c:240
+#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
+#: objects/standard/line.c:241
 msgid "Add connection point"
 msgstr "Verbindingspunt toevoegen"
 
-#: objects/GRAFCET/vergent.c:395
+#: objects/GRAFCET/vergent.c:406
 msgid "Delete  connection point"
 msgstr "Verwijder  verbindingspunt"
 
-#: objects/GRAFCET/vergent.c:399
+#: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET EN/OR begrenzing"
 
@@ -3931,48 +3804,36 @@ msgstr "Uren weergeven"
 msgid "Miscellaneous objects"
 msgstr "Allerlei objecten"
 
-#: objects/network/bus.c:596
-msgid "Add Handle"
-msgstr "Aansluiting Toevoegen"
-
-#: objects/network/bus.c:597
-msgid "Delete Handle"
-msgstr "Aansluiting Verwijderen"
-
-#: objects/network/network.c:41
-msgid "Network diagram objects"
-msgstr "Netwerk diagram objecten"
-
 #. property rows
-#: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
+#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:334
 msgid "Normal"
 msgstr "Normaal"
 
-#: objects/SADT/arrow.c:134
+#: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
 msgstr "Bron importeren (word boven niet weergegeven)"
 
-#: objects/SADT/arrow.c:135
+#: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
 msgstr "Bron impliceren (word beneden niet weergegeven)"
 
-#: objects/SADT/arrow.c:136
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr "Gestippelde pijl"
 
-#: objects/SADT/arrow.c:137
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr "pijlpunten uitzetten"
 
-#: objects/SADT/arrow.c:143
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
 msgstr "Stroom stijl:"
 
-#: objects/SADT/arrow.c:145
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
 msgstr "Verticale stromen automatisch grijs maken"
 
-#: objects/SADT/arrow.c:146
+#: objects/SADT/arrow.c:147
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
@@ -3980,23 +3841,29 @@ msgstr ""
 "Om de leesbaarheid te verbeteren, kunnen stromingen die verticaal beginnen "
 "en eindigen grijs worden gemaakt"
 
-#: objects/SADT/arrow.c:569
+#: objects/SADT/arrow.c:572
 msgid "SADT Arrow"
 msgstr "SADT Pijl"
 
-#: objects/SADT/box.c:143
+#: objects/SADT/box.c:137 objects/flowchart/box.c:150
+#: objects/flowchart/diamond.c:148 objects/flowchart/ellipse.c:147
+#: objects/flowchart/parallelogram.c:152
+msgid "Text padding"
+msgstr "Tekst opvulling"
+
+#: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Activiteit/Gegevens identificatie"
 
-#: objects/SADT/box.c:144
+#: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "De identificatie die verschijnt in de rechtsonderhoek van de rechthoek"
 
-#: objects/SADT/box.c:444 objects/standard/line.c:241
+#: objects/SADT/box.c:446 objects/standard/line.c:242
 msgid "Delete connection point"
 msgstr "Verwijder verbindingspunt"
 
-#: objects/SADT/box.c:449
+#: objects/SADT/box.c:451
 msgid "SADT box"
 msgstr "SADT vierkant"
 
@@ -4004,193 +3871,117 @@ msgstr "SADT vierkant"
 msgid "SADT diagram objects"
 msgstr "SADT diagram objecten"
 
-#: objects/standard/arc.c:130
-msgid "Curve distance"
-msgstr "Krommings afstand"
-
-#: objects/standard/bezier.c:540 objects/standard/beziergon.c:498
-msgid "Add Segment"
-msgstr "Segment toevoegen"
-
-#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
-msgid "Delete Segment"
-msgstr "Segment verwijderen"
-
-#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
-msgid "Symmetric control"
-msgstr "Symmetrie regeling"
-
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:503
-msgid "Smooth control"
-msgstr "Gladheids regeling"
-
-#: objects/standard/bezier.c:547 objects/standard/beziergon.c:505
-msgid "Cusp control"
-msgstr "Top regeling"
-
-#: objects/standard/image.c:129
-msgid "Image file"
-msgstr "Afbeelding"
-
-#: objects/standard/image.c:131
-msgid "Draw border"
-msgstr "Rand tekenen"
-
-#: objects/standard/image.c:133
-msgid "Keep aspect ratio"
-msgstr "Behoud aspect verhouding"
-
-#. Found file in same dir as diagram.
-#: objects/standard/image.c:667 objects/standard/image.c:678
-#, c-format
-msgid ""
-"The image file '%s' was not found in that directory.\n"
-"Using the file '%s' instead\n"
-msgstr ""
-"De afbeelding '%s' kon niet gevonden worden in dat pad.\n"
-"In plaats daarvan zal het bestand '%s' worden gebruikt\n"
-
-#. Didn't find file in current dir.
-#: objects/standard/image.c:684 objects/standard/image.c:710
-#, c-format
-msgid "The image file '%s' was not found.\n"
-msgstr "De afbeelding '%s' kon niet gevonden worden.\n"
-
-#: objects/standard/line.c:135
-msgid "Arrows"
-msgstr "Pijlen"
-
-#: objects/standard/line.c:140
-msgid "Start point"
-msgstr "Start punt"
-
-#: objects/standard/line.c:142
-msgid "End point"
-msgstr "Eind punt"
-
-#: objects/standard/polygon.c:458 objects/standard/polyline.c:494
-msgid "Add Corner"
-msgstr "Hoek toevoegen"
-
-#: objects/standard/polygon.c:459 objects/standard/polyline.c:495
-msgid "Delete Corner"
-msgstr "Hoek verwijderen"
-
-#: objects/standard/standard.c:45
-msgid "Standard objects"
-msgstr "Standaard objecten"
-
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:315
+#: objects/UML/activity.c:317
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: objects/UML/actor.c:347 objects/UML/actor.c:349 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:349 objects/UML/actor.c:351 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Acteur"
 
-#: objects/UML/association.c:1122 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2071
 msgid "Direction:"
 msgstr "Richting:"
 
-#: objects/UML/association.c:1139
+#: objects/UML/association.c:1142
 msgid "From A to B"
 msgstr "Van A naar B"
 
-#: objects/UML/association.c:1146
+#: objects/UML/association.c:1149
 msgid "From B to A"
 msgstr "Van B naar A"
 
-#: objects/UML/association.c:1170 objects/UML/association.c:1178
+#: objects/UML/association.c:1173 objects/UML/association.c:1181
 msgid "Side A"
 msgstr "Zijde A"
 
-#: objects/UML/association.c:1172 objects/UML/association.c:1180
+#: objects/UML/association.c:1175 objects/UML/association.c:1183
 msgid "Side B"
 msgstr "Zijde B"
 
-#: objects/UML/association.c:1186
+#: objects/UML/association.c:1189
 msgid "Role:"
 msgstr "Rol:"
 
-#: objects/UML/association.c:1198
+#: objects/UML/association.c:1201
 msgid "Multiplicity:"
 msgstr "Verscheidenheid:"
 
 #. Show arrow:
-#: objects/UML/association.c:1209
+#: objects/UML/association.c:1212
 msgid "Show arrow"
 msgstr "Pijl laten zien"
 
 #. Aggregate
-#: objects/UML/association.c:1215
+#: objects/UML/association.c:1218
 msgid "Aggregate"
 msgstr "Aggregraat"
 
 #. Composition
-#: objects/UML/association.c:1223
+#: objects/UML/association.c:1226
 msgid "Composition"
 msgstr "Compositie"
 
-#: objects/UML/class.c:107 objects/UML/classicon.c:131
-#: objects/UML/component.c:116 objects/UML/large_package.c:118
-#: objects/UML/object.c:143 objects/UML/small_package.c:116
+#: objects/UML/class.c:108 objects/UML/classicon.c:131
+#: objects/UML/component.c:117 objects/UML/large_package.c:119
+#: objects/UML/object.c:144 objects/UML/small_package.c:117
 msgid "Stereotype"
 msgstr "Stereotype"
 
-#: objects/UML/class.c:109 objects/UML/class_dialog.c:358
+#: objects/UML/class.c:110 objects/UML/class_dialog.c:359
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Opmerking"
 
-#: objects/UML/class.c:111 objects/UML/class_dialog.c:290
-#: objects/UML/class_dialog.c:343 objects/UML/class_dialog.c:1893
+#: objects/UML/class.c:112 objects/UML/class_dialog.c:291
+#: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
 msgid "Abstract"
 msgstr "Abstract"
 
-#: objects/UML/class.c:113 objects/UML/class_dialog.c:299
+#: objects/UML/class.c:114 objects/UML/class_dialog.c:300
 msgid "Suppress Attributes"
 msgstr "Attributen onderdrukken"
 
-#: objects/UML/class.c:115
+#: objects/UML/class.c:116
 msgid "Suppress Operations"
 msgstr "Bewerkingen onderdrukken"
 
-#: objects/UML/class.c:117
+#: objects/UML/class.c:118
 msgid "Visible Attributes"
 msgstr "Zichtbare attributen"
 
-#: objects/UML/class.c:119
+#: objects/UML/class.c:120
 msgid "Visible Operations"
 msgstr "Zichtbare bewerkingen"
 
-#: objects/UML/class.c:121
+#: objects/UML/class.c:122
 msgid "Visible Comments"
 msgstr "Zichtbare opmerkingen"
 
 #. Attributes page:
-#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
-#: objects/UML/object.c:147
+#: objects/UML/class.c:125 objects/UML/class_dialog.c:801
+#: objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Attributen"
 
 #. Operations page:
-#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+#: objects/UML/class.c:127 objects/UML/class_dialog.c:1725
 msgid "Operations"
 msgstr "Bewerkingen"
 
-#: objects/UML/class.c:129
+#: objects/UML/class.c:130
 msgid "Template"
 msgstr "Sjabloon"
 
 #. Class page:
-#: objects/UML/class.c:177 objects/UML/class.c:934
+#: objects/UML/class.c:178 objects/UML/class.c:936
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klasse"
 
-#: objects/UML/class.c:183
+#: objects/UML/class.c:184
 msgid "Show comments"
 msgstr "Laat opmerkingen zien"
 
@@ -4198,168 +3989,168 @@ msgstr "Laat opmerkingen zien"
 msgid "Class name:"
 msgstr "Klasse naam:"
 
-#: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
-#: objects/UML/dependency.c:129 objects/UML/generalization.c:125
-#: objects/UML/realizes.c:126
+#: objects/UML/class_dialog.c:273 objects/UML/class_dialog.c:1817
+#: objects/UML/dependency.c:130 objects/UML/generalization.c:126
+#: objects/UML/realizes.c:127
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
-#: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:902
+#: objects/UML/class_dialog.c:1935 objects/UML/class_dialog.c:2059
 msgid "Comment:"
 msgstr "Opmerking:"
 
-#: objects/UML/class_dialog.c:296
+#: objects/UML/class_dialog.c:297
 msgid "Attributes visible"
 msgstr "Attributen weergeven"
 
-#: objects/UML/class_dialog.c:305
+#: objects/UML/class_dialog.c:306
 msgid "Operations visible"
 msgstr "Bewerkingen zichtbaar"
 
-#: objects/UML/class_dialog.c:308
+#: objects/UML/class_dialog.c:309
 msgid "Suppress operations"
 msgstr "Bewerkingen onderdrukken"
 
-#: objects/UML/class_dialog.c:314
+#: objects/UML/class_dialog.c:315
 msgid "Comments visible"
 msgstr "Opmerkingen zichtbaar"
 
 #. head line
-#: objects/UML/class_dialog.c:324
+#: objects/UML/class_dialog.c:325
 msgid "Kind"
 msgstr "Soort"
 
-#: objects/UML/class_dialog.c:329
+#: objects/UML/class_dialog.c:330
 msgid "Size"
 msgstr "Formaat"
 
-#: objects/UML/class_dialog.c:338
+#: objects/UML/class_dialog.c:339
 msgid "Polymorphic"
 msgstr "Polymorf"
 
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:349
 msgid "Class Name"
 msgstr "Klasse naam"
 
-#: objects/UML/class_dialog.c:353
+#: objects/UML/class_dialog.c:354
 msgid "Abstract Class"
 msgstr "Abstracte klasse"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:370
+#: objects/UML/class_dialog.c:371
 msgid "Foreground Color"
 msgstr "Voorgrondkleur"
 
-#: objects/UML/class_dialog.c:378
+#: objects/UML/class_dialog.c:379
 msgid "Background Color"
 msgstr "Achtergrondkleur"
 
-#: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
-#: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
+#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1759
+#: objects/UML/class_dialog.c:1988 objects/UML/class_dialog.c:2506
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1764
-#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2511
+#: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
+#: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
 msgid "Move up"
 msgstr "Naar boven verplaatsen"
 
-#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1770
-#: objects/UML/class_dialog.c:2001 objects/UML/class_dialog.c:2517
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
 msgid "Move down"
 msgstr "Naar beneden verplaatsen"
 
-#: objects/UML/class_dialog.c:857
+#: objects/UML/class_dialog.c:858
 msgid "Attribute data"
 msgstr "Attribuut gegevens"
 
-#: objects/UML/class_dialog.c:889
+#: objects/UML/class_dialog.c:890
 msgid "Value:"
 msgstr "Waarde:"
 
-#: objects/UML/class_dialog.c:914 objects/UML/class_dialog.c:1829
+#: objects/UML/class_dialog.c:915 objects/UML/class_dialog.c:1830
 msgid "Visibility:"
 msgstr "Zichtbaarheid:"
 
-#: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
+#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1839
 msgid "Public"
 msgstr "Publiek"
 
-#: objects/UML/class_dialog.c:931 objects/UML/class_dialog.c:1846
+#: objects/UML/class_dialog.c:932 objects/UML/class_dialog.c:1847
 msgid "Private"
 msgstr "Prive"
 
-#: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
+#: objects/UML/class_dialog.c:940 objects/UML/class_dialog.c:1855
 msgid "Protected"
 msgstr "Beschermd"
 
-#: objects/UML/class_dialog.c:947 objects/UML/class_dialog.c:1862
+#: objects/UML/class_dialog.c:948 objects/UML/class_dialog.c:1863
 msgid "Implementation"
 msgstr "Implementatie"
 
-#: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
+#: objects/UML/class_dialog.c:964 objects/UML/class_dialog.c:1879
 msgid "Class scope"
 msgstr "Klasse bereik"
 
-#: objects/UML/class_dialog.c:1782
+#: objects/UML/class_dialog.c:1783
 msgid "Operation data"
 msgstr "Bewerking gegevens"
 
-#: objects/UML/class_dialog.c:1884
+#: objects/UML/class_dialog.c:1885
 msgid "Inheritance type:"
 msgstr "Overerving type:"
 
-#: objects/UML/class_dialog.c:1901
+#: objects/UML/class_dialog.c:1902
 msgid "Polymorphic (virtual)"
 msgstr "Polymorf (virtueel)"
 
-#: objects/UML/class_dialog.c:1909
+#: objects/UML/class_dialog.c:1910
 msgid "Leaf (final)"
 msgstr "Blad (definitief)"
 
-#: objects/UML/class_dialog.c:1927
+#: objects/UML/class_dialog.c:1928
 msgid "Query"
 msgstr "Query"
 
-#: objects/UML/class_dialog.c:1951
+#: objects/UML/class_dialog.c:1952
 msgid "Parameters:"
 msgstr "Parameters:"
 
-#: objects/UML/class_dialog.c:2013
+#: objects/UML/class_dialog.c:2014
 msgid "Parameter data"
 msgstr "Parameter gegevens"
 
-#: objects/UML/class_dialog.c:2046
+#: objects/UML/class_dialog.c:2047
 msgid "Def. value:"
 msgstr "Standaard waarde:"
 
-#: objects/UML/class_dialog.c:2079
+#: objects/UML/class_dialog.c:2080
 msgid "Undefined"
 msgstr "Ongedefinieerd"
 
-#: objects/UML/class_dialog.c:2087
+#: objects/UML/class_dialog.c:2088
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2096
+#: objects/UML/class_dialog.c:2097
 msgid "Out"
 msgstr "Uit"
 
-#: objects/UML/class_dialog.c:2105
+#: objects/UML/class_dialog.c:2106
 msgid "In & Out"
 msgstr "In & Uit"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2465
+#: objects/UML/class_dialog.c:2466
 msgid "Templates"
 msgstr "Sjablonen"
 
-#: objects/UML/class_dialog.c:2471 sheets/UML.sheet.in.h:25
+#: objects/UML/class_dialog.c:2472 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Sjabloon klasse"
 
-#: objects/UML/class_dialog.c:2528
+#: objects/UML/class_dialog.c:2529
 msgid "Formal parameter data"
 msgstr "Formele parameter gegevens"
 
@@ -4371,93 +4162,112 @@ msgstr "Grens"
 msgid "Is object"
 msgstr "Is een object"
 
-#: objects/UML/constraint.c:120
+#: objects/UML/component_feature.c:133 sheets/UML.sheet.in.h:14
+#, fuzzy
+msgid "Facet"
+msgstr "Aangrenzend"
+
+#: objects/UML/component_feature.c:134 sheets/UML.sheet.in.h:26
+#, fuzzy
+msgid "Receptacle"
+msgstr "Vervangen"
+
+#: objects/UML/component_feature.c:135 sheets/UML.sheet.in.h:13
+msgid "Event Source"
+msgstr ""
+
+#: objects/UML/component_feature.c:136 sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Event Sink"
+msgstr "Gebeurtenissen"
+
+#: objects/UML/constraint.c:121
 msgid "Constraint:"
 msgstr "Beperking:"
 
-#: objects/UML/dependency.c:131
+#: objects/UML/dependency.c:132
 msgid "Show arrow:"
 msgstr "Pijl zichtbaar:"
 
-#: objects/UML/implements.c:121
+#: objects/UML/implements.c:122
 msgid "Interface:"
 msgstr "Interface:"
 
-#: objects/UML/lifeline.c:137
+#: objects/UML/lifeline.c:138
 msgid "Draw focus of control:"
 msgstr "Geef focus van regelorgaan:"
 
-#: objects/UML/lifeline.c:139
+#: objects/UML/lifeline.c:140
 msgid "Draw destruction mark:"
 msgstr "Geef vernietigings merker weer:"
 
-#: objects/UML/lifeline.c:407
+#: objects/UML/lifeline.c:409
 msgid "Add connection points"
 msgstr "Verbindingspunten toevoegen"
 
-#: objects/UML/lifeline.c:408
+#: objects/UML/lifeline.c:410
 msgid "Remove connection points"
 msgstr "Verbindingspunten verwijderen"
 
-#: objects/UML/lifeline.c:412
+#: objects/UML/lifeline.c:414
 msgid "UML Lifeline"
 msgstr "UML Reddingslijn"
 
-#: objects/UML/message.c:130
+#: objects/UML/message.c:131
 msgid "Call"
 msgstr "Aanroepen"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:132
 msgid "Create"
 msgstr "Aanmaken"
 
-#: objects/UML/message.c:132
+#: objects/UML/message.c:133
 msgid "Destroy"
 msgstr "Vernietigen"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:134
 msgid "Simple"
 msgstr "Eenvoudig"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:135
 msgid "Return"
 msgstr "Terugkeren"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:136
 msgid "Send"
 msgstr "Verzenden"
 
-#: objects/UML/message.c:136
+#: objects/UML/message.c:137
 msgid "Recursive"
 msgstr "Recursief"
 
-#: objects/UML/message.c:143
+#: objects/UML/message.c:144
 msgid "Message:"
 msgstr "Bericht:"
 
-#: objects/UML/message.c:145
+#: objects/UML/message.c:146
 msgid "Message type:"
 msgstr "Bericht type:"
 
-#: objects/UML/object.c:145
+#: objects/UML/object.c:146
 msgid "Explicit state"
 msgstr "Expliciete status:"
 
-#: objects/UML/object.c:150
+#: objects/UML/object.c:151
 msgid "Active object"
 msgstr "Actief object"
 
-#: objects/UML/object.c:152
+#: objects/UML/object.c:153
 msgid "Show attributes"
 msgstr "Geef attributen weer"
 
-#: objects/UML/object.c:154
+#: objects/UML/object.c:155
 msgid "Multiple instance"
 msgstr "meerdere instanties"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:398
+#: objects/UML/state.c:400
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4467,21 +4277,245 @@ msgstr ""
 "Deze mogelijkheid zal verdwijnen in toekomstige versies.\n"
 "Gebruik in plaats daarvan het Initial/Final Status object.\n"
 
-#: objects/UML/state_term.c:121
+#: objects/UML/state_term.c:122
 msgid "Is final"
 msgstr "Is final"
 
-#: objects/UML/uml.c:63
+#: objects/UML/uml.c:64
 msgid "Unified Modelling Language diagram objects"
 msgstr "'Unified Modelling Language' diagram objecten"
 
-#: objects/UML/usecase.c:124
+#: objects/UML/usecase.c:125
 msgid "Text outside"
 msgstr "Tekst buiten"
 
-#: objects/UML/usecase.c:126
+#: objects/UML/usecase.c:127
 msgid "Collaboration"
 msgstr "Samenwerking"
+
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr "Gebonden grafiek objecten"
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Chronogram diagram objecten"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Gegevens"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "Gegeven naam"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "Gebeurtenis specificatie"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"@ tijd    zet de wijzer op een absolute tijd.\n"
+"( tijdsduur  zet het signaal omhoog, wacht daarna 'tijdsduur'.\n"
+") tijdsduur  zet het signaal omlaag, wacht daarna 'tijdsduur'.\n"
+"u tijdsduur  zet het signaal op \"onbekend\" status, wacht daarna "
+"'tijdsduur'.\n"
+"voorbeeld: @ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parameters"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Start tijd"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Stop tijd"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "Opkomst tijd"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "Afval tijd"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Gegevens bestaand uit meerdere bits"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Aspect"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Gegevenskleur"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "Gegevens lijn breedte"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Lijn kleur"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Tijd gegevens"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr "Grote tijd stap"
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr "Kleine tijd stap"
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr "Kleine stap lijn breedte"
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr "Aangepast"
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr "Aangepaste XML vormen lader"
+
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+msgid "Flip horizontal"
+msgstr "Horizontaal kantelen"
+
+#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+msgid "Flip vertical"
+msgstr "Verticaal kantelen"
+
+#: objects/custom/custom_object.c:1418
+msgid "Flip Horizontal"
+msgstr "Horizontaal Kantelen"
+
+#: objects/custom/custom_object.c:1419
+msgid "Flip Vertical"
+msgstr "Verticaal Kantelen"
+
+#: objects/custom/custom_object.c:1456
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Kan pictogram bestand %s voor object type '%s' niet openen."
+
+#: objects/flowchart/box.c:148 objects/standard/box.c:132
+msgid "Corner radius"
+msgstr "Hoek radius"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Stroomschema objecten"
+
+#: objects/flowchart/parallelogram.c:150
+msgid "Shear angle"
+msgstr "Scheer hoek"
+
+#: objects/network/bus.c:599
+msgid "Add Handle"
+msgstr "Aansluiting Toevoegen"
+
+#: objects/network/bus.c:600
+msgid "Delete Handle"
+msgstr "Aansluiting Verwijderen"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Netwerk diagram objecten"
+
+#: objects/standard/arc.c:131
+msgid "Curve distance"
+msgstr "Krommings afstand"
+
+#: objects/standard/bezier.c:542 objects/standard/beziergon.c:500
+msgid "Add Segment"
+msgstr "Segment toevoegen"
+
+#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
+msgid "Delete Segment"
+msgstr "Segment verwijderen"
+
+#: objects/standard/bezier.c:545 objects/standard/beziergon.c:503
+msgid "Symmetric control"
+msgstr "Symmetrie regeling"
+
+#: objects/standard/bezier.c:547 objects/standard/beziergon.c:505
+msgid "Smooth control"
+msgstr "Gladheids regeling"
+
+#: objects/standard/bezier.c:549 objects/standard/beziergon.c:507
+msgid "Cusp control"
+msgstr "Top regeling"
+
+#: objects/standard/image.c:130
+msgid "Image file"
+msgstr "Afbeelding"
+
+#: objects/standard/image.c:132
+msgid "Draw border"
+msgstr "Rand tekenen"
+
+#: objects/standard/image.c:134
+msgid "Keep aspect ratio"
+msgstr "Behoud aspect verhouding"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:669 objects/standard/image.c:680
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"De afbeelding '%s' kon niet gevonden worden in dat pad.\n"
+"In plaats daarvan zal het bestand '%s' worden gebruikt\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:686 objects/standard/image.c:712
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "De afbeelding '%s' kon niet gevonden worden.\n"
+
+#: objects/standard/line.c:136
+msgid "Arrows"
+msgstr "Pijlen"
+
+#: objects/standard/line.c:141
+msgid "Start point"
+msgstr "Start punt"
+
+#: objects/standard/line.c:143
+msgid "End point"
+msgstr "Eind punt"
+
+#: objects/standard/polygon.c:460 objects/standard/polyline.c:496
+msgid "Add Corner"
+msgstr "Hoek toevoegen"
+
+#: objects/standard/polygon.c:461 objects/standard/polyline.c:497
+msgid "Delete Corner"
+msgstr "Hoek verwijderen"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Standaard objecten"
 
 #: plug-ins/cgm/cgm.c:1109
 msgid ""
@@ -4498,10 +4532,6 @@ msgstr "Computer Graphics Metafile"
 #: plug-ins/cgm/cgm.c:1379
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
-
-#: plug-ins/dxf/dxf.c:37
-msgid "Drawing Interchange File import and export filters"
-msgstr "Drawing Interchange File import en export filters"
 
 #: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
@@ -4524,6 +4554,10 @@ msgstr "read_dxf_codes mislukt\n"
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Onbekende dxf code %d\n"
+
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Drawing Interchange File import en export filters"
 
 #: plug-ins/hpgl/hpgl.c:772
 msgid "HP Graphics Language"
@@ -4577,10 +4611,6 @@ msgstr "Kon '%s' niet openen voor schrijven.\n"
 msgid "Python scripting support"
 msgstr "Python scripting ondersteuning"
 
-#: plug-ins/shape/shape.c:36
-msgid "dia shape export filter"
-msgstr "dia vorm export filter"
-
 #: plug-ins/shape/shape-export.c:471
 msgid "Can't export png without libart!"
 msgstr "Kan png niet exporteren zonder libart!"
@@ -4589,13 +4619,13 @@ msgstr "Kan png niet exporteren zonder libart!"
 msgid "dia shape file"
 msgstr "dia vorm bestand"
 
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "dia vorm export filter"
+
 #: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
-
-#: plug-ins/svg/svg.c:37
-msgid "Scalable Vector Graphics import and export filters"
-msgstr "Scalable Vector Graphics import en export filters"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
 #: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
@@ -4623,6 +4653,10 @@ msgstr "Kan SVG namespace niet vinden."
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "hoofdelement was '%s' -- verwacht 'svg'."
 
+#: plug-ins/svg/svg.c:37
+msgid "Scalable Vector Graphics import and export filters"
+msgstr "Scalable Vector Graphics import en export filters"
+
 #: plug-ins/wmf/wmf.cpp:1089
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
@@ -4643,10 +4677,6 @@ msgstr "WPG"
 #: plug-ins/wpg/wpg.c:1332
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics export filter"
-
-#: plug-ins/xfig/xfig.c:39
-msgid "Fig Format import and export filter"
-msgstr "Fig Format import en export filter"
 
 #: plug-ins/xfig/xfig-export.c:428
 msgid "Arrow type none -- shouldn't happen\n"
@@ -4842,6 +4872,10 @@ msgstr "Dit is een FIG versie %d.%d bestand, ik begrijp het misschien niet\n"
 #: plug-ins/xfig/xfig-import.c:1558
 msgid "XFig File Format"
 msgstr "XFig bestandsformaat"
+
+#: plug-ins/xfig/xfig.c:39
+msgid "Fig Format import and export filter"
+msgstr "Fig Format import en export filter"
 
 #: plug-ins/xslt/xslt.c:93
 #, c-format
@@ -5058,22 +5092,6 @@ msgstr "Omhoog-omlaag-links pijl"
 msgid "Vertical parallelogram"
 msgstr "Verticaal paralellogram"
 
-#: sheets/chronogram.sheet.in.h:1
-msgid "Chronogram"
-msgstr "Chronogram"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "Data line"
-msgstr "Gegevenslijn"
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Objects to design chronogram charts"
-msgstr "Objekten voor het ontwerp van chronogrammen"
-
-#: sheets/chronogram.sheet.in.h:4
-msgid "Time scale"
-msgstr "Tijdsschaal"
-
 #: sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
 msgstr "Circuit"
@@ -5134,7 +5152,7 @@ msgstr "Horizontaal uitgelijnde Zener-diode"
 msgid "Lamp"
 msgstr "Lamp"
 
-#: sheets/Circuit.sheet.in.h:16
+#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
 msgid "Microphone"
 msgstr "Microfoon"
 
@@ -5158,7 +5176,7 @@ msgstr "PMOS transistor"
 msgid "PNP bipolar transistor"
 msgstr "Bi-polaire NPN transistor"
 
-#: sheets/Circuit.sheet.in.h:22
+#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
 msgstr "Luidspreker"
 
@@ -5201,6 +5219,1656 @@ msgstr "Vertikaal uitgelijnde weerstand (Europees)"
 #: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned zener diode"
 msgstr "Vertikaal uitgelijnde Zener-diode"
+
+#: sheets/Contact.sheet.in.h:1
+msgid "'if not' (normally closed) ladder contact"
+msgstr "'als niet' (normaal gesloten) ladder contact"
+
+#: sheets/Contact.sheet.in.h:2
+msgid "'if' (normally open) ladder contact"
+msgstr "'als' (normaal open) ladder contact"
+
+#: sheets/Contact.sheet.in.h:3
+msgid "'jump' output variable"
+msgstr "'jump' uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:4
+msgid "'reset' output variable"
+msgstr "'reset' uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:5
+msgid "'set' output variable"
+msgstr "'set' uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:6
+msgid "Components for LADDER circuits"
+msgstr "Componenten voor LADDER circuits"
+
+#: sheets/Contact.sheet.in.h:7
+msgid "Ladder"
+msgstr "Ladder"
+
+#: sheets/Contact.sheet.in.h:8
+msgid "Negative output variable"
+msgstr "Negatieve uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:9
+msgid "Power-saved 'reset' output variable"
+msgstr "Energie-besparende 'reset' uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:10
+msgid "Power-saved 'set' output variable"
+msgstr "Energie-besparende 'set' uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:11
+msgid "Power-saved negative output variable"
+msgstr "Energie-besparende negatieve uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:12
+msgid "Power-saved simple output variable"
+msgstr "Energie-besparende eenvoudige uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Receptivity output variable"
+msgstr "Ontvankelijke uitvoer variabele"
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Simple output variable"
+msgstr "Eenvoudige variabele"
+
+#: sheets/EML.sheet.in.h:1
+msgid "EML"
+msgstr "EML"
+
+#: sheets/EML.sheet.in.h:2
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Bewerker voor EML statische structuur diagrammen."
+
+#: sheets/EML.sheet.in.h:3
+msgid "Instantiation. One process create others"
+msgstr "Instantiatie. Eén proces maakt andere aan"
+
+#: sheets/EML.sheet.in.h:4
+msgid "Interaction between processes."
+msgstr "Interactie tussen processen."
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr "ER"
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Objekten voor het ontwerp van entiteit/relatie diagrammen"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Deelname"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak entity"
+msgstr "Zwakke entiteit"
+
+#: sheets/Electric.sheet.in.h:1
+msgid "Command organ of a relay"
+msgstr "Besturingsorgaan van een relais"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "Components for electric circuits"
+msgstr "Componenten voor het ontwerp van stroomkringen"
+
+#: sheets/Electric.sheet.in.h:3
+msgid "Connection point"
+msgstr "Verbindingspunt"
+
+#: sheets/Electric.sheet.in.h:4
+msgid "Electric"
+msgstr "Electriciteit"
+
+#: sheets/Electric.sheet.in.h:5
+msgid "Lamp or indicator light"
+msgstr "Lamp of lichtindikator"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "Normally closed contact"
+msgstr "Normalerwijs gesloten contact"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "Normally closed position switch"
+msgstr "Normalerwijs gesloten schakelaar"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Normally open contact"
+msgstr "Normalerwijs open contact"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Normally open position switch"
+msgstr "Normalerwijs open shakelaar"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "Relay"
+msgstr "Omleiding"
+
+#: sheets/FS.sheet.in.h:1
+msgid "Editor for Function Structure Diagrams."
+msgstr "Bewerker voor functie structuur diagrammen."
+
+#: sheets/FS.sheet.in.h:2
+msgid "FS"
+msgstr "FS"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Flow"
+msgstr "Stroom"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Function"
+msgstr "Functie"
+
+#: sheets/FS.sheet.in.h:5
+msgid "Orthogonal polyline flow"
+msgstr "Orthogonale polylijn stroming"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "Collate"
+msgstr "Vergelijk"
+
+#: sheets/Flowchart.sheet.in.h:2
+#, fuzzy
+msgid "Connector"
+msgstr "Verbinden"
+
+#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Besluit"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "Delay"
+msgstr "Vertraging"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Document"
+msgstr "Document"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Flowchart"
+msgstr "Stroomdiagrammen"
+
+#: sheets/Flowchart.sheet.in.h:9
+msgid "Input/Output"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Internal storage"
+msgstr "Interne opslag"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Magnetic disk"
+msgstr "Magnetische schijf"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic drum"
+msgstr "Magnetische trommel"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic tape"
+msgstr "Magnetische band"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Manual input"
+msgstr "Handmatige invoer"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual operation"
+msgstr "Handmatige werking"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Merge"
+msgstr "Vereniging"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Objects to draw flowcharts"
+msgstr "Objekten voor het ontwerp van stroomdiagrammen"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Off page connector"
+msgstr "Pagina-einde verbinding"
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Offline storage"
+msgstr "Offline opslag"
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Or"
+msgstr "Of"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Predefined process"
+msgstr "Vooraf gedefinieerd proces"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Preparation"
+msgstr "Voorbereiding"
+
+#: sheets/Flowchart.sheet.in.h:23
+#, fuzzy
+msgid "Process/Auxiliary Operation"
+msgstr "Bewerkingen onderdrukken"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched card"
+msgstr "Ponskaart"
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched tape"
+msgstr "Ponsband"
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Sorteren"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing junction"
+msgstr "Verenigingsverbinding"
+
+#: sheets/Flowchart.sheet.in.h:28
+#, fuzzy
+msgid "Terminal Interrupt"
+msgstr "Onderbreken"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction file"
+msgstr "Transactie bestand"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal tape"
+msgstr "Transmissieband"
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "AND vergent"
+msgstr "AND begrenzing"
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "Action to associate to a step"
+msgstr "Actie om een stap te associëren"
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "Arc (upward)"
+msgstr "Boog (opwaards)"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "Condition (of an action)"
+msgstr "Voorwaarde (van een actie)"
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "GRAFCET"
+msgstr "GRAFCET"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "Macro sub-program call step"
+msgstr "Macro sub-programma aanroep stap"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "OR vergent"
+msgstr "OR begrenzing"
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "Objects to design GRAFCET charts"
+msgstr "Objekten voor het ontwerp van GRAFCET diagrammen"
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Transition"
+msgstr "Transitie"
+
+#: sheets/Logic.sheet.in.h:1
+msgid "AND gate"
+msgstr "AND poort"
+
+#: sheets/Logic.sheet.in.h:2
+msgid "Boolean Logic"
+msgstr "Booleaanse logica"
+
+#: sheets/Logic.sheet.in.h:3
+msgid "Crossconnector"
+msgstr "Kruisverbinding"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "Inverter"
+msgstr "Inverteren"
+
+#: sheets/Logic.sheet.in.h:5
+msgid "Logic"
+msgstr "Logica"
+
+#: sheets/Logic.sheet.in.h:6
+msgid "NAND gate"
+msgstr "NAND poort"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "NOR gate"
+msgstr "NOR poort"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "NOT"
+msgstr "NOT"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "OR gate"
+msgstr "OR poort"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Simple buffer"
+msgstr "Eenvoudige buffer"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "XOR gate"
+msgstr "XOR poort"
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr "Demultiplexer"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large extension node"
+msgstr "Grote uitbreiding geleding"
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr "MSE"
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr "Multiplexer"
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node center"
+msgstr "Geleding centrum"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small extension node"
+msgstr "Kleine uitbreiding geleding"
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical satellite communications terminal"
+msgstr "Tactische Satelliet Communicatie Terminal"
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr "V.S. Militair Mobiel Abonnee Uitrusting Stukken"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "Folder"
+msgstr "Map"
+
+#: sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr "Allerlei"
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr "Allerlei vormen"
+
+#: sheets/Misc.sheet.in.h:5
+msgid "Traditional clock"
+msgstr "Traditionele klok"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "2/2 distributor"
+msgstr "2/2 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "3/2 distributor"
+msgstr "3/2 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "3/3 distributor"
+msgstr "3/3 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "4/2 distributor"
+msgstr "4/2 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "5/2 distributor"
+msgstr "5/2 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "5/3 distributor"
+msgstr "5/3 verdeler"
+
+#: sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "Verbindingspunt"
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "Air exhaust orifice"
+msgstr "Luchtafvoer opening"
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Componenten voor pneumatische en hydraulische circuits"
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "Double-effect jack"
+msgstr "Dubbel-effect jack"
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "Electric command (double coil)"
+msgstr "Electrisch commando (dubbele spoel)"
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "Electric command (single coil)"
+msgstr "Electrisch commando (enkele spoel)"
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "Generic pressure source"
+msgstr "Algemene krachtbron"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "Hydraulic pressure source"
+msgstr "Hydraulische krachtbron"
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Indirect command by hydraulic driver"
+msgstr "Indirect commando door hydraulische bestuurder"
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Indirect command by pneumatic driver"
+msgstr "Indirect commando door pneumatische bestuurder"
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Mechanical command by spring"
+msgstr "Mechanisch commando door een veer"
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Mechanical command by tappet"
+msgstr "Mechanisch commando door tikken"
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Muscular command"
+msgstr "Muscular command"
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Normally-in simple-effect jack"
+msgstr "Normaal-in eenvoudig-effect jack"
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Normally-out simple-effect jack"
+msgstr "Normaal-uit eenvoudig-effect jack"
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Pneumatic pressure source"
+msgstr "Pneumatische krachtbron"
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr "Pneumatisch/hydraulisch"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr "Drukknop commando"
+
+#: sheets/SADT.sheet.in.h:1
+msgid "Activity/data box"
+msgstr "Activiteit/gegevens vak"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "Activity/data flow arrow"
+msgstr "Activiteit/gegevensstroom pijl"
+
+#: sheets/SADT.sheet.in.h:3
+msgid "Flow label"
+msgstr "Stroom label"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr "Objekten voor het ontwerp van SADT diagrammen"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr "SADT/IDEF0"
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr "Actie wordt uitgevoerd"
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block type reference"
+msgstr "Blok type referentie"
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function call"
+msgstr "Functie aanroep"
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function header"
+msgstr "Functiehoofd"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic text note"
+msgstr "Algemene tekst notitie"
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out connector"
+msgstr "In/uit connector"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure return"
+msgstr "Procedure teruggave"
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process type reference"
+msgstr "Proces type referentie"
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr "Ontvang bericht"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr "SDL"
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save state"
+msgstr "Status opslaan"
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr "Stuur bericht"
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service type reference"
+msgstr "Service type referentie"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr "Specification and Description Language."
+
+#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:28
+msgid "State"
+msgstr "Status"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Activity"
+msgstr "Activiteit"
+
+#: sheets/UML.sheet.in.h:3
+msgid "Aggregation, one class is part of another"
+msgstr "Aggregatie, één klasse is deel van een andere"
+
+#: sheets/UML.sheet.in.h:4
+msgid "Association, two classes are associated"
+msgstr "Associatie, twee klassen zijn geassocieerd"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Class stereotype icon"
+msgstr "Klasse stereotype pictogram"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Component"
+msgstr "Component"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Constraint, place a constraint on something"
+msgstr "Beperking, plaats ergens een beperking op"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr "Afhankelijkheid"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Bewerker voor UML Static Structure Diagrammen"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Fork/union"
+msgstr "Fork/union"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Generalization, class inheritance"
+msgstr "Generalisatie, klasse overerving"
+
+#: sheets/UML.sheet.in.h:17
+msgid "Implements, class implements a specific interface"
+msgstr "Implementeert, klasse implementeert een bepaalde interface"
+
+#: sheets/UML.sheet.in.h:18
+msgid "Initial/end state"
+msgstr "Initiële/eind status"
+
+#: sheets/UML.sheet.in.h:19
+msgid "Large package"
+msgstr "Groot pakket"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Lifeline"
+msgstr "Levenslijn"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Message"
+msgstr "Bericht"
+
+#: sheets/UML.sheet.in.h:22
+msgid "Node"
+msgstr "Knooppunt"
+
+#: sheets/UML.sheet.in.h:23
+msgid "Note"
+msgstr "Melding"
+
+#: sheets/UML.sheet.in.h:25
+msgid "Realizes, implements a specific interface"
+msgstr "Realiseert, implementeert een bepaalde interface"
+
+#: sheets/UML.sheet.in.h:27
+msgid "Small package"
+msgstr "Klein pakket"
+
+#: sheets/UML.sheet.in.h:30
+msgid "UML"
+msgstr "UML"
+
+#: sheets/UML.sheet.in.h:31
+msgid "Use case"
+msgstr "Use case"
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "Chronogram"
+msgstr "Chronogram"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "Data line"
+msgstr "Gegevenslijn"
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Objects to design chronogram charts"
+msgstr "Objekten voor het ontwerp van chronogrammen"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Time scale"
+msgstr "Tijdsschaal"
+
+#: sheets/ciscocomputer.sheet.in.h:1
+#, fuzzy
+msgid "Cisco - Computer"
+msgstr "Computer"
+
+#: sheets/ciscocomputer.sheet.in.h:2
+msgid "Cisco CA"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:3
+#, fuzzy
+msgid "CiscoSecurity"
+msgstr "Verbinding verbreken"
+
+#: sheets/ciscocomputer.sheet.in.h:4
+#, fuzzy
+msgid "CiscoWorks workstation"
+msgstr "UNIX werkstation"
+
+#: sheets/ciscocomputer.sheet.in.h:5
+#, fuzzy
+msgid "Communications server"
+msgstr "Functiehoofd"
+
+#: sheets/ciscocomputer.sheet.in.h:6
+msgid "Computer shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:7
+msgid "Directory Server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:8
+#, fuzzy
+msgid "File Server"
+msgstr "/Bestand/_Opslaan"
+
+#: sheets/ciscocomputer.sheet.in.h:9
+msgid "HP Mini"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:10
+#, fuzzy
+msgid "Handheld"
+msgstr "Hand"
+
+#: sheets/ciscocomputer.sheet.in.h:11
+msgid "Host"
+msgstr "Host"
+
+#: sheets/ciscocomputer.sheet.in.h:12
+msgid "IBM Mini (AS400)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:13
+msgid "IBM Tower"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:14
+msgid "IBM mainframe"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:15
+msgid "IP Softphone"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:16
+msgid "IPTV broadcast server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:17
+#, fuzzy
+msgid "Laptop"
+msgstr "Laptop PC"
+
+#: sheets/ciscocomputer.sheet.in.h:18
+#, fuzzy
+msgid "Macintosh"
+msgstr "Marges"
+
+#: sheets/ciscocomputer.sheet.in.h:19
+msgid "MicroWebserver"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:20
+msgid "Mini VAX"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:21
+msgid "MoH server (Music on Hold)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:22
+msgid "PC"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:23
+msgid "PC Video"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:24
+msgid "PDA"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:26
+#, fuzzy
+msgid "Relational Database"
+msgstr "Bewerking gegevens"
+
+#: sheets/ciscocomputer.sheet.in.h:27
+msgid "SC2200/VSC3000 host"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:28
+msgid "SIP Proxy server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:29
+msgid "STB (set top box)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:30
+#, fuzzy
+msgid "SUN workstation"
+msgstr "UNIX werkstation"
+
+#: sheets/ciscocomputer.sheet.in.h:31
+#, fuzzy
+msgid "Scanner"
+msgstr "Verspreiden"
+
+#: sheets/ciscocomputer.sheet.in.h:32
+#, fuzzy
+msgid "Server with PC Router"
+msgstr "Luidspreker zonder versterker"
+
+#: sheets/ciscocomputer.sheet.in.h:33
+#, fuzzy
+msgid "Softphone"
+msgstr "Microfoon"
+
+#: sheets/ciscocomputer.sheet.in.h:34
+#, fuzzy
+msgid "Software based server"
+msgstr "Sybase dataserver"
+
+#: sheets/ciscocomputer.sheet.in.h:35
+#, fuzzy
+msgid "Storage array"
+msgstr "Opslag"
+
+#: sheets/ciscocomputer.sheet.in.h:36
+#, fuzzy
+msgid "Supercomputer"
+msgstr "Computer"
+
+#: sheets/ciscocomputer.sheet.in.h:37
+msgid "TV"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:38
+msgid "Terminal"
+msgstr "Terminal"
+
+#: sheets/ciscocomputer.sheet.in.h:39
+#, fuzzy
+msgid "Turret"
+msgstr "Stroom"
+
+#: sheets/ciscocomputer.sheet.in.h:40
+msgid "Unity server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:41
+msgid "Voice commserver"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:42
+msgid "WWW server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:43
+msgid "Web browser"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:44
+msgid "Web cluster"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:45
+msgid "Wireless"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:46
+msgid "Workgroup director"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:47
+#, fuzzy
+msgid "Workstation"
+msgstr "UNIX werkstation"
+
+#: sheets/ciscohub.sheet.in.h:1
+msgid "100BaseT hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:2
+msgid "ATM fast gigabit etherswitch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:3
+#, fuzzy
+msgid "ATM switch"
+msgstr "ATM switch symbool"
+
+#: sheets/ciscohub.sheet.in.h:4
+msgid "Cisco - Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:5
+msgid "Cisco hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:6
+msgid "Class 4/5 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:7
+msgid "Content service switch 1100"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:8
+msgid "Content switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:9
+msgid "Content switch module"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:10
+msgid "Generic softswitch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:11
+msgid "Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:12
+msgid "Hub and switch shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:13
+#, fuzzy
+msgid "ISDN switch"
+msgstr "Schakelen"
+
+#: sheets/ciscohub.sheet.in.h:14
+#, fuzzy
+msgid "Layer 3 switch"
+msgstr "Lagen"
+
+#: sheets/ciscohub.sheet.in.h:15
+msgid "MGX 8220 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:16
+msgid "MGX 8240 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:17
+msgid "MGX 8260 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:18
+msgid "MultiSwitch device"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:19
+#, fuzzy
+msgid "Multilayer switch"
+msgstr "meerdere instanties"
+
+#: sheets/ciscohub.sheet.in.h:20
+#, fuzzy
+msgid "PBX switch"
+msgstr "Schakelen"
+
+#: sheets/ciscohub.sheet.in.h:21
+#, fuzzy
+msgid "Programmable switch"
+msgstr "Geprogrammeerd Object"
+
+#: sheets/ciscohub.sheet.in.h:22
+msgid "Route switch processor"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:23
+msgid "Small hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:24
+#, fuzzy
+msgid "Voice ATM switch"
+msgstr "ATM switch symbool"
+
+#: sheets/ciscohub.sheet.in.h:25
+#, fuzzy
+msgid "Voice switch"
+msgstr "Lijn breedte"
+
+#: sheets/ciscohub.sheet.in.h:26
+msgid "Voice switch 2"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:27
+msgid "Workgroup switch"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:1
+msgid "BBFW"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:2
+msgid "BBFW media"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:3
+#, fuzzy
+msgid "Branch office"
+msgstr "Vertakken"
+
+#: sheets/ciscomisc.sheet.in.h:4
+msgid "Breakout box"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:5
+#, fuzzy
+msgid "Car"
+msgstr "Wissen"
+
+#: sheets/ciscomisc.sheet.in.h:6
+#, fuzzy
+msgid "Cellular phone"
+msgstr "Telefoon"
+
+#: sheets/ciscomisc.sheet.in.h:7
+msgid "Cisco - Misc"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:8
+#, fuzzy
+msgid "Diskette"
+msgstr "Distribueren"
+
+#: sheets/ciscomisc.sheet.in.h:9
+#, fuzzy
+msgid "Dot-Dot"
+msgstr "Streep-Stippel-Stippel"
+
+#: sheets/ciscomisc.sheet.in.h:10
+#, fuzzy
+msgid "End office"
+msgstr "Stop tijd"
+
+#: sheets/ciscomisc.sheet.in.h:11
+msgid "Fax"
+msgstr "Fax"
+
+#: sheets/ciscomisc.sheet.in.h:12
+#, fuzzy
+msgid "File cabinet"
+msgstr "Bestandnaam"
+
+#: sheets/ciscomisc.sheet.in.h:13
+msgid "Generic building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:14
+msgid "Government building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:15
+msgid "H.323"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:16
+msgid "HootPhone"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:17
+#, fuzzy
+msgid "IP phone"
+msgstr "Mobiele telefoon"
+
+#: sheets/ciscomisc.sheet.in.h:18
+msgid "ITP"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:19
+#, fuzzy
+msgid "Key"
+msgstr "Sleutel:"
+
+#: sheets/ciscomisc.sheet.in.h:20
+msgid "LAN to LAN"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:22
+msgid "MAU"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:23
+msgid "MDU"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:24
+msgid "Mac woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:25
+msgid "Man/Woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:27
+#, fuzzy
+msgid "Miscellaneous shapes by Cisco"
+msgstr "Allerlei vormen"
+
+#: sheets/ciscomisc.sheet.in.h:28
+msgid "PC man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:29
+msgid "Phone"
+msgstr "Telefoon"
+
+#: sheets/ciscomisc.sheet.in.h:30
+msgid "Phone/Fax"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:31
+msgid "RPS"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:32
+#, fuzzy
+msgid "Radio tower"
+msgstr "Radiogolven"
+
+#: sheets/ciscomisc.sheet.in.h:33
+msgid "Running man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:34
+msgid "SVX (interchangeable with End office)"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:35
+#, fuzzy
+msgid "Satellite"
+msgstr "Verspreiden"
+
+#: sheets/ciscomisc.sheet.in.h:36
+msgid "Satellite dish"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:37
+msgid "Sitting woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:38
+msgid "Small business"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:40
+msgid "Standing man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:41
+#, fuzzy
+msgid "Tablet"
+msgstr "Aanzetten"
+
+#: sheets/ciscomisc.sheet.in.h:42
+#, fuzzy
+msgid "Telecommuter"
+msgstr "Computer"
+
+#: sheets/ciscomisc.sheet.in.h:43
+msgid "Telecommuter house"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:44
+msgid "Telecommuter house/router"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:45
+msgid "TokenRing"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:46
+msgid "Truck"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:47
+msgid "UPS"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:48
+#, fuzzy
+msgid "University"
+msgstr "Inverteren"
+
+#: sheets/ciscomisc.sheet.in.h:49
+msgid "Video camera"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:50
+msgid "Wireless transport"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:1
+msgid "10700"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:2
+msgid "15200"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:3
+msgid "3174 (desktop) cluster controller"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:4
+msgid "3X74 (floor) cluster controller"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:5
+msgid "6701"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:6
+msgid "6705 Integrated access device"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:7
+msgid "6732 Multiservice access platform"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:8
+#, fuzzy
+msgid "ADM"
+msgstr "EN"
+
+#: sheets/cisconetwork.sheet.in.h:9
+msgid "ASIC processor"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:10
+msgid "ATA"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:11
+msgid "ATM 3800"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:12
+msgid "AccessPoint"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:13
+msgid "BBSM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:14
+msgid "BTS 10200"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:15
+#, fuzzy
+msgid "Bridge"
+msgstr "Voorzien van"
+
+#: sheets/cisconetwork.sheet.in.h:16
+msgid "CDDI-FDDI"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:17
+msgid "CDM Content distribution manager"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:18
+msgid "CSU/DSU"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:19
+#, fuzzy
+msgid "Cable modem"
+msgstr "Eenvoudige modem"
+
+#: sheets/cisconetwork.sheet.in.h:20
+#, fuzzy
+msgid "CallManager"
+msgstr "Berekenen"
+
+#: sheets/cisconetwork.sheet.in.h:21
+msgid "Catalyst access gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:22
+msgid "Centri firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:23
+#, fuzzy
+msgid "Cisco - Network"
+msgstr "Netwerk"
+
+#: sheets/cisconetwork.sheet.in.h:24
+#, fuzzy
+msgid "Cloud"
+msgstr "Kleur:"
+
+#: sheets/cisconetwork.sheet.in.h:25
+#, fuzzy
+msgid "Content engine (Cache director)"
+msgstr "Kan hulp map niet vinden"
+
+#: sheets/cisconetwork.sheet.in.h:26
+msgid "Content transformation engine (CTE)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:27
+msgid "DPT"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:28
+msgid "DSLAM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:29
+#, fuzzy
+msgid "DWDM filter"
+msgstr "WMF export filter"
+
+#: sheets/cisconetwork.sheet.in.h:30
+#, fuzzy
+msgid "Distributed director"
+msgstr "Distribueren"
+
+#: sheets/cisconetwork.sheet.in.h:31
+#, fuzzy
+msgid "FC storage"
+msgstr "Opslag"
+
+#: sheets/cisconetwork.sheet.in.h:32
+msgid "FDDI ring"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:33
+#, fuzzy
+msgid "Firewall"
+msgstr "Firewall router"
+
+#: sheets/cisconetwork.sheet.in.h:34
+#, fuzzy
+msgid "Front end processor"
+msgstr "Vooraf gedefinieerd proces"
+
+#: sheets/cisconetwork.sheet.in.h:35
+msgid "General appliance"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:36
+#, fuzzy
+msgid "Generic gateway"
+msgstr "Algemene tekst notitie"
+
+#: sheets/cisconetwork.sheet.in.h:37
+#, fuzzy
+msgid "Generic processor"
+msgstr "Algemene krachtbron"
+
+#: sheets/cisconetwork.sheet.in.h:38
+msgid "ICM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:39
+msgid "ICS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:40
+#, fuzzy
+msgid "IOS firewall"
+msgstr "Is final"
+
+#: sheets/cisconetwork.sheet.in.h:41
+msgid "IP"
+msgstr "IP"
+
+#: sheets/cisconetwork.sheet.in.h:42
+msgid "IP DSL"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:43
+msgid "IPTC"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:44
+msgid "IPTV content manager"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:45
+#, fuzzy
+msgid "LocalDirector"
+msgstr "Richting"
+
+#: sheets/cisconetwork.sheet.in.h:46
+msgid "LongReach CPE"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:47
+#, fuzzy
+msgid "MAS gateway"
+msgstr "AND poort"
+
+#: sheets/cisconetwork.sheet.in.h:48
+msgid "ME 1100"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:49
+msgid "MUX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:50
+msgid "Metro 1500"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:51
+#, fuzzy
+msgid "Modem"
+msgstr "Knooppunt"
+
+#: sheets/cisconetwork.sheet.in.h:52
+msgid "NetRanger intrusion detection system"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:53
+msgid "NetSonar security scanner"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:54
+#, fuzzy
+msgid "Network management"
+msgstr "Netwerk diagram objecten"
+
+#: sheets/cisconetwork.sheet.in.h:55
+msgid "Network shapes by Cisco"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:56
+msgid "ONS15500 DWDM platform"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:57
+msgid "Octel"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:58
+#, fuzzy
+msgid "Optical amplifier"
+msgstr "Operationele versterker"
+
+#: sheets/cisconetwork.sheet.in.h:59
+#, fuzzy
+msgid "Optical transport"
+msgstr "Optische energie"
+
+#: sheets/cisconetwork.sheet.in.h:60
+#, fuzzy
+msgid "PAD"
+msgstr "EN"
+
+#: sheets/cisconetwork.sheet.in.h:61
+msgid "PAD X.28"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:62
+msgid "PBX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:63
+msgid "PC adapter card"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:64
+#, fuzzy
+msgid "PC router card"
+msgstr "Ponskaart"
+
+#: sheets/cisconetwork.sheet.in.h:65
+#, fuzzy
+msgid "PIX firewall"
+msgstr "Is final"
+
+#: sheets/cisconetwork.sheet.in.h:66
+msgid "PXF"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:67
+msgid "Protocol translator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:68
+#, fuzzy
+msgid "RateMUX"
+msgstr "Roteren"
+
+#: sheets/cisconetwork.sheet.in.h:69
+#, fuzzy
+msgid "Repeater"
+msgstr "Luidspreker"
+
+#: sheets/cisconetwork.sheet.in.h:70
+msgid "SC2200 (Signalling controller)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:71
+msgid "STP"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:72
+#, fuzzy
+msgid "System controller"
+msgstr "Symmetrie regeling"
+
+#: sheets/cisconetwork.sheet.in.h:73
+#, fuzzy
+msgid "Transpath"
+msgstr "Transporteren"
+
+#: sheets/cisconetwork.sheet.in.h:74
+msgid "Universal gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:75
+msgid "VIP"
+msgstr "VIP"
+
+#: sheets/cisconetwork.sheet.in.h:76
+msgid "VPN concentrator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:77
+#, fuzzy
+msgid "VPN gateway"
+msgstr "NOR poort"
+
+#: sheets/cisconetwork.sheet.in.h:78
+msgid "Virtual switch controller (VSC 3000)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:79
+msgid "Wireless bridge"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:1
+msgid "7500ARS (7513)"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:2
+msgid "7505"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:3
+msgid "7507"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:4
+msgid "ATM router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:5
+msgid "ATM tag sw gigabit router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:6
+#, fuzzy
+msgid "ATM tag switch router"
+msgstr "ATM switch symbool"
+
+#: sheets/ciscorouter.sheet.in.h:7
+msgid "Broadband router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:8
+msgid "Cisco - Router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:9
+msgid "Cisco 1000"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:10
+msgid "Content service router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:11
+msgid "Gigabit switch router (ATM tag)"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:12
+msgid "IAD router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:13
+msgid "IP telephony router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:14
+#, fuzzy
+msgid "NetFlow router"
+msgstr "Firewall router"
+
+#: sheets/ciscorouter.sheet.in.h:15
+msgid "Optical services router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:16
+#, fuzzy
+msgid "Router"
+msgstr "Rotor"
+
+#: sheets/ciscorouter.sheet.in.h:17
+msgid "Router in building"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:18
+msgid "Router shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:19
+msgid "Router with firewall"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:20
+msgid "Router with silicon switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:21
+#, fuzzy
+msgid "Storage router"
+msgstr "Opslag"
+
+#: sheets/ciscorouter.sheet.in.h:22
+msgid "TDM router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:23
+#, fuzzy
+msgid "Voice router"
+msgstr "Firewall router"
+
+#: sheets/ciscorouter.sheet.in.h:24
+msgid "Wavelength router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:25
+msgid "Workgroup 5000 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:26
+msgid "Workgroup 5002 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:27
+msgid "Workgroup 5500 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:28
+msgid "uBR910"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
@@ -5318,302 +6986,6 @@ msgstr "Vertikaal uitgelijnde klep"
 msgid "Water level"
 msgstr "Water niveau"
 
-#: sheets/Contact.sheet.in.h:1
-msgid "'if not' (normally closed) ladder contact"
-msgstr "'als niet' (normaal gesloten) ladder contact"
-
-#: sheets/Contact.sheet.in.h:2
-msgid "'if' (normally open) ladder contact"
-msgstr "'als' (normaal open) ladder contact"
-
-#: sheets/Contact.sheet.in.h:3
-msgid "'jump' output variable"
-msgstr "'jump' uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:4
-msgid "'reset' output variable"
-msgstr "'reset' uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:5
-msgid "'set' output variable"
-msgstr "'set' uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:6
-msgid "Components for LADDER circuits"
-msgstr "Componenten voor LADDER circuits"
-
-#: sheets/Contact.sheet.in.h:7
-msgid "Ladder"
-msgstr "Ladder"
-
-#: sheets/Contact.sheet.in.h:8
-msgid "Negative output variable"
-msgstr "Negatieve uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:9
-msgid "Power-saved 'reset' output variable"
-msgstr "Energie-besparende 'reset' uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:10
-msgid "Power-saved 'set' output variable"
-msgstr "Energie-besparende 'set' uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:11
-msgid "Power-saved negative output variable"
-msgstr "Energie-besparende negatieve uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:12
-msgid "Power-saved simple output variable"
-msgstr "Energie-besparende eenvoudige uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:13
-msgid "Receptivity output variable"
-msgstr "Ontvankelijke uitvoer variabele"
-
-#: sheets/Contact.sheet.in.h:14
-msgid "Simple output variable"
-msgstr "Eenvoudige variabele"
-
-#: sheets/Electric.sheet.in.h:1
-msgid "Command organ of a relay"
-msgstr "Besturingsorgaan van een relais"
-
-#: sheets/Electric.sheet.in.h:2
-msgid "Components for electric circuits"
-msgstr "Componenten voor het ontwerp van stroomkringen"
-
-#: sheets/Electric.sheet.in.h:3
-msgid "Connection point"
-msgstr "Verbindingspunt"
-
-#: sheets/Electric.sheet.in.h:4
-msgid "Electric"
-msgstr "Electriciteit"
-
-#: sheets/Electric.sheet.in.h:5
-msgid "Lamp or indicator light"
-msgstr "Lamp of lichtindikator"
-
-#: sheets/Electric.sheet.in.h:6
-msgid "Normally closed contact"
-msgstr "Normalerwijs gesloten contact"
-
-#: sheets/Electric.sheet.in.h:7
-msgid "Normally closed position switch"
-msgstr "Normalerwijs gesloten schakelaar"
-
-#: sheets/Electric.sheet.in.h:8
-msgid "Normally open contact"
-msgstr "Normalerwijs open contact"
-
-#: sheets/Electric.sheet.in.h:9
-msgid "Normally open position switch"
-msgstr "Normalerwijs open shakelaar"
-
-#: sheets/Electric.sheet.in.h:10
-msgid "Relay"
-msgstr "Omleiding"
-
-#: sheets/EML.sheet.in.h:1
-msgid "EML"
-msgstr "EML"
-
-#: sheets/EML.sheet.in.h:2
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Bewerker voor EML statische structuur diagrammen."
-
-#: sheets/EML.sheet.in.h:3
-msgid "Instantiation. One process create others"
-msgstr "Instantiatie. Eén proces maakt andere aan"
-
-#: sheets/EML.sheet.in.h:4
-msgid "Interaction between processes."
-msgstr "Interactie tussen processen."
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr "ER"
-
-#: sheets/ER.sheet.in.h:3
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Objekten voor het ontwerp van entiteit/relatie diagrammen"
-
-#: sheets/ER.sheet.in.h:5
-msgid "Participation"
-msgstr "Deelname"
-
-#: sheets/ER.sheet.in.h:7
-msgid "Weak entity"
-msgstr "Zwakke entiteit"
-
-#: sheets/Flowchart.sheet.in.h:1
-msgid "Box with text inside"
-msgstr "Rechthoek met tekst erin"
-
-#: sheets/Flowchart.sheet.in.h:2
-msgid "Collate"
-msgstr "Vergelijk"
-
-#: sheets/Flowchart.sheet.in.h:3
-msgid "Delay"
-msgstr "Vertraging"
-
-#: sheets/Flowchart.sheet.in.h:4
-msgid "Diamond with text inside"
-msgstr "Diamant met tekst erin"
-
-#: sheets/Flowchart.sheet.in.h:6
-msgid "Document"
-msgstr "Document"
-
-#: sheets/Flowchart.sheet.in.h:7
-msgid "Ellipse with text inside"
-msgstr "Ellips met tekst erin"
-
-#: sheets/Flowchart.sheet.in.h:9
-msgid "Flowchart"
-msgstr "Stroomdiagrammen"
-
-#: sheets/Flowchart.sheet.in.h:10
-msgid "Internal storage"
-msgstr "Interne opslag"
-
-#: sheets/Flowchart.sheet.in.h:11
-msgid "Magnetic disk"
-msgstr "Magnetische schijf"
-
-#: sheets/Flowchart.sheet.in.h:12
-msgid "Magnetic drum"
-msgstr "Magnetische trommel"
-
-#: sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic tape"
-msgstr "Magnetische band"
-
-#: sheets/Flowchart.sheet.in.h:14
-msgid "Manual input"
-msgstr "Handmatige invoer"
-
-#: sheets/Flowchart.sheet.in.h:15
-msgid "Manual operation"
-msgstr "Handmatige werking"
-
-#: sheets/Flowchart.sheet.in.h:16
-msgid "Merge"
-msgstr "Vereniging"
-
-#: sheets/Flowchart.sheet.in.h:17
-msgid "Objects to draw flowcharts"
-msgstr "Objekten voor het ontwerp van stroomdiagrammen"
-
-#: sheets/Flowchart.sheet.in.h:18
-msgid "Off page connector"
-msgstr "Pagina-einde verbinding"
-
-#: sheets/Flowchart.sheet.in.h:19
-msgid "Offline storage"
-msgstr "Offline opslag"
-
-#: sheets/Flowchart.sheet.in.h:20
-msgid "Or"
-msgstr "Of"
-
-#: sheets/Flowchart.sheet.in.h:21
-msgid "Parallelogram with text inside"
-msgstr "Parallelogram met tekst erin"
-
-#: sheets/Flowchart.sheet.in.h:22
-msgid "Predefined process"
-msgstr "Vooraf gedefinieerd proces"
-
-#: sheets/Flowchart.sheet.in.h:23
-msgid "Preparation"
-msgstr "Voorbereiding"
-
-#: sheets/Flowchart.sheet.in.h:24
-msgid "Punched card"
-msgstr "Ponskaart"
-
-#: sheets/Flowchart.sheet.in.h:25
-msgid "Punched tape"
-msgstr "Ponsband"
-
-#: sheets/Flowchart.sheet.in.h:26
-msgid "Sort"
-msgstr "Sorteren"
-
-#: sheets/Flowchart.sheet.in.h:27
-msgid "Summing junction"
-msgstr "Verenigingsverbinding"
-
-#: sheets/Flowchart.sheet.in.h:28
-msgid "Terminal"
-msgstr "Terminal"
-
-#: sheets/Flowchart.sheet.in.h:29
-msgid "Transaction file"
-msgstr "Transactie bestand"
-
-#: sheets/Flowchart.sheet.in.h:30
-msgid "Transmittal tape"
-msgstr "Transmissieband"
-
-#: sheets/FS.sheet.in.h:1
-msgid "Editor for Function Structure Diagrams."
-msgstr "Bewerker voor functie structuur diagrammen."
-
-#: sheets/FS.sheet.in.h:2
-msgid "FS"
-msgstr "FS"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Flow"
-msgstr "Stroom"
-
-#: sheets/FS.sheet.in.h:4
-msgid "Function"
-msgstr "Functie"
-
-#: sheets/FS.sheet.in.h:5
-msgid "Orthogonal polyline flow"
-msgstr "Orthogonale polylijn stroming"
-
-#: sheets/GRAFCET.sheet.in.h:1
-msgid "AND vergent"
-msgstr "AND begrenzing"
-
-#: sheets/GRAFCET.sheet.in.h:2
-msgid "Action to associate to a step"
-msgstr "Actie om een stap te associëren"
-
-#: sheets/GRAFCET.sheet.in.h:3
-msgid "Arc (upward)"
-msgstr "Boog (opwaards)"
-
-#: sheets/GRAFCET.sheet.in.h:4
-msgid "Condition (of an action)"
-msgstr "Voorwaarde (van een actie)"
-
-#: sheets/GRAFCET.sheet.in.h:5
-msgid "GRAFCET"
-msgstr "GRAFCET"
-
-#: sheets/GRAFCET.sheet.in.h:10
-msgid "Macro sub-program call step"
-msgstr "Macro sub-programma aanroep stap"
-
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "OR vergent"
-msgstr "OR begrenzing"
-
-#: sheets/GRAFCET.sheet.in.h:12
-msgid "Objects to design GRAFCET charts"
-msgstr "Objekten voor het ontwerp van GRAFCET diagrammen"
-
-#: sheets/GRAFCET.sheet.in.h:14
-msgid "Transition"
-msgstr "Transitie"
-
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
 msgstr "Puzzel"
@@ -5685,98 +7057,6 @@ msgstr "Puzzel - stuk_oooo"
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
 msgstr "Puzzelstukken"
-
-#: sheets/Logic.sheet.in.h:1
-msgid "AND gate"
-msgstr "AND poort"
-
-#: sheets/Logic.sheet.in.h:2
-msgid "Boolean Logic"
-msgstr "Booleaanse logica"
-
-#: sheets/Logic.sheet.in.h:3
-msgid "Crossconnector"
-msgstr "Kruisverbinding"
-
-#: sheets/Logic.sheet.in.h:4
-msgid "Inverter"
-msgstr "Inverteren"
-
-#: sheets/Logic.sheet.in.h:5
-msgid "Logic"
-msgstr "Logica"
-
-#: sheets/Logic.sheet.in.h:6
-msgid "NAND gate"
-msgstr "NAND poort"
-
-#: sheets/Logic.sheet.in.h:7
-msgid "NOR gate"
-msgstr "NOR poort"
-
-#: sheets/Logic.sheet.in.h:8
-msgid "NOT"
-msgstr "NOT"
-
-#: sheets/Logic.sheet.in.h:9
-msgid "OR gate"
-msgstr "OR poort"
-
-#: sheets/Logic.sheet.in.h:10
-msgid "Simple buffer"
-msgstr "Eenvoudige buffer"
-
-#: sheets/Logic.sheet.in.h:11
-msgid "XOR gate"
-msgstr "XOR poort"
-
-#: sheets/Misc.sheet.in.h:2
-msgid "Folder"
-msgstr "Map"
-
-#: sheets/Misc.sheet.in.h:3
-msgid "Misc"
-msgstr "Allerlei"
-
-#: sheets/Misc.sheet.in.h:4
-msgid "Miscellaneous Shapes"
-msgstr "Allerlei vormen"
-
-#: sheets/Misc.sheet.in.h:5
-msgid "Traditional clock"
-msgstr "Traditionele klok"
-
-#: sheets/MSE.sheet.in.h:1
-msgid "Demultiplexer"
-msgstr "Demultiplexer"
-
-#: sheets/MSE.sheet.in.h:2
-msgid "Large extension node"
-msgstr "Grote uitbreiding geleding"
-
-#: sheets/MSE.sheet.in.h:3
-msgid "MSE"
-msgstr "MSE"
-
-#: sheets/MSE.sheet.in.h:4
-msgid "Multiplexer"
-msgstr "Multiplexer"
-
-#: sheets/MSE.sheet.in.h:5
-msgid "Node center"
-msgstr "Geleding centrum"
-
-#: sheets/MSE.sheet.in.h:6
-msgid "Small extension node"
-msgstr "Kleine uitbreiding geleding"
-
-#: sheets/MSE.sheet.in.h:7
-msgid "Tactical satellite communications terminal"
-msgstr "Tactische Satelliet Communicatie Terminal"
-
-#: sheets/MSE.sheet.in.h:8
-msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr "V.S. Militair Mobiel Abonnee Uitrusting Stukken"
 
 #: sheets/network.sheet.in.h:1
 msgid "3 1/2 inch diskette"
@@ -5922,186 +7202,6 @@ msgstr "Werkstation beeldscherm"
 msgid "ZIP disk"
 msgstr "ZIP disk"
 
-#: sheets/Pneumatic.sheet.in.h:1
-msgid "2/2 distributor"
-msgstr "2/2 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:2
-msgid "3/2 distributor"
-msgstr "3/2 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:3
-msgid "3/3 distributor"
-msgstr "3/3 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:4
-msgid "4/2 distributor"
-msgstr "4/2 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:5
-msgid "5/2 distributor"
-msgstr "5/2 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:6
-msgid "5/3 distributor"
-msgstr "5/3 verdeler"
-
-#: sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "Verbindingspunt"
-
-#: sheets/Pneumatic.sheet.in.h:8
-msgid "Air exhaust orifice"
-msgstr "Luchtafvoer opening"
-
-#: sheets/Pneumatic.sheet.in.h:9
-msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Componenten voor pneumatische en hydraulische circuits"
-
-#: sheets/Pneumatic.sheet.in.h:10
-msgid "Double-effect jack"
-msgstr "Dubbel-effect jack"
-
-#: sheets/Pneumatic.sheet.in.h:11
-msgid "Electric command (double coil)"
-msgstr "Electrisch commando (dubbele spoel)"
-
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "Electric command (single coil)"
-msgstr "Electrisch commando (enkele spoel)"
-
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "Generic pressure source"
-msgstr "Algemene krachtbron"
-
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "Hydraulic pressure source"
-msgstr "Hydraulische krachtbron"
-
-#: sheets/Pneumatic.sheet.in.h:15
-msgid "Indirect command by hydraulic driver"
-msgstr "Indirect commando door hydraulische bestuurder"
-
-#: sheets/Pneumatic.sheet.in.h:16
-msgid "Indirect command by pneumatic driver"
-msgstr "Indirect commando door pneumatische bestuurder"
-
-#: sheets/Pneumatic.sheet.in.h:17
-msgid "Mechanical command by spring"
-msgstr "Mechanisch commando door een veer"
-
-#: sheets/Pneumatic.sheet.in.h:18
-msgid "Mechanical command by tappet"
-msgstr "Mechanisch commando door tikken"
-
-#: sheets/Pneumatic.sheet.in.h:19
-msgid "Muscular command"
-msgstr "Muscular command"
-
-#: sheets/Pneumatic.sheet.in.h:20
-msgid "Normally-in simple-effect jack"
-msgstr "Normaal-in eenvoudig-effect jack"
-
-#: sheets/Pneumatic.sheet.in.h:21
-msgid "Normally-out simple-effect jack"
-msgstr "Normaal-uit eenvoudig-effect jack"
-
-#: sheets/Pneumatic.sheet.in.h:22
-msgid "Pneumatic pressure source"
-msgstr "Pneumatische krachtbron"
-
-#: sheets/Pneumatic.sheet.in.h:23
-msgid "Pneumatic/Hydraulic"
-msgstr "Pneumatisch/hydraulisch"
-
-#: sheets/Pneumatic.sheet.in.h:24
-msgid "Push-button command"
-msgstr "Drukknop commando"
-
-#: sheets/SADT.sheet.in.h:1
-msgid "Activity/data box"
-msgstr "Activiteit/gegevens vak"
-
-#: sheets/SADT.sheet.in.h:2
-msgid "Activity/data flow arrow"
-msgstr "Activiteit/gegevensstroom pijl"
-
-#: sheets/SADT.sheet.in.h:3
-msgid "Flow label"
-msgstr "Stroom label"
-
-#: sheets/SADT.sheet.in.h:4
-msgid "Objects to design SADT diagrams"
-msgstr "Objekten voor het ontwerp van SADT diagrammen"
-
-#: sheets/SADT.sheet.in.h:5
-msgid "SADT/IDEF0"
-msgstr "SADT/IDEF0"
-
-#: sheets/SDL.sheet.in.h:1
-msgid "Action being executed"
-msgstr "Actie wordt uitgevoerd"
-
-#: sheets/SDL.sheet.in.h:2
-msgid "Block type reference"
-msgstr "Blok type referentie"
-
-#: sheets/SDL.sheet.in.h:4
-msgid "Decision"
-msgstr "Besluit"
-
-#: sheets/SDL.sheet.in.h:5
-msgid "Function call"
-msgstr "Functie aanroep"
-
-#: sheets/SDL.sheet.in.h:6
-msgid "Function header"
-msgstr "Functiehoofd"
-
-#: sheets/SDL.sheet.in.h:7
-msgid "Generic text note"
-msgstr "Algemene tekst notitie"
-
-#: sheets/SDL.sheet.in.h:8
-msgid "In/Out connector"
-msgstr "In/uit connector"
-
-#: sheets/SDL.sheet.in.h:10
-msgid "Procedure return"
-msgstr "Procedure teruggave"
-
-#: sheets/SDL.sheet.in.h:11
-msgid "Process type reference"
-msgstr "Proces type referentie"
-
-#: sheets/SDL.sheet.in.h:12
-msgid "Receive message"
-msgstr "Ontvang bericht"
-
-#: sheets/SDL.sheet.in.h:13
-msgid "SDL"
-msgstr "SDL"
-
-#: sheets/SDL.sheet.in.h:14
-msgid "Save state"
-msgstr "Status opslaan"
-
-#: sheets/SDL.sheet.in.h:15
-msgid "Send message"
-msgstr "Stuur bericht"
-
-#: sheets/SDL.sheet.in.h:16
-msgid "Service type reference"
-msgstr "Service type referentie"
-
-#: sheets/SDL.sheet.in.h:17
-msgid "Specification and Description Language."
-msgstr "Specification and Description Language."
-
-#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:24
-msgid "State"
-msgstr "Status"
-
 #: sheets/sybase.sheet.in.h:1
 msgid "Log transfer manager or rep agent"
 msgstr "Logtransfer manager of replicatieagent"
@@ -6134,89 +7234,17 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replicatieserver"
 
-#: sheets/UML.sheet.in.h:1
-msgid "Activity"
-msgstr "Activiteit"
+#~ msgid "Box with text inside"
+#~ msgstr "Rechthoek met tekst erin"
 
-#: sheets/UML.sheet.in.h:3
-msgid "Aggregation, one class is part of another"
-msgstr "Aggregatie, één klasse is deel van een andere"
+#~ msgid "Diamond with text inside"
+#~ msgstr "Diamant met tekst erin"
 
-#: sheets/UML.sheet.in.h:4
-msgid "Association, two classes are associated"
-msgstr "Associatie, twee klassen zijn geassocieerd"
+#~ msgid "Ellipse with text inside"
+#~ msgstr "Ellips met tekst erin"
 
-#: sheets/UML.sheet.in.h:7
-msgid "Class stereotype icon"
-msgstr "Klasse stereotype pictogram"
-
-#: sheets/UML.sheet.in.h:8
-msgid "Component"
-msgstr "Component"
-
-#: sheets/UML.sheet.in.h:9
-msgid "Constraint, place a constraint on something"
-msgstr "Beperking, plaats ergens een beperking op"
-
-#: sheets/UML.sheet.in.h:10
-msgid "Dependency"
-msgstr "Afhankelijkheid"
-
-#: sheets/UML.sheet.in.h:11
-msgid "Editor for UML Static Structure Diagrams"
-msgstr "Bewerker voor UML Static Structure Diagrammen"
-
-#: sheets/UML.sheet.in.h:12
-msgid "Fork/union"
-msgstr "Fork/union"
-
-#: sheets/UML.sheet.in.h:13
-msgid "Generalization, class inheritance"
-msgstr "Generalisatie, klasse overerving"
-
-#: sheets/UML.sheet.in.h:14
-msgid "Implements, class implements a specific interface"
-msgstr "Implementeert, klasse implementeert een bepaalde interface"
-
-#: sheets/UML.sheet.in.h:15
-msgid "Initial/end state"
-msgstr "Initiële/eind status"
-
-#: sheets/UML.sheet.in.h:16
-msgid "Large package"
-msgstr "Groot pakket"
-
-#: sheets/UML.sheet.in.h:17
-msgid "Lifeline"
-msgstr "Levenslijn"
-
-#: sheets/UML.sheet.in.h:18
-msgid "Message"
-msgstr "Bericht"
-
-#: sheets/UML.sheet.in.h:19
-msgid "Node"
-msgstr "Knooppunt"
-
-#: sheets/UML.sheet.in.h:20
-msgid "Note"
-msgstr "Melding"
-
-#: sheets/UML.sheet.in.h:22
-msgid "Realizes, implements a specific interface"
-msgstr "Realiseert, implementeert een bepaalde interface"
-
-#: sheets/UML.sheet.in.h:23
-msgid "Small package"
-msgstr "Klein pakket"
-
-#: sheets/UML.sheet.in.h:26
-msgid "UML"
-msgstr "UML"
-
-#: sheets/UML.sheet.in.h:27
-msgid "Use case"
-msgstr "Use case"
+#~ msgid "Parallelogram with text inside"
+#~ msgstr "Parallelogram met tekst erin"
 
 #~ msgid "/Dialogs/_Properties..."
 #~ msgstr "/Dialogen/_Eigenschappen..."
