@@ -1,3 +1,11 @@
+1999-06-10  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in
+	* objects/Makefile.am
+	* objects/sybase/*
+	First version of sybase objects from
+	Brian Bruns <camber@umcc.ais.org>
+
 1999-06-10  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in

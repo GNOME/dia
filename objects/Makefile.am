@@ -1,3 +1,3 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = standard network UML ER FS
+SUBDIRS = standard network UML ER FS sybase
