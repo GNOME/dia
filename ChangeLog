@@ -83,7 +83,7 @@
 
 2004-09-19  Hans Breuer  <hans@breuer.org>
 
-        * plug-ins/xslt/*.xsl : s/apply-template match/apply-template select/
+        * plug-ins/xslt/*.xsl : s/apply-templates match/apply-templates select/
         fixes bug #148278, carlosrp@idea.com.py (Carlos Raúl Perasso)
 
 2004-09-19  Hans Breuer  <hans@breuer.org>
