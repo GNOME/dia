@@ -298,9 +298,7 @@ create_display_shell(DDisplay *ddisp,
   if (top_level_window) {
     ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-    gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window",
-			    "Dia");
-    gtk_window_set_policy (GTK_WINDOW (ddisp->shell), TRUE, TRUE, TRUE);
+    gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
@@ -1127,9 +1125,7 @@ create_toolbox ()
   gtk_widget_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
 #endif
-  gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
-			  "Dia");
-  gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, FALSE);
+  gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",

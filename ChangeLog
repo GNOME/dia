@@ -8,8 +8,28 @@
 
 	* app/interface.c: hinted the window manager that the toolbox window
 	is a toolbox window. Not that my (fairly default configuration)
-	sawfish cares, but anyway.
+	sawfish cares, but other NETWM compliant WMs may.
+
+	* app/commands.c: 
+	* app/defaults.c: 
+	* app/dia-props.c:
+	* app/filedlg.c: 
+	* app/interface.c: 
+	* app/layer_dialog.c: 
+	* app/linewidth_area.c: 
+	* app/properties.c: 
+	* app/sheets_dialog.c: 
+	* app/splash.c: 
+
+	The GTK doc says to avoir gtk_window_set_wmclass() and 
+	gtk_window_set_policy(), and use gtk_window_set_role() and
+	gtk_window_set_resizable(), respectively.
 	
+	* app/preferences.c: (prefs_create_dialog):
+	* app/preferences.h:
+	* app/display.c: (display_set_active):
+	Added a preference to have the toolbox hover over diagram windows.
+		
 2002-11-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c (get_text_width, draw_string):

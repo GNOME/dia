@@ -124,7 +124,9 @@ DiaPrefData prefs_data[] =
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
-
+  { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
+    &default_true, 0, N_("Keep tool box on top of diagram windows:") },
+  
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
@@ -697,14 +699,12 @@ prefs_create_dialog(void)
   prefs_dialog = gtk_dialog_new();
   gtk_window_set_title (GTK_WINDOW (prefs_dialog), _("Preferences"));
   gtk_container_set_border_width (GTK_CONTAINER (prefs_dialog), 2);
-  gtk_window_set_policy (GTK_WINDOW (prefs_dialog),
-			 FALSE, TRUE, FALSE);
+  gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);
 
   dialog_vbox = GTK_DIALOG (prefs_dialog)->vbox;
 #endif
   
-  gtk_window_set_wmclass (GTK_WINDOW (prefs_dialog),
-			  "preferences_window", "Dia");
+  gtk_window_set_role (GTK_WINDOW (prefs_dialog), "preferences_window");
 
 
 #ifdef GNOME

@@ -58,8 +58,7 @@ static void create_dialog()
 
   dialog_vbox = GTK_DIALOG(dialog)->vbox;
 
-  gtk_window_set_wmclass(GTK_WINDOW (dialog),
-			 "properties_window", "Dia");
+  gtk_window_set_role(GTK_WINDOW (dialog), "properties_window");
 
   g_signal_connect(G_OBJECT (dialog), "response",
                    G_CALLBACK (properties_respond), NULL);

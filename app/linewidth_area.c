@@ -214,10 +214,8 @@ linewidth_create_dialog()
   linewidth_dialog = gtk_dialog_new();
   
   gtk_window_set_title (GTK_WINDOW (linewidth_dialog), _("Line width"));
-  gtk_window_set_wmclass (GTK_WINDOW (linewidth_dialog),
-			  "linewidth_window", "Dia");
-  gtk_window_set_policy (GTK_WINDOW (linewidth_dialog),
-			 FALSE, TRUE, TRUE);
+  gtk_window_set_role (GTK_WINDOW (linewidth_dialog), "linewidth_window");
+  gtk_window_set_resizable (GTK_WINDOW (linewidth_dialog), TRUE);
   gtk_container_set_border_width (GTK_CONTAINER (linewidth_dialog), 2);
 
   hbox = gtk_hbox_new(FALSE, 5);

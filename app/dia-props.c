@@ -64,7 +64,7 @@ create_diagram_properties_dialog(void)
 
   dialog_vbox = GTK_DIALOG(dialog)->vbox;
 
-  gtk_window_set_wmclass(GTK_WINDOW(dialog), "diagram_properties", "Dia");
+  gtk_window_set_role(GTK_WINDOW(dialog), "diagram_properties");
 
   g_signal_connect(G_OBJECT(dialog), "response",
 		   G_CALLBACK(diagram_properties_respond),

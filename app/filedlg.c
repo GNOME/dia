@@ -159,7 +159,7 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
       dia = ddisp->diagram;
     }
     opendlg = gtk_file_selection_new(_("Open Diagram"));
-    gtk_window_set_wmclass(GTK_WINDOW(opendlg), "open_diagram", "Dia");
+    gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
 				    dia && dia->filename ? dia->filename
@@ -305,7 +305,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 
   if (!savedlg) {
     savedlg = gtk_file_selection_new(_("Save Diagram"));
-    gtk_window_set_wmclass(GTK_WINDOW(savedlg), "save_diagram", "Dia");
+    gtk_window_set_role(GTK_WINDOW(savedlg), "save_diagram");
     gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
 				    dia->filename ? dia->filename
@@ -515,7 +515,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 
   if (!exportdlg) {
     exportdlg = gtk_file_selection_new(_("Export Diagram"));
-    gtk_window_set_wmclass(GTK_WINDOW(exportdlg), "export_diagram", "Dia");
+    gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
 				    dia->filename ? dia->filename

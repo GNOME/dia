@@ -587,9 +587,9 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   GtkWidget *gpixmap;
   
   dialog = gtk_dialog_new ();
-  gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
+  gtk_window_set_role (GTK_WINDOW (dialog), "about_dialog");
   gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
-  gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, FALSE);
+  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
           GTK_SIGNAL_FUNC (gtk_widget_destroy), 

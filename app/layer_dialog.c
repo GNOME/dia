@@ -204,9 +204,8 @@ create_layer_dialog(void)
   
   layer_dialog->dialog = dialog = gtk_dialog_new ();
   gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
-  gtk_window_set_wmclass (GTK_WINDOW (dialog),
-			  "layer_window", "Dia");
-  gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, TRUE);
+  gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
+  gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
@@ -950,7 +949,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
 
   /*  the dialog  */
   dialog->dialog = gtk_dialog_new ();
-  gtk_window_set_wmclass (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes", "Dia");
+  gtk_window_set_role (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes");
   gtk_window_set_title (GTK_WINDOW (dialog->dialog), _("Edit Layer Attributes"));
   gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 

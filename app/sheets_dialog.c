@@ -79,8 +79,9 @@ create_sheets_main_dialog (void)
   sheets_main_dialog = gtk_dialog_new ();
   gtk_object_set_data (GTK_OBJECT (sheets_main_dialog), "sheets_main_dialog", sheets_main_dialog);
   gtk_window_set_title (GTK_WINDOW (sheets_main_dialog), _("Sheets and Objects"));
+  gtk_window_set_role(GTK_WINDOW(sheets_main_dialog), "sheets_main_dialog");
   gtk_window_set_default_size (GTK_WINDOW (sheets_main_dialog), 506, 261);
-  gtk_window_set_policy (GTK_WINDOW (sheets_main_dialog), FALSE, TRUE, TRUE);
+  gtk_window_set_resizable (GTK_WINDOW (sheets_main_dialog), TRUE);
 
   dialog_vbox1 = GTK_DIALOG (sheets_main_dialog)->vbox;
   gtk_object_set_data (GTK_OBJECT (sheets_main_dialog), "dialog_vbox1", dialog_vbox1);
@@ -350,7 +351,8 @@ create_sheets_new_dialog (void)
   sheets_new_dialog = gtk_dialog_new ();
   gtk_object_set_data (GTK_OBJECT (sheets_new_dialog), "sheets_new_dialog", sheets_new_dialog);
   gtk_window_set_title (GTK_WINDOW (sheets_new_dialog), _("New"));
-  gtk_window_set_policy (GTK_WINDOW (sheets_new_dialog), FALSE, FALSE, FALSE);
+  gtk_window_set_role (GTK_WINDOW (sheets_new_dialog), "sheets_new_dialog");
+  gtk_window_set_resizable (GTK_WINDOW (sheets_new_dialog), FALSE);
 
   dialog_vbox2 = GTK_DIALOG (sheets_new_dialog)->vbox;
   gtk_object_set_data (GTK_OBJECT (sheets_new_dialog), "dialog_vbox2", dialog_vbox2);
@@ -563,7 +565,8 @@ create_sheets_edit_dialog (void)
   gtk_object_set_data (GTK_OBJECT (sheets_edit_dialog), "sheets_edit_dialog", sheets_edit_dialog);
   gtk_container_set_border_width (GTK_CONTAINER (sheets_edit_dialog), 5);
   gtk_window_set_title (GTK_WINDOW (sheets_edit_dialog), _("Edit Attributes"));
-  gtk_window_set_policy (GTK_WINDOW (sheets_edit_dialog), FALSE, FALSE, FALSE);
+  gtk_window_set_role (GTK_WINDOW (sheets_edit_dialog), "sheets_edit_dialog");
+  gtk_window_set_resizable (GTK_WINDOW (sheets_edit_dialog), FALSE);
 
   dialog_vbox3 = GTK_DIALOG (sheets_edit_dialog)->vbox;
   gtk_object_set_data (GTK_OBJECT (sheets_edit_dialog), "dialog_vbox3", dialog_vbox3);
@@ -775,10 +778,13 @@ create_sheets_remove_dialog (void)
   GtkWidget *button_cancel;
 
   sheets_remove_dialog = gtk_dialog_new ();
-  gtk_object_set_data (GTK_OBJECT (sheets_remove_dialog), "sheets_remove_dialog", sheets_remove_dialog);
+  gtk_object_set_data (GTK_OBJECT (sheets_remove_dialog),
+                       "sheets_remove_dialog", sheets_remove_dialog);
   gtk_window_set_title (GTK_WINDOW (sheets_remove_dialog), _("Remove"));
   gtk_window_set_default_size (GTK_WINDOW (sheets_remove_dialog), 316, -1);
-  gtk_window_set_policy (GTK_WINDOW (sheets_remove_dialog), FALSE, TRUE, TRUE);
+  gtk_window_set_role (GTK_WINDOW (sheets_remove_dialog),
+                       "sheets_remove_dialog");
+  gtk_window_set_resizable (GTK_WINDOW (sheets_remove_dialog), TRUE);
 
   dialog_vbox4 = GTK_DIALOG (sheets_remove_dialog)->vbox;
   gtk_object_set_data (GTK_OBJECT (sheets_remove_dialog), "dialog_vbox4", dialog_vbox4);
