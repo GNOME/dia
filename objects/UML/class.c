@@ -237,29 +237,35 @@ umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
                                 umlclass_offsets, props);
 }
 
+static DiaMenuItem umlclass_menu_items[] = {
+        { N_("Show Comments"), umlclass_show_comments_callback, NULL, 
+          DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+        NULL
+};
+
+static DiaMenu umlclass_menu = {
+        N_("Class"),
+        sizeof(umlclass_menu_items)/sizeof(DiaMenuItem),
+        umlclass_menu_items,
+        NULL
+};
+
 DiaMenu *
 umlclass_object_menu(DiaObject *obj, Point *p)
 {
-  DiaMenu *menu;
-  menu = g_malloc0(sizeof(DiaMenu));
-  menu->title = g_strdup(_("Class"));
-  menu->app_data = obj;
-  menu->app_data_free = NULL;
-  
-  menu->num_items = 1;
-  menu->items = g_malloc0(sizeof(DiaMenuItem));
-  menu->items->text = g_strdup(_("Show comments"));
-  menu->items->callback = umlclass_show_comments_callback;
+        umlclass_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
+                (((UMLClass *)obj)->visible_comments?DIAMENU_TOGGLE_ON:0);
 
-  return menu;
+        return &umlclass_menu;
 }
 
 ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
 {
   ObjectChange *change = new_object_state_change(obj, NULL, NULL, NULL );
 
-  ((UMLClass *)obj)->visible_comments = TRUE;
-  
+  ((UMLClass *)obj)->visible_comments = !((UMLClass *)obj)->visible_comments;
+  umlclass_calculate_data((UMLClass *)obj);
+  umlclass_update_data((UMLClass *)obj);
   return change;
 }
 

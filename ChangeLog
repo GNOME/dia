@@ -1,3 +1,9 @@
+2004-08-07  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class.c (umlclass_show_comments_callback): Make UML
+	Class object menu kinda work, rather than blow up.  Doesn't do a
+	proper undoable change yet.
+
 2004-08-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/filedlg.c (file_save_as_callback): Don't remove related
