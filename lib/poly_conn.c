@@ -373,17 +373,17 @@ polyconn_copy(PolyConn *from, PolyConn *to)
 
   object_copy(fromobj, toobj);
 
-  to->object.handles[to->numpoints-1] = g_new(Handle,1);
+  to->object.handles[0] = g_new(Handle,1);
   *to->object.handles[0] = *from->object.handles[0];
 
-  for (i=1;i<to->numpoints-1;i++) {
+  for (i=1;i<toobj->num_handles-1;i++) {
     to->object.handles[i] = g_malloc(sizeof(Handle));
     setup_corner_handle(to->object.handles[i]);
   }
 
-  to->object.handles[to->numpoints-1] = g_new(Handle,1);
-  *to->object.handles[to->numpoints-1] = *from->object.handles[to->numpoints-1];
-
+  to->object.handles[toobj->num_handles-1] = g_new(Handle,1);
+  *to->object.handles[toobj->num_handles-1] =
+      *from->object.handles[toobj->num_handles-1];
   polyconn_set_points(to, from->numpoints, from->points);
   
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));

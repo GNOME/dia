@@ -1,3 +1,10 @@
+2001-08-30  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/poly_conn.c: (polyconn_copy): it's a wonder this routine
+	even compiled. It's really too bad there is no lint tool easily
+	available (or a more cautious, pedandic, paranoid and verbose
+	compiler). Anyway, this fixes #59662. (this didn't affect 0.88.x)
+
 2001-08-27  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/load_save.c:
@@ -23,7 +30,7 @@
 
 2001-08-25  Cyrille Chepelov  <chepelov@calixo.net>
 
-	* objects/custom/shape_info.c: added missing #include <xmlmemory.h>
+	* Objects/custom/shape_info.c: added missing #include <xmlmemory.h>
 
 2001-08-19  Cyrille Chepelov  <chepelov@calixo.net>
 
