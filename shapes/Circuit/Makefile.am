@@ -55,7 +55,12 @@ SHAPES = \
 	hled_de.shape \
 	hled_de.xpm \
 	vled_de.shape \
-	vled_de.xpm
+	vled_de.xpm \
+	nmos_de.shape \
+	nmos_de.xpm \
+	pmos_de.shape \
+	pmos_de.xpm \
+	hjumper.shape
 
 EXTRA_DIST = $(SHAPES)
 

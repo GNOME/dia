@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Circuit - Horizontal Jumper</name>
+  <description>A Horizontal Jumper</description>
+  <icon>pmos_de.xpm</icon>
+  <connections>
+    <point x="0" y="0"/>
+    <point x="6" y="0"/>
+  </connections>
+
+  <svg:svg width="6.0" height="3.0">
+    <svg:rect x1="0" y1="3" x2="6" y2="-3" style="fill: default" />
+    <svg:circle cx="2" cy="0" r="0.5" style="fill: default"/>
+    <svg:circle cx="4" cy="0" r="0.5" style="fill: default"/>    
+  </svg:svg>
+</shape>
+

@@ -3,7 +3,8 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * cgm.c -- CGM plugin for dia
- * Copyright (C) 1999 James Henstridge.
+ * Copyright (C) 1999-2000 James Henstridge.
+ * Copyright (C) 2000 Henk Jan Priester.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,18 +37,7 @@ static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
 
 /* --- routines to write various quantities to the CGM stream. --- */
-
-static void
-write_int16(FILE *fp, gint16 n)
-{
-    if (n < 0) {
-	n = -n;
-	putc( ((n & 0xff00) >> 8) | 0x80, fp);
-    } else
-	putc( (n & 0xff00) >> 8, fp);
-    putc( n & 0xff, fp);
-}
-
+/* signed integers are stored in two complement this is common on Unix */
 static void
 write_uint16(FILE *fp, guint16 n)
 {
@@ -56,41 +46,62 @@ write_uint16(FILE *fp, guint16 n)
 }
 
 static void
-write_int32(FILE *fp, gint32 n)
+write_int16(FILE *fp, gint16 n)
 {
-    if (n < 0) {
-	n = -n;
-	putc( ((n & 0xff000000) >> 24) | 0x80, fp);
-    } else
-	putc( (n & 0xff000000) >> 24, fp);
-    putc( (n & 0xff0000) >> 16, fp);
-    putc( (n & 0xff00) >> 8, fp);
-    putc( n & 0xff, fp);
+    write_uint16(fp, (guint16)n);
 }
 
 static void
 write_uint32(FILE *fp, guint32 n)
 {
-    putc( (n & 0xff000000) >> 24, fp);
-    putc( (n & 0xff0000) >> 16, fp);
-    putc( (n & 0xff00) >> 8, fp);
-    putc( n & 0xff, fp);
+    putc((n >> 24) & 0xff, fp);
+    putc((n >> 16) & 0xff, fp); 
+    putc((n >> 8) & 0xff, fp); 
+    putc(n & 0xff, fp); 
+}
+
+static void
+write_int32(FILE *fp, gint32 n)
+{
+    write_uint32(fp, (guint32) n);
 }
 
 static void
 write_colour(FILE *fp, Color *c)
 {
-    putc((int) c->red   * 255, fp);
-    putc((int) c->green * 255, fp);
-    putc((int) c->blue  * 255, fp);
+    putc((int)(c->red   * 255), fp);
+    putc((int)(c->green * 255), fp);
+    putc((int)(c->blue  * 255), fp);
 }
 
 #define REALSIZE 4
 /* 32 bit fixed point real number */
+/* stored as 16 bit signed (SI) number and a 16 bit unsigned (UI) for */
+/* the fraction */
+/* value is SI + UI / 2^16 */
 static void
 write_real(FILE *fp, double x)
 {
-    write_int32(fp, (gint32) (x * (1 << 16)));
+guint32  n;
+
+    if ( n < 0 )
+    {
+        gint32   wholepart;
+        guint16  fraction;
+
+        wholepart = (gint32)x;
+   
+        fraction = (guint16)((x - wholepart) * -65536);
+        if ( fraction > 0 )
+        {
+            wholepart--;
+            fraction = (guint16)(65536 - fraction);
+        }
+        n = (guint32)(wholepart << 16) | fraction;
+    }
+    else
+        n = (guint32) (x * (1 << 16));
+    write_uint32(fp, n);
 }
 
 static void
@@ -145,6 +156,45 @@ init_fonts(void)
     g_string_free(str, FALSE);
 }
 
+
+/* --- CGM line attributes --- */
+typedef struct _LineAttrCGM
+{
+    int         cap;
+    int         join;
+    int         style;
+    real        width;
+    Color       color;
+
+} LineAttrCGM;
+
+/* --- CGM File/Edge attributes --- */
+typedef struct _FillEdgeAttrCGM
+{
+
+   int          fill_style;          /* Fill style */
+   Color        fill_color;          /* Fill color */
+
+   int          edgevis;             /* Edge visibility */
+   int          cap;                 /* Edge cap */
+   int          join;                /* Edge join */
+   int          style;               /* Edge style */
+   real         width;               /* Edge width */ 
+   Color        color;               /* Edge color */
+
+} FillEdgeAttrCGM;
+
+
+/* --- CGM Text attributes --- */
+typedef struct _TextAttrCGM
+{
+   int          font_num;
+   real         font_height;
+   Color        color;
+
+} TextAttrCGM;
+
+
 /* --- the renderer --- */
 
 typedef struct _RendererCGM RendererCGM;
@@ -154,8 +204,18 @@ struct _RendererCGM {
     FILE *file;
 
     Font *font;
-    real font_height;
+
+    real y0, y1; 
+
+    LineAttrCGM  lcurrent, linfile;
+
+    FillEdgeAttrCGM fcurrent, finfile;
+
+    TextAttrCGM    tcurrent, tinfile;
+
 };
+
+
 
 static void begin_render(RendererCGM *renderer, DiagramData *data);
 static void end_render(RendererCGM *renderer);
@@ -254,6 +314,286 @@ static RenderOps CgmRenderOps = {
     (DrawImageFunc) draw_image,
 };
 
+
+static void
+init_attributes( RendererCGM *renderer )
+{
+    /* current values, (defaults) */
+    renderer->lcurrent.cap   = 3;            /* round */
+    renderer->lcurrent.join  = 2;            /* mitre */
+    renderer->lcurrent.style = 1;
+    renderer->lcurrent.width = 0.1;
+    renderer->lcurrent.color.red   = 0;
+    renderer->lcurrent.color.green = 0;
+    renderer->lcurrent.color.blue  = 0;
+
+    renderer->linfile.cap    = -1;
+    renderer->linfile.join   = -1;
+    renderer->linfile.style  = -1;
+    renderer->linfile.width  = -1.0;
+    renderer->linfile.color.red   = -1;
+    renderer->linfile.color.green = -1;
+    renderer->linfile.color.blue  = -1;
+
+    /* fill/edge defaults */
+    renderer->fcurrent.fill_style = 1;          /* solid */
+    renderer->fcurrent.fill_color.red = 0;
+    renderer->fcurrent.fill_color.green = 0;
+    renderer->fcurrent.fill_color.blue = 0;
+
+    renderer->fcurrent.edgevis = 0;
+    renderer->fcurrent.cap   = 3;            /* round */
+    renderer->fcurrent.join  = 2;            /* mitre */
+    renderer->fcurrent.style = 1;
+    renderer->fcurrent.width = 0.1;
+    renderer->fcurrent.color.red   = 0;
+    renderer->fcurrent.color.green = 0;
+    renderer->fcurrent.color.blue  = 0;
+   
+    renderer->finfile.fill_style = -1;
+    renderer->finfile.fill_color.red = -1;
+    renderer->finfile.fill_color.green = -1;
+    renderer->finfile.fill_color.blue = -1;
+
+    renderer->finfile.edgevis = -1;
+    renderer->finfile.cap   = -1;            
+    renderer->finfile.join  = -1;           
+    renderer->finfile.style = -1;
+    renderer->finfile.width = -1.;
+    renderer->finfile.color.red   = -1.0;
+    renderer->finfile.color.green = -1.0;
+    renderer->finfile.color.blue  = -1.0;
+
+    renderer->tcurrent.font_num    = 1;
+    renderer->tcurrent.font_height = 0.1;
+    renderer->tcurrent.color.red   = 0.0;
+    renderer->tcurrent.color.green = 0.0;
+    renderer->tcurrent.color.blue  = 0.0;
+
+    renderer->tinfile.font_num    = -1;
+    renderer->tinfile.font_height = -1.0;
+    renderer->tinfile.color.red   = -1.0;
+    renderer->tinfile.color.green = -1.0;
+    renderer->tinfile.color.blue  = -1.0;
+   
+}
+    
+
+
+static real
+swap_y( RendererCGM *renderer, real y)
+{
+   return  (renderer->y0 + renderer->y1 - y);
+}
+
+
+static void
+write_line_attributes( RendererCGM *renderer, Color *color )
+{
+LineAttrCGM    *lnew, *lold;
+
+    lnew = &renderer->lcurrent;
+    lold = &renderer->linfile; 
+
+    if ( lnew->cap != lold->cap )
+    {
+        write_elhead(renderer->file, 5, 37, 4);
+        write_int16(renderer->file, lnew->cap);
+        write_int16(renderer->file, 3);      /* cap of dashlines match */
+                                             /* normal cap */
+        lold->cap = lnew->cap;
+    }
+    if ( lnew->join != lold->join )
+    {
+        write_elhead(renderer->file, 5, 38, 2);
+        write_int16(renderer->file, lnew->join);
+        lold->join = lnew->join; 
+    }
+    if ( lnew->style != lold->style )
+    {
+        write_elhead(renderer->file, 5, 2, 2);
+        write_int16(renderer->file, lnew->style);
+        lold->style = lnew->style;
+    }
+    if ( lnew->width != lold->width )
+    {
+        write_elhead(renderer->file, 5, 3, REALSIZE);
+        write_real(renderer->file, lnew->width);
+        lold->width = lnew->width;
+    }
+    lnew->color = *color;
+    if ( lnew->color.red != lold->color.red ||
+         lnew->color.green != lold->color.green ||
+         lnew->color.blue != lold->color.blue )
+    {
+        write_elhead(renderer->file, 5, 4, 3); /* line colour */
+        write_colour(renderer->file, &lnew->color);
+        putc(0, renderer->file);
+        lold->color = lnew->color;
+    }
+}
+
+
+/*
+** Update the fill/edge attributes.
+**
+** fill_color		!= NULL, style solid, interrior-color is fill_color
+**                      == NULL, style empty
+**
+** edge_color           != NULL, edge on with the color and the other 
+**                               attributes
+**                      == NULL, edge off
+*/
+
+static void
+write_filledge_attributes( RendererCGM *renderer, Color *fill_color,
+                           Color *edge_color )
+{
+FillEdgeAttrCGM    *fnew, *fold;
+
+    fnew = &renderer->fcurrent;
+    fold = &renderer->finfile; 
+    /*
+    ** Set the edge attributes
+    */
+
+    if ( edge_color == NULL )
+    {
+        fnew->edgevis = 0;   /* edge off */
+        if ( fnew->edgevis != fold->edgevis )
+        {
+            write_elhead(renderer->file, 5, 30, 2);    
+            write_int16(renderer->file, fnew->edgevis);
+            fold->edgevis = fnew->edgevis;
+        }
+    }
+    else
+    {
+        fnew->edgevis = 1;   /* edge on */
+        if ( fnew->edgevis != fold->edgevis )
+        {
+            write_elhead(renderer->file, 5, 30, 2);  
+            write_int16(renderer->file, fnew->edgevis);
+            fold->edgevis = fnew->edgevis;
+        }
+        if ( fnew->cap != fold->cap )
+        {
+            write_elhead(renderer->file, 5, 44, 4);
+            write_int16(renderer->file, fnew->cap);
+            write_int16(renderer->file, 3);  /* cap of dashlines match */
+                                             /* normal cap */
+            fold->cap = fnew->cap;
+        }
+        if ( fnew->join != fold->join )
+        {
+            write_elhead(renderer->file, 5, 45, 2);
+            write_int16(renderer->file, fnew->join);
+            fold->join = fnew->join; 
+        }
+        if ( fnew->style != fold->style )
+        {
+            write_elhead(renderer->file, 5, 27, 2);
+            write_int16(renderer->file, fnew->style);
+            fold->style = fnew->style;
+        }
+        if ( fnew->width != fold->width )
+        {
+            write_elhead(renderer->file, 5, 28, REALSIZE);
+            write_real(renderer->file, fnew->width);
+            fold->width = fnew->width;
+        }
+        fnew->color = *edge_color;
+        if ( fnew->color.red != fold->color.red ||
+             fnew->color.green != fold->color.green ||
+             fnew->color.blue != fold->color.blue )
+        {
+            write_elhead(renderer->file, 5, 29, 3); /* line colour */
+            write_colour(renderer->file, &fnew->color);
+            putc(0, renderer->file);
+            fold->color = fnew->color;
+        }
+    }
+
+    if ( fill_color == NULL )
+    {
+        fnew->fill_style = 4;       /* empty */
+        if ( fnew->fill_style != fold->fill_style )
+        {
+            write_elhead(renderer->file, 5, 22, 2); 
+            write_int16(renderer->file, fnew->fill_style);
+            fold->fill_style = fnew->fill_style;
+        }
+    }
+    else
+    {
+        fnew->fill_style = 1;       /* solid fill */
+        if ( fnew->fill_style != fold->fill_style )
+        {
+            write_elhead(renderer->file, 5, 22, 2); 
+            write_int16(renderer->file, fnew->fill_style);
+            fold->fill_style = fnew->fill_style;
+        }
+        fnew->fill_color = *fill_color;
+        if ( fnew->fill_color.red != fold->fill_color.red ||
+             fnew->fill_color.green != fold->fill_color.green ||
+             fnew->fill_color.blue != fold->fill_color.blue )
+        {
+            write_elhead(renderer->file, 5, 23, 3);   /* fill colour */
+            write_colour(renderer->file, &fnew->fill_color);
+            putc(0, renderer->file);
+            fold->fill_color = fnew->fill_color;
+        }
+    }
+}
+
+
+
+static void
+write_text_attributes( RendererCGM *renderer, Color *text_color)
+{
+TextAttrCGM    *tnew, *told;
+
+
+    tnew = &renderer->tcurrent;
+    told = &renderer->tinfile; 
+    /*
+    ** Set the text attributes
+    */
+    if ( tnew->font_num != told->font_num )
+    {
+        write_elhead(renderer->file, 5, 10, 2);
+        write_int16(renderer->file, tnew->font_num);
+        told->font_num = tnew->font_num;
+    }
+
+    if ( tnew->font_height != told->font_height )
+    {
+        real    h_basecap;
+
+        /* in CGM we need the base-cap height, I used the 0.9 to correct */ 
+        /* it because it was still to high. There might be a better way */
+        /* but for now.... */
+
+        h_basecap = 0.9 * (tnew->font_height - font_descent(renderer->font,
+                           tnew->font_height));
+        write_elhead(renderer->file, 5, 15, REALSIZE);
+        write_real(renderer->file, h_basecap);
+        told->font_height = tnew->font_height;
+    }
+
+    tnew->color = *text_color;
+    if ( tnew->color.red != told->color.red ||
+         tnew->color.green != told->color.green ||
+         tnew->color.blue != told->color.blue )
+    {
+        write_elhead(renderer->file, 5, 14, 3);   /* text colour */
+        write_colour(renderer->file, &tnew->color);
+        putc(0, renderer->file);
+        told->color = tnew->color;
+    }
+}
+
+
 static void
 begin_render(RendererCGM *renderer, DiagramData *data)
 {
@@ -273,72 +613,82 @@ end_render(RendererCGM *renderer)
 static void
 set_linewidth(RendererCGM *renderer, real linewidth)
 {  /* 0 == hairline **/
-    /* line width */
-    write_elhead(renderer->file, 5, 3, REALSIZE);
-    write_real(renderer->file, linewidth);
-    /* edge width */
-    write_elhead(renderer->file, 5, 28, REALSIZE);
-    write_real(renderer->file, linewidth);
+
+    /* update current line and edge width */
+    renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
 }
 
 static void
 set_linecaps(RendererCGM *renderer, LineCaps mode)
 {
-#if 0
-    switch(mode) {
+int  cap;
+
+    switch(mode) 
+    {
     case LINECAPS_BUTT:
-	renderer->linecap = "butt";
+	cap = 2;
 	break;
     case LINECAPS_ROUND:
-	renderer->linecap = "round";
+	cap = 3;
 	break;
     case LINECAPS_PROJECTING:
-	renderer->linecap = "square";
+	cap = 4;
 	break;
     default:
-	renderer->linecap = "butt";
+	cap = 2;
+        break;
     }
-#endif
+    renderer->lcurrent.cap = renderer->fcurrent.cap = cap;
 }
 
 static void
 set_linejoin(RendererCGM *renderer, LineJoin mode)
 {
-#if 0
-    switch(mode) {
+int    join;
+
+    switch(mode) 
+    {
     case LINEJOIN_MITER:
-	renderer->linejoin = "miter";
+	join = 2;
 	break;
     case LINEJOIN_ROUND:
-	renderer->linejoin = "round";
+	join = 3;
 	break;
     case LINEJOIN_BEVEL:
-	renderer->linejoin = "bevel";
+        join = 4;
 	break;
     default:
-	renderer->linejoin = "miter";
+	join = 2;
+        break;
     }
-#endif
+    renderer->lcurrent.join = renderer->fcurrent.join = join;
 }
 
 static void
 set_linestyle(RendererCGM *renderer, LineStyle mode)
 {
-    /* cgm's line style selection is quite small */
+gint16   style;
 
-    /* line type */
-    write_elhead(renderer->file, 5, 2, 2);
-    if (mode == LINESTYLE_SOLID)
-	write_int16(renderer->file, 1);
-    else
-	write_int16(renderer->file, 2);
-
-    /* edge type */
-    write_elhead(renderer->file, 5, 27, 2);
-    if (mode == LINESTYLE_SOLID)
-	write_int16(renderer->file, 1);
-    else
-	write_int16(renderer->file, 2);
+    switch(mode)
+    {
+    case LINESTYLE_DASHED:
+       style = 2;
+       break;
+    case LINESTYLE_DASH_DOT:
+       style = 4;
+       break;
+    case LINESTYLE_DASH_DOT_DOT:
+       style = 5;
+       break;
+    case LINESTYLE_DOTTED:
+       style = 3;
+       break;
+    case LINESTYLE_SOLID:
+    default:
+       style = 1;
+       break;
+    }
+    renderer->lcurrent.style = renderer->fcurrent.style = style;
 }
 
 static void
@@ -365,14 +715,9 @@ set_fillstyle(RendererCGM *renderer, FillStyle mode)
 static void
 set_font(RendererCGM *renderer, Font *font, real height)
 {
-    write_elhead(renderer->file, 5, 10, 2);
-    write_int16(renderer->file, FONT_NUM(font));
-
-    write_elhead(renderer->file, 5, 15, REALSIZE);
-    write_real(renderer->file, height);
-
     renderer->font = font;
-    renderer->font_height = height;
+    renderer->tcurrent.font_num = FONT_NUM(font);
+    renderer->tcurrent.font_height = height;
 }
 
 static void
@@ -380,15 +725,14 @@ draw_line(RendererCGM *renderer,
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
-    write_elhead(renderer->file, 5, 4, 3); /* line colour */
-    write_colour(renderer->file, line_colour);
-    putc(0, renderer->file);
+
+    write_line_attributes(renderer, line_colour);
 
     write_elhead(renderer->file, 4, 1, 4 * REALSIZE);
     write_real(renderer->file, start->x);
-    write_real(renderer->file, start->y);
+    write_real(renderer->file, swap_y(renderer, start->y));
     write_real(renderer->file, end->x);
-    write_real(renderer->file, end->y);
+    write_real(renderer->file, swap_y(renderer, end->y));
 }
 
 static void
@@ -398,14 +742,12 @@ draw_polyline(RendererCGM *renderer,
 {
     int i;
 
-    write_elhead(renderer->file, 5, 4, 3); /* line colour */
-    write_colour(renderer->file, line_colour);
-    putc(0, renderer->file);
+    write_line_attributes(renderer, line_colour);
 
     write_elhead(renderer->file, 4, 1, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
 	write_real(renderer->file, points[i].x);
-	write_real(renderer->file, points[i].y);
+	write_real(renderer->file, swap_y(renderer, points[i].y));
     }
 }
 
@@ -416,20 +758,12 @@ draw_polygon(RendererCGM *renderer,
 {
     int i;
 
-    write_elhead(renderer->file, 5, 22, 2); /* don't fill */
-    write_int16(renderer->file, 4);
-
-    write_elhead(renderer->file, 5, 30, 2); /* visible edge */
-    write_int16(renderer->file, 1);
-
-    write_elhead(renderer->file, 5, 29, 3); /* edge colour */
-    write_colour(renderer->file, line_colour);
-    putc(0, renderer->file);
+    write_filledge_attributes(renderer, NULL, line_colour);
 
     write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
 	write_real(renderer->file, points[i].x);
-	write_real(renderer->file, points[i].y);
+	write_real(renderer->file, swap_y(renderer, points[i].y));
     }
 }
 
@@ -440,20 +774,12 @@ fill_polygon(RendererCGM *renderer,
 {
     int i;
 
-    write_elhead(renderer->file, 5, 22, 2); /* fill */
-    write_int16(renderer->file, 1);
-
-    write_elhead(renderer->file, 5, 30, 2); /* don't visible edge */
-    write_int16(renderer->file, 0);
-
-    write_elhead(renderer->file, 5, 23, 3); /* fill colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
+    write_filledge_attributes(renderer, colour, NULL);
 
     write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
 	write_real(renderer->file, points[i].x);
-	write_real(renderer->file, points[i].y);
+	write_real(renderer->file, swap_y(renderer, points[i].y));
     }
 }
 
@@ -462,21 +788,13 @@ draw_rect(RendererCGM *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-    write_elhead(renderer->file, 5, 22, 2); /* don't fill */
-    write_int16(renderer->file, 4);
-
-    write_elhead(renderer->file, 5, 30, 2); /* visible edge */
-    write_int16(renderer->file, 1);
-
-    write_elhead(renderer->file, 5, 29, 3); /* edge colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
+    write_filledge_attributes(renderer, NULL, colour);
 
     write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
     write_real(renderer->file, ul_corner->x);
-    write_real(renderer->file, ul_corner->y);
+    write_real(renderer->file, swap_y(renderer, ul_corner->y));
     write_real(renderer->file, lr_corner->x);
-    write_real(renderer->file, lr_corner->y);
+    write_real(renderer->file, swap_y(renderer, lr_corner->y));
 }
 
 static void
@@ -484,22 +802,60 @@ fill_rect(RendererCGM *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-    write_elhead(renderer->file, 5, 22, 2); /* fill */
-    write_int16(renderer->file, 1);
-
-    write_elhead(renderer->file, 5, 30, 2); /* don't visible edge */
-    write_int16(renderer->file, 0);
-
-    write_elhead(renderer->file, 5, 23, 3); /* fill colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
+    write_filledge_attributes(renderer, colour, NULL);
 
     write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
     write_real(renderer->file, ul_corner->x);
-    write_real(renderer->file, ul_corner->y);
+    write_real(renderer->file, swap_y(renderer, ul_corner->y));
     write_real(renderer->file, lr_corner->x);
-    write_real(renderer->file, lr_corner->y);
+    write_real(renderer->file, swap_y(renderer, lr_corner->y));
 }
+
+
+
+static void
+write_ellarc(RendererCGM *renderer,
+             int   elemid,
+             Point *center,
+             real  width, real  height,
+             real  angle1, real angle2 )
+{
+real rx = width / 2, ry = height / 2;
+int  len;
+real ynew;
+
+    /*
+    ** Angle's are in degrees, need to be converted to 2PI.
+    */
+    angle1 = (angle1 / 360.0) * 2 * M_PI;
+    angle2 = (angle2 / 360.0) * 2 * M_PI;
+
+    ynew = swap_y(renderer, center->y);
+
+    /*
+    ** Elliptical Arc (18) or Elliptical Arc close (19).
+    */
+    len = elemid == 18 ? (10 * REALSIZE) : (10 * REALSIZE + 2);
+    write_elhead(renderer->file, 4, elemid, len);
+    write_real(renderer->file, center->x);        /* center */
+    write_real(renderer->file, ynew);
+    write_real(renderer->file, center->x + rx);   /* axes 1 */
+    write_real(renderer->file, ynew);
+    write_real(renderer->file, center->x);        /* axes 2 */
+    write_real(renderer->file, ynew + ry);
+
+    write_real(renderer->file, cos(angle1)); /* vector1 */
+    write_real(renderer->file, sin(angle1));
+    write_real(renderer->file, cos(angle2)); /* vector2 */
+    write_real(renderer->file, sin(angle2));
+
+    /*
+    ** Elliptical arc close, use PIE closure.
+    */
+    if ( elemid == 19 )
+        write_int16(renderer->file, 0);
+} 
+
 
 static void
 draw_arc(RendererCGM *renderer, 
@@ -508,23 +864,8 @@ draw_arc(RendererCGM *renderer,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-    real rx = width / 2, ry = height / 2;
-
-    write_elhead(renderer->file, 5, 4, 3); /* line colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
-
-    write_elhead(renderer->file, 4, 18, 10 * REALSIZE);
-    write_real(renderer->file, center->x); /* center */
-    write_real(renderer->file, center->y);
-    write_real(renderer->file, center->x);      /* axes 1 */
-    write_real(renderer->file, center->y + ry);
-    write_real(renderer->file, center->x + rx); /* axes 2 */
-    write_real(renderer->file, center->y);
-    write_real(renderer->file, rx * cos(angle1)); /* vector1 */
-    write_real(renderer->file, ry * sin(angle1));
-    write_real(renderer->file, rx * cos(angle2)); /* vector2 */
-    write_real(renderer->file, ry * sin(angle2));
+    write_line_attributes(renderer, colour);
+    write_ellarc(renderer, 18, center, width, height, angle1, angle2);
 }
 
 static void
@@ -534,29 +875,9 @@ fill_arc(RendererCGM *renderer,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-    real rx = width / 2, ry = height / 2;
 
-    write_elhead(renderer->file, 5, 22, 2); /* fill */
-    write_int16(renderer->file, 1);
-
-    write_elhead(renderer->file, 5, 30, 2); /* don't visible edge */
-    write_int16(renderer->file, 0);
-
-    write_elhead(renderer->file, 5, 23, 3); /* fill colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
-
-    write_elhead(renderer->file, 4, 18, 10 * REALSIZE);
-    write_real(renderer->file, center->x); /* center */
-    write_real(renderer->file, center->y);
-    write_real(renderer->file, center->x);      /* axes 1 */
-    write_real(renderer->file, center->y + ry);
-    write_real(renderer->file, center->x + rx); /* axes 2 */
-    write_real(renderer->file, center->y);
-    write_real(renderer->file, rx * cos(angle1)); /* vector1 */
-    write_real(renderer->file, ry * sin(angle1));
-    write_real(renderer->file, rx * cos(angle2)); /* vector2 */
-    write_real(renderer->file, ry * sin(angle2));
+    write_filledge_attributes(renderer, colour, NULL);
+    write_ellarc(renderer, 19, center, width, height, angle1, angle2);
 }
 
 static void
@@ -565,23 +886,18 @@ draw_ellipse(RendererCGM *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-    write_elhead(renderer->file, 5, 22, 2); /* don't fill */
-    write_int16(renderer->file, 4);
+real  ynew;
 
-    write_elhead(renderer->file, 5, 30, 2); /* visible edge */
-    write_int16(renderer->file, 1);
+    write_filledge_attributes(renderer, NULL, colour);
 
-    write_elhead(renderer->file, 5, 29, 3); /* edge colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
-
+    ynew = swap_y(renderer, center->y);
     write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
-    write_real(renderer->file, center->y);
+    write_real(renderer->file, ynew);
     write_real(renderer->file, center->x);      /* axes 1 */
-    write_real(renderer->file, center->y + height/2);
+    write_real(renderer->file, ynew + height/2);
     write_real(renderer->file, center->x + width/2); /* axes 2 */
-    write_real(renderer->file, center->y);
+    write_real(renderer->file, ynew );
 }
 
 static void
@@ -590,24 +906,69 @@ fill_ellipse(RendererCGM *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-    write_elhead(renderer->file, 5, 22, 2); /* fill */
-    write_int16(renderer->file, 1);
+real ynew;
 
-    write_elhead(renderer->file, 5, 30, 2); /* don't visible edge */
-    write_int16(renderer->file, 0);
+    write_filledge_attributes(renderer, colour, NULL);
 
-    write_elhead(renderer->file, 5, 23, 3); /* fill colour */
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
-
+    ynew = swap_y(renderer, center->y);
     write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
-    write_real(renderer->file, center->y);
+    write_real(renderer->file, ynew);
     write_real(renderer->file, center->x);      /* axes 1 */
-    write_real(renderer->file, center->y + height/2);
+    write_real(renderer->file, ynew + height/2);
     write_real(renderer->file, center->x + width/2); /* axes 2 */
-    write_real(renderer->file, center->y);
+    write_real(renderer->file, ynew);
 }
+
+
+static void 
+write_bezier(RendererCGM *renderer, 
+             BezPoint *points, 
+             int numpoints) 
+{
+    int     i;
+    Point   current;
+
+    if (points[0].type != BEZ_MOVE_TO)
+	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
+    current.x = points[0].p1.x;
+    current.y = swap_y(renderer, points[0].p1.y);
+
+    for (i = 1; i < numpoints; i++)
+    {
+	switch (points[i].type) 
+        {
+	case BEZ_MOVE_TO:
+	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+	    break;
+	case BEZ_LINE_TO:
+            write_elhead(renderer->file, 4, 1, 4 * REALSIZE);
+            write_real(renderer->file, current.x);
+            write_real(renderer->file, current.y);
+            write_real(renderer->file, points[i].p1.x);
+            write_real(renderer->file, swap_y(renderer, points[i].p1.y));
+            current.x = points[i].p1.x;
+            current.y = swap_y(renderer, points[i].p1.y);
+            break;
+	case BEZ_CURVE_TO:
+            write_elhead(renderer->file, 4, 26, 8 * REALSIZE + 2);
+            write_int16(renderer->file, 1);
+            write_real(renderer->file, current.x);
+            write_real(renderer->file, current.y);
+            write_real(renderer->file, points[i].p1.x);
+            write_real(renderer->file, swap_y(renderer, points[i].p1.y));
+            write_real(renderer->file, points[i].p2.x);
+            write_real(renderer->file, swap_y(renderer, points[i].p2.y));
+            write_real(renderer->file, points[i].p3.x);
+            write_real(renderer->file, swap_y(renderer, points[i].p3.y));
+            current.x = points[i].p3.x;
+            current.y = swap_y(renderer, points[i].p3.y);
+            break;
+        }
+    }
+}
+
 
 static void
 draw_bezier(RendererCGM *renderer, 
@@ -615,43 +976,13 @@ draw_bezier(RendererCGM *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-#if 0
-    int i;
-    xmlNodePtr node;
-    GString *str;
+    if ( numpoints < 2 )
+        return;
 
-    node = xmlNewChild(renderer->root, NULL, "path", NULL);
-  
-    xmlSetProp(node, "style", get_draw_style(renderer, colour));
-
-    str = g_string_new(NULL);
-
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-    g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
-		     (double)points[0].p1.y);
-
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	    break;
-	case BEZ_LINE_TO:
-	    g_string_sprintfa(str, " L %g,%g",
-			      (double) points[i].p1.x, (double) points[i].p1.y);
-	    break;
-	case BEZ_CURVE_TO:
-	    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-			      (double) points[i].p1.x, (double) points[i].p1.y,
-			      (double) points[i].p2.x, (double) points[i].p2.y,
-			      (double) points[i].p3.x, (double) points[i].p3.y );
-	    break;
-	}
-    xmlSetProp(node, "d", str->str);
-    g_string_free(str, TRUE);
-#endif
+    write_line_attributes(renderer, colour);
+    write_bezier(renderer, points, numpoints);
 }
+
 
 static void
 fill_bezier(RendererCGM *renderer, 
@@ -659,44 +990,20 @@ fill_bezier(RendererCGM *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-#if 0
-    int i;
-    xmlNodePtr node;
-    GString *str;
+    if ( numpoints < 2 )
+        return;
 
-    node = xmlNewChild(renderer->root, NULL, "path", NULL);
-  
-    xmlSetProp(node, "style", get_fill_style(renderer, colour));
+    write_filledge_attributes(renderer, colour, NULL);
 
-    str = g_string_new(NULL);
-
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-    g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
-		     (double)points[0].p1.y);
- 
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	    break;
-	case BEZ_LINE_TO:
-	    g_string_sprintfa(str, " L %g,%g",
-			      (double) points[i].p1.x, (double) points[i].p1.y);
-	    break;
-	case BEZ_CURVE_TO:
-	    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-			      (double) points[i].p1.x, (double) points[i].p1.y,
-			      (double) points[i].p2.x, (double) points[i].p2.y,
-			      (double) points[i].p3.x, (double) points[i].p3.y );
-	    break;
-	}
-    g_string_append(str, "z");
-    xmlSetProp(node, "d", str->str);
-    g_string_free(str, TRUE);
-#endif
+    /*
+    ** A filled bezier is created by using it within a figure.
+    */
+    write_elhead(renderer->file, 0, 8, 0);     /* begin figure */
+    write_bezier(renderer, points, numpoints);
+    write_elhead(renderer->file, 0, 9, 0);     /* end figure */
 }
+
+
 
 static void
 draw_string(RendererCGM *renderer,
@@ -704,28 +1011,31 @@ draw_string(RendererCGM *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-    double x = pos->x, y = pos->y;
+    double x = pos->x, y = swap_y(renderer, pos->y);
     gint len, chunk;
     const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
     const gint maxappendchunk = 255 - 2 - 1;
 
-    /* write a text colour element ... */
-    write_elhead(renderer->file, 5, 14, 3);
-    write_colour(renderer->file, colour);
-    putc(0, renderer->file);
+    /* check for empty strings */
+    len = strlen(text);
+    if ( len == 0 )
+        return;
+
+    write_text_attributes(renderer, colour);
 
     switch (alignment) {
     case ALIGN_LEFT:
 	break;
     case ALIGN_CENTER:
-	x -= font_string_width(text, renderer->font, renderer->font_height)/2;
+	x -= font_string_width(text, renderer->font, 
+                                     renderer->tcurrent.font_height)/2;
 	break;
     case ALIGN_RIGHT:
-	x -= font_string_width(text, renderer->font, renderer->font_height);
+	x -= font_string_width(text, renderer->font, 
+                                     renderer->tcurrent.font_height);
 	break;
     }
     /* work out size of first chunk of text */
-    len = strlen(text);
     chunk = MIN(maxfirstchunk, len);
     write_elhead(renderer->file, 4, 4, 2 * REALSIZE + 2 + 1 + chunk);
     write_real(renderer->file, x);
@@ -753,6 +1063,7 @@ draw_string(RendererCGM *renderer,
     }
 }
 
+
 static void
 draw_image(RendererCGM *renderer,
 	   Point *point,
@@ -760,9 +1071,10 @@ draw_image(RendererCGM *renderer,
 	   DiaImage image)
 {
     const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;
-    double x1 = point->x, y1 = point->y, x2 = x1+width, y2 = y1+height;
+    double x1 = point->x, y1 = swap_y(renderer, point->y), 
+           x2 = x1+width, y2 = y1-height;
     gint rowlen = dia_image_width(image) * 3, lines = dia_image_height(image);
-    double linesize = (y2 - y1) / lines;
+    double linesize = (y1 - y2) / lines;
     gint chunk, clines = lines;
     guint8 *ptr = dia_image_rgb_data(image);
 
@@ -781,7 +1093,7 @@ draw_image(RendererCGM *renderer,
 	write_real(renderer->file, x1); /* first corner */
 	write_real(renderer->file, y1);
 	write_real(renderer->file, x2); /* second corner */
-	write_real(renderer->file, y1 + linesize*clines/*y2*/);
+	write_real(renderer->file, y1 - linesize*clines/*y2*/);
 	write_real(renderer->file, x2); /* third corner */
 	write_real(renderer->file, y1);
 
@@ -796,7 +1108,7 @@ draw_image(RendererCGM *renderer,
 
 	lines -= clines;
 	ptr += chunk;
-	y1 += clines * linesize;
+	y1 -= clines * linesize;
     }
 }
 
@@ -861,7 +1173,7 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     write_elhead(file, 1, 11, 6);
     write_int16(file,  1);
     write_int16(file, -1);
-    write_int16(file,  1);
+    write_int16(file,  5);
 
     /* write font list */
     init_fonts();
@@ -892,15 +1204,21 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
 
     extent = &data->extents;
 
+    /*
+    ** Change the swap Y-coordinate in the CGM, to get a more 
+    ** 'portable' CGM   
+    */
     /* write extents */
     write_elhead(file, 2, 6, 4 * REALSIZE);
     write_real(file, extent->left);
-    write_real(file, extent->bottom);
-    write_real(file, extent->right);
     write_real(file, extent->top);
+    write_real(file, extent->right);
+    write_real(file, extent->bottom);
+    renderer->y1 = extent->top;
+    renderer->y0 = extent->bottom;
 
     /* write back colour */
-    write_elhead(file, 2, 7, 4);
+    write_elhead(file, 2, 7, 3);
     write_colour(file, &data->bg_color);
     putc(0, file);
 
@@ -910,9 +1228,18 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     /* make text be the right way up */
     write_elhead(file, 5, 16, 4 * REALSIZE);
     write_real(file,  0);
-    write_real(file, -1);
+    write_real(file,  1);
     write_real(file,  1);
     write_real(file,  0);
+
+    /* set the text alignment to left/base */
+    write_elhead(file, 5, 18, 4 + 2 * REALSIZE);
+    write_int16(file, 1);          /* left */
+    write_int16(file, 4);          /* base */
+    write_real(file, 0.0);
+    write_real(file, 0.0);
+
+    init_attributes(renderer);
 
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
 

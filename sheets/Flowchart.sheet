@@ -4,149 +4,178 @@
   <name>Flowchart</name>
   <description xml:lang="no">Objekter som brukes til å tegne flytdiagrammer.</description>
   <description xml:lang="fr">Objets pour dessiner des graphes de flux.</description>
+  <description xml:lang="de">Objekte um Flußdiagramme zu zeichnen.</description>
   <description>Objects to draw flowcharts.</description>
   <contents>
     <object name="Flowchart - Box">
       <description xml:lang="no">En boks med tekstinnhold.</description>
       <description xml:lang="fr">Une boîte contenant du texte.</description>
+      <description xml:lang="de">Ein Kasten mit Textinhalt.</description>
       <description>A box with text inside</description>
     </object>
     <object name="Flowchart - Parallelogram">
       <description xml:lang="no">Et parallellogram med tekstinnhold.</description>
       <description xml:lang="fr">Un parallélogramme contenant du texte.</description>
+      <description xml:lang="de">Ein Parallelogram mit Textinhalt.</description>
       <description>A parallelogram with text inside.</description>
     </object>
     <object name="Flowchart - Diamond">
-      <description xml:lang="no">En diamant med tekstinnhold</description>
-      <description xml:lang="fr">Un diamant contenant texte</description>
-      <description>A diamond with text inside</description>
+      <description xml:lang="no">En diamant med tekstinnhold.</description>
+      <description xml:lang="fr">Un diamant contenant du texte.</description>
+      <description xml:lang="de">Ein Diamant mit Textinhalt.</description>
+      <description>A diamond with text inside.</description>
     </object>
     <object name="Flowchart - Ellipse">
-      <description xml:lang="no">En elipse med tekstinnhold</description>
-      <description xml:lang="fr">Une ellipse contenant du texte</description>
+      <description xml:lang="no">En elipse med tekstinnhold.</description>
+      <description xml:lang="fr">Une ellipse contenant du texte.</description>
+      <description xml:lang="de">Eine Ellipse mit Textinhalt.</description>
       <description>A ellipse with text inside.</description>
     </object>
     <object name="Flowchart - Display">
       <description xml:lang="no">Vis</description>
       <description xml:lang="fr">Affichage</description>
+      <description xml:lang="de">Anzeige</description>
       <description>Display</description>
     </object>
     <object name="Flowchart - Transaction File">
       <description xml:lang="no">Transaksjonsfil</description>
       <description xml:lang="fr">Fichier de transaction</description>
+      <description xml:lang="de">Transaktionsdatei</description>
       <description>Transaction File</description>
     </object>
     <object name="Flowchart - Off Page Connector">
       <description xml:lang="no">Utenfor-siden-forbindelse</description>
       <description xml:lang="fr">Connecteur Hors Ligne (?)</description>
+      <description xml:lang="de">Seitenendeverbindung</description>
       <!-- XXX -->
       <description>Off Page Connector</description>
     </object>
     <object name="Flowchart - Document">
       <description xml:lang="no">Dokument</description>
       <description xml:lang="fr">Document</description>
+      <description xml:lang="de">Dokument</description>
       <description>Document</description>
     </object>
     <object name="Flowchart - Manual Operation">
       <description xml:lang="no">Manuell operasjon</description>
       <description xml:lang="fr">Opération Manuelle</description>
+      <description xml:lang="de">Manuelle Wirkung</description>
       <description>Manual Operation</description>
     </object>
     <object name="Flowchart - Preparation">
       <description xml:lang="no">Forberedelse</description>
       <description xml:lang="fr">Préparation</description>
+      <description xml:lang="de">Vorbereitung</description>
       <description>Preparation</description>
     </object>
     <object name="Flowchart - Manual Input">
       <description xml:lang="no">Manuelle inndata</description>
       <description xml:lang="fr">Entrée Manuelle</description>
+      <description xml:lang="de">Manuelle Eingabe</description>
       <description>Manual Input</description>
     </object>
     <object name="Flowchart - Predefined Process">
       <description xml:lang="no">Forhåndsdefinert prosess</description>
       <description xml:lang="fr">Processus prédéfini</description>
+      <description xml:lang="de">Vordefinierter Prozess</description>
       <description>Predefined Process</description>
     </object>
     <object name="Flowchart - Terminal">
       <description xml:lang="no">Terminal</description>
       <description xml:lang="fr">Terminal</description>
+      <description xml:lang="de">Terminal</description>
       <description>Terminal</description>
     </object>
     <object name="Flowchart - Magnetic Disk">
       <description xml:lang="no">Magnetdisk</description>
       <description xml:lang="fr">Disque Magnétique</description>
+      <description xml:lang="de">Magnetdisk</description>
       <description>Magnetic Disk</description>
     </object>
     <object name="Flowchart - Magnetic Drum">
       <description xml:lang="no">Magnetisk trommel</description>
       <description xml:lang="fr">Tambour Magnétique</description>
+      <description xml:lang="de">Magnettrommel</description>
       <description>Magnetic Drum</description>
     </object>
     <object name="Flowchart - Magnetic Tape">
       <description xml:lang="no">Magnetbånd</description>
       <description xml:lang="fr">Bande Magnétique</description>
+      <description xml:lang="de">Magnetband</description>
       <description>Magnetic Tape</description>
     </object>
     <object name="Flowchart - Internal Storage">
       <description xml:lang="no">Intern lagring</description>
       <description xml:lang="fr">Stockage Interne</description>
+      <description xml:lang="de">Interner Speicher</description>
       <description>Internal Storage</description>
     </object>
     <object name="Flowchart - Merge">
       <description xml:lang="no">Fusjon</description>
       <description xml:lang="fr">Fusion</description>
+      <description xml:lang="de">Vereinigung</description>
       <description>Merge</description>
     </object>
     <object name="Flowchart - Extract">
       <description xml:lang="no">Separasjon</description>
       <description xml:lang="fr">Extraction</description>
+      <description xml:lang="de">Extrahierung</description>
       <description>Extract</description>
     </object>
     <object name="Flowchart - Delay">
       <description xml:lang="no">Tidsavbrudd</description>
       <description xml:lang="fr">Délai</description>
+      <description xml:lang="de">Verzögerung</description>
       <description>Delay</description>
     </object>
     <object name="Flowchart - Summing Junction">
       <description xml:lang="no">Samlende kryss</description>
       <description xml:lang="fr">Jonction sommante</description>
+      <description xml:lang="de">Vereinigungsverbindung</description>
       <!-- XXX -->
       <description>Summing Junction</description>
     </object>
     <object name="Flowchart - Collate">
       <description xml:lang="no">Samle inn</description>
       <description xml:lang="fr">Rassembler</description>
+      <description xml:lang="de">Vergleich</description>
       <!-- XXX -->
       <description>Collate</description>
     </object>
     <object name="Flowchart - Sort">
       <description xml:lang="no">Sortér</description>
       <description xml:lang="fr">Tri</description>
+      <description xml:lang="de">Sortierung</description>
       <description>Sort</description>
     </object>
     <object name="Flowchart - Or">
       <description xml:lang="no">Eller</description>
       <description xml:lang="fr">Ou</description>
+      <description xml:lang="de">Oder</description>
       <description>Or</description>
     </object>
     <object name="Flowchart - Punched Card">
       <description xml:lang="no">Hullkort</description>
       <description xml:lang="fr">Carte perforée</description>
+      <description xml:lang="de">Abgeschnittene Karte</description>
       <description>Punched Card</description>
     </object>
     <object name="Flowchart - Punched Tape">
       <description xml:lang="no">Hullbånd</description>
       <description xml:lang="fr">Bande perforée</description>
+      <description xml:lang="de">Abgeschnittenes Band</description>
       <description>Punched Tape</description>
     </object>
     <object name="Flowchart - Transmittal Tape">
       <description xml:lang="no">Sendebånd</description>
       <description xml:lang="fr">Bande de transmission</description>
+      <description xml:lang="de">Sendeband</description>
       <description>Transmittal Tape</description>
     </object>
     <object name="Flowchart - Offline Storage">
       <description xml:lang="no">Off-line lagring</description>
       <description xml:lang="fr">Stockage hors-ligne</description>
+      <description xml:lang="de">Offline Speicher</description>
       <description>Offline Storage</description>
     </object>
  </contents>
