@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "POT-Creation-Date: 2000-10-31 15:20+0100\n"
-"PO-Revision-Date: 2000-10-31 23:26+0200\n"
+"PO-Revision-Date: 2000-11-10 20:43+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Dia, wersja %s. Autor: Alexander Larsson"
 
 #: app/commands.c:1
 msgid "Maintainer: James Henstridge"
-msgstr ""
+msgstr "Nadzoruj±cy: James Henstridge"
 
 #: app/commands.c:1
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: app/commands.c:1
 msgid "Contributors:"
-msgstr ""
+msgstr "Wspó³twórcy:"
 
 #: app/commands.c:1 app/dia-props.c:1 app/layer_dialog.c:1
 #: app/lineprops_area.c:1 app/lineprops_area.c:1 app/linewidth_area.c:1
@@ -141,6 +141,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Renderowanie z wyg³adzaniem jest pe³ne b³êdów.\n"
+"Autorzy wiedz± o tym, wiêc nie traæ nawet czasu\n"
+"na zg³aszanie dotycz±cych tego b³êdów."
 
 #: app/defaults.c:1 app/defaults.c:1
 msgid "Object defaults"
@@ -239,12 +242,12 @@ msgstr "Dopasowanie do:"
 
 #: app/diapagelayout.c:1
 msgid "by"
-msgstr ""
+msgstr "na"
 
 #: app/diapagelayout.c:1
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: app/diapagelayout.c:1 app/pagesetup.c:1 app/pagesetup.c:1
 msgid "Page Setup"
@@ -352,6 +355,8 @@ msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
+"Nie mo¿na okre¶liæ filtra do zapisu\n"
+"\"%s\"."
 
 #: app/filedlg.c:1
 msgid "Export Diagram"
@@ -475,7 +480,7 @@ msgstr "Powiêkszenie"
 
 #: app/interface.c:1
 msgid "NULL tooldata in tool_select_update"
-msgstr ""
+msgstr "Dane narzêdzia o warto¶ci NULL w tool_select_update"
 
 #: app/interface.c:1
 msgid ""
@@ -771,7 +776,7 @@ msgstr "Jednakowa odleg³o¶æ"
 
 #: app/menus.c:1 app/menus.c:1
 msgid "Adjacent"
-msgstr ""
+msgstr "Przyleg³e"
 
 #: app/menus.c:1
 msgid "Top"
@@ -1225,7 +1230,7 @@ msgstr "/Okna dialogowe/_Warstwy"
 
 #: app/menus.c:1
 msgid "NULL tooldata in tool_menu_select"
-msgstr ""
+msgstr "Dane narzêdzia o warto¶ci NULL w tool_menu_select"
 
 #: app/menus.c:1
 msgid "Diagram Menu"
@@ -1321,6 +1326,8 @@ msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
+"Zaznaczanie przecinaj±cych siê obiektów\n"
+"przy odwrotnym przeci±ganiu"
 
 #: app/preferences.c:1
 msgid "New window:"
@@ -1398,6 +1405,7 @@ msgstr "Encapsulated Postscript"
 #: lib/bezier_conn.c:1
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
+"B³±d wewnêtrzny: Ustawianie typu naro¿nika koñcowego punktu krzywej Beziera"
 
 #: lib/font.c:1
 #, c-format
@@ -1428,7 +1436,7 @@ msgstr "B³±d"
 #: lib/plug-ins.c:1
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Nie mo¿na wywnioskowaæ poprawnej ¶ciezki dla \"%s\""
 
 #: lib/plug-ins.c:1
 #, c-format
@@ -1461,7 +1469,7 @@ msgstr "Nie mo¿na otworzyæ '%s'"
 
 #: lib/properties.c:1 lib/properties.c:1
 msgid "No edit widget"
-msgstr ""
+msgstr "Brak widgetu do modyfikacji"
 
 #: lib/widgets.c:1
 msgid "Solid"
@@ -1549,11 +1557,11 @@ msgstr "S³aby klucz"
 
 #: objects/ER/attribute.c:1
 msgid "Derived"
-msgstr ""
+msgstr "Pochodny"
 
 #: objects/ER/attribute.c:1
 msgid "Multivalue"
-msgstr ""
+msgstr "Warto¶æ z³o¿ona"
 
 #: objects/ER/attribute.c:1 objects/ER/entity.c:1
 #: objects/ER/relationship.c:1
@@ -1584,7 +1592,7 @@ msgstr "Jednostka"
 
 #: objects/ER/er.c:1
 msgid "Entity/Relationship diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu jednostek i zale¿no¶ci"
 
 #: objects/ER/participation.c:1
 msgid "Total:"
@@ -1608,11 +1616,11 @@ msgstr "Usuñ segment"
 
 #: objects/ER/relationship.c:1
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Lewa zale¿no¶æ:"
 
 #: objects/ER/relationship.c:1
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Prawa zale¿no¶æ:"
 
 #: objects/ER/relationship.c:1
 msgid "Rotate"
@@ -1620,7 +1628,7 @@ msgstr "Obrót"
 
 #: objects/ER/relationship.c:1
 msgid "Identifying"
-msgstr ""
+msgstr "Identyfikuj±ca"
 
 #: objects/ER/relationship.c:1
 msgid "Relationship"
@@ -1654,15 +1662,15 @@ msgstr "Sygna³"
 
 #: objects/FS/flow-ortho.c:1
 msgid "Orthflow:"
-msgstr ""
+msgstr "Przep³yw prostopad³y:"
 
 #: objects/FS/flow-ortho.c:1
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Typ przep³ywu prostopad³ego:"
 
 #: objects/FS/fs.c:1
 msgid "Function structure diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu struktury funkcji"
 
 #: objects/FS/function.c:1
 msgid "Function:"
@@ -1670,7 +1678,7 @@ msgstr "Funkcja:"
 
 #: objects/FS/function.c:1
 msgid "Wish function"
-msgstr ""
+msgstr "Funkcja zaprzyja¼niona"
 
 #: objects/FS/function.c:1
 msgid "User function"
@@ -1682,151 +1690,151 @@ msgstr "Kana³"
 
 #: objects/FS/function.c:1
 msgid "   Import"
-msgstr " Importuj"
+msgstr "   Import"
 
 #: objects/FS/function.c:1
 msgid "   Export"
-msgstr " Exportuj"
+msgstr "   Eksport"
 
 #: objects/FS/function.c:1
 msgid "   Transfer"
-msgstr "   Prze¶lij"
+msgstr "   Przesy³anie"
 
 #: objects/FS/function.c:1
 msgid "      Transport"
-msgstr ""
+msgstr "      Transport"
 
 #: objects/FS/function.c:1
 msgid "      Transmit"
-msgstr ""
+msgstr "      Transmisja"
 
 #: objects/FS/function.c:1
 msgid "   Guide"
-msgstr ""
+msgstr "   Kierowanie"
 
 #: objects/FS/function.c:1
 msgid "      Translate"
-msgstr ""
+msgstr "      Przeniesienie"
 
 #: objects/FS/function.c:1
 msgid "      Rotate"
-msgstr "       Obróæ"
+msgstr "       Obrót"
 
 #: objects/FS/function.c:1
 msgid "      Allow DOF"
-msgstr ""
+msgstr "      Mo¿liwo¶æ DOF"
 
 #: objects/FS/function.c:1
 msgid "Support"
-msgstr ""
+msgstr "Wsparcie"
 
 #: objects/FS/function.c:1
 msgid "   Stop"
-msgstr ""
+msgstr "   Zatrzymanie"
 
 #: objects/FS/function.c:1
 msgid "   Stabilize"
-msgstr ""
+msgstr "   Stabilizacja"
 
 #: objects/FS/function.c:1
 msgid "   Secure"
-msgstr ""
+msgstr "   Zabezpieczenie"
 
 #: objects/FS/function.c:1
 msgid "   Position"
-msgstr ""
+msgstr "   Po³o¿enie"
 
 #: objects/FS/function.c:1
 msgid "Connect"
-msgstr "Po³±cz"
+msgstr "Po³±czenie"
 
 #: objects/FS/function.c:1
 msgid "   Couple"
-msgstr ""
+msgstr "   Para"
 
 #: objects/FS/function.c:1
 msgid "   Mix"
-msgstr ""
+msgstr "   Wymieszanie"
 
 #: objects/FS/function.c:1
 msgid "Branch"
-msgstr ""
+msgstr "Odga³êzienie"
 
 #: objects/FS/function.c:1
 msgid "   Separate"
-msgstr ""
+msgstr "   Rozdzielenie"
 
 #: objects/FS/function.c:1
 msgid "      Remove"
-msgstr "        Usuñ"
+msgstr "      Usuniêcie"
 
 #: objects/FS/function.c:1
 msgid "   Refine"
-msgstr ""
+msgstr "   Rafinowanie"
 
 #: objects/FS/function.c:1
 msgid "   Distribute"
-msgstr ""
+msgstr "   Rozproszenie"
 
 #: objects/FS/function.c:1
 msgid "   Dissipate"
-msgstr ""
+msgstr "   Rozdrobnienie"
 
 #: objects/FS/function.c:1
 msgid "Provision"
-msgstr ""
+msgstr "Zaopatrzenie"
 
 #: objects/FS/function.c:1
 msgid "   Store"
-msgstr ""
+msgstr "   Zapasy"
 
 #: objects/FS/function.c:1
 msgid "   Supply"
-msgstr ""
+msgstr "   Zaopatrzenie"
 
 #: objects/FS/function.c:1
 msgid "   Extract"
-msgstr ""
+msgstr "   WYdobywanie"
 
 #: objects/FS/function.c:1
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Kontrola wielko¶ci"
 
 #: objects/FS/function.c:1
 msgid "   Actuate"
-msgstr ""
+msgstr "  Pobudzanie"
 
 #: objects/FS/function.c:1
 msgid "   Regulate"
-msgstr ""
+msgstr "   Regulowanie"
 
 #: objects/FS/function.c:1
 msgid "   Change"
-msgstr ""
+msgstr "   Zmiana"
 
 #: objects/FS/function.c:1
 msgid "   Form"
-msgstr ""
+msgstr "   Kszta³towanie"
 
 #: objects/FS/function.c:1
 msgid "Convert"
-msgstr "Konwertuj"
+msgstr "Przemienianie"
 
 #: objects/FS/function.c:1
 msgid "   Sense"
-msgstr ""
+msgstr "   Zmys³"
 
 #: objects/FS/function.c:1
 msgid "   Indicate"
-msgstr ""
+msgstr "   Wskazywanie"
 
 #: objects/FS/function.c:1
 msgid "   Display"
-msgstr ""
+msgstr "   Okazywanie"
 
 #: objects/FS/function.c:1
 msgid "   Measure"
-msgstr ""
+msgstr "   Miara"
 
 #: objects/GRAFCET/action.c:1 objects/GRAFCET/action.c:1
 #: objects/GRAFCET/condition.c:1 objects/GRAFCET/condition.c:1
@@ -1865,7 +1873,7 @@ msgstr "Kolor tekstu:"
 
 #: objects/GRAFCET/action.c:1
 msgid "Macro call"
-msgstr ""
+msgstr "Wywo³anie makra"
 
 #: objects/GRAFCET/condition.c:1
 msgid "Condition:"
@@ -1873,31 +1881,31 @@ msgstr "Warunek:"
 
 #: objects/GRAFCET/grafcet.c:1
 msgid "GRAFCET diagram objects"
-msgstr ""
+msgstr "Obiekty diadramu GRAFCET"
 
 #: objects/GRAFCET/step.c:1
 msgid "Regular step"
-msgstr ""
+msgstr "Zwyk³y krok"
 
 #: objects/GRAFCET/step.c:1
 msgid "Initial step"
-msgstr ""
+msgstr "Pocz±tkowy krok"
 
 #: objects/GRAFCET/step.c:1
 msgid "Macro entry step"
-msgstr ""
+msgstr "Krok rozpoczêcia makra"
 
 #: objects/GRAFCET/step.c:1
 msgid "Macro exit step"
-msgstr ""
+msgstr "Krok zakoñczenia makra"
 
 #: objects/GRAFCET/step.c:1
 msgid "Macro call step"
-msgstr ""
+msgstr "Krok wywo³ania makra"
 
 #: objects/GRAFCET/step.c:1
 msgid "Subprogram call step"
-msgstr ""
+msgstr "Krok wywo³ania podprogramu"
 
 #: objects/GRAFCET/step.c:1
 msgid "Step name"
@@ -1917,11 +1925,11 @@ msgstr "Kolor:"
 
 #: objects/GRAFCET/transition.c:1
 msgid "Receptivity:"
-msgstr ""
+msgstr "Wra¿liwo¶æ:"
 
 #: objects/GRAFCET/vector.c:1 objects/GRAFCET/vector.c:1
 msgid "Draw arrow heads on upward arcs:"
-msgstr ""
+msgstr "Rysowanie ostrzy strza³ek na ³ukach skierowanych ku górze:"
 
 #: objects/GRAFCET/vergent.c:1
 msgid "OR"
@@ -1933,7 +1941,7 @@ msgstr "AND"
 
 #: objects/GRAFCET/vergent.c:1 objects/GRAFCET/vergent.c:1
 msgid "Vergent type:"
-msgstr ""
+msgstr "Typ przej¶cia:"
 
 #: objects/GRAFCET/vergent.c:1 objects/SADT/box.c:1
 #: objects/standard/line.c:1
@@ -1946,7 +1954,7 @@ msgstr "Usuñ punkt po³±czenia"
 
 #: objects/GRAFCET/vergent.c:1
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "Przej¶cie OR/AND GRAFCET"
 
 #: objects/SADT/annotation.c:1 objects/SADT/annotation.c:1
 #: objects/SADT/box.c:1 objects/SADT/box.c:1
@@ -1961,11 +1969,11 @@ msgstr "Zwyk³a"
 
 #: objects/SADT/arrow.c:1
 msgid "Import resource (not shown upstairs)"
-msgstr ""
+msgstr "Importowanie zasobu (nie wy¶wietlane u góry)"
 
 #: objects/SADT/arrow.c:1
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Implikowanie zasobu (nie wy¶wietlane u do³u)"
 
 #: objects/SADT/arrow.c:1
 msgid "Dotted arrow"
@@ -1973,7 +1981,7 @@ msgstr "Strza³ka kropkowana"
 
 #: objects/SADT/arrow.c:1
 msgid "disable arrow heads"
-msgstr "Bez ostrzy strza³ki"
+msgstr "Bez ostrzy strza³ek"
 
 #: objects/SADT/arrow.c:1 objects/SADT/arrow.c:1
 msgid "Flow style:"
@@ -1981,11 +1989,11 @@ msgstr "Rodzaj przep³ywu:"
 
 #: objects/SADT/arrow.c:1 objects/SADT/arrow.c:1
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "Automatyczne poszarzanie pionowych przep³ywów:"
 
 #: objects/SADT/arrow.c:1
 msgid "SADT Arrow"
-msgstr ""
+msgstr "Strza³ka SADT"
 
 #: objects/SADT/box.c:1 objects/SADT/box.c:1
 #: objects/custom/custom_object.c:1 objects/flowchart/box.c:1
@@ -1996,7 +2004,7 @@ msgstr "Wyrównanie tekstu:"
 
 #: objects/SADT/box.c:1
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "Identyfikator aktywacji/danych"
 
 #: objects/SADT/box.c:1 objects/standard/line.c:1
 msgid "Delete connection point"
@@ -2004,11 +2012,11 @@ msgstr "Usuñ punkt po³±czenia"
 
 #: objects/SADT/box.c:1
 msgid "SADT box"
-msgstr ""
+msgstr "Prostok±t SADT"
 
 #: objects/SADT/sadt.c:1
 msgid "SADT diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu SADT"
 
 #: objects/UML/actor.c:1
 msgid "Actor"
@@ -2020,11 +2028,11 @@ msgstr "Kierunek:"
 
 #: objects/UML/association.c:1
 msgid "From A to B"
-msgstr "Z a do B"
+msgstr "Od A do B"
 
 #: objects/UML/association.c:1
 msgid "From B to A"
-msgstr "Z b do A"
+msgstr "Od B do A"
 
 #: objects/UML/association.c:1 objects/UML/association.c:1
 msgid "Side A"
@@ -2048,11 +2056,11 @@ msgstr "Wy¶wietlanie strza³ki"
 
 #: objects/UML/association.c:1
 msgid "Aggregate"
-msgstr ""
+msgstr "Agregat"
 
 #: objects/UML/association.c:1
 msgid "Composition"
-msgstr ""
+msgstr "Z³o¿enie"
 
 #: objects/UML/class.c:1 objects/UML/class_dialog.c:1
 msgid "Class"
@@ -2199,7 +2207,7 @@ msgstr "Jest obiektem"
 
 #: objects/UML/constraint.c:1
 msgid "Constraint:"
-msgstr ""
+msgstr "Wymóg:"
 
 #: objects/UML/dependency.c:1
 msgid "Show arrow:"
@@ -2211,7 +2219,7 @@ msgstr "Interfejs:"
 
 #: objects/UML/lifeline.c:1
 msgid "Show focus of control:"
-msgstr ""
+msgstr "Wy¶wietlanie skupienia sterowania:"
 
 #: objects/UML/lifeline.c:1
 msgid "Show destruction mark:"
@@ -2255,7 +2263,7 @@ msgstr "Rekurencyjny"
 
 #: objects/UML/object.c:1
 msgid "Explicit state:"
-msgstr ""
+msgstr "Sprecyzowany stan:"
 
 #: objects/UML/object.c:1
 msgid "Attributes:"
@@ -2283,7 +2291,7 @@ msgstr "Koniec"
 
 #: objects/UML/uml.c:1
 msgid "Unified Modelling Language diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu UML"
 
 #: objects/UML/usecase.c:1
 msgid "Text outside:"
@@ -2295,11 +2303,11 @@ msgstr "Wspó³praca"
 
 #: objects/chronogram/chronogram.c:1
 msgid "Chronogram diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu czasowego"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Aspect"
-msgstr ""
+msgstr "Wygl±d"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Parameters"
@@ -2311,7 +2319,7 @@ msgstr "Dane"
 
 #: objects/chronogram/chronoline.c:1
 msgid "Data name:"
-msgstr ""
+msgstr "Nazwa danej:"
 
 #: objects/chronogram/chronoline.c:1
 msgid "Events:"
@@ -2326,6 +2334,15 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
+"Okre¶lenie zdarzenia:\n"
+"@ czas    ustawia wska¼nik w czasie bezwzlêdnym.\n"
+"( czas trwania    ustawia sygna³ na podniesiony i oczekuje przez podany "
+"czas.\n"
+") czas trwania    ustawia sygna³ na opuszczony i oczekuje przez podany "
+"czas.\n"
+"u czas trwania    ustawia sygna³ w stanie nieznanym i oczekuje przez podany "
+"czas.\n"
+"przyk³ad : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 #: objects/chronogram/chronoref.c:1 objects/chronogram/chronoref.c:1
@@ -2339,23 +2356,23 @@ msgstr "Czas zakoñczenia:"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Rise time:"
-msgstr ""
+msgstr "Czas podniesienia:"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Fall time:"
-msgstr ""
+msgstr "Czas opuszczenia:"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Multi-bit data"
-msgstr ""
+msgstr "Wielobitowe dane"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Data color:"
-msgstr ""
+msgstr "Kolor danej:"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 msgid "Data line width:"
-msgstr ""
+msgstr "Szeroko¶æ linii danej:"
 
 #: objects/chronogram/chronoline.c:1 objects/chronogram/chronoline.c:1
 #: objects/chronogram/chronoref.c:1 objects/chronogram/chronoref.c:1
@@ -2364,23 +2381,23 @@ msgstr "Kolor linii:"
 
 #: objects/chronogram/chronoref.c:1 objects/chronogram/chronoref.c:1
 msgid "Major time step:"
-msgstr ""
+msgstr "Du¿y krok czasu:"
 
 #: objects/chronogram/chronoref.c:1 objects/chronogram/chronoref.c:1
 msgid "Minor time step:"
-msgstr ""
+msgstr "Ma³y krok czasu:"
 
 #: objects/chronogram/chronoref.c:1 objects/chronogram/chronoref.c:1
 msgid "Minor step line width:"
-msgstr ""
+msgstr "Szeroko¶æ linii ma³ego kroku czasu:"
 
 #: objects/custom/custom.c:1
 msgid "Custom"
-msgstr ""
+msgstr "Dowolny"
 
 #: objects/custom/custom.c:1
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "Odczyt dowolnych kszta³tó w XML-u"
 
 #: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
 msgid "Flip horizontal"
@@ -2425,7 +2442,7 @@ msgstr "Zaokr±glanie naro¿ników:"
 
 #: objects/flowchart/flowchart.c:1
 msgid "Flowchart objects"
-msgstr ""
+msgstr "Obiekty diagramu przep³ywu"
 
 #: objects/flowchart/parallelogram.c:1
 msgid "Shear angle"
@@ -2445,7 +2462,7 @@ msgstr "Usuñ uchwyt"
 
 #: objects/network/network.c:1
 msgid "Network diagram objects"
-msgstr ""
+msgstr "Obiekty schamatu sieci"
 
 #: objects/standard/bezier.c:1 objects/standard/beziergon.c:1
 msgid "Add Segment"
@@ -2457,15 +2474,15 @@ msgstr "Usuñ segment"
 
 #: objects/standard/bezier.c:1 objects/standard/beziergon.c:1
 msgid "Symmetric control"
-msgstr ""
+msgstr "Kontrola symetryczna"
 
 #: objects/standard/bezier.c:1 objects/standard/beziergon.c:1
 msgid "Smooth control"
-msgstr ""
+msgstr "P³ynna kontrola"
 
 #: objects/standard/bezier.c:1 objects/standard/beziergon.c:1
 msgid "Cusp control"
-msgstr ""
+msgstr "Kontrola niezale¿na"
 
 #: objects/standard/arc.c:1
 msgid "Curve distance"
@@ -2535,7 +2552,7 @@ msgstr "Rozmiar czcionki:"
 
 #: objects/sybase/sybase.c:1
 msgid "Sybase replication domain diagram objects"
-msgstr ""
+msgstr "Obiekty diagramu dziedziny replikacji Sybase"
 
 #: plug-ins/cgm/cgm.c:1
 msgid ""
@@ -2555,23 +2572,23 @@ msgstr "Filtr eksportu CGM (Computer Graphics Metafile)"
 
 #: plug-ins/dxf/dxf-export.c:1 plug-ins/dxf/dxf-import.c:1
 msgid "Drawing Interchange File"
-msgstr ""
+msgstr "PLIK DIF (Drawing Interchange File)"
 
 #: plug-ins/dxf/dxf.c:1
 msgid "Drawing Interchange File import and export filters"
-msgstr ""
+msgstr "Filtry importu i eksportu plików DIF (Drawing Interchange File)"
 
 #: plug-ins/hpgl/hpgl.c:1
 msgid "HP Graphics Language export filter"
-msgstr ""
+msgstr "Filtr eksportu HPGL"
 
 #: plug-ins/pstricks/pstricks.c:1
 msgid "TeX Pstricks export filter"
-msgstr ""
+msgstr "Filtr eksportu TeX Pstricks"
 
 #: plug-ins/pstricks/render_pstricks.c:1
 msgid "TeX PSTricks macros"
-msgstr ""
+msgstr "Makra TeX Pstricks"
 
 #: plug-ins/shape/shape-export.c:1
 msgid "dia shape file"
@@ -2592,8 +2609,8 @@ msgstr "Filtr eksportuj±cy do formatu Scalable Vector Graphics"
 #: plug-ins/wpg/wpg.c:1
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr ""
+msgstr "Plik: typ/wersja %s nie jest obs³ugiwana.\n"
 
 #: plug-ins/wpg/wpg.c:1
 msgid "WordPerfect Graphics export filter"
-msgstr ""
+msgstr "Filtr eksportu plików WordPerfect Graphics"
