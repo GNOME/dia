@@ -58,32 +58,31 @@ msgstr "ВИВІД"
 #. &export_file_format
 #: app/app_procs.c:392
 msgid "FORMAT"
-msgstr ""
+msgstr "ФОРМАТ"
 
 #: app/app_procs.c:395
-#, fuzzy
 msgid "Export graphics size"
-msgstr "Экспортувати завантажений файл та вийти"
+msgstr "Розміри експортованої графіки"
 
 #: app/app_procs.c:395
 msgid "WxH"
-msgstr ""
+msgstr "ШxВ"
 
 #: app/app_procs.c:397
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "Не показувати заставки"
 
 #: app/app_procs.c:399
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr ""
+msgstr "Друкувати повідомлення про помилки на stderr, а не показувати їх в діалогах."
 
 #: app/app_procs.c:401
 msgid "Display credits list and exit"
-msgstr ""
+msgstr "Показати список авторів, і вийти"
 
 #: app/app_procs.c:403
 msgid "Display version and exit"
-msgstr ""
+msgstr "Показати номер версії, і вийти"
 
 #: app/app_procs.c:405 app/diaconv.c:95
 msgid "Show this help message"
@@ -97,12 +96,12 @@ msgstr "Не вдалось встановити з'єднання з менед
 #: app/app_procs.c:472
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
-msgstr ""
+msgstr "Dia версії %s, скомпільовано %s %s\n"
 
 #: app/app_procs.c:474
-#, fuzzy, c-format
+#, c-format
 msgid "Dia version %s\n"
-msgstr "Діа версії %s"
+msgstr "Діа версії %s\n"
 
 #: app/app_procs.c:526 app/app_procs.c:528 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
@@ -116,17 +115,19 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
+"Цього не мало статися. Будь ласка, прозвітуйте про помилку на\n"
+"bugzilla.gnome.org, описавши як відтворити цю помилку.\n"
 
 #. no standard buttons
 #: app/app_procs.c:603
-#, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
 "Є змінені діаграми.\n"
-"Ви впевнені, що хочете вийти?"
+"Ви впевнені, що хочете вийти\n"
+"з Dia не зберігши їх?"
 
 #: app/app_procs.c:607
 msgid "Quit Dia"
@@ -136,7 +137,7 @@ msgstr "Вийти з Dia"
 #. Yuck.  -Lars
 #: app/app_procs.c:662
 msgid "Thank you for using Dia.\n"
-msgstr ""
+msgstr "Дякуємо, за використання Dia.\n"
 
 #: app/app_procs.c:676 app/app_procs.c:683
 msgid "Could not create per-user Dia config directory"
@@ -248,11 +249,8 @@ msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr ""
 
 #: app/commands.c:701
-#, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr ""
-"Будь ласка, звертайтесь за додатковою інформацією за адресою http://www."
-"lysator.liu.se/~alla/dia"
+msgstr "Для докладнішої інформації, відвідайте http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:706
 msgid "Contributors:"
@@ -317,9 +315,9 @@ msgstr "Кольори"
 
 #. Can we be sure that the filename is the 'proper title'?
 #: app/dia-props.c:230
-#, fuzzy, c-format
+#, c-format
 msgid "Diagram Properties: %s"
-msgstr "Властивості діаграми"
+msgstr "Властивості діаграми: %s"
 
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
@@ -666,9 +664,8 @@ msgstr "Зберегти діаграму"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:299
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Стискувати файли, що зберігаються:"
+msgstr "Стиснути файл діаграми"
 
 #: app/filedlg.c:308
 msgid ""
