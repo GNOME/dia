@@ -1,3 +1,21 @@
+2002-06-30  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Contribution from Alan Horkan <horkana@tcd.ie>: 
+	
+	* shapes/Assorted/*
+	* sheets/Assorted.sheet:
+	A set of 40 assorted geometric shapes.
+
+	* sheets/Assorted.sheet.in:
+	* sheets/Makefile.am
+	* shapes/Assorted/Makefile.am:
+	* shapes/Makefile.am:
+	* po/POTFILES.in:
+	* configure.in:
+	Done the integration job of Alan's shapes. (Translators: have fun!)
+
+	* po/dia.pot: refreshed the main potfile.
+	
 2002-06-28  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch from Tim Ellis <Tim.Ellis@gamet.com>:

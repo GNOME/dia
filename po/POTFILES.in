@@ -140,6 +140,7 @@ plug-ins/xfig/xfig-export.c
 plug-ins/xfig/xfig-import.c
 plug-ins/xslt/xslt.c
 plug-ins/xslt/xsltdialog.c
+sheets/Assorted.sheet.in
 sheets/chronogram.sheet.in
 sheets/Circuit.sheet.in
 sheets/civil.sheet.in

@@ -257,6 +257,7 @@ objects/GRAFCET/Makefile
 objects/chronogram/Makefile
 objects/SADT/Makefile
 shapes/Makefile
+shapes/Assorted/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
 shapes/Contact/Makefile
