@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 XSLT_XSL = dia-uml.xsl dia-uml2c++.xsl dia-uml2java.xsl dia-uml2idl.xsl \
+	dia-uml2python.xsl dia-uml2owl.xsl \
 	stylesheets.xml dia-uml2componentlist.xsl	
 XSLT_SRC = xslt.c xslt.h xsltdialog.c	
 

@@ -1,3 +1,12 @@
+2003-12-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xslt/dia-uml2python.xsl: Added Python sheet from Holger
+	Lehmann <holger.lehmann@catworkx.de>.
+
+	* plug-ins/xslt/Makefile.am: 
+	* plug-ins/xslt/stylesheets.xml: Added Python, Component List,
+	and OWL XSLT sheets.
+
 2003-12-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c: Add implementation so text is still
