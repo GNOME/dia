@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>FS</name>
+  <name xml:lang="fr">FS</name>
   <description xml:lang="no">Editor for diagrammer over funksjonsstruktur.</description>
   <description xml:lang="fr">Editeur de Diagrammes de Structures Fonctionnelles.</description>
   <description xml:lang="de">Editor für Funktionsstrukturdiagramme.</description>

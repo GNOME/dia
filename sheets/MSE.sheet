@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>MSE</name>  
+  <name xml:lang="fr">MSE</name>
   <description>U.S. Army Mobile Subscriber Equipment Components</description>
   <description xml:lang="da">U.S. Army Mobile Subscriber Equipment komponenter</description>
   <description xml:lang="fr">Symboles d'équipements de communications

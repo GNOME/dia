@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Sybase</name>
+  <name xml:lang="fr">Sybase</name>
   <description xml:lang="no">Objekter til utforming av domene-diagrammer for replikering i Sybase databaser</description>
   <description xml:lang="fr">Diagrammes pour la conception de réplication de domaines Sybase</description>
   <description xml:lang="de">Objekte für Sybase-Replikationsdiagrammdesign</description>

@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>SADT/IDEF0</name>
+  <name xml:lang="fr">SADT/IDEF0</name>
   <description xml:lang="fr">Objets pour l'écriture de diagrammes SADT</description>
   <description xml:lang="de">Objekte für SADT Diagrammentwurf</description>
   <description>Objects to design SADT diagrams</description>

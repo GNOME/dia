@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>SDL</name>
+  <name xml:lang="fr">SDL</name>
   <description>Specification and Description Language.</description>
   <description xml:lang="fr">Langage de spécification et de Description</description>
   <description xml:lang="da">Specifikations- og beskrivelsessprog</description>

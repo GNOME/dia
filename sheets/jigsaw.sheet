@@ -1,10 +1,10 @@
-<?xml version="1.0"?> <!-- -*- xml -*- -->
+<?xml version="1.0" encoding="iso-8859-1"?> <!-- -*- xml -*- -->
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
-  <name xml:lang="de">Puzzle</name>
   <name>Jigsaw</name>
-  <name xml:lang="fr">Puzzle</name>
   <name xml:lang="da">Puslespil</name>
+  <name xml:lang="de">Puzzle</name>
+  <name xml:lang="fr">Puzzle</name>
 
   <description xml:lang="de">Verschiedene Puzzleteile</description>
   <description xml:lang="fr">Pièces de puzzle</description>

@@ -4,6 +4,7 @@
   <name>Circuit</name>
   <name xml:lang="de">Schaltkreis</name>
   <name xml:lang="no">Kretsdiagram</name>
+  <name xml:lang="fr">Circuits</name>
   <description xml:lang="no">Komponenter for kretsdiagrammer</description>
   <description xml:lang="fr">Composants de circuits</description>
   <description xml:lang="de">Komponenten für Schaltkreise</description>

@@ -1,3 +1,13 @@
+2001-04-06  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheet/checktrans.py: improved error reporting. Made checktrans
+	count lack of <name xml:lang="code"> as a lack of translation for
+	language "code" (no, it's not a plot to bring down other
+	language's scores !)
+	
+	* sheet/*.sheet: Ensured all sheets have an encoding="iso-8859-1"
+	in the header, and have <name xml:lang="fr"> components.
+	
 2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/custom/custom_object.c: temporary hack to fix the shape

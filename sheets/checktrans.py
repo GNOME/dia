@@ -31,20 +31,38 @@ class CounterHandler(saxlib.DocumentHandler):
         self.elemstk = []
         self.langstk = []
         self.namestk = []
-        self.newdoc('')
 
-    def newdoc(self,name):
+    def setDocumentLocator(self,locator):
+        self.locator = locator
+        saxlib.DocumentHandler.setDocumentLocator(self,locator)
         self.langs = {}
-        self.docname = name
-        
+        self.namelangs = {}
+
+    def warning(self,message):
+        print "W:%s:L%d:C%d: %s" % (self.locator.getSystemId(),
+                                    self.locator.getLineNumber(),
+                                    self.locator.getColumnNumber(),
+                                    message)
     def _countlang(self,name):
         locdct = self.langstk[-1]
         if locdct.has_key(name):
-            print "W: duplicate description for %s, language code %s" % \
-                  (self.namestk[-1],name)
+            self.warning("duplicate description for %s, language code %s" % \
+                         (self.namestk[-1],name))
             locdct[name] = locdct[name] + 1
         else:
             locdct[name] = 1
+            
+        if self.langs.has_key(name):
+            self.langs[name] = self.langs[name] + 1
+        else:
+            self.langs[name] = 1                
+        
+    def _countnamelang(self,name):
+        if self.namelangs.has_key(name):
+            self.warning("duplicate name for sheet, language code %s" % name)
+            self.namelangs[name] = self.namelangs[name] + 1
+        else:
+            self.namelangs[name] = 1
             
         if self.langs.has_key(name):
             self.langs[name] = self.langs[name] + 1
@@ -60,9 +78,14 @@ class CounterHandler(saxlib.DocumentHandler):
             if attmap.has_key('name'):
                 name = 'Object "%s"' % attmap['name']
             else:
-                name = 'Sheet "%s"' % self.docname
+                name = 'Sheet "%s"' % self.locator.getSystemId()
             self.namestk.append(name)
-
+        elif (name == "name"):
+            if attmap.has_key("xml:lang"):
+                lang = attmap["xml:lang"]
+            else:
+                lang = ""
+            self._countnamelang(lang)
         elif (name == "description"):
             if attmap.has_key("xml:lang"):
                 lang = attmap["xml:lang"]
@@ -81,9 +104,21 @@ class CounterHandler(saxlib.DocumentHandler):
         else:
             #print "end of ",name
             pass
+
+##  class BasicEntityResolver(saxlib.EntityResolver):
+##      def resolveEntity(name,publicId,systemId):
+##          print "D:resolveEntity(%s,%s,%s)" % (name,publicId,systemId),
+##          if publicId == "-//FOO//BAR//EN":
+##              res = "file:../doc/sheet.dtd"
+##          else:
+##              res = saxlib.EntityResolver.resolveEntity(name,publicId,systemId)
         
+##          print "--> res",res,type(res)
+    
+##          return res
+    
 if len(sys.argv)<2:
-    print "Usage: %s <sheet.sheet>" % sys.argv[0]
+    print "Usage: %s <sheet.sheet>" % sys.argv[0] 
     print
     print " <sheet.sheet>: file name of the sheet to check"
     sys.exit(1)
@@ -91,9 +126,11 @@ if len(sys.argv)<2:
 # Load parser and driver
 
 p=saxexts.make_parser()
+#p=saxexts.XMLValParserFactory.make_parser()
 ch=CounterHandler()
 p.setDocumentHandler(ch)
-
+#p.setEntityResolver(BasicEntityResolver())
+    
 fnames =sys.argv[1:]
 
 def make_langresult(langdict):
@@ -114,7 +151,6 @@ globlangs = {}
 for name in fnames:
     OK=0
     try:
-        ch.newdoc(name)
         p.parse(name)
         OK=1
 
