@@ -59,7 +59,7 @@ CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\"
 
 CFLAGS = -Wall -g 
 
-INCLUDES = -I../lib
+INCLUDES = -I$(srcdir)/../lib
 
 LDFLAGS = -export-dynamic
 

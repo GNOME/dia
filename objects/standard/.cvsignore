@@ -1,6 +1,7 @@
 .deps
 .libs
 Makefile
+Makefile.in
 arc.lo
 box.lo
 elipse.lo

@@ -2,6 +2,7 @@
 .deps
 .libs
 Makefile
+Makefile.in
 computer.lo
 monitor.lo
 network.lo
