@@ -1,26 +1,5 @@
 SUBDIRS = UML ER GRAFCET
 
-#SHEETS = \
-#	UML.sheet  \
-#	ER.sheet \
-#	sybase.sheet \
-#	FS.sheet \
-#	network.sheet \
-#	Flowchart.sheet \
-#	Circuit.sheet \
-#	Contact.sheet \
-#	GRAFCET.sheet \
-#	chronogram.sheet \
-#	SADT.sheet \
-#	Pneumatic.sheet \
-#	Electric.sheet \
-#	civil.sheet \
-#	jigsaw.sheet \
-#	MSE.sheet \
-#	SDL.sheet \
-#        Logic.sheet \
-#	EML.sheet
-
 sheet_in_files = \
   UML.sheet.in ER.sheet.in sybase.sheet.in FS.sheet.in network.sheet.in \
   Flowchart.sheet.in Circuit.sheet.in Contact.sheet.in GRAFCET.sheet.in \

@@ -8,8 +8,6 @@ cat <<__EOF__ >$str
 (A star after a language's statistics means that the translation file isn't
  up to date with the POT (original messages) file)
 
-(Please note that 100% doesn't mean that the work is complete: have you 
- checked the sheet translations for your language too ?)
 __EOF__
 ./po-checktrans.py $* >>$str || cat <<__EOF__ >>$str
 E: po-checktrans failed to run. Please check that python is installed

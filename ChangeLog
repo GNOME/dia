@@ -10,6 +10,24 @@
 
 	* app/commands.c: "cut" did not set the 'modified' bit (paste has
 	been for a little while). Fixes #82994.
+
+	* Makefile.am: added more stuff to distclean-local. This should make
+	"make distcheck" pass! Thanks to the author of
+	http://mail.gnome.org/archives/gnome-2-0-list/2001-August/msg00212.html
+	... I wonder who this Henstridge guy is ... ;-)
+	Darn. Still doesn't pass. I give up for tonight.
+	
+	* po/update_potfiles_in.sh: updated to take care of sheet files,
+	and to filter out the EML plug-in.
+	* po/POTFILES.in: updated with all .c and all .sheet.in files 
+
+	* po/dia.pot, po/*.po: again updated all .po files with all
+	strings (with the updated POTFILES). Now with the up-to-date
+	POTFILES, just all languages have some fuzzy or untranslated
+	strings (not that the 100% team was that large beforehand...)
+
+	* po-checktrans: removed the comment about .po files not holding
+	all translatable stuff, since now they do.
 	
 2002-05-24  Cyrille Chepelov  <cyrille@chepelov.org>
 

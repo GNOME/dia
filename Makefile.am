@@ -23,6 +23,9 @@ CLEANFILES = core-translation-report dia.keys dia.desktop
 
 distclean-local:
 	rm -f dia.keys
+	rm -f intltool-extract
+	rm -f intltool-merge
+	rm -f intltool-update
 
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2002-05-24 07:14+0200\n"
+"POT-Creation-Date: 2002-05-25 18:23+0200\n"
 "PO-Revision-Date: 2002-03-23 11:59+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -107,10 +107,10 @@ msgstr ""
 msgid "Quit"
 msgstr "Вихід"
 
-#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
-#: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
-#: app/sheets_dialog.c:961
+#: app/app_procs.c:518 app/dialogs.c:52 app/display.c:966
+#: app/layer_dialog.c:1015 app/lineprops_area.c:436 app/lineprops_area.c:636
+#: app/linewidth_area.c:246 app/paginate_psprint.c:268 app/sheets_dialog.c:570
+#: app/sheets_dialog.c:802 app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "Відміна"
 
@@ -137,39 +137,39 @@ msgstr "Вибір кольору"
 msgid "Untitled-%d"
 msgstr "Неназвана-%d"
 
-#: app/commands.c:203
+#: app/commands.c:204
 msgid "No existing object to paste.\n"
 msgstr "Не існує об'єкту для вставляння.\n"
 
-#: app/commands.c:474 app/commands.c:482 app/commands.c:504
+#: app/commands.c:475 app/commands.c:483 app/commands.c:505
 msgid "Could not find help directory"
 msgstr ""
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid "About Dia"
 msgstr "Про Dia"
 
-#: app/commands.c:595
+#: app/commands.c:596
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia версії %s. Автор: Alexander Larsson"
 
-#: app/commands.c:600
+#: app/commands.c:601
 msgid "Maintainer: James Henstridge"
 msgstr "Головний розробник: James Henstridge"
 
-#: app/commands.c:604
+#: app/commands.c:605
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Будь ласка, звертайтесь за додатковою інформацією за адресою http://www."
 "lysator.liu.se/~alla/dia"
 
-#: app/commands.c:609
+#: app/commands.c:610
 msgid "Contributors:"
 msgstr "Розробники:"
 
 #. setup buttons
-#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:627 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
 #: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
@@ -177,7 +177,7 @@ msgstr "Розробники:"
 msgid "OK"
 msgstr "Гаразд"
 
-#: app/commands.c:712
+#: app/commands.c:713
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -205,42 +205,6 @@ msgstr "Закрити"
 #: app/defaults.c:98
 msgid "This object has no defaults."
 msgstr "Цей об'єкт не має типових властивостей."
-
-#: app/dia-props.c:60 app/dia-props.c:67
-msgid "Diagram Properties"
-msgstr "Властивості діаграми"
-
-#: app/dia-props.c:130
-msgid "x"
-msgstr "x"
-
-#: app/dia-props.c:134
-msgid "y"
-msgstr "y"
-
-#: app/dia-props.c:139
-msgid "Spacing"
-msgstr "Проміжок"
-
-#: app/dia-props.c:159
-msgid "Visible spacing"
-msgstr "Видимий проміжок"
-
-#: app/dia-props.c:179
-msgid "Grid"
-msgstr "Сітка"
-
-#: app/dia-props.c:189
-msgid "Background Colour"
-msgstr "Колір тла"
-
-#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
-msgid "Background"
-msgstr "Тло"
-
-#: app/dia_embedd.c:352
-msgid "Could not initialize Bonobo!"
-msgstr "Не вдалося ініціалізувати Bonobo!"
 
 #. &export_file_format
 #: app/diaconv.c:95
@@ -298,6 +262,10 @@ msgstr "Потрібний вірний файл вводу\n"
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr ""
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Не вдалося ініціалізувати Bonobo!"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -384,6 +352,10 @@ msgstr ""
 msgid "Diagram tree"
 msgstr "Діаграмне дерево"
 
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr "Гаразд"
+
 #. paper size
 #: app/diapagelayout.c:112
 msgid "Paper Size"
@@ -441,6 +413,38 @@ msgstr "%0.3gсм x %0.3gсм"
 msgid "Page Setup"
 msgstr "Наладнання сторінки"
 
+#: app/dia-props.c:60 app/dia-props.c:67
+msgid "Diagram Properties"
+msgstr "Властивості діаграми"
+
+#: app/dia-props.c:130
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:134
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:139
+msgid "Spacing"
+msgstr "Проміжок"
+
+#: app/dia-props.c:159
+msgid "Visible spacing"
+msgstr "Видимий проміжок"
+
+#: app/dia-props.c:179
+msgid "Grid"
+msgstr "Сітка"
+
+#: app/dia-props.c:189
+msgid "Background Colour"
+msgstr "Колір тла"
+
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
+msgid "Background"
+msgstr "Тло"
+
 #: app/disp_callbacks.c:76 app/properties.c:176
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -492,8 +496,7 @@ msgstr "Ні"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
-#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
-#: plug-ins/xfig/xfig-export.c:739
+#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не вдилось відкрити: \"%s\" для записування.\n"
@@ -625,8 +628,8 @@ msgstr "Створити блок тексту"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77
+#: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -782,8 +785,8 @@ msgstr "Деталі..."
 msgid "Line Style Properties"
 msgstr "Властивості стилю лінії"
 
-#: app/linewidth_area.c:216 lib/properties.h:477
-#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Ширина лінії"
 
@@ -1016,16 +1019,15 @@ msgstr "Транзитивний"
 msgid "Same Type"
 msgstr "Того ж типу"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/widgets.c:381
 msgid "Left"
 msgstr "Ліворуч"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:387
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/widgets.c:387
 msgid "Center"
 msgstr "В центр"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/widgets.c:393
 msgid "Right"
 msgstr "Праворуч"
 
@@ -1768,14 +1770,49 @@ msgstr "Неможливо відкрити файл історії для за�
 msgid "Encapsulated Postscript"
 msgstr "Вбудований Postscript"
 
-#: app/splash.c:58
-msgid "Loading ..."
-msgstr "Завантаження..."
+#: app/render_libart.c:433
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr ""
 
-#: app/splash.c:75
+#: app/render_libart.c:448
 #, c-format
-msgid "Dia v %s"
-msgstr "Діа версії %s"
+msgid "Can't find font '%s' in height %d\n"
+msgstr ""
+
+#: app/sheets.c:163 app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets.c:165 app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets.c:282
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+
+#: app/sheets.c:380
+#, c-format
+msgid "Widget not found: %s"
+msgstr ""
+
+#: app/sheets.c:456
+#, fuzzy
+msgid "SVG Shape"
+msgstr "Вибрати файл зображення"
+
+#: app/sheets.c:458
+#, fuzzy
+msgid "Programmed Object"
+msgstr "Об'єкти діаграми хронограми"
 
 #: app/sheets_dialog.c:85
 #, fuzzy
@@ -1931,20 +1968,6 @@ msgstr "Перенести"
 msgid "Move All ->"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:317
-#, c-format
-msgid ""
-"%s\n"
-"System sheet"
-msgstr ""
-
-#: app/sheets_dialog_callbacks.c:319
-#, c-format
-msgid ""
-"%s\n"
-"User sheet"
-msgstr ""
-
 #: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
@@ -1998,6 +2021,15 @@ msgstr ""
 msgid "add shapes here"
 msgstr "файл форми dia"
 
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "Завантаження..."
+
+#: app/splash.c:75
+#, c-format
+msgid "Dia v %s"
+msgstr "Діа версії %s"
+
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
 msgstr "Редактор діаграм"
@@ -2016,8 +2048,8 @@ msgstr "Діа"
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
-#: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
+#: objects/UML/small_package.c:342 objects/standard/textobj.c:388
+#: plug-ins/dxf/dxf-import.c:530
 #, fuzzy
 msgid "Courier"
 msgstr "   Пара"
@@ -2145,19 +2177,19 @@ msgstr "\"%s\" не є каталогом"
 msgid "Could not open `%s'"
 msgstr "Не вдалось відкрити: \"%s\""
 
-#: lib/properties.c:71 lib/properties.h:480
+#: lib/properties.c:71
 msgid "Line colour"
 msgstr "Колір лінії"
 
-#: lib/properties.c:72 lib/properties.h:483
+#: lib/properties.c:72
 msgid "Line style"
 msgstr "Стиль лінії"
 
-#: lib/properties.c:73 lib/properties.h:487
+#: lib/properties.c:73
 msgid "Fill colour"
 msgstr "Колір заповнення"
 
-#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
+#: lib/properties.c:74 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2165,34 +2197,34 @@ msgstr "Колір заповнення"
 msgid "Draw background"
 msgstr "Намалювати тло"
 
-#: lib/properties.c:75 lib/properties.h:494
+#: lib/properties.c:75
 #, fuzzy
 msgid "Start arrow"
 msgstr "Пунктирна стрілка"
 
-#: lib/properties.c:76 lib/properties.h:497
+#: lib/properties.c:76
 #, fuzzy
 msgid "End arrow"
 msgstr "Пунктирна стрілка"
 
-#: lib/properties.c:78 lib/properties.h:507
+#: lib/properties.c:78
 msgid "Text alignment"
 msgstr "Вирівнювання тексту"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Шрифт"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Розмір шрифту"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Колір тексту"
@@ -2326,6 +2358,165 @@ msgstr "Вибрати файл зображення"
 msgid "Browse"
 msgstr "Переглянути"
 
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Об'єкти діаграми хронограми"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Дані"
+
+#: objects/chronogram/chronoline.c:150
+#, fuzzy
+msgid "Data name"
+msgstr "Назва даних:"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Події"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
+#, fuzzy
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"Характеристики події:\n"
+"@ час         вказує вказівник на абсолютний час.\n"
+"( тривалість  вмикає сигнал і чекає вказаний час.\n"
+") тривалість  вимикає сигнал і чекає вказаний час.\n"
+"u тривалість  встановлює сигнал у невизначений стан на вказаний час.\n"
+"Приклад: @ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Параметри"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Чос початку"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Час завершення"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "Час підйому"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "Час падіння"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Багатобітові дані"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Вигляд"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Колір даних"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "Ширина лінії даних"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Колір лінії"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "Гелветика"
+
+#: objects/chronogram/chronoref.c:144
+#, fuzzy
+msgid "Time data"
+msgstr "Дані ознаки"
+
+#: objects/chronogram/chronoref.c:150
+#, fuzzy
+msgid "Major time step"
+msgstr "Основний крок часу:"
+
+#: objects/chronogram/chronoref.c:152
+#, fuzzy
+msgid "Minor time step"
+msgstr "Допоміжний крок часу:"
+
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
+msgstr "Ширина лінії допоміжного кроку:"
+
+#: objects/custom/custom.c:135
+msgid "Custom"
+msgstr "Користувацька"
+
+#: objects/custom/custom.c:135
+msgid "Custom XML shapes loader"
+msgstr "Завантаження користувацьких XML-форм"
+
+#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
+msgid "Flip horizontal"
+msgstr "Відзеркалити горизонтально"
+
+#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
+msgid "Flip vertical"
+msgstr "Відзеркалити вертикально"
+
+#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
+#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
+#: objects/flowchart/parallelogram.c:296
+msgid "Text padding:"
+msgstr "Відступи тексту:"
+
+#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
+msgid "Alignment:"
+msgstr "Вирівнювання:"
+
+#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
+#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
+#: objects/flowchart/parallelogram.c:321
+msgid "Font size:"
+msgstr "Розмір шрифту:"
+
+#: objects/custom/custom_object.c:1525
+msgid "Flip Horizontal"
+msgstr "Відзеркалити горизонтально"
+
+#: objects/custom/custom_object.c:1526
+msgid "Flip Vertical"
+msgstr "Відзеркалити вертикально"
+
+#: objects/custom/custom_object.c:1563
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr ""
+
 #: objects/ER/attribute.c:151
 msgid "Key:"
 msgstr "Ключ:"
@@ -2401,27 +2592,56 @@ msgstr "Ідентифікація:"
 msgid "Relationship"
 msgstr "Відношення"
 
+#: objects/flowchart/box.c:167 objects/standard/box.c:153
+msgid "Corner radius"
+msgstr "Радіус кута"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Відступи тексту"
+
+#: objects/flowchart/box.c:279 objects/standard/box.c:240
+msgid "Corner rounding:"
+msgstr "Заокруглені кути:"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Об'єкти діаграми потоків"
+
+#: objects/flowchart/parallelogram.c:169
+msgid "Shear angle"
+msgstr "Кут зміщення"
+
+#: objects/flowchart/parallelogram.c:282
+msgid "Shear angle:"
+msgstr "Кут зміщення:"
+
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
-#: objects/FS/function.c:1058
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
+#: objects/FS/flow.c:722 objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Енергія"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
-#: objects/FS/function.c:1034
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
+#: objects/FS/flow.c:729 objects/FS/function.c:1034
 msgid "Material"
 msgstr "Матеріал"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
-#: objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
+#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Сигнал"
@@ -2429,16 +2649,19 @@ msgstr "Сигнал"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
-#: objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
+#: objects/FS/flow.c:559 objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Потік:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Тип потоку:"
 
@@ -2461,17 +2684,6 @@ msgstr "Бажана"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Користувацька"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-msgid "Helvetica"
-msgstr "Гелветика"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3653,6 +3865,18 @@ msgstr "Стерти точку з'єднання"
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET АБО/І хребет"
 
+#: objects/network/bus.c:574
+msgid "Add Handle"
+msgstr "Додати обробник"
+
+#: objects/network/bus.c:575
+msgid "Delete Handle"
+msgstr "Стерти обробник"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Об'єкти діаграми мережі"
+
 #. property rows
 #: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:312
 #: objects/UML/state.c:124
@@ -3693,12 +3917,6 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "SADT стрілка"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:169
-#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
-#: objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Відступи тексту"
-
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Ідентифікатор діяльності/даних"
@@ -3718,6 +3936,99 @@ msgstr "SADT комірка"
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
 msgstr "Об'єкти діаграми SADT"
+
+#: objects/standard/arc.c:133
+msgid "Curve distance"
+msgstr "Довжина кривої"
+
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+msgid "Add Segment"
+msgstr "Додати сегмент"
+
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+msgid "Delete Segment"
+msgstr "Стерти сегмент"
+
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+msgid "Symmetric control"
+msgstr "Симетричка точка"
+
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+msgid "Smooth control"
+msgstr "Гладка точка"
+
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+msgid "Cusp control"
+msgstr "Керуюча точка"
+
+#: objects/standard/image.c:168
+msgid "Image file"
+msgstr "Файл зображення"
+
+#: objects/standard/image.c:170
+msgid "Draw border"
+msgstr "Намалювати рамку"
+
+#: objects/standard/image.c:172
+msgid "Keep aspect ratio"
+msgstr "Зберігати пропорції"
+
+#: objects/standard/image.c:271
+msgid "Image file:"
+msgstr "Файл зображення:"
+
+#: objects/standard/image.c:282
+msgid "Keep aspect ratio:"
+msgstr "Зберігати пропорції:"
+
+#: objects/standard/image.c:290
+msgid "Show border:"
+msgstr "Показати рамку:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:842 objects/standard/image.c:853
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"Файл зображення \"%s\" не знайдено в цьому каталозі.\n"
+"Замість нього використовується файл \"%s\"\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:859 objects/standard/image.c:885
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "Файл зображення \"%s\" не знайдено.\n"
+
+#: objects/standard/line.c:121
+msgid "Start point"
+msgstr "Початкова точка"
+
+#: objects/standard/line.c:123
+msgid "End point"
+msgstr "Кінцева точка"
+
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+msgid "Add Corner"
+msgstr "Додати кут"
+
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+msgid "Delete Corner"
+msgstr "Видалити кут"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Стандартні об'єкти"
+
+#: objects/standard/textobj.c:228
+msgid "Fontsize:"
+msgstr "Розмір шрифту:"
+
+#: objects/sybase/sybase.c:44
+#, fuzzy
+msgid "Sybase replication domain diagram objects"
+msgstr "Об'єкти діаграми реплікаційного домену Sybase"
 
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
@@ -4104,17 +4415,6 @@ msgstr "Тип стану"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Об'єкти діаграм Уніфікованої Мови Моделювання (UML)"
 
-#. Characters used to start/end stereotypes:
-#. start stereotype symbol(like \xab) for local locale
-#: objects/UML/uml.h:94
-msgid "<<"
-msgstr ""
-
-#. end stereotype symbol(like \xbb) for local locale
-#: objects/UML/uml.h:96
-msgid ">>"
-msgstr ""
-
 #: objects/UML/usecase.c:124
 msgid "Text outside"
 msgstr "Текст назовні"
@@ -4122,274 +4422,6 @@ msgstr "Текст назовні"
 #: objects/UML/usecase.c:126
 msgid "Collaboration"
 msgstr "Співпраця"
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr "Об'єкти діаграми хронограми"
-
-#: objects/chronogram/chronoline.c:148
-msgid "Data"
-msgstr "Дані"
-
-#: objects/chronogram/chronoline.c:150
-#, fuzzy
-msgid "Data name"
-msgstr "Назва даних:"
-
-#: objects/chronogram/chronoline.c:152
-msgid "Events"
-msgstr "Події"
-
-#: objects/chronogram/chronoline.c:155
-msgid "Event specification"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:156
-#, fuzzy
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"Характеристики події:\n"
-"@ час         вказує вказівник на абсолютний час.\n"
-"( тривалість  вмикає сигнал і чекає вказаний час.\n"
-") тривалість  вимикає сигнал і чекає вказаний час.\n"
-"u тривалість  встановлює сигнал у невизначений стан на вказаний час.\n"
-"Приклад: @ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "Параметри"
-
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-msgid "Start time"
-msgstr "Чос початку"
-
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-msgid "End time"
-msgstr "Час завершення"
-
-#: objects/chronogram/chronoline.c:168
-msgid "Rise time"
-msgstr "Час підйому"
-
-#: objects/chronogram/chronoline.c:170
-msgid "Fall time"
-msgstr "Час падіння"
-
-#: objects/chronogram/chronoline.c:171
-msgid "Multi-bit data"
-msgstr "Багатобітові дані"
-
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-msgid "Aspect"
-msgstr "Вигляд"
-
-#: objects/chronogram/chronoline.c:175
-msgid "Data color"
-msgstr "Колір даних"
-
-#: objects/chronogram/chronoline.c:177
-msgid "Data line width"
-msgstr "Ширина лінії даних"
-
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-msgid "Line color"
-msgstr "Колір лінії"
-
-#: objects/chronogram/chronoref.c:144
-#, fuzzy
-msgid "Time data"
-msgstr "Дані ознаки"
-
-#: objects/chronogram/chronoref.c:150
-#, fuzzy
-msgid "Major time step"
-msgstr "Основний крок часу:"
-
-#: objects/chronogram/chronoref.c:152
-#, fuzzy
-msgid "Minor time step"
-msgstr "Допоміжний крок часу:"
-
-#: objects/chronogram/chronoref.c:162
-#, fuzzy
-msgid "Minor step line width"
-msgstr "Ширина лінії допоміжного кроку:"
-
-#: objects/custom/custom.c:135
-msgid "Custom"
-msgstr "Користувацька"
-
-#: objects/custom/custom.c:135
-msgid "Custom XML shapes loader"
-msgstr "Завантаження користувацьких XML-форм"
-
-#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
-msgid "Flip horizontal"
-msgstr "Відзеркалити горизонтально"
-
-#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
-msgid "Flip vertical"
-msgstr "Відзеркалити вертикально"
-
-#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
-#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
-#: objects/flowchart/parallelogram.c:296
-msgid "Text padding:"
-msgstr "Відступи тексту:"
-
-#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
-msgid "Alignment:"
-msgstr "Вирівнювання:"
-
-#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
-#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
-#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
-msgid "Font:"
-msgstr "Шрифт:"
-
-#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
-#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
-#: objects/flowchart/parallelogram.c:321
-msgid "Font size:"
-msgstr "Розмір шрифту:"
-
-#: objects/custom/custom_object.c:1525
-msgid "Flip Horizontal"
-msgstr "Відзеркалити горизонтально"
-
-#: objects/custom/custom_object.c:1526
-msgid "Flip Vertical"
-msgstr "Відзеркалити вертикально"
-
-#: objects/custom/custom_object.c:1563
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
-
-#: objects/flowchart/box.c:167 objects/standard/box.c:153
-msgid "Corner radius"
-msgstr "Радіус кута"
-
-#: objects/flowchart/box.c:279 objects/standard/box.c:240
-msgid "Corner rounding:"
-msgstr "Заокруглені кути:"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr "Об'єкти діаграми потоків"
-
-#: objects/flowchart/parallelogram.c:169
-msgid "Shear angle"
-msgstr "Кут зміщення"
-
-#: objects/flowchart/parallelogram.c:282
-msgid "Shear angle:"
-msgstr "Кут зміщення:"
-
-#: objects/network/bus.c:574
-msgid "Add Handle"
-msgstr "Додати обробник"
-
-#: objects/network/bus.c:575
-msgid "Delete Handle"
-msgstr "Стерти обробник"
-
-#: objects/network/network.c:41
-msgid "Network diagram objects"
-msgstr "Об'єкти діаграми мережі"
-
-#: objects/standard/arc.c:133
-msgid "Curve distance"
-msgstr "Довжина кривої"
-
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
-msgid "Add Segment"
-msgstr "Додати сегмент"
-
-#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
-msgid "Delete Segment"
-msgstr "Стерти сегмент"
-
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
-msgid "Symmetric control"
-msgstr "Симетричка точка"
-
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
-msgid "Smooth control"
-msgstr "Гладка точка"
-
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
-msgid "Cusp control"
-msgstr "Керуюча точка"
-
-#: objects/standard/image.c:168
-msgid "Image file"
-msgstr "Файл зображення"
-
-#: objects/standard/image.c:170
-msgid "Draw border"
-msgstr "Намалювати рамку"
-
-#: objects/standard/image.c:172
-msgid "Keep aspect ratio"
-msgstr "Зберігати пропорції"
-
-#: objects/standard/image.c:271
-msgid "Image file:"
-msgstr "Файл зображення:"
-
-#: objects/standard/image.c:282
-msgid "Keep aspect ratio:"
-msgstr "Зберігати пропорції:"
-
-#: objects/standard/image.c:290
-msgid "Show border:"
-msgstr "Показати рамку:"
-
-#. Found file in same dir as diagram.
-#: objects/standard/image.c:842 objects/standard/image.c:853
-#, c-format
-msgid ""
-"The image file '%s' was not found in that directory.\n"
-"Using the file '%s' instead\n"
-msgstr ""
-"Файл зображення \"%s\" не знайдено в цьому каталозі.\n"
-"Замість нього використовується файл \"%s\"\n"
-
-#. Didn't find file in current dir.
-#: objects/standard/image.c:859 objects/standard/image.c:885
-#, c-format
-msgid "The image file '%s' was not found.\n"
-msgstr "Файл зображення \"%s\" не знайдено.\n"
-
-#: objects/standard/line.c:121
-msgid "Start point"
-msgstr "Початкова точка"
-
-#: objects/standard/line.c:123
-msgid "End point"
-msgstr "Кінцева точка"
-
-#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
-msgid "Add Corner"
-msgstr "Додати кут"
-
-#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
-msgid "Delete Corner"
-msgstr "Видалити кут"
-
-#: objects/standard/standard.c:45
-msgid "Standard objects"
-msgstr "Стандартні об'єкти"
-
-#: objects/standard/textobj.c:228
-msgid "Fontsize:"
-msgstr "Розмір шрифту:"
 
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
@@ -4407,17 +4439,27 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Фільтр експорту в Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
-msgid "Drawing Interchange File"
-msgstr "DIF (формат файлу обміну зображеннями)"
-
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Фільтр експорту/імпорту DIF (Drawing Interchange File)"
 
+#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
+msgid "Drawing Interchange File"
+msgstr "DIF (формат файлу обміну зображеннями)"
+
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Фільтр експорту в HP Graphics Language"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "Фільтр експорту фалів TeX PSTricks"
+
+#: plug-ins/metapost/render_metapost.c:735
+#, fuzzy
+msgid "TeX Metapost macros"
+msgstr "Макроси TeX PSTricks"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4431,6 +4473,10 @@ msgstr "Макроси TeX PSTricks"
 msgid "Python scripting support"
 msgstr "Підтримка скриптів Python"
 
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "фільтр експорту фалів форми dia"
+
 #: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr "Неможливо експортувати в PNG без libart!"
@@ -4438,10 +4484,6 @@ msgstr "Неможливо експортувати в PNG без libart!"
 #: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr "файл форми dia"
-
-#: plug-ins/shape/shape.c:36
-msgid "dia shape export filter"
-msgstr "фільтр експорту фалів форми dia"
 
 #: plug-ins/svg/render_svg.c:870
 msgid "Scalable Vector Graphics"
@@ -4451,15 +4493,6 @@ msgstr "SVG (векторна графіка)"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Фільтр експорту в SVG (векторну графіку)"
 
-#: plug-ins/wmf/wmf.cpp:962
-msgid "Windows Meta File"
-msgstr ""
-
-#: plug-ins/wmf/wmf.cpp:976
-#, fuzzy
-msgid "WMF export filter"
-msgstr "фільтр експорту фалів форми dia"
-
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -4468,6 +4501,11 @@ msgstr "Файл: тип/версія %s не підтримується.\n"
 #: plug-ins/wpg/wpg.c:1200
 msgid "WordPerfect Graphics export filter"
 msgstr "Фільтр експорту в WordPerfect Graphics"
+
+#: plug-ins/xfig/xfig.c:39
+#, fuzzy
+msgid "Fig Format import and export filter"
+msgstr "фільтр експорту фалів форми dia"
 
 #: plug-ins/xfig/xfig-export.c:365
 msgid "No more user-definable colors - using black"
@@ -4652,20 +4690,22 @@ msgstr ""
 msgid "XFig File Format"
 msgstr "Формат файлу XFig"
 
-#: plug-ins/xfig/xfig.c:39
+#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "Fig Format import and export filter"
-msgstr "фільтр експорту фалів форми dia"
+msgid "A data line"
+msgstr "Ширина лінії даних"
 
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "Фільтр експорту фалів TeX PSTricks"
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
 
-#: plug-ins/metapost/render_metapost.c:735
-#, fuzzy
-msgid "TeX Metapost macros"
-msgstr "Макроси TeX PSTricks"
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:1
 #, fuzzy
@@ -4798,6 +4838,129 @@ msgstr "Напрямок"
 msgid "Components for circuit diagrams"
 msgstr ""
 
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "Обмеження:"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "Агент"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "Агент"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "Відзеркалити горизонтально"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Reference Line"
+msgstr "Створити лінію"
+
+#: sheets/civil.sheet.in.h:23
+#, fuzzy
+msgid "Soil"
+msgstr "Суцільна"
+
+#: sheets/civil.sheet.in.h:24
+#, fuzzy
+msgid "Vertical Rest"
+msgstr "Відзеркалити вертикально"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
 msgstr ""
@@ -4855,46 +5018,6 @@ msgstr ""
 msgid "Ladder"
 msgstr "Шари"
 
-#: sheets/EML.sheet.in.h:1
-#, fuzzy
-msgid "Create a process"
-msgstr "Створити дугу"
-
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:3
-msgid "Editor for EML Static Structure Diagrams."
-msgstr ""
-
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr ""
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr ""
-
-#: sheets/ER.sheet.in.h:3
-#, fuzzy
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Об'єкти діаграми Сутностей та відношень"
-
-#: sheets/ER.sheet.in.h:5
-#, fuzzy
-msgid "Participation"
-msgstr "Умова:"
-
-#: sheets/ER.sheet.in.h:7
-#, fuzzy
-msgid "Weak Entity"
-msgstr "Сутність"
-
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
 msgid "A connection point"
@@ -4937,28 +5060,45 @@ msgstr "Відзеркалити вертикально"
 msgid "The command organ of a relay"
 msgstr ""
 
-#: sheets/FS.sheet.in.h:1
+#: sheets/EML.sheet.in.h:1
 #, fuzzy
-msgid "Create a flow"
-msgstr "Створити прямокутник"
+msgid "Create a process"
+msgstr "Створити дугу"
 
-#: sheets/FS.sheet.in.h:2
-#, fuzzy
-msgid "Create a function"
-msgstr "Користувацька"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
 msgstr ""
 
-#: sheets/FS.sheet.in.h:4
-#, fuzzy
-msgid "Editor for Function Structure Diagrams."
-msgstr "Об'єкти діаграми функціональної структури"
-
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
 msgstr ""
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+#, fuzzy
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Об'єкти діаграми Сутностей та відношень"
+
+#: sheets/ER.sheet.in.h:5
+#, fuzzy
+msgid "Participation"
+msgstr "Умова:"
+
+#: sheets/ER.sheet.in.h:7
+#, fuzzy
+msgid "Weak Entity"
+msgstr "Сутність"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
@@ -5089,6 +5229,29 @@ msgstr "Транзитивний"
 msgid "Transmittal Tape"
 msgstr "Передати"
 
+#: sheets/FS.sheet.in.h:1
+#, fuzzy
+msgid "Create a flow"
+msgstr "Створити прямокутник"
+
+#: sheets/FS.sheet.in.h:2
+#, fuzzy
+msgid "Create a function"
+msgstr "Користувацька"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
+#, fuzzy
+msgid "Editor for Function Structure Diagrams."
+msgstr "Об'єкти діаграми функціональної структури"
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
 #: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
 msgid "A AND vergent"
@@ -5155,6 +5318,78 @@ msgstr ""
 msgid "Objects to design GRAFCET charts"
 msgstr ""
 
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
 msgstr ""
@@ -5205,6 +5440,23 @@ msgstr "Біологічний"
 msgid "Logic"
 msgstr ""
 
+#: sheets/Misc.sheet.in.h:1
+#, fuzzy
+msgid "A File"
+msgstr "Файл"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "A Folder"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr ""
+
 #: sheets/MSE.sheet.in.h:1
 #, fuzzy
 msgid "Demultiplexer"
@@ -5238,6 +5490,143 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
+#, fuzzy
+msgid "A Computer"
+msgstr "Додати кут"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
+
+#: sheets/network.sheet.in.h:10
+msgid "A Telephone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:12
+#, fuzzy
+msgid "A WAN Connection"
+msgstr "Зв'язок"
+
+#: sheets/network.sheet.in.h:13
+msgid "A WAN Link"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "A Workstation Monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "A ZIP Disk"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:18
+msgid "A monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:19
+msgid "A simple Modem"
+msgstr ""
+
+#: sheets/network.sheet.in.h:20
+#, fuzzy
+msgid "A simple printer"
+msgstr "Вибрати принтер"
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker with integrated amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:22
+msgid "A speaker without amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:23
+msgid "A stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:28
+#, fuzzy
+msgid "Network"
+msgstr "Новий"
+
+#: sheets/network.sheet.in.h:29
+msgid "Network Cloud"
+msgstr ""
+
+#: sheets/network.sheet.in.h:30
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:31
+msgid "Router Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:32
+#, fuzzy
+msgid "Storage"
+msgstr "   Зберігати"
+
+#: sheets/network.sheet.in.h:33
+msgid "Switch Symbol"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:1
@@ -5431,6 +5820,40 @@ msgstr ""
 msgid "State"
 msgstr "Розпочати"
 
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+#, fuzzy
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Об'єкти діаграми реплікаційного домену Sybase"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+#, fuzzy
+msgid "Sybase"
+msgstr "Штрихова"
+
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
 msgstr ""
@@ -5541,388 +5964,9 @@ msgstr ""
 msgid "UML"
 msgstr ""
 
-#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "A data line"
-msgstr "Ширина лінії даних"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:4
-msgid "Objects to design chronogram charts"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:2
-msgid "A Basin"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:3
-#, fuzzy
-msgid "A Container"
-msgstr "Обмеження:"
-
-#: sheets/civil.sheet.in.h:4
-msgid "A Frequency Converter"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:6
-#, fuzzy
-msgid "A Motor"
-msgstr "Агент"
-
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:8
-#, fuzzy
-msgid "A Rotor"
-msgstr "Агент"
-
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:10
-msgid "A horizontal limiting line"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:15
-msgid "Bivalent Vertical Rest"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:18
-#, fuzzy
-msgid "Horizontal Rest"
-msgstr "Відзеркалити горизонтально"
-
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:20
-msgid "Horizontally aligned compressor"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:21
-msgid "Horizontally aligned pump"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:22
-#, fuzzy
-msgid "Reference Line"
-msgstr "Створити лінію"
-
-#: sheets/civil.sheet.in.h:23
-#, fuzzy
-msgid "Soil"
-msgstr "Суцільна"
-
-#: sheets/civil.sheet.in.h:24
-#, fuzzy
-msgid "Vertical Rest"
-msgstr "Відзеркалити вертикально"
-
-#: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:27
-msgid "Vertically aligned compressor"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:28
-msgid "Vertically aligned pump"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr ""
-
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr ""
-
-#: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:3
-#, fuzzy
-msgid "A Computer"
-msgstr "Додати кут"
-
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr ""
-
-#: sheets/network.sheet.in.h:6
-msgid "A Miditower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:7
-msgid "A Minitower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr ""
-
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr ""
-
-#: sheets/network.sheet.in.h:10
-msgid "A Telephone"
-msgstr ""
-
-#: sheets/network.sheet.in.h:11
-msgid "A UNIX Workstation"
-msgstr ""
-
-#: sheets/network.sheet.in.h:12
-#, fuzzy
-msgid "A WAN Connection"
-msgstr "Зв'язок"
-
-#: sheets/network.sheet.in.h:13
-msgid "A WAN Link"
-msgstr ""
-
-#: sheets/network.sheet.in.h:14
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
-
-#: sheets/network.sheet.in.h:15
-msgid "A Workstation Monitor"
-msgstr ""
-
-#: sheets/network.sheet.in.h:16
-msgid "A ZIP Disk"
-msgstr ""
-
-#: sheets/network.sheet.in.h:17
-msgid "A modular switching system"
-msgstr ""
-
-#: sheets/network.sheet.in.h:18
-msgid "A monitor"
-msgstr ""
-
-#: sheets/network.sheet.in.h:19
-msgid "A simple Modem"
-msgstr ""
-
-#: sheets/network.sheet.in.h:20
-#, fuzzy
-msgid "A simple printer"
-msgstr "Вибрати принтер"
-
-#: sheets/network.sheet.in.h:21
-msgid "A speaker with integrated amplifier"
-msgstr ""
-
-#: sheets/network.sheet.in.h:22
-msgid "A speaker without amplifier"
-msgstr ""
-
-#: sheets/network.sheet.in.h:23
-msgid "A stackable hub or switch"
-msgstr ""
-
-#: sheets/network.sheet.in.h:24
-msgid "ATM Switch Symbol"
-msgstr ""
-
-#: sheets/network.sheet.in.h:25
-msgid "An Ethernet bus"
-msgstr ""
-
-#: sheets/network.sheet.in.h:26
-msgid "An antenna for wireless transmission"
-msgstr ""
-
-#: sheets/network.sheet.in.h:27
-msgid "An external DAT drive"
-msgstr ""
-
-#: sheets/network.sheet.in.h:28
-#, fuzzy
-msgid "Network"
-msgstr "Новий"
-
-#: sheets/network.sheet.in.h:29
-msgid "Network Cloud"
-msgstr ""
-
-#: sheets/network.sheet.in.h:30
-msgid "Objects to design network diagrams with"
-msgstr ""
-
-#: sheets/network.sheet.in.h:31
-msgid "Router Symbol"
-msgstr ""
-
-#: sheets/network.sheet.in.h:32
-#, fuzzy
-msgid "Storage"
-msgstr "   Зберігати"
-
-#: sheets/network.sheet.in.h:33
-msgid "Switch Symbol"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:5
-#, fuzzy
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Об'єкти діаграми реплікаційного домену Sybase"
-
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:8
-#, fuzzy
-msgid "Sybase"
-msgstr "Штрихова"
+#~ msgid "WMF export filter"
+#~ msgstr "фільтр експорту фалів форми dia"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Помилка зчитування файлу діаграми\n"
@@ -6026,13 +6070,6 @@ msgstr "Штрихова"
 
 #~ msgid "Parameter"
 #~ msgstr "Параметр"
-
-#, fuzzy
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Об'єкти діаграми реплікаційного домену Sybase"
-
-#~ msgid "Ok"
-#~ msgstr "Гаразд"
 
 #~ msgid "Normal Font"
 #~ msgstr "Звичайний шрифт"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-05-24 07:14+0200\n"
+"POT-Creation-Date: 2002-05-25 18:23+0200\n"
 "PO-Revision-Date: 2000-07-27 11:55+0200\n"
 "Last-Translator: Salvo Isaja <salvois@it.gnome.org>\n"
 "Language-Team: ITALIAN <it@li.org>\n"
@@ -106,10 +106,10 @@ msgstr ""
 msgid "Quit"
 msgstr "Esci"
 
-#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
-#: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
-#: app/sheets_dialog.c:961
+#: app/app_procs.c:518 app/dialogs.c:52 app/display.c:966
+#: app/layer_dialog.c:1015 app/lineprops_area.c:436 app/lineprops_area.c:636
+#: app/linewidth_area.c:246 app/paginate_psprint.c:268 app/sheets_dialog.c:570
+#: app/sheets_dialog.c:802 app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -136,37 +136,37 @@ msgstr "Seleziona un colore"
 msgid "Untitled-%d"
 msgstr "Senzanome-%d"
 
-#: app/commands.c:203
+#: app/commands.c:204
 msgid "No existing object to paste.\n"
 msgstr "Non esiste nessun oggetto da incollare.\n"
 
-#: app/commands.c:474 app/commands.c:482 app/commands.c:504
+#: app/commands.c:475 app/commands.c:483 app/commands.c:505
 msgid "Could not find help directory"
 msgstr ""
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid "About Dia"
 msgstr "Informazioni su Dia"
 
-#: app/commands.c:595
+#: app/commands.c:596
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s realizzato da Alexander Larsson"
 
-#: app/commands.c:600
+#: app/commands.c:601
 msgid "Maintainer: James Henstridge"
 msgstr "Curatore: James Henstridge"
 
-#: app/commands.c:604
+#: app/commands.c:605
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visita http://www.lysator.liu.se/~alla/dia per ulteriori informazioni"
 
-#: app/commands.c:609
+#: app/commands.c:610
 msgid "Contributors:"
 msgstr "Collaboratori:"
 
 #. setup buttons
-#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:627 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
 #: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
@@ -174,7 +174,7 @@ msgstr "Collaboratori:"
 msgid "OK"
 msgstr "Ok"
 
-#: app/commands.c:712
+#: app/commands.c:713
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -199,48 +199,6 @@ msgstr "Chiudi"
 #: app/defaults.c:98
 msgid "This object has no defaults."
 msgstr "Questo oggetto non ha valori predefiniti."
-
-#: app/dia-props.c:60 app/dia-props.c:67
-#, fuzzy
-msgid "Diagram Properties"
-msgstr "/Finestre di dialogo/_Proprietà"
-
-#: app/dia-props.c:130
-msgid "x"
-msgstr ""
-
-#: app/dia-props.c:134
-#, fuzzy
-msgid "y"
-msgstr "di"
-
-#: app/dia-props.c:139
-#, fuzzy
-msgid "Spacing"
-msgstr "Scala"
-
-#: app/dia-props.c:159
-#, fuzzy
-msgid "Visible spacing"
-msgstr "Griglia _visibile"
-
-#: app/dia-props.c:179
-#, fuzzy
-msgid "Grid"
-msgstr "Griglia:"
-
-#: app/dia-props.c:189
-#, fuzzy
-msgid "Background Colour"
-msgstr "Colore di sfondo:"
-
-#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
-msgid "Background"
-msgstr "Sfondo"
-
-#: app/dia_embedd.c:352
-msgid "Could not initialize Bonobo!"
-msgstr "Impossibile inizializzare Bonobo!"
 
 #. &export_file_format
 #: app/diaconv.c:95
@@ -298,6 +256,10 @@ msgstr "Serve un file di input valido\n"
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr ""
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Impossibile inizializzare Bonobo!"
 
 #: app/diagram_tree_menu.c:45
 #, fuzzy
@@ -390,6 +352,10 @@ msgstr ""
 msgid "Diagram tree"
 msgstr "Editor di diagramma"
 
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr ""
+
 #. paper size
 #: app/diapagelayout.c:112
 msgid "Paper Size"
@@ -447,6 +413,44 @@ msgstr "%0.3g cm x %0.3g cm"
 msgid "Page Setup"
 msgstr "Impostazioni della pagina"
 
+#: app/dia-props.c:60 app/dia-props.c:67
+#, fuzzy
+msgid "Diagram Properties"
+msgstr "/Finestre di dialogo/_Proprietà"
+
+#: app/dia-props.c:130
+msgid "x"
+msgstr ""
+
+#: app/dia-props.c:134
+#, fuzzy
+msgid "y"
+msgstr "di"
+
+#: app/dia-props.c:139
+#, fuzzy
+msgid "Spacing"
+msgstr "Scala"
+
+#: app/dia-props.c:159
+#, fuzzy
+msgid "Visible spacing"
+msgstr "Griglia _visibile"
+
+#: app/dia-props.c:179
+#, fuzzy
+msgid "Grid"
+msgstr "Griglia:"
+
+#: app/dia-props.c:189
+#, fuzzy
+msgid "Background Colour"
+msgstr "Colore di sfondo:"
+
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
+msgid "Background"
+msgstr "Sfondo"
+
 #: app/disp_callbacks.c:76 app/properties.c:176
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -500,8 +504,7 @@ msgstr "No"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
-#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
-#: plug-ins/xfig/xfig-export.c:739
+#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Impossibile aprire '%s' in scrittura.\n"
@@ -638,8 +641,8 @@ msgstr "Crea testo"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77
+#: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -797,8 +800,8 @@ msgstr "Dettagli..."
 msgid "Line Style Properties"
 msgstr "Proprietà dello stile di linea"
 
-#: app/linewidth_area.c:216 lib/properties.h:477
-#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Spessore della linea"
 
@@ -1035,16 +1038,15 @@ msgstr "Transitiva"
 msgid "Same Type"
 msgstr "Oggetti dello stesso tipo"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/widgets.c:381
 msgid "Left"
 msgstr "Sinistra"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:387
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/widgets.c:387
 msgid "Center"
 msgstr "Centro"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/widgets.c:393
 msgid "Right"
 msgstr "Destra"
 
@@ -1818,14 +1820,49 @@ msgstr "Impossibile aprire '%s' in scrittura.\n"
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/splash.c:58
-msgid "Loading ..."
+#: app/render_libart.c:433
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr ""
 
-#: app/splash.c:75
+#: app/render_libart.c:448
 #, c-format
-msgid "Dia v %s"
+msgid "Can't find font '%s' in height %d\n"
 msgstr ""
+
+#: app/sheets.c:163 app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets.c:165 app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets.c:282
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+
+#: app/sheets.c:380
+#, c-format
+msgid "Widget not found: %s"
+msgstr ""
+
+#: app/sheets.c:456
+#, fuzzy
+msgid "SVG Shape"
+msgstr "Seleziona un file di immagine"
+
+#: app/sheets.c:458
+#, fuzzy
+msgid "Programmed Object"
+msgstr "Oggetti di diagramma Chronogram"
 
 #: app/sheets_dialog.c:85
 #, fuzzy
@@ -1981,20 +2018,6 @@ msgstr "Sposta su"
 msgid "Move All ->"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:317
-#, c-format
-msgid ""
-"%s\n"
-"System sheet"
-msgstr ""
-
-#: app/sheets_dialog_callbacks.c:319
-#, c-format
-msgid ""
-"%s\n"
-"User sheet"
-msgstr ""
-
 #: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
@@ -2047,6 +2070,15 @@ msgstr ""
 msgid "add shapes here"
 msgstr ""
 
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr ""
+
+#: app/splash.c:75
+#, c-format
+msgid "Dia v %s"
+msgstr ""
+
 #: dia.desktop.in.h:1
 #, fuzzy
 msgid "A Diagram Editor"
@@ -2067,8 +2099,8 @@ msgstr "Finestre di dialogo"
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
-#: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
+#: objects/UML/small_package.c:342 objects/standard/textobj.c:388
+#: plug-ins/dxf/dxf-import.c:530
 #, fuzzy
 msgid "Courier"
 msgstr "   Accoppia"
@@ -2197,22 +2229,22 @@ msgstr "'%s' non è una directory"
 msgid "Could not open `%s'"
 msgstr "Impossibile aprire '%s'"
 
-#: lib/properties.c:71 lib/properties.h:480
+#: lib/properties.c:71
 #, fuzzy
 msgid "Line colour"
 msgstr "Colore della linea:"
 
-#: lib/properties.c:72 lib/properties.h:483
+#: lib/properties.c:72
 #, fuzzy
 msgid "Line style"
 msgstr "Stile della linea:"
 
-#: lib/properties.c:73 lib/properties.h:487
+#: lib/properties.c:73
 #, fuzzy
 msgid "Fill colour"
 msgstr "Colore del font:"
 
-#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
+#: lib/properties.c:74 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2220,22 +2252,22 @@ msgstr "Colore del font:"
 msgid "Draw background"
 msgstr "Disegna lo sfondo"
 
-#: lib/properties.c:75 lib/properties.h:494
+#: lib/properties.c:75
 #, fuzzy
 msgid "Start arrow"
 msgstr "Freccia punteggiata"
 
-#: lib/properties.c:76 lib/properties.h:497
+#: lib/properties.c:76
 #, fuzzy
 msgid "End arrow"
 msgstr "Freccia punteggiata"
 
-#: lib/properties.c:78 lib/properties.h:507
+#: lib/properties.c:78
 #, fuzzy
 msgid "Text alignment"
 msgstr "Allineamento:"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
@@ -2243,14 +2275,14 @@ msgstr "Allineamento:"
 msgid "Font"
 msgstr "Font:"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 #, fuzzy
 msgid "Font size"
 msgstr "Dimensione del font:"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 #, fuzzy
 msgid "Text colour"
@@ -2386,6 +2418,175 @@ msgstr "Seleziona un file di immagine"
 msgid "Browse"
 msgstr "Sfoglia"
 
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Oggetti di diagramma Chronogram"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Dati"
+
+#: objects/chronogram/chronoline.c:150
+#, fuzzy
+msgid "Data name"
+msgstr "Nome dei dati:"
+
+#: objects/chronogram/chronoline.c:152
+#, fuzzy
+msgid "Events"
+msgstr "Eventi:"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
+#, fuzzy
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"Specificazione degli eventi:\n"
+"@ tempo   imposta il puntatore a un tempo assoluto.\n"
+"( durata  imposta il segnale alto, quindi attendi per 'durata'.\n"
+") durata  imposta il segnale basso, quindi attendi per 'durata'.\n"
+"u durata  imposta il segnale a uno stato \"sconosciuto\", quindi attendi per "
+"'durata'.\n"
+"esempio: @ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parametri"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#, fuzzy
+msgid "Start time"
+msgstr "Tempo di inizio:"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+#, fuzzy
+msgid "End time"
+msgstr "Tempo di fine:"
+
+#: objects/chronogram/chronoline.c:168
+#, fuzzy
+msgid "Rise time"
+msgstr "Tempo di salita:"
+
+#: objects/chronogram/chronoline.c:170
+#, fuzzy
+msgid "Fall time"
+msgstr "Tempo di discesa:"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Dati multi-bit"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Aspetto"
+
+#: objects/chronogram/chronoline.c:175
+#, fuzzy
+msgid "Data color"
+msgstr "Colore dei dati:"
+
+#: objects/chronogram/chronoline.c:177
+#, fuzzy
+msgid "Data line width"
+msgstr "Spessore della linea dei dati:"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+#, fuzzy
+msgid "Line color"
+msgstr "Colore della linea:"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+#, fuzzy
+msgid "Helvetica"
+msgstr "Ribalta verticalmente"
+
+#: objects/chronogram/chronoref.c:144
+#, fuzzy
+msgid "Time data"
+msgstr "Dati dell'attributo"
+
+#: objects/chronogram/chronoref.c:150
+#, fuzzy
+msgid "Major time step"
+msgstr "Suddivisione principale:"
+
+#: objects/chronogram/chronoref.c:152
+#, fuzzy
+msgid "Minor time step"
+msgstr "Suddivisione secondaria:"
+
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
+msgstr "Spessore della suddivisione secondaria:"
+
+#: objects/custom/custom.c:135
+msgid "Custom"
+msgstr "Personalizzato"
+
+#: objects/custom/custom.c:135
+msgid "Custom XML shapes loader"
+msgstr "Caricatore di disegni XML personalizzati"
+
+#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
+msgid "Flip horizontal"
+msgstr "Ribalta orizzontalmente"
+
+#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
+msgid "Flip vertical"
+msgstr "Ribalta verticalmente"
+
+#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
+#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
+#: objects/flowchart/parallelogram.c:296
+msgid "Text padding:"
+msgstr "Margini del testo:"
+
+#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
+msgid "Alignment:"
+msgstr "Allineamento:"
+
+#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
+msgid "Font:"
+msgstr "Font:"
+
+#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
+#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
+#: objects/flowchart/parallelogram.c:321
+msgid "Font size:"
+msgstr "Dimensione del font:"
+
+#: objects/custom/custom_object.c:1525
+msgid "Flip Horizontal"
+msgstr "Ribalta orizzontalmente"
+
+#: objects/custom/custom_object.c:1526
+msgid "Flip Vertical"
+msgstr "Ribalta verticalmente"
+
+#: objects/custom/custom_object.c:1563
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr ""
+
 #: objects/ER/attribute.c:151
 #, fuzzy
 msgid "Key:"
@@ -2468,27 +2669,57 @@ msgstr "Identificatrice"
 msgid "Relationship"
 msgstr "Relazione"
 
+#: objects/flowchart/box.c:167 objects/standard/box.c:153
+msgid "Corner radius"
+msgstr "Raggio dell'angolo"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Margini del testo"
+
+#: objects/flowchart/box.c:279 objects/standard/box.c:240
+msgid "Corner rounding:"
+msgstr "Arrotondamento dell'angolo:"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Oggetti del diagramma di flusso:"
+
+#: objects/flowchart/parallelogram.c:169
+#, fuzzy
+msgid "Shear angle"
+msgstr "Inclinazione:"
+
+#: objects/flowchart/parallelogram.c:282
+msgid "Shear angle:"
+msgstr "Inclinazione:"
+
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
-#: objects/FS/function.c:1058
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
+#: objects/FS/flow.c:722 objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
-#: objects/FS/function.c:1034
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
+#: objects/FS/flow.c:729 objects/FS/function.c:1034
 msgid "Material"
 msgstr "Materiale"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
-#: objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
+#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Segnale"
@@ -2496,16 +2727,19 @@ msgstr "Segnale"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
-#: objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
+#: objects/FS/flow.c:559 objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Flusso:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Tipo di flusso:"
 
@@ -2529,18 +2763,6 @@ msgstr "Funzione desiderata"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Funzione utente"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-#, fuzzy
-msgid "Helvetica"
-msgstr "Ribalta verticalmente"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3777,6 +3999,18 @@ msgstr "Elimina un punto di connessione"
 msgid "GRAFCET OR/AND vergent"
 msgstr "Vergent OR/AND di GRAFCET"
 
+#: objects/network/bus.c:574
+msgid "Add Handle"
+msgstr "Aggiungi handle"
+
+#: objects/network/bus.c:575
+msgid "Delete Handle"
+msgstr "Elimina handle"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Oggetti di diagramma di rete"
+
 #. property rows
 #: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:312
 #: objects/UML/state.c:124
@@ -3817,12 +4051,6 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "Freccia SADT"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:169
-#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
-#: objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Margini del testo"
-
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Identificatore Attività/Dati"
@@ -3842,6 +4070,101 @@ msgstr "Rettangolo SADT"
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
 msgstr "Oggetti di diagramma SADT"
+
+#: objects/standard/arc.c:133
+#, fuzzy
+msgid "Curve distance"
+msgstr "istanza multipla"
+
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+msgid "Add Segment"
+msgstr "Aggiungi segmento"
+
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+msgid "Delete Segment"
+msgstr "Cancella segmento"
+
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+msgid "Symmetric control"
+msgstr "Controllo simmetrico"
+
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+msgid "Smooth control"
+msgstr ""
+
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+msgid "Cusp control"
+msgstr ""
+
+#: objects/standard/image.c:168
+msgid "Image file"
+msgstr "File di immagine"
+
+#: objects/standard/image.c:170
+msgid "Draw border"
+msgstr "Disegna il bordo"
+
+#: objects/standard/image.c:172
+msgid "Keep aspect ratio"
+msgstr "Mantieni le proporzioni"
+
+#: objects/standard/image.c:271
+msgid "Image file:"
+msgstr "File di immagine:"
+
+#: objects/standard/image.c:282
+msgid "Keep aspect ratio:"
+msgstr "Mantieni le proporzioni:"
+
+#: objects/standard/image.c:290
+msgid "Show border:"
+msgstr "Mostra il bordo:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:842 objects/standard/image.c:853
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"File di immagine '%s' non trovato in questa directory.\n"
+"Al suo posto sarà utilizzato il file '%s'\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:859 objects/standard/image.c:885
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "File di immagine '%s' non trovato.\n"
+
+#: objects/standard/line.c:121
+#, fuzzy
+msgid "Start point"
+msgstr "Tempo di inizio:"
+
+#: objects/standard/line.c:123
+msgid "End point"
+msgstr ""
+
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+msgid "Add Corner"
+msgstr "Aggiungi angolo"
+
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+msgid "Delete Corner"
+msgstr "Cancella angolo"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Oggetti standard"
+
+#: objects/standard/textobj.c:228
+msgid "Fontsize:"
+msgstr "Dimensione del font:"
+
+#: objects/sybase/sybase.c:44
+#, fuzzy
+msgid "Sybase replication domain diagram objects"
+msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
@@ -4239,17 +4562,6 @@ msgstr "Oggetti dello stesso tipo"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Oggetti di diagramma di Linguaggio di Modellizzazione Unificato (UML)"
 
-#. Characters used to start/end stereotypes:
-#. start stereotype symbol(like \xab) for local locale
-#: objects/UML/uml.h:94
-msgid "<<"
-msgstr ""
-
-#. end stereotype symbol(like \xbb) for local locale
-#: objects/UML/uml.h:96
-msgid ">>"
-msgstr ""
-
 #: objects/UML/usecase.c:124
 #, fuzzy
 msgid "Text outside"
@@ -4259,286 +4571,6 @@ msgstr "Testo esterno:"
 #, fuzzy
 msgid "Collaboration"
 msgstr "Collaborazione"
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr "Oggetti di diagramma Chronogram"
-
-#: objects/chronogram/chronoline.c:148
-msgid "Data"
-msgstr "Dati"
-
-#: objects/chronogram/chronoline.c:150
-#, fuzzy
-msgid "Data name"
-msgstr "Nome dei dati:"
-
-#: objects/chronogram/chronoline.c:152
-#, fuzzy
-msgid "Events"
-msgstr "Eventi:"
-
-#: objects/chronogram/chronoline.c:155
-msgid "Event specification"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:156
-#, fuzzy
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"Specificazione degli eventi:\n"
-"@ tempo   imposta il puntatore a un tempo assoluto.\n"
-"( durata  imposta il segnale alto, quindi attendi per 'durata'.\n"
-") durata  imposta il segnale basso, quindi attendi per 'durata'.\n"
-"u durata  imposta il segnale a uno stato \"sconosciuto\", quindi attendi per "
-"'durata'.\n"
-"esempio: @ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "Parametri"
-
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-#, fuzzy
-msgid "Start time"
-msgstr "Tempo di inizio:"
-
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-#, fuzzy
-msgid "End time"
-msgstr "Tempo di fine:"
-
-#: objects/chronogram/chronoline.c:168
-#, fuzzy
-msgid "Rise time"
-msgstr "Tempo di salita:"
-
-#: objects/chronogram/chronoline.c:170
-#, fuzzy
-msgid "Fall time"
-msgstr "Tempo di discesa:"
-
-#: objects/chronogram/chronoline.c:171
-msgid "Multi-bit data"
-msgstr "Dati multi-bit"
-
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-msgid "Aspect"
-msgstr "Aspetto"
-
-#: objects/chronogram/chronoline.c:175
-#, fuzzy
-msgid "Data color"
-msgstr "Colore dei dati:"
-
-#: objects/chronogram/chronoline.c:177
-#, fuzzy
-msgid "Data line width"
-msgstr "Spessore della linea dei dati:"
-
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-#, fuzzy
-msgid "Line color"
-msgstr "Colore della linea:"
-
-#: objects/chronogram/chronoref.c:144
-#, fuzzy
-msgid "Time data"
-msgstr "Dati dell'attributo"
-
-#: objects/chronogram/chronoref.c:150
-#, fuzzy
-msgid "Major time step"
-msgstr "Suddivisione principale:"
-
-#: objects/chronogram/chronoref.c:152
-#, fuzzy
-msgid "Minor time step"
-msgstr "Suddivisione secondaria:"
-
-#: objects/chronogram/chronoref.c:162
-#, fuzzy
-msgid "Minor step line width"
-msgstr "Spessore della suddivisione secondaria:"
-
-#: objects/custom/custom.c:135
-msgid "Custom"
-msgstr "Personalizzato"
-
-#: objects/custom/custom.c:135
-msgid "Custom XML shapes loader"
-msgstr "Caricatore di disegni XML personalizzati"
-
-#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
-msgid "Flip horizontal"
-msgstr "Ribalta orizzontalmente"
-
-#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
-msgid "Flip vertical"
-msgstr "Ribalta verticalmente"
-
-#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
-#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
-#: objects/flowchart/parallelogram.c:296
-msgid "Text padding:"
-msgstr "Margini del testo:"
-
-#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
-msgid "Alignment:"
-msgstr "Allineamento:"
-
-#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
-#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
-#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
-msgid "Font:"
-msgstr "Font:"
-
-#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
-#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
-#: objects/flowchart/parallelogram.c:321
-msgid "Font size:"
-msgstr "Dimensione del font:"
-
-#: objects/custom/custom_object.c:1525
-msgid "Flip Horizontal"
-msgstr "Ribalta orizzontalmente"
-
-#: objects/custom/custom_object.c:1526
-msgid "Flip Vertical"
-msgstr "Ribalta verticalmente"
-
-#: objects/custom/custom_object.c:1563
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
-
-#: objects/flowchart/box.c:167 objects/standard/box.c:153
-msgid "Corner radius"
-msgstr "Raggio dell'angolo"
-
-#: objects/flowchart/box.c:279 objects/standard/box.c:240
-msgid "Corner rounding:"
-msgstr "Arrotondamento dell'angolo:"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr "Oggetti del diagramma di flusso:"
-
-#: objects/flowchart/parallelogram.c:169
-#, fuzzy
-msgid "Shear angle"
-msgstr "Inclinazione:"
-
-#: objects/flowchart/parallelogram.c:282
-msgid "Shear angle:"
-msgstr "Inclinazione:"
-
-#: objects/network/bus.c:574
-msgid "Add Handle"
-msgstr "Aggiungi handle"
-
-#: objects/network/bus.c:575
-msgid "Delete Handle"
-msgstr "Elimina handle"
-
-#: objects/network/network.c:41
-msgid "Network diagram objects"
-msgstr "Oggetti di diagramma di rete"
-
-#: objects/standard/arc.c:133
-#, fuzzy
-msgid "Curve distance"
-msgstr "istanza multipla"
-
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
-msgid "Add Segment"
-msgstr "Aggiungi segmento"
-
-#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
-msgid "Delete Segment"
-msgstr "Cancella segmento"
-
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
-msgid "Symmetric control"
-msgstr "Controllo simmetrico"
-
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
-msgid "Smooth control"
-msgstr ""
-
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
-msgid "Cusp control"
-msgstr ""
-
-#: objects/standard/image.c:168
-msgid "Image file"
-msgstr "File di immagine"
-
-#: objects/standard/image.c:170
-msgid "Draw border"
-msgstr "Disegna il bordo"
-
-#: objects/standard/image.c:172
-msgid "Keep aspect ratio"
-msgstr "Mantieni le proporzioni"
-
-#: objects/standard/image.c:271
-msgid "Image file:"
-msgstr "File di immagine:"
-
-#: objects/standard/image.c:282
-msgid "Keep aspect ratio:"
-msgstr "Mantieni le proporzioni:"
-
-#: objects/standard/image.c:290
-msgid "Show border:"
-msgstr "Mostra il bordo:"
-
-#. Found file in same dir as diagram.
-#: objects/standard/image.c:842 objects/standard/image.c:853
-#, c-format
-msgid ""
-"The image file '%s' was not found in that directory.\n"
-"Using the file '%s' instead\n"
-msgstr ""
-"File di immagine '%s' non trovato in questa directory.\n"
-"Al suo posto sarà utilizzato il file '%s'\n"
-
-#. Didn't find file in current dir.
-#: objects/standard/image.c:859 objects/standard/image.c:885
-#, c-format
-msgid "The image file '%s' was not found.\n"
-msgstr "File di immagine '%s' non trovato.\n"
-
-#: objects/standard/line.c:121
-#, fuzzy
-msgid "Start point"
-msgstr "Tempo di inizio:"
-
-#: objects/standard/line.c:123
-msgid "End point"
-msgstr ""
-
-#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
-msgid "Add Corner"
-msgstr "Aggiungi angolo"
-
-#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
-msgid "Delete Corner"
-msgstr "Cancella angolo"
-
-#: objects/standard/standard.c:45
-msgid "Standard objects"
-msgstr "Oggetti standard"
-
-#: objects/standard/textobj.c:228
-msgid "Fontsize:"
-msgstr "Dimensione del font:"
 
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
@@ -4557,18 +4589,27 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro di esportazione Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
-msgid "Drawing Interchange File"
-msgstr ""
-
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
+msgstr ""
+
+#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
+msgid "Drawing Interchange File"
 msgstr ""
 
 #: plug-ins/hpgl/hpgl.c:619
 #, fuzzy
 msgid "HP Graphics Language export filter"
 msgstr "Filtro di esportazione Computer Graphics Metafile"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "Filtro di esportazione Computer Graphics Metafile"
+
+#: plug-ins/metapost/render_metapost.c:735
+msgid "TeX Metapost macros"
+msgstr ""
 
 #: plug-ins/pstricks/pstricks.c:14
 #, fuzzy
@@ -4583,6 +4624,11 @@ msgstr ""
 msgid "Python scripting support"
 msgstr ""
 
+#: plug-ins/shape/shape.c:36
+#, fuzzy
+msgid "dia shape export filter"
+msgstr "Filtro di esportazione Computer Graphics Metafile"
+
 #: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr ""
@@ -4590,11 +4636,6 @@ msgstr ""
 #: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr ""
-
-#: plug-ins/shape/shape.c:36
-#, fuzzy
-msgid "dia shape export filter"
-msgstr "Filtro di esportazione Computer Graphics Metafile"
 
 #: plug-ins/svg/render_svg.c:870
 msgid "Scalable Vector Graphics"
@@ -4605,15 +4646,6 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:962
-msgid "Windows Meta File"
-msgstr ""
-
-#: plug-ins/wmf/wmf.cpp:976
-#, fuzzy
-msgid "WMF export filter"
-msgstr "Filtro di esportazione Computer Graphics Metafile"
-
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -4622,6 +4654,11 @@ msgstr ""
 #: plug-ins/wpg/wpg.c:1200
 #, fuzzy
 msgid "WordPerfect Graphics export filter"
+msgstr "Filtro di esportazione Computer Graphics Metafile"
+
+#: plug-ins/xfig/xfig.c:39
+#, fuzzy
+msgid "Fig Format import and export filter"
 msgstr "Filtro di esportazione Computer Graphics Metafile"
 
 #: plug-ins/xfig/xfig-export.c:365
@@ -4807,19 +4844,23 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
-#: plug-ins/xfig/xfig.c:39
+#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "Fig Format import and export filter"
-msgstr "Filtro di esportazione Computer Graphics Metafile"
+msgid "A data line"
+msgstr "Spessore della linea dei dati:"
 
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "Filtro di esportazione Computer Graphics Metafile"
-
-#: plug-ins/metapost/render_metapost.c:735
-msgid "TeX Metapost macros"
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
 msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+#, fuzzy
+msgid "Objects to design chronogram charts"
+msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
 #: sheets/Circuit.sheet.in.h:1
 #, fuzzy
@@ -4978,6 +5019,143 @@ msgstr "Direzione:"
 msgid "Components for circuit diagrams"
 msgstr ""
 
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+#, fuzzy
+msgid "A Basin"
+msgstr "Transitiva"
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "Costrizione:"
+
+#: sheets/civil.sheet.in.h:4
+#, fuzzy
+msgid "A Frequency Converter"
+msgstr "Inverti"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "Attore"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "Attore"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+#, fuzzy
+msgid "A horizontal limiting line"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:11
+#, fuzzy
+msgid "A horizontally aligned Arrow"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:12
+#, fuzzy
+msgid "A vertical limiting line"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:13
+#, fuzzy
+msgid "A vertically aligned Arrow"
+msgstr "Ribalta orizzontalmente"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+#, fuzzy
+msgid "Bivalent Vertical Rest"
+msgstr "Ribalta verticalmente"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "Ribalta orizzontalmente"
+
+#: sheets/civil.sheet.in.h:19
+#, fuzzy
+msgid "Horizontally aligned Valve"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:20
+#, fuzzy
+msgid "Horizontally aligned compressor"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:21
+#, fuzzy
+msgid "Horizontally aligned pump"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Reference Line"
+msgstr "Crea linea"
+
+#: sheets/civil.sheet.in.h:23
+#, fuzzy
+msgid "Soil"
+msgstr "Continua"
+
+#: sheets/civil.sheet.in.h:24
+#, fuzzy
+msgid "Vertical Rest"
+msgstr "Ribalta verticalmente"
+
+#: sheets/civil.sheet.in.h:25
+#, fuzzy
+msgid "Vertically aligned Propeller"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:26
+#, fuzzy
+msgid "Vertically aligned Valve"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:27
+#, fuzzy
+msgid "Vertically aligned compressor"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:28
+#, fuzzy
+msgid "Vertically aligned pump"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
 msgstr ""
@@ -5045,47 +5223,6 @@ msgstr ""
 msgid "Ladder"
 msgstr "Livelli"
 
-#: sheets/EML.sheet.in.h:1
-#, fuzzy
-msgid "Create a process"
-msgstr "Crea arco"
-
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:3
-#, fuzzy
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Oggetti di diagramma struttura di funzione"
-
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr ""
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr ""
-
-#: sheets/ER.sheet.in.h:3
-#, fuzzy
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Oggetti di diagramma Entity/Relationship"
-
-#: sheets/ER.sheet.in.h:5
-#, fuzzy
-msgid "Participation"
-msgstr "Condizione:"
-
-#: sheets/ER.sheet.in.h:7
-#, fuzzy
-msgid "Weak Entity"
-msgstr "Entità"
-
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
 msgid "A connection point"
@@ -5129,28 +5266,46 @@ msgstr "Ribalta verticalmente"
 msgid "The command organ of a relay"
 msgstr ""
 
-#: sheets/FS.sheet.in.h:1
+#: sheets/EML.sheet.in.h:1
 #, fuzzy
-msgid "Create a flow"
-msgstr "Crea rettangolo"
+msgid "Create a process"
+msgstr "Crea arco"
 
-#: sheets/FS.sheet.in.h:2
-#, fuzzy
-msgid "Create a function"
-msgstr "Funzione utente"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
 msgstr ""
 
-#: sheets/FS.sheet.in.h:4
+#: sheets/EML.sheet.in.h:3
 #, fuzzy
-msgid "Editor for Function Structure Diagrams."
+msgid "Editor for EML Static Structure Diagrams."
 msgstr "Oggetti di diagramma struttura di funzione"
 
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
 msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+#, fuzzy
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Oggetti di diagramma Entity/Relationship"
+
+#: sheets/ER.sheet.in.h:5
+#, fuzzy
+msgid "Participation"
+msgstr "Condizione:"
+
+#: sheets/ER.sheet.in.h:7
+#, fuzzy
+msgid "Weak Entity"
+msgstr "Entità"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
@@ -5282,6 +5437,29 @@ msgstr "Transitiva"
 msgid "Transmittal Tape"
 msgstr "Transitiva"
 
+#: sheets/FS.sheet.in.h:1
+#, fuzzy
+msgid "Create a flow"
+msgstr "Crea rettangolo"
+
+#: sheets/FS.sheet.in.h:2
+#, fuzzy
+msgid "Create a function"
+msgstr "Funzione utente"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
+#, fuzzy
+msgid "Editor for Function Structure Diagrams."
+msgstr "Oggetti di diagramma struttura di funzione"
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
 #: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
 msgid "A AND vergent"
@@ -5349,6 +5527,78 @@ msgstr ""
 msgid "Objects to design GRAFCET charts"
 msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
 #: sheets/Logic.sheet.in.h:1
 #, fuzzy
 msgid "A Nand gate"
@@ -5402,6 +5652,23 @@ msgstr ""
 msgid "Logic"
 msgstr ""
 
+#: sheets/Misc.sheet.in.h:1
+#, fuzzy
+msgid "A File"
+msgstr "File"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "A Folder"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr ""
+
 #: sheets/MSE.sheet.in.h:1
 #, fuzzy
 msgid "Demultiplexer"
@@ -5435,6 +5702,151 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
+#, fuzzy
+msgid "A Computer"
+msgstr "Aggiungi angolo"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
+#, fuzzy
+msgid "A Minitower PC"
+msgstr "Attore"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
+
+#: sheets/network.sheet.in.h:10
+msgid "A Telephone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:12
+#, fuzzy
+msgid "A WAN Connection"
+msgstr "Connetti"
+
+#: sheets/network.sheet.in.h:13
+#, fuzzy
+msgid "A WAN Link"
+msgstr "Connetti"
+
+#: sheets/network.sheet.in.h:14
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "A Workstation Monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "A ZIP Disk"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:18
+#, fuzzy
+msgid "A monitor"
+msgstr "Attore"
+
+#: sheets/network.sheet.in.h:19
+#, fuzzy
+msgid "A simple Modem"
+msgstr "Seleziona la stampante"
+
+#: sheets/network.sheet.in.h:20
+#, fuzzy
+msgid "A simple printer"
+msgstr "Seleziona la stampante"
+
+#: sheets/network.sheet.in.h:21
+#, fuzzy
+msgid "A speaker with integrated amplifier"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/network.sheet.in.h:22
+#, fuzzy
+msgid "A speaker without amplifier"
+msgstr "Allinea _orizzontalmente"
+
+#: sheets/network.sheet.in.h:23
+msgid "A stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:28
+#, fuzzy
+msgid "Network"
+msgstr "Nuovo"
+
+#: sheets/network.sheet.in.h:29
+#, fuzzy
+msgid "Network Cloud"
+msgstr "Nuovo"
+
+#: sheets/network.sheet.in.h:30
+#, fuzzy
+msgid "Objects to design network diagrams with"
+msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
+
+#: sheets/network.sheet.in.h:31
+msgid "Router Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:32
+#, fuzzy
+msgid "Storage"
+msgstr "   Immagazzina"
+
+#: sheets/network.sheet.in.h:33
+msgid "Switch Symbol"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:1
@@ -5632,6 +6044,40 @@ msgstr ""
 msgid "State"
 msgstr "Freccia punteggiata"
 
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+#, fuzzy
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+#, fuzzy
+msgid "Sybase"
+msgstr "Tratteggiata"
+
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
 msgstr ""
@@ -5745,411 +6191,9 @@ msgstr ""
 msgid "UML"
 msgstr ""
 
-#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "A data line"
-msgstr "Spessore della linea dei dati:"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:4
-#, fuzzy
-msgid "Objects to design chronogram charts"
-msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
-
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:2
-#, fuzzy
-msgid "A Basin"
-msgstr "Transitiva"
-
-#: sheets/civil.sheet.in.h:3
-#, fuzzy
-msgid "A Container"
-msgstr "Costrizione:"
-
-#: sheets/civil.sheet.in.h:4
-#, fuzzy
-msgid "A Frequency Converter"
-msgstr "Inverti"
-
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:6
-#, fuzzy
-msgid "A Motor"
-msgstr "Attore"
-
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:8
-#, fuzzy
-msgid "A Rotor"
-msgstr "Attore"
-
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:10
-#, fuzzy
-msgid "A horizontal limiting line"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:11
-#, fuzzy
-msgid "A horizontally aligned Arrow"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:12
-#, fuzzy
-msgid "A vertical limiting line"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:13
-#, fuzzy
-msgid "A vertically aligned Arrow"
-msgstr "Ribalta orizzontalmente"
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:15
-#, fuzzy
-msgid "Bivalent Vertical Rest"
-msgstr "Ribalta verticalmente"
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:18
-#, fuzzy
-msgid "Horizontal Rest"
-msgstr "Ribalta orizzontalmente"
-
-#: sheets/civil.sheet.in.h:19
-#, fuzzy
-msgid "Horizontally aligned Valve"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:20
-#, fuzzy
-msgid "Horizontally aligned compressor"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:21
-#, fuzzy
-msgid "Horizontally aligned pump"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:22
-#, fuzzy
-msgid "Reference Line"
-msgstr "Crea linea"
-
-#: sheets/civil.sheet.in.h:23
-#, fuzzy
-msgid "Soil"
-msgstr "Continua"
-
-#: sheets/civil.sheet.in.h:24
-#, fuzzy
-msgid "Vertical Rest"
-msgstr "Ribalta verticalmente"
-
-#: sheets/civil.sheet.in.h:25
-#, fuzzy
-msgid "Vertically aligned Propeller"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:26
-#, fuzzy
-msgid "Vertically aligned Valve"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:27
-#, fuzzy
-msgid "Vertically aligned compressor"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:28
-#, fuzzy
-msgid "Vertically aligned pump"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr ""
-
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr ""
-
-#: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:3
-#, fuzzy
-msgid "A Computer"
-msgstr "Aggiungi angolo"
-
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr ""
-
-#: sheets/network.sheet.in.h:6
-msgid "A Miditower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:7
-#, fuzzy
-msgid "A Minitower PC"
-msgstr "Attore"
-
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr ""
-
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr ""
-
-#: sheets/network.sheet.in.h:10
-msgid "A Telephone"
-msgstr ""
-
-#: sheets/network.sheet.in.h:11
-msgid "A UNIX Workstation"
-msgstr ""
-
-#: sheets/network.sheet.in.h:12
-#, fuzzy
-msgid "A WAN Connection"
-msgstr "Connetti"
-
-#: sheets/network.sheet.in.h:13
-#, fuzzy
-msgid "A WAN Link"
-msgstr "Connetti"
-
-#: sheets/network.sheet.in.h:14
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
-
-#: sheets/network.sheet.in.h:15
-msgid "A Workstation Monitor"
-msgstr ""
-
-#: sheets/network.sheet.in.h:16
-msgid "A ZIP Disk"
-msgstr ""
-
-#: sheets/network.sheet.in.h:17
-msgid "A modular switching system"
-msgstr ""
-
-#: sheets/network.sheet.in.h:18
-#, fuzzy
-msgid "A monitor"
-msgstr "Attore"
-
-#: sheets/network.sheet.in.h:19
-#, fuzzy
-msgid "A simple Modem"
-msgstr "Seleziona la stampante"
-
-#: sheets/network.sheet.in.h:20
-#, fuzzy
-msgid "A simple printer"
-msgstr "Seleziona la stampante"
-
-#: sheets/network.sheet.in.h:21
-#, fuzzy
-msgid "A speaker with integrated amplifier"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/network.sheet.in.h:22
-#, fuzzy
-msgid "A speaker without amplifier"
-msgstr "Allinea _orizzontalmente"
-
-#: sheets/network.sheet.in.h:23
-msgid "A stackable hub or switch"
-msgstr ""
-
-#: sheets/network.sheet.in.h:24
-msgid "ATM Switch Symbol"
-msgstr ""
-
-#: sheets/network.sheet.in.h:25
-msgid "An Ethernet bus"
-msgstr ""
-
-#: sheets/network.sheet.in.h:26
-msgid "An antenna for wireless transmission"
-msgstr ""
-
-#: sheets/network.sheet.in.h:27
-msgid "An external DAT drive"
-msgstr ""
-
-#: sheets/network.sheet.in.h:28
-#, fuzzy
-msgid "Network"
-msgstr "Nuovo"
-
-#: sheets/network.sheet.in.h:29
-#, fuzzy
-msgid "Network Cloud"
-msgstr "Nuovo"
-
-#: sheets/network.sheet.in.h:30
-#, fuzzy
-msgid "Objects to design network diagrams with"
-msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
-
-#: sheets/network.sheet.in.h:31
-msgid "Router Symbol"
-msgstr ""
-
-#: sheets/network.sheet.in.h:32
-#, fuzzy
-msgid "Storage"
-msgstr "   Immagazzina"
-
-#: sheets/network.sheet.in.h:33
-msgid "Switch Symbol"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:5
-#, fuzzy
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
-
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:8
-#, fuzzy
-msgid "Sybase"
-msgstr "Tratteggiata"
+#~ msgid "WMF export filter"
+#~ msgstr "Filtro di esportazione Computer Graphics Metafile"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Errore durante la lettura del file del diagramma\n"
@@ -6274,10 +6318,6 @@ msgstr "Tratteggiata"
 #, fuzzy
 #~ msgid "Relation members"
 #~ msgstr "Relazione"
-
-#, fuzzy
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
 #, fuzzy
 #~ msgid "/File/Open _Recent"

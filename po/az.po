@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-05-24 07:14+0200\n"
+"POT-Creation-Date: 2002-05-25 18:23+0200\n"
 "PO-Revision-Date: 2001-11-28 16:49GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
@@ -105,10 +105,10 @@ msgstr ""
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
-#: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
-#: app/sheets_dialog.c:961
+#: app/app_procs.c:518 app/dialogs.c:52 app/display.c:966
+#: app/layer_dialog.c:1015 app/lineprops_area.c:436 app/lineprops_area.c:636
+#: app/linewidth_area.c:246 app/paginate_psprint.c:268 app/sheets_dialog.c:570
+#: app/sheets_dialog.c:802 app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "Ləğv Et"
 
@@ -137,38 +137,38 @@ msgstr "Rəngi seç"
 msgid "Untitled-%d"
 msgstr "Adsız-%d"
 
-#: app/commands.c:203
+#: app/commands.c:204
 msgid "No existing object to paste.\n"
 msgstr "Yapışdırılacaq cism yoxdur.\n"
 
-#: app/commands.c:474 app/commands.c:482 app/commands.c:504
+#: app/commands.c:475 app/commands.c:483 app/commands.c:505
 msgid "Could not find help directory"
 msgstr "Kşmək sözlüyü tapıla bilmir"
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid "About Dia"
 msgstr "Dia haqqında"
 
-#: app/commands.c:595
+#: app/commands.c:596
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Alexander Larsson'un Dia'sı, buraxılış %s"
 
-#: app/commands.c:600
+#: app/commands.c:601
 msgid "Maintainer: James Henstridge"
 msgstr "İdarəci: James Henstridge"
 
-#: app/commands.c:604
+#: app/commands.c:605
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya get"
 
-#: app/commands.c:609
+#: app/commands.c:610
 msgid "Contributors:"
 msgstr "Dəstəkçilər :"
 
 #. setup buttons
-#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:627 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
 #: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
@@ -176,7 +176,7 @@ msgstr "Dəstəkçilər :"
 msgid "OK"
 msgstr "Oldu"
 
-#: app/commands.c:712
+#: app/commands.c:713
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -204,42 +204,6 @@ msgstr "Qapat"
 #: app/defaults.c:98
 msgid "This object has no defaults."
 msgstr "Bu cismin əsas qurğuları yoxdur ."
-
-#: app/dia-props.c:60 app/dia-props.c:67
-msgid "Diagram Properties"
-msgstr "Diaqramma Xüsusiyyətləri"
-
-#: app/dia-props.c:130
-msgid "x"
-msgstr "x"
-
-#: app/dia-props.c:134
-msgid "y"
-msgstr "y"
-
-#: app/dia-props.c:139
-msgid "Spacing"
-msgstr "Boşluq"
-
-#: app/dia-props.c:159
-msgid "Visible spacing"
-msgstr "Görünən boşluq"
-
-#: app/dia-props.c:179
-msgid "Grid"
-msgstr "Tor"
-
-#: app/dia-props.c:189
-msgid "Background Colour"
-msgstr "Arxa Plan Rəngi"
-
-#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
-msgid "Background"
-msgstr "Arxa Plan"
-
-#: app/dia_embedd.c:352
-msgid "Could not initialize Bonobo!"
-msgstr "Bonoboyu başlada bilmədim !"
 
 #. &export_file_format
 #: app/diaconv.c:95
@@ -295,6 +259,10 @@ msgstr "%s xətası: hökmlü %s giriş faylına ehtiyac vardır\n"
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr ""
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Bonoboyu başlada bilmədim !"
 
 #: app/diagram_tree_menu.c:45
 #, fuzzy
@@ -387,6 +355,10 @@ msgstr ""
 msgid "Diagram tree"
 msgstr "_Diaqramma ağacı"
 
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr ""
+
 #. paper size
 #: app/diapagelayout.c:112
 msgid "Paper Size"
@@ -444,6 +416,38 @@ msgstr "%0.3gsm x %0.3gsm"
 msgid "Page Setup"
 msgstr "Səhifə Quruluşu"
 
+#: app/dia-props.c:60 app/dia-props.c:67
+msgid "Diagram Properties"
+msgstr "Diaqramma Xüsusiyyətləri"
+
+#: app/dia-props.c:130
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:134
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:139
+msgid "Spacing"
+msgstr "Boşluq"
+
+#: app/dia-props.c:159
+msgid "Visible spacing"
+msgstr "Görünən boşluq"
+
+#: app/dia-props.c:179
+msgid "Grid"
+msgstr "Tor"
+
+#: app/dia-props.c:189
+msgid "Background Colour"
+msgstr "Arxa Plan Rəngi"
+
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
+msgid "Background"
+msgstr "Arxa Plan"
+
 #: app/disp_callbacks.c:76 app/properties.c:176
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -495,8 +499,7 @@ msgstr "Xeyr"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
-#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
-#: plug-ins/xfig/xfig-export.c:739
+#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "`%s''ni yazmaq üçün aça bilmədim .\n"
@@ -631,8 +634,8 @@ msgstr "Mətni yarat"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77
+#: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -788,8 +791,8 @@ msgstr "Ətraflı ..."
 msgid "Line Style Properties"
 msgstr "Xətt tərz xüsusiyyətləri"
 
-#: app/linewidth_area.c:216 lib/properties.h:477
-#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Xətt eni"
 
@@ -1023,16 +1026,15 @@ msgstr "Keçişli"
 msgid "Same Type"
 msgstr "Eyni növ"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/widgets.c:381
 msgid "Left"
 msgstr "Sol"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:387
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/widgets.c:387
 msgid "Center"
 msgstr "Orta"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/widgets.c:393
 msgid "Right"
 msgstr "Sağ"
 
@@ -1781,14 +1783,49 @@ msgstr "Keçmiş faylını yazmaq üçün aça bilmədim."
 msgid "Encapsulated Postscript"
 msgstr "Sıyrılmış Postscript ( EPS )"
 
-#: app/splash.c:58
-msgid "Loading ..."
-msgstr "Yüklənir..."
+#: app/render_libart.c:433
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr ""
 
-#: app/splash.c:75
+#: app/render_libart.c:448
 #, c-format
-msgid "Dia v %s"
-msgstr "Dia v %s"
+msgid "Can't find font '%s' in height %d\n"
+msgstr ""
+
+#: app/sheets.c:163 app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets.c:165 app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets.c:282
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+
+#: app/sheets.c:380
+#, c-format
+msgid "Widget not found: %s"
+msgstr ""
+
+#: app/sheets.c:456
+#, fuzzy
+msgid "SVG Shape"
+msgstr "Şəkil"
+
+#: app/sheets.c:458
+#, fuzzy
+msgid "Programmed Object"
+msgstr "Zamanlama diaqram cismləri"
 
 #: app/sheets_dialog.c:85
 #, fuzzy
@@ -1945,20 +1982,6 @@ msgstr "Hərəkət Etdir"
 msgid "Move All ->"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:317
-#, c-format
-msgid ""
-"%s\n"
-"System sheet"
-msgstr ""
-
-#: app/sheets_dialog_callbacks.c:319
-#, c-format
-msgid ""
-"%s\n"
-"User sheet"
-msgstr ""
-
 #: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
@@ -2012,6 +2035,15 @@ msgstr ""
 msgid "add shapes here"
 msgstr "dia şəkil faylı"
 
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "Yüklənir..."
+
+#: app/splash.c:75
+#, c-format
+msgid "Dia v %s"
+msgstr "Dia v %s"
+
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
 msgstr "Diaqram Editoru"
@@ -2030,8 +2062,8 @@ msgstr "Dia"
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
-#: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
+#: objects/UML/small_package.c:342 objects/standard/textobj.c:388
+#: plug-ins/dxf/dxf-import.c:530
 #, fuzzy
 msgid "Courier"
 msgstr "Cütlə"
@@ -2162,19 +2194,19 @@ msgstr "`%s' bir qovluq deyildir"
 msgid "Could not open `%s'"
 msgstr "`%s''ni aça bilmədim"
 
-#: lib/properties.c:71 lib/properties.h:480
+#: lib/properties.c:71
 msgid "Line colour"
 msgstr "Sətir rəngi"
 
-#: lib/properties.c:72 lib/properties.h:483
+#: lib/properties.c:72
 msgid "Line style"
 msgstr "Sətər tərzi"
 
-#: lib/properties.c:73 lib/properties.h:487
+#: lib/properties.c:73
 msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
-#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
+#: lib/properties.c:74 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2182,32 +2214,32 @@ msgstr "Doldurma rəngi"
 msgid "Draw background"
 msgstr "Arxa Planı boya"
 
-#: lib/properties.c:75 lib/properties.h:494
+#: lib/properties.c:75
 msgid "Start arrow"
 msgstr "Başlama oxu"
 
-#: lib/properties.c:76 lib/properties.h:497
+#: lib/properties.c:76
 msgid "End arrow"
 msgstr "Bitiş oxu"
 
-#: lib/properties.c:78 lib/properties.h:507
+#: lib/properties.c:78
 msgid "Text alignment"
 msgstr "Mətn tərəfləməsi"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Yazı növü"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Yazı növü böyüklüyü"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Mətn rəngi"
@@ -2337,6 +2369,160 @@ msgstr "Rəsm faylını seç"
 msgid "Browse"
 msgstr "Gəz"
 
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Zamanlama diaqram cismləri"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Data"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "Data adı"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Hadisələr"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "Hadisə xüsusiyyəti"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"Gediş izahı :\n"
+"@ vaxt   göstəriciyi dəqiq bir vaxtda oturt .\n"
+"( müddət    siqnalı üstə qoyub, bildirilən müddəti gözlə .\n"
+") müddət    siqnalı aşağa qoyub, bildirilən müddəti gözlə .\n"
+"u müddət    siqnalı \"belirsiz\" durumu koy, bildirilən müddəti gözlə .\n"
+"nümunə : @ 1.0 ( 2.0 ) 1.0 ( 2.0 ) \n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parametrlər"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Başlama vaxtı"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Bitiş vaxtı"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "Yüksəlmə vaxtı"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "Düşmə vaxtı"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Çoxlu-bitlik data"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Nisbətləmə"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Data rəngi"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "Data xətti eni"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Xətt rəngi"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+#, fuzzy
+msgid "Helvetica"
+msgstr "Şaquli tərs çevir"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Vaxt datası"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr "Əsas vaxt addımı"
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr "Balaca vaxt addımı"
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr "Balaca addım xətti eni"
+
+#: objects/custom/custom.c:135
+msgid "Custom"
+msgstr "Xüsusi"
+
+#: objects/custom/custom.c:135
+msgid "Custom XML shapes loader"
+msgstr "Xüsusi XML şəkil yükləyicisi"
+
+#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
+msgid "Flip horizontal"
+msgstr "Üfüqü tərs çevir"
+
+#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
+msgid "Flip vertical"
+msgstr "Şaquli tərs çevir"
+
+#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
+#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
+#: objects/flowchart/parallelogram.c:296
+msgid "Text padding:"
+msgstr "Mətn aralanması:"
+
+#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
+msgid "Alignment:"
+msgstr "Tərəfləmə :"
+
+#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
+msgid "Font:"
+msgstr "Yazı növü :"
+
+#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
+#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
+#: objects/flowchart/parallelogram.c:321
+msgid "Font size:"
+msgstr "Yazı növü böyüklüyü :"
+
+#: objects/custom/custom_object.c:1525
+msgid "Flip Horizontal"
+msgstr "Üfüqi tərs çevir"
+
+#: objects/custom/custom_object.c:1526
+msgid "Flip Vertical"
+msgstr "Şaquli tərs çevir"
+
+#: objects/custom/custom_object.c:1563
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "'%s' üçün %s timsal faylı açıla bilmir."
+
 #: objects/ER/attribute.c:151
 msgid "Key:"
 msgstr "Açar:"
@@ -2412,27 +2598,56 @@ msgstr "Tanıdıcı:"
 msgid "Relationship"
 msgstr "Əlaqə"
 
+#: objects/flowchart/box.c:167 objects/standard/box.c:153
+msgid "Corner radius"
+msgstr "Bucaq eni"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Mətn aralanması"
+
+#: objects/flowchart/box.c:279 objects/standard/box.c:240
+msgid "Corner rounding:"
+msgstr "Bucaq dönüşü :"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Axış diaqram cismləri"
+
+#: objects/flowchart/parallelogram.c:169
+msgid "Shear angle"
+msgstr "Kəsim bucağı"
+
+#: objects/flowchart/parallelogram.c:282
+msgid "Shear angle:"
+msgstr "Kəsim bucağı :"
+
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
-#: objects/FS/function.c:1058
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
+#: objects/FS/flow.c:722 objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energiya"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
-#: objects/FS/function.c:1034
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
+#: objects/FS/flow.c:729 objects/FS/function.c:1034
 msgid "Material"
 msgstr "Maddə"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
-#: objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
+#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Siqnal"
@@ -2440,16 +2655,19 @@ msgstr "Siqnal"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
-#: objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
+#: objects/FS/flow.c:559 objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Axış :"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Axış növü :"
 
@@ -2472,18 +2690,6 @@ msgstr "Arzulanan funksiya"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "İstifadəçi funksiyası"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-#, fuzzy
-msgid "Helvetica"
-msgstr "Şaquli tərs çevir"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3610,6 +3816,18 @@ msgstr "Bağlantı nöqtəsini sil"
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET VEYA/VE kenarı"
 
+#: objects/network/bus.c:574
+msgid "Add Handle"
+msgstr "Qulp əlavə et"
+
+#: objects/network/bus.c:575
+msgid "Delete Handle"
+msgstr "Qulpu sil"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Şəbəkə diaqram cismləri"
+
 #. property rows
 #: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:312
 #: objects/UML/state.c:124
@@ -3652,12 +3870,6 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "SADT oxu"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:169
-#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
-#: objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Mətn aralanması"
-
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Gediş/Haqqında izahatcısı"
@@ -3677,6 +3889,99 @@ msgstr "SADT qutusu"
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
 msgstr "SADT diaqramma cismləri"
+
+#: objects/standard/arc.c:133
+msgid "Curve distance"
+msgstr "Funksiya məsafəsi"
+
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+msgid "Add Segment"
+msgstr "Bölmə əlavə et"
+
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+msgid "Delete Segment"
+msgstr "Bölməyi sil"
+
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+msgid "Symmetric control"
+msgstr "Simmetrik idarə"
+
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+msgid "Smooth control"
+msgstr "Düz idarə"
+
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+msgid "Cusp control"
+msgstr "Əkçə idarəsi"
+
+#: objects/standard/image.c:168
+msgid "Image file"
+msgstr "Rəsm dosyesı"
+
+#: objects/standard/image.c:170
+msgid "Draw border"
+msgstr "Kənarları cız"
+
+#: objects/standard/image.c:172
+msgid "Keep aspect ratio"
+msgstr "Nisbətləri qoru"
+
+#: objects/standard/image.c:271
+msgid "Image file:"
+msgstr "Rəsm dosyesı :"
+
+#: objects/standard/image.c:282
+msgid "Keep aspect ratio:"
+msgstr "Nisbətləri qoru :"
+
+#: objects/standard/image.c:290
+msgid "Show border:"
+msgstr "Kənarı göstər :"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:842 objects/standard/image.c:853
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"`%s' rəsm dosyesı o qovluqda tapıla bilmədi .\n"
+"Onun yerinə `%s''ni istifadə edirəm \n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:859 objects/standard/image.c:885
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "`%s' rəsm dosyesı tapıla bilmədi .\n"
+
+#: objects/standard/line.c:121
+msgid "Start point"
+msgstr "Başlama nöqtəsi"
+
+#: objects/standard/line.c:123
+msgid "End point"
+msgstr "Bitiş nöqtəsi"
+
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+msgid "Add Corner"
+msgstr "Bucaq əlavə et"
+
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+msgid "Delete Corner"
+msgstr "Bucağı sil"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Standart cismlər"
+
+#: objects/standard/textobj.c:228
+msgid "Fontsize:"
+msgstr "Yazıtipi böyüklüyü :"
+
+#: objects/sybase/sybase.c:44
+#, fuzzy
+msgid "Sybase replication domain diagram objects"
+msgstr "Objects to design Sybase replication domain diagrams with"
 
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
@@ -4059,17 +4364,6 @@ msgstr "Vəziyyət Növü"
 msgid "Unified Modelling Language diagram objects"
 msgstr "UML diaqram cismləri"
 
-#. Characters used to start/end stereotypes:
-#. start stereotype symbol(like \xab) for local locale
-#: objects/UML/uml.h:94
-msgid "<<"
-msgstr ""
-
-#. end stereotype symbol(like \xbb) for local locale
-#: objects/UML/uml.h:96
-msgid ">>"
-msgstr ""
-
 #: objects/UML/usecase.c:124
 msgid "Text outside"
 msgstr "Xaricdəki mətn"
@@ -4077,268 +4371,6 @@ msgstr "Xaricdəki mətn"
 #: objects/UML/usecase.c:126
 msgid "Collaboration"
 msgstr "Iş birliği"
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr "Zamanlama diaqram cismləri"
-
-#: objects/chronogram/chronoline.c:148
-msgid "Data"
-msgstr "Data"
-
-#: objects/chronogram/chronoline.c:150
-msgid "Data name"
-msgstr "Data adı"
-
-#: objects/chronogram/chronoline.c:152
-msgid "Events"
-msgstr "Hadisələr"
-
-#: objects/chronogram/chronoline.c:155
-msgid "Event specification"
-msgstr "Hadisə xüsusiyyəti"
-
-#: objects/chronogram/chronoline.c:156
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"Gediş izahı :\n"
-"@ vaxt   göstəriciyi dəqiq bir vaxtda oturt .\n"
-"( müddət    siqnalı üstə qoyub, bildirilən müddəti gözlə .\n"
-") müddət    siqnalı aşağa qoyub, bildirilən müddəti gözlə .\n"
-"u müddət    siqnalı \"belirsiz\" durumu koy, bildirilən müddəti gözlə .\n"
-"nümunə : @ 1.0 ( 2.0 ) 1.0 ( 2.0 ) \n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "Parametrlər"
-
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-msgid "Start time"
-msgstr "Başlama vaxtı"
-
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-msgid "End time"
-msgstr "Bitiş vaxtı"
-
-#: objects/chronogram/chronoline.c:168
-msgid "Rise time"
-msgstr "Yüksəlmə vaxtı"
-
-#: objects/chronogram/chronoline.c:170
-msgid "Fall time"
-msgstr "Düşmə vaxtı"
-
-#: objects/chronogram/chronoline.c:171
-msgid "Multi-bit data"
-msgstr "Çoxlu-bitlik data"
-
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-msgid "Aspect"
-msgstr "Nisbətləmə"
-
-#: objects/chronogram/chronoline.c:175
-msgid "Data color"
-msgstr "Data rəngi"
-
-#: objects/chronogram/chronoline.c:177
-msgid "Data line width"
-msgstr "Data xətti eni"
-
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-msgid "Line color"
-msgstr "Xətt rəngi"
-
-#: objects/chronogram/chronoref.c:144
-msgid "Time data"
-msgstr "Vaxt datası"
-
-#: objects/chronogram/chronoref.c:150
-msgid "Major time step"
-msgstr "Əsas vaxt addımı"
-
-#: objects/chronogram/chronoref.c:152
-msgid "Minor time step"
-msgstr "Balaca vaxt addımı"
-
-#: objects/chronogram/chronoref.c:162
-msgid "Minor step line width"
-msgstr "Balaca addım xətti eni"
-
-#: objects/custom/custom.c:135
-msgid "Custom"
-msgstr "Xüsusi"
-
-#: objects/custom/custom.c:135
-msgid "Custom XML shapes loader"
-msgstr "Xüsusi XML şəkil yükləyicisi"
-
-#: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
-msgid "Flip horizontal"
-msgstr "Üfüqü tərs çevir"
-
-#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:218
-msgid "Flip vertical"
-msgstr "Şaquli tərs çevir"
-
-#: objects/custom/custom_object.c:329 objects/flowchart/box.c:293
-#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
-#: objects/flowchart/parallelogram.c:296
-msgid "Text padding:"
-msgstr "Mətn aralanması:"
-
-#: objects/custom/custom_object.c:343 objects/standard/textobj.c:206
-msgid "Alignment:"
-msgstr "Tərəfləmə :"
-
-#: objects/custom/custom_object.c:354 objects/flowchart/box.c:307
-#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
-#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
-msgid "Font:"
-msgstr "Yazı növü :"
-
-#: objects/custom/custom_object.c:365 objects/flowchart/box.c:318
-#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
-#: objects/flowchart/parallelogram.c:321
-msgid "Font size:"
-msgstr "Yazı növü böyüklüyü :"
-
-#: objects/custom/custom_object.c:1525
-msgid "Flip Horizontal"
-msgstr "Üfüqi tərs çevir"
-
-#: objects/custom/custom_object.c:1526
-msgid "Flip Vertical"
-msgstr "Şaquli tərs çevir"
-
-#: objects/custom/custom_object.c:1563
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr "'%s' üçün %s timsal faylı açıla bilmir."
-
-#: objects/flowchart/box.c:167 objects/standard/box.c:153
-msgid "Corner radius"
-msgstr "Bucaq eni"
-
-#: objects/flowchart/box.c:279 objects/standard/box.c:240
-msgid "Corner rounding:"
-msgstr "Bucaq dönüşü :"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr "Axış diaqram cismləri"
-
-#: objects/flowchart/parallelogram.c:169
-msgid "Shear angle"
-msgstr "Kəsim bucağı"
-
-#: objects/flowchart/parallelogram.c:282
-msgid "Shear angle:"
-msgstr "Kəsim bucağı :"
-
-#: objects/network/bus.c:574
-msgid "Add Handle"
-msgstr "Qulp əlavə et"
-
-#: objects/network/bus.c:575
-msgid "Delete Handle"
-msgstr "Qulpu sil"
-
-#: objects/network/network.c:41
-msgid "Network diagram objects"
-msgstr "Şəbəkə diaqram cismləri"
-
-#: objects/standard/arc.c:133
-msgid "Curve distance"
-msgstr "Funksiya məsafəsi"
-
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
-msgid "Add Segment"
-msgstr "Bölmə əlavə et"
-
-#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
-msgid "Delete Segment"
-msgstr "Bölməyi sil"
-
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
-msgid "Symmetric control"
-msgstr "Simmetrik idarə"
-
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
-msgid "Smooth control"
-msgstr "Düz idarə"
-
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
-msgid "Cusp control"
-msgstr "Əkçə idarəsi"
-
-#: objects/standard/image.c:168
-msgid "Image file"
-msgstr "Rəsm dosyesı"
-
-#: objects/standard/image.c:170
-msgid "Draw border"
-msgstr "Kənarları cız"
-
-#: objects/standard/image.c:172
-msgid "Keep aspect ratio"
-msgstr "Nisbətləri qoru"
-
-#: objects/standard/image.c:271
-msgid "Image file:"
-msgstr "Rəsm dosyesı :"
-
-#: objects/standard/image.c:282
-msgid "Keep aspect ratio:"
-msgstr "Nisbətləri qoru :"
-
-#: objects/standard/image.c:290
-msgid "Show border:"
-msgstr "Kənarı göstər :"
-
-#. Found file in same dir as diagram.
-#: objects/standard/image.c:842 objects/standard/image.c:853
-#, c-format
-msgid ""
-"The image file '%s' was not found in that directory.\n"
-"Using the file '%s' instead\n"
-msgstr ""
-"`%s' rəsm dosyesı o qovluqda tapıla bilmədi .\n"
-"Onun yerinə `%s''ni istifadə edirəm \n"
-
-#. Didn't find file in current dir.
-#: objects/standard/image.c:859 objects/standard/image.c:885
-#, c-format
-msgid "The image file '%s' was not found.\n"
-msgstr "`%s' rəsm dosyesı tapıla bilmədi .\n"
-
-#: objects/standard/line.c:121
-msgid "Start point"
-msgstr "Başlama nöqtəsi"
-
-#: objects/standard/line.c:123
-msgid "End point"
-msgstr "Bitiş nöqtəsi"
-
-#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
-msgid "Add Corner"
-msgstr "Bucaq əlavə et"
-
-#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
-msgid "Delete Corner"
-msgstr "Bucağı sil"
-
-#: objects/standard/standard.c:45
-msgid "Standard objects"
-msgstr "Standart cismlər"
-
-#: objects/standard/textobj.c:228
-msgid "Fontsize:"
-msgstr "Yazıtipi böyüklüyü :"
 
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
@@ -4356,17 +4388,27 @@ msgstr "CGM"
 msgid "Computer Graphics Metafile export filter"
 msgstr "CGM idxal süzgəci"
 
-#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
-msgid "Drawing Interchange File"
-msgstr "DIF"
-
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "DIF idxal süzgəci"
 
+#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:669
+msgid "Drawing Interchange File"
+msgstr "DIF"
+
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "HP GL ixrac süzgəci"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "TeX Pstricks idxal süzgəci"
+
+#: plug-ins/metapost/render_metapost.c:735
+#, fuzzy
+msgid "TeX Metapost macros"
+msgstr "TeX PSTricks makroları"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4380,6 +4422,10 @@ msgstr "TeX PSTricks makroları"
 msgid "Python scripting support"
 msgstr ""
 
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "Dia şəkil ixrac süzgəci"
+
 #: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr "\"Png\"ni \"libart\" olmadan idxal edə bilmirəm!"
@@ -4387,10 +4433,6 @@ msgstr "\"Png\"ni \"libart\" olmadan idxal edə bilmirəm!"
 #: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr "dia şəkil faylı"
-
-#: plug-ins/shape/shape.c:36
-msgid "dia shape export filter"
-msgstr "Dia şəkil ixrac süzgəci"
 
 #: plug-ins/svg/render_svg.c:870
 msgid "Scalable Vector Graphics"
@@ -4400,15 +4442,6 @@ msgstr "Böyüdüləbilən vektor qrafikaları ( SVG )"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Böyüdülə bilən Vektor Qrafikaları ixrac süzgəci"
 
-#: plug-ins/wmf/wmf.cpp:962
-msgid "Windows Meta File"
-msgstr ""
-
-#: plug-ins/wmf/wmf.cpp:976
-#, fuzzy
-msgid "WMF export filter"
-msgstr "Dia şəkil ixrac süzgəci"
-
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -4417,6 +4450,10 @@ msgstr "%s : dosye növü/buraxılışı dəstəklənmir .\n"
 #: plug-ins/wpg/wpg.c:1200
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics ixrac süzgəci"
+
+#: plug-ins/xfig/xfig.c:39
+msgid "Fig Format import and export filter"
+msgstr "Fiq Format idxal və ixrac süzgəci"
 
 #: plug-ins/xfig/xfig-export.c:365
 msgid "No more user-definable colors - using black"
@@ -4593,19 +4630,21 @@ msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
 
-#: plug-ins/xfig/xfig.c:39
-msgid "Fig Format import and export filter"
-msgstr "Fiq Format idxal və ixrac süzgəci"
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr "Data sətri"
 
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "TeX Pstricks idxal süzgəci"
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr "Vaxt şkalası"
 
-#: plug-ins/metapost/render_metapost.c:735
-#, fuzzy
-msgid "TeX Metapost macros"
-msgstr "TeX PSTricks makroları"
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr "Xronoqram"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr "Xronoqram qrafikaları cismləri"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -4736,6 +4775,122 @@ msgstr "Dövrə"
 msgid "Components for circuit diagrams"
 msgstr "Dairəvi diaqram parçaları"
 
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr "Geri Axış Preventeri"
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr "Basin"
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "Konteyner"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "Sıxlıq Dönüşdürücü"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr "Qaz Şüşəsi"
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr "Mühərrik"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr "İlkin Klarifikasiya Tankı"
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "Rotor"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr "A final-settling Basin"
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr "Üfüqi hüdüdlandırılmış cızıq"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr "Üfüqi tərəfləndirilmiş Ox"
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr "Şaquli hüdudlandırılmış cızıq"
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr "Şaquli tərəfləndirilmiş Ox"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr "Qabarcıqlı aerator"
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr "İkivalnetli Şaquli Rest"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr "Mülki"
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr "Mülki Mühəndislik Parçaları"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr "Üfüqi Rest"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr "Üfüqi tərəfləndirilmiş Qapaq"
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr "Üfüqi tərəfləndirilmiş kompressor"
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr "Üfüqi tərəfləndirilmiş nasos"
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr "Referens Cızıq"
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr "Torpaqlama"
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr "Şaquli Rest"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr "Şaquli tərəfləndirilmiş pərvanə"
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr "Şaqilə tərəfləndirilmiş Qapaq"
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr "Şaquli tərəfləndirilmiş kompressor"
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr "Şaquli tərəfləndirilmiş nasos"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr "Su Səviyyəsi"
+
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
 msgstr "'əgər deyilsə' (əsasən qapalı) nərdivan rabitəsi"
@@ -4792,42 +4947,6 @@ msgstr "NƏRDİVAN dairəsi parçaları"
 msgid "Ladder"
 msgstr "Nərdivan"
 
-#: sheets/EML.sheet.in.h:1
-msgid "Create a process"
-msgstr "Gedişat yarat"
-
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr "EML"
-
-#: sheets/EML.sheet.in.h:3
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "EML Sabit Struktura Diaqramları Editoru."
-
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr "İnstansiasiya. Bir gedişat digərini yaradar"
-
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr "Gedişatlar arasında təsirlənmə."
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr "ER"
-
-#: sheets/ER.sheet.in.h:3
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Üzv Əlaqə Diaqramları Editoru"
-
-#: sheets/ER.sheet.in.h:5
-msgid "Participation"
-msgstr "Töküntü"
-
-#: sheets/ER.sheet.in.h:7
-msgid "Weak Entity"
-msgstr "Zəif Üzv"
-
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 msgid "A connection point"
 msgstr "Bağlama nüqtəsi"
@@ -4868,25 +4987,41 @@ msgstr "Elektrik"
 msgid "The command organ of a relay"
 msgstr "The command organ of a relay"
 
-#: sheets/FS.sheet.in.h:1
-msgid "Create a flow"
-msgstr "Axım yarat"
+#: sheets/EML.sheet.in.h:1
+msgid "Create a process"
+msgstr "Gedişat yarat"
 
-#: sheets/FS.sheet.in.h:2
-msgid "Create a function"
-msgstr "Funksiya yarat"
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr "EML"
 
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr "Ortoqonal çoxcızıqlı axışı yarat"
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "EML Sabit Struktura Diaqramları Editoru."
 
-#: sheets/FS.sheet.in.h:4
-msgid "Editor for Function Structure Diagrams."
-msgstr "Funksiya Strukturası Diaqramları Editoru."
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr "İnstansiasiya. Bir gedişat digərini yaradar"
 
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
-msgstr "FS"
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr "Gedişatlar arasında təsirlənmə."
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr "ER"
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Üzv Əlaqə Diaqramları Editoru"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Töküntü"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr "Zəif Üzv"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
@@ -5000,6 +5135,26 @@ msgstr "Transaksiya Faylı"
 msgid "Transmittal Tape"
 msgstr "Keçirici Lent"
 
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Axım yarat"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Funksiya yarat"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr "Ortoqonal çoxcızıqlı axışı yarat"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr "Funksiya Strukturası Diaqramları Editoru."
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr "FS"
+
 #: sheets/GRAFCET.sheet.in.h:1
 msgid "A AND vergent"
 msgstr "VƏ kənarı"
@@ -5056,6 +5211,78 @@ msgstr "GRAFCET"
 msgid "Objects to design GRAFCET charts"
 msgstr "GRAFCET qrafikaları parçaları"
 
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr "Jiqso"
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr "Jigsaw - part_iiii"
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr "Jigsaw - part_iiio"
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr "Jigsaw - part_iioi"
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr "Jigsaw - part_iioo"
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr "Jigsaw - part_ioii"
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr "Jigsaw - part_ioio"
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr "Jigsaw - part_iooi"
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr "Jigsaw - part_iooo"
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr "Jigsaw - part_oiii"
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr "Jigsaw - part_oiio"
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr "Jigsaw - part_oioi"
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr "Jigsaw - part_oioo"
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr "Jigsaw - part_ooii"
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr "Jigsaw - part_ooio"
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr "Jigsaw - part_oooi"
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr "Jigsaw - part_oooo"
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr "Jiqso parçaları"
+
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
 msgstr "Nand qapısı"
@@ -5100,6 +5327,23 @@ msgstr "Bulean Məntiqi"
 msgid "Logic"
 msgstr "Məntiq"
 
+#: sheets/Misc.sheet.in.h:1
+#, fuzzy
+msgid "A File"
+msgstr "Dosye"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "A Folder"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr ""
+
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
 msgstr "Demultiplekser"
@@ -5131,6 +5375,139 @@ msgstr "Taktik Satellik Rabitə Terminalı"
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr "ABŞ Mobiı Subskrayber Təchizatı Parçaları"
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "A 3 1/2 inç disket"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "Böyük Qullə ŞK"
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "Kompüter"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "Masa Üstü ŞK"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr "Fayrvol roteri"
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr "Orta Qullə ŞK"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr "Kiçik Qüllə ŞK"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr "Əl Telefonus"
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr "A RJ45 Wall-Plug"
+
+#: sheets/network.sheet.in.h:10
+#, fuzzy
+msgid "A Telephone"
+msgstr "Əl Telefonus"
+
+#: sheets/network.sheet.in.h:11
+msgid "A UNIX Workstation"
+msgstr "UNIX İş Stansiyası"
+
+#: sheets/network.sheet.in.h:12
+msgid "A WAN Connection"
+msgstr "WAN Bağlantısı"
+
+#: sheets/network.sheet.in.h:13
+msgid "A WAN Link"
+msgstr "WAN Körpüsü"
+
+#: sheets/network.sheet.in.h:14
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "A Wall-Plug for the scEAD Cabling System"
+
+#: sheets/network.sheet.in.h:15
+msgid "A Workstation Monitor"
+msgstr "İş Mühiti Monitoru"
+
+#: sheets/network.sheet.in.h:16
+msgid "A ZIP Disk"
+msgstr "ZIP Diski"
+
+#: sheets/network.sheet.in.h:17
+msgid "A modular switching system"
+msgstr "Modular keçış sistemi"
+
+#: sheets/network.sheet.in.h:18
+msgid "A monitor"
+msgstr "Monitor"
+
+#: sheets/network.sheet.in.h:19
+msgid "A simple Modem"
+msgstr "Sadə Modem"
+
+#: sheets/network.sheet.in.h:20
+msgid "A simple printer"
+msgstr "Sadə çapedici"
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker with integrated amplifier"
+msgstr "Daxili gücləndiricili kolon"
+
+#: sheets/network.sheet.in.h:22
+msgid "A speaker without amplifier"
+msgstr "Gücləndiricisiz kolon"
+
+#: sheets/network.sheet.in.h:23
+msgid "A stackable hub or switch"
+msgstr "Yığılabilən hab ya da keçış"
+
+#: sheets/network.sheet.in.h:24
+msgid "ATM Switch Symbol"
+msgstr "ATM Keçiş Simvolu"
+
+#: sheets/network.sheet.in.h:25
+msgid "An Ethernet bus"
+msgstr "Eternet bas"
+
+#: sheets/network.sheet.in.h:26
+msgid "An antenna for wireless transmission"
+msgstr "Naqilsiz rabitə anteni"
+
+#: sheets/network.sheet.in.h:27
+msgid "An external DAT drive"
+msgstr "Xarici DAT sürücüsü"
+
+#: sheets/network.sheet.in.h:28
+msgid "Network"
+msgstr "Şəbəkə"
+
+#: sheets/network.sheet.in.h:29
+msgid "Network Cloud"
+msgstr "Şəbəkə Buludu"
+
+#: sheets/network.sheet.in.h:30
+msgid "Objects to design network diagrams with"
+msgstr "Şəbəkə diaqramları üçün parçalar"
+
+#: sheets/network.sheet.in.h:31
+msgid "Router Symbol"
+msgstr "Ruter Simvolu"
+
+#: sheets/network.sheet.in.h:32
+msgid "Storage"
+msgstr "Ambar"
+
+#: sheets/network.sheet.in.h:33
+msgid "Switch Symbol"
+msgstr "Keçış Simvolu"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -5312,6 +5689,38 @@ msgstr "Xüsusiyyətlər və İzahat Dili."
 msgid "State"
 msgstr "Vəziyyət"
 
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr "Sybase Alıcı Təminatı"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr "Sybase Dataserver"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr "Sybase Replikasiya Vericisi"
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr "Qeyd Daşıma İdarəçisi və ya Toxuma Vasitəsi"
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objects to design Sybase replication domain diagrams with"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr "Replikasiya Vericisi İdarəçisi"
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr "Sabit Saxlama Avadanlığı"
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase"
+msgstr "Sybase"
+
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
 msgstr "Aqreqasiya, bir sinif digərinin parçasıdırs"
@@ -5408,374 +5817,9 @@ msgstr "Həyata keçirici, xüsusi ara üzü tamamlayır"
 msgid "UML"
 msgstr "UML"
 
-#: sheets/chronogram.sheet.in.h:1
-msgid "A data line"
-msgstr "Data sətri"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr "Vaxt şkalası"
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr "Xronoqram"
-
-#: sheets/chronogram.sheet.in.h:4
-msgid "Objects to design chronogram charts"
-msgstr "Xronoqram qrafikaları cismləri"
-
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr "Geri Axış Preventeri"
-
-#: sheets/civil.sheet.in.h:2
-msgid "A Basin"
-msgstr "Basin"
-
-#: sheets/civil.sheet.in.h:3
-msgid "A Container"
-msgstr "Konteyner"
-
-#: sheets/civil.sheet.in.h:4
-msgid "A Frequency Converter"
-msgstr "Sıxlıq Dönüşdürücü"
-
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr "Qaz Şüşəsi"
-
-#: sheets/civil.sheet.in.h:6
-msgid "A Motor"
-msgstr "Mühərrik"
-
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr "İlkin Klarifikasiya Tankı"
-
-#: sheets/civil.sheet.in.h:8
-msgid "A Rotor"
-msgstr "Rotor"
-
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr "A final-settling Basin"
-
-#: sheets/civil.sheet.in.h:10
-msgid "A horizontal limiting line"
-msgstr "Üfüqi hüdüdlandırılmış cızıq"
-
-#: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr "Üfüqi tərəfləndirilmiş Ox"
-
-#: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr "Şaquli hüdudlandırılmış cızıq"
-
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr "Şaquli tərəfləndirilmiş Ox"
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr "Qabarcıqlı aerator"
-
-#: sheets/civil.sheet.in.h:15
-msgid "Bivalent Vertical Rest"
-msgstr "İkivalnetli Şaquli Rest"
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr "Mülki"
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr "Mülki Mühəndislik Parçaları"
-
-#: sheets/civil.sheet.in.h:18
-msgid "Horizontal Rest"
-msgstr "Üfüqi Rest"
-
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr "Üfüqi tərəfləndirilmiş Qapaq"
-
-#: sheets/civil.sheet.in.h:20
-msgid "Horizontally aligned compressor"
-msgstr "Üfüqi tərəfləndirilmiş kompressor"
-
-#: sheets/civil.sheet.in.h:21
-msgid "Horizontally aligned pump"
-msgstr "Üfüqi tərəfləndirilmiş nasos"
-
-#: sheets/civil.sheet.in.h:22
-msgid "Reference Line"
-msgstr "Referens Cızıq"
-
-#: sheets/civil.sheet.in.h:23
-msgid "Soil"
-msgstr "Torpaqlama"
-
-#: sheets/civil.sheet.in.h:24
-msgid "Vertical Rest"
-msgstr "Şaquli Rest"
-
-#: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr "Şaquli tərəfləndirilmiş pərvanə"
-
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr "Şaqilə tərəfləndirilmiş Qapaq"
-
-#: sheets/civil.sheet.in.h:27
-msgid "Vertically aligned compressor"
-msgstr "Şaquli tərəfləndirilmiş kompressor"
-
-#: sheets/civil.sheet.in.h:28
-msgid "Vertically aligned pump"
-msgstr "Şaquli tərəfləndirilmiş nasos"
-
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr "Su Səviyyəsi"
-
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr "Jiqso"
-
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr "Jigsaw - part_iiii"
-
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr "Jigsaw - part_iiio"
-
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr "Jigsaw - part_iioi"
-
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr "Jigsaw - part_iioo"
-
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr "Jigsaw - part_ioii"
-
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr "Jigsaw - part_ioio"
-
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr "Jigsaw - part_iooi"
-
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr "Jigsaw - part_iooo"
-
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr "Jigsaw - part_oiii"
-
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr "Jigsaw - part_oiio"
-
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr "Jigsaw - part_oioi"
-
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr "Jigsaw - part_oioo"
-
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr "Jigsaw - part_ooii"
-
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr "Jigsaw - part_ooio"
-
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr "Jigsaw - part_oooi"
-
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr "Jigsaw - part_oooo"
-
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr "Jiqso parçaları"
-
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr "A 3 1/2 inç disket"
-
-#: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr "Böyük Qullə ŞK"
-
-#: sheets/network.sheet.in.h:3
-msgid "A Computer"
-msgstr "Kompüter"
-
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr "Masa Üstü ŞK"
-
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr "Fayrvol roteri"
-
-#: sheets/network.sheet.in.h:6
-msgid "A Miditower PC"
-msgstr "Orta Qullə ŞK"
-
-#: sheets/network.sheet.in.h:7
-msgid "A Minitower PC"
-msgstr "Kiçik Qüllə ŞK"
-
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr "Əl Telefonus"
-
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr "A RJ45 Wall-Plug"
-
-#: sheets/network.sheet.in.h:10
 #, fuzzy
-msgid "A Telephone"
-msgstr "Əl Telefonus"
-
-#: sheets/network.sheet.in.h:11
-msgid "A UNIX Workstation"
-msgstr "UNIX İş Stansiyası"
-
-#: sheets/network.sheet.in.h:12
-msgid "A WAN Connection"
-msgstr "WAN Bağlantısı"
-
-#: sheets/network.sheet.in.h:13
-msgid "A WAN Link"
-msgstr "WAN Körpüsü"
-
-#: sheets/network.sheet.in.h:14
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "A Wall-Plug for the scEAD Cabling System"
-
-#: sheets/network.sheet.in.h:15
-msgid "A Workstation Monitor"
-msgstr "İş Mühiti Monitoru"
-
-#: sheets/network.sheet.in.h:16
-msgid "A ZIP Disk"
-msgstr "ZIP Diski"
-
-#: sheets/network.sheet.in.h:17
-msgid "A modular switching system"
-msgstr "Modular keçış sistemi"
-
-#: sheets/network.sheet.in.h:18
-msgid "A monitor"
-msgstr "Monitor"
-
-#: sheets/network.sheet.in.h:19
-msgid "A simple Modem"
-msgstr "Sadə Modem"
-
-#: sheets/network.sheet.in.h:20
-msgid "A simple printer"
-msgstr "Sadə çapedici"
-
-#: sheets/network.sheet.in.h:21
-msgid "A speaker with integrated amplifier"
-msgstr "Daxili gücləndiricili kolon"
-
-#: sheets/network.sheet.in.h:22
-msgid "A speaker without amplifier"
-msgstr "Gücləndiricisiz kolon"
-
-#: sheets/network.sheet.in.h:23
-msgid "A stackable hub or switch"
-msgstr "Yığılabilən hab ya da keçış"
-
-#: sheets/network.sheet.in.h:24
-msgid "ATM Switch Symbol"
-msgstr "ATM Keçiş Simvolu"
-
-#: sheets/network.sheet.in.h:25
-msgid "An Ethernet bus"
-msgstr "Eternet bas"
-
-#: sheets/network.sheet.in.h:26
-msgid "An antenna for wireless transmission"
-msgstr "Naqilsiz rabitə anteni"
-
-#: sheets/network.sheet.in.h:27
-msgid "An external DAT drive"
-msgstr "Xarici DAT sürücüsü"
-
-#: sheets/network.sheet.in.h:28
-msgid "Network"
-msgstr "Şəbəkə"
-
-#: sheets/network.sheet.in.h:29
-msgid "Network Cloud"
-msgstr "Şəbəkə Buludu"
-
-#: sheets/network.sheet.in.h:30
-msgid "Objects to design network diagrams with"
-msgstr "Şəbəkə diaqramları üçün parçalar"
-
-#: sheets/network.sheet.in.h:31
-msgid "Router Symbol"
-msgstr "Ruter Simvolu"
-
-#: sheets/network.sheet.in.h:32
-msgid "Storage"
-msgstr "Ambar"
-
-#: sheets/network.sheet.in.h:33
-msgid "Switch Symbol"
-msgstr "Keçış Simvolu"
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr "Sybase Alıcı Təminatı"
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr "Sybase Dataserver"
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr "Sybase Replikasiya Vericisi"
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr "Qeyd Daşıma İdarəçisi və ya Toxuma Vasitəsi"
-
-#: sheets/sybase.sheet.in.h:5
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objects to design Sybase replication domain diagrams with"
-
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr "Replikasiya Vericisi İdarəçisi"
-
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr "Sabit Saxlama Avadanlığı"
-
-#: sheets/sybase.sheet.in.h:8
-msgid "Sybase"
-msgstr "Sybase"
+#~ msgid "WMF export filter"
+#~ msgstr "Dia şəkil ixrac süzgəci"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Diaqramma faylını oxuyarkən xəta oldu\n"
@@ -5900,10 +5944,6 @@ msgstr "Sybase"
 #, fuzzy
 #~ msgid "Relation members"
 #~ msgstr "Əlaqə"
-
-#, fuzzy
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Objects to design Sybase replication domain diagrams with"
 
 #~ msgid "/File/Open _Recent"
 #~ msgstr "/Fayl/_Axırıncıları Aç"
