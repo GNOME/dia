@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-01-31 14:11+0100\n"
-"PO-Revision-Date: 2002-01-31 14:11+0100\n"
+"POT-Creation-Date: 2002-02-05 17:25+0100\n"
+"PO-Revision-Date: 2002-02-05 17:26+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Avsluta"
 
-#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:771 app/lineprops_area.c:971 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/color_area.c:264 lib/widgets.c:584
+#: app/color_area.c:264 lib/widgets.c:677
 msgid "Select color"
 msgstr "Välj färg"
 
@@ -173,10 +173,10 @@ msgid "Contributors:"
 msgstr "Bidragsgivare:"
 
 #. setup buttons
-#: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:762 app/lineprops_area.c:961 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:101
+#: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
@@ -201,7 +201,7 @@ msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:735
+#: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
 #: app/properties.c:111
 msgid "Close"
 msgstr "Stäng"
@@ -238,7 +238,7 @@ msgstr "Rutnät"
 msgid "Background Colour"
 msgstr "Bakgrundsfärg"
 
-#: app/dia-props.c:200 lib/diagramdata.c:60
+#: app/dia-props.c:200 lib/diagramdata.c:62 lib/diagramdata.c:64
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -720,19 +720,19 @@ msgstr "Lager"
 msgid "Diagrams:"
 msgstr "Diagram:"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:311 app/layer_dialog.c:313
 msgid "New layer"
 msgstr "Nytt lager"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:518
 msgid "none"
 msgstr "inget"
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:974
 msgid "Edit Layer Attributes"
 msgstr "Ändra lagerattribut"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:990
 msgid "Layer name:"
 msgstr "Lagernamn:"
 
@@ -949,7 +949,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:162 lib/widgets.c:725 objects/UML/association.c:1040
+#: app/menus.c:162 lib/widgets.c:818 objects/UML/association.c:1040
 msgid "None"
 msgstr "Ingen"
 
@@ -965,16 +965,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:268
+#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:361
 msgid "Left"
 msgstr "Vänster"
 
 #: app/menus.c:174 app/menus.c:183 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:274
+#: lib/widgets.c:367
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:280
+#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:373
 msgid "Right"
 msgstr "Höger"
 
@@ -1492,49 +1492,49 @@ msgstr "Kunde inte öppna \"%s\" för skrivning"
 msgid "Error occured while printing"
 msgstr "Fel uppstod under utskrift"
 
-#: app/plugin-manager.c:62
+#: app/plugin-manager.c:76
 msgid "yes"
 msgstr "ja"
 
-#: app/plugin-manager.c:62
+#: app/plugin-manager.c:76
 msgid "no"
 msgstr "nej"
 
-#: app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/plugin-manager.c:143 app/plugin-manager.c:149
 msgid "Plug-ins"
 msgstr "Insticksmoduler"
 
-#: app/plugin-manager.c:181 objects/EML/process_dialog.c:637
+#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
 #: objects/ER/attribute.c:149 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:811 objects/UML/class_dialog.c:1781
-#: objects/UML/class_dialog.c:1943 objects/UML/class_dialog.c:2444
+#: objects/UML/class_dialog.c:817 objects/UML/class_dialog.c:1809
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2574
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "Namn:"
 
-#: app/plugin-manager.c:193
+#: app/plugin-manager.c:207
 msgid "File name:"
 msgstr "Filnamn:"
 
-#: app/plugin-manager.c:205
+#: app/plugin-manager.c:219
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:233
 msgid "Loaded:"
 msgstr "Inläst:"
 
-#: app/plugin-manager.c:232
+#: app/plugin-manager.c:246
 msgid "Autoload at startup"
 msgstr "Läs in automatiskt vid uppstart"
 
-#: app/plugin-manager.c:243
+#: app/plugin-manager.c:257
 msgid "Load"
 msgstr "Läs in"
 
-#: app/plugin-manager.c:248
+#: app/plugin-manager.c:262
 msgid "Unload"
 msgstr "Ladda ur"
 
@@ -1741,7 +1741,7 @@ msgstr "Dia"
 #: objects/ER/entity.c:341 objects/ER/entity.c:475
 #: objects/ER/relationship.c:419 objects/ER/relationship.c:591
 #: objects/UML/association.c:556 objects/UML/association.c:741
-#: objects/UML/class.c:665 objects/UML/constraint.c:269
+#: objects/UML/class.c:666 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:301 objects/UML/realizes.c:367
@@ -1802,7 +1802,7 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
-#: lib/font.c:499
+#: lib/font.c:515
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1811,47 +1811,47 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:604
+#: lib/font.c:620
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:613
+#: lib/font.c:629
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:931
+#: lib/font.c:912
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:933 lib/font.c:934 lib/font.c:967
+#: lib/font.c:914 lib/font.c:948
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:944
+#: lib/font.c:924
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
 
-#: lib/message.c:149
+#: lib/message.c:129
 msgid "Notice"
 msgstr "Observera"
 
-#: lib/message.c:160
+#: lib/message.c:140
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/message.c:172
+#: lib/message.c:152
 msgid "Error"
 msgstr "Fel"
 
-#: lib/plug-ins.c:224
+#: lib/plug-ins.c:226
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Kunde inte härleda korrekt sökväg för \"%s\""
 
-#: lib/plug-ins.c:229
+#: lib/plug-ins.c:231
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1860,22 +1860,22 @@ msgstr ""
 "Kunde inte läsa in insticksmodulen \"%s\"\n"
 "%s"
 
-#: lib/plug-ins.c:240
+#: lib/plug-ins.c:242
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Kunde inte hitta insticksmodulens init-funktion i \"%s\""
 
-#: lib/plug-ins.c:267
+#: lib/plug-ins.c:269
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Insticksmodulen %s kunde inte laddas ur"
 
-#: lib/plug-ins.c:348
+#: lib/plug-ins.c:350
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "\"%s\" är inte en katalog"
 
-#: lib/plug-ins.c:354
+#: lib/plug-ins.c:356
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
@@ -1929,124 +1929,124 @@ msgstr "Typsnittsstorlek"
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:388 objects/FS/function.c:809
+#: lib/widgets.c:481 objects/FS/function.c:809
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:394
+#: lib/widgets.c:487
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:400
+#: lib/widgets.c:493
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:406
+#: lib/widgets.c:499
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:412
+#: lib/widgets.c:505
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:430
+#: lib/widgets.c:523
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:726
+#: lib/widgets.c:819
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:727
+#: lib/widgets.c:820
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:728
+#: lib/widgets.c:821
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:729
+#: lib/widgets.c:822
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:730
+#: lib/widgets.c:823
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:731
+#: lib/widgets.c:824
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:732
+#: lib/widgets.c:825
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:733
+#: lib/widgets.c:826
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:734
+#: lib/widgets.c:827
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:735
+#: lib/widgets.c:828
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:736
+#: lib/widgets.c:829
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:737
+#: lib/widgets.c:830
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:738
+#: lib/widgets.c:831
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:739
+#: lib/widgets.c:832
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:740
+#: lib/widgets.c:833
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:741
+#: lib/widgets.c:834
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:742
+#: lib/widgets.c:835
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:743
+#: lib/widgets.c:836
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:744
+#: lib/widgets.c:837
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:745
+#: lib/widgets.c:838
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:781
+#: lib/widgets.c:874
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:794
+#: lib/widgets.c:887
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:920 objects/standard/image.c:536
+#: lib/widgets.c:1013 objects/standard/image.c:536
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:950
+#: lib/widgets.c:1043
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -2108,21 +2108,21 @@ msgstr "Interaktionsnamn:"
 msgid "bidirectional"
 msgstr "tvåriktad"
 
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:774
-#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:1901
-#: objects/UML/class_dialog.c:2407
+#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:780
+#: objects/UML/class_dialog.c:1769 objects/UML/class_dialog.c:1973
+#: objects/UML/class_dialog.c:2537
 msgid "New"
 msgstr "Ny"
 
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:780
-#: objects/UML/class_dialog.c:1747 objects/UML/class_dialog.c:1908
-#: objects/UML/class_dialog.c:2413
+#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:786
+#: objects/UML/class_dialog.c:1775 objects/UML/class_dialog.c:1980
+#: objects/UML/class_dialog.c:2543
 msgid "Delete"
 msgstr "Ta bort"
 
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:786
-#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1915
-#: objects/UML/class_dialog.c:2419
+#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:792
+#: objects/UML/class_dialog.c:1781 objects/UML/class_dialog.c:1987
+#: objects/UML/class_dialog.c:2549
 msgid "Move up"
 msgstr "Flytta upp"
 
@@ -2321,8 +2321,8 @@ msgid "Signal"
 msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
-#: objects/UML/class_dialog.c:823 objects/UML/class_dialog.c:1793
-#: objects/UML/class_dialog.c:1955 objects/UML/class_dialog.c:2456
+#: objects/UML/class_dialog.c:829 objects/UML/class_dialog.c:1821
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2586
 msgid "Type:"
 msgstr "Typ:"
 
@@ -3154,7 +3154,7 @@ msgstr "Önskad funktion"
 #. in lib/font.c.
 #: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
 #: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
-#: objects/SADT/box.c:500 objects/UML/class.c:671
+#: objects/SADT/box.c:500 objects/UML/class.c:672
 msgid "Helvetica-Bold"
 msgstr "Helvetica-Bold"
 
@@ -3369,7 +3369,7 @@ msgstr "SADT-diagramobjekt"
 msgid "Actor"
 msgstr "Skådespelare"
 
-#: objects/UML/association.c:1030
+#: objects/UML/association.c:1030 objects/UML/class_dialog.c:2051
 msgid "Direction:"
 msgstr "Riktning:"
 
@@ -3422,11 +3422,12 @@ msgstr "Namn"
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:233
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:235
+#: objects/UML/class_dialog.c:1897
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: objects/UML/class.c:108 objects/UML/class_dialog.c:245
+#: objects/UML/class.c:108 objects/UML/class_dialog.c:247
 msgid "Suppress Attributes"
 msgstr "Undertryck i attribut"
 
@@ -3448,128 +3449,156 @@ msgstr "Mall"
 
 #. choose default font name for abstract for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:668
+#: objects/UML/class.c:669
 msgid "Courier-Oblique"
 msgstr "Courier-Oblique"
 
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:674
+#: objects/UML/class.c:675
 msgid "Helvetica-BoldOblique"
 msgstr "Helvetica-BoldOblique"
 
 #. Class page:
-#: objects/UML/class.c:704 objects/UML/class.c:706
-#: objects/UML/class_dialog.c:205
+#: objects/UML/class.c:705 objects/UML/class.c:707
+#: objects/UML/class_dialog.c:207
 msgid "Class"
 msgstr "Klass"
 
-#: objects/UML/class_dialog.c:211
+#: objects/UML/class_dialog.c:213
 msgid "Class name:"
 msgstr "Klassnamn:"
 
-#: objects/UML/class_dialog.c:222 objects/UML/dependency.c:127
+#: objects/UML/class_dialog.c:224 objects/UML/dependency.c:127
 #: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:241
+#: objects/UML/class_dialog.c:243
 msgid "Attributes visible"
 msgstr "Attribut synliga"
 
-#: objects/UML/class_dialog.c:253
+#: objects/UML/class_dialog.c:255
 msgid "Operations visible"
 msgstr "Operationer synliga"
 
-#: objects/UML/class_dialog.c:257
+#: objects/UML/class_dialog.c:259
 msgid "Suppress operations"
 msgstr "Undertryck operationer"
 
-#: objects/UML/class_dialog.c:265
+#: objects/UML/class_dialog.c:267
 msgid "Foreground Color"
 msgstr "Förgrundsfärg"
 
-#: objects/UML/class_dialog.c:275
+#: objects/UML/class_dialog.c:277
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:746 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:752 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Attribut"
 
-#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1759
-#: objects/UML/class_dialog.c:1922 objects/UML/class_dialog.c:2425
+#: objects/UML/class_dialog.c:798 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2555
 msgid "Move down"
 msgstr "Flytta ned"
 
-#: objects/UML/class_dialog.c:803
+#: objects/UML/class_dialog.c:809
 msgid "Attribute data"
 msgstr "Attributdata"
 
-#: objects/UML/class_dialog.c:835
+#: objects/UML/class_dialog.c:841
 msgid "Value:"
 msgstr "Värde:"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1833
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: objects/UML/class_dialog.c:856 objects/UML/class_dialog.c:1814
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1842
 msgid "Public"
 msgstr "Allmän"
 
-#: objects/UML/class_dialog.c:864 objects/UML/class_dialog.c:1822
+#: objects/UML/class_dialog.c:870 objects/UML/class_dialog.c:1850
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:872 objects/UML/class_dialog.c:1830
+#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1858
 msgid "Protected"
 msgstr "Skyddad"
 
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1838
+#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1866
 msgid "Implementation"
 msgstr "Implementation"
 
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1854
+#: objects/UML/class_dialog.c:902 objects/UML/class_dialog.c:1882
 msgid "Class scope"
 msgstr "Klassräckvidd"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1713
+#: objects/UML/class_dialog.c:1741
 msgid "Operations"
 msgstr "Operationer"
 
-#: objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:1799
 msgid "Operation data"
 msgstr "Operationsdata"
 
-#: objects/UML/class_dialog.c:1860
-msgid "abstract"
-msgstr "abstrakt"
+#: objects/UML/class_dialog.c:1888
+msgid "Inheritance type:"
+msgstr "Ärvningstyp:"
 
-#: objects/UML/class_dialog.c:1872
+#: objects/UML/class_dialog.c:1905
+msgid "Polymorphic (virtual)"
+msgstr "Polymorfisk (virtuell)"
+
+#: objects/UML/class_dialog.c:1913
+msgid "Leaf (final)"
+msgstr "Löv (slutgiltig)"
+
+#: objects/UML/class_dialog.c:1931
+msgid "Query"
+msgstr "Fråga"
+
+#: objects/UML/class_dialog.c:1944
 msgid "Parameters:"
 msgstr "Parametrar:"
 
-#: objects/UML/class_dialog.c:1934
+#: objects/UML/class_dialog.c:2006
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: objects/UML/class_dialog.c:1967
+#: objects/UML/class_dialog.c:2039
 msgid "Def. value:"
 msgstr "Standardvärde:"
 
+#: objects/UML/class_dialog.c:2060
+msgid "Undefined"
+msgstr "Odefinierad"
+
+#: objects/UML/class_dialog.c:2068
+msgid "In"
+msgstr "In"
+
+#: objects/UML/class_dialog.c:2077
+msgid "Out"
+msgstr "Ut"
+
+#: objects/UML/class_dialog.c:2086
+msgid "In & Out"
+msgstr "In och ut"
+
 #. Templates page:
-#: objects/UML/class_dialog.c:2373
+#: objects/UML/class_dialog.c:2503
 msgid "Templates"
 msgstr "Mallar"
 
-#: objects/UML/class_dialog.c:2379
+#: objects/UML/class_dialog.c:2509
 msgid "Template class"
 msgstr "Mallklass"
 
-#: objects/UML/class_dialog.c:2436
+#: objects/UML/class_dialog.c:2566
 msgid "Formal parameter data"
 msgstr "Formell parameterdata"
 
@@ -3683,12 +3712,12 @@ msgstr "Unified Modelling Language-diagramobjekt"
 
 #. Characters used to start/end stereotypes:
 #. start stereotype symbol(like \xab) for local locale
-#: objects/UML/uml.h:83
+#: objects/UML/uml.h:90
 msgid "<<"
 msgstr "«"
 
 #. end stereotype symbol(like \xbb) for local locale
-#: objects/UML/uml.h:85
+#: objects/UML/uml.h:92
 msgid ">>"
 msgstr "»"
 
@@ -5376,6 +5405,9 @@ msgstr "Stabil lagringsenhet"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#~ msgid "abstract"
+#~ msgstr "abstrakt"
 
 #~ msgid "/File/Open _Recent"
 #~ msgstr "/Arkiv/Ö_ppna senaste"
