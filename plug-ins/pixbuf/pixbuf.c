@@ -60,8 +60,8 @@ export_data(DiagramData *data, const gchar *filename,
 
   /* quite arbitrary */
   zoom = 20.0 * data->paper.scaling; 
-  width = rect.right * zoom;
-  height = rect.bottom * zoom;
+  width = (rect.right - rect.left) * zoom;
+  height = (rect.bottom - rect.top) * zoom;
 
   renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
   renderer->transform = dia_transform_new (&rect, &zoom);
