@@ -665,7 +665,7 @@ draw_polyline (DiaRenderer *renderer,
 }
 
 
-/* calculate the maximum possible radius for a collection of points
+/* calculate the maximum possible radius for 3 points
      use the following,
      given points p1,p2, and p3
      let c = min(length(p1,p2)/2,length(p2,p3)/2)
@@ -674,27 +674,17 @@ draw_polyline (DiaRenderer *renderer,
      then maxr = c * sin(a/2)
  */
 real
-calculate_min_radius( Point *p, int num_points )
+calculate_min_radius( Point *p1, Point *p2, Point *p3 )
 {
-  Point p1,p2,p3;
-  real radius = G_MAXFLOAT;
-  int i;
-  for (i = 0; i <= num_points - 3; i++)
-    {
-      real c;
-      real a;
-      Point v1,v2;
-      p1.x = p[i].x;   p1.y = p[i].y;
-      p2.x = p[i+1].x; p2.y = p[i+1].y;
-      p3.x = p[i+2].x; p3.y = p[i+2].y;
+  real c;
+  real a;
+  Point v1,v2;
 
-      c = MIN(distance_point_point(&p1,&p2)/2,distance_point_point(&p2,&p3)/2);
-      v1.x = p1.x-p2.x; v1.y = p1.y-p2.y;
-      v2.x = p3.x-p2.x; v2.y = p3.y-p2.y;
-      a =  dot2(&v1,&v2);
-      radius = MIN(radius, (c*sin(a/2)));
-    }
-  return radius;
+  c = MIN(distance_point_point(p1,p2)/2,distance_point_point(p2,p3)/2);
+  v1.x = p1->x-p2->x; v1.y = p1->y-p2->y;
+  v2.x = p3->x-p2->x; v2.y = p3->y-p2->y;
+  a =  dot2(&v1,&v2);
+  return (c*sin(a/2));
 }
 
 /** Draw a polyline with optionally rounded corners.
@@ -726,9 +716,6 @@ draw_rounded_polyline (DiaRenderer *renderer,
     return;
   }
 
-  /* adjust the radius if it would cause odd rendering */
-  radius = MIN(radius, calculate_min_radius(p, num_points));
-
   i = 0;
   /* full rendering 3 or more points */
   p1.x = p[i].x;   p1.y = p[i].y;
@@ -736,11 +723,14 @@ draw_rounded_polyline (DiaRenderer *renderer,
   for (i = 0; i <= num_points - 3; i++) {
     Point c;
     real start_angle, stop_angle;
+    real min_radius;
     p3.x = p[i+1].x; p3.y = p[i+1].y;
     p4.x = p[i+2].x; p4.y = p[i+2].y;
     
-    fillet(&p1,&p2,&p3,&p4, radius, &c, &start_angle, &stop_angle);
-    klass->draw_arc(renderer, &c, radius*2, radius*2,
+    /* adjust the radius if it would cause odd rendering */
+    min_radius = MIN(radius, calculate_min_radius(&p1,&p2,&p4));
+    fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle);
+    klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
 		    start_angle,
 		    stop_angle, color);
     klass->draw_line(renderer, &p1, &p2, color);

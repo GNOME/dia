@@ -1,3 +1,9 @@
+2004-07-01  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diarenderer.c (draw_rounded_polyline): Patch from
+	anthonym@overture.com:  Make limited rounding a corner-specific
+	rendering-only thing.
+
 2004-06-30  Lars Clausen  <lars@raeder.dk>
 
 	* objects/SADT/arrow.c (sadtarrow_draw): Use new rounded arrow
