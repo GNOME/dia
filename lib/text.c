@@ -146,17 +146,15 @@ set_string(Text *text, const char *string)
     s2 = g_utf8_strchr(s,-1,'\n');
     if (s2==NULL) {
       alloclen = strlen(s);
-      len = g_utf8_strlen(s,alloclen);
     } else {
       gchar *str = g_strndup (s, s2 - s);
       alloclen = s2 - s;
-      len = g_utf8_strlen (str, alloclen);
     }
     text->line[i] = (char *)g_malloc(alloclen+1);
-    text->strlen[i] = len;
     text->alloclen[i] = alloclen+1;
     strncpy (text->line[i], s, alloclen);
     text->line[i][alloclen] = 0; /* end line with \0 */
+    text->strlen[i] = g_utf8_strlen(text->line[i], -1);;
     s = s2+1;
   }
 
@@ -627,7 +625,7 @@ text_delete_forward(Text *text)
   len = strlen (text->line[row]);
   memmove (start, end, text->line[row] + len - start);
 
-  text->strlen[row]--;
+  text->strlen[row] = g_utf8_strlen(text->line[row], -1);//text->strlen[row]--;
   
   if (text->cursor_pos > text->strlen[text->cursor_row])
     text->cursor_pos = text->strlen[text->cursor_row];
@@ -658,15 +656,13 @@ text_delete_backward(Text *text)
       text_join_lines(text, row-1);
     return;
   }
-  start = text->line[row];
-  for (i = 0; i < (text->cursor_pos - 1); i++) {
-    start = g_utf8_next_char (start);
-  }
-  end = g_utf8_next_char (start);
-  len = strlen (text->line[row]);
-  memmove (start, end, text->line[row] + len - end + 1);
+  start = g_utf8_offset_to_pointer(text->line[row], 
+				   (glong)(text->cursor_pos-1));
+  end = g_utf8_offset_to_pointer(start, 1);
+  len = g_utf8_offset_to_pointer(text->line[row], text->strlen[row]) - end;
+  memmove (start, end, len + 1);
 
-  text->strlen[row]--;
+  text->strlen[row] = g_utf8_strlen(text->line[row], -1);
 
   text->cursor_pos --;
   
@@ -777,7 +773,7 @@ text_insert_char(Text *text, gunichar c)
   strncpy (str, ch, unilen);
   line[length + unilen] = 0; /* null terminate */
   text->cursor_pos += 1;
-  text->strlen[row] = length + unilen;
+  text->strlen[row] = g_utf8_strlen(text->line[row], -1);// length + unilen;
 
   text->row_width[row] =
       dia_font_string_width(text->line[row], text->font, text->height);
@@ -798,10 +794,6 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen,
   
   text = (Text *)focus->user_data;
 
-  /*
-  printf("Got an %d '%s' (%d)\n", keyval, str, strlen);
-  */
-  
   switch(keyval) {
   case GDK_Up:
     text->cursor_row--;

@@ -280,6 +280,11 @@ received_clipboard_handler(GtkClipboard *clipboard,
 
   if ((focus == NULL) || (!focus->has_focus)) return;
 
+  if (!g_utf8_validate(text, -1, NULL)) {
+    message_error("Not valid UTF8");
+    return;
+  }
+
   insert_text(ddisp, focus, text);
 }
 
