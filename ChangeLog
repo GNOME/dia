@@ -1,3 +1,22 @@
+2002-05-26  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* INSTALL: added platform notes from MÃ¥rten Svantesson, for when
+	using libtool on an AFS partition.
+
+	* po/update_potfiles_in.sh: now simply calls the recent intltools 
+	features; they work better than hand-crafted half-ignorant
+	scripts. Thanks to Kenneth Rohde Christiansen <kenneth@gnu.org>
+	for the tip.
+
+	* po/POTFILES.in: added back two files update_potfiles_in.sh
+	didn't take into account. Now this file is not automatically
+	generated anymore!	
+	* po/POTFILES.skip: told `intltool-update -m` what files to ignore
+	(the usual suspects, in fact).
+
+	* configure.in: improved the isinf() / isfinite() detection on
+	Solaris (MÃ¥rten Svantesson)
+	
 2002-05-25  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* configure.in: one expression was replacing $CFLAGS, removing
@@ -178,7 +197,7 @@
 
 	* po/POTFILES.in: added app/sheets_dialog.c
 
-2002-05-15  Cyrille Chépélov  <cyrille@chepelov.org>
+2002-05-15  Cyrille ChÃ©pÃ©lov  <cyrille@chepelov.org>
 
 	* lib/charconv.c: (charconv_local8_to_utf8),
 	(charconv_utf8_to_local8): tweaked the warnings to get more 
@@ -2264,7 +2283,7 @@
 2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* sheets/*.sheet: Added some Norwegian translations (both nynorsk
-	and bokmål).
+	and bokmÃ¥l).
 	
 2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
 
@@ -9077,7 +9096,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* dia_gnome_icon.png
 	* dia_gnome_menu_icon.png
 	* dia_logo.png
-	Graphics by Toussaint Frédéric <ftoussin@club-internet.fr>.
+	Graphics by Toussaint FrÃ©dÃ©ric <ftoussin@club-internet.fr>.
 
 	* app/commands.c
 	About dialog shows dia_logo.png. Removed the GNOME about dialog.
@@ -9840,7 +9859,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* lib/text.c: 
 	Added flags to prevent crash with void strings
 
-1999-02-07  Matthias Köster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
+1999-02-07  Matthias KÃ¶ster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
 	* app/display.[ch]:
 	Added statusbar to the display widget. Currently shows the zoom
 	factor and modified flag of the viewed diagram. The statusbar is
@@ -10021,7 +10040,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* app/display.[ch]:
 	* app/modify_tool.c:
 	Added autoscrolling while doing rubber-band select.
-	This patch from Matthias Köster
+	This patch from Matthias KÃ¶ster
 	(Matthias.Koester@Informatik.Uni-Oldenburg.DE)
 	
 

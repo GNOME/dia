@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-25 21:43+0200\n"
+"POT-Creation-Date: 2002-05-26 11:03+0200\n"
 "PO-Revision-Date: 2002-05-25 21:56+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -492,7 +492,8 @@ msgstr "Nei"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
-#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:739
+#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
+#: plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -574,7 +575,10 @@ msgstr "Komprimer diagramfiler"
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr "Komprimering reduserer filstørrelsen til mindre enn 1/10 av normal størrelse og gjør lasting og lagring raskere. Noen tekstprogrammer har problemer med å manipulere komprimerte filer."
+msgstr ""
+"Komprimering reduserer filstørrelsen til mindre enn 1/10 av normal størrelse "
+"og gjør lasting og lagring raskere. Noen tekstprogrammer har problemer med å "
+"manipulere komprimerte filer."
 
 #: app/filedlg.c:499
 #, c-format
@@ -623,8 +627,8 @@ msgstr "Lag tekst"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77
-#: objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
+#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -779,8 +783,8 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
-#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
-#: objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 lib/properties.h:477
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Linjebredde"
 
@@ -921,6 +925,7 @@ msgid "Zoom _In"
 msgstr "Zoom _inn"
 
 #: app/menus.c:129
+#, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom inn 50%"
 
@@ -929,6 +934,7 @@ msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
 #: app/menus.c:130
+#, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom ut 50%"
 
@@ -1011,15 +1017,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:178 lib/properties.c:62 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/widgets.c:387
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
+#: lib/widgets.c:387
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:180 lib/properties.c:64 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
 msgid "Right"
 msgstr "Høyre"
 
@@ -1222,42 +1229,52 @@ msgid "/View/_Zoom"
 msgstr "/Vis/_Zoom"
 
 #: app/menus.c:323
+#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vis/Zoom/400%"
 
 #: app/menus.c:324
+#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vis/Zoom/283%"
 
 #: app/menus.c:325
+#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vis/Zoom/200%"
 
 #: app/menus.c:326
+#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vis/Zoom/141%"
 
 #: app/menus.c:327
+#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vis/Zoom/100%"
 
 #: app/menus.c:328
+#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vis/Zoom/85%"
 
 #: app/menus.c:329
+#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vis/Zoom/70.7%"
 
 #: app/menus.c:330
+#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vis/Zoom/50%"
 
 #: app/menus.c:331
+#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vis/Zoom/35.4%"
 
 #: app/menus.c:332
+#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
@@ -1895,7 +1912,7 @@ msgstr "Rediger attributter"
 msgid "Object"
 msgstr "Objekt"
 
-#: app/sheets_dialog.c:679 objects/FS/flow.c:164 objects/FS/flow-ortho.c:187
+#: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
 #: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
 #: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
 msgid "Type:"
@@ -2007,12 +2024,12 @@ msgstr "Dia"
 #: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:394
 #: objects/ER/attribute.c:568 objects/ER/entity.c:346 objects/ER/entity.c:497
 #: objects/ER/relationship.c:424 objects/ER/relationship.c:613
-#: objects/standard/textobj.c:388 objects/UML/association.c:556
-#: objects/UML/association.c:741 objects/UML/class.c:689
-#: objects/UML/constraint.c:269 objects/UML/dependency.c:371
-#: objects/UML/generalization.c:364 objects/UML/implements.c:284
-#: objects/UML/large_package.c:333 objects/UML/note.c:303
-#: objects/UML/realizes.c:367 objects/UML/small_package.c:342
+#: objects/UML/association.c:556 objects/UML/association.c:741
+#: objects/UML/class.c:689 objects/UML/constraint.c:269
+#: objects/UML/dependency.c:371 objects/UML/generalization.c:364
+#: objects/UML/implements.c:284 objects/UML/large_package.c:333
+#: objects/UML/note.c:303 objects/UML/realizes.c:367
+#: objects/UML/small_package.c:342 objects/standard/textobj.c:388
 #: plug-ins/dxf/dxf-import.c:530
 msgid "Courier"
 msgstr "Courier"
@@ -2079,7 +2096,8 @@ msgstr "Advarsel: Ingen X-skrifttyper funnet. Verden går under."
 
 #: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
-msgstr "Advarsel: Ingen skrifter er lastet. Har du skriftfiler i skriftstien til X?"
+msgstr ""
+"Advarsel: Ingen skrifter er lastet. Har du skriftfiler i skriftstien til X?"
 
 #: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
@@ -2141,19 +2159,19 @@ msgstr "`%s' er ikke en katalog"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
 
-#: lib/properties.c:71
+#: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
 msgstr "Linjefarge"
 
-#: lib/properties.c:72
+#: lib/properties.c:72 lib/properties.h:483
 msgid "Line style"
 msgstr "Linjestil"
 
-#: lib/properties.c:73
+#: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
 msgstr "Fyllfarge"
 
-#: lib/properties.c:74 objects/custom/custom_object.c:320
+#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2161,33 +2179,33 @@ msgstr "Fyllfarge"
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: lib/properties.c:75
+#: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
 msgstr "Start-pil"
 
-#: lib/properties.c:76
+#: lib/properties.c:76 lib/properties.h:497
 msgid "End arrow"
 msgstr "Slutt-pil"
 
-#: lib/properties.c:78
+#: lib/properties.c:78 lib/properties.h:507
 msgid "Text alignment"
 msgstr "Tekstjustering"
 
-#: lib/properties.c:79 objects/chronogram/chronoline.c:183
-#: objects/chronogram/chronoref.c:164 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:306
+#: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
+#: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Skrifttype"
 
-#: lib/properties.c:80 objects/chronogram/chronoline.c:185
-#: objects/chronogram/chronoref.c:166 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Størrelse på skrifttype"
 
-#: lib/properties.c:81 objects/chronogram/chronoline.c:187
-#: objects/chronogram/chronoref.c:168 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Tekstfarge"
 
@@ -2390,12 +2408,12 @@ msgstr "Linjefarge"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/chronogram/chronoline.c:611 objects/chronogram/chronoref.c:434
 #: objects/FS/function.c:417 objects/SADT/annotation.c:357
 #: objects/UML/actor.c:332 objects/UML/classicon.c:415
 #: objects/UML/component.c:348 objects/UML/message.c:369
 #: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
 msgid "Helvetica"
 msgstr "Helvetica"
 
@@ -2506,17 +2524,17 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
 #: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/standard/zigzagline.c:343 objects/UML/association.c:620
-#: objects/UML/dependency.c:335 objects/UML/generalization.c:327
-#: objects/UML/realizes.c:330
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
 msgid "Add segment"
 msgstr "Legg til segment"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/standard/zigzagline.c:344 objects/UML/association.c:621
-#: objects/UML/dependency.c:336 objects/UML/generalization.c:328
-#: objects/UML/realizes.c:331
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -2545,9 +2563,9 @@ msgstr "Forhold"
 msgid "Corner radius"
 msgstr "Hjørneradius:"
 
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-#: objects/SADT/box.c:137
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
 msgid "Text padding"
 msgstr "Tekstfyll"
 
@@ -2568,25 +2586,25 @@ msgid "Shear angle:"
 msgstr "Klippevinkel:"
 
 #.
-#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
 #: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energi"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
 #: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Materiale"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
 #: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
@@ -2594,17 +2612,17 @@ msgstr "Signal"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/FS/flow.c:430 objects/FS/flow.c:559 objects/FS/flow.c:771
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr "Helvetica-oblique"
 
-#: objects/FS/flow.c:701 objects/FS/flow-ortho.c:726
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Flyt:"
 
-#: objects/FS/flow.c:717 objects/FS/flow-ortho.c:741
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Flyttype:"
 
@@ -4368,6 +4386,14 @@ msgstr "Skalerbar vektorgrafikk"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Eksportfilter for skalerbar vektorgrafikk"
 
+#: plug-ins/wmf/wmf.cpp:962
+msgid "Windows Meta File"
+msgstr "Windows metafil"
+
+#: plug-ins/wmf/wmf.cpp:976
+msgid "WMF export filter"
+msgstr "WMF eksportfilter"
+
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -5746,12 +5772,6 @@ msgstr "UML"
 
 #~ msgid ">>"
 #~ msgstr ">>"
-
-#~ msgid "Windows Meta File"
-#~ msgstr "Windows metafil"
-
-#~ msgid "WMF export filter"
-#~ msgstr "WMF eksportfilter"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Feil under lesing av diagramfilen\n"

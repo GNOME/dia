@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-25 18:23+0200\n"
+"POT-Creation-Date: 2002-05-26 11:03+0200\n"
 "PO-Revision-Date: 2002-04-20 11:46+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -492,7 +492,8 @@ msgstr "Nie"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
-#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:739
+#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
+#: plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nie mo¿na otworzyæ: \"%s\" do zapisu.\n"
@@ -624,8 +625,8 @@ msgstr "Tekst"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77
-#: objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
+#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -781,8 +782,8 @@ msgstr "Szczegó³y..."
 msgid "Line Style Properties"
 msgstr "W³a¶ciwo¶ci stylu linii"
 
-#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
-#: objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 lib/properties.h:477
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Szeroko¶æ linii"
 
@@ -1014,15 +1015,16 @@ msgstr "Przechodnie"
 msgid "Same Type"
 msgstr "Ten sam typ"
 
-#: app/menus.c:178 lib/properties.c:62 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
 msgid "Left"
 msgstr "Lewa"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/widgets.c:387
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
+#: lib/widgets.c:387
 msgid "Center"
 msgstr "Wy¶rodkowanie"
 
-#: app/menus.c:180 lib/properties.c:64 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
 msgid "Right"
 msgstr "Prawa"
 
@@ -2175,19 +2177,19 @@ msgstr "\"%s\" nie jest katalogiem"
 msgid "Could not open `%s'"
 msgstr "Nie mo¿na otworzyæ \"%s\""
 
-#: lib/properties.c:71
+#: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
 msgstr "Kolor linii"
 
-#: lib/properties.c:72
+#: lib/properties.c:72 lib/properties.h:483
 msgid "Line style"
 msgstr "Styl linii"
 
-#: lib/properties.c:73
+#: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
 msgstr "Kolor wype³nienia"
 
-#: lib/properties.c:74 objects/custom/custom_object.c:320
+#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2195,32 +2197,32 @@ msgstr "Kolor wype³nienia"
 msgid "Draw background"
 msgstr "Rysowanie t³a"
 
-#: lib/properties.c:75
+#: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
 msgstr "Pocz±tek strza³ki"
 
-#: lib/properties.c:76
+#: lib/properties.c:76 lib/properties.h:497
 msgid "End arrow"
 msgstr "Koniec strza³ki"
 
-#: lib/properties.c:78
+#: lib/properties.c:78 lib/properties.h:507
 msgid "Text alignment"
 msgstr "Wyrównanie tekstu"
 
-#: lib/properties.c:79 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Czcionka"
 
-#: lib/properties.c:80 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Rozmiar czcionki"
 
-#: lib/properties.c:81 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Kolor tekstu"
@@ -2605,27 +2607,24 @@ msgstr "K±t ostry:"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Materia"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Sygna³"
@@ -2633,19 +2632,16 @@ msgstr "Sygna³"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr "Helvetica-Pochylona"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Przep³yw:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Rodzaj przep³ywu:"
 
@@ -4415,6 +4411,14 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Filtr eksportu Scalable Vector Graphics"
 
+#: plug-ins/wmf/wmf.cpp:962
+msgid "Windows Meta File"
+msgstr "Plik Meta Windows (WMF)"
+
+#: plug-ins/wmf/wmf.cpp:976
+msgid "WMF export filter"
+msgstr "Filtr eksportu dla WMF"
+
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -5794,12 +5798,6 @@ msgstr "UML"
 
 #~ msgid ">>"
 #~ msgstr ">>"
-
-#~ msgid "Windows Meta File"
-#~ msgstr "Plik Meta Windows (WMF)"
-
-#~ msgid "WMF export filter"
-#~ msgstr "Filtr eksportu dla WMF"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "B³±d przy odczycie pliku diagramu\n"

@@ -14,4 +14,5 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLA
 EXTRA_DIST = \
 	pixmaps/flow.xpm \
 	pixmaps/function.xpm \
-	pixmaps/orthflow.xpm
+	pixmaps/orthflow.xpm \
+	flow-poly.c # This file seems to be unused and dead for ages !

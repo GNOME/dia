@@ -1,3 +1,6 @@
+#
+# Please keep this sorted alphabetically!
+# 
 app/app_procs.c
 app/color_area.c
 app/commands.c
@@ -45,6 +48,7 @@ lib/message.c
 lib/plug-ins.c
 lib/propdialogs.c
 lib/properties.c
+lib/properties.h
 lib/prop_inttypes.c
 lib/prop_widgets.c
 lib/text.c
@@ -130,6 +134,7 @@ plug-ins/shape/shape.c
 plug-ins/shape/shape-export.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg.c
+plug-ins/wmf/wmf.cpp
 plug-ins/wpg/wpg.c
 plug-ins/xfig/xfig.c
 plug-ins/xfig/xfig-export.c
