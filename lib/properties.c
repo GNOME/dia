@@ -423,9 +423,7 @@ property_signal_handler(GtkObject *obj,
     Property *prop = &(pdd->props[ped->index]);
     Object *obj = pdd->obj_copy;
     int j;
-#if 1
-    g_message("signal from property '%s'",prop->name);
-#endif
+
     g_assert(prop->event_handler);
     g_assert(obj);
     g_assert(obj->ops->set_props);
@@ -896,6 +894,8 @@ prop_load(Property *prop, ObjectNode obj_node)
       switch(prop->type) {
       case PROP_TYPE_CONNPOINT_LINE:
         PROP_VALUE_CONNPOINT_LINE(*prop) = 1;
+        break;
+      case PROP_TYPE_BUTTON:
         break;
       default:
         g_warning("Could not find attribute %s", prop->name);

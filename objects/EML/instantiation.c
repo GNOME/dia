@@ -15,8 +15,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -29,26 +27,19 @@
 #include "arrows.h"
 #include "text.h"
 
+#include "properties.h"
 #include "eml.h"
 
 #include "pixmaps/instantiation.xpm"
 
 typedef struct _Instantiation Instantiation;
 typedef struct _InstantiationState InstantiationState;
-typedef struct _InstantiationPropertiesDialog InstantiationPropertiesDialog;
 
 typedef enum {
   INST_SINGLE,
   INST_MULTI
 } InstantiationType;
 
-struct _InstantiationState {
-  ObjectState obj_state;
-
-  InstantiationType type;
-  gchar *procnum;
-  gchar *reson; 
-};
 struct _Instantiation {
   OrthConn orth;
 
@@ -61,16 +52,6 @@ struct _Instantiation {
   InstantiationType type;
   gchar *procnum;
   Text *reson;
-
-  InstantiationPropertiesDialog* properties_dialog;
-};
-
-struct _InstantiationPropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkToggleButton *type;
-  GtkEntry *procnum;
-  GtkEntry *reson;
 };
 
 #define INSTANTIATION_WIDTH 0.1
@@ -93,28 +74,29 @@ static Object *instantiation_create(Point *startpoint,
 				 Handle **handle1,
 				 Handle **handle2);
 static void instantiation_destroy(Instantiation *inst);
-static Object *instantiation_copy(Instantiation *inst);
-static GtkWidget *instantiation_get_properties(Instantiation *inst);
-static ObjectChange *instantiation_apply_properties(Instantiation *inst);
+
 static DiaMenu *instantiation_get_object_menu(Instantiation *inst,
 						Point *clickedpoint);
 
-static InstantiationState *instantiation_get_state(Instantiation *inst);
-static void instantiation_set_state(Instantiation *inst,
-				     InstantiationState *state);
-
-static void instantiation_save(Instantiation *inst, ObjectNode obj_node,
-				const char *filename);
 static Object *instantiation_load(ObjectNode obj_node, int version,
 				   const char *filename);
 
 static void instantiation_update_data(Instantiation *inst);
 
+static PropDescription *instantiation_describe_props(Instantiation *inst);
+static void instantiation_get_props(Instantiation *inst, 
+                                    Property *props, guint nprops);
+static void instantiation_set_props(Instantiation *inst, 
+                                    Property *props, guint nprops);
+
+
 static ObjectTypeOps instantiation_type_ops =
 {
   (CreateFunc) instantiation_create,
   (LoadFunc)   instantiation_load,
-  (SaveFunc)   instantiation_save
+  (SaveFunc)   object_save_using_properties,
+  (GetDefaultsFunc) NULL,
+  (ApplyDefaultsFunc) NULL,
 };
 
 ObjectType instantiation_type =
@@ -131,13 +113,58 @@ static ObjectOps instantiation_ops = {
   (DrawFunc)            instantiation_draw,
   (DistanceFunc)        instantiation_distance_from,
   (SelectFunc)          instantiation_select,
-  (CopyFunc)            instantiation_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            instantiation_move,
   (MoveHandleFunc)      instantiation_move_handle,
-  (GetPropertiesFunc)   instantiation_get_properties,
-  (ApplyPropertiesFunc) instantiation_apply_properties,
-  (ObjectMenuFunc)      instantiation_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      instantiation_get_object_menu,
+  (DescribePropsFunc)   instantiation_describe_props,
+  (GetPropsFunc)        instantiation_get_props,
+  (SetPropsFunc)        instantiation_set_props
 };
+
+static PropDescription instantiation_props[] = {
+  ORTHCONN_COMMON_PROPERTIES,
+  { "procnum", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Number of processes:"), NULL },
+  { "type", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("multiple"),NULL },
+  { "reson",PROP_TYPE_TEXT,0,NULL,NULL},
+  PROP_DESC_END
+};
+
+static PropDescription *
+instantiation_describe_props(Instantiation *inst) 
+{
+  if (instantiation_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(instantiation_props);
+  }
+  return instantiation_props;
+}    
+
+static PropOffset instantiation_offsets[] = {
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "procnum", PROP_TYPE_STRING, offsetof(Instantiation,procnum) },
+  { "type", PROP_TYPE_BOOL, offsetof(Instantiation,type) },
+  { "reson",PROP_TYPE_TEXT, offsetof(Instantiation,reson) },
+  { NULL, 0, 0 }
+};
+
+static void
+instantiation_get_props(Instantiation *inst, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&inst->orth.object,
+                                instantiation_offsets,props,nprops);
+}
+
+static void
+instantiation_set_props(Instantiation *inst, Property *props, guint nprops)
+{
+  object_set_props_from_offsets(&inst->orth.object,
+                                instantiation_offsets,props,nprops);
+  instantiation_update_data(inst);
+}
 
 static real
 instantiation_distance_from(Instantiation *inst, Point *point)
@@ -165,11 +192,12 @@ instantiation_select(Instantiation *inst, Point *clicked_point,
 
 static void
 instantiation_move_handle(Instantiation *inst, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+                          Point *to, HandleMoveReason reason, 
+                          ModifierKeys modifiers)
 {
-  assert(inst!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_assert(inst!=NULL);
+  g_assert(handle!=NULL);
+  g_assert(to!=NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     inst->reson->position = *to;
@@ -305,6 +333,10 @@ instantiation_update_data(Instantiation *inst)
 
   
   orthconn_update_boundingbox(orth);
+  
+  /* FIXME: this object is really Hibernatus !!! we have to use the BBExtras 
+     now */
+  
   /* fix boundinginstantiation for linewidth and triangle: */
   obj->bounding_box.top -= INSTANTIATION_WIDTH/2.0 + INSTANTIATION_TRIANGLESIZE;
   obj->bounding_box.left -= INSTANTIATION_WIDTH/2.0 + INSTANTIATION_TRIANGLESIZE;
@@ -390,30 +422,24 @@ instantiation_delete_segment_callback(Object *obj, Point *clicked, gpointer data
 static ObjectChange *
 instantiation_set_type_callback(Object *obj, Point *clicked, gpointer data)
 {
-  Instantiation *inst;
-  ObjectState *old_state;
+  static Property prop = {"type",PROP_TYPE_BOOL};
 
-  inst = (Instantiation *) obj;
-  old_state = (ObjectState *)instantiation_get_state(inst);
-
-  inst->type = (int) data ;
-  instantiation_update_data(inst);
-
-  return new_object_state_change((Object *)inst, old_state, 
-                                 (GetStateFunc)instantiation_get_state,
-                                 (SetStateFunc)instantiation_set_state);
-
+  prop.d.bool_data = GPOINTER_TO_INT(data) != FALSE;
+  
+  return object_apply_props(obj,&prop,1);
 }
 
 static DiaMenuItem object_menu_items[] = {
-  { N_("Single"), instantiation_set_type_callback, (gpointer) INST_SINGLE, 1 },
-  { N_("Multiple"), instantiation_set_type_callback,(gpointer) INST_MULTI, 1 },
+  { N_("Single"), instantiation_set_type_callback, 
+    GINT_TO_POINTER(INST_SINGLE), 1 },
+  { N_("Multiple"), instantiation_set_type_callback,
+    GINT_TO_POINTER(INST_MULTI), 1 },
   { N_("Add segment"), instantiation_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), instantiation_delete_segment_callback, NULL, 1 },
 };
 
 static DiaMenu object_menu = {
-  "Instantiation",
+  N_("Instantiation"),
   sizeof(object_menu_items)/sizeof(DiaMenuItem),
   object_menu_items,
   NULL
@@ -459,7 +485,6 @@ instantiation_create(Point *startpoint,
   inst->type = INST_SINGLE;
   inst->procnum = NULL;
   inst->procnum_width = 0;
-  inst->properties_dialog = NULL;
 
   /* Where to put the text */
   p = *startpoint ;
@@ -486,261 +511,14 @@ static void
 instantiation_destroy(Instantiation *inst)
 {
   orthconn_destroy(&inst->orth);
-
-  text_destroy( inst->reson ) ;
+  text_destroy( inst->reson );
   g_free(inst->procnum);
-
-  if (inst->properties_dialog != NULL) {
-    gtk_widget_destroy(inst->properties_dialog->dialog);
-    g_free(inst->properties_dialog);
-  }
-}
-
-static Object *
-instantiation_copy(Instantiation *inst)
-{
-  Instantiation *newinst;
-  OrthConn *orth, *neworth;
-  Object *newobj;
-  
-  orth = &inst->orth;
-  
-  newinst = g_malloc0(sizeof(Instantiation));
-  neworth = &newinst->orth;
-  newobj = &neworth->object;
-
-  orthconn_copy(orth, neworth);
-
-  newinst->reson_handle.id           = inst->reson_handle.id;
-  newinst->reson_handle.type         = inst->reson_handle.type;        
-  newinst->reson_handle.connect_type = inst->reson_handle.connect_type;
-  newinst->reson_handle.connected_to = NULL;
-
-  newinst->reson = text_copy(inst->reson);
-  newobj->handles[3] = &newinst->reson_handle;
-
-  newinst->procnum = (inst->procnum != NULL)? strdup(inst->procnum):NULL;
-  newinst->procnum_width = inst->procnum_width;
-  newinst->type = inst->type;
-  newinst->properties_dialog = NULL;
-  
-  instantiation_update_data(newinst);
-  
-  return (Object *)newinst;
-}
-
-static void
-instantiation_state_free(ObjectState *ostate)
-{
-  InstantiationState *state = (InstantiationState *)ostate;
-  g_free(state->reson);
-}
-
-static InstantiationState *
-instantiation_get_state(Instantiation *inst)
-{
-  InstantiationState *state = g_new(InstantiationState, 1);
-
-  state->obj_state.free = instantiation_state_free;
-
-  state->procnum = g_strdup(inst->procnum);
-  state->reson = text_get_string_copy( inst->reson );
-  state->type = inst->type;
-
-  return state;
-}
-
-static void
-instantiation_set_state(Instantiation *inst, InstantiationState *state)
-{
-  g_free(inst->procnum);
-  inst->procnum = state->procnum;
-  text_set_string(inst->reson, state->reson);
-  inst->type = state->type;
-  
-  inst->procnum_width = 0.0;
-  if (inst->procnum != NULL) {
-    inst->procnum_width =
-      font_string_width(inst->procnum, inst_font, INSTANTIATION_FONTHEIGHT);
-  }
-
-  g_free(state);
-  
-  instantiation_update_data(inst);
-}
-
-static void
-instantiation_save(Instantiation *inst, ObjectNode obj_node,
-		    const char *filename)
-{
-  orthconn_save(&inst->orth, obj_node);
-
-  data_add_string(new_attribute(obj_node, "procnum"),
-		  inst->procnum);
-  data_add_text(new_attribute(obj_node, "reson"),
-                inst->reson);
-  data_add_int(new_attribute(obj_node, "type"),
-               inst->type);
 }
 
 static Object *
 instantiation_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {
-  Instantiation *inst;
-  AttributeNode attr;
-  OrthConn *orth;
-  Object *obj;
-
-  if (inst_font == NULL) {
-    inst_font = font_getfont("Courier");
-  }
-
-  inst = g_new0(Instantiation, 1);
-
-  orth = &inst->orth;
-  obj = &orth->object;
-
-  obj->type = &instantiation_type;
-  obj->ops = &instantiation_ops;
-
-  orthconn_load(orth, obj_node);
-
-  inst->procnum = NULL;
-  attr = object_find_attribute(obj_node, "procnum");
-  if (attr != NULL)
-    inst->procnum = data_string(attribute_first_data(attr));
-  
-  inst->reson = NULL;
-  attr = object_find_attribute(obj_node, "reson");
-  if (attr != NULL)
-    inst->reson = data_text(attribute_first_data(attr));
-
-  inst->type = INST_SINGLE;
-  attr = object_find_attribute(obj_node, "type");
-  if (attr != NULL)
-    inst->type = data_int(attribute_first_data(attr));
-
-  inst->procnum_width = 0.0;
-
-  inst->properties_dialog = NULL;
-  
-  if (inst->procnum != NULL) {
-    inst->procnum_width =
-      font_string_width(inst->procnum, inst_font, INSTANTIATION_FONTHEIGHT);
-  }
-
-  inst->reson_handle.id = HANDLE_MOVE_TEXT;
-  inst->reson_handle.type = HANDLE_MINOR_CONTROL;
-  inst->reson_handle.connect_type = HANDLE_NONCONNECTABLE;
-  inst->reson_handle.connected_to = NULL;
-  object_add_handle( obj, &inst->reson_handle );
-
-  instantiation_update_data(inst);
-
-  return (Object *)inst;
-}
-
-static ObjectChange *
-instantiation_apply_properties(Instantiation *inst)
-{
-  InstantiationPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = inst->properties_dialog;
-
-  old_state = (ObjectState *)instantiation_get_state(inst);
-
-  /* Read from dialog and put in object: */
-  if (inst->procnum != NULL)
-    g_free(inst->procnum);
-  str = gtk_entry_get_text(prop_dialog->procnum);
-  if (strlen(str) != 0)
-    inst->procnum = strdup(str);
-  else
-    inst->procnum = NULL;
-
-  if (gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(prop_dialog->type)))
-    inst->type = INST_MULTI;
-  else
-    inst->type = INST_SINGLE;
-
-  inst->procnum_width = 0.0;
-
-  if (inst->procnum != NULL) {
-    inst->procnum_width =
-      font_string_width(inst->procnum, inst_font, INSTANTIATION_FONTHEIGHT);
-  }
-
-  instantiation_update_data(inst);
-  return new_object_state_change((Object *)inst, old_state, 
-                                 (GetStateFunc)instantiation_get_state,
-                                 (SetStateFunc)instantiation_set_state);
-}
-
-static void
-fill_in_dialog(Instantiation *inst)
-{
-  InstantiationPropertiesDialog *prop_dialog;
-  
-  prop_dialog = inst->properties_dialog;
-
-  if (inst->procnum != NULL)
-    gtk_entry_set_text(prop_dialog->procnum, inst->procnum);
-  else 
-    gtk_entry_set_text(prop_dialog->procnum, "");
-  
-  if (inst->type == INST_MULTI)
-    gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(prop_dialog->type), TRUE);
-  else
-    gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(prop_dialog->type), FALSE);
-
-}
-
-static GtkWidget *
-instantiation_get_properties(Instantiation *inst)
-{
-  InstantiationPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *cbutton;
-
-  if (inst->properties_dialog == NULL) {
-
-    prop_dialog = g_new(InstantiationPropertiesDialog, 1);
-    inst->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Number of processes:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->procnum = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    cbutton = gtk_check_button_new_with_label(_("multiple"));
-    prop_dialog->type = GTK_TOGGLE_BUTTON(cbutton);
-    gtk_box_pack_start (GTK_BOX (hbox), cbutton, TRUE, TRUE, 0);
-    gtk_widget_show (cbutton);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-  }
-  
-  fill_in_dialog(inst);
-  gtk_widget_show (inst->properties_dialog->dialog);
-
-  return inst->properties_dialog->dialog;
+  return object_load_using_properties(&instantiation_type,
+                                      obj_node,version,filename);
 }
