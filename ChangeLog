@@ -1,5 +1,8 @@
 1999-10-26  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/standard/textobj.c:
+	Activate default properties dialog for Text objects.
+
 	* app/render_eps.c: 
 	* app/load_save.c:
 	* app/preferences.c:

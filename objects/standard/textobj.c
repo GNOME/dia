@@ -113,7 +113,9 @@ static ObjectTypeOps textobj_type_ops =
 {
   (CreateFunc) textobj_create,
   (LoadFunc)   textobj_load,
-  (SaveFunc)   textobj_save
+  (SaveFunc)   textobj_save,
+  (GetDefaultsFunc) textobj_get_defaults,
+  (ApplyDefaultsFunc) textobj_apply_defaults
 };
 
 ObjectType textobj_type =
