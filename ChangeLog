@@ -1,3 +1,8 @@
+2000-04-15  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* lib/plug-ins.c: Added <sys/types.h> and moved <fcntl.h> below
+	<sys/stat.h>.   OS/2 patch.
+
 2000-04-15  James Henstridge  <james@daa.com.au>
 
 	* objects/FS/flow-ortho.c, objects/FS/function.c: Applied David
