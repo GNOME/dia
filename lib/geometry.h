@@ -376,5 +376,6 @@ void point_perp(Point *p, real a, real b, real c, Point *perp);
 void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
 	    real r, Point *c, real *pa, real *aa);
 real point_cross(Point *p1, Point *p2);
+Point calculate_object_edge(Point *objmid, Point *end, DiaObject *obj);
 
 #endif /* GEOMETRY_H */

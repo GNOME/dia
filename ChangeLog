@@ -1,3 +1,19 @@
+2005-03-17  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/line.c:
+	* lib/geometry.[ch]: 
+	* objects/standard/bezier.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>: Add absolute gap and autogap for line and
+	bezier objects.   Autogap nowchanged to be a function of the
+	connpoints.
+
+	* lib/libdia.def: 
+	* lib/connectionpoint.[ch]: New function to ask if a connpoint has the
+	autogap flag.
+
+	* app/connectionpoint_ops.c (connectionpoint_draw): Don't draw
+	CP_FLAG_ANYPLACE connpoints.
+
 2005-03-16  Lars Clausen  <lars@LittlePooter.local.>
 
 	* app/interface.c (create_tools): Removed debug printf.

@@ -68,3 +68,10 @@ connpoint_update(ConnectionPoint *p, real x, real y, gint dirs)
   p->pos.y = y;
   p->directions = dirs;
 }
+
+/** Returns TRUE if the given connection point is non-null and autogapped.
+ */
+gboolean
+connpoint_is_autogap(ConnectionPoint *cp) {
+  return cp != NULL && (cp->flags & CP_FLAG_AUTOGAP);
+}

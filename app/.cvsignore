@@ -7,4 +7,4 @@ dia-embedd
 run_dia.sh
 run_diaconv.sh
 diaconv
-dia-lib-icons.h
+dia-app-icons.h

@@ -27,6 +27,7 @@
 #define G_IMPLEMENT_INLINES
 #define G_CAN_INLINE 1
 #include "geometry.h"
+#include "object.h"
 
 void
 rectangle_union(Rectangle *r1, const Rectangle *r2)
@@ -705,5 +706,58 @@ real
 point_cross(Point *p1, Point *p2)
 {
   return p1->x * p2->y - p2->x * p1->y;
+}
+
+/* moved this here since it is used by line and bezier */
+/* Computes one point between end and objmid which
+ * touches the edge of the object */
+Point
+calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
+{
+#define MAXITER 25
+#ifdef TRACE_DIST
+  Point trace[MAXITER];
+  real disttrace[MAXITER];
+#endif
+  Point mid1, mid2, mid3;
+  real dist;
+  int i = 0;
+
+  mid1 = *objmid;
+  mid2.x = (objmid->x+end->x)/2;
+  mid2.y = (objmid->y+end->y)/2;
+  mid3 = *end;
+
+  /* If the other end is inside the object */
+  dist = obj->ops->distance_from(obj, &mid3);
+  if (dist < 0.001) return mid1;
+
+
+  do {
+    dist = obj->ops->distance_from(obj, &mid2);
+    if (dist < 0.0000001) {
+      mid1 = mid2;
+    } else {
+      mid3 = mid2;
+    }
+    mid2.x = (mid1.x + mid3.x)/2;
+    mid2.y = (mid1.y + mid3.y)/2;
+#ifdef TRACE_DIST
+    trace[i] = mid2;
+    disttrace[i] = dist;
+#endif
+    i++;
+  } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
+  
+#ifdef TRACE_DIST
+  if (i == MAXITER) {
+    for (i = 0; i < MAXITER; i++) {
+      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
+    }
+    printf("i = %d, dist = %f\n", i, dist);
+  }
+#endif
+
+  return mid2;
 }
 

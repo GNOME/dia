@@ -91,6 +91,7 @@ EXPORTS
  connection_update_boundingbox
  connection_update_handles
 
+ connpoint_is_autogap
  connpoint_update
  
  connpointline_add_points

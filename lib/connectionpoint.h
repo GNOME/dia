@@ -76,4 +76,7 @@ gint find_slope_directions(Point from, Point to);
  */
 void connpoint_update(ConnectionPoint *p, real x, real y, gint dirs);
 
+gboolean connpoint_is_autogap(ConnectionPoint *cp);
+
+
 #endif /* CONNECTIONPOINT_H */

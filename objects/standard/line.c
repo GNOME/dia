@@ -52,13 +52,10 @@ typedef struct _Line {
   Arrow start_arrow, end_arrow;
   real dashlength;
   real absolute_start_gap, absolute_end_gap;
-  real fractional_start_gap, fractional_end_gap;
-  gboolean object_edge_start, object_edge_end;
 } Line;
 
 struct _LineProperties {
   real absolute_start_gap, absolute_end_gap;
-  real fractional_start_gap, fractional_end_gap;
 };
 
 static LineProperties default_properties;
@@ -140,18 +137,14 @@ static PropDescription line_props[] = {
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
-  /*
+  
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
-  { "absolute_start_gap", PROP_TYPE_REAL, 0,
+  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Absolute start gap"), NULL, &gap_range },
-  { "absolute_end_gap", PROP_TYPE_REAL, 0,
+  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Absolute end gap"), NULL, &gap_range },
-  { "fractional_start_gap", PROP_TYPE_REAL, 0,
-    N_("Fractional start gap"), NULL, &gap_range },
-  { "fractional_end_gap", PROP_TYPE_REAL, 0,
-    N_("Fractional end gap"), NULL, &gap_range },
   PROP_FRAME_END("gaps",0),
-  */
+ 
   PROP_DESC_END
 };
 
@@ -173,12 +166,8 @@ static PropOffset line_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
   { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
-  /*
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Line, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Line, absolute_end_gap) },
-  { "fractional_start_gap", PROP_TYPE_REAL, offsetof(Line, fractional_start_gap) },
-  { "fractional_end_gap", PROP_TYPE_REAL, offsetof(Line, fractional_end_gap) },
-  */
   { NULL, 0, 0 }
 };
 
@@ -204,8 +193,6 @@ line_init_defaults() {
   if (!defaults_initialized) {
     default_properties.absolute_start_gap = 0.0;
     default_properties.absolute_end_gap = 0.0;
-    default_properties.fractional_start_gap = 0;
-    default_properties.fractional_end_gap = 0;
     defaults_initialized = 1;
   }
 }
@@ -256,21 +243,16 @@ line_get_object_menu(Line *line, Point *clickedpoint)
 }
 
 /*
-  About start_gap, end_gap, start_fractional_gap, end_fractional_gap
+  About start_gap, end_gap, auto/absolute
   
-  Place positive reals (try 1.0, for instance) to create gaps on line
-  end/start.  If fractional_gap is false, these gaps are of fixed
-  length.  If fractional_gap is true, these gaps are a fraction of
-  total line length.  I don't know if fractional gaps are really
-  useful, but since it doesn't complicate the code, why not?
-  If a gap are negative, the line extends past the handle.
+  Place positive reals (try 1.0, for instance) in absolute 
+  to create gaps on line end/start.  
+  If auto_gap is false, these gaps are of that length.
+  If a gap is negative, the line extends past the handle.
+  If auto_gap is true, the gap length is computed so it touches 
+  the connected object edge then the absolute gap is added
+  */
   
-  Gaps as implemented for now do not use any object intersection
-  code.  It would be nice to have gap code that combined a fixed gap
-  length which could be optionally added to the object intersection
-  gap.
-*/
-/* This is currently dead code, but may find new use in other places. */
 Point
 calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
 {
@@ -325,34 +307,36 @@ void
 calculate_gap_endpoints(Line *line, Point *gap_endpoints)
 {
   Point endpoints[2];
+  ConnectionPoint *start_cp, *end_cp;
   real line_length;
 
   endpoints[0] = line->connection.endpoints[0];
   endpoints[1] = line->connection.endpoints[1];
 
-  if (line->object_edge_start &&
-      line->connection.endpoint_handles[0].connected_to != NULL) {
+  start_cp = line->connection.endpoint_handles[0].connected_to;
+  end_cp = line->connection.endpoint_handles[1].connected_to;
+
+  if (connpoint_is_autogap(start_cp)) {
       endpoints[0] = calculate_object_edge(&line->connection.endpoints[0],
 					   &line->connection.endpoints[1],
-					   line->connection.endpoint_handles[0].connected_to->object);
+					   start_cp->object);
   }
-  if (line->object_edge_end &&
-      line->connection.endpoint_handles[1].connected_to != NULL) {
+  if (connpoint_is_autogap(end_cp)) {    
       endpoints[1] = calculate_object_edge(&line->connection.endpoints[1],
 					   &line->connection.endpoints[0],
-					   line->connection.endpoint_handles[1].connected_to->object);
+					   end_cp->object);
   }
 
   line_length = distance_point_point(&endpoints[0],&endpoints[1]);
 
-  point_convex(&gap_endpoints[0],&endpoints[1],&endpoints[0],
-              line->absolute_start_gap/line_length +
-              line->fractional_start_gap
+  /* puts new 0 to x% of  0->1  */
+  point_convex(&gap_endpoints[0],&endpoints[0],&endpoints[1],
+              1 - line->absolute_start_gap/line_length
               );
 
-  point_convex(&gap_endpoints[1],&endpoints[0],&endpoints[1],
-              line->absolute_end_gap/line_length +
-              line->fractional_end_gap
+  /* puts new 1 to x% of  1->0  */
+  point_convex(&gap_endpoints[1],&endpoints[1],&endpoints[0],
+              1 - line->absolute_end_gap/line_length 
               );
 }
 
@@ -363,9 +347,9 @@ line_distance_from(Line *line, Point *point)
 
   endpoints = &line->connection.endpoints[0]; 
 
-  if (line->object_edge_start || line->object_edge_end ||
-      line->absolute_start_gap || line->absolute_end_gap ||
-      line->fractional_start_gap || line->fractional_end_gap) {
+  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
+      line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];  /* Visible endpoints of line */
 
     calculate_gap_endpoints(line, gap_endpoints);
@@ -432,9 +416,9 @@ line_draw(Line *line, DiaRenderer *renderer)
   renderer_ops->set_dashlength(renderer, line->dashlength);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if (line->object_edge_start || line->object_edge_end ||
-      line->absolute_start_gap || line->absolute_end_gap ||
-      line->fractional_start_gap || line->fractional_end_gap) {
+  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
+      line->absolute_start_gap || line->absolute_end_gap ) {
     calculate_gap_endpoints(line, gap_endpoints);
 
     renderer_ops->draw_line_with_arrows(renderer,
@@ -474,8 +458,6 @@ line_create(Point *startpoint,
   line->line_color = attributes_get_foreground();
   line->absolute_start_gap = default_properties.absolute_start_gap;
   line->absolute_end_gap = default_properties.absolute_end_gap;
-  line->fractional_start_gap = default_properties.fractional_start_gap;
-  line->fractional_end_gap = default_properties.fractional_end_gap;
     
   conn = &line->connection;
   conn->endpoints[0] = *startpoint;
@@ -533,10 +515,6 @@ line_copy(Line *line)
   newline->end_arrow = line->end_arrow;
   newline->absolute_start_gap = line->absolute_start_gap;
   newline->absolute_end_gap = line->absolute_end_gap;
-  newline->fractional_start_gap = line->fractional_start_gap;
-  newline->fractional_end_gap = line->fractional_end_gap;
-  newline->object_edge_start = line->object_edge_start;
-  newline->object_edge_end = line->object_edge_end;
 
   line_update_data(line);
 
@@ -560,9 +538,9 @@ line_update_data(Line *line)
   if (line->end_arrow.type != ARROW_NONE) 
     extra->end_trans = MAX(extra->end_trans,line->end_arrow.width);
 
-  if (line->object_edge_start || line->object_edge_end ||
-      line->absolute_start_gap || line->absolute_end_gap ||
-      line->fractional_start_gap || line->fractional_end_gap) {
+  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
+      line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];
 
     calculate_gap_endpoints(line, gap_endpoints);
@@ -628,12 +606,6 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
   if (line->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
                  line->absolute_end_gap);
-  if (line->fractional_start_gap)
-    data_add_real(new_attribute(obj_node, "fractional_start_gap"),
-                 line->fractional_start_gap);
-  if (line->fractional_end_gap)
-    data_add_real(new_attribute(obj_node, "fractional_end_gap"),
-                 line->fractional_end_gap);
 
   if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
@@ -707,14 +679,6 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
     line->absolute_end_gap =  data_real( attribute_first_data(attr) );
-  line->fractional_start_gap = 0;
-  attr = object_find_attribute(obj_node, "fractional_start_gap");
-  if (attr != NULL)
-    line->fractional_start_gap =  data_real( attribute_first_data(attr) );
-  line->fractional_end_gap = 0;
-  attr = object_find_attribute(obj_node, "fractional_end_gap");
-  if (attr != NULL)
-    line->fractional_end_gap =  data_real( attribute_first_data(attr) );
 
   line->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

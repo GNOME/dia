@@ -38,6 +38,11 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
+  /* Don't draw the "whole object" connpoints */
+  if (conpoint->flags & CP_FLAG_ANYPLACE) {
+    return;
+  }
+
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
   renderer_ops->set_linewidth (renderer, 0.0);
