@@ -663,6 +663,9 @@ static void
 update_snap_grid_status(DDisplay *ddisp)
 {
   GtkWidget *image = NULL;
+  GdkPixmap       *pixmap;
+  gint            xsize, ysize;
+
   if (ddisp->grid.snap) {
     image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
 					 "on grid image"));
@@ -687,8 +690,13 @@ update_snap_grid_status(DDisplay *ddisp)
   }
   gtk_container_remove(GTK_CONTAINER(ddisp->grid_status),
 		       gtk_bin_get_child(GTK_BIN(ddisp->grid_status)));
+
+  gtk_image_get_pixmap(GTK_IMAGE(image), &pixmap, NULL);
+  gdk_drawable_get_size(GDK_DRAWABLE(pixmap), &xsize, &ysize);
+
   gtk_container_add(GTK_CONTAINER(ddisp->grid_status),
 		    image);
+  gtk_widget_set_size_request(GTK_WIDGET(ddisp->grid_status), xsize, ysize);
   gtk_widget_show(image);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->grid_status),
 			       ddisp->grid.snap);
