@@ -84,6 +84,8 @@ dia_SOURCES = \
 	    diaunitspinner.h \
 	    pagesetup.c \
 	    pagesetup.h \
+	    filedlg.c \
+	    filedlg.h \
 	    $(print_files)
 
 dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
