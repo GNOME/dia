@@ -301,6 +301,9 @@ ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
 void          object_load_props(Object *obj, ObjectNode obj_node);
 void          object_save_props(Object *obj, ObjectNode obj_node);
 
+/* standard way to copy the properties of an object into another (of the
+   same type) */
+void          object_copy_props(Object *dest, Object *src);
 
 /* standard properties.  By using these, the intersection of the properties
  * of a number of objects should be greater, making setting properties on

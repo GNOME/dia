@@ -529,6 +529,7 @@ compoundblock_create(const char **str)
 void 
 boolequation_set_value(Boolequation *booleq, const gchar *value)
 {
+  g_return_if_fail(booleq);
   if (booleq->value) g_free((char *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
 
@@ -558,6 +559,7 @@ boolequation_create(const gchar *value, Font *font, real fontheight,
 void 
 boolequation_destroy(Boolequation *booleq)
 {
+  g_return_if_fail(booleq);
   if (booleq->value) g_free((char *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
   g_free(booleq);

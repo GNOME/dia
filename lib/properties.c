@@ -1125,6 +1125,36 @@ object_apply_props_from_dialog(Object *obj, GtkWidget *table)
 
 /* --------------------------------------- */
 
+void 
+object_copy_props(Object *dest, Object *src)
+{
+  const PropDescription *pdesc;
+  Property *props;
+  guint nprops;
+
+  g_return_if_fail(src != NULL);
+  g_return_if_fail(dest != NULL);
+  g_return_if_fail(strcmp(src->type->name,dest->type->name)==0);
+  g_return_if_fail(src->ops == dest->ops);
+
+  if (src->ops->describe_props == NULL ||
+      src->ops->set_props == NULL) {
+    g_warning("No describe_props or set_props!");
+    return;
+  }
+  pdesc = src->ops->describe_props(src);
+  if (pdesc == NULL) {
+    g_warning("No properties!");
+    return;
+  }
+  props = prop_list_from_nonmatching_descs(pdesc, PROP_FLAG_DONT_SAVE,&nprops);
+  
+  src->ops->get_props(src, props, nprops);
+  dest->ops->set_props(dest, props, nprops);
+
+  prop_list_free(props, nprops);  
+}
+
 void
 object_load_props(Object *obj, ObjectNode obj_node)
 {

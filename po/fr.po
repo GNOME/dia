@@ -4,11 +4,11 @@
 # Fabrice Bellet <Fabrice.Bellet@imag.fr>, 1999.
 # Joaquim Fellmann <joaquim@hrnet.fr>, 2000.
 # Christophe Merlet <redfox@eikonex.org>, 2000-2001.
-#
+# Cyrille Chépélov <chepelov@calixo.net>, 2001.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-04-07 15:03+0200\n"
+"POT-Creation-Date: 2001-04-16 15:40+0200\n"
 "PO-Revision-Date: 2001-04-05 00:31+0200\n"
 "Last-Translator: Cyrille Chépélov <chepelov@calixo.net>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -16,31 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:147
+#: app/app_procs.c:148
 msgid "Export loaded file and exit"
 msgstr "Exporter le fichier en postscript et sortir"
 
-#: app/app_procs.c:147
+#: app/app_procs.c:148
 msgid "OUTPUT"
 msgstr "SORTIE"
 
-#: app/app_procs.c:149
+#: app/app_procs.c:150
 msgid "Don't show the splash screen"
 msgstr "Ne pas afficher l'écran de démarrage"
 
-#: app/app_procs.c:151
+#: app/app_procs.c:152
 msgid "Show this help message"
 msgstr "Afficher ce message d'aide"
 
-#: app/app_procs.c:170
+#: app/app_procs.c:171
 msgid "Can't connect to session manager!\n"
 msgstr "Ne peut se connecter au gestionnaire de session !\n"
 
-#: app/app_procs.c:181
+#: app/app_procs.c:182
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FICHIER...]"
 
-#: app/app_procs.c:184
+#: app/app_procs.c:185
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -50,20 +50,20 @@ msgstr ""
 "Tapez « %s --help » pour voir une liste complète des options en ligne "
 "decommande.\n"
 
-#: app/app_procs.c:233 app/app_procs.c:235
+#: app/app_procs.c:234 app/app_procs.c:236
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Ne peut trouver les objets standards dans object-libs, terminé...\n"
 
-#: app/app_procs.c:260
+#: app/app_procs.c:261
 msgid "Need valid input file\n"
 msgstr "Nécessite un fichier d'entrée valide\n"
 
-#: app/app_procs.c:318 app/app_procs.c:324
+#: app/app_procs.c:327 app/app_procs.c:333
 msgid "Quit, are you sure?"
 msgstr "Êtes-vous sûr de vouloir quitter ?"
 
-#: app/app_procs.c:331
+#: app/app_procs.c:340
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -71,21 +71,21 @@ msgstr ""
 "Des diagrammes ont été modifies.\n"
 "Voulez-vous vraiment quitter ?"
 
-#: app/app_procs.c:341 app/app_procs.c:346
+#: app/app_procs.c:350 app/app_procs.c:355
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:358 app/display.c:918 app/layer_dialog.c:989
-#: app/lineprops_area.c:731 app/lineprops_area.c:929 app/linewidth_area.c:246
+#: app/app_procs.c:367 app/display.c:926 app/layer_dialog.c:989
+#: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/app_procs.c:432 app/app_procs.c:439
+#: app/app_procs.c:442 app/app_procs.c:449
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne peut créer le répertoire de configuration personnel de Dia"
 
-#: app/app_procs.c:441
+#: app/app_procs.c:451
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -94,7 +94,7 @@ msgstr ""
 "Veuillez vérifier que la variable d'environnement HOME pointe vers un \n"
 "répertoire existant."
 
-#: app/app_procs.c:463
+#: app/app_procs.c:473
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres internes à Dia"
 
@@ -124,40 +124,40 @@ msgstr "SansTitre-%d"
 msgid "No existing object to paste.\n"
 msgstr "Aucun objet à coller.\n"
 
-#: app/commands.c:499 app/commands.c:522
+#: app/commands.c:501 app/commands.c:524
 msgid "Could not find help directory"
 msgstr "Répertoire d'aide introuvable"
 
-#: app/commands.c:569
+#: app/commands.c:571
 msgid "About Dia"
 msgstr "À Propos de Dia"
 
-#: app/commands.c:612
+#: app/commands.c:614
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s par Alexander Larsson"
 
-#: app/commands.c:617
+#: app/commands.c:619
 msgid "Maintainer: James Henstridge"
 msgstr "Mainteneur : James Henstridge"
 
-#: app/commands.c:621
+#: app/commands.c:623
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visitez http://www.lysator.liu.se/~alla/dia pour plus d'informations"
 
-#: app/commands.c:626
+#: app/commands.c:628
 msgid "Contributors:"
 msgstr "Contributeurs :"
 
 #. setup buttons
-#: app/commands.c:643 app/dia-props.c:86 app/layer_dialog.c:979
-#: app/lineprops_area.c:722 app/lineprops_area.c:919 app/linewidth_area.c:237
+#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
-#: app/properties.c:82 lib/message.c:87
+#: app/properties.c:84 lib/message.c:87
 msgid "OK"
 msgstr "Valider"
 
-#: app/commands.c:729
+#: app/commands.c:731
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -167,22 +167,22 @@ msgstr ""
 "plantages. Nous savons qu'il y a des bogues dedans,\n"
 "aussi ne nous transmettez pas d'autres rapports si ça plante."
 
-#: app/defaults.c:48 app/defaults.c:56
+#: app/defaults.c:50 app/defaults.c:58
 msgid "Object defaults"
 msgstr "Caractéristiques de l'objet par défaut."
 
-#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:613 app/properties.c:91
+#: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:613 app/properties.c:93
 msgid "Apply"
 msgstr "Appliquer"
 
-#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:264
+#: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
 #: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:622
-#: app/properties.c:101
+#: app/properties.c:103
 msgid "Close"
 msgstr "Fermer"
 
-#: app/defaults.c:96
+#: app/defaults.c:98
 msgid "This object has no defaults."
 msgstr "Cet objet n'a pas de caractéristiques par défaut."
 
@@ -279,7 +279,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Mise en page"
 
-#: app/disp_callbacks.c:74 app/properties.c:164
+#: app/disp_callbacks.c:74 app/properties.c:166
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -287,27 +287,27 @@ msgstr ""
 "Cet objet ne supporte pas l'opération Annuler/Recommencer. \n"
 "Informations 'Annuler' effacées."
 
-#: app/disp_callbacks.c:171
+#: app/disp_callbacks.c:186
 msgid "No object menu"
 msgstr "Pas de menu pour cet objet"
 
-#: app/display.c:132 app/display.c:133 app/interface.c:399
+#: app/display.c:140 app/display.c:141 app/interface.c:399
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:153
+#: app/display.c:161
 msgid "Diagram modified!"
 msgstr "Diagramme modifié !"
 
-#: app/display.c:868
+#: app/display.c:876
 msgid "Close Diagram?"
 msgstr "Fermer le diagramme ?"
 
-#: app/display.c:874
+#: app/display.c:882
 msgid "Really close?"
 msgstr "Vraiment fermer ?"
 
-#: app/display.c:879
+#: app/display.c:887
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -315,21 +315,21 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:897 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: app/display.c:905 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
 #: lib/properties.c:286
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:907 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
+#: app/display.c:915 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
 #: app/preferences.c:507 lib/properties.c:288 lib/properties.c:309
 msgid "No"
 msgstr "Non"
 
 #: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:201
-#: plug-ins/cgm/cgm.c:1135 plug-ins/dxf/dxf-export.c:516
+#: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:194 plug-ins/svg/render_svg.c:180
-#: plug-ins/wpg/wpg.c:932
+#: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Ne peut ouvrir « %s » en écriture.\n"
@@ -409,6 +409,7 @@ msgid "Modify"
 msgstr "Modifier"
 
 #: app/interface.c:47 app/interface.c:48 app/menus.c:193
+#: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "Grossir"
 
@@ -424,8 +425,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:195 lib/properties.h:359
-#: lib/properties.h:383
+#: app/interface.c:58 app/menus.c:195 lib/properties.h:362
+#: lib/properties.h:386
 msgid "Text"
 msgstr "Texte"
 
@@ -566,24 +567,24 @@ msgstr "Éditer les attributs de calque"
 msgid "Layer name:"
 msgstr "Nom du calque :"
 
-#: app/lineprops_area.c:711
+#: app/lineprops_area.c:721
 msgid "Arrow Properties"
 msgstr "Propriétés des flèches"
 
-#: app/lineprops_area.c:768 app/lineprops_area.c:952
+#: app/lineprops_area.c:778 app/lineprops_area.c:964
 msgid "Details..."
 msgstr "Détails..."
 
-#: app/lineprops_area.c:908
+#: app/lineprops_area.c:920
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216 lib/properties.h:335
+#: app/linewidth_area.c:216 lib/properties.h:338
 msgid "Line width"
 msgstr "Largeur de ligne"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:336
-#: objects/chronogram/chronoline.c:427 objects/chronogram/chronoref.c:256
+#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
+#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
 #: objects/chronogram/chronoref.c:321
 msgid "Line width:"
 msgstr "Largeur de ligne :"
@@ -616,8 +617,8 @@ msgstr ""
 "Erreur au chargement du diagramme %s.\n"
 "La prise en compte de la connexion n'existe pas."
 
-#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1038
-#: plug-ins/xfig/xfig-import.c:949
+#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
+#: plug-ins/xfig/xfig-import.c:947
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ne peut ouvrir « %s » en lecture.\n"
@@ -759,7 +760,8 @@ msgstr "Union"
 msgid "Intersect"
 msgstr "Intersection"
 
-#: app/menus.c:142
+#: app/menus.c:142 objects/FS/function.c:623 objects/FS/function.c:699
+#: objects/FS/function.c:700
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -787,17 +789,17 @@ msgstr "Transitif"
 msgid "Same Type"
 msgstr "Même type"
 
-#: app/menus.c:162 lib/properties.c:1184 lib/properties.h:323
+#: app/menus.c:162 lib/properties.c:1224 lib/properties.h:326
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "Gauche"
 
-#: app/menus.c:163 app/menus.c:172 lib/properties.c:1185 lib/properties.h:324
+#: app/menus.c:163 app/menus.c:172 lib/properties.c:1225 lib/properties.h:327
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Centre"
 
-#: app/menus.c:164 lib/properties.c:1186 lib/properties.h:325
+#: app/menus.c:164 lib/properties.c:1226 lib/properties.h:328
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "Droite"
@@ -1284,11 +1286,11 @@ msgstr "tooldate NULL dans tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Menu du diagramme"
 
-#: app/paginate_gnomeprint.c:152
+#: app/paginate_gnomeprint.c:156
 msgid "Print Diagram"
 msgstr "Imprimer le diagramme"
 
-#: app/paginate_gnomeprint.c:179
+#: app/paginate_gnomeprint.c:183
 msgid "An error occured while creating the print context"
 msgstr "Une erreur est survenue lors de la création du contexte d'impression"
 
@@ -1331,7 +1333,7 @@ msgstr "non"
 #: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
 #: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
 #: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/large_package.c:609 objects/UML/realizes.c:124
+#: objects/UML/large_package.c:605 objects/UML/realizes.c:124
 msgid "Name:"
 msgstr "Nom :"
 
@@ -1452,11 +1454,11 @@ msgstr "Ne peut ouvrir « %s » en écriture"
 msgid "Preferences"
 msgstr "Préférences"
 
-#: app/properties.c:52 app/properties.c:60
+#: app/properties.c:54 app/properties.c:62
 msgid "Object properties"
 msgstr "Propriétés de l'objet"
 
-#: app/properties.c:114
+#: app/properties.c:116
 msgid "This object has no properties."
 msgstr "Cet objet n'a pas de propriétés."
 
@@ -1465,16 +1467,16 @@ msgid "Encapsulated Postscript"
 msgstr "Postscript encapsulé"
 
 #. remove recent files if list get's too long
-#: app/recent_files.c:73
+#: app/recent_files.c:75
 msgid "/File/Plugins"
 msgstr "/Fichier/Greffons"
 
-#: app/recent_files.c:79 app/recent_files.c:81 app/recent_files.c:110
-#: app/recent_files.c:112
+#: app/recent_files.c:81 app/recent_files.c:83 app/recent_files.c:112
+#: app/recent_files.c:114
 msgid "/File/Open Recent/"
 msgstr "/Fichier/Ouvrir récents/"
 
-#: app/recent_files.c:161
+#: app/recent_files.c:163
 msgid "Can't open history file for writing."
 msgstr "Ne peut ouvrir le fichier d'historique en écriture."
 
@@ -1491,20 +1493,20 @@ msgstr "Dia v %s"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Erreur interne : `Setting corner type of endpoint of bezier'"
 
-#: lib/dia_xml.c:267
+#: lib/dia_xml.c:273
 msgid "Taking point value of non-point node."
 msgstr "Prend une valeur d'un noeud non-point comme un point."
 
-#: lib/dia_xml.c:276
+#: lib/dia_xml.c:282
 #, c-format
 msgid "Incorrect x Point value %f; discarding it."
 msgstr "Valeur x=%f d'un Point incorrecte ; rejetée."
 
-#: lib/dia_xml.c:284
+#: lib/dia_xml.c:290
 msgid "Error parsing point."
 msgstr "Erreur d'interprétation d'un point."
 
-#: lib/dia_xml.c:291
+#: lib/dia_xml.c:297
 #, c-format
 msgid "Incorrect y Point value %f; discarding it."
 msgstr "Valeur y=%f d'un Point incorrecte ; rejetée."
@@ -1573,20 +1575,20 @@ msgstr "Ne peut ouvrir « %s »"
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
-#: lib/properties.h:338 lib/properties.h:377
+#: lib/properties.h:341 lib/properties.h:380
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.h:341 lib/properties.h:378
+#: lib/properties.h:344 lib/properties.h:381
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.h:345 lib/properties.h:379
+#: lib/properties.h:348 lib/properties.h:382
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.h:348 lib/properties.h:380
-#: objects/custom/custom_object.c:356 objects/flowchart/box.c:317
+#: lib/properties.h:351 lib/properties.h:383
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
 #: objects/standard/box.c:232 objects/standard/ellipse.c:220
@@ -1594,31 +1596,31 @@ msgstr "Couleur de remplissage"
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.h:352 lib/properties.h:381
+#: lib/properties.h:355 lib/properties.h:384
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.h:355 lib/properties.h:382
+#: lib/properties.h:358 lib/properties.h:385
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.h:362 lib/properties.h:384
+#: lib/properties.h:365 lib/properties.h:387
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.h:365 lib/properties.h:385
+#: lib/properties.h:368 lib/properties.h:388 objects/GRAFCET/transition.c:143
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.h:368 lib/properties.h:386
+#: lib/properties.h:371 lib/properties.h:389 objects/GRAFCET/transition.c:145
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.h:371 lib/properties.h:387
+#: lib/properties.h:374 lib/properties.h:390
 msgid "Text colour"
 msgstr "Couleur du texte"
 
-#: lib/widgets.c:319
+#: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Plein"
 
@@ -1767,19 +1769,19 @@ msgstr "Objets de diagramme Entités/Relations"
 msgid "Total:"
 msgstr "Total :"
 
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:800
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
 #: objects/UML/association.c:618 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
-#: objects/standard/zigzagline.c:337
+#: objects/standard/zigzagline.c:339
 msgid "Add segment"
 msgstr "Ajouter segment"
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:801
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
 #: objects/UML/association.c:619 objects/UML/dependency.c:377
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
-#: objects/standard/zigzagline.c:338
+#: objects/standard/zigzagline.c:340
 msgid "Delete segment"
 msgstr "Supprimer segment"
 
@@ -1804,46 +1806,47 @@ msgid "Relationship"
 msgstr "Relation"
 
 #.
-#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:731
-#: objects/FS/flow-ortho.c:797 objects/FS/flow-ortho.c:862
-#: objects/FS/flow.c:157 objects/FS/flow.c:720 objects/FS/flow.c:773
-#: objects/FS/flow.c:837
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:727
+#: objects/FS/flow-ortho.c:793 objects/FS/flow-ortho.c:858
+#: objects/FS/flow.c:154 objects/FS/flow.c:639 objects/FS/flow.c:703
+#: objects/FS/function.c:818
 msgid "Energy"
 msgstr "Énergie"
 
-#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:738
-#: objects/FS/flow-ortho.c:798 objects/FS/flow-ortho.c:869
-#: objects/FS/flow.c:158 objects/FS/flow.c:727 objects/FS/flow.c:774
-#: objects/FS/flow.c:844
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:734
+#: objects/FS/flow-ortho.c:794 objects/FS/flow-ortho.c:865
+#: objects/FS/flow.c:155 objects/FS/flow.c:640 objects/FS/flow.c:710
+#: objects/FS/function.c:806
 msgid "Material"
 msgstr "Matériel"
 
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:744
-#: objects/FS/flow-ortho.c:799 objects/FS/flow-ortho.c:875
-#: objects/FS/flow.c:159 objects/FS/flow.c:733 objects/FS/flow.c:775
-#: objects/FS/flow.c:850 objects/FS/function.c:718
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:740
+#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:871
+#: objects/FS/flow.c:156 objects/FS/flow.c:641 objects/FS/flow.c:716
+#: objects/FS/function.c:787 objects/FS/function.c:788
+#: objects/FS/function.c:856 objects/FS/function.c:857
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:186 objects/FS/flow.c:166
+#: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
 #: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
 #: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
 msgstr "Type :"
 
-#: objects/FS/flow-ortho.c:711 objects/FS/flow.c:700 objects/FS/flow.c:816
+#: objects/FS/flow-ortho.c:707 objects/FS/flow.c:682
 msgid "Flow:"
 msgstr "Flux :"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:715 objects/FS/flow.c:832
+#: objects/FS/flow-ortho.c:722 objects/FS/flow.c:698
 msgid "Flow type:"
 msgstr "Type de flux :"
 
-#: objects/FS/flow-ortho.c:841
+#: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
 msgstr "Flux orthogonal :"
 
-#: objects/FS/flow-ortho.c:857
+#: objects/FS/flow-ortho.c:853
 msgid "Orthflow type:"
 msgstr "Type de flux orthogonal :"
 
@@ -1851,179 +1854,821 @@ msgstr "Type de flux orthogonal :"
 msgid "Function structure diagram objects"
 msgstr "Objets de diagrammes de structures fonctionnelles."
 
-#: objects/FS/function.c:150 objects/FS/function.c:639
+#: objects/FS/function.c:136
 msgid "Wish function"
 msgstr "Fonction désirée"
 
-#: objects/FS/function.c:152 objects/FS/function.c:644
+#: objects/FS/function.c:138
 msgid "User function"
 msgstr "Fonction utilisateur"
 
-#: objects/FS/function.c:629
-msgid "Function:"
-msgstr "Fonction :"
+#: objects/FS/function.c:608
+msgid "Verb"
+msgstr "Verbe"
 
-#: objects/FS/function.c:684
+#: objects/FS/function.c:609 objects/FS/function.c:610
+#: objects/FS/function.c:630
 msgid "Channel"
 msgstr "Canal"
 
-#: objects/FS/function.c:685
-msgid "   Import"
-msgstr "   Importe"
+#: objects/FS/function.c:611 objects/FS/function.c:612
+msgid "Import"
+msgstr "Importe"
 
-#: objects/FS/function.c:686
-msgid "   Export"
-msgstr "   Exporte"
+#: objects/FS/function.c:613
+msgid "Input"
+msgstr "Entrée"
 
-#: objects/FS/function.c:687
-msgid "   Transfer"
-msgstr "   Transfert"
+#: objects/FS/function.c:614
+msgid "Receive"
+msgstr "Recevoir"
 
-#: objects/FS/function.c:688
-msgid "      Transport"
-msgstr "      Transporte"
+#: objects/FS/function.c:615 objects/FS/function.c:751
+msgid "Allow"
+msgstr "Autoriser"
 
-#: objects/FS/function.c:689
-msgid "      Transmit"
-msgstr "      Transmet"
+#: objects/FS/function.c:616
+msgid "Form Entrance"
+msgstr "Entrée de formulaire"
 
-#: objects/FS/function.c:690
-msgid "   Guide"
-msgstr "   Guide"
+#: objects/FS/function.c:617 objects/FS/function.c:734
+msgid "Capture"
+msgstr "Capturer"
 
-#: objects/FS/function.c:691
-msgid "      Translate"
-msgstr "      Déplacer"
+#: objects/FS/function.c:618 objects/FS/function.c:619
+msgid "Export"
+msgstr "Exporter"
 
-#: objects/FS/function.c:692
-msgid "      Rotate"
-msgstr "      Pivoter"
+#: objects/FS/function.c:620
+msgid "Discharge"
+msgstr "Décharger"
 
-#: objects/FS/function.c:693
-msgid "      Allow DOF"
-msgstr "      Autoriser DOF"
+#: objects/FS/function.c:621
+msgid "Eject"
+msgstr "Ejecter"
 
-#: objects/FS/function.c:694
+#: objects/FS/function.c:622
+msgid "Dispose"
+msgstr "Jeter"
+
+#: objects/FS/function.c:624 objects/FS/function.c:625
+#: objects/FS/function.c:634
+msgid "Transfer"
+msgstr "Transférer"
+
+#: objects/FS/function.c:626 objects/FS/function.c:627
+msgid "Transport"
+msgstr "Transporter"
+
+#: objects/FS/function.c:628
+msgid "Lift"
+msgstr "Ascenseur"
+
+#: objects/FS/function.c:629
+msgid "Move"
+msgstr "Déplacer"
+
+#: objects/FS/function.c:631 objects/FS/function.c:632
+msgid "Transmit"
+msgstr "Tranmettre"
+
+#: objects/FS/function.c:633
+msgid "Conduct"
+msgstr "Conduire"
+
+#: objects/FS/function.c:635
+#, fuzzy
+msgid "Convey"
+msgstr "Convoyer"
+
+#: objects/FS/function.c:636 objects/FS/function.c:637
+#: objects/FS/function.c:638
+msgid "Guide"
+msgstr "Guide"
+
+#: objects/FS/function.c:639
+msgid "Direct"
+msgstr "Diriger"
+
+#: objects/FS/function.c:640
+msgid "Straighten"
+msgstr "Redresser"
+
+#: objects/FS/function.c:641
+msgid "Steer"
+msgstr "Piloter"
+
+#: objects/FS/function.c:642
+msgid "Translate"
+msgstr "Translater"
+
+#: objects/FS/function.c:643 objects/FS/function.c:644
+msgid "Rotate"
+msgstr "Tourner"
+
+#: objects/FS/function.c:645
+#, fuzzy
+msgid "Turn"
+msgstr "Tourner"
+
+#: objects/FS/function.c:646
+msgid "Spin"
+msgstr "Mettre en rotation"
+
+#: objects/FS/function.c:647 objects/FS/function.c:648
+msgid "Allow DOF"
+msgstr "Autoriser DOF"
+
+#: objects/FS/function.c:649
+msgid "Constrain"
+msgstr "Contraindre"
+
+#: objects/FS/function.c:650
+msgid "Unlock"
+msgstr "Débloquer"
+
+#: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
 msgstr "Support"
 
+#: objects/FS/function.c:653 objects/FS/function.c:654
+msgid "Stop"
+msgstr "Stopper"
+
+#: objects/FS/function.c:655
+msgid "Insulate"
+msgstr "Isoler"
+
+#: objects/FS/function.c:656
+#, fuzzy
+msgid "Protect"
+msgstr "Protégé"
+
+#: objects/FS/function.c:657 objects/FS/function.c:752
+msgid "Prevent"
+msgstr "Prévenir"
+
+#: objects/FS/function.c:658
+msgid "Shield"
+msgstr "Protéger"
+
+#: objects/FS/function.c:659
+msgid "Inhibit"
+msgstr "Inhiber"
+
+#: objects/FS/function.c:660 objects/FS/function.c:661
+msgid "Stabilize"
+msgstr "Stabiliser"
+
+#: objects/FS/function.c:662
+msgid "Steady"
+msgstr "Calmer"
+
+#: objects/FS/function.c:663 objects/FS/function.c:664
+msgid "Secure"
+msgstr "Fixer"
+
+#: objects/FS/function.c:665 objects/FS/function.c:681
+msgid "Attach"
+msgstr "Attacher"
+
+#: objects/FS/function.c:666
+msgid "Mount"
+msgstr "Monter"
+
+#: objects/FS/function.c:667
+msgid "Lock"
+msgstr "Verrouiller"
+
+#: objects/FS/function.c:668
+msgid "Fasten"
+msgstr "Attacher"
+
+#: objects/FS/function.c:669
+msgid "Hold"
+msgstr "Tenir"
+
+#: objects/FS/function.c:670 objects/FS/function.c:671
+msgid "Position"
+msgstr "Positionner"
+
+#: objects/FS/function.c:672
+msgid "Orient"
+msgstr "Orienter"
+
+#: objects/FS/function.c:673
+msgid "Align"
+msgstr "Aligner"
+
+#: objects/FS/function.c:674 objects/FS/function.c:795
+msgid "Locate"
+msgstr "Localiser"
+
+#: objects/FS/function.c:675 objects/FS/function.c:676
+msgid "Connect"
+msgstr "Connecter"
+
+#: objects/FS/function.c:677 objects/FS/function.c:678
+msgid "Couple"
+msgstr "Coupler"
+
+#: objects/FS/function.c:679
+msgid "Join"
+msgstr "Joindre"
+
+#: objects/FS/function.c:680
+msgid "Assemble"
+msgstr "Assembler"
+
+#: objects/FS/function.c:682 objects/FS/function.c:683
+msgid "Mix"
+msgstr "Mélanger"
+
+#: objects/FS/function.c:684
+msgid "Combine"
+msgstr "Combiner"
+
+#: objects/FS/function.c:685
+msgid "Blend"
+msgstr "Mélanger"
+
+#: objects/FS/function.c:686
+msgid "Add"
+msgstr "Ajouter"
+
+#: objects/FS/function.c:687
+msgid "Pack"
+msgstr "Compacter"
+
+#: objects/FS/function.c:688
+#, fuzzy
+msgid "Coalesce"
+msgstr "Grouper"
+
+#: objects/FS/function.c:689 objects/FS/function.c:690
+msgid "Branch"
+msgstr "Bifurquer"
+
+#: objects/FS/function.c:691 objects/FS/function.c:692
+#: objects/FS/function.c:693
+msgid "Separate"
+msgstr "Séparer"
+
+#: objects/FS/function.c:694
+msgid "Switch"
+msgstr "Basculer"
+
 #: objects/FS/function.c:695
-msgid "   Stop"
-msgstr "   Stoppe"
+msgid "Divide"
+msgstr "Diviser"
 
 #: objects/FS/function.c:696
-msgid "   Stabilize"
-msgstr "   Stabilise"
+msgid "Release"
+msgstr "Libérer"
 
 #: objects/FS/function.c:697
-msgid "   Secure"
-msgstr "   Securise"
+msgid "Detach"
+msgstr "Détacher"
 
 #: objects/FS/function.c:698
-msgid "   Position"
-msgstr "   Position"
-
-#: objects/FS/function.c:699
-msgid "Connect"
-msgstr "Connecte"
-
-#: objects/FS/function.c:700
-msgid "   Couple"
-msgstr "   Couple"
+msgid "Disconnect"
+msgstr "Déconnecter"
 
 #: objects/FS/function.c:701
-msgid "   Mix"
-msgstr "   Mélange"
+msgid "Cut"
+msgstr "Couper"
 
 #: objects/FS/function.c:702
-msgid "Branch"
-msgstr "Branche"
+msgid "Polish"
+msgstr "Polir"
 
 #: objects/FS/function.c:703
-msgid "   Separate"
-msgstr "   Sépare"
+msgid "Sand"
+msgstr "Sabler"
 
 #: objects/FS/function.c:704
-msgid "      Remove"
-msgstr "      Efface"
+msgid "Drill"
+msgstr "Percer"
 
 #: objects/FS/function.c:705
-msgid "   Refine"
-msgstr "   Raffine"
+msgid "Lathe"
+msgstr "Tourner"
 
-#: objects/FS/function.c:706
-msgid "   Distribute"
-msgstr "   Distribue"
-
-#: objects/FS/function.c:707
-msgid "   Dissipate"
-msgstr "   Dissipe"
+#: objects/FS/function.c:706 objects/FS/function.c:707
+msgid "Refine"
+msgstr "Raffiner"
 
 #: objects/FS/function.c:708
-msgid "Provision"
-msgstr "Provision"
+msgid "Purify"
+msgstr "Purifier"
 
 #: objects/FS/function.c:709
-msgid "   Store"
-msgstr "   Stocke"
+msgid "Strain"
+msgstr "Passer"
 
 #: objects/FS/function.c:710
-msgid "   Supply"
-msgstr "   Fournit"
+msgid "Filter"
+msgstr "Filtrer"
 
 #: objects/FS/function.c:711
-msgid "   Extract"
-msgstr "   Extrait"
+msgid "Percolate"
+msgstr "Percoler"
 
 #: objects/FS/function.c:712
+#, fuzzy
+msgid "Clear"
+msgstr "Eclaircir"
+
+#: objects/FS/function.c:713 objects/FS/function.c:714
+msgid "Distribute"
+msgstr "Distribuer"
+
+#: objects/FS/function.c:715
+msgid "Diverge"
+msgstr "Diverger"
+
+#: objects/FS/function.c:716
+msgid "Scatter"
+msgstr "Eparpiller"
+
+#: objects/FS/function.c:717
+msgid "Disperse"
+msgstr "Disperser"
+
+#: objects/FS/function.c:718 objects/FS/function.c:725
+msgid "Diffuse"
+msgstr "Diffuser"
+
+#: objects/FS/function.c:719
+msgid "Empty"
+msgstr "Vider"
+
+#: objects/FS/function.c:720 objects/FS/function.c:721
+msgid "Dissipate"
+msgstr "Dissiper"
+
+#: objects/FS/function.c:722
+msgid "Absorb"
+msgstr "Absorber"
+
+#: objects/FS/function.c:723
+msgid "Dampen"
+msgstr "Humidifier"
+
+#: objects/FS/function.c:724
+msgid "Dispel"
+msgstr "Dissiper"
+
+#: objects/FS/function.c:726
+msgid "Resist"
+msgstr "Résister"
+
+#: objects/FS/function.c:727 objects/FS/function.c:728
+msgid "Provision"
+msgstr "Approvisionner"
+
+#: objects/FS/function.c:729 objects/FS/function.c:730
+msgid "Store"
+msgstr "Stocker"
+
+#: objects/FS/function.c:731
+msgid "Contain"
+msgstr "Contenir"
+
+#: objects/FS/function.c:732
+msgid "Collect"
+msgstr "Collecter"
+
+#: objects/FS/function.c:733
+msgid "Reserve"
+msgstr "Réserver"
+
+#: objects/FS/function.c:735 objects/FS/function.c:736
+msgid "Supply"
+msgstr "Fournir"
+
+#: objects/FS/function.c:737
+msgid "Fill"
+msgstr "Remplir"
+
+#: objects/FS/function.c:738
+msgid "Provide"
+msgstr "Fournir"
+
+#: objects/FS/function.c:739
+msgid "Replenish"
+msgstr "Re-remplir"
+
+#: objects/FS/function.c:740
+msgid "Expose"
+msgstr "Exposer"
+
+#: objects/FS/function.c:741
+msgid "Extract"
+msgstr "Extraire"
+
+#: objects/FS/function.c:742 objects/FS/function.c:743
 msgid "Control Magnitude"
 msgstr "Contrôle d'amplitude"
 
-#: objects/FS/function.c:713
-msgid "   Actuate"
-msgstr "   Actualise"
+#: objects/FS/function.c:744 objects/FS/function.c:745
+#, fuzzy
+msgid "Actuate"
+msgstr "Agir"
 
-#: objects/FS/function.c:714
-msgid "   Regulate"
-msgstr "   Régule"
+#: objects/FS/function.c:746
+#, fuzzy
+msgid "Start"
+msgstr "Débuter"
 
-#: objects/FS/function.c:715
-msgid "   Change"
-msgstr "   Change"
+#: objects/FS/function.c:747
+msgid "Initiate"
+msgstr "Initier"
 
-#: objects/FS/function.c:716
-msgid "   Form"
-msgstr "   Formulaire"
+#: objects/FS/function.c:748 objects/FS/function.c:749
+msgid "Regulate"
+msgstr "Réguler"
 
-#: objects/FS/function.c:717
+# problème: utilisé dans des formes grammaticales différentes !!
+#: objects/FS/function.c:750 objects/FS/function.c:859
+#: objects/UML/classicon.c:133
+msgid "Control"
+msgstr "Contrôle"
+
+#: objects/FS/function.c:753
+msgid "Enable"
+msgstr "Autoriser"
+
+#: objects/FS/function.c:754
+msgid "Disable"
+msgstr "Inhiber"
+
+#: objects/FS/function.c:755
+msgid "Limit"
+msgstr "Limiter"
+
+#: objects/FS/function.c:756
+#, fuzzy
+msgid "Interrupt"
+msgstr "Inverser"
+
+#: objects/FS/function.c:757 objects/FS/function.c:758
+msgid "Change"
+msgstr "Changer"
+
+#: objects/FS/function.c:759
+msgid "Increase"
+msgstr "Augmenter"
+
+#: objects/FS/function.c:760
+msgid "Decrease"
+msgstr "Diminuer"
+
+#: objects/FS/function.c:761
+msgid "Amplify"
+msgstr "Amplifier"
+
+#: objects/FS/function.c:762
+msgid "Reduce"
+msgstr "Réduire"
+
+#: objects/FS/function.c:764
+msgid "Normalize"
+msgstr "Normaliser"
+
+#: objects/FS/function.c:765
+msgid "Multiply"
+msgstr "Multiplier"
+
+#: objects/FS/function.c:766
+msgid "Scale"
+msgstr "Mettre à échelle"
+
+#: objects/FS/function.c:767
+msgid "Rectify"
+msgstr "Rectifier"
+
+#: objects/FS/function.c:768
+msgid "Adjust"
+msgstr "Ajuster"
+
+#: objects/FS/function.c:769 objects/FS/function.c:770
+msgid "Form"
+msgstr "Former"
+
+#: objects/FS/function.c:771
+msgid "Compact"
+msgstr "Compacter"
+
+#: objects/FS/function.c:772
+msgid "Crush"
+msgstr "Ecraser"
+
+#: objects/FS/function.c:773
+msgid "Shape"
+msgstr "Former"
+
+#: objects/FS/function.c:774
+msgid "Compress"
+msgstr "Compresser"
+
+#: objects/FS/function.c:775
+msgid "Pierce"
+msgstr "Percer"
+
+#: objects/FS/function.c:776 objects/FS/function.c:777
 msgid "Convert"
-msgstr "Convertit"
+msgstr "Convertir"
 
-#: objects/FS/function.c:719
-msgid "   Sense"
-msgstr "   Capte"
+#: objects/FS/function.c:778
+msgid "Transform"
+msgstr "Transformer"
 
-#: objects/FS/function.c:720
-msgid "   Indicate"
-msgstr "   Indique"
+#: objects/FS/function.c:779
+msgid "Liquefy"
+msgstr "Liquéfier"
 
-#: objects/FS/function.c:721
-msgid "   Display"
-msgstr "   Affiche"
+#: objects/FS/function.c:780
+msgid "Solidify"
+msgstr "Solidifier"
 
-#: objects/FS/function.c:722
-msgid "   Measure"
-msgstr "   Mesure"
+#: objects/FS/function.c:781
+msgid "Evaporate"
+msgstr "Évaporer"
+
+#: objects/FS/function.c:782
+msgid "Sublimate"
+msgstr "Sublimer"
+
+#: objects/FS/function.c:783
+msgid "Condense"
+msgstr "Condenser"
+
+#: objects/FS/function.c:784
+msgid "Integrate"
+msgstr "Intégrer"
+
+#: objects/FS/function.c:785
+msgid "Differentiate"
+msgstr "Différencier"
+
+#: objects/FS/function.c:786
+msgid "Process"
+msgstr "Traiter"
+
+#: objects/FS/function.c:789 objects/FS/function.c:790
+msgid "Sense"
+msgstr "Capter"
+
+#: objects/FS/function.c:791
+msgid "Perceive"
+msgstr "Percevoir"
+
+#: objects/FS/function.c:792
+msgid "Recognize"
+msgstr "Reconnaître"
+
+#: objects/FS/function.c:793
+msgid "Discern"
+msgstr "Discerner"
+
+#: objects/FS/function.c:794
+msgid "Check"
+msgstr "Contrôler"
+
+#: objects/FS/function.c:796
+msgid "Verify"
+msgstr "Vérifier"
+
+#: objects/FS/function.c:797 objects/FS/function.c:798
+msgid "Indicate"
+msgstr "Indiquer"
+
+#: objects/FS/function.c:799
+msgid "Mark"
+msgstr "Marquer"
+
+#: objects/FS/function.c:800
+msgid "Display"
+msgstr "Afficher"
+
+#: objects/FS/function.c:801 objects/FS/function.c:802
+msgid "Measure"
+msgstr "Mesurer"
+
+#: objects/FS/function.c:803
+msgid "Calculate"
+msgstr "Calculer"
+
+#: objects/FS/function.c:804
+msgid "Represent"
+msgstr "Représenter"
+
+#: objects/FS/function.c:805
+msgid "Noun"
+msgstr "Nom"
+
+#: objects/FS/function.c:808
+msgid "Liquid"
+msgstr "Liquide"
+
+#: objects/FS/function.c:809
+msgid "Gas"
+msgstr "Gaz"
+
+#: objects/FS/function.c:810 objects/FS/function.c:811
+#: objects/FS/function.c:853
+msgid "Human"
+msgstr "Humain"
+
+#: objects/FS/function.c:812
+msgid "Hand"
+msgstr "Main"
+
+#: objects/FS/function.c:813
+msgid "Foot"
+msgstr "Pied"
+
+#: objects/FS/function.c:814
+msgid "Head"
+msgstr "Tête"
+
+#: objects/FS/function.c:815
+msgid "Finger"
+msgstr "Doigt"
+
+#: objects/FS/function.c:816
+msgid "Toe"
+msgstr "Orteil"
+
+#: objects/FS/function.c:817
+msgid "Biological"
+msgstr "Biologique"
+
+#: objects/FS/function.c:819
+msgid "Mechanical"
+msgstr "Mécanique"
+
+#: objects/FS/function.c:820
+msgid "Mech. Energy"
+msgstr "Énergie mécanique"
+
+#: objects/FS/function.c:821
+#, fuzzy
+msgid "Translation"
+msgstr "Translation"
+
+#: objects/FS/function.c:822
+msgid "Force"
+msgstr "Force"
+
+#: objects/FS/function.c:823
+#, fuzzy
+msgid "Rotation"
+msgstr "Rotation"
+
+#: objects/FS/function.c:824
+msgid "Torque"
+msgstr "Couple"
+
+#: objects/FS/function.c:825
+msgid "Random Motion"
+msgstr "Mouvement aléatoire"
+
+#: objects/FS/function.c:826
+msgid "Vibration"
+msgstr "Vibration"
+
+#: objects/FS/function.c:827
+msgid "Rotational Energy"
+msgstr "Énergie de rotation"
+
+#: objects/FS/function.c:828
+msgid "Translational Energy"
+msgstr "Énergie de translation"
+
+#: objects/FS/function.c:829
+msgid "Electrical"
+msgstr "Electrique"
+
+#: objects/FS/function.c:830
+msgid "Electricity"
+msgstr "Electricité"
+
+#: objects/FS/function.c:831
+msgid "Voltage"
+msgstr "Tension"
+
+#: objects/FS/function.c:832
+msgid "Current"
+msgstr "Courant"
+
+#: objects/FS/function.c:833
+msgid "Hydraulic"
+msgstr "Hydraulique"
+
+#: objects/FS/function.c:834
+msgid "Pressure"
+msgstr "Pression"
+
+#: objects/FS/function.c:835
+msgid "Volumetric Flow"
+msgstr "Flux volumétrique"
+
+#: objects/FS/function.c:836
+msgid "Thermal"
+msgstr "Thermique"
+
+#: objects/FS/function.c:837
+msgid "Heat"
+msgstr "Chaleur"
+
+#: objects/FS/function.c:838
+msgid "Conduction"
+msgstr "Conduction"
+
+#: objects/FS/function.c:839
+msgid "Convection"
+msgstr "Convection"
+
+#: objects/FS/function.c:840 objects/FS/function.c:844
+msgid "Radiation"
+msgstr "Radiation"
+
+#: objects/FS/function.c:841
+msgid "Pneumatic"
+msgstr "Pneumatique"
+
+#: objects/FS/function.c:842
+msgid "Chemical"
+msgstr "Chimique"
+
+#: objects/FS/function.c:843
+msgid "Radioactive"
+msgstr "Radioactif"
+
+#: objects/FS/function.c:845
+msgid "Microwaves"
+msgstr "Micro-ondes"
+
+#: objects/FS/function.c:846
+msgid "Radio waves"
+msgstr "Ondes radio"
+
+#: objects/FS/function.c:847
+msgid "X-Rays"
+msgstr "Rayons X"
+
+#: objects/FS/function.c:848
+msgid "Gamma Rays"
+msgstr "Rayons gamma"
+
+#: objects/FS/function.c:849
+msgid "Acoustic Energy"
+msgstr "Énergie acoustique"
+
+#: objects/FS/function.c:850
+#, fuzzy
+msgid "Optical Energy"
+msgstr "Énergie optique"
+
+#: objects/FS/function.c:851
+#, fuzzy
+msgid "Solar Energy"
+msgstr "Énergie solaire"
+
+#: objects/FS/function.c:852
+msgid "Magnetic Energy"
+msgstr "Énergie magnétique"
+
+#: objects/FS/function.c:854
+msgid "Human Motion"
+msgstr "Mouvement humain"
+
+#: objects/FS/function.c:855
+msgid "Human Force"
+msgstr "Force humaine"
+
+#: objects/FS/function.c:858
+msgid "Status"
+msgstr "État"
+
+#: objects/FS/function.c:861
+msgid "User/Device Fn"
+msgstr "Fonction d'utilisation/d'appareil"
+
+#: objects/FS/function.c:862
+msgid "Wish Fn"
+msgstr "Fonction désirée"
 
 #: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
 #: objects/GRAFCET/condition.c:205 objects/GRAFCET/condition.c:247
 #: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/GRAFCET/transition.c:215 objects/GRAFCET/transition.c:255
 #: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:337 objects/chronogram/chronoline.c:429
+#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
 #: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:390 objects/flowchart/box.c:353
+#: objects/custom/custom_object.c:392 objects/flowchart/box.c:353
 #: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
 #: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
@@ -2032,12 +2677,11 @@ msgstr "Police :"
 #: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
 #: objects/GRAFCET/condition.c:206 objects/GRAFCET/condition.c:248
 #: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/GRAFCET/transition.c:216 objects/GRAFCET/transition.c:256
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
+#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
 #: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:401 objects/flowchart/box.c:364
+#: objects/custom/custom_object.c:403 objects/flowchart/box.c:364
 #: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
 #: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
@@ -2045,8 +2689,7 @@ msgstr "Taille de police :"
 
 #: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
 #: objects/GRAFCET/condition.c:207 objects/GRAFCET/condition.c:249
-#: objects/GRAFCET/step.c:277 objects/GRAFCET/transition.c:217
-#: objects/GRAFCET/transition.c:257
+#: objects/GRAFCET/step.c:277
 msgid "Text color:"
 msgstr "Couleur du texte :"
 
@@ -2102,42 +2745,71 @@ msgstr "Type d'étape"
 msgid "Color:"
 msgstr "Couleur :"
 
-#: objects/GRAFCET/transition.c:214
-msgid "Receptivity:"
-msgstr "Réceptivité :"
+#: objects/GRAFCET/transition.c:141
+msgid "Receptivity"
+msgstr "Réceptivité"
+
+#: objects/GRAFCET/transition.c:141
+msgid "The boolean equation of the receptivity"
+msgstr "L'équation booléenne de la réceptivité"
+
+#: objects/GRAFCET/transition.c:143
+msgid "The receptivity's font"
+msgstr "La police de la réceptivité"
+
+#: objects/GRAFCET/transition.c:145
+msgid "The receptivity's font size"
+msgstr "La taille de la police de la réceptivité"
+
+#: objects/GRAFCET/transition.c:148
+#, fuzzy
+msgid "Color"
+msgstr "Couleur"
+
+#: objects/GRAFCET/transition.c:148
+msgid "The receptivity's color"
+msgstr "La couleur de la réceptivité"
+
+#: objects/GRAFCET/transition.c:149
+msgid "North point"
+msgstr "Point Nord"
+
+#: objects/GRAFCET/transition.c:150
+msgid "South point"
+msgstr "Point Sud"
 
 #: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Dessine les flèches sur les arcs montants"
 
-#: objects/GRAFCET/vergent.c:173
+#: objects/GRAFCET/vergent.c:171
 msgid "OR"
 msgstr "OU"
 
-#: objects/GRAFCET/vergent.c:174
+#: objects/GRAFCET/vergent.c:172
 msgid "AND"
 msgstr "ET"
 
-#: objects/GRAFCET/vergent.c:183 objects/GRAFCET/vergent.c:216
+#: objects/GRAFCET/vergent.c:181
 msgid "Vergent type:"
 msgstr "Type de vergent :"
 
-#: objects/GRAFCET/vergent.c:463 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Ajouter un point de connexion"
 
-#: objects/GRAFCET/vergent.c:464
+#: objects/GRAFCET/vergent.c:447
 msgid "Delete  connection point"
 msgstr "Supprimer un point de connexion"
 
-#: objects/GRAFCET/vergent.c:468
+#: objects/GRAFCET/vergent.c:451
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET Vergent ET/OU"
 
 #: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
 #: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
+#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
 #: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
 msgid "Font color:"
 msgstr "Couleur de la police :"
@@ -2175,7 +2847,7 @@ msgid "SADT Arrow"
 msgstr "Flèche SADT"
 
 #: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:365 objects/flowchart/box.c:339
+#: objects/custom/custom_object.c:367 objects/flowchart/box.c:339
 #: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
 #: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
@@ -2279,7 +2951,7 @@ msgid "Template"
 msgstr "Modèle"
 
 #. Class page:
-#: objects/UML/class.c:686 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:682 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Classe"
 
@@ -2288,8 +2960,8 @@ msgid "Class name:"
 msgstr "Nom de la classe :"
 
 #: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
-#: objects/UML/generalization.c:125 objects/UML/large_package.c:621
-#: objects/UML/object.c:828 objects/UML/realizes.c:126
+#: objects/UML/generalization.c:125 objects/UML/large_package.c:617
+#: objects/UML/object.c:830 objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Stéréotype :"
 
@@ -2408,10 +3080,6 @@ msgstr "Classe modèle"
 msgid "Formal parameter data"
 msgstr "Données du paramètre formel"
 
-#: objects/UML/classicon.c:133
-msgid "Control"
-msgstr "Contrôle"
-
 #: objects/UML/classicon.c:134
 msgid "Boundary"
 msgstr "Frontière"
@@ -2432,47 +3100,47 @@ msgstr "Montrer la flèche :"
 msgid "Interface:"
 msgstr "Interface :"
 
-#: objects/UML/lifeline.c:149
+#: objects/UML/lifeline.c:138
 msgid "Draw focus of control:"
 msgstr "Afficher le focus du contrôle :"
 
-#: objects/UML/lifeline.c:151
+#: objects/UML/lifeline.c:140
 msgid "Draw destruction mark:"
 msgstr "Montrer les marques de destruction :"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:159
 msgid "Call"
 msgstr "Appel"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:160
 msgid "Create"
 msgstr "Créer"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:161
 msgid "Destroy"
 msgstr "Détruire"
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:162
 msgid "Simple"
 msgstr "Simple"
 
-#: objects/UML/message.c:165
+#: objects/UML/message.c:163
 msgid "Return"
 msgstr "Retour"
 
-#: objects/UML/message.c:166
+#: objects/UML/message.c:164
 msgid "Send"
 msgstr "Envoyer"
 
-#: objects/UML/message.c:167
+#: objects/UML/message.c:165
 msgid "Recursive"
 msgstr "Récursif"
 
-#: objects/UML/message.c:174
+#: objects/UML/message.c:172
 msgid "Message:"
 msgstr "Message :"
 
-#: objects/UML/message.c:176
+#: objects/UML/message.c:174
 msgid "Message type:"
 msgstr "Type de message :"
 
@@ -2480,23 +3148,23 @@ msgstr "Type de message :"
 msgid "Class name"
 msgstr "Nom de classe"
 
-#: objects/UML/object.c:816
+#: objects/UML/object.c:818
 msgid "Explicit state:"
 msgstr "État explicite :"
 
-#: objects/UML/object.c:838
+#: objects/UML/object.c:840
 msgid "Attributes:"
 msgstr "Attributs :"
 
-#: objects/UML/object.c:848
+#: objects/UML/object.c:850
 msgid "Show attributes"
 msgstr "Montrer les attributs"
 
-#: objects/UML/object.c:852
+#: objects/UML/object.c:854
 msgid "Active object"
 msgstr "Activer l'objet"
 
-#: objects/UML/object.c:857
+#: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "instance multiple"
 
@@ -2516,11 +3184,11 @@ msgstr "Type d'état"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Objets de diagrammes « Unified Modelling Language »"
 
-#: objects/UML/usecase.c:137
+#: objects/UML/usecase.c:134
 msgid "Text outside"
 msgstr "Texte en dehors"
 
-#: objects/UML/usecase.c:139
+#: objects/UML/usecase.c:136
 msgid "Collaboration"
 msgstr "Collaboration"
 
@@ -2528,27 +3196,27 @@ msgstr "Collaboration"
 msgid "Chronogram diagram objects"
 msgstr "Objets de diagramme Chronogram"
 
-#: objects/chronogram/chronoline.c:306 objects/chronogram/chronoline.c:409
+#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
 msgid "Aspect"
 msgstr "Aspect"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
+#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: objects/chronogram/chronoline.c:308
+#: objects/chronogram/chronoline.c:309
 msgid "Data"
 msgstr "Données"
 
-#: objects/chronogram/chronoline.c:310
+#: objects/chronogram/chronoline.c:311
 msgid "Data name:"
 msgstr "Nom de donnée :"
 
-#: objects/chronogram/chronoline.c:312
+#: objects/chronogram/chronoline.c:313
 msgid "Events:"
 msgstr "Événements :"
 
-#: objects/chronogram/chronoline.c:313
+#: objects/chronogram/chronoline.c:314
 msgid ""
 "Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
@@ -2564,37 +3232,37 @@ msgstr ""
 "u durée  met le signal dans l'état « inconnu », puis attend 'durée'.\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:321 objects/chronogram/chronoline.c:412
+#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
 #: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
 msgid "Start time:"
 msgstr "Date de début :"
 
-#: objects/chronogram/chronoline.c:323 objects/chronogram/chronoline.c:414
+#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
 msgid "End time:"
 msgstr "Date de fin :"
 
-#: objects/chronogram/chronoline.c:325 objects/chronogram/chronoline.c:416
+#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
 msgid "Rise time:"
 msgstr "Temps de montée :"
 
-#: objects/chronogram/chronoline.c:327 objects/chronogram/chronoline.c:418
+#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
 msgid "Fall time:"
 msgstr "Temps de descente :"
 
-#: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:420
+#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
 msgid "Multi-bit data"
 msgstr "Donnée multi-bit"
 
-#: objects/chronogram/chronoline.c:331 objects/chronogram/chronoline.c:423
+#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 msgid "Data color:"
 msgstr "Couleur des données :"
 
-#: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:424
+#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
 msgid "Data line width:"
 msgstr "Largeur des lignes de données :"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
+#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
 msgid "Line color:"
 msgstr "Couleur des lignes :"
@@ -2619,23 +3287,23 @@ msgstr "Personnel"
 msgid "Custom XML shapes loader"
 msgstr "Chargeur de formes XML personnel"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:197
+#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
 msgid "Flip horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:183 objects/custom/custom_object.c:201
 msgid "Flip vertical"
 msgstr "Retourner verticalement"
 
-#: objects/custom/custom_object.c:379 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:381 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Alignement :"
 
-#: objects/custom/custom_object.c:1352
+#: objects/custom/custom_object.c:1354
 msgid "Flip Horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1353
+#: objects/custom/custom_object.c:1355
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
@@ -2776,15 +3444,15 @@ msgstr ""
 "L'image est plus large que le maximum.\n"
 "L'image n'a pas été exporté en CGM."
 
-#: plug-ins/cgm/cgm.c:1259
+#: plug-ins/cgm/cgm.c:1261
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1273
+#: plug-ins/cgm/cgm.c:1275
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtre d'export Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:631
+#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:631
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2824,12 +3492,12 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Filtre d'export Scalable Vector Graphics"
 
-#: plug-ins/wpg/wpg.c:1050
+#: plug-ins/wpg/wpg.c:1048
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Fichier : type/version %s non supporté.\n"
 
-#: plug-ins/wpg/wpg.c:1199
+#: plug-ins/wpg/wpg.c:1197
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtre d'export WordPerfect"
 
@@ -2875,504 +3543,106 @@ msgstr "N'a pu lire le bit retourné: %s\n"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Type de polyligne inconnu : %d\n"
 
-#: plug-ins/xfig/xfig-import.c:671
+#: plug-ins/xfig/xfig-import.c:670
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Information de texte illisible : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:717
+#: plug-ins/xfig/xfig-import.c:716
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "N'a pu identifier l'objet FIG : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:731
+#: plug-ins/xfig/xfig-import.c:730
 msgid "Compound end outside compound\n"
 msgstr "Fin de composite hors du composite\n"
 
-#: plug-ins/xfig/xfig-import.c:754
+#: plug-ins/xfig/xfig-import.c:753
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Couleur illisible : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:783
+#: plug-ins/xfig/xfig-import.c:782
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Ne peut lire l'extension de groupe : %s\n"
 
 #. Arc.
 #. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:793
+#: plug-ins/xfig/xfig-import.c:792
 #, c-format
 msgid "Object type %d not implemented yet\n"
 msgstr "Type d'objet %d pas encore implémenté\n"
 
-#: plug-ins/xfig/xfig-import.c:796
+#: plug-ins/xfig/xfig-import.c:795
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Type d'objet %d inconnu\n"
 
-#: plug-ins/xfig/xfig-import.c:815
+#: plug-ins/xfig/xfig-import.c:814
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' n'est ni `%s' ni `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:825
+#: plug-ins/xfig/xfig-import.c:824
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Erreur lors de la lecture de la taille du papier : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:847
+#: plug-ins/xfig/xfig-import.c:846
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Erreur lors de la lecture de l'orientation du papier : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:857
+#: plug-ins/xfig/xfig-import.c:856
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Erreur lors de la lecture de la justification : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:867
+#: plug-ins/xfig/xfig-import.c:866
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Erreur lors de la lecture des unités : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:881
+#: plug-ins/xfig/xfig-import.c:880
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Erreur lors de la lecture du facteur d'échelle : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:892
+#: plug-ins/xfig/xfig-import.c:891
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Erreur lors de la lecture de l'indicateur de multi-pagination : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:903
+#: plug-ins/xfig/xfig-import.c:902
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Erreur lors de la lecture de la couleur transparente : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:912 plug-ins/xfig/xfig-import.c:968
+#: plug-ins/xfig/xfig-import.c:911 plug-ins/xfig/xfig-import.c:966
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Erreur lors de la lecture du fichier FIG : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:914 plug-ins/xfig/xfig-import.c:970
+#: plug-ins/xfig/xfig-import.c:913 plug-ins/xfig/xfig-import.c:968
 msgid "Premature end of FIG file\n"
 msgstr "Fin prématurée de fichier FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:923
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Erreur lors de la lecture de la résolution : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:955
+#: plug-ins/xfig/xfig-import.c:953
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ceci ne semble pas être un fichier Fig : %s\n"
 
-#: plug-ins/xfig/xfig-import.c:961
+#: plug-ins/xfig/xfig-import.c:959
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Ceci est un fichier FIG version %d.%d, je peux ne pas le comprendre\n"
 
-#: plug-ins/xfig/xfig-import.c:1014
+#: plug-ins/xfig/xfig-import.c:1012
 msgid "XFig File Format"
 msgstr "Format de fichier XFig"
-
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr ""
-#~ "Dia v %s\n"
-#~ " par Alexander Larsson"
-
-#~ msgid "Hollow Diamond"
-#~ msgstr "Diamant creux"
-
-#~ msgid "Border width:"
-#~ msgstr "Largeur du bord :"
-
-#~ msgid "Foreground color:"
-#~ msgstr "Couleur du premier plan :"
-
-#~ msgid "Background color:"
-#~ msgstr "Couleur d'arrière-plan :"
-
-#~ msgid "Is an object"
-#~ msgstr "Est un objet"
-
-#~ msgid "Asynchronous"
-#~ msgstr "Asynchrone"
-
-#~ msgid "Node name"
-#~ msgstr "Nom du noeud"
-
-#~ msgid "Text outside:"
-#~ msgstr "Texte en dehors :"
-
-#~ msgid "Python scripting support"
-#~ msgstr "Support de script Python"
-
-#~ msgid "Windows Meta File"
-#~ msgstr "Windows Meta File"
-
-#~ msgid "File/New diagram"
-#~ msgstr "Fichier/Nouveau diagramme"
-
-#~ msgid "File/Open..."
-#~ msgstr "Fichier/Ouvrir..."
-
-#~ msgid "File/Save As..."
-#~ msgstr "Fichier/Enregistrer sous..."
-
-#~ msgid "File/Close"
-#~ msgstr "Fichier/Fermer"
-
-#~ msgid "File/Exit"
-#~ msgstr "Fichier/Quitter"
-
-#~ msgid "View/New View"
-#~ msgstr "Vue/Nouvelle vue"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Édition/Copier"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Édition/Couper"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Édition/Coller"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Édition/Supprimer"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Édition/Coller Texte"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Objets/Placer au Fond"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Objets/Placer au Premier Plan"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objets/Grouper"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objets/Dégrouper"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Vue/Avec les Réglets"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Vue/Grille Visible"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Vue/Grille Magnétique"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Vue/Avec les Points de Connexion"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Vue/AntiCrénelage"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Fichier/sep1"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/Fichier/tearoff"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Fichier/sep2"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Édition/tearoff"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/Vue/tearoff"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Vue/Zoom/tearoff"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Vue/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Sélection/tearoff"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/Sélection/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objets/tearoff1"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Objets/sep1"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objets/Alignement horizontal/tearoff"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objets/Alignement vertical/tearoff"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/Outils/tearoff"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Dialogues/tearoff"
-
-#~ msgid "/Tools/"
-#~ msgstr "/Outils/"
-
-#~ msgid "Grid options"
-#~ msgstr "Options de la grille"
-
-#~ msgid "Grid x size:"
-#~ msgstr "Taille horizontale de la grille :"
-
-#~ msgid "Grid y size:"
-#~ msgstr "Taille verticale de la grille :"
-
-#~ msgid "Edit Grid..."
-#~ msgstr "Éditer Grille..."
-
-#~ msgid "/View/Edit Grid..."
-#~ msgstr "/Vue/Éditer Grille..."
-
-#~ msgid "Line style:"
-#~ msgstr "Style de ligne :"
-
-#~ msgid ""
-#~ "Could not determine which import filter\n"
-#~ "to use to open '%s'"
-#~ msgstr ""
-#~ "Impossible de déterminer quelle filtre d'importation\n"
-#~ "utiliser pour ouvrir '%s'"
-
-#~ msgid "Objects"
-#~ msgstr "Objets"
-
-#~ msgid "Dialogs"
-#~ msgstr "Dialogues"
-
-#~ msgid ""
-#~ "Couldn't find any libraries to load.\n"
-#~ "%s is not a directory.\n"
-#~ msgstr ""
-#~ "Impossible de trouver les bibliothèques à charger.\n"
-#~ "%s n'est pas un répertoire.\n"
-
-#~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "Le fichier « %s » n'est pas une bibliothèque d'objets Dia.\n"
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an older version of Dia and cannot be "
-#~ "used.\n"
-#~ "Please upgrade it."
-#~ msgstr ""
-#~ "La bibliothèque d'objets \"%s\" provient d'une ancienne version de Dia et "
-#~ "ne peut pas être utilisée.\n"
-#~ "Il faut mettre à jour la bibliothèque."
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an later version of Dia.\n"
-#~ "You need to upgrade Dia to use it."
-#~ msgstr ""
-#~ "La bibliothèque d'objets \"%s\" provient d'une version plus récente de "
-#~ "Dia.\n"
-#~ "Il faut mettre à jour Dia pour utiliser cette bibliothèque."
-
-#~ msgid ""
-#~ "Unable to find register_sheets in library:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de trouver register_sheets dans la bibliothèque : \n"
-#~ "%s"
-
-#~ msgid "Border width"
-#~ msgstr "Largeur du bord"
-
-#~ msgid "Border colour"
-#~ msgstr "Couleur du bord"
-
-#~ msgid "Inner colour"
-#~ msgstr "Couleur intérieure"
-
-#~ msgid "A custom with text inside."
-#~ msgstr "Personnalisé contenant du texte."
-
-#~ msgid "_Export To EPS"
-#~ msgstr "_Exporter en EPS"
-
-#~ msgid "Export To S_VG"
-#~ msgstr "_Exporter en S_VG"
-
-#~ msgid "/File/Export To S_VG"
-#~ msgstr "/Fichier/Exporter en S_VG"
-
-#~ msgid "Create an actor"
-#~ msgstr "Créer un acteur UML"
-
-#~ msgid "Association, two classes are associated."
-#~ msgstr "Association, deux classes sont associées."
-
-#~ msgid "Aggregation, one class is part of another."
-#~ msgstr "Agrégat, une classe fait partie d'une autre."
-
-#~ msgid "Create a class"
-#~ msgstr "Créer une classe"
-
-#~ msgid "Create a template class"
-#~ msgstr "Créer une classe patron"
-
-#~ msgid "Constraint, place a constraint on something."
-#~ msgstr "Contraint, place une contrainte sur quelquechose."
-
-#~ msgid "Create a dependency"
-#~ msgstr "Créer une dépendance"
-
-#~ msgid "Generalization, class inheritance."
-#~ msgstr "Généralisation, héritage de classe."
-
-#~ msgid "Implements, class implements a specific interface."
-#~ msgstr "Implémente, la classe implémente une interface spécifique."
-
-#~ msgid "Create a (large) package"
-#~ msgstr "Créer un (gros) paquetage"
-
-#~ msgid "Create a note"
-#~ msgstr "Créer une note"
-
-#~ msgid "Realizes, implements a specific interface."
-#~ msgstr "Réalise, implémente une interface spécifique."
-
-#~ msgid "Create a (small) package"
-#~ msgstr "Créer un (petit) paquetage"
-
-#~ msgid "UML"
-#~ msgstr "UML"
-
-#~ msgid "Editor for UML Static Structure Diagrams."
-#~ msgstr "Editor de Diagrammes de Structures Statiques UML."
-
-#~ msgid "Create an object"
-#~ msgstr "Créer un objet"
-
-#~ msgid "Create a message"
-#~ msgstr "Créer un message"
-
-#~ msgid "Create a state machine"
-#~ msgstr "Créer un automate d'états finis"
-
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "Créer une icône d'un stéréotype de classe"
-
-#~ msgid "Create a component"
-#~ msgstr "Créer une composante"
-
-#~ msgid "Weak Entity"
-#~ msgstr "Entité faible"
-
-#~ msgid "ER"
-#~ msgstr "ER"
-
-#~ msgid "Create a participation"
-#~ msgstr "Créer une participation"
-
-#~ msgid "Ethernet bus."
-#~ msgstr "Bus Ethernet."
-
-#~ msgid "A Computer with a tower case."
-#~ msgstr "Un ordinateur dans un boitier tour."
-
-#~ msgid "The symbol for storage. Disc or database."
-#~ msgstr "Le symbole pour le stockage. Disque ou base de données."
-
-#~ msgid "A monitor, with a stand"
-#~ msgstr "Un moniteur, avec un support"
-
-#~ msgid "Network"
-#~ msgstr "Réseau"
-
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "Objets pour le diagramme de description du réseau"
-
-#~ msgid "A simple Printer"
-#~ msgstr "Une simple imprimante"
-
-#~ msgid "A Antenna for wireless transmissions"
-#~ msgstr "Une antenne pour les transmissions sans fils"
-
-#~ msgid "A WAN Connection"
-#~ msgstr "Une connexion à longue distance"
-
-#~ msgid "A stackable hub or switch"
-#~ msgstr "Un hub empilable ou un switch"
-
-#~ msgid "A simple Modem"
-#~ msgstr "Un simple modem"
-
-#~ msgid "A modular switching system"
-#~ msgstr "Un système modulaire à base de switch"
-
-#~ msgid "A RJ45 Wall-Plug"
-#~ msgstr "Une prise murale RJ45"
-
-#~ msgid "A Wall-Plug for the scEAD Cabling System"
-#~ msgstr "Une prise murale pour un système de cablage scEAD"
-
-#~ msgid "Create an orthogonal polyline flow"
-#~ msgstr "Tracer un segment orthogonal de flux"
-
-#~ msgid "Create a flow"
-#~ msgstr "Créer un flux"
-
-#~ msgid "FS"
-#~ msgstr "SF"
-
-#~ msgid "Create a function"
-#~ msgstr "Créer une fonction"
-
-#~ msgid "A Sybase Client Application."
-#~ msgstr "Une application Sybase cliente."
-
-#~ msgid "A Sybase Dataserver."
-#~ msgstr "Une application Sybase server."
-
-#~ msgid "Log Transfer Manager or Rep Agent."
-#~ msgstr ""
-#~ "Conserve un enregistrement du gestionnaire de transferts ou de l'agent de "
-#~ "réplication."
-
-#~ msgid "Sybase Replication Server."
-#~ msgstr "Serveur de réplication Sybase."
-
-#~ msgid "Replication Server Manager."
-#~ msgstr "Gestionnaire du Serveur de réplication."
-
-#~ msgid "Stable Disk Device."
-#~ msgstr "Disque stable."
-
-#~ msgid "Sybase"
-#~ msgstr "Sybase"
-
-#~ msgid "A box with text inside."
-#~ msgstr "Boîte contenant du texte."
-
-#~ msgid "A diamond with text inside."
-#~ msgstr "Diamant contenant du texte."
-
-#~ msgid "A ellipse with text inside."
-#~ msgstr "Ellipse contenant du texte."
-
-#~ msgid "Objects to draw flowcharts"
-#~ msgstr "Objets pour dessiner des graphes de flux"
-
-#~ msgid "A parallelogram with text inside."
-#~ msgstr "Un parallélogramme contenant du texte."
-
-#~ msgid "Number of handles:"
-#~ msgstr "Nombre d'unités de traitement:"
-
-#~ msgid "Copyright (C) 1999"
-#~ msgstr "Copyright (C) 1999"

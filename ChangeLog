@@ -1,3 +1,17 @@
+2001-04-16  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* autogen.sh: 
+	* configure.in:
+	* Makefile.am: hack around gettext-0.10.36's new "features".
+	
+	* lib/properties.[ch]: added new function object_copy_props().
+	
+	* objects/GRAFCET/boolequation.c: check against null values in
+	boolequation_set_value() and boolequation_destroy().
+
+	* objects/GRAFCET/transition.c: Converted from lazyprops to
+	standard properties. 31% less (x86) code !
+
 2001-04-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/wmf/wmf.cpp : changed text conversion from

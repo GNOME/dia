@@ -36,7 +36,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 #include "geometry.h"
 #include "text.h"
 
@@ -57,19 +57,6 @@
 #define TRANSITION_HEIGHT .5
 #define TRANSITION_WIDTH 1.5
 
-typedef struct _TransitionPropertiesDialog TransitionPropertiesDialog;
-typedef struct _TransitionDefaultsDialog TransitionDefaultsDialog;
-typedef struct _TransitionState TransitionState;
-
-struct _TransitionState {
-  ObjectState obj_state;
-  
-  char *rcep_value;
-  Font *rcep_font;
-  real rcep_fontheight;
-  Color rcep_color;
-};
-
 typedef struct _Transition {
   Element element;
   
@@ -88,35 +75,6 @@ typedef struct _Transition {
   Point A,B,C,D,Z;
 } Transition;
 
-struct _TransitionPropertiesDialog {
-  AttributeDialog dialog;
-  Transition *parent;
-
-  StringAttribute rcep_value;
-  FontAttribute rcep_font;
-  FontHeightAttribute rcep_fontheight;
-  ColorAttribute rcep_color;
-};
-
-typedef struct _TransitionDefaults {
-  Font *font;
-  real font_size;
-  Color font_color;
-} TransitionDefaults;
-
-struct _TransitionDefaultsDialog {
-  AttributeDialog dialog;
-  TransitionDefaults *parent;
-
-  FontAttribute font;
-  FontHeightAttribute font_size;
-  ColorAttribute font_color;
-};
-
-static TransitionPropertiesDialog *transition_properties_dialog;
-static TransitionDefaultsDialog *transition_defaults_dialog;
-static TransitionDefaults defaults;
-
 static void transition_move_handle(Transition *transition, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void transition_move(Transition *transition, Point *to);
@@ -131,27 +89,24 @@ static real transition_distance_from(Transition *transition, Point *point);
 static void transition_update_data(Transition *transition);
 static void transition_destroy(Transition *transition);
 static Object *transition_copy(Transition *transition);
-static GtkWidget *transition_get_properties(Transition *transition);
-static ObjectChange *transition_apply_properties(Transition *transition);
-
-static TransitionState *transition_get_state(Transition *transition);
-static void transition_set_state(Transition *transition, TransitionState *state);
 
 static void transition_save(Transition *transition, ObjectNode obj_node,
 			    const char *filename);
 static Object *transition_load(ObjectNode obj_node, int version,
 			       const char *filename);
-
-static GtkWidget *transition_get_defaults(void);
-static void transition_apply_defaults(void);
+static PropDescription *transition_describe_props(Transition *transition);
+static void transition_get_props(Transition *transition, 
+                                 Property *props, guint nprops);
+static void transition_set_props(Transition *transition, 
+                                 Property *props, guint nprops);
 
 static ObjectTypeOps transition_type_ops =
 {
   (CreateFunc)transition_create,   /* create */
   (LoadFunc)  transition_load,     /* load */
   (SaveFunc)  transition_save,      /* save */
-  (GetDefaultsFunc)   transition_get_defaults, 
-  (ApplyDefaultsFunc) transition_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType transition_type =
@@ -172,137 +127,69 @@ static ObjectOps transition_ops = {
   (CopyFunc)            transition_copy,
   (MoveFunc)            transition_move,
   (MoveHandleFunc)      transition_move_handle,
-  (GetPropertiesFunc)   transition_get_properties,
-  (ApplyPropertiesFunc) transition_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   transition_describe_props,
+  (GetPropsFunc)        transition_get_props,
+  (SetPropsFunc)        transition_set_props
 };
 
-static ObjectChange *
-transition_apply_properties(Transition *transition)
+static PropDescription transition_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "receptivity",PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Receptivity"),N_("The boolean equation of the receptivity")},
+  { "rcep_font",PROP_TYPE_FONT, PROP_FLAG_VISIBLE,
+    N_("Font"),N_("The receptivity's font") },
+  { "rcep_fontheight",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Font size"),N_("The receptivity's font size"),
+    &prop_std_text_height_data},
+  { "rcep_color",PROP_TYPE_COLOUR,PROP_FLAG_VISIBLE,
+    N_("Color"),N_("The receptivity's color")},
+  { "north_pos",PROP_TYPE_POINT,0,N_("North point"),NULL },
+  { "south_pos",PROP_TYPE_POINT,0,N_("South point"),NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+transition_describe_props(Transition *transition) 
 {
-  ObjectState *old_state;
-  TransitionPropertiesDialog *dlg = transition_properties_dialog;
-
-  PROPDLG_SANITY_CHECK(dlg,transition);
-  
-  old_state = (ObjectState *)transition_get_state(transition);
-
-  PROPDLG_APPLY_STRING(dlg,rcep_value);
-  PROPDLG_APPLY_FONT(dlg,rcep_font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,rcep_fontheight);
-  PROPDLG_APPLY_COLOR(dlg,rcep_color);
-  
-  boolequation_set_value(transition->receptivity,transition->rcep_value);
-  transition->receptivity->font = transition->rcep_font;
-  transition->receptivity->fontheight = transition->rcep_fontheight;
-  transition->receptivity->color = transition->rcep_color;
-
-  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
-  transition_update_data(transition);
-  return new_object_state_change(&transition->element.object, 
-                                 old_state, 
-				 (GetStateFunc)transition_get_state,
-				 (SetStateFunc)transition_set_state);
-}
-
-static PROPDLG_TYPE
-transition_get_properties(Transition *transition)
-{
-  TransitionPropertiesDialog *dlg = transition_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,transition);
-  PROPDLG_SHOW_STRING(dlg,rcep_value,_("Receptivity:"));
-  PROPDLG_SHOW_FONT(dlg,rcep_font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,rcep_fontheight,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,rcep_color,_("Text color:"));
-  PROPDLG_READY(dlg);
-  
-  transition_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void 
-transition_apply_defaults(void)
-{
-  TransitionDefaultsDialog *dlg = transition_defaults_dialog;  
-
-  PROPDLG_APPLY_FONT(dlg,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,font_size);
-  PROPDLG_APPLY_COLOR(dlg,font_color);
-}
-
-static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-  
-  if (!defaults_initialized) {
-    defaults.font = font_getfont(TRANSITION_FONT);
-    defaults.font_size = TRANSITION_FONT_HEIGHT;
-    defaults.font_color = color_black;
-
-    defaults_initialized = 1;
+  if (transition_props[0].quark == 0) {
+    g_message("doing a calculate_quarks !");
+    prop_desc_list_calculate_quarks(transition_props);
   }
-}
+  return transition_props;
+}    
 
-static PROPDLG_TYPE
-transition_get_defaults(void)
-{
-  TransitionDefaultsDialog *dlg = transition_defaults_dialog;
-  init_default_values();
-  PROPDLG_CREATE(dlg, &defaults);
+static PropOffset transition_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"receptivity",PROP_TYPE_STRING,offsetof(Transition,rcep_value)},
+  {"rcep_font",PROP_TYPE_FONT,offsetof(Transition,rcep_font)},
+  {"rcep_fontheight",PROP_TYPE_REAL,offsetof(Transition,rcep_fontheight)},
+  {"rcep_color",PROP_TYPE_COLOUR,offsetof(Transition,rcep_color)},
+  {"north_pos",PROP_TYPE_POINT,offsetof(Transition,north.pos)},
+  {"south_pos",PROP_TYPE_POINT,offsetof(Transition,south.pos)},
+  { NULL,0,0 }
+};
 
-  PROPDLG_SHOW_FONT(dlg,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,font_color,_("Text color:"));
-  PROPDLG_READY(dlg);
-
-  transition_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void 
-transition_free(ObjectState *objstate)
-{
-  TransitionState *state = (TransitionState *)objstate;
-
-  OBJECT_FREE_STRING(state,rcep_value);
-  OBJECT_FREE_FONT(state,rcep_font);
-  OBJECT_FREE_COLOR(state,rcep_color);
-  OBJECT_FREE_FONTHEIGHT(state,rcep_fontheight);
-}
-
-static TransitionState *
-transition_get_state(Transition *transition)
-{
-  TransitionState *state = g_new0(TransitionState, 1);
-
-  state->obj_state.free = transition_free;
-
-  OBJECT_GET_STRING(transition,state,rcep_value);
-  OBJECT_GET_FONT(transition,state,rcep_font);
-  OBJECT_GET_COLOR(transition,state,rcep_color);
-  OBJECT_GET_FONTHEIGHT(transition,state,rcep_fontheight);
-
-  return state;
+static void
+transition_get_props(Transition *transition, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&transition->element.object,
+                                transition_offsets,props,nprops);
 }
 
 static void
-transition_set_state(Transition *transition, TransitionState *state)
+transition_set_props(Transition *transition, Property *props, guint nprops)
 {
-  OBJECT_SET_STRING(transition,state,rcep_value);
-  OBJECT_SET_FONT(transition,state,rcep_font);
-  OBJECT_SET_COLOR(transition,state,rcep_color);
-  OBJECT_SET_FONTHEIGHT(transition,state,rcep_fontheight);
+  object_set_props_from_offsets(&transition->element.object,
+                                transition_offsets,props,nprops);
+
   boolequation_set_value(transition->receptivity,transition->rcep_value);
   transition->receptivity->font = transition->rcep_font;
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
 
-  g_free(state);
-  
-  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
 }
 
@@ -312,6 +199,8 @@ transition_update_data(Transition *transition)
   Element *elem = &transition->element;
   Object *obj = &elem->object;
   Point *p;
+
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
 
   obj->position = elem->corner;
   elem->width = TRANSITION_DECLAREDWIDTH;
@@ -476,8 +365,10 @@ transition_create(Point *startpoint,
   Object *obj;
   int i;
   Element *elem;
+  Font *default_font; 
+  real default_fontheight;
+  Color fg_color;
 
-  init_default_values();
   transition = g_malloc0(sizeof(Transition));
   elem = &transition->element;
   obj = &elem->object;
@@ -491,15 +382,19 @@ transition_create(Point *startpoint,
 
   element_init(elem, 10,2);
 
+  attributes_get_default_font(&default_font,&default_fontheight);
+  fg_color = attributes_get_foreground();
   
-  transition->receptivity = boolequation_create("",
-					       defaults.font,
-					       defaults.font_size,
-					       &defaults.font_color);
+  transition->receptivity = 
+    boolequation_create("",
+                        default_font,
+                        default_fontheight,
+                        &fg_color);
+
   transition->rcep_value = g_strdup("");
-  transition->rcep_font = defaults.font;
-  transition->rcep_fontheight = defaults.font_size;
-  transition->rcep_color = defaults.font_color;
+  transition->rcep_font = default_font;
+  transition->rcep_fontheight = default_fontheight;
+  transition->rcep_color = fg_color;
 
 
   for (i=0;i<8;i++) {
@@ -521,7 +416,6 @@ transition_create(Point *startpoint,
     obj->connections[i]->connected = NULL;
   }
 
-  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
 
   *handle1 = NULL;
@@ -541,52 +435,13 @@ transition_destroy(Transition *transition)
 static Object *
 transition_copy(Transition *transition)
 {
-  Transition *newtransition;
-  Element *elem, *newelem;
-  int i;
-  Object *newobj;
-  
-  elem = &transition->element;
- 
-  newtransition = g_malloc0(sizeof(Transition));
-  newelem = &newtransition->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newtransition->receptivity = boolequation_create(transition->rcep_value,
-						  transition->rcep_font,
-						  transition->rcep_fontheight,
-						  &transition->rcep_color);
-  newtransition->rcep_value = g_strdup(transition->rcep_value);
-  newtransition->rcep_fontheight = transition->rcep_fontheight;
-  newtransition->rcep_font = transition->rcep_font;
-  newtransition->rcep_color = transition->rcep_color;
-
-  for (i=0;i<8;i++) {
-    newobj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-  newobj->handles[8] = &newtransition->north;
-  newobj->handles[9] = &newtransition->south;
-  newtransition->north.connect_type = HANDLE_CONNECTABLE;
-  newtransition->north.type = HANDLE_MAJOR_CONTROL;
-  newtransition->north.id = HANDLE_NORTH;
-  newtransition->south.connect_type = HANDLE_CONNECTABLE;
-  newtransition->south.type = HANDLE_MAJOR_CONTROL;
-  newtransition->south.id = HANDLE_SOUTH;
-  newtransition->north.pos = transition->A;
-  newtransition->south.pos = transition->B;
-
-  for (i=0;i<2;i++) {
-    newobj->connections[i] = &newtransition->connections[i];
-    newobj->connections[i]->object = newobj;
-    newobj->connections[i]->connected = NULL;
-  }
-
-  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
-  transition_update_data(newtransition);
-
-  return &newtransition->element.object;
+  Point startpoint = {0.0,0.0};
+  Handle *handle1,*handle2;
+  Object *obj = &transition->element.object;
+  Object *newobj = obj->type->ops->create(&startpoint,NULL,
+                                          &handle1,&handle2);
+  object_copy_props(newobj,obj);
+  return newobj;
 }
 
 
@@ -594,79 +449,20 @@ static void
 transition_save(Transition *transition, ObjectNode obj_node,
 		const char *filename)
 {
-  element_save(&transition->element, obj_node);
-
-  save_boolequation(obj_node,"receptivity",transition->receptivity);
-  save_font(obj_node,"rcep_font",transition->rcep_font);
-  save_real(obj_node,"rcep_fontheight",transition->rcep_fontheight);
-  save_color(obj_node,"rcep_color",&transition->rcep_color);
-
-  save_point(obj_node,"north_pos",&transition->north.pos);
-  save_point(obj_node,"south_pos",&transition->south.pos);
-
+  object_save_props(&transition->element.object,obj_node);
 }
 
 static Object *
 transition_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Transition *transition;
-  Element *elem;
-  Object *obj;
-  int i;
-  Point pos = { -65536.0, 0.0 };
+  Object *transition;
+  Point startpoint = {0.0,0.0};
+  Handle *handle1,*handle2;
   
-  init_default_values();
-  transition = g_malloc0(sizeof(Transition));
-
-  elem = &transition->element;
-  obj = &elem->object;
-  
-  obj->type = &transition_type;
-  obj->ops = &transition_ops;
-
-  element_load(elem, obj_node);
-  element_init(elem, 10,2);
-
-  transition->rcep_font = load_font(obj_node,"rcep_font",defaults.font);
-  transition->rcep_fontheight = load_real(obj_node,"rcep_fontheight",
-					defaults.font_size);
-  load_color(obj_node,"rcep_color",&transition->rcep_color,
-	     &defaults.font_color);
-
-  transition->receptivity = load_boolequation(obj_node,"receptivity",NULL,
-					     transition->rcep_font,
-					     transition->rcep_fontheight,
-					     &transition->rcep_color);
-
-  transition->rcep_value = g_strdup(transition->receptivity->value);
-
-  transition->north.connect_type = HANDLE_CONNECTABLE;
-  transition->north.type = HANDLE_MAJOR_CONTROL;
-  transition->north.id = HANDLE_NORTH;
-  load_point(obj_node,"north_pos",&transition->north.pos,&pos);
-
-  transition->south.connect_type = HANDLE_CONNECTABLE;
-  transition->south.type = HANDLE_MAJOR_CONTROL;
-  transition->south.id = HANDLE_SOUTH;
-  load_point(obj_node,"south_pos",&transition->south.pos,&pos);
-
-
-  for (i=0;i<2;i++) {
-    obj->connections[i] = &transition->connections[i];
-    obj->connections[i]->object = obj;
-    obj->connections[i]->connected = NULL;
-  }
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-  obj->handles[8] = &transition->north;
-  obj->handles[9] = &transition->south;
-
-  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
-  transition_update_data(transition);
-
-  return &transition->element.object;
+  transition = transition_type.ops->create(&startpoint,NULL,
+                                            &handle1,&handle2);
+  object_load_props(transition,obj_node);
+  return transition;
 }
 
 

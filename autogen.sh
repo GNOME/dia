@@ -56,10 +56,13 @@ case $CC in
 esac
 
 echo "Running gettextize...  Ignore non-fatal messages."
-# Hmm, we specify --force here, since otherwise things don't
-# get added reliably, but we don't want to overwrite intl
-# while making dist.
-echo "no" | gettextize --copy --force
+## Hmm, we specify --force here, since otherwise things don't
+## get added reliably, but we don't want to overwrite intl
+## while making dist.
+#echo "no" | gettextize --copy --force
+# finally, no, we don't try to force. Otherwise gettextize spends its time 
+# telling its life in po/ChangeLog.
+gettextize --copy
 
 echo "Running libtoolize"
 libtoolize --copy --force

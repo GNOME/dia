@@ -28,7 +28,10 @@ distclean-local:
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
 
-all-local: core-translation-report
+po/Makefile: po/Makefile.in
+	(cd po ; make -f Makefile.in Makefile ; make) # gettext hack
+
+all-local: core-translation-report po/Makefile
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
