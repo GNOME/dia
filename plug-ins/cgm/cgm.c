@@ -37,8 +37,10 @@ static const gchar *dia_version_string = "Dia-" VERSION;
 
 /* --- routines to write various quantities to the CGM stream. --- */
 
+#define REALSIZE 8
+
 static int
-write_double(FILE *fp, double x)
+write_real(FILE *fp, double x)
 {
     int s;
     int e;
@@ -345,11 +347,11 @@ static void
 set_linewidth(RendererCGM *renderer, real linewidth)
 {  /* 0 == hairline **/
     /* line width */
-    write_elhead(renderer->file, 5, 3, 8);
-    write_double(renderer->file, linewidth);
+    write_elhead(renderer->file, 5, 3, REALSIZE);
+    write_real(renderer->file, linewidth);
     /* edge width */
-    write_elhead(renderer->file, 5, 28, 8);
-    write_double(renderer->file, linewidth);
+    write_elhead(renderer->file, 5, 28, REALSIZE);
+    write_real(renderer->file, linewidth);
 }
 
 static void
@@ -439,8 +441,8 @@ set_font(RendererCGM *renderer, Font *font, real height)
     write_elhead(renderer->file, 5, 10, 2);
     write_int16(renderer->file, FONT_NUM(font));
 
-    write_elhead(renderer->file, 5, 15, 8);
-    write_double(renderer->file, height);
+    write_elhead(renderer->file, 5, 15, REALSIZE);
+    write_real(renderer->file, height);
 }
 
 static void
@@ -452,11 +454,11 @@ draw_line(RendererCGM *renderer,
     write_colour(renderer->file, line_colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 1, 32);
-    write_double(renderer->file, start->x);
-    write_double(renderer->file, start->y);
-    write_double(renderer->file, end->x);
-    write_double(renderer->file, end->y);
+    write_elhead(renderer->file, 4, 1, 4 * REALSIZE);
+    write_real(renderer->file, start->x);
+    write_real(renderer->file, start->y);
+    write_real(renderer->file, end->x);
+    write_real(renderer->file, end->y);
 }
 
 static void
@@ -470,10 +472,10 @@ draw_polyline(RendererCGM *renderer,
     write_colour(renderer->file, line_colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 1, num_points * 16);
+    write_elhead(renderer->file, 4, 1, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
-	write_double(renderer->file, points[i].x);
-	write_double(renderer->file, points[i].y);
+	write_real(renderer->file, points[i].x);
+	write_real(renderer->file, points[i].y);
     }
 }
 
@@ -494,10 +496,10 @@ draw_polygon(RendererCGM *renderer,
     write_colour(renderer->file, line_colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 7, num_points * 16);
+    write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
-	write_double(renderer->file, points[i].x);
-	write_double(renderer->file, points[i].y);
+	write_real(renderer->file, points[i].x);
+	write_real(renderer->file, points[i].y);
     }
 }
 
@@ -518,10 +520,10 @@ fill_polygon(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 7, num_points * 16);
+    write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
-	write_double(renderer->file, points[i].x);
-	write_double(renderer->file, points[i].y);
+	write_real(renderer->file, points[i].x);
+	write_real(renderer->file, points[i].y);
     }
 }
 
@@ -540,11 +542,11 @@ draw_rect(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 11, 32);
-    write_double(renderer->file, ul_corner->x);
-    write_double(renderer->file, ul_corner->y);
-    write_double(renderer->file, lr_corner->x);
-    write_double(renderer->file, lr_corner->y);
+    write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
+    write_real(renderer->file, ul_corner->x);
+    write_real(renderer->file, ul_corner->y);
+    write_real(renderer->file, lr_corner->x);
+    write_real(renderer->file, lr_corner->y);
 }
 
 static void
@@ -562,11 +564,11 @@ fill_rect(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 11, 32);
-    write_double(renderer->file, ul_corner->x);
-    write_double(renderer->file, ul_corner->y);
-    write_double(renderer->file, lr_corner->x);
-    write_double(renderer->file, lr_corner->y);
+    write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
+    write_real(renderer->file, ul_corner->x);
+    write_real(renderer->file, ul_corner->y);
+    write_real(renderer->file, lr_corner->x);
+    write_real(renderer->file, lr_corner->y);
 }
 
 static void
@@ -582,17 +584,17 @@ draw_arc(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 80);
-    write_double(renderer->file, center->x); /* center */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, center->x);      /* axes 1 */
-    write_double(renderer->file, center->y + ry);
-    write_double(renderer->file, center->x + rx); /* axes 2 */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, rx * cos(angle1)); /* vector1 */
-    write_double(renderer->file, ry * sin(angle1));
-    write_double(renderer->file, rx * cos(angle2)); /* vector2 */
-    write_double(renderer->file, ry * sin(angle2));
+    write_elhead(renderer->file, 4, 18, 10 * REALSIZE);
+    write_real(renderer->file, center->x); /* center */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, center->x);      /* axes 1 */
+    write_real(renderer->file, center->y + ry);
+    write_real(renderer->file, center->x + rx); /* axes 2 */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, rx * cos(angle1)); /* vector1 */
+    write_real(renderer->file, ry * sin(angle1));
+    write_real(renderer->file, rx * cos(angle2)); /* vector2 */
+    write_real(renderer->file, ry * sin(angle2));
 }
 
 static void
@@ -614,17 +616,17 @@ fill_arc(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 80);
-    write_double(renderer->file, center->x); /* center */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, center->x);      /* axes 1 */
-    write_double(renderer->file, center->y + ry);
-    write_double(renderer->file, center->x + rx); /* axes 2 */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, rx * cos(angle1)); /* vector1 */
-    write_double(renderer->file, ry * sin(angle1));
-    write_double(renderer->file, rx * cos(angle2)); /* vector2 */
-    write_double(renderer->file, ry * sin(angle2));
+    write_elhead(renderer->file, 4, 18, 10 * REALSIZE);
+    write_real(renderer->file, center->x); /* center */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, center->x);      /* axes 1 */
+    write_real(renderer->file, center->y + ry);
+    write_real(renderer->file, center->x + rx); /* axes 2 */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, rx * cos(angle1)); /* vector1 */
+    write_real(renderer->file, ry * sin(angle1));
+    write_real(renderer->file, rx * cos(angle2)); /* vector2 */
+    write_real(renderer->file, ry * sin(angle2));
 }
 
 static void
@@ -643,13 +645,13 @@ draw_ellipse(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 48);
-    write_double(renderer->file, center->x); /* center */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, center->x);      /* axes 1 */
-    write_double(renderer->file, center->y + height/2);
-    write_double(renderer->file, center->x + width/2); /* axes 2 */
-    write_double(renderer->file, center->y);
+    write_elhead(renderer->file, 4, 18, 6 * REALSIZE);
+    write_real(renderer->file, center->x); /* center */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, center->x);      /* axes 1 */
+    write_real(renderer->file, center->y + height/2);
+    write_real(renderer->file, center->x + width/2); /* axes 2 */
+    write_real(renderer->file, center->y);
 }
 
 static void
@@ -668,13 +670,13 @@ fill_ellipse(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 48);
-    write_double(renderer->file, center->x); /* center */
-    write_double(renderer->file, center->y);
-    write_double(renderer->file, center->x);      /* axes 1 */
-    write_double(renderer->file, center->y + height/2);
-    write_double(renderer->file, center->x + width/2); /* axes 2 */
-    write_double(renderer->file, center->y);
+    write_elhead(renderer->file, 4, 18, 6 * REALSIZE);
+    write_real(renderer->file, center->x); /* center */
+    write_real(renderer->file, center->y);
+    write_real(renderer->file, center->x);      /* axes 1 */
+    write_real(renderer->file, center->y + height/2);
+    write_real(renderer->file, center->x + width/2); /* axes 2 */
+    write_real(renderer->file, center->y);
 }
 
 static void
@@ -964,13 +966,17 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
 	putc(0, file);
 
     /* begin picture */
-    write_elhead(file, 0, 4, 0);
+    write_elhead(file, 0, 3, 1);
+    putc(0, file);
+    putc(0, file);
 
+#if 0
     /* set virtual device unit real precision */
     write_elhead(file, 3, 2, 6);
     write_int16(file, 0); /* floating point */
     write_int16(file, 64); /* 64 bit (double) precision */
-    write_int16(file, 0); /* ralcgm seems to read this 
+    write_int16(file, 0); /* ralcgm seems to read this  */
+#endif
 
     /* write the colour mode string */
     write_elhead(file, 2, 2, 2);
@@ -987,21 +993,32 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     extent = &data->extents;
 
     /* write extents */
-    write_elhead(file, 2, 6, 32);
-    write_double(file, extent->left);
-    write_double(file, extent->bottom);
-    write_double(file, extent->right);
-    write_double(file, extent->top);
+    write_elhead(file, 2, 6, 4 * REALSIZE);
+    write_real(file, extent->left);
+    write_real(file, extent->bottom);
+    write_real(file, extent->right);
+    write_real(file, extent->top);
+
+    /* write back colour */
+    write_elhead(file, 2, 7, 4);
+    write_colour(file, &data->bg_color);
+    putc(0, file);
 
     /* begin the picture body */
     write_elhead(file, 0, 4, 0);
 
+    /* set virtual device unit real precision */
+    write_elhead(file, 3, 2, 6);
+    write_int16(file, 0); /* floating point */
+    write_int16(file, 64); /* 64 bit (double) precision */
+    write_int16(file, 0); /* ralcgm seems to read this */
+
     /* make text be the right way up */
-    write_elhead(file, 5, 16, 8);
-    write_int16(file,  0);
-    write_int16(file, -1);
-    write_int16(file,  1);
-    write_int16(file,  0);
+    write_elhead(file, 5, 16, 4 * REALSIZE);
+    write_real(file,  0);
+    write_real(file, -1);
+    write_real(file,  1);
+    write_real(file,  0);
    
 
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);

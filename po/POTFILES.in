@@ -13,6 +13,7 @@ app/properties.c
 app/render_eps.c
 app/defaults.c
 app/preferences.c
+app/render_eps.c
 app/render_svg.c
 app/lineprops_area.c
 lib/diagramdata.c
@@ -82,3 +83,4 @@ objects/flowchart/ellipse.c
 objects/flowchart/flowchart.c
 objects/flowchart/parallelogram.c
 objects/custom/custom_object.c
+plug-ins/cgm/cgm.c

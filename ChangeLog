@@ -1,3 +1,11 @@
+1999-12-22  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/cgm/cgm.c: a few fixups for the output.  Use REALSIZE as
+	the size of a real number, and changed name of write_double to
+	write_real.  Consider changing to fixed real encoding.  Also, now
+	all element headers are correct.  Once the real number encoding is
+	fixed, only text, beziers and images are left to do.
+
 1999-12-21  James Henstridge  <james@daa.com.au>
 
 	* Makefile.am (SUBDIRS): recurse into plug-ins.
