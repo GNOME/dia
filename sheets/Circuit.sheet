@@ -31,7 +31,7 @@
       <description xml:lang="de">Ein horizontal angeordneter Widerstand</description>
       <description>A Horizontally aligned resistor</description>
     </object>
-
+    <br/>
     <object name="Circuit - Vertical Resistor (European)">
       <description xml:lang="no">En vertikalt plassert motstand (europeisk)</description>
       <description xml:lang="fr">Une résistance alignée verticalement (européenne)</description>
@@ -54,7 +54,7 @@
       <description xml:lang="de">Ein vertikal angeordneter Widerstand (europäisch)</description>
       <description>A Horizontally aligned resistor (European)</description>
     </object>
-
+    <br/>
     <object name="Circuit - Horizontal Capacitor">
       <description xml:lang="fr">Un condensateur aligné horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordneter Kondensator</description>
@@ -65,6 +65,7 @@
       <description xml:lang="de">Ein vertikal angeordneter Kondensator</description>
       <description>A vertically aligned capacitor</description>
     </object>
+    <br/>
      <object name="Circuit - NPN Transistor">
       <description xml:lang="no">En bipolar NPN-transistor</description>
       <description xml:lang="en@layman">Small black plastic thing</description>
@@ -79,7 +80,7 @@
       <description xml:lang="fr">Un transistor PNP bipolaire</description>
       <description>A pnp bipolar transistor</description>
     </object>
-    
+    <br/>
     <object name="Circuit - Horizontal Diode">
       <description xml:lang="no">En horisontalt plassert diode</description>
       <description xml:lang="fr">Une diode alignée horizontalement</description>
@@ -104,7 +105,7 @@
       <description xml:lang="de">Eine vertikal ausgerichtete Zener-Diode</description>
       <description>A vertically aligned zener diode</description>
     </object>
-
+    <br/>
     <object name="Circuit - Ground">
       <description xml:lang="no">Et jordingspunkt</description>
       <description xml:lang="fr">Un point de masse</description>
@@ -154,6 +155,7 @@
       <description xml:lang="de">Ein Lautsprecher</description>
       <description>A Speaker</description>
     </object>
+    <br/>
     <object name="Circuit - Horizontal Led (European)">
       <description xml:lang="no">En horisontalt plassert LED</description>
       <description xml:lang="fr">Une diode électro-luminescente (LED) alignée horizontalement</description>
@@ -166,12 +168,15 @@
       <description xml:lang="de">Eine vertikal ausgerichtete LED</description>
       <description>A vertically aligned LED</description>
     </object>
+    <br/>
     <object name="Circuit - NMOS Transistor (European)">
       <description xml:lang="no">En NMOS-transistor</description>
+      <description xml:lang="fr">Un transistor NMOS</description>
       <description>An NMOS transistor</description>
     </object>
     <object name="Circuit - PMOS Transistor (European)">
       <description xml:lang="no">En PMOS-transistor</description>
+      <description xml:lang="fr">Un transistor PMOS</description>
       <description>A PMOS transistor</description>
     </object>
     <object name="Circuit - Horizontal Jumper">

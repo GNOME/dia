@@ -17,15 +17,7 @@
       <description>A "if not" (normally closed) ladder contact
       </description>
     </object>
-    <object name="LADDER - outj">
-      <description xml:lang="fr">Une variable de sortie "saut"</description>
-      <description>A "jump" output variable</description>
-    </object>
-    <object name="LADDER - outrcep">
-      <description xml:lang="fr">Une variable de sortie "réceptivité"
-      </description>
-      <description>A receptivity output variable</description>
-    </object>
+    <br/>
     <object name="LADDER - out">
       <description xml:lang="fr">Une variable de sortie simple</description>
       <description>A simple output variable</description>
@@ -44,6 +36,16 @@
       </description>
       <description>A "reset" output variable</description>
     </object>
+    <object name="LADDER - outj">
+      <description xml:lang="fr">Une variable de sortie "saut"</description>
+      <description>A "jump" output variable</description>
+    </object>
+    <object name="LADDER - outrcep">
+      <description xml:lang="fr">Une variable de sortie "réceptivité"
+      </description>
+      <description>A receptivity output variable</description>
+    </object>
+    <br/>
     <object name="LADDER - sout">
       <description xml:lang="fr">Une variable de sortie simple sauvegardée
       </description>
@@ -64,6 +66,8 @@
 	sauvegardée</description>
       <description>A power-saved "reset" output variable</description>
     </object>
-
+    <!-- TODO : OPERATE, COMPARE, PULSE, TXT, TIMER and various sizes of 
+         general-purpose blocks. 
+         -->
   </contents>
 </sheet>

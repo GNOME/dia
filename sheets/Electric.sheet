@@ -24,6 +24,7 @@
       </description>
       <description>A normally closed position switch</description>
     </object>
+    <br/>
     <object name="Electric - command">
       <description xml:lang="fr">Organe de commande d'un relais</description>
       <description>The command organ of a relay</description>
@@ -36,12 +37,14 @@
       <description xml:lang="fr">Une lampe ou un voyant</description>
       <description>A lamp or indicator light</description>
     </object>
+    <br/>
     <object name="Electric - connpoint">
       <description xml:lang="fr">Un point de connexion</description>
       <description>A connection point</description>
     </object>
     
     <!-- TODO: various detectors (proximity, light, heat), motors, starters,
-    ...-->
+    ... Maybe also a nice type of line with automatic (printed) connection 
+	points -->
   </contents>	
 </sheet>

@@ -22,6 +22,7 @@
     </object>
     <!-- TODO : shaftless double-effect jacks, shock-absorbed jacks 
     (all types, with fixed and variable shock absorption), rotary jacks ... -->
+    <br/>
     <object name="Pneum - press">
       <description xml:lang="fr">Une source de pression (générique)
       </description>
@@ -41,6 +42,7 @@
       <description xml:lang="fr">Un orifice d'évacuation d'air</description>
       <description>An air exhaust orifice</description>
     </object>
+      <br/>
     <object name="Pneum - dist22">
       <description xml:lang="fr">Un distributeur 2/2</description>
       <description>A 2/2 distributor</description>
@@ -65,7 +67,7 @@
       <description xml:lang="fr">Un distributeur 5/3</description>
       <description>A 5/3 distributor</description>
     </object>    
-
+      <br/>
     <object name="Pneum - commusc">
       <description xml:lang="fr">Commande musculaire</description>
       <description>Muscular command</description>
@@ -98,6 +100,7 @@
       <description xml:lang="fr">Commande indirecte par pilote pneumatique</description>
       <description>Indirect command by pneumatic driver</description>
     </object>
+	<br/>
     <object name="Pneum - connpoint">
       <description xml:lang="fr">Un point de connexion</description>
       <description>A connection point</description>

@@ -1,3 +1,11 @@
+2000-04-16  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheets/Electric.sheet:
+	* sheets/Contact.sheet:
+	* sheets/Pneumatic.sheet:
+	* sheets/Circuit.sheet: sprayed some <br/>'s around.
+	(added a few French translations in the last file)
+	
 2000-04-16  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* lib/geometry.h: 
