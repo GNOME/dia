@@ -405,7 +405,6 @@ set_font(RendererGdk *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
-  printf("GDK setting font: height=%f, transformed=%d\n", height, renderer->font_height);
 #ifdef HAVE_FREETYPE
   renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
 #else
@@ -914,19 +913,20 @@ draw_string (RendererGdk *renderer,
 
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
-  
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
+  iwidth = ddisplay_transform_length(ddisp, fts->width);
 
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    x -= fts->width/2;
+    x -= iwidth/2;
     break;
   case ALIGN_RIGHT:
-    x -= fts->width;
+    x -= iwidth;
     break;
   }
+  
   
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
