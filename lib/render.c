@@ -149,6 +149,10 @@ static RenderOps AbstractRenderOps = {
   draw_rounded_rect,
   fill_rounded_rect,
 
+  /* placeholders */
+  NULL, /* DrawLineWithArrowsFunc */
+  NULL, /* DrawPolyLineWithArrowsFunc */
+  NULL, /* DrawArcWithArrowsFunc */
   draw_bezier_with_arrows,
 };
 

@@ -27,11 +27,12 @@
 typedef struct {
     PyObject_HEAD
     Handle *handle;
+    Object *owner; /* remember the owner of the handle, simplifies connect */
 } PyDiaHandle;
 
 
 extern PyTypeObject PyDiaHandle_Type;
 
-PyObject *PyDiaHandle_New(Handle *handle);
+PyObject *PyDiaHandle_New(Handle *handle, Object *owner);
 
 #endif

@@ -195,7 +195,7 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 	PyObject *ret = PyTuple_New(self->object->num_handles);
 
 	for (i = 0; i < self->object->num_handles; i++)
-	    PyTuple_SetItem(ret, i, PyDiaHandle_New(self->object->handles[i]));
+	    PyTuple_SetItem(ret, i, PyDiaHandle_New(self->object->handles[i], self->object));
 	return ret;
     } else if (!strcmp(attr, "connections")) {
 	int i;
@@ -304,13 +304,13 @@ PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
     pyret = PyTuple_New(3);
     PyTuple_SetItem(pyret, 0, PyDiaObject_New(ret));
     if (h1)
-	PyTuple_SetItem(pyret, 1, PyDiaHandle_New(h1));
+	PyTuple_SetItem(pyret, 1, PyDiaHandle_New(h1, ret));
     else {
 	Py_INCREF(Py_None);
 	PyTuple_SetItem(pyret, 1, Py_None);
     }
     if (h2)
-	PyTuple_SetItem(pyret, 2, PyDiaHandle_New(h2));
+	PyTuple_SetItem(pyret, 2, PyDiaHandle_New(h2, ret));
     else {
 	Py_INCREF(Py_None);
 	PyTuple_SetItem(pyret, 2, Py_None);

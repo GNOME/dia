@@ -1,3 +1,52 @@
+2002-04-26  Hans Breuer  <hans@breuer.org>
+
+	* config.h.win32 : added VERSION definition here
+	(and removed from makefile.msc's)
+
+	* app/makefile.msc : added new files
+
+	* app/app_procs.c (app_init): remove sheets_dialog_create()
+	from start-up and ... 
+
+	* app/sheet.c (sheets_dialog_show_callback) : ... lazy create
+	sheet_dialog here when it is really needed.
+	#include "../lib/message.h", make sheets_dialog_create() 
+	return it's success or failing on (!custom_type_symbol). 
+	Although editing shapes is nice IMHO it isn't crucial enough 
+	to abort() Dia if	it isn't possible.
+
+	* app/sheet.h : adapt create_sheet_dialog() prototype
+
+	* app/sheets_dialog.c : add #ifdef HAVE_UNISTD_H
+
+	* app/sheets_dialog_callbacks.c : #ifdef HAVE_UNISTD_H and
+	#ifdef HAVE_UTIME_H. Otherwise #include <sys/utime.h> and
+	name space corrections for utime() and utim_buf #ifdef
+	G_OS_WIN32
+
+	* lib/libdia.def : export new sheet functions
+
+	* lib/makefile.msc : added new files
+
+	* lib/render.c : don't put draw_bezier_with_arrows() in
+	the DrawLineWithArrowsFunc slot
+
+	* objects/custom/custom_object.c : #include <gmodule.h>
+	and export 'custom_type' via G_MODULE_EXPORT
+
+	* objects/uml/class_dialog.c : removed 'incompatible 
+	types' warnings. Some refactoring while making it fit
+	on screen with 800x600 again.
+
+	* plug-ins/python/pydia-cpoint.h : add PyDiaConnectionPoint_Check
+
+	* plug-ins/python/pydia-handle.h : extra parameter to
+	PyDiaHandle_New to store the owner of the handle
+	* plug-ins/python/pydia-handle.c : store handle owner
+	on construction and use it in new method .connect()
+	* plug-ins/python/pydia-object.c plug-ins/python/pydia-diagram.c : 
+	adapt to changed prototype
+
 2002-04-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/text.c (text_calc_boundingbox): Will now return early if box

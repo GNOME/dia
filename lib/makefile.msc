@@ -19,55 +19,56 @@ PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib
 
 OBJECTS = \
-	diagramdata.obj \
-	geometry.obj \
-	color.obj \
-	dia_xml.obj \
-	attributes.obj \
-	render_store.obj \
-	render_object.obj \
-	text.obj \
-	font.obj \
-	utils.obj \
 	arrows.obj \
-	message.obj \
-	focus.obj \
-	sheet.obj \
-	object.obj \
-	connection.obj \
-	orth_conn.obj \
-	poly_conn.obj \
+	attributes.obj \
 	bezier_conn.obj \
-	element.obj \
-	objchange.obj \
-	widgets.obj \
-	dia_image.obj \
-	intl.obj \
-	dia_dirs.obj \
-	neworth_conn.obj \
-	connpoint_line.obj \
-	filter.obj \
-	prop_basic.obj \
-	prop_inttypes.obj \
-	prop_geomtypes.obj \
-	prop_attr.obj \
-	prop_text.obj \
-	prop_widgets.obj \
-	prop_sdarray.obj \
-	properties.obj \
-	propdesc.obj \
-	proplist.obj \
-	propoffsets.obj \
-	propobject.obj \
-	propdialogs.obj  \
-	propregistry.obj \
-	plug-ins.obj \
-	polyshape.obj \
 	beziershape.obj \
-	paper.obj \
 	boundingbox.obj \
 	charconv.obj \
-	render.obj
+	color.obj \
+	connection.obj \
+	connpoint_line.obj \
+	dia_dirs.obj \
+	dia_image.obj \
+	dia_xml.obj \
+	diagramdata.obj \
+	element.obj \
+	filter.obj \
+	focus.obj \
+	font.obj \
+	geometry.obj \
+	intl.obj \
+	message.obj \
+	neworth_conn.obj \
+	objchange.obj \
+	object.obj \
+	orth_conn.obj \
+	paper.obj \
+	plug-ins.obj \
+	poly_conn.obj \
+	polyshape.obj \
+	prop_attr.obj \
+	prop_basic.obj \
+	prop_geomtypes.obj \
+	prop_inttypes.obj \
+	prop_sdarray.obj \
+	prop_text.obj \
+	prop_widgets.obj \
+	propdesc.obj \
+	propdialogs.obj  \
+	properties.obj \
+	proplist.obj \
+	propobject.obj \
+	propoffsets.obj \
+	propregistry.obj \
+	render.obj \
+	render_object.obj \
+	render_store.obj \
+	sheet.obj \
+	text.obj \
+	utils.obj \
+	widgets.obj \
+
 
 ## common stuff
 ## compiler and linker switches

@@ -25,6 +25,11 @@
 
 #include <assert.h>
 #include <gtk/gtk.h>
+#include <gmodule.h>
+/* FIXME: not sure if this is already defined in Glib-1.2.x */
+#ifndef G_MODULE_EXPORT
+#define G_MODULE_EXPORT /* nothing is ok for *nix */
+#endif
 #include <math.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -155,6 +160,7 @@ static ObjectTypeOps custom_type_ops =
 /* This looks like it could be static, but it can't because we key
    on it to determine if an ObjectType is a custom/SVG shape */
 
+G_MODULE_EXPORT 
 ObjectType custom_type =
 {
   "Custom - Generic",  /* name */

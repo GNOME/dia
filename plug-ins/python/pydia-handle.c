@@ -26,7 +26,7 @@
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
 PyObject *
-PyDiaHandle_New(Handle *handle)
+PyDiaHandle_New(Handle *handle, Object *owner)
 {
     PyDiaHandle *self;
 
@@ -34,6 +34,7 @@ PyDiaHandle_New(Handle *handle)
 
     if (!self) return NULL;
     self->handle = handle;
+    self->owner = owner;
     return (PyObject *)self;
 }
 
@@ -58,6 +59,36 @@ PyDiaHandle_Hash(PyDiaHandle *self)
 }
 
 static PyObject *
+PyDiaHandle_Connect(PyDiaHandle *self, PyObject *args)
+{
+  PyDiaObject *obj;
+
+  if (!PyArg_ParseTuple(args, "O:DiaHandle.connect", &obj))
+	return NULL;
+
+  if (PyDiaConnectionPoint_Check (obj)) {
+     PyDiaConnectionPoint *o = (PyDiaConnectionPoint *)obj;
+
+     object_connect (self->owner, self->handle, o->cpoint);
+  }
+  else if (obj == Py_None) {
+     object_unconnect (self->handle->connected_to->object, self->handle);
+  }
+  else {
+    PyErr_SetString(PyExc_TypeError,
+                    "Expecting a ConnectionPoint or None to disconnect.");
+    return NULL;
+  }
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+
+static PyMethodDef PyDiaHandle_Methods[] = {
+    { "connect", (PyCFunction)PyDiaHandle_Connect, 1 },
+    { NULL, 0, 0, NULL }
+};
+
+static PyObject *
 PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
@@ -78,8 +109,7 @@ PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
 	return Py_None;
     }
 
-    PyErr_SetString(PyExc_AttributeError, attr);
-    return NULL;
+    return Py_FindMethod(PyDiaHandle_Methods, (PyObject *)self, attr);
 }
 
 PyTypeObject PyDiaHandle_Type = {

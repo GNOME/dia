@@ -24,8 +24,7 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\build\win32\make.msc
 
 PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
-	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
-	-DVERSION=\"0.89\"
+	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
 	$(LIBXML2_LIBS) \

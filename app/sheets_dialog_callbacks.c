@@ -29,9 +29,20 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <time.h>
+#ifdef HAVE_UTIME_H
 #include <utime.h>
+#else
+/* isn't this placement common ? */
+#include <sys/utime.h>
+#ifdef G_OS_WIN32
+#  define utime(n,b) _(n,b)
+#  define utim_buf _utimbuf
+#endif
+#endif
 
 #include <gmodule.h>
 

@@ -83,7 +83,7 @@ void create_object_pixmap(SheetObject *so, GtkWidget *parent,
 
 gchar *sheet_object_mod_get_type_string(SheetObjectMod *som);
 
-void sheets_dialog_create(void);
+gboolean sheets_dialog_create(void);
 void sheets_dialog_show_callback(gpointer data, guint action,
                                  GtkWidget *widget);
 GtkWidget *lookup_widget(GtkWidget       *widget,

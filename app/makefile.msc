@@ -8,7 +8,7 @@ GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
 PKG_CFLAGS = -I.. $(GLIB_CFLAGS) $(GTK_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
 	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBART -DHAVE_LIBPNG \
-	-DVERSION=\"0.89\" -DWITHOUT_ZOOM_COMBO
+	-DWITHOUT_ZOOM_COMBO
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
 	$(LIBXML2_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib \
@@ -21,14 +21,15 @@ OBJECTS = \
 	commands.obj \
 	connectionpoint_ops.obj \
 	create_object.obj \
-	cut_n_paste.obj \
 	cursor.obj \
+	cut_n_paste.obj \
 	defaults.obj \
 	diagram.obj \
 	diagram_tree.obj \
 	diagram_tree_menu.obj \
 	diagram_tree_menu_callbacks.obj \
 	diagram_tree_window.obj \
+	dialogs.obj \
 	diapagelayout.obj \
 	dia-props.obj \
 	diaunitspinner.obj \
@@ -53,6 +54,7 @@ OBJECTS = \
 	modify_tool.obj \
 	object_ops.obj \
 	pagesetup.obj \
+	paginate_gdiprint.obj \
 	paginate_psprint.obj \
 	plugin-manager.obj \
 	preferences.obj \
@@ -61,14 +63,18 @@ OBJECTS = \
 	render_eps.obj \
 	render_gdk.obj \
 	render_libart.obj \
+	render_pixmap.obj \
 	scroll_tool.obj \
 	select.obj \
+	sheets.obj \
+	sheets_dialog.obj \
+	sheets_dialog_callbacks.obj \
 	splash.obj \
 	tool.obj \
 	undo.obj \
-	winmain.obj \
 	win32print.obj \
-	paginate_gdiprint.obj
+	winmain.obj \
+
 
 
 ## common stuff

@@ -31,6 +31,7 @@
 
 #include "../lib/plug-ins.h"
 #include "../lib/sheet.h"
+#include "../lib/message.h"
 
 #include "interface.h"
 #include "sheets.h"
@@ -189,7 +190,7 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
   g_list_free(menu_item_list);
 }
 
-void
+gboolean
 sheets_dialog_create(void)
 {
   GList *plugin_list;
@@ -200,8 +201,16 @@ sheets_dialog_create(void)
   gchar *sheet_left;
   gchar *sheet_right;
 
-  sheets_mods_list = NULL;             /* This is a leak, but it is better
-                                          than the alternative :-) */
+  if (sheets_mods_list)
+    {
+      /* FIXME: not sure if I understood the data structure
+         but simply leaking isn't acceptable ... --hb
+       */
+      g_slist_foreach(sheets_mods_list, (GFunc)g_free, NULL);
+      g_slist_free(sheets_mods_list);
+    }
+  sheets_mods_list = NULL;
+
   if (!GTK_IS_WIDGET(sheets_dialog))
   {
     sheets_dialog = create_sheets_main_dialog();
@@ -221,7 +230,6 @@ sheets_dialog_create(void)
        if (g_module_symbol(module, "custom_type", &custom_type_symbol) == TRUE)
          break;
     }
-    g_assert(custom_type_symbol);
 
     sheet_left = NULL;
     sheet_right = NULL;
@@ -243,7 +251,13 @@ sheets_dialog_create(void)
     gtk_widget_destroy(wrapbox);
   }
 
-  
+  if (!custom_type_symbol)
+  {
+    message_warning ("Can't get symbol 'custom_type' from any module.\n"
+                     "Editing shapes is disabled.");
+    return FALSE;
+  }
+
   for (sheets_list = get_sheets_list(); sheets_list;
        sheets_list = g_slist_next(sheets_list))
     sheets_append_sheet_mods(sheets_list->data);
@@ -272,7 +286,7 @@ sheets_dialog_create(void)
   option_menu = lookup_widget(sheets_dialog, "optionmenu_left");
   sheets_optionmenu_create(option_menu, wrapbox, sheet_left);
 
-  return;
+  return TRUE;
 }
 
 void
@@ -392,6 +406,12 @@ sheets_dialog_show_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GtkWidget *wrapbox;
   GtkWidget *option_menu;
+  static gboolean sheets_dialog_created = FALSE;
+
+  if (!sheets_dialog_created)
+    sheets_dialog_created = sheets_dialog_create();
+  if (!sheets_dialog_created)
+    return;
 
   wrapbox = gtk_object_get_data(GTK_OBJECT(sheets_dialog), "wrapbox_left");
   option_menu = lookup_widget(sheets_dialog, "optionmenu_left");

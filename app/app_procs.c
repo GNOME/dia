@@ -339,8 +339,6 @@ app_init (int argc, char **argv)
 
   create_layer_dialog();
 
-  sheets_dialog_create();
-
   /* further initialization *before* reading files */  
   active_tool = create_modify_tool();
 
@@ -350,8 +348,6 @@ app_init (int argc, char **argv)
   recent_file_history_init();
 
   create_tree_window();
-
-  //  restore_autosaved_documents();
 
   if (argv) {
 #ifdef HAVE_POPT

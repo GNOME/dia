@@ -302,7 +302,7 @@ PyDiaDiagram_FindClosestHandle(PyDiaDiagram *self, PyObject *args)
     ret = PyTuple_New(3);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
     if (handle)
-	PyTuple_SetItem(ret, 1, PyDiaHandle_New(handle));
+	PyTuple_SetItem(ret, 1, PyDiaHandle_New(handle, obj));
     else {
 	Py_INCREF(Py_None);
 	PyTuple_SetItem(ret, 1, Py_None);

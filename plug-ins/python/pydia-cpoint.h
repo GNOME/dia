@@ -33,5 +33,6 @@ typedef struct {
 extern PyTypeObject PyDiaConnectionPoint_Type;
 
 PyObject *PyDiaConnectionPoint_New(ConnectionPoint *cpoint);
+#define PyDiaConnectionPoint_Check(o) ((o)->ob_type == &PyDiaConnectionPoint_Type)
 
 #endif

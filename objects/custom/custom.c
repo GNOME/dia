@@ -33,6 +33,11 @@
 #endif
 #include <glib.h>
 
+/* FIXME: not sure if this is already defined in Glib-1.2.x */
+#ifndef G_MODULE_EXPORT
+#define G_MODULE_EXPORT /* nothing is ok for *nix */
+#endif
+
 #include "sheet.h"
 #include "shape_info.h"
 #include "dia_dirs.h"
@@ -42,12 +47,13 @@
 void custom_object_new (ShapeInfo *info,
                         ObjectType **otype);
 
-gboolean custom_object_load(gchar *filename, ObjectType **otype);
+G_MODULE_EXPORT gboolean custom_object_load(gchar *filename, 
+                                            ObjectType **otype);
 
 /* Cannot be static, because we may use this fn later when loading
    a new shape via the sheets dialog */
    
-gboolean
+G_MODULE_EXPORT gboolean
 custom_object_load(gchar *filename, ObjectType **otype)
 {
   ShapeInfo *info;
