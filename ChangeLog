@@ -1,3 +1,7 @@
+2004-01-07  Sanlig Badral  <badral@openmn.org>
+
+	* configure.in: Added "mn" to ALL_LINGUAS.
+
 2003-01-04  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c : replace rendering of really small (height
