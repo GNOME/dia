@@ -19,6 +19,14 @@ As of version 0.40 Dia needs gdk_imlib, at least version 1.8.2.
 It can be found here:
   ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/
 
+As of version 0.86, Dia requires either gdk_imlib (version 1.8.2 or newer)
+or gdk-pixbuf (version 0.7.0 or newer).  Older versions of Dia used
+gdk_imlib only.  Gdk_imlib will probably be phased out after a while.
+Gdk-pixbuf can be found here:
+  ftp://ftp.gnome.org/pub/GNOME/unstable/sources/gdk-pixbuf/
+Gdk_imlib can be found here:
+  ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/
+
 BUILDING:
 =========
 
