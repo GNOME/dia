@@ -4,6 +4,7 @@
 	* objects/network/bus.c: 
 	stdprop compliance!
 
+	* objects/custom/custom_object.c: 
 	* objects/network/wanlink.c: 
 	* objects/flowchart/parallelogram.c: 
 	* objects/flowchart/ellipse.c: 

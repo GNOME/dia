@@ -24,7 +24,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <gmodule.h>
 #include <math.h>
 #include <stdlib.h>
@@ -65,7 +64,6 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Custom Custom;
-typedef struct _CustomDefaultsDialog CustomDefaultsDialog;
 
 struct _Custom {
   Element element;
@@ -103,19 +101,7 @@ typedef struct _CustomProperties {
   Color *font_color;
 } CustomProperties;
 
-struct _CustomDefaultsDialog {
-  GtkWidget *vbox;
 
-  GtkToggleButton *show_background;
-
-  GtkSpinButton *padding;
-  DiaAlignmentSelector *alignment;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-};
-
-
-static CustomDefaultsDialog *custom_defaults_dialog;
 static CustomProperties default_properties;
 
 static real custom_distance_from(Custom *custom, Point *point);
@@ -142,16 +128,14 @@ static void custom_set_props(Custom *custom, GPtrArray *props);
 
 static void custom_save(Custom *custom, ObjectNode obj_node, const char *filename);
 static Object *custom_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *custom_get_defaults(void);
-static void custom_apply_defaults(void);
 
 static ObjectTypeOps custom_type_ops =
 {
   (CreateFunc) custom_create,
   (LoadFunc)   custom_load,
   (SaveFunc)   custom_save,
-  (GetDefaultsFunc)   custom_get_defaults,
-  (ApplyDefaultsFunc) custom_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 /* This looks like it could be static, but it can't because we key
@@ -263,18 +247,6 @@ custom_set_props(Custom *custom, GPtrArray *props)
 }
 
 static void
-custom_apply_defaults(void)
-{
-  default_properties.show_background = gtk_toggle_button_get_active(custom_defaults_dialog->show_background);
-
-  default_properties.padding = gtk_spin_button_get_value_as_float(custom_defaults_dialog->padding);
-  default_properties.alignment = dia_alignment_selector_get_alignment(custom_defaults_dialog->alignment);
-  attributes_set_default_font(
-      dia_font_selector_get_font(custom_defaults_dialog->font),
-      gtk_spin_button_get_value_as_float(custom_defaults_dialog->font_size));
-}
-
-static void
 init_default_values(void) {
   static int defaults_initialized = 0;
 
@@ -286,109 +258,6 @@ init_default_values(void) {
   }
 }
 
-static GtkWidget *
-custom_get_defaults(void)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *checkcustom;
-  GtkWidget *padding;
-  GtkWidget *alignment;
-  GtkWidget *fontsel;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-  DiaFont *font = NULL;
-  real font_height;
-
-  if (custom_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    custom_defaults_dialog = g_new(CustomDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    custom_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkcustom = gtk_check_button_new_with_label(_("Draw background"));
-    custom_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkcustom );
-    gtk_widget_show(checkcustom);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkcustom, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    custom_defaults_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Alignment:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    alignment = dia_alignment_selector_new();
-    custom_defaults_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
-    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-    gtk_widget_show (alignment);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    fontsel = dia_font_selector_new();
-    custom_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
-    gtk_widget_show (fontsel);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    custom_defaults_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(custom_defaults_dialog->show_background, 
-			       default_properties.show_background);
-
-  gtk_spin_button_set_value(custom_defaults_dialog->padding,
-			    default_properties.padding);
-  dia_alignment_selector_set_alignment(custom_defaults_dialog->alignment,
-				       default_properties.alignment);
-  attributes_get_default_font(&font, &font_height);
-  dia_font_selector_set_font(custom_defaults_dialog->font, font);
-  gtk_spin_button_set_value(custom_defaults_dialog->font_size, font_height);
-
-  return custom_defaults_dialog->vbox;
-}
 
 static void
 transform_coord(Custom *custom, const Point *p1, Point *out)
