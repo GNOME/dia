@@ -1,3 +1,14 @@
+2003-02-05  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/interface.c (create_display_shell): Don't set as toolbar
+	under Unix, either.  Especially not the diagram shell.  It removes
+	it from the taskbar and makes it unresizable, always-on-top with
+	OpenBox.  TOOLBAR != TOOLBOX.  Setting toolbox to the only
+	appropriate thing, UTILITY, is not good either, you lose resizing
+	and minimizing/maximizing under OpenBox.
+
+	* app/menus.c (display_menu_items): Set delete item to use Delete.
+
 2003-02-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* dia.spec (BuildRequires, Requires): Updated for Gtk2

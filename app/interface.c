@@ -302,10 +302,6 @@ create_display_shell(DDisplay *ddisp,
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
-#ifndef G_OS_WIN32
-  gtk_window_set_type_hint(GTK_WINDOW(ddisp->shell),
-                                      GDK_WINDOW_TYPE_HINT_TOOLBAR);
-#endif  
   gtk_object_set_user_data (GTK_OBJECT (ddisp->shell), (gpointer) ddisp);
 
   gtk_widget_set_events (ddisp->shell,
