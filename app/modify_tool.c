@@ -288,12 +288,24 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 
 #define MIN_PIXELS 10
 
+/** Makes sure that objects aren't accidentally moved when double-clicking
+ * for properties.  Objects do not move unless double click time has passed
+ * or the move is 'significant'.  Allowing the 'significant' move makes a
+ * regular grab-and-move less jerky.
+ *
+ * There's a slight chance that the user could move outside the
+ * minimum movement limit and back in within the double click time
+ * (normally .25 seconds), but that's very, very unlikely.  If
+ * it happens, the cursor wouldn't reset just right.
+ */
+
 static gboolean
 modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
 {
   static gboolean settings_taken = FALSE;
   static int double_click_time = 250;
   real dist;
+
   if (!settings_taken) {
     /* One could argue that if the settings were updated while running,
        we should re-read them.  But I don't see any way to get notified,

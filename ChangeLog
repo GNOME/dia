@@ -4,7 +4,8 @@
 	large or past double-click interval, to avoid accidental moving
 	when doubleclicking.  Got the double-click time right, and fixed
 	some issues with release.  There are some corner cases that may
-	exhibit strange behaviour, will look at those later.
+	exhibit strange behaviour, will look at those later.  Nah, let's
+	not care about those, they are rare and not dangerous.
 
 2002-09-26  Cyrille Chépélov  <cyrille@chepelov.org>
 
