@@ -494,7 +494,8 @@ lifeline_update_data(Lifeline *lifeline)
       extra->end_trans = MAX(LIFELINE_LINEWIDTH/2,LIFELINE_WIDTH/2);
   }
   if (lifeline->draw_cross) {
-    extra->end_trans = LIFELINE_CROSSLEN;
+    extra->end_trans += LIFELINE_CROSSLEN;
+    extra->end_long += LIFELINE_CROSSLEN;
   }
   connection_update_boundingbox(conn);
 
