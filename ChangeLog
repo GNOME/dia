@@ -1,3 +1,49 @@
+2002-09-28  Hans Breuer  <hans@breuer.org>
+
+	* */makefile.msc : updated
+
+	* app/defaults.c : don't gdk_invalidate_rect(NULL)
+	* app/disp_callbacks.c : 
+	can't cast GtkWindow to GdkWindow, use shell->window
+	(ddisplay_unrealize) don't use already unrefed im_context
+	* app/display.c :
+	can't cast from GtkMenu to GtkMenuItem
+	(ddisp_destroy) : mark im_context as unrefed
+
+	* lib/dia_xml (data_font) : prefer new font format over old one
+	(data_add_font) : write the legacy name to allow file exchange
+	with pre Pango versions of Dia, which would otherwise crash 
+	on missing font 'name' attribute.
+	* lib/font.c (dia_font_get_legacy_name) : improved implementation
+	to get a better match.
+
+	* lib/libdia.def : updated
+
+	* lib/messages.c : don't gdk_widget_show(NULL)
+
+	* lib/prop_text.c : don't gtk_entry_set_text() with NULL string 
+
+	[make Dia compile, link _and_ work with mingw/gcc3.2]
+
+	* config.h.win32 : #define LIBXML, this gets defined from libxml
+	header but only for _MSC_VER. The mingw build did access an 
+	unitialized function pointer for xmlFree.
+
+	* */makefile.mingw : updated (some plug-ins have build issues)
+	
+	* lib/handle.h lib/object.h :	there appears to be no 
+	forward declaration of the form 
+		typedef enum _HandleId HandleId 
+	(at least not with GCC 3.2 for C++) ../lib/handle.h:22: 
+	use of enum `_HandleId' without previous declaration
+
+	* app/paginate_gdiprint.cpp : added a hack to avoid g++
+	naming conflict on 'export'
+
+	* app/paginate_gdiprint.h : forward declare Diagram
+
+	* objects/SADT/annotaion.c : use g_random_double()
+
 2002-09-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/modify_tool.c: Made motion not happen until sufficiently
