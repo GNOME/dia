@@ -77,6 +77,7 @@ msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
 msgstr "Nem tudom betölteni a libet: \"%s\":\n"
+" %s\n"
 
 #: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
@@ -201,18 +202,6 @@ msgstr "/Objektumok/Csoport"
 #: app/diagram.c:137
 msgid "/Objects/Ungroup"
 msgstr "/Objektumok/Csoport felbonása"
-
-#: app/diagram.c:139
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes/Középre"
-
-#: app/diagram.c:140
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objektumok/Vizszintes/Középre"
-
-#: app/diagram.c:141
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/Vizszintes"
 
 #: app/diagram.c:142
 msgid "/Objects/Align Horizontal/Equal Distance"
@@ -767,22 +756,6 @@ msgstr "/Objektumok/Vizszintes/Egyenlõ távolság"
 msgid "/Objects/Align _Vertical"
 msgstr "/Objektumok/_Függõleges"
 
-#: app/menus.c:223
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Objektumok/Függõleges/Fel"
-
-#: app/menus.c:224
-msgid "/Objects/Align Vertical/Center"
-msgstr "/Objektumok/Függõleges/Középre"
-
-#: app/menus.c:225
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/Függõleges/Le"
-
-#: app/menus.c:226
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/Függõleges/Egyenlõ távolság"
-
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:229
 msgid "/_Dialogs"
@@ -880,7 +853,7 @@ msgstr ""
 #: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr "s% font nincs, Courier-t használok helyette.\n"
+msgstr "%s font nincs, Courier-t használok helyette.\n"
 
 #: lib/message.c:95
 msgid "Notice"

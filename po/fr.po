@@ -148,6 +148,7 @@ msgid ""
 "No such file found\n"
 "%s\n"
 msgstr "Impossible de trouver ce fichier\n"
+"%s\n"
 
 #: app/commands.c:98
 msgid "Import from XFig"
