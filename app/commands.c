@@ -351,7 +351,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   Text *text;
   GPtrArray *textprops;
   TextProperty *prop;
-  Change *change;
+  ObjectChange *change;
 
   if ((focus == NULL) || (!focus->has_focus)) return;
 
@@ -378,18 +378,12 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 			   GDK_SELECTION_PRIMARY,
 			   GDK_TARGET_STRING, 0);
 
-  /*
-    Want to use set_props, but what then about the Change & undo?
-  prop->text_data = g_strdup("");
-
-  obj->ops->set_props(obj, textprops);
-
-  diagram_flush(ddisp->diagram);
-  */
   prop_list_free(textprops);
 
-  if (text_delete_all(text, (ObjectChange **)&change)) { 
-    (change->apply)(change, ddisp->diagram);
+  if (text_delete_all(text, &change)) { 
+    object_add_updates(obj, ddisp->diagram);
+    undo_object_change(ddisp->diagram, obj, change);
+    undo_set_transactionpoint(ddisp->diagram->undo);
     diagram_flush(ddisp->diagram);
   }
 }

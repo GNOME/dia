@@ -924,6 +924,7 @@ text_delete_all(Text *text, ObjectChange **change)
 				 0, text->cursor_pos, text->cursor_row);
     
     text_set_string(text, "");
+    calc_ascent_descent(text);
     return TRUE;
   }
   return FALSE;
