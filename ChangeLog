@@ -1,3 +1,10 @@
+1999-04-09  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/Makefile.am:
+	Changed link order between X and libxml.
+	Some people had problems with an old libz in their
+	x11 directory.	
+
 1999-04-09  Kjartan Maraas  <kmaraas@online.no>
 
 	* po/no.po: updated translation.
