@@ -14,8 +14,9 @@ endif
 
 noinst_PROGRAMS = run_dia.sh
 run_dia_sh_SOURCES = 
-bin_PROGRAMS = dia
-dia_SOURCES = \
+bin_PROGRAMS = dia dia_embedd
+
+dia_core_files = \
 	    connectionpoint_ops.h \
 	    connectionpoint_ops.c \
 	    diagram.c \
@@ -48,7 +49,6 @@ dia_SOURCES = \
 	    handle_ops.h \
 	    interface.c \
 	    interface.h \
-	    main.c \
 	    modify_tool.c \
 	    modify_tool.h \
 	    scroll_tool.c \
@@ -97,11 +97,27 @@ dia_SOURCES = \
 	    gtkvwrapbox.c \
 	    $(print_files)
 
+
+dia_SOURCES = \
+	    $(dia_core_files) \
+	    main.c 
+
 EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
     $(EFENCE) \
     @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@
+
+# Bonobo embeddable dia. Commented out, because it's a bit raw.
+# Especially the configure/make parts.
+#dia_embedd_SOURCES = \
+#	    $(dia_core_files) \
+#	    dia_embedd.c
+#
+#dia_embedd_LDADD = ../lib/libdia.a \
+#    $(EFENCE) \
+#    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ \
+#    -lbonobo -lORBit -lIIOP -lORBitutil -lgnomeui -lart_lgpl  -lgnome  -lesd  -lORBitCosNaming -lgnorba
 
 CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
@@ -115,11 +131,14 @@ INCLUDES = \
 	@GTK_CFLAGS@ \
 	@GDK_IMLIB_CFLAGS@ \
         @GNOME_CFLAGS@ \
-	@LIBART_CFLAGS@
+	@LIBART_CFLAGS@ \
+	-I/usr/lib/gnome-libs/include
 
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
+	dia_embedd.c \
+	dia.gnorba \
 	render_gnomeprint.c \
 	render_gnomeprint.h \
 	paginate_gnomeprint.c \

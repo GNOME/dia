@@ -22,11 +22,18 @@
 #include "group.h"
 
 #include "load_save.h"
-     
+
+int app_is_embedded(void)
+{
+  return 0;
+}
+
 int main(int argc, char *argv[])
 {
   app_init(argc, argv);
 
+  toolbox_show();
+  
   gtk_main ();
 
   return 0;

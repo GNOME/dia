@@ -1,3 +1,46 @@
+2000-03-24  Alexander Larsson  <alla@lysator.liu.se>
+
+        * app/Makefile.am:
+	Add support for Dia bonobo component.
+	Currently a bit raw, so it's commented out.
+	
+        * app/dia_embedd.c:
+	* app/dia.gnorba:
+	New files for embedding dia.
+	The menu disabling hack is a bit gross. Esp. for GNOME.
+
+	* app/app_procs.h:
+	Add new function app_is_embedded();
+
+	* app/diagram.c:
+	Don't destroy diagram when last display is destroyed if embedded.
+	
+	* app/display.c:
+	Change initialization of display so it works with embedding.
+
+	* app/display.h:
+	Clarify comment about display destruction.
+
+	* app/interface.[ch]:
+	Added top_level_window argument to create_display_shell.
+	Don't open a top-level window if embedding.
+	Don't quit app if trying to close toolbox window when embedding.
+	Add toolbox_show() and toolbox_hide().
+
+	* app/main.c:
+	Added app_is_embedded() function (just returns false).
+	Added toolbox_show() call in main().
+
+	* app/menus.c:
+	Added code for getting toolbox menus. This is used to
+	hide some menu items when running embedded.
+	
+	* app/app_procs.c:
+	Include sheet.h to remove warning.
+
+	* objects/UML/association.c:
+	Clarify association direction text.
+	
 2000-03-16  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* dia.1

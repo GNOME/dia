@@ -30,6 +30,7 @@
 #include "properties.h"
 #include "cut_n_paste.h"
 #include "layer_dialog.h"
+#include "app_procs.h"
 
 GList *open_diagrams = NULL;
 
@@ -37,7 +38,7 @@ Diagram *
 new_diagram(char *filename)  /* Note: filename is copied */
 {
   Diagram *dia = g_new(Diagram, 1);
-
+  
   dia->data = new_diagram_data();
 
   dia->filename = g_malloc(strlen(filename)+1);
@@ -221,7 +222,10 @@ diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
   dia->display_count--;
 
   if(dia->display_count == 0) {
-    diagram_destroy(dia);
+    if (!app_is_embedded()) {
+      /* Don't delete embedded diagram when last view is closed */
+      diagram_destroy(dia);
+    }
   }
 }
 
@@ -668,8 +672,6 @@ diagram_place_under_selected(Diagram *dia)
   GList *sorted_list;
   GList *orig_list;
 
-  printf("diagram_place_under_selected()\n");
-  
   if (dia->data->selected_count == 0)
     return;
 
@@ -692,8 +694,6 @@ diagram_place_over_selected(Diagram *dia)
   GList *sorted_list;
   GList *orig_list;
 
-  printf("diagram_place_over_selected()\n");
-  
   if (dia->data->selected_count == 0)
     return;
 

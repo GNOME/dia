@@ -175,7 +175,11 @@ static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_SUBTREE(N_("Dialogs"), dialogsmenu),
   GNOMEUIINFO_END
 };
-#endif
+
+GtkWidget *toolbox_menubar = NULL;
+GtkWidget *display_menubar = NULL;
+
+#else /* !GNOME */
 
 static GtkItemFactoryEntry toolbox_menu_items[] =
 {
@@ -269,15 +273,19 @@ static GtkItemFactoryEntry display_menu_items[] =
 static int toolbox_nmenu_items = sizeof(toolbox_menu_items) / sizeof(toolbox_menu_items[0]);
 static int display_nmenu_items = sizeof(display_menu_items) / sizeof(display_menu_items[0]);
 
+#endif /* !GNOME */
+
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
 static GtkAccelGroup *display_accel_group = NULL;
+
 
 #ifdef GNOME
 void
 gnome_toolbox_menus_create(GtkWidget* app)
 {
   gnome_app_create_menus(GNOME_APP(app), toolbox_menu);
+  toolbox_menubar = GNOME_APP(app)->menubar;
 }
 
 GtkWidget *
@@ -297,6 +305,7 @@ tearoff (gpointer             callback_data,
 }
 #endif
 
+#ifndef GNOME
 static GtkItemFactoryEntry *
 translate_entries (const GtkItemFactoryEntry *entries, gint n)
 {
@@ -365,29 +374,36 @@ menus_get_image_menu (GtkWidget **menu,
   *accel_group = display_accel_group;
   *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
 }
-
+#endif /* !GNOME */
 
 GtkWidget *menus_get_item_from_path (char *path)
 {
-  GtkWidget *widget;
+  GtkWidget *widget = NULL;
 
 # ifdef GNOME
   gint pos;
-  GtkWidget *parentw;
+  char *menu_name;
+  GtkWidget *parentw = NULL;
   GtkMenuShell *parent;
-  DDisplay *ddisp = ddisplay_active ();
+  DDisplay *ddisp;
 
-  if (! ddisp) return NULL;
-
-  /* drop the <Display>/ at the start */
+  /* drop the "<Display>/" or "<Toolbox>/" at the start */
+  menu_name = path;
   if (! (path = strchr (path, '/'))) return NULL;
   path ++; /* move past the / */
 
-  parentw = gnome_app_find_menu_pos (ddisp->popup, path, &pos);
+  if (strncmp(menu_name, "<Display>", strlen("<Display>")) == 0) {
+    ddisp = ddisplay_active ();
+    if (! ddisp)
+      return NULL;
+    
+    parentw = gnome_app_find_menu_pos(ddisp->popup, path, &pos);
+  } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {
+    parentw = gnome_app_find_menu_pos(toolbox_menubar, path, &pos);
+  } 
   if (! parentw) {
     g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
-	      "(try LANG=C).",
-	      path);
+	      "(try LANG=C).", path);
     return NULL;
   }
 
@@ -396,14 +412,19 @@ GtkWidget *menus_get_item_from_path (char *path)
 
 # else
 
-  widget = gtk_item_factory_get_widget(display_item_factory, path);
-  if (widget == NULL)
+  if (display_item_factory) {
+    widget = gtk_item_factory_get_widget(display_item_factory, path);
+  }
+  
+  if (widget == NULL) {
     widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+  }
 
-  if (widget == NULL)
+  if (widget == NULL) {
      g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
 	       "(try LANG=C).",
 	       path);
+  }
 
 # endif
 

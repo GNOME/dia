@@ -60,6 +60,7 @@
 #include "dia_dirs.h"
 #include "render_eps.h"
 #include "render_svg.h"
+#include "sheet.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -151,7 +152,7 @@ app_init (int argc, char **argv)
 #ifdef GNOME
   gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
 			     0, &poptCtx);
-
+  
   client = gnome_master_client();
   if(client == NULL) {
     g_warning(_("Can't connect to session manager!\n"));
@@ -179,6 +180,7 @@ app_init (int argc, char **argv)
     exit(0);
   }
 #endif
+  
   gtk_init (&argc, &argv);
   dia_image_init();
 #endif

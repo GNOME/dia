@@ -22,9 +22,11 @@
 
 extern void create_display_shell(DDisplay *ddisp,
 				 int width, int height,
-				 char *title);
+				 char *title, int top_level_window);
 
 extern void create_toolbox ();
+extern void toolbox_show(void);
+extern void toolbox_hide(void);
 
 extern GtkWidget *popup_shell;
 extern GtkWidget *modify_tool_button;

@@ -36,6 +36,7 @@
 #include "cut_n_paste.h"
 #include "message.h"
 #include "preferences.h"
+#include "app_procs.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -96,7 +97,8 @@ new_display(Diagram *dia)
 {
   DDisplay *ddisp;
   char *filename;
-  
+  int embedded = app_is_embedded();
+
   ddisp = g_new(DDisplay,1);
 
   ddisp->diagram = dia;
@@ -115,7 +117,7 @@ new_display(Diagram *dia)
   ddisp->autoscroll = TRUE;
 
   ddisp->aa_renderer = 0;
-  ddisp->renderer = NULL;
+  ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);;
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
@@ -138,9 +140,10 @@ new_display(Diagram *dia)
   ddisp->visible.bottom = prefs.new_view.height/ddisp->zoom_factor;
 
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename);
+		       filename, !embedded);
 
-  ddisplay_set_origo(ddisp, 0.0, 0.0);
+  
+  /*  ddisplay_set_origo(ddisp, 0.0, 0.0); */
 
   ddisplay_update_statusbar (ddisp);
   ddisplay_update_scrollbars(ddisp);
@@ -148,7 +151,8 @@ new_display(Diagram *dia)
   if (!display_ht)
     display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
 
-  ddisplay_set_cursor(ddisp, current_cursor);
+  if (!embedded)
+    ddisplay_set_cursor(ddisp, current_cursor);
   
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
@@ -477,9 +481,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
 {
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->pixel_width;
-  int height = ddisp->renderer->pixel_height;
-    
+  int width, height;
+
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;
   ddisp->origo.y = y;
@@ -490,6 +493,9 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM)
     ddisp->zoom_factor = DDISPLAY_MAX_ZOOM;
 
+  width = ddisp->renderer->pixel_width;
+  height = ddisp->renderer->pixel_height;
+  
   visible->left = ddisp->origo.x;
   visible->top = ddisp->origo.y;
   visible->right = ddisp->origo.x + width/ddisp->zoom_factor;
@@ -659,16 +665,20 @@ void
 ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
-  if (ddisp->aa_renderer)
-    destroy_libart_renderer((RendererLibart *)ddisp->renderer);
-  else
-    destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
+
+  if (ddisp->aa_renderer) {
+    if (ddisp->renderer)
+      destroy_libart_renderer((RendererLibart *)ddisp->renderer);
+  } else {
+    if (ddisp->renderer)
+      destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
+  }
 
   ddisp->aa_renderer = aa_renderer;
 
   width = ddisp->canvas->allocation.width;
   height = ddisp->canvas->allocation.height;
-  
+
   if (ddisp->aa_renderer){
     ddisp->renderer = (Renderer *)new_libart_renderer(ddisp, 1);
     libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
@@ -688,7 +698,7 @@ ddisplay_resize_canvas(DDisplay *ddisp,
     else
       ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
   }
-  
+
   if (ddisp->aa_renderer)
     libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
   else

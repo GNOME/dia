@@ -131,7 +131,7 @@ GtkWidget *popup_shell = NULL;
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
-		     char *title)
+		     char *title, int top_level_window)
 {
   GtkWidget *table;
   GtkWidget *status_hbox;
@@ -149,12 +149,18 @@ create_display_shell(DDisplay *ddisp,
   ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, 1, height-1));
 
   /*  The toplevel shell */
-  ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-  gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window",
-			  "Dia");
-  gtk_window_set_policy (GTK_WINDOW (ddisp->shell), TRUE, TRUE, TRUE);
+  if (top_level_window) {
+    ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
+    gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window",
+			    "Dia");
+    gtk_window_set_policy (GTK_WINDOW (ddisp->shell), TRUE, TRUE, TRUE);
+  } else {
+    ddisp->shell = gtk_event_box_new ();
+  }
+  
   gtk_object_set_user_data (GTK_OBJECT (ddisp->shell), (gpointer) ddisp);
+
   gtk_widget_set_events (ddisp->shell,
 			 GDK_POINTER_MOTION_MASK |
 			 GDK_POINTER_MOTION_HINT_MASK |
@@ -236,8 +242,11 @@ create_display_shell(DDisplay *ddisp,
   menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
 #endif
 
-  /*  the accelerator table/group for the popup */
-  gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);
+  if (top_level_window) {
+    /*  the accelerator table/group for the popup */
+    gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
+				ddisp->accel_group);
+  }
 
 
   /* the statusbars */
@@ -687,7 +696,8 @@ create_lineprops_area(GtkWidget *parent)
 void
 toolbox_delete (GtkWidget *widget, gpointer data)
 {
-  app_exit();
+  if (!app_is_embedded())
+    app_exit();
 }
 
 void
@@ -768,7 +778,17 @@ create_toolbox ()
   create_color_area (vbox);
   create_lineprops_area (vbox);
   
-  gtk_widget_show (window);
   toolbox_shell = window;
 }
 
+void
+toolbox_show(void)
+{
+  gtk_widget_show(toolbox_shell);
+}
+
+void
+toolbox_hide(void)
+{
+  gtk_widget_hide(toolbox_shell);
+}

@@ -20,5 +20,6 @@
 
 extern void app_init(int argc, char **argv);
 extern void app_exit(void);
+extern int app_is_embedded(void);
 
 #endif /* APP_PROCS_H */

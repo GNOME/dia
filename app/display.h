@@ -34,7 +34,7 @@ typedef struct _DDisplay DDisplay;
 
 struct _DDisplay {
   Diagram *diagram;               /* pointer to the associated diagram */
-  
+
   GtkWidget *shell;               /* shell widget for this ddisplay    */
   GtkWidget *canvas;              /* canvas widget for this ddisplay   */
   GtkWidget *hsb, *vsb;           /* widgets for scroll bars           */
@@ -69,7 +69,7 @@ struct _DDisplay {
 extern GdkCursor *default_cursor;
 
 extern DDisplay *new_display(Diagram *dia);
-/* Normal destroy is done through widget destroy event. */
+/* Normal destroy is done through shell widget destroy event. */
 extern void ddisplay_really_destroy(DDisplay *ddisp); 
 extern void ddisplay_transform_coords_double(DDisplay *ddisp,
 					     coord x, coord y,

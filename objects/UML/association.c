@@ -995,14 +995,14 @@ association_get_properties(Association *assoc)
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
+    menuitem = gtk_radio_menu_item_new_with_label (group, _("From A to B"));
     gtk_object_set_user_data(GTK_OBJECT(menuitem),
 			     GINT_TO_POINTER(ASSOC_RIGHT));
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
+    menuitem = gtk_radio_menu_item_new_with_label (group, _("From B to A"));
     gtk_object_set_user_data(GTK_OBJECT(menuitem),
 			     GINT_TO_POINTER(ASSOC_LEFT));
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
