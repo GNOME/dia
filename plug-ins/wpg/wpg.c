@@ -437,7 +437,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
-  /* FIXME PANGO: this is broken. Use better matching. */
+  /* FIXME PANGO: this is a little broken. Use better matching. */
     
   const char *family_name;
   DIAG_NOTE(g_message("set_font %f %s", height, font->name));
@@ -445,12 +445,13 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
   family_name = dia_font_get_family(font);
   
-  if ((strstr(family_name, "Courier")) || (strstr(family_name, "Monospace")))
+  if ((strstr(family_name, "courier")) || (strstr(family_name, "monospace")))
     renderer->TextStyle.Font = 0x0DF0;
-  else if (strstr(family_name, "Times"))
+  else if ((strstr(family_name, "times")) || (strstr(family_name, "serif")))
     renderer->TextStyle.Font = 0x1950;
   else
     renderer->TextStyle.Font = 0x1150; /* Helv */
+
 }
 
 /* Need to translate coord system:
@@ -1019,6 +1020,8 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
+
+  renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_polygon = fill_polygon;

@@ -34,7 +34,7 @@ PyObject* PyDiaFont_New (DiaFont* font)
   self = PyObject_NEW(PyDiaFont, &PyDiaFont_Type);
   if (!self) return NULL;
   
-  self->font.name = g_strdup(font->name);
+  self->font = dia_font_ref (font);
 
   return (PyObject *)self;
 }
@@ -45,7 +45,7 @@ PyObject* PyDiaFont_New (DiaFont* font)
 static void
 PyDiaFont_Dealloc(PyDiaFont *self)
 {
-  g_free (self->font.name);
+  dia_font_unref (self->font);
   PyMem_DEL(self);
 }
 
@@ -56,7 +56,18 @@ static int
 PyDiaFont_Compare(PyDiaFont *self,
                   PyDiaFont *other)
 {
-  return strcmp(self->font.name, other->font.name);
+  int ret;
+
+  if (self->font == other->font)
+    return 0;
+
+  ret = strcmp (dia_font_get_family (self->font), 
+                dia_font_get_family (other->font));
+  if (ret != 0)
+    return ret;
+
+  ret = dia_font_get_style (self->font) - dia_font_get_style (other->font);
+  return ret;
 }
 
 /*
@@ -75,9 +86,13 @@ static PyObject *
 PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
 {
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[s]", "name");
+    return Py_BuildValue("[s]", "family", "name", "style");
   else if (!strcmp(attr, "name"))
-    return PyString_FromString(self->font.name);
+    return PyString_FromString(dia_font_get_legacy_name (self->font));
+  else if (!strcmp(attr, "family"))
+    return PyString_FromString(dia_font_get_family (self->font));
+  else if (!strcmp(attr, "style"))
+    PyInt_FromLong (dia_font_get_style (self->font));
 
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
@@ -89,7 +104,15 @@ PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
 static PyObject *
 PyDiaFont_Str(PyDiaFont *self)
 {
-  return PyString_FromString(self->font.name);
+  PyObject *ret;
+  gchar *s = g_strdup_printf ("%s %s %s",
+  	dia_font_get_family (self->font),
+	dia_font_get_weight_string (self->font),
+	dia_font_get_slant_string (self->font));
+
+  ret = PyString_FromString(s);
+  g_free (s);
+  return ret;
 }
 
 /*

@@ -32,12 +32,24 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "filter.h"
 
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
-static const gchar *dia_version_string = "Dia-" VERSION;
-#endif
+#define DXF_TYPE_RENDERER           (dxf_renderer_get_type ())
+#define DXF_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DXF_TYPE_RENDERER, DxfRenderer))
+#define DXF_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DXF_TYPE_RENDERER, DxfRendererClass))
+#define DXF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DXF_TYPE_RENDERER))
+#define DXF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DXF_TYPE_RENDERER, DxfRendererClass))
+
+GType dxf_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _DxfRenderer DxfRenderer;
+typedef struct _DxfRendererClass DxfRendererClass;
+
+struct _DxfRendererClass
+{
+  DiaRendererClass parent_class;
+};
 
 #define IS_ODD(n) (n & 0x01)
 
@@ -87,9 +99,9 @@ typedef struct _TextAttrdxf
 
 /* --- the renderer --- */
 
-typedef struct _Rendererdxf Rendererdxf;
-struct _Rendererdxf {
-    Renderer renderer;
+struct _DxfRenderer
+{
+    DiaRenderer parent_instance;
 
     FILE *file;
 
@@ -108,166 +120,181 @@ struct _Rendererdxf {
 };
 
 
-static void begin_render(Rendererdxf *renderer, DiagramData *data);
-static void end_render(Rendererdxf *renderer);
-static void set_linewidth(Rendererdxf *renderer, real linewidth);
-static void set_linecaps(Rendererdxf *renderer, LineCaps mode);
-static void set_linejoin(Rendererdxf *renderer, LineJoin mode);
-static void set_linestyle(Rendererdxf *renderer, LineStyle mode);
-static void set_dashlength(Rendererdxf *renderer, real length);
-static void set_fillstyle(Rendererdxf *renderer, FillStyle mode);
-static void set_font(Rendererdxf *renderer, DiaFont *font, real height);
-static void draw_line(Rendererdxf *renderer, 
+static void begin_render(DiaRenderer *self);
+static void end_render(DiaRenderer *self);
+static void set_linewidth(DiaRenderer *self, real linewidth);
+static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linejoin(DiaRenderer *self, LineJoin mode);
+static void set_linestyle(DiaRenderer *self, LineStyle mode);
+static void set_dashlength(DiaRenderer *self, real length);
+static void set_fillstyle(DiaRenderer *self, FillStyle mode);
+static void set_font(DiaRenderer *self, DiaFont *font, real height);
+static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
-static void draw_polyline(Rendererdxf *renderer, 
-			  Point *points, int num_points, 
-			  Color *line_colour);
-static void draw_polygon(Rendererdxf *renderer, 
-			 Point *points, int num_points, 
-			 Color *line_colour);
-static void fill_polygon(Rendererdxf *renderer, 
-			 Point *points, int num_points, 
-			 Color *line_colour);
-static void draw_rect(Rendererdxf *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void fill_rect(Rendererdxf *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void draw_arc(Rendererdxf *renderer, 
+static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void fill_arc(Rendererdxf *renderer, 
+static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void draw_ellipse(Rendererdxf *renderer, 
+static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void fill_ellipse(Rendererdxf *renderer, 
+static void fill_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void draw_bezier(Rendererdxf *renderer, 
-			BezPoint *points,
-			int numpoints,
-			Color *colour);
-static void fill_bezier(Rendererdxf *renderer, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour);
-static void draw_string(Rendererdxf *renderer,
+static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *colour);
-static void draw_image(Rendererdxf *renderer,
+static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps *dxfRenderOps;
+static void dxf_renderer_class_init (DxfRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+dxf_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (DxfRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) dxf_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (DxfRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "DxfRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
 
 static void
-init_dxf_renderops()
+dxf_renderer_finalize (GObject *object)
 {
-    dxfRenderOps = create_renderops_table();
+  DxfRenderer *dxf_renderer = DXF_RENDERER (object);
 
-    dxfRenderOps->begin_render = (BeginRenderFunc) begin_render;
-    dxfRenderOps->end_render = (EndRenderFunc) end_render;
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
 
-    dxfRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-    dxfRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-    dxfRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-    dxfRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-    dxfRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-    dxfRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-    dxfRenderOps->set_font = (SetFontFunc) set_font;
+static void
+dxf_renderer_class_init (DxfRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = dxf_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
   
-    dxfRenderOps->draw_line = (DrawLineFunc) draw_line;
-    dxfRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
+  renderer_class->draw_line = draw_line;
   
-    dxfRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-    dxfRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
 
-    dxfRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-    dxfRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
 
-    dxfRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-    dxfRenderOps->fill_arc = (FillArcFunc) fill_arc;
+  renderer_class->draw_string = draw_string;
 
-    dxfRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-    dxfRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
-
-    dxfRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-    dxfRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
-
-    dxfRenderOps->draw_string = (DrawStringFunc) draw_string;
-
-    dxfRenderOps->draw_image = (DrawImageFunc) draw_image;
+  renderer_class->draw_image = draw_image;
 }
 
 
 static void
-init_attributes( Rendererdxf *renderer )
+init_attributes( DxfRenderer *renderer )
 {
     renderer->lcurrent.style = renderer->fcurrent.style = "CONTINUOUS";
 }
 
 static void
-write_line_attributes( Rendererdxf *renderer, Color *color )
+write_line_attributes( DxfRenderer *renderer, Color *color )
 {
 }
 
 static void
-write_filledge_attributes( Rendererdxf *renderer, Color *fill_color,
+write_filledge_attributes( DxfRenderer *renderer, Color *fill_color,
                            Color *edge_color )
 {
 }
 
 static void
-write_text_attributes( Rendererdxf *renderer, Color *text_color)
+write_text_attributes( DxfRenderer *renderer, Color *text_color)
 {
 }
 
 
 static void
-begin_render(Rendererdxf *renderer, DiagramData *data)
+begin_render(DiaRenderer *self)
 {
 }
 
 static void
-end_render(Rendererdxf *renderer)
+end_render(DiaRenderer *self)
 {
-	fprintf(renderer->file, "0\nENDSEC\n0\nEOF\n");
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    fprintf(renderer->file, "0\nENDSEC\n0\nEOF\n");
     fclose(renderer->file);
 }
 
 static void
-set_linewidth(Rendererdxf *renderer, real linewidth)
+set_linewidth(DiaRenderer *self, real linewidth)
 {
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
         /* update current line and edge width */
     renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
 }
 
 static void
-set_linecaps(Rendererdxf *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
 }
 
 static void
-set_linejoin(Rendererdxf *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
 }
 
 static void
-set_linestyle(Rendererdxf *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode)
 {
-	char   *style;
+    DxfRenderer *renderer = DXF_RENDERER(self);
+    char   *style;
 
     switch(mode)
     {
@@ -292,27 +319,31 @@ set_linestyle(Rendererdxf *renderer, LineStyle mode)
 }
 
 static void
-set_dashlength(Rendererdxf *renderer, real length)
+set_dashlength(DiaRenderer *self, real length)
 { 
 }
 
 static void
-set_fillstyle(Rendererdxf *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
 }
 
 static void
-set_font(Rendererdxf *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
-	renderer->tcurrent.font_height = height;
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    renderer->tcurrent.font_height = height;
 }
 
 static void
-draw_line(Rendererdxf *renderer, 
+draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
-	fprintf(renderer->file, "  0\nLINE\n");
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    fprintf(renderer->file, "  0\nLINE\n");
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
     fprintf(renderer->file, " 10\n%f\n", start->x);
@@ -323,160 +354,89 @@ draw_line(Rendererdxf *renderer,
 }
 
 static void
-draw_polyline(Rendererdxf *renderer, 
-	      Point *points, int num_points, 
-	      Color *line_colour)
-{
-	int i;
-	for(i=0; i<num_points-1; i++) {
-		draw_line(renderer, &points[i], &points[i+1], line_colour);
-	}
-}
-
-static void
-draw_polygon(Rendererdxf *renderer, 
-	     Point *points, int num_points, 
-	     Color *line_colour)
-{
-	int i;
-	for(i=0; i<num_points-1; i++) {
-		draw_line(renderer, &points[i], &points[i+1], line_colour);
-	}
-	draw_line(renderer, &points[num_points-1],&points[0], line_colour);
-}
-
-static void
-fill_polygon(Rendererdxf *renderer, 
-	     Point *points, int num_points, 
-	     Color *colour)
-{
-	draw_polygon(renderer, points, num_points, colour);
-}
-
-static void
-draw_rect(Rendererdxf *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-	Point ur_corner, ll_corner;
-	
-	ur_corner.x = lr_corner->x;
-	ur_corner.y = ul_corner->y;
-	ll_corner.x = ul_corner->x;
-	ll_corner.y = lr_corner->y;
-	draw_line(renderer, ul_corner, &ur_corner, colour);
-	draw_line(renderer, &ur_corner, lr_corner, colour);
-	draw_line(renderer, lr_corner, &ll_corner, colour);
-	draw_line(renderer, &ll_corner, ul_corner, colour);
-}
-
-static void
-fill_rect(Rendererdxf *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-		draw_rect(renderer, ul_corner, lr_corner, colour);
-}
-
-static void
-draw_arc(Rendererdxf *renderer, 
+draw_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
- if(height != 0.0){
-            fprintf(renderer->file, "  0\nELLIPSE\n");
-            fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-            fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-            fprintf(renderer->file, " 10\n%f\n", center->x);
-            fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-            fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
-            fprintf(renderer->file, " 40\n%f\n", width/height); /*Ratio major/minor axis*/
-            fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-            fprintf(renderer->file, " 41\n%f\n", (angle1/360 ) * 2 * M_PI); /*Start Parameter full ellipse */
-            fprintf(renderer->file, " 42\n%f\n", (angle2/360 ) * 2 * M_PI); /* End Parameter full ellipse */		
-  }          
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    if(height != 0.0){
+        fprintf(renderer->file, "  0\nELLIPSE\n");
+        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+        fprintf(renderer->file, " 10\n%f\n", center->x);
+        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
+        fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
+        fprintf(renderer->file, " 40\n%f\n", width/height); /*Ratio major/minor axis*/
+        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+        fprintf(renderer->file, " 41\n%f\n", (angle1/360 ) * 2 * M_PI); /*Start Parameter full ellipse */
+        fprintf(renderer->file, " 42\n%f\n", (angle2/360 ) * 2 * M_PI); /* End Parameter full ellipse */		
+    }          
 }
 
 static void
-fill_arc(Rendererdxf *renderer, 
+fill_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-	draw_arc(renderer, center, width, height, angle1, angle2, colour);
+    draw_arc(self, center, width, height, angle1, angle2, colour);
 }
 
 static void
-draw_ellipse(Rendererdxf *renderer, 
+draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
-	/* draw a circle instead of an ellipse, if it's one */
-	if(width == height){
-            fprintf(renderer->file, "  0\nCIRCLE\n");
-            fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-            fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-            fprintf(renderer->file, " 10\n%f\n", center->x);
-            fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-            fprintf(renderer->file, " 40\n%f\n", height/2);
-            fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-	}
-	else if(height != 0.0){
-            fprintf(renderer->file, "  0\nELLIPSE\n");
-            fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-            fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-            fprintf(renderer->file, " 10\n%f\n", center->x);
-            fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-            fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
-            fprintf(renderer->file, " 40\n%f\n", height/width); /*Ratio major/minor axis*/
-            fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-            fprintf(renderer->file, " 41\n%f\n", 0.0); /*Start Parameter full ellipse */
-            fprintf(renderer->file, " 42\n%f\n", 2.0*3.14); /* End Parameter full ellipse */		
-	}
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    /* draw a circle instead of an ellipse, if it's one */
+    if(width == height){
+        fprintf(renderer->file, "  0\nCIRCLE\n");
+        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+        fprintf(renderer->file, " 10\n%f\n", center->x);
+        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
+        fprintf(renderer->file, " 40\n%f\n", height/2);
+        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+    }
+    else if(height != 0.0){
+        fprintf(renderer->file, "  0\nELLIPSE\n");
+        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+        fprintf(renderer->file, " 10\n%f\n", center->x);
+        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
+        fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
+        fprintf(renderer->file, " 40\n%f\n", height/width); /*Ratio major/minor axis*/
+        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+        fprintf(renderer->file, " 41\n%f\n", 0.0); /*Start Parameter full ellipse */
+        fprintf(renderer->file, " 42\n%f\n", 2.0*3.14); /* End Parameter full ellipse */		
+    }
 }
 
 static void
-fill_ellipse(Rendererdxf *renderer, 
+fill_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
-	draw_ellipse(renderer, center, width, height, colour);
+    draw_ellipse(self, center, width, height, colour);
 }
 
 
 static void
-draw_bezier(Rendererdxf *renderer, 
-	    BezPoint *points,
-	    int numpoints,
-	    Color *colour)
-{
-	
-}
-
-
-static void
-fill_bezier(Rendererdxf *renderer, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
-{
-	draw_bezier(renderer, points, numpoints, colour);
-}
-
-
-
-static void
-draw_string(Rendererdxf *renderer,
+draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-	fprintf(renderer->file, "  0\nTEXT\n");
+    DxfRenderer *renderer = DXF_RENDERER(self);
+
+    fprintf(renderer->file, "  0\nTEXT\n");
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
     fprintf(renderer->file, " 10\n%f\n", pos->x);
@@ -484,12 +444,12 @@ draw_string(Rendererdxf *renderer,
     fprintf(renderer->file, " 40\n%f\n", renderer->tcurrent.font_height); /* Text height */
     fprintf(renderer->file, " 50\n%f\n", 0.0); /* Text rotation */
     switch(alignment) {
-    	case ALIGN_LEFT :
-	    	fprintf(renderer->file, " 72\n%d\n", 0);
-	    case ALIGN_RIGHT :
-   	    	fprintf(renderer->file, " 72\n%d\n", 2);
-	    case ALIGN_CENTER :
-   	    	fprintf(renderer->file, " 72\n%d\n", 1);	    	    
+    case ALIGN_LEFT :
+	fprintf(renderer->file, " 72\n%d\n", 0);
+    case ALIGN_RIGHT :
+   	fprintf(renderer->file, " 72\n%d\n", 2);
+    case ALIGN_CENTER :
+   	fprintf(renderer->file, " 72\n%d\n", 1);	    	    
     }    
     fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
     fprintf(renderer->file, "  1\n%s\n", text);
@@ -497,9 +457,8 @@ draw_string(Rendererdxf *renderer,
     fprintf(renderer->file, " 62\n%d\n", 1);
 }
 
-
 static void
-draw_image(Rendererdxf *renderer,
+draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
@@ -510,7 +469,7 @@ static void
 export_dxf(DiagramData *data, const gchar *filename, 
            const gchar *diafilename, void* user_data)
 {
-    Rendererdxf *renderer;
+    DxfRenderer *renderer;
     FILE *file;
     int i;
     Layer *layer;
@@ -522,13 +481,7 @@ export_dxf(DiagramData *data, const gchar *filename,
 	  return;
     }
 
-    if (dxfRenderOps == NULL)
-	init_dxf_renderops();
-
-    renderer = g_new(Rendererdxf, 1);
-    renderer->renderer.ops = dxfRenderOps;
-    renderer->renderer.is_interactive = 0;
-    renderer->renderer.interactive_ops = NULL;
+    renderer = g_object_new(DXF_TYPE_RENDERER, NULL);
 
     renderer->file = file;
     
@@ -551,17 +504,17 @@ export_dxf(DiagramData *data, const gchar *filename,
     
     init_attributes(renderer);
 
-    (((Renderer *)renderer)->ops->begin_render)((Renderer *)renderer);
+    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
   
     for (i=0; i<data->layers->len; i++) {
-      layer = (Layer *) g_ptr_array_index(data->layers, i);
+        layer = (Layer *) g_ptr_array_index(data->layers, i);
 	    renderer->layername = layer->name;
-      layer_render(layer, (Renderer *)renderer, NULL, NULL, data, 0);
-  	}
+        layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+    }
   
-    (((Renderer *)renderer)->ops->end_render)((Renderer *)renderer);
+    DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
-    g_free(renderer);
+    g_object_unref(renderer);
 }
 
 static const gchar *extensions[] = { "dxf", NULL };

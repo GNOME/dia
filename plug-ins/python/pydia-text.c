@@ -110,8 +110,8 @@ static PyObject *
 PyDiaText_Str(PyDiaText *self)
 {
   gchar *strname = g_strdup_printf("<DiaText \"%s\" at %lx>",
-				     self->attr.font->name,
-				     (long)self);
+                                   self->attr.font ? dia_font_get_family (self->attr.font) : "none",
+                                   (long)self);
   PyObject *ret = PyString_FromString(strname);
 
   g_free(strname);

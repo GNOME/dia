@@ -35,7 +35,7 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"

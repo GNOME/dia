@@ -1,3 +1,22 @@
+/* Python plug-in for dia
+ * Copyright (C) 1999  James Henstridge
+ * Copyright (C) 2000,2002  Hans Breuer
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 #include <config.h>
 #include <glib.h>
 
@@ -5,7 +24,6 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
 
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 #include "pydia-export.h"
@@ -17,28 +35,48 @@
 #include "pydia-error.h"
 
 /*
- * The PyDiaRenderer is currently defined in Python only. This file
- * is using it's interface. Probably the Renderer should be implemented
- * as Extension Class ... 
+ * The PyDiaRenderer is currently defined in Python only. The
+ * DiaPyRenderer is using it's interface to map the gobject
+ * DiaRenderer to it. A next step could be to let Python code
+ * directly inherit from DiaPyRenderer.
+ * To do that probably some code from pygtk.gobject needs to
+ * be borrowed/shared
  */
+#include "diarenderer.h"
 
-#define MY_RENDERER_NAME "PyDiaRenderer"
+#define DIA_TYPE_PY_RENDERER           (dia_py_renderer_get_type ())
+#define DIA_PY_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_PY_RENDERER, DiaPyRenderer))
+#define DIA_PY_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_PY_RENDERER, DiaPyRendererClass))
+#define DIA_IS_PY_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_PY_RENDERER))
+#define DIA_PY_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_PY_RENDERER, DiaPyRendererClass))
 
-typedef struct _MyRenderer MyRenderer;
-struct _MyRenderer {
-    Renderer  renderer;
-    char*     filename;
-    PyObject* self; 
-    PyObject* diagram_data; 
+GType dia_py_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _DiaPyRenderer DiaPyRenderer;
+typedef struct _DiaPyRendererClass DiaPyRendererClass;
+
+struct _DiaPyRenderer
+{
+  DiaRenderer parent_instance;
+
+  char*     filename;
+  PyObject* self; 
+  PyObject* diagram_data; 
 };
 
-#define PYDIA_RENDERER(renderer) (renderer->self)
+struct _DiaPyRendererClass
+{
+  DiaRendererClass parent_class;
+};
 
-/* include function declares and render object "vtable" */
-#include "../renderer.inc"
+#define PYDIA_RENDERER(renderer) \
+	(DIA_PY_RENDERER(renderer)->self)
 
+/*
+ * Members overwritable by Python scripts
+ */
 static void
-begin_render(MyRenderer *renderer, DiagramData *data)
+begin_render(DiaRenderer *renderer, DiagramData *data)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -46,7 +84,9 @@ begin_render(MyRenderer *renderer, DiagramData *data)
   if (func && PyCallable_Check(func)) {
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(Os)", renderer->diagram_data, renderer->filename);
+    arg = Py_BuildValue ("(Os)", 
+                         DIA_PY_RENDERER(renderer)->diagram_data, 
+                         DIA_PY_RENDERER(renderer)->filename);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res);
@@ -58,7 +98,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 }
 
 static void
-end_render(MyRenderer *renderer)
+end_render(DiaRenderer *renderer)
 {
   PyObject *func, *res, *self = PYDIA_RENDERER (renderer);
 
@@ -72,12 +112,12 @@ end_render(MyRenderer *renderer)
     Py_INCREF(self);
   }
 
-  Py_DECREF (renderer->diagram_data);
-  g_free (renderer->filename);
+  Py_DECREF (DIA_PY_RENDERER(renderer)->diagram_data);
+  g_free (DIA_PY_RENDERER(renderer)->filename);
 }
 
 static void
-set_linewidth(MyRenderer *renderer, real linewidth)
+set_linewidth(DiaRenderer *renderer, real linewidth)
 {  
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -99,7 +139,7 @@ set_linewidth(MyRenderer *renderer, real linewidth)
 }
 
 static void
-set_linecaps(MyRenderer *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *renderer, LineCaps mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -111,7 +151,7 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
   case LINECAPS_PROJECTING:
     break;
   default:
-    message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linecaps");
@@ -132,7 +172,7 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
 }
 
 static void
-set_linejoin(MyRenderer *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *renderer, LineJoin mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -144,7 +184,7 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
   case LINEJOIN_BEVEL:
     break;
   default:
-    message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linejoin");
@@ -165,7 +205,7 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
 }
 
 static void
-set_linestyle(MyRenderer *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *renderer, LineStyle mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -182,7 +222,7 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
   case LINESTYLE_DOTTED:
     break;
   default:
-    message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linestyle");
@@ -203,7 +243,7 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
 }
 
 static void
-set_dashlength(MyRenderer *renderer, real length)
+set_dashlength(DiaRenderer *renderer, real length)
 {  
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -225,7 +265,7 @@ set_dashlength(MyRenderer *renderer, real length)
 }
 
 static void
-set_fillstyle(MyRenderer *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *renderer, FillStyle mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -233,7 +273,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_fillstyle");
@@ -254,7 +294,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 }
 
 static void
-set_font(MyRenderer *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *renderer, DiaFont *font, real height)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -276,7 +316,7 @@ set_font(MyRenderer *renderer, DiaFont *font, real height)
 }
 
 static void
-draw_line(MyRenderer *renderer, 
+draw_line(DiaRenderer *renderer, 
           Point *start, Point *end, 
           Color *line_colour)
 {
@@ -302,7 +342,7 @@ draw_line(MyRenderer *renderer,
 }
 
 static void
-draw_polyline(MyRenderer *renderer, 
+draw_polyline(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
@@ -327,7 +367,7 @@ draw_polyline(MyRenderer *renderer,
 }
 
 static void
-draw_polygon(MyRenderer *renderer, 
+draw_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
@@ -352,7 +392,7 @@ draw_polygon(MyRenderer *renderer,
 }
 
 static void
-fill_polygon(MyRenderer *renderer, 
+fill_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
 	     Color *colour)
 {
@@ -377,7 +417,7 @@ fill_polygon(MyRenderer *renderer,
 }
 
 static void
-draw_rect(MyRenderer *renderer, 
+draw_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
@@ -402,7 +442,7 @@ draw_rect(MyRenderer *renderer,
 }
 
 static void
-fill_rect(MyRenderer *renderer, 
+fill_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
@@ -427,7 +467,7 @@ fill_rect(MyRenderer *renderer,
 }
 
 static void
-draw_arc(MyRenderer *renderer, 
+draw_arc(DiaRenderer *renderer, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -455,7 +495,7 @@ draw_arc(MyRenderer *renderer,
 }
 
 static void
-fill_arc(MyRenderer *renderer, 
+fill_arc(DiaRenderer *renderer, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -483,7 +523,7 @@ fill_arc(MyRenderer *renderer,
 }
 
 static void
-draw_ellipse(MyRenderer *renderer, 
+draw_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
@@ -510,7 +550,7 @@ draw_ellipse(MyRenderer *renderer,
 }
 
 static void
-fill_ellipse(MyRenderer *renderer, 
+fill_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
@@ -537,7 +577,7 @@ fill_ellipse(MyRenderer *renderer,
 }
 
 static void
-draw_bezier(MyRenderer *renderer, 
+draw_bezier(DiaRenderer *renderer, 
 	    BezPoint *points,
 	    int num_points,
 	    Color *colour)
@@ -563,7 +603,7 @@ draw_bezier(MyRenderer *renderer,
 }
 
 static void
-fill_bezier(MyRenderer *renderer, 
+fill_bezier(DiaRenderer *renderer, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int num_points,
 	    Color *colour)
@@ -589,7 +629,7 @@ fill_bezier(MyRenderer *renderer,
 }
 
 static void
-draw_string(MyRenderer *renderer,
+draw_string(DiaRenderer *renderer,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
@@ -629,7 +669,7 @@ draw_string(MyRenderer *renderer,
 }
 
 static void
-draw_image(MyRenderer *renderer,
+draw_image(DiaRenderer *renderer,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
@@ -659,7 +699,7 @@ void
 PyDia_export_data(DiagramData *data, const gchar *filename, 
                   const gchar *diafilename, void* user_data)
 {
-  MyRenderer *renderer;
+  DiaPyRenderer *renderer;
   Rectangle *extent;
   gint len;
 
@@ -675,10 +715,7 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
       fclose (file);
   }
 
-  renderer = g_new(MyRenderer, 1);
-  renderer->renderer.ops = MyRenderOps;
-  renderer->renderer.is_interactive = 0;
-  renderer->renderer.interactive_ops = NULL;
+  renderer = g_object_new (DIA_TYPE_PY_RENDERER, NULL);
 
   renderer->filename = g_strdup (filename);
   renderer->diagram_data = PyDiaDiagramData_New(data);
@@ -687,7 +724,96 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
   renderer->self = (PyObject*)user_data;
 
   /* this will call the required callback functions above */
-  data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+  data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-  g_free(renderer);
+  g_object_unref(renderer);
 }
+
+/*
+ * GObject boiler plate
+ */
+static void dia_py_renderer_class_init (DiaPyRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+dia_py_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (DiaPyRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) dia_py_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (DiaPyRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "DiaPyRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
+
+static void
+dia_py_renderer_finalize (GObject *object)
+{
+  DiaPyRenderer *dia_py_renderer = DIA_PY_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+dia_py_renderer_class_init (DiaPyRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = dia_py_renderer_finalize;
+
+  /* all defined members from above */
+  /* renderer members */
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render   = end_render;
+
+  renderer_class->set_linewidth  = set_linewidth;
+  renderer_class->set_linecaps   = set_linecaps;
+  renderer_class->set_linejoin   = set_linejoin;
+  renderer_class->set_linestyle  = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle  = set_fillstyle;
+
+  renderer_class->set_font  = set_font;
+
+  renderer_class->draw_line    = draw_line;
+  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_rect    = draw_rect;
+  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_arc     = draw_arc;
+  renderer_class->fill_arc     = fill_arc;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+
+  renderer_class->draw_string  = draw_string;
+  renderer_class->draw_image   = draw_image;
+
+  /* medium level functions */
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_polyline  = draw_polyline;
+  renderer_class->draw_polygon   = draw_polygon;
+
+  renderer_class->draw_bezier   = draw_bezier;
+  renderer_class->fill_bezier   = fill_bezier;
+}
+

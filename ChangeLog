@@ -1,3 +1,31 @@
+2002-10-11  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cgm/cgm.c : ported, appears to work as before,
+	but graphic apps available to me can't import the generated 
+	files (the could not with Dia-0.90 cgm as well) ...
+
+	* plug-ins/dxf/dxf-export.c : Ported to new renderer api.
+	Removed all those function which did emulate 'complex' 
+	drawing ops with basic ones (e.g. rect by line) cause this
+	stuff is already provided by the base class
+	* plug-ins/dxf/dxf-import.c : removed render.h include
+
+	* plug-ins/python/pydia-font.[hc]
+	  plug-ins/python/pydia-text.c : finally ported to new font api
+
+	* plug-ins/python/pydia-layer.c : add extra parameter
+	to layer_find_closest_connectionpoint()
+
+	* plug-ins/python/pydia-render.c : ported to DiaRenderer api
+
+	* plug-ins/python/python.c : added missing copyright notice
+
+	* plug-ins/hpg/hpgl.c plug-ins/wpg/wpg.c plug-ins/wmf/wmf.cpp : 
+	actually use the renderers set_font implementation
+
+	* plug-ins/renderer.inc : unused now, removed
+	* plug-ins/Makefile.am : reflect it
+
 2002-10-08  Hans Breuer  <hans@breuer.org>
 
 	* app/render_gdk.c : don't add the InteractiveRenderer

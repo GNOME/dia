@@ -164,7 +164,7 @@ PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "dd:DiaLayer.find_closest_connection_point",
 			  &pos.x, &pos.y))
 	return NULL;
-    dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos);
+    dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos, NULL);
 
     ret = PyTuple_New(2);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));

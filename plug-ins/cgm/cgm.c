@@ -33,11 +33,28 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "diarenderer.h"
+#include "dia_image.h"
 
 #include <gdk/gdk.h>
+
+#define CGM_TYPE_RENDERER           (cgm_renderer_get_type ())
+#define CGM_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), CGM_TYPE_RENDERER, CgmRenderer))
+#define CGM_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), CGM_TYPE_RENDERER, CgmRendererClass))
+#define CGM_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CGM_TYPE_RENDERER))
+#define CGM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), CGM_TYPE_RENDERER, CgmRendererClass))
+
+GType cgm_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _CgmRenderer CgmRenderer;
+typedef struct _CgmRendererClass CgmRendererClass;
+
+struct _CgmRendererClass
+{
+  DiaRendererClass parent_class;
+};
 
 static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
@@ -212,9 +229,9 @@ typedef struct _TextAttrCGM
 
 /* --- the renderer --- */
 
-typedef struct _RendererCGM RendererCGM;
-struct _RendererCGM {
-    Renderer renderer;
+struct _CgmRenderer
+{
+    DiaRenderer parent_instance;
 
     FILE *file;
 
@@ -232,112 +249,70 @@ struct _RendererCGM {
 
 
 
-static void begin_render(RendererCGM *renderer, DiagramData *data);
-static void end_render(RendererCGM *renderer);
-static void set_linewidth(RendererCGM *renderer, real linewidth);
-static void set_linecaps(RendererCGM *renderer, LineCaps mode);
-static void set_linejoin(RendererCGM *renderer, LineJoin mode);
-static void set_linestyle(RendererCGM *renderer, LineStyle mode);
-static void set_dashlength(RendererCGM *renderer, real length);
-static void set_fillstyle(RendererCGM *renderer, FillStyle mode);
-static void set_font(RendererCGM *renderer, DiaFont *font, real height);
-static void draw_line(RendererCGM *renderer, 
+static void begin_render(DiaRenderer *self);
+static void end_render(DiaRenderer *self);
+static void set_linewidth(DiaRenderer *self, real linewidth);
+static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linejoin(DiaRenderer *self, LineJoin mode);
+static void set_linestyle(DiaRenderer *self, LineStyle mode);
+static void set_dashlength(DiaRenderer *self, real length);
+static void set_fillstyle(DiaRenderer *self, FillStyle mode);
+static void set_font(DiaRenderer *self, DiaFont *font, real height);
+static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
-static void draw_polyline(RendererCGM *renderer, 
+static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *line_colour);
-static void draw_polygon(RendererCGM *renderer, 
+static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *line_colour);
-static void fill_polygon(RendererCGM *renderer, 
+static void fill_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *line_colour);
-static void draw_rect(RendererCGM *renderer, 
+static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
-static void fill_rect(RendererCGM *renderer, 
+static void fill_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
-static void draw_arc(RendererCGM *renderer, 
+static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void fill_arc(RendererCGM *renderer, 
+static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void draw_ellipse(RendererCGM *renderer, 
+static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void fill_ellipse(RendererCGM *renderer, 
+static void fill_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void draw_bezier(RendererCGM *renderer, 
+static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
 			Color *colour);
-static void fill_bezier(RendererCGM *renderer, 
+static void fill_bezier(DiaRenderer *self, 
 			BezPoint *points, /* Last point must be same as first point */
 			int numpoints,
 			Color *colour);
-static void draw_string(RendererCGM *renderer,
+static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *colour);
-static void draw_image(RendererCGM *renderer,
+static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps *CgmRenderOps;
-
 static void
-init_cgm_renderops()
-{
-    CgmRenderOps = create_renderops_table();
-
-    CgmRenderOps->begin_render = (BeginRenderFunc) begin_render;
-    CgmRenderOps->end_render = (EndRenderFunc) end_render;
-
-    CgmRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-    CgmRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-    CgmRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-    CgmRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-    CgmRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-    CgmRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-    CgmRenderOps->set_font = (SetFontFunc) set_font;
-  
-    CgmRenderOps->draw_line = (DrawLineFunc) draw_line;
-    CgmRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
-  
-    CgmRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-    CgmRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
-
-    CgmRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-    CgmRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
-
-    CgmRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-    CgmRenderOps->fill_arc = (FillArcFunc) fill_arc;
-
-    CgmRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-    CgmRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
-
-    CgmRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-    CgmRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
-
-    CgmRenderOps->draw_string = (DrawStringFunc) draw_string;
-
-    CgmRenderOps->draw_image = (DrawImageFunc) draw_image;
-}
-
-
-static void
-init_attributes( RendererCGM *renderer )
+init_attributes( CgmRenderer *renderer )
 {
     /* current values, (defaults) */
     renderer->lcurrent.cap   = 3;            /* round */
@@ -402,14 +377,14 @@ init_attributes( RendererCGM *renderer )
 
 
 static real
-swap_y( RendererCGM *renderer, real y)
+swap_y( CgmRenderer *renderer, real y)
 {
    return  (renderer->y0 + renderer->y1 - y);
 }
 
 
 static void
-write_line_attributes( RendererCGM *renderer, Color *color )
+write_line_attributes( CgmRenderer *renderer, Color *color )
 {
 LineAttrCGM    *lnew, *lold;
 
@@ -467,7 +442,7 @@ LineAttrCGM    *lnew, *lold;
 */
 
 static void
-write_filledge_attributes( RendererCGM *renderer, Color *fill_color,
+write_filledge_attributes( CgmRenderer *renderer, Color *fill_color,
                            Color *edge_color )
 {
 FillEdgeAttrCGM    *fnew, *fold;
@@ -570,7 +545,7 @@ FillEdgeAttrCGM    *fnew, *fold;
 
 
 static void
-write_text_attributes( RendererCGM *renderer, Color *text_color)
+write_text_attributes( CgmRenderer *renderer, Color *text_color)
 {
 TextAttrCGM    *tnew, *told;
 
@@ -617,13 +592,15 @@ TextAttrCGM    *tnew, *told;
 
 
 static void
-begin_render(RendererCGM *renderer, DiagramData *data)
+begin_render(DiaRenderer *self)
 {
 }
 
 static void
-end_render(RendererCGM *renderer)
+end_render(DiaRenderer *self)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     /* end picture */
     write_elhead(renderer->file, 0, 5, 0);
     /* end metafile */
@@ -633,17 +610,19 @@ end_render(RendererCGM *renderer)
 }
 
 static void
-set_linewidth(RendererCGM *renderer, real linewidth)
+set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
+    CgmRenderer *renderer = CGM_RENDERER(self);
 
     /* update current line and edge width */
     renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
 }
 
 static void
-set_linecaps(RendererCGM *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
-int  cap;
+    CgmRenderer *renderer = CGM_RENDERER(self);
+    int  cap;
 
     switch(mode) 
     {
@@ -664,9 +643,10 @@ int  cap;
 }
 
 static void
-set_linejoin(RendererCGM *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
-int    join;
+    CgmRenderer *renderer = CGM_RENDERER(self);
+    int    join;
 
     switch(mode) 
     {
@@ -687,9 +667,10 @@ int    join;
 }
 
 static void
-set_linestyle(RendererCGM *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode)
 {
-gint16   style;
+    CgmRenderer *renderer = CGM_RENDERER(self);
+    gint16   style;
 
     switch(mode)
     {
@@ -714,13 +695,13 @@ gint16   style;
 }
 
 static void
-set_dashlength(RendererCGM *renderer, real length)
+set_dashlength(DiaRenderer *self, real length)
 {  /* dot = 20% of len */
     /* CGM doesn't support setting a dash length */
 }
 
 static void
-set_fillstyle(RendererCGM *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
 #if 0
     switch(mode) {
@@ -735,8 +716,10 @@ set_fillstyle(RendererCGM *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererCGM *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     if (renderer->font != NULL)
 	dia_font_unref(renderer->font);
     renderer->font = dia_font_ref(font);
@@ -745,10 +728,11 @@ set_font(RendererCGM *renderer, DiaFont *font, real height)
 }
 
 static void
-draw_line(RendererCGM *renderer, 
+draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
 
     write_line_attributes(renderer, line_colour);
 
@@ -760,10 +744,11 @@ draw_line(RendererCGM *renderer,
 }
 
 static void
-draw_polyline(RendererCGM *renderer, 
+draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
 
     write_line_attributes(renderer, line_colour);
@@ -776,10 +761,11 @@ draw_polyline(RendererCGM *renderer,
 }
 
 static void
-draw_polygon(RendererCGM *renderer, 
+draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
 
     write_filledge_attributes(renderer, NULL, line_colour);
@@ -792,10 +778,11 @@ draw_polygon(RendererCGM *renderer,
 }
 
 static void
-fill_polygon(RendererCGM *renderer, 
+fill_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
 
     write_filledge_attributes(renderer, colour, NULL);
@@ -808,10 +795,12 @@ fill_polygon(RendererCGM *renderer,
 }
 
 static void
-draw_rect(RendererCGM *renderer, 
+draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     write_filledge_attributes(renderer, NULL, colour);
 
     write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
@@ -822,10 +811,12 @@ draw_rect(RendererCGM *renderer,
 }
 
 static void
-fill_rect(RendererCGM *renderer, 
+fill_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     write_filledge_attributes(renderer, colour, NULL);
 
     write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
@@ -838,15 +829,15 @@ fill_rect(RendererCGM *renderer,
 
 
 static void
-write_ellarc(RendererCGM *renderer,
+write_ellarc(CgmRenderer *renderer,
              int   elemid,
              Point *center,
              real  width, real  height,
              real  angle1, real angle2 )
 {
-real rx = width / 2, ry = height / 2;
-int  len;
-real ynew;
+    real rx = width / 2, ry = height / 2;
+    int  len;
+    real ynew;
 
     /*
     ** Angle's are in degrees, need to be converted to 2PI.
@@ -882,35 +873,39 @@ real ynew;
 
 
 static void
-draw_arc(RendererCGM *renderer, 
+draw_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     write_line_attributes(renderer, colour);
     write_ellarc(renderer, 18, center, width, height, angle1, angle2);
 }
 
 static void
-fill_arc(RendererCGM *renderer, 
+fill_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
 
     write_filledge_attributes(renderer, colour, NULL);
     write_ellarc(renderer, 19, center, width, height, angle1, angle2);
 }
 
 static void
-draw_ellipse(RendererCGM *renderer, 
+draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
-real  ynew;
+    CgmRenderer *renderer = CGM_RENDERER(self);
+    real  ynew;
 
     write_filledge_attributes(renderer, NULL, colour);
 
@@ -925,12 +920,13 @@ real  ynew;
 }
 
 static void
-fill_ellipse(RendererCGM *renderer, 
+fill_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
-real ynew;
+    CgmRenderer *renderer = CGM_RENDERER(self);
+    real ynew;
 
     write_filledge_attributes(renderer, colour, NULL);
 
@@ -946,7 +942,7 @@ real ynew;
 
 
 static void 
-write_bezier(RendererCGM *renderer, 
+write_bezier(CgmRenderer *renderer, 
              BezPoint *points, 
              int numpoints) 
 {
@@ -995,11 +991,13 @@ write_bezier(RendererCGM *renderer,
 
 
 static void
-draw_bezier(RendererCGM *renderer, 
+draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
 	    Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     if ( numpoints < 2 )
         return;
 
@@ -1009,11 +1007,13 @@ draw_bezier(RendererCGM *renderer,
 
 
 static void
-fill_bezier(RendererCGM *renderer, 
+fill_bezier(DiaRenderer *self, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints,
 	    Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
+
     if ( numpoints < 2 )
         return;
 
@@ -1030,11 +1030,12 @@ fill_bezier(RendererCGM *renderer,
 
 
 static void
-draw_string(RendererCGM *renderer,
+draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
     double x = pos->x, y = swap_y(renderer, pos->y);
     gint len, chunk;
     const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
@@ -1089,11 +1090,12 @@ draw_string(RendererCGM *renderer,
 
 
 static void
-draw_image(RendererCGM *renderer,
+draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
 {
+    CgmRenderer *renderer = CGM_RENDERER(self);
     const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;
     double x1 = point->x, y1 = swap_y(renderer, point->y), 
            x2 = x1+width, y2 = y1-height;
@@ -1143,11 +1145,8 @@ static void
 export_cgm(DiagramData *data, const gchar *filename, 
            const gchar *diafilename, void* user_data)
 {
-    RendererCGM *renderer;
+    CgmRenderer *renderer;
     FILE *file;
-#if THIS_IS_PROBABLY_DEAD_CODE
-    gchar buf[512];
-#endif
     Rectangle *extent;
     gint len;
 
@@ -1158,13 +1157,7 @@ export_cgm(DiagramData *data, const gchar *filename,
 	return;
     }
 
-    if (CgmRenderOps == NULL)
-	init_cgm_renderops();
-
-    renderer = g_new(RendererCGM, 1);
-    renderer->renderer.ops = CgmRenderOps;
-    renderer->renderer.is_interactive = 0;
-    renderer->renderer.interactive_ops = NULL;
+    renderer = g_object_new(CGM_TYPE_RENDERER, NULL);
 
     renderer->file = file;
 
@@ -1274,11 +1267,97 @@ export_cgm(DiagramData *data, const gchar *filename,
 
     init_attributes(renderer);
 
-    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     dia_font_unref(renderer->font);
-    g_free(renderer);
+    g_object_unref(renderer);
 }
+
+/* GObject stuff */
+static void cgm_renderer_class_init (CgmRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+cgm_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (CgmRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) cgm_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (CgmRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "CgmRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
+
+static void
+cgm_renderer_finalize (GObject *object)
+{
+  CgmRenderer *cgm_renderer = CGM_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+cgm_renderer_class_init (CgmRendererClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+    parent_class = g_type_class_peek_parent (klass);
+
+    object_class->finalize = cgm_renderer_finalize;
+
+    renderer_class->begin_render = begin_render;
+    renderer_class->end_render = end_render;
+
+    renderer_class->set_linewidth = set_linewidth;
+    renderer_class->set_linecaps = set_linecaps;
+    renderer_class->set_linejoin = set_linejoin;
+    renderer_class->set_linestyle = set_linestyle;
+    renderer_class->set_dashlength = set_dashlength;
+    renderer_class->set_fillstyle = set_fillstyle;
+    renderer_class->set_font = set_font;
+  
+    renderer_class->draw_line = draw_line;
+    renderer_class->draw_polyline = draw_polyline;
+  
+    renderer_class->draw_polygon = draw_polygon;
+    renderer_class->fill_polygon = fill_polygon;
+
+    renderer_class->draw_rect = draw_rect;
+    renderer_class->fill_rect = fill_rect;
+
+    renderer_class->draw_arc = draw_arc;
+    renderer_class->fill_arc = fill_arc;
+
+    renderer_class->draw_ellipse = draw_ellipse;
+    renderer_class->fill_ellipse = fill_ellipse;
+
+    renderer_class->draw_bezier = draw_bezier;
+    renderer_class->fill_bezier = fill_bezier;
+
+    renderer_class->draw_string = draw_string;
+
+    renderer_class->draw_image = draw_image;
+}
+
 
 static const gchar *extensions[] = { "cgm", NULL };
 static DiaExportFilter cgm_export_filter = {

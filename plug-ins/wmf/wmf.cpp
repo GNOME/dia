@@ -967,6 +967,8 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
+  renderer_class->set_font  = set_font;
+
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
