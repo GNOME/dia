@@ -731,7 +731,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 
     /* Depth field */
     if (compound_stack == NULL)
-	depths[depth] = g_list_prepend(depths[depth], newobj);
+	depths[depth] = g_list_append(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
 
@@ -867,7 +867,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      
     /* Depth field */
     if (compound_stack == NULL)
-	depths[depth] = g_list_prepend(depths[depth], newobj);
+	depths[depth] = g_list_append(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
  exit:
@@ -1093,7 +1093,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
      
     /* Depth field */
     if (compound_stack == NULL)
-	depths[depth] = g_list_prepend(depths[depth], newobj);
+	depths[depth] = g_list_append(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
  exit:
@@ -1184,7 +1184,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
      
     /* Depth field */
     if (compound_stack == NULL)
-	depths[depth] = g_list_prepend(depths[depth], newobj);
+	depths[depth] = g_list_append(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
 
@@ -1258,7 +1258,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     
     /* Depth field */
     if (compound_stack == NULL)
-	depths[depth] = g_list_prepend(depths[depth], newobj);
+	depths[depth] = g_list_append(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
 
@@ -1291,7 +1291,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	item = create_standard_group((GList*)compound_stack->data, dia);
 	compound_stack = g_slist_remove(compound_stack, compound_stack->data);
 	if (compound_stack == NULL) {
-	    depths[compound_depth] = g_list_prepend(depths[compound_depth],
+	    depths[compound_depth] = g_list_append(depths[compound_depth],
 						    item);
 	}
 	break;
@@ -1353,7 +1353,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	/* Group extends don't really matter */
 	if (compound_stack == NULL)
 	    compound_depth = 999;
-	compound_stack = g_slist_prepend(compound_stack, NULL);
+	compound_stack = g_slist_append(compound_stack, NULL);
 	return TRUE;
 	break;
     }
@@ -1364,7 +1364,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
     }
     if (compound_stack != NULL && item != NULL) { /* We're building a compound */
 	GList *compound = (GList *)compound_stack->data;
-	compound = g_list_prepend(compound, item);
+	compound = g_list_append(compound, item);
 	compound_stack->data = compound;
     }
     return TRUE;

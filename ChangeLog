@@ -1,3 +1,9 @@
+2004-02-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xfig/xfig-import.c: Correct ordering of imported FIG
+	objects (which seemingly FIG itself breaks, or else there is no
+	ordering).
+
 2004-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-export.c (figLineWidth): Check for minimum
