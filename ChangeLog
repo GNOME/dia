@@ -1,3 +1,7 @@
+2004-04-21  Tomasz Kłoczko <kloczek@pld.org.pl>
+
+	* acinclude.m4: minor fixes (added missing [] quotation).
+
 2004-04-13  Lars Clausen  <larsØraeder.dk>
 
 	* app/interface.c (toolbox_delete): 
