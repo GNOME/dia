@@ -1,3 +1,7 @@
+2000-08-29  Manuel de Vega Barreiro <barreiro@arrakis.es>
+
+        * configure.in (ALL_LINGUAS): added "es"
+
 2000-08-28  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* app/magnify.c:
