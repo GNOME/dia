@@ -1,5 +1,11 @@
 1999-10-12  James Henstridge  <james@daa.com.au>
 
+	* app/pixmaps/portrait.xpm, app/pixmaps/landscape.xpm: support pixmaps
+	for the page layout widget.
+
+	* app/diapagelayout.[ch]: start of page layout widget.  Not actually
+	built yet as it is not complete.
+
 	* objects/flowchart/flowchart.c: added new shapes to sheet.
 
 	* objects/flowchart/display.shape:
