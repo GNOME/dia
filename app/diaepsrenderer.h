@@ -3,6 +3,9 @@
 
 #include "diarenderer.h"
 
+/* We use an instance of color in the struct, so include it */
+#include "color.h"
+
 G_BEGIN_DECLS
 
 #define DIA_TYPE_EPS_RENDERER           (dia_eps_renderer_get_type ())

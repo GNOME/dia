@@ -20,13 +20,12 @@
 
 #include <stdio.h>
 
-typedef struct _DiaEpsRenderer DiaEpsRenderer;
-
+#include "diatypes.h"
+#include "diaepsrenderer.h"
 #include "geometry.h"
 #include "display.h"
 #include "filter.h"
 #include "ps-utf8.h"
-
 
 DiaEpsRenderer *new_eps_renderer(Diagram *dia, char *filename);
 DiaEpsRenderer *new_psprint_renderer(Diagram *dia, FILE *file);

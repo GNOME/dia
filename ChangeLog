@@ -1,3 +1,11 @@
+2002-10-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diaepsrenderer.h: 
+	* app/render_eps.h: 
+	* app/paginate_psprint.c: 
+	#ifdef'd out enough ps stuff to allow compile.  Now we just need
+	to convert it.
+	
 2002-10-12  Hans Breuer  <hans@breuer.org>
 
 	[last plug-in ported]

@@ -45,6 +45,8 @@
 #define pclose(file) win32_printer_close (file)
 #endif
 
+#ifdef  EPS_RENDERER_USING_DIA_RENDERER
+
 /* keep track of print options between prints */
 typedef struct _dia_print_options {
     int printer;
@@ -136,7 +138,7 @@ paginate_psprint(Diagram *dia, FILE *file)
   rend = new_psprint_renderer(dia, file);
 
   /* Prepare the prolog (with fonts etc) */
-  data_render(dia->data, (Renderer *)rend, NULL, NULL, NULL);
+  data_render(dia->data, DIA_RENDERER(rend), NULL, NULL, NULL);
   eps_renderer_prolog_done(rend);
 
   /* the usable area of the page */
@@ -368,3 +370,16 @@ diagram_print_ps(Diagram *dia)
   if (sigpipe_received)
     message_error(_("Error occured while printing"));
 }
+#else
+void
+paginate_psprint(Diagram *dia, FILE *file)
+{
+  message_error(_("PS printing not yet converted"));
+}
+
+void
+diagram_print_ps(Diagram *dia)
+{
+  message_error(_("PS printing not yet converted"));
+}
+#endif
