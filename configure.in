@@ -100,9 +100,9 @@ dnl
 
 AC_MSG_CHECKING([whether gdk_pixbuf should be used])
 AC_ARG_ENABLE(gdk_pixbuf,
-[  --enable-gdk-pixbuf          enable gdk-pixbuf code],
+[  --disable-gdk-pixbuf          disable gdk-pixbuf code],
     GDK_PIXBUF=$enableval,
-    GDK_PIXBUF=no)
+    GDK_PIXBUF=yes)
 AC_MSG_RESULT($GDK_PIXBUF)
 if test "$GDK_PIXBUF" = "yes"; then
   AC_PATH_PROG(GDK_PIXBUF_CONFIG,gdk-pixbuf-config,no)
