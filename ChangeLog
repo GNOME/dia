@@ -1,3 +1,8 @@
+2002-08-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/commands.c (edit_cut_text_callback): Now removes text.
+	Undo is broken, though.
+
 2002-08-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram.c (diagram_update_menu_sensitivity): 

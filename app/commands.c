@@ -358,7 +358,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
 
   obj = focus->obj;
-  text = (Text *)obj; 
+  text = (Text *)focus->user_data; 
 
   if (obj->ops->get_props == NULL) 
     return;
@@ -371,8 +371,6 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 
   current_clipboard = g_strdup(prop->text_data);
 
-  prop_list_free(textprops);
-
   gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
 			  GDK_SELECTION_PRIMARY,
 			  GDK_CURRENT_TIME);
@@ -380,11 +378,18 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 			   GDK_SELECTION_PRIMARY,
 			   GDK_TARGET_STRING, 0);
 
-  /* This is currently broken, as focus->obj is not a Text */
-  if (FALSE && text_delete_all(text, (ObjectChange **)&change)) { 
+  /*
+    Want to use set_props, but what then about the Change & undo?
+  prop->text_data = g_strdup("");
+
+  obj->ops->set_props(obj, textprops);
+
+  diagram_flush(ddisp->diagram);
+  */
+  prop_list_free(textprops);
+
+  if (text_delete_all(text, (ObjectChange **)&change)) { 
     (change->apply)(change, ddisp->diagram);
-    
-    diagram_update_menu_sensitivity(ddisp->diagram, &ddisp->updatable_menu_items);
     diagram_flush(ddisp->diagram);
   }
 }
