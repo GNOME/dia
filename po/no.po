@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-08-15 22:08+0200\n"
-"PO-Revision-Date: 2000-08-15 22:09+02:00\n"
+"POT-Creation-Date: 2000-09-09 22:33+0200\n"
+"PO-Revision-Date: 2000-09-09 22:33+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -169,31 +169,7 @@ msgstr "Lukk"
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: app/dia_embedd.c:185
-msgid "File/New diagram"
-msgstr "Fil/Nytt diagram"
-
-#: app/dia_embedd.c:189
-msgid "File/Open..."
-msgstr "Fil/Åpne..."
-
-#: app/dia_embedd.c:193
-msgid "File/Save As..."
-msgstr "Fil/Lagre som..."
-
-#: app/dia_embedd.c:197
-msgid "File/Close"
-msgstr "Fil/Lukk"
-
-#: app/dia_embedd.c:201
-msgid "File/Exit"
-msgstr "Fil/Avslutt"
-
-#: app/dia_embedd.c:205
-msgid "View/New View"
-msgstr "Vis/Ny visning"
-
-#: app/dia_embedd.c:282
+#: app/dia_embedd.c:266
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
@@ -715,7 +691,7 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr "Egenskaper for diagram..."
 
 #: app/menus.c:114
@@ -1263,7 +1239,7 @@ msgstr "/Dialoger/_Lag"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL verktøydata i tool_menu_select"
 
-#: app/menus.c:804
+#: app/menus.c:806
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
@@ -2642,6 +2618,24 @@ msgstr "Skalerbar vektorgrafikk"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Eksportfilter for skalerbar vektorgrafikk"
+
+#~ msgid "File/New diagram"
+#~ msgstr "Fil/Nytt diagram"
+
+#~ msgid "File/Open..."
+#~ msgstr "Fil/Åpne..."
+
+#~ msgid "File/Save As..."
+#~ msgstr "Fil/Lagre som..."
+
+#~ msgid "File/Close"
+#~ msgstr "Fil/Lukk"
+
+#~ msgid "File/Exit"
+#~ msgstr "Fil/Avslutt"
+
+#~ msgid "View/New View"
+#~ msgstr "Vis/Ny visning"
 
 #~ msgid "/Edit/Copy"
 #~ msgstr "/Rediger/Kopier"
