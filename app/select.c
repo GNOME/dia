@@ -20,7 +20,7 @@
 #include <assert.h>
 
 #include "select.h"
-#include "menu.h"
+#include "menus.h"
 #include "intl.h"
 
 enum SelectionStyle selection_style = SELECT_REPLACE;
