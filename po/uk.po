@@ -1631,11 +1631,11 @@ msgstr "Сигнал"
 
 #: objects/FS/flow-ortho.c:671
 msgid "Orthflow:"
-msgstr ""
+msgstr "Ортопот╕к:"
 
 #: objects/FS/flow-ortho.c:687
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Тип ортопотоку:"
 
 #: objects/FS/function.c:498
 msgid "Function:"
@@ -1643,11 +1643,11 @@ msgstr "Функц╕я:"
 
 #: objects/FS/function.c:508
 msgid "Wish function"
-msgstr ""
+msgstr "Бажана"
 
 #: objects/FS/function.c:513
 msgid "User function"
-msgstr ""
+msgstr "Користувацька"
 
 #: objects/FS/function.c:552
 msgid "Channel"
@@ -1691,7 +1691,7 @@ msgstr ""
 
 #: objects/FS/function.c:562
 msgid "Support"
-msgstr "Поддержка"
+msgstr "Подтримка"
 
 #: objects/FS/function.c:563
 msgid "   Stop"
@@ -1807,7 +1807,7 @@ msgstr ""
 #: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
 #: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
 msgid "Text padding:"
-msgstr ""
+msgstr "В╕дступи тексту:"
 
 #: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
 #: objects/flowchart/box.c:342 objects/flowchart/box.c:488
@@ -1825,7 +1825,7 @@ msgstr "Кол╕р шрифту:"
 
 #: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
 msgid "Shear angle:"
-msgstr ""
+msgstr "Кут нахилу:"
 
 #: objects/custom/custom_object.c:190
 msgid "A custom with text inside."
