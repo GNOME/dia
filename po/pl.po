@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-05-26 19:27+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -3938,10 +3938,6 @@ msgstr "Obiekty standardowe"
 msgid "Fontsize:"
 msgstr "Rozmiar czcionki:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Obiekty do projektowania diagramów domenowych replikacji Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Aktor"
@@ -5771,3 +5767,6 @@ msgstr "Realizacja, implementuje okre¶lony interfejs"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Obiekty do projektowania diagramów domenowych replikacji Sybase"

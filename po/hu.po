@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.86\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2001-01-24 15:15+0100\n"
 "Last-Translator: Emese Kovacs <emese@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -4143,11 +4143,6 @@ msgstr ""
 msgid "Fontsize:"
 msgstr "Betûméret:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objektumok hálózati diagrammokhoz"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Szereplõ"
@@ -6146,6 +6141,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objektumok hálózati diagrammokhoz"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Ábrafájl beolvasási hiba\n"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-07-27 11:55+0200\n"
 "Last-Translator: Salvo Isaja <salvois@it.gnome.org>\n"
 "Language-Team: ITALIAN <it@li.org>\n"
@@ -4157,11 +4157,6 @@ msgstr "Oggetti standard"
 msgid "Fontsize:"
 msgstr "Dimensione del font:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Attore"
@@ -6195,6 +6190,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Errore durante la lettura del file del diagramma\n"

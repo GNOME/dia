@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-07-18 01:00+0300\n"
 "Last-Translator: Sami Gerdt <sgerdt@cs.joensuu.fi>\n"
 "Language-Team: finnish <fi@li.org>\n"
@@ -4141,11 +4141,6 @@ msgstr "Standardi-objektit"
 msgid "Fontsize:"
 msgstr "Kirjasin koko:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Sybase replication domain diagrammi objekteja"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Näyttelijä"
@@ -6171,6 +6166,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Sybase replication domain diagrammi objekteja"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Virhe luettaessa diagrammitiedostoa\n"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-05-25 21:56+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -3932,10 +3932,6 @@ msgstr "Standard objekter"
 msgid "Fontsize:"
 msgstr "Størrelse på skrifttype:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Diagramobjekter for Sybase-replikeringsdomene"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Aktør"
@@ -5766,6 +5762,9 @@ msgstr "Realiserer, implementerer et spesifikt grensesnitt"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Diagramobjekter for Sybase-replikeringsdomene"
 
 #~ msgid "<<"
 #~ msgstr "<<"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-10-15 18:27+0200\n"
 "Last-Translator: Almer S. Tigelaar <almer1@dds.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -4134,10 +4134,6 @@ msgstr "Standaard objecten"
 msgid "Fontsize:"
 msgstr "Lettergrootte:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Sybase replicatie domein diagram objecten"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Acteur"
@@ -6094,6 +6090,9 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr ""
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Sybase replicatie domein diagram objecten"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Fout bij lezen diagram bestand\n"

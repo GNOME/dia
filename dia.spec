@@ -1,5 +1,5 @@
 %define name dia
-%define ver 0.90.RC3
+%define ver 0.90
 
 Summary: A gtk+ based diagram creation program.
 Name: %name
@@ -22,6 +22,8 @@ flowchart and others.  The native file format for Dia is XML (optionally
 gzip compressed).  It has print support, and can export to a number of formats such as EPS, SVG, CGM and PNG.
 
 %changelog
+* Sat Jun 1 2002  Cyrille Chepelov <cyrille@chepelov.org>
+- update version number.
 * Fri May 11 2001  James Henstridge  <james@daa.com.au>
 - update version number.
 - Use make install rather than install-strip as it is causing some problems.

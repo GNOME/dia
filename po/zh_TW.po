@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2001-09-05 19:31+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional chinese <zh-l10n@linux.org.hk>\n"
@@ -3992,11 +3992,6 @@ msgstr "標準物件"
 msgid "Fontsize:"
 msgstr "文字大小："
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "「本體/關係」圖表物件"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "相關角色"
@@ -5855,6 +5850,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "「本體/關係」圖表物件"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "讀取圖表檔案發生錯誤\n"

@@ -5,7 +5,7 @@ AC_INIT(app/diagram.c)
 dnl AC_PREREQ(2.50)
 dnl AC_REVISION($Revision$)
 
-AM_INIT_AUTOMAKE(dia, 0.90.RC3)
+AM_INIT_AUTOMAKE(dia, 0.90)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2001-01-26 19:44+0100\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -4131,11 +4131,6 @@ msgstr "Objectes estàndard"
 msgid "Fontsize:"
 msgstr "Mida del tipus de lletra:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objectes de diagrama del domini de replicació Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Actor"
@@ -6160,6 +6155,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objectes de diagrama del domini de replicació Sybase"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2001-11-27 20:51+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian Nynorsk <nn@li.org>\n"
@@ -4132,11 +4132,6 @@ msgstr "Standard skrifttype"
 msgid "Fontsize:"
 msgstr "Skrift&storleik"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objekt til utforming av kronogrammer"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 #, fuzzy
 msgid "Actor"
@@ -6120,6 +6115,10 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objekt til utforming av kronogrammer"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Feil ved lesing av diagramfil\n"

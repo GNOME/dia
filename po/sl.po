@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -3955,10 +3955,6 @@ msgstr "Običajni predmeti"
 msgid "Fontsize:"
 msgstr "Velikost pisave:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Diagramski predmeti Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Vršilec"
@@ -5791,6 +5787,9 @@ msgstr "Realizes, implementira določen vmesnik"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UMP"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Diagramski predmeti Sybase"
 
 #~ msgid "<<"
 #~ msgstr "<<"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-05-26 02:48+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -3932,10 +3932,6 @@ msgstr "Objecto standard"
 msgid "Fontsize:"
 msgstr "Tamanho Fonte:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Objectos de diagramas de domínios de replicação Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Actor"
@@ -5766,6 +5762,9 @@ msgstr "Realiza, implementa um interface específico"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objectos de diagramas de domínios de replicação Sybase"
 
 #~ msgid "<<"
 #~ msgstr "<<"

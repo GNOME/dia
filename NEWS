@@ -1,3 +1,7 @@
+dia-0.90:  1-June-2002
+
+* identical to 0.90.RC3 save for some makefile juggling.
+
 dia-0.90.RC3:  30-May-2002
 
 * in FreeType mode, dia now looks for the xfs configuration files too

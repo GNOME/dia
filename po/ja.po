@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia CVS-20020526\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-05-26 16:09+0900\n"
 "Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -3930,10 +3930,6 @@ msgstr "標準オブジェクト"
 msgid "Fontsize:"
 msgstr "フォントサイズ:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Sybase複製ドメインダイアグラムオブジェクト"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "アクター"
@@ -5762,3 +5758,6 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Sybase複製ドメインダイアグラムオブジェクト"

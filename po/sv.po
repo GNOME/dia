@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-05-26 23:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -3942,10 +3942,6 @@ msgstr "Standardobjekt"
 msgid "Fontsize:"
 msgstr "Typsnittsstorlek:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Diagramobjekt för Sybase-replikationsdomäner"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Aktör"
@@ -5774,6 +5770,9 @@ msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Diagramobjekt för Sybase-replikationsdomäner"
 
 #~ msgid "<<"
 #~ msgstr "«"

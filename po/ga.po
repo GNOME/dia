@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-03-09 12:40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -3941,10 +3941,6 @@ msgstr ""
 
 #: objects/standard/textobj.c:228
 msgid "Fontsize:"
-msgstr ""
-
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
 msgstr ""
 
 #: objects/UML/actor.c:338 objects/UML/actor.c:340

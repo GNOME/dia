@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2000-05-31 10:16:35+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@dacome.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -4046,10 +4046,6 @@ msgstr "표준 객체"
 #: objects/standard/textobj.c:228
 msgid "Fontsize:"
 msgstr "글꼴 크기:"
-
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr ""
 
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"

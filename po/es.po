@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 1.4\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-01-30 21:35+0100\n"
 "Last-Translator: Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -3975,11 +3975,6 @@ msgstr "Objetos estándares"
 msgid "Fontsize:"
 msgstr "Tamaño de fuente:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objetos para diseñar diagramas en el dominio de replicación de Sybase"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Actor"
@@ -5823,6 +5818,11 @@ msgstr "Realiza, implementa un interfaz específico"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr ""
+#~ "Objetos para diseñar diagramas en el dominio de replicación de Sybase"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Error leyendo archivo de diagrama\n"

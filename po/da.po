@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-01-16 14:40+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -3971,13 +3971,6 @@ msgstr "Standard objekter"
 msgid "Fontsize:"
 msgstr "Skriftstørrelse:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr ""
-"Objekter til udforming af domæne-diagrammer for replikering i Sybase "
-"databaser"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Aktør"
@@ -5823,6 +5816,12 @@ msgstr "Realiserer, implementerer en specifik grænseflade"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr ""
+#~ "Objekter til udforming af domæne-diagrammer for replikering i Sybase "
+#~ "databaser"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Fejl under indlæsning af diagramfilen\n"

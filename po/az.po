@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2001-11-28 16:49GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
@@ -3974,11 +3974,6 @@ msgstr "Standart cismlər"
 msgid "Fontsize:"
 msgstr "Yazıtipi böyüklüyü :"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objects to design Sybase replication domain diagrams with"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Gedişatcı"
@@ -5821,6 +5816,10 @@ msgstr "Həyata keçirici, xüsusi ara üzü tamamlayır"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objects to design Sybase replication domain diagrams with"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Diaqramma faylını oxuyarkən xəta oldu\n"

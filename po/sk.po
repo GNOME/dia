@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia VERSION\n"
-"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"POT-Creation-Date: 2002-05-30 07:59+0200\n"
 "PO-Revision-Date: 2002-03-28 14:00+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -3952,10 +3952,6 @@ msgstr "©tandardné objekty"
 msgid "Fontsize:"
 msgstr "Veµkos» písma:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Objekty pre návrh diagramov Sybase replikaènej domény s"
-
 #: objects/UML/actor.c:338 objects/UML/actor.c:340
 msgid "Actor"
 msgstr "Aktér"
@@ -5789,6 +5785,9 @@ msgstr "Realizuje, implementuje ¹pecifikované rozhranie"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objekty pre návrh diagramov Sybase replikaènej domény s"
 
 #~ msgid "<<"
 #~ msgstr "<<"
