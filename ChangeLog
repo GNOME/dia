@@ -1,3 +1,14 @@
+2001-08-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/standard/polygon.c: 
+	* objects/standard/create.h:
+	* lib/polyshape.c:
+	* lib/polyshape.h:
+	* plug-ins/xfig/xfig-import.c:
+	Use of user_data for polygon as well, including adding
+	polyshape_set_points.  Include file for non-interactive 
+	creation of standard objects, objects/standard/create.h
+
 2001-08-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_gdk.c: 

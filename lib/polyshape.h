@@ -40,7 +40,8 @@ struct _PolyShape {
 void polyshape_update_data(PolyShape *poly);
 void polyshape_update_boundingbox(PolyShape *poly);
 void polyshape_simple_draw(PolyShape *poly, Renderer *renderer, real width);
-void polyshape_init(PolyShape *poly);
+void polyshape_init(PolyShape *poly, int num_points);
+void polyshape_set_points(PolyShape *poly, int num_points, Point *points);
 void polyshape_destroy(PolyShape *poly);
 void polyshape_copy(PolyShape *from, PolyShape *to);
 void polyshape_save(PolyShape *poly, ObjectNode obj_node);

@@ -37,6 +37,8 @@
 
 #include "pixmaps/polygon.xpm"
 
+#include "create.h"
+
 /*
 TODO:
 Have connections be remembered across delete corner
@@ -305,9 +307,9 @@ polygon_draw(Polygon *polygon, Renderer *renderer)
 
 static Object *
 polygon_create(Point *startpoint,
-		  void *user_data,
-		  Handle **handle1,
-		  Handle **handle2)
+	       void *user_data,
+	       Handle **handle1,
+	       Handle **handle2)
 {
   Polygon *polygon;
   PolyShape *poly;
@@ -325,13 +327,20 @@ polygon_create(Point *startpoint,
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
 
-  polyshape_init(poly);
+  if (user_data == NULL) {
+    polyshape_init(poly, 3);
 
-  poly->points[0] = *startpoint;
-  poly->points[1] = *startpoint;
-  point_add(&poly->points[1], &defaultx);
-  poly->points[2] = *startpoint;
-  point_add(&poly->points[2], &defaulty);
+    poly->points[0] = *startpoint;
+    poly->points[1] = *startpoint;
+    point_add(&poly->points[1], &defaultx);
+    poly->points[2] = *startpoint;
+    point_add(&poly->points[2], &defaulty);
+  } else {
+    PolygonCreateData *pcd = (PolygonCreateData *)user_data;
+    
+    polyshape_init(poly, pcd->num_points);
+    polyshape_set_points(poly, pcd->num_points, pcd->points);
+  }
 
   polygon->line_width =  attributes_get_default_linewidth();
   polygon->line_color = attributes_get_foreground();

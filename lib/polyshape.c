@@ -303,51 +303,49 @@ polyshape_simple_draw(PolyShape *poly, Renderer *renderer, real width)
 
 
 void
-polyshape_init(PolyShape *poly)
+polyshape_init(PolyShape *poly, int num_points)
 {
   Object *obj;
+  int i;
 
   obj = &poly->object;
 
-  object_init(obj, 3, 6);
+  object_init(obj, num_points, 2*num_points);
   
-  poly->numpoints = 3;
+  poly->numpoints = num_points;
 
-  poly->points = g_malloc(3*sizeof(Point));
+  poly->points = g_malloc(num_points*sizeof(Point));
 
-  poly->object.handles[0] = g_new(Handle, 1);
-  poly->object.handles[1] = g_new(Handle, 1);
-  poly->object.handles[2] = g_new(Handle, 1);
+  for (i = 0; i < num_points; i++) {
+    poly->object.handles[i] = g_new(Handle, 1);
 
-  obj->handles[0]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[0]->connected_to = NULL;
-  obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[0]->id = HANDLE_CORNER;
-  
-  obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[1]->id = HANDLE_CORNER;
+    obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[i]->connected_to = NULL;
+    obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[i]->id = HANDLE_CORNER;
+  }
 
-  obj->handles[2]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[2]->connected_to = NULL;
-  obj->handles[2]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[2]->id = HANDLE_CORNER;
-
-  poly->object.connections[0] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[1] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[2] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[3] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[4] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[5] = g_new0(ConnectionPoint, 1);
-  poly->object.connections[0]->object = &poly->object;
-  poly->object.connections[1]->object = &poly->object;
-  poly->object.connections[2]->object = &poly->object;
-  poly->object.connections[3]->object = &poly->object;
-  poly->object.connections[4]->object = &poly->object;
-  poly->object.connections[5]->object = &poly->object;
+  for (i = 0; i < 2*num_points; i++) {
+    poly->object.connections[i] = g_new0(ConnectionPoint, 1);
+    poly->object.connections[i]->object = &poly->object;
+  }
 
   polyshape_update_data(poly);
+}
+
+void
+polyshape_set_points(PolyShape *poly, int num_points, Point *points)
+{
+  int i;
+
+  poly->numpoints = num_points;
+
+  if (poly->points) g_free(poly->points);
+  poly->points = g_new(Point, num_points);
+
+  for (i = 0; i < num_points; i++) {
+    poly->points[i] = points[i];
+  }
 }
 
 void
@@ -361,13 +359,7 @@ polyshape_copy(PolyShape *from, PolyShape *to)
 
   object_copy(fromobj, toobj);
 
-  to->numpoints = from->numpoints;
-
-  to->points = g_new(Point, to->numpoints);
-
-  for (i=0;i<to->numpoints;i++) {
-    to->points[i] = from->points[i];
-  }
+  polyshape_set_points(to, from->numpoints, from->points);
 
   for (i=0;i<to->numpoints;i++) {
     to->object.handles[i] = g_new(Handle, 1);

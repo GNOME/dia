@@ -49,6 +49,7 @@
 #include "properties.h"
 #include "../app/group.h"
 
+#include "../objects/standard/create.h"
 #include "xfig.h"
 
 #define BUFLEN 512
@@ -197,6 +198,48 @@ create_standard_box(real xpos, real ypos, real width, real height,
   new_obj->ops->set_props(new_obj, props, 3);
 
   return new_obj;
+}
+
+static Object *
+create_standard_polyline(int num_points, 
+			 Point *points,
+			 DiagramData *dia) {
+    ObjectType *otype = object_get_type("Standard - Polyline");
+    Object *new_obj;
+    Handle *h1, *h2;
+    PolylineCreateData *pcd;
+
+    pcd = g_new(PolylineCreateData, 1);
+    pcd->num_points = num_points;
+    pcd->points = points;
+
+    new_obj = otype->ops->create(NULL, pcd,
+				 &h1, &h2);
+
+    g_free(pcd);
+    
+    return new_obj;
+}
+
+static Object *
+create_standard_polygon(int num_points, 
+			 Point *points,
+			 DiagramData *dia) {
+    ObjectType *otype = object_get_type("Standard - Polygon");
+    Object *new_obj;
+    Handle *h1, *h2;
+    PolylineCreateData *pcd;
+
+    pcd = g_new(PolygonCreateData, 1);
+    pcd->num_points = num_points;
+    pcd->points = points;
+
+    new_obj = otype->ops->create(NULL, pcd,
+				 &h1, &h2);
+
+    g_free(pcd);
+    
+    return new_obj;
 }
 
 static Object *
@@ -637,6 +680,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 					image_file, dia);
 	 break;
      case 1: /* polyline */
+	 newobj = create_standard_polyline(npoints, points, dia);
+	 break;
      case 3: /* polygon */
 	 /*
 	   newobj = create_standard_polygon(points, dia);

@@ -35,15 +35,11 @@
 #include "message.h"
 #include "properties.h"
 
+#include "create.h"
+
 #include "pixmaps/polyline.xpm"
 
 #define DEFAULT_WIDTH 0.15
-
-typedef struct _PolylineCreateData {
-  int num_points;
-  Point *points;
-} PolylineCreateData;
-
 
 typedef struct _Polyline {
   PolyConn poly;
