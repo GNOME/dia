@@ -52,12 +52,14 @@ typedef enum {
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define NUM_CONNECTIONS 17
+
 typedef struct _Pgram Pgram;
 
 struct _Pgram {
   Element element;
 
-  ConnectionPoint connections[16];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
   Color border_color;
   Color inner_color;
@@ -511,6 +513,10 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 		   top_left + 4.0 * offs + width,
 		   elem->corner.y + elem->height,
 		   DIR_SOUTHEAST);
+  connpoint_update(&pgram->connections[16],
+		   top_left + 2.0 * offs + width / 2,
+		   elem->corner.y + elem->height / 2,
+		   DIR_ALL);
 
   extra->border_trans = pgram->border_width/2.0;
   element_update_boundingbox(elem);
@@ -567,13 +573,15 @@ pgram_create(Point *startpoint,
   text_get_attributes(pgram->text,&pgram->attrs);
   dia_font_unref(font);
   
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pgram->connections[i];
     pgram->connections[i].object = obj;
     pgram->connections[i].connected = NULL;
+    pgram->connections[i].flags = 0;
   }
+  pgram->connections[16].flags = CP_FLAGS_MAIN;
 
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
@@ -690,13 +698,15 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     pgram->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pgram->connections[i];
     pgram->connections[i].object = obj;
     pgram->connections[i].connected = NULL;
+    pgram->connections[i].flags = 0;
   }
+  pgram->connections[16].flags = CP_FLAGS_MAIN;
 
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

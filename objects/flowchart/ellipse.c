@@ -45,6 +45,8 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define NUM_CONNECTIONS 17
+
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -57,7 +59,7 @@ typedef struct _Ellipse Ellipse;
 struct _Ellipse {
   Element element;
 
-  ConnectionPoint connections[16];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
   Color border_color;
   Color inner_color;
@@ -427,7 +429,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   c.y = elem->corner.y + elem->height / 2;
   dw = elem->width  / 2.0;
   dh = elem->height / 2.0;
-  for (i = 0; i < 16; i++) {
+  for (i = 0; i < NUM_CONNECTIONS-1; i++) {
     real theta = M_PI / 8.0 * i;
     real costheta = cos(theta);
     real sintheta = sin(theta);
@@ -437,6 +439,8 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 		      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
 		      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
   }
+  connpoint_update(&ellipse->connections[16],
+		   c.x, c.y, DIR_ALL);
 
   extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -491,13 +495,15 @@ ellipse_create(Point *startpoint,
   text_get_attributes(ellipse->text,&ellipse->attrs);
   dia_font_unref(font);
   
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &ellipse->connections[i];
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;
+    ellipse->connections[i].flags = 0;
   }
+  ellipse->connections[16].flags = CP_FLAGS_MAIN;
 
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
@@ -605,13 +611,15 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     ellipse->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &ellipse->connections[i];
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;
+    ellipse->connections[i].flags = 0;
   }
+  ellipse->connections[16].flags = CP_FLAGS_MAIN;
 
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

@@ -45,6 +45,8 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define NUM_CONNECTIONS 17
+
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -57,7 +59,7 @@ typedef struct _Diamond Diamond;
 struct _Diamond {
   Element element;
 
-  ConnectionPoint connections[16];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
   Color border_color;
   Color inner_color;
@@ -459,6 +461,8 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   diamond->connections[14].pos.y = elem->corner.y + 2*dh;
   diamond->connections[15].pos.x = elem->corner.x + 3*dw;
   diamond->connections[15].pos.y = elem->corner.y + dh;
+  diamond->connections[16].pos.x = elem->corner.x + 4*dw;
+  diamond->connections[16].pos.y = elem->corner.y + 4*dh;
 
   extra->border_trans = diamond->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -513,13 +517,15 @@ diamond_create(Point *startpoint,
   text_get_attributes(diamond->text,&diamond->attrs);
   dia_font_unref(font);
   
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &diamond->connections[i];
     diamond->connections[i].object = obj;
     diamond->connections[i].connected = NULL;
+    diamond->connections[i].flags = 0;
   }
+  diamond->connections[16].flags = CP_FLAGS_MAIN;
 
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
@@ -628,13 +634,15 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     diamond->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &diamond->connections[i];
     diamond->connections[i].object = obj;
     diamond->connections[i].connected = NULL;
+    diamond->connections[i].flags = 0;
   }
+  diamond->connections[16].flags = CP_FLAGS_MAIN;
 
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

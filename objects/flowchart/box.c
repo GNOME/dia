@@ -45,6 +45,8 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define NUM_CONNECTIONS 17
+
 typedef enum {
   ANCHOR_MIDDLE,
   ANCHOR_START,
@@ -56,7 +58,7 @@ typedef struct _Box Box;
 struct _Box {
   Element element;
 
-  ConnectionPoint connections[16];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
   Color border_color;
   Color inner_color;
@@ -553,6 +555,10 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 		    elem->corner.x + elem->width - radius,
 		    elem->corner.y + elem->height - radius,
 		    DIR_SOUTHEAST);
+  connpoint_update(&box->connections[16],
+		    elem->corner.x + elem->width / 2,
+		    elem->corner.y + elem->height / 2,
+		    DIR_ALL);
 
   extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -620,13 +626,15 @@ box_create(Point *startpoint,
   text_get_attributes(box->text,&box->attrs);
   dia_font_unref(font);
   
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &box->connections[i];
     box->connections[i].object = obj;
     box->connections[i].connected = NULL;
+    box->connections[i].flags = 0;
   }
+  box->connections[16].flags = CP_FLAGS_MAIN;
 
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
@@ -743,13 +751,15 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     box->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &box->connections[i];
     box->connections[i].object = obj;
     box->connections[i].connected = NULL;
+    box->connections[i].flags = 0;
   }
+  box->connections[16].flags = CP_FLAGS_MAIN;
 
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

@@ -1,5 +1,10 @@
 2005-03-24  Lars Clausen  <lars@raeder.dk>
 
+	* objects/flowchart/parallelogram.c (pgram_update_data): 
+	* objects/flowchart/ellipse.c (ellipse_update_data): 
+	* objects/flowchart/diamond.c (diamond_update_data): 
+	* objects/flowchart/box.c (box_update_data): Main points.
+
 	* objects/custom/custom_object.c (custom_create): 
 	* objects/custom/shape_info.h: 
 	* shapes/Assorted/square.shape: 
