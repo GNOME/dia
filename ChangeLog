@@ -1,5 +1,10 @@
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
+	* sheets/Cybernetics.sheet.in : changed encoding to 
+	utf-8, patch from Takeshi AIHANA, fixes #149580
+
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
 	* objects/custom/custom_object.c : many existing shapes
 	rely on a square default size, revert to it although
 	it originally was by a typo. Fixes bug #148527.
