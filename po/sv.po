@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-05-01 12:24+0200\n"
-"PO-Revision-Date: 2003-05-01 12:26+0200\n"
+"POT-Creation-Date: 2003-05-02 11:15+0200\n"
+"PO-Revision-Date: 2003-05-02 11:17+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -531,48 +531,47 @@ msgstr "Stäng diagram"
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
-#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
-#: plug-ins/metapost/render_metapost.c:733
-#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
-#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
-#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
+#: app/export_png.c:116 app/load_save.c:747 app/render_eps.c:83
+#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:734
+#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
 #, c-format
-msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Kunde inte öppna: \"%s\" för skrivning.\n"
+msgid "Can't open output file %s: %s\n"
+msgstr "Kan inte öppna utdatafilen %s: %s\n"
 
-#: app/export_png.c:122
+#: app/export_png.c:124
 msgid "Could not create PNG write structure"
 msgstr "Kunde inte skapa PNG-skrivstruktur"
 
-#: app/export_png.c:131
+#: app/export_png.c:133
 msgid "Could not create PNG header info structure"
 msgstr "Kunde inte skapa informationsstruktur för PNG-huvuden"
 
-#: app/export_png.c:139
+#: app/export_png.c:141
 msgid "Error occurred while writing PNG"
 msgstr "Fel uppstod vid skrivning av PNG"
 
 #. Create a dialog
-#: app/export_png.c:263
+#: app/export_png.c:265
 msgid "PNG Export Options"
 msgstr "PNG-exportalternativ"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:264 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:266 objects/FS/function.c:661 objects/FS/function.c:663
 msgid "Export"
 msgstr "Exportera"
 
-#: app/export_png.c:269
+#: app/export_png.c:271
 msgid "Image width:"
 msgstr "Bildbredd:"
 
-#: app/export_png.c:272
+#: app/export_png.c:274
 msgid "Image height:"
 msgstr "Bildhöjd:"
 
-#: app/export_png.c:317
+#: app/export_png.c:319
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -857,7 +856,7 @@ msgstr "Linjebredd"
 msgid "Line width:"
 msgstr "Linjebredd:"
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -865,7 +864,7 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Refererat objekt finns inte i dokumentet."
 
-#: app/load_save.c:203
+#: app/load_save.c:204
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -873,7 +872,7 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningspunkten finns inte."
 
-#: app/load_save.c:206
+#: app/load_save.c:207
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -881,17 +880,17 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningshandtaget finns inte."
 
-#: app/load_save.c:255
+#: app/load_save.c:256
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste ange en fil, inte en katalog.\n"
 
-#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
+#: app/load_save.c:263 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: \"%s\" för läsning.\n"
 
-#: app/load_save.c:271 app/load_save.c:276
+#: app/load_save.c:272 app/load_save.c:277
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -900,7 +899,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Okänd filtyp."
 
-#: app/load_save.c:283
+#: app/load_save.c:284
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -909,7 +908,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Inte en Dia-fil."
 
-#: app/load_save.c:469
+#: app/load_save.c:470
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -920,12 +919,12 @@ msgstr ""
 "%s.\n"
 "En giltig Dia-fil anger minst ett lager."
 
-#: app/load_save.c:779
+#: app/load_save.c:780
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades med att spara filen \"%s\".\n"
 
-#: app/load_save.c:849 app/load_save.c:854
+#: app/load_save.c:850 app/load_save.c:855
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
@@ -1853,7 +1852,7 @@ msgstr "<Toolbox>/Arkiv/Avsluta"
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
-#: app/render_eps.c:114
+#: app/render_eps.c:119
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
@@ -4434,7 +4433,7 @@ msgstr "Text utanför"
 msgid "Collaboration"
 msgstr "Samarbete"
 
-#: plug-ins/cgm/cgm.c:1108
+#: plug-ins/cgm/cgm.c:1109
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -4442,11 +4441,11 @@ msgstr ""
 "Bildradslängden är större än det maximala antalet fält.\n"
 "Bilden exporterades inte till CGM."
 
-#: plug-ins/cgm/cgm.c:1364
+#: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1378
+#: plug-ins/cgm/cgm.c:1379
 msgid "Computer Graphics Metafile export filter"
 msgstr "Exportfilter för Computer Graphics Metafile"
 
@@ -4454,7 +4453,7 @@ msgstr "Exportfilter för Computer Graphics Metafile"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Import- och exportfilter för att rita Interchange-filer"
 
-#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Ritar Interchange-fil"
 
@@ -4476,11 +4475,11 @@ msgstr "read_dxf_codes mislyckades\n"
 msgid "Unknown dxf code %d\n"
 msgstr "Okänd dxf-kod %d\n"
 
-#: plug-ins/hpgl/hpgl.c:771
+#: plug-ins/hpgl/hpgl.c:772
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: plug-ins/hpgl/hpgl.c:785
+#: plug-ins/hpgl/hpgl.c:786
 msgid "HP Graphics Language export filter"
 msgstr "Exportfilter för HP Graphics Language"
 
@@ -4488,7 +4487,7 @@ msgstr "Exportfilter för HP Graphics Language"
 msgid "TeX Metapost export filter"
 msgstr "Exportfilter för TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:793
+#: plug-ins/metapost/render_metapost.c:794
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost-makron"
 
@@ -4515,9 +4514,14 @@ msgstr "export/import av gdk-pixbuf-baserade bitmappsbilder"
 msgid "TeX Pstricks export filter"
 msgstr "Exportfilter för TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:827
+#: plug-ins/pstricks/render_pstricks.c:828
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks-makron"
+
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Kunde inte öppna: \"%s\" för skrivning.\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
@@ -4527,15 +4531,15 @@ msgstr "Python-skriptstöd"
 msgid "dia shape export filter"
 msgstr "exportfilter för dia-figurer"
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:471
 msgid "Can't export png without libart!"
 msgstr "Kan inte exportera png utan libart!"
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:498
 msgid "dia shape file"
 msgstr "dia-figurfil"
 
-#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4577,16 +4581,16 @@ msgstr "Windows Meta File (WMF)"
 msgid "WMF export filter"
 msgstr "Exportfilter för WMF"
 
-#: plug-ins/wpg/wpg.c:1180
+#: plug-ins/wpg/wpg.c:1181
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Fil: %s typ/version stöds inte.\n"
 
-#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+#: plug-ins/wpg/wpg.c:1311 plug-ins/wpg/wpg.c:1318
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1331
+#: plug-ins/wpg/wpg.c:1332
 msgid "WordPerfect Graphics export filter"
 msgstr "Exportfilter för WordPerfect-grafik"
 
@@ -4772,36 +4776,36 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 msgid "XFig File Format"
 msgstr "XFig-filformat"
 
-#: plug-ins/xslt/xslt.c:91
+#: plug-ins/xslt/xslt.c:95
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fel vid tolkning av %s\n"
 
-#: plug-ins/xslt/xslt.c:99
+#: plug-ins/xslt/xslt.c:103
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fel vid tolkning av stilmallen %s\n"
 
-#: plug-ins/xslt/xslt.c:105
+#: plug-ins/xslt/xslt.c:109
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Fel vid tillämpning av stilmallen %s\n"
 
-#: plug-ins/xslt/xslt.c:113
+#: plug-ins/xslt/xslt.c:117
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fel vid tolkning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:121
+#: plug-ins/xslt/xslt.c:125
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fel vid tillämpning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:283
+#: plug-ins/xslt/xslt.c:287
 msgid "XSL Transformation filter"
 msgstr "XSL-transformationsfilter"
 
-#: plug-ins/xslt/xslt.c:311
+#: plug-ins/xslt/xslt.c:315
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Ingen giltig konfigurationsfil hittades för XSLT-insticksmodulen, läser inte "
@@ -6147,6 +6151,9 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Användningsområde"
+
+#~ msgid "Can't open file %s: %s\n"
+#~ msgstr "Kan inte öppna filen %s: %s\n"
 
 #~ msgid "Punch card"
 #~ msgstr "Hålkort"
