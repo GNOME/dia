@@ -1,3 +1,17 @@
+2001-02-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/UML/small_package.c: 
+	* objects/UML/class.c: 
+	* objects/UML/node.c: 
+	* objects/UML/usecase.c:
+	* objects/UML/lifeline.c: 
+	* objects/UML/message.c:
+	Various cleanup of properties in particular.  Now much more use of
+	standard properties.
+
+	* lib/diagramdata.c (layer_render): Visualization of bounding
+	boxes, for debugging purpoises.
+
 2001-02-22  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/geometry.h:
