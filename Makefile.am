@@ -48,7 +48,7 @@ EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	core-translation-report po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \
 	RELEASE-PROCESS autogen.sh \
-	config.h.win32 readme.win32
+	config.h.win32 readme.win32 AUTHORS
 
 AUTHORS: all-recursive
 	app/run_dia.sh --credits > AUTHORS
