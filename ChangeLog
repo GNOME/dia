@@ -1,3 +1,9 @@
+2000-02-24  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom_object.c: converted to use the properties
+	interface.  In the future, it would be nice to add support for
+	defining custom properties for custom objects, but that can wait.
+
 2000-02-22  James Henstridge  <james@daa.com.au>
 
 	* sheets/Circuit.sheet: added new circuit shapes to sheet.

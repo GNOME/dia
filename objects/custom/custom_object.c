@@ -34,6 +34,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "sheet.h"
+#include "properties.h"
 
 #include "pixmaps/custom.xpm"
 
@@ -49,25 +50,7 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Custom Custom;
-typedef struct _CustomPropertiesDialog CustomPropertiesDialog;
 typedef struct _CustomDefaultsDialog CustomDefaultsDialog;
-typedef struct _CustomState CustomState;
-
-struct _CustomState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-
-  gboolean flip_h, flip_v;
-
-  real padding;
-  TextAttributes text_attrib;
-};
 
 struct _Custom {
   Element element;
@@ -104,25 +87,6 @@ typedef struct _CustomProperties {
   Color *font_color;
 } CustomProperties;
 
-struct _CustomPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-
-  GtkWidget *text_vbox;
-  GtkSpinButton *padding;
-  DiaAlignmentSelector *alignment;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *font_color;
-
-  Custom *custom;
-};
-
 struct _CustomDefaultsDialog {
   GtkWidget *vbox;
 
@@ -135,7 +99,6 @@ struct _CustomDefaultsDialog {
 };
 
 
-static CustomPropertiesDialog *custom_properties_dialog;
 static CustomDefaultsDialog *custom_defaults_dialog;
 static CustomProperties default_properties;
 
@@ -154,12 +117,11 @@ static Object *custom_create(Point *startpoint,
 			  Handle **handle2);
 static void custom_destroy(Custom *custom);
 static Object *custom_copy(Custom *custom);
-static GtkWidget *custom_get_properties(Custom *custom);
-static ObjectChange *custom_apply_properties(Custom *custom);
 static DiaMenu *custom_get_object_menu(Custom *custom, Point *clickedpoint);
 
-static CustomState *custom_get_state(Custom *custom);
-static void custom_set_state(Custom *custom, CustomState *state);
+static PropDescription *custom_describe_props(Custom *custom);
+static void custom_get_props(Custom *custom, Property *props, guint nprops);
+static void custom_set_props(Custom *custom, Property *props, guint nprops);
 
 static void custom_save(Custom *custom, ObjectNode obj_node, const char *filename);
 static Object *custom_load(ObjectNode obj_node, int version, const char *filename);
@@ -184,16 +146,6 @@ static ObjectType custom_type =
   &custom_type_ops      /* ops */
 };
 
-#if 0
-static SheetObject custom_sheetobj =
-{
-  "Custom - Generic",
-  N_("A custom with text inside."),
-  (char **)custom_xpm,
-  NULL
-};
-#endif
-
 static ObjectOps custom_ops = {
   (DestroyFunc)         custom_destroy,
   (DrawFunc)            custom_draw,
@@ -202,229 +154,147 @@ static ObjectOps custom_ops = {
   (CopyFunc)            custom_copy,
   (MoveFunc)            custom_move,
   (MoveHandleFunc)      custom_move_handle,
-  (GetPropertiesFunc)   custom_get_properties,
-  (ApplyPropertiesFunc) custom_apply_properties,
-  (ObjectMenuFunc)      custom_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      custom_get_object_menu,
+  (DescribePropsFunc)   custom_describe_props,
+  (GetPropsFunc)        custom_get_props,
+  (SetPropsFunc)        custom_set_props
 };
 
-static ObjectChange *
-custom_apply_properties(Custom *custom)
+static PropDescription custom_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Flip horizontal"), NULL, NULL },
+  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Flip vertical"), NULL, NULL },
+  PROP_DESC_END
+};
+static PropDescription custom_props_text[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Flip horizontal"), NULL, NULL },
+  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Flip vertical"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+custom_describe_props(Custom *custom)
 {
-  ObjectState *old_state;
-  Font *font;
-  Color col;
-  Alignment align;
+  if (custom_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(custom_props);
+  if (custom_props_text[0].quark == 0)
+    prop_desc_list_calculate_quarks(custom_props_text);
+  if (custom->info->has_text)
+    return custom_props_text;
+  else
+    return custom_props;
+}
 
-  if (custom != custom_properties_dialog->custom) {
-    message_warning("Custom dialog problem:  %p != %p\n", custom,
-		    custom_properties_dialog->custom);
-    custom = custom_properties_dialog->custom;
+static PropOffset custom_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Custom, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Custom, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Custom, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Custom, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Custom, line_style), offsetof(Custom, dashlength) },
+  { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
+  { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_alignment" },
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+custom_get_props(Custom *custom, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)custom, custom_offsets,
+				    props, nprops) ||
+      !custom->info->has_text)
+    return;
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+ 
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_ENUM;
+      PROP_VALUE_ENUM(props[i]) = custom->text->alignment;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = custom->text->font;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = custom->text->height;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = custom->text->color;
+    } else if (pquark == quarks[4].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(custom->text);
+    }
   }
+}
 
-  old_state = (ObjectState *)custom_get_state(custom);
-  
-  custom->border_width = gtk_spin_button_get_value_as_float(custom_properties_dialog->border_width);
-  dia_color_selector_get_color(custom_properties_dialog->fg_color, &custom->border_color);
-  dia_color_selector_get_color(custom_properties_dialog->bg_color, &custom->inner_color);
-  custom->show_background = gtk_toggle_button_get_active(custom_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(custom_properties_dialog->line_style, &custom->line_style, &custom->dashlength);
+static void
+custom_set_props(Custom *custom, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)custom, custom_offsets,
+                                     props, nprops) &&
+      custom->info->has_text) {
+    guint i;
 
-  if (custom->info->has_text) {
-    custom->padding = gtk_spin_button_get_value_as_float(custom_properties_dialog->padding);
-    align = dia_alignment_selector_get_alignment(custom_properties_dialog->alignment);
-    text_set_alignment(custom->text, align);
-    font = dia_font_selector_get_font(custom_properties_dialog->font);
-    text_set_font(custom->text, font);
-    text_set_height(custom->text, gtk_spin_button_get_value_as_float(
-					custom_properties_dialog->font_size));
-    dia_color_selector_get_color(custom_properties_dialog->font_color, &col);
-    text_set_color(custom->text, &col);
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
+	text_set_alignment(custom->text, PROP_VALUE_ENUM(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(custom->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(custom->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(custom->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(custom->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
   }
-  
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)custom, old_state, 
-				 (GetStateFunc)custom_get_state,
-				 (SetStateFunc)custom_set_state);
 }
 
-static GtkWidget *
-custom_get_properties(Custom *custom)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkcustom;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *padding;
-  GtkWidget *alignment;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-
-  if (custom_properties_dialog == NULL) {
-    custom_properties_dialog = g_new(CustomPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    custom_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    custom_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    custom_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    custom_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkcustom = gtk_check_button_new_with_label(_("Draw background"));
-    custom_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkcustom );
-    gtk_widget_show(checkcustom);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkcustom, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    custom_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_widget_show(vbox);
-    custom_properties_dialog->text_vbox = vbox;
-    gtk_box_pack_start(GTK_BOX(custom_properties_dialog->vbox), vbox,
-		       TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    custom_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Alignment:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    alignment = dia_alignment_selector_new();
-    custom_properties_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
-    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-    gtk_widget_show (alignment);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    custom_properties_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    custom_properties_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    custom_properties_dialog->font_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  custom_properties_dialog->custom = custom;
-    
-  gtk_spin_button_set_value(custom_properties_dialog->border_width,
-			    custom->border_width);
-  dia_color_selector_set_color(custom_properties_dialog->fg_color,
-			       &custom->border_color);
-  dia_color_selector_set_color(custom_properties_dialog->bg_color,
-			       &custom->inner_color);
-  gtk_toggle_button_set_active(custom_properties_dialog->show_background, 
-			       custom->show_background);
-  dia_line_style_selector_set_linestyle(custom_properties_dialog->line_style,
-					custom->line_style,custom->dashlength);
-
-  if (custom->info->has_text) {
-    gtk_spin_button_set_value(custom_properties_dialog->padding,
-			      custom->padding);
-    dia_alignment_selector_set_alignment(custom_properties_dialog->alignment, custom->text->alignment);
-    dia_font_selector_set_font(custom_properties_dialog->font, custom->text->font);
-    gtk_spin_button_set_value(custom_properties_dialog->font_size,
-			      custom->text->height);
-    dia_color_selector_set_color(custom_properties_dialog->font_color,
-				 &custom->text->color);
-    gtk_widget_show(custom_properties_dialog->text_vbox);
-  } else
-    gtk_widget_hide(custom_properties_dialog->text_vbox);
-
-  return custom_properties_dialog->vbox;
-}
 static void
 custom_apply_defaults()
 {
@@ -861,48 +731,6 @@ custom_draw(Custom *custom, Renderer *renderer)
       }*/
     text_draw(custom->text, renderer);
   }
-}
-
-static CustomState *
-custom_get_state(Custom *custom)
-{
-  CustomState *state = g_new(CustomState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = custom->border_width;
-  state->border_color = custom->border_color;
-  state->inner_color = custom->inner_color;
-  state->show_background = custom->show_background;
-  state->line_style = custom->line_style;
-  state->dashlength = custom->dashlength;
-  state->padding = custom->padding;
-  state->flip_h = custom->flip_h;
-  state->flip_v = custom->flip_v;
-  if (custom->info->has_text)
-    text_get_attributes(custom->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-custom_set_state(Custom *custom, CustomState *state)
-{
-  custom->border_width = state->border_width;
-  custom->border_color = state->border_color;
-  custom->inner_color = state->inner_color;
-  custom->show_background = state->show_background;
-  custom->line_style = state->line_style;
-  custom->dashlength = state->dashlength;
-  custom->padding = state->padding;
-  custom->flip_h = state->flip_h;
-  custom->flip_v = state->flip_v;
-  if (custom->info->has_text)
-    text_set_attributes(custom->text, &state->text_attrib);
-
-  g_free(state);
-  
-  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
