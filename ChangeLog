@@ -1,3 +1,8 @@
+2004-08-21  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/dxf/dxf-export.c: Patch from 
+	Takeshi Hamasaki <hma@syd.odn.ne.jp>, fixes text alignment
+
 2004-08-17  Lars Clausen  <lars@raeder.dk>
 
 	* config.h.win32: 

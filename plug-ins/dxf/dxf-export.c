@@ -3,7 +3,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * dxf-export.c: dxf export filter for dia
- * Copyright (C) 2000 Steffen Macke
+ * Copyright (C) 2000,2004 Steffen Macke
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -471,10 +471,14 @@ draw_string(DiaRenderer *self,
     switch(alignment) {
     case ALIGN_LEFT :
 	fprintf(renderer->file, " 72\n%d\n", 0);
+        break;
     case ALIGN_RIGHT :
    	fprintf(renderer->file, " 72\n%d\n", 2);
+        break;
     case ALIGN_CENTER :
-   	fprintf(renderer->file, " 72\n%d\n", 1);	    	    
+    default:
+   	fprintf(renderer->file, " 72\n%d\n", 1);
+        break;
     }    
     fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
     fprintf(renderer->file, "  1\n%s\n", text);
