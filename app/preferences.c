@@ -749,6 +749,8 @@ prefs_create_dialog(void)
 
   gtk_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+  gtk_signal_connect (GTK_OBJECT (prefs_dialog), "destroy",
+		      GTK_SIGNAL_FUNC(gtk_widget_destroyed), &prefs_dialog);
 
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);

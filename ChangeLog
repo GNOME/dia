@@ -1,7 +1,10 @@
 2003-01-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/layer_dialog.c (create_layer_dialog): Correct handling of
-	destroy_event. 
+	* app/preferences.c (prefs_create_dialog): 
+	* app/linewidth_area.c (linewidth_create_dialog): 
+	* app/lineprops_area.c (dia_arrow_chooser_dialog_show): 
+	* app/layer_dialog.c (create_layer_dialog)
+	(layer_dialog_edit_layer): Correct handling of destroy_event. 
 
 	* app/diapsft2renderer.c (set_font): Adjust silly random factor
 	for change in font.c

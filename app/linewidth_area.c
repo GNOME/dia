@@ -203,6 +203,14 @@ linewidth_dialog_cancel(GtkWidget *widget, gpointer data)
   gtk_widget_hide(linewidth_dialog);
 }
 
+/* Crashes with gtk_widget_destroyed, so use this instead */
+static void
+dialog_destroyed(GtkWidget *widget, gpointer data)
+{
+  GtkWidget **wid = (GtkWidget**)data;
+  if (wid) *wid = NULL;
+}
+
 static void
 linewidth_create_dialog()
 {
@@ -252,5 +260,7 @@ linewidth_create_dialog()
 
   gtk_signal_connect (GTK_OBJECT (linewidth_dialog), "delete_event",
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+  gtk_signal_connect (GTK_OBJECT (linewidth_dialog), "destroy",
+		      GTK_SIGNAL_FUNC(dialog_destroyed), &linewidth_dialog);
 }
 

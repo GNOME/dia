@@ -429,8 +429,9 @@ dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
     gtk_window_set_title(GTK_WINDOW(wid), _("Arrow Properties"));
     gtk_signal_connect(GTK_OBJECT(wid), "delete_event",
 		       GTK_SIGNAL_FUNC(close_and_hide), NULL);
-    gtk_signal_connect(GTK_OBJECT(wid), "destroy_event",
-		       GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_destroy), NULL);
+    gtk_signal_connect(GTK_OBJECT(wid), "destroy",
+		       GTK_SIGNAL_FUNC(gtk_widget_destroyed),
+		       &chooser->dialog);
 
     wid = dia_arrow_selector_new();
     gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
