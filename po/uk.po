@@ -1480,7 +1480,7 @@ msgstr ""
 
 #: objects/ER/relationship.c:288
 msgid "Identifying"
-msgstr ""
+msgstr "╤дентиф╕кац╕я"
 
 #: objects/ER/relationship.c:568
 msgid "Relationship"
@@ -1711,7 +1711,7 @@ msgstr "   Позиц╕я"
 
 #: objects/FS/function.c:567
 msgid "Connect"
-msgstr ""
+msgstr "Зв'язок"
 
 #: objects/FS/function.c:568
 msgid "   Couple"
