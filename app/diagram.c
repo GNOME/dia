@@ -24,6 +24,7 @@
 #include "group.h"
 #include "object_ops.h"
 #include "render_eps.h"
+#include "render_svg.h"
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
@@ -731,6 +732,16 @@ diagram_export_to_eps(Diagram *dia, char *filename)
   RendererEPS *renderer;
  
   renderer = new_eps_renderer(dia, filename);
+
+  data_render(dia->data, (Renderer *)renderer, NULL, NULL);
+}
+
+void
+diagram_export_to_svg(Diagram *dia, char *filename)
+{
+  RendererSVG *renderer;
+
+  renderer = new_svg_renderer(dia, filename);
 
   data_render(dia->data, (Renderer *)renderer, NULL, NULL);
 }

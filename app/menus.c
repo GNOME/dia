@@ -50,6 +50,8 @@ static GnomeUIInfo filemenu[] = {
 
   { GNOME_APP_UI_ITEM, N_("_Export To EPS"), NULL,
     file_export_to_eps_callback, NULL, NULL },
+  { GNOME_APP_UI_ITEM, N_("Export To S_VG"), NULL,
+    file_export_to_svg_callback, NULL, NULL },
 
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_CLOSE_ITEM(file_close_callback, NULL),
@@ -179,6 +181,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/File/_Save"),             "<control>S", file_save_callback,          0},
   {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,       0},
   {N_("/File/_Export To EPS"),    NULL,         file_export_to_eps_callback, 0},
+  {N_("/File/Export To S_VG"),    NULL,         file_export_to_svg_callback, 0},
   {N_("/File/sep1"),              NULL,         NULL,                        0, "<Separator>"},
   {N_("/File/_Close"),            NULL,         file_close_callback,         0},
   {N_("/File/_Quit"),              "<control>Q", file_quit_callback,          0},

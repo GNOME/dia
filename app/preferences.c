@@ -27,6 +27,7 @@
 
 #include "config.h"
 #include "intl.h"
+#include "widgets.h"
 #include "preferences.h"
 
 struct DiaPreferences prefs;
@@ -37,7 +38,8 @@ enum DiaPrefType {
   PREF_INT,
   PREF_UINT,
   PREF_REAL,
-  PREF_UREAL
+  PREF_UREAL,
+  PREF_COLOUR
 };
 
 struct DiaPrefsData {
@@ -57,6 +59,7 @@ static real default_real_zoom = 100.0;
 static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
+static Color default_colour = { 0.5, 0.5, 0.5 };
 
 struct DiaPrefsTab {
   char *title;
@@ -82,6 +85,8 @@ struct DiaPrefsData prefs_data[] =
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 1, N_("Visible:") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 1, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 1, N_("Y Size:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 1, N_("Colour") },
+  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 1, N_("Solid lines") },
   
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
@@ -178,6 +183,9 @@ prefs_set_defaults(void)
     case PREF_UREAL:
       *(real *)ptr = *(real *)prefs_data[i].default_value;
       break;
+    case PREF_COLOUR:
+      *(Color *)ptr = *(Color *)prefs_data[i].default_value;
+      break;
     case PREF_NONE:
       break;
     }
@@ -220,6 +228,9 @@ prefs_save(void)
     case PREF_UREAL:
       fprintf(file, "%f\n", (double) *(real *)ptr);
       break;
+    case PREF_COLOUR:
+      fprintf(file, "%f %f %f\n", (double) ((Color *)ptr)->red,
+	      (double) ((Color *)ptr)->green, (double) ((Color *)ptr)->blue);
     case PREF_NONE:
       break;
     }
@@ -274,6 +285,22 @@ prefs_parse_line(GScanner *scanner)
       return G_TOKEN_FLOAT;
     
     *(real *)ptr = scanner->value.v_float;
+    break;
+  case PREF_COLOUR:
+    if (token != G_TOKEN_FLOAT)
+      return G_TOKEN_FLOAT;
+    ((Color *)ptr)->red = scanner->value.v_float;
+
+    token = g_scanner_get_next_token(scanner);
+    if (token != G_TOKEN_FLOAT)
+      return G_TOKEN_FLOAT;
+    ((Color *)ptr)->green = scanner->value.v_float;
+
+    token = g_scanner_get_next_token(scanner);
+    if (token != G_TOKEN_FLOAT)
+      return G_TOKEN_FLOAT;
+    ((Color *)ptr)->blue = scanner->value.v_float;
+
     break;
   case PREF_NONE:
     break;
@@ -381,6 +408,9 @@ prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget),
 			      (gfloat) (*((real *)ptr)));
     break;
+  case PREF_COLOUR:
+    dia_color_selector_set_color(DIACOLORSELECTOR(widget), (Color *)ptr);
+    break;
   case PREF_NONE:
     break;
   }
@@ -403,6 +433,9 @@ prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_UREAL:
     *((real *)ptr) = (real)
       gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(widget));
+    break;
+  case PREF_COLOUR:
+    dia_color_selector_get_color(DIACOLORSELECTOR(widget), (Color *)ptr);
     break;
   case PREF_NONE:
     break;
@@ -460,6 +493,9 @@ prefs_get_property_widget(enum DiaPrefType type)
     widget = gtk_spin_button_new (adj, 1.0, 3);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_widget_set_usize(widget, 80, -1);
+    break;
+  case PREF_COLOUR:
+    widget = dia_color_selector_new();
     break;
   case PREF_NONE:
     widget = NULL;

@@ -22,8 +22,8 @@
 #include "config.h"
 #include "intl.h"
 #include "grid.h"
+#include "preferences.h"
 
-static Color grid_color = {0.5, 0.5, 0.5};
 void
 grid_draw(DDisplay *ddisp)
 {
@@ -42,7 +42,10 @@ grid_draw(DDisplay *ddisp)
     int x,y;
 
     (renderer->ops->set_linewidth)(renderer, 0.0);
-    (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
+    if (prefs.grid.solid)
+      (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
+    else
+      (renderer->ops->set_linestyle)(renderer, LINESTYLE_DOTTED);
     
     /* Vertical lines: */
     pos = ceil( ddisp->visible.left / grid->width_x )*grid->width_x;
@@ -51,7 +54,7 @@ grid_draw(DDisplay *ddisp)
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   x, 0,
 						   x, height,
-						   &grid_color);
+						   &prefs.grid.colour);
       pos += grid->width_x;
     }
 
@@ -62,7 +65,7 @@ grid_draw(DDisplay *ddisp)
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   0, y,
 						   width, y,
-						   &grid_color);
+						   &prefs.grid.colour);
       pos += grid->width_y;
     }
   }

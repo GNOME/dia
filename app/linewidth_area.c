@@ -108,7 +108,7 @@ linewidth_area_events (GtkWidget *widget,
     {
     case GDK_CONFIGURE:
       cevent = (GdkEventConfigure *)  event;
-      if (cevent->width != 1) {
+      if (cevent->width > 1) {
 	linewidth_area_pixmap = gdk_pixmap_new (widget->window,
 						cevent->width,
 						cevent->height, -1);

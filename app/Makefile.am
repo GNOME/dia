@@ -59,6 +59,8 @@ dia_SOURCES = \
 	    render_gdk.h \
 	    render_eps.c \
 	    render_eps.h \
+	    render_svg.c \
+	    render_svg.h \
 	    undo.c \
 	    undo.h \
 	    tool.c \

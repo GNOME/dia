@@ -19,6 +19,7 @@
 #define DIA_IMAGE_H
 
 #include "geometry.h"
+#include "color.h"
 
 /* retrive a structure offset */
 #ifdef offsetof
@@ -32,6 +33,8 @@ struct DiaPreferences {
     int visible;
     real x;
     real y;
+    Color colour;
+    int solid;
   } grid;
   
   struct {

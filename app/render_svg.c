@@ -1,0 +1,777 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * render_svg.c - an SVG renderer for dia, based on render_eps.c
+ * Copyright (C) 1999 James Henstridge
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <string.h>
+#include <time.h>
+#include <math.h>
+#include <unistd.h>
+
+#include <entities.h>
+
+#include "config.h"
+#include "intl.h"
+#include "render_svg.h"
+#include "message.h"
+#include "diagramdata.h"
+
+static void begin_render(RendererSVG *renderer, DiagramData *data);
+static void end_render(RendererSVG *renderer);
+static void set_linewidth(RendererSVG *renderer, real linewidth);
+static void set_linecaps(RendererSVG *renderer, LineCaps mode);
+static void set_linejoin(RendererSVG *renderer, LineJoin mode);
+static void set_linestyle(RendererSVG *renderer, LineStyle mode);
+static void set_dashlength(RendererSVG *renderer, real length);
+static void set_fillstyle(RendererSVG *renderer, FillStyle mode);
+static void set_font(RendererSVG *renderer, Font *font, real height);
+static void draw_line(RendererSVG *renderer, 
+		      Point *start, Point *end, 
+		      Color *line_colour);
+static void draw_polyline(RendererSVG *renderer, 
+			  Point *points, int num_points, 
+			  Color *line_colour);
+static void draw_polygon(RendererSVG *renderer, 
+			 Point *points, int num_points, 
+			 Color *line_colour);
+static void fill_polygon(RendererSVG *renderer, 
+			 Point *points, int num_points, 
+			 Color *line_colour);
+static void draw_rect(RendererSVG *renderer, 
+		      Point *ul_corner, Point *lr_corner,
+		      Color *colour);
+static void fill_rect(RendererSVG *renderer, 
+		      Point *ul_corner, Point *lr_corner,
+		      Color *colour);
+static void draw_arc(RendererSVG *renderer, 
+		     Point *center,
+		     real width, real height,
+		     real angle1, real angle2,
+		     Color *colour);
+static void fill_arc(RendererSVG *renderer, 
+		     Point *center,
+		     real width, real height,
+		     real angle1, real angle2,
+		     Color *colour);
+static void draw_ellipse(RendererSVG *renderer, 
+			 Point *center,
+			 real width, real height,
+			 Color *colour);
+static void fill_ellipse(RendererSVG *renderer, 
+			 Point *center,
+			 real width, real height,
+			 Color *colour);
+static void draw_bezier(RendererSVG *renderer, 
+			Point *points,
+			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			Color *colour);
+static void fill_bezier(RendererSVG *renderer, 
+			Point *points, /* Last point must be same as first point */
+			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			Color *colour);
+static void draw_string(RendererSVG *renderer,
+			const char *text,
+			Point *pos, Alignment alignment,
+			Color *colour);
+static void draw_image(RendererSVG *renderer,
+		       Point *point,
+		       real width, real height,
+		       DiaImage image);
+
+static RenderOps SvgRenderOps = {
+  (BeginRenderFunc) begin_render,
+  (EndRenderFunc) end_render,
+
+  (SetLineWidthFunc) set_linewidth,
+  (SetLineCapsFunc) set_linecaps,
+  (SetLineJoinFunc) set_linejoin,
+  (SetLineStyleFunc) set_linestyle,
+  (SetDashLengthFunc) set_dashlength,
+  (SetFillStyleFunc) set_fillstyle,
+  (SetFontFunc) set_font,
+  
+  (DrawLineFunc) draw_line,
+  (DrawPolyLineFunc) draw_polyline,
+  
+  (DrawPolygonFunc) draw_polygon,
+  (FillPolygonFunc) fill_polygon,
+
+  (DrawRectangleFunc) draw_rect,
+  (FillRectangleFunc) fill_rect,
+
+  (DrawArcFunc) draw_arc,
+  (FillArcFunc) fill_arc,
+
+  (DrawEllipseFunc) draw_ellipse,
+  (FillEllipseFunc) fill_ellipse,
+
+  (DrawBezierFunc) draw_bezier,
+  (FillBezierFunc) fill_bezier,
+
+  (DrawStringFunc) draw_string,
+
+  (DrawImageFunc) draw_image,
+};
+
+RendererSVG *
+new_svg_renderer(Diagram *dia, char *filename)
+{
+  RendererSVG *renderer;
+  FILE *file;
+  gchar buf[512];
+  xmlNodePtr node;
+  time_t time_now;
+  Rectangle *extent;
+  char *name;
+ 
+  file = fopen(filename, "w");
+
+  if (file==NULL) {
+    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    return NULL;
+  }
+  fclose(file);
+
+  renderer = g_new(RendererSVG, 1);
+  renderer->renderer.ops = &SvgRenderOps;
+  renderer->renderer.is_interactive = 0;
+  renderer->renderer.interactive_ops = NULL;
+
+  renderer->filename = g_strdup(filename);
+
+  renderer->dash_length = 1.0;
+  renderer->dot_length = 0.2;
+  renderer->saved_line_style = LINESTYLE_SOLID;
+
+  /* set up the root node */
+  renderer->doc = xmlNewDoc("1.0");
+  renderer->doc->standalone = FALSE;
+  xmlCreateIntSubset(renderer->doc, "svg",
+		     "-//W3C//DTD SVG July 1999//EN",
+		     "http://www.w3.org/Graphics/SVG/svg-19990730.dtd");
+  renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
+  renderer->doc->root = renderer->root;
+
+  /* set the extents of the SVG document */
+  extent = &dia->data->extents;
+  g_snprintf(buf, sizeof(buf), "%dcm",
+	     (int)ceil((extent->right - extent->left)));
+  xmlSetProp(renderer->root, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%dcm",
+	     (int)ceil((extent->bottom - extent->top)));
+  xmlSetProp(renderer->root, "height", buf);
+  g_snprintf(buf, sizeof(buf), "%d %d %d %d",
+	     (int)floor(extent->left), (int)floor(extent->top),
+	     (int)ceil(extent->right), (int)ceil(extent->bottom));
+  xmlSetProp(renderer->root, "fitBoxToViewport", buf);
+  
+  time_now = time(NULL);
+  name = getlogin();
+  if (name==NULL)
+    name = "a user";
+
+  /* some comments at the top of the file ... * /
+  xmlAddChild(renderer->root, xmlNewText("\n"));
+  xmlAddChild(renderer->root, xmlNewComment("Dia-Version: "VERSION));
+  xmlAddChild(renderer->root, xmlNewText("\n"));
+  g_snprintf(buf, sizeof(buf), "File: %s", dia->filename);
+  xmlAddChild(renderer->root, xmlNewComment(buf));
+  xmlAddChild(renderer->root, xmlNewText("\n"));
+  g_snprintf(buf, sizeof(buf), "Date: %s", ctime(&time_now));
+  buf[strlen(buf)-1] = '\0'; /* remove the trailing new line * /
+  xmlAddChild(renderer->root, xmlNewComment(buf));
+  xmlAddChild(renderer->root, xmlNewText("\n"));
+  g_snprintf(buf, sizeof(buf), "For: %s", name);
+  xmlAddChild(renderer->root, xmlNewComment(buf));
+  xmlAddChild(renderer->root, xmlNewText("\n\n"));
+
+  xmlNewChild(renderer->root, NULL, "title", dia->filename);
+  */
+  
+  return renderer;
+}
+
+static void
+begin_render(RendererSVG *renderer, DiagramData *data)
+{
+  renderer->linewidth = 0;
+  renderer->fontsize = 1.0;
+  renderer->linecap = "butt";
+  renderer->linejoin = "miter";
+  renderer->linestyle = NULL;
+}
+
+static void
+end_render(RendererSVG *renderer)
+{
+  g_free(renderer->linestyle);
+
+  xmlSetDocCompressMode(renderer->doc, 0);
+  xmlSaveFile(renderer->filename, renderer->doc);
+  g_free(renderer->filename);
+  xmlFreeDoc(renderer->doc);
+}
+
+static void
+set_linewidth(RendererSVG *renderer, real linewidth)
+{  /* 0 == hairline **/
+
+  if (linewidth == 0)
+    renderer->linewidth = 0.001;
+  else
+    renderer->linewidth = linewidth;
+}
+
+static void
+set_linecaps(RendererSVG *renderer, LineCaps mode)
+{
+  switch(mode) {
+  case LINECAPS_BUTT:
+    renderer->linecap = "butt";
+    break;
+  case LINECAPS_ROUND:
+    renderer->linecap = "round";
+    break;
+  case LINECAPS_PROJECTING:
+    renderer->linecap = "square";
+    break;
+  default:
+    renderer->linecap = "butt";
+  }
+}
+
+static void
+set_linejoin(RendererSVG *renderer, LineJoin mode)
+{
+  int ps_mode;
+  
+  switch(mode) {
+  case LINEJOIN_MITER:
+    renderer->linejoin = "miter";
+    break;
+  case LINEJOIN_ROUND:
+    renderer->linejoin = "round";
+    break;
+  case LINEJOIN_BEVEL:
+    renderer->linejoin = "bevel";
+    break;
+  default:
+    renderer->linejoin = "miter";
+  }
+}
+
+static void
+set_linestyle(RendererSVG *renderer, LineStyle mode)
+{
+  real hole_width;
+
+  renderer->saved_line_style = mode;
+
+  g_free(renderer->linestyle);
+  switch(mode) {
+  case LINESTYLE_SOLID:
+    renderer->linestyle = NULL;
+    break;
+  case LINESTYLE_DASHED:
+    renderer->linestyle = g_strdup_printf("%g", renderer->dash_length);
+    break;
+  case LINESTYLE_DASH_DOT:
+    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+    renderer->linestyle = g_strdup_printf("%g %g %g %g",
+					  renderer->dash_length,
+					  hole_width,
+					  renderer->dot_length,
+					  hole_width);
+    break;
+  case LINESTYLE_DASH_DOT_DOT:
+    hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
+    renderer->linestyle = g_strdup_printf("%g %g %g %g %g %g",
+					  renderer->dash_length,
+					  hole_width,
+					  renderer->dot_length,
+					  hole_width,
+					  renderer->dot_length,
+					  hole_width );
+    break;
+  case LINESTYLE_DOTTED:
+    renderer->linestyle = g_strdup_printf("%g", renderer->dot_length);
+    break;
+  default:
+    renderer->linestyle = NULL;
+  }
+}
+
+static void
+set_dashlength(RendererSVG *renderer, real length)
+{  /* dot = 20% of len */
+  if (length<0.001)
+    length = 0.001;
+  
+  renderer->dash_length = length;
+  renderer->dot_length = length*0.2;
+  
+  set_linestyle(renderer, renderer->saved_line_style);
+}
+
+static void
+set_fillstyle(RendererSVG *renderer, FillStyle mode)
+{
+  switch(mode) {
+  case FILLSTYLE_SOLID:
+    break;
+  default:
+    message_error("svg_renderer: Unsupported fill mode specified!\n");
+  }
+}
+
+static void
+set_font(RendererSVG *renderer, Font *font, real height)
+{
+  renderer->fontsize = height;
+  /* XXXX todo */
+  /*
+  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
+	  font_get_psfontname(font), (double)height);
+  */
+}
+
+/* the return value of this function should not be saved anywhere */
+static gchar *
+get_style(RendererSVG *renderer,
+	  Color *colour,
+	  gboolean fill)
+{
+  static GString *str = NULL;
+
+  if (!str) str = g_string_new(NULL);
+  g_string_truncate(str, 0);
+
+  g_string_sprintf(str, "stroke-width: %g", renderer->linewidth);
+  if (strcmp(renderer->linecap, "butt"))
+    g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
+  if (strcmp(renderer->linejoin, "miter"))
+    g_string_sprintfa(str, "; stroke-linejoin: %s", renderer->linejoin);
+  if (renderer->linestyle)
+    g_string_sprintfa(str, "; stroke-dasharray: %s", renderer->linestyle);
+
+  if (colour)
+    g_string_sprintfa(str, "; stroke: #%02x%02x%02x",
+		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
+		      (int)ceil(255*colour->blue));
+
+  if (fill)
+    g_string_sprintfa(str, "; fill: #%02x%02x%02x",
+		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
+		      (int)ceil(255*colour->blue));
+
+  return str->str;
+}
+
+static void
+draw_line(RendererSVG *renderer, 
+	  Point *start, Point *end, 
+	  Color *line_colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "line", NULL);
+
+  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+
+  g_snprintf(buf, sizeof(buf), "%g", start->x);
+  xmlSetProp(node, "x1", buf);
+  g_snprintf(buf, sizeof(buf), "%g", start->y);
+  xmlSetProp(node, "y1", buf);
+  g_snprintf(buf, sizeof(buf), "%g", end->x);
+  xmlSetProp(node, "x2", buf);
+  g_snprintf(buf, sizeof(buf), "%g", end->y);
+  xmlSetProp(node, "y2", buf);
+}
+
+static void
+draw_polyline(RendererSVG *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_colour)
+{
+  int i;
+  xmlNodePtr node;
+  GString *str;
+
+  node = xmlNewChild(renderer->root, NULL, "polyline", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+
+  str = g_string_new(NULL);
+  for (i = 0; i < num_points; i++)
+    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
+  xmlSetProp(node, "points", str->str);
+  g_string_free(str, TRUE);
+}
+
+static void
+draw_polygon(RendererSVG *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_colour)
+{
+  int i;
+  xmlNodePtr node;
+  GString *str;
+
+  node = xmlNewChild(renderer->root, NULL, "polygon", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+
+  str = g_string_new(NULL);
+  for (i = 0; i < num_points; i++)
+    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
+  xmlSetProp(node, "points", str->str);
+  g_string_free(str, TRUE);
+}
+
+static void
+fill_polygon(RendererSVG *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_colour)
+{
+  int i;
+  xmlNodePtr node;
+  GString *str;
+
+  node = xmlNewChild(renderer->root, NULL, "polygon", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, line_colour, TRUE));
+
+  str = g_string_new(NULL);
+  for (i = 0; i < num_points; i++)
+    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
+  xmlSetProp(node, "points", str->str);
+  g_string_free(str, TRUE);
+}
+
+static void
+draw_rect(RendererSVG *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "rect", NULL);
+
+  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
+  xmlSetProp(node, "y", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  xmlSetProp(node, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  xmlSetProp(node, "height", buf);
+}
+
+static void
+fill_rect(RendererSVG *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "rect", NULL);
+
+  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
+  xmlSetProp(node, "y", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  xmlSetProp(node, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  xmlSetProp(node, "height", buf);
+}
+
+static void
+draw_arc(RendererSVG *renderer, 
+	 Point *center,
+	 real width, real height,
+	 real angle1, real angle2,
+	 Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+  real rx = width / 2, ry = height / 2;
+
+  node = xmlNewChild(renderer->root, NULL, "path", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+
+  /* this path might be incorrect ... */
+  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g",
+	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
+	     rx, ry, (angle2 - angle1 > 0),
+	     center->x + rx*cos(angle2), center->y + ry * sin(angle2));
+
+  xmlSetProp(node, "d", buf);
+}
+
+static void
+fill_arc(RendererSVG *renderer, 
+	 Point *center,
+	 real width, real height,
+	 real angle1, real angle2,
+	 Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+  real rx = width / 2, ry = height / 2;
+
+  node = xmlNewChild(renderer->root, NULL, "path", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+
+  /* this path might be incorrect ... */
+  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g L %g,%g z",
+	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
+	     rx, ry, (angle2 - angle1 > 0),
+	     center->x + rx*cos(angle2), center->y + ry * sin(angle2),
+	     center->x, center->y);
+
+  xmlSetProp(node, "d", buf);
+}
+
+static void
+draw_ellipse(RendererSVG *renderer, 
+	     Point *center,
+	     real width, real height,
+	     Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "ellipse", NULL);
+
+  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+
+  g_snprintf(buf, sizeof(buf), "%g", center->x);
+  xmlSetProp(node, "cx", buf);
+  g_snprintf(buf, sizeof(buf), "%g", center->y);
+  xmlSetProp(node, "cy", buf);
+  g_snprintf(buf, sizeof(buf), "%g", width / 2);
+  xmlSetProp(node, "rx", buf);
+  g_snprintf(buf, sizeof(buf), "%g", height / 2);
+  xmlSetProp(node, "rx", buf);
+}
+
+static void
+fill_ellipse(RendererSVG *renderer, 
+	     Point *center,
+	     real width, real height,
+	     Color *colour)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "ellipse", NULL);
+
+  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+
+  g_snprintf(buf, sizeof(buf), "%g", center->x);
+  xmlSetProp(node, "cx", buf);
+  g_snprintf(buf, sizeof(buf), "%g", center->y);
+  xmlSetProp(node, "cy", buf);
+  g_snprintf(buf, sizeof(buf), "%g", width / 2);
+  xmlSetProp(node, "rx", buf);
+  g_snprintf(buf, sizeof(buf), "%g", height / 2);
+  xmlSetProp(node, "rx", buf);
+}
+
+static void
+draw_bezier(RendererSVG *renderer, 
+	    Point *points,
+	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    Color *colour)
+{
+  int i;
+  xmlNodePtr node;
+  GString *str;
+
+  node = xmlNewChild(renderer->root, NULL, "path", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+
+  str = g_string_new(NULL);
+  g_string_sprintf(str, "M %g %g", (double)points[0].x, (double)points[0].y);
+
+  for (i = 1; i <= numpoints-3; i += 3)
+    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
+		      (double) points[i].x, (double) points[i].y,
+		      (double) points[i+1].x, (double) points[i+1].y,
+		      (double) points[i+2].x, (double) points[i+2].y );
+  xmlSetProp(node, "d", str->str);
+  g_string_free(str, TRUE);
+}
+
+static void
+fill_bezier(RendererSVG *renderer, 
+	    Point *points, /* Last point must be same as first point */
+	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    Color *colour)
+{
+  int i;
+  xmlNodePtr node;
+  GString *str;
+
+  node = xmlNewChild(renderer->root, NULL, "path", NULL);
+  
+  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+
+  str = g_string_new(NULL);
+  g_string_sprintf(str, "M %g %g", (double)points[0].x, (double)points[0].y);
+
+  for (i = 1; i <= numpoints-3; i += 3)
+    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
+		      (double) points[i].x, (double) points[i].y,
+		      (double) points[i+1].x, (double) points[i+1].y,
+		      (double) points[i+2].x, (double) points[i+2].y );
+  g_string_append(str, "z");
+  xmlSetProp(node, "d", str->str);
+  g_string_free(str, TRUE);
+}
+
+static void
+draw_string(RendererSVG *renderer,
+	    const char *text,
+	    Point *pos, Alignment alignment,
+	    Color *colour)
+{
+  CHAR *enc;
+  xmlNodePtr node;
+  char buf[512], *style, *tmp;
+  real saved_width;
+
+  enc = xmlEncodeEntitiesReentrant(renderer->doc, text);
+  node = xmlNewChild(renderer->root, NULL, "text", enc);
+  free(enc);
+
+  saved_width = renderer->linewidth;
+  renderer->linewidth = 0.001;
+  style = get_style(renderer, colour, TRUE);
+  renderer->linewidth = saved_width;
+  switch (alignment) {
+  case ALIGN_LEFT:
+    style = g_strconcat(style, "; text-align: left", NULL);
+    break;
+  case ALIGN_CENTER:
+    style = g_strconcat(style, "; text-align: center", NULL);
+    break;
+  case ALIGN_RIGHT:
+    style = g_strconcat(style, "; text-align: right", NULL);
+    break;
+  }
+  tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
+  g_free(style);
+  style = tmp;
+
+  /* have to do something about fonts here ... */
+
+  xmlSetProp(node, "style", style);
+  g_free(style);
+
+  g_snprintf(buf, sizeof(buf), "%g", pos->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", pos->y);
+  xmlSetProp(node, "y", buf);
+}
+
+static void
+draw_image(RendererSVG *renderer,
+	   Point *point,
+	   real width, real height,
+	   DiaImage image)
+{
+  g_warning("haven't done images yet ...");
+  /*
+  int img_width, img_height;
+  int v;
+  int                 x, y;
+  unsigned char      *ptr;
+  real ratio;
+  guint8 *rgb_data;
+
+  img_width = dia_image_width(image);
+  img_height = dia_image_height(image);
+
+  rgb_data = dia_image_rgb_data(image);
+  
+  ratio = height/width;
+
+  fprintf(renderer->file, "gs\n");
+  if (1) { /* Color output * /
+    fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
+    fprintf(renderer->file, "/grays %i string def\n", img_width);
+    fprintf(renderer->file, "/npixls 0 def\n");
+    fprintf(renderer->file, "/rgbindx 0 def\n");
+    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f sc\n", width, height);
+    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
+    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
+    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
+    fprintf(renderer->file, "false 3 colorimage\n");
+    fprintf(renderer->file, "\n");
+    ptr = rgb_data;
+    for (y = 0; y < img_width; y++) {
+      for (x = 0; x < img_height; x++) {
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
+      }
+      fprintf(renderer->file, "\n");
+    }
+  } else { /* Grayscale * /
+    fprintf(renderer->file, "/pix %i string def\n", img_width);
+    fprintf(renderer->file, "/grays %i string def\n", img_width);
+    fprintf(renderer->file, "/npixls 0 def\n");
+    fprintf(renderer->file, "/rgbindx 0 def\n");
+    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f sc\n", width, height);
+    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
+    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
+    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
+    fprintf(renderer->file, "image\n");
+    fprintf(renderer->file, "\n");
+    ptr = rgb_data;
+    for (y = 0; y < img_height; y++) {
+      for (x = 0; x < img_width; x++) {
+	v = (int)(*ptr++);
+	v += (int)(*ptr++);
+	v += (int)(*ptr++);
+	v /= 3;
+	fprintf(renderer->file, "%02x", v);
+      }
+      fprintf(renderer->file, "\n");
+    }
+  }
+  /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);* /
+  fprintf(renderer->file, "gr\n");
+  fprintf(renderer->file, "\n");
+  */
+}
+

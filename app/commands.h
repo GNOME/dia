@@ -26,6 +26,7 @@ extern void file_save_callback(GtkWidget *widget, gpointer data);
 extern void file_save_as_callback(GtkWidget *widget, gpointer data);
 extern void file_import_from_xfig_callback(GtkWidget *widget, gpointer data);
 extern void file_export_to_eps_callback(GtkWidget *widget, gpointer data);
+extern void file_export_to_svg_callback(GtkWidget *widget, gpointer data);
 extern void file_close_callback(GtkWidget *widget, gpointer data);
 extern void file_new_callback(GtkWidget *widget, gpointer data);
 extern void file_preferences_callback(GtkWidget *widget, gpointer data);
