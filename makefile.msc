@@ -5,7 +5,8 @@ all: 	build \
 	build\win32\bin\libdia.dll \
 	build\win32\bin\libart_lgpl.dll \
 	build\win32\bin\libfontconfig-1.dll \
-	build\win32\bin\libxml2.dll \
+	build\win32\bin\libgtk-win32-2.0-0.dll \
+	build\win32\lib\libxml2.dll \
 	build\win32\dia \
 	build\win32\lib \
 	build\win32\lib\locale \
@@ -16,11 +17,15 @@ all: 	build \
 	build\win32\dia\flowchart.dll \
 	build\win32\dia\fs.dll \
 	build\win32\dia\grafcet.dll \
+	build\win32\dia\istar.dll \
+	build\win32\dia\jackson.dll \
+	build\win32\dia\kaos.dll \
 	build\win32\dia\misc.dll \
 	build\win32\dia\network.dll \
 	build\win32\dia\sadt.dll \
 	build\win32\dia\standard.dll \
 	build\win32\dia\uml.dll \
+#	build\win32\dia\cairo.dll \
 	build\win32\dia\cgm.dll \
 	build\win32\dia\dxf.dll \
 	build\win32\dia\hpgl.dll \
@@ -32,6 +37,7 @@ all: 	build \
 	build\win32\dia\wmf.dll \
 	build\win32\dia\wpg.dll \
 	build\win32\dia\xfig.dll \
+	build\win32\dia\xslt.dll \
 	build\win32\dia_logo.png
 
 build:
@@ -55,22 +61,22 @@ build\win32\lib\locale: build\win32\lib
 build\win32\bin\dia.exe: build\win32\bin app\dia.exe
 	copy app\dia.exe build\win32\bin\dia.exe
 	
-build\win32\bin\libart_lgpl.dll: build\win32\bin ..\lib\libart_lgpl.dll
-	copy ..\lib\libart_lgpl.dll build\win32\bin
+build\win32\bin\libart_lgpl.dll: build\win32\bin ..\bin\libart_lgpl.dll
+	copy ..\bin\libart_lgpl.dll build\win32\bin
 
-build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\lib\libfontconfig-1.dll
-	copy ..\lib\libfontconfig-1.dll build\win32\bin
+build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\bin\libfontconfig-1.dll
+	copy ..\bin\libfontconfig-1.dll build\win32\bin
 
-build\win32\bin\libdia.dll: build\win32\bin lib\libdia.dll
+build\win32\bin\libdia.dll: lib\libdia.dll
 	copy lib\libdia.dll build\win32\bin\libdia.dll
 
-build\win32\bin\libgtk-win32-2.0-0.dll: build\win32\bin ..\lib\libgtk-win32-2.0-0.dll
-	copy ..\lib\*.dll build\win32\bin
+build\win32\bin\libgtk-win32-2.0-0.dll: ..\bin\libgtk-win32-2.0-0.dll
+	copy ..\bin\libgtk-win32-2.0-0.dll build\win32\bin
 	
 build\win32\lib\zlib.dll: build\win32\bin\zlib.dll
 	copy ..\lib\zlib.dll build\win32\bin
 	
-build\win32\bin\libxml2.dll: build\win32\bin ..\lib\libxml2.dll
+build\win32\lib\libxml2.dll: build\win32\bin ..\lib\libxml2.dll
 	copy ..\lib\libxml2.dll build\win32\bin
 
 build\win32\bin\libcharset.dll: build\win32\bin ..\bin\libcharset.dll
@@ -97,6 +103,15 @@ build\win32\dia\fs.dll: build\win32\dia objects\FS\fs.dll
 build\win32\dia\grafcet.dll: build\win32\dia objects\GRAFCET\grafcet.dll
 	copy objects\GRAFCET\grafcet.dll build\win32\dia
 
+build\win32\dia\istar.dll: build\win32\dia objects\Istar\istar.dll
+	copy objects\Istar\istar.dll build\win32\dia	
+	
+build\win32\dia\jackson.dll: build\win32\dia objects\Jackson\jackson.dll
+	copy objects\Jackson\jackson.dll build\win32\dia
+
+build\win32\dia\kaos.dll: build\win32\dia objects\KAOS\kaos.dll
+	copy objects\KAOS\kaos.dll build\win32\dia
+	
 build\win32\dia\misc.dll: build\win32\dia objects\Misc\misc.dll
 	copy objects\Misc\misc.dll build\win32\dia
 
@@ -111,6 +126,9 @@ build\win32\dia\standard.dll: build\win32\dia objects\standard\standard.dll
 
 build\win32\dia\uml.dll: build\win32\dia objects\UML\uml.dll
 	copy objects\UML\uml.dll build\win32\dia
+
+build\win32\dia\cairo.dll: build\win32\dia plug-ins\cairo\cairo.dll
+	copy plug-ins\cairo\cairo.dll build\win32\dia
 
 build\win32\dia\cgm.dll: build\win32\dia plug-ins\cgm\cgm.dll
 	copy plug-ins\cgm\cgm.dll build\win32\dia
@@ -143,7 +161,10 @@ build\win32\dia\wpg.dll: build\win32\dia plug-ins\wpg\wpg.dll
 	copy plug-ins\wpg\wpg.dll build\win32\dia
 
 build\win32\dia\xfig.dll: build\win32\dia plug-ins\xfig\xfig.dll
-	copy plug-ins\xfig\xfig.dll build\win32\dia	
+	copy plug-ins\xfig\xfig.dll build\win32\dia
+
+build\win32\dia\xslt.dll: build\win32\dia plug-ins\xslt\xslt.dll
+	copy plug-ins\xslt\xslt.dll build\win32\dia	
 		
 build\win32\lib: build\win32
 	md build\win32\lib
@@ -169,3 +190,20 @@ po: build\win32\lib\locale
  	for %d in ($(ALL_LINGUAS)) do md build\win32\lib\locale\%d
 	for %d in ($(ALL_LINGUAS)) do md build\win32\lib\locale\%d\LC_MESSAGES
 	for %d in ($(ALL_LINGUAS)) do msgfmt --use-fuzzy -o build\win32\lib\locale\%d\LC_MESSAGES\dia.mo po\%d.po
+	
+DOCBOOKDIR = c:\program files\docbook-xsl
+
+XSLTPROC = "c:\program files\libxslt\bin\xsltproc.exe"
+
+HHC = "c:\program files\HTML Help Workshop\hhc.exe"
+
+.IGNORE:
+doc: doc\en\dia.xml
+	cd doc\en
+	$(XSLTPROC) -o index.html "$(DOCBOOKDIR)\htmlhelp\profile-htmlhelp.xsl" dia.xml
+	$(HHC) htmlhelp.hhp
+	copy htmlhelp.chm ..\..\build\win32\doc\C\dia-manual.chm
+	cd ..\..\doc\pl
+	$(XSLTPROC) -o index.html "$(DOCBOOKDIR)\htmlhelp\profile-htmlhelp.xsl" dia.xml
+	$(HHC) htmlhelp.hhp
+	copy htmlhelp.com ..\..\build\win32\doc\pl\dia-manual.chm
