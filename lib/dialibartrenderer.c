@@ -273,14 +273,12 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-
-  renderer->font_height = height * FONT_SCALE;
+  self->font_height = height * FONT_SCALE;
   //    ddisplay_transform_length(renderer->ddisp, height);
 
-  if (renderer->font)
-    dia_font_unref(renderer->font);
-  renderer->font = dia_font_ref(font);
+  if (self->font)
+    dia_font_unref(self->font);
+  self->font = dia_font_ref(font);
 }
 
 static void
@@ -1017,28 +1015,28 @@ draw_string (DiaRenderer *self,
     break;
   case ALIGN_CENTER:
     start_pos.x -= dia_font_scaled_string_width(
-						text, renderer->font,
-						renderer->font_height,
+						text, self->font,
+						self->font_height,
 						dia_transform_length(renderer->transform, 1.0))/2;
     break;
   case ALIGN_RIGHT:
     start_pos.x -= dia_font_scaled_string_width(
-						text, renderer->font,
-						renderer->font_height,
+						text, self->font,
+						self->font_height,
 						dia_transform_length(renderer->transform, 1.0));
     break;
   }
  
-  font_height = dia_transform_length(renderer->transform, renderer->font_height);
+  font_height = dia_transform_length(renderer->transform, self->font_height);
 
-  start_pos.y -= dia_font_scaled_ascent(text, renderer->font,
-					renderer->font_height,
+  start_pos.y -= dia_font_scaled_ascent(text, self->font,
+					self->font_height,
 					dia_transform_length(renderer->transform, 1.0));
   dia_transform_coords_double(renderer->transform, 
                               start_pos.x, start_pos.y, &x, &y);
 
   layout = dia_font_scaled_build_layout(
-              text, renderer->font, renderer->font_height,
+              text, self->font, self->font_height,
               dia_transform_length(renderer->transform, 1.0));
   /*
   ddisp->zoom_factor = old_zoom;
@@ -1060,7 +1058,7 @@ draw_string (DiaRenderer *self,
    rowstride = 32*((width+31)/31);
    
    font = pango_context_load_font(pango_ft2_get_context(10, 10),
-				  renderer->font->pfd);
+				  self->font->pfd);
    face = pango_ft2_font_get_face(font);
 
    graybitmap = (guint8*)g_new0(guint8, height*rowstride);
@@ -1148,6 +1146,39 @@ draw_string (DiaRenderer *self,
 #undef DEPTH
 }
 
+/* Get the width of the given text in cm */
+static real
+get_text_width(DiaRenderer *object,
+               const gchar *text, int length)
+{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (object);
+  real result;
+
+  if (length != strlen(text)) {
+    char *othertx;
+    int ulen;
+    /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхцНОПРЄ є Ґ Њ Ћ Џ */
+    ulen = g_utf8_offset_to_pointer(text, length)-text;
+    if (!g_utf8_validate(text, ulen, NULL)) {
+      g_warning ("Text at char %d not valid\n", length);
+    }
+    othertx = g_strndup(text, ulen);
+    result = dia_font_scaled_string_width(
+                othertx,object->font,
+                object->font_height,
+                dia_transform_length (renderer->transform, 10.0) / 10.0);
+    g_free(othertx);
+  } else {
+    result = 
+      dia_font_scaled_string_width(
+            text,object->font,
+            object->font_height,
+            dia_transform_length (renderer->transform, 10.0) / 10.0);
+  }
+  return result;
+}
+
+
 static void
 draw_image(DiaRenderer *self,
 	   Point *point,
@@ -1226,7 +1257,7 @@ renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
   renderer->dash_length = 10;
   renderer->dot_length = 1;
 
-  renderer->font = NULL;
+  renderer->parent_instance.font = NULL;
 }
 
 static void dia_libart_renderer_class_init (DiaLibartRendererClass *klass);
@@ -1240,8 +1271,8 @@ renderer_finalize (GObject *object)
   if (renderer->rgb_buffer != NULL)
     g_free(renderer->rgb_buffer);
 
-  if (renderer->font)
-    dia_font_unref(renderer->font);
+  if (renderer->parent_instance.font)
+    dia_font_unref(renderer->parent_instance.font);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -1316,6 +1347,9 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
+
+  /* Interactive functions */
+  renderer_class->get_text_width = get_text_width;
 }
 
 #endif

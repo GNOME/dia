@@ -1,3 +1,14 @@
+2003-01-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_libart.c (get_text_width): 
+	* lib/dialibartrenderer.h (struct _DiaLibartRenderer): Font and
+	font height can be taken from parent instance.
+
+	* lib/dialibartrenderer.c (dia_libart_renderer_class_init) 
+	(get_text_width): Proper cursor positioning for libart renderer.
+	Ought to have a DiaInteractiveRenderer that these two can inherit
+	from, that knows about transform.
+
 2003-01-25  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/xslt/xslt.h: don't use dlfcn.h on win32. XSLT
@@ -39,7 +50,7 @@
 	* app/linewidth_area.c (linewidth_create_dialog): 
 	* app/lineprops_area.c (dia_arrow_chooser_dialog_show): 
 	* app/layer_dialog.c (create_layer_dialog)
-	(layer_dialog_edit_layer): Correct handling of destroy_event. 
+	(layer_dialog_edit_layer): Correct handling of destroy signal. 
 
 	* app/diapsft2renderer.c (set_font): Adjust silly random factor
 	for change in font.c

@@ -1251,7 +1251,9 @@ get_text_width(DiaRenderer *self,
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int iwidth;
   
-  iwidth = dia_font_string_width(text, renderer->font, renderer->font_height);
+  iwidth = dia_font_string_width(text,
+				 renderer->parent_instance.font, 
+				 renderer->parent_instance.font_height);
 
   return dia_untransform_length(renderer->transform, (real) iwidth);
 }

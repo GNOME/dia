@@ -45,9 +45,6 @@ struct _DiaLibartRenderer
   ArtVpathDash dash;
   double dash_length;
   double dot_length;
-
-  DiaFont *font;
-  real font_height;
 #endif
 };
 
