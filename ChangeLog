@@ -1,5 +1,7 @@
 2003-01-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.c: Added hollow diamond to menudesc list.
+
 	* lib/arrows.[ch]: 
 	* lib/widgets.[ch]: Moved arrow name list into arrows.[ch] to
 	unify with rendered menu.

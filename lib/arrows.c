@@ -40,6 +40,7 @@ struct menudesc arrow_types[] =
    {N_("Hollow Triangle"),ARROW_HOLLOW_TRIANGLE},
    {N_("Filled Triangle"),ARROW_FILLED_TRIANGLE},
    {N_("Unfilled Triangle"),ARROW_UNFILLED_TRIANGLE},
+   {N_("Hollow Diamond"),ARROW_HOLLOW_DIAMOND},
    {N_("Filled Diamond"),ARROW_FILLED_DIAMOND},
    {N_("Half Head"),ARROW_HALF_HEAD},
    {N_("Slashed Cross"),ARROW_SLASHED_CROSS},
