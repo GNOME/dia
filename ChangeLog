@@ -1,5 +1,8 @@
 2002-04-29  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/font.c (font_string_width): YA font calculation scheme, with
+	comments.
+
 	* objects/UML/class.c (umlclass_calculate_data): Uses the same
 	font for drawing and calculating now.
 

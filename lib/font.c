@@ -1196,6 +1196,14 @@ font_get_psfontname(DiaFont *font)
 }
 
 /* Returns the width in cm */
+/* Note:  This function cannot be perfect without knowing the
+   renderers scaling.  This is because Gdk fonts don't scale linearly,
+   but in jumps.  The height isn't enough to tell the scaling.
+   This means, unfortunately, that setting any box width based on text
+   width is almost guaranteed to give imperfect results.  We're trying
+   to err on the side of getting everything inside.
+*/
+
 real
 font_string_width(const char *string, DiaFont *font, real height)
 {
@@ -1232,9 +1240,7 @@ font_string_width(const char *string, DiaFont *font, real height)
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length);
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  mbstr = g_strdup (str);
   wclength = mbstowcs (wcstr, mbstr, length);
-  g_free (mbstr);
 #else
   wclength = gdk_mbstowcs (wcstr, str, length);
 #endif
@@ -1247,11 +1253,11 @@ font_string_width(const char *string, DiaFont *font, real height)
 	  }
   }
 
-  /* this gets the extents of the text written, and the ascent height of the 
-     written font. it divides width by height to get a wide-to-high ratio, then
+  /* this gets the extents of the text written.
+     it divides width by height to get a wide-to-high ratio, then
      multiplies by the scaled height.
    */
-  gdk_font = font_get_gdkfont(font, 100);
+  gdk_font = font_get_gdkfont(font, height*72/2.54);
   gdk_text_extents_wc(gdk_font, 
                       wcstr, 
                       length,
@@ -1260,9 +1266,12 @@ font_string_width(const char *string, DiaFont *font, real height)
                       &g_width,
                       &g_asc,
                       &g_desc);
-  c_wide = g_lbear + g_rbear;
+  c_wide = g_rbear - g_lbear;
   if (c_wide == 0) return (real)0.0;
-  scaled_width = (double)c_wide / (double)g_asc * height;
+  /* Have to put in a fudge factor to account for the non-linearity */
+  scaled_width = 1.1*((double)c_wide) / ((double)height*72/2.54) * height;
+  printf("String '%s': Width %d, height %d, font height %f, scaled %f\n",
+	 str, c_wide, (gdk_font->ascent+gdk_font->descent), height, scaled_width);
 
   g_free (wcstr);
   g_free (str);
