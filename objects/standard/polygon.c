@@ -103,7 +103,9 @@ static ObjectType polygon_type =
   0,                         /* version */
   (char **) polygon_xpm,      /* pixmap */
   
-  &polygon_type_ops       /* ops */
+  &polygon_type_ops,       /* ops */
+  NULL, /* pixmap_file */
+  0 /* default_user_data */
 };
 
 ObjectType *_polygon_type = (ObjectType *) &polygon_type;
@@ -126,7 +128,7 @@ static ObjectOps polygon_ops = {
 };
 
 static PropDescription polygon_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  POLYSHAPE_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -144,7 +146,7 @@ polygon_describe_props(Polygon *polygon)
 }
 
 static PropOffset polygon_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Polygon, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polygon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,

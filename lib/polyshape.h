@@ -56,4 +56,14 @@ real polyshape_distance_from(PolyShape *poly, Point *point,
 Handle *polyshape_closest_handle(PolyShape *poly, Point *point);
 int polyshape_closest_segment(PolyShape *poly, Point *point,
 			      real line_width);
+
+#define POLYSHAPE_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "poly_points", PROP_TYPE_POINTARRAY, 0, "polyshape points", NULL} \
+
+#define POLYSHAPE_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "poly_points", PROP_TYPE_POINTARRAY, \
+     offsetof(PolyShape,points), offsetof(PolyShape,numpoints)} \
+
 #endif /* POLY_CONN_H */

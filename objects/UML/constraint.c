@@ -125,6 +125,9 @@ static PropDescription constraint_props[] = {
 static PropDescription *
 constraint_describe_props(Constraint *constraint)
 {
+  if (constraint_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(constraint_props);
+  }
   return constraint_props;
 }
 

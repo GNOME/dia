@@ -116,6 +116,9 @@ static PropDescription fork_props[] = {
 static PropDescription *
 fork_describe_props(Fork *branch)
 {
+  if (fork_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(fork_props);
+  }
   return fork_props;
 }
 

@@ -100,7 +100,9 @@ static ObjectType beziergon_type =
   0,                         /* version */
   (char **) beziergon_xpm,      /* pixmap */
   
-  &beziergon_type_ops       /* ops */
+  &beziergon_type_ops,      /* ops */
+  NULL,                     /* pixmap_file */
+  0                         /* default_user_data */
 };
 
 ObjectType *_beziergon_type = (ObjectType *) &beziergon_type;

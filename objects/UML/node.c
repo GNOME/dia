@@ -125,6 +125,9 @@ static PropDescription node_props[] = {
 static PropDescription *
 node_describe_props(Node *node)
 {
+  if (node_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(node_props);
+  }
   return node_props;
 }
 

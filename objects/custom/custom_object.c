@@ -203,10 +203,16 @@ static PropDescription custom_props_text[] = {
 static PropDescription *
 custom_describe_props(Custom *custom)
 {
-  if (custom->info->has_text)
+  if (custom->info->has_text) {
+    if (custom_props_text[0].quark == 0)
+      prop_desc_list_calculate_quarks(custom_props_text);
     return custom_props_text;
-  else
+  }
+  else {
+    if (custom_props[0].quark == 0)
+      prop_desc_list_calculate_quarks(custom_props);
     return custom_props;
+  }
 }
 
 static PropOffset custom_offsets[] = {

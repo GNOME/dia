@@ -124,6 +124,9 @@ static PropDescription smallpackage_props[] = {
 static PropDescription *
 smallpackage_describe_props(SmallPackage *smallpackage)
 {
+  if (smallpackage_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(smallpackage_props);
+  }
   return smallpackage_props;
 }
 

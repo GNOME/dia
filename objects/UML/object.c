@@ -158,6 +158,9 @@ static PropDescription objet_props[] = {
 static PropDescription *
 objet_describe_props(Objet *ob)
 {
+  if (objet_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(objet_props);
+  }
   return objet_props;
 }
 

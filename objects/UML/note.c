@@ -117,6 +117,9 @@ static PropDescription note_props[] = {
 static PropDescription *
 note_describe_props(Note *note)
 {
+  if (note_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(note_props);
+  }
   return note_props;
 }
 

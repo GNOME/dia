@@ -109,7 +109,7 @@ static ObjectOps participation_ops = {
 };
 
 static PropDescription participation_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   { "total", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Total:"), NULL, NULL },
   PROP_DESC_END
@@ -124,7 +124,7 @@ participation_describe_props(Participation *participation)
 }
 
 static PropOffset participation_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "total", PROP_TYPE_BOOL, offsetof(Participation, total) },
   { NULL, 0, 0}
 };

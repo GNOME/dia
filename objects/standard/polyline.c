@@ -91,7 +91,9 @@ static ObjectType polyline_type =
   0,                         /* version */
   (char **) polyline_xpm,      /* pixmap */
   
-  &polyline_type_ops       /* ops */
+  &polyline_type_ops,       /* ops */
+  NULL, /* pixmap_file */
+  0 /* default_user_data */
 };
 
 ObjectType *_polyline_type = (ObjectType *) &polyline_type;
@@ -114,7 +116,7 @@ static ObjectOps polyline_ops = {
 };
 
 static PropDescription polyline_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  POLYCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -132,7 +134,7 @@ polyline_describe_props(Polyline *polyline)
 }
 
 static PropOffset polyline_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  POLYCONN_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Polyline, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polyline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,

@@ -21,6 +21,8 @@
 
 #include <glib.h>
 
+#include <pango/pango-attributes.h>
+
 #include "pydia-object.h"
 #include "pydia-properties.h"
 #include "pydia-geometry.h"
@@ -253,8 +255,8 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
     for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++)
       if (prop_type_map[i].quark == self->property->type_quark)
         return prop_type_map[i].propget(self->property);
-
-    g_warning ("No handler for type '%s'", self->property->type);
+    if (0 == PROP_FLAG_WIDGET_ONLY & self->property->descr->flags)
+      g_warning ("No handler for type '%s'", self->property->type);
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -316,7 +318,114 @@ int PyDiaProperty_ApplyToObject (Object   *object,
         /* XXX: update size calculation ? */
         ret = 0; /* got it */
       }
+    else if (0 == strcmp (PROP_TYPE_COLOUR, prop->type))
+      {
+        PangoColor color;
+        if (pango_color_parse(&color, str))
+          {
+            ColorProperty *p = (ColorProperty*)prop;
+            p->color_data.red = color.red / 65535.0; 
+            p->color_data.green = color.green / 65535.0; 
+            p->color_data.blue = color.blue / 65535.0;
+            ret = 0;
+          }
+        else
+          g_warning("Failed to parse color string %s", str);
+      }
+  } else if (PyFloat_Check (val)) {
+    if (0 == strcmp(PROP_TYPE_REAL, prop->type))
+      {
+        RealProperty *p = (RealProperty*)prop;
+        p->real_data = PyFloat_AsDouble(val);
+        ret = 0;
+      }
+    else if (0 == strcmp(PROP_TYPE_INT, prop->type))
+      {
+        IntProperty *p = (IntProperty*)prop;
+        p->int_data = (int)PyFloat_AsDouble(val);
+        ret = 0;
+      }
+  } else if (PyInt_Check(val)) {
+    if (0 == strcmp(PROP_TYPE_BOOL, prop->type))
+      {
+        BoolProperty *p = (BoolProperty*)prop;
+        p->bool_data = !!PyInt_AsLong(val);
+        ret = 0;
+      }
+    else if (0 == strcmp(PROP_TYPE_ENUM, prop->type))
+      {
+        EnumProperty *p = (EnumProperty*)prop;
+        p->enum_data = PyInt_AsLong(val);
+        ret = 0;
+      }
+    else if (0 == strcmp(PROP_TYPE_INT, prop->type))
+      {
+        IntProperty *p = (IntProperty*)prop;
+        p->int_data = (int)PyInt_AsLong(val);
+        ret = 0;
+      }
+  } else if (PyTuple_Check (val)) {
+    int i, len = PyTuple_Size(val);
+    double *p = g_new(real, len);
+
+    for (i = 0; i < len; i++)
+      {
+         PyObject *o = PyTuple_GetItem(val, i);
+         if (PyInt_Check(o))
+           p[i] = PyInt_AsLong(o);
+         else if (PyFloat_Check(o))
+           p[i] = PyFloat_AsDouble(o);
+         else
+           {
+             g_warning("Tuple(%d) with type '%s' ignoring",
+                       i, ((PyTypeObject*)PyObject_Type(o))->tp_name);
+             p[i] = 0.0;
+           }
+      }
+    if (2 >= len && 0 == strcmp (PROP_TYPE_POINT, prop->type))
+      {
+        PointProperty *ptp = (PointProperty*)prop;
+        ptp->point_data.x = p[0];
+        ptp->point_data.y = p[1];
+        ret = 0;
+      }
+    else if (4 >= len && 0 == strcmp(PROP_TYPE_RECT, prop->type))
+      {
+        RectProperty* rtp = (RectProperty*)prop;
+        rtp->rect_data.left   = p[0];
+        rtp->rect_data.top    = p[1];
+        rtp->rect_data.right  = p[2];
+        rtp->rect_data.bottom = p[3];
+        ret = 0;
+      }
+    else
+      {
+         //? PROP_TYPE_POINTARRAY, PROP_TYPE_BEZPOINTARRAY, ...
+         g_warning("PyDiaProperty_ApplyToObject : no tuple conversion %s -> %s",
+	    key, prop->type);
+     }
+    g_free (p);
+  } else if PyList_Check(val) {
+    int i, len = PyList_Size(val);
+
+    if (0 == strcmp(PROP_TYPE_POINTARRAY, prop->type))
+      {
+        PointarrayProperty *ptp = (PointarrayProperty *)prop;
+        Point pt;
+        g_array_set_size(ptp->pointarray_data,len);
+        for (i = 0; i < len; i++)
+          {
+            PyObject *o = PyList_GetItem(val, i);
+
+            pt.x = PyFloat_AsDouble(PyTuple_GetItem(o, 0));
+            pt.y = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
+            g_array_index(ptp->pointarray_data,Point,i) = pt;
+          }
+        ret = 0;
+      }
   } else {
+    g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
+	key, prop->type);
   }
 
   if (0 == ret) {

@@ -135,6 +135,9 @@ static PropDescription usecase_props[] = {
 static PropDescription *
 usecase_describe_props(Usecase *usecase)
 {
+  if (usecase_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(usecase_props);
+  }
   return usecase_props;
 }
 

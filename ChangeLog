@@ -1,3 +1,38 @@
+2003-05-11  Hans Breuer  <hans@breuer.org>
+
+	* app/line_area.c : add window position persitence
+
+	* lib/poly_conn.[hc] lib/polyshape.[hc] : allow to set 
+	'poly_points' via StdProp api
+	* lib/neworth_conn.h : don't rely on OrthConn and 
+	NewOrtConn having the same struct offsets
+
+	* lib/properties.h : introduce PROP_FLAG_WIDGET_ONLY
+	to help separating 'useful' properies - in terms of
+	the PyDia access
+
+	* objects/custom/custom_object.c
+	  objects/UML/*.c
+	add the missing prop_desc_list_calculate_quarks to
+	all the *_describe_props()
+
+	* objects/standard/beziergon.c objects/standard/bezier.c :
+	explicit initializtion of default_user_data
+	* objects/standard/polygon.c objects/standard/polyline.c :
+	Same here. Also use POLY<CONN|SHAPE>_COMMON_PROPERTIES
+
+	* plug-ins/python/diamodule.c : implement dia.register_import
+
+	* plug-ins/python/makefile.msc : need to link with Pango
+	for pango_color_parse()
+
+	* plug-ins/python/pydia-property.c : add a bunch of type
+	conversions to PyDiaProperty_ApllyToObject()
+
+	* plug-ins/python/diasvg_import.py : (new file) which currently
+	is mainly a stress test for PyDia but for some files already
+	produces better results than svg-import.c
+
 2003-05-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/uml.c (uml_get_operation_string): Avoid ':' on

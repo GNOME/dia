@@ -22,6 +22,7 @@
 
 #include "linewidth_area.h"
 #include "attributes.h"
+#include "persistence.h"
 #include "intl.h"
 
 #if !defined(rint)
@@ -267,5 +268,7 @@ linewidth_create_dialog()
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
   gtk_signal_connect (GTK_OBJECT (linewidth_dialog), "destroy",
 		      GTK_SIGNAL_FUNC(dialog_destroyed), &linewidth_dialog);
+
+  persistence_register_window (GTK_WINDOW (linewidth_dialog));
 }
 

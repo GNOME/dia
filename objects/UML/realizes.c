@@ -97,7 +97,9 @@ ObjectType realizes_type =
   0,                      /* version */
   (char **) realizes_xpm,  /* pixmap */
   
-  &realizes_type_ops       /* ops */
+  &realizes_type_ops,      /* ops */
+  NULL,                 /* pixmap_file */
+  0                     /* default_user_data */
 };
 
 static ObjectOps realizes_ops = {
@@ -128,6 +130,9 @@ static PropDescription realizes_props[] = {
 static PropDescription *
 realizes_describe_props(Realizes *realizes)
 {
+  if (realizes_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(realizes_props);
+  }
   return realizes_props;
 }
 

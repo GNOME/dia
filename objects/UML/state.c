@@ -138,6 +138,9 @@ static PropDescription state_props[] = {
 static PropDescription *
 state_describe_props(State *state)
 {
+  if (state_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(state_props);
+  }
   return state_props;
 }
 

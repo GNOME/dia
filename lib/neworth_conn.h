@@ -89,9 +89,9 @@ ObjectChange *neworthconn_add_segment(NewOrthConn *orth, Point *clickedpoint);
 #define NEWORTHCONN_COMMON_PROPERTIES_OFFSETS \
   OBJECT_COMMON_PROPERTIES_OFFSETS, \
   { "orth_points", PROP_TYPE_POINTARRAY, \
-     offsetof(OrthConn,points), offsetof(NewOrthConn,numpoints)}, \
+     offsetof(NewOrthConn,points), offsetof(NewOrthConn,numpoints)}, \
   { "orth_orient", PROP_TYPE_ENUMARRAY, \
-     offsetof(OrthConn,orientation), offsetof(NewOrthConn,numorient)} \
+     offsetof(NewOrthConn,orientation), offsetof(NewOrthConn,numorient)} \
 
 #endif /* NEWORTH_CONN_H */
 

@@ -31,7 +31,7 @@ CFLAGS = -FImsvc_recommended_pragmas.h \
 	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS)
 
-EXTRALIBS = $(EXTRALIBS) $(LIBXML2_LIBS) \
+EXTRALIBS = $(EXTRALIBS) $(LIBXML2_LIBS) $(INTL_LIBS) $(PANGO_LIBS) \
 	..\..\lib\libdia.lib ..\..\app\dia.lib
 
 OBJECTS = \

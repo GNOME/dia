@@ -100,7 +100,9 @@ ObjectType dependency_type =
   0,                      /* version */
   (char **) dependency_xpm,  /* pixmap */
   
-  &dependency_type_ops       /* ops */
+  &dependency_type_ops,      /* ops */
+  NULL,                 /* pixmap_file */
+  0                     /* default_user_data */
 };
 
 static ObjectOps dependency_ops = {
@@ -133,6 +135,9 @@ static PropDescription dependency_props[] = {
 static PropDescription *
 dependency_describe_props(Dependency *dependency)
 {
+  if (dependency_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(dependency_props);
+  }
   return dependency_props;
 }
 

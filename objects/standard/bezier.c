@@ -95,7 +95,9 @@ static ObjectType bezierline_type =
   0,                         /* version */
   (char **) bezier_xpm,      /* pixmap */
   
-  &bezierline_type_ops       /* ops */
+  &bezierline_type_ops,      /* ops */
+  NULL,                      /* pixmap_file */
+  0                          /* default_user_data */
 };
 
 ObjectType *_bezierline_type = (ObjectType *) &bezierline_type;

@@ -57,4 +57,14 @@ real polyconn_distance_from(PolyConn *poly, Point *point,
 Handle *polyconn_closest_handle(PolyConn *poly, Point *point);
 int polyconn_closest_segment(PolyConn *poly, Point *point,
 			     real line_width);
+/* base property stuff... */
+#define POLYCONN_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "poly_points", PROP_TYPE_POINTARRAY, 0, "polconn points", NULL} \
+
+#define POLYCONN_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "poly_points", PROP_TYPE_POINTARRAY, \
+     offsetof(PolyConn,points), offsetof(PolyConn,numpoints)} \
+
 #endif /* POLY_CONN_H */

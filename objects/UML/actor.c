@@ -118,6 +118,9 @@ static PropDescription actor_props[] = {
 static PropDescription *
 actor_describe_props(Actor *actor)
 {
+  if (actor_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(actor_props);
+  }
   return actor_props;
 }
 

@@ -248,7 +248,30 @@ polyshape_update_data(PolyShape *poly)
 {
   Point next;
   int i;
+  Object *obj = &poly->object;
   
+  /* handle the case of whole points array update (via set_prop) */
+  if (poly->numpoints != obj->num_handles ||
+      poly->numpoints*2 != obj->num_connections) {
+    object_unconnect_all(obj); /* too drastic ? */
+
+    obj->handles = g_realloc(obj->handles, 
+                             poly->numpoints*sizeof(Handle *));
+    obj->num_handles = poly->numpoints;
+    for (i=0;i<poly->numpoints;i++) {
+      obj->handles[i] = g_new(Handle, 1);
+      setup_handle(obj->handles[i]);
+    }
+
+    obj->connections = g_realloc(obj->connections,
+                                 poly->numpoints * 2 * sizeof(ConnectionPoint *));
+    for (i = 0; i < poly->numpoints * 2; i++) {
+      obj->connections[i] = g_new0(ConnectionPoint, 1);
+      obj->connections[i]->object = obj;
+    }
+    poly->object.num_connections = poly->numpoints*2;
+  }
+
   /* Update handles: */
   for (i = 0; i < poly->numpoints; i++) {
     poly->object.handles[i]->pos = poly->points[i];

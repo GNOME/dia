@@ -196,6 +196,70 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
     return obj;
 }
 
+
+/*
+ * This function gets called by Dia as a reaction to file import.
+ * It needs to be registered before via Python function 
+ * dia.register_import
+ */
+gboolean
+PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
+{
+    PyObject *diaobj, *res, *arg, *func = user_data;
+    if (!func || !PyCallable_Check (func)) {
+        message_error ("Import called without valid callback function.");
+        return FALSE;
+    }
+    if (dia)
+        diaobj = PyDiaDiagramData_New (dia);
+    else {
+        diaobj = Py_None;
+        Py_INCREF (diaobj);
+    }
+      
+    Py_INCREF(func);
+
+    arg = Py_BuildValue ("(sO)", filename, diaobj);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res);
+    }
+    Py_XDECREF (arg);
+
+    Py_DECREF(func);
+    Py_XDECREF(diaobj);
+
+    return !!res;
+}
+
+static PyObject *
+PyDia_RegisterImport(PyObject *self, PyObject *args)
+{
+    gchar *name;
+    gchar *ext;
+    DiaImportFilter *filter;
+    PyObject* func;
+
+    if (!PyArg_ParseTuple(args, "ssO:dia.register_import",
+			  &name, &ext, &func))
+	return NULL;
+
+    Py_INCREF(func); /* stay alive, where to kill ?? */
+
+    filter = g_new (DiaImportFilter, 1);
+    filter->description = g_strdup (name);
+    filter->extensions = g_new (gchar*, 2);
+    filter->extensions[0] = g_strdup (ext);
+    filter->extensions[1] = NULL;
+    filter->import = &PyDia_import_data;
+    filter->user_data = func;
+
+    filter_register_import(filter);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 /*
  * This function gets called by Dia as a reaction to a menu item.
  * It needs to be registered before via Python function 
@@ -292,6 +356,7 @@ static PyMethodDef dia_methods[] = {
     { "active_display", PyDia_ActiveDisplay, 1 },
     { "update_all", PyDia_UpdateAll, 1 },
     { "register_export", PyDia_RegisterExport, 1 },
+    { "register_import", PyDia_RegisterImport, 1 },
     { "register_callback", PyDia_RegisterCallback, 1},
     { NULL, NULL }
 };

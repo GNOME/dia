@@ -124,6 +124,9 @@ static PropDescription component_props[] = {
 static PropDescription *
 component_describe_props(Component *component)
 {
+  if (component_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(component_props);
+  }
   return component_props;
 }
 

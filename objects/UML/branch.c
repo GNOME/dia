@@ -115,6 +115,9 @@ static PropDescription branch_props[] = {
 static PropDescription *
 branch_describe_props(Branch *branch)
 {
+  if (branch_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(branch_props);
+  }
   return branch_props;
 }
 

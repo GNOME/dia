@@ -142,6 +142,9 @@ static PropDescription classicon_props[] = {
 static PropDescription *
 classicon_describe_props(Classicon *classicon)
 {
+  if (classicon_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(classicon_props);
+  }
   return classicon_props;
 }
 

@@ -171,7 +171,9 @@ ObjectType association_type =
   0,                      /* version */
   (char **) association_xpm,  /* pixmap */
   
-  &association_type_ops       /* ops */
+  &association_type_ops,      /* ops */
+  NULL,                 /* pixmap_file */
+  0                     /* default_user_data */
 };
 
 static ObjectOps association_ops = {
@@ -200,6 +202,9 @@ static PropDescription association_props[] = {
 static PropDescription *
 association_describe_props(Association *assoc)
 {
+  if (association_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(association_props);
+  }
   return association_props;
 }
 

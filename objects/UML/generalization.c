@@ -96,7 +96,9 @@ ObjectType generalization_type =
   0,                      /* version */
   (char **) generalization_xpm,  /* pixmap */
   
-  &generalization_type_ops       /* ops */
+  &generalization_type_ops,      /* ops */
+  NULL,                 /* pixmap_file */
+  0                     /* default_user_data */
 };
 
 static ObjectOps generalization_ops = {
@@ -127,6 +129,9 @@ static PropDescription generalization_props[] = {
 static PropDescription *
 generalization_describe_props(Generalization *generalization)
 {
+  if (generalization_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(generalization_props);
+  }
   return generalization_props;
 }
 
