@@ -369,6 +369,17 @@ AC_PATH_PROG(DB2HTML, db2html, no)
 AM_CONDITIONAL(HAVE_DB2HTML, 
                test "x$enable_db2html" != xno && test "x$DB2HTML" != xno)
 
+dnl Only enable man page generation if we have db2man (in maintainer mode)
+
+AC_SUBST(DB2MAN)
+if test -f /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl ; then
+  db2man_file=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl
+else if test -f /opt/gnome/share/sgml/docbook/yelp/docbook/html/docbook.xsl ; then
+  db2man_file=/opt/gnome/share/sgml/docbook/yelp/docbook/html/docbook.xsl
+fi
+fi
+AC_SUBST(DB2MAN, "$db2man_file")
+
 dnl Handling for Python
 AC_ARG_WITH(python,
 [  --with-python           compile python plug-in],,with_python=no)

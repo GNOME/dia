@@ -517,7 +517,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
 
   /* Grid on/off button */
-  ddisp->grid_status = gtk_toggle_button_new();
+  ddisp->grid_status = dia_toggle_button_new_with_images("on-grid.png", "off-grid.png");
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
 		   grid_toggle_snap, ddisp);

@@ -83,7 +83,6 @@ diagram_finalize(GObject *object)
   Diagram *other_diagram;
 
   assert(dia->displays==NULL);
-
   g_object_unref(dia->data);
   dia->data = NULL;
   

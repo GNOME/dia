@@ -131,6 +131,9 @@ new_display(Diagram *dia)
   memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
   
   ddisp->diagram = dia;
+  if (dia->display_count > 1)
+    /* The first display gets the initial ref */
+    g_object_ref(dia);
 
   ddisp->grid.visible = prefs.grid.visible;
   ddisp->grid.snap = prefs.grid.snap;
@@ -435,7 +438,7 @@ ddisplay_add_display_area(DDisplay *ddisp,
   }
 }
 
-static gint
+static gboolean
 ddisplay_update_handler(DDisplay *ddisp)
 {
   GSList *l;
@@ -453,7 +456,7 @@ ddisplay_update_handler(DDisplay *ddisp)
     totrect = *(Rectangle *) l->data;
   
     g_return_val_if_fail (   renderer->clip_region_clear != NULL
-                          && renderer->clip_region_add_rect != NULL, 0);
+                          && renderer->clip_region_add_rect != NULL, FALSE);
 
     renderer->clip_region_clear (ddisp->renderer);
 
@@ -480,7 +483,7 @@ ddisplay_update_handler(DDisplay *ddisp)
   while(l!=NULL) {
     ir = (IRectangle *) l->data;
 
-    g_return_val_if_fail (renderer->copy_to_window, 0);
+    g_return_val_if_fail (renderer->copy_to_window, FALSE);
     renderer->copy_to_window(ddisp->renderer, 
                              ddisp->canvas->window,
                              ir->left, ir->top,
@@ -684,44 +687,6 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
 static void
 update_snap_grid_status(DDisplay *ddisp)
 {
-  GtkWidget *image = NULL;
-  GdkPixmap       *pixmap;
-  gint            xsize, ysize;
-  GtkWidget *child;
-
-  if (ddisp->grid.snap) {
-    image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
-					 "on grid image"));
-    if (image == NULL) {
-      GdkColormap *cmap = gtk_widget_get_colormap(ddisp->grid_status);
-      g_assert(cmap != NULL);
-      image = gtk_image_new_from_pixmap(gdk_pixmap_colormap_create_from_xpm_d(NULL, cmap, NULL, NULL, on_grid_xpm), NULL);
-      g_object_ref(G_OBJECT(image));
-      g_object_set_data(G_OBJECT(ddisp->grid_status), "on grid image", image);
-    }
-  } else {
-    image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
-					 "off grid image"));
-    if (image == NULL) {
-      GdkColormap *cmap = gtk_widget_get_colormap(ddisp->grid_status);
-      g_assert(cmap != NULL);
-      image = gtk_image_new_from_pixmap(gdk_pixmap_colormap_create_from_xpm_d(NULL, cmap, NULL, NULL, off_grid_xpm), NULL);
-      g_object_ref(G_OBJECT(image));
-      g_object_set_data(G_OBJECT(ddisp->grid_status), "off grid image", image);
-      
-    }
-  }
-  child = gtk_bin_get_child(GTK_BIN(ddisp->grid_status));
-  if (child != NULL)
-    gtk_container_remove(GTK_CONTAINER(ddisp->grid_status), child);
-
-  gtk_image_get_pixmap(GTK_IMAGE(image), &pixmap, NULL);
-  gdk_drawable_get_size(GDK_DRAWABLE(pixmap), &xsize, &ysize);
-
-  gtk_container_add(GTK_CONTAINER(ddisp->grid_status),
-		    image);
-  gtk_widget_set_size_request(GTK_WIDGET(ddisp->grid_status), xsize, ysize);
-  gtk_widget_show(image);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->grid_status),
 			       ddisp->grid.snap);
 }
@@ -956,6 +921,7 @@ ddisp_destroy(DDisplay *ddisp)
     ddisp->update_id = 0;
   }
 
+  g_object_unref (G_OBJECT (ddisp->diagram));
   g_object_unref (G_OBJECT (ddisp->im_context));
   ddisp->im_context = NULL;
 

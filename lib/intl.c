@@ -20,7 +20,8 @@ read_aliases (char *file)
   char buf[256];
 
   if (!alias_table)
-    alias_table = g_hash_table_new (g_str_hash, g_str_equal);
+    alias_table = g_hash_table_new_full (g_str_hash, g_str_equal,
+					 g_free, g_free);
   fp = fopen (file,"r");
   if (!fp)
     return;
@@ -39,18 +40,10 @@ read_aliases (char *file)
 }
 
 static void
-free_alias_cb(gpointer key, gpointer value, gpointer user_data)
-{
-  g_free(key);
-  g_free(value);
-}
-
-static void
 free_alias_table(void)
 {
   if (!alias_table)
     return;
-  g_hash_table_foreach(alias_table, free_alias_cb, NULL);
   g_hash_table_destroy(alias_table);
   alias_table = NULL;
 }

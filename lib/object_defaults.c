@@ -344,6 +344,8 @@ _obj_store (gpointer key,
       li->pos.x = li->pos.y = 0.0;
       g_hash_table_insert (ri->layer_hash, layer_name, li);
     }
+  else
+    g_free (layer_name);
 
   obj_node = xmlNewChild(li->node, NULL, "object", NULL);
   xmlSetProp(obj_node, "type", obj->type->name);
@@ -358,8 +360,6 @@ _obj_store (gpointer key,
   obj->type->ops->save (obj, obj_node, ri->filename);
   /* arrange following objects below */
   li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0); 
-
-  g_free (layer_name);
 }
 
 /**

@@ -814,6 +814,8 @@ dia_layer_widget_visible_button_events(GtkWidget *widget,
   
   lw = DIA_LAYER_WIDGET(data);
 
+  printf("Button event %d widget %p\n", event->type, widget);
+
   return_val = FALSE;
   switch (event->type) {
   case GDK_EXPOSE:
@@ -941,6 +943,8 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->connectable = connectable = 
     dia_toggle_button_new_with_images("selectable.png", 
 				      "selectable-empty.png");
+  printf("Connectable %p\n", connectable);
+
   gtk_button_set_relief(GTK_BUTTON(connectable),
 			GTK_RELIEF_NONE);
   gtk_container_set_border_width(GTK_CONTAINER(connectable), 0);

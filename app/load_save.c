@@ -548,7 +548,9 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     /* Read in all objects: */
     
     list = read_objects(layer_node, layer, objects_hash, filename, NULL);
-    layer->objects = list;
+    /* Objects should already have been added to the layer by read_objects */
+    /* However, if this is included, we crash.  Need more investigation. XXX */
+    /*    g_list_free(list);*/
     read_connections( list, layer_node, objects_hash);
 
     data_add_layer(data, layer);
@@ -937,7 +939,7 @@ diagram_cleanup_autosave(Diagram *dia)
   struct stat statbuf;
 
   savefile = dia->autosavefilename;
-
+  printf("Cleaning up autosave %s for %s\n", savefile, dia->filename);
   if (savefile == NULL) return;
 
   if (stat(savefile, &statbuf) == 0) { /* Success */

@@ -508,10 +508,13 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 			       &families, &n_families);
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
-    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname)))
+    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname))) {
+      g_free(families);
       return families[i];
+    }
   }
   g_warning(_("Couldn't find font family for %s\n"), fontname);
+  g_free(families);
   return NULL;
 }
 
@@ -661,6 +664,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
     stylebits |= 1 << (3*weightnr + style);
     pango_font_description_free(pfd);
   }
+
+  g_free(faces);
 
   for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkWidget *menuitem;
@@ -1581,7 +1586,6 @@ dia_get_image_from_file(gchar *filename)
 {
   gchar *datadir = dia_get_data_directory("images");
   gchar *imagefile = g_strconcat(datadir, G_DIR_SEPARATOR_S, filename, NULL);
-  printf("Getting %s\n", imagefile);
   GtkWidget *image = gtk_image_new_from_file(imagefile);
   g_free(imagefile);
   g_free(datadir);

@@ -1,3 +1,45 @@
+2004-05-15  Lars Clausen  <lars@raeder.dk>
+	
+	* lib/persistence.c (persistence_get_string): Fixed 0/NULL/FALSE
+	return value conflict.
+
+	* app/display.c (ddisplay_update_handler): Fixed 0/FALSE return
+	value conflict.  Also improved signature. (#142466)
+
+	* app/load_save.c (diagram_data_load): Don't overwrite the list in
+	the layer, but instead free the returned list (#142480)
+
+	* app/pixmaps/Makefile.am (IMAGES): Added png's to be installed
+	for the grid widget.
+
+	* doc/en/Makefile.am (dia.1): Make proper rule for making dia.1
+
+	* configure.in (DB2MAN): Currently just check for two known
+	positions for the docbook xsl.  Don't know a generic way to find
+	this info.  Ought to add an option for it, but then it's really
+	only required for maintainers, I think.  Maybe.
+
+	* app/display.c (update_snap_grid_status): Remove nasty image
+	toggling code not require for grid toggle button anymore. (#142475)
+
+	* app/interface.c (create_display_shell): Use
+	dia_toggle_button_new_with_images to create grid toggle button.
+	Much nicer. (#142475)
+
+	* app/menus.c (menus_initialize_updatable_items): Free the string
+	along with the GString. (#142475)
+
+	* lib/intl.c (free_alias_table): Free hash table entries in a
+	proper way, avoiding duplicate frees. (#142475)
+
+	* lib/object_defaults.c (_obj_store): Only free layer_name if it's
+	not put in the hash (avoid reading freed memory). (#142476)
+
+	* lib/widgets.c (dia_font_selector_set_styles): Stop leaking
+	faces. (#142484)
+	(dia_font_selector_get_family_from_name): Stop leaking
+	families. (#142482) 
+
 2004-05-14  Lars Clausen  <lars@raeder.dk>
 
 	* Transfer of fixes from release branch.  Not the prettiest way to

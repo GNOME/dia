@@ -901,7 +901,7 @@ persistence_get_boolean(gchar *role)
   gboolean *booleanval;
   if (persistent_booleans == NULL) {
     printf("No persistent booleans to get for %s!\n", role);
-    return 0;
+    return FALSE;
   }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   if (booleanval != NULL) return *booleanval;
@@ -945,7 +945,7 @@ persistence_get_string(gchar *role)
   gchar *stringval;
   if (persistent_strings == NULL) {
     printf("No persistent strings to get for %s!\n", role);
-    return 0;
+    return NULL;
   }
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval != NULL) return stringval;
