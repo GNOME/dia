@@ -8,7 +8,8 @@
 <!ENTITY SPECIAL-OBJECTS SYSTEM "usage-objects-special.sgml">
 <!ENTITY SELECTING-OBJECTS SYSTEM "usage-objects-selecting.sgml">
 <!ENTITY LOADING-SAVING SYSTEM "usage-loadsave.sgml">
-<!ENTITY CUSTOMIZATION SYSTEM "usage-customization.sgml">
+<!ENTITY CUSTOMIZATION SYSTEM "usage-customization.sgml"> 
+<!ENTITY LAYERS SYSTEM "usage-layers.sgml">
 <!ENTITY AUTHORS-NOTE SYSTEM "authors-note.sgml">
 <!ENTITY AUTHORS SYSTEM "authors.sgml">
 <!ENTITY LICENSE SYSTEM "license.sgml">
@@ -60,6 +61,7 @@
 &SELECTING-OBJECTS;
 &LOADING-SAVING;
 &CUSTOMIZATION;
+&LAYERS;
 &AUTHORS;
 &LICENSE;
 </book>

@@ -35,7 +35,19 @@
    <para>
     The background color option allows you to change what the background looks
     like in the canvas.  By default, the color is white.  However, the color
-    can be changed by going into View->Diagram Properties->Background and
+    can be changed by going into
+    <menuchoice>
+      <guimenu>
+        View
+      </guimenu>
+      <guimenu>
+        Diagram Properties
+      </guimenu>
+      <guimenuitem>
+        Background
+      </guimenuitem>
+    </menuchoice>
+    and
     clicking on the bar.  The bar displays what your background color is.
     The gridlines will change their color automatically to stay visible if
     the background color is changed to black.
@@ -51,3 +63,10 @@
   </sect2>
  </sect1>
 </chapter>
+
+
+<!--
+Local Variables:
+sgml-parent-document: "dia-manual.sgml"
+End:
+-->

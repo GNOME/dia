@@ -14,8 +14,7 @@
   <title>Quickstart Introduction</title>
    <para>
     The Dia Quickstart is meant for the user who doesn't want to read a whole
-    manual to make a basic diagram.  It will also hold a few screenshots for
-    those who are unsure of if this program will do what they want.
+    manual to make a basic diagram.
    </para>
   </sect2>
   <sect2 id="creating-canvas">
@@ -27,7 +26,7 @@
      <guimenu>File</guimenu>
      <guimenuitem>New Diagram</guimenuitem>
     </menuchoice>
-    .  A new canvas window will appear.
+    A new canvas window will appear.
    </para>
   </sect2>
   <sect2 id="making-diagram">
@@ -133,3 +132,9 @@
    </sect2>
  </sect1>
 </chapter>                                              
+
+<!--
+Local Variables:
+sgml-parent-document: "dia-manual.sgml"
+End:
+-->
