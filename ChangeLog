@@ -8,6 +8,22 @@
 
 	* is.po: Added "is" to ALL_LINGUAS.
 
+2004-04-04  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: 
+	* dia.spec (Release): 
+	* NEWS: 
+	* config.h.win32: 
+	* doc/{en,pl}/dia.xml: 
+	Update to pre2.
+
+	* dia.spec: Updated as per mail from Zhang Lin-bo <zlb@lsec.cc.ac.cn>
+
+2004-04-03  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/ellipse.c (ellipse_copy): Properly copy the
+	handle in the middle of the ellipse.
+
 2004-03-21  Hans Breuer  <hans@breuer.org>
 
 	* lib/makefile.msc : removed -DGTK_DISABLE_DEPRECATED; the 
