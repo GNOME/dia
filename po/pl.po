@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-16 00:08+0200\n"
+"POT-Creation-Date: 2003-09-28 00:56+0200\n"
 "PO-Revision-Date: 2003-09-15 22:42+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -106,14 +106,14 @@ msgstr "Dia wersja %s, skompilowana %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia wersja %s\n"
 
-#: app/app_procs.c:423 app/app_procs.c:425 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Nie można odnaleźć standardowych obiektów w bibliotekach obiektów, "
 "zakończenie...\n"
 
-#: app/app_procs.c:553
+#: app/app_procs.c:543
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -123,7 +123,7 @@ msgstr ""
 "komunikatu. (w języku angielskim)\n"
 
 #. no standard buttons
-#: app/app_procs.c:565
+#: app/app_procs.c:555
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -133,21 +133,21 @@ msgstr ""
 "Czy na pewno chcesz zakończyć pracę z programem\n"
 "nie zapisując ich?"
 
-#: app/app_procs.c:569
+#: app/app_procs.c:559
 msgid "Quit Dia"
 msgstr "Zakończ pracę z Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:624
+#: app/app_procs.c:614
 msgid "Thank you for using Dia.\n"
 msgstr "Dziękujemy za korzystanie z Dia.\n"
 
-#: app/app_procs.c:638 app/app_procs.c:645
+#: app/app_procs.c:628 app/app_procs.c:635
 msgid "Could not create per-user Dia config directory"
 msgstr "Nie można utworzyć katalogu użytkownika z konfiguracją Dia"
 
-#: app/app_procs.c:647
+#: app/app_procs.c:637
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -155,7 +155,7 @@ msgstr ""
 "Nie można utworzyć katalogu konfiguracyjnego Dia dla użytkownika. Upewnij "
 "się czy zmienna środowiskowa HOME wskazuje na istniejący katalog."
 
-#: app/app_procs.c:669 app/diaconv.c:249
+#: app/app_procs.c:659 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Wewnętrzne obiekty i filtry Dia"
 
@@ -2207,9 +2207,8 @@ msgid "Filled Diamond"
 msgstr "Wypełniony diament"
 
 #: lib/arrows.c:45
-#, fuzzy
 msgid "Half Diamond"
-msgstr "Wydrążony diament"
+msgstr "Przepołowiony diament"
 
 #: lib/arrows.c:46
 msgid "Half Head"
@@ -2284,9 +2283,8 @@ msgid "Round"
 msgstr "Okrąg"
 
 #: lib/arrows.c:64
-#, fuzzy
 msgid "Open Round"
-msgstr "Okrąg"
+msgstr ""
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2374,11 +2372,6 @@ msgstr "_Podgląd:"
 #: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Wybór czcionki"
-
-#: lib/dialibartrenderer.c:1114
-msgid "This Dia version is compiled without libart/text support."
-msgstr ""
-"To jest wersja Dia skompilowana bez obsługi napisów z biblioteki libart."
 
 #: lib/font.c:87
 #, c-format
@@ -4177,16 +4170,15 @@ msgstr "Jest obiektem"
 
 #: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
 msgid "Facet"
-msgstr ""
+msgstr "Aspekt"
 
 #: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
-#, fuzzy
 msgid "Receptacle"
-msgstr "Zastąp"
+msgstr "Pojemnik"
 
 #: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
 msgid "Event Source"
-msgstr ""
+msgstr "Źródło zdarzenia"
 
 #: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
 #, fuzzy
@@ -4949,7 +4941,7 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
-msgstr "Posegregowane"
+msgstr "Mieszane"
 
 #: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
@@ -5464,9 +5456,8 @@ msgid "Preparation"
 msgstr "Przygotowanie"
 
 #: sheets/Flowchart.sheet.in.h:23
-#, fuzzy
 msgid "Process/Auxiliary Operation"
-msgstr "Ukryte operacje"
+msgstr "Proces/Operacja pomocnicza"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched card"
@@ -6062,7 +6053,7 @@ msgstr "Serwer WWW"
 
 #: sheets/ciscocomputer.sheet.in.h:43
 msgid "Web browser"
-msgstr "Przeglądarka webowa"
+msgstr "Przeglądarka WWW"
 
 #: sheets/ciscocomputer.sheet.in.h:44
 msgid "Web cluster"
@@ -6665,9 +6656,8 @@ msgid "System controller"
 msgstr "Kontroler systemu"
 
 #: sheets/cisconetwork.sheet.in.h:73
-#, fuzzy
 msgid "Transpath"
-msgstr "Transportowanie"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:74
 msgid "Universal gateway"
@@ -6736,7 +6726,7 @@ msgstr "Router usługi zawartości"
 
 #: sheets/ciscorouter.sheet.in.h:11
 msgid "Gigabit switch router (ATM tag)"
-msgstr ""
+msgstr "Router przełączający Gigabit (znacznik ATM)"
 
 #: sheets/ciscorouter.sheet.in.h:12
 msgid "IAD router"
@@ -6816,7 +6806,7 @@ msgstr "Zabezpieczenie przed odpływem"
 
 #: sheets/civil.sheet.in.h:3
 msgid "Basin"
-msgstr "Miska"
+msgstr "Zbiornik"
 
 #: sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
@@ -7169,6 +7159,10 @@ msgstr "Serwer danych Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Serwer replikacji Sybase"
+
+#~ msgid "This Dia version is compiled without libart/text support."
+#~ msgstr ""
+#~ "To jest wersja Dia skompilowana bez obsługi napisów z biblioteki libart."
 
 #~ msgid "A connection point"
 #~ msgstr "Punkt połączenia"
