@@ -209,6 +209,17 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="*/*/dia:object[@type='UML - Component']">
+    <xsl:element name="component">
+      <xsl:if test="not(dia:attribute[@name='stereotype']/dia:string='##')">
+	<xsl:attribute name="stereotype"><xsl:value-of 
+	  select="substring-before(substring-after(dia:attribute[@name='stereotype']/dia:string, '#'), '#')"/></xsl:attribute>              
+      </xsl:if>
+      <xsl:if test="not(dia:attribute[@name='text']/dia:composite/dia:attribute/dia:string='##')"><xsl:value-of 
+	select="substring-before(substring-after(dia:attribute[@name='text']/dia:composite/dia:attribute/dia:string, '#'), '#')"/>              
+      </xsl:if>
+    </xsl:element>
+  </xsl:template>
   
   <xsl:template match="text()"></xsl:template>
 

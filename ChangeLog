@@ -1,3 +1,9 @@
+2003-08-22  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/xslt/dia-uml.xsl:
+	* plug-ins/xslt/dia-uml2componentlist.xsl: generate a HTML file with a
+	table containing a list of components grouped by stereotype
+
 2003-08-21  Steffen Macke <sdteffen@web.de>
 
 	* lib/makefile.msc: added connectionpoint.obj
