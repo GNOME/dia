@@ -1,3 +1,8 @@
+2003-02-04  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Fixed missing popt context for Gnome
+	- gnome-compiled Dia will now read files specified on the command line.
+
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* INSTALL (REQUIREMENTS): Updated requirements section.

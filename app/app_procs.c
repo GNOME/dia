@@ -273,10 +273,11 @@ app_init (int argc, char **argv)
 
   if (argv) {
 #ifdef GNOME
-    gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                          argc, argv, GNOME_PARAM_POPT_TABLE, options,
-                          GNOME_PARAM_NONE);
-    
+    GnomeProgram *program =
+      gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+			  argc, argv, GNOME_PARAM_POPT_TABLE, options,
+			  GNOME_PARAM_NONE);
+    g_object_get(program, "popt-context", &poptCtx, NULL);
     client = gnome_master_client();
     if(client == NULL) {
       g_warning(_("Can't connect to session manager!\n"));
