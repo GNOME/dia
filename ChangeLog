@@ -1,3 +1,29 @@
+2001-08-16  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/proplist.c: (prop_list_from_single): Renamed
+	prop_list_singleton() to avoid confusion with the Singleton
+	pattern (which it definitely is not).
+	
+	* lib/propobject.c: (object_prop_by_name_type),
+	(object_prop_by_name): The "flags" parameter was not necessary.
+	These don't return synthetic properties, but properties built from
+	a real property description list; therefore, we don't call
+	make_new_prop() but use the existing property descriptor, which
+	has perfectly valid (and meaningful) flags.
+
+	* lib/proplist.c: (pdtpp_synthetic), (pdtpp_from_object): These
+	new predicates better reflect the reason why properties exist when
+	they're created by make_new_prop() or object_prop_by_name().	
+
+	* lib/propobject.c: (object_prop_by_name_type), (object_prop_by_name):
+	* lib/prop_basic.c: (make_new_prop): used the new reasons instead
+	of pdtpp_true().
+
+	* lib/properties.h: reflects all the above changes.
+
+	* objects/SADT/arrow.c:
+	* objects/SADT/annotation.c:
+	* sheets/SADT.sheet: minor renamings to better 
 2001-08-15  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.h:

@@ -81,7 +81,7 @@ make_new_prop(const char *name, PropertyType type, guint flags)
     g_hash_table_insert(hash,moniker,descr);
     /* we don't ever free anything allocated here. */    
   }
-  return descr->ops->new_prop(descr,pdtpp_true);                    
+  return descr->ops->new_prop(descr,pdtpp_synthetic);                    
 }
 
 

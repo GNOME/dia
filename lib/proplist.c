@@ -37,6 +37,10 @@
 /* lists...                                                                  */
 gboolean pdtpp_true(const PropDescription *pdesc) 
 { return TRUE; }
+gboolean pdtpp_synthetic(const PropDescription *pdesc) 
+{ return TRUE; }
+gboolean pdtpp_from_object(const PropDescription *pdesc) 
+{ return TRUE; }
 gboolean pdtpp_is_visible(const PropDescription *pdesc) 
 { return (pdesc->flags & PROP_FLAG_VISIBLE) != 0; } 
 gboolean pdtpp_is_not_visible(const PropDescription *pdesc) 
@@ -192,7 +196,7 @@ prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd)
 }
 
 GPtrArray *
-prop_list_singleton(Property *prop) {
+prop_list_from_single(Property *prop) {
   GPtrArray *plist = g_ptr_array_new();
   g_ptr_array_add(plist,prop);
   return plist;

@@ -8,9 +8,9 @@
   <description>Objects to design SADT diagrams</description>
   <contents>
     <object name="SADT - arrow">
-      <description xml:lang="fr">Une flux d'activité/données</description>
+      <description xml:lang="fr">Un flux d'activité/données</description>
       <description xml:lang="de">Ein Aktivitäts-/Datenfluß</description>
-      <description>A activity/data flow</description>
+      <description>A activity/data flow arrow</description>
     </object>
     <object name="SADT - box">
       <description xml:lang="fr">Une boîte d'activité/données</description>
@@ -18,9 +18,8 @@
       <description>An activity/data box</description>
     </object>
     <object name="SADT - annotation">
-      <description xml:lang="fr">Une annotation de flux</description>
-      <description xml:lang="de">Eine Flußbemerkung</description>
-      <description>A flow annotation</description>
+      <description xml:lang="fr">Une étiquette de flux</description>
+      <description>A flow label</description>
     </object>
 
   </contents>

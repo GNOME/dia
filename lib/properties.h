@@ -355,14 +355,17 @@ gboolean pdtpp_is_visible(const PropDescription *pdesc);
 gboolean pdtpp_is_not_visible(const PropDescription *pdesc); 
 gboolean pdtpp_do_save(const PropDescription *pdesc); 
 gboolean pdtpp_do_not_save(const PropDescription *pdesc); 
+/* actually used for the "reason" parameter, not as predicates (synonyms for pdtpp_true) */
+gboolean pdtpp_synthetic(const PropDescription *pdesc);
+gboolean pdtpp_from_object(const PropDescription *pdesc);
 
 
-/* Swallows the property into a singleton property list. Can be given NULL. 
+/* Swallows the property into a single property list. Can be given NULL. 
    Don't free yourself the property afterwards; prop_list_free() the list 
    instead.
    You regain responsibility for the property if you g_ptr_array_destroy() the
    list. */
-GPtrArray *prop_list_singleton(Property *prop);
+GPtrArray *prop_list_of_single(Property *prop);
 
 /* Create a new property of the required type, with the required name.
    A PropDescription might be created on the fly. The property's value is not 
@@ -412,13 +415,12 @@ ObjectChange *object_apply_props(Object *obj, GPtrArray *props);
 WIDGET *object_create_props_dialog     (Object *obj);
 ObjectChange *object_apply_props_from_dialog (Object *obj, WIDGET *dialog);
 
-/* create a synthetic property (with flags = 0). To be freed with
-   prop->ops->free(prop); or put it into a singleton list. NULL if object
+/* create a property from the object's property descriptors. To be freed with
+   prop->ops->free(prop); or put it into a single property list. NULL if object
    has nothing matching. Property's value is initialised by the object.
    Serve cold. */
-Property *object_prop_by_name(Object *obj, const char *name, guint flags);
-Property *object_prop_by_name_type(Object *obj, const char *name,
-                                   const char *type, guint flags);
+Property *object_prop_by_name(Object *obj, const char *name);
+Property *object_prop_by_name_type(Object *obj, const char *name, const char *type);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(Object *obj, ObjectNode obj_node);

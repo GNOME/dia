@@ -219,7 +219,7 @@ static void draw_arrowhead(Renderer *renderer,
 			   Point *end, Point *vect, Color *col);
 static void draw_dot(Renderer *renderer,
 		     Point *end, Point *vect, Color *col);
-static void draw_parenthesis(Renderer *renderer,
+static void draw_tunnel(Renderer *renderer,
 			     Point *end, Point *vect, Color *col);
 
 #define GBASE .45
@@ -342,7 +342,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
     }
   
   /* depending on the exact arrow type, we'll draw different gizmos 
-     (arrow heads, dots, parenthesis) at different places. */
+     (arrow heads, dots, tunnel) at different places. */
 
   /* XXX : chop off a little (.1) the starting and ending segments, so that
      their ends don't show up in front of the arrow heads ? Ugh.
@@ -354,11 +354,11 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
     break;
   case SADT_ARROW_IMPORTED:
     draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
-    draw_parenthesis(renderer,&points[0],&points[1],&col);
+    draw_tunnel(renderer,&points[0],&points[1],&col);
     break;
   case SADT_ARROW_IMPLIED:
     draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
-    draw_parenthesis(renderer,&points[n-1],&points[n-2],&col);
+    draw_tunnel(renderer,&points[n-1],&points[n-2],&col);
     break;
   case SADT_ARROW_DOTTED:
     draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
@@ -408,7 +408,7 @@ static void draw_dot(Renderer *renderer,
 			 col);
 }
 
-static void draw_parenthesis(Renderer *renderer,
+static void draw_tunnel(Renderer *renderer,
 			     Point *end, Point *vect, Color *col)
 {
   Point vv,vp,vt1,vt2;

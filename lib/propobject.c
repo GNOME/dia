@@ -237,8 +237,7 @@ object_save_props(Object *obj, ObjectNode obj_node)
 }
 
 Property *
-object_prop_by_name_type(Object *obj, const char *name, 
-                         const char *type, guint flags)
+object_prop_by_name_type(Object *obj, const char *name, const char *type)
 {
   const PropDescription *pdesc;
   GQuark name_quark = g_quark_from_string(name);
@@ -258,7 +257,7 @@ object_prop_by_name_type(Object *obj, const char *name,
         plist = g_ptr_array_new();
         g_ptr_array_set_size(plist,1);
       }
-      prop = make_new_prop(pdesc->name,pdesc->type,flags);
+      prop = pdesc->ops->new_prop(pdesc,pdtpp_from_object);
       g_ptr_array_index(plist,0) = prop;
       obj->ops->get_props(obj,plist);
       return prop;
@@ -268,9 +267,9 @@ object_prop_by_name_type(Object *obj, const char *name,
 }
 
 Property *
-object_prop_by_name(Object *obj, const char *name, guint flags)
+object_prop_by_name(Object *obj, const char *name)
 {
-  return object_prop_by_name_type(obj,name,NULL,flags);
+  return object_prop_by_name_type(obj,name,NULL);
 }
 
 

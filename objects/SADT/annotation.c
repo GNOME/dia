@@ -290,6 +290,7 @@ annotation_draw(Annotation *annotation, Renderer *renderer)
   vlen = distance_point_point(&annotation->connection.endpoints[0],
 			      &annotation->connection.endpoints[1]);
   if (vlen > 0.0) {
+    /* draw the squiggle */
     point_scale(&vect,1/vlen);
     rvect.y = vect.x;
     rvect.x = -vect.y;
