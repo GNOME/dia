@@ -25,6 +25,7 @@
 #include "diaunitspinner.h"
 #include "gdk/gdkkeysyms.h"
 
+#if 0
 typedef struct _DiaUnitDef DiaUnitDef;
 struct _DiaUnitDef {
   char* name;
@@ -236,3 +237,4 @@ dia_unit_spinner_activate(GtkEntry *editable)
     dia_unit_spinner_update(DIA_UNIT_SPINNER(editable));
 }
 
+#endif

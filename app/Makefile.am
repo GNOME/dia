@@ -100,8 +100,6 @@ dia_core_files = \
 	    pixmaps.h \
 	    diapagelayout.c \
 	    diapagelayout.h \
-	    diaunitspinner.c \
-	    diaunitspinner.h \
 	    pagesetup.c \
 	    pagesetup.h \
 	    filedlg.c \

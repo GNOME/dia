@@ -1,3 +1,18 @@
+2004-09-03  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/box.c: Use PROP_TYPE_LENGTH for corner_radius
+	as unit-based property testbed.
+
+	* lib/prop_geomtypes.c (lengthprop_reset_widget): Implement length
+	and fontsize widgets. 
+
+	* app/Makefile.am (dia_core_files):
+	* app/diaunitspinner.h: 
+	* app/diaunitspinner.c: 
+	* lib/widgets.h: 
+	* lib/widgets.c (dia_unit_spinner_update): Move diaunitspinner to
+	lib/widgets.[ch], as it's used in the properties code now.
+
 2004-08-31  Steffen Macke <sdteffen@web.de>
 
 	* doc/en/usage-objects-basic.xml: Mentioning supported image formats.

@@ -144,7 +144,7 @@ static PropDescription box_props[] = {
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   PROP_STD_LINE_STYLE,
-  { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "corner_radius", PROP_TYPE_LENGTH, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, &corner_radius_data },
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
@@ -168,7 +168,7 @@ static PropOffset box_offsets[] = {
   { "aspect", PROP_TYPE_ENUM, offsetof(Box, aspect) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Box, line_style), offsetof(Box, dashlength) },
-  { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
+  { "corner_radius", PROP_TYPE_LENGTH, offsetof(Box, corner_radius) },
   { NULL, 0, 0 }
 };
 

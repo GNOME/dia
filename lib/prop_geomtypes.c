@@ -178,8 +178,9 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 1.0));
-  GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
+  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_MILLIMETER);
+  /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
+  printf("Starting unit spinner...\n");
   prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
   
   return ret;
@@ -188,6 +189,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
 static void 
 lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
 {
+  /*
   GtkAdjustment *adj;
   if (prop->common.extra_data) {
     PropNumData *numdata = prop->common.extra_data;
@@ -201,13 +203,15 @@ lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
                                             G_MINFLOAT, G_MAXFLOAT,
                                             0.1, 1.0, 1.0));
   }
-  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+  dia_unit_spinner_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+  */
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->length_data);
 }
 
 static void 
 lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget) 
 {
-  prop->length_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
+  prop->length_data = dia_unit_spinner_get_value(GTK_SPIN_BUTTON(widget));
 }
 
 static void 
@@ -289,16 +293,17 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 1.0));
-  GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
+  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_POINT);
+  /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
-  
+  fontsizeprop_reset_widget(prop, ret);
   return ret;
 }
 
 static void 
 fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
 {
+  /*
   GtkAdjustment *adj;
   if (prop->common.extra_data) {
     PropNumData *numdata = prop->common.extra_data;
@@ -313,12 +318,16 @@ fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
                                             0.1, 1.0, 1.0));
   }
   gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+  */
+  printf("Resetting\n");
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->fontsize_data);
 }
 
 static void 
 fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget) 
 {
-  prop->fontsize_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
+  printf("Setting\n");
+  prop->fontsize_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
 }
 
 static void 
@@ -933,8 +942,8 @@ void
 prop_geomtypes_register(void)
 {
   prop_type_register(PROP_TYPE_REAL,&realprop_ops);
-  prop_type_register(PROP_TYPE_LENGTH,&realprop_ops);
-  prop_type_register(PROP_TYPE_FONTSIZE,&realprop_ops);
+  prop_type_register(PROP_TYPE_LENGTH,&lengthprop_ops);
+  prop_type_register(PROP_TYPE_FONTSIZE,&fontsizeprop_ops);
   prop_type_register(PROP_TYPE_POINT,&pointprop_ops);
   prop_type_register(PROP_TYPE_POINTARRAY,&pointarrayprop_ops);
   prop_type_register(PROP_TYPE_BEZPOINTARRAY,&bezpointarrayprop_ops);

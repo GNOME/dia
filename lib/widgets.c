@@ -35,6 +35,7 @@
 #include <pango/pango.h>
 #include <stdio.h>
 #include <time.h>
+#include "gdk/gdkkeysyms.h"
 
 #include "diagtkfontsel.h"
 
@@ -1594,6 +1595,221 @@ dia_file_selector_get_file(DiaFileSelector *fs)
                                           -1, NULL, NULL, NULL);
   return fs->sys_filename;
 }
+
+/************* DiaUnitSpinner: ***************/
+
+typedef struct _DiaUnitDef DiaUnitDef;
+struct _DiaUnitDef {
+  char* name;
+  char* unit;
+  float factor;
+};
+
+/* from gnome-libs/libgnome/gnome-paper.c */
+static const DiaUnitDef units[] =
+{
+  /* XXX does anyone *really* measure paper size in feet?  meters? */
+
+  /* human name, abreviation, points per unit */
+  { "Feet",       "ft", 864 },
+  { "Meter",      "m",  2834.6457 },
+  { "Decimeter",  "dm", 283.46457 },
+  { "Millimeter", "mm", 2.8346457 },
+  { "Point",      "pt", 1. },
+  { "Centimeter", "cm", 28.346457 },
+  { "Inch",       "in", 72 },
+  { "Pica",       "pi", 12 },
+  { 0 }
+};
+
+static GtkObjectClass *parent_class;
+static GtkObjectClass *entry_class;
+
+static void dia_unit_spinner_class_init(DiaUnitSpinnerClass *class);
+static void dia_unit_spinner_init(DiaUnitSpinner *self);
+
+GtkType
+dia_unit_spinner_get_type(void)
+{
+  static GtkType us_type = 0;
+
+  if (!us_type) {
+    GtkTypeInfo us_info = {
+      "DiaUnitSpinner",
+      sizeof(DiaUnitSpinner),
+      sizeof(DiaUnitSpinnerClass),
+      (GtkClassInitFunc) dia_unit_spinner_class_init,
+      (GtkObjectInitFunc) dia_unit_spinner_init,
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
+    };
+    us_type = gtk_type_unique(gtk_spin_button_get_type(), &us_info);
+  }
+  return us_type;
+}
+
+static void
+dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
+			       DiaUnitSpinner *spinner)
+{
+  char buf[256];
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(spinner);
+
+  g_snprintf(buf, sizeof(buf), "%0.*f%s", sbutton->digits, adjustment->value,
+	     units[spinner->unit_num].unit);
+  printf("Unit spinner value changed to %g buf %s unit %s\n",
+	 adjustment->value,
+	 buf,
+	 units[spinner->unit_num].unit);
+  gtk_entry_set_text(GTK_ENTRY(spinner), buf);
+}
+
+static gint dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *ev);
+static gint dia_unit_spinner_button_press(GtkWidget *widget,GdkEventButton*ev);
+static gint dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event);
+static void dia_unit_spinner_activate(GtkEntry *editable);
+
+static void
+dia_unit_spinner_class_init(DiaUnitSpinnerClass *class)
+{
+  GtkObjectClass *object_class;
+  GtkWidgetClass *widget_class;
+  GtkEntryClass  *editable_class;
+
+  object_class = (GtkObjectClass *)class;
+  widget_class = (GtkWidgetClass *)class;
+  editable_class = (GtkEntryClass *)class;
+
+  widget_class->focus_out_event    = dia_unit_spinner_focus_out;
+  widget_class->button_press_event = dia_unit_spinner_button_press;
+  widget_class->key_press_event    = dia_unit_spinner_key_press;
+  editable_class->activate         = dia_unit_spinner_activate;
+
+  parent_class = gtk_type_class(GTK_TYPE_SPIN_BUTTON);
+  entry_class  = gtk_type_class(GTK_TYPE_ENTRY);
+}
+
+static void
+dia_unit_spinner_init(DiaUnitSpinner *self)
+{
+  /* change over to our own print function that appends the unit name on the
+   * end */
+  if (self->parent.adjustment) {
+    gtk_signal_disconnect_by_data(GTK_OBJECT(self->parent.adjustment),
+				  (gpointer) self);
+    g_signal_connect(GTK_OBJECT(self->parent.adjustment), "value_changed",
+		      G_CALLBACK(dia_unit_spinner_value_changed),
+		       (gpointer) self);
+  }
+
+  self->unit_num = DIA_UNIT_CENTIMETER;
+}
+
+GtkWidget *
+dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
+{
+  DiaUnitSpinner *self = gtk_type_new(dia_unit_spinner_get_type());
+
+  self->unit_num = adj_unit;
+
+  gtk_spin_button_configure(GTK_SPIN_BUTTON(self), adjustment, 0.0, digits);
+
+  if (adjustment) {
+    gtk_signal_disconnect_by_data(GTK_OBJECT(adjustment),
+				  (gpointer) self);
+    g_signal_connect(GTK_OBJECT(adjustment), "value_changed",
+		     G_CALLBACK(dia_unit_spinner_value_changed),
+		       (gpointer) self);
+  }
+  printf("Creating spinner with unit %d (%s)!\n", adj_unit, units[adj_unit].unit);
+  dia_unit_spinner_set_value(self, adjustment->value);
+
+  return GTK_WIDGET(self);
+}
+
+void
+dia_unit_spinner_set_value(DiaUnitSpinner *self, gfloat val)
+{
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+
+  if (val < sbutton->adjustment->lower)
+    val = sbutton->adjustment->lower;
+  else if (val > sbutton->adjustment->upper)
+    val = sbutton->adjustment->upper;
+  sbutton->adjustment->value = val;
+  dia_unit_spinner_value_changed(sbutton->adjustment,
+				 self);
+}
+
+gfloat
+dia_unit_spinner_get_value(DiaUnitSpinner *self)
+{
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+
+  return sbutton->adjustment->value;
+}
+
+static void
+dia_unit_spinner_update(DiaUnitSpinner *self)
+{
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+  gfloat val, factor = 1.0;
+  gchar *extra = NULL;
+
+  val = g_strtod(gtk_entry_get_text(GTK_ENTRY(self)), &extra);
+
+  /* get rid of extra white space after number */
+  while (*extra && g_ascii_isspace(*extra)) extra++;
+  if (*extra) {
+    int i;
+
+    for (i = 0; units[i].name != NULL; i++)
+      if (!g_strcasecmp(units[i].unit, extra)) {
+	factor = units[i].factor / units[self->unit_num].factor;
+	break;
+      }
+  }
+  /* convert to prefered units */
+  val *= factor;
+  dia_unit_spinner_set_value(self, val);
+}
+
+static gint
+dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *event)
+{
+  if (GTK_ENTRY (widget)->editable)
+    dia_unit_spinner_update(DIA_UNIT_SPINNER(widget));
+  return GTK_WIDGET_CLASS(entry_class)->focus_out_event(widget, event);
+}
+
+static gint
+dia_unit_spinner_button_press(GtkWidget *widget, GdkEventButton *event)
+{
+  dia_unit_spinner_update(DIA_UNIT_SPINNER(widget));
+  return GTK_WIDGET_CLASS(parent_class)->button_press_event(widget, event);
+}
+
+static gint
+dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event)
+{
+  gint key = event->keyval;
+
+  if (GTK_ENTRY (widget)->editable &&
+      (key == GDK_Up || key == GDK_Down || 
+       key == GDK_Page_Up || key == GDK_Page_Down))
+    dia_unit_spinner_update (DIA_UNIT_SPINNER(widget));
+  return GTK_WIDGET_CLASS(parent_class)->key_press_event(widget, event);
+}
+
+static void
+dia_unit_spinner_activate(GtkEntry *editable)
+{
+  if (editable->editable)
+    dia_unit_spinner_update(DIA_UNIT_SPINNER(editable));
+}
+
+
 
 /* **** Misc. util functions **** */
 /** Get a GtkImage from the data in Dia data file filename.
