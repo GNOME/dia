@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.93+cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-22 08:37-0400\n"
-"PO-Revision-Date: 2004-05-22 08:43-0400\n"
+"POT-Creation-Date: 2004-05-24 08:30-0400\n"
+"PO-Revision-Date: 2004-05-24 08:30-0400\n"
 "Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -476,7 +476,7 @@ msgstr "Diagram tree"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1130 app/paginate_psprint.c:279
+#: app/dialogs.c:52 app/layer_dialog.c:1131 app/paginate_psprint.c:279
 #: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Cancel"
@@ -837,51 +837,51 @@ msgstr ""
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
-#: app/layer_dialog.c:73
+#: app/layer_dialog.c:74
 msgid "New Layer"
 msgstr "New Layer"
 
-#: app/layer_dialog.c:74
+#: app/layer_dialog.c:75
 msgid "Raise Layer"
 msgstr "Raise Layer"
 
-#: app/layer_dialog.c:75
+#: app/layer_dialog.c:76
 msgid "Lower Layer"
 msgstr "Lower Layer"
 
-#: app/layer_dialog.c:76
+#: app/layer_dialog.c:77
 msgid "Delete Layer"
 msgstr "Delete Layer"
 
-#: app/layer_dialog.c:218
+#: app/layer_dialog.c:219
 msgid "Layers"
 msgstr "Layers"
 
-#: app/layer_dialog.c:232
+#: app/layer_dialog.c:233
 msgid "Diagrams:"
 msgstr "Diagrams:"
 
-#: app/layer_dialog.c:277
+#: app/layer_dialog.c:278
 msgid "Close"
 msgstr "Close"
 
-#: app/layer_dialog.c:323
+#: app/layer_dialog.c:324
 msgid "New layer"
 msgstr "New layer"
 
-#: app/layer_dialog.c:529
+#: app/layer_dialog.c:530
 msgid "none"
 msgstr "none"
 
-#: app/layer_dialog.c:1092
+#: app/layer_dialog.c:1093
 msgid "Edit Layer Attributes"
 msgstr "Edit Layer Attributes"
 
-#: app/layer_dialog.c:1111
+#: app/layer_dialog.c:1112
 msgid "Layer name:"
 msgstr "Layer name:"
 
-#: app/layer_dialog.c:1120 app/paginate_psprint.c:271
+#: app/layer_dialog.c:1121 app/paginate_psprint.c:271
 #: lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "OK"
@@ -930,7 +930,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "You must specify a file, not a directory.\n"
 
 #: app/load_save.c:342 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1558 plug-ins/xslt/xslt.c:87
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Couldn't open: '%s' for reading.\n"
@@ -1434,7 +1434,7 @@ msgstr ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 
-#: app/modify_tool.c:324
+#: app/modify_tool.c:326
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
@@ -2172,7 +2172,7 @@ msgstr "Line Style Properties"
 msgid "Multiple export filters with unique name %s"
 msgstr "Multiple export filters with unique name %s"
 
-#: lib/font.c:88
+#: lib/font.c:89
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Can't load font %s.\n"
@@ -2256,15 +2256,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:785
+#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:789
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:791
+#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:795
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:797
+#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:801
 msgid "Right"
 msgstr "Right"
 
@@ -2327,59 +2327,59 @@ msgstr "Fill colour"
 msgid "Text colour"
 msgstr "Text colour"
 
-#: lib/widgets.c:389
+#: lib/widgets.c:390
 msgid "Other fonts..."
 msgstr "Other fonts..."
 
-#: lib/widgets.c:516
+#: lib/widgets.c:520
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Couldn't find font family for %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:581
+#: lib/widgets.c:585
 msgid "Select font"
 msgstr "Select font"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:933 objects/FS/function.c:1063
+#: lib/widgets.c:937 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:939
+#: lib/widgets.c:943
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:945
+#: lib/widgets.c:949
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:951
+#: lib/widgets.c:955
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:957
+#: lib/widgets.c:961
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:976
+#: lib/widgets.c:980
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:1131
+#: lib/widgets.c:1135
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1349
+#: lib/widgets.c:1353
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1498
+#: lib/widgets.c:1502
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1534
+#: lib/widgets.c:1538
 msgid "Browse"
 msgstr "Browse"
 
@@ -4523,11 +4523,15 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
+#: plug-ins/pixbuf/pixbuf.c:159
+msgid "GdkPixbuf - not antialiased"
+msgstr "GdkPixbuf - not antialiased"
+
+#: plug-ins/pixbuf/pixbuf.c:169
 msgid "GdkPixbuf bitmap"
 msgstr "GdkPixbuf bitmap"
 
-#: plug-ins/pixbuf/pixbuf.c:187
+#: plug-ins/pixbuf/pixbuf.c:182
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf based bitmap export/import"
 
@@ -4709,101 +4713,101 @@ msgstr "Couldn't read arc info: %s\n"
 msgid "Couldn't read text info: %s\n"
 msgstr "Couldn't read text info: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1317
+#: plug-ins/xfig/xfig-import.c:1319
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Couldn't identify FIG object: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1325
+#: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
 msgstr "Compound end outside compound\n"
 
-#: plug-ins/xfig/xfig-import.c:1344
+#: plug-ins/xfig/xfig-import.c:1346
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Couldn't read colour: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1389
+#: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Couldn't read group extend: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1400
+#: plug-ins/xfig/xfig-import.c:1402
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Unknown object type %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1424
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' is not one of `%s' or `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1434
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Error reading paper size: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1445
+#: plug-ins/xfig/xfig-import.c:1447
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Unknown paper size `%s', using default\n"
 
-#: plug-ins/xfig/xfig-import.c:1457
+#: plug-ins/xfig/xfig-import.c:1459
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Error reading paper orientation: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1467
+#: plug-ins/xfig/xfig-import.c:1469
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Error reading justification: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1477
+#: plug-ins/xfig/xfig-import.c:1479
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Error reading units: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1491
+#: plug-ins/xfig/xfig-import.c:1493
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Error reading magnification: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1502
+#: plug-ins/xfig/xfig-import.c:1504
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Error reading multipage indicator: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1513
+#: plug-ins/xfig/xfig-import.c:1515
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Error reading transparent colour: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1522 plug-ins/xfig/xfig-import.c:1577
-#: plug-ins/xfig/xfig-import.c:1595
+#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
+#: plug-ins/xfig/xfig-import.c:1597
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Error reading FIG file: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
+#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
 msgid "Premature end of FIG file\n"
 msgstr "Premature end of FIG file\n"
 
-#: plug-ins/xfig/xfig-import.c:1533
+#: plug-ins/xfig/xfig-import.c:1535
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Error reading resolution: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1564
+#: plug-ins/xfig/xfig-import.c:1566
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Doesn't look like a Fig file: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1570
+#: plug-ins/xfig/xfig-import.c:1572
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "This is a FIG version %d.%d file, I may not understand it\n"
 
-#: plug-ins/xfig/xfig-import.c:1618
+#: plug-ins/xfig/xfig-import.c:1620
 msgid "XFig File Format"
 msgstr "XFig File Format"
 
