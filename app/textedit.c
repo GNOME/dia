@@ -38,19 +38,22 @@
 static void
 textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
-    /* Leak of focus highlight color here, but should it be handled
-       by highlight or by us?
-    */
-    highlight_object_off(focus->obj, ddisp->diagram);
-    object_add_updates(focus->obj, ddisp->diagram);
+  /* Leak of focus highlight color here, but should it be handled
+     by highlight or by us?
+  */
+  g_assert(focus == active_focus());
+  highlight_object_off(focus->obj, ddisp->diagram);
+  object_add_updates(focus->obj, ddisp->diagram);
 }
 
 static void
 textedit_begin_edit(DDisplay *ddisp, Focus *focus)
 {
-    Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
-    highlight_object(focus->obj, focus_col, ddisp->diagram);
-    object_add_updates(focus->obj, ddisp->diagram);
+  Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
+  
+  g_assert(dia_object_is_selected(focus_get_object(focus)));
+  highlight_object(focus->obj, focus_col, ddisp->diagram);
+  object_add_updates(focus->obj, ddisp->diagram);
 }
 
 /** Move the text edit focus either backwards or forwards. */

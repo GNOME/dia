@@ -48,7 +48,7 @@ ICON_PNG_PAIRS= \
 dia-app-icons.h:
 	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
 
-nodist_include_HEADERS = dia-app-icons.h
+BUILT_SOURCES = dia-app-icons.h
 
 oafinfodir = $(datadir)/oaf
 oafinfo_DATA = $(dia_oafinfo)

@@ -1,3 +1,10 @@
+2005-03-13  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am (BUILT_SOURCES): 
+	* app/Makefile.am (BUILT_SOURCES): Use the Right Way[tm] to force
+	the building of the icons header files.
+	* app/dia-lib-icons.h: Out of CVS now that it's correctly generated.
+
 2005-03-13  Hans Breuer  <hans@breuer.org>
 
 	* configure.in : require Cairo 0.3.0
