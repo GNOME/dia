@@ -25,8 +25,12 @@ static Color attributes_background = { 1.0f, 1.0f, 1.0f };
 
 static real attributes_default_linewidth = 0.1;
 
-static Arrow attributes_start_arrow = { ARROW_NONE, 0.8, 0.8 };
-static Arrow attributes_end_arrow = { ARROW_NONE, 0.8, 0.8 };
+static Arrow attributes_start_arrow = { ARROW_NONE, 
+					DEFAULT_ARROW_SIZE, 
+					DEFAULT_ARROW_SIZE };
+static Arrow attributes_end_arrow = { ARROW_NONE, 
+				      DEFAULT_ARROW_SIZE,
+				      DEFAULT_ARROW_SIZE };
 
 static LineStyle attributes_linestyle = LINESTYLE_SOLID;
 static real attributes_dash_length = 1.0;

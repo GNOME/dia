@@ -341,9 +341,6 @@ static const char *menuitem_enum_key = "dia-menuitem-value";
 #define DIA_ARROW_CHOOSER(obj) (GTK_CHECK_CAST((obj),dia_arrow_chooser_get_type(), DiaArrowChooser))
 #define DIA_ARROW_CHOOSER_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_arrow_chooser_get_type(), DiaArrowChooserClass))
 
-typedef struct _DiaArrowChooser DiaArrowChooser;
-typedef struct _DiaArrowChooserClass DiaArrowChooserClass;
-
 struct _DiaArrowChooser
 {
   GtkButton button;
@@ -563,7 +560,13 @@ dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *arrow)
 {
   ArrowType atype = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(mi),
 							menuitem_enum_key));
+  dia_arrow_chooser_set_arrow_type(arrow, atype);
+}
 
+/** Set the type of arrow shown by the arrow chooser.
+ */
+void
+dia_arrow_chooser_set_arrow_type(DiaArrowChooser *arrow, ArrowType atype) {
   if (arrow->arrow.type != atype) {
     dia_arrow_preview_set(arrow->preview, atype, arrow->left);
     arrow->arrow.type = atype;

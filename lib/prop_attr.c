@@ -201,8 +201,8 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data)
    * attribute rather than three seperate attributes. This would break
    * binary compatibility though.*/
   prop->arrow_data.type = data_enum(data);
-  prop->arrow_data.length = 0.8;
-  prop->arrow_data.width = 0.8;
+  prop->arrow_data.length = DEFAULT_ARROW_SIZE;
+  prop->arrow_data.width = DEFAULT_ARROW_SIZE;
   if (prop->arrow_data.type != ARROW_NONE) {
     ObjectNode obj_node = attr->parent;
     gchar *str = g_strconcat(prop->common.name, "_length", NULL);

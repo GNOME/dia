@@ -1,5 +1,18 @@
 2004-02-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/attributes.c: 
+	* lib/prop_attr.c (arrowprop_load): Use default arrow size.
+
+	* lib/arrows.h: Default arrow size defined.  After all are using
+	this, may lower to 0.4 or so.
+
+	* app/lineprops_area.[ch]: New function to set the arrow type for an
+	arrow chooser.
+
+	* app/interface.c (create_lineprops_area): Set default line to
+	have an arrow (fairly likely to be what's wanted, plus it shows
+	the user where arrows are set).
+
 	* app/app_procs.c: #ifdef HAVE_POPT popt args to process_opt
 
 2004-02-14  Lars Clausen  <lrclause@cs.uiuc.edu>

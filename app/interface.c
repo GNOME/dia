@@ -1100,6 +1100,7 @@ create_lineprops_area(GtkWidget *parent)
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
+  dia_arrow_chooser_set_arrow_type(chooser, ARROW_FILLED_CONCAVE);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);

@@ -64,6 +64,14 @@ struct menudesc {
   int enum_value;
 };
 
+/** The number of centimeters long and wide an arrow starts with by default.
+ * This can be changed without breaking old diagrams, as the arrow width
+ * is stored in there.
+ * Note:  Currently, many places have this number hardcoded.
+ * find . -name \*.[ch] | xargs grep \\.8
+ */
+#define DEFAULT_ARROW_SIZE 0.8
+
 /* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
 DIAVAR struct menudesc arrow_types[];
 
