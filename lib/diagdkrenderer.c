@@ -568,8 +568,8 @@ draw_string (DiaRenderer *object,
                             dia_font_string_width(text, object->font, object->font_height));
       gdk_gc_set_foreground(renderer->gc, &gdkcolor);
       gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
-      gdk_draw_line(renderer->pixmap, renderer->gc,
-                    start_pos.x, start_pos.y, start_pos.x + width_pixels, start_pos.y);
+      dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+      gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
       return;
     }
   }
