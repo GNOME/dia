@@ -1,3 +1,9 @@
+2000-05-02  James Henstridge  <james@daa.com.au>
+
+	* de.po: added new version of german translation from Daniel Egger.
+
+	* *.po: ran update-po.
+
 2000-04-28  Kjartan Maraas  <kmaraas@online.no>
 
 	* no.po: Updated Norwegian translation.
