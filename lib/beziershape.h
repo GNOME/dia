@@ -21,13 +21,12 @@
 #ifndef BEZIERSHAPE_H
 #define BEZIERSHAPE_H
 
+#include "diatypes.h"
 #include "object.h"
 /* for BezCornerType */
 #include "bezier_conn.h"
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
-
-typedef struct _BezierShape BezierShape;
 
 /* This is a subclass of Object used to help implementing objects
  * that form a polygon-like shape of line-segments.

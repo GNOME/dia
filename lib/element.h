@@ -18,12 +18,11 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "handle.h"
 #include "connectionpoint.h"
 #include "boundingbox.h"
-
-typedef struct _Element Element;
 
 /* This is a subclass of Object used to help implementing objects
  * of a type with 8 handles around ..... more info here. */

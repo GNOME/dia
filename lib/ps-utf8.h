@@ -26,13 +26,10 @@
 #include <config.h>
 #include <glib.h>
 
+#include "diatypes.h"
+
 #define PSEPAGE_BEGIN 32
 #define PSEPAGE_SIZE (256-PSEPAGE_BEGIN)
-
-typedef struct _PSFontDescriptor PSFontDescriptor;
-typedef struct _PSEncodingPage PSEncodingPage;
-typedef struct _PSUnicoder PSUnicoder;
-typedef struct _PSUnicoderCallbacks PSUnicoderCallbacks;
 
 struct _PSFontDescriptor {
   const gchar *face; /* LE */

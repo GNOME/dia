@@ -18,8 +18,7 @@
 #ifndef TEXTATTR_H
 #define TEXTATTR_H
 
-typedef struct _TextAttributes TextAttributes;
-
+#include "diatypes.h"
 #include "font.h"
 #include "geometry.h"
 #include "color.h"

@@ -18,8 +18,7 @@
 #ifndef CHANGE_H
 #define CHANGE_H
 
-typedef struct _ObjectState ObjectState;
-typedef struct _ObjectChange ObjectChange;
+#include "diatypes.h"
 
 typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, Object *obj);
 typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, Object *obj);

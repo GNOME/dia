@@ -20,8 +20,7 @@
 #define PAPER_H
 
 #include <glib.h>
-
-typedef struct _PaperInfo PaperInfo;
+#include <diatypes.h>
 
 struct _PaperInfo {
   gchar *name;      /* name of the paper */

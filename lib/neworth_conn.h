@@ -18,6 +18,7 @@
 #ifndef NEWORTH_CONN_H
 #define NEWORTH_CONN_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "connpoint_line.h"
 #include "boundingbox.h"
@@ -34,8 +35,6 @@ typedef enum {
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 #endif 
 
-
-typedef struct _NewOrthConn NewOrthConn;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.

@@ -1,6 +1,7 @@
 #ifndef DIA_GDK_RENDERER_H
 #define DIA_GDK_RENDERER_H
 
+#include "diatypes.h"
 #include <gdk/gdk.h>
 #include "diarenderer.h"
 #include "diatransform.h"
@@ -14,11 +15,6 @@ G_BEGIN_DECLS
 #define DIA_GDK_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_GDK_RENDERER, DiaGdkRendererClass))
 
 GType dia_gdk_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaGdkRenderer DiaGdkRenderer;
-typedef struct _DiaGdkRendererClass DiaGdkRendererClass;
-
-typedef struct _DDisp DDisp;
 
 struct _DiaGdkRenderer
 {

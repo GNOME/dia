@@ -18,6 +18,7 @@
 #ifndef ARROWS_H
 #define ARROWS_H
 
+#include "diatypes.h"
 #include "geometry.h"
 #include "color.h"
 
@@ -53,14 +54,11 @@ typedef enum {
   ARROW_BLANKED_CONCAVE,
 } ArrowType;
 
-typedef struct _Arrow Arrow;
 struct _Arrow {
   ArrowType type;
   real length;
   real width;
 };
-
-typedef struct _DiaRenderer DiaRenderer;
 
 void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		Point *to, Point *from,

@@ -20,10 +20,9 @@
 #ifndef BEZIER_CONN_H
 #define BEZIER_CONN_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
-
-typedef struct _BezierConn BezierConn;
 
 typedef enum {
   BEZ_CORNER_SYMMETRIC,

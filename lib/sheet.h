@@ -20,9 +20,7 @@
 
 #include <glib.h>
 
-typedef struct _Sheet Sheet;
-typedef struct _SheetObject SheetObject;
-
+#include "diatypes.h"
 #include "object.h"
 
 struct _SheetObject {

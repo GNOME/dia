@@ -1,6 +1,7 @@
 #ifndef DIA_SVG_RENDERER_H
 #define DIA_SVG_RENDERER_H
 
+#include "diatypes.h"
 #include "diarenderer.h"
 
 G_BEGIN_DECLS
@@ -12,9 +13,6 @@ G_BEGIN_DECLS
 #define DIA_SVG_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_SVG_RENDERER, DiaSvgRendererClass))
 
 GType dia_svg_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaSvgRenderer DiaSvgRenderer;
-typedef struct _DiaSvgRendererClass DiaSvgRendererClass;
 
 struct _DiaSvgRenderer
 {

@@ -18,10 +18,9 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
-
-typedef struct _Connection Connection;
 
 /* This is a subclass of Object used to help implementing objects
  * of a line-like type. */

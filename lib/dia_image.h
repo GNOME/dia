@@ -18,12 +18,10 @@
 #ifndef DIA_IMAGE_H
 #define DIA_IMAGE_H
 
+#include "diatypes.h"
 #include <gdk/gdktypes.h>
 
 #include "geometry.h"
-
-typedef struct _DiaImage *DiaImage;
-
 
 void dia_image_init(void);
 

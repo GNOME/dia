@@ -31,6 +31,8 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtkcolorseldialog.h>
 
+#include "diatypes.h"
+
 #include "font.h"
 #include "color.h"
 #include "arrows.h"
@@ -40,8 +42,6 @@
 #define DIAFONTSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_font_selector_get_type (), DiaFontSelectorClass)
 #define IS_DIAFONTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_font_selector_get_type ())
 
-typedef struct _DiaFontSelector       DiaFontSelector;
-typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
 
 struct _DiaFontSelector
 {
@@ -68,8 +68,6 @@ DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 #define DIAALIGNMENTSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_alignment_selector_get_type (), DiaAlignmentSelectorClass)
 #define IS_DIAALIGNMENTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_alignment_selector_get_type ())
 
-typedef struct _DiaAlignmentSelector       DiaAlignmentSelector;
-typedef struct _DiaAlignmentSelectorClass  DiaAlignmentSelectorClass;
 
 struct _DiaAlignmentSelector
 {
@@ -97,8 +95,6 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 #define DEFAULT_LINESTYLE LINESTYLE_SOLID
 #define DEFAULT_LINESTYLE_DASHLEN 1.0
 
-typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
-typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
 
 struct _DiaLineStyleSelector
 {
@@ -134,8 +130,6 @@ void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 #define DEFAULT_BG_COLOR color_white
 #define DEFAULT_COLOR color_white
 
-typedef struct _DiaColorSelector       DiaColorSelector;
-typedef struct _DiaColorSelectorClass  DiaColorSelectorClass;
 
 struct _DiaColorSelector
 {
@@ -170,8 +164,6 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 #define DEFAULT_ARROW_LENGTH 0.8 
 #define DEFAULT_ARROW_WIDTH 0.8
 
-typedef struct _DiaArrowSelector       DiaArrowSelector;
-typedef struct _DiaArrowSelectorClass  DiaArrowSelectorClass;
 
 struct _DiaArrowSelector
 {
@@ -204,8 +196,6 @@ void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
 #define DIAFILESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_file_selector_get_type (), DiaFileSelectorClass)
 #define IS_DIAFILESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_file_selector_get_type ())
 
-typedef struct _DiaFileSelector       DiaFileSelector;
-typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
 
 struct _DiaFileSelector
 {

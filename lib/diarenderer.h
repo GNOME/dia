@@ -1,21 +1,13 @@
 #ifndef DIA_RENDERER_H
 #define DIA_RENDERER_H
 
+#include "diatypes.h"
 #include <glib-object.h>
 
 #include "dia-enums.h"
 #include "geometry.h"
 
 G_BEGIN_DECLS
-
-typedef struct _DiaFont DiaFont;
-typedef struct _Color Color;
-typedef struct _DiaImage* DiaImage;
-typedef struct _Object Object;
-typedef struct _Arrow Arrow;
-typedef struct _Text Text;
-
-typedef struct _BezierApprox BezierApprox;
 
 #define DIA_TYPE_RENDERER           (dia_renderer_get_type ())
 #define DIA_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_RENDERER, DiaRenderer))
@@ -24,9 +16,6 @@ typedef struct _BezierApprox BezierApprox;
 #define DIA_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_RENDERER, DiaRendererClass))
 
 GType dia_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaRenderer DiaRenderer;
-typedef struct _DiaRendererClass DiaRendererClass;
 
 struct _DiaRenderer
 {
@@ -216,8 +205,6 @@ struct _DiaRendererClass
  */
 #define DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE     (dia_interactive_renderer_interface_get_type ())
 #define DIA_GET_INTERACTIVE_RENDERER_INTERFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE, DiaInteractiveRendererInterface))
-
-typedef struct _DiaInteractiveRendererInterface DiaInteractiveRendererInterface;
 
 struct _DiaInteractiveRendererInterface
 {

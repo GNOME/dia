@@ -18,9 +18,8 @@
 #ifndef FOCUS_H
 #define FOCUS_H
 
+#include "diatypes.h"
 #include "object.h"
-
-typedef struct _Focus Focus;
 
 struct _Focus {
   Object *obj;

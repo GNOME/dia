@@ -23,8 +23,7 @@
 #ifndef STANDARD_OBJECT_CREATE_H
 #define STANDARD_OBJECT_CREATE_H
 
-typedef struct _MultipointCreateData MultipointCreateData;
-typedef struct _BezierCreateData BezierCreateData;
+#include "diatypes.h"
 
 struct _MultipointCreateData {
   int num_points;

@@ -18,12 +18,11 @@
 #ifndef POLY_CONN_H
 #define POLY_CONN_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
-
-typedef struct _PolyConn PolyConn;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with polygonal line-segments.

@@ -24,10 +24,9 @@
 
 #include <glib.h>
 #include <gmodule.h>
+#include "diatypes.h"
 
 #define DIA_PLUGIN_API_VERSION 4
-
-typedef struct _PluginInfo PluginInfo;
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

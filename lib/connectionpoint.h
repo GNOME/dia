@@ -18,12 +18,11 @@
 #ifndef CONNECTIONPOINT_H
 #define CONNECTIONPOINT_H
 
+#include "diatypes.h"
 #include <glib.h>
 
 #define CONNECTIONPOINT_SIZE 5
 #define CHANGED_TRESHOLD 0.001
-
-typedef struct _ConnectionPoint ConnectionPoint;
 
 #include "geometry.h"
 #include "object.h"

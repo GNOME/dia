@@ -19,11 +19,10 @@
 #define TEXT_H
 
 #include <glib.h>
+#include "diatypes.h"
 #include "textattr.h"
 #include "focus.h"
 #include "properties.h"
-
-typedef struct _Text Text;
 
 
 struct _Text {

@@ -18,7 +18,7 @@
 #ifndef HANDLE_H
 #define HANDLE_H
 
-typedef struct _Handle Handle;
+#include "diatypes.h"
 
 /* Is this needed? */
 typedef enum {

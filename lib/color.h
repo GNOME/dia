@@ -18,10 +18,9 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include "diatypes.h"
 #include <gdk/gdk.h>
 #include "diavar.h"
-
-typedef struct _Color Color;
 
 struct _Color {
   float red;

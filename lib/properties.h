@@ -32,18 +32,13 @@
 #endif
 #endif 
 
-typedef struct _PropDescription PropDescription;
-typedef struct _Property Property;
-typedef struct _PropEventData PropEventData;
-typedef struct _PropDialog PropDialog;
-typedef struct _PropEventHandlerChain PropEventHandlerChain;
-typedef struct _PropWidgetAssoc PropWidgetAssoc;
 
 #ifdef HAVE_STDDEF_H
 #include <stddef.h>
 #endif
 
 #include <glib.h>
+#include "diatypes.h"
 
 #include "geometry.h"
 #include "arrows.h"
@@ -123,7 +118,6 @@ typedef void (*PropertyType_GetFromOffset)(const Property *prop,
 typedef void (*PropertyType_SetFromOffset)(Property *prop,
                                          void *base, guint offset, guint offset2);
 
-typedef struct _PropertyOps PropertyOps; 
 
 struct _PropertyOps {
   PropertyType_New  new_prop;
@@ -240,11 +234,9 @@ struct _PropDescription {
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
 /* extra data pointers for various property types */
-typedef struct _PropNumData PropNumData;
 struct _PropNumData {
   gfloat min, max, step;
 };
-typedef struct _PropEnumData PropEnumData;
 struct _PropEnumData {
   const gchar *name;
   guint enumv;
@@ -253,21 +245,18 @@ struct _PropEnumData {
 typedef gpointer (*NewRecordFunc)(void);
 typedef void (*FreeRecordFunc)(gpointer rec);
 
-typedef struct _PropDescCommonArrayExtra PropDescCommonArrayExtra;
 struct _PropDescCommonArrayExtra { /* don't use this directly. 
                                       Use one of below */
   PropDescription *record;
   const gchar *composite_type; /* can be NULL. */ 
 };
 
-typedef struct _PropDescDArrayExtra PropDescDArrayExtra;
 struct _PropDescDArrayExtra {
   PropDescCommonArrayExtra common; /* must be first */
   NewRecordFunc newrec;        
   FreeRecordFunc freerec; 
 };
 
-typedef struct _PropDescSArrayExtra PropDescSArrayExtra;
 struct  _PropDescSArrayExtra {
   PropDescCommonArrayExtra common; /* must be first */
   guint element_size;  /* sizeof(record) */
@@ -388,7 +377,6 @@ Property *make_new_prop(const char *name, PropertyType type, guint flags);
 #ifndef offsetof
 #define offsetof(type, member) ( (int) & ((type*)0) -> member )
 #endif
-typedef struct _PropOffset PropOffset;
 struct _PropOffset {
   const gchar *name;
   PropertyType type;

@@ -1,6 +1,7 @@
 #ifndef DIA_LIBART_RENDERER_H
 #define DIA_LIBART_RENDERER_H
 
+#include "diatypes.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "diatransform.h"
@@ -21,9 +22,6 @@ G_BEGIN_DECLS
 #define DIA_LIBART_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_LIBART_RENDERER, DiaLibartRendererClass))
 
 GType dia_libart_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaLibartRenderer DiaLibartRenderer;
-typedef struct _DiaLibartRendererClass DiaLibartRendererClass;
 
 struct _DiaLibartRenderer
 {

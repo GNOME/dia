@@ -18,10 +18,8 @@
 #ifndef DIAMENU_H
 #define DIAMENU_H
 
+#include "diatypes.h"
 #include "object.h"
-
-typedef struct _DiaMenuItem DiaMenuItem;
-typedef struct _DiaMenu DiaMenu;
 
 /* Flags for DiaMenuItem->active */
 #define DIAMENU_ACTIVE (1<<0)

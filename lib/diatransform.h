@@ -1,6 +1,7 @@
 #ifndef DIA_TRANSFORM_H
 #define DIA_TRANSFORM_H
 
+#include "diatypes.h"
 #include <glib-object.h>
 #include "geometry.h"
 
@@ -13,8 +14,6 @@ G_BEGIN_DECLS
 #define DIA_TRANSFORM_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_TRANSFORM, DiaTransformClass))
 
 GType dia_transform_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaTransform DiaTransform;
 
 DiaTransform *dia_transform_new (Rectangle *rect, real* zoom);
 real dia_transform_length (DiaTransform *transform, real len);

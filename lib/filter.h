@@ -21,10 +21,10 @@
 #ifndef FILTER_H
 #define FILTER_H
 
+#include "diatypes.h"
 #include <glib.h>
 #include <diagramdata.h>
 
-typedef struct _DiaExportFilter DiaExportFilter;
 typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
 				const gchar *diafilename, void* user_data);
 
@@ -37,7 +37,6 @@ struct _DiaExportFilter {
   void* user_data;
 };
 
-typedef struct _DiaImportFilter DiaImportFilter;
 /* returns FALSE on error loading diagram */
 typedef gboolean (* DiaImportFunc) (const gchar *filename, DiagramData *dia, 
                                     void* user_data);
@@ -51,7 +50,6 @@ struct _DiaImportFilter {
   void* user_data;
 };
 
-typedef struct _DiaCallbackFilter DiaCallbackFilter;
 /* gets called as menu callback */
 typedef void (* DiaCallbackFunc) (DiagramData *dia,
                                   guint flags, /* further additions */

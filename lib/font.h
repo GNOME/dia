@@ -18,6 +18,7 @@
 #ifndef FONT_H
 #define FONT_H
 
+#include "diatypes.h"
 #include <glib.h>
 #include <glib-object.h>
 #include <pango/pango.h>
@@ -83,9 +84,6 @@ typedef enum
 #define DIA_FONT_STYLE_GET_SLANT(st)     ((st) & (0x3<<2))
 #define DIA_FONT_STYLE_GET_WEIGHT(st)    ((st) & (0x7<<4))
 
-typedef struct _DiaFont DiaFont;
-typedef struct _DiaFontClass DiaFontClass;
-
 GType dia_font_get_type(void) G_GNUC_CONST;
 
 #define DIA_TYPE_FONT (dia_font_get_type())
@@ -109,8 +107,11 @@ struct _DiaFont {
     /* mutable */ char* legacy_name;    
 };
 
-
-void dia_font_init(PangoContext* pcontext);
+/* Set the PangoContext used to render text.  Returns the old context.
+ * Keeping the old context is necessary to ensure that libart rendering
+ * (AA & PNG) ends properly.
+ */
+PangoContext* dia_font_init(PangoContext* pcontext);
                              
                              
     /* Get a font matching family,style,height. MUST be freed with

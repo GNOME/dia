@@ -20,9 +20,8 @@
 #ifndef BOUNDINGBOX_H
 #define BOUNDINGBOX_H
 
+#include "diatypes.h"
 #include "geometry.h"
-
-typedef struct _PolyBBExtras PolyBBExtras;
 
 struct _PolyBBExtras {
   real start_long, start_trans;
@@ -30,14 +29,11 @@ struct _PolyBBExtras {
   real end_long, end_trans;
 };
 
-typedef struct _LineBBExtras LineBBExtras;
-
 struct _LineBBExtras {
   real start_long, start_trans;
   real end_long, end_trans;
 };
 
-typedef struct _ElementBBExtras ElementBBExtras;
 struct _ElementBBExtras {
   real border_trans;
 };

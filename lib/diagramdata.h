@@ -20,11 +20,7 @@
 
 #include <glib.h>
 
-typedef struct _DiagramData DiagramData;
-typedef struct _Layer Layer;
-typedef struct _NewDiagramData NewDiagramData;
-typedef struct _DiaRenderer DiaRenderer;
-
+#include "diatypes.h"
 /* #include "object.h" later after declaring types */
 #include "color.h"
 #include "geometry.h"

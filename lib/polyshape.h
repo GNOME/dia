@@ -18,12 +18,12 @@
 #ifndef POLYSHAPE_H
 #define POLYSHAPE_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
-typedef struct _PolyShape PolyShape;
 /* This is a subclass of Object used to help implementing objects
  * that form a polygon-like shape of line-segments.
  */

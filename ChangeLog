@@ -1,3 +1,49 @@
+2002-10-07  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/font.c (dia_font_init): Changed dia_font_init to return old
+	pango context, to allow stacked contexts (for printing while
+	antialiased).
+	
+	* lib/arrows.h
+	* lib/bezier_conn.h
+	* lib/beziershape.h
+	* lib/boundingbox.h
+	* lib/color.h
+	* lib/connection.h
+	* lib/connectionpoint.h
+	* lib/create.h
+	* lib/dia_image.h
+	* lib/diagdkrenderer.h
+	* lib/diagramdata.h
+	* lib/dialibartrenderer.h
+	* lib/diamenu.h
+	* lib/diarenderer.h
+	* lib/diasvgrenderer.h
+	* lib/diatransform.h
+	* lib/element.h
+	* lib/filter.h
+	* lib/focus.h
+	* lib/font.h
+	* lib/geometry.h
+	* lib/handle.h
+	* lib/neworth_conn.h
+	* lib/objchange.h
+	* lib/object.h
+	* lib/orth_conn.h
+	* lib/paper.h
+	* lib/plug-ins.h
+	* lib/poly_conn.h
+	* lib/polyshape.h
+	* lib/properties.h
+	* lib/ps-utf8.h
+	* lib/sheet.h
+	* lib/text.h
+	* lib/textattr.h
+	* lib/widgets.h
+	* lib/diatypes.h
+	Moved all externally visible struct typedefs into diatypes.h, as
+	per Hans' suggestions.
+
 2002-10-07  Steffen Macke <sdteffen@web.de>
 
 	* lib/Makefile.am: removed a '\' causing problems
@@ -131,7 +177,7 @@
 	exhibit strange behaviour, will look at those later.  Nah, let's
 	not care about those, they are rare and not dangerous.
 
-2002-09-26  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-09-26  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/layer_dialog.c: 
 	* app/load_save.c: 
@@ -151,7 +197,7 @@
 	* objects/Misc/analog_clock.c: 
 	Added support for dynamic refresh (animated objects).
 		
-2002-09-25  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-09-25  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	Patch from Owen Taylor <otaylor@redhat.com>:	
 	* doc/en/Makefile.am:
@@ -175,7 +221,7 @@
 
 	(Closes: #92061)
 	
-2002-09-24  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-09-24  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* objects/custom/custom_object.c: 
 	* objects/custom/shape_info.[ch]: GE_TEXT display lists elements 
@@ -1172,7 +1218,7 @@
 	* lib/widgets.c: Total rehash of font selector, with font dialog
 	option, expanding list (not LRU yet), and stuff.
 
-2002-06-25  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-06-25  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* lib/font.h:
 	* lib/font.c: 
@@ -1572,7 +1618,7 @@
 	* objects/FS/flow-ortho.c (orthflow_get_object_menu): Menu
 	sensitivity for deleting segments.
 
-2002-06-12  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-06-12  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/color_area.c: (color_area_events):
 	* app/diagram.c: (diagram_destroy):
@@ -1920,7 +1966,7 @@
 	* objects/UML/state.c: there was a (gratuitous?) change of on-XML
 	format for the UML State object. Now there's a hack to reload
 	older files, and get them converted on the fly. 
-	Justyna Biała <nell@poczta.gazeta.pl> reported this. Thanks!
+	Justyna BiaÅa <nell@poczta.gazeta.pl> reported this. Thanks!
 
 	* lib/properties.h:
 	* lib/propobject.c:
@@ -1943,7 +1989,7 @@
 	
 2002-05-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
-	* INSTALL: added platform notes from Mårten Svantesson, for when
+	* INSTALL: added platform notes from MÃ¥rten Svantesson, for when
 	using libtool on an AFS partition.
 
 	* po/update_potfiles_in.sh: now simply calls the recent intltools 
@@ -1958,7 +2004,7 @@
 	(the usual suspects, in fact).
 
 	* configure.in: improved the isinf() / isfinite() detection on
-	Solaris (Mårten Svantesson)
+	Solaris (MÃ¥rten Svantesson)
 	
 2002-05-25  Cyrille Chepelov  <cyrille@chepelov.org>
 
@@ -2140,7 +2186,7 @@
 
 	* po/POTFILES.in: added app/sheets_dialog.c
 
-2002-05-15  Cyrille Chépélov  <cyrille@chepelov.org>
+2002-05-15  Cyrille ChÃ©pÃ©lov  <cyrille@chepelov.org>
 
 	* lib/charconv.c: (charconv_local8_to_utf8),
 	(charconv_utf8_to_local8): tweaked the warnings to get more 
@@ -4230,7 +4276,7 @@
 2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* sheets/*.sheet: Added some Norwegian translations (both nynorsk
-	and bokmål).
+	and bokmÃ¥l).
 	
 2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
 
@@ -11043,7 +11089,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* dia_gnome_icon.png
 	* dia_gnome_menu_icon.png
 	* dia_logo.png
-	Graphics by Toussaint Frédéric <ftoussin@club-internet.fr>.
+	Graphics by Toussaint FrÃ©dÃ©ric <ftoussin@club-internet.fr>.
 
 	* app/commands.c
 	About dialog shows dia_logo.png. Removed the GNOME about dialog.
@@ -11806,7 +11852,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* lib/text.c: 
 	Added flags to prevent crash with void strings
 
-1999-02-07  Matthias Köster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
+1999-02-07  Matthias KÃ¶ster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
 	* app/display.[ch]:
 	Added statusbar to the display widget. Currently shows the zoom
 	factor and modified flag of the viewed diagram. The statusbar is
@@ -11987,7 +12033,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* app/display.[ch]:
 	* app/modify_tool.c:
 	Added autoscrolling while doing rubber-band select.
-	This patch from Matthias Köster
+	This patch from Matthias KÃ¶ster
 	(Matthias.Koester@Informatik.Uni-Oldenburg.DE)
 	
 

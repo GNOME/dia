@@ -18,13 +18,10 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "diatypes.h"
 #include <gtk/gtk.h>
 
 typedef guint16 ObjectId; /* The id of an objecttype */
-typedef struct _Object Object;
-typedef struct _ObjectOps ObjectOps;
-typedef struct _ObjectType ObjectType;
-typedef struct _ObjectTypeOps ObjectTypeOps;
 
 #include "geometry.h"
 #include "connectionpoint.h"

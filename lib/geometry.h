@@ -22,6 +22,8 @@
 #include <config.h>
 #endif
 
+#include "diatypes.h"
+
 #include <glib.h>
 #include <math.h>
 
@@ -57,11 +59,6 @@
 
 typedef double real;
 typedef real coord;
-
-typedef struct _Point Point;
-typedef struct _Rectangle Rectangle;
-typedef struct _IntRectangle IntRectangle;
-typedef struct _BezPoint BezPoint;
 
 struct _Point {
   coord x;

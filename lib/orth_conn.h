@@ -18,6 +18,7 @@
 #ifndef ORTH_CONN_H
 #define ORTH_CONN_H
 
+#include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
 
@@ -29,8 +30,6 @@ typedef enum {
 #define FLIP_ORIENT(x) (((x)==HORIZONTAL)?VERTICAL:HORIZONTAL)
 
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
-
-typedef struct _OrthConn OrthConn;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.
