@@ -1,3 +1,7 @@
+2000-03-27  Kjartan Maraas  <kmaraas@online.no>
+
+	* dia.desktop: Added Norwegian translation.
+	
 2000-03-26  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_eps.c:

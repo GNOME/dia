@@ -14,16 +14,19 @@
       <description>A Vertically aligned resistor</description>
     </object>
     <object name="Circuit - Horizontal Inductor">
+      <description xml:lang="no">En horisontalt plassert induktor</description>
       <description xml:lang="fr">Une inductance alignée horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordnete Spule</description>
       <description>A Horizontally aligned inductor</description>
     </object>
     <object name="Circuit - Vertical Inductor">
+      <description xml:lang="no">En vertikalt plassert induktor</description>
       <description xml:lang="fr">Une inductance alignée verticalement</description>
       <description xml:lang="de">Ein vertikal angeordnete Spule</description>
       <description>A Vertically aligned inductor</description>
     </object>
     <object name="Circuit - Horizontal Resistor">
+      <description xml:lang="no">En horisontalt plassert motstand</description>
       <description xml:lang="fr">Une résistance alignée horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordneter Widerstand</description>
       <description>A Horizontally aligned resistor</description>
