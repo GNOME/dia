@@ -1,3 +1,63 @@
+2002-04-11  M.C. Nelson <mcn@kobayashimaru.org>
+
+	* All these modifications are for the 'Sheets and Objects' dialog
+	  (new feature):
+
+	* app/pixmaps/line_break.xpm: new icon representing a line break.
+	
+	* app/pixmaps/n_a.xpm: new empty icon representing not available.
+
+	* app/Makefile.am: added sheets_*.[ch] files to compile list.
+	
+	* app/menus.c: added GNOME and gtk menu items for 'Sheets and Objects'
+	
+	* app/sheets_dialog.c: [new file] definition of 'Sheets & Objects' dlgs
+
+	* app/sheets_dialog.h: [new file] support for Sheets & Objects dlgs 
+	
+	* app/app_procs.c: added call to sheets_dialog_create() in app_init()
+	
+	* app/sheets_dialog_callbacks.c: [new file] callbacks for S & O dialogs
+
+	* app/sheets_dialog_callbacks.h: [new file] support for " " "
+
+	* app/interface.c: added 'interface_current_sheet_name' global to 
+	  fill_sheet_wbox(); made fill_sheet_menu() non-static
+
+	* app/interface.h: added extern declaration for aboves.
+
+	* app/sheets.c: [new file] instantiation and other funcs for S & O dlgs
+
+	* app/sheets.h: [new file] declarations for backing store structures
+
+	* lib/sheet.c: modification of new_sheet() parameters; introduction
+	  of USER and SYSTEM scope for sheets; procedure for sorting sheets;
+	  changes to load_register_sheet().
+
+	* lib/sheet.h: added 'user_data_type' field to SheetObject structure;
+	  added 'has_icon_on_sheet' flag to SheetObject structure; added 
+	  'filename', 'scope', 'shadowing' fields to Sheet structure.
+
+	* lib/plug-ins.c: moved _PluginInfo declaration to header file where
+	  it belongs.
+
+	* lib/plug-isn.h: see above.
+
+	* lib/object.c: added 'sheet.h' to include list; added several 
+	  functions
+	  to detect objects which are not found on any sheet (for future use)
+	  object_type_detect_nosheet_callback(), object_types_detect_nosheet(),
+	  object_type_get_sheet_name(), object_type_strip_sheet_from_name().
+
+	* lib/object.h: added public declarations for above functions where
+	  necessary.
+
+	* objects/custom/custom.c: made custom_object_load() non-static so we
+     	  can load and interpret .shape files from the Sheets & Objects dialog
+
+     	* objects/custom/custom_object.c: made 'custom_type' non-static so 
+     	  we can differentiate between SVG shapes and other types.a
+
 2002-04-07  Hans Breuer  <hans@breuer.org>
 
 	* app/object_ops.c (object_list_align_v): Fix the 'Leak fix'
