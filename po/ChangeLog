@@ -1,7 +1,8 @@
 2000-10-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.
-	
+	* POTFILES.in: Updated this too.
+		
 2000-10-14  Valek Filippov  <frob@df.ru>
 
 	* ru.po: updated russian translation.
