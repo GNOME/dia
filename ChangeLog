@@ -1,5 +1,7 @@
 2004-01-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* INSTALL: Updated list of requirements (bug #129653)
+
 	* doc/en/dia.dia: Beginning class diagram for Dia from Luc
 	Pionchon <luc@handhelds.org>.
 

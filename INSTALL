@@ -11,9 +11,12 @@ Binaries available at:
 or
   ftp://ftp.gtk.org/pub/gtk/binary/devel/DEBIAN/
 
-Note that Gtk 2.0 has a number of requirements of its own.
+Note that Gtk 2.0 has a number of requirements of its own whose exact
+versions depend on the version of Gtk.
 
-Pango (required by Gtk) needs to be at least version 1.1.5.
+Pango (required by Gtk) needs to be at least version 1.1.5.  It can be
+found here:
+  ftp://ftp.gtk.org/pub/gtk/v2.2/
 
 As of version 0.91, Dia also needs libxml2, version 2.3.9 or higher.
 It can be found here:
@@ -26,6 +29,22 @@ higher.  It can be found here:
 As of version 0.91, Dia requires intltool version 0.21 or higher.  It is
 also required for Gtk.  It can be found here:
   ftp://ftp.gnome.org/pub/gnome/sources/intltool/
+
+A full list of packages required for building Dia in the order in which
+they should be installed.  Note that if the versions here are just the
+minimum required by Dia, if you plan to use a newer GTK+, you'll need a
+newer GLib and ATK at the least.  When possible, use the newest stable
+release. 
+
+pkg-config
+intltool 0.21
+font-config 1.0.1
+GLib 2.1.3
+ATK 2.0.0
+FreeType 2.0.9
+Pango 2.1.5
+GTK+ 2.0.0
+libxml 2.3.9
 
 A number of other libraries are recommends for extra features:
 
