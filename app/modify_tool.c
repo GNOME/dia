@@ -290,7 +290,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (event->state & GDK_CONTROL_MASK) {
       full_delta = to;
       point_sub(&full_delta, &tool->start_at);
-      vertical = (abs(full_delta.x) < abs(full_delta.y));
+      vertical = (fabs(full_delta.x) < fabs(full_delta.y));
     }
 
     point_add(&to, &tool->move_compensate);
@@ -325,7 +325,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (event->state & GDK_CONTROL_MASK) {
       full_delta = to;
       point_sub(&full_delta, &tool->start_at);
-      vertical = (abs(full_delta.x) < abs(full_delta.y));
+      vertical = (fabs(full_delta.x) < fabs(full_delta.y));
     }
 
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&

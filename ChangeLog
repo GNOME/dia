@@ -1,3 +1,10 @@
+1999-05-20  Alexander Larsson  <alla@lysator.liu.se>
+
+	Patch from Lars R. Clausen 
+	
+	* app/modify_tool.c:
+	Changed abs to fabs.
+
 1999-05-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* INSTALL: 
