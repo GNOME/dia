@@ -19,7 +19,8 @@ SHEETS = \
 	civil.sheet \
 	jigsaw.sheet \
 	MSE.sheet \
-	SDL.sheet
+	SDL.sheet \
+        Logic.sheet
 
 EXTRA_DIST = $(SHEETS)
 
