@@ -1,5 +1,9 @@
 2002-07-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/group.c (group_draw): Forgotten commit: Groups to draw as
+	objects (using default routines).
+
+	* app/object_ops.h: 
 	* app/diagram.h: 
 	* lib/diagramdata.h: 
 	* lib/diagramdata.c (layer_find_closest_connectionpoint): 
