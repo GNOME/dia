@@ -307,17 +307,17 @@ set_linejoin (DiaRenderer *object, LineJoin mode)
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
 
   if (renderer->highlight_color != NULL) {
-    renderer->cap_style = GDK_JOIN_ROUND;
+    renderer->join_style = GDK_JOIN_ROUND;
   } else {
     switch(mode) {
     case LINEJOIN_MITER:
-      renderer->cap_style = GDK_JOIN_MITER;
+      renderer->join_style = GDK_JOIN_MITER;
       break;
     case LINEJOIN_ROUND:
-      renderer->cap_style = GDK_JOIN_ROUND;
+      renderer->join_style = GDK_JOIN_ROUND;
       break;
     case LINEJOIN_BEVEL:
-      renderer->cap_style = GDK_JOIN_BEVEL;
+      renderer->join_style = GDK_JOIN_BEVEL;
       break;
     }
   }
@@ -358,7 +358,7 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
     dash_list[2] = renderer->dot_length;
     dash_list[3] = hole_width;
     pattern_length = renderer->dash_length+renderer->dot_length+2*hole_width;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 4);
     break;
   case LINESTYLE_DASH_DOT_DOT:
     hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3;
@@ -371,7 +371,7 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
     dash_list[4] = renderer->dot_length;
     dash_list[5] = hole_width;
     pattern_length = renderer->dash_length+2*renderer->dot_length+3*hole_width;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 6);
     break;
   case LINESTYLE_DOTTED:
     dash_list[0] = renderer->dot_length;

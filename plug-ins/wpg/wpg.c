@@ -867,7 +867,7 @@ draw_image(DiaRenderer *self,
   WPGBitmap2 bmp;
   guint8 * pDiaImg = NULL, * pOut = NULL, * pIn = NULL, * p = NULL;
   guint8 b_1 = 0, b = 0, cnt;
-  int x, y;
+  int x, y, stride;
 
   bmp.Angle  = 0;
   bmp.Left   = SCX(point->x);
@@ -885,13 +885,15 @@ draw_image(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_image %fx%f [%d,%d] @%f,%f", 
             width, height, bmp.Width, bmp.Height, point->x, point->y));
 
-  pDiaImg = pIn = dia_image_rgb_data(image);
+  pDiaImg = dia_image_rgb_data(image);
+  stride = dia_image_rowstride(image);
   pOut = g_new(guint8, bmp.Width * bmp.Height * 2); /* space for worst case RLE */
   p = pOut;
 
-  pIn += (3* bmp.Width * (bmp.Height - 1)); /* last line */ 
   for (y = 0; y < bmp.Height; y++)
   {
+    /* starting from last line but left to right */
+    pIn = pDiaImg + stride * (bmp.Height - 1 - y);
     cnt = 0; /* reset with every line */
     for (x = 0; x < bmp.Width; x ++)
     {
@@ -923,7 +925,6 @@ draw_image(DiaRenderer *self,
     }
     *p++ = (cnt | 0x80); /* write last value(s) */
     *p++ = b;
-    pIn -= (3 * bmp.Width * 2); /* start of previous line */
   }
   DIAG_NOTE(g_message( "Width x Height: %d RLE: %d", 
 	      bmp.Width * bmp.Height, p - pOut));

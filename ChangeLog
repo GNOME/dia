@@ -1,3 +1,11 @@
+2004-06-03  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/wpg/wpg.c(draw_image) : take rowstride into account
+
+	* lib/diagdkrenderer.c(set_linejoin) : actually set
+	join_style not cap_style
+	(set_dashes): with the correct number of dashes
+
 2004-06-03  Lars Clausen  <lars@raeder.dk>
 
 	* app/modify_tool.c (click_select_object): 
