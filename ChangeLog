@@ -1,5 +1,11 @@
 1999-04-22  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/UML/classicon.c:
+	Changed position of 'snap-to-grid'.
+	By Alejandro Aguilar Sierra <asierra@servidor.unam.mx>
+	
+1999-04-22  Alexander Larsson  <alla@lysator.liu.se>
+
 	* objects/network/antenna.c
 	* objects/network/flash.c
 	* objects/network/hub.c

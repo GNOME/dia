@@ -159,10 +159,18 @@ classicon_move_handle(Classicon *pkg, Handle *handle,
 }
 
 static void
-classicon_move(Classicon *pkg, Point *to)
+classicon_move(Classicon *cicon, Point *to)
 {
-  pkg->element.corner = *to;
-  classicon_update_data(pkg);
+  Element *elem = &cicon->element;
+  
+  elem->corner = *to;
+  elem->corner.x -= elem->width/2.0; 
+  elem->corner.y -= CLASSICON_RADIOUS + CLASSICON_ARROW;
+
+  if (cicon->stereotype==CLASSICON_BOUNDARY)
+    elem->corner.x -= CLASSICON_RADIOUS/2.0;
+
+  classicon_update_data(cicon);
 }
 
 static void
@@ -255,7 +263,7 @@ classicon_update_data(Classicon *cicon)
   Element *elem = &cicon->element;
   Object *obj = (Object *) cicon;
   Font *font;
-  Point p1, p2;
+  Point p1;
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
 	
@@ -320,6 +328,8 @@ classicon_update_data(Classicon *cicon)
   obj->bounding_box.right += CLASSICON_BORDERWIDTH/2.0;
   */
   obj->position = elem->corner;
+  obj->position.x += (elem->width + ((is_boundary)?CLASSICON_RADIOUS:0))/2.0;
+  obj->position.y += CLASSICON_RADIOUS + CLASSICON_ARROW;
 
   element_update_handles(elem);
 }
