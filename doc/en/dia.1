@@ -24,7 +24,7 @@ dia \- a diagram drawing program
 .ad l
 .hy 0
 .HP 4
-\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fIOUTPUT\fR\fR] [\fB\-\-export=\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fIWxH\fR\fR] [\fB\-\-size=\fIWxH\fR\fR] [\fB\-t\ \fIFORMAT\fR\fR] [\fB\-\-export\-to\-format=\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \&.\&.\&.]
+\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fIOUTPUT\fR\fR] [\fB\-\-export=\fIOUTPUT\fR\fR] [\fB\-L\ \fILAYER,LAYER,\&.\&.\&.\fR\fR] [\fB\-\-show\-layers=\fILAYER,LAYER,\&.\&.\&.\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fIWxH\fR\fR] [\fB\-\-size=\fIWxH\fR\fR] [\fB\-t\ \fIFORMAT\fR\fR] [\fB\-\-export\-to\-format=\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \&.\&.\&.]
 .ad
 .hy
 
@@ -69,6 +69,10 @@ Export loaded file in decimal given width and/or height\&. It is allowed to only
 This option is currently only implemented for the PNG export filter\&.
 
 .RE
+
+.TP
+\fB\-L \fILAYER,LAYER,\&.\&.\&.\fR\fR \fB\-\-show\-layers=\fILAYER,LAYER,\&.\&.\&.\fR\fR
+Only include specified layers when exporting\&. Layers can be specified either as a layer name, the layer number or a numeric range X\-Y of layers\&. \-\-show\-layers=background,2\-5 shows the layer named background and layers 2\-5, \-\-show\-layers=2\- shows layers 2 and up\&.
 
 .TP
 \fB\-t \fIFORMAT\fR\fR \fB\-\-export\-to\-format=\fIFORMAT\fR\fR

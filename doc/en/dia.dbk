@@ -80,6 +80,10 @@
 
       <arg><option>--export=<replaceable>OUTPUT</replaceable></option></arg>
 
+      <arg><option>-L <replaceable>LAYER,LAYER,...</replaceable></option></arg>
+
+      <arg><option>--show-layers=<replaceable>LAYER,LAYER,...</replaceable></option></arg>
+
       <arg><option>-h</option></arg>
 
       <arg><option>--help</option></arg>
@@ -172,6 +176,17 @@
 	    <para>This option is currently only implemented for the
 	    PNG export filter.</para>
 	  </note>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-L <replaceable>LAYER,LAYER,...</replaceable></option>
+	  <option>--show-layers=<replaceable>LAYER,LAYER,...</replaceable></option></term>
+	<listitem>
+	  <para>Only include specified layers when exporting. Layers can be
+	  specified either as a layer name, the layer number or a numeric
+	  range X-Y of layers. --show-layers=background,2-5 shows the layer
+	  named background and layers 2-5, --show-layers=2- shows layers 2 and
+	  up.</para>
 	</listitem>
       </varlistentry>
       <varlistentry>

@@ -1,3 +1,8 @@
+2005-04-05  Simon Kågström  <ska@bth.se>
+
+	* app/app_procs.c: the --show-layers option can now handle numeric
+	ranges of layers.
+
 2005-04-05  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diagdkrenderer.c (draw_string): Patch from tomkast@yahoo.com

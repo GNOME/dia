@@ -203,6 +203,160 @@ build_output_file_name(const char *infname, const char *format)
   return tmp;
 }
 
+/* Handle the string between commas. We have either of:
+ *
+ * 1. XX, the number XX
+ * 2. -XX, every number until XX
+ * 3. XX-, every number from XX until n_layers
+ * 4. XX-YY, every number between XX-YY
+ */
+static void
+show_layers_parse_numbers(DiagramData *diagdata, gboolean *visible_layers, gint n_layers, const char *str)
+{
+  char *p;
+  unsigned long int low = 0;
+  unsigned long int high = n_layers;
+  unsigned long int i;
+
+  if (str == NULL)
+    return;
+
+  /* Case 2, starts with '-' */
+  if (*str == '-') {
+    str++;
+    low = 0;
+    high = strtoul(str, &p, 10)+1;
+    /* This must be a number (otherwise we would have called parse_name) */
+    g_assert(p != str);
+  }
+  else {
+    /* Case 1, 3 or 4 */
+    low = strtoul(str, &p, 10);
+    high = low+1; /* Assume case 1 */
+    g_assert(p != str);
+    if (*p == '-')
+      {
+	/* Case 3 or 4 */
+	str = p + 1;
+	if (*str == '\0') /* Case 3 */
+	  high = n_layers;
+	else
+	  {
+	    high = strtoul(str, &p, 10)+1;
+	    g_assert(p != str);
+	  }
+      }
+  }
+
+  if ( high <= low ) {
+    /* This is not an errror */
+    g_print(_("Warning: invalid layer range %lu - %lu\n"), low, high-1 );
+    return;
+  }
+  if (high > n_layers)
+    high = n_layers;
+
+  /* Set the visible layers */
+  for ( i = low; i < high; i++ )
+    {
+      Layer *lay = (Layer *)g_ptr_array_index(diagdata->layers, i);
+
+      if (visible_layers[i] == TRUE)
+	g_print(_("Warning: Layer %lu (%s) selected more than once.\n"), i, lay->name);
+      visible_layers[i] = TRUE;
+    }
+}
+
+static void
+show_layers_parse_word(DiagramData *diagdata, gboolean *visible_layers, gint n_layers, const char *str)
+{
+  GPtrArray *layers = diagdata->layers;
+  gboolean found = FALSE;
+
+  /* Apply --show-layers=LAYER,LAYER,... switch. 13.3.2004 sampo@iki.fi */
+  if (layers) {
+    int len,k = 0;
+    Layer *lay;
+    char *p;
+    for (k = 0; k < layers->len; k++) {
+      lay = (Layer *)g_ptr_array_index(layers, k);
+
+      if (lay->name) {
+	len =  strlen(lay->name);
+	if ((p = strstr(str, lay->name)) != NULL) {
+	  if (((p == str) || (p[-1] == ','))    /* zap false positives */
+	      && ((p[len] == 0) || (p[len] == ','))){
+	    found = TRUE;
+	    if (visible_layers[k] == TRUE)
+	      g_print(_("Warning: Layer %d (%s) selected more than once.\n"), k, lay->name);
+	    visible_layers[k] = TRUE;
+	  }
+	}
+      }
+    }
+  }
+
+  if (found == FALSE)
+    g_print(_("Warning: There is no layer named %s\n"), str);
+}
+
+static void
+show_layers_parse_string(DiagramData *diagdata, gboolean *visible_layers, gint n_layers, const char *str)
+{
+  gchar **pp;
+  int i;
+
+  pp = g_strsplit(str, ",", 100);
+
+  for (i = 0; pp[i]; i++) {
+    gchar *p = pp[i];
+
+    /* Skip the empty string */
+    if (strlen(p) == 0)
+      continue;
+
+    /* If the string is only numbers and '-' chars, it is parsed as a
+     * number range. Otherwise it is parsed as a layer name.
+     */
+    if (strlen(p) != strspn(p, "0123456789-") )
+      show_layers_parse_word(diagdata, visible_layers, n_layers, p);
+    else
+      show_layers_parse_numbers(diagdata, visible_layers, n_layers, p);
+  }
+
+  g_strfreev(pp);
+}
+
+
+static void
+handle_show_layers(DiagramData *diagdata, const char *show_layers)
+{
+  gboolean *visible_layers;
+  Layer *layer;
+  int i;
+
+  visible_layers = g_malloc(diagdata->layers->len * sizeof(gboolean));
+  /* Assume all layers are non-visible */
+  for (i=0;i<diagdata->layers->len;i++)
+    visible_layers[i] = FALSE;
+
+  /* Split the layer-range by commas */
+  show_layers_parse_string(diagdata, visible_layers, diagdata->layers->len,
+			   show_layers);
+
+  /* Set the visibility of the layers */
+  for (i=0;i<diagdata->layers->len;i++) {
+    layer = g_ptr_array_index(diagdata->layers, i);
+
+    if (visible_layers[i] == TRUE)
+      layer->visible = TRUE;
+    else
+      layer->visible = FALSE;
+  }
+  g_free(visible_layers);
+}
+
+
 const char *argv0 = NULL;
 
 /** Convert infname to outfname, using input filter inf and export filter
@@ -248,29 +402,9 @@ do_convert(const char *infname,
     exit(1);
   }
 
-  /* Apply --show-layers=LAYER,LAYER,... switch. 13.3.2004 sampo@iki.fi */
-  
-  if (show_layers && *show_layers) {
-    GPtrArray *layers = diagdata->layers;
-    if (layers) {
-      int len,k = 0;
-      Layer *lay;
-      char *p;
-      for (k = 0; k < layers->len; k++) {
-	lay = (Layer *)g_ptr_array_index(layers, k);
-	lay->visible = 0;
-	if (lay->name) {
-	  len =  strlen(lay->name);
-	  if ((p = strstr(show_layers, lay->name)) != NULL) {
-	    if (((p == show_layers) || (p[-1] == ','))    /* zap false positives */
-		&& ((p[len] == 0) || (p[len] == ','))){
-	      lay->visible = 1;
-	    }
-	  }
-	}
-      }
-    }
-  }
+  /* Apply --show-layers */
+  if (show_layers)
+    handle_show_layers(diagdata, show_layers);
 
   /* Do our best in providing the size to the filter, but don't abuse user_data 
    * too much for it. It _must not_ be changed after initialization and there 
@@ -546,7 +680,8 @@ app_init (int argc, char **argv)
     {"size", 's', 0, G_OPTION_ARG_STRING, NULL,
      N_("Export graphics size"), N_("WxH")},
     {"show-layers", 'L', 0, G_OPTION_ARG_STRING, NULL,
-     N_("Show only specified layers (e.g. when exporting)"), N_("LAYER,LAYER,...")},
+     N_("Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"),
+     N_("LAYER,LAYER,...")},
     {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
      N_("Don't show the splash screen"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
@@ -571,7 +706,8 @@ app_init (int argc, char **argv)
     {"size", 's', POPT_ARG_STRING, NULL, 0,
      N_("Export graphics size"), N_("WxH")},
     {"show-layers", 'L', POPT_ARG_STRING, NULL, 0,  /* 13.3.2004 sampo@iki.fi */
-     N_("Show only specified layers (e.g. when exporting)"), N_("LAYER,LAYER,...")},
+     N_("Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"),
+     N_("LAYER,LAYER,...")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
     {"log-to-stderr", 'l', POPT_ARG_NONE, &log_to_stderr, 0,
