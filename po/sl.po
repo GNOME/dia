@@ -117,7 +117,7 @@ msgstr "O Dii"
 #: app/commands.c:501
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr "Dia %s od Alexandra Larssona"
+msgstr "Dia razlièica %s od Alexandra Larssona"
 
 #: app/commands.c:506
 msgid "Maintainer: James Henstridge"
@@ -871,7 +871,7 @@ msgstr "/Datoteka/_Nastavitve..."
 
 #: app/menus.c:245
 msgid "/File/P_lugins"
-msgstr "/Datoteka/_Vti;i"
+msgstr "/Datoteka/_Vtièi"
 
 #: app/menus.c:246 app/menus.c:260 app/menus.c:263
 msgid "/File/---"
@@ -1522,7 +1522,7 @@ msgstr "polna"
 
 #: lib/widgets.c:302
 msgid "Dashed"
-msgstr "èrtasta"
+msgstr "èrtkana"
 
 #: lib/widgets.c:308
 msgid "Dash-Dot"
