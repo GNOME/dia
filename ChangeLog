@@ -1,3 +1,8 @@
+2002-05-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/UML/uml.c (uml_operation_read): Forgot to commit this
+	(reported fixed) bug: POLYMORPHIC -> LEAF for default.
+
 2002-05-12  Hans Breuer  <hans@breuer.org>
 
 	* config.h.win32 : changed VERSION to 0.90.RC1

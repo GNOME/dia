@@ -700,7 +700,7 @@ uml_operation_read(DataNode composite)
   if (attr_node != NULL)
     op->visibility =  data_enum( attribute_first_data(attr_node) );
   
-  op->inheritance_type = UML_POLYMORPHIC;
+  op->inheritance_type = UML_LEAF;
   /* Backward compatibility */
   attr_node = composite_find_attribute(composite, "abstract");
   if (attr_node != NULL)
