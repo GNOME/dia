@@ -33,12 +33,25 @@ typedef struct _Lifeline Lifeline;
 typedef struct _LifelineDialog LifelineDialog;
 
 struct _Lifeline {
-  Connection connection;
+  Connection connection;  
+
+  ConnectionPoint connections[6];
 
   Handle boxbot_handle;
   Handle boxtop_handle;
 
   real rtop, rbot;
+    
+  int draw_focuscontrol;
+  int draw_cross;
+  LifelineDialog* properties_dialog;
+};
+
+struct _LifelineDialog {
+  GtkWidget *dialog;
+  
+  GtkToggleButton *draw_focus;
+  GtkToggleButton *draw_cross;
 };
 
 #define LIFELINE_LINEWIDTH 0.05
@@ -46,6 +59,11 @@ struct _Lifeline {
 #define LIFELINE_FONTHEIGHT 0.8
 #define LIFELINE_WIDTH 1.0
 #define LIFELINE_HEIGHT 3.0
+#define LIFELINE_BOXMINHEIGHT 0.5
+#define LIFELINE_DASHLEN 0.4
+#define LIFELINE_CROSSWIDTH 0.12
+#define LIFELINE_CROSSLEN 0.8
+
 #define HANDLE_BOXTOP (HANDLE_CUSTOM1)
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
@@ -68,6 +86,8 @@ static void lifeline_destroy(Lifeline *lifeline);
 static Object *lifeline_copy(Lifeline *lifeline);
 static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node);
 static Object *lifeline_load(ObjectNode obj_node, int version);
+static void lifeline_apply_properties(Lifeline *lif);
+static GtkWidget *lifeline_get_properties(Lifeline *lif);
 
 
 static ObjectTypeOps lifeline_type_ops =
@@ -102,8 +122,8 @@ static ObjectOps lifeline_ops = {
   (CopyFunc)            lifeline_copy,
   (MoveFunc)            lifeline_move,
   (MoveHandleFunc)      lifeline_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   lifeline_get_properties,
+  (ApplyPropertiesFunc) lifeline_apply_properties,
   (IsEmptyFunc)         object_return_false
 };
 
@@ -132,7 +152,7 @@ static void
 lifeline_move_handle(Lifeline *lifeline, Handle *handle,
 		 Point *to, HandleMoveReason reason)
 {
-  real t;
+  real s, t;
   Connection *conn;
 
   assert(lifeline!=NULL);
@@ -142,31 +162,29 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
   conn = &lifeline->connection;
   if (handle->id == HANDLE_BOXBOT) {
       t = to->y - conn->endpoints[0].y;
-      if (t > lifeline->rtop && 
+      if (t > lifeline->rtop + LIFELINE_BOXMINHEIGHT && 
 	  t < conn->endpoints[1].y - conn->endpoints[0].y) 
 	  lifeline->rbot = t;
   } else if (handle->id == HANDLE_BOXTOP) {
       t = to->y - conn->endpoints[0].y;
-      if (t > 0 && t < lifeline->rbot) 
+      if (t > 0 && t < lifeline->rbot - LIFELINE_BOXMINHEIGHT) 
 	  lifeline->rtop = t;	
   } else {
     /* move horizontally only if startpoint is moved */
     if (handle->id==HANDLE_MOVE_STARTPOINT) {
 	conn->endpoints[0].x = conn->endpoints[1].x = to->x;
-	/* never move below the box */
-	//	if (to->y > conn->endpoints[0].y + lifeline->rtop) 
-	//   to->y = conn->endpoints[0].y + lifeline->rtop;
     } else {
 	to->x = conn->endpoints[0].x;
-	/* never move above the box */
-	//if (to->y < conn->endpoints[0].y + lifeline->rbot) 
-	//    to->y = conn->endpoints[0].y + lifeline->rbot;
     }
+    /* If connected don't change size */  
     t = (reason==HANDLE_MOVE_CONNECTED) ? 
 	conn->endpoints[1].y - conn->endpoints[0].y:
 	lifeline->rbot;
     connection_move_handle(conn, handle->id, to, reason);
-    if (conn->endpoints[1].y - conn->endpoints[0].y < t)
+    s = conn->endpoints[1].y - conn->endpoints[0].y;
+    if (handle->id==HANDLE_MOVE_ENDPOINT && s < t && s > lifeline->rtop + LIFELINE_BOXMINHEIGHT)
+	lifeline->rbot = s;
+    else if (reason==HANDLE_MOVE_CONNECTED || s < t)
 	conn->endpoints[1].y = conn->endpoints[0].y + t;
   }
 
@@ -202,7 +220,8 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
 
   endpoints = &lifeline->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);
+  renderer->ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);    
+  renderer->ops->set_dashlength(renderer, LIFELINE_DASHLEN);
   renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
 
   renderer->ops->draw_line(renderer,
@@ -218,13 +237,33 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
   p2.x = endpoints[0].x + LIFELINE_WIDTH/2.0;
   p2.y = endpoints[0].y + lifeline->rbot;
 
-  renderer->ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &color_white);
+  if (lifeline->draw_focuscontrol) {  
+      renderer->ops->fill_rect(renderer, 
+			       &p1, &p2,
+			       &color_white);
   
-  renderer->ops->draw_rect(renderer, 
-			   &p1, &p2,
-			   &color_black);
+      renderer->ops->draw_rect(renderer, 
+			       &p1, &p2,
+			       &color_black);
+
+  }
+    
+  if (lifeline->draw_cross) {      
+      renderer->ops->set_linewidth(renderer, LIFELINE_CROSSWIDTH);
+      p1.x = endpoints[1].x + LIFELINE_CROSSLEN;
+      p2.x = endpoints[1].x - LIFELINE_CROSSLEN;
+      p1.y = endpoints[1].y + LIFELINE_CROSSLEN;
+      p2.y = endpoints[1].y - LIFELINE_CROSSLEN;
+      renderer->ops->draw_line(renderer,
+			       &p1, &p2,
+			       &color_black);
+      p1.y = p2.y;
+      p2.y = endpoints[1].y + LIFELINE_CROSSLEN;
+      renderer->ops->draw_line(renderer,
+			       &p1, &p2,
+			       &color_black);
+      
+  }
 }
 
 static Object *
@@ -237,6 +276,7 @@ lifeline_create(Point *startpoint,
   Connection *conn;
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
+  int i;
 
   if (lifeline_font == NULL)
     lifeline_font = font_getfont("Courier");
@@ -254,11 +294,13 @@ lifeline_create(Point *startpoint,
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
   
-  connection_init(conn, 4, 0);
+  connection_init(conn, 4, 6);
 
   lifeline->rtop = LIFELINE_HEIGHT/3;
   lifeline->rbot = lifeline->rtop+0.7;
-
+  lifeline->draw_focuscontrol = 1;
+  lifeline->draw_cross = 0;
+    
   lifeline->boxbot_handle.id = HANDLE_BOXBOT;
   lifeline->boxbot_handle.type = HANDLE_MINOR_CONTROL;
   lifeline->boxbot_handle.connect_type = HANDLE_NONCONNECTABLE;
@@ -274,10 +316,20 @@ lifeline_create(Point *startpoint,
   /* Only the start point should be connectable */
   obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
 
+  /* Connection points */
+  for (i=0;i<6;i++) {
+    obj->connections[i] = &lifeline->connections[i];
+    lifeline->connections[i].object = obj;
+    lifeline->connections[i].connected = NULL;
+  }
+
   lifeline_update_data(lifeline);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
+
+  lifeline->properties_dialog = NULL;
+
   return (Object *)lifeline;
 }
 
@@ -285,6 +337,11 @@ lifeline_create(Point *startpoint,
 static void
 lifeline_destroy(Lifeline *lifeline)
 {
+  if (lifeline->properties_dialog != NULL) {
+      gtk_widget_destroy(lifeline->properties_dialog->dialog);
+      g_free(lifeline->properties_dialog);
+  }
+
   connection_destroy(&lifeline->connection);
 }
 
@@ -311,6 +368,9 @@ lifeline_copy(Lifeline *lifeline)
   newlifeline->rtop = lifeline->rtop;
   newlifeline->rbot = lifeline->rbot;
 
+   newlifeline->draw_focuscontrol = lifeline->draw_focuscontrol;
+   newlifeline->draw_cross = lifeline->draw_cross;
+
   return (Object *)newlifeline;
 }
 
@@ -320,28 +380,51 @@ lifeline_update_data(Lifeline *lifeline)
 {
   Connection *conn = &lifeline->connection;
   Object *obj = (Object *) lifeline;
-  Point point;
+  Point p1, p2;
 
   obj->position = conn->endpoints[0];
 
   /* box handles: */
-  point.x = conn->endpoints[0].x;
-  point.y = conn->endpoints[0].y + lifeline->rtop;
-  lifeline->boxtop_handle.pos = point;
-  point.y = conn->endpoints[0].y + lifeline->rbot;
-  lifeline->boxbot_handle.pos = point;
+  p1.x = conn->endpoints[0].x;
+  p1.y = conn->endpoints[0].y + lifeline->rtop;
+  lifeline->boxtop_handle.pos = p1;
+  p2.x = p1.x;
+  p2.y = conn->endpoints[0].y + lifeline->rbot;
+  lifeline->boxbot_handle.pos = p2;
 
   connection_update_handles(conn);
 
   /* Boundingbox: */
   connection_update_boundingbox(conn);
 
-  /* fix boundingbox for lifeline_width: */
-  obj->bounding_box.top -= LIFELINE_LINEWIDTH/2;
-  obj->bounding_box.left -= LIFELINE_WIDTH;
-  obj->bounding_box.bottom += LIFELINE_LINEWIDTH/2;
-  obj->bounding_box.right += LIFELINE_WIDTH;
+  if (lifeline->draw_focuscontrol) {  
+      /* fix boundingbox for lifeline_width: */
+      obj->bounding_box.top -= LIFELINE_LINEWIDTH/2;
+      obj->bounding_box.left -= LIFELINE_WIDTH;
+      obj->bounding_box.bottom += LIFELINE_LINEWIDTH/2;
+      obj->bounding_box.right += LIFELINE_WIDTH;
 
+      p1.x -= LIFELINE_WIDTH/2.0;
+      p2.x += LIFELINE_WIDTH/2.0; 
+      /* Update connections: */      
+      lifeline->connections[0].pos = p1;
+      lifeline->connections[1].pos.x = p2.x;
+      lifeline->connections[1].pos.y = p1.y;
+      lifeline->connections[2].pos.x = p2.x;
+      lifeline->connections[2].pos.y = (p1.y + p2.y)/2.0;
+      lifeline->connections[3].pos.x = p2.x;
+      lifeline->connections[3].pos.y = p2.y;
+      lifeline->connections[4].pos.x = p1.x;
+      lifeline->connections[4].pos.y = (p1.y + p2.y)/2.0;
+      lifeline->connections[5].pos.x = p1.x;
+      lifeline->connections[5].pos.y = p2.y;
+  }
+
+  if (lifeline->draw_cross) {
+      obj->bounding_box.bottom += LIFELINE_CROSSLEN;
+      obj->bounding_box.left -= LIFELINE_CROSSLEN;
+      obj->bounding_box.right += LIFELINE_CROSSLEN;
+  }
 }
 
 
@@ -354,6 +437,10 @@ lifeline_save(Lifeline *lifeline, ObjectNode obj_node)
 		lifeline->rtop);
   data_add_real(new_attribute(obj_node, "rbot"),
 		lifeline->rbot);
+  data_add_boolean(new_attribute(obj_node, "draw_focus"),
+		   lifeline->draw_focuscontrol);
+  data_add_boolean(new_attribute(obj_node, "draw_cross"),
+		   lifeline->draw_cross);
 }
 
 static Object *
@@ -387,6 +474,14 @@ lifeline_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     lifeline->rbot = data_real(attribute_first_data(attr));
 
+  attr = object_find_attribute(obj_node, "draw_focus");
+  if (attr != NULL)
+    lifeline->draw_focuscontrol = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "draw_cross");
+  if (attr != NULL)
+    lifeline->draw_cross = data_boolean(attribute_first_data(attr));
+
   lifeline->boxbot_handle.id = HANDLE_BOXBOT;
   lifeline->boxbot_handle.type = HANDLE_MINOR_CONTROL;
   lifeline->boxbot_handle.connect_type = HANDLE_NONCONNECTABLE;
@@ -404,3 +499,64 @@ lifeline_load(ObjectNode obj_node, int version)
   return (Object *)lifeline;
 }
 
+
+static void
+lifeline_apply_properties(Lifeline *lif)
+{
+  LifelineDialog *prop_dialog;
+
+  prop_dialog = lif->properties_dialog;
+
+  /* Read from dialog and put in object: */
+
+  lif->draw_focuscontrol = prop_dialog->draw_focus->active;
+  lif->draw_cross = prop_dialog->draw_cross->active;
+  
+  lifeline_update_data(lif);
+}
+
+static void
+fill_in_dialog(Lifeline *lif)
+{
+  LifelineDialog *prop_dialog;
+
+  prop_dialog = lif->properties_dialog;
+
+  gtk_toggle_button_set_active(prop_dialog->draw_focus, lif->draw_focuscontrol);
+  gtk_toggle_button_set_active(prop_dialog->draw_cross, lif->draw_cross);
+}
+
+static GtkWidget *
+lifeline_get_properties(Lifeline *lif)
+{
+  LifelineDialog *prop_dialog;
+  
+  GtkWidget *dialog;
+  GtkWidget *checkbox;
+  GtkWidget *label;
+
+  if (lif->properties_dialog == NULL) {
+
+    prop_dialog = g_new(LifelineDialog, 1);
+    lif->properties_dialog = prop_dialog;
+
+    dialog = gtk_vbox_new(FALSE, 0);
+    prop_dialog->dialog = dialog;
+    
+    checkbox = gtk_check_button_new_with_label("Show focus of control:");
+    prop_dialog->draw_focus = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
+
+    checkbox = gtk_check_button_new_with_label("Show destruction mark:");
+    prop_dialog->draw_cross = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
+
+  }
+  
+  fill_in_dialog(lif);
+  gtk_widget_show (lif->properties_dialog->dialog);
+
+  return lif->properties_dialog->dialog;
+}

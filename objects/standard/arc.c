@@ -463,7 +463,6 @@ arc_draw(Arc *arc, Renderer *renderer)
     len = centervec.x*centervec.x+centervec.y*centervec.y;
     point_add(&centervec, &endpoints[1]);
     /* Centervec should now be the midpoint between [0] and [1] */
-    renderer->ops->draw_line(renderer, &centervec, &arc->center, &color_black);
     reversepoint = centervec;
     point_sub(&centervec, &arc->center);
     len2 = centervec.x*centervec.x+centervec.y*centervec.y;
@@ -475,7 +474,6 @@ arc_draw(Arc *arc, Renderer *renderer)
     controlpoint0 = controlpoint1 = reversepoint;
     len = arc->angle2-arc->angle1;
     if (len > 180 || (len < 0.0 && len > -180)) {
-      printf("Flipflop\n");
       centervec = endpoints[0];
       point_sub(&centervec, &reversepoint);
       point_add(&controlpoint0, &centervec);

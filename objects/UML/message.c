@@ -39,6 +39,7 @@ typedef enum {
     MESSAGE_SIMPLE,
     MESSAGE_RETURN,
     MESSAGE_SEND, /* Asynchronous */
+    MESSAGE_RECURSIVE
 } MessageType;
 
 struct _Message {
@@ -66,11 +67,14 @@ struct _MessageDialog {
   GtkWidget *m_destroy;
   GtkWidget *m_send;
   GtkWidget *m_simple;
+  GtkWidget *m_recursive;
 };
   
 #define MESSAGE_WIDTH 0.1
 #define MESSAGE_DASHLEN 0.4
 #define MESSAGE_FONTHEIGHT 0.8
+#define MESSAGE_RECURSIVE_WIDTH 2
+#define MESSAGE_RECURSIVE_HEIGHT 1
 #define MESSAGE_ARROWLEN 0.8
 #define MESSAGE_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
@@ -208,7 +212,7 @@ message_move(Message *message, Point *to)
 static void
 message_draw(Message *message, Renderer *renderer)
 {
-  Point *endpoints;
+  Point *endpoints, p1, p2;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
   char *mname;
@@ -228,6 +232,12 @@ message_draw(Message *message, Renderer *renderer)
   renderer->ops->set_linewidth(renderer, MESSAGE_WIDTH);
 
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  if (message->type==MESSAGE_RECURSIVE) {
+      n1 = 0;
+      n2 = 1;
+  }
+
   if (message->type==MESSAGE_RETURN) {
       renderer->ops->set_dashlength(renderer, MESSAGE_DASHLEN);
       renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
@@ -240,8 +250,25 @@ message_draw(Message *message, Renderer *renderer)
 			   &endpoints[n1], &endpoints[n2],
 			   &color_black);
   
+
+  p1 = endpoints[n1];
+  p2 = endpoints[n2];
+
+  if (message->type==MESSAGE_RECURSIVE) {
+      p2.y += MESSAGE_RECURSIVE_HEIGHT;
+
+      renderer->ops->draw_line(renderer,
+			       &endpoints[1], &p2,
+			       &color_black);
+
+      p1.y = p2.y;
+      renderer->ops->draw_line(renderer,
+			   &p1, &p2,
+			   &color_black);
+  }
+
   arrow_draw(renderer, arrow_type,
-	     &endpoints[n1], &endpoints[n2],
+	     &p1, &p2,
 	     MESSAGE_ARROWLEN, MESSAGE_ARROWWIDTH, MESSAGE_WIDTH,
 	     &color_black, &color_white);
 
@@ -381,6 +408,9 @@ message_update_data(Message *message)
   obj->bounding_box.left -= MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
   obj->bounding_box.bottom += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
   obj->bounding_box.right += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
+
+  if (message->type==MESSAGE_RECURSIVE)
+      obj->bounding_box.bottom += MESSAGE_RECURSIVE_HEIGHT;
 }
 
 
@@ -479,6 +509,8 @@ message_apply_properties(Message *message)
       message->type = MESSAGE_SEND;
   else if (GTK_TOGGLE_BUTTON( prop_dialog->m_simple )->active) 
       message->type = MESSAGE_SIMPLE;
+  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_recursive )->active) 
+      message->type = MESSAGE_RECURSIVE;
   
   message_update_data(message);
 }
@@ -568,6 +600,11 @@ message_get_properties(Message *message)
     prop_dialog->m_simple = gtk_radio_button_new_with_label(group, "Simple");
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_simple, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_simple);
+
+    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_simple));
+    prop_dialog->m_recursive = gtk_radio_button_new_with_label(group, "Recursive");
+    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_recursive, TRUE, TRUE, 0);
+    gtk_widget_show (prop_dialog->m_recursive);
   }
   
   fill_in_dialog(message);

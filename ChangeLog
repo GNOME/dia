@@ -1,3 +1,25 @@
+1999-02-02  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/lifeline.c:
+ 	Added connection points.
+	Added properties dialog with the option to draw/hide focus of control
+	box and destruction mark.
+
+	* objects/UML/object.c: 
+	Added properties dialog and stereotype, explicit state and attributes. 
+	It's also possible to mark the object as active.
+
+	* objects/UML/pixmaps/object.xpm: 
+	Cosmetic change.
+
+	* objects/UML/message.c:
+	Added "recursive" message type (was not necessary to use OrthConn).
+
+1999-02-02  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/standard/arc.c:
+	Removed old debug code. Fixes a visual bug. From lrclause@cs.uiuc.edu.
+
 1999-02-01  Alexander Larsson  <alla@lysator.liu.se>
 
 	Patch from Lars R. Clausen <lrclause@cs.uiuc.edu>

@@ -19,6 +19,7 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "object.h"
 #include "element.h"
@@ -27,23 +28,47 @@
 #include "sheet.h"
 #include "text.h"
 
+#include "uml.h"
+
 #include "pixmaps/object.xpm"
 
 typedef struct _Objet Objet;
+typedef struct _ObjetPropertiesDialog ObjetPropertiesDialog;
+
+
 struct _Objet {
   Element element;
 
   ConnectionPoint connections[8];
-
+  
   char *stereotype;
-  char *name;
   Text *text;
+  char *exstate;  /* used for explicit state */
+  Text *attributes;
+
+  Point ex_pos, st_pos;
+  int is_active;
+  int show_attributes;
+
+  ObjetPropertiesDialog* properties_dialog;
+};
+
+struct _ObjetPropertiesDialog {
+  GtkWidget *dialog;
+  
+  GtkEntry *name;
+  GtkEntry *stereotype;
+  GtkWidget *attribs;
+  GtkToggleButton *show_attrib;
+  GtkToggleButton *active;
 };
 
 #define OBJET_BORDERWIDTH 0.1
+#define OBJET_ACTIVEBORDERWIDTH 0.2
 #define OBJET_LINEWIDTH 0.05
 #define OBJET_MARGIN_X 0.5
 #define OBJET_MARGIN_Y 0.5
+#define OBJET_FONTHEIGHT 0.8
 
 static real objet_distance_from(Objet *pkg, Point *point);
 static void objet_select(Objet *pkg, Point *clicked_point,
@@ -58,11 +83,11 @@ static Object *objet_create(Point *startpoint,
 				   Handle **handle2);
 static void objet_destroy(Objet *pkg);
 static Object *objet_copy(Objet *pkg);
-
 static void objet_save(Objet *pkg, ObjectNode obj_node);
 static Object *objet_load(ObjectNode obj_node, int version);
-
 static void objet_update_data(Objet *pkg);
+static GtkWidget *objet_get_properties(Objet *dep);
+static void objet_apply_properties(Objet *dep);
 
 static ObjectTypeOps objet_type_ops =
 {
@@ -97,8 +122,8 @@ static ObjectOps objet_ops = {
   (CopyFunc)            objet_copy,
   (MoveFunc)            objet_move,
   (MoveHandleFunc)      objet_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   objet_get_properties,
+  (ApplyPropertiesFunc) objet_apply_properties,
   (IsEmptyFunc)         object_return_false
 };
 
@@ -135,12 +160,12 @@ objet_move(Objet *pkg, Point *to)
   Point p;
   
   pkg->element.corner = *to;
-
+  /*
   p = *to;
   p.x += OBJET_MARGIN_X;
   p.y += pkg->text->ascent + OBJET_MARGIN_Y;
   text_set_position(pkg->text, &p);
-  
+  */
   objet_update_data(pkg);
 }
 
@@ -148,7 +173,7 @@ static void
 objet_draw(Objet *pkg, Renderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  real bw, x, y, w, h;
   Point p1, p2;
   
   assert(pkg != NULL);
@@ -161,8 +186,10 @@ objet_draw(Objet *pkg, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
+  bw = (pkg->is_active) ? OBJET_ACTIVEBORDERWIDTH: OBJET_BORDERWIDTH;
+
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, OBJET_BORDERWIDTH);
+  renderer->ops->set_linewidth(renderer, bw);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
 
@@ -176,11 +203,26 @@ objet_draw(Objet *pkg, Renderer *renderer)
 			   &p1, &p2,
 			   &color_black);
 
+  
   text_draw(pkg->text, renderer);
 
+  if (pkg->stereotype != NULL) {
+      renderer->ops->draw_string(renderer,
+				 pkg->stereotype,
+				 &pkg->st_pos, ALIGN_CENTER,
+				 &color_black);
+  }
+
+  if (pkg->exstate != NULL) {
+      renderer->ops->draw_string(renderer,
+				 pkg->exstate,
+				 &pkg->ex_pos, ALIGN_CENTER,
+				 &color_black);
+  }
+
   /* Is there a better way to underline? */
-  p1 = pkg->text->position;
-  p1.y += pkg->text->descent;
+  p1.x = x + (w - pkg->text->max_width)/2;
+  p1.y = pkg->text->position.y + pkg->text->descent;
   p2.x = p1.x + pkg->text->max_width;
   p2.y = p1.y;
   
@@ -188,6 +230,18 @@ objet_draw(Objet *pkg, Renderer *renderer)
   renderer->ops->draw_line(renderer,
 			   &p1, &p2,
 			   &color_black);
+
+  if (pkg->show_attributes) {
+      p1.x = x; p2.x = x + w;
+      p1.y = p2.y = pkg->attributes->position.y - pkg->attributes->ascent - OBJET_MARGIN_Y;
+      
+      renderer->ops->set_linewidth(renderer, bw);
+      renderer->ops->draw_line(renderer,
+			       &p1, &p2,
+			       &color_black);
+
+      text_draw(pkg->attributes, renderer);
+  }
 }
 
 static void
@@ -195,10 +249,53 @@ objet_update_data(Objet *pkg)
 {
   Element *elem = &pkg->element;
   Object *obj = (Object *) pkg;
+  Font *font;
+  Point p1, p2;
+  real x, h, w = 0;
   
-  elem->width = pkg->text->max_width + 2*OBJET_MARGIN_X;
-  elem->height =
-    pkg->text->height*pkg->text->numlines + 2*OBJET_MARGIN_Y;
+  font = pkg->text->font;
+  h = elem->corner.y + OBJET_MARGIN_Y;
+
+  if (pkg->stereotype != NULL) {
+      w = font_string_width(pkg->stereotype, font, OBJET_FONTHEIGHT);
+      h += OBJET_FONTHEIGHT;
+      pkg->st_pos.y = h;
+      h += OBJET_MARGIN_Y/2.0;
+  }
+
+  w = MAX(w, pkg->text->max_width);
+  p1.y = h + pkg->text->ascent;  /* position of text */
+
+  h += pkg->text->height*pkg->text->numlines;
+
+  if (pkg->exstate != NULL) {
+      w = MAX(w, font_string_width(pkg->exstate, font, OBJET_FONTHEIGHT));
+      h += OBJET_FONTHEIGHT;
+      pkg->ex_pos.y = h;
+  }
+  
+  h += OBJET_MARGIN_Y;
+
+  if (pkg->show_attributes) {
+      h += OBJET_MARGIN_Y + pkg->attributes->ascent;
+      p2.x = elem->corner.x + OBJET_MARGIN_X;
+      p2.y = h;      
+      text_set_position(pkg->attributes, &p2);
+
+      h += pkg->attributes->height*pkg->attributes->numlines; 
+
+      w = MAX(w, pkg->attributes->max_width);
+  }
+
+  w += 2*OBJET_MARGIN_X; 
+
+  p1.x = elem->corner.x + w/2.0;
+  text_set_position(pkg->text, &p1);
+  
+  pkg->ex_pos.x = pkg->st_pos.x = p1.x;
+  
+  elem->width = w;
+  elem->height = h - elem->corner.y;
 
   /* Update connections: */
   pkg->connections[0].pos = elem->corner;
@@ -253,11 +350,18 @@ objet_create(Point *startpoint,
   elem->corner = *startpoint;
 
   font = font_getfont("Courier");
-  p = *startpoint;
-  p.x += OBJET_MARGIN_X;
-  p.y += OBJET_MARGIN_Y + font_ascent(font, 0.8);
   
-  pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  pkg->show_attributes = FALSE;
+  pkg->is_active = FALSE;
+
+  pkg->exstate = NULL;
+  pkg->stereotype = NULL;
+
+  /* The text position is recalculated later */
+  p.x = 0.0;
+  p.y = 0.0;
+  pkg->attributes = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   
   element_init(elem, 8, 8);
   
@@ -324,6 +428,15 @@ objet_save(Objet *pkg, ObjectNode obj_node)
 
   data_add_text(new_attribute(obj_node, "text"),
 		pkg->text);
+
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  pkg->stereotype);
+
+  data_add_string(new_attribute(obj_node, "exstate"),
+		  pkg->exstate);
+
+  data_add_text(new_attribute(obj_node, "attrib"),
+		pkg->attributes);
 }
 
 static Object *
@@ -348,6 +461,22 @@ objet_load(ObjectNode obj_node, int version)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     pkg->text = data_text(attribute_first_data(attr));
+
+  pkg->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+      pkg->stereotype = data_string(attribute_first_data(attr));
+
+  pkg->exstate = NULL;
+  attr = object_find_attribute(obj_node, "exstate");
+  if (attr != NULL)
+      pkg->exstate = data_string(attribute_first_data(attr));
+
+  pkg->attributes = NULL;
+  attr = object_find_attribute(obj_node, "attrib");
+  if (attr != NULL)
+    pkg->attributes = data_text(attribute_first_data(attr));
+
   
   element_init(elem, 8, 8);
 
@@ -366,5 +495,157 @@ objet_load(ObjectNode obj_node, int version)
 }
 
 
+static void
+objet_apply_properties(Objet *dep)
+{
+  ObjetPropertiesDialog *prop_dialog;
+  char *str;
 
+  prop_dialog = dep->properties_dialog;
+
+  /* Read from dialog and put in object: */
+  if (dep->exstate != NULL)
+    g_free(dep->exstate);
+  str = gtk_entry_get_text(prop_dialog->name);
+  if (strlen(str) != 0) {
+      dep->exstate = g_malloc(sizeof(char)*strlen(str)+2+1);
+      sprintf(dep->exstate, "[%s]", str);
+  } else
+    dep->exstate = NULL;
+
+  if (dep->stereotype != NULL)
+    g_free(dep->stereotype);
+  
+  str = gtk_entry_get_text(prop_dialog->stereotype);
+  
+  if (strlen(str) != 0) {
+    dep->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
+    dep->stereotype[0] = UML_STEREOTYPE_START;
+    dep->stereotype[1] = 0;
+    strcat(dep->stereotype, str);
+    dep->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
+    dep->stereotype[strlen(str)+2] = 0;
+  } else {
+    dep->stereotype = NULL;
+  }
+
+  dep->is_active = prop_dialog->active->active;
+  dep->show_attributes = prop_dialog->show_attrib->active;
+
+  
+  text_set_string(dep->attributes,
+		  gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->attribs),
+						 0, -1));
+
+  objet_update_data(dep);
+}
+
+static void
+fill_in_dialog(Objet *dep)
+{
+  ObjetPropertiesDialog *prop_dialog;
+  char *str;
+  
+  prop_dialog = dep->properties_dialog;
+
+  if (dep->exstate != NULL) {
+      str = strdup(dep->exstate+1);
+      str[strlen(str)-1] = 0;
+      fprintf(stderr, "E %s %p ", str, prop_dialog->name); fflush(stderr);
+      gtk_entry_set_text(prop_dialog->name, str);
+      g_free(str);
+  } else 
+    gtk_entry_set_text(prop_dialog->name, "");
+  
+  
+  if (dep->stereotype != NULL) {
+    str = strdup(dep->stereotype);
+    strcpy(str, dep->stereotype+1);
+    str[strlen(str)-1] = 0;
+    fprintf(stderr, "S %s %p ", str, prop_dialog->stereotype); fflush(stderr);
+    gtk_entry_set_text(prop_dialog->stereotype, str);
+    g_free(str);
+  } else {
+    gtk_entry_set_text(prop_dialog->stereotype, "");
+  }
+
+  gtk_toggle_button_set_active(prop_dialog->show_attrib, dep->show_attributes);
+  gtk_toggle_button_set_active(prop_dialog->active, dep->is_active);
+
+  gtk_text_insert( prop_dialog->attribs,
+		   NULL, NULL, NULL,
+		   text_get_string_copy(dep->attributes),
+		   -1);
+}
+
+static GtkWidget *
+objet_get_properties(Objet *dep)
+{
+  ObjetPropertiesDialog *prop_dialog;
+  GtkWidget *dialog;
+  GtkWidget *checkbox;
+  GtkWidget *entry;
+  GtkWidget *hbox;
+  GtkWidget *label;
+
+  if (dep->properties_dialog == NULL) {
+
+    prop_dialog = g_new(ObjetPropertiesDialog, 1);
+    dep->properties_dialog = prop_dialog;
+
+    dialog = gtk_vbox_new(FALSE, 0);
+    prop_dialog->dialog = dialog;
+    
+    hbox = gtk_hbox_new(FALSE, 5);
+
+    label = gtk_label_new("Explicit state:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    entry = gtk_entry_new();
+    prop_dialog->name = GTK_ENTRY(entry);
+    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show (entry);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
+    gtk_widget_show(hbox);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
+    label = gtk_label_new("Stereotype:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    entry = gtk_entry_new();
+    prop_dialog->stereotype = GTK_ENTRY(entry);
+    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show (entry);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
+    gtk_widget_show(hbox);
+    
+    label = gtk_label_new("Attributes:");
+    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
+    entry = gtk_text_new(NULL, NULL);
+    prop_dialog->attribs = entry;
+    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
+    gtk_box_pack_start (GTK_BOX (dialog), entry, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show (entry);
+        
+    hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Show attributes");
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
+    prop_dialog->show_attrib = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    checkbox = gtk_check_button_new_with_label("Active object");
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
+    prop_dialog->active = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
+
+  }
+  
+  fill_in_dialog(dep);
+  gtk_widget_show (dep->properties_dialog->dialog);
+
+  return dep->properties_dialog->dialog;
+}
 
