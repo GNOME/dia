@@ -1,3 +1,13 @@
+1999-09-07  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/create_object.c (create_object_button_press):
+	Always initialize tool->obj. Otherwise we store a null
+	in the undo Change.
+
+	* lib/text.c:
+	Set linestyle before drawing cursor.
+	Fix undo of backwards delete.
+
 1999-09-05  James Henstridge  <james@daa.com.au>
 
 	* dia.spec: updated spec file to distribute $(prefix)/share/dia.

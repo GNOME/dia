@@ -429,6 +429,7 @@ text_draw(Text *text, Renderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + text->height;
     
+    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     renderer->ops->set_linewidth(renderer, 0.1);
     renderer->ops->draw_line(renderer, &p1, &p2, &color_black);
   }
@@ -788,8 +789,8 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen,
       }
     } else {
       *change = text_create_change(text, TYPE_DELETE_BACKWARD,
-				   text->line[row][text->cursor_pos],
-				   text->cursor_pos, text->cursor_row);
+				   text->line[row][text->cursor_pos-1],
+				   text->cursor_pos-1, text->cursor_row);
     }
     text_delete_backward(text);
     break;
@@ -924,7 +925,7 @@ text_change_apply(struct TextObjectChange *change, Object *obj)
     text_insert_char(text, change->ch);
     break;
   case TYPE_DELETE_BACKWARD:
-    text->cursor_pos = change->pos;
+    text->cursor_pos = change->pos+1;
     text->cursor_row = change->row;
     text_delete_backward(text);
     break;
@@ -954,10 +955,16 @@ text_change_revert(struct TextObjectChange *change, Object *obj)
     text_delete_forward(text);
     break;
   case TYPE_DELETE_BACKWARD:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_insert_char(text, change->ch);
+    break;
   case TYPE_DELETE_FORWARD:
     text->cursor_pos = change->pos;
     text->cursor_row = change->row;
     text_insert_char(text, change->ch);
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
     break;
   case TYPE_SPLIT_ROW:
     text_join_lines(text, change->row);

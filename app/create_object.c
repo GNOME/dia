@@ -60,6 +60,8 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   obj->ops->select(obj, &clickedpoint,
 		   (Renderer *)ddisp->renderer);
 
+  tool->obj = obj;
+
   /* Connect first handle if possible: */
   if ((handle1!= NULL) &&
       (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
@@ -70,7 +72,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   diagram_flush(ddisp->diagram);
   
   if (handle2 != NULL) {
-    tool->obj = obj;
     tool->handle = handle2;
     tool->moving = TRUE;
     tool->last_to = handle2->pos;
