@@ -24,6 +24,10 @@
 
 2004-08-30  Lars Clausen  <lars@raeder.dk>
 
+	* app/textedit.c: 
+	* app/diagram.c (diagram_remove_all_selected): Remove debugging
+	information. 
+
 	* lib/color.[ch]: 
 	* app/undo.c: 
 	* app/disp_callbacks.c: 

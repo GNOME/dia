@@ -548,7 +548,6 @@ diagram_selected_break_external(Diagram *dia)
 void
 diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 {
-printf("Removing all selections\n");
   object_add_updates_list(diagram->data->selected, diagram);
   textedit_remove_focus_all(diagram);
   data_remove_all_selected(diagram->data);

@@ -69,7 +69,6 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 {
   if (active_focus()) {
     Focus *old_focus = active_focus();
-    printf("Activating %p while %p active\n", focus, active_focus());
     object_add_updates(old_focus->obj, ddisp->diagram);
     highlight_object_off(old_focus->obj, ddisp->diagram);
   }
@@ -89,7 +88,6 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
   if (active_focus()) {
     Focus *focus = active_focus();
-    printf("Activating object %p while %p active\n", obj, focus->obj);
     highlight_object_off(focus->obj, ddisp->diagram);
     object_add_updates(focus->obj, ddisp->diagram);
   }
