@@ -1,3 +1,7 @@
+2001-08-08  Abel Cheung  <maddog@linux.org.hk>
+
+	* dia.desktop: added traditional Chinese strings
+
 2001-08-04  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* NEWS: updated to reflect build-time dependencies.
