@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.86\n"
-"POT-Creation-Date: 2000-10-14 20:29+0400\n"
-"PO-Revision-Date: 2000-10-14 20:29+04:00\n"
+"POT-Creation-Date: 2000-10-19 23:13+0400\n"
+"PO-Revision-Date: 2000-10-19 23:14+04:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -307,7 +307,8 @@ msgstr "Нет"
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:177
+#: plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -2607,14 +2608,13 @@ msgstr "Фильтр экспорта файлов TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "Макрос TeX Pstricks"
 
-#: plug-ins/wpg/wpg.c:1032
-#, c-format
-msgid "File: %s type/version unsupported.\n"
-msgstr "Файл: %s тип/версия не поддерживаются.\n"
+#: plug-ins/shape/shape-export.c:931
+msgid "dia shape file"
+msgstr ""
 
-#: plug-ins/wpg/wpg.c:1181
-msgid "WordPerfect Graphics export filter"
-msgstr "Фильтр экспорта файлов WordPerfect Graphics"
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "Фильтр экспорта форм dia"
 
 #: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
@@ -2623,3 +2623,12 @@ msgstr "Маштабируемая векторная графика (SVG)"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Фильтр экспорта маштабируемой векторной графики (SVG)"
+
+#: plug-ins/wpg/wpg.c:1032
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Файл: %s тип/версия не поддерживаются.\n"
+
+#: plug-ins/wpg/wpg.c:1181
+msgid "WordPerfect Graphics export filter"
+msgstr "Фильтр экспорта файлов WordPerfect Graphics"
