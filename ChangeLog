@@ -28,6 +28,8 @@
 	boundary will be when this WIP is done).
 
 	* lib/dia_xml.c (data_point): fixed a format string typo.
+
+	* po/POTFILES.in: added all C files from lib/ 
 	
 2001-06-06  Cyrille Chepelov  <chepelov@calixo.net>
 
