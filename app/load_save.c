@@ -62,6 +62,7 @@ GHFuncUnknownObjects(gpointer key,
   GString* s = (GString*)user_data;
   g_string_append(s, "\n");
   g_string_append(s, (gchar*)key);
+  g_free(key);
 }
 
 static GList *
@@ -99,11 +100,10 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       }
 
       type = object_get_type((char *)typestr);
-      if (typestr) free(typestr);
       
       if (!type) {
 	if (NULL == g_hash_table_lookup(unknown_hash, typestr))
-	    g_hash_table_insert(unknown_hash, typestr, 0);
+	    g_hash_table_insert(unknown_hash, strdup(typestr), 0);
       }
       else
       {
@@ -112,6 +112,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       
         g_hash_table_insert(objects_hash, (char *)id, obj);
       }
+      if (typestr) free(typestr);
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
