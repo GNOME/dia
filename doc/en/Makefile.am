@@ -29,7 +29,9 @@ EXTRA_DIST += \
 	graphics/line_icon.png \
 	graphics/greendots.png
 
+if HAVE_DB2MAN
 dia.1: dia.dbk
 	xsltproc --nonet --novalid $(DB2MAN) dia.dbk >dia.1
+endif
 
 man_MANS = dia.1

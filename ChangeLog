@@ -1,3 +1,17 @@
+2004-05-26  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in (DB2MAN): Better check for db2man docbook place.
+	Need something even better.
+
+	* doc/en/Makefile.am (dia.1): Conditional on having DB2MAN.
+
+	* lib/widgets.c (dia_toggle_button_new_with_images): Remove
+	extraeneous borders.
+
+	* dia_logo.png:
+	* dia_gnome_icon.png:
+	* samples/render-test.dia: Rendering test from Hans.
+
 2004-05-24  Hans Breuer  <hans@breuer.org>
  
         * lib/filter.h : renamed DiaExportFilter::export to

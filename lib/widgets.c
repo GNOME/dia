@@ -1647,13 +1647,18 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
 
   images->on = dia_get_image_from_file(on_image);
   g_object_ref(images->on);
+  gtk_misc_set_padding(GTK_MISC(images->on), 0, 0);
   gtk_widget_show(images->on);
 
   images->off = dia_get_image_from_file(off_image);
   g_object_ref(images->off);
+  gtk_misc_set_padding(GTK_MISC(images->off), 0, 0);
   gtk_widget_show(images->off);
 
   gtk_container_add(GTK_CONTAINER(button), images->off);
+  gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
+  /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/
+  gtk_container_set_border_width(GTK_CONTAINER(button), 0);
 
   g_signal_connect(G_OBJECT(button), "toggled", 
 		   dia_toggle_button_swap_images, images);
