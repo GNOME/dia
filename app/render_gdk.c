@@ -405,8 +405,9 @@ set_font(RendererGdk *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
+  printf("GDK setting font: height=%f, transformed=%d\n", height, renderer->font_height);
 #ifdef HAVE_FREETYPE
-  renderer->freetype_font = font_get_freetypefont(font, height);
+  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
 #else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
 #endif
@@ -927,7 +928,8 @@ draw_string (RendererGdk *renderer,
     break;
   }
   
-  /* Remember to add color */
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
   freetype_render_string(renderer->pixmap, fts, gc, x, y);
 #else
   DDisplay *ddisp = renderer->ddisp;

@@ -698,7 +698,7 @@ font_get_freetypefont(DiaFont *font, real height)
   LC_DEBUG (fprintf(stderr, "font_get_freetypefont: %s, %f\n", font->name, height));
   error = FT_Set_Char_Size(face,
 			   0,      
-			   (int)(height*72*64/2.54),
+			   (int)(height*64),
 			   0,
 			   0 );
   if (error) {
@@ -768,7 +768,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
                               
     // record current glyph index
     previous_index = glyph_index;
-                              
+    
     // increment number of glyphs
     num_glyphs++;
   }
@@ -823,6 +823,11 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
   FT_Face face = fts->face;
 
   LC_DEBUG (fprintf(stderr, "freetype_render_string\n"));
+
+  // Seems FT and GDK disagree on what color '0' is, so we have to
+  // swap the foreground and background colors.
+  gdk_gc_set_function(gc, GDK_COPY_INVERT);
+
   string = fts->text;
   len = strlen(string);
   for (i = 0; i < len; i++) {
@@ -860,12 +865,9 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     error = FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP );
     if (error) continue;  // ignore errors, jump to next glyph
 
-    LC_DEBUG (fprintf(stderr, "Glyph loaded\n"));
-
     error = FT_Render_Glyph( face->glyph, ft_render_mode_normal );
     if (error) continue;  // ignore errors, jump to next glyph
 
-    LC_DEBUG (fprintf(stderr, "Copy bitmap\n"));
     // now, draw to our target surface
     freetype_copy_glyph_bitmap( pixmap, gc, face->glyph,
 				pen_x + face->glyph->bitmap_left,
@@ -875,6 +877,7 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     pen_x += face->glyph->advance.x >> 6;
     pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
   }
+  gdk_gc_set_function(gc, GDK_COPY);
 }
 #endif
 
@@ -1090,10 +1093,10 @@ font_string_width(const char *string, DiaFont *font, real height)
   FreetypeString *ft_string;
 
   /* This is currently broken */
-  LC_DEBUG (fprintf(stderr, "font_string_width: %s %s\n", font->name, font->style));
-  face = font_get_freetypefont(font, height);
+  LC_DEBUG (fprintf(stderr, "font_string_width: %s %s %f\n", font->name, font->style, height));
+  face = font_get_freetypefont(font, height*72/2.54);
   ft_string = freetype_load_string(string, face, strlen(string));
-
+  LC_DEBUG (fprintf(stderr, "result width is %f\n", ft_string->width));
   return ft_string->width;
 #else
   GdkFont *gdk_font;
