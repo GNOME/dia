@@ -1219,6 +1219,8 @@ custom_save(Custom *custom, ObjectNode obj_node, const char *filename)
   data_add_boolean(new_attribute(obj_node, "flip_horizontal"), custom->flip_h);
   data_add_boolean(new_attribute(obj_node, "flip_vertical"), custom->flip_v);
 
+  data_add_real(new_attribute(obj_node, "padding"), custom->padding);
+  
   if (custom->info->has_text)
     data_add_text(new_attribute(obj_node, "text"), custom->text);
 }
@@ -1284,6 +1286,11 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     custom->flip_v = data_boolean(attribute_first_data(attr));
 
+  custom->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    custom->padding =  data_real( attribute_first_data(attr) );
+  
   if (custom->info->has_text) {
     custom->text = NULL;
     attr = object_find_attribute(obj_node, "text");
