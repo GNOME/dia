@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.40\n"
+"Project-Id-Version: dia 0.41\n"
 "POT-Creation-Date: 1999-07-30 01:46+0200\n"
-"PO-Revision-Date: 1999-07-15 23:37+02:00\n"
+"PO-Revision-Date: 1999-08-03 10:59+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1088,7 +1088,7 @@ msgstr "Identifiserer"
 #. type
 #: objects/FS/flow-ortho.c:134
 msgid "Create an orthogonal polyline flow"
-msgstr ""
+msgstr "Opprett et ortogonalt polylinje-flytdiagram"
 
 #: objects/FS/flow-ortho.c:566 objects/FS/flow-poly.c:632
 #: objects/FS/flow-poly.c:745 objects/FS/flow.c:629 objects/FS/flow.c:742
@@ -1124,11 +1124,11 @@ msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:678
 msgid "Orthflow:"
-msgstr ""
+msgstr "Ortflyt:"
 
 #: objects/FS/flow-ortho.c:694
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Ortflyt type:"
 
 #. type
 #: objects/FS/flow-poly.c:133 objects/FS/flow.c:133
@@ -1274,15 +1274,15 @@ msgstr "   Hent ut"
 
 #: objects/FS/function.c:587
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Kontroller størrelse"
 
 #: objects/FS/function.c:588
 msgid "   Actuate"
-msgstr ""
+msgstr "   Aktuer"
 
 #: objects/FS/function.c:589
 msgid "   Regulate"
-msgstr ""
+msgstr "   Reguler"
 
 #: objects/FS/function.c:590
 msgid "   Change"
@@ -1290,7 +1290,7 @@ msgstr "   Endre"
 
 #: objects/FS/function.c:591
 msgid "   Form"
-msgstr ""
+msgstr "   Formgi"
 
 #: objects/FS/function.c:592
 msgid "Convert"
@@ -1298,7 +1298,7 @@ msgstr "Konverter"
 
 #: objects/FS/function.c:594
 msgid "   Sense"
-msgstr ""
+msgstr "   Føl"
 
 #: objects/FS/function.c:595
 msgid "   Indicate"
@@ -1513,9 +1513,8 @@ msgstr "Formelle parameterdata"
 
 #. type
 #: objects/UML/classicon.c:116
-#, fuzzy
 msgid "Create a class stereotype icon"
-msgstr "Lag en klasse"
+msgstr "Lag et ikon for en stereotype-klasse"
 
 #: objects/UML/classicon.c:575
 msgid "Control"
@@ -1896,7 +1895,7 @@ msgstr "En Sybase databasetjener."
 #. type
 #: objects/sybase/ltm.c:55
 msgid "Log Transfer Manager or Rep Agent."
-msgstr ""
+msgstr "Loggoverføringshåndterer eller Rep agent."
 
 #. type
 #: objects/sybase/repserver.c:55
