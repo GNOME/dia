@@ -1,3 +1,14 @@
+2004-07-04  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagdkrenderer.c (draw_string): Don't unref NULL
+	pixbuf. (#145362)
+	
+2004-07-03  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (do_convert): Two patches from Vitaly Lipatov
+	<LAV@VL3143.spb.edu>: Fixes console output problems and some
+	interactiveness problems.
+
 2004-07-02  Lars Clausen  <lars@reader.dk>
 
 	* plug-ins/pixbuf/pixbuf.c (dia_plugin_init): Don't load if the

@@ -730,6 +730,7 @@ draw_string (DiaRenderer *object,
 					     128,
 					     GDK_RGB_DITHER_NONE,
 					     0, 0);
+	 g_object_unref(G_OBJECT(rgba));
        }
        /*
 	 gdk_gc_set_function(gc, GDK_COPY_INVERT);
@@ -737,7 +738,6 @@ draw_string (DiaRenderer *object,
 	 GDK_RGB_DITHER_NONE, graybitmap, rowstride);
 	 gdk_gc_set_function(gc, GDK_COPY);
        */
-       g_object_unref(G_OBJECT(rgba));
      }
   }
 #else

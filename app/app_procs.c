@@ -216,8 +216,7 @@ do_convert(const char *infname,
   if (ef == NULL) {
     ef = filter_guess_export_filter(outfname);
     if (!ef) {
-      fprintf(stderr,
-	      _("%s error: don't know how to export into %s\n"),
+      g_error(_("%s error: don't know how to export into %s\n"),
 	      argv0,outfname);
       exit(1);
     }
@@ -226,18 +225,16 @@ do_convert(const char *infname,
   dia_is_interactive = FALSE;
 
   if (0==strcmp(infname,outfname)) {
-    fprintf(stderr,
-            _("%s error: input and output file name is identical: %s"),
+    g_error(_("%s error: input and output file name is identical: %s"),
             argv0, infname);
     exit(1);
   }
   
   diagdata = new_diagram_data(&prefs.new_diagram);
   if (!inf->import_func(infname,diagdata,inf->user_data)) {
-    fprintf(stderr,
-            _("%s error: need valid input file %s\n"),
-            argv0,infname);
-            exit(1);
+    g_error(_("%s error: need valid input file %s\n"),
+            argv0, infname);
+    exit(1);
   }
   /* Do our best in providing the size to the filter, but don't abuse user_data 
    * too much for it. It _must not_ be changed after initialization and there 
@@ -413,9 +410,7 @@ app_init (int argc, char **argv)
      N_("Display credits list and exit"), NULL },
     {"version", 'v', POPT_ARG_NONE, &version, 0,
      N_("Display version and exit"), NULL },
-#ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
-#endif
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 #endif
@@ -432,9 +427,6 @@ app_init (int argc, char **argv)
   setlocale(LC_NUMERIC, "C");
   
   bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
-#endif
   textdomain(GETTEXT_PACKAGE);
 
   process_opts(argc, argv, 
@@ -443,7 +435,13 @@ app_init (int argc, char **argv)
 #endif
                &files,
 	     &export_file_name, &export_file_format, &size);
-  if (argv) {
+
+#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
+  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
+#endif
+  textdomain(GETTEXT_PACKAGE);
+
+  if (argv && dia_is_interactive) {
 #ifdef GNOME
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
@@ -466,12 +464,11 @@ app_init (int argc, char **argv)
     gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
 
 #else
-    if (dia_is_interactive)
-      gtk_init(&argc, &argv);
-    else
-      g_type_init();
+    gtk_init(&argc, &argv);
 #endif
   }
+  else
+    g_type_init();
 
 #ifdef HAVE_POPT
   /* done with option parsing, don't leak */
@@ -539,7 +536,7 @@ app_init (int argc, char **argv)
   if (object_get_type("Standard - Box") == NULL) {
     message_error(_("Couldn't find standard objects when looking for "
 		  "object-libs, exiting...\n"));
-    fprintf(stderr, _("Couldn't find standard objects when looking for "
+    g_error( _("Couldn't find standard objects when looking for "
 	    "object-libs, exiting...\n"));
     exit(1);
   }
@@ -686,7 +683,7 @@ app_exit(void)
   gtk_main_quit();
   /* This printf seems to prevent a race condition with unrefs. */
   /* Yuck.  -Lars */
-  printf(_("Thank you for using Dia.\n"));
+  g_print(_("Thank you for using Dia.\n"));
   app_exit_once = TRUE;
 
   return TRUE;
@@ -760,6 +757,7 @@ internal_plugin_init(PluginInfo *info)
   return DIA_PLUGIN_INIT_OK;
 }
 
+/* Note: running in locale encoding */
 static void
 process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
@@ -770,13 +768,13 @@ process_opts(int argc, char **argv,
 {
 #ifdef HAVE_POPT
   int rc = 0;
-
+  //char *const buf;
   poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
+  //poptSetOtherOptionHelp(poptCtx, g_locale_from_utf8(_("[OPTION...] [FILE...]"), -1, NULL, NULL, NULL));
   poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
   while (rc >= 0) {
     if((rc = poptGetNextOpt(poptCtx)) < -1) {
-      fprintf(stderr, 
-	      _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+      fprintf(stderr,_("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
 	      poptBadOption(poptCtx, 0),
 	      poptStrerror(rc),
 	      argv[0]);
@@ -861,24 +859,24 @@ print_credits(gboolean credits)
       const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
       const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
 
-      printf("The original author of Dia was:\n\n");
+      g_print(_("The original author of Dia was:\n\n"));
       for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
-          printf(authors[i]); printf("\n");
+          g_print(authors[i]); g_print("\n");
       }
 
-      printf("\nThe current maintainers of Dia are:\n\n");
+      g_print(_("\nThe current maintainers of Dia are:\n\n"));
       for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
-	  printf(authors[i]); printf("\n");
+	  g_print(authors[i]); g_print("\n");
       }
 
-      printf("\nOther authors are:\n\n");
+      g_print(_("\nOther authors are:\n\n"));
       for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
-          printf(authors[i]); printf("\n");
+          g_print(authors[i]); g_print("\n");
       }
 
-      printf("\nDia is documented by:\n\n");
+      g_print(_("\nDia is documented by:\n\n"));
       for (i = 0; i < ndocumentors; i++) {
-          printf(documentors[i]); printf("\n");
+          g_print(documentors[i]); g_print("\n");
       }
 
       exit(0);
