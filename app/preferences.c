@@ -58,7 +58,8 @@ enum DiaPrefType {
   PREF_UREAL,
   PREF_COLOUR,
   PREF_CHOICE,
-  PREF_STRING
+  PREF_STRING,
+  PREF_END_GROUP
 };
 
 typedef struct _DiaPrefData {
@@ -114,37 +115,41 @@ struct DiaPrefsTab prefs_tabs[] =
 
 DiaPrefData prefs_data[] =
 {
-  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_true, 0, N_("Reset tools after create:") },
-  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
+  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_true, 0, N_("Reset tools after create") },
+  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
-  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
+  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects") },
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
+  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar") },
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_false, 0, N_("Keep tool box on top of diagram windows:") },
+    &default_false, 0, N_("Keep tool box on top of diagram windows") },
   
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
-  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
+  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
     &default_paper_name, 1, N_("Paper type:"), NULL, FALSE,
     get_paper_name_list },
+  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
   { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, 1, N_("Magnify:") },
+  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
-  { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible:") },
+  { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible") },
+  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
-  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible:") },
+  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible") },
   { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(pagebreak.colour), &pbreak_colour, 2, N_("Colour:") },
-  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines:") },
+  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines") },
+  { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
   
   /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
-  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible:") },
-  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to:") },
+  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible") },
+  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to") },
   { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, 3, N_("Dynamic grid resizing") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
@@ -153,26 +158,27 @@ DiaPrefData prefs_data[] =
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
-    &default_false,0,"render bounding boxes:",NULL, TRUE},
+    &default_false,0,"render bounding boxes",NULL, TRUE},
 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
-    &default_false,0,"pretty formated xml:",NULL, TRUE},
+    &default_false,0,"pretty formated xml",NULL, TRUE},
 
   { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
-    &default_false,0,"prefer psprint:", NULL, TRUE},
+    &default_false,0,"prefer psprint", NULL, TRUE},
 
   { "recent_sheet", PREF_UINT,PREF_OFFSET(recent_sheet),
     &default_false,0,"recent selected sheet:",NULL, TRUE},
 
   { NULL, PREF_NONE, 0, NULL, 4, N_("Diagram tree window:") },
   { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
-    &default_false, 4, N_("Save hidden object types:")},
+    &default_false, 4, N_("Save hidden object types")},
   { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),
     &default_dtree_dia_sort, 4, "default diagram sort order", NULL, TRUE},
   { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
     &default_dtree_obj_sort, 4, "default object sort order", NULL, TRUE},
   { "diagram_tree_hidden", PREF_STRING, PREF_OFFSET(dia_tree.hidden),
     &DIA_TREE_DEFAULT_HIDDEN, 4, "hidden type list", NULL, TRUE},
+  { NULL, PREF_END_GROUP, 0, NULL, 4, NULL },
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))
@@ -274,6 +280,7 @@ prefs_set_defaults(void)
       *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
       break;
     case PREF_NONE:
+    case PREF_END_GROUP:
       break;
     }
   }
@@ -303,7 +310,7 @@ prefs_save(void)
   old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(file, "# Note: This file is automatically generated by Dia\n");
   for (i=0;i<NUM_PREFS_DATA;i++) {
-    if (prefs_data[i].type == PREF_NONE)
+    if ((prefs_data[i].type == PREF_NONE) || (prefs_data[i].type == PREF_END_GROUP))
       continue;
     
     fprintf(file, "%s=", prefs_data[i].name);
@@ -333,6 +340,7 @@ prefs_save(void)
       fprintf(file, "\"%s\"\n", *(gchar **)ptr);
       break;
     case PREF_NONE:
+    case PREF_END_GROUP:
       break;
     }
   }
@@ -412,6 +420,7 @@ prefs_parse_line(GScanner *scanner)
     *(char **)ptr = g_strdup(scanner->value.v_string);
     break;
   case PREF_NONE:
+  case PREF_END_GROUP:
     break;
   }
 
@@ -453,7 +462,7 @@ prefs_load(void)
 
   scanner->input_name = filename;
   for (i = 0; i < NUM_PREFS_DATA; i++)
-    if (prefs_data[i].type != PREF_NONE) {
+    if (prefs_data[i].name != NULL) {
       g_scanner_add_symbol(scanner, prefs_data[i].name,
 			   GINT_TO_POINTER(i));
     }
@@ -525,6 +534,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
     gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar **)ptr)));
     break;
   case PREF_NONE:
+  case PREF_END_GROUP:
     break;
   }
 }
@@ -561,6 +571,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
       gtk_entry_get_text(GTK_ENTRY(widget));
     break;
   case PREF_NONE:
+  case PREF_END_GROUP:
     break;
   }
 }
@@ -640,6 +651,7 @@ prefs_get_property_widget(DiaPrefData *data)
     break;
   }
   case PREF_NONE:
+  case PREF_END_GROUP:
     widget = NULL;
     break;
   }
@@ -669,12 +681,13 @@ prefs_respond(GtkWidget *widget,
 static void
 prefs_create_dialog(void)
 {
-  GtkWidget *notebook_page;
   GtkWidget *label;
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
-  GtkWidget *table;
+  GtkTable *top_table = NULL; /* top level table for the tab */
+  GtkTable *current_table = NULL;
   int i;
+  int tab_idx = -1;
 
   if (prefs_dialog != NULL)
     return;
@@ -709,11 +722,15 @@ prefs_create_dialog(void)
   gtk_widget_show (notebook);
 
   for (i=0;i<NUM_PREFS_TABS;i++) {
+    GtkWidget *table;
+    GtkWidget *notebook_page;
+
     label = gtk_label_new(gettext(prefs_tabs[i].title));
     gtk_widget_show(label);
 
     table = gtk_table_new (9, 2, FALSE);
     prefs_tabs[i].table = GTK_TABLE(table);
+    gtk_widget_set_size_request(table, -1, -1);
     gtk_widget_show(table);
     
 #ifdef SCROLLED_PAGES
@@ -736,30 +753,59 @@ prefs_create_dialog(void)
 
   }
 
+  tab_idx = -1;
   for (i=0;i<NUM_PREFS_DATA;i++) {
-    GtkTable *table;
-    GtkWidget *widget;
+    GtkWidget *widget = NULL;
     int row;
 
-    if (prefs_data[i].hidden) continue;
+    if (prefs_data[i].hidden) 
+      continue;
 
-    label = gtk_label_new (gettext(prefs_data[i].label_text));
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
-    gtk_widget_show (label);
-
-    table = prefs_tabs[prefs_data[i].tab].table;
-    row = prefs_tabs[prefs_data[i].tab].row++;
-    gtk_table_attach (table, label, 0, 1,
-		      row, row + 1,
-		      GTK_FILL, GTK_FILL, 1, 1);
-
-    widget = prefs_get_property_widget(&prefs_data[i]);
-    prefs_data[i].widget = widget;
-    if (widget != NULL) {
-      gtk_table_attach (table, widget, 1, 2,
+    if (tab_idx != prefs_data[i].tab) {
+      tab_idx = prefs_data[i].tab;
+      top_table = prefs_tabs[prefs_data[i].tab].table;
+      current_table = top_table;
+    }
+    row = prefs_tabs[tab_idx].row++;
+    switch(prefs_data[i].type) {
+    case PREF_NONE:
+      widget = gtk_frame_new(gettext(prefs_data[i].label_text));
+      gtk_widget_show (widget);
+      gtk_table_attach (current_table, widget, 0, 2,
 			row, row + 1,
 			GTK_FILL, GTK_FILL, 1, 1);
+      current_table = GTK_TABLE(gtk_table_new (9, 2, FALSE));
+      gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(current_table));
+      gtk_widget_show(GTK_WIDGET(current_table));
+      break;
+    case PREF_END_GROUP:
+      current_table = top_table;
+      break;
+    case PREF_BOOLEAN:
+      widget = gtk_check_button_new_with_label (gettext(prefs_data[i].label_text));
+      gtk_widget_show (widget);
+      gtk_table_attach (current_table, widget, 0, 2,
+			row, row + 1,
+			GTK_FILL, GTK_FILL, 1, 1);
+      break;
+    default:
+      label = gtk_label_new (gettext(prefs_data[i].label_text));
+      gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
+      gtk_widget_show (label);
+      
+      gtk_table_attach (current_table, label, 0, 1,
+			row, row + 1,
+			GTK_FILL, GTK_FILL, 1, 1);
+      
+      widget = prefs_get_property_widget(&prefs_data[i]);
+      if (widget != NULL) {
+	gtk_table_attach (current_table, widget, 1, 2,
+			  row, row + 1,
+			  GTK_FILL, GTK_FILL, 1, 1);
+      }
+      break;
     }
+    prefs_data[i].widget = widget;
     
   }
 

@@ -1,3 +1,10 @@
+2003-08-01  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/magnify.c (create_magnify_tool): allocate with g_new0()
+
+	* app/preferences.c (prefs_create_dialog): use checkboxes for boolean 
+	preferences values (see bug 118570). Also group items into a GtkFrame.
+
 2003-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/menus.c:

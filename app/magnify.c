@@ -138,7 +138,7 @@ create_magnify_tool(void)
 {
   MagnifyTool *tool;
 
-  tool = g_new(MagnifyTool, 1);
+  tool = g_new0(MagnifyTool, 1);
   tool->tool.type = MAGNIFY_TOOL;
   tool->tool.button_press_func = (ButtonPressFunc) &magnify_button_press;
   tool->tool.button_release_func = (ButtonPressFunc) &magnify_button_release;
