@@ -27,7 +27,7 @@
 	 GDK_ENTER_NOTIFY_MASK | GDK_KEY_PRESS_MASK |  \
 	 GDK_KEY_RELEASE_MASK
 
-extern gint ddisplay_canvas_events (GtkWidget *, GdkEvent *);
+extern gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, DDisplay *ddisp);
 extern gint ddisplay_hsb_update (GtkAdjustment *adjustment,
 				 DDisplay *ddisp);
 extern gint ddisplay_vsb_update (GtkAdjustment *adjustment,

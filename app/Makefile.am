@@ -46,6 +46,8 @@ dia_core_files = \
 	    layer_dialog.h \
 	    display.c \
 	    display.h \
+	    select.c \
+	    select.h \
 	    color_area.c \
 	    color_area.h \
 	    linewidth_area.c \

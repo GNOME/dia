@@ -25,6 +25,7 @@
 #include "message.h"
 #include "properties.h"
 #include "render_gdk.h"
+#include "select.h"
 
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -156,15 +157,8 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 	return obj;
       }
     }
-  } else { /* No object selected */
-    /*printf("didn't select object\n");*/
-    if (!(event->state & GDK_SHIFT_MASK)) {
-      /* Not Multi-select => Remove all selected */
-      diagram_update_menu_sensitivity(diagram);
-      diagram_remove_all_selected(diagram, TRUE);
-      diagram_flush(ddisp->diagram);
-    }
-  }
+  } /* Else part moved to allow union/intersection select */
+
   return NULL;
 }
 
@@ -263,6 +257,14 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
   
   if ( clicked_obj != NULL ) {
     properties_show(ddisp->diagram, clicked_obj);
+  } else { /* No object selected */
+    /*printf("didn't select object\n");*/
+    if (!(event->state & GDK_SHIFT_MASK)) {
+      /* Not Multi-select => Remove all selected */
+      diagram_update_menu_sensitivity(ddisp->diagram);
+      diagram_remove_all_selected(ddisp->diagram, TRUE);
+      diagram_flush(ddisp->diagram);
+    }
   }
 }
 
@@ -504,7 +506,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     {
       Rectangle r;
-      GList *list;
+      GList *list, *list_to_free;
       Object *obj;
 
       r.left = MIN(tool->start_box.x, tool->end_box.x);
@@ -512,19 +514,59 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       r.top = MIN(tool->start_box.y, tool->end_box.y);
       r.bottom = MAX(tool->start_box.y, tool->end_box.y);
 
-      list =
+      list = list_to_free =
 	layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
       
-      while (list != NULL) {
-	obj = (Object *)list->data;
-
-	if (!diagram_is_selected(ddisp->diagram, obj))
-	  diagram_select(ddisp->diagram, obj);
-	
-	list = g_list_next(list);
+      if (selection_style == SELECT_REPLACE &&
+          !(event->state & GDK_SHIFT_MASK)) {
+        /* Not Multi-select => Remove all selected */
+        diagram_remove_all_selected(ddisp->diagram, TRUE);
       }
 
-      g_list_free(list);
+      if (selection_style == SELECT_INTERSECTION) {
+        GList *intersection = NULL;
+
+        while (list != NULL) {
+          obj = (Object *)list->data;
+          
+          if (diagram_is_selected(ddisp->diagram, obj)) {
+            intersection = g_list_append(intersection, obj);
+          }
+          
+          list = g_list_next(list);
+        }
+        list = intersection;
+        diagram_remove_all_selected(ddisp->diagram, TRUE);
+        while (list != NULL) {
+          obj = (Object *)list->data;
+
+          diagram_select(ddisp->diagram, obj);
+
+          list = g_list_next(list);
+        }
+        g_list_free(intersection);
+      } else {
+        while (list != NULL) {
+          obj = (Object *)list->data;
+          
+          if (selection_style == SELECT_REMOVE) {
+            if (diagram_is_selected(ddisp->diagram, obj))
+              diagram_unselect_object(ddisp->diagram, obj);
+          } else if (selection_style == SELECT_INVERT) { 
+            if (diagram_is_selected(ddisp->diagram, obj))
+              diagram_unselect_object(ddisp->diagram, obj);
+            else
+              diagram_select(ddisp->diagram, obj);
+          } else {
+            if (!diagram_is_selected(ddisp->diagram, obj))
+              diagram_select(ddisp->diagram, obj);
+          }
+          
+          list = g_list_next(list);
+        }
+      }
+
+      g_list_free(list_to_free);
       
     }
     

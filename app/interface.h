@@ -20,6 +20,27 @@
 
 #include "display.h"
 
+#define USE_WRAPBOX
+
+#ifdef GNOME
+#include <gnome.h>
+#endif
+#ifdef USE_WRAPBOX
+#include "gtkhwrapbox.h"
+#endif
+#include "intl.h"
+#include "interface.h"
+#include "menus.h"
+#include "disp_callbacks.h"
+#include "tool.h"
+#include "sheet.h"
+#include "app_procs.h"
+#include "arrows.h"
+#include "color_area.h"
+#include "linewidth_area.h"
+#include "lineprops_area.h"
+#include "attributes.h"
+
 extern void create_display_shell(DDisplay *ddisp,
 				 int width, int height,
 				 char *title, int top_level_window);
@@ -28,7 +49,33 @@ extern void create_toolbox ();
 extern void toolbox_show(void);
 extern void toolbox_hide(void);
 
+extern void tool_select_callback(GtkWidget *widget, gpointer data);
+
 extern GtkWidget *popup_shell;
 extern GtkWidget *modify_tool_button;
+
+typedef struct _ToolButton ToolButton;
+
+typedef struct _ToolButtonData ToolButtonData;
+
+struct _ToolButtonData
+{
+  ToolType type;
+  gpointer extra_data;
+  gpointer user_data; /* Used by create_object_tool */
+  GtkWidget *widget;
+};
+
+struct _ToolButton
+{
+  gchar **icon_data;
+  char  *tool_desc;
+  char  *menuitem_name;
+  ToolButtonData callback_data;
+};
+
+extern const int num_tools;
+extern ToolButton tool_data[];
+extern void tool_select_update (GtkWidget *w, gpointer   data);
 
 #endif /* INTERFACE_H */

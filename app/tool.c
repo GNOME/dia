@@ -115,7 +115,6 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
 void
 tool_reset(void)
 {
-  tool_select(MODIFY_TOOL, NULL, NULL); 
   gtk_signal_emit_by_name(GTK_OBJECT(modify_tool_button), "clicked",
 			  GTK_BUTTON(modify_tool_button), NULL);
 }

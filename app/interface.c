@@ -18,100 +18,78 @@
 /* $Header$ */
 
 #include "config.h"
-#define USE_WRAPBOX
 
-#ifdef GNOME
-#include <gnome.h>
-#endif
-#ifdef USE_WRAPBOX
-#include "gtkhwrapbox.h"
-#endif
-#include "intl.h"
 #include "interface.h"
-#include "menus.h"
-#include "disp_callbacks.h"
-#include "tool.h"
-#include "sheet.h"
-#include "app_procs.h"
-#include "arrows.h"
-#include "color_area.h"
-#include "linewidth_area.h"
-#include "lineprops_area.h"
-#include "attributes.h"
 
 #include "pixmaps.h"
 
-typedef struct _ToolButton ToolButton;
-
-typedef struct _ToolButtonData ToolButtonData;
-
-struct _ToolButtonData
-{
-  ToolType type;
-  gpointer extra_data;
-  gpointer user_data; /* Used by create_object_tool */
-};
-
-struct _ToolButton
-{
-  gchar **icon_data;
-  char  *tool_desc;
-  ToolButtonData callback_data;
-};
-
-static ToolButton tool_data[] =
+ToolButton tool_data[] =
 {
   { (char **) arrow_xpm,
     N_("Modify object(s)"),
+    N_("Modify"),
     { MODIFY_TOOL, NULL, NULL}
   },
   { (char **) magnify_xpm,
+    N_("Magnify"),
     N_("Magnify"),
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) scroll_xpm,
     N_("Scroll around the diagram"),
+    N_("Scroll"),
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
     N_("Create Text"),
+    N_("Text"),
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
     N_("Create Box"),
+    N_("Box"),
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
     N_("Create Ellipse"),
+    N_("Ellipse"),
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
     N_("Create Line"),
+    N_("Line"),
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
     N_("Create Arc"),
+    N_("Arc"),
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
     N_("Create Zigzagline"),
+    N_("Zigzagline"),
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
     N_("Create Polyline"),
+    N_("Polyline"),
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
     N_("Create Bezierline"),
+    N_("Bezierline"),
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
     N_("Create Image"),
+    N_("Image"),
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
 };
 
 #define NUM_TOOLS (sizeof (tool_data) / sizeof (ToolButton))
+const int num_tools = NUM_TOOLS;
+
 #define COLUMNS   4
 #define ROWS      3
 
@@ -121,6 +99,14 @@ static GtkTooltips *tool_tips;
 static GSList *tool_group = NULL;
 
 GtkWidget *modify_tool_button;
+
+/*  If we create *all* menus at startup, we can read a .menurc file and
+ *  get persistent menu shortcuts.  Yummy!
+ */
+void
+create_menus() {
+}
+
 
 /*  The popup shell is a pointer to the display shell that posted the latest
  *  popup menu.  When this is null, and a command is invoked, then the
@@ -281,14 +267,20 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_grab_focus (ddisp->canvas);
 }
 
-static void
+void
 tool_select_update (GtkWidget *w,
 		     gpointer   data)
 {
   ToolButtonData *tooldata = (ToolButtonData *) data;
 
-  if ((tooldata->type != -1) && GTK_TOGGLE_BUTTON (w)->active)
+  if (tooldata == NULL) {
+    g_warning(_("NULL tooldata in tool_select_update"));
+    return;
+  }
+
+  if (tooldata->type != -1) {
     tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data);
+  }
 }
 
 static gint
@@ -307,6 +299,21 @@ tool_button_press (GtkWidget      *w,
   return FALSE;
 }
 
+void 
+tool_select_callback(GtkWidget *widget, gpointer data) {
+  ToolButtonData *tooldata = (ToolButtonData *)data;
+
+  if (tooldata == NULL) {
+    g_warning("NULL tooldata in tool_select_callback");
+    return;
+  }
+
+  if (tooldata->type != -1) {
+    tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data);
+    
+  }
+}
+
 static void
 create_tools(GtkWidget *parent)
 {
@@ -318,6 +325,7 @@ create_tools(GtkWidget *parent)
   GdkPixmap *pixmap;
   GdkBitmap *mask;
   GtkStyle *style;
+
   char **pixmap_data;
   int i;
 
@@ -334,7 +342,7 @@ create_tools(GtkWidget *parent)
 
 #ifdef USE_WRAPBOX
     gtk_wrap_box_pack(GTK_WRAP_BOX(parent), button,
-		      TRUE, TRUE, FALSE, TRUE);
+		      FALSE, TRUE, FALSE, TRUE);
 #else
     gtk_table_attach (GTK_TABLE (table), button,
 		      (i % COLUMNS), (i % COLUMNS) + 1,
@@ -378,7 +386,9 @@ create_tools(GtkWidget *parent)
     gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
 			GTK_SIGNAL_FUNC (tool_button_press),
 			&tool_data[i].callback_data);
-    
+
+    tool_data[i].callback_data.widget = button;
+
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(tool_data[i].tool_desc), NULL);
     

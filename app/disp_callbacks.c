@@ -106,11 +106,10 @@ create_object_menu(DiaMenu *dia_menu)
 }
 
 static void
-popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
+popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 {
   Diagram *diagram;
   Object *obj;
-  Point clickedpoint;
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
   GtkWidget *menu_item;
@@ -133,17 +132,13 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   
   obj = (Object *)g_list_first(selected_list)->data;
   
-  ddisplay_untransform_coords(ddisp,
-			      (int)bevent->x, (int)bevent->y,
-			      &clickedpoint.x, &clickedpoint.y);
-
   /* Possibly react differently at a handle? */
 
   /* Get its menu */
   if (obj->ops->get_object_menu == NULL) {
     dia_menu = NULL;
   } else {
-    dia_menu = (obj->ops->get_object_menu)(obj, &clickedpoint);
+    dia_menu = (obj->ops->get_object_menu)(obj, &object_menu_clicked_point);
   }
 
   if (dia_menu != NULL) {
@@ -169,7 +164,6 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
     menu = GTK_MENU(no_menu);
   }
   
-  object_menu_clicked_point = clickedpoint;
   popup_shell = ddisp->shell;
   gtk_menu_popup(menu, NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 }
@@ -263,6 +257,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
       bevent = (GdkEventButton *) event;
       state = bevent->state;
 
+      ddisplay_untransform_coords(ddisp,
+                                  (int)bevent->x, (int)bevent->y,
+                                  &object_menu_clicked_point.x,
+                                  &object_menu_clicked_point.y);
+
       switch (bevent->button)
 	{
 	case 1:
@@ -270,7 +269,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  break;
 
 	case 2:
-	  popup_object_menu(bevent, ddisp);
+	  popup_object_menu(ddisp, bevent);
 	  break;
 
 	case 3:

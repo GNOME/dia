@@ -24,11 +24,13 @@
 #endif
 #include "intl.h"
 #include "menus.h"
+#include "tool.h"
 #include "commands.h"
 #include "message.h"
-/*#include "interface.h"*/
+#include "interface.h"
 #include "display.h"
 #include "filedlg.h"
+#include "select.h"
 
 #if GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
@@ -120,6 +122,21 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_END
 };
 
+static GnomeUIInfo selectmenu[] = {
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("All"), NULL, select_all_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("None"), NULL, select_none_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Invert"), NULL, select_invert_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Connected"), NULL, select_connected_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Same Type"), NULL, select_same_type_callback, 0),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_TOGGLEITEM(N_("Replace"), NULL, select_style_callback, 0),
+  GNOMEUIINFO_TOGGLEITEM(N_("Union"), NULL, select_style_callback, 1),
+  GNOMEUIINFO_TOGGLEITEM(N_("Intersect"), NULL, select_style_callback, 2),
+  GNOMEUIINFO_TOGGLEITEM(N_("Remove"), NULL, select_style_callback, 3),
+  GNOMEUIINFO_TOGGLEITEM(N_("Invert"), NULL, select_style_callback, 4),
+  GNOMEUIINFO_END
+};
+
 static GnomeUIInfo objects_align_h[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
@@ -150,6 +167,22 @@ static GnomeUIInfo objectsmenu[] = {
   GNOMEUIINFO_END
 };
 
+static GnomeUIInfo toolsmenu[] = {
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Modify"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Magnify"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Scroll"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Text"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Box"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Ellipse"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Line"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Arc"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Zigzagline"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Polyline"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bezierline"), NULL, NULL, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Image"), NULL, NULL, 0),
+  GNOMEUIINFO_END
+};
+
 static GnomeUIInfo dialogsmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("_Properties"), NULL, dialogs_properties_callback),
   GNOMEUIINFO_ITEM_NONE(N_("_Layers"), NULL, dialogs_layers_callback),
@@ -171,7 +204,9 @@ static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_MENU_FILE_TREE(filemenu),
   GNOMEUIINFO_MENU_EDIT_TREE(editmenu),
   GNOMEUIINFO_MENU_VIEW_TREE(viewmenu),
+  GNOMEUIINFO_SUBTREE(N_("Select"), selectmenu),
   GNOMEUIINFO_SUBTREE(N_("Objects"), objectsmenu),
+  GNOMEUIINFO_SUBTREE(N_("Tools"), toolsmenu),
   GNOMEUIINFO_SUBTREE(N_("Dialogs"), dialogsmenu),
   GNOMEUIINFO_END
 };
@@ -242,6 +277,17 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/sep1"),              NULL,         NULL,                       0, "<Separator>"},
   {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
   {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
+  {N_("/Select/All"), NULL, select_all_callback, 0},
+  {N_("/Select/None"), NULL, select_none_callback, 0},
+  {N_("/Select/Invert"), NULL, select_invert_callback, 0},
+  {N_("/Select/Connected"), NULL, select_connected_callback, 0},
+  {N_("/Select/Same Type"), NULL, select_same_type_callback, 0},
+  {N_("/Select/sep1"),           NULL,         NULL,                       0, "<Separator>"},
+  {N_("/Select/Replace"), NULL, select_style_callback, 0, "<CheckItem>"},
+  {N_("/Select/Union"), NULL, select_style_callback, 1, "<CheckItem>"},
+  {N_("/Select/Intersect"), NULL, select_style_callback, 2, "<CheckItem>"},
+  {N_("/Select/Remove"), NULL, select_style_callback, 3, "<CheckItem>"},
+  {N_("/Select/Invert"), NULL, select_style_callback, 4, "<CheckItem>"},
   {N_("/_Objects"),               NULL,         NULL,                       0, "<Branch>"},
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" }, */
   {N_("/Objects/Send to _Back"),  "<control>B", objects_place_under_callback,0},
@@ -263,6 +309,19 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    4},
   {N_("/Objects/Align Vertical/Adjacent"),   NULL, objects_align_v_callback,    5},
 
+  {N_("/Tools/Modify"), NULL, NULL, 0},
+  {N_("/Tools/Magnify"), NULL, NULL, 0},
+  {N_("/Tools/Scroll"), NULL, NULL, 0},
+  {N_("/Tools/Text"), NULL, NULL, 0},
+  {N_("/Tools/Box"), NULL, NULL, 0},
+  {N_("/Tools/Ellipse"), NULL, NULL, 0},
+  {N_("/Tools/Line"), NULL, NULL, 0},
+  {N_("/Tools/Arc"), NULL, NULL, 0},
+  {N_("/Tools/Zigzagline"), NULL, NULL, 0},
+  {N_("/Tools/Polyline"), NULL, NULL, 0},
+  {N_("/Tools/Bezierline"), NULL, NULL, 0},
+  {N_("/Tools/Image"), NULL, NULL, 0},
+
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
   {N_("/_Dialogs"),               NULL,         NULL,                       0, "<Branch>"},
   {N_("/Dialogs/_Properties"),    NULL,         dialogs_properties_callback,0},
@@ -279,6 +338,17 @@ static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
 static GtkAccelGroup *display_accel_group = NULL;
 
+static void
+tool_menu_select(GtkWidget *w, gpointer   data) {
+  ToolButtonData *tooldata = (ToolButtonData *) data;
+
+  if (tooldata == NULL) {
+    g_warning(_("NULL tooldata in tool_menu_select"));
+    return;
+  }
+
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tooldata->widget),TRUE);
+}
 
 #ifdef GNOME
 void
@@ -291,7 +361,31 @@ gnome_toolbox_menus_create(GtkWidget* app)
 GtkWidget *
 gnome_display_menus_create()
 {
-  return gnome_popup_menu_new(display_menu);
+  GtkWidget *new_menu;
+  GtkMenuItem *menuitem;
+  GString *path;
+  char *display = "<Display>";
+  int i;
+
+  new_menu = gnome_popup_menu_new(display_menu);
+
+  path = g_string_new ("<Display>");
+
+  /* There may be a slightly faster way to do this */
+
+  for (i = 0; i < num_tools; i++) {
+    g_string_append (g_string_assign(path, display),_("/Tools/"));
+    g_string_append (path, tool_data[i].menuitem_name);
+    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
+
+    if (menuitem != NULL) {
+      gtk_signal_connect (GTK_OBJECT(menuitem), "activate",
+                          GTK_SIGNAL_FUNC (tool_menu_select),
+                          &tool_data[i].callback_data);
+    }    
+  }
+
+  return new_menu;
 }
 #endif
 
@@ -353,11 +447,17 @@ menus_get_toolbox_menubar (GtkWidget **menubar,
 
   *menubar = gtk_item_factory_get_widget (toolbox_item_factory, "<Toolbox>");
 }
+
 void
 menus_get_image_menu (GtkWidget **menu,
 		      GtkAccelGroup **accel_group)
 {
+  GtkWidget *new_menu;
+  GtkMenuItem *menuitem;
+  GString *path;
+  char *display = "<Display>";
   GtkItemFactoryEntry *translated_entries;
+  int i;
 
   if (display_item_factory == NULL) {
     display_accel_group = gtk_accel_group_new ();
@@ -373,6 +473,22 @@ menus_get_image_menu (GtkWidget **menu,
   
   *accel_group = display_accel_group;
   *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
+
+  path = g_string_new ("<Display>");
+
+  /* There may be a slightly faster way to do this */
+
+  for (i = 0; i < num_tools; i++) {
+    g_string_append (g_string_assign(path, display),_("/Tools/"));
+    g_string_append (path, tool_data[i].menuitem_name);
+    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
+
+    if (menuitem != NULL) {
+      gtk_signal_connect (GTK_OBJECT(menuitem), "activate",
+                          GTK_SIGNAL_FUNC (tool_menu_select),
+                          &tool_data[i].callback_data);
+    }    
+  }
 }
 #endif /* !GNOME */
 
