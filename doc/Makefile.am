@@ -1,5 +1,5 @@
 
-SUBDIRS = en
+SUBDIRS = en pl
 
 EXTRA_DIST = \
 	custom-shapes \

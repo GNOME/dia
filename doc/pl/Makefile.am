@@ -1,0 +1,66 @@
+
+if HAVE_GNOME
+helpdir = $(datadir)/gnome/help/dia/pl
+else
+helpdir = $(pkgdatadir)/help/pl
+endif
+
+help_DATA = topic.dat
+
+SGML_FILES = \
+	dia-manual.sgml \
+	authors.sgml \
+	intro.sgml \
+	license.sgml \
+	usage-canvas.sgml \
+	usage-customization.sgml \
+	usage-layers.sgml \
+	usage-loadsave.sgml \
+	usage-objects-selecting.sgml \
+	usage-objects-special.sgml \
+	usage-objects.sgml \
+	usage-quickstart.sgml
+
+#	usage-objects-basic.sgml
+
+GRAPHICS =
+#	graphics/greendots.png \
+#	graphics/home_network.png \
+#	graphics/line_props.png
+
+EXTRA_DIST = \
+	topic.dat \
+	$(GRAPHICS) \
+	$(SGML_FILES)
+
+if HAVE_DB2HTML
+stamp-doc: $(SGML_FILES)
+	cd $(srcdir) && $(DB2HTML) dia-manual.sgml && touch stamp-doc
+else
+stamp-doc:
+	touch stamp-doc
+endif
+
+# dist and install the html documentation ...
+dist-hook:
+	mkdir $(distdir)/dia-manual
+	-cp $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css $(distdir)/dia-manual
+	mkdir $(distdir)/dia-manual/stylesheet-images
+	-cp $(srcdir)/dia-manual/stylesheet-images/*.gif $(distdir)/dia-manual/stylesheet-images
+
+install-data-hook: stamp-doc
+	$(mkinstalldirs) $(DESTDIR)$(helpdir)
+	for file in $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css; do\
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/`basename $$file`; \
+	done
+	$(mkinstalldirs) $(DESTDIR)$(helpdir)/stylesheet-images
+	for file in $(srcdir)/dia-manual/stylesheet-images/*.gif; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file`; \
+	done
+	$(mkinstalldirs) $(DESTDIR)$(helpdir)/graphics
+	cd $(srcdir) && for file in $(GRAPHICS); do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/graphics; \
+	done
+
+uninstall-local:
+	rm -rf $(DESTDIR)$(helpdir)

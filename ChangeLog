@@ -1,3 +1,14 @@
+2002-05-29  Zbigniew Chyla  <cyba@gnome.pl>
+
+	* configure.in, doc/Makefile.am, doc/pl/Makefile.am,
+	doc/pl/authors.sgml, doc/pl/dia-manual.sgml, doc/pl/dia-pl.omf,
+	doc/pl/intro.sgml, doc/pl/license.sgml, doc/pl/topic.dat
+	doc/pl/usage-canvas.sgml, doc/pl/usage-customization.sgml,
+	doc/pl/usage-layers.sgml, doc/pl/usage-loadsave.sgml
+	doc/pl/usage-objects-selecting.sgml, doc/pl/usage-objects-special.sgml,
+	doc/pl/usage-objects.sgml, doc/pl/usage-quickstart.sgml:
+	Added Polish documentation.
+
 2002-05-27  Cyrille Cheeplov  <cyrille@chepelov.org>
 
 	* objects/UML/state.c: there was a (gratuitous?) change of on-XML

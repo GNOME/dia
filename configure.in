@@ -476,6 +476,7 @@ plug-ins/xfig/Makefile
 plug-ins/python/Makefile
 doc/Makefile
 doc/en/Makefile
+doc/pl/Makefile
 )
 
 echo "
