@@ -3,8 +3,10 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Circuit</name>
   <name xml:lang="de">Schaltkreis</name>
+  <name xml:lang="nn">Kretsdiagram</name>
   <name xml:lang="no">Kretsdiagram</name>
   <name xml:lang="fr">Circuits</name>
+  <description xml:lang="nn">Komponentar for kretsdiagram</description>
   <description xml:lang="no">Komponenter for kretsdiagrammer</description>
   <description xml:lang="fr">Composants de circuits</description>
   <description xml:lang="de">Komponenten für Schaltkreise</description>
@@ -13,6 +15,7 @@
   <contents>
     <object name="Circuit - Vertical Resistor">
       <description xml:lang="da">En lodret placeret modstand</description>
+      <description xml:lang="nn">Ein loddrett plassert motstand</description>
       <description xml:lang="no">En vertikalt plassert motstand</description>
       <description xml:lang="fr">Une résistance alignée verticalement</description>
       <description xml:lang="de">Ein vertikal angeordneter Widerstand</description>
@@ -21,14 +24,16 @@
     </object>
     <object name="Circuit - Horizontal Inductor">
       <description xml:lang="da">En vandret placeret spole</description>
-      <description xml:lang="no">En horisontalt plassert induktor</description>
+      <description xml:lang="nn">Ein vassrett plassert spole</description>
+      <description xml:lang="no">En horisontalt plassert spole</description>
       <description xml:lang="fr">Une inductance alignée horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordnete Spule</description>
       <description xml:lang="nl">Een horizontaal gealigneerde spoel</description>
       <description>A Horizontally aligned inductor</description>
     </object>
     <object name="Circuit - Vertical Inductor">
-      <description xml:lang="da">En vandret placeret spole</description>
+      <description xml:lang="da">En loddret placeret spole</description>
+      <description xml:lang="nn">Ein loddrett plassert spole</description>
       <description xml:lang="no">En vertikalt plassert induktor</description>
       <description xml:lang="fr">Une inductance alignée verticalement</description>
       <description xml:lang="de">Ein vertikal angeordnete Spule</description>
@@ -37,6 +42,7 @@
     </object>
     <object name="Circuit - Horizontal Resistor">
       <description xml:lang="da">En vandret placeret modstand</description>
+      <description xml:lang="nn">Ein vassrett plassert motstand</description>
       <description xml:lang="no">En horisontalt plassert motstand</description>
       <description xml:lang="fr">Une résistance alignée horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordneter Widerstand</description>
@@ -46,6 +52,7 @@
     <br/>
     <object name="Circuit - Vertical Resistor (European)">
       <description xml:lang="da">En lodret placeret motstand (europæisk)</description>
+      <description xml:lang="nn">Ein loddrett plassert motstand (europeisk)</description>
       <description xml:lang="no">En vertikalt plassert motstand (europeisk)</description>
       <description xml:lang="fr">Une résistance alignée verticalement (européenne)</description>
       <description xml:lang="de">Ein vertikal angeordneter Widerstand (europäisch)</description>
@@ -54,7 +61,8 @@
     </object>
     <object name="Circuit - Horizontal Inductor (European)">
       <description xml:lang="da">En vandret placeret spole (europæisk)</description>
-      <description xml:lang="no">En horizontalt plassert induktor (europeisk)</description>
+      <description xml:lang="nn">Ein vassrett plassert spole (europeisk)</description>
+      <description xml:lang="no">En horisontalt plassert spole (europeisk)</description>
       <description xml:lang="fr">Une inductance alignée horizontalement (européenne)</description>
       <description xml:lang="de">Ein horizontal angeordnete Spule (europäisch)</description>
       <description xml:lang="nl">Een horizontaal gealigneerde spoel (europees)</description>
@@ -62,7 +70,8 @@
     </object>
     <object name="Circuit - Vertical Inductor (European)">
       <description xml:lang="da">En lodret placeret spole (europæisk)</description>
-      <description xml:lang="no">En vertikalt plassert induktor (europeisk)</description>
+      <description xml:lang="no">Ein loddrett plassert spole (europeisk)</description>
+      <description xml:lang="no">En vertikalt plassert spole (europeisk)</description>
       <description xml:lang="fr">Une inductance alignée verticalement (européenne)</description>
       <description xml:lang="de">Ein vertikal angeordnete Spule (europäisch)</description>
       <description xml:lang="nl">Een vertikaal gealigneerde spoel (europees)</description>
@@ -70,6 +79,7 @@
     </object>
     <object name="Circuit - Horizontal Resistor (European)">
       <description xml:lang="da">En vandret placeret motstand (europæisk)</description>
+      <description xml:lang="nn">Ein vassrett plassert motstand (europeisk)</description>
       <description xml:lang="no">En horisontalt plassert motstand (europeisk)</description>
       <description xml:lang="fr">Une résistance alignée horizontalement (europénne)</description>
       <description xml:lang="de">Ein horizontal angeordneter Widerstand (europäisch)</description>
@@ -82,6 +92,8 @@
       <description xml:lang="fr">Un condensateur aligné horizontalement</description>
       <description xml:lang="de">Ein horizontal angeordneter Kondensator</description>
       <description xml:lang="nl">Een horizontaal gealigneerde condensator</description>
+      <description xml:lang="nn">Ein vassrett plassert kondensator</description>
+      <description xml:lang="no">En horisontalt plassert kondensator</description>
       <description>A horizontally aligned capacitor</description>
     </object>
     <object name="Circuit - Vertical Capacitor">
@@ -89,11 +101,14 @@
       <description xml:lang="fr">Un condensateur aligné verticalement</description>
       <description xml:lang="de">Ein vertikal angeordneter Kondensator</description>
       <description xml:lang="nl">Een vertikaal gealigneerde condensator</description>
+      <description xml:lang="nn">Ein loddrett plassert kondensator</description>
+      <description xml:lang="no">En vertikalt plassert kondensator</description>
       <description>A vertically aligned capacitor</description>
     </object>
     <br/>
      <object name="Circuit - NPN Transistor">
       <description xml:lang="da">En bipolær NPN-transistor</description>
+      <description xml:lang="nn">Ein bipolar NPN-transistor</description>
       <description xml:lang="no">En bipolar NPN-transistor</description>
       <!--
       <description xml:lang="en@layman">Small black plastic thing</description>
@@ -105,6 +120,7 @@
     </object>
     <object name="Circuit - PNP Transistor">
       <description xml:lang="da">En bipolær PNP-transistor</description>
+      <description xml:lang="nn">Ein bipolar PNP-transistor</description>
       <description xml:lang="no">En bipolar PNP-transistor</description>
       <!--
       <description xml:lang="en@layman">Small black plastic thing</description>
@@ -117,6 +133,7 @@
     <br/>
     <object name="Circuit - Horizontal Diode">
       <description xml:lang="da">En vandret placeret diode</description>
+      <description xml:lang="nn">Ei vassrett plassert diode</description>
       <description xml:lang="no">En horisontalt plassert diode</description>
       <description xml:lang="fr">Une diode alignée horizontalement</description>
       <description xml:lang="de">Eine horizontal ausgerichtete Diode</description>
@@ -125,6 +142,7 @@
     </object>
     <object name="Circuit - Vertical Diode">
       <description xml:lang="da">En lodret placeret diode</description>
+      <description xml:lang="nn">Ei loddrett plassert diode</description>
       <description xml:lang="no">En vertikalt plassert diode</description>
       <description xml:lang="fr">Une diode alignée verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete Diode</description>
@@ -133,6 +151,7 @@
     </object>
     <object name="Circuit - Horizontal Zener Diode">
       <description xml:lang="da">En vandret placeret zener-diode</description>
+      <description xml:lang="nn">Ei vassrett plassert zener-diode</description>
       <description xml:lang="no">En horisontalt plassert zener-diode</description>
       <description xml:lang="fr">Une diode Zener alignée horizontalement</description>
       <description xml:lang="de">Eine horizontal ausgerichtete Zener-Diode</description>
@@ -141,6 +160,7 @@
     </object>
     <object name="Circuit - Vertical Zener Diode">
       <description xml:lang="da">En lodret placeret zener-diode</description>
+      <description xml:lang="nn">Ei loddrett plassert zener-diode</description>
       <description xml:lang="no">En vertikalt plassert zener-diode</description>
       <description xml:lang="fr">Une diode Zener alignée verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete Zener-Diode</description>
@@ -150,6 +170,7 @@
     <br/>
     <object name="Circuit - Ground">
       <description xml:lang="da">Jord</description>
+      <description xml:lang="nn">Eit jordingspunkt</description>
       <description xml:lang="no">Et jordingspunkt</description>
       <description xml:lang="fr">Un point de masse</description>
       <description xml:lang="de">Ein Massepunkt</description>
@@ -157,6 +178,7 @@
       <description>A ground point</description>
     </object>
     <object name="Circuit - Op Amp">
+      <description xml:lang="nn">Ein operativ forsterkar</description>
       <description xml:lang="no">En operativ forsterker</description>
       <description xml:lang="fr">Un amplificateur opérationnel</description>
       <description xml:lang="de">Ein Operationsverstärker</description>
@@ -165,6 +187,7 @@
     </object>
     <object name="Circuit - Horizontal Fuse (European)">
       <description xml:lang="da">En vandret placeret sikring</description>
+      <description xml:lang="nn">Ei vassrett plassert sikring</description>
       <description xml:lang="no">En horisontalt plassert sikring</description>
       <description xml:lang="fr">Un fusible aligné horizontalement</description>
       <description xml:lang="de">Eine horizontal ausgerichtete Sicherung</description>
@@ -173,6 +196,7 @@
     </object>
     <object name="Circuit - Vertical Fuse (European)">
       <description xml:lang="da">En lodret placeret sikring</description>
+      <description xml:lang="nn">Ei loddrett plassert sikring</description>
       <description xml:lang="no">En vertikalt plassert sikring</description>
       <description xml:lang="fr">Un fusible aligné verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete Sicherung</description>
@@ -182,6 +206,7 @@
 
     <object name="Circuit - Horizontal Powersource (European)">
       <description xml:lang="da">En vandret placeret strømkilde</description>
+      <description xml:lang="nn">Ei vassrett plassert strømkilde</description>
       <description xml:lang="no">En horisontalt plassert strømkilde</description>
       <description xml:lang="fr">Une source de tension alignée horizontalement</description>
       <description xml:lang="de">Eine horizontal ausgerichtete Stromquelle</description>
@@ -190,6 +215,7 @@
     </object>
     <object name="Circuit - Vertical Powersource (European)">
       <description xml:lang="da">En lodret placeret strømkilde</description>
+      <description xml:lang="nn">Ei loddrett plassert strømkilde</description>
       <description xml:lang="no">En vertikalt plassert strømkilde</description>
       <description xml:lang="fr">Une source de tension alignée verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete Stromquelle</description>
@@ -198,6 +224,7 @@
     </object>
     <object name="Circuit - Lamp (European)">
       <description xml:lang="da">En lampe</description>
+      <description xml:lang="nn">Ei lampe</description>
       <description xml:lang="no">En lampe</description>
       <description xml:lang="fr">Une lampe</description>
       <description xml:lang="de">Eine Lampe</description>
@@ -206,6 +233,7 @@
     </object>
     <object name="Circuit - Speaker (European)">
       <description xml:lang="da">En højtaler</description>
+      <description xml:lang="nn">Ein høgtalar</description>
       <description xml:lang="no">En høyttaler</description>
       <description xml:lang="fr">Un haut-parleur</description>
       <description xml:lang="de">Ein Lautsprecher</description>
@@ -215,6 +243,7 @@
     <br/>
     <object name="Circuit - Horizontal Led (European)">
       <description xml:lang="da">En vandret placeret LED</description>
+      <description xml:lang="nn">Ei vassrett plassert LED</description>
       <description xml:lang="no">En horisontalt plassert LED</description>
       <description xml:lang="fr">Une diode électro-luminescente (LED) alignée horizontalement</description>
       <description xml:lang="de">Eine horizontal ausgerichtete LED</description>
@@ -223,6 +252,7 @@
     </object>
     <object name="Circuit - Vertical Led (European)">
       <description xml:lang="da">En lodret placeret LED</description>
+      <description xml:lang="nn">Ei loddrett plassert LED</description>
       <description xml:lang="no">En vertikalt plassert LED</description>
       <description xml:lang="fr">Une diode électro-luminescente (LED) alignée verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete LED</description>
@@ -232,6 +262,7 @@
     <br/>
     <object name="Circuit - NMOS Transistor (European)">
       <description xml:lang="da">En NMOS-transistor</description>
+      <description xml:lang="nn">Ein NMOS-transistor</description>
       <description xml:lang="no">En NMOS-transistor</description>
       <description xml:lang="fr">Un transistor NMOS</description>
       <description xml:lang="de">Ein NMOS Transistor</description>
@@ -240,6 +271,7 @@
     </object>
     <object name="Circuit - PMOS Transistor (European)">
       <description xml:lang="da">En PMOS-transistor</description>
+      <description xml:lang="nn">Ein PMOS-transistor</description>
       <description xml:lang="no">En PMOS-transistor</description>
       <description xml:lang="fr">Un transistor PMOS</description>
       <description xml:lang="de">Ein PMOS Transistor</description>
@@ -248,6 +280,7 @@
     </object>
     <object name="Circuit - Horizontal Jumper">
       <description xml:lang="da">En vandret jumper</description>
+      <description xml:lang="nn">Ein vassrett jumper</description>
       <description xml:lang="no">En horisontal jumper</description>
       <description xml:lang="fr">Un cavalier horizontal</description>
       <description xml:lang="de">Ein horizontal ausgerichteter Jumper</description>

@@ -1,3 +1,8 @@
+2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* sheets/*.sheet: Added some Norwegian translations (both nynorsk
+	and bokmål).
+	
 2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/proplist.c (prop_list_from_descs): added a call to

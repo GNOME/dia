@@ -4,6 +4,8 @@
   <name>ER</name>
   <name xml:lang="fr">ER</name>
   <name xml:lang="nl">ER</name>
+  <name xml:lang="nn">ER</name>
+  <name xml:lang="no">ER</name>
   <description xml:lang="da">Objekter til enheds-relations-diagrammer</description>
   <description xml:lang="no">Editor for enhetsrelasjonsdiagrammer</description>
   <description xml:lang="fr">Editeur de diagrammes Entités-Relations</description>

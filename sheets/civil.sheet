@@ -6,6 +6,8 @@
   <description>Civil Engineering Components</description>
   <description xml:lang="da">Symboler for civilingenører</description>
   <description xml:lang="de">Symbole aus dem
+  <description xml:lang="nn">Symbol for sivilingeniører</description>
+  <description xml:lang="no">Symboler for sivilingeniører</description>
   Bauingenieurwesen</description>
   <description xml:lang="fr">Symboles utilisés en Génie Civil</description>
 
@@ -35,6 +37,8 @@
       <description xml:lang="da">Referencelinie</description>
       <description xml:lang="de">Bezugslinie</description>
       <description xml:lang="fr">Ligne de référence</description>
+      <description xml:lang="nn">Referanselinje</description>
+      <description xml:lang="no">Referanselinje</description>
     </object>
 
     <object name="Civil - Water Level">
@@ -42,6 +46,8 @@
       <description xml:lang="da">Vandspejl</description>
       <description xml:lang="de">Wasserspiegel</description>
       <description xml:lang="fr">Niveau d'eau</description>
+      <description xml:lang="nn">Vannspeil</description>
+      <description xml:lang="no">Vannspeil</description>
     </object>
 
     <object name="Civil - Soil">
@@ -49,6 +55,8 @@
       <description xml:lang="da">Jord</description>
       <description xml:lang="de">Boden</description>
       <description xml:lang="fr">Sol</description>
+      <description xml:lang="nn">Jord</description>
+      <description xml:lang="no">Jord</description>
     </object>
 
     <object name="Civil - Right Arrow">
@@ -57,6 +65,8 @@
       <description xml:lang="de">Ein horizontal ausgerichteter
       Pfeil</description>
       <description xml:lang="fr">Une flèche horizontale</description>
+      <description xml:lang="nn">Ei vassrett plassert pil</description>
+      <description xml:lang="no">En horisontalt plassert pil</description>
     </object>
 
     <object name="Civil - Up Arrow">
@@ -65,6 +75,8 @@
       <description xml:lang="de">Ein vertikal ausgerichteter
       Pfeil</description>
       <description xml:lang="fr">Une flèche verticale</description>
+      <description xml:lang="nn">Ei loddrett plassert pil</description>
+      <description xml:lang="no">En vertikalt plassert pil</description>
     </object>
 
     <object name="Civil - Horizontal Limiting Line">
@@ -72,6 +84,8 @@
       <description xml:lang="da">En vandret begrænsningslinie</description>
       <description xml:lang="de">Eine horizontale Begenzungslinie</description>
       <description xml:lang="fr">Une ligne de séparation horizontale</description>
+      <description xml:lang="nn">Ei vassrett delelinje</description>
+      <description xml:lang="no">En horisontal skillelinje</description>
     </object>
 
     <object name="Civil - Vertical Limiting Line">
@@ -79,6 +93,8 @@
       <description xml:lang="da">En lodret begrænsningslinie</description>
       <description xml:lang="de">Eine vertikale Begrenzungslinie</description>
       <description xml:lang="fr">Une ligne de séparation verticale</description>
+      <description xml:lang="nn">Ei loddrett delelinje</description>
+      <description xml:lang="no">En vertikal skillelinje</description>
     </object>
 
     <object name="Civil - Horizontal Pump">
@@ -87,6 +103,8 @@
       Pumpe</description>
       <description xml:lang="da">En vandret placeret pumpe</description>
       <description xml:lang="fr">Une pompe orientée horizontalement</description>
+      <description xml:lang="nn">Ei vassrett plassert pumpe</description>
+      <description xml:lang="no">En horisontalt plassert pumpe</description>
     </object>
 
     <object name="Civil - Vertical Pump">
@@ -95,6 +113,8 @@
       Pumpe</description>
       <description xml:lang="da">En lodret placeret pumpe</description>
       <description xml:lang="fr">Une pompe orientée verticalement</description>
+      <description xml:lang="nn">Ei loddrett plassert pumpe</description>
+      <description xml:lang="no">En vertikalt plassert pumpe</description>
     </object>
 
     <object name="Civil - Horizontal Compressor">
@@ -103,6 +123,8 @@
       Verdichter</description>
       <description xml:lang="da">En vandret placeret kompressor</description>
       <description xml:lang="fr">Un compresseur orienté horizontalement</description>
+      <description xml:lang="nn">Ein vassrett plassert kompressor</description>
+      <description xml:lang="da">En horisontalt plassert kompressor</description>
     </object>
 
     <object name="Civil - Vertical Compressor">
@@ -111,6 +133,8 @@
       Verdichter</description>
       <description xml:lang="da">En lodret placeret kompressor</description>
       <description xml:lang="fr">Un compresseur orienté verticalement</description>
+      <description xml:lang="nn">Ein loddrett plassert kompressor</description>
+      <description xml:lang="no">En vertikalt plassert kompressor</description>
     </object>
 
     <object name="Flowchart - Collate">
@@ -120,6 +144,8 @@
       Schieber</description>
       <description xml:lang="da">En lodret placeret ventil</description>
       <description xml:lang="fr">Une vanne orientée verticalement</description>
+      <description xml:lang="nn">Ein loddrett plassert ventil</description>
+      <description xml:lang="da">En vertikalt plassert ventil</description>
     </object>
 
     <object name="Civil - Horizontal Valve">
@@ -128,6 +154,8 @@
       Schieber</description>
       <description xml:lang="da">En vandret placeret ventil</description>
       <description xml:lang="fr">Une vanne orientée horizontalement</description>
+      <description xml:lang="nn">Ein vassrett plassert ventil</description>
+      <description xml:lang="no">En horisontalt plassert ventil</description>
     </object>
 
     <object name="Civil - Backflow Preventer">
@@ -135,6 +163,8 @@
       <description xml:lang="de">Eine
       Rückschlagklappe</description>
       <description xml:lang="fr">Un clapet anti-retour</description>
+      <description xml:lang="nn">Ein stoppeventil</description>
+      <description xml:lang="no">En stoppeventil</description>
     </object>
 
     <object name="Civil - Motor">
@@ -142,6 +172,8 @@
       <description xml:lang="da">En motor</description>
       <description xml:lang="de">Ein Motor</description>
       <description xml:lang="fr">Un moteur</description>
+      <description xml:lang="nn">Ein motor</description>
+      <description xml:lang="no">En motor</description>
     </object>
 
     <object name="Civil - Gas Bottle">
@@ -149,12 +181,16 @@
       <description xml:lang="da">En gasflaske</description>
       <description xml:lang="de">Eine Gasflasche</description>
       <description xml:lang="fr">Une bombonne de gaz</description>
+      <description xml:lang="nn">Ei gassflaske</description>
+      <description xml:lang="no">En gassflaske</description>
     </object>
 
     <object name="Civil - Frequency Converter">
       <description>A Frequency Converter</description>
       <description xml:lang="de">Ein Frequenzumwandler</description>
       <description xml:lang="fr">Un convertisseur de fréquence</description>
+      <description xml:lang="nn">Ein frekvensomformar</description>
+      <description xml:lang="no">En frekvensomformer</description>
     </object>
 
     <object name="Civil - Vertical Propeller">
@@ -163,6 +199,8 @@
       Rührwerk</description>
       <description xml:lang="da">En lodret placeret propel</description>
       <description xml:lang="fr">Une hélice orientée verticalement</description>
+      <description xml:lang="nn">Ein loddrett plassert propell</description>
+      <description xml:lang="no">En vertikalt plassert propell</description>
     </object>
 
     <object name="Civil - Aerator">
@@ -177,6 +215,8 @@
       <description xml:lang="da">En rotor</description>
       <description xml:lang="de">Ein Rotor</description>
       <description xml:lang="fr">Un rotor</description>
+      <description xml:lang="nn">Ein rotor</description>
+      <description xml:lang="no">En rotor</description>
     </object>
 
     <object name="Civil - Final-Settling Basin">
@@ -196,6 +236,8 @@
       <description xml:lang="da">Et bassin</description>
       <description xml:lang="de">Ein Becken</description>
       <description xml:lang="fr">Un bassin</description>
+      <description xml:lang="nn">Eit basseng</description>
+      <description xml:lang="no">Et basseng</description>
     </object>
 
     <object name="Civil - Container">
@@ -203,6 +245,8 @@
       <description xml:lang="da">En beholder</description>
       <description xml:lang="de">Ein Behälter</description>
       <description xml:lang="fr">Une cuve</description>
+      <description xml:lang="nn">Ein beholdar</description>
+      <description xml:lang="no">En beholder</description>
     </object>
   </contents>
 </sheet>

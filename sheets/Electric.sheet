@@ -6,22 +6,29 @@
   <name xml:lang="hu">Elektromos áramkörök</name>
   <name xml:lang="fr">Electricité</name>
   <name xml:lang="nl">Electriciteit</name>
+  <name xml:lang="no">Elektrisk</name>
   <description xml:lang="fr">Composants de circuits électriques</description>
   <description xml:lang="de">Komponenten für Stromkreise</description>
   <description xml:lang="hu">Elektomos áramköri elemek</description>
   <description xml:lang="nl">Objekten voor het ontwerp van stroomkringen</description>
+  <description xml:lang="nn">Objekt for elektriske kretsar</description>
+  <description xml:lang="no">Objekter for elektriske kretser</description>
   <description>Components for electric circuits</description>
   <contents>
     <object name="Electric - contact_o">
       <description xml:lang="fr">Un contact normalement ouvert</description>
       <description xml:lang="de">Ein normalerweise offener Kontakt</description>
       <description xml:lang="nl">Een normalerwijs open contact</description>
+      <description xml:lang="nn">Ein normalt open kontakt</description>
+      <description xml:lang="no">En normalt åpen kontakt</description>
       <description>A normally open contact</description>
     </object>
     <object name="Electric - contact_f">
       <description xml:lang="fr">Un contact normalement fermé</description>
       <description xml:lang="de">Ein normalerweise geschlossener Kontakt</description>
       <description xml:lang="nl">Een normalerwijs gesloten contact</description>
+      <description xml:lang="nn">Ein normalt lukka kontakt</description>
+      <description xml:lang="no">En normalt lukket kontakt</description>
       <description>A normally closed contact</description>
     </object>
     <object name="Electric - intpos_o">
@@ -47,6 +54,8 @@
       <description xml:lang="fr">Un relais</description>
       <description xml:lang="de">Ein Relais</description>
       <description xml:lang="nl">Een relais</description>
+      <description xml:lang="nn">Eit relé</description>
+      <descriotion xml:lang="no">Et relé</description>
       <description>A relay</description>
     </object>
     <object name="Electric - lamp">
