@@ -431,10 +431,14 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   height = box->text->height * box->text->numlines + box->padding*2 +
     box->border_width;
 
-  if (width > elem->width)
-    elem->width = width;
-  if (height > elem->height)
-    elem->height = height;
+  /*
+   *  If elem->width (e.g. the new requested dimensions of this object
+   *  from move_handle()) is smaller than the minimum width (i.e. the
+   *  width calculated from text-width, padding and border), then
+   *  set the width to the minimum.  Else, keep the width.
+   */
+  if (width > elem->width) elem->width = width;
+  if (height > elem->height) elem->height = height;
 
   /* move shape if necessary ... */
   switch (horiz) {
