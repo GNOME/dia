@@ -1,5 +1,11 @@
 2004-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* Makefile.am: Make distcheck not complain about scrollkeeper
+	problems (as per advice from James Henstridge).
+
+	* doc/pl/*.{xml,sgml}: Converted SGML manuals to XML to get better
+	standard installation.
+
 	* objects/standard/ellipse.c: Better strings for object menu.
 
 	* app/sheets_dialog_callbacks.c: Fixed crashes from broken caching
