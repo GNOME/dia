@@ -2,7 +2,7 @@
 type=exe
 repo_id=IDL:Bonobo/EmbeddableFactory:1.0 IDL:Bonobo/GenericFactory:1.0
 description=dia embeddable factory
-location_info=dia_embedd
+location_info=dia-embedd
 
 [embeddable:dia-diagram]
 type=factory

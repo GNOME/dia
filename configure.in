@@ -40,32 +40,39 @@ AC_ARG_ENABLE(gnome,
     GNOME=no)
 AC_ARG_ENABLE(gnome-print,
 [  --enable-gnome-print    enable gnome-print support],,enable_gnome_print=no)
+AC_ARG_ENABLE(bonobo,
+[  --enable-bonobo         enable bonobo support],,enable_bonobo=no)
 AC_MSG_RESULT($GNOME)
 GNOME_CFLAGS=""
 GNOME_LIBS=""
+BONOBO_LIBS=""
 if test "$GNOME" = "yes"; then
   AC_DEFINE(GNOME)
+  components="gnomeui"
+  hcomponents=""
   if test "$enable_gnome_print" = "yes"; then
     AC_DEFINE(GNOME_PRINT)
-    GNOME_CFLAGS=`gnome-config gnomeui print --cflags`
-    GNOME_LIBS=`gnome-config gnomeui print --libs`
-  else
-    GNOME_CFLAGS=`gnome-config gnomeui --cflags`
-    GNOME_LIBS=`gnome-config gnomeui --libs`
+    components="$components print"
   fi
+  if test "$enable_bonobo" = "yes"; then
+    hcomponents="$hcomponents bonobo"
+    BONOBO_LIBS=`gnome-config bonobo $components --libs`
+  fi
+  GNOME_CFLAGS=`gnome-config $hcomponents $components --cflags`
+  GNOME_LIBS=`gnome-config $components --libs`
 fi
 AM_CONDITIONAL(HAVE_GNOME_PRINT,
 	test "$GNOME" = "yes" && test "$enable_gnome_print" = "yes")
+AM_CONDITIONAL(HAVE_BONOBO, 
+	test "$GNOME" = "yes" && test "$enable_bonobo" = "yes")
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
+AC_SUBST(BONOBO_LIBS)
 
 dnl Check if this Gnome has Bonobo
 OLDCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
 
-AC_CHECK_HEADERS(bonobo/bonobo.h)
-AM_CONDITIONAL(HAVE_BONOBO, 
-       test "$GNOME" = "yes" && test "$HAVE_BONOBO_H" = yes)
 
 CPPFLAGS=$OLDCPPFLAGS
 

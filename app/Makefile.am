@@ -1,5 +1,18 @@
 ## Process this file with automake to produce Makefile.in
 
+INCLUDES = \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/intl \
+	-I$(top_srcdir)/lib \
+	$(DEBUG_FLAGS) \
+	$(XML_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(GDK_IMLIB_CFLAGS) \
+        $(GNOME_CFLAGS) \
+	$(LIBART_CFLAGS) \
+	$(GDK_PIXBUF_CFLAGS) \
+	-DLOCALEDIR=\"$(localedir)\"
+
 if HAVE_GNOME_PRINT
 print_files = \
 	render_gnomeprint.c \
@@ -12,20 +25,21 @@ print_files = \
 	paginate_psprint.h
 endif
 
-if HAVE_BONOBO
-bonobo_files = dia_embedd.c
-else
-bonobo_files = 
-endif
-
 noinst_PROGRAMS = run_dia.sh
 run_dia_sh_SOURCES = 
 
 if HAVE_BONOBO
-bin_PROGRAMS = dia dia_embedd
+dia_embedd = dia-embedd
+dia_gnorba = dia.gnorba
 else
-bin_PROGRAMS = dia
+dia_embedd =
+dia_gnorba =
 endif
+
+bin_PROGRAMS = dia $(dia_embedd)
+
+gnorbadir = $sysconfdir)/CORBA/servers
+gnorba_DATA = $(dia_gnorba)
 
 dia_core_files = \
 	    connectionpoint_ops.h \
@@ -120,40 +134,25 @@ dia_SOURCES = \
 EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
-    $(EFENCE) \
-    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ @GDK_PIXBUF_LIBS@
+	$(EFENCE) \
+	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
+	$(GDK_IMLIB_LIBS) $(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS)
 
-# Bonobo embeddable dia. Commented out, because it's a bit raw.
-# Especially the configure/make parts.
-#dia_embedd_SOURCES = \
-#	    $(dia_core_files) \
-#	    dia_embedd.c
-#
-#dia_embedd_LDADD = ../lib/libdia.a \
-#    $(EFENCE) \
-#    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ @GDK_PIXBUF_LIBS@ \
-#    -lbonobo -lORBit -lIIOP -lORBitutil -lgnomeui -lart_lgpl  -lgnome  -lesd  -lORBitCosNaming -lgnorba
+## Bonobo embeddable dia. Commented out, because it's a bit raw.
+## Especially the configure/make parts.
 
-CPPFLAGS = \
-	-DLOCALEDIR=\"$(localedir)\"
+dia_embedd_SOURCES = \
+	    $(dia_core_files) \
+	    dia_embedd.c
 
-INCLUDES = \
-	-I$(top_srcdir) \
-	-I$(top_srcdir)/intl \
-	-I$(top_srcdir)/lib \
-	@DEBUG_FLAGS@ \
-	@XML_CFLAGS@ \
-	@GTK_CFLAGS@ \
-	@GDK_IMLIB_CFLAGS@ \
-        @GNOME_CFLAGS@ \
-	@LIBART_CFLAGS@ \
-	@GDK_PIXBUF_CFLAGS@ \
-	-I/usr/lib/gnome-libs/include
+dia_embedd_LDADD = ../lib/libdia.a \
+	$(EFENCE) \
+	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) $(GDK_IMLIB_LIBS) \
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS)
 
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
-	dia_embedd.c \
 	dia.gnorba \
 	render_gnomeprint.c \
 	render_gnomeprint.h \

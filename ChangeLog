@@ -1,5 +1,9 @@
 2000-04-11  James Henstridge  <james@daa.com.au>
 
+	* app/Makefile.am: fix makefile for bonobo build.
+
+	* configure.in: fix checks for bonobo.
+
 	* app/menus.c: added entries for the plugin manager.
 
 	* app/Makefile.am (dia_core_files): added plugin manager to files
