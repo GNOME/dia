@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-07 19:43+0100\n"
+"POT-Creation-Date: 1999-12-09 10:14+0800\n"
 "PO-Revision-Date: 1999-12-07 19:45+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -470,16 +470,34 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:177
+#: app/load_save.c:135
+#, fuzzy
+msgid ""
+"Error loading diagram.\n"
+"connection point does not exist."
+msgstr ""
+"Feil under lasting av diagrammet %s.\n"
+"Ukjent filtype."
+
+#: app/load_save.c:138
+#, fuzzy
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+"Feil under lasting av diagrammet %s.\n"
+"Ukjent filtype."
+
+#: app/load_save.c:183
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:183
+#: app/load_save.c:189
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:192 app/load_save.c:197
+#: app/load_save.c:198 app/load_save.c:203
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -488,7 +506,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:204
+#: app/load_save.c:210
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -497,7 +515,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:455 app/render_eps.c:152 app/render_svg.c:144
+#: app/load_save.c:461 app/render_eps.c:152 app/render_svg.c:144
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -1418,7 +1436,7 @@ msgstr "Multiverdi"
 #: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
 #: objects/flowchart/box.c:246 objects/flowchart/diamond.c:241
 #: objects/flowchart/ellipse.c:241 objects/flowchart/parallelogram.c:249
-#: objects/standard/box.c:207 objects/standard/ellipse.c:188
+#: objects/standard/box.c:207 objects/standard/ellipse.c:204
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr "Grensebredde:"
@@ -1427,7 +1445,7 @@ msgstr "Grensebredde:"
 #: objects/ER/relationship.c:305 objects/custom/custom_object.c:286
 #: objects/flowchart/box.c:261 objects/flowchart/diamond.c:256
 #: objects/flowchart/ellipse.c:256 objects/flowchart/parallelogram.c:264
-#: objects/standard/box.c:222 objects/standard/ellipse.c:203
+#: objects/standard/box.c:222 objects/standard/ellipse.c:219
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
@@ -1436,7 +1454,7 @@ msgstr "Forgrunnsfarge:"
 #: objects/ER/relationship.c:313 objects/custom/custom_object.c:297
 #: objects/flowchart/box.c:272 objects/flowchart/diamond.c:267
 #: objects/flowchart/ellipse.c:267 objects/flowchart/parallelogram.c:275
-#: objects/standard/box.c:233 objects/standard/ellipse.c:214
+#: objects/standard/box.c:233 objects/standard/ellipse.c:230
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
 
@@ -1494,7 +1512,7 @@ msgstr "Farge:"
 #: objects/custom/custom_object.c:316 objects/flowchart/box.c:291
 #: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
 #: objects/flowchart/parallelogram.c:294 objects/standard/arc.c:230
-#: objects/standard/box.c:252 objects/standard/ellipse.c:225
+#: objects/standard/box.c:252 objects/standard/ellipse.c:249
 #: objects/standard/image.c:288 objects/standard/image.c:383
 #: objects/standard/line.c:227 objects/standard/polyline.c:232
 #: objects/standard/zigzagline.c:232
@@ -1517,6 +1535,7 @@ msgstr "Sluttpil:"
 #: objects/flowchart/ellipse.c:278 objects/flowchart/ellipse.c:418
 #: objects/flowchart/parallelogram.c:286 objects/flowchart/parallelogram.c:445
 #: objects/standard/box.c:244 objects/standard/box.c:332
+#: objects/standard/ellipse.c:241 objects/standard/ellipse.c:313
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 

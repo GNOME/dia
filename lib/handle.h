@@ -60,7 +60,9 @@ enum _HandleType {
 enum _HandleMoveReason {
   HANDLE_MOVE_USER,
   HANDLE_MOVE_USER_FINAL,
-  HANDLE_MOVE_CONNECTED
+  HANDLE_MOVE_CONNECTED,
+  HANDLE_MOVE_CREATE,       /* the initial drag during object placement */
+  HANDLE_MOVE_CREATE_FINAL  /* finish of initial drag */
 };
 
 enum _HandleConnectType {

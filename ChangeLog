@@ -1,3 +1,27 @@
+1999-12-12  James Henstridge  <james@daa.com.au>
+
+	* configure.in (GNOME_LIBS): updated version number to 0.82.  0.82
+	has not been released yet though.
+
+	* Makefile.am (EXTRA_DIST): distribute diagram.dtd.
+
+	
+	The following based on a patch from Lars Clausen:
+	
+	* objects/standard/bezier.c (bezierline_move_handle): when performing
+	the initial drag of the bezierline, move the control points to keep
+	the line straight.
+
+	* lib/bezier_conn.c (bezierconn_add_segment): when adding a segment,
+	make the new control points a bit closer to the major point.
+
+	* app/create_object.c (create_object_motion): use HANDLE_MOVE_CREATE
+	as the reason for the move.
+	(create_object_button_release): use HANDLE_MOVE_CREATE_FINAL as the
+	move reason.
+
+	* lib/handle.h: new handle move reasons.
+
 1999-12-09  James Henstridge  <james@daa.com.au>
 
 	* dia.spec: include the new files in RPMs.

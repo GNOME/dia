@@ -20,4 +20,4 @@ mime_DATA = dia.mime dia.keys
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
-	dia-diagram.png dia.mime dia.keys.in
+	dia-diagram.png dia.mime dia.keys.in diagram.dtd

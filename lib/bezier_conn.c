@@ -358,12 +358,12 @@ bezierconn_add_segment(BezierConn *bez, int segment, Point *point)
     realpoint.p3.x = (startpoint.x + bez->points[segment+1].p3.x) / 2;
     realpoint.p3.y = (startpoint.y + bez->points[segment+1].p3.y) / 2;
   } else {
-    realpoint.p2.x = point->x+(startpoint.x - bez->points[segment+1].p3.x)/3;
-    realpoint.p2.y = point->y+(startpoint.y - bez->points[segment+1].p3.y)/3;
+    realpoint.p2.x = point->x+(startpoint.x - bez->points[segment+1].p3.x)/6;
+    realpoint.p2.y = point->y+(startpoint.y - bez->points[segment+1].p3.y)/6;
     realpoint.p3 = *point;
     /* this really goes into the next segment ... */
-    realpoint.p1.x = point->x-(startpoint.x - bez->points[segment+1].p3.x)/3;
-    realpoint.p1.y = point->y-(startpoint.y - bez->points[segment+1].p3.y)/3;
+    realpoint.p1.x = point->x-(startpoint.x - bez->points[segment+1].p3.x)/6;
+    realpoint.p1.y = point->y-(startpoint.y - bez->points[segment+1].p3.y)/6;
   }
   realpoint.type = BEZ_CURVE_TO;
 

@@ -1,3 +1,19 @@
+dia-0.82:
+* Dia has a new maintainer now.
+* It is now possible to rearange the icons in the toolbox by editing
+  simple XML files.  You can also create new sheets composed of your
+  favourite shapes.  This feature is the work of Cyrille Chepov
+* New bezierline object.  This object is by Lars Clausen and me (James).
+* Better integration with the gnome file manager -- dia files now have an
+  icon, and you can double click on a file to launch dia.
+* more memory leak fixes based on purify runs by Bruce Mitchener.
+* By holding down shift when using the zoom tool, you can zoom out.  This
+  feature was from Patrick Reynolds.
+* By holding shift when using the move tool, it changes its behaviour to the
+  `grab' type scrolling as seen in acrobat, eog and other programs.
+* More circuit shapes from Andreas Scherf.
+* Other bug fixes I haven't mentioned above (see ChangeLog for details).
+
 News in version 0.81:
 * New printing dialog with "Fit to page" and landscape printing
 * New Circuit objects

@@ -416,6 +416,19 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
   assert(to!=NULL);
 
   bezierconn_move_handle(&bezierline->bez, handle, to, reason);
+
+  if (reason == HANDLE_MOVE_CREATE || reason == HANDLE_MOVE_CREATE_FINAL) {
+    BezierConn *bez = &bezierline->bez;
+    Point delta = bez->points[1].p3;
+
+    point_sub(&delta, &bez->points[0].p1);
+    point_scale(&delta, 1.0/3);
+    bez->points[1].p1 = bez->points[0].p1;
+    point_add(&bez->points[1].p1, &delta);
+    bez->points[1].p2 = bez->points[1].p1;
+    point_add(&bez->points[1].p2, &delta);
+  }
+
   bezierline_update_data(bezierline);
 }
 
