@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-08 19:00+0200\n"
-"PO-Revision-Date: 2004-08-08 23:07+0200\n"
+"POT-Creation-Date: 2004-08-10 19:01+0200\n"
+"PO-Revision-Date: 2004-08-10 23:54+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -978,8 +978,8 @@ msgid "Failed to save file '%s'.\n"
 msgstr "Selhalo uložení souboru '%s'.\n"
 
 #: app/load_save.c:1008 app/load_save.c:1013
-msgid "Native Dia Diagram"
-msgstr "Původní diagram Dia"
+msgid "Dia Diagram File"
+msgstr "Soubor diagramu Dia"
 
 #: app/menus.c:49 app/menus.c:84
 msgid "/_File"
@@ -4824,8 +4824,8 @@ msgid "Can't export png without libart!"
 msgstr "Nelze exportovat do formátu PNG bez knihovny libart!"
 
 #: plug-ins/shape/shape-export.c:497
-msgid "dia shape file"
-msgstr "soubor s tvary Dia"
+msgid "Dia Shape File"
+msgstr "Soubor s tvary Dia"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
