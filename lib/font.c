@@ -707,7 +707,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
 {
   int i;
   real width = 0.0;
-  gboolean use_kerning = FALSE;
+  gboolean use_kerning = TRUE;
   gint glyph_index, previous_index = 0, num_glyphs = 0;
   gint error;
   FreetypeString *fts;
@@ -807,7 +807,7 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
   gchar *string;
   int i, len;
   int previous_index = 0;
-  int use_kerning = FALSE;
+  int use_kerning = TRUE;
   int pen_x = x, pen_y = y;
   FT_Face face = fts->face;
 
@@ -839,6 +839,8 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
       if (error) {
 	LC_DEBUG (fprintf(stderr, "FT_Get_Kerning error %d\n", error));
       }                                                
+
+      pen_x += delta.x >> 6;
     }
                             
     // store current pen position
@@ -863,6 +865,9 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     // increment pen position 
     pen_x += face->glyph->advance.x >> 6;
     pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
+
+    // record current glyph index for kerning
+    previous_index = glyph_index;
   }
   gdk_gc_set_function(gc, GDK_COPY);
 }
