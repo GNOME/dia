@@ -1,5 +1,7 @@
 2002-05-18  Steffen Macke <sdteffen@web.de>
 
+	* app/app_procs.c: #ifdef'd xmlerror.h (comes with 
+	libxml2)
 	* doc/en/graphics/greendots.png:
 	* doc/en/home_network.png:
 	* doc/en/line_props.png: 

@@ -52,7 +52,9 @@
 #endif
 
 #include <parser.h>
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
 #include <xmlerror.h>
+#endif
 
 #ifdef G_OS_WIN32
 #include <direct.h>
