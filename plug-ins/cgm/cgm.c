@@ -83,9 +83,9 @@ write_colour(FILE *fp, Color *c)
 static void
 write_real(FILE *fp, double x)
 {
-guint32  n;
+    guint32  n;
 
-    if ( n < 0 )
+    if ( x < 0 )
     {
         gint32   wholepart;
         guint16  fraction;

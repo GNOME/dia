@@ -1,3 +1,23 @@
+2000-07-25  James Henstridge  <james@daa.com.au>
+
+	* app/dia.oafinfo: oafinfo file for dia embeddables.
+
+	* app/dia_embedd.c: add OAF support.
+
+2000-07-24  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/wpg/Makefile.am: 
+	* plug-ins/pstricks/Makefile.am: 
+	* plug-ins/hpgl/Makefile.am: 
+	* plug-ins/dxf/Makefile.am: same here.
+
+	* plug-ins/cgm/Makefile.am: remove LIBADD.  Dia already links with
+	the required libraries, and the link line was causing libtool not
+	to build a shared library on some systems :(
+
+	* plug-ins/cgm/cgm.c (write_real): the initial if statement should
+	be checking x, not n.
+
 2000-07-23  James Henstridge  <james@daa.com.au>
 
 	* app/preferences.c (prefs_data): set the "reset tools after

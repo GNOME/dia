@@ -66,6 +66,15 @@ if test "$GNOME" = "yes"; then
   if test "$enable_bonobo" = "yes"; then
     hcomponents="$hcomponents bonobo"
     BONOBO_LIBS=`gnome-config bonobo $components --libs`
+
+    AC_MSG_CHECKING(if bonobo uses oaf)
+    using_oaf="no"
+    if ( gnome-config --libs bonobo | grep oaf ) > /dev/null 2>&1 ; then
+      using_oaf="yes"
+      AC_DEFINE(USE_OAF)
+    fi
+    AC_MSG_RESULT($using_oaf)
+    AM_CONDITIONAL(USING_OAF, test x"$using_oaf" = xyes)
   fi
   GNOME_CFLAGS=`gnome-config $hcomponents $components --cflags`
   GNOME_LIBS=`gnome-config $components --libs`

@@ -60,6 +60,9 @@
 /* define to enable XIM support */
 #undef USE_XIM
 
+/* define if bonobo uses OAF */
+#undef USE_OAF
+
 
 /* Leave that blank line there!!  Autoheader needs it.
    If you're adding to this file, keep in mind:

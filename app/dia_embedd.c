@@ -16,9 +16,18 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
 #include <gnome.h>
 #include <bonobo.h>
-#include <libgnorba/gnorba.h>
+#ifdef USE_OAF
+#  include <liboaf/liboaf.h>
+#else
+#  include <libgnorba/gnorba.h>
+#endif
+
 
 #include "display.h"
 #include "menus.h"
@@ -40,7 +49,7 @@ struct _EmbeddedView {
   DDisplay *display;
 };
 
-static BonoboEmbeddableFactory *factory = NULL;
+static BonoboGenericFactory *factory = NULL;
 static int running_objects = 0;
 
 
@@ -76,7 +85,7 @@ static void
 dia_view_display_destroy (GtkWidget *ddisp_shell, EmbeddedView *view_data)
 {
   view_data->display = NULL;
-  bonobo_object_destroy(BONOBO_OBJECT(view_data->view));
+  bonobo_object_unref(BONOBO_OBJECT(view_data->view));
 }
 
 static void
@@ -116,14 +125,14 @@ static void
 dia_view_system_exception(BonoboView *view, CORBA_Object corba_object,
 			  CORBA_Environment *ev, gpointer data)
 {
-  bonobo_object_destroy(BONOBO_OBJECT(view));
+  bonobo_object_unref(BONOBO_OBJECT(view));
 }
 
 static void
 dia_embeddable_system_exception(BonoboEmbeddable *embeddable, CORBA_Object corba_object,
 				CORBA_Environment *ev, gpointer data)
 {
-  bonobo_object_destroy(BONOBO_OBJECT(embeddable));
+  bonobo_object_unref(BONOBO_OBJECT(embeddable));
 }
 
 static BonoboView *
@@ -202,7 +211,7 @@ view_factory (BonoboEmbeddable *embeddable,
 }
 
 static BonoboObject *
-embeddable_factory (BonoboEmbeddableFactory *this,
+embeddable_factory (BonoboGenericFactory *this,
 		    void *data)
 {
   BonoboEmbeddable *embeddable;
@@ -236,11 +245,16 @@ embeddable_factory (BonoboEmbeddableFactory *this,
   return BONOBO_OBJECT (embeddable);
 }
 
-static BonoboEmbeddableFactory *
+static BonoboGenericFactory *
 init_dia_factory (void)
 {
-  return bonobo_embeddable_factory_new ("embeddable-factory:dia-diagram",
-					embeddable_factory, NULL);
+#ifdef USE_OAF
+  return bonobo_generic_factory_new ("OAFIID:dia-diagram-factory:31cb6c0f-e1f5-4c54-8824-8f49fd7e50e7",
+				     embeddable_factory, NULL);
+#else
+  return bonobo_generic_factory_new ("embeddable-factory:dia-diagram",
+				     embeddable_factory, NULL);
+#endif
 }
 
 static void
@@ -249,14 +263,21 @@ init_server_factory (int argc, char **argv)
   CORBA_Environment ev;
   CORBA_ORB orb;
   
+#ifdef USE_OAF  
+  gnome_init_with_popt_table("bonobo-dia-diagram", VERSION,
+			     argc, argv, oaf_popt_options, 0, NULL);
+  orb = oaf_init(argc, argv);
+#else
   CORBA_exception_init (&ev);
-  
+
   gnome_CORBA_init_with_popt_table ("bonobo-dia-diagram", VERSION,
 				    &argc, argv, NULL, 0, NULL, GNORBA_INIT_SERVER_FUNC, &ev);
   
   CORBA_exception_free (&ev);
   
   orb = gnome_CORBA_ORB ();
+#endif
+
   if (bonobo_init (orb, NULL, NULL) == FALSE)
     g_error (_("Could not initialize Bonobo!"));
 }
