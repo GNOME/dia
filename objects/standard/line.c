@@ -277,6 +277,11 @@ line_get_object_menu(Line *line, Point *clickedpoint)
 Point
 calculate_object_edge(Point *objmid, Point *end, Object *obj) 
 {
+#define MAXITER 25
+#ifdef TRACE_DIST
+  Point trace[MAXITER];
+  real disttrace[MAXITER];
+#endif
   Point mid1, mid2, mid3;
   real dist;
   int i = 0;
@@ -286,18 +291,36 @@ calculate_object_edge(Point *objmid, Point *end, Object *obj)
   mid2.y = (objmid->y+end->y)/2;
   mid3 = *end;
 
+  /* If the other end is inside the object */
+  dist = obj->ops->distance_from(obj, &mid3);
+  if (dist < 0.001) return mid1;
+
+
   do {
     dist = obj->ops->distance_from(obj, &mid2);
-    if (dist == 0.0) {
+    if (dist < 0.0000001) {
       mid1 = mid2;
     } else {
       mid3 = mid2;
     }
     mid2.x = (mid1.x + mid3.x)/2;
     mid2.y = (mid1.y + mid3.y)/2;
+#ifdef TRACE_DIST
+    trace[i] = mid2;
+    disttrace[i] = dist;
+#endif
     i++;
-  } while (i < 25 && (dist == 0.0 || dist > 0.001));
+  } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
   
+#ifdef TRACE_DIST
+  if (i == MAXITER) {
+    for (i = 0; i < MAXITER; i++) {
+      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
+    }
+    printf("i = %d, dist = %f\n", i, dist);
+  }
+#endif
+
   return mid2;
 }
 
@@ -308,7 +331,7 @@ calculate_gap_endpoints(Line *line, Point *gap_endpoints)
   real line_length;
 
   endpoints[0] = line->connection.endpoints[0];
-  endpoints[1] = line->connection.endpoints[0];
+  endpoints[1] = line->connection.endpoints[1];
 
   if (line->object_edge_start &&
       line->connection.endpoint_handles[0].connected_to != NULL) {

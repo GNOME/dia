@@ -1,3 +1,13 @@
+2002-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/standard/line.c: Small but important fixes to the line
+	gap code.
+
+	* lib/dia_xml.h: 
+	* lib/dia_xml.c (diaXmlNewChild): 
+	* app/load_save.c (diagram_data_write_doc, write_objects): Simple
+	XML prettyprinting wrapper.
+
 2002-12-03  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Cisco/Makefile.am:
