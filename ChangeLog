@@ -1,3 +1,8 @@
+1999-04-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/dummy_dep.h:
+	Added reference so that widgets.o gets linked to the app.
+
 1999-04-23  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/classicon.c: 

@@ -24,6 +24,7 @@
 #include "orth_conn.h"
 #include "arrows.h"
 #include "utils.h"
+#include "widgets.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
@@ -38,5 +39,6 @@ static void *dummy_dep[] = {
   new_render_store,
   new_render_object,
   nearest_pow,
-  arrow_draw
+  arrow_draw,
+  dia_font_selector_new /* widgets.o */
 };
