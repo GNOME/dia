@@ -40,13 +40,13 @@ struct PointChange {
 
   Handle *handle; /* owning ref when not applied for ADD_POINT
 		     owning ref when applied for REMOVE_POINT */
-  ConnectionPoint *connected_to; /* NULL if not connected */
+  ConnectionPoint *cp1, *cp2;
 };
 
 static ObjectChange *
 polyshape_create_change(PolyShape *poly, enum change_type type,
 		       Point *point, int segment, Handle *handle,
-		       ConnectionPoint *connected_to);
+		       ConnectionPoint *cp1, ConnectionPoint *cp2);
 
 static void setup_handle(Handle *handle)
 {
@@ -142,7 +142,8 @@ polyshape_distance_from(PolyShape *poly, Point *point, real line_width)
 }
 
 static void
-add_handle(PolyShape *poly, int pos, Point *point, Handle *handle)
+add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
+	   ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i;
   Object *obj;
@@ -155,6 +156,8 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle)
   }
   poly->points[pos] = *point;
   object_add_handle_at((Object*)poly, handle, pos);
+  object_add_connectionpoint_at((Object*)poly, cp1, 2*pos);
+  object_add_connectionpoint_at((Object*)poly, cp2, 2*pos+1);
 
   obj = (Object *)poly;
 }
@@ -165,6 +168,7 @@ remove_handle(PolyShape *poly, int pos)
   int i;
   Object *obj;
   Handle *old_handle;
+  ConnectionPoint *old_cp1, *old_cp2;
 
   obj = (Object *)poly;
 
@@ -176,7 +180,11 @@ remove_handle(PolyShape *poly, int pos)
   poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
 
   old_handle = obj->handles[pos];
+  old_cp1 = obj->connections[2*pos];
+  old_cp2 = obj->connections[2*pos+1];
   object_remove_handle(&poly->object, old_handle);
+  object_remove_connectionpoint(obj, old_cp1);
+  object_remove_connectionpoint(obj, old_cp2);
 }
 
 
@@ -187,6 +195,7 @@ polyshape_add_point(PolyShape *poly, int segment, Point *point)
 {
   Point realpoint;
   Handle *new_handle;
+  ConnectionPoint *new_cp1, *new_cp2;
 
   if (point == NULL) {
     realpoint.x = (poly->points[segment].x+poly->points[segment+1].x)/2;
@@ -195,24 +204,29 @@ polyshape_add_point(PolyShape *poly, int segment, Point *point)
     realpoint = *point;
   }
 
-  new_handle = g_malloc(sizeof(Handle));
+  new_handle = g_new(Handle, 1);
+  new_cp1 = g_new0(ConnectionPoint, 1);
+  new_cp1->object = &poly->object;
+  new_cp2 = g_new0(ConnectionPoint, 1);
+  new_cp2->object = &poly->object;
   setup_handle(new_handle);
-  add_handle(poly, segment+1, &realpoint, new_handle);
+  add_handle(poly, segment+1, &realpoint, new_handle, new_cp1, new_cp2);
   return polyshape_create_change(poly, TYPE_ADD_POINT,
 				&realpoint, segment+1, new_handle,
-				NULL);
+				new_cp1, new_cp2);
 }
 
 ObjectChange *
 polyshape_remove_point(PolyShape *poly, int pos)
 {
   Handle *old_handle;
-  ConnectionPoint *connectionpoint;
+  ConnectionPoint *old_cp1, *old_cp2;
   Point old_point;
   
   old_handle = poly->object.handles[pos];
   old_point = poly->points[pos];
-  connectionpoint = old_handle->connected_to;
+  old_cp1 = poly->object.connections[2*pos];
+  old_cp2 = poly->object.connections[2*pos+1];
   
   object_unconnect((Object *)poly, old_handle);
 
@@ -222,17 +236,27 @@ polyshape_remove_point(PolyShape *poly, int pos)
   
   return polyshape_create_change(poly, TYPE_REMOVE_POINT,
 				&old_point, pos, old_handle,
-				connectionpoint);
+				old_cp1, old_cp2);
 }
 
 void
 polyshape_update_data(PolyShape *poly)
 {
+  Point next;
   int i;
   
   /* Update handles: */
-  for (i=0;i<poly->numpoints;i++) {
+  for (i = 0; i < poly->numpoints; i++) {
     poly->object.handles[i]->pos = poly->points[i];
+
+    poly->object.connections[2*i]->pos = poly->points[i];
+    if (i == poly->numpoints - 1)
+      next = poly->points[0];
+    else
+      next = poly->points[i+1];
+    point_add(&next, &poly->points[i]);
+    point_scale(&next, 0.5);
+    poly->object.connections[2*i+1]->pos = next;
   }
 }
 
@@ -289,15 +313,15 @@ polyshape_init(PolyShape *poly)
 
   obj = &poly->object;
 
-  object_init(obj, 3, 0);
+  object_init(obj, 3, 6);
   
   poly->numpoints = 3;
 
   poly->points = g_malloc(3*sizeof(Point));
 
-  poly->object.handles[0] = g_malloc(sizeof(Handle));
-  poly->object.handles[1] = g_malloc(sizeof(Handle));
-  poly->object.handles[2] = g_malloc(sizeof(Handle));
+  poly->object.handles[0] = g_new(Handle, 1);
+  poly->object.handles[1] = g_new(Handle, 1);
+  poly->object.handles[2] = g_new(Handle, 1);
 
   obj->handles[0]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[0]->connected_to = NULL;
@@ -313,6 +337,19 @@ polyshape_init(PolyShape *poly)
   obj->handles[2]->connected_to = NULL;
   obj->handles[2]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[2]->id = HANDLE_CORNER;
+
+  poly->object.connections[0] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[1] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[2] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[3] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[4] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[5] = g_new0(ConnectionPoint, 1);
+  poly->object.connections[0]->object = &poly->object;
+  poly->object.connections[1]->object = &poly->object;
+  poly->object.connections[2]->object = &poly->object;
+  poly->object.connections[3]->object = &poly->object;
+  poly->object.connections[4]->object = &poly->object;
+  poly->object.connections[5]->object = &poly->object;
 
   polyshape_update_data(poly);
 }
@@ -330,15 +367,19 @@ polyshape_copy(PolyShape *from, PolyShape *to)
 
   to->numpoints = from->numpoints;
 
-  to->points = g_malloc((to->numpoints)*sizeof(Point));
+  to->points = g_new(Point, to->numpoints);
 
   for (i=0;i<to->numpoints;i++) {
     to->points[i] = from->points[i];
   }
 
   for (i=0;i<to->numpoints;i++) {
-    to->object.handles[i] = g_malloc(sizeof(Handle));
+    to->object.handles[i] = g_new(Handle, 1);
     setup_handle(to->object.handles[i]);
+    to->object.connections[2*i] = g_new0(ConnectionPoint, 1);
+    to->object.connections[2*i]->object = &to->object;
+    to->object.connections[2*i+1] = g_new0(ConnectionPoint, 1);
+    to->object.connections[2*i+1]->object = &to->object;
   }
 
   polyshape_update_data(to);
@@ -349,6 +390,7 @@ polyshape_destroy(PolyShape *poly)
 {
   int i;
   Handle **temp_handles;
+  ConnectionPoint **temp_cps;
 
   /* Need to store these temporary since object.handles is
      freed by object_destroy() */
@@ -356,11 +398,18 @@ polyshape_destroy(PolyShape *poly)
   for (i=0;i<poly->numpoints;i++)
     temp_handles[i] = poly->object.handles[i];
 
+  temp_cps = g_new(ConnectionPoint *, poly->numpoints*2);
+  for (i = 0; i < poly->numpoints * 2; i++)
+    temp_cps[i] = poly->object.connections[i];
+
   object_destroy(&poly->object);
 
   for (i=0;i<poly->numpoints;i++)
     g_free(temp_handles[i]);
   g_free(temp_handles);
+  for (i = 0; i < poly->numpoints*2; i++)
+    g_free(temp_cps[i]);
+  g_free(temp_cps);
   
   g_free(poly->points);
 }
@@ -399,18 +448,22 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
   else
     poly->numpoints = 0;
 
-  object_init(obj, poly->numpoints, 0);
+  object_init(obj, poly->numpoints, 2*poly->numpoints);
 
   data = attribute_first_data(attr);
-  poly->points = g_malloc(poly->numpoints*sizeof(Point));
+  poly->points = g_new(Point, poly->numpoints);
   for (i=0;i<poly->numpoints;i++) {
     data_point(data, &poly->points[i]);
     data = data_next(data);
   }
 
   for (i=0;i<poly->numpoints;i++) {
-    obj->handles[i] = g_malloc(sizeof(Handle));
+    obj->handles[i] = g_new(Handle, 1);
     setup_handle(obj->handles[i]);
+  }
+  for (i = 0; i < poly->numpoints * 2; i++) {
+    obj->connections[i] = g_new0(ConnectionPoint, 1);
+    obj->connections[i]->object = obj;
   }
 
   polyshape_update_data(poly);
@@ -421,9 +474,12 @@ polyshape_change_free(struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    if (change->handle)
-      g_free(change->handle);
+    g_free(change->handle);
+    g_free(change->cp1);
+    g_free(change->cp2);
     change->handle = NULL;
+    change->cp1 = NULL;
+    change->cp2 = NULL;
   }
 }
 
@@ -434,7 +490,7 @@ polyshape_change_apply(struct PointChange *change, Object *obj)
   switch (change->type) {
   case TYPE_ADD_POINT:
     add_handle((PolyShape *)obj, change->pos, &change->point,
-	       change->handle);
+	       change->handle, change->cp1, change->cp2);
     break;
   case TYPE_REMOVE_POINT:
     object_unconnect(obj, change->handle);
@@ -452,10 +508,7 @@ polyshape_change_revert(struct PointChange *change, Object *obj)
     break;
   case TYPE_REMOVE_POINT:
     add_handle((PolyShape *)obj, change->pos, &change->point,
-	       change->handle);
-    if (change->connected_to) {
-      object_connect(obj, change->handle, change->connected_to);
-    }
+	       change->handle, change->cp1, change->cp2);
       
     break;
   }
@@ -465,7 +518,7 @@ polyshape_change_revert(struct PointChange *change, Object *obj)
 static ObjectChange *
 polyshape_create_change(PolyShape *poly, enum change_type type,
 		       Point *point, int pos, Handle *handle,
-		       ConnectionPoint *connected_to)
+		       ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   struct PointChange *change;
 
@@ -480,7 +533,8 @@ polyshape_create_change(PolyShape *poly, enum change_type type,
   change->point = *point;
   change->pos = pos;
   change->handle = handle;
-  change->connected_to = connected_to;
+  change->cp1 = cp1;
+  change->cp2 = cp2;
 
   return (ObjectChange *)change;
 }

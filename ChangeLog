@@ -1,3 +1,11 @@
+2000-05-30  James Henstridge  <james@daa.com.au>
+
+	* objects/standard/polygon.c: don't do connectionpoint handling.
+
+	* lib/polyshape.c: changed to handle connection points internally.
+	Also, don't worry about connections to handles on polyshape, as
+	all handles are non connectable.
+
 2000-05-30 Ville Hautamaki <villeh@cs.joensuu.fi>
 
 	* configure.in: Added finnish
