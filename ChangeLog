@@ -1,3 +1,9 @@
+2003-01-24  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): Moved
+	gdk_window_get_pointer to avoid destroy crash.  Simpler than I
+	thought.
+
 2003-01-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/app_procs.c (app_init): Run gtk_init before popt so we don't

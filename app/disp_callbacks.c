@@ -401,9 +401,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
   if (!canvas->window) 
     return FALSE;
 
-      /*  get the pointer position  */
-  gdk_window_get_pointer (canvas->window, &tx, &ty, &tmask);
-
   switch (event->type)
   {
       case GDK_EXPOSE:
@@ -553,6 +550,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
         break;
 
       case GDK_MOTION_NOTIFY:
+	/*  get the pointer position  */
+	gdk_window_get_pointer (canvas->window, &tx, &ty, &tmask);
+
         mevent = (GdkEventMotion *) event;
         state = mevent->state;
 
