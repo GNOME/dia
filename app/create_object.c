@@ -36,20 +36,33 @@ static void
 create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 			   DDisplay *ddisp)
 {
-  Point clickedpoint;
+  Point clickedpoint, origpoint;
   Handle *handle1;
   Handle *handle2;
   Object *obj;
-  
+
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint.x, &clickedpoint.y);
+
+  origpoint = clickedpoint;
 
   snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
   
   obj = tool->objtype->ops->create(&clickedpoint, tool->user_data,
 				   &handle1, &handle2);
   diagram_add_object(ddisp->diagram, obj);
+
+  /* Try a connect */
+  if (handle1 != NULL &&
+      handle1->connect_type != HANDLE_NONCONNECTABLE) {
+    ConnectionPoint *connectionpoint;
+    connectionpoint =
+      object_find_connectpoint_display(ddisp, &origpoint);
+    if (connectionpoint != NULL) {
+      (obj->ops->move)(obj, &origpoint);
+    }
+  }
   
   if (!(event->state & GDK_SHIFT_MASK)) {
     /* Not Multi-select => remove current selection */
@@ -142,10 +155,10 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
 
   /* Move to ConnectionPoint if near: */
-  connectionpoint =
-    object_find_connectpoint_display(ddisp, &to);
-  if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
-       (connectionpoint != NULL) ) {
+  if ((tool->handle != NULL &&
+       tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
+      ((connectionpoint =
+	object_find_connectpoint_display(ddisp, &to)) != NULL)) {
     to = connectionpoint->pos;
   } else {
     /* No connectionopoint near, then snap to grid (if enabled) */
