@@ -42,7 +42,7 @@ write_int16(FILE *fp, gint16 n)
 {
     if (n < 0) {
 	n = -n;
-	putc( ((n & 0xff00) >> 8) & 0x7f, fp);
+	putc( ((n & 0xff00) >> 8) | 0x80, fp);
     } else
 	putc( (n & 0xff00) >> 8, fp);
     putc( n & 0xff, fp);
@@ -60,7 +60,7 @@ write_int32(FILE *fp, gint32 n)
 {
     if (n < 0) {
 	n = -n;
-	putc( ((n & 0xff000000) >> 24) & 0x7f, fp);
+	putc( ((n & 0xff000000) >> 24) | 0x80, fp);
     } else
 	putc( (n & 0xff000000) >> 24, fp);
     putc( (n & 0xff0000) >> 16, fp);
@@ -754,72 +754,41 @@ draw_image(RendererCGM *renderer,
 	   real width, real height,
 	   DiaImage image)
 {
-    g_warning("haven't done images yet ...");
-    /*
-      int img_width, img_height;
-      int v;
-      int                 x, y;
-      unsigned char      *ptr;
-      real ratio;
-      guint8 *rgb_data;
+    const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;
+    double x1 = point->x, y1 = point->y, x2 = x1+width, y2 = y1+height;
+    gint rowlen = dia_image_width(image) * 3, lines = dia_image_height(image);
+    double linesize = (y2 - y1) / lines;
+    gint chunk, clines = lines;
+    guint8 *ptr = dia_image_rgb_data(image);
 
-      img_width = dia_image_width(image);
-      img_height = dia_image_height(image);
+    while (lines > 0) {
+	chunk = MIN(rowlen * lines, maxlen);
+	if (chunk == maxlen) {
+	    clines = chunk / rowlen;
+	    chunk = clines * rowlen;
+	}
 
-      rgb_data = dia_image_rgb_data(image);
-  
-      ratio = height/width;
+	write_elhead(renderer->file, 4, 9, 6*REALSIZE + 8 + chunk);
+	write_real(renderer->file, x1); /* first corner */
+	write_real(renderer->file, y1);
+	write_real(renderer->file, x2); /* second corner */
+	write_real(renderer->file, y1 + linesize*clines/*y2*/);
+	write_real(renderer->file, x2); /* third corner */
+	write_real(renderer->file, y1);
 
-      fprintf(renderer->file, "gs\n");
-      if (1) { / * Color output * /
-      fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
-      fprintf(renderer->file, "/grays %i string def\n", img_width);
-      fprintf(renderer->file, "/npixls 0 def\n");
-      fprintf(renderer->file, "/rgbindx 0 def\n");
-      fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
-      fprintf(renderer->file, "%f %f sc\n", width, height);
-      fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-      fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
-      fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
-      fprintf(renderer->file, "false 3 colorimage\n");
-      fprintf(renderer->file, "\n");
-      ptr = rgb_data;
-      for (y = 0; y < img_width; y++) {
-      for (x = 0; x < img_height; x++) {
-      fprintf(renderer->file, "%02x", (int)(*ptr++));
-      fprintf(renderer->file, "%02x", (int)(*ptr++));
-      fprintf(renderer->file, "%02x", (int)(*ptr++));
-      }
-      fprintf(renderer->file, "\n");
-      }
-      } else { / * Grayscale * /
-      fprintf(renderer->file, "/pix %i string def\n", img_width);
-      fprintf(renderer->file, "/grays %i string def\n", img_width);
-      fprintf(renderer->file, "/npixls 0 def\n");
-      fprintf(renderer->file, "/rgbindx 0 def\n");
-      fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
-      fprintf(renderer->file, "%f %f sc\n", width, height);
-      fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-      fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
-      fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
-      fprintf(renderer->file, "image\n");
-      fprintf(renderer->file, "\n");
-      ptr = rgb_data;
-      for (y = 0; y < img_height; y++) {
-      for (x = 0; x < img_width; x++) {
-      v = (int)(*ptr++);
-      v += (int)(*ptr++);
-      v += (int)(*ptr++);
-      v /= 3;
-      fprintf(renderer->file, "%02x", v);
-      }
-      fprintf(renderer->file, "\n");
-      }
-      }
-      / *  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);* /
-      fprintf(renderer->file, "gr\n");
-      fprintf(renderer->file, "\n");
-    */
+	/* write image size */
+	write_int16(renderer->file, dia_image_width(image));
+	write_int16(renderer->file, clines);
+
+	write_int16(renderer->file, 8); /* colour precision */
+	write_int16(renderer->file, 1); /* packed encoding */
+
+	fwrite(ptr, sizeof(guint8), chunk, renderer->file);
+
+	lines -= clines;
+	ptr += chunk;
+	y1 += clines * linesize;
+    }
 }
 
 static void

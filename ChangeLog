@@ -1,3 +1,17 @@
+1999-12-23  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/cgm/cgm.c (write_int32, write_int16): fixed up output of
+	negative numbers.  This fixes the upside down text problem I was
+	having previously.
+	(draw_image): implemented the image code.  It will try to split the
+	image data up into bands if it is too big to fit into a single
+	cgm cell array element.  It will have problems if you try to insert
+	an image wider than about 10,000 pixels though.
+
+	* Makefile.am: use gnomedatadir for the files that need to be
+	installed in gnome's datadir.  This is mainly to help people doing
+	packages for weird setups.
+
 1999-12-22  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/cgm/cgm.c: added support for text.  Now only images and
