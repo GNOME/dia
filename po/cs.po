@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-07 11:59+0200\n"
-"PO-Revision-Date: 2003-07-07 21:27+0200\n"
+"POT-Creation-Date: 2003-07-12 03:58+0200\n"
+"PO-Revision-Date: 2003-07-12 14:22+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,8 +110,16 @@ msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
+#: app/app_procs.c:549
+msgid ""
+"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"describing how you can cause this message to appear.\n"
+msgstr ""
+"Toto by se nemělo stát. Ohlaste prosím chybu na bugzilla.bnome.org\n"
+"a popište, jak jste způsobili zobrazení této zprávy.\n"
+
 #. no standard buttons
-#: app/app_procs.c:558
+#: app/app_procs.c:561
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -121,15 +129,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:562
+#: app/app_procs.c:565
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
-#: app/app_procs.c:626 app/app_procs.c:633
+#. This printf seems to prevent a race condition with unrefs.
+#. Yuck.  -Lars
+#: app/app_procs.c:618
+msgid "Thank you for using Dia.\n"
+msgstr "Děkujeme vám, že používáte Dia.\n"
+
+#: app/app_procs.c:632 app/app_procs.c:639
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:635
+#: app/app_procs.c:641
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -137,7 +151,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:657 app/diaconv.c:249
+#: app/app_procs.c:663 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -390,8 +404,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:258
-#: app/paginate_psprint.c:276
+#: app/lineprops_area.c:679 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -500,11 +513,11 @@ msgstr "Žádné menu k objektu"
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:960
+#: app/display.c:993
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:962
+#: app/display.c:995
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -513,17 +526,17 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:973
+#: app/display.c:1006
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:978
+#: app/display.c:1011
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #: app/export_png.c:116 app/load_save.c:747 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:734
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
@@ -772,7 +785,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1152
+#: app/interface.c:1160
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -821,7 +834,7 @@ msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:249 app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -837,12 +850,12 @@ msgstr "Podrobnosti..."
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
-#: app/linewidth_area.c:230 lib/properties.h:475
+#: app/linewidth_area.c:238 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Šířka čáry"
 
-#: app/linewidth_area.c:236
+#: app/linewidth_area.c:250
 msgid "Line width:"
 msgstr "Šířka čáry:"
 
@@ -4477,7 +4490,7 @@ msgstr "Exportní filtr formátu Grafický jazyk HP"
 msgid "TeX Metapost export filter"
 msgstr "Exportní filtr formátu TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:794
+#: plug-ins/metapost/render_metapost.c:867
 msgid "TeX Metapost macros"
 msgstr "Makra formátu TeX Metapost"
 
