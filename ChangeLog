@@ -1,20 +1,8 @@
-2002-06-23  Hans Breuer  <hans@breuer.org>
+2002-06-24  Hans Breuer  <hans@breuer.org>
 
-	* lib/widget.c : ported again to new dia_font api.
-	BEWARE: may be broken since than
-
-	* lib/dia_xml.c : store family and style for fonts
-
-	* lib/font.[ch] : Style vanished, more api claeaning
-
-	* plug-ins/cgm/cgm.c : use gdk_pango_context_get()
-	to remove self-made backend specifc version
-
-	* plug-ins/xfig/xfig-export.c : added FIXME to
-	broken dia_font_get_legacy_name() usage
-
-	* lib/message.c : #undef GTK_DISABLE_DEPRECATED 
-	for gtk_object_get_user_data
+	* lib/widget.c : some more bits in place, at least
+	it does something useful instead of crashing. Much
+	better - but not all ok :-)
 
 2002-06-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 

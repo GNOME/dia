@@ -252,14 +252,15 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
     pango_font_description_free(pfd);
   }
 
-  for (i = DIA_FONT_ULTRALIGHT; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i++) {
+  for (i = DIA_FONT_ULTRALIGHT; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkWidget *menuitem;
     /**
      * bad hack continued ...
      */
     int weight = DIA_FONT_STYLE_GET_WEIGHT(i) >> 4;
     int obliquity = DIA_FONT_STYLE_GET_OBLIQUITY(i) >> 2;
-    if (!(stylebits & (1 << (weight * 9 * obliquity)))) continue;
+    if (DIA_FONT_STYLE_GET_OBLIQUITY(i) > DIA_FONT_ITALIC) continue;
+    if (!(stylebits & (1 << (weight + 9 * obliquity)))) continue;
     menuitem = gtk_menu_item_new_with_label (style_labels[weight*3+obliquity]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
     if (dia_style == i) select = menu_item_nr;
