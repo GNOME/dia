@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-08-20 17:24+0200\n"
+"POT-Creation-Date: 2000-10-03 22:10+0200\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -292,12 +292,12 @@ msgstr ""
 "Ta diagram ni bil shranjen.\n"
 "Ste preprièani, da ¾elite zapreti to okno?"
 
-#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:782 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Da"
 
-#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:792 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Ne"
@@ -326,27 +326,27 @@ msgstr "Ob pisanju PNG datoteke se je zgodila napaka"
 msgid "Portable Network Graphics"
 msgstr "Prenosljiva Mre¾na Grafika"
 
-#: app/filedlg.c:94 app/filedlg.c:368
+#: app/filedlg.c:95 app/filedlg.c:369
 msgid "By extension"
 msgstr "Po priponi"
 
-#: app/filedlg.c:153
+#: app/filedlg.c:154
 msgid "Open Diagram"
 msgstr "Odpri diagram"
 
-#: app/filedlg.c:179
+#: app/filedlg.c:180
 msgid "Open Options"
 msgstr "Odpri mo¾nosti"
 
-#: app/filedlg.c:187 app/filedlg.c:527
+#: app/filedlg.c:188 app/filedlg.c:528
 msgid "Determine file type:"
 msgstr "Doloèi tip datoteke:"
 
-#: app/filedlg.c:227 app/filedlg.c:415
+#: app/filedlg.c:228 app/filedlg.c:416
 msgid "File already exists"
 msgstr "Datoteka ¾e obstaja"
 
-#: app/filedlg.c:231 app/filedlg.c:418
+#: app/filedlg.c:232 app/filedlg.c:419
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -355,11 +355,11 @@ msgstr ""
 "Datoteka '%s' ¾e obstaja.\n"
 "Ali jo ¾elite prepisati?"
 
-#: app/filedlg.c:295
+#: app/filedlg.c:296
 msgid "Save Diagram"
 msgstr "Shrani diagram"
 
-#: app/filedlg.c:475
+#: app/filedlg.c:476
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -368,11 +368,11 @@ msgstr ""
 "Ne morem ugotoviti s katerim izvoznim filtrom\n"
 "naj shranim '%s'"
 
-#: app/filedlg.c:492
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr "Izvozi diagram"
 
-#: app/filedlg.c:519
+#: app/filedlg.c:520
 msgid "Export Options"
 msgstr "Nastavitve izvoza"
 
@@ -590,7 +590,7 @@ msgstr ""
 "Napaka pri nalaganju diagrama.\n"
 "Roèica povezave ne obstaja."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:489 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ne morem odpreti: '%s' za branje.\n"
@@ -689,7 +689,7 @@ msgid "_Zoom"
 msgstr "_Poveèava"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr "Lastnosti diagrama..."
 
 #: app/menus.c:114
@@ -2581,7 +2581,7 @@ msgstr "Metadatoteka Raèunalni¹ke Grafike"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Izvozni filter za Metadatoteko Raèunalni¹ke Grafike"
 
-#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
+#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:543
 msgid "Drawing Interchange File"
 msgstr "Datoteka za Izmenjavo Risb (DIF)"
 
