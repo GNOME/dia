@@ -370,8 +370,10 @@ line_update_data(Line *line)
   Object *obj = &conn->object;
   ConnectionBBExtras *extra = &conn->extra_spacing;
 
-  extra->start_trans =  (line->line_width / 2.0);
-  extra->end_trans =     (line->line_width / 2.0);
+  extra->start_trans = (line->line_width / 2.0);
+  extra->end_trans   = (line->line_width / 2.0);
+  extra->start_long  = (line->line_width / 2.0);
+  extra->end_long    = (line->line_width / 2.0);
   if (line->start_arrow.type != ARROW_NONE) 
     extra->start_trans = MAX(extra->start_trans,line->start_arrow.width);
   if (line->end_arrow.type != ARROW_NONE) 

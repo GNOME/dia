@@ -833,7 +833,7 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
 
   width = ddisp->renderer->pixel_width;
   height = ddisp->renderer->pixel_height;
-  
+
   magnify_x = (real)width /
     (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;
   magnify_y = (real)height /

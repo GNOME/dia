@@ -1,3 +1,10 @@
+2001-03-19  James Henstridge  <james@daa.com.au>
+
+	* objects/standard/line.c (line_update_data):
+	line->extra.start_long and line->extra.end_long were not being
+	initialised.  This fixes potential problems with the bounding box
+	of "Standard - Line" objects.
+
 2001-03-19  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c : added win32 specific code to display a html
