@@ -43,6 +43,7 @@ struct PointChange {
   int applied;
   
   BezPoint point;
+  BezCornerType corner_type;
   int pos;
   /* owning ref when not applied for ADD_POINT
    * owning ref when applied for REMOVE_POINT */
@@ -59,19 +60,21 @@ struct CornerChange {
   Handle *handle;
   /* Old places when SET_CORNER_TYPE is applied */
   Point point_left, point_right;
-  int old_type, new_type;
+  BezCornerType old_type, new_type;
 };
 
 static ObjectChange *
 bezierconn_create_point_change(BezierConn *bez, enum change_type type,
-			       BezPoint *point, int segment,
+			       BezPoint *point, BezCornerType corner_type,
+			       int segment,
 			       Handle *handle1, ConnectionPoint *connected_to1,
 			       Handle *handle2, ConnectionPoint *connected_to2,
 			       Handle *handle3, ConnectionPoint *connected_to3);
 static ObjectChange *
 bezierconn_create_corner_change(BezierConn *bez, Handle *handle,
 				Point *point_left, Point *point_right,
-				int old_corner_type, int new_corner_type);
+				BezCornerType old_corner_type,
+				BezCornerType new_corner_type);
 
 
 static void setup_corner_handle(Handle *handle, HandleId id)
@@ -128,7 +131,7 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
   case HANDLE_LEFTCTRL:
     bez->points[comp_nr].p2 = *to;
     if (comp_nr < bez->numpoints - 1) {
-      switch (bez->points[comp_nr].corner_type) {
+      switch (bez->corner_types[comp_nr]) {
       case BEZ_CORNER_SYMMETRIC:
 	pt = bez->points[comp_nr].p3;
 	point_sub(&pt, &bez->points[comp_nr].p2);
@@ -157,7 +160,7 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
   case HANDLE_RIGHTCTRL:
     bez->points[comp_nr].p1 = *to;
     if (comp_nr > 1) {
-      switch (bez->points[comp_nr-1].corner_type) {
+      switch (bez->corner_types[comp_nr-1]) {
       case BEZ_CORNER_SYMMETRIC:
 	pt = bez->points[comp_nr - 1].p3;
 	point_sub(&pt, &bez->points[comp_nr].p1);
@@ -280,7 +283,8 @@ bezierconn_distance_from(BezierConn *bez, Point *point, real line_width)
 }
 
 static void
-add_handles(BezierConn *bez, int pos, BezPoint *point, Handle *handle1,
+add_handles(BezierConn *bez, int pos, BezPoint *point,
+	    BezCornerType corner_type, Handle *handle1,
 	    Handle *handle2, Handle *handle3)
 {
   int i;
@@ -291,14 +295,17 @@ add_handles(BezierConn *bez, int pos, BezPoint *point, Handle *handle1,
   obj = (Object *)bez;
   bez->numpoints++;
   bez->points = g_realloc(bez->points, bez->numpoints*sizeof(BezPoint));
+  bez->corner_types = g_realloc(bez->corner_types,
+				bez->numpoints * sizeof(BezCornerType));
 
   for (i = bez->numpoints-1; i > pos; i--) {
     bez->points[i] = bez->points[i-1];
+    bez->corner_types[i] = bez->corner_types[i-1];
   }
   bez->points[pos] = *point; 
   bez->points[pos].p1 = bez->points[pos+1].p1;
   bez->points[pos+1].p1 = point->p1;
-  bez->points[pos].corner_type = BEZ_CORNER_SYMMETRIC;
+  bez->corner_types[pos] = corner_type;
   object_add_handle_at(obj, handle1, 3*pos-2);
   object_add_handle_at(obj, handle2, 3*pos-1);
   object_add_handle_at(obj, handle3, 3*pos);
@@ -331,9 +338,12 @@ remove_handles(BezierConn *bez, int pos)
   tmppoint = bez->points[pos].p1;
   for (i = pos; i < bez->numpoints; i++) {
     bez->points[i] = bez->points[i+1];
+    bez->corner_types[i] = bez->corner_types[i+1];
   }
   bez->points[pos].p1 = tmppoint;
   bez->points = g_realloc(bez->points, bez->numpoints*sizeof(BezPoint));
+  bez->corner_types = g_realloc(bez->corner_types,
+				bez->numpoints * sizeof(BezCornerType));
 
   old_handle1 = obj->handles[3*pos-2];
   old_handle2 = obj->handles[3*pos-1];
@@ -350,6 +360,7 @@ ObjectChange *
 bezierconn_add_segment(BezierConn *bez, int segment, Point *point)
 {
   BezPoint realpoint;
+  BezCornerType corner_type = BEZ_CORNER_SYMMETRIC;
   Handle *new_handle1, *new_handle2, *new_handle3;
   Point startpoint;
 
@@ -381,9 +392,10 @@ bezierconn_add_segment(BezierConn *bez, int segment, Point *point)
   setup_corner_handle(new_handle1, HANDLE_RIGHTCTRL);
   setup_corner_handle(new_handle2, HANDLE_LEFTCTRL);
   setup_corner_handle(new_handle3, HANDLE_BEZMAJOR);
-  add_handles(bez, segment+1, &realpoint, new_handle1,new_handle2,new_handle3);
+  add_handles(bez, segment+1, &realpoint, corner_type,
+	      new_handle1, new_handle2, new_handle3);
   return bezierconn_create_point_change(bez, TYPE_ADD_POINT,
-					&realpoint, segment+1,
+					&realpoint, corner_type, segment+1,
 					new_handle1, NULL,
 					new_handle2, NULL,
 					new_handle3, NULL);
@@ -395,6 +407,7 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   Handle *old_handle1, *old_handle2, *old_handle3;
   ConnectionPoint *cpt1, *cpt2, *cpt3;
   BezPoint old_point;
+  BezCornerType old_ctype;
 
   assert(pos > 0);
   assert(bez->numpoints > 2);
@@ -405,6 +418,7 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   old_handle2 = bez->object.handles[3*pos-1];
   old_handle3 = bez->object.handles[3*pos];
   old_point = bez->points[pos];
+  old_ctype = bez->corner_types[pos];
 
   cpt1 = old_handle1->connected_to;
   cpt2 = old_handle2->connected_to;
@@ -419,7 +433,7 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   bezierconn_update_data(bez);
   
   return bezierconn_create_point_change(bez, TYPE_REMOVE_POINT,
-					&old_point, pos,
+					&old_point, old_ctype, pos,
 					old_handle1, cpt1,
 					old_handle2, cpt2,
 					old_handle3, cpt3);
@@ -430,7 +444,7 @@ bezierconn_straighten_corner(BezierConn *bez, int comp_nr) {
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
-  switch (bez->points[comp_nr].corner_type) {
+  switch (bez->corner_types[comp_nr]) {
   case BEZ_CORNER_SYMMETRIC: {
     Point pt1, pt2;
     pt1 = bez->points[comp_nr].p3;
@@ -479,7 +493,8 @@ bezierconn_straighten_corner(BezierConn *bez, int comp_nr) {
 }
 
 ObjectChange *
-bezierconn_set_corner_type(BezierConn *bez, Handle *handle, int corner_type)
+bezierconn_set_corner_type(BezierConn *bez, Handle *handle,
+			   BezCornerType corner_type)
 {
   Handle *mid_handle;
   Point old_left, old_right;
@@ -507,11 +522,11 @@ bezierconn_set_corner_type(BezierConn *bez, Handle *handle, int corner_type)
 
   comp_nr = get_major_nr(handle_nr);
 
-  old_type = bez->points[comp_nr].corner_type;
+  old_type = bez->corner_types[comp_nr];
   old_left = bez->points[comp_nr].p2;
   old_right = bez->points[comp_nr+1].p1;
 
-  bez->points[comp_nr].corner_type = corner_type;
+  bez->corner_types[comp_nr] = corner_type;
 
   bezierconn_straighten_corner(bez, comp_nr);
 
@@ -634,6 +649,10 @@ bezierconn_init(BezierConn *bez)
   bez->points[0].type = BEZ_MOVE_TO;
   bez->points[1].type = BEZ_CURVE_TO;
 
+  bez->corner_types = g_new(BezCornerType, 2);
+  bez->corner_types[0] = BEZ_CORNER_SYMMETRIC;
+  bez->corner_types[1] = BEZ_CORNER_SYMMETRIC;
+
   bez->object.handles[0] = g_new(Handle, 1);
   bez->object.handles[1] = g_new(Handle, 1);
   bez->object.handles[2] = g_new(Handle, 1);
@@ -676,9 +695,11 @@ bezierconn_copy(BezierConn *from, BezierConn *to)
   to->numpoints = from->numpoints;
 
   to->points = g_new(BezPoint, to->numpoints);
+  to->corner_types = g_new(BezCornerType, to->numpoints);
 
   for (i = 0; i < to->numpoints; i++) {
     to->points[i] = from->points[i];
+    to->corner_types[i] = from->corner_types[i];
   }
 
   to->object.handles[0] = g_new(Handle,1);
@@ -714,6 +735,7 @@ bezierconn_destroy(BezierConn *bez)
   g_free(temp_handles);
   
   g_free(bez->points);
+  g_free(bez->corner_types);
 }
 
 
@@ -732,10 +754,11 @@ bezierconn_save(BezierConn *bez, ObjectNode obj_node)
     data_add_point(attr, &bez->points[i].p1);
     data_add_point(attr, &bez->points[i].p2);
     data_add_point(attr, &bez->points[i].p3);
-    if (bez->points[i].corner_type != BEZ_CORNER_SYMMETRIC) {
-      data_add_enum(attr, bez->points[i].corner_type);
-    }
   }
+
+  attr = new_attribute(obj_node, "corner_types");
+  for (i = 0; i < bez->numpoints; i++)
+    data_add_enum(attr, bez->corner_types[i]);
 }
 
 void
@@ -773,12 +796,22 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node) /* NOTE: Does object_init(
       data = data_next(data);
       data_point(data, &bez->points[i].p3);
       data = data_next(data);
-      if (data && data_type(data) == DATATYPE_ENUM) {
-	bez->points[i].corner_type = data_enum(data);
-	data = data_next(data);
-      } else {
-	bez->points[i].corner_type = BEZ_CORNER_SYMMETRIC;
-      }
+    }
+  }
+
+  bez->corner_types = g_new(BezCornerType, bez->numpoints);
+
+  attr = object_find_attribute(obj_node, "corner_types");
+  /* if corner_types is missing or corrupt */
+  if (!attr || attribute_num_data(attr) != bez->numpoints) {
+    for (i = 0; i < bez->numpoints; i++) {
+      bez->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+    }
+  } else {
+    data = attribute_first_data(attr);
+    for (i = 0; i < bez->numpoints; i++) {
+      bez->corner_types[i] = data_enum(data);
+      data = data_next(data);
     }
   }
 
@@ -826,6 +859,7 @@ bezierconn_point_change_apply(struct PointChange *change, Object *obj)
   switch (change->type) {
   case TYPE_ADD_POINT:
     add_handles((BezierConn *)obj, change->pos, &change->point,
+		change->corner_type,
 		change->handle1, change->handle2, change->handle3);
     break;
   case TYPE_REMOVE_POINT:
@@ -846,6 +880,7 @@ bezierconn_point_change_revert(struct PointChange *change, Object *obj)
     break;
   case TYPE_REMOVE_POINT:
     add_handles((BezierConn *)obj, change->pos, &change->point,
+		change->corner_type,
 		change->handle1, change->handle2, change->handle3);
 
     if (change->connected_to1)
@@ -862,7 +897,8 @@ bezierconn_point_change_revert(struct PointChange *change, Object *obj)
 
 static ObjectChange *
 bezierconn_create_point_change(BezierConn *bez, enum change_type type,
-			       BezPoint *point, int pos,
+			       BezPoint *point, BezCornerType corner_type,
+			       int pos,
 			       Handle *handle1, ConnectionPoint *connected_to1,
 			       Handle *handle2, ConnectionPoint *connected_to2,
 			       Handle *handle3, ConnectionPoint *connected_to3)
@@ -878,6 +914,7 @@ bezierconn_create_point_change(BezierConn *bez, enum change_type type,
   change->type = type;
   change->applied = 1;
   change->point = *point;
+  change->corner_type = corner_type;
   change->pos = pos;
   change->handle1 = handle1;
   change->connected_to1 = connected_to1;
@@ -898,7 +935,7 @@ bezierconn_corner_change_apply(struct CornerChange *change,
 
   bezierconn_straighten_corner(bez, comp_nr);
 
-  bez->points[comp_nr].corner_type = change->new_type;
+  bez->corner_types[comp_nr] = change->new_type;
 
   change->applied = 1;
 }
@@ -912,7 +949,7 @@ bezierconn_corner_change_revert(struct CornerChange *change,
 
   bez->points[comp_nr].p2 = change->point_left;
   bez->points[comp_nr+1].p1 = change->point_right;
-  bez->points[comp_nr].corner_type = change->old_type;  
+  bez->corner_types[comp_nr] = change->old_type;  
 
   change->applied = 0;
 }
@@ -920,7 +957,8 @@ bezierconn_corner_change_revert(struct CornerChange *change,
 static ObjectChange *
 bezierconn_create_corner_change(BezierConn *bez, Handle *handle,
 				Point *point_left, Point *point_right,
-				int old_corner_type, int new_corner_type)
+				BezCornerType old_corner_type,
+				BezCornerType new_corner_type)
 {
   struct CornerChange *change;
 

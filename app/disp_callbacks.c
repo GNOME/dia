@@ -94,13 +94,20 @@ create_object_menu(DiaMenu *dia_menu)
   gtk_widget_show(menu_item);
 
   for (i=0;i<dia_menu->num_items;i++) {
-    menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->items[i].text));
+    gchar *label = dia_menu->items[i].text;
+
+    if (label)
+      menu_item = gtk_menu_item_new_with_label(gettext(label));
+    else
+      menu_item = gtk_menu_item_new();
     gtk_menu_append(GTK_MENU(menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
     
-    gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-		       object_menu_proxy, &dia_menu->items[i]);
+    /* only connect signal handler if there is actually a callback */
+    if (dia_menu->items[i].callback)
+      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
+			 object_menu_proxy, &dia_menu->items[i]);
   }
   dia_menu->app_data = menu;
 }

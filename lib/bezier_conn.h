@@ -24,6 +24,12 @@
 
 typedef struct _BezierConn BezierConn;
 
+typedef enum {
+  BEZ_CORNER_SYMMETRIC,
+  BEZ_CORNER_SMOOTH,
+  BEZ_CORNER_CUSP
+} BezCornerType;
+
 /* This is a subclass of Object used to help implementing objects
  * that connect points with polygonal line-segments.
  */
@@ -33,6 +39,7 @@ struct _BezierConn {
 
   int numpoints; /* >= 2 */
   BezPoint *points;
+  BezCornerType *corner_types;
 };
 
 extern void bezierconn_update_data(BezierConn *bez);
@@ -47,7 +54,9 @@ extern void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
 extern void bezierconn_load(BezierConn *bez, ObjectNode obj_node);  /* NOTE: Does object_init() */
 extern ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
 extern ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
-extern ObjectChange *bezierconn_set_corner_type(BezierConn *bez, Handle *handle, int style);
+extern ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
+						Handle *handle,
+						BezCornerType style);
 extern void bezierconn_move_handle(BezierConn *bez, Handle *id,
 				 Point *to, HandleMoveReason reason);
 extern void bezierconn_move(BezierConn *bez, Point *to);
@@ -56,5 +65,5 @@ extern real bezierconn_distance_from(BezierConn *bez, Point *point,
 extern Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
 extern Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
 extern int bezierconn_closest_segment(BezierConn *bez, Point *point,
-				    real line_width);
+				      real line_width);
 #endif /* BEZIER_CONN_H */

@@ -525,12 +525,13 @@ bezierline_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
 static DiaMenuItem bezierline_menu_items[] = {
   { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), bezierline_delete_segment_callback, NULL, 1 },
+  { NULL, NULL, NULL, 1 },
   { N_("Symmetric control"), bezierline_set_corner_type_callback, 
-    GINT_TO_POINTER(0), 1 },
+    GINT_TO_POINTER(BEZ_CORNER_SYMMETRIC), 1 },
   { N_("Smooth control"), bezierline_set_corner_type_callback, 
-    GINT_TO_POINTER(1), 1 },
-  { N_("Cuspy control"), bezierline_set_corner_type_callback,
-    GINT_TO_POINTER(2), 1 },
+    GINT_TO_POINTER(BEZ_CORNER_SMOOTH), 1 },
+  { N_("Cusp control"), bezierline_set_corner_type_callback,
+    GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 },
 };
 
 static DiaMenu bezierline_menu = {
@@ -556,8 +557,8 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   bezierline_menu_items[0].active = 1;
   bezierline_menu_items[1].active = bezierline->bez.numpoints > 2;
-  bezierline_menu_items[2].active = !closest_is_endpoint;
   bezierline_menu_items[3].active = !closest_is_endpoint;
   bezierline_menu_items[4].active = !closest_is_endpoint;
+  bezierline_menu_items[5].active = !closest_is_endpoint;
   return &bezierline_menu;
 }
