@@ -97,9 +97,7 @@ dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
     @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@
 
 CPPFLAGS = \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DLIBDIR=\"$(libdir)\" \
-	-DDATADIR=\"$(pkgdatadir)\"
+	-DLOCALEDIR=\"$(localedir)\"
 
 INCLUDES = \
 	-I$(top_srcdir)/intl \

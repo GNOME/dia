@@ -203,7 +203,7 @@ static gchar *new_step_name()
   
   if (__Astyle) *p++ = 'A';
   
-  snprintf(p,sizeof(snum)-2,"%d",__stepnum++);
+  g_snprintf(p,sizeof(snum)-2,"%d",__stepnum++);
   return g_strdup(snum);
 }
 

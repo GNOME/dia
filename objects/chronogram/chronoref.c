@@ -407,7 +407,7 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
       p3.x = p2.x = p1.x;
     
       renderer->ops->draw_line(renderer,&p1,&p2,&chronoref->color);
-      snprintf(time,sizeof(time),chronoref->spec,t);
+      g_snprintf(time,sizeof(time),chronoref->spec,t);
       renderer->ops->draw_string(renderer,time,&p3,ALIGN_CENTER,
 				 &chronoref->font_color);
     }
@@ -498,8 +498,8 @@ chronoref_update_data(Chronoref *chronoref)
     t /= 10;
     i++;
   }
-  snprintf(chronoref->spec,sizeof(chronoref->spec),"%%.%df",i);
-  snprintf(biglabel,sizeof(biglabel),chronoref->spec,
+  g_snprintf(chronoref->spec,sizeof(chronoref->spec),"%%.%df",i);
+  g_snprintf(biglabel,sizeof(biglabel),chronoref->spec,
 	   MIN(-ABS(chronoref->start_time),-ABS(chronoref->end_time)));
   
   labelwidth = font_string_width(biglabel,chronoref->font,

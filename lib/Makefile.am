@@ -66,7 +66,13 @@ libdia_a_SOURCES =  \
 		properties.h \
 		lazyprops.c \
 		lazyprops.h \
+		dia_dirs.c \
+		dia_dirs.h \
 		dummy_dep.h
+
+CPPFLAGS = \
+	-DLIBDIR=\"$(libdir)\" \
+	-DDATADIR=\"$(pkgdatadir)\"
 
 sheetdir = $(pkgdatadir)/sheets
 

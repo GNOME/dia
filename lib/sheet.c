@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <dirent.h>
 #include <glib.h>
 #include <tree.h>
@@ -31,6 +32,7 @@
 #include "message.h"
 #include "object.h"
 #include "../objects/custom/shape_info.h" /* shouldn't custom go into lib/ ? */
+#include "dia_dirs.h"
 
 static GSList *sheets = NULL;
 
@@ -115,7 +117,9 @@ void load_all_sheets(void) {
       load_sheets_from_dir(dirs[i]);
     g_strfreev(dirs);
   } else {
-    load_sheets_from_dir(DIA_SHEETDIR);
+    char *thedir = dia_get_data_directory(DIA_SHEETDIR);
+    load_sheets_from_dir(thedir);
+    g_free(thedir);
   }
 }
 

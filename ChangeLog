@@ -1,3 +1,48 @@
+2000-02-06  Alexander Larsson  <alla@lysator.liu.se>
+
+	Win32 port by Hans Breuer <Hans@Breuer.org>
+
+	* app/Makefile.am:
+	Remove DATADIR and LIBDIR defines.
+
+	* lib/Makefile.am:
+	Add dia_dirs.c and dia_dirs.h
+	Added DATADIR and LIBDIR defines.
+
+	* lib/dia_dirs.[ch]:
+	New files for handling special directories.
+
+	* app/app_procs.c:
+	* app/commands.c:
+	* lib/sheet.c:
+	* objects/custom/custom.c:
+	Fix warnings.  Use directory functions.
+
+	* app/diagram.h:
+	Add prototype for diagram_redraw_all.
+
+	* app/diaunitspinner.c:
+	* app/filedlg.c:
+	* app/interface.c:
+	* app/preferences.c:
+	Fix warning.
+
+	* app/load_save.c:
+	Win32 doesn't have mkstemp and fchmod.
+
+	* app/paginate_psprint.c:
+	Win32 calls popen _popen and pclose _pclose.
+	
+	* app/arrow.c:
+	Win32 calls finite _finite.
+
+	* lib/color.h:
+	Win32 needs to dllexport the color vars.
+
+	* objects/GRAFCET/step.c:
+	* objects/chronogram/chronoref.c:
+	snprintf -> g_snprintf
+
 2000-02-05  James Henstridge  <james@daa.com.au>
 
 	* lib/properties.c: more fixes so that it doesn't crash when using
@@ -295,7 +340,6 @@
 
 	* dia.desktop: Added a French translation.
 	
->>>>>>> 1.294
 2000-01-23  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (help_about_callback): don't die if can't load

@@ -25,6 +25,7 @@
 #include <string.h>
 #include <signal.h>
 #include <locale.h>
+#include <unistd.h>
 
 #include <gtk/gtk.h>
 #include <gmodule.h>
@@ -57,6 +58,7 @@
 #include "load_save.h"
 #include "preferences.h"
 #include "custom.h"
+#include "dia_dirs.h"
 #include "render_eps.h"
 #include "render_svg.h"
 
@@ -513,7 +515,9 @@ register_all_objects(void)
     }
     g_free(library_path);
   } else {
-    register_objects_in(LIBDIR "/dia");
+    char *thedir = dia_get_lib_directory("dia");
+    register_objects_in(thedir);
+    g_free(thedir);
   }
 
 }

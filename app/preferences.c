@@ -28,6 +28,7 @@
 #include "config.h"
 #include "intl.h"
 #include "widgets.h"
+#include "diagram.h"
 #include "preferences.h"
 
 struct DiaPreferences prefs;

@@ -32,6 +32,7 @@
 #include "color_area.h"
 #include "linewidth_area.h"
 #include "lineprops_area.h"
+#include "attributes.h"
 
 #include "pixmaps.h"
 

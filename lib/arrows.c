@@ -16,7 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <glib.h>
 #include <math.h>
+
+#ifdef G_OS_WIN32
+#include <float.h>
+#define finite(d) _finite(d)
+#endif
 
 #include "arrows.h"
 

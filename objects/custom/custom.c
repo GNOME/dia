@@ -26,9 +26,10 @@
 #include <dirent.h>
 #include <glib.h>
 
+#include "custom.h"
 #include "sheet.h"
 #include "shape_info.h"
-
+#include "dia_dirs.h"
 
 static void load_shapes_from_tree(const gchar *directory)
 {
@@ -113,7 +114,9 @@ custom_register_objects(void)
       load_shapes_from_tree(dirs[i]);
     g_strfreev(dirs);
   } else {
-    load_shapes_from_tree(DIA_SHAPEDIR);
+    char *thedir = dia_get_data_directory(DIA_SHAPEDIR);
+    load_shapes_from_tree(thedir);
+    g_free(thedir);
   }
 }
 
@@ -127,6 +130,7 @@ static gchar *findintshape(gchar *filename) {
   gchar *ret;
   static gchar *envvar = NULL;
   static gboolean checked_env = FALSE;
+  gchar* thedir;
 
   if (!checked_env)
     envvar = getenv("DIA_INT_SHAPE_PATH");
@@ -138,7 +142,9 @@ static gchar *findintshape(gchar *filename) {
       return ret;
     g_free(ret);
   }
-  ret = g_strconcat(DIA_INT_SHAPEDIR, G_DIR_SEPARATOR_S, filename, NULL);
+  thedir = dia_get_data_directory(DIA_INT_SHAPEDIR);
+  ret = g_strconcat(thedir, G_DIR_SEPARATOR_S, filename, NULL);
+  g_free(thedir);
   if (!access(ret, R_OK))
     return ret;
   g_free(ret);

@@ -52,9 +52,9 @@
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "pagesetup.h"
+#include "dia_dirs.h"
 
 GdkImlibImage *logo;
-
 
 
 void file_quit_callback(GtkWidget *widget, gpointer data)
@@ -318,8 +318,10 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_container_add (GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), vbox);
 
   if (!logo) {
-      g_snprintf(str, sizeof(str), "%s/dia_logo.png", DATADIR);
+      gchar* datadir = dia_get_data_directory(""); 
+      g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
       logo = gdk_imlib_load_image(str);
+      g_free(datadir);
   }
 
   if (logo) {
@@ -475,7 +477,6 @@ view_aa_callback(gpointer callback_data,
     ddisplay_flush(ddisp);
   }
 }
-
 
 #ifdef GNOME
 void

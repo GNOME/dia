@@ -30,6 +30,12 @@
 
 #include <gtk/gtk.h>
 
+#ifdef G_OS_WIN32
+#include <io.h>
+#define popen _popen
+#define pclose _pclose
+#endif
+
 /* keep track of print options between prints */
 typedef struct _dia_print_options {
     int printer;

@@ -15,34 +15,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef COLOR_H
-#define COLOR_H
 
-#include <gdk/gdk.h>
+#ifndef DIA_DIRS_H
+#define DIA_DIRS_H
 
-typedef struct _Color Color;
-
-struct _Color {
-  float red;
-  float green;
-  float blue;
-};
-
-extern void color_init(void);
-extern void color_convert(Color *color, GdkColor *gdkcolor);
-extern gboolean color_equals(Color *color1, Color *color2);
+#include <glib.h>
 
 #ifdef G_OS_WIN32
-#  ifdef LIBDIA_COMPILATION
-#    define DIAVAR __declspec(dllexport)
-#  else  /* !LIBDIA_COMPILATION */
-#    define DIAVAR extern __declspec(dllimport)
-#  endif /* !LIBDIA_COMPILATION */
-#else  /* !G_OS_WIN32 */
-#  define DIAVAR extern
+#define DIA_SHEETDIR "sheets"
+#define DIA_SHAPEDIR "shapes"
+#define DIA_INT_SHAPEDIR DIA_SHEETDIR G_DIR_SEPARATOR_S "int"
 #endif
 
-DIAVAR Color color_black, color_white;
-DIAVAR GdkColor color_gdk_black, color_gdk_white;
+gchar*
+dia_get_data_directory (const gchar* subdir);
 
-#endif /* COLOR_H */
+gchar*
+dia_get_lib_directory (const gchar* subdir);
+
+#endif /* DIA_DIRS_H */

@@ -21,6 +21,7 @@
 
 #include "filedlg.h"
 #include <sys/stat.h>
+#include <string.h>
 #include <unistd.h>
 #include <gtk/gtk.h>
 #include "intl.h"
