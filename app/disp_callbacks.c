@@ -679,7 +679,7 @@ ddisplay_hsb_update (GtkAdjustment *adjustment,
 		     DDisplay *ddisp)
 {
   ddisplay_set_origo(ddisp, adjustment->value, ddisp->origo.y);
-  ddisplay_add_update(ddisp, &ddisp->visible);
+  ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
   return FALSE;
 }
@@ -689,7 +689,7 @@ ddisplay_vsb_update (GtkAdjustment *adjustment,
 		     DDisplay *ddisp)
 {
   ddisplay_set_origo(ddisp, ddisp->origo.x, adjustment->value);
-  ddisplay_add_update(ddisp, &ddisp->visible);
+  ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
   return FALSE;
 }

@@ -294,9 +294,46 @@ ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
   ddisplay_add_update(ddisp, &rect);
 }
 
+/** Free display_areas list */
+static void
+ddisplay_free_display_areas(DDisplay *ddisp)
+{
+  GSList *l;
+  l = ddisp->display_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
+  g_slist_free(ddisp->display_areas);
+  ddisp->display_areas = NULL;
+}
+
+/** Free update_areas list */
+static void
+ddisplay_free_update_areas(DDisplay *ddisp)
+{
+  GSList *l;
+  l = ddisp->update_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
+  g_slist_free(ddisp->update_areas);
+  ddisp->update_areas = NULL;
+}
+
+/** Marks the entire visible area for update.  
+ * Throws out old updates, since everything will be updated anyway.
+ */
 void
 ddisplay_add_update_all(DDisplay *ddisp)
 {
+  if (ddisp->update_areas != NULL) {
+    ddisplay_free_update_areas(ddisp);
+  }
+  if (ddisp->display_areas != NULL) {
+    ddisplay_free_display_areas(ddisp);
+  }
   ddisplay_add_update(ddisp, &ddisp->visible);
 }
 
@@ -406,13 +443,7 @@ ddisplay_update_handler(DDisplay *ddisp)
     }
     
     /* Free update_areas list: */
-    l = ddisp->update_areas;
-    while(l!=NULL) {
-      g_free(l->data);
-      l = g_slist_next(l);
-    }
-    g_slist_free(ddisp->update_areas);
-    ddisp->update_areas = NULL;
+    ddisplay_free_update_areas(ddisp);
 
     totrect.left -= 0.1;
     totrect.right += 0.1;
@@ -435,14 +466,7 @@ ddisplay_update_handler(DDisplay *ddisp)
     l = g_slist_next(l);
   }
 
-  /* Free display_areas list */
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->display_areas);
-  ddisp->display_areas = NULL;
+  ddisplay_free_display_areas(ddisp);
 
   ddisp->update_id = 0;
   return FALSE;
@@ -782,7 +806,7 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 
   ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
 
-  ddisplay_add_update(ddisp, &ddisp->visible);
+  ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
 }
 
@@ -975,7 +999,6 @@ void
 ddisplay_really_destroy(DDisplay *ddisp)
 {
   Diagram *dia;
-  GSList *l;
 
   if (active_display == ddisp)
     display_set_active(NULL);
@@ -991,20 +1014,9 @@ ddisplay_really_destroy(DDisplay *ddisp)
   g_hash_table_remove(display_ht, ddisp->canvas);
 
   /* Free update_areas list: */
-  l = ddisp->update_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->update_areas);
+  ddisplay_free_update_areas(ddisp);
   /* Free display_areas list */
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->display_areas);
-
+  ddisplay_free_display_areas(ddisp);
   
   g_free(ddisp);
 }
