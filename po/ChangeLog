@@ -1,3 +1,8 @@
+2000-07-15  Valek Filippov  <frob@df.ru>
+
+	* ru.po: updated russian translation.
+	* POTFILES.in: added some missing files.
+
 2000-07-15  Robert Brady  <rwb197@zepler.org>
 
 	* en_GB.po: Updated British translation.

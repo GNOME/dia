@@ -4,35 +4,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-06-28 13:33+0000\n"
-"PO-Revision-Date: 2000-06-28 13:35+00:00\n"
+"POT-Creation-Date: 2000-07-15 22:49+0000\n"
+"PO-Revision-Date: 2000-07-15 22:50+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:133
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Экспортировать загруженный файл и выйти"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "ВЫВОД"
 
-#: app/app_procs.c:136
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Показывать это сообщение"
 
-#: app/app_procs.c:156
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Не удалось установить соединение с диспетчером сеанса!\n"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[ПАРАМЕТРЫ...] [ФАЙЛ...]"
 
-#: app/app_procs.c:170
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -42,22 +42,22 @@ msgstr ""
 "Запустите \"%s --help\", чтобы просмотреть полный список доступных "
 "параметров командной строки.\n"
 
-#: app/app_procs.c:213 app/app_procs.c:215
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Не удалось найти стандартные объекты при поиске object-libs, запуск "
 "прекращен...\n"
 
-#: app/app_procs.c:232
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Нужен правильный файл ввода\n"
 
-#: app/app_procs.c:291 app/app_procs.c:297
+#: app/app_procs.c:297 app/app_procs.c:303
 msgid "Quit, are you sure?"
 msgstr "Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:304
+#: app/app_procs.c:310
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -65,21 +65,21 @@ msgstr ""
 "Есть измененные диаграммы.\n"
 " Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:314 app/app_procs.c:319
+#: app/app_procs.c:320 app/app_procs.c:325
 msgid "Quit"
 msgstr "Выход"
 
-#: app/app_procs.c:331 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Отмена"
 
-#: app/app_procs.c:399
+#: app/app_procs.c:405
 msgid "Could not create per-user Dia config directory"
 msgstr "Невозможно создать пользовательский каталог конфигурации Dia"
 
-#: app/app_procs.c:419
+#: app/app_procs.c:425
 msgid "Objects and filters internal to dia"
 msgstr "Объекты и фильтры внутри Dia"
 
@@ -389,10 +389,10 @@ msgstr "/Вид/Показывать соединительные точки"
 msgid "/View/AntiAliased"
 msgstr "/Вид/Сглаженный"
 
-#: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
-#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: app/export_png.c:78 app/load_save.c:504 app/render_eps.c:162
+#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/wpg/wpg.c:937
+#: plug-ins/wmf/wmf.cpp:741 plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -662,11 +662,11 @@ msgstr "Ширина линии"
 msgid "Line width:"
 msgstr "Ширина линии:"
 
-#: app/load_save.c:92
+#: app/load_save.c:95
 msgid "Error reading diagram file\n"
 msgstr "Ошибка при чтении файла диаграммы\n"
 
-#: app/load_save.c:143
+#: app/load_save.c:146
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -674,7 +674,7 @@ msgstr ""
 "Ошибка при загрузке диаграммы.\n"
 "Связанный объеки не найден в документе."
 
-#: app/load_save.c:146
+#: app/load_save.c:149
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -682,7 +682,7 @@ msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
 "соединительные точки не существуют."
 
-#: app/load_save.c:149
+#: app/load_save.c:152
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -690,16 +690,16 @@ msgstr ""
 "Ошибка при загрузке диаграммы.\n"
 "обработчик соединения не существует."
 
-#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не удалось открыть: '%s' для чтения.\n"
 
-#: app/load_save.c:199
+#: app/load_save.c:202
 msgid "You must specify a file, not a directory.\n"
 msgstr "Вы должны указать файл, а не каталог.\n"
 
-#: app/load_save.c:208 app/load_save.c:213
+#: app/load_save.c:211 app/load_save.c:216
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -708,7 +708,7 @@ msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
 "Неизвестный тип файла."
 
-#: app/load_save.c:220
+#: app/load_save.c:223
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -717,12 +717,12 @@ msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
 "Это не Dia файл."
 
-#: app/load_save.c:599
+#: app/load_save.c:602
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Не удалось сохранить файл '%s'.\n"
 
-#: app/load_save.c:619 app/load_save.c:624
+#: app/load_save.c:622 app/load_save.c:627
 msgid "Native Dia Diagram"
 msgstr "Собственный формат диаграмм Dia"
 
@@ -1507,7 +1507,7 @@ msgstr "У этого объекта нет свойств."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated PostScript"
 
-#: app/render_svg.c:789
+#: app/render_svg.c:793
 msgid "Scalable Vector Graphics"
 msgstr "Маштабируемая векторная графика (SVG)"
 
@@ -1545,12 +1545,12 @@ msgstr "Внимание"
 msgid "Error"
 msgstr "Ошибка"
 
-#: lib/plug-ins.c:201
+#: lib/plug-ins.c:205
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Невозможно вычислить корректный путь для `%s'"
 
-#: lib/plug-ins.c:206
+#: lib/plug-ins.c:210
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1559,22 +1559,22 @@ msgstr ""
 "Не удалось загрузить дополнение '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:217
+#: lib/plug-ins.c:221
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Невозможно найти функцию инициализации дополнения в `%s'"
 
-#: lib/plug-ins.c:244
+#: lib/plug-ins.c:248
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s Дополнение не может быть выгружено"
 
-#: lib/plug-ins.c:297
+#: lib/plug-ins.c:301
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "'%s' не является каталогом"
 
-#: lib/plug-ins.c:303
+#: lib/plug-ins.c:307
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Не удалось открыть '%s'"
@@ -1747,30 +1747,35 @@ msgstr "Идентификация"
 msgid "Relationship"
 msgstr "Отношение"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:744
+#: objects/FS/flow-ortho.c:638 objects/FS/flow-poly.c:632
+#: objects/FS/flow-poly.c:747 objects/FS/flow.c:629 objects/FS/flow.c:744
 msgid "Flow:"
 msgstr "Поток:"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:760
+#: objects/FS/flow-ortho.c:653 objects/FS/flow-poly.c:647
+#: objects/FS/flow-poly.c:763 objects/FS/flow.c:644 objects/FS/flow.c:760
 msgid "Flow type:"
 msgstr "Тип потока:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:649 objects/FS/flow.c:704
-#: objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:785 objects/FS/flow-poly.c:652
+#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:768 objects/FS/flow.c:649
+#: objects/FS/flow.c:704 objects/FS/flow.c:765
 msgid "Energy"
 msgstr "Энергия"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:656 objects/FS/flow.c:705
-#: objects/FS/flow.c:772
+#: objects/FS/flow-ortho.c:792 objects/FS/flow-poly.c:659
+#: objects/FS/flow-poly.c:708 objects/FS/flow-poly.c:775 objects/FS/flow.c:656
+#: objects/FS/flow.c:705 objects/FS/flow.c:772
 msgid "Material"
 msgstr "Материал"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:662 objects/FS/flow.c:706
-#: objects/FS/flow.c:778 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:798 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:781 objects/FS/flow.c:662
+#: objects/FS/flow.c:706 objects/FS/flow.c:778 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Сигнал"
 
@@ -2529,8 +2534,9 @@ msgstr "Вертикальное отражение"
 
 #: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
 #: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
-#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
-#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
+#: objects/flowchart/parallelogram.c:314 objects/standard/beziergon.c:215
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Нарисовать фон"
 
@@ -2583,23 +2589,23 @@ msgstr "Удалить обработчик"
 msgid "Network diagram objects"
 msgstr "Объекты диаграммы сети"
 
-#: objects/standard/bezier.c:526
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:541
 msgid "Add Segment"
 msgstr "Добавить сегмент"
 
-#: objects/standard/bezier.c:527
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:542
 msgid "Delete Segment"
 msgstr "Удалить сегмент"
 
-#: objects/standard/bezier.c:529
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:544
 msgid "Symmetric control"
 msgstr "Симметричная точка"
 
-#: objects/standard/bezier.c:531
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:546
 msgid "Smooth control"
 msgstr "Гладкая точка"
 
-#: objects/standard/bezier.c:533
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:548
 msgid "Cusp control"
 msgstr "Управляющая точка"
 
@@ -2710,6 +2716,14 @@ msgstr "Фильтр экспорта файлов TeX Pstricks"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "Макрос TeX Pstricks"
+
+#: plug-ins/wmf/wmf.cpp:767
+msgid "Windows Meta File"
+msgstr "Метафайл Windows (WMF)"
+
+#: plug-ins/wmf/wmf.cpp:781
+msgid "WMF export filter"
+msgstr "Фильтр экспорта файлов WMF"
 
 #: plug-ins/wpg/wpg.c:1043
 #, c-format

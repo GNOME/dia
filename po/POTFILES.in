@@ -41,6 +41,7 @@ objects/ER/participation.c
 objects/ER/relationship.c
 objects/FS/flow-ortho.c
 objects/FS/flow.c
+objects/FS/flow-poly.c
 objects/FS/fs.c
 objects/FS/function.c
 objects/GRAFCET/action.c
@@ -84,6 +85,7 @@ objects/flowchart/parallelogram.c
 objects/network/bus.c
 objects/network/network.c
 objects/standard/bezier.c
+objects/standard/beziergon.c
 objects/standard/box.c
 objects/standard/arc.c
 objects/standard/ellipse.c
@@ -102,4 +104,5 @@ plug-ins/dxf/dxf.c
 plug-ins/hpgl/hpgl.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
+plug-ins/wmf/wmf.cpp
 plug-ins/wpg/wpg.c
