@@ -773,8 +773,6 @@ draw_bezier_with_arrows(Renderer *renderer,
 	       start_arrow->length, start_arrow->width,
 	       line_width,
 	       color, &color_white);
-    renderer->ops->draw_line(renderer, &arrow_head, &points[0].p1,
-			     &color_white);
     if (0) {
       Point line_start = points[0].p1;
       points[0].p1 = arrow_head;
@@ -785,6 +783,29 @@ draw_bezier_with_arrows(Renderer *renderer,
     }
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    Point move_arrow;
+    Point move_line;
+    Point arrow_head;
+    calculate_arrow_point(end_arrow,
+			  &points[num_points-1].p3, &points[num_points-1].p2,
+			  &move_arrow, &move_line,
+			  line_width);
+    arrow_head = points[num_points-1].p3;
+    point_sub(&arrow_head, &move_arrow);
+    point_sub(&points[num_points-1].p3, &move_line);
+    arrow_draw(renderer, end_arrow->type,
+	       &arrow_head, &points[num_points-1].p2,
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       color, &color_white);
+    if (0) {
+      Point line_start = points[num_points-1].p3;
+      points[num_points-1].p3 = arrow_head;
+      point_normalize(&move_arrow);
+      point_scale(&move_arrow, end_arrow->length);
+      point_sub(&points[num_points-1].p3, &move_arrow);
+      renderer->ops->draw_line(renderer, &line_start, &points[num_points-1].p3, color);
+    }
   }
   renderer->ops->draw_bezier(renderer, points, num_points, color);
 

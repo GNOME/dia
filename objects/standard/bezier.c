@@ -235,6 +235,13 @@ bezierline_draw(Bezierline *bezierline, Renderer *renderer)
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
+  renderer->ops->draw_bezier_with_arrows(renderer, bez->points, bez->numpoints,
+					 bezierline->line_width,
+					 &bezierline->line_color,
+					 &bezierline->start_arrow,
+					 &bezierline->end_arrow);
+
+#if 0
   renderer->ops->draw_bezier(renderer, bez->points, bez->numpoints,
 			     &bezierline->line_color);
 
@@ -253,6 +260,7 @@ bezierline_draw(Bezierline *bezierline, Renderer *renderer)
 	       bezierline->line_width,
 	       &bezierline->line_color, &color_white);
   }
+#endif
 
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
