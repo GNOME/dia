@@ -418,7 +418,7 @@ diagram_save(Diagram *dia, char *filename)
     return FALSE;
 
   dia->unsaved = FALSE;
-  dia->modified = FALSE;
+  diagram_set_modified (dia, FALSE);
 
   return TRUE;
 }

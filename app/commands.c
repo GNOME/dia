@@ -328,28 +328,27 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
 
 
   /* set a default file name */
-  if (! ddisp->diagram->unsaved)
-    {
-      char *last_slash;
-      char *last_dot;
-      char *ext_index;
-      char *fn = (char *) malloc (strlen (ddisp->diagram->filename) + 10);
-      strcpy (fn, ddisp->diagram->filename);
-
-      /* put a .ps extention on the file name */
-      last_slash = strrchr (fn, '/');
-      last_dot = strrchr (fn, '.');
-      if (last_slash && last_dot && last_dot > last_slash)
-	ext_index = last_dot;
-      else if ((! last_slash) && last_dot)
-	ext_index = last_dot;
-      else
-	ext_index = fn + strlen (fn);
-      strcpy (ext_index, ".ps");
-
-      gtk_file_selection_set_filename (fs, fn);
-      free (fn);
-    }
+  if (! ddisp->diagram->unsaved) {
+    char *last_slash;
+    char *last_dot;
+    char *ext_index;
+    char *fn = (char *) malloc (strlen (ddisp->diagram->filename) + 10);
+    strcpy (fn, ddisp->diagram->filename);
+    
+    /* put a .ps extention on the file name */
+    last_slash = strrchr (fn, '/');
+    last_dot = strrchr (fn, '.');
+    if (last_slash && last_dot && (last_dot > last_slash))
+      ext_index = last_dot;
+    else if ((! last_slash) && last_dot)
+      ext_index = last_dot;
+    else
+      ext_index = fn + strlen (fn);
+    strcpy (ext_index, ".ps");
+    
+    gtk_file_selection_set_filename (fs, fn);
+    free (fn);
+  }
 
   gtk_widget_show (window);
 

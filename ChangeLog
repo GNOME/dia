@@ -1,3 +1,18 @@
+1999-02-28  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* lib/dia_xml.c:
+	Changed string saving/loading to a new method. This should
+	be much better att handling &,<,> and whitespaces.
+	Loading strings of the old kind is still supported for backwards
+	compatibility.
+
+	* samples/ER-demo.dia:
+	* samples/UML-demo.dia:
+	Updated to use the new strings.
+	
+	* app/load_save.c:
+	statusbar modified update fix.
+
 1999-02-27  Seth Alves  <alves@hungry.com>
 
 	* app/app_procs.c (app_init): added a --export-to-ps option
