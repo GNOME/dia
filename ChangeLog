@@ -1,3 +1,11 @@
+1999-04-01  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/menus.c
+	(i18n) The popup menu is translated now.
+
+	* po/sv.po
+	(i18n) Updated swedish translation.
+
 1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
 
 	* Released Dia 0.40
