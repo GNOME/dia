@@ -1,5 +1,11 @@
 1999-02-27  Seth Alves  <alves@hungry.com>
 
+	* app/app_procs.c (app_init): added a --export-to-ps option
+	which will cause dia to load a dia file and save it as ps
+	and then exit.  this is a little bogus, because it still
+	pops up a window.  this option only shows up if --enable-gnome
+	is used
+
 	* app/display.c (display_set_menu_sensitivity): no Edit/Delete
 	menu when built with --enable-gnome
 

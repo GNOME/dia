@@ -59,9 +59,6 @@ static void register_all_sheets(void);
 static int name_is_lib(char *name);
 
 #ifdef GNOME
-static struct poptOption options[] = {
-  {NULL, '\0', 0, NULL, 0}
-};
 
 static void
 session_die (gpointer client_data)
@@ -104,13 +101,23 @@ static int current_version = 0;
 void
 app_init (int argc, char **argv)
 {
-  Diagram *diagram;
-  DDisplay *ddisp;
-#ifdef GNOME
-  GnomeClient *client;
-  poptContext poptCtx;
-#endif
+  Diagram *diagram = NULL;
+  DDisplay *ddisp = NULL;
   int i;
+
+# ifdef GNOME
+  GnomeClient *client;
+  char *in_file_name = NULL;
+  char *export_file_name = NULL;
+  poptContext poptCtx;
+  struct poptOption options[] =
+  {
+    {"export-to-ps", 'e', POPT_ARG_STRING, &export_file_name, 0,
+     "Export loaded file to postscript and exit",
+     "OUTPUT"},
+    {(char *) NULL, '\0', 0, NULL, 0}
+  };
+# endif /* GNOME */
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
@@ -118,7 +125,7 @@ app_init (int argc, char **argv)
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
 
-#ifdef GNOME
+# ifdef GNOME
   gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
 			     0, &poptCtx);
 
@@ -132,10 +139,13 @@ app_init (int argc, char **argv)
     gtk_signal_connect(GTK_OBJECT (client), "die",
 		       GTK_SIGNAL_FUNC (session_die), NULL);
   }
-#else
+
+  g_log_set_always_fatal ((GLogLevelFlags) 0xFFFF);
+
+# else /* GNOME */
   gtk_init (&argc, &argv);
   dia_image_init();
-#endif
+# endif /* GNOME */
 
   /* Here could be popt stuff for options */
     
@@ -170,16 +180,29 @@ app_init (int argc, char **argv)
 
   create_layer_dialog();
 
-#ifdef GNOME
-  while (poptPeekArg(poptCtx)) {
-    diagram = diagram_load(poptGetArg(poptCtx));
-    if (diagram != NULL) {
-      diagram_update_extents(diagram);
-      ddisp = new_display(diagram);
-      diagram_add_ddisplay(diagram, ddisp);
+# ifdef GNOME
+  while (poptPeekArg(poptCtx))
+    {
+      in_file_name = poptGetArg(poptCtx);
+      diagram = diagram_load (in_file_name);
+      if (diagram != NULL) {
+	diagram_update_extents(diagram);
+	ddisp = new_display(diagram);
+	diagram_add_ddisplay(diagram, ddisp);
+      }
     }
-  }
-#else
+
+  if (export_file_name)
+    {
+      if (! diagram)
+	{
+	  fprintf (stderr, "need valid input file for --export-file-to-ps\n");
+	  exit (1);
+	}
+      diagram_export_to_eps (diagram, export_file_name);
+      exit (0);
+    }
+# else /* GNOME */
   /* In case argc > 1 load diagram files */
   i = 1;
   while (i < argc) {
@@ -191,7 +214,7 @@ app_init (int argc, char **argv)
     }
     i++;
   }
-#endif
+# endif /* GNOME */
 }
 
 static void
