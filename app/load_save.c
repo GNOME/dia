@@ -325,7 +325,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  while (other_obj->connections[con_point_nr] != con_point) {
 	    con_point_nr++;
 	    if (con_point_nr>=other_obj->num_connections) {
-	      message_error(_("Internal error saving diagram\n con_point_nr >= other_obj->num_connections\n"));
+	      message_error("Internal error saving diagram\n con_point_nr >= other_obj->num_connections\n");
 	      return FALSE;
 	    }
 	  }

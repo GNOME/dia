@@ -102,8 +102,8 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   
   /* Have to have exactly one selected object */
   if (selected_list == NULL || g_list_next(selected_list) != NULL) {
-    message_error(_("Selected list is %s while selected_count is %d\n"),
-		  (selected_list?_("long"):_("empty")), diagram->data->selected_count);
+    message_error("Selected list is %s while selected_count is %d\n",
+		  (selected_list?"long":"empty"), diagram->data->selected_count);
     return;
   }
   

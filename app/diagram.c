@@ -472,7 +472,7 @@ void diagram_ungroup_selected(Diagram *dia)
   GList *list;
   
   if (dia->data->selected_count != 1) {
-    message_error(_("Trying to ungroup with more or less that one selected object."));
+    message_error("Trying to ungroup with more or less that one selected object.");
     return;
   }
   
