@@ -1,4 +1,4 @@
- -------------------------------------------------------
+# -------------------------------------------------------
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Fatih Demir <kabalak@gmx.net>, 2000.
 #
@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
 "POT-Creation-Date: 2000-07-19 18:59+0200\n"
-"PO-Revision-Date: 2000-07-19 19:00+0200\n"
+"PO-Revision-Date: 2000-07-19 20:12+0200\n"
 "Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -226,47 +226,47 @@ msgstr "/Nesneler/Kitleleþtir"
 
 #: app/diagram.c:201
 msgid "/Objects/Ungroup"
-msgstr "/Nesneler/Kitleyi kýt"
+msgstr "/Nesneler/Kitleyi kaldýr"
 
 #: app/diagram.c:204 app/menus.c:331
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/Nesneler/Ufki taraflama/Sol"
+msgstr "/Nesneler/Ufki Taraflama/Sol"
 
 #: app/diagram.c:206 app/menus.c:332
 msgid "/Objects/Align Horizontal/Center"
-msgstr "/Nesneler/Ufki taraflama/Orta"
+msgstr "/Nesneler/Ufki Taraflama/Orta"
 
 #: app/diagram.c:208 app/menus.c:333
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Nesneler/Ufki taraflama/Sað"
+msgstr "/Nesneler/Ufki Taraflama/Sað"
 
 #: app/diagram.c:210 app/menus.c:334
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Nesneler/Ufki taraflama/Eþit mesafe"
+msgstr "/Nesneler/Ufki Taraflama/Eþit mesafe"
 
 #: app/diagram.c:212 app/menus.c:335
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Nesneler/Ufki taraflama/Bitiþik"
+msgstr "/Nesneler/Ufki Taraflama/Bitiþik"
 
 #: app/diagram.c:214 app/menus.c:338
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Nesneler/Dikey taraflama/Üst"
+msgstr "/Nesneler/Dikey Taraflama/Üst"
 
 #: app/diagram.c:216 app/menus.c:339
 msgid "/Objects/Align Vertical/Center"
-msgstr "/Nesneler/Dikey taraflama/Orta"
+msgstr "/Nesneler/Dikey Taraflama/Orta"
 
 #: app/diagram.c:218 app/menus.c:340
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Nesneler/Dikey taraflama/Alt"
+msgstr "/Nesneler/Dikey Taraflama/Alt"
 
 #: app/diagram.c:220 app/menus.c:341
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Nesneler/Dikey taraflama/Eþit mesafe"
+msgstr "/Nesneler/Dikey Taraflama/Eþit mesafe"
 
 #: app/diagram.c:222 app/menus.c:342
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Nesneler/Dikey taraflama/Bitiþik"
+msgstr "/Nesneler/Dikey Taraflama/Bitiþik"
 
 #. paper size
 #: app/diapagelayout.c:133
@@ -381,7 +381,8 @@ msgstr "/Göster/Aða takýl"
 
 #: app/display.c:843
 msgid "/View/Show Connection Points"
-msgstr "/Göster/Baðlantý noktalarýný göster"
+msgstr ""
+# msgstr "/Göster/Baðlantý Noktalarýný Göster"
 
 #: app/display.c:846
 msgid "/View/AntiAliased"
