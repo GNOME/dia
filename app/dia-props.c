@@ -208,7 +208,7 @@ create_diagram_properties_dialog(Diagram *dia)
 		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
   gtk_widget_show(pagebreak_colour);
 
-  label = gtk_label_new(_("Colours"));
+  label = gtk_label_new(_("Colors"));
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table, label);
   gtk_widget_show(table);
   gtk_widget_show(label);

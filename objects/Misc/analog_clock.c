@@ -133,11 +133,11 @@ static PropDescription analog_clock_props[] = {
   PROP_STD_SHOW_BACKGROUND,
 
   { "arrow_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Arrow colour"), NULL, NULL },
+    N_("Arrow color"), NULL, NULL },
   { "arrow_line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Arrow line width"), NULL,NULL },
   { "sec_arrow_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Seconds arrow colour"), NULL, NULL },
+    N_("Seconds arrow color"), NULL, NULL },
   { "sec_arrow_line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Seconds arrow line width"), NULL,NULL },
   { "show_ticks", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,

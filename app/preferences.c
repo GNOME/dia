@@ -130,7 +130,7 @@ DiaPrefData prefs_data[] =
     &default_paper_name, 1, N_("Paper type:"), NULL, FALSE,
     get_paper_name_list },
   { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
-    &color_white, 1, N_("Background Colour:") },
+    &color_white, 1, N_("Background Color:") },
   { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
@@ -145,7 +145,7 @@ DiaPrefData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
   { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible") },
-  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, 2, N_("Colour:") },
+  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, 2, N_("Color:") },
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines") },
   { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
   
@@ -155,7 +155,7 @@ DiaPrefData prefs_data[] =
   { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, 3, N_("Dynamic grid resizing") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, 3, N_("Colour:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, 3, N_("Color:") },
   { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, 3, N_("Lines per major line") },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 

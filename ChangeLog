@@ -1,3 +1,19 @@
+2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/dia-props.c:
+	* app/preferences.c:
+	* lib/properties.c:
+	* objects/GRAFCET/step.c:
+	* objects/Misc/analog_clock.c:
+	* objects/chronogram/chronoline.c:
+	* objects/chronogram/chronoref.c:
+	Change to american spelling (color, not colour) to ease
+	translators job.  Note that a number of translations may need an
+	update now.
+
+	* app/render_libart.c: Include fix from papadopo@shfj.cea.fr for
+	Solaris build.
+
 2004-02-29  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/xfig/xfig-export.c: Patch from solworth@cs.uic.edu:

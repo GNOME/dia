@@ -165,7 +165,7 @@ static PropDescription chronoref_props[] = {
   { "font_size", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Font size"), NULL, &prop_std_text_height_data },
   { "font_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Text colour"), NULL, NULL },
+    N_("Text color"), NULL, NULL },
   PROP_FRAME_END("aspect",0),
 
   PROP_STD_MULTICOL_END,

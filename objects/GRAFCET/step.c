@@ -166,7 +166,7 @@ static PropDescription step_props[] = {
   { "font_size", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Font size"), NULL, &prop_std_text_height_data},
   { "font_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Text colour"), NULL },
+    N_("Text color"), NULL },
   { "north_pos", PROP_TYPE_POINT, 0},
   { "south_pos", PROP_TYPE_POINT, 0},
   PROP_DESC_END

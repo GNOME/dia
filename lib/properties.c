@@ -68,9 +68,9 @@ PropEnumData prop_std_text_align_data[] = {
 
 #ifdef FOR_TRANSLATORS_ONLY
 static char *list [] = {
-	N_("Line colour"),
+	N_("Line color"),
 	N_("Line style"),
-	N_("Fill colour"),
+	N_("Fill color"),
 	N_("Draw background"),
 	N_("Start arrow"),
 	N_("End arrow"),
@@ -78,6 +78,6 @@ static char *list [] = {
 	N_("Text alignment"),
 	N_("Font"),
 	N_("Font size"),
-	N_("Text colour")
+	N_("Text color")
 };
 #endif
