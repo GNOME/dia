@@ -258,6 +258,14 @@ dia_plugin_load(PluginInfo *info)
     return;
   }
 
+  /* Corrupt? */
+  if (info->description == NULL) {
+    g_module_close(info->module);
+    info->module = NULL;
+    info->description = g_strdup(_("dia_plugin_init() call failed"));
+    return;
+  }
+
   info->is_loaded = TRUE;
 
   return;

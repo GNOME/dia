@@ -42,6 +42,9 @@ export_filter_compare(gconstpointer a, gconstpointer b)
 void
 filter_register_export(DiaExportFilter *efilter)
 {
+  if (efilter->description == NULL) {
+    return;
+  }
   export_filters = g_list_insert_sorted(export_filters, efilter,
 					export_filter_compare);
 }
@@ -110,6 +113,9 @@ import_filter_compare(gconstpointer a, gconstpointer b)
 void
 filter_register_import(DiaImportFilter *ifilter)
 {
+  if (ifilter->description == NULL) {
+    return;
+  }
   import_filters = g_list_insert_sorted(import_filters, ifilter,
 					import_filter_compare);
 }
