@@ -117,7 +117,7 @@ persistence_load_string(xmlNodePtr node)
   if (attr != NULL)
     string = data_string(attribute_first_data(attr));
   else 
-    return
+    return;
 
   if (persistent_strings == NULL) {
     persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);

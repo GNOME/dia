@@ -1,3 +1,7 @@
+2004-03-25  Lars Clausen  <lars@raeder.dk>
+
+	* app/persistence.c (persistence_load_string): Missing semicolon?!?
+
 2004-03-24  Lars Clausen  <lars@raeder.dk>
 
 	* RELEASE-PROCESS: 
