@@ -1,3 +1,10 @@
+2002-01-18  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/font.c (font_get_gdkfont_helper): use gdk_fontset_load ().
+	if it failed, should be used gdk_font_load ().
+
+	* lib/font.c (font_data): added the font entries for CJK.
+
 2002-01-17  Steffen Macke  <sdteffen@yahoo.com>
 
 	Patch from M.C. Nelson <mcn@mani.kobayasimaru.org>:

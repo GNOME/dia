@@ -170,6 +170,18 @@ FontData font_data[] = {
       "-schumacher-clean-bold-i-normal-*-%d-*-*-*-*-*-*-*"
     }
   },
+  { "Batang",
+	"Batang",
+	{ "-*-batang-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "BousungEG-Light-GB",
+	"BousungEG-Light-GB",
+	{ "-*-ar pl sungtil gb-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
   { "Bookman-Light",
     "Bookman-Light",
     { "-adobe-bookman-light-r-normal-*-%d-*-*-*-*-*-*-*",
@@ -249,6 +261,36 @@ FontData font_data[] = {
     }
   },
 #endif
+  { "Dotum",
+	"Dotum",
+	{ "-*-dotum-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "GBZenKai-Medium",
+	"GBZenKai-Medium",
+	{ "-*-ar pl kaitim gb-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "GothicBBB-Medium",
+	"GothicBBB-Medium",
+	{ "-*-gothic-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "Gulim",
+	"Gulim",
+	{ "-*-gulim-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "Headline",
+	"Headline",
+	{ "-*-headline-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
   { "Helvetica",
     "Helvetica",
     { "-adobe-helvetica-medium-r-normal-*-%d-*-*-*-*-*-*-*",
@@ -296,6 +338,12 @@ FontData font_data[] = {
     { "-adobe-helvetica-bold-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
     }
+  },
+  { "MOESung-Medium",
+	"MOESung-Medium",
+	{ "-*-ar pl kaitim big5-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
   },
   { "NewCenturySchoolbook-Roman",
     "NewCenturySchlbk-Roman",
@@ -345,6 +393,24 @@ FontData font_data[] = {
       "-*-lucidabright-demibold-i-normal-*-%d-*-*-*-*-*-*-*"
     }
   },
+  { "Ryumin-Light",
+	"Ryumin-Light",
+	{ "-*-mincho-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "ShanHeiSun-Light",
+	"ShanHeiSun-Light",
+	{ "-*-ar pl mingti2l big5-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
+  { "Song-Medium",
+	"Song-Medium",
+	{ "-*-ar pl kaitim gb-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
+  },
   { "Symbol",
     "Symbol",
     {
@@ -363,6 +429,12 @@ FontData font_data[] = {
     { "-adobe-zapf dingbats-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       "-*-itc zapf dingbats-*-*-*-*-%d-*-*-*-*-*-*-*"
     }
+  },
+  { "ZenKai-Medium",
+	"ZenKai-Medium",
+	{ "-*-ar pl kaitim big5-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+	  NULL
+	}
   },
 };
 
@@ -934,7 +1006,8 @@ font_get_gdkfont_helper(FontPrivate *font, int height)
   bufsize = strlen(font->fontname_x11)+6;  /* Should be enought*/
   buffer = (char *)malloc(bufsize);
   g_snprintf(buffer, bufsize, font->fontname_x11, height);
-  gdk_font = gdk_font_load(buffer);
+  gdk_font = gdk_fontset_load (buffer);
+  if (!gdk_font) gdk_font = gdk_font_load(buffer);
   free(buffer);
 
   return gdk_font;
