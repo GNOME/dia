@@ -1,5 +1,10 @@
 2004-11-23  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c : fixed build for the GNOME case
+	(let's rip out POPT and depend on glib-2.6, please ;-)
+
+2004-11-23  Hans Breuer  <hans@breuer.org>
+
 	* app/app_procs.c : fixed typo which broke the
 	build for HAVE_POPT case
 	

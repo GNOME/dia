@@ -486,7 +486,7 @@ app_init (int argc, char **argv)
 			  argc, argv, GNOME_PARAM_POPT_TABLE, options,
 			  GNOME_PROGRAM_STANDARD_PROPERTIES,
 			  GNOME_PARAM_NONE);
-    g_object_get(program, "popt-context", &poptCtx, NULL);
+    g_object_get(program, "popt-context", &context, NULL);
     client = gnome_master_client();
     if(client == NULL) {
       g_warning(_("Can't connect to session manager!\n"));
