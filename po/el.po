@@ -569,7 +569,7 @@ msgstr "Επιλογές Πλέγματος..."
 
 #: app/menus.c:106
 msgid "_AntiAliased"
-msgstr ""
+msgstr "Με Ε_ξομάλυνση"
 
 #: app/menus.c:109
 msgid "_Visible Grid"
@@ -948,7 +948,7 @@ msgstr "Γραμμές Πλέγματος"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
-msgstr ""
+msgstr "Επαναφορά ρυθμίσεων εργαλείων κατόπιν δημιουργίας:"
 
 #: app/preferences.c:99
 msgid "Compress saved files:"
@@ -1146,11 +1146,11 @@ msgstr "Επιλογή αρχείου εικόνας"
 msgid "Browse"
 msgstr "Εξερεύνηση"
 
-## FIX todo
+# FIX?? check with all occurences in sourcecode about meaning
 
 #: lib/properties.c:356 lib/properties.c:388
 msgid "No edit widget"
-msgstr ""
+msgstr "Απενεργ. πεδίου κειμένου"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
