@@ -761,7 +761,7 @@ text_insert_char(Text *text, gunichar c)
 
   length = strlen (text->line[row]);
   if ((length + unilen + 1) > text->alloclen[row]) {
-    text->alloclen[row] = length * 2 + unilen;
+    text->alloclen[row] = length * 2 + unilen + 1;
     text->line[row] = g_realloc (text->line[row], sizeof (gchar) * text->alloclen[row]);
   }
 
