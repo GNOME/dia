@@ -35,7 +35,8 @@ enum change_type {
   TYPE_DELETE_FORWARD,
   TYPE_INSERT_CHAR,
   TYPE_JOIN_ROW,
-  TYPE_SPLIT_ROW
+  TYPE_SPLIT_ROW,
+  TYPE_DELETE_ALL
 };
 
 struct TextObjectChange {
@@ -46,6 +47,7 @@ struct TextObjectChange {
   char ch;
   int pos;
   int row;
+  char *str;
 };
 
 static ObjectChange *text_create_change(Text *text, enum change_type type,
@@ -834,6 +836,19 @@ int text_is_empty(Text *text)
   return TRUE;
 }
 
+int
+text_delete_all(Text *text, ObjectChange **change)
+{
+  if (!text_is_empty(text)) {
+    *change = text_create_change(text, TYPE_DELETE_ALL,
+				 0, text->cursor_pos, text->cursor_row);
+    
+    text_set_string(text, "");
+    return TRUE;
+  }
+  return FALSE;
+}
+
 void
 data_add_text(AttributeNode attr, Text *text)
 {
@@ -955,8 +970,14 @@ text_change_apply(struct TextObjectChange *change, Object *obj)
   case TYPE_JOIN_ROW:
     text_join_lines(text, change->row);
     break;
+  case TYPE_DELETE_ALL:
+    set_string(text, "");
+    text->cursor_pos = 0;
+    text->cursor_row = 0;
+    break;
   }
 }
+
 static void
 text_change_revert(struct TextObjectChange *change, Object *obj)
 {
@@ -987,9 +1008,18 @@ text_change_revert(struct TextObjectChange *change, Object *obj)
     text->cursor_row = change->row;
     text_split_line(text);
     break;
+  case TYPE_DELETE_ALL:
+    set_string(text, change->str);
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    break;
   }
 }
 
+static void
+text_change_free(struct TextObjectChange *change) {
+  g_free(change->str);
+}
 
 static ObjectChange *
 text_create_change(Text *text, enum change_type type,
@@ -1001,12 +1031,16 @@ text_create_change(Text *text, enum change_type type,
 
   change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) NULL;
+  change->obj_change.free = (ObjectChangeFreeFunc) text_change_free;
 
   change->text = text;
   change->type = type;
   change->ch = ch;
   change->pos = pos;
   change->row = row;
+  if (type == TYPE_DELETE_ALL)
+    change->str = text_get_string_copy(text);
+  else
+    change->str = NULL;
   return (ObjectChange *)change;
 }

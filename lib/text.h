@@ -81,6 +81,7 @@ void text_set_cursor(Text *text, Point *clicked_point,
 void text_set_cursor_at_end( Text* text );
 void text_grab_focus(Text *text, Object *object);
 int text_is_empty(Text *text);
+int text_delete_all(Text *text, ObjectChange **change);
 void text_get_attributes(Text *text, TextAttributes *attr);
 void text_set_attributes(Text *text, TextAttributes *attr);
 
