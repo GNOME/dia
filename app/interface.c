@@ -779,7 +779,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   style = gtk_widget_get_style(sheet_wbox);
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
-    GdkPixmap *pixmap;
+    GdkPixmap *pixmap = NULL;
     GdkBitmap *mask = NULL;
     GtkWidget *pixmapwidget;
     GtkWidget *button;
@@ -791,11 +791,16 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap);
     } else if (sheet_obj->pixmap_file != NULL) {
       GdkPixbuf *pixbuf;
-
-      pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, NULL);
+      GError* gerror = NULL;
+      
+      pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
-	gdk_pixbuf_render_pixmap_and_mask(pixbuf, &pixmap, &mask, 1.0);
-	gdk_pixbuf_unref(pixbuf);
+          gdk_pixbuf_render_pixmap_and_mask(pixbuf, &pixmap, &mask, 1.0);
+          gdk_pixbuf_unref(pixbuf);
+      } else {
+          
+          g_warning("failed to load pixbuf for file %s; cause=%s",
+                    sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
       }
     } else {
       ObjectType *type;
@@ -808,8 +813,9 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
       pixmapwidget = gtk_pixmap_new(pixmap, mask);
       gdk_pixmap_unref(pixmap);
       if (mask) gdk_bitmap_unref(mask);
-    } else
+    } else {
       pixmapwidget = gtk_type_new(gtk_pixmap_get_type());
+    }
 
     button = gtk_radio_button_new (tool_group);
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
