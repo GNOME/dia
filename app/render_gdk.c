@@ -967,6 +967,7 @@ draw_string (RendererGdk *renderer,
   userdata.gc = gc;
 
   freetype_render_string(fts, x, y, gdk_freetype_copy_glyph, &userdata);
+  gdk_gc_set_function(renderer->render_gc, GDK_COPY);
 #else
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
