@@ -1,3 +1,7 @@
+2001-09-08  Wang Jian <lark@linux.net.cn>
+
+	* zh_CN.po: Renamed from zh_CN.GB2312.po.
+
 2001-09-06  Abel Cheung  <maddog@linux.org.hk>
 
 	* zh_TW.po: Partially updated traditional Chinese translation.

@@ -1,3 +1,7 @@
+2001-09-08  Wang Jian  <lark@linux.net.cn>
+
+	* configure.in(ALL_LINGUAS): Renamed zh_CN.GB2312 to zh_CN
+
 2001-09-07  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/dia_xml_libxml.h:
