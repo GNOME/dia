@@ -129,6 +129,7 @@ static PropDescription entity_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
+  PROP_STD_TEXT_FONT,
   PROP_DESC_END
 };
 
@@ -147,6 +148,7 @@ static PropOffset entity_offsets[] = {
   { "line_width", PROP_TYPE_REAL, offsetof(Entity, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Entity, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Entity, inner_color) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Entity, font) },
   { NULL, 0, 0}
 };
 

@@ -144,6 +144,7 @@ static PropDescription relationship_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
+  PROP_STD_TEXT_FONT,
   PROP_DESC_END
 };
 
@@ -165,6 +166,7 @@ static PropOffset relationship_offsets[] = {
   { "line_width", PROP_TYPE_REAL, offsetof(Relationship, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Relationship, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Relationship, inner_color) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Relationship, font) },
   { NULL, 0, 0}
 };
 

@@ -1,3 +1,20 @@
+2002-02-26  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/FS/function.c: add related text properties.
+	(function_get_props), (function_set_props): add handling attribute.
+
+	* objects/FS/flow.c: add related text properties.
+	(flow_get_props), (flow_set_props): add handling attribute.
+
+	* objects/FS/flow-ortho.c: add related text properties.
+	(orthflow_set_props), (orthflow_get_props): add handling attribute.
+
+	* objects/ER/relationship.c: add PROP_STD_TEXT_FONT to property.
+
+	* objects/ER/entity.c: ditto.
+
+	* objects/ER/attribute.c: ditto.
+
 2002-02-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch contributed by Geoff Gerrietts <ggerrietts@yahoo.com>:

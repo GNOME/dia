@@ -58,6 +58,7 @@ struct _Flow {
   Handle text_handle;
 
   Text* text;
+  TextAttributes attrs;
   FlowType type;
 };
 
@@ -161,6 +162,11 @@ static PropDescription flow_props[] = {
   OBJECT_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_flow_type_data },
+  { "text", PROP_TYPE_TEXT, 0, NULL, NULL },
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
   PROP_DESC_END
 };
 
@@ -176,12 +182,18 @@ flow_describe_props(Flow *mes)
 static PropOffset flow_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
+  { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof (Flow, attrs.alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Flow, attrs.font) },
+  { "text_height", PROP_TYPE_REAL, offsetof (Flow, attrs.height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof (Flow, attrs.color) },
   { NULL, 0, 0 }
 };
 
 static void
 flow_get_props(Flow * flow, GPtrArray *props)
 {
+  text_get_attributes (flow->text, &flow->attrs);
   object_get_props_from_offsets(&flow->connection.object, 
                                 flow_offsets, props);
 }
@@ -191,6 +203,7 @@ flow_set_props(Flow *flow, GPtrArray *props)
 {
   object_set_props_from_offsets(&flow->connection.object, 
                                 flow_offsets, props);
+  apply_textattr_properties (props, flow->text, "text", &flow->attrs);
   flow_update_data(flow);
 }
 

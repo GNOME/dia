@@ -79,7 +79,6 @@ struct _Attribute {
   real border_width;
   Color border_color;
   Color inner_color;
- 
 };
 
 static real attribute_distance_from(Attribute *attribute, Point *point);
@@ -158,6 +157,7 @@ static PropDescription attribute_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
+  PROP_STD_TEXT_FONT,
   PROP_DESC_END
 };
 
@@ -179,6 +179,7 @@ static PropOffset attribute_offsets[] = {
   { "line_width", PROP_TYPE_REAL, offsetof(Attribute, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Attribute, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Attribute, inner_color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Attribute, font) },
   { NULL, 0, 0}
 };
 

@@ -62,6 +62,7 @@ struct _Orthflow {
   Handle text_handle;
 
   Text* text;
+  TextAttributes attrs;
   OrthflowType type;
 };
 
@@ -184,6 +185,11 @@ static PropDescription orthflow_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_orthflow_type_data },
+  { "text", PROP_TYPE_TEXT, 0, NULL, NULL },
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
   PROP_DESC_END
 };
 
@@ -199,12 +205,18 @@ orthflow_describe_props(Orthflow *mes)
 static PropOffset orthflow_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Orthflow, type) },
+  { "text", PROP_TYPE_TEXT, offsetof (Orthflow, text) },
+  { "text_alignment", PROP_TYPE_REAL, offsetof (Orthflow, attrs.alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Orthflow, attrs.font) },
+  { "text_height", PROP_TYPE_REAL, offsetof (Orthflow, attrs.height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof (Orthflow, attrs.color) },
   { NULL, 0, 0 }
 };
 
 static void
 orthflow_get_props(Orthflow * orthflow, GPtrArray *props)
 {
+  text_get_attributes (orthflow->text, &orthflow->attrs);
   object_get_props_from_offsets(&orthflow->orth.object, 
                                 orthflow_offsets, props);
 }
@@ -214,6 +226,7 @@ orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 {
   object_set_props_from_offsets(&orthflow->orth.object, 
                                 orthflow_offsets, props);
+  apply_textattr_properties (props, orthflow->text, "text", &orthflow->attrs);
   orthflow_update_data(orthflow);
 }
 
