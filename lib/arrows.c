@@ -67,6 +67,58 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
 }
 
 static void
+calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
+		real length, real width)
+{
+  Point delta;
+  Point orth_delta;
+  real len;
+  
+  delta = *to;
+  point_sub(&delta, from);
+  len = point_len(&delta);
+  if (len <= 0.0001) {
+    delta.x=1.0;
+    delta.y=0.0;
+  } else {
+    delta.x/=len;
+    delta.y/=len;
+  }
+
+  orth_delta.x = delta.y;
+  orth_delta.y = -delta.x;
+
+  point_scale(&delta, length);
+  point_scale(&orth_delta, width/2.0);
+
+
+  poly[0] = *to;
+  point_sub(&poly[0], &delta);
+  poly[1] = *to;
+  point_sub(&poly[1], &orth_delta);
+  poly[2] = *to;
+  point_add(&poly[2], &orth_delta);
+}
+
+static void 
+draw_crow_foot(Renderer *renderer, Point *to, Point *from,
+	     real length, real width, real linewidth,
+	     Color *fg_color,Color *bg_color)
+{
+
+  Point poly[3];
+
+  calculate_crow(poly, to, from, length, width);
+  
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+
+  renderer->ops->draw_line(renderer,&poly[0],&poly[1],fg_color);
+  renderer->ops->draw_line(renderer,&poly[0],&poly[2],fg_color);
+}
+
+static void
 draw_lines(Renderer *renderer, Point *to, Point *from,
 	              real length, real width, real linewidth,
 	              Color *color)
@@ -354,12 +406,11 @@ draw_slashed(Renderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&be3,to,&vl,.9*length);
   point_add_scaled(&be3,&vt,-.4*width);
 
-  renderer->ops->draw_line(renderer, to, &bs2, bg_color); /* kludge */
+  renderer->ops->draw_line(renderer, to, &bs2, bg_color);
   renderer->ops->draw_line(renderer, &bs2, &be2, fg_color);
   renderer->ops->draw_line(renderer, &bs, &be, fg_color);
   renderer->ops->draw_line(renderer, &bs3, &be3, fg_color);
 }
-
 
 /* Only draw the upper part of the arrow */
 static void
@@ -541,6 +592,23 @@ draw_slashed_cross(Renderer *renderer, Point *to, Point *from,
   renderer->ops->draw_line(renderer, &poly[4],&poly[5], color);
 }
 
+static void
+draw_cross(Renderer *renderer, Point *to, Point *from,
+     real length, real width, real linewidth, Color *color)
+{
+  Point poly[6];
+  
+  calculate_arrow(poly, to, from, length, width);
+  
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  
+  renderer->ops->draw_line(renderer, &poly[0],&poly[2], color);
+  //renderer->ops->draw_line(renderer, &poly[4],&poly[5], color);
+}
+
 static void 
 calculate_double_arrow(Point *second_to, Point *second_from, 
                        Point *to, Point *from, real length)
@@ -662,6 +730,13 @@ arrow_draw(Renderer *renderer, ArrowType type,
   case ARROW_SLASH_ARROW:
     draw_slashed(renderer,to,from,length,width,linewidth,fg_color,bg_color);
     break;
+  case ARROW_CROW_FOOT:
+    draw_crow_foot(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_CROSS:
+	draw_cross(renderer, to, from, length, width, linewidth, fg_color);
+  break;
+
   } 
 }
 

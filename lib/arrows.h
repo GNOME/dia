@@ -46,7 +46,9 @@ typedef enum {
   ARROW_FILLED_BOX,              /* {filled box} */        
   ARROW_BLANKED_BOX,             /* {blanked box} */       
   ARROW_SLASH_ARROW,             /* {slash arrow} */
-  ARROW_INTEGRAL_SYMBOL          /* {integral symbol} */   
+  ARROW_INTEGRAL_SYMBOL,          /* {integral symbol} */   
+  ARROW_CROW_FOOT,
+  ARROW_CROSS
 } ArrowType;
 
 typedef struct {

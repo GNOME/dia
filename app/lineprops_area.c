@@ -461,6 +461,36 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 		      y+4);  /*cross*/
       }
       break;
+
+	case ARROW_CROW_FOOT:
+      if (arrow->left) {
+        gdk_draw_line(win, gc, x+5,y+height/2, x+width,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+5,y+height/2-5, x+5+height/2,y+height/2); 
+        gdk_draw_line(win, gc, x+5,y+height/2+5, x+5+height/2,y+height/2);
+	/*cross */
+      } else {
+		gdk_draw_line(win, gc, x,y+height/2, x+width-5,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+width-5,y+height/2-5, x+width-height/2-5,y+height/2); 
+        gdk_draw_line(win, gc, x+width-5,y+height/2+5, x+width-height/2-5,y+height/2);
+      }
+      break;
+
+	case ARROW_CROSS:
+      if (arrow->left) {
+        gdk_draw_line(win, gc, x+5,y+height/2, x+width,y+height/2); /*line*/
+        //gdk_draw_line(win, gc, x+5+height/4,y+height/2-5, x+5+height/4,y+height/2+5); 
+        gdk_draw_line(win, gc, x+height/2,y+height-4, x+height/2,y+4); 
+	/*cross */
+      } else {
+        gdk_draw_line(win, gc, x,y+height/2, x+width-5,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+width-height/2,y+height-4, x+width-height/2,
+		      y+4);  /*cross*/
+
+      }
+      break;
+
+
+
     }    
     gdk_gc_set_line_attributes(gc, gcvalues.line_width, gcvalues.line_style,
 			       gcvalues.cap_style, gcvalues.join_style);
@@ -763,7 +793,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; i <= ARROW_INTEGRAL_SYMBOL; i++) {
+  for (i = 0; i <= ARROW_CROSS; i++) {
     mi = gtk_menu_item_new();
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ar = dia_arrow_preview_new(i, left);

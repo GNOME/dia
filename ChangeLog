@@ -1,5 +1,12 @@
 2002-01-26  Steffen Macke  <sdteffen@yahoo.com>
 
+	Patch from Richard Rowell <rwrowell@bellsouth.net>:
+
+	* app/lineprops_area.c:
+	* lib/arrows.h:
+	* lib/arrows.c: 
+	* lib/widgets.c: added crow foot arrow and cross arrow
+	
 	Patch from Frank Gevaerts <frank.gevaerts@fks.be>:
 	
 	* plug-ins/svg/render_svg.c: fixed arcs, fill and text alignment

@@ -676,6 +676,8 @@ static struct menudesc arrow_types[] =
  {N_("Blanked Box"),ARROW_BLANKED_BOX},
  {N_("Slashed"),ARROW_SLASH_ARROW},
  {N_("Integral Symbol"),ARROW_INTEGRAL_SYMBOL},
+ {N_("Crow Foot"),ARROW_CROW_FOOT},
+ {N_("Cross"),ARROW_CROSS},
  {NULL,0}};
 
 static void
