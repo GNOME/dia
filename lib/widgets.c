@@ -1644,21 +1644,45 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
 {
   GtkWidget *button = gtk_toggle_button_new();
   struct image_pair *images = g_new0(struct image_pair, 1);
+  GtkRcStyle *rcstyle;
+  GtkStyle *style;
+  GValue *prop;
+  gint i;
 
   images->on = dia_get_image_from_file(on_image);
   g_object_ref(images->on);
-  gtk_misc_set_padding(GTK_MISC(images->on), 0, 0);
   gtk_widget_show(images->on);
 
   images->off = dia_get_image_from_file(off_image);
   g_object_ref(images->off);
-  gtk_misc_set_padding(GTK_MISC(images->off), 0, 0);
   gtk_widget_show(images->off);
 
-  gtk_container_add(GTK_CONTAINER(button), images->off);
+  /* Make border as small as possible */
+  gtk_misc_set_padding(GTK_MISC(images->on), 0, 0);
+  gtk_misc_set_padding(GTK_MISC(images->off), 0, 0);
+  GTK_WIDGET_UNSET_FLAGS(GTK_WIDGET(button), GTK_CAN_FOCUS);
+  GTK_WIDGET_UNSET_FLAGS(GTK_WIDGET(button), GTK_CAN_DEFAULT);
+
+  rcstyle = gtk_rc_style_new ();  
+  rcstyle->xthickness = rcstyle->ythickness = 0;       
+  gtk_widget_modify_style (button, rcstyle);   
+  gtk_rc_style_unref (rcstyle);
+
+  //style = gtk_widget_get_style(button);
+  //gtk_widget_set_style(button, style);
+  // style property focus-padding
+  prop = g_new0(GValue, 1);
+  g_value_init(prop, G_TYPE_INT);
+  gtk_widget_style_get_property(GTK_WIDGET(button), "focus-padding", prop);
+  i = g_value_get_int(prop);
+  printf("focus-padding %d\n", i);
+  g_value_set_int(prop, 0);
+
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
   /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
+
+  gtk_container_add(GTK_CONTAINER(button), images->off);
 
   g_signal_connect(G_OBJECT(button), "toggled", 
 		   dia_toggle_button_swap_images, images);

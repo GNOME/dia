@@ -1,3 +1,17 @@
+2004-05-28  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/pixmaps/Makefile.am (imagedir): 
+	* app/pixmaps/visible.png:
+	* app/pixmaps/visible-empty.png: New images for the visibility
+	button in the layer dialog.
+
+	* lib/widgets.c (dia_toggle_button_new_with_images): Remove even
+	more border around the button.  Still some left when hovering the
+	mouse or selecting, and the grey background is annoying.
+
+	* app/layer_dialog.c (dia_layer_widget_init): Use real buttons for
+	visibility connector.
+
 2004-05-26  Lars Clausen  <lars@raeder.dk>
 
 	* configure.in (DB2MAN): Better check for db2man docbook place.

@@ -632,105 +632,6 @@ dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
   widget_class->unrealize = dia_layer_widget_unrealize;
 }
 
-/** Get the appropriate pixmap for the layer.
- */
-static GdkPixmap *
-dia_layer_widget_get_pixmap(GdkPixmap **pixmaps, DiaLayerWidget *widget,
-			    gboolean on, gboolean selected)
-{
-  if (on) {
-    if (GTK_WIDGET_IS_SENSITIVE (GTK_WIDGET(widget))) {
-      if (selected)
-	return pixmaps[SELECTED];
-      else
-	return pixmaps[NORMAL];
-    } else {
-      return pixmaps[INSENSITIVE];
-    }
-  } else return NULL;
-}
-
-static void
-dia_layer_widget_init_pixmap(GdkPixmap **pixmaps, GtkWidget *visible,
-			     gchar *bits, int width, int height)
-{
-  if (pixmaps[NORMAL] == NULL) {
-    pixmaps[NORMAL] =
-      gdk_pixmap_create_from_data (visible->window,
-				   (gchar*) bits, width, height, -1,
-				   &visible->style->fg[GTK_STATE_NORMAL],
-				   &visible->style->white);
-    pixmaps[SELECTED] =
-      gdk_pixmap_create_from_data (visible->window,
-				   (gchar*) bits, width, height, -1,
-				   &visible->style->fg[GTK_STATE_SELECTED],
-				   &visible->style->bg[GTK_STATE_SELECTED]);
-    pixmaps[INSENSITIVE] =
-      gdk_pixmap_create_from_data (visible->window,
-				   (gchar*) bits, width, height, -1,
-				   &visible->style->fg[GTK_STATE_INSENSITIVE],
-				   &visible->style->bg[GTK_STATE_INSENSITIVE]);
-  }
-}
-
-static void
-dia_layer_widget_visible_redraw(DiaLayerWidget *layer_widget)
-{
-  GdkPixmap *pixmap;
-  GdkColor *color;
-  GtkStateType state;
-
-  state = GTK_WIDGET(layer_widget)->state;
-
-  if (GTK_WIDGET_IS_SENSITIVE (layer_widget))
-    {
-      if (state == GTK_STATE_SELECTED)
-	color = &layer_widget->visible->style->bg[GTK_STATE_SELECTED];
-      else
-	color = &layer_widget->visible->style->white;
-    }
-  else
-    color = &layer_widget->visible->style->bg[GTK_STATE_INSENSITIVE];
-
-  gdk_window_set_background (layer_widget->visible->window, color);
-  gdk_window_clear (layer_widget->visible->window);
-
-  dia_layer_widget_init_pixmap(eye_pixmap, layer_widget->visible,
-			       eye_bits, eye_width, eye_height);
-
-  pixmap = dia_layer_widget_get_pixmap(eye_pixmap, 
-				       layer_widget,
-				       layer_widget->layer->visible,
-				       state == GTK_STATE_SELECTED);
-  if (pixmap != NULL)
-    gdk_draw_pixmap (layer_widget->visible->window,
-		     layer_widget->visible->style->black_gc,
-		     pixmap, 0, 0, 0, 0, eye_width, eye_height);
-
-}
-
-static void
-dia_layer_widget_set_toggle_color(GtkWidget *widget, gpointer userdata)
-{
-  DiaLayerWidget *layer_widget = DIA_LAYER_WIDGET(widget);
-  GtkWidget *toggle = GTK_WIDGET(userdata);
-  GdkColor *color;
-  GtkStateType state;
-
-  state = GTK_WIDGET(layer_widget)->state;
-
-  if (GTK_WIDGET_IS_SENSITIVE (layer_widget)) {
-      if (state == GTK_STATE_SELECTED)
-	color = &toggle->style->bg[GTK_STATE_SELECTED];
-      else
-	color = &toggle->style->white;
-  } else
-    color = &toggle->style->bg[GTK_STATE_INSENSITIVE];
-
-  gdk_window_set_background (toggle->window, color);
-  gdk_window_clear (toggle->window);
-}
-
 static void
 dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
 {
@@ -756,8 +657,7 @@ dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
       lw->layer->visible = !visible;
     else
       lw->layer->visible = TRUE;
-    
-    dia_layer_widget_visible_redraw (lw);
+    gtk_widget_queue_draw(GTK_WIDGET(lw));
     
     list = g_list_next(list);
   }
@@ -792,107 +692,27 @@ dia_layer_widget_exclusive_connectable(DiaLayerWidget *layer_widget)
     lw = DIA_LAYER_WIDGET(list->data);
     if (lw != layer_widget) 
       dia_layer_widget_set_connectable(lw, !connectable);
-    else 
+    else {
       dia_layer_widget_set_connectable(lw, TRUE);
+    }
+    gtk_widget_queue_draw(GTK_WIDGET(lw));
     
     list = g_list_next(list);
   }
 }
 
-static gint
-dia_layer_widget_visible_button_events(GtkWidget *widget,
-				       GdkEvent  *event,
-				       gpointer data)
-{
-  static GtkWidget *click_widget = NULL;
-  static int button_down = 0;
-  static int old_state;
-  static int exclusive;
-  GtkWidget *event_widget;
-  gint return_val;
-  GdkEventButton *bevent;
-  DiaLayerWidget *lw;
-  
-  lw = DIA_LAYER_WIDGET(data);
-
-  printf("Button event %d widget %p\n", event->type, widget);
-
-  return_val = FALSE;
-  switch (event->type) {
-  case GDK_EXPOSE:
-    if (widget == lw->visible)
-      dia_layer_widget_visible_redraw (lw);
-    break;
-    
-  case GDK_BUTTON_PRESS:
-    return_val = TRUE;
-    
-    bevent = (GdkEventButton *) event;
-    
-    button_down = 1;
-    click_widget = widget;
-    gtk_grab_add (click_widget);
-    
-    if (widget == lw->visible) {
-      old_state = lw->layer->visible;
-      
-      /*  If this was a shift-click, make all/none visible  */
-      if (event->button.state & GDK_SHIFT_MASK) {
-	exclusive = TRUE;
-	dia_layer_widget_exclusive_visible (lw);
-      } else {
-	exclusive = FALSE;
-	lw->layer->visible = !lw->layer->visible;
-	dia_layer_widget_visible_redraw (lw);
-      }
-    }
-    break;
-    
-  case GDK_BUTTON_RELEASE:
-    return_val = TRUE;
-    
-    button_down = 0;
-    gtk_grab_remove (click_widget);
-    
-    if (widget == lw->visible) {
-      if ((exclusive) || (old_state != lw->layer->visible)) {
-	diagram_add_update_all(lw->dia);
-	diagram_flush(lw->dia);
-      }
-    } 
-    break;
-    
-  case GDK_ENTER_NOTIFY:
-  case GDK_LEAVE_NOTIFY:
-    event_widget = gtk_get_event_widget (event);
-    
-    if (button_down && (event_widget == click_widget)) {
-      if (widget == lw->visible) {
-	if (exclusive) {
-	  dia_layer_widget_exclusive_visible (lw);
-	} else {
-	  lw->layer->visible = !lw->layer->visible;
-	  dia_layer_widget_visible_redraw (lw);
-	}
-      } 
-    }
-    break;
-    
-  default:
-    break;
-  }
-  
-  return return_val;
-}
-
 static gboolean shifted = FALSE;
 
 static gboolean
-dia_layer_widget_connectable_event(GtkWidget *widget,
+dia_layer_widget_button_event(GtkWidget *widget,
 				   GdkEventButton *event,
 				   gpointer userdata)
 {
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+
   shifted = event->state & GDK_SHIFT_MASK;
+  /* Redraw the label? */
+  gtk_widget_queue_draw(GTK_WIDGET(lw));
   return FALSE;
 }
 
@@ -908,7 +728,22 @@ dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
   } else {
     lw->layer->connectable = gtk_toggle_button_get_active(widget);
   }
-  dia_layer_widget_set_toggle_color(GTK_WIDGET(lw), GTK_WIDGET(widget));
+  gtk_widget_queue_draw(GTK_WIDGET(lw));
+}
+
+static void
+dia_layer_widget_visible_toggled(GtkToggleButton *widget,
+				 gpointer userdata)
+{
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  printf("Shifted: %d\n", shifted);
+  if (shifted) {
+    shifted = FALSE;
+    dia_layer_widget_exclusive_visible(lw);
+  } else {
+    lw->layer->visible = gtk_toggle_button_get_active(widget);
+  }
+  gtk_widget_queue_draw(GTK_WIDGET(lw));
 }
 
 static void
@@ -926,6 +761,7 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->layer = NULL;
   lw->edit_dialog = NULL;
   
+  /*
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   lw->visible = visible = gtk_drawing_area_new ();
   gtk_drawing_area_size (GTK_DRAWING_AREA (visible), 
@@ -940,17 +776,33 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   gtk_container_add (GTK_CONTAINER (alignment), visible);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, FALSE, TRUE, 2);
   gtk_widget_show(alignment);
+  */
+
+  lw->visible = visible = 
+    dia_toggle_button_new_with_images("visible.png",
+				      "visible-empty.png");
+  
+  gtk_container_set_border_width(GTK_CONTAINER(visible), 0);
+  g_signal_connect(G_OBJECT(visible), "button-release-event",
+		   dia_layer_widget_button_event, lw);
+  g_signal_connect(G_OBJECT(visible), "button-press-event",
+		   dia_layer_widget_button_event, lw);
+  g_signal_connect(G_OBJECT(visible), "toggled",
+		   dia_layer_widget_visible_toggled, lw);
+
+  gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
+  gtk_widget_show(visible);
+
 
   lw->connectable = connectable = 
     dia_toggle_button_new_with_images("selectable.png", 
 				      "selectable-empty.png");
-  printf("Connectable %p\n", connectable);
 
-  gtk_button_set_relief(GTK_BUTTON(connectable),
-			GTK_RELIEF_NONE);
   gtk_container_set_border_width(GTK_CONTAINER(connectable), 0);
   g_signal_connect(G_OBJECT(connectable), "button-release-event",
-		   dia_layer_widget_connectable_event, lw);
+		   dia_layer_widget_button_event, lw);
+  g_signal_connect(G_OBJECT(connectable), "button-press-event",
+		   dia_layer_widget_button_event, lw);
   g_signal_connect(G_OBJECT(connectable), "toggled",
 		   dia_layer_widget_connectable_toggled, lw);
 
