@@ -2141,7 +2141,7 @@ msgstr "Operaatiot n‰kyv‰t"
 
 #: objects/UML/class_dialog.c:223
 msgid "Suppress operations"
-msgstr "Vaimenna operaatiot
+msgstr "Vaimenna operaatiot"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
@@ -2208,7 +2208,7 @@ msgstr ""
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
 msgid "Operations"
-msgstr "Operaatiot
+msgstr "Operaatiot"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
@@ -2607,7 +2607,8 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 "Kuvan rivipituus on suurempi kuin solun enimm‰skoko.\n"
-"Kuvaa ei viety CGM:‰‰n
+"Kuvaa ei viety CGM:‰‰n"
+
 #: plug-ins/cgm/cgm.c:1252
 msgid "Computer Graphics Metafile"
 msgstr ""
