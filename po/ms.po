@@ -1,7 +1,7 @@
 # Mesej B.Melayu bagi Dia
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # 1. Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2003.
-# 2. MIMOS Open Source Group Development Group <azah@mimos.my>, 2003
+# 2. MIMOS Open Source Group Development Group <azahaa@mimos.my>, 2003
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
