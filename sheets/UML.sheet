@@ -119,6 +119,7 @@
     <object name="UML - Node">
       <description xml:lang="no">Lag en node</description>
       <description xml:lang="fr">Créer un noeud</description>
+      <description xml:lang="de">Erzeuge einen Knoten</description>
       <description>Create a node</description>
     </object>
     <object name="UML - Classicon">
@@ -136,6 +137,7 @@
     <object name="UML - Branch">
       <description xml:lang="no">Lag en forgreining</description>
       <description xml:lang="fr">Créer une branche</description>
+      <description xml:lang="de">Erzeuge einen Zweig</description>
       <description>Create a branch</description>
     </object>
   </contents>

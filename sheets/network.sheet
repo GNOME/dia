@@ -49,12 +49,13 @@
     <object name="Network - WAN Connection">
       <description xml:lang="no">En WAN-forbindelse</description>
       <description xml:lang="fr">Une connexion WAN</description>
-      <description xml:lang="de">Eine WAN Verbindung</description>
+      <description xml:lang="de">Ein WAN Anschluß</description>
       <description xml:lang="hu">WAN kapcsolat</description>
       <description>A WAN Connection</description>
     </object>
     <object name="Network - WAN Link">
       <description xml:lang="fr">Une laison WAN.</description>
+      <description xml:lang="de">Eine WAN Verbindung</description>
       <description>A WAN Link.</description>
     </object>
     <object name="Network - Hub">
@@ -109,18 +110,21 @@
     <object name="Network - Router Symbol">
       <description xml:lang="no">Rutersymbol</description>
       <description xml:lang="fr">Symbole de routeur</description>
+      <description xml:lang="de">Router Symbol</description>
       <description xml:lang="hu">Útválasztó jele</description>
       <description>Router Symbol</description>
     </object>
     <object name="Network - Switch Symbol">
       <description xml:lang="no">Symbol for en switch</description>
       <description xml:lang="fr">Symbole de commutateur</description>
+      <description xml:lang="de">Switch Symbol</description>
       <description xml:lang="hu">Switch jele</description>
       <description>Switch Symbol</description>
     </object>
     <object name="Network - Switch ATM Symbol">
       <description xml:lang="no">Symbol for en ATM-switch</description>
       <description xml:lang="fr">Symbole de commutateur ATM</description>
+      <description xml:lang="de">ATM Switch Symbol</description>
       <description xml:lang="hu">ATM-switch jele</description>
       <description>ATM Switch Symbol</description>
     </object>

@@ -1,3 +1,9 @@
+2001-03-31  Steffen Macke  <sdteffen@yahoo.com>
+
+	* sheets/Circuit.sheet
+	* sheets/UML.sheet
+	* sheets/network.sheet: Updated German translations
+	
 2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
         * lib/arrows.[ch]:
 	* lib/widgets.c:

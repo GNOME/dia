@@ -178,17 +178,23 @@
     <object name="Circuit - NMOS Transistor (European)">
       <description xml:lang="no">En NMOS-transistor</description>
       <description xml:lang="fr">Un transistor NMOS</description>
+      <description xml:lang="de">Ein NMOS Transistor</description>
       <description>An NMOS transistor</description>
     </object>
     <object name="Circuit - PMOS Transistor (European)">
       <description xml:lang="no">En PMOS-transistor</description>
       <description xml:lang="fr">Un transistor PMOS</description>
+      <description xml:lang="de">Ein PMOS Transistor</description>
       <description>A PMOS transistor</description>
     </object>
     <object name="Circuit - Horizontal Jumper">
       <description xml:lang="no">En horisontal jumper</description>
       <description xml:lang="fr">Un cavalier horizontal</description>
+      <description xml:lang="de">Ein horizontal ausgerichteter Jumper</description>
       <description>A Horizontal Jumper</description>
     </object>
   </contents>
 </sheet>
+
+
+
