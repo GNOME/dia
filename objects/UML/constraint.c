@@ -99,7 +99,7 @@ ObjectType constraint_type =
 
 SheetObject constraint_sheetobj =
 {
-  &constraint_type,             /* type */
+  "UML - Constraint",             /* type */
   "Constraint, place a constraint on something.",
                                 /* description */
   (char **) constraint_xpm,     /* pixmap */

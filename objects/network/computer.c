@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -47,7 +47,7 @@ ObjectType computer_type =
 
 SheetObject computer_sheetobj =
 {
-  &computer_type,             /* type */
+  "Network - General Computer (Tower)",             /* type */
   "A Computer with a tower case.", /* description */
   (char **) computer_xpm,     /* pixmap */
 

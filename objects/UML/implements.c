@@ -101,7 +101,7 @@ ObjectType implements_type =
 
 SheetObject implements_sheetobj =
 {
-  &implements_type,             /* type */
+  "UML - Implements",             /* type */
   "Implements, class implements a specific interface.",
                                 /* description */
   (char **) implements_xpm, /* pixmap */

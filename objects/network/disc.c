@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -47,7 +47,7 @@ ObjectType disc_type =
 
 SheetObject disc_sheetobj =
 {
-  &disc_type,             /* type */
+  "Network - Storage",             /* type */
   "The symbol for storage. Disc or database.",  /* description */
   (char **) disc_xpm,     /* pixmap */
 

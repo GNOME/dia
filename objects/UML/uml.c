@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -37,6 +37,19 @@ extern ObjectType constraint_type;
 extern ObjectType smallpackage_type;
 extern ObjectType largepackage_type;
 
+void register_objects(void) {
+  object_register_type(&umlclass_type);
+  object_register_type(&note_type);
+  object_register_type(&dependency_type);
+  object_register_type(&realizes_type);
+  object_register_type(&generalization_type);
+  object_register_type(&association_type);
+  object_register_type(&implements_type);
+  object_register_type(&constraint_type);
+  object_register_type(&smallpackage_type);
+  object_register_type(&largepackage_type);
+}
+
 extern SheetObject umlclass_sheetobj;
 extern SheetObject umlclass_template_sheetobj;
 extern SheetObject note_sheetobj;
@@ -50,20 +63,9 @@ extern SheetObject constraint_sheetobj;
 extern SheetObject smallpackage_sheetobj;
 extern SheetObject largepackage_sheetobj;
 
-void register_objects(void) {
+void register_sheets(void) {
   Sheet *sheet;
   
-  object_register_type(&umlclass_type);
-  object_register_type(&note_type);
-  object_register_type(&dependency_type);
-  object_register_type(&realizes_type);
-  object_register_type(&generalization_type);
-  object_register_type(&association_type);
-  object_register_type(&implements_type);
-  object_register_type(&constraint_type);
-  object_register_type(&smallpackage_type);
-  object_register_type(&largepackage_type);
-
   sheet = new_sheet("UML",
 		    "Editor for UML Static Structure Diagrams.");
   sheet_append_sheet_obj(sheet, &umlclass_sheetobj);

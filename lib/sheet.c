@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "sheet.h"
+#include "message.h"
+#include "object.h"
 
 static GSList *sheets = NULL;
 
@@ -35,13 +37,31 @@ new_sheet(char *name, char *description)
 void
 sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 {
-  sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
+  ObjectType *type;
+
+  type = object_get_type(obj->object_type);
+  if (type == NULL) {
+    message_warning("Object '%s' needed in sheet '%s' was not found.\n"
+		    "It will not be availible for use.",
+		    obj->object_type, sheet->name);
+  } else {
+    sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
+  }
 }
 
 void
 sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
 {
-  sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
+  ObjectType *type;
+
+  type = object_get_type(obj->object_type);
+  if (type == NULL) {
+    message_warning("Object '%s' needed in sheet '%s' was not found.\n"
+		    "It will not be availible for use.",
+		    obj->object_type, sheet->name);
+  } else {
+    sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
+  }
 }
 
 void

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -27,18 +27,21 @@ extern ObjectType monitor_type;
 extern ObjectType disc_type;
 extern ObjectType bus_type;
 
+void register_objects(void) {
+  object_register_type(&computer_type);
+  object_register_type(&monitor_type);
+  object_register_type(&disc_type);
+  object_register_type(&bus_type);
+
+}
+
 extern SheetObject computer_sheetobj;
 extern SheetObject monitor_sheetobj;
 extern SheetObject disc_sheetobj;
 extern SheetObject bus_sheetobj;
 
-void register_objects(void) {
+void register_sheets(void) {
   Sheet *sheet;
-  
-  object_register_type(&computer_type);
-  object_register_type(&monitor_type);
-  object_register_type(&disc_type);
-  object_register_type(&bus_type);
 
   sheet = new_sheet("Network",
 		    "Objects to design network diagrams with");
@@ -48,4 +51,6 @@ void register_objects(void) {
   sheet_append_sheet_obj(sheet, &bus_sheetobj);
 
   register_sheet(sheet);
+
 }
+

@@ -1,3 +1,25 @@
+1998-10-01  Alexander Larsson  <alla@lysator.liu.se>
+
+	* acconfig.h:
+	* configure.in:
+	* app/app_procs.c:
+	Detect dlopen better.
+	Detect wether dlopen needs an underscore in the identifier.
+	This code was mostly borrowed from guile.
+
+	* lib/sheet.[ch]:
+	* app/app_procs.c:
+	* objects/standard/standard.c:
+	* objects/network/network.c:
+	* objects/UML/uml.c:
+	* most objects:
+	Changed the way sheets reference objects to use just the
+	name. Changed module loading to a two stage model:
+	First register_objects() is called for all modules.
+	Then register_sheets() is called. This means that
+	sheets can safely include objects from other modules.
+	
+
 1998-09-30  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/network/bus.c:

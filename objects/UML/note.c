@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -82,7 +82,7 @@ ObjectType note_type =
 
 SheetObject note_sheetobj =
 {
-  &note_type,             /* type */
+  "UML - Note",             /* type */
   "Create a note",           /* description */
   (char **) note_xpm,     /* pixmap */
 

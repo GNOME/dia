@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -100,7 +100,7 @@ ObjectType generalization_type =
 
 SheetObject generalization_sheetobj =
 {
-  &generalization_type,             /* type */
+  "UML - Generalization",             /* type */
   "Generalization, class inheritance.",
                               /* description */
   (char **) generalization_xpm,     /* pixmap */

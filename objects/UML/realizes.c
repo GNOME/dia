@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -100,7 +100,7 @@ ObjectType realizes_type =
 
 SheetObject realizes_sheetobj =
 {
-  &realizes_type,             /* type */
+  "UML - Realizes",             /* type */
   "Realizes, implements a specific interface.",
                               /* description */
   (char **) realizes_xpm,     /* pixmap */

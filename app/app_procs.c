@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -27,6 +27,7 @@
 
 #include <gtk/gtk.h>
 
+#include "config.h"
 #include "app_procs.h"
 #include "object.h"
 #include "color.h"
@@ -39,6 +40,7 @@
 
 
 static void register_all_objects(void);
+static void register_all_sheets(void);
 static int name_is_lib(char *name);
 
 static void
@@ -77,6 +79,7 @@ app_init (int    argc,
   object_registry_init();
 
   register_all_objects();
+  register_all_sheets();
 
   if (object_get_type("Standard - Box") == NULL) {
     message_error("Couldn't find standard objects when looking for object-libs, exiting...\n");
@@ -173,6 +176,8 @@ name_is_lib(char *name)
   return (strcmp(".so", &name[len-3])==0);
 }
 
+static GList *modules_list = NULL;
+
 static void
 register_objects_in(char *directory)
 {
@@ -215,13 +220,19 @@ register_objects_in(char *directory)
 	continue;
       }
       
+#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
+      register_func = dlsym(libhandle, "_register_objects");
+#else
       register_func = dlsym(libhandle, "register_objects");
+#endif
       if ((error = dlerror()) != NULL)  {
 	message_warning("Error loading library: \"%s\":\n %s\n", file_name, error);
 	continue;
       }
       
       (*register_func)();
+
+      modules_list = g_list_append(modules_list, libhandle);
 
     } 
   }
@@ -260,6 +271,36 @@ register_all_objects(void)
   } else {
     register_objects_in(LIBDIR "/dia");
   }
+
+}
+
+static void
+register_all_sheets(void)
+{
+  GList *list;
+  void (*register_func)(void);
+  void *libhandle;
+  char *error;
+
+  list = modules_list;
+  while (list != NULL) {
+    libhandle = (void *) list->data;
+
+#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
+    register_func = dlsym(libhandle, "_register_sheets");
+#else
+    register_func = dlsym(libhandle, "register_sheets");
+#endif
+
+    if ((error = dlerror()) != NULL)  {
+      message_warning("Unable to find register_sheets in library:\n%s", error);
+      continue;
+    }
+
+    (*register_func)();
+    
+    list = g_list_next(list);
+  } 
 
 }
 

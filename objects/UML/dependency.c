@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -104,7 +104,7 @@ ObjectType dependency_type =
 
 SheetObject dependency_sheetobj =
 {
-  &dependency_type,             /* type */
+  "UML - Dependency",             /* type */
   "Create a dependency",           /* description */
   (char **) dependency_xpm,     /* pixmap */
 

@@ -22,7 +22,20 @@ AC_PROG_RANLIB
 
 dnl Checks for libraries.
 AM_PATH_GTK(1.0.0)
-AC_CHECK_LIB(dl, dlopen)
+
+dnl Checks for dynamic linking
+
+AC_CHECK_LIB(dl,dlopen)
+if test "$ac_cv_lib_dl_dlopen" = "yes"; then
+  AC_CHECK_FUNCS(dlopen)
+else
+AC_CHECK_FUNCS(dlopen)
+if test "$ac_cv_func_dlopen" = "no"; then
+  AC_MSG_ERROR(Can't find dlopen.)
+fi
+fi
+
+DIA_DLSYM_USCORE
 
 dnl Checks for header files.
 AC_HEADER_DIRENT

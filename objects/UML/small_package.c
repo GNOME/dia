@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -84,7 +84,7 @@ ObjectType smallpackage_type =
 
 SheetObject smallpackage_sheetobj =
 {
-  &smallpackage_type,             /* type */
+  "UML - SmallPackage",             /* type */
   "Create a (small) package",           /* description */
   (char **) smallpackage_xpm,     /* pixmap */
 

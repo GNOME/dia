@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -354,9 +354,19 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
   while (list != NULL) {
     sheet_obj = (SheetObject *) list->data;
     
-    pixmap = gdk_pixmap_create_from_xpm_d(parent->window, &mask, 
-					  &style->bg[GTK_STATE_NORMAL], 
-					  sheet_obj->pixmap);
+    
+    if (sheet_obj->pixmap != NULL) {
+      pixmap = gdk_pixmap_create_from_xpm_d(parent->window, &mask, 
+					    &style->bg[GTK_STATE_NORMAL], 
+					    sheet_obj->pixmap);
+    } else {
+      ObjectType *type;
+      type = object_get_type(sheet_obj->object_type);
+      pixmap = gdk_pixmap_create_from_xpm_d(parent->window, &mask, 
+					    &style->bg[GTK_STATE_NORMAL], 
+					    type->pixmap);
+    }
+
     pixmapwidget = gtk_pixmap_new(pixmap, mask);
 
     
@@ -381,7 +391,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 
     data = g_new(ToolButtonData, 1);
     data->type = CREATE_OBJECT_TOOL;
-    data->extra_data = sheet_obj->type->name;
+    data->extra_data = sheet_obj->object_type;
     data->user_data = sheet_obj->user_data;
     
     gtk_signal_connect (GTK_OBJECT (button), "toggled",

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -47,7 +47,7 @@ ObjectType monitor_type =
 
 SheetObject monitor_sheetobj =
 {
-  &monitor_type,             /* type */
+  "Network - General Monitor (With Stand)",             /* type */
   "A monitor, with a stand", /* description */
   (char **) monitor_xpm,     /* pixmap */
 

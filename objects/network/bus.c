@@ -91,7 +91,7 @@ ObjectType bus_type =
 
 SheetObject bus_sheetobj =
 {
-  &bus_type,             /* type */
+  "Standard - Bus",             /* type */
   "Ethernet bus.",        /* description */
   (char **) bus_xpm,     /* pixmap */
   NULL                   /* user_data */

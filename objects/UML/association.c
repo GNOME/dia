@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -135,7 +135,7 @@ ObjectType association_type =
 
 SheetObject association_sheetobj =
 {
-  &association_type,             /* type */
+  "UML - Association",             /* type */
   "Association, two classes are associated.",
                               /* description */
   (char **) association_xpm,     /* pixmap */
@@ -145,7 +145,7 @@ SheetObject association_sheetobj =
 
 SheetObject aggregation_sheetobj =
 {
-  &association_type,             /* type */
+  "UML - Association",             /* type */
   "Aggregation, one class is part of another.",
                               /* description */
   (char **) aggregation_xpm,     /* pixmap */

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -32,4 +32,7 @@ void register_objects(void) {
   object_register_type(_line_type);
   object_register_type(_zigzagline_type);
   object_register_type(_textobj_type);
+}
+
+void register_sheets(void) {
 }

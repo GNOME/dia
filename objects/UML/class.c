@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -68,7 +68,7 @@ ObjectType umlclass_type =
 
 SheetObject umlclass_sheetobj =
 {
-  &umlclass_type,             /* type */
+  "UML - Class",             /* type */
   "Create a class",           /* description */
   (char **) umlclass_xpm,     /* pixmap */
 
@@ -77,7 +77,7 @@ SheetObject umlclass_sheetobj =
 
 SheetObject umlclass_template_sheetobj =
 {
-  &umlclass_type,             /* type */
+  "UML - Class",             /* type */
   "Create a template class",  /* description */
   (char **) umlclass_template_xpm,     /* pixmap */
 
