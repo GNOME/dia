@@ -1,3 +1,11 @@
+2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheets/ER.sheet:
+	* sheets/Electric.sheet:
+	* sheets/Flowchart.sheet:
+	* sheets/Logic.sheet:
+	* sheets/network.sheet: More Dutch translations from Dag Wieers.
+
 2001-04-04  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/checktrans.py: now emits a warning when two descriptions

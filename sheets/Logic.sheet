@@ -6,7 +6,7 @@
   <name xml:lang="nl">Logica</name>
   <description>Boolean Logic</description>
   <description xml:lang="fr">Portes logiques</description>
-  <description xml:lang="nl">Boolese logica</description>
+  <description xml:lang="nl">Booleaanse logica</description>
   <contents>
     <object name="Logic - Or">
       <description>An Or gate</description>
