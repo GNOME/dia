@@ -3,6 +3,10 @@
  <sect1 id="prefs">
  <title>Customization</title>
  <para>
+  <application>Dia</application> can be changed in a few ways, allowing the
+  user to make <application>Dia</application> fit more to their needs.
+ </para>
+ <para>
   To change the behavior settings, select
   <menuchoice>
    <guimenu>File</guimenu> <guimenuitem>Preferences...</guimenuitem>
@@ -19,6 +23,54 @@
      find out what this does]
     </para>
    </listitem>
+   <listitem>
+    <para>
+      Number of undo levels customizes how many steps that the undo tool
+      remembers.  Higher numbers let the user go back more steps to fix an
+      error, but take up more memory.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Width controls the width, in pixels, of a new diagram.
+    </para>
+   </listitem>
+    <para>
+      Height controls the height, in pixels, of a new diagram.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Magnify sets a multiplier that controls what the default zoom level on
+      a new diagram is.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Snap To allows makes objects 'snap' into a grid created by the program.
+      This makes it easier for the user to align objects, as separate objects
+      snap to the same line.  <!-- Redo this definition...don't use the word
+      snapin it -->
+    </para>
+   </listitem>
+   <listitem>
+     <para>
+       X Size lets the user set a multiplier which sets how far the horizontal 
+       grid lines are from eachother.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Y Size lets the user set a multiplier which sets how far the vertical
+       grid lines are from eachother.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Colour sets the color that the grid lines display as.
+     </para>
+   </listitem>
+   <!-- Find out what page breaks are, etc. -->
   </itemizedlist>
   </para>
   <para>
