@@ -20,6 +20,8 @@
 #include <glib.h>
 
 #include "pydia-object.h"
+#include "pydia-cpoint.h"
+#include "pydia-handle.h"
 
 PyObject *
 PyDiaObject_New(Object *object)
@@ -78,11 +80,22 @@ PyDiaObject_GetAttr(PyDiaLayer *self, gchar *attr)
 			     self->object->bounding_box.left,
 			     self->object->bounding_box.bottom,
 			     self->object->bounding_box.right);
-#if 0
     else if (!strcmp(attr, "handles")) {
+	int i;
+	PyObject *ret = PyTuple_New(self->object->num_handles);
+
+	for (i = 0; i < self->object->num_handles; i++)
+	    PyTuple_SetItem(ret, i, PyDiaHandle_New(self->object->handles[i]));
+	return ret;
     } else if (!strcmp(attr, "connections")) {
+	int i;
+	PyObject *ret = PyTuple_New(self->object->num_connections);
+
+	for (i = 0; i < self->object->num_connections; i++)
+	    PyTuple_SetItem(ret, i, PyDiaConnectionPoint_New(
+				self->object->connections[i]));
+	return ret;
     }
-#endif
 
     PyErr_SetString(PyExc_AttributeError, attr);
     return NULL;

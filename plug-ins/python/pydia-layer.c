@@ -21,6 +21,7 @@
 
 #include "pydia-layer.h"
 #include "pydia-object.h"
+#include "pydia-cpoint.h"
 
 PyObject *
 PyDiaLayer_New(Layer *layer)
@@ -132,10 +133,44 @@ PyDiaLayer_FindObjectsInRectangle(PyDiaLayer *self, PyObject *args)
 }
 
 static PyObject *
+PyDiaLayer_FindClosestObject(PyDiaLayer *self, PyObject *args)
+{
+    Point pos;
+    real maxdist;
+    Object *obj;
+
+    if (!PyArg_ParseTuple(args, "ddd:find_closest_object",
+			  &pos.x, &pos.y, &maxdist))
+	return NULL;
+    obj = layer_find_closest_object(self->layer, &pos, maxdist);
+    if (obj)
+	return PyDiaObject_New(obj);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
 PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
 {
-    /* implement */
-    return NULL;
+    ConnectionPoint *cpoint = NULL;
+    Point pos;
+    real distance;
+    PyObject *ret;
+
+    if (!PyArg_ParseTuple(args, "dd:find_closest_connection_point",
+			  &pos.x, &pos.y))
+	return NULL;
+    dist = layer_find_closest_connection_point(self->layer, &cpoint, &pos);
+
+    ret = PyTuple_New(2);
+    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
+    if (cpoint)
+	PyTuple_SetItem(ret, 1, PyDiaConnectionPoint_New(cpoint));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(ret, 1, Py_None);
+    }
+    return ret;
 }
 
 static PyObject *
@@ -163,6 +198,7 @@ static PyMethodDef PyDiaLayer_Methods[] = {
     {"remove_object", (PyCFunction)PyDiaLayer_RemoveObject, 1},
     {"find_objects_in_rectangle",
      (PyCFunction)PyDiaLayer_FindObjectsInRectangle, 1},
+    {"find_closest_object", (PyCFunction)PyDiaLayer_FindClosestObject, 1},
     {"find_closest_connection_point",
      (PyCFunction)PyDiaLayer_FindClosestConnectionPoint, 1},
     {"update_extents", (PyCFunction)PyDiaLayer_UpdateExtents, 1},

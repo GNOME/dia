@@ -1,5 +1,15 @@
 1999-12-01  James Henstridge  <james@daa.com.au>
 
+	* plug-ins/python/pydia-object.c (PyDiaObject_GetAttr): implement
+	the handles and connections attributes.
+
+	* plug-ins/python/pydia-layer.c: added functions that use
+	ConnectionPoint's.
+
+	* plug-ins/python/pydia-handle.[ch]: wrapper for Handle's.
+
+	* plug-ins/python/pydia-cpoint.[ch]: wrapper for ConnectionPoint's.
+
 	* plug-ins/python/pydia-*.[ch]: starts of python scripting plug-in.
 	I am currently wrapping the basic elements in the diagram in python
 	objects -- nothing to see or play with yet.

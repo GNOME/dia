@@ -1,0 +1,102 @@
+/* -*- Mode: C; c-basic-offset: 4 -*- */
+/* Python plug-in for dia
+ * Copyright (C) 1999  James Henstridge
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include <glib.h>
+
+#include "pydia-handle.h"
+#include "pydia-cpoint.h"
+
+PyObject *
+PyDiaHandle_New(Handle *handle)
+{
+    PyDiaHandle *self;
+
+    self = PyObject_NEW(PyDiaHandle, &PyDiaHandle_Type);
+
+    if (!self) return NULL;
+    self->handle = handle;
+    return (PyObject *)self;
+}
+
+static void
+PyDiaHandle_Dealloc(PyDiaHandle *self)
+{
+     PyMem_DEL(self);
+}
+
+static int
+PyDiaHandle_Compare(PyDiaHandle *self, PyDiaHandle *other)
+{
+    if (self->handle == other->handle) return 0;
+    if (self->handle > other->handle) return -1;
+    return 1;
+}
+
+static long
+PyDiaHandle_Hash(PyDiaHandle *self)
+{
+    return (long)self->handle;
+}
+
+static PyObject *
+PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
+{
+    if (!strcmp(attr, "__members__"))
+	return Py_BuildValue("[sssss]", "connect_type", "connected_to", "id",
+			     "pos", "type");
+    else if (!strcmp(attr, "id"))
+	return PyInt_FromLong(self->handle->id);
+    else if (!strcmp(attr, "type"))
+	return PyInt_FromLong(self->handle->type);
+    else if (!strcmp(attr, "pos"))
+	return Py_BuildValue("(dd)", self->handle->pos.x, self->handle->pos.y);
+    else if (!strcmp(attr, "connect_type"))
+	return PyInt_FromLong(self->handle->connect_type);
+    else if (!strcmp(attr, "connected_to")) {
+	if (self->handle->connected_to)
+	    return PyDiaConnectionPoint_New(self->handle->connected_to);
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    PyErr_SetString(PyExc_AttributeError, attr);
+    return NULL;
+}
+
+PyTypeObject PyDiaHandle_Type = {
+    PyObject_HEAD_INIT(&PyType_Type)
+    0,
+    "DiaHandle",
+    sizeof(PyDiaHandle),
+    0,
+    (destructor)PyDiaHandle_Dealloc,
+    (printfunc)0,
+    (getattrfunc)0,
+    (setattrfunc)0,
+    (cmpfunc)PyDiaHandle_Compare,
+    (reprfunc)0,
+    0,
+    0,
+    0,
+    (hashfunc)PyDiaHandle_Hash,
+    (ternaryfunc)0,
+    (reprfunc)PyDiaHandle_Str,
+    0L,0L,0L,0L,
+    NULL
+};
