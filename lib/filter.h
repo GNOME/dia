@@ -33,7 +33,7 @@ struct _DiaExportFilter {
   /* NULL terminated array of extensions for this file format.  The first
    * one is the prefered extension for files of this type. */
   const gchar **extensions;
-  DiaExportFunc export;
+  DiaExportFunc export_func;
   void* user_data;
   /* A unique name that this filter can always be addressed as from the
    * command line.  If more than one filter can handle an extension, this
@@ -52,7 +52,7 @@ struct _DiaImportFilter {
   /* NULL terminated array of extensions for this file format.  The first
    * one is the prefered extension for files of this type. */
   const gchar **extensions;
-  DiaImportFunc import;
+  DiaImportFunc import_func;
   void* user_data;
   /* A unique name that this filter can always be addressed as from the
    * command line.  If more than one filter can handle an extension, this

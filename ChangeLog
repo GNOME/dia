@@ -1,3 +1,25 @@
+2004-05-24  Hans Breuer  <hans@breuer.org>
+ 
+        * lib/filter.h : renamed DiaExportFilter::export to
+	_DiaExportFilter::export_func (should not use c++ 
+	keywords (g++ specifc ?) in headers. Same for import
+	out of pure symmetry reasons
+	* plug-ins/shape/shape-export.c plug-ins/python/diamodule.c
+	  app/diagram.c app/filedlg.c : reflect functions renaming
+
+	* plug-ins/wmf/Makefile.am : finally compile the wmf plug-in
+	under *NIX, too. [If you want something done, do it yourself ;-]
+	* plug-ins/wmf/wmf_gdi.[hc] : some more stuff to catch up
+	with wmf.cpp's GDI usage
+	* plug-ins/wmf/wmf.cpp : compile even without HAVE_WINDOWS_H,
+	[For the moment it does not much more than compiling, i.e. 
+	the produced WMF files are invalid, if not created on windoze.]
+
+	* configure.in : check for C++ to compile plug-in/wmf
+	
+	* objects/GRAFCET/boolequation.c : looks like fixing 
+	another leak (untested)
+
 2004-05-23  Hans Breuer  <hans@breuer.org>
  
         * acinclude.m4 : another attempt to fix 

@@ -424,7 +424,6 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
   if (stat(filename, &statbuf) == 0) {
     GtkWidget *dialog = NULL;
     char buffer[300];
-    int result;
 
     g_snprintf(buffer, 300,
 	       _("The file '%s' already exists.\n"
@@ -451,7 +450,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     ef = filter_guess_export_filter(filename);
   if (ef) {
     g_object_ref(dia->data); 
-    ef->export(dia->data, filename, dia->filename, ef->user_data);
+    ef->export_func(dia->data, filename, dia->filename, ef->user_data);
   } else
     message_error(_("Could not determine which export filter\n"
 		    "to use to save '%s'"), filename);

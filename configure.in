@@ -12,6 +12,8 @@ AM_CONFIG_HEADER(config.h)
 
 dnl do this check now, to keep autogen quiet.
 AC_PROG_CC 
+dnl also c++
+AC_PROG_CXX
 
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE

@@ -475,7 +475,7 @@ export_shape(DiagramData *data, const gchar *filename,
       scaling_x = 22/((ext->right - ext->left) * 20);
       scaling_y = 22/((ext->bottom - ext->top) * 20);
       data->paper.scaling = MIN(scaling_x, scaling_y);
-      exportfilter->export(data, png_filename, diafilename, user_data);
+      exportfilter->export_func(data, png_filename, diafilename, user_data);
       data->paper.scaling = old_scaling;
     }
     /* create the shape */

@@ -228,7 +228,7 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
     filter->extensions = g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
     filter->extensions[1] = NULL;
-    filter->export = &PyDia_export_data;
+    filter->export_func = &PyDia_export_data;
     filter->user_data = renderer;
     obj = PyDiaExportFilter_New(filter);
 
@@ -292,7 +292,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
     filter->extensions = g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
     filter->extensions[1] = NULL;
-    filter->import = &PyDia_import_data;
+    filter->import_func = &PyDia_import_data;
     filter->user_data = func;
 
     filter_register_import(filter);

@@ -41,14 +41,19 @@ extern "C" {
 }
 #endif
 
+#ifdef HAVE_WINDOWS_H
 namespace W32 {
 // at least Rectangle conflicts ...
 #include <windows.h>
 }
+#else
+#include "wmf_gdi.h"
+#define SAVE_EMF
+#endif
 
 /* force linking with gdi32 */
 #pragma comment( lib, "gdi32" )
- 
+
 
 // #define SAVE_EMF
 
@@ -110,13 +115,13 @@ G_END_DECLS
  * helper macros
  */
 #define W32COLOR(c) \
-	 0xff * c->red + \
+	(W32::COLORREF)( 0xff * c->red + \
 	((unsigned char)(0xff * c->green)) * 256 + \
-	((unsigned char)(0xff * c->blue)) * 65536;
+	((unsigned char)(0xff * c->blue)) * 65536)
 
-#define SC(a) ((a)*renderer->scale)
-#define SCX(a) (((a)+renderer->xoff)*renderer->scale)
-#define SCY(a) (((a)+renderer->yoff)*renderer->scale)
+#define SC(a) ((int)((a)*renderer->scale))
+#define SCX(a) ((int)(((a)+renderer->xoff)*renderer->scale))
+#define SCY(a) ((int)(((a)+renderer->yoff)*renderer->scale))
 
 /*
  * helper functions
@@ -141,7 +146,8 @@ static void
 DonePen(WmfRenderer* renderer, W32::HPEN hPen)
 {
     /* restore the OLD one ... */
-    if (hPen) W32::SelectObject(renderer->hFileDC, hPen);
+    if (hPen) 
+      W32::SelectObject(renderer->hFileDC, hPen);
     /* ... before deleting the last active */
     if (renderer->hPen)
     {
@@ -331,7 +337,7 @@ set_dashlength(DiaRenderer *self, real length)
 
     DIAG_NOTE(renderer, "set_dashlength %f\n", length);
 
-    /* dot = 20% of len */
+    /* dot = 10% of len */
 }
 
 static void
@@ -722,6 +728,8 @@ draw_bezier(DiaRenderer *self,
     g_free(pts);
 }
 
+#ifndef SAVE_EMF
+/* not defined in compatibility layer */
 static void
 fill_bezier(DiaRenderer *self, 
 	    BezPoint *points, /* Last point must be same as first point */
@@ -747,6 +755,7 @@ fill_bezier(DiaRenderer *self,
                       W32::GetStockObject (HOLLOW_BRUSH) );
     W32::DeleteObject(hBrush);
 }
+#endif
 
 static void
 draw_string(DiaRenderer *self,
@@ -821,6 +830,9 @@ draw_image(DiaRenderer *self,
 	   DiaImage image)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
+#ifdef SAVE_EMF
+    /* not yet supported in compatibility mode */
+#else	
     W32::HBITMAP hBmp;
     int iWidth, iHeight;
     unsigned char* pData = NULL;
@@ -914,6 +926,7 @@ draw_image(DiaRenderer *self,
         g_free (pData);
     if (pImg)
         g_free (pImg);
+#endif /* SAVE_EMF */
 }
 
 /* GObject boiler plate */
@@ -998,7 +1011,9 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
+#ifndef SAVE_EMF
   renderer_class->fill_bezier   = fill_bezier;
+#endif
 }
 
 /* plug-in export api */
@@ -1024,8 +1039,8 @@ export_data(DiagramData *data, const gchar *filename,
     else {
         scale = floor (32000.0 / (data->extents.bottom - data->extents.top));
     }
-    bbox.right = (data->extents.right - data->extents.left) * scale;
-    bbox.bottom = (data->extents.bottom - data->extents.top) * scale;
+    bbox.right = (int)((data->extents.right - data->extents.left) * scale);
+    bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale);
 
     file = (W32::HDC)W32::CreateEnhMetaFile(
                     W32::GetDC(NULL), // handle to a reference device context
@@ -1061,8 +1076,8 @@ export_data(DiagramData *data, const gchar *filename,
     renderer->pmh.Handle = 0;
     renderer->pmh.Left   = 0;
     renderer->pmh.Top    = 0;
-    renderer->pmh.Right  = SC(data->extents.right - data->extents.left) * 25.4;
-    renderer->pmh.Bottom = SC(data->extents.bottom - data->extents.top) * 25.4;
+    renderer->pmh.Right  = (gint16)(SC(data->extents.right - data->extents.left) * 25.4);
+    renderer->pmh.Bottom = (gint16)(SC(data->extents.bottom - data->extents.top) * 25.4);
     renderer->pmh.Inch   = 1440 * 10;
     renderer->pmh.Reserved = 0;
 
@@ -1071,11 +1086,16 @@ export_data(DiagramData *data, const gchar *filename,
     for (ptr = (guint16 *)&renderer->pmh; ptr < (guint16 *)&(renderer->pmh.Checksum); ptr++)
         renderer->pmh.Checksum ^= *ptr;
 
+#ifdef SAVE_EMF
+    /* write the placeable header */
+    fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, file->file);
+#endif
+    
     /* bounding box in device units */
     bbox.left = 0;
     bbox.top = 0;
-    bbox.right = SC(data->extents.right - data->extents.left) * 25.4;
-    bbox.bottom = SC(data->extents.bottom - data->extents.top) * 25.4;
+    bbox.right = (int)(SC(data->extents.right - data->extents.left) * 25.4);
+    bbox.bottom = (int)(SC(data->extents.bottom - data->extents.top) * 25.4);
 
     /* initialize drawing */
     W32::SetBkMode(renderer->hFileDC, TRANSPARENT);

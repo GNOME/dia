@@ -232,7 +232,7 @@ do_convert(const char *infname,
   }
   
   diagdata = new_diagram_data(&prefs.new_diagram);
-  if (!inf->import(infname,diagdata,inf->user_data)) {
+  if (!inf->import_func(infname,diagdata,inf->user_data)) {
     fprintf(stderr,
             _("%s error: need valid input file %s\n"),
             argv0,infname);
@@ -241,7 +241,7 @@ do_convert(const char *infname,
   /* is user_data supposed to work that way? */
   if (size)
     ef->user_data = (void *) size;
-  ef->export(diagdata, outfname, infname, ef->user_data);
+  ef->export_func(diagdata, outfname, infname, ef->user_data);
   /* if (!quiet) */ fprintf(stdout,
                       _("%s --> %s\n"),
                         infname,outfname);

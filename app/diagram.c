@@ -168,7 +168,7 @@ diagram_load_into(Diagram         *diagram,
 
   diagram_init(diagram, filename);
 
-  if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
+  if (ifilter->import_func(filename, diagram->data, ifilter->user_data)) {
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
     if (app_is_interactive())

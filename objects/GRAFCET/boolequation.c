@@ -475,6 +475,8 @@ compoundblock_destroy(Block *block)
 
     inblk->ops->destroy(inblk);
     elem->data = NULL;
+    
+    elem = g_slist_next(elem);
   }
 
   g_slist_free(block->d.contained);

@@ -23,13 +23,15 @@ typedef enum
   FW_DONTCARE   = 0,
   FW_THIN       = 100,
   FW_EXTRALIGHT = 200,
+  FW_ULTRALIGHT = FW_EXTRALIGHT,
   FW_LIGHT      = 300,
   FW_NORMAL     = 400,
   FW_MEDIUM     = 500,
   FW_SEMIBOLD   = 600,
-  FW_DEMIBOLD = FW_SEMIBOLD,
+  FW_DEMIBOLD   = FW_SEMIBOLD,
   FW_BOLD       = 700,
   FW_EXTRABOLD  = 800,
+  FW_ULTRABOLD  = FW_EXTRABOLD,
   FW_HEAVY      = 900
 } eFontWeight;
 
@@ -81,6 +83,22 @@ typedef enum
   VARIABLE_PITCH
 } ePitch;
 
+typedef enum
+{
+  NULL_PEN = 8
+} eStockObject;
+
+typedef enum
+{
+  TRANSPARENT = 1,
+  OPAQUE      = 2
+} eBkMode;
+
+typedef enum
+{
+  MM_TEXT = 1
+} eMapMode;
+
 namespace W32
 {
 
@@ -91,7 +109,7 @@ typedef gboolean BOOL;
 typedef guint UINT;
 typedef guint8 BYTE;
 
-typedef char* LPCTSTR;
+typedef const char* LPCTSTR;
 
 typedef guint16 wmfint;
 
@@ -120,7 +138,8 @@ typedef enum
 {
   GDI_PEN = 1,
   GDI_BRUSH,
-  GDI_FONT
+  GDI_FONT,
+  GDI_STOCK
 } eGdiType;
 
 typedef struct
@@ -154,6 +173,13 @@ typedef struct
 } GDI_Font;
 
 typedef struct _GdiObject* HGDIOBJ;
+
+typedef struct
+{
+  wmfint  Nr;
+  HGDIOBJ hobj;
+} GDI_Stock;
+
 typedef struct _GdiObject
 {
   eGdiType Type;
@@ -162,9 +188,11 @@ typedef struct _GdiObject
     GDI_Pen   Pen;
     GDI_Brush Brush;
     GDI_Font  Font;
+    GDI_Stock Stock;
   };
 } * HBRUSH, * HPEN, * HFONT;
 
+typedef struct _MetaFileDeviceContext* HDC;
 typedef struct _MetaFileDeviceContext
 {
   FILE* file;
@@ -174,7 +202,7 @@ typedef struct _MetaFileDeviceContext
   HGDIOBJ hPen;
   HGDIOBJ hBrush;
   HGDIOBJ hFont;
-} * HDC;
+};
 
 HDC GetDC(void* hwnd);
 
@@ -237,6 +265,9 @@ Arc(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom,
     wmfint iStartX, wmfint iStartY, wmfint iEndX, wmfint iEndY);
 
 BOOL
+Pie(HDC, wmfint, wmfint, wmfint, wmfint, wmfint, wmfint, wmfint, wmfint);
+
+BOOL
 Ellipse(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom);
 
 BOOL
@@ -244,6 +275,18 @@ PolyBezier(HDC hdc, LPPOINT ppts, int iNum);
 
 BOOL
 TextOut(HDC hdc, wmfint iX, wmfint iY, const char* s, wmfint iNumChars);
+
+UINT
+GetACP();
+
+wmfint
+SetBkMode(HDC hdc, wmfint m);
+
+wmfint
+SetMapMode(HDC hdc, wmfint m);
+
+wmfint
+IntersectClipRect(HDC hdc, wmfint d, wmfint c, wmfint b, wmfint a);
 
 } /* namespace W32 */
 

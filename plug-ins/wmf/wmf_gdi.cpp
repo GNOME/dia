@@ -67,6 +67,9 @@ SelectObject(HDC hdc, HGDIOBJ hobj)
     hRet = hdc->hFont;
     hdc->hFont = hobj;
     break;
+  case GDI_STOCK :
+    return SelectObject(hdc, hobj->Stock.hobj);
+    break;
   default :
     hRet = NULL;
     g_assert_not_reached();
@@ -80,6 +83,8 @@ DeleteObject(HGDIOBJ hobj)
 {
   if (GDI_FONT == hobj->Type)
     g_free(hobj->Font.sFaceName);
+  else if (GDI_STOCK == hobj->Type)
+    DeleteObject(hobj->Stock.hobj);
 
   g_free(hobj);
 
@@ -89,7 +94,24 @@ DeleteObject(HGDIOBJ hobj)
 HGDIOBJ
 GetStockObject(int iObj)
 {
-  return NULL;
+  HGDIOBJ hobj;
+
+  hobj = g_new0(struct _GdiObject, 1);
+  hobj->Type = GDI_STOCK;
+  hobj->Stock.Nr = iObj;
+  
+  switch (iObj)
+    {
+    case NULL_PEN :
+      hobj->Stock.hobj = CreatePen (0,0,0);
+      break;
+    case HOLLOW_BRUSH :
+      hobj->Stock.hobj = CreateSolidBrush(0);
+      break;
+    default :
+      g_assert_not_reached ();
+    }
+  return hobj;
 }
 
 HBRUSH
@@ -317,6 +339,26 @@ Arc(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom,
 }
 
 BOOL
+Pie(HDC hdc, wmfint h, wmfint g, wmfint f, wmfint e, wmfint d, wmfint c, wmfint b, wmfint a)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  WriteRecHead(hdc, 0x081A, 8);
+
+  // dump params from right to left
+  fwrite_le(&a, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&b, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&c, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&d, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&e, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&f, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&g, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&h, sizeof(wmfint), 1, hdc->file);
+
+  return TRUE;
+}
+
+BOOL
 Ellipse(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom)
 {
   g_return_val_if_fail(hdc != NULL, FALSE);
@@ -364,6 +406,46 @@ TextOut(HDC hdc, wmfint iX, wmfint iY, const char* s, wmfint iNumChars)
 HDC GetDC(void* hwnd)
 {
   return NULL; 
+}
+
+UINT
+GetACP() 
+{ 
+  //FIXME: always  Latin1 (but what to doe elese ??)
+  return 1252; 
+}
+
+wmfint
+SetBkMode(HDC hdc, wmfint m)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  WriteRecHead(hdc, 0x0102, 1);
+  fwrite_le(&m, sizeof(wmfint), 1, hdc->file);
+  return 0;
+}
+
+wmfint
+SetMapMode(HDC hdc, wmfint m)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  WriteRecHead(hdc, 0x0103, 1);
+  fwrite_le(&m, sizeof(wmfint), 1, hdc->file);
+  return 0;
+}
+
+wmfint
+IntersectClipRect(HDC hdc, wmfint d, wmfint c, wmfint b, wmfint a)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  WriteRecHead(hdc, 0x0416, 4);
+  fwrite_le(&a, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&b, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&c, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&d, sizeof(wmfint), 1, hdc->file);
+  return 0;
 }
 
 } // eof namespace
