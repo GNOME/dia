@@ -129,9 +129,11 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   real hole_width;
+  char *old_locale;
 
   renderer->saved_line_style = mode;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_free(renderer->linestyle);
   switch(mode) {
   case LINESTYLE_SOLID:
@@ -164,6 +166,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
   default:
     renderer->linestyle = NULL;
   }
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -210,12 +213,15 @@ get_draw_style(DiaSvgRenderer *renderer,
 	       Color *colour)
 {
   static GString *str = NULL;
+  char *old_locale;
 
   if (!str) str = g_string_new(NULL);
   g_string_truncate(str, 0);
 
   /* TODO(CHECK): the shape-export didn't have 'fill: none' here */
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_string_sprintf(str, "fill: none; stroke-width: %g", renderer->linewidth);
+  setlocale(LC_NUMERIC, old_locale);
   if (strcmp(renderer->linecap, "butt"))
     g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
   if (strcmp(renderer->linejoin, "miter"))
@@ -255,11 +261,13 @@ draw_line(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "line", NULL);
 
   xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", start->x);
   xmlSetProp(node, "x1", buf);
   g_snprintf(buf, sizeof(buf), "%g", start->y);
@@ -268,6 +276,7 @@ draw_line(DiaRenderer *self,
   xmlSetProp(node, "x2", buf);
   g_snprintf(buf, sizeof(buf), "%g", end->y);
   xmlSetProp(node, "y2", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -279,16 +288,19 @@ draw_polyline(DiaRenderer *self,
   int i;
   xmlNodePtr node;
   GString *str;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
   
   xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
   xmlSetProp(node, "points", str->str);
   g_string_free(str, TRUE);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -300,16 +312,19 @@ draw_polygon(DiaRenderer *self,
   int i;
   xmlNodePtr node;
   GString *str;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
   
   xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
   xmlSetProp(node, "points", str->str);
   g_string_free(str, TRUE);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -321,16 +336,19 @@ fill_polygon(DiaRenderer *self,
   int i;
   xmlNodePtr node;
   GString *str;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
   
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
   xmlSetProp(node, "points", str->str);
   g_string_free(str, TRUE);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -341,11 +359,13 @@ draw_rect(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, NULL, "rect", NULL);
 
   xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
@@ -354,6 +374,7 @@ draw_rect(DiaRenderer *self,
   xmlSetProp(node, "width", buf);
   g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
   xmlSetProp(node, "height", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -364,11 +385,13 @@ fill_rect(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "rect", NULL);
 
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
@@ -377,6 +400,7 @@ fill_rect(DiaRenderer *self,
   xmlSetProp(node, "width", buf);
   g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
   xmlSetProp(node, "height", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static int sweep (real x1,real y1,real x2,real y2,real x3,real y3)
@@ -409,6 +433,7 @@ draw_arc(DiaRenderer *self,
   real y2=center->y - ry*sin(angle2*M_PI/180);
   int swp = sweep(x1,y1,x2,y2,center->x,center->y);
   int l_arc;
+  char *old_locale;
 
   if (angle2 > angle1) {
     l_arc = (angle2 - angle1) > 180;
@@ -424,12 +449,14 @@ draw_arc(DiaRenderer *self,
   xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   /* this path might be incorrect ... */
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g",
 	     x1, y1,
 	     rx, ry,l_arc ,swp ,
 	     x2, y2);
 
   xmlSetProp(node, "d", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -449,6 +476,7 @@ fill_arc(DiaRenderer *self,
   real y2=center->y - ry*sin(angle2*M_PI/180);
   int swp = sweep(x1,y1,x2,y2,center->x,center->y);
   int l_arc;
+  char *old_locale;
 
   if (angle2 > angle1) {
     l_arc = (angle2 - angle1) > 180;
@@ -464,6 +492,7 @@ fill_arc(DiaRenderer *self,
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   /* this path might be incorrect ... */
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g L %g,%g z",
 	     x1, y1,
 	     rx, ry,l_arc ,swp ,
@@ -471,6 +500,7 @@ fill_arc(DiaRenderer *self,
 	     center->x, center->y);
 
   xmlSetProp(node, "d", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -482,11 +512,13 @@ draw_ellipse(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
 
   xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", center->x);
   xmlSetProp(node, "cx", buf);
   g_snprintf(buf, sizeof(buf), "%g", center->y);
@@ -495,6 +527,7 @@ draw_ellipse(DiaRenderer *self,
   xmlSetProp(node, "rx", buf);
   g_snprintf(buf, sizeof(buf), "%g", height / 2);
   xmlSetProp(node, "ry", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -506,11 +539,13 @@ fill_ellipse(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
 
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", center->x);
   xmlSetProp(node, "cx", buf);
   g_snprintf(buf, sizeof(buf), "%g", center->y);
@@ -519,6 +554,7 @@ fill_ellipse(DiaRenderer *self,
   xmlSetProp(node, "rx", buf);
   g_snprintf(buf, sizeof(buf), "%g", height / 2);
   xmlSetProp(node, "ry", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -531,6 +567,7 @@ draw_bezier(DiaRenderer *self,
   int i;
   xmlNodePtr node;
   GString *str;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
   
@@ -538,6 +575,7 @@ draw_bezier(DiaRenderer *self,
 
   str = g_string_new(NULL);
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
@@ -562,6 +600,7 @@ draw_bezier(DiaRenderer *self,
     }
   xmlSetProp(node, "d", str->str);
   g_string_free(str, TRUE);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -574,6 +613,7 @@ fill_bezier(DiaRenderer *self,
   int i;
   xmlNodePtr node;
   GString *str;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
   
@@ -581,6 +621,7 @@ fill_bezier(DiaRenderer *self,
 
   str = g_string_new(NULL);
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
@@ -606,6 +647,7 @@ fill_bezier(DiaRenderer *self,
   g_string_append(str, "z");
   xmlSetProp(node, "d", str->str);
   g_string_free(str, TRUE);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -619,6 +661,7 @@ draw_string(DiaRenderer *self,
   char buf[512];
   char *style, *tmp;
   real saved_width;
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
  
@@ -638,7 +681,9 @@ draw_string(DiaRenderer *self,
     style = g_strconcat(style, "; text-align: right", NULL);
     break;
   }
+  old_locale = setlocale(LC_NUMERIC, "C");
   tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
+  setlocale(LC_NUMERIC, old_locale);
   g_free (style);
   style = tmp;
 
@@ -657,10 +702,12 @@ draw_string(DiaRenderer *self,
   xmlSetProp(node, "style", style);
   g_free(style);
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", pos->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", pos->y);
   xmlSetProp(node, "y", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -672,10 +719,11 @@ draw_image(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
-
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, NULL, "image", NULL);
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", point->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", point->y);
@@ -685,6 +733,7 @@ draw_image(DiaRenderer *self,
   g_snprintf(buf, sizeof(buf), "%g", height);
   xmlSetProp(node, "height", buf);
   xmlSetProp(node, "xlink:href", dia_image_filename(image));
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 /* constructor */

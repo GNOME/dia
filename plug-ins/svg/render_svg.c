@@ -228,12 +228,14 @@ draw_rounded_rect(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
  
   node = xmlNewChild(renderer->root, NULL, "rect", NULL);
 
   xmlSetProp(node, "style", 
              DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
@@ -245,6 +247,7 @@ draw_rounded_rect(DiaRenderer *self,
   g_snprintf(buf, sizeof(buf),"%g", rounding);
   xmlSetProp(node, "rx", buf);
   xmlSetProp(node, "ry", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -255,12 +258,14 @@ fill_rounded_rect(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char buf[512];
+  char *old_locale;
 
   node = xmlNewChild(renderer->root, NULL, "rect", NULL);
 
   xmlSetProp(node, "style", 
              DIA_SVG_RENDERER_GET_CLASS(self)->get_fill_style(renderer, colour));
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
@@ -272,6 +277,7 @@ fill_rounded_rect(DiaRenderer *self,
   g_snprintf(buf, sizeof(buf),"%g", rounding);
   xmlSetProp(node, "rx", buf);
   xmlSetProp(node, "ry", buf);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
