@@ -201,6 +201,9 @@ file_save_as_callback(GtkWidget *widget, gpointer user_data)
     savedlg = gtk_file_selection_new(_("Save Diagram"));
     gtk_window_set_wmclass(GTK_WINDOW(savedlg), "save_diagram", "Dia");
     gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
+				    dia->filename ? dia->filename
+				    : "." G_DIR_SEPARATOR_S);
     gtk_signal_connect_object(
 		GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->cancel_button),
 		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
@@ -395,6 +398,9 @@ file_export_callback(GtkWidget *widget, gpointer user_data)
     exportdlg = gtk_file_selection_new(_("Export Diagram"));
     gtk_window_set_wmclass(GTK_WINDOW(exportdlg), "export_diagram", "Dia");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
+				    dia->filename ? dia->filename
+				    : "." G_DIR_SEPARATOR_S);
     gtk_signal_connect_object(
 		GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->cancel_button),
 		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
