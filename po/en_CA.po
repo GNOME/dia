@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-20 11:35-0400\n"
-"PO-Revision-Date: 2004-09-20 22:44-0400\n"
+"POT-Creation-Date: 2004-09-26 12:45-0400\n"
+"PO-Revision-Date: 2004-09-26 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr "Do not show the splash screen"
 
 #: app/app_procs.c:419
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr "Send error messages to stderr instead of showing dialogs."
+msgstr "Send error messages to stderr instead of showing dialogues."
 
 #: app/app_procs.c:421
 msgid "Display credits list and exit"
