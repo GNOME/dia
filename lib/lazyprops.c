@@ -3,6 +3,8 @@
  * Copyright(C) 2000 Cyrille Chepelov
  *
  * I stole most of the gtk code here.
+ *
+ *  WARNING: THIS CODE IS ROTTEN. IT WILL GO AWAY SOON. YOU HAVE BEEN WARNED.
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -3,6 +3,8 @@
  * dealing with properties. 
  * Copyright(C) 2000 Cyrille Chepelov
  *
+ *  WARNING: THIS CODE IS ROTTEN. IT WILL GO AWAY SOON. YOU HAVE BEEN WARNED.
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -25,6 +27,7 @@
 #include <string.h>
 #include <glib.h>
 #include <gtk/gtk.h>
+#include <libxml/parser.h>
 
 #include "geometry.h"
 #include "font.h"

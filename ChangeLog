@@ -1,3 +1,14 @@
+2001-06-11  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* charconv.[ch]: more functions from unicode.h.
+	get_local_charset() wasn't working properly, fixed now.
+
+	* objects/EML/process.h: pulled the bits of lazyprops.h it uses.
+	* lib/lazyprops.[ch]: put a big fat warning in.
+
+	* app/render_eps.c: one line mysteriously went away, causing a
+	variable to be used uninitialised....
+       
 2001-06-10  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c: commented out the call to

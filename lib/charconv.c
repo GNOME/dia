@@ -60,10 +60,13 @@ int get_local_charset(char **charset)
   }
  
   local_is_utf8 = unicode_get_charset(charset);
-  if (local_is_utf8) return local_is_utf8;
-
+  this_charset = *charset;
+  if (local_is_utf8) {
+    return local_is_utf8;
+  }
   if (0==strcmp(*charset,"US-ASCII")) {
     *charset = nl_langinfo(CODESET);
+    this_charset = *charset;
     local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
   }
   return local_is_utf8;
@@ -106,6 +109,9 @@ charconv_local8_to_utf8(const gchar *local)
   int uleft;
   int lost = 0;
 
+  g_assert(local);
+  if (!local) return NULL; /* GIGO */
+
   check_conv_l2u();
   if (local_is_utf8) return g_strdup(local);
 
@@ -139,6 +145,9 @@ charconv_utf8_to_local8(const utfchar *utf)
   gchar *local,*l,*lres;
   int lleft;
   int lost = 0;
+
+  g_assert(utf);
+  if (!utf) return NULL; /* GIGO */
 
   check_conv_u2l();
   if (local_is_utf8) return g_strdup(utf);

@@ -1167,6 +1167,8 @@ draw_string(RendererEPS *renderer,
   utf8_buffer=text;
 #endif
 
+  utf8_len = strlen(utf8_buffer); /* deliberate */
+  
   if (utf8_len <= 0) {
 #ifndef UNICODE_WORK_IN_PROGRESS
     g_free(utf8_buffer);

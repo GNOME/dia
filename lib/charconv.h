@@ -112,6 +112,19 @@ G_INLINE_FUNC size_t uni_index_to_offset(const utfchar *p, int offset)
 }
 #endif
 
+G_INLINE_FUNC char *uni_last_utf8(const char *p);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC char *uni_last_utf8(const char *p) {
+  char *pp = (char *)p;
+  while (*pp) pp++;
+  return --pp;
+}
+#endif
+
+#define uni_strchr strchr
+#define uni_strrchr strrchr
+#define uni_strncpy strncpy
+
 #else
 
 #include <unicode.h>
@@ -139,6 +152,10 @@ typedef gchar utfchar;
 #define uni_get_utf8 unicode_get_utf8
 #define uni_offset_to_index unicode_offset_to_index
 #define uni_index_to_offset unicode_index_to_offset
+#define uni_last_utf8 unicode_last_utf8
+#define uni_strchr unicode_strchr
+#define uni_strrchr unicode_strrchr
+#define uni_strncpy unicode_strncpy
 
 #endif /* !HAVE_UNICODE */
 
