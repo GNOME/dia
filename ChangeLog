@@ -1,3 +1,10 @@
+2001-08-27  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/modify_tool.c: (modify_button_release): Patch from
+	<robert.young@dsto.defence.gov.au>. Fixes the remaining bit from
+	#59090: if selection dragging was released outside of the window, 
+	artifacts of the selection box remained.
+
 2001-08-25  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/custom/shape_info.c: added missing #include <xmlmemory.h>

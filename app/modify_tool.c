@@ -504,9 +504,11 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   case STATE_BOX_SELECT:
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
-    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
+    if (!tool->auto_scrolled) {
+      gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    }
 
     {
       Rectangle r;
