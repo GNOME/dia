@@ -47,24 +47,7 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Box Box;
-typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
 typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
-typedef struct _BoxState BoxState;
-
-struct _BoxState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-  real corner_radius;
-
-  real padding;
-  TextAttributes text_attrib;
-};
 
 struct _Box {
   Element element;
@@ -95,24 +78,6 @@ typedef struct _BoxProperties {
   Color *font_color;
 } BoxProperties;
 
-struct _BoxPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-  GtkSpinButton *corner_radius;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *font_color;
-
-  Box *box;
-};
-
 struct _BoxDefaultsDialog {
   GtkWidget *vbox;
 
@@ -125,7 +90,6 @@ struct _BoxDefaultsDialog {
 };
 
 
-static BoxPropertiesDialog *box_properties_dialog;
 static BoxDefaultsDialog *box_defaults_dialog;
 static BoxProperties default_properties;
 
@@ -147,9 +111,6 @@ static Object *box_copy(Box *box);
 static PropDescription *box_describe_props(Box *box);
 static void box_get_props(Box *box, Property *props, guint nprops);
 static void box_set_props(Box *box, Property *props, guint nprops);
-
-static BoxState *box_get_state(Box *box);
-static void box_set_state(Box *box, BoxState *state);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
@@ -632,45 +593,6 @@ box_draw(Box *box, Renderer *renderer)
   text_draw(box->text, renderer);
 }
 
-static BoxState *
-box_get_state(Box *box)
-{
-  BoxState *state = g_new(BoxState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = box->border_width;
-  state->border_color = box->border_color;
-  state->inner_color = box->inner_color;
-  state->show_background = box->show_background;
-  state->line_style = box->line_style;
-  state->dashlength = box->dashlength;
-  state->corner_radius = box->corner_radius;
-  state->padding = box->padding;
-  text_get_attributes(box->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-box_set_state(Box *box, BoxState *state)
-{
-  box->border_width = state->border_width;
-  box->border_color = state->border_color;
-  box->inner_color = state->inner_color;
-  box->show_background = state->show_background;
-  box->line_style = state->line_style;
-  box->dashlength = state->dashlength;
-  box->corner_radius = state->corner_radius;
-  box->padding = state->padding;
-  text_set_attributes(box->text, &state->text_attrib);
-
-  g_free(state);
-  
-  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
-
 static void
 box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
@@ -888,36 +810,7 @@ box_copy(Box *box)
 static void
 box_save(Box *box, ObjectNode obj_node, const char *filename)
 {
-  element_save(&box->element, obj_node);
-
-  if (box->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  box->border_width);
-  
-  if (!color_equals(&box->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &box->border_color);
-  
-  if (!color_equals(&box->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &box->inner_color);
-  
-  data_add_boolean(new_attribute(obj_node, "show_background"), box->show_background);
-
-  if (box->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  box->line_style);
-  
-  if (box->line_style != LINESTYLE_SOLID &&
-      box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-                  box->dashlength);
-
-  if (box->corner_radius > 0.0)
-    data_add_real(new_attribute(obj_node, "corner_radius"),
-		  box->corner_radius);
-
-  data_add_real(new_attribute(obj_node, "padding"), box->padding);
+  object_save_props((Object *)box, obj_node);
   
   data_add_text(new_attribute(obj_node, "text"), box->text);
 }
@@ -931,59 +824,21 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  box = g_malloc(sizeof(Box));
+  box = g_new(Box, 1);
   elem = &box->element;
   obj = (Object *) box;
   
   obj->type = &fc_box_type;
   obj->ops = &box_ops;
 
-  element_load(elem, obj_node);
-
-  box->border_width = 0.1;
-  attr = object_find_attribute(obj_node, "border_width");
-  if (attr != NULL)
-    box->border_width =  data_real( attribute_first_data(attr) );
-
-  box->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->border_color);
-  
-  box->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->inner_color);
-  
-  box->show_background = TRUE;
-  attr = object_find_attribute(obj_node, "show_background");
-  if (attr != NULL)
-    box->show_background = data_boolean( attribute_first_data(attr) );
-
-  box->line_style = LINESTYLE_SOLID;
-  attr = object_find_attribute(obj_node, "line_style");
-  if (attr != NULL)
-    box->line_style =  data_enum( attribute_first_data(attr) );
-
-  box->dashlength = DEFAULT_LINESTYLE_DASHLEN;
-  attr = object_find_attribute(obj_node, "dashlength");
-  if (attr != NULL)
-    box->dashlength = data_real(attribute_first_data(attr));
-
-  box->corner_radius = 0.0;
-  attr = object_find_attribute(obj_node, "corner_radius");
-  if (attr != NULL)
-    box->corner_radius =  data_real( attribute_first_data(attr) );
-
-  box->padding = default_properties.padding;
-  attr = object_find_attribute(obj_node, "padding");
-  if (attr != NULL)
-    box->padding =  data_real( attribute_first_data(attr) );
-  
+  /* this property is not handled by the standard property code */
   box->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     box->text = data_text(attribute_first_data(attr));
+
+  /* load properties using the properties APIs */
+  object_load_props(obj, obj_node);
 
   element_init(elem, 8, 16);
 

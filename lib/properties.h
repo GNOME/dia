@@ -23,6 +23,9 @@
 #define PROPERTIES_H
 
 #include <gtk/gtk.h>
+#ifdef HAVE_STDDEF_H
+#include <stddef.h>
+#endif
 
 #include "geometry.h"
 #include "render.h"
@@ -30,6 +33,7 @@
 #include "color.h"
 #include "font.h"
 #include "object.h"
+#include "dia_xml.h"
 
 #ifndef _prop_typedefs_defined
 #define _prop_typedefs_defined
@@ -129,10 +133,14 @@ typedef void (* PropType_Free)(Property *prop);
 typedef GtkWidget *(* PropType_GetWidget)(Property *prop);
 /* Set the value of the property from the current value of the widget */
 typedef void (* PropType_SetProp)(Property *prop, GtkWidget *widget);
+/* load/save a property */
+typedef void (*PropType_Load)(Property *prop, ObjectNode obj_node);
+typedef void (*PropType_Save)(Property *prop, ObjectNode obj_node);
 
 PropType prop_type_register(const gchar *name, PropType_Copy cfunc,
 			    PropType_Free ffunc, PropType_GetWidget wfunc,
-			    PropType_SetProp sfunc);
+			    PropType_SetProp sfunc,
+			    PropType_Load loadfunc, PropType_Save savefunc);
 
 G_INLINE_FUNC void prop_desc_list_calculate_quarks(PropDescription *plist);
 #ifdef G_CAN_INLINE
@@ -176,13 +184,14 @@ void       prop_copy(Property *dest, Property *src);
 void       prop_free(Property *prop);
 GtkWidget *prop_get_widget(Property *prop);
 void       prop_set_from_widget(Property *prop, GtkWidget *widget);
+void       prop_load(Property *prop, ObjectNode obj_node);
+void       prop_save(Property *prop, ObjectNode obj_node);
 
-G_INLINE_FUNC Property *prop_list_from_matching_descs(PropDescription *plist,
-						      guint flags,
-						      guint *nprops);
+G_INLINE_FUNC Property *prop_list_from_matching_descs(
+		const PropDescription *plist, guint flags, guint *nprops);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC Property *
-prop_list_from_matching_descs(PropDescription *plist, guint flags,
+prop_list_from_matching_descs(const PropDescription *plist, guint flags,
 			      guint *nprops)
 {
   Property *ret;
@@ -197,6 +206,34 @@ prop_list_from_matching_descs(PropDescription *plist, guint flags,
   count = 0;
   for (i = 0; plist[i].name != NULL; i++)
     if ((plist[i].flags & flags) == flags) {
+      ret[count].name = plist[i].name;
+      ret[count].type = plist[i].type;
+      ret[count].extra_data = plist[i].extra_data;
+      count++;
+    }
+  return ret;
+}
+#endif
+
+G_INLINE_FUNC Property *prop_list_from_nonmatching_descs(
+		const PropDescription *plist, guint flags, guint *nprops);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC Property *
+prop_list_from_nonmatching_descs(const PropDescription *plist, guint flags,
+				 guint *nprops)
+{
+  Property *ret;
+  guint count = 0, i;
+
+  for (i = 0; plist[i].name != NULL; i++)
+    if ((plist[i].flags & flags) == 0)
+      count++;
+
+  ret = g_new0(Property, count);
+  if (nprops) *nprops = count;
+  count = 0;
+  for (i = 0; plist[i].name != NULL; i++)
+    if ((plist[i].flags & flags) == 0) {
       ret[count].name = plist[i].name;
       ret[count].type = plist[i].type;
       ret[count].extra_data = plist[i].extra_data;
@@ -232,5 +269,10 @@ ObjectChange *object_apply_props(Object *obj, Property *props, guint nprops);
  * implement describe_props, get_props and set_props */
 GtkWidget    *object_create_props_dialog     (Object *obj);
 ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
+
+/* standard way to load/save properties of an object */
+void          object_load_props(Object *obj, ObjectNode obj_node);
+void          object_save_props(Object *obj, ObjectNode obj_node);
+
 
 #endif

@@ -41,6 +41,8 @@ typedef struct {
   PropType_Free ffunc;
   PropType_GetWidget wfunc;
   PropType_SetProp sfunc;
+  PropType_Load loadfunc;
+  PropType_Save savefunc;
 } CustomProp;
 
 static GArray *custom_props = NULL;
@@ -49,13 +51,16 @@ static GHashTable *custom_props_hash = NULL;
 PropType
 prop_type_register(const gchar *name, PropType_Copy cfunc,
 		   PropType_Free ffunc, PropType_GetWidget wfunc,
-		   PropType_SetProp sfunc)
+		   PropType_SetProp sfunc,
+		   PropType_Load loadfunc, PropType_Save savefunc)
 {
   CustomProp cprop;
   PropType ret;
 
   g_return_val_if_fail(name != NULL, PROP_TYPE_INVALID);
   g_return_val_if_fail((wfunc != NULL) == (sfunc != NULL), PROP_TYPE_INVALID);
+  g_return_val_if_fail((loadfunc != NULL) == (savefunc != NULL),
+		       PROP_TYPE_INVALID);
 
   if (!custom_props) {
     custom_props = g_array_new(TRUE, TRUE, sizeof(CustomProp));
@@ -67,6 +72,8 @@ prop_type_register(const gchar *name, PropType_Copy cfunc,
   cprop.ffunc = ffunc;
   cprop.wfunc = wfunc;
   cprop.sfunc = sfunc;
+  cprop.loadfunc = loadfunc;
+  cprop.savefunc = savefunc;
 
   ret = custom_props->len + PROP_LAST;
   g_array_append_val(custom_props, cprop);
@@ -139,6 +146,9 @@ void
 prop_copy(Property *dest, Property *src)
 {
   CustomProp *cp;
+
+  g_return_if_fail(src != NULL);
+  g_return_if_fail(dest != NULL);
 
   dest->name = src->name;
   dest->type = src->type;
@@ -381,6 +391,218 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   }
 }
 
+void
+prop_load(Property *prop, ObjectNode obj_node)
+{
+  CustomProp *cp;
+  AttributeNode attr;
+  DataNode data;
+  gchar *str;
+  guint i;
+
+  g_return_if_fail(prop != NULL);
+
+  /* custom prop types may have some other handling */
+  if (!PROP_IS_OTHER(prop->type)) {
+    attr = object_find_attribute(obj_node, prop->name);
+    if (!attr) {
+      g_warning("Could not find attribute %s", prop->name);
+      return;
+    }
+    data = attribute_first_data(attr);
+    if (!data) {
+      g_warning("Attribute %s contains no data", prop->name);
+      return;
+    }
+  }
+
+  switch (prop->type) {
+  case PROP_TYPE_INVALID:
+    g_warning("Can't load invalid");
+    break;
+  case PROP_TYPE_CHAR:
+    str = data_string(data);
+    if (str && str[0]) {
+      PROP_VALUE_CHAR(*prop) = str[0];
+      g_free(str);
+    } else
+      g_warning("Could not read character data for attribute %s", prop->name);
+    break;
+  case PROP_TYPE_BOOL:
+    PROP_VALUE_BOOL(*prop) = data_boolean(data);
+    break;
+  case PROP_TYPE_INT:
+    PROP_VALUE_INT(*prop) = data_int(data);
+    break;
+  case PROP_TYPE_ENUM:
+    PROP_VALUE_ENUM(*prop) = data_enum(data);
+    break;
+  case PROP_TYPE_REAL:
+    PROP_VALUE_REAL(*prop) = data_real(data);
+    break;
+  case PROP_TYPE_STRING:
+    g_free(PROP_VALUE_STRING(*prop));
+    PROP_VALUE_STRING(*prop) = data_string(data);
+    break;
+  case PROP_TYPE_POINT:
+    data_point(data, &PROP_VALUE_POINT(*prop));
+    break;
+  case PROP_TYPE_POINTARRAY:
+    PROP_VALUE_POINTARRAY(*prop).npts = attribute_num_data(attr);
+    g_free(PROP_VALUE_POINTARRAY(*prop).pts);
+    PROP_VALUE_POINTARRAY(*prop).pts = g_new(Point,
+					PROP_VALUE_POINTARRAY(*prop).npts);
+    for (i = 0; i < PROP_VALUE_POINTARRAY(*prop).npts; i++) {
+      data_point(data, &PROP_VALUE_POINTARRAY(*prop).pts[i]);
+      data = data_next(data);
+    }
+    break;
+  case PROP_TYPE_RECT:
+    data_rectangle(data, &PROP_VALUE_RECT(*prop));
+    break;
+  case PROP_TYPE_LINESTYLE:
+    PROP_VALUE_LINESTYLE(*prop).style = data_enum(data);
+    PROP_VALUE_LINESTYLE(*prop).dash = 1.0;
+    /* don't bother checking dash length if we have a solid line. */
+    if (PROP_VALUE_LINESTYLE(*prop).style != LINESTYLE_SOLID) {
+      data = data_next(data);
+      if (data)
+	PROP_VALUE_LINESTYLE(*prop).dash = data_real(data);
+      else {
+	/* backward compatibility */
+	if ((attr = object_find_attribute(obj_node, "dashlength")) &&
+	    (data = attribute_first_data(attr)))
+	  PROP_VALUE_LINESTYLE(*prop).dash = data_real(data);
+      }
+    }
+    break;
+  case PROP_TYPE_ARROW:
+    /* Maybe it would be better to store arrows as a single composite
+     * attribute rather than three seperate attributes. This would break
+     * binary compatibility though.*/
+    PROP_VALUE_ARROW(*prop).type = data_enum(data);
+    PROP_VALUE_ARROW(*prop).length = 0.8;
+    PROP_VALUE_ARROW(*prop).width = 0.8;
+    if (PROP_VALUE_ARROW(*prop).type != ARROW_NONE) {
+      str = g_strconcat(prop->name, "_length", NULL);
+      if ((attr = object_find_attribute(obj_node, str)) &&
+	  (data = attribute_first_data(attr)))
+	PROP_VALUE_ARROW(*prop).length = data_real(data);
+      g_free(str);
+      str = g_strconcat(prop->name, "_width", NULL);
+      if ((attr = object_find_attribute(obj_node, str)) &&
+	  (data = attribute_first_data(attr)))
+	PROP_VALUE_ARROW(*prop).width = data_real(data);
+      g_free(str);
+    }
+    break;
+  case PROP_TYPE_COLOUR:
+    data_color(data, &PROP_VALUE_COLOUR(*prop));
+    break;
+  case PROP_TYPE_FONT:
+    PROP_VALUE_FONT(*prop) = data_font(data);
+  default:
+    if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
+      g_warning("prop type id %d out of range!!!", prop->type);
+      return;
+    }
+    cp = &g_array_index(custom_props, CustomProp, prop->type - PROP_LAST);
+    if (cp->ffunc)
+      cp->ffunc(prop);
+    if (cp->loadfunc)
+      cp->loadfunc(prop, obj_node);
+    else
+      g_warning("Don't know how to load custom property of type %s", cp->name);
+    break;
+  }
+}
+
+void
+prop_save(Property *prop, ObjectNode obj_node)
+{
+  CustomProp *cp;
+  AttributeNode attr;
+  gchar buf[32], *str;
+  guint i;
+
+  g_return_if_fail(prop != NULL);
+
+  if (!PROP_IS_OTHER(prop->type))
+    attr = new_attribute(obj_node, prop->name);
+
+  switch (prop->type) {
+  case PROP_TYPE_INVALID:
+    g_warning("Can't save invalid");
+    break;
+  case PROP_TYPE_CHAR:
+    buf[0] = PROP_VALUE_CHAR(*prop);
+    buf[1] = '\0';
+    data_add_string(attr, buf);
+    break;
+  case PROP_TYPE_BOOL:
+    data_add_boolean(attr, PROP_VALUE_BOOL(*prop));
+    break;
+  case PROP_TYPE_INT:
+    data_add_int(attr, PROP_VALUE_INT(*prop));
+    break;
+  case PROP_TYPE_ENUM:
+    data_add_enum(attr, PROP_VALUE_ENUM(*prop));
+    break;
+  case PROP_TYPE_REAL:
+    data_add_real(attr, PROP_VALUE_REAL(*prop));
+    break;
+  case PROP_TYPE_STRING:
+    data_add_string(attr, PROP_VALUE_STRING(*prop));
+    break;
+  case PROP_TYPE_POINT:
+    data_add_point(attr, &PROP_VALUE_POINT(*prop));
+    break;
+  case PROP_TYPE_POINTARRAY:
+    for (i = 0; i < PROP_VALUE_POINTARRAY(*prop).npts; i++)
+      data_add_point(attr, &PROP_VALUE_POINTARRAY(*prop).pts[i]);
+    break;
+  case PROP_TYPE_RECT:
+    data_add_rectangle(attr, &PROP_VALUE_RECT(*prop));
+    break;
+  case PROP_TYPE_LINESTYLE:
+    data_add_enum(attr, PROP_VALUE_LINESTYLE(*prop).style);
+    data_add_real(attr, PROP_VALUE_LINESTYLE(*prop).dash);
+    /* for compatibility.  It makes more sense to link the two together */
+    data_add_real(new_attribute(obj_node, "dashlength"),
+		  PROP_VALUE_LINESTYLE(*prop).dash);
+    break;
+  case PROP_TYPE_ARROW:
+    data_add_enum(attr, PROP_VALUE_ARROW(*prop).type);
+    if (PROP_VALUE_ARROW(*prop).type != ARROW_NONE) {
+      str = g_strconcat(prop->name, "_length", NULL);
+      attr = new_attribute(obj_node, str);
+      g_free(str);
+      data_add_real(attr, PROP_VALUE_ARROW(*prop).length);
+      str = g_strconcat(prop->name, "_width", NULL);
+      attr = new_attribute(obj_node, str);
+      g_free(str);
+      data_add_real(attr, PROP_VALUE_ARROW(*prop).width);
+    }
+    break;
+  case PROP_TYPE_COLOUR:
+    data_add_color(attr, &PROP_VALUE_COLOUR(*prop));
+    break;
+  case PROP_TYPE_FONT:
+    data_add_font(attr, PROP_VALUE_FONT(*prop));
+    break;
+  default:
+    if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
+      g_warning("prop type id %d out of range!!!", prop->type);
+      return;
+    }
+    cp = &g_array_index(custom_props, CustomProp, prop->type - PROP_LAST);
+    if (cp->savefunc)
+      cp->savefunc(prop, obj_node);
+    else
+      g_warning("Don't know how to save custom property of type %s", cp->name);
+  }
+}
+
 
 /* --------------------------------------- */
 
@@ -466,7 +688,7 @@ object_apply_props(Object *obj, Property *props, guint nprops)
 
 /* --------------------------------------- */
 
-#define struct_member(sp, off, tp) (*((tp *)(((char *)sp) + off)))
+#define struct_member(sp, off, tp) (*(tp *)(((char *)sp) + off))
 
 gboolean
 object_get_props_from_offsets(Object *obj, PropOffset *offsets,
@@ -501,12 +723,12 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
 	struct_member(obj, offsets[j].offset, gint);
       break;
     case PROP_TYPE_REAL:
-      PROP_VALUE_REAL(props[j]) =
+      PROP_VALUE_REAL(props[i]) =
 	struct_member(obj, offsets[j].offset, real);
       break;
     case PROP_TYPE_STRING:
-      g_free(PROP_VALUE_STRING(props[j]));
-      PROP_VALUE_STRING(props[j]) =
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) =
 	g_strdup(struct_member(obj, offsets[j].offset, gchar *));
       break;
     case PROP_TYPE_POINT:
@@ -584,12 +806,12 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
       break;
     case PROP_TYPE_REAL:
       struct_member(obj, offsets[j].offset, real) =
-	PROP_VALUE_REAL(props[j]);
+	PROP_VALUE_REAL(props[i]);
       break;
     case PROP_TYPE_STRING:
       g_free(struct_member(obj, offsets[j].offset, gchar *));
       struct_member(obj, offsets[j].offset, gchar *) =
-	g_strdup(PROP_VALUE_STRING(props[j]));
+	g_strdup(PROP_VALUE_STRING(props[i]));
       break;
     case PROP_TYPE_POINT:
       struct_member(obj, offsets[j].offset, Point) =
@@ -729,5 +951,64 @@ object_apply_props_from_dialog(Object *obj, GtkWidget *table)
     prop_set_from_widget(&props[i], widgets[i]);
 
   return object_apply_props(obj, props, nprops);
+}
+
+/* --------------------------------------- */
+
+void
+object_load_props(Object *obj, ObjectNode obj_node)
+{
+  const PropDescription *pdesc;
+  Property *props;
+  guint nprops, i;
+
+  g_return_if_fail(obj != NULL);
+  g_return_if_fail(obj_node != NULL);
+
+  if (obj->ops->describe_props == NULL ||
+      obj->ops->set_props == NULL) {
+    g_warning("No describe_props or set_props!");
+    return;
+  }
+  pdesc = obj->ops->describe_props(obj);
+  if (pdesc == NULL) {
+    g_warning("No properties!");
+    return;
+  }
+  props = prop_list_from_nonmatching_descs(pdesc, PROP_FLAG_DONT_SAVE,&nprops);
+
+  for (i = 0; i < nprops; i++)
+    prop_load(&props[i], obj_node);
+
+  obj->ops->set_props(obj, props, nprops);
+  prop_list_free(props, nprops);
+}
+
+void
+object_save_props(Object *obj, ObjectNode obj_node)
+{
+  const PropDescription *pdesc;
+  Property *props;
+  guint nprops = 42, i;
+
+  g_return_if_fail(obj != NULL);
+  g_return_if_fail(obj_node != NULL);
+
+  if (obj->ops->describe_props == NULL ||
+      obj->ops->get_props == NULL) {
+    g_warning("No describe_props!");
+    return;
+  }
+  pdesc = obj->ops->describe_props(obj);
+  if (pdesc == NULL) {
+    g_warning("No properties!");
+    return;
+  }
+  props = prop_list_from_nonmatching_descs(pdesc, PROP_FLAG_DONT_SAVE,&nprops);
+
+  obj->ops->get_props(obj, props, nprops);
+  for (i = 0; i < nprops; i++)
+    prop_save(&props[i], obj_node);
+  prop_list_free(props, nprops);
 }
 

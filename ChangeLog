@@ -1,3 +1,20 @@
+2000-02-14  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/box.c (box_load, box_save): use property save
+	routines.  Make sure that any props not handled by object_load_props
+	are loaded before calling object_load_props, or we get errors because
+	update_data is called.
+
+	* lib/properties.c (object_get_props_from_offsets): fixed an indexing
+	error that could cause properties to be loaded incorrectly.
+	(object_set_props_from_offsets): similar here.
+
+	* lib/properties.[ch] (prop_{load,save}): functions for loading
+	or saving a property in Dia's XML file format.
+	(object_{load,save}_props): load or save some properties of an
+	object.  These functions should help simplify the load/save methods
+	of objects that implement the properties interface.
+
 2000-02-13  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/box.c: use offset code to simplify property
