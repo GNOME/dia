@@ -38,6 +38,15 @@
 
 #include "xslt.h"
 
+
+/* Possible stylesheets */
+fromxsl_t *froms;
+
+/* Selected stylesheets */
+toxsl_t *xsl_to;
+fromxsl_t *xsl_from;
+
+
 void xslt_ok(void);
 
 static char *diafilename;

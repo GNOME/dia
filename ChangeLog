@@ -1,5 +1,8 @@
 2004-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xslt/xslt.[ch]: Patch #133913 from phenning@lanl.gov:
+	Extern definitions for Mac compilation.
+
 	* app/app_procs.c: Patch #131159 from J. H. M. Dassen
 	(jdassen@debian.org): Include fix.
 

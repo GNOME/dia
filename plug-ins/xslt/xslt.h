@@ -53,11 +53,11 @@ typedef struct fromxsl_s {
 } fromxsl_t;
 
 /* Possible stylesheets */
-fromxsl_t *froms;
+extern fromxsl_t *froms;
 
 /* Selected stylesheets */
-toxsl_t *xsl_to;
-fromxsl_t *xsl_from;
+extern toxsl_t *xsl_to;
+extern fromxsl_t *xsl_from;
 
 void xslt_dialog_create();
 void xslt_ok();
