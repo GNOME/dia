@@ -2768,7 +2768,7 @@ msgstr "Popravi"
 
 #: objects/FS/function.c:768
 msgid "Adjust"
-msgstr "Nastavi"
+msgstr "Prilagodi"
 
 #: objects/FS/function.c:769 objects/FS/function.c:770
 msgid "Form"
