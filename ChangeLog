@@ -1,3 +1,10 @@
+2003-07-01  Hans Breuer  <hans@breuer.org>
+
+	* lib/properties.h : introduce PROP_FLAG_OPTIONAL
+	* lib/proplist.c : don't complain if optional attr is missing
+	* lib/orth_conn.h : make "orth_autoroute" optional to
+	stop complaining with older files.
+
 2003-06-13  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* configure.in: Added "ml" for Malayalam in ALL_LINGUAS.
