@@ -1,3 +1,7 @@
+2002-07-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/interface.c (fill_sheet_menu): Tear-off for sheets menu.
+
 2002-07-15  Andrew Ferrier  <andrew@new-destiny.co.uk>
 
 	* Fix for 'make dist' etc. --- problem caused by

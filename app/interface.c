@@ -837,6 +837,7 @@ fill_sheet_menu(void)
 			(GtkCallback)gtk_widget_destroy, NULL);
   gtk_widget_ref(sheet_menu);
   gtk_option_menu_remove_menu(GTK_OPTION_MENU(sheet_option_menu));
+  gtk_container_add(GTK_CONTAINER(sheet_menu), gtk_tearoff_menu_item_new());
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
     GtkWidget *menuitem;
@@ -848,12 +849,12 @@ fill_sheet_menu(void)
     gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
-    gtk_widget_show(menuitem);
   }
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
   gtk_widget_unref(sheet_menu);
   gtk_menu_item_activate(
 	GTK_MENU_ITEM(GTK_OPTION_MENU(sheet_option_menu)->menu_item));
+  gtk_widget_show_all(sheet_menu);
 }
 
 void
