@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.86\n"
+"Project-Id-Version: dia\n"
 "POT-Creation-Date: 2002-03-10 14:44+0100\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
@@ -4437,19 +4437,19 @@ msgstr ""
 
 #: sheets/Contact.sheet.in.h:3
 msgid "A 'jump' output variable"
-msgstr ""
+msgstr "Izhodna spremenljivka 'jump' (skok)"
 
 #: sheets/Contact.sheet.in.h:4
 msgid "A 'reset' output variable"
-msgstr ""
+msgstr "Izhodna spremenljivka 'reset' (ponastavi)"
 
 #: sheets/Contact.sheet.in.h:5
 msgid "A 'set' output variable"
-msgstr ""
+msgstr "Izhodna spremenljivka 'set' (nastavi)"
 
 #: sheets/Contact.sheet.in.h:6
 msgid "A negative output variable"
-msgstr ""
+msgstr "Negativna izhodna spremenljivka"
 
 #: sheets/Contact.sheet.in.h:7
 msgid "A power-saved 'reset' output variable"
@@ -4469,19 +4469,19 @@ msgstr ""
 
 #: sheets/Contact.sheet.in.h:11
 msgid "A receptivity output variable"
-msgstr ""
+msgstr "Izhodna spremenljivka receptivnosti"
 
 #: sheets/Contact.sheet.in.h:12
 msgid "A simple output variable"
-msgstr ""
+msgstr "Enostavna izhodna spremenljivka"
 
 #: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
-msgstr ""
+msgstr "Komponente vezij LADDER"
 
 #: sheets/Contact.sheet.in.h:14
 msgid "Ladder"
-msgstr ""
+msgstr "Ladder"
 
 #: sheets/EML.sheet.in.h:1
 msgid "Create a process"
@@ -4529,19 +4529,19 @@ msgstr "Žarnica ali luč indikatorja"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr "Običajno zaprt stik"
+msgstr "Običajno sklenjen stik"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
-msgstr ""
+msgstr "Običajno sklenjen preklopnik položaja"
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr "Običajno odprt stik"
+msgstr "Običajno prekinjen stik"
 
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
-msgstr ""
+msgstr "Običajno prekinjen preklopnik položaja"
 
 #: sheets/Electric.sheet.in.h:7
 msgid "A relay"
@@ -4597,7 +4597,7 @@ msgstr "Paralelogram z besedilom"
 
 #: sheets/Flowchart.sheet.in.h:5
 msgid "Collate"
-msgstr ""
+msgstr "Združi"
 
 #: sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
@@ -4677,11 +4677,11 @@ msgstr "Uredi"
 
 #: sheets/Flowchart.sheet.in.h:27
 msgid "Summing Junction"
-msgstr ""
+msgstr "Zdurževalni spoj"
 
 #: sheets/Flowchart.sheet.in.h:28
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: sheets/Flowchart.sheet.in.h:29
 msgid "Transaction File"
@@ -4689,15 +4689,15 @@ msgstr "Datoteka transakcij"
 
 #: sheets/Flowchart.sheet.in.h:30
 msgid "Transmittal Tape"
-msgstr ""
+msgstr "Prenosni papir"
 
 #: sheets/GRAFCET.sheet.in.h:1
 msgid "A AND vergent"
-msgstr ""
+msgstr "Vergent IN"
 
 #: sheets/GRAFCET.sheet.in.h:2
 msgid "A OR vergent"
-msgstr ""
+msgstr "Vergent ALI"
 
 #: sheets/GRAFCET.sheet.in.h:3
 msgid "A condition (of an action)"
@@ -4733,7 +4733,7 @@ msgstr "Dejanje, ki se poveže s korakom"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Lok (navzgor)"
 
 #: sheets/GRAFCET.sheet.in.h:12
 msgid "An initial step"
@@ -4741,11 +4741,11 @@ msgstr "Začetni korak"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "Predmeti za oblikovanje grafov GRAFCET"
 
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
@@ -4765,15 +4765,15 @@ msgstr "Vrata XOR"
 
 #: sheets/Logic.sheet.in.h:5
 msgid "A crossconnector"
-msgstr ""
+msgstr "Krživna povezava"
 
 #: sheets/Logic.sheet.in.h:6
 msgid "A simple Buffer"
-msgstr ""
+msgstr "Enostavni izravnalnik"
 
 #: sheets/Logic.sheet.in.h:7
 msgid "An And gate"
-msgstr ""
+msgstr "Vrata AND"
 
 #: sheets/Logic.sheet.in.h:8
 msgid "An Inverter"
@@ -4793,15 +4793,15 @@ msgstr "Logika"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
-msgstr ""
+msgstr "Demultiplekser"
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
-msgstr ""
+msgstr "Veliko razširitveno vozlišče"
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
 msgid "Multiplexer"
@@ -4809,19 +4809,19 @@ msgstr "Multiplekser"
 
 #: sheets/MSE.sheet.in.h:5
 msgid "Node Center"
-msgstr ""
+msgstr "Osrednje vozlišče"
 
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
-msgstr ""
+msgstr "Mahjno razširitveno vozlišče"
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Terminal Taktičnih satelitskih zvez"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "Komponente mobilne naročnine vojske ZDA"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -4853,11 +4853,11 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "Generičen izvor pritiska"
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "Hidravlični izvor pritiska"
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "A normally-in simple-effect jack"
@@ -4869,7 +4869,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr ""
+msgstr "Pnevmatični izvov pritiska pritiska"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
@@ -4877,7 +4877,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
+msgstr "Komponente pnevmatičnih in hidravličnih vezij"
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
@@ -4917,31 +4917,31 @@ msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
 msgid "A activity/data flow arrow"
-msgstr ""
+msgstr "Puščica aktivnosti/toka podatkov"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
-msgstr ""
+msgstr "Oznaka toka"
 
 #: sheets/SADT.sheet.in.h:3
 msgid "An activity/data box"
-msgstr ""
+msgstr "Škatla aktivnosti/podatkov"
 
 #: sheets/SADT.sheet.in.h:4
 msgid "Objects to design SADT diagrams"
-msgstr ""
+msgstr "Predmeti za oblikovanje diagramov SADT"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IDEF0"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "Ukaz, ki se izvaja"
 
 #: sheets/SDL.sheet.in.h:2
 msgid "Block Type Reference"
-msgstr ""
+msgstr "Navezava na vrsto bloka"
 
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
@@ -4961,19 +4961,19 @@ msgstr "Funkcijski klic"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
-msgstr ""
+msgstr "Generično vozlišče besedila"
 
 #: sheets/SDL.sheet.in.h:8
 msgid "In/Out Connector"
-msgstr ""
+msgstr "Vhodno/izhodni konektor"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
-msgstr ""
+msgstr "Vrnitev iz procedure"
 
 #: sheets/SDL.sheet.in.h:11
 msgid "Process Type Reference"
-msgstr ""
+msgstr "Navezava na vrsto procesa"
 
 #: sheets/SDL.sheet.in.h:12
 msgid "Receive message"
@@ -4993,11 +4993,11 @@ msgstr "Pošlji sporočilo"
 
 #: sheets/SDL.sheet.in.h:16
 msgid "Service Type Reference"
-msgstr ""
+msgstr "Navezava na vrsto storitve"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
+msgstr "Jezik specificiranja in opisa."
 
 #: sheets/SDL.sheet.in.h:18
 msgid "State"
@@ -5005,15 +5005,15 @@ msgstr "Stanje"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Agregacija, en razred je del drugega"
 
 #: sheets/UML.sheet.in.h:2
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Asociacija, dva razreda sta povezana"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Omejitev, dodaj omejitev na nekaj"
 
 #: sheets/UML.sheet.in.h:4
 msgid "Create a (large) package"
@@ -5033,7 +5033,7 @@ msgstr "Ustvari razred"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Create a class stereotype icon"
-msgstr ""
+msgstr "Ustvari ikono stereotipa razreda"
 
 #: sheets/UML.sheet.in.h:9
 msgid "Create a component"
@@ -5073,7 +5073,7 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create an actor"
-msgstr ""
+msgstr "Ustvari igralca"
 
 #: sheets/UML.sheet.in.h:19
 msgid "Create an object"
@@ -5081,47 +5081,47 @@ msgstr "Ustvari predmet"
 
 #: sheets/UML.sheet.in.h:20
 msgid "Editor for UML Static Structure Diagrams"
-msgstr ""
+msgstr "Urejevalnik diagramov statičnih struktur UML"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Posplošennje, dedovanje razreda"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Implementira, razred implementira določen vmesnik"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Realizes, implementira določen vmesnik"
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
+msgstr "UMP"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "A data line"
-msgstr ""
+msgstr "Podatkovna črta"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
-msgstr ""
+msgstr "Časovna skala"
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Kronogram"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr ""
+msgstr "Predmeti za oblikovanje diagramov kronogramov"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Preprečevalec toka nazaj"
 
 #: sheets/civil.sheet.in.h:2
 msgid "A Basin"
-msgstr ""
+msgstr "Struga"
 
 #: sheets/civil.sheet.in.h:3
 msgid "A Container"
@@ -5129,11 +5129,11 @@ msgstr "Vsebovalnik"
 
 #: sheets/civil.sheet.in.h:4
 msgid "A Frequency Converter"
-msgstr ""
+msgstr "Pretvornik frekvence"
 
 #: sheets/civil.sheet.in.h:5
 msgid "A Gas Bottle"
-msgstr ""
+msgstr "Plinska bomba"
 
 #: sheets/civil.sheet.in.h:6
 msgid "A Motor"
@@ -5141,7 +5141,7 @@ msgstr "Motor"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
-msgstr ""
+msgstr "Predočiščevalni tank"
 
 #: sheets/civil.sheet.in.h:8
 msgid "A Rotor"
@@ -5149,23 +5149,23 @@ msgstr "Rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "Končno umirjena struga"
 
 #: sheets/civil.sheet.in.h:10
 msgid "A horizontal limiting line"
-msgstr ""
+msgstr "Črta vodoravne omejitve"
 
 #: sheets/civil.sheet.in.h:11
 msgid "A horizontally aligned Arrow"
-msgstr ""
+msgstr "Vodoravno obrnjena puščica"
 
 #: sheets/civil.sheet.in.h:12
 msgid "A vertical limiting line"
-msgstr ""
+msgstr "Črta navpične omejitve"
 
 #: sheets/civil.sheet.in.h:13
 msgid "A vertically aligned Arrow"
-msgstr ""
+msgstr "Navpično obrnjena puščica"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
@@ -5185,51 +5185,51 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:18
 msgid "Horizontal Rest"
-msgstr ""
+msgstr "Vodoravno mirovanje"
 
 #: sheets/civil.sheet.in.h:19
 msgid "Horizontally aligned Valve"
-msgstr ""
+msgstr "Vodoravno obrnjena zapora"
 
 #: sheets/civil.sheet.in.h:20
 msgid "Horizontally aligned compressor"
-msgstr ""
+msgstr "Vodoravno obrnjen kompresor"
 
 #: sheets/civil.sheet.in.h:21
 msgid "Horizontally aligned pump"
-msgstr ""
+msgstr "Vodoravno obrnjena črpalka"
 
 #: sheets/civil.sheet.in.h:22
 msgid "Reference Line"
-msgstr ""
+msgstr "Črta reference"
 
 #: sheets/civil.sheet.in.h:23
 msgid "Soil"
-msgstr ""
+msgstr "Zemlja"
 
 #: sheets/civil.sheet.in.h:24
 msgid "Vertical Rest"
-msgstr ""
+msgstr "Navpično mirovanje"
 
 #: sheets/civil.sheet.in.h:25
 msgid "Vertically aligned Propeller"
-msgstr ""
+msgstr "Navpično obrnjen propeler"
 
 #: sheets/civil.sheet.in.h:26
 msgid "Vertically aligned Valve"
-msgstr ""
+msgstr "Navpično obrnjena zapora"
 
 #: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned compressor"
-msgstr ""
+msgstr "Navpično obrnjen kompresor"
 
 #: sheets/civil.sheet.in.h:28
 msgid "Vertically aligned pump"
-msgstr ""
+msgstr "Navpično obrnjena črpalka"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
-msgstr ""
+msgstr "Nivo vode"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
