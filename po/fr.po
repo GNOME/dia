@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-20 23:49+0200\n"
+"POT-Creation-Date: 2001-06-05 09:06+0200\n"
 "PO-Revision-Date: 2001-05-17 13:31+0200\n"
 "Last-Translator: Christophe Merlet <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -156,7 +156,7 @@ msgstr "Contributeurs :"
 #. setup buttons
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:605
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
 #: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "Valider"
@@ -176,12 +176,12 @@ msgid "Object defaults"
 msgstr "Caractéristiques d'un nouvel objet."
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:614 app/properties.c:101
+#: app/preferences.c:620 app/properties.c:101
 msgid "Apply"
 msgstr "Appliquer"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:623
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
 #: app/properties.c:111
 msgid "Close"
 msgstr "Fermer"
@@ -319,13 +319,13 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
 #: lib/properties.c:288
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
-#: app/preferences.c:508 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
+#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Non"
 
@@ -513,26 +513,6 @@ msgstr "Créer une image"
 #: app/interface.c:108 app/menus.c:207
 msgid "Image"
 msgstr "Image"
-
-#: app/interface.c:401
-msgid "/View/Show Rulers"
-msgstr "/Vue/Afficher les _règles"
-
-#: app/interface.c:403
-msgid "/View/Visible Grid"
-msgstr "/Vue/Afficher la _grille"
-
-#: app/interface.c:405
-msgid "/View/Snap To Grid"
-msgstr "/Vue/Grille _magnétique"
-
-#: app/interface.c:407
-msgid "/View/Show Connection Points"
-msgstr "/Vue/Afficher les points de _connexion"
-
-#: app/interface.c:410
-msgid "/View/AntiAliased"
-msgstr "/Vue/_Anti-crénelage"
 
 #: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
@@ -996,11 +976,11 @@ msgstr "/Édition/_Annuler"
 msgid "/Edit/_Redo"
 msgstr "/Édition/_Recommencer"
 
-#: app/menus.c:295 app/menus.c:1121
+#: app/menus.c:295
 msgid "/Edit/Copy Text"
 msgstr "/Édition/Copier le texte"
 
-#: app/menus.c:296 app/menus.c:1123
+#: app/menus.c:296
 msgid "/Edit/Cut Text"
 msgstr "/Édition/Couper le texte"
 
@@ -1186,23 +1166,23 @@ msgstr "/Objets/_Dégrouper"
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objets/Alignement _horizontal"
 
-#: app/menus.c:354 app/menus.c:1138
+#: app/menus.c:354
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objets/Alignement horizontal/À gauche"
 
-#: app/menus.c:355 app/menus.c:1140
+#: app/menus.c:355
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objets/Alignement horizontal/Au centre"
 
-#: app/menus.c:356 app/menus.c:1142
+#: app/menus.c:356
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objets/Alignement horizontal/À droite"
 
-#: app/menus.c:357 app/menus.c:1144
+#: app/menus.c:357
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objets/Alignement horizontal/Équidistance"
 
-#: app/menus.c:358 app/menus.c:1146
+#: app/menus.c:358
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objets/Alignement horizontal/Adjacents"
 
@@ -1210,23 +1190,23 @@ msgstr "/Objets/Alignement horizontal/Adjacents"
 msgid "/Objects/Align _Vertical"
 msgstr "/Objets/Alignement _vertical"
 
-#: app/menus.c:361 app/menus.c:1148
+#: app/menus.c:361
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objets/Alignement vertical/En haut"
 
-#: app/menus.c:362 app/menus.c:1150
+#: app/menus.c:362
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objets/Alignement vertical/Au centre"
 
-#: app/menus.c:363 app/menus.c:1152
+#: app/menus.c:363
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objets/Alignement vertical/En bas"
 
-#: app/menus.c:364 app/menus.c:1154
+#: app/menus.c:364
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objets/Alignement vertical/Équidistance"
 
-#: app/menus.c:365 app/menus.c:1156
+#: app/menus.c:365
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objets/Alignement vertical/Adjacents"
 
@@ -1306,49 +1286,9 @@ msgstr "/Dialogues/_Calques"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Variable « tooldata » = NULL dans la fonction « tool_menu_select »"
 
-#: app/menus.c:626
-msgid "/Tools/"
-msgstr "/_Outils"
-
-#: app/menus.c:719
+#: app/menus.c:725
 msgid "Diagram Menu"
 msgstr "Menu des diagrammes"
-
-#: app/menus.c:1110
-msgid "/Edit/Copy"
-msgstr "/Édition/_Copier"
-
-#: app/menus.c:1112
-msgid "/Edit/Cut"
-msgstr "/Édition/Co_uper"
-
-#: app/menus.c:1114
-msgid "/Edit/Paste"
-msgstr "/Édition/C_oller"
-
-#: app/menus.c:1117
-msgid "/Edit/Delete"
-msgstr "/Édition/_Supprimer"
-
-#: app/menus.c:1125
-msgid "/Edit/Paste Text"
-msgstr "/Édition/Coller le _texte"
-
-#: app/menus.c:1128
-msgid "/Objects/Send to Back"
-msgstr "/Objets/_Reculer à l'arrière-plan"
-
-#: app/menus.c:1130
-msgid "/Objects/Bring to Front"
-msgstr "/Objets/_Avancer au premier plan"
-
-#: app/menus.c:1133
-msgid "/Objects/Group"
-msgstr "/Objets/_Grouper"
-
-#: app/menus.c:1135
-msgid "/Objects/Ungroup"
-msgstr "/Objets/_Dégrouper"
 
 #: app/paginate_gnomeprint.c:156
 msgid "Print Diagram"
@@ -1425,31 +1365,31 @@ msgstr "Charger"
 msgid "Unload"
 msgstr "Décharger"
 
-#: app/preferences.c:87
+#: app/preferences.c:89
 msgid "User Interface"
 msgstr "Interface utilisateur"
 
-#: app/preferences.c:88
+#: app/preferences.c:90
 msgid "View Defaults"
 msgstr "Caractéristiques de la vue"
 
-#: app/preferences.c:89
+#: app/preferences.c:91
 msgid "Grid Lines"
 msgstr "Caractéristiques de la grille"
 
-#: app/preferences.c:103
+#: app/preferences.c:105
 msgid "Reset tools after create:"
 msgstr "Quitter un outil après une création :"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid "Compress saved files:"
 msgstr "Compresser les fichiers enregistrés :"
 
-#: app/preferences.c:105
+#: app/preferences.c:107
 msgid "Number of undo levels:"
 msgstr "Nombre de niveaux d'annulation :"
 
-#: app/preferences.c:106
+#: app/preferences.c:108
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1457,68 +1397,68 @@ msgstr ""
 "Un rectangle de sélection à la souris sélectionne\n"
 "tous les objets ayant une intersection avec lui :"
 
-#: app/preferences.c:107
+#: app/preferences.c:109
 msgid "New window:"
 msgstr "Pour une nouvelle fenêtre :"
 
-#: app/preferences.c:108
+#: app/preferences.c:110
 msgid "Width:"
 msgstr "Largeur :"
 
-#: app/preferences.c:109
+#: app/preferences.c:111
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: app/preferences.c:110
+#: app/preferences.c:112
 msgid "Magnify:"
 msgstr "Grossissement :"
 
-#: app/preferences.c:111
+#: app/preferences.c:113
 msgid "Use menu bar:"
 msgstr "Utiliser la barre de menus"
 
-#: app/preferences.c:113
+#: app/preferences.c:115
 msgid "Connection Points:"
 msgstr "Points de connexion :"
 
-#: app/preferences.c:114 app/preferences.c:117 app/preferences.c:125
+#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
 msgid "Visible:"
 msgstr "Visibles :"
 
-#: app/preferences.c:116
+#: app/preferences.c:118
 msgid "Grid:"
 msgstr "Grille :"
 
-#: app/preferences.c:118
+#: app/preferences.c:120
 msgid "Snap to:"
 msgstr "Magnétisme :"
 
-#: app/preferences.c:119
+#: app/preferences.c:121
 msgid "X Size:"
 msgstr "Largeur du pas :"
 
-#: app/preferences.c:120
+#: app/preferences.c:122
 msgid "Y Size:"
 msgstr "Hauteur du pas :"
 
-#: app/preferences.c:121 app/preferences.c:126
+#: app/preferences.c:123 app/preferences.c:128
 msgid "Colour:"
 msgstr "Couleur :"
 
-#: app/preferences.c:122 app/preferences.c:127
+#: app/preferences.c:124 app/preferences.c:129
 msgid "Solid lines:"
 msgstr "Lignes pleines :"
 
-#: app/preferences.c:124
+#: app/preferences.c:126
 msgid "Page breaks:"
 msgstr "Sauts de page :"
 
-#: app/preferences.c:238
+#: app/preferences.c:243
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Ne peut ouvrir « %s » pour y écrire"
 
-#: app/preferences.c:573 app/preferences.c:582
+#: app/preferences.c:579 app/preferences.c:588
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -1850,7 +1790,7 @@ msgstr "Total :"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:376
+#: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
 msgid "Add segment"
@@ -1858,7 +1798,7 @@ msgstr "Ajouter un segment"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:377
+#: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
 msgid "Delete segment"
@@ -3378,15 +3318,15 @@ msgstr "Retourner verticalement"
 msgid "Alignment:"
 msgstr "Alignement :"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1546
 msgid "Flip Horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1430
+#: objects/custom/custom_object.c:1547
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
-#: objects/custom/custom_object.c:1463
+#: objects/custom/custom_object.c:1580
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "N'a pu ouvrir le fichier icone %s pour l'objet de type '%s'."
@@ -3751,3 +3691,48 @@ msgstr "Ceci est un fichier FIG version %d.%d, je peux ne pas le comprendre\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "Format de fichier XFig"
+
+#~ msgid "/View/Show Rulers"
+#~ msgstr "/Vue/Afficher les _règles"
+
+#~ msgid "/View/Visible Grid"
+#~ msgstr "/Vue/Afficher la _grille"
+
+#~ msgid "/View/Snap To Grid"
+#~ msgstr "/Vue/Grille _magnétique"
+
+#~ msgid "/View/Show Connection Points"
+#~ msgstr "/Vue/Afficher les points de _connexion"
+
+#~ msgid "/View/AntiAliased"
+#~ msgstr "/Vue/_Anti-crénelage"
+
+#~ msgid "/Tools/"
+#~ msgstr "/_Outils"
+
+#~ msgid "/Edit/Copy"
+#~ msgstr "/Édition/_Copier"
+
+#~ msgid "/Edit/Cut"
+#~ msgstr "/Édition/Co_uper"
+
+#~ msgid "/Edit/Paste"
+#~ msgstr "/Édition/C_oller"
+
+#~ msgid "/Edit/Delete"
+#~ msgstr "/Édition/_Supprimer"
+
+#~ msgid "/Edit/Paste Text"
+#~ msgstr "/Édition/Coller le _texte"
+
+#~ msgid "/Objects/Send to Back"
+#~ msgstr "/Objets/_Reculer à l'arrière-plan"
+
+#~ msgid "/Objects/Bring to Front"
+#~ msgstr "/Objets/_Avancer au premier plan"
+
+#~ msgid "/Objects/Group"
+#~ msgstr "/Objets/_Grouper"
+
+#~ msgid "/Objects/Ungroup"
+#~ msgstr "/Objets/_Dégrouper"
