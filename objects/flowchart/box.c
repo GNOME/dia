@@ -304,7 +304,6 @@ box_draw(Box *box, Renderer *renderer)
   
   assert(box != NULL);
   assert(renderer != NULL);
-
   elem = &box->element;
 
   lr_corner.x = elem->corner.x + elem->width;
@@ -433,8 +432,10 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   height = box->text->height * box->text->numlines + box->padding*2 +
     box->border_width;
 
-  elem->width = width;
-  elem->height = height;
+  if (width > elem->width)
+    elem->width = width;
+  if (height > elem->height)
+    elem->height = height;
 
   /* move shape if necessary ... */
   switch (horiz) {
