@@ -1103,7 +1103,7 @@ export_data(DiagramData *data, const gchar *filename,
 
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-  g_free(renderer);
+  g_object_unref(renderer);
 }
 
 #if WPG_WITH_IMPORT

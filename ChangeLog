@@ -1,5 +1,16 @@
 2004-01-11  Hans Breuer  <hans@breuer.org>
 
+	[more less leaks ;-]
+	
+	* objects/SADT/annotation.c : use text_destroy() not g_free()
+	
+	* objects/chronogram/chronoline.c : neither leak chronoline::events
+	nor chronoline::name
+
+	* objects/wpg/wpg.c : don't g_free() but g_object_unref(renderer);
+
+2004-01-11  Hans Breuer  <hans@breuer.org>
+
 	* lib/properties.h :
 	* objects/custom/custom_object.c : more properties optional
 	to be backward compatible for older diagrams not having them 

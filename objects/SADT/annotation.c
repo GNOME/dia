@@ -389,7 +389,7 @@ annotation_destroy(Annotation *annotation)
 {
   connection_destroy(&annotation->connection);
 
-  g_free(annotation->text);
+  text_destroy(annotation->text);
 }
 
 static void

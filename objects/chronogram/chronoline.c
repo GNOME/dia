@@ -645,6 +645,8 @@ chronoline_create(Point *startpoint,
 static void 
 chronoline_destroy(Chronoline *chronoline)
 {
+  g_free(chronoline->name);
+  g_free(chronoline->events);
   dia_font_unref(chronoline->font);
   connpointline_destroy(chronoline->snap);
   destroy_clevent_list(chronoline->evtlist);
