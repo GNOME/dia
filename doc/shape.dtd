@@ -33,13 +33,15 @@
   x2 CDATA #REQUIRED
   y2 CDATA #REQUIRED >
 
-<!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | svg:circle | svg:ellipse | svg:parth)* >
+<!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect |
+                   svg:circle | svg:ellipse | svg:path | svg:text)* >
 <!ATTLIST svg:svg
   width CDATA #IMPLIED
   height CDATA #IMPLIED
   style CDATA #IMPLIED >
 
-<!ELEMENT svg:g (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | svg:circle | svg:ellipse | svg:parth)* >
+<!ELEMENT svg:g (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | 
+                 svg:circle | svg:ellipse | svg:path | svg:text )* >
 <!ATTLIST svg:g
   style CDATA #IMPLIED >
 

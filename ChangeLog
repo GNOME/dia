@@ -1,3 +1,10 @@
+2002-07-10  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/diagram.dtd: 
+	* doc/shape.dtd: Patch from "Dolores Alia de Saravia"
+	<loli@unsa.edu.ar> to add dia: to diagram.dtd elements and add
+	svg:text to shape.
+
 2002-07-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/Makefile.am (SUBDIRS): Made the XSLT dir depend on
