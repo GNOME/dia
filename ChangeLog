@@ -1,3 +1,8 @@
+2004-10-05  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/association.c: Patch from Harvey Thompson
+	<harveyandsu@yahoo.com>:  Better placement of association texts.
+
 2004-10-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.c (dia_font_selector_add_menu_item): Make font menu

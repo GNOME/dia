@@ -123,7 +123,7 @@ struct _AssociationPropertiesDialog {
 #define ASSOCIATION_DIAMONDLEN 1.4
 #define ASSOCIATION_DIAMONDWIDTH 0.7
 #define ASSOCIATION_FONTHEIGHT 0.8
-
+#define ASSOCIATION_END_SPACE 0.2
 static DiaFont *assoc_font = NULL;
 
 static real association_distance_from(Association *assoc, Point *point);
@@ -508,6 +508,84 @@ association_set_state(Association *assoc, AssociationState *state)
   association_update_data(assoc);
 }
 
+#define FIX_ASSOC_END
+
+#ifdef FIX_ASSOC_END
+static void
+association_update_data_end(Association *assoc, int endnum)
+{
+  OrthConn *orth = &assoc->orth;
+  DiaObject *obj = &orth->object;
+  Point *points  = orth->points;
+  Rectangle rect;
+  AssociationEnd *end;
+  Orientation dir;
+  int n = orth->numpoints - 1, fp, sp;
+
+  /* Find the first and second points depending on which end: */
+  if (endnum) {
+      fp = n;
+      sp = n-1;
+      dir = assoc->orth.orientation[n-1];
+  } else {
+      fp = 0;
+      sp = 1;
+      dir = assoc->orth.orientation[0];
+  }
+
+  /* If the points are the same, find a better candidate: */
+  if (points[fp].x == points[sp].x && points[sp].y == points[sp].y) {
+      sp += (endnum ? -1 : 1);
+      if (sp < 0)
+	  sp = 0;
+      if (sp > n)
+	  sp = n;
+      if (points[fp].y != points[sp].y)
+	  dir = VERTICAL;
+      else      
+	  dir = HORIZONTAL;
+  }
+
+  /* Update the text-points of the ends: */
+  end = &assoc->end[endnum];
+  end->text_pos = points[fp];
+  switch (dir) {
+  case HORIZONTAL:
+    end->text_pos.y -= end->role_descent;
+    if (points[fp].x < points[sp].x) {
+      end->text_align = ALIGN_LEFT;
+      end->text_pos.x += (get_aggregate_pos_diff(end) + ASSOCIATION_END_SPACE);
+    } else {
+      end->text_align = ALIGN_RIGHT;    
+      end->text_pos.x -= (get_aggregate_pos_diff(end) + ASSOCIATION_END_SPACE);
+    }
+    break;
+  case VERTICAL:
+    if (end->arrow || end->aggregate != AGGREGATE_NONE)
+	end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
+    end->text_pos.x += ASSOCIATION_END_SPACE;
+
+    end->text_pos.y += end->role_ascent;
+    if (points[fp].y > points[sp].y) {
+      if (end->role!=NULL)
+          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+      if (end->multiplicity!=NULL)
+          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+    }
+
+    end->text_align = ALIGN_LEFT;
+    break;
+  }
+  /* Add the text recangle to the bounding box: */
+  rect.left = end->text_pos.x
+      - (end->text_align == ALIGN_LEFT ? 0 : end->text_width);
+  rect.right = rect.left + end->text_width;
+  rect.top = end->text_pos.y - end->role_ascent;
+  rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
+  
+  rectangle_union(&obj->bounding_box, &rect);
+}
+#endif /* FIX_ASSOC_END */
 
 static void
 association_update_data(Association *assoc)
@@ -518,10 +596,15 @@ association_update_data(Association *assoc)
   OrthConn *orth = &assoc->orth;
   DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
-  int num_segm, i, n;
+  int num_segm, i;
+#ifndef FIX_ASSOC_END
+  int n;
+#endif
   Point *points;
   Rectangle rect;
+#ifndef FIX_ASSOC_END
   AssociationEnd *end;
+#endif
   
   orthconn_update_data(orth);  
   
@@ -575,7 +658,10 @@ association_update_data(Association *assoc)
 
   rectangle_union(&obj->bounding_box, &rect);
 
-
+#ifdef FIX_ASSOC_END
+  association_update_data_end(assoc, 0);
+  association_update_data_end(assoc, 1);
+#else  /* !FIX_ASSOC_END */
   /* Update the text-points of the ends: */
   /* END 0: */
   end = &assoc->end[0];
@@ -653,6 +739,7 @@ association_update_data(Association *assoc)
   rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
   
   rectangle_union(&obj->bounding_box, &rect);
+#endif /* !FIX_ASSOC_END */
 }
 
 static coord get_aggregate_pos_diff(AssociationEnd *end)
