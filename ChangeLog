@@ -1,4 +1,7 @@
 2004-05-15  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/xfig/xfig-import.c: Handle default fonts and illegal
+	fonts better (#138655)
 	
 	* doc/pl/Makefile.am (EXTRA_DIST): Also include all xml files here.
 

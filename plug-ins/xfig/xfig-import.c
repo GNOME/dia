@@ -1270,7 +1270,27 @@ fig_read_text(FILE *file, DiagramData *dia) {
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;
-    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
+
+    if (font_flags & 4) {
+	switch (font) {
+	case 0: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
+	case 1: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
+	case 2: tprop->attr.font = dia_font_new_from_legacy_name("Times-Bold"); break;
+	case 3: tprop->attr.font = dia_font_new_from_legacy_name("Times-Italic"); break;
+	case 4: tprop->attr.font = dia_font_new_from_legacy_name("Helvetica"); break;
+	case 5: tprop->attr.font = dia_font_new_from_legacy_name("Courier"); break;
+	default: message_warning("Can't find LaTeX font nr. %d, using sans\n", font);
+	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
+	}
+    } else {
+	if (font == -1) font = "Times Roman"; /* "Default font" - wazzat? */
+	if (font < 0 || font > 34) {
+	    message_warning("Can't find Postscript font nr. %d, using sans\n", font);
+	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
+	} else {
+	    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
+	}
+    }
     tprop->attr.height = font_size*3.54/72.0;
     tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);
