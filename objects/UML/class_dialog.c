@@ -149,18 +149,25 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
   umlclass->visible_operations = prop_dialog->op_vis->active;
+  umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
   umlclass->color_foreground = prop_dialog->fg_color->col;
   umlclass->color_background = prop_dialog->bg_color->col;
   umlclass->normal_font = dia_font_selector_get_font (prop_dialog->normal_font);
+  umlclass->polymorphic_font = dia_font_selector_get_font (prop_dialog->polymorphic_font);
   umlclass->abstract_font = dia_font_selector_get_font (prop_dialog->abstract_font);
   umlclass->classname_font = dia_font_selector_get_font (prop_dialog->classname_font);
   umlclass->abstract_classname_font = dia_font_selector_get_font (prop_dialog->abstract_classname_font);
+  umlclass->comment_font = dia_font_selector_get_font (prop_dialog->comment_font);
+
   umlclass->font_height = gtk_spin_button_get_value_as_float (prop_dialog->normal_font_height);
   umlclass->abstract_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_font_height);
+  umlclass->polymorphic_font_height = gtk_spin_button_get_value_as_float (prop_dialog->polymorphic_font_height);
   umlclass->classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->classname_font_height);
   umlclass->abstract_classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_classname_font_height);
+  umlclass->comment_font_height = gtk_spin_button_get_value_as_float (prop_dialog->comment_font_height);
+
 }
 
 static void
@@ -184,18 +191,23 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
+  gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
   dia_color_selector_set_color(prop_dialog->fg_color, &umlclass->color_foreground);
   dia_color_selector_set_color(prop_dialog->bg_color, &umlclass->color_background);
   dia_font_selector_set_font (prop_dialog->normal_font, umlclass->normal_font);
+  dia_font_selector_set_font (prop_dialog->polymorphic_font, umlclass->polymorphic_font);
   dia_font_selector_set_font (prop_dialog->abstract_font, umlclass->abstract_font);
   dia_font_selector_set_font (prop_dialog->classname_font, umlclass->classname_font);
   dia_font_selector_set_font (prop_dialog->abstract_classname_font, umlclass->abstract_classname_font);
+  dia_font_selector_set_font (prop_dialog->comment_font, umlclass->comment_font);
   gtk_spin_button_set_value (prop_dialog->normal_font_height, umlclass->font_height);
+  gtk_spin_button_set_value (prop_dialog->polymorphic_font_height, umlclass->polymorphic_font_height);
   gtk_spin_button_set_value (prop_dialog->abstract_font_height, umlclass->abstract_font_height);
   gtk_spin_button_set_value (prop_dialog->classname_font_height, umlclass->classname_font_height);
   gtk_spin_button_set_value (prop_dialog->abstract_classname_font_height, umlclass->abstract_classname_font_height);
+  gtk_spin_button_set_value (prop_dialog->comment_font_height, umlclass->comment_font_height);
 }
 
 static void
@@ -298,7 +310,13 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  table = gtk_table_new (5, 4, TRUE);
+  hbox = gtk_hbox_new(FALSE, 5);
+  checkbox = gtk_check_button_new_with_label(_("Comments visible"));
+  prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
+  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+
+  table = gtk_table_new (5, 6, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
   gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
 
@@ -317,21 +335,33 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
                          umlclass->font_height,
                          &(prop_dialog->normal_font),
                          &(prop_dialog->normal_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Abstract"), 2,
+  create_font_props_row (GTK_TABLE (table), _("Polymorphic"), 2,
+                         umlclass->polymorphic_font,
+                         umlclass->polymorphic_font_height,
+                         &(prop_dialog->polymorphic_font),
+                         &(prop_dialog->polymorphic_font_height));
+  create_font_props_row (GTK_TABLE (table), _("Abstract"), 3,
                          umlclass->abstract_font,
                          umlclass->abstract_font_height,
                          &(prop_dialog->abstract_font),
                          &(prop_dialog->abstract_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Class Name"), 3,
+  create_font_props_row (GTK_TABLE (table), _("Class Name"), 4,
                          umlclass->classname_font,
                          umlclass->classname_font_height,
                          &(prop_dialog->classname_font),
                          &(prop_dialog->classname_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Abstract Class"), 4,
+  create_font_props_row (GTK_TABLE (table), _("Abstract Class"), 5,
                          umlclass->abstract_classname_font,
                          umlclass->abstract_classname_font_height,
                          &(prop_dialog->abstract_classname_font),
                          &(prop_dialog->abstract_classname_font_height));
+  create_font_props_row (GTK_TABLE (table), _("Comment"), 6,
+                         umlclass->comment_font,
+                         umlclass->comment_font_height,
+                         &(prop_dialog->comment_font),
+                         &(prop_dialog->comment_font_height));
+
+
 
   table = gtk_table_new (2, 2, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox),

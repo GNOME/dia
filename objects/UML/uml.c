@@ -107,7 +107,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
   if (attribute->name[0] && attribute->type[0]) {
     len += 2;
   }
-  if (attribute->value != NULL) {
+  if (attribute->value != NULL && attribute->value[0] != '\0') {
     len += 3 + strlen (attribute->value);
   }
   
@@ -121,7 +121,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
     strcat (str, ": ");
   }
   strcat (str, attribute->type);
-  if (attribute->value != NULL) {
+  if (attribute->value != NULL && attribute->value[0] != '\0') {
     strcat (str, " = ");
     strcat (str, attribute->value);
   }
@@ -168,7 +168,7 @@ uml_get_operation_string (UMLOperation *operation)
     if (param->type[0] && param->name[0]) {
       len += 1;
     }
-    if (param->value != NULL) {
+    if (param->value != NULL && param->value[0] != '\0') {
       len += 1 + strlen (param->value);
     }
     
@@ -226,7 +226,7 @@ uml_get_operation_string (UMLOperation *operation)
     }
     strcat (str, param->type);
     
-    if (param->value != NULL) {
+    if (param->value != NULL && param->value[0] != '\0') {
       strcat (str, "=");
       strcat (str, param->value);
     }
@@ -353,7 +353,10 @@ uml_attribute_copy(UMLAttribute *attr)
   } else {
     newattr->value = NULL;
   }
-  newattr->comment = g_strdup (attr->comment);
+  if (attr->comment != NULL)
+    newattr->comment = g_strdup (attr->comment);
+  else 
+    newattr->comment = NULL;
 
   newattr->visibility = attr->visibility;
   newattr->abstract = attr->abstract;
@@ -445,8 +448,8 @@ uml_attribute_destroy(UMLAttribute *attr)
   g_free(attr->type);
   if (attr->value != NULL)
     g_free(attr->value);
-
-  g_free(attr->comment);
+  if (attr->comment != NULL)
+    g_free(attr->comment);
 
   g_free(attr);
 }

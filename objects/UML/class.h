@@ -39,22 +39,28 @@ struct _UMLClass {
 
   real font_height;
   real abstract_font_height;
+  real polymorphic_font_height;
   real classname_font_height;
   real abstract_classname_font_height;
+  real comment_font_height;
 
   DiaFont *normal_font;
   DiaFont *abstract_font;
+  DiaFont *polymorphic_font;
   DiaFont *classname_font;
   DiaFont *abstract_classname_font;
+  DiaFont *comment_font;
   
   char *name;
   char *stereotype; /* NULL if no stereotype */
   char *comment; /* Comments on the class */
   int abstract;
-  int suppress_attributes; /* ie. don't draw strings. */
-  int suppress_operations; /* ie. don't draw strings. */
-  int visible_attributes;
+  int suppress_attributes; 
+  int suppress_operations; 
+  int visible_attributes; /* ie. don't draw strings. */
   int visible_operations;
+  int visible_comments;
+
   Color color_foreground;
   Color color_background;
 
@@ -102,14 +108,19 @@ struct _UMLClassDialog {
   GtkToggleButton *attr_supp;
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
+  GtkToggleButton *comments_vis;
   DiaFontSelector *normal_font;
   DiaFontSelector *abstract_font;
+  DiaFontSelector *polymorphic_font;
   DiaFontSelector *classname_font;
   DiaFontSelector *abstract_classname_font;
+  DiaFontSelector *comment_font;
   GtkSpinButton *normal_font_height;
   GtkSpinButton *abstract_font_height;
+  GtkSpinButton *polymorphic_font_height;
   GtkSpinButton *classname_font_height;
   GtkSpinButton *abstract_classname_font_height;
+  GtkSpinButton *comment_font_height;
   DiaColorSelector *fg_color;
   DiaColorSelector *bg_color;
 

@@ -1,5 +1,12 @@
 2002-07-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/uml.c: 
+	* objects/UML/class.h: 
+	* objects/UML/class_dialog.c: 
+	* objects/UML/class.c: Patch from
+	<mattam@netcourrier.com>:  Adds comment visibility switch, also
+	fixes various bugs.
+
 	Big patch from Alejandro Aguilar Sierra <asierra@servidor.unam.mx>
 	for state/fork/activity stuff.
  	* objects/UML/state.c: Removed old draw_rounded_rectangle code.
