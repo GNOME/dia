@@ -164,7 +164,7 @@ textobj_get_props(Textobj *textobj, Property *props, guint nprops)
 				    props, nprops))
     return;
   if (quarks[0].q == 0)
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
  
   for (i = 0; i < nprops; i++) {
@@ -198,7 +198,7 @@ textobj_set_props(Textobj *textobj, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
         quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {
