@@ -1,5 +1,9 @@
 1999-09-08  James Henstridge  <james@daa.com.au>
 
+	* app/commands.c (file_gnome_print_callback): changed from using the
+	standard printer selection dialog to one that also has a paper size
+	selector as well.
+
 	* commands.[ch]: added callbacks for the print menu item.  Currently
 	it only does A4 output.  I will make it configurable soon.
 	

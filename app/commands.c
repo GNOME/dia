@@ -576,18 +576,52 @@ file_export_to_svg_callback(GtkWidget *widget, gpointer data)
 void
 file_gnome_print_callback(GtkWidget *widget, gpointer data)
 {
+  GtkWidget *dialog, *notebook;
+  GtkWidget *printersel, *papersel;
+  GtkWidget *label;
+
+  int btn;
   GnomePrinter *printer;
+  gchar *paper;
   GnomePrintContext *ctx;
   Diagram *dia;
 
-  /* get the printer name */
-  printer = gnome_printer_dialog_new_modal();
-  if (!printer)
+  dialog = gnome_dialog_new(_("Print Diagram"), GNOME_STOCK_BUTTON_OK,
+			    GNOME_STOCK_BUTTON_CANCEL, NULL);
+  notebook = gtk_notebook_new();
+  gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox), notebook,
+		     TRUE, TRUE, 0);
+  gtk_widget_show(notebook);
+
+  printersel = gnome_printer_widget_new();
+  label = gtk_label_new(_("Printer"));
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), printersel, label);
+  gtk_widget_show(printersel);
+  gtk_widget_show(label);
+
+  papersel = gnome_paper_selector_new();
+  label = gtk_label_new(_("Paper Size"));
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), papersel, label);
+  gtk_widget_show(papersel);
+  gtk_widget_show(label);
+
+  gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+  btn = gnome_dialog_run(GNOME_DIALOG(dialog));
+  if (btn < 0)
     return;
-  ctx = gnome_print_context_new_with_paper_size(printer, "A4");
+
+  /* get the printer name */
+  printer = gnome_printer_widget_get_printer(GNOME_PRINTER_WIDGET(printersel));
+  paper = gnome_paper_selector_get_name(GNOME_PAPER_SELECTOR(papersel));
+  gtk_widget_destroy(dialog);
+  /* cancel was pressed */
+  if (btn == 1)
+    return;
+
+  ctx = gnome_print_context_new_with_paper_size(printer, paper);
 
   dia = ddisplay_active()->diagram;
-  paginate_gnomeprint(dia, ctx, "A4");
+  paginate_gnomeprint(dia, ctx, paper);
 }
 #endif
 
