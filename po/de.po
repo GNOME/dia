@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.85\n"
+"Project-Id-Version: dia 0.86\n"
 "POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-07-12 22:55+02:00\n"
-"Last-Translator: Benedikt Roth <Benedikt.Roth@gmx.net>\n"
+"PO-Revision-Date: 2000-08-07 14:53+0100\n"
+"Last-Translator: Daniel Egger <egger@suse.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -43,7 +43,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Fehler in Option %s: %s.\n"
-"Starte '%s --help', um die ganze Liste der verfügbaren Optionen zu\n"
+"Starten sie '%s --help', um die ganze Liste der verfügbaren Optionen zu\n"
 "erhalten.\n"
 
 #: app/app_procs.c:218 app/app_procs.c:220
@@ -148,6 +148,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Der Zeichenalgorithmus für geglättete Kanten ist noch fehlerhaft\n"
+"und könnte Abstürze verursachen. Wir wissen über die Fehler bescheid\n"
+"und würden sie bitten KEINE Meldung darüber zu erstattten.\n"
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
@@ -173,23 +176,23 @@ msgstr "Date/Neues Diagramm"
 
 #: app/dia_embedd.c:189
 msgid "File/Open..."
-msgstr "/Datei/Öffnen..."
+msgstr "Datei/Öffnen..."
 
 #: app/dia_embedd.c:193
 msgid "File/Save As..."
-msgstr "/Datei/Sichern unter..."
+msgstr "Datei/Sichern unter..."
 
 #: app/dia_embedd.c:197
 msgid "File/Close"
-msgstr "/Datei/Schließen"
+msgstr "Datei/Schließen"
 
 #: app/dia_embedd.c:201
 msgid "File/Exit"
-msgstr "/Datei/Beenden"
+msgstr "Datei/Beenden"
 
 #: app/dia_embedd.c:205
 msgid "View/New View"
-msgstr "/Ansicht/Neue Ansicht"
+msgstr "Ansicht/Neue Ansicht"
 
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
@@ -2076,13 +2079,12 @@ msgid "Normal"
 msgstr "Normal"
 
 #: objects/SADT/arrow.c:188
-#, fuzzy
 msgid "Import resource (not shown upstairs)"
-msgstr "Import Quelle"
+msgstr "Importierte Quelle (nicht oberhalb angezeigt)"
 
 #: objects/SADT/arrow.c:189
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Eingenommene Quelle (nicht unterhalb angezeigt)"
 
 #: objects/SADT/arrow.c:190
 msgid "Dotted arrow"
@@ -2098,7 +2100,7 @@ msgstr "Stromstil:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "Vertikale Flüsse automatisch ausgrauen:"
 
 #: objects/SADT/arrow.c:651
 msgid "SADT Arrow"
@@ -2113,7 +2115,7 @@ msgstr "Textabstand:"
 
 #: objects/SADT/box.c:208
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "Aktivitäts-/Datenmerkmal"
 
 #: objects/SADT/box.c:539 objects/standard/line.c:178
 msgid "Delete connection point"
@@ -2463,12 +2465,12 @@ msgstr ""
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
 #: objects/chronogram/chronoref.c:244 objects/chronogram/chronoref.c:309
 msgid "Start time:"
-msgstr "Start Zeit:"
+msgstr "Startzeit:"
 
 #: objects/chronogram/chronoline.c:318 objects/chronogram/chronoline.c:409
 #: objects/chronogram/chronoref.c:245 objects/chronogram/chronoref.c:310
 msgid "End time:"
-msgstr "End Zeit:"
+msgstr "Endzeit:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
@@ -2497,15 +2499,15 @@ msgstr "Zeilenftfarbe:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
-msgstr "Erstrangiger Zeitschritt"
+msgstr "Großer Zeitschritt"
 
 #: objects/chronogram/chronoref.c:248 objects/chronogram/chronoref.c:313
 msgid "Minor time step:"
-msgstr "Zweitrangiger Zeitschritt"
+msgstr "Kleiner Zeitschritt"
 
 #: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Minor step line width:"
-msgstr ""
+msgstr "Kleiner Zeitschritt Breite:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
@@ -2513,7 +2515,7 @@ msgstr "Anpassen"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "Lader für eigene XML Umrisse"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
@@ -2590,19 +2592,19 @@ msgstr "Segment löschen"
 
 #: objects/standard/bezier.c:529 objects/standard/beziergon.c:547
 msgid "Symmetric control"
-msgstr "Symetrie Kontrolle"
+msgstr "Symetriekontrolle"
 
 #: objects/standard/bezier.c:531 objects/standard/beziergon.c:549
 msgid "Smooth control"
-msgstr ""
+msgstr "Glättekontrolle"
 
 #: objects/standard/bezier.c:533 objects/standard/beziergon.c:551
 msgid "Cusp control"
-msgstr "Scheitelpunkt Steuerung"
+msgstr "Scheitelpunktkontrolle"
 
 #: objects/standard/arc.c:129
 msgid "Curve distance"
-msgstr "Kurven Distanz"
+msgstr "Kurvendistanz"
 
 #: objects/standard/image.c:165
 msgid "Image file"
