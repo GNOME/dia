@@ -1589,7 +1589,7 @@ msgstr "/Objekter/_Egenskaper..."
 
 #: app/menus.c:443
 msgid "/_Tools"
-msgstr "/Verk_tøy/"
+msgstr "/Verk_tøy"
 
 #: app/menus.c:445
 msgid "/Tools/Modify"

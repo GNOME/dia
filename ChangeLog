@@ -1,6 +1,20 @@
-2004-07-17  Lars Clausen  <lars@raeder.dkl>
+2004-07-17  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/image.c (image_load): Use path of diagram
+	rather than running directory as base for image file place.
+
+	* doc/{diagram,sheet}.dtd: Move DTD namespace to new site, and
+	syntactic fixes. 
+	
+	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from
+	Ambrose Li <a.c.li@ieee.org>:  Better IM context handling.
 
 	* Re-added new sample diagrams binarily.
+
+2004-07-17 Sagar Rastogi <rastogi@students.iiit.net>
+
+	* app/disp_callbacks.c: Fixed #144962 (also in KNOWN_BUGS),
+	Disabled keyboard accels when dragging an object.	
 
 2004-07-14  Lars Clausen  <lars@raeder.dk>
 

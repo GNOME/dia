@@ -1397,7 +1397,7 @@ msgstr "/Werkzeuge/Beziergon"
 
 #: app/menus.c:220 app/menus.c:226
 msgid "/Tools/---"
-msgstr "/Werkzeuge/..."
+msgstr "/Werkzeuge/---"
 
 #: app/menus.c:221
 msgid "/Tools/Line"
