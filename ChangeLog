@@ -1,3 +1,20 @@
+2001-04-14  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* Patch from David S. Thompson <dcthomp@mail.utexas.edu>:
+	* app/disp_callbacks.c:
+	- Allow submenus in DiaMenus.
+	- Don't require DiaMenu.title to be non-null (so that
+	  submenus aren't required to have titles)
+ 
+        * objects/FS/function.c:
+	- object menu now has submenus, an almost complete list of
+          standard-basis verbs, and a start on nouns.
+	- box padding, dash length, and other visual attributes are
+	  scaled by the font size... eventually font height will be
+	  a function property.
+	- draw functions with smaller font to make initial view hold
+          a reasonable number of functions.
+	
 2001-04-13  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/ER.sheet:

@@ -88,11 +88,14 @@ create_object_menu(DiaMenu *dia_menu)
   GtkWidget *menu_item;
 
   menu = gtk_menu_new();
+  gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
+  if ( dia_menu->title ) {
   menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
   gtk_widget_set_sensitive(menu_item, FALSE);
   gtk_menu_append(GTK_MENU(menu), menu_item);
   gtk_widget_show(menu_item);
+  }
 
   menu_item = gtk_menu_item_new();
   gtk_menu_append(GTK_MENU(menu), menu_item);
@@ -108,11 +111,23 @@ create_object_menu(DiaMenu *dia_menu)
     gtk_menu_append(GTK_MENU(menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
-    
+    if ( dia_menu->items[i].callback ) {
     /* only connect signal handler if there is actually a callback */
-    if (dia_menu->items[i].callback)
       gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
 			 object_menu_proxy, &dia_menu->items[i]);
+    } else { 
+      if ( dia_menu->items[i].callback_data ) { 
+        /* This menu item is a submenu if it has no callback, but does
+	 * Have callback_data. In this case the callback_data is a
+	 * DiaMenu pointer for the submenu. */
+        if ( ((DiaMenu*)dia_menu->items[i].callback_data)->app_data == NULL ) {
+	  /* Create the popup menu items for the submenu. */
+          create_object_menu( (DiaMenu*)(dia_menu->items[i].callback_data) ) ;
+          gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
+	    GTK_MENU(((DiaMenu*)(dia_menu->items[i].callback_data))->app_data));
+	}
+      }
+    }
   }
   dia_menu->app_data = menu;
 }

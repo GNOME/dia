@@ -66,12 +66,12 @@ struct _FunctionChange {
   char*			text ;
 };
 
-#define FUNCTION_BORDERWIDTH 0.1
-#define FUNCTION_LINEWIDTH 0.05
-#define FUNCTION_MARGIN_X 0.5
-#define FUNCTION_MARGIN_Y 0.5
-#define FUNCTION_MARGIN_M 0.4
-#define FUNCTION_FONTHEIGHT 0.8
+#define FUNCTION_FONTHEIGHT 0.6
+#define FUNCTION_BORDERWIDTH_SCALE 6.0
+#define FUNCTION_MARGIN_SCALE 3.0
+#define FUNCTION_MARGIN_X 2.4
+#define FUNCTION_MARGIN_Y 2.4
+#define FUNCTION_DASHLENGTH_SCALE 2.0
 
 static real function_distance_from(Function *pkg, Point *point);
 static void function_select(Function *pkg, Point *clicked_point,
@@ -266,8 +266,10 @@ function_draw(Function *pkg, Renderer *renderer)
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
+  real font_height ;
   
   assert(pkg != NULL);
+  assert(pkg->text != NULL);
   assert(renderer != NULL);
 
   elem = &pkg->element;
@@ -277,9 +279,13 @@ function_draw(Function *pkg, Renderer *renderer)
   w = elem->width;
   h = elem->height;
 
+  font_height = pkg->text->height ;
+
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, FUNCTION_BORDERWIDTH );
+  renderer->ops->set_linewidth(renderer, font_height / FUNCTION_BORDERWIDTH_SCALE );
   renderer->ops->set_linestyle(renderer, pkg->is_wish ? LINESTYLE_DASHED : LINESTYLE_SOLID);
+  if ( pkg->is_wish )
+    renderer->ops->set_dashlength( renderer, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
 
 
   p1.x = x; p1.y = y;
@@ -292,10 +298,10 @@ function_draw(Function *pkg, Renderer *renderer)
     renderer->ops->draw_rect(renderer, 
 			     &p1, &p2,
 			     &color_black);
-    p1.x += FUNCTION_MARGIN_M;
-    p1.y += FUNCTION_MARGIN_M;
-    p2.y -= FUNCTION_MARGIN_M;
-    p2.x -= FUNCTION_MARGIN_M;
+    p1.x += font_height / FUNCTION_MARGIN_SCALE;
+    p1.y += font_height / FUNCTION_MARGIN_SCALE;
+    p2.y -= font_height / FUNCTION_MARGIN_SCALE;
+    p2.x -= font_height / FUNCTION_MARGIN_SCALE;
     /* y += FUNCTION_MARGIN_M; */
   }
     
@@ -318,29 +324,30 @@ function_update_data(Function *pkg)
   Object *obj = &elem->object;
   Font *font;
   Point p1;
-  real h, w = 0;
+  real h, w = 0, font_height;
   
-  font = pkg->text->font;
-  h = elem->corner.y + FUNCTION_MARGIN_Y;
+  font = pkg->text->font ;
+  font_height = pkg->text->height ;
+  h = elem->corner.y + font_height/FUNCTION_MARGIN_Y;
 
   if (pkg->is_user) {
-    h += 2*FUNCTION_MARGIN_M;
+    h += 2*font_height/FUNCTION_MARGIN_SCALE;
   }
     
   w = MAX(w, pkg->text->max_width);
-  p1.y = h + pkg->text->ascent - ( pkg->is_user ? FUNCTION_MARGIN_M : 0 );  /* position of text */
+  p1.y = h + pkg->text->ascent - ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );  /* position of text */
 
   h += pkg->text->height*pkg->text->numlines;
 
-  h += FUNCTION_MARGIN_Y;
+  h += font_height/FUNCTION_MARGIN_Y;
 
-  w += 2*FUNCTION_MARGIN_X; 
+  w += 2*font_height/FUNCTION_MARGIN_X; 
 
-  p1.x = elem->corner.x + w/2.0 + ( pkg->is_user ? FUNCTION_MARGIN_M : 0 );
+  p1.x = elem->corner.x + w/2.0 + ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );
   text_set_position(pkg->text, &p1);
   
   if (pkg->is_user) {
-    w += 2*FUNCTION_MARGIN_M;
+    w += 2*font_height/FUNCTION_MARGIN_SCALE;
   }
     
   elem->width = w;
@@ -401,7 +408,7 @@ function_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
   
   element_init(elem, 8, 8);
   
@@ -410,7 +417,7 @@ function_create(Point *startpoint,
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
-  pkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
+  pkg->element.extra_spacing.border_trans = FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
@@ -460,7 +467,7 @@ function_copy(Function *pkg)
   newpkg->is_wish = pkg->is_wish ;
   newpkg->is_user = pkg->is_user ;
 
-  newpkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
+  newpkg->element.extra_spacing.border_trans = pkg->element.extra_spacing.border_trans ;
 
   function_update_data(newpkg);
   
@@ -525,7 +532,7 @@ function_load(ObjectNode obj_node, int version, const char *filename)
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
-  pkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
+  pkg->element.extra_spacing.border_trans = pkg->text ? pkg->text->height : FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
@@ -536,14 +543,13 @@ function_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-function_insert_word( Object* obj, Point* clicked, gpointer data)
+function_insert_word( Function* func, const char* word, gboolean newline )
 {
-  Function* func = (Function*)obj ;
   ObjectChange* change = function_create_change( func, TEXT_EDIT ) ;
-  char* word = (char*) data ;
   char* old_chars = text_get_string_copy( func->text ) ;
-  char* new_chars = malloc( strlen( old_chars) + strlen( word ) + 1 ) ;
-  sprintf( new_chars, "%s%s", old_chars, word ) ;
+  char* new_chars = g_malloc( strlen( old_chars) + strlen( word )
+		  	+ ( newline ? 2 : 1) ) ;
+  sprintf( new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word ) ;
   text_set_string( func->text, new_chars ) ;
   free( new_chars ) ;
   free( old_chars ) ;
@@ -553,77 +559,367 @@ function_insert_word( Object* obj, Point* clicked, gpointer data)
   return change;
 }
 
-struct _IndentedWords {
-  char* word ;
-  int	spaces ;
+static ObjectChange *
+function_insert_verb( Object* obj, Point* clicked, gpointer data)
+{
+  return function_insert_word( (Function*)obj, (const char*) data, FALSE ) ;
+}
+
+static ObjectChange *
+function_insert_noun( Object* obj, Point* clicked, gpointer data)
+{
+  return function_insert_word( (Function*)obj, (const char*) data, TRUE ) ;
+}
+
+static ObjectChange *
+function_toggle_user_function( Object* obj, Point* clicked, gpointer data)
+{
+  Function* func = (Function*)obj ;
+  ObjectChange* change = function_create_change( func, USER_FUNC ) ;
+  func->is_user = !func->is_user ;
+  function_update_data( func ) ;
+
+  return change;
+}
+
+static ObjectChange *
+function_toggle_wish_function( Object* obj, Point* clicked, gpointer data)
+{
+  Function* func = (Function*)obj ;
+  ObjectChange* change = function_create_change( func, WISH_FUNC ) ;
+  func->is_wish = !func->is_wish ;
+  function_update_data( func ) ;
+
+  return change;
+}
+
+struct _IndentedMenus {
+  char*			name ;
+  int			depth ;
+  DiaMenuCallback	func ;
 } ;
 
-struct _IndentedWords verbs[] = {
-  {N_("Channel"),		0 },
-  {N_("   Import"),		3 },
-  {N_("   Export"),		3 },
-  {N_("   Transfer"),		3 },
-  {N_("      Transport"),	6 },
-  {N_("      Transmit"),	6 },
-  {N_("   Guide"),		3 },
-  {N_("      Translate"),	6 },
-  {N_("      Rotate"),		6 },
-  {N_("      Allow DOF"),	6 },
-  {N_("Support"),		0 },
-  {N_("   Stop"),		3 },
-  {N_("   Stabilize"),		3 },
-  {N_("   Secure"),		3 },
-  {N_("   Position"),		3 },
-  {N_("Connect"),		0 },
-  {N_("   Couple"),		3 },
-  {N_("   Mix"),		3 },
-  {N_("Branch"),		0 },
-  {N_("   Separate"),		3 },
-  {N_("      Remove"),		6 },
-  {N_("   Refine"),		3 },
-  {N_("   Distribute"),		3 },
-  {N_("   Dissipate"),		3 },
-  {N_("Provision"),		0 },
-  {N_("   Store"),		3 },
-  {N_("   Supply"),		3 },
-  {N_("   Extract"),		3 },
-  {N_("Control Magnitude"),	0 },
-  {N_("   Actuate"),		3 },
-  {N_("   Regulate"),		3 },
-  {N_("   Change"),		3 },
-  {N_("   Form"),		3 },
-  {N_("Convert"),		0 },
-  {N_("Signal"),		0 },
-  {N_("   Sense"),		3 },
-  {N_("   Indicate"),		3 },
-  {N_("   Display"),		3 },
-  {N_("   Measure"),		3 }
+/* Maximum number of submenus in the hierarchy. This is used to generate
+ * the object menu.
+ */
+#define FS_SUBMENU_MAXINDENT 5
+
+struct _IndentedMenus fmenu[] = {
+  {N_("Verb"),			0, NULL },
+   {N_("Channel"),		1, NULL },
+    {N_("Channel"),		2, function_insert_verb },
+    {N_("Import"),		2, NULL },
+     {N_("Import"),		3, function_insert_verb },
+     {N_("Input"),		3, function_insert_verb },
+     {N_("Receive"),		3, function_insert_verb },
+     {N_("Allow"),		3, function_insert_verb },
+     {N_("Form Entrance"),	3, function_insert_verb },
+     {N_("Capture"),		3, function_insert_verb },
+    {N_("Export"),		2, NULL },
+     {N_("Export"),		3, function_insert_verb },
+     {N_("Discharge"),		3, function_insert_verb },
+     {N_("Eject"),		3, function_insert_verb },
+     {N_("Dispose"),		3, function_insert_verb },
+     {N_("Remove"),		3, function_insert_verb },
+    {N_("Transfer"),		2, NULL },
+     {N_("Transfer"),		3, function_insert_verb },
+     {N_("Transport"),		3, NULL },
+      {N_("Transport"),		4, function_insert_verb },
+      {N_("Lift"),		4, function_insert_verb },
+      {N_("Move"),		4, function_insert_verb },
+      {N_("Channel"),		4, function_insert_verb },
+     {N_("Transmit"),		3, NULL },
+      {N_("Transmit"),		4, function_insert_verb },
+      {N_("Conduct"),		4, function_insert_verb },
+      {N_("Transfer"),		4, function_insert_verb },
+      {N_("Convey"),		4, function_insert_verb },
+    {N_("Guide"),		2, NULL },
+     {N_("Guide"),		3, NULL },
+      {N_("Guide"),		4, function_insert_verb },
+      {N_("Direct"),		4, function_insert_verb },
+      {N_("Straighten"),	4, function_insert_verb },
+      {N_("Steer"),		4, function_insert_verb },
+     {N_("Translate"),		3, function_insert_verb },
+     {N_("Rotate"),		3, NULL },
+      {N_("Rotate"),		4, function_insert_verb },
+      {N_("Turn"),		4, function_insert_verb },
+      {N_("Spin"),		4, function_insert_verb },
+     {N_("Allow DOF"),		3, NULL },
+      {N_("Allow DOF"),		4, function_insert_verb },
+      {N_("Constrain"),		4, function_insert_verb },
+      {N_("Unlock"),		4, function_insert_verb },
+   {N_("Support"),		1, NULL },
+    {N_("Support"),		2, function_insert_verb },
+    {N_("Stop"),		2, NULL },
+     {N_("Stop"),		3, function_insert_verb },
+     {N_("Insulate"),		3, function_insert_verb },
+     {N_("Protect"),		3, function_insert_verb },
+     {N_("Prevent"),		3, function_insert_verb },
+     {N_("Shield"),		3, function_insert_verb },
+     {N_("Inhibit"),		3, function_insert_verb },
+    {N_("Stabilize"),		2, NULL },
+     {N_("Stabilize"),		3, function_insert_verb },
+     {N_("Steady"),		3, function_insert_verb },
+    {N_("Secure"),		2, NULL },
+     {N_("Secure"),		3, function_insert_verb },
+     {N_("Attach"),		3, function_insert_verb },
+     {N_("Mount"),		3, function_insert_verb },
+     {N_("Lock"),		3, function_insert_verb },
+     {N_("Fasten"),		3, function_insert_verb },
+     {N_("Hold"),		3, function_insert_verb },
+    {N_("Position"),		2, NULL },
+     {N_("Position"),		3, function_insert_verb },
+     {N_("Orient"),		3, function_insert_verb },
+     {N_("Align"),		3, function_insert_verb },
+     {N_("Locate"),		3, function_insert_verb },
+   {N_("Connect"),		1, NULL },
+    {N_("Connect"),		2, function_insert_verb },
+    {N_("Couple"),		2, NULL },
+     {N_("Couple"),		3, function_insert_verb },
+     {N_("Join"),		3, function_insert_verb },
+     {N_("Assemble"),		3, function_insert_verb },
+     {N_("Attach"),		3, function_insert_verb },
+    {N_("Mix"),			2, NULL },
+     {N_("Mix"),		3, function_insert_verb },
+     {N_("Combine"),		3, function_insert_verb },
+     {N_("Blend"),		3, function_insert_verb },
+     {N_("Add"),		3, function_insert_verb },
+     {N_("Pack"),		3, function_insert_verb },
+     {N_("Coalesce"),		3, function_insert_verb },
+   {N_("Branch"),		1, NULL },
+    {N_("Branch"),		2, function_insert_verb },
+    {N_("Separate"),		2, NULL },
+     {N_("Separate"),		3, NULL },
+      {N_("Separate"),		4, function_insert_verb },
+      {N_("Switch"),		4, function_insert_verb },
+      {N_("Divide"),		4, function_insert_verb },
+      {N_("Release"),		4, function_insert_verb },
+      {N_("Detach"),		4, function_insert_verb },
+      {N_("Disconnect"),	4, function_insert_verb },
+     {N_("Remove"),		3, NULL },
+      {N_("Remove"),		4, function_insert_verb },
+      {N_("Cut"),		4, function_insert_verb },
+      {N_("Polish"),		4, function_insert_verb },
+      {N_("Sand"),		4, function_insert_verb },
+      {N_("Drill"),		4, function_insert_verb },
+      {N_("Lathe"),		4, function_insert_verb },
+    {N_("Refine"),		2, NULL },
+     {N_("Refine"),		3, function_insert_verb },
+     {N_("Purify"),		3, function_insert_verb },
+     {N_("Strain"),		3, function_insert_verb },
+     {N_("Filter"),		3, function_insert_verb },
+     {N_("Percolate"),		3, function_insert_verb },
+     {N_("Clear"),		3, function_insert_verb },
+    {N_("Distribute"),		2, NULL },
+     {N_("Distribute"),		3, function_insert_verb },
+     {N_("Diverge"),		3, function_insert_verb },
+     {N_("Scatter"),		3, function_insert_verb },
+     {N_("Disperse"),		3, function_insert_verb },
+     {N_("Diffuse"),		3, function_insert_verb },
+     {N_("Empty"),		3, function_insert_verb },
+    {N_("Dissipate"),		2, NULL },
+     {N_("Dissipate"),		3, function_insert_verb },
+     {N_("Absorb"),		3, function_insert_verb },
+     {N_("Dampen"),		3, function_insert_verb },
+     {N_("Dispel"),		3, function_insert_verb },
+     {N_("Diffuse"),		3, function_insert_verb },
+     {N_("Resist"),		3, function_insert_verb },
+   {N_("Provision"),		1, NULL },
+    {N_("Provision"),		2, function_insert_verb },
+    {N_("Store"),		2, NULL },
+     {N_("Store"),		3, function_insert_verb },
+     {N_("Contain"),		3, function_insert_verb },
+     {N_("Collect"),		3, function_insert_verb },
+     {N_("Reserve"),		3, function_insert_verb },
+     {N_("Capture"),		3, function_insert_verb },
+    {N_("Supply"),		2, NULL },
+     {N_("Supply"),		3, function_insert_verb },
+     {N_("Fill"),		3, function_insert_verb },
+     {N_("Provide"),		3, function_insert_verb },
+     {N_("Replenish"),		3, function_insert_verb },
+     {N_("Expose"),		3, function_insert_verb },
+    {N_("Extract"),		2, function_insert_verb },
+   {N_("Control Magnitude"),	1, NULL },
+    {N_("Control Magnitude"),	2, function_insert_verb },
+    {N_("Actuate"),		2, NULL },
+     {N_("Actuate"),		3, function_insert_verb },
+     {N_("Start"),		3, function_insert_verb },
+     {N_("Initiate"),		3, function_insert_verb },
+    {N_("Regulate"),		2, NULL },
+     {N_("Regulate"),		3, function_insert_verb },
+     {N_("Control"),		3, function_insert_verb },
+     {N_("Allow"),		3, function_insert_verb },
+     {N_("Prevent"),		3, function_insert_verb },
+     {N_("Enable"),		3, function_insert_verb },
+     {N_("Disable"),		3, function_insert_verb },
+     {N_("Limit"),		3, function_insert_verb },
+     {N_("Interrupt"),		3, function_insert_verb },
+    {N_("Change"),		2, NULL },
+     {N_("Change"),		3, function_insert_verb },
+     {N_("Increase"),		3, function_insert_verb },
+     {N_("Decrease"),		3, function_insert_verb },
+     {N_("Amplify"),		3, function_insert_verb },
+     {N_("Reduce"),		3, function_insert_verb },
+     {N_("Magnify"),		3, function_insert_verb },
+     {N_("Normalize"),		3, function_insert_verb },
+     {N_("Multiply"),		3, function_insert_verb },
+     {N_("Scale"),		3, function_insert_verb },
+     {N_("Rectify"),		3, function_insert_verb },
+     {N_("Adjust"),		3, function_insert_verb },
+    {N_("Form"),		2, NULL },
+     {N_("Form"),		3, function_insert_verb },
+     {N_("Compact"),		3, function_insert_verb },
+     {N_("Crush"),		3, function_insert_verb },
+     {N_("Shape"),		3, function_insert_verb },
+     {N_("Compress"),		3, function_insert_verb },
+     {N_("Pierce"),		3, function_insert_verb },
+   {N_("Convert"),		1, NULL },
+    {N_("Convert"),		2, function_insert_verb },
+    {N_("Transform"),		2, function_insert_verb },
+    {N_("Liquefy"),		2, function_insert_verb },
+    {N_("Solidify"),		2, function_insert_verb },
+    {N_("Evaporate"),		2, function_insert_verb },
+    {N_("Sublimate"),		2, function_insert_verb },
+    {N_("Condense"),		2, function_insert_verb },
+    {N_("Integrate"),		2, function_insert_verb },
+    {N_("Differentiate"),	2, function_insert_verb },
+    {N_("Process"),		2, function_insert_verb },
+   {N_("Signal"),		1, NULL },
+    {N_("Signal"),		2, function_insert_verb },
+    {N_("Sense"),		2, NULL },
+     {N_("Sense"),		3, function_insert_verb },
+     {N_("Perceive"),		3, function_insert_verb },
+     {N_("Recognize"),		3, function_insert_verb },
+     {N_("Discern"),		3, function_insert_verb },
+     {N_("Check"),		3, function_insert_verb },
+     {N_("Locate"),		3, function_insert_verb },
+     {N_("Verify"),		3, function_insert_verb },
+    {N_("Indicate"),		2, NULL },
+     {N_("Indicate"),		3, function_insert_verb },
+     {N_("Mark"),		3, function_insert_verb },
+    {N_("Display"),		2, function_insert_verb },
+    {N_("Measure"),		2, NULL },
+     {N_("Measure"),		3, function_insert_verb },
+     {N_("Calculate"),		3, function_insert_verb },
+    {N_("Represent"),		2, function_insert_verb },
+  {N_("Noun"),			0, NULL },
+    {N_("Material"),		1, NULL },
+     {N_("Solid"),		2, function_insert_noun },
+     {N_("Liquid"),		2, function_insert_noun },
+     {N_("Gas"),		2, function_insert_noun },
+     {N_("Human"),		2, NULL },
+      {N_("Human"),		3, function_insert_noun },
+      {N_("Hand"),		3, function_insert_noun },
+      {N_("Foot"),		3, function_insert_noun },
+      {N_("Head"),		3, function_insert_noun },
+      {N_("Finger"),		3, function_insert_noun },
+      {N_("Toe"),		3, function_insert_noun },
+     {N_("Biological"),		2, function_insert_noun },
+    {N_("Energy"),		1, NULL },
+     {N_("Mechanical"),		2, NULL },
+      {N_("Mech. Energy"),	3, function_insert_noun },
+      {N_("Translation"),	3, function_insert_noun },
+      {N_("Force"),		3, function_insert_noun },
+      {N_("Rotation"),		3, function_insert_noun },
+      {N_("Torque"),		3, function_insert_noun },
+      {N_("Random Motion"),	3, function_insert_noun },
+      {N_("Vibration"),		3, function_insert_noun },
+      {N_("Rotational Energy"),	3, function_insert_noun },
+      {N_("Translational Energy"),3, function_insert_noun },
+     {N_("Electrical"),		2, NULL },
+      {N_("Electricity"),	3, function_insert_noun },
+      {N_("Voltage"),		3, function_insert_noun },
+      {N_("Current"),		3, function_insert_noun },
+     {N_("Hydraulic"),		2, function_insert_noun },
+      {N_("Pressure"),		3, function_insert_noun },
+      {N_("Volumetric Flow"),	3, function_insert_noun },
+     {N_("Thermal"),		2, NULL },
+      {N_("Heat"),		3, function_insert_noun },
+      {N_("Conduction"),	3, function_insert_noun },
+      {N_("Convection"),	3, function_insert_noun },
+      {N_("Radiation"),		3, function_insert_noun },
+     {N_("Pneumatic"),		2, function_insert_noun },
+     {N_("Chemical"),		2, function_insert_noun },
+     {N_("Radioactive"),	2, NULL },
+      {N_("Radiation"),		3, function_insert_noun },
+      {N_("Microwaves"),	3, function_insert_noun },
+      {N_("Radio waves"),	3, function_insert_noun },
+      {N_("X-Rays"),		3, function_insert_noun },
+      {N_("Gamma Rays"),	3, function_insert_noun },
+     {N_("Acoustic Energy"),	2, function_insert_noun },
+     {N_("Optical Energy"),	2, function_insert_noun },
+     {N_("Solar Energy"),	2, function_insert_noun },
+     {N_("Magnetic Energy"),	2, function_insert_noun },
+     {N_("Human"),		2, NULL },
+      {N_("Human Motion"),	3, function_insert_noun },
+      {N_("Human Force"),	3, function_insert_noun },
+    {N_("Signal"),		1, NULL },
+     {N_("Signal"),		2, function_insert_noun },
+     {N_("Status"),		2, function_insert_noun },
+     {N_("Control"),		2, function_insert_noun },
+  {NULL,			0, NULL },
+  {N_("User/Device Fn"),	0, function_toggle_user_function },
+  {N_("Wish Fn"),		0, function_toggle_wish_function },
+  { NULL,			-1, NULL }
 } ;
 
-static DiaMenuItem* function_menu_items = 0 ;
+static DiaMenu* function_menu = 0 ;
 
-static DiaMenu function_menu = {
-  "Function",
-  sizeof(verbs)/sizeof(struct _IndentedWords),
-  0,
-  NULL
-} ;
+static int
+function_count_submenu_items( struct _IndentedMenus* itemPtr )
+{
+  int cnt = 0 ;
+  int depth = itemPtr->depth ;
+  while ( itemPtr->depth >= depth ) {
+    if ( itemPtr->depth == depth )
+      cnt++ ;
+    itemPtr++ ;
+  }
+  return cnt ;
+}
 
 static DiaMenu*
 function_get_object_menu( Function* func, Point* clickedpoint )
 {
+  if ( ! function_menu ) {
   int i ;
-  if ( ! function_menu_items ) {
-    function_menu_items = malloc( function_menu.num_items * 
+    int curDepth = 0 ;
+    DiaMenu* curMenu[ FS_SUBMENU_MAXINDENT ] ;
+    int curitem[ FS_SUBMENU_MAXINDENT ] ;
+
+    curitem[0] = 0 ;
+    curMenu[0] = malloc( sizeof( DiaMenu ) ) ;
+    curMenu[0]->title = "Function" ;
+    curMenu[0]->num_items = function_count_submenu_items( &(fmenu[0]) ) ;
+    curMenu[0]->items = malloc( curMenu[0]->num_items * sizeof(DiaMenuItem) );
+    curMenu[0]->app_data = NULL ;
+    for (i = 0 ; fmenu[i].depth >= 0; i++) {
+      if ( fmenu[i].depth > curDepth ) {
+	curDepth++ ;
+	curMenu[curDepth] = malloc( sizeof( DiaMenu ) ) ;
+	curMenu[curDepth]->title = NULL ;
+	curMenu[curDepth]->app_data = NULL ;
+	curMenu[curDepth]->num_items = function_count_submenu_items(&fmenu[i]);
+	curMenu[curDepth]->items = malloc( curMenu[curDepth]->num_items *
 				  sizeof(DiaMenuItem) ) ;
-    for (i = 0 ; i< function_menu.num_items; i++) {
-      function_menu_items[i].text = verbs[i].word ;
-      function_menu_items[i].callback = function_insert_word ;
-      function_menu_items[i].callback_data = (void*) (verbs[i].word + 
-						      verbs[i].spaces ) ;
-      function_menu_items[i].active = 1 ;
+	/* Point this menu's parent to this new structure */
+	curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback = NULL ;
+	curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback_data =
+		curMenu[curDepth] ;
+	curitem[ curDepth ] = 0 ;
+      } else if ( fmenu[i].depth < curDepth ) {
+	curDepth=fmenu[i].depth ;
     }
-    function_menu.items = function_menu_items ;
+
+      curMenu[curDepth]->items[curitem[curDepth]].text = fmenu[i].name ;
+      curMenu[curDepth]->items[curitem[curDepth]].callback = fmenu[i].func ;
+      curMenu[curDepth]->items[curitem[curDepth]].callback_data = fmenu[i].name;
+      curMenu[curDepth]->items[curitem[curDepth]].active = 1 ;
+      curitem[curDepth]++ ;
   }
-  return &function_menu ;
+    function_menu = curMenu[0] ;
+  }
+  return function_menu ;
 }
+
+
