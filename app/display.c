@@ -753,17 +753,21 @@ display_set_menu_sensitivity(DDisplay *ddisp)
 		      (dia->data->selected_count == 1) &&
 		      IS_GROUP((Object *)dia->data->selected->data));
 
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Top"),
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Left"),
 		      dia->data->selected_count > 1);
   menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Center"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Bottom"),
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Right"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Left"),
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Equal Distance"),
+		      dia->data->selected_count > 1);
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Top"),
 		      dia->data->selected_count > 1);
   menus_set_sensitive(_("<Display>/Objects/Align Vertical/Center"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Right"),
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Bottom"),
+		      dia->data->selected_count > 1);
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Equal Distance"),
 		      dia->data->selected_count > 1);
 
   menus_set_state (_("<Display>/View/Toggle Rulers"), GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);

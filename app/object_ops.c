@@ -216,7 +216,7 @@ object_list_move_delta(GList *objects, Point *delta)
 
 
 /*
-  Align objects horizontally:
+  Align objects by moving them vertically:
   0 TOP
   1 CENTER
   2 BOTTOM
@@ -224,7 +224,7 @@ object_list_move_delta(GList *objects, Point *delta)
   4 EQUAL DISTANCE
 */
 void
-object_list_align_h(GList *objects, int align)
+object_list_align_v(GList *objects, int align)
 {
   GList *list;
   real y_pos;
@@ -310,7 +310,7 @@ object_list_align_h(GList *objects, int align)
 }
 
 /*
-  Align objects vertically:
+  Align objects by moving then horizontally:
   0 LEFT
   1 CENTER
   2 RIGHT
@@ -318,7 +318,7 @@ object_list_align_h(GList *objects, int align)
   4 EQUAL DISTANCE
 */
 void
-object_list_align_v(GList *objects, int align)
+object_list_align_h(GList *objects, int align)
 {
   GList *list;
   real x_pos;

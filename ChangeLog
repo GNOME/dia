@@ -1,5 +1,11 @@
 1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/menus.c:
+	* app/display.c:
+	Reversed the meaning of align horizontal/vertical.
+
+1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/load_save.c (diagram_load):
 	Statusbar update fix.
 
