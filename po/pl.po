@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 1999-08-20 00:56+0200\n"
+"POT-Creation-Date: 1999-09-22 18:46+0200\n"
 "PO-Revision-Date: 1999-08-08 13:12+0200\n"
 "Last-Translator: GNOME PL Team\n"
 "Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
@@ -48,7 +48,8 @@ msgstr ""
 msgid "Quit"
 msgstr "Zakoñcz"
 
-#: app/app_procs.c:1 app/layer_dialog.c:1
+#: app/app_procs.c:1 app/layer_dialog.c:1 app/lineprops_area.c:1
+#: app/lineprops_area.c:1
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -74,7 +75,7 @@ msgid ""
 " %s\n"
 msgstr ""
 "B³±d przy odczycie biblioteki: \"%s\":\n"
-" %S\n"
+" %s\n"
 
 #: app/app_procs.c:1 app/app_procs.c:1
 #, c-format
@@ -90,7 +91,7 @@ msgid ""
 msgstr ""
 "Biblioteka obiektów \"%s\" pochodzi ze starszej wersji Dia i nie mo¿e zostaæ "
 "u¿yta.\n"
-"Proszê zaktualizowaæ bibliotekê."
+"Nale¿y zaktualizowaæ bibliotekê."
 
 #: app/app_procs.c:1 app/app_procs.c:1
 #, c-format
@@ -189,8 +190,9 @@ msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Odwied¼ http://www.lysator.liu.se/~alla/dia aby uzyskaæ wiêcej informacji"
 
-#: app/commands.c:1 app/layer_dialog.c:1 app/preferences.c:1
-#: app/properties.c:1 lib/message.c:1
+#: app/commands.c:1 app/layer_dialog.c:1 app/lineprops_area.c:1
+#: app/lineprops_area.c:1 app/preferences.c:1 app/properties.c:1
+#: lib/message.c:1
 msgid "OK"
 msgstr "OK"
 
@@ -309,19 +311,19 @@ msgstr ""
 
 #: app/display.c:1
 msgid "/View/Show Rulers"
-msgstr "/Widok/Wy¶wietlaj podzia³kê"
+msgstr "/Widok/Wy¶wietlanie podzia³ki"
 
 #: app/display.c:1
 msgid "/View/Visible Grid"
-msgstr "/Widok/Wy¶wietlaj siatkê"
+msgstr "/Widok/Wy¶wietlanie siatki"
 
 #: app/display.c:1
 msgid "/View/Snap To Grid"
-msgstr "/Widok/Przyci±gaj do siatki"
+msgstr "/Widok/Przyci±ganie do siatki"
 
 #: app/display.c:1
 msgid "/View/Show Connection Points"
-msgstr "/Widok/Wy¶wietlaj punkty po³±czenia"
+msgstr "/Widok/Wy¶wietlanie punktów po³±czenia"
 
 #: app/grid.c:1
 msgid "Grid options"
@@ -385,8 +387,8 @@ msgid ""
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
 "Kolor t³a i obiektu.  Para ma³ych kwadratów (czarny i bia³y) przywraca "
-"domy¶lne kolory.  Strza³ki zamieniaj± kolory.  Klikniêciê na kolorze pozwala "
-"do zmieniæ."
+"domy¶lne kolory.  Strza³ki zamieniaj± kolory.  Klikniêciê koloru pozwala go "
+"zmieniæ."
 
 #: app/interface.c:1
 msgid "Diagram Editor"
@@ -431,6 +433,18 @@ msgstr "Modyfikuj atrybuty warstwy"
 #: app/layer_dialog.c:1
 msgid "Layer name:"
 msgstr "Nazwa warstwy:"
+
+#: app/lineprops_area.c:1
+msgid "Arrow Properties"
+msgstr "W³a¶ciwo¶ci strza³ki"
+
+#: app/lineprops_area.c:1 app/lineprops_area.c:1
+msgid "Details..."
+msgstr "Szczegó³y..."
+
+#: app/lineprops_area.c:1
+msgid "Line Style Properties"
+msgstr ""
 
 #: app/load_save.c:1
 msgid "Error reading diagram file\n"
@@ -493,6 +507,14 @@ msgid "Export To S_VG"
 msgstr "Eksportuj do S_VG"
 
 #: app/menus.c:1
+msgid "_Print Diagram..."
+msgstr "_Drukuj diagram..."
+
+#: app/menus.c:1
+msgid "_Delete"
+msgstr "_Usuñ"
+
+#: app/menus.c:1
 msgid "Zoom _In"
 msgstr "Powiêksz"
 
@@ -520,19 +542,19 @@ msgstr "Modyfikuj siatkê..."
 
 #: app/menus.c:1
 msgid "_Visible Grid"
-msgstr "Wy¶wietlaj siatkê"
+msgstr "Wy¶wietlanie siatki"
 
 #: app/menus.c:1
 msgid "_Snap To Grid"
-msgstr "Przyci±gaj do siatki"
+msgstr "Przyci±ganie do siatki"
 
 #: app/menus.c:1
 msgid "Show _Rulers"
-msgstr "Wy¶wietlaj podzia³kê"
+msgstr "Wy¶wietlanie podzia³ki"
 
 #: app/menus.c:1
 msgid "Show _Connection Points"
-msgstr "Wy¶wietlaj punkty po³±czenia"
+msgstr "Wy¶wietlanie punktów po³±czenia"
 
 #: app/menus.c:1
 msgid "New _View"
@@ -610,7 +632,7 @@ msgstr "Okna dialogowe"
 msgid "/_File"
 msgstr "/_Plik"
 
-#. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:1 app/menus.c:1
 msgid "/File/_New"
 msgstr "/Plik/_Nowy"
@@ -656,6 +678,10 @@ msgid "/File/Export To S_VG"
 msgstr "/Plik/Eksportuj do S_VG"
 
 #: app/menus.c:1
+msgid "/File/_Print Diagram..."
+msgstr "/Plik/_Drukuj diagram..."
+
+#: app/menus.c:1
 msgid "/File/_Close"
 msgstr "/Plik/Zamknij"
 
@@ -663,7 +689,7 @@ msgstr "/Plik/Zamknij"
 msgid "/_Edit"
 msgstr "/Edycja"
 
-#. {"/Edit/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:1
 msgid "/Edit/_Copy"
 msgstr "/Edycja/Kopiuj"
@@ -761,19 +787,19 @@ msgstr "/Widok/Modyfikuj siatkê..."
 
 #: app/menus.c:1
 msgid "/View/_Visible Grid"
-msgstr "/Widok/Wy¶wietlaj siatkê"
+msgstr "/Widok/Wy¶wietlanie siatki"
 
 #: app/menus.c:1
 msgid "/View/_Snap To Grid"
-msgstr "/Widok/Przyci±gaj do siatki"
+msgstr "/Widok/Przyci±ganie do siatki"
 
 #: app/menus.c:1
 msgid "/View/Show _Rulers"
-msgstr "/Widok/Wy¶wietlaj podzia³kê"
+msgstr "/Widok/Wy¶wietlanie podzia³ki"
 
 #: app/menus.c:1
 msgid "/View/Show _Connection Points"
-msgstr "/Widok/Wy¶wietlaj punkty po³±czenia"
+msgstr "/Widok/Wy¶wietlanie punktów po³±czenia"
 
 #: app/menus.c:1
 msgid "/View/sep1"
@@ -791,7 +817,7 @@ msgstr "/Widok/Wy¶wietlaj wszystko"
 msgid "/_Objects"
 msgstr "/_Obiekty"
 
-#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
+#. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:1
 msgid "/Objects/Send to _Back"
 msgstr "/Obiekty/Przesuñ w ty³"
@@ -817,8 +843,16 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Obiekty/Wyrównanie poziome"
 
 #: app/menus.c:1
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Obiekty/Wyrównanie poziome/Przylegniêcie"
+
+#: app/menus.c:1
 msgid "/Objects/Align _Vertical"
 msgstr "/Obiekty/Wyrównanie pionowe"
+
+#: app/menus.c:1
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Obiekty/Wyrównanie pionowe/Przylegniêcie"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:1
@@ -1038,24 +1072,27 @@ msgid "Multivalue"
 msgstr ""
 
 #: objects/ER/attribute.c:1 objects/ER/entity.c:1
-#: objects/ER/relationship.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/parallelogram.c:1
+#: objects/ER/relationship.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/parallelogram.c:1
 #: objects/standard/box.c:1 objects/standard/ellipse.c:1
 #: objects/standard/image.c:1
 msgid "Border width:"
 msgstr "Szeroko¶æ krawêdzi:"
 
 #: objects/ER/attribute.c:1 objects/ER/entity.c:1
-#: objects/ER/relationship.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/parallelogram.c:1
+#: objects/ER/relationship.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/parallelogram.c:1
 #: objects/standard/box.c:1 objects/standard/ellipse.c:1
 #: objects/standard/image.c:1
 msgid "Foreground color:"
 msgstr "Kolor obiektu:"
 
 #: objects/ER/attribute.c:1 objects/ER/entity.c:1
-#: objects/ER/relationship.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/parallelogram.c:1
+#: objects/ER/relationship.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/parallelogram.c:1
 #: objects/standard/box.c:1 objects/standard/ellipse.c:1
 msgid "Background color:"
 msgstr "Kolor t³a:"
@@ -1091,11 +1128,15 @@ msgstr "Uczestnictwo"
 msgid "Total:"
 msgstr "Ogó³em:"
 
-#: objects/ER/participation.c:1 objects/standard/zigzagline.c:1
+#: objects/ER/participation.c:1 objects/UML/association.c:1
+#: objects/UML/dependency.c:1 objects/UML/generalization.c:1
+#: objects/UML/realizes.c:1 objects/standard/zigzagline.c:1
 msgid "Add segment"
 msgstr "Dodaj segment"
 
-#: objects/ER/participation.c:1 objects/standard/zigzagline.c:1
+#: objects/ER/participation.c:1 objects/UML/association.c:1
+#: objects/UML/dependency.c:1 objects/UML/generalization.c:1
+#: objects/UML/realizes.c:1 objects/standard/zigzagline.c:1
 msgid "Delete segment"
 msgstr "Usuñ segment"
 
@@ -1201,15 +1242,15 @@ msgstr "Kana³"
 
 #: objects/FS/function.c:1
 msgid "   Import"
-msgstr ""
+msgstr " Importuj"
 
 #: objects/FS/function.c:1
 msgid "   Export"
-msgstr ""
+msgstr " Exportuj"
 
 #: objects/FS/function.c:1
 msgid "   Transfer"
-msgstr ""
+msgstr "   Prze¶lij"
 
 #: objects/FS/function.c:1
 msgid "      Transport"
@@ -1229,7 +1270,7 @@ msgstr ""
 
 #: objects/FS/function.c:1
 msgid "      Rotate"
-msgstr ""
+msgstr "       Obróæ"
 
 #: objects/FS/function.c:1
 msgid "      Allow DOF"
@@ -1257,7 +1298,7 @@ msgstr ""
 
 #: objects/FS/function.c:1
 msgid "Connect"
-msgstr ""
+msgstr "Po³±cz"
 
 #: objects/FS/function.c:1
 msgid "   Couple"
@@ -1277,7 +1318,7 @@ msgstr ""
 
 #: objects/FS/function.c:1
 msgid "      Remove"
-msgstr ""
+msgstr "        Usuñ"
 
 #: objects/FS/function.c:1
 msgid "   Refine"
@@ -1329,7 +1370,7 @@ msgstr ""
 
 #: objects/FS/function.c:1
 msgid "Convert"
-msgstr ""
+msgstr "Konwertuj"
 
 #: objects/FS/function.c:1
 msgid "   Sense"
@@ -1389,7 +1430,7 @@ msgstr ""
 #. Show arrow:
 #: objects/UML/association.c:1
 msgid "Show arrow"
-msgstr "Wy¶wietlaj strza³kê"
+msgstr "Wy¶wietlanie strza³ki"
 
 #. Aggregate
 #: objects/UML/association.c:1
@@ -1432,19 +1473,19 @@ msgstr "Abstrakcyjna"
 
 #: objects/UML/class_dialog.c:1
 msgid "Attributes visible"
-msgstr "Wy¶wietlaj czê¶æ zawieraj±c± arybuty"
+msgstr "Wy¶wietlanie czê¶ci zawieraj±cej arybuty"
 
 #: objects/UML/class_dialog.c:1
 msgid "Suppress Attributes"
-msgstr "Ukryj atrybuty"
+msgstr "Ukryte atrybuty"
 
 #: objects/UML/class_dialog.c:1
 msgid "Operations visible"
-msgstr "Wy¶wietlaj czê¶æ zawieraj±c± operacje"
+msgstr "Wy¶wietlanie czê¶ci zawieraj±cej operacje"
 
 #: objects/UML/class_dialog.c:1
 msgid "Suppress operations"
-msgstr "Ukryj operacje"
+msgstr "Ukryte operacje"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:1
@@ -1584,7 +1625,7 @@ msgstr "Zale¿no¶æ"
 
 #: objects/UML/dependency.c:1
 msgid "Show arrow:"
-msgstr "Wy¶wietlaj strza³kê:"
+msgstr "Wy¶wietlanie strza³ki:"
 
 #. type
 #: objects/UML/generalization.c:1
@@ -1680,7 +1721,7 @@ msgstr "Atrybuty:"
 
 #: objects/UML/object.c:1
 msgid "Show attributes"
-msgstr "Wy¶wietlaj atrybuty"
+msgstr "Wy¶wietlanie atrybutów"
 
 #: objects/UML/object.c:1
 msgid "Active object"
@@ -1693,7 +1734,7 @@ msgstr ""
 #. type
 #: objects/UML/realizes.c:1
 msgid "Realizes, implements a specific interface."
-msgstr ""
+msgstr "Realizacja, implementacja okre¶lonego interfejsu."
 
 #. type
 #: objects/UML/small_package.c:1
@@ -1738,62 +1779,89 @@ msgstr "Napis na zewn±trz:"
 msgid "Collaboration"
 msgstr "Wspó³praca"
 
-#: objects/flowchart/box.c:1
-msgid "A box with text inside."
-msgstr "Prostok±t z napisem wewn±trz."
+#: objects/custom/custom_object.c:1
+msgid "A custom with text inside."
+msgstr ""
 
+#: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
 #: objects/flowchart/box.c:1 objects/flowchart/box.c:1
 #: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/ellipse.c:1
 #: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
 #: objects/standard/box.c:1 objects/standard/box.c:1
 msgid "Draw background"
 msgstr ""
 
-#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
-#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
-#: objects/standard/arc.c:1 objects/standard/arc.c:1
-#: objects/standard/box.c:1 objects/standard/box.c:1
-#: objects/standard/ellipse.c:1 objects/standard/ellipse.c:1
+#: objects/custom/custom_object.c:1 objects/flowchart/box.c:1
+#: objects/flowchart/diamond.c:1 objects/flowchart/ellipse.c:1
+#: objects/flowchart/parallelogram.c:1 objects/standard/arc.c:1
+#: objects/standard/box.c:1 objects/standard/ellipse.c:1
 #: objects/standard/image.c:1 objects/standard/image.c:1
-#: objects/standard/line.c:1 objects/standard/line.c:1
-#: objects/standard/polyline.c:1 objects/standard/polyline.c:1
-#: objects/standard/zigzagline.c:1 objects/standard/zigzagline.c:1
+#: objects/standard/line.c:1 objects/standard/polyline.c:1
+#: objects/standard/zigzagline.c:1
 msgid "Line style:"
 msgstr "Wygl±d linii:"
+
+#: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
+#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/ellipse.c:1
+#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
+msgid "Text padding:"
+msgstr "Wyrównanie tekstu:"
+
+#: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
+#: objects/standard/textobj.c:1 objects/standard/textobj.c:1
+msgid "Alignment:"
+msgstr "Wyrównanie:"
+
+#: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
+#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/ellipse.c:1
+#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
+#: objects/standard/textobj.c:1 objects/standard/textobj.c:1
+msgid "Font:"
+msgstr "Font:"
+
+#: objects/custom/custom_object.c:1 objects/custom/custom_object.c:1
+#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
+#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
+#: objects/flowchart/ellipse.c:1 objects/flowchart/ellipse.c:1
+#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
+msgid "Font size:"
+msgstr "Rozmiar fontu:"
+
+#: objects/custom/custom_object.c:1 objects/flowchart/box.c:1
+#: objects/flowchart/diamond.c:1 objects/flowchart/ellipse.c:1
+#: objects/flowchart/parallelogram.c:1
+msgid "Font color:"
+msgstr "Kolor fontu:"
+
+#: objects/custom/custom_object.c:1
+msgid "Flip Horizontal"
+msgstr "Obróc poziomo"
+
+#: objects/custom/custom_object.c:1
+msgid "Flip Vertical"
+msgstr "Obróæ pionowo"
+
+#: objects/flowchart/box.c:1
+msgid "A box with text inside."
+msgstr "Prostok±t z napisem wewn±trz."
 
 #: objects/flowchart/box.c:1 objects/flowchart/box.c:1
 #: objects/standard/box.c:1 objects/standard/box.c:1
 msgid "Corner rounding:"
 msgstr "Zaokr±glanie naro¿ników:"
 
-#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
-#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
-msgid "Text padding:"
-msgstr "Wyrównanie tekstu:"
-
-#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
-#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
-#: objects/standard/textobj.c:1 objects/standard/textobj.c:1
-msgid "Font:"
-msgstr "Font:"
-
-#: objects/flowchart/box.c:1 objects/flowchart/box.c:1
-#: objects/flowchart/diamond.c:1 objects/flowchart/diamond.c:1
-#: objects/flowchart/parallelogram.c:1 objects/flowchart/parallelogram.c:1
-msgid "Font size:"
-msgstr "Rozmiar fontu:"
-
-#: objects/flowchart/box.c:1 objects/flowchart/diamond.c:1
-#: objects/flowchart/parallelogram.c:1
-msgid "Font color:"
-msgstr "Kolor fontu:"
-
 #: objects/flowchart/diamond.c:1
 msgid "A diamond with text inside."
 msgstr "Diament z napisem wewn±trz."
+
+#: objects/flowchart/ellipse.c:1
+msgid "A ellipse with text inside."
+msgstr "Elipsa z napisem wewn±trz."
 
 #: objects/flowchart/flowchart.c:1
 msgid "Flowchart"
@@ -1801,7 +1869,7 @@ msgstr "Diagram przep³ywu"
 
 #: objects/flowchart/flowchart.c:1
 msgid "Objects to draw flowcharts"
-msgstr ""
+msgstr "Obiekty do rysowania diagramów przep³ywu"
 
 #: objects/flowchart/parallelogram.c:1
 msgid "A parallelogram with text inside."
@@ -1833,7 +1901,7 @@ msgstr "Komputer w obudowie typu 'wie¿a'"
 #. type
 #: objects/network/disc.c:1
 msgid "The symbol for storage. Disc or database."
-msgstr ""
+msgstr "Pamiêæ masowa; dysk lub baza danych."
 
 #. type
 #: objects/network/flash.c:1
@@ -1843,7 +1911,7 @@ msgstr "Po³±czenie WAN"
 #. type
 #: objects/network/hub.c:1
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "£±czony hub lub prze³±cznik"
 
 #. type
 #: objects/network/modem.c:1
@@ -1853,7 +1921,7 @@ msgstr "Prosty modem"
 #. type
 #: objects/network/modularswitch.c:1
 msgid "A modular switching system"
-msgstr ""
+msgstr "Modularny system prze³±czaj±cy"
 
 #. type
 #: objects/network/monitor.c:1
@@ -1881,7 +1949,7 @@ msgstr "Gniazdko RJ45"
 #. type
 #: objects/network/scead-plug.c:1
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "Gniazdko dna systemu okablowania scEAD"
+msgstr "Gniazdko dla systemu okablowania scEAD"
 
 #: objects/standard/arc.c:1 objects/standard/line.c:1
 #: objects/standard/polyline.c:1 objects/standard/zigzagline.c:1
@@ -1894,17 +1962,13 @@ msgstr "Szeroko¶æ linii:"
 msgid "Color:"
 msgstr "Kolor:"
 
-#: objects/standard/arc.c:1 objects/standard/arc.c:1
-#: objects/standard/line.c:1 objects/standard/line.c:1
-#: objects/standard/polyline.c:1 objects/standard/polyline.c:1
-#: objects/standard/zigzagline.c:1 objects/standard/zigzagline.c:1
+#: objects/standard/arc.c:1 objects/standard/line.c:1
+#: objects/standard/polyline.c:1 objects/standard/zigzagline.c:1
 msgid "Start arrow:"
 msgstr "Strza³ka pocz±tkowa:"
 
-#: objects/standard/arc.c:1 objects/standard/arc.c:1
-#: objects/standard/line.c:1 objects/standard/line.c:1
-#: objects/standard/polyline.c:1 objects/standard/polyline.c:1
-#: objects/standard/zigzagline.c:1 objects/standard/zigzagline.c:1
+#: objects/standard/arc.c:1 objects/standard/line.c:1
+#: objects/standard/polyline.c:1 objects/standard/zigzagline.c:1
 msgid "End arrow:"
 msgstr "Strza³ka koñcowa:"
 
@@ -1914,19 +1978,19 @@ msgstr "Plik z obrazem:"
 
 #: objects/standard/image.c:1
 msgid "Keep aspect ratio"
-msgstr "Zachowaj proporcje"
+msgstr "Zachowane proporcje"
 
 #: objects/standard/image.c:1
 msgid "Show border"
-msgstr "Wy¶wietlaj krawêdzie"
+msgstr "Wy¶wietlanie krawêdzi"
 
 #: objects/standard/image.c:1
 msgid "Keep aspect ratio:"
-msgstr "Zachowaj proporcje:"
+msgstr "Zachowane proporcje:"
 
 #: objects/standard/image.c:1
 msgid "Show border:"
-msgstr "Wy¶wietlaj krawêdzie:"
+msgstr "Wy¶wietlanie krawêdzi:"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:1 objects/standard/image.c:1
@@ -1953,17 +2017,13 @@ msgid "Delete Corner"
 msgstr "Usuñ naro¿nik"
 
 #: objects/standard/textobj.c:1 objects/standard/textobj.c:1
-msgid "Alignment:"
-msgstr "Wyrównanie:"
-
-#: objects/standard/textobj.c:1 objects/standard/textobj.c:1
 msgid "Fontsize:"
 msgstr "Rozmiar fontu:"
 
 #. type
 #: objects/sybase/client.c:1
 msgid "A Sybase Client Application."
-msgstr ""
+msgstr "Aplikacja kliencka Sybase"
 
 #. type
 #: objects/sybase/dataserver.c:1
