@@ -1573,6 +1573,10 @@ static DiaMenu custom_menu = {
 static DiaMenu *
 custom_get_object_menu(Custom *custom, Point *clickedpoint)
 {
+  if (custom_menu.title && custom->info->name && 
+      (0 != strcmp(custom_menu.title,custom->info->name))) {
+    if (custom_menu.app_data_free) custom_menu.app_data_free(&custom_menu);
+  }
   custom_menu.title = custom->info->name;
   return &custom_menu;
 }

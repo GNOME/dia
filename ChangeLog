@@ -1,3 +1,12 @@
+2001-08-02  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/diamenu.h:
+	* app/disp_callbacks.c: added a way for an object to cause an
+	already realised menu to be destroyed (for instance if it changes
+	too much).
+
+	* objects/custom/custom_object.c: used the above to fix #55073.
+
 2001-07-30  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* po-checktrans.py: under some circumstances, there was one column 

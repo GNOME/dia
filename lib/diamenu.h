@@ -35,12 +35,15 @@ struct _DiaMenuItem {
   void *app_data; /* init to NULL */
 };
 
+typedef void (*DiaMenuAppDataFree) (DiaMenu *menu);
+
 struct _DiaMenu {
   char *title;
   int num_items;
   DiaMenuItem *items;
   /* Private for app:  */
   void *app_data; /* init to NULL */
+  DiaMenuAppDataFree app_data_free;
 };
 
 #endif /*DIAMENU_H*/

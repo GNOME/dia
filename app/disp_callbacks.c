@@ -81,6 +81,14 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
 }
 
 static void
+dia_menu_free(DiaMenu *dia_menu) {
+  if (dia_menu->app_data)
+    gtk_object_destroy((GtkObject *)dia_menu->app_data);
+  dia_menu->app_data = NULL;
+  dia_menu->app_data_free = NULL;
+}
+
+static void
 create_object_menu(DiaMenu *dia_menu)
 {
   int i;
@@ -130,6 +138,7 @@ create_object_menu(DiaMenu *dia_menu)
     }
   }
   dia_menu->app_data = menu;
+  dia_menu->app_data_free = dia_menu_free;
 }
 
 static void
