@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-15 07:21+0200\n"
+"POT-Creation-Date: 2001-07-30 11:05+0200\n"
 "PO-Revision-Date: 2001-05-17 13:31+0200\n"
 "Last-Translator: Christophe Merlet <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -101,67 +101,54 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres internes de Dia"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Sélectionner la couleur"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Ne peut trouver ce fichier\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "Importer à partir de XFig"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Sans-Titre-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Aucun objet existant à coller.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Répertoire d'aide introuvable"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "À Propos de Dia"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s par Alexander Larsson"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "Mainteneur : James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Pour plus d'informations, visitez le site http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Contributeurs :"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "Valider"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -176,12 +163,12 @@ msgid "Object defaults"
 msgstr "Caractéristiques d'un nouvel objet."
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Appliquer"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Fermer"
@@ -319,13 +306,13 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:348
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:411
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:350 lib/properties.c:382
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:413 lib/properties.c:486
 msgid "No"
 msgstr "Non"
 
@@ -429,8 +416,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1702
-#: lib/properties.h:402
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1946
+#: lib/properties.h:455
 msgid "Text"
 msgstr "Texte"
 
@@ -583,7 +570,7 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216 lib/properties.h:378
+#: app/linewidth_area.c:216 lib/properties.h:431
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Largeur de ligne"
@@ -776,7 +763,7 @@ msgstr "Inverser"
 msgid "All"
 msgstr "Tout"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Aucun"
 
@@ -792,18 +779,18 @@ msgstr "Transitif"
 msgid "Same Type"
 msgstr "Même type"
 
-#: app/menus.c:164 lib/properties.c:1687 lib/properties.h:366
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1931 lib/properties.h:419
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "À gauche"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1688 lib/properties.h:367
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1932 lib/properties.h:420
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Au centre"
 
-#: app/menus.c:166 lib/properties.c:1689 lib/properties.h:368
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1933 lib/properties.h:421
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "À droite"
 
@@ -1364,31 +1351,36 @@ msgstr "Charger"
 msgid "Unload"
 msgstr "Décharger"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Interface utilisateur"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+#, fuzzy
+msgid "Diagram Defaults"
+msgstr "Menu des diagrammes"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Caractéristiques de la vue"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Caractéristiques de la grille"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Quitter un outil après une création :"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Compresser les fichiers enregistrés :"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Nombre de niveaux d'annulation :"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1396,68 +1388,78 @@ msgstr ""
 "Un rectangle de sélection à la souris sélectionne\n"
 "tous les objets ayant une intersection avec lui :"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+#, fuzzy
+msgid "New diagram:"
+msgstr "_Nouveau diagramme"
+
+#: app/preferences.c:139
+#, fuzzy
+msgid "Paper type:"
+msgstr "Type de message :"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Pour une nouvelle fenêtre :"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Largeur :"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Grossissement :"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Utiliser la barre de menus"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Points de connexion :"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Visibles :"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Grille :"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Magnétisme :"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "Largeur du pas :"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Hauteur du pas :"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Couleur :"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Lignes pleines :"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Sauts de page :"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Ne peut ouvrir « %s » pour y écrire"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -1504,19 +1506,19 @@ msgstr "Chargement..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:1696 lib/properties.h:381
+#: lib/properties.c:1940 lib/properties.h:434
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.c:1697 lib/properties.h:384
+#: lib/properties.c:1941 lib/properties.h:437
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.c:1698 lib/properties.h:388
+#: lib/properties.c:1942 lib/properties.h:441
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.c:1699 lib/properties.h:391
+#: lib/properties.c:1943 lib/properties.h:444
 #: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1525,31 +1527,31 @@ msgstr "Couleur de remplissage"
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.c:1700 lib/properties.h:395
+#: lib/properties.c:1944 lib/properties.h:448
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.c:1701 lib/properties.h:398
+#: lib/properties.c:1945 lib/properties.h:451
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.c:1703 lib/properties.h:405
+#: lib/properties.c:1947 lib/properties.h:458
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.c:1704 lib/properties.h:408 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1948 lib/properties.h:461 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.c:1705 lib/properties.h:411 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1949 lib/properties.h:464 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.c:1706 lib/properties.h:414 objects/GRAFCET/step.c:167
+#: lib/properties.c:1950 lib/properties.h:467 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Couleur du texte"
@@ -1592,7 +1594,7 @@ msgstr "Ne peut ouvrir « %s »"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Erreur interne : « Setting corner type of endpoint of bezier »"
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1601,137 +1603,149 @@ msgstr ""
 "Avertissement : Pas de police X trouvée pour %s, \n"
 "utilisation de %s à la place.\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "Avertissement: FreeType a été demandée, mais la bibliothèque ne se charge pas: %d"
+
+#: lib/font.c:526
+#, fuzzy
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Avertissement : Pas de police X trouvée pour %s, \n"
+"utilisation de %s à la place.\n"
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvée, utilisation de la police Courier à la place.\n"
 
-#: lib/properties.c:494 lib/properties.c:532
+#: lib/properties.c:559 lib/properties.c:597
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
-#: lib/message.c:140
+#: lib/message.c:149
 msgid "Notice"
 msgstr "Note"
 
-#: lib/message.c:151
+#: lib/message.c:160
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/message.c:163
+#: lib/message.c:172
 msgid "Error"
 msgstr "Erreur"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Plein"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Tiret"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "Tiret-point"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "Tiret-point-point"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Pointillé"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Longueur du tiret :"
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Lignes"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "Triangle creux"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "Triangle plein"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 msgid "Unfilled Triangle"
 msgstr "Triangle transparent"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "Diamant plein"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "Demi flèche"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "Croix barrée"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "Ellipse pleine"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "Ellipse creuse"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 msgid "Filled Dot"
 msgstr "Point plein"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "Origine de Dimension"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "Point creux"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 msgid "Double Hollow triangle"
 msgstr "Double triangle creux"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 msgid "Double Filled triangle"
 msgstr "Double triangle plein"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 msgid "Filled Box"
 msgstr "Diamant plein"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "Boîte creuse"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 msgid "Slashed"
 msgstr "Tiret"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "Symbole d'intégrale"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Longueur :"
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "Largeur :"
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Sélectionner une image"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Parcourir"
 
@@ -3509,11 +3523,11 @@ msgstr "Filtre d'export « TeX Pstricks »"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "Ne peut exporter en PNG sans libart !"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "fichier de forme dia"
 

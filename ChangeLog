@@ -1,3 +1,8 @@
+2001-07-30  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* po-checktrans.py: under some circumstances, there was one column 
+	more than what was supposed to be, thus breaking the formatting.
+	
 2001-07-29  Cyrille Chepelov  <chepelov@calixo.net>
 	
 	* objects/SADT/annotation.c: forgot to add a #include <stdlib.h>

@@ -148,15 +148,15 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
+	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(GNOME_LIBS) \
 	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
-	$(UNICODE_LIBS)
+	$(UNICODE_LIBS)  $(INTLLIBS) $(INTLOBJS)
 
 diaconv_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
+	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(GNOME_LIBS) \
 	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
-	$(UNICODE_LIBS)
+	$(UNICODE_LIBS) $(INTLLIBS) $(INTLOBJS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.

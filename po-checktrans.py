@@ -25,7 +25,7 @@ import string,os,sys,math
 collen = 1
 
 def NoneStr(n):
-    if n is None: return (" " * collen)
+    if n is None: return (" " * maxlanglen)
     return n
 
 def slurp_po(fname):
@@ -86,19 +86,20 @@ def maxlen(a,b):
 del t,n
 
 translations = map(slurp_po,sys.argv[2:])
-trans = map(lambda (l,i,t),ti=idents: "%s:%3d%%(%d/%d)%s"%(l,
-                                                           100*float(t)/idents,
-                                                           t,idents,
-                                                           "*" * (idents != i)),
+trans = map(lambda (l,i,t),ti=idents:
+            "%s:%3d%%(%d/%d)%s"%(l,
+                                 100*float(t)/idents,
+                                 t,idents,
+                                 "*" * (idents != i)),
             translations)
 maxlanglen = len(reduce(maxlen,trans,""))
 trans = map(lambda s,mll=maxlanglen: string.ljust(s,mll),trans)
-lt = len(trans)
 
 collen = maxlanglen + len("  ")
 
 numcols = int(79 / collen)
-ltnc = int(lt/numcols)
+ltnc = (len(trans) / numcols) + (len(trans) % numcols)
+
 cols = []
 while trans:
     c,trans = trans[:ltnc],trans[ltnc:]
@@ -106,7 +107,8 @@ while trans:
 
 lines = apply(map,tuple([None]+cols))
 
-result = string.join(map(lambda l:string.join(map(NoneStr,list(l)),"  "),lines),
+result = string.join(map(lambda l:string.join(map(NoneStr,list(l)),"  "),
+                         lines),
                      "\n")
 print result
 
