@@ -1,3 +1,10 @@
+2000-02-27  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/font.c (suck_font):
+	Fixed off-by one bug in font pixmap height.
+	Fixes the problem with garbage at the bottom of some text in aa mode
+	and in png exported files.
+
 2000-02-27  James Henstridge  <james@daa.com.au>
 
 	* app/app_procs.c: add the png export filter if it was compiled in.

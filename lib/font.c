@@ -602,7 +602,7 @@ suck_font (GdkFont *font)
 	black.pixel = black_pixel;
 	white.pixel = color_gdk_white.pixel;
 	gdk_gc_set_foreground (gc, &white);
-	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, width, height);
+	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
 
 	gdk_gc_set_foreground (gc, &black);
 	for (i = 0; i < 256; i++) {
@@ -618,12 +618,12 @@ suck_font (GdkFont *font)
 	 * work. -RLL
 	 */
 
-	image = gdk_image_get (pixmap, 0, 0, width, height);
-	suckfont->bitmap = g_malloc0 ((width >> 3) * height);
+	image = gdk_image_get (pixmap, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
+	suckfont->bitmap = g_malloc0 ((width >> 3) * suckfont->bitmap_height);
 
 	line = suckfont->bitmap;
-	for (y = 0; y < height; y++) {
-		for (x = 0; x < width; x++) {
+	for (y = 0; y < suckfont->bitmap_height; y++) {
+		for (x = 0; x < suckfont->bitmap_width; x++) {
 			pixel = gdk_image_get_pixel (image, x, y);
 			if (pixel == black_pixel)
 				line[x >> 3] |= 128 >> (x & 7);
