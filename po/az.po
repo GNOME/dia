@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
-"PO-Revision-Date: 2001-06-01 18:08GMT +0200\n"
+"POT-Creation-Date: 2001-07-28 06:59+0200\n"
+"PO-Revision-Date: 2001-07-28 03:04GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -31,15 +31,15 @@ msgstr "Başlanğıc ekranını göstərme"
 msgid "Show this help message"
 msgstr "Bu kömək xəbərini göstər"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "İclas idarəcisinə bağlana bilmədim!\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[SEÇƏNƏK...] [FAYL...]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -48,21 +48,21 @@ msgstr ""
 "%s seçənəyində xəta var : %s .\n"
 "`%s --help' ilə mövcud əmr seçənəklərini görə bilərsiniz .\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:248 app/app_procs.c:250
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:275
 msgid "Need valid input file\n"
 msgstr "Keçərli parametr faylı lazımdır\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:341 app/app_procs.c:347
 msgid "Quit, are you sure?"
 msgstr "Çıxmaq istəyirsiniz?"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:354
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -70,21 +70,21 @@ msgstr ""
 "Dəyişikliklər var.\n"
 "Həqiqətən də çıxmaq istəyirsiniz mi?"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:364 app/app_procs.c:369
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:381 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Ləğv Et"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:456 app/app_procs.c:463
 msgid "Could not create per-user Dia config directory"
 msgstr "Xüsusi Dia qurğu qovluğunu yarada bilmədim"
 
-#: app/app_procs.c:462
+#: app/app_procs.c:465
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -92,71 +92,58 @@ msgstr ""
 "İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, qlobal dəyişgən "
 "HOMEun mövcud cərgəyə nişanlanıb nişanlanmadığını yoxlayın."
 
-#: app/app_procs.c:484
+#: app/app_procs.c:487
 msgid "Objects and filters internal to dia"
 msgstr "Dianın daxili cism və süzgəcləri"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Rəngi seç"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Belə bir dosye yoxdur \n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "\"XFig\"dən faylı daxil et"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Adsız-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Yapışdırılacaq cism yoxdur.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Kşmək sözlüyü tapıla bilmir"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "Dia haqqında"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Alexander Larsson'un Dia'sı, buraxılış %s"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "İdarəci: James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya get"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Dəstəkçilər :"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "Oldu"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -171,12 +158,12 @@ msgid "Object defaults"
 msgstr "Cism Əsas Qurğuları"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Əlavə Et"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Qapat"
@@ -314,13 +301,13 @@ msgstr ""
 "Diaqramma qeyd edilmədi.\n"
 "Dəyişiklikləri indi qeyd edim?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:411
 msgid "Yes"
 msgstr "Bəli"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:413 lib/properties.c:486
 msgid "No"
 msgstr "Xeyr"
 
@@ -424,8 +411,8 @@ msgstr "Sürüşdür"
 msgid "Create Text"
 msgstr "Mətni yarat"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1946
+#: lib/properties.h:455
 msgid "Text"
 msgstr "Mətn"
 
@@ -578,13 +565,12 @@ msgstr "Ətraflı ..."
 msgid "Line Style Properties"
 msgstr "Xətt tərz xüsusiyyətləri"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216 lib/properties.h:431
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Xətt eni"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
-#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
-#: objects/chronogram/chronoref.c:321
+#: app/linewidth_area.c:224
 msgid "Line width:"
 msgstr "Xətt eni :"
 
@@ -772,7 +758,7 @@ msgstr "Tərs çevir"
 msgid "All"
 msgstr "Hamısı"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Heç biri"
 
@@ -788,18 +774,18 @@ msgstr "Keçişli"
 msgid "Same Type"
 msgstr "Eyni növ"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1931 lib/properties.h:419
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Sol"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1932 lib/properties.h:420
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Orta"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1933 lib/properties.h:421
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Sağ"
 
@@ -1360,31 +1346,36 @@ msgstr "Yüklə"
 msgid "Unload"
 msgstr "Ayır"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "İstifadəçi səthi"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+#, fuzzy
+msgid "Diagram Defaults"
+msgstr "Diaqramma menyusu"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Əsas Qurğuları göstər"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Tor xəttləri"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Yaratdıqdan sonra vasitələri əsas qurğulara döndər"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Qeyd edilən dosyeləri sıxışdır :"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Dala gediş yaddaşı uzunluğu :"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1392,68 +1383,78 @@ msgstr ""
 "Tərs tərəfə çəkmə \n"
 "cismlərin qismlərini bildirir :"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+#, fuzzy
+msgid "New diagram:"
+msgstr "_Təzə diaqram"
+
+#: app/preferences.c:139
+#, fuzzy
+msgid "Paper type:"
+msgstr "İsmarıc növü :"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Təzə pəncərə :"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "En :"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Hündürlük :"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Böyüt :"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Menyu çubuğu işlət:"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Bağlantı nöqtələri :"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Görünmə :"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Tor :"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Yaxalama hədəfi :"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "X böyüklüyü :"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Y böyüklüyü :"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Rəng :"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Dolğun xəttləri :"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Səhifə qırılmaları :"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "`%s''ni yazmaq üçün aça bilmədim"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Qurğular"
 
@@ -1473,7 +1474,7 @@ msgstr "Xüsusiyyətlər : "
 msgid "Object properties:"
 msgstr "Cism xüsusiyyətləri:"
 
-#: app/render_eps.c:1649
+#: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
 msgstr "Sıyrılmış Postscript ( EPS )"
 
@@ -1500,20 +1501,20 @@ msgstr "Yüklənir..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:1256 lib/properties.h:345
+#: lib/properties.c:1940 lib/properties.h:434
 msgid "Line colour"
 msgstr "Sətir rəngi"
 
-#: lib/properties.c:1257 lib/properties.h:348
+#: lib/properties.c:1941 lib/properties.h:437
 msgid "Line style"
 msgstr "Sətər tərzi"
 
-#: lib/properties.c:1258 lib/properties.h:352
+#: lib/properties.c:1942 lib/properties.h:441
 msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
-#: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
+#: lib/properties.c:1943 lib/properties.h:444
+#: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
 #: objects/standard/box.c:232 objects/standard/ellipse.c:220
@@ -1521,29 +1522,32 @@ msgstr "Doldurma rəngi"
 msgid "Draw background"
 msgstr "Arxa Planı boya"
 
-#: lib/properties.c:1260 lib/properties.h:359
+#: lib/properties.c:1944 lib/properties.h:448
 msgid "Start arrow"
 msgstr "Başlama oxu"
 
-#: lib/properties.c:1261 lib/properties.h:362
+#: lib/properties.c:1945 lib/properties.h:451
 msgid "End arrow"
 msgstr "Bitiş oxu"
 
-#: lib/properties.c:1263 lib/properties.h:369
+#: lib/properties.c:1947 lib/properties.h:458
 msgid "Text alignment"
 msgstr "Mətn tərəfləməsi"
 
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
+#: lib/properties.c:1948 lib/properties.h:461 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Yazı növü"
 
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
+#: lib/properties.c:1949 lib/properties.h:464 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Yazı növü böyüklüyü"
 
-#: lib/properties.c:1266 lib/properties.h:378
+#: lib/properties.c:1950 lib/properties.h:467 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Mətn rəngi"
 
@@ -1586,7 +1590,7 @@ msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 "Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
 
-#: lib/font.c:389
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1595,137 +1599,149 @@ msgstr ""
 "Xəbərdarlıq : %s üçün X yazı növü tapıla bilmədi,\n"
 "Onun yerinə %s'yi istifadə edirəm .\n"
 
-#: lib/font.c:443
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr ""
+
+#: lib/font.c:526
+#, fuzzy
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Xəbərdarlıq : %s üçün X yazı növü tapıla bilmədi,\n"
+"Onun yerinə %s'yi istifadə edirəm .\n"
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm .\n"
 
-#: lib/properties.c:382 lib/properties.c:414
+#: lib/properties.c:559 lib/properties.c:597
 msgid "No edit widget"
 msgstr "Dəyişdirilə bilən bir widget deyildir"
 
-#: lib/message.c:120
+#: lib/message.c:149
 msgid "Notice"
 msgstr "Yadıma Sal"
 
-#: lib/message.c:131
+#: lib/message.c:160
 msgid "Warning"
 msgstr "Xəbərdarlıq"
 
-#: lib/message.c:143
+#: lib/message.c:172
 msgid "Error"
 msgstr "Xəta"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Dolğun"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Tireli"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "Tire-nöqtəli"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "Tire-nöqtə-nöqtəli"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Nöqtəli"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Tire uzunluğu :"
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Xəttlər"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "Boş üçbucaq"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "Dolğulu üçbucaq"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 msgid "Unfilled Triangle"
 msgstr "Dolğusuz Üçbucaq"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "Dolğulu Briliant"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "Yarım baş"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "Qarşı Qarşıya xaç"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "Dolğulu elips"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "Boş elips"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 msgid "Filled Dot"
 msgstr "Dolğulu Nöqtə"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "Dimensiya Mənbəsi"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "Boş Nöqtə"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 msgid "Double Hollow triangle"
 msgstr "Cüt üçbucaq"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 msgid "Double Filled triangle"
 msgstr "Cüt Dolğulu üçbucaq"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 msgid "Filled Box"
 msgstr "Dolğulu Qutu"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "Boş Qutu"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 msgid "Slashed"
 msgstr "Tireli"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "İnteqral Simvolu"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Uzunluq :"
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "En :"
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Rəsm faylını seç"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Gəz"
 
@@ -1734,9 +1750,9 @@ msgid "Taking point value of non-point node."
 msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
 
 #: lib/dia_xml.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
+msgstr "Səhv x Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
 #: lib/dia_xml.c:293
 msgid "Error parsing point."
@@ -1785,7 +1801,7 @@ msgid "Total:"
 msgstr "Toplam :"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
-#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
+#: objects/GRAFCET/vector.c:305 objects/SADT/arrow.c:550
 #: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
@@ -1793,7 +1809,7 @@ msgid "Add segment"
 msgstr "Bölmə əlavə et"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
-#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
+#: objects/GRAFCET/vector.c:306 objects/SADT/arrow.c:551
 #: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
@@ -2664,38 +2680,13 @@ msgstr "İstifadəçi/Avadanlıq Funk."
 msgid "Wish Fn"
 msgstr "Arzulanan funksiya"
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "Yazı növü :"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "Yazı növü böyüklüyü :"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "Mətn rəngi :"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "Makro çağırışı"
+
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
+msgstr ""
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
@@ -2725,45 +2716,53 @@ msgstr "Şəraitin rəngi"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET diaqram cismləri"
 
-#: objects/GRAFCET/step.c:258
+#: objects/GRAFCET/step.c:146
 msgid "Regular step"
 msgstr "Standart addım"
 
-#: objects/GRAFCET/step.c:259
+#: objects/GRAFCET/step.c:147
 msgid "Initial step"
 msgstr "Ilk addım"
 
-#: objects/GRAFCET/step.c:260
+#: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
 msgstr "Makro başlanğıc addımı"
 
-#: objects/GRAFCET/step.c:261
+#: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
 msgstr "Makro bitiş addımı"
 
-#: objects/GRAFCET/step.c:262
+#: objects/GRAFCET/step.c:150
 msgid "Macro call step"
 msgstr "Makro çağırış addımı"
 
-#: objects/GRAFCET/step.c:263
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr "Alt Proqram çağırış addımı"
 
-#: objects/GRAFCET/step.c:272
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
 msgstr "Addım adı"
 
-#: objects/GRAFCET/step.c:273
-msgid "Active"
-msgstr "Hazırkı"
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
+msgstr ""
 
-#: objects/GRAFCET/step.c:274
+#: objects/GRAFCET/step.c:159
 msgid "Step type"
 msgstr "Addım növü"
 
-#: objects/GRAFCET/step.c:317
-msgid "Color:"
-msgstr "Rəng :"
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr "Hazırkı"
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr ""
 
 #: objects/GRAFCET/transition.c:138
 msgid "Receptivity"
@@ -2793,90 +2792,92 @@ msgstr "Şimal nöqtəsi"
 msgid "South point"
 msgstr "Cənub nöqtəsi"
 
-#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Üstə göstərən oxlarda ox-başlarını göstər :"
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "VƏ YA"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "VƏ"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr "Kənar növü :"
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:454
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Bağlantı nöqtəsi əlavə et"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "Bağlantı nöqtəsini sil"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET VEYA/VE kenarı"
 
-#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
-#: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
-#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
-msgid "Font color:"
-msgstr "Yazı rəngi :"
-
-#: objects/SADT/arrow.c:191 objects/UML/state.c:134
+#: objects/SADT/arrow.c:134 objects/UML/state.c:134
 msgid "Normal"
 msgstr "Standart"
 
-#: objects/SADT/arrow.c:192
+#: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
 msgstr "Qaynağı daxil et ( üstə göstərmə )"
 
-#: objects/SADT/arrow.c:193
+#: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
 msgstr "Qaynağı istə ( aşağıya göstərmə )"
 
-#: objects/SADT/arrow.c:194
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr "Nöqtəli ox"
 
-#: objects/SADT/arrow.c:195
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr "ox başlıqlarını qapat"
 
-#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
 msgstr "Axış tərzi :"
 
-#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
 msgstr "Dikey oxları avtomatik olaraq bozlaşdır:"
 
-#: objects/SADT/arrow.c:665
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
 msgstr "SADT oxu"
 
-#: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
-#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
-#: objects/flowchart/parallelogram.c:343
-msgid "Text padding:"
-msgstr "Mətn aralanması:"
+#: objects/SADT/box.c:139 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Mətn aralanması"
 
-#: objects/SADT/box.c:213
+#: objects/SADT/box.c:146
 msgid "Activity/Data identifier"
 msgstr "Gediş/Haqqında izahatcısı"
 
-#: objects/SADT/box.c:540 objects/standard/line.c:183
+#: objects/SADT/box.c:147
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:455 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "Bağlantı nöqtəsini sil"
 
-#: objects/SADT/box.c:545
+#: objects/SADT/box.c:460
 msgid "SADT box"
 msgstr "SADT qutusu"
 
@@ -3115,13 +3116,27 @@ msgstr "Oxu göstər :"
 msgid "Interface:"
 msgstr "Ara üz:"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:140
 msgid "Draw focus of control:"
 msgstr "İdarə fokusunu çək:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:142
 msgid "Draw destruction mark:"
 msgstr "Silmə işarətini çək:"
+
+#: objects/UML/lifeline.c:405
+#, fuzzy
+msgid "Add connection points"
+msgstr "Bağlantı nöqtəsi əlavə et"
+
+#: objects/UML/lifeline.c:406
+#, fuzzy
+msgid "Remove connection points"
+msgstr "Bağlantı nöqtəsini sil"
+
+#: objects/UML/lifeline.c:410
+msgid "UML Lifeline"
+msgstr ""
 
 #: objects/UML/message.c:158
 msgid "Call"
@@ -3211,29 +3226,27 @@ msgstr "Iş birliği"
 msgid "Chronogram diagram objects"
 msgstr "Zamanlama diaqram cismləri"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
-msgid "Aspect"
-msgstr "Nisbətləmə"
-
-#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
-msgid "Parameters"
-msgstr "Parametrlər"
-
-#: objects/chronogram/chronoline.c:309
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "Data"
 
-#: objects/chronogram/chronoline.c:311
-msgid "Data name:"
+#: objects/chronogram/chronoline.c:150
+#, fuzzy
+msgid "Data name"
 msgstr "Data adı :"
 
-#: objects/chronogram/chronoline.c:313
-msgid "Events:"
+#: objects/chronogram/chronoline.c:152
+#, fuzzy
+msgid "Events"
 msgstr "Hadisələr:"
 
-#: objects/chronogram/chronoline.c:314
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
+#, fuzzy
 msgid ""
-"Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
@@ -3247,51 +3260,71 @@ msgstr ""
 "u müddət    siqnalı \"belirsiz\" durumu koy, bildirilən müddəti gözlə .\n"
 "nümunə : @ 1.0 ( 2.0 ) 1.0 ( 2.0 ) \n"
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
-msgid "Start time:"
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parametrlər"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#, fuzzy
+msgid "Start time"
 msgstr "Başlama vaxtı :"
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-msgid "End time:"
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+#, fuzzy
+msgid "End time"
 msgstr "Bitiş vaxtı :"
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
-msgid "Rise time:"
+#: objects/chronogram/chronoline.c:168
+#, fuzzy
+msgid "Rise time"
 msgstr "Yüksəlmə vaxtı :"
 
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-msgid "Fall time:"
+#: objects/chronogram/chronoline.c:170
+#, fuzzy
+msgid "Fall time"
 msgstr "Düşmə vaxtı :"
 
-#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "Çoxlu-bitlik data"
 
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-msgid "Data color:"
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Nisbətləmə"
+
+#: objects/chronogram/chronoline.c:175
+#, fuzzy
+msgid "Data color"
 msgstr "Data rəngi :"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
-msgid "Data line width:"
+#: objects/chronogram/chronoline.c:177
+#, fuzzy
+msgid "Data line width"
 msgstr "Data xətti eni :"
 
-#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-msgid "Line color:"
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+#, fuzzy
+msgid "Line color"
 msgstr "Xətt rəngi :"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
-msgid "Major time step:"
+#: objects/chronogram/chronoref.c:144
+#, fuzzy
+msgid "Time data"
+msgstr "Xüsusiyyət mə'lumatı"
+
+#: objects/chronogram/chronoref.c:150
+#, fuzzy
+msgid "Major time step"
 msgstr "Əsas vaxt addımı :"
 
-#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
-msgid "Minor time step:"
+#: objects/chronogram/chronoref.c:152
+#, fuzzy
+msgid "Minor time step"
 msgstr "Balaca vaxt addımı :"
 
-#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
-msgid "Minor step line width:"
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
 msgstr "Balaca addım xətti eni :"
 
 #: objects/custom/custom.c:124
@@ -3302,27 +3335,45 @@ msgstr "Xüsusi"
 msgid "Custom XML shapes loader"
 msgstr "Xüsusi XML şəkil yükləyicisi"
 
-#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip horizontal"
 msgstr "Üfüqü tərs çevir"
 
-#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
+#: objects/custom/custom_object.c:189 objects/custom/custom_object.c:207
 msgid "Flip vertical"
 msgstr "Şaquli tərs çevir"
 
-#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:373 objects/flowchart/box.c:339
+#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
+#: objects/flowchart/parallelogram.c:343
+msgid "Text padding:"
+msgstr "Mətn aralanması:"
+
+#: objects/custom/custom_object.c:387 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Tərəfləmə :"
 
-#: objects/custom/custom_object.c:1546
+#: objects/custom/custom_object.c:398 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
+msgid "Font:"
+msgstr "Yazı növü :"
+
+#: objects/custom/custom_object.c:409 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
+msgid "Font size:"
+msgstr "Yazı növü böyüklüyü :"
+
+#: objects/custom/custom_object.c:1562
 msgid "Flip Horizontal"
 msgstr "Üfüqi tərs çevir"
 
-#: objects/custom/custom_object.c:1547
+#: objects/custom/custom_object.c:1563
 msgid "Flip Vertical"
 msgstr "Şaquli tərs çevir"
 
-#: objects/custom/custom_object.c:1580
+#: objects/custom/custom_object.c:1596
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "'%s' üçün %s timsal faylı açıla bilmir."
@@ -3330,11 +3381,6 @@ msgstr "'%s' üçün %s timsal faylı açıla bilmir."
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
 msgstr "Bucaq eni"
-
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Mətn aralanması"
 
 #: objects/flowchart/box.c:325 objects/standard/box.c:240
 msgid "Corner rounding:"
@@ -3488,11 +3534,11 @@ msgstr "TeX Pstricks idxal süzgəci"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroları"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "\"Png\"ni \"libart\" olmadan idxal edə bilmirəm!"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "dia şəkil faylı"
 
@@ -3522,7 +3568,8 @@ msgid "Fig Format import and export filter"
 msgstr "Fiq Format idxal və ixrac süzgəci"
 
 #: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
+#, fuzzy
+msgid "Polygon import is not implemented yet"
 msgstr "Çocguşəli idxalı hələlik dəsyəklənmir"
 
 #: plug-ins/xfig/xfig-import.c:74
@@ -3682,53 +3729,21 @@ msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
 
-#~ msgid "Incorrect x Point value \"\" %f; discarding it."
-#~ msgstr "Səhv x Nöqtə qiyməti \"\"  %f; nəzərə almıram."
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Belə bir dosye yoxdur \n"
+#~ "%s\n"
 
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Sybase bölmə verici diaqram cismləri"
+#~ msgid "Import from XFig"
+#~ msgstr "\"XFig\"dən faylı daxil et"
 
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Göstər/_Telləri göstər"
+#~ msgid "Text color:"
+#~ msgstr "Mətn rəngi :"
 
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Göstər/_Görünən tor"
+#~ msgid "Color:"
+#~ msgstr "Rəng :"
 
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Göstər/_Tora taxıl"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Göstər/_Bağlantı nöqtələrini göstər"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Göstər/_Düzəlişli"
-
-#~ msgid "/Tools/"
-#~ msgstr "/_Vasitələr"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Düzenle/Kopyala"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Düzəlt/Kəs"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Düzəlt/Yapışdır"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Düzəlt/Sil"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Düzəlt/Mətni Yapışdır"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Cismlər/Arxaya Göndər"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Cismlər/Qabağa Gətir"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Cismlər/Qruplaşdır"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Cismlər/Qrupu Dağıt"
+#~ msgid "Font color:"
+#~ msgstr "Yazı rəngi :"
