@@ -33,6 +33,8 @@
 #include "text.h"
 #include "properties.h"
 
+#include "stereotype.h"
+
 #include "pixmaps/component.xpm"
 
 typedef struct _Component Component;
@@ -42,7 +44,6 @@ struct _Component {
   ConnectionPoint connections[8];
 
   char *stereotype;
-  char *name;
   Text *text;
 };
 
@@ -101,8 +102,8 @@ static ObjectOps component_ops = {
   (CopyFunc)            component_copy,
   (MoveFunc)            component_move,
   (MoveHandleFunc)      component_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   component_describe_props,
   (GetPropsFunc)        component_get_props,
@@ -111,8 +112,6 @@ static ObjectOps component_ops = {
 
 static PropDescription component_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-  N_("Name"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -133,8 +132,7 @@ component_describe_props(Component *component)
 
 static PropOffset component_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "name", PROP_TYPE_STRING, offsetof(Component, name) },
-  { "stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },
+  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },*/
   { NULL, 0, 0 },
 };
 
@@ -142,7 +140,8 @@ static struct { const gchar *name; GQuark q; } quarks[] = {
   { "text_font" },
   { "text_height" },
   { "text_colour" },
-  { "text" }
+  { "text" },
+  { "stereotype" }
 };
 
 static void
@@ -155,7 +154,7 @@ component_get_props(Component * component, Property *props, guint nprops)
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
   for (i = 0; i < nprops; i++) {
     GQuark pquark = g_quark_from_string(props[i].name);
@@ -173,6 +172,14 @@ component_get_props(Component * component, Property *props, guint nprops)
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
       PROP_VALUE_STRING(props[i]) = text_get_string_copy(component->text);
+    } else if (pquark == quarks[4].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      if (strlen(component->stereotype) != 0)
+	PROP_VALUE_STRING(props[i]) =
+	  stereotype_to_string(component->stereotype);
+      else
+	PROP_VALUE_STRING(props[i]) = strdup("");	
     }
   }
 }
@@ -185,7 +192,7 @@ component_set_props(Component *component, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
 	quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {
@@ -199,6 +206,13 @@ component_set_props(Component *component, Property *props, guint nprops)
 	text_set_color(component->text, &PROP_VALUE_COLOUR(props[i]));
       } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
 	text_set_string(component->text, PROP_VALUE_STRING(props[i]));
+      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
+	g_free(component->stereotype);
+	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	  component->stereotype =
+	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
+	else 
+	  component->stereotype = strdup("");
       }
     }
   }
@@ -242,6 +256,8 @@ component_move(Component *cmp, Point *to)
   p = *to;
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;
+  if (strlen(cmp->stereotype) != 0)
+    p.y += cmp->text->height;
   text_set_position(cmp->text, &p);
   
   component_update_data(cmp);
@@ -267,7 +283,6 @@ component_draw(Component *cmp, Renderer *renderer)
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer->ops->set_linewidth(renderer, COMPONENT_BORDERWIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-
 
   p1.x = x + COMPONENT_CWIDTH/2; p1.y = y;
   p2.x = x+w; p2.y = y+h;
@@ -301,7 +316,12 @@ component_draw(Component *cmp, Renderer *renderer)
 			   &p1, &p2,
 			   &color_black);
 
-
+  if (strlen(cmp->stereotype) != 0) {
+    p1 = cmp->text->position;
+    p1.y -= cmp->text->height;
+    renderer->ops->draw_string(renderer, cmp->stereotype, &p1, 
+			       ALIGN_LEFT, &color_black);
+  }
 
   text_draw(cmp->text, renderer);
 }
@@ -311,12 +331,20 @@ component_update_data(Component *cmp)
 {
   Element *elem = &cmp->element;
   Object *obj = &elem->object;
-  
+
   elem->width = cmp->text->max_width + 2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH;
   elem->width = MAX(elem->width, 2*COMPONENT_CWIDTH);
   elem->height =  cmp->text->height*cmp->text->numlines +
     cmp->text->descent + 0.1 + 2*COMPONENT_MARGIN_Y ;
   elem->height = MAX(elem->height, 5*COMPONENT_CHEIGHT);
+  if (strlen(cmp->stereotype) != 0) {
+    Font *font;
+    font = cmp->text->font;
+    elem->height += cmp->text->height;
+    elem->width = MAX(elem->width, font_string_width(cmp->stereotype,
+						     font, cmp->text->height) +
+		      2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH);
+  }
 
   /* Update connections: */
   cmp->connections[0].pos = elem->corner;
@@ -380,6 +408,8 @@ component_create(Point *startpoint,
     cmp->connections[i].connected = NULL;
   }
   elem->extra_spacing.border_trans = COMPONENT_BORDERWIDTH/2.0;
+  cmp->stereotype = strdup("");
+
   component_update_data(cmp);
 
   for (i=0;i<8;i++) {
@@ -397,6 +427,7 @@ component_destroy(Component *cmp)
   text_destroy(cmp->text);
 
   element_destroy(&cmp->element);
+  g_free(cmp->stereotype);
 }
 
 static Object *
@@ -425,6 +456,10 @@ component_copy(Component *cmp)
     newcmp->connections[i].last_pos = cmp->connections[i].last_pos;
   }
   component_update_data(newcmp);
+  if (strlen(cmp->stereotype) != 0)
+    newcmp->stereotype = cmp->stereotype;
+  else
+    newcmp->stereotype = strdup("");
   
   return &newcmp->element.object;
 }
@@ -438,6 +473,8 @@ component_save(Component *cmp, ObjectNode obj_node,
 
   data_add_text(new_attribute(obj_node, "text"),
 		cmp->text);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  cmp->stereotype);
 }
 
 static Object *
@@ -463,6 +500,13 @@ component_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     cmp->text = data_text(attribute_first_data(attr));
   
+  cmp->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+    cmp->stereotype = data_string(attribute_first_data(attr));
+  else
+    cmp->stereotype = strdup("");
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
