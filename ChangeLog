@@ -13,6 +13,9 @@
 	* app/display.c: make sure we redraw all screen only when we
 	really have to (some update_areas were mistakenly ignored) (Closes
 	#83496). 
+
+	* NEWS: added a new entry for the future. Put there a reminder to
+	update the dependencies.
 	
 2002-06-01  Cyrille Chepelov  <cyrille@chepelov.org>
 
