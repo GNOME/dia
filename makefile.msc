@@ -1,0 +1,83 @@
+all: 	build \
+	build\win32\
+	build\win32\bin \
+	build\win32\bin\dia.exe \
+	build\win32\bin\libdia.dll \
+	build\win32\bin\libgtk-win32-2.0-0.dll \
+	build\win32\bin\zlib.dll \
+	build\win32\bin\libart_lgpl.dll \
+	build\win32\bin\libxml2.dll \
+	build\win32\bin\libpng.dll \
+	build\win32\bin\libiconv.dll \
+	build\win32\bin\libcharset.dll \
+	build\win32\dia \
+	build\win32\dia\custom.dll \
+	build\win32\dia\standard.dll \
+	build\win32\lib \
+	build\win32\lib\pango \
+	build\win32\lib\gtk-2.0 \
+	build\win32\etc \
+	build\win32\dia_logo.png
+
+build:
+	md build
+
+build\win32: build
+	md build\win32
+	
+build\win32\bin: build\win32
+	md build\win32\bin
+
+build\win32\dia: build\win32
+	md build\win32\dia
+
+build\win32\bin\dia.exe: build\win32\bin app\dia.exe
+	copy app\dia.exe build\win32\bin\dia.exe
+
+build\win32\bin\libdia.dll: build\win32\bin lib\libdia.dll
+	copy lib\libdia.dll build\win32\bin\libdia.dll
+
+build\win32\bin\libgtk-win32-2.0-0.dll: build\win32\bin ..\lib\libgtk-win32-2.0-0.dll
+	copy ..\lib\*.dll build\win32\bin
+	
+build\win32\bin\zlib.dll: build\win32\bin ..\bin\zlib.dll
+	copy ..\bin\zlib.dll build\win32\bin
+	
+build\win32\bin\libart_lgpl.dll: build\win32\bin ..\bin\libart_lgpl.dll
+	copy ..\bin\libart_lgpl.dll build\win32\bin
+	
+build\win32\bin\libxml2.dll: build\win32\bin ..\bin\libxml2.dll
+	copy ..\bin\libxml2.dll build\win32\bin
+
+build\win32\bin\libpng.dll: build\win32\bin ..\bin\libpng.dll
+	copy ..\bin\libpng.dll build\win32\bin
+
+build\win32\bin\libiconv.dll: build\win32\bin ..\bin\libiconv.dll
+	copy ..\bin\libiconv.dll build\win32\bin
+
+build\win32\bin\libcharset.dll: build\win32\bin ..\bin\libcharset.dll
+	copy ..\bin\libcharset.dll build\win32\bin
+	
+build\win32\dia\custom.dll: build\win32\dia objects\custom\custom.dll
+	copy objects\custom\custom.dll build\win32\dia
+	
+build\win32\dia\standard.dll: build\win32\dia objects\standard\standard.dll
+	copy objects\standard\standard.dll build\win32\dia
+	
+build\win32\lib: build\win32
+	md build\win32\lib
+
+build\win32\lib\pango: build\win32\lib ..\lib\pango
+	md build\win32\lib\pango
+	xcopy /s ..\lib\pango\* build\win32\lib\pango\.
+
+build\win32\lib\gtk-2.0: build\win32\lib ..\lib\gtk-2.0
+	md build\win32\lib\gtk-2.0
+	xcopy /s ..\lib\gtk-2.0\* build\win32\lib\gtk-2.0\.
+
+build\win32\etc: build\win32 ..\etc
+	md build\win32\etc
+	xcopy /s ..\etc\* build\win32\etc\.	
+	
+build\win32\dia_logo.png: build\win32 dia_logo.png
+	copy dia_logo.png build\win32

@@ -1,3 +1,9 @@
+2003-01-03  Steffen Macke <sdteffen@web.de>
+
+	* makefile.msc(new): new makefile to create file
+	structure suitable for running dia win32 under
+	$(TOP)/dia/build/win32
+	
 2003-01-02  Steffen Macke <sdteffen@web.de>
 	
 	* lib/dia_svg.c: including stdlib.h
