@@ -1,3 +1,15 @@
+2000-01-28  James Henstridge  <james@daa.com.au>
+
+	* .../.cvsignore: added some cvsignore files to quieten cvs.
+	
+	* app/pagesetup.c (pagesetup_changed): added code to change the
+	scaling/fit to values as you change the options in the page setup
+	dialog.  I haven't added code so that the fit to options are saved
+	though.
+
+	* app/diapagelayout.[ch]: changed the scaling portion of the widget
+	to make it easier to set a `fit to' style scaling factor.
+
 2000-01-27 Cyrille Chepelov <chepelov@calixo.net>
 	* lib/neworth_conn.[ch]: (NEW) Temporary (hopefully) fork of orth_conn,
 	but connpoint_line-based, so that there's a connection point at the 

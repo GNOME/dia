@@ -59,7 +59,6 @@ static const struct _dia_paper_metrics {
 
 enum {
   CHANGED,
-  FITTOPAGE,
   LAST_SIGNAL
 };
 
@@ -105,24 +104,17 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
 		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, changed),
 		   gtk_signal_default_marshaller,
 		   GTK_TYPE_NONE, 0);
-  pl_signals[FITTOPAGE] =
-    gtk_signal_new("fittopage",
-		   GTK_RUN_FIRST,
-		   object_class->type,
-		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, fittopage),
-		   gtk_signal_default_marshaller,
-		   GTK_TYPE_NONE, 0);
   gtk_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
 
   object_class->destroy = dia_page_layout_destroy;
 }
 
-static void fittopage_pressed(DiaPageLayout *self);
 static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
 static gint darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
 static void paper_size_change(GtkMenuItem *item, DiaPageLayout *self);
 static void orient_changed(DiaPageLayout *self);
 static void margin_changed(DiaPageLayout *self);
+static void scalemode_changed(DiaPageLayout *self);
 static void scale_changed(DiaPageLayout *self);
 
 static void
@@ -276,19 +268,48 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(frame);
 
-  box = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(box), 5);
-  gtk_container_add(GTK_CONTAINER(frame), box);
-  gtk_widget_show(box);
+  table = gtk_table_new(2, 4, FALSE);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
+  gtk_container_add(GTK_CONTAINER(frame), table);
+  gtk_widget_show(table);
+
+  self->scale = gtk_radio_button_new_with_label(NULL, _("Scale:"));
+  gtk_table_attach(GTK_TABLE(table), self->scale, 0,1, 0,1,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->scale);
 
   self->scaling = gtk_spin_button_new(
 	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,10)), 1, 1);
-  gtk_box_pack_start(GTK_BOX(box), self->scaling, TRUE, FALSE, 0);
+  gtk_table_attach(GTK_TABLE(table), self->scaling, 1,4, 0,1,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->scaling);
 
-  self->fittopage = gtk_button_new_with_label(_("Fit to Page"));
-  gtk_box_pack_start(GTK_BOX(box), self->fittopage, TRUE, FALSE, 0);
-  gtk_widget_show(self->fittopage);
+  self->fitto = gtk_radio_button_new_with_label(
+			GTK_RADIO_BUTTON(self->scale)->group, _("Fit to:"));
+  gtk_table_attach(GTK_TABLE(table), self->fitto, 0,1, 1,2,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->fitto);
+
+  self->fitw = gtk_spin_button_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 10)), 1, 0);
+  gtk_widget_set_sensitive(self->fitw, FALSE);
+  gtk_table_attach(GTK_TABLE(table), self->fitw, 1,2, 1,2,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->fitw);
+
+  wid = gtk_label_new(_("by"));
+  gtk_misc_set_padding(GTK_MISC(wid), 5, 0);
+  gtk_table_attach(GTK_TABLE(table), wid, 2,3, 1,2,
+		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(wid);
+
+  self->fith = gtk_spin_button_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 10)), 1, 0);
+  gtk_widget_set_sensitive(self->fith, FALSE);
+  gtk_table_attach(GTK_TABLE(table), self->fith, 3,4, 1,2,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show(self->fith);
 
   /* the drawing area */
   self->darea = gtk_drawing_area_new();
@@ -309,11 +330,15 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_signal_connect_object(GTK_OBJECT(self->rmargin), "changed",
 			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
 
+  gtk_signal_connect_object(GTK_OBJECT(self->fitto), "toggled",
+			    GTK_SIGNAL_FUNC(scalemode_changed),
+			    GTK_OBJECT(self));
   gtk_signal_connect_object(GTK_OBJECT(self->scaling), "changed",
 			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->fittopage), "pressed",
-			    GTK_SIGNAL_FUNC(fittopage_pressed),
-			    GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->fitw), "changed",
+			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->fith), "changed",
+			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
 
   gtk_signal_connect_object(GTK_OBJECT(self->darea), "size_allocate",
 			    GTK_SIGNAL_FUNC(darea_size_allocate),
@@ -419,6 +444,21 @@ dia_page_layout_set_orientation(DiaPageLayout *self,
   }
 }
 
+gboolean
+dia_page_layout_get_fitto(DiaPageLayout *self)
+{
+  return GTK_TOGGLE_BUTTON(self->fitto)->active;
+}
+
+void
+dia_page_layout_set_fitto(DiaPageLayout *self, gboolean fitto)
+{
+  if (fitto)
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->fitto), TRUE);
+  else
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->scale), TRUE);
+}
+
 gfloat
 dia_page_layout_get_scaling(DiaPageLayout *self)
 {
@@ -430,6 +470,22 @@ dia_page_layout_set_scaling(DiaPageLayout *self, gfloat scaling)
 {
   GTK_SPIN_BUTTON(self->scaling)->adjustment->value = scaling * 100.0;
   gtk_adjustment_value_changed(GTK_SPIN_BUTTON(self->scaling)->adjustment);
+}
+
+void
+dia_page_layout_get_fit_dims(DiaPageLayout *self, gint *w, gint *h)
+{
+  if (w)
+    *w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(self->fitw));
+  if (h)
+    *h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(self->fith));
+}
+
+void
+dia_page_layout_set_fit_dims(DiaPageLayout *self, gint w, gint h)
+{
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->fitw), w);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->fith), h);
 }
 
 void
@@ -496,12 +552,6 @@ dia_page_layout_get_default_margins(const gchar *paper,
     *lmargin = paper_metrics[i].lmargin;
   if (rmargin)
     *rmargin = paper_metrics[i].rmargin;
-}
-
-static void
-fittopage_pressed(DiaPageLayout *self)
-{
-  gtk_signal_emit(GTK_OBJECT(self), pl_signals[FITTOPAGE]);
 }
 
 static void size_page(DiaPageLayout *self, GtkAllocation *a)
@@ -693,6 +743,22 @@ static void
 margin_changed(DiaPageLayout *self)
 {
   gtk_widget_queue_draw(self->darea);
+  if (!self->block_changed)
+    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+scalemode_changed(DiaPageLayout *self)
+{
+  if (GTK_TOGGLE_BUTTON(self->fitto)->active) {
+    gtk_widget_set_sensitive(self->scaling, FALSE);
+    gtk_widget_set_sensitive(self->fitw, TRUE);
+    gtk_widget_set_sensitive(self->fith, TRUE);
+  } else {
+    gtk_widget_set_sensitive(self->scaling, TRUE);
+    gtk_widget_set_sensitive(self->fitw, FALSE);
+    gtk_widget_set_sensitive(self->fith, FALSE);
+  }
   if (!self->block_changed)
     gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
 }

@@ -1,0 +1,6 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libsadt_objects.la

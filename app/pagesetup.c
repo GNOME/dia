@@ -29,6 +29,8 @@
 #include <gtk/gtk.h>
 #endif
 
+#include <math.h>
+
 #include "pagesetup.h"
 #include "intl.h"
 #include "diapagelayout.h"
@@ -42,7 +44,6 @@ struct _PageSetup {
 };
 
 static void pagesetup_changed  (GtkWidget *wid, PageSetup *ps);
-static void pagesetup_fittopage(GtkWidget *wid, PageSetup *ps);
 static void pagesetup_ok       (GtkWidget *wid, PageSetup *ps);
 static void pagesetup_apply    (GtkWidget *wid, PageSetup *ps);
 static void pagesetup_close    (GtkWidget *wid, PageSetup *ps);
@@ -110,8 +111,6 @@ create_page_setup_dlg(Diagram *dia)
 
   gtk_signal_connect(GTK_OBJECT(ps->paper), "changed",
 		     GTK_SIGNAL_FUNC(pagesetup_changed), ps);
-  gtk_signal_connect(GTK_OBJECT(ps->paper), "fittopage",
-		     GTK_SIGNAL_FUNC(pagesetup_fittopage), ps);
 #ifdef GNOME
   gnome_dialog_button_connect(GNOME_DIALOG(ps->window), 0,
 			      GTK_SIGNAL_FUNC(pagesetup_ok), ps);
@@ -134,35 +133,46 @@ create_page_setup_dlg(Diagram *dia)
 static void
 pagesetup_changed(GtkWidget *wid, PageSetup *ps)
 {
+  gfloat dwidth, dheight;
+  gfloat pwidth, pheight;
+  gfloat xscale, yscale;
+  gint fitw = 0, fith = 0;
+  gfloat cur_scaling;
+
   /* set sensitivity on apply button */
 #ifdef GNOME
   gnome_dialog_set_sensitive(GNOME_DIALOG(ps->window), 1, TRUE);
 #else
   gtk_widget_set_sensitive(ps->apply, TRUE);
 #endif
-}
-
-static void
-pagesetup_fittopage(GtkWidget *wid, PageSetup *ps)
-{
-  gfloat dwidth, dheight;
-  gfloat pwidth, pheight;
-  gfloat xscale, yscale;
-
-  dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper), 1.0);
 
   dwidth  = ps->dia->data->extents.right - ps->dia->data->extents.left;
   dheight = ps->dia->data->extents.bottom - ps->dia->data->extents.top;
-  dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
-				     &pwidth, &pheight);
 
   if (dwidth <= 0.0 || dheight <= 0.0)
     return;
 
-  xscale = pwidth / dwidth;
-  yscale = pheight / dheight;
-  dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper),
-			      MIN(xscale, yscale));
+  DIA_PAGE_LAYOUT(ps->paper)->block_changed = TRUE;
+
+  cur_scaling = dia_page_layout_get_scaling(DIA_PAGE_LAYOUT(ps->paper));
+  dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
+				     &pwidth, &pheight);
+  pwidth *= cur_scaling;
+  pheight *= cur_scaling;
+
+  if (dia_page_layout_get_fitto(DIA_PAGE_LAYOUT(ps->paper))) {
+    dia_page_layout_get_fit_dims(DIA_PAGE_LAYOUT(ps->paper), &fitw, &fith);
+    xscale = fitw * pwidth / dwidth;
+    yscale = fith * pheight / dheight;
+    dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper),
+				MIN(xscale, yscale));
+  } else {
+    fitw = ceil(dwidth * cur_scaling / pwidth);
+    fith = ceil(dheight * cur_scaling / pheight);
+    dia_page_layout_set_fit_dims(DIA_PAGE_LAYOUT(ps->paper), fitw, fith);
+  }
+
+  DIA_PAGE_LAYOUT(ps->paper)->block_changed = FALSE;
 }
 
 static void

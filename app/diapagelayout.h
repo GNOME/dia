@@ -43,8 +43,8 @@ struct _DiaPageLayout {
   GtkWidget *paper_size, *paper_label;
   GtkWidget *orient_portrait, *orient_landscape;
   GtkWidget *tmargin, *bmargin, *lmargin, *rmargin;
-  GtkWidget *scaling;
-  GtkWidget *fittopage;
+  GtkWidget *scale, *fitto;
+  GtkWidget *scaling, *fitw, *fith;
 
   GtkWidget *darea;
 
@@ -62,7 +62,6 @@ struct _DiaPageLayoutClass {
   GtkTableClass parent_class;
 
   void (*changed)(DiaPageLayout *pl);
-  void (*fittopage)(DiaPageLayout *pl);
 };
 
 GtkType      dia_page_layout_get_type    (void);
@@ -80,9 +79,17 @@ void         dia_page_layout_set_margins (DiaPageLayout *pl,
 DiaPageOrientation dia_page_layout_get_orientation (DiaPageLayout *pl);
 void         dia_page_layout_set_orientation (DiaPageLayout *pl,
 					      DiaPageOrientation orient);
+gboolean     dia_page_layout_get_fitto   (DiaPageLayout *self);
+void         dia_page_layout_set_fitto   (DiaPageLayout *self,
+					  gboolean fitto);
 gfloat       dia_page_layout_get_scaling (DiaPageLayout *self);
 void         dia_page_layout_set_scaling (DiaPageLayout *self,
 					  gfloat scaling);
+void         dia_page_layout_get_fit_dims(DiaPageLayout *self,
+					  gint *w, gint *h);
+void         dia_page_layout_set_fit_dims(DiaPageLayout *self,
+					  gint w, gint h);
+
 
 void         dia_page_layout_get_effective_area (DiaPageLayout *self,
 						 gfloat *width,
