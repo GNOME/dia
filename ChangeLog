@@ -1,3 +1,10 @@
+2000-09-10  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* app/create_object.c (create_object_button_press): 
+	* app/modify_tool.c (click_select_object): 
+	* lib/object.h: select renamed to selectf to prevent
+	compiler problems with function select().  OS/2 version.
+
 2000-09-08  Karsten Weiss  <knweiss@gmx.de>
 
 	* po/de.po: Updated.

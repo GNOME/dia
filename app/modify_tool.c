@@ -127,7 +127,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       }
       
       diagram_select(diagram, obj);
-      obj->ops->select(obj, clickedpoint,
+      obj->ops->selectf(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
 
       /*
@@ -144,7 +144,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       return obj;
     } else { /* Clicked on already selected. */
       /*printf("Already selected\n");*/
-      obj->ops->select(obj, clickedpoint,
+      obj->ops->selectf(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);

@@ -303,7 +303,7 @@ struct _ObjectOps {
   DestroyFunc         destroy;
   DrawFunc            draw;
   DistanceFunc        distance_from;
-  SelectFunc          select;
+  SelectFunc          selectf;
   CopyFunc            copy;
   MoveFunc            move;
   MoveHandleFunc      move_handle;
