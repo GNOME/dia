@@ -2657,7 +2657,7 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: objects/FS/function.c:691
 msgid "Eject"
-msgstr ""
+msgstr "Cuir amach"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
 #: objects/FS/function.c:693
@@ -3021,7 +3021,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: objects/FS/function.c:887
 msgid "Empty"
-msgstr ""
+msgstr "Folamh"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #: objects/FS/function.c:889 objects/FS/function.c:891
