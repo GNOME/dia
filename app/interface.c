@@ -936,7 +936,7 @@ create_sheets(GtkWidget *parent)
 
   swin = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swin),
-				 GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+				 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), swin, TRUE, TRUE, TRUE, TRUE, TRUE);
   gtk_widget_show(swin);
 

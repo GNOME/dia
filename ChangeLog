@@ -1,5 +1,22 @@
+2005-03-05  Alan Horkan <horkana@tcd.ie>
+ 
+ 	* app/interface.c Change Horizontal scroll policy to NEVER for sheets
+ 	this restores how Dia behaved before the GTK2 port and seems to help 
+ 	allow the toolbox to be more easily resized.  Bug #108891.
+ 
 2005-03-05  Lars Clausen  <lars@raeder.dk>
 
+	* Civil/civil_motor.shape:
+	* Civil/civil_rotor.shape:
+	* Logic/and.shape:
+	* Logic/buffer.shape:
+	* Logic/connector.shape:
+	* Logic/inverter.shape:
+	* Logic/nand.shape:
+	* Logic/nor.shape:
+	* Logic/not.shape:
+	* Logic/or.shape:
+	* Logic/xor.shape:
 	* shapes/Assorted/arrow-left-up.shape: 
 	* shapes/Assorted/heptagon.shape: 
 	* shapes/Assorted/star5.shape: 
