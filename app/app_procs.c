@@ -312,7 +312,16 @@ name_is_lib(char *name)
   len = strlen(name);
   if (len < 3)
     return FALSE;
-  return (strcmp(".so", &name[len-3])==0);
+  if ( (len>3) && (strcmp(".so", &name[len-3])==0) )
+    return 1;
+  if ( (len>9) && (strcmp(".so.0.0.0", &name[len-9])==0) )
+    return 1;
+  if ( (len>3) && (strcmp(".sl", &name[len-3])==0) )
+    return 1;
+  if ( (len>4) && (strcmp(".dll", &name[len-4])==0) )
+    return 1;
+  
+  return 0;
 }
 
 static GList *modules_list = NULL;
