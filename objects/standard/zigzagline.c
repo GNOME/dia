@@ -284,6 +284,7 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->line_color = zigzagline->line_color;
   newzigzagline->line_width = zigzagline->line_width;
   newzigzagline->line_style = zigzagline->line_style;
+  newzigzagline->dashlength = zigzagline->dashlength;
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
 

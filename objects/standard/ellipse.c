@@ -413,6 +413,7 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->border_width = ellipse->border_width;
   newellipse->border_color = ellipse->border_color;
   newellipse->inner_color = ellipse->inner_color;
+  newellipse->dashlength = ellipse->dashlength;
   newellipse->show_background = ellipse->show_background;
   newellipse->line_style = ellipse->line_style;
 
