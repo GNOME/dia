@@ -1,3 +1,12 @@
+1999-04-08  Lars R. Clausen <lrclause@cs.uiuc.edu>
+
+	* lib/message.c (message_error):
+	Fixed small error.
+
+	* app/commands.[ch]:
+	* app/diagram.[ch]:
+	Added begining of xfig importing
+
 1999-04-08  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
  
 	* objects/UML/pixmaps/state.xpm: 

@@ -34,8 +34,9 @@ message_internal(char *title, const char *fmt,
   GtkWidget *dialog_window = NULL;
   GtkWidget *label;
   GtkWidget *button;
+  gint len;
 
-  gint len = format_string_length_upper_bound (fmt, args);
+  len = format_string_length_upper_bound (fmt, args);
 
   if (len >= alloc) {
     if (buf)
@@ -115,7 +116,7 @@ message_error(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Warning"), format, &args, &args2);
+  message_internal(_("Error"), format, &args, &args2);
   va_end (args);
   va_end (args2);
 }

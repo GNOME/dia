@@ -599,6 +599,12 @@ diagram_set_filename(Diagram *dia, char *filename)
 
 
 void
+diagram_import_from_xfig(Diagram *dia, char *filename)
+{
+  printf("Fooled you!  Can't import %s yet!\n", filename);
+}
+
+void
 diagram_export_to_eps(Diagram *dia, char *filename)
 {
   RendererEPS *renderer;
