@@ -159,13 +159,20 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
   conn = &lifeline->connection;
   if (handle->id == HANDLE_BOXBOT) {
       t = to->y - conn->endpoints[0].y;
-      if (t > lifeline->rtop + LIFELINE_BOXMINHEIGHT && 
-	  t < conn->endpoints[1].y - conn->endpoints[0].y) 
+      if (t > LIFELINE_BOXMINHEIGHT && 
+	  t < conn->endpoints[1].y - conn->endpoints[0].y) {
 	  lifeline->rbot = t;
+	  if (t < lifeline->rtop + LIFELINE_BOXMINHEIGHT)
+	      lifeline->rtop = t - LIFELINE_BOXMINHEIGHT;
+      }
   } else if (handle->id == HANDLE_BOXTOP) {
       t = to->y - conn->endpoints[0].y;
-      if (t > 0 && t < lifeline->rbot - LIFELINE_BOXMINHEIGHT) 
+      if (t > 0 && 
+	  t < conn->endpoints[1].y-conn->endpoints[0].y-LIFELINE_BOXMINHEIGHT) {
 	  lifeline->rtop = t;	
+	  if (t > lifeline->rbot - LIFELINE_BOXMINHEIGHT)
+	      lifeline->rbot = t + LIFELINE_BOXMINHEIGHT;
+      }
   } else {
     /* move horizontally only if startpoint is moved */
     if (handle->id==HANDLE_MOVE_STARTPOINT) {
@@ -485,6 +492,7 @@ lifeline_load(ObjectNode obj_node, int version)
   /* Connection points */
   for (i=0;i<6;i++) {
     obj->connections[i] = &lifeline->connections[i];
+    lifeline->connections[i].object = obj;
   }
 
   lifeline->boxbot_handle.id = HANDLE_BOXBOT;

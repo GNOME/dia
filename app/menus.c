@@ -92,6 +92,7 @@ static GnomeUIInfo objects_align_h[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_h_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_h_callback, 2),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, 4),
   GNOMEUIINFO_END
 };
 
@@ -99,6 +100,7 @@ static GnomeUIInfo objects_align_v[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, 4),
   GNOMEUIINFO_END
 };
 
@@ -206,10 +208,12 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Horizontal/Top"),   NULL, objects_align_h_callback,    0},
   {N_("/Objects/Align Horizontal/Center"),NULL, objects_align_h_callback,    1},
   {N_("/Objects/Align Horizontal/Bottom"),NULL, objects_align_h_callback,    2},
+  {N_("/Objects/Align Horizontal/Equal Distance"),NULL, objects_align_h_callback,    4},
   {N_("/Objects/Align _Vertical"),        NULL, NULL,                        0, "<Branch>"},
   {N_("/Objects/Align Vertical/Left"),    NULL, objects_align_v_callback,    0},
   {N_("/Objects/Align Vertical/Center"),  NULL, objects_align_v_callback,    1},
   {N_("/Objects/Align Vertical/Right"),   NULL, objects_align_v_callback,    2},
+  {N_("/Objects/Align Vertical/Equal Distance"), NULL, objects_align_v_callback,    4},
 
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
   {N_("/_Dialogs"),               NULL,         NULL,                        0, "<Branch>"},

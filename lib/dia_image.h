@@ -24,6 +24,7 @@
 typedef void* DiaImage;
 
 extern DiaImage dia_image_load(gchar *filename);
+extern void dia_image_release(DiaImage image);
 extern int dia_image_pixel_width(DiaImage image);
 extern int dia_image_pixel_height(DiaImage image);
 

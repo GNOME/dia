@@ -221,6 +221,7 @@ object_list_move_delta(GList *objects, Point *delta)
   1 CENTER
   2 BOTTOM
   3 OBJECT POSITION
+  4 EQUAL DISTANCE
 */
 void
 object_list_align_h(GList *objects, int align)
@@ -229,7 +230,8 @@ object_list_align_h(GList *objects, int align)
   real y_pos;
   Object *obj;
   Point pos;
-  real top, bottom;
+  real top, bottom, freespc;
+  int nobjs = 0;
 
   if (objects==NULL)
     return;
@@ -238,6 +240,7 @@ object_list_align_h(GList *objects, int align)
 
   top = obj->bounding_box.top;
   bottom = obj->bounding_box.bottom;
+  freespc = obj->bounding_box.bottom - obj->bounding_box.top;
 
   list = objects->next;
   while (list != NULL) {
@@ -247,11 +250,13 @@ object_list_align_h(GList *objects, int align)
       top = obj->bounding_box.top;
     if (obj->bounding_box.bottom > bottom)
       bottom = obj->bounding_box.bottom;
-    
+
+    freespc += obj->bounding_box.bottom - obj->bounding_box.top;
+    nobjs++;
+
     list = g_list_next(list);
   }
 
-  
   switch (align) {
   case 0: /* TOP */
     y_pos = top;
@@ -264,6 +269,10 @@ object_list_align_h(GList *objects, int align)
     break;
   case 3: /* OBJECT POSITION */
     y_pos = (top + bottom)/2.0;
+    break;
+  case 4: /* EQUAL DISTANCE */
+    freespc = (bottom - top - freespc)/(double)nobjs;
+    y_pos = top;
     break;
   default:
     message_warning("Wrong argument to object_list_align_h()\n");
@@ -288,6 +297,10 @@ object_list_align_h(GList *objects, int align)
     case 3: /* OBJECT POSITION */
       pos.y = y_pos;
       break;
+    case 4: /* EQUAL DISTANCE */
+      pos.y = y_pos;
+      y_pos += obj->bounding_box.bottom - obj->bounding_box.top + freespc;
+      break;
     }
     
     obj->ops->move(obj, &pos);
@@ -297,11 +310,12 @@ object_list_align_h(GList *objects, int align)
 }
 
 /*
-  Align objects horizontally:
+  Align objects vertically:
   0 LEFT
   1 CENTER
   2 RIGHT
   3 OBJECT POSITION
+  4 EQUAL DISTANCE
 */
 void
 object_list_align_v(GList *objects, int align)
@@ -310,7 +324,8 @@ object_list_align_v(GList *objects, int align)
   real x_pos;
   Object *obj;
   Point pos;
-  real left, right;
+  real left, right, freespc = 0;
+  int nobjs = 0;
 
   if (objects==NULL)
     return;
@@ -319,6 +334,7 @@ object_list_align_v(GList *objects, int align)
 
   left = obj->bounding_box.left;
   right = obj->bounding_box.right;
+  freespc = obj->bounding_box.right - obj->bounding_box.left;
 
   list = objects->next;
   while (list != NULL) {
@@ -328,7 +344,10 @@ object_list_align_v(GList *objects, int align)
       left = obj->bounding_box.left;
     if (obj->bounding_box.right > right)
       right = obj->bounding_box.right;
-    
+
+    freespc += obj->bounding_box.right - obj->bounding_box.left;
+    nobjs++;
+
     list = g_list_next(list);
   }
 
@@ -344,6 +363,10 @@ object_list_align_v(GList *objects, int align)
     break;
   case 3: /* OBJECT POSITION */
     x_pos = (left + right)/2.0;
+    break;
+  case 4: /* EQUAL DISTANCE */
+    freespc = (right - left - freespc)/(double)nobjs;
+    x_pos = left;
     break;
   default:
     message_warning("Wrong argument to object_list_align_h()\n");
@@ -365,6 +388,10 @@ object_list_align_v(GList *objects, int align)
       break;
     case 3: /* OBJECT POSITION */
       pos.x = x_pos;
+      break;
+    case 4: /* EQUAL DISTANCE */
+      pos.x = x_pos;
+      x_pos += obj->bounding_box.right - obj->bounding_box.left + freespc;
       break;
     }
     

@@ -21,21 +21,13 @@
 #include "dia_image.h"
 #include <gdk_imlib.h>
 
-void 
-dia_image_draw(Renderer *renderer, 
-	   Point *to, real width, real height,
-	   DiaImage image)
-{
-  renderer->ops->draw_image(renderer, to, width, height, image);
-}
-
 DiaImage 
 dia_image_load(gchar *filename) 
 {
   return (DiaImage)gdk_imlib_load_image(filename);
 }
 
-DiaImage
+void
 dia_image_release(DiaImage image)
 {
   gdk_imlib_destroy_image((GdkImlibImage *)image);

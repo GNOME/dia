@@ -436,6 +436,12 @@ objet_save(Objet *pkg, ObjectNode obj_node)
 
   data_add_text(new_attribute(obj_node, "attrib"),
 		pkg->attributes);
+    
+  data_add_boolean(new_attribute(obj_node, "is_active"),
+		   pkg->is_active);
+  
+  data_add_boolean(new_attribute(obj_node, "show_attribs"),
+		   pkg->show_attributes);
 }
 
 static Object *
@@ -476,6 +482,13 @@ objet_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     pkg->attributes = data_text(attribute_first_data(attr));
 
+  attr = object_find_attribute(obj_node, "is_active");
+  if (attr != NULL)
+    pkg->is_active = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "show_attribs");
+  if (attr != NULL)
+    pkg->show_attributes = data_boolean(attribute_first_data(attr));
   
   element_init(elem, 8, 8);
 
