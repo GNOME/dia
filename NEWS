@@ -1,3 +1,17 @@
+dia-0.91-pre2: 9-Feb-2003
+* Fixed a number of small bugs:
+  - Properties dialog now hides when an object is deleted.
+  - Correct sizing of pixbuf & PS export.
+  - Diagram window not set as toolbar anymore.
+  - Command-line parsing for Gnome.
+  - A number of Windows-specific fixes.
+  - Several minor bugs.
+* Python plugins now installed.
+* Some doc updates.
+* Pixbuf export added on Unix side, plus several fixes in here.
+* Better check for finite in configure.in.
+* Updates of dependencies and RPM spec file.
+
 dia-0.91-pre1: 31-Jan-2003
 
 * Dia now uses Gtk2 which makes it look much prettier (menu

@@ -1,5 +1,9 @@
 2003-02-09  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* NEWS: 
+	* configure.in: 
+	* doc/en/dia-manual.sgml: Update for pre2.
+
 	* app/menus.c (display_menu_items): Fixed wrongly place separators.
 
 	* objects/flowchart/box.c (box_update_data): Applied patch from
