@@ -3,9 +3,12 @@ PRJ_TOP = ..
 PACKAGE = libdia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
+# don't break on win32 only with it
+#	-DGTK_DISABLE_DEPRECATED \
+
+
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-I.. \
-	-DGTK_DISABLE_DEPRECATED \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \

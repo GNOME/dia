@@ -591,7 +591,7 @@ set_true_callback(GtkWidget *w, int *data)
 }
 #endif
 
-void
+gboolean
 app_exit(void)
 {
   GList *list;
@@ -606,7 +606,7 @@ app_exit(void)
 
   if (app_exit_once) {
     g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\ndescribing how you can cause this message to appear.\n"));
-    return;
+    return FALSE;
   }
 
   if (diagram_modified_exists()) {
@@ -635,7 +635,7 @@ app_exit(void)
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK) {
       gtk_widget_destroy(dialog);
-      return;
+      return FALSE;
     }
     gtk_widget_destroy(dialog);
   }
@@ -674,6 +674,8 @@ app_exit(void)
   /* Yuck.  -Lars */
   printf(_("Thank you for using Dia.\n"));
   app_exit_once = TRUE;
+
+  return TRUE;
 }
 
 static void create_user_dirs(void)

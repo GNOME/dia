@@ -1,6 +1,6 @@
 dnl Check if the C compiler accepts a certain C flag, and if so adds it to
 dnl CFLAGS
-AC_DEFUN(DIA_CHECK_CFLAG, [
+AC_DEFUN([DIA_CHECK_CFLAG], [
   AC_MSG_CHECKING(if C compiler accepts $1)
   save_CFLAGS="$CFLAGS"
   CFLAGS="$CFLAGS $1"
@@ -150,7 +150,7 @@ else:
 
 dnl AM_CHECK_PYMOD(MODNAME [,SYMBOL [,ACTION-IF-FOUND [,ACTION-IF-NOT-FOUND]]])
 dnl Check if a module containing a given symbol is visible to python.
-AC_DEFUN(AM_CHECK_PYMOD,
+AC_DEFUN([AM_CHECK_PYMOD],
 [AC_REQUIRE([AM_PATH_PYTHON])
 py_mod_var=`echo $1['_']$2 | sed 'y%./+-%__p_%'`
 AC_MSG_CHECKING(for ifelse([$2],[],,[$2 in ])python module $1)
@@ -244,7 +244,7 @@ AC_SUBST(PYTHON_LIBS)])
 dnl AC_CHECK_FT2([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl Test for FreeType2, and define FT2_CFLAGS and FT2_LIBS
 dnl
-AC_DEFUN(AC_CHECK_FT2,
+AC_DEFUN([AC_CHECK_FT2],
 [dnl
 dnl Get the cflags and libraries from the freetype-config script
 dnl

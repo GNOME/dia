@@ -1,3 +1,49 @@
+2004-05-14  Lars Clausen  <lars@raeder.dk>
+
+	* Transfer of fixes from release branch.  Not the prettiest way to
+	do it, this should be done during release, not afterwards.
+
+	Tomasz Kłoczko <kloczek@pld.org.pl>:
+
+	* acinclude.m4: minor fixes (added missing [] quotation).
+
+	Lars Clausen  <lars@raeder.dk>:
+
+	* app/interface.c (toolbox_delete): 
+	* app/app_procs.[ch] (app_exit): Stop the delete event if the user
+	cancels quit due to modified diagrams.
+
+	Samúel Jón Gunnarsson  <sammi@techattack.nu>:
+
+	* is.po: Added "is" to ALL_LINGUAS.
+
+	Lars Clausen  <lars@raeder.dk>:
+
+	* dia.spec: Updated as per mail from Zhang Lin-bo <zlb@lsec.cc.ac.cn>
+
+	Hans Breuer  <hans@breuer.org>:
+
+	* lib/makefile.msc : removed -DGTK_DISABLE_DEPRECATED; the 
+	burden should be shared and not be win32 only ;) [this time 
+	build was broken by adding GtkType to widget.h]
+
+	* objects/standard/box.c objects/standard/ellipse.c :
+	for code clarification compare (obj->aspect != FREE_ASPECT)
+	and not (obj->aspect); no binary effect.
+
+	* app/paginate_psprint.c : don't leak printcmd
+
+	* objects/standard/box.c objects/standard/ellipse.c : fix gccisms :
+	standard C requires variables to be declared at the beginning of 
+	a block, also there is no fabsf() with msvc
+	
+	* app/win32print.[ch] : make win32_printer_close() return an
+	error code, it's used as pclose replacement
+
+	Lars Clausen  <lars@raeder.dk>:
+
+	* RELEASE-PROCESS: Mention PATCH keyword in release process.
+
 2004-05-06  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.[ch]: Utility function to make a widget with two

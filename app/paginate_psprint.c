@@ -297,6 +297,8 @@ diagram_print_ps(Diagram *dia)
     }
     
     gtk_entry_set_text(GTK_ENTRY(cmd), printcmd);
+    g_free(printcmd);
+    printcmd = NULL;
   }
 #endif
   persistence_register_string_entry("printer-command", cmd);
@@ -376,7 +378,7 @@ diagram_print_ps(Diagram *dia)
   gtk_widget_destroy(dialog);
   if (is_pipe) {
     int exitval = pclose(file);
-    if (exitval != NULL) {
+    if (exitval != 0) {
       message_error(_("Printing error: command '%s' returned %d\n"),
 		    printcmd, exitval);
     }

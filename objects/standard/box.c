@@ -236,9 +236,9 @@ box_move_handle(Box *box, Handle *handle,
   assert(to!=NULL);
 
   if (box->aspect != FREE_ASPECT){
-    float width, height;
-    float new_width, new_height;
-    float to_width, aspect_width;
+    double width, height;
+    double new_width, new_height;
+    double to_width, aspect_width;
     Point corner = box->element.corner;
     Point nw_to, se_to;
 
@@ -247,7 +247,7 @@ box_move_handle(Box *box, Handle *handle,
     switch (handle->id) {
     case HANDLE_RESIZE_N:
     case HANDLE_RESIZE_S:
-      new_height = fabsf(to->y - corner.y);
+      new_height = fabs(to->y - corner.y);
       new_width = new_height / height * width;
       break;
     case HANDLE_RESIZE_W:
@@ -259,8 +259,8 @@ box_move_handle(Box *box, Handle *handle,
     case HANDLE_RESIZE_NE:
     case HANDLE_RESIZE_SW:
     case HANDLE_RESIZE_SE:
-      to_width = fabsf(to->x - corner.x);
-      aspect_width = fabsf(to->y - corner.y) / height * width;
+      to_width = fabs(to->x - corner.x);
+      aspect_width = fabs(to->y - corner.y) / height * width;
       new_width = to_width > aspect_width ? to_width : aspect_width;
       new_height = new_width / width * height;
       break;
@@ -534,7 +534,7 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
     data_add_real(new_attribute(obj_node, "corner_radius"),
 		  box->corner_radius);
 
-  if (box->aspect)
+  if (box->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
 		  box->aspect);
 }

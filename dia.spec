@@ -56,7 +56,7 @@ gzip compressed).  It has print support, and can export to a number of formats s
 - First RPM release.
 
 %prep
-%setup -q
+%setup -q -n %name-%ver-%release
 
 %build
 
@@ -73,6 +73,8 @@ make
 %install
 rm -fr $RPM_BUILD_ROOT
 make prefix=$RPM_BUILD_ROOT%{_prefix} install
+
+rm -rf $RPM_BUILD_ROOT/%{_prefix}/var
 
 gzip --best $RPM_BUILD_ROOT%{_prefix}/man/man1/dia.1
 

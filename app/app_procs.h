@@ -21,7 +21,11 @@
 #include <lib/filter.h>
 
 void app_init(int argc, char **argv);
-void app_exit(void);
+/** Exit the application, but asking the user for confirmation
+ * if there are changed diagrams.
+ * Returns TRUE if the application exits.
+ */
+gboolean app_exit(void);
 int app_is_embedded(void);
 
 gboolean do_convert(const char *infname,

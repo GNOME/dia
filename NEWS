@@ -1,3 +1,9 @@
+dia-0.93-pre2: 04-Apr-2004
+
+Fixed crash bug in ellipse, plus various compilation problems.  Also
+renamed the dia manual to make dia.spec work better and did a few updates
+to dia.spec.
+
 dia-0.93-pre1: 11-Mar-2004
 
 Major improvements in this release include:
