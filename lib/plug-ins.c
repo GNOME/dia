@@ -665,7 +665,7 @@ dia_pluginrc_write(void)
     if (get_local_charset(&local_encoding)) {
       warn_about_broken_libxml1();
     }
-    pluginrc->encoding = strdup(local_encoding);
+    pluginrc->encoding = g_strdup(local_encoding);
   }
   xmlSaveFile(filename, pluginrc);
 #endif

@@ -720,7 +720,7 @@ diagram_data_save(DiagramData *data, const char *filename)
     if (get_local_charset(&local_encoding)) {
       warn_about_broken_libxml1();
     }
-    doc->encoding = strdup(local_encoding);
+    doc->encoding = g_strdup(local_encoding);
     /* We have to do this, because if the character encoding set is set to 
        UTF-8, libxml1 will NOT put an encoding declaration in the XML header.
        This sucks, because we have to support older non-standard files dia

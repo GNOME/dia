@@ -1,5 +1,11 @@
 2001-08-27  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/load_save.c:
+	* dia/lib/plug-ins.c: use g_strdup() instead of strdup(). Patch
+	from <robert.young@dsto.defence.gov.au>. Fixes #59591.
+	
+2001-08-27  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* app/modify_tool.c: (modify_button_release): Patch from
 	<robert.young@dsto.defence.gov.au>. Fixes the remaining bit from
 	#59090: if selection dragging was released outside of the window, 
