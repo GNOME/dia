@@ -94,7 +94,10 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter) {
 	recent_files = g_list_prepend(recent_files, filedata);
 
 	/* add to the menu */
-	basename = g_basename(fname);
+	basename = g_strdup(g_basename(fname));
+	basename = g_strdelimit(basename, "_", '\\');
+	basename = g_strescape(basename);
+	basename = g_strdelimit(basename, "\\", '_');
 	new_entry = g_new(GtkItemFactoryEntry, 1);
 	length = strlen(N_("/File/Open Recent/"))+strlen(basename)+1;
 	new_entry->path = g_new(char, length);
