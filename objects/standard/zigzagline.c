@@ -112,6 +112,8 @@ static void zigzagline_destroy(Zigzagline *zigzagline);
 static Object *zigzagline_copy(Zigzagline *zigzagline);
 static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
 static void zigzagline_apply_properties(Zigzagline *zigzagline);
+static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
+					   Point *clickedpoint);
 
 static ZigzaglineState *zigzagline_get_state(Zigzagline *zigzagline);
 static void zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state);
@@ -155,7 +157,7 @@ static ObjectOps zigzagline_ops = {
   (GetPropertiesFunc)   zigzagline_get_properties,
   (ApplyPropertiesFunc) zigzagline_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
+  (ObjectMenuFunc)      zigzagline_get_object_menu,
   (GetStateFunc)        zigzagline_get_state,
   (SetStateFunc)        zigzagline_set_state
 };
@@ -585,6 +587,45 @@ zigzagline_update_data(Zigzagline *zigzagline)
 
   obj->position = orth->points[0];
 }
+
+static void
+zigzagline_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  orthconn_add_segment((OrthConn *)obj, clicked);
+  zigzagline_update_data((Zigzagline *)obj);
+}
+
+static void
+zigzagline_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  orthconn_delete_segment((OrthConn *)obj, clicked);
+  zigzagline_update_data((Zigzagline *)obj);
+}
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), zigzagline_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), zigzagline_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  "Zigzagline",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &zigzagline->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}
+
 
 static void
 zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,

@@ -43,7 +43,7 @@ struct _OrthConn {
   Point *points;
   Handle endpoint_handles[2];
   Orientation *orientation; /*[numpoints - 1]*/
-  Handle **midpoint_handles; /*[numpoints - 1]*/
+  Handle **midpoint_handles; /*[numpoints - 1], endpoints are NULL */
 };
 
 struct _OrthConnState {
@@ -67,6 +67,11 @@ extern void orthconn_move(OrthConn *orth, Point *to);
 extern real orthconn_distance_from(OrthConn *orth, Point *point,
 				   real line_width);
 extern Handle* orthconn_get_middle_handle(OrthConn *orth);
+
+extern int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
+extern int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
+extern void orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
+extern void orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
 
 extern void orthconn_state_get(OrthConnState *state, OrthConn *orth);
 extern void orthconn_state_set(OrthConnState *state, OrthConn *orth);

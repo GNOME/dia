@@ -1,3 +1,12 @@
+1999-07-11  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/orth_conn.[ch]:
+	Added code for add/delete segment.
+
+	* objects/standard/zigzagline.c:
+	Use the new orth_conn code.
+	
+
 1999-07-08  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* objects/FS/Makefile.am

@@ -22,6 +22,7 @@
 
 #include "orth_conn.h"
 #include "message.h"
+#include "diamenu.h"
 
 
 static void orthconn_try_remove_segments(OrthConn *orth, int segment);
@@ -41,7 +42,6 @@ static void setup_midpoint_handle(Handle *handle)
   handle->connected_to = NULL;
 }
 
-
 static int get_handle_nr(OrthConn *orth, Handle *handle)
 {
   int i = 0;
@@ -52,11 +52,37 @@ static int get_handle_nr(OrthConn *orth, Handle *handle)
   return -1;
 }
 
+static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
+{
+  int i;
+  int segment;
+  real distance, tmp_dist;
+
+  segment = 0;
+  distance = distance_line_point(&orth->points[0], &orth->points[1], 0, point);
+  
+  for (i=1;i<orth->numpoints-1;i++) {
+    printf("i: %d\n", i);
+    tmp_dist = distance_line_point(&orth->points[i], &orth->points[i+1], 0, point);
+    if (tmp_dist < distance) {
+      segment = i;
+      distance = tmp_dist;
+    }
+  }
+
+  printf("distance: %f, segment: %d\n", distance, segment);
+  if (distance < max_dist)
+    return segment;
+  
+  return -1;
+}
+
+
 void
 orthconn_move_handle(OrthConn *orth, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
-  int n,i;
+  int n;
   int handle_nr;
   
   switch(handle->id) {
@@ -142,8 +168,10 @@ remove_segment_before(OrthConn *orth, int segment)
   int i;
   
 
-  object_remove_handle(&orth->object, orth->midpoint_handles[segment]);
-  g_free(orth->midpoint_handles[segment]);
+  if (orth->midpoint_handles[segment]) {
+    object_remove_handle(&orth->object, orth->midpoint_handles[segment]);
+    g_free(orth->midpoint_handles[segment]);
+  }
 			 
   /* delete the points */
   orth->numpoints = orth->numpoints - 1;
@@ -170,8 +198,10 @@ remove_segment_after(OrthConn *orth, int segment)
 {
   int i;
   
-  object_remove_handle(&orth->object, orth->midpoint_handles[segment]);
-  g_free(orth->midpoint_handles[segment]);
+  if (orth->midpoint_handles[segment]) {
+    object_remove_handle(&orth->object, orth->midpoint_handles[segment]);
+    g_free(orth->midpoint_handles[segment]);
+  }
 			 
   /* delete the points */
   orth->numpoints = orth->numpoints - 1;
@@ -192,38 +222,30 @@ remove_segment_after(OrthConn *orth, int segment)
 				   (orth->numpoints-1)*sizeof(Handle *));
 }
 
-/* Removes very small segments on both sides of a segment */
 static void
-orthconn_try_remove_segments(OrthConn *orth, int segment)
+orthconn_remove_segment(OrthConn *orth, int segment)
 {
-  real len;
-
   if (orth->numpoints == 3)
     return; /* Cant remove any more */
   
   /* Earlier segment: */
   if (segment>0) {
-    len = fabs(orth->points[segment-1].x - orth->points[segment].x) +
-      fabs(orth->points[segment-1].y - orth->points[segment].y);
-
-    if (len<0.08) {
-      switch(orth->orientation[segment]) {
-      case HORIZONTAL:
-	orth->points[segment+1].y = orth->points[segment-1].y;
-	break;
-      case VERTICAL:
-	orth->points[segment+1].x = orth->points[segment-1].x;
-	break;
-      }
-      if (segment == 1) {
-	orth->points[segment] = orth->points[segment-1];
-	remove_segment_before(orth, segment-1);
-	segment--;
-      } else {
-	remove_segment_before(orth, segment-1);
-	remove_segment_before(orth, segment-1);
-	segment -= 2;
-      }
+    switch(orth->orientation[segment]) {
+    case HORIZONTAL:
+      orth->points[segment+1].y = orth->points[segment-1].y;
+      break;
+    case VERTICAL:
+      orth->points[segment+1].x = orth->points[segment-1].x;
+      break;
+    }
+    if (segment == 1) {
+      orth->points[segment] = orth->points[segment-1];
+      remove_segment_before(orth, segment-1);
+      segment--;
+    } else {
+      remove_segment_before(orth, segment-1);
+      remove_segment_before(orth, segment-1);
+      segment -= 2;
     }
   }
 
@@ -232,29 +254,23 @@ orthconn_try_remove_segments(OrthConn *orth, int segment)
 
   /* Later segment: */
   if (segment < (orth->numpoints-2)) {
-    len = fabs(orth->points[segment+1].x - orth->points[segment+2].x) +
-      fabs(orth->points[segment+1].y - orth->points[segment+2].y);
-
-    if (len<0.08) {
-      switch(orth->orientation[segment]) {
-      case HORIZONTAL:
-	orth->points[segment].y = orth->points[segment+2].y;
-	break;
-      case VERTICAL:
-	orth->points[segment].x = orth->points[segment+2].x;
-	break;
-      }
-      if (segment == (orth->numpoints-3)) {
-	orth->points[segment+1] = orth->points[segment+2];
-	remove_segment_after(orth, segment+1);
-	segment--;
-      } else {
-	remove_segment_after(orth, segment);
-	remove_segment_after(orth, segment);
-	segment -= 2;
-      }
+    switch(orth->orientation[segment]) {
+    case HORIZONTAL:
+      orth->points[segment].y = orth->points[segment+2].y;
+      break;
+    case VERTICAL:
+      orth->points[segment].x = orth->points[segment+2].x;
+      break;
     }
-    
+    if (segment == (orth->numpoints-3)) {
+      orth->points[segment+1] = orth->points[segment+2];
+      remove_segment_after(orth, segment+1);
+      segment--;
+    } else {
+      remove_segment_after(orth, segment);
+      remove_segment_after(orth, segment);
+      segment -= 2;
+    }
   }
 }
 
@@ -267,7 +283,7 @@ orthconn_update_data(OrthConn *orth)
   orth->endpoint_handles[0].pos = orth->points[0];
   orth->endpoint_handles[1].pos = orth->points[orth->numpoints-1];
 
-  for (i=0;i<orth->numpoints-1;i++) {
+  for (i=1;i<orth->numpoints-2;i++) {
     set_midpoint(&orth->midpoint_handles[i]->pos, orth, i);
   }
 }
@@ -318,10 +334,221 @@ orthconn_simple_draw(OrthConn *orth, Renderer *renderer, real width)
 }
 
 
-/* Needs to have at least 4 handles. 
-   The first 4 are used. Handles are dynamicaly moved created/deleted,
+int
+orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)
+{
+  int segment;
+  
+  if (orth->numpoints==3)
+    return 0;
+
+  segment = get_segment_nr(orth, clickedpoint, 1.0);
+
+  if (segment<0)
+    return 0;
+  
+  if ( (segment != 0) && (segment != orth->numpoints-2)) {
+    /* middle segment */
+    if (orth->numpoints==4)
+      return 0;
+  }
+
+  return 1;
+}
+
+void orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
+{
+  int segment;
+
+  if (orth->numpoints==3)
+    return;
+  
+  segment = get_segment_nr(orth, clickedpoint, 1.0);
+  if (segment < 0)
+    return;
+
+  if (segment==0) {
+    remove_segment_before(orth, 0);
+    object_remove_handle(&orth->object, orth->midpoint_handles[0]);
+    g_free(orth->midpoint_handles[0]);
+    orth->midpoint_handles[0] = NULL;
+  } else if (segment == orth->numpoints-2) {
+    object_remove_handle(&orth->object, orth->midpoint_handles[segment-1]);
+    g_free(orth->midpoint_handles[segment-1]);
+    orth->midpoint_handles[segment-1] = NULL;
+    remove_segment_after(orth, segment);
+  } else if (segment > 0) {
+    if (orth->numpoints == 4)
+      return;
+    if (segment == orth->numpoints-3) { /* next last segment */
+      remove_segment_after(orth, segment-1);
+      remove_segment_after(orth, segment-1);
+      switch(orth->orientation[segment-2]) {
+      case HORIZONTAL:
+	orth->points[segment-1].x = orth->points[segment].x;
+	break;
+      case VERTICAL:
+	orth->points[segment-1].y = orth->points[segment].y;
+	break;
+      }
+    } else {
+      remove_segment_before(orth, segment);
+      remove_segment_before(orth, segment);
+      switch(orth->orientation[segment]) {
+      case HORIZONTAL:
+	orth->points[segment].x = orth->points[segment-1].x;
+	break;
+      case VERTICAL:
+	orth->points[segment].y = orth->points[segment-1].y;
+	break;
+      }
+    }
+  }
+}
+
+int
+orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint)
+{
+  return 1; /* TODO: Fix. */
+}
+
+
+static void
+add_first_segment(OrthConn *orth)
+{
+  int i;
+  
+  orth->numpoints++;
+  /* Add an extra point first: */
+  orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
+  for (i=orth->numpoints-1;i>1;i--) {
+    orth->points[i] = orth->points[i-1];
+  }
+  /* Add extra line-segment first: */
+  orth->orientation = realloc(orth->orientation,
+			      (orth->numpoints-1)*sizeof(Orientation));
+  orth->midpoint_handles = realloc(orth->midpoint_handles,
+				   (orth->numpoints-1)*sizeof(Handle *));
+  for (i=orth->numpoints-2;i>0;i--) {
+    orth->midpoint_handles[i] = orth->midpoint_handles[i-1];
+    orth->orientation[i] = orth->orientation[i-1];
+  }
+  orth->orientation[0] = FLIP_ORIENT(orth->orientation[1]);
+  orth->midpoint_handles[0] = NULL;
+  orth->midpoint_handles[1] = g_new(Handle,1);
+  setup_midpoint_handle(orth->midpoint_handles[1]);
+
+  orth->points[1].x = orth->points[0].x;
+  orth->points[1].y = orth->points[0].y;
+      
+  set_midpoint(&orth->midpoint_handles[1]->pos, orth, 1);
+
+  object_add_handle(&orth->object, orth->midpoint_handles[1]);
+}
+
+static void
+add_last_segment(OrthConn *orth)
+{
+  int n;
+  
+  orth->numpoints++;
+
+  n = orth->numpoints - 1; /* last point */
+  /* Add an extra point last: */
+  orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
+  orth->points[n] = orth->points[n-1];
+  /* Add extra line-segment last: */
+  orth->orientation = realloc(orth->orientation,
+			      (orth->numpoints-1)*sizeof(Orientation));
+  orth->midpoint_handles = realloc(orth->midpoint_handles,
+				   (orth->numpoints-1)*sizeof(Handle *));
+  orth->orientation[n-1] = FLIP_ORIENT(orth->orientation[n-2]);
+  orth->midpoint_handles[n-1] = NULL;
+  orth->midpoint_handles[n-2] = g_new(Handle, 1);
+  setup_midpoint_handle(orth->midpoint_handles[n-2]);
+
+  orth->points[n-1].x = orth->points[n].x;
+  orth->points[n-1].y = orth->points[n].y;
+  
+  set_midpoint(&orth->midpoint_handles[n-2]->pos, orth, n-2);
+  
+  object_add_handle(&orth->object, orth->midpoint_handles[n-2]);
+}
+
+static void
+add_middle_segment(OrthConn *orth, int segment, Point *point)
+{
+  int i;
+  
+  orth->numpoints += 2;
+
+  /* Add two extra points after segment: */
+  orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
+  for (i=orth->numpoints-1;i>segment+2;i--) {
+    orth->points[i] = orth->points[i-2];
+    
+  }
+
+  /* Add extra line-segment first: */
+  orth->orientation = realloc(orth->orientation,
+			      (orth->numpoints-1)*sizeof(Orientation));
+  orth->midpoint_handles = realloc(orth->midpoint_handles,
+				   (orth->numpoints-1)*sizeof(Handle *));
+  for (i=orth->numpoints-2;i>segment+2;i--) {
+    orth->midpoint_handles[i] = orth->midpoint_handles[i-2];
+    orth->orientation[i] = orth->orientation[i-2];
+  }
+  orth->orientation[segment+1] = FLIP_ORIENT(orth->orientation[segment]);
+  orth->orientation[segment+2] = orth->orientation[segment];
+  orth->midpoint_handles[segment+1] = g_new(Handle,1);
+  setup_midpoint_handle(orth->midpoint_handles[segment+1]);
+  orth->midpoint_handles[segment+2] = g_new(Handle,1);
+  setup_midpoint_handle(orth->midpoint_handles[segment+2]);
+
+  switch (orth->orientation[segment]) {
+  case HORIZONTAL:
+    orth->points[segment+1].x = point->x;
+    orth->points[segment+1].y = orth->points[segment].y;
+    orth->points[segment+2].x = point->x;
+    orth->points[segment+2].y = orth->points[segment].y;
+    break;
+  case VERTICAL:
+    orth->points[segment+1].x = orth->points[segment].x;
+    orth->points[segment+1].y = point->y;
+    orth->points[segment+2].x = orth->points[segment].x;
+    orth->points[segment+2].y = point->y;
+    break;
+  }
+
+  if (orth->midpoint_handles[segment])
+    set_midpoint(&orth->midpoint_handles[segment]->pos, orth, 0);
+  set_midpoint(&orth->midpoint_handles[segment+1]->pos, orth, 0);
+  set_midpoint(&orth->midpoint_handles[segment+2]->pos, orth, 0);
+
+  object_add_handle(&orth->object, orth->midpoint_handles[segment+1]);
+  object_add_handle(&orth->object, orth->midpoint_handles[segment+2]);
+}
+
+void orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
+{
+  int segment;
+
+  segment = get_segment_nr(orth, clickedpoint, 1000000.0);
+
+  if (segment==0) {
+    add_first_segment(orth);
+  } else if (segment == orth->numpoints-2) {
+    add_last_segment(orth);
+  } else if (segment > 0) {
+    add_middle_segment(orth, segment, clickedpoint);
+  }
+}
+
+
+/* Needs to have at least 2 handles. 
+   The first 2 are used. Handles are dynamicaly moved created/deleted,
    so don't rely on them having a special index.
-*/
+   The midpoint handles for the end segments are NULL. */
 void
 orthconn_init(OrthConn *orth, Point *startpoint)
 {
@@ -329,7 +556,7 @@ orthconn_init(OrthConn *orth, Point *startpoint)
 
   obj = &orth->object;
 
-  object_init(obj, 4, 0);
+  object_init(obj, 2, 0);
   
   orth->numpoints = 3;
 
@@ -351,13 +578,8 @@ orthconn_init(OrthConn *orth, Point *startpoint)
 
   orth->midpoint_handles = g_malloc(2*sizeof(Handle *));
   
-  orth->midpoint_handles[0] = g_new(Handle,1);
-  setup_midpoint_handle(orth->midpoint_handles[0]);
-  obj->handles[2] = orth->midpoint_handles[0];
-
-  orth->midpoint_handles[1] = g_new(Handle,1);
-  setup_midpoint_handle(orth->midpoint_handles[1]);
-  obj->handles[3] = orth->midpoint_handles[1];
+  orth->midpoint_handles[0] = NULL;
+  orth->midpoint_handles[1] = NULL;
 
   /* Just so we have some position: */
   orth->points[0] = *startpoint;
@@ -376,6 +598,7 @@ void
 orthconn_copy(OrthConn *from, OrthConn *to)
 {
   int i;
+  int handle_nr;
   Object *toobj, *fromobj;
 
   toobj = &to->object;
@@ -400,12 +623,18 @@ orthconn_copy(OrthConn *from, OrthConn *to)
   to->orientation = g_malloc((to->numpoints-1)*sizeof(Orientation));
   to->midpoint_handles = g_malloc((to->numpoints-1)*sizeof(Handle *));
 
+  handle_nr = 2;
   for (i=0;i<to->numpoints-1;i++) {
     to->orientation[i] = from->orientation[i];
-    to->midpoint_handles[i] = g_new(Handle,1);
-    setup_midpoint_handle(to->midpoint_handles[i]);
-    to->midpoint_handles[i]->pos = from->midpoint_handles[i]->pos;
-    toobj->handles[i+2] = to->midpoint_handles[i];
+    if (from->midpoint_handles[i] != NULL) {
+      to->midpoint_handles[i] = g_new(Handle,1);
+      setup_midpoint_handle(to->midpoint_handles[i]);
+      to->midpoint_handles[i]->pos = from->midpoint_handles[i]->pos;
+      toobj->handles[handle_nr] = to->midpoint_handles[i];
+      handle_nr++;
+    } else {
+      to->midpoint_handles[i] = NULL;
+    }
   }
 }
 
@@ -420,7 +649,9 @@ orthconn_destroy(OrthConn *orth)
   g_free(orth->orientation);
 
   for (i=0;i<orth->numpoints-1;i++)
-    g_free(orth->midpoint_handles[i]);
+    if (orth->midpoint_handles[i])
+      g_free(orth->midpoint_handles[i]);
+  
   g_free(orth->midpoint_handles);
 }
 
@@ -451,6 +682,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   int i;
   AttributeNode attr;
   DataNode data;
+  int handle_nr;
   
   Object *obj = &orth->object;
 
@@ -463,7 +695,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   else
     orth->numpoints = 0;
 
-  object_init(obj, 2 + orth->numpoints-1, 0);
+  object_init(obj, 2 + orth->numpoints-3, 0);
 
   data = attribute_first_data(attr);
   orth->points = g_malloc((orth->numpoints)*sizeof(Point));
@@ -497,10 +729,13 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
 
   orth->midpoint_handles = g_malloc((orth->numpoints-1)*sizeof(Handle *));
 
-  for (i=0;i<orth->numpoints-1;i++) {
+  orth->midpoint_handles[0] = NULL;
+  orth->midpoint_handles[1] = NULL;
+  handle_nr = 2;
+  for (i=1;i<orth->numpoints-2;i++) {
     orth->midpoint_handles[i] = g_new(Handle, 1);
     setup_midpoint_handle(orth->midpoint_handles[i]);
-    obj->handles[i+2] = orth->midpoint_handles[i];
+    obj->handles[handle_nr++] = orth->midpoint_handles[i];
   }
 
   orthconn_update_data(orth);
