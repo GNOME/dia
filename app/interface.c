@@ -565,9 +565,9 @@ create_toolbox ()
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
 #ifdef GNOME
-  gtk_container_add (GTK_CONTAINER (window), main_vbox);
-#else
   gnome_app_set_contents(GNOME_APP(window), main_vbox);
+#else
+  gtk_container_add (GTK_CONTAINER (window), main_vbox);
 #endif
   gtk_widget_show (main_vbox);
 
