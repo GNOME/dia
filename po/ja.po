@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia CVS-20020130\n"
-"POT-Creation-Date: 2002-01-30 19:59+0900\n"
-"PO-Revision-Date: 2002-01-30 20:19+0900\n"
+"Project-Id-Version: dia CVS-20020208\n"
+"POT-Creation-Date: 2002-02-08 16:29+0900\n"
+"PO-Revision-Date: 2002-02-09 01:17+0900\n"
 "Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Quit"
 msgstr "終了"
 
-#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:771 app/lineprops_area.c:971 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "diaに内蔵されたオブジェクトとフィルタ"
 
-#: app/color_area.c:264 lib/widgets.c:519
+#: app/color_area.c:264 lib/widgets.c:677
 msgid "Select color"
 msgstr "色の選択"
 
@@ -169,10 +169,10 @@ msgid "Contributors:"
 msgstr "コントリビュータ一覧:"
 
 #. setup buttons
-#: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:762 app/lineprops_area.c:961 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:101
+#: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
@@ -197,7 +197,7 @@ msgid "Apply"
 msgstr "適用"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:735
+#: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
 #: app/properties.c:111
 msgid "Close"
 msgstr "閉じる"
@@ -234,7 +234,7 @@ msgstr "グリッド"
 msgid "Background Colour"
 msgstr "背景色"
 
-#: app/dia-props.c:200 lib/diagramdata.c:60
+#: app/dia-props.c:200 lib/diagramdata.c:62 lib/diagramdata.c:64
 msgid "Background"
 msgstr "背景"
 
@@ -244,30 +244,26 @@ msgstr "Bonoboを初期化できません!"
 
 #. &export_file_format
 #: app/diaconv.c:95
-#, fuzzy
 msgid "Export format to use"
 msgstr "指定したファイル形式へエクスポートして終了する"
 
 #. &export_file_name
 #: app/diaconv.c:97
-#, fuzzy
 msgid "Export file name to use"
-msgstr "指定したファイル形式へエクスポートして終了する"
+msgstr "出力ファイル名を指定する"
 
 #: app/diaconv.c:99
-#, fuzzy
 msgid "Quiet operation"
 msgstr "操作表示の抑制"
 
 #: app/diaconv.c:154
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"オプション%sにエラーがあります: %s.\n"
-"'%s --help'を実行して使用できるコマンドラインオプションの一覧を参照してくださ"
-"い。\n"
+"引数が見つかりませんでした\n"
+"'%s --help'を実行して使用できるコマンドラインオプションの一覧を参照してください。\n"
 
 #: app/diaconv.c:164
 #, c-format
@@ -275,14 +271,13 @@ msgid "%s error: can specify only one of -t or -o."
 msgstr "%s エラー: -f か -o のどちらかだけを指定できます"
 
 #: app/diaconv.c:170
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"オプション%sにエラーがあります: %s.\n"
-"'%s --help'を実行して使用できるコマンドラインオプションの一覧を参照してくださ"
-"い。\n"
+"%s エラー: -tあるいは-oのどちらかを指定しなければなりません\n"
+"'%s --help'を実行して使用できるコマンドラインオプションの一覧を参照してください。\n"
 
 #: app/diaconv.c:179
 #, c-format
@@ -292,12 +287,12 @@ msgstr "%s エラー: 入力ファイルがありません"
 #: app/diaconv.c:232
 #, c-format
 msgid "%s error: only one input file expected."
-msgstr ""
+msgstr "%s エラー: 入力ファイルはひとつだけ指定します"
 
 #: app/diaconv.c:245
 #, c-format
 msgid "%s error: popt library not available on this system"
-msgstr ""
+msgstr "%s エラー: このシステム上にはpoptライブラリが利用できません"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -305,27 +300,27 @@ msgstr "/オブジェクトのソート(_S)"
 
 #: app/diagram_tree_menu.c:46
 msgid "/Sort objects/by _name"
-msgstr "/オブジェクトのソート/名前(_n)"
+msgstr "/オブジェクトのソート/名前順(_n)"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr "/オブジェクトのソート/種類(_y)"
+msgstr "/オブジェクトのソート/種類順(_y)"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/オブジェクトのソート/挿入順"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr ""
+msgstr "/オブジェクトのソート/すべて名前順"
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr ""
+msgstr "/オブジェクトのソート/すべて種類順"
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/オブジェクトのソート/すべて挿入順"
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
@@ -333,15 +328,15 @@ msgstr "/オブジェクトのソート/デフォルト(_D)"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr "/オブジェクトのソート/デフォルト/名前(_n)"
+msgstr "/オブジェクトのソート/デフォルト/名前順(_n)"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr "/オブジェクトのソート/デフォルト/種類(_y)"
+msgstr "/オブジェクトのソート/デフォルト/種類順(_y)"
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
-msgstr ""
+msgstr "/オブジェクトのソート/デフォルト/挿入順(_i)"
 
 #: app/diagram_tree_menu.c:66
 msgid "/Sort _diagrams"
@@ -353,7 +348,7 @@ msgstr "/ダイアグラムのソート(_d)/名前(_n)"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr ""
+msgstr "/ダイアグラムのソート(_d)/挿入順(_i)"
 
 #: app/diagram_tree_menu.c:71
 msgid "/Sort diagrams/_Default"
@@ -365,7 +360,7 @@ msgstr "/ダイアグラムのソート/デフォルト/名前(_n)"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr ""
+msgstr "ダイアグラムのソート/デフォルト/挿入順(_i)"
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
 msgid "/_Locate"
@@ -564,7 +559,7 @@ msgstr "エクスポートオプション"
 
 #: app/interface.c:44
 msgid "Modify object(s)"
-msgstr "オブジェクトの変更"
+msgstr "オブジェクトの変更します"
 
 #: app/interface.c:45 app/menus.c:203
 msgid "Modify"
@@ -577,7 +572,7 @@ msgstr "拡大"
 
 #: app/interface.c:54
 msgid "Scroll around the diagram"
-msgstr "ダイアグラムに沿ったスクロール"
+msgstr "ダイアグラムの周囲にスクロールさせます"
 
 #: app/interface.c:55 app/menus.c:205
 msgid "Scroll"
@@ -585,7 +580,7 @@ msgstr "スクロール"
 
 #: app/interface.c:59
 msgid "Create Text"
-msgstr "テキストの生成"
+msgstr "テキストを生成します"
 
 #. PROP_STD_TEXT_ALIGNMENT,
 #. PROP_STD_TEXT_FONT,
@@ -601,7 +596,7 @@ msgstr "テキスト"
 
 #: app/interface.c:64
 msgid "Create Box"
-msgstr "矩形の生成"
+msgstr "矩形を生成します"
 
 #: app/interface.c:65 app/menus.c:207
 msgid "Box"
@@ -609,7 +604,7 @@ msgstr "矩形"
 
 #: app/interface.c:69
 msgid "Create Ellipse"
-msgstr "楕円の生成"
+msgstr "楕円を生成します"
 
 #: app/interface.c:70 app/menus.c:208
 msgid "Ellipse"
@@ -617,7 +612,7 @@ msgstr "楕円"
 
 #: app/interface.c:74
 msgid "Create Polygon"
-msgstr "多角形の作成"
+msgstr "多角形を生成します"
 
 #: app/interface.c:75 app/menus.c:209
 msgid "Polygon"
@@ -625,7 +620,7 @@ msgstr "多角形"
 
 #: app/interface.c:79
 msgid "Create Beziergon"
-msgstr "ベジエ曲線の作成"
+msgstr "ベジエ曲線を生成します"
 
 #: app/interface.c:80 app/menus.c:210
 msgid "Beziergon"
@@ -633,7 +628,7 @@ msgstr "ベジエ曲線"
 
 #: app/interface.c:84
 msgid "Create Line"
-msgstr "線の生成"
+msgstr "線を生成します"
 
 #: app/interface.c:85 app/menus.c:211 objects/standard/line.c:188
 msgid "Line"
@@ -641,7 +636,7 @@ msgstr "線 (両側)"
 
 #: app/interface.c:89
 msgid "Create Arc"
-msgstr "円弧の生成"
+msgstr "円弧を生成します"
 
 #: app/interface.c:90 app/menus.c:212
 msgid "Arc"
@@ -649,7 +644,7 @@ msgstr "円弧"
 
 #: app/interface.c:94
 msgid "Create Zigzagline"
-msgstr "ジグザグ線の生成"
+msgstr "ジグザグ線を生成します"
 
 #: app/interface.c:95 app/menus.c:213
 msgid "Zigzagline"
@@ -657,7 +652,7 @@ msgstr "ジグザグ線"
 
 #: app/interface.c:99
 msgid "Create Polyline"
-msgstr "連続線の生成"
+msgstr "連続線を生成します"
 
 #: app/interface.c:100 app/menus.c:214
 msgid "Polyline"
@@ -665,7 +660,7 @@ msgstr "連続線"
 
 #: app/interface.c:104
 msgid "Create Bezierline"
-msgstr "ベジエ曲線の作成"
+msgstr "ベジエ曲線を生成します"
 
 #: app/interface.c:105 app/menus.c:215
 msgid "Bezierline"
@@ -673,7 +668,7 @@ msgstr "ベジエ曲線"
 
 #: app/interface.c:109
 msgid "Create Image"
-msgstr "イメージの生成"
+msgstr "イメージを生成します"
 
 #: app/interface.c:110 app/menus.c:216
 msgid "Image"
@@ -719,19 +714,19 @@ msgstr "レイヤ"
 msgid "Diagrams:"
 msgstr "ダイアグラム:"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:311 app/layer_dialog.c:313
 msgid "New layer"
 msgstr "新規レイヤ"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:518
 msgid "none"
 msgstr "なし"
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:974
 msgid "Edit Layer Attributes"
 msgstr "レイヤの属性を編集する"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:990
 msgid "Layer name:"
 msgstr "レイヤ名:"
 
@@ -758,14 +753,14 @@ msgstr "線幅:"
 
 #: app/load_save.c:127
 msgid "Error reading diagram file\n"
-msgstr "ダイアグラムファイルの読み込みでエラーが起こりました\n"
+msgstr "ダイアグラムファイルの読み込み中にエラーが発生しました\n"
 
 #: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"ダイアグラムの読み込みでエラーが起こりました。\n"
+"ダイアグラムの読み込み中にエラーが発生しました\n"
 "リンクされたオブジェクトはドキュメントには見つかりませんでした。"
 
 #: app/load_save.c:198
@@ -773,7 +768,7 @@ msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"ダイアグラムの読み込みでエラーが起こりました。\n"
+"ダイアグラムの読み込み中にエラーが発生しました\n"
 "接続点が存在しません。"
 
 #: app/load_save.c:201
@@ -781,7 +776,7 @@ msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"ダイアグラムの読み込みでエラーが起こりました。\n"
+"ダイアグラムの読み込み中にエラーが発生しました\n"
 "接続ハンドルが存在しません。"
 
 #: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1036
@@ -948,7 +943,7 @@ msgstr "反転"
 msgid "All"
 msgstr "すべて"
 
-#: app/menus.c:162 lib/widgets.c:660 objects/UML/association.c:1040
+#: app/menus.c:162 lib/widgets.c:818 objects/UML/association.c:1040
 msgid "None"
 msgstr "なし"
 
@@ -964,16 +959,16 @@ msgstr "推移"
 msgid "Same Type"
 msgstr "同種"
 
-#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
+#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:361
 msgid "Left"
 msgstr "左"
 
 #: app/menus.c:174 app/menus.c:183 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:209
+#: lib/widgets.c:367
 msgid "Center"
 msgstr "中央"
 
-#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
+#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:373
 msgid "Right"
 msgstr "右"
 
@@ -1491,49 +1486,49 @@ msgstr "書き込み用に '%s' を開くことが出来ませんでした"
 msgid "Error occured while printing"
 msgstr "印刷中にエラーが発生しました"
 
-#: app/plugin-manager.c:62
+#: app/plugin-manager.c:76
 msgid "yes"
 msgstr "完了"
 
-#: app/plugin-manager.c:62
+#: app/plugin-manager.c:76
 msgid "no"
 msgstr "まだ"
 
-#: app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/plugin-manager.c:143 app/plugin-manager.c:149
 msgid "Plug-ins"
 msgstr "プラグイン"
 
-#: app/plugin-manager.c:181 objects/EML/process_dialog.c:637
+#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
 #: objects/ER/attribute.c:149 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:811 objects/UML/class_dialog.c:1781
-#: objects/UML/class_dialog.c:1943 objects/UML/class_dialog.c:2444
+#: objects/UML/class_dialog.c:817 objects/UML/class_dialog.c:1809
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2574
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "名称:"
 
-#: app/plugin-manager.c:193
+#: app/plugin-manager.c:207
 msgid "File name:"
 msgstr "ファイル名:"
 
-#: app/plugin-manager.c:205
+#: app/plugin-manager.c:219
 msgid "Description:"
 msgstr "説明:"
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:233
 msgid "Loaded:"
 msgstr "読み込み状態:"
 
-#: app/plugin-manager.c:232
+#: app/plugin-manager.c:246
 msgid "Autoload at startup"
 msgstr "スタート時に自動読み込み"
 
-#: app/plugin-manager.c:243
+#: app/plugin-manager.c:257
 msgid "Load"
 msgstr "読み込み"
 
-#: app/plugin-manager.c:248
+#: app/plugin-manager.c:262
 msgid "Unload"
 msgstr "追い出し"
 
@@ -1577,7 +1572,7 @@ msgstr ""
 
 #: app/preferences.c:143
 msgid "Recent documents list size:"
-msgstr ""
+msgstr "最近使ったドキュメントリストのサイズ:"
 
 #: app/preferences.c:146
 msgid "New diagram:"
@@ -1681,11 +1676,11 @@ msgstr "オブジェクトのプロパティ"
 msgid "This object has no properties."
 msgstr "このオブジェクトにはプロパティはありません。"
 
-#: app/properties.c:213
+#: app/properties.c:215
 msgid "Properties: "
 msgstr "プロパティ: "
 
-#: app/properties.c:221
+#: app/properties.c:219
 msgid "Object properties:"
 msgstr "オブジェクトのプロパティ:"
 
@@ -1713,7 +1708,7 @@ msgstr "Encapsulated Postscript"
 
 #: app/splash.c:58
 msgid "Loading ..."
-msgstr "詠み込み中 ..."
+msgstr "読み込み中 ..."
 
 #: app/splash.c:75
 #, c-format
@@ -1730,7 +1725,7 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:968
+#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:973
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
 #: objects/EML/interaction.c:496 objects/EML/process.c:511
@@ -1738,7 +1733,7 @@ msgstr "Dia"
 #: objects/ER/entity.c:341 objects/ER/entity.c:475
 #: objects/ER/relationship.c:419 objects/ER/relationship.c:591
 #: objects/UML/association.c:556 objects/UML/association.c:741
-#: objects/UML/class.c:665 objects/UML/constraint.c:269
+#: objects/UML/class.c:666 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:301 objects/UML/realizes.c:367
@@ -1788,14 +1783,14 @@ msgstr "ポイントの解析中にエラーが発生しました"
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:867
+#: lib/dia_xml.c:862
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
-#: lib/font.c:500
+#: lib/font.c:512
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1804,51 +1799,51 @@ msgstr ""
 "警告：%sのXフォントが見つかりません。\n"
 "代わりに%sを使っています。\n"
 
-#: lib/font.c:605
+#: lib/font.c:617
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "警告: FreeTypeを選択しましたが，ライブラリを読み込めませんでした: %d\n"
 
-#: lib/font.c:614
+#: lib/font.c:626
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "警告: Xのフォントが見つかりません"
 
-#: lib/font.c:921
+#: lib/font.c:911
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr ""
 "エラー: フォントを見つけることが出来ませんでした．これは起こるべきではありま"
 "せん\n"
 
-#: lib/font.c:923 lib/font.c:924 lib/font.c:957
+#: lib/font.c:913 lib/font.c:947
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
 "フォント %s は見つかりません．代わりに Courier を使います\n"
 "\n"
 
-#: lib/font.c:934
+#: lib/font.c:923
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "フォント %s はスタイル %s を持っていません．%s を使います\n"
 
-#: lib/message.c:149
+#: lib/message.c:129
 msgid "Notice"
 msgstr "注意"
 
-#: lib/message.c:160
+#: lib/message.c:140
 msgid "Warning"
 msgstr "警告"
 
-#: lib/message.c:172
+#: lib/message.c:152
 msgid "Error"
 msgstr "エラー"
 
-#: lib/plug-ins.c:224
+#: lib/plug-ins.c:226
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "`%s' の正確なパスを推測出来ませんでした"
 
-#: lib/plug-ins.c:229
+#: lib/plug-ins.c:231
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1857,22 +1852,22 @@ msgstr ""
 "プラグイン `%s'をロードできません\n"
 "%s"
 
-#: lib/plug-ins.c:240
+#: lib/plug-ins.c:242
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "プラグインの初期化関数を`%s'に見つけられません"
 
-#: lib/plug-ins.c:267
+#: lib/plug-ins.c:269
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%sプラグインはロードできません"
 
-#: lib/plug-ins.c:348
+#: lib/plug-ins.c:350
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s'はディレクトリではありません"
 
-#: lib/plug-ins.c:354
+#: lib/plug-ins.c:356
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s' を開くことが出来ませんでした"
@@ -1926,153 +1921,148 @@ msgstr "フォントサイズ"
 msgid "Text colour"
 msgstr "文字色"
 
-#: lib/widgets.c:323 objects/FS/function.c:809
+#: lib/widgets.c:481 objects/FS/function.c:809
 msgid "Solid"
 msgstr "実線"
 
-#: lib/widgets.c:329
+#: lib/widgets.c:487
 msgid "Dashed"
 msgstr "鎖線"
 
-#: lib/widgets.c:335
+#: lib/widgets.c:493
 msgid "Dash-Dot"
 msgstr "一点鎖線"
 
-#: lib/widgets.c:341
+#: lib/widgets.c:499
 msgid "Dash-Dot-Dot"
 msgstr "二点鎖線"
 
-#: lib/widgets.c:347
+#: lib/widgets.c:505
 msgid "Dotted"
 msgstr "点線"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:365
+#: lib/widgets.c:523
 msgid "Dash length: "
 msgstr "鎖線の長さ："
 
-#: lib/widgets.c:661
+#: lib/widgets.c:819
 msgid "Lines"
 msgstr "線 (両側)"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:820
 msgid "Hollow Triangle"
 msgstr "三角形 (中空)"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:821
 msgid "Filled Triangle"
 msgstr "三角形 (塗りつぶし)"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:822
 msgid "Unfilled Triangle"
 msgstr "三角形 (塗りつぶさない)"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:823
 msgid "Filled Diamond"
 msgstr "菱形 (塗りつぶし)"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:824
 msgid "Half Head"
 msgstr "線 (片側)"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:825
 msgid "Slashed Cross"
 msgstr ""
 
-#: lib/widgets.c:668
+#: lib/widgets.c:826
 msgid "Filled Ellipse"
 msgstr "楕円の生成"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:827
 msgid "Hollow Ellipse"
 msgstr "三角形 (中空)"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:828
 msgid "Filled Dot"
 msgstr "点 (塗りつぶし)"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:829
 msgid "Dimension Origin"
 msgstr ""
 
-#: lib/widgets.c:672
+#: lib/widgets.c:830
 msgid "Blanked Dot"
 msgstr "点 (中空)"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:831
 msgid "Double Hollow triangle"
 msgstr "三角形 (中空)"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:832
 msgid "Double Filled triangle"
 msgstr ""
 
-#: lib/widgets.c:675
+#: lib/widgets.c:833
 msgid "Filled Box"
 msgstr "矩形 (塗りつぶし)"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:834
 msgid "Blanked Box"
 msgstr "矩形 (中空)"
 
-#: lib/widgets.c:677
+#: lib/widgets.c:835
 msgid "Slashed"
 msgstr ""
 
-#: lib/widgets.c:678
+#: lib/widgets.c:836
 msgid "Integral Symbol"
 msgstr ""
 
-#: lib/widgets.c:679
+#: lib/widgets.c:837
 #, fuzzy
 msgid "Crow Foot"
 msgstr "足"
 
-#: lib/widgets.c:680
+#: lib/widgets.c:838
 #, fuzzy
 msgid "Cross"
 msgstr "処理"
 
-#: lib/widgets.c:716
+#: lib/widgets.c:874
 msgid "Length: "
 msgstr "長さ:"
 
-#: lib/widgets.c:729
+#: lib/widgets.c:887
 msgid "Width: "
 msgstr "幅:"
 
-#: lib/widgets.c:855 objects/standard/image.c:536
+#: lib/widgets.c:1013 objects/standard/image.c:536
 msgid "Select image file"
 msgstr "イメージファイルの選択"
 
-#: lib/widgets.c:885
+#: lib/widgets.c:1043
 msgid "Browse"
 msgstr "一覧"
 
 #: objects/EML/eml.c:40
-#, fuzzy
 msgid "Event Modelling Language diagram"
-msgstr "UML ダイアグラムオブジェクト"
+msgstr "イベントモデル言語(EML)ダイアグラム"
 
 #: objects/EML/instantiation.c:130
-#, fuzzy
 msgid "Number of processes:"
-msgstr "元に戻せる回数:"
+msgstr "処理の数:"
 
 #: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-#, fuzzy
 msgid "multiple"
-msgstr "デマルチプレクサ"
+msgstr "複数"
 
 #: objects/EML/instantiation.c:433
-#, fuzzy
 msgid "Single"
-msgstr "シンプル"
+msgstr "単独"
 
 #: objects/EML/instantiation.c:435
-#, fuzzy
 msgid "Multiple"
-msgstr "増殖"
+msgstr "複数"
 
 #: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:802
@@ -2098,14 +2088,12 @@ msgid "Instantiation"
 msgstr "放熱"
 
 #: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-#, fuzzy
 msgid "Unidirectional"
-msgstr "方向:"
+msgstr "一方向"
 
 #: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-#, fuzzy
 msgid "Bidirectional"
-msgstr "方向:"
+msgstr "双方向"
 
 #: objects/EML/interaction.c:612
 #, fuzzy
@@ -2113,30 +2101,28 @@ msgid "Interaction name:"
 msgstr "インターフェース:"
 
 #: objects/EML/interaction.c:623
-#, fuzzy
 msgid "bidirectional"
-msgstr "方向:"
+msgstr "双方向"
 
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:774
-#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:1901
-#: objects/UML/class_dialog.c:2407
+#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:780
+#: objects/UML/class_dialog.c:1769 objects/UML/class_dialog.c:1973
+#: objects/UML/class_dialog.c:2537
 msgid "New"
 msgstr "新規"
 
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:780
-#: objects/UML/class_dialog.c:1747 objects/UML/class_dialog.c:1908
-#: objects/UML/class_dialog.c:2413
+#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:786
+#: objects/UML/class_dialog.c:1775 objects/UML/class_dialog.c:1980
+#: objects/UML/class_dialog.c:2543
 msgid "Delete"
 msgstr "削除"
 
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:786
-#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1915
-#: objects/UML/class_dialog.c:2419
+#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:792
+#: objects/UML/class_dialog.c:1781 objects/UML/class_dialog.c:1987
+#: objects/UML/class_dialog.c:2549
 msgid "Move up"
 msgstr "上移動"
 
 #: objects/EML/nlist.c:52
-#, fuzzy
 msgid "Move Down"
 msgstr "下移動"
 
@@ -2146,7 +2132,7 @@ msgstr "下移動"
 #: objects/EML/process.c:516 objects/EML/process.c:517
 #: objects/FS/function.c:405 objects/SADT/annotation.c:357
 #: objects/UML/actor.c:331 objects/UML/classicon.c:414
-#: objects/UML/component.c:347 objects/UML/message.c:358
+#: objects/UML/component.c:347 objects/UML/message.c:360
 #: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
 #: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
@@ -2154,9 +2140,8 @@ msgid "Helvetica"
 msgstr "GothicBBB-Medium"
 
 #: objects/EML/process_dialog.c:625
-#, fuzzy
 msgid "relation"
-msgstr "準備"
+msgstr "関連"
 
 #: objects/EML/process_dialog.c:882
 msgid "Interface functions"
@@ -2240,11 +2225,11 @@ msgstr "パラメータ"
 
 #: objects/EML/process_dialog.c:1313
 msgid "Relation members"
-msgstr ""
+msgstr "関連メンバー"
 
 #: objects/EML/process_dialog.c:1314
 msgid "Relation member"
-msgstr ""
+msgstr "関連メンバー"
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -2332,8 +2317,8 @@ msgid "Signal"
 msgstr "シグナル"
 
 #: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
-#: objects/UML/class_dialog.c:823 objects/UML/class_dialog.c:1793
-#: objects/UML/class_dialog.c:1955 objects/UML/class_dialog.c:2456
+#: objects/UML/class_dialog.c:829 objects/UML/class_dialog.c:1821
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2586
 msgid "Type:"
 msgstr "型:"
 
@@ -3163,7 +3148,7 @@ msgstr "希望する関数"
 #. in lib/font.c.
 #: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
 #: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
-#: objects/SADT/box.c:500 objects/UML/class.c:671
+#: objects/SADT/box.c:500 objects/UML/class.c:672
 msgid "Helvetica-Bold"
 msgstr "GothicBBB-Medium"
 
@@ -3185,11 +3170,11 @@ msgstr ""
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font"
-msgstr ""
+msgstr "状況のフォント"
 
 #: objects/GRAFCET/condition.c:135
 msgid "The condition's font size"
-msgstr ""
+msgstr "状況のフォントサイズ"
 
 #: objects/GRAFCET/condition.c:138 objects/GRAFCET/transition.c:147
 msgid "Color"
@@ -3197,7 +3182,7 @@ msgstr "色"
 
 #: objects/GRAFCET/condition.c:138
 msgid "The condition's color"
-msgstr ""
+msgstr "状況の色"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -3205,43 +3190,43 @@ msgstr "GRAFCETダイアグラムオブジェクト"
 
 #: objects/GRAFCET/step.c:148
 msgid "Regular step"
-msgstr ""
+msgstr "通常のステップ"
 
 #: objects/GRAFCET/step.c:149
 msgid "Initial step"
-msgstr ""
+msgstr "初期のステップ"
 
 #: objects/GRAFCET/step.c:150
 msgid "Macro entry step"
-msgstr ""
+msgstr "マクロエントリのステップ"
 
 #: objects/GRAFCET/step.c:151
 msgid "Macro exit step"
-msgstr ""
+msgstr "マクロ終了のステップ"
 
 #: objects/GRAFCET/step.c:152
 msgid "Macro call step"
-msgstr ""
+msgstr "マクロ呼びだしのステップ"
 
 #: objects/GRAFCET/step.c:153
 msgid "Subprogram call step"
-msgstr ""
+msgstr "サブプログラム呼びだしのステップ"
 
 #: objects/GRAFCET/step.c:159
 msgid "Step name"
-msgstr ""
+msgstr "ステップ名"
 
 #: objects/GRAFCET/step.c:159
 msgid "The name of the step"
-msgstr ""
+msgstr "ステップの名前を指定します"
 
 #: objects/GRAFCET/step.c:161
 msgid "Step type"
-msgstr ""
+msgstr "ステップタイプ"
 
 #: objects/GRAFCET/step.c:161
 msgid "The kind of step"
-msgstr ""
+msgstr "ステップの種類を指定します"
 
 #: objects/GRAFCET/step.c:163
 msgid "Active"
@@ -3376,7 +3361,7 @@ msgstr ""
 msgid "Actor"
 msgstr "アクター"
 
-#: objects/UML/association.c:1030
+#: objects/UML/association.c:1030 objects/UML/class_dialog.c:2051
 msgid "Direction:"
 msgstr "方向:"
 
@@ -3429,11 +3414,12 @@ msgstr "名前:"
 msgid "Stereotype"
 msgstr "ステレオタイプ"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:233
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:235
+#: objects/UML/class_dialog.c:1897
 msgid "Abstract"
 msgstr "要約"
 
-#: objects/UML/class.c:108 objects/UML/class_dialog.c:245
+#: objects/UML/class.c:108 objects/UML/class_dialog.c:247
 msgid "Suppress Attributes"
 msgstr "属性表示の抑制"
 
@@ -3455,128 +3441,156 @@ msgstr "テンプレート"
 
 #. choose default font name for abstract for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:668
+#: objects/UML/class.c:669
 msgid "Courier-Oblique"
 msgstr "Ryumin-Light"
 
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:674
+#: objects/UML/class.c:675
 msgid "Helvetica-BoldOblique"
 msgstr "GothicBBB-Medium"
 
 #. Class page:
-#: objects/UML/class.c:704 objects/UML/class.c:706
-#: objects/UML/class_dialog.c:205
+#: objects/UML/class.c:705 objects/UML/class.c:707
+#: objects/UML/class_dialog.c:207
 msgid "Class"
 msgstr "クラス"
 
-#: objects/UML/class_dialog.c:211
+#: objects/UML/class_dialog.c:213
 msgid "Class name:"
 msgstr "クラス名:"
 
-#: objects/UML/class_dialog.c:222 objects/UML/dependency.c:127
+#: objects/UML/class_dialog.c:224 objects/UML/dependency.c:127
 #: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "ステレオタイプ:"
 
-#: objects/UML/class_dialog.c:241
+#: objects/UML/class_dialog.c:243
 msgid "Attributes visible"
 msgstr "属性の表示"
 
-#: objects/UML/class_dialog.c:253
+#: objects/UML/class_dialog.c:255
 msgid "Operations visible"
 msgstr "操作の表示"
 
-#: objects/UML/class_dialog.c:257
+#: objects/UML/class_dialog.c:259
 msgid "Suppress operations"
 msgstr "操作表示の抑制"
 
-#: objects/UML/class_dialog.c:265
+#: objects/UML/class_dialog.c:267
 msgid "Foreground Color"
 msgstr "文字色"
 
-#: objects/UML/class_dialog.c:275
+#: objects/UML/class_dialog.c:277
 msgid "Background Color"
 msgstr "背景色"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:746 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:752 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "属性"
 
-#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1759
-#: objects/UML/class_dialog.c:1922 objects/UML/class_dialog.c:2425
+#: objects/UML/class_dialog.c:798 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2555
 msgid "Move down"
 msgstr "下移動"
 
-#: objects/UML/class_dialog.c:803
+#: objects/UML/class_dialog.c:809
 msgid "Attribute data"
 msgstr "属性値"
 
-#: objects/UML/class_dialog.c:835
+#: objects/UML/class_dialog.c:841
 msgid "Value:"
 msgstr "値:"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1833
 msgid "Visibility:"
 msgstr "表示:"
 
-#: objects/UML/class_dialog.c:856 objects/UML/class_dialog.c:1814
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1842
 msgid "Public"
 msgstr "パブリック"
 
-#: objects/UML/class_dialog.c:864 objects/UML/class_dialog.c:1822
+#: objects/UML/class_dialog.c:870 objects/UML/class_dialog.c:1850
 msgid "Private"
 msgstr "プライベート"
 
-#: objects/UML/class_dialog.c:872 objects/UML/class_dialog.c:1830
+#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1858
 msgid "Protected"
 msgstr "プロテクテッド"
 
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1838
+#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1866
 msgid "Implementation"
 msgstr "実装"
 
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1854
+#: objects/UML/class_dialog.c:902 objects/UML/class_dialog.c:1882
 msgid "Class scope"
 msgstr "クラススコープ"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1713
+#: objects/UML/class_dialog.c:1741
 msgid "Operations"
 msgstr "操作"
 
-#: objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:1799
 msgid "Operation data"
 msgstr "操作データ"
 
-#: objects/UML/class_dialog.c:1860
-msgid "abstract"
-msgstr "要約"
+#: objects/UML/class_dialog.c:1888
+msgid "Inheritance type:"
+msgstr "継承名:"
 
-#: objects/UML/class_dialog.c:1872
+#: objects/UML/class_dialog.c:1905
+msgid "Polymorphic (virtual)"
+msgstr "多型性 (仮想)"
+
+#: objects/UML/class_dialog.c:1913
+msgid "Leaf (final)"
+msgstr "リーフ (最終)"
+
+#: objects/UML/class_dialog.c:1931
+msgid "Query"
+msgstr "クエリ"
+
+#: objects/UML/class_dialog.c:1944
 msgid "Parameters:"
 msgstr "パラメータ:"
 
-#: objects/UML/class_dialog.c:1934
+#: objects/UML/class_dialog.c:2006
 msgid "Parameter data"
 msgstr "パラメータデータ"
 
-#: objects/UML/class_dialog.c:1967
+#: objects/UML/class_dialog.c:2039
 msgid "Def. value:"
 msgstr "定義値:"
 
+#: objects/UML/class_dialog.c:2060
+msgid "Undefined"
+msgstr "未定義"
+
+#: objects/UML/class_dialog.c:2068
+msgid "In"
+msgstr "入力"
+
+#: objects/UML/class_dialog.c:2077
+msgid "Out"
+msgstr "出力"
+
+#: objects/UML/class_dialog.c:2086
+msgid "In & Out"
+msgstr "入出力"
+
 #. Templates page:
-#: objects/UML/class_dialog.c:2373
+#: objects/UML/class_dialog.c:2503
 msgid "Templates"
 msgstr "テンプレート"
 
-#: objects/UML/class_dialog.c:2379
+#: objects/UML/class_dialog.c:2509
 msgid "Template class"
 msgstr "テンプレートクラス"
 
-#: objects/UML/class_dialog.c:2436
+#: objects/UML/class_dialog.c:2566
 msgid "Formal parameter data"
 msgstr "フォーマルパラメータデータ"
 
@@ -3618,41 +3632,41 @@ msgstr "接続点の削除"
 
 #: objects/UML/lifeline.c:408
 msgid "UML Lifeline"
-msgstr ""
+msgstr "UML ライフライン"
 
-#: objects/UML/message.c:129
+#: objects/UML/message.c:131
 msgid "Call"
 msgstr "呼びだし"
 
-#: objects/UML/message.c:130
+#: objects/UML/message.c:132
 msgid "Create"
 msgstr "作成"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:133
 msgid "Destroy"
 msgstr "破棄"
 
-#: objects/UML/message.c:132
+#: objects/UML/message.c:134
 msgid "Simple"
 msgstr "シンプル"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:135
 msgid "Return"
 msgstr "リターン"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:136
 msgid "Send"
 msgstr "送信"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:137
 msgid "Recursive"
 msgstr "繰り返し"
 
-#: objects/UML/message.c:142
+#: objects/UML/message.c:144
 msgid "Message:"
 msgstr "メッセージ:"
 
-#: objects/UML/message.c:144
+#: objects/UML/message.c:146
 msgid "Message type:"
 msgstr "メッセージタイプ:"
 
@@ -3690,14 +3704,14 @@ msgstr "UML ダイアグラムオブジェクト"
 
 #. Characters used to start/end stereotypes:
 #. start stereotype symbol(like \xab) for local locale
-#: objects/UML/uml.h:83
+#: objects/UML/uml.h:90
 msgid "<<"
-msgstr ""
+msgstr "<<"
 
 #. end stereotype symbol(like \xbb) for local locale
-#: objects/UML/uml.h:85
+#: objects/UML/uml.h:92
 msgid ">>"
-msgstr ""
+msgstr ">>"
 
 #: objects/UML/usecase.c:124
 msgid "Text outside"
@@ -3964,9 +3978,8 @@ msgid "Fontsize:"
 msgstr "フォントサイズ:"
 
 #: objects/sybase/sybase.c:44
-#, fuzzy
 msgid "Sybase replication domain diagram objects"
-msgstr "クロノグラフダイアグラムオブジェクト"
+msgstr "Sybase複製ドメインダイアグラムオブジェクト"
 
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
@@ -3997,14 +4010,12 @@ msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language エクスポートフィルタ"
 
 #: plug-ins/metapost/metapost.c:34
-#, fuzzy
 msgid "TeX Metapost export filter"
-msgstr "TeX Pstricks エクスポートフィルタ"
+msgstr "TeX Metapost エクスポートフィルタ"
 
 #: plug-ins/metapost/render_metapost.c:726
-#, fuzzy
 msgid "TeX Metapost macros"
-msgstr "Tex PSTricks マクロ"
+msgstr "Tex Metapost マクロ"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4016,7 +4027,7 @@ msgstr "Tex PSTricks マクロ"
 
 #: plug-ins/python/python.c:76
 msgid "Python scripting support"
-msgstr ""
+msgstr "Pythonスクリプトサポート"
 
 #: plug-ins/shape/shape-export.c:937
 msgid "Can't export png without libart!"
