@@ -28,4 +28,6 @@ char *build_output_file_name(const char *infname, const char *format);
 void app_splash_init(const gchar* name);
 void app_splash_done(void);
 
+gboolean app_is_interactive(void);
+
 #endif /* APP_PROCS_H */

@@ -31,6 +31,7 @@
 #include "render_libart.h"
 #include "display.h"
 #include "message.h"
+#include "app_procs.h"
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -57,6 +58,7 @@ static real export_png_aspect_ratio;
 
 /* The heart of the png exporter.
    Deals with a bit of dialog handling and all the rendering and writing.
+   The dialog is not used when dia is non-interactive (export mode)
 */
 static void
 export_png_ok(GtkButton *button, gpointer userdata) {
@@ -76,14 +78,19 @@ export_png_ok(GtkButton *button, gpointer userdata) {
   png_color_8 sig_bit;
   png_bytep *row_ptr;
 
-  /* We don't want multiple clicks:) */
-  gtk_widget_hide(export_png_dialog);
-
   width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
   height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
 
-  imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
-  imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
+  if (app_is_interactive()) {
+    /* We don't want multiple clicks:) */
+    gtk_widget_hide(export_png_dialog);
+
+    imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
+    imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
+  } else {
+    imagewidth = width;
+    imageheight = height;
+  }
 
   imagezoom = ((real)imageheight/height) * DPCM * data->paper.scaling;
 
@@ -177,8 +184,12 @@ export_png_ok(GtkButton *button, gpointer userdata) {
  error:
   destroy_libart_renderer(renderer);
   g_free(ddisp);
-  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button), userdata);
-  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button), userdata);
+  if (app_is_interactive()) {
+    gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button),
+				  userdata);
+    gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button),
+				  userdata);
+  }
   g_free(cbdata->filename);
   g_free(cbdata);
   return;
@@ -285,7 +296,7 @@ export_png(DiagramData *data, const gchar *filename,
      the same time will lead to confusion.
   */
 
-  if (export_png_dialog == NULL) {
+  if (export_png_dialog == NULL && app_is_interactive()) {
     /* Create a dialog */
     export_png_dialog = dialog_make(_("PNG Export Options"),
 				    _("Export"), NULL,
@@ -309,30 +320,34 @@ export_png(DiagramData *data, const gchar *filename,
 
   }
 
-  /* Find the default size */
-  width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
-  height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
-
-  /* Store aspect ratio */
-  export_png_aspect_ratio = ((real)width)/height;
-
-  /* Set the default size */
-  gtk_spin_button_set_value(export_png_width_entry, (float)width);
-  /* This is set from the aspect ratio */
-  /*  gtk_spin_button_set_value(export_png_height_entry, (float)height);*/
-
   /* Store pertinent data in callback data structure */
   cbdata->data = data;
   cbdata->filename = g_strdup(filename);
 
-  /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
-  gtk_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
-			    export_png_ok, (gpointer)cbdata);
-  gtk_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
-			    export_png_cancel, (gpointer)cbdata);
+  if (app_is_interactive()) {
+    /* Find the default size */
+    width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
+    height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
 
-  /* Show the whole thing */
-  gtk_widget_show_all(export_png_dialog);
+    /* Store aspect ratio */
+    export_png_aspect_ratio = ((real)width)/height;
+    
+    /* Set the default size */
+    gtk_spin_button_set_value(export_png_width_entry, (float)width);
+    /* This is set from the aspect ratio */
+    /*  gtk_spin_button_set_value(export_png_height_entry, (float)height);*/
+    
+    /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
+    gtk_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
+		       export_png_ok, (gpointer)cbdata);
+    gtk_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
+		       export_png_cancel, (gpointer)cbdata);
+    
+    /* Show the whole thing */
+    gtk_widget_show_all(export_png_dialog);
+  } else {
+    export_png_ok(NULL, cbdata);
+  }
 }
 
 static const gchar *extensions[] = { "png", NULL };

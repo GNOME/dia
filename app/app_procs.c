@@ -84,6 +84,8 @@ extern DiaExportFilter png_export_filter;
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 
+static gboolean dia_is_interactive = TRUE;
+
 #ifdef GNOME
 
 static void
@@ -148,6 +150,8 @@ do_convert(const char *infname,
   DiaImportFilter *inf = NULL;
   DiagramData *diagdata = NULL;
 
+  dia_is_interactive = FALSE;
+
   if (0==strcmp(infname,outfname)) {
     fprintf(stderr,
             _("%s error: input and output file name is identical: %s"),
@@ -185,6 +189,12 @@ void
 debug_break(void)
 {
   /* Break here. All symbols are loaded. */
+}
+
+gboolean
+app_is_interactive(void)
+{
+  return dia_is_interactive;
 }
 
 void
@@ -283,7 +293,7 @@ app_init (int argc, char **argv)
     gtk_init (&argc, &argv);
 #endif
   }
-   
+
   LIBXML_TEST_VERSION;
 
   stdprops_init();

@@ -1,5 +1,9 @@
 2002-02-10  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
+	* app/app_procs.c:
+	* app/export_png.c: Added checks for interactivity (maybe this
+	should be a hook after all?).
+
 	* app/filedlg.c (file_export_callback): Made export dialog add
 	suffix when reopened.
 
