@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia ?\n"
-"POT-Creation-Date: 1999-03-28 23:43+0200\n"
+"POT-Creation-Date: 1999-03-29 20:04+0200\n"
 "PO-Revision-Date: 1999-03-22 19:03+MET\n"
 "Last-Translator: Shooby Ban <bansz@szif.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -138,28 +138,28 @@ msgstr "Postscript-be exportálás"
 msgid "Untitled-%d"
 msgstr "Névtelen-%d"
 
-#: app/commands.c:466
+#: app/commands.c:467
 msgid "No existing object to paste.\n"
 msgstr "Nincs beillesztendõ objektum.\n"
 
-#: app/commands.c:525
+#: app/commands.c:526
 msgid "Copyright (C) 1999"
 msgstr ""
 
-#: app/commands.c:527 app/commands.c:554
+#: app/commands.c:528 app/commands.c:555
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 
-#: app/commands.c:534
+#: app/commands.c:535
 msgid "About Dia"
 msgstr "Dia névjegye"
 
-#: app/commands.c:550
+#: app/commands.c:551
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr ""
 
-#: app/commands.c:558 app/layer_dialog.c:946 lib/message.c:62
+#: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
 msgid "OK"
 msgstr ""
 

@@ -1,5 +1,10 @@
 1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
 
+	* Released Dia 0.40
+	Tag called DIA_0_40
+	
+1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
+
 	* objects/network/bus.c:
 	Added initialization of properties dialog to NULL.
 

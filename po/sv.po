@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.40\n"
-"POT-Creation-Date: 1999-03-28 23:43+0200\n"
+"POT-Creation-Date: 1999-03-29 20:04+0200\n"
 "PO-Revision-Date: 1999-03-27 10:10+0100\n"
 "Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -149,28 +149,28 @@ msgstr "Exportera till PostScript"
 msgid "Untitled-%d"
 msgstr "Namnlös-%d"
 
-#: app/commands.c:466
+#: app/commands.c:467
 msgid "No existing object to paste.\n"
 msgstr "Finns inget objekt att klistra in.\n"
 
-#: app/commands.c:525
+#: app/commands.c:526
 msgid "Copyright (C) 1999"
 msgstr ""
 
-#: app/commands.c:527 app/commands.c:554
+#: app/commands.c:528 app/commands.c:555
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:534
+#: app/commands.c:535
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:550
+#: app/commands.c:551
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:558 app/layer_dialog.c:946 lib/message.c:62
+#: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
 msgid "OK"
 msgstr ""
 
