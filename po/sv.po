@@ -11,70 +11,70 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-02-05 17:25+0100\n"
-"PO-Revision-Date: 2002-02-05 17:26+0100\n"
+"POT-Creation-Date: 2002-02-16 04:49+0100\n"
+"PO-Revision-Date: 2002-02-16 04:49+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:153
+#: app/app_procs.c:157
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s-fel: indata- och utdatafilnamn är indentiska: %s"
 
-#: app/app_procs.c:164
+#: app/app_procs.c:168
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s-fel: behöver en giltig indatafil %s\n"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:175
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:177
+#: app/app_procs.c:181
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:209
+#: app/app_procs.c:219
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:209 app/diaconv.c:97
+#: app/app_procs.c:219 app/diaconv.c:97
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: app/app_procs.c:211
+#: app/app_procs.c:221
 msgid "Export to file format and exit"
 msgstr "Exportera till filformat och avsluta"
 
-#: app/app_procs.c:211 app/diaconv.c:95
+#: app/app_procs.c:221 app/diaconv.c:95
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:213
+#: app/app_procs.c:223
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:215 app/diaconv.c:98
+#: app/app_procs.c:225 app/diaconv.c:98
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:258
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:259 app/diaconv.c:126
+#: app/app_procs.c:269 app/diaconv.c:126
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:263 app/diaconv.c:133
+#: app/app_procs.c:273 app/diaconv.c:133
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -84,23 +84,23 @@ msgstr ""
 "Kör \"%s --help\" för att se en fullständig lista över tillgängliga "
 "kommandoradsalternativ.\n"
 
-#: app/app_procs.c:276
+#: app/app_procs.c:286
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s-fel: kan ange enbart en av -f eller -o."
 
-#: app/app_procs.c:320 app/app_procs.c:322 app/diaconv.c:206 app/diaconv.c:208
+#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar...\n"
 
-#: app/app_procs.c:443 app/app_procs.c:449
+#: app/app_procs.c:453 app/app_procs.c:459
 msgid "Quit, are you sure?"
 msgstr "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:456
+#: app/app_procs.c:466
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -108,21 +108,21 @@ msgstr ""
 "Det finns diagram som har ändrats.\n"
 "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:466 app/app_procs.c:471
+#: app/app_procs.c:476 app/app_procs.c:481
 msgid "Quit"
 msgstr "Avsluta"
 
-#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:1015
-#: app/lineprops_area.c:771 app/lineprops_area.c:971 app/linewidth_area.c:246
-#: app/paginate_psprint.c:264
+#: app/app_procs.c:493 app/display.c:966 app/export_png.c:253
+#: app/layer_dialog.c:1015 app/lineprops_area.c:771 app/lineprops_area.c:971
+#: app/linewidth_area.c:246 app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:558 app/app_procs.c:565
+#: app/app_procs.c:568 app/app_procs.c:575
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:567
+#: app/app_procs.c:577
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -130,11 +130,11 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:589 app/diaconv.c:256
+#: app/app_procs.c:599 app/diaconv.c:256
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/color_area.c:264 lib/widgets.c:677
+#: app/color_area.c:264 lib/widgets.c:692
 msgid "Select color"
 msgstr "Välj färg"
 
@@ -453,7 +453,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:449
+#: app/display.c:141 app/display.c:142 app/interface.c:452
 msgid "Zoom"
 msgstr "Zooma"
 
@@ -487,29 +487,51 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nej"
 
-#: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
+#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:199
 #: plug-ins/pstricks/render_pstricks.c:188 plug-ins/python/pydia-render.c:671
 #: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
-#: plug-ins/wpg/wpg.c:930 plug-ins/xfig/xfig-export.c:743
+#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
+#: plug-ins/xfig/xfig-export.c:743
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunde inte öppna: \"%s\" för skrivning.\n"
 
-#: app/export_png.c:87
+#: app/export_png.c:122
 msgid "Could not create PNG write structure"
 msgstr "Kunde inte skapa PNG-skrivstruktur"
 
-#: app/export_png.c:96
+#: app/export_png.c:131
 msgid "Could not create PNG header info structure"
 msgstr "Kunde inte skapa informationsstruktur för PNG-huvuden"
 
-#: app/export_png.c:104
+#: app/export_png.c:139
 msgid "Error occurred while writing PNG"
 msgstr "Fel uppstod vid skrivning av PNG"
 
-#: app/export_png.c:157
+#: app/export_png.c:252
+msgid "Ok"
+msgstr "Ok"
+
+#. Create a dialog
+#: app/export_png.c:301
+msgid "PNG Export Options"
+msgstr "PNG-exportalternativ"
+
+#: app/export_png.c:302 objects/FS/function.c:620 objects/FS/function.c:621
+msgid "Export"
+msgstr "Exportera"
+
+#: app/export_png.c:307
+msgid "Image width:"
+msgstr "Bildbredd:"
+
+#: app/export_png.c:310
+msgid "Image height:"
+msgstr "Bildhöjd:"
+
+#: app/export_png.c:355
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -523,9 +545,9 @@ msgstr "Öppna diagram"
 
 #: app/filedlg.c:184
 msgid "Open Options"
-msgstr "Inställningar för öppna"
+msgstr "Öppningsalternativ"
 
-#: app/filedlg.c:192 app/filedlg.c:532
+#: app/filedlg.c:192 app/filedlg.c:526
 msgid "Determine file type:"
 msgstr "Fastställ filtyp:"
 
@@ -555,13 +577,13 @@ msgstr ""
 "Kunde inte avgöra vilket exportfilter\n"
 "att använda för att spara \"%s\""
 
-#: app/filedlg.c:497
+#: app/filedlg.c:498
 msgid "Export Diagram"
 msgstr "Exportera diagram"
 
-#: app/filedlg.c:524
+#: app/filedlg.c:518
 msgid "Export Options"
-msgstr "Exportinställningar"
+msgstr "Exportalternativ"
 
 #: app/interface.c:44
 msgid "Modify object(s)"
@@ -680,11 +702,11 @@ msgstr "Skapa bild"
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:496
+#: app/interface.c:499
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL-tooldata i tool_select_update"
 
-#: app/interface.c:958
+#: app/interface.c:961
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -692,7 +714,7 @@ msgstr ""
 "För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer "
 "färgerna. Pilarna byter färger. Dubbelklicka för att ändra färgerna."
 
-#: app/interface.c:1104
+#: app/interface.c:1107
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
@@ -949,7 +971,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:162 lib/widgets.c:818 objects/UML/association.c:1040
+#: app/menus.c:162 lib/widgets.c:833 objects/UML/association.c:1040
 msgid "None"
 msgstr "Ingen"
 
@@ -965,16 +987,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:361
+#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:376
 msgid "Left"
 msgstr "Vänster"
 
 #: app/menus.c:174 app/menus.c:183 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:367
+#: lib/widgets.c:382
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:373
+#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:388
 msgid "Right"
 msgstr "Höger"
 
@@ -1684,11 +1706,11 @@ msgstr "Objektegenskaper"
 msgid "This object has no properties."
 msgstr "Detta objekt har inga egenskaper."
 
-#: app/properties.c:213
+#: app/properties.c:215
 msgid "Properties: "
 msgstr "Egenskaper: "
 
-#: app/properties.c:221
+#: app/properties.c:219
 msgid "Object properties:"
 msgstr "Objektegenskaper:"
 
@@ -1733,7 +1755,7 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:968
+#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:998
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
 #: objects/EML/interaction.c:496 objects/EML/process.c:511
@@ -1791,7 +1813,7 @@ msgstr "Fel vid tolkning av punkt."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Ogiltigt y-punktvärde \"%s\" %f; kastar det."
 
-#: lib/dia_xml.c:867
+#: lib/dia_xml.c:862
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -1802,7 +1824,7 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
-#: lib/font.c:515
+#: lib/font.c:512
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1811,25 +1833,25 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:620
+#: lib/font.c:618
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:629
+#: lib/font.c:627
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:912
+#: lib/font.c:911
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:914 lib/font.c:948
+#: lib/font.c:913 lib/font.c:947
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:924
+#: lib/font.c:923
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
@@ -1929,124 +1951,124 @@ msgstr "Typsnittsstorlek"
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:481 objects/FS/function.c:809
+#: lib/widgets.c:496 objects/FS/function.c:809
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:487
+#: lib/widgets.c:502
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:493
+#: lib/widgets.c:508
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:499
+#: lib/widgets.c:514
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:505
+#: lib/widgets.c:520
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:523
+#: lib/widgets.c:538
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:819
+#: lib/widgets.c:834
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:820
+#: lib/widgets.c:835
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:821
+#: lib/widgets.c:836
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:822
+#: lib/widgets.c:837
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:823
+#: lib/widgets.c:838
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:824
+#: lib/widgets.c:839
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:825
+#: lib/widgets.c:840
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:826
+#: lib/widgets.c:841
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:827
+#: lib/widgets.c:842
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:828
+#: lib/widgets.c:843
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:829
+#: lib/widgets.c:844
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:830
+#: lib/widgets.c:845
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:831
+#: lib/widgets.c:846
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:832
+#: lib/widgets.c:847
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:833
+#: lib/widgets.c:848
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:834
+#: lib/widgets.c:849
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:835
+#: lib/widgets.c:850
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:836
+#: lib/widgets.c:851
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:837
+#: lib/widgets.c:852
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:838
+#: lib/widgets.c:853
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:874
+#: lib/widgets.c:889
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:887
+#: lib/widgets.c:902
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:1013 objects/standard/image.c:536
+#: lib/widgets.c:1028 objects/standard/image.c:536
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:1043
+#: lib/widgets.c:1058
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -2136,7 +2158,7 @@ msgstr "Flytta ned"
 #: objects/EML/process.c:516 objects/EML/process.c:517
 #: objects/FS/function.c:405 objects/SADT/annotation.c:357
 #: objects/UML/actor.c:331 objects/UML/classicon.c:414
-#: objects/UML/component.c:347 objects/UML/message.c:358
+#: objects/UML/component.c:347 objects/UML/message.c:360
 #: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
 #: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
@@ -2397,10 +2419,6 @@ msgstr "Formuläringång"
 #: objects/FS/function.c:619 objects/FS/function.c:736
 msgid "Capture"
 msgstr "Fånga"
-
-#: objects/FS/function.c:620 objects/FS/function.c:621
-msgid "Export"
-msgstr "Exportera"
 
 #: objects/FS/function.c:622
 msgid "Discharge"
@@ -3367,7 +3385,7 @@ msgstr "SADT-diagramobjekt"
 
 #: objects/UML/actor.c:337 objects/UML/actor.c:339
 msgid "Actor"
-msgstr "Skådespelare"
+msgstr "Aktör"
 
 #: objects/UML/association.c:1030 objects/UML/class_dialog.c:2051
 msgid "Direction:"
@@ -3391,7 +3409,7 @@ msgstr "Sida B"
 
 #: objects/UML/association.c:1094
 msgid "Role:"
-msgstr "Funktion:"
+msgstr "Roll:"
 
 #: objects/UML/association.c:1106
 msgid "Multiplicity:"
@@ -3642,39 +3660,39 @@ msgstr "Ta bort anslutningspunkter"
 msgid "UML Lifeline"
 msgstr "UML-livlina"
 
-#: objects/UML/message.c:129
+#: objects/UML/message.c:131
 msgid "Call"
 msgstr "Anrop"
 
-#: objects/UML/message.c:130
+#: objects/UML/message.c:132
 msgid "Create"
 msgstr "Skapa"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:133
 msgid "Destroy"
 msgstr "Förstör"
 
-#: objects/UML/message.c:132
+#: objects/UML/message.c:134
 msgid "Simple"
 msgstr "Enkel"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:135
 msgid "Return"
 msgstr "Retunera"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:136
 msgid "Send"
 msgstr "Skicka"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:137
 msgid "Recursive"
 msgstr "Rekursivt"
 
-#: objects/UML/message.c:142
+#: objects/UML/message.c:144
 msgid "Message:"
 msgstr "Meddelande:"
 
-#: objects/UML/message.c:144
+#: objects/UML/message.c:146
 msgid "Message type:"
 msgstr "Meddelandetyp:"
 
@@ -4063,6 +4081,14 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Exportfilter till Scalable Vector Graphics"
 
+#: plug-ins/wmf/wmf.cpp:959
+msgid "Windows Meta File"
+msgstr "Windows Meta File (WMF)"
+
+#: plug-ins/wmf/wmf.cpp:973
+msgid "WMF export filter"
+msgstr "Exportfilter till WMF"
+
 #: plug-ins/wpg/wpg.c:1048
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -4267,106 +4293,110 @@ msgid "A Horizontally aligned resistor (European)"
 msgstr "Ett horisontell justerat motstånd (Europeisk)"
 
 #: sheets/Circuit.sheet.in.h:6
+msgid "A Microphone"
+msgstr "En mikrofon"
+
+#: sheets/Circuit.sheet.in.h:7
 msgid "A PMOS transistor"
 msgstr "En PMOS-transistor"
 
-#: sheets/Circuit.sheet.in.h:7
+#: sheets/Circuit.sheet.in.h:8
 msgid "A Speaker"
 msgstr "En högtalare"
 
-#: sheets/Circuit.sheet.in.h:8
+#: sheets/Circuit.sheet.in.h:9
 msgid "A Vertically aligned inductor"
 msgstr "En vertikalt justerad induktor"
 
-#: sheets/Circuit.sheet.in.h:9
+#: sheets/Circuit.sheet.in.h:10
 msgid "A Vertically aligned inductor (European)"
 msgstr "En vertikalt justerad induktor (Europeisk)"
 
-#: sheets/Circuit.sheet.in.h:10
+#: sheets/Circuit.sheet.in.h:11
 msgid "A Vertically aligned resistor"
 msgstr "Ett vertikalt justerat motstånd"
 
-#: sheets/Circuit.sheet.in.h:11
+#: sheets/Circuit.sheet.in.h:12
 msgid "A Vertically aligned resistor (European)"
 msgstr "Ett vertikalt justerat motstånd (Europeisk)"
 
-#: sheets/Circuit.sheet.in.h:12
+#: sheets/Circuit.sheet.in.h:13
 msgid "A ground point"
 msgstr "En jordpunkt"
 
-#: sheets/Circuit.sheet.in.h:13
+#: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned LED"
 msgstr "En horisontellt justerad lysdiod"
 
-#: sheets/Circuit.sheet.in.h:14
+#: sheets/Circuit.sheet.in.h:15
 msgid "A horizontally aligned capacitor"
 msgstr "En horisontellt justerad kapacitans"
 
-#: sheets/Circuit.sheet.in.h:15
+#: sheets/Circuit.sheet.in.h:16
 msgid "A horizontally aligned diode"
 msgstr "En horisontellt justerad diod"
 
-#: sheets/Circuit.sheet.in.h:16
+#: sheets/Circuit.sheet.in.h:17
 msgid "A horizontally aligned fuse"
 msgstr "En horisontellt justerad säkring"
 
-#: sheets/Circuit.sheet.in.h:17
+#: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned powersource"
 msgstr "En horisontellt justerad spänningskälla"
 
-#: sheets/Circuit.sheet.in.h:18
+#: sheets/Circuit.sheet.in.h:19
 msgid "A horizontally aligned zener diode"
 msgstr "En horisontellt justerad zenerdiod"
 
-#: sheets/Circuit.sheet.in.h:19
+#: sheets/Circuit.sheet.in.h:20
 msgid "A lamp"
 msgstr "En lampa"
 
-#: sheets/Circuit.sheet.in.h:20
+#: sheets/Circuit.sheet.in.h:21
 msgid "A npn bipolar transistor"
 msgstr "En bipolär npn-transistor"
 
-#: sheets/Circuit.sheet.in.h:21
+#: sheets/Circuit.sheet.in.h:22
 msgid "A pnp bipolar transistor"
 msgstr "En bipolär pnp-transistor"
 
-#: sheets/Circuit.sheet.in.h:22
+#: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned LED"
 msgstr "En vertikalt justerad lysdiod"
 
-#: sheets/Circuit.sheet.in.h:23
+#: sheets/Circuit.sheet.in.h:24
 msgid "A vertically aligned capacitor"
 msgstr "En vertikalt justerad kapacitans"
 
-#: sheets/Circuit.sheet.in.h:24
+#: sheets/Circuit.sheet.in.h:25
 msgid "A vertically aligned diode"
 msgstr "En vertikalt justerad diod"
 
-#: sheets/Circuit.sheet.in.h:25
+#: sheets/Circuit.sheet.in.h:26
 msgid "A vertically aligned fuse"
 msgstr "En vertikalt justerad säkring"
 
-#: sheets/Circuit.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned powersource"
 msgstr "En vertikalt justerad spänningskälla"
 
-#: sheets/Circuit.sheet.in.h:27
+#: sheets/Circuit.sheet.in.h:28
 msgid "A vertically aligned zener diode"
 msgstr "En vertikalt justerad zenerdiod"
 
-#: sheets/Circuit.sheet.in.h:28
+#: sheets/Circuit.sheet.in.h:29
 msgid "An NMOS transistor"
 msgstr "En NMOS-transistor"
 
-#: sheets/Circuit.sheet.in.h:29
+#: sheets/Circuit.sheet.in.h:30
 msgid "An operational amplifier"
 msgstr "En operationsförstärkare"
 
-#: sheets/Circuit.sheet.in.h:30
+#: sheets/Circuit.sheet.in.h:31
 msgid "Circuit"
 msgstr "Krets"
 
-#: sheets/Circuit.sheet.in.h:31
+#: sheets/Circuit.sheet.in.h:32
 msgid "Components for circuit diagrams"
 msgstr "Komponenter för kretsscheman"
 
@@ -5016,7 +5046,7 @@ msgstr "Skapa ett användningsexempel"
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create an actor"
-msgstr "Skapa en skådespelare"
+msgstr "Skapa en aktör"
 
 #: sheets/UML.sheet.in.h:19
 msgid "Create an object"

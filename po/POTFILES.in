@@ -181,6 +181,7 @@ plug-ins/shape/shape-export.c
 plug-ins/shape/shape.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg.c
+plug-ins/wmf/wmf.cpp
 plug-ins/wpg/wpg.c
 plug-ins/xfig/xfig-export.c
 plug-ins/xfig/xfig-import.c
