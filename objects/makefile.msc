@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = chronogram custom er flowchart fs grafcet labels \
+PLUGINS = chronogram custom eml er flowchart fs grafcet labels \
 		network sadt standard sybase uml 
 
 # The main target
@@ -53,6 +53,19 @@ OBJECTS = \
 	custom_object.obj \
 	custom_util.obj \
 	custom.obj
+!ENDIF
+
+!IFDEF OBJ_eml
+OBJECTS = \
+        instantiation.obj \
+        process_dialog.obj \
+        eml.obj \
+        process.obj \
+        interaction-ortho.obj \
+        interaction.obj \
+        dbox.obj \
+        listfun.obj \
+        nlist.obj
 !ENDIF
 
 !IFDEF OBJ_er

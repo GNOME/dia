@@ -29,6 +29,7 @@
 
 static GList *export_filters = NULL;
 static GList *import_filters = NULL;
+static GList *callback_filters = NULL;
 
 static gint
 export_filter_compare(gconstpointer a, gconstpointer b)
@@ -166,3 +167,23 @@ filter_guess_import_filter(const gchar *filename)
   return NULL;
 }
 
+/* register a new callback from a plug-in */
+void 
+filter_register_callback(DiaCallbackFilter *cbfilter)
+{
+  /* sanity check */
+  g_return_if_fail (cbfilter != NULL);
+  g_return_if_fail (cbfilter->callback != NULL);
+  g_return_if_fail (cbfilter->menupath != NULL);
+  g_return_if_fail (cbfilter->description != NULL);
+
+  /* callback_filters is always pointing to the last element */
+  callback_filters = g_list_append (callback_filters, (gpointer)cbfilter);
+}
+
+/* return the registered callbacks list, called once to build menus */
+GList *
+filter_get_callbacks(void)
+{
+  return g_list_first (callback_filters);
+}

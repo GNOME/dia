@@ -37,25 +37,6 @@ struct _MyRenderer {
 /* include function declares and render object "vtable" */
 #include "../renderer.inc"
 
-#define ON_RES(r) \
-if (!r) { \
-  PyObject *exc, *v, *tb, *ef; \
-  PyErr_Fetch (&exc, &v, &tb); \
-  PyErr_NormalizeException(&exc, &v, &tb); \
-\
-  ef = PyDiaError_New(MY_RENDERER_NAME " Error:", FALSE); \
-  PyFile_WriteObject (exc, ef, 0); \
-  PyFile_WriteObject (v, ef, 0); \
-  PyTraceBack_Print(tb, ef); \
-\
-  Py_DECREF (ef); \
-  Py_XDECREF(exc); \
-  Py_XDECREF(v); \
-  Py_XDECREF(tb); \
-} \
-else \
-  Py_DECREF (res)
-      
 static void
 begin_render(MyRenderer *renderer, DiagramData *data)
 {

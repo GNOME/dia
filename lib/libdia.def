@@ -280,6 +280,7 @@ EXPORTS
  object_apply_props_from_dialog
  object_connect
  object_copy
+ object_copy_using_properties
  object_create_props_dialog
  object_destroy
  object_find_attribute
@@ -287,6 +288,7 @@ EXPORTS
  object_get_type
  object_init
  object_load
+ object_load_using_properties
  object_register_type
  object_registry_init
  object_remove_connectionpoint
@@ -295,6 +297,7 @@ EXPORTS
  object_return_null
  object_return_void
  object_save
+ object_save_using_properties
  object_set_props_from_offsets
  object_unconnect
  orthconn_add_segment
@@ -394,6 +397,9 @@ EXPORTS
  transform_point
  rotate_matrix
  identity_matrix
+
+ filter_get_callbacks
+ filter_register_callback
 
 ; custom_register_objects
 

@@ -322,7 +322,7 @@ interaction_ortho_create(Point *startpoint,
     inter_font = font_getfont("Courier");
   }
   
-  inter = g_malloc(sizeof(InteractionOrtho));
+  inter = g_malloc0(sizeof(InteractionOrtho));
   orth = &inter->orth;
   obj = (Object *) inter;
   
@@ -378,7 +378,7 @@ interaction_ortho_copy(InteractionOrtho*inter)
   
   orth = &inter->orth;
   
-  newinter = g_malloc(sizeof(InteractionOrtho));
+  newinter = g_malloc0(sizeof(InteractionOrtho));
   neworth = &newinter->orth;
   newobj = (Object *) newinter;
 
@@ -452,7 +452,7 @@ interaction_ortho_load(ObjectNode obj_node, int version,
     inter_font = font_getfont("Courier");
   }
 
-  inter = g_new(InteractionOrtho, 1);
+  inter = g_new0(InteractionOrtho, 1);
 
   orth = &inter->orth;
   obj = (Object *) inter;

@@ -152,7 +152,7 @@ eml_parameter_copy(EMLParameter *param)
   GList *newmembers;
   GList *list;
 
-  newparam = g_new(EMLParameter, 1);
+  newparam = g_new0(EMLParameter, 1);
   newparam->name = strdup(param->name);
   newparam->type = param->type;
 
@@ -185,7 +185,7 @@ eml_function_copy(EMLFunction *fun)
   EMLParameter *newparam;
   GList *list;
   
-  newfun = g_new(EMLFunction, 1);
+  newfun = g_new0(EMLFunction, 1);
   newfun->module = g_strdup(fun->module);
   newfun->name = g_strdup(fun->name);
   newfun->left_connection = fun->left_connection;
@@ -260,7 +260,7 @@ eml_parameter_new(void)
 {
   EMLParameter *param;
   
-  param = g_new(EMLParameter, 1);
+  param = g_new0(EMLParameter, 1);
   param->name = g_strdup("");
   param->type = EML_OTHER;
   param->relmembers = NULL;
@@ -287,7 +287,7 @@ eml_function_new(void)
 {
   EMLFunction *fun;
 
-  fun = g_new(EMLFunction, 1);
+  fun = g_new0(EMLFunction, 1);
   fun->module = g_strdup("");
   fun->name = g_strdup("");
   fun->parameters = NULL;
@@ -400,7 +400,7 @@ eml_parameter_read(DataNode composite)
   gint num;
   gint i;
 
-  param = g_new(EMLParameter, 1);
+  param = g_new0(EMLParameter, 1);
 
   param->name = NULL;
   param_node = composite_find_attribute(composite, "name");
@@ -443,7 +443,7 @@ eml_function_read(DataNode composite)
   DataNode composite2;
   int i, num;
 
-  fun = g_new(EMLFunction, 1);
+  fun = g_new0(EMLFunction, 1);
 
   fun->name = NULL;
   param_node = composite_find_attribute(composite, "name");
@@ -480,7 +480,7 @@ eml_interface_read(DataNode composite)
   EMLParameter *param;
   DataNode composite2;
 
-  iface = g_new(EMLInterface, 1);
+  iface = g_new0(EMLInterface, 1);
   iface->functions = NULL;
   iface->messages = NULL;
   iface->name = NULL;
@@ -553,7 +553,7 @@ eml_interface_copy( EMLInterface *iface)
 {
   EMLInterface *newiface;
 
-  newiface = g_new(EMLInterface, 1);
+  newiface = g_new0(EMLInterface, 1);
 
   newiface->name = g_strdup(iface->name);
 

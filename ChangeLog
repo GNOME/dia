@@ -1,3 +1,38 @@
+2001-05-01  Hans Breuer  <hans@breuer.org>
+
+	* objects/makefile.msc : added eml
+	* objects/eml/instantiation.c : initialize 'inst' pointer
+	before using, zero initialization for objects
+	* objects/eml/interaction-ortho.c :
+	* objects/eml/interaction.c : zero initialization for objects
+
+	* app/menus.c : removed Gimp mru stuff which slipped in at
+	2000-08-15, was never activated and will never be needed, 
+	because of Steffens recent file list patch added at 2001-01-05.
+
+	* objects/eml/*.c : some more zero initialization of objects
+	to avoid infinite (uninitialized) bounding boxes
+
+	Implemented a callback api which allows plug-ins to register
+	menu call backs. Dia for Gnome should compile, but will need 
+	some extra tweaking to make it work because I can't test it.
+
+	* plug-ins/python/pydia-error.h :
+	* plug-ins/python/pydia-render.c : moved Pxthon function return 
+	value handling from pydia-render.c to pydia-error.h, to make it
+	usable for
+	* plug-ins/python/diamodule.c : implement callback function
+	registration from and relaying to Python code
+
+	* app/menus.c : register and use plug-in menu callbacks
+
+	* lib/filter.[hc] : implement filter_register_callback() and
+	filter_get_callbacks() for the above
+	* lib/libdia.def : export them
+
+	* plug-ins/python/debug_objects.py (new file): 
+	sample using the above
+
 2001-04-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/shape/shape-export.c (new_shape_renderer): 

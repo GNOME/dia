@@ -45,7 +45,7 @@ emlbox_new(real font_height,
            ConnectionPoint *left_connection,
            ConnectionPoint *right_connection)
 {
-  EMLBox *box = g_new(EMLBox, 1);
+  EMLBox *box = g_new0(EMLBox, 1);
   box->font_height       = font_height;
   box->text_alignment    = text_alignment;
   box->border_width      = border_width;

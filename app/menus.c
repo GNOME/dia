@@ -38,6 +38,8 @@
 #include "select.h"
 #include "dia_dirs.h"
 
+static void plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget);
+
 #ifdef GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
@@ -570,98 +572,6 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-#ifndef GNOME
-static void
-menus_last_opened_cmd_callback (GtkWidget *widget,
-                                gpointer   callback_data,
-                                guint      num)
-{
-  /* FIXME: This is GIMP code. We should use dia code here! 
-  gchar *filename, *raw_filename;
-  guint num_entries;
-  gint  status;
-
-  num_entries = g_slist_length (last_opened_raw_filenames); 
-  if (num >= num_entries)
-    return;
-
-  raw_filename =
-    ((GString *) g_slist_nth_data (last_opened_raw_filenames, num))->str;
-  filename = g_basename (raw_filename);
-
-  status = file_open (raw_filename, raw_filename);
-
-  if (status != PDB_SUCCESS &&
-      status != PDB_CANCEL)
-    {
-      g_message (_("Error opening file: %s\n"), raw_filename);
-    } */
-}
-
-static void
-menus_init_mru (void)
-{
-  /* FIXME: This is GIMP code. We should use dia code here! 
-  
-  GtkItemFactoryEntry *last_opened_entries;
-  GtkWidget	      *menu_item;
-  gchar	*paths;
-  gchar *accelerators;
-  gint	 i;
-  
-  last_opened_entries = g_new (GtkItemFactoryEntry, last_opened_size);
-
-  paths = g_new (gchar, last_opened_size * MRU_MENU_ENTRY_SIZE);
-  accelerators = g_new (gchar, 9 * MRU_MENU_ACCEL_SIZE);
-
-  for (i = 0; i < last_opened_size; i++)
-    {
-      gchar *path, *accelerator;
-
-      path = &paths[i * MRU_MENU_ENTRY_SIZE];
-      if (i < 9)
-        accelerator = &accelerators[i * MRU_MENU_ACCEL_SIZE];
-      else
-        accelerator = NULL;
-    
-      last_opened_entries[i].path = path;
-      last_opened_entries[i].accelerator = accelerator;
-      last_opened_entries[i].callback =
-	(GtkItemFactoryCallback) menus_last_opened_cmd_callback;
-      last_opened_entries[i].callback_action = i;
-      last_opened_entries[i].item_type = NULL;
-
-      g_snprintf (path, MRU_MENU_ENTRY_SIZE, "/File/MRU%02d", i + 1);
-      if (accelerator != NULL)
-	g_snprintf (accelerator, MRU_MENU_ACCEL_SIZE, "<control>%d", i + 1);
-    }
-
-  menus_create_items (toolbox_factory, last_opened_size,
-		      last_opened_entries, NULL, 2);
-  
-  for (i=0; i < last_opened_size; i++)
-    {
-      menu_item =
-	gtk_item_factory_get_widget (toolbox_factory,
-				     last_opened_entries[i].path);
-      gtk_widget_hide (menu_item);
-    }
-
-  menu_item = gtk_item_factory_get_widget (toolbox_factory, "/File/---MRU");
-  if (menu_item && menu_item->parent)
-    gtk_menu_reorder_child (GTK_MENU (menu_item->parent), menu_item, -1);
-  gtk_widget_hide (menu_item);
-
-  menu_item = gtk_item_factory_get_widget (toolbox_factory, "/File/Quit");
-  if (menu_item && menu_item->parent)
-    gtk_menu_reorder_child (GTK_MENU (menu_item->parent), menu_item, -1);
-
-  g_free (paths);
-  g_free (accelerators);
-  g_free (last_opened_entries); */
-}
-#endif
-
 #ifdef GNOME
 /* create the GnomeUIBuilderData structure that connects the callbacks
  * so that they have the same signature as type 1 GtkItemFactory
@@ -701,6 +611,7 @@ menus_init(void)
   GString *path;
   gchar *accelfilename;
   gint i, len;
+  GList *filter_callbacks;
 
   if (!initialise)
     return;
@@ -742,8 +653,6 @@ menus_init(void)
 				 toolbox_menu_items,
 				 NULL);
   
-  menus_init_mru ();
-
   toolbox_menubar = gtk_item_factory_get_widget(toolbox_item_factory,
 						"<Toolbox>");
 
@@ -786,6 +695,43 @@ menus_init(void)
     g_free(accelfilename);
   }
   gtk_quit_add(1, save_accels, NULL);
+
+  /* initialize callbacks from plug-ins */
+  filter_callbacks = filter_get_callbacks();
+  if (filter_callbacks) {
+    GtkItemFactoryEntry new_entry;
+    GList *cblist;
+    gint   cbcount = 0;
+
+    new_entry.callback = plugin_callback_cb;
+    new_entry.item_type = "<Item>";
+    new_entry.accelerator = NULL;
+
+    for (cblist = filter_callbacks; cblist != NULL; cblist = cblist->next) {
+      char *new_menupath;
+      DiaCallbackFilter *cbf = cblist->data;
+
+      /* It would be faster to directly connect the cbf to the menu entry
+       * but using action_data with a counter should improve error handling.  
+       */
+      new_menupath = strstr (cbf->menupath, "<Display>");
+      if (new_menupath) {
+        new_entry.path = new_menupath + strlen("<Display>");
+        new_entry.callback_action = cbcount;
+	    gtk_item_factory_create_item(display_item_factory, &new_entry, NULL,1);
+        continue;
+      }
+      new_menupath = strstr (cbf->menupath, "<Toolbox>");
+      if (new_menupath) {
+        new_entry.path = new_menupath + strlen("<Toolbox>");
+        new_entry.callback_action = cbcount;
+	    gtk_item_factory_create_item(toolbox_item_factory, &new_entry, NULL,1);
+        continue;
+      }
+      cbcount++; /* increase always, because it's the index into the list */
+      g_warning ("Don't know where to add \"%s\" menu entry.", cbf->menupath);
+    } /* for filter_callbacks */
+  } /* if filter_callbacks */
 }
 
 void
@@ -954,3 +900,33 @@ menus_get_item_from_path (char *path)
 
   return widget;
 }
+
+static void
+plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget)
+{
+  GList *cbfilters = filter_get_callbacks();
+  DiaCallbackFilter *cbf;
+
+  /* find the corresponding CallbackFilter */
+  if (!cbfilters) {
+    g_warning ("Huh? Callback callback called without any callbacks registered.");
+    return;
+  }
+
+  cbfilters = g_list_nth (cbfilters, action);
+  cbf = cbfilters ? (DiaCallbackFilter *)cbfilters->data : NULL; 
+  if (!cbf) {
+    g_warning ("Can't find callback No. %d.", action);
+    return;
+  }
+
+  /* and finally invoke it */
+  if (cbf->callback) {
+    DDisplay *ddisp = ddisplay_active();
+    DiagramData* diadata = ddisp ? ddisp->diagram->data : NULL;
+    cbf->callback (diadata, 0, cbf->user_data);
+  }
+  else
+    g_warning ("Can't find callback function for No. %d.", action);
+}
+

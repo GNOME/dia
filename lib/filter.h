@@ -51,6 +51,19 @@ struct _DiaImportFilter {
   void* user_data;
 };
 
+typedef struct _DiaCallbackFilter DiaCallbackFilter;
+/* gets called as menu callback */
+typedef void (* DiaCallbackFunc) (DiagramData *dia,
+                                  guint flags, /* further additions */
+                                  void* user_data);
+
+struct _DiaCallbackFilter {
+  const gchar *description;
+  const gchar *menupath;
+  DiaCallbackFunc callback;
+  void* user_data;
+};
+
 /* register an export filter.  The DiaExportFilter should be static, and
  * none of its fields should be freed */
 void filter_register_export(DiaExportFilter *efilter);
@@ -68,5 +81,9 @@ void filter_register_import(DiaImportFilter *ifilter);
 GList *filter_get_import_filters(void);
 gchar *filter_get_import_filter_label(DiaImportFilter *ifilter);
 DiaImportFilter *filter_guess_import_filter(const gchar *filename);
+
+void filter_register_callback(DiaCallbackFilter *cbfilter);
+/* returns all registered callbacks */
+GList *filter_get_callbacks(void);
 
 #endif

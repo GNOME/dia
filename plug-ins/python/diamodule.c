@@ -146,6 +146,70 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
     return obj;
 }
 
+/*
+ * This function gets called by Dia as a reaction to a menu item.
+ * It needs to be registered before via Python function 
+ * dia.register_callback
+ */
+void
+PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
+{
+    PyObject *diaobj, *res, *arg, *func = user_data;
+    if (!func || !PyCallable_Check (func)) {
+        g_warning ("Callback called without valid callback function.");
+        return;
+    }
+  
+    if (dia)
+        diaobj = PyDiaDiagramData_New (dia);
+    else {
+        diaobj = Py_None;
+        Py_INCREF (diaobj);
+    }
+      
+    Py_INCREF(func);
+
+    arg = Py_BuildValue ("(Oi)", diaobj, flags);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res);
+    }
+    Py_XDECREF (arg);
+
+    Py_DECREF(func);
+    Py_XDECREF(diaobj);
+}
+
+static PyObject *
+PyDia_RegisterCallback(PyObject *self, PyObject *args)
+{
+    gchar *desc;
+    gchar *menupath;
+    PyObject *func;
+    DiaCallbackFilter *filter;
+
+    if (!PyArg_ParseTuple(args, "ssO:dia.register_callback",
+			  &desc, &menupath, &func))
+	return NULL;
+
+    if (!PyCallable_Check(func)) {
+        PyErr_SetString(PyExc_TypeError, "third parameter must be callable");
+        return NULL;
+    }
+
+    Py_INCREF(func); /* stay alive, where to kill ?? */
+
+    filter = g_new (DiaCallbackFilter, 1);
+    filter->description = g_strdup (desc);
+    filter->menupath = g_strdup (menupath);
+    filter->callback = &PyDia_callback_func;
+    filter->user_data = func;
+
+    filter_register_callback(filter);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
 
 static PyMethodDef dia_methods[] = {
     { "diagrams", PyDia_Diagrams, 1 },
@@ -154,6 +218,7 @@ static PyMethodDef dia_methods[] = {
     { "active_display", PyDia_ActiveDisplay, 1 },
     { "update_all", PyDia_UpdateAll, 1 },
     { "register_export", PyDia_RegisterExport, 1 },
+    { "register_callback", PyDia_RegisterCallback, 1},
     { NULL, NULL }
 };
 

@@ -528,7 +528,7 @@ emlprocess_create(Point *startpoint,
   int i;
   ConnectionPoint *connection;
 
-  emlprocess = g_new(EMLProcess, 1);
+  emlprocess = g_new0(EMLProcess, 1);
   elem = &emlprocess->element;
   obj = (Object *) emlprocess;
   
@@ -622,7 +622,7 @@ emlprocess_copy(EMLProcess *emlprocess)
 
   elem = &emlprocess->element;
   
-  newemlprocess = g_new(EMLProcess, 1);
+  newemlprocess = g_new0(EMLProcess, 1);
   newelem = &newemlprocess->element;
   newobj = (Object *) newemlprocess;
 
@@ -733,7 +733,7 @@ static Object *emlprocess_load(ObjectNode obj_node, int version,
   int i;
   int num;
   
-  emlprocess = g_new(EMLProcess, 1);
+  emlprocess = g_new0(EMLProcess, 1);
   elem = &emlprocess->element;
   obj = (Object *) emlprocess;
   

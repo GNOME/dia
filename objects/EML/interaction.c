@@ -280,7 +280,7 @@ interaction_create(Point *startpoint,
   if (interaction_font == NULL)
     interaction_font = font_getfont("Courier");
   
-  interaction = g_malloc(sizeof(Interaction));
+  interaction = g_malloc0(sizeof(Interaction));
 
   conn = &interaction->connection;
   conn->endpoints[0] = *startpoint;
@@ -340,7 +340,7 @@ interaction_copy(Interaction *interaction)
   
   conn = &interaction->connection;
   
-  newinteraction = g_malloc(sizeof(Interaction));
+  newinteraction = g_malloc0(sizeof(Interaction));
   newconn = &newinteraction->connection;
   newobj = (Object *) newinteraction;
 
@@ -489,7 +489,7 @@ interaction_load(ObjectNode obj_node, int version, const char *filename)
   if (interaction_font == NULL)
     interaction_font = font_getfont("Courier");
 
-  interaction = g_malloc(sizeof(Interaction));
+  interaction = g_malloc0(sizeof(Interaction));
 
   conn = &interaction->connection;
   obj = (Object *) interaction;

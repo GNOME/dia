@@ -393,6 +393,7 @@ instantiation_set_type_callback(Object *obj, Point *clicked, gpointer data)
   Instantiation *inst;
   ObjectState *old_state;
 
+  inst = (Instantiation *) obj;
   old_state = (ObjectState *)instantiation_get_state(inst);
 
   inst->type = (int) data ;
@@ -445,7 +446,7 @@ instantiation_create(Point *startpoint,
     inst_font = font_getfont("Courier");
   }
   
-  inst = g_malloc(sizeof(Instantiation));
+  inst = g_malloc0(sizeof(Instantiation));
   orth = &inst->orth;
   orthconn_init(orth, startpoint);
 
@@ -504,7 +505,7 @@ instantiation_copy(Instantiation *inst)
   
   orth = &inst->orth;
   
-  newinst = g_malloc(sizeof(Instantiation));
+  newinst = g_malloc0(sizeof(Instantiation));
   neworth = &newinst->orth;
   newobj = &neworth->object;
 
@@ -595,7 +596,7 @@ instantiation_load(ObjectNode obj_node, int version,
     inst_font = font_getfont("Courier");
   }
 
-  inst = g_new(Instantiation, 1);
+  inst = g_new0(Instantiation, 1);
 
   orth = &inst->orth;
   obj = &orth->object;
