@@ -8,6 +8,8 @@
     <shape>vresistor.shape</shape>
     <shape>hcapacitor.shape</shape>
     <shape>vcapacitor.shape</shape>
+    <shape>hinductor.shape</shape>
+    <shape>vinductor.shape</shape>
     <shape>npn.shape</shape>
     <shape>pnp.shape</shape>
   </shapes>

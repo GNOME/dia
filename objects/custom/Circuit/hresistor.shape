@@ -3,7 +3,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
   <name>Circuit - Horizontal Resistor</name>
-  <description>A horizontally alighned resistor</description>
+  <description>A horizontally aligned resistor</description>
   <icon>hresistor.xpm</icon>
   <connections>
     <point x="0" y="0"/>

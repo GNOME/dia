@@ -655,7 +655,7 @@ custom_move(Custom *custom, Point *to)
 static void
 custom_draw(Custom *custom, Renderer *renderer)
 {
-  static GArray *arr = NULL;
+  static GArray *arr = NULL, *barr = NULL;
   Point p1, p2;
   real coord;
   int i;
@@ -668,6 +668,8 @@ custom_draw(Custom *custom, Renderer *renderer)
 
   if (!arr)
     arr = g_array_new(FALSE, FALSE, sizeof(Point));
+  if (!barr)
+    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
 
   elem = &custom->element;
 
@@ -759,6 +761,52 @@ custom_draw(Custom *custom, Renderer *renderer)
 				  el->any.swap_stroke ?
 				    &custom->inner_color :
 				    &custom->border_color);
+      break;
+    case GE_PATH:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				 el->path.npoints,
+				 el->any.swap_stroke ?
+				   &custom->inner_color :
+				   &custom->border_color);
+      break;
+    case GE_SHAPE:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      if (custom->show_background)
+	renderer->ops->fill_bezier(renderer, (BezPoint *)barr->data,
+				   el->path.npoints,
+				   el->any.swap_fill ?
+				     &custom->border_color :
+				     &custom->inner_color);
+      renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				 el->path.npoints,
+				 el->any.swap_stroke ?
+				   &custom->inner_color :
+				   &custom->border_color);
       break;
     }
   }

@@ -1,3 +1,17 @@
+1999-09-01  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/Circuit/hinductor.*:
+	* objects/custom/Circuit/vinductor.*: added inductor shapes that
+	also test out the bezier curve and SVG path support.
+	
+	* objects/custom/custom_object.c (custom_draw): added support for
+	drawing bezier paths and filled shapes.
+
+	* objects/custom/shape_info.c (parse_path): new function to parse
+	SVG path elements.  It does not do quadratic beziers or elliptic
+	arcs though.  Only moves, lines and cubic beziers.
+	(*): added support for paths.
+
 1999-08-31  James Henstridge  <james@daa.com.au>
 
 	* objects/sybase/ltm.c (render_to_store): use the newer bezier API.

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Circuit - Vertical Inductor</name>
+  <description>A vertically aligned inductor</description>
+  <icon>vinductor.xpm</icon>
+  <connections>
+    <point x="0" y="0"/>
+    <point x="0" y="20"/>
+  </connections>
+  <svg:svg width="2" height="20">
+    <svg:path d="M 0,0 v 4 c 1,-0.5 2,-1 2,1.5 
+                 s -2,3 -2,1.5 s 2,-1 2,1.5 
+                 s -2,3 -2,1.5 s 2,-1 2,1.5 
+                 s -2,3 -2,1.5 s 2,-1 2,1.5 
+                 s -1.5,2 -2,1.5 v 4"/>
+  </svg:svg>
+</shape>

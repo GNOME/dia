@@ -2,7 +2,9 @@
 #define _SHAPE_INFO_H_
 
 #include <glib.h>
+
 #include "geometry.h"
+#include "render.h"
 #include "dia_xml.h"
 #include "object.h"
 
@@ -12,7 +14,8 @@ typedef enum {
   GE_POLYGON,
   GE_RECT,
   GE_ELLIPSE,
-  /* GE_PATH */
+  GE_PATH,
+  GE_SHAPE
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
@@ -21,6 +24,7 @@ typedef struct _GraphicElementLine GraphicElementLine;
 typedef struct _GraphicElementPoly GraphicElementPoly;
 typedef struct _GraphicElementRect GraphicElementRect;
 typedef struct _GraphicElementEllipse GraphicElementEllipse;
+typedef struct _GraphicElementPath GraphicElementPath;
 
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
@@ -53,6 +57,12 @@ struct _GraphicElementEllipse {
   Point center;
   real width, height;
 };
+
+struct _GraphicElementPath {
+  SHAPE_INFO_COMMON;
+  int npoints;
+  BezPoint points[1];
+};
 #undef SHAPE_INFO_COMMON
 
 union _GraphicElement {
@@ -63,6 +73,8 @@ union _GraphicElement {
   GraphicElementPoly polygon;
   GraphicElementRect rect;
   GraphicElementEllipse ellipse;
+  GraphicElementPath path;
+  GraphicElementPath shape;
 };
 
 typedef enum {

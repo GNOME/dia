@@ -3,6 +3,7 @@
 #include <parser.h>
 #include <float.h>
 #include <ctype.h>
+#include <string.h>
 #include "shape_info.h"
 #include "custom_util.h"
 #include "intl.h"
@@ -74,6 +75,302 @@ parse_style(xmlNodePtr node, real *line_width, gboolean *swap_stroke,
     if (ptr[0] != '\0') ptr++;
   }
   free(str);
+}
+
+/* routine to chomp off the start of the string */
+#define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
+
+static void
+parse_path(ShapeInfo *info, const char *path_str, real line_width,
+	   gboolean swap_stroke, gboolean swap_fill)
+{
+  enum {
+    PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
+    PATH_SMOOTHCURVE, PATH_CLOSE } last_type = PATH_MOVE;
+  Point last_open = {0.0, 0.0};
+  Point last_point = {0.0, 0.0};
+  Point last_control = {0.0, 0.0};
+  gboolean last_relative = FALSE;
+  real x1, y1, x2, y2, x3, y3;
+  static GArray *points = NULL;
+  BezPoint bez;
+  gchar *path = (gchar *)path_str;
+
+  if (!points)
+    points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  g_array_set_size(points, 0);
+
+  path_chomp(path);
+  while (path[0] != '\0') {
+    g_print("Path: %s\n", path);
+    /* check for a new command */
+    switch (path[0]) {
+    case 'M':
+      path++;
+      path_chomp(path);
+      last_type = PATH_MOVE;
+      last_relative = FALSE;
+      break;
+    case 'm':
+      path++;
+      path_chomp(path);
+      last_type = PATH_MOVE;
+      last_relative = TRUE;
+      break;
+    case 'L':
+      path++;
+      path_chomp(path);
+      last_type = PATH_LINE;
+      last_relative = FALSE;
+      break;
+    case 'l':
+      path++;
+      path_chomp(path);
+      last_type = PATH_LINE;
+      last_relative = TRUE;
+      break;
+    case 'H':
+      path++;
+      path_chomp(path);
+      last_type = PATH_HLINE;
+      last_relative = FALSE;
+      break;
+    case 'h':
+      path++;
+      path_chomp(path);
+      last_type = PATH_HLINE;
+      last_relative = TRUE;
+      break;
+    case 'V':
+      path++;
+      path_chomp(path);
+      last_type = PATH_VLINE;
+      last_relative = FALSE;
+      break;
+    case 'v':
+      path++;
+      path_chomp(path);
+      last_type = PATH_VLINE;
+      last_relative = TRUE;
+      break;
+    case 'C':
+      path++;
+      path_chomp(path);
+      last_type = PATH_CURVE;
+      last_relative = FALSE;
+      break;
+    case 'c':
+      path++;
+      path_chomp(path);
+      last_type = PATH_CURVE;
+      last_relative = TRUE;
+      break;
+    case 'S':
+      path++;
+      path_chomp(path);
+      last_type = PATH_SMOOTHCURVE;
+      last_relative = FALSE;
+      break;
+    case 's':
+      path++;
+      path_chomp(path);
+      last_type = PATH_SMOOTHCURVE;
+      last_relative = TRUE;
+      break;
+    case 'Z':
+    case 'z':
+      path++;
+      path_chomp(path);
+      last_type = PATH_CLOSE;
+      last_relative = FALSE;
+      break;
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case '.':
+    case '+':
+    case '-':
+      if (last_type == PATH_CLOSE) {
+	g_warning("parse_path: argument given for implicite close path");
+	/* consume one number so we don't fall into an infinite loop */
+	while (path != '\0' && strchr("0123456789.+-", path[0])) path++;
+	path_chomp(path);
+      }
+      break;
+    default:
+      g_warning("unsupported path codde '%c'", path[0]);
+      path++;
+      path_chomp(path);
+      break;
+    }
+    /* actually parse the path component */
+    switch (last_type) {
+    case PATH_MOVE:
+      bez.type = BEZ_MOVE_TO;
+      bez.p1.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p1.y = g_strtod(path, &path);
+      path_chomp(path);
+      if (last_relative) {
+	bez.p1.x += last_point.x;
+	bez.p1.y += last_point.y;
+      }
+      last_point = bez.p1;
+      last_control = bez.p1;
+      last_open = bez.p1;
+
+      /* if there is some unclosed commands, add them as a GE_PATH */
+      if (points->len > 0 &&
+	  g_array_index(points, BezPoint, 0).type != BEZ_MOVE_TO) {
+	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
+					  points->len * sizeof(BezPoint));
+	el->type = GE_PATH;
+	el->line_width = line_width;
+	el->swap_stroke = swap_stroke;
+	el->swap_fill   = swap_fill;
+	el->npoints = points->len;
+	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
+	info->display_list = g_list_append(info->display_list, el);
+      }
+      g_array_set_size(points, 0);
+      g_array_append_val(points, bez);
+      break;
+    case PATH_LINE:
+      bez.type = BEZ_LINE_TO;
+      bez.p1.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p1.y = g_strtod(path, &path);
+      path_chomp(path);
+      if (last_relative) {
+	bez.p1.x += last_point.x;
+	bez.p1.y += last_point.y;
+      }
+      last_point = bez.p1;
+      last_control = bez.p1;
+
+      g_array_append_val(points, bez);
+      break;
+    case PATH_HLINE:
+      bez.type = BEZ_LINE_TO;
+      bez.p1.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p1.y = last_point.y;
+      if (last_relative)
+	bez.p1.x += last_point.x;
+      last_point = bez.p1;
+      last_control = bez.p1;
+
+      g_array_append_val(points, bez);
+      break;
+    case PATH_VLINE:
+      bez.type = BEZ_LINE_TO;
+      bez.p1.x = last_point.x;
+      bez.p1.y = g_strtod(path, &path);
+      path_chomp(path);
+      if (last_relative)
+	bez.p1.y += last_point.y;
+      last_point = bez.p1;
+      last_control = bez.p1;
+
+      g_array_append_val(points, bez);
+      break;
+    case PATH_CURVE:
+      bez.type = BEZ_CURVE_TO;
+      bez.p1.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p1.y = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p2.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p2.y = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p3.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p3.y = g_strtod(path, &path);
+      path_chomp(path);
+      if (last_relative) {
+	bez.p1.x += last_point.x;
+	bez.p1.y += last_point.y;
+	bez.p2.x += last_point.x;
+	bez.p2.y += last_point.y;
+	bez.p3.x += last_point.x;
+	bez.p3.y += last_point.y;
+      }
+      last_point = bez.p3;
+      last_control = bez.p2;
+
+      g_array_append_val(points, bez);
+      break;
+    case PATH_SMOOTHCURVE:
+      bez.type = BEZ_CURVE_TO;
+      bez.p1.x = 2 * last_point.x - last_control.x;
+      bez.p1.y = 2 * last_point.y - last_control.y;
+      bez.p2.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p2.y = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p3.x = g_strtod(path, &path);
+      path_chomp(path);
+      bez.p3.y = g_strtod(path, &path);
+      path_chomp(path);
+      if (last_relative) {
+	bez.p2.x += last_point.x;
+	bez.p2.y += last_point.y;
+	bez.p3.x += last_point.x;
+	bez.p3.y += last_point.y;
+      }
+      last_point = bez.p3;
+      last_control = bez.p2;
+
+      g_array_append_val(points, bez);
+      break;
+    case PATH_CLOSE:
+      /* close the path with a line */
+      if (last_open.x != last_point.x || last_open.y != last_point.y) {
+	bez.type = BEZ_LINE_TO;
+	bez.p1 = last_open;
+	g_array_append_val(points, bez);
+      }
+      /* if there is some unclosed commands, add them as a GE_SHAPE */
+      if (points->len > 0) {
+	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
+					  points->len * sizeof(BezPoint));
+	el->type = GE_SHAPE;
+	el->line_width = line_width;
+	el->swap_stroke = swap_stroke;
+	el->swap_fill   = swap_fill;
+	el->npoints = points->len;
+	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
+	info->display_list = g_list_append(info->display_list, el);
+      }
+      g_array_set_size(points, 0);
+      last_point = last_open;
+      last_control = last_open;
+      break;
+    }
+    /* get rid of any ignorable characters */
+    path_chomp(path);
+  }
+  /* if there is some unclosed commands, add them as a GE_PATH */
+  if (points->len > 0) {
+    GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
+				      points->len * sizeof(BezPoint));
+    el->type = GE_PATH;
+    el->line_width = line_width;
+    el->swap_stroke = swap_stroke;
+    el->swap_fill   = swap_fill;
+    el->npoints = points->len;
+    memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
+    info->display_list = g_list_append(info->display_list, el);
+  }
+  g_array_set_size(points, 0);
 }
 
 static void
@@ -247,6 +544,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	free(str);
       }
     } else if (!strcmp(node->name, "path")) {
+      str = xmlGetProp(node, "d");
+      if (str) {
+	parse_path(info, str, new_width, new_fswap, new_bswap);
+	free(str);
+      }
     } else if (!strcmp(node->name, "g")) {
       /* add elements from the group element */
       parse_svg_node(info, node, svg_ns, new_width, new_fswap, new_bswap);
@@ -307,6 +609,18 @@ update_bounds(ShapeInfo *info)
       pt.x += el->ellipse.width;
       pt.y += el->ellipse.height;
       check_point(info, &pt);
+      break;
+    case GE_PATH:
+    case GE_SHAPE:
+      for (i = 0; i < el->path.npoints; i++)
+	switch (el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  check_point(info, &el->path.points[i].p3);
+	  check_point(info, &el->path.points[i].p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  check_point(info, &el->path.points[i].p1);
+	}
       break;
     }
   }
@@ -526,6 +840,46 @@ shape_info_print(ShapeInfo *info)
       g_print("  ellipse: center=(%g, %g) width=%g height=%g\n",
 	      el->ellipse.center.x, el->ellipse.center.y,
 	      el->ellipse.width, el->ellipse.height);
+      break;
+    case GE_PATH:
+      g_print("  path:");
+      for (i = 0; i < el->path.npoints; i++)
+	switch (el->path.points[i].type) {
+	case BEZ_MOVE_TO:
+	  g_print(" M (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y);
+	  break;
+	case BEZ_LINE_TO:
+	  g_print(" L (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y);
+	  break;
+	case BEZ_CURVE_TO:
+	  g_print(" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y, el->path.points[i].p2.x,
+		  el->path.points[i].p2.y, el->path.points[i].p3.x,
+		  el->path.points[i].p3.y);
+	  break;
+	}
+      break;
+    case GE_SHAPE:
+      g_print("  shape:");
+      for (i = 0; i < el->path.npoints; i++)
+	switch (el->path.points[i].type) {
+	case BEZ_MOVE_TO:
+	  g_print(" M (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y);
+	  break;
+	case BEZ_LINE_TO:
+	  g_print(" L (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y);
+	  break;
+	case BEZ_CURVE_TO:
+	  g_print(" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[i].p1.x,
+		  el->path.points[i].p1.y, el->path.points[i].p2.x,
+		  el->path.points[i].p2.y, el->path.points[i].p3.x,
+		  el->path.points[i].p3.y);
+	  break;
+	}
       break;
     default:
       break;

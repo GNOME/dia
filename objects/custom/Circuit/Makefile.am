@@ -7,6 +7,8 @@ SHAPES = \
         index.sheet \
 	hcapacitor.shape \
 	hcapacitor.xpm \
+	hinductor.shape \
+	hinductor.xpm \
 	hresistor.shape \
 	hresistor.xpm \
 	npn.shape \
@@ -15,6 +17,8 @@ SHAPES = \
 	pnp.xpm \
 	vcapacitor.shape \
 	vcapacitor.xpm \
+	vinductor.shape \
+	vinductor.xpm \
 	vresistor.shape \
 	vresistor.xpm
 
