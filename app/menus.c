@@ -763,8 +763,10 @@ menus_init(void)
 					      toolbox_accels);
   gtk_object_set_data (GTK_OBJECT (toolbox_item_factory), "factory_path",
 		       (gpointer) "toolbox");
+#ifdef ENABLE_NLS
   gtk_item_factory_set_translate_func (toolbox_item_factory, menu_translate,
 				       "<Toolbox>", NULL);
+#endif
   menus_create_items (toolbox_item_factory,
 		      toolbox_nmenu_items,
 		      toolbox_menu_items,
@@ -779,8 +781,10 @@ menus_init(void)
   display_accels = gtk_accel_group_new();
   display_item_factory = gtk_item_factory_new(GTK_TYPE_MENU, "<Display>",
 					      display_accels);
+#ifdef ENABLE_NLS
   gtk_item_factory_set_translate_func (display_item_factory, menu_translate,
 				       "<Display>", NULL);
+#endif
   menus_create_items (display_item_factory,
 		      display_nmenu_items,
 		      display_menu_items,
