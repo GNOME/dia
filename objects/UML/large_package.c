@@ -30,6 +30,7 @@
 #include "properties.h"
 
 #include "uml.h"
+#include "stereotype.h"
 
 #include "pixmaps/largepackage.xpm"
 
@@ -258,6 +259,8 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
   p1.x = x + 0.1;
   p1.y = y - LARGEPACKAGE_FONTHEIGHT - font_descent(pkg->font, LARGEPACKAGE_FONTHEIGHT) - 0.1;
 
+
+
   if (pkg->stereotype) {
     renderer->ops->draw_string(renderer, pkg->stereotype, &p1,
 			       ALIGN_LEFT, &color_black);
@@ -482,6 +485,8 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     pkg->name = data_string(attribute_first_data(attr));
+  else
+    pkg->name = strdup("");
   
   pkg->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
@@ -537,12 +542,7 @@ largepackage_apply_properties(LargePackage *pkg)
   str = gtk_entry_get_text(prop_dialog->stereotype);
   
   if (strlen(str) != 0) {
-    pkg->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-    pkg->stereotype[0] = UML_STEREOTYPE_START;
-    pkg->stereotype[1] = 0;
-    strcat(pkg->stereotype, str);
-    pkg->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-    pkg->stereotype[strlen(str)+2] = 0;
+    pkg->stereotype = string_to_stereotype(str);
   } else {
     pkg->stereotype = NULL;
   }
@@ -576,9 +576,7 @@ fill_in_dialog(LargePackage *pkg)
   gtk_entry_set_text(prop_dialog->name, pkg->name);
   
   if (pkg->stereotype != NULL) {
-    str = strdup(pkg->stereotype);
-    strcpy(str, pkg->stereotype+1);
-    str[strlen(str)-1] = 0;
+    str = stereotype_to_string(pkg->stereotype);
     gtk_entry_set_text(prop_dialog->stereotype, str);
     g_free(str);
   } else {
