@@ -1,3 +1,8 @@
+2002-04-30  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* app/filedlg.c (file_save_as_callback, file_save_as_ok_callback):
+	Added button to toggle diagram compression.
+
 2002-04-29  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* lib/font.c: Support for loading extra kerning files, plus got

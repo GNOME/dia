@@ -35,10 +35,13 @@
 #include "message.h"
 #include "layer_dialog.h"
 #include "load_save.h"
+#include "preferences.h"
+#include "interface.h"
 
 static GtkWidget *opendlg = NULL, *open_options = NULL, *open_omenu = NULL;
 static GtkWidget *savedlg = NULL;
 static GtkWidget *exportdlg = NULL, *export_options = NULL, *export_omenu=NULL;
+static GtkWidget *compressbutton = NULL;
 
 static int
 file_dialog_hide (GtkWidget *filesel)
@@ -278,6 +281,10 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     }
   }
 
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton)) !=
+      prefs.compress_save)
+    prefs.compress_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+
   diagram_update_extents(dia);
 
   diagram_set_filename(dia, filename);
@@ -303,6 +310,16 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
 				    dia->filename ? dia->filename
 				    : "." G_DIR_SEPARATOR_S);
+    // Need better way to make it a reasonable size.  Isn't there some
+    // standard look for them (or is that just Gnome?)
+    compressbutton = gtk_check_button_new_with_label(_("Compress diagram files"));
+    gtk_box_pack_start_defaults(GTK_BOX(GTK_FILE_SELECTION(savedlg)->main_vbox),
+				compressbutton);
+    if (prefs.compress_save)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton), TRUE);
+    gtk_widget_show(compressbutton);
+    gtk_tooltips_set_tip(tool_tips, compressbutton,
+			 _("Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."), NULL);
     gtk_signal_connect_object(
 		GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->cancel_button),
 		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
@@ -315,6 +332,8 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
   } else {
     gtk_widget_set_sensitive(savedlg, TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
+				 prefs.compress_save);
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
