@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-09-09 01:54+0100\n"
-"PO-Revision-Date: 2003-09-09 01:55+0000\n"
+"POT-Creation-Date: 2003-09-11 09:06+0100\n"
+"PO-Revision-Date: 2003-09-11 09:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -104,14 +104,14 @@ msgstr "Dia versão %s, compilado %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia versão %s\n"
 
-#: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:423 app/app_procs.c:425 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Incapaz de encontrar objectos por omissão ao procurar por object-libs, a "
 "terminar...\n"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:553
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -121,7 +121,7 @@ msgstr ""
 "(em inglês) descrevendo os passos para que esta mensagem seja apresentada.\n"
 
 #. no standard buttons
-#: app/app_procs.c:561
+#: app/app_procs.c:565
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -131,21 +131,21 @@ msgstr ""
 "Tem a certeza que quer sair do Dia\n"
 "sem os gravar?"
 
-#: app/app_procs.c:565
+#: app/app_procs.c:569
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:620
+#: app/app_procs.c:624
 msgid "Thank you for using Dia.\n"
 msgstr "Obrigado por utilizar o Dia.\n"
 
-#: app/app_procs.c:634 app/app_procs.c:641
+#: app/app_procs.c:638 app/app_procs.c:645
 msgid "Could not create per-user Dia config directory"
 msgstr "Incapaz de criar um directório por utilizador de configuração do Dia"
 
-#: app/app_procs.c:643
+#: app/app_procs.c:647
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,7 +154,7 @@ msgstr ""
 "Certifique-sede que a variável de ambiente HOME aponta para um directório "
 "existente."
 
-#: app/app_procs.c:665 app/diaconv.c:249
+#: app/app_procs.c:669 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objectos e filtros internos ao dia"
 
@@ -707,7 +707,7 @@ msgstr "Deslocar"
 #: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:146
+#: objects/UML/component.c:121 objects/UML/component_feature.c:154
 #: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
 #: objects/UML/small_package.c:121 objects/UML/state.c:134
 #: objects/UML/usecase.c:131
@@ -1923,7 +1923,7 @@ msgstr "Incapaz de abrir ficheiro de histórioco para escrita."
 msgid "Encapsulated Postscript"
 msgstr "Postscript Encapsulado"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:269
+#: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Especificado modo de enchimento não suportado!\n"
 
@@ -2205,76 +2205,84 @@ msgid "Filled Diamond"
 msgstr "Diamante Preenchido"
 
 #: lib/arrows.c:45
+msgid "Half Diamond"
+msgstr "Meio Diamante"
+
+#: lib/arrows.c:46
 msgid "Half Head"
 msgstr "Meia Cabeça"
 
-#: lib/arrows.c:46
+#: lib/arrows.c:47
 msgid "Slashed Cross"
 msgstr "Cruz Quebrada"
 
-#: lib/arrows.c:47
+#: lib/arrows.c:48
 msgid "Filled Ellipse"
 msgstr "Elipse Preenchida"
 
-#: lib/arrows.c:48
+#: lib/arrows.c:49
 msgid "Hollow Ellipse"
 msgstr "Elipse Oca"
 
-#: lib/arrows.c:49
+#: lib/arrows.c:50
 msgid "Filled Dot"
 msgstr "Ponto Preenchido"
 
-#: lib/arrows.c:50
+#: lib/arrows.c:51
 msgid "Dimension Origin"
 msgstr "Origem da Dimensão"
 
-#: lib/arrows.c:51
+#: lib/arrows.c:52
 msgid "Blanked Dot"
 msgstr "Ponto em Branco"
 
-#: lib/arrows.c:52
+#: lib/arrows.c:53
 msgid "Double Hollow triangle"
 msgstr "Triângulo Duplo Oco"
 
-#: lib/arrows.c:53
+#: lib/arrows.c:54
 msgid "Double Filled triangle"
 msgstr "Triângulo Duplo Preenchido"
 
-#: lib/arrows.c:54
+#: lib/arrows.c:55
 msgid "Filled Box"
 msgstr "Caixa Preenchida"
 
-#: lib/arrows.c:55
+#: lib/arrows.c:56
 msgid "Blanked Box"
 msgstr "Caixa Vazia"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Slashed"
 msgstr "Tracejado"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Integral Symbol"
 msgstr "Símbolo Integral"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Crow Foot"
 msgstr "Pé de Cabra"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Cross"
 msgstr "Cruz"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Filled Concave"
 msgstr "Côncavo Preenchido"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Blanked Concave"
 msgstr "Côncavo Vazio"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Round"
 msgstr "Arredondada"
+
+#: lib/arrows.c:64
+msgid "Open Round"
+msgstr "Arredondada Aberta"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2362,7 +2370,7 @@ msgstr "_Antever:"
 msgid "Font Selection"
 msgstr "Selecção Fonte"
 
-#: lib/dialibartrenderer.c:1115
+#: lib/dialibartrenderer.c:1114
 msgid "This Dia version is compiled without libart/text support."
 msgstr "Esta versão Dia foi compilada sem suporte libart/text."
 
@@ -2594,7 +2602,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:169
+#: objects/UML/association.c:747 objects/UML/component_feature.c:177
 #: objects/UML/dependency.c:365 objects/UML/generalization.c:361
 #: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
@@ -2602,7 +2610,7 @@ msgstr "Adicionar segmento"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:170
+#: objects/UML/association.c:748 objects/UML/component_feature.c:178
 #: objects/UML/dependency.c:366 objects/UML/generalization.c:362
 #: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -4158,19 +4166,19 @@ msgstr "Limite"
 msgid "Is object"
 msgstr "É objecto"
 
-#: objects/UML/component_feature.c:133 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Faceta"
 
-#: objects/UML/component_feature.c:134 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Receptáculo"
 
-#: objects/UML/component_feature.c:135 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Origem Evento"
 
-#: objects/UML/component_feature.c:136 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Destino Evento"
 
