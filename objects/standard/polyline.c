@@ -41,8 +41,6 @@ typedef struct _PolylineState PolylineState;
 struct _PolylineState {
   ObjectState obj_state;
 
-  PolyConnState polyconn_state;
-  
   Color line_color;
   real line_width;
   LineStyle line_style;
@@ -108,7 +106,7 @@ static void polyline_update_data(Polyline *polyline);
 static void polyline_destroy(Polyline *polyline);
 static Object *polyline_copy(Polyline *polyline);
 static GtkWidget *polyline_get_properties(Polyline *polyline);
-static void polyline_apply_properties(Polyline *polyline);
+static ObjectChange *polyline_apply_properties(Polyline *polyline);
 
 static PolylineState *polyline_get_state(Polyline *polyline);
 static void polyline_set_state(Polyline *polyline, PolylineState *state);
@@ -153,19 +151,21 @@ static ObjectOps polyline_ops = {
   (GetPropertiesFunc)   polyline_get_properties,
   (ApplyPropertiesFunc) polyline_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      polyline_get_object_menu,
-  (GetStateFunc)        polyline_get_state,
-  (SetStateFunc)        polyline_set_state
+  (ObjectMenuFunc)      polyline_get_object_menu
 };
 
-static void
+static ObjectChange *
 polyline_apply_properties(Polyline *polyline)
 {
+  ObjectState *old_state;
+  
   if (polyline != polyline_properties_dialog->polyline) {
     message_warning("Polyline dialog problem:  %p != %p\n",
 		    polyline, polyline_properties_dialog->polyline);
     polyline = polyline_properties_dialog->polyline;
   }
+
+  old_state = (ObjectState *)polyline_get_state(polyline);
 
   polyline->line_width = 
     gtk_spin_button_get_value_as_float(polyline_properties_dialog->line_width);
@@ -176,6 +176,10 @@ polyline_apply_properties(Polyline *polyline)
   polyline->end_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->end_arrow);
 
   polyline_update_data(polyline);
+  return new_object_state_change((Object *)polyline, old_state, 
+				 (GetStateFunc)polyline_get_state,
+				 (SetStateFunc)polyline_set_state);
+
 }
 
 static GtkWidget *
@@ -516,19 +520,13 @@ polyline_copy(Polyline *polyline)
   return (Object *)newpolyline;
 }
 
-static void
-polyline_state_free(ObjectState *st)
-{
-  PolylineState *state = (PolylineState *)st;
-  polyconn_state_free(&state->polyconn_state);
-}
 
 static PolylineState *
 polyline_get_state(Polyline *polyline)
 {
   PolylineState *state = g_new(PolylineState, 1);
 
-  state->obj_state.free = polyline_state_free;
+  state->obj_state.free = NULL;
   
   state->line_color = polyline->line_color;
   state->line_width = polyline->line_width;
@@ -536,8 +534,6 @@ polyline_get_state(Polyline *polyline)
   state->start_arrow = polyline->start_arrow;
   state->end_arrow = polyline->end_arrow;
 
-  polyconn_state_get(&state->polyconn_state, &polyline->poly);
-  
   return state;
 }
 
@@ -550,9 +546,6 @@ polyline_set_state(Polyline *polyline, PolylineState *state)
   polyline->start_arrow = state->start_arrow;
   polyline->end_arrow = state->end_arrow;
 
-  polyconn_state_set(&state->polyconn_state, &polyline->poly);
-
-  polyconn_state_free(&state->polyconn_state);
   g_free(state);
   
   polyline_update_data(polyline);
@@ -692,32 +685,36 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)polyline;
 }
 
-static void
+static ObjectChange *
 polyline_add_corner_callback (Object *obj, Point *clicked, gpointer data)
 {
   Polyline *poly = (Polyline*) obj;
   int segment;
+  ObjectChange *change;
 
   segment = polyline_closest_segment(poly, clicked);
-  polyconn_add_point(&poly->poly, segment, clicked);
+  change = polyconn_add_point(&poly->poly, segment, clicked);
   polyline_update_data(poly);
+  return change;
 }
 
-static void
+static ObjectChange *
 polyline_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
   int handle_nr, i;
   Polyline *poly = (Polyline*) obj;
-
+  ObjectChange *change;
+  
   handle = polyline_closest_handle(poly, clicked);
 
   for (i = 0; i < obj->num_handles; i++) {
     if (handle == obj->handles[i]) break;
   }
   handle_nr = i;
-  polyconn_remove_point(&poly->poly, handle_nr);
+  change = polyconn_remove_point(&poly->poly, handle_nr);
   polyline_update_data(poly);
+  return change;
 }
 
 

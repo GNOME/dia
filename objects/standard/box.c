@@ -115,7 +115,7 @@ static Object *box_create(Point *startpoint,
 static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
 static GtkWidget *box_get_properties(Box *box);
-static void box_apply_properties(Box *box);
+static ObjectChange *box_apply_properties(Box *box);
 
 static BoxState *box_get_state(Box *box);
 static void box_set_state(Box *box, BoxState *state);
@@ -156,20 +156,21 @@ static ObjectOps box_ops = {
   (GetPropertiesFunc)   box_get_properties,
   (ApplyPropertiesFunc) box_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        box_get_state,
-  (SetStateFunc)        box_set_state
+  (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 box_apply_properties(Box *box)
 {
+  ObjectState *old_state;
   if (box != box_properties_dialog->box) {
     message_warning("Box dialog problem:  %p != %p\n", box,
 		    box_properties_dialog->box);
     box = box_properties_dialog->box;
   }
 
+  old_state = (ObjectState *)box_get_state(box);
+  
   box->border_width = gtk_spin_button_get_value_as_float(box_properties_dialog->border_width);
   dia_color_selector_get_color(box_properties_dialog->fg_color, &box->border_color);
   dia_color_selector_get_color(box_properties_dialog->bg_color, &box->inner_color);
@@ -178,6 +179,9 @@ box_apply_properties(Box *box)
   box->corner_radius = gtk_spin_button_get_value_as_float(box_properties_dialog->corner_radius);
   
   box_update_data(box);
+  return new_object_state_change((Object *)box, old_state, 
+				 (GetStateFunc)box_get_state,
+				 (SetStateFunc)box_set_state);
 }
 
 static GtkWidget *

@@ -42,8 +42,6 @@ typedef struct _ZigzaglineState ZigzaglineState;
 struct _ZigzaglineState {
   ObjectState obj_state;
   
-  OrthConnState orthconn_state;
-
   Color line_color;
   LineStyle line_style;
   real dashlength;
@@ -111,7 +109,7 @@ static void zigzagline_update_data(Zigzagline *zigzagline);
 static void zigzagline_destroy(Zigzagline *zigzagline);
 static Object *zigzagline_copy(Zigzagline *zigzagline);
 static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
-static void zigzagline_apply_properties(Zigzagline *zigzagline);
+static ObjectChange *zigzagline_apply_properties(Zigzagline *zigzagline);
 static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
@@ -157,19 +155,21 @@ static ObjectOps zigzagline_ops = {
   (GetPropertiesFunc)   zigzagline_get_properties,
   (ApplyPropertiesFunc) zigzagline_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      zigzagline_get_object_menu,
-  (GetStateFunc)        zigzagline_get_state,
-  (SetStateFunc)        zigzagline_set_state
+  (ObjectMenuFunc)      zigzagline_get_object_menu
 };
 
-static void
+static ObjectChange *
 zigzagline_apply_properties(Zigzagline *zigzagline)
 {
+  ObjectState *old_state;
+
   if (zigzagline != zigzagline_properties_dialog->zigzagline) {
     message_warning("Zigzagline dialog problem:  %p != %p\n",
 		    zigzagline, zigzagline_properties_dialog->zigzagline);
     zigzagline = zigzagline_properties_dialog->zigzagline;
   }
+  
+  old_state = (ObjectState *)zigzagline_get_state(zigzagline);
 
   zigzagline->line_width = gtk_spin_button_get_value_as_float(zigzagline_properties_dialog->line_width);
   dia_color_selector_get_color(zigzagline_properties_dialog->color, &zigzagline->line_color);
@@ -179,6 +179,9 @@ zigzagline_apply_properties(Zigzagline *zigzagline)
   zigzagline->end_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->end_arrow);
   
   zigzagline_update_data(zigzagline);
+  return new_object_state_change((Object *)zigzagline, old_state, 
+				 (GetStateFunc)zigzagline_get_state,
+				 (SetStateFunc)zigzagline_set_state);
 }
 
 static GtkWidget *
@@ -515,7 +518,6 @@ static void
 zigzagline_state_free(ObjectState *st)
 {
   ZigzaglineState *state = (ZigzaglineState *)st;
-  orthconn_state_free(&state->orthconn_state);
 }
 
 static ZigzaglineState *
@@ -532,8 +534,6 @@ zigzagline_get_state(Zigzagline *zigzagline)
   state->start_arrow = zigzagline->start_arrow;
   state->end_arrow = zigzagline->end_arrow;
 
-  orthconn_state_get(&state->orthconn_state, &zigzagline->orth);
-  
   return state;
 }
 
@@ -547,9 +547,6 @@ zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state)
   zigzagline->start_arrow = state->start_arrow;
   zigzagline->end_arrow = state->end_arrow;
 
-  orthconn_state_set(&state->orthconn_state, &zigzagline->orth);
-
-  polyconn_state_free(&state->orthconn_state);
   g_free(state);
   
   zigzagline_update_data(zigzagline);
@@ -588,18 +585,22 @@ zigzagline_update_data(Zigzagline *zigzagline)
   obj->position = orth->points[0];
 }
 
-static void
+static ObjectChange *
 zigzagline_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 {
-  orthconn_add_segment((OrthConn *)obj, clicked);
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
   zigzagline_update_data((Zigzagline *)obj);
+  return change;
 }
 
-static void
+static ObjectChange *
 zigzagline_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
 {
-  orthconn_delete_segment((OrthConn *)obj, clicked);
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
   zigzagline_update_data((Zigzagline *)obj);
+  return change;
 }
 
 static DiaMenuItem object_menu_items[] = {

@@ -18,15 +18,16 @@
 #ifndef UNDO_H
 #define UNDO_H
 
-typedef struct _Change Change;
+
 typedef struct _UndoStack UndoStack;
+typedef struct _Change Change;
 
 #include "diagram.h"
+#include "objchange.h"
 
 typedef void (*UndoApplyFunc)(Change *change, Diagram *dia);
 typedef void (*UndoRevertFunc)(Change *change, Diagram *dia);
 typedef void (*UndoFreeFunc)(Change *change);
-
 
 struct _Change {
   /* If apply == transaction_point_pointer then this is a transaction
@@ -64,8 +65,8 @@ extern Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
 extern Change *undo_delete_objects(Diagram *dia, GList *obj_list);
 extern Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 				   int applied);
-extern Change *undo_state_change(Diagram *dia, Object *obj,
-				 ObjectState *old_state);
+extern Change *undo_object_change(Diagram *dia, Object *obj,
+				  ObjectChange *obj_change);
   
 #endif /* UNDO_H */
 

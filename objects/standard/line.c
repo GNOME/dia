@@ -109,7 +109,7 @@ static void line_update_data(Line *line);
 static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
 static GtkWidget *line_get_properties(Line *line);
-static void line_apply_properties(Line *line);
+static ObjectChange *line_apply_properties(Line *line);
 static GtkWidget *line_get_defaults();
 static void line_apply_defaults();
 
@@ -149,18 +149,20 @@ static ObjectOps line_ops = {
   (GetPropertiesFunc)   line_get_properties,
   (ApplyPropertiesFunc) line_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        line_get_state,
-  (SetStateFunc)        line_set_state
+  (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 line_apply_properties(Line *line)
 {
+  ObjectState *old_state;
+
   if (line != line_properties_dialog->line) {
     printf("Dialog problem:  %p != %p\n", line, line_properties_dialog->line);
     line = line_properties_dialog->line;
   }
+
+  old_state = (ObjectState *)line_get_state(line);
 
   line->line_width = gtk_spin_button_get_value_as_float(line_properties_dialog->line_width);
   dia_color_selector_get_color(line_properties_dialog->color, &line->line_color);
@@ -171,6 +173,9 @@ line_apply_properties(Line *line)
   line->end_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->end_arrow);
   
   line_update_data(line);
+  return new_object_state_change((Object *)line, old_state, 
+				 (GetStateFunc)line_get_state,
+				 (SetStateFunc)line_set_state);
 }
 
 static GtkWidget *

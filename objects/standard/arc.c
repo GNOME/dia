@@ -114,7 +114,7 @@ static void arc_update_handles(Arc *arc);
 static void arc_destroy(Arc *arc);
 static Object *arc_copy(Arc *arc);
 static GtkWidget *arc_get_properties(Arc *arc);
-static void arc_apply_properties(Arc *arc);
+static ObjectChange *arc_apply_properties(Arc *arc);
 
 static ArcState *arc_get_state(Arc *arc);
 static void arc_set_state(Arc *arc, ArcState *state);
@@ -155,14 +155,16 @@ static ObjectOps arc_ops = {
   (GetPropertiesFunc)   arc_get_properties,
   (ApplyPropertiesFunc) arc_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        arc_get_state,
-  (SetStateFunc)        arc_set_state
+  (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 arc_apply_properties(Arc *arc)
 {
+  ObjectState *old_state;
+
+  old_state = (ObjectState *)arc_get_state(arc);
+  
   arc->line_width = gtk_spin_button_get_value_as_float(arc_properties_dialog->line_width);
   dia_color_selector_get_color(arc_properties_dialog->color, &arc->arc_color);
   dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style,
@@ -172,6 +174,9 @@ arc_apply_properties(Arc *arc)
   
   
   arc_update_data(arc);
+  return new_object_state_change((Object *)arc, old_state, 
+				 (GetStateFunc)arc_get_state,
+				 (SetStateFunc)arc_set_state);
 }
 
 static GtkWidget *

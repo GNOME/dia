@@ -1,3 +1,98 @@
+1999-07-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* dia.1:
+	Fixed typo.
+
+	* app/display.c:
+	* po/da.po:
+	* po/fr.po:
+	* po/hu.po:
+	* po/no.po:
+	* po/pl.po:
+	* po/sv.po:
+	Don't have the <Display> etc part of the menu strings
+	i18n:ed. Patch from Fabrice.Bellet@imag.fr.
+
+	* app/diagram.c:
+	Don't have the <Display> etc part of the menu strings
+	i18n:ed. Patch from Fabrice.Bellet@imag.fr.
+	Don't remove is_empty() objects, that don't work with undo.
+
+	* lib/objchange.[ch]:
+	New files.
+	Definition of ObjectChange. This is essentially an Change
+	exported to the object libs. It encapsulates a change made
+	to an objects internals. It can be applied, reverted and freed.
+	There are also utility functions for doing ObjectChanges that
+	only get/set the whole state of an object to store the change.
+	This cannot be used when the object change deletes or adds a
+	object which has references from other objects, eg. Handles which
+	might be connected.
+
+	* lib/Makefile.am:
+	Added objchange.c and objchange.h.
+
+	* lib/dia_image.c:
+	Return NULL when loading fails.
+
+	* lib/diamenu.h:
+	Menu callbacks return an ObjectChange.
+
+	* lib/dummy_dep.h:
+	Reference objchange.o
+
+	* lib/focus.h:
+	Key events return ObjectChange if they modify the object.
+
+	
+	* lib/object.h:
+	Added object_add_handle_at() function.
+	Apply properties returns an ObjectChange.
+	Remove ObjectState and the get/set state functions, these
+	don't always work. Use the new ObjectChange instead.
+	
+	* lib/object.c:
+	Added object_add_handle_at() function implementation.
+	
+	* lib/orth_conn.[ch]:
+	Use ObjectChange. Not finished yet.
+	Removed get/set/free state functions
+
+	* lib/poly_conn.[ch]:
+	Use ObjectChange.
+	Don't remove segments that are small.
+	Removed get/set/free state functions
+
+	* lib/text.[ch]:
+	Use ObjectChange.
+	Added functions to get/set all text attributes.
+
+	* objects/standard/arc.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/line.c:
+	* objects/standard/polyline.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Use ObjectChange.
+	fixed bug in image_set_state.
+	zigzagline.c not finished yet.
+
+	* app/disp_callbacks.c:
+	Use ObjectChange that are returned from menu callbacks and
+	key_events for undo.
+
+	* app/properties.c:
+	Use ObjectChange that are returned from properties apply
+	for undo.
+
+	* app/undo.c:
+	* app/undo.h:
+	New undo type: ObjectChangeChange. This wraps a change to the
+	internals of an object (and ObjectChange) in code that does
+	app specific stuff (object_add_updates etc.)
+
 1999-07-11  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/orth_conn.[ch]:

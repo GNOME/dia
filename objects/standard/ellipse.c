@@ -108,7 +108,7 @@ static Object *ellipse_create(Point *startpoint,
 static void ellipse_destroy(Ellipse *ellipse);
 static Object *ellipse_copy(Ellipse *ellipse);
 static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
-static void ellipse_apply_properties(Ellipse *ellipse);
+static ObjectChange *ellipse_apply_properties(Ellipse *ellipse);
 
 static EllipseState *ellipse_get_state(Ellipse *ellipse);
 static void ellipse_set_state(Ellipse *ellipse, EllipseState *state);
@@ -149,19 +149,21 @@ static ObjectOps ellipse_ops = {
   (GetPropertiesFunc)   ellipse_get_properties,
   (ApplyPropertiesFunc) ellipse_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        ellipse_get_state,
-  (SetStateFunc)        ellipse_set_state
+  (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 ellipse_apply_properties(Ellipse *ellipse)
 {
+  ObjectState *old_state;
+
   if (ellipse != ellipse_properties_dialog->ellipse) {
     message_warning("Ellipse dialog problem:  %p != %p\n",
 		    ellipse, ellipse_properties_dialog->ellipse);
     ellipse = ellipse_properties_dialog->ellipse;
   }
+
+  old_state = (ObjectState *)ellipse_get_state(ellipse);
 
   ellipse->border_width = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->border_width);
   dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
@@ -170,6 +172,9 @@ ellipse_apply_properties(Ellipse *ellipse)
 					&ellipse->line_style, &ellipse->dashlength);
   
   ellipse_update_data(ellipse);
+  return new_object_state_change((Object *)ellipse, old_state, 
+				 (GetStateFunc)ellipse_get_state,
+				 (SetStateFunc)ellipse_set_state);
 }
 
 static GtkWidget *

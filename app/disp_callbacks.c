@@ -25,6 +25,7 @@
 #include <gnome.h>
 #endif
 #include "display.h"
+#include "diagram.h"
 #include "tool.h"
 #include "interface.h"
 #include "focus.h"
@@ -40,27 +41,35 @@ static void
 object_menu_proxy(GtkWidget *widget, gpointer data)
 {
   DiaMenuItem *dia_menu_item;
-  ObjectState *old_state;
+  ObjectChange *obj_change;
 
   DDisplay *ddisp = ddisplay_active();
   Object *obj = (Object *)ddisp->diagram->data->selected->data;
 
   dia_menu_item = (DiaMenuItem *) data;
 
-  old_state = obj->ops->get_state(obj);
 
   object_add_updates(obj, ddisp->diagram);
-  (dia_menu_item->callback)(obj, &object_menu_clicked_point,
-			    dia_menu_item->callback_data);
+  obj_change = (dia_menu_item->callback)(obj, &object_menu_clicked_point,
+					 dia_menu_item->callback_data);
   object_add_updates(obj, ddisp->diagram);
+  diagram_update_connections_object(ddisp->diagram, obj, TRUE);
 
-  undo_state_change(ddisp->diagram, obj, old_state);
-
+  if (obj_change != NULL) {
+    undo_object_change(ddisp->diagram, obj, obj_change);
+  }
   diagram_modified(ddisp->diagram);
 
   diagram_update_extents(ddisp->diagram);
 
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  if (obj_change != NULL) {
+    undo_set_transactionpoint(ddisp->diagram->undo);
+  } else {
+    message_warning(_("This object doesn't support Undo/Redo.\n"
+		      "Undo information erased."));
+    undo_clear(ddisp->diagram->undo);
+  }
+
 
   diagram_flush(ddisp->diagram);
 }
@@ -178,7 +187,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
   Focus *focus;
   Object *obj;
   Rectangle *visible;
-  ObjectState *old_state;
   Point middle;
   int return_val;
   int key_handled;
@@ -323,24 +331,21 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	/* Keys goes to the active focus. */
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {
-	  old_state = obj->ops->get_state(obj);
+	  ObjectChange *obj_change = NULL;
 	
 	  object_add_updates(obj, ddisp->diagram);
 	  modified = (focus->key_event)(focus, kevent->keyval,
-					kevent->string, kevent->length);
+					kevent->string, kevent->length,
+					&obj_change);
 	  { /* Make sure object updates its data: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  }
 	  
 	  object_add_updates(obj, ddisp->diagram);
 
-	  if (modified) {
-	    undo_state_change(ddisp->diagram, obj, old_state);
+	  if (modified && (obj_change != NULL)) {
+	    undo_object_change(ddisp->diagram, obj, obj_change);
 	    undo_set_transactionpoint(ddisp->diagram->undo);
-	  } else {
-	    if (old_state->free)
-	      old_state->free(old_state);
-	    g_free(old_state);
 	  }
 
 	  diagram_flush(ddisp->diagram);

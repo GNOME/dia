@@ -171,68 +171,68 @@ msgid "OK"
 msgstr ""
 
 #: app/diagram.c:126
-msgid "<Display>/Edit/Copy"
-msgstr "<Display>/Szerkeszt/Másol"
+msgid "/Edit/Copy"
+msgstr "/Szerkeszt/Másol"
 
 #: app/diagram.c:127
-msgid "<Display>/Edit/Cut"
-msgstr "<Display>/Szerkeszt/Kivág"
+msgid "/Edit/Cut"
+msgstr "/Szerkeszt/Kivág"
 
 #: app/diagram.c:128
-msgid "<Display>/Edit/Paste"
-msgstr "<Display>/Szerkeszt/Beilleszt"
+msgid "/Edit/Paste"
+msgstr "/Szerkeszt/Beilleszt"
 
 #: app/diagram.c:130
-msgid "<Display>/Edit/Delete"
-msgstr "<Display>/Szerkeszt/Töröl"
+msgid "/Edit/Delete"
+msgstr "/Szerkeszt/Töröl"
 
 #: app/diagram.c:133
-msgid "<Display>/Objects/Send to Back"
-msgstr "<Display>/Objektumok/Háttérbe küld"
+msgid "/Objects/Send to Back"
+msgstr "/Objektumok/Háttérbe küld"
 
 #: app/diagram.c:134
-msgid "<Display>/Objects/Bring to Front"
-msgstr "<Display>/Objektumok/Elõtérbe hoz"
+msgid "/Objects/Bring to Front"
+msgstr "/Objektumok/Elõtérbe hoz"
 
 #: app/diagram.c:136
-msgid "<Display>/Objects/Group"
-msgstr "<Display>/Objektumok/Csoport"
+msgid "/Objects/Group"
+msgstr "/Objektumok/Csoport"
 
 #: app/diagram.c:137
-msgid "<Display>/Objects/Ungroup"
-msgstr "<Display>/Objektumok/Csoport felbonása"
+msgid "/Objects/Ungroup"
+msgstr "/Objektumok/Csoport felbonása"
 
 #: app/diagram.c:139
-msgid "<Display>/Objects/Align Horizontal/Left"
-msgstr "<Display>/Objektumok/Vizszintes/Középre"
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objektumok/Vizszintes/Középre"
 
 #: app/diagram.c:140
-msgid "<Display>/Objects/Align Horizontal/Center"
-msgstr "<Display>/Objektumok/Vizszintes/Középre"
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objektumok/Vizszintes/Középre"
 
 #: app/diagram.c:141
-msgid "<Display>/Objects/Align Horizontal/Right"
-msgstr "<Display>/Objektumok/Vizszintes"
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objektumok/Vizszintes"
 
 #: app/diagram.c:142
-msgid "<Display>/Objects/Align Horizontal/Equal Distance"
-msgstr "<Display>/Objektumok/Vizszintes/Egyenlõ távolság"
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objektumok/Vizszintes/Egyenlõ távolság"
 
 #: app/diagram.c:143
-msgid "<Display>/Objects/Align Vertical/Top"
-msgstr "<Display>/Objektumok/Függõleges/Fönt"
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objektumok/Függõleges/Fönt"
 
 #: app/diagram.c:144
-msgid "<Display>/Objects/Align Vertical/Center"
-msgstr "<Display>/Objektumok/Függõleges/Középre"
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objektumok/Függõleges/Középre"
 
 #: app/diagram.c:145
-msgid "<Display>/Objects/Align Vertical/Bottom"
-msgstr "<Display>/Objektumok/Függõleges/Lent"
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objektumok/Függõleges/Lent"
 
 #: app/diagram.c:146
-msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr "<Display>/Objektumok/Függõleges/Egyenlõ távolság"
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objektumok/Függõleges/Egyenlõ távolság"
 
 #: app/disp_callbacks.c:140
 msgid "No object menu"
@@ -259,16 +259,16 @@ msgstr ""
 "Tényleg be akarod zárni?"
 
 #: app/display.c:760
-msgid "<Display>/View/Toggle Rulers"
-msgstr "<Display>/Nézet/Vonalzó ki-be"
+msgid "/View/Toggle Rulers"
+msgstr "/Nézet/Vonalzó ki-be"
 
 #: app/display.c:761
-msgid "<Display>/View/Visible Grid"
-msgstr "<Display>/Nézet/Látható rács"
+msgid "/View/Visible Grid"
+msgstr "/Nézet/Látható rács"
 
 #: app/display.c:762
-msgid "<Display>/View/Snap To Grid"
-msgstr "<Display>/Nézet/Rácsra illeszt"
+msgid "/View/Snap To Grid"
+msgstr "/Nézet/Rácsra illeszt"
 
 #: app/grid.c:141
 msgid "Grid options"

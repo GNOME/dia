@@ -127,7 +127,7 @@ static Object *image_create(Point *startpoint,
 static void image_destroy(Image *image);
 static Object *image_copy(Image *image);
 static GtkWidget *image_get_properties(Image *image);
-static void image_apply_properties(Image *image);
+static ObjectChange *image_apply_properties(Image *image);
 
 static ImageState *image_get_state(Image *image);
 static void image_set_state(Image *image, ImageState *state);
@@ -168,21 +168,22 @@ static ObjectOps image_ops = {
   (GetPropertiesFunc)   image_get_properties,
   (ApplyPropertiesFunc) image_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        image_get_state,
-  (SetStateFunc)        image_set_state
+  (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 image_apply_properties(Image *image)
 {
   gchar *new_file;
+  ObjectState *old_state;
 
   if (image != image_properties_dialog->image) {
     message_warning("Image dialog problem:  %p != %p\n", 
 		    image, image_properties_dialog->image);
     image = image_properties_dialog->image;
   }
+
+  old_state = (ObjectState *)image_get_state(image);
 
   image->border_width = gtk_spin_button_get_value_as_float(image_properties_dialog->border_width);
   dia_color_selector_get_color(image_properties_dialog->fg_color, &image->border_color);
@@ -206,6 +207,9 @@ image_apply_properties(Image *image)
   image->file = g_strdup(new_file);
 
   image_update_data(image);
+  return new_object_state_change((Object *)image, old_state, 
+				 (GetStateFunc)image_get_state,
+				 (SetStateFunc)image_set_state);
 }
 
 static GtkWidget *
@@ -605,7 +609,7 @@ image_set_state(Image *image, ImageState *state)
   if (image->image)
     dia_image_release(image->image);
   
-  state->image = image->image;
+  image->image = state->image;
 
   if (image->file)
     g_free(image->file);

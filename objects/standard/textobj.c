@@ -41,7 +41,7 @@ typedef struct _TextobjState TextobjState;
 struct _TextobjState {
   ObjectState obj_state;
 
-  Text *text;
+  TextAttributes text_attrib;
 };
 
 struct _Textobj {
@@ -97,7 +97,7 @@ static Object *textobj_create(Point *startpoint,
 static void textobj_destroy(Textobj *textobj);
 static Object *textobj_copy(Textobj *textobj);
 static GtkWidget *textobj_get_properties(Textobj *textobj);
-static void textobj_apply_properties(Textobj *textobj);
+static ObjectChange *textobj_apply_properties(Textobj *textobj);
 
 static TextobjState *textobj_get_state(Textobj *textobj);
 static void textobj_set_state(Textobj *textobj, TextobjState *state);
@@ -114,9 +114,7 @@ static ObjectTypeOps textobj_type_ops =
 {
   (CreateFunc) textobj_create,
   (LoadFunc)   textobj_load,
-  (SaveFunc)   textobj_save,
-  (GetDefaultsFunc)   textobj_get_defaults,
-  (ApplyDefaultsFunc) textobj_apply_defaults
+  (SaveFunc)   textobj_save
 };
 
 ObjectType textobj_type =
@@ -142,11 +140,9 @@ static ObjectOps textobj_ops = {
   (ApplyPropertiesFunc) textobj_apply_properties,
   (IsEmptyFunc)         textobj_is_empty,
   (ObjectMenuFunc)      NULL,
-  (GetStateFunc)        textobj_get_state,
-  (SetStateFunc)        textobj_set_state
 };
 
-static void
+static ObjectChange *
 textobj_apply_properties(Textobj *textobj)
 {
   TextobjPropertiesDialog *prop_dialog;
@@ -154,7 +150,10 @@ textobj_apply_properties(Textobj *textobj)
   Font *font;
   real font_size;
   Color col;
+  ObjectState *old_state;
   
+  old_state = (ObjectState *)textobj_get_state(textobj);
+
   prop_dialog = textobj->properties_dialog;
 
   align = dia_alignment_selector_get_alignment(prop_dialog->alignment);
@@ -170,6 +169,9 @@ textobj_apply_properties(Textobj *textobj)
   text_set_color(textobj->text, &col);
   
   textobj_update_data(textobj);
+  return new_object_state_change((Object *)textobj, old_state, 
+				 (GetStateFunc)textobj_get_state,
+				 (SetStateFunc)textobj_set_state);
 }
 
 static GtkWidget *
@@ -380,24 +382,14 @@ textobj_draw(Textobj *textobj, Renderer *renderer)
   text_draw(textobj->text, renderer);
 }
 
-static void
-textobj_state_free(ObjectState *st)
-{
-  TextobjState *state = (TextobjState *)st;
-  
-  if (state->text)
-    text_destroy(state->text);
-  state->text = NULL;
-}
-
 static TextobjState *
 textobj_get_state(Textobj *textobj)
 {
   TextobjState *state = g_new(TextobjState, 1);
 
-  state->obj_state.free = textobj_state_free;
+  state->obj_state.free = NULL;
   
-  state->text = text_copy(textobj->text);
+  text_get_attributes(textobj->text, &state->text_attrib);
 
   return state;
 }
@@ -405,11 +397,8 @@ textobj_get_state(Textobj *textobj)
 static void
 textobj_set_state(Textobj *textobj, TextobjState *state)
 {
-  if (textobj->text)
-    text_destroy(textobj->text);
+  text_set_attributes(textobj->text, &state->text_attrib);
 
-  textobj->text = state->text;
-  
   g_free(state);
   
   textobj_update_data(textobj);

@@ -159,70 +159,70 @@ msgid "OK"
 msgstr ""
 
 #: app/diagram.c:126
-msgid "<Display>/Edit/Copy"
-msgstr "<Display>/Edycja/Kopiuj"
+msgid "/Edit/Copy"
+msgstr "/Edycja/Kopiuj"
 
 #: app/diagram.c:127
 #, fuzzy
-msgid "<Display>/Edit/Cut"
-msgstr "<Display>/Edycja/Kopiuj"
+msgid "/Edit/Cut"
+msgstr "/Edycja/Kopiuj"
 
 #: app/diagram.c:128
 #, fuzzy
-msgid "<Display>/Edit/Paste"
-msgstr "<Display>/Edycja/Kopiuj"
+msgid "/Edit/Paste"
+msgstr "/Edycja/Kopiuj"
 
 #: app/diagram.c:130
 #, fuzzy
-msgid "<Display>/Edit/Delete"
-msgstr "<Display>/Edycja/Kopiuj"
+msgid "/Edit/Delete"
+msgstr "/Edycja/Kopiuj"
 
 #: app/diagram.c:133
-msgid "<Display>/Objects/Send to Back"
+msgid "/Objects/Send to Back"
 msgstr ""
 
 #: app/diagram.c:134
-msgid "<Display>/Objects/Bring to Front"
+msgid "/Objects/Bring to Front"
 msgstr ""
 
 #: app/diagram.c:136
-msgid "<Display>/Objects/Group"
+msgid "/Objects/Group"
 msgstr ""
 
 #: app/diagram.c:137
-msgid "<Display>/Objects/Ungroup"
+msgid "/Objects/Ungroup"
 msgstr ""
 
 #: app/diagram.c:139
-msgid "<Display>/Objects/Align Horizontal/Left"
+msgid "/Objects/Align Horizontal/Left"
 msgstr ""
 
 #: app/diagram.c:140
-msgid "<Display>/Objects/Align Horizontal/Center"
+msgid "/Objects/Align Horizontal/Center"
 msgstr ""
 
 #: app/diagram.c:141
-msgid "<Display>/Objects/Align Horizontal/Right"
+msgid "/Objects/Align Horizontal/Right"
 msgstr ""
 
 #: app/diagram.c:142
-msgid "<Display>/Objects/Align Horizontal/Equal Distance"
+msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr ""
 
 #: app/diagram.c:143
-msgid "<Display>/Objects/Align Vertical/Top"
+msgid "/Objects/Align Vertical/Top"
 msgstr ""
 
 #: app/diagram.c:144
-msgid "<Display>/Objects/Align Vertical/Center"
+msgid "/Objects/Align Vertical/Center"
 msgstr ""
 
 #: app/diagram.c:145
-msgid "<Display>/Objects/Align Vertical/Bottom"
+msgid "/Objects/Align Vertical/Bottom"
 msgstr ""
 
 #: app/diagram.c:146
-msgid "<Display>/Objects/Align Vertical/Equal Distance"
+msgid "/Objects/Align Vertical/Equal Distance"
 msgstr ""
 
 #: app/disp_callbacks.c:140
@@ -248,15 +248,15 @@ msgid ""
 msgstr ""
 
 #: app/display.c:760
-msgid "<Display>/View/Toggle Rulers"
+msgid "/View/Toggle Rulers"
 msgstr ""
 
 #: app/display.c:761
-msgid "<Display>/View/Visible Grid"
+msgid "/View/Visible Grid"
 msgstr ""
 
 #: app/display.c:762
-msgid "<Display>/View/Snap To Grid"
+msgid "/View/Snap To Grid"
 msgstr ""
 
 #: app/grid.c:141

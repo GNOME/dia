@@ -758,13 +758,21 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *visible_grid;
   static GtkWidget *snap_to_grid;
   static GtkWidget *show_cx_pts;
+  static GString *path;
+  char *display = "<Display>";
 
   if (initialized==0) {
-    rulers       = menus_get_item_from_path(_("<Display>/View/Show Rulers"));
-    visible_grid = menus_get_item_from_path(_("<Display>/View/Visible Grid"));
-    snap_to_grid = menus_get_item_from_path(_("<Display>/View/Snap To Grid"));
-    show_cx_pts  = menus_get_item_from_path(_("<Display>/View/Show Connection Points"));
-    
+    path = g_string_new (display);
+    g_string_append (path,_("/View/Show Rulers"));
+    rulers       = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/View/Visible Grid"));
+    visible_grid = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/View/Snap To Grid"));
+    snap_to_grid = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/View/Show Connection Points"));
+    show_cx_pts  = menus_get_item_from_path(path->str);
+
+    g_string_free (path,FALSE);
     initialized = 1;
   }
   

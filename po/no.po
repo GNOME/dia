@@ -186,68 +186,68 @@ msgid "OK"
 msgstr "OK"
 
 #: app/diagram.c:130
-msgid "<Display>/Edit/Copy"
-msgstr "<Display>/Rediger/Kopier"
+msgid "/Edit/Copy"
+msgstr "/Rediger/Kopier"
 
 #: app/diagram.c:131
-msgid "<Display>/Edit/Cut"
-msgstr "<Display>/Rediger/Klipp ut"
+msgid "/Edit/Cut"
+msgstr "/Rediger/Klipp ut"
 
 #: app/diagram.c:132
-msgid "<Display>/Edit/Paste"
-msgstr "<Display>/Rediger/Lim inn"
+msgid "/Edit/Paste"
+msgstr "/Rediger/Lim inn"
 
 #: app/diagram.c:134
-msgid "<Display>/Edit/Delete"
-msgstr "<Display>/Rediger/Slett"
+msgid "/Edit/Delete"
+msgstr "/Rediger/Slett"
 
 #: app/diagram.c:137
-msgid "<Display>/Objects/Send to Back"
-msgstr "<Display>/Objekter/Send til bakgrunnen"
+msgid "/Objects/Send to Back"
+msgstr "/Objekter/Send til bakgrunnen"
 
 #: app/diagram.c:138
-msgid "<Display>/Objects/Bring to Front"
-msgstr "<Display>/Objekter/Hent fram"
+msgid "/Objects/Bring to Front"
+msgstr "/Objekter/Hent fram"
 
 #: app/diagram.c:140
-msgid "<Display>/Objects/Group"
-msgstr "<Display>/Objekter/Grupper"
+msgid "/Objects/Group"
+msgstr "/Objekter/Grupper"
 
 #: app/diagram.c:141
-msgid "<Display>/Objects/Ungroup"
-msgstr "<Display>/Objekter/Avgrupper"
+msgid "/Objects/Ungroup"
+msgstr "/Objekter/Avgrupper"
 
 #: app/diagram.c:143
-msgid "<Display>/Objects/Align Horizontal/Left"
-msgstr "<Display>/Objekter/Juster horisontal/Venstre"
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objekter/Juster horisontal/Venstre"
 
 #: app/diagram.c:144
-msgid "<Display>/Objects/Align Horizontal/Center"
-msgstr "<Display>/Objekter/Juster horisontal/Senter"
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objekter/Juster horisontal/Senter"
 
 #: app/diagram.c:145
-msgid "<Display>/Objects/Align Horizontal/Right"
-msgstr "<Display>/Objekter/Juster horisontal/Høyre"
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objekter/Juster horisontal/Høyre"
 
 #: app/diagram.c:146
-msgid "<Display>/Objects/Align Horizontal/Equal Distance"
-msgstr "<Display>/Objekter/Juster horisontal/Lik avstand"
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objekter/Juster horisontal/Lik avstand"
 
 #: app/diagram.c:147
-msgid "<Display>/Objects/Align Vertical/Top"
-msgstr "<Display>/Objekter/Juster vertikal/Øverst"
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objekter/Juster vertikal/Øverst"
 
 #: app/diagram.c:148
-msgid "<Display>/Objects/Align Vertical/Center"
-msgstr "<Display>/Objekter/Juster vertikal/Senter"
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objekter/Juster vertikal/Senter"
 
 #: app/diagram.c:149
-msgid "<Display>/Objects/Align Vertical/Bottom"
-msgstr "<Display>/Objekter/Juster vertikal/Nederst"
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objekter/Juster vertikal/Nederst"
 
 #: app/diagram.c:150
-msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr "<Display>/Objekter/Juster vertikal/Lik avstand"
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objekter/Juster vertikal/Lik avstand"
 
 #: app/disp_callbacks.c:153
 msgid "No object menu"
@@ -274,20 +274,20 @@ msgstr ""
 "Er du sikker på at du vil lukke dette vinduet?"
 
 #: app/display.c:763
-msgid "<Display>/View/Show Rulers"
-msgstr "<Display>/Vis/Vis linjaler"
+msgid "/View/Show Rulers"
+msgstr "/Vis/Vis linjaler"
 
 #: app/display.c:764
-msgid "<Display>/View/Visible Grid"
-msgstr "<Display>/Vis/Synlig rutenett"
+msgid "/View/Visible Grid"
+msgstr "/Vis/Synlig rutenett"
 
 #: app/display.c:765
-msgid "<Display>/View/Snap To Grid"
-msgstr "<Display>/Vis/Fest til rutenett"
+msgid "/View/Snap To Grid"
+msgstr "/Vis/Fest til rutenett"
 
 #: app/display.c:766
-msgid "<Display>/View/Show Connection Points"
-msgstr "<Display>/Vis/Vis forbindelsespunkter"
+msgid "/View/Show Connection Points"
+msgstr "/Vis/Vis forbindelsespunkter"
 
 #: app/grid.c:141
 msgid "Grid options"

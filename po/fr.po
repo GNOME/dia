@@ -184,68 +184,68 @@ msgid "OK"
 msgstr "OK"
 
 #: app/diagram.c:130
-msgid "<Display>/Edit/Copy"
-msgstr "<Display>/Editer/Copier"
+msgid "/Edit/Copy"
+msgstr "/Editer/Copier"
 
 #: app/diagram.c:131
-msgid "<Display>/Edit/Cut"
-msgstr "<Display>/Editer/Couper"
+msgid "/Edit/Cut"
+msgstr "/Editer/Couper"
 
 #: app/diagram.c:132
-msgid "<Display>/Edit/Paste"
-msgstr "<Display>/Editer/Coller"
+msgid "/Edit/Paste"
+msgstr "/Editer/Coller"
 
 #: app/diagram.c:134
-msgid "<Display>/Edit/Delete"
-msgstr "<Display>/Editer/Effacer"
+msgid "/Edit/Delete"
+msgstr "/Editer/Effacer"
 
 #: app/diagram.c:137
-msgid "<Display>/Objects/Send to Back"
-msgstr "<Display>/Objets/Placer au Fond"
+msgid "/Objects/Send to Back"
+msgstr "/Objets/Placer au Fond"
 
 #: app/diagram.c:138
-msgid "<Display>/Objects/Bring to Front"
-msgstr "<Display>/Objets/Placer au Premier Plan"
+msgid "/Objects/Bring to Front"
+msgstr "/Objets/Placer au Premier Plan"
 
 #: app/diagram.c:140
-msgid "<Display>/Objects/Group"
-msgstr "<Display>/Objets/Grouper"
+msgid "/Objects/Group"
+msgstr "/Objets/Grouper"
 
 #: app/diagram.c:141
-msgid "<Display>/Objects/Ungroup"
-msgstr "<Display>/Objets/Dégrouper"
+msgid "/Objects/Ungroup"
+msgstr "/Objets/Dégrouper"
 
 #: app/diagram.c:143
-msgid "<Display>/Objects/Align Horizontal/Left"
-msgstr "<Display>/Objets/Alignement Horizontal/Gauche"
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objets/Alignement Horizontal/Gauche"
 
 #: app/diagram.c:144
-msgid "<Display>/Objects/Align Horizontal/Center"
-msgstr "<Display>/Objets/Alignement Horizontal/Centrer"
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objets/Alignement Horizontal/Centrer"
 
 #: app/diagram.c:145
-msgid "<Display>/Objects/Align Horizontal/Right"
-msgstr "<Display>/Objets/Alignement Horizontal/Droite"
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objets/Alignement Horizontal/Droite"
 
 #: app/diagram.c:146
-msgid "<Display>/Objects/Align Horizontal/Equal Distance"
-msgstr "<Display>/Objets/Alignement Horizontal/Equidistance"
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objets/Alignement Horizontal/Equidistance"
 
 #: app/diagram.c:147
-msgid "<Display>/Objects/Align Vertical/Top"
-msgstr "<Display>/Objets/Alignement Vertical/Haut"
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objets/Alignement Vertical/Haut"
 
 #: app/diagram.c:148
-msgid "<Display>/Objects/Align Vertical/Center"
-msgstr "<Display>/Objets/Alignement Vertical/Centrer"
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objets/Alignement Vertical/Centrer"
 
 #: app/diagram.c:149
-msgid "<Display>/Objects/Align Vertical/Bottom"
-msgstr "<Display>/Objets/Alignement Vertical/Bas"
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objets/Alignement Vertical/Bas"
 
 #: app/diagram.c:150
-msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr "<Display>/Objets/Alignement Vertical/Equidistance"
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objets/Alignement Vertical/Equidistance"
 
 #: app/disp_callbacks.c:153
 msgid "No object menu"
@@ -272,20 +272,20 @@ msgstr ""
 "Voulez-vous vraiment fermer cette fenêtre?"
 
 #: app/display.c:763
-msgid "<Display>/View/Show Rulers"
-msgstr "<Display>/Vue/Avec les Réglets"
+msgid "/View/Show Rulers"
+msgstr "/Vue/Avec les Réglets"
 
 #: app/display.c:764
-msgid "<Display>/View/Visible Grid"
-msgstr "<Display>/Vue/Grille Visible"
+msgid "/View/Visible Grid"
+msgstr "/Vue/Grille Visible"
 
 #: app/display.c:765
-msgid "<Display>/View/Snap To Grid"
-msgstr "<Display>/Vue/Grille Magnétique"
+msgid "/View/Snap To Grid"
+msgstr "/Vue/Grille Magnétique"
 
 #: app/display.c:766
-msgid "<Display>/View/Show Connection Points"
-msgstr "<Display>/Vue/Avec les Points de Connexion"
+msgid "/View/Show Connection Points"
+msgstr "/Vue/Avec les Points de Connexion"
 
 #: app/grid.c:141
 msgid "Grid options"

@@ -122,33 +122,53 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   static GtkWidget *align_v_c;
   static GtkWidget *align_v_b;
   static GtkWidget *align_v_e;
-
+  static GString *path;
+  char *display = "<Display>";
+  
   if (initialized==0) {
 #   ifdef GNOME
     if (ddisplay_active () == NULL) return;
 #   endif
-    copy = menus_get_item_from_path(_("<Display>/Edit/Copy"));
-    cut = menus_get_item_from_path(_("<Display>/Edit/Cut"));
-    paste = menus_get_item_from_path(_("<Display>/Edit/Paste"));
+    path = g_string_new ("<Display>");
+    g_string_append (path,_("/Edit/Copy"));
+    copy = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Edit/Cut"));
+    cut = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Edit/Paste"));
+    paste = menus_get_item_from_path(path->str);
 #   ifndef GNOME
-    delete = menus_get_item_from_path(_("<Display>/Edit/Delete"));
+    g_string_append (g_string_assign(path, display),_("/Edit/Delete"));
+    delete = menus_get_item_from_path(path->str);
 #   endif
 
-    send_to_back = menus_get_item_from_path(_("<Display>/Objects/Send to Back"));
-    bring_to_front = menus_get_item_from_path(_("<Display>/Objects/Bring to Front"));
+    g_string_append (g_string_assign(path, display),_("/Objects/Send to Back"));
+    send_to_back = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Bring to Front"));
+    bring_to_front = menus_get_item_from_path(path->str);
   
-    group = menus_get_item_from_path(_("<Display>/Objects/Group"));
-    ungroup = menus_get_item_from_path(_("<Display>/Objects/Ungroup"));
+    g_string_append (g_string_assign(path, display),_("/Objects/Group"));
+    group = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Ungroup"));
+    ungroup = menus_get_item_from_path(path->str);
 
-    align_h_l = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Left"));
-    align_h_c = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Center"));
-    align_h_r = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Right"));
-    align_h_e = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Equal Distance"));
-    align_v_t = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Top"));
-    align_v_c = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Center"));
-    align_v_b = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Bottom"));
-    align_v_e = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Equal Distance"));
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Left"));
+    align_h_l = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Center"));
+    align_h_c = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Right"));
+    align_h_r = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Equal Distance"));
+    align_h_e = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Top"));
+    align_v_t = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Center"));
+    align_v_c = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Bottom"));
+    align_v_b = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Equal Distance"));
+    align_v_e = menus_get_item_from_path(path->str);
 
+    g_string_free (path,FALSE);
     initialized = 1;
   }
   
@@ -314,12 +334,14 @@ diagram_unselect_object(Diagram *diagram, Object *obj)
     remove_focus();
   }
 
+#if 0 /* This is not possible with Undo/Redo*/
   if (obj->ops->is_empty(obj)) {
     /*    printf("removed empty object.\n"); */
     layer_remove_object(diagram->data->active_layer, obj);
     obj->ops->destroy(obj);
     g_free(obj);
   }
+#endif
 }
 
 void

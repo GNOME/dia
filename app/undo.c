@@ -567,7 +567,7 @@ struct InsertObjectsChange {
   Change change;
 
   Layer *layer;
-  GList *obj_list; /* Owning reference when applied */
+  GList *obj_list; /* Owning reference when not applied */
   int applied;
 };
 
@@ -638,58 +638,72 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
   return (Change *)change;
 }
 
-/******** Apply properties: */
+/******** ObjectChange: */
 
-struct StateChange {
+struct ObjectChangeChange {
   Change change;
 
   Object *obj;
-  ObjectState *saved_state;
+  ObjectChange *obj_change;
 };
 
+
 static void
-state_change_apply_revert(struct StateChange *change, Diagram *dia)
+object_change_apply(struct ObjectChangeChange *change,
+		    Diagram *dia)
 {
-  ObjectState *old_state;
-  printf("state_change_apply/revert()\n");
-  
-  old_state = change->obj->ops->get_state(change->obj);
-
   object_add_updates(change->obj, dia);
-  change->obj->ops->set_state(change->obj, change->saved_state);
+  change->obj_change->apply(change->obj_change, change->obj);
+  { /* Make sure object updates its data: */
+    Point p = change->obj->position;
+    (change->obj->ops->move)(change->obj,&p);
+  }
   object_add_updates(change->obj, dia);
-
-  change->saved_state = old_state;
   
   diagram_update_connections_object(dia, change->obj, TRUE);
 }
 
 static void
-state_change_free(struct StateChange *change)
+object_change_revert(struct ObjectChangeChange *change,
+		     Diagram *dia)
+{
+  object_add_updates(change->obj, dia);
+  change->obj_change->revert(change->obj_change, change->obj);
+  { /* Make sure object updates its data: */
+    Point p = change->obj->position;
+    (change->obj->ops->move)(change->obj,&p);
+  }
+  object_add_updates(change->obj, dia);
+  
+  diagram_update_connections_object(dia, change->obj, TRUE);
+}
+
+static void
+object_change_free(struct ObjectChangeChange *change)
 {
   printf("state_change_free()\n");
-  if (change->saved_state->free)
-    (*change->saved_state->free)(change->saved_state);
-  g_free(change->saved_state);
+  if (change->obj_change->free)
+    (*change->obj_change->free)(change->obj_change);
+  g_free(change->obj_change);
 }
 
 Change *
-undo_state_change(Diagram *dia, Object *obj, ObjectState *old_state)
+undo_object_change(Diagram *dia, Object *obj,
+		   ObjectChange *obj_change)
 {
-  struct StateChange *change;
+  struct ObjectChangeChange *change;
 
-  change = g_new(struct StateChange, 1);
+  change = g_new(struct ObjectChangeChange, 1);
   
-  change->change.apply = (UndoApplyFunc) state_change_apply_revert;
-  change->change.revert = (UndoRevertFunc) state_change_apply_revert;
-  change->change.free = (UndoFreeFunc) state_change_free;
+  change->change.apply = (UndoApplyFunc) object_change_apply;
+  change->change.revert = (UndoRevertFunc) object_change_revert;
+  change->change.free = (UndoFreeFunc) object_change_free;
 
   change->obj = obj;
-  change->saved_state = old_state;
+  change->obj_change = obj_change;
 
-  printf("UNDO: Push new apply properties at %d\n", depth(dia->undo));
+  printf("UNDO: Push new obj_change at %d\n", depth(dia->undo));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
-
 
