@@ -24,8 +24,12 @@
 #include "color.h"
 
 static GdkColormap *colormap = NULL;
+
+#ifndef G_OS_WIN32 
 Color color_black = { 0.0f, 0.0f, 0.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f };
+#endif
+
 GdkColor color_gdk_black, color_gdk_white;
 
 void 

@@ -32,7 +32,12 @@ void color_init(void);
 void color_convert(Color *color, GdkColor *gdkcolor);
 gboolean color_equals(Color *color1, Color *color2);
 
+#ifdef G_OS_WIN32
+static Color color_black = { 0.0f, 0.0f, 0.0f };
+static Color color_white = { 1.0f, 1.0f, 1.0f };
+#else
 DIAVAR Color color_black, color_white;
+#endif
 DIAVAR GdkColor color_gdk_black, color_gdk_white;
 
 #define DIA_COLOR_TO_GDK(from, to) \

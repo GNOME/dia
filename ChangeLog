@@ -1,3 +1,8 @@
+2003-08-30  Steffen Macke <sdteffen@web.de>
+
+	* lib/color.c:
+	* lib/color.h: made color_white, color_black static on win32
+
 2003-08-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in (PNG_LIBS): Something in the png tests added an
