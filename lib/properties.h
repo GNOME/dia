@@ -231,6 +231,7 @@ struct _PropDescription {
 #define PROP_FLAG_NO_DEFAULTS 0x0008 /* don't edit this in defaults dlg. */
 #define PROP_FLAG_LOAD_ONLY 0x0010 /* for loading old formats */
 #define PROP_FLAG_STANDARD 0x0020 /* One of the default toolbox props */
+#define PROP_FLAG_MULTIVALUE 0x0040 /* Multiple values for prop in group */
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
