@@ -946,7 +946,8 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
   middle.y = dia->data->extents.top +
     (dia->data->extents.bottom - dia->data->extents.top) / 2.0;
 
-  ddisplay_zoom (ddisp, &middle, (magnify_x<magnify_y)?magnify_x:magnify_y);
+  ddisplay_zoom (ddisp, &middle, 
+		 ((magnify_x<magnify_y)?magnify_x:magnify_y)/1.05);
 
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);

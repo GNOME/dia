@@ -1,3 +1,8 @@
+2004-09-18  Lars Clausen  <lars@raeder.dk>
+
+	* app/commands.c (view_show_all_callback): Add a bit of border
+	around Ctrl-E'd diagram, for easier select and better view of edges.
+
 2004-09-10  Steffen Macke <sdteffen@web.de>
 
 	* lib/libdia.def: added color_new_rgb(), focus_previous(),focus_next(),
@@ -17,8 +22,6 @@
 	units yet.
 
 	* lib/prop_geomtypes.c (lengthprop_get_widget): Remove debug info
-
-	
 
 2004-09-07  Lars Clausen  <lars@raeder.dk>
 
