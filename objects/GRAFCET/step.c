@@ -668,13 +668,13 @@ step_copy(Step *step)
   int i;
   Step *newstep;
   Element *elem, *newelem;
-  Object *newobj,*obj;
+  Object *newobj;
 
   elem = &step->element;
   
   newstep = g_new0(Step,1);
   newelem = &newstep->element;
-  newobj = (Object *) newstep; obj = (Object *)obj;
+  newobj = (Object *) newstep;
 
   element_copy(elem, newelem);
 
