@@ -1,3 +1,14 @@
+1999-03-27  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* po/sv.po
+	Updated swedish translation.
+
+	* app/menus.c
+	(GNOME) Removed help-browser from help menu. Fixed typo.
+
+	* app/interface.c
+	(GNOME) Accelerators in diagrams should work now. 
+
 1999-03-25  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/app_procs.c
