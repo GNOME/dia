@@ -1,3 +1,13 @@
+2002-05-25  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* configure.in: one expression was replacing $CFLAGS, removing
+	whatever was previously in.
+	Added more checks for isinf() and finite() on Solaris.
+
+	* lib/geometry.h: added a macro defintion for isinf() if not
+	HAVE_ISINF. (Hans, you may want to #define HAVE_ISINF if relevant
+	on Win32)
+
 2002-05-24  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* dia.spec:

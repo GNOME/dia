@@ -35,6 +35,9 @@
 #ifdef HAVE_SUNMATH_H
 #include <sunmath.h>
 #endif
+#ifndef HAVE_ISINF
+#define isinf(a) (!finite(a))
+#endif
 
 /* #ifdef _MSC_VER */
 #ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */

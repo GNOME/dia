@@ -315,7 +315,7 @@ AC_CHECK_HEADERS(zlib.h,
         else
             Z_LIBS="-lz"
         fi]))
-CFLAGS="${CPPFLAGS} ${Z_CFLAGS}"
+CFLAGS="${CFLAGS} ${Z_CFLAGS}"
 LIBS="${LIBS} ${Z_LIBS}"
 
 dnl Checks for header files.
@@ -353,8 +353,18 @@ elif test "$gtk_advancement" = "gtk2"; then
 fi
 
 dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h
+have_isinf=no
+
   AC_CHECK_HEADERS(ieeefp.h sunmath.h)
-  AC_CHECK_LIB(sunmath,isinf)
+  AC_CHECK_LIB(sunmath,isinf,have_isinf=yes)
+dnl well, not quite. Solaris' guys seem to like moving stuff around.
+  AC_CHECK_LIB(m,isinf,have_isinf=yes)
+  AC_CHECK_LIB(m,finite)
+  AC_CHECK_LIB(sunmath,finite)
+
+if test "$have_isinf" = "yes"; then
+    AC_DEFINE([HAVE_ISINF], 1, [Define if the isinf() function is available])
+fi
 
 dnl Alpha needs -mieee or we get a segfault
 dnl This shouldn't be needed but is here until a real solution is found
