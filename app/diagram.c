@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -262,6 +262,11 @@ diagram_find_clicked_object(Diagram *dia, Point *pos,
   return closest;
 }
 
+
+/*
+ * Always returns the last handle in an object that has
+ * the closest distance
+ */
 real
 diagram_find_closest_handle(Diagram *dia, Handle **closest,
 			    Object **object, Point *pos)
@@ -284,7 +289,7 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
       handle = obj->handles[i];
       /* Note: Uses manhattan metric for speed... */
       dist = distance_point_point_manhattan(pos, &handle->pos);
-      if (dist<mindist) { 
+      if (dist<=mindist) { 
 	mindist = dist;
 	*closest = handle;
 	*object = obj;
