@@ -1,3 +1,18 @@
+dia-0.86:  future
+* Bug fixes to polygon, so that undo/redo of adding a point works correctly,
+  and added extra connection points to shape. (james)
+* added unfinished DXF import filter (Steffen).
+* XIM support added.
+* added beziergon object. (james)
+* The right click menu now behaves correctly when torn off.  Actions will be
+  performed on the last active display, which is defined as the last display
+  to receive mouse clicks or keyboard input. (james)
+* added little button to top left hand corner of display for bringing up
+  the right click menu, as in gimp-1.1. (james)
+* Layers dialog changes selected diagram when the active display changes.
+  (james)
+* fixed bug in custom shape code affecting drawing of ellipses/circles.
+
 dia-0.85:  18-May-2000
 * Bug fix for bringing up properties window when a group of objects that don't
   implement the properties code are selected (james).

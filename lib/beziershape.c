@@ -97,8 +97,8 @@ static int get_handle_nr(BezierShape *bezier, Handle *handle)
   return -1;
 }
 
-#define get_comp_nr(hnum) (((int)(hnum)+2)/3)
-#define get_major_nr(hnum) (((int)(hnum)+1)/3)
+#define get_comp_nr(hnum) ((int)(hnum)/3+1)
+#define get_major_nr(hnum) (((int)(hnum)+2)/3)
 
 void
 beziershape_move_handle(BezierShape *bezier, Handle *handle,
@@ -121,10 +121,10 @@ beziershape_move_handle(BezierShape *bezier, Handle *handle,
   
   switch(handle->id) {
   case HANDLE_BEZMAJOR:
-    if (comp_nr == 0) {
+    if (comp_nr == bezier->numpoints - 1) {
+      bezier->points[comp_nr].p3 = *to;
       bezier->points[0].p1 = bezier->points[0].p3 = *to;
-      bezier->points[bezier->numpoints-1].p3 = *to;
-      point_add(&bezier->points[bezier->numpoints-1].p2, &delta);
+      point_add(&bezier->points[comp_nr].p2, &delta);
       point_add(&bezier->points[1].p1, &delta);
     } else {
       bezier->points[comp_nr].p3 = *to;
@@ -231,15 +231,15 @@ beziershape_closest_segment(BezierShape *bezier, Point *point, real line_width)
 
   closest = 0;
   last = bezier->points[0].p1;
-  for (i = 0; i < bezier->numpoints - 1; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->points[i+1].p1,
-			&bezier->points[i+1].p2, &bezier->points[i+1].p3,
+  for (i = 1; i < bezier->numpoints; i++) {
+    real new_dist = distance_bez_seg_point(&last, &bezier->points[i].p1,
+			&bezier->points[i].p2, &bezier->points[i].p3,
 			line_width, point);
     if (new_dist < dist) {
       dist = new_dist;
       closest = i;
     }
-    last = bezier->points[i+1].p3;
+    last = bezier->points[i].p3;
   }
   return closest;
 }
@@ -248,12 +248,10 @@ Handle *
 beziershape_closest_handle(BezierShape *bezier, Point *point)
 {
   int i, hn;
-  real dist;
-  Handle *closest;
+  real dist = G_MAXFLOAT;
+  Handle *closest = NULL;
   
-  closest = bezier->object.handles[0];
-  dist = distance_point_point( point, &closest->pos);
-  for (i = 1, hn = 1; i < bezier->numpoints; i++, hn++) {
+  for (i = 1, hn = 0; i < bezier->numpoints; i++, hn++) {
     real new_dist;
 
     new_dist = distance_point_point( point, &bezier->points[i].p1);
@@ -268,13 +266,12 @@ beziershape_closest_handle(BezierShape *bezier, Point *point)
       dist = new_dist;
       closest = bezier->object.handles[i];
     }
-    if (i < bezier->numpoints - 1) {
-      hn++;
-      new_dist = distance_point_point( point, &bezier->points[i].p3);
-      if (new_dist < dist) {
-	dist = new_dist;
-	closest = bezier->object.handles[i];
-      }
+
+    hn++;
+    new_dist = distance_point_point( point, &bezier->points[i].p3);
+    if (new_dist < dist) {
+      dist = new_dist;
+      closest = bezier->object.handles[i];
     }
   }
   return closest;
@@ -286,9 +283,9 @@ beziershape_closest_major_handle(BezierShape *bezier, Point *point)
   Handle *closest = beziershape_closest_handle(bezier, point);
   int pos = get_major_nr(get_handle_nr(bezier, closest));
 
-  if (pos == bezier->numpoints - 1)
-    pos = 0;
-  return bezier->object.handles[3*pos];
+  if (pos == 0)
+    pos = bezier->numpoints - 1;
+  return bezier->object.handles[3*pos - 1];
 }
 
 real
@@ -307,7 +304,8 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   int i, next;
   Object *obj;
 
-  assert(pos > 0);
+  g_assert(pos >= 1);
+  g_assert(pos <= bezier->numpoints);
 
   obj = (Object *)bezier;
   bezier->numpoints++;
@@ -329,11 +327,11 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   if (pos == bezier->numpoints - 1)
     bezier->points[0].p1 = bezier->points[0].p3 = bezier->points[pos].p3;
   bezier->corner_types[pos] = corner_type;
-  object_add_handle_at((Object*)bezier, handle1, 3*pos-2);
-  object_add_handle_at((Object*)bezier, handle2, 3*pos-1);
-  object_add_handle_at((Object*)bezier, handle3, 3*pos);
-  object_add_connectionpoint_at((Object *)bezier, cp1, 2*pos);
-  object_add_connectionpoint_at((Object *)bezier, cp2, 2*pos+1);
+  object_add_handle_at((Object*)bezier, handle1, 3*pos-3);
+  object_add_handle_at((Object*)bezier, handle2, 3*pos-2);
+  object_add_handle_at((Object*)bezier, handle3, 3*pos-1);
+  object_add_connectionpoint_at((Object *)bezier, cp1, 2*pos-1);
+  object_add_connectionpoint_at((Object *)bezier, cp2, 2*pos);
 }
 
 static void
@@ -345,14 +343,15 @@ remove_handles(BezierShape *bezier, int pos)
   ConnectionPoint *old_cp1, *old_cp2;
   Point tmppoint;
 
-  assert(pos > 0);
+  g_assert(pos > 0);
+  g_assert(pos < bezier->numpoints);
 
   obj = (Object *)bezier;
 
   /* delete the points */
   bezier->numpoints--;
   tmppoint = bezier->points[pos].p1;
-  for (i = pos; i < bezier->numpoints - 1; i++) {
+  for (i = pos; i < bezier->numpoints; i++) {
     bezier->points[i] = bezier->points[i+1];
     bezier->corner_types[i] = bezier->corner_types[i+1];
   }
@@ -362,14 +361,14 @@ remove_handles(BezierShape *bezier, int pos)
   bezier->corner_types = g_realloc(bezier->corner_types,
 				   bezier->numpoints * sizeof(BezCornerType));
 
-  old_handle1 = obj->handles[3*pos-2];
-  old_handle2 = obj->handles[3*pos-1];
-  old_handle3 = obj->handles[3*pos];
+  old_handle1 = obj->handles[3*pos-3];
+  old_handle2 = obj->handles[3*pos-2];
+  old_handle3 = obj->handles[3*pos-1];
   object_remove_handle(&bezier->object, old_handle1);
   object_remove_handle(&bezier->object, old_handle2);
   object_remove_handle(&bezier->object, old_handle3);
-  old_cp1 = obj->connections[2*pos];
-  old_cp2 = obj->connections[2*pos+1];
+  old_cp1 = obj->connections[2*pos-1];
+  old_cp2 = obj->connections[2*pos];
   object_remove_connectionpoint(&bezier->object, old_cp1);
   object_remove_connectionpoint(&bezier->object, old_cp2);
 }
@@ -414,10 +413,10 @@ beziershape_add_segment(BezierShape *bezier, int segment, Point *point)
   new_cp2 = g_new0(ConnectionPoint, 1);
   new_cp1->object = &bezier->object;
   new_cp2->object = &bezier->object;
-  add_handles(bezier, segment+1, &realpoint, corner_type,
+  add_handles(bezier, segment, &realpoint, corner_type,
 	      new_handle1, new_handle2, new_handle3, new_cp1, new_cp2);
   return beziershape_create_point_change(bezier, TYPE_ADD_POINT,
-					 &realpoint, corner_type, segment+1,
+					 &realpoint, corner_type, segment,
 					 new_handle1, new_handle2, new_handle3,
 					 new_cp1, new_cp2);
 }
@@ -430,19 +429,17 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   BezPoint old_point;
   BezCornerType old_ctype;
 
-  assert(pos > 0);
-  assert(bezier->numpoints > 2);
+  g_assert(pos > 0);
+  g_assert(bezier->numpoints > 2);
 
-  if (pos == bezier->numpoints - 1) pos--;
-
-  old_handle1 = bezier->object.handles[3*pos-2];
-  old_handle2 = bezier->object.handles[3*pos-1];
-  old_handle3 = bezier->object.handles[3*pos];
+  old_handle1 = bezier->object.handles[3*pos-3];
+  old_handle2 = bezier->object.handles[3*pos-2];
+  old_handle3 = bezier->object.handles[3*pos-1];
   old_point = bezier->points[pos];
   old_ctype = bezier->corner_types[pos];
 
-  old_cp1 = bezier->object.connections[2*pos];
-  old_cp2 = bezier->object.connections[2*pos+1];
+  old_cp1 = bezier->object.connections[2*pos-1];
+  old_cp2 = bezier->object.connections[2*pos];
   
   object_unconnect((Object *)bezier, old_handle1);
   object_unconnect((Object *)bezier, old_handle2);
@@ -462,6 +459,7 @@ static void
 beziershape_straighten_corner(BezierShape *bez, int comp_nr) {
   int next_nr;
 
+  if (comp_nr == 0) comp_nr = bez->numpoints - 1;
   next_nr = comp_nr + 1;
   if (comp_nr == bez->numpoints - 1)
     next_nr = 1;
@@ -538,10 +536,12 @@ beziershape_set_corner_type(BezierShape *bez, Handle *handle,
     break;
   case HANDLE_LEFTCTRL:
     handle_nr++;
+    if (handle_nr == bez->object.num_handles) handle_nr = 0;
     mid_handle = bez->object.handles[handle_nr];
     break;
   case HANDLE_RIGHTCTRL:
     handle_nr--;
+    if (handle_nr < 0) handle_nr = bez->object.num_handles - 1;
     mid_handle = bez->object.handles[handle_nr];
     break;
   default:
@@ -582,13 +582,11 @@ beziershape_update_data(BezierShape *bezier)
   Point last;
   
   /* Update handles: */
-  bezier->object.handles[0]->pos = bezier->points[0].p1;
   bezier->points[0].p3 = bezier->points[0].p1;
   for (i = 1; i < bezier->numpoints; i++) {
-    bezier->object.handles[3*i-2]->pos = bezier->points[i].p1;
-    bezier->object.handles[3*i-1]->pos = bezier->points[i].p2;
-    if (i < bezier->numpoints - 1)
-      bezier->object.handles[3*i]->pos = bezier->points[i].p3;
+    bezier->object.handles[3*i-3]->pos = bezier->points[i].p1;
+    bezier->object.handles[3*i-2]->pos = bezier->points[i].p2;
+    bezier->object.handles[3*i-1]->pos = bezier->points[i].p3;
   }
 
   /* Update connection points: */
@@ -722,33 +720,33 @@ beziershape_init(BezierShape *bezier)
 
   obj->handles[0]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[0]->connected_to = NULL;
-  obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[0]->id = HANDLE_CORNER;
+  obj->handles[0]->type = HANDLE_MINOR_CONTROL;
+  obj->handles[0]->id = HANDLE_RIGHTCTRL;
   
   obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[1]->connected_to = NULL;
   obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id = HANDLE_RIGHTCTRL;
+  obj->handles[1]->id = HANDLE_LEFTCTRL;
 
   obj->handles[2]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[2]->connected_to = NULL;
-  obj->handles[2]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[2]->id = HANDLE_LEFTCTRL;
+  obj->handles[2]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[2]->id = HANDLE_BEZMAJOR;
 
   obj->handles[3]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[3]->connected_to = NULL;
-  obj->handles[3]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[3]->id = HANDLE_CORNER;
+  obj->handles[3]->type = HANDLE_MINOR_CONTROL;
+  obj->handles[3]->id = HANDLE_RIGHTCTRL;
   
   obj->handles[4]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[4]->connected_to = NULL;
   obj->handles[4]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[4]->id = HANDLE_RIGHTCTRL;
+  obj->handles[4]->id = HANDLE_LEFTCTRL;
 
   obj->handles[5]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[5]->connected_to = NULL;
-  obj->handles[5]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[5]->id = HANDLE_LEFTCTRL;
+  obj->handles[5]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[5]->id = HANDLE_BEZMAJOR;
 
   obj->connections[0] = g_new0(ConnectionPoint, 1);
   obj->connections[1] = g_new0(ConnectionPoint, 1);

@@ -354,8 +354,8 @@ beziergon_create(Point *startpoint,
 
   beziergon_update_data(beziergon);
 
-  *handle1 = bezier->object.handles[0];
-  *handle2 = bezier->object.handles[3];
+  *handle1 = bezier->object.handles[5];
+  *handle2 = bezier->object.handles[2];
   return (Object *)beziergon;
 }
 

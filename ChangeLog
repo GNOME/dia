@@ -1,3 +1,22 @@
+2000-06-01  James Henstridge  <james@daa.com.au>
+
+	* app/interface.c (origin_button_press): changes so the origin
+	button doesn't grab the pointer when we pop up the menu.
+
+	* app/commands.c (help_about_callback): fix small memory leak in
+	about box code.
+
+	* app/menus.c (menus_init): fixed breakage I introduced in the non
+	gnome menus when I was doing the menu changes.  The tearoffs work
+	really nicely in plain gtk mode as well.
+
+	* objects/standard/beziergon.c (beziergon_create): changed the
+	returned handles to match the handle numbering changes.  Now
+	segment addition and removal works correctly with undo!
+
+	* lib/beziershape.c: various changes to the code.  Changed the
+	numbering of handles, and fixed the segment removal code.
+
 2000-05-31  James Henstridge  <james@daa.com.au>
 
 	* objects/standard/beziergon.c: remove connection point handling.

@@ -137,7 +137,12 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 
   display_set_active(ddisp);
   ddisplay_popup_menu(ddisp, event);
-  return TRUE;
+
+  /* stop the signal emission so the button doesn't grab the
+   * pointer from us */
+  gtk_signal_emit_stop_by_name(GTK_OBJECT(widget), "button_press_event");
+
+  return FALSE;
 }
 
 void

@@ -443,8 +443,8 @@ save_accels(gpointer data)
 static void
 menus_init(void)
 {
-  GtkItemFactory *translated_entries;
-  GtkMenuItem *menuitem;
+  GtkItemFactoryEntry *translated_entries;
+  GtkWidget *menuitem;
   GString *path;
   gchar *accelfilename;
   gint i, len;
@@ -471,12 +471,13 @@ menus_init(void)
   toolbox_accels = gtk_accel_group_new();
   toolbox_item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<Toolbox>",
 					      toolbox_accels);
-  translated_entries = translated_entries(toolbox_menu_items,
-					  toolbox_nmenu_items);
+  translated_entries = translate_entries(toolbox_menu_items,
+					 toolbox_nmenu_items);
   gtk_item_factory_create_items(toolbox_item_factory,
 				toolbox_nmenu_items,
 				translated_entries, NULL);
-  free_translated_entries(translated_entries);
+  free_translated_entries(translated_entries,
+			  toolbox_nmenu_items);
   toolbox_menubar = gtk_item_factory_get_widget(toolbox_item_factory,
 						"<Toolbox>");
 
@@ -484,12 +485,13 @@ menus_init(void)
   display_accels = gtk_accel_group_new();
   display_item_factory = gtk_item_factory_new(GTK_TYPE_MENU, "<Display>",
 					      display_accels);
-  translated_entries = translated_entries(display_menu_items,
-					  display_nmenu_items);
+  translated_entries = translate_entries(display_menu_items,
+					 display_nmenu_items);
   gtk_item_factory_create_items(display_item_factory,
 				display_nmenu_items,
 				translated_entries, NULL);
-  free_translated_entries(translated_entries);
+  free_translated_entries(translated_entries,
+			  display_nmenu_items);
   display_menus = gtk_item_factory_get_widget(display_item_factory,
 					      "<Display>");
 #endif
@@ -499,7 +501,7 @@ menus_init(void)
   len = path->len;
   for (i = 0; i < num_tools; i++) {
     g_string_append(path, tool_data[i].menuitem_name);
-    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
+    menuitem = menus_get_item_from_path(path->str);
     if (menuitem != NULL)
       gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 			 GTK_SIGNAL_FUNC(tool_menu_select),
@@ -508,6 +510,7 @@ menus_init(void)
   }
   g_string_free(path, TRUE);
 
+  gtk_menu_set_title(GTK_MENU(display_menus), _("Diagram Menu"));
   
   accelfilename = dia_config_filename("menurc");
   
@@ -544,7 +547,8 @@ menus_get_image_menu (GtkWidget **menu,
     *accel_group = display_accels;
 }
 
-GtkWidget *menus_get_item_from_path (char *path)
+GtkWidget *
+menus_get_item_from_path (char *path)
 {
   GtkWidget *widget = NULL;
 
