@@ -244,11 +244,10 @@ app_exit(void)
   
     gtk_widget_show (label);
 
-    button = gtk_button_new_with_label (_("Yes"));
+    button = gtk_button_new_with_label (_("Quit"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 			button, TRUE, TRUE, 0);
-    gtk_widget_grab_default (button);
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
 			GTK_SIGNAL_FUNC(set_true_callback),
 			&result);
@@ -257,11 +256,11 @@ app_exit(void)
 			       GTK_OBJECT (dialog));
     gtk_widget_show (button);
     
-    button = gtk_button_new_with_label (_("No"));
+    button = gtk_button_new_with_label (_("Cancel"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
 			button, TRUE, TRUE, 0);
-    
+    gtk_widget_grab_default (button);
     gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
 			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
 			       GTK_OBJECT (dialog));

@@ -1,10 +1,16 @@
+1999-08-19  Karsten Weiss  <karsten@addx.au.s.shuttle.de>
+
+	* app/app_procs.c (app_exit): Use button labels "Quit" and
+	"Cancel" instead of "Yes" and "No".
+	Set default action to "Cancel" instead of "Quit".
+
 1999-08-19  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/flowchart.c: added ellipse object.
 	
 	* objects/flowchart/ellipse.c: a new shape for the flowchart toolbox.
 
-1999-08-18  James Henstridge  <james@daa.com.au>
+1999-08-18  James Henstridge  <james@daa.com.au>d
 
 	* app/color_area.c (color_area_edit): small fix to prevent dia from
 	segfaulting when you try to change the default foreground/background.
