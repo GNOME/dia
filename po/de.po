@@ -1,6 +1,6 @@
 # German translation of dia.
-# Copyright (C) 1999 Karsten Weiss.
-# Karsten Weiss <karsten@addx.au.s.shuttle.de>, 1999.
+# Copyright (C) 1999, 2000 Karsten Weiss.
+# Karsten Weiss <knweiss@gmx.de>, 1999, 2000.
 # Daniel Egger <Daniel.Egger@suse.de>, 2000.
 # Benedikt Roth <Benedikt.Roth@gmx.net>, 2000
 # (Feel free to update this file without asking!)
@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-08-16 11:57+0000\n"
-"PO-Revision-Date: 2000-08-16 13:51+00:00\n"
-"Last-Translator: Daniel Egger <egger@suse.de>\n"
+"POT-Creation-Date: 2000-09-07 16:45+0200\n"
+"PO-Revision-Date: 2000-09-07 17:11+02:00\n"
+"Last-Translator: Karsten Weiss <knweiss@gmx.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -34,7 +34,7 @@ msgstr "Kann keine Verbindung zum Sitzungsmanager aufnehmen!\n"
 
 #: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
-msgstr "[Option...] [Datei...]"
+msgstr "[OPTION...] [DATEI...]"
 
 #: app/app_procs.c:171
 #, c-format
@@ -171,31 +171,7 @@ msgstr "Schließen"
 msgid "This object has no defaults."
 msgstr "Dieses Objekt hat keine Voreinstellungen."
 
-#: app/dia_embedd.c:185
-msgid "File/New diagram"
-msgstr "Date/Neues Diagramm"
-
-#: app/dia_embedd.c:189
-msgid "File/Open..."
-msgstr "Datei/Öffnen..."
-
-#: app/dia_embedd.c:193
-msgid "File/Save As..."
-msgstr "Datei/Sichern unter..."
-
-#: app/dia_embedd.c:197
-msgid "File/Close"
-msgstr "Datei/Schließen"
-
-#: app/dia_embedd.c:201
-msgid "File/Exit"
-msgstr "Datei/Beenden"
-
-#: app/dia_embedd.c:205
-msgid "View/New View"
-msgstr "Ansicht/Neue Ansicht"
-
-#: app/dia_embedd.c:282
+#: app/dia_embedd.c:266
 msgid "Could not initialize Bonobo!"
 msgstr "Konnte Bonobo nicht initialisieren!"
 
@@ -340,7 +316,7 @@ msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden.\n"
 
 #: app/export_png.c:86
 msgid "Could not create PNG write structure"
-msgstr "Konnte PNG Schreibstruktu nicht erstellen"
+msgstr "Konnte PNG Schreibstruktur nicht erstellen"
 
 #: app/export_png.c:95
 msgid "Could not create PNG header info structure"
@@ -348,7 +324,7 @@ msgstr "Konnte die PNG Kopf-Informationsstruktur nicht erstellen"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
-msgstr "Ein Fehler trat während des Schreibens des PNG auf"
+msgstr "Während des PNG-Schreibens trat ein Fehler auf"
 
 #: app/export_png.c:156
 msgid "Portable Network Graphics"
@@ -356,7 +332,7 @@ msgstr "Portable Network Graphics (Portable Netzwerk Grafiken)"
 
 #: app/filedlg.c:94 app/filedlg.c:368
 msgid "By extension"
-msgstr "Nach Erweiterung"
+msgstr "Durch Erweiterung"
 
 #: app/filedlg.c:153
 msgid "Open Diagram"
@@ -398,7 +374,7 @@ msgstr ""
 
 #: app/filedlg.c:492
 msgid "Export Diagram"
-msgstr "Exportiere Diagramm..."
+msgstr "Exportiere Diagramm"
 
 #: app/filedlg.c:519
 msgid "Export Options"
@@ -458,11 +434,11 @@ msgstr "Vieleck"
 
 #: app/interface.c:70
 msgid "Create Beziergon"
-msgstr "Bezierlinie erzeugen"
+msgstr "Beziergon erzeugen"
 
 #: app/interface.c:71 app/menus.c:200
 msgid "Beziergon"
-msgstr "Bezierlinie"
+msgstr "Beziergon"
 
 #: app/interface.c:75
 msgid "Create Line"
@@ -653,7 +629,7 @@ msgstr "Konnte Datei '%s' nicht sichern.\n"
 
 #: app/load_save.c:687 app/load_save.c:692
 msgid "Native Dia Diagram"
-msgstr "Als Dia Diagramm speichern"
+msgstr "Dia Diagramm"
 
 #: app/menus.c:39 app/menus.c:50
 msgid "_New diagram"
@@ -669,7 +645,7 @@ msgstr "Ergänzungen"
 
 #: app/menus.c:57
 msgid "_Export..."
-msgstr "_Exportieren..."
+msgstr "E_xportieren..."
 
 #: app/menus.c:61
 msgid "Page Set_up..."
@@ -677,11 +653,11 @@ msgstr "Seiteneinstellungen..."
 
 #: app/menus.c:63
 msgid "_Print Diagram..."
-msgstr "_Drucke Diagramm..."
+msgstr "Diagramm drucken..."
 
 #: app/menus.c:78
 msgid "_Delete"
-msgstr "Löschen"
+msgstr "_Löschen"
 
 #: app/menus.c:84
 msgid "Copy Text"
@@ -693,7 +669,7 @@ msgstr "Text ausschneiden"
 
 #: app/menus.c:86
 msgid "Paste _Text"
-msgstr "_Text einfügen"
+msgstr "Text einfügen"
 
 #: app/menus.c:109
 msgid "Zoom _In"
@@ -718,7 +694,7 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr "Diagramm Eigenschaften..."
 
 #: app/menus.c:114
@@ -771,7 +747,7 @@ msgstr "Transitiv"
 
 #: app/menus.c:137
 msgid "Same Type"
-msgstr "Gleicher Type"
+msgstr "Gleicher Typ"
 
 #: app/menus.c:139
 msgid "Replace"
@@ -779,11 +755,11 @@ msgstr "Ersetzen"
 
 #: app/menus.c:141
 msgid "Union"
-msgstr "Verbindung"
+msgstr "Vereinigen"
 
 #: app/menus.c:143
 msgid "Intersect"
-msgstr "Schnitt"
+msgstr "Schneiden"
 
 #: app/menus.c:145
 msgid "Remove"
@@ -846,7 +822,7 @@ msgstr "_Vertikal anordnen"
 
 #: app/menus.c:211
 msgid "_Properties"
-msgstr "_Eigenschaften"
+msgstr "Eigenschaften"
 
 #: app/menus.c:212
 msgid "_Layers"
@@ -854,7 +830,7 @@ msgstr "_Ebenen"
 
 #: app/menus.c:231
 msgid "_Select"
-msgstr "Wählen"
+msgstr "Auswahl"
 
 #: app/menus.c:232
 msgid "_Objects"
@@ -862,11 +838,11 @@ msgstr "_Objekte"
 
 #: app/menus.c:233
 msgid "_Tools"
-msgstr "Werkzeuge"
+msgstr "_Werkzeuge"
 
 #: app/menus.c:234
 msgid "_Dialogs"
-msgstr "_Dialoge"
+msgstr "Dialoge"
 
 #: app/menus.c:248 app/menus.c:261
 msgid "/_File"
@@ -890,7 +866,7 @@ msgstr "/Datei/Ergänzungen"
 
 #: app/menus.c:253 app/menus.c:267 app/menus.c:270
 msgid "/File/---"
-msgstr "/_Datei/---"
+msgstr "/Datei/---"
 
 #: app/menus.c:254 app/menus.c:273
 msgid "/File/_Quit"
@@ -914,7 +890,7 @@ msgstr "/Datei/Sichern _unter..."
 
 #: app/menus.c:266
 msgid "/File/_Export..."
-msgstr "/Datei/_Exportieren"
+msgstr "/Datei/E_xportieren"
 
 #: app/menus.c:268
 msgid "/File/Page Set_up..."
@@ -1060,7 +1036,7 @@ msgstr "/Ansicht/Verbindungspunkte anzeigen"
 
 #: app/menus.c:306
 msgid "/View/---"
-msgstr "/_Ansicht/---"
+msgstr "/Ansicht/---"
 
 #: app/menus.c:307
 msgid "/View/New _View"
@@ -1072,7 +1048,7 @@ msgstr "/Ansicht/_Alles anzeigen"
 
 #: app/menus.c:309
 msgid "/_Select"
-msgstr "/Wählen"
+msgstr "/Auswahl"
 
 #: app/menus.c:310
 msgid "/Select/All"
@@ -1096,11 +1072,11 @@ msgstr "/Auswahl/Transitiv"
 
 #: app/menus.c:315
 msgid "/Select/Same Type"
-msgstr "/Auswahl/gleicher Typ"
+msgstr "/Auswahl/Gleicher Typ"
 
 #: app/menus.c:316
 msgid "/Select/---"
-msgstr "/Wählen/---"
+msgstr "/Auswahl/---"
 
 #: app/menus.c:317
 msgid "/Select/Replace"
@@ -1108,11 +1084,11 @@ msgstr "/Auswahl/Ersetzen"
 
 #: app/menus.c:318
 msgid "/Select/Union"
-msgstr "/Auswahl/Vereinigung"
+msgstr "/Auswahl/Vereinigen"
 
 #: app/menus.c:319
 msgid "/Select/Intersect"
-msgstr "/Auswahl/Schnitt"
+msgstr "/Auswahl/Schneiden"
 
 #: app/menus.c:320
 msgid "/Select/Remove"
@@ -1132,7 +1108,7 @@ msgstr "/Objekte/Ganz nach vorne"
 
 #: app/menus.c:325 app/menus.c:328
 msgid "/Objects/---"
-msgstr "/_Objekte/---"
+msgstr "/Objekte/---"
 
 #: app/menus.c:326
 msgid "/Objects/_Group"
@@ -1164,7 +1140,7 @@ msgstr "/Objekte/Horizontal anordnen/Gleicher Abstand"
 
 #: app/menus.c:334
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objekte/Horizontal anordnen/Verteilt"
+msgstr "/Objekte/Horizontal anordnen/Adjazent"
 
 #: app/menus.c:335
 msgid "/Objects/Align _Vertical"
@@ -1188,7 +1164,7 @@ msgstr "/Objekte/Vertikal anordnen/Gleicher Abstand"
 
 #: app/menus.c:340
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objekte/Vertikal anordnen/Verteilt"
+msgstr "/Objekte/Vertikal anordnen/Adjazent"
 
 #: app/menus.c:342
 msgid "/_Tools"
@@ -1224,7 +1200,7 @@ msgstr "/Werkzeuge/Vieleck"
 
 #: app/menus.c:350
 msgid "/Tools/Beziergon"
-msgstr "/Werkzeuge/Bezierlinie"
+msgstr "/Werkzeuge/Beziergon"
 
 #: app/menus.c:351
 msgid "/Tools/Line"
@@ -1252,7 +1228,7 @@ msgstr "/Werkzeuge/Bild"
 
 #: app/menus.c:358
 msgid "/_Dialogs"
-msgstr "/_Dialoge"
+msgstr "/Dialoge"
 
 #: app/menus.c:359
 msgid "/Dialogs/_Properties"
@@ -1266,17 +1242,17 @@ msgstr "/Dialoge/_Ebenen"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: app/menus.c:804
+#: app/menus.c:806
 msgid "Diagram Menu"
 msgstr "Diagramme-Menu"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
-msgstr "Drucke Diagramm"
+msgstr "Diagramm drucken"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
-msgstr "Drucker wählen"
+msgstr "Drucker auswählen"
 
 #: app/paginate_psprint.c:206
 msgid "Printer"
@@ -2395,11 +2371,11 @@ msgstr "Endzeit:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
-msgstr ""
+msgstr "Ansteigezeit:"
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
 msgid "Fall time:"
-msgstr ""
+msgstr "Abfallzeit:"
 
 #: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
 msgid "Multi-bit data"
@@ -2432,11 +2408,11 @@ msgstr "Kleiner Zeitschritt Breite:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
-msgstr "Anpassen"
+msgstr "Benutzerspezifisch"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr "Lader für eigene XML Umrisse"
+msgstr "Lader für benutzerspezifische XML Formen"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
@@ -2600,7 +2576,7 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
-"Bildreihe ist länger als die maximale Zellenlänge.\n"
+"Bildzeilenlänge ist größer als die maximale Zellenlänge.\n"
 "Konnte Bild nicht als CGM exportieren."
 
 #: plug-ins/cgm/cgm.c:1252
@@ -2613,15 +2589,16 @@ msgstr "Computer Grafik Metadatei Exportfilter"
 
 #: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
-msgstr "Zeichne Austauschs-Datei"
+msgstr "DXF-Datei"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
-msgstr "Zeichne Austauschs-Datei Import- und Exportfilter"
+msgstr "DXF Import- und Exportfilter"
 
+# HP Graphics Language ist ein Name. Nicht uebersetzen.
 #: plug-ins/hpgl/hpgl.c:612
 msgid "HP Graphics Language export filter"
-msgstr "HP Grafik Sprach Exportfilter"
+msgstr "HP Graphics Language Exportfilter"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2638,120 +2615,12 @@ msgstr "Datei: %s Typ/Version nicht unterstützt.\n"
 
 #: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
-msgstr "Wordperfect Grafik Exportfilter"
+msgstr "WordPerfect Grafik Exportfilter"
 
 #: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
-msgstr "Skalierbare Vektorgrafiken"
+msgstr "Skalierbare Vektorgrafik (SVG)"
 
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
-msgstr "Skalierbare VektorGrafiken Exportfilter"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Bearbeiten/Kopieren"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Bearbeiten/Ausschneiden"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Bearbeiten/Einfügen"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Bearbeiten/Löschen"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Bearbeiten/Text einfügen"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Objekte/Ganz nach hinten"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Objekte/Ganz nach vorne"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objekte/Gruppieren"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objekte/Gruppe aufheben"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Ansicht/Lineale anzeigen"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Ansicht/Gitter sichtbar"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Ansicht/Am Gitter einrasten"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Ansicht/Verbindungspunkte anzeigen"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Ansicht/Kantenglättung"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Datei/sep1"
-
-#~ msgid "/tearoff"
-#~ msgstr "/Abreißer"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/Datei/Abreißer"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Datei/sep2"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Bearbeiten/Abreißer"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/Ansicht/Abreißer"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Ansicht/Abreißer"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Ansicht/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Auswahl/Abreißer"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/Auswahl/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objekte/Abreißer1"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Objekte/sep1"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objekte/Horizontal anordnen/Abreißer"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objekte/Vertikal anordnen/Abreißer"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/Werkzeuge/Abreißer"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Dialoge/Abreißer"
-
-#~ msgid "/Tools/"
-#~ msgstr "/Werkzeuge/"
-
-#~ msgid "Grid options"
-#~ msgstr "Gitter-Optionen"
-
-#~ msgid "Grid x size:"
-#~ msgstr "X-Größe des Gitters"
-
-#~ msgid "Grid y size:"
-#~ msgstr "Y-Größe des Gitters"
-
-#~ msgid "Edit Grid..."
-#~ msgstr "Gitter bearbeiten..."
-
-#~ msgid "/View/Edit Grid..."
-#~ msgstr "/Ansicht/Gitter bearbeiten..."
+msgstr "Skalierbare Vektorgrafik (SVG) Exportfilter"
