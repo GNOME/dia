@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-24 22:20+0800\n"
+"POT-Creation-Date: 2000-01-13 15:18+0100\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -39,7 +39,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Fel vid alternativ %s: %s.\n"
-"Kör '%s --help' för att se en full lista av tillgängliga kommandoradsalternativ.\n"
+"Kör '%s --help' för att se en full lista av tillgängliga "
+"kommandoradsalternativ.\n"
 
 #: app/app_procs.c:209 app/app_procs.c:211
 msgid ""
@@ -49,7 +50,7 @@ msgstr ""
 
 #: app/app_procs.c:227
 msgid "Need valid input file\n"
-msgstr "Behöver en korrekt diagramfil för --export-file-to-ps\n"
+msgstr "Behöver en \"input\" fil\n"
 
 #: app/app_procs.c:287
 msgid "Quit, are you sure?"
@@ -394,8 +395,9 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer"
-"färgerna.  Pilarna byter färger.  Dubbleklicka för att ändra färger."
+"För- och bakgrundsfärger. Symbolen med en svart och vit ruta "
+"återställerfärgerna.  Pilarna byter färger.  Dubbleklicka för att ändra "
+"färger."
 
 #: app/interface.c:646
 msgid "Diagram Editor"
@@ -509,7 +511,7 @@ msgstr "Kunde inte öppna: '%s' för skrivning.\n"
 
 #: app/load_save.c:554
 msgid "Native Dia Diagram"
-msgstr "Inhemsk Dia diagram"
+msgstr "Inhemskt Dia diagram"
 
 #: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
@@ -575,7 +577,7 @@ msgstr "Visa _linjaler"
 
 #: app/menus.c:111
 msgid "Show _Connection Points"
-msgstr "Visa kopplingspunkter"
+msgstr "Visa _kopplingspunkter"
 
 #: app/menus.c:114
 msgid "New _View"
@@ -828,7 +830,7 @@ msgstr "/Visa/Visa _linjaler"
 
 #: app/menus.c:230
 msgid "/View/Show _Connection Points"
-msgstr "/Visa/Visa kopplingspunkter"
+msgstr "/Visa/Visa _kopplingspunkter"
 
 #: app/menus.c:231
 msgid "/View/sep1"
@@ -1142,7 +1144,7 @@ msgstr "Funktion:"
 
 #: objects/UML/association.c:1055
 msgid "Multiplicity:"
-msgstr ""
+msgstr "Multiplicitet"
 
 #. Show arrow:
 #: objects/UML/association.c:1066
@@ -1180,11 +1182,11 @@ msgstr "Abstrakt"
 
 #: objects/UML/class_dialog.c:207
 msgid "Attributes visible"
-msgstr "Attribut syndliga"
+msgstr "Attribut synliga"
 
 #: objects/UML/class_dialog.c:211
 msgid "Suppress Attributes"
-msgstr ""
+msgstr "Strunga i attribut"
 
 #: objects/UML/class_dialog.c:219
 msgid "Operations visible"
@@ -1192,7 +1194,7 @@ msgstr "Operationer synliga"
 
 #: objects/UML/class_dialog.c:223
 msgid "Suppress operations"
-msgstr ""
+msgstr "Strunta i operationern"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
@@ -1316,7 +1318,7 @@ msgstr "Samarbete"
 
 #: objects/UML/object.c:753
 msgid "Explicit state:"
-msgstr ""
+msgstr "Explicit tillstånd:"
 
 #: objects/UML/object.c:775
 msgid "Attributes:"
@@ -1332,7 +1334,7 @@ msgstr "Aktivt objekt"
 
 #: objects/UML/object.c:794
 msgid "multiple instance"
-msgstr ""
+msgstr "multipla exemplar"
 
 #: objects/UML/lifeline.c:603
 msgid "Show focus of control:"
@@ -1361,7 +1363,7 @@ msgstr "Retunera"
 
 #: objects/UML/message.c:643
 msgid "Asynchronous"
-msgstr ""
+msgstr "Asykron"
 
 #: objects/UML/message.c:648
 msgid "Create"
@@ -1463,11 +1465,11 @@ msgstr "Total:"
 
 #: objects/ER/relationship.c:266
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Vänster kardinalitet"
 
 #: objects/ER/relationship.c:274
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Höger kardinalitet"
 
 #: objects/ER/relationship.c:282
 msgid "Rotate"
@@ -1626,11 +1628,11 @@ msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:671
 msgid "Orthflow:"
-msgstr ""
+msgstr "Ortoflöde:"
 
 #: objects/FS/flow-ortho.c:687
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Ortoflödestyp:"
 
 #: objects/FS/function.c:498
 msgid "Function:"
@@ -1730,7 +1732,7 @@ msgstr "      Ta bort"
 
 #: objects/FS/function.c:573
 msgid "   Refine"
-msgstr ""
+msgstr "   Förfina"
 
 #: objects/FS/function.c:574
 msgid "   Distribute"
@@ -1738,7 +1740,7 @@ msgstr "   Distribuera"
 
 #: objects/FS/function.c:575
 msgid "   Dissipate"
-msgstr ""
+msgstr "   Skingra"
 
 #: objects/FS/function.c:576
 msgid "Provision"
@@ -1758,7 +1760,7 @@ msgstr "   Extrahera"
 
 #: objects/FS/function.c:580
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Magnitut kontroll"
 
 #: objects/FS/function.c:581
 msgid "   Actuate"
@@ -1782,7 +1784,7 @@ msgstr "Konvertera"
 
 #: objects/FS/function.c:587
 msgid "   Sense"
-msgstr "   "
+msgstr "   Känn av"
 
 #: objects/FS/function.c:588
 msgid "   Indicate"
@@ -1839,6 +1841,8 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Bildradslängden är större än cellens maximala fält.\n"
+"Bilden exporterades inte till CGM."
 
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
