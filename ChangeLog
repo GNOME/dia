@@ -1,12 +1,18 @@
 2004-07-04  Hans Breuer  <hans@breuer.org>
 
+	* sheets/network.sheet.in shapes/network/patch-panel.xpm
+	  shapes/network/patch-panel.xpm : added 24-Port-Patch-Panel
+	fixes bug #136629, James McDonald
+
+2004-07-04  Hans Breuer  <hans@breuer.org>
+
 	* lib/persistence.c app/load_save.c app/sheet_dialog_callbacks.c
 	  lib/object_defaults.c : revert changing of Dia's XML namespace
 	* lib/dia_xml.h : #define DIA_XML_NAME_SPACE_BASE with a comment
 	about its purpose and relation to real world urls.
 
 	* lib/plug-ins.h : increment DIA_PLUGIN_API_VERSION and 
-	added comment about when to o so
+	added comment about when to do so
 	[Should have been long time ago and probably multiple times
 	to avoid crashing on older plug-ins]
 	* RELEASE-PROCESS : mention DIA_PLUGIN_API_VERSION

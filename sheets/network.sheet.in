@@ -30,6 +30,9 @@
     <object name="Network - Modular Switch">
       <_description>Modular switching system</_description>
     </object>
+    <object name="Network - Patch Panel">
+      <_description>24 Port Patch Panel</_description>
+    </object>
     <object name="Network - RJ45 Wall-Plug">
       <_description>RJ45 wall-plug</_description>
     </object>
