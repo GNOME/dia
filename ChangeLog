@@ -1,5 +1,19 @@
 1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/Makefile.am:
+	Added diamenu.h and intl.h
+
+	* lib/font.c:
+	Stupid typo fix.
+	
+	* objects/UML/pixmaps/Makefile.am:
+	Added message.xpm
+
+	* objects/standard/pixmaps/Makefile.am:
+	Added image.xpm
+
+1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
+
 	* lib/font.c:
 	Use a scalable font before fixed when real font not found.
 

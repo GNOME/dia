@@ -296,10 +296,10 @@ GList *fonts = NULL;
 GList *font_names;
 GHashTable *fonts_hash = NULL;
 
-char *last_resort_fonts = {
+char *last_resort_fonts[] = {
   "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
   "fixed" /* Must be last. This is guaranteed to exist on an X11 system. */
-}
+};
 #define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
 
 

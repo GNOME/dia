@@ -4,6 +4,7 @@ SUBDIRS = pixmaps
 
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
+		diamenu.h \
 		diagramdata.h \
 		diagramdata.c \
 		geometry.h \
@@ -50,6 +51,7 @@ libdia_a_SOURCES =  \
 		widgets.h \
 		dia_image.c \
 		dia_image.h \
+		intl.h \
 		dummy_dep.h
 
 CPPFLAGS = @CPPFLAGS@ @GTK_CFLAGS@
