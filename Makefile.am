@@ -26,7 +26,7 @@ distclean-local:
 	rm -f intltool-extract
 	rm -f intltool-merge
 	rm -f intltool-update
-	./mkauthors-placeholder
+	rm -f THANKS
 
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
@@ -48,7 +48,7 @@ EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	core-translation-report po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \
 	RELEASE-PROCESS autogen.sh \
-	config.h.win32 readme.win32 AUTHORS
+	config.h.win32 readme.win32 AUTHORS THANKS
 
-AUTHORS: all-recursive
-	app/run_dia.sh --credits > AUTHORS
+THANKS: all-recursive
+	app/run_dia.sh --credits > THANKS

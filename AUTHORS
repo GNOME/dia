@@ -1,14 +1,38 @@
-This is only a placeholder file; the real content of AUTHORS is 
-generated from the output of dia --credits, when 'make dist' is 
-run to create a distributable dia tarball. The authors of dia 
-can also be seen from the about box in any up-to-date copy of 
-dia. 
+Dia is a program for drawing structured diagrams.
 
-This slightly messy procedure is due to the fact that the 
-definitive list of authors in dia is hard-coded into dia, yet 
-automake(1) requires AUTHORS to be present at 'make dist' stage 
-because the GNU coding standards require it. 
+Dia is a GNU program, and is Free Software. It is the work of many
+people, and includes many bits of code originating from other Free
+Software projects.
 
-(if you with to review the list of authors before building dia, you 
-can have a look at the contents of the file 
-$(top_srcdir)/app/authors.h) 
+See the COPYING file in the same directory as this file for the licence.
+
+Dia has been written directly or indirectly by many people; this
+project has been started by Alexander Larsson. 
+
+Copyright (C) 1998-2000 Alexander Larsson
+Copyright (C) 1999-2001 James Henstridge
+Copyright (C) 1984-2002 Free Software Foundation, Inc.
+Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
+Copyright (C) 1997 Juliusz Chroboczek 
+Copyright (C) 1999 Tim Janik
+Copyright (C) 1999-2002 Lars R. Clausen
+Copyright (C) 1999-2000 Helix Code, Inc.
+Copyright (C) 2000-2002 Hans Breuer
+Copyright (C) 2000-2002 Cyrille Chepelov
+Copyright (C) 2000-2002 Steffen Macke
+Copyright (C) 2000 Henk Jan Priester
+Copyright (C) 2000 Jacek Pliszka
+Copyright (C) 2000 Stefan Seefeld
+Copyright (C) 2001 Chris Sperandio
+Copyright (C) 2001 Hubert Figuiere
+Copyright (C) 2001 Jose A Ortega Ruiz
+Copyright (C) 2002 Alejandro Sierra <asierra@servidor.unam.mx>
+Copyright (C) 2002 M.C. Nelson
+
+The above list is believed to be complete with respect to copyright
+information. However, many more people have contributed; a more
+complete list of authors of dia can be found by looking at the
+THANKS file, which should exist in any distributed version of
+dia. Alternatively, the authors' names can be found in the dia
+About box, or in $(top_srcdir)/app/authors.h.
+

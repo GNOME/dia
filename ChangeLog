@@ -1,3 +1,18 @@
+2002-08-27  Cyrille Chepelov  <cyrille@chepelov.org>
+	Patch from Andrew Ferrier  <andrew@new-destiny.co.uk>:
+ 
+ 	* Makefile.am: rules relating to AUTHORS and THANKS
+ 	altered.
+ 	* AUTHORS: file content changed to more accurately
+ 	reflect guideline requirements.
+ 	* TODO: warning added about Gnome BTS.
+ 	* KNOWN_BUGS: warning added about Gnome BTS.
+
+	---
+
+	* AUTHORS: added full copyright info.
+	* mkauthors-placeholder: (removed) 
+	
 2002-08-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/paginate_psprint.c (print_page): Fixed text printing after
