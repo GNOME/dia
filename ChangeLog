@@ -1,3 +1,8 @@
+2002-01-019  Steffen Macke  <sdteffen@yahoo.com>
+
+	* plug-ins/svg/render_svg.c: fix for #69053, alignment of text
+	exported to SVG
+	
 2002-01-18  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/font.c (font_get_gdkfont_helper): use gdk_fontset_load ().

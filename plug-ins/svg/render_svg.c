@@ -755,7 +755,7 @@ draw_string(RendererSVG *renderer,
 #else
  {
      utfchar *utf = charconv_local8_to_utf8(text);
-     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, utf);     
+     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, utf);
      g_free(utf);
      node = xmlNewChild(renderer->root, NULL, "text", enc);
      xmlFree(enc);
@@ -768,13 +768,13 @@ draw_string(RendererSVG *renderer,
   renderer->linewidth = saved_width;
   switch (alignment) {
   case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-align: left", NULL);
+    style = g_strconcat(style, "; text-anchor: left", NULL);
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-align: center", NULL);
+    style = g_strconcat(style, "; text-anchor: middle", NULL);
     break;
   case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-align: right", NULL);
+    style = g_strconcat(style, "; text-anchor: right", NULL);
     break;
   }
   tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
