@@ -1,3 +1,8 @@
+2000-01-29  Cyrille Chepelov <chepelov@calixo.net>
+
+	* objects/chronogram/chronoline_event.c: removed references to
+	lround(). Please don't insist, I'm already red of shame.
+	
 2000-01-29  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_libart.[ch]:

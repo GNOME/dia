@@ -222,15 +222,16 @@ __chksum(const char *str, real rise, real fall, real time_end)
   int i = 1;
   if (!p) return -1;
 
-  i = 0xFFFFFFFF & (i * lround(rise*100) + lround(rise * 100));
-  i = 0xFFFFFFFF & (i * lround(314.16*fall) + lround(314.16*fall));
-  i = 0xFFFFFFFF & (i * lround(271.3*time_end) + lround(271.3*time_end));
+  i = 0xFFFFFFFF & (int)(i * rise*100 + rise * 100);
+  i = 0xFFFFFFFF & (int)(i * 314.16*fall + 314.16*fall);
+  i = 0xFFFFFFFF & (int)(i * 271.3*time_end + 271.3*time_end);
   
   while (*p) {
     i = (0xFFFFFFF) & (i + (*p) + (i * (signed)(*p)));
     if (!i) i++;
     p++;
   }
+  /* printf("chksum[%s] = %d\n",str,i); */
   return i;
 }
 
