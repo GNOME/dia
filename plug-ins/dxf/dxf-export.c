@@ -132,6 +132,12 @@ static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
+static void fill_rect (DiaRenderer *renderer,
+                       Point *ul_corner, Point *lr_corner,
+                       Color *color);
+static void fill_polygon (DiaRenderer *renderer,
+                          Point *points, int num_points,
+                          Color *color);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -221,7 +227,9 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->set_font = set_font;
   
   renderer_class->draw_line = draw_line;
-  
+  renderer_class->fill_rect = fill_rect;
+  renderer_class->fill_polygon = fill_polygon;
+
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
 
@@ -351,6 +359,22 @@ draw_line(DiaRenderer *self,
     fprintf(renderer->file, " 11\n%f\n", end->x);
     fprintf(renderer->file, " 21\n%f\n", (-1)*end->y);
     fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+}
+
+static void 
+fill_rect (DiaRenderer *renderer,
+           Point *ul_corner, Point *lr_corner,
+           Color *color)
+{
+  /* draw a transparent rect. i.e. not implemented */
+}
+
+static void 
+fill_polygon (DiaRenderer *renderer,
+              Point *points, int num_points,
+              Color *color)
+{
+  /* not implemented, but no complaints by base class either */
 }
 
 static void

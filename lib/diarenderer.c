@@ -49,6 +49,9 @@ static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
 static void draw_line (DiaRenderer *renderer,
                        Point *start, Point *end,
                        Color *color);
+static void fill_rect (DiaRenderer *renderer,
+                       Point *ul_corner, Point *lr_corner,
+                       Color *color);
 static void fill_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *color);
@@ -218,6 +221,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->set_font       = set_font;
 
   renderer_class->draw_line    = draw_line;
+  renderer_class->fill_rect    = fill_rect;
   renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
@@ -329,6 +333,15 @@ draw_arc (DiaRenderer *renderer, Point *center,
           Color *color)
 {
   g_warning ("%s::draw_arc not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+static void 
+fill_rect (DiaRenderer *renderer,
+           Point *ul_corner, Point *lr_corner,
+           Color *color)
+{
+  g_warning ("%s::fill_rect not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 

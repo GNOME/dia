@@ -1,3 +1,16 @@
+2003-02-28  Hans Breuer  <hans@breuer.org>
+
+	[fix for bug #107203]
+
+	* lib/diarenderer.c : add warning 'implementation'
+	for fill_rect to avoid crashing with a renderer
+	which does not implement this required function.
+
+	* plug-ins/dxf/dxf-export.c : provide - still empty -
+	'implementations' for fill_rect and fill_polygon 
+	to suppress the above warnings. Now it works like
+	in version 0.90 
+
 2003-02-28  Steffen Macke <sdteffen@web.de>
 
 	* samples/all_objects.dia: New sheet containing all dia shapes
