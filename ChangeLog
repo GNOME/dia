@@ -1,3 +1,12 @@
+2000-04-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/geometry.c (line_crosses_ray): Fixed division by zero bug
+
+2000-04-12  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* objects/standard/polygon.c: Start of polygons own changes (for
+	connectionpoints).  Need to do seperate changes in polyshape, too,
+	rather than reuse the bezier changes.
 2000-04-13  James Henstridge  <james@daa.com.au>
 
 	* lib/dia_image.c (dia_image_draw): use the new enumeration values

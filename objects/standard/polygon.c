@@ -525,6 +525,26 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)polygon;
 }
 
+/* Have to have PolyShape have its own pointchange */
+static void
+polygon_change_free(struct PointChange *change)
+{
+}
+
+static void polygon_change_apply(struct PointChange *change, Object *obj)
+{
+}
+
+static void polygon_change_revert(struct PointChange *change, Object *obj)
+{
+}
+
+static ObjectChange *
+polygon_create_change (Polygon *polygon)
+{
+}
+
+
 static ObjectChange *
 polygon_add_corner_callback (Object *obj, Point *clicked, gpointer data)
 {
