@@ -356,8 +356,10 @@ GPtrArray *prop_list_from_single(Property *prop);
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
 gboolean pdtpp_is_visible(const PropDescription *pdesc); 
+gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc); 
 gboolean pdtpp_is_not_visible(const PropDescription *pdesc); 
 gboolean pdtpp_do_save(const PropDescription *pdesc); 
+gboolean pdtpp_do_save_no_standard(const PropDescription *pdesc);
 gboolean pdtpp_do_load(const PropDescription *pdesc);
 gboolean pdtpp_do_not_save(const PropDescription *pdesc); 
 /* all but DONT_MERGE and NO_DEFAULTS: */
@@ -437,7 +439,7 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
 
 /* standard way to copy the properties of an object into another (of the
    same type) */
-void          object_copy_props(Object *dest, Object *src);
+void          object_copy_props(Object *dest, Object *src, gboolean is_default);
 
 /* Return a reference to objects property with 'name' or NULL */
 Property     *object_get_prop_by_name (Object *obj, const char* name);

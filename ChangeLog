@@ -1,8 +1,13 @@
 2002-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/object_defaults.c (dia_object_default_create): 
+	* lib/proplist.c: 
+	* lib/properties.h: 
+	* lib/object.c (object_copy_using_properties): 
 	* lib/propdialogs.c: 
 	* lib/propinternals.h: 
-	* lib/propobject.c (object_create_props_dialog): 
+	* lib/propobject.c (object_create_props_dialog)
+	(object_copy_props): 
 	Removing the standard (toolbox) properties from defaults dialogs.
 
 2002-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>

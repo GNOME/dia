@@ -415,7 +415,7 @@ Object *object_copy_using_properties(Object *obj)
   Handle *handle1,*handle2;
   Object *newobj = obj->type->ops->create(&startpoint,NULL,
                                           &handle1,&handle2);
-  object_copy_props(newobj,obj);
+  object_copy_props(newobj,obj,FALSE);
   return newobj;
 }
 

@@ -257,14 +257,13 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
 }
 
 static void 
-prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props, gboolean is_default)
+prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
 {
   guint i;
 
   for (i = 0; i < props->len; i++) {
     Property *prop = (Property*)g_ptr_array_index(props,i);
-    if (!(is_default && (prop->descr->flags & PROP_FLAG_STANDARD)))
-      prop_dialog_add_property(dialog, prop);
+    prop_dialog_add_property(dialog, prop);
   }
 }
 
@@ -279,7 +278,7 @@ prop_get_data_from_widgets(PropDialog *dialog)
     
   }
 }
-
+extern gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc);
 static void 
 prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default) {
   const PropDescription *pdesc;
@@ -292,13 +291,17 @@ prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default) {
   pdesc = object_get_prop_descriptions(obj);
   if (!pdesc) return;
 
-  props = prop_list_from_descs(pdesc,pdtpp_is_visible);
+  if (is_default)
+      props = prop_list_from_descs(pdesc,pdtpp_is_visible_no_standard);
+  else
+      props = prop_list_from_descs(pdesc,pdtpp_is_visible);
+
   if (!props) return;
     
   dialog->props = props;
   obj->ops->get_props(obj,props);
 
-  prop_dialog_add_properties(dialog, props, is_default);
+  prop_dialog_add_properties(dialog, props);
 }
 
 

@@ -174,7 +174,7 @@ dia_object_defaults_load (gchar *filename, gboolean create_lazy)
 					filename);
 			  if (def_obj->ops->set_props)
 			    { 
-			      object_copy_props (obj, def_obj);
+			      object_copy_props (obj, def_obj, FALSE);
 			      def_obj->ops->destroy (def_obj);
 			    }
 			  else
@@ -213,7 +213,7 @@ dia_object_default_make (Object *obj_from)
   obj_to = dia_object_default_get (obj_from->type);
   g_return_if_fail (obj_to);
 
-  object_copy_props (obj_to, obj_from);
+  object_copy_props (obj_to, obj_from, TRUE);
 }
 
 /**
@@ -276,7 +276,7 @@ dia_object_default_create (ObjectType *type,
       obj = type->ops->create (startpoint, user_data, handle1, handle2);
       if (obj)
         {
-          object_copy_props (obj , def_obj);
+          object_copy_props (obj, def_obj, TRUE);
 	  obj->ops->move (obj, startpoint);
 	}
     }
