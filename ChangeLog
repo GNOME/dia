@@ -1,3 +1,12 @@
+2003-09-22  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Don't do pango init here, it's done
+	on demand in font.c now.
+
+	* lib/font.c: Load pango context on demand rather than during
+	init/all the time strikes a better balance between working font
+	size and speed.  Still need to cache width calculations.
+
 2003-09-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/dia_xml.c: Enable pretty printing.  Should have been added

@@ -68,7 +68,7 @@ list_families()
   int nfamilies;
   int i;
 
-  pango_context_list_families(pango_context, &families, &nfamilies);
+  pango_context_list_families(dia_font_get_context(), &families, &nfamilies);
   qsort (families, nfamilies, sizeof (PangoFontFamily *), cmp_families);
   for (i = 0; i < nfamilies; i++) {
     puts(pango_font_family_get_name(families[i]));
@@ -81,7 +81,7 @@ dia_font_check_for_font(int font) {
     PangoFont *loaded;
 
     check = dia_font_new_from_style(font, 1.0);
-    loaded = pango_context_load_font(pango_context,
+    loaded = pango_context_load_font(dia_font_get_context(),
 				     check->pfd);
     if (loaded == NULL) {
       message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
@@ -105,16 +105,30 @@ void
 dia_font_push_context(PangoContext *pcontext) {
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
+  g_object_ref(pcontext);
 }
 
 void
 dia_font_pop_context() {
+  g_object_unref(pango_context);
   pango_context = (PangoContext*)pango_contexts->data;
   pango_contexts = g_list_next(pango_contexts);
 }
 
 PangoContext *
 dia_font_get_context() {
+  if (pango_context == NULL) {
+#ifdef HAVE_FREETYPE
+    /* This is suggested by new Pango (1.2.4+), but doesn't get us the
+     * right resolution:(
+     dia_font_push_context(pango_ft2_font_map_create_context(pango_ft2_font_map_new()));
+    */
+    dia_font_push_context(pango_ft2_get_context(75,75));
+#else
+    dia_font_push_context(gdk_pango_context_get());
+#endif
+  }
+
   return pango_context;
 }
 
@@ -176,13 +190,7 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
 
   pango_font_description_set_family(retval->pfd,family);
 
-  /* The pango context stored doesn't seem to work too well.
-   */
-#ifdef HAVE_FREETYPE
-  pango_context_load_font(pango_ft2_get_context(75, 75), retval->pfd);
-#else
-  pango_context_load_font(gdk_pango_context_get(), retval->pfd);
-#endif
+  pango_context_load_font(dia_font_get_context(), retval->pfd);
 
   return retval;
 }
@@ -504,7 +512,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     height *= 0.7;
 
     dia_font_set_height(font,height);
-    layout = pango_layout_new(pango_context);
+    layout = pango_layout_new(dia_font_get_context());
 
     length = string ? strlen(string) : 0;
     pango_layout_set_text(layout,string,length);
