@@ -314,7 +314,7 @@ draw_polygon(DiaRenderer *self,
   GString *str;
   char *old_locale;
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
   
   xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
@@ -338,7 +338,7 @@ fill_polygon(DiaRenderer *self,
   GString *str;
   char *old_locale;
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
   
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
