@@ -1,15 +1,26 @@
+2004-11-01  Hans Breuer  <hans@breuer.org>
+
+        * plug-ins(tex_escape_string) : fixed it [g_utf8_next_char
+        will never become NULL but only point to the next char
+        which might indeed be \0]
+        Use tex_escape_string() to avoid writing invalid tex,
+        fixes bug #112377
+
+        * **/* : a bunch of changes caused by trying 'make distcheck'
+        which still fails, see Bug #144527
+
 2004-10-31  Hans Breuer  <hans@breuer.org>
 
-    * plug-ins/pixbuf/pixbuf.c : when running non interactive
-    Dia won't call color_init() as it assumes no display. If
-    we have one as tested ourselve we can as well color_init()
-    to avoid g_warnings() and produce the right collors.
-    Fixes bug #155495.
+        * plug-ins/pixbuf/pixbuf.c : when running non interactive
+        Dia won't call color_init() as it assumes no display. If
+        we have one as tested ourselve we can as well color_init()
+        to avoid g_warnings() and produce the right collors.
+        Fixes bug #155495.
     
-    * app/app-procs.c : try to be a little more helpful
-    and correct with regard to the command line options.
-    Renamed --export-to-format to --export-filter and some
-    other string changes
+        * app/app-procs.c : try to be a little more helpful
+        and correct with regard to the command line options.
+        Renamed --export-to-format to --export-filter and some
+        other string changes
 
 2004-10-31  Hans Breuer  <hans@breuer.org>
 

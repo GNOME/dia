@@ -157,8 +157,6 @@ pstricks_renderer_get_type (void)
 static void
 pstricks_renderer_finalize (GObject *object)
 {
-  PstricksRenderer *pstricks_renderer = PSTRICKS_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -349,8 +347,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
     switch(mode) {
     case FILLSTYLE_SOLID:
 	break;
@@ -637,26 +633,29 @@ fill_bezier(DiaRenderer *self,
     fprintf(renderer->file, "\\fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
 }
 
-/* Do I really want to do this?  What if the text is intended as 
+/* Do we really want to do this?  What if the text is intended as 
  * TeX text?  Jacek says leave it as a TeX string.  TeX uses should know
  * how to escape stuff anyway.  Later versions will get an export option.
  *
- * Besides, it seems to be broken.
+ * Later (hb): given the UML issue bug #112377 an manually tweaking
+ * is not possible as the # is added before anything a user can add. So IMO
+ * we need to want this. If there later (much later?) is an export it probably
+ * shouldn't produce broken output either ...
  */
 static gchar *
-tex_escape_string(gchar *src)
+tex_escape_string(const gchar *src)
 {
     GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
-    gchar *next;
+    gchar *p;
 
     if (!g_utf8_validate(src, -1, NULL)) {
 	message_error(_("Not valid UTF8"));
 	return g_strdup(src);
     }
 
-    next = src;
-    while ((next = g_utf8_next_char(next)) != NULL) {
-	switch (*next) {
+    p = (char *) src;
+    while (*p != '\0') {
+	switch (*p) {
 	case '%': g_string_append(dest, "\\%"); break;
 	case '#': g_string_append(dest, "\\#"); break;
 	case '$': g_string_append(dest, "\\$"); break;
@@ -669,13 +668,16 @@ tex_escape_string(gchar *src)
 	case '}': g_string_append(dest, "\\}"); break;
 	case '[': g_string_append(dest, "\\ensuremath{\\left[}"); break;
 	case ']': g_string_append(dest, "\\ensuremath{\\right]}"); break;
-	default: g_string_append(dest, next);
+	default: 
+            /* if we really have utf8 append the whole 'glyph' */
+            g_string_append_len(dest, p, g_utf8_skip[(unsigned char)*p]);
 	}
+        p = g_utf8_next_char(p);
     }
 
-    next = dest->str;
+    p = dest->str;
     g_string_free(dest, FALSE);
-    return next;
+    return p;
 }
 
 static void
@@ -685,7 +687,7 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    /*    gchar *escaped = tex_escape_string(text);*/
+    gchar *escaped = tex_escape_string(text);
 
     set_line_color(renderer,color);
 
@@ -700,8 +702,8 @@ draw_string(DiaRenderer *self,
 	fprintf(renderer->file,"[r]");
 	break;
     }
-    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y, text);
-    /*    g_free(escaped);*/
+    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y, escaped);
+    g_free(escaped);
 }
 
 static void
