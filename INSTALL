@@ -40,9 +40,13 @@ COMPILING FROM CVS:
 ===================
 
 If you are using the cvs version of Dia you need to have the following programs:
-automake 1.4, autoconf 2.13, libtool 1.3, GNU gettext 0.10.35
+automake 1.4, autoconf 2.13, libtool 1.3, GNU gettext 0.10.38
 
 Then run ./autogen.sh instead of configure to create all needed files.
+
+WARNING: if you run ./autogen.sh, you will need to have gettext
+0.10.38 installed, or to extract a few M4 files from that package and
+include them manually into aclocal.m4.
 
 TRYING IT OUT:
 ==============

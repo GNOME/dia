@@ -1,3 +1,10 @@
+2001-06-25  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* intl/*: upgraded to gettext-0.10.38
+	* configure.in: moved a macro call around (AM_PROG_CC) to keep
+	some of autogen.sh from complaining.
+	* INSTALL: added a warning against older gettext
+	
 2001-06-19  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* configure.in: added explicit calls to AM_LANGINFO_CODESET and
