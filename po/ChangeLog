@@ -1,3 +1,7 @@
+2004-02-23  Adam Weinberger  <adamw@FreeBSD.org>
+
+	* en_CA.po: Added Canadian English translation.
+
 2004-02-23  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
