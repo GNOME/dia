@@ -54,7 +54,7 @@ AM_PATH_GLIB_2_0(2.0.0)
 AM_PATH_GTK_2_0(2.0.0)
 
 GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0"
-PKG_CHECK_MODULES(FREETYPE,"pangoft2",have_freetype=true,have_freetype=false)
+PKG_CHECK_MODULES(FREETYPE,pangoft2,have_freetype=true,have_freetype=false)
 if test "$have_freetype" = "true"; then
   GTK_MODULES="$GTK_MODULES pangoft2"
   AC_DEFINE(HAVE_FREETYPE,1,[Define if building with pangoft2])
@@ -62,7 +62,12 @@ else
   GTK_MODULES="$GTK_MODULES pango"
 fi
 
-dnl GTK_MODULES="$GTK_MODULES libart-2.0"
+dnl Try for libart
+PKG_CHECK_MODULES(LIBART,libart-2.0,have_libart=true,have_libart=false)
+if test "$have_libart" = "true" ; then
+   GTK_MODULES="$GTK_MODULES libart-2.0"
+   AC_DEFINE(HAVE_LIBART,1,[Define if building with LIBART support])
+fi
 
 AC_MSG_CHECKING([whether GNOME specific code should be used])
 AC_ARG_ENABLE(gnome,[  --enable-gnome          enable gnome code],
@@ -85,11 +90,13 @@ AM_CONDITIONAL(HAVE_BONOBO,false)
 
 dnl XSLT
 
+XSLT_DIR=""
 PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 if test "$have_xslt" = "true"; then
   XSLT_DIR="xslt"
 fi
+AC_SUBST(XSLT_DIR)
 
 dnl
 dnl Popt
@@ -377,6 +384,7 @@ Configuration:
 
 	Gnome support:				${GNOME}
 	Python support:				${with_python}
+	Libart support:				${LIBART}
 "
 
 echo "Now type make to build dia..."

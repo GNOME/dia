@@ -52,8 +52,7 @@ struct _RendererLibart {
   double dash_length;
   double dot_length;
 
-  GdkFont *gdk_font;
-  SuckFont *suck_font;
+  DiaFont *font;
   int font_height;
 #endif  
 };

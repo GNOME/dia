@@ -28,6 +28,11 @@
 
 #ifdef HAVE_LIBART
 
+#ifdef HAVE_FREETYPE
+#include <pango/pango.h>
+#include <pango/pangoft2.h>
+#endif
+
 #include <libart_lgpl/art_point.h>
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
@@ -203,8 +208,7 @@ new_libart_renderer(DDisplay *ddisp, int interactive)
   renderer->dash_length = 10;
   renderer->dot_length = 1;
 
-  renderer->gdk_font = NULL;
-  renderer->suck_font = NULL;
+  renderer->font = NULL;
 
   return renderer;
 }
@@ -214,6 +218,8 @@ destroy_libart_renderer(RendererLibart *renderer)
 {
   if (renderer->rgb_buffer != NULL)
     g_free(renderer->rgb_buffer);
+  if (renderer->font)
+    dia_font_unref(renderer->font);
 
   g_free(renderer);
 }
@@ -436,10 +442,9 @@ set_font(RendererLibart *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
-  renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
-  if (renderer->gdk_font == NULL)
-    message_error(_("Can't find font '%s' in height %d\n"),
-		  font->name, renderer->font_height);
+  if (renderer->font)
+    dia_font_unref(renderer->font);
+  renderer->font = dia_font_ref(font);
 }
 
 static void
@@ -1143,86 +1148,92 @@ draw_string (RendererLibart *renderer,
 	     Point *pos, Alignment alignment,
 	     Color *color)
 {
+  /* Not working with Pango */
   DDisplay *ddisp = renderer->ddisp;
-  int x, y, i, dx;
+  guint8 *bitmap;
+  int x,y;
+  Point start_pos;
+  PangoLayout* layout;
+  int width, height;
+  int i, dx;
   int iwidth;
   int len;
   double affine[6];
-  SuckFont *suckfont;
   double xpos, ypos;
   guint32 rgba;
-
-  GdkWChar *wcstr;
-  gchar *str, *mbstr;
-  int length, wclength;
-
-  ddisplay_transform_coords(ddisp, pos->x, pos->y,
-			    &x, &y);
-
-# if !defined (GDK_WINDOWING_WIN32)
-  /* GKBUG? talking utf-8 ?? */
-  str = charconv_utf8_to_local8 (text);
-  length = strlen (str);
-  wcstr = g_new0 (GdkWChar, length + 1);
-  mbstr = g_strdup (str);
-  wclength = mbstowcs (wcstr, mbstr, length);
-  g_free (mbstr);
-
-  if (wclength > 0) {
-    length = wclength;
-  } else {
-    for (i = 0; i < length; i++) {
-      wcstr[i] = (unsigned char) str[i];
-    }
-  }
-  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
-
-  g_free (wcstr);
-#else
-  iwidth = gdk_string_width(renderer->gdk_font, text);
-#endif
+  
+  point_copy(&start_pos,pos);
 
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    x -= iwidth/2;
+    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
+						renderer->font_height,
+						ddisp->zoom_factor)/2;
     break;
   case ALIGN_RIGHT:
-    x -= iwidth;
+    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
+						renderer->font_height,
+						ddisp->zoom_factor);
     break;
   }
-
-  suckfont = font_get_suckfont (renderer->gdk_font, text);
-
-  /* Couldn't find a font, bail out */
-  if (suckfont == NULL) return;
-
-  xpos = (double) x + 1; 
-  ypos = (double) (y - suckfont->ascent);
   
+  ddisplay_transform_coords(ddisp, start_pos.x, start_pos.y, &x, &y);
+
+  layout = dia_font_scaled_build_layout(text,renderer->font,
+                                        renderer->font_height,
+                                        ddisp->zoom_factor);
+  pango_layout_get_pixel_size(layout, &width, &height);
+  /* Pango doesn't have a 'render to raw bits' function, so we have
+   * to render based on what other engines are available.
+   */
+#ifdef WIN32
+  /* Win32 version -- I have no clue */
+#else
+#ifdef HAVE_FREETYPE
+  /* Freetype version */
+ {
+   FT_Bitmap ftbitmap;
+   int rowstride = 32*((width+31)/31);
+   
+   bitmap = (guint8*)g_new(guint8, height*rowstride);
+
+   ftbitmap.rows = height;
+   ftbitmap.width = width;
+   ftbitmap.pitch = rowstride;
+   ftbitmap.buffer = bitmap;
+   ftbitmap.num_grays = 256;
+   ftbitmap.pixel_mode = ft_pixel_mode_grays;
+   ftbitmap.palette_mode = 0;
+   ftbitmap.palette = 0;
+   pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+ }
+#else
+ /* Gdk version -- but we shouldn't need Gdk, dammit! */
+#endif
+#endif
+  /* abuse_layout_object(layout,text); */
+  
+  g_object_unref(G_OBJECT(layout));
+
   rgba = color_to_rgba(color);
 
-  {
-	  SuckChar *ch;
+  art_affine_translate (affine, xpos, ypos);
+  art_rgb_bitmap_affine (renderer->rgb_buffer,
+			 0, 0,
+			 renderer->renderer.pixel_width,
+			 renderer->renderer.pixel_height,
+			 renderer->renderer.pixel_width * 3,
+			 bitmap,
+			 width,
+			 height,
+			 width >> 8,
+			 rgba,
+			 affine,
+			 ART_FILTER_NEAREST, NULL);
 
-	  ch = &suckfont->chars[0];
-	  art_affine_translate (affine, xpos, ypos);
-	  art_rgb_bitmap_affine (renderer->rgb_buffer,
-				 0, 0,
-				 renderer->renderer.pixel_width,
-				 renderer->renderer.pixel_height,
-				 renderer->renderer.pixel_width * 3,
-				 suckfont->bitmap + (ch->bitmap_offset >> 3),
-				 ch->width,
-				 suckfont->bitmap_height,
-				 suckfont->bitmap_width >> 3,
-				 rgba,
-				 affine,
-				 ART_FILTER_NEAREST, NULL);
-  }
-
-  suck_font_free (suckfont);
+  g_free(bitmap);
 }
 
 static void
@@ -1296,33 +1307,7 @@ get_text_width(RendererLibart *renderer,
 {
   int iwidth;
   
-# ifndef GDK_WINDOWING_WIN32
-  /* GTKBUG? all talking utf-8 ??? */
-  GdkWChar *wcstr;
-  gchar *mbstr, *str;
-  int len, wclength, i;
-  utfchar *utfbuf, *utf, *p;
-
-  wcstr = g_new0 (GdkWChar, len + 1);
-  mbstr = g_strdup (str);
-  wclength = mbstowcs (wcstr, mbstr, len);
-  g_free (mbstr);
-
-  if (wclength > 0) {
-	  len = wclength;
-  } else {
-	  for (i = 0; i < len; i++) {
-		  wcstr[i] = (unsigned char) str[i];
-	  }
-  }
-  g_free (str);
-
-  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, len);
-
-  g_free (wcstr);
-# else
-  iwidth = gdk_text_width(renderer->gdk_font, text, length);
-# endif
+  iwidth = dia_font_string_width(text, renderer->font, renderer->font_height);
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }

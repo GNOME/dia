@@ -1,5 +1,10 @@
 2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/render_libart.h: 
+	* app/render_libart.c: 
+	* configure.in (HAVE_LIBART): 
+	Starting on update of libart stuff for png export (without X).
+
 	* app/autosave.h (autosave_check_autosave): 
 	* app/load_save.h: 
 	* app/diagram.h: 
