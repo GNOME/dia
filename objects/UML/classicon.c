@@ -40,7 +40,6 @@
 
 typedef struct _Classicon Classicon;
 typedef struct _ClassiconState ClassiconState;
-typedef struct _ClassiconPropertiesDialog ClassiconPropertiesDialog;
 
 struct _ClassiconState {
   ObjectState obj_state;
@@ -59,15 +58,6 @@ struct _Classicon {
   Text *text;
 };
 
-struct _ClassiconPropertiesDialog {
-  GtkWidget *dialog;
-  GtkWidget *m_control;
-  GtkWidget *m_bound;
-  GtkWidget *m_entity;  
-  GtkWidget *is_object;
-};
-
-
 enum CLassIconStereotype {
     CLASSICON_CONTROL,
     CLASSICON_BOUNDARY,
@@ -81,8 +71,6 @@ enum CLassIconStereotype {
 #define CLASSICON_MARGIN 0.5
 #define CLASSICON_AIR 0.25
 #define CLASSICON_ARROW 0.4
-
-static ClassiconPropertiesDialog* properties_dialog = NULL;
 
 static real classicon_distance_from(Classicon *cicon, Point *point);
 static void classicon_select(Classicon *cicon, Point *clicked_point,
@@ -105,8 +93,6 @@ static PropDescription *classicon_describe_props(Classicon *classicon);
 static void classicon_get_props(Classicon *classicon, Property *props, guint nprops);
 static void classicon_set_props(Classicon *classicon, Property *props, guint nprops);
 static void classicon_update_data(Classicon *cicon);
-static GtkWidget *classicon_get_properties(Classicon *cicon);
-static ObjectChange *classicon_apply_properties(Classicon *cicon);
 static ClassiconState *classicon_get_state(Classicon *cicon);
 static void classicon_set_state(Classicon *cicon,
 				ClassiconState *state);
@@ -136,19 +122,26 @@ static ObjectOps classicon_ops = {
   (CopyFunc)            classicon_copy,
   (MoveFunc)            classicon_move,
   (MoveHandleFunc)      classicon_move_handle,
-  (GetPropertiesFunc)   classicon_get_properties,
-  (ApplyPropertiesFunc) classicon_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   classicon_describe_props,
   (GetPropsFunc)        classicon_get_props,
   (SetPropsFunc)        classicon_set_props
 };
 
+static PropEnumData prop_classicon_type_data[] = {
+  { N_("Control"), CLASSICON_CONTROL },
+  { N_("Boundary"), CLASSICON_BOUNDARY },
+  { N_("Entity"), CLASSICON_ENTITY },
+  { NULL, 0 }
+};
+
 static PropDescription classicon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "stereotype", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
-  N_("Stereotype"), NULL, NULL },
-  { "is_object", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL,  prop_classicon_type_data},
+  { "is_object", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is object"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
@@ -168,8 +161,8 @@ classicon_describe_props(Classicon *classicon)
 
 static PropOffset classicon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "stereotype", PROP_TYPE_INT, offsetof(Classicon, stereotype) },
-  { "is_object", PROP_TYPE_INT, offsetof(Classicon, is_object) },
+  { "stereotype", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
+  { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
   { NULL, 0, 0 },
 };
 
@@ -634,107 +627,5 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   return &cicon->element.object;
-}
-
-
-static ObjectChange *
-classicon_apply_properties(Classicon *cicon)
-{
-  ClassiconPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-
-  prop_dialog = properties_dialog;
-
-  old_state = (ObjectState *)classicon_get_state(cicon);
-
-  cicon->is_object = GTK_TOGGLE_BUTTON(prop_dialog->is_object)->active;
-
-  /* Read from dialog and put in object: */
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_control)->active) {
-      cicon->stereotype = CLASSICON_CONTROL;
-  } else if (GTK_TOGGLE_BUTTON(prop_dialog->m_bound)->active) {
-    cicon->stereotype = CLASSICON_BOUNDARY;
-  } else if (GTK_TOGGLE_BUTTON(prop_dialog->m_entity)->active) {
-    cicon->stereotype = CLASSICON_ENTITY;
-  }
-
-  classicon_update_data(cicon);
-
-  return new_object_state_change(&cicon->element.object, old_state, 
-				 (GetStateFunc)classicon_get_state,
-				 (SetStateFunc)classicon_set_state);
-}
-
-static void
-fill_in_dialog(Classicon *cicon)
-{
-  ClassiconPropertiesDialog *prop_dialog;
-  GtkToggleButton *button = NULL;
-
-  prop_dialog = properties_dialog;
-
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prop_dialog->is_object), 
-			       cicon->is_object);
-
-  switch (cicon->stereotype) {
-  case CLASSICON_CONTROL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_control);
-      break;
-  case CLASSICON_BOUNDARY:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_bound);
-      break;
-  case CLASSICON_ENTITY:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_entity);
-      break;
-  }
-  gtk_toggle_button_set_active(button, TRUE);
-}
-
-static GtkWidget *
-classicon_get_properties(Classicon *cicon)
-{
-  ClassiconPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *label;
-  GSList *group;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(ClassiconPropertiesDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    prop_dialog->m_control = gtk_radio_button_new_with_label (NULL, _("Control"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_control, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_control);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_control), TRUE);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_control));
-    prop_dialog->m_bound = gtk_radio_button_new_with_label(group, _("Boundary"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_bound, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_bound);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_bound));
-    prop_dialog->m_entity = gtk_radio_button_new_with_label(group, _("Entity"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_entity, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_entity);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    prop_dialog->is_object = gtk_check_button_new_with_label(_("Is an object"));
-    gtk_widget_show(prop_dialog->is_object);
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->is_object, TRUE, TRUE, 0);
-  }
-  
-  fill_in_dialog(cicon);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }
 
