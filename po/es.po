@@ -1,20 +1,18 @@
 # translation of dia.HEAD.es.po to Spanish
-# translation of dia.HEAD.es.po to Español
 # Spanish translation for Dia.
 # Copyright © 2000,2002,2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
 # Francisco Vila Doncel <fravd@wanadoo.es> (Revisión), 2003.
 # Ana María García Molina <ana_gm@eresmas.com>, 2001
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
-# Francisco Javier Fernandez <serrador@arrakis.es>, 2003
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-12 20:00+0200\n"
-"PO-Revision-Date: 2003-07-13 03:40+0200\n"
+"POT-Creation-Date: 2003-07-19 19:19+0200\n"
+"PO-Revision-Date: 2003-07-20 03:47+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +23,8 @@ msgstr ""
 #: app/app_procs.c:162
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+msgstr ""
+"%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
 #: app/app_procs.c:173
 #, c-format
@@ -113,7 +112,8 @@ msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
 #: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 #: app/app_procs.c:549
@@ -497,13 +497,19 @@ msgstr "Espaciado visible"
 msgid "Grid"
 msgstr "Cuadrícula"
 
-#: app/dia-props.c:155
+#: app/dia-props.c:156
 msgid "Background Colour"
 msgstr "Color de fondo"
 
-#: app/dia-props.c:166 lib/diagramdata.c:58
+#: app/dia-props.c:167 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Fondo"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:185
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Propiedades del diagrama: %s"
 
 #: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
@@ -517,7 +523,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "No hay menú objeto"
 
-#: app/disp_callbacks.c:820
+#: app/disp_callbacks.c:830
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -529,11 +535,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "¡Diagrama modificado!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -542,11 +548,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Descartar los cambios"
 
@@ -747,23 +753,23 @@ msgstr "Línea Bezier"
 msgid "Image"
 msgstr "Imagen"
 
-#: app/interface.c:379
+#: app/interface.c:371
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
-#: app/interface.c:488
+#: app/interface.c:480
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: app/interface.c:502
+#: app/interface.c:494
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: app/interface.c:546
+#: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
 msgstr "tooldata NULL en tool_select_update"
 
-#: app/interface.c:1008
+#: app/interface.c:1000
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -773,7 +779,7 @@ msgstr ""
 "negro y blanco reestablecen los colores. Las pequeñas flechas intercambian "
 "los colores. Doble pulsación para cambiar los colores."
 
-#: app/interface.c:1023
+#: app/interface.c:1015
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -782,7 +788,7 @@ msgstr ""
 "preestablecida para los objetos nuevos. Pulse dos veces para establecer la "
 "anchura más precisamente."
 
-#: app/interface.c:1055
+#: app/interface.c:1047
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -790,7 +796,7 @@ msgstr ""
 "Estilo de flecha al principio de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha en Detalles..."
 
-#: app/interface.c:1060
+#: app/interface.c:1052
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -798,7 +804,7 @@ msgstr ""
 "Estilo de línea para las líneas nuevas. Pulse para escoger un estilo de "
 "línea, o establezca los parámetros de estilo de línea en Detalles..."
 
-#: app/interface.c:1065
+#: app/interface.c:1057
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -806,7 +812,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha con Detalles..."
 
-#: app/interface.c:1169
+#: app/interface.c:1161
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -871,12 +877,12 @@ msgstr "Detalles..."
 msgid "Line Style Properties"
 msgstr "Propiedades de estilo de la línea"
 
-#: app/linewidth_area.c:238 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Ancho de línea"
 
-#: app/linewidth_area.c:250
+#: app/linewidth_area.c:251
 msgid "Line width:"
 msgstr "Ancho de línea:"
 
@@ -1727,39 +1733,39 @@ msgstr "Cargar al comenzar"
 msgid "File Name"
 msgstr "Nombre del archivo"
 
-#: app/preferences.c:98
+#: app/preferences.c:99
 msgid "User Interface"
 msgstr "Interfaz de usuario"
 
-#: app/preferences.c:99
+#: app/preferences.c:100
 msgid "Diagram Defaults"
 msgstr "Diagrama por defecto"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "View Defaults"
 msgstr "Ver opciones por defecto"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Grid Lines"
 msgstr "Línea de cuadrícula"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Diagram Tree"
 msgstr "Árbol del diagrama"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Reset tools after create:"
 msgstr "Reiniciar herramientas tras crear:"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Compress saved files:"
 msgstr "Comprimir archivos guardados:"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "Number of undo levels:"
 msgstr "Número de niveles de deshacer:"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1767,102 +1773,110 @@ msgstr ""
 "El arrastre inverso selecciona\n"
 "objetos que intersecan:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Recent documents list size:"
 msgstr "Tamaño de la lista de documentos recientes:"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Use menu bar:"
 msgstr "Utilizar barra de menú:"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Keep tool box on top of diagram windows:"
 msgstr "Mantener la caja de herramientas encima de las ventanas del diagrama:"
 
-#: app/preferences.c:125
+#: app/preferences.c:126
 msgid "New diagram:"
 msgstr "Diagrama nuevo:"
 
-#: app/preferences.c:126
+#: app/preferences.c:127
 msgid "Portrait:"
 msgstr "Vertical:"
 
-#: app/preferences.c:128
+#: app/preferences.c:129
 msgid "Paper type:"
 msgstr "Tipo de papel:"
 
-#: app/preferences.c:131
+#: app/preferences.c:132
 msgid "New window:"
 msgstr "Ventana nueva:"
 
-#: app/preferences.c:132
+#: app/preferences.c:133
 msgid "Width:"
 msgstr "Ancho:"
 
-#: app/preferences.c:133
+#: app/preferences.c:134
 msgid "Height:"
 msgstr "Alto:"
 
-#: app/preferences.c:134
+#: app/preferences.c:135
 msgid "Magnify:"
 msgstr "Magnificar:"
 
-#: app/preferences.c:136
+#: app/preferences.c:137
 msgid "Connection Points:"
 msgstr "Puntos de conexión:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 msgid "Visible:"
 msgstr "Visible:"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 msgid "Page breaks:"
 msgstr "Divisiones de páginas:"
 
-#: app/preferences.c:141 app/preferences.c:149
+#: app/preferences.c:142 app/preferences.c:151
 msgid "Colour:"
 msgstr "Color:"
 
-#: app/preferences.c:142 app/preferences.c:150
+#: app/preferences.c:143
 msgid "Solid lines:"
 msgstr "Líneas sólidas:"
 
-#: app/preferences.c:146
+#: app/preferences.c:147
 msgid "Snap to:"
 msgstr "Ajustar a:"
 
-#: app/preferences.c:147
+#: app/preferences.c:148
+msgid "Dynamic grid resizing"
+msgstr "Redimensionado de rejilla dinámico"
+
+#: app/preferences.c:149
 msgid "X Size:"
 msgstr "Tamaño X:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 msgid "Y Size:"
 msgstr "Tamaño Y:"
 
-#: app/preferences.c:161
+#: app/preferences.c:152
+msgid "Lines per major line"
+msgstr "Líneas por cada línea principal"
+
+#: app/preferences.c:164
 msgid "Diagram tree window:"
 msgstr "Ventana del árbol del diagrama"
 
-#: app/preferences.c:163
+#: app/preferences.c:166
 msgid "Save hidden object types:"
 msgstr "Guardar tipos de objetos ocultos:"
 
-#: app/preferences.c:290
+#: app/preferences.c:293
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "No se pudo abrir «%s» para escritura"
 
-#: app/preferences.c:565 lib/prop_inttypes.c:151
+#: app/preferences.c:568 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Sí"
 
-#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: app/preferences.c:568 app/preferences.c:579 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "No"
 
-#: app/preferences.c:676
+#: app/preferences.c:679
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -4004,7 +4018,8 @@ msgstr "Identificador de actividad/dato"
 
 #: objects/SADT/box.c:144
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr "El identificador que se muestra en la esquina inferior derecha de la caja"
+msgstr ""
+"El identificador que se muestra en la esquina inferior derecha de la caja"
 
 #: objects/SADT/box.c:440 objects/standard/line.c:241
 msgid "Delete connection point"
@@ -4097,11 +4112,11 @@ msgstr "Objetos estándar"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:302
+#: objects/UML/activity.c:311
 msgid "Helvetica"
 msgstr "Helvética"
 
-#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:343 objects/UML/actor.c:345 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Actor"
 
@@ -4200,7 +4215,7 @@ msgid "Template"
 msgstr "Plantilla"
 
 #. Class page:
-#: objects/UML/class.c:177 objects/UML/class.c:918
+#: objects/UML/class.c:177 objects/UML/class.c:930
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Clase"
@@ -4473,7 +4488,7 @@ msgstr "Instancias múltiples"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:385
+#: objects/UML/state.c:394
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4612,7 +4627,8 @@ msgstr "Scalable Vector Graphics"
 
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
+msgstr ""
+"Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
 #: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
@@ -4679,7 +4695,8 @@ msgstr "Dia no admite patrones"
 
 #: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
+msgstr ""
+"Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
 #: plug-ins/xfig/xfig-import.c:450
 #, c-format
@@ -6391,4 +6408,3 @@ msgstr "Usar capitalización"
 
 #~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
 #~ msgstr "No se pudo cargar el plugin XSLT; DIA_PLUGIN_PATH no está fijada."
-
