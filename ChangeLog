@@ -1,4 +1,9 @@
-<<<<<<< ChangeLog
+2001-03-22  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* object/chronogram/chronoline_event.c: stupid bug ; rises and falls
+	were reversed... (look for the patch, and drink a beer to my
+	stupidity)	
+	
 2001-03-23  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : don't g_error () if the config directory

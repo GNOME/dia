@@ -2487,7 +2487,9 @@ msgid "Events:"
 msgstr "Événements :"
 
 #: objects/chronogram/chronoline.c:313
-msgid ""
+#, fuzzy
+msgid ""#, fuzzy
+
 "Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -2497,9 +2499,9 @@ msgid ""
 msgstr ""
 "Spécification d'événement :\n"
 "@ date   définit le pointeur à une date absolue.\n"
-"( durée  définit la montée du signal, puis attend « durée ».\n"
-") durée  définit la descente du signal, puis attend « durée ».\n"
-"u durée  définit the signal dans l'état « inconnu », puis attend 'durée'.\n"
+"( durée  définit un front montant, puis attend « durée ».\n"
+") durée  définit un front descendant, puis attend « durée ».\n"
+"u durée  met le signal dans l'état « inconnu », puis attend 'durée'.\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:321 objects/chronogram/chronoline.c:412
@@ -2514,11 +2516,11 @@ msgstr "Date de fin :"
 
 #: objects/chronogram/chronoline.c:325 objects/chronogram/chronoline.c:416
 msgid "Rise time:"
-msgstr "Date d'origine :"
+msgstr "Temps de montée :"
 
 #: objects/chronogram/chronoline.c:327 objects/chronogram/chronoline.c:418
 msgid "Fall time:"
-msgstr "Date d'échéance :"
+msgstr "Temps de descente :"
 
 #: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:420
 msgid "Multi-bit data"

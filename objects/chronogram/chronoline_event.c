@@ -98,7 +98,7 @@ static void dump_parsed_clelist(CLEventList *clel)
 
 static void
 add_event(CLEventList **clel,real *t,real *dt,
-	  CLEventType *oet,CLEventType *et,real fall, real rise)
+	  CLEventType *oet,CLEventType *et,real rise, real fall)
 {
   if (*et == CLE_START) {
     *t = *dt; *dt = 0.0;
