@@ -1,3 +1,8 @@
+2002-02-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_libart.c: Slow but working libart freetype renderer,
+	with color!
+
 2002-02-03  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* app/render_gdk.c (draw_string): Fixed gc_function bug.

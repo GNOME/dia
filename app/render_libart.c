@@ -253,6 +253,18 @@ renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
 		     w*3);
 }
 
+static guint32 color_to_abgr(Color *col)
+{
+  int rgba;
+
+  rgba = 0x0;
+  rgba |= (guint)(0xFF*col->blue) << 16;
+  rgba |= (guint)(0xFF*col->green) << 8;
+  rgba |= (guint)(0xFF*col->red);
+  
+  return rgba;
+}
+
 static guint32 color_to_rgba(Color *col)
 {
   int rgba;
@@ -1118,6 +1130,7 @@ fill_bezier(RendererLibart *renderer,
   art_svp_free( svp );
 }
 
+#ifdef HAVE_FREETYPE
 struct libart_freetype_user_data {
   RendererLibart *renderer;
   guint32 rgba;
@@ -1134,20 +1147,37 @@ libart_freetype_copy_glyph(FT_GlyphSlot glyph, int xpos, int ypos,
   int rowstride = bitmap->pitch;
   int width = bitmap->width;
   int height = bitmap->rows;
+  // For now, we're wasteful of memory and allocate a new RGBA buffer
+  // every time.
+  guint32 *rgba_buffer = (guint32 *)g_malloc(sizeof(guint32)*width*height);
+  int x, y;
+
+  if (rowstride < 0) { // Cartesian bitmap
+    buffer = buffer+rowstride*(bitmap->rows-1);
+  }
+
+  for (x = 0; x < width; x++) {
+    for (y = 0; y < height; y++) {
+      rgba_buffer[x+y*width] = 
+	data->rgba|
+	(buffer[x+y*rowstride]<<24);
+    }
+  }  
 
   art_affine_translate(affine, xpos, ypos);
-  art_rgb_bitmap_affine(data->renderer->rgb_buffer,
-			0, 0,
-			data->renderer->renderer.pixel_width,
-			data->renderer->renderer.pixel_height,
-			data->renderer->renderer.pixel_width*3,
-			buffer,
-			width, height,
-			rowstride,
-			data->rgba,
-			affine,
-			ART_FILTER_NEAREST, NULL);
+  art_rgb_rgba_affine(data->renderer->rgb_buffer,
+		      0, 0,
+		      data->renderer->renderer.pixel_width,
+		      data->renderer->renderer.pixel_height,
+		      data->renderer->renderer.pixel_width*3,
+		      rgba_buffer,
+		      width, height,
+		      width*4,
+		      affine,
+		      ART_FILTER_NEAREST, NULL);
+  g_free(rgba_buffer);
 }
+#endif
 
 static void
 draw_string(RendererLibart *renderer,
@@ -1196,7 +1226,7 @@ draw_string(RendererLibart *renderer,
   xpos = (double) x + 1; 
   ypos = (double) y;
   
-  data.rgba = color_to_rgba(color);
+  data.rgba = color_to_abgr(color);
   data.renderer = renderer;
   
   freetype_render_string(fts, xpos, ypos, libart_freetype_copy_glyph, &data);
