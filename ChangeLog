@@ -1,3 +1,9 @@
+2003-04-09  Steffen Macke <sdteffen@web.de>
+
+	* lib/makefile.mingw: updated to include latest files, including 
+	and linking libintl
+	* lib/geometry.h: don't define isinf and finite for mingw gcc build
+
 2003-04-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/persistence.h:
