@@ -1,5 +1,13 @@
 2003-08-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/authors.h: Credits for Krzysztof.
+
+	* sheets/Flowchart.sheet.in: Updated descriptions from Krzysztof
+	Foltman <kfoltman@onet.pl>.  It occurs to me that the name (rather
+	than the description) is visible in the title of the properties
+	dialog.  That ought to be a short description (translatable),
+	though we still want long descriptions for the tooltips.  Hmmm...
+
 	* configure.in: Updated to use AC_LINK_IFELSE instead of
 	AC_TRY_COMPILE, also force to link to check libs on Solaris.
 

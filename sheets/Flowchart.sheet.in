@@ -4,16 +4,16 @@
   <_description>Objects to draw flowcharts</_description>
   <contents>
     <object name="Flowchart - Box">
-      <_description>Box with text inside</_description>
+      <_description>Process/Auxiliary Operation</_description>
     </object>
     <object name="Flowchart - Parallelogram">
-      <_description>Parallelogram with text inside</_description>
+      <_description>Input/Output</_description>
     </object>
     <object name="Flowchart - Diamond">
-      <_description>Diamond with text inside</_description>
+      <_description>Decision</_description>
     </object>
     <object name="Flowchart - Ellipse">
-      <_description>Ellipse with text inside</_description>
+      <_description>Connector</_description>
     </object>
     <object name="Flowchart - Display">
       <_description>Display</_description>
@@ -41,7 +41,7 @@
       <_description>Predefined process</_description>
     </object>
     <object name="Flowchart - Terminal">
-      <_description>Terminal</_description>
+      <_description>Terminal Interrupt</_description>
     </object>
     <object name="Flowchart - Magnetic Disk">
       <_description>Magnetic disk</_description>
