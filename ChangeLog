@@ -1,3 +1,7 @@
+2001-09-01  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Rename zh_TW.Big5 -> zh_TW in ALL_LINGUAS.
+
 2001-09-01  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/standard/bezier.c: used g_new0 instead of g_new, to take
