@@ -1,8 +1,29 @@
+1999-12-08  James Henstridge  <james@daa.com.au>
+
+	* objects/standard/ellipse.c: applied Lars's patch to optionally not
+	draw the background of the ellipse.
+
+	* app/load_save.c (read_connections): do some sanity checking on the
+	handle and connection point numbers before performing the object
+	connection.
+
+	* lib/bezier_conn.c (bezierconn_load): give the correct number of
+	handles when loading a BezierConn.
+
 1999-12-07  Kjartan Maraas  <kmaraas@online.no>
 
 	* sheets/*.sheet: Finished Norwegian translations.
 	
 1999-12-07  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/python/diamodule.c (PyDia_Load): load diagram function.
+	(PyDia_GetObjectType): find object type function.
+
+	* plug-ins/python/pydia-diagram.c (PyDiaDiagram_Save): added a save
+	method for diagrams.
+
+	* plug-ins/python/pydia-object.c: added methods for DiaObject and
+	DiaObjectType.
 
 	* AUTHORS: added Lars and Cyrille to the authors file.
 

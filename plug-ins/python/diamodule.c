@@ -25,7 +25,9 @@
 #include "pydia-cpoint.h"
 #include "pydia-handle.h"
 
+#include "object.h"
 #include "app/diagram.h"
+#include "app/load_save.h"
 
 static PyObject *
 PyDia_Diagrams(PyObject *self, PyObject *args)
@@ -33,7 +35,7 @@ PyDia_Diagrams(PyObject *self, PyObject *args)
     GList *tmp;
     PyObject *ret;
 
-    if (!PyArg_ParseTuple(args, ":diagrams"))
+    if (!PyArg_ParseTuple(args, ":dia.diagrams"))
 	return NULL;
     ret = PyList_New(0);
     for (tmp = open_diagrams; tmp; tmp = tmp->next)
@@ -41,8 +43,40 @@ PyDia_Diagrams(PyObject *self, PyObject *args)
     return ret;
 }
 
+static PyObject *
+PyDia_Load(PyObject *self, PyObject *args)
+{
+    gchar *filename;
+    Diagram *dia;
+
+    if (!PyArg_ParseTuple(args, "s:dia.load", &filename))
+	return NULL;
+    dia = diagram_load(filename);
+    if (dia)
+	return PyDiaDiagram_New(dia);
+    PyErr_SetString(PyExc_IOError, "could not load diagram");
+    return NULL;
+}
+
+static PyObject *
+PyDia_GetObjectType(PyObject *self, PyObject *args)
+{
+    gchar *name;
+    ObjectType *otype;
+
+    if (!PyArg_ParseTuple(args, "s:dia.get_object_type", &name))
+	return NULL;
+    otype = object_get_type(name);
+    if (otype)
+	return PyDiaObjectType_New(otype);
+    PyErr_SetString(PyExc_KeyError, "unknown object type");
+    return NULL;
+}
+
 static PyMethodDef dia_methods[] = {
     { "diagrams", PyDia_Diagrams, 1 },
+    { "load", PyDia_Load, 1 },
+    { "get_object_type", PyDia_GetObjectType, 1 },
     { NULL, NULL }
 };
 

@@ -68,6 +68,115 @@ PyDiaObject_Str(PyDiaObject *self)
 }
 
 static PyObject *
+PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaObject.destroy"))
+	return NULL;
+
+    if (!self->object->ops->destroy) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    self->object->ops->destroy(self->object);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+/* draw */
+
+static PyObject *
+PyDiaObject_DistanceFrom(PyDiaObject *self, PyObject *args)
+{
+    Point point;
+
+    if (!PyArg_ParseTuple(args, "dd:DiaObject.distance_from",
+			  &point.x, &point.y))
+	return NULL;
+
+    if (!self->object->ops->distance_from) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    return PyFloat_FromDouble(self->object->ops->distance_from(self->object,
+							       &point));
+}
+
+/* select */
+
+static PyObject *
+PyDiaObject_Copy(PyDiaObject *self, PyObject *args)
+{
+    Object *cp;
+
+    if (!PyArg_ParseTuple(args, ":DiaObject.copy"))
+	return NULL;
+
+    if (!self->object->ops->copy) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    cp = self->object->ops->copy(self->object);
+    if (cp)
+	return PyDiaObject_New(cp);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaObject_Move(PyDiaObject *self, PyObject *args)
+{
+    Point point;
+
+    if (!PyArg_ParseTuple(args, "dd:DiaObject.move", &point.x, &point.y))
+	return NULL;
+
+    if (!self->object->ops->move) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    self->object->ops->move(self->object, &point);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
+{
+    PyDiaHandle *handle;
+    Point point;
+    HandleMoveReason reason;
+    ModifierKeys modifiers;
+
+    if (!PyArg_ParseTuple(args, "O!(dd)ii:DiaObject.move_handle",
+			  &PyDiaHandle_Type, &handle, &point.x, &point.y,
+			  &reason, &modifiers))
+	return NULL;
+
+    if (!self->object->ops->move_handle) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    self->object->ops->move_handle(self->object, handle->handle, &point,
+				   reason, modifiers);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyMethodDef PyDiaObject_Methods[] = {
+    { "destroy", (PyCFunction)PyDiaObject_Destroy, 1 },
+    { "distance_from", (PyCFunction)PyDiaObject_DistanceFrom, 1 },
+    { "copy", (PyCFunction)PyDiaObject_Copy, 1 },
+    { "move", (PyCFunction)PyDiaObject_Move, 1 },
+    { "move_handle", (PyCFunction)PyDiaObject_MoveHandle, 1 },
+    { NULL, 0, 0, NULL }
+};
+
+static PyObject *
 PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
@@ -97,8 +206,7 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 	return ret;
     }
 
-    PyErr_SetString(PyExc_AttributeError, attr);
-    return NULL;
+    return Py_FindMethod(PyDiaObject_Methods, (PyObject *)self, attr);
 }
 
 PyTypeObject PyDiaObject_Type = {
@@ -173,6 +281,46 @@ PyDiaObjectType_Str(PyDiaObjectType *self)
 }
 
 static PyObject *
+PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
+{
+    Point p;
+    gint data = 0;
+    gpointer user_data;
+    Object *ret;
+    Handle *h1 = NULL, *h2 = NULL;
+    PyObject *pyret;
+
+    if (!PyArg_ParseTuple(args, "dd|i:DiaObjectType.create", &p.x,&p.y, &data))
+	return NULL;
+    user_data = GINT_TO_POINTER(data);
+    ret = self->otype->ops->create(&p, user_data, &h1, &h2);
+    if (!ret) {
+	PyErr_SetString(PyExc_RuntimeError, "could not create new object");
+	return NULL;
+    }
+    pyret = PyTuple_New(3);
+    PyTuple_SetItem(pyret, 0, PyDiaObject_New(ret));
+    if (h1)
+	PyTuple_SetItem(pyret, 1, PyDiaHandle_New(h1));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(pyret, 1, Py_None);
+    }
+    if (h2)
+	PyTuple_SetItem(pyret, 2, PyDiaHandle_New(h2));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(pyret, 2, Py_None);
+    }
+    return pyret;
+}
+
+static PyMethodDef PyDiaObjectType_Methods[] = {
+    { "create", (PyCFunction)PyDiaObjectType_Create, 1 },
+    { NULL, 0, 0, NULL }
+};
+
+static PyObject *
 PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
@@ -182,8 +330,7 @@ PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
     else if (!strcmp(attr, "version"))
 	return PyInt_FromLong(self->otype->version);
 
-    PyErr_SetString(PyExc_AttributeError, attr);
-    return NULL;
+    return Py_FindMethod(PyDiaObjectType_Methods, (PyObject *)self, attr);
 }
 
 PyTypeObject PyDiaObjectType_Type = {

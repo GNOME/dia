@@ -23,6 +23,8 @@
 #include "pydia-layer.h"
 #include "pydia-object.h"
 
+#include "app/load_save.h"
+
 PyObject *
 PyDiaDiagram_New(Diagram *dia)
 {
@@ -66,7 +68,8 @@ PyDiaDiagram_RaiseLayer(PyDiaDiagram *self, PyObject *args)
 {
     PyDiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "O!:raise_layer", &PyDiaLayer_Type, &layer))
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.raise_layer",
+			  &PyDiaLayer_Type, &layer))
 	return NULL;
     data_raise_layer(self->dia->data, layer->layer);
     Py_INCREF(Py_None);
@@ -78,7 +81,8 @@ PyDiaDiagram_LowerLayer(PyDiaDiagram *self, PyObject *args)
 {
     PyDiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "O!:lower_layer", &PyDiaLayer_Type, &layer))
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.lower_layer",
+			  &PyDiaLayer_Type, &layer))
 	return NULL;
     data_lower_layer(self->dia->data, layer->layer);
     Py_INCREF(Py_None);
@@ -92,7 +96,7 @@ PyDiaDiagram_AddLayer(PyDiaDiagram *self, PyObject *args)
     int pos = -1;
     Layer *layer;
 
-    if (!PyArg_ParseTuple(args, "s|i:add_layer", &name, &pos))
+    if (!PyArg_ParseTuple(args, "s|i:DiaDiagram.add_layer", &name, &pos))
 	return NULL;
     layer = new_layer(name);
     if (pos != -1)
@@ -107,8 +111,8 @@ PyDiaDiagram_SetActiveLayer(PyDiaDiagram *self, PyObject *args)
 {
     PyDiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "O!:set_active_layer", &PyDiaLayer_Type,
-			  &layer))
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.set_active_layer",
+			  &PyDiaLayer_Type, &layer))
 	return NULL;
     data_set_active_layer(self->dia->data, layer->layer);
     Py_INCREF(Py_None);
@@ -120,7 +124,8 @@ PyDiaDiagram_DeleteLayer(PyDiaDiagram *self, PyObject *args)
 {
     PyDiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "O!:delete_layer", &PyDiaLayer_Type, &layer))
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.delete_layer",
+			  &PyDiaLayer_Type, &layer))
 	return NULL;
     data_delete_layer(self->dia->data, layer->layer);
     layer_destroy(layer->layer);
@@ -136,7 +141,22 @@ PyDiaDiagram_DeleteLayer(PyDiaDiagram *self, PyObject *args)
  *  data_update_extents
  *  data_get_sorted_selected
  *  data_get_sorted_selected_remove
+ *
+ *  diagram_unselect_object
+ *  diagram_select
+ *  diagram_add_update
+ *  diagram_flush
  */
+
+static PyObject *
+PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
+{
+    gchar *filename = self->dia->filename;
+
+    if (!PyArg_ParseTuple(args, "|s:DiaDiagram.save", &filename))
+	return NULL;
+    return PyInt_FromLong(diagram_save(self->dia, filename));
+}
 
 static PyMethodDef PyDiaDiagram_Methods[] = {
     {"raise_layer", (PyCFunction)PyDiaDiagram_RaiseLayer, 1},
@@ -144,6 +164,7 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
     {"add_layer", (PyCFunction)PyDiaDiagram_AddLayer, 1},
     {"set_active_layer", (PyCFunction)PyDiaDiagram_SetActiveLayer, 1},
     {"delete_layer", (PyCFunction)PyDiaDiagram_DeleteLayer, 1},
+    {"save", (PyCFunction)PyDiaDiagram_Save, 1},
     {NULL, 0, 0, NULL}
 };
 

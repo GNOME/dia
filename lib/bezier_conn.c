@@ -647,7 +647,7 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node) /* NOTE: Does object_init(
   else
     bez->numpoints = 0;
 
-  object_init(obj, bez->numpoints, 0);
+  object_init(obj, 3 * bez->numpoints - 2, 0);
 
   data = attribute_first_data(attr);
   if (bez->numpoints != 0) {
