@@ -1,11 +1,11 @@
-# Portuguese messages for dia
+# dia translation for Brazilian Portuguese
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2000
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.86\n"
+"Project-Id-Version: dia 0.88.1\n"
 "POT-Creation-Date: 2001-10-10 11:23-0200\n"
-"PO-Revision-Date: 2001-10-10 23:10-03:00\n"
+"PO-Revision-Date: 2001-11-20 15:39-0200\n"
 "Last-Translator: Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +22,15 @@ msgstr "%s erro: Os arquivos de entrada e saída são o mesmo: %s"
 # app/app_procs.c:274
 # app/app_procs.c:164
 #: app/app_procs.c:164
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "Erro %s: É necessário um arquivo de entrada válido %s\n"
+msgstr "%s erro: É necessário um arquivo de entrada válido %s\n"
 
 # app/app_procs.c:171
 #: app/app_procs.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
-"Erro %s: Impossível exportar para %s\n"
-" "
+msgstr "%s erro: Impossível exportar para %s\n"
 
 # app/app_procs.c:177
 #. if (!quiet)
@@ -58,9 +56,8 @@ msgstr "SAÍDA"
 # app/app_procs.c:211
 #. &export_file_format
 #: app/app_procs.c:211
-#, fuzzy
 msgid "Export to file format and exit"
-msgstr "Exportar arquivo carregado e sair"
+msgstr "Exportar para outro formato e sair"
 
 # app/app_procs.c:211
 #: app/app_procs.c:211
@@ -106,7 +103,7 @@ msgstr ""
 #: app/app_procs.c:276
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
-msgstr "Erro em %s: Impossível usar as opções -f e -o ao mesmo tempo"
+msgstr "%s erro: Impossível usar -f e -o ao mesmo tempo."
 
 # app/app_procs.c:247 app/app_procs.c:249
 # app/app_procs.c:320 app/app_procs.c:322
@@ -2584,14 +2581,12 @@ msgstr "Ponto vazio"
 # lib/widgets.c:673
 # lib/widgets.c:673
 #: lib/widgets.c:673
-#, fuzzy
 msgid "Double Hollow triangle"
 msgstr "Triângulo duplo vazio"
 
 # lib/widgets.c:674
 # lib/widgets.c:674
 #: lib/widgets.c:674
-#, fuzzy
 msgid "Double Filled triangle"
 msgstr "Triângulo duplo preenchido"
 
@@ -2657,16 +2652,15 @@ msgstr ""
 # lib/dia_xml.c:458
 # lib/dia_xml.c:459
 #: lib/dia_xml.c:476
-#, fuzzy
 msgid "Taking point value of non-point node."
-msgstr "Tomando o valor do ponto a partir do nó não-ponto."
+msgstr "Tomando o valor do ponto de um nó que não é um ponto."
 
 # lib/dia_xml.c:470
 # lib/dia_xml.c:471
 #: lib/dia_xml.c:488
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Valor incorreto da coordenada x: \"%s\" %f; valor rejeitado."
+msgstr "Valor x do ponto \"%s\" %f incorreto; descartando-o."
 
 # lib/dia_xml.c:478
 # lib/dia_xml.c:479
@@ -2678,9 +2672,9 @@ msgstr "Erro analisando ponto."
 # lib/dia_xml.c:487
 #. don't bother with useless warnings (see above)
 #: lib/dia_xml.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Valor incorreto da coordenada y: \"%s\" %f; valor rejeitado."
+msgstr "Valor y do ponto \"%s\" %f incorreto; descartando-o."
 
 # lib/dia_xml.c:920
 # lib/dia_xml.c:850
@@ -2959,9 +2953,8 @@ msgstr "Permitir"
 # objects/FS/function.c:616
 # objects/FS/function.c:616
 #: objects/FS/function.c:616
-#, fuzzy
 msgid "Form Entrance"
-msgstr "Entrada de formulário"
+msgstr "Formulário de Entrada"
 
 # objects/FS/function.c:617 objects/FS/function.c:734
 # objects/FS/function.c:617 objects/FS/function.c:734
@@ -2979,7 +2972,7 @@ msgstr "Exportar"
 # objects/FS/function.c:620
 #: objects/FS/function.c:620
 msgid "Discharge"
-msgstr "Descarga"
+msgstr "Descarregar"
 
 # objects/FS/function.c:621
 # objects/FS/function.c:621
@@ -2990,9 +2983,8 @@ msgstr "Ejetar"
 # objects/FS/function.c:622
 # objects/FS/function.c:622
 #: objects/FS/function.c:622
-#, fuzzy
 msgid "Dispose"
-msgstr "Dispor"
+msgstr "Colocar"
 
 # objects/FS/function.c:624 objects/FS/function.c:625
 # objects/FS/function.c:634
@@ -3013,7 +3005,7 @@ msgstr "Transportar"
 # objects/FS/function.c:628
 #: objects/FS/function.c:628
 msgid "Lift"
-msgstr ""
+msgstr "Levantar"
 
 # objects/FS/function.c:629
 # objects/FS/function.c:629
@@ -3030,14 +3022,12 @@ msgstr "Transmitir"
 # objects/FS/function.c:633
 # objects/FS/function.c:633
 #: objects/FS/function.c:633
-#, fuzzy
 msgid "Conduct"
 msgstr "Conduzir"
 
 # objects/FS/function.c:635
 # objects/FS/function.c:635
 #: objects/FS/function.c:635
-#, fuzzy
 msgid "Convey"
 msgstr "Transportar"
 
@@ -3047,29 +3037,26 @@ msgstr "Transportar"
 # objects/FS/function.c:638
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
-#, fuzzy
 msgid "Guide"
-msgstr "Guiar"
+msgstr "Guia"
 
 # objects/FS/function.c:639
 # objects/FS/function.c:639
 #: objects/FS/function.c:639
-#, fuzzy
 msgid "Direct"
-msgstr "Dirigir"
+msgstr "Direto"
 
 # objects/FS/function.c:640
 # objects/FS/function.c:640
 #: objects/FS/function.c:640
 msgid "Straighten"
-msgstr "Regular"
+msgstr "Endireitar"
 
 # objects/FS/function.c:641
 # objects/FS/function.c:641
 #: objects/FS/function.c:641
-#, fuzzy
 msgid "Steer"
-msgstr "Pilotar"
+msgstr "Conduzir"
 
 # objects/FS/function.c:642
 # objects/FS/function.c:642
@@ -3086,30 +3073,26 @@ msgstr "Rotacionar"
 # objects/FS/function.c:645
 # objects/FS/function.c:645
 #: objects/FS/function.c:645
-#, fuzzy
 msgid "Turn"
-msgstr "Girar"
+msgstr "Voltar"
 
 # objects/FS/function.c:646
 # objects/FS/function.c:646
 #: objects/FS/function.c:646
-#, fuzzy
 msgid "Spin"
-msgstr "Valor"
+msgstr "Girar"
 
 # objects/FS/function.c:647 objects/FS/function.c:648
 # objects/FS/function.c:647 objects/FS/function.c:648
 #: objects/FS/function.c:647 objects/FS/function.c:648
-#, fuzzy
 msgid "Allow DOF"
 msgstr "Permitir DOF"
 
 # objects/FS/function.c:649
 # objects/FS/function.c:649
 #: objects/FS/function.c:649
-#, fuzzy
 msgid "Constrain"
-msgstr "Restrição"
+msgstr "Obrigar"
 
 # objects/FS/function.c:650
 # objects/FS/function.c:650
@@ -3128,7 +3111,6 @@ msgstr "Suporte"
 # sheets/SDL.sheet.in.h:19
 #: objects/FS/function.c:653 objects/FS/function.c:654
 #: sheets/SDL.sheet.in.h:19
-#, fuzzy
 msgid "Stop"
 msgstr "Parar"
 
@@ -3141,28 +3123,24 @@ msgstr "Isolar"
 # objects/FS/function.c:656
 # objects/FS/function.c:656
 #: objects/FS/function.c:656
-#, fuzzy
 msgid "Protect"
 msgstr "Proteger"
 
 # objects/FS/function.c:657 objects/FS/function.c:752
 # objects/FS/function.c:657 objects/FS/function.c:752
 #: objects/FS/function.c:657 objects/FS/function.c:752
-#, fuzzy
 msgid "Prevent"
 msgstr "Previnir"
 
 # objects/FS/function.c:658
 # objects/FS/function.c:658
 #: objects/FS/function.c:658
-#, fuzzy
 msgid "Shield"
-msgstr "Defender"
+msgstr "Proteger"
 
 # objects/FS/function.c:659
 # objects/FS/function.c:659
 #: objects/FS/function.c:659
-#, fuzzy
 msgid "Inhibit"
 msgstr "Inibir"
 
@@ -3176,14 +3154,13 @@ msgstr "Estabilizar"
 # objects/FS/function.c:662
 #: objects/FS/function.c:662
 msgid "Steady"
-msgstr ""
+msgstr "Estável"
 
 # objects/FS/function.c:663 objects/FS/function.c:664
 # objects/FS/function.c:663 objects/FS/function.c:664
 #: objects/FS/function.c:663 objects/FS/function.c:664
-#, fuzzy
 msgid "Secure"
-msgstr "Segurar"
+msgstr "Seguro"
 
 # objects/FS/function.c:665 objects/FS/function.c:681
 # objects/FS/function.c:665 objects/FS/function.c:681
@@ -3194,28 +3171,26 @@ msgstr "Juntar"
 # objects/FS/function.c:666
 # objects/FS/function.c:666
 #: objects/FS/function.c:666
-#, fuzzy
 msgid "Mount"
-msgstr "Subir"
+msgstr "Montar"
 
 # objects/FS/function.c:667
 # objects/FS/function.c:667
 #: objects/FS/function.c:667
 msgid "Lock"
-msgstr "Bloquear"
+msgstr "Fechar"
 
 # objects/FS/function.c:668
 # objects/FS/function.c:668
 #: objects/FS/function.c:668
 msgid "Fasten"
-msgstr ""
+msgstr "Corrigir"
 
 # objects/FS/function.c:669
 # objects/FS/function.c:669
 #: objects/FS/function.c:669
-#, fuzzy
 msgid "Hold"
-msgstr "Sólido"
+msgstr "Sustentar"
 
 # objects/FS/function.c:670 objects/FS/function.c:671
 # objects/FS/function.c:670 objects/FS/function.c:671
@@ -3226,7 +3201,6 @@ msgstr "Posição"
 # objects/FS/function.c:672
 # objects/FS/function.c:672
 #: objects/FS/function.c:672
-#, fuzzy
 msgid "Orient"
 msgstr "Orientar"
 
@@ -3251,7 +3225,6 @@ msgstr "Conectar"
 # objects/FS/function.c:677 objects/FS/function.c:678
 # objects/FS/function.c:677 objects/FS/function.c:678
 #: objects/FS/function.c:677 objects/FS/function.c:678
-#, fuzzy
 msgid "Couple"
 msgstr "Emparelhar"
 
@@ -3264,14 +3237,12 @@ msgstr "Unir"
 # objects/FS/function.c:680
 # objects/FS/function.c:680
 #: objects/FS/function.c:680
-#, fuzzy
 msgid "Assemble"
 msgstr "Montar"
 
 # objects/FS/function.c:682 objects/FS/function.c:683
 # objects/FS/function.c:682 objects/FS/function.c:683
 #: objects/FS/function.c:682 objects/FS/function.c:683
-#, fuzzy
 msgid "Mix"
 msgstr "Misturar"
 
@@ -3284,7 +3255,6 @@ msgstr "Combinar"
 # objects/FS/function.c:685
 # objects/FS/function.c:685
 #: objects/FS/function.c:685
-#, fuzzy
 msgid "Blend"
 msgstr "Misturar"
 
@@ -3297,22 +3267,20 @@ msgstr "Adicionar"
 # objects/FS/function.c:687
 # objects/FS/function.c:687
 #: objects/FS/function.c:687
-#, fuzzy
 msgid "Pack"
-msgstr "Acumular"
+msgstr "Empacotar"
 
 # objects/FS/function.c:688
 # objects/FS/function.c:688
 #: objects/FS/function.c:688
-#, fuzzy
 msgid "Coalesce"
-msgstr "Aglutinar"
+msgstr "Incorporar"
 
 # objects/FS/function.c:689 objects/FS/function.c:690
 # objects/FS/function.c:689 objects/FS/function.c:690
 #: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
-msgstr "Ramificação"
+msgstr "Ramo"
 
 # objects/FS/function.c:691 objects/FS/function.c:692
 # objects/FS/function.c:693
@@ -3326,7 +3294,6 @@ msgstr "Separar"
 # objects/FS/function.c:694
 # objects/FS/function.c:694
 #: objects/FS/function.c:694
-#, fuzzy
 msgid "Switch"
 msgstr "Trocar"
 
@@ -3339,16 +3306,14 @@ msgstr "Dividir"
 # objects/FS/function.c:696
 # objects/FS/function.c:696
 #: objects/FS/function.c:696
-#, fuzzy
 msgid "Release"
 msgstr "Liberar"
 
 # objects/FS/function.c:697
 # objects/FS/function.c:697
 #: objects/FS/function.c:697
-#, fuzzy
 msgid "Detach"
-msgstr "Dados"
+msgstr "Separar"
 
 # objects/FS/function.c:698
 # objects/FS/function.c:698
@@ -3365,7 +3330,6 @@ msgstr "Recortar"
 # objects/FS/function.c:702
 # objects/FS/function.c:702
 #: objects/FS/function.c:702
-#, fuzzy
 msgid "Polish"
 msgstr "Polir"
 
@@ -3373,24 +3337,23 @@ msgstr "Polir"
 # objects/FS/function.c:703
 #: objects/FS/function.c:703
 msgid "Sand"
-msgstr ""
+msgstr "Areia"
 
 # objects/FS/function.c:704
 # objects/FS/function.c:704
 #: objects/FS/function.c:704
 msgid "Drill"
-msgstr ""
+msgstr "Perfurar"
 
 # objects/FS/function.c:705
 # objects/FS/function.c:705
 #: objects/FS/function.c:705
 msgid "Lathe"
-msgstr ""
+msgstr "Torno"
 
 # objects/FS/function.c:706 objects/FS/function.c:707
 # objects/FS/function.c:706 objects/FS/function.c:707
 #: objects/FS/function.c:706 objects/FS/function.c:707
-#, fuzzy
 msgid "Refine"
 msgstr "Refinar"
 
@@ -3403,22 +3366,20 @@ msgstr "Purificar"
 # objects/FS/function.c:709
 # objects/FS/function.c:709
 #: objects/FS/function.c:709
-#, fuzzy
 msgid "Strain"
-msgstr "Esticar"
+msgstr "Tensão"
 
 # objects/FS/function.c:710
 # objects/FS/function.c:710
 #: objects/FS/function.c:710
 msgid "Filter"
-msgstr "Filtrar"
+msgstr "Filtro"
 
 # objects/FS/function.c:711
 # objects/FS/function.c:711
 #: objects/FS/function.c:711
-#, fuzzy
 msgid "Percolate"
-msgstr "Privado"
+msgstr "Filtrar"
 
 # objects/FS/function.c:712
 # objects/FS/function.c:712
@@ -3441,14 +3402,12 @@ msgstr "Divergir"
 # objects/FS/function.c:716
 # objects/FS/function.c:716
 #: objects/FS/function.c:716
-#, fuzzy
 msgid "Scatter"
 msgstr "Espalhar"
 
 # objects/FS/function.c:717
 # objects/FS/function.c:717
 #: objects/FS/function.c:717
-#, fuzzy
 msgid "Disperse"
 msgstr "Dispersar"
 
@@ -3456,13 +3415,13 @@ msgstr "Dispersar"
 # objects/FS/function.c:718 objects/FS/function.c:725
 #: objects/FS/function.c:718 objects/FS/function.c:725
 msgid "Diffuse"
-msgstr "Difundir"
+msgstr "Difuso"
 
 # objects/FS/function.c:719
 # objects/FS/function.c:719
 #: objects/FS/function.c:719
 msgid "Empty"
-msgstr "Esvaziar"
+msgstr "Vazio"
 
 # objects/FS/function.c:720 objects/FS/function.c:721
 # objects/FS/function.c:720 objects/FS/function.c:721
@@ -3479,14 +3438,12 @@ msgstr "Absorver"
 # objects/FS/function.c:723
 # objects/FS/function.c:723
 #: objects/FS/function.c:723
-#, fuzzy
 msgid "Dampen"
-msgstr "Amortecer"
+msgstr "Humedecer"
 
 # objects/FS/function.c:724
 # objects/FS/function.c:724
 #: objects/FS/function.c:724
-#, fuzzy
 msgid "Dispel"
 msgstr "Dissipar"
 
@@ -3542,14 +3499,13 @@ msgstr "Preencher"
 # objects/FS/function.c:738
 #: objects/FS/function.c:738
 msgid "Provide"
-msgstr "Prover"
+msgstr "Proporcionar"
 
 # objects/FS/function.c:739
 # objects/FS/function.c:739
 #: objects/FS/function.c:739
-#, fuzzy
 msgid "Replenish"
-msgstr "Substituir"
+msgstr "Repor"
 
 # objects/FS/function.c:740
 # objects/FS/function.c:740
@@ -3578,9 +3534,8 @@ msgstr "Atuar"
 # objects/FS/function.c:746
 # objects/FS/function.c:746
 #: objects/FS/function.c:746
-#, fuzzy
 msgid "Start"
-msgstr "Ligar"
+msgstr "Início"
 
 # objects/FS/function.c:747
 # objects/FS/function.c:747
@@ -3600,9 +3555,8 @@ msgstr "Regular"
 # objects/UML/classicon.c:122
 #: objects/FS/function.c:750 objects/FS/function.c:859
 #: objects/UML/classicon.c:122
-#, fuzzy
 msgid "Control"
-msgstr "Controlar"
+msgstr "Controle"
 
 # objects/FS/function.c:753
 # objects/FS/function.c:753
@@ -3619,9 +3573,8 @@ msgstr "Desativar"
 # objects/FS/function.c:755
 # objects/FS/function.c:755
 #: objects/FS/function.c:755
-#, fuzzy
 msgid "Limit"
-msgstr "Limitar"
+msgstr "Limite"
 
 # objects/FS/function.c:756
 # objects/FS/function.c:756
@@ -3633,7 +3586,7 @@ msgstr "Interromper"
 # objects/FS/function.c:757 objects/FS/function.c:758
 #: objects/FS/function.c:757 objects/FS/function.c:758
 msgid "Change"
-msgstr "Modificar"
+msgstr "Mudar"
 
 # objects/FS/function.c:759
 # objects/FS/function.c:759
@@ -3674,14 +3627,12 @@ msgstr "Multiplicar"
 # objects/FS/function.c:766
 # objects/FS/function.c:766
 #: objects/FS/function.c:766
-#, fuzzy
 msgid "Scale"
-msgstr "Escalar"
+msgstr "Escala"
 
 # objects/FS/function.c:767
 # objects/FS/function.c:767
 #: objects/FS/function.c:767
-#, fuzzy
 msgid "Rectify"
 msgstr "Retificar"
 
@@ -3694,44 +3645,38 @@ msgstr "Ajustar"
 # objects/FS/function.c:769 objects/FS/function.c:770
 # objects/FS/function.c:769 objects/FS/function.c:770
 #: objects/FS/function.c:769 objects/FS/function.c:770
-#, fuzzy
 msgid "Form"
-msgstr "Formar"
+msgstr "Formulário"
 
 # objects/FS/function.c:771
 # objects/FS/function.c:771
 #: objects/FS/function.c:771
-#, fuzzy
 msgid "Compact"
 msgstr "Compactar"
 
 # objects/FS/function.c:772
 # objects/FS/function.c:772
 #: objects/FS/function.c:772
-#, fuzzy
 msgid "Crush"
-msgstr "Pressionar"
+msgstr ""
 
 # objects/FS/function.c:773
 # objects/FS/function.c:773
 #: objects/FS/function.c:773
-#, fuzzy
 msgid "Shape"
-msgstr "Forma"
+msgstr "Figura"
 
 # objects/FS/function.c:774
 # objects/FS/function.c:774
 #: objects/FS/function.c:774
-#, fuzzy
 msgid "Compress"
 msgstr "Comprimir"
 
 # objects/FS/function.c:775
 # objects/FS/function.c:775
 #: objects/FS/function.c:775
-#, fuzzy
 msgid "Pierce"
-msgstr "Furar"
+msgstr "Perfurar"
 
 # objects/FS/function.c:776 objects/FS/function.c:777
 # objects/FS/function.c:776 objects/FS/function.c:777
@@ -3797,7 +3742,7 @@ msgstr "Processar"
 # objects/FS/function.c:789 objects/FS/function.c:790
 #: objects/FS/function.c:789 objects/FS/function.c:790
 msgid "Sense"
-msgstr "Sentir"
+msgstr "Sentido"
 
 # objects/FS/function.c:791
 # objects/FS/function.c:791
@@ -3851,7 +3796,7 @@ msgstr "Mostrar"
 # objects/FS/function.c:801 objects/FS/function.c:802
 #: objects/FS/function.c:801 objects/FS/function.c:802
 msgid "Measure"
-msgstr "Medir"
+msgstr "Medida"
 
 # objects/FS/function.c:803
 # objects/FS/function.c:803
@@ -3943,16 +3888,14 @@ msgstr "Energia mecânica"
 # objects/FS/function.c:821
 # objects/FS/function.c:821
 #: objects/FS/function.c:821
-#, fuzzy
 msgid "Translation"
 msgstr "Translação"
 
 # objects/FS/function.c:822
 # objects/FS/function.c:822
 #: objects/FS/function.c:822
-#, fuzzy
 msgid "Force"
-msgstr "Força"
+msgstr "Forçar"
 
 # objects/FS/function.c:823
 # objects/FS/function.c:823
@@ -3964,7 +3907,7 @@ msgstr "Rotação"
 # objects/FS/function.c:824
 #: objects/FS/function.c:824
 msgid "Torque"
-msgstr "Torque"
+msgstr "Torsão"
 
 # objects/FS/function.c:825
 # objects/FS/function.c:825
@@ -3994,7 +3937,7 @@ msgstr "Energia tranlacional"
 # objects/FS/function.c:829
 #: objects/FS/function.c:829
 msgid "Electrical"
-msgstr "Elétrico"
+msgstr "Elétrica"
 
 # objects/FS/function.c:830
 # objects/FS/function.c:830
@@ -4036,7 +3979,7 @@ msgstr "Fluxo volumétrico"
 # objects/FS/function.c:836
 #: objects/FS/function.c:836
 msgid "Thermal"
-msgstr "Térmico"
+msgstr "Térmica"
 
 # objects/FS/function.c:837
 # objects/FS/function.c:837
@@ -4102,7 +4045,7 @@ msgstr "Raios X"
 # objects/FS/function.c:848
 #: objects/FS/function.c:848
 msgid "Gamma Rays"
-msgstr "Raios gamma"
+msgstr "Raios gama"
 
 # objects/FS/function.c:849
 # objects/FS/function.c:849
@@ -4149,9 +4092,8 @@ msgstr "Estado"
 # objects/FS/function.c:861
 # objects/FS/function.c:861
 #: objects/FS/function.c:861
-#, fuzzy
 msgid "User/Device Fn"
-msgstr "Função de usuário/dispositivo"
+msgstr ""
 
 # objects/FS/function.c:862
 # objects/FS/function.c:862
@@ -4168,7 +4110,6 @@ msgstr "Chamada de macro"
 # objects/GRAFCET/action.c:134
 # objects/GRAFCET/action.c:134
 #: objects/GRAFCET/action.c:134
-#, fuzzy
 msgid "This action is a call to a macro-step"
 msgstr "Esta ação é uma chamada para um passo de macro"
 
@@ -4218,7 +4159,7 @@ msgstr "Diagrama de objetos GRAFCET"
 # objects/GRAFCET/step.c:146
 #: objects/GRAFCET/step.c:146
 msgid "Regular step"
-msgstr " Passo regular"
+msgstr "Passo regular"
 
 # objects/GRAFCET/step.c:147
 # objects/GRAFCET/step.c:147
@@ -4260,7 +4201,7 @@ msgstr "Nome do passo"
 # objects/GRAFCET/step.c:157
 #: objects/GRAFCET/step.c:157
 msgid "The name of the step"
-msgstr "Nome do passo"
+msgstr "O nome do passo"
 
 # objects/GRAFCET/step.c:159
 # objects/GRAFCET/step.c:159
@@ -4272,7 +4213,7 @@ msgstr "Tipo do passo"
 # objects/GRAFCET/step.c:159
 #: objects/GRAFCET/step.c:159
 msgid "The kind of step"
-msgstr "Tipo do passo"
+msgstr "O tipo do passo"
 
 # objects/GRAFCET/step.c:161
 # objects/GRAFCET/step.c:161
@@ -4296,13 +4237,13 @@ msgstr "Receptividade"
 # objects/GRAFCET/transition.c:138
 #: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
-msgstr "Equação lógica da recptividade"
+msgstr "A equação lógica da recptividade"
 
 # objects/GRAFCET/transition.c:140
 # objects/GRAFCET/transition.c:140
 #: objects/GRAFCET/transition.c:140
 msgid "The receptivity's font"
-msgstr "Fonte da recptividade"
+msgstr "Fonte da receptividade"
 
 # objects/GRAFCET/transition.c:142
 # objects/GRAFCET/transition.c:142
@@ -4319,14 +4260,12 @@ msgstr "Cor da receptividade"
 # objects/GRAFCET/transition.c:146
 # objects/GRAFCET/transition.c:146
 #: objects/GRAFCET/transition.c:146
-#, fuzzy
 msgid "North point"
 msgstr "Ponto norte"
 
 # objects/GRAFCET/transition.c:147
 # objects/GRAFCET/transition.c:147
 #: objects/GRAFCET/transition.c:147
-#, fuzzy
 msgid "South point"
 msgstr "Ponto sul"
 
@@ -4444,13 +4383,13 @@ msgstr "Seta SADT"
 #: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
 #: objects/flowchart/parallelogram.c:171
 msgid "Text padding"
-msgstr "Espaço à volta do texto"
+msgstr "Espaço ao redor do texto"
 
 # objects/SADT/box.c:144
 # objects/SADT/box.c:144
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
-msgstr "Atividade/Identificador de dados"
+msgstr "Identificador de atividade/dados"
 
 # objects/SADT/box.c:145
 # objects/SADT/box.c:145
@@ -4516,7 +4455,7 @@ msgstr "Lado B"
 # objects/UML/association.c:1055
 #: objects/UML/association.c:1055
 msgid "Role:"
-msgstr "Regra:"
+msgstr "Papel:"
 
 # objects/UML/association.c:1067
 # objects/UML/association.c:1067
@@ -4815,7 +4754,7 @@ msgstr "É um objeto"
 # objects/UML/constraint.c:120
 #: objects/UML/constraint.c:120
 msgid "Constraint:"
-msgstr "Limitação:"
+msgstr "Restrição:"
 
 # objects/UML/dependency.c:129
 # objects/UML/dependency.c:129
@@ -4839,7 +4778,7 @@ msgstr "Mostrar foco de controle:"
 # objects/UML/lifeline.c:140
 #: objects/UML/lifeline.c:140
 msgid "Draw destruction mark:"
-msgstr "Mostrar ponto de destruição:"
+msgstr "Mostrar marca de destruição:"
 
 # objects/UML/lifeline.c:403
 # objects/UML/lifeline.c:403
@@ -4856,7 +4795,6 @@ msgstr "Apagar pontos de conexão"
 # objects/UML/lifeline.c:408
 # objects/UML/lifeline.c:408
 #: objects/UML/lifeline.c:408
-#, fuzzy
 msgid "UML Lifeline"
 msgstr "Linha da vida UML"
 
@@ -4864,7 +4802,7 @@ msgstr "Linha da vida UML"
 # objects/UML/message.c:135
 #: objects/UML/message.c:135
 msgid "Call"
-msgstr "Chamar"
+msgstr "Chamada"
 
 # objects/UML/message.c:136
 # objects/UML/message.c:136
@@ -5055,7 +4993,7 @@ msgstr "Tempo de queda"
 # objects/chronogram/chronoline.c:171
 #: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
-msgstr "Dados multi-bits"
+msgstr "Dados multi-bit"
 
 # objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
 # objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
@@ -5073,7 +5011,7 @@ msgstr "Cor dos dados"
 # objects/chronogram/chronoline.c:177
 #: objects/chronogram/chronoline.c:177
 msgid "Data line width"
-msgstr "Largura da linha dos dados"
+msgstr "Largura da linha de dados"
 
 # objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 # objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
@@ -5084,9 +5022,8 @@ msgstr "Cor da linha"
 # objects/chronogram/chronoref.c:144
 # objects/chronogram/chronoref.c:144
 #: objects/chronogram/chronoref.c:144
-#, fuzzy
 msgid "Time data"
-msgstr "Dados do tempo"
+msgstr "Dados de tempo"
 
 # objects/chronogram/chronoref.c:150
 # objects/chronogram/chronoref.c:150
@@ -5104,7 +5041,7 @@ msgstr "Intervalo de tempo menor"
 # objects/chronogram/chronoref.c:162
 #: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr "Largura da linha do intervalo menor"
+msgstr "Largura das linha de intervalo menor"
 
 # objects/custom/custom.c:124
 # objects/custom/custom.c:124
@@ -5116,7 +5053,7 @@ msgstr "Personalizar"
 # objects/custom/custom.c:124
 #: objects/custom/custom.c:124
 msgid "Custom XML shapes loader"
-msgstr "Personalizar carregador de formas XML"
+msgstr "Carregador de formas XML personalizas"
 
 # objects/custom/custom_object.c:188 objects/custom/custom_object.c:207
 # objects/custom/custom_object.c:188 objects/custom/custom_object.c:207
@@ -5140,7 +5077,7 @@ msgstr "Inverter verticalmente"
 #: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
 #: objects/flowchart/parallelogram.c:296
 msgid "Text padding:"
-msgstr "Espaço à volta do texto:"
+msgstr "Espaço ao redor do texto:"
 
 # objects/custom/custom_object.c:334 objects/standard/textobj.c:206
 # objects/custom/custom_object.c:334 objects/standard/textobj.c:206
@@ -5170,7 +5107,7 @@ msgstr "Fonte:"
 #: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
 #: objects/flowchart/parallelogram.c:321
 msgid "Font size:"
-msgstr "Tamanho:"
+msgstr "Tamanho da fonte:"
 
 # objects/custom/custom_object.c:1516
 # objects/custom/custom_object.c:1516
@@ -5195,7 +5132,7 @@ msgstr "Impossível abrir ícone %s para o tipo de objeto '%s'."
 # objects/flowchart/box.c:167 objects/standard/box.c:153
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
-msgstr "Raio da quina"
+msgstr "Raio das quinas"
 
 # objects/flowchart/box.c:279 objects/standard/box.c:240
 # objects/flowchart/box.c:279 objects/standard/box.c:240
@@ -5291,7 +5228,7 @@ msgstr "Desenhar borda"
 # objects/standard/image.c:172
 #: objects/standard/image.c:172
 msgid "Keep aspect ratio"
-msgstr "Manter relação altura/largura"
+msgstr "Manter taxa de proporção"
 
 # objects/standard/image.c:271
 # objects/standard/image.c:271
@@ -5303,7 +5240,7 @@ msgstr "Arquivo de imagem:"
 # objects/standard/image.c:282
 #: objects/standard/image.c:282
 msgid "Keep aspect ratio:"
-msgstr "Manter relação altura/largura:"
+msgstr "Manter taxa de proporção:"
 
 # objects/standard/image.c:290
 # objects/standard/image.c:290
@@ -5388,25 +5325,25 @@ msgstr "Computer Graphics Metafile"
 # plug-ins/cgm/cgm.c:1275
 #: plug-ins/cgm/cgm.c:1275
 msgid "Computer Graphics Metafile export filter"
-msgstr "Filtro de exportação de Metarquivo de Computação Gráfica (CMG)"
+msgstr "Filtro de exportação para CMG"
 
 # plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
 # plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
 #: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
 msgid "Drawing Interchange File"
-msgstr "Arquivo de Intercâmbio de Figuras"
+msgstr "Drawing Interchange File"
 
 # plug-ins/dxf/dxf.c:37
 # plug-ins/dxf/dxf.c:37
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
-msgstr "Filtros de exportação e importação DXF"
+msgstr "Filtros de importação e exportação para o formato DXF"
 
 # plug-ins/hpgl/hpgl.c:616
 # plug-ins/hpgl/hpgl.c:616
 #: plug-ins/hpgl/hpgl.c:616
 msgid "HP Graphics Language export filter"
-msgstr "Filtro de exportação da Linguagem de Gráficos HP"
+msgstr "Filtro de exportação para o formato HPGL"
 
 # plug-ins/pstricks/pstricks.c:14
 # plug-ins/pstricks/pstricks.c:14
@@ -5442,13 +5379,13 @@ msgstr "Filtro de exportação para formas do dia"
 # plug-ins/svg/render_svg.c:835
 #: plug-ins/svg/render_svg.c:835
 msgid "Scalable Vector Graphics"
-msgstr "Gráficos Vetoriais Escaláveis (SVG)"
+msgstr "Scalable Vector Graphics"
 
 # plug-ins/svg/svg.c:36
 # plug-ins/svg/svg.c:36
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
-msgstr "Filtro de exportação para Gráficos Vetoriais Escaláveis"
+msgstr "Filtro de exportação para o formato SVG"
 
 # plug-ins/wpg/wpg.c:1048
 # plug-ins/wpg/wpg.c:1048
@@ -5485,15 +5422,13 @@ msgstr "Padrões não são suportados pelo Dia"
 # plug-ins/xfig/xfig-import.c:77
 #: plug-ins/xfig/xfig-import.c:77
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
-"Linhas com pontilhamento tripo não suportadas, usando pontilhamento duplo"
+msgstr "Linhas com pontilhamento tripo não suportadas, usando pontilhamento duplo"
 
 # plug-ins/xfig/xfig-import.c:79
 # plug-ins/xfig/xfig-import.c:79
 #: plug-ins/xfig/xfig-import.c:79
-#, fuzzy
 msgid "Negative corner radius, negating"
-msgstr "Raio do canto negativo"
+msgstr "Raio de quina negativo; rejeitando"
 
 # plug-ins/xfig/xfig-import.c:80
 # plug-ins/xfig/xfig-import.c:80
@@ -5504,9 +5439,9 @@ msgstr "Importação de Spline ainda não implementada"
 # plug-ins/xfig/xfig-import.c:406
 # plug-ins/xfig/xfig-import.c:406
 #: plug-ins/xfig/xfig-import.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Line style %d should not appear\n"
-msgstr "O estilo de linha %d pode não aparecer\n"
+msgstr "O estilo de linha %d não deveria aparecer\n"
 
 # plug-ins/xfig/xfig-import.c:474
 # plug-ins/xfig/xfig-import.c:474
@@ -5538,9 +5473,9 @@ msgstr "Impossível ler informação sobre polígono: %s\n"
 # plug-ins/xfig/xfig-import.c:667
 # plug-ins/xfig/xfig-import.c:667
 #: plug-ins/xfig/xfig-import.c:667
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr "Impossível ler bit flipado: %s\n"
+msgstr "Impossível ler bit movido: %s\n"
 
 # plug-ins/xfig/xfig-import.c:723 plug-ins/xfig/xfig-import.c:809
 # plug-ins/xfig/xfig-import.c:723 plug-ins/xfig/xfig-import.c:809
@@ -5573,9 +5508,8 @@ msgstr "Impossível identificar objeto FIG: %s\n"
 # plug-ins/xfig/xfig-import.c:924
 # plug-ins/xfig/xfig-import.c:924
 #: plug-ins/xfig/xfig-import.c:924
-#, fuzzy
 msgid "Compound end outside compound\n"
-msgstr "Objeto composto finalizou fora do objeto composto\n"
+msgstr "Objeto composto finalizou fora da área normal\n"
 
 # plug-ins/xfig/xfig-import.c:943
 # plug-ins/xfig/xfig-import.c:943
@@ -5589,7 +5523,7 @@ msgstr "Impossível ler cor: %s\n"
 #: plug-ins/xfig/xfig-import.c:985
 #, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "Impossível ler grupo de estensao: %s\n"
+msgstr "Impossível ler grupo de estensão: %s\n"
 
 # plug-ins/xfig/xfig-import.c:996
 # plug-ins/xfig/xfig-import.c:996
@@ -5650,7 +5584,7 @@ msgstr "Erro ao ler ampliação: %s\n"
 # plug-ins/xfig/xfig-import.c:1096
 # plug-ins/xfig/xfig-import.c:1096
 #: plug-ins/xfig/xfig-import.c:1096
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Erro ao ler indicador de multipáginas: %s\n"
 
@@ -5693,9 +5627,7 @@ msgstr "Não parece ser um arquivo Fig: %s\n"
 #: plug-ins/xfig/xfig-import.c:1164
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
-"Este arquivo FIG é da versão %d.%d. Por isso ele pode ser importado "
-"incorretamente\n"
+msgstr "Este arquivo FIG é da versão %d.%d, e pode não ser entendido\n"
 
 # plug-ins/xfig/xfig-import.c:1205
 # plug-ins/xfig/xfig-import.c:1205
@@ -5722,7 +5654,7 @@ msgstr "Cronograma"
 # sheets/chronogram.sheet.in.h:4
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr "Objetos para projetar diagramas de cronograma"
+msgstr "Objetos para projetar gráficos de cronograma"
 
 # app/menus.c:188
 # sheets/Circuit.sheet.in.h:1
@@ -5783,9 +5715,8 @@ msgstr "Um resistor alinhado verticalmente (europeu)"
 # objects/standard/line.c:123
 # sheets/Circuit.sheet.in.h:12
 #: sheets/Circuit.sheet.in.h:12
-#, fuzzy
 msgid "A ground point"
-msgstr "Um ponto ??"
+msgstr "Um ponto de terra"
 
 # sheets/Circuit.sheet.in.h:13
 #: sheets/Circuit.sheet.in.h:13
@@ -5804,9 +5735,8 @@ msgstr "Um diodo alinhado horizontalmente"
 
 # sheets/Circuit.sheet.in.h:16
 #: sheets/Circuit.sheet.in.h:16
-#, fuzzy
 msgid "A horizontally aligned fuse"
-msgstr "Um foso alinhado horizontalmente"
+msgstr "Um fusível alinhado horizontalmente"
 
 # sheets/Circuit.sheet.in.h:17
 #: sheets/Circuit.sheet.in.h:17
@@ -5815,7 +5745,6 @@ msgstr "Uma fonte de potência alinhada horizontalmente"
 
 # sheets/Circuit.sheet.in.h:18
 #: sheets/Circuit.sheet.in.h:18
-#, fuzzy
 msgid "A horizontally aligned zener diode"
 msgstr "Um diodo zener alinhado horizontalmente"
 
@@ -5826,13 +5755,11 @@ msgstr "Uma lâmpada"
 
 # sheets/Circuit.sheet.in.h:20
 #: sheets/Circuit.sheet.in.h:20
-#, fuzzy
 msgid "A npn bipolar transistor"
 msgstr "Um transistor bipolar npn"
 
 # sheets/Circuit.sheet.in.h:21
 #: sheets/Circuit.sheet.in.h:21
-#, fuzzy
 msgid "A pnp bipolar transistor"
 msgstr "Um transistor bipolar pnp"
 
@@ -5853,13 +5780,11 @@ msgstr "Um diodo alinhado verticalmente"
 
 # sheets/Circuit.sheet.in.h:25
 #: sheets/Circuit.sheet.in.h:25
-#, fuzzy
 msgid "A vertically aligned fuse"
-msgstr "Um fuso alinhado verticalmente"
+msgstr "Um fusível alinhado verticalmente"
 
 # sheets/Circuit.sheet.in.h:26
 #: sheets/Circuit.sheet.in.h:26
-#, fuzzy
 msgid "A vertically aligned powersource"
 msgstr "Uma fonte de potência alinhada verticalmente"
 
@@ -5891,9 +5816,8 @@ msgstr "Componentes para diagramas de circuito"
 
 # sheets/civil.sheet.in.h:1
 #: sheets/civil.sheet.in.h:1
-#, fuzzy
 msgid "A Backflow Preventer"
-msgstr "Um preventor de backflow"
+msgstr ""
 
 # sheets/civil.sheet.in.h:2
 #: sheets/civil.sheet.in.h:2
@@ -5903,21 +5827,18 @@ msgstr "Uma bacia"
 # objects/FS/function.c:731
 # sheets/civil.sheet.in.h:3
 #: sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "A Container"
 msgstr "Um contêiner"
 
 # sheets/civil.sheet.in.h:4
 #: sheets/civil.sheet.in.h:4
-#, fuzzy
 msgid "A Frequency Converter"
-msgstr "Um conversor de freqüências"
+msgstr "Um conversor de freqüência"
 
 # sheets/civil.sheet.in.h:5
 #: sheets/civil.sheet.in.h:5
-#, fuzzy
 msgid "A Gas Bottle"
-msgstr "Um tubo de gás"
+msgstr ""
 
 # objects/UML/actor.c:332
 # sheets/civil.sheet.in.h:6
@@ -5927,26 +5848,22 @@ msgstr "Um motor"
 
 # sheets/civil.sheet.in.h:7
 #: sheets/civil.sheet.in.h:7
-#, fuzzy
 msgid "A Preliminary Clarification Tank"
 msgstr "Um tanque de clarificação preliminar"
 
 # objects/UML/actor.c:332
 # sheets/civil.sheet.in.h:8
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "A Rotor"
 msgstr "Um rotor"
 
 # sheets/civil.sheet.in.h:9
 #: sheets/civil.sheet.in.h:9
-#, fuzzy
 msgid "A final-settling Basin"
-msgstr "Uma bacia de settle final"
+msgstr ""
 
 # sheets/civil.sheet.in.h:10
 #: sheets/civil.sheet.in.h:10
-#, fuzzy
 msgid "A horizontal limiting line"
 msgstr "Uma linha limite horizontal"
 
@@ -5957,7 +5874,6 @@ msgstr "Uma seta alinhada horizontalmente"
 
 # sheets/civil.sheet.in.h:12
 #: sheets/civil.sheet.in.h:12
-#, fuzzy
 msgid "A vertical limiting line"
 msgstr "Uma linha limite vertical"
 
@@ -5968,14 +5884,13 @@ msgstr "Uma seta alinhada verticalmente"
 
 # sheets/civil.sheet.in.h:14
 #: sheets/civil.sheet.in.h:14
-#, fuzzy
 msgid "An Aerator with bubbles"
-msgstr "Um aerrator com bolhar"
+msgstr "Um gaseificador com bolhas"
 
 # sheets/civil.sheet.in.h:15
 #: sheets/civil.sheet.in.h:15
 msgid "Bivalent Vertical Rest"
-msgstr ""
+msgstr "Descanso vertical bivalente"
 
 # sheets/civil.sheet.in.h:16
 #: sheets/civil.sheet.in.h:16
@@ -5990,14 +5905,13 @@ msgstr "Componentes de Engenharia Civil"
 # objects/custom/custom_object.c:1516
 # sheets/civil.sheet.in.h:18
 #: sheets/civil.sheet.in.h:18
-#, fuzzy
 msgid "Horizontal Rest"
-msgstr "Rest Horizontal"
+msgstr "Descanso horizontal"
 
 # sheets/civil.sheet.in.h:19
 #: sheets/civil.sheet.in.h:19
 msgid "Horizontally aligned Valve"
-msgstr "Valor alinhado verticalmente"
+msgstr "Válvula alinhada horizotalmente"
 
 # sheets/civil.sheet.in.h:20
 #: sheets/civil.sheet.in.h:20
@@ -6007,7 +5921,7 @@ msgstr "Compressor alinhado horizontalmente"
 # sheets/civil.sheet.in.h:21
 #: sheets/civil.sheet.in.h:21
 msgid "Horizontally aligned pump"
-msgstr "Bomba alinhado horizontalmente"
+msgstr "Bomba alinhada horizontalmente"
 
 # app/interface.c:82
 # sheets/civil.sheet.in.h:22
@@ -6018,27 +5932,24 @@ msgstr "Linha de referência"
 # lib/widgets.c:323 objects/FS/function.c:807
 # sheets/civil.sheet.in.h:23
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Soil"
-msgstr "Sólido"
+msgstr "Terra"
 
 # objects/custom/custom_object.c:1517
 # sheets/civil.sheet.in.h:24
 #: sheets/civil.sheet.in.h:24
-#, fuzzy
 msgid "Vertical Rest"
-msgstr "Rest Vertical"
+msgstr "Descanso Vertical"
 
 # sheets/civil.sheet.in.h:25
 #: sheets/civil.sheet.in.h:25
-#, fuzzy
 msgid "Vertically aligned Propeller"
-msgstr "Propelador alinhado verticalmente"
+msgstr "Hélice alinhada verticalmente"
 
 # sheets/civil.sheet.in.h:26
 #: sheets/civil.sheet.in.h:26
 msgid "Vertically aligned Valve"
-msgstr "Valor alinhado verticalmente"
+msgstr "Válvula alinhada verticalmente"
 
 # sheets/civil.sheet.in.h:27
 #: sheets/civil.sheet.in.h:27
@@ -6057,15 +5968,13 @@ msgstr "Nível da água"
 
 # sheets/Contact.sheet.in.h:1
 #: sheets/Contact.sheet.in.h:1
-#, fuzzy
 msgid "A 'if not' (normally closed) ladder contact"
-msgstr "Um contato de ladeira 'se não' (normalmente fechado)"
+msgstr "Um contato de escada 'se não' (normalmente fechado)"
 
 # sheets/Contact.sheet.in.h:2
 #: sheets/Contact.sheet.in.h:2
-#, fuzzy
 msgid "A 'if' (normally open) ladder contact"
-msgstr "Um contato de ladeira 'se' (normalmente fechado)"
+msgstr "Um contato de escada 'se' (normalmente fechado)"
 
 # sheets/Contact.sheet.in.h:3
 #: sheets/Contact.sheet.in.h:3
@@ -6089,32 +5998,27 @@ msgstr "Uma variável de saída negativa"
 
 # sheets/Contact.sheet.in.h:7
 #: sheets/Contact.sheet.in.h:7
-#, fuzzy
 msgid "A power-saved 'reset' output variable"
-msgstr "Uma variável de saída 'reset' econômica"
+msgstr ""
 
 # sheets/Contact.sheet.in.h:8
 #: sheets/Contact.sheet.in.h:8
-#, fuzzy
 msgid "A power-saved 'set' output variable"
-msgstr "Uma variável de saída 'set' econômica"
+msgstr ""
 
 # sheets/Contact.sheet.in.h:9
 #: sheets/Contact.sheet.in.h:9
-#, fuzzy
 msgid "A power-saved negative output variable"
 msgstr "Uma variável de saída negativa econômica"
 
 # sheets/Contact.sheet.in.h:10
 #: sheets/Contact.sheet.in.h:10
-#, fuzzy
 msgid "A power-saved simple output variable"
 msgstr "Uma variável de saída simples econômica"
 
 # objects/GRAFCET/transition.c:142
 # sheets/Contact.sheet.in.h:11
 #: sheets/Contact.sheet.in.h:11
-#, fuzzy
 msgid "A receptivity output variable"
 msgstr "Uma variável de saída de receptividade"
 
@@ -6126,76 +6030,72 @@ msgstr "Uma variável de saída simples"
 # sheets/Contact.sheet.in.h:13
 #: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
-msgstr "Componentes para circuitos LADDER"
+msgstr "Componentes para circuitos de escada (LADDER)"
 
 # app/layer_dialog.c:206
 # sheets/Contact.sheet.in.h:14
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "Ladder"
+msgstr "Escada"
 
 # objects/GRAFCET/vergent.c:390 objects/SADT/box.c:438
 # objects/standard/line.c:182
 # sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "A connection point"
 msgstr "Um ponto de conexão"
 
 # sheets/Electric.sheet.in.h:2
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr "Uma lâmpada ou "
+msgstr "Uma lâmpada ou indicador de luz"
 
 # sheets/Electric.sheet.in.h:3
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr ""
+msgstr "Um contato normalmente fechado"
 
 # sheets/Electric.sheet.in.h:4
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
-msgstr ""
+msgstr "Um interruptor normalmente fechado"
 
 # sheets/Electric.sheet.in.h:5
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr ""
+msgstr "Um contato normalmente aberto"
 
 # sheets/Electric.sheet.in.h:6
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
-msgstr ""
+msgstr "Um interruptor normalmente aberto"
 
 # sheets/Electric.sheet.in.h:7
 #: sheets/Electric.sheet.in.h:7
 msgid "A relay"
-msgstr ""
+msgstr "Um relé"
 
 # sheets/Electric.sheet.in.h:8
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
-msgstr ""
+msgstr "Componentes para circuitos elétricos"
 
 # objects/FS/function.c:829
 # sheets/Electric.sheet.in.h:9
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
 msgstr "Elétrico"
 
 # sheets/Electric.sheet.in.h:10
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
-msgstr ""
+msgstr "O órgão de comando de um relé"
 
 # app/interface.c:87
 # sheets/EML.sheet.in.h:1
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "Criar arco"
+msgstr "Criar um processo"
 
 # sheets/EML.sheet.in.h:2
 #: sheets/EML.sheet.in.h:2
@@ -6205,149 +6105,135 @@ msgstr "EML"
 # sheets/EML.sheet.in.h:3
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
-msgstr "Editor para diagramas de estruturas estáticas EML"
+msgstr "Editor para diagramas de estruturas estáticas EML."
 
 # sheets/EML.sheet.in.h:4
 #: sheets/EML.sheet.in.h:4
-#, fuzzy
 msgid "Instantiation. One process create others"
-msgstr "Instanciação. Um processo cria outros."
+msgstr "Instanciação. Um processo cria outros"
 
 # sheets/EML.sheet.in.h:5
 #: sheets/EML.sheet.in.h:5
 msgid "Interaction between processes."
-msgstr ""
+msgstr "Interação entre processos."
 
 # sheets/ER.sheet.in.h:2
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 # objects/ER/er.c:44
 # sheets/ER.sheet.in.h:3
 #: sheets/ER.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Objetos de diagrama Entidade/Relacionamento"
+msgstr "Editor para diagramas Entidade/Relacionamento"
 
 # objects/FS/function.c:840 objects/FS/function.c:844
 # sheets/ER.sheet.in.h:5
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "Radiação"
+msgstr "Participação"
 
 # objects/ER/entity.c:340 objects/UML/classicon.c:124
 # sheets/ER.sheet.in.h:7
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "Entidade"
+msgstr "Entidade fraca"
 
 # sheets/Flowchart.sheet.in.h:1
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
-msgstr ""
+msgstr "Uma caixa com texto no interior"
 
 # sheets/Flowchart.sheet.in.h:2
 #: sheets/Flowchart.sheet.in.h:2
 msgid "A diamond with text inside"
-msgstr ""
+msgstr "Um diamante com texto no interior"
 
 # sheets/Flowchart.sheet.in.h:3
 #: sheets/Flowchart.sheet.in.h:3
 msgid "A ellipse with text inside"
-msgstr ""
+msgstr "Uma elipse com texto no interior"
 
 # sheets/Flowchart.sheet.in.h:4
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "Um paralelogramo com texto no interior"
 
 # objects/FS/function.c:803
 # sheets/Flowchart.sheet.in.h:5
 #: sheets/Flowchart.sheet.in.h:5
-#, fuzzy
 msgid "Collate"
-msgstr "Calcular"
+msgstr ""
 
 # objects/FS/function.c:800
 # sheets/Flowchart.sheet.in.h:6
 #: sheets/Flowchart.sheet.in.h:6
-#, fuzzy
 msgid "Delay"
-msgstr "Mostrar"
+msgstr "Atraso"
 
 # objects/FS/function.c:666
 # sheets/Flowchart.sheet.in.h:8
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
-msgstr "Subir"
+msgstr "Documento"
 
 # objects/flowchart/flowchart.c:37
 # sheets/Flowchart.sheet.in.h:10
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "Objetos de fluxograma"
+msgstr "Fluxograma"
 
 # lib/widgets.c:678
 # sheets/Flowchart.sheet.in.h:11
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Internal Storage"
-msgstr "Símbolo inteiro"
+msgstr "Armazenagem interna"
 
 # objects/FS/function.c:852
 # sheets/Flowchart.sheet.in.h:12
 #: sheets/Flowchart.sheet.in.h:12
-#, fuzzy
 msgid "Magnetic Disk"
-msgstr "Energia magnética"
+msgstr "Disco magnético"
 
 # objects/FS/function.c:852
 # sheets/Flowchart.sheet.in.h:13
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic Drum"
-msgstr "Energia magnética"
+msgstr "Tambor magnético"
 
 # objects/FS/function.c:852
 # sheets/Flowchart.sheet.in.h:14
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic Tape"
-msgstr "Energia magnética"
+msgstr "Fita magnética"
 
 # sheets/Flowchart.sheet.in.h:15
 #: sheets/Flowchart.sheet.in.h:15
 msgid "Manual Input"
-msgstr ""
+msgstr "Entrada manual"
 
 # objects/UML/class_dialog.c:1542
 # sheets/Flowchart.sheet.in.h:16
 #: sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual Operation"
-msgstr "Operações"
+msgstr "Operação manual"
 
 # objects/FS/function.c:715
 # sheets/Flowchart.sheet.in.h:17
 #: sheets/Flowchart.sheet.in.h:17
-#, fuzzy
 msgid "Merge"
-msgstr "Divergir"
+msgstr "Mesclar"
 
 # sheets/Flowchart.sheet.in.h:18
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
-msgstr ""
+msgstr "Objetos para desenhar fluxogramas"
 
 # sheets/Flowchart.sheet.in.h:19
 #: sheets/Flowchart.sheet.in.h:19
 msgid "Off Page Connector"
-msgstr ""
+msgstr "Conector fora de página"
 
 # sheets/Flowchart.sheet.in.h:20
 #: sheets/Flowchart.sheet.in.h:20
@@ -6357,80 +6243,71 @@ msgstr ""
 # sheets/Flowchart.sheet.in.h:21
 #: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
-msgstr ""
+msgstr "Ou"
 
 # app/preferences.c:650 app/preferences.c:659
 # sheets/Flowchart.sheet.in.h:22
 #: sheets/Flowchart.sheet.in.h:22
-#, fuzzy
 msgid "Predefined Process"
-msgstr "Preferências"
+msgstr "Processos predefinidos"
 
 # objects/UML/class_dialog.c:1542
 # sheets/Flowchart.sheet.in.h:23
 #: sheets/Flowchart.sheet.in.h:23
-#, fuzzy
 msgid "Preparation"
-msgstr "Operações"
+msgstr "Preparação"
 
 # sheets/Flowchart.sheet.in.h:24
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
-msgstr ""
+msgstr "Cartão perfurado"
 
 # sheets/Flowchart.sheet.in.h:25
 #: sheets/Flowchart.sheet.in.h:25
 msgid "Punched Tape"
-msgstr ""
+msgstr "Fita perfurada"
 
 # objects/FS/function.c:651 objects/FS/function.c:652
 # sheets/Flowchart.sheet.in.h:26
 #: sheets/Flowchart.sheet.in.h:26
-#, fuzzy
 msgid "Sort"
-msgstr "Suporte"
+msgstr "Ordenação"
 
 # objects/FS/function.c:136
 # sheets/Flowchart.sheet.in.h:27
 #: sheets/Flowchart.sheet.in.h:27
-#, fuzzy
 msgid "Summing Junction"
-msgstr "Função desejada"
+msgstr "Combinação de saída"
 
 # objects/FS/function.c:836
 # sheets/Flowchart.sheet.in.h:28
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
-msgstr "Térmico"
+msgstr "Terminal"
 
 # objects/FS/function.c:821
 # sheets/Flowchart.sheet.in.h:29
 #: sheets/Flowchart.sheet.in.h:29
-#, fuzzy
 msgid "Transaction File"
-msgstr "Translação"
+msgstr "Arquivo de transação"
 
 # objects/FS/function.c:631 objects/FS/function.c:632
 # sheets/Flowchart.sheet.in.h:30
 #: sheets/Flowchart.sheet.in.h:30
-#, fuzzy
 msgid "Transmittal Tape"
-msgstr "Transmitir"
+msgstr "Fita de transmição"
 
 # app/interface.c:62
 # sheets/FS.sheet.in.h:1
 #: sheets/FS.sheet.in.h:1
-#, fuzzy
 msgid "Create a flow"
-msgstr "Criar caixa"
+msgstr "Criar um fluxo"
 
 # objects/FS/function.c:138
 # sheets/FS.sheet.in.h:2
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "Função do usuário"
+msgstr "Criar uma função"
 
 # sheets/FS.sheet.in.h:3
 #: sheets/FS.sheet.in.h:3
@@ -6440,227 +6317,212 @@ msgstr ""
 # objects/FS/fs.c:43
 # sheets/FS.sheet.in.h:4
 #: sheets/FS.sheet.in.h:4
-#, fuzzy
 msgid "Editor for Function Structure Diagrams."
-msgstr "Objetos de diagrama de estrutura funcional"
+msgstr "Editor para diagramas de estrutura funcional."
 
 # sheets/FS.sheet.in.h:5
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
-msgstr ""
+msgstr "EF"
 
 # objects/GRAFCET/vergent.c:395
 # sheets/GRAFCET.sheet.in.h:1
 #: sheets/GRAFCET.sheet.in.h:1
-#, fuzzy
 msgid "A AND vergent"
-msgstr "Vergente GRAFCET E/OU"
+msgstr "Uma vergente E"
 
 # objects/GRAFCET/vergent.c:395
 # sheets/GRAFCET.sheet.in.h:2
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
 msgid "A OR vergent"
-msgstr "Vergente GRAFCET E/OU"
+msgstr "Uma vergente OU"
 
 # objects/GRAFCET/condition.c:131
 # sheets/GRAFCET.sheet.in.h:3
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
 msgid "A condition (of an action)"
-msgstr "Fonte da condição"
+msgstr "Uma condição (de uma ação)"
 
 # objects/GRAFCET/step.c:150
 # sheets/GRAFCET.sheet.in.h:4
 #: sheets/GRAFCET.sheet.in.h:4
-#, fuzzy
 msgid "A macro call step"
-msgstr "Passo de chamada de macro"
+msgstr "Um passo de chamada de macro"
 
 # objects/GRAFCET/step.c:148
 # sheets/GRAFCET.sheet.in.h:5
 #: sheets/GRAFCET.sheet.in.h:5
-#, fuzzy
 msgid "A macro entry step"
-msgstr "Passo de entrada de macro"
+msgstr "Um passo de entrada de macro"
 
 # objects/GRAFCET/step.c:149
 # sheets/GRAFCET.sheet.in.h:6
 #: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "A macro exit step"
-msgstr "Passo de saída de macro"
+msgstr "Um passo de saída de macro"
 
 # objects/GRAFCET/step.c:151
 # sheets/GRAFCET.sheet.in.h:7
 #: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
 msgid "A macro sub-program call step"
-msgstr "Passo de chamada de subprograma"
+msgstr "Um passo de chamada a subprograma de macro"
 
 # objects/GRAFCET/step.c:146
 # sheets/GRAFCET.sheet.in.h:8
 #: sheets/GRAFCET.sheet.in.h:8
-#, fuzzy
 msgid "A regular step"
-msgstr " Passo regular"
+msgstr "Um passo regular"
 
 # objects/FS/function.c:821
 # sheets/GRAFCET.sheet.in.h:9
 #: sheets/GRAFCET.sheet.in.h:9
-#, fuzzy
 msgid "A transition"
-msgstr "Translação"
+msgstr "Uma transição"
 
 # objects/GRAFCET/action.c:134
 # sheets/GRAFCET.sheet.in.h:10
 #: sheets/GRAFCET.sheet.in.h:10
-#, fuzzy
 msgid "An action to associate to a step"
-msgstr "Esta ação é uma chamada para um passo de macro"
+msgstr "Uma ação para associar a um passo"
 
 # sheets/GRAFCET.sheet.in.h:11
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Um arco (para cima)"
 
 # objects/GRAFCET/step.c:147
 # sheets/GRAFCET.sheet.in.h:12
 #: sheets/GRAFCET.sheet.in.h:12
-#, fuzzy
 msgid "An initial step"
-msgstr "Passo inicial"
+msgstr "Um passo inicial"
 
 # sheets/GRAFCET.sheet.in.h:13
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 # sheets/GRAFCET.sheet.in.h:14
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "Objetos para projetar gráficos GRAFCET"
 
 # sheets/jigsaw.sheet.in.h:1
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr ""
+msgstr "Quebra-cabeças"
 
 # sheets/jigsaw.sheet.in.h:2
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Quebra-cabeças - parte iiii"
 
 # sheets/jigsaw.sheet.in.h:3
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Quebra-cabeças - parte iiio"
 
 # sheets/jigsaw.sheet.in.h:4
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Quebra-cabeças - parte iioi"
 
 # sheets/jigsaw.sheet.in.h:5
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Quebra-cabeças - parte iioo"
 
 # sheets/jigsaw.sheet.in.h:6
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Quebra-cabeças - parte ioii"
 
 # sheets/jigsaw.sheet.in.h:7
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Quebra-cabeças - parte ioio"
 
 # sheets/jigsaw.sheet.in.h:8
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Quebra-cabeças - parte iooi"
 
 # sheets/jigsaw.sheet.in.h:9
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Quebra-cabeças - parte iooo"
 
 # sheets/jigsaw.sheet.in.h:10
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Quebra-cabeças - parte oiii"
 
 # sheets/jigsaw.sheet.in.h:11
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Quebra-cabeças - parte oiio"
 
 # sheets/jigsaw.sheet.in.h:12
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Quebra-cabeças - parte oioi"
 
 # sheets/jigsaw.sheet.in.h:13
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Quebra-cabeças - parte oioo"
 
 # sheets/jigsaw.sheet.in.h:14
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Quebra-cabeças - parte ooii"
 
 # sheets/jigsaw.sheet.in.h:15
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Quebra-cabeças - parte ooio"
 
 # sheets/jigsaw.sheet.in.h:16
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Quebra-cabeças - parte oooi"
 
 # sheets/jigsaw.sheet.in.h:17
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Quebra-cabeças - parte oooo"
 
 # sheets/jigsaw.sheet.in.h:18
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "Peças de quebra-cabeças"
 
 # sheets/Logic.sheet.in.h:1
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
-msgstr ""
+msgstr "Uma porta Ne"
 
 # objects/UML/association.c:1084
 # sheets/Logic.sheet.in.h:2
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
 msgid "A Nor gate"
-msgstr "Agregar"
+msgstr "Uma porta Nou"
 
 # sheets/Logic.sheet.in.h:3
 #: sheets/Logic.sheet.in.h:3
 msgid "A Not"
-msgstr ""
+msgstr "Um Não"
 
 # objects/UML/association.c:1084
 # sheets/Logic.sheet.in.h:4
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "A Xor gate"
-msgstr "Agregar"
+msgstr "Uma porta Xou"
 
 # objects/FS/function.c:698
 # sheets/Logic.sheet.in.h:5
 #: sheets/Logic.sheet.in.h:5
-#, fuzzy
 msgid "A crossconnector"
-msgstr "Desconectar"
+msgstr "Um conector cruzado"
 
 # sheets/Logic.sheet.in.h:6
 #: sheets/Logic.sheet.in.h:6
@@ -6675,70 +6537,64 @@ msgstr ""
 # app/menus.c:146 app/menus.c:154
 # sheets/Logic.sheet.in.h:8
 #: sheets/Logic.sheet.in.h:8
-#, fuzzy
 msgid "An Inverter"
-msgstr "Inverter"
+msgstr "Um inversor"
 
 # objects/UML/association.c:1084
 # sheets/Logic.sheet.in.h:9
 #: sheets/Logic.sheet.in.h:9
-#, fuzzy
 msgid "An Or gate"
-msgstr "Agregar"
+msgstr "Uma porta Ou"
 
 # objects/FS/function.c:817
 # sheets/Logic.sheet.in.h:10
 #: sheets/Logic.sheet.in.h:10
-#, fuzzy
 msgid "Boolean Logic"
-msgstr "Biológico"
+msgstr "Lógica booleana"
 
 # objects/FS/function.c:667
 # sheets/Logic.sheet.in.h:11
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "Logic"
-msgstr "Bloquear"
+msgstr "Lógica"
 
 # sheets/MSE.sheet.in.h:1
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
-msgstr ""
+msgstr "Demultiplexador"
 
 # sheets/MSE.sheet.in.h:2
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
-msgstr ""
+msgstr "Nó de larga extensão"
 
 # sheets/MSE.sheet.in.h:3
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 # objects/FS/function.c:765
 # sheets/MSE.sheet.in.h:4
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "Multiplicar"
+msgstr "Multiplexador"
 
 # app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
 # lib/widgets.c:209
 # sheets/MSE.sheet.in.h:5
 #: sheets/MSE.sheet.in.h:5
-#, fuzzy
 msgid "Node Center"
-msgstr "Centralizar"
+msgstr "Nó central"
 
 # sheets/MSE.sheet.in.h:6
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
-msgstr ""
+msgstr "Nó de pequena extensão"
 
 # sheets/MSE.sheet.in.h:7
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Terminal tático de comunicações via satélite"
 
 # sheets/MSE.sheet.in.h:8
 #: sheets/MSE.sheet.in.h:8
@@ -6748,44 +6604,43 @@ msgstr ""
 # sheets/network.sheet.in.h:1
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "Um disquete de 3 1/2\""
 
 # sheets/network.sheet.in.h:2
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
-msgstr ""
+msgstr "Um torre de PC grande"
 
 # objects/standard/polygon.c:526 objects/standard/polyline.c:498
 # sheets/network.sheet.in.h:3
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Adicionar quina"
+msgstr "Um computador"
 
 # sheets/network.sheet.in.h:4
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
-msgstr ""
+msgstr "Um PC de mesa"
 
 # sheets/network.sheet.in.h:5
 #: sheets/network.sheet.in.h:5
 msgid "A Firewall router"
-msgstr ""
+msgstr "Um roteador Firewall"
 
 # sheets/network.sheet.in.h:6
 #: sheets/network.sheet.in.h:6
 msgid "A Miditower PC"
-msgstr ""
+msgstr "Uma torre de PC média"
 
 # sheets/network.sheet.in.h:7
 #: sheets/network.sheet.in.h:7
 msgid "A Minitower PC"
-msgstr ""
+msgstr "Um minitorre de PC"
 
 # sheets/network.sheet.in.h:8
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Um celular"
 
 # sheets/network.sheet.in.h:9
 #: sheets/network.sheet.in.h:9
@@ -6795,19 +6650,18 @@ msgstr ""
 # sheets/network.sheet.in.h:10
 #: sheets/network.sheet.in.h:10
 msgid "A UNIX Workstation"
-msgstr ""
+msgstr "Uma estação UNIX"
 
 # objects/FS/function.c:839
 # sheets/network.sheet.in.h:11
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "A WAN Connection"
-msgstr "Convecção"
+msgstr "Uma conexão WAN"
 
 # sheets/network.sheet.in.h:12
 #: sheets/network.sheet.in.h:12
 msgid "A WAN Link"
-msgstr ""
+msgstr "Um link WAN"
 
 # sheets/network.sheet.in.h:13
 #: sheets/network.sheet.in.h:13
@@ -6817,69 +6671,68 @@ msgstr ""
 # sheets/network.sheet.in.h:14
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "Um monitor de estação"
 
 # sheets/network.sheet.in.h:15
 #: sheets/network.sheet.in.h:15
 msgid "A ZIP Disk"
-msgstr ""
+msgstr "Um disco ZIP"
 
 # sheets/network.sheet.in.h:16
 #: sheets/network.sheet.in.h:16
 msgid "A modular switching system"
-msgstr ""
+msgstr "Um sistema de conexão modular"
 
 # sheets/network.sheet.in.h:17
 #: sheets/network.sheet.in.h:17
 msgid "A monitor"
-msgstr ""
+msgstr "Um monitor"
 
 # sheets/network.sheet.in.h:18
 #: sheets/network.sheet.in.h:18
 msgid "A simple Modem"
-msgstr ""
+msgstr "Um modem simples"
 
 # app/paginate_psprint.c:216
 # sheets/network.sheet.in.h:19
 #: sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "A simple printer"
-msgstr "Selecionar impressora"
+msgstr "Uma impressora simples"
 
 # sheets/network.sheet.in.h:20
 #: sheets/network.sheet.in.h:20
 msgid "A speaker with integrated amplifier"
-msgstr ""
+msgstr "Um autofalante com amplificador integrado"
 
 # sheets/network.sheet.in.h:21
 #: sheets/network.sheet.in.h:21
 msgid "A speaker without amplifier"
-msgstr ""
+msgstr "Um autofalante sem amplificador"
 
 # sheets/network.sheet.in.h:22
 #: sheets/network.sheet.in.h:22
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "Um hub ou switch empilhável"
 
 # sheets/network.sheet.in.h:23
 #: sheets/network.sheet.in.h:23
 msgid "ATM Switch Symbol"
-msgstr ""
+msgstr "Símbolo de switch ATM"
 
 # sheets/network.sheet.in.h:24
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
-msgstr ""
+msgstr "Um barramento Ethernet"
 
 # sheets/network.sheet.in.h:25
 #: sheets/network.sheet.in.h:25
 msgid "An antenna for wireless transmission"
-msgstr ""
+msgstr "Uma antena para transmissão sem fio"
 
 # sheets/network.sheet.in.h:26
 #: sheets/network.sheet.in.h:26
 msgid "An external DAT drive"
-msgstr ""
+msgstr "Um drive DAT externo"
 
 # objects/UML/class_dialog.c:697 objects/UML/class_dialog.c:1570
 # objects/UML/class_dialog.c:1730 objects/UML/class_dialog.c:2191
@@ -6891,7 +6744,7 @@ msgstr "Rede"
 # sheets/network.sheet.in.h:28
 #: sheets/network.sheet.in.h:28
 msgid "Network Cloud"
-msgstr "Nuvem de Rede"
+msgstr "Nuvem da Rede"
 
 # sheets/network.sheet.in.h:29
 #: sheets/network.sheet.in.h:29
@@ -6907,15 +6760,14 @@ msgstr "Símbolo de Roteador"
 # objects/FS/function.c:729 objects/FS/function.c:730
 # sheets/network.sheet.in.h:31
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "Storage"
-msgstr "Armazenar"
+msgstr "Armazenagem"
 
 # objects/FS/function.c:694
 # sheets/network.sheet.in.h:32
 #: sheets/network.sheet.in.h:32
 msgid "Switch Symbol"
-msgstr "Trocar Símbolo"
+msgstr "Símbolo de switch"
 
 # sheets/Pneumatic.sheet.in.h:1
 #: sheets/Pneumatic.sheet.in.h:1
@@ -6950,17 +6802,17 @@ msgstr "Um distribuidor 5/3"
 # sheets/Pneumatic.sheet.in.h:8
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
-msgstr "Um jack de efeito duplo"
+msgstr ""
 
 # sheets/Pneumatic.sheet.in.h:9
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "Uma fonte de pressão genérica"
 
 # sheets/Pneumatic.sheet.in.h:10
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "Uma fonte de pressão hidráulica"
 
 # sheets/Pneumatic.sheet.in.h:11
 #: sheets/Pneumatic.sheet.in.h:11
@@ -6975,29 +6827,27 @@ msgstr ""
 # sheets/Pneumatic.sheet.in.h:13
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr ""
+msgstr "Uma fonte de pressão pneumática"
 
 # sheets/Pneumatic.sheet.in.h:14
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
-msgstr ""
+msgstr "Um orifício para saída de ar"
 
 # sheets/Pneumatic.sheet.in.h:15
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
+msgstr "Componentes para circuitos pneumáticos e hidráulicos"
 
 # sheets/Pneumatic.sheet.in.h:16
 #: sheets/Pneumatic.sheet.in.h:16
-#, fuzzy
 msgid "Electric command (double coil)"
-msgstr "Comando elétrico"
+msgstr ""
 
 # sheets/Pneumatic.sheet.in.h:17
 #: sheets/Pneumatic.sheet.in.h:17
-#, fuzzy
 msgid "Electric command (single coil)"
-msgstr "Comando elétrico"
+msgstr ""
 
 # sheets/Pneumatic.sheet.in.h:18
 #: sheets/Pneumatic.sheet.in.h:18
@@ -7022,7 +6872,7 @@ msgstr ""
 # sheets/Pneumatic.sheet.in.h:22
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
-msgstr ""
+msgstr "Comando muscular"
 
 # objects/FS/function.c:833
 # sheets/Pneumatic.sheet.in.h:23
@@ -7032,9 +6882,8 @@ msgstr "Pneumático/Hidráulico"
 
 # sheets/Pneumatic.sheet.in.h:24
 #: sheets/Pneumatic.sheet.in.h:24
-#, fuzzy
 msgid "Push-button command"
-msgstr "Comando de botão"
+msgstr ""
 
 # objects/SADT/box.c:144
 # sheets/SADT.sheet.in.h:1
@@ -7104,13 +6953,11 @@ msgstr "Nota de texto genérica"
 # objects/FS/function.c:675 objects/FS/function.c:676
 # sheets/SDL.sheet.in.h:8
 #: sheets/SDL.sheet.in.h:8
-#, fuzzy
 msgid "In/Out Connector"
-msgstr "Conector In/Out"
+msgstr "Conector de entrada/saída"
 
 # sheets/SDL.sheet.in.h:10
 #: sheets/SDL.sheet.in.h:10
-#, fuzzy
 msgid "Procedure Return"
 msgstr "Retorno de procedimento"
 
@@ -7228,9 +7075,8 @@ msgstr "Criar um pacote (pequeno)"
 # app/interface.c:87
 # sheets/UML.sheet.in.h:6
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Criar um ramo"
+msgstr ""
 
 # objects/UML/class_dialog.c:2163
 # sheets/UML.sheet.in.h:7
@@ -7258,9 +7104,8 @@ msgstr "Criar uma dependência"
 # app/interface.c:102
 # sheets/UML.sheet.in.h:11
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Create a lifeline"
-msgstr "Criar uma linha de vida"
+msgstr ""
 
 # app/interface.c:107
 # sheets/UML.sheet.in.h:12
@@ -7295,9 +7140,8 @@ msgstr "Criar uma classe modelo"
 # app/interface.c:107
 # sheets/UML.sheet.in.h:17
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a use case"
-msgstr "Criar um caso de uso"
+msgstr ""
 
 # app/menus.c:45 app/menus.c:56
 # sheets/UML.sheet.in.h:18
@@ -7328,9 +7172,8 @@ msgstr "Implementa, classe implementa uma interface específica"
 
 # sheets/UML.sheet.in.h:23
 #: sheets/UML.sheet.in.h:23
-#, fuzzy
 msgid "Realizes, implements a specific interface"
-msgstr "Relaliza, implementa uma interface específica"
+msgstr ""
 
 # sheets/UML.sheet.in.h:24
 #: sheets/UML.sheet.in.h:24
