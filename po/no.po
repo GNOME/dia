@@ -5,39 +5,40 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-04-07 13:12-0400\n"
-"PO-Revision-Date: 2001-04-07 13:14-04:00\n"
+"POT-Creation-Date: 2001-05-20 00:41+0200\n"
+"PO-Revision-Date: 2001-05-20 00:58+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:147
+#. &export_file_name
+#: app/app_procs.c:148
 msgid "Export loaded file and exit"
 msgstr "Eksportér innlest fil og avslutt"
 
-#: app/app_procs.c:147
+#: app/app_procs.c:148
 msgid "OUTPUT"
 msgstr "UTSKRIFT"
 
-#: app/app_procs.c:149
+#: app/app_procs.c:150
 msgid "Don't show the splash screen"
 msgstr "Ikke vis splash-skjerm"
 
-#: app/app_procs.c:151
+#: app/app_procs.c:152
 msgid "Show this help message"
 msgstr "Vis denne hjelpeteksten"
 
-#: app/app_procs.c:170
+#: app/app_procs.c:176
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke koble til sesjonsbehandleren!\n"
 
-#: app/app_procs.c:181
+#: app/app_procs.c:187
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGG...] [FIL...]"
 
-#: app/app_procs.c:184
+#: app/app_procs.c:190
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,22 +48,22 @@ msgstr ""
 "Kjør '%s --help' for å se en full liste over tilgjengelige "
 "kommandolinjeflagg.\n"
 
-#: app/app_procs.c:233 app/app_procs.c:235
+#: app/app_procs.c:239 app/app_procs.c:241
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek, "
 "avslutter...\n"
 
-#: app/app_procs.c:260
+#: app/app_procs.c:266
 msgid "Need valid input file\n"
 msgstr "Trenger gyldig innfil\n"
 
-#: app/app_procs.c:318 app/app_procs.c:324
+#: app/app_procs.c:332 app/app_procs.c:338
 msgid "Quit, are you sure?"
 msgstr "Avslutt, er du sikker?"
 
-#: app/app_procs.c:331
+#: app/app_procs.c:345
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -70,21 +71,21 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:341 app/app_procs.c:346
+#: app/app_procs.c:355 app/app_procs.c:360
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:358 app/display.c:918 app/layer_dialog.c:989
-#: app/lineprops_area.c:731 app/lineprops_area.c:929 app/linewidth_area.c:246
+#: app/app_procs.c:372 app/display.c:953 app/layer_dialog.c:989
+#: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:432 app/app_procs.c:439
+#: app/app_procs.c:447 app/app_procs.c:454
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:441
+#: app/app_procs.c:456
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -92,7 +93,7 @@ msgstr ""
 "Kunne ikke opprette per-bruker konfigurasjonskatalog. Vennligst sjekk at "
 "miljøvariabelen $HOME peker til en eksisterende katalog."
 
-#: app/app_procs.c:463
+#: app/app_procs.c:478
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
@@ -122,41 +123,41 @@ msgstr "Uten navn-%d"
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
-#: app/commands.c:499 app/commands.c:522
+#: app/commands.c:501 app/commands.c:524
 msgid "Could not find help directory"
 msgstr "Kunne ikke finne hjelp-katalog"
 
-#: app/commands.c:569
+#: app/commands.c:571
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:612
+#: app/commands.c:614
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:617
+#: app/commands.c:619
 msgid "Maintainer: James Henstridge"
 msgstr "Maintainer: James Henstridge"
 
-#: app/commands.c:621
+#: app/commands.c:623
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:626
+#: app/commands.c:628
 msgid "Contributors:"
 msgstr "Hjelpere:"
 
 #. setup buttons
-#: app/commands.c:643 app/dia-props.c:86 app/layer_dialog.c:979
-#: app/lineprops_area.c:722 app/lineprops_area.c:919 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
-#: app/properties.c:82 lib/message.c:87
+#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:605
+#: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:729
+#: app/commands.c:731
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -166,22 +167,22 @@ msgstr ""
 "krasj. Vi vet at det er feil i den, så ikke\n"
 "send inn flere rapporter hvis den krasjer."
 
-#: app/defaults.c:48 app/defaults.c:56
+#: app/defaults.c:50 app/defaults.c:58
 msgid "Object defaults"
 msgstr "Standardverdier for objekt"
 
-#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:613 app/properties.c:91
+#: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:614 app/properties.c:101
 msgid "Apply"
 msgstr "Bruk"
 
-#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:622
-#: app/properties.c:101
+#: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:623
+#: app/properties.c:111
 msgid "Close"
 msgstr "Lukk"
 
-#: app/defaults.c:96
+#: app/defaults.c:98
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
@@ -217,7 +218,7 @@ msgstr "Rutenett"
 msgid "Background Colour"
 msgstr "Bakgrunnsfarge"
 
-#: app/dia-props.c:200 lib/diagramdata.c:59
+#: app/dia-props.c:200 lib/diagramdata.c:60
 msgid "Background"
 msgstr "Bakgrunn"
 
@@ -278,7 +279,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Sideoppsett"
 
-#: app/disp_callbacks.c:74 app/properties.c:164
+#: app/disp_callbacks.c:74 app/properties.c:174
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -286,27 +287,27 @@ msgstr ""
 "Dette objektet støtter ikke angre/gjenopprett. \n"
 "Angre-informasjon slettet."
 
-#: app/disp_callbacks.c:171
+#: app/disp_callbacks.c:186
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:132 app/display.c:133 app/interface.c:399
+#: app/display.c:140 app/display.c:141 app/interface.c:442
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:153
+#: app/display.c:161
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:868
+#: app/display.c:903
 msgid "Close Diagram?"
 msgstr "Lukk diagram?"
 
-#: app/display.c:874
+#: app/display.c:909
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:879
+#: app/display.c:914
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -314,21 +315,21 @@ msgstr ""
 "Dette diagrammet er ikke lagret.\n"
 "Lagre endringer nå?"
 
-#: app/display.c:897 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
-#: lib/properties.c:286
+#: app/display.c:932 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
+#: lib/properties.c:288
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:907 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
-#: app/preferences.c:507 lib/properties.c:288 lib/properties.c:309
+#: app/display.c:942 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
+#: app/preferences.c:508 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Nei"
 
-#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:201
-#: plug-ins/cgm/cgm.c:1135 plug-ins/dxf/dxf-export.c:516
+#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:212
+#: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:194 plug-ins/svg/render_svg.c:180
-#: plug-ins/wpg/wpg.c:932
+#: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:180
+#: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -403,11 +404,12 @@ msgstr "Alternativer for eksport"
 msgid "Modify object(s)"
 msgstr "Modifiser objekt(er)"
 
-#: app/interface.c:43 app/menus.c:192
+#: app/interface.c:43 app/menus.c:194
 msgid "Modify"
 msgstr "Modifiser"
 
-#: app/interface.c:47 app/interface.c:48 app/menus.c:193
+#: app/interface.c:47 app/interface.c:48 app/menus.c:195
+#: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "Forstørr"
 
@@ -415,7 +417,7 @@ msgstr "Forstørr"
 msgid "Scroll around the diagram"
 msgstr "Rull rundt i diagrammet"
 
-#: app/interface.c:53 app/menus.c:194
+#: app/interface.c:53 app/menus.c:196
 msgid "Scroll"
 msgstr "Rull"
 
@@ -423,7 +425,7 @@ msgstr "Rull"
 msgid "Create Text"
 msgstr "Lag tekst"
 
-#: app/interface.c:58 app/menus.c:195 lib/properties.h:383
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
 msgid "Text"
 msgstr "Tekst"
 
@@ -431,7 +433,7 @@ msgstr "Tekst"
 msgid "Create Box"
 msgstr "Lag boks"
 
-#: app/interface.c:63 app/menus.c:196
+#: app/interface.c:63 app/menus.c:198
 msgid "Box"
 msgstr "Boks"
 
@@ -439,7 +441,7 @@ msgstr "Boks"
 msgid "Create Ellipse"
 msgstr "Lag elipse"
 
-#: app/interface.c:68 app/menus.c:197
+#: app/interface.c:68 app/menus.c:199
 msgid "Ellipse"
 msgstr "Elipse"
 
@@ -447,7 +449,7 @@ msgstr "Elipse"
 msgid "Create Polygon"
 msgstr "Lag polygon"
 
-#: app/interface.c:73 app/menus.c:198
+#: app/interface.c:73 app/menus.c:200
 msgid "Polygon"
 msgstr "Polygon"
 
@@ -455,7 +457,7 @@ msgstr "Polygon"
 msgid "Create Beziergon"
 msgstr "Lag Beziergon"
 
-#: app/interface.c:78 app/menus.c:199
+#: app/interface.c:78 app/menus.c:201
 msgid "Beziergon"
 msgstr "Beziergon"
 
@@ -463,7 +465,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Lag linje"
 
-#: app/interface.c:83 app/menus.c:200 objects/standard/line.c:188
+#: app/interface.c:83 app/menus.c:202 objects/standard/line.c:188
 msgid "Line"
 msgstr "Linje"
 
@@ -471,7 +473,7 @@ msgstr "Linje"
 msgid "Create Arc"
 msgstr "Lag bue"
 
-#: app/interface.c:88 app/menus.c:201
+#: app/interface.c:88 app/menus.c:203
 msgid "Arc"
 msgstr "Bue"
 
@@ -479,7 +481,7 @@ msgstr "Bue"
 msgid "Create Zigzagline"
 msgstr "Lag sikksakk-linje"
 
-#: app/interface.c:93 app/menus.c:202
+#: app/interface.c:93 app/menus.c:204
 msgid "Zigzagline"
 msgstr "Sikksakk-linje"
 
@@ -487,7 +489,7 @@ msgstr "Sikksakk-linje"
 msgid "Create Polyline"
 msgstr "Lag polilinje"
 
-#: app/interface.c:98 app/menus.c:203
+#: app/interface.c:98 app/menus.c:205
 msgid "Polyline"
 msgstr "Polilinje"
 
@@ -495,7 +497,7 @@ msgstr "Polilinje"
 msgid "Create Bezierline"
 msgstr "Lag Bezier linje"
 
-#: app/interface.c:103 app/menus.c:204
+#: app/interface.c:103 app/menus.c:206
 msgid "Bezierline"
 msgstr "Bezier linje"
 
@@ -503,15 +505,35 @@ msgstr "Bezier linje"
 msgid "Create Image"
 msgstr "Lag bilde"
 
-#: app/interface.c:108 app/menus.c:205
+#: app/interface.c:108 app/menus.c:207
 msgid "Image"
 msgstr "Bilde"
 
-#: app/interface.c:441
+#: app/interface.c:401
+msgid "/View/Show Rulers"
+msgstr "/Vis/Vis linjaler"
+
+#: app/interface.c:403
+msgid "/View/Visible Grid"
+msgstr "/Vis/Synlig rutenett"
+
+#: app/interface.c:405
+msgid "/View/Snap To Grid"
+msgstr "/Vis/Fest til rutenett"
+
+#: app/interface.c:407
+msgid "/View/Show Connection Points"
+msgstr "/Vis/Vis forbindelsespunkter"
+
+#: app/interface.c:410
+msgid "/View/AntiAliased"
+msgstr "/Vis/Antialiased"
+
+#: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL verktøydata i tool_select_update"
 
-#: app/interface.c:887
+#: app/interface.c:935
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -519,7 +541,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:1033
+#: app/interface.c:1081
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -563,15 +585,15 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: app/lineprops_area.c:711
+#: app/lineprops_area.c:721
 msgid "Arrow Properties"
 msgstr "Egenskaper for pil"
 
-#: app/lineprops_area.c:768 app/lineprops_area.c:952
+#: app/lineprops_area.c:778 app/lineprops_area.c:964
 msgid "Details..."
 msgstr "Detaljer..."
 
-#: app/lineprops_area.c:908
+#: app/lineprops_area.c:920
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
@@ -579,8 +601,8 @@ msgstr "Egenskaper for linjestil"
 msgid "Line width"
 msgstr "Linjebredde"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:336
-#: objects/chronogram/chronoline.c:427 objects/chronogram/chronoref.c:256
+#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
+#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
 #: objects/chronogram/chronoref.c:321
 msgid "Line width:"
 msgstr "Linjebredde::"
@@ -613,8 +635,8 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1038
-#: plug-ins/xfig/xfig-import.c:949
+#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
+#: plug-ins/xfig/xfig-import.c:1063
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
@@ -650,642 +672,683 @@ msgstr "Klarte ikke å lagre file '%s'.\n"
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
-#: app/menus.c:43 app/menus.c:54
+#: app/menus.c:45 app/menus.c:56
 msgid "_New diagram"
 msgstr "_Nytt diagram"
 
-#: app/menus.c:43 app/menus.c:54
+#: app/menus.c:45 app/menus.c:56
 msgid "Create new diagram"
 msgstr "Lag nytt diagram"
 
-#: app/menus.c:47 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:49 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Tillegg"
 
-#: app/menus.c:61
+#: app/menus.c:63
 msgid "_Export..."
 msgstr "_Eksportér..."
 
-#: app/menus.c:65
+#: app/menus.c:67
 msgid "Page Set_up..."
 msgstr "Side_oppsett..."
 
-#: app/menus.c:67
+#: app/menus.c:69
 msgid "_Print Diagram..."
 msgstr "_Skriv ut diagram..."
 
-#: app/menus.c:82
+#: app/menus.c:84
 msgid "_Delete"
 msgstr "_Slett"
 
-#: app/menus.c:88
+#: app/menus.c:90
 msgid "Copy Text"
 msgstr "Kopier tekst"
 
-#: app/menus.c:89
+#: app/menus.c:91
 msgid "Cut Text"
 msgstr "Klipp ut tekst"
 
-#: app/menus.c:90
+#: app/menus.c:92
 msgid "Paste _Text"
 msgstr "Lim inn _tekst"
 
-#: app/menus.c:113
+#: app/menus.c:115
 msgid "Zoom _In"
 msgstr "Zoom _inn"
 
-#: app/menus.c:113
+#: app/menus.c:115
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom inn 50%"
 
-#: app/menus.c:114
+#: app/menus.c:116
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: app/menus.c:114
+#: app/menus.c:116
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom ut 50%"
 
-#: app/menus.c:115
+#: app/menus.c:117
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: app/menus.c:116
+#: app/menus.c:118
 msgid "Diagram Properties..."
 msgstr "Egenskaper for diagram..."
 
-#: app/menus.c:118
+#: app/menus.c:120
 msgid "_AntiAliased"
 msgstr "_Antialiased"
 
-#: app/menus.c:121
+#: app/menus.c:123
 msgid "_Visible Grid"
 msgstr "S_ynlig rutenett"
 
-#: app/menus.c:123
+#: app/menus.c:125
 msgid "_Snap To Grid"
 msgstr "Fe_st til rutenett"
 
-#: app/menus.c:125
+#: app/menus.c:127
 msgid "Show _Rulers"
 msgstr "Vis linjale_r"
 
-#: app/menus.c:127
+#: app/menus.c:129
 msgid "Show _Connection Points"
 msgstr "Vis _forbindelsespunkter"
 
-#: app/menus.c:130
+#: app/menus.c:132
 msgid "New _View"
 msgstr "Ny _visning"
 
-#: app/menus.c:131
+#: app/menus.c:133
 msgid "Show _All"
 msgstr "Vis _alt"
 
-#: app/menus.c:136
+#: app/menus.c:138
 msgid "Replace"
 msgstr "Erstatt"
 
-#: app/menus.c:138
+#: app/menus.c:140
 msgid "Union"
 msgstr "Union"
 
-#: app/menus.c:140
+#: app/menus.c:142
 msgid "Intersect"
 msgstr "Kryss"
 
-#: app/menus.c:142
+#: app/menus.c:144 objects/FS/function.c:623 objects/FS/function.c:699
+#: objects/FS/function.c:700
 msgid "Remove"
 msgstr "Fjern"
 
-#: app/menus.c:144 app/menus.c:152
+#: app/menus.c:146 app/menus.c:154
 msgid "Invert"
 msgstr "Inverter"
 
-#: app/menus.c:150
+#: app/menus.c:152
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:151 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
-#: app/menus.c:153
+#: app/menus.c:155
 msgid "Connected"
 msgstr "Koblet til"
 
-#: app/menus.c:154
+#: app/menus.c:156
 msgid "Transitive"
 msgstr "Transitiv"
 
-#: app/menus.c:155
+#: app/menus.c:157
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:162 lib/properties.c:1184 lib/properties.h:323
+#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:163 app/menus.c:172 lib/properties.c:1185 lib/properties.h:324
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:164 lib/properties.c:1186 lib/properties.h:325
+#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "Høyre"
 
-#: app/menus.c:165 app/menus.c:174
+#: app/menus.c:167 app/menus.c:176
 msgid "Equal Distance"
 msgstr "Lik avstand"
 
-#: app/menus.c:166 app/menus.c:175
+#: app/menus.c:168 app/menus.c:177
 msgid "Adjacent"
 msgstr "Ved siden av"
 
-#: app/menus.c:171
+#: app/menus.c:173
 msgid "Top"
 msgstr "Øverst"
 
-#: app/menus.c:173
+#: app/menus.c:175
 msgid "Bottom"
 msgstr "Nederst"
 
-#: app/menus.c:180
+#: app/menus.c:182
 msgid "Send to _Back"
 msgstr "Send til _bakgrunn"
 
-#: app/menus.c:181
+#: app/menus.c:183
 msgid "Bring to _Front"
 msgstr "Hent til _forgrunn"
 
-#: app/menus.c:183
+#: app/menus.c:185
 msgid "_Group"
 msgstr "_Grupper"
 
-#: app/menus.c:184
+#: app/menus.c:186
 msgid "_Ungroup"
 msgstr "Avgrupper"
 
-#: app/menus.c:186
+#: app/menus.c:188
 msgid "Align _Horizontal"
 msgstr "Juster _horisontalt"
 
-#: app/menus.c:187
+#: app/menus.c:189
 msgid "Align _Vertical"
 msgstr "Juster _vertikalt"
 
-#: app/menus.c:210
+#: app/menus.c:212
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: app/menus.c:211
+#: app/menus.c:213
 msgid "_Layers"
 msgstr "_Lag"
 
-#: app/menus.c:232
+#: app/menus.c:234
 msgid "_Select"
 msgstr "_Velg"
 
-#: app/menus.c:233
+#: app/menus.c:235
 msgid "_Objects"
 msgstr "_Objekter"
 
-#: app/menus.c:234
+#: app/menus.c:236
 msgid "_Tools"
 msgstr "Verk_tøy"
 
-#: app/menus.c:235
+#: app/menus.c:237
 msgid "_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:246 app/menus.c:267
+#: app/menus.c:248 app/menus.c:273
 msgid "/_File"
 msgstr "/_Fil"
 
-#: app/menus.c:248 app/menus.c:269
+#: app/menus.c:250 app/menus.c:275
 msgid "/File/_New"
 msgstr "/Fil/_Ny"
 
-#: app/menus.c:249 app/menus.c:270
+#: app/menus.c:251 app/menus.c:276
 msgid "/File/_Open"
 msgstr "/Fil/_Åpne"
 
-#: app/menus.c:250
+#: app/menus.c:252
 msgid "/File/Open _Recent"
 msgstr "/Fil/Åpne _siste"
 
-#: app/menus.c:251
+#: app/menus.c:253
 msgid "/File/Open Recent/---"
 msgstr "/Fil/Åpne _siste/---"
 
-#: app/menus.c:253
+#: app/menus.c:255
 msgid "/File/_Preferences..."
 msgstr "/Fil/_Innstillinger..."
 
-#: app/menus.c:254
+#: app/menus.c:256
 msgid "/File/P_lugins"
 msgstr "/Fil/Ti_llegg"
 
-#: app/menus.c:255 app/menus.c:274 app/menus.c:277
+#: app/menus.c:257 app/menus.c:280 app/menus.c:283
 msgid "/File/---"
 msgstr "/Fil/---"
 
-#: app/menus.c:256 app/menus.c:280
+#: app/menus.c:258 app/menus.c:286
 msgid "/File/_Quit"
 msgstr "/Fil/_Avslutt"
 
-#: app/menus.c:257
+#: app/menus.c:259
 msgid "/_Help"
 msgstr "/_Hjelp"
 
-#: app/menus.c:259
+#: app/menus.c:261
 msgid "/Help/_Manual"
 msgstr "/Hjelp/_Håndbok"
 
-#: app/menus.c:260
+#: app/menus.c:262
 msgid "/Help/---"
 msgstr "/Hjelp/---"
 
-#: app/menus.c:261
+#: app/menus.c:263
 msgid "/Help/_About"
 msgstr "/Hjelp/_Om"
 
-#: app/menus.c:271
+#: app/menus.c:277
 msgid "/File/_Save"
 msgstr "/Fil/_Lagre"
 
-#: app/menus.c:272
+#: app/menus.c:278
 msgid "/File/Save _As..."
 msgstr "/Fil/Lagre _som..."
 
-#: app/menus.c:273
+#: app/menus.c:279
 msgid "/File/_Export..."
 msgstr "/Fil/_Eksportér..."
 
-#: app/menus.c:275
+#: app/menus.c:281
 msgid "/File/Page Set_up..."
 msgstr "/Fil/Side_oppsett..."
 
-#: app/menus.c:276
+#: app/menus.c:282
 msgid "/File/_Print Diagram..."
 msgstr "/Fil/_Skriv ut diagram..."
 
-#: app/menus.c:278
+#: app/menus.c:284
 msgid "/File/_Close"
 msgstr "/_Fil/Lukk"
 
-#: app/menus.c:281
+#: app/menus.c:287
 msgid "/_Edit"
 msgstr "/_Rediger"
 
-#: app/menus.c:283
+#: app/menus.c:289
 msgid "/Edit/_Copy"
 msgstr "/Rediger/_Kopier"
 
-#: app/menus.c:284
+#: app/menus.c:290
 msgid "/Edit/C_ut"
 msgstr "/Rediger/Klipp _ut"
 
-#: app/menus.c:285
+#: app/menus.c:291
 msgid "/Edit/_Paste"
 msgstr "/Rediger/_Lim inn"
 
-#: app/menus.c:286
+#: app/menus.c:292
 msgid "/Edit/_Delete"
 msgstr "/Rediger/_Slett"
 
-#: app/menus.c:287
+#: app/menus.c:293
 msgid "/Edit/_Undo"
 msgstr "/Rediger/_Angre"
 
-#: app/menus.c:288
+#: app/menus.c:294
 msgid "/Edit/_Redo"
 msgstr "/Rediger/_Gjenopprett"
 
-#: app/menus.c:289
+#: app/menus.c:295 app/menus.c:1121
 msgid "/Edit/Copy Text"
 msgstr "/Rediger/Kopier tekst"
 
-#: app/menus.c:290
+#: app/menus.c:296 app/menus.c:1123
 msgid "/Edit/Cut Text"
 msgstr "/Rediger/Klipp ut tekst"
 
-#: app/menus.c:291
+#: app/menus.c:297
 msgid "/Edit/Paste _Text"
 msgstr "/Rediger/Lim inn tekst"
 
-#: app/menus.c:292
+#: app/menus.c:298
 msgid "/_View"
 msgstr "/_Vis"
 
-#: app/menus.c:294
+#: app/menus.c:300
 msgid "/View/Zoom _In"
 msgstr "/_Vis/Zoom _inn"
 
-#: app/menus.c:295
+#: app/menus.c:301
 msgid "/View/Zoom _Out"
 msgstr "/Vis/Zoom _ut"
 
-#: app/menus.c:296
+#: app/menus.c:302
 msgid "/View/_Zoom"
 msgstr "/Vis/_Zoom"
 
-#: app/menus.c:298
+#: app/menus.c:304
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vis/Zoom/400%"
 
-#: app/menus.c:299
+#: app/menus.c:305
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vis/Zoom/283%"
 
-#: app/menus.c:300
+#: app/menus.c:306
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vis/Zoom/200%"
 
-#: app/menus.c:301
+#: app/menus.c:307
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vis/Zoom/141%"
 
-#: app/menus.c:302
+#: app/menus.c:308
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vis/Zoom/100%"
 
-#: app/menus.c:303
+#: app/menus.c:309
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vis/Zoom/85%"
 
-#: app/menus.c:304
+#: app/menus.c:310
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vis/Zoom/70.7%"
 
-#: app/menus.c:305
+#: app/menus.c:311
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vis/Zoom/50%"
 
-#: app/menus.c:306
+#: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vis/Zoom/35.4%"
 
-#: app/menus.c:307
+#: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
-#: app/menus.c:308
+#: app/menus.c:314
 msgid "/View/Diagram Properties"
 msgstr "/Vis/Egenskaper for diagram"
 
-#: app/menus.c:310
+#: app/menus.c:316
 msgid "/View/_AntiAliased"
 msgstr "/Vis/_Antialiased"
 
-#: app/menus.c:312
+#: app/menus.c:318
 msgid "/View/_Visible Grid"
 msgstr "/Vis/_Synlig rutenett"
 
-#: app/menus.c:313
+#: app/menus.c:319
 msgid "/View/_Snap To Grid"
 msgstr "/Vis/_Fest til rutenett"
 
-#: app/menus.c:314
+#: app/menus.c:320
 msgid "/View/Show _Rulers"
 msgstr "/Vis/Vis linjale_r"
 
-#: app/menus.c:315
+#: app/menus.c:321
 msgid "/View/Show _Connection Points"
 msgstr "Vis/Vis _forbindelsespunkter"
 
-#: app/menus.c:316
+#: app/menus.c:322
 msgid "/View/---"
 msgstr "/Vis/---"
 
-#: app/menus.c:317
+#: app/menus.c:323
 msgid "/View/New _View"
 msgstr "/Vis/Ny _visning"
 
-#: app/menus.c:318
+#: app/menus.c:324
 msgid "/View/Show _All"
 msgstr "/Vis/Vis alle"
 
-#: app/menus.c:319
+#: app/menus.c:325
 msgid "/_Select"
 msgstr "/_Velg"
 
-#: app/menus.c:321
+#: app/menus.c:327
 msgid "/Select/All"
 msgstr "/Marker/Alt"
 
-#: app/menus.c:322
+#: app/menus.c:328
 msgid "/Select/None"
 msgstr "/Marker/Ingenting"
 
-#: app/menus.c:323 app/menus.c:336
+#: app/menus.c:329 app/menus.c:342
 msgid "/Select/Invert"
 msgstr "/Marker/Inverter"
 
-#: app/menus.c:324
+#: app/menus.c:330
 msgid "/Select/Connected"
 msgstr "/Marker/Tilkoblede"
 
-#: app/menus.c:325
+#: app/menus.c:331
 msgid "/Select/Transitive"
 msgstr "/Marker/Transitive"
 
-#: app/menus.c:326
+#: app/menus.c:332
 msgid "/Select/Same Type"
 msgstr "/Marker/Samme type"
 
-#: app/menus.c:327
+#: app/menus.c:333
 msgid "/Select/---"
 msgstr "/Velg/---"
 
-#: app/menus.c:328
+#: app/menus.c:334
 msgid "/Select/Replace"
 msgstr "/Marker/Erstatt"
 
-#: app/menus.c:330
+#: app/menus.c:336
 msgid "/Select/Union"
 msgstr "/Marker/Union"
 
-#: app/menus.c:332
+#: app/menus.c:338
 msgid "/Select/Intersect"
 msgstr "/Marker/Kryss"
 
-#: app/menus.c:334
+#: app/menus.c:340
 msgid "/Select/Remove"
 msgstr "/Marker/Fjern"
 
-#: app/menus.c:338
+#: app/menus.c:344
 msgid "/_Objects"
 msgstr "/_Objekter"
 
-#: app/menus.c:340
+#: app/menus.c:346
 msgid "/Objects/Send to _Back"
 msgstr "/Objekter/Send til _bakgrunn"
 
-#: app/menus.c:341
+#: app/menus.c:347
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekter/Hent til _forgrunn"
 
-#: app/menus.c:342 app/menus.c:345
+#: app/menus.c:348 app/menus.c:351
 msgid "/Objects/---"
 msgstr "/Objekter/---"
 
-#: app/menus.c:343
+#: app/menus.c:349
 msgid "/Objects/_Group"
 msgstr "/Objekter/_Grupper"
 
-#: app/menus.c:344
+#: app/menus.c:350
 msgid "/Objects/_Ungroup"
 msgstr "/Objekter/_Avgrupper"
 
-#: app/menus.c:346
+#: app/menus.c:352
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekter/Juster _horisontalt"
 
-#: app/menus.c:348
+#: app/menus.c:354 app/menus.c:1138
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekter/Juster horisontal/Venstre"
 
-#: app/menus.c:349
+#: app/menus.c:355 app/menus.c:1140
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekter/Juster horisontal/Senter"
 
-#: app/menus.c:350
+#: app/menus.c:356 app/menus.c:1142
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekter/Juster horisontal/Høyre"
 
-#: app/menus.c:351
+#: app/menus.c:357 app/menus.c:1144
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekter/Juster horisontal/Lik avstand"
 
-#: app/menus.c:352
+#: app/menus.c:358 app/menus.c:1146
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekter/Juster horisontalt/Ved siden av"
 
-#: app/menus.c:353
+#: app/menus.c:359
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekter/Juster _vertikalt"
 
-#: app/menus.c:355
+#: app/menus.c:361 app/menus.c:1148
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekter/Juster vertikal/Øverst"
 
-#: app/menus.c:356
+#: app/menus.c:362 app/menus.c:1150
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekter/Juster vertikal/Senter"
 
-#: app/menus.c:357
+#: app/menus.c:363 app/menus.c:1152
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekter/Juster vertikal/Nederst"
 
-#: app/menus.c:358
+#: app/menus.c:364 app/menus.c:1154
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekter/Juster vertikal/Lik avstand"
 
-#: app/menus.c:359
+#: app/menus.c:365 app/menus.c:1156
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekter/Juster vertikalt/Ved siden av"
 
-#: app/menus.c:361
+#: app/menus.c:367
 msgid "/_Tools"
 msgstr "/Verk_tøy/"
 
-#: app/menus.c:363
+#: app/menus.c:369
 msgid "/Tools/Modify"
 msgstr "/Verktøy/Endre"
 
-#: app/menus.c:364
+#: app/menus.c:370
 msgid "/Tools/Magnify"
 msgstr "/Verktøy/Forstørr"
 
-#: app/menus.c:365
+#: app/menus.c:371
 msgid "/Tools/Scroll"
 msgstr "/Verktøy/Rull"
 
-#: app/menus.c:366
+#: app/menus.c:372
 msgid "/Tools/Text"
 msgstr "/Verktøy/Tekst"
 
-#: app/menus.c:367
+#: app/menus.c:373
 msgid "/Tools/Box"
 msgstr "/Verktøy/Boks"
 
-#: app/menus.c:368
+#: app/menus.c:374
 msgid "/Tools/Ellipse"
 msgstr "/Verktøy/Elipse"
 
-#: app/menus.c:369
+#: app/menus.c:375
 msgid "/Tools/Polygon"
 msgstr "/Verktøy/Polygon"
 
-#: app/menus.c:370
+#: app/menus.c:376
 msgid "/Tools/Beziergon"
 msgstr "/Verktøy/Beziergon"
 
-#: app/menus.c:371
+#: app/menus.c:377
 msgid "/Tools/Line"
 msgstr "/Verktøy/Linje"
 
-#: app/menus.c:372
+#: app/menus.c:378
 msgid "/Tools/Arc"
 msgstr "/Verktøy/Bue"
 
-#: app/menus.c:373
+#: app/menus.c:379
 msgid "/Tools/Zigzagline"
 msgstr "/Verktøy/Sikk-sakk linje"
 
-#: app/menus.c:374
+#: app/menus.c:380
 msgid "/Tools/Polyline"
 msgstr "/Verktøy/Polylinje"
 
-#: app/menus.c:375
+#: app/menus.c:381
 msgid "/Tools/Bezierline"
 msgstr "/Verktøy/Bezierlinje"
 
-#: app/menus.c:376
+#: app/menus.c:382
 msgid "/Tools/Image"
 msgstr "/Verktøy/Bilde"
 
-#: app/menus.c:378
+#: app/menus.c:384
 msgid "/_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:380
+#: app/menus.c:386
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaper"
 
-#: app/menus.c:381
+#: app/menus.c:387
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
-#: app/menus.c:553
+#: app/menus.c:559
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL verktøydata i tool_menu_select"
 
-#: app/menus.c:780
+#: app/menus.c:626
+msgid "/Tools/"
+msgstr "/Verktøy/"
+
+#: app/menus.c:719
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/paginate_gnomeprint.c:152
+#: app/menus.c:1110
+msgid "/Edit/Copy"
+msgstr "/Rediger/Kopier"
+
+#: app/menus.c:1112
+msgid "/Edit/Cut"
+msgstr "/Rediger/Klipp ut"
+
+#: app/menus.c:1114
+msgid "/Edit/Paste"
+msgstr "/Rediger/Lim inn"
+
+#: app/menus.c:1117
+msgid "/Edit/Delete"
+msgstr "/Rediger/Slett"
+
+#: app/menus.c:1125
+msgid "/Edit/Paste Text"
+msgstr "/Rediger/Lim inn tekst"
+
+#: app/menus.c:1128
+msgid "/Objects/Send to Back"
+msgstr "/Objekter/Send til bakgrunnen"
+
+#: app/menus.c:1130
+msgid "/Objects/Bring to Front"
+msgstr "/Objekter/Hent fram"
+
+#: app/menus.c:1133
+msgid "/Objects/Group"
+msgstr "/Objekter/Grupper"
+
+#: app/menus.c:1135
+msgid "/Objects/Ungroup"
+msgstr "/Objekter/Avgrupper"
+
+#: app/paginate_gnomeprint.c:156
 msgid "Print Diagram"
 msgstr "Skriv ut diagram"
 
-#: app/paginate_gnomeprint.c:179
+#: app/paginate_gnomeprint.c:183
 msgid "An error occured while creating the print context"
 msgstr "Feil under oppretting av utskriftskontekst"
 
@@ -1328,7 +1391,7 @@ msgstr "nei"
 #: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
 #: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
 #: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/large_package.c:609 objects/UML/realizes.c:124
+#: objects/UML/large_package.c:605 objects/UML/realizes.c:124
 msgid "Name:"
 msgstr "Navn:"
 
@@ -1404,74 +1467,86 @@ msgstr "Høyde:"
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: app/preferences.c:112
+#: app/preferences.c:111
+msgid "Use menu bar:"
+msgstr "Bruk menylinje:"
+
+#: app/preferences.c:113
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
+#: app/preferences.c:114 app/preferences.c:117 app/preferences.c:125
 msgid "Visible:"
 msgstr "Synlig:"
 
-#: app/preferences.c:115
+#: app/preferences.c:116
 msgid "Grid:"
 msgstr "Rutenett:"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Snap to:"
 msgstr "Fest til:"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "X Size:"
 msgstr "X-størrelse:"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid "Y Size:"
 msgstr "Y-størrelse:"
 
-#: app/preferences.c:120 app/preferences.c:125
+#: app/preferences.c:121 app/preferences.c:126
 msgid "Colour:"
 msgstr "Farge:"
 
-#: app/preferences.c:121 app/preferences.c:126
+#: app/preferences.c:122 app/preferences.c:127
 msgid "Solid lines:"
 msgstr "Helfylte linjer:"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Page breaks:"
 msgstr "Sideskift:"
 
-#: app/preferences.c:237
+#: app/preferences.c:238
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikke åpne `%s' for skriving"
 
-#: app/preferences.c:572 app/preferences.c:581
+#: app/preferences.c:573 app/preferences.c:582
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: app/properties.c:52 app/properties.c:60
+#: app/properties.c:62 app/properties.c:70
 msgid "Object properties"
 msgstr "Egenskaper for objekt"
 
-#: app/properties.c:114
+#: app/properties.c:124
 msgid "This object has no properties."
 msgstr "Dette objektet har ingen egenskaper."
 
-#: app/render_eps.c:1599
+#: app/properties.c:211
+msgid "Properties: "
+msgstr "Egenskaper: "
+
+#: app/properties.c:219
+msgid "Object properties:"
+msgstr "Egenskaper for objekt:"
+
+#: app/render_eps.c:1635
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postskript"
 
 #. remove recent files if list get's too long
-#: app/recent_files.c:73
+#: app/recent_files.c:75
 msgid "/File/Plugins"
 msgstr "/Fil/Tillegg"
 
-#: app/recent_files.c:79 app/recent_files.c:81 app/recent_files.c:110
-#: app/recent_files.c:112
+#: app/recent_files.c:81 app/recent_files.c:83 app/recent_files.c:112
+#: app/recent_files.c:114
 msgid "/File/Open Recent/"
 msgstr "/Fil/Åpne siste/"
 
-#: app/recent_files.c:161
+#: app/recent_files.c:163
 msgid "Can't open history file for writing."
 msgstr "Kunne ikke åpne historikkfil for skriving."
 
@@ -1488,23 +1563,24 @@ msgstr "Dia v %s"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
-#: lib/dia_xml.c:267
+#: lib/dia_xml.c:273
 msgid "Taking point value of non-point node."
 msgstr "Tar punktverdi for node som ikke er et punkt."
 
-#: lib/dia_xml.c:276
+#: lib/dia_xml.c:285
 #, c-format
-msgid "Incorrect x Point value %f; discarding it."
-msgstr "Ukorrekt punktverdi for x, %f; forkaster den."
+msgid "Incorrect x Point value \"\" %f; discarding it."
+msgstr "Ukorrekt punktverdi for x, \"\" %f; forkaster den."
 
-#: lib/dia_xml.c:284
+#: lib/dia_xml.c:293
 msgid "Error parsing point."
 msgstr "Feil ved lesing av punkt."
 
-#: lib/dia_xml.c:291
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
 #, c-format
-msgid "Incorrect y Point value %f; discarding it."
-msgstr "Ukorrekt punktverdi for y, %f; forkaster den."
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Ukorrekt punktverdi for y, \"%s\" %f; forkaster den."
 
 #: lib/font.c:389
 #, c-format
@@ -1566,23 +1642,23 @@ msgstr "`%s' er ikke en katalog"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
 
-#: lib/properties.c:379 lib/properties.c:411
+#: lib/properties.c:382 lib/properties.c:414
 msgid "No edit widget"
 msgstr "Ingen redigeringswidget"
 
-#: lib/properties.h:377
+#: lib/properties.c:1256
 msgid "Line colour"
 msgstr "Linjefarge"
 
-#: lib/properties.h:378
+#: lib/properties.c:1257
 msgid "Line style"
 msgstr "Linjestil"
 
-#: lib/properties.h:379
+#: lib/properties.c:1258
 msgid "Fill colour"
 msgstr "Fyllfarge"
 
-#: lib/properties.h:380 objects/custom/custom_object.c:356
+#: lib/properties.c:1259 objects/custom/custom_object.c:360
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1590,31 +1666,33 @@ msgstr "Fyllfarge"
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: lib/properties.h:381
+#: lib/properties.c:1260
 msgid "Start arrow"
 msgstr "Start-pil"
 
-#: lib/properties.h:382
+#: lib/properties.c:1261
 msgid "End arrow"
 msgstr "Slutt-pil"
 
-#: lib/properties.h:384
+#: lib/properties.c:1263
 msgid "Text alignment"
 msgstr "Tekstjustering"
 
-#: lib/properties.h:385
+#: lib/properties.c:1264 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/transition.c:140
 msgid "Font"
 msgstr "Skrifttype"
 
-#: lib/properties.h:386
+#: lib/properties.c:1265 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/transition.c:142
 msgid "Font size"
 msgstr "Størrelse på skrifttype"
 
-#: lib/properties.h:387
+#: lib/properties.c:1266
 msgid "Text colour"
 msgstr "Tekstfarge"
 
-#: lib/widgets.c:319
+#: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Helfylt"
 
@@ -1763,19 +1841,19 @@ msgstr "Diagramobjekter for entitet/relasjon"
 msgid "Total:"
 msgstr "Total:"
 
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:800
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
 #: objects/UML/association.c:618 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
-#: objects/standard/zigzagline.c:337
+#: objects/standard/zigzagline.c:339
 msgid "Add segment"
 msgstr "Legg til segment"
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:801
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
 #: objects/UML/association.c:619 objects/UML/dependency.c:377
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
-#: objects/standard/zigzagline.c:338
+#: objects/standard/zigzagline.c:340
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -1800,46 +1878,47 @@ msgid "Relationship"
 msgstr "Forhold"
 
 #.
-#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:731
-#: objects/FS/flow-ortho.c:797 objects/FS/flow-ortho.c:862
-#: objects/FS/flow.c:157 objects/FS/flow.c:720 objects/FS/flow.c:773
-#: objects/FS/flow.c:837
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:727
+#: objects/FS/flow-ortho.c:793 objects/FS/flow-ortho.c:858
+#: objects/FS/flow.c:154 objects/FS/flow.c:639 objects/FS/flow.c:703
+#: objects/FS/function.c:818
 msgid "Energy"
 msgstr "Energi"
 
-#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:738
-#: objects/FS/flow-ortho.c:798 objects/FS/flow-ortho.c:869
-#: objects/FS/flow.c:158 objects/FS/flow.c:727 objects/FS/flow.c:774
-#: objects/FS/flow.c:844
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:734
+#: objects/FS/flow-ortho.c:794 objects/FS/flow-ortho.c:865
+#: objects/FS/flow.c:155 objects/FS/flow.c:640 objects/FS/flow.c:710
+#: objects/FS/function.c:806
 msgid "Material"
 msgstr "Materiale"
 
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:744
-#: objects/FS/flow-ortho.c:799 objects/FS/flow-ortho.c:875
-#: objects/FS/flow.c:159 objects/FS/flow.c:733 objects/FS/flow.c:775
-#: objects/FS/flow.c:850 objects/FS/function.c:718
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:740
+#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:871
+#: objects/FS/flow.c:156 objects/FS/flow.c:641 objects/FS/flow.c:716
+#: objects/FS/function.c:787 objects/FS/function.c:788
+#: objects/FS/function.c:856 objects/FS/function.c:857
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:186 objects/FS/flow.c:166
+#: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
 #: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
 #: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
 msgstr "Type:"
 
-#: objects/FS/flow-ortho.c:711 objects/FS/flow.c:700 objects/FS/flow.c:816
+#: objects/FS/flow-ortho.c:707 objects/FS/flow.c:682
 msgid "Flow:"
 msgstr "Flyt:"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:715 objects/FS/flow.c:832
+#: objects/FS/flow-ortho.c:722 objects/FS/flow.c:698
 msgid "Flow type:"
 msgstr "Flyttype:"
 
-#: objects/FS/flow-ortho.c:841
+#: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
 msgstr "Ortflyt:"
 
-#: objects/FS/flow-ortho.c:857
+#: objects/FS/flow-ortho.c:853
 msgid "Orthflow type:"
 msgstr "Ortflyt type:"
 
@@ -1847,202 +1926,826 @@ msgstr "Ortflyt type:"
 msgid "Function structure diagram objects"
 msgstr "Diagramobjekter for funksjonsstruktur"
 
-#: objects/FS/function.c:150 objects/FS/function.c:639
+#: objects/FS/function.c:136
 msgid "Wish function"
 msgstr "Wish-funksjon"
 
-#: objects/FS/function.c:152 objects/FS/function.c:644
+#: objects/FS/function.c:138
 msgid "User function"
 msgstr "Bruker funksjon"
 
-#: objects/FS/function.c:629
-msgid "Function:"
-msgstr "Funksjon:"
+#: objects/FS/function.c:608
+msgid "Verb"
+msgstr "Verb"
 
-#: objects/FS/function.c:684
+#: objects/FS/function.c:609 objects/FS/function.c:610
+#: objects/FS/function.c:630
 msgid "Channel"
 msgstr "Kanal"
 
-#: objects/FS/function.c:685
-msgid "   Import"
-msgstr "   Import"
+#: objects/FS/function.c:611 objects/FS/function.c:612
+msgid "Import"
+msgstr "Import"
 
-#: objects/FS/function.c:686
-msgid "   Export"
-msgstr "   Eksport"
+#: objects/FS/function.c:613
+msgid "Input"
+msgstr "Inndata"
 
-#: objects/FS/function.c:687
-msgid "   Transfer"
-msgstr "   Overfør"
+#: objects/FS/function.c:614
+msgid "Receive"
+msgstr "Motta"
 
-#: objects/FS/function.c:688
-msgid "      Transport"
-msgstr "      Transport"
+#: objects/FS/function.c:615 objects/FS/function.c:751
+msgid "Allow"
+msgstr "Tillat"
 
-#: objects/FS/function.c:689
-msgid "      Transmit"
-msgstr "      Send"
+#: objects/FS/function.c:616
+msgid "Form Entrance"
+msgstr "Fra inngang"
 
-#: objects/FS/function.c:690
-msgid "   Guide"
-msgstr "   Guide"
+#: objects/FS/function.c:617 objects/FS/function.c:734
+msgid "Capture"
+msgstr "Hent"
 
-#: objects/FS/function.c:691
-msgid "      Translate"
-msgstr "      Oversett"
+#: objects/FS/function.c:618 objects/FS/function.c:619
+msgid "Export"
+msgstr "Eksport"
 
-#: objects/FS/function.c:692
-msgid "      Rotate"
-msgstr "      Roter"
+#: objects/FS/function.c:620
+msgid "Discharge"
+msgstr ""
 
-#: objects/FS/function.c:693
-msgid "      Allow DOF"
-msgstr "      Tillat DOF"
+#: objects/FS/function.c:621
+msgid "Eject"
+msgstr "Løs ut"
 
-#: objects/FS/function.c:694
+#: objects/FS/function.c:622
+msgid "Dispose"
+msgstr ""
+
+#: objects/FS/function.c:624 objects/FS/function.c:625
+#: objects/FS/function.c:634
+msgid "Transfer"
+msgstr "Overfør"
+
+#: objects/FS/function.c:626 objects/FS/function.c:627
+msgid "Transport"
+msgstr "Transport"
+
+#: objects/FS/function.c:628
+msgid "Lift"
+msgstr "Løft"
+
+#: objects/FS/function.c:629
+msgid "Move"
+msgstr "Flytt"
+
+#: objects/FS/function.c:631 objects/FS/function.c:632
+msgid "Transmit"
+msgstr "Send"
+
+#: objects/FS/function.c:633
+msgid "Conduct"
+msgstr ""
+
+#: objects/FS/function.c:635
+msgid "Convey"
+msgstr ""
+
+#: objects/FS/function.c:636 objects/FS/function.c:637
+#: objects/FS/function.c:638
+msgid "Guide"
+msgstr "Guide"
+
+#: objects/FS/function.c:639
+msgid "Direct"
+msgstr "Rett"
+
+#: objects/FS/function.c:640
+msgid "Straighten"
+msgstr "Rett ut"
+
+#: objects/FS/function.c:641
+msgid "Steer"
+msgstr "Styr"
+
+#: objects/FS/function.c:642
+msgid "Translate"
+msgstr "Oversett"
+
+#: objects/FS/function.c:643 objects/FS/function.c:644
+msgid "Rotate"
+msgstr "Roter"
+
+#: objects/FS/function.c:645
+msgid "Turn"
+msgstr "Vend"
+
+#: objects/FS/function.c:646
+msgid "Spin"
+msgstr "Spinn"
+
+#: objects/FS/function.c:647 objects/FS/function.c:648
+msgid "Allow DOF"
+msgstr "Tillat DOF"
+
+#: objects/FS/function.c:649
+msgid "Constrain"
+msgstr "Begrens"
+
+#: objects/FS/function.c:650
+msgid "Unlock"
+msgstr "Lås opp"
+
+#: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
 msgstr "Støtte"
 
-#: objects/FS/function.c:695
-msgid "   Stop"
-msgstr "   Stopp"
+#: objects/FS/function.c:653 objects/FS/function.c:654
+msgid "Stop"
+msgstr "Stopp"
 
-#: objects/FS/function.c:696
-msgid "   Stabilize"
-msgstr "   Stabiliser"
+#: objects/FS/function.c:655
+msgid "Insulate"
+msgstr "Insuler"
 
-#: objects/FS/function.c:697
-msgid "   Secure"
-msgstr "   Sikre"
+#: objects/FS/function.c:656
+msgid "Protect"
+msgstr "Beskytt"
 
-#: objects/FS/function.c:698
-msgid "   Position"
-msgstr "   Posisjon"
+#: objects/FS/function.c:657 objects/FS/function.c:752
+msgid "Prevent"
+msgstr "Forhindre"
 
-#: objects/FS/function.c:699
+#: objects/FS/function.c:658
+msgid "Shield"
+msgstr "Skjerm"
+
+#: objects/FS/function.c:659
+msgid "Inhibit"
+msgstr "Hindre"
+
+#: objects/FS/function.c:660 objects/FS/function.c:661
+msgid "Stabilize"
+msgstr "Stabiliser"
+
+#: objects/FS/function.c:662
+msgid "Steady"
+msgstr "Støtt"
+
+#: objects/FS/function.c:663 objects/FS/function.c:664
+msgid "Secure"
+msgstr "Sikre"
+
+#: objects/FS/function.c:665 objects/FS/function.c:681
+msgid "Attach"
+msgstr "Legg ved"
+
+#: objects/FS/function.c:666
+msgid "Mount"
+msgstr "Monter"
+
+#: objects/FS/function.c:667
+msgid "Lock"
+msgstr "Lås"
+
+#: objects/FS/function.c:668
+msgid "Fasten"
+msgstr "Fest"
+
+#: objects/FS/function.c:669
+msgid "Hold"
+msgstr "Hold"
+
+#: objects/FS/function.c:670 objects/FS/function.c:671
+msgid "Position"
+msgstr "Posisjon"
+
+#: objects/FS/function.c:672
+msgid "Orient"
+msgstr "Orientering"
+
+#: objects/FS/function.c:673
+msgid "Align"
+msgstr "Juster"
+
+#: objects/FS/function.c:674 objects/FS/function.c:795
+msgid "Locate"
+msgstr "Finn"
+
+#: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
 msgstr "Koble til"
 
-#: objects/FS/function.c:700
-msgid "   Couple"
-msgstr "   Koble sammen"
+#: objects/FS/function.c:677 objects/FS/function.c:678
+msgid "Couple"
+msgstr "Koble sammen"
 
-#: objects/FS/function.c:701
-msgid "   Mix"
-msgstr "   Bland"
+#: objects/FS/function.c:679
+msgid "Join"
+msgstr "Slå sammen"
 
-#: objects/FS/function.c:702
+#: objects/FS/function.c:680
+msgid "Assemble"
+msgstr "Sett sammen"
+
+#: objects/FS/function.c:682 objects/FS/function.c:683
+msgid "Mix"
+msgstr "Bland"
+
+#: objects/FS/function.c:684
+msgid "Combine"
+msgstr "Slå sammen"
+
+#: objects/FS/function.c:685
+msgid "Blend"
+msgstr "Bland"
+
+#: objects/FS/function.c:686
+msgid "Add"
+msgstr "Legg til"
+
+#: objects/FS/function.c:687
+msgid "Pack"
+msgstr "Pakk"
+
+#: objects/FS/function.c:688
+msgid "Coalesce"
+msgstr ""
+
+#: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
 msgstr "Forgreining"
 
+#: objects/FS/function.c:691 objects/FS/function.c:692
+#: objects/FS/function.c:693
+msgid "Separate"
+msgstr "Separer"
+
+#: objects/FS/function.c:694
+msgid "Switch"
+msgstr "Bytt"
+
+#: objects/FS/function.c:695
+msgid "Divide"
+msgstr "Del opp"
+
+#: objects/FS/function.c:696
+msgid "Release"
+msgstr "Slipp"
+
+#: objects/FS/function.c:697
+msgid "Detach"
+msgstr "Ta av"
+
+#: objects/FS/function.c:698
+msgid "Disconnect"
+msgstr "Koble fra"
+
+#: objects/FS/function.c:701
+msgid "Cut"
+msgstr "Klipp"
+
+#: objects/FS/function.c:702
+msgid "Polish"
+msgstr "Poler"
+
 #: objects/FS/function.c:703
-msgid "   Separate"
-msgstr "   Separat"
+msgid "Sand"
+msgstr "Puss"
 
 #: objects/FS/function.c:704
-msgid "      Remove"
-msgstr "      Fjern"
+msgid "Drill"
+msgstr "Bor"
 
 #: objects/FS/function.c:705
-msgid "   Refine"
-msgstr "   Endre"
+msgid "Lathe"
+msgstr ""
 
-#: objects/FS/function.c:706
-msgid "   Distribute"
-msgstr "   Distribuer"
-
-#: objects/FS/function.c:707
-msgid "   Dissipate"
-msgstr "   Tilintetgjør"
+#: objects/FS/function.c:706 objects/FS/function.c:707
+msgid "Refine"
+msgstr "Raffiner"
 
 #: objects/FS/function.c:708
+msgid "Purify"
+msgstr "Rens"
+
+#: objects/FS/function.c:709
+msgid "Strain"
+msgstr ""
+
+#: objects/FS/function.c:710
+msgid "Filter"
+msgstr "Filtrer"
+
+#: objects/FS/function.c:711
+msgid "Percolate"
+msgstr ""
+
+#: objects/FS/function.c:712
+msgid "Clear"
+msgstr "Tøm"
+
+#: objects/FS/function.c:713 objects/FS/function.c:714
+msgid "Distribute"
+msgstr "Distribuer"
+
+#: objects/FS/function.c:715
+msgid "Diverge"
+msgstr ""
+
+#: objects/FS/function.c:716
+msgid "Scatter"
+msgstr "Spre"
+
+#: objects/FS/function.c:717
+msgid "Disperse"
+msgstr ""
+
+#: objects/FS/function.c:718 objects/FS/function.c:725
+msgid "Diffuse"
+msgstr ""
+
+#: objects/FS/function.c:719
+msgid "Empty"
+msgstr "Tøm"
+
+#: objects/FS/function.c:720 objects/FS/function.c:721
+msgid "Dissipate"
+msgstr "Tilintetgjør"
+
+#: objects/FS/function.c:722
+msgid "Absorb"
+msgstr "Ta opp"
+
+#: objects/FS/function.c:723
+msgid "Dampen"
+msgstr ""
+
+#: objects/FS/function.c:724
+msgid "Dispel"
+msgstr "Avvis"
+
+#: objects/FS/function.c:726
+msgid "Resist"
+msgstr "Motstå"
+
+#: objects/FS/function.c:727 objects/FS/function.c:728
 msgid "Provision"
 msgstr "Provisjon"
 
-#: objects/FS/function.c:709
-msgid "   Store"
-msgstr "   Lagre"
+#: objects/FS/function.c:729 objects/FS/function.c:730
+msgid "Store"
+msgstr "Lagre"
 
-#: objects/FS/function.c:710
-msgid "   Supply"
-msgstr "   Forsyn"
+#: objects/FS/function.c:731
+msgid "Contain"
+msgstr "Innehold"
 
-#: objects/FS/function.c:711
-msgid "   Extract"
-msgstr "   Hent ut"
+#: objects/FS/function.c:732
+msgid "Collect"
+msgstr "Samle"
 
-#: objects/FS/function.c:712
+#: objects/FS/function.c:733
+msgid "Reserve"
+msgstr ""
+
+#: objects/FS/function.c:735 objects/FS/function.c:736
+msgid "Supply"
+msgstr "Forsyn"
+
+#: objects/FS/function.c:737
+msgid "Fill"
+msgstr "Fyll"
+
+#: objects/FS/function.c:738
+msgid "Provide"
+msgstr "Gi"
+
+#: objects/FS/function.c:739
+msgid "Replenish"
+msgstr "Fyll opp"
+
+#: objects/FS/function.c:740
+msgid "Expose"
+msgstr "Vis"
+
+#: objects/FS/function.c:741
+msgid "Extract"
+msgstr "Hent ut"
+
+#: objects/FS/function.c:742 objects/FS/function.c:743
 msgid "Control Magnitude"
 msgstr "Kontroller størrelse"
 
-#: objects/FS/function.c:713
-msgid "   Actuate"
-msgstr "   Aktuer"
+#: objects/FS/function.c:744 objects/FS/function.c:745
+msgid "Actuate"
+msgstr "Aktuer"
 
-#: objects/FS/function.c:714
-msgid "   Regulate"
-msgstr "   Reguler"
+#: objects/FS/function.c:746
+msgid "Start"
+msgstr "Start"
 
-#: objects/FS/function.c:715
-msgid "   Change"
-msgstr "   Endre"
+#: objects/FS/function.c:747
+msgid "Initiate"
+msgstr "Initier"
 
-#: objects/FS/function.c:716
-msgid "   Form"
-msgstr "   Formgi"
+#: objects/FS/function.c:748 objects/FS/function.c:749
+msgid "Regulate"
+msgstr "Reguler"
 
-#: objects/FS/function.c:717
+#: objects/FS/function.c:750 objects/FS/function.c:859
+#: objects/UML/classicon.c:133
+msgid "Control"
+msgstr "Kontroll"
+
+#: objects/FS/function.c:753
+msgid "Enable"
+msgstr ""
+
+#: objects/FS/function.c:754
+msgid "Disable"
+msgstr "Slå av"
+
+#: objects/FS/function.c:755
+msgid "Limit"
+msgstr "Begrens"
+
+#: objects/FS/function.c:756
+msgid "Interrupt"
+msgstr "Avbryt"
+
+#: objects/FS/function.c:757 objects/FS/function.c:758
+msgid "Change"
+msgstr "Endre"
+
+#: objects/FS/function.c:759
+msgid "Increase"
+msgstr "Øk"
+
+#: objects/FS/function.c:760
+msgid "Decrease"
+msgstr "Minsk"
+
+#: objects/FS/function.c:761
+msgid "Amplify"
+msgstr "Forsterk"
+
+#: objects/FS/function.c:762
+msgid "Reduce"
+msgstr "Reduser"
+
+#: objects/FS/function.c:764
+msgid "Normalize"
+msgstr "Normaliser"
+
+#: objects/FS/function.c:765
+msgid "Multiply"
+msgstr "Multipliser"
+
+#: objects/FS/function.c:766
+msgid "Scale"
+msgstr "Skaler"
+
+#: objects/FS/function.c:767
+msgid "Rectify"
+msgstr "Rett opp"
+
+#: objects/FS/function.c:768
+msgid "Adjust"
+msgstr "Juster"
+
+#: objects/FS/function.c:769 objects/FS/function.c:770
+msgid "Form"
+msgstr "Formgi"
+
+#: objects/FS/function.c:771
+msgid "Compact"
+msgstr ""
+
+#: objects/FS/function.c:772
+msgid "Crush"
+msgstr "Knus"
+
+#: objects/FS/function.c:773
+msgid "Shape"
+msgstr "Form"
+
+#: objects/FS/function.c:774
+msgid "Compress"
+msgstr "Trykk sammen"
+
+#: objects/FS/function.c:775
+msgid "Pierce"
+msgstr "Gjennomhull"
+
+#: objects/FS/function.c:776 objects/FS/function.c:777
 msgid "Convert"
 msgstr "Konverter"
 
-#: objects/FS/function.c:719
-msgid "   Sense"
-msgstr "   Føl"
+#: objects/FS/function.c:778
+msgid "Transform"
+msgstr "Overfør"
 
-#: objects/FS/function.c:720
-msgid "   Indicate"
-msgstr "   Indiker"
+#: objects/FS/function.c:779
+msgid "Liquefy"
+msgstr ""
 
-#: objects/FS/function.c:721
-msgid "   Display"
-msgstr "   Vis"
+#: objects/FS/function.c:780
+msgid "Solidify"
+msgstr "Solidifiser"
 
-#: objects/FS/function.c:722
-msgid "   Measure"
-msgstr "   Mål"
+#: objects/FS/function.c:781
+msgid "Evaporate"
+msgstr ""
+
+#: objects/FS/function.c:782
+msgid "Sublimate"
+msgstr ""
+
+#: objects/FS/function.c:783
+msgid "Condense"
+msgstr "Kondenser"
+
+#: objects/FS/function.c:784
+msgid "Integrate"
+msgstr "Integrer"
+
+#: objects/FS/function.c:785
+msgid "Differentiate"
+msgstr "Differensier"
+
+#: objects/FS/function.c:786
+msgid "Process"
+msgstr "Prosesser"
+
+#: objects/FS/function.c:789 objects/FS/function.c:790
+msgid "Sense"
+msgstr "Føl"
+
+#: objects/FS/function.c:791
+msgid "Perceive"
+msgstr "Sans"
+
+#: objects/FS/function.c:792
+msgid "Recognize"
+msgstr "Gjenkjenn"
+
+#: objects/FS/function.c:793
+msgid "Discern"
+msgstr ""
+
+#: objects/FS/function.c:794
+msgid "Check"
+msgstr "Sjekk"
+
+#: objects/FS/function.c:796
+msgid "Verify"
+msgstr "Verifiser"
+
+#: objects/FS/function.c:797 objects/FS/function.c:798
+msgid "Indicate"
+msgstr "Indiker"
+
+#: objects/FS/function.c:799
+msgid "Mark"
+msgstr "Merk"
+
+#: objects/FS/function.c:800
+msgid "Display"
+msgstr "Vis"
+
+#: objects/FS/function.c:801 objects/FS/function.c:802
+msgid "Measure"
+msgstr "Mål"
+
+#: objects/FS/function.c:803
+msgid "Calculate"
+msgstr "Kalkuler"
+
+#: objects/FS/function.c:804
+msgid "Represent"
+msgstr "Representer"
+
+#: objects/FS/function.c:805
+msgid "Noun"
+msgstr ""
+
+#: objects/FS/function.c:808
+msgid "Liquid"
+msgstr "Flytende"
+
+#: objects/FS/function.c:809
+msgid "Gas"
+msgstr "Gass"
+
+#: objects/FS/function.c:810 objects/FS/function.c:811
+#: objects/FS/function.c:853
+msgid "Human"
+msgstr "Menneskelig"
+
+#: objects/FS/function.c:812
+msgid "Hand"
+msgstr "Hånd"
+
+#: objects/FS/function.c:813
+msgid "Foot"
+msgstr "Fot"
+
+#: objects/FS/function.c:814
+msgid "Head"
+msgstr "Hode"
+
+#: objects/FS/function.c:815
+msgid "Finger"
+msgstr "Finger"
+
+#: objects/FS/function.c:816
+msgid "Toe"
+msgstr "Tå"
+
+#: objects/FS/function.c:817
+msgid "Biological"
+msgstr "Biologisk"
+
+#: objects/FS/function.c:819
+msgid "Mechanical"
+msgstr "Mekanisk"
+
+#: objects/FS/function.c:820
+msgid "Mech. Energy"
+msgstr "Mekanisk energi"
+
+#: objects/FS/function.c:821
+msgid "Translation"
+msgstr "Oversettelse"
+
+#: objects/FS/function.c:822
+msgid "Force"
+msgstr "Kraft"
+
+#: objects/FS/function.c:823
+msgid "Rotation"
+msgstr "Rotasjon"
+
+#: objects/FS/function.c:824
+msgid "Torque"
+msgstr ""
+
+#: objects/FS/function.c:825
+msgid "Random Motion"
+msgstr "Tilfeldig bevegelse"
+
+#: objects/FS/function.c:826
+msgid "Vibration"
+msgstr "Vibrasjon"
+
+#: objects/FS/function.c:827
+msgid "Rotational Energy"
+msgstr "Rotasjonsenergi"
+
+#: objects/FS/function.c:828
+msgid "Translational Energy"
+msgstr "Oversettbar energi"
+
+#: objects/FS/function.c:829
+msgid "Electrical"
+msgstr "Elektrisk"
+
+#: objects/FS/function.c:830
+msgid "Electricity"
+msgstr "Elektrisitet"
+
+#: objects/FS/function.c:831
+msgid "Voltage"
+msgstr "Spenning"
+
+#: objects/FS/function.c:832
+msgid "Current"
+msgstr "Strøm"
+
+#: objects/FS/function.c:833
+msgid "Hydraulic"
+msgstr "Hydraulisk"
+
+#: objects/FS/function.c:834
+msgid "Pressure"
+msgstr "Trykk"
+
+#: objects/FS/function.c:835
+msgid "Volumetric Flow"
+msgstr "Volumetrisk strøm"
+
+#: objects/FS/function.c:836
+msgid "Thermal"
+msgstr "Termisk"
+
+#: objects/FS/function.c:837
+msgid "Heat"
+msgstr "Varme"
+
+#: objects/FS/function.c:838
+msgid "Conduction"
+msgstr ""
+
+#: objects/FS/function.c:839
+msgid "Convection"
+msgstr ""
+
+#: objects/FS/function.c:840 objects/FS/function.c:844
+msgid "Radiation"
+msgstr "Stråling"
+
+#: objects/FS/function.c:841
+msgid "Pneumatic"
+msgstr "Pneumatisk"
+
+#: objects/FS/function.c:842
+msgid "Chemical"
+msgstr "Kjemisk"
+
+#: objects/FS/function.c:843
+msgid "Radioactive"
+msgstr "Radioaktiv"
+
+#: objects/FS/function.c:845
+msgid "Microwaves"
+msgstr "Mikrobølger"
+
+#: objects/FS/function.c:846
+msgid "Radio waves"
+msgstr "Radiobølger"
+
+#: objects/FS/function.c:847
+msgid "X-Rays"
+msgstr "Røngtenstråler"
+
+#: objects/FS/function.c:848
+msgid "Gamma Rays"
+msgstr "Gammastråler"
+
+#: objects/FS/function.c:849
+msgid "Acoustic Energy"
+msgstr "Akustisk energi"
+
+#: objects/FS/function.c:850
+msgid "Optical Energy"
+msgstr "Optisk energi"
+
+#: objects/FS/function.c:851
+msgid "Solar Energy"
+msgstr "Solenergi"
+
+#: objects/FS/function.c:852
+msgid "Magnetic Energy"
+msgstr "Magnetisk energi"
+
+#: objects/FS/function.c:854
+msgid "Human Motion"
+msgstr "Menneskelig bevegelse"
+
+#: objects/FS/function.c:855
+msgid "Human Force"
+msgstr "Menneskelig kraft"
+
+#: objects/FS/function.c:858
+msgid "Status"
+msgstr "Status"
+
+#: objects/FS/function.c:861
+msgid "User/Device Fn"
+msgstr "Bruker/Enhetsfunksjon"
+
+#: objects/FS/function.c:862
+msgid "Wish Fn"
+msgstr "Wish-funksjon"
 
 #: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/condition.c:205 objects/GRAFCET/condition.c:247
 #: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/GRAFCET/transition.c:215 objects/GRAFCET/transition.c:255
 #: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:337 objects/chronogram/chronoline.c:429
+#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
 #: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:390 objects/flowchart/box.c:353
+#: objects/custom/custom_object.c:394 objects/flowchart/box.c:353
 #: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
 #: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
 msgstr "Skrifttype:"
 
 #: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/condition.c:206 objects/GRAFCET/condition.c:248
 #: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/GRAFCET/transition.c:216 objects/GRAFCET/transition.c:256
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
+#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
 #: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:401 objects/flowchart/box.c:364
+#: objects/custom/custom_object.c:405 objects/flowchart/box.c:364
 #: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
 #: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
 msgstr "Størrelse på skrifttype:"
 
 #: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/condition.c:207 objects/GRAFCET/condition.c:249
-#: objects/GRAFCET/step.c:277 objects/GRAFCET/transition.c:217
-#: objects/GRAFCET/transition.c:257
+#: objects/GRAFCET/step.c:277
 msgid "Text color:"
 msgstr "Tekstfarge:"
 
@@ -2050,9 +2753,30 @@ msgstr "Tekstfarge:"
 msgid "Macro call"
 msgstr "Makrokall"
 
-#: objects/GRAFCET/condition.c:203
-msgid "Condition:"
-msgstr "Betingelse:"
+#: objects/GRAFCET/condition.c:129
+msgid "Condition"
+msgstr "Betingelse"
+
+#: objects/GRAFCET/condition.c:129
+msgid "The boolean equation of the condition"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:131
+#, fuzzy
+msgid "The condition's font"
+msgstr "Slett forbindelsespunkt"
+
+#: objects/GRAFCET/condition.c:133
+msgid "The condition's font size"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
+msgid "Color"
+msgstr "Farge"
+
+#: objects/GRAFCET/condition.c:136
+msgid "The condition's color"
+msgstr ""
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -2098,42 +2822,66 @@ msgstr "Stegtype"
 msgid "Color:"
 msgstr "Farge:"
 
-#: objects/GRAFCET/transition.c:214
-msgid "Receptivity:"
-msgstr "Mottagelighet:"
+#: objects/GRAFCET/transition.c:138
+msgid "Receptivity"
+msgstr "Mottagelighet"
+
+#: objects/GRAFCET/transition.c:138
+msgid "The boolean equation of the receptivity"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:140
+msgid "The receptivity's font"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:142
+msgid "The receptivity's font size"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:145
+msgid "The receptivity's color"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:146
+msgid "North point"
+msgstr "Nordpunkt"
+
+#: objects/GRAFCET/transition.c:147
+msgid "South point"
+msgstr "Sydpunkt"
 
 #: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Tegn pilhoder på oppoverpekende buer:"
 
-#: objects/GRAFCET/vergent.c:173
+#: objects/GRAFCET/vergent.c:171
 msgid "OR"
 msgstr "ELLER"
 
-#: objects/GRAFCET/vergent.c:174
+#: objects/GRAFCET/vergent.c:172
 msgid "AND"
 msgstr "OG"
 
-#: objects/GRAFCET/vergent.c:183 objects/GRAFCET/vergent.c:216
+#: objects/GRAFCET/vergent.c:181
 msgid "Vergent type:"
 msgstr "Vergenttype:"
 
-#: objects/GRAFCET/vergent.c:463 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Legg til forbindelsespunkt"
 
-#: objects/GRAFCET/vergent.c:464
+#: objects/GRAFCET/vergent.c:447
 msgid "Delete  connection point"
 msgstr "Slett forbindelsespunkt"
 
-#: objects/GRAFCET/vergent.c:468
+#: objects/GRAFCET/vergent.c:451
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET OG/ELLER vergent"
 
 #: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
 #: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
+#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
 #: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
 msgid "Font color:"
 msgstr "Skriftfarge:"
@@ -2171,7 +2919,7 @@ msgid "SADT Arrow"
 msgstr "SADT pil"
 
 #: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:365 objects/flowchart/box.c:339
+#: objects/custom/custom_object.c:369 objects/flowchart/box.c:339
 #: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
 #: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
@@ -2245,7 +2993,7 @@ msgid "Name"
 msgstr "Navn"
 
 #: objects/UML/class.c:102 objects/UML/classicon.c:142
-#: objects/UML/component.c:116 objects/UML/object.c:168
+#: objects/UML/component.c:116 objects/UML/object.c:173
 #: objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Stereotype"
@@ -2275,7 +3023,7 @@ msgid "Template"
 msgstr "Mal"
 
 #. Class page:
-#: objects/UML/class.c:686 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:682 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Klasse"
 
@@ -2284,8 +3032,8 @@ msgid "Class name:"
 msgstr "Navn på klasse:"
 
 #: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
-#: objects/UML/generalization.c:125 objects/UML/large_package.c:621
-#: objects/UML/object.c:828 objects/UML/realizes.c:126
+#: objects/UML/generalization.c:125 objects/UML/large_package.c:617
+#: objects/UML/object.c:883 objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
@@ -2404,10 +3152,6 @@ msgstr "Malklasse"
 msgid "Formal parameter data"
 msgstr "Formelle parameterdata"
 
-#: objects/UML/classicon.c:133
-msgid "Control"
-msgstr "Kontroll"
-
 #: objects/UML/classicon.c:134
 msgid "Boundary"
 msgstr "Grense"
@@ -2428,71 +3172,71 @@ msgstr "Vis pil:"
 msgid "Interface:"
 msgstr "Grensesnitt:"
 
-#: objects/UML/lifeline.c:149
+#: objects/UML/lifeline.c:138
 msgid "Draw focus of control:"
 msgstr "Tegn kontrollfokus:"
 
-#: objects/UML/lifeline.c:151
+#: objects/UML/lifeline.c:140
 msgid "Draw destruction mark:"
 msgstr "Tegn ødeleggelsesmerke:"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:159
 msgid "Call"
 msgstr "Kall"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:160
 msgid "Create"
 msgstr "Lag"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:161
 msgid "Destroy"
 msgstr "Ødelegg"
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:162
 msgid "Simple"
 msgstr "Enkel"
 
-#: objects/UML/message.c:165
+#: objects/UML/message.c:163
 msgid "Return"
 msgstr "Retur"
 
-#: objects/UML/message.c:166
+#: objects/UML/message.c:164
 msgid "Send"
 msgstr "Send"
 
-#: objects/UML/message.c:167
+#: objects/UML/message.c:165
 msgid "Recursive"
 msgstr "Rekursiv"
 
-#: objects/UML/message.c:174
+#: objects/UML/message.c:172
 msgid "Message:"
 msgstr "Melding:"
 
-#: objects/UML/message.c:176
+#: objects/UML/message.c:174
 msgid "Message type:"
 msgstr "Meldingstype:"
 
-#: objects/UML/object.c:171
+#: objects/UML/object.c:175
 msgid "Class name"
 msgstr "Klassenavn"
 
-#: objects/UML/object.c:816
+#: objects/UML/object.c:871
 msgid "Explicit state:"
 msgstr "Eksplisitt tilstand:"
 
-#: objects/UML/object.c:838
+#: objects/UML/object.c:893
 msgid "Attributes:"
 msgstr "Attributter:"
 
-#: objects/UML/object.c:848
+#: objects/UML/object.c:903
 msgid "Show attributes"
 msgstr "Vis attributter"
 
-#: objects/UML/object.c:852
+#: objects/UML/object.c:907
 msgid "Active object"
 msgstr "Aktiver objekt"
 
-#: objects/UML/object.c:857
+#: objects/UML/object.c:912
 msgid "multiple instance"
 msgstr "flere hendelser"
 
@@ -2512,11 +3256,11 @@ msgstr "Tilstandstype"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language diagramobjekter"
 
-#: objects/UML/usecase.c:137
+#: objects/UML/usecase.c:134
 msgid "Text outside"
 msgstr "Tekst utenfor"
 
-#: objects/UML/usecase.c:139
+#: objects/UML/usecase.c:136
 msgid "Collaboration"
 msgstr "Samarbeid"
 
@@ -2524,27 +3268,27 @@ msgstr "Samarbeid"
 msgid "Chronogram diagram objects"
 msgstr "Kronogram diagramobjekter"
 
-#: objects/chronogram/chronoline.c:306 objects/chronogram/chronoline.c:409
+#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
 msgid "Aspect"
 msgstr "Aspekt"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
+#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
 msgid "Parameters"
 msgstr "Parametere"
 
-#: objects/chronogram/chronoline.c:308
+#: objects/chronogram/chronoline.c:309
 msgid "Data"
 msgstr "Data"
 
-#: objects/chronogram/chronoline.c:310
+#: objects/chronogram/chronoline.c:311
 msgid "Data name:"
 msgstr "Datanavn:"
 
-#: objects/chronogram/chronoline.c:312
+#: objects/chronogram/chronoline.c:313
 msgid "Events:"
 msgstr "Hendelser:"
 
-#: objects/chronogram/chronoline.c:313
+#: objects/chronogram/chronoline.c:314
 msgid ""
 "Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
@@ -2561,37 +3305,37 @@ msgstr ""
 "'varighet'.\n"
 "eksempel : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:321 objects/chronogram/chronoline.c:412
+#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
 #: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
 msgid "Start time:"
 msgstr "Starttid:"
 
-#: objects/chronogram/chronoline.c:323 objects/chronogram/chronoline.c:414
+#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
 msgid "End time:"
 msgstr "Slutt-tid:"
 
-#: objects/chronogram/chronoline.c:325 objects/chronogram/chronoline.c:416
+#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
 msgid "Rise time:"
 msgstr "Hevingstid:"
 
-#: objects/chronogram/chronoline.c:327 objects/chronogram/chronoline.c:418
+#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
 msgid "Fall time:"
 msgstr "Falltid:"
 
-#: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:420
+#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
 msgid "Multi-bit data"
 msgstr "Multi-bit data"
 
-#: objects/chronogram/chronoline.c:331 objects/chronogram/chronoline.c:423
+#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 msgid "Data color:"
 msgstr "Datafarge:"
 
-#: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:424
+#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
 msgid "Data line width:"
 msgstr "Data linjebredde:"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
+#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
 msgid "Line color:"
 msgstr "Linjefarge:"
@@ -2616,23 +3360,23 @@ msgstr "Egendefinert"
 msgid "Custom XML shapes loader"
 msgstr "Egendefinert laster for XML-former"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:197
+#: objects/custom/custom_object.c:183 objects/custom/custom_object.c:201
 msgid "Flip horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
 msgid "Flip vertical"
 msgstr "Vend vertikalt"
 
-#: objects/custom/custom_object.c:379 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:383 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:1352
+#: objects/custom/custom_object.c:1427
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1353
+#: objects/custom/custom_object.c:1428
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
@@ -2669,7 +3413,7 @@ msgstr "Legg til håndtak"
 msgid "Delete Handle"
 msgstr "Slett håndtak"
 
-#: objects/network/network.c:52
+#: objects/network/network.c:55
 msgid "Network diagram objects"
 msgstr "Objekter for nettverksdiagram"
 
@@ -2773,15 +3517,15 @@ msgstr ""
 "Bildets radlengde større enn maksimum cellematrise.\n"
 "Bilde ikke eksportert til CGM."
 
-#: plug-ins/cgm/cgm.c:1259
+#: plug-ins/cgm/cgm.c:1261
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1273
+#: plug-ins/cgm/cgm.c:1275
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile eksportfilter"
 
-#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:631
+#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:631
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2801,11 +3545,11 @@ msgstr "TeX PSTricks eksportfilter"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
 
-#: plug-ins/shape/shape-export.c:914
+#: plug-ins/shape/shape-export.c:924
 msgid "Can't export png without libart!"
 msgstr "Kan ikke eksportere png uten libart!"
 
-#: plug-ins/shape/shape-export.c:937
+#: plug-ins/shape/shape-export.c:947
 msgid "dia shape file"
 msgstr "dia form-fil"
 
@@ -2821,160 +3565,194 @@ msgstr "Skalerbar vektorgrafikk"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Eksportfilter for skalerbar vektorgrafikk"
 
-#: plug-ins/wpg/wpg.c:1050
+#: plug-ins/wpg/wpg.c:1048
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Fil: %s type/versjon ikke støttet.\n"
 
-#: plug-ins/wpg/wpg.c:1199
+#: plug-ins/wpg/wpg.c:1197
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics Metafile eksportfilter"
 
-#: plug-ins/xfig/xfig.c:38
-msgid "Fig Format import filter"
+#: plug-ins/xfig/xfig.c:39
+#, fuzzy
+msgid "Fig Format import and export filter"
 msgstr "Fig format importfilter"
 
-#: plug-ins/xfig/xfig-import.c:270
+#: plug-ins/xfig/xfig-import.c:73
+#, fuzzy
+msgid "Polygon import is not implemented yes"
+msgstr "Objekttype %d er ikke implementert ennå\n"
+
+#: plug-ins/xfig/xfig-import.c:74
+msgid "Patterns are not supported by Dia"
+msgstr "Mønstre er ikke støttet av Dia"
+
+#: plug-ins/xfig/xfig-import.c:75
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:76
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:77
+#, fuzzy
+msgid "Spline import is not implemented yet"
+msgstr "Objekttype %d er ikke implementert ennå\n"
+
+#: plug-ins/xfig/xfig-import.c:357
+#, fuzzy, c-format
+msgid "Line style %d should not appear\n"
+msgstr "Linjestil %d ikke støttet\n"
+
+#: plug-ins/xfig/xfig-import.c:395
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Feil under lesing %de av %d punkter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:289
+#: plug-ins/xfig/xfig-import.c:414
 msgid "Error while reading arrowhead\n"
 msgstr "Feil under lesing av pilhodet\n"
 
-#: plug-ins/xfig/xfig-import.c:363
-msgid "Patterns are not implemented\n"
-msgstr "Mønstre er ikke implementert\n"
-
-#: plug-ins/xfig/xfig-import.c:408
+#: plug-ins/xfig/xfig-import.c:505
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Kunne ikke lese informasjon om elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:442 plug-ins/xfig/xfig-import.c:603
-#, c-format
-msgid "Line style %d not supported\n"
-msgstr "Linjestil %d ikke støttet\n"
-
-#: plug-ins/xfig/xfig-import.c:519
+#: plug-ins/xfig/xfig-import.c:574
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Kunne ikke lese info om polilinje: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:534
+#: plug-ins/xfig/xfig-import.c:589
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Kunne ikke lese vendt bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:577
+#: plug-ins/xfig/xfig-import.c:645 plug-ins/xfig/xfig-import.c:729
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Ukjent undertype for polilinje: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:671
+#: plug-ins/xfig/xfig-import.c:707
+#, fuzzy, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr "Kunne ikke lese tekstinfo: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:781
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Kunne ikke lese tekstinfo: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:717
+#: plug-ins/xfig/xfig-import.c:828
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Kunne ikke identifiserte FIG-objekt: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:731
+#: plug-ins/xfig/xfig-import.c:835
 msgid "Compound end outside compound\n"
 msgstr "Sammensatt ende utenfor sammensatt objekt\n"
 
-#: plug-ins/xfig/xfig-import.c:754
+#: plug-ins/xfig/xfig-import.c:854
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Kunne ikke lese farge: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:783
+#: plug-ins/xfig/xfig-import.c:896
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Kunne ikke lese gruppeutvidelse: %s\n"
 
-#. Arc.
-#. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:793
-#, c-format
-msgid "Object type %d not implemented yet\n"
-msgstr "Objekttype %d er ikke implementert ennå\n"
-
-#: plug-ins/xfig/xfig-import.c:796
+#: plug-ins/xfig/xfig-import.c:907
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Ukjent objekttype %d\n"
 
-#: plug-ins/xfig/xfig-import.c:815
+#: plug-ins/xfig/xfig-import.c:930
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' er ikke en av `%s' eller `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:825
+#: plug-ins/xfig/xfig-import.c:940
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Feil under lesing av papirstørrelse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:847
+#: plug-ins/xfig/xfig-import.c:950
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:962
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Feil under lesing av papirorientering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:857
+#: plug-ins/xfig/xfig-import.c:972
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Feil under lesing av justering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:867
+#: plug-ins/xfig/xfig-import.c:982
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Feil under lesing av enheter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:881
+#: plug-ins/xfig/xfig-import.c:996
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Feil under lesing av forstørrelse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:892
+#: plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Feil under lesing av indikator for flere sider: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:903
+#: plug-ins/xfig/xfig-import.c:1018
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Feil under lesing av gjennomsiktig farge: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:912 plug-ins/xfig/xfig-import.c:968
+#: plug-ins/xfig/xfig-import.c:1027 plug-ins/xfig/xfig-import.c:1082
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Feil under lesing av FIG-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:914 plug-ins/xfig/xfig-import.c:970
+#: plug-ins/xfig/xfig-import.c:1029 plug-ins/xfig/xfig-import.c:1084
 msgid "Premature end of FIG file\n"
 msgstr "For tidlig slutt på FIG-fil\n"
 
-#: plug-ins/xfig/xfig-import.c:923
+#: plug-ins/xfig/xfig-import.c:1038
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Feil under lesing av oppløsning: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:955
+#: plug-ins/xfig/xfig-import.c:1069
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ser ikke ut som en Fig-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:961
+#: plug-ins/xfig/xfig-import.c:1075
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Dette er en fil i FIG-versjon %d.%d, forstår den ikke\n"
 
-#: plug-ins/xfig/xfig-import.c:1014
+#: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFig filformat"
+
+#~ msgid "Function:"
+#~ msgstr "Funksjon:"
+
+#~ msgid "      Transmit"
+#~ msgstr "      Send"
+
+#~ msgid "      Rotate"
+#~ msgstr "      Roter"
+
+#~ msgid "      Remove"
+#~ msgstr "      Fjern"
 
 #~ msgid "Hollow Diamond"
 #~ msgstr "Hul diamant"
@@ -3028,48 +3806,6 @@ msgstr "XFig filformat"
 #~ msgid "View/New View"
 #~ msgstr "Vis/Ny visning"
 
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Rediger/Kopier"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Rediger/Klipp ut"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Rediger/Lim inn"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Rediger/Slett"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Rediger/Lim inn tekst"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Objekter/Send til bakgrunnen"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Objekter/Hent fram"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objekter/Grupper"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objekter/Avgrupper"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Vis/Vis linjaler"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Vis/Synlig rutenett"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Vis/Fest til rutenett"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Vis/Vis forbindelsespunkter"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Vis/Antialiased"
-
 #~ msgid "/File/sep1"
 #~ msgstr "/Fil/sep1"
 
@@ -3117,6 +3853,3 @@ msgstr "XFig filformat"
 
 #~ msgid "/Dialogs/tearoff"
 #~ msgstr "/Dialoger/avrevet"
-
-#~ msgid "/Tools/"
-#~ msgstr "/Verktøy/"
