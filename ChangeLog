@@ -1,3 +1,16 @@
+2000-08-10  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/diapagelayout.c:
+	* lib/diagramdata.c:
+	* lib/diagramdata.h:
+	* lib/Makefile.am:
+	* lib/paper.c:
+	* lib/paper.h: honour PAPERCONF env variable and /etc/papersize when
+	selecting paper size for a new diagram. TODO: Use libpaper if 
+	available and use gnome_paper-stuff if using GNOME.
+
+	* sheets/Electric.sheet: fixed typo.
+	
 2000-08-08  James Henstridge  <james@daa.com.au>
 
 	* po/README: added a readme file to tell translators to translate

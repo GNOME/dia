@@ -73,7 +73,9 @@ libdia_a_SOURCES =  \
 		dia_dirs.h \
 		plug-ins.c \
 		plug-ins.h \
-		dummy_dep.h
+		dummy_dep.h \
+		paper.c \
+		paper.h
 
 CPPFLAGS = \
 	-DLIBDIR=\"$(libdir)\" \

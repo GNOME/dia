@@ -21,12 +21,14 @@
 #include "intl.h"
 #include "diagramdata.h"
 
+#include "paper.h"
+
 DiagramData *
 new_diagram_data(void)
 {
   DiagramData *data;
   Layer *first_layer;
-
+   
   data = g_new(DiagramData, 1);
    
   data->extents.left = 0.0; 
@@ -36,16 +38,7 @@ new_diagram_data(void)
  
   data->bg_color = color_white;
 
-  data->paper.name = g_strdup("A4");
-  data->paper.tmargin = data->paper.bmargin =
-    data->paper.lmargin = data->paper.rmargin = 2.82;
-  data->paper.is_portrait = TRUE;
-  data->paper.scaling = 1.0;
-  data->paper.fitto = FALSE;
-  data->paper.fitwidth = 1;
-  data->paper.fitheight = 1;
-  data->paper.width = 21.0 - 2 * 2.82;
-  data->paper.height = 29.7 - 2 * 2.82;
+  get_paper_info(&data->paper, -1);
 
   data->grid.width_x = 1.0;
   data->grid.width_y = 1.0;
@@ -74,6 +67,7 @@ diagram_data_destroy(DiagramData *data)
   int i;
 
   g_free(data->paper.name);
+
   for (i=0;i<data->layers->len;i++) {
     layer_destroy(g_ptr_array_index(data->layers, i));
   }
