@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2003-02-06 01:47+0000\n"
-"PO-Revision-Date: 2003-02-06 01:58+0000\n"
+"POT-Creation-Date: 2003-02-17 00:06+0000\n"
+"PO-Revision-Date: 2003-02-17 00:08+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -383,7 +383,7 @@ msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
 #: app/lineprops_area.c:679 app/linewidth_area.c:252
-#: app/paginate_psprint.c:274
+#: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -492,11 +492,11 @@ msgstr "Nenhum menu de objecto"
 msgid "Diagram modified!"
 msgstr "Diagrama modificado!"
 
-#: app/display.c:866
+#: app/display.c:890
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: app/display.c:868
+#: app/display.c:892
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -505,11 +505,11 @@ msgstr ""
 "O diagrama '%s'\n"
 "não foi gravado. Gravar as alterações agora?"
 
-#: app/display.c:879
+#: app/display.c:903
 msgid "Close Diagram"
 msgstr "Fechar Diagrama"
 
-#: app/display.c:884
+#: app/display.c:908
 msgid "Discard Changes"
 msgstr "Descartar Alterações"
 
@@ -519,7 +519,7 @@ msgstr "Descartar Alterações"
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Incapaz de abrir: '%s' para escrita.\n"
@@ -579,7 +579,8 @@ msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Alguns dos caracteres no ficheiro nem são UTF-8 nem estão na codificação do seu local.\n"
+"Alguns dos caracteres no ficheiro nem são UTF-8 nem estão na codificação do "
+"seu local.\n"
 "Algumas coisas irão falhar."
 
 #: app/filedlg.c:240 app/filedlg.c:412
@@ -815,7 +816,7 @@ msgid "Layer name:"
 msgstr "Nome da camada:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:266
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -869,7 +870,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Tem de especificar um ficheiro, não um directório.\n"
 
 #: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:81
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Incapaz de abrir: '%s' para leitura.\n"
@@ -1445,7 +1446,7 @@ msgstr "/Objectos/Enviar para Trás"
 msgid "/Objects/Bring Forwards"
 msgstr "/Objectos/Trazer para a Frente"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:411 app/menus.c:415
 msgid "/Objects/---"
 msgstr "/Objectos/---"
 
@@ -1474,6 +1475,10 @@ msgstr "/Objectos/Alinhar Horizontalmente/Centrar"
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objectos/Alinhar Horizontalmente/Direita"
 
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Objectos/Alinhar Horizontalmente/---"
+
 #: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objectos/Alinhar Horizontalmente/Mesma Distância"
@@ -1497,6 +1502,10 @@ msgstr "/Objectos/Alinhar Verticalmente/Centro"
 #: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objectos/Alinhar Verticalmente/Fundo"
+
+#: app/menus.c:429
+msgid "/Objects/Align Vertical/---"
+msgstr "/Objectos/Alinhar Verticalmente/---"
 
 #: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
@@ -1607,29 +1616,29 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Incapaz de obter definições GTK"
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
 msgstr "Seleccionar Impressora"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
 msgstr "Impressora"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253
 msgid "File"
 msgstr "Ficheiro"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Incapaz de executar comando '%s'"
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Incapaz de abrir '%s' para escrita"
 
-#: app/paginate_psprint.c:368
+#: app/paginate_psprint.c:370
 msgid "Error occured while printing"
 msgstr "Ocorreu um erro durante a impressão"
 
@@ -1821,11 +1830,11 @@ msgstr "Propriedades do objecto"
 msgid "This object has no properties."
 msgstr "Este objecto não tem propriedades."
 
-#: app/properties.c:169
+#: app/properties.c:175
 msgid "Properties: "
 msgstr "Propriedades: "
 
-#: app/properties.c:173
+#: app/properties.c:179
 msgid "Object properties:"
 msgstr "Propriedades do objecto:"
 
@@ -2352,16 +2361,16 @@ msgstr "Incapaz de encontrar função init de plugin em `%s'"
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Símbolo 'dia_plugin_init' inexistente"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
 msgstr "Chamada a dia_plugin_init() falhou"
 
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Plugin %s não pode ser descarregado"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2635,7 +2644,7 @@ msgid "Total:"
 msgstr "Total:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
 #: objects/standard/zigzagline.c:495 objects/UML/association.c:691
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
@@ -2643,7 +2652,7 @@ msgid "Add segment"
 msgstr "Adicionar segmento"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
 #: objects/standard/zigzagline.c:496 objects/UML/association.c:692
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
@@ -3909,7 +3918,7 @@ msgstr ""
 "Para facilitar a leitura, fluxos que comecem e acabem verticalmente podem "
 "ser pintados de cinzento"
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:561
 msgid "SADT Arrow"
 msgstr "Seta SADT"
 
@@ -4513,7 +4522,7 @@ msgstr "Incapaz de exportar png sem a libart!"
 msgid "dia shape file"
 msgstr "Ficheiro de formas dia"
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4751,42 +4760,45 @@ msgstr "Este é um ficheiro FIG versão %d.%d, que pode não ser compreensível\
 msgid "XFig File Format"
 msgstr "Formato de Ficheiro XFig"
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "DIA_PLUGIN_PATH não definido. Folhas de estilo indisponíveis.\n"
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Erro ao parsear %s\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Erro ao parsear folha de estilos %s\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:105
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "Erro ao aplicar folha de estilos %s\n"
+
+#: plug-ins/xslt/xslt.c:113
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Erro ao parsear folha de estilos: %s\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:121
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Erro ao aplicar folha de estilos: %s\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:283
 msgid "XSL Transformation filter"
 msgstr "Filtro de Transformação XSL"
 
-#: plug-ins/xslt/xslt.c:197
+#: plug-ins/xslt/xslt.c:298
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
 msgstr "Incapaz de carregar biblioteca XSLT (%s) : %s"
 
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-msgstr "Incapaz de carregar plugin XSLT; DIA_PLUGIN_PATH não está definida."
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
+msgstr ""
+"Nenhum ficheiro de configuração válido encontrado para o plugin XSLT, "
+"a não carregar."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6176,6 +6188,12 @@ msgstr "Realiza, implementa um interface específico"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
+#~ msgstr "DIA_PLUGIN_PATH não definido. Folhas de estilo indisponíveis.\n"
+
+#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#~ msgstr "Incapaz de carregar plugin XSLT; DIA_PLUGIN_PATH não está definida."
 
 #~ msgid "Untitled-%d"
 #~ msgstr "SemNome-%d"
