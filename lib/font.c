@@ -258,35 +258,6 @@ dia_font_get_psfontname(const DiaFont *font)
     return dia_font_get_legacy_name(font);
 }
 
-/**
- * Given a legacy name as stored until Dia-0.90 construct
- * a new DiaFont which is as similar as possible
- */
-DiaFont*
-dia_font_new_from_legacy_name(const char* name)
-{
-        /* do NOT translate anything here !!! */
-    
-    Style style = STYLE_NORMAL;
-    DiaFont* retval;
-    char* family;
-    const char* dash = strchr(name,'-');
-    
-    if (!dash) return dia_font_new(name,style,1.0);
-
-    family  = g_strndup(name,dash-name);
-    if (0 == strncmp(dash+1,"BoldOblique",12)) {
-        style = STYLE_BOLD_ITALIC; 
-    } else if (0 == strncmp(dash+1,"Bold",5)) {
-        style = STYLE_BOLD;
-    } if (0 == strncmp(dash+1,"Oblique",8)) {
-        style = STYLE_ITALIC;
-    }
-    retval = dia_font_new(family,style,1.0);
-    g_free(family);
-    return retval;
-}
-
 static G_CONST_RETURN char*
 dia_font_style_to_legacy_name(Style style) 
 {
@@ -528,3 +499,100 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     return dia_font_build_layout(string,font,height*scaling);    
 #endif
 }
+
+/**
+ * Compatibility with older files out of pre Pango Time. 
+ * Make old files look as similar as possible
+ *
+ * FIXME: DIA_FONT_FAMILY_ANY in the list below does mean noone knows better
+ */
+static struct _legacy_font {
+  gchar*       oldname;
+  gchar*       newname;
+  DiaFontStyle style;   /* the DIA_FONT_FAMILY() is used as falback only */
+} legacy_fonts[] = {
+  /* these _MUST_ be sorted alphabetical */
+  { "AvantGarde-Book",        "AvantGarde", DIA_FONT_SERIF },
+  { "AvantGarde-BookOblique", "AvantGarde", DIA_FONT_SERIF | DIA_FONT_OBLIQUE },
+  { "AvantGarde-Demi",        "AvantGarde", DIA_FONT_SERIF | DIA_FONT_DEMIBOLD },
+  { "AvantGarde-DemiOblique", "AvantGarde", DIA_FONT_SERIF | DIA_FONT_OBLIQUE | DIA_FONT_DEMIBOLD },
+  { "Batang", "Batang", DIA_FONT_FAMILY_ANY },
+  { "Bookman-Demi",        "Bookman Old Style", DIA_FONT_SERIF | DIA_FONT_DEMIBOLD },
+  { "Bookman-DemiItalic",  "Bookman Old Style", DIA_FONT_SERIF | DIA_FONT_DEMIBOLD | DIA_FONT_ITALIC },
+  { "Bookman-Light",       "Bookman Old Style", DIA_FONT_SERIF | DIA_FONT_LIGHT },
+  { "Bookman-LightItalic", "Bookman Old Style", DIA_FONT_SERIF | DIA_FONT_LIGHT | DIA_FONT_ITALIC },
+  { "BousungEG-Light-GB", "BousungEG-Light-GB", DIA_FONT_FAMILY_ANY },
+  { "Courier",             "Courier New", DIA_FONT_MONOSPACE },
+  { "Courier-Bold",        "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_BOLD },
+  { "Courier-BoldOblique", "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE | DIA_FONT_BOLD },
+  { "Courier-Oblique",     "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE },
+  { "Dotum", "Dotum", DIA_FONT_FAMILY_ANY },
+  { "GBZenKai-Medium", "GBZenKai-Medium", DIA_FONT_FAMILY_ANY }, 
+  { "GothicBBB-Medium", "GothicBBB-Medium", DIA_FONT_FAMILY_ANY },
+  { "Gulim", "Gulim", DIA_FONT_FAMILY_ANY }, 
+  { "Headline", "Headline", DIA_FONT_FAMILY_ANY },
+  { "Helvetica",             "Arial", DIA_FONT_SANS },
+  { "Helvetica-Bold",        "Arial", DIA_FONT_SANS | DIA_FONT_BOLD },
+  { "Helvetica-BoldOblique", "Arial", DIA_FONT_SANS | DIA_FONT_BOLD | DIA_FONT_OBLIQUE },
+  { "Helvetica-Narrow",             "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM },
+  { "Helvetica-Narrow-Bold",        "Arial Narrow", DIA_FONT_SANS | DIA_FONT_DEMIBOLD },
+  { "Helvetica-Narrow-BoldOblique", "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM | DIA_FONT_OBLIQUE },
+  { "Helvetica-Narrow-Oblique",     "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM | DIA_FONT_OBLIQUE },
+  { "Helvetica-Oblique",     "Arial", DIA_FONT_SANS | DIA_FONT_OBLIQUE },
+  { "MOESung-Medium", "MOESung-Medium", DIA_FONT_FAMILY_ANY },
+  { "NewCenturySchoolbook-Bold",       "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_BOLD },
+  { "NewCenturySchoolbook-BoldItalic", "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_BOLD | DIA_FONT_ITALIC },
+  { "NewCenturySchoolbook-Italic",     "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_ITALIC },
+  { "NewCenturySchoolbook-Roman",      "Century Schoolbook SWA", DIA_FONT_SERIF },
+  { "Palatino-Bold",       "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD }, 
+  { "Palatino-BoldItalic", "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD | DIA_FONT_ITALIC }, 
+  { "Palatino-Italic",     "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_ITALIC }, 
+  { "Palatino-Roman",      "Palatino", DIA_FONT_FAMILY_ANY },
+  { "Ryumin-Light", "Ryumin", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
+  { "ShanHeiSun-Light", "ShanHeiSun", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
+  { "Song-Medium", "Song-Medium", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
+  { "Symbol", "Symbol", DIA_FONT_SANS | DIA_FONT_MEDIUM },
+  { "Times-Bold",       "Times New Roman", DIA_FONT_SERIF | DIA_FONT_BOLD },
+  { "Times-BoldItalic", "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD },
+  { "Times-Italic",     "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC },
+  { "Times-Roman",      "Times New Roman", DIA_FONT_SERIF }, 
+  { "ZapfChancery-MediumItalic", "Zapf Calligraphic 801 SWA", DIA_FONT_SERIF | DIA_FONT_MEDIUM },
+  { "ZapfDingbats", "Zapf Calligraphic 801 SWA", DIA_FONT_SERIF },
+  { "ZenKai-Medium", "ZenKai", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
+};
+
+
+static int
+fonts_compare (const void *key, const void *elem)
+{
+  char* a = (char*)key;
+  char* b = ((struct _legacy_font*)elem)->oldname;
+  return strcmp (a, b);
+}
+
+/**
+ * Given a legacy name as stored until Dia-0.90 construct
+ * a new DiaFont which is as similar as possible
+ */
+DiaFont*
+dia_font_new_from_legacy_name(const char* name)
+{
+  /* do NOT translate anything here !!! */
+  DiaFont* retval;
+  struct _legacy_font* found;
+  real height = 1.0;
+
+  found = bsearch (name, legacy_fonts,
+		   G_N_ELEMENTS(legacy_fonts), sizeof (struct _legacy_font),
+		   fonts_compare);
+  if (found) {
+    retval = dia_font_new (found->newname, found->style, height);
+    retval->legacy_name = found->oldname;
+  } else {      
+    /* We tried our best, let Pango complain */
+    retval = dia_font_new (name, DIA_FONT_WEIGHT_NORMAL, height);
+  }
+  
+  return retval;
+}
+

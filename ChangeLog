@@ -1,3 +1,24 @@
+2002-06-23  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c : giving some love to
+	dia_font_new_from_legacy_name() that is making
+	import of old files as painless as possible and
+	provide an almost exact match where possible.
+	It does not yet fully work because it interfers
+	with the Style to DiaStyle conversion which comes
+	next ...
+
+	[Changing these files is only allowed with Dia-0.90]
+	* broken-files/fonts-0.90.dia : including the
+	common hard-coded fonts from Dia-0.90. It also
+	has drawn bounding-boxes for win32 as they were calculated
+	from the former version (they were all too big).
+	* broken-files/fonts-0.90-full.dia : all hardcoded
+	fonts including the asian versions. On my machine
+	this gives _a lot_ complaining about missing fonts
+	and a finally a broken file display. Anyone having
+	all these fonts ?
+	
 2002-06-23  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* objects/chronogram/*.c: 
