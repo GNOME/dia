@@ -226,6 +226,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     GtkWidget *button, *label;
     char buffer[300];
     int result;
+    char *utf8filename = NULL;
 
     dialog = gtk_dialog_new();
   
@@ -235,9 +236,18 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
 
+    if (!g_utf8_validate(filename, -1, NULL)) {
+      utf8filename = g_locale_to_utf8(filename, -1, NULL, NULL, NULL);
+      if (utf8filename == NULL) {
+	message_warning(_("Some characters in the filename are neither UTF-8 nor your local encoding.\nSome things will break."));
+      }
+    }
+    if (utf8filename == NULL) utf8filename = g_strdup(filename);
+
     g_snprintf(buffer, 300,
 	       _("The file '%s' already exists.\n"
-		 "Do you want to overwrite it?"), filename);
+		 "Do you want to overwrite it?"), utf8filename);
+    g_free(utf8filename);
     label = gtk_label_new (buffer);
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
