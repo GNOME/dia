@@ -20,6 +20,9 @@
  *  
  */
 
+#ifndef DIAGRAM_TREE_MENU_CALLBACKS_H
+#define DIAGRAM_TREE_MENU_CALLBACKS_H
+
 #include <gtk/gtk.h>
 #include "diagram_tree.h"
 
@@ -44,6 +47,10 @@ on_sort_def_activate(gpointer user_data,
 		     guint action, GtkMenuItem *item);
 
 extern void
+on_hide_object_activate(gpointer user_data,
+			guint action, GtkMenuItem *item);
+
+extern void
 on_delete_object_activate(gpointer user_data,
 			  guint action, GtkMenuItem *item);
 
@@ -58,3 +65,5 @@ on_sort_diagrams_activate(gpointer user_data,
 extern void
 on_sort_dia_def_activate(gpointer user_data,
 			 guint action, GtkMenuItem *item);
+
+#endif /* DIAGRAM_TREE_MENU_CALLBACKS_H */

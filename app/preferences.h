@@ -62,6 +62,7 @@ struct DiaPreferences {
 
   int render_bounding_boxes;
   int pretty_formated_xml;
+  int prefer_psprint;
   DiagramTreeConfig dia_tree;
 };
 

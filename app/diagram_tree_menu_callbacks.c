@@ -28,6 +28,7 @@
 
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree_menu.h"
+#include "diagram_tree_window.h"
 #include "preferences.h"
 
 void
@@ -100,3 +101,13 @@ on_sort_dia_def_activate(gpointer user_data,
   diagram_tree_set_diagram_sort_type((DiagramTree *)user_data, action);
 }
 
+void
+on_hide_object_activate(gpointer user_data,
+			guint action, GtkMenuItem *menuitem)
+{
+  const gchar *type = diagram_tree_hide_type((DiagramTree *)user_data);
+  if (type) {
+    diagram_tree_config_add_hidden_type(&prefs.dia_tree, type);
+    if (prefs.dia_tree.save_hidden) prefs_save();
+  }
+}

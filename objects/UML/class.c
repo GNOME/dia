@@ -162,6 +162,8 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
                                 props);
+  /* Update data: */
+  umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
 }
 

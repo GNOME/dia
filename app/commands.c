@@ -36,7 +36,7 @@
 
 #ifdef G_OS_WIN32
 /*
- * Instead of polluting the Dia namespace with indoze headers, declare the
+ * Instead of polluting the Dia namespace with windoze headers, declare the
  * required prototype here. This is bad style, but not as bad as namespace
  * clashes to be resolved without C++   --hb
  */
@@ -56,6 +56,9 @@ ShellExecuteA (long        hwnd,
 #include "paginate_gnomeprint.h"
 #else
 #include "paginate_psprint.h"
+#  ifdef G_OS_WIN32
+#  include "paginate_gdiprint.h"
+#  endif
 #endif
 #include "intl.h"
 #include "commands.h"
@@ -109,7 +112,13 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
 #ifdef GNOME_PRINT
   diagram_print_gnome(dia);
 #else
-  diagram_print_ps(dia);
+#  ifdef G_OS_WIN32
+  /* This option could be used with Gnome too. Does it make sense there ? */
+  if (!prefs.prefer_psprint)
+    diagram_print_gdi(dia);
+  else
+#  endif
+    diagram_print_ps(dia);
 #endif
 }
 

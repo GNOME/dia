@@ -26,6 +26,19 @@
 
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree_menu.h"
+#include "diagram_tree_window.h"
+#include "preferences.h"
+
+struct _DiagramTreeMenus {
+  GtkItemFactory *factories[2];	/* menu factories */
+  GtkWidget *menus[2];		/* popup menus */
+  GtkWidget *show_menus[2];	/* show object type menus */
+  DiagramTree *tree;		/* associated diagram tree */
+};
+
+#define SHOW_TYPE_PATH "/Show object type"
+
+static const gchar *ROOT_NAMES_[] = {"<DiagramTreeDia>", "<DiagramTreeObj>"};
 
 static GtkItemFactoryEntry common_items_[] = {
   { "/sep0", NULL, NULL, 0, "<Separator>" },
@@ -68,23 +81,27 @@ sizeof (common_items_) / sizeof (common_items_[0]);
 static GtkItemFactoryEntry object_items_[] = {
   { N_("/_Locate"), NULL, on_locate_object_activate, 0, "" },
   { N_("/_Properties"), NULL, on_properties_activate, 0, "" },
+  { N_("/_Hide this type"), NULL, on_hide_object_activate, 0, "" },
+  { N_(SHOW_TYPE_PATH), NULL, NULL, 0, "<Branch>" },
   /*  { "/sep1", NULL, NULL, 0, "<Separator>" },
       { N_("/_Delete"), NULL, on_delete_object_activate, 0, "" }, */
 };
 
-static const gint OBJ_ITEMS_SIZE_ =
-sizeof (object_items_) / sizeof (object_items_[0]);
+#define OBJ_ITEMS_SIZE_  (sizeof (object_items_) / sizeof (object_items_[0]))
 
 static GtkItemFactoryEntry dia_items_[] = {
   { N_("/_Locate"), NULL, on_locate_dia_activate, 0, "" },
+  { N_(SHOW_TYPE_PATH), NULL, NULL, 0, "<Branch>" },
 };
 
-static const gint DIA_ITEMS_SIZE_ =
-sizeof (dia_items_) / sizeof (dia_items_[0]);
+#define DIA_ITEMS_SIZE_ (sizeof (dia_items_) / sizeof (dia_items_[0]))
 
-static GtkWidget*
-create_dmenu(DiagramTree *tree, GtkWindow *window, gint no,
-	    GtkItemFactoryEntry entries[], const gchar *path)
+static GtkItemFactoryEntry *items_[] = { dia_items_, object_items_ };
+static gint items_size_[] = { DIA_ITEMS_SIZE_, OBJ_ITEMS_SIZE_ };
+
+static GtkItemFactory*
+create_factory(DiagramTree *tree, GtkWindow *window, gint no,
+	       GtkItemFactoryEntry entries[], const gchar *path)
 {
   GtkItemFactory *factory;
   GtkAccelGroup *accel = gtk_accel_group_new();
@@ -128,22 +145,96 @@ create_dmenu(DiagramTree *tree, GtkWindow *window, gint no,
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu), TRUE);
   g_free(item_path);
 
-  return gtk_item_factory_get_widget(factory, path);
+  return factory;
+}
+
+DiagramTreeMenus *
+diagram_tree_menus_new(DiagramTree *tree, GtkWindow *window)
+{
+  DiagramTreeMenus *result;
+  int k;
+  
+  g_return_val_if_fail(tree, NULL);
+  g_return_val_if_fail(window, NULL);
+  
+  result = g_new(DiagramTreeMenus, 1);
+  result->tree = tree;
+  for (k = 0; k < 2; ++k) {
+    enum {LEN = 128};
+    static gchar BUFF[LEN];
+    result->factories[k] = create_factory(tree, window, items_size_[k],
+					  items_[k], ROOT_NAMES_[k]);
+    result->menus[k] =
+      gtk_item_factory_get_widget(result->factories[k], ROOT_NAMES_[k]);
+    g_snprintf(BUFF, LEN, "%s%s", ROOT_NAMES_[k], SHOW_TYPE_PATH);
+    result->show_menus[k] =
+      gtk_item_factory_get_widget(result->factories[k], BUFF);
+  }
+  return result;
+}
+
+GtkWidget *
+diagram_tree_menus_get_menu(const DiagramTreeMenus *menus,
+			    DiagramTreeMenuType type)
+{
+  g_return_val_if_fail(menus, NULL);
+  g_return_val_if_fail(type <= DIA_MENU_OBJECT, NULL);
+  return menus->menus[type];
 }
 
 void
-create_dtree_object_menu(DiagramTree *tree, GtkWindow *window)
+diagram_tree_menus_popup_menu(const DiagramTreeMenus *menus,
+			      DiagramTreeMenuType type, gint time)
 {
-  GtkWidget *menu = create_dmenu(tree, window, OBJ_ITEMS_SIZE_, object_items_,
-				 "<DiagramTreeObj>");
-  diagram_tree_attach_obj_menu(tree, menu);
+  g_return_if_fail(menus);
+  g_return_if_fail(type <= DIA_MENU_OBJECT);
+  gtk_menu_popup(GTK_MENU(menus->menus[type]), NULL, NULL, NULL, NULL, 3, time);
+}
+
+
+typedef struct _ShowTypeData 
+{
+  DiagramTreeMenus *menus;
+  GtkWidget *items[2];
+  gchar *type;
+} ShowTypeData;
+
+static void
+on_show_object_type(GtkMenuItem *item, ShowTypeData *data)
+{
+  int k;
+  diagram_tree_unhide_type(data->menus->tree, data->type);
+  for (k = 0; k < 2; ++k) {
+    gtk_container_remove(GTK_CONTAINER(data->menus->show_menus[k]),
+			 data->items[k]);
+  }
+  diagram_tree_config_remove_hidden_type(&prefs.dia_tree, data->type);
+  if (prefs.dia_tree.save_hidden) prefs_save();
+  g_free(data->type);
+  g_free(data);
 }
 
 void
-create_dtree_dia_menu(DiagramTree *tree, GtkWindow *window)
+diagram_tree_menus_add_hidden_type(DiagramTreeMenus *menus,
+				   const gchar *type)
 {
-  GtkWidget *menu = create_dmenu(tree, window, DIA_ITEMS_SIZE_, dia_items_,
-				 "<DiagramTreeDia>");
-  diagram_tree_attach_dia_menu(tree, menu);
+  int k;
+  ShowTypeData *data;
+  g_return_if_fail(menus);
+  g_return_if_fail(type);
+  data = g_new(ShowTypeData, 1);
+  data->type = g_strdup(type);
+  data->menus = menus;
+  for (k = 0; k < 2; ++k) {
+    GtkMenuShell *shell = GTK_MENU_SHELL(menus->show_menus[k]);
+    GtkWidget *item = gtk_menu_item_new_with_label(type);
+    data->items[k] = item;
+    gtk_menu_shell_append(shell, item);
+    gtk_signal_connect(GTK_OBJECT(item),
+		       "activate",
+		       GTK_SIGNAL_FUNC(on_show_object_type),
+		       (gpointer)data);
+    gtk_widget_show(item);
+  }
 }
 

@@ -42,7 +42,9 @@ typedef enum {
 
 /* create a new tree with a list of already open diagrams */
 extern DiagramTree*
-diagram_tree_new(GList *diagrams);
+diagram_tree_new(GList *diagrams, GtkWindow *window,
+		 DiagramTreeSortType dia_sort,
+		 DiagramTreeSortType obj_sort);
 
 /* delete a tree (the widget is destroyed, but not the diagrams */
 extern void
@@ -57,6 +59,9 @@ extern void
 diagram_tree_remove(DiagramTree *tree, Diagram *diagram);
 
 /* update a diagram in the tree */
+extern void
+diagram_tree_update_all(DiagramTree *tree);
+
 extern void
 diagram_tree_update(DiagramTree *tree, Diagram *diagram);
 
@@ -87,6 +92,15 @@ diagram_tree_raise(DiagramTree *tree);
 extern void
 diagram_tree_show_properties(const DiagramTree *tree);
 
+extern const gchar * /* hidden type */
+diagram_tree_hide_type(DiagramTree *tree);
+
+extern void
+diagram_tree_hide_explicit_type(DiagramTree *tree, const gchar *type);
+
+extern void
+diagram_tree_unhide_type(DiagramTree *tree, const gchar *type);
+
 extern void
 diagram_tree_sort_objects(DiagramTree *tree, DiagramTreeSortType type);
 
@@ -107,14 +121,6 @@ diagram_tree_diagram_sort_type(const DiagramTree *tree);
 
 extern DiagramTreeSortType
 diagram_tree_object_sort_type(const DiagramTree *tree);
-
-/* attach menus */
-extern void
-diagram_tree_attach_dia_menu(DiagramTree *tree, GtkWidget *menu);
-
-extern void
-diagram_tree_attach_obj_menu(DiagramTree *tree, GtkWidget *menu);
-
 
 /* get the tree widget */
 extern GtkWidget*

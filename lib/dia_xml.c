@@ -155,7 +155,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   if (!tmp) tmp = "/tmp";
 
   res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
-#if GLIB_CHECK_VERSION(1,3,4)
+#if GLIB_CHECK_VERSION(1,3,2)
   uf = g_mkstemp(res);
 #else
   uf = mkstemp(res);

@@ -74,6 +74,8 @@ struct _MyRenderer {
     W32::HDC  hFileDC;
     gchar*    sFileName;
 
+    W32::HDC  hPrintDC;
+
     /* if applicable everything is scaled to 0.01 mm */
     int nLineWidth;  /* need to cache these, because ... */
     int fnPenStyle;  /* ... both are needed at the same time */
@@ -171,28 +173,41 @@ end_render(MyRenderer *renderer)
     W32::UINT nSize;
     W32::BYTE* pData = NULL;
     FILE* f;
-    W32::HDC hdc = W32::GetDC(NULL);
 
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
 #ifndef SAVE_EMF
-    f = fopen(renderer->sFileName, "wb");
+    /* Don't do it when printing */
+    if (renderer->sFileName && strlen (renderer->sFileName)) {
 
-    /* write the placeable header */
-    fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, f);
+        W32::HDC hdc = W32::GetDC(NULL);
 
-    /* get size */
-    nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
-    pData = g_new(W32::BYTE, nSize);
-    /* get data */
-    nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
+        f = fopen(renderer->sFileName, "wb");
 
-    /* write file */
-    fwrite(pData,1,nSize,f);
-    fclose(f);
+	/* write the placeable header */
+	fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, f);
+
+	/* get size */
+	nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
+	pData = g_new(W32::BYTE, nSize);
+	/* get data */
+	nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
+
+	/* write file */
+	fwrite(pData,1,nSize,f);
+	fclose(f);
     
-    g_free(pData);
+	g_free(pData);
+
+        W32::DeleteDC(hdc);
+    } else {
+        W32::RECT r = {0, 0, 0, 0};
+        r.right = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH); 
+        r.bottom = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALHEIGHT); 
+
+        W32::PlayEnhMetaFile (renderer->hPrintDC, hEmf, &r);
+    }
 #endif
     g_free(renderer->sFileName);
 
@@ -200,7 +215,6 @@ end_render(MyRenderer *renderer)
 	W32::DeleteEnhMetaFile(hEmf);
     if (renderer->hFont)
 	W32::DeleteObject(renderer->hFont);
-    W32::DeleteDC(hdc);
 }
 
 static void
@@ -813,7 +827,14 @@ draw_image(MyRenderer *renderer,
     /* copy data, always line by line */
     for (int y = 0; y < iHeight; y ++) 
     {
-        memcpy (pData, pImg + (y*3*iWidth), (3*iWidth));
+        int line_offset = y*3*iWidth;
+        for (int x = 0; x < iWidth*3; x+=3)
+        {
+            // change from RGB to BGR order
+            pData[x  ] = pImg[line_offset + x+2];
+            pData[x+1] = pImg[line_offset + x+1];
+            pData[x+2] = pImg[line_offset + x  ];
+        }
         pData += (((3*iWidth-1)/4)+1)*4;
     }
     pData = NULL; // don't free it below
@@ -862,7 +883,7 @@ export_data(DiagramData *data, const gchar *filename,
     bbox.right = (data->extents.right - data->extents.left) * scale;
     bbox.bottom = (data->extents.bottom - data->extents.top) * scale;
 
-    file = (W32::HDC)W32::CreateEnhMetaFile( 
+    file = (W32::HDC)W32::CreateEnhMetaFile(
                     W32::GetDC(NULL), // handle to a reference device context
 #ifdef SAVE_EMF
                     filename, // pointer to a filename string
@@ -884,7 +905,8 @@ export_data(DiagramData *data, const gchar *filename,
 
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
-
+    renderer->hPrintDC = user_data;
+           
     extent = &data->extents;
 
     /* calculate offsets */

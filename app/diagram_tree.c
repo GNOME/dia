@@ -29,39 +29,41 @@
 struct _DiagramTree {
   GtkCTree *tree;		/* the tree widget */
   GtkCTreeNode *last;		/* last clicked node */
-  GtkMenu *dia_menu;		/* diagram popup menu */
-  GtkMenu *object_menu;		/* object popup menu */
+  DiagramTreeMenus *menus;	/* popup menus */
   GtkCListCompareFunc dia_cmp;	/* diagram ordering function */
   GtkCListCompareFunc obj_cmp;	/* object ordering function */
+  GList *hidden;		/* list of hidden object types */
 };
 
+#define is_object_node(node) (GTK_CTREE_ROW(node)->is_leaf)
+
+static gint
+find_hidden_type(gconstpointer type, gconstpointer object_type)
+{
+    return !type
+      || !object_type
+      || strcmp((const gchar *)object_type, (const gchar *)type);
+}
+
+#define is_hidden_type(dtree, type) \
+  g_list_find_custom(dtree->hidden, (gpointer)type, find_hidden_type)
+
+#define is_hidden_object(dtree, object)		\
+  is_hidden_type(dtree, ((Object *)object)->type->name)
 
 static void
 update_object(DiagramTree *tree, GtkCTreeNode *node, Object *object);
 
 static void
-raise_display(Diagram *d)
-{
-  if (d) {
-    GSList *dlist = d->displays;
-    while (dlist) {
-      DDisplay *dis = (DDisplay *)dlist->data;
-      gdk_window_raise(dis->shell->window);
-      gtk_widget_draw(dis->shell, NULL);
-      dlist = g_slist_next(dlist);
-    }
-  }
-}
-
-static void
-select_and_raise(DiagramTree *tree, GtkCTreeNode *node)
+select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
 {
   Diagram *d = NULL;
   GtkCTreeNode *dnode =
-    (GTK_CTREE_ROW(node)->is_leaf)? GTK_CTREE_ROW(node)->parent : node;
+    (is_object_node(node))? GTK_CTREE_ROW(node)->parent : node;
   d = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, dnode);
   if (d) {
-    if (GTK_CTREE_ROW(node)->is_leaf) {
+    GSList *dlist = d->displays;
+    if (is_object_node(node)) {
       Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
       if (o) {
 	update_object(tree, node, o);
@@ -69,23 +71,25 @@ select_and_raise(DiagramTree *tree, GtkCTreeNode *node)
 	diagram_select(d, o);
       }
     }
-    gtk_ctree_select(tree->tree, node);
-    raise_display(d);
+    while (dlist) {
+      DDisplay *dis = (DDisplay *)dlist->data;
+      if (raise) gdk_window_raise(dis->shell->window);
+      gtk_widget_draw(dis->shell, NULL);
+      dlist = g_slist_next(dlist);
+    }
   }
 }
 
+static void
+update_last_node(DiagramTree *tree) 
+{
+  if (is_object_node(tree->last)) {
+    Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+    if (o) update_object(tree, tree->last, o);
+  }
+}
 
 /* signal handlers */
-static void
-select_tree_widget(GtkCTree *tree, GtkCTreeNode *node,
-		   gint column, DiagramTree *data) 
-{
-  if (GTK_CTREE_ROW(node)->is_leaf) {
-    Object *o = (Object *)gtk_ctree_node_get_row_data(tree, node);
-    if (o) update_object(data, node, o);
-  }
-}
-
 static gint
 button_press_callback(GtkCTree *tree, GdkEventButton *event,
 		      DiagramTree *dtree)
@@ -98,13 +102,18 @@ button_press_callback(GtkCTree *tree, GdkEventButton *event,
   if (row != -1) dtree->last = gtk_ctree_node_nth(tree, row);
   else dtree->last = NULL;
 
+  if (dtree->last) update_last_node(dtree);
+  
   if (dtree->last && event->type == GDK_2BUTTON_PRESS) {
-      select_and_raise(dtree, dtree->last);
-  } else if (dtree->last && event->type == GDK_BUTTON_PRESS
-	     && event->button == 3) {
-    GtkMenu *menu = (GTK_CTREE_ROW(dtree->last)->is_leaf)?
-      dtree->object_menu : dtree->dia_menu;
-    gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 3, event->time);
+    select_node(dtree, dtree->last, TRUE);
+  } else if (dtree->last && event->type == GDK_BUTTON_PRESS) {
+    if (event->button == 3) {
+      DiagramTreeMenuType menu = (is_object_node(dtree->last))?
+	DIA_MENU_OBJECT : DIA_MENU_DIAGRAM;
+      diagram_tree_menus_popup_menu(dtree->menus, menu, event->time);
+    } else if (event->button == 1) {
+      select_node(dtree, dtree->last, FALSE);
+    }
   }
   return TRUE;
 }
@@ -115,7 +124,7 @@ sort_objects(DiagramTree *tree, GtkCTreeNode *node)
 {
   if (tree->obj_cmp) {
     GtkCTreeNode *dnode =
-      (GTK_CTREE_ROW(node)->is_leaf)? GTK_CTREE_ROW(node)->parent : node;
+      (is_object_node(node))? GTK_CTREE_ROW(node)->parent : node;
     gtk_clist_set_compare_func(GTK_CLIST(tree->tree), tree->obj_cmp);
     gtk_ctree_sort_node(tree->tree, dnode);
   }
@@ -233,13 +242,16 @@ create_object_node(DiagramTree *tree, GtkCTreeNode *dnode, Object *obj)
   sort_objects(tree, dnode);
 }
 
+
 static void
 create_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
 			Diagram *diagram)
 {
   GList *objects = get_diagram_objects(diagram);
-  while (objects) { 
-    create_object_node(tree, node, (Object *)objects->data);
+  while (objects) {
+    if (!is_hidden_object(tree, objects->data)) {
+      create_object_node(tree, node, (Object *)objects->data);
+    }
     objects = g_list_next(objects);
   }
   g_list_free(objects);
@@ -255,14 +267,15 @@ update_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
   if (dobjects) {
     while (child) {
       GtkCTreeNode *current = child;
+      gpointer obj = gtk_ctree_node_get_row_data(tree->tree, current);
       child = GTK_CTREE_ROW(child)->sibling;
-      if (!g_list_find(dobjects, gtk_ctree_node_get_row_data(tree->tree,
-							     current)))
+      if (!g_list_find(dobjects, obj) || is_hidden_object(tree, obj))
 	gtk_ctree_remove_node(tree->tree, current);
     }
   }
   while (dobjects) {
-    if (!gtk_ctree_find_by_row_data(tree->tree, node, dobjects->data))
+    if (!is_hidden_object(tree, dobjects->data)
+	&& !gtk_ctree_find_by_row_data(tree->tree, node, dobjects->data))
       create_object_node(tree, node, (Object *)dobjects->data);
     dobjects = g_list_next(dobjects);
   }
@@ -272,24 +285,26 @@ update_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
 
 /* external interface */
 DiagramTree*
-diagram_tree_new(GList *diagrams)
+diagram_tree_new(GList *diagrams, GtkWindow *window,
+		 DiagramTreeSortType dia_sort,
+		 DiagramTreeSortType obj_sort)
 {
   DiagramTree *result = g_new(DiagramTree, 1);
   result->tree = GTK_CTREE(gtk_ctree_new(1, 0));
   result->last = NULL;
   result->dia_cmp = result->obj_cmp = NULL;
-  gtk_signal_connect(GTK_OBJECT(result->tree), "tree-select-row",
-		     GTK_SIGNAL_FUNC(select_tree_widget),
-		     (gpointer)result);
+  result->hidden = NULL;
   gtk_signal_connect(GTK_OBJECT(result->tree),
 		     "button_press_event",
 		     GTK_SIGNAL_FUNC(button_press_callback),
 		     (gpointer)result);
-  result->dia_menu = result->object_menu = NULL;
   while (diagrams) {
     diagram_tree_add(result, (Diagram *)diagrams->data);
     diagrams = g_list_next(diagrams);
   }
+  diagram_tree_set_diagram_sort_type(result, dia_sort);
+  diagram_tree_set_object_sort_type(result, obj_sort);
+  result->menus = diagram_tree_menus_new(result, window);
   return result;
 }
 
@@ -344,6 +359,19 @@ diagram_tree_update(DiagramTree *tree, Diagram *diagram)
 }
 
 void
+diagram_tree_update_all(DiagramTree *tree)
+{
+  if (tree) {
+    GtkCTreeNode *node = gtk_ctree_node_nth(tree->tree, 0);
+    while (node) {
+      Diagram *d = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, node);
+      if (d) update_diagram_children(tree, node, d);
+      node = GTK_CTREE_ROW(node)->sibling;
+    }
+  }
+}
+
+void
 diagram_tree_update_name(DiagramTree *tree, Diagram *diagram)
 {
   if (tree) {
@@ -363,7 +391,7 @@ diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, Object *object)
 {
   if (tree) {
     g_return_if_fail(diagram);
-    if (object) {
+    if (object && !is_hidden_object(tree, object)) {
       GtkCTreeNode *dnode =
 	gtk_ctree_find_by_row_data(tree->tree, NULL, (gpointer)diagram);
       if (!dnode) diagram_tree_add(tree, diagram);
@@ -429,20 +457,57 @@ void
 diagram_tree_raise(DiagramTree *tree)
 {
   if (tree && tree->last) {
-    select_and_raise(tree, tree->last);
+    select_node(tree, tree->last, TRUE);
   }
 }
 
 void
 diagram_tree_show_properties(const DiagramTree *tree)
 {
-  if (tree && tree->last && GTK_CTREE_ROW(tree->last)->is_leaf) {
+  if (tree && tree->last && is_object_node(tree->last)) {
     GtkCTreeNode *parent = GTK_CTREE_ROW(tree->last)->parent;
     if (parent) {
       Diagram *dia = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, parent);
       Object *obj =
 	(Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
       properties_show(dia, obj);
+    }
+  }
+}
+
+const gchar *
+diagram_tree_hide_type(DiagramTree *tree)
+{
+  if (tree && tree->last && is_object_node(tree->last)) {
+    Object *obj =
+      (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+    g_assert(!is_hidden_object(tree, obj));
+    diagram_tree_hide_explicit_type(tree, obj->type->name);
+    return obj->type->name;
+  }
+  return NULL;
+}
+
+void
+diagram_tree_hide_explicit_type(DiagramTree *tree, const gchar *type)
+{
+  if (tree && type) {
+    tree->hidden = g_list_prepend(tree->hidden, g_strdup(type));
+    diagram_tree_update_all(tree);
+    diagram_tree_menus_add_hidden_type(tree->menus, type);
+  }
+}
+
+void
+diagram_tree_unhide_type(DiagramTree *tree, const gchar *type)
+{
+  if (tree && type) {
+    GList *t = is_hidden_type(tree, type);
+    if (t) {
+      tree->hidden = g_list_remove_link(tree->hidden, t);
+      g_free(t->data);
+      g_list_free(t);
+      diagram_tree_update_all(tree);
     }
   }
 }
@@ -485,7 +550,7 @@ void
 diagram_tree_sort_objects(DiagramTree *tree, DiagramTreeSortType type)
 {
   if (tree && type <= DIA_TREE_SORT_INSERT && tree->last) {
-    GtkCTreeNode *node = GTK_CTREE_ROW(tree->last)->is_leaf?
+    GtkCTreeNode *node = is_object_node(tree->last)?
       GTK_CTREE_ROW(tree->last)->parent : tree->last;
     gtk_clist_set_compare_func(GTK_CLIST(tree->tree), cmp_funcs_[type]);
     gtk_ctree_sort_node(tree->tree, node);
@@ -497,7 +562,7 @@ diagram_tree_sort_all_objects(DiagramTree *tree, DiagramTreeSortType type)
 {
   /* FIXME: should not depend on tree->last != NULL */
   if (tree && type <= DIA_TREE_SORT_INSERT && tree->last) {
-    GtkCTreeNode *node = GTK_CTREE_ROW(tree->last)->is_leaf?
+    GtkCTreeNode *node = is_object_node(tree->last)?
       GTK_CTREE_ROW(tree->last)->parent : tree->last;
     while (GTK_CTREE_NODE_PREV(node)) node = GTK_CTREE_NODE_PREV(node);
     while (node) {
@@ -563,22 +628,6 @@ diagram_tree_object_sort_type(const DiagramTree *tree)
     return sort_type_lookup(tree->obj_cmp);
   } else
     return DIA_TREE_SORT_INSERT;
-}
-
-void
-diagram_tree_attach_dia_menu(DiagramTree *tree, GtkWidget *menu)
-{
-  if (tree) {
-    tree->dia_menu = GTK_MENU(menu);
-  }
-}
-
-void
-diagram_tree_attach_obj_menu(DiagramTree *tree, GtkWidget *menu)
-{
-  if (tree) {
-    tree->object_menu = GTK_MENU(menu);
-  }
 }
 
 GtkWidget*

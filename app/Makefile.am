@@ -138,10 +138,10 @@ dia_core_files = \
 	    diagram_tree.c \
 	    diagram_tree_window.h \
 	    diagram_tree_window.c \
-            diagram_tree_menu.h \
-            diagram_tree_menu.c \
-            diagram_tree_menu_callbacks.h \
-            diagram_tree_menu_callbacks.c \
+	    diagram_tree_menu.h \
+	    diagram_tree_menu.c \
+	    diagram_tree_menu_callbacks.h \
+	    diagram_tree_menu_callbacks.c \
 	    $(print_files)
 
 dia_SOURCES = \
@@ -190,6 +190,12 @@ EXTRA_DIST = \
 	paginate_gnomeprint.h \
 	paginate_psprint.c \
 	paginate_psprint.h \
+	paginate_gdiprint.c \
+	paginate_gdiprint.h \
+	win32print.c \
+	win32print.h \
+	winmain.c \
+	makefile.msc \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \

@@ -1,3 +1,55 @@
+2002-01-01  Hans Breuer  <hans@breuer.org>
+
+	* app/command.c : optional use GDI printing on windoze
+
+	* app/preferences.[hc] : add option 'prefer_psprint' to 
+	select the print engine to use (could be used for Dia/Gnome
+	as well)
+
+	* app/paginate_gdiprint.(h|cpp) : new files, which interlink the
+	wmf plug-in with the common win32 print api. Now printing
+	should work almost as expected from a windows program :-)
+
+	* app/diagram.c app/menus.[hc] : rename _UpdatableMenuItems.delete
+	to .edit_delete to avoid clashes with C++
+
+	* app/makefile.msc : updated for GDI printing
+
+	* plug-ins/wmf/wmf.cpp : some small modifications to support
+	GDI printing. Also swap R and B channel in draw_image()
+
+	* app/makefile.am : added windows only files to EXTRA_DIST
+
+	* objects/uml/class.c(umlclass_set_props) : force recalculation
+	when applying properties
+
+	* lib/charconv.c lib/dia_xml.c : temporary back-ported to
+	glib-1.3.2 (for win32) IMHO causes recent cvs introduces too
+	many incompatible changes (and would force a gtk update)
+
+	* objects/makefile.msc : don't build C-Objects which are
+	already available as 'pure shape'
+
+	* plug-ins/makefile.msc : remove diaimport from build. It was
+	only available via mailing-list and is broken since the
+	StdProp overhaul.
+
+
+	Patch from Jose A Ortega Ruiz  <jaortega@acm.org>
+
+	* app/preferences.[hc] : tweaked preferences.c to make 
+	PREF_STRING work. Use it for 'diagram_tree_hidden'. Also
+	added some more DiagramTree prefererences and their own
+	notebook page.
+
+	* app/diagram_tree.[hc] : allow to sort by object type or name
+	and hide by type ...
+	* app/diagram_tree_menu.[hc] : ... add respective menu entries ...
+	* app/diagram_tree_menu_callbacks.[hc] : ... and callbacks.
+
+	* app/diagram_tree_window.c : handle hidden types and window
+	size restoring.
+
 2001-12-20  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/Makefile.am : patch from Peter Moulder 

@@ -28,14 +28,14 @@ struct zoom_pair { const gchar *string; const gint value; };
 
 extern const struct zoom_pair zooms[10];
 
-/* all the menu items that can be uptaded */
+/* all the menu items that can be updated */
 struct _UpdatableMenuItems 
 {
   GtkWidget *copy;
   GtkWidget *cut;
   GtkWidget *paste;
 #ifndef GNOME
-  GtkWidget *delete;
+  GtkWidget *edit_delete;
 #endif
   GtkWidget *copy_text;
   GtkWidget *cut_text;

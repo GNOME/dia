@@ -20,11 +20,36 @@
  *  
  */
 
+#ifndef DIAGRAM_TREE_MENU_H
+#define DIAGRAM_TREE_MENU_H
+
 #include "diagram_tree.h"
 
-extern void
-create_dtree_object_menu(DiagramTree *tree, GtkWindow *window);
+typedef struct _DiagramTreeMenus DiagramTreeMenus;
+typedef enum {
+  DIA_MENU_DIAGRAM,
+  DIA_MENU_OBJECT
+} DiagramTreeMenuType;
+
+extern DiagramTreeMenus *
+diagram_tree_menus_new(DiagramTree *tree, GtkWindow *window);
+
+
+extern GtkWidget *
+diagram_tree_menus_get_menu(const DiagramTreeMenus *menus,
+			    DiagramTreeMenuType type);
 
 extern void
-create_dtree_dia_menu(DiagramTree *tree, GtkWindow *window);
+diagram_tree_menus_popup_menu(const DiagramTreeMenus *menus,
+			      DiagramTreeMenuType type, gint time);
 
+
+extern void
+diagram_tree_menus_add_hidden_type(DiagramTreeMenus *menus,
+				   const gchar *type);
+
+extern void
+diagram_tree_menus_remove_hidden_type(DiagramTreeMenus *menus,
+				      const gchar *type);
+
+#endif /* DIAGRAM_TREE_MENU_H */

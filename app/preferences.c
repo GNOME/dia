@@ -60,8 +60,8 @@ enum DiaPrefType {
   PREF_COLOUR,
 #ifdef PREF_CHOICE
   PREF_CHOICE,
-  PREF_STRING
 #endif
+  PREF_STRING
 };
 
 struct DiaPrefsData {
@@ -173,17 +173,26 @@ struct DiaPrefsData prefs_data[] =
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
     &default_false,0,"pretty formated xml:",NULL, TRUE},
 
-  { NULL, PREF_NONE, 4, NULL, 1, N_("Diagram tree window:") },
+  { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
+    &default_false,0,"prefer psprint:", NULL, TRUE},
+
+  { NULL, PREF_NONE, 0, NULL, 4, N_("Diagram tree window:") },
   { "show_diagram_tree", PREF_BOOLEAN, PREF_OFFSET(dia_tree.show_tree),
     &default_false, 4, N_("Show at startup:")},
   { "diagram_tree_width", PREF_UINT, PREF_OFFSET(dia_tree.width),
     &default_dtree_width, 4, N_("Default width:")},
   { "diagram_tree_height", PREF_UINT, PREF_OFFSET(dia_tree.height),
     &default_dtree_height, 4, N_("Default height:")},
+  { "diagram_tree_save_size", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_size),
+    &default_false, 4, N_("Remember last size:")},
+  { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
+    &default_false, 4, N_("Save hidden object types:")},
   { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),
     &default_dtree_dia_sort, 4, "default diagram sort order", NULL, TRUE},
   { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
     &default_dtree_obj_sort, 4, "default object sort order", NULL, TRUE},
+  { "diagram_tree_hidden", PREF_STRING, PREF_OFFSET(dia_tree.hidden),
+    &DIA_TREE_DEFAULT_HIDDEN, 4, "hidden type list", NULL, TRUE},
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
@@ -276,10 +285,10 @@ prefs_set_defaults(void)
       break;
 #ifdef PREF_CHOICE
     case PREF_CHOICE:
-    case PREF_STRING:
-      *(gchar *)ptr = *(gchar *)prefs_data[i].default_value;
-      break;
 #endif
+    case PREF_STRING:
+      *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
+      break;
     case PREF_NONE:
       break;
     }
@@ -336,10 +345,10 @@ prefs_save(void)
       break;
 #ifdef PREF_CHOICE
     case PREF_CHOICE:
-    case PREF_STRING:
-      fprintf(file, "%s\n", *(gchar *)ptr);
-      break;
 #endif
+    case PREF_STRING:
+      fprintf(file, "\"%s\"\n", *(gchar **)ptr);
+      break;
     case PREF_NONE:
       break;
     }
@@ -414,13 +423,13 @@ prefs_parse_line(GScanner *scanner)
     break;
 #ifdef PREF_CHOICE
   case PREF_CHOICE:
+#endif
   case PREF_STRING:
     if (token != G_TOKEN_STRING)
       return G_TOKEN_STRING;
 
-    *(char *)ptr = scanner->value.v_string;
+    *(char **)ptr = g_strdup(scanner->value.v_string);
     break;
-#endif
   case PREF_NONE:
     break;
   }
@@ -545,10 +554,10 @@ prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_CHOICE:
     gtk_
     break;
-  case PREF_STRING:
-    gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar *)ptr)));
-    break;
 #endif
+  case PREF_STRING:
+    gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar **)ptr)));
+    break;
   case PREF_NONE:
     break;
   }
@@ -578,11 +587,11 @@ prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type,
 #ifdef PREF_CHOICE
   case PREF_CHOICE:
     break;
+#endif
   case PREF_STRING:
-    *((gchar *)ptr) = (gchar *)
+    *((gchar **)ptr) = (gchar *)
       gtk_entry_get_text(GTK_ENTRY(widget));
     break;
-#endif
   case PREF_NONE:
     break;
   }
@@ -643,6 +652,8 @@ prefs_get_property_widget(enum DiaPrefType type)
   case PREF_COLOUR:
     widget = dia_color_selector_new();
     break;
+  case PREF_STRING:
+    widget = gtk_entry_new();
   case PREF_NONE:
     widget = NULL;
     break;

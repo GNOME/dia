@@ -1129,7 +1129,7 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->paste = menus_get_item_from_path(path->str, factory);
 #   ifndef GNOME
     g_string_append (g_string_assign(path, display),"/Edit/Delete");
-    items->delete = menus_get_item_from_path(path->str, factory);
+    items->edit_delete = menus_get_item_from_path(path->str, factory);
 #   endif
 
     g_string_append (g_string_assign(path, display),"/Edit/Copy Text");

@@ -32,11 +32,17 @@ typedef struct _DiagramTreeConfig DiagramTreeConfig;
 
 struct _DiagramTreeConfig {
   gboolean show_tree;		/* show dtree at startup */
+  gboolean save_size;		/* save current size as default */
   guint width;			/* default width of the dtree window */
   guint height;			/* default height of the dtree window */
   DiagramTreeSortType dia_sort;	/* default sort mode for diagrams */
   DiagramTreeSortType obj_sort;	/* default sort mode for objects */
+  gboolean save_hidden;		/* remember current hidden types on restart */
+  gchar *hidden;		/* hidden object type list */
 };
+
+/* for use as default initialisation value */
+extern gchar *DIA_TREE_DEFAULT_HIDDEN;
 
 /* get the diagram tree and window*/
 extern DiagramTree *
@@ -50,6 +56,23 @@ create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem);
 extern void
 diagtree_show_callback(gpointer data, guint action,
 		       GtkWidget *widget);
+
+
+/* functions manipulating the config */
+extern GList * /* destroyed by client */
+diagram_tree_config_get_hidden_types(const DiagramTreeConfig *config);
+
+extern void
+diagram_tree_config_set_hidden_types(DiagramTreeConfig *config,
+				     const GList *types);
+
+extern void
+diagram_tree_config_add_hidden_type(DiagramTreeConfig *config,
+				    const gchar *type);
+
+extern void
+diagram_tree_config_remove_hidden_type(DiagramTreeConfig *config,
+				       const gchar *type);
 
 
 #endif /* DIAGRAM_TREE_WINDOW_H */

@@ -1,6 +1,8 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm diaimport dummy dxf hpgl metapost pstricks shape svg wmf wpg xfig
+PLUGINS = cgm dummy dxf hpgl metapost pstricks shape svg wmf wpg xfig
+
+#broken since StdProp overhaul : diaimport 
 
 # The main target
 all : sub-all
