@@ -129,7 +129,7 @@ static RenderOps SvgRenderOps = {
 };
 
 RendererSVG *
-new_svg_renderer(Diagram *dia, char *filename)
+new_svg_renderer(DiagramData *data, const char *filename)
 {
   RendererSVG *renderer;
   FILE *file;
@@ -167,7 +167,7 @@ new_svg_renderer(Diagram *dia, char *filename)
   renderer->doc->root = renderer->root;
 
   /* set the extents of the SVG document */
-  extent = &dia->data->extents;
+  extent = &data->extents;
   g_snprintf(buf, sizeof(buf), "%dcm",
 	     (int)ceil((extent->right - extent->left)));
   xmlSetProp(renderer->root, "width", buf);
@@ -184,7 +184,8 @@ new_svg_renderer(Diagram *dia, char *filename)
   if (name==NULL)
     name = "a user";
 
-  /* some comments at the top of the file ... * /
+#if 0
+  /* some comments at the top of the file ... */
   xmlAddChild(renderer->root, xmlNewText("\n"));
   xmlAddChild(renderer->root, xmlNewComment("Dia-Version: "VERSION));
   xmlAddChild(renderer->root, xmlNewText("\n"));
@@ -192,7 +193,7 @@ new_svg_renderer(Diagram *dia, char *filename)
   xmlAddChild(renderer->root, xmlNewComment(buf));
   xmlAddChild(renderer->root, xmlNewText("\n"));
   g_snprintf(buf, sizeof(buf), "Date: %s", ctime(&time_now));
-  buf[strlen(buf)-1] = '\0'; / * remove the trailing new line * /
+  buf[strlen(buf)-1] = '\0'; /* remove the trailing new line */
   xmlAddChild(renderer->root, xmlNewComment(buf));
   xmlAddChild(renderer->root, xmlNewText("\n"));
   g_snprintf(buf, sizeof(buf), "For: %s", name);
@@ -200,7 +201,7 @@ new_svg_renderer(Diagram *dia, char *filename)
   xmlAddChild(renderer->root, xmlNewText("\n\n"));
 
   xmlNewChild(renderer->root, NULL, "title", dia->filename);
-  */
+#endif
   
   return renderer;
 }
@@ -818,3 +819,19 @@ draw_image(RendererSVG *renderer,
   */
 }
 
+static void
+export_svg(DiagramData *data, const gchar *filename)
+{
+  RendererSVG *renderer;
+
+  renderer = new_svg_renderer(data, filename);
+  data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+  destroy_svg_renderer(renderer);
+}
+
+static const gchar *extensions[] = { "svg", NULL };
+DiaExportFilter svg_export_filter = {
+  N_("Scalable Vector Graphics"),
+  extensions,
+  export_svg
+};

@@ -30,6 +30,7 @@ typedef struct _RendererSVG RendererSVG;
 #include "geometry.h"
 #include "render.h"
 #include "display.h"
+#include "filter.h"
 
 struct _RendererSVG {
   Renderer renderer;
@@ -51,7 +52,9 @@ struct _RendererSVG {
   real fontsize;
 };
 
-extern RendererSVG *new_svg_renderer(Diagram *dia, char *filename);
+extern RendererSVG *new_svg_renderer(DiagramData *data, const char *filename);
 extern void destroy_svg_renderer(RendererSVG *renderer);
+
+extern DiaExportFilter svg_export_filter;
 
 #endif /* RENDER_SVG_H */
