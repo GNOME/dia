@@ -1,5 +1,7 @@
 1999-12-05  James Henstridge  <james@daa.com.au>
 
+	* lib/bezier_conn.[ch]: start of BezierConn object
+
 	* app/interface.c: add bezierline to toolbox.
 
 	* objects/standard/standard.c: initialise bezierline.
