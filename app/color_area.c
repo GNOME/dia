@@ -27,6 +27,7 @@
 
 #include "color_area.h"
 #include "attributes.h"
+#include "persistence.h"
 
 #define FORE_AREA 0
 #define BACK_AREA 1
@@ -452,6 +453,10 @@ color_area_create (int        width,
 		   GdkBitmap *swap_msk)
 {
   GtkWidget *event_box;
+
+  // Won't work on Win32, as color_{black,white} aren't defined.  Why not?
+  attributes_set_foreground(persistence_register_color("fg_color", &color_black));
+  attributes_set_background(persistence_register_color("bg_color", &color_white));
 
   event_box = gtk_event_box_new();
   color_area = gtk_drawing_area_new ();

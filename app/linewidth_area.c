@@ -168,11 +168,25 @@ linewidth_area_events (GtkWidget *widget,
 }
 
 
+static int
+linewidth_number_from_width(real width)
+{
+  if (fabs(width/BASE_WIDTH-rint(width/BASE_WIDTH)) > 0.0005 ||
+      (width/BASE_WIDTH > NUMLINES)) {
+    return 0;
+  } else {
+    return width/BASE_WIDTH+1.0005;
+  }
+}
+
 GtkWidget *
 linewidth_area_create (void)
 {
   GtkWidget *linewidth_area;
   GtkWidget *event_box;
+
+  attributes_set_default_linewidth(persistence_register_real("linewidth", 0.1));
+  active_linewidth = linewidth_number_from_width(attributes_get_default_linewidth());
 
   event_box = gtk_event_box_new();
   linewidth_area = gtk_drawing_area_new ();
@@ -183,7 +197,7 @@ linewidth_area_create (void)
 		    G_CALLBACK(linewidth_area_events),
 		      NULL);
 
-  attributes_set_default_linewidth(BASE_WIDTH*active_linewidth);
+  //  attributes_set_default_linewidth(BASE_WIDTH*active_linewidth);
 
   linewidth_area_widget = linewidth_area;
 
@@ -195,12 +209,7 @@ linewidth_area_create (void)
 static void 
 get_current_line_width() {
   float newvalue = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(linewidth_button));
-  if (fabs(newvalue/BASE_WIDTH-rint(newvalue/BASE_WIDTH)) > 0.0005 ||
-      (newvalue/BASE_WIDTH > NUMLINES)) {
-    active_linewidth = 0;
-  } else {
-    active_linewidth = newvalue/BASE_WIDTH+1.0005;
-  }
+  active_linewidth = linewidth_number_from_width(newvalue);
   linewidth_area_draw(GTK_WIDGET(linewidth_area_widget));
   attributes_set_default_linewidth(newvalue);
 }

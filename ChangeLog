@@ -1,3 +1,11 @@
+2004-04-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/color_area.c (color_area_create): 
+	* lib/attributes.c: 
+	* app/linewidth_area.c: Also persistent colors and line width.
+	That was easy.  Arrows and line style will take a bit more work,
+	but not much.
+
 2004-04-01  Lars Clausen  <lars@raeder.dk>
 
 	* app/preferences.c:   All preferences are now
