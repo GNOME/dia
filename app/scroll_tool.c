@@ -38,7 +38,7 @@ create_scroll_tool(void)
 {
   ScrollTool *tool;
 
-  tool = g_new(ScrollTool, 1);
+  tool = g_new0(ScrollTool, 1);
   tool->tool.type = SCROLL_TOOL;
   tool->tool.button_press_func = (ButtonPressFunc) &scroll_button_press;
   tool->tool.button_release_func = (ButtonReleaseFunc) &scroll_button_release;

@@ -49,7 +49,7 @@ create_modify_tool(void)
 {
   ModifyTool *tool;
 
-  tool = g_new(ModifyTool, 1);
+  tool = g_new0(ModifyTool, 1);
   tool->tool.type = MODIFY_TOOL;
   tool->tool.button_press_func = (ButtonPressFunc) &modify_button_press;
   tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;

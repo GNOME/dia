@@ -1,3 +1,9 @@
+2003-07-29  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/scroll_tool.c (create_scroll_tool): 
+	* app/modify_tool.c (create_modify_tool): use g_new0() to initialize the
+	tool
+
 2003-07-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Added proper settings for XSLT_LIBS and XSLT_CFLAGS.
