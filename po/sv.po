@@ -394,7 +394,7 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer\n"
+"För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer"
 "färgerna.  Pilarna byter färger.  Dubbleklicka för att ändra färger."
 
 #: app/interface.c:646
@@ -857,7 +857,7 @@ msgstr "/Objekt/Lägg _överst"
 
 #: app/menus.c:238 app/menus.c:241
 msgid "/Objects/sep1"
-msgstr "/Objekt/sep"
+msgstr "/Objekt/sep1"
 
 #: app/menus.c:239
 msgid "/Objects/_Group"
@@ -942,7 +942,7 @@ msgstr "Synligt:"
 
 #: app/preferences.c:86
 msgid "Snap to:"
-msgstr ""
+msgstr "Hoppa till:"
 
 #: app/preferences.c:87
 msgid "X Size:"
@@ -1101,7 +1101,7 @@ msgstr "Bläddra"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
-msgstr ""
+msgstr "Skådespelare"
 
 #: objects/ER/participation.c:449 objects/UML/association.c:608
 #: objects/UML/dependency.c:288 objects/UML/generalization.c:280
@@ -1138,7 +1138,7 @@ msgstr "Sida B"
 
 #: objects/UML/association.c:1043
 msgid "Role:"
-msgstr ""
+msgstr "Funktion:"
 
 #: objects/UML/association.c:1055
 msgid "Multiplicity:"
@@ -1292,11 +1292,11 @@ msgstr "Mallklass"
 
 #: objects/UML/class_dialog.c:2191
 msgid "Formal parameter data"
-msgstr ""
+msgstr "Formella parameterdata"
 
 #: objects/UML/constraint.c:509
 msgid "Constraint:"
-msgstr ""
+msgstr "Begränsning"
 
 #: objects/UML/dependency.c:634
 msgid "Show arrow:"
@@ -1312,7 +1312,7 @@ msgstr "Text utanför:"
 
 #: objects/UML/usecase.c:547
 msgid "Collaboration"
-msgstr ""
+msgstr "Samarbete"
 
 #: objects/UML/object.c:753
 msgid "Explicit state:"
@@ -1336,11 +1336,11 @@ msgstr ""
 
 #: objects/UML/lifeline.c:603
 msgid "Show focus of control:"
-msgstr ""
+msgstr "Visa kontrollens fokus"
 
 #: objects/UML/lifeline.c:608
 msgid "Show destruction mark:"
-msgstr ""
+msgstr "Visa ödeläggelsemarkering"
 
 #: objects/UML/message.c:614
 msgid "Message:"
@@ -1353,7 +1353,7 @@ msgstr "Mellandetyp:"
 #.
 #: objects/UML/message.c:633
 msgid "Call"
-msgstr ""
+msgstr "Rop"
 
 #: objects/UML/message.c:638
 msgid "Return"
@@ -1397,11 +1397,11 @@ msgstr "Kontroll"
 
 #: objects/UML/classicon.c:612
 msgid "Boundary"
-msgstr ""
+msgstr "Gräns"
 
 #: objects/ER/entity.c:448 objects/UML/classicon.c:617
 msgid "Entity"
-msgstr ""
+msgstr "Enhet"
 
 #: objects/UML/classicon.c:625
 msgid "Is an object"
@@ -1638,7 +1638,7 @@ msgstr "Funktion:"
 
 #: objects/FS/function.c:508
 msgid "Wish function"
-msgstr "Önskefunktion"
+msgstr "Önskar funktion"
 
 #: objects/FS/function.c:513
 msgid "User function"
@@ -1686,7 +1686,7 @@ msgstr "      Tillåt DOF"
 
 #: objects/FS/function.c:562
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: objects/FS/function.c:563
 msgid "   Stop"
@@ -1710,7 +1710,7 @@ msgstr "Anslut"
 
 #: objects/FS/function.c:568
 msgid "   Couple"
-msgstr ""
+msgstr "   Par"
 
 #: objects/FS/function.c:569
 msgid "   Mix"
@@ -1734,7 +1734,7 @@ msgstr ""
 
 #: objects/FS/function.c:574
 msgid "   Distribute"
-msgstr ""
+msgstr "   Distribuera"
 
 #: objects/FS/function.c:575
 msgid "   Dissipate"
@@ -1742,7 +1742,7 @@ msgstr ""
 
 #: objects/FS/function.c:576
 msgid "Provision"
-msgstr ""
+msgstr "Åtgärd"
 
 #: objects/FS/function.c:577
 msgid "   Store"
@@ -1754,7 +1754,7 @@ msgstr "   Leverera"
 
 #: objects/FS/function.c:579
 msgid "   Extract"
-msgstr ""
+msgstr "   Extrahera"
 
 #: objects/FS/function.c:580
 msgid "Control Magnitude"
@@ -1762,11 +1762,11 @@ msgstr ""
 
 #: objects/FS/function.c:581
 msgid "   Actuate"
-msgstr ""
+msgstr "   Driva"
 
 #: objects/FS/function.c:582
 msgid "   Regulate"
-msgstr ""
+msgstr "   Regulera"
 
 #: objects/FS/function.c:583
 msgid "   Change"
@@ -1782,7 +1782,7 @@ msgstr "Konvertera"
 
 #: objects/FS/function.c:587
 msgid "   Sense"
-msgstr ""
+msgstr "   "
 
 #: objects/FS/function.c:588
 msgid "   Indicate"
@@ -1802,7 +1802,7 @@ msgstr "   Mät"
 #: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
 #: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
 msgid "Text padding:"
-msgstr ""
+msgstr "Text stoppning:"
 
 #: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
 #: objects/flowchart/box.c:342 objects/flowchart/box.c:488
@@ -1820,11 +1820,11 @@ msgstr "Typsnittsfärg:"
 
 #: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
 msgid "Shear angle:"
-msgstr ""
+msgstr "Klipp vinkel:"
 
 #: objects/custom/custom_object.c:190
 msgid "A custom with text inside."
-msgstr ""
+msgstr "En skräddarsydd med text inuti."
 
 #: objects/custom/custom_object.c:1386
 msgid "Flip Horizontal"
