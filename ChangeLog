@@ -1,5 +1,8 @@
 2002-06-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* sheets/ER/weakentity.xpm: Accepted patch from
+	quixon@gnuchina.org to make icon match actual appearance.
+
 	* app/recent_files.c: Fixed GNOME recent file problem, thanks to
 	quixon@gnuchina.org.
 
