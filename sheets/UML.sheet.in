@@ -95,5 +95,8 @@
     <object name="UML - Fork">
       <_description>Fork/union</_description>
     </object>
+    <object name="UML - Transition">
+      <_description>Transition</_description>
+    </object>
   </contents>
 </sheet>

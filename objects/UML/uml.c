@@ -54,6 +54,7 @@ extern DiaObjectType branch_type;
 extern DiaObjectType fork_type;
 extern DiaObjectType state_term_type;
 extern DiaObjectType compfeat_type;
+extern DiaObjectType uml_transition_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -90,7 +91,8 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&branch_type);    
   object_register_type(&fork_type);
   object_register_type(&compfeat_type);
-   
+  object_register_type(&uml_transition_type);
+  
   return DIA_PLUGIN_INIT_OK;
 }
 

@@ -31,7 +31,8 @@ libuml_objects_la_SOURCES = \
 			branch.c \
 			fork.c \
 			stereotype.c \
-			stereotype.h
+			stereotype.h \
+			transition.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
@@ -61,5 +62,6 @@ EXTRA_DIST = \
 	pixmaps/branch.xpm \
 	pixmaps/fork.xpm \
 	pixmaps/activity.xpm \
-	pixmaps/state_term.xpm
+	pixmaps/state_term.xpm \
+	pixmaps/transition.xpm
 

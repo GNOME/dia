@@ -241,6 +241,7 @@ OBJECTS = \
 	state.obj \
 	state_term.obj \
 	stereotype.obj \
+	transition.obj \
 	uml.obj \
 	usecase.obj \
 

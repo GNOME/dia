@@ -1,5 +1,14 @@
 2004-10-30  Hans Breuer  <hans@breuer.org>
 
+	* objects/makefile.msc objects/UML/Makefile.am
+	  objects/UML/uml.c objects/UML/transition.c 
+	  objects/UML/pixmaps/transition.xpm sheets/uml.sheet.in : 
+	Patch from Peter Allin adds statechart transitions to the UML sheet -
+	bug #144956 - modified to not print("%s", NULL) which crashes on
+	newer glib versions. Also added pixmap/transition.xpm to Makefile.am
+
+2004-10-30  Hans Breuer  <hans@breuer.org>
+
 	* doc/sheet.dtd doc/diagram.dtd : the namespace does *not* 
 	match the website anymore, i.e. sould remain unchanged. 
 	See below and lib/dia_xml.h for the reasoning
