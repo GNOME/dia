@@ -79,7 +79,7 @@ rm -fr $RPM_BUILD_ROOT
 %{_prefix}/lib/dia
 %{_prefix}/man/man1/dia.1.gz
 %{_prefix}/share/dia
-%{_prefix}/share/gnome/apps/Applications/dia.desktop
+%{_prefix}/share/applications/dia.desktop
 %{_prefix}/share/locale/*/*/*
 %{_prefix}/share/mime-info/*
 %{_prefix}/share/pixmaps/*
