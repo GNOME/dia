@@ -72,7 +72,8 @@ static real objet_distance_from(Objet *ob, Point *point);
 static void objet_select(Objet *ob, Point *clicked_point,
 			 DiaRenderer *interactive_renderer);
 static ObjectChange* objet_move_handle(Objet *ob, Handle *handle,
-				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				       Point *to, ConnectionPoint *cp,
+				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* objet_move(Objet *ob, Point *to);
 static void objet_draw(Objet *ob, DiaRenderer *renderer);
 static Object *objet_create(Point *startpoint,
@@ -217,7 +218,8 @@ objet_select(Objet *ob, Point *clicked_point,
 
 static ObjectChange*
 objet_move_handle(Objet *ob, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		  Point *to, ConnectionPoint *cp,
+		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(ob!=NULL);
   assert(handle!=NULL);

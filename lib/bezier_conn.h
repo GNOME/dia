@@ -60,7 +60,9 @@ ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
 					 Handle *handle,
 					 BezCornerType style);
 ObjectChange *bezierconn_move_handle(BezierConn *bez, Handle *id,
-			    Point *to, HandleMoveReason reason);
+				     Point *to, ConnectionPoint *cp,
+				     HandleMoveReason reason,
+				     ModifierKeys modifiers);
 ObjectChange *bezierconn_move(BezierConn *bez, Point *to);
 real bezierconn_distance_from(BezierConn *bez, Point *point,
 			      real line_width);

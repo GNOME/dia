@@ -45,7 +45,9 @@ void element_init(Element *elem, int num_handles, int num_connections);
 void element_destroy(Element *elem);
 void element_copy(Element *from, Element *to);
 ObjectChange* element_move_handle(Element *elem, HandleId id,
-			 Point *to, HandleMoveReason reason);
+				  Point *to, ConnectionPoint *cp,
+				  HandleMoveReason reason, 
+				  ModifierKeys modifiers);
 void element_move_handle_aspect(Element *elem, HandleId id,
 				Point *to, real aspect_ratio);
 

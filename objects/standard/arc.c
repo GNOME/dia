@@ -61,7 +61,8 @@ struct _Arc {
 };
 
 static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
-				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				     Point *to, ConnectionPoint *cp,
+				     HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
@@ -244,7 +245,8 @@ arc_update_handles(Arc *arc)
 
 static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		Point *to, ConnectionPoint *cp,
+		HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(arc!=NULL);
   assert(handle!=NULL);
@@ -268,7 +270,7 @@ arc_move_handle(Arc *arc, Handle *handle,
       arc->curve_distance = -arc->curve_distance;
 
   } else {
-    connection_move_handle(&arc->connection, handle->id, to, reason);
+    connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
   }
 
   arc_update_data(arc);

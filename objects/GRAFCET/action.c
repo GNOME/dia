@@ -68,7 +68,8 @@ typedef struct _Action {
 } Action;
 
 static ObjectChange* action_move_handle(Action *action, Handle *handle,
-					Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					Point *to, ConnectionPoint *cp,
+					HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* action_move(Action *action, Point *to);
 static void action_select(Action *action, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -199,7 +200,8 @@ action_select(Action *action, Point *clicked_point,
 
 static ObjectChange*
 action_move_handle(Action *action, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		   Point *to, ConnectionPoint *cp,
+		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(action!=NULL);
   g_assert(handle!=NULL);
@@ -213,10 +215,11 @@ action_move_handle(Action *action, Handle *handle,
     point_sub(&to2,&action->connection.endpoints[0]);
     point_add(&to2,&action->connection.endpoints[1]);
     connection_move_handle(&action->connection, HANDLE_MOVE_ENDPOINT, 
-			   to, reason);
+			   to, NULL, reason, 0);
   }
 #endif
-  connection_move_handle(&action->connection, handle->id, to, reason);
+  connection_move_handle(&action->connection, handle->id, to, cp, 
+			 reason, modifiers);
   action_update_data(action);
 
   return NULL;

@@ -59,7 +59,8 @@ static real smallpackage_distance_from(SmallPackage *pkg, Point *point);
 static void smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
 static ObjectChange* smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
-					      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					      Point *to, ConnectionPoint *cp,
+					      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* smallpackage_move(SmallPackage *pkg, Point *to);
 static void smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer);
 static Object *smallpackage_create(Point *startpoint,
@@ -180,7 +181,8 @@ smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 
 static ObjectChange*
 smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+			 Point *to, ConnectionPoint *cp,
+			 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

@@ -60,7 +60,8 @@ typedef struct _Annotation {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
 static ObjectChange* annotation_move_handle(Annotation *annotation, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* annotation_move(Annotation *annotation, Point *to);
 static void annotation_select(Annotation *annotation, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -212,7 +213,8 @@ annotation_select(Annotation *annotation, Point *clicked_point,
 
 static ObjectChange*
 annotation_move_handle(Annotation *annotation, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -228,15 +230,15 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
     endpoints = &(conn->endpoints[0]); 
     if (handle->id == HANDLE_MOVE_STARTPOINT) {
       p1 = endpoints[0];
-      connection_move_handle(conn, handle->id, to, reason);
+      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
       p2 = endpoints[0];
       point_sub(&p2, &p1);
       point_add(&annotation->text->position, &p2);
       point_add(&p2,&(endpoints[1]));
-      connection_move_handle(conn, HANDLE_MOVE_ENDPOINT, &p2, reason);   
+      connection_move_handle(conn, HANDLE_MOVE_ENDPOINT, &p2, NULL, reason, 0);
     } else {      
       p1 = endpoints[1];
-      connection_move_handle(conn, handle->id, to, reason);
+      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
       p2 = endpoints[1];
       point_sub(&p2, &p1);
       point_add(&annotation->text->position, &p2);

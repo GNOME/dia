@@ -76,7 +76,8 @@ static real sadtbox_distance_from(Box *box, Point *point);
 static void sadtbox_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* sadtbox_move_handle(Box *box, Handle *handle,
-					 Point *to, HandleMoveReason reason, 
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* sadtbox_move(Box *box, Point *to);
 static void sadtbox_draw(Box *box, DiaRenderer *renderer);
@@ -215,7 +216,8 @@ sadtbox_select(Box *box, Point *clicked_point,
 
 static ObjectChange*
 sadtbox_move_handle(Box *box, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
@@ -223,7 +225,7 @@ sadtbox_move_handle(Box *box, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&box->element, handle->id, to, reason);
+  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
   case HANDLE_RESIZE_NW:

@@ -54,7 +54,8 @@ static const double BRANCH_HEIGHT = 2.0;
 static real branch_distance_from(Branch *branch, Point *point);
 static void branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
 static ObjectChange* branch_move_handle(Branch *branch, Handle *handle,
-					Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					Point *to, ConnectionPoint *cp,
+					HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* branch_move(Branch *branch, Point *to);
 static void branch_draw(Branch *branch, DiaRenderer *renderer);
 static Object *branch_create(Point *startpoint,
@@ -156,7 +157,8 @@ branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_ren
 
 static ObjectChange*
 branch_move_handle(Branch *branch, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		   Point *to, ConnectionPoint *cp,
+		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(branch!=NULL);
   assert(handle!=NULL);
@@ -164,7 +166,7 @@ branch_move_handle(Branch *branch, Handle *handle,
 
   assert(handle->id < 8);
   
-  element_move_handle(&branch->element, handle->id, to, reason);
+  element_move_handle(&branch->element, handle->id, to, cp, reason, modifiers);
   branch_update_data(branch);
 
   return NULL;

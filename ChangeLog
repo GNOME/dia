@@ -1,3 +1,113 @@
+2003-08-19  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/object.h: Turning some comments into doxygen style.
+
+	* lib/object_defaults.c (dia_object_defaults_load)
+	(dia_object_default_get, dia_object_default_create): 
+	Fixing up existing documentation.
+
+	* lib/object.h: Doxygen style documentation begun.
+
+	* app/create_object.c: 
+	* app/undo.c: 
+	* app/connectionpoint_ops.c: 
+	* app/disp_callbacks.c: 
+	* app/modify_tool.c: 
+
+	* objects/network/wanlink.c (wanlink_move_handle): 
+	* objects/network/bus.c (bus_move_handle): 
+
+	* objects/flowchart/parallelogram.c (pgram_move_handle): 
+	* objects/flowchart/ellipse.c (ellipse_move_handle): 
+	* objects/flowchart/diamond.c (diamond_move_handle): 
+	* objects/flowchart/box.c (box_move_handle): 
+
+	* objects/custom/custom_object.c (custom_move_handle): 
+
+	* objects/chronogram/chronoref.c (chronoref_move_handle): 
+	* objects/chronogram/chronoline.c (chronoline_move_handle): 
+
+	* objects/SADT/box.c (sadtbox_move_handle): 
+	* objects/SADT/arrow.c (sadtarrow_move_handle): 
+	* objects/SADT/annotation.c (annotation_move_handle): 
+
+	* objects/Misc/analog_clock.c (analog_clock_move_handle): 
+
+	* objects/GRAFCET/vergent.c (vergent_move_handle): 
+	* objects/GRAFCET/vector.c (arc_move_handle): 
+	* objects/GRAFCET/transition.c (transition_move_handle): 
+	* objects/GRAFCET/step.c (step_move_handle): 
+	* objects/GRAFCET/condition.c (condition_move_handle): 
+	* objects/GRAFCET/action.c (action_move_handle): 
+
+	* objects/FS/function.c: 
+	* objects/FS/flow.c: 
+	* objects/FS/flow-ortho.c (orthflow_move_handle): 
+	* objects/FS/flow-poly.c (flow_move_handle): 
+
+	* objects/UML/usecase.c (usecase_move_handle): 
+	* objects/UML/state_term.c (state_move_handle): 
+	* objects/UML/state.c (state_move_handle): 
+	* objects/UML/small_package.c (smallpackage_move_handle): 
+	* objects/UML/realizes.c (realizes_move_handle): 
+	* objects/UML/object.c (objet_move_handle): 
+	* objects/UML/note.c (note_move_handle): 
+	* objects/UML/node.c (node_move_handle): 
+	* objects/UML/message.c (message_move_handle): 
+	* objects/UML/lifeline.c (lifeline_move_handle): 
+	* objects/UML/large_package.c (largepackage_move_handle): 
+	* objects/UML/implements.c (implements_move_handle): 
+	* objects/UML/generalization.c (generalization_move_handle): 
+	* objects/UML/fork.c (fork_move_handle): 
+	* objects/UML/dependency.c (dependency_move_handle): 
+	* objects/UML/constraint.c (constraint_move_handle): 
+	* objects/UML/compprop.c (compprop_move_handle): 
+	* objects/UML/component.c (component_move_handle): 
+	* objects/UML/branch.c (branch_move_handle): 
+	* objects/UML/association.c (association_move_handle): 
+	* objects/UML/actor.c (actor_move_handle): 
+	* objects/UML/activity.c (state_move_handle): 
+	* objects/UML/class.c (umlclass_move_handle): 
+
+	* objects/standard/ellipse.c (ellipse_move_handle): 
+	* objects/standard/zigzagline.c (zigzagline_move_handle): 
+	* objects/standard/textobj.c (textobj_move_handle): 
+	* objects/standard/polyline.c (polyline_move_handle): 
+	* objects/standard/polygon.c (polygon_move_handle): 
+	* objects/standard/line.c (line_move_handle): 
+	* objects/standard/image.c (image_move_handle): 
+	* objects/standard/bezier.c (bezierline_move_handle): 
+	* objects/standard/arc.c (arc_move_handle): 
+	* objects/standard/beziergon.c (beziergon_move_handle): 
+	* objects/standard/box.c (box_move_handle): 
+	
+	* objects/ER/relationship.c (relationship_move_handle): 
+	* objects/ER/participation.c (participation_move_handle): 
+	* objects/ER/entity.c (entity_move_handle): 
+	* objects/ER/attribute.c (attribute_move_handle): 
+	
+	* lib/polyshape.c (polyshape_move_handle): 
+	* lib/polyshape.h: 
+	* lib/orth_conn.c (orthconn_move_handle): 
+	* lib/orth_conn.h: 
+	* lib/neworth_conn.c (neworthconn_move_handle): 
+	* lib/neworth_conn.h: 
+	* lib/element.c (element_move_handle): 
+	* lib/element.h: 
+	* lib/connection.c (connection_move_handle): 
+	* lib/connection.h: 
+	* lib/beziershape.c (beziershape_move_handle): 
+	* lib/beziershape.h: 
+	* lib/bezier_conn.c (bezierconn_move_handle): 
+	* lib/bezier_conn.h: 
+	*BINARY COMPATIBILITY CHANGE*
+	Update prototype for *_move_handle() to include connectionpoint,
+	and also pass on modifiers.  Pass in connectionpoint where
+	applicable. 
+	
+	* lib/dummy_dep.h (dummy_dep): Adding dummy dependencies for new
+	file connectionpoint.c.
+
 2003-08-17  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.

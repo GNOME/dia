@@ -82,7 +82,8 @@ static real diamond_distance_from(Diamond *diamond, Point *point);
 static void diamond_select(Diamond *diamond, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* diamond_move_handle(Diamond *diamond, Handle *handle,
-					 Point *to, HandleMoveReason reason, 
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* diamond_move(Diamond *diamond, Point *to);
 static void diamond_draw(Diamond *diamond, DiaRenderer *renderer);
@@ -263,7 +264,8 @@ diamond_select(Diamond *diamond, Point *clicked_point,
 
 static ObjectChange*
 diamond_move_handle(Diamond *diamond, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
@@ -271,7 +273,8 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&diamond->element, handle->id, to, reason);
+  element_move_handle(&diamond->element, handle->id, to, cp, 
+		      reason, modifiers);
 
   switch (handle->id) {
   case HANDLE_RESIZE_NW:

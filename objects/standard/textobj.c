@@ -55,7 +55,8 @@ static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static ObjectChange* textobj_move_handle(Textobj *textobj, Handle *handle,
-					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* textobj_move(Textobj *textobj, Point *to);
 static void textobj_draw(Textobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(Textobj *textobj);
@@ -169,7 +170,8 @@ textobj_select(Textobj *textobj, Point *clicked_point,
 
 static ObjectChange*
 textobj_move_handle(Textobj *textobj, Handle *handle,
-		    Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(textobj!=NULL);
   assert(handle!=NULL);

@@ -60,7 +60,8 @@ static struct _BeziergonProperties {
 } default_properties = { TRUE };
 
 static ObjectChange* beziergon_move_handle(Beziergon *beziergon, Handle *handle,
-					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					   Point *to, ConnectionPoint *cp,
+					   HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* beziergon_move(Beziergon *beziergon, Point *to);
 static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
@@ -208,13 +209,14 @@ beziergon_select(Beziergon *beziergon, Point *clicked_point,
 
 static ObjectChange*
 beziergon_move_handle(Beziergon *beziergon, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		      Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(beziergon!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  beziershape_move_handle(&beziergon->bezier, handle, to, reason);
+  beziershape_move_handle(&beziergon->bezier, handle, to, cp, reason, modifiers);
   beziergon_update_data(beziergon);
 
   return NULL;

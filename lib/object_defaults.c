@@ -77,9 +77,8 @@ _obj_destroy (gpointer val)
 }
 
 /**
- * dia_object_defaults_load :
- * @filename : the file to load from or NULL for default
- * @create_lazy : if FALSE creates default objects for
+ * @param filename the file to load from or NULL for default
+ * @param create_lazy if FALSE creates default objects for
  *             every known type. Otherwise default objects
  *             are created on demand
  * 
@@ -218,7 +217,7 @@ dia_object_default_make (const Object *obj_from)
 
 /**
  * dia_object_default_get :
- * @type : the ObjectType
+ * @param type The type of the object for which you want the defaults object.
  *
  * Allows to edit one defaults object properties
  */
@@ -250,11 +249,12 @@ dia_object_default_get (const ObjectType *type)
 
 /**
  * dia_object_default_create:
- * @type : the objects type
- * @startpoint : the left upper corner
- * @user_data :
- * @handle1 :
- * @handle2 :
+ * @param type The objects type
+ * @param startpoint The left upper corner
+ * @param user_data
+ * @param handle1
+ * @param handle2
+ * @return A newly created object.
  *
  * Create an object respecting defaults if available
  */

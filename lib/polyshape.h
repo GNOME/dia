@@ -49,7 +49,9 @@ void polyshape_load(PolyShape *poly, ObjectNode obj_node);  /* NOTE: Does object
 ObjectChange *polyshape_add_point(PolyShape *poly, int segment, Point *point);
 ObjectChange *polyshape_remove_point(PolyShape *poly, int point);
 ObjectChange *polyshape_move_handle(PolyShape *poly, Handle *id,
-			   Point *to, HandleMoveReason reason);
+				    Point *to, ConnectionPoint *cp,
+				    HandleMoveReason reason,
+				    ModifierKeys modifiers);
 ObjectChange *polyshape_move(PolyShape *poly, Point *to);
 real polyshape_distance_from(PolyShape *poly, Point *point,
 			     real line_width);

@@ -65,7 +65,8 @@ struct _LineProperties {
 static LineProperties default_properties;
 
 static ObjectChange* line_move_handle(Line *line, Handle *handle,
-				      Point *to, HandleMoveReason reason, 
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, 
 			     ModifierKeys modifiers);
 static ObjectChange* line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
@@ -393,13 +394,14 @@ line_select(Line *line, Point *clicked_point,
 
 static ObjectChange*
 line_move_handle(Line *line, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		 Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(line!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  connection_move_handle(&line->connection, handle->id, to, reason);
+  connection_move_handle(&line->connection, handle->id, to, cp, reason, modifiers);
 
   line_update_data(line);
 

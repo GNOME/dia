@@ -50,7 +50,9 @@ void polyconn_load(PolyConn *poly, ObjectNode obj_node);  /* NOTE: Does object_i
 ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
 ObjectChange *polyconn_remove_point(PolyConn *poly, int point);
 ObjectChange *polyconn_move_handle(PolyConn *poly, Handle *id,
-			  Point *to, HandleMoveReason reason);
+				   Point *to, ConnectionPoint *cp,
+				   HandleMoveReason reason,
+				   ModifierKeys modifiers);
 ObjectChange *polyconn_move(PolyConn *poly, Point *to);
 real polyconn_distance_from(PolyConn *poly, Point *point,
 			    real line_width);

@@ -82,7 +82,8 @@ static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* box_move_handle(Box *box, Handle *handle,
-				     Point *to, HandleMoveReason reason, 
+				     Point *to, ConnectionPoint *cp,
+				     HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* box_move(Box *box, Point *to);
 static void box_draw(Box *box, DiaRenderer *renderer);
@@ -254,7 +255,8 @@ box_select(Box *box, Point *clicked_point,
 
 static ObjectChange*
 box_move_handle(Box *box, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		Point *to, ConnectionPoint *cp,
+		HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
@@ -262,7 +264,7 @@ box_move_handle(Box *box, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&box->element, handle->id, to, reason);
+  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
   case HANDLE_RESIZE_NW:

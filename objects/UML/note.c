@@ -54,7 +54,8 @@ static real note_distance_from(Note *note, Point *point);
 static void note_select(Note *note, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static ObjectChange* note_move_handle(Note *note, Handle *handle,
-				      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* note_move(Note *note, Point *to);
 static void note_draw(Note *note, DiaRenderer *renderer);
 static Object *note_create(Point *startpoint,
@@ -168,7 +169,8 @@ note_select(Note *note, Point *clicked_point,
 
 static ObjectChange*
 note_move_handle(Note *note, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		 Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(note!=NULL);
   assert(handle!=NULL);

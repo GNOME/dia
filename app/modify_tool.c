@@ -467,8 +467,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     }
 
     object_add_updates(tool->object, ddisp->diagram);
-    objchange = tool->object->ops->move_handle(tool->object, tool->handle, &to,
-					       HANDLE_MOVE_USER,0);
+    objchange = tool->object->ops->move_handle(tool->object, tool->handle, 
+					       &to, connectionpoint,
+					       HANDLE_MOVE_USER, 0);
     if (objchange != NULL) {
       undo_object_change(ddisp->diagram, tool->object, objchange);
     }
@@ -577,7 +578,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     /* Final move: */
     object_add_updates(tool->object, ddisp->diagram);
     objchange = tool->object->ops->move_handle(tool->object, tool->handle,
-					       &tool->last_to,
+					       &tool->last_to, NULL,
 					       HANDLE_MOVE_USER_FINAL,0);
     if (objchange != NULL) {
       undo_object_change(ddisp->diagram, tool->object, objchange);

@@ -67,7 +67,8 @@ struct PointChange {
 };
 
 static ObjectChange* bus_move_handle(Bus *bus, Handle *handle,
-				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				     Point *to, ConnectionPoint *cp,
+				     HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* bus_move(Bus *bus, Point *to);
 static void bus_select(Bus *bus, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
@@ -197,7 +198,8 @@ bus_select(Bus *bus, Point *clicked_point,
 
 static ObjectChange*
 bus_move_handle(Bus *bus, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		Point *to, ConnectionPoint *cp,
+		HandleMoveReason reason, ModifierKeys modifiers)
 {
   Connection *conn = &bus->connection;
   Point *endpoints;
@@ -241,7 +243,8 @@ bus_move_handle(Bus *bus, Handle *handle,
       perp[i] = point_dot(&vhatperp, &u);
     }
     
-    connection_move_handle(&bus->connection, handle->id, to, reason);
+    connection_move_handle(&bus->connection, handle->id, to, cp, 
+			   reason, modifiers);
 
     vhat = endpoints[1];
     point_sub(&vhat, &endpoints[0]);

@@ -61,7 +61,8 @@ static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static ObjectChange* generalization_move_handle(Generalization *genlz, Handle *handle,
-						Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+						Point *to, ConnectionPoint *cp,
+						HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* generalization_move(Generalization *genlz, Point *to);
 static void generalization_draw(Generalization *genlz, DiaRenderer *renderer);
 static Object *generalization_create(Point *startpoint,
@@ -175,14 +176,15 @@ generalization_select(Generalization *genlz, Point *clicked_point,
 
 static ObjectChange*
 generalization_move_handle(Generalization *genlz, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+			   Point *to, ConnectionPoint *cp,
+			   HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(genlz!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  change = orthconn_move_handle(&genlz->orth, handle, to, reason);
+  change = orthconn_move_handle(&genlz->orth, handle, to, cp, reason, modifiers);
   generalization_update_data(genlz);
 
   return change;

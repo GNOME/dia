@@ -59,7 +59,8 @@ static real node_distance_from(Node *node, Point *point);
 static void node_select(Node *node, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
 static ObjectChange* node_move_handle(Node *node, Handle *handle,
-				      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* node_move(Node *node, Point *to);
 static void node_draw(Node *node, DiaRenderer *renderer);
 static Object *node_create(Point *startpoint,
@@ -176,7 +177,8 @@ node_select(Node *node, Point *clicked_point,
 
 static ObjectChange*
 node_move_handle(Node *node, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		 Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(node!=NULL);
   assert(handle!=NULL);
@@ -184,7 +186,7 @@ node_move_handle(Node *node, Handle *handle,
 
   assert(handle->id < 8);
   
-  element_move_handle(&node->element, handle->id, to, reason);
+  element_move_handle(&node->element, handle->id, to, cp, reason, modifiers);
   node_update_data(node);
 
   return NULL;

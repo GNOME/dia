@@ -111,7 +111,8 @@ static int get_handle_nr(BezierShape *bezier, Handle *handle)
 
 ObjectChange *
 beziershape_move_handle(BezierShape *bezier, Handle *handle,
-			Point *to, HandleMoveReason reason)
+			Point *to, ConnectionPoint *cp,
+			HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr, comp_nr, next_nr, prev_nr;
   Point delta, pt;

@@ -62,7 +62,8 @@ static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static ObjectChange* realizes_move_handle(Realizes *realize, Handle *handle,
-					  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					  Point *to, ConnectionPoint *cp,
+					  HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* realizes_move(Realizes *realize, Point *to);
 static void realizes_draw(Realizes *realize, DiaRenderer *renderer);
 static Object *realizes_create(Point *startpoint,
@@ -177,14 +178,15 @@ realizes_select(Realizes *realize, Point *clicked_point,
 
 static ObjectChange*
 realizes_move_handle(Realizes *realize, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(realize!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  change = orthconn_move_handle(&realize->orth, handle, to, reason);
+  change = orthconn_move_handle(&realize->orth, handle, to, cp, reason, modifiers);
   realizes_update_data(realize);
 
   return change;

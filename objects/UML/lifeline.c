@@ -74,7 +74,8 @@ struct _Lifeline {
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
 static ObjectChange* lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-					  Point *to, HandleMoveReason reason, 
+					  Point *to, ConnectionPoint *cp,
+					  HandleMoveReason reason, 
                                  ModifierKeys modifiers);
 static ObjectChange* lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
@@ -203,7 +204,8 @@ lifeline_select(Lifeline *lifeline, Point *clicked_point,
 
 static ObjectChange*
 lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   real s, t;
   Connection *conn;
@@ -240,7 +242,7 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
     t = (reason==HANDLE_MOVE_CONNECTED) ? 
 	conn->endpoints[1].y - conn->endpoints[0].y:
 	lifeline->rbot;
-    connection_move_handle(conn, handle->id, to, reason);
+    connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
     s = conn->endpoints[1].y - conn->endpoints[0].y;
     if (handle->id==HANDLE_MOVE_ENDPOINT && s < t && s > lifeline->rtop + LIFELINE_BOXMINHEIGHT)
 	lifeline->rbot = s;

@@ -54,7 +54,8 @@ static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static ObjectChange* participation_move_handle(Participation *dep, Handle *handle,
-					       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					       Point *to, ConnectionPoint *cp,
+					       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* participation_move(Participation *dep, Point *to);
 static void participation_draw(Participation *dep, DiaRenderer *renderer);
 static Object *participation_create(Point *startpoint,
@@ -162,14 +163,16 @@ participation_select(Participation *participation, Point *clicked_point,
 
 static ObjectChange*
 participation_move_handle(Participation *participation, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+			  Point *to, ConnectionPoint *cp,
+			  HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(participation!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  change = orthconn_move_handle(&participation->orth, handle, to, reason);
+  change = orthconn_move_handle(&participation->orth, handle, to, cp, 
+				reason, modifiers);
   participation_update_data(participation);
 
   return change;

@@ -69,7 +69,8 @@ static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static ObjectChange* state_move_handle(State *state, Handle *handle,
-				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				       Point *to, ConnectionPoint *cp,
+				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* state_move(State *state, Point *to);
 static void state_draw(State *state, DiaRenderer *renderer);
 static Object *state_create(Point *startpoint,
@@ -194,7 +195,8 @@ state_select(State *state, Point *clicked_point,
 
 static ObjectChange*
 state_move_handle(State *state, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		  Point *to, ConnectionPoint *cp,
+		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(state!=NULL);
   assert(handle!=NULL);

@@ -106,7 +106,8 @@ void new_handles(BezierConn *bez, int num_points);
 
 ObjectChange*
 bezierconn_move_handle(BezierConn *bez, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr, comp_nr;
   Point delta, pt;

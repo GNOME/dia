@@ -94,7 +94,9 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 static DiaFont *orthflow_font = NULL;
 
 static ObjectChange* orthflow_move_handle(Orthflow *orthflow, Handle *handle,
-					  Point *to, HandleMoveReason reason);
+					  Point *to, ConnectionPoint *cp,
+					  HandleMoveReason reason, 
+					  ModifierKeys modifiers);
 static ObjectChange* orthflow_move(Orthflow *orthflow, Point *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
@@ -289,7 +291,8 @@ orthflow_select(Orthflow *orthflow, Point *clicked_point,
 
 static ObjectChange*
 orthflow_move_handle(Orthflow *orthflow, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change = NULL;
   assert(orthflow!=NULL);
@@ -304,7 +307,8 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
     along = orthflow->textpos ;
     point_sub( &along, &(orthconn_get_middle_handle(&orthflow->orth)->pos) ) ;
 
-    change = orthconn_move_handle( &orthflow->orth, handle, to, reason );
+    change = orthconn_move_handle( &orthflow->orth, handle, to, cp, 
+				   reason, modifiers);
     orthconn_update_data( &orthflow->orth ) ;
 
     orthflow->textpos = orthconn_get_middle_handle(&orthflow->orth)->pos ;

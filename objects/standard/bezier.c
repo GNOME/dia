@@ -56,7 +56,8 @@ struct _Bezierline {
 
 
 static ObjectChange* bezierline_move_handle(Bezierline *bezierline, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* bezierline_move(Bezierline *bezierline, Point *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -188,7 +189,8 @@ bezierline_select(Bezierline *bezierline, Point *clicked_point,
 
 static ObjectChange*
 bezierline_move_handle(Bezierline *bezierline, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(bezierline!=NULL);
   assert(handle!=NULL);
@@ -203,14 +205,14 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
     dist.y = 0;
     point_scale(&dist, 0.332);
 
-    bezierconn_move_handle(bez, handle, to, reason);
+    bezierconn_move_handle(bez, handle, to, cp, reason, modifiers);
     
     bez->points[1].p1 = bez->points[0].p1;
     point_sub(&bez->points[1].p1, &dist);
     bez->points[1].p2 = *to;
     point_add(&bez->points[1].p2, &dist);
   } else {
-    bezierconn_move_handle(&bezierline->bez, handle, to, reason);
+    bezierconn_move_handle(&bezierline->bez, handle, to, cp, reason, modifiers);
   }
 
   bezierline_update_data(bezierline);

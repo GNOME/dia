@@ -62,7 +62,8 @@ static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
-					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse);
@@ -182,14 +183,15 @@ ellipse_select(Ellipse *ellipse, Point *clicked_point,
 
 static ObjectChange*
 ellipse_move_handle(Ellipse *ellipse, Handle *handle,
-		    Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(ellipse!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  element_move_handle(&ellipse->element, handle->id, to, reason);
+  element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
   ellipse_update_data(ellipse);
 
   return NULL;

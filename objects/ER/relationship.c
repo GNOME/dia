@@ -75,7 +75,8 @@ static real relationship_distance_from(Relationship *relationship, Point *point)
 static void relationship_select(Relationship *relationship, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* relationship_move_handle(Relationship *relationship, Handle *handle,
-					      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					      Point *to, ConnectionPoint *cp,
+					      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* relationship_move(Relationship *relationship, Point *to);
 static void relationship_draw(Relationship *relationship, DiaRenderer *renderer);
 static void relationship_update_data(Relationship *relationship);
@@ -213,13 +214,14 @@ relationship_select(Relationship *relationship, Point *clicked_point,
 
 static ObjectChange*
 relationship_move_handle(Relationship *relationship, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+			 Point *to, ConnectionPoint *cp,
+			 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(relationship!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&relationship->element, handle->id, to, reason);
+  element_move_handle(&relationship->element, handle->id, to, cp, reason, modifiers);
 
   relationship_update_data(relationship);
 

@@ -67,7 +67,8 @@ typedef struct _Condition {
 } Condition;
 
 static ObjectChange* condition_move_handle(Condition *condition, Handle *handle,
-					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					   Point *to, ConnectionPoint *cp,
+					   HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* condition_move(Condition *condition, Point *to);
 static void condition_select(Condition *condition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -197,7 +198,8 @@ condition_select(Condition *condition, Point *clicked_point,
 
 static ObjectChange*
 condition_move_handle(Condition *condition, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point s,e,v;
   int horiz;
@@ -224,7 +226,7 @@ condition_move_handle(Condition *condition, Handle *handle,
     point_sub(&s,&v);
     /* XXX: fix e to make it look good (what's good ?) V is a good hint ? */
     connection_move_handle(&condition->connection, HANDLE_MOVE_STARTPOINT,
-			   &s,reason);    
+			   &s, cp, reason, modifiers);    
     break;
   case HANDLE_MOVE_ENDPOINT:
     point_copy(&s,&condition->connection.endpoints[0]);
@@ -232,11 +234,11 @@ condition_move_handle(Condition *condition, Handle *handle,
     point_copy(&v,&e);
     point_sub(&v,&s);
     connection_move_handle(&condition->connection, HANDLE_MOVE_ENDPOINT,
-			   to,reason);
+			   to, cp, reason, modifiers);
     point_copy(&s,to);
     point_sub(&s,&v);
     connection_move_handle(&condition->connection, HANDLE_MOVE_STARTPOINT,
-			   &s,reason);    
+			   &s, NULL, reason, 0);    
     break;
   default:
     g_assert_not_reached();

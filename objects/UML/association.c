@@ -129,7 +129,8 @@ static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,
 			       DiaRenderer *interactive_renderer);
 static ObjectChange* association_move_handle(Association *assoc, Handle *handle,
-					     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					     Point *to, ConnectionPoint *cp,
+					     HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* association_move(Association *assoc, Point *to);
 static void association_draw(Association *assoc, DiaRenderer *renderer);
 static Object *association_create(Point *startpoint,
@@ -245,14 +246,15 @@ association_select(Association *assoc, Point *clicked_point,
 
 static ObjectChange*
 association_move_handle(Association *assoc, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+			Point *to, ConnectionPoint *cp,
+			HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(assoc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  change = orthconn_move_handle(&assoc->orth, handle, to, reason);
+  change = orthconn_move_handle(&assoc->orth, handle, to, cp, reason, modifiers);
   association_update_data(assoc);
 
   return change;

@@ -69,7 +69,8 @@ static real image_distance_from(Image *image, Point *point);
 static void image_select(Image *image, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* image_move_handle(Image *image, Handle *handle,
-				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				       Point *to, ConnectionPoint *cp,
+				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* image_move(Image *image, Point *to);
 static void image_draw(Image *image, DiaRenderer *renderer);
 static void image_update_data(Image *image);
@@ -209,7 +210,8 @@ image_select(Image *image, Point *clicked_point,
 
 static ObjectChange*
 image_move_handle(Image *image, Handle *handle,
-		  Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		  Point *to, ConnectionPoint *cp,
+		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   Element *elem = &image->element;
   assert(image!=NULL);
@@ -233,12 +235,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+(image->element.width-new_width);
       to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle(elem, HANDLE_RESIZE_NW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NW, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_N:
       new_width = (-(to->y-image->element.corner.y)+height)*width/height;
       to->x = image->element.corner.x+new_width;
-      element_move_handle(elem, HANDLE_RESIZE_NE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_NE:
       new_width = to->x-image->element.corner.x;
@@ -250,12 +252,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+new_width;
       to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle(elem, HANDLE_RESIZE_NE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_E:
       new_height = (to->x-image->element.corner.x)*height/width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_SE:
       new_width = to->x-image->element.corner.x;
@@ -267,12 +269,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+new_width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_S:
       new_width = (to->y-image->element.corner.y)*width/height;
       to->x = image->element.corner.x+new_width;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_SW:
       new_width = -(to->x-image->element.corner.x)+width;
@@ -284,12 +286,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+(image->element.width-new_width);
       to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
       break;
     case HANDLE_RESIZE_W:
       new_height = (-(to->x-image->element.corner.x)+width)*height/width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
       break;
     default:
       message_warning("Unforeseen handle in image_move_handle: %d\n",
@@ -297,7 +299,7 @@ image_move_handle(Image *image, Handle *handle,
       
     }
   } else {
-    element_move_handle(elem, handle->id, to, reason);
+    element_move_handle(elem, handle->id, to, cp, reason, modifiers);
   }
   image_update_data(image);
 

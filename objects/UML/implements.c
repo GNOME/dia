@@ -61,7 +61,8 @@ struct _Implements {
 static DiaFont *implements_font = NULL;
 
 static ObjectChange* implements_move_handle(Implements *implements, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -181,7 +182,8 @@ implements_select(Implements *implements, Point *clicked_point,
 
 static ObjectChange*
 implements_move_handle(Implements *implements, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point v1, v2;
   
@@ -202,7 +204,8 @@ implements_move_handle(Implements *implements, Handle *handle,
       implements->circle_diameter = 0.03;
   } else {
     v1 = implements->connection.endpoints[1];
-    connection_move_handle(&implements->connection, handle->id, to, reason);
+    connection_move_handle(&implements->connection, handle->id, to, cp, 
+			   reason, modifiers);
     point_sub(&v1, &implements->connection.endpoints[1]);
     point_sub(&implements->text_pos, &v1);
   }

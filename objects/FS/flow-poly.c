@@ -66,7 +66,9 @@ struct _Flow {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
 static ObjectChange* flow_move_handle(Flow *flow, Handle *handle,
-				      Point *to, HandleMoveReason reason);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, 
+				      ModifierKeys modifiers);
 static ObjectChange* flow_move(Flow *flow, Point *to);
 static void flow_select(Flow *flow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -205,7 +207,8 @@ flow_select(Flow *flow, Point *clicked_point,
 
 static ObjectChange*
 flow_move_handle(Flow *flow, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -243,7 +246,8 @@ flow_move_handle(Flow *flow, Handle *handle,
        norm_mag = (real)sqrt( (double) point_dot( &p1, &p1 ) ) ;
     }
 
-    connection_move_handle(&flow->connection, handle->id, to, reason);
+    connection_move_handle(&flow->connection, handle->id, to, cp, 
+			   reason, modifiers);
 
     p2 = endpoints[1] ;
     point_sub( &p2, &endpoints[0] ) ;

@@ -26,7 +26,8 @@
 
 ObjectChange*
 connection_move_handle(Connection *conn, HandleId id,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   switch(id) {
   case HANDLE_MOVE_STARTPOINT:

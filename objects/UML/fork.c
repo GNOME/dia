@@ -55,7 +55,8 @@ static const double FORK_MARGIN = 0.125;
 static real fork_distance_from(Fork *branch, Point *point);
 static void fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
 static ObjectChange* fork_move_handle(Fork *branch, Handle *handle,
-				      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* fork_move(Fork *branch, Point *to);
 static void fork_draw(Fork *branch, DiaRenderer *renderer);
 static Object *fork_create(Point *startpoint,
@@ -157,7 +158,8 @@ fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_rendere
 
 static ObjectChange*
 fork_move_handle(Fork *branch, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		 Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   coord dx;
   Point c;
@@ -174,9 +176,9 @@ fork_move_handle(Fork *branch, Handle *handle,
      c.x = branch->element.corner.x + branch->element.width / 2.;
      dx = fabs(to->x - c.x);
      to->x = c.x - dx;
-     element_move_handle(&branch->element, 3, to, reason);
+     element_move_handle(&branch->element, 3, to, cp, reason, modifiers);
      to->x = c.x + dx;
-     element_move_handle(&branch->element, 4, to, reason);
+     element_move_handle(&branch->element, 4, to, cp, reason, modifiers);
      fork_update_data(branch);
   }   
 

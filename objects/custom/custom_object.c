@@ -108,7 +108,8 @@ static real custom_distance_from(Custom *custom, Point *point);
 static void custom_select(Custom *custom, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
-					Point *to, HandleMoveReason reason, 
+					Point *to, ConnectionPoint *cp,
+					HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
@@ -451,7 +452,8 @@ custom_select(Custom *custom, Point *clicked_point,
 
 static ObjectChange*
 custom_move_handle(Custom *custom, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		   Point *to, ConnectionPoint *cp,
+		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
@@ -459,7 +461,7 @@ custom_move_handle(Custom *custom, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&custom->element, handle->id, to, reason);
+  element_move_handle(&custom->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
   case HANDLE_RESIZE_NW:

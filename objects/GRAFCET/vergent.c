@@ -57,7 +57,8 @@ typedef struct _Vergent {
 } Vergent;
 
 static ObjectChange* vergent_move_handle(Vergent *vergent, Handle *handle,
-					 Point *to, HandleMoveReason reason, 
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, 
                                 ModifierKeys modifiers);
 static ObjectChange* vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
@@ -198,7 +199,8 @@ vergent_select(Vergent *vergent, Point *clicked_point,
 
 static ObjectChange*
 vergent_move_handle(Vergent *vergent, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(vergent!=NULL);
   g_assert(handle!=NULL);
@@ -210,9 +212,10 @@ vergent_move_handle(Vergent *vergent, Handle *handle,
     to2.x = to->x;
     to2.y = vergent->connection.endpoints[0].y;
     connection_move_handle(&vergent->connection, HANDLE_MOVE_ENDPOINT, 
-			   &to2, reason);
+			   &to2, NULL, reason, 0);
   }
-  connection_move_handle(&vergent->connection, handle->id, to, reason);
+  connection_move_handle(&vergent->connection, handle->id, to, cp,
+			 reason, modifiers);
   vergent_update_data(vergent);
 
   return NULL;

@@ -68,7 +68,9 @@ static real entity_distance_from(Entity *entity, Point *point);
 static void entity_select(Entity *entity, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* entity_move_handle(Entity *entity, Handle *handle,
-					Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					Point *to, ConnectionPoint *cp,
+					HandleMoveReason reason,
+					ModifierKeys modifiers);
 static ObjectChange* entity_move(Entity *entity, Point *to);
 static void entity_draw(Entity *entity, DiaRenderer *renderer);
 static void entity_update_data(Entity *entity);
@@ -194,13 +196,14 @@ entity_select(Entity *entity, Point *clicked_point,
 
 static ObjectChange*
 entity_move_handle(Entity *entity, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		   Point *to, ConnectionPoint *cp,
+		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(entity!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&entity->element, handle->id, to, reason);
+  element_move_handle(&entity->element, handle->id, to, cp, reason, modifiers);
 
   entity_update_data(entity);
 

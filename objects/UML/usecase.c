@@ -69,7 +69,8 @@ static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static ObjectChange* usecase_move_handle(Usecase *usecase, Handle *handle,
-					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* usecase_move(Usecase *usecase, Point *to);
 static void usecase_draw(Usecase *usecase, DiaRenderer *renderer);
 static Object *usecase_create(Point *startpoint,
@@ -187,7 +188,8 @@ usecase_select(Usecase *usecase, Point *clicked_point,
 
 static ObjectChange*
 usecase_move_handle(Usecase *usecase, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(usecase!=NULL);
   assert(handle!=NULL);

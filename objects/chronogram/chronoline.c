@@ -86,7 +86,8 @@ static real chronoline_distance_from(Chronoline *chronoline, Point *point);
 static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* chronoline_move_handle(Chronoline *chronoline, Handle *handle,
-					    Point *to, HandleMoveReason reason, 
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* chronoline_move(Chronoline *chronoline, Point *to);
 static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
@@ -258,13 +259,15 @@ chronoline_select(Chronoline *chronoline, Point *clicked_point,
 
 static ObjectChange*
 chronoline_move_handle(Chronoline *chronoline, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(chronoline!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&chronoline->element, handle->id, to, reason);
+  element_move_handle(&chronoline->element, handle->id, to, cp, 
+		      reason, modifiers);
   chronoline_update_data(chronoline);
 
   return NULL;

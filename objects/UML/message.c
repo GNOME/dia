@@ -74,7 +74,8 @@ struct _Message {
 static DiaFont *message_font = NULL;
 
 static ObjectChange* message_move_handle(Message *message, Handle *handle,
-					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -203,7 +204,8 @@ message_select(Message *message, Point *clicked_point,
 
 static ObjectChange*
 message_move_handle(Message *message, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -218,7 +220,7 @@ message_move_handle(Message *message, Handle *handle,
     endpoints = &message->connection.endpoints[0]; 
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
-    connection_move_handle(&message->connection, handle->id, to, reason);
+    connection_move_handle(&message->connection, handle->id, to, cp, reason, modifiers);
     p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p2.y = 0.5*(endpoints[0].y + endpoints[1].y);
     point_sub(&p2, &p1);

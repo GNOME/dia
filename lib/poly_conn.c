@@ -83,7 +83,8 @@ static int get_handle_nr(PolyConn *poly, Handle *handle)
 
 ObjectChange *
 polyconn_move_handle(PolyConn *poly, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr;
   

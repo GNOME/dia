@@ -82,7 +82,8 @@ element_update_handles(Element *elem)
 
 ObjectChange*
 element_move_handle(Element *elem, HandleId id,
-		    Point *to, HandleMoveReason reason)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p;
   Point *corner;

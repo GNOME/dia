@@ -15,13 +15,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/** @file object.h -- definitions for Dia objects, in particular the 'virtual'
+ * functions and the object and type structures.
+ */
 #ifndef OBJECT_H
 #define OBJECT_H
 
 #include "diatypes.h"
 #include <gtk/gtk.h>
 
-typedef guint16 ObjectId; /* The id of an objecttype */
+typedef guint16 ObjectId; /** The id of an objecttype */
 
 #include "geometry.h"
 #include "connectionpoint.h"
@@ -33,7 +37,7 @@ typedef guint16 ObjectId; /* The id of an objecttype */
 #include "diagramdata.h"
 #include "parent.h"
 
-/* This enumeration gives a bitset of modifier keys currently held down.
+/** This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {
   MODIFIER_NONE,
@@ -158,26 +162,33 @@ typedef Object* (*CopyFunc) (Object* obj);
 typedef ObjectChange* (*MoveFunc) (Object* obj, Point * pos);
 
 
-/*
-  Function called to move one of the handles associated with the
-  object. Its new position is given by pos.
-  - reason  gives the reason the handle was moved.
-            HANDLE_MOVE_USER means the user is dragging the point.
-	    HANDLE_MOVE_USER_FINAL means the user let go of the point.
-	    HANDLE_MOVE_CONNECTED means it was moved because something
-	    it was connected to moved.
-  - modifiers  gives a bitset of modifier keys currently held down
-            MODIFIER_SHIFT is either shift key
-	    MODIFIER_ALT is either alt key
-	    MODIFIER_CONTROL is either control key
-	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
-  Returns an ObjectChange* with additional undo information, or
-  (in most cases) NULL.  Undo for moving the handle itself is handled
-  elsewhere.
-*/
+/**
+ *  Function called to move one of the handles associated with the
+ *  object. 
+ *  @param obj The object whose handle is being moved.
+ *  @param handle The handle being moved.
+ *  @param pos The position it has been moved to (corrected for
+ *   vertical/horizontal only movement).
+ *  @param cp If non-NULL, the connectionpoint found at this position.
+ *   If @a cp is NULL, there may or may not be a connectionpoint.
+ *  @param The reason the handle was moved.
+ *     - HANDLE_MOVE_USER means the user is dragging the point.
+ *     - HANDLE_MOVE_USER_FINAL means the user let go of the point.
+ *     - HANDLE_MOVE_CONNECTED means it was moved because something
+ *	    it was connected to moved.
+ *  @param modifiers gives a bitset of modifier keys currently held down
+ *     - MODIFIER_SHIFT is either shift key
+ *     - MODIFIER_ALT is either alt key
+ *     - MODIFIER_CONTROL is either control key
+ *	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
+ *  @return An @a ObjectChange* with additional undo information, or
+ *  (in most cases) NULL.  Undo for moving the handle itself is handled
+ *  elsewhere.
+ */
 typedef ObjectChange* (*MoveHandleFunc) (Object*          obj,
 					 Handle*          handle,
 					 Point*           pos,
+					 ConnectionPoint* cp,
 					 HandleMoveReason reason,
 					 ModifierKeys     modifiers);
 

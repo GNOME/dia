@@ -79,7 +79,9 @@ static real function_distance_from(Function *pkg, Point *point);
 static void function_select(Function *pkg, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static ObjectChange* function_move_handle(Function *pkg, Handle *handle,
-					  Point *to, HandleMoveReason reason);
+					  Point *to, ConnectionPoint *cp,
+					  HandleMoveReason reason,
+					  ModifierKeys modifiers);
 static ObjectChange* function_move(Function *pkg, Point *to);
 static void function_draw(Function *pkg, DiaRenderer *renderer);
 static Object *function_create(Point *startpoint,
@@ -256,7 +258,8 @@ function_select(Function *pkg, Point *clicked_point,
 
 static ObjectChange*
 function_move_handle(Function *pkg, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

@@ -87,7 +87,8 @@ static real step_distance_from(Step *step, Point *point);
 static void step_select(Step *step, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static ObjectChange* step_move_handle(Step *step, Handle *handle,
-				      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* step_move(Step *step, Point *to);
 static void step_draw(Step *step, DiaRenderer *renderer);
 static void step_update_data(Step *step);
@@ -280,7 +281,8 @@ step_select(Step *step, Point *clicked_point,
 
 static ObjectChange*
 step_move_handle(Step *step, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		Point *to, ConnectionPoint *cp,
+		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(step!=NULL);
   assert(handle!=NULL);
@@ -296,7 +298,7 @@ step_move_handle(Step *step, Handle *handle,
     if (step->south.pos.y < step->D.y) step->south.pos.y = step->D.y;
     break;
   default:
-    element_move_handle(&step->element, handle->id, to, reason);
+    element_move_handle(&step->element, handle->id, to, cp, reason, modifiers);
   }
 
   step_update_data(step);

@@ -163,7 +163,8 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 
 ObjectChange *
 orthconn_move_handle(OrthConn *orth, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   int n;
   int handle_nr;
@@ -174,7 +175,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
   case HANDLE_MOVE_STARTPOINT:
     orth->points[0] = *to;
     if (orth->autorouting &&
-	autoroute_layout_orthconn(orth, handle->connected_to,
+	autoroute_layout_orthconn(orth, cp,
 				  obj->handles[1]->connected_to))
       break;
     switch (orth->orientation[0]) {
@@ -191,7 +192,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     orth->points[n] = *to;
     if (orth->autorouting &&
 	autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
-				  handle->connected_to))
+				  cp))
       break;
     switch (orth->orientation[n-1]) {
     case HORIZONTAL:

@@ -69,7 +69,9 @@ void neworthconn_copy(NewOrthConn *from, NewOrthConn *to);
 void neworthconn_save(NewOrthConn *orth, ObjectNode obj_node);
 void neworthconn_load(NewOrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
 ObjectChange* neworthconn_move_handle(NewOrthConn *orth, Handle *id,
-			     Point *to, HandleMoveReason reason);
+				      Point *to, ConnectionPoint *cp,
+				      HandleMoveReason reason,
+				      ModifierKeys modifiers);
 ObjectChange* neworthconn_move(NewOrthConn *orth, Point *to);
 real neworthconn_distance_from(NewOrthConn *orth, Point *point,
 			       real line_width);

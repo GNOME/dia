@@ -52,7 +52,8 @@ typedef struct _Polyline {
 
 
 static ObjectChange* polyline_move_handle(Polyline *polyline, Handle *handle,
-					  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					  Point *to, ConnectionPoint *cp,
+					  HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* polyline_move(Polyline *polyline, Point *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -184,13 +185,14 @@ polyline_select(Polyline *polyline, Point *clicked_point,
 
 static ObjectChange*
 polyline_move_handle(Polyline *polyline, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		     Point *to, ConnectionPoint *cp,
+		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(polyline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  polyconn_move_handle(&polyline->poly, handle, to, reason);
+  polyconn_move_handle(&polyline->poly, handle, to, cp, reason, modifiers);
   polyline_update_data(polyline);
 
   return NULL;

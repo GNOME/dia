@@ -59,7 +59,8 @@ static real component_distance_from(Component *cmp, Point *point);
 static void component_select(Component *cmp, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
 static ObjectChange* component_move_handle(Component *cmp, Handle *handle,
-					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					   Point *to, ConnectionPoint *cp,
+					   HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* component_move(Component *cmp, Point *to);
 static void component_draw(Component *cmp, DiaRenderer *renderer);
 static Object *component_create(Point *startpoint,
@@ -178,7 +179,8 @@ component_select(Component *cmp, Point *clicked_point,
 
 static ObjectChange*
 component_move_handle(Component *cmp, Handle *handle,
-			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		      Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(cmp!=NULL);
   assert(handle!=NULL);

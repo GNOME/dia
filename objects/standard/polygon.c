@@ -64,7 +64,8 @@ static struct _PolygonProperties {
 } default_properties = { TRUE };
 
 static ObjectChange* polygon_move_handle(Polygon *polygon, Handle *handle,
-					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* polygon_move(Polygon *polygon, Point *to);
 static void polygon_select(Polygon *polygon, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -194,13 +195,14 @@ polygon_select(Polygon *polygon, Point *clicked_point,
 
 static ObjectChange*
 polygon_move_handle(Polygon *polygon, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(polygon!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  polyshape_move_handle(&polygon->poly, handle, to, reason);
+  polyshape_move_handle(&polygon->poly, handle, to, cp, reason, modifiers);
   polygon_update_data(polygon);
 
   return NULL;

@@ -83,7 +83,8 @@ static real pgram_distance_from(Pgram *pgram, Point *point);
 static void pgram_select(Pgram *pgram, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* pgram_move_handle(Pgram *pgram, Handle *handle,
-				       Point *to, HandleMoveReason reason, 
+				       Point *to, ConnectionPoint *cp,
+				       HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static ObjectChange* pgram_move(Pgram *pgram, Point *to);
 static void pgram_draw(Pgram *pgram, DiaRenderer *renderer);
@@ -266,7 +267,8 @@ pgram_select(Pgram *pgram, Point *clicked_point,
 
 static ObjectChange*
 pgram_move_handle(Pgram *pgram, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		  Point *to, ConnectionPoint *cp,
+		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
@@ -274,7 +276,7 @@ pgram_move_handle(Pgram *pgram, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&pgram->element, handle->id, to, reason);
+  element_move_handle(&pgram->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
   case HANDLE_RESIZE_NW:

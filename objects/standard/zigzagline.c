@@ -52,7 +52,8 @@ typedef struct _Zigzagline {
 
 
 static ObjectChange* zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -174,14 +175,16 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 
 static ObjectChange*
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(zigzagline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, reason);
+  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, cp, 
+				reason, modifiers);
 
   zigzagline_update_data(zigzagline);
 

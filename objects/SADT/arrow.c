@@ -70,7 +70,8 @@ typedef struct _Sadtarrow {
 } Sadtarrow;
 
 static ObjectChange* sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
-					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					   Point *to, ConnectionPoint *cp,
+					   HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
 static void sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -196,14 +197,16 @@ sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 
 static ObjectChange*
 sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
-		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		      Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange *change;
   assert(sadtarrow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = neworthconn_move_handle(&sadtarrow->orth, handle, to, reason);
+  change = neworthconn_move_handle(&sadtarrow->orth, handle, to, cp, 
+				   reason, modifiers);
   sadtarrow_update_data(sadtarrow);
 
   return change;

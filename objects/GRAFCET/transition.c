@@ -77,7 +77,8 @@ typedef struct _Transition {
 } Transition;
 
 static ObjectChange* transition_move_handle(Transition *transition, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* transition_move(Transition *transition, Point *to);
 static void transition_select(Transition *transition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -290,7 +291,8 @@ transition_select(Transition *transition, Point *clicked_point,
 
 static ObjectChange*
 transition_move_handle(Transition *transition, Handle *handle,
-		       Point *to, HandleMoveReason reason, 
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, 
 		       ModifierKeys modifiers)
 {
   g_assert(transition!=NULL);
@@ -309,7 +311,8 @@ transition_move_handle(Transition *transition, Handle *handle,
       transition->south.pos.y = transition->B.y;
     break;
   default:
-    element_move_handle(&transition->element, handle->id, to, reason);
+    element_move_handle(&transition->element, handle->id, to, cp, 
+			reason, modifiers);
   }
 
   transition_update_data(transition);

@@ -58,7 +58,8 @@ static void wanlink_select(WanLink *wanlink, Point *clicked_point,
 static Object *wanlink_copy(WanLink *wanlink);
 static ObjectChange* wanlink_move(WanLink *wanlink, Point *to);
 static ObjectChange* wanlink_move_handle(WanLink *wanlink, Handle *handle,
-					 Point *to, HandleMoveReason reason, 
+					 Point *to, ConnectionPoint *cp,
+					 HandleMoveReason reason, 
 			      ModifierKeys modifiers);
 
 static PropDescription *wanlink_describe_props(WanLink *wanlink);
@@ -274,9 +275,11 @@ wanlink_move(WanLink *wanlink, Point *to)
 
 static ObjectChange*
 wanlink_move_handle(WanLink *wanlink, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		    Point *to, ConnectionPoint *cp,
+		    HandleMoveReason reason, ModifierKeys modifiers)
 {
-  connection_move_handle(&wanlink->connection, handle->id, to, reason);
+  connection_move_handle(&wanlink->connection, handle->id, to, cp,
+			 reason, modifiers);
   
   wanlink_update_data(wanlink);
 

@@ -157,7 +157,8 @@ static int get_segment_nr(NewOrthConn *orth, Point *point, real max_dist)
 
 ObjectChange*
 neworthconn_move_handle(NewOrthConn *orth, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+			Point *to, ConnectionPoint *cp,
+			HandleMoveReason reason, ModifierKeys modifiers)
 {
   int n;
   int handle_nr;

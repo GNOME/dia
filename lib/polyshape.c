@@ -73,7 +73,8 @@ static int get_handle_nr(PolyShape *poly, Handle *handle)
 
 ObjectChange*
 polyshape_move_handle(PolyShape *poly, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		      Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr;
   

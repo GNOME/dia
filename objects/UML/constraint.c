@@ -61,7 +61,8 @@ struct _Constraint {
 static DiaFont *constraint_font = NULL;
 
 static ObjectChange* constraint_move_handle(Constraint *constraint, Handle *handle,
-					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+					    Point *to, ConnectionPoint *cp,
+					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
@@ -177,7 +178,8 @@ constraint_select(Constraint *constraint, Point *clicked_point,
 
 static ObjectChange*
 constraint_move_handle(Constraint *constraint, Handle *handle,
-		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+		       Point *to, ConnectionPoint *cp,
+		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -192,7 +194,8 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
     endpoints = &constraint->connection.endpoints[0]; 
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
-    connection_move_handle(&constraint->connection, handle->id, to, reason);
+    connection_move_handle(&constraint->connection, handle->id, to, cp, 
+			   reason, modifiers);
     p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p2.y = 0.5*(endpoints[0].y + endpoints[1].y);
     point_sub(&p2, &p1);

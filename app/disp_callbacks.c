@@ -841,8 +841,8 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 
     new_pos.x = droppoint.x + new_width;
     new_pos.y = droppoint.y + new_height;
-    obj->ops->move_handle(obj, handle2, &new_pos,
-                                   HANDLE_MOVE_USER,0);
+    obj->ops->move_handle(obj, handle2, &new_pos, NULL,
+			  HANDLE_MOVE_USER, 0);
 
   }
 

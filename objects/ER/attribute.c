@@ -87,8 +87,9 @@ static real attribute_distance_from(Attribute *attribute, Point *point);
 static void attribute_select(Attribute *attribute, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static ObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
-					   Point *to, HandleMoveReason reason, 
-				  ModifierKeys modifiers);
+					   Point *to, ConnectionPoint *cp,
+					   HandleMoveReason reason, 
+					   ModifierKeys modifiers);
 static ObjectChange* attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
 static void attribute_update_data(Attribute *attribute);
@@ -219,15 +220,16 @@ attribute_select(Attribute *attribute, Point *clicked_point,
 
 static ObjectChange*
 attribute_move_handle(Attribute *attribute, Handle *handle,
-		      Point *to, HandleMoveReason reason, 
-		      ModifierKeys modifiers)
+		      Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(attribute!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  element_move_handle(&attribute->element, handle->id, to, reason);
+  element_move_handle(&attribute->element, handle->id, to, cp, 
+		      reason, modifiers);
   attribute_update_data(attribute);
 
   return NULL;

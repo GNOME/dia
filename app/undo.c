@@ -385,8 +385,8 @@ move_handle_apply(struct MoveHandleChange *change, Diagram *dia)
 {
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle,
-				 &change->dest_pos,
-				 HANDLE_MOVE_USER_FINAL,0);
+				&change->dest_pos, NULL,
+				HANDLE_MOVE_USER_FINAL, 0);
   object_add_updates(change->obj, dia);
   diagram_update_connections_object(dia, change->obj, TRUE);
 }
@@ -396,8 +396,8 @@ move_handle_revert(struct MoveHandleChange *change, Diagram *dia)
 {
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle,
-				 &change->orig_pos,
-				 HANDLE_MOVE_USER_FINAL,0);
+				&change->orig_pos, NULL,
+				HANDLE_MOVE_USER_FINAL, 0);
   object_add_updates(change->obj, dia);
   diagram_update_connections_object(dia, change->obj, TRUE);
 }
@@ -451,6 +451,7 @@ connect_apply(struct ConnectChange *change, Diagram *dia)
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle ,
 				&change->connectionpoint->pos,
+				change->connectionpoint,
 				HANDLE_MOVE_CONNECTED, 0);
   
   object_add_updates(change->obj, dia);
@@ -463,7 +464,7 @@ connect_revert(struct ConnectChange *change, Diagram *dia)
   
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle ,
-				&change->handle_pos,
+				&change->handle_pos, NULL,
 				HANDLE_MOVE_CONNECTED, 0);
   
   object_add_updates(change->obj, dia);
