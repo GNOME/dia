@@ -45,6 +45,48 @@ typedef struct _IRectangle {
 
 static guint display_hash(DDisplay *ddisp);
 
+static void
+update_zoom_status(DDisplay *ddisp)
+{
+  GtkStatusbar *statusbar;
+  guint context_id;
+  gchar *zoom_text;
+
+  statusbar = GTK_STATUSBAR (ddisp->zoom_status);
+  context_id = gtk_statusbar_get_context_id (statusbar, "Zoom");
+  
+  gtk_statusbar_pop (statusbar, context_id); 
+  zoom_text = g_malloc (sizeof (guchar) * (strlen (gettext ("Zoom")) + 1 + 8 + 1));
+  sprintf (zoom_text, "%s % 7.1f%c", gettext ("Zoom"), ddisp->zoom_factor * 100.0 / 
+	   DDISPLAY_NORMAL_ZOOM, '%');
+  gtk_statusbar_push (statusbar, context_id, zoom_text);
+
+  g_free (zoom_text);
+}
+
+static void
+update_modified_status(DDisplay *ddisp)
+{
+  GtkStatusbar *statusbar;
+  guint context_id;
+
+  if (ddisp->diagram->modified)
+  {
+    statusbar = GTK_STATUSBAR (ddisp->modified_status);
+    context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
+  
+    gtk_statusbar_pop (statusbar, context_id); 
+    gtk_statusbar_push (statusbar, context_id, gettext ("Diagram modified!"));
+  }
+  else
+  {
+    statusbar = GTK_STATUSBAR (ddisp->modified_status);
+    context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
+  
+    gtk_statusbar_pop (statusbar, context_id); 
+  }
+}
+
 DDisplay *
 new_display(Diagram *dia)
 {
@@ -83,6 +125,8 @@ new_display(Diagram *dia)
   }
   
   create_display_shell(ddisp, 500, 400, filename);
+
+  ddisplay_update_statusbar (ddisp);
 
   if (!display_ht)
     display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
@@ -429,6 +473,8 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
+
+  update_zoom_status (ddisp);
 }
 
 gboolean
@@ -785,3 +831,9 @@ ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
   gdk_window_set_cursor(ddisp->canvas->window, cursor);
 }
 
+void 
+ddisplay_update_statusbar(DDisplay *ddisp)
+{
+  update_zoom_status (ddisp);
+  update_modified_status (ddisp);
+}

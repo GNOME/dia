@@ -69,7 +69,25 @@ diagram_destroy(Diagram *dia)
 void
 diagram_modified(Diagram *dia)
 {
-  dia->modified = TRUE;
+  diagram_set_modified (dia, TRUE);
+}
+
+void
+diagram_set_modified(Diagram *dia, int modified)
+{
+  GSList *displays;
+
+  if (dia->modified != modified)
+  {
+    dia->modified = modified;
+    displays = dia->displays;
+    while (displays != NULL)
+    {
+      DDisplay *display = (DDisplay*) displays->data;
+      ddisplay_update_statusbar (display);
+      displays = g_slist_next (displays);
+    }
+  }
 }
      
 void

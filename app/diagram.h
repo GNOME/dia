@@ -45,6 +45,7 @@ extern GList *open_diagrams; /* Read only! */
 extern Diagram *new_diagram(char *filename);  /* Note: filename is copied */
 extern void diagram_destroy(Diagram *dia);
 extern void diagram_modified(Diagram *dia);
+extern void diagram_set_modified(Diagram *dia, int modified);
 extern void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
 extern void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
 extern void diagram_add_object(Diagram *dia, Object *obj);

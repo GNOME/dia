@@ -66,11 +66,10 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
       ddisplay_add_update_all(ddisp);
       ddisplay_flush(ddisp);
     } else if (!(event->state & GDK_CONTROL_MASK)) {
-      ddisp->zoom_factor *= (visible->right - visible->left) / diff;
-      ddisplay_set_origo(ddisp, tl.x, tl.y);
-      ddisplay_update_scrollbars(ddisp);
-      ddisplay_add_update_all(ddisp);
-      ddisplay_flush(ddisp);
+      factor = (visible->right - visible->left) / diff;
+      tl.x += (visible->right - visible->left)/(2.0*factor);
+      tl.y += (visible->bottom - visible->top)/(2.0*factor);
+      ddisplay_zoom(ddisp, &tl, factor);
     } else {
       factor = diff / (visible->right - visible->left);
       tl.x = tl.x * factor + tl.x;

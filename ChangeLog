@@ -1,3 +1,30 @@
+1999-02-07  Matthias Köster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
+	* app/display.[ch]:
+	Added statusbar to the display widget. Currently shows the zoom
+	factor and modified flag of the viewed diagram. The statusbar is
+	updated upon calls to ddisplay_zoom and ddisplay_update_statusbar.
+	This caused the following additions:
+	
+	* app/diagram.[ch]:
+	Added function diagram_set_modified. Calls
+	ddisplay_update_statusbar for all displays showing the modified diagram.
+	Changed diagram_modified to call diagram_set_modified.
+	
+	* app/interface.c:
+	Added the creation of the statusbar.
+	
+	* app/load_save.c:
+	diagram_save now calls diagram_set_modified instead of setting
+	dia->modified. Needed to force call to display_update_statusbar
+	
+	* app/commands.c:
+	Changed the way view_show_all works. Now calls ddisplay_zoom
+	instead of directly setting the zoom_factor, so the zoom factor is
+	correctly shown in the statusbar.
+
+	* app/magnify.c:
+	Fixed rubberband zoom to use ddisplay_zoom().
+	
 1999-02-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/app_procs.c

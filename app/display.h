@@ -41,6 +41,9 @@ struct _DDisplay {
   GtkWidget *origin;              /* widgets for rulers                */
   GtkWidget *popup;               /* widget for popup menu             */
 
+  GtkWidget *zoom_status;         
+  GtkWidget *modified_status;
+
   GtkAccelGroup *accel_group;
   
   GtkAdjustment *hsbdata;         /* horizontal data information       */
@@ -108,6 +111,8 @@ extern void ddisplay_scroll_up(DDisplay *ddisp);
 extern void ddisplay_scroll_down(DDisplay *ddisp);
 extern void ddisplay_scroll_left(DDisplay *ddisp);
 extern void ddisplay_scroll_right(DDisplay *ddisp);
+
+extern void ddisplay_update_statusbar(DDisplay *ddisp);
 #endif /* DDISPLAY_H */
 
 

@@ -638,22 +638,27 @@ view_show_all_callback(GtkWidget *widget, gpointer data)
 {
   DDisplay *ddisp;
   Diagram *dia;
-  real zoom_x, zoom_y;
+  real magnify_x, magnify_y;
   int width, height;
-  
+  Point middle;
+
   ddisp = ddisplay_active();
   dia = ddisp->diagram;
 
   width = ddisp->renderer->renderer.pixel_width;
   height = ddisp->renderer->renderer.pixel_height;
   
-  zoom_x = (real)width /
-    (dia->data->extents.right - dia->data->extents.left);
-  zoom_y = (real)height /
-    (dia->data->extents.bottom - dia->data->extents.top);
+  magnify_x = (real)width /
+    (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;
+  magnify_y = (real)height /
+    (dia->data->extents.bottom - dia->data->extents.top) / ddisp->zoom_factor;
 
-  ddisp->zoom_factor = (zoom_x<zoom_y)?zoom_x:zoom_y;
-  ddisplay_set_origo(ddisp, dia->data->extents.left, dia->data->extents.top);
+  middle.x = dia->data->extents.left +
+    (dia->data->extents.right - dia->data->extents.left) / 2.0;
+  middle.y = dia->data->extents.top +
+    (dia->data->extents.bottom - dia->data->extents.top) / 2.0;
+
+  ddisplay_zoom (ddisp, &middle, (magnify_x<magnify_y)?magnify_x:magnify_y);
 
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);

@@ -122,6 +122,7 @@ create_display_shell(DDisplay *ddisp,
 		     char *title)
 {
   GtkWidget *table;
+  GtkWidget *status_hbox;
   int s_width, s_height;
 
   s_width = gdk_screen_width ();
@@ -153,7 +154,7 @@ create_display_shell(DDisplay *ddisp,
                       ddisp);
   
   /*  the table containing all widgets  */
-  table = gtk_table_new (3, 3, FALSE);
+  table = gtk_table_new (4, 3, FALSE);
   gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
   gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
   gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
@@ -218,6 +219,19 @@ create_display_shell(DDisplay *ddisp,
 #else
   menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
 
+  /* the statusbars */
+  status_hbox = gtk_hbox_new (FALSE, 2);
+
+  ddisp->zoom_status = gtk_statusbar_new ();
+  ddisp->modified_status = gtk_statusbar_new ();
+  
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status, TRUE, TRUE, 
+		      0);
+
+  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
+                    GTK_FILL, GTK_EXPAND, 0, 0);
+
   /*  the accelerator table/group for the popup */
   gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);
 #endif
@@ -228,6 +242,9 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->hrule);
   gtk_widget_show (ddisp->vrule);
   gtk_widget_show (ddisp->canvas);
+  gtk_widget_show (ddisp->zoom_status);
+  gtk_widget_show (ddisp->modified_status);
+  gtk_widget_show (status_hbox);
   gtk_widget_show (table);
   gtk_widget_show (ddisp->shell);
 
