@@ -1,0 +1,10 @@
+
+.deps
+.libs
+Makefile
+Makefile.in
+flow-ortho.lo
+flow.lo
+fs.lo
+function.lo
+libfs_objects.la
