@@ -1180,11 +1180,11 @@ font_string_width(const char *string, DiaFont *font, real height)
 #else
   GdkFont *gdk_font;
   GdkWChar *wcstr;
-  int iwidth, iheight;
-  double width_height;
+  double scaled_width;
   char *mbstr, *str;
   int length;
   int wclength, i;
+  gint g_lbear, g_rbear, g_width, g_asc, g_desc, c_wide, c_tall;
 
   g_return_val_if_fail (string != NULL, 0.0);
 
@@ -1214,21 +1214,27 @@ font_string_width(const char *string, DiaFont *font, real height)
 	  }
   }
 
-  /* Note: This is an ugly hack. It tries to overestimate the width with
-     some magic stuff. No guarantees. */
+  /* this gets the extents of the text written, and the ascent height of the 
+     written font. it divides width by height to get a wide-to-high ratio, then
+     multiplies by the scaled height.
+   */
   gdk_font = font_get_gdkfont(font, 100);
-  iwidth = gdk_text_width_wc (gdk_font, wcstr, length);
-  iheight = gdk_string_height(gdk_font, str);
+  gdk_text_extents_wc(gdk_font, 
+                      wcstr, 
+                      length,
+                      &g_lbear,
+                      &g_rbear,
+                      &g_width,
+                      &g_asc,
+                      &g_desc);
+  c_wide = g_lbear + g_rbear;
+  if (c_wide == 0) return (real)0.0;
+  scaled_width = (double)c_wide / (double)g_asc * height;
 
   g_free (wcstr);
   g_free (str);
 
-  if ((iwidth==0) || (iheight==0))
-    return 0.0;
-  
-  width_height = ((real)iwidth)/((real)iheight);
-  width_height *= 1.01;
-  return width_height*height*(iheight/100.0) + 0.2;
+  return (real)scaled_width;
 #endif
 }
 
