@@ -28,6 +28,7 @@ OBJECTS = \
 	boundingbox.obj \
 	color.obj \
 	connection.obj \
+	connectionpoint.obj \
 	connpoint_line.obj \
 	diatransform.obj \
 	dia_dirs.obj \

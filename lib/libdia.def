@@ -92,6 +92,8 @@ EXPORTS
  connection_update_boundingbox
  connection_update_handles
 
+ connpoint_update
+ 
  connpointline_add_points
  connpointline_adjust_count
  connpointline_can_add_point
@@ -304,6 +306,7 @@ EXPORTS
  filter_register_import
 
  find_paper
+ find_slope_directions
 
  get_default_paper
  get_paper_bmargin
