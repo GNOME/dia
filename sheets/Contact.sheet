@@ -6,16 +6,12 @@
   <description>Components for LADDER circuits.</description>
   <contents>
     <object name="LADDER - if">
-      <description xml:lang="fr">Un contact ladder normalement ouvert "si"
-      </description>
-      <description>A "if" (normally open) ladder contact
-      </description>
+      <description xml:lang="fr">Un contact ladder normalement ouvert "si"</description>
+      <description>A "if" (normally open) ladder contact</description>
     </object>
     <object name="LADDER - ifnot">
-      <description xml:lang="fr">Un contact ladder normalement fermé "si non"
-      </description>
-      <description>A "if not" (normally closed) ladder contact
-      </description>
+      <description xml:lang="fr">Un contact ladder normalement fermé "si non"</description>
+      <description>A "if not" (normally closed) ladder contact</description>
     </object>
     <br/>
     <object name="LADDER - out">
@@ -27,13 +23,11 @@
       <description>A negative output variable</description>
     </object>
     <object name="LADDER - outs">
-      <description xml:lang="fr">Une variable de sortie "enclenchement"
-      </description>
+      <description xml:lang="fr">Une variable de sortie "enclenchement"</description>
       <description>A "set" output variable</description>
     </object>
     <object name="LADDER - outr">
-      <description xml:lang="fr">Une variable de sortie "déclenchement"
-      </description>
+      <description xml:lang="fr">Une variable de sortie "déclenchement"</description>
       <description>A "reset" output variable</description>
     </object>
     <object name="LADDER - outj">
@@ -41,29 +35,24 @@
       <description>A "jump" output variable</description>
     </object>
     <object name="LADDER - outrcep">
-      <description xml:lang="fr">Une variable de sortie "réceptivité"
-      </description>
+      <description xml:lang="fr">Une variable de sortie "réceptivité"</description>
       <description>A receptivity output variable</description>
     </object>
     <br/>
     <object name="LADDER - sout">
-      <description xml:lang="fr">Une variable de sortie simple sauvegardée
-      </description>
+      <description xml:lang="fr">Une variable de sortie simple sauvegardée</description>
       <description>A power-saved simple output variable</description>
     </object>
     <object name="LADDER - soutnot">
-      <description xml:lang="fr">Une variable de sortie négative sauvegardée
-      </description>
+      <description xml:lang="fr">Une variable de sortie négative sauvegardée</description>
       <description>A power-saved negative output variable</description>
     </object>
     <object name="LADDER - souts">
-      <description xml:lang="fr">Une variable de sortie "enclenchement" 
-	sauvegardée</description>
+      <description xml:lang="fr">Une variable de sortie "enclenchement" sauvegardée</description>
       <description>A power-saved "set" output variable</description>
     </object>
     <object name="LADDER - soutr">
-      <description xml:lang="fr">Une variable de sortie "déclenchement" 
-	sauvegardée</description>
+      <description xml:lang="fr">Une variable de sortie "déclenchement" sauvegardée</description>
       <description>A power-saved "reset" output variable</description>
     </object>
     <!-- TODO : OPERATE, COMPARE, PULSE, TXT, TIMER and various sizes of 

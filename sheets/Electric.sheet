@@ -11,17 +11,14 @@
     </object>
     <object name="Electric - contact_f">
       <description xml:lang="fr">Un contact normalement fermé</description>
-      <description>A normally closed contact
-      </description>
+      <description>A normally closed contact</description>
     </object>
     <object name="Electric - intpos_o">
-      <description xml:lang="fr">Un interrupteur de position normalement ouvert
-      </description>
+      <description xml:lang="fr">Un interrupteur de position normalement ouvert</description>
       <description>A normally open position switch</description>
     </object>
     <object name="Electric - intpos_f">
-      <description xml:lang="fr">Un interrupteur de position normalement fermé
-      </description>
+      <description xml:lang="fr">Un interrupteur de position normalement fermé</description>
       <description>A normally closed position switch</description>
     </object>
     <br/>

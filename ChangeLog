@@ -1,3 +1,11 @@
+2000-05-30  James Henstridge  <james@daa.com.au>
+
+	* sheets/*.sheet: translation updates to the .sheet files.
+
+	* po/fr.po: updated po file from Christophe Merlet.
+
+	* menus.h: removed prototypes for functions which have been removed.
+
 2000-05-29  James Henstridge  <james@daa.com.au>
 
 	* app/layer_dialog.c (layer_dialog_set_diagram): set the selected

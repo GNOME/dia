@@ -11,31 +11,26 @@
       <description>A double-effect jack</description>
     </object>
     <object name="Pneum - SEIJack">
-      <description xml:lang="fr">Un vérin simple-effet, 
-	normalement rentré</description>
+      <description xml:lang="fr">Un vérin simple-effet, normalement rentré</description>
       <description>A normally-in simple-effect jack</description>
     </object>
     <object name="Pneum - SEOJack">
-      <description xml:lang="fr">Un vérin simple-effet, 
-	normalement sorti</description>
+      <description xml:lang="fr">Un vérin simple-effet, normalement sorti</description>
       <description>A normally-in simple-effect jack</description>
     </object>
     <!-- TODO : shaftless double-effect jacks, shock-absorbed jacks 
     (all types, with fixed and variable shock absorption), rotary jacks ... -->
     <br/>
     <object name="Pneum - press">
-      <description xml:lang="fr">Une source de pression (générique)
-      </description>
+      <description xml:lang="fr">Une source de pression (générique)</description>
       <description>A generic pressure source</description>
     </object>
     <object name="Pneum - presshy">
-      <description xml:lang="fr">Une source de pression hydraulique
-      </description>
+      <description xml:lang="fr">Une source de pression hydraulique</description>
       <description>A hydraulic pressure source</description>
     </object>
     <object name="Pneum - presspn">
-      <description xml:lang="fr">Une source de pression pneumatique
-      </description>
+      <description xml:lang="fr">Une source de pression pneumatique</description>
       <description>A pneumatic pressure source</description>
     </object>
     <object name="Pneum - drain">

@@ -4,7 +4,7 @@
   <name>SADT</name>
   <description xml:lang="fr">Objets pour l'écriture de diagrammes SADT.</description>
   <description xml:lang="de">Objekte für SADT Diagrammentwurf.</description>
-  <description>Objects to design SADT diagrams. </description>
+  <description>Objects to design SADT diagrams.</description>
   <contents>
     <object name="SADT - arrow">
       <description xml:lang="fr">Une flux d'activité/données</description>
