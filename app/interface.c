@@ -219,7 +219,7 @@ display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
       gtk_drag_get_source_widget(context) != NULL) {
     ToolButtonData *tooldata = *(ToolButtonData **)data->data;
 
-    g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);
+    /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
     ddisplay_drop_object(ddisp, x, y,
 			 object_get_type((gchar *)tooldata->extra_data),
 			 tooldata->user_data);
