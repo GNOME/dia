@@ -174,7 +174,7 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="ca da de el en_GB es fi fr ga hu it ja ko nl no pl pt ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
+ALL_LINGUAS="ca da de el en_GB es es_ES fi fr ga hu it ja ko nl no pl pt pt_BR ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
 
 AM_GNU_GETTEXT
 localedir='${prefix}/${DATADIRNAME}/locale'
