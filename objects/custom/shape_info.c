@@ -80,8 +80,9 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
   char *old_locale;
   gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
   int i = 0;
-  gboolean over = FALSE;
-
+  gboolean over = FALSE;  
+  char *family = NULL, *style = NULL, *weight = NULL;
+      
   ptr = str = xmlGetProp(node, "style");
   s->alignment = -1;
 
@@ -93,6 +94,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 
      if (!strncmp("font-family:", ptr, 12)) {
       ptr += 12;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -103,10 +105,38 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
       }
       temp[i] = '\0';
 
-      if (!over) s->font = dia_font_new_from_legacy_name(temp);
+      if (!over) family = g_strdup(temp);
+     } else if (!strncmp("font-weight:", ptr, 12)) {
+      ptr += 12;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+        if (i < FONT_NAME_LENGTH_MAX) {
+            temp[i] = ptr[0];
+        } else over = TRUE;
+        i++;
+        ptr++;
+      }
+      temp[i] = '\0';
 
-    } else if (!strncmp("font-size:", ptr, 10)) {
+      if (!over) weight = g_strdup(temp);
+     } else if (!strncmp("font-style:", ptr, 11)) {
+      ptr += 11;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+        if (i < FONT_NAME_LENGTH_MAX) {
+            temp[i] = ptr[0];
+        } else over = TRUE;
+        i++;
+        ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) style = g_strdup(temp);
+     } else if (!strncmp("font-size:", ptr, 10)) {
       ptr += 10;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -117,10 +147,14 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
       }
       temp[i] = '\0';
 
-      if (!over) s->font_height = g_strtod(temp, NULL);
-
+      if (!over) {
+          old_locale = setlocale(LC_NUMERIC, "C");
+          s->font_height = g_strtod(temp, NULL);
+          setlocale(LC_NUMERIC, old_locale);
+      }
     } else if (!strncmp("text-anchor:", ptr, 12)) {
       ptr += 12;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
       if (!strncmp(ptr, "start", 5))
         s->alignment = ALIGN_LEFT;
       else if (!strncmp(ptr, "end", 3))
@@ -130,10 +164,9 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
       ptr += 13;
       old_locale = setlocale(LC_NUMERIC, "C");
       s->line_width = strtod(ptr, &ptr);
-      setlocale(LC_NUMERIC, old_locale);
     } else if (!strncmp("stroke:", ptr, 7)) {
       ptr += 7;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "none", 4))
@@ -244,6 +277,22 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
     if (ptr[0] != '\0') ptr++;
   }
   xmlFree(str);
+ }
+
+ if (family || style || weight) {
+     s->font = dia_font_new_from_style(DIA_FONT_SANS,s->font_height/*bogus*/);
+     if (family) {
+         dia_font_set_any_family(s->font,family);
+         g_free(family);
+     }
+     if (style) {
+         dia_font_set_obliquity_from_string(s->font,style);
+         g_free(style);
+     }
+     if (weight) {
+         dia_font_set_weight_from_string(s->font,weight);
+         g_free(style);
+     }
  }
 }
 
@@ -376,7 +425,7 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       }
       break;
     default:
-      g_warning("unsupported path codde '%c'", path[0]);
+      g_warning("unsupported path code '%c'", path[0]);
       path++;
       path_chomp(path);
       break;

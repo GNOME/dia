@@ -19,6 +19,10 @@
 	* plug-ins/xslt/Makefile.am: repaired the mess Cyrille put there.
 
 	(end of ChangeLog-less patch)
+
+	* objects/custom/shape_info.c (parse_style): now understands the
+	font-style and font-weight attributes as well. Does not use
+	anymore dia_font_new_from_legacy_name().
 	
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
