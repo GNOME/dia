@@ -1,3 +1,7 @@
+2000-06-30  Christopher R. Gabriel  <cgabriel@linux.it>
+
+	* configure.in (ALL_LINGUAS): added Italian
+
 2000-06-27  Sung-Hyun Nam  <namsh@lgic.co.kr>
 
 	* configure.in (ALL_LINGUAS): added Korean
