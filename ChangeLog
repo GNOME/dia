@@ -1,5 +1,10 @@
 2004-12-11  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class.c : line wrapping code buffer
+	overrun fixed by Gabor Simon, bug #160865
+
+2004-12-11  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/python/pydia-diagram.c : hold a reference
 	to the diagram in PyDiaDiagram, avoids bug #159080
 	[another way to avoid is to detroy the dialog by

@@ -963,11 +963,11 @@ umlclass_calculate_data(UMLClass *umlclass)
           }   
           umlclass->max_wrapped_line_width = MAX( umlclass->max_wrapped_line_width, maxlinewidth+1);
           
-          part_opstr = g_alloca(umlclass->max_wrapped_line_width);
-          pos_next_comma = pos_brace = wrap_pos = offset = 0;
-          
           wrapsublist = g_list_next( sublist);
           ident = GPOINTER_TO_INT( wrapsublist->data);
+          part_opstr = g_alloca(umlclass->max_wrapped_line_width+ident+1);
+          pos_next_comma = pos_brace = wrap_pos = offset = 0;
+
           wrapsublist = g_list_next( wrapsublist);
           wrap_pos = last_wrap_pos = 0;
           
