@@ -269,6 +269,7 @@ component_update_data(Component *cmp)
     cmp->st_stereotype =  string_to_stereotype(cmp->stereotype);
   }
 
+  text_calc_boundingbox(cmp->text, NULL);
   elem->width = cmp->text->max_width + 2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH;
   elem->width = MAX(elem->width, 2*COMPONENT_CWIDTH);
   elem->height =  cmp->text->height*cmp->text->numlines +

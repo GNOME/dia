@@ -255,13 +255,16 @@ static void node_draw(Node *node, Renderer *renderer)
     }
 }
 
-static void node_update_data(Node *node)
+static void 
+node_update_data(Node *node)
 {
   Element *elem = &node->element;
   Object *obj = &node->element.object;
   DiaFont *font;
   Point p1;
   real h, w = 0;
+
+  text_calc_boundingbox(node->name, NULL);
 
   font = node->name->font;
   h = elem->corner.y + NODE_TEXT_MARGIN;

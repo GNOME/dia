@@ -152,6 +152,8 @@ dia_core_files = \
 	    sheets_dialog_callbacks.h \
 	    dialogs.c \
 	    dialogs.h \
+	    autosave.c \
+	    autosave.h \
 	    $(print_files)
 
 dia_SOURCES = \

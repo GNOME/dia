@@ -281,24 +281,29 @@ dia_font_selector_new ()
 void
 dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
 {
-  int i=0;
+  int i=0, select = 0;
   GList *style_list = font->family->diafonts;
 
   GtkWidget *menu = gtk_menu_new();
 
   while (style_list != NULL) {
-    DiaFont *font = (DiaFont *)style_list->data;
-    GtkWidget *menuitem = gtk_menu_item_new_with_label (font->style);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), font->style);
+    DiaFont *style_font = (DiaFont *)style_list->data;
+    GtkWidget *menuitem = gtk_menu_item_new_with_label (style_font->style);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), style_font->style);
+    if (!strcmp(style_font->style, font->style))
+      select = i;
+    i++;
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     style_list = g_list_next(style_list);
   }
   gtk_widget_show(menu);
-  // Need to dealloc the menu, methings
+  // Need to dealloc the menu, methinks
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = GTK_MENU(menu);
+  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
+  gtk_menu_set_active(fs->style_menu, select);
 }
 #endif
 

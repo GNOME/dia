@@ -338,6 +338,7 @@ objet_update_data(Objet *ob)
   Point p1, p2;
   real h, w = 0;
   
+  text_calc_boundingbox(ob->text, NULL);
   ob->stereotype = remove_stereotype_from_string(ob->stereotype);
   if (!ob->st_stereotype) {
     ob->st_stereotype =  string_to_stereotype(ob->stereotype);

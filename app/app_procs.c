@@ -349,6 +349,8 @@ app_init (int argc, char **argv)
 
   create_tree_window();
 
+  //autosave_restore_documents();
+
   if (argv) {
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {

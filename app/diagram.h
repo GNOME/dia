@@ -36,6 +36,8 @@ struct _Diagram {
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
   int modified;
+  int autosaved;          /* True if the diagram has been autosaved and not
+			     since modified */
   
   DiagramData *data;
   

@@ -272,6 +272,7 @@ state_update_data(State *state)
   Object *obj = &elem->object;
   Point p;
   
+  text_calc_boundingbox(state->text, NULL);
   if (state->state_type==STATE_NORMAL) { 
       w = state->text->max_width + 2*STATE_MARGIN_X;
       h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;

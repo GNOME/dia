@@ -267,6 +267,7 @@ smallpackage_update_data(SmallPackage *pkg)
     pkg->st_stereotype =  string_to_stereotype(pkg->stereotype);
   }
 
+  text_calc_boundingbox(pkg->text, NULL);
   elem->width = pkg->text->max_width + 2*SMALLPACKAGE_MARGIN_X;
   elem->width = MAX(elem->width, SMALLPACKAGE_TOPWIDTH+1.0);
   elem->height =

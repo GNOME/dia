@@ -271,6 +271,7 @@ usecase_update_data(Usecase *usecase)
   Element *elem = &usecase->element;
   Object *obj = &elem->object;
   
+  text_calc_boundingbox(usecase->text, NULL);
   w = usecase->text->max_width;
   h = usecase->text->height*usecase->text->numlines;
 

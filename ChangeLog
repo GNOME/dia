@@ -1,3 +1,28 @@
+2002-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/diagram.h: Autosave field
+	* app/diagram.c (diagram_set_modified): Sets autosave field.
+	
+	* objects/UML/usecase.c (usecase_update_data): 
+	* objects/flowchart/ellipse.c (ellipse_update_data): 
+	* objects/flowchart/parallelogram.c (pgram_update_data): 
+	* objects/flowchart/diamond.c (diamond_update_data): 
+	* objects/custom/custom_object.c (custom_update_data): 
+	* objects/UML/state.c (state_update_data): 
+	* objects/UML/small_package.c (smallpackage_update_data): 
+	* objects/UML/object.c (objet_update_data): 
+	* objects/UML/note.c (note_update_data): 
+	* objects/UML/node.c (node_update_data): 
+	* objects/UML/component.c (component_update_data): 
+	* objects/UML/classicon.c (classicon_update_data): 
+	* objects/UML/actor.c (actor_update_data): 
+	* objects/SADT/box.c (sadtbox_update_data): 
+	* objects/FS/function.c (function_update_data): 
+	All now update text boundaries from update_data.
+	
+	* lib/widgets.c (dia_font_selector_set_styles): Made the style set
+	correctly. 
+
 2002-04-26  Hans Breuer  <hans@breuer.org>
 
 	* config.h.win32 : added VERSION definition here

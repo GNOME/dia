@@ -325,6 +325,7 @@ classicon_update_data(Classicon *cicon)
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
 	
+  text_calc_boundingbox(cicon->text, NULL);
   font = cicon->text->font;
   h = CLASSICON_AIR + CLASSICON_MARGIN + CLASSICON_ARROW + 2*CLASSICON_RADIOUS;
 

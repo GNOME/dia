@@ -241,6 +241,8 @@ note_update_data(Note *note)
   Object *obj = &elem->object;
   Point p;
 
+  text_calc_boundingbox(note->text, NULL);
+
   elem->width = note->text->max_width + NOTE_MARGIN_X + NOTE_CORNER;
   elem->height =
     note->text->height*note->text->numlines + NOTE_MARGIN_Y + NOTE_CORNER;

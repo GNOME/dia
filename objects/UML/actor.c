@@ -263,6 +263,8 @@ actor_update_data(Actor *actor)
   Rectangle text_box;
   Point p;
   
+  text_calc_boundingbox(actor->text, &text_box);
+
   elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
   elem->height = ACTOR_HEIGHT+actor->text->height;
 
@@ -292,7 +294,6 @@ actor_update_data(Actor *actor)
   text_set_position(actor->text, &p);
 
   /* Add bounding box for text: */
-  text_calc_boundingbox(actor->text, &text_box);
   rectangle_union(&obj->bounding_box, &text_box);
 
   obj->position = elem->corner;

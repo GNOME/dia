@@ -320,6 +320,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
+  text_calc_boundingbox(box->text, NULL);
   width = box->text->max_width + box->padding*2;
   height = box->text->height * box->text->numlines + box->padding*2;
 

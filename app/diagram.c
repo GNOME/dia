@@ -173,6 +173,7 @@ diagram_set_modified(Diagram *dia, int modified)
       displays = g_slist_next(displays);
     }
   }
+  dia->autosaved = FALSE;
 }
 
 
