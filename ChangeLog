@@ -1,3 +1,7 @@
+2008-09-01  Steffen Macke <sdteffen@web.de>
+
+	* lib/paper.h: explanatory comment on width and height
+
 2003-08-30  Steffen Macke <sdteffen@web.de>
 
 	* lib/color.c:
