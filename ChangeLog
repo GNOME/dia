@@ -1,3 +1,7 @@
+2001-07-29  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/SADT/annotation.c: forgot to add a #include <stdlib.h>
+
 2001-07-27  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.c: minor clean-ups with the event delivery code.

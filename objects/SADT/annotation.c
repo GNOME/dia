@@ -29,6 +29,7 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "intl.h"
 #include "object.h"
