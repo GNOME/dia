@@ -1,3 +1,24 @@
+1999-10-17  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/Makefile.am
+	* lib/Makefile.am
+	* objects/UML/Makefile.am
+	* objects/ER/Makefile.am
+	* objects/network/Makefile.am
+	* objects/standard/Makefile.am
+	* objects/FS/Makefile.am
+	* objects/sybase/Makefile.am
+	* objects/flowchart/Makefile.am
+	* objects/custom/Makefile.am
+	Added -I$(top_srcdir)/intl which is needed for
+	--with-included-gettext.
+
+	* POTFILES.in
+	Updated.
+	
+	* po/sv.po
+	Updated swedish translation.
+
 1999-10-16  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in:
