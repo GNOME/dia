@@ -14,12 +14,13 @@ PKG_CFLAGS = -I .. \
 	-DWIN32 $(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
 	-I $(LIBART)/.. \
+	$(INTL_CFLAGS) \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = -lm $(GTK2_LIBS) $(GLIB_LIBS) $(PANGO_LIBS) \
-	$(LIBXML2_LIBS) $(ZLIB_LIBS)
+	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(INTL_LIBS)
 
 # Debug
 # OPTIMIZE = -g
@@ -35,14 +36,22 @@ OBJECTS = \
 	connpoint_line.o \
 	dia_dirs.o \
 	dia_image.o \
+	dia_svg.o \
 	dia_xml.o \
 	diagramdata.o \
+	diagdkrenderer.o \
+	diagtkfontsel.o \
+	diainteractiverenderer.o \
+	dialibartrenderer.o \
+	diarenderer.o \
+	diatransform.o \
 	dynamic_obj.o \
 	element.o \
 	filter.o \
 	focus.o \
 	font.o \
 	geometry.o \
+	group.o \
 	intl.o \
 	message.o \
 	neworth_conn.o \
@@ -69,7 +78,6 @@ OBJECTS = \
 	propoffsets.o \
 	propregistry.o \
 	ps-utf8.o \
-	render.o \
 	sheet.o \
 	text.o \
 	utils.o \
@@ -94,10 +102,13 @@ $(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
 
 # how to get the functions exported ??
 #$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
-#	gcc --shared -o $(PACKAGE).dll --def $(PACKAGE).def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32 -Wl,--out-implib,$(PACKAGE).a 
+#	$(CC) --shared -o $(PACKAGE).dll --def $(PACKAGE).def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32 -Wl,--out-implib,$(PACKAGE).a 
+
+#$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
+#	sh $(PRJ_TOP)/build/win32/build-dll libdia - $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
-	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h 
 
 clean::
 	del config.h

@@ -38,12 +38,14 @@
 #define isinf(a) (!finite(a))
 #endif
 
-/* #ifdef _MSC_VER */
-#ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */
+#ifdef _MSC_VER 
+/* #ifdef G_OS_WIN32  apparently _MSC_VER and mingw */
    /* there are some things more in the gcc headers */
 #  include <float.h>
 #  define finite(a) _finite(a)
 #  define isnan(a) _isnan(a)
+#endif
+#ifdef G_OS_WIN32
 #  define M_PI      3.14159265358979323846
 #  define M_SQRT2	1.41421356237309504880	/* sqrt(2) */
 #  define M_SQRT1_2 0.70710678118654752440	/* 1/sqrt(2) */
