@@ -209,23 +209,20 @@ PyDiaPoint_GetAttr(PyDiaPoint *self, gchar *attr)
 static PyObject *
 PyDiaRectangle_GetAttr(PyDiaRectangle *self, gchar *attr)
 {
-  /* Selecting I_OR_F using token pasting is too painful, many compilers
-   * seem to disagree on what's right, so use a bigger expansion.
-   */
-#define I_OR_F(vi,vf) \
+#define I_OR_F(v) \
   (self->is_int ? \
-   PyInt_FromLong(vi) : PyFloat_FromDouble(vf))
+   PyInt_FromLong(self->r.ri. v) : PyFloat_FromDouble(self->r.rf. v))
 
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[ssss]", "top", "left", "right", "bottom" );
   else if (!strcmp(attr, "top"))
-    return I_OR_F(self->r.ri.top, self->r.rf.top);
+    return I_OR_F(top);
   else if (!strcmp(attr, "left"))
-    return I_OR_F(self->r.ri.left, self->r.rf.left);
+    return I_OR_F(left);
   else if (!strcmp(attr, "right"))
-    return I_OR_F(self->r.ri.right, self->r.rf.right);
+    return I_OR_F(right);
   else if (!strcmp(attr, "bottom"))
-    return I_OR_F(self->r.ri.bottom, self->r.rf.bottom);
+    return I_OR_F(bottom);
 
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
