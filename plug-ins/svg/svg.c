@@ -26,6 +26,7 @@
 #include "plug-ins.h"
 
 extern DiaExportFilter svg_export_filter;
+extern DiaImportFilter svg_import_filter;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -33,11 +34,12 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "SVG",
-                            _("Scalable Vector Graphics export filter"),
+                            _("Scalable Vector Graphics import and export filters"),
                             NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&svg_export_filter);
+  filter_register_import(&svg_import_filter);
 
   return DIA_PLUGIN_INIT_OK;
 }

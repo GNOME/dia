@@ -76,6 +76,8 @@ static void set_linestyle(RendererSVG *renderer, LineStyle mode);
 static void set_dashlength(RendererSVG *renderer, real length);
 static void set_fillstyle(RendererSVG *renderer, FillStyle mode);
 static void set_font(RendererSVG *renderer, DiaFont *font, real height);
+static void draw_object(RendererSVG *renderer,
+			Object *object);
 static void draw_line(RendererSVG *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
@@ -128,6 +130,12 @@ static void draw_image(RendererSVG *renderer,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
+static void draw_rounded_rect(RendererSVG *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *colour, real rounding);
+static void fill_rounded_rect(RendererSVG *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *colour, real rounding);
 
 static RenderOps *SvgRenderOps;
 
@@ -155,6 +163,9 @@ init_svg_renderops()
 
     SvgRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
     SvgRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
+    
+    SvgRenderOps->draw_rounded_rect = (DrawRoundedRectangleFunc) draw_rounded_rect;
+    SvgRenderOps->fill_rounded_rect = (FillRoundedRectangleFunc) fill_rounded_rect;
 
     SvgRenderOps->draw_arc = (DrawArcFunc) draw_arc;
     SvgRenderOps->fill_arc = (FillArcFunc) fill_arc;
@@ -168,6 +179,8 @@ init_svg_renderops()
     SvgRenderOps->draw_string = (DrawStringFunc) draw_string;
 
     SvgRenderOps->draw_image = (DrawImageFunc) draw_image;
+    
+    SvgRenderOps->draw_object = (DrawObjectFunc) draw_object;
 }
 
 
@@ -440,6 +453,13 @@ get_fill_style(RendererSVG *renderer,
   return str->str;
 }
 
+static void 
+draw_object(RendererSVG *renderer,
+			Object *object) {
+  /* TODO: wrap in  <g></g> */
+  object->ops->draw(object, (Renderer *)renderer);
+}
+
 static void
 draw_line(RendererSVG *renderer, 
 	  Point *start, Point *end, 
@@ -545,6 +565,31 @@ draw_rect(RendererSVG *renderer,
 }
 
 static void
+draw_rounded_rect(RendererSVG *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour, real rounding)
+{
+  xmlNodePtr node;
+  char buf[512];
+ 
+  node = xmlNewChild(renderer->root, NULL, "rect", NULL);
+
+  xmlSetProp(node, "style", get_draw_style(renderer, colour));
+
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
+  xmlSetProp(node, "y", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  xmlSetProp(node, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  xmlSetProp(node, "height", buf);
+  g_snprintf(buf, sizeof(buf),"%g", rounding);
+  xmlSetProp(node, "rx", buf);
+  xmlSetProp(node, "ry", buf);
+}
+
+static void
 fill_rect(RendererSVG *renderer, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
@@ -564,6 +609,31 @@ fill_rect(RendererSVG *renderer,
   xmlSetProp(node, "width", buf);
   g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
   xmlSetProp(node, "height", buf);
+}
+
+static void
+fill_rounded_rect(RendererSVG *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour, real rounding)
+{
+  xmlNodePtr node;
+  char buf[512];
+
+  node = xmlNewChild(renderer->root, NULL, "rect", NULL);
+
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
+  xmlSetProp(node, "y", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  xmlSetProp(node, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  xmlSetProp(node, "height", buf);
+  g_snprintf(buf, sizeof(buf),"%g", rounding);
+  xmlSetProp(node, "rx", buf);
+  xmlSetProp(node, "ry", buf);
 }
 
 static int sweep(real x1,real y1,real x2,real y2,real x3,real y3)

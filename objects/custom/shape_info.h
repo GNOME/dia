@@ -178,7 +178,8 @@ ShapeInfo *shape_info_load(const gchar *filename);
 ShapeInfo *shape_info_get(ObjectNode obj_node);
 ShapeInfo *shape_info_getbyname(const gchar *name);
 void shape_info_print(ShapeInfo *info);
-
+void parse_style(xmlNodePtr node, GraphicStyle *s);
+void parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s);
 
 #endif
 

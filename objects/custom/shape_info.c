@@ -73,7 +73,7 @@ ShapeInfo *shape_info_getbyname(const gchar *name)
   return NULL;
 }
 
-static void
+void
 parse_style(xmlNodePtr node, GraphicStyle *s)
 {
   char *str, *ptr;
@@ -299,7 +299,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 /* routine to chomp off the start of the string */
 #define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
 
-static void
+void
 parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
 {
   enum {
