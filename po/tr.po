@@ -501,8 +501,8 @@ msgid ""
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
 "Önalan ve ardalan renkleri. Ufak siyah ve beyaz kareler renkleri ilk haline getir"
-"Ufak oklar renkleri deðiþtirir. Çift-týklayýp renkleri
-deðiþtirebilirsiniz."
+"Ufak oklar renkleri deðiþtirir. Çift-týklayýp renkleri"
+"deðiþtirebilirsiniz."
 
 #: app/interface.c:943
 msgid "Diagram Editor"
