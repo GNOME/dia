@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-16 10:55-0500\n"
-"PO-Revision-Date: 2004-12-16 22:44-0400\n"
+"POT-Creation-Date: 2005-01-03 18:31-0500\n"
+"PO-Revision-Date: 2005-01-03 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -179,32 +179,32 @@ msgstr ""
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: app/app_procs.c:869
+#: app/app_procs.c:874
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: app/app_procs.c:939
-msgid ""
-"The original author of Dia was:\n"
-"\n"
-msgstr ""
-"The original author of Dia was:\n"
-"\n"
-
 #: app/app_procs.c:944
 msgid ""
-"\n"
-"The current maintainers of Dia are:\n"
+"The original author of Dia was:\n"
 "\n"
 msgstr ""
-"\n"
-"The current maintainers of Dia are:\n"
+"The original author of Dia was:\n"
 "\n"
 
 #: app/app_procs.c:949
 msgid ""
 "\n"
+"The current maintainers of Dia are:\n"
+"\n"
+msgstr ""
+"\n"
+"The current maintainers of Dia are:\n"
+"\n"
+
+#: app/app_procs.c:954
+msgid ""
+"\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
@@ -212,7 +212,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: app/app_procs.c:954
+#: app/app_procs.c:959
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -587,11 +587,11 @@ msgstr "Selection of %d objects"
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: app/display.c:1022
+#: app/display.c:1025
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:1024
+#: app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -600,11 +600,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: app/display.c:1035
+#: app/display.c:1038
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: app/display.c:1040
+#: app/display.c:1043
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -654,7 +654,7 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:127 app/filedlg.c:488
+#: app/filedlg.c:127 app/filedlg.c:493
 msgid "By extension"
 msgstr "By extension"
 
@@ -666,15 +666,15 @@ msgstr "Open Diagram"
 msgid "Open Options"
 msgstr "Open Options"
 
-#: app/filedlg.c:236 app/filedlg.c:618
+#: app/filedlg.c:236 app/filedlg.c:628
 msgid "Determine file type:"
 msgstr "Determine file type:"
 
-#: app/filedlg.c:252 app/filedlg.c:630
+#: app/filedlg.c:252 app/filedlg.c:640
 msgid "All Files"
 msgstr "All Files"
 
-#: app/filedlg.c:257 app/filedlg.c:635
+#: app/filedlg.c:257 app/filedlg.c:645
 msgid "Supported Formats"
 msgstr "Supported Formats"
 
@@ -688,7 +688,7 @@ msgstr ""
 "nor your local encoding.\n"
 "Some things will break."
 
-#: app/filedlg.c:300 app/filedlg.c:533
+#: app/filedlg.c:300 app/filedlg.c:538
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -697,7 +697,7 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 
-#: app/filedlg.c:308 app/filedlg.c:540
+#: app/filedlg.c:308 app/filedlg.c:545
 msgid "File already exists"
 msgstr "File already exists"
 
@@ -719,7 +719,7 @@ msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 
-#: app/filedlg.c:562
+#: app/filedlg.c:567
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -728,11 +728,11 @@ msgstr ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 
-#: app/filedlg.c:585
+#: app/filedlg.c:590
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: app/filedlg.c:610
+#: app/filedlg.c:620
 msgid "Export Options"
 msgstr "Export Options"
 
@@ -1221,8 +1221,8 @@ msgid "/View/---"
 msgstr "/View/---"
 
 #: app/menus.c:149
-msgid "/View/_Fullscr_een"
-msgstr "/View/_Fullscr_een"
+msgid "/View/Fullscr_een"
+msgstr "/View/Fullscr_een"
 
 #: app/menus.c:151
 msgid "/View/_AntiAliased"
@@ -2321,15 +2321,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:618
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:622
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:624
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:628
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:630
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:634
 msgid "Right"
 msgstr "Right"
 
@@ -2393,66 +2393,66 @@ msgstr "Fill colour"
 msgid "Text colour"
 msgstr "Text colour"
 
-#: lib/widgets.c:357
+#: lib/widgets.c:361
 msgid "Other fonts"
 msgstr "Other fonts"
 
-#: lib/widgets.c:427
+#: lib/widgets.c:431
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Could not find font family for %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:766 objects/FS/function.c:1063
+#: lib/widgets.c:770 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:772
+#: lib/widgets.c:776
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:778
+#: lib/widgets.c:782
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:784
+#: lib/widgets.c:788
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:790
+#: lib/widgets.c:794
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:809
+#: lib/widgets.c:813
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:937
+#: lib/widgets.c:941
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1003
+#: lib/widgets.c:1007
 msgid "More colors..."
 msgstr "More colours..."
 
-#: lib/widgets.c:1128
+#: lib/widgets.c:1132
 msgid "More arrows"
 msgstr "More arrows"
 
-#: lib/widgets.c:1141
+#: lib/widgets.c:1145
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1286
+#: lib/widgets.c:1290
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1322
+#: lib/widgets.c:1326
 msgid "Browse"
 msgstr "Browse"
 
-#: lib/widgets.c:1918
+#: lib/widgets.c:1922
 msgid "Reset menu"
 msgstr "Reset menu"
 
@@ -6357,8 +6357,8 @@ msgid "A Jackson shared phenomenon"
 msgstr "A Jackson shared phenomenon"
 
 #: sheets/Jackson.sheet.in.h:7
-msgid "Objects to design Jacskon diagrams"
-msgstr "Objects to design Jacskon diagrams"
+msgid "Objects to design Jackson diagrams"
+msgstr "Objects to design Jackson diagrams"
 
 #: sheets/Jackson.sheet.in.h:8
 msgid "RE-Jackson"
