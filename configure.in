@@ -110,6 +110,9 @@ dnl Check if this Gnome has Bonobo
 OLDCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
 
+dnl This is required to play character set games
+AM_LANGINFO_CODESET
+AM_ICONV
 
 dnl check for libunicode FIXME: the --enable test doesn't work.
 AC_ARG_ENABLE(unicode, 

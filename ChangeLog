@@ -1,3 +1,8 @@
+2001-06-19  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* configure.in: added explicit calls to AM_LANGINFO_CODESET and
+	AM_ICONV (both provided by gettext)
+
 2001-06-14  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/charconv.c: corrected the degraded mode for when
