@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-10-26 18:46-0200\n"
+"POT-Creation-Date: 2000-10-30 11:20-0200\n"
 "PO-Revision-Date: 2000-10-10 13:52-03:00\n"
 "Last-Translator: Marcia Norie Nakaza <norie@conectiva.com.br>\n"
 "Language-Team: pt <pt@li.org>\n"
@@ -2722,189 +2722,189 @@ msgid "WordPerfect Graphics export filter"
 msgstr "Computer Graphics Metafile"
 
 #, fuzzy
-#~ msgid "File/New diagram"
-#~ msgstr "_Novo diagrama"
+msgid "File/New diagram"
+msgstr "_Novo diagrama"
 
 #, fuzzy
-#~ msgid "File/Open..."
-#~ msgstr "/Ficheiro/_Abrir"
+msgid "File/Open..."
+msgstr "/Ficheiro/_Abrir"
 
 #, fuzzy
-#~ msgid "File/Save As..."
-#~ msgstr "/Ficheiro/Gravar _Como..."
+msgid "File/Save As..."
+msgstr "/Ficheiro/Gravar _Como..."
 
 #, fuzzy
-#~ msgid "File/Close"
-#~ msgstr "/Ficheiro/_Fechar"
+msgid "File/Close"
+msgstr "/Ficheiro/_Fechar"
 
 #, fuzzy
-#~ msgid "File/Exit"
-#~ msgstr "/Ficheiro/_Sair"
+msgid "File/Exit"
+msgstr "/Ficheiro/_Sair"
 
 #, fuzzy
-#~ msgid "View/New View"
-#~ msgstr "/Vista/Nova _Vista"
+msgid "View/New View"
+msgstr "/Vista/Nova _Vista"
 
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Editar/Copiar"
+msgid "/Edit/Copy"
+msgstr "/Editar/Copiar"
 
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Editar/Cortar"
+msgid "/Edit/Cut"
+msgstr "/Editar/Cortar"
 
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Editar/Colar"
+msgid "/Edit/Paste"
+msgstr "/Editar/Colar"
 
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Editar/Apagar"
-
-#, fuzzy
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Editar/Colar"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Objectos/Enviar para Trás"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Objectos/Trazer para a Frente"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objectos/Agrupar"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objectos/Desagrupar"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Vista/Mostrar Réguas"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Vista/Grelha Visível"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Vista/Colar à Grelha"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Vista/Mostrar Pontos de Ligação"
+msgid "/Edit/Delete"
+msgstr "/Editar/Apagar"
 
 #, fuzzy
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Vista/_AntiAliased"
+msgid "/Edit/Paste Text"
+msgstr "/Editar/Colar"
 
-#~ msgid "/File/sep1"
-#~ msgstr "/Ficheiro/sep1"
+msgid "/Objects/Send to Back"
+msgstr "/Objectos/Enviar para Trás"
 
-#, fuzzy
-#~ msgid "/File/tearoff"
-#~ msgstr "/Ficheiro/_Novo"
+msgid "/Objects/Bring to Front"
+msgstr "/Objectos/Trazer para a Frente"
 
-#~ msgid "/File/sep2"
-#~ msgstr "/Ficheiro/sep2"
+msgid "/Objects/Group"
+msgstr "/Objectos/Agrupar"
 
-#, fuzzy
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Editar/Colar"
+msgid "/Objects/Ungroup"
+msgstr "/Objectos/Desagrupar"
 
-#, fuzzy
-#~ msgid "/View/tearoff"
-#~ msgstr "/Vista/sep1"
+msgid "/View/Show Rulers"
+msgstr "/Vista/Mostrar Réguas"
 
-#, fuzzy
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Vista/_Zoom"
+msgid "/View/Visible Grid"
+msgstr "/Vista/Grelha Visível"
 
-#~ msgid "/View/sep1"
-#~ msgstr "/Vista/sep1"
+msgid "/View/Snap To Grid"
+msgstr "/Vista/Colar à Grelha"
 
-#, fuzzy
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Ficheiro/sep1"
+msgid "/View/Show Connection Points"
+msgstr "/Vista/Mostrar Pontos de Ligação"
 
 #, fuzzy
-#~ msgid "/Select/sep1"
-#~ msgstr "/Ficheiro/sep1"
+msgid "/View/AntiAliased"
+msgstr "/Vista/_AntiAliased"
+
+msgid "/File/sep1"
+msgstr "/Ficheiro/sep1"
 
 #, fuzzy
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objectos/sep1"
+msgid "/File/tearoff"
+msgstr "/Ficheiro/_Novo"
 
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Objectos/sep1"
-
-#, fuzzy
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objectos/Alinhar Horizontalmente/Centrar"
+msgid "/File/sep2"
+msgstr "/Ficheiro/sep2"
 
 #, fuzzy
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objectos/Alinhar Verticalmente/Centrar"
+msgid "/Edit/tearoff"
+msgstr "/Editar/Colar"
 
 #, fuzzy
-#~ msgid "/Tools/tearoff"
-#~ msgstr "Ampliar"
+msgid "/View/tearoff"
+msgstr "/Vista/sep1"
 
 #, fuzzy
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Diálogos/_Camadas"
+msgid "/View/Zoom/tearoff"
+msgstr "/Vista/_Zoom"
 
-#~ msgid "Grid options"
-#~ msgstr "Opções da grelha"
+msgid "/View/sep1"
+msgstr "/Vista/sep1"
 
-#~ msgid "Grid x size:"
-#~ msgstr "Tamanho x:"
+#, fuzzy
+msgid "/Select/tearoff"
+msgstr "/Ficheiro/sep1"
 
-#~ msgid "Grid y size:"
-#~ msgstr "Tamanho y:"
+#, fuzzy
+msgid "/Select/sep1"
+msgstr "/Ficheiro/sep1"
 
-#~ msgid "Edit Grid..."
-#~ msgstr "Editar _Grelha..."
+#, fuzzy
+msgid "/Objects/tearoff1"
+msgstr "/Objectos/sep1"
 
-#~ msgid "/View/Edit Grid..."
-#~ msgstr "/Vista/Editar Grelha..."
+msgid "/Objects/sep1"
+msgstr "/Objectos/sep1"
 
-#~ msgid "Line style:"
-#~ msgstr "Estilo de linha:"
+#, fuzzy
+msgid "/Objects/Align Horizontal/tearoff"
+msgstr "/Objectos/Alinhar Horizontalmente/Centrar"
 
-#~ msgid "Objects"
-#~ msgstr "_Objectos"
+#, fuzzy
+msgid "/Objects/Align Vertical/tearoff"
+msgstr "/Objectos/Alinhar Verticalmente/Centrar"
 
-#~ msgid "Dialogs"
-#~ msgstr "_Diálogos"
+#, fuzzy
+msgid "/Tools/tearoff"
+msgstr "Ampliar"
 
-#~ msgid ""
-#~ "Couldn't find any libraries to load.\n"
-#~ "%s is not a directory.\n"
-#~ msgstr ""
-#~ "Não conseguir encontrar biblioteca para carregar.\n"
-#~ "%s não é uma directoria.\n"
+#, fuzzy
+msgid "/Dialogs/tearoff"
+msgstr "/Diálogos/_Camadas"
 
-#~ msgid ""
-#~ "Error loading library: \"%s\":\n"
-#~ " %s\n"
-#~ msgstr ""
-#~ "Erro ao carregar biblioteca: \"%s\":\n"
-#~ " %s\n"
+msgid "Grid options"
+msgstr "Opções da grelha"
 
-#~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "O arquivo \"%s\" não é uma biblioteca de objetos Dia.\n"
+msgid "Grid x size:"
+msgstr "Tamanho x:"
 
-#~ msgid ""
-#~ "The object library \"%s\" is from an older version of Dia and cannot be "
-#~ "used.\n"
-#~ "Please upgrade it."
-#~ msgstr ""
-#~ "A biblioteca de objetos \"%s\" é de uma versão mais antiga do Dia e não pode "
-#~ "ser utilizada.\n"
-#~ "Por favor atualize-a."
+msgid "Grid y size:"
+msgstr "Tamanho y:"
 
-#~ msgid ""
-#~ "The object library \"%s\" is from an later version of Dia.\n"
-#~ "You need to upgrade Dia to use it."
-#~ msgstr ""
-#~ "A biblioteca de objetos \"%s\" é de uma versão mais recente do Dia.\n"
-#~ "Tem de atualizar o Dia para a utilizar."
+msgid "Edit Grid..."
+msgstr "Editar _Grelha..."
 
-#~ msgid ""
-#~ "Unable to find register_sheets in library:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Não conseguir encontrar register_sheets não biblioteca:\n"
-#~ "%s"
+msgid "/View/Edit Grid..."
+msgstr "/Vista/Editar Grelha..."
+
+msgid "Line style:"
+msgstr "Estilo de linha:"
+
+msgid "Objects"
+msgstr "_Objectos"
+
+msgid "Dialogs"
+msgstr "_Diálogos"
+
+msgid ""
+"Couldn't find any libraries to load.\n"
+"%s is not a directory.\n"
+msgstr ""
+"Não conseguir encontrar biblioteca para carregar.\n"
+"%s não é uma directoria.\n"
+
+msgid ""
+"Error loading library: \"%s\":\n"
+" %s\n"
+msgstr ""
+"Erro ao carregar biblioteca: \"%s\":\n"
+" %s\n"
+
+msgid "The file \"%s\" is not a Dia object library.\n"
+msgstr "O arquivo \"%s\" não é uma biblioteca de objetos Dia.\n"
+
+msgid ""
+"The object library \"%s\" is from an older version of Dia and cannot be "
+"used.\n"
+"Please upgrade it."
+msgstr ""
+"A biblioteca de objetos \"%s\" é de uma versão mais antiga do Dia e não pode "
+"ser utilizada.\n"
+"Por favor atualize-a."
+
+msgid ""
+"The object library \"%s\" is from an later version of Dia.\n"
+"You need to upgrade Dia to use it."
+msgstr ""
+"A biblioteca de objetos \"%s\" é de uma versão mais recente do Dia.\n"
+"Tem de atualizar o Dia para a utilizar."
+
+msgid ""
+"Unable to find register_sheets in library:\n"
+"%s"
+msgstr ""
+"Não conseguir encontrar register_sheets não biblioteca:\n"
+"%s"
