@@ -168,7 +168,6 @@ end_render(RendererGPrint *renderer)
 static void
 set_linewidth(RendererGPrint *renderer, real linewidth)
 {  /* 0 == hairline **/
-
   gnome_print_setlinewidth(renderer->ctx, linewidth);
 }
 
@@ -762,8 +761,8 @@ draw_image(RendererGPrint *renderer,
 
   gnome_print_gsave(renderer->ctx);
   if (1) { /* Color output */
-    gnome_print_translate(renderer->ctx, point->x, point->y);
-    gnome_print_scale(renderer->ctx, width, height);
+    gnome_print_translate(renderer->ctx, point->x, point->y + height);
+    gnome_print_scale(renderer->ctx, width, -height);
     gnome_print_rgbimage(renderer->ctx, rgb_data, img_width, img_height,
 			 img_width * 3);
   }

@@ -1,5 +1,8 @@
 2000-10-14  James Henstridge  <james@daa.com.au>
 
+	* app/render_gnomeprint.c (draw_image): change code so images
+	don't get flipped when printing.
+
 	* app/paginate_gnomeprint.c (diagram_print_gnome): check to make
 	sure that the return value of
 	gnome_print_context_new_with_paper_size is not NULL.
