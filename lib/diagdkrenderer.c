@@ -718,20 +718,8 @@ draw_string (DiaRenderer *object,
 	   g_free(graybitmap);
 	 }
        }
-       /*
-	 gdk_draw_pixbuf(renderer->pixmap, gc, rgba, 0, 0, x, y, width, height,
-	 GDK_RGB_DITHER_NONE, 0, 0);
-       */
        if (rgba != NULL) { /* Non-null width */
-	 gdk_pixbuf_render_to_drawable_alpha(rgba, 
-					     renderer->pixmap,
-					     0, 0,
-					     x, y,
-					     width, height,
-					     GDK_PIXBUF_ALPHA_FULL,
-					     128,
-					     GDK_RGB_DITHER_NONE,
-					     0, 0);
+	 gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
 	 g_object_unref(G_OBJECT(rgba));
        }
        /*

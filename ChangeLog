@@ -1,3 +1,8 @@
+2005-04-05  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagdkrenderer.c (draw_string): Patch from tomkast@yahoo.com
+	(Tom Kast): Avoid blockiness caused by bad updates.
+
 2005-04-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/polyshape.c: 

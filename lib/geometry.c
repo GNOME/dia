@@ -213,9 +213,9 @@ line_crosses_ray(const Point *line_start,
   /* if y coords of line do not include rayend.y */
   if (line_start->y > rayend->y || line_end->y < rayend->y)
     return 0;
-  /* Avoid division by zero */
+  /* Avoid division by zero for horizontal case */
   if (line_end->y - line_start->y < 0.00000000001) {
-    return line_end->y - rayend->y < 0.00000000001;
+    return (line_end->y - rayend->y < 0.00000000001);
   }
   xpos = line_start->x + (rayend->y - line_start->y) * 
     (line_end->x - line_start->x) / (line_end->y - line_start->y);
