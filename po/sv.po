@@ -1,9 +1,9 @@
-# Swedish translation of Dia.
-# Copyright (C) 1999, 2000, 2001 Free Software Foundation, Inc.
+# Swedish messgaes for Dia.
+# Copyright (C) 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
 # Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
-# Andreas Hyden <a.hyden@cyberpoint.se>
+# Andreas Hyden <a.hyden@cyberpoint.se>.
 # Tomas Ögren <stric@ing.umu.se>, 2000.
-# Christian Rose <menthos@menthos.com>, 2000, 2001.
+# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002.
 # Richard Hult <rhult@codefactory.se>, 2001.
 #
 # $Id$
@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-11-22 13:18+0100\n"
-"PO-Revision-Date: 2001-11-22 13:20+0100\n"
+"POT-Creation-Date: 2002-01-03 04:46+0100\n"
+"PO-Revision-Date: 2002-01-03 04:46+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,49 +138,49 @@ msgstr "Interna objekt och filter i dia"
 msgid "Select color"
 msgstr "Välj färg"
 
-#: app/commands.c:130
+#: app/commands.c:139
 #, c-format
 msgid "Untitled-%d"
 msgstr "Namnlös-%d"
 
-#: app/commands.c:192
+#: app/commands.c:201
 msgid "No existing object to paste.\n"
 msgstr "Det finns inget existerande objekt att klistra in.\n"
 
-#: app/commands.c:460 app/commands.c:483
+#: app/commands.c:469 app/commands.c:492
 msgid "Could not find help directory"
 msgstr "Kunde inte hitta hjälpkatalogen"
 
-#: app/commands.c:530
+#: app/commands.c:539
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:573
+#: app/commands.c:582
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:578
+#: app/commands.c:587
 msgid "Maintainer: James Henstridge"
 msgstr "Underhållare: James Henstridge"
 
-#: app/commands.c:582
+#: app/commands.c:591
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:587
+#: app/commands.c:596
 msgid "Contributors:"
 msgstr "Bidragsgivare:"
 
 #. setup buttons
-#: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:613 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:704
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:715
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:690
+#: app/commands.c:699
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -196,12 +196,12 @@ msgid "Object defaults"
 msgstr "Standardvärden för objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:713 app/properties.c:101
+#: app/preferences.c:724 app/properties.c:101
 msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:722
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:733
 #: app/properties.c:111
 msgid "Close"
 msgstr "Stäng"
@@ -339,12 +339,12 @@ msgstr ""
 "Detta diagram har inte sparats.\n"
 "Vill du spara ändringar nu?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:596
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:605
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:596
-#: app/preferences.c:607
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:605
+#: app/preferences.c:616
 msgid "No"
 msgstr "Nej"
 
@@ -1500,28 +1500,36 @@ msgstr "X-storlek:"
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:176
+#: app/preferences.c:179
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:178
+#: app/preferences.c:181
 msgid "Show at startup:"
 msgstr "Visa vid uppstart:"
 
-#: app/preferences.c:180
+#: app/preferences.c:183
 msgid "Default width:"
 msgstr "Standardbredd:"
 
-#: app/preferences.c:182
+#: app/preferences.c:185
 msgid "Default height:"
 msgstr "Standardhöjd:"
 
-#: app/preferences.c:303
+#: app/preferences.c:187
+msgid "Remember last size:"
+msgstr "Kom ihåg senaste storlek:"
+
+#: app/preferences.c:189
+msgid "Save hidden object types:"
+msgstr "Spara gömda objekttyper:"
+
+#: app/preferences.c:312
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:672 app/preferences.c:681
+#: app/preferences.c:683 app/preferences.c:692
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -3058,7 +3066,7 @@ msgid "Template"
 msgstr "Mall"
 
 #. Class page:
-#: objects/UML/class.c:687 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:689 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Klass"
 
