@@ -11,6 +11,7 @@ Comment[ga]=Eagarthoír Léaráid
 Comment[ja]=¥À¥¤¥¢¥°¥é¥à¥¨¥Ç¥£¥¿
 Comment[pl]=Edytor diagramów w Gtk+ 
 Comment[fr]=Un éditeur de diagrammes
+Comment[pt]=Editor de diagramas
 Exec=dia
 Icon=dia_gnome_icon.png
 Terminal=0

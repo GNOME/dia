@@ -1,3 +1,9 @@
+2000-03-26  Alexander Larsson  <alla@lysator.liu.se>
+
+	* dia.desktop:
+	* po/pt.po:
+	Updated pt translation from Pedro Morais <pmmm@rnl.ist.utl.pt>
+
 2000-03-25  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/dia.gnorba (location_info):

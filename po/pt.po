@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
 "POT-Creation-Date: 2000-02-29 09:57+0800\n"
-"PO-Revision-Date: 1999-10-20 22:01+0000\n"
+"PO-Revision-Date: 2000-03-25 19:52+00:00\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding:\n"
 
 #: app/app_procs.c:135
-#, fuzzy
 msgid "Export loaded file and exit"
-msgstr "Exportar ficheiro para postscript e sair"
+msgstr "Exportar ficheiro carregado e sair"
 
 #: app/app_procs.c:136
 msgid "OUTPUT"
@@ -20,7 +19,7 @@ msgstr "SAÍDA"
 
 #: app/app_procs.c:138
 msgid "Show this help message"
-msgstr ""
+msgstr "Mostrar esta mensagem de ajuda"
 
 #: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
@@ -28,7 +27,7 @@ msgstr "Não me consigo ligar ao gestor de sessão!\n"
 
 #: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[OPÇÃO...] [FICHEIRO...]"
 
 #: app/app_procs.c:171
 #, c-format
@@ -36,6 +35,8 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Erro na opção %s: %s.\n"
+"Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
 #: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
@@ -358,9 +359,8 @@ msgid "Create Polyline"
 msgstr "Criar uma Polilinha"
 
 #: app/interface.c:105
-#, fuzzy
 msgid "Create Bezierline"
-msgstr "Criar um guião"
+msgstr "Criar Linha Bezier"
 
 #: app/interface.c:109
 msgid "Create Image"
@@ -436,22 +436,20 @@ msgstr ""
 "Objecto ligado não encontrado no documento."
 
 #: app/load_save.c:142
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Erro ao carregar diagrama %s.\n"
-"Tipo de ficheiro desconhecido."
+"Erro ao carregar diagrama.\n"
+"Ponto de ligação não existe."
 
 #: app/load_save.c:145
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Erro ao carregar diagrama %s.\n"
-"Tipo de ficheiro desconhecido."
+"Erro ao carregar diagrama.\n"
+"Conexão não existe."
 
 #: app/load_save.c:190
 #, c-format
@@ -489,12 +487,11 @@ msgstr "Não consegui abrir: '%s' para escrever.\n"
 #: app/load_save.c:604
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr ""
+msgstr "Não consegui gravar o ficheiro '%s'.\n"
 
 #: app/load_save.c:624
-#, fuzzy
 msgid "Native Dia Diagram"
-msgstr "Gravar diagrama"
+msgstr "Diagrama Dia Nativo"
 
 #: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
@@ -505,9 +502,8 @@ msgid "Create new diagram"
 msgstr "Criar novo diagrama"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "_Export..."
-msgstr "   Exportar"
+msgstr "_Exportar..."
 
 #: app/menus.c:56
 msgid "Page Set_up..."
@@ -549,7 +545,7 @@ msgstr "Editar _Grelha..."
 
 #: app/menus.c:106
 msgid "_AntiAliased"
-msgstr ""
+msgstr "_AntiAliased"
 
 #: app/menus.c:109
 msgid "_Visible Grid"
@@ -595,7 +591,7 @@ msgstr "Mesma Distância"
 
 #: app/menus.c:128 app/menus.c:137
 msgid "Adjacent"
-msgstr ""
+msgstr "Adjacente"
 
 #: app/menus.c:133
 msgid "Top"
@@ -687,9 +683,8 @@ msgid "/File/Save _As..."
 msgstr "/Ficheiro/Gravar _Como..."
 
 #: app/menus.c:200
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "/Ficheiro/_Exportar para EPS"
+msgstr "/Ficheiro/_Exportar..."
 
 #: app/menus.c:202
 msgid "/File/Page Set_up..."
@@ -809,7 +804,7 @@ msgstr "/Vista/Editar Grelha..."
 
 #: app/menus.c:232
 msgid "/View/_AntiAliased"
-msgstr ""
+msgstr "/Vista/_AntiAliased"
 
 #: app/menus.c:234
 msgid "/View/_Visible Grid"
@@ -898,9 +893,8 @@ msgid "This object has no properties."
 msgstr "Este objecto não tem propriedades"
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Exportar para postscript"
+msgstr "Postscript Encapsulado"
 
 #: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
@@ -919,9 +913,8 @@ msgid "View Defaults"
 msgstr "Valores por Omissão"
 
 #: app/preferences.c:84
-#, fuzzy
 msgid "Grid Lines"
-msgstr "Opções da grelha"
+msgstr "Grelha"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
@@ -965,7 +958,7 @@ msgstr "Grelha:"
 
 #: app/preferences.c:112
 msgid "Snap to:"
-msgstr ""
+msgstr "Colar a:"
 
 #: app/preferences.c:113
 msgid "X Size:"
@@ -976,18 +969,16 @@ msgid "Y Size:"
 msgstr "Tamanho Y:"
 
 #: app/preferences.c:115 app/preferences.c:120
-#, fuzzy
 msgid "Colour:"
-msgstr "Cor"
+msgstr "Cor:"
 
 #: app/preferences.c:116 app/preferences.c:121
-#, fuzzy
 msgid "Solid lines:"
-msgstr "Linhas sólidas"
+msgstr "Linhas sólidas:"
 
 #: app/preferences.c:118
 msgid "Page breaks:"
-msgstr ""
+msgstr "Quebras de página:"
 
 #: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
@@ -995,7 +986,7 @@ msgstr "Preferências"
 
 #: app/render_svg.c:783
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics"
 
 #: app/lineprops_area.c:529
 msgid "Arrow Properties"
@@ -1094,17 +1085,15 @@ msgstr "Meia Cabeça"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Cruz Quebrada"
 
 #: lib/widgets.c:703
-#, fuzzy
 msgid "Filled Ellipse"
-msgstr "Criar Elipse"
+msgstr "Elipse Preenchida"
 
 #: lib/widgets.c:709
-#, fuzzy
 msgid "Hollow Ellipse"
-msgstr "Triângulo Vazio"
+msgstr "Elipse Vazia"
 
 #: lib/widgets.c:725
 msgid "Length: "
@@ -1124,7 +1113,7 @@ msgstr "Procurar"
 
 #: lib/properties.c:346 lib/properties.c:378
 msgid "No edit widget"
-msgstr ""
+msgstr "Nenhum \"widget\" de edição"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -1509,9 +1498,8 @@ msgid "Delete Handle"
 msgstr "Apagar Conexão"
 
 #: objects/flowchart/box.c:165 objects/standard/box.c:149
-#, fuzzy
 msgid "Corner radius"
-msgstr "Arredondamento dos cantos:"
+msgstr "Raio dos cantos"
 
 #: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
@@ -1526,19 +1514,16 @@ msgid "Corner rounding:"
 msgstr "Arredondamento dos cantos:"
 
 #: objects/standard/line.c:171
-#, fuzzy
 msgid "Add connection point"
-msgstr "Pontos de Ligação:"
+msgstr "Adicionar ponto de ligação"
 
 #: objects/standard/line.c:172
-#, fuzzy
 msgid "Delete connection point"
-msgstr "Pontos de Ligação:"
+msgstr "Apagar ponto de ligação"
 
 #: objects/standard/line.c:177
-#, fuzzy
 msgid "Line"
-msgstr "Linhas"
+msgstr "Linha"
 
 #: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
 msgid "Alignment:"
@@ -1557,14 +1542,12 @@ msgid "Fontsize:"
 msgstr "Tamanho:"
 
 #: objects/standard/image.c:165
-#, fuzzy
 msgid "Image file"
-msgstr "Imagem:"
+msgstr "Imagem"
 
 #: objects/standard/image.c:167
-#, fuzzy
 msgid "Draw border"
-msgstr "Mostrar borda"
+msgstr "Desenhar borda"
 
 #: objects/standard/image.c:169
 msgid "Keep aspect ratio"
@@ -1806,9 +1789,8 @@ msgid "   Measure"
 msgstr "   Medir"
 
 #: objects/flowchart/box.c:167
-#, fuzzy
 msgid "Text padding"
-msgstr "Espaço à volta do texto:"
+msgstr "Espaço à volta do texto"
 
 #: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
 #: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
@@ -1839,18 +1821,16 @@ msgid "Shear angle:"
 msgstr "Angulo dos lados:"
 
 #: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
-#, fuzzy
 msgid "Flip horizontal"
-msgstr "Inverter Horinzontalmente"
+msgstr "Inverter horizontalmente"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
-#, fuzzy
 msgid "Flip vertical"
-msgstr "Inverter Verticalmente"
+msgstr "Inverter verticalmente"
 
 #: objects/custom/custom_object.c:1218
 msgid "Flip Horizontal"
-msgstr "Inverter Horinzontalmente"
+msgstr "Inverter Horizontalmente"
 
 #: objects/custom/custom_object.c:1219
 msgid "Flip Vertical"
@@ -1861,224 +1841,10 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Tamanho das colunas da imagem maior\n"
+"que o máximo da tabela de células.\n"
+"Imagem não foi exportada para CGM."
 
 #: plug-ins/cgm/cgm.c:1251
 msgid "Computer Graphics Metafile"
-msgstr ""
-
-#~ msgid "Open diagram"
-#~ msgstr "Abrir diagrama"
-
-#~ msgid "File already exists"
-#~ msgstr "Ficheiro já existe"
-
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?"
-#~ msgstr ""
-#~ "O ficheiro '%s' já existe.\n"
-#~ "Quer escrever por cima dele?"
-
-#~ msgid "Save diagram"
-#~ msgstr "Gravar diagrama"
-
-#~ msgid "Line width:"
-#~ msgstr "Largura:"
-
-#~ msgid "Color:"
-#~ msgstr "Cor:"
-
-#~ msgid "Start arrow:"
-#~ msgstr "Seta inicial:"
-
-#~ msgid "End arrow:"
-#~ msgstr "Seta final:"
-
-#~ msgid "A custom with text inside."
-#~ msgstr "Personalizado com texto dentro."
-
-#~ msgid "Export to SVG"
-#~ msgstr "Exportar para SVG"
-
-#~ msgid "_Export To EPS"
-#~ msgstr "_Exportar para EPS"
-
-#~ msgid "Export To S_VG"
-#~ msgstr "Exportar para S_VG"
-
-#~ msgid "/File/Export To S_VG"
-#~ msgstr "/Ficheiro/Exportar para S_VG"
-
-#~ msgid "Create an actor"
-#~ msgstr "Criar um actor"
-
-#~ msgid "Association, two classes are associated."
-#~ msgstr "Associação, duas classes estão associadas."
-
-#~ msgid "Aggregation, one class is part of another."
-#~ msgstr "Agregação, uma classe faz parte de outra."
-
-#~ msgid "Create a class"
-#~ msgstr "Criar uma classe"
-
-#~ msgid "Create a template class"
-#~ msgstr "Criar uma classe modelo"
-
-#~ msgid "Constraint, place a constraint on something."
-#~ msgstr "Limitação, coloca uma limitação em algo."
-
-#~ msgid "Create a dependency"
-#~ msgstr "Criar uma dependência"
-
-#~ msgid "Generalization, class inheritance."
-#~ msgstr "Generalização, herança de classes."
-
-#~ msgid "Implements, class implements a specific interface."
-#~ msgstr "Implementa, a classe implementa uma certa interface."
-
-#~ msgid "Create a (large) package"
-#~ msgstr "Criar um pacote (grande)"
-
-#~ msgid "Create a note"
-#~ msgstr "Criar uma anotação"
-
-#~ msgid "Realizes, implements a specific interface."
-#~ msgstr "Implementa, implementa uma interface específica."
-
-#~ msgid "Create a (small) package"
-#~ msgstr "Criar um pacote (pequeno)"
-
-#~ msgid "UML"
-#~ msgstr "UML"
-
-#~ msgid "Editor for UML Static Structure Diagrams."
-#~ msgstr "Editor para Diagramas UML"
-
-#~ msgid "Create a use case"
-#~ msgstr "Criar uma cláusula"
-
-#~ msgid "Create an object"
-#~ msgstr "Criar um objecto"
-
-#~ msgid "Create a message"
-#~ msgstr "Criar uma mensagem"
-
-#~ msgid "Create a state machine"
-#~ msgstr "Criar uma máquina de estados"
-
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "Criar um estereotipo"
-
-#~ msgid "Create a component"
-#~ msgstr "Criar um componente"
-
-#~ msgid "Weak Entity"
-#~ msgstr "Entidade Fraca"
-
-#~ msgid "ER"
-#~ msgstr "ER"
-
-#~ msgid "Editor for Entity Relations Diagrams."
-#~ msgstr "Editor para Diagrama Entidade-Relação"
-
-#~ msgid "Create a participation"
-#~ msgstr "Criar uma participação"
-
-#~ msgid "Ethernet bus."
-#~ msgstr "Bus Ethernet"
-
-#~ msgid "A Computer with a tower case."
-#~ msgstr "Computador com caixa tipo torre"
-
-#~ msgid "The symbol for storage. Disc or database."
-#~ msgstr "Uma símbolo para armazenamento. Disco ou base de dados."
-
-#~ msgid "A monitor, with a stand"
-#~ msgstr "Um monitor"
-
-#~ msgid "Network"
-#~ msgstr "Rede"
-
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "Objectos para desenhar diagramas de rede"
-
-#~ msgid "A simple Printer"
-#~ msgstr "Uma Impressora"
-
-#~ msgid "A Antenna for wireless transmissions"
-#~ msgstr "Uma Antena para transmissões sem fios"
-
-#~ msgid "A WAN Connection"
-#~ msgstr "Uma ligação WAN"
-
-#~ msgid "A stackable hub or switch"
-#~ msgstr "Um \"hub\" ou \"switch\" empilhável"
-
-#~ msgid "A simple Modem"
-#~ msgstr "Um modem"
-
-#~ msgid "A modular switching system"
-#~ msgstr "Um sistema de \"switching\" modular"
-
-#~ msgid "A RJ45 Wall-Plug"
-#~ msgstr "Uma tomada de parede RJ45"
-
-#~ msgid "A Wall-Plug for the scEAD Cabling System"
-#~ msgstr "Uma tomada de parede para o sistema scEAD"
-
-#~ msgid "Create an orthogonal polyline flow"
-#~ msgstr "Criar um fluxo (polilinha)"
-
-#~ msgid "Create a flow"
-#~ msgstr "Criar um fluxo"
-
-#~ msgid "FS"
-#~ msgstr "FS"
-
-#~ msgid "Editor for Function Structure Diagrams."
-#~ msgstr "Editor para Diagramas Função Estrutura"
-
-#~ msgid "Create a function"
-#~ msgstr "Criar uma função"
-
-#~ msgid "A Sybase Client Application."
-#~ msgstr "Uma aplicação cliente Sybase."
-
-#~ msgid "A Sybase Dataserver."
-#~ msgstr "Um Servidor de Dados Sybase."
-
-#~ msgid "Log Transfer Manager or Rep Agent."
-#~ msgstr "Gestor de Registo de Transferencia ou Agente Rep."
-
-#~ msgid "Sybase Replication Server."
-#~ msgstr "Servidor de Replicação Sybase"
-
-#~ msgid "Replication Server Manager."
-#~ msgstr "Gestor de Servidores de Replicação"
-
-#~ msgid "Stable Disk Device."
-#~ msgstr "Dispositivo Disco Estável."
-
-#~ msgid "Sybase"
-#~ msgstr "Sybase"
-
-#~ msgid "Objects to design Sybase replication domain diagrams with"
-#~ msgstr "Objectos para desenhar diagramas de domínios Sybase de replicação"
-
-#~ msgid "A box with text inside."
-#~ msgstr "Uma caixa com texto dentro."
-
-#~ msgid "A diamond with text inside."
-#~ msgstr "Um diamante com texto dentro."
-
-#~ msgid "A ellipse with text inside."
-#~ msgstr "Uma elipse com texto dentro."
-
-#~ msgid "Flowchart"
-#~ msgstr "Fluxograma"
-
-#~ msgid "Objects to draw flowcharts"
-#~ msgstr "Objectos para desenhar fluxogramas"
-
-#~ msgid "A parallelogram with text inside."
-#~ msgstr "Um paralelograma com texto dentro."
+msgstr "Computer Graphics Metafile"
