@@ -1,5 +1,13 @@
 2003-09-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* doc/pl/dia-manual.sgml: 
+	* doc/en/dia-manual.xml: 
+	* dia.spec (Release): 
+	* configure.in: 
+	* config.h.win32: 
+	* NEWS: 
+	pre3 improves font rendering speed.
+
 	* app/app_procs.c (app_init): Don't do pango init here, it's done
 	on demand in font.c now.
 
