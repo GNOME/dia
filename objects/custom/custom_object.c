@@ -138,6 +138,13 @@ static ObjectTypeOps custom_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
+/* Version history for save file format for custom objects:
+0: Initial version
+1: Changed to use standard names for standard properties
+   (border_width -> line_width, inner_color->fill_colour,
+    border_color -> line_colour, line_style+dashlength -> line_style)
+*/
+
 /* This looks like it could be static, but it can't because we key
    on it to determine if an ObjectType is a custom/SVG shape */
 
@@ -145,7 +152,7 @@ G_MODULE_EXPORT
 ObjectType custom_type =
 {
   "Custom - Generic",  /* name */
-  0,                 /* version */
+  1,                 /* version */
   (char **) custom_xpm, /* pixmap */
 
   &custom_type_ops      /* ops */
@@ -1340,10 +1347,39 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   Text *init_text;
-  
+  AttributeNode attr;
+
   obj = custom_type.ops->create(&startpoint, shape_info_get(obj_node), &handle1, &handle2);
   custom = (Custom*)obj;
   object_load_props(obj,obj_node);
+
+  if (version < 1) {
+    /* Version 0 misnamed the standard attributes in the savefile. */
+    custom->border_width = 0.1;
+    attr = object_find_attribute(obj_node, "border_width");
+    if (attr != NULL)
+      custom->border_width =  data_real( attribute_first_data(attr) );
+
+    custom->border_color = color_black;
+    attr = object_find_attribute(obj_node, "border_color");
+    if (attr != NULL)
+      data_color(attribute_first_data(attr), &custom->border_color);
+  
+    custom->inner_color = color_white;
+    attr = object_find_attribute(obj_node, "inner_color");
+    if (attr != NULL)
+      data_color(attribute_first_data(attr), &custom->inner_color);
+  
+    custom->line_style = LINESTYLE_SOLID;
+    attr = object_find_attribute(obj_node, "line_style");
+    if (attr != NULL)
+      custom->line_style =  data_enum( attribute_first_data(attr) );
+
+    custom->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+    attr = object_find_attribute(obj_node, "dashlength");
+    if (attr != NULL)
+      custom->dashlength = data_real(attribute_first_data(attr));
+  }
   
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

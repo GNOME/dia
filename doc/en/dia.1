@@ -21,13 +21,12 @@
 .SH NAME
 dia \- a diagram drawing program
 .SH "SYNOPSIS"
-
-.nf
-\fBdia\fR [\fB-c\fR] [\fB--credits\fR] [\fB-e \fIOUTPUT\fR\fR] [\fB--export=\fIOUTPUT\fR\fR]
-    [\fB-h\fR] [\fB--help\fR] [\fB-n\fR] [\fB--nosplash\fR] [\fB-t \fIFORMAT\fR\fR]
-    [\fB--export-to-format=\fIFORMAT\fR\fR] [\fB-v\fR] [\fB--version\fR] [file
-    \&.\&.\&.]
-.fi
+.ad l
+.hy 0
+.HP 4
+\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fIOUTPUT\fR\fR] [\fB\-\-export=\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fIWxH\fR\fR] [\fB\-\-size=\fIWxH\fR\fR] [\fB\-t\ \fIFORMAT\fR\fR] [\fB\-\-export\-to\-format=\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \&.\&.\&.]
+.ad
+.hy
 
 .SH "DESCRIPTION"
 
@@ -46,27 +45,32 @@ Diagrams drawn in \fBDia\fR can be exported PostScript\&.
 \fBDia\fR accepts the following options:
 
 .TP
-\fB-c\fR \fB--credits\fR
+\fB\-c\fR \fB\-\-credits\fR
 Display credits list and exit\&.
 
 .TP
-\fB-e \fIOUTPUT\fR\fR \fB--export=\fIOUTPUT\fR\fR
+\fB\-e \fIOUTPUT\fR\fR \fB\-\-export=\fIOUTPUT\fR\fR
 Export loaded file to OUTPUT and exit\&.
 
 .TP
-\fB-h\fR \fB--help\fR
+\fB\-h\fR \fB\-\-help\fR
 Display a list of all commandline options\&.
 
 .TP
-\fB-n\fR \fB--nosplash\fR
+\fB\-n\fR \fB\-\-nosplash\fR
 Do not show the splash screen\&.
 
 .TP
-\fB-t \fIFORMAT\fR\fR \fB--export-to-format=\fIFORMAT\fR\fR
+\fB\-s \fIWxH\fR\fR \fB\-\-size=\fIWxH\fR\fR
+Export loaded file in decimal given width and/or height\&. It is allowed to only select width or height\&. E\&.g\&. \fB\-\-size=\fI520x\fR\fR exports an image that is 520 pixels wide, while \fB\-\-size=\fIx900\fR\fR exports an image of 900 pixels height\&.
+This option is currently only implemented for the PNG export filter\&.
+
+.TP
+\fB\-t \fIFORMAT\fR\fR \fB\-\-export\-to\-format=\fIFORMAT\fR\fR
 Export loaded file in FORMAT and exit\&. Format are described below\&.
 
 .TP
-\fB-v\fR \fB--version\fR
+\fB\-v\fR \fB\-\-version\fR
 Display \fBdia\fR version and exit\&.
 
 .SH "EXPORT FORMATS"
@@ -85,9 +89,9 @@ dia (Native dia diagram)
 dxf (Drawing Interchange File)
 .TP
 \(bu
-eps or epsi or eps-builtin or eps-pango (Encapsulated PostScript)
+eps or epsi or eps\-builtin or eps\-pango (Encapsulated PostScript)
 
-The format specifications eps, epsi, and eps-pango all use the font renderer of the Pango library, while eps-builtin uses a dia specific font renderer\&. If you have problems with Pango rendering, e\&.g\&. Unicode, try eps-builtin instead\&.
+The format specifications eps, epsi, and eps\-pango all use the font renderer of the Pango library, while eps\-builtin uses a dia specific font renderer\&. If you have problems with Pango rendering, e\&.g\&. Unicode, try eps\-builtin instead\&.
 .TP
 \(bu
 fig (XFig format)

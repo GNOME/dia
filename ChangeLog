@@ -1,3 +1,34 @@
+2004-05-26  Lars Clausen  <lars@raeder.dk>
+
+	* config.h.win32: 
+	* NEWS: 
+	* configure.in: 
+	* dia.spec (Release): 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: 
+	Brown-bag release 0.93.1
+
+	* app/Makefile.am (run_dia.sh$(EXEEXT)): Use $@ instead of $* to
+	allow more than one argument along with arguments with spaces.
+
+2004-05-25  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (app_init): Make --help and other options work
+	without popt installed.
+
+	* doc/pl/Makefile.am (EXTRA_DIST): Distribute all the xml pages.
+
+	* doc/en/Makefile.am (dia.1): Make the manpages automagically.
+	Also distribute all of the xml pages.
+
+	* configure.in (DB2MAN): Check for docbook.xsl in several
+	different places where itøs been known to appear, in lieu of a
+	proper way to ask for its presence.
+
+	* objects/custom/custom_object.c (custom_load_using_properties):
+	Up the version and handle reading old version diagrams.  Now uses
+	correct names for the standard properties.
+
 2004-05-17  Hans Breuer  <hans@breuer.org>
 
 	* lib/object_defaults.c : don't 'failed to load external 

@@ -1,3 +1,12 @@
+dia-0.93.1: 25-May-2004
+
+Brown bag release due to shapes properties bug.  Also fixes problems
+with options when no popt is present, and distribution of docs.
+
+dia-0.93: 29-Apr-2004
+
+Ready for release.
+
 dia-0.93-pre2: 04-Apr-2004
 
 Fixed crash bug in ellipse, plus various compilation problems.  Also

@@ -102,6 +102,9 @@ static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
 			 poptContext poptCtx, struct poptOption options[],
+#else
+			 gboolean *nosplash, gboolean *credits,
+			 gboolean *version, gboolean *logtostderr,
 #endif
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size);
@@ -428,6 +431,9 @@ app_init (int argc, char **argv)
   process_opts(argc, argv, 
 #ifdef HAVE_POPT
                poptCtx, options, 
+#else
+	       &nosplash, &credits,
+	       &version, &log_to_stderr,
 #endif
                &files,
 	     &export_file_name, &export_file_format, &size);
@@ -737,6 +743,9 @@ static void
 process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
 	     poptContext poptCtx, struct poptOption options[],
+#else
+	     gboolean *nosplash, gboolean *credits,
+	     gboolean *version, gboolean *logtostderr,
 #endif
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size)
@@ -774,26 +783,69 @@ process_opts(int argc, char **argv,
 
       for (i=1; i<argc; i++) {
           char *in_file_name = argv[i]; /* unless it's an option... */
-          
+          printf("Arg %i: `%s'\n", i, argv[i]);
           if (0==strcmp(argv[i],"-t")) {
               if (i < (argc-1)) {
                   i++;
                   *export_file_format = argv[i];
                   continue;
               }
+          } else if (0==strncmp(argv[i],"--export-to-format=",19)) {
+	    *export_file_format = &argv[i][19];
+	    continue;
           } else if (0 == strcmp(argv[i],"-e")) {
               if (i < (argc-1)) {
                   i++;
                   *export_file_name = argv[i];
                   continue;
               }
+          } else if (0==strncmp(argv[i],"--export=", 9)) {
+	    *export_file_name = &argv[i][9];
+	    continue;
           } else if (0 == strcmp(argv[i],"-s")) {
               if (i < (argc-1)) {
                   i++;
                   *size = argv[i];
                   continue;
               }
-          }
+          } else if (0==strncmp(argv[i],"--size=",7)) {
+	    *size = &argv[i][7];
+	    continue;
+          } else if (0 == strcmp(argv[i],"-n") ||
+		     0 == strcmp(argv[i],"--nosplash")) {
+	    *nosplash = TRUE;
+	    continue;
+          } else if (0 == strcmp(argv[i],"-l") ||
+		     0 == strcmp(argv[i],"--log-to-stderr")) {
+	    *logtostderr = TRUE;
+	    continue;
+          } else if (0 == strcmp(argv[i],"-c") ||
+		     0 == strcmp(argv[i],"--credits")) {
+	    *credits = TRUE;
+	    continue;
+          } else if (0 == strcmp(argv[i],"-v") ||
+		     0 == strcmp(argv[i],"--version")) {
+	    *version = TRUE;
+	    continue;
+          } else if (0 == strcmp(argv[i],"-h") ||
+		     0==strcmp(argv[i],"--help")) {
+	    /* Taken by running dia --help with popt enabled */
+	    printf("Usage: dia [OPTION...] [FILE...]
+  -e, --export=OUTPUT               Export loaded file and exit
+  -t, --export-to-format=FORMAT     Export to file format and exit.  Supported
+                                    formats are: cgm, dia, dxf, eps,
+                                    eps-pango, fig, mp, plt, hpgl, png, shape,
+                                    svg, tex, wpg
+  -s, --size=WxH                    Export graphics size
+  -n, --nosplash                    Don't show the splash screen
+  -l, --log-to-stderr               Send error messages to stderr instead of
+                                    showing dialogs.
+  -c, --credits                     Display credits list and exit
+  -v, --version                     Display version and exit
+  -h, --help                        Show this help message
+");
+	    exit(0);
+	  }
 	  *files = g_slist_append(*files, in_file_name);
       }
 #endif
