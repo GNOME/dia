@@ -1,3 +1,29 @@
+2001-01-12  Michael Meeks  <michael@helixcode.com>
+
+	* app/dia_embedd.c (init_server_factory): do a bonobo_activate
+	so our POA gets setup properly.
+
+	* app/paginate_gnomeprint.c (paginate_gnomeprint): g_free
+	things we g_malloc.
+
+	* configure.in: Use bonobox_print.
+
+	* app/dia_embedd.c (embeddable_factory): add print interface.
+	(object_print): impl.
+
+2001-01-11  Michael Meeks  <michael@helixcode.com>
+
+	* app/dia_embedd.c (embeddable_factory): aggregate PersistFile.
+	(load_fn, save_fn): impl.
+	(view_factory): hide modified status bar, & use activate fn.
+	(refresh_view): force redraws of the views.
+	(view_show_hide): split from
+	(dia_view_activate): here.
+
+	* app/diagram.c (diagram_load_into): split from diagram_load.
+	(new_diagram): simplify bu splittin stuff into
+	(diagram_init): here.
+
 2001-01-10  Steffen Macke <sdteffen@yahoo.com>
 
 	* shapes/jigsaw/*.shape: replaced #000000 with foreground

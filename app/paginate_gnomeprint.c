@@ -130,7 +130,7 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx)
       nobjs += print_page(dia->data, rend, &page_bounds, xpos, ypos);
     }
 
-  free(rend);
+  g_free(rend);
 
   gnome_print_context_close(ctx);
 

@@ -38,48 +38,78 @@
 
 GList *open_diagrams = NULL;
 
+static void
+diagram_init(Diagram *dia, const char *filename)
+{
+  if(dia->data)
+    diagram_data_destroy(dia->data);
+  
+  dia->data = new_diagram_data();
+  dia->data->grid.width_x = prefs.grid.x;
+  dia->data->grid.width_y = prefs.grid.y;
+
+  g_free(dia->filename);
+  dia->filename = g_strdup(filename);
+  
+  dia->unsaved = TRUE;
+  dia->modified = FALSE;
+
+  if (dia->undo)
+    undo_destroy(dia->undo);
+  dia->undo = new_undo_stack(dia);
+
+  if (!g_list_find(open_diagrams, dia))
+    open_diagrams = g_list_prepend(open_diagrams, dia);
+
+  layer_dialog_update_diagram_list();
+}
+
+int
+diagram_load_into(Diagram         *diagram,
+		  const char      *filename,
+		  DiaImportFilter *ifilter)
+{
+  if (!ifilter)
+    ifilter = filter_guess_import_filter(filename);
+  if (!ifilter)  /* default to native format */
+    ifilter = &dia_import_filter;
+
+  diagram_init(diagram, filename);
+
+  if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
+    diagram->unsaved = FALSE;
+    diagram_set_modified(diagram, FALSE);
+    recent_file_history_add(filename, ifilter);
+    return TRUE;
+  } else
+    return FALSE;
+}
+
 Diagram *
 diagram_load(const char *filename, DiaImportFilter *ifilter)
 {
   Diagram *diagram;
 
-  if (!ifilter)
-    ifilter = filter_guess_import_filter(filename);
-  if (!ifilter)  /* default to native format */
-    ifilter = &dia_import_filter;
   diagram = new_diagram(filename);
-  if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
-    diagram->unsaved = FALSE;
-    diagram_set_modified(diagram, FALSE);
-    recent_file_history_add(filename, ifilter);
-  } else {
+
+  if (!diagram_load_into (diagram, filename, ifilter)) {
     diagram_destroy(diagram);
     diagram = NULL;
   }
+
   return diagram;
 }
 
 Diagram *
 new_diagram(const char *filename)  /* Note: filename is copied */
 {
-  Diagram *dia = g_new(Diagram, 1);
-  
-  dia->data = new_diagram_data();
-  dia->data->grid.width_x = prefs.grid.x;
-  dia->data->grid.width_y = prefs.grid.y;
-
-  dia->filename = g_strdup(filename);
-  
-  dia->unsaved = TRUE;
-  dia->modified = FALSE;
+  Diagram *dia = g_new0(Diagram, 1);
 
   dia->display_count = 0;
   dia->displays = NULL;
 
-  dia->undo = new_undo_stack(dia);
-  
-  open_diagrams = g_list_prepend(open_diagrams, dia);
-  layer_dialog_update_diagram_list();
+  diagram_init(dia, filename);
+
   return dia;
 }
 

@@ -29,6 +29,11 @@
 #include "disp_callbacks.h"
 #include "app_procs.h"
 #include "interface.h"
+#include "load_save.h"
+
+#ifdef GNOME_PRINT
+#  include "render_gnomeprint.h"
+#endif
 
 typedef struct _EmbeddedDia EmbeddedDia;
 typedef struct _EmbeddedView EmbeddedView;
@@ -48,12 +53,11 @@ struct _EmbeddedView {
 static BonoboGenericFactory *factory = NULL;
 
 static void
-dia_view_activate(BonoboView *view, gboolean activate,
-		  EmbeddedView *view_data)
+view_show_hide (EmbeddedView *view_data,
+		gboolean      activate)
 {
   DDisplay *ddisp = view_data->display;
 
-  bonobo_view_activate_notify(view, activate);
   if (activate) {
     toolbox_show();
 
@@ -63,6 +67,7 @@ dia_view_activate(BonoboView *view, gboolean activate,
     gtk_widget_show(ddisp->hsb);
     gtk_widget_show(ddisp->vsb);
     gtk_widget_show(ddisp->zoom_status->parent);
+    gtk_widget_show(ddisp->modified_status);
   } else {
     toolbox_hide();
 
@@ -72,7 +77,16 @@ dia_view_activate(BonoboView *view, gboolean activate,
     gtk_widget_hide(ddisp->hsb);
     gtk_widget_hide(ddisp->vsb);
     gtk_widget_hide(ddisp->zoom_status->parent);
+    gtk_widget_hide(ddisp->modified_status);
   }
+}
+
+static void
+dia_view_activate(BonoboView *view, gboolean activate,
+		  EmbeddedView *view_data)
+{
+  bonobo_view_activate_notify(view, activate);
+  view_show_hide(view_data,activate);
 }
 
 static void
@@ -137,21 +151,15 @@ view_factory (BonoboEmbeddable *embeddable,
   
   view_data->display = new_display(embedded_dia->diagram);
 
+  view_show_hide (view_data, FALSE);
+  
   gtk_signal_connect (GTK_OBJECT (view_data->display->shell), "destroy",
                       GTK_SIGNAL_FUNC (dia_view_display_destroy),
                       view_data);
-  
-  gtk_widget_hide(view_data->display->origin);
-  gtk_widget_hide(view_data->display->hrule);
-  gtk_widget_hide(view_data->display->vrule);
-  gtk_widget_hide(view_data->display->hsb);
-  gtk_widget_hide(view_data->display->vsb);
-  gtk_widget_hide(view_data->display->zoom_status->parent);
 
   view = bonobo_view_new (view_data->display->shell);
   view_data->view = view;
   gtk_object_set_data (GTK_OBJECT (view), "view_data", view_data);
-  
   
   gtk_signal_connect(GTK_OBJECT (view), "activate",
 		     GTK_SIGNAL_FUNC (dia_view_activate), view_data);
@@ -181,12 +189,102 @@ view_factory (BonoboEmbeddable *embeddable,
   return view;
 }
 
+static int
+save_fn (BonoboPersistFile *pf,
+	 const CORBA_char  *filename,
+	 CORBA_Environment *ev,
+	 void              *closure)
+{
+  EmbeddedDia *dia = closure;
+
+  if (!diagram_save (dia->diagram, filename))
+    CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+			 ex_Bonobo_IOError, NULL);
+  return 0;
+}
+
+static void 
+refresh_view (DDisplay *ddisp)
+{
+  Point        middle;
+  Rectangle   *visible;
+
+  visible = &ddisp->visible;
+  middle.x = visible->left*0.5 + visible->right*0.5;
+  middle.y = visible->top*0.5 + visible->bottom*0.5;
+  
+  ddisplay_zoom(ddisp, &middle, 1.0);
+  gtk_widget_queue_draw(ddisp->shell);
+}
+
+static int
+load_fn (BonoboPersistFile *pf,
+	 const CORBA_char  *filename,
+	 CORBA_Environment *ev,
+	 void              *closure)
+{
+  EmbeddedDia *dia = closure;
+
+  if (!diagram_load_into (dia->diagram, filename, NULL)) {
+	  g_warning ("Failed to load '%s'", filename);
+	  CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+			       ex_Bonobo_Persist_WrongDataType,
+			       NULL);
+  } else {
+	  GSList *l;
+	  diagram_update_extents(dia->diagram);
+	  for (l=dia->diagram->displays;l;l=l->next)
+		  refresh_view (l->data);
+  }
+  return 0;
+}
+
+#ifdef GNOME_PRINT
+static void
+object_print (GnomePrintContext         *ctx,
+	      double                     width,
+	      double                     height,
+	      const Bonobo_PrintScissor *scissor,
+	      gpointer                   user_data)
+{
+  RendererGPrint *rend;
+  EmbeddedDia    *edia = user_data;
+  Diagram        *dia = edia->diagram;
+  Rectangle      *extents;
+  double          scalex, scaley;
+
+  rend = new_gnomeprint_renderer(dia, ctx);
+
+  /*
+   * FIXME: we need to de-complicate all this - this should
+   * probably be done by scaling the view to the extent or
+   * alternatively keeping the visible bounds on the embeddable
+   * not the view; or possibly none of these.
+   */
+  extents = &dia->data->extents;
+
+  scalex = width / (extents->right - extents->left);
+  scaley = -height / (extents->bottom - extents->top);
+
+  gnome_print_translate (ctx, - scalex* extents->left,
+			 height - scaley * extents->top);
+  gnome_print_scale     (ctx, scalex, scaley);
+
+
+  data_render(dia->data, (Renderer *)rend, extents, NULL, NULL);
+
+  g_free (rend);
+}
+#endif
+
 static BonoboObject *
 embeddable_factory (BonoboGenericFactory *this,
 		    void *data)
 {
-  BonoboEmbeddable *embeddable;
-  EmbeddedDia *embedded_dia;
+  BonoboPersistFile *pfile;
+  BonoboEmbeddable  *embeddable;
+  BonoboPrint       *print;
+  EmbeddedDia       *embedded_dia;
 
   embedded_dia = g_new0 (EmbeddedDia, 1);
   if (embedded_dia == NULL)
@@ -212,6 +310,24 @@ embeddable_factory (BonoboGenericFactory *this,
 		     GTK_SIGNAL_FUNC (dia_embeddable_destroy),
 		     embedded_dia);
 
+  /* Register the Bonobo::PersistFile interface. */
+  pfile = bonobo_persist_file_new (load_fn, save_fn, embedded_dia);
+  bonobo_object_add_interface (
+	  BONOBO_OBJECT (embeddable),
+	  BONOBO_OBJECT (pfile));
+
+#ifdef GNOME_PRINT
+  /* Register the Bonobo::Print interface */
+  print = bonobo_print_new (object_print, embedded_dia);
+  if (!print) {
+	  bonobo_object_unref (BONOBO_OBJECT (embeddable));
+	  return NULL;
+  }
+  
+  bonobo_object_add_interface (BONOBO_OBJECT (embeddable),
+			       BONOBO_OBJECT (print));
+#endif
+
   return BONOBO_OBJECT (embeddable);
 }
 
@@ -234,6 +350,7 @@ init_server_factory (int argc, char **argv)
 
   if (bonobo_init (orb, NULL, NULL) == FALSE)
     g_error (_("Could not initialize Bonobo!"));
+  bonobo_activate ();
 }
 
 int

@@ -47,6 +47,7 @@ struct _Diagram {
 extern GList *open_diagrams; /* Read only! */
 
 Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
+int diagram_load_into (Diagram *dest, const char *filename, DiaImportFilter *ifilter);
 Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
 void diagram_destroy(Diagram *dia);
 void diagram_modified(Diagram *dia);
