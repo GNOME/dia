@@ -1,5 +1,10 @@
 1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/load_save.c (diagram_load):
+	Statusbar update fix.
+
+1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/interface.c (create_display_shell):
 	Fixed status bar size.
 	

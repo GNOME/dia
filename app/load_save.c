@@ -240,7 +240,7 @@ diagram_load(char *filename)
   g_hash_table_destroy(objects_hash);
   
   dia->unsaved = FALSE;
-  dia->modified = FALSE;
+  diagram_set_modified (dia, FALSE);
 
   return dia;
 }
