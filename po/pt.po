@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2003-02-17 00:06+0000\n"
-"PO-Revision-Date: 2003-02-17 00:08+0000\n"
+"POT-Creation-Date: 2003-04-03 23:26+0100\n"
+"PO-Revision-Date: 2003-04-03 23:30+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -91,17 +91,18 @@ msgstr ""
 msgid "%s error: can specify only one of -f or -o."
 msgstr "erro %s: apenas pode ser especificado um de -f ou -o."
 
-#: app/app_procs.c:327
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:328
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versão %s, compilado %s %s\n"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:330
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versão %s\n"
 
-#: app/app_procs.c:416 app/app_procs.c:418 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -109,7 +110,7 @@ msgstr ""
 "terminar...\n"
 
 #. no standard buttons
-#: app/app_procs.c:545
+#: app/app_procs.c:550
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -119,15 +120,15 @@ msgstr ""
 "Tem a certeza que quer sair do Dia\n"
 "sem os gravar?"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:554
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
-#: app/app_procs.c:611 app/app_procs.c:618
+#: app/app_procs.c:616 app/app_procs.c:623
 msgid "Could not create per-user Dia config directory"
 msgstr "Incapaz de criar um directório por utilizador de configuração do Dia"
 
-#: app/app_procs.c:620
+#: app/app_procs.c:625
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -136,7 +137,7 @@ msgstr ""
 "Certifique-sede que a variável de ambiente HOME aponta para um directório "
 "existente."
 
-#: app/app_procs.c:642 app/diaconv.c:249
+#: app/app_procs.c:647 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objectos e filtros internos ao dia"
 
@@ -382,7 +383,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/lineprops_area.c:679 app/linewidth_area.c:257
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Cancelar"
@@ -488,15 +489,15 @@ msgstr ""
 msgid "No object menu"
 msgstr "Nenhum menu de objecto"
 
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagrama modificado!"
 
-#: app/display.c:890
+#: app/display.c:960
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: app/display.c:892
+#: app/display.c:962
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -505,16 +506,16 @@ msgstr ""
 "O diagrama '%s'\n"
 "não foi gravado. Gravar as alterações agora?"
 
-#: app/display.c:903
+#: app/display.c:973
 msgid "Close Diagram"
 msgstr "Fechar Diagrama"
 
-#: app/display.c:908
+#: app/display.c:978
 msgid "Discard Changes"
 msgstr "Descartar Alterações"
 
 #: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
 #: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
@@ -751,23 +752,65 @@ msgstr "Criar Imagem"
 msgid "Image"
 msgstr "Imagem"
 
-#: app/interface.c:470
+#: app/interface.c:370
+msgid "Diagram menu."
+msgstr "Menu diagramas."
+
+#: app/interface.c:479
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:514
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr "Alterna ajustar à grelha nesta janela."
+
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
 msgstr "dados de ferramenta NULOS em tool_select_update"
 
-#: app/interface.c:975
+#: app/interface.c:999
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
 msgstr ""
-"Cores de primeiro plano & fundo. Os quadrados pequenos voltam às cores por "
-"omissão. As setas trocam as cores. Duplo clique para mudar as cores."
+"Cores de primeiro plano & fundo para novos objectos. Os pequenos quadrados "
+"pretos e brancos repõem as cores por omissão. As setas trocam as cores. "
+"Duplo clique altera as cores."
 
-#: app/interface.c:1124
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+"Largura das linhas. Clique numa linha para definir a largura de linha por omissão "
+"para novos objectos. Duplo-clique define a largura de linha com maior precisão."
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Estilo de seta no início de novas linhas. Clique para escolher uma seta ou "
+"defina parâmetros de setas com Detalhes..."
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+"Estilo de linha para novas linhas. Clique para escolher um estilo de linha, "
+"ou defina parâmetros de estilo de linha com Detalhes..."
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+"Estilo de seta no final de novas linhas. Clique para escolher uma seta ou "
+"defina parâmetros de setas com Detalhes..."
+
+#: app/interface.c:1152
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -816,7 +859,7 @@ msgid "Layer name:"
 msgstr "Nome da camada:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+#: app/linewidth_area.c:248 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -832,12 +875,12 @@ msgstr "Detalhes..."
 msgid "Line Style Properties"
 msgstr "Propriedades da Linha"
 
-#: app/linewidth_area.c:224 lib/properties.h:473
+#: app/linewidth_area.c:229 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Largura da linha"
 
-#: app/linewidth_area.c:230
+#: app/linewidth_area.c:235
 msgid "Line width:"
 msgstr "Largura da linha:"
 
@@ -4441,7 +4484,7 @@ msgstr "Filtro de exportação Computer Graphics Metafile"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filtros de importação e exportação Drawing Interchange File"
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4797,8 +4840,8 @@ msgstr "Incapaz de carregar biblioteca XSLT (%s) : %s"
 #: plug-ins/xslt/xslt.c:326
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"Nenhum ficheiro de configuração válido encontrado para o plugin XSLT, "
-"a não carregar."
+"Nenhum ficheiro de configuração válido encontrado para o plugin XSLT, a não "
+"carregar."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
