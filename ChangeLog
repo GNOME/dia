@@ -1,5 +1,8 @@
 2003-08-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Updated to use AC_LINK_IFELSE instead of
+	AC_TRY_COMPILE, also force to link to check libs on Solaris.
+
 	* objects/ER/entity.c (entity_load): 
 	* objects/ER/attribute.c (attribute_load): 
 	* lib/attributes.c (attributes_set_default_font): 
