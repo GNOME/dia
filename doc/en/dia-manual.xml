@@ -20,7 +20,6 @@
     <!ENTITY LOADING-SAVING SYSTEM "usage-loadsave.xml">
     <!ENTITY CUSTOMIZATION SYSTEM "usage-customization.xml">
     <!ENTITY LAYERS SYSTEM "usage-layers.xml">
-    <!ENTITY AUTHORS-NOTE SYSTEM "authors-note.xml">
     <!ENTITY AUTHORS SYSTEM "authors.xml">
     <!ENTITY LICENSE SYSTEM "license.xml">
   ]

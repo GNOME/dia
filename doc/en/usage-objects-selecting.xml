@@ -125,10 +125,10 @@
               can form an arbitrary group with the selected items or cut and paste
               them in a new layer which will contain all the objects of your selection.
             </para>
-            <para>
+            <!-- para
               To learn more about managing groups see the Managing Groups section, and
-              to learn more about layers you can also check the Managing Layers section.              <!-- need to set up links here. -->
-            </para>
+              to learn more about layers you can also check the Managing Layers section.              
+            para -->
           </tip>
          </listitem>
       </varlistentry>
@@ -184,9 +184,9 @@
        following established rules and can be accessed in a few clicks.
      </para>
      <note>
-      <para>                                                                                    To learn more about advantages in connecting different objects together, you
+      <!-- para To learn more about advantages in connecting different objects together, you
         should read the Connecting Objects section.
-      </para>
+      para -->
      </note>
      <para>
        Selecting objects connected to a particular object, is as simple than selecting
