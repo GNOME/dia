@@ -656,9 +656,9 @@ ellipse_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
 }
 
 static DiaMenuItem ellipse_menu_items[] = {
-  { N_("Free"), ellipse_set_aspect_callback, (void*)FREE_ASPECT, 
+  { N_("Free aspect"), ellipse_set_aspect_callback, (void*)FREE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-  { N_("Fixed"), ellipse_set_aspect_callback, (void*)FIXED_ASPECT, 
+  { N_("Fixed aspect"), ellipse_set_aspect_callback, (void*)FIXED_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
   { N_("Circle"), ellipse_set_aspect_callback, (void*)CIRCLE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE},

@@ -1,5 +1,7 @@
 2004-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* objects/standard/ellipse.c: Better strings for object menu.
+
 	* app/sheets_dialog_callbacks.c: Fixed crashes from broken caching
 	of dialogs (shame on you, glade!)
 
