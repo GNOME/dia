@@ -3,6 +3,7 @@ app/color_area.c
 app/commands.c
 app/defaults.c
 app/dia_embedd.c
+app/dia-props.c
 app/diagram.c
 app/diapagelayout.c
 app/disp_callbacks.c
@@ -104,3 +105,4 @@ plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/wpg/wpg.c
 plug-ins/svg/render_svg.c
+plug-ins/svg/svg.c

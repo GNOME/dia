@@ -1,3 +1,8 @@
+2000-08-10  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Added app/dia-props.c and plus-ins/svg/svg.c.
+	* no.po: Updated Norwegian translation.
+	
 2000-08-07  Yuri Syrota  <rasta@renome.rovno.ua> 
 
         * uk.po: Updated Ukrainian translation.
