@@ -47,7 +47,9 @@ typedef enum {
   ARROW_SLASH_ARROW,             /* {slash arrow} Vertical + diagonal line*/
   ARROW_INTEGRAL_SYMBOL,         /* {integral symbol} Vertical + integral */
   ARROW_CROW_FOOT,
-  ARROW_CROSS                    /* Vertical line */
+  ARROW_CROSS,                   /* Vertical line */
+  ARROW_FILLED_CONCAVE,
+  ARROW_BLANKED_CONCAVE,
 } ArrowType;
 
 typedef struct {

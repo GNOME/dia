@@ -458,7 +458,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; i <= ARROW_CROSS; i++) {
+  for (i = 0; i <= ARROW_BLANKED_CONCAVE; i++) {
     mi = gtk_menu_item_new();
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ar = dia_arrow_preview_new(i, left);

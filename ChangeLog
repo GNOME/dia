@@ -1,5 +1,10 @@
 2002-07-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/widgets.c: 
+	* lib/arrows.h: 
+	* app/lineprops_area.c (dia_arrow_chooser_new): 
+	* lib/arrows.c: Two new arrows: Concave, filled and blanked.
+
 	* app/create_object.c: 
 	* app/modify_tool.c: 
 	* app/cursor.h: 

@@ -105,9 +105,9 @@ dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
   if (is_other_font) {
     menu_entry_list = g_list_append(menu_entry_list, fontname);
   } else {
-    if (!strcmp(fontname, "sans")) fse->entry_nr = 0;
-    if (!strcmp(fontname, "serif")) fse->entry_nr = 1;
-    if (!strcmp(fontname, "monospace")) fse->entry_nr = 2;
+    if (!strcmp(fontname, "Sans")) fse->entry_nr = 0;
+    if (!strcmp(fontname, "Serif")) fse->entry_nr = 1;
+    if (!strcmp(fontname, "Monospace")) fse->entry_nr = 2;
   }
   return fse;
 }
@@ -120,9 +120,9 @@ dia_font_selector_read_persistence_file() {
 
   font_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
 
-  dia_font_selector_add_font("sans", FALSE);
-  dia_font_selector_add_font("serif", FALSE);
-  dia_font_selector_add_font("monospace", FALSE);
+  dia_font_selector_add_font("Sans", FALSE);
+  dia_font_selector_add_font("Serif", FALSE);
+  dia_font_selector_add_font("Monospace", FALSE);
 
   persistence_name = dia_config_filename("font_menu");
   if (g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
@@ -187,9 +187,9 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
 
   group = NULL;
 
-  menuitem = dia_font_selector_add_menu_item("sans", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("serif", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("monospace", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("Sans", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("Serif", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("Monospace", &group, menu);
 
   menuitem = gtk_separator_menu_item_new();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
@@ -988,6 +988,8 @@ static struct menudesc arrow_types[] =
  {N_("Integral Symbol"),ARROW_INTEGRAL_SYMBOL},
  {N_("Crow Foot"),ARROW_CROW_FOOT},
  {N_("Cross"),ARROW_CROSS},
+ {N_("Filled Concave"),ARROW_FILLED_CONCAVE},
+ {N_("Blanked Concave"),ARROW_BLANKED_CONCAVE},
  {NULL,0}};
 
 

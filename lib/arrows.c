@@ -83,9 +83,9 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
     
     *move_arrow = *to;
     point_sub(move_arrow, from);
-    point_normalize(move_arrow);
-    
+    point_normalize(move_arrow);    
     point_scale(move_arrow, add_len);
+
     *move_line = *move_arrow;
     point_scale(move_line, 2.0);
     return;
@@ -98,8 +98,8 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
     *move_arrow = *to;
     point_sub(move_arrow, from);
     point_normalize(move_arrow);
-    
     point_scale(move_arrow, add_len);
+
     *move_line = *move_arrow;
     point_normalize(move_line);
     point_scale(move_line, arrow->length);
@@ -124,6 +124,22 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
     point_normalize(move_line);
     point_scale(move_line, .5*arrow->length);
     return;
+  case ARROW_FILLED_CONCAVE:
+  case ARROW_BLANKED_CONCAVE:
+    if (arrow->width < 0.0000001) return;
+    angle = atan(arrow->length/(arrow->width/2));
+    add_len = .5*linewidth/cos(angle);
+    
+    *move_arrow = *to;
+    point_sub(move_arrow, from);
+    point_normalize(move_arrow);
+    point_scale(move_arrow, add_len);
+
+    *move_line = *move_arrow;
+    point_normalize(move_line);
+    point_scale(move_line, .5*arrow->length);
+    point_add(move_line, move_arrow);
+    return;
   case ARROW_FILLED_TRIANGLE:
   case ARROW_FILLED_ELLIPSE:
   case ARROW_HOLLOW_ELLIPSE:
@@ -140,8 +156,8 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
     *move_arrow = *to;
     point_sub(move_arrow, from);
     point_normalize(move_arrow);
-    
     point_scale(move_arrow, add_len);
+
     *move_line = *move_arrow;
     point_normalize(move_line);
     tmp = *move_line;
@@ -757,6 +773,63 @@ fill_double_triangle(Renderer *renderer, Point *to, Point *from,
   fill_triangle(renderer, &second_to, &second_from, length, width, color);
 }
 
+static void
+calculate_concave(Point *poly/*[4]*/, Point *to, Point *from,
+		  real length, real width)
+{
+  Point delta;
+  Point orth_delta;
+  real len;
+  
+  delta = *to;
+  point_sub(&delta, from);
+  len = sqrt(point_dot(&delta, &delta));
+  if (len <= 0.0001) {
+    delta.x=1.0;
+    delta.y=0.0;
+  } else {
+    delta.x/=len;
+    delta.y/=len;
+  }
+
+  orth_delta.x = delta.y;
+  orth_delta.y = -delta.x;
+
+  point_scale(&delta, length/2.0);
+  point_scale(&orth_delta, width/2.0);
+  
+  poly[0] = *to;
+  poly[1] = *to;
+  point_sub(&poly[1], &delta);
+  point_sub(&poly[1], &delta);
+  point_sub(&poly[1], &orth_delta);
+  poly[2] = *to;
+  point_sub(&poly[2], &delta);
+  poly[3] = *to;
+  point_sub(&poly[3], &delta);
+  point_add(&poly[3], &orth_delta);
+  point_sub(&poly[3], &delta);
+}
+
+
+static void
+draw_concave_triangle(Renderer *renderer, Point *to, Point *from,
+		      real length, real width, real linewidth,
+		      Color *fg_color, Color *bg_color)
+{
+  Point poly[4];
+
+  calculate_concave(poly, to, from, length, width);
+  
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  if (fg_color == bg_color)
+    renderer->ops->fill_polygon(renderer, poly, 4, bg_color);
+  renderer->ops->draw_polygon(renderer, poly, 4, fg_color);
+}
+
 void
 arrow_draw(Renderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -833,57 +906,12 @@ arrow_draw(Renderer *renderer, ArrowType type,
     break;
   case ARROW_CROSS:
     draw_cross(renderer, to, from, length, width, linewidth, fg_color);
-  break;
-
+    break;
+  case ARROW_FILLED_CONCAVE:
+    draw_concave_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
+    break;
+  case ARROW_BLANKED_CONCAVE:
+    draw_concave_triangle(renderer, to, from, length, width, linewidth, fg_color, bg_color);
+    break;
   } 
 }
-
-/* ********************************************************************** 
- * Transformation functions to move points to account for arrows.
- * ********************************************************************** */
-
-/* Transforms 'start' to be at the back end of the arrow, and puts the
- * tip of the arrow into 'arrowtip'.
- */
-void
-arrow_transform_points(Arrow *arrow, Point *start, Point *to,
-		       int linewidth, Point *arrowtip) {
-  switch (arrow->type) {
-  case ARROW_NONE:
-  case ARROW_CROSS:
-  case ARROW_CROW_FOOT:
-    break;
-  case ARROW_LINES:
-    /* This is non-trivial */
-    break;
-  case ARROW_HALF_HEAD:
-    /* This one is tricky? */
-    break;
-  case ARROW_HOLLOW_TRIANGLE:
-  case ARROW_UNFILLED_TRIANGLE:
-  case ARROW_FILLED_TRIANGLE:
-    break;
-  case ARROW_HOLLOW_DIAMOND:
-  case ARROW_FILLED_DIAMOND:
-    /* This is non-trivial */
-    break;
-  case ARROW_FILLED_DOT:
-  case ARROW_BLANKED_DOT:
-  case ARROW_FILLED_ELLIPSE:
-  case ARROW_HOLLOW_ELLIPSE:
-    break;
-  case ARROW_DOUBLE_HOLLOW_TRIANGLE:
-  case ARROW_DOUBLE_FILLED_TRIANGLE:
-    break;
-  case ARROW_SLASHED_CROSS:
-  case ARROW_INTEGRAL_SYMBOL:
-  case ARROW_SLASH_ARROW:
-    break;
-  case ARROW_DIMENSION_ORIGIN: /* Circle, vertline, unfilled */
-    break;
-  case ARROW_FILLED_BOX:
-  case ARROW_BLANKED_BOX:
-    break;
-  }
-}
-		       
