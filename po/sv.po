@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-07-07 14:22+0200\n"
-"PO-Revision-Date: 2001-07-07 14:32+0200\n"
+"POT-Creation-Date: 2001-08-02 00:25+0200\n"
+"PO-Revision-Date: 2001-08-02 00:30+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -103,66 +103,53 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Välj färg"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Kan inte hitta filen\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "Importera från XFig"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Namnlös-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Det finns inget existerande objekt att klistra in.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Kunde inte hitta hjälpkatalogen"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "Underhållare: James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Bidragsgivare:"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -178,12 +165,12 @@ msgid "Object defaults"
 msgstr "Standardvärden för objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Stäng"
@@ -321,13 +308,13 @@ msgstr ""
 "Detta diagram har inte sparats.\n"
 "Vill du spara ändringar nu?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:351
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:411
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:353 lib/properties.c:370
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:413 lib/properties.c:486
 msgid "No"
 msgstr "Nej"
 
@@ -431,7 +418,7 @@ msgstr "Rulla"
 msgid "Create Text"
 msgstr "Skapa text"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1794
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1946
 msgid "Text"
 msgstr "Text"
 
@@ -776,7 +763,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
@@ -792,18 +779,18 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1931 lib/properties.h:419
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1932 lib/properties.h:420
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1933 lib/properties.h:421
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Höger"
 
@@ -1364,31 +1351,35 @@ msgstr "Läs in"
 msgid "Unload"
 msgstr "Ladda ur"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+msgid "Diagram Defaults"
+msgstr "Standardalternativ för diagram"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1396,68 +1387,76 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+msgid "New diagram:"
+msgstr "Nytt diagram:"
+
+#: app/preferences.c:139
+msgid "Paper type:"
+msgstr "Papperstyp:"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Rutnät:"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -1542,7 +1541,7 @@ msgstr "Kunde inte öppna \"%s\""
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1551,28 +1550,37 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
+
+#: lib/font.c:526
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/properties.c:437 lib/properties.c:466
+#: lib/properties.c:559 lib/properties.c:597
 msgid "No edit widget"
 msgstr "Ingen redigeringskomponent"
 
-#: lib/properties.c:1788
+#: lib/properties.c:1940
 msgid "Line colour"
 msgstr "Linjefärg"
 
-#: lib/properties.c:1789
+#: lib/properties.c:1941
 msgid "Line style"
 msgstr "Linjetyp"
 
-#: lib/properties.c:1790
+#: lib/properties.c:1942
 msgid "Fill colour"
 msgstr "Fyllningsfärg"
 
-#: lib/properties.c:1791 objects/custom/custom_object.c:364
+#: lib/properties.c:1943 objects/custom/custom_object.c:364
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1580,157 +1588,157 @@ msgstr "Fyllningsfärg"
 msgid "Draw background"
 msgstr "Rita bakgrund"
 
-#: lib/properties.c:1792
+#: lib/properties.c:1944
 msgid "Start arrow"
 msgstr "Startpil"
 
-#: lib/properties.c:1793
+#: lib/properties.c:1945
 msgid "End arrow"
 msgstr "Slutpil"
 
-#: lib/properties.c:1795
+#: lib/properties.c:1947
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: lib/properties.c:1796 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1948 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:1797 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1949 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: lib/properties.c:1798 objects/GRAFCET/step.c:167
+#: lib/properties.c:1950 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/message.c:140
+#: lib/message.c:149
 msgid "Notice"
 msgstr "Observera"
 
-#: lib/message.c:151
+#: lib/message.c:160
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/message.c:163
+#: lib/message.c:172
 msgid "Error"
 msgstr "Fel"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -3510,11 +3518,11 @@ msgstr "Exportfilter till TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks-makron"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "Kan inte exportera png utan libart!"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "dia-formfil"
 
@@ -3704,6 +3712,16 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFig-filformat"
+
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Kan inte hitta filen\n"
+#~ "%s\n"
+
+#~ msgid "Import from XFig"
+#~ msgstr "Importera från XFig"
 
 #~ msgid "Text color:"
 #~ msgstr "Typsnittsfärg:"
