@@ -411,9 +411,11 @@ dia_page_layout_set_orientation(DiaPageLayout *self,
   case DIA_PAGE_ORIENT_PORTRAIT:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_portrait),
 				 TRUE);
+    break;
   case DIA_PAGE_ORIENT_LANDSCAPE:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_landscape),
 				 TRUE);
+    break;
   }
 }
 
