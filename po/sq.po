@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-29 11:03+0200\n"
+"POT-Creation-Date: 2004-08-18 03:03+0200\n"
 "PO-Revision-Date: 2004-01-12 15:23+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -600,7 +600,7 @@ msgstr ""
 msgid "Portable Network Graphics"
 msgstr ""
 
-#: app/filedlg.c:122 app/filedlg.c:403
+#: app/filedlg.c:122 app/filedlg.c:404
 msgid "By extension"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgstr ""
 msgid "Open Options"
 msgstr ""
 
-#: app/filedlg.c:223 app/filedlg.c:525
+#: app/filedlg.c:223 app/filedlg.c:526
 msgid "Determine file type:"
 msgstr ""
 
@@ -622,14 +622,14 @@ msgid ""
 "Some things will break."
 msgstr ""
 
-#: app/filedlg.c:265 app/filedlg.c:447
+#: app/filedlg.c:265 app/filedlg.c:448
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
 
-#: app/filedlg.c:273 app/filedlg.c:454
+#: app/filedlg.c:273 app/filedlg.c:455
 msgid "File already exists"
 msgstr ""
 
@@ -649,18 +649,18 @@ msgid ""
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: app/filedlg.c:473
+#: app/filedlg.c:474
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 
-#: app/filedlg.c:492
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr ""
 
-#: app/filedlg.c:517
+#: app/filedlg.c:518
 msgid "Export Options"
 msgstr "Opcionet e eksportimit"
 
@@ -720,9 +720,10 @@ msgstr "Linja"
 msgid "Arc"
 msgstr "Arc"
 
+#. GRUT modified this item
 #: app/interface.c:103 app/interface.c:104
 msgid "Zigzagline"
-msgstr ""
+msgstr "Zigzag"
 
 #: app/interface.c:108 app/interface.c:109
 msgid "Polyline"
@@ -910,7 +911,7 @@ msgid "Failed to save file '%s'.\n"
 msgstr ""
 
 #: app/load_save.c:1008 app/load_save.c:1013
-msgid "Native Dia Diagram"
+msgid "Dia Diagram File"
 msgstr ""
 
 #: app/menus.c:49 app/menus.c:84
@@ -2463,11 +2464,12 @@ msgstr "Lejo"
 msgid "Form Entrance"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:683 objects/FS/function.c:917
 msgid "Capture"
-msgstr ""
+msgstr "Marrje"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: objects/FS/function.c:689
@@ -3167,10 +3169,11 @@ msgstr ""
 msgid "Check"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: objects/FS/function.c:1041
 msgid "Verify"
-msgstr ""
+msgstr "Verifikimi"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
@@ -3728,7 +3731,7 @@ msgstr "Agregim"
 msgid "Composition"
 msgstr ""
 
-#: objects/UML/class.c:110 objects/UML/class.c:245 objects/UML/class.c:1157
+#: objects/UML/class.c:110 objects/UML/class.c:247 objects/UML/class.c:1163
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klasa"
@@ -3802,7 +3805,6 @@ msgstr "Abstract"
 msgid " "
 msgstr " "
 
-#. GRUT modified this item
 #: objects/UML/class.c:172 objects/UML/object.c:151
 msgid "Attributes"
 msgstr "Vlerat"
@@ -3811,9 +3813,10 @@ msgstr "Vlerat"
 msgid "Operations"
 msgstr ""
 
-#: objects/UML/class.c:251
-msgid "Show comments"
-msgstr ""
+#: objects/UML/class.c:241
+#, fuzzy
+msgid "Show Comments"
+msgstr "Komenti"
 
 #. Class page:
 #: objects/UML/class_dialog.c:265
@@ -4160,9 +4163,10 @@ msgstr "Të dhëna"
 msgid "Data name"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/chronogram/chronoline.c:152
 msgid "Events"
-msgstr "Ngjarje"
+msgstr "Ndodhitë"
 
 #: objects/chronogram/chronoline.c:155
 msgid "Event specification"
@@ -4643,9 +4647,10 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 
+#. GRUT modified this item
 #: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "Metafile Computer Graphics"
 
 #: plug-ins/cgm/cgm.c:1379
 msgid "Computer Graphics Metafile export filter"
@@ -4739,16 +4744,17 @@ msgid "Can't export png without libart!"
 msgstr ""
 
 #: plug-ins/shape/shape-export.c:497
-msgid "dia shape file"
+msgid "Dia Shape File"
 msgstr ""
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
 msgstr ""
 
+#. GRUT modified this item
 #: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:641
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Grafikë vektorialë të shkallëzueshëm"
 
 #: plug-ins/svg/svg-import.c:203 plug-ins/svg/svg-import.c:217
 #: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
@@ -5891,9 +5897,10 @@ msgstr "Dokument"
 msgid "Flowchart"
 msgstr "Diagrama e fluksit"
 
+#. GRUT modified this item
 #: sheets/Flowchart.sheet.in.h:10
 msgid "Input/Output"
-msgstr ""
+msgstr "Input/Output"
 
 #: sheets/Flowchart.sheet.in.h:11
 msgid "Internal storage"
@@ -6583,9 +6590,10 @@ msgstr ""
 msgid "State"
 msgstr "Gjendja"
 
+#. GRUT modified this item
 #: sheets/UML.sheet.in.h:1
 msgid "Activity"
-msgstr ""
+msgstr "Aktiviteti"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
@@ -7291,9 +7299,10 @@ msgstr ""
 msgid "FDDI ring"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/cisconetwork.sheet.in.h:33
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
 #: sheets/cisconetwork.sheet.in.h:34
 msgid "Front end processor"
@@ -7899,9 +7908,10 @@ msgstr ""
 msgid "Stackable hub or switch"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/network.sheet.in.h:31
 msgid "Storage"
-msgstr ""
+msgstr "Magazinim"
 
 #: sheets/network.sheet.in.h:32
 msgid "Switch symbol"
