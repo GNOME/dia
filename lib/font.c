@@ -673,10 +673,13 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
     }
 
     /* Need to deal with spaces in names here */
+    font->fontname_ps = g_strdup(FT_Get_Postscript_Name(face));
+    /*
     if (!strcmp(font->public.style, "Regular"))
       font->fontname_ps = g_strdup(font->public.name);
     else
       font->fontname_ps = g_strdup_printf("%s-%s", font->public.name, font->public.style);
+    */
     diafonts->diafonts = g_list_append(diafonts->diafonts, font);
   }
 

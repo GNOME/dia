@@ -172,44 +172,46 @@ static RenderOps EpsRenderOps = {
 #endif /* HAVE_UNICODE */
 };
 
+static void null_func() {}
+
 static  RenderOps EpsPrologOps = {
   (BeginRenderFunc) begin_prolog,
   (EndRenderFunc) end_prolog,
 
-  (SetLineWidthFunc) NULL,
-  (SetLineCapsFunc) NULL,
-  (SetLineJoinFunc) NULL,
-  (SetLineStyleFunc) NULL,
-  (SetDashLengthFunc) NULL,
-  (SetFillStyleFunc) NULL,
+  (SetLineWidthFunc) null_func,
+  (SetLineCapsFunc) null_func,
+  (SetLineJoinFunc) null_func,
+  (SetLineStyleFunc) null_func,
+  (SetDashLengthFunc) null_func,
+  (SetFillStyleFunc) null_func,
   (SetFontFunc) prolog_define_font,
   
-  (DrawLineFunc) NULL,
-  (DrawPolyLineFunc) NULL,
+  (DrawLineFunc) null_func,
+  (DrawPolyLineFunc) null_func,
   
-  (DrawPolygonFunc) NULL,
-  (FillPolygonFunc) NULL,
+  (DrawPolygonFunc) null_func,
+  (FillPolygonFunc) null_func,
 
-  (DrawRectangleFunc) NULL,
-  (FillRectangleFunc) NULL,
+  (DrawRectangleFunc) null_func,
+  (FillRectangleFunc) null_func,
 
-  (DrawArcFunc) NULL,
-  (FillArcFunc) NULL,
+  (DrawArcFunc) null_func,
+  (FillArcFunc) null_func,
 
-  (DrawEllipseFunc) NULL,
-  (FillEllipseFunc) NULL,
+  (DrawEllipseFunc) null_func,
+  (FillEllipseFunc) null_func,
 
-  (DrawBezierFunc) NULL,
-  (FillBezierFunc) NULL,
+  (DrawBezierFunc) null_func,
+  (FillBezierFunc) null_func,
 
   (DrawStringFunc) prolog_check_string,
 
-  (DrawImageFunc) NULL,
+  (DrawImageFunc) null_func,
   
 #ifdef HAVE_UNICODE
-  (PreDrawStringFunc) NULL,
+  (PreDrawStringFunc) null_func,
 #else
-  (PreDrawStringFunc) NULL,
+  (PreDrawStringFunc) null_func,
 #endif /* HAVE_UNICODE */
 };
 
