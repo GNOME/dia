@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-14 00:04+0200\n"
+"POT-Creation-Date: 2002-05-24 07:14+0200\n"
 "PO-Revision-Date: 2001-09-05 19:31+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional chinese <zh-l10n@linux.org.hk>\n"
@@ -14,63 +14,63 @@ msgstr ""
 "Content-Type: text/plain; charset=Big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: app/app_procs.c:168
+#: app/app_procs.c:171
 #, fuzzy, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "需要合法的輸入檔\n"
 
-#: app/app_procs.c:175
+#: app/app_procs.c:178
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: app/app_procs.c:181
+#: app/app_procs.c:184
 #, c-format
 msgid "%s --> %s\n"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:219
+#: app/app_procs.c:238
 msgid "Export loaded file and exit"
 msgstr "匯出所載入的檔案並離開"
 
-#: app/app_procs.c:219 app/diaconv.c:97
+#: app/app_procs.c:238 app/diaconv.c:97
 msgid "OUTPUT"
 msgstr "輸出"
 
 #. &export_file_format
-#: app/app_procs.c:221
+#: app/app_procs.c:240
 #, fuzzy
 msgid "Export to file format and exit"
 msgstr "匯出所載入的檔案並離開"
 
-#: app/app_procs.c:221 app/diaconv.c:95
+#: app/app_procs.c:240 app/diaconv.c:95
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr ""
 
-#: app/app_procs.c:223
+#: app/app_procs.c:242
 msgid "Don't show the splash screen"
 msgstr "不顯示啟動畫面"
 
-#: app/app_procs.c:225 app/diaconv.c:98
+#: app/app_procs.c:244 app/diaconv.c:98
 msgid "Show this help message"
 msgstr "顯示此說明訊息"
 
-#: app/app_procs.c:258
+#: app/app_procs.c:277
 msgid "Can't connect to session manager!\n"
 msgstr "無法連接作業階段管理程式！\n"
 
-#: app/app_procs.c:269 app/diaconv.c:126
+#: app/app_procs.c:288 app/diaconv.c:126
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:273 app/diaconv.c:133
+#: app/app_procs.c:292 app/diaconv.c:133
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -79,21 +79,21 @@ msgstr ""
 "選項 %s 發生錯誤：%s。\n"
 "執行 '%s --help' 以列出完整的選項。\n"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:305
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr ""
 
-#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
+#: app/app_procs.c:353 app/app_procs.c:355 app/diaconv.c:206 app/diaconv.c:208
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "找尋物件函式時找不到標準物件，離開程式...\n"
 
-#: app/app_procs.c:455 app/app_procs.c:461
+#: app/app_procs.c:478 app/app_procs.c:484
 msgid "Quit, are you sure?"
 msgstr "是否確定離開？"
 
-#: app/app_procs.c:468
+#: app/app_procs.c:491
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -101,28 +101,29 @@ msgstr ""
 "圖表已被修改。\n"
 "是否確定離開？"
 
-#: app/app_procs.c:478 app/app_procs.c:483
+#: app/app_procs.c:501 app/app_procs.c:506
 msgid "Quit"
 msgstr "離開"
 
-#: app/app_procs.c:495 app/display.c:966 app/layer_dialog.c:1015
+#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
+#: app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:570 app/app_procs.c:577
+#: app/app_procs.c:593 app/app_procs.c:600
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立 Dia 使用者組態目錄"
 
-#: app/app_procs.c:579
+#: app/app_procs.c:602
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 "無法建立 Dia 使用者組態目錄。請確定 HOME 環境變數指向一個已存在的目錄。"
 
-#: app/app_procs.c:601 app/diaconv.c:256
+#: app/app_procs.c:624 app/diaconv.c:256
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部物件與過濾器"
 
@@ -135,44 +136,45 @@ msgstr "選擇顏色"
 msgid "Untitled-%d"
 msgstr "未命名-%d"
 
-#: app/commands.c:201
+#: app/commands.c:203
 msgid "No existing object to paste.\n"
 msgstr "沒有已存在的物件可供貼上。\n"
 
-#: app/commands.c:472 app/commands.c:480 app/commands.c:502
+#: app/commands.c:474 app/commands.c:482 app/commands.c:504
 msgid "Could not find help directory"
 msgstr "找不到輔助說明目錄"
 
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "About Dia"
 msgstr "關於 Dia"
 
-#: app/commands.c:593
+#: app/commands.c:595
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia 版本 %s 由 Alexander Larsson 編寫"
 
-#: app/commands.c:598
+#: app/commands.c:600
 msgid "Maintainer: James Henstridge"
 msgstr "維護者：James Henstridge"
 
-#: app/commands.c:602
+#: app/commands.c:604
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "請到 http://www.lysator.liu.se/~alla/dia 取得更多資料"
 
-#: app/commands.c:607
+#: app/commands.c:609
 msgid "Contributors:"
 msgstr "貢獻者："
 
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:949 lib/message.c:87
 msgid "OK"
 msgstr "確定"
 
-#: app/commands.c:710
+#: app/commands.c:712
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -187,13 +189,13 @@ msgid "Object defaults"
 msgstr "物件預設值"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:726 app/properties.c:101
+#: app/preferences.c:726 app/properties.c:101 app/sheets_dialog.c:306
 msgid "Apply"
 msgstr "套用"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
 #: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
-#: app/properties.c:111
+#: app/properties.c:111 app/sheets_dialog.c:326
 msgid "Close"
 msgstr "關閉"
 
@@ -486,7 +488,7 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-#: app/export_png.c:115 app/load_save.c:616 app/render_eps.c:747
+#: app/export_png.c:115 app/load_save.c:639 app/render_eps.c:747
 #: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
@@ -789,11 +791,7 @@ msgstr "線段寬度"
 msgid "Line width:"
 msgstr "線段寬度："
 
-#: app/load_save.c:127
-msgid "Error reading diagram file\n"
-msgstr "讀取圖表檔案發生錯誤\n"
-
-#: app/load_save.c:195
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -801,7 +799,7 @@ msgstr ""
 "圖表載入發生錯誤。\n"
 "文件內找不到連結物件。"
 
-#: app/load_save.c:198
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -809,7 +807,7 @@ msgstr ""
 "圖表載入發生錯誤。\n"
 "連接點不存在。"
 
-#: app/load_save.c:201
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -817,17 +815,17 @@ msgstr ""
 "圖表載入發生錯誤。\n"
 "連接控制不存在。"
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1168
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "無法讀入：'%s'。\n"
 
-#: app/load_save.c:251
+#: app/load_save.c:261
 msgid "You must specify a file, not a directory.\n"
 msgstr "你必須指定檔案而不是目錄。\n"
 
-#: app/load_save.c:260 app/load_save.c:265
+#: app/load_save.c:270 app/load_save.c:275
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -836,7 +834,7 @@ msgstr ""
 "載入圖表 %s 時發生錯誤。\n"
 "檔案類別不明。"
 
-#: app/load_save.c:272
+#: app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -845,12 +843,22 @@ msgstr ""
 "載入圖表 %s 時發生錯誤。\n"
 "不是 Dia 檔案。"
 
-#: app/load_save.c:744
+#: app/load_save.c:476
+#, fuzzy, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"載入圖表 %s 時發生錯誤。\n"
+"不是 Dia 檔案。"
+
+#: app/load_save.c:767
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "儲存檔案 '%s' 失敗。\n"
 
-#: app/load_save.c:764 app/load_save.c:769
+#: app/load_save.c:787 app/load_save.c:792
 #, fuzzy
 msgid "Native Dia Diagram"
 msgstr "原生 Dia 圖表"
@@ -982,7 +990,8 @@ msgid "Intersect"
 msgstr "相交"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:158 objects/FS/function.c:668 objects/FS/function.c:820
+#: app/menus.c:158 app/sheets_dialog.c:288 app/sheets_dialog.c:852
+#: objects/FS/function.c:668 objects/FS/function.c:820
 #: objects/FS/function.c:822
 msgid "Remove"
 msgstr "移除"
@@ -1557,12 +1566,12 @@ msgstr "否"
 msgid "Plug-ins"
 msgstr "Plug-in"
 
-#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
-#: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
-#: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: app/plugin-manager.c:195 app/sheets_dialog.c:733 objects/ER/attribute.c:149
+#: objects/ER/entity.c:127 objects/ER/relationship.c:136
+#: objects/UML/association.c:1018 objects/UML/class_dialog.c:884
+#: objects/UML/class_dialog.c:1899 objects/UML/class_dialog.c:2118
+#: objects/UML/class_dialog.c:2677 objects/UML/dependency.c:125
+#: objects/UML/generalization.c:121 objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "名稱："
 
@@ -1570,7 +1579,7 @@ msgstr "名稱："
 msgid "File name:"
 msgstr "檔案名稱："
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:219 app/sheets_dialog.c:660 app/sheets_dialog.c:753
 msgid "Description:"
 msgstr "描述："
 
@@ -1782,6 +1791,228 @@ msgstr "載入中 ..."
 msgid "Dia v %s"
 msgstr "Dia 版本 %s"
 
+#: app/sheets_dialog.c:85
+#, fuzzy
+msgid "Sheets and Objects"
+msgstr "標準物件"
+
+#: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
+msgid "<- Copy"
+msgstr ""
+
+#: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
+msgid "<- Copy All"
+msgstr ""
+
+#: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
+#, fuzzy
+msgid "<- Move"
+msgstr "移動"
+
+#: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
+msgid "<- Move All"
+msgstr ""
+
+#: app/sheets_dialog.c:205 app/sheets_dialog.c:409
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "新增"
+
+#: app/sheets_dialog.c:207
+#, fuzzy
+msgid "_New"
+msgstr "新增"
+
+#: app/sheets_dialog.c:227
+msgid "Up"
+msgstr ""
+
+#: app/sheets_dialog.c:229
+msgid "_Up"
+msgstr ""
+
+#: app/sheets_dialog.c:249
+#, fuzzy
+msgid "Down"
+msgstr "下移"
+
+#: app/sheets_dialog.c:251
+msgid "_Down"
+msgstr ""
+
+#: app/sheets_dialog.c:269
+#, fuzzy
+msgid "Edit"
+msgstr "/編輯(_E)"
+
+#: app/sheets_dialog.c:271
+#, fuzzy
+msgid "_Edit"
+msgstr "/編輯(_E)"
+
+#: app/sheets_dialog.c:290
+#, fuzzy
+msgid "_Remove"
+msgstr "移除"
+
+#: app/sheets_dialog.c:315
+#, fuzzy
+msgid "Revert"
+msgstr "反向"
+
+#: app/sheets_dialog.c:416 app/sheets_dialog.c:860
+#, fuzzy
+msgid "Type"
+msgstr "類別："
+
+#: app/sheets_dialog.c:431
+#, fuzzy
+msgid "Browse..."
+msgstr "瀏覽"
+
+#: app/sheets_dialog.c:440
+#, fuzzy
+msgid "SVG Shape:"
+msgstr "形狀"
+
+#: app/sheets_dialog.c:467 app/sheets_dialog.c:530
+#, fuzzy
+msgid "description:"
+msgstr "描述："
+
+#: app/sheets_dialog.c:479
+#, fuzzy
+msgid "Sheet name:"
+msgstr "步驟名稱"
+
+#: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
+#: app/sheets_dialog_callbacks.c:1083
+#, fuzzy
+msgid "Line Break"
+msgstr "線段顏色"
+
+#: app/sheets_dialog.c:630
+#, fuzzy
+msgid "Edit Attributes"
+msgstr "編輯圖層屬性"
+
+#: app/sheets_dialog.c:644
+#, fuzzy
+msgid "Object"
+msgstr "物件(_O)"
+
+#: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
+#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
+#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
+msgid "Type:"
+msgstr "類別："
+
+#: app/sheets_dialog.c:717
+#, fuzzy
+msgid "Sheet"
+msgstr "選擇(_S)"
+
+#: app/sheets_dialog.c:875
+#, fuzzy
+msgid "Object:"
+msgstr "物件(_O)"
+
+#: app/sheets_dialog.c:902
+#, fuzzy
+msgid "Sheet:"
+msgstr "選擇(_S)"
+
+#: app/sheets_dialog.c:994
+#, fuzzy
+msgid "Select SVG Shape File"
+msgstr "選擇圖像檔"
+
+#: app/sheets_dialog_callbacks.c:172
+#, fuzzy
+msgid "Copy ->"
+msgstr "複製文字"
+
+#: app/sheets_dialog_callbacks.c:174
+msgid "Copy All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:176
+#, fuzzy
+msgid "Move ->"
+msgstr "移動"
+
+#: app/sheets_dialog_callbacks.c:178
+msgid "Move All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:800
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:808
+#, fuzzy, c-format
+msgid "Error examining %s: %s"
+msgstr "讀取量度單位時發生錯誤：%s\n"
+
+#: app/sheets_dialog_callbacks.c:830
+#, fuzzy, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "無法推演出 `%s' 的正確路徑"
+
+#: app/sheets_dialog_callbacks.c:896
+msgid "Sheet must have a Name"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
+#, fuzzy, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "無法開啟 `%s'"
+
+#: app/sheets_dialog_callbacks.c:1641
+#, fuzzy, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "無法寫入 '%s'。\n"
+
+#: app/sheets_dialog_callbacks.c:1650
+msgid "a user"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1663
+#, fuzzy, c-format
+msgid "File: %s"
+msgstr "檔案"
+
+#: app/sheets_dialog_callbacks.c:1666
+#, fuzzy, c-format
+msgid "Date: %s"
+msgstr "Dia 版本 %s"
+
+#: app/sheets_dialog_callbacks.c:1670
+#, c-format
+msgid "For: %s"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1687
+#, fuzzy
+msgid "add shapes here"
+msgstr "dia 形狀檔案"
+
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
 msgstr "圖表編輯器"
@@ -1792,9 +2023,9 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
-#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:394
+#: objects/ER/attribute.c:568 objects/ER/entity.c:346 objects/ER/entity.c:497
+#: objects/ER/relationship.c:424 objects/ER/relationship.c:613
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
@@ -1854,29 +2085,29 @@ msgstr ""
 "警告：找不到給 %s 用的 X 字型，\n"
 "改用 %s。\n"
 
-#: lib/font.c:642
+#: lib/font.c:649
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "警告：選擇了 FreeType，但無法載入函式庫：%d\n"
 
-#: lib/font.c:651
+#: lib/font.c:658
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "警告：沒有 X 可用的字型。這次完了。"
 
-#: lib/font.c:660
+#: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 
-#: lib/font.c:952
+#: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "錯誤，找不到任何字型。這是不應該發生的事。\n"
 
-#: lib/font.c:954 lib/font.c:988
+#: lib/font.c:961 lib/font.c:995
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "沒有找到字型 %s，改用 Courier。\n"
 
-#: lib/font.c:964
+#: lib/font.c:971
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "字型 %s 沒有 %s 款式，會使用 %s\n"
@@ -2104,36 +2335,36 @@ msgstr "選擇圖像檔"
 msgid "Browse"
 msgstr "瀏覽"
 
-#: objects/ER/attribute.c:150
+#: objects/ER/attribute.c:151
 #, fuzzy
 msgid "Key:"
 msgstr "鎖鑰"
 
-#: objects/ER/attribute.c:152
+#: objects/ER/attribute.c:153
 #, fuzzy
 msgid "Weak key:"
 msgstr "弱鎖鑰"
 
-#: objects/ER/attribute.c:154
+#: objects/ER/attribute.c:155
 msgid "Derived:"
 msgstr "衍生："
 
-#: objects/ER/attribute.c:156
+#: objects/ER/attribute.c:157
 #, fuzzy
 msgid "Multivalue:"
 msgstr "多重數值"
 
-#: objects/ER/attribute.c:393 objects/ER/attribute.c:395
+#: objects/ER/attribute.c:397 objects/ER/attribute.c:399
 #: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "屬性"
 
-#: objects/ER/entity.c:128
+#: objects/ER/entity.c:129
 #, fuzzy
 msgid "Weak:"
 msgstr "微弱"
 
-#: objects/ER/entity.c:345 objects/ER/entity.c:347 objects/UML/classicon.c:124
+#: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "本體"
@@ -2164,25 +2395,25 @@ msgstr "增加區段"
 msgid "Delete segment"
 msgstr "刪除區段"
 
-#: objects/ER/relationship.c:137
+#: objects/ER/relationship.c:138
 #, fuzzy
 msgid "Left Cardinality:"
 msgstr "左移:"
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:140
 #, fuzzy
 msgid "Right Cardinality:"
 msgstr "右移:"
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:142
 msgid "Rotate:"
 msgstr "旋轉："
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:144
 msgid "Identifying:"
 msgstr "識別"
 
-#: objects/ER/relationship.c:423 objects/ER/relationship.c:425
+#: objects/ER/relationship.c:427 objects/ER/relationship.c:429
 #: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "關係"
@@ -2211,12 +2442,6 @@ msgstr "材料"
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "信號"
-
-#: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
-#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
-msgid "Type:"
-msgstr "類別："
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
@@ -3622,11 +3847,6 @@ msgstr "背景顏色"
 msgid "Attributes"
 msgstr "屬性"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
-#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "新增"
-
 #: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
 #: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
 msgid "Delete"
@@ -4181,11 +4401,11 @@ msgstr "TeX PSTricks 巨集"
 msgid "Python scripting support"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:945
+#: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr "無法匯出而 png 而沒有 libart！"
 
-#: plug-ins/shape/shape-export.c:972
+#: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr "dia 形狀檔案"
 
@@ -5591,6 +5811,9 @@ msgstr ""
 msgid "Sybase"
 msgstr "Sybase"
 
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "讀取圖表檔案發生錯誤\n"
+
 #, fuzzy
 #~ msgid "Event Modelling Language diagram"
 #~ msgstr "「統一模型語言」圖表物件"
@@ -5630,10 +5853,6 @@ msgstr "Sybase"
 #, fuzzy
 #~ msgid "bidirectional"
 #~ msgstr "方向："
-
-#, fuzzy
-#~ msgid "Move Down"
-#~ msgstr "下移"
 
 #, fuzzy
 #~ msgid "relation"

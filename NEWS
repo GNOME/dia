@@ -1,3 +1,9 @@
+dia-0.90.RC2:  24-May-2002
+
+* increased tolerance to broken XML files
+* ER objects can have their text size changed
+* a couple bugs (i18n, l10n, p9y) fixed
+
 dia-0.90.RC1:  13-May-2002
 
 * from now on, all XML files produced by dia will be encoded as UTF-8.

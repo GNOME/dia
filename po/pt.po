@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2002-05-14 00:04+0200\n"
+"POT-Creation-Date: 2002-05-24 07:14+0200\n"
 "PO-Revision-Date: 2002-05-10 02:28+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -14,62 +14,62 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "erro %s: nomes de ficheiros de entrada e saida são idênticos: %s"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:171
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário ficheiro de entrada válido %s\n"
 
-#: app/app_procs.c:175
+#: app/app_procs.c:178
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "erro %s: incapaz de exportar para %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:181
+#: app/app_procs.c:184
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:219
+#: app/app_procs.c:238
 msgid "Export loaded file and exit"
 msgstr "Exportar ficheiro carregado e sair"
 
-#: app/app_procs.c:219 app/diaconv.c:97
+#: app/app_procs.c:238 app/diaconv.c:97
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
-#: app/app_procs.c:221
+#: app/app_procs.c:240
 msgid "Export to file format and exit"
 msgstr "Exportar para formato de ficheiro e sair"
 
-#: app/app_procs.c:221 app/diaconv.c:95
+#: app/app_procs.c:240 app/diaconv.c:95
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:223
+#: app/app_procs.c:242
 msgid "Don't show the splash screen"
 msgstr "Não mostrar ecrã de logotipo"
 
-#: app/app_procs.c:225 app/diaconv.c:98
+#: app/app_procs.c:244 app/diaconv.c:98
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: app/app_procs.c:258
+#: app/app_procs.c:277
 msgid "Can't connect to session manager!\n"
 msgstr "Incapaz de se ligar ao gestor de sessão!\n"
 
-#: app/app_procs.c:269 app/diaconv.c:126
+#: app/app_procs.c:288 app/diaconv.c:126
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [FICHEIRO...]"
 
-#: app/app_procs.c:273 app/diaconv.c:133
+#: app/app_procs.c:292 app/diaconv.c:133
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -78,23 +78,23 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:305
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "erro %s: apenas pode ser especificado um de -f ou -o."
 
-#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
+#: app/app_procs.c:353 app/app_procs.c:355 app/diaconv.c:206 app/diaconv.c:208
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Incapaz de encontrar objectos defeito ao procurar por object-libs, a "
 "terminar...\n"
 
-#: app/app_procs.c:455 app/app_procs.c:461
+#: app/app_procs.c:478 app/app_procs.c:484
 msgid "Quit, are you sure?"
 msgstr "Sair, tem a certeza?"
 
-#: app/app_procs.c:468
+#: app/app_procs.c:491
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -102,21 +102,22 @@ msgstr ""
 "Há diagramas modificados.\n"
 "Tem a certeza que quer sair?"
 
-#: app/app_procs.c:478 app/app_procs.c:483
+#: app/app_procs.c:501 app/app_procs.c:506
 msgid "Quit"
 msgstr "Sair"
 
-#: app/app_procs.c:495 app/display.c:966 app/layer_dialog.c:1015
+#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
+#: app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: app/app_procs.c:570 app/app_procs.c:577
+#: app/app_procs.c:593 app/app_procs.c:600
 msgid "Could not create per-user Dia config directory"
 msgstr "Incapaz de criar um directório por utilizador de configuração do Dia"
 
-#: app/app_procs.c:579
+#: app/app_procs.c:602
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -125,7 +126,7 @@ msgstr ""
 "Certifique-sede que a variável de ambiente HOME aponta para um directório "
 "existente."
 
-#: app/app_procs.c:601 app/diaconv.c:256
+#: app/app_procs.c:624 app/diaconv.c:256
 msgid "Objects and filters internal to dia"
 msgstr "Objectos e filtros internos ao dia"
 
@@ -138,44 +139,45 @@ msgstr "Seleccione cor"
 msgid "Untitled-%d"
 msgstr "SemNome-%d"
 
-#: app/commands.c:201
+#: app/commands.c:203
 msgid "No existing object to paste.\n"
 msgstr "Nenhuma objecto para colar.\n"
 
-#: app/commands.c:472 app/commands.c:480 app/commands.c:502
+#: app/commands.c:474 app/commands.c:482 app/commands.c:504
 msgid "Could not find help directory"
 msgstr "Incapaz de encontrar directório de ajuda"
 
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "About Dia"
 msgstr "Sobre o Dia"
 
-#: app/commands.c:593
+#: app/commands.c:595
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s por Alexander Larsson"
 
-#: app/commands.c:598
+#: app/commands.c:600
 msgid "Maintainer: James Henstridge"
 msgstr "Manutenção: James Henstridge"
 
-#: app/commands.c:602
+#: app/commands.c:604
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visite http://www.lysator.liu.se/~alla/dia para mais informações"
 
-#: app/commands.c:607
+#: app/commands.c:609
 msgid "Contributors:"
 msgstr "Contribuições:"
 
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:949 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:710
+#: app/commands.c:712
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -190,13 +192,13 @@ msgid "Object defaults"
 msgstr "Valores por defeito"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:726 app/properties.c:101
+#: app/preferences.c:726 app/properties.c:101 app/sheets_dialog.c:306
 msgid "Apply"
 msgstr "Aplicar"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
 #: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
-#: app/properties.c:111
+#: app/properties.c:111 app/sheets_dialog.c:326
 msgid "Close"
 msgstr "Fechar"
 
@@ -479,7 +481,7 @@ msgstr "Sim"
 msgid "No"
 msgstr "Não"
 
-#: app/export_png.c:115 app/load_save.c:616 app/render_eps.c:747
+#: app/export_png.c:115 app/load_save.c:639 app/render_eps.c:747
 #: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
@@ -784,11 +786,7 @@ msgstr "Largura da linha"
 msgid "Line width:"
 msgstr "Largura da linha:"
 
-#: app/load_save.c:127
-msgid "Error reading diagram file\n"
-msgstr "Erro ao ler ficheiro de diagrama\n"
-
-#: app/load_save.c:195
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -796,7 +794,7 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Objecto ligado não encontrado no documento."
 
-#: app/load_save.c:198
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -804,7 +802,7 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Ponto de ligação não existe."
 
-#: app/load_save.c:201
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -812,17 +810,17 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Gestor de ligação não existe."
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1168
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Incapaz de abrir: '%s' para leitura.\n"
 
-#: app/load_save.c:251
+#: app/load_save.c:261
 msgid "You must specify a file, not a directory.\n"
 msgstr "Tem de especificar um ficheiro, não um directório.\n"
 
-#: app/load_save.c:260 app/load_save.c:265
+#: app/load_save.c:270 app/load_save.c:275
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -831,7 +829,7 @@ msgstr ""
 "Erro ao carregar diagrama %s.\n"
 "Tipo de ficheiro desconhecido."
 
-#: app/load_save.c:272
+#: app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -840,12 +838,22 @@ msgstr ""
 "Erro ao carregar diagrama %s.\n"
 "Não é um ficheiro Dia."
 
-#: app/load_save.c:744
+#: app/load_save.c:476
+#, fuzzy, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"Erro ao carregar diagrama %s.\n"
+"Não é um ficheiro Dia."
+
+#: app/load_save.c:767
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Incapaz de gravar o ficheiro '%s'.\n"
 
-#: app/load_save.c:764 app/load_save.c:769
+#: app/load_save.c:787 app/load_save.c:792
 msgid "Native Dia Diagram"
 msgstr "Diagrama Dia Nativo"
 
@@ -972,7 +980,8 @@ msgid "Intersect"
 msgstr "Intersecção"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:158 objects/FS/function.c:668 objects/FS/function.c:820
+#: app/menus.c:158 app/sheets_dialog.c:288 app/sheets_dialog.c:852
+#: objects/FS/function.c:668 objects/FS/function.c:820
 #: objects/FS/function.c:822
 msgid "Remove"
 msgstr "Remover"
@@ -1544,12 +1553,12 @@ msgstr "não"
 msgid "Plug-ins"
 msgstr "Plug-ins"
 
-#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
-#: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
-#: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: app/plugin-manager.c:195 app/sheets_dialog.c:733 objects/ER/attribute.c:149
+#: objects/ER/entity.c:127 objects/ER/relationship.c:136
+#: objects/UML/association.c:1018 objects/UML/class_dialog.c:884
+#: objects/UML/class_dialog.c:1899 objects/UML/class_dialog.c:2118
+#: objects/UML/class_dialog.c:2677 objects/UML/dependency.c:125
+#: objects/UML/generalization.c:121 objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "Nome:"
 
@@ -1557,7 +1566,7 @@ msgstr "Nome:"
 msgid "File name:"
 msgstr "Nome ficheiro:"
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:219 app/sheets_dialog.c:660 app/sheets_dialog.c:753
 msgid "Description:"
 msgstr "Descrição:"
 
@@ -1762,6 +1771,228 @@ msgstr "A Carregar..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
+#: app/sheets_dialog.c:85
+#, fuzzy
+msgid "Sheets and Objects"
+msgstr "Folha_s e Objectos..."
+
+#: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
+msgid "<- Copy"
+msgstr ""
+
+#: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
+msgid "<- Copy All"
+msgstr ""
+
+#: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
+#, fuzzy
+msgid "<- Move"
+msgstr "Mover"
+
+#: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
+msgid "<- Move All"
+msgstr ""
+
+#: app/sheets_dialog.c:205 app/sheets_dialog.c:409
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Novo"
+
+#: app/sheets_dialog.c:207
+#, fuzzy
+msgid "_New"
+msgstr "Novo"
+
+#: app/sheets_dialog.c:227
+msgid "Up"
+msgstr ""
+
+#: app/sheets_dialog.c:229
+msgid "_Up"
+msgstr ""
+
+#: app/sheets_dialog.c:249
+#, fuzzy
+msgid "Down"
+msgstr "Mover Abaixo"
+
+#: app/sheets_dialog.c:251
+msgid "_Down"
+msgstr ""
+
+#: app/sheets_dialog.c:269
+#, fuzzy
+msgid "Edit"
+msgstr "/_Editar"
+
+#: app/sheets_dialog.c:271
+#, fuzzy
+msgid "_Edit"
+msgstr "/_Editar"
+
+#: app/sheets_dialog.c:290
+#, fuzzy
+msgid "_Remove"
+msgstr "Remover"
+
+#: app/sheets_dialog.c:315
+#, fuzzy
+msgid "Revert"
+msgstr "Inverter"
+
+#: app/sheets_dialog.c:416 app/sheets_dialog.c:860
+#, fuzzy
+msgid "Type"
+msgstr "Tipo:"
+
+#: app/sheets_dialog.c:431
+#, fuzzy
+msgid "Browse..."
+msgstr "Procurar"
+
+#: app/sheets_dialog.c:440
+#, fuzzy
+msgid "SVG Shape:"
+msgstr "Forma"
+
+#: app/sheets_dialog.c:467 app/sheets_dialog.c:530
+#, fuzzy
+msgid "description:"
+msgstr "Descrição:"
+
+#: app/sheets_dialog.c:479
+#, fuzzy
+msgid "Sheet name:"
+msgstr "Nome passo"
+
+#: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
+#: app/sheets_dialog_callbacks.c:1083
+#, fuzzy
+msgid "Line Break"
+msgstr "Cor linha"
+
+#: app/sheets_dialog.c:630
+#, fuzzy
+msgid "Edit Attributes"
+msgstr "Editar Atributos da Camada"
+
+#: app/sheets_dialog.c:644
+#, fuzzy
+msgid "Object"
+msgstr "_Objectos"
+
+#: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
+#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
+#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
+msgid "Type:"
+msgstr "Tipo:"
+
+#: app/sheets_dialog.c:717
+#, fuzzy
+msgid "Sheet"
+msgstr "Seleccionar"
+
+#: app/sheets_dialog.c:875
+#, fuzzy
+msgid "Object:"
+msgstr "_Objectos"
+
+#: app/sheets_dialog.c:902
+#, fuzzy
+msgid "Sheet:"
+msgstr "Seleccionar"
+
+#: app/sheets_dialog.c:994
+#, fuzzy
+msgid "Select SVG Shape File"
+msgstr "Seleccione ficheiro de imagem"
+
+#: app/sheets_dialog_callbacks.c:172
+#, fuzzy
+msgid "Copy ->"
+msgstr "Copiar Texto"
+
+#: app/sheets_dialog_callbacks.c:174
+msgid "Copy All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:176
+#, fuzzy
+msgid "Move ->"
+msgstr "Mover"
+
+#: app/sheets_dialog_callbacks.c:178
+msgid "Move All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:800
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:808
+#, fuzzy, c-format
+msgid "Error examining %s: %s"
+msgstr "Erro ao ler unidades: %s\n"
+
+#: app/sheets_dialog_callbacks.c:830
+#, fuzzy, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "Incapaz de deduzir caminho correcto para `%s'"
+
+#: app/sheets_dialog_callbacks.c:896
+msgid "Sheet must have a Name"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
+#, fuzzy, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "Incapaz de abrir `%s'"
+
+#: app/sheets_dialog_callbacks.c:1641
+#, fuzzy, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "Incapaz de abrir: '%s' para escrita.\n"
+
+#: app/sheets_dialog_callbacks.c:1650
+msgid "a user"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1663
+#, fuzzy, c-format
+msgid "File: %s"
+msgstr "Ficheiro"
+
+#: app/sheets_dialog_callbacks.c:1666
+#, fuzzy, c-format
+msgid "Date: %s"
+msgstr "Dia v %s"
+
+#: app/sheets_dialog_callbacks.c:1670
+#, c-format
+msgid "For: %s"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1687
+#, fuzzy
+msgid "add shapes here"
+msgstr "Ficheiro de formas dia"
+
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
 msgstr "Um Editor de Diagramas"
@@ -1772,9 +2003,9 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
-#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:394
+#: objects/ER/attribute.c:568 objects/ER/entity.c:346 objects/ER/entity.c:497
+#: objects/ER/relationship.c:424 objects/ER/relationship.c:613
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
@@ -1837,32 +2068,32 @@ msgstr ""
 "Aviso: nenhuma Fonte X encontrada para %s, \n"
 "a utilizar %s como substituta.\n"
 
-#: lib/font.c:642
+#: lib/font.c:649
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 "Aviso: Seleccionado FreeType, mas biblioteca não pode ser carregada: %d\n"
 
-#: lib/font.c:651
+#: lib/font.c:658
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Aviso: Nenhuma fonte X encontrada. O mundo está a acabar."
 
-#: lib/font.c:660
+#: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 "Aviso: Nenhumas fontes carregadas. Existem ficheiros de fontes no caminho de "
 "fontes X?"
 
-#: lib/font.c:952
+#: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Erro, incapaz de localizar fonte. Não deveria acontecer.\n"
 
-#: lib/font.c:954 lib/font.c:988
+#: lib/font.c:961 lib/font.c:995
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fonte %s não encontrada, a utilizar Courier em substituição.\n"
 
-#: lib/font.c:964
+#: lib/font.c:971
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Fonte %s não tem o estilo %s, a utilizar %s\n"
@@ -2085,32 +2316,32 @@ msgstr "Seleccione ficheiro de imagem"
 msgid "Browse"
 msgstr "Procurar"
 
-#: objects/ER/attribute.c:150
+#: objects/ER/attribute.c:151
 msgid "Key:"
 msgstr "Chave:"
 
-#: objects/ER/attribute.c:152
+#: objects/ER/attribute.c:153
 msgid "Weak key:"
 msgstr "Chave fraca:"
 
-#: objects/ER/attribute.c:154
+#: objects/ER/attribute.c:155
 msgid "Derived:"
 msgstr "Derivada:"
 
-#: objects/ER/attribute.c:156
+#: objects/ER/attribute.c:157
 msgid "Multivalue:"
 msgstr "Multivalor:"
 
-#: objects/ER/attribute.c:393 objects/ER/attribute.c:395
+#: objects/ER/attribute.c:397 objects/ER/attribute.c:399
 #: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Atributo"
 
-#: objects/ER/entity.c:128
+#: objects/ER/entity.c:129
 msgid "Weak:"
 msgstr "Fraca:"
 
-#: objects/ER/entity.c:345 objects/ER/entity.c:347 objects/UML/classicon.c:124
+#: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entidade"
@@ -2139,23 +2370,23 @@ msgstr "Adicionar segmento"
 msgid "Delete segment"
 msgstr "Apagar segmento"
 
-#: objects/ER/relationship.c:137
+#: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
 msgstr "Cardinalidade à Esquerda:"
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:140
 msgid "Right Cardinality:"
 msgstr "Cardinalidade à Direita:"
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:142
 msgid "Rotate:"
 msgstr "Rodar:"
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:144
 msgid "Identifying:"
 msgstr "A Identificar:"
 
-#: objects/ER/relationship.c:423 objects/ER/relationship.c:425
+#: objects/ER/relationship.c:427 objects/ER/relationship.c:429
 #: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Relação"
@@ -2184,12 +2415,6 @@ msgstr "Material"
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Sinal"
-
-#: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
-#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
-msgid "Type:"
-msgstr "Tipo:"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
@@ -3583,11 +3808,6 @@ msgstr "Cor de Fundo"
 msgid "Attributes"
 msgstr "Atributos"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
-#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Novo"
-
 #: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
 #: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
 msgid "Delete"
@@ -4130,11 +4350,11 @@ msgstr "Macros TeX Pstricks"
 msgid "Python scripting support"
 msgstr "Suporte de scripting Python"
 
-#: plug-ins/shape/shape-export.c:945
+#: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr "Incapaz de exportar png sem a libart!"
 
-#: plug-ins/shape/shape-export.c:972
+#: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr "Ficheiro de formas dia"
 
@@ -5523,6 +5743,9 @@ msgstr "Dispositivo de Armazenamento Estável"
 msgid "Sybase"
 msgstr "Sybase"
 
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "Erro ao ler ficheiro de diagrama\n"
+
 #~ msgid "Event Modelling Language diagram"
 #~ msgstr "Diagrama Linguagem de Modelos de Eventos"
 
@@ -5552,9 +5775,6 @@ msgstr "Sybase"
 
 #~ msgid "bidirectional"
 #~ msgstr "bidireccional"
-
-#~ msgid "Move Down"
-#~ msgstr "Mover Abaixo"
 
 #~ msgid "relation"
 #~ msgstr "relação"

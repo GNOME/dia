@@ -1,3 +1,11 @@
+2002-05-24  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* dia.spec:
+	* configure.in:
+	* NEWS:
+	* config.h.win32:
+	bumped up version number to 0.90.RC2
+
 2002-05-20  Hans Breuer  <hans@breuer.org>
 
 	* app/load_save.c : starting to increase

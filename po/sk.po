@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia VERSION\n"
-"POT-Creation-Date: 2002-05-14 00:04+0200\n"
+"POT-Creation-Date: 2002-05-24 07:14+0200\n"
 "PO-Revision-Date: 2002-03-28 14:00+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -15,62 +15,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s chyba: názov vstupného a názov výstupného súboru je rovnaký: %s"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:171
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s chyba: potrebný je správny vstupný súbor %s\n"
 
-#: app/app_procs.c:175
+#: app/app_procs.c:178
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s chyba: neviem ako exportova» do %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:181
+#: app/app_procs.c:184
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:219
+#: app/app_procs.c:238
 msgid "Export loaded file and exit"
 msgstr "Export naèítal súbor a skonèil"
 
-#: app/app_procs.c:219 app/diaconv.c:97
+#: app/app_procs.c:238 app/diaconv.c:97
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
-#: app/app_procs.c:221
+#: app/app_procs.c:240
 msgid "Export to file format and exit"
 msgstr "Exportova» do formátu súboru a ukonèi»"
 
-#: app/app_procs.c:221 app/diaconv.c:95
+#: app/app_procs.c:240 app/diaconv.c:95
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:223
+#: app/app_procs.c:242
 msgid "Don't show the splash screen"
 msgstr "Nezobrazova» úvodný obrázok"
 
-#: app/app_procs.c:225 app/diaconv.c:98
+#: app/app_procs.c:244 app/diaconv.c:98
 msgid "Show this help message"
 msgstr "Zobrazi» túto pomoc"
 
-#: app/app_procs.c:258
+#: app/app_procs.c:277
 msgid "Can't connect to session manager!\n"
 msgstr "Nemô¾em sa spoji» s mana¾érom sedenia!\n"
 
-#: app/app_procs.c:269 app/diaconv.c:126
+#: app/app_procs.c:288 app/diaconv.c:126
 msgid "[OPTION...] [FILE...]"
 msgstr "[VO¥BA...] [SÚBOR...]"
 
-#: app/app_procs.c:273 app/diaconv.c:133
+#: app/app_procs.c:292 app/diaconv.c:133
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -80,23 +80,23 @@ msgstr ""
 "Spustite '%s --help' pre zobrazenie úplného zoznamu mo¾ností príkazového "
 "riadku.\n"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:305
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s chyba: mô¾ete urèi» buï -f alebo -o."
 
-#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
+#: app/app_procs.c:353 app/app_procs.c:355 app/diaconv.c:206 app/diaconv.c:208
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Nie je mo¾né nájs» ¹tandardné objekty, keï hµadám objekty - kni¾nice, "
 "konèím...\n"
 
-#: app/app_procs.c:455 app/app_procs.c:461
+#: app/app_procs.c:478 app/app_procs.c:484
 msgid "Quit, are you sure?"
 msgstr "Ste si istý, ¾e chcete skonèi»?"
 
-#: app/app_procs.c:468
+#: app/app_procs.c:491
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -104,21 +104,22 @@ msgstr ""
 "Existujú zmenené diagramy.\n"
 "Ste si istý, ¾e chcete skonèi»?"
 
-#: app/app_procs.c:478 app/app_procs.c:483
+#: app/app_procs.c:501 app/app_procs.c:506
 msgid "Quit"
 msgstr "Ukonèi»"
 
-#: app/app_procs.c:495 app/display.c:966 app/layer_dialog.c:1015
+#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
+#: app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "Zru¹i»"
 
-#: app/app_procs.c:570 app/app_procs.c:577
+#: app/app_procs.c:593 app/app_procs.c:600
 msgid "Could not create per-user Dia config directory"
 msgstr "Nie je mo¾né vytvori» pre pou¾ívateµa Dia konfiguraèný prieèinok"
 
-#: app/app_procs.c:579
+#: app/app_procs.c:602
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -126,7 +127,7 @@ msgstr ""
 "Nie je mo¾né vytvori» pre pou¾ívateµa Dia konfiguraèný prieèinok. Uistite sa "
 "prosím, ¾e premenná HOME ukazuje na existujúci prieèinok."
 
-#: app/app_procs.c:601 app/diaconv.c:256
+#: app/app_procs.c:624 app/diaconv.c:256
 msgid "Objects and filters internal to dia"
 msgstr "Interné objekty a filtre pre Dia"
 
@@ -139,46 +140,47 @@ msgstr "Výber farby"
 msgid "Untitled-%d"
 msgstr "Bez mena-%d"
 
-#: app/commands.c:201
+#: app/commands.c:203
 msgid "No existing object to paste.\n"
 msgstr "Nedá sa vlo¾i» neexistujúci objekt.\n"
 
-#: app/commands.c:472 app/commands.c:480 app/commands.c:502
+#: app/commands.c:474 app/commands.c:482 app/commands.c:504
 msgid "Could not find help directory"
 msgstr "Nemô¾em nájs» pomocný prieèinok"
 
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "About Dia"
 msgstr "O Dia"
 
-#: app/commands.c:593
+#: app/commands.c:595
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s od Alexandera Larssona"
 
-#: app/commands.c:598
+#: app/commands.c:600
 msgid "Maintainer: James Henstridge"
 msgstr "Správca: James Henstridge"
 
-#: app/commands.c:602
+#: app/commands.c:604
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Prosím nav¹tívte http://www.lysator.liu.se/~alla/dia, kde je viacej "
 "informácií"
 
-#: app/commands.c:607
+#: app/commands.c:609
 msgid "Contributors:"
 msgstr "Prispievatelia:"
 
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:949 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:710
+#: app/commands.c:712
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -193,13 +195,13 @@ msgid "Object defaults"
 msgstr "©tandardy objektu"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:726 app/properties.c:101
+#: app/preferences.c:726 app/properties.c:101 app/sheets_dialog.c:306
 msgid "Apply"
 msgstr "Pou¾i»"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
 #: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
-#: app/properties.c:111
+#: app/properties.c:111 app/sheets_dialog.c:326
 msgid "Close"
 msgstr "Zavrie»"
 
@@ -484,7 +486,7 @@ msgstr "Áno"
 msgid "No"
 msgstr "Nie"
 
-#: app/export_png.c:115 app/load_save.c:616 app/render_eps.c:747
+#: app/export_png.c:115 app/load_save.c:639 app/render_eps.c:747
 #: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
@@ -787,11 +789,7 @@ msgstr "©írka èiary"
 msgid "Line width:"
 msgstr "©írka èiary:"
 
-#: app/load_save.c:127
-msgid "Error reading diagram file\n"
-msgstr "Chyba pri èítaní súboru s diagramom\n"
-
-#: app/load_save.c:195
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -799,7 +797,7 @@ msgstr ""
 "Chyba poèas naèítavania diagramu.\n"
 "Prilinkované objekty neboli nájdené v dokumente."
 
-#: app/load_save.c:198
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -807,7 +805,7 @@ msgstr ""
 "Chyba pri naèítavaní diagramu.\n"
 "Bod spojenia neexistuje."
 
-#: app/load_save.c:201
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -815,17 +813,17 @@ msgstr ""
 "Chyba pri naèítavaní diagramu.\n"
 "deskriptor spojenia neexistuje."
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1168
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nie je mo¾né otvori» '%s' pre èítanie.\n"
 
-#: app/load_save.c:251
+#: app/load_save.c:261
 msgid "You must specify a file, not a directory.\n"
 msgstr "Musíte ¹peficikova» súbor, a nie prieèinok.\n"
 
-#: app/load_save.c:260 app/load_save.c:265
+#: app/load_save.c:270 app/load_save.c:275
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -834,7 +832,7 @@ msgstr ""
 "Chyba pri naèítavaní diagramu %s.\n"
 " Neznámy súbor typ."
 
-#: app/load_save.c:272
+#: app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -843,12 +841,22 @@ msgstr ""
 "Chyba pri naèítavaní diagramu %s.\n"
 "Toto nie je Dia súbor."
 
-#: app/load_save.c:744
+#: app/load_save.c:476
+#, fuzzy, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"Chyba pri naèítavaní diagramu %s.\n"
+"Toto nie je Dia súbor."
+
+#: app/load_save.c:767
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Nepodarilo sa ulo¾i» súbor '%s'.\n"
 
-#: app/load_save.c:764 app/load_save.c:769
+#: app/load_save.c:787 app/load_save.c:792
 msgid "Native Dia Diagram"
 msgstr "Pôvodný Dia Diagram"
 
@@ -976,7 +984,8 @@ msgid "Intersect"
 msgstr "Prienik"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:158 objects/FS/function.c:668 objects/FS/function.c:820
+#: app/menus.c:158 app/sheets_dialog.c:288 app/sheets_dialog.c:852
+#: objects/FS/function.c:668 objects/FS/function.c:820
 #: objects/FS/function.c:822
 msgid "Remove"
 msgstr "Odstráni»"
@@ -1548,12 +1557,12 @@ msgstr "nie"
 msgid "Plug-ins"
 msgstr "Zásuvné moduly"
 
-#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
-#: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
-#: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: app/plugin-manager.c:195 app/sheets_dialog.c:733 objects/ER/attribute.c:149
+#: objects/ER/entity.c:127 objects/ER/relationship.c:136
+#: objects/UML/association.c:1018 objects/UML/class_dialog.c:884
+#: objects/UML/class_dialog.c:1899 objects/UML/class_dialog.c:2118
+#: objects/UML/class_dialog.c:2677 objects/UML/dependency.c:125
+#: objects/UML/generalization.c:121 objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "Názov:"
 
@@ -1561,7 +1570,7 @@ msgstr "Názov:"
 msgid "File name:"
 msgstr "Meno súboru:"
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:219 app/sheets_dialog.c:660 app/sheets_dialog.c:753
 msgid "Description:"
 msgstr "Popis:"
 
@@ -1766,6 +1775,228 @@ msgstr "Naèítavam..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
+#: app/sheets_dialog.c:85
+#, fuzzy
+msgid "Sheets and Objects"
+msgstr "©tandardné objekty"
+
+#: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
+msgid "<- Copy"
+msgstr ""
+
+#: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
+msgid "<- Copy All"
+msgstr ""
+
+#: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
+#, fuzzy
+msgid "<- Move"
+msgstr "Presunú»"
+
+#: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
+msgid "<- Move All"
+msgstr ""
+
+#: app/sheets_dialog.c:205 app/sheets_dialog.c:409
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Nový"
+
+#: app/sheets_dialog.c:207
+#, fuzzy
+msgid "_New"
+msgstr "Nový"
+
+#: app/sheets_dialog.c:227
+msgid "Up"
+msgstr ""
+
+#: app/sheets_dialog.c:229
+msgid "_Up"
+msgstr ""
+
+#: app/sheets_dialog.c:249
+#, fuzzy
+msgid "Down"
+msgstr "Posunú» ni¾¹ie"
+
+#: app/sheets_dialog.c:251
+msgid "_Down"
+msgstr ""
+
+#: app/sheets_dialog.c:269
+#, fuzzy
+msgid "Edit"
+msgstr "/_Upravi»"
+
+#: app/sheets_dialog.c:271
+#, fuzzy
+msgid "_Edit"
+msgstr "/_Upravi»"
+
+#: app/sheets_dialog.c:290
+#, fuzzy
+msgid "_Remove"
+msgstr "Odstráni»"
+
+#: app/sheets_dialog.c:315
+#, fuzzy
+msgid "Revert"
+msgstr "Opak"
+
+#: app/sheets_dialog.c:416 app/sheets_dialog.c:860
+#, fuzzy
+msgid "Type"
+msgstr "Typ:"
+
+#: app/sheets_dialog.c:431
+#, fuzzy
+msgid "Browse..."
+msgstr "Prechádza»"
+
+#: app/sheets_dialog.c:440
+#, fuzzy
+msgid "SVG Shape:"
+msgstr "Tvar"
+
+#: app/sheets_dialog.c:467 app/sheets_dialog.c:530
+#, fuzzy
+msgid "description:"
+msgstr "Popis:"
+
+#: app/sheets_dialog.c:479
+#, fuzzy
+msgid "Sheet name:"
+msgstr "Názov kroku"
+
+#: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
+#: app/sheets_dialog_callbacks.c:1083
+#, fuzzy
+msgid "Line Break"
+msgstr "Farba èiary"
+
+#: app/sheets_dialog.c:630
+#, fuzzy
+msgid "Edit Attributes"
+msgstr "Úpravy vlastností vrstvy"
+
+#: app/sheets_dialog.c:644
+#, fuzzy
+msgid "Object"
+msgstr "_Objekty"
+
+#: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
+#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
+#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
+msgid "Type:"
+msgstr "Typ:"
+
+#: app/sheets_dialog.c:717
+#, fuzzy
+msgid "Sheet"
+msgstr "_Vybra»"
+
+#: app/sheets_dialog.c:875
+#, fuzzy
+msgid "Object:"
+msgstr "_Objekty"
+
+#: app/sheets_dialog.c:902
+#, fuzzy
+msgid "Sheet:"
+msgstr "_Vybra»"
+
+#: app/sheets_dialog.c:994
+#, fuzzy
+msgid "Select SVG Shape File"
+msgstr "Zvoµte súbor s obrázkom"
+
+#: app/sheets_dialog_callbacks.c:172
+#, fuzzy
+msgid "Copy ->"
+msgstr "Kopírova» text"
+
+#: app/sheets_dialog_callbacks.c:174
+msgid "Copy All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:176
+#, fuzzy
+msgid "Move ->"
+msgstr "Presunú»"
+
+#: app/sheets_dialog_callbacks.c:178
+msgid "Move All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:800
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:808
+#, fuzzy, c-format
+msgid "Error examining %s: %s"
+msgstr "Chyba pri èítaní jednotiek: %s\n"
+
+#: app/sheets_dialog_callbacks.c:830
+#, fuzzy, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "Nie je mo¾né vydedukova» cestu pre `%s'"
+
+#: app/sheets_dialog_callbacks.c:896
+msgid "Sheet must have a Name"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
+#, fuzzy, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "Nie je mo¾né otvori» `%s'"
+
+#: app/sheets_dialog_callbacks.c:1641
+#, fuzzy, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "Nie je mo¾né otvori» '%s' pre zápis.\n"
+
+#: app/sheets_dialog_callbacks.c:1650
+msgid "a user"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1663
+#, fuzzy, c-format
+msgid "File: %s"
+msgstr "Súbor"
+
+#: app/sheets_dialog_callbacks.c:1666
+#, fuzzy, c-format
+msgid "Date: %s"
+msgstr "Dia v %s"
+
+#: app/sheets_dialog_callbacks.c:1670
+#, c-format
+msgid "For: %s"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1687
+#, fuzzy
+msgid "add shapes here"
+msgstr "súbor s dia tvarom"
+
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
 msgstr "Editor diagramov"
@@ -1776,9 +2007,9 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
-#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:394
+#: objects/ER/attribute.c:568 objects/ER/entity.c:346 objects/ER/entity.c:497
+#: objects/ER/relationship.c:424 objects/ER/relationship.c:613
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
@@ -1841,29 +2072,29 @@ msgstr ""
 "Varovanie nebolo nájdené X Písmo pre %s,\n"
 "pou¾ijem %s.\n"
 
-#: lib/font.c:642
+#: lib/font.c:649
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varovanie: Bolo zvolené FreeType, ale kni¾nica nebude naèítaná: %d\n"
 
-#: lib/font.c:651
+#: lib/font.c:658
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varovanie: Nebolo nájdené ani jedno X písmo. Nastal koniec sveta."
 
-#: lib/font.c:660
+#: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 
-#: lib/font.c:952
+#: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Chyba, nie je mo¾né nájs» písmo. To by sa nemalo sta».\n"
 
-#: lib/font.c:954 lib/font.c:988
+#: lib/font.c:961 lib/font.c:995
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Nebolo nájdené písmo %s.  Namiesto neho sa pou¾ije Courier.\n"
 
-#: lib/font.c:964
+#: lib/font.c:971
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Písmo %s nemá ¹týl %s, a tak je pou¾ité %s\n"
@@ -2086,32 +2317,32 @@ msgstr "Zvoµte súbor s obrázkom"
 msgid "Browse"
 msgstr "Prechádza»"
 
-#: objects/ER/attribute.c:150
+#: objects/ER/attribute.c:151
 msgid "Key:"
 msgstr "Klúè:"
 
-#: objects/ER/attribute.c:152
+#: objects/ER/attribute.c:153
 msgid "Weak key:"
 msgstr "Slabý kµúè:"
 
-#: objects/ER/attribute.c:154
+#: objects/ER/attribute.c:155
 msgid "Derived:"
 msgstr "Odvodené:"
 
-#: objects/ER/attribute.c:156
+#: objects/ER/attribute.c:157
 msgid "Multivalue:"
 msgstr "Multihodnota:"
 
-#: objects/ER/attribute.c:393 objects/ER/attribute.c:395
+#: objects/ER/attribute.c:397 objects/ER/attribute.c:399
 #: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Atribút"
 
-#: objects/ER/entity.c:128
+#: objects/ER/entity.c:129
 msgid "Weak:"
 msgstr "Slabá:"
 
-#: objects/ER/entity.c:345 objects/ER/entity.c:347 objects/UML/classicon.c:124
+#: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entita"
@@ -2140,23 +2371,23 @@ msgstr "Prida» segment"
 msgid "Delete segment"
 msgstr "Zmaza» segment"
 
-#: objects/ER/relationship.c:137
+#: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
 msgstr "¥avá kardinalita:"
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:140
 msgid "Right Cardinality:"
 msgstr "Pravá kardinalita:"
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:142
 msgid "Rotate:"
 msgstr "Otoèi»:"
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:144
 msgid "Identifying:"
 msgstr "Identifikovanie:"
 
-#: objects/ER/relationship.c:423 objects/ER/relationship.c:425
+#: objects/ER/relationship.c:427 objects/ER/relationship.c:429
 #: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Vz»ah"
@@ -2185,12 +2416,6 @@ msgstr "Materiál"
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Signál"
-
-#: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
-#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
-msgid "Type:"
-msgstr "Typ:"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
@@ -3587,11 +3812,6 @@ msgstr "Farba pozadia"
 msgid "Attributes"
 msgstr "Atribúty"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
-#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Nový"
-
 #: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
 #: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
 msgid "Delete"
@@ -4134,11 +4354,11 @@ msgstr "TeX PSTricks makrá"
 msgid "Python scripting support"
 msgstr "Podpora Python skriptov"
 
-#: plug-ins/shape/shape-export.c:945
+#: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr "Nie je mo¾né exportova» png bez libart-u!"
 
-#: plug-ins/shape/shape-export.c:972
+#: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr "súbor s dia tvarom"
 
@@ -5526,6 +5746,9 @@ msgstr "Stabilné úlo¾né zariadenia"
 msgid "Sybase"
 msgstr "Sybase"
 
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "Chyba pri èítaní súboru s diagramom\n"
+
 #~ msgid "Event Modelling Language diagram"
 #~ msgstr "Udalos» modelovacieho jazyka diagramu"
 
@@ -5555,9 +5778,6 @@ msgstr "Sybase"
 
 #~ msgid "bidirectional"
 #~ msgstr "obojsmerne"
-
-#~ msgid "Move Down"
-#~ msgstr "Posunú» ni¾¹ie"
 
 #~ msgid "relation"
 #~ msgstr "relácia"

@@ -15,7 +15,7 @@
 #undef GTK_TALKS_UTF8_WE_DONT
 #undef GTK_CHARSET_MISMATCH
 
-#define VERSION "0.90.RC1"
+#define VERSION "0.90.RC2"
 
 #include <io.h> 
 

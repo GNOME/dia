@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2002-05-21 20:31+0200\n"
+"POT-Creation-Date: 2002-05-24 07:14+0200\n"
 "PO-Revision-Date: 2002-05-21 12:23-0300\n"
 "Last-Translator: Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -186,44 +186,44 @@ msgstr "Sem título-%d"
 
 # app/commands.c:190
 # app/commands.c:190
-#: app/commands.c:201
+#: app/commands.c:203
 msgid "No existing object to paste.\n"
 msgstr "Nenhum objeto para colar.\n"
 
 # app/commands.c:458 app/commands.c:481
 # app/commands.c:458 app/commands.c:481
-#: app/commands.c:472 app/commands.c:480 app/commands.c:502
+#: app/commands.c:474 app/commands.c:482 app/commands.c:504
 msgid "Could not find help directory"
 msgstr "Impossível encontrar o diretório de ajuda"
 
 # app/commands.c:528
 # app/commands.c:528
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "About Dia"
 msgstr "Sobre o Dia"
 
 # app/commands.c:571
 # app/commands.c:571
-#: app/commands.c:593
+#: app/commands.c:595
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s por Alexander Larsson"
 
 # app/commands.c:576
 # app/commands.c:576
-#: app/commands.c:598
+#: app/commands.c:600
 msgid "Maintainer: James Henstridge"
 msgstr "Mantenedor: James Henstridge"
 
 # app/commands.c:580
 # app/commands.c:580
-#: app/commands.c:602
+#: app/commands.c:604
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visite http://www.lysator.liu.se/~alla/dia para mais informações"
 
 # app/commands.c:585
 # app/commands.c:585
-#: app/commands.c:607
+#: app/commands.c:609
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
@@ -236,7 +236,7 @@ msgstr "Contribuidores:"
 # app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 # app/properties.c:92 lib/message.c:101
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
 #: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
@@ -246,7 +246,7 @@ msgstr "OK"
 
 # app/commands.c:688
 # app/commands.c:688
-#: app/commands.c:710
+#: app/commands.c:712
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -667,7 +667,7 @@ msgstr "Não"
 # plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 # plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:180
 # plug-ins/wpg/wpg.c:930
-#: app/export_png.c:115 app/load_save.c:616 app/render_eps.c:747
+#: app/export_png.c:115 app/load_save.c:639 app/render_eps.c:747
 #: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
@@ -1112,15 +1112,9 @@ msgstr "Largura da linha"
 msgid "Line width:"
 msgstr "Largura da linha:"
 
-# app/load_save.c:127
-# app/load_save.c:127
-#: app/load_save.c:127
-msgid "Error reading diagram file\n"
-msgstr "Erro ao ler arquivo de diagrama\n"
-
 # app/load_save.c:195
 # app/load_save.c:195
-#: app/load_save.c:195
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1130,7 +1124,7 @@ msgstr ""
 
 # app/load_save.c:198
 # app/load_save.c:198
-#: app/load_save.c:198
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -1140,7 +1134,7 @@ msgstr ""
 
 # app/load_save.c:201
 # app/load_save.c:201
-#: app/load_save.c:201
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1152,7 +1146,7 @@ msgstr ""
 # plug-ins/xfig/xfig-import.c:1152
 # app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 # plug-ins/xfig/xfig-import.c:1152
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1168
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1160,13 +1154,13 @@ msgstr "Impossível abrir '%s' para leitura.\n"
 
 # app/load_save.c:251
 # app/load_save.c:251
-#: app/load_save.c:251
+#: app/load_save.c:261
 msgid "You must specify a file, not a directory.\n"
 msgstr "Você deve especificar um arquivo, não um diretório.\n"
 
 # app/load_save.c:260 app/load_save.c:265
 # app/load_save.c:260 app/load_save.c:265
-#: app/load_save.c:260 app/load_save.c:265
+#: app/load_save.c:270 app/load_save.c:275
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1177,7 +1171,7 @@ msgstr ""
 
 # app/load_save.c:272
 # app/load_save.c:272
-#: app/load_save.c:272
+#: app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1186,16 +1180,28 @@ msgstr ""
 "Erro ao carregar diagrama %s.\n"
 "Não é um arquivo Dia."
 
+# app/load_save.c:272
+# app/load_save.c:272
+#: app/load_save.c:476
+#, fuzzy, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"Erro ao carregar diagrama %s.\n"
+"Não é um arquivo Dia."
+
 # app/load_save.c:771
 # app/load_save.c:744
-#: app/load_save.c:744
+#: app/load_save.c:767
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Impossível salvar o arquivo '%s'.\n"
 
 # app/load_save.c:791 app/load_save.c:796
 # app/load_save.c:764 app/load_save.c:769
-#: app/load_save.c:764 app/load_save.c:769
+#: app/load_save.c:787 app/load_save.c:792
 msgid "Native Dia Diagram"
 msgstr "Diagrama Dia Nativo"
 
@@ -8141,3 +8147,8 @@ msgstr "Dispositivo de Armazenagem Estável"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+# app/load_save.c:127
+# app/load_save.c:127
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "Erro ao ler arquivo de diagrama\n"

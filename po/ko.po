@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-05-14 00:04+0200\n"
+"POT-Creation-Date: 2002-05-24 07:14+0200\n"
 "PO-Revision-Date: 2000-05-31 10:16:35+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@dacome.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -12,63 +12,63 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-kr\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: app/app_procs.c:168
+#: app/app_procs.c:171
 #, fuzzy, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "올바른 입력 파일이 필요합니다\n"
 
-#: app/app_procs.c:175
+#: app/app_procs.c:178
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: app/app_procs.c:181
+#: app/app_procs.c:184
 #, c-format
 msgid "%s --> %s\n"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:219
+#: app/app_procs.c:238
 msgid "Export loaded file and exit"
 msgstr "읽어들인 파일을 저장하고 마칩니다"
 
-#: app/app_procs.c:219 app/diaconv.c:97
+#: app/app_procs.c:238 app/diaconv.c:97
 msgid "OUTPUT"
 msgstr "출력"
 
 #. &export_file_format
-#: app/app_procs.c:221
+#: app/app_procs.c:240
 #, fuzzy
 msgid "Export to file format and exit"
 msgstr "읽어들인 파일을 저장하고 마칩니다"
 
-#: app/app_procs.c:221 app/diaconv.c:95
+#: app/app_procs.c:240 app/diaconv.c:95
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr ""
 
-#: app/app_procs.c:223
+#: app/app_procs.c:242
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:225 app/diaconv.c:98
+#: app/app_procs.c:244 app/diaconv.c:98
 msgid "Show this help message"
 msgstr "이 도움말을 보여줍니다"
 
-#: app/app_procs.c:258
+#: app/app_procs.c:277
 msgid "Can't connect to session manager!\n"
 msgstr "세션 관리자에 연결을 할수 없습니다!\n"
 
-#: app/app_procs.c:269 app/diaconv.c:126
+#: app/app_procs.c:288 app/diaconv.c:126
 msgid "[OPTION...] [FILE...]"
 msgstr "[옵션...] [파일...]"
 
-#: app/app_procs.c:273 app/diaconv.c:133
+#: app/app_procs.c:292 app/diaconv.c:133
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -77,21 +77,21 @@ msgstr ""
 "옵션 %s에 오류가 있습니다 : %s. \n"
 "'%s --help'를 실행시켜서 명령행 옵션의 전체목록을 참조하십시오.\n"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:305
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr ""
 
-#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
+#: app/app_procs.c:353 app/app_procs.c:355 app/diaconv.c:206 app/diaconv.c:208
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "object-libs는 찾았지만 표준 객체는 찾지 못하였습니다, 종료합니다...\n"
 
-#: app/app_procs.c:455 app/app_procs.c:461
+#: app/app_procs.c:478 app/app_procs.c:484
 msgid "Quit, are you sure?"
 msgstr "정말로 종료하시겠습니까?"
 
-#: app/app_procs.c:468
+#: app/app_procs.c:491
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -99,27 +99,28 @@ msgstr ""
 "변경된 도표가 있습니다.\n"
 "정말로 종료하시겠습니까?"
 
-#: app/app_procs.c:478 app/app_procs.c:483
+#: app/app_procs.c:501 app/app_procs.c:506
 msgid "Quit"
 msgstr "종료"
 
-#: app/app_procs.c:495 app/display.c:966 app/layer_dialog.c:1015
+#: app/app_procs.c:518 app/display.c:966 app/layer_dialog.c:1015
 #: app/lineprops_area.c:436 app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268 app/sheets_dialog.c:570 app/sheets_dialog.c:802
+#: app/sheets_dialog.c:961
 msgid "Cancel"
 msgstr "취소"
 
-#: app/app_procs.c:570 app/app_procs.c:577
+#: app/app_procs.c:593 app/app_procs.c:600
 msgid "Could not create per-user Dia config directory"
 msgstr "다른 사용자의 Dia 설정 디렉토리를 생성할수 없습니다"
 
-#: app/app_procs.c:579
+#: app/app_procs.c:602
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:601 app/diaconv.c:256
+#: app/app_procs.c:624 app/diaconv.c:256
 msgid "Objects and filters internal to dia"
 msgstr "Dia의 내부 객체와 필터"
 
@@ -132,46 +133,47 @@ msgstr "색상 선택"
 msgid "Untitled-%d"
 msgstr "제목없슴-%d"
 
-#: app/commands.c:201
+#: app/commands.c:203
 msgid "No existing object to paste.\n"
 msgstr "붙여넣을 객체가 없습니다.\n"
 
-#: app/commands.c:472 app/commands.c:480 app/commands.c:502
+#: app/commands.c:474 app/commands.c:482 app/commands.c:504
 msgid "Could not find help directory"
 msgstr ""
 
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "About Dia"
 msgstr "이 프로그램은"
 
-#: app/commands.c:593
+#: app/commands.c:595
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr ""
 
-#: app/commands.c:598
+#: app/commands.c:600
 msgid "Maintainer: James Henstridge"
 msgstr "관리자: James Henstridge"
 
-#: app/commands.c:602
+#: app/commands.c:604
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시"
 "오"
 
-#: app/commands.c:607
+#: app/commands.c:609
 msgid "Contributors:"
 msgstr "도와주신분들:"
 
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/commands.c:626 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:427 app/lineprops_area.c:626 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 app/sheets_dialog.c:558 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:949 lib/message.c:87
 msgid "OK"
 msgstr "확인"
 
-#: app/commands.c:710
+#: app/commands.c:712
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -183,13 +185,13 @@ msgid "Object defaults"
 msgstr "기본 객체"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:726 app/properties.c:101
+#: app/preferences.c:726 app/properties.c:101 app/sheets_dialog.c:306
 msgid "Apply"
 msgstr "적용"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
 #: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
-#: app/properties.c:111
+#: app/properties.c:111 app/sheets_dialog.c:326
 msgid "Close"
 msgstr "닫기"
 
@@ -489,7 +491,7 @@ msgstr "예"
 msgid "No"
 msgstr "아니오"
 
-#: app/export_png.c:115 app/load_save.c:616 app/render_eps.c:747
+#: app/export_png.c:115 app/load_save.c:639 app/render_eps.c:747
 #: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
@@ -793,11 +795,7 @@ msgstr "선 굵기"
 msgid "Line width:"
 msgstr "선 굵기:"
 
-#: app/load_save.c:127
-msgid "Error reading diagram file\n"
-msgstr "도표 파일 읽는중 오류\n"
-
-#: app/load_save.c:195
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -805,7 +803,7 @@ msgstr ""
 "도표 읽는중 오류.\n"
 "문서에서 연결된 객체를 찾을수 없습니다."
 
-#: app/load_save.c:198
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -813,42 +811,50 @@ msgstr ""
 "도표 읽는중 오류.\n"
 "연결점이 없습니다."
 
-#: app/load_save.c:201
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1168
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
 
-#: app/load_save.c:251
+#: app/load_save.c:261
 msgid "You must specify a file, not a directory.\n"
 msgstr ""
 
-#: app/load_save.c:260 app/load_save.c:265
+#: app/load_save.c:270 app/load_save.c:275
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 
-#: app/load_save.c:272
+#: app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 
-#: app/load_save.c:744
+#: app/load_save.c:476
+#, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+
+#: app/load_save.c:767
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr ""
 
-#: app/load_save.c:764 app/load_save.c:769
+#: app/load_save.c:787 app/load_save.c:792
 msgid "Native Dia Diagram"
 msgstr ""
 
@@ -980,7 +986,8 @@ msgid "Intersect"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:158 objects/FS/function.c:668 objects/FS/function.c:820
+#: app/menus.c:158 app/sheets_dialog.c:288 app/sheets_dialog.c:852
+#: objects/FS/function.c:668 objects/FS/function.c:820
 #: objects/FS/function.c:822
 msgid "Remove"
 msgstr "삭제"
@@ -1568,12 +1575,12 @@ msgstr "아니오"
 msgid "Plug-ins"
 msgstr "플러그인"
 
-#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
-#: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
-#: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: app/plugin-manager.c:195 app/sheets_dialog.c:733 objects/ER/attribute.c:149
+#: objects/ER/entity.c:127 objects/ER/relationship.c:136
+#: objects/UML/association.c:1018 objects/UML/class_dialog.c:884
+#: objects/UML/class_dialog.c:1899 objects/UML/class_dialog.c:2118
+#: objects/UML/class_dialog.c:2677 objects/UML/dependency.c:125
+#: objects/UML/generalization.c:121 objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "이름:"
 
@@ -1581,7 +1588,7 @@ msgstr "이름:"
 msgid "File name:"
 msgstr "파일 이름:"
 
-#: app/plugin-manager.c:219
+#: app/plugin-manager.c:219 app/sheets_dialog.c:660 app/sheets_dialog.c:753
 msgid "Description:"
 msgstr "설명:"
 
@@ -1796,6 +1803,224 @@ msgstr ""
 msgid "Dia v %s"
 msgstr ""
 
+#: app/sheets_dialog.c:85
+#, fuzzy
+msgid "Sheets and Objects"
+msgstr "표준 객체"
+
+#: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
+msgid "<- Copy"
+msgstr ""
+
+#: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
+msgid "<- Copy All"
+msgstr ""
+
+#: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
+#, fuzzy
+msgid "<- Move"
+msgstr "위로 이동"
+
+#: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
+msgid "<- Move All"
+msgstr ""
+
+#: app/sheets_dialog.c:205 app/sheets_dialog.c:409
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr ""
+
+#: app/sheets_dialog.c:207
+#, fuzzy
+msgid "_New"
+msgstr "/보기(_V)"
+
+#: app/sheets_dialog.c:227
+msgid "Up"
+msgstr ""
+
+#: app/sheets_dialog.c:229
+msgid "_Up"
+msgstr ""
+
+#: app/sheets_dialog.c:249
+#, fuzzy
+msgid "Down"
+msgstr "아래로 이동"
+
+#: app/sheets_dialog.c:251
+msgid "_Down"
+msgstr ""
+
+#: app/sheets_dialog.c:269
+#, fuzzy
+msgid "Edit"
+msgstr "/편집(_E)"
+
+#: app/sheets_dialog.c:271
+#, fuzzy
+msgid "_Edit"
+msgstr "/편집(_E)"
+
+#: app/sheets_dialog.c:290
+#, fuzzy
+msgid "_Remove"
+msgstr "삭제"
+
+#: app/sheets_dialog.c:315
+#, fuzzy
+msgid "Revert"
+msgstr "삭제"
+
+#: app/sheets_dialog.c:416 app/sheets_dialog.c:860
+#, fuzzy
+msgid "Type"
+msgstr "형식:"
+
+#: app/sheets_dialog.c:431
+msgid "Browse..."
+msgstr ""
+
+#: app/sheets_dialog.c:440
+msgid "SVG Shape:"
+msgstr ""
+
+#: app/sheets_dialog.c:467 app/sheets_dialog.c:530
+#, fuzzy
+msgid "description:"
+msgstr "설명:"
+
+#: app/sheets_dialog.c:479
+#, fuzzy
+msgid "Sheet name:"
+msgstr "파일 이름:"
+
+#: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
+#: app/sheets_dialog_callbacks.c:1083
+#, fuzzy
+msgid "Line Break"
+msgstr "선 색상:"
+
+#: app/sheets_dialog.c:630
+#, fuzzy
+msgid "Edit Attributes"
+msgstr "계층 속성 편집"
+
+#: app/sheets_dialog.c:644
+#, fuzzy
+msgid "Object"
+msgstr "/객체(_O)"
+
+#: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
+#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
+#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
+msgid "Type:"
+msgstr "형식:"
+
+#: app/sheets_dialog.c:717
+#, fuzzy
+msgid "Sheet"
+msgstr "선택"
+
+#: app/sheets_dialog.c:875
+#, fuzzy
+msgid "Object:"
+msgstr "/객체(_O)"
+
+#: app/sheets_dialog.c:902
+#, fuzzy
+msgid "Sheet:"
+msgstr "선택"
+
+#: app/sheets_dialog.c:994
+msgid "Select SVG Shape File"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:172
+#, fuzzy
+msgid "Copy ->"
+msgstr "문자열 복사"
+
+#: app/sheets_dialog_callbacks.c:174
+msgid "Copy All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:176
+#, fuzzy
+msgid "Move ->"
+msgstr "위로 이동"
+
+#: app/sheets_dialog_callbacks.c:178
+msgid "Move All ->"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:317
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:319
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:800
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:808
+#, fuzzy, c-format
+msgid "Error examining %s: %s"
+msgstr "도표 파일 읽는중 오류\n"
+
+#: app/sheets_dialog_callbacks.c:830
+#, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:896
+msgid "Sheet must have a Name"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
+#, fuzzy, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "`%s'를 열수 없습니다"
+
+#: app/sheets_dialog_callbacks.c:1641
+#, fuzzy, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "열수 업습니다: '%s'  쓸수없슴.\n"
+
+#: app/sheets_dialog_callbacks.c:1650
+msgid "a user"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1663
+#, fuzzy, c-format
+msgid "File: %s"
+msgstr "파일"
+
+#: app/sheets_dialog_callbacks.c:1666
+#, c-format
+msgid "Date: %s"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1670
+#, c-format
+msgid "For: %s"
+msgstr ""
+
+#: app/sheets_dialog_callbacks.c:1687
+msgid "add shapes here"
+msgstr ""
+
 #: dia.desktop.in.h:1
 #, fuzzy
 msgid "A Diagram Editor"
@@ -1808,9 +2033,9 @@ msgstr "대화상자"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
-#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:394
+#: objects/ER/attribute.c:568 objects/ER/entity.c:346 objects/ER/entity.c:497
+#: objects/ER/relationship.c:424 objects/ER/relationship.c:613
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
@@ -1867,32 +2092,32 @@ msgstr ""
 "%s에서 사용할 X 글꼴이 업습니다. \n"
 "%s를 대신 사용합니다.\n"
 
-#: lib/font.c:642
+#: lib/font.c:649
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 
-#: lib/font.c:651
+#: lib/font.c:658
 #, fuzzy
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr ""
 "%s에서 사용할 X 글꼴이 업습니다. \n"
 "%s를 대신 사용합니다.\n"
 
-#: lib/font.c:660
+#: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 
-#: lib/font.c:952
+#: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr ""
 
-#: lib/font.c:954 lib/font.c:988
+#: lib/font.c:961 lib/font.c:995
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
 
-#: lib/font.c:964
+#: lib/font.c:971
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr ""
@@ -2127,33 +2352,33 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: objects/ER/attribute.c:150
+#: objects/ER/attribute.c:151
 msgid "Key:"
 msgstr ""
 
-#: objects/ER/attribute.c:152
+#: objects/ER/attribute.c:153
 msgid "Weak key:"
 msgstr ""
 
-#: objects/ER/attribute.c:154
+#: objects/ER/attribute.c:155
 #, fuzzy
 msgid "Derived:"
 msgstr "격자:"
 
-#: objects/ER/attribute.c:156
+#: objects/ER/attribute.c:157
 msgid "Multivalue:"
 msgstr ""
 
-#: objects/ER/attribute.c:393 objects/ER/attribute.c:395
+#: objects/ER/attribute.c:397 objects/ER/attribute.c:399
 #: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr ""
 
-#: objects/ER/entity.c:128
+#: objects/ER/entity.c:129
 msgid "Weak:"
 msgstr ""
 
-#: objects/ER/entity.c:345 objects/ER/entity.c:347 objects/UML/classicon.c:124
+#: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr ""
@@ -2182,24 +2407,24 @@ msgstr ""
 msgid "Delete segment"
 msgstr ""
 
-#: objects/ER/relationship.c:137
+#: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
 msgstr ""
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:140
 msgid "Right Cardinality:"
 msgstr ""
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:142
 #, fuzzy
 msgid "Rotate:"
 msgstr "역할:"
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:144
 msgid "Identifying:"
 msgstr ""
 
-#: objects/ER/relationship.c:423 objects/ER/relationship.c:425
+#: objects/ER/relationship.c:427 objects/ER/relationship.c:429
 #: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr ""
@@ -2228,12 +2453,6 @@ msgstr ""
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr ""
-
-#: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
-#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
-#: objects/UML/class_dialog.c:2130 objects/UML/class_dialog.c:2689
-msgid "Type:"
-msgstr "형식:"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
@@ -3695,11 +3914,6 @@ msgstr "배경 색상:"
 msgid "Attributes"
 msgstr "속성"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
-#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr ""
-
 #: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
 #: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
 msgid "Delete"
@@ -4252,11 +4466,11 @@ msgstr ""
 msgid "Python scripting support"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:945
+#: plug-ins/shape/shape-export.c:962
 msgid "Can't export png without libart!"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:972
+#: plug-ins/shape/shape-export.c:989
 msgid "dia shape file"
 msgstr ""
 
@@ -5789,6 +6003,9 @@ msgstr ""
 msgid "Sybase"
 msgstr "괘선"
 
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "도표 파일 읽는중 오류\n"
+
 #, fuzzy
 #~ msgid "Number of processes:"
 #~ msgstr "취소하기 갯수:"
@@ -5816,10 +6033,6 @@ msgstr "괘선"
 #, fuzzy
 #~ msgid "Interaction name:"
 #~ msgstr "사용자 인터페이스"
-
-#, fuzzy
-#~ msgid "Move Down"
-#~ msgstr "아래로 이동"
 
 #, fuzzy
 #~ msgid "relation"
