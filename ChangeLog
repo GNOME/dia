@@ -1,3 +1,8 @@
+2002-07-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/interface.c (fill_sheet_wbox): Better fix for bug #88601:
+	Now doesn't steal selection from non-object tools.
+
 2002-07-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/commands.c (help_manual_callback): Uses BROWSER environment

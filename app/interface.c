@@ -835,10 +835,12 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(sheet_obj->description), NULL);
   }
-  if (first_button != NULL)
-    tool_select_update(first_button, 
-		       gtk_object_get_data(GTK_OBJECT(first_button),
-					   "Dia::ToolButtonData"));
+  /* If the selection is in the old sheet, steal it */
+  if (active_tool != NULL &&
+      active_tool->type == CREATE_OBJECT_TOOL &&
+      first_button != NULL)
+    gtk_signal_emit_by_name(GTK_OBJECT(first_button), "toggled",
+			    GTK_BUTTON(first_button), NULL);
 }
 
 void
