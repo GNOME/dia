@@ -8,34 +8,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-09-07 02:27+0200\n"
+"PO-Revision-Date: 2000-10-20 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:136
 msgid "Export loaded file and exit"
 msgstr "Eksportér den indlæste fil og afslut"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:137
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:139
 msgid "Show this help message"
 msgstr "Vis denne hjælpemeddelelse"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke kontakte sessionshåndteringen!\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAG...] [FIL...]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -44,20 +44,20 @@ msgstr ""
 "fejl ved flag %s: %s.\n"
 "Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Kræver gyldig inddatafil\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:299 app/app_procs.c:305
 msgid "Quit, are you sure?"
 msgstr "Afslut, er du sikker?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:312
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -65,21 +65,21 @@ msgstr ""
 "Der er ændrede diagrammer.\n"
 "Er du sikker på at du vil afslutte?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:322 app/app_procs.c:327
 msgid "Quit"
 msgstr "Afslut"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
-#: app/lineprops_area.c:747 app/linewidth_area.c:239
+#: app/app_procs.c:339 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Annullér"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:407
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke oprette Dia konfigmappe for bruger"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:427
 msgid "Objects and filters internal to dia"
 msgstr "Interne objekter og filtre for dia"
 
@@ -87,7 +87,7 @@ msgstr "Interne objekter og filtre for dia"
 msgid "Select color"
 msgstr "Vælg farve"
 
-#: app/commands.c:92
+#: app/commands.c:84
 #, c-format
 msgid ""
 "No such file found\n"
@@ -96,50 +96,50 @@ msgstr ""
 "Ingen sådan fil fundet\n"
 "%s\n"
 
-#: app/commands.c:112
+#: app/commands.c:104
 msgid "Import from XFig"
 msgstr "Importér fra XFig"
 
-#: app/commands.c:168
+#: app/commands.c:160
 #, c-format
 msgid "Untitled-%d"
 msgstr "Unavngivet-%d"
 
-#: app/commands.c:229
+#: app/commands.c:221
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan indsættes.\n"
 
-#: app/commands.c:464
+#: app/commands.c:456
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:522
+#: app/commands.c:499
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia version %s af Alexander Larsson"
 
-#: app/commands.c:527
+#: app/commands.c:504
 msgid "Maintainer: James Henstridge"
 msgstr "Vedligeholder: James Henstridge"
 
-#: app/commands.c:531
+#: app/commands.c:508
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
-#: app/commands.c:536
+#: app/commands.c:513
 msgid "Contributors:"
 msgstr "Bidragsydere:"
 
 #. setup buttons
-#: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
-#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
-#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
-#: app/properties.c:82 lib/message.c:85
+#: app/commands.c:530 app/dia-props.c:86 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:600
+#: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "Ok"
 
-#: app/commands.c:654
+#: app/commands.c:633
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -153,13 +153,13 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Standardindstillinger for objekt"
 
-#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
-#: app/preferences.c:607 app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:609 app/properties.c:91
 msgid "Apply"
 msgstr "Anvend"
 
-#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:618
 #: app/properties.c:101
 msgid "Close"
 msgstr "Luk"
@@ -172,35 +172,35 @@ msgstr "Dette objekt har ingen standardindstillinger."
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
-#: app/dia-props.c:58 app/dia-props.c:65
+#: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
 msgstr "Egenskaber for diagram"
 
-#: app/dia-props.c:128
+#: app/dia-props.c:130
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:132
+#: app/dia-props.c:134
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:137
+#: app/dia-props.c:139
 msgid "Spacing"
 msgstr "Mellemrum"
 
-#: app/dia-props.c:157
+#: app/dia-props.c:159
 msgid "Visible spacing"
 msgstr "Synligt mellemrum"
 
-#: app/dia-props.c:177
+#: app/dia-props.c:179
 msgid "Grid"
 msgstr "Gitternet"
 
-#: app/dia-props.c:187
+#: app/dia-props.c:189
 msgid "Background Colour"
 msgstr "Baggrundsfarve"
 
-#: app/dia-props.c:198 lib/diagramdata.c:53
+#: app/dia-props.c:200 lib/diagramdata.c:53
 msgid "Background"
 msgstr "Baggrund"
 
@@ -261,7 +261,7 @@ msgstr "%0.3g cm x %0.3g cm"
 msgid "Page Setup"
 msgstr "Sideopsætning"
 
-#: app/disp_callbacks.c:69 app/properties.c:164
+#: app/disp_callbacks.c:70 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -269,7 +269,7 @@ msgstr ""
 "Dette objekt understøtter ikke fortryd/gentag.\n"
 "Fortryd-information slettes."
 
-#: app/disp_callbacks.c:166
+#: app/disp_callbacks.c:167
 msgid "No object menu"
 msgstr "Ingen objektmenu"
 
@@ -281,11 +281,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er ændret!"
 
-#: app/display.c:753 app/display.c:759
+#: app/display.c:754 app/display.c:760
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:764
+#: app/display.c:765
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -293,12 +293,12 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:783 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:793 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nej"
@@ -306,7 +306,8 @@ msgstr "Nej"
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:177
+#: plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åbne: '%s' for skriving.\n"
@@ -327,27 +328,27 @@ msgstr "Fejl opstod ved skrivning af PNG"
 msgid "Portable Network Graphics"
 msgstr "Flytbar vektorgrafik"
 
-#: app/filedlg.c:94 app/filedlg.c:368
+#: app/filedlg.c:95 app/filedlg.c:369
 msgid "By extension"
 msgstr "Ved udvidelse"
 
-#: app/filedlg.c:153
+#: app/filedlg.c:154
 msgid "Open Diagram"
 msgstr "Åbn Diagram"
 
-#: app/filedlg.c:179
+#: app/filedlg.c:180
 msgid "Open Options"
 msgstr "Muligheder for Åbn"
 
-#: app/filedlg.c:187 app/filedlg.c:527
+#: app/filedlg.c:188 app/filedlg.c:528
 msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
-#: app/filedlg.c:227 app/filedlg.c:415
+#: app/filedlg.c:228 app/filedlg.c:416
 msgid "File already exists"
 msgstr "Fil eksisterer allerede"
 
-#: app/filedlg.c:231 app/filedlg.c:418
+#: app/filedlg.c:232 app/filedlg.c:419
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -356,11 +357,11 @@ msgstr ""
 "Filen '%s' eksisterer allerede\n"
 "Ønsker du at overskrive den"
 
-#: app/filedlg.c:295
+#: app/filedlg.c:296
 msgid "Save Diagram"
 msgstr "Gem diagram"
 
-#: app/filedlg.c:475
+#: app/filedlg.c:476
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -369,123 +370,123 @@ msgstr ""
 "kunne ikke bestemme hvilket eksport-filter\n"
 "der skulle bruges ved gemning af '%s'"
 
-#: app/filedlg.c:492
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
-#: app/filedlg.c:519
+#: app/filedlg.c:520
 msgid "Export Options"
 msgstr "Indstillinger for eksport"
 
-#: app/interface.c:35
+#: app/interface.c:31
 msgid "Modify object(s)"
 msgstr "Ændr objekt(er)"
 
-#: app/interface.c:36 app/menus.c:193
+#: app/interface.c:32 app/menus.c:193
 msgid "Modify"
 msgstr "Ændr"
 
-#: app/interface.c:40 app/interface.c:41 app/menus.c:194
+#: app/interface.c:36 app/interface.c:37 app/menus.c:194
 msgid "Magnify"
 msgstr "Forstørrelse"
 
-#: app/interface.c:45
+#: app/interface.c:41
 msgid "Scroll around the diagram"
 msgstr "Bladr rundt i diagrammet"
 
-#: app/interface.c:46 app/menus.c:195
+#: app/interface.c:42 app/menus.c:195
 msgid "Scroll"
 msgstr "Bladr"
 
-#: app/interface.c:50
+#: app/interface.c:46
 msgid "Create Text"
 msgstr "Lav tekst"
 
-#: app/interface.c:51 app/menus.c:196
+#: app/interface.c:47 app/menus.c:196
 msgid "Text"
 msgstr "Tekst"
 
-#: app/interface.c:55
+#: app/interface.c:51
 msgid "Create Box"
 msgstr "Lav boks"
 
-#: app/interface.c:56 app/menus.c:197
+#: app/interface.c:52 app/menus.c:197
 msgid "Box"
 msgstr "Boks"
 
-#: app/interface.c:60
+#: app/interface.c:56
 msgid "Create Ellipse"
 msgstr "Lav ellipse"
 
-#: app/interface.c:61 app/menus.c:198
+#: app/interface.c:57 app/menus.c:198
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: app/interface.c:65
+#: app/interface.c:61
 msgid "Create Polygon"
 msgstr "Lav polygon"
 
-#: app/interface.c:66 app/menus.c:199
+#: app/interface.c:62 app/menus.c:199
 msgid "Polygon"
 msgstr "Polygon"
 
-#: app/interface.c:70
+#: app/interface.c:66
 msgid "Create Beziergon"
 msgstr "Lav en Beziergon"
 
-#: app/interface.c:71 app/menus.c:200
+#: app/interface.c:67 app/menus.c:200
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:75
+#: app/interface.c:71
 msgid "Create Line"
 msgstr "Lav linie"
 
-#: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
+#: app/interface.c:72 app/menus.c:201 objects/standard/line.c:183
 msgid "Line"
 msgstr "Linie"
 
-#: app/interface.c:80
+#: app/interface.c:76
 msgid "Create Arc"
 msgstr "Lav bue"
 
-#: app/interface.c:81 app/menus.c:202
+#: app/interface.c:77 app/menus.c:202
 msgid "Arc"
 msgstr "Bue"
 
-#: app/interface.c:85
+#: app/interface.c:81
 msgid "Create Zigzagline"
 msgstr "Lav zigzag-linie"
 
-#: app/interface.c:86 app/menus.c:203
+#: app/interface.c:82 app/menus.c:203
 msgid "Zigzagline"
 msgstr "Zigzag-linie"
 
-#: app/interface.c:90
+#: app/interface.c:86
 msgid "Create Polyline"
 msgstr "Lav multilinie"
 
-#: app/interface.c:91 app/menus.c:204
+#: app/interface.c:87 app/menus.c:204
 msgid "Polyline"
 msgstr "Multilinie"
 
-#: app/interface.c:95
+#: app/interface.c:91
 msgid "Create Bezierline"
 msgstr "Lav en bezierlinie"
 
-#: app/interface.c:96 app/menus.c:205
+#: app/interface.c:92 app/menus.c:205
 msgid "Bezierline"
 msgstr "Bezierlinie"
 
-#: app/interface.c:100
+#: app/interface.c:96
 msgid "Create Image"
 msgstr "Lav billede"
 
-#: app/interface.c:101 app/menus.c:206
+#: app/interface.c:97 app/menus.c:206
 msgid "Image"
 msgstr "Billedfil"
 
-#: app/interface.c:312
+#: app/interface.c:308
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL værktøjdata i tool_select_update"
 
@@ -554,11 +555,11 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Liniestilsegenskaber"
 
-#: app/linewidth_area.c:209
+#: app/linewidth_area.c:211
 msgid "Line width"
 msgstr "Liniebredde"
 
-#: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
+#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
 msgid "Line width:"
@@ -592,7 +593,7 @@ msgstr ""
 "Fejl ved indlæsning af diagram.\n"
 "Forbindelseshåndtag eksisterer ikke."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:489 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åbne: '%s' for læsning.\n"
@@ -1248,6 +1249,10 @@ msgstr "Diagram-menu"
 msgid "Print Diagram"
 msgstr "Udskriv diagram"
 
+#: app/paginate_gnomeprint.c:175
+msgid "An error occured while creating the print context"
+msgstr "Fejl opstod ved oprettelsen af udskrivningssammenhæng"
+
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Vælg printer"
@@ -1391,7 +1396,7 @@ msgstr "Sideskift:"
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikke åbne '%s' for skriving"
 
-#: app/preferences.c:566 app/preferences.c:575
+#: app/preferences.c:568 app/preferences.c:577
 msgid "Preferences"
 msgstr "Indstillinger"
 
@@ -1425,15 +1430,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fandt ikke skrifttype %s, bruger Courier i stedet.\n"
 
-#: lib/message.c:118
+#: lib/message.c:120
 msgid "Notice"
 msgstr "Bemærk"
 
-#: lib/message.c:129
+#: lib/message.c:131
 msgid "Warning"
 msgstr "Advarsel"
 
-#: lib/message.c:141
+#: lib/message.c:143
 msgid "Error"
 msgstr "Fejl"
 
@@ -1544,7 +1549,7 @@ msgstr "Længde: "
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:854 objects/standard/image.c:532
+#: lib/widgets.c:854 objects/standard/image.c:537
 msgid "Select image file"
 msgstr "Valgt billedfil"
 
@@ -2511,20 +2516,20 @@ msgstr "Tegn kant"
 msgid "Keep aspect ratio"
 msgstr "Behold bredde/højde forhold"
 
-#: objects/standard/image.c:263
+#: objects/standard/image.c:268
 msgid "Image file:"
 msgstr "Billedfil:"
 
-#: objects/standard/image.c:274
+#: objects/standard/image.c:279
 msgid "Keep aspect ratio:"
 msgstr "Behold bredde/højde forhold:"
 
-#: objects/standard/image.c:282
+#: objects/standard/image.c:287
 msgid "Show border:"
 msgstr "Vis kant:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:848 objects/standard/image.c:859
+#: objects/standard/image.c:853 objects/standard/image.c:864
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2534,7 +2539,7 @@ msgstr ""
 "Bruger filen '%s' istedet.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:865 objects/standard/image.c:891
+#: objects/standard/image.c:870 objects/standard/image.c:896
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunne ikke finde billedfilen '%s'.\n"
@@ -2583,7 +2588,7 @@ msgstr "Computer Grafik Metafil"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Grafik Metafil eksportfilter"
 
-#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
+#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:543
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2599,9 +2604,25 @@ msgstr "HP Grafiksprog (HPGL) eksportfilter"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks eksportfilter"
 
-#: plug-ins/pstricks/render_pstricks.c:749
+#: plug-ins/pstricks/render_pstricks.c:757
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
+
+#: plug-ins/shape/shape-export.c:931
+msgid "dia shape file"
+msgstr "dia form-fil"
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "dia form eksportfilter"
+
+#: plug-ins/svg/render_svg.c:821
+msgid "Scalable Vector Graphics"
+msgstr "Skalérbar vektorgrafik"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Eksportfilter for skalerbar vektorgrafik"
 
 #: plug-ins/wpg/wpg.c:1032
 #, c-format
@@ -2611,11 +2632,3 @@ msgstr "Fil: %s type/version ikke understøttet\n"
 #: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Grafik eksportfilter"
-
-#: plug-ins/svg/render_svg.c:821
-msgid "Scalable Vector Graphics"
-msgstr "Skalérbar vektorgrafik"
-
-#: plug-ins/svg/svg.c:36
-msgid "Scalable Vector Graphics export filter"
-msgstr "Eksportfilter for skalerbar vektorgrafik"
