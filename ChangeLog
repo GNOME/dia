@@ -1,5 +1,7 @@
 2002-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/diagdkrenderer.c (draw_string): Removed silly #ifdef 1.
+
 	* lib/prop_widgets.h: Two (currently unused) settings for frame
 	foldability.
 
