@@ -19,19 +19,11 @@
 #define POLY_CONN_H
 
 #include "object.h"
+#include "boundingbox.h"
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
 typedef struct _PolyConn PolyConn;
-typedef struct _PolyConnBBExtras PolyConnBBExtras;
-
-/* This holds some extra spacing to be used by polyconn_update_boundingbox.
- What this space means is up to the subclass. */
-struct _PolyConnBBExtras {
-  real start_long, start_trans;
-  real middle_trans;
-  real end_long, end_trans;
-};
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with polygonal line-segments.
@@ -43,7 +35,7 @@ struct _PolyConn {
   int numpoints; /* >= 2 */
   Point *points;
 
-  PolyConnBBExtras extra_spacing;
+  PolyBBExtras extra_spacing;
 };
 
 

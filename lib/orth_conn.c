@@ -250,59 +250,11 @@ orthconn_update_data(OrthConn *orth)
 void
 orthconn_update_boundingbox(OrthConn *orth)
 {
-  Rectangle *bb;
-  Point *points;
-  int i;
-  Point pt1,pt0;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
-  
   assert(orth != NULL);
-
-  bb = &orth->object.bounding_box;
-  points = &orth->points[0];
-
-  bb->right = bb->left = points[0].x;
-  bb->top = bb->bottom = points[0].y;
-  
-  for (i=0;i<(orth->numpoints-1);i++) {
-    pt1 = points[i];
-    point_sub(&pt1,&(points[i+1]));
-    point_normalize(&pt1);
-
-    if (i==0) {
-      real trans = MAX(extra->start_trans,extra->middle_trans);
-      check_bb_x(bb,points[i].x + (extra->start_long * pt1.x),pt1.x);
-      check_bb_x(bb,points[i].x + (trans * pt1.y),pt1.y); 
-      check_bb_x(bb,points[i].x - (trans * pt1.y),pt1.y); 
-
-      check_bb_y(bb,points[i].y + (trans * pt1.x),pt1.x); 
-      check_bb_y(bb,points[i].y - (trans * pt1.x),pt1.x);       
-    } else {
-      check_bb_x(bb, points[i].x + (extra->middle_trans * pt1.y),pt1.y);
-      check_bb_x(bb, points[i].x - (extra->middle_trans * pt1.y),pt1.y);
-      check_bb_y(bb, points[i].y + (extra->middle_trans * pt1.x),pt1.x);
-      check_bb_y(bb, points[i].y - (extra->middle_trans * pt1.x),pt1.x);
-    }
-    if (i!=0) {
-      real overshoot = extra->middle_trans / (sin(M_PI/4.0));
-      Point pts;
-
-      pts = pt1; point_sub(&pts,&pt0);
-      point_normalize(&pts);
-
-      check_bb_x(bb,points[i].x + (overshoot * pts.x),pts.x);
-      check_bb_y(bb,points[i].y + (overshoot * pts.y),pts.y);
-    }
-    if (i==(orth->numpoints-2)) {
-      check_bb_x(bb,points[i+1].x - (extra->end_long * pt1.x),pt1.x);
-      check_bb_x(bb,points[i+1].x - (extra->end_trans * pt1.y),pt1.y);
-      check_bb_x(bb,points[i+1].x + (extra->end_trans * pt1.y),pt1.y);
-
-      check_bb_y(bb,points[i+1].y - (extra->end_trans * pt1.x),pt1.y);
-      check_bb_y(bb,points[i+1].y + (extra->end_trans * pt1.x),pt1.y);
-    }
-    pt0=pt1;
-  }
+  polyline_bbox(&orth->points[0],
+                orth->numpoints,
+                &orth->extra_spacing, FALSE,
+                &orth->object.bounding_box);
 }
 
 void

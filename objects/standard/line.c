@@ -368,7 +368,7 @@ line_update_data(Line *line)
 {
   Connection *conn = &line->connection;
   Object *obj = &conn->object;
-  ConnectionBBExtras *extra = &conn->extra_spacing;
+  LineBBExtras *extra = &conn->extra_spacing;
 
   extra->start_trans = (line->line_width / 2.0);
   extra->end_trans   = (line->line_width / 2.0);

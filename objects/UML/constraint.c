@@ -422,12 +422,14 @@ constraint_update_data(Constraint *constraint)
   Connection *conn = &constraint->connection;
   Object *obj = &conn->object;
   Rectangle rect;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
 
   obj->position = conn->endpoints[0];
 
   constraint->text_width =
-    font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
+    font_string_width(constraint->text, 
+                      constraint_font, 
+                      CONSTRAINT_FONTHEIGHT);
   
   constraint->text_handle.pos = constraint->text_pos;
 
@@ -470,7 +472,7 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   Constraint *constraint;
   AttributeNode attr;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
 
   if (constraint_font == NULL)

@@ -394,7 +394,7 @@ orthflow_create(Point *startpoint,
   OrthConn *orth;
   Object *obj;
   Point p;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
   orthflow = g_new0(Orthflow,1);
 
   orth = &orthflow->orth ;
@@ -543,7 +543,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   if (orthflow_font == NULL)
     orthflow_font = font_getfont("Helvetica-Oblique");

@@ -66,6 +66,8 @@ struct _Layer {
   int visible;
 };
 
+extern int render_bounding_boxes;
+
 DiagramData *new_diagram_data(void);
 void diagram_data_destroy(DiagramData *data);
 
@@ -116,6 +118,7 @@ void layer_replace_object_with_list(Layer *layer, Object *obj,
 void layer_set_object_list(Layer *layer, GList *list);
 /* Make sure all objects that are in the layer and not in the new
    list eventually gets destroyed. */
+
 #endif /* DIAGRAMDATA_H */
 
 

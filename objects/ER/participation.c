@@ -262,7 +262,7 @@ static void
 participation_update_data(Participation *participation)
 {
   OrthConn *orth = &participation->orth;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
+  PolyBBExtras *extra = &orth->extra_spacing;
   real extra_width;
   
   orthconn_update_data(orth);

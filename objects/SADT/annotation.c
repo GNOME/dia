@@ -293,7 +293,7 @@ annotation_create(Point *startpoint,
 {
   Annotation *annotation;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj; 
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
@@ -431,7 +431,7 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
 {
   Annotation *annotation;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
 
   annotation_init_defaults();

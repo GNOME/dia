@@ -363,7 +363,7 @@ implements_update_data(Implements *implements)
 {
   Connection *conn = &implements->connection;
   Object *obj = &conn->object;
-  ConnectionBBExtras *extra = &conn->extra_spacing;
+  LineBBExtras *extra = &conn->extra_spacing;
   Point delta;
   Point point;
   real len;

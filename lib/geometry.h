@@ -81,39 +81,39 @@ struct _BezPoint {
 
 /* inline these functions if the platform supports it */
 
-G_INLINE_FUNC void point_add(Point *p1, Point *p2);
+G_INLINE_FUNC void point_add(Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-point_add(Point *p1, Point *p2)
+point_add(Point *p1, const Point *p2)
 {
   p1->x += p2->x;
   p1->y += p2->y;
 }
 #endif
 
-G_INLINE_FUNC void point_sub(Point *p1, Point *p2);
+G_INLINE_FUNC void point_sub(Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-point_sub(Point *p1, Point *p2)
+point_sub(Point *p1, const Point *p2)
 {
   p1->x -= p2->x;
   p1->y -= p2->y;
 }
 #endif
 
-G_INLINE_FUNC real point_dot(Point *p1, Point *p2);
+G_INLINE_FUNC real point_dot(const Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC real
-point_dot(Point *p1, Point *p2)
+point_dot(const Point *p1, const Point *p2)
 {
   return p1->x*p2->x + p1->y*p2->y;
 }
 #endif
 
-G_INLINE_FUNC real point_len(Point *p);
+G_INLINE_FUNC real point_len(const Point *p);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC real
-point_len(Point *p)
+point_len(const Point *p)
 {
   return sqrt(p->x*p->x + p->y*p->y);
 }
@@ -143,20 +143,20 @@ point_normalize(Point *p)
 }
 #endif
 
-G_INLINE_FUNC void point_rotate(Point *p1, Point *p2);
+G_INLINE_FUNC void point_rotate(Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-point_rotate(Point *p1, Point *p2)
+point_rotate(Point *p1, const Point *p2)
 {
   p1->x = p1->x*p2->x - p1->y*p2->y;
   p1->y = p1->x*p2->y + p1->y*p2->x;
 }
 #endif
 
-G_INLINE_FUNC void point_get_normed(Point *dst, Point *src);
+G_INLINE_FUNC void point_get_normed(Point *dst, const Point *src);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-point_get_normed(Point *dst, Point *src)
+point_get_normed(Point *dst, const Point *src)
 {
   real len;
 
@@ -167,10 +167,10 @@ point_get_normed(Point *dst, Point *src)
 }
 #endif
 
-G_INLINE_FUNC void point_get_perp(Point *dst, Point *src);
+G_INLINE_FUNC void point_get_perp(Point *dst, const Point *src);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-point_get_perp(Point *dst, Point *src)
+point_get_perp(Point *dst, const Point *src)
 {
   /* dst = the src vector, rotated 90<B0> counter clowkwise. src *must* be 
      normalized before. */
@@ -179,10 +179,10 @@ point_get_perp(Point *dst, Point *src)
 }
 #endif
 
-G_INLINE_FUNC void point_copy(Point *dst, Point *src);
+G_INLINE_FUNC void point_copy(Point *dst, const Point *src);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void 
-point_copy(Point *dst, Point *src)
+point_copy(Point *dst, const Point *src)
 {
   /* Unfortunately, the compiler is not clever enough. And copying using
      ints is faster if we don't computer based on the copied values, but
@@ -194,10 +194,10 @@ point_copy(Point *dst, Point *src)
 }
 #endif
 
-G_INLINE_FUNC void point_add_scaled(Point *dst, Point *src, real alpha);
+G_INLINE_FUNC void point_add_scaled(Point *dst, const Point *src, real alpha);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void 
-point_add_scaled(Point *dst, Point *src, real alpha)
+point_add_scaled(Point *dst, const Point *src, real alpha)
 {
   /* especially useful if src is a normed vector... */
   dst->x += alpha * src->x;
@@ -205,17 +205,28 @@ point_add_scaled(Point *dst, Point *src, real alpha)
 }
 #endif
 
-G_INLINE_FUNC void point_copy_add_scaled(Point *dst, Point *src, Point *vct,
+G_INLINE_FUNC void point_copy_add_scaled(Point *dst, const Point *src, 
+                                         const Point *vct,
 					 real alpha);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void 
-point_copy_add_scaled(Point *dst, Point *src, Point *vct, real alpha)
+point_copy_add_scaled(Point *dst, const Point *src, 
+                      const Point *vct, real alpha)
 {
   /* especially useful if vct is a normed vector... */
   dst->x = src->x + (alpha * vct->x);
   dst->y = src->y + (alpha * vct->y);
 }
 #endif
+
+
+void rectangle_union(Rectangle *r1, const Rectangle *r2);
+void int_rectangle_union(IntRectangle *r1, const IntRectangle *r2);
+void rectangle_intersection(Rectangle *r1, const Rectangle *r2);
+int rectangle_intersects(const Rectangle *r1, const Rectangle *r2);
+int point_in_rectangle(const Rectangle* r, const Point *p);
+int rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner);
+void rectangle_add_point(Rectangle *r, const Point *p);
 
 G_INLINE_FUNC void check_bb_x( Rectangle *bb, real val, real check );
 #ifdef G_CAN_INLINE
@@ -243,18 +254,20 @@ check_bb_y( Rectangle *bb, real val, real check )
 }
 #endif
 
-void rectangle_union(Rectangle *r1, Rectangle *r2);
-void int_rectangle_union(IntRectangle *r1, IntRectangle *r2);
-void rectangle_intersection(Rectangle *r1, Rectangle *r2);
-int rectangle_intersects(Rectangle *r1, Rectangle *r2);
-int point_in_rectangle(Rectangle* r, Point *p);
-int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
-void rectangle_add_point(Rectangle *r, Point *p);
+G_INLINE_FUNC void check_bb_pt( Rectangle *bb, const Point *pt, real check );
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+check_bb_pt( Rectangle *bb, const Point *pt, real check )
+{
+  /* if pt is outside the bounding box, and check is real, adjust the bb */
+  if (finite(check)) rectangle_add_point(bb,pt);
+}
+#endif
 
-G_INLINE_FUNC real distance_point_point(Point *p1, Point *p2);
+G_INLINE_FUNC real distance_point_point(const Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC real
-distance_point_point(Point *p1, Point *p2)
+distance_point_point(const Point *p1, const Point *p2)
 {
   real dx = p1->x - p2->x;
   real dy = p1->y - p2->y;
@@ -262,10 +275,11 @@ distance_point_point(Point *p1, Point *p2)
 }
 #endif
 
-G_INLINE_FUNC real distance_point_point_manhattan(Point *p1, Point *p2);
+G_INLINE_FUNC real distance_point_point_manhattan(const Point *p1, 
+                                                  const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC real
-distance_point_point_manhattan(Point *p1, Point *p2)
+distance_point_point_manhattan(const Point *p1, const Point *p2)
 {
   real dx = p1->x - p2->x;
   real dy = p1->y - p2->y;
@@ -273,23 +287,24 @@ distance_point_point_manhattan(Point *p1, Point *p2)
 }
 #endif
 
-real distance_rectangle_point(Rectangle *rect, Point *point);
-real distance_line_point(Point *line_start, Point *line_end,
-			 real line_width, Point *point);
+real distance_rectangle_point(const Rectangle *rect, const Point *point);
+real distance_line_point(const Point *line_start, const Point *line_end,
+			 real line_width, const Point *point);
 
-real distance_polygon_point(Point *poly, guint npoints,
-			    real line_width, Point *point);
+real distance_polygon_point(const Point *poly, guint npoints,
+			    real line_width, const Point *point);
 
 /* bezier distance calculations */
-real distance_bez_seg_point(Point *b1, Point *b2, Point *b3, Point *b4,
-			    real line_width, Point *point);
-real distance_bez_line_point(BezPoint *b, guint npoints,
-			     real line_width, Point *point);
-real distance_bez_shape_point(BezPoint *b, guint npoints,
-			      real line_width, Point *point);
+real distance_bez_seg_point(const Point *b1, const Point *b2, 
+                            const Point *b3, const Point *b4,
+			    real line_width, const Point *point);
+real distance_bez_line_point(const BezPoint *b, guint npoints,
+			     real line_width, const Point *point);
+real distance_bez_shape_point(const BezPoint *b, guint npoints,
+			      real line_width, const Point *point);
 
-real distance_ellipse_point(Point *centre, real width, real height,
-			    real line_width, Point *point);
+real distance_ellipse_point(const Point *centre, real width, real height,
+			    real line_width, const Point *point);
 
 typedef real  Vector[3];
 typedef Vector  Matrix[3];

@@ -604,7 +604,7 @@ static void
 sadtarrow_update_data(Sadtarrow *sadtarrow)
 {
   NewOrthConn *orth = &sadtarrow->orth;
-  NewOrthConnBBExtras *extra = &orth->extra_spacing;
+  PolyBBExtras *extra = &orth->extra_spacing;
 
   neworthconn_update_data(&sadtarrow->orth);
 

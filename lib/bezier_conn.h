@@ -21,15 +21,9 @@
 #define BEZIER_CONN_H
 
 #include "object.h"
+#include "boundingbox.h"
 
 typedef struct _BezierConn BezierConn;
-typedef struct _BezierConnBBExtras BezierConnBBExtras;
-
-struct _BezierConnBBExtras {
-  real start_long, start_trans;
-  real middle_trans;
-  real end_long, end_trans;
-};
 
 typedef enum {
   BEZ_CORNER_SYMMETRIC,
@@ -47,7 +41,7 @@ struct _BezierConn {
   int numpoints; /* >= 2 */
   BezPoint *points;
   BezCornerType *corner_types;
-  BezierConnBBExtras extra_spacing;
+  PolyBBExtras extra_spacing;
 };
 
 void bezierconn_update_data(BezierConn *bez);

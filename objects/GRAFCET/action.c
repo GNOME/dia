@@ -460,7 +460,7 @@ action_create(Point *startpoint,
   Action *action;
   Connection *conn;
   Object *obj;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Point defaultlen  = {1.0,0.0}, pos;
 
   init_default_values();
@@ -574,7 +574,7 @@ action_load(ObjectNode obj_node, int version, const char *filename)
   Action *action;
   Connection *conn;
   Object *obj;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
 
   init_default_values();
   action = g_malloc0(sizeof(Action));

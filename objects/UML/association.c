@@ -426,7 +426,7 @@ association_update_data(Association *assoc)
 {
   OrthConn *orth = &assoc->orth;
   Object *obj = &orth->object;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
+  PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i, n;
   Point *points;
   Rectangle rect;

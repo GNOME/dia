@@ -28,11 +28,6 @@
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
 typedef struct _BezierShape BezierShape;
-typedef struct _BezierShapeBBExtras BezierShapeBBExtras;
-
-struct _BezierShapeBBExtras {
-  real border_trans;
-};
 
 /* This is a subclass of Object used to help implementing objects
  * that form a polygon-like shape of line-segments.
@@ -44,7 +39,7 @@ struct _BezierShape {
   int numpoints; /* >= 2 */
   BezPoint *points;
   BezCornerType *corner_types;
-  BezierShapeBBExtras extra_spacing;
+  ElementBBExtras extra_spacing;
 };
 
 void beziershape_update_data(BezierShape *bezier);

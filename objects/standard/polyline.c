@@ -311,7 +311,7 @@ polyline_update_data(Polyline *polyline)
 {
   PolyConn *poly = &polyline->poly;
   Object *obj = &poly->object;
-  PolyConnBBExtras *extra = &poly->extra_spacing;
+  PolyBBExtras *extra = &poly->extra_spacing;
 
   polyconn_update_data(&polyline->poly);
 

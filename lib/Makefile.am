@@ -78,7 +78,9 @@ libdia_a_SOURCES =  \
 		ps-utf8.c \
 		ps-utf8.h \
 		string_prerenderer.c \
-		string_prerenderer.h
+		string_prerenderer.h \
+		boundingbox.c \
+		boundingbox.h
 
 ##		render_store.c \
 ##		render_store.h \

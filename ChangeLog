@@ -1,3 +1,56 @@
+2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/Makefile.am:
+	* lib/boundingbox.[ch] (NEW): (some) refactoring of the bounding
+	box code (beginning with lines, polylines and polybeziers), into a
+	more generic facility. While at it, a better shot at correctly
+	computing the bounding box of a Bezieroid (should take care of
+	#53424, #51233 and of course is part 1 of #52912).
+
+	* lib/diagramdata.c: turned the RENDER_BOUNDING_BOXES conditional
+	into a hidden preference (set render_bounding_boxes in diarc).
+	* app/preferences.[ch]:	Added support for hidden preferences.
+
+	* lib/geometry.[ch]: sprinkled with "const" modifiers.
+	
+	* lib/bezier_conn.[ch]:
+	* lib/beziershape.[ch]:
+	* lib/connection.[ch]:
+	* lib/element.[ch]:
+	* lib/poly_conn.[ch]:
+	* lib/orth_conn.[ch]:
+	* lib/neworth_conn.[ch]:
+	* lib/polyshape.[ch]: adapted to take advantage of
+	boundingbox.[ch] instead of relying on private (duplicate) code.
+
+	* object/FS/flow.c:
+	* object/GRAFCET/action.c:
+	* objects/GRAFCET/condition.c:
+	* objects/GRAFCET/vergent.c:
+	* objects/GRAFCET/vector.c:
+	* objects/SADT/annotation.c:
+	* objects/SADT/arrow.c:
+	* objects/ER/participation.c:
+	* objects/UML/constraint.c:
+	* objects/UML/implements.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/realizes.c:
+	* objects/UML/generalization.c:
+	* objects/UML/association.c:
+	* objects/UML/dependency.c:
+	* objects/FS/flow-ortho.c:
+	* objects/network/bus.c:
+	* objects/standard/arc.c:
+	* objects/standard/bezier.c:
+	* objects/standard/beziergon.c:
+	* objects/standard/line.c:
+	* objects/standard/polygon.c:
+	* objects/standard/zigzagline.c:
+	
+	* objects/standard/polyline.c: Some *BBExtras structures changed
+	names while moving to boundingbox.[ch]. A trivial mass-renaming.
+	
 2001-05-20  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events): Take into account

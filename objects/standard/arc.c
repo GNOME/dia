@@ -462,7 +462,7 @@ static void
 arc_update_data(Arc *arc)
 {
   Connection *conn = &arc->connection;
-  ConnectionBBExtras *extra =&conn->extra_spacing;
+  LineBBExtras *extra =&conn->extra_spacing;
   Object *obj = &conn->object;
   Point *endpoints;
   real x1,y1,x2,y2,xc,yc;

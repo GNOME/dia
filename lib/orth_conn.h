@@ -19,6 +19,7 @@
 #define ORTH_CONN_H
 
 #include "object.h"
+#include "boundingbox.h"
 
 typedef enum {
   HORIZONTAL,
@@ -30,13 +31,6 @@ typedef enum {
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
 typedef struct _OrthConn OrthConn;
-typedef struct _OrthConnBBExtras OrthConnBBExtras;
-
-struct _OrthConnBBExtras {
-  real start_long, start_trans;
-  real middle_trans;
-  real end_long, end_trans;
-};
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.
@@ -55,7 +49,7 @@ struct _OrthConn {
    * problematic, as they can only move freely in one direction.)
    * The array of pointers is ordered in segment order.
    */
-  OrthConnBBExtras extra_spacing;
+  PolyBBExtras extra_spacing;
 };
 
 void orthconn_update_data(OrthConn *orth);

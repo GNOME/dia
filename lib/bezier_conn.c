@@ -560,117 +560,12 @@ bezierconn_update_data(BezierConn *bez)
 void
 bezierconn_update_boundingbox(BezierConn *bez)
 {
-  Rectangle *bb;
-  BezPoint *points;
-  int i;
-  Point pt1,pt0,vec;
-  BezierConnBBExtras *extra;
-  real trans;
-
   assert(bez != NULL);
 
-  extra = &bez->extra_spacing;
-  bb = &bez->object.bounding_box;
-  points = &bez->points[0];
-
-  bb->right = bb->left = points[0].p1.x;
-  bb->top = bb->bottom = points[0].p1.y;
-
-  trans = MAX(extra->start_trans,extra->middle_trans);
-  vec = points[0].p1;
-  if (points[1].type == BEZ_CURVE_TO) {
-    point_sub(&vec,&points[1].p1);
-  } else {
-    point_sub(&vec,&points[1].p1); 
-  }
-  check_bb_x(bb,points[0].p1.x + (extra->start_long * vec.x),vec.x);
-  check_bb_y(bb,points[0].p1.y + (extra->start_long * vec.y),vec.y);
-  check_bb_x(bb,points[0].p1.x + (trans * vec.y),vec.y);
-  check_bb_x(bb,points[0].p1.x - (trans * vec.y),vec.y);
-  check_bb_y(bb,points[0].p1.y + (trans * vec.x),vec.x);
-  check_bb_y(bb,points[0].p1.y - (trans * vec.x),vec.x);
-
-  
-  for (i=0;i<(bez->numpoints-1);i++) {
-    if (points[i].type == BEZ_CURVE_TO) {
-      pt1 = points[i].p3;
-    } else {
-      pt1 = points[i].p1;
-    }
-    if (points[i+1].type == BEZ_CURVE_TO) {
-      point_sub(&pt1,&(points[i+1].p3));
-    } else {
-      point_sub(&pt1,&(points[i+1].p1));
-    }
-    point_normalize(&pt1);
-
-    if (i!=0) {
-      if (points[i].type == BEZ_CURVE_TO) {
-        /* FIXME : dig up the math, do something closer to the curve (CC) */        
-        check_bb_x(bb,points[i].p1.x + extra->middle_trans * 1.41,1);
-        check_bb_x(bb,points[i].p1.x - extra->middle_trans * 1.41,1);
-        check_bb_x(bb,points[i].p2.x + extra->middle_trans * 1.41,1);
-        check_bb_x(bb,points[i].p2.x - extra->middle_trans * 1.41,1);
-        check_bb_x(bb,points[i].p3.x + extra->middle_trans * 1.41,1);
-        check_bb_x(bb,points[i].p3.x - extra->middle_trans * 1.41,1);
-
-        check_bb_y(bb,points[i].p1.y + extra->middle_trans * 1.41,1);
-        check_bb_y(bb,points[i].p1.y - extra->middle_trans * 1.41,1);
-        check_bb_y(bb,points[i].p2.y + extra->middle_trans * 1.41,1);
-        check_bb_y(bb,points[i].p2.y - extra->middle_trans * 1.41,1);
-        check_bb_y(bb,points[i].p3.y + extra->middle_trans * 1.41,1);
-        check_bb_y(bb,points[i].p3.y - extra->middle_trans * 1.41,1);
-      } else {
-        real co = point_dot(&pt1,&pt0);
-
-        check_bb_x(bb, points[i].p1.x + (extra->middle_trans * pt1.y),pt1.y);
-        check_bb_x(bb, points[i].p1.x - (extra->middle_trans * pt1.y),pt1.y);
-        check_bb_y(bb, points[i].p1.y + (extra->middle_trans * pt1.x),pt1.x);
-        check_bb_y(bb, points[i].p1.y - (extra->middle_trans * pt1.x),pt1.x);
-
-        if (co > -0.9816) { /* 0.9816 == cos(11deg) */
-          real alpha = fabs(acos(-co));
-          real overshoot = extra->middle_trans / (sin(alpha/2.0));
-          Point pts;
-
-          pts = pt1; point_sub(&pts,&pt0);
-          point_normalize(&pts);
-          
-          check_bb_x(bb,points[i].p1.x + (overshoot * pts.x),pts.x);
-          check_bb_y(bb,points[i].p1.y + (overshoot * pts.y),pts.y);
-        } else { /* this works because i>0 */
-          check_bb_x(bb, points[i].p1.x + (extra->middle_trans * pt0.y),pt0.y);
-          check_bb_x(bb, points[i].p1.x - (extra->middle_trans * pt0.y),pt0.y);
-          check_bb_y(bb, points[i].p1.y + (extra->middle_trans * pt0.x),pt0.x);
-          check_bb_y(bb, points[i].p1.y - (extra->middle_trans * pt0.x),pt0.x);
-        } 
-      }
-    }
-    pt0=pt1;
-  }  
-
-  trans = MAX(extra->start_trans,extra->middle_trans);
-  if (points[bez->numpoints-1].type == BEZ_CURVE_TO) {
-    vec = points[bez->numpoints-1].p3;
-    point_sub(&vec,&points[bez->numpoints-1].p2);
-
-    check_bb_x(bb,points[bez->numpoints-1].p3.x + (extra->end_long * vec.x),vec.x);
-    check_bb_y(bb,points[bez->numpoints-1].p3.y + (extra->end_long * vec.y),vec.y);
-    check_bb_x(bb,points[bez->numpoints-1].p3.x + (trans * vec.y),vec.y);
-    check_bb_x(bb,points[bez->numpoints-1].p3.x - (trans * vec.y),vec.y);
-    check_bb_y(bb,points[bez->numpoints-1].p3.y + (trans * vec.x),vec.x);
-    check_bb_y(bb,points[bez->numpoints-1].p3.y - (trans * vec.x),vec.x);
-  } else {
-    vec = points[bez->numpoints-1].p1;
-    point_sub(&vec,&points[bez->numpoints-2].p1); 
-
-    check_bb_x(bb,points[bez->numpoints-1].p1.x + (extra->end_long * vec.x),vec.x);
-    check_bb_y(bb,points[bez->numpoints-1].p1.y + (extra->end_long * vec.y),vec.y);
-    check_bb_x(bb,points[bez->numpoints-1].p1.x + (trans * vec.y),vec.y);
-    check_bb_x(bb,points[bez->numpoints-1].p1.x - (trans * vec.y),vec.y);
-    check_bb_y(bb,points[bez->numpoints-1].p1.y + (trans * vec.x),vec.x);
-    check_bb_y(bb,points[bez->numpoints-1].p1.y - (trans * vec.x),vec.x);
-  }
+  polybezier_bbox(&bez->points[0],
+                  bez->numpoints,
+                  &bez->extra_spacing, FALSE,
+                  &bez->object.bounding_box);
 }
 
 void

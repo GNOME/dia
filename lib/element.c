@@ -27,18 +27,19 @@
 
 void
 element_update_boundingbox(Element *elem) {
-  Rectangle *bb;
+  Rectangle bb;
   Point *corner;
   ElementBBExtras *extra = &elem->extra_spacing;
 
   assert(elem != NULL);
 
-  bb = &elem->object.bounding_box;
   corner = &elem->corner;
-  bb->left = corner->x - extra->border_trans;
-  bb->right = corner->x + elem->width + extra->border_trans;
-  bb->top = corner->y - extra->border_trans;
-  bb->bottom = corner->y + elem->height + extra->border_trans;
+  bb.left = corner->x;
+  bb.right = corner->x + elem->width;
+  bb.top = corner->y;
+  bb.bottom = corner->y + elem->height;
+  
+  rectangle_bbox(&bb,extra,&elem->object.bounding_box);
 }
 
 void

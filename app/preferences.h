@@ -49,6 +49,8 @@ struct DiaPreferences {
     Color colour;
     int solid;
   } pagebreak;
+
+  int render_bounding_boxes;
 };
 
 extern struct DiaPreferences prefs;

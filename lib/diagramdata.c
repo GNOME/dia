@@ -28,7 +28,7 @@
 #include "paper.h"
 #include "string_prerenderer.h"
 
-#define RENDER_BOUNDING_BOXES 0
+
 
 DiagramData *
 new_diagram_data(void)
@@ -355,7 +355,7 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
   
   if (renderer->ops->predraw_string) {
     StringPrerenderer *prerenderer = create_string_prerenderer(renderer);
-    data_render(data,prerenderer,update,obj_renderer,gdata);
+    data_render(data,&prerenderer->renderer,update,obj_renderer,gdata);
     destroy_string_prerenderer(prerenderer);
   }
 
@@ -377,6 +377,9 @@ normal_render(Object *obj, Renderer *renderer,
   obj->ops->draw(obj, renderer);
 }
 
+
+int render_bounding_boxes = FALSE;
+
 /* If obj_renderer is NULL normal_render is used. */
 void
 layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
@@ -396,7 +399,7 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
     obj = (Object *) list->data;
 
     if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
-      if (RENDER_BOUNDING_BOXES) {
+      if (render_bounding_boxes) {
 	Point p1, p2;
 	Color col;
 	p1.x = obj->bounding_box.left;

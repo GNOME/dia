@@ -369,7 +369,7 @@ flow_create(Point *startpoint,
   Flow *flow;
   Connection *conn;
   Object *obj;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Point p ;
   Point n ;
 
@@ -535,7 +535,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   Connection *conn;
   Object *obj;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
 
   if (flow_font == NULL)
     flow_font = font_getfont("Helvetica-Oblique");

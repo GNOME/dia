@@ -402,7 +402,7 @@ beziergon_update_data(Beziergon *beziergon)
 {
   BezierShape *bezier = &beziergon->bezier;
   Object *obj = &bezier->object;
-  BezierShapeBBExtras *extra = &bezier->extra_spacing;
+  ElementBBExtras *extra = &bezier->extra_spacing;
   
   beziershape_update_data(bezier);
   

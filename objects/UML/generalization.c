@@ -287,7 +287,7 @@ generalization_update_data(Generalization *genlz)
   int num_segm, i;
   Point *points;
   Rectangle rect;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
   
   orthconn_update_data(orth);
   
@@ -398,7 +398,7 @@ generalization_create(Point *startpoint,
   Generalization *genlz;
   OrthConn *orth;
   Object *obj;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
     genlz_font = font_getfont("Courier");
@@ -479,7 +479,7 @@ generalization_load(ObjectNode obj_node, int version,
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
     genlz_font = font_getfont("Courier");

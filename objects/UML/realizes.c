@@ -289,7 +289,7 @@ realizes_update_data(Realizes *realize)
   int num_segm, i;
   Point *points;
   Rectangle rect;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   orthconn_update_data(orth);
   
@@ -401,7 +401,7 @@ realizes_create(Point *startpoint,
   Realizes *realize;
   OrthConn *orth;
   Object *obj;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   if (realize_font == NULL) {
     realize_font = font_getfont("Courier");
@@ -483,7 +483,7 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
-  OrthConnBBExtras *extra;
+  PolyBBExtras *extra;
 
   if (realize_font == NULL) {
     realize_font = font_getfont("Courier");

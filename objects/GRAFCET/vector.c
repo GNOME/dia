@@ -372,7 +372,7 @@ static void
 arc_update_data(Arc *arc)
 {
   OrthConn *orth = &arc->orth;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
+  PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&arc->orth);
   

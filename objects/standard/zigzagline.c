@@ -299,7 +299,7 @@ static void
 zigzagline_update_data(Zigzagline *zigzagline)
 {
   OrthConn *orth = &zigzagline->orth;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
+  PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&zigzagline->orth);
     

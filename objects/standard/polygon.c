@@ -384,7 +384,7 @@ polygon_update_data(Polygon *polygon)
 {
   PolyShape *poly = &polygon->poly;
   Object *obj = &poly->object;
-  PolyShapeBBExtras *extra = &poly->extra_spacing;
+  ElementBBExtras *extra = &poly->extra_spacing;
 
   polyshape_update_data(poly);
   

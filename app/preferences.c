@@ -43,6 +43,7 @@
 #include "message.h"
 #include "preferences.h"
 #include "dia_dirs.h"
+#include "diagramdata.h"
 
 struct DiaPreferences prefs;
 
@@ -64,6 +65,7 @@ struct DiaPrefsData {
   int tab;
   char *label_text;
   GtkWidget *widget;
+  gboolean hidden;
 };
 
 static int default_true = 1;
@@ -119,12 +121,15 @@ struct DiaPrefsData prefs_data[] =
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 2, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 2, N_("Y Size:") },
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 2, N_("Colour:") },
-  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 2, N_("Solid lines:") },
-
+  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 2, N_("Solid lines:") },  
+  
   { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
   { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible:") },
   { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(pagebreak.colour), &pbreak_colour, 2, N_("Colour:") },
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines:") },
+
+  { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
+    &default_false,0,"render bounding boxes:",TRUE},
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
@@ -416,8 +421,9 @@ prefs_load(void)
   }
   
   g_scanner_destroy (scanner);
-  
+ 
   close(fd);
+  render_bounding_boxes = prefs.render_bounding_boxes;
 }
 
 static gint
@@ -672,7 +678,9 @@ prefs_create_dialog(void)
     GtkTable *table;
     GtkWidget *widget;
     int row;
-    
+
+    if (prefs_data[i].hidden) continue;
+
     label = gtk_label_new (gettext(prefs_data[i].label_text));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
     gtk_widget_show (label);

@@ -281,69 +281,12 @@ polyconn_update_data(PolyConn *poly)
 void
 polyconn_update_boundingbox(PolyConn *poly)
 {
-  Rectangle *bb;
-  Point *points;
-  int i;
-  Point pt1,pt0;
-  PolyConnBBExtras *extra;
-
   assert(poly != NULL);
 
-  extra = &poly->extra_spacing;
-  bb = &poly->object.bounding_box;
-  points = &poly->points[0];
-
-  bb->right = bb->left = points[0].x;
-  bb->top = bb->bottom = points[0].y;
-
-  for (i=0;i<(poly->numpoints-1);i++) {
-    pt1 = points[i];
-    point_sub(&pt1,&(points[i+1]));
-    point_normalize(&pt1);
-
-    if (i==0) {
-      real trans = MAX(extra->start_trans,extra->middle_trans);
-      check_bb_x(bb,points[i].x + (extra->start_long * pt1.x),pt1.x);
-      check_bb_x(bb,points[i].x + (trans * pt1.y),pt1.y); 
-      check_bb_x(bb,points[i].x - (trans * pt1.y),pt1.y); 
-
-      check_bb_y(bb,points[i].y + (trans * pt1.x),pt1.x); 
-      check_bb_y(bb,points[i].y - (trans * pt1.x),pt1.x);       
-    } else {
-      check_bb_x(bb, points[i].x + (extra->middle_trans * pt1.y),pt1.y);
-      check_bb_x(bb, points[i].x - (extra->middle_trans * pt1.y),pt1.y);
-      check_bb_y(bb, points[i].y + (extra->middle_trans * pt1.x),pt1.x);
-      check_bb_y(bb, points[i].y - (extra->middle_trans * pt1.x),pt1.x);
-    }
-    if (i!=0) {
-      real co = point_dot(&pt1,&pt0);
-      if (co > -0.9816) { /* 0.9816 == cos(11deg) */
-        real alpha = fabs(acos(-co));
-        real overshoot = extra->middle_trans / (sin(alpha/2.0));
-        Point pts;
-
-        pts = pt1; point_sub(&pts,&pt0);
-        point_normalize(&pts);
-
-        check_bb_x(bb,points[i].x + (overshoot * pts.x),pts.x);
-        check_bb_y(bb,points[i].y + (overshoot * pts.y),pts.y);
-      } else { /* this works because i>0 */
-          check_bb_x(bb, points[i].x + (extra->middle_trans * pt0.y),pt0.y);
-          check_bb_x(bb, points[i].x - (extra->middle_trans * pt0.y),pt0.y);
-          check_bb_y(bb, points[i].y + (extra->middle_trans * pt0.x),pt0.x);
-          check_bb_y(bb, points[i].y - (extra->middle_trans * pt0.x),pt0.x);
-      } 
-    }
-    if (i==(poly->numpoints-2)) {
-      check_bb_x(bb,points[i+1].x - (extra->end_long * pt1.x),pt1.x);
-      check_bb_x(bb,points[i+1].x - (extra->end_trans * pt1.y),pt1.y);
-      check_bb_x(bb,points[i+1].x + (extra->end_trans * pt1.y),pt1.y);
-
-      check_bb_y(bb,points[i+1].y - (extra->end_trans * pt1.x),pt1.y);
-      check_bb_y(bb,points[i+1].y + (extra->end_trans * pt1.x),pt1.y);
-    }
-    pt0=pt1;
-  }
+  polyline_bbox(&poly->points[0],
+                poly->numpoints,
+                &poly->extra_spacing, FALSE,
+                &poly->object.bounding_box);
 }
 
 void

@@ -362,7 +362,7 @@ message_create(Point *startpoint,
 {
   Message *message;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
 
   if (message_font == NULL)
@@ -520,7 +520,7 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   Message *message;
   AttributeNode attr;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
 
   if (message_font == NULL)

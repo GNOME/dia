@@ -452,7 +452,7 @@ lifeline_update_data(Lifeline *lifeline)
 {
   Connection *conn = &lifeline->connection;
   Object *obj = &conn->object;
-  ConnectionBBExtras *extra = &conn->extra_spacing;
+  LineBBExtras *extra = &conn->extra_spacing;
   Point p1, p2;
   real r;
   int i;

@@ -326,7 +326,7 @@ static void
 vergent_update_data(Vergent *vergent)
 {
   Connection *conn = &vergent->connection;
-  ConnectionBBExtras *extra = &conn->extra_spacing;
+  LineBBExtras *extra = &conn->extra_spacing;
   Object *obj = &conn->object;
   Point p0,p1;
   

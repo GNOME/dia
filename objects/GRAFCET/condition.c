@@ -312,7 +312,7 @@ condition_create(Point *startpoint,
 {
   Condition *condition;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
 

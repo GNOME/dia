@@ -290,8 +290,7 @@ dependency_update_data(Dependency *dep)
 {
   OrthConn *orth = &dep->orth;
   Object *obj = &orth->object;
-  OrthConnBBExtras *extra = &orth->extra_spacing;
-
+  PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
   Point *points;
   Rectangle rect;

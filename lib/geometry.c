@@ -30,7 +30,7 @@
 #include "geometry.h"
 
 void
-rectangle_union(Rectangle *r1, Rectangle *r2)
+rectangle_union(Rectangle *r1, const Rectangle *r2)
 {
   r1->top = MIN( r1->top, r2->top );
   r1->bottom = MAX( r1->bottom, r2->bottom );
@@ -39,7 +39,7 @@ rectangle_union(Rectangle *r1, Rectangle *r2)
 }
 
 void
-int_rectangle_union(IntRectangle *r1, IntRectangle *r2)
+int_rectangle_union(IntRectangle *r1, const IntRectangle *r2)
 {
   r1->top = MIN( r1->top, r2->top );
   r1->bottom = MAX( r1->bottom, r2->bottom );
@@ -48,7 +48,7 @@ int_rectangle_union(IntRectangle *r1, IntRectangle *r2)
 }
 
 void
-rectangle_intersection(Rectangle *r1, Rectangle *r2)
+rectangle_intersection(Rectangle *r1, const Rectangle *r2)
 {
   r1->top = MAX( r1->top, r2->top );
   r1->bottom = MIN( r1->bottom, r2->bottom );
@@ -63,7 +63,7 @@ rectangle_intersection(Rectangle *r1, Rectangle *r2)
 }
 
 int
-rectangle_intersects(Rectangle *r1, Rectangle *r2)
+rectangle_intersects(const Rectangle *r1, const Rectangle *r2)
 {
   if ( (r1->right < r2->left) ||
        (r1->left > r2->right) ||
@@ -75,7 +75,7 @@ rectangle_intersects(Rectangle *r1, Rectangle *r2)
 }
 
 int
-point_in_rectangle(Rectangle* r, Point *p)
+point_in_rectangle(const Rectangle* r, const Point *p)
 {
   if ( (p->x < r->left) ||
        (p->x > r->right) ||
@@ -87,7 +87,7 @@ point_in_rectangle(Rectangle* r, Point *p)
 }
 
 int
-rectangle_in_rectangle(Rectangle* outer, Rectangle *inner)
+rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner)
 {
   if ( (inner->left < outer->left) ||
        (inner->right > outer->right) ||
@@ -99,7 +99,7 @@ rectangle_in_rectangle(Rectangle* outer, Rectangle *inner)
 }
 
 void
-rectangle_add_point(Rectangle *r, Point *p)
+rectangle_add_point(Rectangle *r, const Point *p)
 {
   if (p->x < r->left)
     r->left = p->x;
@@ -120,7 +120,7 @@ rectangle_add_point(Rectangle *r, Point *p)
  * on the rectangle is returned.
  */
 real
-distance_rectangle_point(Rectangle *rect, Point *point)
+distance_rectangle_point(const Rectangle *rect, const Point *point)
 {
   real dx = 0.0;
   real dy = 0.0;
@@ -150,8 +150,8 @@ distance_rectangle_point(Rectangle *rect, Point *point)
  * end of line segment.
  */
 real
-distance_line_point(Point *line_start, Point *line_end,
-		    real line_width, Point *point)
+distance_line_point(const Point *line_start, const Point *line_end,
+		    real line_width, const Point *point)
 {
   Point v1, v2;
   real v1_lensq;
@@ -197,13 +197,14 @@ distance_line_point(Point *line_start, Point *line_end,
 
 /* returns 1 iff the line crosses the ray from (-Inf, rayend.y) to rayend */
 static guint
-line_crosses_ray(Point *line_start, Point *line_end, Point *rayend)
+line_crosses_ray(const Point *line_start, 
+                 const Point *line_end, const Point *rayend)
 {
   coord xpos;
 
   /* swap end points if necessary */
   if (line_start->y > line_end->y) {
-    Point *tmp;
+    const Point *tmp;
 
     tmp = line_start;
     line_start = line_end;
@@ -222,8 +223,8 @@ line_crosses_ray(Point *line_start, Point *line_end, Point *rayend)
 }
 
 real
-distance_polygon_point(Point *poly, guint npoints, real line_width,
-		       Point *point)
+distance_polygon_point(const Point *poly, guint npoints, real line_width,
+		       const Point *point)
 {
   guint i, last = npoints - 1;
   real line_dist = G_MAXFLOAT;
@@ -251,8 +252,11 @@ distance_polygon_point(Point *poly, guint npoints, real line_width,
 
 /* if cross is not NULL, it will be incremented for each ray crossing */
 static real
-bez_point_distance_and_ray_crosses(Point *b1, Point *b2, Point *b3, Point *b4,
-				   real line_width, Point *point, guint *cross)
+bez_point_distance_and_ray_crosses(const Point *b1, 
+                                   const Point *b2, const Point *b3, 
+                                   const Point *b4,
+				   real line_width, const Point *point, 
+                                   guint *cross)
 {
   static gboolean calculated_coeff = FALSE;
   static real coeff[NBEZ_SEGS+1][4];
@@ -296,16 +300,17 @@ bez_point_distance_and_ray_crosses(Point *b1, Point *b2, Point *b3, Point *b4,
 }
 
 real
-distance_bez_seg_point(Point *b1, Point *b2, Point *b3, Point *b4,
-		       real line_width, Point *point)
+distance_bez_seg_point(const Point *b1, const Point *b2, 
+                       const Point *b3, const Point *b4,
+		       real line_width, const Point *point)
 {
   return bez_point_distance_and_ray_crosses(b1, b2, b3, b4,
 					    line_width, point, NULL);
 }
 			     
 real
-distance_bez_line_point(BezPoint *b, guint npoints,
-			real line_width, Point *point)
+distance_bez_line_point(const BezPoint *b, guint npoints,
+			real line_width, const Point *point)
 {
   Point last;
   guint i;
@@ -341,8 +346,8 @@ distance_bez_line_point(BezPoint *b, guint npoints,
 }
 
 real
-distance_bez_shape_point(BezPoint *b, guint npoints,
-			real line_width, Point *point)
+distance_bez_shape_point(const BezPoint *b, guint npoints,
+                         real line_width, const Point *point)
 {
   Point last;
   guint i;
@@ -385,8 +390,8 @@ distance_bez_shape_point(BezPoint *b, guint npoints,
 }
 
 real
-distance_ellipse_point(Point *centre, real width, real height,
-		       real line_width, Point *point)
+distance_ellipse_point(const Point *centre, real width, real height,
+		       real line_width, const Point *point)
 {
   real w2 = width*width, h2 = height*height;
   real scale, rad, dist;

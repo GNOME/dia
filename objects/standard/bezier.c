@@ -344,7 +344,7 @@ bezierline_update_data(Bezierline *bezierline)
 {
   BezierConn *bez = &bezierline->bez;
   Object *obj = &bez->object;
-  BezierConnBBExtras *extra = &bez->extra_spacing;
+  PolyBBExtras *extra = &bez->extra_spacing;
 
   bezierconn_update_data(bez);
     

@@ -305,7 +305,7 @@ bus_create(Point *startpoint,
 {
   Bus *bus;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
   Point defaultlen = { 5.0, 0.0 };
   int i;
@@ -611,7 +611,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bus *bus;
   Connection *conn;
-  ConnectionBBExtras *extra;
+  LineBBExtras *extra;
   Object *obj;
   AttributeNode attr;
   DataNode data;

@@ -266,54 +266,20 @@ polyshape_update_data(PolyShape *poly)
 void
 polyshape_update_boundingbox(PolyShape *poly)
 {
-  Rectangle *bb;
-  Point *points;
-  int i;
-  Point pt1,pt0;
-  PolyShapeBBExtras *extra = &poly->extra_spacing;
-  
+  ElementBBExtras *extra;
+  PolyBBExtras pextra;
+
   assert(poly != NULL);
 
-  bb = &poly->object.bounding_box;
-  points = &poly->points[0];
+  extra = &poly->extra_spacing;
+  pextra.start_trans = pextra.end_trans = 
+    pextra.start_long = pextra.end_long = 0;
+  pextra.middle_trans = extra->border_trans;
 
-  bb->right = bb->left = points[0].x;
-  bb->top = bb->bottom = points[0].y;
-
-  for (i=0;i<=(poly->numpoints);i++) {
-    int imod = i % poly->numpoints;
-    int ipomod = (i+1) % poly->numpoints;
-    pt1 = points[imod];
-    point_sub(&pt1,&(points[ipomod]));
-    point_normalize(&pt1);
-
-    if (i!=0) {
-      real co = point_dot(&pt1,&pt0);
-
-      check_bb_x(bb, points[imod].x + (extra->border_trans * pt1.y),pt1.y);
-      check_bb_x(bb, points[imod].x - (extra->border_trans * pt1.y),pt1.y);
-      check_bb_y(bb, points[imod].y + (extra->border_trans * pt1.x),pt1.x);
-      check_bb_y(bb, points[imod].y - (extra->border_trans * pt1.x),pt1.x);
-
-      if (co > -0.9816) { /* 0.9816 == cos(11deg) */
-        real alpha = fabs(acos(-co));
-        real overshoot = extra->border_trans / (sin(alpha/2.0));
-        Point pts;
-
-        pts = pt1; point_sub(&pts,&pt0);
-        point_normalize(&pts);
-
-        check_bb_x(bb,points[imod].x + (overshoot * pts.x),pts.x);
-        check_bb_y(bb,points[imod].y + (overshoot * pts.y),pts.y);
-      } else { 
-          check_bb_x(bb, points[imod].x + (extra->border_trans * pt0.y),pt0.y);
-          check_bb_x(bb, points[imod].x - (extra->border_trans * pt0.y),pt0.y);
-          check_bb_y(bb, points[imod].y + (extra->border_trans * pt0.x),pt0.x);
-          check_bb_y(bb, points[imod].y - (extra->border_trans * pt0.x),pt0.x);
-      } 
-    }
-    pt0=pt1;
-  }
+  polyline_bbox(&poly->points[0],
+                poly->numpoints,
+                &pextra, TRUE,
+                &poly->object.bounding_box);
 }
 
 void
