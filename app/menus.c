@@ -24,9 +24,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 
-#ifdef GNOME_MENUS_ARE_BORING
-#include <gnome.h>
-#endif
 #include "intl.h"
 #include "menus.h"
 #include "tool.h"
@@ -44,240 +41,6 @@
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
-/* GNOME menus cannot have shortcuts??? They don't give much 
- * with gtk2, anyway.  Leaving out. */
-
-#ifdef GNOME_MENUS_ARE_BORING
-
-static GnomeUIInfo toolbox_filemenu[] = {
-  GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
-			    file_new_callback, NULL),
-  GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_TOGGLEITEM(N_("_Diagram tree"), N_("Show diagram tree"),
-			 diagtree_show_callback, NULL),
-  GNOMEUIINFO_ITEM_NONE(N_("_Sheets and Objects..."),
-                        N_("Modify sheets and their objects"),
-                        sheets_dialog_show_callback),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
-  GNOMEUIINFO_ITEM_NONE(N_("P_lugins..."), NULL, file_plugins_callback),
-  GNOMEUIINFO_SEPARATOR,
-    /* recent file list is dynamically inserted here */
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
-  GNOMEUIINFO_END  
-};
-
-static GnomeUIInfo filemenu[] = {
-  GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
-			    file_new_callback, NULL),
-  GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
-  GNOMEUIINFO_MENU_SAVE_ITEM(file_save_callback, NULL),
-  GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
-
-  { GNOME_APP_UI_ITEM, N_("_Export..."), NULL,
-    file_export_callback, NULL, NULL },
-
-  GNOMEUIINFO_SEPARATOR,
-  { GNOME_APP_UI_ITEM, N_("Page Set_up..."), NULL,
-    file_pagesetup_callback, NULL, NULL },
-  { GNOME_APP_UI_ITEM, N_("_Print Diagram..."), NULL,
-    file_print_callback, NULL, NULL,
-    GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PRINT,
-    GDK_P, GDK_CONTROL_MASK},
-
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_MENU_CLOSE_ITEM(file_close_callback, NULL),
-  GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo editmenu[] = {
-  GNOMEUIINFO_MENU_COPY_ITEM(edit_copy_callback, NULL),
-  GNOMEUIINFO_MENU_CUT_ITEM(edit_cut_callback, NULL),
-  GNOMEUIINFO_MENU_PASTE_ITEM(edit_paste_callback, NULL),
-  { GNOME_APP_UI_ITEM, N_("_Delete"), NULL,
-    edit_delete_callback, NULL, NULL,
-    GNOME_APP_PIXMAP_STOCK, "Menu_Clear",
-    GDK_DELETE, 0 },
-  GNOMEUIINFO_MENU_UNDO_ITEM(edit_undo_callback, NULL),
-  GNOMEUIINFO_MENU_REDO_ITEM(edit_redo_callback, NULL),
-  GNOMEUIINFO_ITEM_NONE(N_("Duplicate"), NULL, edit_redo_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Copy Text"), NULL, edit_copy_text_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Cut Text"), NULL, edit_cut_text_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Paste _Text"), NULL, edit_paste_text_callback),
-  GNOMEUIINFO_END
-};
-
-#define GNOMEUIINFO_ITEM_NONE_DATA(label, tooltip, callback, user_data) \
-        { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, GINT_TO_POINTER(user_data), \
-          NULL, GNOME_APP_PIXMAP_NONE, NULL, 0, (GdkModifierType) 0, NULL }
-
-static GnomeUIInfo zoommenu[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA("_400%",  NULL, view_zoom_set_callback, 4000),
-  GNOMEUIINFO_ITEM_NONE_DATA("283%",  NULL, view_zoom_set_callback, 2828),
-  GNOMEUIINFO_ITEM_NONE_DATA("_200%",  NULL, view_zoom_set_callback, 2000),
-/*  GNOMEUIINFO_ITEM_NONE_DATA("150%",  NULL, view_zoom_set_callback, 1500),   TODO:TestMe! */
-  GNOMEUIINFO_ITEM_NONE_DATA("141%",  NULL, view_zoom_set_callback, 1414),
-  GNOMEUIINFO_ITEM_NONE_DATA("_100%",  NULL, view_zoom_set_callback, 1000),
-  GNOMEUIINFO_ITEM_NONE_DATA("85%",   NULL, view_zoom_set_callback, 850),
-  GNOMEUIINFO_ITEM_NONE_DATA("70.7%", NULL, view_zoom_set_callback, 707),
-  GNOMEUIINFO_ITEM_NONE_DATA("_50%",   NULL, view_zoom_set_callback, 500),
-  GNOMEUIINFO_ITEM_NONE_DATA("35.4%", NULL, view_zoom_set_callback, 354),
-  GNOMEUIINFO_ITEM_NONE_DATA("25%",   NULL, view_zoom_set_callback, 250),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo viewmenu[] = {
-  GNOMEUIINFO_ITEM_NONE(N_("Zoom _In"), N_("Zoom in 50%"), view_zoom_in_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
-  GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("Diagram Properties..."), NULL, view_diagram_properties_callback),
-#ifdef HAVE_LIBART  
-  GNOMEUIINFO_TOGGLEITEM(N_("_AntiAliased"), NULL,
-			 view_aa_callback, NULL),
-#endif  
-/* TODO: Show Menu Bar  F9.  Hub's cool code.  */
-  GNOMEUIINFO_TOGGLEITEM(N_("Show _Grid"), NULL,
-			 view_visible_grid_callback, NULL),
-  GNOMEUIINFO_TOGGLEITEM(N_("_Snap To Grid"), NULL,
-			 view_snap_to_grid_callback, NULL),
-  GNOMEUIINFO_TOGGLEITEM(N_("Show _Rulers"), NULL,
-			 view_toggle_rulers_callback, NULL),
-  GNOMEUIINFO_TOGGLEITEM(N_("Show _Connection Points"), NULL,
-                         view_show_cx_pts_callback, NULL),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("New _View"), NULL, view_new_view_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Show _All"), NULL, view_show_all_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Redraw"), NULL, view_redraw_callback),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo selecttype_radiolist[] = {
-  GNOMEUIINFO_RADIOITEM_DATA(N_("Replace"), NULL, select_style_callback, 
-			GUINT_TO_POINTER(SELECT_REPLACE), NULL),
-  GNOMEUIINFO_RADIOITEM_DATA(N_("Union"), NULL, select_style_callback,
-			GUINT_TO_POINTER(SELECT_UNION), NULL),
-  GNOMEUIINFO_RADIOITEM_DATA(N_("Intersect"), NULL, select_style_callback,
-			GUINT_TO_POINTER(SELECT_INTERSECTION), NULL),
-  GNOMEUIINFO_RADIOITEM_DATA(N_("Remove"), NULL, select_style_callback, 
-			GUINT_TO_POINTER(SELECT_REMOVE), NULL), 
-  GNOMEUIINFO_RADIOITEM_DATA(N_("Invert"), NULL, select_style_callback, 
-			GUINT_TO_POINTER(SELECT_INVERT), NULL),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo selectmenu[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("All"), "<ctrl>A", select_all_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("None"), "<ctrl><shift>A", select_none_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Invert"), NULL, select_invert_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Connected"), NULL, select_connected_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Transitive"), NULL, select_transitive_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Same Type"), NULL, select_same_type_callback, 0),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_RADIOLIST(selecttype_radiolist),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo objects_align_h[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, DIA_ALIGN_LEFT),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, DIA_ALIGN_CENTER),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, DIA_ALIGN_RIGHT),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, DIA_ALIGN_EQUAL),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,DIA_ALIGN_ADJACENT),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo objects_align_v[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, DIA_ALIGN_TOP),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Middle"), NULL, objects_align_v_callback, DIA_ALIGN_CENTER),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, DIA_ALIGN_BOTTOM),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, DIA_ALIGN_EQUAL),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_v_callback, DIA_ALIGN_ADJACENT),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo objectsmenu[] = {
-  GNOMEUIINFO_ITEM_NONE(N_("Send to _Back"), NULL, objects_place_under_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Bring to _Front"), NULL, objects_place_over_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Send Backwards"), NULL, objects_place_down_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Bring Forwards"), NULL, objects_place_up_callback),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("_Group"), NULL, objects_group_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Ungroup"), NULL, objects_ungroup_callback),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("_Parent"), NULL, objects_parent_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Unparent"), NULL, objects_unparent_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Unparent Children"), NULL, objects_unparent_children_callback),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
-  GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("_Properties..."), NULL, dialogs_properties_callback),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo toolsmenu[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Modify"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Magnify"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Scroll"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Text"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Box"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Ellipse"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Polygon"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Beziergon"), NULL, NULL, 0),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Line"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Arc"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Zigzagline"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Polyline"), NULL, NULL, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bezierline"), NULL, NULL, 0),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Image"), NULL, NULL, 0),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo dialogsmenu[] = {
-  GNOMEUIINFO_ITEM_NONE(N_("_Layers"), NULL, dialogs_layers_callback),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo helpmenu[] = {
-  GNOMEUIINFO_HELP("Dia"),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_MENU_ABOUT_ITEM(help_about_callback, NULL),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo toolbox_menu[] = {
-  GNOMEUIINFO_MENU_FILE_TREE(toolbox_filemenu),
-  GNOMEUIINFO_MENU_HELP_TREE(helpmenu),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo inputmethod_menu[] = {
-  GNOMEUIINFO_END
-};
-
-
-static GnomeUIInfo display_menu[] = {
-  GNOMEUIINFO_MENU_FILE_TREE(filemenu),
-  GNOMEUIINFO_MENU_EDIT_TREE(editmenu),
-  GNOMEUIINFO_MENU_VIEW_TREE(viewmenu),
-  GNOMEUIINFO_SUBTREE(N_("_Select"), selectmenu),
-  GNOMEUIINFO_SUBTREE(N_("_Objects"), objectsmenu),
-  GNOMEUIINFO_SUBTREE(N_("_Tools"), toolsmenu),
-  GNOMEUIINFO_SUBTREE(N_("_Dialogs"), dialogsmenu),
-  GNOMEUIINFO_SUBTREE(N_("_Input Methods"), inputmethod_menu),
-  GNOMEUIINFO_SUBTREE(N_("_Help"), helpmenu),
-  GNOMEUIINFO_END
-};
-
-#else /* !GNOME */
 
 #define MRU_MENU_ENTRY_SIZE (strlen ("/File/MRU00 ") + 1)
 #define MRU_MENU_ACCEL_SIZE sizeof ("<control>0")
@@ -476,7 +239,6 @@ static GtkItemFactoryEntry display_menu_items[] =
 static int display_nmenu_items = (sizeof(display_menu_items) /
 				  sizeof(display_menu_items[0]));
 
-#endif /* !GNOME */
 
 /* need initialisation? */
 static gboolean initialise = TRUE;
@@ -487,15 +249,9 @@ static GtkAccelGroup *toolbox_accels = NULL;
 static GtkWidget *display_menus = NULL;
 static GtkAccelGroup *display_accels = NULL;
 
-#ifdef GNOME_MENUS_ARE_BORING
-static GHashTable *toolbox_extras = NULL;
-static GHashTable *display_extras = NULL;
-#else
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
-#endif
 
-#ifndef GNOME_MENUS_ARE_BORING
 #ifdef ENABLE_NLS
 
 static gchar *
@@ -635,7 +391,6 @@ menu_translate (const gchar *path,
 }
 
 #endif  /*  ENABLE_NLS  */
-#endif /* !GNOME */
 
 static void
 tool_menu_select(GtkWidget *w, gpointer   data) {
@@ -662,46 +417,6 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-#ifdef GNOME_MENUS_ARE_BORING
-/* create the GnomeUIBuilderData structure that connects the callbacks
- * so that they have the same signature as type 1 GtkItemFactory
- * callbacks */
-
-static void
-dia_menu_signal_proxy (GtkWidget *widget, GnomeUIInfo *uiinfo)
-{
-  GtkItemFactoryCallback1 signal_handler =
-    (GtkItemFactoryCallback1)uiinfo->moreinfo;
-  guint action = GPOINTER_TO_UINT (uiinfo->user_data);
-
-  if (signal_handler) {
-    (* signal_handler) (NULL, action, widget);
-  } else {
-    g_warning("called dia_menu_signal_proxy with NULL signal_handler !");
-  }
-}
-
-static void
-dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
-			     GnomeUIBuilderData *uibdata)
-{
-    /* only connect the signal if uiinfo->moreinfo not NULL */
-    /* otherwise it is non sens and generate extraneous warnings */
-    /* see bug 55047 <http://bugzilla.gnome.org/show_bug.cgi?id=55047> */
-    if (uiinfo->moreinfo != NULL) {
-        g_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
-			  G_CALLBACK(dia_menu_signal_proxy), uiinfo);
-    }
-}
-
-static GnomeUIBuilderData dia_menu_uibdata = {
-  (GnomeUISignalConnectFunc)dia_menu_signal_connect_func, /* connect_func */
-  NULL,                         /* data */
-  FALSE,                        /* is_interp */
-  (GtkCallbackMarshal) 0,       /* relay_func */
-  (GtkDestroyNotify) 0          /* destroy_func */
-};
-#endif
 
 /*
   Purpose: set the generic callback for all the items in the menu "Tools"
@@ -734,11 +449,7 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 static void
 menus_init(void)
 {
-#ifndef GNOME_MENUS_ARE_BORING
-  GtkItemFactoryEntry *translated_entries;
-#else
   GtkWidget *menuitem;
-#endif
   gchar *accelfilename;
   GList *cblist;
 
@@ -747,30 +458,6 @@ menus_init(void)
   
   initialise = FALSE;
 
-#ifdef GNOME_MENUS_ARE_BORING
-  /* the toolbox menu */
-  toolbox_accels = gtk_accel_group_new();
-  toolbox_menubar = gtk_menu_bar_new();
-  gnome_app_fill_menu_custom(GTK_MENU_SHELL(toolbox_menubar), toolbox_menu,
-			     &dia_menu_uibdata, toolbox_accels, TRUE, 0);
-
-  /* the display menu */
-  display_menus = gtk_menu_new();
-  display_accels = gtk_accel_group_new();
-  gtk_menu_set_accel_group(GTK_MENU(display_menus), display_accels);
-  menuitem = gtk_tearoff_menu_item_new();
-  gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
-  gnome_app_fill_menu_custom(GTK_MENU_SHELL(display_menus), display_menu,
-			     &dia_menu_uibdata, display_accels, FALSE, 0);
-  /* and the tearoff ... */
-  menuitem = gtk_tearoff_menu_item_new();
-  gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
-  gtk_widget_show(menuitem);
-
-  /* initialise the extras arrays ... */
-  toolbox_extras = g_hash_table_new(g_str_hash, g_str_equal);
-  display_extras = g_hash_table_new(g_str_hash, g_str_equal);
-#else
   /* the toolbox menu */
   toolbox_accels = gtk_accel_group_new();
   toolbox_item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<Toolbox>",
@@ -805,7 +492,6 @@ menus_init(void)
   display_menus = gtk_item_factory_get_widget(display_item_factory,
 					      "<Display>");
   gtk_menu_set_accel_path(GTK_MENU(display_menus), "<Display>/");
-#endif
 
   menus_set_tools_callback ("<Display>", NULL);
 
@@ -868,8 +554,6 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
     if (menu) 
     {
 	GtkAccelGroup *display_mbar_accel_group;
-#ifndef GNOME_MENUS_ARE_BORING
-	/* the display menubar. Pure gtk. TODO: make it GNOME */
 	display_mbar_accel_group = gtk_accel_group_new ();
 	*display_mbar_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU_BAR,
 							    "<DisplayMBar>",
@@ -884,229 +568,11 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
 				       &(display_menu_items[1]), NULL);
 
 	*menu = gtk_item_factory_get_widget (*display_mbar_item_factory, "<DisplayMBar>");
-#else
-	GtkWidget *menuitem;
-	
-	/* the display menu */
-	*menu = gtk_menu_bar_new();
-	display_mbar_accel_group = gtk_accel_group_new();
-	menuitem = gtk_tearoff_menu_item_new();
-	gnome_app_fill_menu_custom(GTK_MENU_SHELL(*menu), display_menu,
-				   &dia_menu_uibdata, display_mbar_accel_group,
-				   TRUE, 0);
-	/*	gtk_menu_bar_prepend(GTK_MENU_BAR(*menu), menuitem);
-		gtk_widget_show (menuitem);*/
-#endif
 	menus_set_tools_callback ("<DisplayMBar>", *display_mbar_item_factory);
     }
 }
 
-#ifdef GNOME_MENUS_ARE_BORING
-/* a function that performs a similar task to gnome_app_find_menu_pos,
- * but works from the GnomeUIInfo structures, and takes an untranslated path.  It ignores 
 
- * but doesn't perform any translation of the menu items, and removes
- * underscores when performing the string comparisons */
-static GtkMenuItem *
-dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
-{
-  GtkMenuItem *ret;
-  gchar *name_end;
-  gint path_len, label_len, i, j;
-  gboolean label_matches;
-
-  g_return_val_if_fail (uiinfo != NULL, NULL);
-  g_return_val_if_fail (path != NULL, NULL);
-
-  name_end = strchr(path, '/');
-  if (name_end == NULL)
-    path_len = strlen(path);
-  else
-    path_len = name_end - path;
-
-  if (path_len == 0)
-    return NULL; /* zero path component */
-
-  for (; uiinfo->type != GNOME_APP_UI_ENDOFINFO; uiinfo++)
-    switch (uiinfo->type) {
-    case GNOME_APP_UI_BUILDER_DATA:
-    case GNOME_APP_UI_HELP:
-    case GNOME_APP_UI_ITEM_CONFIGURABLE:
-      /* we won't bother handling these two options */
-      break;
-
-    case GNOME_APP_UI_RADIOITEMS:
-      /* descend the radioitem list, without trimming the path */
-      ret = dia_gnome_menu_get_widget((GnomeUIInfo *)uiinfo->moreinfo,
-				      path);
-      if (ret)
-	return ret;
-      break;
-
-    case GNOME_APP_UI_SEPARATOR:
-    case GNOME_APP_UI_ITEM:
-    case GNOME_APP_UI_TOGGLEITEM:
-      /* check for matching label */
-      if (!uiinfo->label)
-	break;
-      /* check the path component against the label, ignoring underscores */
-      label_matches = TRUE;
-      label_len = strlen(uiinfo->label);
-      for (i = 0, j = 0; i < label_len; i++) {
-	if (uiinfo->label[i] == '_') {
-	  /* nothing */;
-	} else if (uiinfo->label[i] != path[j]) {
-	  label_matches = FALSE;
-	  break;
-	} else {
-	  j++;
-	}
-      }
-      if (label_matches && j == path_len && i == label_len)
-	return GTK_MENU_ITEM(uiinfo->widget);
-      break;
-
-    case GNOME_APP_UI_SUBTREE:
-    case GNOME_APP_UI_SUBTREE_STOCK:
-      /* descend if label matches, trimming off the start of the path */
-      if (!uiinfo->label)
-	break;
-      /* check the path component against the label, ignoring underscores */
-      label_matches = TRUE;
-      label_len = strlen(uiinfo->label);
-      for (i = 0, j = 0; i < label_len; i++) {
-	if (uiinfo->label[i] == '_') {
-	  /* nothing */;
-	} else if (uiinfo->label[i] != path[j]) {
-	  label_matches = FALSE;
-	  break;
-	} else {
-	  j++;
-	}
-      }
-      /* does the stripped label match? then recurse. */
-      if (label_matches && j == path_len && i == label_len) {
-	/* if we are at the end of the path, then return this menuitem */
-	if (path[j] == '\0' || (path[j] == '/' && path[j+1] == '\0'))
-	  return uiinfo->widget;
-	ret = dia_gnome_menu_get_widget((GnomeUIInfo *)uiinfo->moreinfo,
-					path + path_len + 1);
-	if (ret)
-	  return ret;
-      }
-      break;
-    default:
-      g_warning ("unexpected GnomeUIInfo element type %d", (int) uiinfo->type);
-      break;
-    }
-  /* if we fall through, return NULL */
-  return NULL;
-}
-
-
-/* returns parent GtkMenu */
-static GtkMenuShell *
-find_parent(GtkMenuShell *top, GnomeUIInfo *uiinfo, GHashTable *extras,
-	    const gchar *mpath)
-{
-  const gchar *slash;
-  gchar *parent_path;
-  GtkMenuItem *parent_item;
-  GtkWidget *parent_submenu, *tearoff, *grandparent_submenu;
-
-  slash = strrchr(mpath, '/');
-  if (!slash)
-    return top;
-  parent_path = g_strndup(mpath, slash - mpath);
-
-  /* check the extras hash table and GnomeUIInfo struct */
-  parent_item = g_hash_table_lookup(extras, parent_path);
-  if (!parent_item)
-    parent_item = dia_gnome_menu_get_widget(uiinfo, parent_path);
-  if (parent_item) {
-    g_free(parent_path);
-    if (parent_item->submenu) {
-      return GTK_MENU_SHELL(parent_item->submenu);
-    } else {
-      GtkWidget *menu = gtk_menu_new();
-
-      /* setup submenu, and add a tearoff at the top */
-      gtk_menu_item_set_submenu(parent_item, menu);
-      tearoff = gtk_tearoff_menu_item_new();
-      gtk_container_add(GTK_CONTAINER(menu), tearoff);
-      gtk_widget_show(tearoff);
-      return GTK_MENU_SHELL(menu);
-    }
-  }
-
-  /* not there ... need to create it. */
-  grandparent_submenu = GTK_WIDGET(find_parent(top, uiinfo, extras,
-					       parent_path));
-  slash = strrchr(parent_path, '/');
-  if (slash)
-    slash++;
-  else
-    slash = parent_path;
-  parent_item = GTK_MENU_ITEM(gtk_menu_item_new_with_label(slash));
-  gtk_container_add(GTK_CONTAINER(grandparent_submenu), GTK_WIDGET(parent_item));
-  gtk_widget_show(GTK_WIDGET(parent_item));
-  g_hash_table_insert(extras, parent_path, parent_item); /* add to extras */
-
-  parent_submenu = gtk_menu_new();
-  gtk_menu_item_set_submenu(parent_item, parent_submenu);
-  tearoff = gtk_tearoff_menu_item_new();
-  gtk_container_add(GTK_CONTAINER(parent_submenu), tearoff);
-  gtk_widget_show(tearoff);
-
-  return GTK_MENU_SHELL(parent_submenu);
-}
-
-GtkWidget *
-menus_add_path (const gchar *path)
-{
-  GnomeUIInfo *uiinfo;
-  GHashTable *extras;
-  GtkMenuShell *top;
-  GtkAccelGroup *accel_group;
-  const gchar *mpath = path, *label;
-  GtkMenuShell *parent;
-  GtkWidget *item;
-
-  if (strncmp(path, "<Display>/", strlen("<Display>/")) == 0) {
-    mpath = path + strlen("<Display>/");
-    uiinfo = display_menu;
-    extras = display_extras;
-    top = GTK_MENU_SHELL(display_menus);
-    accel_group = display_accels;
-  } else if (strncmp(path, "<Toolbox>/", strlen("<Toolbox>/")) == 0) {
-    mpath = path + strlen("<Toolbox>/");
-    uiinfo = toolbox_menu;
-    extras = toolbox_extras;
-    top = GTK_MENU_SHELL(toolbox_menubar);
-    accel_group = toolbox_accels;
-  } else {
-    g_warning("bad menu path `%s'", path);
-    return NULL;
-  }
-    
-  parent = find_parent(top, uiinfo, extras, mpath);
-  label = strrchr(mpath, '/');
-  if (label)
-    label++;
-  else
-    label = mpath;
-  item = gtk_menu_item_new_with_label(label);
-  gtk_container_add(GTK_CONTAINER(parent), item);
-  gtk_widget_show(item);
-  /* add to item factory, so that accel is saved/loaded */
-  gtk_item_factory_add_foreign(item, path, accel_group, 0, 0);
-  
-  return item;
-}
-
-#endif
-
-#ifndef GNOME_MENUS_ARE_BORING
 GtkWidget *
 menus_add_path (const gchar *path)
 {
@@ -1132,7 +598,6 @@ menus_add_path (const gchar *path)
   gtk_item_factory_create_item(item_factory, &new_entry, NULL, 1);
   return gtk_item_factory_get_widget(item_factory, path);
 }
-#endif
 
 
 /*
@@ -1145,25 +610,6 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 {
   GtkWidget *wid = NULL;
   GtkMenuItem *widget = NULL;
-
-# ifdef GNOME_MENUS_ARE_BORING
-      /* DDisplay *ddisp; */
-  const gchar *menu_name;
-
-  /* drop the "<Display>/", "<DisplayMBar>/" or "<Toolbox>/" at the start */
-  menu_name = path;
-  if (! (path = strchr (path, '/'))) return NULL;
-  path ++; /* move past the / */
-
-  if (strncmp(menu_name, "<Display>", strlen("<Display>")) == 0) {
-    widget = dia_gnome_menu_get_widget(display_menu, path);
-  } else if (strncmp(menu_name,"<DisplayMBar>",strlen("<DisplayMBar>")) == 0) {
-      /* finding this requires an item factory*/
-      widget = dia_gnome_menu_get_widget(display_menu, path);
-  } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {
-    widget = dia_gnome_menu_get_widget(toolbox_menu, path);
-  } 
-# else
 
   if (display_item_factory) {
     wid =
@@ -1182,7 +628,6 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
       gtk_item_factory_get_item(toolbox_item_factory, path);
     if (wid != NULL) widget = GTK_MENU_ITEM(wid);
   }
-# endif
 
   if (! widget) {
     g_warning(_("Can't find menu entry '%s'!\nThis is probably a i18n problem "
@@ -1199,13 +644,6 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
 {
     static GString *path;
     
-#   ifdef GNOME_MENUS_ARE_BORING
-    /* This should only happen with popmenu. I don't remember why... */
-    if ((strcmp(display, "<Display>") == 0) && (ddisplay_active () == NULL))
-    {
-	return;
-    }
-#   endif
     path = g_string_new (display);
     g_string_append (path,"/Edit/Copy");
     items->copy = menus_get_item_from_path(path->str, factory);
@@ -1213,10 +651,8 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->cut = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Edit/Paste");
     items->paste = menus_get_item_from_path(path->str, factory);
-#   ifndef GNOME_MENUS_ARE_BORING
     g_string_append (g_string_assign(path, display),"/Edit/Delete");
     items->edit_delete = menus_get_item_from_path(path->str, factory);
-#   endif
 
     g_string_append (g_string_assign(path, display),"/Edit/Copy Text");
     items->copy_text = menus_get_item_from_path(path->str, factory);

@@ -1,3 +1,7 @@
+2004-02-29  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/menus.c: Get rid of GNOME menus. Deprecated APIs in GNOME 2.
+
 2004-02-27  Lars Clausen  <lars@raeder.dk>
 
 	* KNOWN_BUGS: Added info on most commonly reported bugs, with
