@@ -4,105 +4,105 @@
   <_description>Components for circuit diagrams</_description>
   <contents>
     <object name="Circuit - Vertical Resistor">
-      <_description>A Vertically aligned resistor</_description>
+      <_description>Vertically aligned resistor</_description>
     </object>
     <object name="Circuit - Horizontal Inductor">
-      <_description>A Horizontally aligned inductor</_description>
+      <_description>Horizontally aligned inductor</_description>
     </object>
     <object name="Circuit - Vertical Inductor">
-      <_description>A Vertically aligned inductor</_description>
+      <_description>Vertically aligned inductor</_description>
     </object>
     <object name="Circuit - Horizontal Resistor">
-      <_description>A Horizontally aligned resistor</_description>
+      <_description>Horizontally aligned resistor</_description>
     </object>
     <br/>
     <object name="Circuit - Vertical Resistor (European)">
-      <_description>A Vertically aligned resistor (European)</_description>
+      <_description>Vertically aligned resistor (European)</_description>
     </object>
     <object name="Circuit - Horizontal Inductor (European)">
-      <_description>A Horizontally aligned inductor (European)</_description>
+      <_description>Horizontally aligned inductor (European)</_description>
     </object>
     <object name="Circuit - Vertical Inductor (European)">
-      <_description>A Vertically aligned inductor (European)</_description>
+      <_description>Vertically aligned inductor (European)</_description>
     </object>
     <object name="Circuit - Horizontal Resistor (European)">
-      <_description>A Horizontally aligned resistor (European)</_description>
+      <_description>Horizontally aligned resistor (European)</_description>
     </object>
     <br/>
     <object name="Circuit - Horizontal Capacitor">
-      <_description>A horizontally aligned capacitor</_description>
+      <_description>Horizontally aligned capacitor</_description>
     </object>
     <object name="Circuit - Vertical Capacitor">
-      <_description>A vertically aligned capacitor</_description>
+      <_description>Vertically aligned capacitor</_description>
     </object>
     <br/>
      <object name="Circuit - NPN Transistor">
       <!--
       -->
-      <_description>A npn bipolar transistor</_description>
+      <_description>NPN bipolar transistor</_description>
     </object>
     <object name="Circuit - PNP Transistor">
       <!--
       -->
-      <_description>A pnp bipolar transistor</_description>
+      <_description>PNP bipolar transistor</_description>
     </object>
     <br/>
     <object name="Circuit - Horizontal Diode">
-      <_description>A horizontally aligned diode</_description>
+      <_description>Horizontally aligned diode</_description>
     </object>
     <object name="Circuit - Vertical Diode">
-      <_description>A vertically aligned diode</_description>
+      <_description>Vertically aligned diode</_description>
     </object>
     <object name="Circuit - Horizontal Zener Diode">
-      <_description>A horizontally aligned zener diode</_description>
+      <_description>Horizontally aligned zener diode</_description>
     </object>
     <object name="Circuit - Vertical Zener Diode">
-      <_description>A vertically aligned zener diode</_description>
+      <_description>Vertically aligned zener diode</_description>
     </object>
     <br/>
     <object name="Circuit - Ground">
-      <_description>A ground point</_description>
+      <_description>Ground point</_description>
     </object>
     <object name="Circuit - Op Amp">
-      <_description>An operational amplifier</_description>
+      <_description>Operational amplifier</_description>
     </object>
     <object name="Circuit - Horizontal Fuse (European)">
-      <_description>A horizontally aligned fuse</_description>
+      <_description>Horizontally aligned fuse</_description>
     </object>
     <object name="Circuit - Vertical Fuse (European)">
-      <_description>A vertically aligned fuse</_description>
+      <_description>Vertically aligned fuse</_description>
     </object>
     <object name="Circuit - Horizontal Powersource (European)">
-      <_description>A horizontally aligned powersource</_description>
+      <_description>Horizontally aligned powersource</_description>
     </object>
     <object name="Circuit - Vertical Powersource (European)">
-      <_description>A vertically aligned powersource</_description>
+      <_description>Vertically aligned powersource</_description>
     </object>
     <object name="Circuit - Lamp (European)">
-      <_description>A lamp</_description>
+      <_description>Lamp</_description>
     </object>
     <object name="Circuit - Speaker (European)">
-      <_description>A Speaker</_description>
+      <_description>Speaker</_description>
     </object>
     <object name="Circuit - Microphone (European)">
-      <_description>A Microphone</_description>
+      <_description>Microphone</_description>
     </object>
     <br/>
     <object name="Circuit - Horizontal Led (European)">
-      <_description>A horizontally aligned LED</_description>
+      <_description>Horizontally aligned LED</_description>
     </object>
     <object name="Circuit - Vertical Led (European)">
-      <_description>A vertically aligned LED</_description>
+      <_description>Vertically aligned LED</_description>
     </object>
     <br/>
     <object name="Circuit - NMOS Transistor (European)">
-      <_description>An NMOS transistor</_description>
+      <_description>NMOS transistor</_description>
     </object>
     <object name="Circuit - PMOS Transistor (European)">
-      <_description>A PMOS transistor</_description>
+      <_description>PMOS transistor</_description>
     </object>
     <object name="Circuit - Horizontal Jumper">
-      <_description>A Horizontal Jumper</_description>
+      <_description>Horizontal jumper</_description>
     </object>
   </contents>
 </sheet>

@@ -55,57 +55,57 @@ ToolButton tool_data[] =
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
-    N_("Create Text"),
+    N_("Text"),
     N_("Text"),
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
-    N_("Create Box"),
+    N_("Box"),
     N_("Box"),
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
-    N_("Create Ellipse"),
+    N_("Ellipse"),
     N_("Ellipse"),
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
-    N_("Create Polygon"),
+    N_("Polygon"),
     N_("Polygon"),
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
-    N_("Create Beziergon"),
+    N_("Beziergon"),
     N_("Beziergon"),
     { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
   },
   { NULL,
-    N_("Create Line"),
+    N_("Line"),
     N_("Line"),
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
-    N_("Create Arc"),
+    N_("Arc"),
     N_("Arc"),
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
-    N_("Create Zigzagline"),
+    N_("Zigzagline"),
     N_("Zigzagline"),
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
-    N_("Create Polyline"),
+    N_("Polyline"),
     N_("Polyline"),
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
-    N_("Create Bezierline"),
+    N_("Bezierline"),
     N_("Bezierline"),
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
-    N_("Create Image"),
+    N_("Image"),
     N_("Image"),
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }

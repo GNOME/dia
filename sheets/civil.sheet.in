@@ -4,34 +4,34 @@
   <_description>Civil Engineering Components</_description>
   <contents>
     <object name="Civil - Vertical Rest">
-      <_description>Vertical Rest</_description>
+      <_description>Vertical rest</_description>
     </object>
     <object name="Civil - Horizontal Rest">
-      <_description>Horizontal Rest</_description>
+      <_description>Horizontal rest</_description>
     </object>
     <object name="Civil - Bivalent Vertical Rest">
-      <_description>Bivalent Vertical Rest</_description>
+      <_description>Bivalent vertical rest</_description>
     </object>
     <object name="Civil - Reference Line">
-      <_description>Reference Line</_description>
+      <_description>Reference line</_description>
     </object>
     <object name="Civil - Water Level">
-      <_description>Water Level</_description>
+      <_description>Water level</_description>
     </object>
     <object name="Civil - Soil">
       <_description>Soil</_description>
     </object>
     <object name="Civil - Right Arrow">
-      <_description>A horizontally aligned Arrow</_description>
+      <_description>Horizontally aligned arrow</_description>
     </object>
     <object name="Civil - Up Arrow">
-      <_description>A vertically aligned Arrow</_description>
+      <_description>Vertically aligned arrow</_description>
     </object>
     <object name="Civil - Horizontal Limiting Line">
-      <_description>A horizontal limiting line</_description>
+      <_description>Horizontal limiting line</_description>
     </object>
     <object name="Civil - Vertical Limiting Line">
-      <_description>A vertical limiting line</_description>
+      <_description>Vertical limiting line</_description>
     </object>
     <object name="Civil - Horizontal Pump">
       <_description>Horizontally aligned pump</_description>
@@ -46,43 +46,43 @@
       <_description>Vertically aligned compressor</_description>
     </object>
     <object name="Flowchart - Collate">
-      <_description>Vertically aligned Valve</_description>
+      <_description>Vertically aligned valve</_description>
     </object>
     <object name="Civil - Horizontal Valve">
-      <_description>Horizontally aligned Valve</_description>
+      <_description>Horizontally aligned valve</_description>
     </object>
     <object name="Civil - Backflow Preventer">
-      <_description>A Backflow Preventer</_description>
+      <_description>Backflow preventer</_description>
     </object>
     <object name="Civil - Motor">
-      <_description>A Motor</_description>
+      <_description>Motor</_description>
     </object>
     <object name="Civil - Gas Bottle">
-      <_description>A Gas Bottle</_description>
+      <_description>Gas bottle</_description>
     </object>
     <object name="Civil - Frequency Converter">
-      <_description>A Frequency Converter</_description>
+      <_description>Frequency converter</_description>
     </object>
     <object name="Civil - Vertical Propeller">
-      <_description>Vertically aligned Propeller</_description>
+      <_description>Vertically aligned propeller</_description>
     </object>
     <object name="Civil - Aerator">
-      <_description>An Aerator with bubbles</_description>
+      <_description>Aerator with bubbles</_description>
     </object>
     <object name="Civil - Rotor">
-      <_description>A Rotor</_description>
+      <_description>Rotor</_description>
     </object>
     <object name="Civil - Final-Settling Basin">
-      <_description>A final-settling Basin</_description>
+      <_description>Final-settling basin</_description>
     </object>
     <object name="Civil - Preliminary Clarification Tank">
-      <_description>A Preliminary Clarification Tank</_description>
+      <_description>Preliminary clarification tank</_description>
     </object>
     <object name="Civil - Basin">
-      <_description>A Basin</_description>
+      <_description>Basin</_description>
     </object>
     <object name="Civil - Container">
-      <_description>A Container</_description>
+      <_description>Container</_description>
     </object>
   </contents>
 </sheet>

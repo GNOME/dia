@@ -16,10 +16,10 @@
     <_description>6701</_description>
     </object>
     <object name="Cisco - 6705">
-    <_description>6705 Integrated Access Device</_description>
+    <_description>6705 Integrated access device</_description>
     </object>
     <object name="Cisco - 6732">
-    <_description>6732 Multiservice Access Platform</_description>
+    <_description>6732 Multiservice access platform</_description>
     </object>
     <object name="Cisco - 10700">
     <_description>10700</_description>
@@ -31,7 +31,7 @@
     <_description>ADM</_description>
     </object>
     <object name="Cisco - ASIC Processor">
-    <_description>ASIC Processor</_description>
+    <_description>ASIC processor</_description>
     </object>
     <object name="Cisco - ATA">
     <_description>ATA</_description>
@@ -49,34 +49,34 @@
     <_description>BTS 10200</_description>
     </object>
     <object name="Cisco - Cable Modem">
-    <_description>Cable Modem</_description>
+    <_description>Cable modem</_description>
     </object>
     <object name="Cisco - CallManager">
     <_description>CallManager</_description>
     </object>
     <object name="Cisco - Catalyst Access Gateway">
-    <_description>Catalyst Access Gateway</_description>
+    <_description>Catalyst access gateway</_description>
     </object>
     <object name="Cisco - CDDI-FDDI">
     <_description>CDDI-FDDI</_description>
     </object>
     <object name="Cisco - CDM Content Distribution Manager">
-    <_description>CDM Content Distribution Manager</_description>
+    <_description>CDM Content distribution manager</_description>
     </object>
     <object name="Cisco - Centri Firewall">
-    <_description>Centri Firewall</_description>
+    <_description>Centri firewall</_description>
     </object>
     <object name="Cisco - Content Engine (Cache Director)">
-    <_description>Content Engine (Cache Director)</_description>
+    <_description>Content engine (Cache director)</_description>
     </object>
     <object name="Cisco - Content Transformation Engine (CTE)">
-    <_description>Content Transformation Engine (CTE)</_description>
+    <_description>Content transformation engine (CTE)</_description>
     </object>
     <object name="Cisco - CSU/DSU">
     <_description>CSU/DSU</_description>
     </object>
     <object name="Cisco - Distributed Director">
-    <_description>Distributed Director</_description>
+    <_description>Distributed director</_description>
     </object>
     <object name="Cisco - DPT">
     <_description>DPT</_description>
@@ -85,19 +85,19 @@
     <_description>DSLAM</_description>
     </object>
     <object name="Cisco - DWDM Filter">
-    <_description>DWDM Filter</_description>
+    <_description>DWDM filter</_description>
     </object>
     <object name="Cisco - FDDI Ring">
-    <_description>FDDI Ring</_description>
+    <_description>FDDI ring</_description>
     </object>
     <object name="Cisco - FC Storage">
-    <_description>FC Storage</_description>
+    <_description>FC storage</_description>
     </object>
     <object name="Cisco - Firewall">
     <_description>Firewall</_description>
     </object>
     <object name="Cisco - Front End Processor">
-    <_description>Front End Processor</_description>
+    <_description>Front end processor</_description>
     </object>
     <object name="Cisco - General appliance">
     <_description>General appliance</_description>
@@ -115,7 +115,7 @@
     <_description>ICS</_description>
     </object>
     <object name="Cisco - IOS Firewall">
-    <_description>IOS Firewall</_description>
+    <_description>IOS firewall</_description>
     </object>
     <object name="Cisco - IP">
     <_description>IP</_description>
@@ -136,7 +136,7 @@
     <_description>LongReach CPE</_description>
     </object>
     <object name="Cisco - MAS Gateway">
-    <_description>MAS Gateway</_description>
+    <_description>MAS gateway</_description>
     </object>
     <object name="Cisco - ME 1100">
     <_description>ME 1100</_description>
@@ -145,34 +145,34 @@
     <_description>Metro 1500</_description>
     </object>
     <object name="Cisco - NetRanger">
-    <_description>NetRanger Intrusion Detection System</_description>
+    <_description>NetRanger intrusion detection system</_description>
     </object>
     <object name="Cisco - NetSonar">
-    <_description>NetSonar Security Scanner</_description>
+    <_description>NetSonar security scanner</_description>
     </object>
     <object name="Cisco - Network Management">
-    <_description>Network Management</_description>
+    <_description>Network management</_description>
     </object>
     <object name="Cisco - ONS15500">
-    <_description>ONS15500 DWDM Platform</_description>
+    <_description>ONS15500 DWDM platform</_description>
     </object>
     <object name="Cisco - Optical Amplifier">
-    <_description>Optical Amplifier</_description>
+    <_description>Optical amplifier</_description>
     </object>
     <object name="Cisco - Optical Transport">
-    <_description>Optical Transport</_description>
+    <_description>Optical transport</_description>
     </object>
     <object name="Cisco - PC Adapter Card">
-    <_description>PC Adapter Card</_description>
+    <_description>PC adapter card</_description>
     </object>
     <object name="Cisco - PC Router Card">
-    <_description>PC Router Card</_description>
+    <_description>PC router card</_description>
     </object>
     <object name="Cisco - PIX Firewall">
-    <_description>PIX Firewall</_description>
+    <_description>PIX firewall</_description>
     </object>
     <object name="Cisco - Protocol Translator">
-    <_description>Protocol Translator</_description>
+    <_description>Protocol translator</_description>
     </object>
     <object name="Cisco - PXF">
     <_description>PXF</_description>
@@ -184,7 +184,7 @@
     <_description>Repeater</_description>
     </object>
     <object name="Cisco - SC2200 (Signalling Controller)">
-    <_description>SC2200 (Signalling Controller)</_description>
+    <_description>SC2200 (Signalling controller)</_description>
     </object>
     <object name="Cisco - STP">
     <_description>STP</_description>
@@ -196,7 +196,7 @@
     <_description>Transpath</_description>
     </object>
     <object name="Cisco - Universal Gateway">
-    <_description>Universal Gateway</_description>
+    <_description>Universal gateway</_description>
     </object>
     <object name="Cisco - VIP">
     <_description>VIP</_description>
@@ -205,13 +205,13 @@
     <_description>VPN concentrator</_description>
     </object>
     <object name="Cisco - VPN Gateway">
-    <_description>VPN Gateway</_description>
+    <_description>VPN gateway</_description>
     </object>
     <object name="Cisco - Virtual switch controller (VSC 3000)">
     <_description>Virtual switch controller (VSC 3000)</_description>
     </object>
     <object name="Cisco - Wireless Bridge">
-    <_description>Wireless Bridge</_description>
+    <_description>Wireless bridge</_description>
     </object>
     <object name="Cisco - Cloud">
     <_description>Cloud</_description>

@@ -4,47 +4,47 @@
   <_description>Components for pneumatic and hydraulic circuits</_description>
   <contents>
     <object name="Pneum - DEJack">
-      <_description>A double-effect jack</_description>
+      <_description>Double-effect jack</_description>
     </object>
     <object name="Pneum - SEIJack">
-      <_description>A normally-in simple-effect jack</_description>
+      <_description>Normally-in simple-effect jack</_description>
     </object>
     <object name="Pneum - SEOJack">
-      <_description>A normally-out simple-effect jack</_description>
+      <_description>Normally-out simple-effect jack</_description>
     </object>
     <!-- TODO : shaftless double-effect jacks, shock-absorbed jacks
     (all types, with fixed and variable shock absorption), rotary jacks ... -->
     <br/>
     <object name="Pneum - press">
-      <_description>A generic pressure source</_description>
+      <_description>Generic pressure source</_description>
     </object>
     <object name="Pneum - presshy">
-      <_description>A hydraulic pressure source</_description>
+      <_description>Hydraulic pressure source</_description>
     </object>
     <object name="Pneum - presspn">
-      <_description>A pneumatic pressure source</_description>
+      <_description>Pneumatic pressure source</_description>
     </object>
     <object name="Pneum - drain">
-      <_description>An air exhaust orifice</_description>
+      <_description>Air exhaust orifice</_description>
     </object>
       <br/>
     <object name="Pneum - dist22">
-      <_description>A 2/2 distributor</_description>
+      <_description>2/2 distributor</_description>
     </object>
     <object name="Pneum - dist32">
-      <_description>A 3/2 distributor</_description>
+      <_description>3/2 distributor</_description>
     </object>
   <!--  <object name="Pneum - dist33">
-      <_description>A 3/3 distributor</_description>
+      <_description>3/3 distributor</_description>
     </object> -->
     <object name="Pneum - dist42">
-      <_description>A 4/2 distributor</_description>
+      <_description>4/2 distributor</_description>
     </object>
     <object name="Pneum - dist52">
-      <_description>A 5/2 distributor</_description>
+      <_description>5/2 distributor</_description>
     </object>
 <!--    <object name="Pneum - dist53">
-      <_description>A 5/3 distributor</_description>
+      <_description>5/3 distributor</_description>
     </object> -->
       <br/>
     <object name="Pneum - commusc">

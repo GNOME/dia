@@ -4,13 +4,13 @@
   <_description>Objects to design SADT diagrams</_description>
   <contents>
     <object name="SADT - arrow">
-      <_description>A activity/data flow arrow</_description>
+      <_description>Activity/data flow arrow</_description>
     </object>
     <object name="SADT - box">
-      <_description>An activity/data box</_description>
+      <_description>Activity/data box</_description>
     </object>
     <object name="SADT - annotation">
-      <_description>A flow label</_description>
+      <_description>Flow label</_description>
     </object>
   </contents>
 </sheet>

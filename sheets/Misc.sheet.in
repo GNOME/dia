@@ -4,13 +4,13 @@
   <_description>Miscellaneous Shapes</_description>
   <contents>
     <object name="Filesystem - Folder">
-      <_description>A Folder</_description>
+      <_description>Folder</_description>
     </object>
     <object name="Filesystem - File">
-      <_description>A File</_description>
+      <_description>File</_description>
     </object>
     <object name="Misc - Analog Clock">
-      <_description>A traditional clock</_description>
+      <_description>Traditional clock</_description>
     </object>
   </contents>
 </sheet>

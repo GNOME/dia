@@ -4,19 +4,19 @@
   <_description>Specification and Description Language.</_description>
   <contents>
     <object name="SDL - Block">
-      <_description>Block Type Reference</_description>
+      <_description>Block type reference</_description>
     </object>
     <object name="SDL - Service">
-      <_description>Service Type Reference</_description>
+      <_description>Service type reference</_description>
     </object>
     <object name="SDL - Process">
-      <_description>Process Type Reference</_description>
+      <_description>Process type reference</_description>
     </object>
     <object name="SDL - State">
       <_description>State</_description>
     </object>
     <object name="SDL - Function Header">
-      <_description>Function Header</_description>
+      <_description>Function header</_description>
     </object>
     <object name="SDL - Send">
       <_description>Send message</_description>
@@ -34,25 +34,25 @@
       <_description>Action being executed</_description>
     </object>
     <object name="SDL - Save">
-      <_description>Save State</_description>
+      <_description>Save state</_description>
     </object>
     <object name="SDL - Decision">
       <_description>Decision</_description>
     </object>
     <object name="SDL - InOut">
-      <_description>In/Out Connector</_description>
+      <_description>In/Out connector</_description>
     </object>
     <object name="SDL - Stop">
       <_description>Stop</_description>
     </object>
     <object name="SDL - Return">
-      <_description>Procedure Return</_description>
+      <_description>Procedure return</_description>
     </object>
     <object name="SDL - Comment">
       <_description>Comment</_description>
     </object>
     <object name="SDL - Note">
-      <_description>Generic Text Note</_description>
+      <_description>Generic text note</_description>
     </object>
     <!-- TODO : All other objects ... -->
     <br/>

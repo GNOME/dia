@@ -4,7 +4,7 @@
   <_description>Miscellaneous shapes by Cisco</_description>
   <contents>
     <object name="Cisco - IP Phone">
-    <_description>IP Phone</_description>
+    <_description>IP phone</_description>
     </object>
     <object name="Cisco - BBFW">
     <_description>BBFW</_description>
@@ -31,7 +31,7 @@
     <_description>Dot-Dot</_description>
     </object>
     <object name="Cisco - End Office">
-    <_description>End Office</_description>
+    <_description>End office</_description>
     </object>
     <object name="Cisco - Fax">
     <_description>Fax</_description>
@@ -40,10 +40,10 @@
     <_description>File cabinet</_description>
     </object>
     <object name="Cisco - Generic Building">
-    <_description>Generic Building</_description>
+    <_description>Generic building</_description>
     </object>
     <object name="Cisco - Government Building">
-    <_description>Government Building</_description>
+    <_description>Government building</_description>
     </object>
     <object name="Cisco - H.323">
     <_description>H.323</_description>
@@ -64,7 +64,7 @@
     <_description>Lock</_description>
     </object>
     <object name="Cisco - Mac Woman">
-    <_description>Mac Woman</_description>
+    <_description>Mac woman</_description>
     </object>
     <object name="Cisco - Man/Woman">
     <_description>Man/Woman</_description>
@@ -79,7 +79,7 @@
     <_description>Microphone</_description>
     </object>
     <object name="Cisco - PC Man">
-    <_description>PC Man</_description>
+    <_description>PC man</_description>
     </object>
     <object name="Cisco - Phone/Fax">
     <_description>Phone/Fax</_description>
@@ -88,7 +88,7 @@
     <_description>Phone</_description>
     </object>
     <object name="Cisco - Radio Tower">
-    <_description>Radio Tower</_description>
+    <_description>Radio tower</_description>
     </object>
     <object name="Cisco - RPS">
     <_description>RPS</_description>
@@ -106,13 +106,13 @@
     <_description>Sitting woman</_description>
     </object>
     <object name="Cisco - Small Business">
-    <_description>Small Business</_description>
+    <_description>Small business</_description>
     </object>
     <object name="Cisco - Speaker">
     <_description>Speaker</_description>
     </object>
     <object name="Cisco - Standing Man">
-    <_description>Standing Man</_description>
+    <_description>Standing man</_description>
     </object>
     <object name="Cisco - SVX (interchangeable with End office)">
     <_description>SVX (interchangeable with End office)</_description>
@@ -145,7 +145,7 @@
     <_description>Video camera</_description>
     </object>
     <object name="Cisco - Wireless Transport">
-    <_description>Wireless Transport</_description>
+    <_description>Wireless transport</_description>
     </object>
   </contents>
 </sheet>

@@ -7,7 +7,7 @@
       <_description>Entity</_description>
     </object>
     <object name="ER - Entity" intdata="1">
-      <_description>Weak Entity</_description>
+      <_description>Weak entity</_description>
       <icon>ER/weakentity.xpm</icon>
     </object>
     <object name="ER - Relationship">

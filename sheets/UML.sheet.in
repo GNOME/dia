@@ -4,17 +4,17 @@
   <_description>Editor for UML Static Structure Diagrams</_description>
   <contents>
     <object name="UML - Class" intdata="0">
-      <_description>Create a class</_description>
+      <_description>Class</_description>
     </object>
     <object name="UML - Class" intdata="1">
-      <_description>Create a template class</_description>
+      <_description>Template class</_description>
       <icon>UML/umlclass_template.xpm</icon>
     </object>
     <object name="UML - Note">
-      <_description>Create a note</_description>
+      <_description>Note</_description>
     </object>
     <object name="UML - Dependency">
-      <_description>Create a dependency</_description>
+      <_description>Dependency</_description>
     </object>
     <object name="UML - Realizes">
       <_description>Realizes, implements a specific interface</_description>
@@ -36,49 +36,49 @@
       <_description>Constraint, place a constraint on something</_description>
     </object>
     <object name="UML - SmallPackage">
-      <_description>Create a (small) package</_description>
+      <_description>Small package</_description>
     </object>
     <object name="UML - LargePackage">
-      <_description>Create a (large) package</_description>
+      <_description>Large package</_description>
     </object>
     <object name="UML - Actor">
-      <_description>Create an actor</_description>
+      <_description>Actor</_description>
     </object>
     <object name="UML - Usecase">
-      <_description>Create a use case</_description>
+      <_description>Use case</_description>
     </object>
     <object name="UML - Lifeline">
-      <_description>Create a lifeline</_description>
+      <_description>Lifeline</_description>
     </object>
     <object name="UML - Object">
-      <_description>Create an object</_description>
+      <_description>Object</_description>
     </object>
     <object name="UML - Message">
-      <_description>Create a message</_description>
+      <_description>Message</_description>
     </object>
     <object name="UML - Component">
-      <_description>Create a component</_description>
+      <_description>Component</_description>
     </object>
     <object name="UML - Node">
-      <_description>Create a node</_description>
+      <_description>Node</_description>
     </object>
     <object name="UML - Classicon">
-      <_description>Create a class stereotype icon</_description>
+      <_description>Class stereotype icon</_description>
     </object>
     <object name="UML - State Term">
-      <_description>Create a initial/end state</_description>
+      <_description>Initial/end state</_description>
     </object>
     <object name="UML - State">
-      <_description>Create a state</_description>
+      <_description>State</_description>
     </object>
     <object name="UML - Activity">
-       <_description>Create an activity</_description>
+       <_description>Activity</_description>
     </object>
     <object name="UML - Branch">
-      <_description>Create a branch</_description>
+      <_description>Branch</_description>
     </object>
     <object name="UML - Fork">
-      <_description>Create a fork/union</_description>
+      <_description>Fork/union</_description>
     </object>
   </contents>
 </sheet>

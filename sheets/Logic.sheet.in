@@ -4,31 +4,31 @@
   <_description>Boolean Logic</_description>
   <contents>
     <object name="Logic - Or">
-      <_description>An Or gate</_description>
+      <_description>OR gate</_description>
     </object>
     <object name="Logic - And">
-      <_description>An And gate</_description>
+      <_description>AND gate</_description>
     </object>
     <object name="Logic - Xor">
-      <_description>A Xor gate</_description>
+      <_description>XOR gate</_description>
     </object>
     <object name="Logic - Buffer">
-      <_description>A simple Buffer</_description>
+      <_description>Simple buffer</_description>
     </object>
     <object name="Logic - Inverter">
-      <_description>An Inverter</_description>
+      <_description>Inverter</_description>
     </object>
     <object name="Logic - Nand">
-      <_description>A Nand gate</_description>
+      <_description>NAND gate</_description>
     </object>
     <object name="Logic - Nor">
-      <_description>A Nor gate</_description>
+      <_description>NOR gate</_description>
     </object>
     <object name="Logic - Not">
-      <_description>A Not</_description>
+      <_description>NOT</_description>
     </object>
     <object name="Logic - Connector">
-      <_description>A crossconnector</_description>
+      <_description>Crossconnector</_description>
     </object>
   </contents>
 </sheet>

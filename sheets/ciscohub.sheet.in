@@ -4,28 +4,28 @@
   <_description>Hub and switch shapes by Cisco</_description>
   <contents>
     <object name="Cisco - 100BaseT Hub">
-    <_description>100BaseT Hub</_description>
+    <_description>100BaseT hub</_description>
     </object>
     <object name="Cisco - ATM Switch">
-    <_description>ATM Switch</_description>
+    <_description>ATM switch</_description>
     </object>
     <object name="Cisco - ATM Fast Gigabit Etherswitch">
-    <_description>ATM Fast Gigabit Etherswitch</_description>
+    <_description>ATM fast gigabit etherswitch</_description>
     </object>
     <object name="Cisco - Cisco Hub">
-    <_description>Cisco Hub</_description>
+    <_description>Cisco hub</_description>
     </object>
     <object name="Cisco - Class 4/5 switch">
     <_description>Class 4/5 switch</_description>
     </object>
     <object name="Cisco - Content Switch">
-    <_description>Content Switch</_description>
+    <_description>Content switch</_description>
     </object>
     <object name="Cisco - Content Switch module">
-    <_description>Content Switch module</_description>
+    <_description>Content switch module</_description>
     </object>
     <object name="Cisco - Content Service Switch 1100">
-    <_description>Content Service Switch 1100</_description>
+    <_description>Content service switch 1100</_description>
     </object>
     <object name="Cisco - Generic softswitch">
     <_description>Generic softswitch</_description>
@@ -37,34 +37,34 @@
     <_description>ISDN switch</_description>
     </object>
     <object name="Cisco - Layer 3 Switch">
-    <_description>Layer 3 Switch</_description>
+    <_description>Layer 3 switch</_description>
     </object>
     <object name="Cisco - MGX 8220">
-    <_description>MGX 8220 Switch</_description>
+    <_description>MGX 8220 switch</_description>
     </object>
     <object name="Cisco - MGX 8240">
-    <_description>MGX 8240 Switch</_description>
+    <_description>MGX 8240 switch</_description>
     </object>
     <object name="Cisco - MGX 8260">
-    <_description>MGX 8260 Switch</_description>
+    <_description>MGX 8260 switch</_description>
     </object>
     <object name="Cisco - Multilayer switch">
     <_description>Multilayer switch</_description>
     </object>
     <object name="Cisco - MultiSwitch Device">
-    <_description>MultiSwitch Device</_description>
+    <_description>MultiSwitch device</_description>
     </object>
     <object name="Cisco - Programmable Switch">
-    <_description>Programmable Switch</_description>
+    <_description>Programmable switch</_description>
     </object>
     <object name="Cisco - Route Switch Processor">
-    <_description>Route Switch Processor</_description>
+    <_description>Route switch processor</_description>
     </object>
     <object name="Cisco - Small hub">
     <_description>Small hub</_description>
     </object>
     <object name="Cisco - Voice ATM Switch">
-    <_description>Voice ATM Switch</_description>
+    <_description>Voice ATM switch</_description>
     </object>
     <object name="Cisco - Voice switch">
     <_description>Voice switch</_description>
@@ -76,7 +76,7 @@
     <_description>Workgroup switch</_description>
     </object>
     <object name="Cisco - PBX Switch">
-    <_description>PBX Switch</_description>
+    <_description>PBX switch</_description>
     </object>  
   </contents>
 </sheet>

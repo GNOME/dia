@@ -4,7 +4,7 @@
   <_description>Editor for EML Static Structure Diagrams.</_description>
   <contents>
 <!--    <object name="EML - Process" >
-      <_description>Create a process</_description>
+      <_description>Process</_description>
     </object>
     <object name="EML - Instantiation">
       <_description>Instantiation. One process create others</_description>

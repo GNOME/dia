@@ -16,34 +16,34 @@
     <_description>7507</_description>
     </object>
     <object name="Cisco - ATM Router">
-    <_description>ATM Router</_description>
+    <_description>ATM router</_description>
     </object>
     <object name="Cisco - ATM Tag Switch Router">
-    <_description>ATM Tag Switch Router</_description>
+    <_description>ATM tag switch router</_description>
     </object>
     <object name="Cisco - ATM Tag Sw Gigabit Router">
-    <_description>ATM Tag Sw Gigabit Router</_description>
+    <_description>ATM tag sw gigabit router</_description>
     </object>
     <object name="Cisco - Broadband router">
     <_description>Broadband router</_description>
     </object>
     <object name="Cisco - Content Service Router">
-    <_description>Content Service Router</_description>
+    <_description>Content service router</_description>
     </object>
     <object name="Cisco - Gigabit Switch Router (ATM Tag)">
-    <_description>Gigabit Switch Router (ATM Tag)</_description>
+    <_description>Gigabit switch router (ATM tag)</_description>
     </object>
     <object name="Cisco - IAD router">
     <_description>IAD router</_description>
     </object>
     <object name="Cisco - IP Telephony Router">
-    <_description>IP Telephony Router</_description>
+    <_description>IP telephony router</_description>
     </object>
     <object name="Cisco - NetFlow router">
     <_description>NetFlow router</_description>
     </object>
     <object name="Cisco - Optical Services Router">
-    <_description>Optical Services Router</_description>
+    <_description>Optical services router</_description>
     </object>
     <object name="Cisco - Router">
     <_description>Router</_description>
@@ -52,13 +52,13 @@
     <_description>Router in building</_description>
     </object>
     <object name="Cisco - Router with Firewall">
-    <_description>Router with Firewall</_description>
+    <_description>Router with firewall</_description>
     </object>
     <object name="Cisco - Router with Silicon Switch">
-    <_description>Router with Silicon Switch</_description>
+    <_description>Router with silicon switch</_description>
     </object>
     <object name="Cisco - Storage Router">
-    <_description>Storage Router</_description>
+    <_description>Storage router</_description>
     </object>
     <object name="Cisco - TDM router">
     <_description>TDM router</_description>
@@ -73,13 +73,13 @@
     <_description>Wavelength router</_description>
     </object>
     <object name="Cisco - Workgroup 5000">
-    <_description>Workgroup 5000 Multilayer Switch</_description>
+    <_description>Workgroup 5000 multilayer switch</_description>
     </object>
     <object name="Cisco - Workgroup 5002">
-    <_description>Workgroup 5002 Multilayer Switch</_description>
+    <_description>Workgroup 5002 multilayer switch</_description>
     </object>
     <object name="Cisco - Workgroup 5500">
-    <_description>Workgroup 5500 Multilayer Switch</_description>
+    <_description>Workgroup 5500 multilayer switch</_description>
     </object>
   </contents>
 </sheet>

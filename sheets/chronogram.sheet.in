@@ -4,10 +4,10 @@
   <_description>Objects to design chronogram charts</_description>
   <contents>
     <object name="chronogram - reference">
-      <_description>A time scale</_description>
+      <_description>Time scale</_description>
     </object>
     <object name="chronogram - line">
-      <_description>A data line</_description>
+      <_description>Data line</_description>
     </object>
   </contents>
 </sheet>

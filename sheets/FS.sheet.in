@@ -4,13 +4,13 @@
   <_description>Editor for Function Structure Diagrams.</_description>
   <contents>
     <object name="FS - Flow">
-      <_description>Create a flow</_description>
+      <_description>Flow</_description>
     </object>
     <object name="FS - Orthflow">
-      <_description>Create an orthogonal polyline flow</_description>
+      <_description>Orthogonal polyline flow</_description>
     </object>
     <object name="FS - Function">
-      <_description>Create a function</_description>
+      <_description>Function</_description>
     </object>
   </contents>
 </sheet>

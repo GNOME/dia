@@ -1,3 +1,36 @@
+2003-04-30  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* sheets/Assorted.sheet.in
+	* sheets/Circuit.sheet.in
+	* sheets/Contact.sheet.in
+	* sheets/EML.sheet.in
+	* sheets/ER.sheet.in
+	* sheets/Electric.sheet.in
+	* sheets/FS.sheet.in
+	* sheets/Flowchart.sheet.in
+	* sheets/GRAFCET.sheet.in
+	* sheets/Logic.sheet.in
+	* sheets/MSE.sheet.in
+	* sheets/Misc.sheet.in
+	* sheets/Pneumatic.sheet.in
+	* sheets/SADT.sheet.in
+	* sheets/SDL.sheet.in
+	* sheets/UML.sheet.in
+	* sheets/chronogram.sheet.in
+	* sheets/ciscohub.sheet.in
+	* sheets/ciscomisc.sheet.in
+	* sheets/cisconetwork.sheet.in
+	* sheets/ciscorouter.sheet.in
+	* sheets/civil.sheet.in
+	* sheets/network.sheet.in
+	* sheets/sybase.sheet.in:
+	Patch from Jan-Willem Harmanny <jwharmanny@zeelandnet.nl>
+	standardizes shape descriptions to use no articles, no 'create
+	...'.
+	
+	* app/interface.c (tool_data): Standard objects follow same
+	standard as sheets.
+
 2003-04-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/color_area.c (color_area_edit): More informative title on
