@@ -72,7 +72,7 @@ autosave_check_autosave(gpointer data)
 
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
-    if (diagram->modified && 
+    if (diagram_is_modified(diagram) && 
 	!diagram->autosaved) {
       /* Diagram has been modified.  At next idleness, save it */
       gtk_idle_add((GtkFunction)autosave_save_diagram, diagram);

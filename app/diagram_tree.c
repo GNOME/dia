@@ -370,7 +370,7 @@ void
 diagram_tree_update(DiagramTree *tree, Diagram *diagram)
 {
   if (tree) {
-    if (diagram->modified) {
+    if (diagram_is_modified(diagram)) {
       GtkCTreeNode *dnode =
 	gtk_ctree_find_by_row_data(tree->tree, NULL, (gpointer)diagram);
       if (dnode) update_diagram_children(tree, dnode, diagram);

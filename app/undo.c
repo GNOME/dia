@@ -72,6 +72,7 @@ new_undo_stack(Diagram *dia)
     transaction->next = transaction->prev = NULL;
     stack->last_change = transaction;
     stack->current_change = transaction;
+    stack->last_save = transaction;
     stack->depth = 0;
   }
   return stack;
@@ -258,6 +259,24 @@ undo_clear(UndoStack *stack)
   stack->depth = 0;
   undo_remove_redo_info(stack);
 }
+
+/** Marks the undo stack at the time of a save. 
+ */
+void
+undo_mark_save(UndoStack *stack)
+{
+  stack->last_save = stack->current_change;
+}
+
+/** Returns true if the diagram is undo-wise in the same state as at
+ * last save, i.e. the current change is the same as it was at last save.
+ */
+gboolean
+undo_is_saved(UndoStack *stack)
+{
+  return stack->last_save == stack->current_change;
+}
+
 
 
 /****************************************************************/

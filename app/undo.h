@@ -42,6 +42,7 @@ struct _UndoStack {
   Diagram *dia;
   Change *last_change; /* Points to the object on the top of stack. */
   Change *current_change; /* Points to the last object currently applied */
+  Change *last_save;   /* Points to current_change at the time of last save. */
   int depth;
 };
 
@@ -52,6 +53,8 @@ void undo_set_transactionpoint(UndoStack *stack);
 void undo_revert_to_last_tp(UndoStack *stack);
 void undo_apply_to_next_tp(UndoStack *stack);
 void undo_clear(UndoStack *stack);
+void undo_mark_save(UndoStack *stack);
+gboolean undo_is_saved(UndoStack *stack);
 
 /* Specific undo functions: */
 

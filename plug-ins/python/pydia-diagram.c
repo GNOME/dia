@@ -424,7 +424,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
     else if (!strcmp(attr, "unsaved"))
 	return PyInt_FromLong(self->dia->unsaved);
     else if (!strcmp(attr, "modified"))
-	return PyInt_FromLong(self->dia->modified);
+	return PyInt_FromLong(diagram_is_modified(self->dia));
     else if (!strcmp(attr, "extents"))
 	return PyDiaRectangle_New(&(self->dia->data->extents), NULL);
     else if (!strcmp(attr, "bg_color"))

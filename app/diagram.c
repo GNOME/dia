@@ -66,7 +66,7 @@ diagram_init(Diagram *dia, const char *filename)
   dia->filename = g_strdup(filename);
   
   dia->unsaved = TRUE;
-  dia->modified = FALSE;
+  dia->mollified = FALSE;
   dia->autosavefilename = NULL;
 
   if (dia->undo)
@@ -149,6 +149,14 @@ diagram_destroy(Diagram *dia)
   g_free(dia);
 }
 
+/** Returns true if we consider the diagram modified.
+ */
+gboolean
+diagram_is_modified(Diagram *dia)
+{
+  return dia->mollified;
+}
+
 void
 diagram_modified(Diagram *dia)
 {
@@ -160,9 +168,9 @@ diagram_set_modified(Diagram *dia, int modified)
 {
   GSList *displays;
 
-  if (dia->modified != modified)
+  if (dia->mollified != modified)
   {
-    dia->modified = modified;
+    dia->mollified = modified;
     displays = dia->displays;
     while (displays != NULL)
     {
@@ -1203,7 +1211,7 @@ int diagram_modified_exists(void)
   while (list != NULL) {
     dia = (Diagram *) list->data;
 
-    if (dia->modified)
+    if (diagram_is_modified(dia))
       return TRUE;
 
     list = g_list_next(list);

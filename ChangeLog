@@ -1,5 +1,27 @@
 2004-02-19  Lars Clausen  <lc@pc770>
 
+	* app/undo.[ch]: Adding last-saved information to undo to allow a
+	diagram with all changes since last save undo to be marked as
+	nonmodified.  Still needs integration with actual undo
+	apply/revert calls.
+
+	* app/diagram.h: 
+	* app/diagram_tree.c (diagram_tree_update): 
+	* app/diagram.c: 
+	* app/display.c (update_modified_status): 
+	* plug-ins/python/pydia-diagram.c (PyDiaDiagram_GetAttr): 
+	* app/autosave.c (autosave_check_autosave): Encapsulate modifed
+	test. 
+
+	* app/render_eps.[c]: Restructure to better handle PS vs. EPS
+	vs. EPSI, comment out EPSI until preview is in there.
+
+	* lib/render.c: 
+	* lib/diarenderer.c: Removing debugging printfs.
+
+	* app/diapsrenderer.[ch]: Preparations for proper EPSI rendering
+	(with preview)
+
 	* objects/standard/arc.c (arc_update_handles): Check to avoid
 	crash when start and end points are the same.
 

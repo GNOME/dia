@@ -983,7 +983,6 @@ find_center_point(Point *center, Point *p1, Point *p2, Point *p3)
   if (!intersection_line_line(center, &mid1, &orth1, &mid2, &orth2)) {
     /* Degenerate circle */
     /* Either the points are really close together, or directly apart */
-    printf("Degenerate circle\n");
     if (fabs((p1->x + p2->x + p3->x)/3 - p1->x) < 0.0000001 &&
 	fabs((p1->y + p2->y + p3->y)/3 - p1->y) < 0.0000001)
       return FALSE;
@@ -1084,7 +1083,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     /* Not sure what to do here */
     *startpoint = oldstart;
     *endpoint = oldend;
-    printf("Second degenerate circle\n");
     return;
   }
   width = 2*distance_point_point(&center, startpoint);
@@ -1097,6 +1095,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     angle1 = angle2;
     angle2 = tmp;
   }
+
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
 			  angle1, angle2, color);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)

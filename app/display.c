@@ -84,7 +84,7 @@ update_modified_status(DDisplay *ddisp)
   GtkStatusbar *statusbar;
   guint context_id;
 
-  if (ddisp->diagram->modified)
+  if (diagram_is_modified(ddisp->diagram))
   {
     statusbar = GTK_STATUSBAR (ddisp->modified_status);
     context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
@@ -982,7 +982,7 @@ ddisplay_close(DDisplay *ddisp)
   dia = ddisp->diagram;
   
   if ( (dia->display_count > 1) ||
-       (!dia->modified) ) {
+       (!diagram_is_modified(dia)) ) {
     ddisp_destroy(ddisp);
     return;
   }

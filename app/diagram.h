@@ -35,7 +35,7 @@ typedef struct _Diagram Diagram;
 struct _Diagram {
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
-  int modified;
+  int mollified;
   gboolean autosaved;     /* True if the diagram is autosaved since last mod */
   char *autosavefilename;     /* Holds the name of the current autosave file
 			       * for this diagram, or NULL.  */
@@ -62,6 +62,7 @@ Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
 int diagram_load_into (Diagram *dest, const char *filename, DiaImportFilter *ifilter);
 Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
 void diagram_destroy(Diagram *dia);
+gboolean diagram_is_modified(Diagram *dia);
 void diagram_modified(Diagram *dia);
 void diagram_set_modified(Diagram *dia, int modified);
 void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);

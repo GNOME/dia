@@ -6,6 +6,13 @@
 
 #include "diarenderer.h"
 
+/* Distinguish between variants of postscript.
+ * EPS needs bounding box, EPSI also needs preview.
+ */
+#define PSTYPE_PS 0
+#define PSTYPE_EPS 1
+#define PSTYPE_EPSI 2
+
 G_BEGIN_DECLS
 
 #define DIA_TYPE_PS_RENDERER           (dia_ps_renderer_get_type ())
@@ -23,9 +30,12 @@ struct _DiaPsRenderer
 {
   DiaRenderer parent_instance;
 
+  /** Need this if we're doing preview */
+  DiagramData *diagram;
+
   FILE *file;
 
-  gboolean is_eps;
+  guint pstype;
   guint pagenum;
 
   Color lcolor;

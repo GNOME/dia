@@ -32,6 +32,19 @@
 #include "dia_image.h"
 #include "font.h"
 
+/* Returns TRUE if this file is an encapsulated postscript file
+ * (including e.g. epsi).
+ */
+static gboolean renderer_is_eps(DiaPsRenderer *renderer) {
+  return renderer->pstype == PSTYPE_EPS ||
+    renderer->pstype == PSTYPE_EPSI;
+}
+
+/** Returns TRUE if this file is an EPSI file */
+static gboolean renderer_is_epsi(DiaPsRenderer *renderer) {
+  return renderer->pstype == PSTYPE_EPSI;
+}
+
 void
 lazy_setcolor(DiaPsRenderer *renderer,
               Color *color)
@@ -55,7 +68,7 @@ begin_render(DiaRenderer *self)
 
   time_now  = time(NULL);
 
-  if (renderer->is_eps)
+  if (renderer_is_eps(renderer))
     fprintf(renderer->file,
             "%%!PS-Adobe-2.0 EPSF-2.0\n");
   else
@@ -73,7 +86,7 @@ begin_render(DiaRenderer *self)
           g_get_user_name(),
           renderer->is_portrait ? "Portrait" : "Landscape");
 
-  if (renderer->is_eps)
+  if (renderer_is_eps(renderer))
     fprintf(renderer->file,
             "%%%%Magnification: 1.0000\n"
 	  "%%%%BoundingBox: 0 0 %d %d\n",
@@ -105,7 +118,7 @@ end_render(DiaRenderer *self)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
 
-  if (renderer->is_eps)
+  if (renderer_is_eps(renderer))
     fprintf(renderer->file, "showpage\n");
 }
 
@@ -784,7 +797,7 @@ dump_fonts (DiaPsRenderer *renderer)
 static void
 end_prolog (DiaPsRenderer *renderer)
 {
-  if (renderer->is_eps) {
+  if (renderer_is_eps(renderer)) {
     fprintf(renderer->file,
             "%f %f scale\n", renderer->scale, -renderer->scale);
     fprintf(renderer->file,

@@ -903,6 +903,7 @@ diagram_save(Diagram *dia, const char *filename)
 
   dia->unsaved = FALSE;
   diagram_set_modified (dia, FALSE);
+  undo_mark_save(dia->undo);
 
   diagram_cleanup_autosave(dia);
 
@@ -942,7 +943,7 @@ diagram_autosave(Diagram *dia)
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
     if (diagram == dia &&
-	diagram->modified && 
+	diagram_is_modified(diagram) && 
 	!diagram->autosaved) {
       save_filename = g_strdup_printf("%s.autosave", dia->filename);
 

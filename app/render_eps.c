@@ -107,7 +107,11 @@ export_render_eps(DiaPsRenderer *renderer,
   renderer->file = outfile;
   renderer->scale = 28.346 * data->paper.scaling;
   renderer->extent = data->extents;
-  renderer->is_eps = TRUE;
+  renderer->pstype = (guint)user_data;
+  if (renderer->pstype & PSTYPE_EPSI) {
+    /* Must store the diagram for making a preview */
+    renderer->diagram = data;
+  }
 
   if (renderer->file) {
     renderer->title = g_strdup (diafilename);
@@ -129,27 +133,45 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
 #endif
   renderer->file = file;
-  renderer->is_eps = FALSE;
+  renderer->pstype = PSTYPE_PS;;
 
   return DIA_RENDERER(renderer);
 }
 
-static const gchar *extensions[] = { "eps", "epsi", NULL };
+static const gchar *eps_extensions[] = { "eps", NULL };
+static const gchar *epsi_extensions[] = { "epsi", NULL };
 #ifdef HAVE_FREETYPE
 DiaExportFilter eps_ft2_export_filter = {
   N_("Encapsulated Postscript (using Pango fonts)"),
-  extensions,
+  eps_extensions,
   export_ft2_eps,
-  NULL,
+  PSTYPE_EPS,
   "eps-pango"
 };
+/* Commented out until we can actually make the preview.
+DiaExportFilter epsi_ft2_export_filter = {
+  N_("Encapsulated Postscript with preview (using Pango fonts)"),
+  epsi_extensions,
+  export_ft2_eps,
+  PSTYPE_EPSI,
+  "epsi-pango"
+};
+*/
 #endif
 
 DiaExportFilter eps_export_filter = {
   N_("Encapsulated Postscript (using PostScript Latin-1 fonts)"),
-  extensions,
+  eps_extensions,
   export_eps,
-  NULL,
+  PSTYPE_EPS,
   "eps-builtin"
 };
-
+/* Commented out until we can actually make the preview.
+DiaExportFilter epsi_export_filter = {
+  N_("Encapsulated Postscript with preview (using PostScript Latin-1 fonts)"),
+  epsi_extensions,
+  export_eps,
+  PSTYPE_EPSI,
+  "epsi-builtin"
+};
+*/
