@@ -1,3 +1,7 @@
+2002-10-15  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* app/sheets_dialog_callbacks.c: Fix a typo.
+	
 2002-10-15  Hans Breuer  <hans@breuer.org>
 
 	* app/diapsrenderer.[hc] : (new files, old content :-)

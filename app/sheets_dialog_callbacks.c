@@ -315,7 +315,7 @@ sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
     tip = g_strdup_printf(_("%s\nObject"), som->sheet_object.description);
     break;
    default:    
-    tip = g_strdup_printf(_("%s\nUnasigned type"), som->sheet_object.description);
+    tip = g_strdup_printf(_("%s\nUnassigned type"), som->sheet_object.description);
     break;
   }
 
