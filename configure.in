@@ -221,6 +221,8 @@ shapes/Circuit/Makefile
 shapes/flowchart/Makefile
 shapes/Contact/Makefile
 shapes/network/Makefile
+shapes/Pneumatic/Makefile
+shapes/Electric/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

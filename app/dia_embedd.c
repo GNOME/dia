@@ -264,10 +264,10 @@ main (int argc, char **argv)
 {
   GtkWidget *menuitem;
   
-  app_init(argc, argv);
-
   init_server_factory (argc, argv);
   factory = init_dia_factory ();
+
+  app_init(0, NULL);
   
 #ifdef GNOME
   menuitem = menus_get_item_from_path("<Toolbox>/File/New diagram");

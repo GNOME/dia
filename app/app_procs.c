@@ -150,38 +150,43 @@ app_init (int argc, char **argv)
   textdomain(PACKAGE);
 
 #ifdef GNOME
-  gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
-			     0, &poptCtx);
-  
-  client = gnome_master_client();
-  if(client == NULL) {
-    g_warning(_("Can't connect to session manager!\n"));
-  }
-  else {
-    gtk_signal_connect(GTK_OBJECT (client), "save_yourself",
-		       GTK_SIGNAL_FUNC (save_state), NULL);
-    gtk_signal_connect(GTK_OBJECT (client), "die",
-		       GTK_SIGNAL_FUNC (session_die), NULL);
+  if (argv) {
+    gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
+			       0, &poptCtx);
+    
+    client = gnome_master_client();
+    if(client == NULL) {
+      g_warning(_("Can't connect to session manager!\n"));
+    }
+    else {
+      gtk_signal_connect(GTK_OBJECT (client), "save_yourself",
+			 GTK_SIGNAL_FUNC (save_state), NULL);
+      gtk_signal_connect(GTK_OBJECT (client), "die",
+			 GTK_SIGNAL_FUNC (session_die), NULL);
+    }
   }
 #else
 #ifdef HAVE_POPT
-  poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
-  poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
-  if((rc = poptGetNextOpt(poptCtx)) < -1) {
-    fprintf(stderr, 
-	    _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
-	    poptBadOption(poptCtx, 0),
-	    poptStrerror(rc),
-	    argv[0]);
-    exit(1);
-  }
-  if(rc == 1) {
-    poptPrintHelp(poptCtx, stderr, 0);
-    exit(0);
+  if (argv) {
+    poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
+    poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
+    if((rc = poptGetNextOpt(poptCtx)) < -1) {
+      fprintf(stderr, 
+	      _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+	      poptBadOption(poptCtx, 0),
+	      poptStrerror(rc),
+	      argv[0]);
+      exit(1);
+    }
+    if(rc == 1) {
+      poptPrintHelp(poptCtx, stderr, 0);
+      exit(0);
+    }
+
+    gtk_init (&argc, &argv);
   }
 #endif
-  
-  gtk_init (&argc, &argv);
+    
   dia_image_init();
 #endif
 
@@ -229,45 +234,47 @@ app_init (int argc, char **argv)
 
   create_layer_dialog();
 
+  if (argv) {
 #ifdef HAVE_POPT
-  while (poptPeekArg(poptCtx)) {
-    in_file_name = poptGetArg(poptCtx);
-    diagram = diagram_load (in_file_name);
-    if (export_file_name) {
-      DiaExportFilter *ef;
-      if (!diagram) {
-	fprintf (stderr, _("Need valid input file\n"));
-	exit (1);
+    while (poptPeekArg(poptCtx)) {
+      in_file_name = poptGetArg(poptCtx);
+      diagram = diagram_load (in_file_name);
+      if (export_file_name) {
+	DiaExportFilter *ef;
+	if (!diagram) {
+	  fprintf (stderr, _("Need valid input file\n"));
+	  exit (1);
+	}
+	ef = filter_guess_export_filter(export_file_name);
+	if (!ef)
+	  ef = &eps_export_filter;
+	ef->export(diagram->data, export_file_name, in_file_name);
+	exit (0);
       }
-      ef = filter_guess_export_filter(export_file_name);
-      if (!ef)
-	ef = &eps_export_filter;
-      ef->export(diagram->data, export_file_name, in_file_name);
-      exit (0);
+      if (diagram != NULL) {
+	diagram_update_extents(diagram);
+	ddisp = new_display(diagram);
+      }
     }
-    if (diagram != NULL) {
-      diagram_update_extents(diagram);
-      ddisp = new_display(diagram);
-    }
-  }
-  poptFreeContext(poptCtx);
+    poptFreeContext(poptCtx);
 #else
-  for (i=1; i<argc; i++) {
-    Diagram *diagram;
-    DDisplay *ddisp;
-  
-    diagram = diagram_load(argv[i]);
-
-    if (diagram != NULL) {
-      diagram_update_extents(diagram);
-      layer_dialog_set_diagram(diagram);
-  
-      ddisp = new_display(diagram);
+    for (i=1; i<argc; i++) {
+      Diagram *diagram;
+      DDisplay *ddisp;
+      
+      diagram = diagram_load(argv[i]);
+      
+      if (diagram != NULL) {
+	diagram_update_extents(diagram);
+	layer_dialog_set_diagram(diagram);
+	
+	ddisp = new_display(diagram);
+      }
+      /* Error messages are done in diagram_load() */
     }
-    /* Error messages are done in diagram_load() */
-  }
 #endif
-
+  }
+  
   active_tool = create_modify_tool();
 
   create_toolbox();

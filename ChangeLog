@@ -1,3 +1,17 @@
+2000-03-25  Alexander Larsson  <alla@lysator.liu.se>
+
+ 	* app/app_procs.c:
+	Don't do any argument parsing or initialization
+	if argv==NULL.
+
+ 	* app/dia_embedd.c:
+	Call init_server_factroy before app_init.
+	Call app_init with argv==NULL
+	Now we don't get any critical error on startup.
+
+	* configure.in:
+	Add Electric and Pneumatic to makefile list.
+	
 2000-03-24  Cyrille Chepelov <chepelov@calixo.net>
 
 	* shapes/Electric/*:
