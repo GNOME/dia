@@ -95,30 +95,16 @@ static DiaFont*
 dia_font_fill_descriptor(PangoFontDescription* pfd, Style style, real height)
 {
     DiaFont* retval;
+    PangoStyle pstyle;
+    PangoWeight pweight;
     
     pango_font_description_set_variant(pfd,PANGO_VARIANT_NORMAL);
     pango_font_description_set_stretch(pfd,PANGO_STRETCH_NORMAL);
     pango_font_description_set_size(pfd, dcm_to_pdu(height) );
 
-    switch(style) {
-        case STYLE_ITALIC:            
-            pango_font_description_set_style(pfd,PANGO_STYLE_ITALIC);
-            pango_font_description_set_weight(pfd,PANGO_WEIGHT_NORMAL);
-            break;
-        case STYLE_BOLD:            
-            pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
-            pango_font_description_set_weight(pfd,PANGO_WEIGHT_BOLD);
-            break;
-        case STYLE_BOLD_ITALIC:            
-            pango_font_description_set_style(pfd,PANGO_STYLE_ITALIC);
-            pango_font_description_set_weight(pfd,PANGO_WEIGHT_BOLD);
-            break;
-        case STYLE_NORMAL: /* fall-through */
-        default:
-            pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
-            pango_font_description_set_weight(pfd,PANGO_WEIGHT_NORMAL);
-            break;
-    }
+    dia_font_dia_style_to_pango(style, &pstyle, &pweight);
+    pango_font_description_set_style(pfd, pstyle);
+    pango_font_description_set_weight(pfd, pweight);
     
     retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
     retval->pfd = pfd;
@@ -175,19 +161,7 @@ Style dia_font_get_style(const DiaFont* font)
     PangoStyle pstyle = pango_font_description_get_style(font->pfd);
     PangoWeight pweight = pango_font_description_get_weight(font->pfd);
     
-    if ((pstyle == PANGO_STYLE_ITALIC) &&
-        (pweight == PANGO_WEIGHT_NORMAL)) return STYLE_ITALIC;
-    if ((pstyle == PANGO_STYLE_NORMAL) &&
-        (pweight == PANGO_WEIGHT_BOLD)) return STYLE_BOLD;
-    if ((pstyle == PANGO_STYLE_ITALIC) &&
-        (pweight == PANGO_WEIGHT_BOLD)) return STYLE_BOLD_ITALIC;
-
-    if (!((pstyle == PANGO_STYLE_NORMAL) &&
-          (pstyle == PANGO_WEIGHT_NORMAL))) {
-        g_warning("unknown Pango font style, "
-                  "falling back to dia::STYLE_NORMAL");
-    }
-    return STYLE_NORMAL;
+    return dia_font_pango_style_weight_to_dia(pstyle, pweight);
 }
 
 G_CONST_RETURN char*
@@ -242,7 +216,7 @@ dia_font_new_from_legacy_name(const char* name)
 }
 
 static G_CONST_RETURN char*
-diastyle_to_string(Style style) {
+dia_font_style_to_legacy_name(Style style) {
     switch(style) {
         case STYLE_BOLD_ITALIC:
             return "-BoldOblique";
@@ -262,10 +236,27 @@ dia_font_get_legacy_name(const DiaFont* font) {
     
     ((DiaFont*)font)->legacy_name =
         g_strconcat(dia_font_get_family(font),
-                    diastyle_to_string(dia_font_get_style(font)),
+                    dia_font_style_to_legacy_name(dia_font_get_style(font)),
                     NULL);
     return font->legacy_name;
 }
+
+/* Conversion between our style and pango style/weight */
+int dia_font_pango_style_weight_to_dia(int style, int weight) {
+	 style + (3*(weight-200)/100)) + 1;
+  return style + (3*(weight-200)/100) + 1;
+}
+
+void dia_font_dia_style_to_pango(int style, PangoStyle *pango_style, PangoWeight *pango_weight) {
+  if (style == 0 || style > STYLE_HEAVY_ITALIC) {
+    *pango_style = PANGO_STYLE_NORMAL;
+    *pango_weight = PANGO_WEIGHT_NORMAL;
+    return;
+  }
+  *pango_style = (style-1)%3;
+  *pango_weight = (style-1)%3*100+200;
+}
+
 
 /* ************************************************************************ */
 /* Non-scaled versions of the utility routines                              */

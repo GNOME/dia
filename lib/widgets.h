@@ -46,27 +46,17 @@ typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
 
 struct _DiaFontSelector
 {
-#ifdef HAVE_FREETYPE
   GtkHBox hbox;
 
   GtkOptionMenu *font_omenu;
   GtkOptionMenu *style_omenu;
   GtkMenu *font_menu;
   GtkMenu *style_menu;
-#else
-  GtkOptionMenu omenu;
-
-  GtkMenu *font_menu;
-#endif
 };
 
 struct _DiaFontSelectorClass
 {
-#ifdef HAVE_FREETYPE
   GtkHBoxClass parent_class;
-#else
-  GtkOptionMenuClass parent_class;
-#endif
 };
 
 guint      dia_font_selector_get_type        (void);

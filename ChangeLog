@@ -1,6 +1,9 @@
 2002-06-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* lib/widgets.c (dia_font_selector_init): Font names sorted.
+	* lib/font.c: 
+	* lib/font.h: 
+	* lib/widgets.c: Font names sorted, style selector widget
+	reappeared.  Doesn't select the old style yet.
 
 2002-06-22  Cyrille Chepelov  <cyrille@chepelov.org>
 

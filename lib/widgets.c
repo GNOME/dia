@@ -30,8 +30,8 @@
 #include <gtk/gtksignal.h>
 #include <pango/pango.h>
 
-void dia_font_selector_set_styles (DiaFontSelector *fs, DiaFont *font);
-guchar **dia_font_selector_get_sorted_names();
+static void
+dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff);
 
 struct menudesc {
   char *name;
@@ -69,59 +69,17 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
   object_class = (GtkObjectClass*) class;
 }
 
-#ifdef HAVE_FREETYPE
-/* This function is stolen from dillo.
- */
-static void
-dia_font_selector_scroll_popup(GtkWidget *widget)
-{
-  /*
-   * todo:
-   *   1) Scrolling menues should rather be the task of Gtk+. This is
-   *      a hack, and I don't know if it does not break anything.
-   *   2) It could be improved, e.g. a timeout could be added for
-   *      better mouse navigation.
-    */
-  int y, h, mx, my, sh;
-
-  y = widget->allocation.y;
-  h = widget->allocation.height;
-  gdk_window_get_geometry (widget->parent->parent->window,
-			   &mx, &my, NULL, NULL, NULL);
-  sh = gdk_screen_height ();
-
-  if (y + my < 0)
-    gdk_window_move (widget->parent->parent->window, mx, - y + 1);
-  else if (y + my > sh - h)
-    gdk_window_move (widget->parent->parent->window, mx, sh - h - y - 1);
-}
-
 static void
 dia_font_selector_font_selected(GtkWidget *button, gpointer data)
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
 
   GtkWidget *active = gtk_menu_get_active(fs->font_menu);
-  char *fontname = (char *)gtk_object_get_user_data(GTK_OBJECT(active));
-  dia_font_selector_set_styles(fs, font_getfont(fontname));
+  PangoFontFamily *pff = 
+    (PangoFontFamily *)gtk_object_get_user_data(GTK_OBJECT(active));
+  dia_font_selector_set_styles(fs, pff);
 }
 
-struct select_pair { guchar **array; int counter; };
-
-static void
-dia_font_selector_collect_names(gpointer key, gpointer value,
-				gpointer userdata) {
-  struct select_pair *pair = (struct select_pair *)userdata;
-  pair->array[pair->counter++] = (guchar *)key;
-}
-
-static int
-dia_font_selector_sort_string(const void *s1, const void *s2) {
-  return strcasecmp(*(char **)s1, *(char **)s2);
-}
-
-
-#endif
 
 static int
 dia_font_selector_compare_families(const void *o1, const void *o2) {
@@ -135,41 +93,45 @@ dia_font_selector_compare_families(const void *o1, const void *o2) {
 static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
-#ifdef HAVE_FREETYPE
-        /* Lars said to not nuke this yet  -- cc, 22 jun 2002 */
-    
-  /* Go through hash table and build menu */
   GtkWidget *menu;
   GtkWidget *omenu;
-  int i;
-  guchar **fontnames;
-  int num_fonts;
 
+  GtkWidget *submenu;
+  GtkWidget *menuitem;
+  GSList *group;
+  const char *familyname;
+  PangoFontFamily **families;
+  int n_families,i;
+      
   omenu = gtk_option_menu_new();
   fs->font_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->font_menu = GTK_MENU(menu);
 
-  fontnames = dia_font_selector_get_fonts_sorted();
-  num_fonts = g_hash_table_size(freetype_fonts);
+  submenu = NULL;
+  group = NULL;
 
-  for (i = 0; i < num_fonts; i++) {
-    GtkWidget *menuitem;
-    menuitem = gtk_menu_item_new_with_label (fontnames[i]);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), fontnames[i]);
-    gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
-    gtk_menu_append (GTK_MENU (menu), menuitem);
+  pango_context_list_families (gtk_widget_get_pango_context (GTK_WIDGET (menu)),
+			             &families, &n_families);
+  qsort(families, n_families, sizeof(*families), dia_font_selector_compare_families);
+  for (i = 0; i < n_families; ++i) {
+    familyname = pango_font_family_get_name(families[i]);
+    menuitem = gtk_radio_menu_item_new_with_label (group, familyname);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), (gpointer)families[i]);
+    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
     gtk_widget_show (menuitem);
+        /* We COULD (SHOULD?) open sub-menus listing each face in each family
+         */           
   }
-
-  g_free(fontnames);
-
+  
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
 
   gtk_signal_connect(GTK_OBJECT(menu), "unmap", dia_font_selector_font_selected, fs);
 
+  /* Now build the style menu button */
   omenu = gtk_option_menu_new();
   fs->style_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
@@ -181,36 +143,6 @@ dia_font_selector_init (DiaFontSelector *fs)
 
   gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->font_omenu));
   gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu));
-#else
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
-  GSList *group;
-  const char *familyname;
-  PangoFontFamily **families;
-  int n_families,i;
-      
-  menu = gtk_menu_new ();
-  fs->font_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
-
-  pango_context_list_families (gtk_widget_get_pango_context (GTK_WIDGET (menu)),
-			             &families, &n_families);
-  qsort(families, n_families, sizeof(*families), dia_font_selector_compare_families);
-  for (i = 0; i < n_families; ++i) {
-    familyname = pango_font_family_get_name(families[i]);
-    menuitem = gtk_radio_menu_item_new_with_label (group, familyname);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), (char *)familyname);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-    gtk_widget_show (menuitem);
-        /* We COULD (SHOULD?) open sub-menus listing each face in each family
-         */           
-  }
-  
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
-#endif
 }
 
 guint
@@ -222,11 +154,6 @@ dia_font_selector_get_type        (void)
   PangoFontMap *fmap;
   PangoFontFamily **families;
   int n_families;
-
-#ifdef HAVE_FREETYPE
-  guchar **fontnames;
-  int num_fonts;
-#endif
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -240,38 +167,23 @@ dia_font_selector_get_type        (void)
       (GtkClassInitFunc) NULL
     };
     
-#ifdef HAVE_FREETYPE
     dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
-#else
-    dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
-#endif
 
     /* Init the font hash_table: */
     font_nr_hashtable = g_hash_table_new(g_str_hash, g_str_equal);
 
-#ifdef HAVE_FREETYPE
-    num_fonts = g_hash_table_size(freetype_fonts);
-    fontnames = dia_font_selector_get_fonts_sorted();
-    for (i = 0; i < num_fonts; i++) {
-      /* Notice adding 1, to be able to discern from NULL return value */
-      g_hash_table_insert(font_nr_hashtable,
-			  fontnames[i], GINT_TO_POINTER(i+1));
-    }
-    g_free(fontnames);
-#else
     /* Notice adding 1, to be able to discern from NULL return value */
 
     pango_context_list_families (gdk_pango_context_get(),
 			               &families, &n_families);
 
     for (i = 0; i < n_families; ++i) {
-        fontname = (char *) pango_font_family_get_name(families[i]);
+      fontname = (char *) pango_font_family_get_name(families[i]);
       
-        g_hash_table_insert(font_nr_hashtable,
-                            fontname,
-                            GINT_TO_POINTER(i+1));
+      g_hash_table_insert(font_nr_hashtable,
+			  fontname,
+			  GINT_TO_POINTER(i+1));
     }
-#endif
   }
   
   return dfs_type;
@@ -283,25 +195,66 @@ dia_font_selector_new ()
   return GTK_WIDGET ( gtk_type_new (dia_font_selector_get_type ()));
 }
 
-#ifdef HAVE_FREETYPE
+static char *style_labels[] = {
+  "Normal",
+  "Ultralight",
+  "Ultralight-Oblique",
+  "Ultralight-Italic",
+  "Light",
+  "Light-Oblique",
+  "Light-Italic",
+  "Normal",
+  "Oblique",
+  "Italic",
+  "Medium",
+  "Medium-Oblique",
+  "Medium-Italic",
+  "Demibold",
+  "Demibold-Oblique",
+  "Demibold-Italic",
+  "Bold",
+  "Bold-Oblique",
+  "Bold-Italic",
+  "Ultrabold",
+  "Ultrabold-Oblique",
+  "Ultrabold-Italic",
+  "Heavy",
+  "Heavy-Oblique",
+  "Heavy-Italic"
+};
+
 void
-dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
+dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff)
 {
   int i=0, select = 0;
-  GList *style_list = font->family->diafonts;
-
+  PangoFontFace **faces;
+  int nfaces;
   GtkWidget *menu = gtk_menu_new();
+  long stylebits = 0;
 
-  while (style_list != NULL) {
-    DiaFont *style_font = (DiaFont *)style_list->data;
-    GtkWidget *menuitem = gtk_menu_item_new_with_label (style_font->style);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), style_font->style);
+  pango_font_family_list_faces(pff, &faces, &nfaces);
+
+  for (i = 0; i < nfaces; i++) {
+    PangoFontDescription *pfd = pango_font_face_describe(faces[i]);
+    PangoStyle style = pango_font_description_get_style(pfd);
+    PangoWeight weight = pango_font_description_get_weight(pfd);
+    int stylenum = dia_font_pango_style_weight_to_dia(style, weight);
+    stylebits |= 1 << stylenum;
+    pango_font_description_free(pfd);
+  }
+
+  for (i = STYLE_ULTRALIGHT; i <= STYLE_HEAVY_ITALIC; i++) {
+    GtkWidget *menuitem;
+    if (!(stylebits & (1 << i))) continue;
+    menuitem = gtk_menu_item_new_with_label (style_labels[i]);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+
+    /* Pass font as well and get select 
     if (!strcmp(style_font->style, font->style))
       select = i;
-    i++;
+    */
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
-    style_list = g_list_next(style_list);
   }
   gtk_widget_show(menu);
   /* Need to dealloc the menu, methinks */
@@ -311,7 +264,6 @@ dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
   gtk_menu_set_active(fs->style_menu, select);
 }
-#endif
 
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
@@ -330,19 +282,18 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
                   dia_font_get_family(font));
     font_nr = 0;
   } else {
+    PangoFontFamily *pff;
+    GtkWidget *menuitem;
+
     /* Notice subtracting 1, to be able to discern from NULL return value */
     font_nr = GPOINTER_TO_INT(font_nr_ptr)-1;
-  }
-  
-#ifdef HAVE_FREETYPE
-  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
-  gtk_menu_set_active(fs->font_menu, font_nr);
+    gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
+    gtk_menu_set_active(fs->font_menu, font_nr);
+    menuitem = gtk_menu_get_active(fs->font_menu);
+    pff = (PangoFontFamily*)gtk_object_get_user_data(GTK_OBJECT(menuitem));
 
-  dia_font_selector_set_styles(fs, font);
-#else
-  gtk_option_menu_set_history(GTK_OPTION_MENU(fs), font_nr);
-  gtk_menu_set_active(fs->font_menu, font_nr);
-#endif
+    dia_font_selector_set_styles(fs, pff);
+  }
 }
 
 DiaFont *
@@ -350,20 +301,16 @@ dia_font_selector_get_font(DiaFontSelector *fs)
 {
   GtkWidget *menuitem;
   char *fontname;
-#ifdef HAVE_FREETYPE
-  char *stylename;
-#endif
+  Style style;
+  PangoFontFamily *pff;
 
   menuitem = gtk_menu_get_active(fs->font_menu);
-  fontname = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  pff = (PangoFontFamily*)gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  fontname = pango_font_family_get_name(pff);
 
-#ifdef HAVE_FREETYPE
   menuitem = gtk_menu_get_active(fs->style_menu);
-  stylename = gtk_object_get_user_data(GTK_OBJECT(menuitem));
-  return font_getfont_with_style(fontname, stylename);
-#else
-  return dia_font_new(fontname,STYLE_NORMAL,1.0);
-#endif
+  style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
+  return dia_font_new(fontname,style,1.0);
 }
 
 /************* DiaAlignmentSelector: ***************/

@@ -36,11 +36,39 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
+
+/** The Pango people don't seem to encounter the real world much.
+ * In a goodly selection of fonts, 500 is very common, yet they don't name it.
+ * I am calling 500 'medium' and 600 'demibold'.
+ * We should really have a more flexible system where 300 or 400 is normal, 
+ * the next one up bold, or something.  But this will do for now.
+ * We should probably store the actual weight...
+ */
 typedef enum {
+  STYLE_ULTRALIGHT = 1,
+  STYLE_ULTRALIGHT_OBLIQUE,
+  STYLE_ULTRALIGHT_ITALIC,
+  STYLE_LIGHT,
+  STYLE_LIGHT_OBLIQUE,
+  STYLE_LIGHT_ITALIC,
   STYLE_NORMAL,
+  STYLE_OBLIQUE,
   STYLE_ITALIC,
+  STYLE_MEDIUM,
+  STYLE_MEDIUM_OBLIQUE,
+  STYLE_MEDIUM_ITALIC,
+  STYLE_DEMIBOLD,
+  STYLE_DEMIBOLD_OBLIQUE,
+  STYLE_DEMIBOLD_ITALIC,
   STYLE_BOLD,
-  STYLE_BOLD_ITALIC
+  STYLE_BOLD_OBLIQUE,
+  STYLE_BOLD_ITALIC,
+  STYLE_ULTRABOLD,
+  STYLE_ULTRABOLD_OBLIQUE,
+  STYLE_ULTRABOLD_ITALIC,
+  STYLE_HEAVY,
+  STYLE_HEAVY_OBLIQUE,
+  STYLE_HEAVY_ITALIC,
 } Style;
 
 typedef struct _DiaFont DiaFont;
@@ -96,6 +124,10 @@ void dia_font_unref(DiaFont* font);
 
     /* Retrieves the style of the font */
 Style dia_font_get_style(const DiaFont* font);
+
+/* These are only for those who mess with Pango fonts directly (widgets.c) */
+int dia_font_pango_style_weight_to_dia(int style, int weight);
+void dia_font_dia_style_to_pango(int style, PangoStyle *pango_style, PangoWeight *pango_weight);
 
     /* Retrieves the family of the font. Caller must NOT free. */
 G_CONST_RETURN char* dia_font_get_family(const DiaFont* font);
