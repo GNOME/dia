@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-11 16:56+0800\n"
-"PO-Revision-Date: 2001-05-05 11:55GMT +0200\n"
+"POT-Creation-Date: 2001-05-21 18:16+0200\n"
+"PO-Revision-Date: 2001-05-23 00:03GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
 
+#. &export_file_name
 #: app/app_procs.c:148
 msgid "Export loaded file and exit"
 msgstr "Yüklənən faylı idxal et və çıx"
@@ -30,15 +31,15 @@ msgstr "Başlanğıc ekranını göstərme"
 msgid "Show this help message"
 msgstr "Bu kömək xəbərini göstər"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:176
 msgid "Can't connect to session manager!\n"
 msgstr "İclas idarəcisinə bağlana bilmədim!\n"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:187
 msgid "[OPTION...] [FILE...]"
 msgstr "[SEÇƏNƏK...] [FAYL...]"
 
-#: app/app_procs.c:185
+#: app/app_procs.c:190
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,21 +48,21 @@ msgstr ""
 "%s seçənəyində xəta var : %s .\n"
 "`%s --help' ilə mövcud əmr seçənəklərini görə bilərsiniz .\n"
 
-#: app/app_procs.c:234 app/app_procs.c:236
+#: app/app_procs.c:239 app/app_procs.c:241
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
 
-#: app/app_procs.c:261
+#: app/app_procs.c:266
 msgid "Need valid input file\n"
 msgstr "Keçərli parametr faylı lazımdır\n"
 
-#: app/app_procs.c:327 app/app_procs.c:333
+#: app/app_procs.c:332 app/app_procs.c:338
 msgid "Quit, are you sure?"
 msgstr "Çıxmaq istəyirsiniz?"
 
-#: app/app_procs.c:340
+#: app/app_procs.c:345
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -69,21 +70,21 @@ msgstr ""
 "Dəyişikliklər var.\n"
 "Həqiqətən də çıxmaq istəyirsiniz mi?"
 
-#: app/app_procs.c:350 app/app_procs.c:355
+#: app/app_procs.c:355 app/app_procs.c:360
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:367 app/display.c:940 app/layer_dialog.c:989
+#: app/app_procs.c:372 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Ləğv Et"
 
-#: app/app_procs.c:442 app/app_procs.c:449
+#: app/app_procs.c:447 app/app_procs.c:454
 msgid "Could not create per-user Dia config directory"
 msgstr "Xüsusi Dia qurğu qovluğunu yarada bilmədim"
 
-#: app/app_procs.c:451
+#: app/app_procs.c:456
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -91,7 +92,7 @@ msgstr ""
 "İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, qlobal dəyişgən "
 "HOMEun mövcud cərgəyə nişanlanıb nişanlanmadığını yoxlayın."
 
-#: app/app_procs.c:473
+#: app/app_procs.c:478
 msgid "Objects and filters internal to dia"
 msgstr "Dianın daxili cism və süzgəcləri"
 
@@ -150,7 +151,7 @@ msgstr "Dəstəkçilər :"
 #. setup buttons
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:605
 #: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "Oldu"
@@ -170,12 +171,12 @@ msgid "Object defaults"
 msgstr "Cism Əsas Qurğuları"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:613 app/properties.c:101
+#: app/preferences.c:614 app/properties.c:101
 msgid "Apply"
 msgstr "Əlavə Et"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:622
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:623
 #: app/properties.c:111
 msgid "Close"
 msgstr "Qapat"
@@ -216,7 +217,7 @@ msgstr "Tor"
 msgid "Background Colour"
 msgstr "Arxa Plan Rəngi"
 
-#: app/dia-props.c:200 lib/diagramdata.c:59
+#: app/dia-props.c:200 lib/diagramdata.c:60
 msgid "Background"
 msgstr "Arxa Plan"
 
@@ -289,7 +290,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Cism menyusu yoxdur"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:399
+#: app/display.c:140 app/display.c:141 app/interface.c:442
 msgid "Zoom"
 msgstr "Yaxınlaşdır"
 
@@ -297,15 +298,15 @@ msgstr "Yaxınlaşdır"
 msgid "Diagram modified!"
 msgstr "Diaqramma dəyişdirildi !"
 
-#: app/display.c:890
+#: app/display.c:908
 msgid "Close Diagram?"
 msgstr "Diaqrammanı Qapadım?"
 
-#: app/display.c:896
+#: app/display.c:914
 msgid "Really close?"
 msgstr "Sən mənim cansız canım, qapatım mı?"
 
-#: app/display.c:901
+#: app/display.c:919
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -313,17 +314,17 @@ msgstr ""
 "Diaqramma qeyd edilmədi.\n"
 "Dəyişiklikləri indi qeyd edim?"
 
-#: app/display.c:919 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
 #: lib/properties.c:288
 msgid "Yes"
 msgstr "Bəli"
 
-#: app/display.c:929 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
-#: app/preferences.c:507 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
+#: app/preferences.c:508 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Xeyr"
 
-#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:201
+#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:180
@@ -508,11 +509,36 @@ msgstr "Rəsmi yarat"
 msgid "Image"
 msgstr "Rəsm"
 
-#: app/interface.c:441
+#: app/interface.c:401
+#, fuzzy
+msgid "/View/Show Rulers"
+msgstr "/Göstər/_Telləri göstər"
+
+#: app/interface.c:403
+#, fuzzy
+msgid "/View/Visible Grid"
+msgstr "/Göstər/_Görünən tor"
+
+#: app/interface.c:405
+#, fuzzy
+msgid "/View/Snap To Grid"
+msgstr "/Göstər/_Tora taxıl"
+
+#: app/interface.c:407
+#, fuzzy
+msgid "/View/Show Connection Points"
+msgstr "/Göstər/_Bağlantı nöqtələrini göstər"
+
+#: app/interface.c:410
+#, fuzzy
+msgid "/View/AntiAliased"
+msgstr "/Göstər/_Düzəlişli"
+
+#: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
 msgstr "tool_select_update'de NULL mə'lumatı verildi"
 
-#: app/interface.c:887
+#: app/interface.c:935
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -521,7 +547,7 @@ msgstr ""
 "sıfırlayır. Balaca oxlar rəngləri dəyişdirir. Cüt-tıqlayıb rəngləri "
 "dəyişdirə bilərsən. "
 
-#: app/interface.c:1033
+#: app/interface.c:1081
 msgid "Diagram Editor"
 msgstr "Diaqramma editoru"
 
@@ -866,15 +892,15 @@ msgstr "_Vasitələ_r"
 msgid "_Dialogs"
 msgstr "D_ialoqlar"
 
-#: app/menus.c:248 app/menus.c:269
+#: app/menus.c:248 app/menus.c:273
 msgid "/_File"
 msgstr "/_Dosye"
 
-#: app/menus.c:250 app/menus.c:271
+#: app/menus.c:250 app/menus.c:275
 msgid "/File/_New"
 msgstr "/Fayl/_Yeni"
 
-#: app/menus.c:251 app/menus.c:272
+#: app/menus.c:251 app/menus.c:276
 msgid "/File/_Open"
 msgstr "/Fayl/_Aç"
 
@@ -894,11 +920,11 @@ msgstr "/Fayl/_Qurğular ..."
 msgid "/File/P_lugins"
 msgstr "/Fayl/_Əlavələr"
 
-#: app/menus.c:257 app/menus.c:276 app/menus.c:279
+#: app/menus.c:257 app/menus.c:280 app/menus.c:283
 msgid "/File/---"
 msgstr "/Fayl/---"
 
-#: app/menus.c:258 app/menus.c:282
+#: app/menus.c:258 app/menus.c:286
 msgid "/File/_Quit"
 msgstr "/Fayl/Çı_x"
 
@@ -918,371 +944,421 @@ msgstr "/Yardım/---"
 msgid "/Help/_About"
 msgstr "/Kömək/_Haqqında"
 
-#: app/menus.c:273
+#: app/menus.c:277
 msgid "/File/_Save"
 msgstr "/Fayl/_Qeyd Et"
 
-#: app/menus.c:274
+#: app/menus.c:278
 msgid "/File/Save _As..."
 msgstr "/Fayl/_Fərqli qeyd et ..."
 
-#: app/menus.c:275
+#: app/menus.c:279
 msgid "/File/_Export..."
 msgstr "/Fayl/_Ithel .."
 
-#: app/menus.c:277
+#: app/menus.c:281
 msgid "/File/Page Set_up..."
 msgstr "/Fayl/Səhifə _quruluşu ..."
 
-#: app/menus.c:278
+#: app/menus.c:282
 msgid "/File/_Print Diagram..."
 msgstr "/Fayl/Diaqrammanı _çap et ..."
 
-#: app/menus.c:280
+#: app/menus.c:284
 msgid "/File/_Close"
 msgstr "/Fayl/_Qapat"
 
-#: app/menus.c:283
+#: app/menus.c:287
 msgid "/_Edit"
 msgstr "/_Düzəlt"
 
-#: app/menus.c:285
+#: app/menus.c:289
 msgid "/Edit/_Copy"
 msgstr "/Düzəlt/_Köçürt"
 
-#: app/menus.c:286
+#: app/menus.c:290
 msgid "/Edit/C_ut"
 msgstr "/Düzəlt/Kə_s"
 
-#: app/menus.c:287
+#: app/menus.c:291
 msgid "/Edit/_Paste"
 msgstr "/Düzəlt/_Yapışdır"
 
-#: app/menus.c:288
+#: app/menus.c:292
 msgid "/Edit/_Delete"
 msgstr "/Düzəlt/_Sil"
 
-#: app/menus.c:289
+#: app/menus.c:293
 msgid "/Edit/_Undo"
 msgstr "/Düzəlt/_Arxaya al"
 
-#: app/menus.c:290
+#: app/menus.c:294
 msgid "/Edit/_Redo"
 msgstr "/Düzəlt/_Təzədən et"
 
-#: app/menus.c:291
+#: app/menus.c:295 app/menus.c:1121
 msgid "/Edit/Copy Text"
 msgstr "/Düzəlt/Mətni köçürt"
 
-#: app/menus.c:292
+#: app/menus.c:296 app/menus.c:1123
 msgid "/Edit/Cut Text"
 msgstr "/Düzəlt/Mətni kəs"
 
-#: app/menus.c:293
+#: app/menus.c:297
 msgid "/Edit/Paste _Text"
 msgstr "/Düzəlt/Mətni ya_pışdır"
 
-#: app/menus.c:294
+#: app/menus.c:298
 msgid "/_View"
 msgstr "/_Göstər"
 
-#: app/menus.c:296
+#: app/menus.c:300
 msgid "/View/Zoom _In"
 msgstr "/Göstər/_Yaxınlaş"
 
-#: app/menus.c:297
+#: app/menus.c:301
 msgid "/View/Zoom _Out"
 msgstr "/Göstər/_Uzaqlaş"
 
-#: app/menus.c:298
+#: app/menus.c:302
 msgid "/View/_Zoom"
 msgstr "/Göstər/_Yaxınlaşdır"
 
-#: app/menus.c:300
+#: app/menus.c:304
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Göstər/Yaxınlıq/%400"
 
-#: app/menus.c:301
+#: app/menus.c:305
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Göstər/Yaxınlıq/%283"
 
-#: app/menus.c:302
+#: app/menus.c:306
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Göstər/Yaxınlıq/%200"
 
-#: app/menus.c:303
+#: app/menus.c:307
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Göstər/Yaxınlıq/%141"
 
-#: app/menus.c:304
+#: app/menus.c:308
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Göstər/Yaxınlıq/%100"
 
-#: app/menus.c:305
+#: app/menus.c:309
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Göstər/Yaxınlıq/%85"
 
-#: app/menus.c:306
+#: app/menus.c:310
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Göstər/Yaxınlıq/%70.7"
 
-#: app/menus.c:307
+#: app/menus.c:311
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Göstər/Yaxınlıq/%50"
 
-#: app/menus.c:308
+#: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Göstər/Yaxınlıq/%35.4"
 
-#: app/menus.c:309
+#: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Göstər/Yaxınlıq/%25"
 
-#: app/menus.c:310
+#: app/menus.c:314
 msgid "/View/Diagram Properties"
 msgstr "/Göstər/Diaqramma xüsusiyyətləri"
 
-#: app/menus.c:312
+#: app/menus.c:316
 msgid "/View/_AntiAliased"
 msgstr "/Göstər/_Düzəlişli"
 
-#: app/menus.c:314
+#: app/menus.c:318
 msgid "/View/_Visible Grid"
 msgstr "/Göstər/_Görünən tor"
 
-#: app/menus.c:315
+#: app/menus.c:319
 msgid "/View/_Snap To Grid"
 msgstr "/Göstər/_Tora taxıl"
 
-#: app/menus.c:316
+#: app/menus.c:320
 msgid "/View/Show _Rulers"
 msgstr "/Göstər/_Telləri göstər"
 
-#: app/menus.c:317
+#: app/menus.c:321
 msgid "/View/Show _Connection Points"
 msgstr "/Göstər/_Bağlantı nöqtələrini göstər"
 
-#: app/menus.c:318
+#: app/menus.c:322
 msgid "/View/---"
 msgstr "/Göstər/---"
 
-#: app/menus.c:319
+#: app/menus.c:323
 msgid "/View/New _View"
 msgstr "/Göstər/_Təzə görünüş"
 
-#: app/menus.c:320
+#: app/menus.c:324
 msgid "/View/Show _All"
 msgstr "/Göstər/_Hamısını göstər"
 
-#: app/menus.c:321
+#: app/menus.c:325
 msgid "/_Select"
 msgstr "/_Seç"
 
-#: app/menus.c:323
+#: app/menus.c:327
 msgid "/Select/All"
 msgstr "/Seç/Hamısını"
 
-#: app/menus.c:324
+#: app/menus.c:328
 msgid "/Select/None"
 msgstr "/Seç/Heç birini"
 
-#: app/menus.c:325 app/menus.c:338
+#: app/menus.c:329 app/menus.c:342
 msgid "/Select/Invert"
 msgstr "/Seç/Tərs çevir"
 
-#: app/menus.c:326
+#: app/menus.c:330
 msgid "/Select/Connected"
 msgstr "/Seç/Başlı olanları"
 
-#: app/menus.c:327
+#: app/menus.c:331
 msgid "/Select/Transitive"
 msgstr "/Seç/Keçişliləri"
 
-#: app/menus.c:328
+#: app/menus.c:332
 msgid "/Select/Same Type"
 msgstr "/Seç/Eyni növdəkilər"
 
-#: app/menus.c:329
+#: app/menus.c:333
 msgid "/Select/---"
 msgstr "/Seç/---"
 
-#: app/menus.c:330
+#: app/menus.c:334
 msgid "/Select/Replace"
 msgstr "/Seç/Yerinə qoy"
 
-#: app/menus.c:332
+#: app/menus.c:336
 msgid "/Select/Union"
 msgstr "/Seç/İttifaq"
 
-#: app/menus.c:334
+#: app/menus.c:338
 msgid "/Select/Intersect"
 msgstr "/Seç/Bölüşülənlər"
 
-#: app/menus.c:336
+#: app/menus.c:340
 msgid "/Select/Remove"
 msgstr "/Seç/Sil"
 
-#: app/menus.c:340
+#: app/menus.c:344
 msgid "/_Objects"
 msgstr "/_Cismlər"
 
-#: app/menus.c:342
+#: app/menus.c:346
 msgid "/Objects/Send to _Back"
 msgstr "/Cismlər/Qa_bağa gətir"
 
-#: app/menus.c:343
+#: app/menus.c:347
 msgid "/Objects/Bring to _Front"
 msgstr "/Cismlər/_Dala göndər"
 
-#: app/menus.c:344 app/menus.c:347
+#: app/menus.c:348 app/menus.c:351
 msgid "/Objects/---"
 msgstr "/Cismlər/---"
 
-#: app/menus.c:345
+#: app/menus.c:349
 msgid "/Objects/_Group"
 msgstr "/Cismlər/_Qruplaşdır"
 
-#: app/menus.c:346
+#: app/menus.c:350
 msgid "/Objects/_Ungroup"
 msgstr "/Cismlər/Qrupu kı_r"
 
-#: app/menus.c:348
+#: app/menus.c:352
 msgid "/Objects/Align _Horizontal"
 msgstr "/Cismlər/_Üfüqi tərəfləmə"
 
-#: app/menus.c:350
+#: app/menus.c:354 app/menus.c:1138
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Sol"
 
-#: app/menus.c:351
+#: app/menus.c:355 app/menus.c:1140
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Orta"
 
-#: app/menus.c:352
+#: app/menus.c:356 app/menus.c:1142
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Sağ"
 
-#: app/menus.c:353
+#: app/menus.c:357 app/menus.c:1144
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Eyni Məsafə"
 
-#: app/menus.c:354
+#: app/menus.c:358 app/menus.c:1146
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Bitişik"
 
-#: app/menus.c:355
+#: app/menus.c:359
 msgid "/Objects/Align _Vertical"
 msgstr "/Cismlər/_Şaquli tərəfləmə"
 
-#: app/menus.c:357
+#: app/menus.c:361 app/menus.c:1148
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Üst"
 
-#: app/menus.c:358
+#: app/menus.c:362 app/menus.c:1150
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Orta"
 
-#: app/menus.c:359
+#: app/menus.c:363 app/menus.c:1152
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Alt"
 
-#: app/menus.c:360
+#: app/menus.c:364 app/menus.c:1154
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Eyni Məsafə"
 
-#: app/menus.c:361
+#: app/menus.c:365 app/menus.c:1156
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Bitişik"
 
-#: app/menus.c:363
+#: app/menus.c:367
 msgid "/_Tools"
 msgstr "/_Vasitələr"
 
-#: app/menus.c:365
+#: app/menus.c:369
 msgid "/Tools/Modify"
 msgstr "/Vasitələr/Düzəlt"
 
-#: app/menus.c:366
+#: app/menus.c:370
 msgid "/Tools/Magnify"
 msgstr "/Vasitələr/Böyüdücü"
 
-#: app/menus.c:367
+#: app/menus.c:371
 msgid "/Tools/Scroll"
 msgstr "/Vasitələr/Sürüşdürmə"
 
-#: app/menus.c:368
+#: app/menus.c:372
 msgid "/Tools/Text"
 msgstr "/Vasitələr/Mətn"
 
-#: app/menus.c:369
+#: app/menus.c:373
 msgid "/Tools/Box"
 msgstr "/Vasitələr/Qutu"
 
-#: app/menus.c:370
+#: app/menus.c:374
 msgid "/Tools/Ellipse"
 msgstr "/Vasitələr/Elips"
 
-#: app/menus.c:371
+#: app/menus.c:375
 msgid "/Tools/Polygon"
 msgstr "/Vasitələr/Poliqon"
 
-#: app/menus.c:372
+#: app/menus.c:376
 msgid "/Tools/Beziergon"
 msgstr "/Vasitələr/Beziergon"
 
-#: app/menus.c:373
+#: app/menus.c:377
 msgid "/Tools/Line"
 msgstr "/Vasitələr/Xətt"
 
-#: app/menus.c:374
+#: app/menus.c:378
 msgid "/Tools/Arc"
 msgstr "/Vasitələr/Üst-dairə"
 
-#: app/menus.c:375
+#: app/menus.c:379
 msgid "/Tools/Zigzagline"
 msgstr "/Vasitələr/Ziqzaq xətti"
 
-#: app/menus.c:376
+#: app/menus.c:380
 msgid "/Tools/Polyline"
 msgstr "/Vasitələr/Çoxguşəli xətt"
 
-#: app/menus.c:377
+#: app/menus.c:381
 msgid "/Tools/Bezierline"
 msgstr "/Vasitələr/Bezyer xətti"
 
-#: app/menus.c:378
+#: app/menus.c:382
 msgid "/Tools/Image"
 msgstr "/Vasitələr/Rəsm"
 
-#: app/menus.c:380
+#: app/menus.c:384
 msgid "/_Dialogs"
 msgstr "/_Dialoqlar"
 
-#: app/menus.c:382
+#: app/menus.c:386
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoqlar/_Xüsusiyyətlər"
 
-#: app/menus.c:383
+#: app/menus.c:387
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoqlar/_Səviyyələr"
 
-#: app/menus.c:558
+#: app/menus.c:559
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tool_menu_select'də tooldata NULL olaraq verildi"
 
-#: app/menus.c:696
+#: app/menus.c:626
+#, fuzzy
+msgid "/Tools/"
+msgstr "/_Vasitələr"
+
+#: app/menus.c:719
 msgid "Diagram Menu"
 msgstr "Diaqramma menyusu"
+
+#: app/menus.c:1110
+#, fuzzy
+msgid "/Edit/Copy"
+msgstr "/Düzəlt/_Köçürt"
+
+#: app/menus.c:1112
+#, fuzzy
+msgid "/Edit/Cut"
+msgstr "/Düzəlt/Kə_s"
+
+#: app/menus.c:1114
+#, fuzzy
+msgid "/Edit/Paste"
+msgstr "/Düzəlt/_Yapışdır"
+
+#: app/menus.c:1117
+#, fuzzy
+msgid "/Edit/Delete"
+msgstr "/Düzəlt/_Sil"
+
+#: app/menus.c:1125
+#, fuzzy
+msgid "/Edit/Paste Text"
+msgstr "/Düzəlt/Mətni ya_pışdır"
+
+#: app/menus.c:1128
+#, fuzzy
+msgid "/Objects/Send to Back"
+msgstr "/Cismlər/Qa_bağa gətir"
+
+#: app/menus.c:1130
+#, fuzzy
+msgid "/Objects/Bring to Front"
+msgstr "/Cismlər/_Dala göndər"
+
+#: app/menus.c:1133
+#, fuzzy
+msgid "/Objects/Group"
+msgstr "/Cismlər/_Qruplaşdır"
+
+#: app/menus.c:1135
+#, fuzzy
+msgid "/Objects/Ungroup"
+msgstr "/Cismlər/Qrupu kı_r"
 
 #: app/paginate_gnomeprint.c:156
 msgid "Print Diagram"
@@ -1407,48 +1483,52 @@ msgstr "Hündürlük :"
 msgid "Magnify:"
 msgstr "Böyüt :"
 
-#: app/preferences.c:112
+#: app/preferences.c:111
+msgid "Use menu bar:"
+msgstr ""
+
+#: app/preferences.c:113
 msgid "Connection Points:"
 msgstr "Bağlantı nöqtələri :"
 
-#: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
+#: app/preferences.c:114 app/preferences.c:117 app/preferences.c:125
 msgid "Visible:"
 msgstr "Görünmə :"
 
-#: app/preferences.c:115
+#: app/preferences.c:116
 msgid "Grid:"
 msgstr "Tor :"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Snap to:"
 msgstr "Yaxalama hədəfi :"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "X Size:"
 msgstr "X böyüklüyü :"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid "Y Size:"
 msgstr "Y böyüklüyü :"
 
-#: app/preferences.c:120 app/preferences.c:125
+#: app/preferences.c:121 app/preferences.c:126
 msgid "Colour:"
 msgstr "Rəng :"
 
-#: app/preferences.c:121 app/preferences.c:126
+#: app/preferences.c:122 app/preferences.c:127
 msgid "Solid lines:"
 msgstr "Dolğun xəttləri :"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Page breaks:"
 msgstr "Səhifə qırılmaları :"
 
-#: app/preferences.c:237
+#: app/preferences.c:238
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "`%s''ni yazmaq üçün aça bilmədim"
 
-#: app/preferences.c:572 app/preferences.c:581
+#: app/preferences.c:573 app/preferences.c:582
 msgid "Preferences"
 msgstr "Qurğular"
 
@@ -1468,7 +1548,7 @@ msgstr "Xüsusiyyətlər : "
 msgid "Object properties:"
 msgstr "Cism xüsusiyyətləri:"
 
-#: app/render_eps.c:1599
+#: app/render_eps.c:1635
 msgid "Encapsulated Postscript"
 msgstr "Sıyrılmış Postscript ( EPS )"
 
@@ -1504,18 +1584,19 @@ msgstr ""
 msgid "Taking point value of non-point node."
 msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
 
-#: lib/dia_xml.c:282
-#, c-format
-msgid "Incorrect x Point value %f; discarding it."
+#: lib/dia_xml.c:285
+#, fuzzy, c-format
+msgid "Incorrect x Point value \"\" %f; discarding it."
 msgstr "Səhv x Nöqtə qiyməti  %f; nəzərə almıram."
 
-#: lib/dia_xml.c:290
+#: lib/dia_xml.c:293
 msgid "Error parsing point."
 msgstr "Xəta darama nöqtəsi."
 
-#: lib/dia_xml.c:297
-#, c-format
-msgid "Incorrect y Point value %f; discarding it."
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
+#, fuzzy, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Səhv y Nöqtə qiyməti  %f; nəzərə almıram."
 
 #: lib/font.c:389
@@ -1595,7 +1676,7 @@ msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
 #: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:358 objects/flowchart/box.c:317
+#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
 #: objects/standard/box.c:232 objects/standard/ellipse.c:220
@@ -2664,7 +2745,7 @@ msgstr "Arzulanan funksiya"
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
 #: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
 #: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:392 objects/flowchart/box.c:353
+#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
 #: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
 #: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
@@ -2676,7 +2757,7 @@ msgstr "Yazı növü :"
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
 #: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
 #: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:403 objects/flowchart/box.c:364
+#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
 #: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
 #: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
@@ -2856,7 +2937,7 @@ msgid "SADT Arrow"
 msgstr "SADT oxu"
 
 #: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:367 objects/flowchart/box.c:339
+#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
 #: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
 #: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
@@ -2930,7 +3011,7 @@ msgid "Name"
 msgstr "Ad"
 
 #: objects/UML/class.c:102 objects/UML/classicon.c:142
-#: objects/UML/component.c:116 objects/UML/object.c:168
+#: objects/UML/component.c:116 objects/UML/object.c:173
 #: objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Stereotip"
@@ -2970,7 +3051,7 @@ msgstr "Sinif adı :"
 
 #: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
 #: objects/UML/generalization.c:125 objects/UML/large_package.c:617
-#: objects/UML/object.c:830 objects/UML/realizes.c:126
+#: objects/UML/object.c:883 objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Stereotip :"
 
@@ -3153,27 +3234,27 @@ msgstr "İsmarıc :"
 msgid "Message type:"
 msgstr "İsmarıc növü :"
 
-#: objects/UML/object.c:171
+#: objects/UML/object.c:175
 msgid "Class name"
 msgstr "Sinif adı"
 
-#: objects/UML/object.c:818
+#: objects/UML/object.c:871
 msgid "Explicit state:"
 msgstr "Aydın hal :"
 
-#: objects/UML/object.c:840
+#: objects/UML/object.c:893
 msgid "Attributes:"
 msgstr "Xüsusiyyətler :"
 
-#: objects/UML/object.c:850
+#: objects/UML/object.c:903
 msgid "Show attributes"
 msgstr "Xüsusiyyətləri göstər"
 
-#: objects/UML/object.c:854
+#: objects/UML/object.c:907
 msgid "Active object"
 msgstr "Hazırkı cism"
 
-#: objects/UML/object.c:859
+#: objects/UML/object.c:912
 msgid "multiple instance"
 msgstr "çoxlu quruluş"
 
@@ -3296,25 +3377,30 @@ msgstr "Xüsusi"
 msgid "Custom XML shapes loader"
 msgstr "Xüsusi XML şəkil yükləyicisi"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Üfüqü tərs çevir"
 
-#: objects/custom/custom_object.c:183 objects/custom/custom_object.c:201
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Şaquli tərs çevir"
 
-#: objects/custom/custom_object.c:381 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Tərəfləmə :"
 
-#: objects/custom/custom_object.c:1354
+#: objects/custom/custom_object.c:1429
 msgid "Flip Horizontal"
 msgstr "Üfüqi tərs çevir"
 
-#: objects/custom/custom_object.c:1355
+#: objects/custom/custom_object.c:1430
 msgid "Flip Vertical"
 msgstr "Şaquli tərs çevir"
+
+#: objects/custom/custom_object.c:1463
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr ""
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
@@ -3349,7 +3435,7 @@ msgstr "Qulp əlavə et"
 msgid "Delete Handle"
 msgstr "Qulpu sil"
 
-#: objects/network/network.c:52
+#: objects/network/network.c:41
 msgid "Network diagram objects"
 msgstr "Şəbəkə diaqram cismləri"
 
@@ -3511,37 +3597,33 @@ msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics ixrac süzgəci"
 
 #: plug-ins/xfig/xfig.c:39
-#, fuzzy
 msgid "Fig Format import and export filter"
-msgstr "Fiq Format idxal süzgəci"
+msgstr "Fiq Format idxal və ixrac süzgəci"
 
 #: plug-ins/xfig/xfig-import.c:73
-#, fuzzy
 msgid "Polygon import is not implemented yes"
-msgstr "%d cism növü hələlik dəsyəklənmir\n"
+msgstr "Çocguşəli idxalı hələlik dəsyəklənmir"
 
 #: plug-ins/xfig/xfig-import.c:74
-#, fuzzy
 msgid "Patterns are not supported by Dia"
-msgstr "Naxışlar dəstəklənmir\n"
+msgstr "Naxışlar Dia tərəfindən dəstəklənmir"
 
 #: plug-ins/xfig/xfig-import.c:75
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
+msgstr "Üç nöqtəli sətirlər Dia tərəfindən dəstəklənmir, cüt nöqtəli işlədin"
 
 #: plug-ins/xfig/xfig-import.c:76
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Mənfi bucaq radiusu, mənfiləşdirilir"
 
 #: plug-ins/xfig/xfig-import.c:77
-#, fuzzy
 msgid "Spline import is not implemented yet"
-msgstr "%d cism növü hələlik dəsyəklənmir\n"
+msgstr "Splin idxalı hələlik dəsyəklənmir"
 
 #: plug-ins/xfig/xfig-import.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Line style %d should not appear\n"
-msgstr "Sətir tərzi %d dəstəklənmir\n"
+msgstr "Sətir tərzi %d görünməməlidir\n"
 
 #: plug-ins/xfig/xfig-import.c:395
 #, c-format
@@ -3573,9 +3655,9 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Namə'lum çoxlu sətir alt növü: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:707
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr "Mətn infosu oxuna bilmir: %s\n"
+msgstr "Arc infosu oxuna bilmir: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:781
 #, c-format
@@ -3619,7 +3701,7 @@ msgstr "Kağız böyüklüyünü oxuyarkən xəta oldu: %s\n"
 #: plug-ins/xfig/xfig-import.c:950
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "Namə'lum kağız böyüklüyü `%s', əsası işlədirəm\n"
 
 #: plug-ins/xfig/xfig-import.c:962
 #, c-format
