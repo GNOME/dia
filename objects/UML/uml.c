@@ -19,11 +19,12 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "sheet.h"
 
 #include "uml.h"
-
 
 extern ObjectType umlclass_type;
 extern ObjectType note_type;
@@ -88,8 +89,8 @@ int get_version(void) {
 void register_sheets(void) {
   Sheet *sheet;
   
-  sheet = new_sheet("UML",
-		    "Editor for UML Static Structure Diagrams.");
+  sheet = new_sheet(_("UML"),
+		    _("Editor for UML Static Structure Diagrams."));
   sheet_append_sheet_obj(sheet, &umlclass_sheetobj);
   sheet_append_sheet_obj(sheet, &umlclass_template_sheetobj);
   sheet_append_sheet_obj(sheet, &note_sheetobj);

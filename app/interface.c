@@ -90,11 +90,11 @@ static ToolButton tool_data[] =
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
-    "Create Polyline",
+    N_("Create Polyline"),
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
-    "Create Image",
+    N_("Create Image"),
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
 };
@@ -439,7 +439,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 			data);
 
     gtk_tooltips_set_tip (tool_tips, button,
-			  sheet_obj->description, NULL);
+			  gettext(sheet_obj->description), NULL);
 
     list = g_slist_next(list);
     i++;
@@ -481,7 +481,7 @@ create_sheets(GtkWidget *parent)
   while (list != NULL) {
     sheet = (Sheet *) list->data;
 
-    label = gtk_label_new( sheet->name );
+    label = gtk_label_new(gettext(sheet->name));
     
     child = create_sheet_page(notebook, sheet);
     

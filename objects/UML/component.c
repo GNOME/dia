@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -86,7 +88,7 @@ ObjectType component_type =
 SheetObject component_sheetobj =
 {
   "UML - Component",             /* type */
-  "Create a component",           /* description */
+  N_("Create a component"),           /* description */
   (char **) component_xpm,     /* pixmap */
 
   NULL                        /* user_data */

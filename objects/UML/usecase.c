@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -84,7 +86,7 @@ ObjectType usecase_type =
 SheetObject usecase_sheetobj =
 {
   "UML - Usecase",             /* type */
-  "Create a use case",           /* description */
+  N_("Create a use case"),           /* description */
   (char **) case_xpm,     /* pixmap */
 
   NULL                       /* user_data */

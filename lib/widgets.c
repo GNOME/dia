@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include "config.h"
+#include "intl.h"
 #include "widgets.h"
 #include "message.h"
 
@@ -170,19 +173,19 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
   submenu = NULL;
   group = NULL;
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Left");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_LEFT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Center");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Center"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_CENTER));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Right");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_RIGHT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
@@ -263,31 +266,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   submenu = NULL;
   group = NULL;
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Solid");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_SOLID));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Dashed");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASHED));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Dash-Dot");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Dash-Dot-Dot");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Dotted");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DOTTED));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
@@ -427,7 +430,7 @@ dia_color_selector_pressed(GtkWidget *widget)
   gdouble col[3];
 
   if (cs->col_sel == NULL) {
-    cs->col_sel = gtk_color_selection_dialog_new("Select color");
+    cs->col_sel = gtk_color_selection_dialog_new(_("Select color"));
     dialog = GTK_COLOR_SELECTION_DIALOG(cs->col_sel);
     gtk_widget_hide(dialog->help_button);
     
@@ -589,43 +592,43 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   submenu = NULL;
   group = NULL;
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "None");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("None"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_NONE));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Lines");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Lines"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_LINES));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Hollow Triangle");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Triangle"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_TRIANGLE));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Filled Triangle");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Triangle"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_TRIANGLE));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Hollow Diamond");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Diamond"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_DIAMOND));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Filled Diamond");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Diamond"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_DIAMOND));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Half Head");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Half Head"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HALF_HEAD));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
@@ -641,7 +644,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   box = gtk_hbox_new(FALSE,0);
   as->sizebox = GTK_HBOX(box);
 
-  label = gtk_label_new("Length: ");
+  label = gtk_label_new(_("Length: "));
   as->lengthlabel = GTK_LABEL(label);
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
@@ -654,7 +657,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_box_pack_start_defaults(GTK_BOX (box), length);
   gtk_widget_show (length);
 
-  label = gtk_label_new("Width: ");
+  label = gtk_label_new(_("Width: "));
   as->widthlabel = GTK_LABEL(label);
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
@@ -770,7 +773,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   
   if (fs->dialog == NULL) {
     dialog = fs->dialog =
-      GTK_FILE_SELECTION(gtk_file_selection_new("Select image file"));
+      GTK_FILE_SELECTION(gtk_file_selection_new(_("Select image file")));
 
     if (dialog->help_button != NULL)
       gtk_widget_hide(dialog->help_button);
@@ -800,7 +803,7 @@ dia_file_selector_init (DiaFileSelector *fs)
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(fs->entry));
-  fs->browse = GTK_BUTTON(gtk_button_new_with_label("Browse"));
+  fs->browse = GTK_BUTTON(gtk_button_new_with_label(_("Browse")));
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->browse), FALSE, TRUE, 0);
   gtk_signal_connect (GTK_OBJECT (fs->browse), "pressed",
                       (GtkSignalFunc) dia_file_selector_browse_pressed,

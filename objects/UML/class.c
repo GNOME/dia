@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "render.h"
 #include "attributes.h"
 #include "sheet.h"
@@ -70,7 +72,7 @@ ObjectType umlclass_type =
 SheetObject umlclass_sheetobj =
 {
   "UML - Class",             /* type */
-  "Create a class",           /* description */
+  N_("Create a class"),           /* description */
   (char **) umlclass_xpm,     /* pixmap */
 
   GINT_TO_POINTER(0)          /* user_data */
@@ -79,7 +81,7 @@ SheetObject umlclass_sheetobj =
 SheetObject umlclass_template_sheetobj =
 {
   "UML - Class",             /* type */
-  "Create a template class",  /* description */
+  N_("Create a template class"),  /* description */
   (char **) umlclass_template_xpm,     /* pixmap */
 
   GINT_TO_POINTER(1)          /* user_data */
@@ -623,7 +625,7 @@ umlclass_create(Point *startpoint,
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
 
-  umlclass->name = strdup("Class");
+  umlclass->name = strdup(_("Class"));
   umlclass->stereotype = NULL;
   
   umlclass->abstract = FALSE;

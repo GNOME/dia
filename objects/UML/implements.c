@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "render.h"
@@ -103,7 +105,7 @@ ObjectType implements_type =
 SheetObject implements_sheetobj =
 {
   "UML - Implements",             /* type */
-  "Implements, class implements a specific interface.",
+  N_("Implements, class implements a specific interface."),
                                 /* description */
   (char **) implements_xpm, /* pixmap */
   NULL                          /* user_data */
@@ -517,7 +519,7 @@ implements_get_properties(Implements *implements)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Interface:");
+    label = gtk_label_new(_("Interface:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->text = GTK_ENTRY(entry);

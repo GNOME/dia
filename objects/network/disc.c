@@ -18,6 +18,8 @@
 #include "render_object.h"
 #include "sheet.h"
 
+#include "config.h"
+#include "intl.h"
 #include "network.h"
 
 #include "pixmaps/disc.xpm"
@@ -50,7 +52,7 @@ ObjectType disc_type =
 SheetObject disc_sheetobj =
 {
   "Network - Storage",             /* type */
-  "The symbol for storage. Disc or database.",  /* description */
+  N_("The symbol for storage. Disc or database."),  /* description */
   (char **) disc_xpm,     /* pixmap */
 
   NULL                    /* user_data */

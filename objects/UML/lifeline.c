@@ -21,6 +21,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "render.h"
@@ -107,7 +109,7 @@ ObjectType lifeline_type =
 SheetObject lifeline_sheetobj =
 {
   "UML - Lifeline",             /* type */
-  "Create a lifeline",
+  N_("Create a lifeline"),
                                 /* description */
   (char **) lifeline_xpm, /* pixmap */
   NULL                          /* user_data */
@@ -561,12 +563,12 @@ lifeline_get_properties(Lifeline *lif)
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    checkbox = gtk_check_button_new_with_label("Show focus of control:");
+    checkbox = gtk_check_button_new_with_label(_("Show focus of control:"));
     prop_dialog->draw_focus = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
 
-    checkbox = gtk_check_button_new_with_label("Show destruction mark:");
+    checkbox = gtk_check_button_new_with_label(_("Show destruction mark:"));
     prop_dialog->draw_cross = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);

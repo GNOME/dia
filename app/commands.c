@@ -516,7 +516,8 @@ help_about_callback(GtkWidget *widget, gpointer data)
   GtkWidget *frame;
   GtkWidget *label;
   GtkWidget *button;
-  
+  char str[100];
+
 #ifdef GNOME
   const gchar *authors[] = { "Alexander Larsson", NULL };
 
@@ -547,7 +548,8 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 1);
   gtk_container_add (GTK_CONTAINER (frame), vbox);
 
-  label = gtk_label_new ("Dia v" VERSION " by Alexander Larsson");
+  sprintf(str, _("Dia v %s by Alexander Larsson"), VERSION);
+  label = gtk_label_new (str);
   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
 
   label = gtk_label_new (_("Please visit http://www.lysator.liu.se/~alla/dia "

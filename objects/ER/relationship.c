@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
@@ -118,7 +120,7 @@ ObjectType relationship_type =
 SheetObject relationship_sheetobj =
 {
   "ER - Relationship",  /* type */
-  "Relationship",      /* description */
+  N_("Relationship"),      /* description */
   (char **) relationship_xpm, /* pixmap */
   NULL                /* user_data */
 };
@@ -192,7 +194,7 @@ relationship_get_properties(Relationship *relationship)
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -200,7 +202,7 @@ relationship_get_properties(Relationship *relationship)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Left Cardinality:");
+    label = gtk_label_new(_("Left Cardinality:"));
     entry = gtk_entry_new();
     prop_dialog->left_cardinality = GTK_ENTRY(entry);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -208,7 +210,7 @@ relationship_get_properties(Relationship *relationship)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Right Cardinality:");
+    label = gtk_label_new(_("Right Cardinality:"));
     entry = gtk_entry_new();
     prop_dialog->right_cardinality = GTK_ENTRY(entry);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -216,19 +218,19 @@ relationship_get_properties(Relationship *relationship)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Rotate");
+    checkbox = gtk_check_button_new_with_label(_("Rotate"));
     prop_dialog->rotate = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Identifying");
+    checkbox = gtk_check_button_new_with_label(_("Identifying"));
     prop_dialog->identifying = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Border width:");
+    label = gtk_label_new(_("Border width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
     border_width = gtk_spin_button_new(adj, 1.0, 2);
@@ -239,7 +241,7 @@ relationship_get_properties(Relationship *relationship)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Foreground color:");
+    label = gtk_label_new(_("Foreground color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     color = dia_color_selector_new();
     prop_dialog->fg_color = DIACOLORSELECTOR(color);
@@ -247,7 +249,7 @@ relationship_get_properties(Relationship *relationship)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Background color:");
+    label = gtk_label_new(_("Background color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     color = dia_color_selector_new();
     prop_dialog->bg_color = DIACOLORSELECTOR(color);
@@ -502,7 +504,7 @@ relationship_create(Point *startpoint,
   }
 
   relationship->font = font_getfont("Courier");
-  relationship->name = g_strdup("Relationship");
+  relationship->name = g_strdup(_("Relationship"));
   relationship->left_cardinality = g_strdup("");
   relationship->right_cardinality = g_strdup("");
   relationship->identifying = FALSE;

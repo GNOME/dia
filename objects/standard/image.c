@@ -20,6 +20,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "message.h"
 #include "object.h"
 #include "element.h"
@@ -207,7 +209,7 @@ image_get_properties(Image *image)
     image_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Image file:");
+    label = gtk_label_new(_("Image file:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     file = dia_file_selector_new();
@@ -218,7 +220,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Keep aspect ratio");
+    checkbox = gtk_check_button_new_with_label(_("Keep aspect ratio"));
     image_properties_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -226,7 +228,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Show border");
+    checkbox = gtk_check_button_new_with_label(_("Show border"));
     image_properties_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -234,7 +236,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Border width:");
+    label = gtk_label_new(_("Border width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
@@ -249,7 +251,7 @@ image_get_properties(Image *image)
 
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Foreground color:");
+    label = gtk_label_new(_("Foreground color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
@@ -260,7 +262,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
@@ -328,7 +330,7 @@ image_get_defaults()
     image_defaults_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Image file:");
+    label = gtk_label_new(_("Image file:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     file = dia_file_selector_new();
@@ -339,7 +341,7 @@ image_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Keep aspect ratio:");
+    checkbox = gtk_check_button_new_with_label(_("Keep aspect ratio:"));
     image_defaults_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -347,7 +349,7 @@ image_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Show border:");
+    checkbox = gtk_check_button_new_with_label(_("Show border:"));
     image_defaults_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -355,7 +357,7 @@ image_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
@@ -828,8 +830,8 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 
 	if (image->image != NULL) {
 	  /* Found file in same dir as diagram. */
-	  message_warning("The image file '%s' was not found in that directory.\n"
-			  "Using the file '%s' instead\n", image->file, temp_string);
+	  message_warning(_("The image file '%s' was not found in that directory.\n"
+			  "Using the file '%s' instead\n"), image->file, temp_string);
 	  g_free(image->file);
 	  image->file = temp_string;
 	} else {
@@ -838,12 +840,12 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	  image->image = dia_image_load((char *)image_file_name);
 	  if (image->image != NULL) {
 	    /* Found file in current dir. */
-	    message_warning("The image file '%s' was not found in that directory.\n"
-			    "Using the file '%s' instead\n", image->file, image_file_name);
+	    message_warning(_("The image file '%s' was not found in that directory.\n"
+			    "Using the file '%s' instead\n"), image->file, image_file_name);
 	    g_free(image->file);
 	    image->file = strdup(image_file_name);
 	  } else {
-	    message_warning("The image file '%s' was not found.\n",
+	    message_warning(_("The image file '%s' was not found.\n"),
 			    image_file_name);
 	  }
 	}
@@ -872,7 +874,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	  g_free(image->file);
 	  image->file = strdup(image->file);
 	} else {
-	  message_warning("The image file '%s' was not found.\n",
+	  message_warning(_("The image file '%s' was not found.\n"),
 			  image->file);
 	}
       }

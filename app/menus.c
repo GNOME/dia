@@ -48,7 +48,7 @@ static GnomeUIInfo filemenu[] = {
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
 
-  { GNOME_APP_UI_ITEM, "_Export To EPS", NULL,
+  { GNOME_APP_UI_ITEM, N_("_Export To EPS"), NULL,
     file_export_to_eps_callback, NULL, NULL },
 
   GNOMEUIINFO_SEPARATOR,

@@ -18,6 +18,8 @@
 
 #include <gtk/gtk.h>
 
+#include "config.h"
+#include "intl.h"
 #include "properties.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
@@ -38,7 +40,7 @@ static void create_dialog()
 
   dialog = gtk_dialog_new();
   
-  gtk_window_set_title (GTK_WINDOW (dialog), "Object defaults");
+  gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
   gtk_window_set_wmclass (GTK_WINDOW (dialog),
 			  "defaults_window", "Dia");
   gtk_window_set_policy (GTK_WINDOW (dialog),
@@ -47,7 +49,7 @@ static void create_dialog()
 
   dialog_vbox = GTK_DIALOG (dialog)->vbox;
     
-  button = gtk_button_new_with_label ("Close");
+  button = gtk_button_new_with_label (_("Close"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -56,7 +58,7 @@ static void create_dialog()
 		      NULL);
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Apply");
+  button = gtk_button_new_with_label (_("Apply"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -68,7 +70,7 @@ static void create_dialog()
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
-  no_defaults_dialog = gtk_label_new("This object has no defaults.");
+  no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
 }
 

@@ -1,3 +1,28 @@
+1999-03-25  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/app_procs.c
+	* app/commands.c
+	* app/defaults.c
+	* app/disp_callbacks.c
+	* app/display.c
+	* app/interface.c
+	* app/menus.c
+	* app/preferences.c
+	* app/render_eps.c
+	* lib/diagramdata.c
+	* lib/font.c
+	* lib/message.c
+	* lib/widgets.c
+	* objects/ER/*.c
+	* objects/UML/*.c
+	* objects/network/*.c
+	* objects/standard/*.c
+	* po/update_pofiles_in.sh
+	* po/POFILES.in
+	More i18n. All strings (expect rare debug messages) can be
+	translated now. Moved intl.h from app to lib. Updated
+	update_pofiles_in.sh to check all .c-files.
+
 1999-03-23  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events):

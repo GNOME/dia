@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include "config.h"
+#include "intl.h"
 #include "render_object.h"
 #include "sheet.h"
 
@@ -50,7 +53,7 @@ ObjectType printer_type =
 SheetObject printer_sheetobj =
 {
   "Network - General Printer",             /* type */
-  "A simple Printer", /* description */
+  N_("A simple Printer"), /* description */
   (char **) printer_xpm,     /* pixmap */
 
   NULL                       /* user_data */

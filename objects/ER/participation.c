@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "render.h"
@@ -92,7 +94,7 @@ ObjectType participation_type =
 SheetObject participation_sheetobj =
 {
   "ER - Participation",             /* type */
-  "Create a participation",           /* description */
+  N_("Create a participation"),           /* description */
   (char **) participation_xpm,     /* pixmap */
 
   NULL                        /* user_data */
@@ -388,7 +390,7 @@ participation_get_properties(Participation *participation)
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Total:");
+    checkbox = gtk_check_button_new_with_label(_("Total:"));
     prop_dialog->total = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox),	checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);

@@ -61,7 +61,7 @@ create_object_menu(DiaMenu *dia_menu)
 
   menu = gtk_menu_new();
 
-  menu_item = gtk_menu_item_new_with_label(dia_menu->title);
+  menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
   gtk_menu_append(GTK_MENU(menu), menu_item);
   gtk_widget_show(menu_item);
 
@@ -70,7 +70,7 @@ create_object_menu(DiaMenu *dia_menu)
   gtk_widget_show(menu_item);
 
   for (i=0;i<dia_menu->num_items;i++) {
-    menu_item = gtk_menu_item_new_with_label(dia_menu->items[i].text);
+    menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->items[i].text));
     gtk_menu_append(GTK_MENU(menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
@@ -102,8 +102,8 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   
   /* Have to have exactly one selected object */
   if (selected_list == NULL || g_list_next(selected_list) != NULL) {
-    message_error("Selected list is %s while selected_count is %d\n",
-		  (selected_list?"long":"empty"), diagram->data->selected_count);
+    message_error(_("Selected list is %s while selected_count is %d\n"),
+		  (selected_list?_("long"):_("empty")), diagram->data->selected_count);
     return;
   }
   

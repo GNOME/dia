@@ -42,6 +42,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "config.h"
+#include "intl.h"
 #include "utils.h"
 #include "font.h"
 #include "message.h"
@@ -325,7 +327,7 @@ init_x11_font(FontPrivate *font)
   if (font->fontname_x11==NULL) {
     font->fontname_x11 = "fixed";
     gdk_font = gdk_font_load("fixed");
-    message_warning("Warning no X Font for %s found, using fixed.\n", font_data[i].fontname);
+    message_warning(_("Warning no X Font for %s found, using fixed.\n"), font_data[i].fontname);
   }
 
 
@@ -376,7 +378,7 @@ font_getfont(const char *name)
     if (font == NULL) {
       message_error("Error, couldn't locate font. Shouldn't happend.\n");
     } else {
-      message_notice("Font %s not found, using Courier instead.\n", name);
+      message_notice(_("Font %s not found, using Courier instead.\n"), name);
     }
   }
 

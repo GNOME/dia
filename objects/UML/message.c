@@ -21,6 +21,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "render.h"
@@ -123,7 +125,7 @@ ObjectType message_type =
 SheetObject message_sheetobj =
 {
   "UML - Message",             /* type */
-  "Create a message",
+  N_("Create a message"),
                                 /* description */
   (char **) message_xpm,     /* pixmap */
   NULL                          /* user_data */
@@ -563,7 +565,7 @@ message_get_properties(Message *message)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Message:");
+    label = gtk_label_new(_("Message:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->text = GTK_ENTRY(entry);
@@ -577,42 +579,42 @@ message_get_properties(Message *message)
     gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
 
-    label = gtk_label_new("Message type:");
+    label = gtk_label_new(_("Message type:"));
     gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
 
     /* */
-    prop_dialog->m_call = gtk_radio_button_new_with_label (NULL, "Call");
+    prop_dialog->m_call = gtk_radio_button_new_with_label (NULL, _("Call"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_call, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_call);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_call), TRUE);
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_call));
-    prop_dialog->m_return = gtk_radio_button_new_with_label(group, "Return");
+    prop_dialog->m_return = gtk_radio_button_new_with_label(group, _("Return"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_return, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_return);
 
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_return));
-    prop_dialog->m_send = gtk_radio_button_new_with_label(group, "Asynchronous");
+    prop_dialog->m_send = gtk_radio_button_new_with_label(group, _("Asynchronous"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_send, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_send);
 
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_send));
-    prop_dialog->m_create = gtk_radio_button_new_with_label(group, "Create");
+    prop_dialog->m_create = gtk_radio_button_new_with_label(group, _("Create"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_create, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_create);
 
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_create));
-    prop_dialog->m_destroy = gtk_radio_button_new_with_label(group, "Destroy");
+    prop_dialog->m_destroy = gtk_radio_button_new_with_label(group, _("Destroy"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_destroy, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_destroy);
 
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_destroy));
-    prop_dialog->m_simple = gtk_radio_button_new_with_label(group, "Simple");
+    prop_dialog->m_simple = gtk_radio_button_new_with_label(group, _("Simple"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_simple, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_simple);
 
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_simple));
-    prop_dialog->m_recursive = gtk_radio_button_new_with_label(group, "Recursive");
+    prop_dialog->m_recursive = gtk_radio_button_new_with_label(group, _("Recursive"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_recursive, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_recursive);
   }

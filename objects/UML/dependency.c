@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "render.h"
@@ -106,7 +108,7 @@ ObjectType dependency_type =
 SheetObject dependency_sheetobj =
 {
   "UML - Dependency",             /* type */
-  "Create a dependency",           /* description */
+  N_("Create a dependency"),           /* description */
   (char **) dependency_xpm,     /* pixmap */
 
   NULL                        /* user_data */
@@ -507,7 +509,7 @@ dependency_get_properties(Dependency *dep)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -519,7 +521,7 @@ dependency_get_properties(Dependency *dep)
 
     hbox = gtk_hbox_new(FALSE, 5);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new("Stereotype:");
+    label = gtk_label_new(_("Stereotype:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->stereotype = GTK_ENTRY(entry);
@@ -531,7 +533,7 @@ dependency_get_properties(Dependency *dep)
     
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Show arrow:");
+    checkbox = gtk_check_button_new_with_label(_("Show arrow:"));
     prop_dialog->draw_arrow = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);

@@ -19,6 +19,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "connectionpoint.h"
@@ -178,7 +180,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     zigzagline_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line width:");
+    label = gtk_label_new(_("Line width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
@@ -192,7 +194,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Color:");
+    label = gtk_label_new(_("Color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
@@ -203,7 +205,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     align = gtk_alignment_new(0.0,0.0,0.0,0.0);
     gtk_container_add(GTK_CONTAINER(align), label);
     gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
@@ -217,7 +219,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Start arrow:");
+    label = gtk_label_new(_("Start arrow:"));
     align = gtk_alignment_new(0.0,0.0,0.0,0.0);
     gtk_container_add(GTK_CONTAINER(align), label);
     gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
@@ -231,7 +233,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("End arrow:");
+    label = gtk_label_new(_("End arrow:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     arrow = dia_arrow_selector_new();
@@ -300,7 +302,7 @@ zigzagline_get_defaults()
     zigzagline_defaults_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
@@ -311,7 +313,7 @@ zigzagline_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Start arrow:");
+    label = gtk_label_new(_("Start arrow:"));
     align = gtk_alignment_new(0.0,0.0,0.0,0.0);
     gtk_container_add(GTK_CONTAINER(align), label);
     gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
@@ -325,7 +327,7 @@ zigzagline_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("End arrow:");
+    label = gtk_label_new(_("End arrow:"));
     align = gtk_alignment_new(0.0,0.0,0.0,0.0);
     gtk_container_add(GTK_CONTAINER(align), label);
     gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);

@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -86,7 +88,7 @@ ObjectType actor_type =
 SheetObject actor_sheetobj =
 {
   "UML - Actor",             /* type */
-  "Create an actor",           /* description */
+  N_("Create an actor"),           /* description */
   (char **) actor_xpm,     /* pixmap */
 
   NULL                       /* user_data */
@@ -288,7 +290,7 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - font_descent(font, 0.8);
   
-  actor->text = new_text("Actor", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  actor->text = new_text(_("Actor"), font, 0.8, &p, &color_black, ALIGN_CENTER);
   
   element_init(elem, 8, 8);
   

@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "render.h"
@@ -102,7 +104,7 @@ ObjectType realizes_type =
 SheetObject realizes_sheetobj =
 {
   "UML - Realizes",             /* type */
-  "Realizes, implements a specific interface.",
+  N_("Realizes, implements a specific interface."),
                               /* description */
   (char **) realizes_xpm,     /* pixmap */
 
@@ -480,7 +482,7 @@ realizes_get_properties(Realizes *realize)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -492,7 +494,7 @@ realizes_get_properties(Realizes *realize)
 
     hbox = gtk_hbox_new(FALSE, 5);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new("Stereotype:");
+    label = gtk_label_new(_("Stereotype:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->stereotype = GTK_ENTRY(entry);

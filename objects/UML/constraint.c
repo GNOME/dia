@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "render.h"
@@ -101,7 +103,7 @@ ObjectType constraint_type =
 SheetObject constraint_sheetobj =
 {
   "UML - Constraint",             /* type */
-  "Constraint, place a constraint on something.",
+  N_("Constraint, place a constraint on something."),
                                 /* description */
   (char **) constraint_xpm,     /* pixmap */
   NULL                          /* user_data */
@@ -462,7 +464,7 @@ constraint_get_properties(Constraint *constraint)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Constraint:");
+    label = gtk_label_new(_("Constraint:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->text = GTK_ENTRY(entry);

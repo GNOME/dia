@@ -56,8 +56,8 @@ update_zoom_status(DDisplay *ddisp)
   context_id = gtk_statusbar_get_context_id (statusbar, "Zoom");
   
   gtk_statusbar_pop (statusbar, context_id); 
-  zoom_text = g_malloc (sizeof (guchar) * (strlen (gettext ("Zoom")) + 1 + 8 + 1));
-  sprintf (zoom_text, "%s % 7.1f%c", gettext ("Zoom"),
+  zoom_text = g_malloc (sizeof (guchar) * (strlen (_("Zoom")) + 1 + 8 + 1));
+  sprintf (zoom_text, "%s % 7.1f%c", _("Zoom"),
 	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM, '%');
   gtk_statusbar_push (statusbar, context_id, zoom_text);
 
@@ -76,7 +76,7 @@ update_modified_status(DDisplay *ddisp)
     context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
   
     gtk_statusbar_pop (statusbar, context_id); 
-    gtk_statusbar_push (statusbar, context_id, gettext ("Diagram modified!"));
+    gtk_statusbar_push (statusbar, context_id, _("Diagram modified!"));
   }
   else
   {
@@ -349,7 +349,7 @@ ddisplay_render_pixmap(DDisplay *ddisp)
   Renderer *renderer;
   
   if (ddisp->renderer==NULL) {
-    printf(_("ERROR! Renderer was NULL!!\n"));
+    printf("ERROR! Renderer was NULL!!\n");
     return;
   }
 

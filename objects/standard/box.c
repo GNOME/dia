@@ -19,6 +19,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
@@ -178,7 +180,7 @@ box_get_properties(Box *box)
     box_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Border width:");
+    label = gtk_label_new(_("Border width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
@@ -193,7 +195,7 @@ box_get_properties(Box *box)
 
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Foreground color:");
+    label = gtk_label_new(_("Foreground color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
@@ -204,7 +206,7 @@ box_get_properties(Box *box)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Background color:");
+    label = gtk_label_new(_("Background color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
@@ -215,7 +217,7 @@ box_get_properties(Box *box)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Draw background");
+    checkbox = gtk_check_button_new_with_label(_("Draw background"));
     box_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -223,7 +225,7 @@ box_get_properties(Box *box)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
@@ -234,7 +236,7 @@ box_get_properties(Box *box)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Corner rounding:");
+    label = gtk_label_new(_("Corner rounding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
@@ -305,7 +307,7 @@ box_get_defaults()
     box_defaults_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Draw background");
+    checkbox = gtk_check_button_new_with_label(_("Draw background"));
     box_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
@@ -313,7 +315,7 @@ box_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
+    label = gtk_label_new(_("Line style:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
@@ -324,7 +326,7 @@ box_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Corner rounding:");
+    label = gtk_label_new(_("Corner rounding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);

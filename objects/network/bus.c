@@ -19,6 +19,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
@@ -92,7 +94,7 @@ ObjectType bus_type =
 SheetObject bus_sheetobj =
 {
   "Standard - Bus",             /* type */
-  "Ethernet bus.",        /* description */
+  N_("Ethernet bus."),        /* description */
   (char **) bus_xpm,     /* pixmap */
   NULL                   /* user_data */
 };
@@ -185,7 +187,7 @@ bus_get_properties(Bus *bus)
     prop_dialog->dialog = dialog;
 
     hbox = gtk_hbox_new(FALSE, 0);
-    label = gtk_label_new ("Number of handles:");
+    label = gtk_label_new (_("Number of handles:"));
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
     gtk_widget_show (label);

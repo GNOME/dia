@@ -21,6 +21,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -113,7 +115,7 @@ ObjectType objet_type =
 SheetObject objet_sheetobj =
 {
   "UML - Objet",             /* type */
-  "Create an object",           /* description */
+  N_("Create an object"),           /* description */
   (char **) object_xpm,     /* pixmap */
 
   NULL                        /* user_data */
@@ -672,7 +674,7 @@ objet_get_properties(Objet *dep)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Explicit state:");
+    label = gtk_label_new(_("Explicit state:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -684,7 +686,7 @@ objet_get_properties(Objet *dep)
 
     hbox = gtk_hbox_new(FALSE, 5);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new("Stereotype:");
+    label = gtk_label_new(_("Stereotype:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->stereotype = GTK_ENTRY(entry);
@@ -694,7 +696,7 @@ objet_get_properties(Objet *dep)
     gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
     
-    label = gtk_label_new("Attributes:");
+    label = gtk_label_new(_("Attributes:"));
     gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
     entry = gtk_text_new(NULL, NULL);
     prop_dialog->attribs = entry;
@@ -704,16 +706,16 @@ objet_get_properties(Objet *dep)
     gtk_widget_show (entry);
         
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Show attributes");
+    checkbox = gtk_check_button_new_with_label(_("Show attributes"));
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
     prop_dialog->show_attrib = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
-    checkbox = gtk_check_button_new_with_label("Active object");
+    checkbox = gtk_check_button_new_with_label(_("Active object"));
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
     prop_dialog->active = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
       
-    checkbox = gtk_check_button_new_with_label("multiple instance");
+    checkbox = gtk_check_button_new_with_label(_("multiple instance"));
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
     prop_dialog->multiple = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);

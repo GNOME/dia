@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -84,7 +86,7 @@ ObjectType note_type =
 SheetObject note_sheetobj =
 {
   "UML - Note",             /* type */
-  "Create a note",           /* description */
+  N_("Create a note"),           /* description */
   (char **) note_xpm,     /* pixmap */
 
   NULL                        /* user_data */

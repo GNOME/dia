@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "sheet.h"
 
@@ -47,8 +49,8 @@ extern SheetObject participation_sheetobj;
 void register_sheets(void) {
   Sheet *sheet;
   
-  sheet = new_sheet("ER",
-		    "Editor for Entity Relations Diagrams.");
+  sheet = new_sheet(_("ER"),
+		    _("Editor for Entity Relations Diagrams."));
   sheet_append_sheet_obj(sheet, &entity_sheetobj);
   sheet_append_sheet_obj(sheet, &weakentity_sheetobj);
   sheet_append_sheet_obj(sheet, &relationship_sheetobj);

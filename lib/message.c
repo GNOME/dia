@@ -20,6 +20,8 @@
 #include <stdarg.h>
 #include <gtk/gtk.h>
 
+#include "config.h"
+#include "intl.h"
 #include "utils.h"
 #include "message.h"
 
@@ -57,7 +59,7 @@ message_internal(char *title, const char *fmt,
 		      label, TRUE, TRUE, 0);
   gtk_widget_show (label);
   
-  button = gtk_button_new_with_label ("OK");
+  button = gtk_button_new_with_label (_("OK"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog_window)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -90,7 +92,7 @@ message_notice(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal("Notice", format, &args, &args2);
+  message_internal(_("Notice"), format, &args, &args2);
   va_end (args);
   va_end (args2);
 }
@@ -101,7 +103,7 @@ message_warning(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal("Warning", format, &args, &args2);
+  message_internal(_("Warning"), format, &args, &args2);
   va_end (args);
   va_end (args2);
 }
@@ -113,7 +115,7 @@ message_error(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal("Warning", format, &args, &args2);
+  message_internal(_("Warning"), format, &args, &args2);
   va_end (args);
   va_end (args2);
 }

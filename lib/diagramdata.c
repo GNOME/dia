@@ -17,6 +17,8 @@
  */
 #include <assert.h>
 
+#include "config.h"
+#include "intl.h"
 #include "diagramdata.h"
 
 DiagramData *
@@ -34,7 +36,7 @@ new_diagram_data(void)
  
   data->bg_color = color_white;
 
-  first_layer = new_layer(g_strdup("Background"));
+  first_layer = new_layer(g_strdup(_("Background")));
   data->layers = g_ptr_array_new();
   g_ptr_array_add(data->layers, first_layer);
   data->active_layer = first_layer;

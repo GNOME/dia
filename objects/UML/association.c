@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "render.h"
@@ -137,7 +139,7 @@ ObjectType association_type =
 SheetObject association_sheetobj =
 {
   "UML - Association",             /* type */
-  "Association, two classes are associated.",
+  N_("Association, two classes are associated."),
                               /* description */
   (char **) association_xpm,     /* pixmap */
 
@@ -147,7 +149,7 @@ SheetObject association_sheetobj =
 SheetObject aggregation_sheetobj =
 {
   "UML - Association",             /* type */
-  "Aggregation, one class is part of another.",
+  N_("Aggregation, one class is part of another."),
                               /* description */
   (char **) aggregation_xpm,     /* pixmap */
 
@@ -842,7 +844,7 @@ association_get_properties(Association *assoc)
     
     /* Name entry: */
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -854,7 +856,7 @@ association_get_properties(Association *assoc)
 
     /* Direction entry: */
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Direction:");
+    label = gtk_label_new(_("Direction:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     
     omenu = gtk_option_menu_new ();
@@ -864,21 +866,21 @@ association_get_properties(Association *assoc)
     submenu = NULL;
     group = NULL;
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, "None");
+    menuitem = gtk_radio_menu_item_new_with_label (group, _("None"));
     gtk_object_set_user_data(GTK_OBJECT(menuitem),
 			     GINT_TO_POINTER(ASSOC_NODIR));
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Right");
+    menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
     gtk_object_set_user_data(GTK_OBJECT(menuitem),
 			     GINT_TO_POINTER(ASSOC_RIGHT));
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Left");
+    menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
     gtk_object_set_user_data(GTK_OBJECT(menuitem),
 			     GINT_TO_POINTER(ASSOC_LEFT));
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
@@ -902,23 +904,23 @@ association_get_properties(Association *assoc)
     for (i=0;i<2;i++) {
       char *str;
       if (i==0)
-	str = "Side A";
+	str = _("Side A");
       else
-	str = "Side B";
+	str = _("Side B");
       frame = gtk_frame_new(str);
       
       vbox = gtk_vbox_new(FALSE, 5);
       /* End 'i' into vbox: */
       if (i==0)
-	label = gtk_label_new("Side A");
+	label = gtk_label_new(_("Side A"));
       else
-	label = gtk_label_new("Side B");
+	label = gtk_label_new(_("Side B"));
       
       gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
       
       /* Role entry: */
       hbox = gtk_hbox_new(FALSE, 5);
-      label = gtk_label_new("Role:");
+      label = gtk_label_new(_("Role:"));
       gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
       entry = gtk_entry_new();
       prop_dialog->end[i].role = GTK_ENTRY(entry);
@@ -930,7 +932,7 @@ association_get_properties(Association *assoc)
 
       /* Multiplicity entry: */
       hbox = gtk_hbox_new(FALSE, 5);
-      label = gtk_label_new("Multiplicity:");
+      label = gtk_label_new(_("Multiplicity:"));
       gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
       entry = gtk_entry_new();
       prop_dialog->end[i].multiplicity = GTK_ENTRY(entry);
@@ -941,13 +943,13 @@ association_get_properties(Association *assoc)
       gtk_widget_show(hbox);
 
       /* Show arrow: */
-      checkbox = gtk_check_button_new_with_label("Show arrow");
+      checkbox = gtk_check_button_new_with_label(_("Show arrow"));
       prop_dialog->end[i].draw_arrow = GTK_TOGGLE_BUTTON( checkbox );
       gtk_widget_show(checkbox);
       gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
 
       /* Aggregate */
-      checkbox = gtk_check_button_new_with_label("Aggregate");
+      checkbox = gtk_check_button_new_with_label(_("Aggregate"));
       prop_dialog->end[i].aggregate = GTK_TOGGLE_BUTTON( checkbox );
       gtk_signal_connect(GTK_OBJECT(checkbox), "toggled",
 			 (GtkSignalFunc) mutex_aggregate_callback, prop_dialog);
@@ -955,7 +957,7 @@ association_get_properties(Association *assoc)
       gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
 
       /* Composition */
-      checkbox = gtk_check_button_new_with_label("Composition");
+      checkbox = gtk_check_button_new_with_label(_("Composition"));
       prop_dialog->end[i].composition = GTK_TOGGLE_BUTTON( checkbox );
       gtk_signal_connect(GTK_OBJECT(checkbox), "toggled",
 			 (GtkSignalFunc) mutex_aggregate_callback, prop_dialog);

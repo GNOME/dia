@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -86,7 +88,7 @@ ObjectType smallpackage_type =
 SheetObject smallpackage_sheetobj =
 {
   "UML - SmallPackage",             /* type */
-  "Create a (small) package",           /* description */
+  N_("Create a (small) package"),           /* description */
   (char **) smallpackage_xpm,     /* pixmap */
 
   NULL                        /* user_data */

@@ -114,8 +114,8 @@ app_init (int argc, char **argv)
   struct poptOption options[] =
   {
     {"export-to-ps", 'e', POPT_ARG_STRING, &export_file_name, 0,
-     "Export loaded file to postscript and exit",
-     "OUTPUT"},
+     N_("Export loaded file to postscript and exit"),
+     N_("OUTPUT")},
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 # endif /* GNOME */
@@ -132,7 +132,7 @@ app_init (int argc, char **argv)
 
   client = gnome_master_client();
   if(client == NULL) {
-    g_warning("Can't connect to session manager!\n");
+    g_warning(_("Can't connect to session manager!\n"));
   }
   else {
     gtk_signal_connect(GTK_OBJECT (client), "save_yourself",
@@ -199,7 +199,7 @@ app_init (int argc, char **argv)
     {
       if (! diagram)
 	{
-	  fprintf (stderr, "need valid input file for --export-file-to-ps\n");
+	  fprintf (stderr, _("need valid input file for --export-file-to-ps\n"));
 	  exit (1);
 	}
       diagram_export_to_eps (diagram, export_file_name);

@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
@@ -116,7 +118,7 @@ ObjectType attribute_type =
 SheetObject attribute_sheetobj =
 {
   "ER - Attribute",  /* type */
-  "Attribute",      /* description */
+  N_("Attribute"),      /* description */
   (char **) attribute_xpm, /* pixmap */
 
   NULL                /* user_data */
@@ -183,7 +185,7 @@ attribute_get_properties(Attribute *attribute)
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -191,31 +193,31 @@ attribute_get_properties(Attribute *attribute)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Key");
+    checkbox = gtk_check_button_new_with_label(_("Key"));
     prop_dialog->key = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Weak key");
+    checkbox = gtk_check_button_new_with_label(_("Weak key"));
     prop_dialog->weakkey = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Derived");
+    checkbox = gtk_check_button_new_with_label(_("Derived"));
     prop_dialog->derived = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Multivalue");
+    checkbox = gtk_check_button_new_with_label(_("Multivalue"));
     prop_dialog->multivalue = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Border width:");
+    label = gtk_label_new(_("Border width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
     border_width = gtk_spin_button_new(adj, 1.0, 2);
@@ -226,7 +228,7 @@ attribute_get_properties(Attribute *attribute)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Foreground color:");
+    label = gtk_label_new(_("Foreground color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     color = dia_color_selector_new();
     prop_dialog->fg_color = DIACOLORSELECTOR(color);
@@ -234,7 +236,7 @@ attribute_get_properties(Attribute *attribute)
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Background color:");
+    label = gtk_label_new(_("Background color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     color = dia_color_selector_new();
     prop_dialog->bg_color = DIACOLORSELECTOR(color);
@@ -448,7 +450,7 @@ attribute_create(Point *startpoint,
   attribute->derived = FALSE;
   attribute->multivalue = FALSE;
   attribute->font = font_getfont("Courier");
-  attribute->name = g_strdup("Attribute");
+  attribute->name = g_strdup(_("Attribute"));
 
   attribute->name_width =
     font_string_width(attribute->name, attribute->font, FONT_HEIGHT);

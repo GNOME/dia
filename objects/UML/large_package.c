@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "render.h"
@@ -102,7 +104,7 @@ ObjectType largepackage_type =
 SheetObject largepackage_sheetobj =
 {
   "UML - LargePackage",             /* type */
-  "Create a (large) package",           /* description */
+  N_("Create a (large) package"),           /* description */
   (char **) largepackage_xpm,     /* pixmap */
 
   NULL                        /* user_data */
@@ -515,7 +517,7 @@ largepackage_get_properties(LargePackage *pkg)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -527,7 +529,7 @@ largepackage_get_properties(LargePackage *pkg)
 
     hbox = gtk_hbox_new(FALSE, 5);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new("Stereotype:");
+    label = gtk_label_new(_("Stereotype:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->stereotype = GTK_ENTRY(entry);

@@ -19,6 +19,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "connectionpoint.h"
 #include "render.h"
@@ -179,7 +181,7 @@ textobj_get_properties(Textobj *textobj)
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Alignment:");
+    label = gtk_label_new(_("Alignment:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     alignment = dia_alignment_selector_new();
@@ -190,7 +192,7 @@ textobj_get_properties(Textobj *textobj)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Font:");
+    label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     font = dia_font_selector_new();
@@ -201,7 +203,7 @@ textobj_get_properties(Textobj *textobj)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
     
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Fontsize:");
+    label = gtk_label_new(_("Fontsize:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
@@ -215,7 +217,7 @@ textobj_get_properties(Textobj *textobj)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Color:");
+    label = gtk_label_new(_("Color:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
@@ -273,7 +275,7 @@ textobj_get_defaults()
     textobj_defaults_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Alignment:");
+    label = gtk_label_new(_("Alignment:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     alignment = dia_alignment_selector_new();
@@ -284,7 +286,7 @@ textobj_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Font:");
+    label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     font = dia_font_selector_new();
@@ -295,7 +297,7 @@ textobj_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
     
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Fontsize:");
+    label = gtk_label_new(_("Fontsize:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);

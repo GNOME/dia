@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include "config.h"
+#include "intl.h"
 #include "render_object.h"
 #include "sheet.h"
 
@@ -50,7 +53,7 @@ ObjectType monitor_type =
 SheetObject monitor_sheetobj =
 {
   "Network - General Monitor (With Stand)",             /* type */
-  "A monitor, with a stand", /* description */
+  N_("A monitor, with a stand"), /* description */
   (char **) monitor_xpm,     /* pixmap */
 
   NULL                       /* user_data */

@@ -18,6 +18,8 @@
 #include "render_object.h"
 #include "sheet.h"
 
+#include "config.h"
+#include "intl.h"
 #include "network.h"
 
 #include "pixmaps/computer.xpm"
@@ -50,7 +52,7 @@ ObjectType computer_type =
 SheetObject computer_sheetobj =
 {
   "Network - General Computer (Tower)",             /* type */
-  "A Computer with a tower case.", /* description */
+  N_("A Computer with a tower case."), /* description */
   (char **) computer_xpm,     /* pixmap */
 
   NULL                        /* user_data */

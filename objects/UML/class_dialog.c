@@ -21,6 +21,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "class.h"
 
 
@@ -85,13 +87,13 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Class page: */
-  page_label = gtk_label_new ("Class");
+  page_label = gtk_label_new (_("Class"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
   
   hbox = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Class name:");
+  label = gtk_label_new(_("Class name:"));
   gtk_box_pack_start (GTK_BOX (hbox),
 		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
@@ -102,7 +104,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Stereotype:");
+  label = gtk_label_new(_("Stereotype:"));
   gtk_box_pack_start (GTK_BOX (hbox),
 		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
@@ -113,7 +115,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Abstract");
+  checkbox = gtk_check_button_new_with_label(_("Abstract"));
   prop_dialog->abstract_class = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
@@ -121,11 +123,11 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Attributes visible");
+  checkbox = gtk_check_button_new_with_label(_("Attributes visible"));
   prop_dialog->attr_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
-  checkbox = gtk_check_button_new_with_label("Suppress Attributes");
+  checkbox = gtk_check_button_new_with_label(_("Suppress Attributes"));
   prop_dialog->attr_supp = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
@@ -133,11 +135,11 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Operations visible");
+  checkbox = gtk_check_button_new_with_label(_("Operations visible"));
   prop_dialog->op_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
-  checkbox = gtk_check_button_new_with_label("Operations Attributes");
+  checkbox = gtk_check_button_new_with_label(_("Operations Attributes"));
   prop_dialog->op_supp = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
@@ -545,7 +547,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Attributes page: */
-  page_label = gtk_label_new ("Attributes");
+  page_label = gtk_label_new (_("Attributes"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -573,25 +575,25 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label ("New");
+  button = gtk_button_new_with_label (_("New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Delete");
+  button = gtk_button_new_with_label (_("Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_delete_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move up");
+  button = gtk_button_new_with_label (_("Move up"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_move_up_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move down");
+  button = gtk_button_new_with_label (_("Move down"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_move_down_callback),
 		      umlclass);
@@ -602,7 +604,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new("Attribute data");
+  frame = gtk_frame_new(_("Attribute data"));
   vbox2 = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox2), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
@@ -610,7 +612,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Name:");
+  label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->attr_name = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -622,7 +624,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Type:");
+  label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->attr_type = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -634,7 +636,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Value:");
+  label = gtk_label_new(_("Value:"));
   entry = gtk_entry_new();
   prop_dialog->attr_value = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -646,7 +648,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Visibility:");
+  label = gtk_label_new(_("Visibility:"));
 
   omenu = gtk_option_menu_new ();
   menu = gtk_menu_new ();
@@ -655,7 +657,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   submenu = NULL;
   group = NULL;
     
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Public");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -663,7 +665,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Private");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -671,7 +673,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Protected");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -679,7 +681,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Implementation");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -695,7 +697,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Class scope");
+  checkbox = gtk_check_button_new_with_label(_("Class scope"));
   prop_dialog->attr_class_scope = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
@@ -1409,7 +1411,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Operations page: */
-  page_label = gtk_label_new ("Operations");
+  page_label = gtk_label_new (_("Operations"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -1437,25 +1439,25 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label ("New");
+  button = gtk_button_new_with_label (_("New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Delete");
+  button = gtk_button_new_with_label (_("Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_delete_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move up");
+  button = gtk_button_new_with_label (_("Move up"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_move_up_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move down");
+  button = gtk_button_new_with_label (_("Move down"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_move_down_callback),
 		      umlclass);
@@ -1467,7 +1469,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new("Operation data");
+  frame = gtk_frame_new(_("Operation data"));
   hbox = gtk_hbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
   gtk_container_add (GTK_CONTAINER (frame), hbox);
@@ -1477,7 +1479,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   vbox2 = gtk_vbox_new(FALSE, 5);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Name:");
+  label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->op_name = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -1489,7 +1491,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Type:");
+  label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->op_type = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -1501,7 +1503,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Visibility:");
+  label = gtk_label_new(_("Visibility:"));
 
   omenu = gtk_option_menu_new ();
   menu = gtk_menu_new ();
@@ -1510,7 +1512,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   submenu = NULL;
   group = NULL;
     
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Public");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -1518,7 +1520,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Private");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -1526,7 +1528,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Protected");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -1534,7 +1536,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, "Implementation");
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
   gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_object_set_user_data(GTK_OBJECT(menuitem),
@@ -1550,13 +1552,13 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Class scope");
+  checkbox = gtk_check_button_new_with_label(_("Class scope"));
   prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("abstract");
+  checkbox = gtk_check_button_new_with_label(_("abstract"));
   prop_dialog->op_abstract = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
@@ -1568,7 +1570,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   hbox2 = gtk_hbox_new(FALSE, 5);
 
-  label = gtk_label_new("Parameters:");
+  label = gtk_label_new(_("Parameters:"));
   gtk_box_pack_start( GTK_BOX(hbox2), label, FALSE, TRUE, 0);
   
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
@@ -1597,28 +1599,28 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox3 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label ("New");
+  button = gtk_button_new_with_label (_("New"));
   prop_dialog->param_new_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Delete");
+  button = gtk_button_new_with_label (_("Delete"));
   prop_dialog->param_delete_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_delete_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move up");
+  button = gtk_button_new_with_label (_("Move up"));
   prop_dialog->param_up_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_move_up_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move down");
+  button = gtk_button_new_with_label (_("Move down"));
   prop_dialog->param_down_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_move_down_callback),
@@ -1630,7 +1632,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new("Parameter data");
+  frame = gtk_frame_new(_("Parameter data"));
   vbox3 = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox3), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox3);
@@ -1639,7 +1641,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Name:");
+  label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->param_name = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -1651,7 +1653,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Type:");
+  label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
@@ -1663,7 +1665,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Def. value:");
+  label = gtk_label_new(_("Def. value:"));
   entry = gtk_entry_new();
   prop_dialog->param_value = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -2024,13 +2026,13 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Templates page: */
-  page_label = gtk_label_new ("Templates");
+  page_label = gtk_label_new (_("Templates"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label("Template class");
+  checkbox = gtk_check_button_new_with_label(_("Template class"));
   prop_dialog->templ_template = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox2, FALSE, TRUE, 0);
@@ -2058,25 +2060,25 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label ("New");
+  button = gtk_button_new_with_label (_("New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Delete");
+  button = gtk_button_new_with_label (_("Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_delete_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move up");
+  button = gtk_button_new_with_label (_("Move up"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_move_up_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label ("Move down");
+  button = gtk_button_new_with_label (_("Move down"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_move_down_callback),
 		      umlclass);
@@ -2087,7 +2089,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new("Formal parameter data");
+  frame = gtk_frame_new(_("Formal parameter data"));
   vbox2 = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox2), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
@@ -2095,7 +2097,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Name:");
+  label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->templ_name = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -2107,7 +2109,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new("Type:");
+  label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->templ_type = GTK_ENTRY(entry);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",

@@ -511,7 +511,7 @@ prefs_create_dialog(void)
   gtk_widget_show (notebook);
 
   for (i=0;i<NUM_PREFS_TABS;i++) {
-    label = gtk_label_new(prefs_tabs[i].title);
+    label = gtk_label_new(gettext(prefs_tabs[i].title));
     gtk_widget_show(label);
 
     table = gtk_table_new (9, 2, FALSE);
@@ -543,7 +543,7 @@ prefs_create_dialog(void)
     GtkWidget *widget;
     int row;
     
-    label = gtk_label_new (prefs_data[i].label_text);
+    label = gtk_label_new (gettext(prefs_data[i].label_text));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
     gtk_widget_show (label);
 

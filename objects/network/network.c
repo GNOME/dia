@@ -18,6 +18,8 @@
 #include "object.h"
 #include "sheet.h"
 
+#include "config.h"
+#include "intl.h"
 #include "network.h"
 
 Color computer_color = { 0.7, 0.7, 0.7 };
@@ -49,8 +51,8 @@ extern SheetObject printer_sheetobj;
 void register_sheets(void) {
   Sheet *sheet;
 
-  sheet = new_sheet("Network",
-		    "Objects to design network diagrams with");
+  sheet = new_sheet(_("Network"),
+		    _("Objects to design network diagrams with"));
   sheet_append_sheet_obj(sheet, &computer_sheetobj);
   sheet_append_sheet_obj(sheet, &monitor_sheetobj);
   sheet_append_sheet_obj(sheet, &disc_sheetobj);

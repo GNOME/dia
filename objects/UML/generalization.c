@@ -20,6 +20,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "render.h"
@@ -102,7 +104,7 @@ ObjectType generalization_type =
 SheetObject generalization_sheetobj =
 {
   "UML - Generalization",             /* type */
-  "Generalization, class inheritance.",
+  N_("Generalization, class inheritance."),
                               /* description */
   (char **) generalization_xpm,     /* pixmap */
 
@@ -484,7 +486,7 @@ generalization_get_properties(Generalization *genlz)
     
     hbox = gtk_hbox_new(FALSE, 5);
 
-    label = gtk_label_new("Name:");
+    label = gtk_label_new(_("Name:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
@@ -496,7 +498,7 @@ generalization_get_properties(Generalization *genlz)
 
     hbox = gtk_hbox_new(FALSE, 5);
     gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new("Stereotype:");
+    label = gtk_label_new(_("Stereotype:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();
     prop_dialog->stereotype = GTK_ENTRY(entry);

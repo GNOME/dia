@@ -21,6 +21,7 @@
 #include <unistd.h>
 
 #include "config.h"
+#include "intl.h"
 #include "render_eps.h"
 #include "message.h"
 #include "diagramdata.h"
@@ -135,7 +136,7 @@ new_eps_renderer(Diagram *dia, char *filename)
   file = fopen(filename, "w");
 
   if (file==NULL) {
-    message_error("Couldn't open: '%s' for writing.\n", filename);
+    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
     return NULL;
   }
 
