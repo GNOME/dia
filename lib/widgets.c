@@ -37,6 +37,190 @@
 
 #include "diagtkfontsel.h"
 
+/************* DiaSizeSelector: ***************/
+/* A widget that selects two sizes, width and height, optionally keeping
+ * aspect ration.
+ */
+struct _DiaSizeSelector
+{
+  GtkHBox hbox;
+  GtkSpinButton *width, *height;
+  GtkToggleButton *aspect_locked;
+  real ratio;
+  GtkAdjustment *last_adjusted;
+};
+
+struct _DiaSizeSelectorClass
+{
+  GtkHBoxClass parent_class;
+};
+
+static void
+dia_size_selector_unrealize(GtkWidget *widget)
+{
+  (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
+}
+
+static void
+dia_size_selector_class_init (DiaSizeSelectorClass *class)
+{
+  GtkObjectClass *object_class;
+  GtkWidgetClass *widget_class;
+  
+  object_class = (GtkObjectClass*) class;
+  widget_class = (GtkWidgetClass*) class;
+  widget_class->unrealize = dia_size_selector_unrealize;
+}
+
+static void
+dia_size_selector_adjust_width(DiaSizeSelector *ss)
+{
+  real height = 
+    gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->height));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), height*ss->ratio);
+}
+
+static void
+dia_size_selector_adjust_height(DiaSizeSelector *ss)
+{
+  real width = 
+    gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->width));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), width/ss->ratio);
+}
+
+static void
+dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata) 
+{
+  static gboolean in_progress;
+  DiaSizeSelector *ss = DIA_SIZE_SELECTOR(userdata);
+
+  ss->last_adjusted = limits;
+
+  if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)))
+    return;
+
+  if (in_progress) return;
+  in_progress = TRUE;
+
+  if (limits == gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(ss->width))) {
+    dia_size_selector_adjust_height(ss);
+  } else {
+    dia_size_selector_adjust_width(ss);
+  }
+
+  in_progress = FALSE;
+}
+
+static void
+dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
+{
+  DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
+  
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))) {
+    dia_size_selector_ratio_callback(ss->last_adjusted, (gpointer)ss);
+  }
+}
+
+/* Possible args:  Init width, init height, digits */
+
+static void
+dia_size_selector_init (DiaSizeSelector *ss)
+{
+  /* Here's where we set up the real thing */
+  GtkAdjustment *adj;
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
+					  0.1, 1.0, 1.0));
+  ss->width = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->width), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ss->width), TRUE);
+  gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->width), FALSE, TRUE, 0);
+  gtk_widget_show(GTK_WIDGET(ss->width));
+
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
+					  0.1, 1.0, 1.0));
+  ss->height = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->height), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ss->height), TRUE);
+  gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->height), FALSE, TRUE, 0);
+  gtk_widget_show(GTK_WIDGET(ss->height));
+
+  /* Replace label with images */
+  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label("Link"));
+  gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), TRUE);
+  gtk_widget_show(GTK_WIDGET(ss->aspect_locked));
+
+  gtk_signal_connect (GTK_OBJECT (ss->aspect_locked), "clicked",
+                      (GtkSignalFunc) dia_size_selector_lock_pressed,
+                      ss);
+  /* Make sure that the aspect ratio stays the same */
+  g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->width)), 
+		   "value_changed",
+		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
+  g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
+		   "value_changed",
+		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
+}
+
+guint
+dia_size_selector_get_type (void)
+{
+  static guint dss_type = 0;
+
+  if (!dss_type) {
+    GtkTypeInfo dss_info = {
+      "DiaSizeSelector",
+      sizeof (DiaSizeSelector),
+      sizeof (DiaSizeSelectorClass),
+      (GtkClassInitFunc) dia_size_selector_class_init,
+      (GtkObjectInitFunc) dia_size_selector_init,
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
+    };
+    
+    dss_type = gtk_type_unique (gtk_hbox_get_type (), &dss_info);
+
+  }
+  
+  return dss_type;
+}
+
+GtkWidget *
+dia_size_selector_new (real width, real height)
+{
+  GtkWidget *wid;
+  wid = GTK_WIDGET ( gtk_type_new (dia_size_selector_get_type ()));
+  dia_size_selector_set_size(DIA_SIZE_SELECTOR(wid), width, height);
+  return wid;
+}
+
+void
+dia_size_selector_set_size(DiaSizeSelector *ss, real width, real height) 
+{
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), width);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), height);
+  if (height != 0.0) 
+    ss->ratio = width/height;
+}
+
+void
+dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked)
+{
+  if (!ss->aspect_locked && locked) {
+    dia_size_selector_adjust_height(ss);
+  }
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), locked);
+}
+
+gboolean
+dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
+{
+  *width = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->width));
+  *height = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->height));
+  return gtk_toggle_button_get_active(ss->aspect_locked);
+}
+
 /************* DiaFontSelector: ***************/
 
 struct _DiaFontSelector
@@ -1055,10 +1239,8 @@ struct _DiaArrowSelector
   GtkVBox vbox;
 
   GtkHBox *sizebox;
-  GtkLabel *lengthlabel;
-  GtkSpinButton *length;
-  GtkLabel *widthlabel;
-  GtkSpinButton *width;
+  GtkLabel *sizelabel;
+  DiaSizeSelector *size;
   
   GtkOptionMenu *omenu;
   GtkMenu *arrow_type_menu;
@@ -1084,10 +1266,8 @@ set_size_sensitivity(DiaArrowSelector *as)
   state = (GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)))
 	   != ARROW_NONE);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(as->lengthlabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(as->length), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(as->widthlabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(as->width), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(as->size), state);
 }
 
 static void
@@ -1134,6 +1314,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   GtkWidget *width;
   GtkWidget *box;
   GtkWidget *label;
+  GtkWidget *size;
   GtkAdjustment *adj;
   GSList *group;
   
@@ -1157,34 +1338,19 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   box = gtk_hbox_new(FALSE,0);
   as->sizebox = GTK_HBOX(box);
 
-  label = gtk_label_new(_("Length: "));
-  as->lengthlabel = GTK_LABEL(label);
+  label = gtk_label_new(_("Size: "));
+  as->sizelabel = GTK_LABEL(label);
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
-  length = gtk_spin_button_new(adj, DEFAULT_ARROW_LENGTH, 2);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
-  as->length = GTK_SPIN_BUTTON(length);
-  gtk_box_pack_start_defaults(GTK_BOX (box), length);
-  gtk_widget_show (length);
-
-  label = gtk_label_new(_("Width: "));
-  as->widthlabel = GTK_LABEL(label);
-  gtk_box_pack_start_defaults(GTK_BOX(box), label);
-  gtk_widget_show(label);
-
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
-  width = gtk_spin_button_new(adj, DEFAULT_ARROW_WIDTH, 2);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(width), TRUE);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width), TRUE);
-  as->width = GTK_SPIN_BUTTON(width);
-  gtk_box_pack_start_defaults(GTK_BOX (box), width);
-  gtk_widget_show (width);
+  size = dia_size_selector_new(DEFAULT_ARROW_WIDTH, DEFAULT_ARROW_LENGTH);
+  as->size = DIA_SIZE_SELECTOR(size);
+  gtk_box_pack_start_defaults(GTK_BOX(box), size);
+  gtk_widget_show(size);  
 
   set_size_sensitivity(as);
   gtk_box_pack_start_defaults(GTK_BOX(as), box);
+
   gtk_widget_show(box);
 
 }
@@ -1227,8 +1393,7 @@ dia_arrow_selector_get_arrow(DiaArrowSelector *as)
 
   menuitem = gtk_menu_get_active(as->arrow_type_menu);
   at.type = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
-  at.width = gtk_spin_button_get_value_as_float(as->width);
-  at.length = gtk_spin_button_get_value_as_float(as->length);
+  dia_size_selector_get_size(as->size, &at.width, &at.length);
   return at;
 }
 
@@ -1251,8 +1416,7 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 /* TODO: restore CheckMenu version of menu */
 /*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->arrow_type_menu))), TRUE);*/
   set_size_sensitivity(as);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);
+  dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
 }
 
 /************* DiaFileSelector: ***************/

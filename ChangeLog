@@ -1,3 +1,13 @@
+2004-03-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/Makefile.am: Fixed $(EXEEXT) warning from automake.
+
+	* lib/diatypes.h: New type DiaSizeSelector.
+
+	* lib/widgets.[ch]: New size selector widgets that selects two
+	values (width and height, nominally) optionally linked to keep
+	aspect ratio.
+
 2004-03-01  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* plug-ins/svg/render_svg.c (new_svg_renderer): Add DTD declaration

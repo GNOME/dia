@@ -223,7 +223,7 @@ EXTRA_DIST = \
 	pixmaps/on-grid.xpm \
 	pixmaps/off-grid.xpm
 
-run_dia.sh: Makefile.am
+run_dia.sh$(EXEEXT): Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
 	echo DIA_APP_PATH=\"`pwd`\" >>run_dia.sh
 	echo DIA_BASE_PATH=\"'$$DIA_APP_PATH'/..\" >>run_dia.sh

@@ -168,6 +168,8 @@ typedef struct _Text Text;
 typedef struct _TextAttributes TextAttributes;
 
 /* In widgets.h: */
+typedef struct _DiaSizeSelector       DiaSizeSelector;
+typedef struct _DiaSizeSelectorClass  DiaSizeSelectorClass;
 typedef struct _DiaFontSelector       DiaFontSelector;
 typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
 typedef struct _DiaAlignmentSelector       DiaAlignmentSelector;

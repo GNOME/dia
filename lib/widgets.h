@@ -141,6 +141,18 @@ GtkWidget* dia_file_selector_new             (void);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
 const gchar *dia_file_selector_get_file        (DiaFileSelector *fs);
 
+/* DiaSizeSelector: */
+#define DIA_SIZE_SELECTOR(obj)          GTK_CHECK_CAST (obj, dia_size_selector_get_type (), DiaSizeSelector)
+#define DIA_SIZE_SELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_size_selector_get_type (), DiaSizeSelectorClass)
+#define IS_DIA_SIZE_SELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_size_selector_get_type ())
+
+
+guint      dia_size_selector_get_type        (void);
+GtkWidget* dia_size_selector_new             (real width, real height);
+void       dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked);
+void       dia_size_selector_set_size        (DiaSizeSelector *ss, real width, real height);
+gboolean dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, real *height);
+
 /* Other common defaults */
 
 #define DEFAULT_ALIGNMENT ALIGN_LEFT
