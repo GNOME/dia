@@ -113,37 +113,19 @@ skip_comments(FILE *file) {
   return TRUE;
 }
 
-static PropDescription xfig_text_prop_descs[] = {
-    { "text", PROP_TYPE_STRING },
-    PROP_DESC_END};
-
 static Object *
-create_standard_text(real xpos, real ypos, char *text,
+create_standard_text(real xpos, real ypos,
 		     DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Text");
     Object *new_obj;
     Handle *h1, *h2;
     Point point;
-    GPtrArray *props;
-    StringProperty *prop;
 
     point.x = xpos;
     point.y = ypos;
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    /*   layer_add_object(dia->active_layer, new_obj); */
-
-    props = prop_list_from_descs(xfig_text_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);
-
-    prop = g_ptr_array_index(props,0);
-    g_free(prop->string_data);
-    prop->string_data = text;
-    prop->num_lines = 1;
-
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
     
     return new_obj;
 }
@@ -828,23 +810,17 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 }
 
 static PropDescription xfig_text_descs[] = {
-    { "text_colour", PROP_TYPE_COLOUR },
-    { "text_alignment", PROP_TYPE_ENUM },
-    { "text_height", PROP_TYPE_REAL },
-    { "text_font", PROP_TYPE_FONT },
+   { "text", PROP_TYPE_TEXT },
+    PROP_DESC_END
     /* Can't do the angle */
     /* Height and length are ignored */
     /* Flags */
-    PROP_DESC_END
 };
 
 static Object *
 fig_read_text(FILE *file, DiagramData *dia) {
     GPtrArray *props;
-    ColorProperty *cprop;
-    EnumProperty *eprop;
-    RealProperty *rprop;
-    FontProperty *fprop;
+    TextProperty *tprop;
 
     Object *newobj = NULL;
     int sub_type;
@@ -879,21 +855,20 @@ fig_read_text(FILE *file, DiagramData *dia) {
     /* Skip one space exactly */
     text_buf = fig_read_text_line(file);
 
-    newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT, text_buf, dia);
-    g_free(text_buf);
+    newobj = create_standard_text(x, y, dia);
 
     props = prop_list_from_descs(xfig_text_descs,pdtpp_true);
     g_assert(props->len == 1);
 
-    cprop = g_ptr_array_index(props,0);
-    cprop->color_data = fig_color(color);
-    eprop = g_ptr_array_index(props,1);
-    eprop->enum_data = sub_type;
-    rprop = g_ptr_array_index(props,2);
-    rprop->real_data = font_size*2.54/72.0;
-    fprop = g_ptr_array_index(props,3);
-    fprop->font_data = font_getfont(fig_fonts[font]);
-
+    tprop = g_ptr_array_index(props,0);
+    tprop->text_data = text_buf;
+    //g_free(text_buf);
+    tprop->attr.alignment = sub_type;
+    tprop->attr.position.x = x/FIG_UNIT;
+    tprop->attr.position.y = y/FIG_UNIT;
+    tprop->attr.font = font_getfont(fig_fonts[font]);
+    tprop->attr.height = font_size*3.54/72.0;
+    tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);
     
     prop_list_free(props);
