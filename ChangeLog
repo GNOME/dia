@@ -1,5 +1,18 @@
 2000-01-28  James Henstridge  <james@daa.com.au>
 
+	* app/commands.h: removed prototypes.
+
+	* app/commands.c: removed the functions that have been moved to
+	filedlg.c.
+
+	* app/filedlg.h: added new prototypes.
+
+	* app/filedlg.c (file_open_callback): move open dialog to this
+	file.  This implementation should remember the current directory
+	between file loads.
+	(file_save_as_callback): moved this dialog as well.
+	(file_save_callback): moved this function here.
+
 	* app/paginate_psprint.c (paginate_psprint): if not in fit to mode,
 	align page boundaries to the origin.
 

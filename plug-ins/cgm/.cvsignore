@@ -5,5 +5,5 @@ Makefile
 Makefile.in
 *.lo
 libcgm_filter.la
-
+*.pyc
 

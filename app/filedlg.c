@@ -27,7 +27,11 @@
 #include "filter.h"
 #include "display.h"
 #include "message.h"
+#include "layer_dialog.h"
+#include "load_save.h"
 
+static GtkWidget *opendlg = NULL;
+static GtkWidget *savedlg = NULL;
 static GtkWidget *exportdlg = NULL, *export_options = NULL, *export_omenu=NULL;
 
 static int
@@ -53,6 +57,184 @@ static void
 set_true_callback(GtkWidget *w, int *data)
 {
   *data = TRUE;
+}
+
+static void
+file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
+{
+  char *filename;
+  Diagram *diagram;
+  DDisplay *ddisp;
+
+  filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(fs));
+  diagram = diagram_load(filename);
+
+  if (diagram != NULL) {
+    diagram_update_extents(diagram);
+    layer_dialog_set_diagram(diagram);
+
+    ddisp = new_display(diagram);
+  }
+  /* Error handling is in diagram_load() */
+
+  gtk_widget_hide(opendlg);
+}
+
+void
+file_open_callback(GtkWidget *widget, gpointer user_data)
+{
+  if (!opendlg) {
+    opendlg = gtk_file_selection_new(_("Open Diagram"));
+    gtk_window_set_wmclass(GTK_WINDOW(opendlg), "open_diagram", "Dia");
+    gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
+    gtk_signal_connect_object(
+		GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->cancel_button),
+		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
+		GTK_OBJECT(opendlg));
+    gtk_signal_connect(GTK_OBJECT(opendlg), "delete_event",
+		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->ok_button),
+		       "clicked", GTK_SIGNAL_FUNC(file_open_ok_callback),
+		       opendlg);
+    gtk_quit_add_destroy(1, GTK_OBJECT(opendlg));
+  } else {
+    gtk_widget_set_sensitive(opendlg, TRUE);
+    if (GTK_WIDGET_VISIBLE(opendlg))
+      return;
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
+				    "." G_DIR_SEPARATOR_S);
+  }
+  gtk_widget_show(opendlg);
+}
+
+static void
+file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
+{
+  char *filename;
+  Diagram *dia;
+  struct stat stat_struct;
+
+  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+
+  filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(fs));
+
+  if (stat(filename, &stat_struct) == 0) {
+    GtkWidget *dialog = NULL;
+    GtkWidget *button, *label;
+    char buffer[300];
+    int result;
+
+    dialog = gtk_dialog_new();
+  
+    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
+			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
+    
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
+
+    g_snprintf(buffer, 300,
+	       _("The file '%s' already exists.\n"
+		 "Do you want to overwrite it?"), filename);
+    label = gtk_label_new (buffer);
+    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
+			label, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+
+    result = FALSE;
+    
+    button = gtk_button_new_with_label (_("Yes"));
+    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+			button, TRUE, TRUE, 0);
+    gtk_widget_grab_default (button);
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+			GTK_SIGNAL_FUNC(set_true_callback),
+			&result);
+    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
+			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
+			       GTK_OBJECT (dialog));
+    gtk_widget_show (button);
+    
+    button = gtk_button_new_with_label (_("No"));
+    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
+			button, TRUE, TRUE, 0);
+    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
+			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
+			       GTK_OBJECT (dialog));
+    gtk_widget_show (button);
+
+    gtk_widget_show(dialog);
+
+    gtk_widget_grab_focus(dialog);
+    gtk_grab_add(dialog);
+
+    gtk_main();
+
+    if (result == FALSE) {
+      gtk_widget_hide(savedlg);
+      return;
+    }
+  }
+
+  diagram_update_extents(dia);
+
+  diagram_set_filename(dia, filename);
+  diagram_save(dia, filename);
+
+  gtk_widget_hide(savedlg);
+}
+
+void
+file_save_as_callback(GtkWidget *widget, gpointer user_data)
+{
+  DDisplay *ddisp;
+  Diagram *dia;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+  dia = ddisp->diagram;
+
+  if (!savedlg) {
+    savedlg = gtk_file_selection_new(_("Save Diagram"));
+    gtk_window_set_wmclass(GTK_WINDOW(savedlg), "save_diagram", "Dia");
+    gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
+    gtk_signal_connect_object(
+		GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->cancel_button),
+		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
+		GTK_OBJECT(savedlg));
+    gtk_signal_connect(GTK_OBJECT(savedlg), "delete_event",
+		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->ok_button),
+		       "clicked", GTK_SIGNAL_FUNC(file_save_as_ok_callback),
+		       savedlg);
+    gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
+  } else {
+    gtk_widget_set_sensitive(savedlg, TRUE);
+    if (GTK_WIDGET_VISIBLE(savedlg))
+      return;
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
+				    dia->filename ? dia->filename
+				    : "." G_DIR_SEPARATOR_S);
+  }
+  gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+  gtk_widget_show(savedlg);
+}
+
+void
+file_save_callback(GtkWidget *widget, gpointer user_data)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+
+  if (ddisp->diagram->unsaved) {
+    file_save_as_callback(widget, user_data);
+  } else {
+    diagram_update_extents(ddisp->diagram);
+    diagram_save(ddisp->diagram, ddisp->diagram->filename);
+  }
 }
 
 static void
@@ -108,7 +290,7 @@ create_export_menu(void)
   return menu;
 }
 
-void
+static void
 file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 {
   char *filename;
@@ -180,8 +362,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     gtk_main();
 
     if (result==FALSE) {
-      gtk_grab_remove(GTK_WIDGET(fs));
-      gtk_widget_destroy(GTK_WIDGET(fs));
+      gtk_widget_hide(exportdlg);
       return;
     }
   }

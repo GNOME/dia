@@ -2,14 +2,5 @@
 .libs
 Makefile
 Makefile.in
-arc.lo
-box.lo
-elipse.lo
-ellipse.lo
+*.lo
 libstandard_objects.la
-line.lo
-standard.lo
-textobj.lo
-zigzagline.lo
-polyline.lo
-image.lo

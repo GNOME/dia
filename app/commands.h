@@ -21,9 +21,6 @@
 #include <gtk/gtk.h>
 
 extern void file_quit_callback(GtkWidget *widget, gpointer data);
-extern void file_open_callback(GtkWidget *widget, gpointer data);
-extern void file_save_callback(GtkWidget *widget, gpointer data);
-extern void file_save_as_callback(GtkWidget *widget, gpointer data);
 extern void file_import_from_xfig_callback(GtkWidget *widget, gpointer data);
 extern void file_pagesetup_callback(GtkWidget *widget, gpointer data);
 extern void file_print_callback(GtkWidget *widget, gpointer data);
