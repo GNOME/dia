@@ -32,6 +32,8 @@ struct _SheetObject {
 
   void *user_data;
 
+  gboolean line_break;
+
   char *pixmap_file; /* fallback if pixmap is NULL */
 };
 

@@ -56,7 +56,7 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning("Object '%s' needed in sheet '%s' was not found.\n"
-		    "It will not be availible for use.",
+		    "It will not be available for use.",
 		    obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
@@ -176,6 +176,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   int descr_score = -1;
   Sheet *sheet = NULL;
   GSList *sheetp;
+  gboolean set_line_break = FALSE;
 
   /* the XML fun begins here. */
 
@@ -280,6 +281,10 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     } else if (!strcmp(node->name,"shape")) {
       g_message("%s: you should use object tags rather than shape tags now",
 		filename);
+    } else if (!strcmp(node->name,"br")) {
+      /* Line break tag. */
+      set_line_break = TRUE;
+      continue;
     } else
       continue; /* unknown tag */
     
@@ -328,6 +333,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     sheet_obj->pixmap = NULL;
     sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
     sheet_obj->pixmap_file = iconname; 
+    sheet_obj->line_break = set_line_break;
+    set_line_break = FALSE;
 
     if ((otype = object_get_type(tmp)) == NULL) {
       g_free(sheet_obj->description);

@@ -8,7 +8,7 @@
 <!ATTLIST description
   xml:lang NMTOKEN #IMPLIED 'C' >
 
-<!ELEMENT contents (object | shape)* >
+<!ELEMENT contents (object | shape | br)* >
 
 <!ELEMENT object (description)* >
 <!ATTLIST object
@@ -18,3 +18,6 @@
 <!ELEMENT shape (description)* >
 <!ATTLIST shape
   name CDATA #REQUIRED >
+
+<!ELEMENT br >
+<!ATTLIST br >

@@ -494,6 +494,8 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 #ifdef USE_WRAPBOX
     gtk_wrap_box_pack(GTK_WRAP_BOX(table), button,
 		      FALSE, TRUE, FALSE, TRUE);
+    if (sheet_obj->line_break)
+      gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(table),button,TRUE);
 #else
     gtk_table_attach (GTK_TABLE (table), button,
 		      (i % COLUMNS), (i % COLUMNS) + 1,

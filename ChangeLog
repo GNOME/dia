@@ -1,3 +1,12 @@
+2000-04-12  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/interface.c:
+	* lib/sheet.[ch]: added a <br/> tag in sheet files, so that line 
+	breaks can be inserted in the tool box. 
+
+	* doc/sheet.dtd: updated the DTD
+	* sheets/GRAFCET.sheet: tried <br/> on that sheet (more to come).
+	
 2000-04-12  James Henstridge  <james@daa.com.au>
 
 	* app/plugin-manager.c (get_plugin_manager): use the GTK_DIALOG

@@ -42,11 +42,18 @@
       <description>A macro sub-program call step</description>
       <icon>GRAFCET/etapesp.xpm</icon>
     </object>
+    <br/>
     <object name="GRAFCET - Action">
       <description xml:lang="fr">Une action à associer à une étape </description>
       <description xml:lang="de">Eine mit einem Schritt verbundene Aktion </description>
       <description>An action to associate to a step</description>
     </object>
+    <object name="GRAFCET - Condition">
+      <description xml:lang="fr">Une condition (d'une action)</description>
+      <description xml:lang="de">Eine Aktionskonditionierung</description>
+      <description>A condition (of an action)</description>
+    </object>
+    <br/>
     <object name="GRAFCET - Transition">
       <description xml:lang="fr">Une transition</description>
       <description xml:lang="de">Eine Transition</description>
@@ -63,11 +70,7 @@
       <description>A AND vergent</description>
       <icon>GRAFCET/vergent_and.xpm</icon>
     </object>
-    <object name="GRAFCET - Condition">
-      <description xml:lang="fr">Une condition (d'une action)</description>
-      <description xml:lang="de">Eine Aktionskonditionierung</description>
-      <description>A condition (of an action)</description>
-    </object>
+    <br/>
     <object name="GRAFCET - Vector">
       <description xml:lang="fr">Un arc (montant)</description>
       <description xml:lang="de">Ein Bogen</description>
