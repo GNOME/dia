@@ -47,6 +47,16 @@ new_diagram_data(void)
   data->paper.width = 21.0 - 2 * 2.82;
   data->paper.height = 29.7 - 2 * 2.82;
 
+  data->grid.width_x = 1.0;
+  data->grid.width_y = 1.0;
+  data->grid.visible_x = 1;
+  data->grid.visible_y = 1;
+
+  data->guides.nhguides = 0;
+  data->guides.hguides = NULL;
+  data->guides.nvguides = 0;
+  data->guides.vguides = NULL;
+
   first_layer = new_layer(g_strdup(_("Background")));
   data->layers = g_ptr_array_new();
   g_ptr_array_add(data->layers, first_layer);

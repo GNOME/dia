@@ -26,8 +26,6 @@ typedef struct _Grid Grid;
 struct _Grid {
   guint visible;
   guint snap;
-  real width_x;
-  real width_y;
   
   GdkGC *gc;
 
@@ -41,7 +39,7 @@ struct _Grid {
 #include "display.h"
 
 void grid_draw(DDisplay *ddisp, Rectangle *update);
-void snap_to_grid(Grid *grid, coord *x, coord *y);
+void snap_to_grid(DDisplay *ddisp, coord *x, coord *y);
 void grid_show_dialog(Grid *grid, DDisplay *ddisp);
 void grid_destroy_dialog(Grid *grid);
 

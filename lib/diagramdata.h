@@ -45,6 +45,19 @@ struct _DiagramData {
 
   PaperInfo paper;       /* info about the page info for the diagram */
 
+  struct  {
+    /* grid line intervals */
+    real width_x, width_y;
+    /* the interval between visible grid lines */
+    guint visible_x, visible_y;
+  } grid;
+
+  struct {
+    /* sorted arrays of the guides for the diagram */
+    real *hguides, *vguides;
+    guint nhguides, nvguides;
+  } guides;
+
   GPtrArray *layers;     /* Layers ordered by decreasing z-order */
   Layer *active_layer;
 

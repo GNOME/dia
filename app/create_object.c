@@ -45,7 +45,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint.x, &clickedpoint.y);
 
-  snap_to_grid(&ddisp->grid, &clickedpoint.x, &clickedpoint.y);
+  snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
   
   obj = tool->objtype->ops->create(&clickedpoint, tool->user_data,
 				   &handle1, &handle2);
@@ -149,7 +149,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
     to = connectionpoint->pos;
   } else {
     /* No connectionopoint near, then snap to grid (if enabled) */
-    snap_to_grid(&ddisp->grid, &to.x, &to.y);
+    snap_to_grid(ddisp, &to.x, &to.y);
   }
 
   object_add_updates(tool->obj, ddisp->diagram);

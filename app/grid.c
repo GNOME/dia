@@ -32,9 +32,14 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
   Renderer *renderer = ddisp->renderer;
   int width = ddisp->renderer->pixel_width;
   int height = ddisp->renderer->pixel_height;
+  /* distance between visible grid lines */
+  real width_x = ddisp->diagram->data->grid.width_x *
+    ddisp->diagram->data->grid.visible_x;
+  real width_y = ddisp->diagram->data->grid.width_y *
+    ddisp->diagram->data->grid.visible_y;
 
-  if ( (ddisplay_transform_length(ddisp, grid->width_x) <= 1.0) ||
-       (ddisplay_transform_length(ddisp, grid->width_y) <= 1.0) ) {
+  if ( (ddisplay_transform_length(ddisp, width_x) <= 1.0) ||
+       (ddisplay_transform_length(ddisp, width_y) <= 1.0) ) {
     return;
   }
   
@@ -52,25 +57,25 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     }
     
     /* Vertical lines: */
-    pos = ceil( update->left / grid->width_x )*grid->width_x;
+    pos = ceil( update->left / width_x ) * width_x;
     while (pos <= update->right) {
       ddisplay_transform_coords(ddisp, pos,0,&x,&y);
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   x, 0,
 						   x, height,
 						   &prefs.grid.colour);
-      pos += grid->width_x;
+      pos += width_x;
     }
 
     /* Horizontal lines: */
-    pos = ceil( update->top / grid->width_y )*grid->width_y;
+    pos = ceil( update->top / width_y ) * width_y;
     while (pos <= update->bottom) {
       ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   0, y,
 						   width, y,
 						   &prefs.grid.colour);
-      pos += grid->width_y;
+      pos += width_y;
     }
   }
 
@@ -118,11 +123,14 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
 }
 
 void
-snap_to_grid(Grid *grid, coord *x, coord *y)
+snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
 {
-  if (grid->snap) {
-    *x = ROUND((*x) / grid->width_x) * grid->width_x;
-    *y = ROUND((*y) / grid->width_y) * grid->width_y;
+  if (ddisp->grid.snap) {
+    real width_x = ddisp->diagram->data->grid.width_x;
+    real width_y = ddisp->diagram->data->grid.width_y;
+
+    *x = ROUND((*x) / width_x) * width_x;
+    *y = ROUND((*y) / width_y) * width_y;
   }
 }
 
@@ -135,12 +143,12 @@ grid_x_update(GtkWidget *entry, DDisplay *ddisp)
   size = atof(gtk_entry_get_text(GTK_ENTRY(entry)));
 
   if (size > 0.01) {
-    ddisp->grid.width_x = size;
+    ddisp->diagram->data->grid.width_x = size;
     
-    g_snprintf(buffer, 32, "%.4f", (double) ddisp->grid.width_x);
+    g_snprintf(buffer, 32, "%.4f", (double)ddisp->diagram->data->grid.width_x);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
+    diagram_add_update_all(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
   }
 }
 
@@ -160,12 +168,12 @@ grid_y_update(GtkWidget *entry, DDisplay *ddisp)
   size = atof(gtk_entry_get_text(GTK_ENTRY(entry)));
 
   if (size > 0.01) {
-    ddisp->grid.width_y = size;
+    ddisp->diagram->data->grid.width_y = size;
     
-    g_snprintf(buffer, 32, "%.4f", (double) ddisp->grid.width_y);
+    g_snprintf(buffer, 32, "%.4f", (double)ddisp->diagram->data->grid.width_y);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
+    diagram_add_update_all(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
   }
 }
 
@@ -178,13 +186,13 @@ grid_y_update_event(GtkWidget *entry, GdkEventFocus *ev, DDisplay *ddisp)
 
 void grid_show_dialog(Grid *grid, DDisplay *ddisp)
 {
+  char buffer[32];
   
   if (grid->dialog == NULL) {
     GtkWidget *dialog;
     GtkWidget *vbox;
     GtkWidget *hbox;
     GtkWidget *label, *entry;
-    char buffer[32];
     
     grid->dialog = dialog = gtk_window_new(GTK_WINDOW_DIALOG);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Grid options"));
@@ -205,8 +213,6 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     gtk_widget_show(entry);
     gtk_widget_show(hbox);
 
-    g_snprintf(buffer, 32, "%.4f", (double) grid->width_x);
-    gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     grid->handler_x =
       gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 			  GTK_SIGNAL_FUNC (grid_x_update_event), ddisp);
@@ -223,8 +229,6 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     gtk_widget_show(entry);
     gtk_widget_show(hbox);
 
-    g_snprintf(buffer, 32, "%.4f", (double) grid->width_y);
-    gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     grid->handler_y =
       gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 			  GTK_SIGNAL_FUNC (grid_y_update_event), ddisp);
@@ -233,6 +237,11 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
 
     gtk_widget_show(vbox);
   }
+
+  g_snprintf(buffer, 32, "%.4f", (double)ddisp->diagram->data->grid.width_x);
+  gtk_entry_set_text(GTK_ENTRY(grid->entry_x), buffer);
+  g_snprintf(buffer, 32, "%.4f", (double)ddisp->diagram->data->grid.width_y);
+  gtk_entry_set_text(GTK_ENTRY(grid->entry_y), buffer);
   
   gtk_widget_show(grid->dialog);
 }

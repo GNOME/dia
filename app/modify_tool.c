@@ -314,7 +314,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     }
 
     point_add(&to, &tool->move_compensate);
-    snap_to_grid(&ddisp->grid, &to.x, &to.y);
+    snap_to_grid(ddisp, &to.x, &to.y);
   
     now = tool->object->position;
     
@@ -353,7 +353,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       to = connectionpoint->pos;
     } else {
       /* No connectionopoint near, then snap to grid (if enabled) */
-      snap_to_grid(&ddisp->grid, &to.x, &to.y);
+      snap_to_grid(ddisp, &to.x, &to.y);
     }
 
     if (tool->break_connections) {

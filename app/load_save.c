@@ -184,7 +184,7 @@ diagram_data_load(const char *filename, DiagramData *data)
   GList *list;
   xmlDocPtr doc;
   xmlNodePtr diagramdata;
-  xmlNodePtr paperinfo;
+  xmlNodePtr paperinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
   AttributeNode attr;
   Layer *layer;
@@ -308,6 +308,51 @@ diagram_data_load(const char *filename, DiagramData *data)
     data->paper.height -= data->paper.bmargin;
     data->paper.width /= data->paper.scaling;
     data->paper.height /= data->paper.scaling;
+  }
+  attr = composite_find_attribute(diagramdata, "grid");
+  if (attr != NULL) {
+    gridinfo = attribute_first_data(attr);
+
+    attr = composite_find_attribute(gridinfo, "width_x");
+    if (attr != NULL)
+      data->grid.width_x = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(gridinfo, "width_y");
+    if (attr != NULL)
+      data->grid.width_y = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(gridinfo, "visible_x");
+    if (attr != NULL)
+      data->grid.visible_x = data_int(attribute_first_data(attr));
+    attr = composite_find_attribute(gridinfo, "visible_y");
+    if (attr != NULL)
+      data->grid.visible_y = data_int(attribute_first_data(attr));
+  }
+  attr = composite_find_attribute(diagramdata, "guides");
+  if (attr != NULL) {
+    guint i;
+    DataNode guide;
+
+    guideinfo = attribute_first_data(attr);
+
+    attr = composite_find_attribute(guideinfo, "hguides");
+    if (attr != NULL) {
+      data->guides.nhguides = attribute_num_data(attr);
+      g_free(data->guides.hguides);
+      data->guides.hguides = g_new(real, data->guides.nhguides);
+    
+      guide = attribute_first_data(attr);
+      for (i = 0; i < data->guides.nhguides; i++, guide = data_next(guide))
+	data->guides.hguides[i] = data_real(guide);
+    }
+    attr = composite_find_attribute(guideinfo, "vguides");
+    if (attr != NULL) {
+      data->guides.nvguides = attribute_num_data(attr);
+      g_free(data->guides.vguides);
+      data->guides.vguides = g_new(real, data->guides.nvguides);
+    
+      guide = attribute_first_data(attr);
+      for (i = 0; i < data->guides.nvguides; i++, guide = data_next(guide))
+	data->guides.vguides[i] = data_real(guide);
+    }
   }
 
   /* Read in all layers: */
@@ -464,7 +509,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   FILE *file;
   xmlDocPtr doc;
   xmlNodePtr tree;
-  xmlNodePtr pageinfo;
+  xmlNodePtr pageinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
   GHashTable *objects_hash;
   int res;
@@ -542,6 +587,26 @@ diagram_data_save(DiagramData *data, const char *filename)
     data_add_int(composite_add_attribute(pageinfo, "fitheight"),
 		 data->paper.fitheight);
   }
+
+  attr = new_attribute((ObjectNode)tree, "grid");
+  gridinfo = data_add_composite(attr, "grid");
+  data_add_real(composite_add_attribute(gridinfo, "width_x"),
+		data->grid.width_x);
+  data_add_real(composite_add_attribute(gridinfo, "width_y"),
+		data->grid.width_y);
+  data_add_int(composite_add_attribute(gridinfo, "visible_x"),
+		data->grid.visible_x);
+  data_add_int(composite_add_attribute(gridinfo, "visible_y"),
+		data->grid.visible_y);
+
+  attr = new_attribute((ObjectNode)tree, "guides");
+  guideinfo = data_add_composite(attr, "guides");
+  attr = composite_add_attribute(guideinfo, "hguides");
+  for (i = 0; i < data->guides.nhguides; i++)
+    data_add_real(attr, data->guides.hguides[i]);
+  attr = composite_add_attribute(guideinfo, "vguides");
+  for (i = 0; i < data->guides.nvguides; i++)
+    data_add_real(attr, data->guides.vguides[i]);
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 

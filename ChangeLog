@@ -1,5 +1,37 @@
 2000-07-25  James Henstridge  <james@daa.com.au>
 
+	* app/grid.c (grid_x_update): 
+	(grid_y_update): as the grid setting is stored with the diagram,
+	update all displays when a change is made.
+
+	* app/modify_tool.c (modify_motion): use new snap_to_grid sig.
+
+	* app/create_object.c (create_object_button_press): 
+	(create_object_motion): use new snap_to_grid signature.
+
+	* app/grid.c (grid_draw): use the grid settings in the DiagramData,
+	and handle invisible grid lines.
+	(snap_to_grid): use new grid settings.  Also changed signature to
+	take a DDisplay rather than Grid pointer.
+	(grid_show_dialog): get the defaults from the correct place.
+
+	* app/display.c (new_display): do not set ddisp->grid.width_[xy].
+
+	* app/diagram.c (new_diagram): set the grid size defaults from the
+	user preferences.
+
+	* app/load_save.c (diagram_data_save): save grid and guide info to
+	diagram file.
+	(diagram_data_load): add guide and grid load support.
+
+	* lib/diagramdata.c (new_diagram_data): set the new DiagramData
+	members.
+
+	* lib/diagramdata.h: add members to DiagramData for grid and guide
+	settings.
+
+	* configure.in (BONOBO_LIBS): update configure scripts
+
 	* app/dia.oafinfo: oafinfo file for dia embeddables.
 
 	* app/dia_embedd.c: add OAF support.

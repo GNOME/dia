@@ -27,6 +27,7 @@
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
+#include "preferences.h"
 #include "properties.h"
 #include "cut_n_paste.h"
 #include "layer_dialog.h"
@@ -62,6 +63,8 @@ new_diagram(const char *filename)  /* Note: filename is copied */
   Diagram *dia = g_new(Diagram, 1);
   
   dia->data = new_diagram_data();
+  dia->data->grid.width_x = prefs.grid.x;
+  dia->data->grid.width_y = prefs.grid.y;
 
   dia->filename = g_strdup(filename);
   
