@@ -457,8 +457,10 @@ eps_renderer_set_scale(DiagramData *data, RendererEPS *renderer)
   scale = 28.346 * data->paper.scaling;
 
   fprintf(renderer->file,
+	  "%% Paper scaling factor: %f\n"
 	  "%f %f scale\n"
 	  "%f %f translate\n\n",
+	  data->paper.scaling,
 	  scale, -scale,
 	  -extent->left, -extent->bottom );
 }
@@ -1104,8 +1106,10 @@ void postscript_draw_contour(RendererEPS *renderer,
       PangoGlyphString *glyphs = run->glyphs;
       PangoAnalysis *analysis = &item->analysis;
       PangoFont *font = analysis->font;
-      /*PangoFont *font = pango_context_load_font(renderer->context,
-	renderer->current_font->pfd);*/
+      /*
+	PangoFont *font = pango_context_load_font(renderer->context,
+	renderer->current_font->pfd);
+      */
       FT_Face ft_face;
       int bidi_level;
       int num_glyphs;
@@ -1120,6 +1124,12 @@ void postscript_draw_contour(RendererEPS *renderer,
 		pango_font_description_to_string(pango_font_describe(font)));
 	continue;
       }
+      /*
+      printf("Got face %s (PS %s) for font %s\n",
+	     ft_face->family_name,
+	     FT_Get_Postscript_Name(ft_face),
+	     pango_font_description_to_string(pango_font_describe(font)));
+      */
       bidi_level = item->analysis.level;
       num_glyphs = glyphs->num_glyphs;
       
@@ -1184,7 +1194,7 @@ void draw_bezier_outline(RendererEPS *renderer,
 
   fprintf(renderer->file, 
 	  "gsave %f %f translate %f %f scale 0 0 0 setrgbcolor\n",
-	  pos_x, pos_y, 1.0/renderer->scale, -1.0/renderer->scale);
+	  pos_x, pos_y, 2.54/72.0, -2.54/72.0);
   fprintf(renderer->file, "start_ol\n");
 
   if ((error=FT_Load_Glyph(face, glyph_index, load_flags))) {
@@ -1204,7 +1214,11 @@ static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   renderer->current_font = font;
-  renderer->current_height = height*1.6;
+  /* Where did this 1.45 come from? */
+  /* Used to be just as arbitrarily 1.6, but experimentation shows 1.45 
+     is better */
+  /* 28.346 = 72.0 / 2.54 */
+  renderer->current_height = height*1.45;//*(renderer->scale/28.346);
   pango_context_set_font_description(renderer->context, font->pfd);
 }
 
