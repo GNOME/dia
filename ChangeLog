@@ -1,3 +1,13 @@
+2002-05-03  Hams Breuer  <hans@breuer.org>
+
+	* lib/dia_xml.c : make the well formed utf8 check
+	actually work for &#251; (non 7-bit ascii encoding)
+	and fixed the file re-writing if the check fails.
+	Thanks to Vitaly Lipatov for noticing the misbehaviour.
+
+	* lib/font.c : synchronize #ifdef G_OS_WIN32 with
+	comment on last ressort font. Thanks to Maxim Sobolev.
+
 2002-06-03  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* sheets/network.sheet.in: corrected a typo in plotter invocation.

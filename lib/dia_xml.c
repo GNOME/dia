@@ -133,13 +133,17 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   do {
     int i;
     for (i = 0; i < len; i++)
-      if (buf[i] & 0x80)
+      if (buf[i] & 0x80 || buf[i] == '&')
         well_formed_utf8 = FALSE;
     len = gzread(zf,buf,BUFLEN);
   } while (len > 0 && well_formed_utf8);
   if (well_formed_utf8) {
     gzclose(zf); /* this file is utf-8 compatible  */
     return filename;
+  } else {
+    gzclose(zf); /* poor man's fseek */
+    zf = gzopen(filename,"rb"); 
+    len = gzread(zf,buf,BUFLEN);
   }
 
   if (0 != strcmp(default_enc,"UTF-8")) {

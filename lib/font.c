@@ -467,12 +467,12 @@ GHashTable *fonts_hash = NULL;
 
 char *last_resort_fonts[] = {
   "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
-  "-urw-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
-  "-*-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
-#ifndef G_OS_WIN32
+#ifdef G_OS_WIN32
   "system" /* Must be last. This is guaranteed to exist on a MS-Windows 
               system. */
 #else
+  "-urw-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+  "-*-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
   "fixed" /* Must be last. This is guaranteed to exist on an X11 system. */
 #endif
 };
