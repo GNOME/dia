@@ -1,5 +1,15 @@
 2004-07-01  Lars Clausen  <lars@raeder.dk>
 
+	* HACKING: 
+	* doc/pl/authors.xml: 
+	* doc/en/authors.xml: 
+	* lib/object_defaults.c (dia_object_defaults_save): 
+	* readme.win32 (BTW): 
+	* lib/persistence.c (persistence_save): 
+	* app/load_save.c (diagram_data_write_doc): 
+	* app/commands.c (help_about_callback): 
+	* README: Fix links to home page.
+
 	* lib/font.c: 
 	* app/load_save.c (diagram_data_load): 
 	* lib/prop_text.c (stringprop_load): Avoid NULL strings when

@@ -18,13 +18,13 @@ BTW: I'm currently *not* planning to provide a setup program. IHMO the
 --
 
 Homepage for dia is at:
- http://www.lysator.liu.se/~alla/dia/dia.html
+ http://www.gnome.org/projects/dia
 
 The Win32 port is available at:
  http://hans.breuer.org/dia
 
 The mailing list of Dia is:
- dia-list@lysator.liu.se
+ dia-list@gnome.org
 (It is the place to ask questions about Dia in general and probably
  even the fastest way to get answers concerning the Win32 port. 
  You don't need to be subscribed to mail to the list.)

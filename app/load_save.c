@@ -747,7 +747,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
 
   name_space = xmlNewNs(doc->xmlRootNode, 
-                        "http://www.lysator.liu.se/~alla/dia/",
+                        "http://www.gnome.org/projects/dia/",
 			"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 

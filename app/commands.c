@@ -621,7 +621,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
       VERSION,
       _("Copyright (C) 1998-2002 The Free Software Foundation and the authors"),
       _("Dia is a program for drawing structured diagrams.\n"
-      "Please visit http://www.lysator.liu.se/~alla/dia for more information."),
+      "Please visit http://www.gnome.org/projects/dia for more information."),
       authors,
       documentors,
       (strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
@@ -712,7 +712,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 1,2,
        GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
-  label = gtk_label_new (_("Please visit http://www.lysator.liu.se/~alla/dia "
+  label = gtk_label_new (_("Please visit http://www.gnome.org/projects/dia "
          "for more information"));
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 2,3,
        GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
