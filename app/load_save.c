@@ -33,9 +33,10 @@
 #include <tree.h>
 #include <parser.h>
 #include <xmlmemory.h>
+#include "dia_xml_libxml.h"
+#include "dia_xml.h"
 
 #include "load_save.h"
-#include "dia_xml.h"
 #include "group.h"
 #include "message.h"
 #include "preferences.h"

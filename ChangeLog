@@ -1,3 +1,23 @@
+2001-08-15  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.h:
+	* lib/proplist.c: (prop_list_singleton):
+	* lib/propobject.c: (object_prop_by_name_type), (object_prop_by_name):
+	Added these, to simplify interactions of plug-ins with the StdProp
+	core.
+
+	* lib/Makefile.am:
+	* lib/dia_xml.h:
+	* lib/dia_xml_libxml.h (NEW): 
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	* lib/plug-ins.c:
+	* lib/sheet.c:
+	* objects/custom/shape_info.c: A few prototypes were causing
+	#include hell, because we generally attempt to not pull the whole
+	libxml header set when we include dia_xml.h. Moved those
+	prototypes away for the rare cases they're necessary.
+	
 2001-08-15  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c : made LARS_TRACE_MESSAGES Standard C conform
