@@ -78,6 +78,54 @@ def otypes_cb(data, flags) :
 	diagram.update_extents()
 	diagram.flush()
 
+def objects_cb(data, flags) :
+	# copied from above
+	diagram = dia.new("The Object.dia")
+	layer = diagram.layers[0]
+
+	otypes = dia.registered_types()
+	keys = otypes.keys()
+	keys.sort()
+
+	packages = {}
+	for s in keys :
+		kt = string.split(s, " - ")
+		if len(kt) == 2 :
+			if len(kt[0]) == 0 :
+				sp = "<unnamed>"
+			else :
+				sp = kt[0]
+			st = kt[1]
+		else :
+			sp = "<broken>"
+			st = kt[0]
+		if packages.has_key(sp) :
+			packages[sp].append(st)
+		else :
+			packages[sp] = [st] 
+	np = 0
+	for sp in packages.keys() :
+		pkg = packages[sp]
+		# a layer for every package
+		layer = diagram.add_layer(sp)
+		nc = 0
+		for st in pkg :
+			try :
+				obj = dia.get_object_type(st)
+			except :
+				print "Failed to create", st
+				continue
+			oc, h3, h4 = obj.create(nc * 10.0 + 1.0, np * 10.0 + 1.0)
+			layer.add_object(oc)
+			nc = nc + 1
+		np = np + 1
+	diagram.display()
+	diagram.update_extents()
+	diagram.flush()
+	
 dia.register_callback ("Dia Object Types", 
                        "<Toolbox>/Help/Self Doc/Object Types", 
                        otypes_cb)
+dia.register_callback ("Dia Object Types", 
+                       "<Toolbox>/Help/Self Doc/The Objects", 
+                       objects_cb)

@@ -1,3 +1,14 @@
+2004-11-07  Hans Breuer  <hans@breuer.org>
+
+        * doc/diagram.dtd : <composite> can have <composite/>,
+	<font/> has two 'optional' atributes 'style' and 'family',
+	these are used to store new (since 0.91) font info.
+	With this changes non of the issues in bug #147431 remains.
+
+	* plug-ins/python/otypes.py : starting to implement an
+	'create all known object' file as ne stress test source
+	for the dtd and Dia in general.
+
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
         * app/diapsrenderer.c : don't convert to locale but to 

@@ -1,6 +1,6 @@
 <!ELEMENT dia:diagram (dia:diagramdata, (dia:layer)*) >
-<!ATLIST dia:diagram
-   xmlns CDATA #FIXED "http://www.lysator.liu.se/~alla/dia/"
+<!ATTLIST dia:diagram
+   xmlns:dia CDATA #FIXED "http://www.lysator.liu.se/~alla/dia/">
 
 <!ELEMENT dia:diagramdata (dia:attribute)* >
 
@@ -30,7 +30,7 @@
 		    dia:string | dia:font)*>
 <!ATTLIST dia:attribute  name CDATA #REQUIRED >
 
-<!ELEMENT dia:composite (dia:attribute)*>
+<!ELEMENT dia:composite (dia:attribute|dia:composite)*>
 <!ATTLIST dia:composite  type CDATA #IMPLIED>
 
 <!ELEMENT  dia:int EMPTY>
@@ -57,4 +57,7 @@
 <!ELEMENT dia:string (#PCDATA)>
 
 <!ELEMENT dia:font EMPTY>
-<!ATTLIST dia:font name CDATA #REQUIRED>
+<!ATTLIST dia:font 
+  name CDATA #REQUIRED
+  style CDATA #IMPLIED
+  family CDATA #IMPLIED>
