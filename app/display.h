@@ -40,7 +40,6 @@ struct _DDisplay {
   GtkWidget *hsb, *vsb;           /* widgets for scroll bars           */
   GtkWidget *hrule, *vrule;       /* widgets for rulers                */
   GtkWidget *origin;              /* widgets for rulers                */
-  GtkWidget *popup;               /* widget for popup menu             */
 
   GtkWidget *zoom_status;         
   GtkWidget *modified_status;

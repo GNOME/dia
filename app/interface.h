@@ -20,14 +20,10 @@
 
 #include "display.h"
 
-#define USE_WRAPBOX
-
 #ifdef GNOME
 #include <gnome.h>
 #endif
-#ifdef USE_WRAPBOX
 #include "gtkhwrapbox.h"
-#endif
 #include "intl.h"
 #include "interface.h"
 #include "menus.h"
@@ -41,18 +37,18 @@
 #include "lineprops_area.h"
 #include "attributes.h"
 
-extern void create_display_shell(DDisplay *ddisp,
-				 int width, int height,
-				 char *title, int top_level_window);
+void create_display_shell(DDisplay *ddisp,
+			  int width, int height,
+			  char *title, int top_level_window);
 
-extern void create_toolbox ();
-extern void toolbox_show(void);
-extern void toolbox_hide(void);
+void create_toolbox (void);
+void toolbox_show(void);
+void toolbox_hide(void);
 
-extern void tool_select_callback(GtkWidget *widget, gpointer data);
+void tool_select_callback(GtkWidget *widget, gpointer data);
 
-extern GtkWidget *popup_shell;
-extern GtkWidget *modify_tool_button;
+GtkWidget *popup_shell;
+GtkWidget *modify_tool_button;
 
 typedef struct _ToolButton ToolButton;
 
@@ -76,6 +72,6 @@ struct _ToolButton
 
 extern const int num_tools;
 extern ToolButton tool_data[];
-extern void tool_select_update (GtkWidget *w, gpointer   data);
+void tool_select_update (GtkWidget *w, gpointer   data);
 
 #endif /* INTERFACE_H */

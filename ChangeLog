@@ -1,3 +1,44 @@
+2000-05-29  James Henstridge  <james@daa.com.au>
+
+	* app/app_procs.c (create_user_dirs): we don't need to create the
+	menus directory anymore.
+
+	* app/disp_callbacks.c (ddisplay_popup_menu): it should not be
+	necessary to update the menu state here, as it was done when the
+	active display was set.
+
+	* app/display.c (display_set_active): update the menu state when
+	changing active displays.
+
+	* app/interface.c (origin_button_press): set the display as active
+	when a click is made on the menu button.
+
+	* app/menus.c (menus_init): set up a quit function to save the accels
+	at exit.
+	Add tearoff items for the non GNOME menus, add accelerators for
+	several GNOME menus.
+
+	* app/disp_callbacks.c (ddisplay_popup_menu): get the menu with
+	menus_get_image_menu().
+
+	* app/menus.c (menus_get_item_from_path): use display_menus here
+	rather than ddisp->popup.
+
+	* app/display.h: remove the popup member in the DDisplay structure.
+
+	* app/interface.c: remove option of not using wrap box.
+	(create_toolbox): change to always use menus_get_toolbox_menubar
+	even when using gnome menus.
+	(create_display_shell): use menus_get_image_menu to load accelerators
+	only -- not the actual popup menu.
+
+	* app/menus.c (menus_init): new function to create the menus.
+	(menus_get_toolbox_menubar): use this function whether gnome is
+	in use or not.  Changed to use menus_init.
+	(menus_get_image_menu): same here.  Also, now this function always
+	returns the same menu, rather than a new one each time.
+	(menus_init): read a menurc file to load accelerators here.
+
 2000-05-28  James Henstridge  <james@daa.com.au>
 
 	* app/display.c (ddisplay_really_destroy): unset active display if

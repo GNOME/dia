@@ -331,15 +331,12 @@ set_input_dialog(DDisplay *ddisp, int x, int y)
 void
 ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 {
-  popup_shell = ddisp->shell;
-  display_update_menu_state(ddisp);
-#ifdef GNOME
-  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, event, NULL);
-#else
-  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL,
-		 event->button, event->time);
-#endif  
+  GtkWidget *menu;
 
+  popup_shell = ddisp->shell;
+  menus_get_image_menu(&menu, NULL);
+  gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+		 event->button, event->time);
 }
 
 gint

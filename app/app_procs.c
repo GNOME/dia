@@ -408,9 +408,6 @@ static void create_user_dirs(void)
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "sheets", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "menus", NULL);
-  mkdir(subdir, 0755);
-  g_free(subdir);
 
   g_free(dir);
 }

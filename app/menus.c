@@ -32,6 +32,7 @@
 #include "filedlg.h"
 #include "plugin-manager.h"
 #include "select.h"
+#include "dia_dirs.h"
 
 #if GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
@@ -227,15 +228,12 @@ static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_MENU_FILE_TREE(filemenu),
   GNOMEUIINFO_MENU_EDIT_TREE(editmenu),
   GNOMEUIINFO_MENU_VIEW_TREE(viewmenu),
-  GNOMEUIINFO_SUBTREE(N_("Select"), selectmenu),
-  GNOMEUIINFO_SUBTREE(N_("Objects"), objectsmenu),
-  GNOMEUIINFO_SUBTREE(N_("Tools"), toolsmenu),
-  GNOMEUIINFO_SUBTREE(N_("Dialogs"), dialogsmenu),
+  GNOMEUIINFO_SUBTREE(N_("_Select"), selectmenu),
+  GNOMEUIINFO_SUBTREE(N_("_Objects"), objectsmenu),
+  GNOMEUIINFO_SUBTREE(N_("_Tools"), toolsmenu),
+  GNOMEUIINFO_SUBTREE(N_("_Dialogs"), dialogsmenu),
   GNOMEUIINFO_END
 };
-
-GtkWidget *toolbox_menubar = NULL;
-GtkWidget *display_menubar = NULL;
 
 #else /* !GNOME */
 
@@ -254,21 +252,22 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
 
 static GtkItemFactoryEntry display_menu_items[] =
 {
-  {N_("/_File"),                  NULL,         NULL,                       0, "<Branch>"},
-  /*  {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" }, */
+  {N_("/tearoff"),                NULL,         NULL,          0, "<Tearoff>"},
+  {N_("/_File"),                  NULL,         NULL,           0, "<Branch>"},
+  {N_("/File/tearoff"),           NULL,         NULL,          0, "<Tearoff>"},
   {N_("/File/_New"),              "<control>N", file_new_callback,          0},
   {N_("/File/_Open"),             "<control>O", file_open_callback,         0},
   {N_("/File/_Save"),             "<control>S", file_save_callback,         0},
   {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,      0},
   {N_("/File/_Export..."),        NULL,         file_export_callback,       0},
-  {N_("/File/sep1"),              NULL,         NULL,                        0, "<Separator>"},
+  {N_("/File/sep1"),              NULL,         NULL,        0, "<Separator>"},
   {N_("/File/Page Set_up..."),    NULL,         file_pagesetup_callback,    0},
   {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0},
-  {N_("/File/sep2"),              NULL,         NULL,                        0, "<Separator>"},
+  {N_("/File/sep2"),              NULL,         NULL,        0, "<Separator>"},
   {N_("/File/_Close"),            NULL,         file_close_callback,        0},
   {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0},
-  {N_("/_Edit"),                  NULL,         NULL,                       0, "<Branch>"},
-  /*  {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" }, */
+  {N_("/_Edit"),                  NULL,         NULL,           0, "<Branch>"},
+  {N_("/Edit/tearoff"),           NULL,         NULL,          0, "<Tearoff>"},
   {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0},
   {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0},
   {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0},
@@ -278,11 +277,12 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Edit/Copy Text"),         NULL,         edit_copy_text_callback,    0},
   {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
   {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
-  {N_("/_View"),                  NULL,         NULL,                       0, "<Branch>"},
-  /*  {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {N_("/_View"),                  NULL,         NULL,           0, "<Branch>"},
+  {N_("/View/tearoff"),           NULL,         NULL,          0, "<Tearoff>"},
   {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0},
   {N_("/View/Zoom _Out"),         NULL,          view_zoom_out_callback,    0},
-  {N_("/View/_Zoom"),             NULL,         NULL,                       0, "<Branch>"},
+  {N_("/View/_Zoom"),             NULL,         NULL,           0, "<Branch>"},
+  {N_("/View/Zoom/tearoff"),      NULL,         NULL,          0, "<Tearoff>"},
   {N_("/View/Zoom/400%"),         NULL,         view_zoom_set_callback,  4000},
   {N_("/View/Zoom/283%"),         NULL,         view_zoom_set_callback,  2828},
   {N_("/View/Zoom/200%"),         NULL,         view_zoom_set_callback,  2000},
@@ -301,61 +301,67 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/_Snap To Grid"),     "G",          view_snap_to_grid_callback, 0, "<CheckItem>"},
   {N_("/View/Show _Rulers"),      NULL,         view_toggle_rulers_callback,0, "<CheckItem>"},
   {N_("/View/Show _Connection Points"),	  NULL,		view_show_cx_pts_callback,   0,	"<CheckItem>"},
-  {N_("/View/sep1"),              NULL,         NULL,                       0, "<Separator>"},
+  {N_("/View/sep1"),              NULL,         NULL,        0, "<Separator>"},
   {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
   {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
-  {N_("/Select/All"), NULL, select_all_callback, 0},
-  {N_("/Select/None"), NULL, select_none_callback, 0},
-  {N_("/Select/Invert"), NULL, select_invert_callback, 0},
-  {N_("/Select/Connected"), NULL, select_connected_callback, 0},
-  {N_("/Select/Transitive"), NULL, select_transitive_callback, 0},
-  {N_("/Select/Same Type"), NULL, select_same_type_callback, 0},
-  {N_("/Select/sep1"),           NULL,         NULL,                       0, "<Separator>"},
-  {N_("/Select/Replace"), NULL, select_style_callback, 0, "<CheckItem>"},
-  {N_("/Select/Union"), NULL, select_style_callback, 1, "<CheckItem>"},
-  {N_("/Select/Intersect"), NULL, select_style_callback, 2, "<CheckItem>"},
-  {N_("/Select/Remove"), NULL, select_style_callback, 3, "<CheckItem>"},
-  {N_("/Select/Invert"), NULL, select_style_callback, 4, "<CheckItem>"},
-  {N_("/_Objects"),               NULL,         NULL,                       0, "<Branch>"},
-  /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" }, */
-  {N_("/Objects/Send to _Back"),  "<control>B", objects_place_under_callback,0},
+  {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
+  {N_("/Select/tearoff"),         NULL,         NULL,          0, "<Tearoff>"},
+  {N_("/Select/All"),             NULL,         select_all_callback,        0},
+  {N_("/Select/None"),            NULL,         select_none_callback,       0},
+  {N_("/Select/Invert"),          NULL,         select_invert_callback,     0},
+  {N_("/Select/Connected"),       NULL,         select_connected_callback,  0},
+  {N_("/Select/Transitive"),      NULL,         select_transitive_callback, 0},
+  {N_("/Select/Same Type"),       NULL,         select_same_type_callback,  0},
+  {N_("/Select/sep1"),            NULL,         NULL,        0, "<Separator>"},
+  {N_("/Select/Replace"),       NULL, select_style_callback, 0, "<CheckItem>"},
+  {N_("/Select/Union"),         NULL, select_style_callback, 1, "<CheckItem>"},
+  {N_("/Select/Intersect"),     NULL, select_style_callback, 2, "<CheckItem>"},
+  {N_("/Select/Remove"),        NULL, select_style_callback, 3, "<CheckItem>"},
+  {N_("/Select/Invert"),        NULL, select_style_callback, 4, "<CheckItem>"},
+  {N_("/_Objects"),               NULL,         NULL,           0, "<Branch>"},
+  {N_("/Objects/tearoff1"),     NULL,           NULL,          0, "<Tearoff>"},
+  {N_("/Objects/Send to _Back"),  "<control>B",objects_place_under_callback,0},
   {N_("/Objects/Bring to _Front"),"<control>F", objects_place_over_callback,0},
-  {N_("/Objects/sep1"),           NULL,         NULL,                       0, "<Separator>"},
+  {N_("/Objects/sep1"),           NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/_Group"),         "<control>G", objects_group_callback,     0},
   {N_("/Objects/_Ungroup"),       "<control>U", objects_ungroup_callback,   0},
-  {N_("/Objects/sep1"),           NULL,         NULL,                       0, "<Separator>"},
-  {N_("/Objects/Align _Horizontal"),       NULL, NULL,                      0, "<Branch>"},
+  {N_("/Objects/sep1"),           NULL,         NULL,        0, "<Separator>"},
+  {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
+  {N_("/Objects/Align Horizontal/tearoff"),NULL, NULL,         0, "<Tearoff>"},
   {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  0},
   {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  1},
   {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  2},
   {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    4},
   {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    5},
-  {N_("/Objects/Align _Vertical"),         NULL, NULL,                      0, "<Branch>"},
+  {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
+  {N_("/Objects/Align Vertical/tearoff"),  NULL, NULL,         0, "<Tearoff>"},
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  0},
   {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  1},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  2},
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    4},
-  {N_("/Objects/Align Vertical/Adjacent"),   NULL, objects_align_v_callback,    5},
+  {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  5},
 
-  {N_("/Tools/Modify"), NULL, NULL, 0},
-  {N_("/Tools/Magnify"), NULL, NULL, 0},
-  {N_("/Tools/Scroll"), NULL, NULL, 0},
-  {N_("/Tools/Text"), NULL, NULL, 0},
-  {N_("/Tools/Box"), NULL, NULL, 0},
-  {N_("/Tools/Ellipse"), NULL, NULL, 0},
-  {N_("/Tools/Polygon"), NULL, NULL, 0},
-  {N_("/Tools/Beziergon"), NULL, NULL, 0},
-  {N_("/Tools/Line"), NULL, NULL, 0},
-  {N_("/Tools/Arc"), NULL, NULL, 0},
-  {N_("/Tools/Zigzagline"), NULL, NULL, 0},
-  {N_("/Tools/Polyline"), NULL, NULL, 0},
-  {N_("/Tools/Bezierline"), NULL, NULL, 0},
-  {N_("/Tools/Image"), NULL, NULL, 0},
+  {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
+  {N_("/Tools/tearoff"),          NULL,     NULL,              0, "<Tearoff>"},
+  {N_("/Tools/Modify"),           NULL,     NULL,                           0},
+  {N_("/Tools/Magnify"),          NULL,     NULL,                           0},
+  {N_("/Tools/Scroll"),           NULL,     NULL,                           0},
+  {N_("/Tools/Text"),             NULL,     NULL,                           0},
+  {N_("/Tools/Box"),              NULL,     NULL,                           0},
+  {N_("/Tools/Ellipse"),          NULL,     NULL,                           0},
+  {N_("/Tools/Polygon"),          NULL,     NULL,                           0},
+  {N_("/Tools/Beziergon"),        NULL,     NULL,                           0},
+  {N_("/Tools/Line"),             NULL,     NULL,                           0},
+  {N_("/Tools/Arc"),              NULL,     NULL,                           0},
+  {N_("/Tools/Zigzagline"),       NULL,     NULL,                           0},
+  {N_("/Tools/Polyline"),         NULL,     NULL,                           0},
+  {N_("/Tools/Bezierline"),       NULL,     NULL,                           0},
+  {N_("/Tools/Image"),            NULL,     NULL,                           0},
 
-  /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
-  {N_("/_Dialogs"),               NULL,         NULL,                       0, "<Branch>"},
-  {N_("/Dialogs/_Properties"),    NULL,         dialogs_properties_callback,0},
-  {N_("/Dialogs/_Layers"),        NULL,         dialogs_layers_callback,0},
+  {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
+  {N_("/Dialogs/tearoff"),        NULL,     NULL,              0, "<Tearoff>"},
+  {N_("/Dialogs/_Properties"),    NULL,     dialogs_properties_callback,    0},
+  {N_("/Dialogs/_Layers"),        NULL,     dialogs_layers_callback,        0},
 };
 
 /* calculate the number of menu_item's */
@@ -364,69 +370,18 @@ static int display_nmenu_items = sizeof(display_menu_items) / sizeof(display_men
 
 #endif /* !GNOME */
 
+/* need initialisation? */
+static gboolean initialise = TRUE;
+
+/* the actual menus */
+static GtkWidget *toolbox_menubar = NULL;
+static GtkAccelGroup *toolbox_accels = NULL;
+static GtkWidget *display_menus = NULL;
+static GtkAccelGroup *display_accels = NULL;
+
+#ifndef GNOME
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
-static GtkAccelGroup *display_accel_group = NULL;
-
-static void
-tool_menu_select(GtkWidget *w, gpointer   data) {
-  ToolButtonData *tooldata = (ToolButtonData *) data;
-
-  if (tooldata == NULL) {
-    g_warning(_("NULL tooldata in tool_menu_select"));
-    return;
-  }
-
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tooldata->widget),TRUE);
-}
-
-#ifdef GNOME
-void
-gnome_toolbox_menus_create(GtkWidget* app)
-{
-  gnome_app_create_menus(GNOME_APP(app), toolbox_menu);
-  toolbox_menubar = GNOME_APP(app)->menubar;
-}
-
-GtkWidget *
-gnome_display_menus_create()
-{
-  GtkWidget *new_menu;
-  GtkMenuItem *menuitem;
-  GString *path;
-  char *display = "<Display>";
-  int i;
-
-  new_menu = gnome_popup_menu_new(display_menu);
-
-  path = g_string_new ("<Display>");
-
-  /* There may be a slightly faster way to do this */
-
-  for (i = 0; i < num_tools; i++) {
-    g_string_append (g_string_assign(path, display),_("/Tools/"));
-    g_string_append (path, tool_data[i].menuitem_name);
-    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
-
-    if (menuitem != NULL) {
-      gtk_signal_connect (GTK_OBJECT(menuitem), "activate",
-                          GTK_SIGNAL_FUNC (tool_menu_select),
-                          &tool_data[i].callback_data);
-    }    
-  }
-
-  return new_menu;
-}
-#endif
-
-#if 0
-static void
-tearoff (gpointer             callback_data,
-	 guint                callback_action,
-	 GtkWidget           *widget)
-{
-  g_message ("ItemFactory: activated \"%s\"", gtk_item_factory_path_from_widget (widget));
-}
 #endif
 
 #ifndef GNOME
@@ -458,69 +413,135 @@ free_translated_entries(GtkItemFactoryEntry *entries, gint n)
     g_free(entries[i].path);
   g_free(entries);
 }
+#endif /* !GNOME */
+
+static void
+tool_menu_select(GtkWidget *w, gpointer   data) {
+  ToolButtonData *tooldata = (ToolButtonData *) data;
+
+  if (tooldata == NULL) {
+    g_warning(_("NULL tooldata in tool_menu_select"));
+    return;
+  }
+
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tooldata->widget),TRUE);
+}
+
+static gint
+save_accels(gpointer data)
+{
+  gchar *accelfilename;
+
+  accelfilename = dia_config_filename("menurc");
+  if (accelfilename) {
+    gtk_item_factory_dump_rc (accelfilename, NULL, TRUE);
+    g_free (accelfilename);
+  }
+  return TRUE;
+}
+
+static void
+menus_init(void)
+{
+  GtkItemFactory *translated_entries;
+  GString *path;
+  gchar *accelfilename;
+  gint i, len;
+
+  if (!initialise)
+    return;
+  initialise = FALSE;
+
+#ifdef GNOME
+  /* the toolbox menu */
+  toolbox_accels = gtk_accel_group_new();
+  toolbox_menubar = gtk_menu_bar_new();
+  gnome_app_fill_menu(GTK_MENU_SHELL(toolbox_menubar), toolbox_menu,
+		      toolbox_accels, TRUE, 0);
+
+  /* the display menu */
+  display_menus = gnome_popup_menu_new(display_menu);
+  display_accels = gnome_popup_menu_get_accel_group(GTK_MENU(display_menus));
+  
+#else
+  /* the toolbox menu */
+  toolbox_accels = gtk_accel_group_new();
+  toolbox_item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<Toolbox>",
+					      toolbox_accels);
+  translated_entries = translated_entries(toolbox_menu_items,
+					  toolbox_nmenu_items);
+  gtk_item_factory_create_items(toolbox_item_factory,
+				toolbox_nmenu_items,
+				translated_entries, NULL);
+  free_translated_entries(translated_entries);
+  toolbox_menubar = gtk_item_factory_get_widget(toolbox_item_factory,
+						"<Toolbox>");
+
+  /* the display menu */
+  display_accels = gtk_accel_group_new();
+  display_item_factory = gtk_item_factory_new(GTK_TYPE_MENU, "<Display>",
+					      display_accels);
+  translated_entries = translated_entries(display_menu_items,
+					  display_nmenu_items);
+  gtk_item_factory_create_items(display_item_factory,
+				display_nmenu_items,
+				translated_entries, NULL);
+  free_translated_entries(translated_entries);
+  display_menus = gtk_item_factory_get_widget(display_item_factory,
+					      "<Display>");
+#endif
+
+  path = g_string_new("<Display>");
+  g_string_append(path, _("/Tools/"));
+  len = path->len;
+  for (i = 0; i < num_tools; i++) {
+    GtkMenuItem *menuitem;
+
+    g_string_append(path, tool_data[i].menuitem_name);
+    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
+    if (menuitem != NULL)
+      gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
+			 GTK_SIGNAL_FUNC(tool_menu_select),
+			 &tool_data[i].callback_data);
+    g_string_truncate(path, len);
+  }
+  g_string_free(path, TRUE);
+
+  
+  accelfilename = dia_config_filename("menurc");
+  
+  if (accelfilename) {
+    gtk_item_factory_parse_rc(accelfilename);
+    g_free(accelfilename);
+  }
+  gtk_quit_add(1, save_accels, NULL);
+}
 
 void
 menus_get_toolbox_menubar (GtkWidget **menubar,
 			   GtkAccelGroup **accel_group)
 {
-  GtkItemFactoryEntry *translated_entries;
+  if (initialise)
+    menus_init();
 
-  *accel_group = gtk_accel_group_new ();
-  toolbox_item_factory =
-    gtk_item_factory_new (GTK_TYPE_MENU_BAR, "<Toolbox>", *accel_group);
-  translated_entries = translate_entries(toolbox_menu_items, 
-					 toolbox_nmenu_items); 
-  gtk_item_factory_create_items (toolbox_item_factory,
-				 toolbox_nmenu_items,
-				 translated_entries, NULL);
-  free_translated_entries(translated_entries, toolbox_nmenu_items);
-
-  *menubar = gtk_item_factory_get_widget (toolbox_item_factory, "<Toolbox>");
+  if (menubar)
+    *menubar = toolbox_menubar;
+  if (accel_group)
+    *accel_group = toolbox_accels;
 }
 
 void
 menus_get_image_menu (GtkWidget **menu,
 		      GtkAccelGroup **accel_group)
 {
-  GtkWidget *new_menu;
-  GtkMenuItem *menuitem;
-  GString *path;
-  char *display = "<Display>";
-  GtkItemFactoryEntry *translated_entries;
-  int i;
+  if (initialise)
+    menus_init();
 
-  if (display_item_factory == NULL) {
-    display_accel_group = gtk_accel_group_new ();
-    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", 
-						  display_accel_group);
-    translated_entries = translate_entries(display_menu_items, 
-					   display_nmenu_items); 
-    gtk_item_factory_create_items (display_item_factory,
-				   display_nmenu_items,
-				   translated_entries, NULL);
-    free_translated_entries(translated_entries, display_nmenu_items);
-  }
-  
-  *accel_group = display_accel_group;
-  *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
-
-  path = g_string_new ("<Display>");
-
-  /* There may be a slightly faster way to do this */
-
-  for (i = 0; i < num_tools; i++) {
-    g_string_append (g_string_assign(path, display),_("/Tools/"));
-    g_string_append (path, tool_data[i].menuitem_name);
-    menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
-
-    if (menuitem != NULL) {
-      gtk_signal_connect (GTK_OBJECT(menuitem), "activate",
-                          GTK_SIGNAL_FUNC (tool_menu_select),
-                          &tool_data[i].callback_data);
-    }    
-  }
+  if (menu)
+    *menu = display_menus;
+  if (accel_group)
+    *accel_group = display_accels;
 }
-#endif /* !GNOME */
 
 GtkWidget *menus_get_item_from_path (char *path)
 {
@@ -543,7 +564,7 @@ GtkWidget *menus_get_item_from_path (char *path)
     if (! ddisp)
       return NULL;
     
-    parentw = gnome_app_find_menu_pos(ddisp->popup, path, &pos);
+    parentw = gnome_app_find_menu_pos(display_menus, path, &pos);
   } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {
     parentw = gnome_app_find_menu_pos(toolbox_menubar, path, &pos);
   } 

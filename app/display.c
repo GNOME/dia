@@ -964,11 +964,11 @@ void
 display_set_active(DDisplay *ddisp)
 {
   if (ddisp != active_display) {
-    g_message("Changing active display to %p(%s)", ddisp,
-	      ddisp ? ddisp->diagram->filename : "null");
     active_display = ddisp;
 
     /* perform notification here (such as switch layers dialog) */
     layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+    if (ddisp)
+      display_update_menu_state(ddisp);
   }
 }

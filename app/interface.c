@@ -135,6 +135,7 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   DDisplay *ddisp = (DDisplay *)data;
 
+  display_set_active(ddisp);
   ddisplay_popup_menu(ddisp, event);
   return TRUE;
 }
@@ -268,27 +269,9 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 
-  /*  the popup menu  */
-#ifdef GNOME
-  ddisp->popup = gnome_display_menus_create ();
-  ddisp->accel_group = gnome_popup_menu_get_accel_group(GTK_MENU(ddisp->popup));
-#else
-  menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
-#endif
-
-  if (top_level_window) {
-    gchar *accelfilename = dia_config_filename("menus/display");
-
-    /*  the accelerator table/group for the popup */
-    gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
-				ddisp->accel_group);
-    
-    if (accelfilename) {
-      gtk_item_factory_parse_rc(accelfilename);
-      g_free(accelfilename);
-    }
-  }
-
+  menus_get_image_menu (NULL, &ddisp->accel_group);
+  if (top_level_window)
+    gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
 
   /* the statusbars */
   status_hbox = gtk_hbox_new (FALSE, 2);
@@ -372,9 +355,6 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
 static void
 create_tools(GtkWidget *parent)
 {
-#ifndef USE_WRAPBOX
-  GtkWidget *table;
-#endif
   GtkWidget *button;
   GtkWidget *pixmapwidget;
   GdkPixmap *pixmap;
@@ -384,32 +364,14 @@ create_tools(GtkWidget *parent)
   char **pixmap_data;
   int i;
 
-#ifndef USE_WRAPBOX
-  table = gtk_table_new (ROWS, COLUMNS, FALSE);
-  gtk_box_pack_start (GTK_BOX (parent), table, FALSE, TRUE, 0);
-#endif
-
   for (i = 0; i < NUM_TOOLS; i++) {
     tool_widgets[i] = button = gtk_radio_button_new (tool_group);
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
 
-#ifdef USE_WRAPBOX
     gtk_wrap_box_pack(GTK_WRAP_BOX(parent), button,
-# if 1 /* HB: IHMO even 13 buttons look better when stretched to parent */
 		      TRUE, TRUE, FALSE, TRUE);
-# else
-		      FALSE, TRUE, FALSE, TRUE);
-# endif
-#else
-    gtk_table_attach (GTK_TABLE (table), button,
-		      (i % COLUMNS), (i % COLUMNS) + 1,
-		      (i / COLUMNS), (i / COLUMNS) + 1,
-		      GTK_EXPAND | GTK_SHRINK | GTK_FILL,
-		      GTK_FILL,
-		      0, 0);
-#endif
 
     if (tool_data[i].callback_data.type == MODIFY_TOOL) {
       modify_tool_button = GTK_WIDGET(button);
@@ -454,9 +416,6 @@ create_tools(GtkWidget *parent)
     gtk_widget_show (pixmapwidget);
     gtk_widget_show (button);
   }
-#ifndef USE_WRAPBOX
-  gtk_widget_show(table);
-#endif
 }
 
 static GtkWidget *
@@ -484,14 +443,10 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
   if (rows<1)
     rows = 1;
   
-#ifdef USE_WRAPBOX
   table = gtk_hwrap_box_new(FALSE);
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(table), COLUMNS * 1.0 / rows);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(table), GTK_JUSTIFY_TOP);
   gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(table), GTK_JUSTIFY_LEFT);
-#else
-  table = gtk_table_new (rows, COLUMNS, TRUE);
-#endif
 
   style = gtk_widget_get_style(parent);
 
@@ -528,19 +483,10 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 
 
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
-#ifdef USE_WRAPBOX
     gtk_wrap_box_pack(GTK_WRAP_BOX(table), button,
 		      FALSE, TRUE, FALSE, TRUE);
     if (sheet_obj->line_break)
       gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(table),button,TRUE);
-#else
-    gtk_table_attach (GTK_TABLE (table), button,
-		      (i % COLUMNS), (i % COLUMNS) + 1,
-		      (i / COLUMNS), (i / COLUMNS) + 1,
-		      GTK_EXPAND | GTK_SHRINK | GTK_FILL,
-		      GTK_FILL,
-		      0, 0);
-#endif
 
     /* This is a Memory leak, these can't be freed.
        Doesn't matter much anyway... */
@@ -583,7 +529,6 @@ create_sheets(GtkWidget *parent)
   GtkWidget *menu_label;
   
   separator = gtk_hseparator_new ();
-#ifdef USE_WRAPBOX
   /* add a bit of padding around the label */
   label = gtk_vbox_new(FALSE, 0);
   gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
@@ -591,9 +536,6 @@ create_sheets(GtkWidget *parent)
 
   gtk_wrap_box_pack (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE);
   gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), label, TRUE);
-#else
-  gtk_box_pack_start (GTK_BOX (parent), separator, FALSE, TRUE, 3);
-#endif
   gtk_widget_show(separator);
 
   notebook = gtk_notebook_new ();
@@ -606,12 +548,8 @@ create_sheets(GtkWidget *parent)
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
   gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook));
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 1);
-#ifdef USE_WRAPBOX
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), notebook, TRUE, TRUE, TRUE, TRUE);
   gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), notebook, TRUE);
-#else
-  gtk_box_pack_start (GTK_BOX (parent), notebook, TRUE, TRUE, 0);
-#endif
   
   list = get_sheets_list();
   while (list != NULL) {
@@ -663,12 +601,8 @@ create_color_area (GtkWidget *parent)
 
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
-#ifdef USE_WRAPBOX
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE);
   gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), frame, TRUE);
-#else
-  gtk_box_pack_start (GTK_BOX (parent), frame, FALSE, FALSE, 0);
-#endif
   gtk_widget_realize (frame);
 
   hbox = gtk_hbox_new (FALSE, 1);
@@ -727,40 +661,19 @@ change_line_style(LineStyle lstyle, real dash_length, gpointer user_data)
 static void
 create_lineprops_area(GtkWidget *parent)
 {
-#ifndef USE_WRAPBOX
-  GtkWidget *hbox;
-#endif
   GtkWidget *chooser;
 
-#ifndef USE_WRAPBOX
-  hbox = gtk_hbox_new(FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (parent), hbox, FALSE, FALSE, 0);
-  gtk_widget_show(hbox);
-#endif
-
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
-#ifdef USE_WRAPBOX
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
   gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), chooser, TRUE);
-#else
-  gtk_box_pack_start(GTK_BOX(hbox), chooser, FALSE, TRUE, 0);
-#endif
   gtk_widget_show(chooser);
 
   chooser = dia_line_chooser_new(change_line_style, NULL);
-#ifdef USE_WRAPBOX
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
-#else
-  gtk_box_pack_start(GTK_BOX(hbox), chooser, TRUE, TRUE, 0);
-#endif
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
-#ifdef USE_WRAPBOX
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
-#else
-  gtk_box_pack_start(GTK_BOX(hbox), chooser, FALSE, TRUE, 0);
-#endif
   gtk_widget_show(chooser);
 }
 
@@ -782,12 +695,9 @@ create_toolbox ()
 {
   GtkWidget *window;
   GtkWidget *main_vbox;
-  GtkWidget *vbox;
-  gchar *accelfilename;
-#ifndef GNOME
+  GtkWidget *wrapbox;
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
-#endif
 
 #ifdef GNOME
   window = gnome_app_new ("Dia", _("Diagram Editor"));
@@ -817,21 +727,6 @@ create_toolbox ()
 #endif
   gtk_widget_show (main_vbox);
 
-#ifdef GNOME
-  gnome_toolbox_menus_create(window);
-#else
-  menus_get_toolbox_menubar(&menubar, &accel_group);
-  gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
-  gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
-  gtk_widget_show (menubar);
-#endif
-  
-  accelfilename = dia_config_filename("menus/toolbox");
-  
-  if (accelfilename) {
-    gtk_item_factory_parse_rc(accelfilename);
-    g_free(accelfilename);
-  }
   /*  tooltips  */
   tool_tips = gtk_tooltips_new ();
 
@@ -839,23 +734,33 @@ create_toolbox ()
 			   &colors[11],
 			   &main_vbox->style->fg[GTK_STATE_NORMAL]);*/
 
-#ifdef USE_WRAPBOX
-  vbox = gtk_hwrap_box_new(FALSE);
-  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(vbox), 143.0 / 283.0);
-  gtk_wrap_box_set_justify(GTK_WRAP_BOX(vbox), GTK_JUSTIFY_TOP);
-  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(vbox), GTK_JUSTIFY_LEFT);
-#else  
-  vbox = gtk_vbox_new (FALSE, 1);
-#endif
-  gtk_box_pack_start (GTK_BOX (main_vbox), vbox, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 0);
-  gtk_widget_show (vbox);
+  wrapbox = gtk_hwrap_box_new(FALSE);
+  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 143.0 / 283.0);
+  gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
+  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
 
-  create_tools (vbox);
-  create_sheets (vbox);
-  create_color_area (vbox);
-  create_lineprops_area (vbox);
-  
+
+  /* pack the rest of the stuff */
+  gtk_box_pack_end (GTK_BOX (main_vbox), wrapbox, TRUE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (wrapbox), 0);
+  gtk_widget_show (wrapbox);
+
+  create_tools (wrapbox);
+  create_sheets (wrapbox);
+  create_color_area (wrapbox);
+  create_lineprops_area (wrapbox);
+
+  /* menus -- initialised afterwards, because initing the display menus
+   * uses the tool buttons*/
+  menus_get_toolbox_menubar(&menubar, &accel_group);
+  gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
+#ifdef GNOME
+  gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
+#else
+  gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
+  gtk_widget_show (menubar);
+#endif
+
   toolbox_shell = window;
 }
 
