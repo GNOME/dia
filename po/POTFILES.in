@@ -45,6 +45,7 @@ lib/dia_xml.c
 lib/filter.c
 lib/font.c
 lib/message.c
+lib/object_defaults.c
 lib/plug-ins.c
 lib/propdialogs.c
 lib/properties.c
