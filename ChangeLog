@@ -1,3 +1,13 @@
+2003-08-21  Steffen Macke <sdteffen@web.de>
+
+	* lib/makefile.msc: added connectionpoint.obj
+	* lib/libdia.def: added connpoint_update, find_slope_directions
+	* app/disp_callbacks.c: including scroll_tool.h
+	* obj/makefile.msc: added component_feature.obj
+	* app/paginate_gdiprint.c: fixed loop initialization in 
+	paginate_gdiprint(); partial fix for bug #85831 - the scaling is still
+	wrong
+
 2003-08-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/component.c: Patch from Krzysztof Foltman
