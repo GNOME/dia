@@ -1,4 +1,29 @@
-2004-04-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-04-02  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/recent_files.c: Use absolute name for recent files list.
+
+	* lib/attributes.c: Set start and end arrow types, correctly.
+
+	* lib/widgets.c (dia_arrow_selector_set_arrow): Use new function
+	to get arrow index.
+
+	* lib/diaarrowchooser.[ch]: Support for setting arrow info.
+
+	* app/interface.c (create_lineprops_area): Set persistently stored
+	arrow info.
+
+	* lib/arrows.[ch]: New function to get arrow index (in arrow_types)
+	from arrow type.
+
+	* lib/dia_dirs.c: dia_get_absolute_path now creates a canonical
+	path (i.e. without '.' or '..').  Not tuned for Win32 yet.
+
+	* plug-ins/xfig/xfig-import.c: Redone ordering of import to comply
+	with what xfig does.  Text now converted from latin-1 to utf-8
+	(latin-1, since that's what xfig seems to use.  Would like to see
+	examples of non-latin-1 figs).  String case problems fixed.
+
+2004-04-01  Lars Clausen  <lars@raeder.dk>
 
 	* lib/attributes.c: 
 	* app/interface.c: Default arrows now stored persistently, too.

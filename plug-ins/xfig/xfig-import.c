@@ -622,16 +622,20 @@ fig_read_arrow(FILE *file) {
     return arrow;
 }
 
-static void
-fig_fix_text(char *text) {
+static gchar *
+fig_fix_text(gchar *text) {
     int i, j;
     int asciival;
+    GError *err = NULL;
+    gchar *converted;
+    gboolean needs_conversion = FALSE;
 
     for (i = 0, j = 0; text[i] != 0; i++, j++) {
 	if (text[i] == '\\') {
 	    sscanf(text+i+1, "%3o", &asciival);
 	    text[j] = asciival;
 	    i+=3;
+	    needs_conversion = TRUE;
 	} else {
 	    text[j] = text[i];
 	}
@@ -641,6 +645,21 @@ fig_fix_text(char *text) {
     if (text[j-2] == '\001') {
 	text[j-2] = 0;
     }
+    if (needs_conversion) {
+	/* Crudely assuming that fig uses Latin-1 */
+	converted = g_convert(text, strlen(text), "UTF-8", "ISO-8859-1",
+			      NULL, NULL, &err);
+	if (err != NULL) {
+	    printf("Error converting %s: %s\n", text, err->message);
+	    return text;
+	}
+	if (!g_utf8_validate(converted, -1, NULL)) {
+	    printf("Fails to validate %s\n", converted);
+	    return text;
+	}
+	if (text != converted) g_free(text);
+	return converted;
+    } else return text;
 }
 
 static char *
@@ -659,7 +678,7 @@ fig_read_text_line(FILE *file) {
 	text_buf = (char *)g_realloc(text_buf, text_alloc*sizeof(char));
     }
 
-    fig_fix_text(text_buf);
+    text_buf = fig_fix_text(text_buf);
 
     return text_buf;
 }
@@ -1379,8 +1398,9 @@ fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
     }
 
     buf[strlen(buf)-1] = 0; /* Remove trailing newline */
-    if (!strcmp(buf, choice1)) return 0;
-    if (!strcmp(buf, choice2)) return 1;
+    g_strstrip(buf); /* And any other whitespace */
+    if (!g_strcasecmp(buf, choice1)) return 0;
+    if (!g_strcasecmp(buf, choice2)) return 1;
     message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
     return 0;
 }
@@ -1396,6 +1416,7 @@ fig_read_paper_size(FILE *file, DiagramData *dia) {
     }
 
     buf[strlen(buf)-1] = 0; /* Remove trailing newline */
+    g_strstrip(buf); /* And any other whitespace */
     if ((paper = find_paper(buf)) != -1) {
 	get_paper_info(&dia->paper, paper, NULL);
 	return TRUE;
@@ -1563,7 +1584,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     } while (TRUE);
 
     /* Now we can reorder for the depth fields */
-    for (i = 999; i >= 0; i--) {
+    for (i = 0; i < 1000; i++) {
 	if (depths[i] != NULL)
 	    layer_add_objects_first(dia->active_layer, depths[i]);
     }

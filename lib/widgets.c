@@ -1402,16 +1402,8 @@ void
 dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 			      Arrow arrow)
 {
-  int arrow_type_index = 0,i = 0;
-  const struct menudesc *md = arrow_types;
-  
-  while (md->name) {
-    if (md->enum_value == arrow.type) {
-      arrow_type_index = i;
-      break;
-    }
-    md++; i++;
-  }
+  int arrow_type_index = arrow_index_from_type(arrow.type);
+
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
 /* TODO: restore CheckMenu version of menu */

@@ -167,8 +167,10 @@ recent_file_history_make_menu()
 void
 recent_file_history_add(const char *fname)
 {
+    gchar *absname = dia_get_absolute_filename(fname);
     recent_file_history_clear_menu();
-    persistent_list_add("recent-files", fname);
+    persistent_list_add("recent-files", absname);
+    g_free(absname);
     
     recent_file_history_make_menu();
 }
@@ -193,9 +195,11 @@ recent_file_history_init() {
 void
 recent_file_history_remove (const char *fname) 
 {
+    gchar *absname = dia_get_absolute_filename(fname);
     recent_file_history_clear_menu();
 
-    persistent_list_remove("recent-files", fname);
+    persistent_list_remove("recent-files", absname);
+    g_free(absname);
 
     recent_file_history_make_menu();
 }

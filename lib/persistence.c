@@ -750,7 +750,6 @@ persistent_list_add(const gchar *role, const gchar *item)
   PersistentList *plist = persistent_list_get(role);
   if(plist == NULL) printf("Can't find list for %s when adding %s\n", 
 			   role, item);
-  printf("Adding item %s to %s, first is %s\n", item, role, (plist->glist!=NULL?plist->glist->data:""));
   if (plist->sorted) {
     /* Sorting not implemented yet. */
   } else {

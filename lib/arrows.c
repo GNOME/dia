@@ -1407,8 +1407,24 @@ arrow_type_from_name(gchar *name)
 {
   int i;
   for (i = 0; arrow_types[i].name != NULL; i++) {
-    if (!strcmp(arrow_types[i].name, name)) return arrow_types[i].enum_value;
+    if (!strcmp(arrow_types[i].name, name)) {
+      return arrow_types[i].enum_value;
+    }
   }
   printf("Unknown arrow type %s\n", name);
+  return 0;
+}
+
+gint
+arrow_index_from_type(ArrowType atype)
+{
+  int i = 0;
+
+  for (i = 0; arrow_types[i].name != NULL; i++) {
+    if (arrow_types[i].enum_value == atype) {
+      return i;
+    }
+  }
+  printf("Can't find arrow index for type %d\n", atype);
   return 0;
 }

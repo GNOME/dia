@@ -1117,7 +1117,7 @@ create_lineprops_area(GtkWidget *parent)
   arrow.width = persistence_register_real("start-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
   arrow.type = arrow_type_from_name(persistence_register_string("start-arrow-type", "None"));
-  dia_arrow_chooser_set_arrow_type(DIA_ARROW_CHOOSER(chooser), arrow.type);
+  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_start_arrow(arrow);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
@@ -1131,7 +1131,7 @@ create_lineprops_area(GtkWidget *parent)
   arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
   arrow.type = arrow_type_from_name(persistence_register_string("end-arrow-type", "Filled Concave"));
-  dia_arrow_chooser_set_arrow_type(DIA_ARROW_CHOOSER(chooser), arrow.type);
+  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_end_arrow(arrow);
 
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);

@@ -65,7 +65,7 @@ typedef enum {
 
 struct menudesc {
   char *name;
-  int enum_value;
+  ArrowType enum_value;
 };
 
 /** The number of centimeters long and wide an arrow starts with by default.
@@ -103,5 +103,7 @@ void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
 
 /** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
 ArrowType arrow_type_from_name(gchar *name);
+/** Returns the index in arrow_types of the given arrow type. */
+gint arrow_index_from_type(ArrowType type);
 
 #endif /* ARROWS_H */
