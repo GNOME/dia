@@ -33,10 +33,11 @@ down to nops and strdups */
 
 #include "charconv.h" 
 
-#ifdef HAVE_UNICODE
 #include <string.h>
+#ifdef HAVE_UNICODE
 #include <unicode.h>
 #include <errno.h>
+#endif
 
 /* unfortunately, unicode_get_charset() is broken :'-( 
    As a hopefully temporary measure, we'll continue using the older charset 
@@ -78,7 +79,7 @@ int get_local_charset(char **charset)
   if (local_is_utf8) {
     return local_is_utf8;
   }
-  if (0==strcmp(*charset,"US-ASCII")) {
+  if (*charset && 0==strcmp(*charset,"US-ASCII")) {
     *charset = nl_langinfo(CODESET);
     this_charset = *charset;
     local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
@@ -87,6 +88,7 @@ int get_local_charset(char **charset)
 }
 
 
+#ifdef HAVE_UNICODE
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
 static int local_is_utf8 = 0;

@@ -5,23 +5,18 @@ PACKAGE = libdia
 
 GDKPIXBUF = $(TOP)\dia-dev\gdk-pixbuf
 
-!IFNDEF DEBUG
-XML_LIB = libxml.lib
-!ELSE
-XML_LIB = libxmld.lib
-!ENDIF
-
 PKG_CFLAGS = -I.. \
 	$(GTK_CFLAGS) \
 	-I$(GDKPIXBUF)\.. \
-	-I$(LIBXML) \
+	$(LIBXML2_CFLAGS) \
+	$(ZLIB_CFLAGS) \
 	-I$(LIBART)\.. \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
-	$(LIBXML)\$(XML_LIB) $(GDKPIXBUF)\gdk-pixbuf.lib
+	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib
 
 OBJECTS = \
 	diagramdata.obj \

@@ -11,6 +11,6 @@ typedef struct {
 
 extern PyTypeObject PyDiaFont_Type;
 
-PyObject* PyDiaFont_New (Font* font);
+PyObject* PyDiaFont_New (DiaFont* font);
 
 #endif

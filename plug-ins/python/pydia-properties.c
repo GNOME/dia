@@ -98,16 +98,12 @@ PyDiaProperties_Get(PyDiaProperties *self, PyObject *args)
     return NULL;
 
   if (self->object->ops->get_props != NULL) {
-    Property prop;
-
-    prop.name = PyString_AsString(key);
-    prop.type = PROP_TYPE_INVALID;
-    if (prop.name) {
-      /* Get the first property with name */
-      self->object->ops->get_props(self->object, &prop, 1);
-      if (prop.type != PROP_TYPE_INVALID)
-        val = PyDiaProperty_New(&prop); /* makes a copy, too. */
-      prop_free(&prop);
+    Property *p;
+    char* name = PyString_AsString(key);
+    p = object_prop_by_name (self->object, name);  
+    if (p) {
+      val = PyDiaProperty_New(p); /* makes a copy */
+      p->ops->free(p);
     }
   }
  
@@ -132,22 +128,15 @@ PyDiaProperties_HasKey(PyDiaProperties *self, PyObject *args)
     ok = 0; /* is this too drastic? */
 
   if (self->object->ops->get_props != NULL) {
-    Property prop;
-    PropDescription *desc;
+    Property *p;
+    char     *name;
 
-    prop.name = PyString_AsString(key);
+    name = PyString_AsString(key);
 
-    desc = self->object->ops->describe_props(self->object);
-    desc = prop_desc_list_find_prop (desc, prop.name);
-
-    prop.type = desc->type;
-
-    if (prop.name) {
-      /* Get the first property with name */
-      self->object->ops->get_props(self->object, &prop, 1);
-      ok = (prop.type != PROP_TYPE_INVALID);
-      prop_free(&prop);
-    }
+    p = object_prop_by_name (self->object, name);  
+    ok = (NULL != p);
+    if (p)
+      p->ops->free(p);
   }
 
   return PyInt_FromLong(ok);
@@ -205,22 +194,15 @@ PyDiaProperties_Subscript (PyDiaProperties *self, register PyObject *key)
     return NULL;
   }
   else {
-    Property prop;
-    PropDescription *desc;
+    Property *p;
+    char     *name;  
 
-    prop.name = PyString_AsString(key);
+    name = PyString_AsString(key);
+    p = object_prop_by_name (self->object, name);  
 
-    desc = self->object->ops->describe_props(self->object);
-    desc = prop_desc_list_find_prop (desc, prop.name);
-
-    prop.type = desc->type;
-
-    if (prop.name) {
-      /* Get the first property with name */
-      self->object->ops->get_props(self->object, &prop, 1);
-      if (prop.type != PROP_TYPE_INVALID)
-        v = PyDiaProperty_New(&prop); /* makes a copy, too. */
-      prop_free(&prop);
+    if (p) {
+      v = PyDiaProperty_New(p); /* makes a copy */
+      p->ops->free (p);
     }
   }
 
@@ -286,4 +268,3 @@ PyTypeObject PyDiaProperties_Type = {
     0L,0L,0L,0L,
     NULL
 };
-

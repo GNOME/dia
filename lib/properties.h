@@ -433,6 +433,9 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
    same type) */
 void          object_copy_props(Object *dest, Object *src);
 
+/* Return a reference to objects property with 'name' or NULL */
+Property     *object_get_prop_by_name (Object *obj, const char* name);
+ 
 /* ************************************************************* */ 
 
 void stdprops_init(void);

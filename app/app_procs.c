@@ -170,7 +170,7 @@ app_init (int argc, char **argv)
 #endif 
 
   bindtextdomain(PACKAGE, LOCALEDIR);
-#ifdef GTK_TALKS_UTF8
+#if defined GTK_TALKS_UTF8 && defined ENABLE_NLS
   bind_textdomain_codeset(PACKAGE,"UTF-8");  
 #endif
   textdomain(PACKAGE);

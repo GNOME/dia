@@ -59,7 +59,7 @@ shape_info_get(ObjectNode obj_node)
   str = xmlGetProp(obj_node, "type");
   if (str && name_to_info) {
     info = g_hash_table_lookup(name_to_info, str);
-    free(str);
+    xmlFree(str);
   }
   return info;
 }
@@ -225,7 +225,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
     while (ptr[0] != '\0' && ptr[0] != ';' && ptr[0] != '\n') ptr++;
     if (ptr[0] != '\0') ptr++;
   }
-  free(str);
+  xmlFree(str);
  }
 }
 
@@ -560,28 +560,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	old_locale = setlocale(LC_NUMERIC, "C");
 	line->p1.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	line->p1.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	line->p2.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	line->p2.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
     } else if (!strcmp(node->name, "polyline")) {
       GraphicElementPoly *poly;
@@ -601,7 +601,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	setlocale(LC_NUMERIC, old_locale);
 	g_array_append_val(arr, val);
       }
-      free(str);
+      xmlFree(str);
       val = 0;
       if (arr->len % 2 == 1) 
 	g_array_append_val(arr, val);
@@ -633,7 +633,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	setlocale(LC_NUMERIC, old_locale);
 	g_array_append_val(arr, val);
       }
-      free(str);
+      xmlFree(str);
       val = 0;
       if (arr->len % 2 == 1) 
 	g_array_append_val(arr, val);
@@ -657,28 +657,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	old_locale = setlocale(LC_NUMERIC, "C");
 	rect->corner1.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       } else rect->corner1.x = 0;
       str = xmlGetProp(node, "y");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	rect->corner1.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       } else rect->corner1.y = 0;
       str = xmlGetProp(node, "width");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	rect->corner2.x = rect->corner1.x + strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "height");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	rect->corner2.y = rect->corner1.y + strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
     } else if (!strcmp(node->name, "text")) {
 
@@ -691,20 +691,20 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	old_locale = setlocale(LC_NUMERIC, "C");
 	text->anchor.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       } else text->anchor.x = 0;
       str = xmlGetProp(node, "y");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	text->anchor.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       } else text->anchor.y = 0;
 
       str = xmlNodeGetContent(node);
       if (str) {
 	    text->string = strdup(str);
-	    free(str);
+	    xmlFree(str);
       } else text->string = "";
     } else if (!strcmp(node->name, "circle")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
@@ -716,21 +716,21 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->center.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->center.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "r");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->width = ellipse->height = 2 * strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
     } else if (!strcmp(node->name, "ellipse")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
@@ -742,34 +742,34 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->center.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->center.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "rx");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->width = 2 * strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "ry");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	ellipse->height = 2 * strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
     } else if (!strcmp(node->name, "path")) {
       str = xmlGetProp(node, "d");
       if (str) {
 	parse_path(info, str, &s);
-	free(str);
+	xmlFree(str);
       }
     } else if (!strcmp(node->name, "g")) {
       /* add elements from the group element */
@@ -903,7 +903,7 @@ load_shape_info(const gchar *filename)
       tmp = xmlNodeGetContent(node);
       g_free(info->name);
       info->name = g_strdup(tmp);
-      free(tmp);
+      xmlFree(tmp);
 #if 0
     } else if (node->ns == shape_ns && !strcmp(node->name, "description")) {
       gint score;
@@ -921,14 +921,14 @@ load_shape_info(const gchar *filename)
 	tmp = xmlNodeGetContent(node);
 	g_free(info->description);
 	info->description = g_strdup(tmp);
-	free(tmp);
+	xmlFree(tmp);
       }
 #endif
     } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->icon);
       info->icon = custom_get_relative_filename(filename, tmp);
-      free(tmp);
+      xmlFree(tmp);
     } else if (node->ns == shape_ns && !strcmp(node->name, "connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
@@ -947,14 +947,14 @@ load_shape_info(const gchar *filename)
 	    old_locale = setlocale(LC_NUMERIC, "C");
 	    pt.x = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
-	    free(str);
+	    xmlFree(str);
 	  }
 	  str = xmlGetProp(pt_node, "y");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
 	    pt.y = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
-	    free(str);
+	    xmlFree(str);
 	  }
 	  g_array_append_val(arr, pt);
 	}
@@ -970,28 +970,28 @@ load_shape_info(const gchar *filename)
 	old_locale = setlocale(LC_NUMERIC, "C");
 	info->text_bounds.left = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	info->text_bounds.top = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	info->text_bounds.right = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	info->text_bounds.bottom = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
-	free(str);
+	xmlFree(str);
       }
       info->resize_with_text = TRUE;
       str = xmlGetProp(node, "resize");
@@ -999,7 +999,7 @@ load_shape_info(const gchar *filename)
         info->resize_with_text = TRUE;
         if (!strcmp(str,"no"))
           info->resize_with_text = FALSE;
-	free(str);
+	xmlFree(str);
       }
       info->text_align = ALIGN_CENTER;
       str = xmlGetProp(node, "align");
@@ -1008,7 +1008,7 @@ load_shape_info(const gchar *filename)
 	  info->text_align = ALIGN_LEFT;
 	else if (!strcmp(str, "right"))
 	  info->text_align = ALIGN_RIGHT;
-	free(str);
+	xmlFree(str);
       }
       info->has_text = TRUE;
     } else if (node->ns == shape_ns && !strcmp(node->name, "aspectratio")) {
@@ -1029,14 +1029,14 @@ load_shape_info(const gchar *filename)
 	    old_locale = setlocale(LC_NUMERIC, "C");
 	    info->aspect_min = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
-	    free(str);
+	    xmlFree(str);
 	  }
 	  str = xmlGetProp(node, "max");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
 	    info->aspect_max = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
-	    free(str);
+	    xmlFree(str);
 	  }
 	  if (info->aspect_max < info->aspect_min) {
 	    real asp = info->aspect_max;
@@ -1044,7 +1044,7 @@ load_shape_info(const gchar *filename)
 	    info->aspect_min = asp;
 	  }
 	}
-	free(tmp);
+	xmlFree(tmp);
       }
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
       GraphicStyle s = {

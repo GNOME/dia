@@ -24,11 +24,14 @@
 #include <locale.h>
 #include <math.h>
 
-#include <libxml/parser.h>
-#include <libxml/parserInternals.h>
-#include <libxml/xmlmemory.h>
+#include <parser.h>
+#include <parserInternals.h>
+#include <xmlmemory.h>
 
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <zlib.h>
 
 #include "intl.h"
@@ -134,7 +137,11 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   if (!tmp) tmp = "/tmp";
 
   res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
+#if GLIB_CHECK_VERSION(1,3,4)
+  uf = g_mkstemp(res);
+#else
   uf = mkstemp(res);
+#endif
   write(uf,buf,p-buf);
   write(uf," encoding=\"",11);
   write(uf,default_enc,strlen(default_enc));
@@ -157,7 +164,8 @@ xmlDocPtr
 xmlDiaParseFile(const char *filename) {
   char *local_charset = NULL;
   
-  if (!get_local_charset(&local_charset)) {
+  if (   !get_local_charset(&local_charset)
+      && local_charset) {
     /* we're not in an UTF-8 environment. */ 
     const gchar *fname = xml_file_check_encoding(filename,local_charset);
     if (fname != filename) {

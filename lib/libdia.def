@@ -405,5 +405,11 @@ EXPORTS
  polyshape_set_points
  prop_desc_list_calculate_quarks
 
+ object_prop_by_name
+ object_prop_by_name_type
+
+ xmlDiaParseFile
+ xmlDoParseFile
+
 ; custom_register_objects
 

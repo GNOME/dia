@@ -37,7 +37,7 @@ PyObject* PyDiaProperty_New (Property* property)
   self = PyObject_NEW(PyDiaProperty, &PyDiaProperty_Type);
   if (!self) return NULL;
   
-  prop_copy(&(self->property), property);
+  self->property = property->ops->copy (property);
 
   return (PyObject *)self;
 }
@@ -48,7 +48,7 @@ PyObject* PyDiaProperty_New (Property* property)
 static void
 PyDiaProperty_Dealloc(PyDiaProperty *self)
 {
-  prop_free(&(self->property));
+  self->property->ops->free(self->property);
   PyMem_DEL(self);
 }
 
@@ -81,13 +81,14 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[sss]", "name", "type", "value");
   else if (!strcmp(attr, "name"))
-    return PyString_FromString(self->property.name);
+    return PyString_FromString(self->property->name);
   else if (!strcmp(attr, "type"))
-    return PyInt_FromLong(self->property.type);
+    return PyInt_FromLong(self->property->type);
   else if (!strcmp(attr, "value")) {
-    switch (self->property.type) {
+#ifdef THE_PROP_TYPE_ID_IS_INTEGRAL
+    switch (self->property->type) {
     case PROP_TYPE_CHAR :
-      return PyInt_FromLong(self->property.d.char_data);
+      return PyInt_FromLong(((CharProperty*)self->property)->char_data);
     case PROP_TYPE_BOOL :
       return PyInt_FromLong(self->property.d.bool_data);
     case PROP_TYPE_INT :
@@ -124,6 +125,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
       Py_INCREF(Py_None);
       return Py_None;
     } /* switch */
+#endif
   }
 
   PyErr_SetString(PyExc_AttributeError, attr);
@@ -140,6 +142,7 @@ PyDiaProperty_Str(PyDiaProperty *self)
   gchar* tname = "OTHER";
   gchar* s;
 
+#ifdef THE_PROP_TYPE_ID_IS_INTEGRAL
 #define CASE_STR(s) case PROP_TYPE_##s : tname = #s; break;
   switch (self->property.type) {
   CASE_STR(INVALID)
@@ -163,11 +166,16 @@ PyDiaProperty_Str(PyDiaProperty *self)
     tname = "OTHER";
   }
 #undef CASE_STR
-
   s = g_strdup_printf("<DiaProperty at 0x%08x, \"%s\", %s>",
                       self,
                       self->property.name,
                       tname);
+#else
+  s = g_strdup_printf("<DiaProperty at 0x%08x, \"%s\", %s>",
+                      self,
+                      self->property->name,
+                      self->property->type);
+#endif
   py_s = PyString_FromString(s);
   g_free (s);
   return py_s;

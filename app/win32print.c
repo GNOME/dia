@@ -110,7 +110,10 @@ win32_printer_open (char* sName)
     else
     {
        int hnd = _open_osfhandle ((long)hFile, _O_APPEND);
-       return _fdopen (hnd, "wb");
+	 if (-1 != hnd)
+         return _fdopen (hnd, "wb");
+       else
+         PrintError ("Failed to _open_osfhandle", 0);
     } 
   }
 
@@ -120,6 +123,7 @@ win32_printer_open (char* sName)
 void
 win32_printer_close (FILE* f)
 {
+  fflush (f);
   if (!pJob || !ScheduleJob (hPrinter, pJob->JobId))
   {
     PrintError ("Failed to schedule job", GetLastError());

@@ -1,3 +1,36 @@
+2001-08-18  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : made it compile without ENABLE_NLS
+
+	* app/diap_callbacks.c : strcmp isn't guaranteed to work
+	with NULL pointers
+
+	* app/load_save.c :
+	* lib/plug-ins.c : 
+	* objects/custom/shape_info.c : avoid mixing allocators and dealocators. 
+	It has to be :
+		xmlGetProp, ... -> xmlFree
+		malloc, strdup -> free
+		g_new, g_malloc, g_strdup - > g_free
+
+	* app/win32print.c : some more error checking, still not
+	working on Win9x
+
+	* lib/charconv.c : get_local_charset is used even with !HAVE_UNICODE
+
+	* lib/dia_xml.c : msvc still has no unistd.h
+
+	* lib/dia_xml.c :
+	* lib/sheets.c : temporary resolved libxml include brokeness
+
+	* plug-ins/python/pydia-*.c : reflect Font and StdProp api
+	changes. Compiles again, but doesn't do anything useful anymore.
+	(see THE_PROP_TYPE_IS_INTEGRAL)
+
+	* **/makefile.msc : updated to use LIBXML2
+
+	* lib/libdia.def : reflect api changes
+
 2001-08-17  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* config.h.win32: added defines telling that gtk speaks UTF8.

@@ -7,7 +7,7 @@
 
 typedef struct {
     PyObject_HEAD
-    Property property; 
+    Property* property; 
 } PyDiaProperty;
 
 extern PyTypeObject PyDiaProperty_Type;

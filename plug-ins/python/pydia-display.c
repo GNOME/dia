@@ -220,7 +220,8 @@ PyDiaDisplay_GetAttr(PyDiaDisplay *self, gchar *attr)
 			     "zoom_factor");
     else if (!strcmp(attr, "diagram"))
 	return PyDiaDiagram_New(self->disp->diagram);
-    else if (!strcmp(attr, "origo") || !strcmp(attr, "origion"))
+    /* FIXME: shouldn't it have only one name */
+    else if (!strcmp(attr, "origo") || !strcmp(attr, "origion") || !strcmp(attr, "origin"))
 	return Py_BuildValue("(dd)", self->disp->origo.x, self->disp->origo.y);
     else if (!strcmp(attr, "zoom_factor"))
 	return PyFloat_FromDouble(self->disp->zoom_factor);

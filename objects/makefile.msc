@@ -1,10 +1,10 @@
 !IFNDEF PACKAGE
 
-PLUGINS = chronogram custom eml er flowchart fs grafcet \
+PLUGINS = chronogram custom er flowchart fs grafcet \
 		network sadt standard uml 
 
 # now shapes only: sybase 
-# specware 
+# specware eml 
 
 # The main target
 all : sub-all
@@ -26,16 +26,10 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\build\win32\make.msc
 
 PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
-	-I$(LIBXML) -I$(PRJ_TOP)\lib \
-
-!IFNDEF DEBUG
-XML_LIB = libxml.lib
-!ELSE
-XML_LIB = libxmld.lib
-!ENDIF
+	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
-	$(LIBXML)\$(XML_LIB) \
+	$(LIBXML2_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
 #

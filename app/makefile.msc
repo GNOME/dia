@@ -7,18 +7,12 @@ LIBART = $(TOP)/libart_lgpl
 GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
 
 PKG_CFLAGS = -I.. $(GLIB_CFLAGS) $(GTK_CFLAGS) \
-	-I$(LIBXML) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
+	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
 	-I$(PRJ_TOP)\lib -I$(LIBART)\.. -DHAVE_LIBART -DHAVE_LIBPNG \
 	-DVERSION=\"0.88\" -DWITHOUT_ZOOM_COMBO
 
-!IFNDEF DEBUG
-XML_LIB = libxml.lib
-!ELSE
-XML_LIB = libxmld.lib
-!ENDIF
-
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
-	$(LIBXML)\$(XML_LIB) $(GDKPIXBUF)\gdk-pixbuf.lib \
+	$(LIBXML2_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
 	$(GDKPIXBUF)\gdk-pixbuf.lib
 

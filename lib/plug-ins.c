@@ -529,7 +529,7 @@ plugin_load_inhibited(const gchar *filename)
     if (node_filename && !strcmp(filename, node_filename)) {
       xmlNodePtr node2;
 
-      free(node_filename);
+      xmlFree(node_filename);
       for (node2 = node->xmlChildrenNode; 
            node2 != NULL; 
            node2 = node2->next) {
@@ -540,7 +540,7 @@ plugin_load_inhibited(const gchar *filename)
       }
       return FALSE;
     }
-    if (node_filename) free(node_filename);
+    if (node_filename) xmlFree(node_filename);
   }
   return FALSE;
 }
@@ -573,7 +573,7 @@ info_fill_from_pluginrc(PluginInfo *info)
     if (node_filename && !strcmp(info->filename, node_filename)) {
       xmlNodePtr node2;
 
-      free(node_filename);
+      xmlFree(node_filename);
       for (node2 = node->xmlChildrenNode; 
            node2 != NULL; 
            node2 = node2->next) {
@@ -595,11 +595,11 @@ info_fill_from_pluginrc(PluginInfo *info)
           info->description = charconv_utf8_to_local8(content);
 #endif
 	}
-	free(content);
+	xmlFree(content);
       }
       break;
     }
-    if (node_filename) free(node_filename);
+    if (node_filename) xmlFree(node_filename);
   }
 }
 
@@ -641,12 +641,12 @@ dia_pluginrc_write(void)
 	continue;
       node_filename = xmlGetProp(node, "filename");
       if (node_filename && !strcmp(info->filename, node_filename)) {
-	free(node_filename);
+	xmlFree(node_filename);
 	xmlReplaceNode(node, pluginnode);
 	xmlFreeNode(node);
 	break;
       }
-      if (node_filename) free(node_filename);
+      if (node_filename) xmlFree(node_filename);
     }
     /* node wasn't in document ... */
     if (!node)

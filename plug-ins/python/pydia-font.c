@@ -27,7 +27,7 @@
 /*
  * New
  */
-PyObject* PyDiaFont_New (Font* font)
+PyObject* PyDiaFont_New (DiaFont* font)
 {
   PyDiaFont *self;
   

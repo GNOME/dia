@@ -109,16 +109,17 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       
       if (!type) {
 	if (NULL == g_hash_table_lookup(unknown_hash, typestr))
-	    g_hash_table_insert(unknown_hash, strdup(typestr), 0);
+	    g_hash_table_insert(unknown_hash, g_strdup(typestr), 0);
       }
       else
       {
         obj = type->ops->load(obj_node, version, filename);
         list = g_list_append(list, obj);
       
-        g_hash_table_insert(objects_hash, (char *)id, obj);
+        g_hash_table_insert(objects_hash, g_strdup((char *)id), obj);
       }
       if (typestr) xmlFree(typestr);
+      if (id) xmlFree (id);
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
@@ -220,7 +221,7 @@ hash_free_string(gpointer       key,
 		 gpointer       value,
 		 gpointer       user_data)
 {
-  free(key);
+  g_free(key);
 }
 
 static gboolean

@@ -635,7 +635,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	    set_zoom_out(active_tool);
 	  break;
 	default:
-          if (0 == strcmp(" ",kevent->string)) {
+          if (kevent->string && 0 == strcmp(" ",kevent->string)) {
             tool_select_former();
           } else { 
             return_val = FALSE;
