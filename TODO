@@ -1,5 +1,15 @@
 TODO:
 =====
+* Find all places which handle (currently 8-bit) character strings,
+  and tag them for (near) future UTF8isation.
+
+* eliminate lib/lazyprops.[ch] (convert all objects which use it to
+  Standard Properties beforehand).
+
+* clean up all objects from their baggage; bring them as much as
+  possible to par with modern, Standard Properties-using objects (this
+  should result in much less code and much more consistency).
+
 * When creating an object and moving the mouse to resize it. Warp the
   pointer to the handle that is being moved.
   
@@ -14,25 +24,12 @@ TODO:
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
   
-* Should be able to change background color.
-
 * Is there a better way to calculate font-properties? Rendering 100 pixel high
   fonts is very slow.
   
-* Draw the paper-size on the screen.
-  
-* Add export to WMF capabilities for windows stuff.
-
 * Accelerators for buttons in the toolbar.
 
-* Implement transitive selection. This means you select an object and all
-  objects it is somehow connected to.
-  
 * resizable groups.
-
-* auto-save backup files
-
-* Add more network objects
 
 * render_object: better distance_from that can be specified by the
   object programmer.
@@ -56,13 +53,6 @@ TODO:
 
 * Implement guides.  Probably swipe the guide implementation from
   gimp-1.1.
-
-* Change the way plugins are registered.  As we get more plugins, the
-  user will probably want a bit more control over what is and isn't
-  loaded.  If we are going to do an interface for this, we really need
-  some way for plugins to describe what they do (ie. a short description
-  and a plugin name to show in a dialog box).
-
 
 Interesting Stuff from the real Visio:
 ======================================

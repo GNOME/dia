@@ -4,6 +4,13 @@
 	are updated when the objects' size changes after a keypress event
 	(fixes #51222)
 
+	* configure.in: added a big warning about the possible future
+	non-optionality of --enable-unicode. 
+
+	* TODO: removed entries which look like done ; added a few ones
+	(Bugzilla "enhancement" bugs may be a better way to keep track of
+	this)
+	
 2001-06-05  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/UML/message.c: got rid of #55564 and of message_copy()
