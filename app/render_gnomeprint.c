@@ -131,9 +131,6 @@ RendererGPrint *
 new_gnomeprint_renderer(Diagram *dia, GnomePrintContext *ctx)
 {
   RendererGPrint *renderer;
-  time_t time_now;
-  Rectangle *extent;
-  char *name;
  
   renderer = g_new(RendererGPrint, 1);
   renderer->renderer.ops = &GPrintRenderOps;
@@ -413,6 +410,8 @@ fill_rect(RendererGPrint *renderer,
   gnome_print_fill(renderer->ctx);
 }
 
+#define SEG_ANGLE M_PI_4
+
 static void
 draw_arc(RendererGPrint *renderer, 
 	 Point *center,
@@ -420,13 +419,39 @@ draw_arc(RendererGPrint *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
-  /*fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  real arcangle;
+  int nsegs, i;
+  real theta, theta_2, sin_theta_2, cos_theta_2, x1, y1, rangle1, rangle2;
+  real w_2 = width/2, h_2 = height/2;
+  
+  if (angle2 < angle1) angle2 += 360;
+  rangle1 = (360 - angle2) * M_PI / 180.0;
+  rangle2 = (360 - angle1) * M_PI / 180.0;
+  arcangle = rangle2 - rangle1;
+  nsegs = (int)ceil(arcangle / SEG_ANGLE); /* how many bezier segments? */
+  theta = arcangle / nsegs;
+  theta_2 = theta / 2;
+  sin_theta_2 = sin(theta_2);
+  cos_theta_2 = cos(theta_2);
+  x1 = (4 - cos_theta_2)/3;   /* coordinates of control point */
+  y1 = (1 - cos_theta_2)*(cos_theta_2 - 3)/(3*sin_theta_2);
 
-  fprintf(renderer->file, "n %f %f %f %f %f %f ellipse s\n",
-	  (double) center->x, (double) center->y,
-	  (double) width/2.0, (double) height/2.0,
-	  (double) 360.0 - angle2, (double) 360.0 - angle1 ); */
+  gnome_print_newpath(renderer->ctx);
+  gnome_print_moveto(renderer->ctx, center->x + w_2 * cos(rangle1),
+		     center->y + h_2 * sin(rangle1));
+  for (i = 0; i < nsegs; i++) {
+    real phi = arcangle * i / nsegs + theta_2 + rangle1;
+    real sin_phi = sin(phi), cos_phi = cos(phi);
+
+    gnome_print_curveto(renderer->ctx,
+		w_2*(cos_phi*x1 - sin_phi*y1) + center->x,
+		h_2*(sin_phi*x1 + cos_phi*y1) + center->y,
+		w_2*(cos_phi*x1 + sin_phi*y1) + center->x,
+		h_2*(sin_phi*x1 - cos_phi*y1) + center->y,
+		w_2*(cos_phi*cos_theta_2 - sin_phi*sin_theta_2) + center->x,
+		h_2*(sin_phi*cos_theta_2 + cos_phi*sin_theta_2) + center->y);
+  }
+  gnome_print_stroke(renderer->ctx);
 }
 
 static void
@@ -436,14 +461,40 @@ fill_arc(RendererGPrint *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
-  /*fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  real arcangle;
+  int nsegs, i;
+  real theta, theta_2, sin_theta_2, cos_theta_2, x1, y1, rangle1, rangle2;
+  real w_2 = width/2, h_2 = height/2;
+  
+  if (angle2 < angle1) angle2 += 360;
+  rangle1 = (360 - angle2) * M_PI / 180.0;
+  rangle2 = (360 - angle1) * M_PI / 180.0;
+  arcangle = rangle2 - rangle1;
+  nsegs = (int)ceil(arcangle / SEG_ANGLE); /* how many bezier segments? */
+  theta = arcangle / nsegs;
+  theta_2 = theta / 2;
+  sin_theta_2 = sin(theta_2);
+  cos_theta_2 = cos(theta_2);
+  x1 = (4 - cos_theta_2)/3;   /* coordinates of control point */
+  y1 = (1 - cos_theta_2)*(cos_theta_2 - 3)/(3*sin_theta_2);
 
-  fprintf(renderer->file, "n %f %f m %f %f %f %f %f %f ellipse f\n",
-	  (double) center->x, (double) center->y,
-	  (double) center->x, (double) center->y,
-	  (double) width/2.0, (double) height/2.0,
-	  (double) 360.0 - angle2, (double) 360.0 - angle1 ); */
+  gnome_print_newpath(renderer->ctx);
+  gnome_print_moveto(renderer->ctx, center->x, center->y);
+  gnome_print_lineto(renderer->ctx, center->x + w_2 * cos(rangle1),
+		     center->y + h_2 * sin(rangle1));
+  for (i = 0; i < nsegs; i++) {
+    real phi = arcangle * i / nsegs + theta_2 + rangle1;
+    real sin_phi = sin(phi), cos_phi = cos(phi);
+
+    gnome_print_curveto(renderer->ctx,
+		w_2*(cos_phi*x1 - sin_phi*y1) + center->x,
+		h_2*(sin_phi*x1 + cos_phi*y1) + center->y,
+		w_2*(cos_phi*x1 + sin_phi*y1) + center->x,
+		h_2*(sin_phi*x1 - cos_phi*y1) + center->y,
+		w_2*(cos_phi*cos_theta_2 - sin_phi*sin_theta_2) + center->x,
+		h_2*(sin_phi*cos_theta_2 + cos_phi*sin_theta_2) + center->y);
+  }
+  gnome_print_fill(renderer->ctx);
 }
 
 /* This constant is equal to sqrt(2)/3*(8*cos(pi/8) - 4 - 1/sqrt(2)) - 1.
@@ -645,11 +696,6 @@ draw_string(RendererGPrint *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  const char *str;
-  int len;
-
-  /* TODO: Use latin-1 encoding */
-
   gnome_print_setrgbcolor(renderer->ctx, (double)color->red,
 			  (double)color->green, (double)color->blue);
 
@@ -682,8 +728,7 @@ draw_image(RendererGPrint *renderer,
 	   DiaImage image)
 {
   int img_width, img_height;
-  int v;
-  int                 x, y;
+  int x, y;
   real ratio;
   guint8 *rgb_data;
   guint8 *mask_data;

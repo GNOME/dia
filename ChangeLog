@@ -1,3 +1,13 @@
+2000-10-14  James Henstridge  <james@daa.com.au>
+
+	* app/paginate_gnomeprint.c (diagram_print_gnome): check to make
+	sure that the return value of
+	gnome_print_context_new_with_paper_size is not NULL.
+
+	* app/render_gnomeprint.c (draw_arc): add code to convert arcs
+	into a series of bezier segments.
+	(fill_arc): similar code to handle filled arc segments.
+
 2000-10-12  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/app_procs.c

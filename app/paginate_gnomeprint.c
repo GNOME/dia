@@ -169,7 +169,10 @@ diagram_print_gnome(Diagram *dia)
 
   ctx = gnome_print_context_new_with_paper_size(printer,dia->data->paper.name);
 
-  paginate_gnomeprint(dia, ctx);
+  if (ctx != NULL)
+    paginate_gnomeprint(dia, ctx);
+  else
+    message_error(_("An error occured while creating the print context"));
 
   gtk_object_unref(GTK_OBJECT(printer));
   gtk_widget_destroy(dialog);
