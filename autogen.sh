@@ -1,6 +1,12 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
+srcdir=`dirname $0`
+test -z "$srcdir" && srcdir=.
+
+ORIGDIR=`pwd`
+cd $srcdir
+
 PROJECT=dia
 TEST_TYPE=-d
 FILE=objects
@@ -66,8 +72,9 @@ aclocal $ACLOCAL_FLAGS
 automake -a $am_opt
 autoconf
 
-./configure "$@"
+cd $ORIGDIR
+
+$srcdir/configure "$@"
 
 echo 
 echo "Now type 'make' to compile $PROJECT."
-
