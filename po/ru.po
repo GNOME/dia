@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-08-16 11:55+0000\n"
-"PO-Revision-Date: 2000-08-16 11:57+00:00\n"
+"Project-Id-Version: Dia-0.86\n"
+"POT-Creation-Date: 2000-09-10 20:02+0400\n"
+"PO-Revision-Date: 2000-09-10 20:07+04:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -169,31 +169,7 @@ msgstr "Закрыть"
 msgid "This object has no defaults."
 msgstr "У этого объекта нет исх.свойств."
 
-#: app/dia_embedd.c:185
-msgid "File/New diagram"
-msgstr "Файл/Новая диаграмма"
-
-#: app/dia_embedd.c:189
-msgid "File/Open..."
-msgstr "Файл/Открыть..."
-
-#: app/dia_embedd.c:193
-msgid "File/Save As..."
-msgstr "Файл/Сохранить как..."
-
-#: app/dia_embedd.c:197
-msgid "File/Close"
-msgstr "Файл/Закрыть"
-
-#: app/dia_embedd.c:201
-msgid "File/Exit"
-msgstr "Файл/Выход"
-
-#: app/dia_embedd.c:205
-msgid "View/New View"
-msgstr "Вид/Новое окно"
-
-#: app/dia_embedd.c:282
+#: app/dia_embedd.c:266
 msgid "Could not initialize Bonobo!"
 msgstr "Не удалось инициализировать Bonobo!"
 
@@ -716,7 +692,7 @@ msgid "_Zoom"
 msgstr "Масштаб"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr "Свойства диаграммы..."
 
 #: app/menus.c:114
@@ -1264,7 +1240,7 @@ msgstr "/Диалоги/Слои"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL данные инструмента в tool_menu_select"
 
-#: app/menus.c:804
+#: app/menus.c:806
 msgid "Diagram Menu"
 msgstr "Меню диаграммы"
 
@@ -2643,96 +2619,3 @@ msgstr "Маштабируемая векторная графика (SVG)"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Фильтр экспорта маштабируемой векторной графики (SVG)"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Правка/Скопировать"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Правка/Вырезать"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Правка/Вставить"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Правка/Удалить"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Правка/Вставить текст"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Объекты/Переместить назад"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Объекты/Переместить вперед"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Объекты/Сгруппировать"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Объекты/Разгруппировать"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Вид/Показывать линейки"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Вид/Показывать сетку"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Вид/Выравнивать по сетке"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Вид/Показывать соединительные точки"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Вид/Сглаженный"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Файл/sep1"
-
-#~ msgid "/tearoff"
-#~ msgstr "/tearoff"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/Файл/tearoff"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Файл/sep2"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Правка/tearoff"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/Вид/tearoff"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Вид/Масштаб/tearoff"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Вид/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Выделение/tearoff"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/Выделение/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Объекты/tearoff1"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Объекты/sep1"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Объекты/Выравнивание гор./tearoff"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Объекты/Выравнивание верт./tearoff"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/Инструменты/tearoff"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Диалоги/tearoff"
-
-#~ msgid "/Tools/"
-#~ msgstr "/Инструменты/"
