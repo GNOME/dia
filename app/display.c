@@ -646,6 +646,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   Rectangle *visible = &ddisp->visible;
   int width, height;
 
+  gchar *postext;
+
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;
   ddisp->origo.y = y;
@@ -661,8 +663,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   
   visible->left = ddisp->origo.x;
   visible->top = ddisp->origo.y;
-  visible->right = ddisp->origo.x + width/ddisp->zoom_factor;
-  visible->bottom = ddisp->origo.y + height/ddisp->zoom_factor;
+  visible->right = ddisp->origo.x + ddisplay_untransform_length(ddisp, width);
+  visible->bottom = ddisp->origo.y + ddisplay_untransform_length(ddisp, height);
 
   gtk_ruler_set_range  (GTK_RULER (ddisp->hrule),
 			visible->left,

@@ -185,6 +185,9 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 {
   Point to;
   ConnectionPoint *connectionpoint;
+  gchar *postext;
+  GtkStatusbar *statusbar;
+  guint context_id;
   
   if (!tool->moving)
     return;
@@ -213,6 +216,21 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   tool->obj->ops->move_handle(tool->obj, tool->handle, &to, connectionpoint,
 			      HANDLE_MOVE_CREATE, 0);
   object_add_updates(tool->obj, ddisp->diagram);
+
+  /* Put current mouse position in status bar */
+  statusbar = GTK_STATUSBAR (ddisp->modified_status);
+  context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
+    
+  postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
+			    tool->obj->bounding_box.left,
+			    tool->obj->bounding_box.top,
+			    tool->obj->bounding_box.right,
+			    tool->obj->bounding_box.bottom);
+			       
+  gtk_statusbar_pop (statusbar, context_id); 
+  gtk_statusbar_push (statusbar, context_id, postext);
+
+  g_free(postext);
   
   diagram_flush(ddisp->diagram);
 
