@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-06-24 10:30+0800\n"
-"PO-Revision-Date: 2000-07-25 02:27+0200\n"
+"PO-Revision-Date: 2000-07-31 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -139,21 +139,31 @@ msgstr "Bidragsydere:"
 msgid "OK"
 msgstr "Ok"
 
-#: app/defaults.c:47 app/defaults.c:55
+#: app/commands.c:667
+msgid ""
+"The anti aliased renderer is buggy, and may cause\n"
+"crashes.  We know there are bugs in it, so don't\n"
+"bother submitting another report if it crashes"
+msgstr ""
+"Anti-alias fremviseren er fejlbehæftet, og kan forårsage nedbrud.\n"
+"Vi véd godt at der er fejl i den, så lad være med\n"
+"at indsende en ny fejlrapprt hvis den går ned"
+
+#: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
 msgstr "Standardindstillinger for objekt"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
+#: app/defaults.c:73 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
 msgid "Apply"
 msgstr "Anvend"
 
-#: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
+#: app/defaults.c:83 app/layer_dialog.c:261 app/pagesetup.c:83
 #: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
 msgid "Close"
 msgstr "Luk"
 
-#: app/defaults.c:95
+#: app/defaults.c:96
 msgid "This object has no defaults."
 msgstr "Dette objekt har ingen standardindstillinger."
 
@@ -574,7 +584,7 @@ msgstr "Billedfil"
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL værktøjdata i tool_select_update"
 
-#: app/interface.c:714
+#: app/interface.c:718
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -583,7 +593,7 @@ msgstr ""
 "farverne.  Pilene bytter om på farverne.  Dobbelt-klik for at vælge andre "
 "farver."
 
-#: app/interface.c:795
+#: app/interface.c:799
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -1641,7 +1651,7 @@ msgstr "Længde: "
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:854 objects/standard/image.c:529
+#: lib/widgets.c:854 objects/standard/image.c:532
 msgid "Select image file"
 msgstr "Valgt billedfil"
 
@@ -1736,38 +1746,38 @@ msgstr "Identificerer"
 msgid "Relationship"
 msgstr "Forhold"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:744
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:745
 msgid "Flow:"
 msgstr "Flyd:"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:760
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:761
 msgid "Flow type:"
 msgstr "Flydtype:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:649 objects/FS/flow.c:704
-#: objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:788 objects/FS/flow.c:649 objects/FS/flow.c:702
+#: objects/FS/flow.c:766
 msgid "Energy"
 msgstr "Energi"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:656 objects/FS/flow.c:705
-#: objects/FS/flow.c:772
+#: objects/FS/flow-ortho.c:795 objects/FS/flow.c:656 objects/FS/flow.c:703
+#: objects/FS/flow.c:773
 msgid "Material"
 msgstr "Materiale"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:662 objects/FS/flow.c:706
-#: objects/FS/flow.c:778 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:801 objects/FS/flow.c:662 objects/FS/flow.c:704
+#: objects/FS/flow.c:779 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:764
+#: objects/FS/flow-ortho.c:767
 msgid "Orthflow:"
 msgstr "Ortflyd:"
 
-#: objects/FS/flow-ortho.c:780
+#: objects/FS/flow-ortho.c:783
 msgid "Orthflow type:"
 msgstr "OrtFlydtype:"
 
@@ -1947,9 +1957,9 @@ msgstr "   Mål"
 #: objects/SADT/box.c:205 objects/SADT/box.c:247
 #: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 #: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:383 objects/flowchart/box.c:345
-#: objects/flowchart/diamond.c:325 objects/flowchart/ellipse.c:325
-#: objects/flowchart/parallelogram.c:350 objects/standard/textobj.c:263
+#: objects/custom/custom_object.c:386 objects/flowchart/box.c:348
+#: objects/flowchart/diamond.c:328 objects/flowchart/ellipse.c:328
+#: objects/flowchart/parallelogram.c:353 objects/standard/textobj.c:266
 msgid "Font:"
 msgstr "Skrifttype:"
 
@@ -1961,9 +1971,9 @@ msgstr "Skrifttype:"
 #: objects/SADT/box.c:206 objects/SADT/box.c:248
 #: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:394 objects/flowchart/box.c:356
-#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
-#: objects/flowchart/parallelogram.c:361
+#: objects/custom/custom_object.c:397 objects/flowchart/box.c:359
+#: objects/flowchart/diamond.c:339 objects/flowchart/ellipse.c:339
+#: objects/flowchart/parallelogram.c:364
 msgid "Font size:"
 msgstr "Skriftstørrelse:"
 
@@ -2099,9 +2109,9 @@ msgid "SADT Arrow"
 msgstr "SADT pil"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:358 objects/flowchart/box.c:331
-#: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
-#: objects/flowchart/parallelogram.c:336
+#: objects/custom/custom_object.c:361 objects/flowchart/box.c:334
+#: objects/flowchart/diamond.c:314 objects/flowchart/ellipse.c:314
+#: objects/flowchart/parallelogram.c:339
 msgid "Text padding:"
 msgstr "Tekstspaltefyld:"
 
@@ -2515,23 +2525,23 @@ msgstr "Rotér vandret"
 msgid "Flip vertical"
 msgstr "Rotér lodret"
 
-#: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
-#: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
-#: objects/flowchart/parallelogram.c:314 objects/standard/beziergon.c:215
-#: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:219
+#: objects/custom/custom_object.c:352 objects/flowchart/box.c:312
+#: objects/flowchart/diamond.c:306 objects/flowchart/ellipse.c:306
+#: objects/flowchart/parallelogram.c:317 objects/standard/beziergon.c:218
+#: objects/standard/box.c:226 objects/standard/ellipse.c:216
+#: objects/standard/polygon.c:222
 msgid "Draw background"
 msgstr "Solid baggrund"
 
-#: objects/custom/custom_object.c:372 objects/standard/textobj.c:252
+#: objects/custom/custom_object.c:375 objects/standard/textobj.c:255
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1341
 msgid "Flip Horizontal"
 msgstr "Rotér vandret"
 
-#: objects/custom/custom_object.c:1339
+#: objects/custom/custom_object.c:1342
 msgid "Flip Vertical"
 msgstr "Rotér lodret"
 
@@ -2544,7 +2554,7 @@ msgstr "Hjørneradius:"
 msgid "Text padding"
 msgstr "Tekstspaltefyld"
 
-#: objects/flowchart/box.c:317 objects/standard/box.c:231
+#: objects/flowchart/box.c:320 objects/standard/box.c:234
 msgid "Corner rounding:"
 msgstr "Hjørnerunding:"
 
@@ -2556,7 +2566,7 @@ msgstr "Rutediagram objekter"
 msgid "Shear angle"
 msgstr "Forskydningsvinkel"
 
-#: objects/flowchart/parallelogram.c:322
+#: objects/flowchart/parallelogram.c:325
 msgid "Shear angle:"
 msgstr "Forskydningsvinkel:"
 
@@ -2572,23 +2582,23 @@ msgstr "Slet håndtag"
 msgid "Network diagram objects"
 msgstr "Netværksdiagram-objekter"
 
-#: objects/standard/bezier.c:526 objects/standard/beziergon.c:541
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:544
 msgid "Add Segment"
 msgstr "Tilføj segment"
 
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:542
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:545
 msgid "Delete Segment"
 msgstr "Slet segment"
 
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:544
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:547
 msgid "Symmetric control"
 msgstr "Symmetrisk kontrol"
 
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:546
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:549
 msgid "Smooth control"
 msgstr "Udjævningskontrol"
 
-#: objects/standard/bezier.c:533 objects/standard/beziergon.c:548
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:551
 msgid "Cusp control"
 msgstr "Cusp kontrol"
 
@@ -2608,20 +2618,20 @@ msgstr "Tegn kant"
 msgid "Keep aspect ratio"
 msgstr "Behold bredde/højde forhold"
 
-#: objects/standard/image.c:260
+#: objects/standard/image.c:263
 msgid "Image file:"
 msgstr "Billedfil:"
 
-#: objects/standard/image.c:271
+#: objects/standard/image.c:274
 msgid "Keep aspect ratio:"
 msgstr "Behold bredde/højde forhold:"
 
-#: objects/standard/image.c:279
+#: objects/standard/image.c:282
 msgid "Show border:"
 msgstr "Vis kant:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:845 objects/standard/image.c:856
+#: objects/standard/image.c:848 objects/standard/image.c:859
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2631,7 +2641,7 @@ msgstr ""
 "Bruger filen '%s' istedet.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:862 objects/standard/image.c:888
+#: objects/standard/image.c:865 objects/standard/image.c:891
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunne ikke finde billedfilen '%s'.\n"
@@ -2644,11 +2654,11 @@ msgstr "Startpunkt"
 msgid "End point"
 msgstr "Slutpunkt"
 
-#: objects/standard/polygon.c:514 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:517 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Tilføj hjørne"
 
-#: objects/standard/polygon.c:515 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:518 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Slet hjørne"
 
@@ -2656,7 +2666,7 @@ msgstr "Slet hjørne"
 msgid "Standard objects"
 msgstr "Standard objekter"
 
-#: objects/standard/textobj.c:274
+#: objects/standard/textobj.c:277
 msgid "Fontsize:"
 msgstr "Skriftstørrelse:"
 
