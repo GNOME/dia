@@ -1,5 +1,7 @@
 2003-08-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/object.c (object_copy): Use g_malloc0 instead of g_malloc.
+
 	* lib/beziershape.c (beziershape_update_data): Autoroute
 	directions for beziershapes!
 

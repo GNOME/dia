@@ -81,7 +81,7 @@ object_copy(Object *from, Object *to)
   to->num_connections = from->num_connections;
   if (to->connections != NULL) g_free(to->connections);
   if (to->num_connections>0)
-    to->connections = g_malloc(sizeof(ConnectionPoint *) * to->num_connections);
+    to->connections = g_malloc0(sizeof(ConnectionPoint *) * to->num_connections);
   else
     to->connections = NULL;
 
