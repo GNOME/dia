@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Logic - Inverter</name>
+  <icon>inverter.png</icon>
+  <connections>
+    <point x="4.92135" y="2.63202"/>
+    <point x="4.54635" y="4.38202"/>
+    <point x="4.92135" y="4.38202"/>
+    <point x="5.29635" y="4.38202"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:polygon style="fill: #ffffff" points="4.92135,3.13202 5.67135,4.38202 4.17135,4.38202 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="4.92135,3.13202 5.67135,4.38202 4.17135,4.38202 "/>
+    <svg:ellipse style="fill: #ffffff" cx="4.92135" cy="2.88202" rx="0.25" ry="0.25"/>
+    <svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="4.92135" cy="2.88202" rx="0.25" ry="0.25"/>
+  </svg:svg>
+</shape>
