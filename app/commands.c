@@ -359,6 +359,50 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 void
 edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
+  Focus *focus = active_focus();
+  DDisplay *ddisp;
+  Object *obj;
+  Property textprop;
+  Change *change;
+
+  if ((focus == NULL) || (!focus->has_focus)) return;
+
+  ddisp = ddisplay_active();
+
+  obj = focus->obj;
+
+  if (obj->ops->get_props == NULL) 
+    return;
+
+  textprop.name = "text";
+  textprop.type = PROP_TYPE_INVALID;
+  PROP_VALUE_STRING(textprop) = NULL;
+
+  /* Get the first text property */
+  obj->ops->get_props(obj, &textprop, 1);
+  
+  if (current_clipboard) g_free(current_clipboard);
+
+  if (textprop.type != PROP_TYPE_STRING)
+    return;
+
+  current_clipboard = g_strdup(PROP_VALUE_STRING(textprop));
+
+  prop_free(&textprop);
+
+  gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
+			  GDK_SELECTION_PRIMARY,
+			  GDK_CURRENT_TIME);
+  gtk_selection_add_target(GTK_WIDGET(ddisp->shell),
+			   GDK_SELECTION_PRIMARY,
+			   GDK_TARGET_STRING, 0);
+
+  if (text_delete_all(obj, &change)) {
+    (change->apply)(change, ddisp->diagram);
+    
+    diagram_update_menu_sensitivity(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
+  }
 }
 
 void
