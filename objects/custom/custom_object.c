@@ -27,6 +27,8 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "intl.h"
 #include "shape_info.h"
@@ -1453,8 +1455,14 @@ custom_object_new(ShapeInfo *info, ObjectType **otype)
   obj->default_user_data = info;
 
   if (info->icon) {
-    obj->pixmap = NULL;
-    obj->pixmap_file = info->icon;
+    struct stat buf;
+    if (0==stat(info->icon,&buf)) {
+      obj->pixmap = NULL;
+      obj->pixmap_file = info->icon;
+    } else {
+      g_warning(_("Cannot open icon file %s for object type '%s'."),
+                info->icon,obj->name);
+    }
   }
 
   info->object_type = obj;
