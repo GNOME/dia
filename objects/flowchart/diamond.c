@@ -148,6 +148,7 @@ static PropDescription diamond_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -174,6 +175,7 @@ static PropOffset diamond_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Diamond,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Diamond,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,attrs.alignment)},
   { NULL, 0, 0 },
 };
 
@@ -373,6 +375,12 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
     if (grad > 4)     grad = 4;
     elem->width  = width  + height * grad;
     elem->height = height + width  / grad;
+  } else {
+    /* Need this for text alignment soon */
+    real grad = elem->width/elem->height;
+    if (grad < 1.0/4) grad = 1.0/4;
+    if (grad > 4)     grad = 4;
+    width = elem->width - height*grad;
   }
 
   /* move shape if necessary ... */
@@ -397,6 +405,16 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - diamond->text->height*diamond->text->numlines/2 +
       diamond->text->ascent;
+  switch (diamond->text->alignment) {
+  case ALIGN_LEFT:
+    p.x -= width/2;
+    break;
+  case ALIGN_RIGHT:
+    p.x += width/2;
+    break;
+  case ALIGN_CENTER:
+    break;
+  }
   text_set_position(diamond->text, &p);
 
   dw = elem->width / 8.0;

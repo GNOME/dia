@@ -150,6 +150,7 @@ static PropDescription box_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -177,6 +178,7 @@ static PropOffset box_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Box,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
   { NULL, 0, 0 },
 };
 
@@ -462,6 +464,17 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
     box->text->ascent;
+  switch (box->text->alignment) {
+  case ALIGN_LEFT:
+    p.x -= (elem->width - box->padding*2 + box->border_width)/2;
+    break;
+  case ALIGN_RIGHT:
+    p.x += (elem->width - box->padding*2 + box->border_width)/2;
+    break;
+  case ALIGN_CENTER:
+    break;
+  }
+
   text_set_position(box->text, &p);
 
   radius = box->corner_radius;

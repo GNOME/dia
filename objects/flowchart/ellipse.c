@@ -147,6 +147,7 @@ static PropDescription ellipse_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -173,6 +174,7 @@ static PropOffset ellipse_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Ellipse,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Ellipse,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Ellipse,attrs.alignment)},
   { NULL, 0, 0 },
 };
 
@@ -401,6 +403,16 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - ellipse->text->height*ellipse->text->numlines/2 +
     ellipse->text->ascent;
+  switch (ellipse->text->alignment) {
+  case ALIGN_LEFT:
+    p.x -= (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
+    break;
+  case ALIGN_RIGHT:
+    p.x += (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
+    break;
+  case ALIGN_CENTER:
+    break;
+  }
   text_set_position(ellipse->text, &p);
 
   /* Update connections: */
