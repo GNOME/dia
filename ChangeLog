@@ -1,3 +1,12 @@
+2002-03-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_eps.h: 
+	* app/paginate_psprint.c (paginate_psprint): 
+	* lib/font.c: 
+	* app/render_eps.c: Support for dumping postscript fonts into
+	postscript files with freetype.  Fairly primitive, but works.
+	Unicode version may have problems.
+
 2002-02-28  Akira TAGOH  <tagoh@redhat.com>
 
 	* objects/UML/class_dialog.c (class_read_from_dialog)
