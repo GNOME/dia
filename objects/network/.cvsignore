@@ -10,3 +10,10 @@ bus.lo
 disc.lo
 printer.lo
 libnetwork_objects.la
+flash.lo
+hub.lo
+modularswitch.lo
+rj45plug.lo
+scead-plug.lo
+modem.lo
+antenna.lo

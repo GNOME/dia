@@ -10,7 +10,14 @@ libnetwork_objects_la_SOURCES = \
 			      monitor.c \
 			      printer.c \
 			      bus.c \
-			      network.c
+			      network.c \
+			      antenna.c \
+			      modem.c \
+			      flash.c \
+			      hub.c \
+			      modularswitch.c \
+			      rj45plug.c \
+			      scead-plug.c
 
 libnetwork_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 
