@@ -520,7 +520,7 @@ msgstr "Odpri možnosti"
 
 #: app/filedlg.c:192 app/filedlg.c:532
 msgid "Determine file type:"
-msgstr "Določi tip datoteke:"
+msgstr "Določi vrsto datoteke:"
 
 #: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
@@ -795,7 +795,7 @@ msgid ""
 "Unknown file type."
 msgstr ""
 "Napaka ob nalaganju diagrama %s.\n"
-"Neznan tip datoteke."
+"Neznana vrsta datoteke."
 
 #: app/load_save.c:272
 #, c-format
@@ -954,7 +954,7 @@ msgstr "Prehodna"
 
 #: app/menus.c:166
 msgid "Same Type"
-msgstr "Isti Tip"
+msgstr "Ista vrsta"
 
 #: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:204
 msgid "Left"
@@ -1265,7 +1265,7 @@ msgstr "/Izberi/Prehodno"
 
 #: app/menus.c:364
 msgid "/Select/Same Type"
-msgstr "/Izberi/Isti tip"
+msgstr "/Izberi/Ista vrsta"
 
 #: app/menus.c:365
 msgid "/Select/---"
@@ -1716,7 +1716,7 @@ msgstr "Dia"
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
-"Notranja napaka: Nastavljanje vogalnega tipa za končno točko bezierjeve "
+"Notranja napaka: Nastavljanje vogalne vrste za končno točko bezierjeve "
 "krivulje"
 
 #: lib/dia_xml.c:146
@@ -2258,7 +2258,7 @@ msgstr "Signal"
 #: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
 #: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
-msgstr "Tip:"
+msgstr "Vrsta:"
 
 #: objects/FS/flow-ortho.c:708 objects/FS/flow.c:683
 msgid "Flow:"
@@ -2266,7 +2266,7 @@ msgstr "Tok:"
 
 #: objects/FS/flow-ortho.c:723 objects/FS/flow.c:699
 msgid "Flow type:"
-msgstr "Tip toku:"
+msgstr "Vrsta toku:"
 
 #: objects/FS/flow-ortho.c:838
 msgid "Orthflow:"
@@ -2274,7 +2274,7 @@ msgstr "Ortogonalen tok:"
 
 #: objects/FS/flow-ortho.c:854
 msgid "Orthflow type:"
-msgstr "Tip ortogonalnega toka:"
+msgstr "Vrsta ortogonalnega toku:"
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
@@ -3141,7 +3141,7 @@ msgstr "Ime koraka"
 
 #: objects/GRAFCET/step.c:159
 msgid "Step type"
-msgstr "Tip koraka"
+msgstr "Vrsta koraka"
 
 #: objects/GRAFCET/step.c:159
 msgid "The kind of step"
@@ -3197,7 +3197,7 @@ msgstr "IN"
 
 #: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
-msgstr "Tip Vergnet:"
+msgstr "Vrsta Vergnet:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:438
 #: objects/standard/line.c:182
@@ -3547,7 +3547,7 @@ msgstr "Sporočilo:"
 
 #: objects/UML/message.c:150
 msgid "Message type:"
-msgstr "Tip sporočila:"
+msgstr "Vrsta sporočila:"
 
 #: objects/UML/object.c:146
 msgid "Explicit state"
@@ -3575,7 +3575,7 @@ msgstr "Konec"
 
 #: objects/UML/state.c:133
 msgid "State Type"
-msgstr "Tip stanja"
+msgstr "Vrsta stanja"
 
 #: objects/UML/uml.c:60
 msgid "Unified Modelling Language diagram objects"
@@ -3921,7 +3921,7 @@ msgstr "Izvozni filter Skalabilne Vektorske Grafike"
 #: plug-ins/wpg/wpg.c:1048
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr "Datoteka: %s tip/različica ni podprta.\n"
+msgstr "Datoteka: vrsta/različica %s ni podprta.\n"
 
 #: plug-ins/wpg/wpg.c:1197
 msgid "WordPerfect Graphics export filter"
