@@ -1,3 +1,8 @@
+2000-02-28  James Henstridge  <james@daa.com.au>
+
+	* app/export_png.c: added copyright notice, and made the band height
+	a constant.
+
 2000-02-27  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/font.c (suck_font):

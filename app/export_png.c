@@ -1,3 +1,24 @@
+/* Dia -- a diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * export_png.c: export a diagram to a PNG file.
+ * Copyright (C) 2000 James Henstridge
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include "config.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
@@ -10,9 +31,14 @@
 #include "render_libart.h"
 #include "display.h"
 
-/* the dots per centimetre to render this diagram at (equivalent to 72dpi) */
-#define DPCM 20
+/* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
+#define DPCM 20
+
+/* the height of the band to use when rendering.  Smaller bands mean
+ * rendering is slower, but less memory is used.  Setting this to G_MAXINT
+ * should get the renderer to use one pass. */
+#define BAND_HEIGHT 50
 
 static void
 export_png(DiagramData *data, const gchar *filename, const gchar *diafilename)
@@ -33,7 +59,7 @@ export_png(DiagramData *data, const gchar *filename, const gchar *diafilename)
   height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
 
   /* we render in bands to try to keep memory consumption down ... */
-  band = MIN(height, 50);
+  band = MIN(height, BAND_HEIGHT);
   band_height = (real)band / (DPCM * data->paper.scaling);
 
   /* create a fake ddisp to keep the renderer happy */
@@ -76,7 +102,9 @@ export_png(DiagramData *data, const gchar *filename, const gchar *diafilename)
     message_error(_("Error occurred while writing PNG"));
     goto error;
   }
-  band = MIN(height, 50);
+  /* the compiler said band may be clobbered by setjmp, so we set it again
+   * here. */
+  band = MIN(height, BAND_HEIGHT);
 
   png_init_io(png, fp);
 
