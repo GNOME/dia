@@ -26,7 +26,6 @@ typedef struct _Renderer Renderer;
 #include "color.h"
 #include "font.h"
 #include "dia_image.h"
-#include "object.h"
 
 typedef enum {
   LINECAPS_BUTT,
@@ -238,15 +237,6 @@ typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
 					int width, int height,
 					Color *color);
 
-/* Toggle whether the lines drawn are part of the picture or just 
-   guidelines for interactive use.  A printer renderer would never
-   draw guidelines, an interactive renderer would draw them only on
-   selected objects */
-typedef void (*ToggleGuideFunc) (Renderer *renderer,
-				 Object *obj,
-				 gboolean on);
-
-
 struct _RenderOps {
   /* Control ops: */
   BeginRenderFunc   begin_render;
@@ -292,9 +282,6 @@ struct _RenderOps {
 
   /* Images: */
   DrawImageFunc     draw_image; /* Not really supported yet */
-
-  /* Drawing hints */
-  ToggleGuideFunc   toggle_guide; /* When on, items drawn are guidelines */
 };
 
 struct _InteractiveRenderOps {
@@ -315,8 +302,6 @@ struct _Renderer {
   InteractiveRenderOps *interactive_ops;
   int pixel_width; /* Only needed for interactive renderers.*/
   int pixel_height; /* Only needed for interactive renderers.*/
-
-  gboolean pen_up; /* When true, the 'pen' is 'lifted' from the 'paper' */
 };
 
 #endif /* RENDER_H */
