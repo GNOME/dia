@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-01 03:11+0100\n"
-"PO-Revision-Date: 2004-03-01 15:14+0100\n"
+"POT-Creation-Date: 2004-03-07 03:12+0100\n"
+"PO-Revision-Date: 2004-03-07 15:24+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -476,8 +476,7 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:300
-#: app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -550,7 +549,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
-#: app/disp_callbacks.c:887
+#: app/disp_callbacks.c:907
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -558,15 +557,15 @@ msgstr ""
 "Objekt, který jste pustili, se nemůže vejít do svého rodiče. \n"
 "Buď zvětšete rodičovský objekt, nebo objekt pusťte jinam."
 
-#: app/display.c:93
+#: app/display.c:95
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:992
+#: app/display.c:998
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:994
+#: app/display.c:1000
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -575,11 +574,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:1005
+#: app/display.c:1011
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:1010
+#: app/display.c:1016
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -587,7 +586,7 @@ msgstr "Zahodit změny"
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
+#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -882,17 +881,9 @@ msgstr "Upravit vlastnosti vrstvy"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:290 app/paginate_psprint.c:268
+#: app/layer_dialog.c:999 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
-
-#: app/lineprops_area.c:279
-msgid "Line Style Properties"
-msgstr "Vlastnosti stylu čáry"
-
-#: app/lineprops_area.c:323
-msgid "Details..."
-msgstr "Podrobnosti..."
 
 #: app/linewidth_area.c:239 lib/properties.h:478 lib/properties.h:481
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
@@ -1681,7 +1672,7 @@ msgstr "Zapouzdřený PostScript (používající písma Pango)"
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Zapouzdřený PostScript (používající písma PostScript Latin-1)"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:271
+#: app/render_libart.c:318 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
@@ -2233,15 +2224,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:590
+#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:806
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:596
+#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:812
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:602
+#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:818
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2304,63 +2295,59 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:219
+#: lib/widgets.c:438
 msgid "Other fonts..."
 msgstr "Jiná písma..."
 
-#: lib/widgets.c:323
+#: lib/widgets.c:541
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:387
+#: lib/widgets.c:605
 msgid "Select font"
 msgstr "Vyberte písmo"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:727 objects/FS/function.c:1063
+#: lib/widgets.c:954 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:733
+#: lib/widgets.c:960
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:739
+#: lib/widgets.c:966
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:745
+#: lib/widgets.c:972
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:751
+#: lib/widgets.c:978
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:769
+#: lib/widgets.c:997
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:923
+#: lib/widgets.c:1152
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1146
-msgid "Length: "
-msgstr "Délka:"
+#: lib/widgets.c:1369
+msgid "Size: "
+msgstr "Velikost: "
 
-#: lib/widgets.c:1159
-msgid "Width: "
-msgstr "Šířka:"
-
-#: lib/widgets.c:1310
+#: lib/widgets.c:1516
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1346
+#: lib/widgets.c:1552
 msgid "Browse"
 msgstr "Probírat"
 
@@ -4493,7 +4480,7 @@ msgstr "soubor s tvary Dia"
 msgid "dia shape export filter"
 msgstr "Exportní filtr tvarů Dia"
 
-#: plug-ins/svg/render_svg.c:299 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5180,44 +5167,72 @@ msgid "Weak entity"
 msgstr "Slabá entita"
 
 #: sheets/Electric.sheet.in.h:1
-msgid "Command organ of a relay"
-msgstr "Příkazové ústrojí relé"
-
-#: sheets/Electric.sheet.in.h:2
 msgid "Components for electric circuits"
 msgstr "Komponenty pro elektrické obvody"
 
-#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
+#: sheets/Electric.sheet.in.h:2 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Přípojný bod"
 
-#: sheets/Electric.sheet.in.h:4
+#: sheets/Electric.sheet.in.h:3
 msgid "Electric"
 msgstr "Elektrické"
 
+#: sheets/Electric.sheet.in.h:4
+msgid "Lamp or indicator light (horizontal)"
+msgstr "Lampa nebo indikační světlo (vodorovné)"
+
 #: sheets/Electric.sheet.in.h:5
-msgid "Lamp or indicator light"
-msgstr "Lampa nebo indikační světlo"
+msgid "Lamp or indicator light (vertical)"
+msgstr "Lampa nebo indikační světlo (svislé)"
 
 #: sheets/Electric.sheet.in.h:6
-msgid "Normally closed contact"
-msgstr "Běžně uzavřený kontakt"
+msgid "Normally closed contact (horizontal)"
+msgstr ")Běžně uzavřený kontakt (vodorovný)"
 
 #: sheets/Electric.sheet.in.h:7
-msgid "Normally closed position switch"
-msgstr "Běžně uzavřený poziční přepínač"
+msgid "Normally closed contact (vertical)"
+msgstr "Běžně uzavřený kontakt (svislý)"
 
 #: sheets/Electric.sheet.in.h:8
-msgid "Normally open contact"
-msgstr "Běžně otevřený kontakt"
+msgid "Normally closed position switch (horizontal)"
+msgstr "Běžně uzavřený poziční přepínač (vodorovný)"
 
 #: sheets/Electric.sheet.in.h:9
-msgid "Normally open position switch"
-msgstr "Běžně otevřený poziční přepínač"
+msgid "Normally closed position switch (vertical)"
+msgstr "Běžně uzavřený poziční přepínač (svislý)"
 
 #: sheets/Electric.sheet.in.h:10
-msgid "Relay"
-msgstr "Relé"
+msgid "Normally open contact (horizontal)"
+msgstr "Běžně otevřený kontakt (vodorovný)"
+
+#: sheets/Electric.sheet.in.h:11
+msgid "Normally open contact (vertical)"
+msgstr "Běžně otevřený kontakt (svislý)"
+
+#: sheets/Electric.sheet.in.h:12
+msgid "Normally open position switch (horizontal)"
+msgstr "Běžně otevřený poziční přepínač (vodorovný)"
+
+#: sheets/Electric.sheet.in.h:13
+msgid "Normally open position switch (vertical)"
+msgstr "Běžně otevřený poziční přepínač (svislý)"
+
+#: sheets/Electric.sheet.in.h:14
+msgid "Relay (horizontal)"
+msgstr "Relé (vodorovné)"
+
+#: sheets/Electric.sheet.in.h:15
+msgid "Relay (vertical)"
+msgstr "Relé (svislé)"
+
+#: sheets/Electric.sheet.in.h:16
+msgid "The command organ of a relay (horizontal)"
+msgstr "Příkazové ústrojí relé (vodorovné)"
+
+#: sheets/Electric.sheet.in.h:17
+msgid "The command organ of a relay (vertical)"
+msgstr "Příkazové ústrojí relé (svislé)"
 
 #: sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
@@ -7022,6 +7037,18 @@ msgstr "Datový server Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
+
+#~ msgid "Line Style Properties"
+#~ msgstr "Vlastnosti stylu čáry"
+
+#~ msgid "Details..."
+#~ msgstr "Podrobnosti..."
+
+#~ msgid "Length: "
+#~ msgstr "Délka:"
+
+#~ msgid "Width: "
+#~ msgstr "Šířka:"
 
 #~ msgid "No object menu"
 #~ msgstr "Žádné menu k objektu"
