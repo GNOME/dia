@@ -32,6 +32,7 @@
 #include "intl.h"
 #include "lazyprops.h"
 #include "connpoint_line.h"
+#include "properties.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
@@ -54,5 +55,6 @@ static void *dummy_dep[] G_GNUC_UNUSED = {
   intl_score_locale, /* intl.o */
   __propdlg_build_arrow, /* lazyprops.o */
   connpointline_create, /* connpoint_line.o */
-  neworthconn_update_data /* neworth_conn.o */
+  neworthconn_update_data, /* neworth_conn.o */
+  object_create_props_dialog, /* properties.o */
 };

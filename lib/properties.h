@@ -25,6 +25,7 @@
 #include <gtk/gtk.h>
 
 #include "geometry.h"
+#include "render.h"
 #include "arrows.h"
 #include "color.h"
 #include "font.h"
@@ -47,6 +48,7 @@ typedef enum {
   PROP_TYPE_POINT,
   PROP_TYPE_POINTARRAY,
   PROP_TYPE_RECT,
+  PROP_TYPE_LINESTYLE,
   PROP_TYPE_ARROW,
   PROP_TYPE_COLOUR,
   PROP_TYPE_FONT,
@@ -89,6 +91,10 @@ struct _Property {
       guint npts;
     } ptarray_data;
     Rectangle rect_data;
+    struct {
+      LineStyle style;
+      real dash;
+    } linestyle_data;
     Arrow arrow_data;
     Color colour_data;
     Font *font_data;
@@ -106,6 +112,7 @@ struct _Property {
 #define PROP_VALUE_POINT(prop)      ((prop).d.point_data)
 #define PROP_VALUE_POINTARRAY(prop) ((prop).d.ptarray_data)
 #define PROP_VALUE_RECT(prop)       ((prop).d.rect_data)
+#define PROP_VALUE_LINESTYLE(prop)  ((prop).d.linestyle_data)
 #define PROP_VALUE_ARROW(prop)      ((prop).d.arrow_data)
 #define PROP_VALUE_COLOUR(prop)     ((prop).d.colour_data)
 #define PROP_VALUE_FONT(prop)       ((prop).d.font_data)
@@ -195,19 +202,6 @@ prop_list_from_matching_descs(PropDescription *plist, guint flags,
       count++;
     }
   return ret;
-}
-#endif
-
-G_INLINE_FUNC void prop_list_free(Property *props, guint nprops);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC void
-prop_list_free(Property *props, guint nprops)
-{
-  int i;
-
-  for (i = 0; i < nprops; i++)
-    prop_free(&props[i]);
-  g_free(props);
 }
 #endif
 

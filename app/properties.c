@@ -114,7 +114,7 @@ properties_apply(GtkWidget *canvas, gpointer data)
     return 0;
   
   object_add_updates(current_obj, current_dia);
-  obj_change = current_obj->ops->apply_properties(current_obj);
+  obj_change = current_obj->ops->apply_properties(current_obj, object_part);
   object_add_updates(current_obj, current_dia);
 
   diagram_update_connections_object(current_dia, current_obj, TRUE);

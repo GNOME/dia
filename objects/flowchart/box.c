@@ -32,6 +32,7 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/box.xpm"
 
@@ -143,8 +144,9 @@ static Object *box_create(Point *startpoint,
 			  Handle **handle2);
 static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
-static GtkWidget *box_get_properties(Box *box);
-static ObjectChange *box_apply_properties(Box *box);
+static PropDescription *box_describe_props(Box *box);
+static void box_get_props(Box *box, Property *props, guint nprops);
+static void box_set_props(Box *box, Property *props, guint nprops);
 
 static BoxState *box_get_state(Box *box);
 static void box_set_state(Box *box, BoxState *state);
@@ -180,219 +182,139 @@ static ObjectOps box_ops = {
   (CopyFunc)            box_copy,
   (MoveFunc)            box_move,
   (MoveHandleFunc)      box_move_handle,
-  (GetPropertiesFunc)   box_get_properties,
-  (ApplyPropertiesFunc) box_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   box_describe_props,
+  (GetPropsFunc)        box_get_props,
+  (SetPropsFunc)        box_set_props,
 };
 
-static ObjectChange *
-box_apply_properties(Box *box)
+
+static PropDescription box_props[] = {
+  { "border_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Border width"), NULL, NULL},
+  { "border_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Border colour"), NULL, NULL},
+  { "inner_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Inner colour"), NULL, NULL},
+  { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Draw background"), NULL, NULL},
+  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE,
+    N_("Line style"), NULL, NULL},
+  { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Corner radius"), NULL, NULL},
+  { "text_padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Text padding"), NULL, NULL},
+  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE,
+    N_("Font"), NULL, NULL},
+  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Font size"), NULL, NULL},
+  { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Font colour"), NULL, NULL},
+  { "text", PROP_TYPE_STRING, 0,
+    N_("Text"), NULL, NULL},
+  
+  { NULL, 0, 0, NULL, NULL, NULL, 0}
+};
+
+static PropDescription *
+box_describe_props(Box *box)
 {
-  ObjectState *old_state;
-  Font *font;
-  Color col;
+  if (box_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(box_props);
+  return box_props;
+}
 
-  if (box != box_properties_dialog->box) {
-    message_warning("Box dialog problem:  %p != %p\n", box,
-		    box_properties_dialog->box);
-    box = box_properties_dialog->box;
+static void
+box_get_props(Box *box, Property *props, guint nprops)
+{
+  guint i;
+
+  if (box_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(box_props);
+
+  for (i = 0; i < nprops; i++) {
+    GQuark q = g_quark_from_string(props[i].name);
+
+    if (q == box_props[0].quark) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = box->border_width;
+    } else if (q == box_props[1].quark) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = box->border_color;
+    } else if (q == box_props[2].quark) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = box->inner_color;
+    } else if (q == box_props[3].quark) {
+      props[i].type = PROP_TYPE_BOOL;
+      PROP_VALUE_BOOL(props[i]) = box->show_background;
+    } else if (q == box_props[4].quark) {
+      props[i].type = PROP_TYPE_LINESTYLE;
+      PROP_VALUE_LINESTYLE(props[i]).style = box->line_style;
+      PROP_VALUE_LINESTYLE(props[i]).dash  = box->dashlength;
+    } else if (q == box_props[5].quark) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = box->corner_radius;
+    } else if (q == box_props[6].quark) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = box->padding;
+    } else if (q == box_props[7].quark) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = box->text->font;
+    } else if (q == box_props[8].quark) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = box->text->height;
+    } else if (q == box_props[9].quark) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = box->text->color;
+    } else if (q == box_props[10].quark) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(box->text);
+    }
   }
+}
 
-  old_state = (ObjectState *)box_get_state(box);
-  
-  box->border_width = gtk_spin_button_get_value_as_float(box_properties_dialog->border_width);
-  dia_color_selector_get_color(box_properties_dialog->fg_color, &box->border_color);
-  dia_color_selector_get_color(box_properties_dialog->bg_color, &box->inner_color);
-  box->show_background = gtk_toggle_button_get_active(box_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(box_properties_dialog->line_style, &box->line_style, &box->dashlength);
-  box->corner_radius = gtk_spin_button_get_value_as_float(box_properties_dialog->corner_radius);
+static void
+box_set_props(Box *box, Property *props, guint nprops)
+{
+  guint i;
 
-  box->padding = gtk_spin_button_get_value_as_float(box_properties_dialog->padding);
-  font = dia_font_selector_get_font(box_properties_dialog->font);
-  text_set_font(box->text, font);
-  text_set_height(box->text, gtk_spin_button_get_value_as_float(
-					box_properties_dialog->font_size));
-  dia_color_selector_get_color(box_properties_dialog->font_color, &col);
-  text_set_color(box->text, &col);
-  
+  if (box_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(box_props);
+
+  for (i = 0; i < nprops; i++) {
+    GQuark q = g_quark_from_string(props[i].name);
+
+    if (q == box_props[0].quark && props[i].type == PROP_TYPE_REAL) {
+      box->border_width = PROP_VALUE_REAL(props[i]);
+    } else if (q == box_props[1].quark && props[i].type == PROP_TYPE_COLOUR) {
+      box->border_color = PROP_VALUE_COLOUR(props[i]);
+    } else if (q == box_props[2].quark && props[i].type == PROP_TYPE_COLOUR) {
+      box->inner_color = PROP_VALUE_COLOUR(props[i]);
+    } else if (q == box_props[3].quark && props[i].type == PROP_TYPE_BOOL) {
+      box->show_background = PROP_VALUE_BOOL(props[i]);
+    } else if (q == box_props[4].quark && props[i].type==PROP_TYPE_LINESTYLE) {
+      box->line_style = PROP_VALUE_LINESTYLE(props[i]).style;
+      box->dashlength = PROP_VALUE_LINESTYLE(props[i]).dash;
+    } else if (q == box_props[5].quark && props[i].type == PROP_TYPE_REAL) {
+      box->corner_radius = PROP_VALUE_REAL(props[i]);
+    } else if (q == box_props[6].quark && props[i].type == PROP_TYPE_REAL) {
+      box->padding = PROP_VALUE_REAL(props[i]);
+    } else if (q == box_props[7].quark && props[i].type == PROP_TYPE_FONT) {
+      text_set_font(box->text, PROP_VALUE_FONT(props[i]));
+    } else if (q == box_props[8].quark && props[i].type == PROP_TYPE_REAL) {
+      text_set_height(box->text, PROP_VALUE_REAL(props[i]));
+    } else if (q == box_props[9].quark && props[i].type == PROP_TYPE_COLOUR) {
+      text_set_color(box->text, &PROP_VALUE_COLOUR(props[i]));
+    } else if (q == box_props[10].quark && props[i].type == PROP_TYPE_STRING) {
+      text_set_string(box->text, PROP_VALUE_STRING(props[i]));
+    }
+  }
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)box, old_state, 
-				 (GetStateFunc)box_get_state,
-				 (SetStateFunc)box_set_state);
 }
 
-static GtkWidget *
-box_get_properties(Box *box)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkbox;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *padding;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-
-  if (box_properties_dialog == NULL) {
-    box_properties_dialog = g_new(BoxPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    box_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    box_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    box_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    box_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    box_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    box_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Corner rounding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    box_properties_dialog->corner_radius = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show (vbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    box_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    box_properties_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    box_properties_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    box_properties_dialog->font_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  box_properties_dialog->box = box;
-    
-  gtk_spin_button_set_value(box_properties_dialog->border_width,
-			    box->border_width);
-  dia_color_selector_set_color(box_properties_dialog->fg_color,
-			       &box->border_color);
-  dia_color_selector_set_color(box_properties_dialog->bg_color,
-			       &box->inner_color);
-  gtk_toggle_button_set_active(box_properties_dialog->show_background, 
-			       box->show_background);
-  dia_line_style_selector_set_linestyle(box_properties_dialog->line_style,
-					box->line_style, box->dashlength);
-  gtk_spin_button_set_value(box_properties_dialog->corner_radius,
-			    box->corner_radius);
-
-  gtk_spin_button_set_value(box_properties_dialog->padding,
-			    box->padding);
-  dia_font_selector_set_font(box_properties_dialog->font, box->text->font);
-  gtk_spin_button_set_value(box_properties_dialog->font_size,
-			    box->text->height);
-  dia_color_selector_set_color(box_properties_dialog->font_color,
-			       &box->text->color);
-  
-  return box_properties_dialog->vbox;
-}
 static void
 box_apply_defaults()
 {

@@ -187,17 +187,26 @@ typedef void (*MoveHandleFunc) (Object*          obj,
   make sure to update the values in the widgets so that it
   accurately describes the current state of the object.
   Remember to destroy this dialog when the object is destroyed!
+
+  Note that if you want to use the same dialog multiple times,
+  you should ref it first.  Just run the following on the widget
+  when you create it:
+    gtk_object_ref(GTK_OBJECT(widget));
+    gtk_object_sink(GTK_OBJECT(widget)); / * optional, but recommended * /
+  If you don't do this, the widget will be destroyed when the
+  properties dialog is closed.
 */
 typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
 
 /*
   Thiss function is called when the user clicks on
-  the "Apply" button.
+  the "Apply" button.  The widget parameter is the one created by
+  the get_properties function.
 
   Must returns a Change that can be used for undo/redo.
   The returned change is already applied.
 */
-typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj);
+typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj, GtkWidget *widget);
 
 /* properties interface functions */
 #ifndef _prop_typedefs_defined

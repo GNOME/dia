@@ -149,8 +149,10 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_BOOL:
   case PROP_TYPE_INT:
   case PROP_TYPE_ENUM:
+  case PROP_TYPE_REAL:
   case PROP_TYPE_POINT:
   case PROP_TYPE_RECT:
+  case PROP_TYPE_LINESTYLE:
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
   case PROP_TYPE_FONT:
@@ -167,8 +169,8 @@ prop_copy(Property *dest, Property *src)
 			sizeof(Point) * PROP_VALUE_POINTARRAY(*src).npts);
     break;
   default:
-    if (src->type - PROP_LAST >= custom_props->len) {
-      g_warning("prop type id out of range!!!");
+    if (custom_props == NULL || src->type - PROP_LAST >= custom_props->len) {
+      g_warning("prop type id %d out of range!!!", src->type);
       return;
     }
     cp = &g_array_index(custom_props, CustomProp, src->type - PROP_LAST);
@@ -186,14 +188,18 @@ prop_free(Property *prop)
 {
   CustomProp *cp;
 
+  g_return_if_fail(prop != NULL);
+
   switch (prop->type) {
   case PROP_TYPE_INVALID:
   case PROP_TYPE_CHAR:
   case PROP_TYPE_BOOL:
   case PROP_TYPE_INT:
   case PROP_TYPE_ENUM:
+  case PROP_TYPE_REAL:
   case PROP_TYPE_POINT:
   case PROP_TYPE_RECT:
+  case PROP_TYPE_LINESTYLE:
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
   case PROP_TYPE_FONT:
@@ -205,8 +211,8 @@ prop_free(Property *prop)
     g_free(PROP_VALUE_POINTARRAY(*prop).pts);
     break;
   default:
-    if (prop->type - PROP_LAST >= custom_props->len) {
-      g_warning("prop type id out of range!!!");
+    if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
+      g_warning("prop type id %d out of range!!!", prop->type);
       return;
     }
     cp = &g_array_index(custom_props, CustomProp, prop->type - PROP_LAST);
@@ -216,6 +222,18 @@ prop_free(Property *prop)
   /* zero out data member so we don't get problems if we try to refree the
    * property. */
   memset(&prop->d, '\0', sizeof(prop->d));
+}
+
+void
+prop_list_free(Property *props, guint nprops)
+{
+  int i;
+
+  g_return_if_fail(props != NULL);
+
+  for (i = 0; i < nprops; i++)
+    prop_free(&props[i]);
+  g_free(props);
 }
 
 static void
@@ -270,6 +288,12 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
     break;
+  case PROP_TYPE_LINESTYLE:
+    ret = dia_line_style_selector_new();
+    dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(ret),
+					  PROP_VALUE_LINESTYLE(*prop).style,
+					  PROP_VALUE_LINESTYLE(*prop).dash);
+    break;
   case PROP_TYPE_ARROW:
     ret = dia_arrow_selector_new();
     dia_arrow_selector_set_arrow(DIAARROWSELECTOR(ret),
@@ -286,7 +310,8 @@ prop_get_widget(Property *prop)
     break;
   default:
     /* custom property */
-    if (prop->type - PROP_LAST >= custom_props->len ||
+    if (custom_props == NULL ||
+	prop->type - PROP_LAST >= custom_props->len ||
 	g_array_index(custom_props, CustomProp,
 		      prop->type - PROP_LAST).wfunc == NULL)
       ret = gtk_label_new(_("No edit widget"));
@@ -328,6 +353,11 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_RECT:
     /* nothing */
     break;
+  case PROP_TYPE_LINESTYLE:
+    dia_line_style_selector_get_linestyle(DIALINESTYLESELECTOR(widget),
+					  &PROP_VALUE_LINESTYLE(*prop).style,
+					  &PROP_VALUE_LINESTYLE(*prop).dash);
+    break;
   case PROP_TYPE_ARROW:
     PROP_VALUE_ARROW(*prop) =
       dia_arrow_selector_get_arrow(DIAARROWSELECTOR(widget));
@@ -342,7 +372,8 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     break;
   default:
     /* custom property */
-    if (prop->type - PROP_LAST < custom_props->len &&
+    if (custom_props != NULL &&
+	prop->type - PROP_LAST < custom_props->len &&
 	g_array_index(custom_props, CustomProp,
 		      prop->type - PROP_LAST).sfunc != NULL)
       g_array_index(custom_props, CustomProp,
@@ -372,9 +403,9 @@ object_prop_change_apply_revert(ObjectPropChange *change, Object *obj)
   /* create new properties structure with current values */
   old_props = g_new0(Property, change->nsaved_props);
   for (i = 0; i < change->nsaved_props; i++) {
-    old_props->name       = change->saved_props->name;
-    old_props->type       = change->saved_props->type;
-    old_props->extra_data = change->saved_props->extra_data;
+    old_props[i].name       = change->saved_props[i].name;
+    old_props[i].type       = change->saved_props[i].type;
+    old_props[i].extra_data = change->saved_props[i].extra_data;
   }
   if (change->obj->ops->get_props)
     change->obj->ops->get_props(change->obj, old_props, change->nsaved_props);
@@ -416,9 +447,9 @@ object_apply_props(Object *obj, Property *props, guint nprops)
   /* create new properties structure with current values */
   old_props = g_new0(Property, nprops);
   for (i = 0; i < nprops; i++) {
-    old_props->name       = props->name;
-    old_props->type       = props->type;
-    old_props->extra_data = props->extra_data;
+    old_props[i].name       = props[i].name;
+    old_props[i].type       = props[i].type;
+    old_props[i].extra_data = props[i].extra_data;
   }
   if (obj->ops->get_props)
     obj->ops->get_props(obj, old_props, nprops);
@@ -426,7 +457,6 @@ object_apply_props(Object *obj, Property *props, guint nprops)
   /* set saved property values */
   if (obj->ops->set_props)
     obj->ops->set_props(obj, props, nprops);
-  prop_list_free(props, nprops);
 
   change->saved_props = old_props;
   change->nsaved_props = nprops;
@@ -456,7 +486,7 @@ object_props_dialog_destroy(GtkWidget *table)
 GtkWidget *
 object_create_props_dialog(Object *obj)
 {
-  PropDescription *pdesc;
+  const PropDescription *pdesc;
   Property *props;
   guint nprops = 0, i, j;
   GtkWidget **widgets;
@@ -493,9 +523,9 @@ object_create_props_dialog(Object *obj)
       widgets[j] = prop_get_widget(&props[j]);
 
       label = gtk_label_new(_(pdesc[i].description));
-      gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0 /* 0.5 */);
+      gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
       gtk_table_attach(GTK_TABLE(table), label, 0,1, j,j+1,
-		       GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+		       GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
       gtk_table_attach(GTK_TABLE(table), widgets[j], 1,2, j,j+1,
 		       GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
 
@@ -533,3 +563,4 @@ object_apply_props_from_dialog(Object *obj, GtkWidget *table)
 
   return object_apply_props(obj, props, nprops);
 }
+

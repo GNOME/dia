@@ -1,4 +1,22 @@
+2000-02-05  James Henstridge  <james@daa.com.au>
+
+	* lib/properties.c: more fixes so that it doesn't crash when using
+	properties.  The undo/redo stuff also works!!
+
+	* objects/flowchart/box.c (box_{describe, get, set}_props): test
+	object where I have implemented the new properties interface
+	complete with automatic properties dialog generation.
+
+	* lib/properties.c (object_apply_props): fixed stupid error when
+	creating the old_props array.  Also, it no longer frees the props
+	array -- you will have to do that yourself.
+
 2000-02-04  James Henstridge  <james@daa.com.au>
+
+	* app/properties.c (properties_apply): pass object_part to
+	apply_properties.
+
+	* lib/object.h (ApplyPropertiesFunc): added widget argument.
 
 	* lib/lazyprops.h (PROPDLG_CREATE): ref and sink properties dialogs
 	created this way as well.
