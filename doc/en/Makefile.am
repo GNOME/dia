@@ -40,14 +40,21 @@ stamp-doc:
 	touch stamp-doc
 endif
 
+distclean-local:
+	rm -f stamp-doc
+	rm -rf $(srcdir)/dia-manual $(srcdir)/dia-manual.junk
+
 # dist and install the html documentation ...
 dist-hook:
+if HAVE_DB2HTML
 	mkdir $(distdir)/dia-manual
 	-cp $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css $(distdir)/dia-manual
 	mkdir $(distdir)/dia-manual/stylesheet-images
 	-cp $(srcdir)/dia-manual/stylesheet-images/*.gif $(distdir)/dia-manual/stylesheet-images
+endif
 
 install-data-hook: stamp-doc
+if HAVE_DB2HTML
 	$(mkinstalldirs) $(DESTDIR)$(helpdir)
 	for file in $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css; do\
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/`basename $$file`; \
@@ -60,6 +67,7 @@ install-data-hook: stamp-doc
 	cd $(srcdir) && for file in $(GRAPHICS); do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/graphics; \
 	done
+endif
 
 uninstall-local:
 	rm -rf $(DESTDIR)$(helpdir)

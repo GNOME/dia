@@ -1,5 +1,13 @@
 2002-05-30  Cyrille Chepelov  <cyrille@chepelov.org>
 
+	* doc/pl/Makefile.am:
+	* doc/en/Makefile.am: fixed a "make install" problem when db2html
+	is not present (Reported by Andrew Ferrier
+	<andrew.junk@new-destiny.co.uk>). Fixed another "make distclean"
+	problem which prevented me from ever seeing the problem in doc/en...
+	
+	* Makefile.am: added autogen.sh to the EXTRA_DIST clause.
+	
 	* lib/font.c: patch from <robert.young@dsto.defence.gov.au>; add a
 	way to read the font path from the XFS configuration files in
 	order to enable FreeType (fixes #83098).
