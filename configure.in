@@ -424,6 +424,7 @@ shapes/Pneumatic/Makefile
 shapes/SDL/Makefile
 shapes/sybase/Makefile
 app/Makefile
+app/pixmaps/Makefile
 samples/Makefile
 sheets/Makefile
 sheets/ER/Makefile

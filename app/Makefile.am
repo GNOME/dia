@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS = pixmaps
+
 INCLUDES = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \

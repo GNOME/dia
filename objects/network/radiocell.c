@@ -80,7 +80,7 @@ static ObjectChange* radiocell_move_handle(RadioCell *radiocell,
 					   ModifierKeys modifiers);
 static ObjectChange* radiocell_move(RadioCell *radiocell, Point *to);
 static void radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer);
-static Object *radiocell_create(Point *startpoint,
+static DiaObject *radiocell_create(Point *startpoint,
 				void *user_data,
 				Handle **handle1,
 				Handle **handle2);
@@ -89,7 +89,7 @@ static void radiocell_update_data(RadioCell *radiocell);
 static PropDescription *radiocell_describe_props(RadioCell *radiocell);
 static void radiocell_get_props(RadioCell *radiocell, GPtrArray *props);
 static void radiocell_set_props(RadioCell *radiocell, GPtrArray *props);
-static Object *radiocell_load(ObjectNode obj_node, int version,
+static DiaObject *radiocell_load(ObjectNode obj_node, int version,
 			      const char *filename);
 
 static ObjectTypeOps radiocell_type_ops =
@@ -101,7 +101,7 @@ static ObjectTypeOps radiocell_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType radiocell_type =
+DiaObjectType radiocell_type =
 {
   "Network - Radio Cell",	/* name */
   0,				/* version */
@@ -279,7 +279,7 @@ static void
 radiocell_update_data(RadioCell *radiocell)
 {
   PolyShape *poly = &radiocell->poly;
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
   ElementBBExtras *extra = &poly->extra_spacing;
   Rectangle text_box;
   Point textpos;
@@ -313,7 +313,7 @@ radiocell_update_data(RadioCell *radiocell)
   obj->position = poly->points[0];
 }
 
-static Object *
+static DiaObject *
 radiocell_create(Point *startpoint,
 		 void *user_data,
 		 Handle **handle1,
@@ -321,7 +321,7 @@ radiocell_create(Point *startpoint,
 {
   RadioCell *radiocell;
   PolyShape *poly;
-  Object *obj;
+  DiaObject *obj;
   DiaFont *font;
 
   radiocell = g_new0(RadioCell, 1);
@@ -372,7 +372,7 @@ radiocell_destroy(RadioCell *radiocell)
   polyshape_destroy(&radiocell->poly);
 }
 
-static Object *
+static DiaObject *
 radiocell_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&radiocell_type,

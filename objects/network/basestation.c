@@ -70,12 +70,12 @@ static ObjectChange
 static ObjectChange *basestation_move(Basestation *basestation, Point *to);
 static void basestation_draw(Basestation *basestation,
                              DiaRenderer *renderer);
-static Object *basestation_create(Point *startpoint,
+static DiaObject *basestation_create(Point *startpoint,
                                   void *user_data,
                                   Handle **handle1,
                                   Handle **handle2);
 static void basestation_destroy(Basestation *basestation);
-static Object *basestation_load(ObjectNode obj_node,
+static DiaObject *basestation_load(ObjectNode obj_node,
                                 int version,
                                 const char *filename);
 static PropDescription
@@ -95,7 +95,7 @@ static ObjectTypeOps basestation_type_ops =
     (ApplyDefaultsFunc) NULL
   };
 
-ObjectType basestation_type =
+DiaObjectType basestation_type =
   {
     "Network - Base Station",   /* name */
     0,                          /* version */
@@ -178,7 +178,7 @@ basestation_set_props(Basestation *basestation, GPtrArray *props)
 static real
 basestation_distance_from(Basestation *basestation, Point *point)
 {
-  Object *obj = &basestation->element.object;
+  DiaObject *obj = &basestation->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -307,7 +307,7 @@ static void
 basestation_update_data(Basestation *basestation)
 {
   Element *elem = &basestation->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Rectangle text_box;
   Point p;
 
@@ -359,7 +359,7 @@ basestation_update_data(Basestation *basestation)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 basestation_create(Point *startpoint,
                    void *user_data,
                    Handle **handle1,
@@ -367,7 +367,7 @@ basestation_create(Point *startpoint,
 {
   Basestation *basestation;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -422,7 +422,7 @@ basestation_destroy(Basestation *basestation)
   element_destroy(&basestation->element);
 }
 
-static Object *
+static DiaObject *
 basestation_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&basestation_type,

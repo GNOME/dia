@@ -154,8 +154,16 @@ void       dia_size_selector_set_size        (DiaSizeSelector *ss, real width, r
 gboolean dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, real *height);
 
 /* **** Util functions for Gtk stuff **** */
-/** Gets the image name 'filename' out of the shared data dir */
+/** Gets the image name 'filename' out of the shared data dir 
+ * To see how to get the image installed, check app/Makefile.am
+ */
 GtkWidget *dia_get_image_from_file(gchar *filename);
+
+/** Create a toggle button with two different images, one for when on and
+ * one for when off.  Images are taken from standard image directory.
+ */
+GtkWidget *dia_toggle_button_new_with_images(gchar *on_file, gchar *off_file);
+
 
 /* Other common defaults */
 

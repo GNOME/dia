@@ -1,3 +1,24 @@
+2004-05-06  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* lib/widgets.[ch]: Utility function to make a widget with two
+	images (selected and non-selected).
+
+	* lib/diagramdata.h: Renamed selectable to connectable.
+	Selectable will come later.
+
+	* configure.in: 
+	* app/pixmaps/Makefile.am (imagedir): 
+	* app/pixmaps/connectable.png:
+	* app/pixmaps/connectable-empty.png: New images for the
+	selectability widget.  Proper installation, too.
+
+	* app/layer_dialog.[ch]: Adding new button showing connectability
+	status.  Much cleaner way of doing the button, but some problems
+	with the item getting selected
+
+	* lib/widgets.h: Reminder of how to install images for use by
+	dia_get_image_from_file.
+
 2004-05-05  Lars Clausen  <lars@raeder.dk>
 
 	* objects/network/Makefile.am: 
