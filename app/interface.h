@@ -50,9 +50,9 @@ void tool_select_callback(GtkWidget *widget, gpointer data);
 
 void create_tree_window(void);
 
-GtkWidget *popup_shell;
+extern GtkWidget *popup_shell;
 void create_sheets(GtkWidget *parent);
-GtkWidget *modify_tool_button;
+extern GtkWidget *modify_tool_button;
 
 typedef struct _ToolButton ToolButton;
 

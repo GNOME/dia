@@ -24,4 +24,4 @@ EXTRA_DIST += \
 	graphics/home_network.png \
 	graphics/greendots.png
 
-#	usage-objects-basic.xml \
+#	usage-objects-basic.xml
