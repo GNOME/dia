@@ -31,6 +31,10 @@
 #include "dia_dirs.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+static const GtkTargetEntry create_object_targets[] = {
+  { "application/x-dia-object", 0, 0 },
+};
+
 ToolButton tool_data[] =
 {
   { (char **) arrow_xpm,
@@ -190,6 +194,33 @@ create_zoom_widget(DDisplay *ddisp) {
   return combo;
 }
 
+static gboolean
+display_drop_callback(GtkWidget *widget, GdkDragContext *context,
+		      gint x, gint y, guint time)
+{
+  if (gtk_drag_get_source_widget(context) != NULL) {
+    /* we only accept drops from the same instance of the application,
+     * as the drag data is a pointer in our address space */
+    return TRUE;
+  }
+  gtk_drag_finish (context, FALSE, FALSE, time);
+  return FALSE;
+}
+
+static void
+display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
+				gint x, gint y, GtkSelectionData *data,
+				guint info, guint time, DDisplay *ddisp)
+{
+  if (data->format == 8 && data->length == sizeof(ToolButtonData *)) {
+    ToolButtonData *tooldata = *(ToolButtonData **)data->data;
+
+    g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);
+    gtk_drag_finish (context, TRUE, FALSE, time);
+  }
+  gtk_drag_finish (context, FALSE, FALSE, time);
+}
+
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
@@ -304,6 +335,14 @@ create_display_shell(DDisplay *ddisp,
   gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
 		      (GtkSignalFunc) ddisplay_canvas_events,
 		      ddisp);
+
+  gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
+		    create_object_targets, 1, GDK_ACTION_COPY);
+  gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
+		      GTK_SIGNAL_FUNC(display_drop_callback), NULL);
+  gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
+		      GTK_SIGNAL_FUNC(display_data_received_callback), ddisp);
+
   gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
   /*  pack all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
@@ -409,6 +448,31 @@ tool_button_press (GtkWidget      *w,
   return FALSE;
 }
 
+static void
+tool_drag_data_get (GtkWidget *widget, GdkDragContext *context,
+		    GtkSelectionData *selection_data, guint info,
+		    guint32 time, ToolButtonData *tooldata)
+{
+  if (info == 0) {
+    gtk_selection_data_set(selection_data, selection_data->target,
+			   8, (guchar *)&tooldata, sizeof(ToolButtonData *));
+  }
+}
+
+static void
+tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
+		       GdkPixmap *pixmap, GdkBitmap *mask)
+{
+  gtk_drag_source_set(button, GDK_BUTTON1_MASK,
+		      create_object_targets, 1,
+		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);
+  gtk_signal_connect(GTK_OBJECT(button), "drag_data_get",
+		     GTK_SIGNAL_FUNC(tool_drag_data_get), tooldata);
+  if (pixmap)
+    gtk_drag_source_set_icon(button, gtk_widget_get_colormap(button),
+			     pixmap, mask);
+}
+
 void 
 tool_select_callback(GtkWidget *widget, gpointer data) {
   ToolButtonData *tooldata = (ToolButtonData *)data;
@@ -479,6 +543,13 @@ create_tools(GtkWidget *parent)
     gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
 			GTK_SIGNAL_FUNC (tool_button_press),
 			&tool_data[i].callback_data);
+
+    if (tool_data[i].callback_data.type == CREATE_OBJECT_TOOL)
+      tool_setup_drag_source(button, &tool_data[i].callback_data,
+			     pixmap, mask);
+
+    gdk_pixmap_unref(pixmap);
+    if (mask) gdk_bitmap_unref(mask);
 
     tool_data[i].callback_data.widget = button;
 
@@ -672,6 +743,8 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			GTK_SIGNAL_FUNC (tool_select_update), data);
     gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
 			GTK_SIGNAL_FUNC (tool_button_press), data);
+
+    tool_setup_drag_source(button, data, pixmap, mask);
 
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(sheet_obj->description), NULL);
@@ -882,7 +955,7 @@ static GtkTargetEntry toolbox_target_table[] =
 static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
                                  sizeof (toolbox_target_table[0]));
 
-void
+static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
                                  gint              x,

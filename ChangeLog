@@ -1,5 +1,16 @@
 2000-11-25  James Henstridge  <james@daa.com.au>
 
+	* app/interface.c (create_tools): unref the pixmap/mask after
+	creating the GtkPixmap.
+	(tool_setup_drag_source): function to set up a drag source for
+	create object tool buttons.
+	(create_tools): setup drag source for CREATE_OBJECT_TOOL's.
+	(fill_sheet_wbox): same here.
+	(create_display_shell): set up the display canvas as a drag
+	destination.
+	(display_drop_callback, display_data_received_callback): functions
+	to handle drops of tool buttons.
+
 	* app/menus.c (menus_init): don't use gnome_popup_menu_new().  It
 	does weird shit to the user_data pointer for a menu item.  Object
 	alignment should work again now.
