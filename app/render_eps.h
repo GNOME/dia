@@ -37,7 +37,6 @@ struct _RendererEPS {
 };
 
 extern RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
-extern void close_eps_renderer(RendererEPS *renderer);
 #endif /* RENDER_EPS_H */
 
 

@@ -67,7 +67,7 @@ diagram_update_connections_selection(Diagram *dia)
   while (list!=NULL) {
     Object * selected_obj = (Object *) list->data;
     
-    diagram_update_connections_object(dia, selected_obj);
+    diagram_update_connections_object(dia, selected_obj, TRUE);
     
     list = g_list_next(list);
   }
@@ -75,9 +75,14 @@ diagram_update_connections_selection(Diagram *dia)
 
 /* Updates all objects connected to the 'obj' object.
    Calls this function recursively for objects modified.
+   
+   If update_nonmoved is TRUE, also objects that have not
+   moved since last time is updated. This is not propagated
+   in the recursion.
  */
 void
-diagram_update_connections_object(Diagram *dia, Object *obj)
+diagram_update_connections_object(Diagram *dia, Object *obj,
+				  int update_nonmoved)
 {
   int i,j;
   ConnectionPoint *cp;
@@ -87,7 +92,8 @@ diagram_update_connections_object(Diagram *dia, Object *obj)
 
   for (i=0;i<obj->num_connections;i++) {
     cp = obj->connections[i];
-    if (distance_point_point_manhattan(&cp->pos, &cp->last_pos) > CHANGED_TRESHOLD){
+    if ((update_nonmoved) ||
+	(distance_point_point_manhattan(&cp->pos, &cp->last_pos) > CHANGED_TRESHOLD)) {
       cp->last_pos = cp->pos;
 
       list = cp->connected;
@@ -106,7 +112,7 @@ diagram_update_connections_object(Diagram *dia, Object *obj)
 					&cp->pos, HANDLE_MOVE_CONNECTED);
 	object_add_updates(connected_obj, dia);
 
-	diagram_update_connections_object(dia, connected_obj);
+	diagram_update_connections_object(dia, connected_obj, FALSE);
 	
 	list = g_list_next(list);
       }

@@ -365,7 +365,7 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
 
   ddisp = ddisplay_active();
   cut_list = diagram_get_sorted_selected_remove(ddisp->diagram);
-  diagram_remove_all_selected(ddisp->diagram);
+  diagram_remove_all_selected(ddisp->diagram, FALSE);
 
   object_add_updates_list(cut_list, ddisp->diagram);
 
@@ -408,7 +408,7 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
 
   paste_corner = object_list_corner(paste_list);
 
-  diagram_remove_all_selected(ddisp->diagram);
+  diagram_remove_all_selected(ddisp->diagram, TRUE);
   diagram_add_selected_list(ddisp->diagram, paste_list);
   diagram_add_object_list(ddisp->diagram, paste_list);
   object_add_updates_list(paste_list, ddisp->diagram);
@@ -424,7 +424,7 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
 
   ddisp = ddisplay_active();
   delete_list = diagram_get_sorted_selected_remove(ddisp->diagram);
-  diagram_remove_all_selected(ddisp->diagram);
+  diagram_remove_all_selected(ddisp->diagram, FALSE);
 
   object_add_updates_list(delete_list, ddisp->diagram);
   destroy_object_list(delete_list);
@@ -522,7 +522,7 @@ void view_toggle_rulers_callback(gpointer callback_data,
 				 GtkWidget *widget)
 {
   DDisplay *ddisp;
-
+  
   ddisp = ddisplay_active();
 
   /* The following is borrowed straight from the Gimp: */
@@ -532,36 +532,31 @@ void view_toggle_rulers_callback(gpointer callback_data,
    *  is kludgy and a hack and may break if gtk is changed
    *  internally.
    */
-  if (!GTK_CHECK_MENU_ITEM (widget)->active)
-    {
-      if (GTK_WIDGET_VISIBLE (ddisp->origin))
-        {
-          gtk_widget_unmap (ddisp->origin);
-          gtk_widget_unmap (ddisp->hrule);
-          gtk_widget_unmap (ddisp->vrule);
-
-          GTK_WIDGET_UNSET_FLAGS (ddisp->origin, GTK_VISIBLE);
-          GTK_WIDGET_UNSET_FLAGS (ddisp->hrule, GTK_VISIBLE);
-          GTK_WIDGET_UNSET_FLAGS (ddisp->vrule, GTK_VISIBLE);
-
-          gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
-        }
+  if (!GTK_CHECK_MENU_ITEM (widget)->active) {
+    if (GTK_WIDGET_VISIBLE (ddisp->origin)) {
+      gtk_widget_unmap (ddisp->origin);
+      gtk_widget_unmap (ddisp->hrule);
+      gtk_widget_unmap (ddisp->vrule);
+      
+      GTK_WIDGET_UNSET_FLAGS (ddisp->origin, GTK_VISIBLE);
+      GTK_WIDGET_UNSET_FLAGS (ddisp->hrule, GTK_VISIBLE);
+      GTK_WIDGET_UNSET_FLAGS (ddisp->vrule, GTK_VISIBLE);
+      
+      gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
     }
-  else
-    {
-      if (!GTK_WIDGET_VISIBLE (ddisp->origin))
-        {
-          gtk_widget_map (ddisp->origin);
-          gtk_widget_map (ddisp->hrule);
-          gtk_widget_map (ddisp->vrule);
-
-          GTK_WIDGET_SET_FLAGS (ddisp->origin, GTK_VISIBLE);
-          GTK_WIDGET_SET_FLAGS (ddisp->hrule, GTK_VISIBLE);
-          GTK_WIDGET_SET_FLAGS (ddisp->vrule, GTK_VISIBLE);
-
-          gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
-        }
+  } else {
+    if (!GTK_WIDGET_VISIBLE (ddisp->origin)) {
+      gtk_widget_map (ddisp->origin);
+      gtk_widget_map (ddisp->hrule);
+      gtk_widget_map (ddisp->vrule);
+      
+      GTK_WIDGET_SET_FLAGS (ddisp->origin, GTK_VISIBLE);
+      GTK_WIDGET_SET_FLAGS (ddisp->hrule, GTK_VISIBLE);
+      GTK_WIDGET_SET_FLAGS (ddisp->vrule, GTK_VISIBLE);
+      
+      gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
     }
+  }
 }
 
 extern void
@@ -666,8 +661,8 @@ objects_align_h_callback(GtkWidget *widget, gpointer data)
   
   object_add_updates_list(objects, dia);
   object_list_align_h(objects, align);
-  object_add_updates_list(objects, dia);
   diagram_update_connections_selection(dia);
+  object_add_updates_list(objects, dia);
   diagram_flush(dia);     
 }
 
@@ -684,8 +679,8 @@ objects_align_v_callback(GtkWidget *widget, gpointer data)
 
   object_add_updates_list(objects, dia);
   object_list_align_v(objects, align);
-  object_add_updates_list(objects, dia);
   diagram_update_connections_selection(dia);
+  object_add_updates_list(objects, dia);
   diagram_flush(dia);     
 }
 

@@ -51,7 +51,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   
   if (!(event->state & GDK_SHIFT_MASK)) {
     /* Not Multi-select => remove current selection */
-    diagram_remove_all_selected(ddisp->diagram);
+    diagram_remove_all_selected(ddisp->diagram, TRUE);
   }
   diagram_add_selected(ddisp->diagram, obj);
 
@@ -89,7 +89,7 @@ create_object_double_click(CreateObjectTool *tool, GdkEventMotion *event,
 
 static void
 create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
-			   DDisplay *ddisp)
+			     DDisplay *ddisp)
 {
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
@@ -105,11 +105,11 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
       diagram_update_connections_selection(ddisp->diagram);
       diagram_flush(ddisp->diagram);
     }
-    diagram_update_extents(ddisp->diagram);
     tool->moving = FALSE;
     tool->handle = NULL;
     tool->obj = NULL;
   }
+  diagram_update_extents(ddisp->diagram);
   tool_reset();
 }
 static void

@@ -106,7 +106,7 @@ diagram_add_object_list(Diagram *dia, GList *list)
 }
 
 void
-diagram_remove_all_selected(Diagram *diagram)
+diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 {
   GList *list = diagram->data->selected;
 
@@ -115,7 +115,7 @@ diagram_remove_all_selected(Diagram *diagram)
     Object *selected_obj = (Object *) list->data;
     object_add_updates(selected_obj, diagram);
     
-    if (selected_obj->ops->is_empty(selected_obj)) {
+    if (delete_empty && selected_obj->ops->is_empty(selected_obj)) {
       printf("removed empty object.\n");
       layer_remove_object(diagram->data->active_layer, selected_obj);
       selected_obj->ops->destroy(selected_obj);
@@ -505,8 +505,6 @@ diagram_export_to_eps(Diagram *dia, char *filename)
   renderer = new_eps_renderer(dia, filename);
 
   data_render(dia->data, (Renderer *)renderer, NULL, NULL);
-
-  close_eps_renderer(renderer);
 }
 
 int diagram_modified_exists(void)

@@ -27,7 +27,8 @@ extern void connectionpoint_draw(ConnectionPoint *conpoint,
 extern void connectionpoint_add_update(ConnectionPoint *conpoint,
 				       Diagram *dia);
 extern void diagram_update_connections_selection(Diagram *dia);
-extern void diagram_update_connections_object(Diagram *dia, Object *obj);
+extern void diagram_update_connections_object(Diagram *dia, Object *obj,
+					      int update_nonmoved);
 extern void ddisplay_connect_selected(DDisplay *ddisp);
 extern void diagram_unconnect_selected(Diagram *dia);
 

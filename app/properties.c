@@ -82,10 +82,12 @@ properties_apply(GtkWidget *canvas, gpointer data)
     current_obj->ops->apply_properties(current_obj);
     object_add_updates(current_obj, current_dia);
 
-    diagram_update_connections_object(current_dia, current_obj);
+    diagram_update_connections_object(current_dia, current_obj, TRUE);
 
     diagram_modified(current_dia);
     diagram_flush(current_dia);
+
+    diagram_update_extents(current_dia);
   }
   return 0;
 }

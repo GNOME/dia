@@ -2,8 +2,7 @@ TODO:
 =====
 general:
 * change cursors more, ie. when the mouse is grabbed for resizing/moving stuff.
-* download insure++ and try it on dia. Maybe try purify too.
-* check the write_* functions on different architectures.
+* Run purify on Dia. I don't have purify, anyone who has it is welcome to try!
 * command line options (load files)
 * Tab order in properties dialogs. (How do you specify this in gtk?)
 * If you hold down shift while moving the handle of an 'Element',
@@ -12,20 +11,16 @@ general:
 * Maybe be able to set a default linestyle, much like the current linewidth
   widget.
 * save more stuff in the diagram file. grid, bg etc.
-* is there a better way to calculate font-properties. Rendering 100 pixel hig fonts
+* is there a better way to calculate font-properties. Rendering 100 pixel high fonts
   is very slow.
 * Update to automake 1.4 and libtool 1.3 when they're released. It has
   much better support for dlopen:ed modules.
-
-gtk:
- Keyboard accelerator '+' and '-' doesn't work.
 
 functions:
 * undo, see event model later in this file.
  
 renderer:
 * images
-* add begin/end rendering methods.
 
 objects:
 * finish the network objects
@@ -43,44 +38,35 @@ UML:
 
 Big stuff:
  * some kind of 'plug-in api' so that libraries like uml can add new
-   functions to the menus (like: load UMX). This means some parts of
-   the Diagram struct has to move to lib/blahblah.h so that object-libraries
-   can handle/create whole diagrams (for ie. exporting/importing).
+   functions to the menus (like: load UMX). This is the reason that
+   DiagramData was broken out of Diagram and moved to lib/diagramdata.h.
  * Add a clean event model so that all modifications of the diagram and objects
    goes by a well known path. This makes it possible to have a history of
    modifications which means UNDO is easy!
- * Fix up the layer dialog. Also add layer-effects?
 
 ---------------------------------------------------------------
 
 BUGS:
 =====
-* Applying the properties does not recalculate extents.
-
-* UML - Association with direction==Right doesn't always show arrow.
-  Problem with bounding box.
-
-* selecting with rubberband and draggin mouse to other window with same diagram
-  gives ugly box left on screen.
-
-* Toggling rulers changes the size of the window to the default size.
-
-* pressing '+' and '-' when a focus is activated it gets both to the focus and zooms.
-
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
 
 * If you move an object outside the visible screen, scroll there move the object back
   and then scroll back, the (now) unused area is not removed.
 
-* Deleting/Cutting a newly created empty text-object gives a seg-fault.
+* Toggling rulers changes the size of the window to the default size.
+  I don't know how this can be fixed.
 
-* If you double-click on the color-selector as the first thing you do
-  sometimes the program crashes.
-
-* eps imported into lyx is shown ok, but the bounding-box is wrong...
+Old bugs i can't reproduce but don't know if they're solved:
+============================================================
 
 * Sometimes the scrollbars turn weird when you remove the last
   object. (Try: move around the last object a bit and then press ctrl-x.)
+
+* UML - Association with direction==Right doesn't always show arrow.
+  Problem with bounding box.
+
+* If you double-click on the color-selector as the first thing you do
+  sometimes the program crashes.
 
 ---------------------------------------------------------------
 
@@ -95,7 +81,3 @@ Editing of groups in a separate window
 Perspecitve point
 Lockable handles
 Rotate stuff, to complex to be implemented in this version.
-
-
-
-

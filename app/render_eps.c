@@ -17,12 +17,16 @@
  */
 #include <string.h>
 #include <time.h>
+#include <math.h>
 #include <unistd.h>
 
 #include "config.h"
 #include "render_eps.h"
 #include "message.h"
+#include "diagramdata.h"
 
+static void begin_render(RendererEPS *renderer, DiagramData *data);
+static void end_render(RendererEPS *renderer);
 static void set_linewidth(RendererEPS *renderer, real linewidth);
 static void set_linecaps(RendererEPS *renderer, LineCaps mode);
 static void set_linejoin(RendererEPS *renderer, LineJoin mode);
@@ -84,6 +88,9 @@ static void draw_image(RendererEPS *renderer,
 		       void *not_decided_yet);
 
 static RenderOps EpsRenderOps = {
+  (BeginRenderFunc) begin_render,
+  (EndRenderFunc) end_render,
+
   (SetLineWidthFunc) set_linewidth,
   (SetLineCapsFunc) set_linecaps,
   (SetLineJoinFunc) set_linejoin,
@@ -158,19 +165,19 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  "%%%%Creator: Dia v%s\n"
 	  "%%%%CreationDate: %s"
 	  "%%%%For: %s\n"
+	  "%%%%Magnification: 1.0000\n"
 	  "%%%%Orientation: Portrait\n"
-	  "%%%%BoundingBox: 0 0 %f %f\n" 
-	  "%%%%Pages: 0\n"
+	  "%%%%BoundingBox: 0 0 %d %d\n" 
+	  "%%%%Pages: 1\n"
 	  "%%%%BeginSetup\n"
 	  "%%%%EndSetup\n"
-	  "%%%%Magnification: 1.0000\n"
 	  "%%%%EndComments\n",
 	  dia->filename,
 	  VERSION,
 	  ctime(&time_now),
 	  name,
-	  (extent->right - extent->left)*scale,
-	  (extent->bottom - extent->top)*scale);
+	  (int) ceil((extent->right - extent->left)*scale),
+	  (int) ceil((extent->bottom - extent->top)*scale) );
 
   fprintf(file,
 	  "/cp {closepath} bind def\n"
@@ -225,16 +232,20 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  scale, -scale,
 	  -extent->left, -extent->bottom );
   
-  
   return renderer;
 }
 
-void
-close_eps_renderer(RendererEPS *renderer)
+static void
+begin_render(RendererEPS *renderer, DiagramData *data)
 {
-  fclose(renderer->file);
 }
 
+static void
+end_render(RendererEPS *renderer)
+{
+  fprintf(renderer->file, "showpage\n");
+  fclose(renderer->file);
+}
 
 static void
 set_linewidth(RendererEPS *renderer, real linewidth)

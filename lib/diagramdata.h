@@ -19,10 +19,11 @@
 #define DIAGRAMDATA_H
 
 #include <glib.h>
-#include "object.h"
 
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;
+
+#include "object.h"
 
 struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */

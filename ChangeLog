@@ -1,4 +1,61 @@
-1999-01-12  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1999-01-14  Alexander Larsson  <alla@lysator.liu.se>
+
+	* TODO:
+	Updates.
+
+	* app/diagram.[ch]:
+	Change diagram_remove_all_selected to take new argument
+	delete_empty. Empty objects are deleted only if it is TRUE.
+	Removed call to close_eps_renderer. This is now done in end_render
+	in the eps renderer.
+
+	* app/create_object.c:
+	* app/layer_dialog.c:
+	Update calls to diagram_remove_all_selected.
+
+	* app/commands.c:
+	Update calls to diagram_remove_all_selected.
+	Some code reformating.
+	Changed order of adding updates i align_h and align_v.
+
+	* app/modify_tool.c:
+	Update calls to diagram_remove_all_selected.
+	Added pointer grab when doing rubber-band selection, this fixes
+	the bug when draging the box over to another window.
+
+	* app/connectionpoint_ops.[ch]:
+	diagram_update_connections_object changed to take an argument
+	update_nonmoved. This lets connections that has not moved, but
+	the stuff they're connected to has been moved work.
+	Update calls to the new diagram_update_connections_object.
+
+	* app/properties.c:
+	Update calls to the new diagram_update_connections_object.
+	Update extents when properties are applied.
+	
+	* app/disp_callbacks.c:
+	Added support for zooming with the '+' and '-' keys.
+
+	* app/menus.c:
+	Removed old keyboard shortcuts for zoom.
+
+	* lib/render.h:
+	Added calls begin_render and end_render to renderer.
+	These can be used for setup and cleanup.
+
+	* lib/diagramdata.c:
+	Added calls to begin_render and end_render in data_render.
+
+	* app/render_gdk.c:
+	Added begin_render and end_render.
+
+	* app/render_eps.[ch]:
+	Added begin_render and end_render.
+	Moved close_eps_renderer code to end_render.
+	Various fixes to the generated eps code. This fixes importing
+	generated eps into LYX.
+	
+1999-01-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	* TODO:
 	Update of todo.

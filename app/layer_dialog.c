@@ -266,7 +266,7 @@ dia_layer_select_callback(GtkWidget *widget, gpointer data)
   DiaLayerWidget *lw;
   lw = DIA_LAYER_WIDGET(widget);
 
-  diagram_remove_all_selected(lw->dia);
+  diagram_remove_all_selected(lw->dia, TRUE);
   data_set_active_layer(lw->dia->data, lw->layer);
   diagram_add_update_all(lw->dia);
   diagram_flush(lw->dia);

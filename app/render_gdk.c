@@ -22,6 +22,8 @@
 #include "render_gdk.h"
 #include "message.h"
 
+static void begin_render(RendererGdk *renderer, DiagramData *data);
+static void end_render(RendererGdk *renderer);
 static void set_linewidth(RendererGdk *renderer, real linewidth);
 static void set_linecaps(RendererGdk *renderer, LineCaps mode);
 static void set_linejoin(RendererGdk *renderer, LineJoin mode);
@@ -103,6 +105,9 @@ static void fill_pixel_rect(RendererGdk *renderer,
 				 Color *color);
 
 static RenderOps GdkRenderOps = {
+  (BeginRenderFunc) begin_render,
+  (EndRenderFunc) end_render,
+
   (SetLineWidthFunc) set_linewidth,
   (SetLineCapsFunc) set_linecaps,
   (SetLineJoinFunc) set_linejoin,
@@ -213,10 +218,9 @@ gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
   }
 }
 
-extern void renderer_gdk_copy_to_window(RendererGdk *renderer,
-					GdkWindow *window,
-					int x, int y,
-					int width, int height)
+extern void
+renderer_gdk_copy_to_window(RendererGdk *renderer, GdkWindow *window,
+			    int x, int y, int width, int height)
 {
   static GdkGC *copy_gc = NULL;
 
@@ -231,6 +235,17 @@ extern void renderer_gdk_copy_to_window(RendererGdk *renderer,
 		  x, y,
 		  width, height);
 }
+
+static void
+begin_render(RendererGdk *renderer, DiagramData *data)
+{
+}
+
+static void
+end_render(RendererGdk *renderer)
+{
+}
+
 
 
 static void

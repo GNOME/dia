@@ -302,12 +302,16 @@ data_render(DiagramData *data, Renderer *renderer,
   int i;
   int active_layer;
 
+  (renderer->ops->begin_render)(renderer);
+  
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     active_layer = (layer == data->active_layer);
     if (layer->visible)
       layer_render(layer, renderer, obj_renderer, gdata, active_layer);
   }
+  
+  (renderer->ops->end_render)(renderer);
 }
 
 static void

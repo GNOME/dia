@@ -54,6 +54,14 @@ typedef enum {
  **
  ******************************************************/
 
+/* Called before rendering begins.
+   Can be used to do various pre-rendering setup. */
+typedef void (*BeginRenderFunc) (Renderer *renderer);
+
+/* Called after all rendering is done.
+   Used to do various clean-ups.*/
+typedef void (*EndRenderFunc) (Renderer *renderer);
+
 /* Set the current line width
    if linewidth==0, the line will be an 'hairline' */
 typedef void (*SetLineWidthFunc) (Renderer *renderer, real linewidth);
@@ -216,6 +224,10 @@ typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
 
 
 struct _RenderOps {
+  /* Control ops: */
+  BeginRenderFunc   begin_render;
+  EndRenderFunc     end_render;
+  
   /* Line attributes: */
   SetLineWidthFunc  set_linewidth;
   SetLineCapsFunc   set_linecaps;

@@ -39,12 +39,15 @@ ddisplay_canvas_events (GtkWidget *canvas,
   guint state = 0;
   Focus *focus;
   Object *obj;
+  Rectangle *visible;
+  Point middle;
   int return_val;
   int key_handled;
   int width, height;
   int new_size;
+
   return_val = FALSE;
-  
+ 
   if (!canvas->window) 
     return FALSE;
 
@@ -206,6 +209,22 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	case GDK_Right:
 	  ddisplay_scroll_right(ddisp);
 	  ddisplay_flush(ddisp);
+	  break;
+	case GDK_KP_Add:
+	case GDK_plus:
+	  visible = &ddisp->visible;
+	  middle.x = visible->left*0.5 + visible->right*0.5;
+	  middle.y = visible->top*0.5 + visible->bottom*0.5;
+	  
+	  ddisplay_zoom(ddisp, &middle, 2.0);
+	  break;
+	case GDK_KP_Subtract:
+	case GDK_minus:
+	  visible = &ddisp->visible;
+	  middle.x = visible->left*0.5 + visible->right*0.5;
+	  middle.y = visible->top*0.5 + visible->bottom*0.5;
+	  
+	  ddisplay_zoom(ddisp, &middle, 0.5);
 	  break;
 	default:
 	  return_val = FALSE;

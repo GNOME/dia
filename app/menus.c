@@ -61,8 +61,8 @@ static GtkItemFactoryEntry display_menu_items[] =
   {"/Edit/_Delete",           "<control>D", edit_delete_callback,        0},
   {"/_View",                  NULL,         NULL,                        0, "<Branch>"},
   /*  {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
-  {"/View/Zoom _In",          "+",          view_zoom_in_callback,       0},
-  {"/View/Zoom _Out",         "-",          view_zoom_out_callback,      0},
+  {"/View/Zoom _In",          NULL,          view_zoom_in_callback,       0},
+  {"/View/Zoom _Out",         NULL,          view_zoom_out_callback,      0},
   {"/View/_Zoom",             NULL,         NULL,                        0, "<Branch>"},
   {"/View/Zoom/400%",         NULL,         view_zoom_set_callback,      400},
   {"/View/Zoom/200%",         NULL,         view_zoom_set_callback,      200},

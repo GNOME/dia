@@ -92,7 +92,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 
       if (!(event->state & GDK_SHIFT_MASK)) {
 	/* Not Multi-select => remove current selection */
-	diagram_remove_all_selected(diagram);
+	diagram_remove_all_selected(diagram, TRUE);
       }
       
       diagram_add_selected(diagram, obj);
@@ -122,7 +122,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
     printf("didn't select object\n");
     if (!(event->state & GDK_SHIFT_MASK)) {
       /* Not Multi-select => Remove all selected */
-      diagram_remove_all_selected(diagram);
+      diagram_remove_all_selected(diagram, TRUE);
       diagram_flush(ddisp->diagram);
     }
   }
@@ -204,6 +204,9 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
 			      tool->x2+1, tool->y2+1);
 
     ddisplay_flush(ddisp);
+    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                      NULL, NULL, event->time);
   }
 }
 
@@ -365,6 +368,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     tool->state = STATE_NONE;
     break;
   case STATE_BOX_SELECT:
+    gdk_pointer_ungrab (event->time);
     /* Remove last box: */
     gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
 			tool->x1, tool->y1,
