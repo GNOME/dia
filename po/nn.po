@@ -1,7 +1,7 @@
 # Norwegian (Nynorsk) translation of dia.
-# Copyright (C) 2001 Roy-Magne Mo
+# Copyright (C) 2001-2002 Roy-Magne Mo
 # Kjartan Maraas  <kmaraas@gnome.org>, 2001.
-# Roy-Magne Mo <rmo@sunnmore.net>, 2001
+# Roy-Magne Mo <rmo@sunnmore.net>, 2001-2002
 # 
 msgid ""
 msgstr ""
@@ -27,7 +27,7 @@ msgstr "%s feil: treng gyldig innfil %s\n"
 #: app/app_procs.c:171
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
+msgstr "%s feil: veit ikkje korleis ein skal eksportere til %s\n"
 
 #. if (!quiet)
 #: app/app_procs.c:177
@@ -70,32 +70,36 @@ msgid "[OPTION...] [FILE...]"
 msgstr "[VAL...] [FIL...]"
 
 #: app/app_procs.c:263
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "Bruk --help for å få ei liste over tilgjengelege kommandolinjeval."
+msgstr ""
+"Feil ved val %s: %s.\n"
+"Køyr «%s --help» for å sjå heile lista over tilgjengelege kommandolinjeval.\n"
 
 #: app/app_procs.c:276
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
-msgstr ""
+msgstr "%s feil: kan kun spesifisere ein av -f eller -o."
 
 #: app/app_procs.c:320 app/app_procs.c:322
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
+"Klarte ikkje å finne standardobjekt når eg såg etter object-libs, avsluttar...\n"
 
 #: app/app_procs.c:443 app/app_procs.c:449
 msgid "Quit, are you sure?"
 msgstr "Avslutte, er du sikker?"
 
 #: app/app_procs.c:456
-#, fuzzy
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
-msgstr "Det finst ulagra endringar. Er du sikker på at du vil avslutta?"
+msgstr ""
+"Diagram med endringar eksisterar.\n"
+"Er du sikker på at du vil avslutte?"
 
 #: app/app_procs.c:466 app/app_procs.c:471
 msgid "Quit"
@@ -108,15 +112,15 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: app/app_procs.c:558 app/app_procs.c:565
-#, fuzzy
 msgid "Could not create per-user Dia config directory"
-msgstr "Kunne ikkje laga katalog\n"
+msgstr "Klarte ikkje å opprette Dia-oppsettskatalog for brukaren"
 
 #: app/app_procs.c:567
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
+"Klarte ikkje å opprette oppsettkatalog for kvar brukar. Sjekk at miljøvariabelen HOME peikar på ein eksisterande katalog."
 
 #: app/app_procs.c:589
 msgid "Objects and filters internal to dia"
@@ -174,6 +178,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Antialias oppteiknaren er ikkje feilfri, og kan føre\n"
+"til krasj. Me veit at det er feil i det, så ikkje\n"
+"kast vekk tida di med å rapportere feil om den krasjar"
 
 #: app/defaults.c:50 app/defaults.c:58
 msgid "Object defaults"
@@ -292,6 +299,8 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
+"Dette objektet støttar ikkje Angre/Gjer om.\n"
+"Angreinformasjon sletta."
 
 #: app/disp_callbacks.c:195
 msgid "No object menu"
@@ -376,13 +385,13 @@ msgid "File already exists"
 msgstr "Fila finst alt"
 
 #: app/filedlg.c:236 app/filedlg.c:423
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Fila %1 finst alt.\n"
-"Vil du skriva over den?"
+"Fila '%s' finst alt.\n"
+"Vil du skrive over den?"
 
 #: app/filedlg.c:300
 msgid "Save Diagram"
@@ -488,7 +497,7 @@ msgstr "Lag sirkelboge"
 
 #: app/interface.c:89 app/menus.c:208
 msgid "Arc"
-msgstr "Sirkelboge"
+msgstr "Boge"
 
 #: app/interface.c:93
 msgid "Create Zigzagline"
@@ -623,38 +632,40 @@ msgstr ""
 
 #: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Kan ikkje opna «%1» for lesing"
+msgstr "Klarte ikkje å opne «%s» for lesing.\n"
 
 #: app/load_save.c:251
-#, fuzzy
 msgid "You must specify a file, not a directory.\n"
-msgstr "Du må oppgi eit filnamn"
+msgstr "Du må oppgi eit filnamn, ikkje ein katalog.\n"
 
 #: app/load_save.c:260 app/load_save.c:265
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
-msgstr "Feil ved lasting av biletefil."
+msgstr ""
+"Feil ved lasting av diagram %s.\n"
+"Ukjent filtype."
 
 #: app/load_save.c:272
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
-msgstr "Feil ved lasting av biletefil."
+msgstr ""
+"Feil ved lasting av diagram %s.\n"
+"Må vere ei Dia-fil."
 
 #: app/load_save.c:744
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "Kunne ikkje lagra %1."
+msgstr "Klarte ikkje å lagre fila «%s».\n"
 
 #: app/load_save.c:764 app/load_save.c:769
-#, fuzzy
 msgid "Native Dia Diagram"
-msgstr "Nytt diagram"
+msgstr "Ekte Dia-diagram"
 
 #: app/menus.c:47 app/menus.c:61
 msgid "_New diagram"
@@ -681,9 +692,8 @@ msgid "_Export..."
 msgstr "_Eksporter ..."
 
 #: app/menus.c:72
-#, fuzzy
 msgid "Page Set_up..."
-msgstr "Name=Oppsett ..."
+msgstr "Side_oppsett ..."
 
 #: app/menus.c:74
 msgid "_Print Diagram..."
@@ -736,9 +746,8 @@ msgid "_AntiAliased"
 msgstr "_Anti-aliasa"
 
 #: app/menus.c:128
-#, fuzzy
 msgid "_Visible Grid"
-msgstr "Synleg"
+msgstr "S_ynleg rutenett"
 
 #: app/menus.c:130
 msgid "_Snap To Grid"
@@ -749,9 +758,8 @@ msgid "Show _Rulers"
 msgstr "Vis linnjala_r"
 
 #: app/menus.c:134
-#, fuzzy
 msgid "Show _Connection Points"
-msgstr "Sambandsval"
+msgstr "Vis _samanknytninspunkt"
 
 #: app/menus.c:137
 msgid "New _View"
@@ -770,9 +778,9 @@ msgid "Union"
 msgstr "Union"
 
 #: app/menus.c:147
-#, fuzzy
+# ,fuzzy
 msgid "Intersect"
-msgstr "Rentenivå"
+msgstr "Delmengde"
 
 #: app/menus.c:149 objects/FS/function.c:623 objects/FS/function.c:699
 #: objects/FS/function.c:700
@@ -796,9 +804,8 @@ msgid "Connected"
 msgstr "Tilkopla"
 
 #: app/menus.c:161
-#, fuzzy
 msgid "Transitive"
-msgstr "Send"
+msgstr "Transitiv"
 
 #: app/menus.c:162
 msgid "Same Type"
@@ -822,9 +829,8 @@ msgid "Equal Distance"
 msgstr "Lik avstand"
 
 #: app/menus.c:173 app/menus.c:182
-#, fuzzy
 msgid "Adjacent"
-msgstr "Vedlegg"
+msgstr ""
 
 #: app/menus.c:178
 msgid "Top"
@@ -839,9 +845,8 @@ msgid "Send to _Back"
 msgstr "Send til _bakgrunnen"
 
 #: app/menus.c:188
-#, fuzzy
 msgid "Bring to _Front"
-msgstr "Legg framst"
+msgstr "Hent _fram"
 
 #: app/menus.c:190
 msgid "_Group"
@@ -1126,14 +1131,12 @@ msgid "/Select/Connected"
 msgstr "/Vel/Tilkopla"
 
 #: app/menus.c:339
-#, fuzzy
 msgid "/Select/Transitive"
-msgstr "Vel skrivar"
+msgstr "/Vel/Transitiv"
 
 #: app/menus.c:340
-#, fuzzy
 msgid "/Select/Same Type"
-msgstr "Velg filer:"
+msgstr "/Vel/Same type"
 
 #: app/menus.c:341
 msgid "/Select/---"
@@ -1148,9 +1151,8 @@ msgid "/Select/Union"
 msgstr "/Vel/Union"
 
 #: app/menus.c:346
-#, fuzzy
 msgid "/Select/Intersect"
-msgstr "Valt område klipt ut"
+msgstr ""
 
 #: app/menus.c:348
 msgid "/Select/Remove"
@@ -1165,9 +1167,8 @@ msgid "/Objects/Send to _Back"
 msgstr "/Objekt/Legg _bakerst"
 
 #: app/menus.c:355
-#, fuzzy
 msgid "/Objects/Bring to _Front"
-msgstr "Legg framst"
+msgstr "/Objekt/Hent _fram"
 
 #: app/menus.c:356 app/menus.c:359
 msgid "/Objects/---"
@@ -1182,26 +1183,24 @@ msgid "/Objects/_Ungroup"
 msgstr ""
 
 #: app/menus.c:360
-#, fuzzy
 msgid "/Objects/Align _Horizontal"
-msgstr "Opna horisontalt"
+msgstr "/Objekt/Juster _vassrett"
 
 #: app/menus.c:362
 msgid "/Objects/Align Horizontal/Left"
-msgstr ""
+msgstr "/Objekt/Juster vassrett/Venstre"
 
 #: app/menus.c:363
-#, fuzzy
 msgid "/Objects/Align Horizontal/Center"
-msgstr "Element sentrert vassrett"
+msgstr "/Objekt/Juster vassrett/Sentrer"
 
 #: app/menus.c:364
 msgid "/Objects/Align Horizontal/Right"
-msgstr ""
+msgstr "/Objekt/Juster vassrett/Høgre"
 
 #: app/menus.c:365
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr ""
+msgstr "/Objekt/Juster vassrett/Lik avstand"
 
 #: app/menus.c:366
 msgid "/Objects/Align Horizontal/Adjacent"
@@ -1209,25 +1208,23 @@ msgstr ""
 
 #: app/menus.c:367
 msgid "/Objects/Align _Vertical"
-msgstr ""
+msgstr "/Objekt/Juster _loddrett"
 
 #: app/menus.c:369
 msgid "/Objects/Align Vertical/Top"
-msgstr ""
+msgstr "/Objekt/Juster loddrett/Topp"
 
 #: app/menus.c:370
-#, fuzzy
 msgid "/Objects/Align Vertical/Center"
-msgstr "Element sentrert loddrett"
+msgstr "/Objekt/Juster loddrett/Sentrert"
 
 #: app/menus.c:371
 msgid "/Objects/Align Vertical/Bottom"
-msgstr ""
+msgstr "/Objekt/Juster loddrett/Botn"
 
 #: app/menus.c:372
-#, fuzzy
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "Vertikal delavstand"
+msgstr "/Objekt/Juster loddrett/Lik avstand"
 
 #: app/menus.c:373
 msgid "/Objects/Align Vertical/Adjacent"
@@ -1238,9 +1235,8 @@ msgid "/_Tools"
 msgstr "/Verk_ty"
 
 #: app/menus.c:377
-#, fuzzy
 msgid "/Tools/Modify"
-msgstr "Endra"
+msgstr "/Verkty/Endre"
 
 #: app/menus.c:378
 msgid "/Tools/Magnify"
@@ -1283,9 +1279,8 @@ msgid "/Tools/Zigzagline"
 msgstr "/Verkty/Sikksakklinje"
 
 #: app/menus.c:388
-#, fuzzy
 msgid "/Tools/Polyline"
-msgstr "Polylinje"
+msgstr "/Verkty/Polylinje"
 
 #: app/menus.c:389
 msgid "/Tools/Bezierline"
@@ -1450,19 +1445,16 @@ msgid "Height:"
 msgstr "Høgd:"
 
 #: app/preferences.c:151
-#, fuzzy
 msgid "Magnify:"
-msgstr "Magenta:"
+msgstr "Forstørr:"
 
 #: app/preferences.c:152
-#, fuzzy
 msgid "Use menu bar:"
-msgstr "Brukarhandbok"
+msgstr "Bruk menylinje:"
 
 #: app/preferences.c:154
-#, fuzzy
 msgid "Connection Points:"
-msgstr "Sambandsval"
+msgstr "Samanknytningspunkt:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
 #: app/preferences.c:155 app/preferences.c:158 app/preferences.c:163
@@ -3009,8 +3001,9 @@ msgid "OR"
 msgstr "OR"
 
 #: objects/GRAFCET/vergent.c:123
+#, fuzzy
 msgid "AND"
-msgstr "AND"
+msgstr "OG"
 
 #: objects/GRAFCET/vergent.c:134
 #, fuzzy
@@ -3104,8 +3097,9 @@ msgstr "&Juster objekt"
 
 #: objects/UML/actor.c:332
 #, fuzzy
+#, fuzzy
 msgid "Actor"
-msgstr "Doktor"
+msgstr "Aktør"
 
 #: objects/UML/association.c:991
 msgid "Direction:"
@@ -3144,8 +3138,9 @@ msgstr "Vis pil"
 #. Aggregate
 #: objects/UML/association.c:1084
 #, fuzzy
+#, fuzzy
 msgid "Aggregate"
-msgstr "Laga"
+msgstr "Aggregere"
 
 #. Composition
 #: objects/UML/association.c:1092
@@ -3164,8 +3159,9 @@ msgstr "Stereotype"
 
 #: objects/UML/class.c:109 objects/UML/class_dialog.c:208
 #, fuzzy
+#, fuzzy
 msgid "Abstract"
-msgstr "Samandrag:"
+msgstr "Abstrakt"
 
 #: objects/UML/class.c:111 objects/UML/class_dialog.c:220
 #, fuzzy
@@ -3254,9 +3250,8 @@ msgid "Move down"
 msgstr "Flytt ned"
 
 #: objects/UML/class_dialog.c:726
-#, fuzzy
 msgid "Attribute data"
-msgstr "Attributt"
+msgstr "Attributtdata"
 
 #: objects/UML/class_dialog.c:758
 msgid "Value:"
@@ -3416,12 +3411,8 @@ msgid "Message type:"
 msgstr "Meldingstype:"
 
 #: objects/UML/object.c:146
-#, fuzzy
 msgid "Explicit state"
 msgstr ""
-"\n"
-"\n"
-"Avsluttingsstatus: %1"
 
 #: objects/UML/object.c:151
 #, fuzzy
@@ -3528,9 +3519,8 @@ msgid "Aspect"
 msgstr "Aspell"
 
 #: objects/chronogram/chronoline.c:175
-#, fuzzy
 msgid "Data color"
-msgstr "Prikkfarge"
+msgstr "Datafarge"
 
 #: objects/chronogram/chronoline.c:177
 #, fuzzy
@@ -3538,9 +3528,8 @@ msgid "Data line width"
 msgstr "Linjebreidd:"
 
 #: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-#, fuzzy
 msgid "Line color"
-msgstr "&Linjefarge"
+msgstr "Linjefarge"
 
 #: objects/chronogram/chronoref.c:144
 #, fuzzy
@@ -4017,13 +4006,12 @@ msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:1205
-#, fuzzy
 msgid "XFig File Format"
-msgstr "Filformat"
+msgstr "Xfig-filformat"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "A data line"
-msgstr "Ei datoline"
+msgstr "Ei datolinje"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
@@ -4031,7 +4019,7 @@ msgstr "Ein tidskala"
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Kronogram"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
@@ -4385,18 +4373,16 @@ msgid "Components for electric circuits"
 msgstr "Objekt for elektriske kretsar"
 
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
-msgstr "Elliptisk"
+msgstr "Elektrisk"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
 msgstr ""
 
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "Lag sirkel"
+msgstr "Lag ein prosess"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
@@ -4427,9 +4413,8 @@ msgid "Participation"
 msgstr "Deltaking"
 
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "Identitet"
+msgstr "Svak entitet"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
@@ -4563,9 +4548,8 @@ msgid "Create a flow"
 msgstr "Skriv tekst"
 
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "Brukarhjelpetekst"
+msgstr "Opprett ein funksjon"
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
@@ -4630,7 +4614,7 @@ msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Ein boge (oppover)"
 
 #: sheets/GRAFCET.sheet.in.h:12
 #, fuzzy
@@ -4652,71 +4636,71 @@ msgstr "Puslespel"
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Puslespel - del_iiii"
 
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Puslespel - del_iiio"
 
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Puslespel - del_iioi"
 
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Puslespel - del_iioo"
 
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Puslespel - del_ioii"
 
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Puslespel - del_ioio"
 
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Puslespel - del_iooi"
 
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Puslespel - del_iooo"
 
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Puslespel - del_oiii"
 
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Puslespel - del_oiio"
 
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Puslespel - del_oioi"
 
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Puslespel - del_oioo"
 
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Puslespel - del_ooii"
 
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Puslespel - del_ooio"
 
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Puslespel - del_oooi"
 
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Puslespel - del_oooo"
 
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "Delar av eit puslespel"
 
 #: sheets/Logic.sheet.in.h:1
 #, fuzzy
@@ -5046,7 +5030,7 @@ msgstr "Ein flyt etikett"
 
 #: sheets/SADT.sheet.in.h:3
 msgid "An activity/data box"
-msgstr ""
+msgstr "Ein aktivitet/databoks"
 
 #: sheets/SADT.sheet.in.h:4
 #, fuzzy
@@ -5059,7 +5043,7 @@ msgstr "SADT/IEDFO"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "Handling vert utførd"
 
 #: sheets/SDL.sheet.in.h:2
 #, fuzzy
@@ -5080,9 +5064,8 @@ msgid "Function Header"
 msgstr "Merk alt"
 
 #: sheets/SDL.sheet.in.h:6
-#, fuzzy
 msgid "Function call"
-msgstr "Merk alt"
+msgstr "Funksjonskall"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
@@ -5111,14 +5094,12 @@ msgid "SDL"
 msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
-#, fuzzy
 msgid "Save State"
-msgstr "Start"
+msgstr "Lagre tilstand"
 
 #: sheets/SDL.sheet.in.h:15
-#, fuzzy
 msgid "Send message"
-msgstr "Melding:"
+msgstr "Send melding"
 
 #: sheets/SDL.sheet.in.h:16
 #, fuzzy
@@ -5135,11 +5116,11 @@ msgstr "Tilstand"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
-msgstr ""
+msgstr "Ein Sybase klientapplikasjon"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "A Sybase Dataserver"
-msgstr ""
+msgstr "Ein Sybase datatenar"
 
 #: sheets/sybase.sheet.in.h:3
 msgid "A Sybase Replication Server"
@@ -5179,9 +5160,8 @@ msgid "Constraint, place a constraint on something"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:4
-#, fuzzy
 msgid "Create a (large) package"
-msgstr "Lag bilete"
+msgstr "Lag ein (stor) pakke"
 
 #: sheets/UML.sheet.in.h:5
 #, fuzzy
@@ -5227,9 +5207,8 @@ msgid "Create a node"
 msgstr "Lag &ny"
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "Lag &ny"
+msgstr "Lag ein merknad"
 
 #: sheets/UML.sheet.in.h:15
 #, fuzzy
@@ -5237,24 +5216,20 @@ msgid "Create a state machine"
 msgstr "Lag &ny"
 
 #: sheets/UML.sheet.in.h:16
-#, fuzzy
 msgid "Create a template class"
-msgstr "Malar"
+msgstr "Lag ei malklasse"
 
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a use case"
-msgstr "Lag bilete"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Create an actor"
-msgstr "Lagar nytt diagram ..."
+msgstr "Lagar ein aktør"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "Lag &ny"
+msgstr "Lagar eit objekt"
 
 #: sheets/UML.sheet.in.h:20
 msgid "Editor for UML Static Structure Diagrams"
