@@ -1,3 +1,8 @@
+2003-12-31  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagdkrenderer.c (draw_string): Don't attempt to render
+	empty or NULL strings (bug #130097).
+
 2003-12-31  Chris Sperandio <sperandi@eng.usf.edu>
 	
 	* plug-ins/metapost/render_metapost.c: Fixed string colorization.

@@ -556,6 +556,8 @@ draw_string (DiaRenderer *object,
   
   if(renderer->rendertext == FALSE) return;/* renderer do not want to render text */
 
+  if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
+
   point_copy(&start_pos,pos);
 
   color_convert(color, &gdkcolor);
