@@ -1,3 +1,7 @@
+2002-11-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/Makefile.am (libdia_la_SOURCES): Added fontsel files to SOURCES.
+
 2002-11-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/font.c: Debugging functionality in separate functions.

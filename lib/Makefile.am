@@ -118,7 +118,9 @@ libdia_la_SOURCES =  \
 		dialibartrenderer.h \
 		dialibartrenderer.c \
 		dia_svg.h \
-		dia_svg.c
+		dia_svg.c \
+		diagtkfontsel.c \
+		diagtkfontsel.h
 
 #		charconv.c \
 #		charconv.h 
