@@ -20,6 +20,10 @@ lib/diagramdata.c
 lib/font.c
 lib/message.c
 lib/widgets.c
+lib/properties.h
+lib/properties.c
+lib/object.h
+lib/element.h
 objects/UML/actor.c
 objects/UML/association.c
 objects/UML/class.c

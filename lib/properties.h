@@ -67,6 +67,7 @@ typedef enum {
   PROP_TYPE_ARROW,
   PROP_TYPE_COLOUR,
   PROP_TYPE_FONT,
+  PROP_TYPE_FILE,
 
   PROP_LAST
 } PropType;
@@ -145,6 +146,7 @@ struct _PropEnumData {
 #define PROP_VALUE_ARROW(prop)      ((prop).d.arrow_data)
 #define PROP_VALUE_COLOUR(prop)     ((prop).d.colour_data)
 #define PROP_VALUE_FONT(prop)       ((prop).d.font_data)
+#define PROP_VALUE_FILE(prop)       ((prop).d.string_data)
 #define PROP_VALUE_OTHER(prop)      ((prop).d.other_data)
 
 /* Copy the data member of the property

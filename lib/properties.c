@@ -170,6 +170,7 @@ prop_copy(Property *dest, Property *src)
     dest->d = src->d;
     break;
   case PROP_TYPE_STRING:
+  case PROP_TYPE_FILE:
     g_free(PROP_VALUE_STRING(*dest));
     PROP_VALUE_STRING(*dest) = g_strdup(PROP_VALUE_STRING(*src));
     break;
@@ -216,6 +217,7 @@ prop_free(Property *prop)
   case PROP_TYPE_FONT:
     break;
   case PROP_TYPE_STRING:
+  case PROP_TYPE_FILE:
     g_free(PROP_VALUE_STRING(*prop));
     break;
   case PROP_TYPE_POINTARRAY:
@@ -363,6 +365,10 @@ prop_get_widget(Property *prop)
     ret = dia_font_selector_new();
     dia_font_selector_set_font(DIAFONTSELECTOR(ret), PROP_VALUE_FONT(*prop));
     break;
+  case PROP_TYPE_FILE:
+    ret = dia_file_selector_new();
+    dia_file_selector_set_file(DIAFILESELECTOR(ret), PROP_VALUE_FILE(*prop));
+    break;
   default:
     /* custom property */
     if (custom_props == NULL ||
@@ -431,6 +437,11 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_FONT:
      PROP_VALUE_FONT(*prop) =
        dia_font_selector_get_font(DIAFONTSELECTOR(widget));
+    break;
+  case PROP_TYPE_FILE:
+    g_free(PROP_VALUE_FILE(*prop));
+    PROP_VALUE_FILE(*prop) = g_strdup(dia_file_selector_get_file(
+					DIAFILESELECTOR(widget)));
     break;
   default:
     /* custom property */
@@ -553,6 +564,11 @@ prop_load(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_FONT:
     PROP_VALUE_FONT(*prop) = data_font(data);
+    break;
+  case PROP_TYPE_FILE:
+    g_free(PROP_VALUE_FILE(*prop));
+    PROP_VALUE_FILE(*prop) = data_string(data);
+    break;
   default:
     if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
       g_warning("prop type id %d out of range!!!", prop->type);
@@ -641,6 +657,9 @@ prop_save(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_FONT:
     data_add_font(attr, PROP_VALUE_FONT(*prop));
+    break;
+  case PROP_TYPE_FILE:
+    data_add_string(attr, PROP_VALUE_FILE(*prop));
     break;
   default:
     if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
@@ -812,6 +831,11 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_FONT(props[i]) =
 	struct_member(obj, offsets[j].offset, Font *);
       break;
+    case PROP_TYPE_FILE:
+      g_free(PROP_VALUE_FILE(props[i]));
+      PROP_VALUE_FILE(props[i]) =
+	g_strdup(struct_member(obj, offsets[j].offset, gchar *));
+      break;
     default:
       g_warning("Prop %s: type == %d not supported", props[i].name,
 		offsets[j].type);
@@ -893,6 +917,11 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
     case PROP_TYPE_FONT:
       struct_member(obj, offsets[j].offset, Font *) =
 	PROP_VALUE_FONT(props[i]);
+      break;
+    case PROP_TYPE_FILE:
+      g_free(struct_member(obj, offsets[j].offset, gchar *));
+      struct_member(obj, offsets[j].offset, gchar *) =
+	g_strdup(PROP_VALUE_FILE(props[i]));
       break;
     default:
       g_warning("Prop %s: type == %d not supported", props[i].name,

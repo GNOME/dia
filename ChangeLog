@@ -1,5 +1,15 @@
 2000-02-20  James Henstridge  <james@daa.com.au>
 
+	* app/interface.c (create_color_area): realize the parent window
+	first.
+
+	* objects/standard/image.c: properties patch for standard image
+	object, from Lars Clausen.
+
+	* lib/properties.c: support for PROP_TYPE_FILE from Lars Clausen.
+
+	* lib/properties.h (PropType): added file property type.
+
 	* shapes/Circuit/speaker_de.xpm: changed size of pixmap to match
 	other shapes.
 
