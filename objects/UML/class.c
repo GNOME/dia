@@ -340,8 +340,8 @@ umlclass_update_data(UMLClass *umlclass)
 {
   Element *elem = &umlclass->element;
   Object *obj = (Object *)umlclass;
-  int i;
   real x,y;
+  GList *list;
 
   x = elem->corner.x;
   y = elem->corner.y;
@@ -363,16 +363,38 @@ umlclass_update_data(UMLClass *umlclass)
   umlclass->connections[7].pos.x = x + elem->width;
   umlclass->connections[7].pos.y = y + elem->height;
 
-  /* HUBBA HUBBA.... TODOTODOTODO
   y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
-  
-  for (i=0;i<umlclass->num_extra_connections/2;i++) {
-    umlclass->extra_connections[2*i].pos.x = x;
-    umlclass->extra_connections[2*i].pos.y = y + umlclass->font_height*i;
-    umlclass->extra_connections[2*i+1].pos.x = x + elem->width;
-    umlclass->extra_connections[2*i+1].pos.y = y + umlclass->font_height*i;
+
+  list = umlclass->attributes;
+  while (list != NULL) {
+    UMLAttribute *attr = (UMLAttribute *)list->data;
+
+    attr->left_connection->pos.x = x;
+    attr->left_connection->pos.y = y;
+    attr->right_connection->pos.x = x + elem->width;
+    attr->right_connection->pos.y = y;
+
+    y += umlclass->font_height;
+
+    list = g_list_next(list);
   }
-  */
+
+  y = elem->corner.y + umlclass->namebox_height +
+    umlclass->attributesbox_height + 0.1 + umlclass->font_height/2;
+    
+  list = umlclass->operations;
+  while (list != NULL) {
+    UMLOperation *op = (UMLOperation *)list->data;
+
+    op->left_connection->pos.x = x;
+    op->left_connection->pos.y = y;
+    op->right_connection->pos.x = x + elem->width;
+    op->right_connection->pos.y = y;
+
+    y += umlclass->font_height;
+
+    list = g_list_next(list);
+  }
   
   element_update_boundingbox(elem);
   /* fix boundingumlclass for line_width: */
@@ -453,7 +475,10 @@ umlclass_calculate_data(UMLClass *umlclass)
   if ((umlclass->attributesbox_height<0.4) ||
       umlclass->suppress_attributes )
       umlclass->attributesbox_height = 0.4;
-  
+
+  if (!umlclass->visible_attributes )
+    umlclass->attributesbox_height = 0.0;
+
   umlclass->attributes_strings = NULL;
   if (umlclass->num_attributes != 0) {
     umlclass->attributes_strings =
@@ -591,7 +616,7 @@ umlclass_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 8); /* No attribs or ops => 0 extra connectionpoints. */
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -653,6 +678,8 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
+    g_free(attr->left_connection);
+    g_free(attr->right_connection);
     uml_attribute_destroy(attr);
     list = g_list_next(list);
   }
@@ -661,6 +688,8 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
+    g_free(op->left_connection);
+    g_free(op->right_connection);
     uml_operation_destroy(op);
     list = g_list_next(list);
   }
@@ -701,6 +730,7 @@ umlclass_destroy(UMLClass *umlclass)
 
   if (umlclass->properties_dialog != NULL) {
     gtk_widget_destroy(umlclass->properties_dialog->dialog);
+    g_list_free(umlclass->properties_dialog->deleted_connections);
     g_free(umlclass->properties_dialog);
   }
 
@@ -716,7 +746,9 @@ umlclass_copy(UMLClass *umlclass)
   Object *newobj;
   GList *list;
   UMLAttribute *attr;
+  UMLAttribute *newattr;
   UMLOperation *op;
+  UMLOperation *newop;
   UMLFormalParameter *param;
   
   elem = &umlclass->element;
@@ -749,8 +781,20 @@ umlclass_copy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
+    newattr = uml_attribute_copy(attr);
+    
+    newattr->left_connection = g_new(ConnectionPoint,1);
+    *newattr->left_connection = *attr->left_connection;
+    newattr->left_connection->object = newobj;
+    newattr->left_connection->connected = NULL;
+    
+    newattr->right_connection = g_new(ConnectionPoint,1);
+    *newattr->right_connection = *attr->right_connection;
+    newattr->right_connection->object = newobj;
+    newattr->right_connection->connected = NULL;
+    
     newumlclass->attributes = g_list_prepend(newumlclass->attributes,
-					     uml_attribute_copy(attr));
+					     newattr);
     list = g_list_next(list);
   }
 
@@ -758,8 +802,14 @@ umlclass_copy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
+    newop = uml_operation_copy(op);
+    newop->left_connection = g_new(ConnectionPoint,1);
+    *newop->left_connection = *op->left_connection;
+    newop->right_connection = g_new(ConnectionPoint,1);
+    *newop->right_connection = *op->right_connection;
+    
     newumlclass->operations = g_list_prepend(newumlclass->operations,
-					     uml_operation_copy(op));
+					     newop);
     list = g_list_next(list);
   }
 
@@ -791,6 +841,31 @@ umlclass_copy(UMLClass *umlclass)
   }
 
   umlclass_calculate_data(newumlclass);
+
+  i = 8;
+  if ( (newumlclass->visible_attributes) &&
+       (!newumlclass->suppress_attributes)) {
+    list = umlclass->attributes;
+    while (list != NULL) {
+      attr = (UMLAttribute *)list->data;
+      newobj->connections[i++] = attr->left_connection;
+      newobj->connections[i++] = attr->right_connection;
+      
+      list = g_list_next(list);
+    }
+  }
+  
+  if ( (newumlclass->visible_operations) &&
+       (!newumlclass->suppress_operations)) {
+    list = umlclass->operations;
+    while (list != NULL) {
+      op = (UMLOperation *)list->data;
+      newobj->connections[i++] = op->left_connection;
+      newobj->connections[i++] = op->right_connection;
+      
+      list = g_list_next(list);
+    }
+  }
 
   umlclass_update_data(newumlclass);
   
@@ -855,7 +930,8 @@ static Object *umlclass_load(int fd, int version)
   UMLOperation *op;
   UMLFormalParameter *formal_param;
   int i;
-  int num;
+  int num, num_attr, num_ops;
+  GList *list;
   
   umlclass = g_malloc(sizeof(UMLClass));
   elem = &umlclass->element;
@@ -876,18 +952,36 @@ static Object *umlclass_load(int fd, int version)
   umlclass->visible_operations = read_int32(fd);
 
   /* Attribute info: */
-  num = read_int32(fd);
+  num_attr = num = read_int32(fd);
   umlclass->attributes = NULL;
   for (i=0;i<num;i++) {
     attr = uml_attribute_read(fd);
+
+    attr->left_connection = g_new(ConnectionPoint,1);
+    attr->left_connection->object = obj;
+    attr->left_connection->connected = NULL;
+
+    attr->right_connection = g_new(ConnectionPoint,1);
+    attr->right_connection->object = obj;
+    attr->right_connection->connected = NULL;
+
     umlclass->attributes = g_list_append(umlclass->attributes, attr);
   }
 
   /* Operations info: */
-  num = read_int32(fd);
+  num_ops = num = read_int32(fd);
   umlclass->operations = NULL;
   for (i=0;i<num;i++) {
     op = uml_operation_read(fd);
+
+    op->left_connection = g_new(ConnectionPoint,1);
+    op->left_connection->object = obj;
+    op->left_connection->connected = NULL;
+
+    op->right_connection = g_new(ConnectionPoint,1);
+    op->right_connection->object = obj;
+    op->right_connection->connected = NULL;
+    
     umlclass->operations = g_list_append(umlclass->operations, op);
   }
 
@@ -900,7 +994,15 @@ static Object *umlclass_load(int fd, int version)
     umlclass->formal_params = g_list_append(umlclass->formal_params, formal_param);
   }
 
-  element_init(elem, 8, 8);
+  if ( (!umlclass->visible_attributes) ||
+       (umlclass->suppress_attributes))
+    num_attr = 0;
+  
+  if ( (!umlclass->visible_operations) ||
+       (umlclass->suppress_operations))
+    num_attr = 0;
+  
+  element_init(elem, 8, 8 + num_attr*2 + num_ops*2);
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -917,14 +1019,45 @@ static Object *umlclass_load(int fd, int version)
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
+
+  i = 8;
+
+  if ( (umlclass->visible_attributes) &&
+       (!umlclass->suppress_attributes)) {
+    list = umlclass->attributes;
+    while (list != NULL) {
+      attr = (UMLAttribute *)list->data;
+      obj->connections[i++] = attr->left_connection;
+      obj->connections[i++] = attr->right_connection;
+      
+      list = g_list_next(list);
+    }
+  }
+  
+  if ( (umlclass->visible_operations) &&
+       (!umlclass->suppress_operations)) {
+    list = umlclass->operations;
+    while (list != NULL) {
+      op = (UMLOperation *)list->data;
+      obj->connections[i++] = op->left_connection;
+      obj->connections[i++] = op->right_connection;
+      
+      list = g_list_next(list);
+    }
+  }
+
   umlclass_update_data(umlclass);
 
+  
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
   return (Object *)umlclass;
 }
+
+
+
 
 
 

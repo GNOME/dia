@@ -1,9 +1,21 @@
 1998-11-24  Alexander Larsson  <alla@lysator.liu.se>
 
-	* README
+	* app/properties.c:
+	Update connections when doing apply in the properties window.
+
+	* objects/UML/uml.[ch]:
+	* objects/UML/class.[ch]:
+	* objects/UML/class_dialog.c:
+	Added connection points on both sides of attributes and
+	operations in UML classes.
+	Based on idea from Jerome.Abela@solsoft.fr
+	
+1998-11-24  Alexander Larsson  <alla@lysator.liu.se>
+
+	* README:
 	Some new documentation about handles and connectionpoints.
 	
-	* lib/object.[ch]
+	* lib/object.[ch]:
 	Added functions object_add_connectionpoint and
 	object_remove_connectionpoint for handling a dynamic
 	number of connectionpoints.

@@ -256,6 +256,9 @@ uml_attribute_copy(UMLAttribute *attr)
   newattr->abstract = attr->abstract;
   newattr->class_scope = attr->class_scope;
 
+  newattr->left_connection = attr->left_connection;
+  newattr->right_connection = attr->right_connection;
+  
   return newattr;
 }
 
@@ -278,6 +281,9 @@ uml_operation_copy(UMLOperation *op)
   newop->abstract = op->abstract;
   newop->class_scope = op->class_scope;
 
+  newop->left_connection = op->left_connection;
+  newop->right_connection = op->right_connection;
+  
   newop->parameters = NULL;
   list = op->parameters;
   while (list != NULL) {
@@ -378,6 +384,8 @@ uml_attribute_new(void)
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
   
+  attr->left_connection = NULL;
+  attr->right_connection = NULL;
   return attr;
 }
 
@@ -394,6 +402,8 @@ uml_operation_new(void)
   op->class_scope = FALSE;
   op->parameters = NULL;
 
+  op->left_connection = NULL;
+  op->right_connection = NULL;
   return op;
 }
 
@@ -477,7 +487,10 @@ uml_attribute_read(int fd)
   attr->visibility = read_int32(fd);
   attr->abstract = read_int32(fd);
   attr->class_scope = read_int32(fd);
-  
+
+  attr->left_connection = NULL;
+  attr->right_connection = NULL;
+
   return attr;
 }
 
@@ -506,6 +519,9 @@ uml_operation_read(int fd)
 
     op->parameters = g_list_append(op->parameters, param);
   }
+
+  op->left_connection = NULL;
+  op->right_connection = NULL;
 
   return op;
 }

@@ -19,6 +19,7 @@
 #define UML_H
 
 #include <glib.h>
+#include "connectionpoint.h"
 
 typedef struct _UMLAttribute UMLAttribute;
 typedef struct _UMLOperation UMLOperation;
@@ -46,6 +47,9 @@ struct _UMLAttribute {
   UMLVisibility visibility;
   int abstract;    /* Not currently used */
   int class_scope;
+
+  ConnectionPoint* left_connection;
+  ConnectionPoint* right_connection;
 };
 
 struct _UMLOperation {
@@ -55,6 +59,9 @@ struct _UMLOperation {
   int abstract;
   int class_scope;
   GList *parameters; /* List of UMLParameter */
+
+  ConnectionPoint* left_connection;
+  ConnectionPoint* right_connection;
 };
 
 struct _UMLParameter {

@@ -93,6 +93,8 @@ struct _UMLClassDialog {
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
 
+  GList *deleted_connections; 
+
   GtkList *attributes_list;
   GtkListItem *current_attr;
   GtkEntry *attr_name;
@@ -110,6 +112,7 @@ struct _UMLClassDialog {
   GtkOptionMenu *op_visible_button;
   GtkToggleButton *op_class_scope;
   GtkToggleButton *op_abstract;
+  
   GtkList *parameters_list;
   GtkListItem *current_param;
   GtkEntry *param_name;

@@ -20,6 +20,7 @@
 
 #include "properties.h"
 #include "object_ops.h"
+#include "connectionpoint_ops.h"
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
@@ -78,6 +79,9 @@ properties_apply(GtkWidget *canvas, gpointer data)
     object_add_updates(current_obj, current_dia);
     current_obj->ops->apply_properties(current_obj);
     object_add_updates(current_obj, current_dia);
+
+    diagram_update_connections_object(current_dia, current_obj);
+
     diagram_modified(current_dia);
     diagram_flush(current_dia);
   }
