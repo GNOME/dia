@@ -1,5 +1,14 @@
 1999-10-25  James Henstridge  <james@daa.com.au>
 
+	* app/diapagelayout.c (dia_page_layout_set_orientation): fixed
+	function so it would set orientation to landscape correctly.
+
+	* app/paginate_psprint.c: use the paper settings that come with
+	the diagram.  Also implemented landscape printing.
+
+	* app/render_eps.c (new_psprint_renderer): use diagram paper metrics
+	in PS header.
+
 	* app/commands.[ch] (file_pagesetup_callback): added callback for
 	the page setup dialog.
 

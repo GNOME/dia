@@ -359,7 +359,7 @@ new_eps_renderer(Diagram *dia, char *filename)
 }
 
 RendererEPS *
-new_psprint_renderer(Diagram *dia, FILE *file, const gchar *paper_name)
+new_psprint_renderer(Diagram *dia, FILE *file)
 {
   RendererEPS *renderer;
   time_t time_now;
@@ -396,7 +396,7 @@ new_psprint_renderer(Diagram *dia, FILE *file, const gchar *paper_name)
 	  "%%%%CreationDate: %s"
 	  "%%%%For: %s\n"
 	  "%%%%DocumentPaperSizes: %s\n"
-	  "%%%%Orientation: Portrait\n"
+	  "%%%%Orientation: %s\n"
 	  "%%%%BeginSetup\n"
 	  "%%%%EndSetup\n"
 	  "%%%%EndComments\n",
@@ -404,7 +404,8 @@ new_psprint_renderer(Diagram *dia, FILE *file, const gchar *paper_name)
 	  VERSION,
 	  ctime(&time_now),
 	  name,
-	  paper_name);
+	  dia->data->paper.name,
+	  dia->data->paper.is_portrait ? "Portrait" : "Landscape");
 
   fprintf(file, "%%%%BeginProlog\n");
   fprintf(file,

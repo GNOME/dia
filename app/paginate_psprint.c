@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <math.h>
 #include "intl.h"
 #include "diagram.h"
 #include "diagramdata.h"
 #include "render_eps.h"
 #include "paginate_psprint.h"
+#include "diapagelayout.h"
 
 #include <gtk/gtk.h>
 
@@ -40,13 +42,11 @@ typedef struct _dia_print_options {
     int printer;
     char *command;
     char *output;
-    char *paper;
-    float scaling;
 } dia_print_options;
 
 static dia_print_options last_print_options = 
 {
-    1, NULL, NULL, NULL, 1.000
+    1, NULL, NULL
 };
 
 static void
@@ -56,10 +56,12 @@ count_objs(Object *obj, Renderer *renderer, int active_layer, guint *nobjs)
 }
 
 static guint
-print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds,
-           gdouble lmargin, gdouble bmargin, gdouble scale)
+print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
 {
   guint nobjs = 0;
+  gfloat tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
+  gfloat lmargin = data->paper.lmargin, rmargin = data->paper.rmargin;
+  gfloat scale = data->paper.scaling;
 
   /* count the number of objects in this region */
   data_render(data, (Renderer *)rend, bounds,
@@ -76,9 +78,16 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds,
   fprintf(rend->file, "gs\n");
 
   /* transform coordinate system */
-  fprintf(rend->file, "%f %f scale\n", 28.346457 * scale, -28.346457 * scale);
-  fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
-	  -bmargin/scale - bounds->bottom);
+  if (data->paper.is_portrait) {
+    fprintf(rend->file, "%f %f scale\n", 28.346457*scale, -28.346457*scale);
+    fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
+	    -bmargin/scale - bounds->bottom);
+  } else {
+    fprintf(rend->file, "90 rotate\n", -M_PI/2);
+    fprintf(rend->file, "%f %f scale\n", 28.346457*scale, -28.346457*scale);
+    fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
+	    tmargin/scale - bounds->top);
+  }
 
   /* set up clip mask */
   fprintf(rend->file, "n %f %f m ", bounds->left, bounds->top);
@@ -101,42 +110,20 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds,
 }
 
 void
-paginate_psprint(Diagram *dia, FILE *file, const gchar *paper_name,
-		 gdouble scale)
+paginate_psprint(Diagram *dia, FILE *file)
 {
   RendererEPS *rend;
   Rectangle *extents;
   gint i;
-  gdouble pswidth, psheight, lmargin, tmargin, rmargin, bmargin;
-  gdouble width, height;
-  gdouble x, y;
+  gfloat width, height;
+  gfloat x, y;
   guint nobjs = 0;
 
-  rend = new_psprint_renderer(dia, file, paper_name);
-
-  /* default to A4 metrics */
-  pswidth = 21.0;
-  psheight = 29.7;
-  lmargin = rmargin = tmargin = bmargin = 2.82222;
-
-  for (i = 0; paper_metrics[i].paper != NULL; i++)
-    if (!strcmp(paper_name, paper_metrics[i].paper)) {
-      pswidth  = paper_metrics[i].pswidth;
-      psheight = paper_metrics[i].psheight;
-      lmargin  = paper_metrics[i].lmargin;
-      tmargin  = paper_metrics[i].tmargin;
-      rmargin  = paper_metrics[i].rmargin;
-      bmargin  = paper_metrics[i].bmargin;
-      break;
-    }
+  rend = new_psprint_renderer(dia, file);
 
   /* the usable area of the page */
-  width = pswidth - lmargin - rmargin;
-  height = psheight - tmargin - bmargin;
-
-  /* scale width/height */
-  width  /= scale;
-  height /= scale;
+  width = dia->data->paper.width;
+  height = dia->data->paper.height;
 
   /* get extents, and make them multiples of width / height */
   extents = &dia->data->extents;
@@ -155,7 +142,7 @@ paginate_psprint(Diagram *dia, FILE *file, const gchar *paper_name,
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia->data,rend, &page_bounds, lmargin,bmargin,scale);
+      nobjs += print_page(dia->data,rend, &page_bounds);
     }
 
   g_free(rend);
@@ -181,9 +168,6 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *vbox, *frame, *table, *box, *button;
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
-  GtkWidget *papersel;
-  GtkWidget *scaler;
-  GList *items = NULL;
   int i;
   gboolean cont = FALSE;
   
@@ -238,40 +222,6 @@ diagram_print_ps(Diagram *dia)
   gtk_signal_connect(GTK_OBJECT(isofile), "toggled",
 		     GTK_SIGNAL_FUNC(change_entry_state), ofile);
 
-  frame = gtk_frame_new(_("Select Paper"));
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
-  gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-  gtk_widget_show(frame);
-
-  box = gtk_vbox_new(FALSE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(box), 5);
-  gtk_container_add(GTK_CONTAINER(frame), box);
-  gtk_widget_show(box);
-
-  papersel = gtk_combo_new();
-  gtk_combo_set_value_in_list(GTK_COMBO(papersel), TRUE, TRUE);
-  for (i = 0; paper_metrics[i].paper != NULL; i++)
-    items = g_list_append(items, paper_metrics[i].paper);
-  gtk_combo_set_popdown_strings(GTK_COMBO(papersel), items);
-  gtk_box_pack_start(GTK_BOX(box), papersel, TRUE, TRUE, 0);
-  gtk_editable_set_editable(GTK_EDITABLE(GTK_COMBO(papersel)->entry), 0);
-  gtk_widget_show(papersel);
-
-  frame = gtk_frame_new(_("Scaling"));
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
-  gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-  gtk_widget_show(frame);
-
-  box = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width(GTK_CONTAINER(box), 5);
-  gtk_container_add(GTK_CONTAINER(frame), box);
-  gtk_widget_show(box);
-
-  scaler = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(last_print_options.scaling,0.1,10.0,0.1,0.1,1.0)), 0, 3);
-  gtk_box_pack_start(GTK_BOX(box), scaler, TRUE, TRUE, 0);
-  gtk_widget_show(scaler);
-
   box = GTK_DIALOG(dialog)->action_area;
 
   button = gtk_button_new_with_label(_("OK"));
@@ -296,9 +246,6 @@ diagram_print_ps(Diagram *dia)
   gtk_entry_set_text(GTK_ENTRY(ofile), 
 		     last_print_options.output 
 		     ? last_print_options.output : "output.ps");
-  gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(papersel)->entry), 
-		     last_print_options.paper 
-		     ? last_print_options.paper : "A4");
   /* Scaling is already set at creation. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(iscmd), last_print_options.printer);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
@@ -318,24 +265,18 @@ diagram_print_ps(Diagram *dia)
     file = fopen(gtk_entry_get_text(GTK_ENTRY(ofile)), "w");
     is_pipe = FALSE;
   }
-  papername = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(papersel)->entry));
-  scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(scaler));
 
   /* Store dialog values */
   g_free( last_print_options.command );
   g_free( last_print_options.output );
-  g_free( last_print_options.paper );
   last_print_options.command = g_strdup( gtk_entry_get_text(GTK_ENTRY(cmd)) );
   last_print_options.output = g_strdup( gtk_entry_get_text(GTK_ENTRY(ofile)) );
-  last_print_options.paper = g_strdup( papername );
-  last_print_options.scaling = scale;
   last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
-  printf("printer output: %d\n", last_print_options.printer);
   
   if (!file)
     g_warning("could not open file");
   else
-    paginate_psprint(dia, file, papername, scale);
+    paginate_psprint(dia, file);
   gtk_widget_destroy(dialog);
   if (is_pipe)
     pclose(file);

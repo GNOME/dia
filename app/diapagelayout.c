@@ -262,7 +262,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(box);
 
   self->scaling = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(100,0,10000, 1,10,10)), 1, 1);
+	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,10)), 1, 1);
   gtk_box_pack_start(GTK_BOX(box), self->scaling, TRUE, FALSE, 0);
   gtk_widget_show(self->scaling);
 
@@ -387,8 +387,14 @@ void
 dia_page_layout_set_orientation(DiaPageLayout *self,
 				DiaPageOrientation orient)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_portrait),
-			       orient == DIA_PAGE_ORIENT_PORTRAIT);
+  switch (orient) {
+  case DIA_PAGE_ORIENT_PORTRAIT:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_portrait),
+				 TRUE);
+  case DIA_PAGE_ORIENT_LANDSCAPE:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_landscape),
+				 TRUE);
+  }
 }
 
 gfloat

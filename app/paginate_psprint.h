@@ -7,8 +7,7 @@
 #include "diagram.h"
 #include "diagramdata.h"
 
-void paginate_psprint (Diagram *dia, FILE *file, const gchar *paper_name,
-		       gdouble scale);
+void paginate_psprint (Diagram *dia, FILE *file);
 
 void diagram_print_ps (Diagram *dia);
 
