@@ -536,6 +536,7 @@ static void
 transition_destroy(Transition *transition)
 {
   boolequation_destroy(transition->receptivity);
+  g_free(transition->rcep_value);
   element_destroy(&transition->element);
 }
 

@@ -32,7 +32,8 @@ static void init_symbolfont() {
 
 typedef enum {BLOCK_COMPOUND, BLOCK_OPERATOR, BLOCK_OVERLINE,
 	      BLOCK_PARENS, BLOCK_TEXT} BlockType;
-typedef enum {OP_AND, OP_OR, OP_XOR, OP_RISE, OP_FALL } OperatorType;
+typedef enum {OP_AND, OP_OR, OP_XOR, OP_RISE, OP_FALL,
+              OP_EQUAL,OP_LT,OP_GT} OperatorType;
 
 typedef void (*BlockGetBBFunc)(Block *block, Point *relpos, Boolequation *booleq,
 			       Rectangle *rect);
@@ -144,8 +145,11 @@ static Block *textblock_create(const char **str)
 static const gchar xor_symbol[] = { 197, 0 };
 static const gchar or_symbol[] = { 43, 0 };
 static const gchar and_symbol[] = { 215,0 };
-static const gchar rise_symbol[] = {173,0};
-static const gchar fall_symbol[] = {175,0};
+static const gchar rise_symbol[] = { 173,0 };
+static const gchar fall_symbol[] = { 175,0 };
+static const gchar lt_symbol[] = { 60,0 };
+static const gchar equal_symbol[] = { 61,0 };
+static const gchar gt_symbol[] = { 62,0 };
 
 static const gchar *opstring(OperatorType optype)
 {
@@ -155,6 +159,9 @@ static const gchar *opstring(OperatorType optype)
   case OP_XOR: return xor_symbol;
   case OP_RISE: return rise_symbol;
   case OP_FALL: return fall_symbol;
+  case OP_EQUAL: return equal_symbol;
+  case OP_LT: return lt_symbol;
+  case OP_GT: return gt_symbol;
   default:
     break;
   }
@@ -224,7 +231,16 @@ static Block *opblock_create(const char **str)
   case '^':
   case '*':
     block->d.operator = OP_XOR;
-    break;		
+    break;
+  case '=':
+    block->d.operator = OP_EQUAL;
+    break;
+  case '<': 
+    block->d.operator = OP_LT;
+    break;
+  case '>':
+    block->d.operator = OP_GT;
+    break;
   case '{':
     block->d.operator = OP_RISE;
     break;
@@ -267,7 +283,8 @@ overlineblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
   renderer->ops->set_linewidth(renderer,booleq->fontheight * OVERLINE_RATIO);
   ul.x = block->bl.x;
   ur.y = ul.y = block->ur.y;
-  ur.x = block->ur.x - (font_string_width(" ",booleq->font,booleq->fontheight) / 1);
+  ur.x = 
+    block->ur.x - (font_string_width(" ",booleq->font,booleq->fontheight) / 2);
   renderer->ops->draw_line(renderer,&ul,&ur,&booleq->color);
 }
 
@@ -471,6 +488,9 @@ compoundblock_create(const char **str)
     case '+':
     case '.':
     case '*':
+    case '=':
+    case '>':
+    case '<':
     case '}':
     case '{':
       inblk = opblock_create(str);

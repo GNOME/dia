@@ -121,7 +121,7 @@ point_normalize(Point *p)
 }
 #endif
 
-G_INLINE_FUNC void point_normalize(Point *p);
+G_INLINE_FUNC void point_get_normed(Point *dst, Point *src);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
 point_get_normed(Point *dst, Point *src)

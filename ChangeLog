@@ -1,3 +1,19 @@
+2000-02-03  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/GRAFCET/transition.c: minor leak plugged.
+
+	* sheets/GRAFCET.sheet:
+	* objects/GRAFCET/pixmaps/condition.xpm: (NEW)
+	* objects/GRAFCET/condition.c: (NEW) added a new object type, action 
+	conditions.
+	* objects/GRAFCET/Makefile.am: fixed incorrect dependencies, added
+	new ones (for condition.c).
+	* objects/GRAFCET/action.c: added connection points for the conditions.
+	* samples/grafcet.dia: updated the sample to improve conformance to
+	IEC 848 and take advantage of dia's new features.
+	
+	* lib/geometry.h: (point_get_normed) fixed a typo.
+
 2000-02-02  James Henstridge  <james@daa.com.au>
 
 	* lib/object.h: added object functions describe_props, get_props and

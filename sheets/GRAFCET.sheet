@@ -53,6 +53,10 @@
       <description>A AND vergent</description>
       <icon>GRAFCET/vergent_and.xpm</icon>
     </object>
+    <object name="GRAFCET - Condition">
+      <description xml:lang="fr">Une condition (d'une action)</description>
+      <description>A condition (of an action)</description>
+    </object>
     <object name="GRAFCET - Vector">
       <description xml:lang="fr">Un arc (montant)</description>
       <description>An arc</description>

@@ -29,6 +29,7 @@ extern ObjectType action_type;
 extern ObjectType transition_type;
 extern ObjectType vergent_type; 
 extern ObjectType vector_type;
+extern ObjectType condition_type;
 
 int get_version(void)
 {
@@ -42,6 +43,7 @@ void register_objects(void)
   object_register_type(&transition_type);
   object_register_type(&vergent_type); 
   object_register_type(&vector_type);
+  object_register_type(&condition_type);
 }
 
 void register_sheets(void)

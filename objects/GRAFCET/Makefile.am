@@ -11,6 +11,7 @@ libgrafcet_objects_la_SOURCES = \
 			transition.c \
 			boolequation.h \
 			boolequation.c \
+			condition.c \
 			vergent.c \
 			vector.c
 
@@ -19,11 +20,12 @@ libgrafcet_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
 
 EXTRA_DIST = \
-	pixmaps/etape.xpm 
-	pixmaps/action.xpm
-	pixmaps/transition.xpm
-	pixmaps/vergent.xpm
-	pixmaps/vector.xpm
+	pixmaps/etape.xpm \
+	pixmaps/action.xpm \
+	pixmaps/transition.xpm \
+	pixmaps/vergent.xpm \
+	pixmaps/vector.xpm \
+	pixmaps/condition.xpm
 
 
 

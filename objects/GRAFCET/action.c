@@ -35,7 +35,7 @@
 #include "lazyprops.h"
 #include "geometry.h"
 #include "text.h"
-
+#include "connpoint_line.h"
 
 #include "grafcet.h"
 #include "action_text_draw.h"
@@ -69,6 +69,8 @@ typedef struct _Action {
   real label_width;
   Rectangle labelbb; /* The bounding box of the label itself */
   Point labelstart;
+
+  ConnPointLine *cps; /* aaahrg ! again one ! */
 } Action;
 
 struct _ActionPropertiesDialog {
@@ -306,6 +308,11 @@ action_move(Action *action, Point *to)
 static void
 action_update_data(Action *action)
 {
+  Point p1,p2;
+  real x,x1;
+  real left,right;
+  int i;
+  real chunksize;
   Connection *conn = &action->connection;
   Object *obj = (Object *) action;
 
@@ -316,8 +323,6 @@ action_update_data(Action *action)
   obj->bounding_box.left -= ACTION_LINE_WIDTH/2;
   obj->bounding_box.bottom += ACTION_LINE_WIDTH/2;
   obj->bounding_box.right += ACTION_LINE_WIDTH/2;
-
-  
 
   /* compute the label's width and bounding box */
   action->space_width = action_text_spacewidth(action->text);
@@ -342,6 +347,36 @@ action_update_data(Action *action)
   action->label_width = action->labelbb.right - 
     action->labelbb.left;
 
+
+  /* Adjust the count and positions of the condition connection points. */
+  
+  
+  left = x = conn->endpoints[1].x;
+  right = left + action->label_width;
+  p1.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
+  p2.y = p1.y + ACTION_HEIGHT;
+  connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
+  
+  for (i=0; i<action->text->numlines; i++) {
+    chunksize = font_string_width(action->text->line[i],
+				  action->text->font,
+				  action->text->height);
+    x1 = x + 1.0;
+    if (x1 >= right) {
+      x1 = right - ACTION_LINE_WIDTH;
+    }
+    p1.x = p2.x = x1;
+
+    obj->connections[(2*i) + 2]->pos = p1;
+    obj->connections[(2*i) + 3]->pos = p2;
+
+    x = x + chunksize + 2 * action->space_width; 
+  }
+  p1.y = p2.y = conn->endpoints[1].y;
+  p1.x = left; p2.x = right;
+  obj->connections[0]->pos = p1;
+  obj->connections[1]->pos = p2;
+
   /* fix boundingbox for line_width: */
   action->labelbb.top -= ACTION_LINE_WIDTH/2;
   action->labelbb.left -= ACTION_LINE_WIDTH/2;
@@ -360,6 +395,7 @@ action_draw(Action *action, Renderer *renderer)
   Point ul,br,p1,p2;
   int i;
   real chunksize;
+  Color cl;
 
   renderer->ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
@@ -411,7 +447,8 @@ action_draw(Action *action, Renderer *renderer)
     p1.x = p2.x = br.x - 2.0 * action->space_width;
     renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
   }
-    
+
+  cl.red = 1.0; cl.blue = cl.green = .2; 
   renderer->ops->draw_rect(renderer,&ul,&br,&color_black);
 }
 
@@ -439,6 +476,7 @@ action_create(Point *startpoint,
   point_add(&conn->endpoints[1], &defaultlen);
 
   connection_init(conn, 2,0);
+  action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
   action->text = new_text("",defaults.font,defaults.font_size,
@@ -447,6 +485,8 @@ action_create(Point *startpoint,
   action->macro_call = FALSE;
 
   action_update_data(action);
+
+  conn->endpoint_handles[1].connect_type = HANDLE_NONCONNECTABLE;
 
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
@@ -458,6 +498,7 @@ static void
 action_destroy(Action *action)
 {
   text_destroy(action->text);
+  connpointline_destroy(action->cps);
   connection_destroy(&action->connection);
 }
 
@@ -467,7 +508,8 @@ action_copy(Action *action)
   Action *newaction;
   Connection *conn, *newconn;
   Object *newobj;
-  
+  int rcc;
+
   conn = &action->connection;
  
   newaction = g_malloc0(sizeof(Action));
@@ -476,6 +518,10 @@ action_copy(Action *action)
 
   connection_copy(conn, newconn);
 
+  rcc = newobj->num_connections - action->cps->num_connections;
+  g_assert(rcc == 0);
+  newaction->cps = connpointline_copy(newobj,action->cps,&rcc);
+  /* g_assert(rcc == newaction->cps->num_connections); */
   newaction->text = text_copy(action->text);
   newaction->macro_call = action->macro_call;
 
@@ -535,6 +581,7 @@ action_load(ObjectNode obj_node, int version, const char *filename)
   connection_load(conn, obj_node);
   connection_init(conn, 2,0);
 
+  action->cps = connpointline_create(obj,0);
   action->text = load_text(obj_node,"text",NULL);
   if (!action->text) {
     action->text = new_text("",defaults.font,defaults.font_size,
