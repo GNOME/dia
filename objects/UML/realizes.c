@@ -279,14 +279,12 @@ realizes_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
-  realizes_update_data(realize);
-
   realize->name = NULL;
   realize->stereotype = NULL;
-
   realize->text_width = 0;
-  
   realize->properties_dialog = NULL;
+
+  realizes_update_data(realize);
   
   *handle1 = &orth->endpoint_handles[0];
   *handle2 = &orth->endpoint_handles[1];

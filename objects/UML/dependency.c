@@ -283,15 +283,13 @@ dependency_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  dependency_update_data(dep);
-
   dep->draw_arrow = TRUE;
   dep->name = NULL;
   dep->stereotype = NULL;
-
   dep->text_width = 0;
-  
   dep->properties_dialog = NULL;
+
+  dependency_update_data(dep);
   
   *handle1 = &orth->endpoint_handles[0];
   *handle2 = &orth->endpoint_handles[1];

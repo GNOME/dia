@@ -2,6 +2,10 @@
 
 	* objects/UML/generalization.c (generalization_create): avoid
 	math on uninitialized genlz->text_width (NaN causes sigfpe)
+	
+	* objects/UML/realizes.c (realizes_create): same
+
+	* objects/UML/dependency.c (dependency_create): same
 
 1999-03-01  Seth Alves  <alves@hungry.com>
 
