@@ -83,7 +83,8 @@ real diagram_find_closest_handle(Diagram *dia, Handle **handle,
 				 Object **obj, Point *pos);
 real diagram_find_closest_connectionpoint(Diagram *dia,
 					  ConnectionPoint **cp,
-					  Point *pos);
+					  Point *pos,
+					  Object *notthis);
 void diagram_update_extents(Diagram *dia);
 
 void diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items);

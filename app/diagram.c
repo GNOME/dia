@@ -530,10 +530,11 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
 real
 diagram_find_closest_connectionpoint(Diagram *dia,
 				     ConnectionPoint **closest,
-				     Point *pos)
+				     Point *pos,
+				     Object *notthis)
 {
   return layer_find_closest_connectionpoint(dia->data->active_layer,
-					    closest, pos);
+					    closest, pos, notthis);
 }
 
 void

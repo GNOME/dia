@@ -588,7 +588,8 @@ layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
-					Point *pos)
+					Point *pos,
+					Object *notthis)
 {
   GList *l;
   Object *obj;
@@ -604,6 +605,7 @@ real layer_find_closest_connectionpoint(Layer *layer,
   while(l!=NULL) {
     obj = (Object *) l->data;
 
+    if (obj == notthis) continue;
     for (i=0;i<obj->num_connections;i++) {
       cp = obj->connections[i];
       /* Note: Uses manhattan metric for speed... */

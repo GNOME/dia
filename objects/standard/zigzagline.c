@@ -258,7 +258,7 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
     ConnectionPoint *cp2 = NULL;
 
     /* The second connectionpoint is not updated yet, so we find it here */
-    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp2, &orth->points[3]);
+    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp2, &orth->points[3], (Object *)zigzagline);
     if (cp2 != NULL &&
 	(cp2->pos.x - orth->points[3].x > 0.00000001 ||
 	 cp2->pos.y - orth->points[3].y > 0.00000001))

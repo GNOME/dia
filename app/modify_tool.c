@@ -346,7 +346,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   case STATE_MOVE_HANDLE:
     /* Move to ConnectionPoint if near: */
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &to);
+      object_find_connectpoint_display(ddisp, &to, tool->object);
 
     if (event->state & GDK_CONTROL_MASK) {
       full_delta = to;

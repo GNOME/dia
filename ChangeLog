@@ -1,4 +1,18 @@
-2002-07-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+2002-07-29  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diagram.h: 
+	* lib/diagramdata.h: 
+	* lib/diagramdata.c (layer_find_closest_connectionpoint): 
+	* objects/standard/zigzagline.c (zigzagline_move_handle): 
+	* app/diagram.c (diagram_find_closest_connectionpoint): 
+	* plug-ins/python/pydia-diagram.c
+	(PyDiaDiagram_FindClosestConnectionPoint):
+	* app/object_ops.c (object_connect_display) 
+	(object_find_connectpoint_display) 
+	* app/create_object.c (create_object_button_press) 
+	(create_object_motion): 
+	* app/modify_tool.c (modify_motion): 
+	Adding object param to allow connectionpoint and handle coinciding.
 
 	* objects/standard/zigzagline.c (zigzagline_check_orientation): 
 	Fixing minor problems.

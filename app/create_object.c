@@ -63,7 +63,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
       handle1->connect_type != HANDLE_NONCONNECTABLE) {
     ConnectionPoint *connectionpoint;
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &origpoint);
+      object_find_connectpoint_display(ddisp, &origpoint, obj);
     if (connectionpoint != NULL) {
       (obj->ops->move)(obj, &origpoint);
     }
@@ -167,7 +167,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   if ((tool->handle != NULL &&
        tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
       ((connectionpoint =
-	object_find_connectpoint_display(ddisp, &to)) != NULL)) {
+	object_find_connectpoint_display(ddisp, &to, tool->obj)) != NULL)) {
     to = connectionpoint->pos;
     ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
   } else {

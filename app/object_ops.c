@@ -64,13 +64,14 @@ object_add_updates_list(GList *list, Diagram *dia)
 }
 
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos)
+object_find_connectpoint_display(DDisplay *ddisp, Point *pos, Object *notthis)
 {
   real distance;
   ConnectionPoint *connectionpoint;
   
   distance =
-    diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint, pos);
+    diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint, 
+					 pos, notthis);
 
   distance = ddisplay_transform_length(ddisp, distance);
   if (distance < OBJECT_CONNECT_DISTANCE) {
@@ -90,7 +91,8 @@ object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
     return;
 
   if (handle->connected_to == NULL) {
-    connectionpoint = object_find_connectpoint_display(ddisp, &handle->pos);
+    connectionpoint = object_find_connectpoint_display(ddisp, &handle->pos,
+						       obj);
   
     if (connectionpoint != NULL) {
       Change *change = undo_connect(ddisp->diagram, obj, handle,

@@ -121,7 +121,8 @@ GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
 Object *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
-					Point *pos);
+					Point *pos,
+					Object *notthis);
 int layer_update_extents(Layer *layer); /* returns true if changed. */
 void layer_replace_object_with_list(Layer *layer, Object *obj,
 				    GList *list);

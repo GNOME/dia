@@ -323,11 +323,13 @@ PyDiaDiagram_FindClosestConnectionPoint(PyDiaDiagram *self, PyObject *args)
     double dist;
     ConnectionPoint *cpoint;
     PyObject *ret;
+    PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaDiagram.find_closest_connectionpoint",
-			  &p.x, &p.y))
+    if (!PyArg_ParseTuple(args, "ddO!:DiaDiagram.find_closest_connectionpoint",
+			  &p.x, &p.y, PyDiaObject_Type, &obj))
 	return NULL;
-    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p);
+    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p, 
+						obj->object);
     ret = PyTuple_New(2);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
     if (cpoint)
