@@ -1,3 +1,8 @@
+2005-03-20  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (do_convert): Patch from crux@gorodmasterov.com:
+	Remember to ref g_object_new'd object.
+
 2005-03-19  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/xslt/xslt.c : don't crash if both places ($SHARE, $HOME)
