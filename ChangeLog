@@ -1,3 +1,22 @@
+1999-12-19  James Henstridge  <james@daa.com.au>
+
+	* lib/filter.[ch]: start of interface for generalised handling of
+	filters.  I have only done code for export filters so far.  I still
+	need to do the gui for this, and convert the current SVG and EPS
+	filters to the new API.
+
+	* lib/bezier_conn.c (bezierconn_copy): fix up copy operation.  We
+	weren't setting the last handle correctly.  It was actually assigning
+	to the wrong position in the handles array, so the last handle was
+	left as NULL, which caused the segfault.
+
+	* objects/standard/image.c (image_copy): modified routine so that
+	it just adds a reference to the DiaImage structure in the new image
+	object.  This seems to have cleared up the problems with copying
+	image objects.
+
+	* dia.spec: spec file additions from John Gotts.
+
 1999-12-12  James Henstridge  <james@daa.com.au>
 
 	* configure.in (GNOME_LIBS): updated version number to 0.82.  0.82
