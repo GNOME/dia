@@ -47,6 +47,7 @@ struct _UMLClass {
   
   char *name;
   char *stereotype; /* NULL if no stereotype */
+  char *comment; /* Comments on the class */
   int abstract;
   int suppress_attributes; /* ie. don't draw strings. */
   int suppress_operations; /* ie. don't draw strings. */
@@ -92,6 +93,8 @@ struct _UMLClassDialog {
 
   GtkEntry *classname;
   GtkEntry *stereotype;
+  GtkEntry *comment;
+
   GtkToggleButton *abstract_class;
   GtkToggleButton *attr_vis;
   GtkToggleButton *attr_supp;
@@ -117,6 +120,7 @@ struct _UMLClassDialog {
   GtkEntry *attr_name;
   GtkEntry *attr_type;
   GtkEntry *attr_value;
+  GtkEntry *attr_comment;
   GtkMenu *attr_visible;
   GtkOptionMenu *attr_visible_button;
   GtkToggleButton *attr_class_scope;
@@ -126,6 +130,7 @@ struct _UMLClassDialog {
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
+  GtkEntry *op_comment;
 
   GtkMenu *op_visible;
   GtkOptionMenu *op_visible_button;
@@ -139,6 +144,7 @@ struct _UMLClassDialog {
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
+  GtkEntry *param_comment;
   GtkMenu *param_kind;
   GtkOptionMenu *param_kind_button;
   GtkWidget *param_new_button;

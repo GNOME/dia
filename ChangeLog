@@ -1,3 +1,25 @@
+2002-06-24  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* plug-ins/dxf/dxf-import.c:
+	using dia_font_new_from_style()
+
+	Patch from Matthieu Sozeau  <mattam@netcourrier.com>:
+
+	* objects/UML/class.[ch]: Added a comment field to class
+	* objects/UML/uml.[ch]: Added a comment field to attributes,
+	operations and parameters.
+	* objects/UML/class_dialog.c: Added code for the new comment
+	fields.
+	* plug-ins/xslt/*.xsl: Added some code to handle comments.
+	* plug-ins/xslt/xslt*.c: Clean up based on Cyrille comments.
+	Added a $directory parameter for stylesheets so the output is 
+	in the good place (not in the $PWD).
+
+	(end of Patch)
+
+	* AUTHORS: added contributors, updated maintainers. Removed the
+	specific areas of action.
+	
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/message.c: More work on repeating messages, now with

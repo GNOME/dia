@@ -347,6 +347,8 @@ uml_attribute_copy(UMLAttribute *attr)
   } else {
     newattr->value = NULL;
   }
+  newattr->comment = g_strdup (attr->comment);
+
   newattr->visibility = attr->visibility;
   newattr->abstract = attr->abstract;
   newattr->class_scope = attr->class_scope;
@@ -377,7 +379,9 @@ uml_operation_copy(UMLOperation *op)
   } else {
     newop->stereotype = NULL;
   }
-    
+  
+  newop->comment = g_strdup(op->comment);
+
   newop->visibility = op->visibility;
   newop->class_scope = op->class_scope;
   newop->inheritance_type = op->inheritance_type;
@@ -395,6 +399,8 @@ uml_operation_copy(UMLOperation *op)
     newparam = g_new0(UMLParameter, 1);
     newparam->name = g_strdup(param->name);
     newparam->type = g_strdup(param->type);
+    newparam->comment = g_strdup(param->comment);
+
     if (param->value != NULL)
       newparam->value = g_strdup(param->value);
     else
@@ -422,7 +428,7 @@ uml_formalparameter_copy(UMLFormalParameter *param)
   } else {
     newparam->type = NULL;
   }
-  
+
   return newparam;
 }
 
@@ -433,6 +439,9 @@ uml_attribute_destroy(UMLAttribute *attr)
   g_free(attr->type);
   if (attr->value != NULL)
     g_free(attr->value);
+
+  g_free(attr->comment);
+
   g_free(attr);
 }
 
@@ -447,6 +456,8 @@ uml_operation_destroy(UMLOperation *op)
     g_free(op->type);
   if (op->stereotype != NULL)
     g_free(op->stereotype);
+
+  g_free(op->comment);
 
   list = op->parameters;
   while (list != NULL) {
@@ -464,6 +475,8 @@ uml_parameter_destroy(UMLParameter *param)
   g_free(param->type);
   if (param->value != NULL) 
     g_free(param->value);
+  g_free(param->comment);
+
   g_free(param);
 }
 
@@ -485,6 +498,7 @@ uml_attribute_new(void)
   attr->name = g_strdup("");
   attr->type = g_strdup("");
   attr->value = NULL;
+  attr->comment = g_strdup("");
   attr->visibility = UML_PUBLIC;
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
@@ -503,9 +517,10 @@ uml_operation_new(void)
   op->name = g_strdup("");
   op->type = NULL;
   op->stereotype = NULL;
+  op->comment = g_strdup("");
   op->visibility = UML_PUBLIC;
   op->class_scope = FALSE;
-  op->inheritance_type = UML_POLYMORPHIC;
+  op->inheritance_type = UML_LEAF;
   op->query = FALSE;
 
   op->parameters = NULL;
@@ -523,6 +538,7 @@ uml_parameter_new(void)
   param = g_new0(UMLParameter, 1);
   param->name = g_strdup("");
   param->type = g_strdup("");
+  param->comment = g_strdup("");
   param->value = NULL;
   param->kind = UML_UNDEF_KIND;
 
@@ -554,6 +570,8 @@ uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr)
 		  attr->type);
   data_add_string(composite_add_attribute(composite, "value"),
 		  attr->value);
+  data_add_string(composite_add_attribute(composite, "comment"),
+		  attr->comment);
   data_add_enum(composite_add_attribute(composite, "visibility"),
 		attr->visibility);
   data_add_boolean(composite_add_attribute(composite, "abstract"),
@@ -581,6 +599,8 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 		  op->type);
   data_add_enum(composite_add_attribute(composite, "visibility"),
 		op->visibility);
+  data_add_string(composite_add_attribute(composite, "comment"),
+		  op->comment);
   /* Backward compatibility */
   data_add_boolean(composite_add_attribute(composite, "abstract"),
 		   op->inheritance_type == UML_ABSTRACT);
@@ -605,6 +625,8 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 		    param->type);
     data_add_string(composite_add_attribute(composite2, "value"),
 		    param->value);
+    data_add_string(composite_add_attribute(composite2, "comment"),
+		    param->comment);
     data_add_enum(composite_add_attribute(composite2, "kind"),
 		  param->kind);
     list = g_list_next(list);
@@ -647,6 +669,11 @@ uml_attribute_read(DataNode composite)
   if (attr_node != NULL)
     attr->value =  data_string( attribute_first_data(attr_node) );
   
+  attr->comment = NULL;
+  attr_node = composite_find_attribute(composite, "comment");
+  if (attr_node != NULL)
+    attr->comment =  data_string( attribute_first_data(attr_node) );
+
   attr->visibility = FALSE;
   attr_node = composite_find_attribute(composite, "visibility");
   if (attr_node != NULL)
@@ -695,6 +722,11 @@ uml_operation_read(DataNode composite)
   if (attr_node != NULL)
     op->stereotype = data_string( attribute_first_data(attr_node) );
 
+  op->comment = NULL;
+  attr_node = composite_find_attribute(composite, "comment");
+  if (attr_node != NULL)
+    op->comment = data_string( attribute_first_data(attr_node) );
+
   op->visibility = FALSE;
   attr_node = composite_find_attribute(composite, "visibility");
   if (attr_node != NULL)
@@ -742,6 +774,11 @@ uml_operation_read(DataNode composite)
     if (attr_node != NULL)
       param->value =  data_string( attribute_first_data(attr_node) );
     
+    param->comment = NULL;
+    attr_node = composite_find_attribute(composite2, "comment");
+    if (attr_node != NULL)
+      param->comment =  data_string( attribute_first_data(attr_node) );
+
     param->kind = UML_UNDEF_KIND;
     attr_node = composite_find_attribute(composite2, "kind");
     if (attr_node != NULL)

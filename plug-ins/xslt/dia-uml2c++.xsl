@@ -20,11 +20,12 @@
 
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
   <xsl:output method="text"/>
 
+  <xsl:param name="directory"/>
+    
   <xsl:param name="ident">
     <xsl:text>    </xsl:text>
   </xsl:param>
@@ -35,7 +36,12 @@
   </xsl:param>
 
   <xsl:template match="class">
-    <xsl:document href="{@name}.hh" method="text">
+    <xsl:document href="{$directory}{@name}.hh" method="text">
+      <xsl:if test="comment">
+	<xsl:text>/* &#xa;   </xsl:text>
+	<xsl:value-of select="comment"/>
+	<xsl:text>&#xa; */&#xa;&#xa;</xsl:text>
+      </xsl:if>
 
       <xsl:text>#ifndef _</xsl:text>
       <xsl:value-of select="@name"/>
@@ -43,11 +49,11 @@
 
       <xsl:text>#define _</xsl:text>
       <xsl:value-of select="@name"/>
-      <xsl:text>_hh_&#xa;</xsl:text>
+      <xsl:text>_hh_&#xa;&#xa;</xsl:text>
 
       <xsl:text>class </xsl:text>
       <xsl:value-of select="@name"/>
-      <xsl:if test="@stereotype">
+      <xsl:if test="@stereotype!=''">
         <xsl:text> : public </xsl:text>
         <xsl:value-of select="@stereotype"/>      
       </xsl:if>
@@ -58,7 +64,7 @@
       <xsl:text>&#xa;};&#xa;</xsl:text>
       <xsl:text>&#xa;#endif /* _</xsl:text>
       <xsl:value-of select="@name"/>
-      <xsl:text>_hh_ */&#xa;</xsl:text>
+      <xsl:text>_hh_ */&#xa;&#xa;</xsl:text>
 
     </xsl:document>
   </xsl:template>
@@ -90,6 +96,18 @@
 
 
   <xsl:template match="attribute">
+    <xsl:if test="comment!=''">
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text>/*&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> * </xsl:text>
+      <xsl:value-of select="comment"/>
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> */&#xa;&#xa;</xsl:text>
+    </xsl:if>
+
     <xsl:value-of select="$ident"/>
     <xsl:if test="@class_scope">
       <xsl:text>static </xsl:text>
@@ -101,6 +119,25 @@
   </xsl:template>
 
   <xsl:template match="operation">
+
+    <xsl:if test="comment!=''">
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text>/*&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> * </xsl:text>
+      <xsl:value-of select="comment"/>
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:for-each select="parameters/parameter/comment">
+	<xsl:value-of select="$ident"/>
+	<xsl:text> * @</xsl:text>
+	<xsl:value-of select="../name"/>
+	<xsl:text>&#xa;</xsl:text>
+      </xsl:for-each>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> */&#xa;&#xa;</xsl:text>
+    </xsl:if>
+
     <xsl:value-of select="$ident"/>
     <xsl:choose>
       <xsl:when test="@inheritance='polymorphic'">
@@ -165,3 +202,20 @@
   </xsl:template>
 
 </xsl:stylesheet>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

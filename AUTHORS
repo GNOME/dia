@@ -1,20 +1,24 @@
 Original author: Alexander Larsson <alla@lysator.liu.se>
-Current Maintainer: James Henstridge <james@daa.com.au>
+Current Maintainers: 
+        Lars Clausen <lrclause@cs.uiuc.edu>
+        Cyrille Chepelov <cyrille@chepelov.org>
+        Hans Breuer <Hans@Breuer.Org> (win32 port)
 
 The following people have contributed to this program:
+
 Fredrik Hallenberg <hallon@lystator.liu.se>
 Emmanuel Briot <briot@volga.gnat.com>
 Francis J. Lacoste <francis@Contre.COM>
 Alejandro Aguilar Sierra <asierra@servidor.unam.mx>
 Jerome Abela <Jerome.Abela@solsoft.fr>
-James Henstridge <james@daa.com.au>
+James Henstridge <james@daa.com.au>             (former maintainer)
 Cyrille Chepelov <cyrille@chepelov.org>
 Lars R. Clausen <lrclause@cs.uiuc.edu>
-Henk Jan Priester <hj@justcroft.com>                (cgm plugin work)
-Jacek Pliszka <pliszka@fuw.edu.pl>                  (pstricks plugin)
-Steffen Macke <macke@heini.fbbwu.fh-lueneburg.de>   (dxf plugin)
-Hans Breuer <Hans@Breuer.Org>                  (win32 port, wpg, hpgl export)
-Hubert Figuiere <hfiguiere@teaser.fr>          (window menus, objects)
+Henk Jan Priester <hj@justcroft.com>            
+Jacek Pliszka <pliszka@fuw.edu.pl>               
+Steffen Macke <macke@heini.fbbwu.fh-lueneburg.de> 
+Hans Breuer <Hans@Breuer.Org>                  
+Hubert Figuiere <hfiguiere@teaser.fr>          
 Alexey Novodvorsky <aen@logic.ru>  
 Patrick Sung <phsung@ualberta.ca>  
 Robert Young <robert.young@dsto.defence.gov.au>
@@ -22,3 +26,5 @@ Akira TAGOH <tagoh@redhat.com>
 Richard Rowell <rwrowell@bellsouth.net>
 Frank Gevaerts <frank.gevaerts@fks.be>
 M. C. Nelson <mcn@kobayashimaru.org>
+Matthieu Sozeau <mattam@netcourrier.com>
+Andrew Ferrier <andrew.junk@new-destiny.co.uk>

@@ -119,8 +119,14 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
   const gchar *s;
 
-  g_free(umlclass->name);
-  umlclass->name = g_strdup (gtk_entry_get_text (prop_dialog->classname));
+  if (umlclass->name != NULL)
+    g_free(umlclass->name);
+
+  s = gtk_entry_get_text (prop_dialog->classname);
+  if (s && s[0])
+    umlclass->name = g_strdup (s);
+  else
+    umlclass->name = NULL;
 
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
@@ -130,6 +136,15 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
     umlclass->stereotype = g_strdup (s);
   else
     umlclass->stereotype = NULL;
+  
+  if (umlclass->comment != NULL)
+    g_free (umlclass->comment);
+
+  s = gtk_entry_get_text(prop_dialog->comment);
+  if (s && s[0])
+    umlclass->comment = g_strdup (s);
+  else
+    umlclass->comment = NULL;
   
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
@@ -159,7 +174,12 @@ class_fill_in_dialog(UMLClass *umlclass)
   if (umlclass->stereotype != NULL)
     gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
   else
-    gtk_entry_set_text(prop_dialog->op_stereotype, "");
+    gtk_entry_set_text(prop_dialog->stereotype, "");
+
+  if (umlclass->comment != NULL)
+    gtk_entry_set_text(prop_dialog->comment, umlclass->comment);
+  else
+    gtk_entry_set_text(prop_dialog->comment, "");
 
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
@@ -242,6 +262,15 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
   prop_dialog->stereotype = GTK_ENTRY(entry);
+  gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Comment:"));
+  gtk_box_pack_start (GTK_BOX (hbox),
+		      label, FALSE, TRUE, 0);
+  entry = gtk_entry_new();
+  prop_dialog->comment = GTK_ENTRY(entry);
   gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
@@ -341,6 +370,7 @@ attributes_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_name), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_value), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_comment), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_class_scope), val);
@@ -356,6 +386,12 @@ attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
   else
     gtk_entry_set_text(prop_dialog->attr_value, "");
 
+  if (attr->comment != NULL)
+    gtk_entry_set_text(prop_dialog->attr_comment, attr->comment);
+  else
+    gtk_entry_set_text(prop_dialog->attr_comment, "");
+
+
   gtk_option_menu_set_history(prop_dialog->attr_visible_button,
 			      (gint)attr->visibility);
   gtk_toggle_button_set_active(prop_dialog->attr_class_scope, attr->class_scope);
@@ -367,6 +403,7 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->attr_name, "");
   gtk_entry_set_text(prop_dialog->attr_type, "");
   gtk_entry_set_text(prop_dialog->attr_value, "");
+  gtk_entry_set_text(prop_dialog->attr_comment, "");
   gtk_toggle_button_set_active(prop_dialog->attr_class_scope, FALSE);
 }
 
@@ -382,6 +419,7 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
   attr->type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
   
   attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
+  attr->comment = g_strdup (gtk_entry_get_text(prop_dialog->attr_comment));
 
   attr->visibility = (UMLVisibility)
 		GPOINTER_TO_INT (gtk_object_get_user_data (
@@ -830,6 +868,19 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Comment:"));
+  entry = gtk_entry_new();
+  prop_dialog->attr_comment = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+
+
+  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Visibility:"));
 
   omenu = gtk_option_menu_new ();
@@ -905,6 +956,7 @@ parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_name), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_value), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_comment), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind_button), val);
 }
@@ -918,6 +970,9 @@ parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
     gtk_entry_set_text(prop_dialog->param_value, param->value);
   else
     gtk_entry_set_text(prop_dialog->param_value, "");
+
+  gtk_entry_set_text(prop_dialog->param_comment, param->comment);
+
   gtk_option_menu_set_history(prop_dialog->param_kind_button,
 			      (gint)param->kind);
 }
@@ -928,6 +983,7 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->param_name, "");
   gtk_entry_set_text(prop_dialog->param_type, "");
   gtk_entry_set_text(prop_dialog->param_value, "");
+  gtk_entry_set_text(prop_dialog->param_comment, "");
   gtk_option_menu_set_history(prop_dialog->param_kind_button,
 			      (gint) UML_UNDEF_KIND);
 
@@ -938,6 +994,7 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
 {
   g_free(param->name);
   g_free(param->type);
+  g_free(param->comment);
   if (param->value != NULL)
     g_free(param->value);
   
@@ -945,6 +1002,7 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
   param->type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
   
   param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
+  param->comment = g_strdup (gtk_entry_get_text(prop_dialog->param_comment));
 
   param->kind = (UMLParameterKind) GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->param_kind))));
 }
@@ -1176,6 +1234,7 @@ operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_name), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_stereotype), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_comment), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
@@ -1202,10 +1261,16 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     gtk_entry_set_text(prop_dialog->op_type, op->type);
   else
     gtk_entry_set_text(prop_dialog->op_type, "");
+
   if (op->stereotype != NULL)
     gtk_entry_set_text(prop_dialog->op_stereotype, op->stereotype);
   else
     gtk_entry_set_text(prop_dialog->op_stereotype, "");
+
+  if (op->comment != NULL)
+    gtk_entry_set_text(prop_dialog->op_comment, op->comment);
+  else
+    gtk_entry_set_text(prop_dialog->op_comment, "");
 
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
 			      (gint)op->visibility);
@@ -1240,6 +1305,7 @@ operations_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->op_name, "");
   gtk_entry_set_text(prop_dialog->op_type, "");
   gtk_entry_set_text(prop_dialog->op_stereotype, "");
+  gtk_entry_set_text(prop_dialog->op_comment, "");
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
   gtk_toggle_button_set_active(prop_dialog->op_query, FALSE);
 
@@ -1260,6 +1326,7 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 
   op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
   op->type = g_strdup (gtk_entry_get_text(prop_dialog->op_type));
+  op->comment = g_strdup(gtk_entry_get_text(prop_dialog->op_comment));
 
   s = gtk_entry_get_text(prop_dialog->op_stereotype);
   if (s && s[0])
@@ -1831,6 +1898,17 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
  
+  hbox2 = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Comment:"));
+  entry = gtk_entry_new();
+  prop_dialog->op_comment = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
 
@@ -1945,6 +2023,18 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Comment:"));
+  entry = gtk_entry_new();
+  prop_dialog->param_comment = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
+
+  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Direction:"));
 
   omenu = gtk_option_menu_new ();
@@ -1994,8 +2084,8 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
 
-
   gtk_box_pack_start (GTK_BOX (vbox3), hbox2, FALSE, TRUE, 0);
+
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
  

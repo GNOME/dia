@@ -90,7 +90,7 @@ xslt_dialog_create(void) {
 	
 	GtkWidget *omenu, *menu, *menuitem;
 	GSList *group;
-	GtkWidget *label, *button;	
+	GtkWidget *label;	
 
 	fromxsl_t *cur_f = froms;
 	toxsl_t *cur_to = NULL;
@@ -101,7 +101,8 @@ xslt_dialog_create(void) {
              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
              GTK_STOCK_OK, GTK_RESPONSE_OK,
              NULL);
-  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+	
+	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   
 	box = GTK_DIALOG(dialog)->vbox;
@@ -181,14 +182,14 @@ xslt_dialog_create(void) {
 	
 	gtk_widget_show_all(box);
 
-  g_signal_connect(G_OBJECT(dialog), "response",
+	g_signal_connect(G_OBJECT(dialog), "response",
                    G_CALLBACK(xslt_dialog_respond),
                    NULL);
-  g_signal_connect(G_OBJECT(dialog), "delete_event",
+	g_signal_connect(G_OBJECT(dialog), "delete_event",
                    G_CALLBACK(gtk_widget_hide), NULL);
 
 
-  gtk_widget_show(dialog);	
+	gtk_widget_show(dialog);	
 
 	cur_f = froms->next;
 	while(cur_f != NULL)

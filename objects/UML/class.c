@@ -747,7 +747,8 @@ umlclass_create(Point *startpoint,
 
   umlclass->name = g_strdup (_("Class"));
   umlclass->stereotype = NULL;
-  
+  umlclass->comment = NULL;
+
   umlclass->abstract = FALSE;
 
   umlclass->suppress_attributes = FALSE;
@@ -809,6 +810,9 @@ umlclass_destroy(UMLClass *umlclass)
   g_free(umlclass->name);
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
+  
+  if (umlclass->comment != NULL)
+    g_free(umlclass->comment);
 
   list = umlclass->attributes;
   while (list != NULL) {
@@ -912,6 +916,12 @@ umlclass_copy(UMLClass *umlclass)
     newumlclass->stereotype = strdup(umlclass->stereotype);
   else
     newumlclass->stereotype = NULL;
+
+  if (umlclass->comment != NULL)
+    newumlclass->comment = strdup(umlclass->comment);
+  else
+    newumlclass->comment = NULL;
+
   newumlclass->abstract = umlclass->abstract;
   newumlclass->suppress_attributes = umlclass->suppress_attributes;
   newumlclass->suppress_operations = umlclass->suppress_operations;
@@ -1038,6 +1048,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 		  umlclass->name);
   data_add_string(new_attribute(obj_node, "stereotype"),
 		  umlclass->stereotype);
+  data_add_string(new_attribute(obj_node, "comment"),
+                  umlclass->comment);
   data_add_boolean(new_attribute(obj_node, "abstract"),
 		   umlclass->abstract);
   data_add_boolean(new_attribute(obj_node, "suppress_attributes"),
@@ -1135,6 +1147,11 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->stereotype = data_string(attribute_first_data(attr_node));
   
+  umlclass->comment = NULL;
+  attr_node = object_find_attribute(obj_node, "comment");
+  if (attr_node != NULL)
+    umlclass->comment = data_string(attribute_first_data(attr_node));
+
   umlclass->abstract = FALSE;
   attr_node = object_find_attribute(obj_node, "abstract");
   if (attr_node != NULL)

@@ -63,10 +63,12 @@ void xslt_ok() {
 	FILE *file, *out;
 	int err;
 	gchar *stylefname;
-	
+	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
 
+	params[1] = g_strconcat("'", g_dirname(filename), G_DIR_SEPARATOR_S, "'", NULL);
+	
 	file = fopen(diafilename, "r");
 
 	if (file == NULL) {
@@ -75,6 +77,9 @@ void xslt_ok() {
 	}
 
 	out = fopen(filename, "w+");
+	
+
+
 	if (out == NULL) {
 		message_error(_("Couldn't open: '%s' for writing.\n"), filename);
 		return;
@@ -118,7 +123,7 @@ void xslt_ok() {
 	
 	xmlFreeDoc(doc);
 	
-	doc = xsltApplyStylesheet(codestyle, res, NULL);
+	doc = xsltApplyStylesheet(codestyle, res, (const char **) params);
 	if(doc == NULL) {
 		message_error(_("Error while applying stylesheet: %s\n"), xsl_to->xsl);
 		return;
@@ -145,7 +150,7 @@ void xslt_ok() {
 
 /* --- dia plug-in interface --- */
 
-#define MY_RENDERER_NAME "code"
+#define MY_RENDERER_NAME "XSL Transformation filter"
 
 static const gchar *extensions[] = { "code", NULL };
 static DiaExportFilter my_export_filter = {

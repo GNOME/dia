@@ -25,6 +25,8 @@
 
   <xsl:output method="text"/>
 
+  <xsl:param name="directory"/>
+
   <xsl:param name="ident">
     <xsl:text>    </xsl:text>
   </xsl:param>
@@ -41,21 +43,29 @@
 
   
   <xsl:template match="class">
-    <xsl:text>&#xa;</xsl:text>
-    <xsl:if test="@abstract">
-      <xsl:text>abstract </xsl:text>
-    </xsl:if>
-    <xsl:text>class </xsl:text>
-    <xsl:value-of select="@name"/>
-    <xsl:if test="@stereotype!=''">
-      <xsl:text> : implements </xsl:text>
-      <xsl:value-of select="@stereotype"/>      
-    </xsl:if>
-    <xsl:text> {&#xa;&#xa;</xsl:text>
-    <xsl:apply-templates select="attributes"/>
-    <xsl:text>&#xa;</xsl:text>
-    <xsl:apply-templates select="operations"/>
-    <xsl:text>&#xa;};&#xa;</xsl:text>
+    <xsl:document href="{$directory}{@name}.java" method="text">	
+      <xsl:if test="comment">
+	<xsl:text>/* &#xa;   </xsl:text>
+	<xsl:value-of select="comment"/>
+	<xsl:text>&#xa; */&#xa;&#xa;</xsl:text>
+      </xsl:if>
+
+      <xsl:text>&#xa;</xsl:text>		
+      <xsl:if test="@abstract">		
+	<xsl:text>abstract </xsl:text>
+      </xsl:if>
+      <xsl:text>class </xsl:text>
+      <xsl:value-of select="@name"/>
+      <xsl:if test="@stereotype!=''">
+	<xsl:text> : implements </xsl:text>
+	<xsl:value-of select="@stereotype"/>      
+      </xsl:if>
+      <xsl:text> {&#xa;&#xa;</xsl:text>
+      <xsl:apply-templates select="attributes"/>
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:apply-templates select="operations"/>
+      <xsl:text>&#xa;}&#xa;</xsl:text>
+    </xsl:document>
   </xsl:template>
   
   <xsl:template match="operations|attributes">
@@ -75,6 +85,18 @@
 
 
   <xsl:template match="attribute">
+    <xsl:if test="comment!=''">
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text>/*&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> * </xsl:text>
+      <xsl:value-of select="comment"/>
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> */&#xa;&#xa;</xsl:text>
+    </xsl:if>
+
     <xsl:value-of select="$ident"/>
     <xsl:if test="not(@visibility)">
       <xsl:if test="$visibility=''">
@@ -100,6 +122,24 @@
   </xsl:template>
 
   <xsl:template match="operation">
+    <xsl:if test="comment!=''">
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text>/*&#xa;</xsl:text>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> * </xsl:text>
+      <xsl:value-of select="comment"/>
+      <xsl:text>&#xa;</xsl:text>
+      <xsl:for-each select="parameters/parameter/comment">
+	<xsl:value-of select="$ident"/>
+	<xsl:text> * @</xsl:text>
+	<xsl:value-of select="../name"/>
+	<xsl:text>&#xa;</xsl:text>
+      </xsl:for-each>
+      <xsl:value-of select="$ident"/>
+      <xsl:text> */&#xa;&#xa;</xsl:text>
+    </xsl:if>
+
     <xsl:value-of select="$ident"/>
     <xsl:if test="not(@visibility)">
       <xsl:if test="$visibility=''">

@@ -61,6 +61,9 @@
       <xsl:if test="dia:attribute[@name='abstract']/dia:boolean/@val='true'">
         <xsl:attribute name="abstract">1</xsl:attribute>
       </xsl:if>
+      <xsl:element name="comment">
+	<xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
+      </xsl:element>
       <xsl:element name="attributes">
         <xsl:apply-templates select="dia:attribute[@name='attributes']"/>
       </xsl:element>
@@ -96,7 +99,11 @@
         <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
       </xsl:element>
 
-      <xsl:if test="not(dia:attribute[@name='value']/dia:string='')">
+      <xsl:element name="comment">
+	<xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
+      </xsl:element>
+
+      <xsl:if test="not(dia:attribute[@name='value']/dia:string='##')">
         <xsl:element name="value">
           <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='value']/dia:string, '#'), '#')"/>
         </xsl:element>
@@ -143,7 +150,7 @@
         </xsl:otherwise>
       </xsl:choose>
       
-      <xsl:if test="not(dia:attribute[@name='type']/dia:string='')">
+      <xsl:if test="not(dia:attribute[@name='type']/dia:string='##')">
         <xsl:element name="type">
           <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
         </xsl:element>
@@ -152,39 +159,53 @@
       <xsl:element name="name">
         <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
       </xsl:element>
-      
-      <xsl:element name="parameters">
-        <xsl:for-each select="dia:attribute[@name='parameters']/dia:composite[@type='umlparameter']">
-          <xsl:element name="parameter">
-            <xsl:choose>
-              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=1">
-                <xsl:attribute name="kind">in</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=2">
-                <xsl:attribute name="kind">out</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=3">
-                <xsl:attribute name="kind">inout</xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
-            
-            <xsl:element name="type">
-              <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
-            </xsl:element>
-            
-            <xsl:element name="name">
-              <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
-            </xsl:element>
-            
-            <xsl:if test="not(dia:attribute[@name='value']/dia:string='')">
-              <xsl:element name="value">
-                <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='value']/dia:string, '#'), '#')"/>
-              </xsl:element>              
-            </xsl:if>
 
-          </xsl:element>
-        </xsl:for-each>      
-      </xsl:element>
+      <xsl:if test="not(dia:attribute[@name='comment']/dia:string='##')">
+	<xsl:element name="comment">
+	  <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
+	</xsl:element>
+      </xsl:if>
+      
+      <xsl:if test="dia:attribute[@name='parameters']/dia:composite[@type='umlparameter']">
+	<xsl:element name="parameters">
+	  <xsl:for-each select="dia:attribute[@name='parameters']/dia:composite[@type='umlparameter']">
+	    <xsl:element name="parameter">
+	      <xsl:choose>
+		<xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=1">
+		  <xsl:attribute name="kind">in</xsl:attribute>
+		</xsl:when>
+		<xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=2">
+		  <xsl:attribute name="kind">out</xsl:attribute>
+		</xsl:when>
+		<xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=3">
+		  <xsl:attribute name="kind">inout</xsl:attribute>
+		</xsl:when>
+	      </xsl:choose>
+	      
+	      <xsl:element name="type">
+		<xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
+	      </xsl:element>
+	      
+	      <xsl:element name="name">
+		<xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+	      </xsl:element>
+	      
+	      <xsl:if test="dia:attribute[@name='comment']">
+		<xsl:element name="comment">
+		  <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
+		</xsl:element>
+	      </xsl:if>
+	      
+	      <xsl:if test="not(dia:attribute[@name='value']/dia:string='##')">
+		<xsl:element name="value">
+		  <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='value']/dia:string, '#'), '#')"/>
+		</xsl:element>              
+	      </xsl:if>
+	      
+	    </xsl:element>
+	  </xsl:for-each>      
+	</xsl:element>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
 
@@ -195,3 +216,22 @@
     <xsl:apply-templates match="node()|@*"/>  
   </xsl:template>
 </xsl:stylesheet>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->

@@ -32,7 +32,7 @@ typedef enum _UMLVisibility {
   UML_PUBLIC,
   UML_PRIVATE,
   UML_PROTECTED,
-  UML_IMPLEMENTATION /* ?What's this? */
+  UML_IMPLEMENTATION /* ?What's this? Means implementation decision */
 } UMLVisibility;
 
 typedef enum _UMLInheritanceType {
@@ -54,6 +54,7 @@ struct _UMLAttribute {
   gchar *name;
   gchar *type;
   gchar *value; /* Can be NULL => No default value */
+  gchar *comment;
   UMLVisibility visibility;
   int abstract;
   int class_scope;
@@ -65,6 +66,7 @@ struct _UMLAttribute {
 struct _UMLOperation {
   gchar *name;
   gchar *type; /* Return type, NULL => No return type */
+  gchar *comment;   
   UMLStereotype stereotype;
   UMLVisibility visibility;
   UMLInheritanceType inheritance_type;
@@ -80,6 +82,7 @@ struct _UMLParameter {
   gchar *name;
   gchar *type;
   gchar *value; /* Can be NULL => No default value */
+  gchar *comment;
   UMLParameterKind kind; /* Not currently used */
 };
 
