@@ -38,10 +38,10 @@ object_find_attribute(ObjectNode obj_node,
 
     name = xmlGetProp(attr, "name");
     if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
-      g_free(name);
+      free(name);
       return attr;
     }
-    g_free(name);
+    if (name) free(name);
     
     attr = attr->next;
   }
@@ -60,10 +60,10 @@ composite_find_attribute(DataNode composite_node,
 
     name = xmlGetProp(attr, "name");
     if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
-      g_free(name);
+      free(name);
       return attr;
     }
-    g_free(name);
+    if (name) free(name);
     
     attr = attr->next;
   }
@@ -142,7 +142,7 @@ data_int(DataNode data)
 
   val = xmlGetProp(data, "val");
   res = atoi(val);
-  g_free(val);
+  if (val) free(val);
   
   return res;
 }
@@ -159,7 +159,7 @@ int data_enum(DataNode data)
 
   val = xmlGetProp(data, "val");
   res = atoi(val);
-  g_free(val);
+  if (val) free(val);
   
   return res;
 }
@@ -177,7 +177,7 @@ data_real(DataNode data)
 
   val = xmlGetProp(data, "val");
   res = atof(val);
-  g_free(val);
+  if (val) free(val);
   
   return res;
 }
@@ -195,12 +195,12 @@ data_boolean(DataNode data)
 
   val = xmlGetProp(data, "val");
 
-  if (strcmp(val, "true")==0) 
+  if ((val) && (strcmp(val, "true")==0))
     res =  TRUE;
   else 
     res = FALSE;
 
-  g_free(val);
+  if (val) free(val);
 
   return res;
 }
@@ -231,12 +231,14 @@ data_color(DataNode data, Color *col)
 
   /* Format #RRGGBB */
   /*        0123456 */
-	    
-  r = hex_digit(val[1])*16 + hex_digit(val[2]);
-  g = hex_digit(val[3])*16 + hex_digit(val[4]);
-  b = hex_digit(val[5])*16 + hex_digit(val[6]);
 
-  g_free(val);
+  if ((val) && (strlen(val)>=7)) {
+    r = hex_digit(val[1])*16 + hex_digit(val[2]);
+    g = hex_digit(val[3])*16 + hex_digit(val[4]);
+    b = hex_digit(val[5])*16 + hex_digit(val[6]);
+  }
+
+  if (val) free(val);
   
   col->red = ((float)r)/255.0;
   col->green = ((float)g)/255.0;
@@ -261,12 +263,12 @@ data_point(DataNode data, Point *point)
   if (*str==0){
     point->y = 0.0;
     message_error("Error parsing point.");
-    g_free(val);
+    free(val);
     return;
   }
     
   point->y = strtod(str+1, NULL);
-  g_free(val);
+  free(val);
 }
 
 void
@@ -289,7 +291,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    g_free(val);
+    free(val);
     return;
   }
     
@@ -300,7 +302,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    g_free(val);
+    free(val);
     return;
   }
 
@@ -311,13 +313,13 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    g_free(val);
+    free(val);
     return;
   }
 
   rect->bottom = strtod(str+1, NULL);
   
-  g_free(val);
+  free(val);
 }
 
 char *
@@ -362,7 +364,7 @@ data_string(DataNode data)
       val++;
     }
     *p = 0;
-    g_free(val);
+    free(val);
     return str;
   }
 
@@ -381,7 +383,7 @@ data_string(DataNode data)
 
     str[strlen(str)-1] = 0; /* Remove last '#' */
     
-    g_free(p);
+    free(p);
 
     return str;
   }
@@ -402,7 +404,7 @@ data_font(DataNode data)
 
   name = xmlGetProp(data, "name");
   font = font_getfont(name);
-  g_free(name);
+  if (name) free(name);
   
   return font;
 }

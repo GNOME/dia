@@ -205,11 +205,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      g_free(tmp);
+      if (tmp) free(tmp);
 
       if (name_score < 0 || score < name_score) {
         name_score = score;
-        g_free(name);
+        if (name) free(name);
         name = xmlNodeGetContent(node);
       }      
     } else if (node->ns == ns && !strcmp(node->name, "description")) {
@@ -225,7 +225,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
-        g_free(description);
+        if (description) free(description);
         description = xmlNodeGetContent(node);
       }
       
@@ -237,8 +237,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   if (!contents) {
     g_warning("no contents in sheet %s.", filename);
     xmlFreeDoc(doc);
-    g_free(name);
-    g_free(description);
+    if (name) free(name);
+    if (description) free(description);
     return;
   }
 
@@ -281,9 +281,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	char *p;
 	intdata = (gint)strtol(tmp,&p,0);
 	if (*p != 0) intdata = 0;
-	g_free(tmp);
+	free(tmp);
       }
       chardata = xmlGetProp(node,"chardata");
+      /* TODO.... */
+      if (chardata) free(chardata);
     }
     
     if (isobject || isshape) {
@@ -298,18 +300,18 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  tmp = xmlGetProp(subnode, "xml:lang");
 	  if (!tmp) tmp = xmlGetProp(subnode, "lang");
 	  score = intl_score_locale(tmp);
-	  g_free(tmp);
+	  if (tmp) free(tmp);
 
 	  if (subdesc_score < 0 || score < subdesc_score) {
 	    subdesc_score = score;
-	    g_free(objdesc);
+	    if (objdesc) free(objdesc);
 	    objdesc = xmlNodeGetContent(subnode);
 	  }
 	  
 	} else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
 	  tmp = xmlNodeGetContent(subnode);
 	  iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
-	  g_free(tmp);
+	  if (tmp) free(tmp);
 	}
       }
 
@@ -337,7 +339,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  g_free(sheet_obj->pixmap_file);
 	  g_free(sheet_obj->object_type);
 	  g_free(sheet_obj);
-	  g_free(tmp);
+	  if (tmp) free(tmp);
 	  continue; 
 	}
       } else {
@@ -351,11 +353,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  g_free(sheet_obj->pixmap_file);
 	  g_free(sheet_obj->object_type);
 	  g_free(sheet_obj);
-	  g_free(tmp);
+	  if (tmp) free(tmp);
 	  continue; 
 	}	  
       }
-      g_free(tmp);
+      if (tmp) free(tmp);
       
       /* we don't need to fix up the icon and descriptions for simple objects,
 	 since they don't have their own description, and their icon is 

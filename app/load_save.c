@@ -63,11 +63,11 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
       version = 0;
       if (versionstr != NULL) {
 	version = atoi(versionstr);
-	g_free(versionstr);
+	free(versionstr);
       }
       
       type = object_get_type((char *)typestr);
-      g_free(typestr);
+      if (typestr) free(typestr);
       
       obj = type->ops->load(obj_node, version, filename);
       list = g_list_append(list, obj);
@@ -124,9 +124,9 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  
 	  to = g_hash_table_lookup(objects_hash, tostr);
 
-	  g_free(handlestr);
-	  g_free(connstr);
-	  g_free(tostr);
+	  if (handlestr) free(handlestr);
+	  if (connstr) free(connstr);
+	  if (tostr) free(tostr);
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
@@ -152,7 +152,7 @@ hash_free_string(gpointer       key,
 		 gpointer       value,
 		 gpointer       user_data)
 {
-  g_free(key);
+  free(key);
 }
 
 Diagram *
@@ -291,12 +291,13 @@ diagram_load(char *filename)
     char *visible;
     name = (char *)xmlGetProp(layer_node, "name");
     visible = (char *)xmlGetProp(layer_node, "visible");
-    layer = new_layer(name);
+    layer = new_layer(g_strdup(name));
+    if (name) free(name);
     
     layer->visible = FALSE;
-    if (strcmp(visible, "true")==0)
+    if ((visible) && (strcmp(visible, "true")==0))
       layer->visible = TRUE;
-    free(visible);
+    if (visible) free(visible);
 
     /* Read in all objects: */
     

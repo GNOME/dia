@@ -775,7 +775,7 @@ load_shape_info(const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      g_free(tmp);
+      if (tmp) free(tmp);
 
       if (descr_score < 0 || score < descr_score) {
 	descr_score = score;

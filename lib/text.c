@@ -893,7 +893,7 @@ data_text(AttributeNode text_attr)
     align = data_enum(attribute_first_data(attr));
   
   text = new_text(string, font, height, &pos, &col, align);
-  g_free(string);
+  if (string) free(string);
   return text;
 }
 

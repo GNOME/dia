@@ -1,5 +1,16 @@
 1999-11-21  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	* lib/sheet.c:
+	* lib/text.c:
+	* objects/custom/shape_info.c:
+	All strings returned by libxml must be freed with free, not
+	g_free, or there will be problems if you use memory debugging
+	in glib.
+	
+1999-11-21  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/create_object.[ch]:
 	* app/menus.c:
 	* app/tool.[ch]:
