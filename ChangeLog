@@ -1,3 +1,8 @@
+2004-07-02  Lars Clausen  <lars@reader.dk>
+
+	* plug-ins/pixbuf/pixbuf.c (dia_plugin_init): Don't load if the
+	app isn't interactive.
+
 2004-07-01  Lars Clausen  <lars@raeder.dk>
 
 	* app/display.c (new_display): 

@@ -178,13 +178,15 @@ DIA_PLUGIN_CHECK_INIT
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
-  if (!dia_plugin_info_init(info, "Pixbuf",
-                            _("gdk-pixbuf based bitmap export/import"),
-                            NULL, NULL))
-    return DIA_PLUGIN_INIT_ERROR;
-
-  filter_register_export(&export_filter);
-  filter_register_import(&import_filter);
+  if (app_is_interactive()) {
+    if (!dia_plugin_info_init(info, "Pixbuf",
+			      _("gdk-pixbuf based bitmap export/import"),
+			      NULL, NULL))
+      return DIA_PLUGIN_INIT_ERROR;
+    
+    filter_register_export(&export_filter);
+    filter_register_import(&import_filter);
+  }
 
   return DIA_PLUGIN_INIT_OK;
 }
