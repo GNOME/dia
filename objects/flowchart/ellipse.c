@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -316,8 +318,10 @@ ellipse_get_defaults()
 
   gtk_spin_button_set_value(ellipse_defaults_dialog->padding,
 			    default_properties.padding);
+  font = NULL;
   attributes_get_default_font(&font, &font_height);
   dia_font_selector_set_font(ellipse_defaults_dialog->font, font);
+  dia_font_unref(font);
   gtk_spin_button_set_value(ellipse_defaults_dialog->font_size, font_height);
 
   return ellipse_defaults_dialog->vbox;
@@ -518,7 +522,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - ellipse->text->height*ellipse->text->numlines/2 +
-    font_ascent(ellipse->text->font, ellipse->text->height);
+    ellipse->text->ascent;
   text_set_position(ellipse->text, &p);
 
   /* Update connections: */
@@ -551,7 +555,7 @@ ellipse_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
 
   init_default_values();
@@ -583,7 +587,8 @@ ellipse_create(Point *startpoint,
   ellipse->text = new_text("", font, font_height, &p, &ellipse->border_color,
 			   ALIGN_CENTER);
   text_get_attributes(ellipse->text,&ellipse->attrs);
- 
+  dia_font_unref(font);
+  
   element_init(elem, 8, 16);
 
   for (i=0;i<16;i++) {

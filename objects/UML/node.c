@@ -323,15 +323,15 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   obj->ops = &node_ops;
 
   elem->corner = *startpoint;
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+
+  font = dia_font_new ("Sans",STYLE_NORMAL,0.8);
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
   node->name = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   text_get_attributes(node->name,&node->attrs);
-
+  dia_font_unref(font);
+  
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {

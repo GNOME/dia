@@ -49,9 +49,7 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   bezierconn_init,
   beziershape_init,
   new_text,
-  font_getfont,
-  /*  new_render_store,
-      new_render_object, */
+  dia_font_new, /* font.o */
   nearest_pow,
   arrow_draw,
   dia_font_selector_new, /* widgets.o */

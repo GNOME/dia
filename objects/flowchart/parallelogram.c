@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -342,10 +344,12 @@ pgram_get_defaults()
 
   gtk_spin_button_set_value(pgram_defaults_dialog->padding,
 			    default_properties.padding);
+  font = NULL;
   attributes_get_default_font(&font, &font_height);
   dia_font_selector_set_font(pgram_defaults_dialog->font, font);
   gtk_spin_button_set_value(pgram_defaults_dialog->font_size, font_height);
-
+  dia_font_unref(font);
+  
   return pgram_defaults_dialog->vbox;
 }
 
@@ -542,9 +546,9 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
-    font_ascent(pgram->text->font, pgram->text->height);
+      pgram->text->ascent;
   text_set_position(pgram->text, &p);
-
+  
   /* Update connections: */
   pgram->connections[0].pos.x = elem->corner.x;
   pgram->connections[0].pos.y = elem->corner.y;
@@ -631,7 +635,7 @@ pgram_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
 
   init_default_values();
@@ -665,7 +669,8 @@ pgram_create(Point *startpoint,
   pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
 			 ALIGN_CENTER);
   text_get_attributes(pgram->text,&pgram->attrs);
-
+  dia_font_unref(font);
+  
   element_init(elem, 8, 16);
 
   for (i=0;i<16;i++) {

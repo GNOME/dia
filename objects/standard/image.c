@@ -242,7 +242,7 @@ image_init_defaults(void) {
 static void
 image_apply_defaults(void)
 {
-  default_properties.file = dia_file_selector_get_file(image_defaults_dialog->file);
+/*  default_properties.file = (dia_file_selector_get_file(image_defaults_dialog->file); */
   default_properties.draw_border = gtk_toggle_button_get_active(image_defaults_dialog->draw_border);
   default_properties.keep_aspect = gtk_toggle_button_get_active(image_defaults_dialog->keep_aspect);
 }

@@ -36,8 +36,7 @@ bracketted_to_string (gchar *bracketted,
 		      const char *start_bracket,
 		      const char *end_bracket)
 {
-  gchar *utfstart, *utfend, *utfstr;
-  char *retval;
+  const char *utfstart, *utfend, *utfstr;
   int start_len, end_len, str_len;
 
   if (!bracketted) return NULL;

@@ -241,6 +241,8 @@ generalization_update_data(Generalization *genlz)
   Point *points;
   Rectangle rect;
   PolyBBExtras *extra;
+  real descent;
+  real ascent;
   
   orthconn_update_data(orth);
   
@@ -250,15 +252,30 @@ generalization_update_data(Generalization *genlz)
   }
 
   genlz->text_width = 0.0;
-
-  if (genlz->name)
-    genlz->text_width = font_string_width(genlz->name, genlz_font,
-					  GENERALIZATION_FONTHEIGHT);
-  if (genlz->stereotype)
+  descent = 0.0;
+  ascent = 0.0;
+  
+  if (genlz->name) {      
+    genlz->text_width = dia_font_string_width(genlz->name, genlz_font,
+                                              GENERALIZATION_FONTHEIGHT);
+    descent = dia_font_descent(genlz->name,
+                               genlz_font,GENERALIZATION_FONTHEIGHT);
+    ascent = dia_font_ascent(genlz->name,
+                             genlz_font,GENERALIZATION_FONTHEIGHT);
+  }
+  if (genlz->stereotype) {
     genlz->text_width = MAX(genlz->text_width,
-			    font_string_width(genlz->stereotype, genlz_font,
-					      GENERALIZATION_FONTHEIGHT));
-
+                            dia_font_string_width(genlz->stereotype,
+                                                  genlz_font,
+                                                  GENERALIZATION_FONTHEIGHT));
+    if (!genlz->name) {
+      descent = dia_font_descent(genlz->stereotype,
+                                genlz_font,GENERALIZATION_FONTHEIGHT);
+    }
+    ascent = dia_font_ascent(genlz->stereotype,
+                             genlz_font,GENERALIZATION_FONTHEIGHT);
+  }
+  
   extra = &orth->extra_spacing;
   
   extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
@@ -283,13 +300,12 @@ generalization_update_data(Generalization *genlz)
   case HORIZONTAL:
     genlz->text_align = ALIGN_CENTER;
     genlz->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    genlz->text_pos.y = points[i].y - font_descent(genlz_font, GENERALIZATION_FONTHEIGHT);
+    genlz->text_pos.y = points[i].y - descent;
     break;
   case VERTICAL:
     genlz->text_align = ALIGN_LEFT;
     genlz->text_pos.x = points[i].x + 0.1;
-    genlz->text_pos.y =
-      0.5*(points[i].y+points[i+1].y) - font_descent(genlz_font, GENERALIZATION_FONTHEIGHT);
+    genlz->text_pos.y = 0.5*(points[i].y+points[i+1].y) - descent;
     break;
   }
 
@@ -298,7 +314,7 @@ generalization_update_data(Generalization *genlz)
   if (genlz->text_align == ALIGN_CENTER)
     rect.left -= genlz->text_width/2.0;
   rect.right = rect.left + genlz->text_width;
-  rect.top = genlz->text_pos.y - font_ascent(genlz_font, GENERALIZATION_FONTHEIGHT);
+  rect.top = genlz->text_pos.y - ascent;
   rect.bottom = rect.top + 2*GENERALIZATION_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);
@@ -359,9 +375,8 @@ generalization_create(Point *startpoint,
   PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  genlz_font = font_getfont(_("Courier"));
+	  genlz_font = dia_font_new("Monospace",STYLE_NORMAL,
+                              GENERALIZATION_FONTHEIGHT);
   }
   
   genlz = g_new0(Generalization, 1);

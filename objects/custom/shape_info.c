@@ -103,7 +103,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
       }
       temp[i] = '\0';
 
-      if (!over) s->font = font_getfont(temp);
+      if (!over) s->font = dia_font_new_from_legacy_name(temp);
 
     } else if (!strncmp("font-size:", ptr, 10)) {
       ptr += 10;

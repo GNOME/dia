@@ -47,9 +47,8 @@
 #include "pixmaps/action.xpm"
 
 #define ACTION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-/* choose default font name for your locale. see also font_data structure
-   in lib/font.c. */
-#define ACTION_FONT N_("Helvetica-Bold")
+#define ACTION_FONT "Sans"
+#define ACTION_FONT_STYLE STYLE_BOLD
 #define ACTION_FONT_HEIGHT 0.8
 #define ACTION_HEIGHT (2.0)
 
@@ -60,7 +59,8 @@ typedef struct _Action {
   gboolean macro_call;
 
   /* computed values : */
-  real space_width; /* width of a space in the current font */
+  real space_width; /* width of a space in the current font
+                     Fallacy! space is a very flexible thing in Pango...*/
   real label_width;
   Rectangle labelbb; /* The bounding box of the label itself */
   Point labelstart;
@@ -287,9 +287,9 @@ action_update_data(Action *action)
   connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
   
   for (i=0; i<action->text->numlines; i++) {
-    chunksize = font_string_width(action->text->line[i],
-				  action->text->font,
-				  action->text->height);
+    chunksize = dia_font_string_width(action->text->line[i],
+                                      action->text->font,
+                                      action->text->height);
     x1 = x + 1.0;
     if (x1 >= right) {
       x1 = right - ACTION_LINE_WIDTH;
@@ -363,9 +363,9 @@ action_draw(Action *action, Renderer *renderer)
   p1.y = ul.y; p2.y = br.y;
 
   for (i=0; i<action->text->numlines-1; i++) {
-    chunksize = font_string_width(action->text->line[i],
-				      action->text->font,
-				      action->text->height);
+    chunksize = dia_font_string_width(action->text->line[i],
+                                      action->text->font,
+                                      action->text->height);
     p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
     renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
   }
@@ -393,6 +393,8 @@ action_create(Point *startpoint,
   LineBBExtras *extra;
   Point defaultlen  = {1.0,0.0}, pos;
 
+  DiaFont* action_font;
+  
   action = g_malloc0(sizeof(Action));
   conn = &action->connection;
   obj = &conn->object;
@@ -409,16 +411,13 @@ action_create(Point *startpoint,
   action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
-#if 0
-  action->text = new_text("",defaults.font,defaults.font_size,
-			  &pos, /* never used */
-			  &defaults.font_color, ALIGN_LEFT);
-#else
-  action->text = new_text("",font_getfont (_(ACTION_FONT)),ACTION_FONT_HEIGHT,
-			  &pos, /* never used */
-			  &color_black, ALIGN_LEFT);
-#endif
-
+  action_font = dia_font_new(ACTION_FONT,
+                             ACTION_FONT_STYLE,ACTION_FONT_HEIGHT); 
+  action->text = new_text("",action_font, ACTION_FONT_HEIGHT,
+                          &pos, /* never used */
+                          &color_black, ALIGN_LEFT);
+  dia_font_unref(action_font);
+  
   text_get_attributes(action->text,&action->attrs);
 
   action->macro_call = FALSE;

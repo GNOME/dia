@@ -125,12 +125,10 @@ void
 attributes_get_default_font(DiaFont **font, real *font_height)
 {
 	if (!attributes_font) {
-		/* choose default font name for your locale. see also font_data structure
-		   in lib/font.c. if "Courier" works for you, it would be better.  */
-		attributes_font = font_getfont(_("Courier"));
+		attributes_font = dia_font_new("sans",STYLE_NORMAL,attributes_font_height);
 	}
 	if (font)
-		*font = attributes_font;
+		*font = dia_font_ref(attributes_font);
 	if (font_height)
 		*font_height = attributes_font_height;
 }
@@ -138,6 +136,7 @@ attributes_get_default_font(DiaFont **font, real *font_height)
 void
 attributes_set_default_font(DiaFont *font, real font_height)
 {
-  attributes_font = font;
+  dia_font_unref(attributes_font);  
+  attributes_font = dia_font_ref(font);
   attributes_font_height = font_height;
 }

@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -225,8 +227,8 @@ box_apply_defaults()
 
   default_properties.padding = gtk_spin_button_get_value_as_float(box_defaults_dialog->padding);
   attributes_set_default_font(
-	dia_font_selector_get_font(box_defaults_dialog->font),
-	gtk_spin_button_get_value_as_float(box_defaults_dialog->font_size));
+      dia_font_selector_get_font(box_defaults_dialog->font),
+      gtk_spin_button_get_value_as_float(box_defaults_dialog->font_size));
 }
 
 static void
@@ -339,10 +341,12 @@ box_get_defaults()
 
   gtk_spin_button_set_value(box_defaults_dialog->padding,
 			    default_properties.padding);
+  font = NULL;
   attributes_get_default_font(&font, &font_height);
   dia_font_selector_set_font(box_defaults_dialog->font, font);
   gtk_spin_button_set_value(box_defaults_dialog->font_size, font_height);
-
+  dia_font_unref(font);
+  
   return box_defaults_dialog->vbox;
 }
 
@@ -593,7 +597,7 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
-    font_ascent(box->text->font, box->text->height);
+    box->text->ascent;
   text_set_position(box->text, &p);
 
   radius = box->corner_radius;
@@ -666,7 +670,7 @@ box_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
 
   init_default_values();
@@ -697,9 +701,10 @@ box_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
   box->text = new_text("", font, font_height, &p, &box->border_color,
-		       ALIGN_CENTER);
+                       ALIGN_CENTER);
   text_get_attributes(box->text,&box->attrs);
-
+  dia_font_unref(font);
+  
   element_init(elem, 8, 16);
 
   for (i=0;i<16;i++) {

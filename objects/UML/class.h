@@ -66,8 +66,6 @@ struct _UMLClass {
   GList *formal_params;
 
   /* Calculated variables: */
-  real font_ascent;
-  real abstract_font_ascent;
   
   real namebox_height;
   char *stereotype_string;

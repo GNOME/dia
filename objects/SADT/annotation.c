@@ -329,6 +329,7 @@ annotation_create(Point *startpoint,
   Object *obj; 
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
+  DiaFont* font;
 
   annotation = g_malloc0(sizeof(Annotation));
 
@@ -345,21 +346,13 @@ annotation_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-#if 0
-  annotation->text = new_text("", annotation_defaults.text_font,
-			      annotation_defaults.text_fontheight,
-			      &conn->endpoints[1],
-			      &annotation_defaults.text_color,
-			      ALIGN_CENTER);
-#else
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  annotation->text = new_text("", font_getfont (_("Helvetica")),
-			      ANNOTATION_FONTHEIGHT,
-			      &conn->endpoints[1],
-			      &color_black,
-			      ALIGN_CENTER);
-#endif
+  font = dia_font_new("Sans",STYLE_NORMAL,ANNOTATION_FONTHEIGHT);
+  annotation->text = new_text("", font,
+                              ANNOTATION_FONTHEIGHT,
+                              &conn->endpoints[1],
+                              &color_black,
+                              ALIGN_CENTER);
+  dia_font_unref(font);
 
   offs.x = .3 * ANNOTATION_FONTHEIGHT;
   if (conn->endpoints[1].y < conn->endpoints[0].y)

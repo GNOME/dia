@@ -291,7 +291,7 @@ component_update_data(Component *cmp)
     DiaFont *font;
     font = cmp->text->font;
     elem->height += cmp->text->height;
-    elem->width = MAX(elem->width, font_string_width(cmp->st_stereotype,
+    elem->width = MAX(elem->width, dia_font_string_width(cmp->st_stereotype,
 						     font, cmp->text->height) +
 		      2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH);
   }
@@ -343,9 +343,7 @@ component_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;
@@ -353,6 +351,8 @@ component_create(Point *startpoint,
   cmp->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   text_get_attributes(cmp->text,&cmp->attrs);
 
+  dia_font_unref(font);
+  
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {

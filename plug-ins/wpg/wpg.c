@@ -404,12 +404,17 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 static void
 set_font(MyRenderer *renderer, DiaFont *font, real height)
 {
+        /* FIXME PANGO: this is broken. Use better matching. */
+    
+  const char *family_name;
   DIAG_NOTE(g_message("set_font %f %s", height, font->name));
   renderer->TextStyle.Height = SC(height);
 
-  if (strstr(font->name, "Courier"))
+  family_name = dia_font_get_family(font);
+  
+  if ((strstr(family_name, "Courier")) || (strstr(family_name, "Monospace")))
     renderer->TextStyle.Font = 0x0DF0;
-  else if (strstr(font->name, "Times"))
+  else if (strstr(family_name, "Times"))
     renderer->TextStyle.Font = 0x1950;
   else
     renderer->TextStyle.Font = 0x1150; /* Helv */

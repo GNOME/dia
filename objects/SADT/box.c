@@ -348,7 +348,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
-    font_ascent(box->text->font, box->text->height);
+    box->text->ascent;
   text_set_position(box->text, &p);
 
   extra->border_trans = SADTBOX_LINE_WIDTH / 2.0;
@@ -471,7 +471,8 @@ sadtbox_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-
+  DiaFont* font;
+  
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
@@ -490,20 +491,16 @@ sadtbox_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
 
-  /*  box->text = new_text("", default_properties.font,
-		       default_properties.font_size, &p, 
-		       &SADTBOX_FG_COLOR,
-		       ALIGN_CENTER);
-  */
-
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  box->text = new_text("", font_getfont (_("Helvetica-Bold")),
-		       0.8, &p, 
-		       &color_black,
-		       ALIGN_CENTER);
+  font = dia_font_new("Sans",STYLE_BOLD,0.8);
+  
+  box->text = new_text("", font,
+                       0.8, &p, 
+                       &color_black,
+                       ALIGN_CENTER);
+  dia_font_unref(font);
+  
   box->id = g_strdup("A0"); /* should be made better. 
-				   Automatic counting ? */
+                               Automatic counting ? */
 
   element_init(elem, 8, 0);
 

@@ -279,9 +279,8 @@ implements_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   if (implements_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  implements_font = font_getfont (_("Courier"));
+	  implements_font = dia_font_new ("Monospace",
+                                    STYLE_NORMAL,IMPLEMENTS_FONTHEIGHT);
   }
   
   implements = g_malloc0(sizeof(Implements));
@@ -344,9 +343,9 @@ implements_update_data(Implements *implements)
 
   implements->text_width = 0.0;
   if (implements->text)
-    implements->text_width = font_string_width(implements->text,
-					       implements_font,
-					       IMPLEMENTS_FONTHEIGHT);
+    implements->text_width = dia_font_string_width(implements->text,
+                                                   implements_font,
+                                                   IMPLEMENTS_FONTHEIGHT);
 
   obj->position = conn->endpoints[0];
 
@@ -381,7 +380,9 @@ implements_update_data(Implements *implements)
   /* Add boundingbox for text: */
   rect.left = implements->text_pos.x;
   rect.right = rect.left + implements->text_width;
-  rect.top = implements->text_pos.y - font_ascent(implements_font, IMPLEMENTS_FONTHEIGHT);
+  rect.top = implements->text_pos.y - dia_font_ascent(implements->text,
+                                                      implements_font,
+                                                      IMPLEMENTS_FONTHEIGHT);
   rect.bottom = rect.top + IMPLEMENTS_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 }

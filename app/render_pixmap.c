@@ -369,9 +369,10 @@ set_fillstyle(RendererPixmap *renderer, FillStyle mode)
 static void
 set_font(RendererPixmap *renderer, DiaFont *font, real height)
 {
-  renderer->font_height = (int)height;
+  renderer->font_height = height;
 
-  renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+  dia_font_unref(renderer->font);
+  renderer->font = dia_font_ref(font);
 }
 
 static void
@@ -834,11 +835,12 @@ fill_bezier(RendererPixmap *renderer,
 		   bezier.gdk_points, bezier.currpoint);
 }
 
-struct pixmap_freetype_user_data {
-  GdkPixmap *pixmap;
-  GdkGC *gc;
-};
-
+static gint get_layout_first_baseline(PangoLayout* layout) {
+    PangoLayoutIter* iter = pango_layout_get_iter(layout);
+    gint result = pango_layout_iter_get_baseline(iter) / PANGO_SCALE;
+    pango_layout_iter_free(iter);
+    return result;
+}
 
 static void
 draw_string (RendererPixmap *renderer,
@@ -848,35 +850,38 @@ draw_string (RendererPixmap *renderer,
 {
   GdkGC *gc = renderer->render_gc;
   GdkColor gdkcolor;
-  int x,y;
-  int iwidth;
-  GdkWChar *wcstr;
-  gchar *str, *mbstr;
-  int length, wclength;
-  int i;
-  
-  x = (int)pos->x+renderer->xoffset;
-  y = (int)pos->y+renderer->yoffset;
 
-  iwidth = gdk_string_width(renderer->gdk_font, text);
+  int x,y;
+  Point start_pos;
+  PangoLayout* layout;
+  
+  point_copy(&start_pos,pos);
 
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    x -= iwidth/2;
+      start_pos.x -= dia_font_string_width(text, renderer->font,
+                                           renderer->font_height)/2;
     break;
   case ALIGN_RIGHT:
-    x -= iwidth;
+      start_pos.x -= dia_font_string_width(text, renderer->font,
+                                           renderer->font_height);
     break;
   }
+
   
+  x = (int)start_pos.x+renderer->xoffset;
+  y = (int)start_pos.y+renderer->yoffset;
+
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_string(renderer->pixmap,
-		  renderer->gdk_font, gc,
-		  x,y, text);
+  layout = dia_font_build_layout(text,renderer->font,renderer->font_height);
+  
+  y -= get_layout_first_baseline(layout);  
+  gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+  g_object_unref(G_OBJECT(layout));
 }
 
 static void

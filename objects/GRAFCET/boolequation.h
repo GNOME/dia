@@ -45,8 +45,10 @@ typedef struct {
 
   real width;
   real height;
+        /*
   real ascent;
   real descent;
+        */
 } Boolequation;
 
   

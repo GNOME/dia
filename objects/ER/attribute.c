@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -280,7 +282,8 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - attribute->font_height)/2.0 +
-         font_ascent(attribute->font, attribute->font_height);
+         dia_font_ascent(attribute->name,
+                         attribute->font, attribute->font_height);
 
   renderer->ops->set_font(renderer,  attribute->font, attribute->font_height);
   renderer->ops->draw_string(renderer, attribute->name, 
@@ -294,7 +297,8 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
     } else {
       renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     }
-    width = font_string_width(attribute->name, attribute->font, attribute->font_height);
+    width = dia_font_string_width(attribute->name,
+                                  attribute->font, attribute->font_height);
     start.x = center.x - width / 2;
     start.y = center.y + 0.4;
     end.x = center.x + width / 2;
@@ -313,7 +317,8 @@ attribute_update_data(Attribute *attribute)
   real half_x, half_y;
 
   attribute->name_width =
-    font_string_width(attribute->name, attribute->font, attribute->font_height);
+    dia_font_string_width(attribute->name,
+                          attribute->font, attribute->font_height);
 
   elem->width = attribute->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = attribute->font_height + 2*TEXT_BORDER_WIDTH_Y;
@@ -389,14 +394,13 @@ attribute_create(Point *startpoint,
   attribute->weakkey = FALSE;
   attribute->derived = FALSE;
   attribute->multivalue = FALSE;
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  attribute->font = font_getfont(_("Courier"));
+  attribute->font = dia_font_new("Monospace",STYLE_NORMAL,FONT_HEIGHT);
   attribute->font_height = FONT_HEIGHT;
   attribute->name = g_strdup(_("Attribute"));
 
   attribute->name_width =
-    font_string_width(attribute->name, attribute->font, attribute->font_height);
+    dia_font_string_width(attribute->name,
+                          attribute->font, attribute->font_height);
 
   attribute_update_data(attribute);
 
@@ -443,8 +447,8 @@ attribute_copy(Attribute *attribute)
     newattribute->connections[i].pos = attribute->connections[i].pos;
     newattribute->connections[i].last_pos = attribute->connections[i].last_pos;
   }
-
-  newattribute->font = attribute->font;
+  
+  newattribute->font = dia_font_ref(attribute->font);
   newattribute->font_height = attribute->font_height;
   newattribute->name = strdup(attribute->name);
   newattribute->name_width = attribute->name_width;
@@ -540,6 +544,7 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   if (attr != NULL)
     attribute->multivalue = data_boolean(attribute_first_data(attr));
 
+  dia_font_unref(attribute->font);
   attribute->font = NULL;
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
@@ -559,12 +564,13 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   }
 
   if (attribute->font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  attribute->font = font_getfont(_("Courier"));
+	  attribute->font = dia_font_new("Monospace",STYLE_NORMAL,
+                                   attribute->font_height);
   }
 
-  attribute->name_width = font_string_width(attribute->name, attribute->font, attribute->font_height);
+  attribute->name_width = dia_font_string_width(attribute->name,
+                                                attribute->font,
+                                                attribute->font_height);
   attribute_update_data(attribute);
 
   for (i=0;i<8;i++) {

@@ -527,7 +527,7 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     tprop->attr.alignment = textalignment;
     tprop->attr.position.x = location.x;
     tprop->attr.position.y = location.y;
-    tprop->attr.font = font_getfont(_("Courier"));
+    tprop->attr.font = dia_font_new("Monospace",STYLE_NORMAL,height);
     tprop->attr.height = height;
         
     text_obj->ops->set_props(text_obj, props);

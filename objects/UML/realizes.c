@@ -254,11 +254,11 @@ realizes_update_data(Realizes *realize)
   }
 
   if (realize->name)
-    realize->text_width = font_string_width(realize->name, realize_font,
+    realize->text_width = dia_font_string_width(realize->name, realize_font,
 					    REALIZES_FONTHEIGHT);
   if (realize->stereotype)
     realize->text_width = MAX(realize->text_width,
-			      font_string_width(realize->stereotype,
+			      dia_font_string_width(realize->stereotype,
 						realize_font,
 						REALIZES_FONTHEIGHT));
 
@@ -286,13 +286,14 @@ realizes_update_data(Realizes *realize)
   case HORIZONTAL:
     realize->text_align = ALIGN_CENTER;
     realize->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    realize->text_pos.y = points[i].y - font_descent(realize_font, REALIZES_FONTHEIGHT);
+    realize->text_pos.y = points[i].y -
+        dia_font_descent(realize->name,realize_font, REALIZES_FONTHEIGHT);
     break;
   case VERTICAL:
     realize->text_align = ALIGN_LEFT;
     realize->text_pos.x = points[i].x + 0.1;
-    realize->text_pos.y =
-      0.5*(points[i].y+points[i+1].y) - font_descent(realize_font, REALIZES_FONTHEIGHT);
+    realize->text_pos.y = 0.5*(points[i].y+points[i+1].y) -
+        dia_font_descent(realize->name, realize_font, REALIZES_FONTHEIGHT);
     break;
   }
 
@@ -301,7 +302,8 @@ realizes_update_data(Realizes *realize)
   if (realize->text_align == ALIGN_CENTER)
     rect.left -= realize->text_width/2.0;
   rect.right = rect.left + realize->text_width;
-  rect.top = realize->text_pos.y - font_ascent(realize_font, REALIZES_FONTHEIGHT);
+  rect.top = realize->text_pos.y -
+      dia_font_ascent(realize->name,realize_font, REALIZES_FONTHEIGHT);
   rect.bottom = rect.top + 2*REALIZES_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);
@@ -362,9 +364,7 @@ realizes_create(Point *startpoint,
   PolyBBExtras *extra;
 
   if (realize_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  realize_font = font_getfont (_("Courier"));
+	  realize_font = dia_font_new ("Monospace",STYLE_NORMAL,REALIZES_FONTHEIGHT);
   }
   
   realize = g_malloc0(sizeof(Realizes));

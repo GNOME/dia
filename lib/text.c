@@ -65,7 +65,7 @@ calc_width(Text *text)
   width = 0.0;
   for (i=0;i<text->numlines;i++) {
     text->row_width[i] =
-      font_string_width(text->line[i], text->font, text->height);
+      dia_font_string_width(text->line[i], text->font, text->height);
     width = MAX(width, text->row_width[i]);
   }
   
@@ -75,8 +75,16 @@ calc_width(Text *text)
 static void
 calc_ascent_descent(Text *text)
 {
-  text->ascent = font_ascent(text->font, text->height);
-  text->descent = font_descent(text->font, text->height);
+  real sig_a = 0.0,sig_d = 0.0;
+  guint i;
+    
+  for ( i = 0; i < text->numlines; i++) {
+      sig_a += dia_font_ascent(text->line[i], text->font, text->height);
+      sig_d += dia_font_descent(text->line[i], text->font, text->height);
+  }
+  
+  text->ascent = sig_a / (real)text->numlines;
+  text->descent = sig_d / (real)text->numlines;
 }
 
 static void
@@ -180,7 +188,7 @@ new_text(const char *string, DiaFont *font, real height,
 
   text = g_new(Text, 1);
 
-  text->font = font;
+  text->font = dia_font_ref(font);
   text->height = height;
 
   text->position = *pos;
@@ -223,7 +231,7 @@ text_copy(Text *text)
     copy->alloclen[i] = text->alloclen[i];
   }
   
-  copy->font = text->font;
+  copy->font = dia_font_ref(text->font);
   copy->height = text->height;
   copy->position = text->position;
   copy->color = text->color;
@@ -250,6 +258,7 @@ void
 text_destroy(Text *text)
 {
   free_string(text);
+  dia_font_unref(text->font);
   g_free(text);
 }
 
@@ -265,7 +274,8 @@ text_set_height(Text *text, real height)
 void
 text_set_font(Text *text, DiaFont *font)
 {
-  text->font = font;
+  dia_font_unref(text->font);
+  text->font = dia_font_ref(text->font);
   
   calc_width(text);
   calc_ascent_descent(text);
@@ -581,7 +591,7 @@ text_join_lines(Text *text, int first_line)
   text->row_width = g_realloc(text->row_width, sizeof(real)*numlines);
 
   text->row_width[first_line] = 
-    font_string_width(text->line[first_line], text->font, text->height);
+    dia_font_string_width(text->line[first_line], text->font, text->height);
 
   width = 0.0;
   for (i=0;i<text->numlines;i++) {
@@ -624,7 +634,9 @@ text_delete_forward(Text *text)
   if (text->cursor_pos > text->strlen[text->cursor_row])
     text->cursor_pos = text->strlen[text->cursor_row];
 
-  text->row_width[row] = font_string_width(text->line[row], text->font, text->height);
+  text->row_width[row] = dia_font_string_width(text->line[row],
+                                              text->font,
+                                              text->height);
   width = 0.0;
   for (i=0;i<text->numlines;i++) {
     width = MAX(width, text->row_width[i]);
@@ -663,7 +675,9 @@ text_delete_backward(Text *text)
   if (text->cursor_pos > text->strlen[text->cursor_row])
     text->cursor_pos = text->strlen[text->cursor_row];
 
-  text->row_width[row] = font_string_width(text->line[row], text->font, text->height);
+  text->row_width[row] = dia_font_string_width(text->line[row],
+                                              text->font,
+                                              text->height);
 
   width = 0.0;
   for (i=0;i<text->numlines;i++) {
@@ -718,9 +732,9 @@ text_split_line(Text *text)
   g_free(line);
 
   text->row_width[row] = 
-    font_string_width(text->line[row], text->font, text->height);
+    dia_font_string_width(text->line[row], text->font, text->height);
   text->row_width[row+1] = 
-    font_string_width(text->line[row+1], text->font, text->height);
+    dia_font_string_width(text->line[row+1], text->font, text->height);
 
   width = 0.0;
   for (i=0;i<text->numlines;i++) {
@@ -767,7 +781,8 @@ text_insert_char(Text *text, gunichar c)
   text->cursor_pos += 1;
   text->strlen[row] = length + unilen;
 
-  text->row_width[row] = font_string_width(text->line[row], text->font, text->height);
+  text->row_width[row] =
+      dia_font_string_width(text->line[row], text->font, text->height);
   text->max_width = MAX(text->max_width, text->row_width[row]);
 }
 
@@ -960,16 +975,18 @@ data_text(AttributeNode text_attr)
   if (attr != NULL)
     string = data_string(attribute_first_data(attr));
 
-  font = font_getfont("Courier");
-  attr = composite_find_attribute(text_attr, "font");
-  if (attr != NULL)
-    font = data_font(attribute_first_data(attr));
-
   height = 1.0;
   attr = composite_find_attribute(text_attr, "height");
   if (attr != NULL)
     height = data_real(attribute_first_data(attr));
 
+  attr = composite_find_attribute(text_attr, "font");
+  if (attr != NULL) {
+    font = data_font(attribute_first_data(attr));
+  } else {
+    font = dia_font_new("sans",STYLE_NORMAL,1.0);
+  }
+  
   attr = composite_find_attribute(text_attr, "pos");
   if (attr != NULL)
     data_point(attribute_first_data(attr), &pos);
@@ -985,13 +1002,14 @@ data_text(AttributeNode text_attr)
     align = data_enum(attribute_first_data(attr));
   
   text = new_text(string, font, height, &pos, &col, align);
+  if (font) dia_font_unref(font);
   if (string) g_free(string);
   return text;
 }
 
 void
 text_get_attributes(Text *text, TextAttributes *attr)
-{
+{    
   attr->font = text->font;
   attr->height = text->height;
   attr->position = text->position;
@@ -1002,7 +1020,10 @@ text_get_attributes(Text *text, TextAttributes *attr)
 void
 text_set_attributes(Text *text, TextAttributes *attr)
 {
-  text->font = attr->font;
+  if (text->font != attr->font) {
+      dia_font_unref(attr->font);
+      text->font = dia_font_ref(attr->font);
+  }
   text->height = attr->height;
   text->position = attr->position;
   text->color = attr->color;

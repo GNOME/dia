@@ -28,6 +28,18 @@
 #include <gtk/gtkradiomenuitem.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
+#include <pango/pango.h>
+#if G_OS_WIN32
+#include <pango/pangowin32.h>
+#define pango_platform_font_map_for_display() \
+    pango_win32_font_map_for_display()
+#else
+#include <pango/pangoft2.h>
+#define pango_platform_font_map_for_display() \
+    pango_ft2_font_map_for_display()
+      /* Could have used X's font map ? */
+#endif
+
 
 void dia_font_selector_set_styles (DiaFontSelector *fs, DiaFont *font);
 guchar **dia_font_selector_get_sorted_names();
@@ -45,8 +57,9 @@ static void fill_menu(GtkMenu *menu, GSList **group,
 
   while (md->name) {
     menuitem = gtk_radio_menu_item_new_with_label (*group, md->name);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), 
-                             GINT_TO_POINTER(md->enum_value));
+    gtk_object_set_user_data(
+        GTK_OBJECT(menuitem), 
+        GINT_TO_POINTER(((struct menudesc*)md)->enum_value));
     *group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
     gtk_widget_show (menuitem);
@@ -139,6 +152,8 @@ static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
 #ifdef HAVE_FREETYPE
+        /* Lars said to not nuke this yet  -- cc, 22 jun 2002 */
+    
   /* Go through hash table and build menu */
   GtkWidget *menu;
   GtkWidget *omenu;
@@ -187,24 +202,28 @@ dia_font_selector_init (DiaFontSelector *fs)
   GtkWidget *submenu;
   GtkWidget *menuitem;
   GSList *group;
-  GList *list;
-  char *fontname;
-  
+  const char *familyname;
+  PangoFontMap *fmap;
+  PangoFontFamily **families;
+  int n_families,i;
+      
   menu = gtk_menu_new ();
   fs->font_menu = GTK_MENU(menu);
   submenu = NULL;
   group = NULL;
 
-  list = font_names;
-  while (list != NULL) {
-    fontname = (char *) list->data;
-    menuitem = gtk_radio_menu_item_new_with_label (group, fontname);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
+  fmap = pango_platform_font_map_for_display();  
+  pango_font_map_list_families(fmap,&families,&n_families);
+
+  for (i = 0; i < n_families; ++i) {
+    familyname = pango_font_family_get_name(families[i]);
+    menuitem = gtk_radio_menu_item_new_with_label (group, familyname);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), (char *)familyname);
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
     gtk_widget_show (menuitem);
-
-    list = g_list_next(list);
+        /* We COULD (SHOULD?) open sub-menus listing each face in each family
+         */           
   }
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
@@ -215,9 +234,12 @@ guint
 dia_font_selector_get_type        (void)
 {
   static guint dfs_type = 0;
-  GList *list;
   char *fontname;
   int i;
+  PangoFontMap *fmap;
+  PangoFontFamily **families;
+  int n_families;
+
 #ifdef HAVE_FREETYPE
   guchar **fontnames;
   int num_fonts;
@@ -254,18 +276,17 @@ dia_font_selector_get_type        (void)
     }
     g_free(fontnames);
 #else
-    /* Notice starting at 1, to be able to discern from NULL return value */
-    i=1;
-    list = font_names;
-    while (list != NULL) {
-      fontname = (char *) list->data;
+    /* Notice adding 1, to be able to discern from NULL return value */
+
+    fmap = pango_platform_font_map_for_display();  
+    pango_font_map_list_families(fmap,&families,&n_families);
+
+    for (i = 0; i < n_families; ++i) {
+        fontname = (char *) pango_font_family_get_name(families[i]);
       
-      g_hash_table_insert(font_nr_hashtable,
-			  fontname,
-			  GINT_TO_POINTER(i));
-  
-      list = g_list_next(list);
-      i++;
+        g_hash_table_insert(font_nr_hashtable,
+                            fontname,
+                            GINT_TO_POINTER(i+1));
     }
 #endif
   }
@@ -316,10 +337,11 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   int font_nr;
 
   font_nr_ptr = g_hash_table_lookup(font_nr_hashtable,
-				    font->name);
+                                    dia_font_get_family(font));
 
   if (font_nr_ptr==NULL) {
-    message_error("Trying to set invalid font %s!\n", font->name);
+    message_error(_("Trying to set invalid font %s!\n"),
+                  dia_font_get_family(font));
     font_nr = 0;
   } else {
     /* Notice subtracting 1, to be able to discern from NULL return value */
@@ -354,7 +376,7 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   stylename = gtk_object_get_user_data(GTK_OBJECT(menuitem));
   return font_getfont_with_style(fontname, stylename);
 #else
-  return font_getfont(fontname);
+  return dia_font_new(fontname,STYLE_NORMAL,1.0);
 #endif
 }
 

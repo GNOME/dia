@@ -352,7 +352,7 @@ objet_update_data(Objet *ob)
   }
     
   if ((ob->stereotype != NULL) && (ob->stereotype[0] != '\0')) {
-      w = font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT);
+      w = dia_font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT);
       h += OBJET_FONTHEIGHT;
       ob->st_pos.y = h;
       h += OBJET_MARGIN_Y/2.0;
@@ -364,7 +364,7 @@ objet_update_data(Objet *ob)
   h += ob->text->height*ob->text->numlines;
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
-      w = MAX(w, font_string_width(ob->exstate, font, OBJET_FONTHEIGHT));
+      w = MAX(w, dia_font_string_width(ob->exstate, font, OBJET_FONTHEIGHT));
       h += OBJET_FONTHEIGHT;
       ob->ex_pos.y = h;
   }
@@ -442,9 +442,7 @@ objet_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,OBJET_FONTHEIGHT);
   
   ob->show_attributes = FALSE;
   ob->is_active = FALSE;
@@ -461,6 +459,8 @@ objet_create(Point *startpoint,
   ob->attrib = NULL;
   ob->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
 
+  dia_font_unref(font);
+  
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {

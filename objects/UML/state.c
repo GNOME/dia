@@ -347,15 +347,16 @@ state_create(Point *startpoint,
   elem->width = STATE_WIDTH;
   elem->height = STATE_HEIGHT;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
   
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   text_get_attributes(state->text,&state->attrs);
+
+  dia_font_unref(font);
+  
   state->state_type = STATE_NORMAL;
   element_init(elem, 8, 8);
   

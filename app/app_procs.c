@@ -317,6 +317,7 @@ app_init (int argc, char **argv)
 
   dia_image_init();
 
+  
   gdk_rgb_init();
 
   gtk_rc_parse ("diagtkrc"); 
@@ -328,7 +329,7 @@ app_init (int argc, char **argv)
 
   color_init();
 
-  font_init();
+  dia_font_init(gdk_pango_context_get());
 
   /* Init cursors: */
   default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
@@ -470,8 +471,8 @@ app_exit(void)
                GTK_MESSAGE_QUESTION,
                GTK_BUTTONS_NONE, /* no standard buttons */
 	       _("Modified diagrams exist.\n"
-		 "Are you sure you want to quit Dia\n"
-		 "without saving them?"),
+           "Are you sure you want to quit Dia\n"
+           "without saving them?"),
 	       NULL);
     gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
 

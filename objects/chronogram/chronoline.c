@@ -452,10 +452,10 @@ chronoline_draw(Chronoline *chronoline, Renderer *renderer)
   renderer->ops->draw_line(renderer,&p1,&p2,&chronoline->color);
 
   renderer->ops->set_font(renderer, chronoline->font, 
-			  chronoline->font_size);
+                          chronoline->font_size);
   p3.y = lr_corner.y - chronoline->font_size 
-    + font_ascent(chronoline->font, 
-		  chronoline->font_size);
+      + dia_font_ascent(chronoline->name,
+                        chronoline->font,chronoline->font_size);
   p3.x = p1.x - chronoline->main_lwidth;
   renderer->ops->draw_string(renderer,chronoline->name,&p3,ALIGN_RIGHT,
 			     &chronoline->color);
@@ -485,9 +485,9 @@ chronoline_update_data(Chronoline *chronoline)
   grayify(&chronoline->datagray,&chronoline->data_color);
   grayify(&chronoline->gray,&chronoline->color);
 
-  chronoline->labelwidth = font_string_width(chronoline->name,
-					     chronoline->font,
-					     chronoline->font_size);
+  chronoline->labelwidth = dia_font_string_width(chronoline->name,
+                                                 chronoline->font,
+                                                 chronoline->font_size);
 
   chronoline->y_up = elem->corner.y;
   chronoline->y_down = elem->corner.y + elem->height;
@@ -606,9 +606,8 @@ chronoline_create(Point *startpoint,
 
   chronoline->name = g_strdup("");
   chronoline->events = g_strdup("");
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  chronoline->font = font_getfont (_("Helvetica"));
+
+  chronoline->font = dia_font_new ("Sans",STYLE_NORMAL,1.0);
   chronoline->font_size = 1.0;
   chronoline->font_color = color_black;
   chronoline->start_time = 0.0;
@@ -634,6 +633,7 @@ chronoline_create(Point *startpoint,
 static void 
 chronoline_destroy(Chronoline *chronoline)
 {
+  dia_font_unref(chronoline->font);
   connpointline_destroy(chronoline->snap);
   destroy_clevent_list(chronoline->evtlist);
   element_destroy(&chronoline->element);

@@ -346,9 +346,7 @@ message_create(Point *startpoint,
   Object *obj;
 
   if (message_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. */
-	  message_font = font_getfont (_("Helvetica"));
+	  message_font = dia_font_new ("Sans", STYLE_NORMAL, MESSAGE_FONTHEIGHT);
   }
   
   message = g_malloc0(sizeof(Message));
@@ -412,12 +410,13 @@ message_update_data(Message *message)
   connection_update_boundingbox(conn);
 
   message->text_width =
-    font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
+    dia_font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
 
   /* Add boundingbox for text: */
   rect.left = message->text_pos.x-message->text_width/2;
   rect.right = rect.left + message->text_width;
-  rect.top = message->text_pos.y - font_ascent(message_font, MESSAGE_FONTHEIGHT);
+  rect.top = message->text_pos.y -
+      dia_font_ascent(message->text, message_font, MESSAGE_FONTHEIGHT);
   rect.bottom = rect.top + MESSAGE_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 }

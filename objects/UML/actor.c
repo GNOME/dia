@@ -325,15 +325,15 @@ actor_create(Point *startpoint,
   elem->width = ACTOR_WIDTH;
   elem->height = ACTOR_HEIGHT;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += ACTOR_MARGIN_X;
-  p.y += ACTOR_HEIGHT - font_descent(font, 0.8);
+  p.y += ACTOR_HEIGHT - dia_font_descent(_("Actor"),font, 0.8);
 
   actor->text = new_text(_("Actor"), 
                          font, 0.8, &p, &color_black, ALIGN_CENTER);
+  dia_font_unref(font);
+  
   text_get_attributes(actor->text,&actor->attrs);
   
   element_init(elem, 8, 8);

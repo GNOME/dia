@@ -382,14 +382,13 @@ usecase_create(Point *startpoint,
   elem->width = USECASE_WIDTH;
   elem->height = USECASE_HEIGHT;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new("Sans",STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;
   
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  dia_font_unref(font);  
   text_get_attributes(usecase->text,&usecase->attrs);
   usecase->text_outside = 0;
   usecase->collaboration = 0;

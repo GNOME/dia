@@ -198,6 +198,13 @@ umlclass_move(UMLClass *umlclass, Point *to)
 static void
 umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 {
+            /* Most of this crap could be rendered much more efficiently
+               (and probably much cleaner as well) using marked-up
+               Pango layout text.
+
+            Breaking this function up into smaller, manageable and indented
+            pieces would not hurt either -- cc */
+
   Element *elem;
   real x,y;
   Point p, p1, p2, p3;
@@ -225,24 +232,27 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   p2.y = y;
   
   renderer->ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &umlclass->color_background);
+                           &p1, &p2,
+                           &umlclass->color_background);
   renderer->ops->draw_rect(renderer, 
-			   &p1, &p2,
-			   &umlclass->color_foreground);
+                           &p1, &p2,
+                           &umlclass->color_foreground);
 
   /* stereotype: */
-  font = umlclass->normal_font;
   p.x = x + elem->width / 2.0;
   p.y = p1.y;
 
   if (umlclass->stereotype != NULL) {
-    p.y += 0.1 + umlclass->font_ascent;
-    renderer->ops->set_font(renderer, font, umlclass->font_height);
+    p.y += 0.1 + dia_font_ascent(umlclass->stereotype_string,
+                                 umlclass->normal_font,
+                                 umlclass->font_height);
+    
+    renderer->ops->set_font(renderer,
+                            umlclass->normal_font, umlclass->font_height);
     renderer->ops->draw_string(renderer,
-			       umlclass->stereotype_string,
-			       &p, ALIGN_CENTER, 
-			       &umlclass->color_foreground);
+                               umlclass->stereotype_string,
+                               &p, ALIGN_CENTER, 
+                               &umlclass->color_foreground);
   }
 
   /* name: */
@@ -258,9 +268,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 
   renderer->ops->set_font(renderer, font, font_height);
   renderer->ops->draw_string(renderer,
-			     umlclass->name,
-			     &p, ALIGN_CENTER, 
-			     &umlclass->color_foreground);
+                             umlclass->name,
+                             &p, ALIGN_CENTER, 
+                             &umlclass->color_foreground);
   
   if (umlclass->visible_attributes) {
     p1.x = x;
@@ -282,43 +292,43 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       i = 0;
       list = umlclass->attributes;
       while (list != NULL) {
-	UMLAttribute *attr = (UMLAttribute *)list->data;
-	if (attr->abstract) {
-	  font = umlclass->abstract_font;
-          font_height = umlclass->abstract_font_height;
-          p.y += umlclass->abstract_font_ascent;
-        } else {
-	  font = umlclass->normal_font;
-          font_height = umlclass->font_height;
-          p.y += umlclass->font_ascent;
-        }
-
-        renderer->ops->set_font (renderer, font, font_height);
-	renderer->ops->draw_string(renderer,
-				   umlclass->attributes_strings[i],
-				   &p, ALIGN_LEFT, 
-				   &umlclass->color_foreground);
-	if (attr->class_scope) {
-	  p1 = p;
-          p1.y += font_height * 0.1;
-	  p3 = p1;
-	  p3.x += font_string_width(umlclass->attributes_strings[i],
-				    font, font_height);
-	  renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-	  renderer->ops->draw_line(renderer, &p1, &p3,  &umlclass->color_foreground);
-	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
-	}
+         UMLAttribute *attr = (UMLAttribute *)list->data;
+         if (attr->abstract) {
+           font = umlclass->abstract_font;
+           font_height = umlclass->abstract_font_height;
+         } else {
+           font = umlclass->normal_font;
+           font_height = umlclass->font_height;
+         }
+         p.y += dia_font_ascent(umlclass->attributes_strings[i],
+                                font,font_height);
+    
+         renderer->ops->set_font (renderer, font, font_height);
+         renderer->ops->draw_string(renderer,
+                                    umlclass->attributes_strings[i],
+                                    &p, ALIGN_LEFT, 
+                                    &umlclass->color_foreground);
+         if (attr->class_scope) {
+           p1 = p;
+           p1.y += font_height * 0.1;
+           p3 = p1;
+           p3.x += dia_font_string_width(umlclass->attributes_strings[i],
+                                         font, font_height);
+           renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
+           renderer->ops->draw_line(renderer,
+                                    &p1, &p3, &umlclass->color_foreground);
+           renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
+         }    
 	
-	if (attr->abstract) 
-          p.y += font_height-umlclass->abstract_font_ascent;
-        else
-          p.y += font_height-umlclass->font_ascent;
+         p.y += dia_font_ascent(umlclass->attributes_strings[i],
+                                font,font_height);
 	
-	list = g_list_next(list);
-	i++;
+         list = g_list_next(list);
+         i++;
       }
     }
   }
+
 
   if (umlclass->visible_operations) {
     p1.x = x;
@@ -327,11 +337,11 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     p2.y = y;
     
     renderer->ops->fill_rect(renderer, 
-			     &p1, &p2,
-			     &umlclass->color_background);
+                             &p1, &p2,
+                             &umlclass->color_background);
     renderer->ops->draw_rect(renderer, 
-			     &p1, &p2,
-			     &umlclass->color_foreground);
+                             &p1, &p2,
+                             &umlclass->color_foreground);
     if (!umlclass->suppress_operations) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
       p.y = p1.y + 0.1;
@@ -339,42 +349,41 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       i = 0;
       list = umlclass->operations;
       while (list != NULL) {
-	UMLOperation *op = (UMLOperation *)list->data;
-	/* Must add a new font for virtual yet not abstract methods. Bold Italic for abstract? */
-	if (op->inheritance_type != UML_LEAF) {
-	  font = umlclass->abstract_font;
+        UMLOperation *op = (UMLOperation *)list->data;
+            /* Must add a new font for virtual yet not abstract methods.
+               Bold Italic for abstract? */
+        if (op->inheritance_type != UML_LEAF) {
+          font = umlclass->abstract_font;
           font_height = umlclass->abstract_font_height;
-          p.y += umlclass->abstract_font_ascent;
-	} else {
-	  font = umlclass->normal_font;
+        } else {
+          font = umlclass->normal_font;
           font_height = umlclass->font_height;
-          p.y += umlclass->font_ascent;
         }
 
-	renderer->ops->set_font(renderer, font, font_height);
-	renderer->ops->draw_string(renderer,
-				   umlclass->operations_strings[i],
-				   &p, ALIGN_LEFT, 
-				   &umlclass->color_foreground);
+        p.y += umlclass->font_height;
 
-	if (op->class_scope) {
-	  p1 = p; 
-	  p1.y += font_height * 0.1;
-	  p3 = p1;
-	  p3.x += font_string_width(umlclass->operations_strings[i],
-				    font, font_height);
-	  renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-	  renderer->ops->draw_line(renderer, &p1, &p3,  &umlclass->color_foreground);
-	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
-	}
+        renderer->ops->set_font(renderer, font, font_height);
+        renderer->ops->draw_string(renderer,
+                                   umlclass->operations_strings[i],
+                                   &p, ALIGN_LEFT, 
+                                   &umlclass->color_foreground);
+        
+        if (op->class_scope) {
+          p1 = p; 
+          p1.y += font_height * 0.1;
+          p3 = p1;
+          p3.x += dia_font_string_width(umlclass->operations_strings[i],
+                                        font, font_height);
+          renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
+          renderer->ops->draw_line(renderer, &p1, &p3,
+                                   &umlclass->color_foreground);
+          renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
+        }
 
-	if (op->inheritance_type != UML_LEAF) 
-          p.y += font_height-umlclass->abstract_font_ascent;
-        else
-          p.y += font_height-umlclass->font_ascent;
-
-	list = g_list_next(list);
-	i++;
+        p.y += umlclass->font_height;
+        
+        list = g_list_next(list);
+        i++;
       }
     }
   }
@@ -389,33 +398,33 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     p2.y = y + umlclass->templates_height;
     
     renderer->ops->fill_rect(renderer, 
-			     &p1, &p2,
-			     &umlclass->color_background);
+                             &p1, &p2,
+                             &umlclass->color_background);
 
     renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
     renderer->ops->set_dashlength(renderer, 0.3);
     
     renderer->ops->draw_rect(renderer, 
-			     &p1, &p2,
-			     &umlclass->color_foreground);
+                             &p1, &p2,
+                             &umlclass->color_foreground);
 
     p.x = x + 0.3;
-    p.y = y + 0.1 + font_ascent(umlclass->normal_font, umlclass->font_height);
 
     renderer->ops->set_font(renderer, umlclass->normal_font,
-			    umlclass->font_height);
+                            umlclass->font_height);
     i = 0;
     list = umlclass->formal_params;
     while (list != NULL) {
       /*UMLFormalParameter *param = (UMLFormalParameter *)list->data;*/
+      p.y = y + 0.1 + (umlclass->font_height * i) +
+              dia_font_ascent(umlclass->templates_strings[i],
+                              umlclass->normal_font, umlclass->font_height);
 
       renderer->ops->draw_string(renderer,
-				 umlclass->templates_strings[i],
-				 &p, ALIGN_LEFT, 
-				 &umlclass->color_foreground);
+                                 umlclass->templates_strings[i],
+                                 &p, ALIGN_LEFT, 
+                                 &umlclass->color_foreground);      
       
-      p.y += umlclass->font_height;
-
       list = g_list_next(list);
       i++;
     }
@@ -504,19 +513,24 @@ umlclass_calculate_data(UMLClass *umlclass)
   real maxwidth;
   real width;
   
-  umlclass->font_ascent = font_ascent(umlclass->normal_font, umlclass->font_height);
-  umlclass->abstract_font_ascent = font_ascent(umlclass->abstract_font, umlclass->abstract_font_height);
+/*  umlclass->font_ascent =
+          dia_font_ascent(umlclass->normal_font, umlclass->font_height);
 
+          umlclass->abstract_font_ascent =
+          dia_font_ascent(umlclass->abstract_font,
+          umlclass->abstract_font_height);
+*/
   /* name box: */
 
-  if (umlclass->abstract) 
-    maxwidth = font_string_width(umlclass->name,
-				 umlclass->abstract_classname_font,
-				 umlclass->abstract_classname_font_height);
-  else 
-    maxwidth = font_string_width(umlclass->name,
-				 umlclass->classname_font,
-				 umlclass->classname_font_height);
+  if (umlclass->abstract) { 
+    maxwidth = dia_font_string_width(umlclass->name,
+                                     umlclass->abstract_classname_font,
+                                     umlclass->abstract_classname_font_height);
+  } else { 
+    maxwidth = dia_font_string_width(umlclass->name,
+                                     umlclass->classname_font,
+                                     umlclass->classname_font_height);
+  }
 
   umlclass->namebox_height = umlclass->classname_font_height + 4*0.1;
   if (umlclass->stereotype_string != NULL) {
@@ -530,7 +544,9 @@ umlclass_calculate_data(UMLClass *umlclass)
 			UML_STEREOTYPE_END,
 			NULL);
 
-    width = font_string_width (umlclass->stereotype_string, umlclass->normal_font, umlclass->font_height);
+    width = dia_font_string_width (umlclass->stereotype_string,
+                                   umlclass->normal_font,
+                                   umlclass->font_height);
     maxwidth = MAX(width, maxwidth);
   } else {
     umlclass->stereotype_string = NULL;
@@ -559,11 +575,15 @@ umlclass_calculate_data(UMLClass *umlclass)
       umlclass->attributes_strings[i] = uml_get_attribute_string(attr);
 
       if (attr->abstract) {
-	width = font_string_width(umlclass->attributes_strings[i], umlclass->abstract_font, umlclass->abstract_font_height);
+        width = dia_font_string_width(umlclass->attributes_strings[i],
+                                      umlclass->abstract_font,
+                                      umlclass->abstract_font_height);
         umlclass->attributesbox_height += umlclass->abstract_font_height;
       }
       else {
-	width = font_string_width(umlclass->attributes_strings[i], umlclass->normal_font, umlclass->font_height);
+        width = dia_font_string_width(umlclass->attributes_strings[i],
+                                      umlclass->normal_font,
+                                      umlclass->font_height);
         umlclass->attributesbox_height += umlclass->font_height;
       }
       maxwidth = MAX(width, maxwidth);
@@ -591,7 +611,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   umlclass->operations_strings = NULL;
   if (umlclass->num_operations != 0) {
     umlclass->operations_strings =
-      g_malloc (sizeof (gchar *) * umlclass->num_operations);
+            g_malloc (sizeof (gchar *) * umlclass->num_operations);
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
@@ -601,10 +621,14 @@ umlclass_calculate_data(UMLClass *umlclass)
       umlclass->operations_strings[i] = uml_get_operation_string(op);
       
       if (op->inheritance_type != UML_LEAF) {
-	width = font_string_width(umlclass->operations_strings[i], umlclass->abstract_font, umlclass->abstract_font_height);
+        width = dia_font_string_width(umlclass->operations_strings[i],
+                                      umlclass->abstract_font,
+                                      umlclass->abstract_font_height);
         umlclass->operationsbox_height += umlclass->abstract_font_height;
       } else {
-	width = font_string_width(umlclass->operations_strings[i], umlclass->normal_font, umlclass->font_height);
+        width = dia_font_string_width(umlclass->operations_strings[i],
+                                      umlclass->normal_font,
+                                      umlclass->font_height);
         umlclass->operationsbox_height += umlclass->font_height;
       }
       maxwidth = MAX(width, maxwidth);
@@ -635,7 +659,8 @@ umlclass_calculate_data(UMLClass *umlclass)
   }
   umlclass->num_templates = g_list_length(umlclass->formal_params);
 
-  umlclass->templates_height = umlclass->font_height * umlclass->num_templates + 2*0.1;
+  umlclass->templates_height =
+          umlclass->font_height * umlclass->num_templates + 2*0.1;
   umlclass->templates_height = MAX(umlclass->templates_height, 1.0);
 
 
@@ -652,8 +677,9 @@ umlclass_calculate_data(UMLClass *umlclass)
       param = (UMLFormalParameter *) list->data;
       umlclass->templates_strings[i] = uml_get_formalparameter_string(param);
       
-      width = font_string_width(umlclass->templates_strings[i],
-				umlclass->normal_font, umlclass->font_height);
+      width = dia_font_string_width(umlclass->templates_strings[i],
+                                    umlclass->normal_font,
+                                    umlclass->font_height);
       maxwidth = MAX(width, maxwidth);
 
       i++;
@@ -666,30 +692,23 @@ umlclass_calculate_data(UMLClass *umlclass)
 static void
 fill_in_fontdata(UMLClass *umlclass)
 {
-        if (umlclass->normal_font == NULL) {
-                umlclass->font_height = 0.8;
-                /* choose default font name for your locale. see also font_data structure
-                   in lib/font.c. if "Courier" works for you, it would be better.  */
-                umlclass->normal_font = font_getfont(_("Courier"));
-        }
-        if (umlclass->abstract_font == NULL) {
-                umlclass->abstract_font_height = 0.8;
-                /* choose default font name for abstract for your locale. see also font_data
-                   structure in lib/font.c. */
-                umlclass->abstract_font = font_getfont(_("Courier-Oblique"));
-        }
-        if (umlclass->classname_font == NULL) {
-                umlclass->classname_font_height = 1.0;
-                /* choose default font name for class name font for your locale. see also font_data
-                   structure in lib/font.c. */
-                umlclass->classname_font = font_getfont(_("Helvetica-Bold"));
-        }
-        if (umlclass->abstract_classname_font == NULL) {
-                umlclass->abstract_classname_font_height = 1.0;
-                /* choose default font name for abstract class name for your locale. see also font_data
-                   structure in lib/font.c. */
-                umlclass->abstract_classname_font = font_getfont(_("Helvetica-BoldOblique"));
-        }
+   if (umlclass->normal_font == NULL) {
+     umlclass->font_height = 0.8;
+     umlclass->normal_font = dia_font_new("Monospace",STYLE_NORMAL,0.8);
+   }
+   if (umlclass->abstract_font == NULL) {
+     umlclass->abstract_font_height = 0.8;
+     umlclass->abstract_font = dia_font_new("Monospace",STYLE_ITALIC,0.8);
+   }
+   if (umlclass->classname_font == NULL) {
+     umlclass->classname_font_height = 1.0;
+     umlclass->classname_font = dia_font_new("Sans",STYLE_BOLD,1.0);
+   }
+   if (umlclass->abstract_classname_font == NULL) {
+     umlclass->abstract_classname_font_height = 1.0;
+     umlclass->abstract_classname_font = dia_font_new("Sans",
+                                                      STYLE_BOLD_ITALIC,1.0);
+   }
 }
 
 static Object *
@@ -771,8 +790,11 @@ umlclass_destroy(UMLClass *umlclass)
   UMLAttribute *attr;
   UMLOperation *op;
   UMLFormalParameter *param;
-  
-  element_destroy(&umlclass->element);
+
+  dia_font_unref(umlclass->normal_font);
+  dia_font_unref(umlclass->abstract_font);
+  dia_font_unref(umlclass->classname_font);
+  dia_font_unref(umlclass->abstract_classname_font);
   
   g_free(umlclass->name);
   if (umlclass->stereotype != NULL)
@@ -836,6 +858,7 @@ umlclass_destroy(UMLClass *umlclass)
     g_list_free(umlclass->properties_dialog->deleted_connections);
     g_free(umlclass->properties_dialog);
   }
+  element_destroy(&umlclass->element);  
 }
 
 static Object *
@@ -863,11 +886,17 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->font_height = umlclass->font_height;
   newumlclass->abstract_font_height = umlclass->abstract_font_height;
   newumlclass->classname_font_height = umlclass->classname_font_height;
-  newumlclass->abstract_classname_font_height = umlclass->abstract_classname_font_height;
-  newumlclass->normal_font = umlclass->normal_font;
-  newumlclass->abstract_font = umlclass->abstract_font;
-  newumlclass->classname_font = umlclass->classname_font;
-  newumlclass->abstract_classname_font = umlclass->abstract_classname_font;
+  newumlclass->abstract_classname_font_height =
+          umlclass->abstract_classname_font_height;
+
+  newumlclass->normal_font =
+          dia_font_ref(umlclass->normal_font);
+  newumlclass->abstract_font =
+          dia_font_ref(umlclass->abstract_font);
+  newumlclass->classname_font =
+          dia_font_ref(umlclass->classname_font);
+  newumlclass->abstract_classname_font =
+          dia_font_ref(umlclass->abstract_classname_font);
 
   newumlclass->name = strdup(umlclass->name);
   if (umlclass->stereotype != NULL)

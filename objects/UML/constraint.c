@@ -264,9 +264,8 @@ constraint_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   if (constraint_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  constraint_font = font_getfont(_("Courier"));
+	  constraint_font = dia_font_new("Monospace",STYLE_NORMAL,
+                                   CONSTRAINT_FONTHEIGHT);
   }
   
   constraint = g_malloc0(sizeof(Constraint));
@@ -329,10 +328,9 @@ constraint_update_data(Constraint *constraint)
   
   obj->position = conn->endpoints[0];
 
-  constraint->text_width =
-    font_string_width(constraint->brtext, 
-                      constraint_font, 
-                      CONSTRAINT_FONTHEIGHT);
+  constraint->text_width = dia_font_string_width(constraint->brtext, 
+                                                 constraint_font, 
+                                                 CONSTRAINT_FONTHEIGHT);
   
   constraint->text_handle.pos = constraint->text_pos;
 
@@ -351,7 +349,9 @@ constraint_update_data(Constraint *constraint)
   /* Add boundingbox for text: */
   rect.left = constraint->text_pos.x;
   rect.right = rect.left + constraint->text_width;
-  rect.top = constraint->text_pos.y - font_ascent(constraint_font, CONSTRAINT_FONTHEIGHT);
+  rect.top = constraint->text_pos.y -
+      dia_font_ascent(constraint->brtext,
+                      constraint_font, CONSTRAINT_FONTHEIGHT);
   rect.bottom = rect.top + CONSTRAINT_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 }

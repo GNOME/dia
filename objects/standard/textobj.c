@@ -242,9 +242,12 @@ textobj_get_defaults()
   }
 
   dia_alignment_selector_set_alignment(textobj_defaults_dialog->alignment, default_properties.alignment);
+
+  font = NULL;
   attributes_get_default_font(&font, &font_height);
   dia_font_selector_set_font(textobj_defaults_dialog->font, font);
   gtk_spin_button_set_value(textobj_defaults_dialog->font_size, font_height);
+  dia_font_unref(font);
   
   return textobj_defaults_dialog->vbox;
 }
@@ -316,7 +319,7 @@ textobj_create(Point *startpoint,
   Textobj *textobj;
   Object *obj;
   Color col;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
   
   textobj = g_malloc0(sizeof(Textobj));
@@ -331,7 +334,8 @@ textobj_create(Point *startpoint,
   textobj->text = new_text("", font, font_height,
 			   startpoint, &col, default_properties.alignment );
   text_get_attributes(textobj->text,&textobj->attrs);
-
+  dia_font_unref(font);
+  
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;
@@ -383,10 +387,10 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL) {
 	  textobj->text = data_text( attribute_first_data(attr) );
   } else {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  textobj->text = new_text("", font_getfont (_("Courier")), 1.0,
-				   &startpoint, &color_black, ALIGN_CENTER);
+      DiaFont* font = dia_font_new("Monospace",STYLE_NORMAL,1.0);
+      textobj->text = new_text("", font, 1.0,
+                               &startpoint, &color_black, ALIGN_CENTER);
+      dia_font_unref(font);
   }
 
   object_init(obj, 1, 0);

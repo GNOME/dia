@@ -300,12 +300,14 @@ note_create(Point *startpoint,
 
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
-  font = font_getfont (_("Courier"));
+  font = dia_font_new ("Monospace",STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += NOTE_BORDERWIDTH/2.0 + NOTE_MARGIN_X;
-  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + font_ascent(font, 0.8);
+  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
   
   note->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  dia_font_unref(font);
+
   text_get_attributes(note->text,&note->attrs);
   
   element_init(elem, 8, 8);

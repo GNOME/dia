@@ -37,6 +37,17 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+#if G_OS_WIN32
+#include <pango/pangowin32.h>
+#define pango_platform_font_map_for_display() \
+    pango_win32_font_map_for_display()
+#else
+#include <pango/pangoft2.h>
+#define pango_platform_font_map_for_display() \
+    pango_ft2_font_map_for_display()
+      /* Could have used X's font map ? */
+#endif
+
 static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
 
@@ -135,31 +146,40 @@ static gchar *fontlist;
 static gint fontlistlen;
 static GHashTable *fonthash;
 #define FONT_NUM(font) GPOINTER_TO_INT(g_hash_table_lookup(fonthash, \
-  font->name))
+     dia_font_get_family(font)))
 
 static void
 init_fonts(void)
 {
+        /* PANGO FIXME: this is probably broken to some extent now */
     static gboolean alreadyrun = FALSE;
-    GList *tmp;
     GString *str;
     gint i;
-
+    PangoFontMap *fmap;
+    PangoFontFamily **families;
+    int n_families;
+    const char *familyname;
+    
     if (alreadyrun) return;
     alreadyrun = TRUE;
 
+    fmap = pango_platform_font_map_for_display();
+    pango_font_map_list_families(fmap,&families,&n_families);
+    
     fonthash = g_hash_table_new(g_str_hash, g_str_equal);
     str = g_string_new(NULL);
-    for (tmp = font_names, i = 1; tmp != NULL; tmp = tmp->next, i++) {
-	g_string_append_c(str, strlen(tmp->data));
-	g_string_append(str, tmp->data);
-	g_hash_table_insert(fonthash, tmp->data, GINT_TO_POINTER(i));
+    for (i = 0; i < n_families; ++i) {
+        familyname = pango_font_family_get_name(families[i]);
+        
+        g_string_append_c(str, strlen(familyname));
+        g_string_append(str, familyname);
+        g_hash_table_insert(fonthash, (gpointer)familyname,
+                            GINT_TO_POINTER(i+1));
     }
     fontlist = str->str;
     fontlistlen = str->len;
     g_string_free(str, FALSE);
 }
-
 
 /* --- CGM line attributes --- */
 typedef struct _LineAttrCGM
@@ -584,7 +604,8 @@ TextAttrCGM    *tnew, *told;
         /* it because it was still to high. There might be a better way */
         /* but for now.... */
 
-        h_basecap = 0.9 * (tnew->font_height - font_descent(renderer->font,
+        h_basecap = 0.9 * (tnew->font_height -
+                           dia_font_descent("Aq",renderer->font,
                            tnew->font_height));
         write_elhead(renderer->file, 5, 15, REALSIZE);
         write_real(renderer->file, h_basecap);
@@ -725,7 +746,8 @@ set_fillstyle(RendererCGM *renderer, FillStyle mode)
 static void
 set_font(RendererCGM *renderer, DiaFont *font, real height)
 {
-    renderer->font = font;
+    dia_font_unref(renderer->font);
+    renderer->font = dia_font_ref(font);
     renderer->tcurrent.font_num = FONT_NUM(font);
     renderer->tcurrent.font_height = height;
 }
@@ -1035,15 +1057,15 @@ draw_string(RendererCGM *renderer,
 
     switch (alignment) {
     case ALIGN_LEFT:
-	break;
+        break;
     case ALIGN_CENTER:
-	x -= font_string_width(text, renderer->font, 
-                                     renderer->tcurrent.font_height)/2;
-	break;
+        x -= dia_font_string_width(text, renderer->font, 
+                                   renderer->tcurrent.font_height)/2;
+        break;
     case ALIGN_RIGHT:
-	x -= font_string_width(text, renderer->font, 
-                                     renderer->tcurrent.font_height);
-	break;
+        x -= dia_font_string_width(text, renderer->font, 
+                                   renderer->tcurrent.font_height);
+        break;
     }
     /* work out size of first chunk of text */
     chunk = MIN(maxfirstchunk, len);
@@ -1262,6 +1284,7 @@ export_cgm(DiagramData *data, const gchar *filename,
 
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
 
+    dia_font_unref(renderer->font);
     g_free(renderer);
 }
 

@@ -1,3 +1,71 @@
+2002-06-22  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* lib/all files touched yesterday: took into account some of Hans
+	Breuer's remarks in
+	<3.0.5.32.20020622073942.0088aec0@odin.botanik.biologie.uni-muenchen.de>
+	(jeez, weren't GUIDs supposed to be long and random enough ?)
+
+	* objects/chronogram/*: 
+	* objects/custom/*:
+	* objects/ER/*:
+	* objects/flowchart/*:
+	* objects/FS/*:
+	* objects/GRAFCET/*:
+	* objects/SADT/*:
+	* objects/standard/textobj.?:
+	* objects/UML/*:
+	converted to the new DiaFonts.
+
+	* plug-ins/cgm/*:
+	* plug-ins/pstricks/*:
+	* plug-ins/wpg/*:
+	* plug-ins/dxf/*:
+	* plug-ins/xfig/*:
+	Made minimalistic conversions so that they'd at least compile.
+
+	* app/render_gdk.c:
+	* app/render_pixmap.c:
+	Converted to the new DiaFonts.
+
+	* app/app_procs.c
+	* app/diaconv.c:
+	* app/render_eps.c:
+	made the minimal changes so that it would at least build.	
+
+	*** At this point, the thing builds on my machine, but segfaults
+	right away. ***
+	
+2002-06-21  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* configure.in: removed the backend-specific pango pkg_modules
+	(trivial to add back if needed, when actually needed)
+
+	* app/Makefile.am:
+	* app/*gnomeprint.[ch]: (removed): removed the GNOME-print
+	renderer. The APIs will have completely changed when we get around
+	to redo a renderer for it, anyways.
+
+	* font.[ch]: rewrote everything from scratch, with a Pango
+	implementation. Normally, only backend-neutral things should go in
+	there.
+
+	**WARNING**: new rules for managing DiaFont* pointers: these are
+	reference-counted GObjects. One >must< diafont_ref() and
+	diafont_unref() as appropriate. I wish I could overload operator=()...
+
+	lib/plug-ins.h: bumped up the plug-in API.
+	
+	lib/attributes.c: 
+	lib/dia_xml.c: 
+	lib/dummy_dep.h
+	lib/object_defaults:
+	lib/prop_attr.c: Adapted to the new DiaFont API. This'll change
+	again tomorrow with GObject.
+ 	
+	lib/widgets.c: Adapted to the new DiaFont API and to Pango.
+
+	**** The rest of the tree should be updated as well ****
+	
 2002-06-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_gdk.h: 

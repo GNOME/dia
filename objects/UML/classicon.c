@@ -410,9 +410,7 @@ classicon_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,0.8);
   
   cicon->stereotype = 0;
   cicon->is_object = 0;
@@ -422,6 +420,8 @@ classicon_create(Point *startpoint,
   p.y = 0.0;
   cicon->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   text_get_attributes(cicon->text,&cicon->attrs);
+
+  dia_font_unref(font);
   
   element_init(elem, 8, 8);
   

@@ -259,11 +259,11 @@ dependency_update_data(Dependency *dep)
 
   dep->text_width = 0.0;
   if (dep->name)
-    dep->text_width = font_string_width(dep->name, dep_font,
+    dep->text_width = dia_font_string_width(dep->name, dep_font,
 					DEPENDENCY_FONTHEIGHT);
   if (dep->stereotype)
     dep->text_width = MAX(dep->text_width,
-			  font_string_width(dep->stereotype, dep_font,
+			  dia_font_string_width(dep->stereotype, dep_font,
 					    DEPENDENCY_FONTHEIGHT));
   
   extra->start_trans = 
@@ -291,13 +291,17 @@ dependency_update_data(Dependency *dep)
   case HORIZONTAL:
     dep->text_align = ALIGN_CENTER;
     dep->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    dep->text_pos.y = points[i].y - font_descent(dep_font, DEPENDENCY_FONTHEIGHT);
+    dep->text_pos.y = points[i].y - dia_font_descent(dep->name,
+                                                     dep_font,
+                                                     DEPENDENCY_FONTHEIGHT);
     break;
   case VERTICAL:
     dep->text_align = ALIGN_LEFT;
     dep->text_pos.x = points[i].x + 0.1;
     dep->text_pos.y =
-      0.5*(points[i].y+points[i+1].y) - font_descent(dep_font, DEPENDENCY_FONTHEIGHT);
+      0.5*(points[i].y+points[i+1].y) -dia_font_descent(dep->name,
+                                                        dep_font,
+                                                        DEPENDENCY_FONTHEIGHT);
     break;
   }
 
@@ -306,7 +310,9 @@ dependency_update_data(Dependency *dep)
   if (dep->text_align == ALIGN_CENTER)
     rect.left -= dep->text_width/2.0;
   rect.right = rect.left + dep->text_width;
-  rect.top = dep->text_pos.y - font_ascent(dep_font, DEPENDENCY_FONTHEIGHT);
+  rect.top = dep->text_pos.y - dia_font_ascent(dep->name,
+                                               dep_font,
+                                               DEPENDENCY_FONTHEIGHT);
   rect.bottom = rect.top + 2*DEPENDENCY_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);
@@ -366,9 +372,7 @@ dependency_create(Point *startpoint,
   Object *obj;
 
   if (dep_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  dep_font = font_getfont (_("Courier"));
+      dep_font = dia_font_new("Monospace",STYLE_NORMAL,DEPENDENCY_FONTHEIGHT);
   }
   
   dep = g_new0(Dependency, 1);

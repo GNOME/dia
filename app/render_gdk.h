@@ -45,8 +45,8 @@ struct _RendererGdk {
   int dash_length;
   int dot_length;
 
-  GdkFont *gdk_font;
-  int font_height;
+  DiaFont *font;
+  real font_height;
 };
 
 RendererGdk *new_gdk_renderer(DDisplay *ddisp);

@@ -235,7 +235,9 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
   renderer->ops->set_font(renderer, pkg->font, LARGEPACKAGE_FONTHEIGHT);
 
   p1.x = x + 0.1;
-  p1.y = y - LARGEPACKAGE_FONTHEIGHT - font_descent(pkg->font, LARGEPACKAGE_FONTHEIGHT) - 0.1;
+  p1.y = y - LARGEPACKAGE_FONTHEIGHT -
+      dia_font_descent(pkg->st_stereotype,
+                       pkg->font, LARGEPACKAGE_FONTHEIGHT) - 0.1;
 
 
 
@@ -264,12 +266,12 @@ largepackage_update_data(LargePackage *pkg)
   pkg->topwidth = 2.0;
   if (pkg->name != NULL)
     pkg->topwidth = MAX(pkg->topwidth,
-                        font_string_width(pkg->name, pkg->font,
+                        dia_font_string_width(pkg->name, pkg->font,
                                           LARGEPACKAGE_FONTHEIGHT)+2*0.1);
   if (pkg->st_stereotype != NULL)
     pkg->topwidth = MAX(pkg->topwidth,
-                        font_string_width(pkg->st_stereotype, pkg->font,
-                                          LARGEPACKAGE_FONTHEIGHT)+2*0.1);
+                        dia_font_string_width(pkg->st_stereotype, pkg->font,
+                                              LARGEPACKAGE_FONTHEIGHT)+2*0.1);
 
   if (elem->width < (pkg->topwidth + 0.2))
     elem->width = pkg->topwidth + 0.2;
@@ -328,10 +330,8 @@ largepackage_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
   
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  pkg->font = font_getfont (_("Courier"));
-
+  pkg->font = dia_font_new("Monospace",STYLE_NORMAL,LARGEPACKAGE_FONTHEIGHT);
+  
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;
   pkg->name = strdup("");
@@ -355,6 +355,7 @@ largepackage_create(Point *startpoint,
 static void
 largepackage_destroy(LargePackage *pkg)
 {
+  dia_font_unref(pkg->font);
   g_free(pkg->stereotype);
   g_free(pkg->st_stereotype);
   g_free(pkg->name);

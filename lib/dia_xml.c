@@ -639,7 +639,7 @@ data_font(DataNode data)
   }
 
   name = xmlGetProp(data, "name");
-  font = font_getfont(name);
+  font = dia_font_new_from_legacy_name(name);
   if (name) xmlFree(name);
   
   return font;
@@ -812,7 +812,7 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   DataNode data_node;
  
   data_node = xmlNewChild(attr, NULL, "font", NULL);
-  xmlSetProp(data_node, "name", font->name);
+  xmlSetProp(data_node, "name", dia_font_get_legacy_name(font));
 }
 
 DataNode

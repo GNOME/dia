@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -368,8 +370,7 @@ flow_draw(Flow *flow, Renderer *renderer)
 	     FLOW_ARROWLEN, FLOW_ARROWWIDTH, FLOW_WIDTH,
 	     render_color, &color_white);
 
-  renderer->ops->set_font(renderer, flow_font,
-			  FLOW_FONTHEIGHT);
+  renderer->ops->set_font(renderer, flow_font,FLOW_FONTHEIGHT);
 
   text_draw(flow->text, renderer);
 }
@@ -426,9 +427,7 @@ flow_create(Point *startpoint,
     Color* color = NULL;
 
     if (flow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    flow_font = font_getfont (_("Helvetica-Oblique"));
+	    flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
     }
 
     switch (flow->type) {
@@ -444,7 +443,7 @@ flow_create(Point *startpoint,
     }
 
     flow->text = new_text("", flow_font, FLOW_FONTHEIGHT, 
-			  &p, color, ALIGN_CENTER);
+                          &p, color, ALIGN_CENTER);
   }
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
@@ -555,9 +554,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   LineBBExtras *extra;
 
   if (flow_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. */
-	  flow_font = font_getfont (_("Helvetica-Oblique"));
+	  flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
   }
 
   flow = g_malloc0(sizeof(Flow));
@@ -767,9 +764,7 @@ flow_apply_defaults(void)
     Point p ;
 
     if (flow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    flow_font = font_getfont (_("Helvetica-Oblique"));
+	    flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
     }
     flow_default_label =
       new_text(

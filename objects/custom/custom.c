@@ -74,7 +74,7 @@ static void load_shapes_from_tree(const gchar *directory)
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
 				  dentry, NULL);
-    gchar *p;
+    const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
       load_shapes_from_tree(filename);
@@ -93,11 +93,11 @@ static void load_shapes_from_tree(const gchar *directory)
       ObjectType *ot;
 
       if (!custom_object_load(filename, &ot)) {
-	g_warning("could not load shape file %s",filename);
+        g_warning("could not load shape file %s",filename);
       } else {
-	g_assert(ot); 
-	g_assert(ot->default_user_data);
-	object_register_type(ot);
+        g_assert(ot); 
+        g_assert(ot->default_user_data);
+        object_register_type(ot);
       }
     }
     g_free(filename);
@@ -112,7 +112,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   char *shape_path;
-  char *home_dir;
+  const char *home_dir;
 
   if (!dia_plugin_info_init(info, _("Custom"), _("Custom XML shapes loader"),
 			    NULL, NULL))
@@ -122,7 +122,7 @@ dia_plugin_init(PluginInfo *info)
   if (home_dir) {
     home_dir = dia_config_filename("shapes");
     load_shapes_from_tree(home_dir);
-    g_free(home_dir);
+    g_free((char *)home_dir);
   }
 
   shape_path = getenv("DIA_SHAPE_PATH");

@@ -38,7 +38,7 @@
 #include "dia_dirs.h"
 
 static GHashTable *defaults_hash = NULL;
-static object_default_create_lazy = FALSE;
+static gboolean object_default_create_lazy = FALSE;
 
 static void
 _obj_create (gpointer key,
@@ -197,6 +197,7 @@ dia_object_defaults_load (gchar *filename, gboolean create_lazy)
     }
 
   xmlFreeDoc(doc);
+  return TRUE;
 }
 
 /*

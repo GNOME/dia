@@ -182,7 +182,7 @@ main(int argc, char **argv)
   color_white.red = color_white.green = color_white.blue = 1.0;
 
   printf("hip !\n");
-  font_init();
+  dia_font_init(pango_ft2_get_context(100,100));
   printf("hop !\n");
   object_registry_init();
   printf("hap !\n");

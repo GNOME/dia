@@ -46,9 +46,8 @@
 #include "pixmaps/condition.xpm"
 
 #define CONDITION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-/* choose default font name for your locale. see also font_data structure
-   in lib/font.c. */
-#define CONDITION_FONT N_("Helvetica-Bold")
+#define CONDITION_FONT "Sans"
+#define CONDITION_FONT_STYLE STYLE_BOLD
 #define CONDITION_FONT_HEIGHT 0.8
 #define CONDITION_LENGTH (1.5)
 #define CONDITION_ARROW_SIZE 0.0 /* XXX The norm says there's no arrow head.
@@ -171,7 +170,8 @@ condition_set_props(Condition *condition, GPtrArray *props)
                                 condition_offsets,props);
   
   boolequation_set_value(condition->cond,condition->cond_value);
-  condition->cond->font = condition->cond_font;
+  dia_font_unref(condition->cond->font);
+  condition->cond->font = dia_font_ref(condition->cond_font);
   condition->cond->fontheight = condition->cond_fontheight;
   condition->cond->color = condition->cond_color;
   condition_update_data(condition);
@@ -272,7 +272,7 @@ condition_update_data(Condition *condition)
 
   /* compute the label's width and bounding box */
   condition->cond->pos.x = conn->endpoints[0].x + 
-    (.5 * font_string_width("a", condition->cond->font,
+    (.5 * dia_font_string_width("a", condition->cond->font,
 			    condition->cond->fontheight));
   condition->cond->pos.y = conn->endpoints[0].y + condition->cond->fontheight;
   
@@ -338,13 +338,14 @@ condition_create(Point *startpoint,
 
   pos = conn->endpoints[1];
 
+  default_font = NULL;
   attributes_get_default_font(&default_font,&default_fontheight);
   fg_color = attributes_get_foreground();
   
   condition->cond = boolequation_create("",default_font,default_fontheight,
 				 &fg_color);
   condition->cond_value = g_strdup("");
-  condition->cond_font = default_font;
+  condition->cond_font = dia_font_ref(default_font);
   condition->cond_fontheight = default_fontheight;
   condition->cond_color = fg_color;
 
@@ -359,12 +360,15 @@ condition_create(Point *startpoint,
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
 
+  dia_font_unref(default_font);
+
   return &condition->connection.object;
 }
 
 static void
 condition_destroy(Condition *condition)
 {
+  dia_font_unref(condition->cond_font);  
   boolequation_destroy(condition->cond);
   g_free(condition->cond_value);
   connection_destroy(&condition->connection);

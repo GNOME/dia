@@ -322,9 +322,11 @@ static int figAlignment(Rendererfig *renderer, int alignment) {
 
 static int figFont(Rendererfig *renderer) {
   int i;
+  const char *legacy_name;
 
+  legacy_name = dia_font_get_legacy_name(renderer->font);
   for (i = 0; fig_fonts[i] != NULL; i++) {
-    if (!strcmp(renderer->font->name, fig_fonts[i]))
+    if (!strcmp(legacy_name, fig_fonts[i]))
       return i;
   }
 

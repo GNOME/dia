@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -56,6 +58,10 @@ typedef struct _AssociationEnd {
   gchar *multiplicity; /* Can be NULL */
   Point text_pos;
   real text_width;
+  real role_ascent;
+  real role_descent;
+  real multi_ascent;
+  real multi_descent;
   Alignment text_align;
   
   int arrow;
@@ -83,7 +89,9 @@ struct _Association {
   Point text_pos;
   Alignment text_align;
   real text_width;
-  
+  real ascent;
+  real descent;
+    
   gchar *name;
   AssociationDirection direction;
 
@@ -387,9 +395,15 @@ association_set_state(Association *assoc, AssociationState *state)
   g_free(assoc->name);
   assoc->name = state->name;
   assoc->text_width = 0.0;
+  assoc->ascent = 0.0;
+  assoc->descent = 0.0;
   if (assoc->name != NULL) {
     assoc->text_width =
-      font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+    assoc->ascent = 
+      dia_font_ascent(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+    assoc->descent =     
+      dia_font_descent(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
   } 
   
   assoc->direction = state->direction;
@@ -404,14 +418,27 @@ association_set_state(Association *assoc, AssociationState *state)
     end->aggregate = state->end[i].aggregate;
 
     end->text_width = 0.0;
+    end->role_ascent = 0.0;
+    end->role_descent = 0.0;
+    end->multi_ascent = 0.0;
+    end->multi_descent = 0.0;
     if (end->role != NULL) {
       end->text_width = 
-	font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+          dia_font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+      end->role_ascent =
+          dia_font_ascent(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+      end->role_descent =
+          dia_font_ascent(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);          
     }
     if (end->multiplicity != NULL) {
-      end->text_width =
-	MAX(end->text_width,
-	    font_string_width(end->multiplicity, assoc_font, ASSOCIATION_FONTHEIGHT) );
+      end->text_width = MAX(end->text_width,
+                            dia_font_string_width(end->multiplicity,
+                                                  assoc_font,
+                                                  ASSOCIATION_FONTHEIGHT) );
+      end->role_ascent = dia_font_ascent(end->multiplicity,
+                                         assoc_font,ASSOCIATION_FONTHEIGHT);
+      end->role_descent = dia_font_descent(end->multiplicity,
+                                           assoc_font,ASSOCIATION_FONTHEIGHT);
     }
   }
 
@@ -424,6 +451,9 @@ association_set_state(Association *assoc, AssociationState *state)
 static void
 association_update_data(Association *assoc)
 {
+        /* FIXME: The ascent and descent computation logic here is
+           fundamentally slow. */
+
   OrthConn *orth = &assoc->orth;
   Object *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
@@ -460,13 +490,12 @@ association_update_data(Association *assoc)
   case HORIZONTAL:
     assoc->text_align = ALIGN_CENTER;
     assoc->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    assoc->text_pos.y = points[i].y - font_descent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    assoc->text_pos.y = points[i].y - assoc->descent;
     break;
   case VERTICAL:
     assoc->text_align = ALIGN_LEFT;
     assoc->text_pos.x = points[i].x + 0.1;
-    assoc->text_pos.y =
-      0.5*(points[i].y+points[i+1].y) - font_descent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    assoc->text_pos.y = 0.5*(points[i].y+points[i+1].y) - assoc->descent;
     break;
   }
 
@@ -475,18 +504,19 @@ association_update_data(Association *assoc)
   if (assoc->text_align == ALIGN_CENTER)
     rect.left -= assoc->text_width/2.0;
   rect.right = rect.left + assoc->text_width;
-  rect.top = assoc->text_pos.y - font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+  rect.top = assoc->text_pos.y - assoc->ascent;
   rect.bottom = rect.top + ASSOCIATION_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);
 
 
   /* Update the text-points of the ends: */
-  /* END 1: */
+  /* END 0: */
   end = &assoc->end[0];
   end->text_pos = points[0];
   switch (assoc->orth.orientation[0]) {
   case HORIZONTAL:
+    end->text_pos.y -= end->role_descent;
     if (points[0].x < points[1].x) {
       end->text_align = ALIGN_LEFT;
       end->text_pos.x += get_aggregate_pos_diff(end);
@@ -496,12 +526,12 @@ association_update_data(Association *assoc)
     }
     break;
   case VERTICAL:
-    end->text_pos.y += font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    end->text_pos.y += end->role_ascent;
     if (points[0].y > points[1].y) {
       if (end->role!=NULL)
-	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
       if (end->multiplicity!=NULL)
-	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
       end->text_pos.y -= get_aggregate_pos_diff(end);
     } else {
       end->text_pos.y += get_aggregate_pos_diff(end);
@@ -512,18 +542,18 @@ association_update_data(Association *assoc)
   /* Add the text recangle to the bounding box: */
   rect.left = end->text_pos.x;
   rect.right = rect.left + end->text_width;
-  rect.top = end->text_pos.y - font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+  rect.top = end->text_pos.y - end->role_ascent;
   rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
   
   rectangle_union(&obj->bounding_box, &rect);
 
-  /* END 2: */
+  /* END 1: */
   end = &assoc->end[1];
   n = assoc->orth.numpoints - 1;
   end->text_pos = points[n];
   switch (assoc->orth.orientation[n-1]) {
   case HORIZONTAL:
-    end->text_pos.y -= font_descent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    end->text_pos.y -= end->role_descent;
     if (points[n].x < points[n-1].x) {
       end->text_align = ALIGN_LEFT;
       end->text_pos.x += get_aggregate_pos_diff(end);
@@ -533,7 +563,7 @@ association_update_data(Association *assoc)
     }
     break;
   case VERTICAL:
-    end->text_pos.y += font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    end->text_pos.y += end->role_ascent;
     if (points[n].y > points[n-1].y) {
       if (end->role!=NULL)
 	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
@@ -549,7 +579,7 @@ association_update_data(Association *assoc)
   /* Add the text rectangle to the bounding box: */
   rect.left = end->text_pos.x;
   rect.right = rect.left + end->text_width;
-  rect.top = end->text_pos.y - font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+  rect.top = end->text_pos.y - end->role_ascent;
   rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
   
   rectangle_union(&obj->bounding_box, &rect);
@@ -585,9 +615,8 @@ association_create(Point *startpoint,
   int user_d;
 
   if (assoc_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  assoc_font = font_getfont(_("Courier"));
+	  assoc_font = dia_font_new("Monospace",STYLE_NORMAL,
+                              ASSOCIATION_FONTHEIGHT);
   }
   
   assoc = g_malloc0(sizeof(Association));
@@ -770,9 +799,8 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   
   if (assoc_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  assoc_font = font_getfont(_("Courier"));
+	  assoc_font = dia_font_new("Monospace",STYLE_NORMAL,
+                              ASSOCIATION_FONTHEIGHT);
   }
 
   assoc = g_new0(Association, 1);
@@ -793,7 +821,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   assoc->text_width = 0.0;
   if (assoc->name != NULL) {
     assoc->text_width =
-      font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
   }
 
   assoc->direction = ASSOC_NODIR;
@@ -828,14 +856,14 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     assoc->end[i].text_width = 0.0;
     if (assoc->end[i].role != NULL) {
       assoc->end[i].text_width = 
-	font_string_width(assoc->end[i].role, assoc_font,
-			  ASSOCIATION_FONTHEIGHT);
+          dia_font_string_width(assoc->end[i].role, assoc_font,
+                                ASSOCIATION_FONTHEIGHT);
     }
     if (assoc->end[i].multiplicity != NULL) {
       assoc->end[i].text_width =
-	MAX(assoc->end[i].text_width,
-	    font_string_width(assoc->end[i].multiplicity,
-			      assoc_font, ASSOCIATION_FONTHEIGHT) );
+          MAX(assoc->end[i].text_width,
+              dia_font_string_width(assoc->end[i].multiplicity,
+                                    assoc_font, ASSOCIATION_FONTHEIGHT) );
     }
     composite = data_next(composite);
   }
@@ -851,7 +879,7 @@ static ObjectChange *
 association_apply_properties(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
-  gchar *str;
+  const char *str;
   GtkWidget *menuitem;
   int i;
   ObjectState *old_state;
@@ -872,7 +900,7 @@ association_apply_properties(Association *assoc)
 
   if (assoc->name != NULL) {
     assoc->text_width =
-      font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
   }
 
   menuitem = gtk_menu_get_active(prop_dialog->dir_menu);
@@ -901,12 +929,13 @@ association_apply_properties(Association *assoc)
 
     if (end->role != NULL) {
       end->text_width = 
-	font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+          dia_font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
     }
     if (end->multiplicity != NULL) {
       end->text_width =
-	MAX(end->text_width,
-	    font_string_width(end->multiplicity, assoc_font, ASSOCIATION_FONTHEIGHT) );
+          MAX(end->text_width,
+              dia_font_string_width(end->multiplicity,
+                                    assoc_font, ASSOCIATION_FONTHEIGHT) );
     }
 
     end->arrow = prop_dialog->end[i].draw_arrow->active;
@@ -930,7 +959,6 @@ fill_in_dialog(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
   int i;
-  gchar *str;
  
   prop_dialog = assoc->properties_dialog;
 

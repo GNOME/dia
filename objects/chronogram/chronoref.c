@@ -278,7 +278,7 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
 
   renderer->ops->set_font(renderer, chronoref->font, chronoref->font_size);
   p3.y = p2.y + chronoref->majgrad_height + 
-    font_ascent(chronoref->font, chronoref->font_size);
+    dia_font_ascent("1",chronoref->font, chronoref->font_size);
 
   renderer->ops->set_linewidth(renderer, chronoref->light_lwidth);
   if (chronoref->time_lstep > 0.0) {
@@ -343,8 +343,8 @@ chronoref_update_data(Chronoref *chronoref)
   g_snprintf(biglabel,sizeof(biglabel),chronoref->spec,
 	   MIN(-ABS(chronoref->start_time),-ABS(chronoref->end_time)));
   
-  labelwidth = font_string_width(biglabel,chronoref->font,
-				 chronoref->font_size);
+  labelwidth = dia_font_string_width(biglabel,chronoref->font,
+                                     chronoref->font_size);
 
   /* Now, update the drawing helper counters */
   time_span = chronoref->end_time - chronoref->start_time;
@@ -429,9 +429,7 @@ chronoref_create(Point *startpoint,
 
   element_init(elem, 8, 0);
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  chronoref->font = font_getfont (_("Helvetica"));
+  chronoref->font = dia_font_new ("Sans",STYLE_NORMAL,1.0);
   chronoref->font_size = 1.0;
   chronoref->font_color = color_black;
   chronoref->start_time = 0.0;
@@ -452,6 +450,7 @@ chronoref_create(Point *startpoint,
 static void
 chronoref_destroy(Chronoref *chronoref)
 {
+  dia_font_unref(chronoref->font);
   connpointline_destroy(chronoref->scale);
   element_destroy(&chronoref->element);
 }

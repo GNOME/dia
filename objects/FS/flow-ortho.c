@@ -393,7 +393,7 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
 	     render_color, &color_white);
 
   renderer->ops->set_font(renderer, orthflow_font,
-			  ORTHFLOW_FONTHEIGHT);
+                          ORTHFLOW_FONTHEIGHT);
 
   text_draw(orthflow->text, renderer);
 }
@@ -433,9 +433,7 @@ orthflow_create(Point *startpoint,
     Color* color = &orthflow_color_signal;
 
     if (orthflow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    orthflow_font = font_getfont(_("Helvetica-Oblique"));
+	    orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
     }
 
     switch (orthflow->type) {
@@ -451,7 +449,7 @@ orthflow_create(Point *startpoint,
     }
 
     orthflow->text = new_text("", orthflow_font, ORTHFLOW_FONTHEIGHT, 
-			      &p, color, ALIGN_CENTER);
+                              &p, color, ALIGN_CENTER);
   }
 
   orthflow->text_handle.id = HANDLE_MOVE_TEXT;
@@ -563,9 +561,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   PolyBBExtras *extra;
 
   if (orthflow_font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. */
-	  orthflow_font = font_getfont(_("Helvetica-Oblique"));
+    orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
   }
 
   orthflow = g_malloc0(sizeof(Orthflow));
@@ -922,9 +918,7 @@ orthflow_apply_defaults(void)
     Point p ;
 
     if (orthflow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    orthflow_font = font_getfont(_("Helvetica-Oblique"));
+      orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
     }
     orthflow_default_label =
       new_text(

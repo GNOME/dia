@@ -298,7 +298,7 @@ custom_get_defaults(void)
   GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
 
   if (custom_defaults_dialog == NULL) {
@@ -843,6 +843,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   
   int i;
   GList *tmp;
+  char *txs;
   
   /* save starting points */
   center = bottom_right = elem->corner;
@@ -966,16 +967,21 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     /* align the text to be close to the shape ... */
+
+
+    txs = text_get_string_copy(custom->text);
+    
     if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
       p.y = tb.top +
-	font_ascent(custom->text->font, custom->text->height);
+	dia_font_ascent(txs,custom->text->font, custom->text->height);
     else if ((tb.bottom+tb.top)/2 < elem->corner.y)
       p.y = tb.bottom + custom->text->height * (custom->text->numlines - 1);
     else
       p.y = (tb.top + tb.bottom -
 	     custom->text->height * custom->text->numlines) / 2 +
-	font_ascent(custom->text->font, custom->text->height);
+          dia_font_ascent(txs,custom->text->font, custom->text->height);
     text_set_position(custom->text, &p);
+    g_free(txs);
   }
 
   for (i = 0; i < info->nconnections; i++)
@@ -1152,15 +1158,18 @@ void custom_reposition_text(Custom *custom, GraphicElementText *text) {
       break;
     }
     /* align the text to be close to the shape ... */
+
     if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
       p.y = tb.top +
-	font_ascent(text->object->font, text->object->height);
+          dia_font_ascent(text->string,
+                          text->object->font, text->object->height);
     else if ((tb.bottom+tb.top)/2 < elem->corner.y)
       p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
     else
       p.y = (tb.top + tb.bottom -
 	     text->object->height * text->object->numlines) / 2 +
-	font_ascent(text->object->font, text->object->height);
+          dia_font_ascent(text->string,
+                          text->object->font, text->object->height);
     text_set_position(text->object, &p);
     return;
 }
@@ -1177,7 +1186,7 @@ custom_create(Point *startpoint,
   ShapeInfo *info = (ShapeInfo *)user_data;
   Point p;
   int i;
-  DiaFont *font;
+  DiaFont *font = NULL;
   real font_height;
   GList *tmp;
 
@@ -1218,13 +1227,15 @@ custom_create(Point *startpoint,
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
 			    default_properties.alignment);
     text_get_attributes(custom->text,&custom->attrs);
+    dia_font_unref(font);
   }
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
        GraphicElement *el = tmp->data;
        if (el->type == GE_TEXT) {
             /* set default values for text style */
             if (!el->text.s.font_height) el->text.s.font_height = FONT_HEIGHT_DEFAULT;
-            if (!el->text.s.font) el->text.s.font = font_getfont(_(FONT_DEFAULT));
+            if (!el->text.s.font)
+                el->text.s.font = dia_font_new("Sans",STYLE_NORMAL,1.0);
             if (el->text.s.alignment == -1) el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
             el->text.object = new_text(el->text.string, el->text.s.font, el->text.s.font_height,
 	        &el->text.anchor, &color_black, el->text.s.alignment);
@@ -1423,7 +1434,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
     else {
       /* initialize as empty text or handle all the NULL pointer 
          access elsewhere */
-      DiaFont *font;
+      DiaFont *font = NULL;
       real font_height;
       Point pt;
 
@@ -1433,6 +1444,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
       pt.y += elem->height / 2.0 + font_height / 2;
       custom->text = new_text("", font, font_height, &pt, &custom->border_color,
                               default_properties.alignment);
+      dia_font_unref(font);
     }
   }
 

@@ -50,9 +50,9 @@
 
 
 #define TRANSITION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-/* choose default font name for your locale. see also font_data structure
-   in lib/font.c. */
-#define TRANSITION_FONT N_("Helvetica-Bold")
+
+#define TRANSITION_FONT "Arial"
+#define TRANSITION_STYLE STYLE_BOLD
 #define TRANSITION_FONT_HEIGHT 0.8
 #define TRANSITION_DECLAREDHEIGHT 2.0
 #define TRANSITION_DECLAREDWIDTH 2.0
@@ -184,7 +184,8 @@ transition_set_props(Transition *transition, GPtrArray *props)
                                 transition_offsets,props);
 
   boolequation_set_value(transition->receptivity,transition->rcep_value);
-  transition->receptivity->font = transition->rcep_font;
+  dia_font_unref(transition->receptivity->font);
+  transition->receptivity->font = dia_font_ref(transition->rcep_font);
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
 
@@ -218,8 +219,8 @@ transition_update_data(Transition *transition)
     + (.3 * transition->receptivity->fontheight);
 
   transition->Z.x = transition->D.x + 
-    font_string_width(" ",transition->receptivity->font,
-		      transition->receptivity->fontheight);
+    dia_font_string_width("_",transition->receptivity->font,
+                          transition->receptivity->fontheight);
 
   for (p = &transition->A; p <= &transition->Z; p++) 
     point_add(p,&elem->corner);
@@ -363,7 +364,7 @@ transition_create(Point *startpoint,
   Object *obj;
   int i;
   Element *elem;
-  DiaFont *default_font; 
+  DiaFont *default_font = NULL; 
   real default_fontheight;
   Color fg_color;
 
@@ -390,10 +391,12 @@ transition_create(Point *startpoint,
                         &fg_color);
 
   transition->rcep_value = g_strdup("");
-  transition->rcep_font = default_font;
+  transition->rcep_font = dia_font_ref(default_font);
   transition->rcep_fontheight = default_fontheight;
   transition->rcep_color = fg_color;
 
+  dia_font_unref(default_font);
+  
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
@@ -425,6 +428,7 @@ transition_create(Point *startpoint,
 static void
 transition_destroy(Transition *transition)
 {
+  dia_font_unref(transition->rcep_font);
   boolequation_destroy(transition->receptivity);
   g_free(transition->rcep_value);
   element_destroy(&transition->element);

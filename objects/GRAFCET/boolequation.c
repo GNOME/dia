@@ -26,11 +26,6 @@
 
 #define OVERLINE_RATIO .1
 
-static DiaFont *symbol;
-static void init_symbolfont() {
-  if (!symbol) symbol = font_getfont("Symbol");
-}
-
 typedef enum {BLOCK_COMPOUND, BLOCK_OPERATOR, BLOCK_OVERLINE,
 	      BLOCK_PARENS, BLOCK_TEXT} BlockType;
 typedef enum {OP_AND, OP_OR, OP_XOR, OP_RISE, OP_FALL,
@@ -92,11 +87,15 @@ textblock_get_boundingbox(Block *block, Point *relpos,
 
   block->pos = *relpos;
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + booleq->descent;
-  block->ur.y = block->bl.y - booleq->fontheight;
-  block->ur.x = block->bl.x + font_string_width(block->d.text,
-						booleq->font,
-						booleq->fontheight);
+  block->bl.y = block->pos.y + dia_font_descent(block->d.text,
+                                                booleq->font,
+                                                booleq->fontheight);
+  block->ur.y = block->pos.y - dia_font_ascent(block->d.text,
+                                               booleq->font,
+                                               booleq->fontheight);
+  block->ur.x = block->bl.x + dia_font_string_width(block->d.text,
+                                                    booleq->font,
+                                                    booleq->fontheight);
   rect->left = block->bl.x;
   rect->top = block->ur.y;
   rect->bottom = block->bl.y;
@@ -184,14 +183,15 @@ opblock_get_boundingbox(Block *block, Point *relpos,
   const gchar* ops;
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
   
+  ops = opstring(block->d.operator);
   
   block->pos = *relpos;
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + font_descent(symbol,booleq->fontheight);
+  block->bl.y = block->pos.y +
+      dia_font_descent(ops,booleq->font,booleq->fontheight);
   block->ur.y = block->bl.y - booleq->fontheight;
-  ops = opstring(block->d.operator);
-  block->ur.x = block->bl.x + font_string_width(ops, symbol,
-                                                booleq->fontheight);
+  block->ur.x = block->bl.x + dia_font_string_width(ops, booleq->font,
+                                                    booleq->fontheight);
   rect->left = block->bl.x;
   rect->top = block->ur.y;
   rect->bottom = block->bl.y;
@@ -293,8 +293,11 @@ overlineblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
   renderer->ops->set_linewidth(renderer,booleq->fontheight * OVERLINE_RATIO);
   ul.x = block->bl.x;
   ur.y = ul.y = block->ur.y;
-  ur.x = 
-    block->ur.x - (font_string_width(" ",booleq->font,booleq->fontheight) / 2);
+
+      /* FIXME: try to get the actual block width */
+  ur.x = block->ur.x -
+      (dia_font_string_width("_", booleq->font,booleq->fontheight) / 2);
+  
   renderer->ops->draw_line(renderer,&ul,&ur,&booleq->color);
 }
 
@@ -336,12 +339,12 @@ parensblock_get_boundingbox(Block *block, Point *relpos,
   temppos = block->pos = *relpos;
   block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,booleq,rect);
   pheight = 1.1 * (block->d.inside->bl.y - block->d.inside->ur.y);
-  pwidth = font_string_width("()",booleq->font,pheight) / 2;
+  pwidth = dia_font_string_width("()",booleq->font,pheight) / 2;
   temppos.x += pwidth;
   block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,booleq,rect);
   
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + font_descent(booleq->font,pheight);
+  block->bl.y = block->pos.y + dia_font_descent("()",booleq->font,pheight);
   block->ur.x = block->d.inside->ur.x + pwidth;
   block->ur.y = block->bl.y - pheight;
 
@@ -560,10 +563,8 @@ boolequation_create(const gchar *value, DiaFont *font, real fontheight,
 {
   Boolequation *booleq;
 
-  init_symbolfont();
-
   booleq = g_new0(Boolequation,1);
-  booleq->font = font;
+  booleq->font = dia_font_ref(font);
   booleq->fontheight = fontheight;
   booleq->color = *color;
   boolequation_set_value(booleq,value);
@@ -575,6 +576,7 @@ void
 boolequation_destroy(Boolequation *booleq)
 {
   g_return_if_fail(booleq);
+  dia_font_unref(booleq->font);
   if (booleq->value) g_free((gchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
   g_free(booleq);
@@ -597,8 +599,6 @@ load_boolequation(ObjectNode obj_node,
   Boolequation *booleq;
   AttributeNode attr;
 
-  init_symbolfont();
-
   booleq = boolequation_create(NULL,font,fontheight,color);
   attr = object_find_attribute(obj_node,attrname);
   if (attr) value = data_string(attribute_first_data(attr));
@@ -619,9 +619,11 @@ boolequation_draw(Boolequation *booleq, Renderer *renderer)
 
 void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
 {
-  booleq->ascent = font_ascent(booleq->font,booleq->fontheight);
-  booleq->descent = font_descent(booleq->font,booleq->fontheight);
-
+        /*
+          booleq->ascent = dia_font_ascent(booleq->font,booleq->fontheight);
+          booleq->descent = dia_font_descent(booleq->font,booleq->fontheight);
+        */
+          
   box->left = box->right = booleq->pos.x;
   box->top = box->bottom = booleq->pos.y;
 

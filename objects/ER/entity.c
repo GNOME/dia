@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -258,13 +260,13 @@ entity_draw(Entity *entity, Renderer *renderer)
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
-  p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 + font_ascent(entity->font, entity->font_height);
-  renderer->ops->set_font(renderer, 
-			  entity->font, entity->font_height);
+  p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 +
+      dia_font_ascent(entity->name,entity->font, entity->font_height);
+  renderer->ops->set_font(renderer, entity->font, entity->font_height);
   renderer->ops->draw_string(renderer, 
-			     entity->name, 
-			     &p, ALIGN_CENTER, 
-			     &color_black);
+                             entity->name, 
+                             &p, ALIGN_CENTER, 
+                             &color_black);
 }
 
 static void
@@ -275,7 +277,7 @@ entity_update_data(Entity *entity)
   ElementBBExtras *extra = &elem->extra_spacing;
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, entity->font_height);
+    dia_font_string_width(entity->name, entity->font, entity->font_height);
 
   elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = entity->font_height + 2*TEXT_BORDER_WIDTH_Y;
@@ -341,14 +343,12 @@ entity_create(Point *startpoint,
   }
 
   entity->weak = GPOINTER_TO_INT(user_data);
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  entity->font = font_getfont(_("Courier"));
+  entity->font = dia_font_new("Monospace",STYLE_NORMAL,FONT_HEIGHT);
   entity->font_height = FONT_HEIGHT;
   entity->name = g_strdup(_("Entity"));
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, entity->font_height);
+    dia_font_string_width(entity->name, entity->font, entity->font_height);
   
   entity_update_data(entity);
 
@@ -364,6 +364,7 @@ entity_create(Point *startpoint,
 static void
 entity_destroy(Entity *entity)
 {
+  dia_font_unref(entity->font);
   element_destroy(&entity->element);
   g_free(entity->name);
 }
@@ -396,7 +397,7 @@ entity_copy(Entity *entity)
     newentity->connections[i].last_pos = entity->connections[i].last_pos;
   }
 
-  newentity->font = entity->font;
+  newentity->font = dia_font_ref(entity->font);
   newentity->font_height = entity->font_height;
   newentity->name = strdup(entity->name);
   newentity->name_width = entity->name_width;
@@ -469,6 +470,7 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     entity->weak = data_boolean(attribute_first_data(attr));
 
+  dia_font_unref(entity->font);
   entity->font = NULL;
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
@@ -488,13 +490,11 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   if (entity->font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  entity->font = font_getfont(_("Courier"));
+    entity->font = dia_font_new("Monospace",STYLE_NORMAL,1.0);
   }
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, entity->font_height);
+    dia_font_string_width(entity->name, entity->font, entity->font_height);
 
   entity_update_data(entity);
 

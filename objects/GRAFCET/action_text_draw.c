@@ -54,7 +54,7 @@ action_text_draw(Text *text, Renderer *renderer)
 			       text->line[i],
 			       &pos, text->alignment,
 			       &text->color);
-    pos.x += font_string_width(text->line[i],text->font,text->height) +
+    pos.x += dia_font_string_width(text->line[i],text->font,text->height) +
       2 * space_width;
   }
 
@@ -76,7 +76,7 @@ action_text_draw(Text *text, Renderer *renderer)
 
     curs_x = text->position.x + str_width_first;
     for (i=0;i<text->cursor_row;i++) {
-      curs_x += font_string_width(text->line[i],text->font,text->height) +
+      curs_x += dia_font_string_width(text->line[i],text->font,text->height) +
 	2 * space_width;
     }
     curs_y = text->position.y - text->ascent;
@@ -123,9 +123,9 @@ action_text_calc_boundingbox(Text *text, Rectangle *box)
 
   width = 0;
   for (i=0; i<text->numlines; i++)
-    width += font_string_width(text->line[i],
-			       text->font,
-			       text->height);
+    width += dia_font_string_width(text->line[i],
+                                   text->font,
+                                   text->height);
 
   width += text->numlines * 2.0 * action_text_spacewidth(text);
 

@@ -906,7 +906,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;
-    tprop->attr.font = font_getfont(fig_fonts[font]);
+    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
     tprop->attr.height = font_size*3.54/72.0;
     tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);

@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -412,9 +414,7 @@ function_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = font_getfont (_("Helvetica"));
+  font = dia_font_new ("Sans",STYLE_NORMAL,FUNCTION_FONTHEIGHT);
   
   pkg->is_wish = FALSE;
   pkg->is_user = FALSE;
@@ -422,7 +422,9 @@ function_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
+  pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &p, &color_black,
+                       ALIGN_CENTER);
+  dia_font_unref(font);
   
   element_init(elem, 8, 8);
   
@@ -618,7 +620,8 @@ struct _IndentedMenus {
  */
 #define FS_SUBMENU_MAXINDENT 5
 
-/* Elisp functions to generate comments:)
+#if THIS_C_COMPILER_ALSO_UNDERSTANDS_EMACS_LISP
+   ; Elisp functions to generate comments:)
    (setq q nil)
    (defun q-pop () (setq q (cdr q)))
    (defun q-push () 
@@ -631,7 +634,7 @@ struct _IndentedMenus {
        (insert "/* Translators: Menu item " (car words))
        (mapcar (lambda (w) (insert "/" w)) (cdr words))
        (insert " *" "/\n")))
- */
+#endif
 
 struct _IndentedMenus fmenu[] = {
 /* Translators: Menu item Verb */

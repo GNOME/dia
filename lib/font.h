@@ -18,7 +18,9 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include <gdk/gdk.h>
+#include <glib.h>
+#include <glib-object.h>
+#include <pango/pango.h>
 #include "geometry.h"
 #include "diavar.h"
 
@@ -28,48 +30,123 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
+typedef enum {
+  STYLE_NORMAL,
+  STYLE_ITALIC,
+  STYLE_BOLD,
+  STYLE_BOLD_ITALIC
+} Style;
 
 typedef struct _DiaFont DiaFont;
+typedef struct _DiaFontClass DiaFontClass;
 
+GType dia_font_get_type(void) G_GNUC_CONST;
+
+#define DIA_TYPE_FONT (dia_font_get_type())
+
+#define DIA_FONT(object)    (G_TYPE_CHECK_INSTANCE_CAST ((object), \
+                                                         DIA_TYPE_FONT, \
+                                                         DiaFont))
+#define DIA_FONT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), \
+                                                        DIA_TYPE_FONT, \
+                                                        DiaFontClass))
+
+struct _DiaFontClass {
+    GObjectClass parent_class;
+};
 struct _DiaFont {
-  char *name;
-};
+    GObject parent_instance;
 
-typedef struct _SuckFont SuckFont;
-typedef struct _SuckChar SuckChar;
-
-struct _SuckChar {
-	int     left_sb;
-	int     right_sb;
-	int     width;
-	int     ascent;
-	int     descent;
-	int     bitmap_offset; /* in pixels */
-};
-
-struct _SuckFont {
-	guchar *bitmap;
-	gint    bitmap_width;
-	gint    bitmap_height;
-	gint    ascent;
-	SuckChar chars[256];
+        /* Do not access directly !*/
+    PangoFontDescription* pfd;    
+    /* mutable */ char* legacy_name;    
 };
 
 
-DIAVAR GList *font_names; /* GList with 'char *' data.*/
+void dia_font_init(PangoContext* pcontext);
+                             
+                             
+    /* Get a font matching family,style,height. MUST be freed with
+       dia_font_free(). */
+DiaFont* dia_font_new(const char *family, Style style,
+                     real height);
 
-void font_init(void);
-void font_init_freetype(void);
-DiaFont *font_getfont(const char *name);
-GdkFont *font_get_gdkfont(DiaFont *font, int height);
-SuckFont *font_get_suckfont (GdkFont *font, gchar *text);
-void suck_font_free (SuckFont *suckfont);
-char *font_get_psfontname(DiaFont *font);
-/* Get the width of the string with the given font in cm */
-real font_string_width(const char *string, DiaFont *font, real height);
-/* Get the max ascent of the font in cm (a positive number) */
-real font_ascent(DiaFont *font, real height);
-/* Get the max descent of the font in cm (a positive number) */
-real font_descent(DiaFont *font, real height);
+    /* Get a font from a legacy font name */ 
+DiaFont* dia_font_new_from_legacy_name(const char *name);
+    /* Get a font matching family,style,height. MUST be freed with
+       dia_font_free(). "family" is guaranteed to be a static string. */
+DiaFont *dia_font_new_from_static(const char *family, Style style,
+                                  real height);
+
+    /* Get a simple font name from a font.
+       Name will be valid for the duration of the DiaFont* lifetime. */ 
+G_CONST_RETURN char* dia_font_get_legacy_name(const DiaFont* font);
+
+    /* Same attributes */
+DiaFont *dia_font_copy(const DiaFont* font);
+
+DiaFont* dia_font_ref(DiaFont* font);
+void dia_font_unref(DiaFont* font);
+
+    /* Retrieves the style of the font */
+Style dia_font_get_style(const DiaFont* font);
+
+    /* Retrieves the family of the font. Caller must NOT free. */
+G_CONST_RETURN char* dia_font_get_family(const DiaFont* font);
+
+    /* Retrieves the height of the font */
+real dia_font_get_height(const DiaFont* font);
+    /* Change the height inside a font record. */
+void dia_font_set_height(DiaFont* font, real height);
+
+    /* FIXME: what do we do with this, actually ?
+       Name lives for as long as the DiaFont lives. */
+G_CONST_RETURN char *dia_font_get_psfontname(const DiaFont *font);
+
+
+/* -------- Font and string functions - unscaled versions.
+   Use these version in Objects, primarily. */
+
+    /* Get the width of the string with the given font in cm */
+real dia_font_string_width(const char* string, DiaFont* font,
+                          real height);
+    /* Get the ascent of this string in cm (a positive number). */
+real dia_font_ascent(const char* string, DiaFont* font, real height);
+    /* Get the descent of the font in cm (a positive number) */
+real dia_font_descent(const char* string, DiaFont* font, real height);
+
+    /* prepares a layout of the text, in font 'font'. */
+PangoLayout* dia_font_build_layout(const char* string, DiaFont* font,
+                                   real height);
+
+/* -------- Font and string functions - scaled versions.
+   Use these version in Renderers, exclusively. */
+
+    /* Call once at the beginning of a rendering pass, to let dia know
+     what is 1:1 scale. zoom_factor will then be divided by size_one. */
+void dia_font_set_nominal_zoom_factor(real size_one);
+
+    /* Get the width of the string with the given font in cm */
+real dia_font_scaled_string_width(const char* string, DiaFont* font,
+                                  real height, real zoom_factor);
+    /* Get the max ascent of the font in cm (a positive number).
+
+    FIXME: may turn out that we need to pass a string here as well. */
+real dia_font_scaled_ascent(const char* string, DiaFont* font,
+                            real height, real zoom_factor);
+    /* Get the max descent of the font in cm (a positive number) 
+       FIXME: may turn out that we need to pass a string here as well. */
+real dia_font_scaled_descent(const char* string, DiaFont* font,
+                             real height, real zoom_factor);
+
+    /* prepares a layout of the text, in font 'font'.
+
+    When zoom_factor != 1.0, may tweak the font's size or stretch so that its
+    bounding box is actually linear with respect to the zoom factor (kerning,
+    ligaturing and other wild beasts usually get in the way of linear
+    scaling). */
+PangoLayout* dia_font_scaled_build_layout(const char *string, DiaFont* font,
+                                          real height, real zoom_factor);
+
 
 #endif /* FONT_H */

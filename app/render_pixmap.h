@@ -44,8 +44,8 @@ struct _RendererPixmap {
   int dash_length;
   int dot_length;
 
-  GdkFont *gdk_font;
-  int font_height;
+  DiaFont *font;
+  real font_height;
 };
 
 RendererPixmap *new_pixmap_renderer(GdkWindow *window, int width, int height);

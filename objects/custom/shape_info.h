@@ -173,6 +173,7 @@ struct _ShapeInfo {
   ObjectType *object_type; /* back link so we can find the correct type */
 };
 
+/* there is no destructor for ShapeInfo at the moment */
 ShapeInfo *shape_info_load(const gchar *filename);
 ShapeInfo *shape_info_get(ObjectNode obj_node);
 ShapeInfo *shape_info_getbyname(const gchar *name);

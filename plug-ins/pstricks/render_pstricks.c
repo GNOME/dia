@@ -31,7 +31,8 @@ TODO:
 4. join procedures for drawing and filling
 5. Maybe draw and fill in a single move?? Will solve the problems
    with visible thin white line between the border and the fill
-
+6. Verify the Pango stuff isn't spitting out things TeX is unable to read
+   
 NOT WORKING (exporting macros):
  1. linecaps
  2. linejoins
@@ -185,19 +186,19 @@ new_pstricks_renderer(DiagramData *data, const char *filename,
     time_t time_now;
     double scale;
     Rectangle *extent;
-    char *name;
+    const char *name;
 
     Color initial_color;
  
     file = fopen(filename, "wb");
 
     if (file==NULL) {
-	message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-	return NULL;
+      message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+      return NULL;
     }
 
     if (PstricksRenderOps == NULL)
-	init_pstricks_renderops();
+    init_pstricks_renderops();
 
     renderer = g_new(RendererPSTRICKS, 1);
     renderer->renderer.ops = PstricksRenderOps;
@@ -404,7 +405,8 @@ static void
 set_font(RendererPSTRICKS *renderer, DiaFont *font, real height)
 {
 
-    fprintf(renderer->file, "\\setfont{%s}{%f}\n", font_get_psfontname(font), (double)height);
+    fprintf(renderer->file, "\\setfont{%s}{%f}\n",
+            dia_font_get_psfontname(font), (double)height);
 }
 
 static void

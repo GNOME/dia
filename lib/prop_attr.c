@@ -368,6 +368,12 @@ fontprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
   return prop;
 }
 
+static void
+fontprop_free(FontProperty *prop)
+{
+  dia_font_unref(prop->font_data);
+}
+
 static FontProperty *
 fontprop_copy(FontProperty *src) 
 {
@@ -375,7 +381,10 @@ fontprop_copy(FontProperty *src)
     (FontProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
-  prop->font_data = src->font_data;
+
+  dia_font_unref(prop->font_data);
+  prop->font_data = dia_font_ref(src->font_data);
+
   return prop;
 }
 
@@ -403,6 +412,7 @@ fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 static void 
 fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data)
 {
+  dia_font_unref(prop->font_data);
   prop->font_data = data_font(data);
 }
 
@@ -416,20 +426,23 @@ static void
 fontprop_get_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  prop->font_data = struct_member(base,offset,DiaFont *);
+  dia_font_unref(prop->font_data);    
+  prop->font_data = dia_font_ref(struct_member(base,offset,DiaFont *));
 }
 
 static void 
 fontprop_set_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  if (prop->font_data) 
-    struct_member(base,offset,DiaFont *) = prop->font_data;
+  if (prop->font_data) {
+    dia_font_unref(struct_member(base,offset,DiaFont *));   
+    struct_member(base,offset,DiaFont *) = dia_font_ref(prop->font_data);
+  }
 }
 
 static const PropertyOps fontprop_ops = {
   (PropertyType_New) fontprop_new,
-  (PropertyType_Free) noopprop_free,
+  (PropertyType_Free) fontprop_free,
   (PropertyType_Copy) fontprop_copy,
   (PropertyType_Load) fontprop_load,
   (PropertyType_Save) fontprop_save,

@@ -43,9 +43,8 @@
 
 #include "pixmaps/etape.xpm"
 
-/* choose default font name for your locale. see also font_data structure
-   in lib/font.c. */
-#define STEP_FONT N_("Helvetica-Bold")
+#define STEP_FONT "Sans"
+#define STEP_FONT_STYLE STYLE_BOLD
 #define STEP_FONT_HEIGHT 1
 #define STEP_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH 
 #define STEP_WIDTH 3.0
@@ -499,7 +498,7 @@ step_create(Point *startpoint,
 
   step->id = new_step_name();
   step->active = 0;
-  step->font = font_getfont (_(STEP_FONT));
+  step->font = dia_font_new (STEP_FONT,STEP_FONT_STYLE,STEP_FONT_HEIGHT);
   step->font_size = STEP_FONT_HEIGHT;
   step->font_color = color_black;
   
@@ -541,6 +540,7 @@ step_create(Point *startpoint,
 static void
 step_destroy(Step *step)
 {
+  dia_font_unref(step->font);  
   g_free(step->id);
   element_destroy(&step->element);
 }

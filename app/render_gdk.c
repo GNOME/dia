@@ -26,6 +26,8 @@
 #include "render_gdk.h"
 #include "message.h"
 
+#include <pango/pango.h>
+
 static void begin_render(RendererGdk *renderer, DiagramData *data);
 static void end_render(RendererGdk *renderer);
 static void set_linewidth(RendererGdk *renderer, real linewidth);
@@ -196,6 +198,8 @@ new_gdk_renderer(DDisplay *ddisp)
 void
 destroy_gdk_renderer(RendererGdk *renderer)
 {
+  dia_font_unref(renderer->font);
+
   if (renderer->pixmap != NULL)
     gdk_pixmap_unref(renderer->pixmap);
 
@@ -413,10 +417,10 @@ set_fillstyle(RendererGdk *renderer, FillStyle mode)
 static void
 set_font(RendererGdk *renderer, DiaFont *font, real height)
 {
-  renderer->font_height =
-    ddisplay_transform_length(renderer->ddisp, height);
-
-  renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+  renderer->font_height = height;
+  
+  dia_font_unref(renderer->font);
+  renderer->font = dia_font_ref(font);
 }
 
 static void
@@ -909,6 +913,14 @@ struct gdk_freetype_user_data {
   GdkGC *gc;
 };
 
+static gint get_layout_first_baseline(PangoLayout* layout) {
+    PangoLayoutIter* iter = pango_layout_get_iter(layout);
+    gint result = pango_layout_iter_get_baseline(iter) / PANGO_SCALE;
+    pango_layout_iter_free(iter);
+    return result;
+}
+
+
 static void
 draw_string (RendererGdk *renderer,
 	    const char *text,
@@ -918,31 +930,61 @@ draw_string (RendererGdk *renderer,
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
   GdkColor gdkcolor;
-  int x,y;
-  int iwidth;
-  
-  ddisplay_transform_coords(ddisp, pos->x, pos->y,
-			    &x, &y);
 
-  iwidth = gdk_string_width(renderer->gdk_font, text);
+  int x,y;
+  Point start_pos;
+  PangoLayout* layout;
+  
+  point_copy(&start_pos,pos);
 
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    x -= iwidth/2;
+    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
+                                                 renderer->font_height,
+                                                 ddisp->zoom_factor)/2;
     break;
   case ALIGN_RIGHT:
-    x -= iwidth;
+    start_pos.x -= dia_font_scaled_string_width(text, renderer->font,
+                                                 renderer->font_height,
+                                                 ddisp->zoom_factor);
     break;
   }
   
+  ddisplay_transform_coords(ddisp, start_pos.x, start_pos.y, &x, &y);
+
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_string(renderer->pixmap,
-		  renderer->gdk_font, gc,
-		  x,y, text);
+  layout = dia_font_scaled_build_layout(text,renderer->font,
+                                        renderer->font_height,
+                                        ddisp->zoom_factor);
+  y -= get_layout_first_baseline(layout);  
+  gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+  g_object_unref(G_OBJECT(layout));
+}
+
+/* Get the width of the given text in cm */
+static real
+get_text_width(RendererGdk *renderer,
+               const gchar *text, int length)
+{
+    if (length != strlen(text)) {
+        char *othertx;
+        real result;
+        
+        othertx = g_strndup(text,length);
+        result = dia_font_scaled_string_width(text,renderer->font,
+                                              renderer->font_height,
+                                              renderer->ddisp->zoom_factor);
+        g_free(othertx);
+        return result;
+    }
+    
+    return dia_font_scaled_string_width(text,renderer->font,
+                                        renderer->font_height,
+                                        renderer->ddisp->zoom_factor);
 }
 
 static void
@@ -960,25 +1002,6 @@ draw_image(RendererGdk *renderer,
 
   dia_image_draw(image,  renderer->pixmap, real_x, real_y,
 		 real_width, real_height);
-}
-
-/* Get the width of the given text in cm */
-static real
-get_text_width(RendererGdk *renderer,
-	       const gchar *text, int length)
-{
-  int iwidth;
-
-  /* length is in num glyphs, we need bytes here */
-  int i;
-  const gchar *p = text;
-  for (i = 0; i < length; i++)
-    p = g_utf8_next_char (p);
-  /* GTKBUG? on win32 it takes utf-8 but not on X11? */
-  /* Investigate only after Pango's done */
-  iwidth = gdk_text_width(renderer->gdk_font, text, p - text);
-
-  return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }
 
 static void

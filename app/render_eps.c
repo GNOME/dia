@@ -365,7 +365,10 @@ end_prolog(RendererEPS *renderer)
 static void
 prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
 {
-  g_hash_table_insert(font_table, font_get_psfontname(font), font);
+        /* FIXME: check the lifetime of the return value of
+         dia_font_get_psfontname(). If needed, copy it (and
+        g_free() it when font_table is deleted) */
+  g_hash_table_insert(font_table, dia_font_get_psfontname(font), font);
 }
 
 static void
@@ -1009,8 +1012,8 @@ static void eps_get_string_width(gpointer usrdata, const gchar *string,
 static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
-  psu_set_font_face(renderer->psu,
-                    font_get_psfontname(font), 
+  psu_set_font_face(renderer->psu, 
+                    dia_font_get_psfontname(font), 
                     (float)height);
 }
 

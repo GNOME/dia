@@ -373,8 +373,6 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
 static void
 attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
 {
-  char *str;
-
   g_free (attr->name);
   g_free (attr->type);
   if (attr->value != NULL)
@@ -1012,7 +1010,6 @@ parameters_list_new_callback(GtkWidget *button,
   UMLOperation *current_op;
   UMLParameter *param;
   char *utf;
-  char *str;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -1287,7 +1284,6 @@ operations_get_current_values(UMLClassDialog *prop_dialog)
   UMLOperation *current_op;
   GtkLabel *label;
   char *new_str;
-  char *str;
 
   parameters_get_current_values(prop_dialog);
 
@@ -1357,7 +1353,6 @@ operations_list_new_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLOperation *op;
   char *utfstr;
-  char *str;
 
   prop_dialog = umlclass->properties_dialog;
 

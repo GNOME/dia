@@ -48,8 +48,8 @@ struct _Text {
   Focus focus;
   
   /* Computed values:  */
-  real ascent;
-  real descent;
+  real ascent; /* **average** ascent */
+  real descent; /* **average** descent */
   real max_width;
   real *row_width;
 };
