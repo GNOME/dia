@@ -29,18 +29,19 @@
 
 Color computer_color = { 0.7, 0.7, 0.7 };
 
-extern ObjectType computer_type;
-extern ObjectType monitor_type;
 extern ObjectType bus_type;
 extern ObjectType bus_type_std;
-extern ObjectType printer_type;
 extern ObjectType wanlink_type;
+
 extern ObjectType modularswitch_type;
-extern ObjectType modem_type;
+extern ObjectType printer_type;
+extern ObjectType computer_type;
+extern ObjectType monitor_type;
 
 /*
 extern ObjectType disc_type;
 extern ObjectType rj45plug_type;
+extern ObjectType modem_type;
 extern ObjectType sceadplug_type;
 extern ObjectType hub_type;
 extern ObjectType antenna_type;
@@ -55,16 +56,17 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  object_register_type(&computer_type);
-  object_register_type(&monitor_type);
   object_register_type(&bus_type_std);
   object_register_type(&bus_type);
-  object_register_type(&printer_type);
   object_register_type(&wanlink_type);
+
+  object_register_type(&computer_type);
+  object_register_type(&monitor_type);
+  object_register_type(&printer_type);
   object_register_type(&modularswitch_type);
-  object_register_type(&modem_type);
 
   /* object_register_type(&disc_type); 
+  object_register_type(&modem_type);
   object_register_type(&antenna_type);
   object_register_type(&rj45plug_type);
   object_register_type(&sceadplug_type);

@@ -46,7 +46,9 @@ SHAPES = \
 	sceadplug.shape \
 	sceadplug.xpm \
 	antenna.shape \
-	antenna.xpm
+	antenna.xpm \
+	modem.shape \
+	modem.xpm
 
 EXTRA_DIST = $(SHAPES)
 
