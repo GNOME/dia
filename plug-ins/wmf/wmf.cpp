@@ -866,15 +866,7 @@ draw_string(DiaRenderer *self,
 
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
     {
-# if 0 // one way to go, but see below ...
-        gint wclen = 0;
-        gunichar2* swc = g_utf8_to_utf16 (text, -1, NULL, &wclen, NULL);
-        W32::TextOutW (renderer->hFileDC,
-                       SCX(pos->x), SCY(pos->y),
-                       swc, wclen);
-        g_free (swc);
-# else
-        // works with newest cvs and tml's "official" 2000-12-26 release
+        // one way to go, but see below ...
         char* scp; 
         /* convert from utf8 to active codepage */
         static char codepage[10];
@@ -890,11 +882,15 @@ draw_string(DiaRenderer *self,
                          scp, strlen(scp));
             g_free (scp);
         }
-        else // converson failed, write unconverted
-            W32::TextOut(renderer->hFileDC,
-                         SCX(pos->x), SCY(pos->y),
-                         text, strlen (text));
-# endif
+        else // converson failed, write unicode
+        {
+            long wclen = 0;
+            gunichar2* swc = g_utf8_to_utf16 (text, -1, NULL, &wclen, NULL);
+            W32::TextOutW (renderer->hFileDC,
+                           SCX(pos->x), SCY(pos->y),
+                           swc, wclen);
+            g_free (swc);
+        }
     }
 
     W32::SelectObject(renderer->hFileDC, hOld);

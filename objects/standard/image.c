@@ -653,14 +653,16 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	/* Not found as abs path, try in same dir as diagram. */
 	char *temp_string;
 	const char *image_file_name;
+	const char *psep;
 
-	image_file_name = strrchr(image->file, G_DIR_SEPARATOR) + 1;
+	psep = strrchr(image->file, G_DIR_SEPARATOR);
+	/* try the other G_OS as well */
+	if (!psep)
+	  psep =  strrchr(image->file, G_DIR_SEPARATOR == '/' ? '\\' : '/');
+	if (psep)
+	  image_file_name = psep + 1;
 
-	temp_string = g_malloc(strlen(diafile_dir) +
-			       strlen(image_file_name) +1);
-
-	strcpy(temp_string, diafile_dir);
-	strcat(temp_string, image_file_name);
+	temp_string = g_build_filename(diafile_dir, image_file_name, NULL);
 
 	image->image = dia_image_load(temp_string);
 
@@ -691,13 +693,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     } else { /* Relative pathname: */
       char *temp_string;
 
-      temp_string = g_malloc(strlen(diafile_dir) +
-	                     strlen(G_DIR_SEPARATOR_S) +
-			     strlen(image->file) + 1);
-
-      strcpy(temp_string, diafile_dir);
-      strcat(temp_string, G_DIR_SEPARATOR_S);
-      strcat(temp_string, image->file);
+      temp_string = g_build_filename (diafile_dir, image->file, NULL);
 
       image->image = dia_image_load(temp_string);
 

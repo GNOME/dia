@@ -1,3 +1,13 @@
+2004-11-28  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/wmf/wmf.cpp(draw_string) : write the widechar version of 
+	the text if conversion to current locale fails. [This is actually
+	using code written four years ago;]
+	* plug-ins/wmf/wmf_gdi.(h|cpp) : added TextOutW (no real implemantation)
+
+	* objects/standard/image.c(image_load) : be more robust against 
+	filenames which seem to be absolute
+
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
 	* app/filedlg.c(file_save_callback) : convert to

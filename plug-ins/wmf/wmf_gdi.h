@@ -328,6 +328,9 @@ PolyBezier(HDC hdc, LPPOINT ppts, int iNum);
 BOOL
 TextOut(HDC hdc, wmfint iX, wmfint iY, const char* s, wmfint iNumChars);
 
+BOOL
+TextOutW(HDC hdc, wmfint iX, wmfint iY, const gunichar2* s, long iNumChars);
+
 UINT
 GetACP();
 

@@ -444,6 +444,17 @@ TextOut(HDC hdc, wmfint iX, wmfint iY, const char* s, wmfint iNumChars)
   return TRUE;
 }
 
+BOOL
+TextOutW(HDC hdc, wmfint iX, wmfint iY, const gunichar2* s, long iNumChars)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  g_warning ("TextOutW not implemented");
+
+  return TRUE;
+}
+
+
 HDC GetDC(void* hwnd)
 {
   return NULL; 
