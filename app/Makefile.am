@@ -88,6 +88,12 @@ dia_SOURCES = \
 	    pagesetup.h \
 	    filedlg.c \
 	    filedlg.h \
+	    gtkwrapbox.h \
+	    gtkwrapbox.c \
+	    gtkhwrapbox.h \
+	    gtkhwrapbox.c \
+	    gtkvwrapbox.h \
+	    gtkvwrapbox.c \
 	    $(print_files)
 
 EFENCE =
