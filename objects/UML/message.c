@@ -19,6 +19,7 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "object.h"
 #include "connection.h"
@@ -73,8 +74,6 @@ struct _MessageDialog {
 #define MESSAGE_WIDTH 0.1
 #define MESSAGE_DASHLEN 0.4
 #define MESSAGE_FONTHEIGHT 0.8
-#define MESSAGE_RECURSIVE_WIDTH 2
-#define MESSAGE_RECURSIVE_HEIGHT 1
 #define MESSAGE_ARROWLEN 0.8
 #define MESSAGE_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
@@ -212,7 +211,7 @@ message_move(Message *message, Point *to)
 static void
 message_draw(Message *message, Renderer *renderer)
 {
-  Point *endpoints, p1, p2;
+  Point *endpoints, p1, p2, px;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
   char *mname;
@@ -246,26 +245,25 @@ message_draw(Message *message, Renderer *renderer)
   } else 
       renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer->ops->draw_line(renderer,
-			   &endpoints[n1], &endpoints[n2],
-			   &color_black);
-  
-
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
   if (message->type==MESSAGE_RECURSIVE) {
-      p2.y += MESSAGE_RECURSIVE_HEIGHT;
-
+      px.x = p2.x;
+      px.y = p1.y;
       renderer->ops->draw_line(renderer,
-			       &endpoints[1], &p2,
+			       &p1, &px,
 			       &color_black);
 
-      p1.y = p2.y;
       renderer->ops->draw_line(renderer,
-			   &p1, &p2,
+			   &px, &p2,
 			   &color_black);
-  }
+      p1.y = p2.y;
+  } 
+
+  renderer->ops->draw_line(renderer,
+			   &p1, &p2,
+			   &color_black); 
 
   arrow_draw(renderer, arrow_type,
 	     &p1, &p2,
@@ -408,9 +406,6 @@ message_update_data(Message *message)
   obj->bounding_box.left -= MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
   obj->bounding_box.bottom += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
   obj->bounding_box.right += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
-
-  if (message->type==MESSAGE_RECURSIVE)
-      obj->bounding_box.bottom += MESSAGE_RECURSIVE_HEIGHT;
 }
 
 

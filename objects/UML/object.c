@@ -572,7 +572,7 @@ fill_in_dialog(Objet *dep)
   gtk_toggle_button_set_active(prop_dialog->show_attrib, dep->show_attributes);
   gtk_toggle_button_set_active(prop_dialog->active, dep->is_active);
 
-  gtk_text_insert( prop_dialog->attribs,
+  gtk_text_insert( GTK_TEXT(prop_dialog->attribs),
 		   NULL, NULL, NULL,
 		   text_get_string_copy(dep->attributes),
 		   -1);

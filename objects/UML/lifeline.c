@@ -381,6 +381,8 @@ lifeline_update_data(Lifeline *lifeline)
   Connection *conn = &lifeline->connection;
   Object *obj = (Object *) lifeline;
   Point p1, p2;
+  real r;
+  int i;
 
   obj->position = conn->endpoints[0];
 
@@ -418,6 +420,13 @@ lifeline_update_data(Lifeline *lifeline)
       lifeline->connections[4].pos.y = (p1.y + p2.y)/2.0;
       lifeline->connections[5].pos.x = p1.x;
       lifeline->connections[5].pos.y = p2.y;
+  } else {     
+      /* without focus of control, the points are over the line */
+      r = (p2.y - p1.y)/5.0; 
+      for (i = 0; i < 6; i++) {
+	  lifeline->connections[i].pos.x = p1.x;
+	  lifeline->connections[i].pos.y = p1.y + i*r;
+      }
   }
 
   if (lifeline->draw_cross) {

@@ -1,3 +1,12 @@
+1999-02-04  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/lifeline.c: 
+	Fixed connection points over the life line when the focus of
+	control is not drawn.
+
+	* objects/UML/message.c: 
+	Now a recursive message can be freely resized using the handles.
+
 1999-02-02  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/lifeline.c:
@@ -40,7 +49,7 @@
 
 1999-01-31  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
-	* objects/UML/Makefile.in: 
+	* objects/UML/Makefile.am: 
 	* objects/UML/uml.c:
 	* objects/UML/lifeline.c: 
 	* objects/UML/object.c: 
