@@ -1,5 +1,8 @@
 2002-10-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/diagram.c (diagram_place_down_selected) 
+	(diagram_place_up_selected): Now implemented.
+
 	* lib/font.c (dia_font_init): 
 	* lib/font.h: 
 	Redesigned the font init/context pushing code.  Start of fix for

@@ -745,13 +745,91 @@ diagram_place_over_selected(Diagram *dia)
 void
 diagram_place_up_selected(Diagram *dia)
 {
-  message_error("Sorry, not implemented yet!");
+  GList *sorted_list;
+  GList *orig_list;
+  GList *tmp, *stmp;
+  GList *new_list = NULL;
+
+  if (dia->data->selected_count == 0)
+    return;
+
+  orig_list = g_list_copy(dia->data->active_layer->objects);
+  
+  sorted_list = diagram_get_sorted_selected(dia);
+  object_add_updates_list(orig_list, dia);
+
+  new_list = g_list_copy(orig_list);
+  stmp = g_list_last(sorted_list);
+
+  for (tmp = g_list_last(new_list);
+       tmp != NULL;
+       tmp = g_list_previous(tmp)) {
+    if (stmp == NULL) break;
+    if (tmp->prev == NULL) break;
+    if (tmp->data == stmp->data) {
+      stmp = g_list_previous(stmp);
+    } else if (tmp->prev->data == stmp->data) {
+      void *swap = tmp->data;
+      tmp->data = tmp->prev->data;
+      tmp->prev->data = swap;
+      stmp = g_list_previous(stmp);
+    }
+  }
+
+  layer_set_object_list(dia->data->active_layer, new_list);
+
+  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+
+  diagram_modified(dia);
+  diagram_flush(dia);
+  undo_set_transactionpoint(dia->undo);
 }
 
 void
 diagram_place_down_selected(Diagram *dia)
 {
-  message_error("Sorry, not implemented yet!");
+  GList *sorted_list;
+  GList *orig_list;
+  GList *tmp, *stmp;
+  GList *new_list = NULL;
+
+  if (dia->data->selected_count == 0)
+    return;
+
+  orig_list = g_list_copy(dia->data->active_layer->objects);
+  
+  sorted_list = diagram_get_sorted_selected(dia);
+  object_add_updates_list(orig_list, dia);
+
+  /* Sanity check */
+  g_assert(dia->data->selected_count == g_list_length(sorted_list));
+
+  new_list = g_list_copy(orig_list);
+  tmp = new_list;
+  stmp = sorted_list;
+
+  for (tmp = new_list; tmp != NULL; tmp = g_list_next(tmp)) {
+    if (stmp == NULL) break;
+    if (tmp->next == NULL) break;
+    if (tmp->data == stmp->data) {
+      /* This just takes care of any starting matches */
+      stmp = g_list_next(stmp);
+    } else if (tmp->next->data == stmp->data) {
+      /* This flips the non-selected element forwards, ala bubblesort */
+      void *swap = tmp->data;
+      tmp->data = tmp->next->data;
+      tmp->next->data = swap;
+      stmp = g_list_next(stmp);
+    }
+  }
+
+  layer_set_object_list(dia->data->active_layer, new_list);
+
+  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+
+  diagram_modified(dia);
+  diagram_flush(dia);
+  undo_set_transactionpoint(dia->undo);
 }
 
 void
