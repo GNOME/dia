@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-02-29 09:57+0800\n"
-"PO-Revision-Date: 2000-02-26 12:41+01:00\n"
+"POT-Creation-Date: 2000-03-07 23:52+0100\n"
+"PO-Revision-Date: 2000-03-08 00:27+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -177,7 +177,7 @@ msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
 #: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
+#: app/lineprops_area.c:737 app/preferences.c:593 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "OK"
@@ -262,7 +262,7 @@ msgstr ""
 "Dette objektet støtter ikke angre/gjenopprett. \n"
 "Angre-informasjon slettet."
 
-#: app/disp_callbacks.c:163
+#: app/disp_callbacks.c:164
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
@@ -286,12 +286,12 @@ msgstr ""
 "Dette diagrammet har ikke blitt lagret.\n"
 "Er du sikker på at du vil lukke dette vinduet?"
 
-#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
+#: app/display.c:808 app/preferences.c:487 lib/properties.c:266
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
-#: lib/properties.c:258 lib/properties.c:279
+#: app/display.c:818 app/preferences.c:487 app/preferences.c:498
+#: lib/properties.c:268 lib/properties.c:289
 msgid "No"
 msgstr "Nei"
 
@@ -407,7 +407,7 @@ msgstr "Lag"
 msgid "Diagrams:"
 msgstr "Diagrammer:"
 
-#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:606
+#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:611
 #: app/properties.c:101
 msgid "Close"
 msgstr "Lukk"
@@ -428,11 +428,11 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: app/load_save.c:88
+#: app/load_save.c:92
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:139
+#: app/load_save.c:143
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -440,7 +440,7 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:142
+#: app/load_save.c:146
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -448,7 +448,7 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Punkt for forbindelse eksisterer ikke."
 
-#: app/load_save.c:145
+#: app/load_save.c:149
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -456,16 +456,16 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:190
+#: app/load_save.c:194
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:196
+#: app/load_save.c:200
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:205 app/load_save.c:210
+#: app/load_save.c:209 app/load_save.c:214
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -474,7 +474,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:217
+#: app/load_save.c:221
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -483,18 +483,18 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:506 app/render_eps.c:161 app/render_svg.c:144
+#: app/load_save.c:510 app/render_eps.c:161 app/render_svg.c:144
 #: plug-ins/cgm/cgm.c:1127
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
 
-#: app/load_save.c:604
+#: app/load_save.c:608
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Klarte ikke å lagre file '%s'.\n"
 
-#: app/load_save.c:624
+#: app/load_save.c:628
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
@@ -576,16 +576,16 @@ msgstr "Ny _visning"
 msgid "Show _All"
 msgstr "Vis _alt"
 
-#: app/menus.c:124 lib/properties.c:1102 lib/widgets.c:176
+#: app/menus.c:124 lib/properties.c:1114 lib/widgets.c:176
 #: objects/UML/association.c:1005
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:125 app/menus.c:134 lib/properties.c:1103 lib/widgets.c:182
+#: app/menus.c:125 app/menus.c:134 lib/properties.c:1115 lib/widgets.c:182
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:126 lib/properties.c:1104 lib/widgets.c:188
+#: app/menus.c:126 lib/properties.c:1116 lib/widgets.c:188
 #: objects/UML/association.c:998
 msgid "Right"
 msgstr "Høyre"
@@ -889,7 +889,7 @@ msgstr "/Dialoger/_Lag"
 msgid "Object properties"
 msgstr "Egenskaper for objekt"
 
-#: app/defaults.c:72 app/preferences.c:597 app/properties.c:91
+#: app/defaults.c:72 app/preferences.c:602 app/properties.c:91
 msgid "Apply"
 msgstr "Bruk"
 
@@ -918,9 +918,8 @@ msgid "View Defaults"
 msgstr "Vis standardverdier"
 
 #: app/preferences.c:84
-#, fuzzy
 msgid "Grid Lines"
-msgstr "Alternativer for rutenett"
+msgstr "Linjer i rutenett"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
@@ -975,20 +974,23 @@ msgid "Y Size:"
 msgstr "Y-størrelse:"
 
 #: app/preferences.c:115 app/preferences.c:120
-#, fuzzy
 msgid "Colour:"
-msgstr "Farge"
+msgstr "Farge:"
 
 #: app/preferences.c:116 app/preferences.c:121
-#, fuzzy
 msgid "Solid lines:"
-msgstr "Helfylte linjer"
+msgstr "Helfylte linjer:"
 
 #: app/preferences.c:118
 msgid "Page breaks:"
-msgstr ""
+msgstr "Sideskift:"
 
-#: app/preferences.c:556 app/preferences.c:565
+#: app/preferences.c:234
+#, c-format
+msgid "Could not open `%s' for writing"
+msgstr "Kunne ikke åpne `%s' for skriving"
+
+#: app/preferences.c:561 app/preferences.c:570
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1119,7 +1121,7 @@ msgstr "Velg bildefil"
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#: lib/properties.c:346 lib/properties.c:378
+#: lib/properties.c:356 lib/properties.c:388
 msgid "No edit widget"
 msgstr "Ingen redigeringswidget"
 
