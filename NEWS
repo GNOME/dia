@@ -1,3 +1,14 @@
+dia-0.91-pre4:
+* Fixed lack of undo for moving objects.
+* Fixed lack of modified-ness for changing text.
+* Better URL for help manual.
+
+dia-0.91-pre3: 16-Feb-2003
+* Fixed long-standing bug with antialiasing.
+* Better XSLT plugin.
+* Localized output in SVG floating point removed.
+* SADT arrow fixed.
+
 dia-0.91-pre2: 9-Feb-2003
 * Fixed a number of small bugs:
   - Properties dialog now hides when an object is deleted.
