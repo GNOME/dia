@@ -4,7 +4,9 @@ plugin_sources = \
 	diagnomeprintrenderer.c \
 	diagnomeprintrenderer.h
 
+if WITH_GNOMEPRINT
 pkglib_LTLIBRARIES = libgprint_filter.la
+endif
 
 EXTRA_DIST =
 

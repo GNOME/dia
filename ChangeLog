@@ -1,3 +1,9 @@
+2004-12-29  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: Make gnomeprint be truly off by default (typo) and
+	show optional compilation correctly.
+	* plug-ins/gprint/Makefile.am: Exclude gnomeprint if not optioned in.
+
 2004-12-22  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c : destroy handlers can be called more than once, 

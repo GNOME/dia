@@ -132,7 +132,7 @@ AM_CONDITIONAL(HAVE_BONOBO,false)
 dnl Look for Gnome Print
 AC_ARG_WITH(gnomeprint,
 [  --with-gnomeprint        compile *experimental* gnomeprint plug-in],,with_gnomeprint=no)
-if test "x$with_gprint" != "xno"; then
+if test "x$with_gnomeprint" == "xyes"; then
   PKG_CHECK_MODULES(GNOMEPRINT, libgnomeprint-2.2, have_gnomeprint=yes,have_gnomeprint=no)
   AC_SUBST(GNOMEPRINT_LIBS)
   AC_SUBST(GNOMEPRINT_CFLAGS)
@@ -513,8 +513,8 @@ Configuration:
 	Gnome support:				${GNOME}
 	Python support:				${with_python}
 	Libart support (PNG export):		${have_libart}
-	Cairo support (experimental):		${have_cairo}
-	Gnome Print support (experimental):	${have_gnomeprint}
+	Cairo support (experimental):		${with_cairo}
+	Gnome Print support (experimental):	${with_gnomeprint}
 "
 
 echo "Now type make to build dia..."
