@@ -173,6 +173,7 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_ENUM:
   case PROP_TYPE_REAL:
   case PROP_TYPE_POINT:
+  case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_RECT:
   case PROP_TYPE_LINESTYLE:
   case PROP_TYPE_ARROW:
@@ -190,6 +191,13 @@ prop_copy(Property *dest, Property *src)
     PROP_VALUE_POINTARRAY(*dest).npts = PROP_VALUE_POINTARRAY(*src).npts;
     PROP_VALUE_POINTARRAY(*dest).pts =g_memdup(PROP_VALUE_POINTARRAY(*src).pts,
 			sizeof(Point) * PROP_VALUE_POINTARRAY(*src).npts);
+    break;
+  case PROP_TYPE_BEZPOINTARRAY:
+    g_free(PROP_VALUE_BEZPOINTARRAY(*dest).pts);
+    PROP_VALUE_BEZPOINTARRAY(*dest).npts = PROP_VALUE_BEZPOINTARRAY(*src).npts;
+    PROP_VALUE_BEZPOINTARRAY(*dest).pts =
+      g_memdup(PROP_VALUE_BEZPOINTARRAY(*src).pts,
+	       sizeof(BezPoint) * PROP_VALUE_BEZPOINTARRAY(*src).npts);
     break;
   default:
     if (custom_props == NULL || src->type - PROP_LAST >= custom_props->len) {
@@ -221,6 +229,7 @@ prop_free(Property *prop)
   case PROP_TYPE_ENUM:
   case PROP_TYPE_REAL:
   case PROP_TYPE_POINT:
+  case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_RECT:
   case PROP_TYPE_LINESTYLE:
   case PROP_TYPE_ARROW:
@@ -233,6 +242,9 @@ prop_free(Property *prop)
     break;
   case PROP_TYPE_POINTARRAY:
     g_free(PROP_VALUE_POINTARRAY(*prop).pts);
+    break;
+  case PROP_TYPE_BEZPOINTARRAY:
+    g_free(PROP_VALUE_BEZPOINTARRAY(*prop).pts);
     break;
   default:
     if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
@@ -353,6 +365,8 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
+  case PROP_TYPE_BEZPOINT:
+  case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
     break;
@@ -429,6 +443,8 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     break;
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
+  case PROP_TYPE_BEZPOINT:
+  case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_RECT:
     /* nothing */
     break;
@@ -530,6 +546,10 @@ prop_load(Property *prop, ObjectNode obj_node)
       data_point(data, &PROP_VALUE_POINTARRAY(*prop).pts[i]);
       data = data_next(data);
     }
+    break;
+  case PROP_TYPE_BEZPOINT:
+  case PROP_TYPE_BEZPOINTARRAY:
+    g_warning("haven't written code for this -- must fix");
     break;
   case PROP_TYPE_RECT:
     data_rectangle(data, &PROP_VALUE_RECT(*prop));
@@ -639,6 +659,10 @@ prop_save(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_POINTARRAY:
     for (i = 0; i < PROP_VALUE_POINTARRAY(*prop).npts; i++)
       data_add_point(attr, &PROP_VALUE_POINTARRAY(*prop).pts[i]);
+    break;
+  case PROP_TYPE_BEZPOINT:
+  case PROP_TYPE_BEZPOINTARRAY:
+    g_warning("haven't written code for this -- must fix");
     break;
   case PROP_TYPE_RECT:
     data_add_rectangle(attr, &PROP_VALUE_RECT(*prop));
@@ -818,7 +842,24 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
 	struct_member(obj, offsets[j].offset, Point);
       break;
     case PROP_TYPE_POINTARRAY:
-      g_warning("PropType == pointarray not supported");
+      g_free(PROP_VALUE_POINTARRAY(props[i]).pts);
+      PROP_VALUE_POINTARRAY(props[i]).npts =
+	struct_member(obj, offsets[j].offset2, gint);
+      PROP_VALUE_POINTARRAY(props[i]).pts =
+	g_memdup(struct_member(obj, offsets[j].offset, Point *),
+		 sizeof(Point) * PROP_VALUE_POINTARRAY(props[i]).npts);
+      break;
+    case PROP_TYPE_BEZPOINT:
+      PROP_VALUE_BEZPOINT(props[i]) =
+	struct_member(obj, offsets[j].offset, BezPoint);
+      break;
+    case PROP_TYPE_BEZPOINTARRAY:
+      g_free(PROP_VALUE_BEZPOINTARRAY(props[i]).pts);
+      PROP_VALUE_BEZPOINTARRAY(props[i]).npts =
+	struct_member(obj, offsets[j].offset2, gint);
+      PROP_VALUE_BEZPOINTARRAY(props[i]).pts =
+	g_memdup(struct_member(obj, offsets[j].offset, BezPoint *),
+		 sizeof(BezPoint) * PROP_VALUE_BEZPOINTARRAY(props[i]).npts);
       break;
     case PROP_TYPE_RECT:
       PROP_VALUE_RECT(props[i]) =
@@ -905,7 +946,24 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 	PROP_VALUE_POINT(props[i]);
       break;
     case PROP_TYPE_POINTARRAY:
-      g_warning("PropType == pointarray not supported");
+      g_free(struct_member(obj, offsets[j].offset, Point *));
+      struct_member(obj, offsets[j].offset, Point *) =
+	g_memdup(PROP_VALUE_POINTARRAY(props[i]).pts,
+		 sizeof(Point) * PROP_VALUE_POINTARRAY(props[i]).npts);
+      struct_member(obj, offsets[j].offset2, gint) =
+	PROP_VALUE_POINTARRAY(props[i]).npts;
+      break;
+    case PROP_TYPE_BEZPOINT:
+      struct_member(obj, offsets[j].offset, BezPoint) =
+	PROP_VALUE_BEZPOINT(props[i]);
+      break;
+    case PROP_TYPE_BEZPOINTARRAY:
+      g_free(struct_member(obj, offsets[j].offset, BezPoint *));
+      struct_member(obj, offsets[j].offset, BezPoint *) =
+	g_memdup(PROP_VALUE_BEZPOINTARRAY(props[i]).pts,
+		 sizeof(BezPoint) * PROP_VALUE_BEZPOINTARRAY(props[i]).npts);
+      struct_member(obj, offsets[j].offset2, gint) =
+	PROP_VALUE_BEZPOINTARRAY(props[i]).npts;
       break;
     case PROP_TYPE_RECT:
       struct_member(obj, offsets[j].offset, Rectangle) =

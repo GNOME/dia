@@ -42,28 +42,28 @@ struct _BezierConn {
   BezCornerType *corner_types;
 };
 
-extern void bezierconn_update_data(BezierConn *bez);
-extern void bezierconn_update_boundingbox(BezierConn *bez);
-extern void bezierconn_simple_draw(BezierConn *bez, Renderer *renderer,
-				 real width);
-extern void bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer);
-extern void bezierconn_init(BezierConn *bez);
-extern void bezierconn_destroy(BezierConn *bez);
-extern void bezierconn_copy(BezierConn *from, BezierConn *to);
-extern void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
-extern void bezierconn_load(BezierConn *bez, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
-extern ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
-extern ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
-						Handle *handle,
-						BezCornerType style);
-extern void bezierconn_move_handle(BezierConn *bez, Handle *id,
-				 Point *to, HandleMoveReason reason);
-extern void bezierconn_move(BezierConn *bez, Point *to);
-extern real bezierconn_distance_from(BezierConn *bez, Point *point,
-				   real line_width);
-extern Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
-extern Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
-extern int bezierconn_closest_segment(BezierConn *bez, Point *point,
-				      real line_width);
+void bezierconn_update_data(BezierConn *bez);
+void bezierconn_update_boundingbox(BezierConn *bez);
+void bezierconn_simple_draw(BezierConn *bez, Renderer *renderer,
+			    real width);
+void bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer);
+void bezierconn_init(BezierConn *bez);
+void bezierconn_destroy(BezierConn *bez);
+void bezierconn_copy(BezierConn *from, BezierConn *to);
+void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
+void bezierconn_load(BezierConn *bez, ObjectNode obj_node);  /* NOTE: Does object_init() */
+ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
+ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
+ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
+					 Handle *handle,
+					 BezCornerType style);
+void bezierconn_move_handle(BezierConn *bez, Handle *id,
+			    Point *to, HandleMoveReason reason);
+void bezierconn_move(BezierConn *bez, Point *to);
+real bezierconn_distance_from(BezierConn *bez, Point *point,
+			      real line_width);
+Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
+Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
+int bezierconn_closest_segment(BezierConn *bez, Point *point,
+			       real line_width);
 #endif /* BEZIER_CONN_H */

@@ -53,6 +53,8 @@ typedef enum {
   PROP_TYPE_STRING,
   PROP_TYPE_POINT,
   PROP_TYPE_POINTARRAY,
+  PROP_TYPE_BEZPOINT,
+  PROP_TYPE_BEZPOINTARRAY,
   PROP_TYPE_RECT,
   PROP_TYPE_LINESTYLE,
   PROP_TYPE_ARROW,
@@ -100,6 +102,11 @@ struct _Property {
       Point *pts;
       guint npts;
     } ptarray_data;
+    BezPoint bpoint_data;
+    struct {
+      BezPoint *pts;
+      guint npts;
+    } bptarray_data;
     Rectangle rect_data;
     struct {
       LineStyle style;
@@ -124,21 +131,23 @@ struct _PropEnumData {
   guint enumv;
 };
 
-#define PROP_VALUE_CHAR(prop)       ((prop).d.char_data)
-#define PROP_VALUE_BOOL(prop)       ((prop).d.bool_data)
-#define PROP_VALUE_INT(prop)        ((prop).d.int_data)
-#define PROP_VALUE_ENUM(prop)       ((prop).d.int_data)
-#define PROP_VALUE_REAL(prop)       ((prop).d.real_data)
-#define PROP_VALUE_STRING(prop)     ((prop).d.string_data)
-#define PROP_VALUE_POINT(prop)      ((prop).d.point_data)
-#define PROP_VALUE_POINTARRAY(prop) ((prop).d.ptarray_data)
-#define PROP_VALUE_RECT(prop)       ((prop).d.rect_data)
-#define PROP_VALUE_LINESTYLE(prop)  ((prop).d.linestyle_data)
-#define PROP_VALUE_ARROW(prop)      ((prop).d.arrow_data)
-#define PROP_VALUE_COLOUR(prop)     ((prop).d.colour_data)
-#define PROP_VALUE_FONT(prop)       ((prop).d.font_data)
-#define PROP_VALUE_FILE(prop)       ((prop).d.string_data)
-#define PROP_VALUE_OTHER(prop)      ((prop).d.other_data)
+#define PROP_VALUE_CHAR(prop)          ((prop).d.char_data)
+#define PROP_VALUE_BOOL(prop)          ((prop).d.bool_data)
+#define PROP_VALUE_INT(prop)           ((prop).d.int_data)
+#define PROP_VALUE_ENUM(prop)          ((prop).d.int_data)
+#define PROP_VALUE_REAL(prop)          ((prop).d.real_data)
+#define PROP_VALUE_STRING(prop)        ((prop).d.string_data)
+#define PROP_VALUE_POINT(prop)         ((prop).d.point_data)
+#define PROP_VALUE_POINTARRAY(prop)    ((prop).d.ptarray_data)
+#define PROP_VALUE_BEZPOINT(prop)      ((prop).d.bpoint_data)
+#define PROP_VALUE_BEZPOINTARRAY(prop) ((prop).d.bptarray_data)
+#define PROP_VALUE_RECT(prop)          ((prop).d.rect_data)
+#define PROP_VALUE_LINESTYLE(prop)     ((prop).d.linestyle_data)
+#define PROP_VALUE_ARROW(prop)         ((prop).d.arrow_data)
+#define PROP_VALUE_COLOUR(prop)        ((prop).d.colour_data)
+#define PROP_VALUE_FONT(prop)          ((prop).d.font_data)
+#define PROP_VALUE_FILE(prop)          ((prop).d.string_data)
+#define PROP_VALUE_OTHER(prop)         ((prop).d.other_data)
 
 /* Copy the data member of the property
  * If NULL, then just copy data member straight */
@@ -203,6 +212,8 @@ GtkWidget *prop_get_widget(Property *prop);
 void       prop_set_from_widget(Property *prop, GtkWidget *widget);
 void       prop_load(Property *prop, ObjectNode obj_node);
 void       prop_save(Property *prop, ObjectNode obj_node);
+
+void       prop_list_free(Property *props, guint nprops);
 
 G_INLINE_FUNC Property *prop_list_from_matching_descs(
 		const PropDescription *plist, guint flags, guint *nprops);

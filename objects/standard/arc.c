@@ -125,6 +125,8 @@ static PropDescription arc_props[] = {
   PROP_STD_LINE_STYLE,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
+  { "curve_distance", PROP_TYPE_REAL, 0,
+    N_("Curve distance"), NULL },
   PROP_DESC_END
 };
 
@@ -144,6 +146,7 @@ static PropOffset arc_offsets[] = {
     offsetof(Arc, line_style), offsetof(Arc, dashlength) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Arc, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Arc, end_arrow) },
+  { "curve_distance", PROP_TYPE_REAL, offsetof(Arc, curve_distance) },
   { NULL, 0, 0 }
 };
 

@@ -1,5 +1,17 @@
 2000-06-01  James Henstridge  <james@daa.com.au>
 
+	* objects/standard/arc.c: added extra properties.
+
+	* lib/beziershape.c (beziershape_closest_handle): fix a bug where I
+	was using the wrong index into the handles array.  This gets corner
+	type changing working correctly.
+
+	* lib/properties.[ch]: add support for BezPoint's and BezPoint arrays
+	to properties code (no editing or loading yet though).  Also added
+	support for point array manipulation through the offsets interfaces.
+
+	* lib/Makefile.am (INCLUDES): added include of gdk-pixbuf 
+
 	* app/interface.c (origin_button_press): changes so the origin
 	button doesn't grab the pointer when we pop up the menu.
 

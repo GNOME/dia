@@ -248,7 +248,7 @@ Handle *
 beziershape_closest_handle(BezierShape *bezier, Point *point)
 {
   int i, hn;
-  real dist = G_MAXFLOAT;
+  real dist = G_MAXDOUBLE;
   Handle *closest = NULL;
   
   for (i = 1, hn = 0; i < bezier->numpoints; i++, hn++) {
@@ -257,21 +257,21 @@ beziershape_closest_handle(BezierShape *bezier, Point *point)
     new_dist = distance_point_point( point, &bezier->points[i].p1);
     if (new_dist < dist) {
       dist = new_dist;
-      closest = bezier->object.handles[i];
+      closest = bezier->object.handles[hn];
     }
     hn++;
 
     new_dist = distance_point_point( point, &bezier->points[i].p2);
     if (new_dist < dist) {
       dist = new_dist;
-      closest = bezier->object.handles[i];
+      closest = bezier->object.handles[hn];
     }
 
     hn++;
     new_dist = distance_point_point( point, &bezier->points[i].p3);
     if (new_dist < dist) {
       dist = new_dist;
-      closest = bezier->object.handles[i];
+      closest = bezier->object.handles[hn];
     }
   }
   return closest;
