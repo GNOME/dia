@@ -213,6 +213,8 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
 
     sheets_dialog_up_down_set_sensitive(wrapbox_button_list, togglebutton);
 
+    sm = gtk_object_get_data(GTK_OBJECT(togglebutton), "sheet_mod");
+
     button = lookup_widget(sheets_dialog, "button_edit");
     if (!gtk_object_get_data(GTK_OBJECT(togglebutton), "sheet_object_mod")
         && sm->sheet.scope == SHEET_SCOPE_SYSTEM)
@@ -220,7 +222,6 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
     else
       gtk_widget_set_sensitive(button, TRUE);
 
-    sm = gtk_object_get_data(GTK_OBJECT(togglebutton), "sheet_mod");
     button = lookup_widget(sheets_dialog, "button_remove");
     if (gtk_object_get_data(GTK_OBJECT(togglebutton), "is_hidden_button")
         && sm->sheet.shadowing == NULL

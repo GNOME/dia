@@ -1,3 +1,12 @@
+2002-04-16  Steffen Macke <sdteffen@web.de>
+
+	* sheets/EML.sheet.in: commented out unavailable shapes
+	
+2002-04-15  M.C. Nelson <mcn@kobayashimaru.org>
+
+	* app/sheets_dialog_callbacks.c:  Fixed segfault caused by mis-ordered
+	  variable assignment.
+	
 2002-04-15  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/dxf/dxf-import.c: text import works again
