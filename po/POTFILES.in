@@ -1,0 +1,11 @@
+# List of source files containing translatable strings.
+
+app/app_procs.c
+app/menus.c
+app/color_area.c
+app/commands.c
+app/display.c
+app/grid.c
+app/interface.c
+app/layer_dialog.c
+app/load_save.c

@@ -1,0 +1,361 @@
+# Swedish translation of Dia
+# Copyright (C) 1999
+# Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 1999-01-24 20:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: app/app_procs.c:191 app/app_procs.c:193
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "Kunde inte hitta standard objekt, avslutar...\n"
+
+#: app/app_procs.c:238
+msgid "Quit, are you sure?"
+msgstr ""
+
+#: app/app_procs.c:240
+msgid ""
+"Modified diagrams exists.\n"
+"Are you sure you want to quit?"
+msgstr ""
+
+#: app/app_procs.c:249 app/commands.c:152 app/commands.c:264
+msgid "Yes"
+msgstr ""
+
+#: app/app_procs.c:262 app/commands.c:165 app/commands.c:277
+msgid "No"
+msgstr ""
+
+#: app/app_procs.c:322
+#, c-format
+msgid ""
+"Couldn't find any libraries to load.\n"
+"%s is not a directory.\n"
+msgstr ""
+
+#: app/app_procs.c:329
+#, c-format
+msgid "Couldn't open \"%s\".\n"
+msgstr ""
+
+#: app/app_procs.c:342 app/app_procs.c:373
+#, c-format
+msgid ""
+"Error loading library: \"%s\":\n"
+" %s\n"
+msgstr ""
+
+#: app/app_procs.c:440
+#, c-format
+msgid ""
+"Unable to find register_sheets in library:\n"
+"%s"
+msgstr ""
+
+#: app/menus.c:32 app/menus.c:87
+msgid "/_File"
+msgstr "/Arkiv"
+
+#. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:33 app/menus.c:89
+msgid "/File/_New"
+msgstr "/Arkiv/Ny"
+
+#: app/menus.c:34 app/menus.c:90
+msgid "/File/_Open"
+msgstr "/Arkiv/Öppna"
+
+#: app/menus.c:35 app/menus.c:94
+msgid "/File/sep1"
+msgstr "/Arkiv/sep1"
+
+#: app/menus.c:36 app/menus.c:96
+msgid "/File/_Quit"
+msgstr "/Arkiv/Avsluta"
+
+#: app/menus.c:37
+msgid "/_Help"
+msgstr "Hjälp"
+
+#: app/menus.c:38
+msgid "/Help/_About"
+msgstr "/Hjälp/Om"
+
+#: app/menus.c:45 app/menus.c:58
+msgid "About"
+msgstr "Om"
+
+#: app/menus.c:45 app/menus.c:58
+msgid "Info about this program"
+msgstr "Information om detta program"
+
+#: app/menus.c:69
+msgid "File"
+msgstr "Arkiv"
+
+#: app/menus.c:70
+msgid "Help"
+msgstr "Hjälp"
+
+#: app/menus.c:91
+msgid "/File/_Save"
+msgstr ""
+
+#: app/menus.c:92
+msgid "/File/Save _As..."
+msgstr ""
+
+#: app/menus.c:93
+msgid "/File/_Export To EPS"
+msgstr ""
+
+#: app/menus.c:95
+msgid "/File/_Close"
+msgstr ""
+
+#: app/menus.c:97
+msgid "/_Edit"
+msgstr ""
+
+#: app/menus.c:99
+msgid "/Edit/_Copy"
+msgstr ""
+
+#: app/menus.c:100
+msgid "/Edit/C_ut"
+msgstr ""
+
+#: app/menus.c:101
+msgid "/Edit/_Paste"
+msgstr ""
+
+#: app/menus.c:102
+msgid "/Edit/_Delete"
+msgstr ""
+
+#: app/menus.c:103
+msgid "/_View"
+msgstr ""
+
+#: app/menus.c:105
+msgid "/View/Zoom _In"
+msgstr ""
+
+#: app/menus.c:106
+msgid "/View/Zoom _Out"
+msgstr ""
+
+#: app/menus.c:107
+msgid "/View/_Zoom"
+msgstr ""
+
+#: app/menus.c:108
+msgid "/View/Zoom/400%"
+msgstr ""
+
+#: app/menus.c:109
+msgid "/View/Zoom/283%"
+msgstr ""
+
+#: app/menus.c:110
+msgid "/View/Zoom/200%"
+msgstr ""
+
+#: app/menus.c:111
+msgid "/View/Zoom/141%"
+msgstr ""
+
+#: app/menus.c:112
+msgid "/View/Zoom/100%"
+msgstr ""
+
+#: app/menus.c:113
+msgid "/View/Zoom/85%"
+msgstr ""
+
+#: app/menus.c:114
+msgid "/View/Zoom/70.7%"
+msgstr ""
+
+#: app/menus.c:115
+msgid "/View/Zoom/50%"
+msgstr ""
+
+#: app/menus.c:116
+msgid "/View/Zoom/35.4%"
+msgstr ""
+
+#: app/menus.c:117
+msgid "/View/Zoom/25%"
+msgstr ""
+
+#: app/menus.c:118
+msgid "/View/Edit Grid..."
+msgstr ""
+
+#: app/menus.c:119
+msgid "/View/_Visible Grid"
+msgstr ""
+
+#: app/menus.c:120
+msgid "/View/_Snap To Grid"
+msgstr ""
+
+#: app/menus.c:121
+msgid "/View/Toggle _Rulers"
+msgstr ""
+
+#: app/menus.c:122
+msgid "/View/sep1"
+msgstr ""
+
+#: app/menus.c:123
+msgid "/View/New _View"
+msgstr ""
+
+#: app/menus.c:124
+msgid "/View/Show _All"
+msgstr ""
+
+#: app/menus.c:125
+msgid "/_Objects"
+msgstr ""
+
+#: app/menus.c:127
+msgid "/Objects/Place _Under"
+msgstr ""
+
+#: app/menus.c:128
+msgid "/Objects/Place _Over"
+msgstr ""
+
+#: app/menus.c:129 app/menus.c:132
+msgid "/Objects/sep1"
+msgstr ""
+
+#: app/menus.c:130
+msgid "/Objects/_Group"
+msgstr ""
+
+#: app/menus.c:131
+msgid "/Objects/_Ungroup"
+msgstr ""
+
+#: app/menus.c:133
+msgid "/Objects/Align _Horizontal"
+msgstr ""
+
+#: app/menus.c:134
+msgid "/Objects/Align Horizontal/Top"
+msgstr ""
+
+#: app/menus.c:135
+msgid "/Objects/Align Horizontal/Center"
+msgstr ""
+
+#: app/menus.c:136
+msgid "/Objects/Align Horizontal/Bottom"
+msgstr ""
+
+#: app/menus.c:137
+msgid "/Objects/Align _Vertical"
+msgstr ""
+
+#: app/menus.c:138
+msgid "/Objects/Align Vertical/Left"
+msgstr ""
+
+#: app/menus.c:139
+msgid "/Objects/Align Vertical/Center"
+msgstr ""
+
+#: app/menus.c:140
+msgid "/Objects/Align Vertical/Right"
+msgstr ""
+
+#: app/menus.c:143
+msgid "/_Dialogs"
+msgstr ""
+
+#: app/menus.c:144
+msgid "/Dialogs/_Properties"
+msgstr ""
+
+#: app/menus.c:145
+msgid "/Dialogs/_Layers"
+msgstr ""
+
+#: app/menus.c:206
+#, c-format
+msgid "Unable to set sensitivity for menu which doesn't exist: %s"
+msgstr ""
+
+#: app/menus.c:223
+#, c-format
+msgid "Unable to set state for menu which doesn't exist: %s"
+msgstr ""
+
+#: app/commands.c:79
+msgid "Open diagram"
+msgstr ""
+
+#: app/commands.c:137 app/commands.c:249
+msgid "File already exists"
+msgstr ""
+
+#: app/commands.c:140 app/commands.c:252
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+
+#: app/commands.c:206
+msgid "Save diagram"
+msgstr ""
+
+#: app/commands.c:317
+msgid "Export to postscript"
+msgstr ""
+
+#: app/commands.c:351
+#, c-format
+msgid "Untitled-%d"
+msgstr ""
+
+#: app/commands.c:401
+msgid "No existing object to paste.\n"
+msgstr ""
+
+#: app/commands.c:471
+msgid "Copyright (C) 1999"
+msgstr ""
+
+#: app/commands.c:473
+msgid ""
+"Comment line 1\n"
+"Line 2"
+msgstr ""
+
+#: app/commands.c:479
+msgid "About Dia"
+msgstr ""
+
+#: app/commands.c:498
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
+msgstr ""
+
+#: app/commands.c:502
+msgid "Ok"
+msgstr ""
