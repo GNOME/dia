@@ -1,3 +1,9 @@
+1999-10-26  Alexander Larsson  <alex@cendio.se>
+
+	* app/render_gdk.c (bezier_add_lines):
+	Don't crash on zero-size (broken) bezier curves.
+	Fixes a crashing bug.
+
 1999-10-25  James Henstridge  <james@daa.com.au>
 
 	* app/Makefile.am (run_dia.sh): allow dia to find internal shape files

@@ -690,6 +690,7 @@ bezier_add_lines(DDisplay *ddisp,
   Point s[4];
   Point middle;
   coord delta;
+  real v_len_sq;
 
   /* Check if almost flat: */
   u = points[1];
@@ -697,7 +698,12 @@ bezier_add_lines(DDisplay *ddisp,
   v = points[3];
   point_sub(&v, &points[0]);
   y = v;
-  point_scale(&y, point_dot(&u,&v)/point_dot(&v,&v));
+  v_len_sq = point_dot(&v,&v);
+  if (v_len_sq < 0.00001) { /* Broken bezier curve, draw a line */
+    bezier_add_point(ddisp, bezier, &points[3]);
+    return;
+  } 
+  point_scale(&y, point_dot(&u,&v)/v_len_sq);
   x = u;
   point_sub(&x,&y);
   delta = ddisplay_transform_length(ddisp, point_dot(&x,&x));
@@ -707,11 +713,16 @@ bezier_add_lines(DDisplay *ddisp,
     v = points[0];
     point_sub(&v, &points[3]);
     y = v;
-    point_scale(&y, point_dot(&u,&v)/point_dot(&v,&v));
+    v_len_sq = point_dot(&v,&v);
+    if (v_len_sq < 0.00001) { /* Broken bezier curve, draw a line */
+      bezier_add_point(ddisp, bezier, &points[3]);
+      return;
+    } 
+    point_scale(&y, point_dot(&u,&v)/v_len_sq);
     x = u;
     point_sub(&x,&y);
     delta = ddisplay_transform_length(ddisp, point_dot(&x,&x));
-    if (delta < BEZIER_SUBDIVIDE_LIMIT_SQ) {
+    if (delta < BEZIER_SUBDIVIDE_LIMIT_SQ) { /* Almost flat, draw a line */
       bezier_add_point(ddisp, bezier, &points[3]);
       return;
     }
