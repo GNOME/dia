@@ -282,4 +282,5 @@ sheets/ER/Makefile
 sheets/GRAFCET/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
+plug-ins/pstricks/Makefile
 )

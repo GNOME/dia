@@ -1,3 +1,14 @@
+2000-05-09  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/pstricks/pstricks.c: code to initialise the plugin.
+
+	* plug-ins/pstricks/render_pstricks.[ch]: Jacek Pliszka's pstricks
+	renderer (with a few small modifications by me).
+
+	* plug-ins/pstricks/Makefile.am: new makefile for pstricks plug-in.
+
+	* plug-ins/Makefile.am (SUBDIRS): add pstricks subdirectory.
+
 2000-05-07  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in:

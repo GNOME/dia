@@ -1,2 +1,2 @@
-SUBDIRS = cgm
+SUBDIRS = cgm pstricks
 
