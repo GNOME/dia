@@ -1,39 +1,39 @@
-# dia 1.17
+# dia 1.18
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Jing-Jong SHYUE <shyue@sonoma.com.tw>, 2000
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 1.17\n"
-"POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-5-21 20:00+0800\n"
+"Project-Id-Version: dia 1.18\n"
+"POT-Creation-Date: 2000-08-01 01:30+0800\n"
+"PO-Revision-Date: 2000-08-21 20:00+0800\n"
 "Last-Translator: Jing-Jong SHYUE <shyue@sonoma.com.tw>\n"
 "Language-Team: Chinese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "匯出載入的檔案並離開"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "輸出"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "顯示說明訊息"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "無法與工作管理員連接!\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -42,20 +42,20 @@ msgstr ""
 "在選項%s發生錯誤: %s.\n"
 "執行 '%s --help' 取得完整選項列表.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "當找尋物件函式中找不到標準物件, 離開程式...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "需要合法的輸入檔\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:297 app/app_procs.c:303
 msgid "Quit, are you sure?"
 msgstr "是否確定離開?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:310
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -63,21 +63,21 @@ msgstr ""
 "有被修改過的圖表\n"
 "是否確定離開?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:320 app/app_procs.c:325
 msgid "Quit"
 msgstr "離開"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:405
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立使用者組態目錄"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:425
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部的物件與過濾器"
 
@@ -107,41 +107,44 @@ msgstr "未命名-%d"
 msgid "No existing object to paste.\n"
 msgstr "沒有存在的物件可供貼上.\n"
 
-#: app/commands.c:464
+#: app/commands.c:463
 msgid "About Dia"
 msgstr "關於 Dia"
 
-#: app/commands.c:522
+#: app/commands.c:521
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s by Alexander Larsson"
 
-#: app/commands.c:527
+#: app/commands.c:526
 msgid "Maintainer: James Henstridge"
 msgstr "維護者: James Henstridge"
 
-#: app/commands.c:531
+#: app/commands.c:530
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "請到http://www.lysator.liu.se/~alla/dia查詢更多訊息"
 
-#: app/commands.c:536
+#: app/commands.c:535
 msgid "Contributors:"
 msgstr "散佈者:"
 
 #. setup buttons
-#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
+#: app/commands.c:552 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "確定"
 
-#: app/commands.c:668
+#: app/commands.c:667
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"反鋸齒工具尚有些臭蟲, 可能導致當機.\n"
+"我們已經知道有許\多臭蟲在裡面, \n"
+"所以請不要回報當機錯誤."
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
@@ -162,34 +165,28 @@ msgid "This object has no defaults."
 msgstr "此物件沒有預設值"
 
 #: app/dia_embedd.c:185
-#, fuzzy
 msgid "File/New diagram"
-msgstr "新圖表"
+msgstr "檔案/新圖表"
 
 #: app/dia_embedd.c:189
-#, fuzzy
 msgid "File/Open..."
-msgstr "/檔案/開啟舊檔"
+msgstr "檔案/開啟檔案..."
 
 #: app/dia_embedd.c:193
-#, fuzzy
 msgid "File/Save As..."
-msgstr "/檔案/另存新檔"
+msgstr "檔案/另存新檔..."
 
 #: app/dia_embedd.c:197
-#, fuzzy
 msgid "File/Close"
-msgstr "/檔案/關閉"
+msgstr "檔案/關閉"
 
 #: app/dia_embedd.c:201
-#, fuzzy
 msgid "File/Exit"
-msgstr "/檔案/離開"
+msgstr "檔案/離開"
 
 #: app/dia_embedd.c:205
-#, fuzzy
 msgid "View/New View"
-msgstr "/檢視/新視角"
+msgstr "檢視/新視角"
 
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
@@ -399,9 +396,9 @@ msgid "/View/AntiAliased"
 msgstr "/檢視/不對齊"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
-#: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "無法寫入: '%s'.\n"
@@ -525,12 +522,10 @@ msgid "Polygon"
 msgstr "多角形"
 
 #: app/interface.c:70
-#, fuzzy
 msgid "Create Beziergon"
 msgstr "建立貝茲曲線"
 
 #: app/interface.c:71 app/menus.c:200
-#, fuzzy
 msgid "Beziergon"
 msgstr "貝茲曲線"
 
@@ -686,7 +681,7 @@ msgstr ""
 "圖表載入錯誤.\n"
 "連接控制不存在."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "無法開啟 :'%s'.\n"
@@ -724,7 +719,7 @@ msgstr "原生 Dia 圖表"
 
 #: app/menus.c:39 app/menus.c:50
 msgid "_New diagram"
-msgstr "新圖表"
+msgstr "新圖表[_N]"
 
 #: app/menus.c:39 app/menus.c:50
 msgid "Create new diagram"
@@ -736,7 +731,7 @@ msgstr "Plug-in"
 
 #: app/menus.c:57
 msgid "_Export..."
-msgstr "匯出..."
+msgstr "匯出[_E]..."
 
 #: app/menus.c:61
 msgid "Page Set_up..."
@@ -744,11 +739,11 @@ msgstr "頁面設定..."
 
 #: app/menus.c:63
 msgid "_Print Diagram..."
-msgstr "列印圖表"
+msgstr "列印圖表[_P]"
 
 #: app/menus.c:78
 msgid "_Delete"
-msgstr "刪除"
+msgstr "刪除[_D]"
 
 #: app/menus.c:84
 msgid "Copy Text"
@@ -764,7 +759,7 @@ msgstr "貼上文字"
 
 #: app/menus.c:109
 msgid "Zoom _In"
-msgstr "拉近"
+msgstr "拉近[_I]"
 
 #: app/menus.c:109
 #, c-format
@@ -773,7 +768,7 @@ msgstr "拉近50%"
 
 #: app/menus.c:110
 msgid "Zoom _Out"
-msgstr "拉遠"
+msgstr "拉遠[_O]"
 
 #: app/menus.c:110
 #, c-format
@@ -782,40 +777,39 @@ msgstr "拉遠50%"
 
 #: app/menus.c:111
 msgid "_Zoom"
-msgstr "縮放"
+msgstr "縮放[_Z]"
 
 #: app/menus.c:112
-#, fuzzy
 msgid "Diagram Propeties..."
-msgstr "/對話窗/內容"
+msgstr "圖表內容..."
 
 #: app/menus.c:114
 msgid "_AntiAliased"
-msgstr "不對齊"
+msgstr "反鋸齒[_A]"
 
 #: app/menus.c:117
 msgid "_Visible Grid"
-msgstr "顯示格線"
+msgstr "顯示格線[_V]"
 
 #: app/menus.c:119
 msgid "_Snap To Grid"
-msgstr "貼齊格線"
+msgstr "貼齊格線[_S]"
 
 #: app/menus.c:121
 msgid "Show _Rulers"
-msgstr "顯示尺標"
+msgstr "顯示尺標[_R]"
 
 #: app/menus.c:123
 msgid "Show _Connection Points"
-msgstr "顯示連接點"
+msgstr "顯示連接點[_C]"
 
 #: app/menus.c:126
 msgid "New _View"
-msgstr "新視角"
+msgstr "新視角[_V]"
 
 #: app/menus.c:127
 msgid "Show _All"
-msgstr "顯示全部"
+msgstr "顯示全部[_A]"
 
 #: app/menus.c:132
 msgid "All"
@@ -898,47 +892,43 @@ msgstr "移到前層"
 
 #: app/menus.c:184
 msgid "_Group"
-msgstr "群組"
+msgstr "群組[_G]"
 
 #: app/menus.c:185
 msgid "_Ungroup"
-msgstr "取消群組"
+msgstr "取消群組[_U]"
 
 #: app/menus.c:187
 msgid "Align _Horizontal"
-msgstr "水平對齊"
+msgstr "水平對齊[_H]"
 
 #: app/menus.c:188
 msgid "Align _Vertical"
-msgstr "垂直對齊"
+msgstr "垂直對齊[_V]"
 
 #: app/menus.c:211
 msgid "_Properties"
-msgstr "內容"
+msgstr "內容[_P]"
 
 #: app/menus.c:212
 msgid "_Layers"
-msgstr "圖層"
+msgstr "圖層[_L]"
 
 #: app/menus.c:231
-#, fuzzy
 msgid "_Select"
-msgstr "選擇"
+msgstr "選擇[_S]"
 
 #: app/menus.c:232
-#, fuzzy
 msgid "_Objects"
-msgstr "/物件"
+msgstr "物件[_O]"
 
 #: app/menus.c:233
-#, fuzzy
 msgid "_Tools"
-msgstr "工具"
+msgstr "工具[_T]"
 
 #: app/menus.c:234
-#, fuzzy
 msgid "_Dialogs"
-msgstr "/對話窗/"
+msgstr "對話窗[_D]"
 
 #: app/menus.c:242 app/menus.c:256
 msgid "/_File"
@@ -978,12 +968,11 @@ msgstr "/說明/關於本程式"
 
 #: app/menus.c:255
 msgid "/tearoff"
-msgstr ""
+msgstr "/tearoff"
 
 #: app/menus.c:257
-#, fuzzy
 msgid "/File/tearoff"
-msgstr "/檔案/開新檔案"
+msgstr "/檔案/tearoff"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -1018,9 +1007,8 @@ msgid "/_Edit"
 msgstr "/編輯"
 
 #: app/menus.c:270
-#, fuzzy
 msgid "/Edit/tearoff"
-msgstr "/編輯/貼上"
+msgstr "/編輯/tearoff"
 
 #: app/menus.c:271
 msgid "/Edit/_Copy"
@@ -1055,9 +1043,8 @@ msgid "/_View"
 msgstr "/檢視"
 
 #: app/menus.c:281
-#, fuzzy
 msgid "/View/tearoff"
-msgstr "/檢視/sep1"
+msgstr "/檢視/tearoff"
 
 #: app/menus.c:282
 msgid "/View/Zoom _In"
@@ -1072,9 +1059,8 @@ msgid "/View/_Zoom"
 msgstr "/檢視/縮放"
 
 #: app/menus.c:285
-#, fuzzy
 msgid "/View/Zoom/tearoff"
-msgstr "/檢視/縮放"
+msgstr "/檢視/tearoff"
 
 #: app/menus.c:286
 #, c-format
@@ -1127,13 +1113,12 @@ msgid "/View/Zoom/25%"
 msgstr "/檢視/縮放/25%"
 
 #: app/menus.c:296
-#, fuzzy
 msgid "/View/Diagram Properties"
-msgstr "/對話窗/內容"
+msgstr "/檢視/圖表內容"
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
-msgstr "/檢視/不對齊"
+msgstr "/檢視/反鋸齒"
 
 #: app/menus.c:300
 msgid "/View/_Visible Grid"
@@ -1164,14 +1149,12 @@ msgid "/View/Show _All"
 msgstr "/檢視/顯示全部"
 
 #: app/menus.c:307
-#, fuzzy
 msgid "/_Select"
-msgstr "選擇"
+msgstr "/選擇"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/Select/tearoff"
-msgstr "/選擇/反向"
+msgstr "/選擇/tearoff"
 
 #: app/menus.c:309
 msgid "/Select/All"
@@ -1222,9 +1205,8 @@ msgid "/_Objects"
 msgstr "/物件"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/Objects/tearoff1"
-msgstr "/物件/sep1"
+msgstr "/物件/tearoff1"
 
 #: app/menus.c:323
 msgid "/Objects/Send to _Back"
@@ -1251,28 +1233,24 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/物件/水平對齊"
 
 #: app/menus.c:330
-#, fuzzy
 msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/物件/水平對齊/置中"
+msgstr "/物件/水平對齊/tearoff"
 
 #: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/物件/垂直對齊"
 
 #: app/menus.c:337
-#, fuzzy
 msgid "/Objects/Align Vertical/tearoff"
-msgstr "/物件/垂直對齊/置中"
+msgstr "/物件/垂直對齊/tearoff"
 
 #: app/menus.c:344
-#, fuzzy
 msgid "/_Tools"
-msgstr "/工具/"
+msgstr "/工具"
 
 #: app/menus.c:345
-#, fuzzy
 msgid "/Tools/tearoff"
-msgstr "/工具/修改"
+msgstr "/工具/tearoff"
 
 #: app/menus.c:346
 msgid "/Tools/Modify"
@@ -1303,7 +1281,6 @@ msgid "/Tools/Polygon"
 msgstr "/工具/多角形"
 
 #: app/menus.c:353
-#, fuzzy
 msgid "/Tools/Beziergon"
 msgstr "/工具/貝茲曲線"
 
@@ -1336,9 +1313,8 @@ msgid "/_Dialogs"
 msgstr "/對話窗/"
 
 #: app/menus.c:362
-#, fuzzy
 msgid "/Dialogs/tearoff"
-msgstr "/對話窗/圖層"
+msgstr "/對話窗/tearoff"
 
 #: app/menus.c:363
 msgid "/Dialogs/_Properties"
@@ -1357,9 +1333,8 @@ msgid "/Tools/"
 msgstr "/工具/"
 
 #: app/menus.c:513
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "圖表:"
+msgstr "圖表選單"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
@@ -1522,6 +1497,10 @@ msgstr "此物件沒有相關內容"
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
 msgstr "以Postscript封裝"
+
+#: app/render_svg.c:793
+msgid "Scalable Vector Graphics"
+msgstr "可縮放向量圖"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2576,9 +2555,8 @@ msgid "Flowchart objects"
 msgstr "流程圖物件"
 
 #: objects/flowchart/parallelogram.c:165
-#, fuzzy
 msgid "Shear angle"
-msgstr "分離角:"
+msgstr "分離角"
 
 #: objects/flowchart/parallelogram.c:325
 msgid "Shear angle:"
@@ -2617,9 +2595,8 @@ msgid "Cusp control"
 msgstr " 尖銳控制"
 
 #: objects/standard/arc.c:129
-#, fuzzy
 msgid "Curve distance"
-msgstr "多重實例"
+msgstr "曲線距離"
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2662,13 +2639,12 @@ msgid "The image file '%s' was not found.\n"
 msgstr "沒有找到影像檔'%s'.\n"
 
 #: objects/standard/line.c:118
-#, fuzzy
 msgid "Start point"
-msgstr "起始時間:"
+msgstr "起始點"
 
 #: objects/standard/line.c:120
 msgid "End point"
-msgstr ""
+msgstr "結束點"
 
 #: objects/standard/polygon.c:517 objects/standard/polyline.c:484
 msgid "Add Corner"
@@ -2711,14 +2687,12 @@ msgid "Drawing Interchange File"
 msgstr "繪圖交換檔案"
 
 #: plug-ins/dxf/dxf.c:37
-#, fuzzy
 msgid "Drawing Interchange File import and export filters"
-msgstr "繪圖交換檔案匯出過濾器"
+msgstr "繪圖交換檔案匯出入過濾器"
 
-#: plug-ins/hpgl/hpgl.c:612
-#, fuzzy
+#: plug-ins/hpgl/hpgl.c:624
 msgid "HP Graphics Language export filter"
-msgstr "電腦影像中介匯出過濾器"
+msgstr "HP 圖形語言匯出過濾器"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2728,19 +2702,14 @@ msgstr "TeX Pstricks 匯出過濾器"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks 巨集"
 
-#: plug-ins/wpg/wpg.c:1032
+#: plug-ins/wpg/wpg.c:1043
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr ""
+msgstr "檔案: %s 類型/版本 不被支援.\n"
 
-#: plug-ins/wpg/wpg.c:1181
-#, fuzzy
+#: plug-ins/wpg/wpg.c:1192
 msgid "WordPerfect Graphics export filter"
-msgstr "電腦影像中介匯出過濾器"
-
-#: plug-ins/svg/render_svg.c:820
-msgid "Scalable Vector Graphics"
-msgstr "可縮放向量圖"
+msgstr "WordPerfect 圖形匯出過濾器"
 
 #~ msgid ""
 #~ "Could not determine which import filter\n"
