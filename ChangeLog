@@ -1,5 +1,12 @@
 2003-11-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/diagdkrenderer.c: Start of cache GDK text renderer -- not
+	active yet.
+
+	* configure.in: 
+	* config.h.win32: Set version number to 0.92.2+cvs to distinguish
+	development and stable versions.
+
 	* lib/text.c (text_draw): Use new renderer function to draw the
 	text.
 

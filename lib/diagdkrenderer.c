@@ -83,6 +83,8 @@ static void draw_string (DiaRenderer *renderer,
                          Point *pos,
                          Alignment alignment,
                          Color *color);
+static void draw_text (DiaRenderer *renderer,
+                         Text *text);
 static void draw_image (DiaRenderer *renderer,
                         Point *point,
                         real width, real height,
@@ -205,6 +207,7 @@ dia_gdk_renderer_class_init (DiaGdkRendererClass *klass)
   /* use <draw|fill>_bezier from DiaRenderer */
 
   renderer_class->draw_string  = draw_string;
+  renderer_class->draw_text    = draw_text;
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
@@ -508,6 +511,102 @@ get_layout_first_baseline(PangoLayout* layout)
   return result;
 }
 
+/** Used as elements in a hash table caching rendered text. */
+struct {
+  const gchar *text;
+  DiaFont *font;
+  real font_height;
+  real zoom;
+  Color *color;
+  real align_adjust;
+#ifdef HAVE_FREETYPE
+  guchar* pixels;
+  gint width, height;
+#else
+  PangoLayout *layout;
+#endif
+} StringCacheElement;
+
+static GHashTable *text_cache;
+
+static gboolean
+text_cache_equals(gpointer e1, gpointer e2) 
+{
+  return FALSE;
+}
+
+
+static gint
+text_cache_hash(StringCacheElement *el) 
+{
+  StringCacheElement *sce;
+
+  if (text_cache == NULL) {
+    text_cache = g_hash_table_new(sce_hash, sce_equals);
+  }
+
+  return 0;
+}
+
+static StringCacheElement *
+get_cached_text(DiaRenderer *object, const gchar *text, Color *color)
+{
+  StringCacheElement sce;
+
+  if (text_cache == NULL) return NULL;
+
+  sce.text = text;
+  sce.font = object->font;
+  sce.font_height = object->font_height;
+  sce.zoom = dia_transform_length(renderer->transform, 10.0)/10.0;
+  sce.color = color;
+
+  return (StringCacheElement *)g_hash_table_lookup(text_cache, &sce);
+}
+
+#ifdef HAVE_FREETYPE
+static void
+cache_text(DiaRenderer *object, const gchar *text, Color *color,
+	   guchar* pixels, gint width, gint height) 
+{
+  
+}
+#else
+static void
+cache_text(DiaRenderer *object, const gchar *text, Color *color,
+	   PangoLayout *layout)
+{
+  
+}
+#endif
+
+/** Return the x adjustment needed for this text and alignment */
+static real
+get_alignment_adjustment(DiaRenderer *object, 
+			 const gchar *text,
+			 Alignment alignment)
+{
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+
+   switch (alignment) {
+   case ALIGN_LEFT:
+     return 0.0;
+   case ALIGN_CENTER:
+     return
+       dia_font_scaled_string_width(text, object->font,
+				    object->font_height,
+				    dia_transform_length(renderer->transform, 10.0)/10.0)/2;
+     break;
+   case ALIGN_RIGHT:
+     return
+       dia_font_scaled_string_width(text, object->font,
+				    object->font_height,
+				    dia_transform_length(renderer->transform, 10.0)/10.0);
+     break;
+   }
+   return 0.0;
+}
+
 static void 
 draw_string (DiaRenderer *object,
              const gchar *text, Point *pos, Alignment alignment,
@@ -527,6 +626,10 @@ draw_string (DiaRenderer *object,
 
   color_convert(color, &gdkcolor);
 
+  
+
+  start_pos.x -= get_alignment_adjustment(object, text, alignment);
+   
   /* My apologies for adding more #hell, but the alternative is an abhorrent
    * kludge.
    */
@@ -538,24 +641,6 @@ draw_string (DiaRenderer *object,
    int rowstride;
    double font_height;
 
-
-   switch (alignment) {
-   case ALIGN_LEFT:
-     break;
-   case ALIGN_CENTER:
-     start_pos.x -= 
-       dia_font_scaled_string_width(text, object->font,
-				    object->font_height,
-				    dia_transform_length(renderer->transform, 1.0))/2;
-     break;
-   case ALIGN_RIGHT:
-     start_pos.x -= 
-       dia_font_scaled_string_width(text, object->font,
-				    object->font_height,
-				    dia_transform_length(renderer->transform, 1.0));
-     break;
-   }
-   
    start_pos.y -= 
      dia_font_scaled_ascent(text, object->font,
 			    object->font_height,
@@ -625,22 +710,6 @@ draw_string (DiaRenderer *object,
  }
 #else
   gdk_gc_set_foreground(gc, &gdkcolor);
-  switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    start_pos.x -= dia_font_scaled_string_width (
-                      text, object->font,
-                      object->font_height,
-                      dia_transform_length (renderer->transform, 10.0) / 10.0)/2;
-    break;
-  case ALIGN_RIGHT:
-    start_pos.x -= dia_font_scaled_string_width(
-                      text, object->font,
-                      object->font_height,
-                      dia_transform_length (renderer->transform, 10.0) / 10.0);
-    break;
-  }
   dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
 
   layout = dia_font_scaled_build_layout(
@@ -655,6 +724,13 @@ draw_string (DiaRenderer *object,
   
   g_object_unref(G_OBJECT(layout));
 }
+
+/** Caching Pango renderer */
+static void
+draw_text(DiaRenderer *object, Text *text) {
+  
+}
+
 
 /* Get the width of the given text in cm */
 static real
