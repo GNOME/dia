@@ -21,6 +21,7 @@
 #include <gdk/gdk.h>
 #include "geometry.h"
 #include "diavar.h"
+#include "charconv.h"
 #ifdef HAVE_FREETYPE
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -113,7 +114,8 @@ void font_init(void);
 void font_init_freetype(void);
 DiaFont *font_getfont(const char *name);
 GdkFont *font_get_gdkfont(DiaFont *font, int height);
-SuckFont *font_get_suckfont(DiaFont *font, int height);
+SuckFont *font_get_suckfont (GdkFont *font, utfchar *text);
+void suck_font_free (SuckFont *suckfont);
 char *font_get_psfontname(DiaFont *font);
 #ifdef HAVE_FREETYPE
 FreetypeString *freetype_load_string(const char *string, FT_Face face, int len);

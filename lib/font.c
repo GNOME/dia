@@ -470,9 +470,6 @@ char *last_resort_fonts[] = {
 };
 #define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
 
-static void suck_font_free (SuckFont *suckfont);
-static SuckFont *suck_font (GdkFont *font);
-
 static void
 init_x11_font(FontPrivate *font)
 {
@@ -1030,29 +1027,114 @@ font_get_gdkfont(DiaFont *font, int height)
 }
 
 SuckFont *
-font_get_suckfont(DiaFont *font, int height)
+font_get_suckfont (GdkFont *font, utfchar *text)
 {
-  FontCacheItem *cache_item;
-  FontPrivate *fontprivate;
+	SuckFont *suckfont;
+	int width, height, x, y;
+	int lbearing, rbearing, ch_width, ascent, descent;
+	GdkWChar *wcstr;
+	gchar *mbstr, *str;
+	int length, wclength, i;
+	GdkPixmap *pixmap;
+	GdkGC *gc;
+	GdkColor black, white;
+	GdkImage *image;
+	int black_pixel, pixel;
+	guchar *line;
 
-  LC_DEBUG (fprintf(stderr, "font_get_suckfont\n"));
-  g_assert(font!=NULL);
+	if (!font) return NULL;
 
-  fontprivate = (FontPrivate *)font;
+	str = charconv_utf8_to_local8 (text);
+	length = strlen (str);
+	mbstr = g_strdup (str);
+	wcstr = g_new0 (GdkWChar, length + 1);
+	wclength = mbstowcs (wcstr, mbstr, length);
+	g_free (mbstr);
 
-  cache_item = font_get_cache(fontprivate, height);
+	if (wclength > 0) {
+		length = wclength;
+	} else {
+		for (i = 0; i < length; i++) {
+			wcstr[i] = (unsigned char) str[i];
+		}
+	}
 
-  if (!cache_item->gdk_font) {
-    /* gdk_font not in cache: */
-    cache_item->gdk_font = font_get_gdkfont_helper(fontprivate, cache_item->height);
-  }
+	suckfont = g_new (SuckFont, 1);
 
-  if (!cache_item->suck_font) {
-    /* Not in cache: */
-    cache_item->suck_font = suck_font(cache_item->gdk_font);
-  }
+	height = font->ascent + font->descent;
+	x = 0;
+	gdk_text_extents_wc (font, wcstr, length, &lbearing, &rbearing, &ch_width, &ascent, &descent);
+	suckfont->chars[0].left_sb = lbearing;
+	suckfont->chars[0].right_sb = ch_width - rbearing;
+	suckfont->chars[0].width = rbearing - lbearing;
+	suckfont->chars[0].ascent = ascent;
+	suckfont->chars[0].descent = descent;
+	suckfont->chars[0].bitmap_offset = x;
 
-  return cache_item->suck_font;
+	if (str == NULL || str[0] == 0) {
+		/* it's fake for avoiding many warnings */
+		ch_width = 1;
+	}
+	x += (ch_width + 31) & -32;
+	width = x;
+
+	suckfont->bitmap_width = width;
+	suckfont->bitmap_height = height + 1;
+	suckfont->ascent = font->ascent + 1;
+
+	pixmap = gdk_pixmap_new (NULL, suckfont->bitmap_width,
+				 suckfont->bitmap_height, 1);
+	gc = gdk_gc_new (pixmap);
+	gdk_gc_set_font (gc, font);
+
+	black_pixel = color_gdk_black.pixel;
+	black.pixel = black_pixel;
+	white.pixel = color_gdk_white.pixel;
+	gdk_gc_set_foreground (gc, &white);
+	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
+
+	gdk_gc_set_foreground (gc, &black);
+
+#ifndef GTK_TALKS_UTF8
+	gdk_draw_string (pixmap, font, gc,
+			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
+			 font->ascent + 1,
+			 str);
+#else
+	gdk_draw_string (pixmap, font, gc,
+			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
+			 font->ascent + 1,
+			 utfbuf);
+#endif
+	g_free (str);
+
+	/* The handling of the image leaves me with distinct unease.  But this
+	 * is more or less copied out of gimp/app/text_tool.c, so it _ought_ to
+	 * work. -RLL
+	 */
+
+	image = gdk_image_get (pixmap, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
+	suckfont->bitmap = g_malloc0 ((width >> 3) * suckfont->bitmap_height);
+
+	line = suckfont->bitmap;
+	for (y = 0; y < suckfont->bitmap_height; y++) {
+		for (x = 0; x < suckfont->bitmap_width; x++) {
+			pixel = gdk_image_get_pixel (image, x, y);
+			if (pixel == black_pixel)
+				line[x >> 3] |= 128 >> (x & 7);
+		}
+		line += width >> 3;
+	}
+
+	gdk_image_destroy (image);
+
+	/* free the pixmap */
+	gdk_pixmap_unref (pixmap);
+
+	/* free the gc */
+	gdk_gc_destroy (gc);
+
+	return suckfont;
 }
 
 char *
@@ -1155,126 +1237,7 @@ font_descent(DiaFont *font, real height)
 
 /* Routines for sucking fonts from the X server */
 
-static SuckFont *
-suck_font (GdkFont *font)
-{
-	SuckFont *suckfont;
-	int i;
-	int x, y;
-	char text[2];
-#if defined (GTK_TALKS_UTF8_WE_DONT)
-	utfchar *utfbuf;
-#endif
-	int lbearing, rbearing, ch_width, ascent, descent;
-	GdkPixmap *pixmap;
-	GdkColor black, white;
-	GdkImage *image;
-	GdkGC *gc;
-	guchar *line;
-	int width, height;
-	int black_pixel, pixel;
-
-	LC_DEBUG (fprintf(stderr, "suck_font \n"));
-	if (!font)
-		return NULL;
-
-	suckfont = g_new (SuckFont, 1);
-
-	height = font->ascent + font->descent;
-	x = 0;
-	for (i = 0; i < 256; i++) {
-		text[0] = i;
-#if defined (GTK_TALKS_UTF8_WE_DONT)
-		text[1] = 0;
-		utfbuf = charconv_local8_to_utf8(text);
-		gdk_text_extents (font, utfbuf, 1, /* broken in gdk/win32 ? */
-				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
-		g_free(utfbuf);
-#elif defined(GTK_TALKS_UTF8)
-#error IMPERATIVE FIXME: this whole function is broken in an Unicode context !
-#else
-		gdk_text_extents (font, text, 1,
-				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
-#endif
-		suckfont->chars[i].left_sb = lbearing;
-		suckfont->chars[i].right_sb = ch_width - rbearing;
-		suckfont->chars[i].width = rbearing - lbearing;
-		suckfont->chars[i].ascent = ascent;
-		suckfont->chars[i].descent = descent;
-		suckfont->chars[i].bitmap_offset = x;
-		x += (ch_width + 31) & -32;
-	}
-
-	width = x;
-
-	suckfont->bitmap_width = width;
-	suckfont->bitmap_height = height+1;
-	suckfont->ascent = font->ascent+1;
-
-	pixmap = gdk_pixmap_new (NULL, suckfont->bitmap_width,
-				 suckfont->bitmap_height, 1);
-	gc = gdk_gc_new (pixmap);
-	gdk_gc_set_font (gc, font);
-
-	/* this is a black and white pixmap: */
-	black.pixel = 0;
-	white.pixel = 1;
-	black_pixel = black.pixel;
-	gdk_gc_set_foreground (gc, &white);
-	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
-
-	gdk_gc_set_foreground (gc, &black);
-	for (i = 0; i < 256; i++) {
-		text[0] = i;
-#if defined (GTK_TALKS_UTF8_WE_DONT)
-		text[1] = 0;
-		utfbuf = charconv_local8_to_utf8(text);
-		if (utfbuf) {
-			/* the conversion may fail ... */
-			gdk_draw_text (pixmap, font, gc,
-				       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
-				       font->ascent+1,
-				       utfbuf, strlen(utfbuf));
-			g_free(utfbuf);
-		}
-#else
-		gdk_draw_text (pixmap, font, gc,
-			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
-			       font->ascent+1,
-			       text, 1);
-#endif
-	}
-
-	/* The handling of the image leaves me with distinct unease.  But this
-	 * is more or less copied out of gimp/app/text_tool.c, so it _ought_ to
-	 * work. -RLL
-	 */
-
-	image = gdk_image_get (pixmap, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
-	suckfont->bitmap = g_malloc0 ((width >> 3) * suckfont->bitmap_height);
-
-	line = suckfont->bitmap;
-	for (y = 0; y < suckfont->bitmap_height; y++) {
-		for (x = 0; x < suckfont->bitmap_width; x++) {
-			pixel = gdk_image_get_pixel (image, x, y);
-			if (pixel == black_pixel)
-				line[x >> 3] |= 128 >> (x & 7);
-		}
-		line += width >> 3;
-	}
-
-	gdk_image_destroy (image);
-
-	/* free the pixmap */
-	gdk_pixmap_unref (pixmap);
-
-	/* free the gc */
-	gdk_gc_destroy (gc);
-
-	return suckfont;
-}
-
-static void
+void
 suck_font_free (SuckFont *suckfont)
 {
 	g_free (suckfont->bitmap);

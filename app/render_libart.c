@@ -24,6 +24,7 @@
 
 #include "render_libart.h"
 #include "message.h"
+#include "font.h"
 
 #ifdef HAVE_LIBART
 
@@ -432,7 +433,6 @@ set_font(RendererLibart *renderer, DiaFont *font, real height)
   renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
 #else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
-  renderer->suck_font = font_get_suckfont(font, renderer->font_height);
 #endif
 }
 
@@ -1257,8 +1257,7 @@ draw_string (RendererLibart *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
 
   g_free (wcstr);
-# else
-#if defined (GTK_TALKS_UTF8_WE_DONT)
+# elif GTK_TALKS_UTF8_WE_DONT
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
     iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
@@ -1267,7 +1266,6 @@ draw_string (RendererLibart *renderer,
 #else
   iwidth = gdk_string_width(renderer->gdk_font, text);
 #endif
-#endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1279,35 +1277,33 @@ draw_string (RendererLibart *renderer,
     break;
   }
 
-  suckfont = renderer->suck_font;
+  suckfont = font_get_suckfont (renderer->gdk_font, text);
 
   xpos = (double) x + 1; 
   ypos = (double) (y - suckfont->ascent);
   
   rgba = color_to_rgba(color);
-  
-  len = strlen(text);
-  for (i = 0; i < len; i++) {
-    SuckChar *ch;
-    
-    ch = &suckfont->chars[(unsigned char)text[i]];
-    art_affine_translate(affine, xpos, ypos);
-    art_rgb_bitmap_affine(renderer->rgb_buffer,
-			  0, 0,
-			  renderer->renderer.pixel_width,
-			  renderer->renderer.pixel_height,
-			  renderer->renderer.pixel_width*3,
-			   suckfont->bitmap + (ch->bitmap_offset >> 3),
-			   ch->width,
-			   suckfont->bitmap_height,
-			   suckfont->bitmap_width >> 3,
-			   rgba,
-			   affine,
-			   ART_FILTER_NEAREST, NULL);
-    
-    dx = ch->left_sb + ch->width + ch->right_sb;
-    xpos += dx;
+
+  {
+	  SuckChar *ch;
+
+	  ch = &suckfont->chars[0];
+	  art_affine_translate (affine, xpos, ypos);
+	  art_rgb_bitmap_affine (renderer->rgb_buffer,
+				 0, 0,
+				 renderer->renderer.pixel_width,
+				 renderer->renderer.pixel_height,
+				 renderer->renderer.pixel_width * 3,
+				 suckfont->bitmap + (ch->bitmap_offset >> 3),
+				 ch->width,
+				 suckfont->bitmap_height,
+				 suckfont->bitmap_width >> 3,
+				 rgba,
+				 affine,
+				 ART_FILTER_NEAREST, NULL);
   }
+
+  suck_font_free (suckfont);
 #endif
 }
 

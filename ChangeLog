@@ -1,3 +1,12 @@
+2002-02-07  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/font.c (font_get_suckfont): rewrited. generating suckfont from
+	strings which is given.
+	(suck_font): remove. it's any longer needed.
+
+	* app/render_libart.c (set_font): don't get suckfont.
+	(draw_string): get suckfont only which is needed for now.
+
 2002-02-05  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* lib/text.c: Fixes for misunderstood width functions.
