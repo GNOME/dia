@@ -294,12 +294,12 @@ group_create(GList *objects)
   int i;
   GList *list;
   int num_conn;
-  
-  group = g_new(Group,1);
-  obj = &group->object;
-  
-  obj->type = &group_type;
 
+  group = g_new0(Group,1);
+  obj = &group->object;
+
+  obj->type = &group_type;
+  
   obj->ops = &group_ops;
 
   group->objects = objects;
@@ -338,7 +338,7 @@ group_create(GList *objects)
     obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[i]->connected_to = NULL;
   }
-  
+
   group_update_data(group);
   return (Object *)group;
 }

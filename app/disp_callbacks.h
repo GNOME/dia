@@ -43,7 +43,7 @@ gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
 gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
 void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
-void ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
+Object *ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 			  gpointer user_data);
 void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
                                 DDisplay     *ddisp);

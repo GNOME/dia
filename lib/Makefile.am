@@ -125,7 +125,9 @@ libdia_la_SOURCES =  \
 		diagtkfontsel.c \
 		diagtkfontsel.h \
 		autoroute.c \
-		autoroute.h
+		autoroute.h \
+		parent.c \
+		parent.h
 
 #		charconv.c \
 #		charconv.h 

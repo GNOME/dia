@@ -68,7 +68,7 @@ GHFuncUnknownObjects(gpointer key,
 
 static GList *
 read_objects(xmlNodePtr objects, Layer *layer,
-             GHashTable *objects_hash,const char *filename)
+             GHashTable *objects_hash,const char *filename, Object *parent)
 {
   GList *list;
   ObjectType *type;
@@ -80,6 +80,7 @@ read_objects(xmlNodePtr objects, Layer *layer,
   int version;
   GHashTable* unknown_hash;
   GString*    unknown_str;
+  xmlNodePtr child_node;
 
   unknown_hash = g_hash_table_new(g_str_hash, g_str_equal);
   unknown_str  = g_string_new("Unknown types while reading diagram file");
@@ -118,14 +119,32 @@ read_objects(xmlNodePtr objects, Layer *layer,
         obj = type->ops->load(obj_node, version, filename);
         layer_add_object(layer,obj);
         list = g_list_append(list, obj);
-      
+
+        if (parent)
+        {
+          obj->parent = parent;
+          parent->children = g_list_append(parent->children, obj);
+        }
+
         g_hash_table_insert(objects_hash, g_strdup((char *)id), obj);
+
+        child_node = obj_node->children;
+
+        while(child_node)
+        {
+          if (strcmp(child_node->name, "children") == 0)
+          {
+            list = g_list_concat(list, read_objects(child_node, layer, objects_hash, filename, obj));
+            break;
+          }
+          child_node = child_node->next;
+        }
       }
       if (typestr) xmlFree(typestr);
       if (id) xmlFree (id);
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, layer,
-                                      objects_hash, filename));
+                                      objects_hash, filename, NULL));
       layer_add_object(layer,obj);
       
       list = g_list_append(list, obj);
@@ -449,7 +468,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     /* Read in all objects: */
     
-    list = read_objects(layer_node, layer, objects_hash, filename);
+    list = read_objects(layer_node, layer, objects_hash, filename, NULL);
     layer->objects = list;
     read_connections( list, layer_node, objects_hash);
 
@@ -483,11 +502,18 @@ write_objects(GList *objects, xmlNodePtr objects_node,
   char buffer[31];
   ObjectNode obj_node;
   xmlNodePtr group_node;
+  xmlNodePtr parent_node;
   GList *list;
 
   list = objects;
   while (list != NULL) {
     Object *obj = (Object *) list->data;
+
+    if (g_hash_table_lookup(objects_hash, obj))
+    {
+      list = g_list_next(list);
+      continue;
+    }
 
     if IS_GROUP(obj) {
       group_node = xmlNewChild(objects_node, NULL, "group", NULL);
@@ -509,9 +535,15 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       /* Add object -> obj_nr to hash table */
       g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
       (*obj_nr)++;
-      
+
+      if (obj->can_parent && obj->children)
+      {
+        parent_node = xmlNewChild(obj_node, NULL, "children", NULL);
+        write_objects(obj->children, parent_node,
+      	  	objects_hash, obj_nr, filename);
+      }
     }
-    
+
     list = g_list_next(list);
   }
 }

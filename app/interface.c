@@ -262,6 +262,14 @@ display_drop_callback(GtkWidget *widget, GdkDragContext *context,
   return FALSE;
 }
 
+inline int round_up (double x)
+{
+  if (x - (int) x > 0.001)
+    return (int) x + 1;
+  else
+    return (int) x ;
+}
+
 static void
 display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
 				gint x, gint y, GtkSelectionData *data,
@@ -275,6 +283,7 @@ display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
     ddisplay_drop_object(ddisp, x, y,
 			 object_get_type((gchar *)tooldata->extra_data),
 			 tooldata->user_data);
+
     gtk_drag_finish (context, TRUE, FALSE, time);
   } else
     gtk_drag_finish (context, FALSE, FALSE, time);

@@ -43,6 +43,8 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   Handle *handle1;
   Handle *handle2;
   Object *obj;
+  Object *parent_obj;
+  real click_distance;
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -52,9 +54,21 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
 
+  click_distance = ddisplay_untransform_length(ddisp, 3.0);
+
+  parent_obj = diagram_find_clicked_object(ddisp->diagram, &clickedpoint,
+				    click_distance);
+
+
   obj = dia_object_default_create (tool->objtype, &clickedpoint,
                                    tool->user_data,
                                    &handle1, &handle2);
+
+  if (parent_obj && parent_obj->can_parent) /* starting point is within another object */
+  {
+    obj->parent = parent_obj;
+    parent_obj->children = g_list_append(parent_obj->children, obj);
+  }
 
   diagram_add_object(ddisp->diagram, obj);
 
@@ -162,6 +176,9 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
     return;
   
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+
+  /* make sure the new object is restricted to its parent */
+  parent_handle_move_out_check(tool->obj, &to);
 
   /* Move to ConnectionPoint if near: */
   if ((tool->handle != NULL &&

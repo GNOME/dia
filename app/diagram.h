@@ -48,6 +48,14 @@ struct _Diagram {
   UndoStack *undo;
 };
 
+struct _object_extent
+{
+  Object *object;
+  Rectangle *extent;
+};
+
+typedef struct _object_extent object_extent;
+
 GList *dia_open_diagrams(void); /* Read only! */
 
 Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
@@ -86,6 +94,7 @@ real diagram_find_closest_connectionpoint(Diagram *dia,
 					  Point *pos,
 					  Object *notthis);
 void diagram_update_extents(Diagram *dia);
+gint diagram_parent_sort_cb(object_extent ** a, object_extent **b);
 
 void diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items);
 void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items);
@@ -97,6 +106,8 @@ void diagram_place_down_selected(Diagram *dia);
 void diagram_place_up_selected(Diagram *dia);
 void diagram_group_selected(Diagram *dia);
 void diagram_ungroup_selected(Diagram *dia);
+void diagram_parent_selected(Diagram *dia);
+void diagram_unparent_selected(Diagram *dia);
 
 void diagram_set_filename(Diagram *dia, char *filename);
 

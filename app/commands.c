@@ -150,7 +150,7 @@ edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
-  copy_list = diagram_get_sorted_selected(ddisp->diagram);
+  copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
   cnp_store_objects(object_copy_list(copy_list));
   g_list_free(copy_list);
@@ -169,18 +169,20 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
 
   diagram_selected_break_external(ddisp->diagram);
 
-  cut_list = diagram_get_sorted_selected(ddisp->diagram);
+  cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
   cnp_store_objects(object_copy_list(cut_list));
 
-  change = undo_delete_objects(ddisp->diagram, cut_list);
+  change = undo_delete_objects_children(ddisp->diagram, cut_list);
   (change->apply)(change, ddisp->diagram);
   
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
+
   diagram_modified(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);
+
 }
 
 void
@@ -405,6 +407,7 @@ void
 edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *delete_list;
+  GList *ptr;
   DDisplay *ddisp;
 
   Change *change;
@@ -414,8 +417,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_selected_break_external(ddisp->diagram);
 
   delete_list = diagram_get_sorted_selected(ddisp->diagram);
-
-  change = undo_delete_objects(ddisp->diagram, delete_list);
+  change = undo_delete_objects_children(ddisp->diagram, delete_list);
   (change->apply)(change, ddisp->diagram);
   
   diagram_modified(ddisp->diagram);
@@ -914,6 +916,18 @@ void
 objects_place_down_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_place_down_selected(ddisplay_active()->diagram);
+}
+
+void
+objects_parent_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  diagram_parent_selected(ddisplay_active()->diagram);
+}
+
+void
+objects_unparent_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  diagram_unparent_selected(ddisplay_active()->diagram);
 }
 
 void

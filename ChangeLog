@@ -1,3 +1,25 @@
+2003-07-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/commands.[ch]: 
+	* app/create_object.c: 
+	* app/disp_callbacks.[ch]: 
+	* app/diagram.[ch]: 
+	* app/interface.c: 
+	* app/load_save.c: 
+	* app/menus.[ch]:
+	* app/modify_tool.c
+	* app/undo.[ch]:
+	* lib/Makefile.am:
+	* lib/group.c: 
+	* lib/object.[ch]: 
+	* lib/parent.[ch]:
+	* objects/UML/large_package.c: Patch from Vadim Berezniker
+	<vadim@berezniker.com>: 
+	Objects may "parent" other objects, i.e. contain them within
+	themselves, restrain them and move them along.  Some more stuff is
+	needed, such as selection and individual unparenting.  This adds
+	parenting to UML - Large Package rather than Box.
+
 2003-07-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/linewidth_area.c: Patch from Krzysztof Foltman

@@ -194,7 +194,7 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
-    tool->start_at = *clickedpoint;
+    tool->start_at = handle->pos;
     tool->start_time = time_micro();
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     return TRUE;
@@ -213,14 +213,14 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint.x, &clickedpoint.y);
 
+
+  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
+    return;
+  
+  clicked_obj = click_select_object(ddisp, &clickedpoint, event);
   if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
     return;
 
-  clicked_obj = click_select_object(ddisp, &clickedpoint, event);
-  
-  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
-    return;
-  
   if ( clicked_obj != NULL ) {
     tool->state = STATE_MOVE_OBJECT;
     tool->object = clicked_obj;
@@ -239,7 +239,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->end_box = clickedpoint;
     tool->x1 = tool->x2 = (int) event->x;
     tool->y1 = tool->y2 = (int) event->y;
-    
+
     if (tool->gc == NULL) {
       tool->gc = gdk_gc_new(ddisp->canvas->window);
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
@@ -363,8 +363,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       GList *list;
       int i;
       Object *obj;
-      
-      list = ddisp->diagram->data->selected;
+
+      /* consider non-selected children affected */
+      list = parent_list_affected(ddisp->diagram->data->selected);
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
@@ -408,15 +409,24 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     diagram_flush(ddisp->diagram);
     break;
   case STATE_MOVE_HANDLE:
+    full_delta = to;
+    point_sub(&full_delta, &tool->start_at);
+
+    /* make sure resizing is restricted to its parent */
+
+
+    /* if resize was blocked by parent, that means the resizing was
+      outward, thus it won't bother the children so we don't have to
+      check the children */
+    if (!parent_handle_move_out_check(tool->object, &to))
+      parent_handle_move_in_check(tool->object, &to, &tool->start_at);
+
     /* Move to ConnectionPoint if near: */
     connectionpoint =
       object_find_connectpoint_display(ddisp, &to, tool->object);
 
-    if (event->state & GDK_CONTROL_MASK) {
-      full_delta = to;
-      point_sub(&full_delta, &tool->start_at);
+    if (event->state & GDK_CONTROL_MASK)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
-    }
 
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
 	 (connectionpoint != NULL) ) {
@@ -523,7 +533,8 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     diagram_update_connections_selection(ddisp->diagram);
 
     if (tool->orig_pos != NULL) {
-      list = ddisp->diagram->data->selected;
+      /* consider the non-selected children affected */
+      list = parent_list_affected(ddisp->diagram->data->selected);
       dest_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
@@ -531,9 +542,9 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 	dest_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
-      
+
       undo_move_objects(ddisp->diagram, tool->orig_pos, dest_pos,
-			g_list_copy(ddisp->diagram->data->selected));
+			parent_list_affected(ddisp->diagram->data->selected));
     }
     
     ddisplay_connect_selected(ddisp); /* pushes UNDO info */

@@ -583,6 +583,9 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
       remove_focus();
     }
     
+    if (obj->parent) /* Lose references to deleted object */
+      obj->parent->children = g_list_remove(obj->parent->children, obj);
+
     list = g_list_next(list);
   }
 
@@ -592,11 +595,23 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 static void
 delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 {
+  GList *list;
   DEBUG_PRINTF(("delete_objects_revert()\n"));
   change->applied = 0;
   layer_set_object_list(change->layer,
 			g_list_copy(change->original_objects));
   object_add_updates_list(change->obj_list, dia);
+
+ list = change->obj_list;
+ while (list)
+ {
+   Object *obj = (Object *) list->data;
+   if (obj->parent) /* Restore child references */
+   	obj->parent->children = g_list_append(obj->parent->children, obj);
+
+  list = g_list_next(list);
+ }
+
   diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
 }
 
@@ -609,6 +624,17 @@ delete_objects_free(struct DeleteObjectsChange *change)
   else
     g_list_free(change->obj_list);
   g_list_free(change->original_objects);
+}
+
+/*
+  This function deletes specified objects along with any children
+  they might have.
+  undo_delete_objects() only deletes the objects that are specified.
+*/
+Change *
+undo_delete_objects_children(Diagram *dia, GList *obj_list)
+{
+  return undo_delete_objects(dia, parent_list_affected(obj_list));
 }
 
 Change *

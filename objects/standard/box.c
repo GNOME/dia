@@ -360,6 +360,7 @@ box_create(Point *startpoint,
 
   obj->ops = &box_ops;
 
+
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_HEIGHT;

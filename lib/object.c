@@ -62,6 +62,7 @@ object_destroy(Object *obj)
 /* After this copying you have to fix up:
    handles
    connections
+   children/parents
 */
 void
 object_copy(Object *from, Object *to)
@@ -85,6 +86,10 @@ object_copy(Object *from, Object *to)
     to->connections = NULL;
 
   to->ops = from->ops;
+
+  to->can_parent = from->can_parent;
+  to->parent = from->parent;;
+  to->children = g_list_copy(from->children);
 }
 
 static guint
@@ -109,6 +114,7 @@ object_copy_list(GList *list_orig)
   list_copy = NULL;
   while (list != NULL) {
     obj = (Object *)list->data;
+
     obj_copy = obj->ops->copy(obj);
 
     g_hash_table_insert(hash_table, obj, obj_copy);
@@ -118,12 +124,27 @@ object_copy_list(GList *list_orig)
     list = g_list_next(list);
   }
 
-  /* Rebuild the connections between the objects in the list: */
+  /* Rebuild the connections and parent/child references between the
+  objects in the list: */
   list = list_orig;
   while (list != NULL) {
     obj = (Object *)list->data;
     obj_copy = g_hash_table_lookup(hash_table, obj);
     
+    if (obj_copy->parent)
+      obj_copy->parent = g_hash_table_lookup(hash_table, obj_copy->parent);
+
+    if (obj_copy->can_parent && obj_copy->children)
+    {
+      GList *child_list = obj_copy->children;
+      while(child_list)
+      {
+        Object *child_obj = (Object *) child_list->data;
+        child_list->data = g_hash_table_lookup(hash_table, child_obj);
+	child_list = g_list_next(child_list);
+      }
+    }
+
     for (i=0;i<obj->num_handles;i++) {
       ConnectionPoint *con_point;
       con_point = obj->handles[i]->connected_to;
@@ -158,11 +179,14 @@ object_copy_list(GList *list_orig)
 }
 
 extern void
-object_list_move_delta(GList *objects, Point *delta)
+object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
   Object *obj;
   Point pos;
+
+  if (delta->x == 0 && delta->y == 0)
+       return;
 
   list = objects;
   while (list != NULL) {
@@ -171,7 +195,44 @@ object_list_move_delta(GList *objects, Point *delta)
     pos = obj->position;
     point_add(&pos, delta);
 
+    if (obj->parent && affected)
+    {
+      Rectangle *p_ext = parent_handle_extents(obj->parent);
+      Rectangle *c_ext = parent_handle_extents(obj);
+      Point new_delta = parent_move_child_delta(p_ext, c_ext, delta);
+      point_add(&pos, &new_delta);
+      point_add(delta, &new_delta);
+
+      g_free(p_ext);
+      g_free(c_ext);
+    }
     obj->ops->move(obj, &pos);
+
+    if (obj->can_parent && obj->children)
+      object_list_move_delta_r(obj->children, delta, FALSE);
+
+    list = g_list_next(list);
+  }
+}
+
+extern void
+object_list_move_delta(GList *objects, Point *delta)
+{
+  GList *list;
+  Object *obj;
+  GList *process;
+  objects = parent_list_affected_hierarchy(objects);
+  list = objects;
+  /* The recursive function object_list_move_delta cannot process the toplevel
+     (in selection) objects so we have to have this extra loop */
+  while (list != NULL)
+  {
+    obj = (Object *) list->data;
+
+    process = NULL;
+    process = g_list_append(process, obj);
+    object_list_move_delta_r(process, delta, (obj->parent != NULL) );
+    g_list_free(process);
 
     list = g_list_next(list);
   }

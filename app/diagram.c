@@ -52,7 +52,7 @@ dia_open_diagrams(void)
 static void
 diagram_init(Diagram *dia, const char *filename)
 {
-  if(dia->data)
+  if (dia->data)
     diagram_data_destroy(dia->data);
   
   dia->data = new_diagram_data(&prefs.new_diagram);
@@ -201,6 +201,10 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front),
 			   dia->data->selected_count > 0);
     
+  gtk_widget_set_sensitive(GTK_WIDGET(items->parent),
+			   (dia->data->selected_count > 1));
+  gtk_widget_set_sensitive(GTK_WIDGET(items->unparent),
+			   (dia->data->selected_count > 0));
   gtk_widget_set_sensitive(GTK_WIDGET(items->group),
 			   dia->data->selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
@@ -265,7 +269,7 @@ diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
   dia->displays = g_slist_remove(dia->displays, ddisp);
   dia->display_count--;
 
-  if(dia->display_count == 0) {
+  if (dia->display_count == 0) {
     if (!app_is_embedded()) {
       /* Don't delete embedded diagram when last view is closed */
       diagram_destroy(dia);
@@ -450,7 +454,7 @@ diagram_add_update_all(Diagram *dia)
   DDisplay *ddisp;
   
   l = dia->displays;
-  while(l!=NULL) {
+  while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update_all(ddisp);
@@ -466,7 +470,7 @@ diagram_add_update(Diagram *dia, Rectangle *update)
   DDisplay *ddisp;
   
   l = dia->displays;
-  while(l!=NULL) {
+  while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update(ddisp, update);
@@ -483,7 +487,7 @@ diagram_add_update_pixels(Diagram *dia, Point *point,
   DDisplay *ddisp;
 
   l = dia->displays;
-  while(l!=NULL) {
+  while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update_pixels(ddisp, point, pixel_width, pixel_height);
@@ -498,7 +502,7 @@ diagram_flush(Diagram *dia)
   GSList *l;
   DDisplay *ddisp;
   l = dia->displays;
-  while(l!=NULL) {
+  while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_flush(ddisp);
@@ -534,7 +538,7 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
   *closest = NULL;
   
   l = dia->data->selected;
-  while(l!=NULL) {
+  while (l!=NULL) {
     obj = (Object *) l->data;
 
     for (i=0;i<obj->num_handles;i++) {
@@ -576,7 +580,7 @@ diagram_update_extents(Diagram *dia)
     DDisplay *ddisp;
     
     l = dia->displays;
-    while(l!=NULL) {
+    while (l!=NULL) {
       ddisp = (DDisplay *) l->data;
       
       ddisplay_update_scrollbars(ddisp);
@@ -608,6 +612,92 @@ strip_connections(Object *obj, GList *not_strip_list, Diagram *dia)
   }
 }
 
+gint diagram_parent_sort_cb(object_extent ** a, object_extent **b)
+{
+  if ((*a)->extent->left < (*b)->extent->left)
+    return 1;
+  else if ((*a)->extent->left > (*b)->extent->left)
+    return -1;
+  else
+    if ((*a)->extent->top < (*b)->extent->top)
+      return 1;
+    else if ((*a)->extent->top > (*b)->extent->top)
+      return -1;
+    else
+      return 0;
+}
+
+
+/* needs faster algorithm */
+void diagram_parent_selected(Diagram *dia)
+{
+  GList *list = dia->data->selected;
+  int length = g_list_length(list);
+  int idx, idx2;
+  object_extent *oe;
+  GPtrArray *rects = g_ptr_array_sized_new(length);
+  while (list)
+  {
+    oe = g_new(object_extent, 1);
+    oe->object = list->data;
+    oe->extent = parent_handle_extents(list->data);
+    g_ptr_array_add(rects, oe);
+    list = g_list_next(list);
+  }
+  /* sort all the objects by its left position */
+  g_ptr_array_sort(rects, diagram_parent_sort_cb);
+
+  for (idx = 0; idx < length; idx++)
+  {
+    object_extent *rect = g_ptr_array_index(rects, idx);
+    if (rect->object->parent)
+      continue;
+
+    for (idx2 = idx + 1; idx2 < length; idx2++)
+    {
+      object_extent *rect2 = g_ptr_array_index(rects, idx2);
+      if (!rect2->object->can_parent)
+        continue;
+
+      if (rect->extent->right <= rect2->extent->right
+        && rect->extent->bottom <= rect2->extent->bottom)
+      {
+        rect->object->parent = rect2->object;
+	rect2->object->children = g_list_append(rect2->object->children, rect->object);
+	break;
+      }
+    }
+  }
+  g_ptr_array_free(rects, TRUE);
+}
+
+void diagram_unparent_selected(Diagram *dia)
+{
+  GList *list = dia->data->selected;
+  GList *child_ptr;
+  Object *obj, *child;
+  while (list)
+  {
+    obj = (Object *) list->data;
+    if (!obj->can_parent || !obj->children)
+    {
+      list = g_list_next(list);
+      continue;
+    }
+
+    child_ptr = obj->children;
+    while (child_ptr)
+    {
+      child = (Object *) child_ptr->data;
+      child->parent = NULL;
+      child_ptr = g_list_next(child_ptr);
+    }
+    g_list_free(obj->children);
+    obj->children = NULL;
+    list = g_list_next(list);
+  }
+}
+
 void diagram_group_selected(Diagram *dia)
 {
   GList *list;
@@ -616,6 +706,7 @@ void diagram_group_selected(Diagram *dia)
   Object *obj;
   GList *orig_list;
 
+  dia->data->selected = parent_list_affected(dia->data->selected);
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
   
@@ -876,7 +967,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   }
   
   l = dia->displays;
-  while(l!=NULL) {
+  while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_set_title(ddisp, title);

@@ -331,6 +331,8 @@ largepackage_create(Point *startpoint,
 
   obj->ops = &largepackage_ops;
 
+  obj->can_parent = TRUE; 
+
   elem->corner = *startpoint;
 
   element_init(elem, 8, 8);

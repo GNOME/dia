@@ -63,6 +63,8 @@ Change *undo_move_handle(Diagram *dia,
 Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
 		     ConnectionPoint *connectionpoint);
 Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
+Change *
+undo_delete_objects_children(Diagram *dia, GList *obj_list);
 Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
 Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 			    int applied);

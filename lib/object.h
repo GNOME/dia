@@ -31,6 +31,7 @@ typedef guint16 ObjectId; /* The id of an objecttype */
 #include "dia_xml.h"
 #include "properties.h"
 #include "diagramdata.h"
+#include "parent.h"
 
 /* This enumeration gives a bitset of modifier keys currently held down.
  */
@@ -260,6 +261,7 @@ void object_save(Object *obj, ObjectNode obj_node);
 void object_load(Object *obj, ObjectNode obj_node);
 
 GList *object_copy_list(GList *list);
+void object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
 void object_list_move_delta(GList *objects, Point *delta);
 void destroy_object_list(GList *list);
 void object_add_handle(Object *obj, Handle *handle);
@@ -358,6 +360,9 @@ struct _Object {
 			  This may only be set by functions internal to
 			  the layer, and accessed via 
 			  dia_object_get_parent_layer() */
+  Object *parent;
+  GList *children;
+  gboolean can_parent;
 };
 
 struct _ObjectTypeOps {

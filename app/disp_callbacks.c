@@ -728,22 +728,114 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
   ddisplay_really_destroy(ddisp);
 }
 
-void
+/* returns NULL if object cannot be created */
+Object *
 ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 		     gpointer user_data)
 {
   Point droppoint;
+  Point droppoint_orig;
   Handle *handle1, *handle2;
-  Object *obj;
+  Object *obj, *p_obj;
   GList *list;
+  real click_distance;
 
   ddisplay_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
+
+  /* save it before snap_to_grid modifies it */
+  droppoint_orig = droppoint;
 
   snap_to_grid(ddisp, &droppoint.x, &droppoint.y);
 
   obj = dia_object_default_create (otype, &droppoint,
                                    user_data,
                                    &handle1, &handle2);
+
+
+  click_distance = ddisplay_untransform_length(ddisp, 3.0);
+
+  p_obj = diagram_find_clicked_object(ddisp->diagram, &droppoint_orig,
+				    click_distance);
+
+  if (p_obj && p_obj->can_parent) /* the tool was dropped inside an object that takes children*/
+  {
+    Rectangle *p_ext, *c_ext;
+    int new_height = 0, new_width = 0;
+    real parent_height, child_height, parent_width, child_width;
+    Point new_pos;
+
+    obj->parent = p_obj;
+    p_obj->children = g_list_append(p_obj->children, obj);
+
+    p_ext = parent_handle_extents(p_obj);
+    c_ext = parent_handle_extents(obj);
+
+    parent_height = p_ext->bottom - p_ext->top;
+    child_height = c_ext->bottom - c_ext->top;
+
+    parent_width = p_ext->right - p_ext->left;
+    child_width = c_ext->right - c_ext->left;
+
+    /* we need the pre-snap position */
+    c_ext->left = droppoint_orig.x;
+    c_ext->top = droppoint_orig.y;
+    c_ext->right = c_ext->left + child_width;
+    c_ext->bottom = c_ext->top + child_height;
+
+    /* check if the top of the child is inside the parent, but the bottom is not */
+    if (c_ext->top < p_ext->bottom && c_ext->bottom > p_ext->bottom)
+    {
+      /* check if child is smaller than parent height wise */
+      if (child_height < parent_height)
+        new_height = child_height;
+      /* check if parent is bigger than 1 in height */
+      else if (parent_height  > 1)
+        new_height = round_up(parent_height) - 1;
+    }
+    else
+    {
+      new_height = child_height;
+    }
+    /* check if the left of the child is inside the partent, but the right is not */
+    if (c_ext->left < p_ext->right && c_ext->right > p_ext->right)
+    {
+      /* check if child is smaller than parent width wise */
+      if (child_width < parent_width)
+        new_width = child_width;
+      /* check if parent is bigger than 1 in width */
+      else if (parent_width > 1)
+        new_width = round_up(parent_width) - 1;
+    }
+    else
+    {
+      new_width = child_width;
+    }
+
+    g_free(p_ext);
+    g_free(c_ext);
+
+    /* if we can't fit in both directions, produce an error */
+    if (!new_height && !new_width)
+    {
+      message_error(_("The object you dropped cannot fit into its parent. \nEither expand the parent object, or drop the object elsewhere."));
+      obj->parent->children = g_list_remove(obj->parent->children, obj);
+      obj->ops->destroy (obj);
+      return NULL;
+    }
+    /* if we can't fit height wise, make height same as of the parent */
+    else if (!new_height)
+      new_height = parent_height;
+    /* if we can't fit width wise, make the width same as of the parent */
+    else if (!new_width)
+      new_width = parent_width;
+
+    new_pos.x = droppoint.x + new_width;
+    new_pos.y = droppoint.y + new_height;
+    obj->ops->move_handle(obj, handle2, &new_pos,
+                                   HANDLE_MOVE_USER,0);
+
+  }
+
 
   diagram_add_object(ddisp->diagram, obj);
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
@@ -767,4 +859,5 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
   undo_set_transactionpoint(ddisp->diagram->undo);
   if (prefs.reset_tools_after_create)
     tool_reset();
+  return obj;
 }

@@ -769,8 +769,6 @@ ddisplay_scroll(DDisplay *ddisp, Point *delta)
   Point new_origo = ddisp->origo;
   point_add(&new_origo, delta);
 
-  printf("ddisplay_scroll %f, %f\n", delta->x, delta->y);
-
   rectangle_union(&extents, visible);
 
   if (new_origo.x < extents.left - ex_width)
