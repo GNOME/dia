@@ -149,8 +149,8 @@ app_init (int argc, char **argv)
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
 
-#ifdef GNOME
   if (argv) {
+#ifdef GNOME
     gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
 			       0, &poptCtx);
     
@@ -164,10 +164,8 @@ app_init (int argc, char **argv)
       gtk_signal_connect(GTK_OBJECT (client), "die",
 			 GTK_SIGNAL_FUNC (session_die), NULL);
     }
-  }
 #else
 #ifdef HAVE_POPT
-  if (argv) {
     poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
     poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
     if((rc = poptGetNextOpt(poptCtx)) < -1) {
@@ -182,13 +180,12 @@ app_init (int argc, char **argv)
       poptPrintHelp(poptCtx, stderr, 0);
       exit(0);
     }
-
+#endif
     gtk_init (&argc, &argv);
+#endif
   }
-#endif
-    
+
   dia_image_init();
-#endif
 
   gdk_rgb_init();
 

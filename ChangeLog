@@ -1,3 +1,8 @@
+2000-04-08  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Moved gtk_init outside #ifdef, moved
+	if (argv) outside ifdefs.
+
 2000-04-04  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* objects/standard/image.c (image_set_props): 
