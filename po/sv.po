@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-06-12 22:46+0200\n"
-"PO-Revision-Date: 2001-06-12 23:09+0200\n"
+"POT-Creation-Date: 2001-07-07 14:22+0200\n"
+"PO-Revision-Date: 2001-07-07 14:32+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Bidragsgivare:"
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
@@ -322,12 +322,12 @@ msgstr ""
 "Vill du spara ändringar nu?"
 
 #: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:331
+#: lib/properties.c:351
 msgid "Yes"
 msgstr "Ja"
 
 #: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:333 lib/properties.c:354
+#: app/preferences.c:514 lib/properties.c:353 lib/properties.c:370
 msgid "No"
 msgstr "Nej"
 
@@ -431,7 +431,7 @@ msgstr "Rulla"
 msgid "Create Text"
 msgstr "Skapa text"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1538
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1794
 msgid "Text"
 msgstr "Text"
 
@@ -583,8 +583,8 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:186
-#: objects/chronogram/chronoref.c:153
+#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -792,17 +792,17 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:164 lib/properties.c:1523 lib/properties.h:357
+#: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1524 lib/properties.h:358
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:166 lib/properties.c:1525 lib/properties.h:359
+#: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "Höger"
@@ -1556,23 +1556,23 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/properties.c:450 lib/properties.c:488
+#: lib/properties.c:437 lib/properties.c:466
 msgid "No edit widget"
 msgstr "Ingen redigeringskomponent"
 
-#: lib/properties.c:1532
+#: lib/properties.c:1788
 msgid "Line colour"
 msgstr "Linjefärg"
 
-#: lib/properties.c:1533
+#: lib/properties.c:1789
 msgid "Line style"
 msgstr "Linjetyp"
 
-#: lib/properties.c:1534
+#: lib/properties.c:1790
 msgid "Fill colour"
 msgstr "Fyllningsfärg"
 
-#: lib/properties.c:1535 objects/custom/custom_object.c:364
+#: lib/properties.c:1791 objects/custom/custom_object.c:364
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1580,44 +1580,44 @@ msgstr "Fyllningsfärg"
 msgid "Draw background"
 msgstr "Rita bakgrund"
 
-#: lib/properties.c:1536
+#: lib/properties.c:1792
 msgid "Start arrow"
 msgstr "Startpil"
 
-#: lib/properties.c:1537
+#: lib/properties.c:1793
 msgid "End arrow"
 msgstr "Slutpil"
 
-#: lib/properties.c:1539
+#: lib/properties.c:1795
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: lib/properties.c:1540 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1796 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
-#: objects/chronogram/chronoline.c:188 objects/chronogram/chronoref.c:157
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:1541 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1797 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/chronogram/chronoline.c:190 objects/chronogram/chronoref.c:159
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: lib/properties.c:1542 objects/GRAFCET/step.c:167
-#: objects/chronogram/chronoline.c:192 objects/chronogram/chronoref.c:161
+#: lib/properties.c:1798 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/message.c:120
+#: lib/message.c:140
 msgid "Notice"
 msgstr "Observera"
 
-#: lib/message.c:131
+#: lib/message.c:151
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/message.c:143
+#: lib/message.c:163
 msgid "Error"
 msgstr "Fel"
 
@@ -3216,23 +3216,23 @@ msgstr "Samarbete"
 msgid "Chronogram diagram objects"
 msgstr "Kronogramdiagramobjekt"
 
-#: objects/chronogram/chronoline.c:151
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "Data"
 
-#: objects/chronogram/chronoline.c:152
+#: objects/chronogram/chronoline.c:150
 msgid "Data name"
 msgstr "Datanamn"
 
-#: objects/chronogram/chronoline.c:153
+#: objects/chronogram/chronoline.c:152
 msgid "Events"
 msgstr "Händelser"
 
-#: objects/chronogram/chronoline.c:156
+#: objects/chronogram/chronoline.c:155
 msgid "Event specification"
 msgstr "Händelseangivelse"
 
-#: objects/chronogram/chronoline.c:157
+#: objects/chronogram/chronoline.c:156
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -3247,55 +3247,59 @@ msgstr ""
 "\"varaktighet\".\n"
 "exempel: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:165
+#: objects/chronogram/chronoline.c:162
 msgid "Parameters"
 msgstr "Parametrar"
 
-#: objects/chronogram/chronoline.c:167 objects/chronogram/chronoref.c:142
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
 msgstr "Starttid"
 
-#: objects/chronogram/chronoline.c:169 objects/chronogram/chronoref.c:144
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
 msgid "End time"
 msgstr "Sluttid"
 
-#: objects/chronogram/chronoline.c:171
+#: objects/chronogram/chronoline.c:168
 msgid "Rise time"
 msgstr "Stigtid"
 
-#: objects/chronogram/chronoline.c:173
+#: objects/chronogram/chronoline.c:170
 msgid "Fall time"
 msgstr "Falltid"
 
-#: objects/chronogram/chronoline.c:174
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "Multibitarsdata"
 
-#: objects/chronogram/chronoline.c:178
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
 msgid "Aspect"
 msgstr "Aspekt"
 
-#: objects/chronogram/chronoline.c:180
+#: objects/chronogram/chronoline.c:175
 msgid "Data color"
 msgstr "Datafärg"
 
-#: objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoline.c:177
 msgid "Data line width"
 msgstr "Datalinjebredd"
 
-#: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:151
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Linjefärg"
 
-#: objects/chronogram/chronoref.c:146
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Tidsdata"
+
+#: objects/chronogram/chronoref.c:150
 msgid "Major time step"
 msgstr "Huvudtidssteg"
 
-#: objects/chronogram/chronoref.c:148
+#: objects/chronogram/chronoref.c:152
 msgid "Minor time step"
 msgstr "Deltidssteg"
 
-#: objects/chronogram/chronoref.c:155
+#: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
 msgstr "Linjebredd för delsteg"
 
