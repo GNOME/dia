@@ -1,5 +1,8 @@
 1999-02-27  Seth Alves  <alves@hungry.com>
 
+	* app/display.c (display_set_menu_sensitivity): no Edit/Delete
+	menu when built with --enable-gnome
+
 	* app/interface.c (create_display_shell): build status bar
 	even if --enable-gnome is used
 

@@ -740,15 +740,18 @@ display_set_menu_sensitivity(DDisplay *ddisp)
 		      dia->data->selected_count > 0);
   menus_set_sensitive(_("<Display>/Edit/Paste"),
 		      cnp_exist_stored_objects());
+# ifndef GNOME
   menus_set_sensitive(_("<Display>/Edit/Delete"),
 		      dia->data->selected_count > 0);
+# endif
 
   menus_set_sensitive(_("<Display>/Objects/Place Under"),
 		      dia->data->selected_count > 0);
   menus_set_sensitive(_("<Display>/Objects/Place Over"),
 		      dia->data->selected_count > 0);
   
-  menus_set_sensitive(_("<Display>/Objects/Group"), dia->data->selected_count > 1);
+  menus_set_sensitive(_("<Display>/Objects/Group"),
+		      dia->data->selected_count > 1);
   menus_set_sensitive(_("<Display>/Objects/Ungroup"),
 		      (dia->data->selected_count == 1) &&
 		      IS_GROUP((Object *)dia->data->selected->data));
