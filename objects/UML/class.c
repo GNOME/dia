@@ -278,7 +278,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 
     if (!umlclass->suppress_attributes) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
-      p.y = p1.y + 0.1 + umlclass->font_ascent;
+      p.y = p1.y + 0.1;
 
       i = 0;
       list = umlclass->attributes;
@@ -287,9 +287,11 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	if (attr->abstract) {
 	  font = umlclass->abstract_font;
           font_height = umlclass->abstract_font_height;
+          p.y += umlclass->abstract_font_ascent;
         } else {
 	  font = umlclass->normal_font;
           font_height = umlclass->font_height;
+          p.y += umlclass->font_ascent;
         }
 
         renderer->ops->set_font (renderer, font, font_height);
@@ -308,8 +310,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
 	}
 	
-	
-	p.y += font_height;
+	if (attr->abstract) 
+          p.y += font_height-umlclass->abstract_font_ascent;
+        else
+          p.y += font_height-umlclass->font_ascent;
 	
 	list = g_list_next(list);
 	i++;
@@ -331,7 +335,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 			     &umlclass->color_foreground);
     if (!umlclass->suppress_operations) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
-      p.y = p1.y + 0.1 + umlclass->font_ascent;
+      p.y = p1.y + 0.1;
 
       i = 0;
       list = umlclass->operations;
@@ -341,9 +345,11 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	if (op->inheritance_type != UML_LEAF) {
 	  font = umlclass->abstract_font;
           font_height = umlclass->abstract_font_height;
+          p.y += umlclass->abstract_font_ascent;
 	} else {
 	  font = umlclass->normal_font;
           font_height = umlclass->font_height;
+          p.y += umlclass->font_ascent;
         }
 
 	renderer->ops->set_font(renderer, font, font_height);
@@ -363,7 +369,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
 	}
 
-	p.y += font_height;
+	if (op->inheritance_type != UML_LEAF) 
+          p.y += font_height-umlclass->abstract_font_ascent;
+        else
+          p.y += font_height-umlclass->font_ascent;
 
 	list = g_list_next(list);
 	i++;
@@ -497,6 +506,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   real width;
   
   umlclass->font_ascent = font_ascent(umlclass->normal_font, umlclass->font_height);
+  umlclass->abstract_font_ascent = font_ascent(umlclass->abstract_font, umlclass->abstract_font_height);
 
   /* name box: */
 
@@ -550,14 +560,7 @@ umlclass_calculate_data(UMLClass *umlclass)
     g_free(umlclass->attributes_strings);
   }
   umlclass->num_attributes = g_list_length(umlclass->attributes);
-  umlclass->attributesbox_height = umlclass->font_height * umlclass->num_attributes + 2*0.1;
-
-  if ((umlclass->attributesbox_height<0.4) ||
-      umlclass->suppress_attributes )
-      umlclass->attributesbox_height = 0.4;
-
-  if (!umlclass->visible_attributes )
-    umlclass->attributesbox_height = 0.0;
+  umlclass->attributesbox_height = 2*0.1;
 
   umlclass->attributes_strings = NULL;
   if (umlclass->num_attributes != 0) {
@@ -571,16 +574,24 @@ umlclass_calculate_data(UMLClass *umlclass)
       attr = (UMLAttribute *) list->data;
       umlclass->attributes_strings[i] = uml_get_attribute_string(attr);
 
-      if (attr->abstract)
+      if (attr->abstract) {
 	width = font_string_width(umlclass->attributes_strings[i], umlclass->abstract_font, umlclass->abstract_font_height);
-      else
+        umlclass->attributesbox_height += umlclass->abstract_font_height;
+      }
+      else {
 	width = font_string_width(umlclass->attributes_strings[i], umlclass->normal_font, umlclass->font_height);
+        umlclass->attributesbox_height += umlclass->font_height;
+      }
       maxwidth = MAX(width, maxwidth);
 
       i++;
       list = g_list_next(list);
     }
   }
+
+  if ((umlclass->attributesbox_height<0.4) ||
+      umlclass->suppress_attributes )
+          umlclass->attributesbox_height = 0.4;
 
   /* operations box: */
   if (umlclass->operations_strings != NULL) {
@@ -591,11 +602,8 @@ umlclass_calculate_data(UMLClass *umlclass)
   }
   umlclass->num_operations = g_list_length(umlclass->operations);
 
-  umlclass->operationsbox_height = umlclass->font_height * umlclass->num_operations + 2*0.1;
-  if ((umlclass->operationsbox_height<0.4) ||
-      umlclass->suppress_operations )
-      umlclass->operationsbox_height = 0.4;
-  
+  umlclass->operationsbox_height = 2*0.1;
+
   umlclass->operations_strings = NULL;
   if (umlclass->num_operations != 0) {
     umlclass->operations_strings =
@@ -608,10 +616,13 @@ umlclass_calculate_data(UMLClass *umlclass)
       op = (UMLOperation *) list->data;
       umlclass->operations_strings[i] = uml_get_operation_string(op);
       
-      if (op->inheritance_type != UML_LEAF)
+      if (op->inheritance_type != UML_LEAF) {
 	width = font_string_width(umlclass->operations_strings[i], umlclass->abstract_font, umlclass->abstract_font_height);
-      else
+        umlclass->operationsbox_height += umlclass->abstract_font_height;
+      } else {
 	width = font_string_width(umlclass->operations_strings[i], umlclass->normal_font, umlclass->font_height);
+        umlclass->operationsbox_height += umlclass->font_height;
+      }
       maxwidth = MAX(width, maxwidth);
 
       i++;
@@ -621,6 +632,10 @@ umlclass_calculate_data(UMLClass *umlclass)
 
   umlclass->element.width = maxwidth + 2*0.3;
 
+  if ((umlclass->operationsbox_height<0.4) ||
+      umlclass->suppress_operations )
+          umlclass->operationsbox_height = 0.4;
+  
   umlclass->element.height = umlclass->namebox_height;
   if (umlclass->visible_attributes)
     umlclass->element.height += umlclass->attributesbox_height;

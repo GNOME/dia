@@ -67,6 +67,7 @@ struct _UMLClass {
 
   /* Calculated variables: */
   real font_ascent;
+  real abstract_font_ascent;
   
   real namebox_height;
   utfchar *stereotype_string;
