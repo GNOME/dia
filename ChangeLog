@@ -1,5 +1,11 @@
 2004-10-31  Hans Breuer  <hans@breuer.org>
 
+        * plug-ins/wmf/wmf_gdi.cpp plug-ins/wmf/wmf_gdi.h :
+        added GetDeviceCaps() dummy implementation to make 
+       'wmf' compile on Linux, too.
+
+2004-10-31  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/wmf/wmf.cpp : patch from Robert Ögren <gtk@roboros.com>
 	to finally fix the long lasting clipping issue, bug #85831
 	Also fixed the line style issue for printing on XP and don't 

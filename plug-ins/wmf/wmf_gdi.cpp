@@ -114,6 +114,24 @@ GetStockObject(int iObj)
   return hobj;
 }
 
+int
+GetDeviceCaps(HDC hdc, int cap)
+{
+  //dummy implementation should be good enough?
+  switch (cap)
+  {
+  case HORZSIZE:
+    return 1024;
+  case VERTSIZE:
+    return 768;
+  case HORZRES:
+    return 96;
+  case VERTRES:
+    return 96;
+  }
+  return 0;
+}
+
 HBRUSH
 CreateSolidBrush(COLORREF color)
 {

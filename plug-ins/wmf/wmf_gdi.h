@@ -125,6 +125,14 @@ typedef enum
   MM_TEXT = 1
 } eMapMode;
 
+typedef enum
+{
+  HORZSIZE = 4,
+  VERTSIZE = 6,
+  HORZRES  = 8,
+  VERTRES  = 10
+} eDeviceCaps;
+
 namespace W32
 {
 
@@ -249,6 +257,9 @@ DeleteObject(HGDIOBJ hobj);
 
 HGDIOBJ
 GetStockObject(int iObj);
+
+int
+GetDeviceCaps(HDC, int);
 
 HBRUSH
 CreateSolidBrush(COLORREF color);
