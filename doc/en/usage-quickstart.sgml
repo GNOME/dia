@@ -1,5 +1,25 @@
 <chapter label="1" id="quickstart-chapter">
 <title>Quickstart</title>
+  <sect1 id="what-can-you-do">
+  <title>What Can You Do?</title>
+    <para>
+    <application>Dia</application> is a diagraming application made for many 
+    people.  <application>Dia</application> is easy enough to learn without
+    much hassle and flexible enough to make the power users feel right at home
+    with their commercial tools.  Below is an example of what five minutes of
+    using <application>Dia</application> can provide.
+    <figure>
+    <title>Demo</title>
+      <screenshot>
+        <screeninfo>This is a diagram of a home network produced in under
+        5 minutes using <application>Dia</application>.
+        </screeninfo>
+        <graphic format="png" fileref="graphics/home_network" srccredit="Kevin Breit">
+        </graphic>
+      </screenshot>
+    </figure>
+  </para>
+  </sect1>
   <sect1 id="starting-dia">
   <title>Starting Dia</title>
    <para>
@@ -129,9 +149,3 @@
     </para>
  </sect1>
 </chapter>                                              
-
-<!--
-Local Variables:
-sgml-parent-document: "dia-manual.sgml"
-End:
--->

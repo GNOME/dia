@@ -45,12 +45,12 @@
    <title>Moving Objects</title>
     <para>
      When an object is inserted into the canvas, the desired object will appear
-     with small green boxes defining the borders.  <!-- Insert Graphic -->
+     with small green boxes defining the borders.
      <figure>
        <title>Adjuster Dots</title>
        <screenshot>
          <screeninfo>The green dots allow resizing the image.</screeninfo>
-         <graphic format="png" fileref="greendots" srccredit="Kevin Breit">
+         <graphic format="png" fileref="graphics/greendots" srccredit="Kevin Breit">
          </graphic>
        </screenshot>
      </figure> 
@@ -93,13 +93,12 @@
      Add this when you feel like explaining.
     </para>
    </sect3>
-   <sect3 id="grouping-objects">
    <title>Grouping Objects</title>
     <para>
      Add this when you feel like explaining.
     </para>
    </sect3>
-   -->
+-->
   <sect2 id="line-properties">
   <title>Line Properties</title>
    <para>
@@ -116,6 +115,14 @@
      and holding will open up a menu which demonstrates what the change will
      look like.
     </para>
+    <figure>
+    <title>Line properties</title>
+      <screenshot>
+        <screeninfo>The three sections are all described below.</screeninfo>
+        <graphic format="png" fileref="graphics/line_props" srccredit="Kevin Breit">
+        </graphic>
+      </screenshot>
+    </figure>
     <para>
      Lines can employ different style types such as:
      <itemizedlist>

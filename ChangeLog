@@ -1,3 +1,10 @@
+2001-03-08  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/home_network.png: Added file.
+	* doc/en/line_props.png: Added file.
+	* doc/en/usage-objects.sgml: Added two graphics to file.
+	* doc/en/usage-quickstart.sgml: Added one graphic to file.
+
 2001-03-06  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* app/grid.h: Place comment around text after #endif.
