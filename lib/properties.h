@@ -195,7 +195,9 @@ typedef void (* PropType_Copy)(Property *dest, Property *src);
  * If NULL, don't do anything special to free value */
 typedef void (* PropType_Free)(Property *prop);
 /* Create a widget capable of editing the property */
-typedef GtkWidget *(* PropType_GetWidget)(Property *prop);
+typedef GtkWidget *(* PropType_GetWidget)(const Property *prop);
+/* Get the value of the property into the widget */
+typedef void (* PropType_GetProp)(const Property *prop, GtkWidget *widget);
 /* Set the value of the property from the current value of the widget */
 typedef void (* PropType_SetProp)(Property *prop, GtkWidget *widget);
 /* load/save a property */
@@ -204,7 +206,8 @@ typedef void (*PropType_Save)(Property *prop, ObjectNode obj_node);
 
 PropType prop_type_register(const gchar *name, PropType_Copy cfunc,
 			    PropType_Free ffunc, PropType_GetWidget wfunc,
-			    PropType_SetProp sfunc,
+			    PropType_GetProp gfunc,
+                            PropType_SetProp sfunc,
 			    PropType_Load loadfunc, PropType_Save savefunc);
 
 G_INLINE_FUNC void prop_desc_list_calculate_quarks(PropDescription *plist);
@@ -247,7 +250,8 @@ PropDescription *prop_desc_lists_intersection(GList *plists);
 /* functions for manipulating an individual property structure */
 void       prop_copy(Property *dest, Property *src);
 void       prop_free(Property *prop);
-GtkWidget *prop_get_widget(Property *prop);
+GtkWidget *prop_get_widget(const Property *prop); /* calls _reset_widget() */
+void       prop_reset_widget(const Property *prop, GtkWidget *widget);
 void       prop_set_from_widget(Property *prop, GtkWidget *widget);
 void       prop_load(Property *prop, ObjectNode obj_node);
 void       prop_save(Property *prop, ObjectNode obj_node);

@@ -1,3 +1,14 @@
+2001-07-04  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.[ch]: splitted prop_get_widget() into
+	prop_get_widget() (gives a widget but doesn't fill it) and 
+	prop_reset_widget() (fills an existing widget with a property's value).
+
+	* lib/widgets.[ch]: const enforcement police work.
+
+	* shapes/network/antenna.shape: added a connection point at top,
+	upon request from <Emmanuel.Quemener@cri.ens-cachan.fr>.
+	
 2001-06-25  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* intl/*: tested with gettext-0.10.38

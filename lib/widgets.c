@@ -598,7 +598,7 @@ dia_color_selector_get_color(DiaColorSelector *cs, Color *color)
 
 void
 dia_color_selector_set_color (DiaColorSelector *cs,
-			      Color *color)
+			      const Color *color)
 {
   GdkColor col;
   

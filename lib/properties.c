@@ -51,6 +51,7 @@ typedef struct {
   PropType_Copy cfunc;
   PropType_Free ffunc;
   PropType_GetWidget wfunc;
+  PropType_GetProp gfunc;
   PropType_SetProp sfunc;
   PropType_Load loadfunc;
   PropType_Save savefunc;
@@ -62,6 +63,7 @@ static GHashTable *custom_props_hash = NULL;
 PropType
 prop_type_register(const gchar *name, PropType_Copy cfunc,
 		   PropType_Free ffunc, PropType_GetWidget wfunc,
+		   PropType_GetProp gfunc,
 		   PropType_SetProp sfunc,
 		   PropType_Load loadfunc, PropType_Save savefunc)
 {
@@ -82,6 +84,7 @@ prop_type_register(const gchar *name, PropType_Copy cfunc,
   cprop.cfunc = cfunc;
   cprop.ffunc = ffunc;
   cprop.wfunc = wfunc;
+  cprop.gfunc = gfunc;
   cprop.sfunc = sfunc;
   cprop.loadfunc = loadfunc;
   cprop.savefunc = savefunc;
@@ -351,15 +354,10 @@ bool_toggled(GtkWidget *wid)
 }
 
 GtkWidget *
-prop_get_widget(Property *prop)
+prop_get_widget(const Property *prop)
 {
   GtkWidget *ret = NULL;
   GtkAdjustment *adj;
-  gchar buf[256];
-#ifdef UNICODE_WORK_IN_PROGRESS
-  utfchar *utfbuf;
-  gchar *locbuf;
-#endif
 
   switch (prop->type) {
   case PROP_TYPE_INVALID:
@@ -367,37 +365,17 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_CHAR:
     ret = gtk_entry_new();
-#ifdef UNICODE_WORK_IN_PROGRESS
-    utfbuf = charconv_unichar_to_utf8(PROP_VALUE_CHAR(*prop));/*keep for gtk2*/
-    locbuf = charconv_utf8_to_local8(utfbuf);
-    gtk_entry_set_text(GTK_ENTRY(ret), locbuf);
-    g_free(locbuf);
-#else
-    buf[0] = PROP_VALUE_CHAR(*prop);
-    buf[1] = '\0';
-    gtk_entry_set_text(GTK_ENTRY(ret), buf);
-#endif
     break;
   case PROP_TYPE_BOOL:
     ret = gtk_toggle_button_new_with_label(_("No"));
     gtk_signal_connect(GTK_OBJECT(ret), "toggled",
 		       GTK_SIGNAL_FUNC(bool_toggled), NULL);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ret),
-				 PROP_VALUE_BOOL(*prop));
     break;
   case PROP_TYPE_INT:
-    if (prop->extra_data) {
-      PropNumData *numdata = prop->extra_data;
-      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
-					      numdata->min, numdata->max,
-					      numdata->step, 10.0 * numdata->step,
-					      10.0 * numdata->step));
-    } else
-      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
-					      G_MININT, G_MAXINT,
-					      1.0, 10.0, 10.0));
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
+                                            G_MININT, G_MAXINT,
+                                            1.0, 10.0, 10.0));
     ret = gtk_spin_button_new(adj, 1.0, 0);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;
   case PROP_TYPE_ENUM:
     if (prop->extra_data) {
@@ -418,24 +396,14 @@ prop_get_widget(Property *prop)
 	gtk_widget_show(item);
       }
       gtk_option_menu_set_menu(GTK_OPTION_MENU(ret), menu);
-      gtk_option_menu_set_history(GTK_OPTION_MENU(ret), pos);
     } else {
       ret = gtk_entry_new(); /* should use spin button/option menu */
-      g_snprintf(buf, sizeof(buf), "%d", PROP_VALUE_ENUM(*prop));
-      gtk_entry_set_text(GTK_ENTRY(ret), buf);
     }
     break;
   case PROP_TYPE_REAL:
-    if (prop->extra_data) {
-      PropNumData *numdata = prop->extra_data;
-      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
-					      numdata->min, numdata->max,
-					      numdata->step, 10.0 * numdata->step,
-					      10.0 * numdata->step));
-    } else
-      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
-					      G_MINFLOAT, G_MAXFLOAT,
-					      0.1, 1.0, 1.0));
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
+                                            G_MINFLOAT, G_MAXFLOAT,
+                                            0.1, 1.0, 1.0));
     ret = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;
@@ -451,36 +419,11 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
-    if (PROP_VALUE_STRING(*prop)) {
-#ifdef UNICODE_WORK_IN_PROGRESS
-      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
-      gtk_entry_set_text(GTK_ENTRY(ret), locbuf);
-      g_free(locbuf);
-#else
-      gtk_entry_set_text(GTK_ENTRY(ret), PROP_VALUE_STRING(*prop));
-#endif
-    }
     break;
-  case PROP_TYPE_MULTISTRING: {
-    GtkWidget *text;
-    text = gtk_text_new(NULL,NULL);
-    gtk_text_set_editable(GTK_TEXT(text),TRUE);
-    if (PROP_VALUE_STRING(*prop)) {
-      gtk_text_set_point(GTK_TEXT(text), 0);
-      gtk_text_forward_delete(GTK_TEXT(text),
-                              gtk_text_get_length(GTK_TEXT(text)));
-#ifdef UNICODE_WORK_IN_PROGRESS
-      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
-      gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL, locbuf,-1);
-      g_free(locbuf);
-#else
-      gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL,
-                      PROP_VALUE_STRING(*prop),-1);
-#endif
-    }
-    ret = text;
-    break;
-  }
+  case PROP_TYPE_MULTISTRING: 
+    ret = gtk_text_new(NULL,NULL);
+    gtk_text_set_editable(GTK_TEXT(ret),TRUE);
+    break;  
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_INTARRAY:
@@ -501,27 +444,18 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_LINESTYLE:
     ret = dia_line_style_selector_new();
-    dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(ret),
-					  PROP_VALUE_LINESTYLE(*prop).style,
-					  PROP_VALUE_LINESTYLE(*prop).dash);
     break;
   case PROP_TYPE_ARROW:
     ret = dia_arrow_selector_new();
-    dia_arrow_selector_set_arrow(DIAARROWSELECTOR(ret),
-				 PROP_VALUE_ARROW(*prop));
     break;
   case PROP_TYPE_COLOUR:
     ret = dia_color_selector_new();
-    dia_color_selector_set_color(DIACOLORSELECTOR(ret),
-				 &PROP_VALUE_COLOUR(*prop));
     break;
   case PROP_TYPE_FONT:
     ret = dia_font_selector_new();
-    dia_font_selector_set_font(DIAFONTSELECTOR(ret), PROP_VALUE_FONT(*prop));
     break;
   case PROP_TYPE_FILE:
     ret = dia_file_selector_new();
-    dia_file_selector_set_file(DIAFILESELECTOR(ret), PROP_VALUE_FILE(*prop));
     break;
   default:
     /* custom property */
@@ -535,6 +469,163 @@ prop_get_widget(Property *prop)
 			  prop->type - PROP_LAST).wfunc(prop);
   }
   return ret;
+}
+
+void 
+prop_reset_widget(const Property *prop, GtkWidget *widget)
+{
+  GtkAdjustment *adj;
+  gchar buf[256];
+#ifdef UNICODE_WORK_IN_PROGRESS
+  utfchar *utfbuf;
+  gchar *locbuf;
+#endif
+
+  switch (prop->type) {
+  case PROP_TYPE_INVALID:
+    g_warning("invalid property type for `%s'",  prop->name);
+    break;
+  case PROP_TYPE_CHAR:
+#ifdef UNICODE_WORK_IN_PROGRESS
+    utfbuf = charconv_unichar_to_utf8(PROP_VALUE_CHAR(*prop));/*keep for gtk2*/
+    locbuf = charconv_utf8_to_local8(utfbuf);
+    gtk_entry_set_text(GTK_ENTRY(widget), locbuf);
+    g_free(locbuf);
+#else
+    buf[0] = PROP_VALUE_CHAR(*prop);
+    buf[1] = '\0';
+    gtk_entry_set_text(GTK_ENTRY(widget), buf);
+#endif
+    break;
+  case PROP_TYPE_BOOL:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),
+				 PROP_VALUE_BOOL(*prop));
+    break;
+  case PROP_TYPE_INT:
+    if (prop->extra_data) {
+      PropNumData *numdata = prop->extra_data;
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
+					      numdata->min, numdata->max,
+					      numdata->step, 10.0 * numdata->step,
+					      10.0 * numdata->step));
+    } else {
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
+					      G_MININT, G_MAXINT,
+					      1.0, 10.0, 10.0));
+    }
+    gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
+    break;
+  case PROP_TYPE_ENUM:
+    if (prop->extra_data) {
+      PropEnumData *enumdata = prop->extra_data;
+      guint i, pos = 0;
+
+      for (i = 0; enumdata[i].name != NULL; i++) {
+	if (enumdata[i].enumv == PROP_VALUE_ENUM(*prop)) {         
+	  pos = i;
+          break;
+        }
+      }
+      gtk_option_menu_set_history(GTK_OPTION_MENU(widget), pos);
+    } else {
+      g_snprintf(buf, sizeof(buf), "%d", PROP_VALUE_ENUM(*prop));
+      gtk_entry_set_text(GTK_ENTRY(widget), buf);
+    }
+    break;
+  case PROP_TYPE_REAL:
+    if (prop->extra_data) {
+      PropNumData *numdata = prop->extra_data;
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
+					      numdata->min, numdata->max,
+					      numdata->step, 
+                                              10.0 * numdata->step,
+					      10.0 * numdata->step));
+    } else {
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
+					      G_MINFLOAT, G_MAXFLOAT,
+					      0.1, 1.0, 1.0));
+    }
+    gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+    break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
+    g_assert_not_reached();
+    break;
+  case PROP_TYPE_STRING:
+    if (PROP_VALUE_STRING(*prop)) {
+#if (defined(UNICODE_WORK_IN_PROGRESS) && !defined(GTK_SPEAKS_UTF8))
+      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
+      gtk_entry_set_text(GTK_ENTRY(widget), locbuf);
+      g_free(locbuf);
+#else
+      gtk_entry_set_text(GTK_ENTRY(widget), PROP_VALUE_STRING(*prop));
+#endif
+    }
+    break;
+  case PROP_TYPE_MULTISTRING: 
+    if (PROP_VALUE_STRING(*prop)) {
+      gtk_text_set_point(GTK_TEXT(widget), 0);
+      gtk_text_forward_delete(GTK_TEXT(widget),
+                              gtk_text_get_length(GTK_TEXT(widget)));
+#if (defined(UNICODE_WORK_IN_PROGRESS) && !defined(GTK_SPEAKS_UTF8))
+      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
+      gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, locbuf,-1);
+      g_free(locbuf);
+#else
+      gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL,
+                      PROP_VALUE_STRING(*prop),-1);
+#endif    
+    break;
+  }
+  case PROP_TYPE_POINT:
+  case PROP_TYPE_POINTARRAY:
+  case PROP_TYPE_INTARRAY:
+  case PROP_TYPE_ENUMARRAY:
+  case PROP_TYPE_BEZPOINT:
+  case PROP_TYPE_BEZPOINTARRAY:
+  case PROP_TYPE_ENDPOINTS:
+  case PROP_TYPE_CONNPOINT_LINE:
+  case PROP_TYPE_TEXT:
+  case PROP_TYPE_RECT:
+  case PROP_TYPE_STATIC:
+    break;
+  case PROP_TYPE_LINESTYLE:
+    dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(widget),
+					  PROP_VALUE_LINESTYLE(*prop).style,
+					  PROP_VALUE_LINESTYLE(*prop).dash);
+    break;
+  case PROP_TYPE_ARROW:
+    dia_arrow_selector_set_arrow(DIAARROWSELECTOR(widget),
+				 PROP_VALUE_ARROW(*prop));
+    break;
+  case PROP_TYPE_COLOUR:
+    dia_color_selector_set_color(DIACOLORSELECTOR(widget),
+				 &PROP_VALUE_COLOUR(*prop));
+    break;
+  case PROP_TYPE_FONT:
+    dia_font_selector_set_font(DIAFONTSELECTOR(widget), 
+                               PROP_VALUE_FONT(*prop));
+    break;
+  case PROP_TYPE_FILE:
+    dia_file_selector_set_file(DIAFILESELECTOR(widget), 
+                               PROP_VALUE_FILE(*prop));
+    break;
+  default:
+    /* custom property */
+    if (!(custom_props == NULL ||
+	prop->type - PROP_LAST >= custom_props->len ||
+	g_array_index(custom_props, CustomProp,
+		      prop->type - PROP_LAST).gfunc == NULL))
+      g_array_index(custom_props, CustomProp,
+                    prop->type - PROP_LAST).gfunc(prop,widget);
+  }
 }
 
 void
@@ -1534,7 +1625,8 @@ object_create_props_dialog(Object *obj)
           g_assert(nestlev >= 0);
         } break;
       default:
-        widgets[j] = prop_get_widget(&props[j]);
+        widgets[j] = prop_get_widget(&props[j]); 
+        prop_reset_widget(&props[j],widgets[j]);
 
         label = gtk_label_new(_(pdesc[i].description));
         gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
