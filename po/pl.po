@@ -186,6 +186,10 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Antyaliasingowy silnik renderuj±cy pe³en jest b³êdów\n"
+"i mo¿e spowodowaæ zawieszenie programu. Na pewno s±\n"
+"tam b³êdy wiêc je¶li znajdziesz jaki¶ nie omieszkaj\n"
+"wys³aæ raportu je¶li program zawiesi siê."
 
 #: app/defaults.c:1 app/defaults.c:1
 msgid "Object defaults"
@@ -208,15 +212,13 @@ msgstr "Obiekt nie ma warto¶ci domy¶lnych."
 
 #. &export_file_format
 #: app/diaconv.c:1
-#, fuzzy
 msgid "Export format to use"
-msgstr "Eksportuje plik do podanego formatu i koñczy"
+msgstr ""
 
 #. &export_file_name
 #: app/diaconv.c:1
-#, fuzzy
 msgid "Export file name to use"
-msgstr "Eksportuje plik do podanego formatu i koñczy"
+msgstr ""
 
 #: app/diaconv.c:1
 msgid "Quiet operation"
@@ -350,7 +352,7 @@ msgstr "Drzewo diagramu"
 
 #: app/dialogs.c:1
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #. paper size
 #: app/diapagelayout.c:1
@@ -568,15 +570,17 @@ msgstr "Zapis diagramu"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:1
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Kompresja zapisywanych plików:"
+msgstr "Kompresja zapisywanych plików"
 
 #: app/filedlg.c:1
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
+"Kompresja redukuje rozmiary pliku do mniej ni¿ 1/10 zwyk³ego rozmiaru "
+"oraz przyspiesza wczytywanie i zapisywanie. Niektóre programu tekstowe "
+"nie potrafi± wykonywaæ operacji na skompresowanych plikach."
 
 #: app/filedlg.c:1
 #, c-format
@@ -584,7 +588,7 @@ msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
-"Nie mo¿na okre¶liæ filtra do zapisu\n"
+"Nie mo¿na okre¶liæ filtru do zapisu\n"
 "\"%s\"."
 
 #: app/filedlg.c:1
@@ -844,14 +848,15 @@ msgstr ""
 "Plik nie jest plikiem Dia."
 
 #: app/load_save.c:1
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"B³±d przy odczycie diagramu %s.\n"
-"Plik nie jest plikiem Dia."
+"B³±d przy odczycie diagramu:\n"
+"%s.\n"
+"Poprawny pli Dia definiuje co najmniej jedn± warstwê."
 
 #: app/load_save.c:1
 #, c-format
@@ -1633,7 +1638,7 @@ msgstr ""
 
 #: app/preferences.c:1
 msgid "Recent documents list size:"
-msgstr ""
+msgstr "Rozmiar listy ostatnio otw. dokumentów:"
 
 #: app/preferences.c:1
 msgid "New diagram:"
@@ -1714,11 +1719,11 @@ msgstr "Domy¶lna wysoko¶æ:"
 
 #: app/preferences.c:1
 msgid "Remember last size:"
-msgstr ""
+msgstr "Zapamiêtaj ostatni rozmiar:"
 
 #: app/preferences.c:1
 msgid "Save hidden object types:"
-msgstr ""
+msgstr "Zapisuj ukryte typy obiektów:"
 
 #: app/preferences.c:1
 #, c-format
@@ -1782,6 +1787,8 @@ msgid ""
 "%s\n"
 "System sheet"
 msgstr ""
+"%s\n"
+"Arkusz systemowy"
 
 #: app/sheets.c:1 app/sheets_dialog_callbacks.c:1
 #, c-format
@@ -1789,12 +1796,16 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
+"%s\n"
+"Arkusz u¿ytkownika"
 
 #: app/sheets.c:1
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
+"Nie mo¿na pobraæ symbolu \"custom_type\" z ¿adnego modu³u.\n"
+"Mo¿liwo¶æ modyfikacji kszta³tów jest wy³±czona."
 
 #: app/sheets.c:1
 #, c-format
@@ -1802,36 +1813,32 @@ msgid "Widget not found: %s"
 msgstr "Nie odnaleziono widgetu: %s"
 
 #: app/sheets.c:1
-#, fuzzy
 msgid "SVG Shape"
-msgstr "Kszta³towanie"
+msgstr "Kszta³t SVG"
 
 #: app/sheets.c:1
-#, fuzzy
 msgid "Programmed Object"
-msgstr "Obiekty diagramu czasowego"
+msgstr "Zaprogramowany obiekt"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Sheets and Objects"
-msgstr "_Arkusze i obiekty..."
+msgstr "Arkusze i obiekty"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog_callbacks.c:1
 msgid "<- Copy"
-msgstr ""
+msgstr "<- Skopiuj"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog_callbacks.c:1
 msgid "<- Copy All"
-msgstr ""
+msgstr "<- Skopiuj wszystko"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog_callbacks.c:1
-#, fuzzy
 msgid "<- Move"
-msgstr "Przesuwanie"
+msgstr "<- Przesuñ"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog_callbacks.c:1
 msgid "<- Move All"
-msgstr ""
+msgstr "<- Przesuñ wszystko"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog.c:1
 #: objects/UML/class_dialog.c:1 objects/UML/class_dialog.c:1
@@ -1840,87 +1847,73 @@ msgid "New"
 msgstr "Dodaj"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "_New"
-msgstr "Dodaj"
+msgstr "_Nowy"
 
 #: app/sheets_dialog.c:1
 msgid "Up"
-msgstr ""
+msgstr "W górê"
 
 #: app/sheets_dialog.c:1
 msgid "_Up"
-msgstr ""
+msgstr "W _górê"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Down"
-msgstr "Przenie¶ w dó³"
+msgstr "W dó³"
 
 #: app/sheets_dialog.c:1
 msgid "_Down"
-msgstr ""
+msgstr "W _dó³"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Edit"
-msgstr "/Edycja"
+msgstr "Edycja"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "_Edit"
 msgstr "/Edycja"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "_Remove"
-msgstr "Usuñ"
+msgstr "_Usuñ"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Revert"
 msgstr "Odwróæ"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog.c:1
-#, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Browse..."
-msgstr "Przegl±daj"
+msgstr "Przegl±daj..."
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "SVG Shape:"
-msgstr "Kszta³towanie"
+msgstr "Kszta³t SVG:"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog.c:1
-#, fuzzy
 msgid "description:"
-msgstr "Opis:"
+msgstr "opis:"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Sheet name:"
-msgstr "Nazwa kroku"
+msgstr "Nazwa arkusza:"
 
 #: app/sheets_dialog.c:1 app/sheets_dialog_callbacks.c:1
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy
 msgid "Line Break"
-msgstr "Kolor linii"
+msgstr "Odstêp linii"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "Zmodyfikuj atrybuty warstwy"
+msgstr "Zmodyfikuj atrybuty"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Object"
-msgstr "_Obiekty"
+msgstr "Obiekt"
 
 #: app/sheets_dialog.c:1 objects/FS/flow-ortho.c:1 objects/FS/flow.c:1
 #: objects/UML/class_dialog.c:1 objects/UML/class_dialog.c:1
@@ -1929,95 +1922,88 @@ msgid "Type:"
 msgstr "Typ:"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Sheet"
-msgstr "_Zaznaczenie"
+msgstr "Arkusz"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Object:"
-msgstr "_Obiekty"
+msgstr "Obiekt:"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Sheet:"
-msgstr "_Zaznaczenie"
+msgstr "Arkusz:"
 
 #: app/sheets_dialog.c:1
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "Wybierz plik z obrazem"
+msgstr "Wybierz plik z kszta³tem SVG"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy
 msgid "Copy ->"
-msgstr "Skopiuj tekst"
+msgstr "Skopiuj ->"
 
 #: app/sheets_dialog_callbacks.c:1
 msgid "Copy All ->"
-msgstr ""
+msgstr "Skopiuj wszystko ->"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy
 msgid "Move ->"
-msgstr "Przesuwanie"
+msgstr "Przesuñ ->"
 
 #: app/sheets_dialog_callbacks.c:1
 msgid "Move All ->"
-msgstr ""
+msgstr "Przesuñ wszystko ->"
 
 #: app/sheets_dialog_callbacks.c:1
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "Nazwa pliku musi koñczyæ siê na \"%s\": \"%s\""
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "Error examining %s: %s"
-msgstr "B³±d przy odczycie jednostek: %s\n"
+msgstr "B³±d przy sprawdzaniu %s: %s"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Nie mo¿na wywnioskowaæ poprawnej ¶ciezki dla \"%s\""
+msgstr "Nie mo¿na zinterpretowaæ kszta³tu: \"%s\""
 
 #: app/sheets_dialog_callbacks.c:1
 msgid "Sheet must have a Name"
-msgstr ""
+msgstr "Arkusz musi posiadaæ nazwê"
 
 #: app/sheets_dialog_callbacks.c:1 app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Nie mo¿na otworzyæ \"%s\""
+msgstr "Nie mo¿na otworzyæ \"%s\": %s"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Nie mo¿na otworzyæ: \"%s\" do zapisu.\n"
+msgstr "Nie mo¿na otworzyæ: \"%s\" do zapisu."
 
 #: app/sheets_dialog_callbacks.c:1
 msgid "a user"
-msgstr ""
+msgstr "u¿ytkownik"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "Plik"
+msgstr "Plik: %s"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Dia wer. %s"
+msgstr "Data: %s"
 
 #: app/sheets_dialog_callbacks.c:1
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "Dla: %s"
 
 #: app/sheets_dialog_callbacks.c:1
-#, fuzzy
 msgid "add shapes here"
-msgstr "plik kszta³tów dia"
+msgstr "dodaj tutaj kszta³ty"
 
 #: app/splash.c:1
 msgid "Loading ..."
@@ -2115,7 +2101,8 @@ msgstr "Uwaga: Nie odnaleziono czcionek X. Koniec ¶wiata."
 
 #: lib/font.c:1
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
-msgstr ""
+msgstr "Ostrze¿enie: Nie za³adowano czcionek. Czy w ¶cie¿ce do czcionek X "
+"znajduj± siê jakie¶ pliki czionek?"
 
 #: lib/font.c:1
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
@@ -2326,9 +2313,8 @@ msgid "Integral Symbol"
 msgstr "Symbol liczby ca³k."
 
 #: lib/widgets.c:1
-#, fuzzy
 msgid "Crow Foot"
-msgstr "Stopa"
+msgstr "Stopa kruka"
 
 #: lib/widgets.c:1
 msgid "Cross"
@@ -4083,19 +4069,16 @@ msgid "Kind"
 msgstr ""
 
 #: objects/UML/class_dialog.c:1
-#, fuzzy
 msgid "Size"
-msgstr "Rozmiar poziomy:"
+msgstr "Rozmiar"
 
 #: objects/UML/class_dialog.c:1
-#, fuzzy
 msgid "Class Name"
-msgstr "Nazwa klasy:"
+msgstr "Nazwa klasy"
 
 #: objects/UML/class_dialog.c:1
-#, fuzzy
 msgid "Abstract Class"
-msgstr "Abstrakcyjna"
+msgstr "Klasa abstrakcyjna"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:1
@@ -4196,23 +4179,20 @@ msgid "Def. value:"
 msgstr "Domy¶lna warto¶æ"
 
 #: objects/UML/class_dialog.c:1
-#, fuzzy
 msgid "Undefined"
-msgstr "Rafinowanie"
+msgstr "Nie zdefiniowano"
 
 #: objects/UML/class_dialog.c:1
 msgid "In"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1
-#, fuzzy
-msgid "Out"
-msgstr "Rozdzielanie"
-
-#: objects/UML/class_dialog.c:1
-#, fuzzy
-msgid "In & Out"
 msgstr "Wej¶cie"
+
+#: objects/UML/class_dialog.c:1
+msgid "Out"
+msgstr "Wyj¶cie"
+
+#: objects/UML/class_dialog.c:1
+msgid "In & Out"
+msgstr "Wej¶cie i wyj¶cie"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:1
@@ -4434,7 +4414,7 @@ msgstr "Filtry importu i eksportu Fig Format"
 
 #: plug-ins/xfig/xfig-export.c:1
 msgid "No more user-definable colors - using black"
-msgstr ""
+msgstr "Brak kolorów zdefiniowanych przez u¿ytkownika - u¿yto czarnego"
 
 #: plug-ins/xfig/xfig-export.c:1
 msgid "XFig format"
@@ -4463,9 +4443,8 @@ msgid "Spline import is not implemented yet"
 msgstr "Importowanie krzywych jeszcze nie jest zsimplementowane"
 
 #: plug-ins/xfig/xfig-import.c:1
-#, fuzzy
 msgid "Can't find standard object"
-msgstr "Obiekty standardowe"
+msgstr "Nie mo¿na znale¼æ obiektu standardowego"
 
 #: plug-ins/xfig/xfig-import.c:1
 #, c-format
@@ -4518,7 +4497,7 @@ msgstr "Nie mo¿na zidentyfikowaæ obiektu FIG: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Domkniêcie na zewn±trz obszaru domykanego\n"
 
 #: plug-ins/xfig/xfig-import.c:1
 #, c-format
@@ -4754,7 +4733,7 @@ msgstr "Komponenty do budowy diagramów obwodu"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Zabezpieczenie przed odp³ywem"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Basin"
@@ -4822,7 +4801,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:1
 msgid "Horizontal Rest"
-msgstr ""
+msgstr "Poziomy odpoczynek"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Horizontally aligned Valve"
@@ -4846,7 +4825,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:1
 msgid "Vertical Rest"
-msgstr ""
+msgstr "Pionowy odpoczynek"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Vertically aligned Propeller"
@@ -4978,7 +4957,7 @@ msgstr "Edytor Diagramów Struktur Statycznych EML"
 
 #: sheets/EML.sheet.in.h:1
 msgid "Instantiation. One process create others"
-msgstr ""
+msgstr "Instanizacja. Jeden proces tworzy inne"
 
 #: sheets/EML.sheet.in.h:1
 msgid "Interaction between processes."
@@ -5018,7 +4997,7 @@ msgstr "Równoleg³obok z tekstem w ¶rodku"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "Collate"
-msgstr ""
+msgstr "Zestawienie"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "Delay"
@@ -5305,21 +5284,20 @@ msgid "Logic"
 msgstr "Logika cyfrowa"
 
 #: sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "A File"
 msgstr "Plik"
 
 #: sheets/Misc.sheet.in.h:1
 msgid "A Folder"
-msgstr ""
+msgstr "Folder"
 
 #: sheets/Misc.sheet.in.h:1
 msgid "Misc"
-msgstr ""
+msgstr "Ró¿ne"
 
 #: sheets/Misc.sheet.in.h:1
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "Ró¿ne kszta³ty"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
@@ -5339,7 +5317,7 @@ msgstr "Multiplekser"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Node Center"
-msgstr ""
+msgstr "¦rodek wêz³a"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Small Extension Node"
@@ -5419,7 +5397,7 @@ msgstr "Dysk ZIP"
 
 #: sheets/network.sheet.in.h:1
 msgid "A modular switching system"
-msgstr ""
+msgstr "Modularny system prze³±czania"
 
 #: sheets/network.sheet.in.h:1
 msgid "A monitor"
@@ -5443,7 +5421,7 @@ msgstr "G³o¶nik bez wzmacniacza"
 
 #: sheets/network.sheet.in.h:1
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "Koncentrator lub prze³±cznik"
 
 #: sheets/network.sheet.in.h:1
 msgid "ATM Switch Symbol"
@@ -5511,11 +5489,11 @@ msgstr "Rozdzielnica 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A double-effect jack"
-msgstr ""
+msgstr "Wtyczka podwójna typu \"jack\""
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A generic pressure source"
-msgstr ""
+msgstr "¬ród³o generacji ci¶nienia"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A hydraulic pressure source"
@@ -5523,11 +5501,11 @@ msgstr "¬ród³o ci¶nienia hydraulicznego"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A normally-in simple-effect jack"
-msgstr ""
+msgstr "Mêska wtyczka pojedyncza typu \"jack\""
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A normally-out simple-effect jack"
-msgstr ""
+msgstr "¯eñska wtyczka pojedyncza typu \"jack\""
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A pneumatic pressure source"
@@ -5535,39 +5513,39 @@ msgstr "¬ród³o ci¶nienia pneumatycznego"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "An air exhaust orifice"
-msgstr ""
+msgstr "Otwór nawiewu powietrza"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
+msgstr "Komponenty do budowy obwodów pneumatycznych i hydraulicznych"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Electric command (double coil)"
-msgstr ""
+msgstr "Polecenie elektryczne (podwójna cewka)"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Electric command (single coil)"
-msgstr ""
+msgstr "Polecenie elektryczne (pojedyncza cewka)"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Indirect command by hydraulic driver"
-msgstr ""
+msgstr "Po¶rednie polecenie sterownika hydraulicznego"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Indirect command by pneumatic driver"
-msgstr ""
+msgstr "Po¶rednie polecenie sterownika pneumatycznego"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Polecenie mechaniczne sprê¿yny"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Polecenie mechaniczne popychacza"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Muscular command"
-msgstr ""
+msgstr "Polecenie fizyczne"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Pneumatic/Hydraulic"
@@ -5575,7 +5553,7 @@ msgstr "Pneumatyka/Hydraulika"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "Push-button command"
-msgstr ""
+msgstr "Polecenie naci¶niêcia przycisku"
 
 #: sheets/SADT.sheet.in.h:1
 msgid "A activity/data flow arrow"
@@ -5603,7 +5581,7 @@ msgstr "Akcja w trakcie wykonywania"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Block Type Reference"
-msgstr ""
+msgstr "Odwo³anie do typu blokowego"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Comment"
@@ -5627,7 +5605,7 @@ msgstr "Notatka tekstowa"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "In/Out Connector"
-msgstr ""
+msgstr "£±cznik wej¶cia/wyj¶cia"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Procedure Return"
@@ -5635,7 +5613,7 @@ msgstr "Powrót z procedury"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Process Type Reference"
-msgstr ""
+msgstr "Odwo³anie do typu procesu"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Receive message"
@@ -5647,7 +5625,7 @@ msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Save State"
-msgstr ""
+msgstr "Zapisywanie stanu"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Send message"
@@ -5655,7 +5633,7 @@ msgstr "Wysy³anie wiadomo¶ci (informacji)"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Service Type Reference"
-msgstr ""
+msgstr "Odwo³anie do typu us³ugi"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Specification and Description Language."
@@ -5707,11 +5685,11 @@ msgstr "Asocjacja, dwie klasy s± powi±zane"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Ograniczenie, ustawienie na czym¶ ograniczenia"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Create a (large) package"
-msgstr ""
+msgstr "Tworzenie pakietu (du¿ego)"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Create a (small) package"
@@ -5727,7 +5705,7 @@ msgstr "Tworzenie klasy"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Create a class stereotype icon"
-msgstr ""
+msgstr "Tworzeni ikony stereotypowej klasy"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Create a component"
