@@ -1,3 +1,10 @@
+2002-04-30  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_gdk.c (draw_string): Extra free killed.  Thanks valgrind!
+
+	* objects/UML/uml.c (uml_operation_read): Fix of UML default
+	inheritance. 
+
 2002-04-30  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* app/filedlg.c (file_save_as_callback, file_save_as_ok_callback):

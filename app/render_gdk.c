@@ -999,9 +999,10 @@ draw_string (RendererGdk *renderer,
   str = charconv_utf8_to_local8 (text);
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length + 1);
-  mbstr = g_strdup (str);
+  /* Despite the manpage, mbstowcs is *not* const wrt the src. */
+  mbstr = g_strdup(str);
   wclength = mbstowcs (wcstr, mbstr, length);
-  g_free (mbstr);
+  g_free(mbstr);
 
   if (wclength > 0) {
 	  length = wclength;
@@ -1011,8 +1012,6 @@ draw_string (RendererGdk *renderer,
 	  }
   }
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
-
-  g_free (wcstr);
 # else /* both talk the same */
   iwidth = gdk_string_width(renderer->gdk_font, text);
 # endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
@@ -1032,9 +1031,10 @@ draw_string (RendererGdk *renderer,
   gdk_gc_set_foreground(gc, &gdkcolor);
 
 # ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gdk_draw_string (renderer->pixmap,
-		   renderer->gdk_font, gc,
-		   x, y, str);
+  gdk_draw_text_wc (renderer->pixmap,
+		    renderer->gdk_font, gc,
+		    x, y, wcstr, length);
+  g_free (wcstr);
   g_free (str);
 # else
 #  if defined (GTK_TALKS_UTF8_WE_DONT)
@@ -1092,7 +1092,7 @@ get_text_width(RendererGdk *renderer,
     p = g_utf8_next_char (p);
   iwidth = gdk_text_width(renderer->gdk_font, text, p - text);
 #else
-# if definded UNICODE_WORK_IN_PROGRESS
+# if defined UNICODE_WORK_IN_PROGRESS
   p = utfbuf = g_strdup (text);
   for (i = 0; i < length; i++)
 	  p = uni_next (p);
@@ -1110,16 +1110,16 @@ get_text_width(RendererGdk *renderer,
   len = length;
 #  endif
   wcstr = g_new0 (GdkWChar, len + 1);
-  mbstr = g_strdup (str);
+  mbstr = g_strdup(str);
   wclength = mbstowcs (wcstr, mbstr, len);
-  g_free (mbstr);
+  g_free(mbstr);
 
   if (wclength > 0) {
-	  len = wclength;
+    len = wclength;
   } else {
-	  for (i = 0; i < len; i++) {
-		  wcstr[i] = (unsigned char) str[i];
-	  }
+    for (i = 0; i < len; i++) {
+      wcstr[i] = (unsigned char) str[i];
+    }
   }
   g_free (str);
 
@@ -1127,7 +1127,6 @@ get_text_width(RendererGdk *renderer,
 
   g_free (wcstr);
 #endif
-
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }
 
