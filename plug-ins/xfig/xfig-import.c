@@ -124,7 +124,7 @@ create_standard_text(real xpos, real ypos, char *text,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    layer_add_object(dia->active_layer, new_obj);
+    //    layer_add_object(dia->active_layer, new_obj);
 
     props[0].name = "text";
     props[0].type = PROP_TYPE_STRING;
@@ -148,7 +148,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    layer_add_object(dia->active_layer, new_obj);
+    //    layer_add_object(dia->active_layer, new_obj);
   
     props[0].name = "elem_corner";
     props[0].type = PROP_TYPE_POINT;
@@ -181,7 +181,7 @@ create_standard_box(real xpos, real ypos, real width, real height,
 
   new_obj = otype->ops->create(&point, otype->default_user_data,
 			       &h1, &h2);
-  layer_add_object(dia->active_layer, new_obj);
+  //  layer_add_object(dia->active_layer, new_obj);
   
   props[0].name = "elem_corner";
   props[0].type = PROP_TYPE_POINT;
@@ -213,7 +213,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    layer_add_object(dia->active_layer, new_obj);
+    //    layer_add_object(dia->active_layer, new_obj);
 
     
     /*
@@ -254,7 +254,7 @@ create_standard_image(real xpos, real ypos, real width, real height,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    layer_add_object(dia->active_layer, new_obj);
+    //    layer_add_object(dia->active_layer, new_obj);
     
     props[0].name = "elem_corner";
     props[0].type = PROP_TYPE_POINT;
@@ -280,7 +280,7 @@ create_standard_group(GList *items, DiagramData *dia) {
 
     new_obj = group_create((GList*)items);
 
-    layer_add_object(dia->active_layer, new_obj);
+    //    layer_add_object(dia->active_layer, new_obj);
 
     return new_obj;
 }
@@ -459,6 +459,14 @@ fig_read_text_line(FILE *file) {
 
 static GList *depths[1000];
 
+/* If there's something in the compound stack, we ignore the depth field,
+   as it will be determined by the group anyway */
+static GSList *compound_stack = NULL;
+/* When collection compounds, this is the *highest* depth an element is
+   found at.  Since Dia groups are of one level, we put them all at that
+   level.  Best we can do now. */
+static int compound_depth;
+
 static Object *
 fig_read_ellipse(FILE *file, DiagramData *dia) {
     int sub_type;
@@ -477,8 +485,6 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int start_x, start_y;
     int end_x, end_y;
     Object *newobj = NULL;
-    int num_props = 0;
-    Property props[5];
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
@@ -517,7 +523,10 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     /* Angle -- can't rotate yet */
 
     /* Depth field */
-    depths[depth] = g_list_prepend(depths[depth], newobj);
+    if (compound_stack == NULL)
+	depths[depth] = g_list_prepend(depths[depth], newobj);
+    else
+	if (compound_depth > depth) compound_depth = depth;
 
     return newobj;
 }
@@ -647,7 +656,10 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      /* Cap style */
      
      /* Depth field */
-     depths[depth] = g_list_prepend(depths[depth], newobj);
+     if (compound_stack == NULL)
+	 depths[depth] = g_list_prepend(depths[depth], newobj);
+     else
+	 if (compound_depth > depth) compound_depth = depth;
 
      return newobj;
 }
@@ -663,7 +675,6 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     int pen_style;
     int area_fill;
     real style_val;
-    int join_style;
     int cap_style;
     int direction;
     int forward_arrow;
@@ -673,8 +684,6 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     int x1, y1;
     int x2, y2;
     int x3, y3;
-    real ul_x, ul_y;
-    real dr_x, dr_y;
     real radius;
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %lf %lf %d %d %d %d %d %d\n",
@@ -730,7 +739,10 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     /* Cap style */
      
     /* Depth field */
-    depths[depth] = g_list_prepend(depths[depth], newobj);
+    if (compound_stack == NULL)
+	depths[depth] = g_list_prepend(depths[depth], newobj);
+    else
+	if (compound_depth > depth) compound_depth = depth;
 
     return newobj;
 }
@@ -798,23 +810,23 @@ fig_read_text(FILE *file, DiagramData *dia) {
     newobj->ops->set_props(newobj, props, num_props);
 
     /* Depth field */
-    depths[depth] = g_list_prepend(depths[depth], newobj);
+    if (compound_stack == NULL)
+	depths[depth] = g_list_prepend(depths[depth], newobj);
+    else
+	if (compound_depth > depth) compound_depth = depth;
 
     return newobj;
 }
 
-static GSList *compound_stack = NULL;
-/* Returns TRUE if there were no unrecoverable errors */
-static int
+static gboolean
 fig_read_object(FILE *file, DiagramData *dia) {
   int objecttype;
   Object *item = NULL;
 
   if (fscanf(file, "%d ", &objecttype) != 1) {
-    if (!feof(file)) {
-      message_error(_("Couldn't identify FIG object: %s\n"), strerror(errno));
-    }
-    return FALSE;
+      if (!feof(file))
+	  message_error(_("Couldn't identify FIG object: %s\n"), strerror(errno));
+      return FALSE;
   }
 
   switch (objecttype) {
@@ -827,6 +839,10 @@ fig_read_object(FILE *file, DiagramData *dia) {
       /* Make group item with these items */
       item = create_standard_group((GList*)compound_stack->data, dia);
       compound_stack = g_slist_remove(compound_stack, compound_stack->data);
+      if (compound_stack == NULL) {
+	  depths[compound_depth] = g_list_prepend(depths[compound_depth],
+						  item);
+      }
       break;
   }
   case 0: { /* Color pseudo-object. */
@@ -835,10 +851,8 @@ fig_read_object(FILE *file, DiagramData *dia) {
     Color color;
 
     if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
-      if (!feof(file)) {
 	message_error(_("Couldn't read color: %s\n"), strerror(errno));
-      }
-      return FALSE;
+	return FALSE;
     }
 
     color.red = (colorvalues & 0x00ff0000)>>16;
@@ -863,11 +877,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
       break;
   case 3: /* Spline which includes closed/open control/interpolated spline. */
       fig_warn(WARNING_NO_SPLINES);
-      item = NULL;
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
+      return FALSE;
   case 4: /* Text. */
       item = fig_read_text(file, dia);
       if (item == NULL) {
@@ -883,21 +893,19 @@ fig_read_object(FILE *file, DiagramData *dia) {
   case 6: {/* Compound object which is composed of one or more objects. */
       int dummy;
       if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
-	  if (!feof(file)) {
-	      message_error(_("Couldn't read group extend: %s\n"), strerror(errno));
-	  }
+	  message_error(_("Couldn't read group extend: %s\n"), strerror(errno));
 	  return FALSE;
       }
       /* Group extends don't really matter */
+      if (compound_stack == NULL)
+	  compound_depth = 999;
       compound_stack = g_slist_prepend(compound_stack, NULL);
+      return TRUE;
       break;
   }
   default:
       message_error(_("Unknown object type %d\n"), objecttype);
-      item = NULL;
-      if (item == NULL) {
-	  return FALSE;
-      }
+      return FALSE;
       break;
   }
   if (compound_stack != NULL && item != NULL) { /* We're building a compound */
@@ -939,7 +947,7 @@ fig_read_paper_size(FILE *file, DiagramData *dia) {
     return TRUE;
   }
 
-  message_warning("Unknown paper size `%s', using default\n", buf);
+  message_warning(_("Unknown paper size `%s', using default\n"), buf);
   return TRUE;
 }
 
@@ -1087,26 +1095,17 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
   compound_stack = NULL;
 
   do {
-    if (!fig_read_object(figfile, dia)) {
-	fclose(figfile);
-	break;
-    }
+      if (! fig_read_object(figfile, dia)) {
+	  fclose(figfile);
+	  break;
+      }
   } while (TRUE);
 
   /* Now we can reorder for the depth fields */
   for (i = 999; i >= 0; i--) {
-      GList *sorted_list;
-      GList *o;
-      
-      for (o = depths[i]; o != NULL; o = g_list_next(o)) {
-	  data_select(dia, (Object *)o->data);
-      }
-      g_list_free(depths[i]);
-      depths[i] = NULL;
-
-      sorted_list = data_get_sorted_selected_remove(dia);
-      layer_add_objects_first(dia->active_layer, sorted_list);
-      }
+      if (depths[i] != NULL)
+	  layer_add_objects_first(dia->active_layer, depths[i]);
+  }
   return TRUE;
 }
 
