@@ -121,7 +121,7 @@ G_END_DECLS
 /*
  * helper functions
  */
-static W32::HGDIOBJ
+static W32::HPEN
 UsePen(WmfRenderer* renderer, Color* colour)
 {
     W32::HPEN hOldPen;
@@ -131,9 +131,9 @@ UsePen(WmfRenderer* renderer, Color* colour)
 					renderer->nLineWidth,
 					rgb);
     } else {
-	renderer->hPen = W32::GetStockObject(NULL_PEN);
+	renderer->hPen = (W32::HPEN)W32::GetStockObject(NULL_PEN);
     }
-    hOldPen = W32::SelectObject(renderer->hFileDC, renderer->hPen);
+    hOldPen = (W32::HPEN)W32::SelectObject(renderer->hFileDC, renderer->hPen);
     return hOldPen;
 }
 
@@ -393,7 +393,7 @@ draw_line(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
-    W32::HGDIOBJ hPen;
+    W32::HPEN hPen;
 
     DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n", 
               start->x, start->y, end->x, end->y);
@@ -413,7 +413,7 @@ draw_polyline(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
-    W32::HGDIOBJ hPen;
+    W32::HPEN hPen;
     W32::POINT*  pts;
     int	    i;
 
@@ -443,7 +443,7 @@ draw_polygon(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
-    W32::HGDIOBJ hPen;
+    W32::HPEN    hPen;
     W32::POINT*  pts;
     int          i;
 
@@ -482,7 +482,7 @@ fill_polygon(DiaRenderer *self,
               num_points, points->x, points->y);
 
     hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    hBrOld = (W32::HBRUSH)W32::SelectObject(renderer->hFileDC, hBrush);
 
     draw_polygon(self, points, num_points, NULL);
 
@@ -498,7 +498,7 @@ draw_rect(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
-    W32::HGDIOBJ hPen;
+    W32::HPEN hPen;
 
     DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
@@ -542,7 +542,7 @@ draw_arc(DiaRenderer *self,
 	 Color *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hPen;
+    W32::HPEN  hPen;
     W32::POINT ptStart, ptEnd;
 
     DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f @%f,%f\n", 
@@ -575,7 +575,7 @@ fill_arc(DiaRenderer *self,
 	 Color *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hPen;
+    W32::HPEN    hPen;
     W32::HGDIOBJ hBrush, hBrOld;
     W32::POINT ptStart, ptEnd;
     W32::COLORREF rgb = W32COLOR(colour);
@@ -613,7 +613,7 @@ draw_ellipse(DiaRenderer *self,
 	     Color *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hPen;
+    W32::HPEN hPen;
 
     DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
               width, height, center->x, center->y);
@@ -636,7 +636,7 @@ fill_ellipse(DiaRenderer *self,
 	     Color *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hPen;
+    W32::HPEN    hPen;
     W32::HGDIOBJ hBrush, hBrOld;
     W32::COLORREF rgb = W32COLOR(colour);
 
@@ -660,7 +660,7 @@ draw_bezier(DiaRenderer *self,
 	    Color *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hPen;
+    W32::HPEN    hPen;
     W32::POINT * pts;
     int i;
 
@@ -886,7 +886,7 @@ draw_image(DiaRenderer *self,
     }
     pData = NULL; // don't free it below
 #endif
-    W32::HBITMAP hOldBmp = W32::SelectObject(hMemDC, hBmp);
+    W32::HBITMAP hOldBmp = (W32::HBITMAP)W32::SelectObject(hMemDC, hBmp);
     //Hack to get SRCCOPY out of namespace W32
 #   ifndef DWORD
 #     define DWORD unsigned long
@@ -1035,7 +1035,7 @@ export_data(DiagramData *data, const gchar *filename,
 
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
-    renderer->hPrintDC = user_data;
+    renderer->hPrintDC = (W32::HDC)user_data;
            
     extent = &data->extents;
 

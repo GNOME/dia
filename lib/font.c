@@ -39,7 +39,14 @@
 static PangoContext* pango_context = NULL;
 /*
  * Our font size is defined in cm, now we need points
- * A point is 1/72 inch. Why is this size 20.0 and not 28.35 ?
+ * A point is 1/72 inch.
+ *
+ * 20 pixels ^= 1 cm
+ * 1 inch = 2.54 cm
+ * 
+ * 72 / 2.54 = 28.35 (^= font size 1cm in points)
+ *
+ * ATTENTIATION: the real magic tweaking is in dia_font_build_layout() below
  */
 static real global_size_one = 28.35;
 

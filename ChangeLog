@@ -1,3 +1,12 @@
+2003-01-01  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c : more comment about global_size_one
+
+	* app/menus.c : <control>[<shift>]A for plain gtk build too.
+
+	* plug-ins/wmf/wmf.cpp : some type juggling to make 
+	msvc7 happy
+
 2002-12-31  Steffen Macke <sdteffen@web.de>
 
 	* app/makefile.msc: added hint on how to enable console output
