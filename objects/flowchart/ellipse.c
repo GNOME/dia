@@ -60,6 +60,7 @@ struct _EllipseState {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   real padding;
   TextAttributes text_attrib;
@@ -74,6 +75,7 @@ struct _Ellipse {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   Text *text;
   real padding;
@@ -84,7 +86,6 @@ typedef struct _EllipseProperties {
   Color *bg_color;
   gboolean show_background;
   real border_width;
-  LineStyle line_style;
 
   real padding;
   Font *font;
@@ -113,7 +114,6 @@ struct _EllipseDefaultsDialog {
   GtkWidget *vbox;
 
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
 
   GtkSpinButton *padding;
   DiaFontSelector *font;
@@ -209,7 +209,7 @@ ellipse_apply_properties(Ellipse *ellipse)
   dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
   dia_color_selector_get_color(ellipse_properties_dialog->bg_color, &ellipse->inner_color);
   ellipse->show_background = gtk_toggle_button_get_active(ellipse_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style, &ellipse->line_style, NULL);
+  dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style, &ellipse->line_style, &ellipse->dashlength);
 
   ellipse->padding = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->padding);
   font = dia_font_selector_get_font(ellipse_properties_dialog->font);
@@ -367,7 +367,8 @@ ellipse_get_properties(Ellipse *ellipse)
   gtk_toggle_button_set_active(ellipse_properties_dialog->show_background, 
 			       ellipse->show_background);
   dia_line_style_selector_set_linestyle(ellipse_properties_dialog->line_style,
-					ellipse->line_style, 1.0);
+					ellipse->line_style,
+					ellipse->dashlength);
 
   gtk_spin_button_set_value(ellipse_properties_dialog->padding,
 			    ellipse->padding);
@@ -382,8 +383,6 @@ ellipse_get_properties(Ellipse *ellipse)
 static void
 ellipse_apply_defaults()
 {
-  dia_line_style_selector_get_linestyle(ellipse_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
   default_properties.show_background = gtk_toggle_button_get_active(ellipse_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->padding);
@@ -411,7 +410,6 @@ ellipse_get_defaults()
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *checkellipse;
-  GtkWidget *linestyle;
   GtkWidget *padding;
   GtkWidget *font;
   GtkWidget *font_size;
@@ -433,17 +431,6 @@ ellipse_get_defaults()
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkellipse, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    ellipse_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Text padding:"));
@@ -490,8 +477,6 @@ ellipse_get_defaults()
 
   gtk_toggle_button_set_active(ellipse_defaults_dialog->show_background, 
 			       default_properties.show_background);
-  dia_line_style_selector_set_linestyle(ellipse_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
 
   gtk_spin_button_set_value(ellipse_defaults_dialog->padding,
 			    default_properties.padding);
@@ -622,6 +607,7 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, ellipse->border_width);
   renderer->ops->set_linestyle(renderer, ellipse->line_style);
+  renderer->ops->set_dashlength(renderer, ellipse->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer->ops->draw_ellipse(renderer, &center,
@@ -643,6 +629,7 @@ ellipse_get_state(Ellipse *ellipse)
   state->inner_color = ellipse->inner_color;
   state->show_background = ellipse->show_background;
   state->line_style = ellipse->line_style;
+  state->dashlength = ellipse->dashlength;
   state->padding = ellipse->padding;
   text_get_attributes(ellipse->text, &state->text_attrib);
 
@@ -657,6 +644,7 @@ ellipse_set_state(Ellipse *ellipse, EllipseState *state)
   ellipse->inner_color = state->inner_color;
   ellipse->show_background = state->show_background;
   ellipse->line_style = state->line_style;
+  ellipse->dashlength = state->dashlength;
   ellipse->padding = state->padding;
   text_set_attributes(ellipse->text, &state->text_attrib);
 
@@ -782,7 +770,7 @@ ellipse_create(Point *startpoint,
   ellipse->border_color = attributes_get_foreground();
   ellipse->inner_color = attributes_get_background();
   ellipse->show_background = default_properties.show_background;
-  ellipse->line_style = default_properties.line_style;
+  attributes_get_default_line_style(&ellipse->line_style,&ellipse->dashlength);
 
   ellipse->padding = default_properties.padding;
   
@@ -837,6 +825,7 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->inner_color = ellipse->inner_color;
   newellipse->show_background = ellipse->show_background;
   newellipse->line_style = ellipse->line_style;
+  newellipse->dashlength = ellipse->dashlength;
   newellipse->padding = ellipse->padding;
 
   newellipse->text = text_copy(ellipse->text);
@@ -874,6 +863,11 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
   if (ellipse->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  ellipse->line_style);
+
+  if (ellipse->line_style != LINESTYLE_SOLID &&
+      ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  ellipse->dashlength);
 
   data_add_text(new_attribute(obj_node, "text"), ellipse->text);
 }
@@ -920,6 +914,11 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     ellipse->line_style =  data_enum( attribute_first_data(attr) );
+
+  ellipse->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    ellipse->dashlength = data_real(attribute_first_data(attr));
 
   ellipse->text = NULL;
   attr = object_find_attribute(obj_node, "text");

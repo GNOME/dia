@@ -60,6 +60,7 @@ struct _DiamondState {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   real padding;
   TextAttributes text_attrib;
@@ -74,6 +75,7 @@ struct _Diamond {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   Text *text;
   real padding;
@@ -84,7 +86,6 @@ typedef struct _DiamondProperties {
   Color *bg_color;
   gboolean show_background;
   real border_width;
-  LineStyle line_style;
 
   real padding;
   Font *font;
@@ -113,7 +114,6 @@ struct _DiamondDefaultsDialog {
   GtkWidget *vbox;
 
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
 
   GtkSpinButton *padding;
   DiaFontSelector *font;
@@ -209,7 +209,7 @@ diamond_apply_properties(Diamond *diamond)
   dia_color_selector_get_color(diamond_properties_dialog->fg_color, &diamond->border_color);
   dia_color_selector_get_color(diamond_properties_dialog->bg_color, &diamond->inner_color);
   diamond->show_background = gtk_toggle_button_get_active(diamond_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(diamond_properties_dialog->line_style, &diamond->line_style, NULL);
+  dia_line_style_selector_get_linestyle(diamond_properties_dialog->line_style, &diamond->line_style, &diamond->dashlength);
 
   diamond->padding = gtk_spin_button_get_value_as_float(diamond_properties_dialog->padding);
   font = dia_font_selector_get_font(diamond_properties_dialog->font);
@@ -367,7 +367,8 @@ diamond_get_properties(Diamond *diamond)
   gtk_toggle_button_set_active(diamond_properties_dialog->show_background, 
 			       diamond->show_background);
   dia_line_style_selector_set_linestyle(diamond_properties_dialog->line_style,
-					diamond->line_style, 1.0);
+					diamond->line_style,
+					diamond->dashlength);
 
   gtk_spin_button_set_value(diamond_properties_dialog->padding,
 			    diamond->padding);
@@ -382,8 +383,6 @@ diamond_get_properties(Diamond *diamond)
 static void
 diamond_apply_defaults()
 {
-  dia_line_style_selector_get_linestyle(diamond_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
   default_properties.show_background = gtk_toggle_button_get_active(diamond_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(diamond_defaults_dialog->padding);
@@ -435,17 +434,6 @@ diamond_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    diamond_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Text padding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -490,8 +478,6 @@ diamond_get_defaults()
 
   gtk_toggle_button_set_active(diamond_defaults_dialog->show_background, 
 			       default_properties.show_background);
-  dia_line_style_selector_set_linestyle(diamond_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
 
   gtk_spin_button_set_value(diamond_defaults_dialog->padding,
 			    default_properties.padding);
@@ -629,6 +615,7 @@ diamond_draw(Diamond *diamond, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, diamond->border_width);
   renderer->ops->set_linestyle(renderer, diamond->line_style);
+  renderer->ops->set_dashlength(renderer, diamond->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer->ops->draw_polygon(renderer, 
@@ -650,6 +637,7 @@ diamond_get_state(Diamond *diamond)
   state->inner_color = diamond->inner_color;
   state->show_background = diamond->show_background;
   state->line_style = diamond->line_style;
+  state->dashlength = diamond->dashlength;
   state->padding = diamond->padding;
   text_get_attributes(diamond->text, &state->text_attrib);
 
@@ -664,6 +652,7 @@ diamond_set_state(Diamond *diamond, DiamondState *state)
   diamond->inner_color = state->inner_color;
   diamond->show_background = state->show_background;
   diamond->line_style = state->line_style;
+  diamond->dashlength = state->dashlength;
   diamond->padding = state->padding;
   text_set_attributes(diamond->text, &state->text_attrib);
 
@@ -802,7 +791,7 @@ diamond_create(Point *startpoint,
   diamond->border_color = attributes_get_foreground();
   diamond->inner_color = attributes_get_background();
   diamond->show_background = default_properties.show_background;
-  diamond->line_style = default_properties.line_style;
+  attributes_get_default_line_style(&diamond->line_style,&diamond->dashlength);
 
   diamond->padding = default_properties.padding;
   
@@ -857,6 +846,7 @@ diamond_copy(Diamond *diamond)
   newdiamond->inner_color = diamond->inner_color;
   newdiamond->show_background = diamond->show_background;
   newdiamond->line_style = diamond->line_style;
+  newdiamond->dashlength = diamond->dashlength;
   newdiamond->padding = diamond->padding;
 
   newdiamond->text = text_copy(diamond->text);
@@ -894,6 +884,11 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
   if (diamond->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  diamond->line_style);
+
+  if (diamond->line_style != LINESTYLE_SOLID &&
+      diamond->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  diamond->dashlength);
 
   data_add_text(new_attribute(obj_node, "text"), diamond->text);
 }
@@ -940,6 +935,11 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     diamond->line_style =  data_enum( attribute_first_data(attr) );
+
+  diamond->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    diamond->dashlength = data_real(attribute_first_data(attr));
 
   diamond->text = NULL;
   attr = object_find_attribute(obj_node, "text");

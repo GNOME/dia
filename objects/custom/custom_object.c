@@ -61,6 +61,7 @@ struct _CustomState {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   real padding;
   TextAttributes text_attrib;
@@ -80,6 +81,7 @@ struct _Custom {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
 
   Text *text;
   real padding;
@@ -90,7 +92,6 @@ typedef struct _CustomProperties {
   Color *bg_color;
   gboolean show_background;
   real border_width;
-  LineStyle line_style;
 
   real padding;
   Font *font;
@@ -122,7 +123,6 @@ struct _CustomDefaultsDialog {
   GtkWidget *vbox;
 
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
 
   GtkSpinButton *padding;
   DiaAlignmentSelector *alignment;
@@ -220,7 +220,7 @@ custom_apply_properties(Custom *custom)
   dia_color_selector_get_color(custom_properties_dialog->fg_color, &custom->border_color);
   dia_color_selector_get_color(custom_properties_dialog->bg_color, &custom->inner_color);
   custom->show_background = gtk_toggle_button_get_active(custom_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(custom_properties_dialog->line_style, &custom->line_style, NULL);
+  dia_line_style_selector_get_linestyle(custom_properties_dialog->line_style, &custom->line_style, &custom->dashlength);
 
   if (custom->info->has_text) {
     custom->padding = gtk_spin_button_get_value_as_float(custom_properties_dialog->padding);
@@ -400,7 +400,7 @@ custom_get_properties(Custom *custom)
   gtk_toggle_button_set_active(custom_properties_dialog->show_background, 
 			       custom->show_background);
   dia_line_style_selector_set_linestyle(custom_properties_dialog->line_style,
-					custom->line_style, 1.0);
+					custom->line_style,custom->dashlength);
 
   if (custom->info->has_text) {
     gtk_spin_button_set_value(custom_properties_dialog->padding,
@@ -420,8 +420,6 @@ custom_get_properties(Custom *custom)
 static void
 custom_apply_defaults()
 {
-  dia_line_style_selector_get_linestyle(custom_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
   default_properties.show_background = gtk_toggle_button_get_active(custom_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(custom_defaults_dialog->padding);
@@ -451,7 +449,6 @@ custom_get_defaults()
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *checkcustom;
-  GtkWidget *linestyle;
   GtkWidget *padding;
   GtkWidget *alignment;
   GtkWidget *font;
@@ -476,16 +473,6 @@ custom_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    custom_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Text padding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -542,8 +529,6 @@ custom_get_defaults()
 
   gtk_toggle_button_set_active(custom_defaults_dialog->show_background, 
 			       default_properties.show_background);
-  dia_line_style_selector_set_linestyle(custom_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
 
   gtk_spin_button_set_value(custom_defaults_dialog->padding,
 			    default_properties.padding);
@@ -671,6 +656,7 @@ custom_draw(Custom *custom, Renderer *renderer)
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer->ops->set_linewidth(renderer, custom->border_width);
   renderer->ops->set_linestyle(renderer, custom->line_style);
+  renderer->ops->set_dashlength(renderer, custom->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
@@ -774,6 +760,7 @@ custom_get_state(Custom *custom)
   state->inner_color = custom->inner_color;
   state->show_background = custom->show_background;
   state->line_style = custom->line_style;
+  state->dashlength = custom->dashlength;
   state->padding = custom->padding;
   if (custom->info->has_text)
     text_get_attributes(custom->text, &state->text_attrib);
@@ -789,6 +776,7 @@ custom_set_state(Custom *custom, CustomState *state)
   custom->inner_color = state->inner_color;
   custom->show_background = state->show_background;
   custom->line_style = state->line_style;
+  custom->dashlength = state->dashlength;
   custom->padding = state->padding;
   if (custom->info->has_text)
     text_set_attributes(custom->text, &state->text_attrib);
@@ -962,7 +950,7 @@ custom_create(Point *startpoint,
   custom->border_color = attributes_get_foreground();
   custom->inner_color = attributes_get_background();
   custom->show_background = default_properties.show_background;
-  custom->line_style = default_properties.line_style;
+  attributes_get_default_line_style(&custom->line_style, &custom->dashlength);
 
   custom->padding = default_properties.padding;
   
@@ -1025,6 +1013,7 @@ custom_copy(Custom *custom)
   newcustom->inner_color = custom->inner_color;
   newcustom->show_background = custom->show_background;
   newcustom->line_style = custom->line_style;
+  newcustom->dashlength = custom->dashlength;
   newcustom->padding = custom->padding;
 
   if (custom->info->has_text)
@@ -1065,6 +1054,11 @@ custom_save(Custom *custom, ObjectNode obj_node, const char *filename)
   if (custom->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  custom->line_style);
+
+  if (custom->line_style != LINESTYLE_SOLID &&
+      custom->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  custom->dashlength);
 
   if (custom->info->has_text)
     data_add_text(new_attribute(obj_node, "text"), custom->text);
@@ -1115,6 +1109,11 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     custom->line_style =  data_enum( attribute_first_data(attr) );
+
+  custom->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    custom->dashlength = data_real(attribute_first_data(attr));
 
   if (custom->info->has_text) {
     custom->text = NULL;

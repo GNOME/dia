@@ -1,3 +1,29 @@
+1999-08-29  James Henstridge  <james@daa.com.au>
+
+	* app/layer_dialog.c (create_button_box): fixed a warning.
+
+	* objects/custom/custom_object.c: use current line style.  Save dash
+	length.
+
+	* objects/flowchart/diamond.c: use current line style.  Save dash
+	length.
+
+	* objects/flowchart/parallelogram.c: use current line style.  Save
+	dash length.
+
+	* objects/flowchart/ellipse.c: use current line style.  Save dash
+	length.
+
+	* objects/flowchart/box.c: use current line style.  Save dash length.
+
+	* objects/standard/ellipse.c: make ellipse use current line style.
+
+	* objects/standard/box.c: use the line style set in the toolbox for
+	new boxes, and remember the dash length.
+
+	* app/commands.c (view_toggle_rulers_callback): fix reshowing of
+	rulers.
+
 1999-08-24  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/ellipse.c (ellipse_update_data): made some changes

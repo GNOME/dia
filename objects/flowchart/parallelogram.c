@@ -60,6 +60,7 @@ struct _PgramState {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
   real shear_angle;
 
   real padding;
@@ -75,6 +76,7 @@ struct _Pgram {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
   real shear_angle, shear_grad;
 
   Text *text;
@@ -86,7 +88,6 @@ typedef struct _PgramProperties {
   Color *bg_color;
   gboolean show_background;
   real border_width;
-  LineStyle line_style;
   real shear_angle;
 
   real padding;
@@ -117,7 +118,6 @@ struct _PgramDefaultsDialog {
   GtkWidget *vbox;
 
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
   GtkSpinButton *shear_angle;
 
   GtkSpinButton *padding;
@@ -214,7 +214,7 @@ pgram_apply_properties(Pgram *pgram)
   dia_color_selector_get_color(pgram_properties_dialog->fg_color, &pgram->border_color);
   dia_color_selector_get_color(pgram_properties_dialog->bg_color, &pgram->inner_color);
   pgram->show_background = gtk_toggle_button_get_active(pgram_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(pgram_properties_dialog->line_style, &pgram->line_style, NULL);
+  dia_line_style_selector_get_linestyle(pgram_properties_dialog->line_style, &pgram->line_style, &pgram->dashlength);
   pgram->shear_angle = gtk_spin_button_get_value_as_float(pgram_properties_dialog->shear_angle);
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
 
@@ -390,7 +390,7 @@ pgram_get_properties(Pgram *pgram)
   gtk_toggle_button_set_active(pgram_properties_dialog->show_background, 
 			       pgram->show_background);
   dia_line_style_selector_set_linestyle(pgram_properties_dialog->line_style,
-					pgram->line_style, 1.0);
+					pgram->line_style, pgram->dashlength);
   gtk_spin_button_set_value(pgram_properties_dialog->shear_angle,
 			    pgram->shear_angle);
 
@@ -407,8 +407,6 @@ pgram_get_properties(Pgram *pgram)
 static void
 pgram_apply_defaults()
 {
-  dia_line_style_selector_get_linestyle(pgram_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
   default_properties.shear_angle = M_PI/180.0 * gtk_spin_button_get_value_as_float(pgram_defaults_dialog->shear_angle);
   default_properties.show_background = gtk_toggle_button_get_active(pgram_defaults_dialog->show_background);
 
@@ -438,7 +436,6 @@ pgram_get_defaults()
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *checkpgram;
-  GtkWidget *linestyle;
   GtkWidget *shear_angle;
   GtkWidget *padding;
   GtkWidget *font;
@@ -461,17 +458,6 @@ pgram_get_defaults()
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkpgram, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    pgram_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Shear angle:"));
@@ -532,8 +518,6 @@ pgram_get_defaults()
 
   gtk_toggle_button_set_active(pgram_defaults_dialog->show_background, 
 			       default_properties.show_background);
-  dia_line_style_selector_set_linestyle(pgram_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
   gtk_spin_button_set_value(pgram_defaults_dialog->shear_angle, 
 			    default_properties.shear_angle);
 
@@ -678,6 +662,7 @@ pgram_draw(Pgram *pgram, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, pgram->border_width);
   renderer->ops->set_linestyle(renderer, pgram->line_style);
+  renderer->ops->set_dashlength(renderer, pgram->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer->ops->draw_polygon(renderer, 
@@ -699,6 +684,7 @@ pgram_get_state(Pgram *pgram)
   state->inner_color = pgram->inner_color;
   state->show_background = pgram->show_background;
   state->line_style = pgram->line_style;
+  state->dashlength = pgram->dashlength;
   state->shear_angle = pgram->shear_angle;
   state->padding = pgram->padding;
   text_get_attributes(pgram->text, &state->text_attrib);
@@ -714,6 +700,7 @@ pgram_set_state(Pgram *pgram, PgramState *state)
   pgram->inner_color = state->inner_color;
   pgram->show_background = state->show_background;
   pgram->line_style = state->line_style;
+  pgram->dashlength = state->dashlength;
   pgram->shear_angle = state->shear_angle;
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
   pgram->padding = state->padding;
@@ -883,7 +870,7 @@ pgram_create(Point *startpoint,
   pgram->border_color = attributes_get_foreground();
   pgram->inner_color = attributes_get_background();
   pgram->show_background = default_properties.show_background;
-  pgram->line_style = default_properties.line_style;
+  attributes_get_default_line_style(&pgram->line_style, &pgram->dashlength);
   pgram->shear_angle = default_properties.shear_angle;
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
 
@@ -940,6 +927,7 @@ pgram_copy(Pgram *pgram)
   newpgram->inner_color = pgram->inner_color;
   newpgram->show_background = pgram->show_background;
   newpgram->line_style = pgram->line_style;
+  newpgram->dashlength = pgram->dashlength;
   newpgram->shear_angle = pgram->shear_angle;
   newpgram->shear_grad = pgram->shear_grad;
   newpgram->padding = pgram->padding;
@@ -979,6 +967,11 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
   if (pgram->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  pgram->line_style);
+
+  if (pgram->line_style != LINESTYLE_SOLID &&
+      pgram->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  pgram->dashlength);
 
   data_add_real(new_attribute(obj_node, "shear_angle"),
 		pgram->shear_angle);
@@ -1028,6 +1021,11 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     pgram->line_style =  data_enum( attribute_first_data(attr) );
+
+  pgram->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    pgram->dashlength = data_real(attribute_first_data(attr));
 
   pgram->shear_angle = 0.0;
   attr = object_find_attribute(obj_node, "shear_angle");

@@ -48,6 +48,7 @@ struct _BoxState {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
   real corner_radius;
 };
 
@@ -61,6 +62,7 @@ struct _Box {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  real dashlength;
   real corner_radius;
 };
 
@@ -70,6 +72,7 @@ typedef struct _BoxProperties {
   gboolean show_background;
   real border_width;
   LineStyle line_style;
+  real dashlength;
   real corner_radius;
 } BoxProperties;
 
@@ -90,7 +93,6 @@ struct _BoxDefaultsDialog {
   GtkWidget *vbox;
 
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
   GtkSpinButton *corner_radius;
 };
 
@@ -174,7 +176,7 @@ box_apply_properties(Box *box)
   dia_color_selector_get_color(box_properties_dialog->fg_color, &box->border_color);
   dia_color_selector_get_color(box_properties_dialog->bg_color, &box->inner_color);
   box->show_background = gtk_toggle_button_get_active(box_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(box_properties_dialog->line_style, &box->line_style, NULL);
+  dia_line_style_selector_get_linestyle(box_properties_dialog->line_style, &box->line_style, &box->dashlength);
   box->corner_radius = gtk_spin_button_get_value_as_float(box_properties_dialog->corner_radius);
   
   box_update_data(box);
@@ -284,7 +286,7 @@ box_get_properties(Box *box)
   gtk_toggle_button_set_active(box_properties_dialog->show_background, 
 			       box->show_background);
   dia_line_style_selector_set_linestyle(box_properties_dialog->line_style,
-					box->line_style, 1.0);
+					box->line_style, box->dashlength);
   gtk_spin_button_set_value(box_properties_dialog->corner_radius,
 			    box->corner_radius);
   
@@ -293,8 +295,6 @@ box_get_properties(Box *box)
 static void
 box_apply_defaults()
 {
-  dia_line_style_selector_get_linestyle(box_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
   default_properties.corner_radius = gtk_spin_button_get_value_as_float(box_defaults_dialog->corner_radius);
   default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
 }
@@ -316,7 +316,6 @@ box_get_defaults()
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *checkbox;
-  GtkWidget *linestyle;
   GtkWidget *corner_radius;
   GtkAdjustment *adj;
 
@@ -338,17 +337,6 @@ box_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    box_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Corner rounding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -367,8 +355,6 @@ box_get_defaults()
 
   gtk_toggle_button_set_active(box_defaults_dialog->show_background, 
 			       default_properties.show_background);
-  dia_line_style_selector_set_linestyle(box_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
   gtk_spin_button_set_value(box_defaults_dialog->corner_radius, 
 			    default_properties.corner_radius);
 
@@ -500,6 +486,7 @@ box_draw(Box *box, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, box->border_width);
   renderer->ops->set_linestyle(renderer, box->line_style);
+  renderer->ops->set_dashlength(renderer, box->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   if (box->corner_radius > 0) {
@@ -560,6 +547,7 @@ box_get_state(Box *box)
   state->inner_color = box->inner_color;
   state->show_background = box->show_background;
   state->line_style = box->line_style;
+  state->dashlength = box->dashlength;
   state->corner_radius = box->corner_radius;
 
   return state;
@@ -573,6 +561,7 @@ box_set_state(Box *box, BoxState *state)
   box->inner_color = state->inner_color;
   box->show_background = state->show_background;
   box->line_style = state->line_style;
+  box->dashlength = state->dashlength;
   box->corner_radius = state->corner_radius;
 
   g_free(state);
@@ -664,7 +653,7 @@ box_create(Point *startpoint,
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
   box->show_background = default_properties.show_background;
-  box->line_style = default_properties.line_style;
+  attributes_get_default_line_style(&box->line_style, &box->dashlength);
   box->corner_radius = default_properties.corner_radius;
   
   element_init(elem, 8, 8);
@@ -709,6 +698,7 @@ box_copy(Box *box)
   newbox->inner_color = box->inner_color;
   newbox->show_background = box->show_background;
   newbox->line_style = box->line_style;
+  newbox->dashlength = box->dashlength;
   newbox->corner_radius = box->corner_radius;
   
   for (i=0;i<8;i++) {
@@ -745,6 +735,11 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  box->line_style);
   
+  if (box->line_style != LINESTYLE_SOLID &&
+      box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  box->dashlength);
+
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
 		  box->corner_radius);
@@ -792,6 +787,11 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     box->line_style =  data_enum( attribute_first_data(attr) );
+
+  box->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    box->dashlength = data_real(attribute_first_data(attr));
 
   box->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");

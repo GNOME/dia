@@ -95,21 +95,21 @@ create_button_box(GtkWidget *parent)
   GtkWidget *pixmapwid;
   GdkPixmap *pixmap;
   GdkBitmap *mask;
+  GdkColormap *cmap;
   GtkStyle *style;
   int i;
   
   GtkTooltips *tool_tips = NULL; /* ARG */
   
-  gtk_widget_realize(parent);
+  gtk_widget_ensure_style(parent);
   style = gtk_widget_get_style(parent);
+  cmap = gtk_widget_get_colormap(parent);
 
   button_box = gtk_hbox_new (TRUE, 1);
 
   for (i=0;i<num_buttons;i++) {
-    pixmap = gdk_pixmap_create_from_xpm_d (parent->window,
-					   &mask,
-					   &style->bg[GTK_STATE_NORMAL],
-					   buttons[i].xpm_data);
+    pixmap = gdk_pixmap_colormap_create_from_xpm_d (NULL, cmap,
+		&mask, &style->bg[GTK_STATE_NORMAL], buttons[i].xpm_data);
       
     pixmapwid =  gtk_pixmap_new (pixmap, mask);
     gtk_widget_show(pixmapwid);
