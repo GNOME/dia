@@ -763,6 +763,25 @@ beziershape_init(BezierShape *bezier)
   /*  beziershape_update_data(bezier);*/
 }
 
+
+/** This function does *not* set up handles */
+void
+beziershape_set_points(BezierShape *bez, int num_points, BezPoint *points)
+{
+  int i;
+
+  bez->numpoints = num_points;
+
+  if (bez->points)
+    g_free(bez->points);
+
+  bez->points = g_malloc((bez->numpoints)*sizeof(BezPoint));
+
+  for (i=0;i<bez->numpoints;i++) {
+    bez->points[i] = points[i];
+  }
+}
+
 void
 beziershape_copy(BezierShape *from, BezierShape *to)
 {

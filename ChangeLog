@@ -1,3 +1,11 @@
+2002-07-18  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/bezier_conn.c: 
+	* lib/beziershape.c (beziershape_set_points): 
+	* lib/bezier_conn.h: 
+	* lib/beziershape.h: 
+	Support for creating beziers non-interactively.
+
 2002-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-import.c: Support for polygons and

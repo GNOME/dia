@@ -660,9 +660,22 @@ bezierconn_init(BezierConn *bez, int num_points)
   bezierconn_update_data(bez);
 }
 
-static void
+/** This function does *not* set up handles */
+void
 bezierconn_set_points(BezierConn *bez, int num_points, BezPoint *points)
 {
+  int i;
+
+  bez->numpoints = num_points;
+
+  if (bez->points)
+    g_free(bez->points);
+
+  bez->points = g_malloc((bez->numpoints)*sizeof(BezPoint));
+
+  for (i=0;i<bez->numpoints;i++) {
+    bez->points[i] = points[i];
+  }
 }
 
 void
