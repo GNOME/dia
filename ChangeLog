@@ -1,3 +1,9 @@
+2003-08-08  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/undo.c (ungroup_objects_revert, ungroup_objects_apply) 
+	(group_objects_revert, group_objects_apply): Working undo/redo for
+	diagram tree updates.  The initial actions still don't quite work.
+
 2003-08-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/create_object.c (create_object_button_press): 

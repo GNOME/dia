@@ -872,6 +872,12 @@ undo_object_change(Diagram *dia, Object *obj,
 
 /******** Group object list: */
 
+/** Grouping and ungrouping are two subtly different changes:  While 
+ * ungrouping preserves the front/back position, grouping cannot do that,
+ * since the act of grouping destroys positions for the members of the
+ * group, and those positions have to be restored in the undo.
+ */
+
 struct GroupObjectsChange {
   Change change;
 
@@ -912,8 +918,8 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
     list = g_list_next(list);
   }
 
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
   diagram_tree_add_object(diagram_tree(), dia, change->group);
+  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
 }
 
 static void
@@ -935,8 +941,8 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
 
   properties_hide_if_shown(dia, change->group);
 
-  diagram_tree_remove_object(diagram_tree(), change->group);
   diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
+  diagram_tree_remove_object(diagram_tree(), change->group);
 }
 
 static void
@@ -1000,6 +1006,9 @@ ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
   object_add_updates_list(change->obj_list, dia);
   
   properties_hide_if_shown(dia, change->group);
+
+  diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
+  diagram_tree_remove_object(diagram_tree(), change->group);
 }
 
 static void
@@ -1032,8 +1041,8 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
     list = g_list_next(list);
   }
 
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
   diagram_tree_add_object(diagram_tree(), dia, change->group);
+  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
 }
 
 static void
