@@ -1277,6 +1277,9 @@ draw_string (RendererLibart *renderer,
 
   suckfont = font_get_suckfont (renderer->gdk_font, text);
 
+  /* Couldn't find a font, bail out */
+  if (suckfont == NULL) return;
+
   xpos = (double) x + 1; 
   ypos = (double) (y - suckfont->ascent);
   

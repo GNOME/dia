@@ -1,5 +1,8 @@
 2002-05-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/render_libart.c (draw_string): Bail out when no GDK font is
+	found.
+
 	* app/pagesetup.c (pagesetup_ok, pagesetup_apply): Sets diagram
 	modified when applied (and ok only does apply if apply is set
 	sensitive).  Fixes bug #75623.
