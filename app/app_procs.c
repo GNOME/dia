@@ -22,12 +22,16 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <errno.h>
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 #include <sys/stat.h>
 #include <string.h>
 #include <signal.h>
 #include <locale.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 #include <gtk/gtk.h>
 #include <gmodule.h>
@@ -45,6 +49,11 @@
 #endif
 
 #include <parser.h>
+
+#ifdef G_OS_WIN32
+#include <direct.h>
+#define mkdir(s,a) _mkdir(s)
+#endif
 
 #include "intl.h"
 #include "app_procs.h"
@@ -194,6 +203,7 @@ app_init (int argc, char **argv)
 
   gtk_rc_parse ("diagtkrc"); 
 
+  app_splash_init("");
   /*  enable_core_dumps(); */
 
   create_user_dirs();
@@ -251,6 +261,7 @@ app_init (int argc, char **argv)
     }
     poptFreeContext(poptCtx);
 #else
+    int i;
     for (i=1; i<argc; i++) {
       Diagram *diagram;
       DDisplay *ddisp;
@@ -402,6 +413,16 @@ static void create_user_dirs(void)
 {
   gchar *dir, *subdir;
 
+#ifdef G_OS_WIN32
+  /* not necessary to quit the program with g_error, everywhere else
+   * dia_config_filename appears to be used. Spit out a warning ...
+   */
+  if (!g_get_home_dir())
+  {
+    g_warning(_("Could not create per-user Dia config directory"));
+    return; /* ... and return. Probably removes my one and only FAQ. --HB */
+  }
+#endif
   dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
   if (mkdir(dir, 0755) && errno != EEXIST)
     g_error(_("Could not create per-user Dia config directory"));
