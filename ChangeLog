@@ -1,3 +1,8 @@
+2005-02-25  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : don't requets to open a default display with
+	g_option_context_add_group (crux@gorodmasterov.com, bug #168523)
+
 2005-02-22  Lars Clausen  <lars@LittlePooter.local.>
 
 	* plug-ins/gprint/diagnomeprint.c (export_data): GNOME, not Gome.
