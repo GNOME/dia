@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2003-01-04 00:34+0100\n"
-"PO-Revision-Date: 2003-01-04 00:36+0100\n"
+"POT-Creation-Date: 2003-01-21 23:53+0100\n"
+"PO-Revision-Date: 2003-01-21 23:55+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr ""
 "Autolagrede filer eksisterer.\n"
 "Vennligst velg hvilke du ønsker å gjenopprette."
 
-#: app/color_area.c:301 lib/widgets.c:867
+#: app/color_area.c:316 lib/widgets.c:870
 msgid "Select color"
 msgstr "Velg farge"
 
@@ -235,7 +235,7 @@ msgstr ""
 "krasj. Vi vet at det er feil i den, så ikke\n"
 "send inn flere rapporter hvis den krasjer."
 
-#: app/defaults.c:43 app/defaults.c:145
+#: app/defaults.c:43 app/defaults.c:146
 msgid "Object defaults"
 msgstr "Standardverdier for objekt"
 
@@ -243,7 +243,7 @@ msgstr "Standardverdier for objekt"
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: app/defaults.c:110
+#: app/defaults.c:111
 msgid "Defaults: "
 msgstr "Forvalg: "
 
@@ -393,8 +393,8 @@ msgstr "Diagramtre"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:244
+#: app/dialogs.c:52 app/layer_dialog.c:1012 app/lineprops_area.c:451
+#: app/lineprops_area.c:662 app/linewidth_area.c:244
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Avbryt"
@@ -456,35 +456,35 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Sideoppsett"
 
-#: app/dia-props.c:54
+#: app/dia-props.c:61
 msgid "Diagram Properties"
 msgstr "Egenskaper for diagram"
 
-#: app/dia-props.c:87
+#: app/dia-props.c:96
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:91
+#: app/dia-props.c:100
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:96
+#: app/dia-props.c:105
 msgid "Spacing"
 msgstr "Mellomrom"
 
-#: app/dia-props.c:116
+#: app/dia-props.c:125
 msgid "Visible spacing"
 msgstr "Synlig mellomrom"
 
-#: app/dia-props.c:136
+#: app/dia-props.c:145
 msgid "Grid"
 msgstr "Rutenett"
 
-#: app/dia-props.c:146
+#: app/dia-props.c:155
 msgid "Background Colour"
 msgstr "Bakgrunnsfarge"
 
-#: app/dia-props.c:157 lib/diagramdata.c:58
+#: app/dia-props.c:166 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Bakgrunn"
 
@@ -570,27 +570,27 @@ msgstr "Bildehøyde:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:402
+#: app/filedlg.c:109 app/filedlg.c:413
 msgid "By extension"
 msgstr "På etternavn"
 
-#: app/filedlg.c:161
+#: app/filedlg.c:168
 msgid "Open Diagram"
 msgstr "Åpne diagram"
 
-#: app/filedlg.c:187
+#: app/filedlg.c:196
 msgid "Open Options"
 msgstr "Alternativer for åpning"
 
-#: app/filedlg.c:195 app/filedlg.c:555
+#: app/filedlg.c:204 app/filedlg.c:568
 msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
-#: app/filedlg.c:236 app/filedlg.c:449
+#: app/filedlg.c:245 app/filedlg.c:460
 msgid "File already exists"
 msgstr "Filen eksisterer allerede"
 
-#: app/filedlg.c:242
+#: app/filedlg.c:251
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -598,7 +598,7 @@ msgstr ""
 "Noen tegn i filnavnet er hverken UTF-8 eller din lokale koding.\n"
 "Noe vil gå galt."
 
-#: app/filedlg.c:248 app/filedlg.c:452
+#: app/filedlg.c:257 app/filedlg.c:463
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -607,27 +607,27 @@ msgstr ""
 "Filen «%s» eksisterer allerede.\n"
 "Vil du overskrive den?"
 
-#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
+#: app/filedlg.c:268 app/filedlg.c:475 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
+#: app/filedlg.c:281 app/filedlg.c:488 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nei"
 
-#: app/filedlg.c:317
+#: app/filedlg.c:326
 msgid "Save Diagram"
 msgstr "Lagre diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:325
+#: app/filedlg.c:334
 msgid "Compress diagram files"
 msgstr "Komprimer diagramfiler"
 
-#: app/filedlg.c:332
+#: app/filedlg.c:341
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -636,7 +636,7 @@ msgstr ""
 "og gjør lasting og lagring raskere. Noen tekstprogrammer har problemer med å "
 "manipulere komprimerte filer."
 
-#: app/filedlg.c:509
+#: app/filedlg.c:520
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -645,11 +645,11 @@ msgstr ""
 "Kunne ikke bestemme hvilket eksportfilter\n"
 "som skulle brukes til å lagre «%s»"
 
-#: app/filedlg.c:527
+#: app/filedlg.c:538
 msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
-#: app/filedlg.c:547
+#: app/filedlg.c:560
 msgid "Export Options"
 msgstr "Alternativer for eksport"
 
@@ -683,8 +683,8 @@ msgstr "Lag tekst"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
-#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:496
+#: lib/properties.h:499 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
 #: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:133
@@ -772,15 +772,15 @@ msgstr "Lag bilde"
 msgid "Image"
 msgstr "Bilde"
 
-#: app/interface.c:468
+#: app/interface.c:469
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:512
+#: app/interface.c:513
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL verktøydata i tool_select_update"
 
-#: app/interface.c:973
+#: app/interface.c:974
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -788,7 +788,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:1122
+#: app/interface.c:1123
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -808,54 +808,54 @@ msgstr "Senk lag"
 msgid "Delete Layer"
 msgstr "Slett lag"
 
-#: app/layer_dialog.c:206
+#: app/layer_dialog.c:212
 msgid "Layers"
 msgstr "Lag"
 
-#: app/layer_dialog.c:218
+#: app/layer_dialog.c:226
 msgid "Diagrams:"
 msgstr "Diagrammer:"
 
-#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:271 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "Lukk"
 
-#: app/layer_dialog.c:308
+#: app/layer_dialog.c:316
 msgid "New layer"
 msgstr "Nytt lag"
 
-#: app/layer_dialog.c:511
+#: app/layer_dialog.c:519
 msgid "none"
 msgstr "ingen"
 
-#: app/layer_dialog.c:953
+#: app/layer_dialog.c:974
 msgid "Edit Layer Attributes"
 msgstr "Rediger lagets attributter"
 
-#: app/layer_dialog.c:969
+#: app/layer_dialog.c:993
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
 #. setup buttons
-#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
+#: app/layer_dialog.c:1002 app/lineprops_area.c:442 app/lineprops_area.c:652
 #: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:418
+#: app/lineprops_area.c:429
 msgid "Arrow Properties"
 msgstr "Egenskaper for pil"
 
-#: app/lineprops_area.c:475 app/lineprops_area.c:661
+#: app/lineprops_area.c:490 app/lineprops_area.c:685
 msgid "Details..."
 msgstr "Detaljer..."
 
-#: app/lineprops_area.c:617
+#: app/lineprops_area.c:641
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
-#: app/linewidth_area.c:216 lib/properties.h:471
+#: app/linewidth_area.c:216 lib/properties.h:472
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linjebredde"
@@ -961,8 +961,8 @@ msgid "Modify sheets and their objects"
 msgstr "Endre ark og tilhørende objekter"
 
 #: app/menus.c:61
-msgid "P_lugins"
-msgstr "Ti_llegg"
+msgid "P_lugins..."
+msgstr "Ti_llegg..."
 
 #: app/menus.c:77
 msgid "_Export..."
@@ -1077,7 +1077,7 @@ msgstr "Inverter"
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1012 objects/UML/association.c:1071
 msgid "None"
 msgstr "Ingen"
 
@@ -1093,15 +1093,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:460 lib/widgets.c:554
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:461 lib/widgets.c:560
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:462 lib/widgets.c:566
 msgid "Right"
 msgstr "Høyre"
 
@@ -1194,8 +1194,8 @@ msgid "/File/_New"
 msgstr "/Fil/_Ny"
 
 #: app/menus.c:282 app/menus.c:317
-msgid "/File/_Open"
-msgstr "/Fil/_Åpne"
+msgid "/File/_Open..."
+msgstr "/Fil/_Åpne..."
 
 #. recent file list is dynamically inserted here
 #: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
@@ -1216,8 +1216,8 @@ msgid "/File/_Preferences..."
 msgstr "/Fil/_Innstillinger..."
 
 #: app/menus.c:292
-msgid "/File/P_lugins"
-msgstr "/Fil/Ti_llegg"
+msgid "/File/P_lugins..."
+msgstr "/Fil/Ti_llegg..."
 
 #: app/menus.c:296 app/menus.c:332
 msgid "/File/_Quit"
@@ -1236,8 +1236,8 @@ msgid "/Help/---"
 msgstr "/Hjelp/---"
 
 #: app/menus.c:303
-msgid "/Help/_About"
-msgstr "/Hjelp/_Om"
+msgid "/Help/_About..."
+msgstr "/Hjelp/_Om..."
 
 #: app/menus.c:319
 msgid "/File/_Save"
@@ -1612,12 +1612,12 @@ msgid "/_Dialogs"
 msgstr "/_Dialoger"
 
 #: app/menus.c:453
-msgid "/Dialogs/_Properties"
-msgstr "/Dialoger/_Egenskaper"
+msgid "/Dialogs/_Properties..."
+msgstr "/Dialoger/_Egenskaper..."
 
 #: app/menus.c:454
-msgid "/Dialogs/_Layers"
-msgstr "/Dialoger/_Lag"
+msgid "/Dialogs/_Layers..."
+msgstr "/Dialoger/_Lag..."
 
 #: app/menus.c:456
 msgid "/_Input Methods"
@@ -1670,7 +1670,7 @@ msgstr "Kunne ikke kjøre kommando '%s'"
 msgid "Could not open '%s' for writing"
 msgstr "Kunne ikke åpne '%s' for skriving"
 
-#: app/paginate_psprint.c:367
+#: app/paginate_psprint.c:368
 msgid "Error occured while printing"
 msgstr "Feil under skriving"
 
@@ -1864,8 +1864,8 @@ msgstr "Egenskaper for objekt:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:137
-msgid "<Toolbox>/File/Plugins"
-msgstr "<Toolbox>/Fil/Tillegg"
+msgid "<Toolbox>/File/Plugins..."
+msgstr "<Toolbox>/Fil/Tillegg..."
 
 #: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
@@ -2182,7 +2182,7 @@ msgstr ""
 "generert med forrige versjon av dia vil du oppleve problemer. Vennligst "
 "rapporter til dia-list@gnome.org hvis du ser denne meldingen."
 
-#: lib/font.c:93
+#: lib/font.c:87
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Kan ikke laste skrift %s.\n"
@@ -2309,200 +2309,199 @@ msgstr ""
 "Kunne ikke åpne «%s»\n"
 "«%s»"
 
-#: lib/properties.c:71 lib/properties.h:474
+#: lib/properties.c:71 lib/properties.h:475
 msgid "Line colour"
 msgstr "Linjefarge"
 
-#: lib/properties.c:72 lib/properties.h:477
+#: lib/properties.c:72 lib/properties.h:478
 msgid "Line style"
 msgstr "Linjestil"
 
-#: lib/properties.c:73 lib/properties.h:481
+#: lib/properties.c:73 lib/properties.h:482
 msgid "Fill colour"
 msgstr "Fyllfarge"
 
-#: lib/properties.c:74 lib/properties.h:484
+#: lib/properties.c:74 lib/properties.h:485
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: lib/properties.c:75 lib/properties.h:488
+#: lib/properties.c:75 lib/properties.h:489
 msgid "Start arrow"
 msgstr "Start-pil"
 
-#: lib/properties.c:76 lib/properties.h:491
+#: lib/properties.c:76 lib/properties.h:492
 msgid "End arrow"
 msgstr "Slutt-pil"
 
-#: lib/properties.c:78 lib/properties.h:501
+#: lib/properties.c:78 lib/properties.h:502
 msgid "Text alignment"
 msgstr "Tekstjustering"
 
-#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:505 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
 #: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
 #: objects/chronogram/chronoref.c:163
 msgid "Font"
 msgstr "Skrifttype"
 
-#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:508 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 msgid "Font size"
 msgstr "Størrelse på skrifttype"
 
-#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:511 objects/GRAFCET/step.c:166
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 msgid "Text colour"
 msgstr "Tekstfarge"
 
-#: lib/widgets.c:217
+#: lib/widgets.c:220
 msgid "Other fonts..."
 msgstr "Andre skrifter..."
 
-#: lib/widgets.c:319
+#: lib/widgets.c:322
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunne ikke finne skriftfamilie for %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:362
+#: lib/widgets.c:365
 msgid "Select font"
 msgstr "Velg skrift"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:672 objects/FS/function.c:1039
+#: lib/widgets.c:675 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Helfylt"
 
-#: lib/widgets.c:678
+#: lib/widgets.c:681
 msgid "Dashed"
 msgstr "Streket"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:687
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:693
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:699
 msgid "Dotted"
 msgstr "Prikket"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:714
+#: lib/widgets.c:717
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:1010
+#: lib/widgets.c:1013
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:1011
+#: lib/widgets.c:1014
 msgid "Hollow Triangle"
 msgstr "Hult triangel"
 
-#: lib/widgets.c:1012
+#: lib/widgets.c:1015
 msgid "Filled Triangle"
 msgstr "Fylt triangel"
 
-#: lib/widgets.c:1013
+#: lib/widgets.c:1016
 msgid "Unfilled Triangle"
 msgstr "Triangel uten fyll"
 
-#: lib/widgets.c:1014
+#: lib/widgets.c:1017
 msgid "Filled Diamond"
 msgstr "Fylt diamant"
 
-#: lib/widgets.c:1015
+#: lib/widgets.c:1018
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:1016
+#: lib/widgets.c:1019
 msgid "Slashed Cross"
 msgstr "Streket kryss"
 
-#: lib/widgets.c:1017
+#: lib/widgets.c:1020
 msgid "Filled Ellipse"
 msgstr "Fylt elipse"
 
-#: lib/widgets.c:1018
+#: lib/widgets.c:1021
 msgid "Hollow Ellipse"
 msgstr "Hul elipse"
 
-#: lib/widgets.c:1019
+#: lib/widgets.c:1022
 msgid "Filled Dot"
 msgstr "Fylt punkt"
 
-#: lib/widgets.c:1020
+#: lib/widgets.c:1023
 msgid "Dimension Origin"
 msgstr "Opprinnelse for dimensjon"
 
-#: lib/widgets.c:1021
+#: lib/widgets.c:1024
 msgid "Blanked Dot"
 msgstr "Blankt punkt"
 
-#: lib/widgets.c:1022
+#: lib/widgets.c:1025
 msgid "Double Hollow triangle"
 msgstr "Dobbelt hult triangel"
 
-#: lib/widgets.c:1023
+#: lib/widgets.c:1026
 msgid "Double Filled triangle"
 msgstr "Dobbelt fylt triangel"
 
-#: lib/widgets.c:1024
+#: lib/widgets.c:1027
 msgid "Filled Box"
 msgstr "Fylt boks"
 
-#: lib/widgets.c:1025
+#: lib/widgets.c:1028
 msgid "Blanked Box"
 msgstr "Blank boks"
 
-#: lib/widgets.c:1026
+#: lib/widgets.c:1029
 msgid "Slashed"
 msgstr "Streket"
 
-#: lib/widgets.c:1027
+#: lib/widgets.c:1030
 msgid "Integral Symbol"
 msgstr "Itegraltegn"
 
-#: lib/widgets.c:1028
+#: lib/widgets.c:1031
 msgid "Crow Foot"
 msgstr "Kråkefot"
 
-#: lib/widgets.c:1029
+#: lib/widgets.c:1032
 msgid "Cross"
 msgstr "Kryss"
 
-#: lib/widgets.c:1030
+#: lib/widgets.c:1033
 msgid "Filled Concave"
 msgstr "Fylt konkav"
 
-#: lib/widgets.c:1031
+#: lib/widgets.c:1034
 msgid "Blanked Concave"
 msgstr "Tom konkav"
 
-#: lib/widgets.c:1068
+#: lib/widgets.c:1071
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1084
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:1208
+#: lib/widgets.c:1211
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:1238
+#: lib/widgets.c:1241
 msgid "Browse"
 msgstr "Bla gjennom"
 
 #: objects/bondgraph/bondgraph.c:39
-#, fuzzy
 msgid "Bond graph objects"
-msgstr "Standard objekter"
+msgstr "Slå sammen grafobjekter"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -4124,17 +4123,28 @@ msgstr "Synlige operasjoner"
 msgid "Visible Comments"
 msgstr "Synlige kommentarer"
 
-#: objects/UML/class.c:127
+#. Attributes page:
+#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
+#: objects/UML/object.c:147
+msgid "Attributes"
+msgstr "Attributter"
+
+#. Operations page:
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+msgid "Operations"
+msgstr "Operasjoner"
+
+#: objects/UML/class.c:129
 msgid "Template"
 msgstr "Mal"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:919
+#: objects/UML/class.c:177 objects/UML/class.c:918
 #: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "Klasse"
 
-#: objects/UML/class.c:178
+#: objects/UML/class.c:183
 msgid "Show comments"
 msgstr "Vis kommentar"
 
@@ -4199,11 +4209,6 @@ msgstr "Forgrunnsfarge"
 msgid "Background Color"
 msgstr "Bakgrunnsfarge"
 
-#. Attributes page:
-#: objects/UML/class_dialog.c:800 objects/UML/object.c:147
-msgid "Attributes"
-msgstr "Attributter"
-
 #: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
 #: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
@@ -4250,11 +4255,6 @@ msgstr "Implementasjon"
 #: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
 msgid "Class scope"
 msgstr "Virkeområde for klasse"
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1724
-msgid "Operations"
-msgstr "Operasjoner"
 
 #: objects/UML/class_dialog.c:1782
 msgid "Operation data"
