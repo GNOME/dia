@@ -1,3 +1,7 @@
+2002-12-31  Steffen Macke <sdteffen@web.de>
+
+	* app/makefile.msc: added hint on how to enable console output
+	
 2002-12-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/textobj.c (textobj_load): Get the handle type

@@ -99,6 +99,7 @@ LINKDEBUG = /debug /debugtype:both
 CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
 
 # No general LDFLAGS needed
+# Use /subsystem:console to enable console output
 LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
 INSTALL = copy
 
