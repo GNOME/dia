@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-02 13:01+0200\n"
-"PO-Revision-Date: 2001-05-01 16:59GMT +0200\n"
+"POT-Creation-Date: 2001-05-05 00:14+0200\n"
+"PO-Revision-Date: 2001-05-05 11:55GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "ÇIXIŞ"
 
 #: app/app_procs.c:150
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "Başlanğıc ekranını göstərme"
 
 #: app/app_procs.c:152
 msgid "Show this help message"
@@ -36,7 +36,7 @@ msgstr "İclas idarəcisinə bağlana bilmədim!\n"
 
 #: app/app_procs.c:182
 msgid "[OPTION...] [FILE...]"
-msgstr "[SEÇƏNƏK...] [DOSYE...]"
+msgstr "[SEÇƏNƏK...] [FAYL...]"
 
 #: app/app_procs.c:185
 #, c-format
@@ -56,11 +56,11 @@ msgstr ""
 
 #: app/app_procs.c:261
 msgid "Need valid input file\n"
-msgstr "Keçərli parametr dosyesi lazımdır\n"
+msgstr "Keçərli parametr faylı lazımdır\n"
 
 #: app/app_procs.c:327 app/app_procs.c:333
 msgid "Quit, are you sure?"
-msgstr "Həqiqətən də çıxmaq istəyirsiniz mi?"
+msgstr "Çıxmaq istəyirsiniz?"
 
 #: app/app_procs.c:340
 msgid ""
@@ -89,6 +89,9 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
+"İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, "
+"qlobal dəyişgən HOMEun mövcud cərgəyə nişanlanıb "
+"nişanlanmadığını yoxlayın."
 
 #: app/app_procs.c:473
 msgid "Objects and filters internal to dia"
@@ -1304,19 +1307,18 @@ msgid "File"
 msgstr "Dosye"
 
 #: app/paginate_psprint.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Could not run command '%s'"
-msgstr "`%s''ni aça bilmədim"
+msgstr "`%s''ni işə sala bilmədim"
 
 #: app/paginate_psprint.c:333
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open '%s' for writing"
 msgstr "`%s''ni yazmaq üçün aça bilmədim"
 
 #: app/paginate_psprint.c:357
-#, fuzzy
 msgid "Error occured while printing"
-msgstr "PNG'i yazarkən xəta oldu"
+msgstr "Çap edərkən xəta oldu"
 
 #: app/plugin-manager.c:62
 msgid "yes"
@@ -1461,14 +1463,12 @@ msgid "This object has no properties."
 msgstr "Bu cismnin xüsusiyyətləri yoxdur ."
 
 #: app/properties.c:211
-#, fuzzy
 msgid "Properties: "
-msgstr "Xü_susiyyətlər"
+msgstr "Xüsusiyyətlər : "
 
 #: app/properties.c:219
-#, fuzzy
 msgid "Object properties:"
-msgstr "Cism xüsusiyyətləri"
+msgstr "Cism xüsusiyyətləri:"
 
 #: app/render_eps.c:1599
 msgid "Encapsulated Postscript"
@@ -1495,7 +1495,7 @@ msgstr "Yüklənir..."
 #: app/splash.c:75
 #, c-format
 msgid "Dia v %s"
-msgstr ""
+msgstr "Dia v %s"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -1505,21 +1505,21 @@ msgstr ""
 
 #: lib/dia_xml.c:273
 msgid "Taking point value of non-point node."
-msgstr ""
+msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
 
 #: lib/dia_xml.c:282
 #, c-format
 msgid "Incorrect x Point value %f; discarding it."
-msgstr ""
+msgstr "Səhv x Nöqtə qiyməti  %f; nəzərə almıram."
 
 #: lib/dia_xml.c:290
 msgid "Error parsing point."
-msgstr ""
+msgstr "Xəta darama nöqtəsi."
 
 #: lib/dia_xml.c:297
 #, c-format
 msgid "Incorrect y Point value %f; discarding it."
-msgstr ""
+msgstr "Səhv y Nöqtə qiyməti  %f; nəzərə almıram."
 
 #: lib/font.c:389
 #, c-format
@@ -1671,9 +1671,8 @@ msgid "Filled Triangle"
 msgstr "Dolğulu üçbucaq"
 
 #: lib/widgets.c:660
-#, fuzzy
 msgid "Unfilled Triangle"
-msgstr "Dolğulu üçbucaq"
+msgstr "Dolğusuz Üçbucaq"
 
 #: lib/widgets.c:661
 msgid "Filled Diamond"
@@ -1696,45 +1695,40 @@ msgid "Hollow Ellipse"
 msgstr "Boş elips"
 
 #: lib/widgets.c:666
-#, fuzzy
 msgid "Filled Dot"
-msgstr "Dolğulu Briliant"
+msgstr "Dolğulu Nöqtə"
 
 #: lib/widgets.c:667
 msgid "Dimension Origin"
-msgstr ""
+msgstr "Dimensiya Mənbəsi"
 
 #: lib/widgets.c:668
 msgid "Blanked Dot"
-msgstr ""
+msgstr "Boş Nöqtə"
 
 #: lib/widgets.c:669
-#, fuzzy
 msgid "Double Hollow triangle"
-msgstr "Boş üçbucaq"
+msgstr "Cüt üçbucaq"
 
 #: lib/widgets.c:670
-#, fuzzy
 msgid "Double Filled triangle"
-msgstr "Dolğulu üçbucaq"
+msgstr "Cüt Dolğulu üçbucaq"
 
 #: lib/widgets.c:671
-#, fuzzy
 msgid "Filled Box"
-msgstr "Dolğulu Briliant"
+msgstr "Dolğulu Qutu"
 
 #: lib/widgets.c:672
 msgid "Blanked Box"
-msgstr ""
+msgstr "Boş Qutu"
 
 #: lib/widgets.c:673
-#, fuzzy
 msgid "Slashed"
 msgstr "Tireli"
 
 #: lib/widgets.c:674
 msgid "Integral Symbol"
-msgstr ""
+msgstr "İnteqral Simvolu"
 
 #: lib/widgets.c:710
 msgid "Length: "
@@ -1883,7 +1877,7 @@ msgstr "İstifadəçi funksiyası"
 
 #: objects/FS/function.c:608
 msgid "Verb"
-msgstr ""
+msgstr "Fe'l"
 
 #: objects/FS/function.c:609 objects/FS/function.c:610
 #: objects/FS/function.c:630
@@ -1891,272 +1885,234 @@ msgid "Channel"
 msgstr "Kanal"
 
 #: objects/FS/function.c:611 objects/FS/function.c:612
-#, fuzzy
 msgid "Import"
-msgstr "   İtxal"
+msgstr "İdxal Et"
 
 #: objects/FS/function.c:613
 msgid "Input"
-msgstr ""
+msgstr "Giriş"
 
 #: objects/FS/function.c:614
-#, fuzzy
 msgid "Receive"
-msgstr "Təkrarlamalı"
+msgstr "Al"
 
 #: objects/FS/function.c:615 objects/FS/function.c:751
-#, fuzzy
 msgid "Allow"
-msgstr "Hamısı"
+msgstr "Qəbul Et"
 
 #: objects/FS/function.c:616
 msgid "Form Entrance"
-msgstr ""
+msgstr "Form Girişi"
 
 #: objects/FS/function.c:617 objects/FS/function.c:734
-#, fuzzy
 msgid "Capture"
-msgstr "Yarat"
+msgstr "Yaxala"
 
 #: objects/FS/function.c:618 objects/FS/function.c:619
-#, fuzzy
 msgid "Export"
-msgstr "   İxrac"
+msgstr "İxrac Et"
 
 #: objects/FS/function.c:620
 msgid "Discharge"
-msgstr ""
+msgstr "Boşalt"
 
 #: objects/FS/function.c:621
-#, fuzzy
 msgid "Eject"
-msgstr "C_ismlər"
+msgstr "Çıxart"
 
 #: objects/FS/function.c:622
 msgid "Dispose"
-msgstr ""
+msgstr "Tənzim Et"
 
 #: objects/FS/function.c:624 objects/FS/function.c:625
 #: objects/FS/function.c:634
-#, fuzzy
 msgid "Transfer"
-msgstr "   Transfer"
+msgstr "Daşı"
 
 #: objects/FS/function.c:626 objects/FS/function.c:627
-#, fuzzy
 msgid "Transport"
-msgstr "      Nəqliyyat"
+msgstr "Nəqliyyat"
 
 #: objects/FS/function.c:628
-#, fuzzy
 msgid "Lift"
-msgstr "Sol"
+msgstr "Qaldır"
 
 #: objects/FS/function.c:629
-#, fuzzy
 msgid "Move"
-msgstr "Yuxarı daşı"
+msgstr "Hərəkət Etdir"
 
 #: objects/FS/function.c:631 objects/FS/function.c:632
-#, fuzzy
 msgid "Transmit"
-msgstr "Keçişli"
+msgstr "Keçir"
 
 #: objects/FS/function.c:633
-#, fuzzy
 msgid "Conduct"
-msgstr "Bağla"
+msgstr "Davran"
 
 #: objects/FS/function.c:635
-#, fuzzy
 msgid "Convey"
-msgstr "Dönüşdür"
+msgstr "Nəql Et"
 
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
-#, fuzzy
 msgid "Guide"
-msgstr "   Bələdlə"
+msgstr "Bələdçi"
 
 #: objects/FS/function.c:639
-#, fuzzy
 msgid "Direct"
-msgstr "Yön :"
+msgstr "Yön"
 
 #: objects/FS/function.c:640
 msgid "Straighten"
-msgstr ""
+msgstr "Düzləşdirilmiş"
 
 #: objects/FS/function.c:641
 msgid "Steer"
-msgstr ""
+msgstr "İdarə Et"
 
 #: objects/FS/function.c:642
-#, fuzzy
 msgid "Translate"
-msgstr "      Tərcümə et"
+msgstr "Tərcümə Et"
 
 #: objects/FS/function.c:643 objects/FS/function.c:644
-#, fuzzy
 msgid "Rotate"
-msgstr "Döndər:"
+msgstr "Çevir"
 
 #: objects/FS/function.c:645
-#, fuzzy
 msgid "Turn"
-msgstr "Nəticə"
+msgstr "Döndər"
 
 #: objects/FS/function.c:646
-#, fuzzy
 msgid "Spin"
-msgstr "Boşluq"
+msgstr "Ox"
 
 #: objects/FS/function.c:647 objects/FS/function.c:648
-#, fuzzy
 msgid "Allow DOF"
-msgstr "      DOF'a icazə ver"
+msgstr "DOFa icazə ver"
 
 #: objects/FS/function.c:649
-#, fuzzy
 msgid "Constrain"
-msgstr "Parça :"
+msgstr "Məcbur Et"
 
 #: objects/FS/function.c:650
-#, fuzzy
 msgid "Unlock"
-msgstr "Ayır"
+msgstr "Aç"
 
 #: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
 msgstr "Dəstəkle"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
-#, fuzzy
 msgid "Stop"
-msgstr "   Dayandır"
+msgstr "Dayan"
 
 #: objects/FS/function.c:655
 msgid "Insulate"
-msgstr ""
+msgstr "Adalaşdır"
 
 #: objects/FS/function.c:656
-#, fuzzy
 msgid "Protect"
-msgstr "Qorumalı"
+msgstr "Qoru"
 
 #: objects/FS/function.c:657 objects/FS/function.c:752
 msgid "Prevent"
-msgstr ""
+msgstr "Mane Ol"
 
 #: objects/FS/function.c:658
-#, fuzzy
 msgid "Shield"
-msgstr "Yolla"
+msgstr "Qalxan"
 
 #: objects/FS/function.c:659
 msgid "Inhibit"
-msgstr ""
+msgstr "Basdır"
 
 #: objects/FS/function.c:660 objects/FS/function.c:661
-#, fuzzy
 msgid "Stabilize"
-msgstr "   Sağlamlaşdır"
+msgstr "Sağlamlaşdır"
 
 #: objects/FS/function.c:662
-#, fuzzy
 msgid "Steady"
-msgstr "Yolla"
+msgstr "Sabit"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
-#, fuzzy
 msgid "Secure"
-msgstr "   E'tibarlı et"
+msgstr "E'tibarlı"
 
 #: objects/FS/function.c:665 objects/FS/function.c:681
 msgid "Attach"
-msgstr ""
+msgstr "Yapışdır"
 
 #: objects/FS/function.c:666
-#, fuzzy
 msgid "Mount"
-msgstr "Yazı növü"
+msgstr "Bağla"
 
 #: objects/FS/function.c:667
 msgid "Lock"
-msgstr ""
+msgstr "Qıfılla"
 
 #: objects/FS/function.c:668
 msgid "Fasten"
-msgstr ""
+msgstr "Daha Cəld"
 
 #: objects/FS/function.c:669
-#, fuzzy
 msgid "Hold"
-msgstr "Dolğun"
+msgstr "Tut"
 
 #: objects/FS/function.c:670 objects/FS/function.c:671
-#, fuzzy
 msgid "Position"
-msgstr "   Yer"
+msgstr "Yer"
 
 #: objects/FS/function.c:672
-#, fuzzy
 msgid "Orient"
 msgstr "İstiqamət"
 
 #: objects/FS/function.c:673
-#, fuzzy
 msgid "Align"
-msgstr "Tərəfləmə :"
+msgstr "Tərəflə"
 
 #: objects/FS/function.c:674 objects/FS/function.c:795
-#, fuzzy
 msgid "Locate"
-msgstr "Yükləndi :"
+msgstr "Yerini Tap"
 
 #: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
 msgstr "Bağla"
 
 #: objects/FS/function.c:677 objects/FS/function.c:678
-#, fuzzy
 msgid "Couple"
-msgstr "   Cütlə"
+msgstr "Cütlə"
 
 #: objects/FS/function.c:679
 msgid "Join"
-msgstr ""
+msgstr "Birləş"
 
 #: objects/FS/function.c:680
 msgid "Assemble"
-msgstr ""
+msgstr "Assembl"
 
 #: objects/FS/function.c:682 objects/FS/function.c:683
-#, fuzzy
 msgid "Mix"
-msgstr "   Qarışdır"
+msgstr "Qarışdır"
 
 #: objects/FS/function.c:684
 msgid "Combine"
-msgstr ""
+msgstr "Kombinasiya Yarat"
 
 #: objects/FS/function.c:685
-#, fuzzy
 msgid "Blend"
-msgstr "Yolla"
+msgstr "Qarışdır"
 
 #: objects/FS/function.c:686
 msgid "Add"
-msgstr ""
+msgstr "Əlavə Et"
 
 #: objects/FS/function.c:687
 msgid "Pack"
-msgstr ""
+msgstr "Paketlə"
 
 #: objects/FS/function.c:688
-#, fuzzy
 msgid "Coalesce"
-msgstr "Qapat"
+msgstr "Cəmləşdir"
 
 #: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
@@ -2164,210 +2120,180 @@ msgstr "Dal"
 
 #: objects/FS/function.c:691 objects/FS/function.c:692
 #: objects/FS/function.c:693
-#, fuzzy
 msgid "Separate"
-msgstr "   Ayır"
+msgstr "Ayır"
 
 #: objects/FS/function.c:694
 msgid "Switch"
-msgstr ""
+msgstr "Keç"
 
 #: objects/FS/function.c:695
 msgid "Divide"
-msgstr ""
+msgstr "Böl"
 
 #: objects/FS/function.c:696
-#, fuzzy
 msgid "Release"
-msgstr "Yerinə keç"
+msgstr "Dağıdım"
 
 #: objects/FS/function.c:697
-#, fuzzy
 msgid "Detach"
-msgstr "Data"
+msgstr "Qopart"
 
 #: objects/FS/function.c:698
-#, fuzzy
 msgid "Disconnect"
-msgstr "Bağla"
+msgstr "Bağlantıyı kəs"
 
 #: objects/FS/function.c:701
-#, fuzzy
 msgid "Cut"
-msgstr "Xüsusi"
+msgstr "Kəs"
 
 #: objects/FS/function.c:702
 msgid "Polish"
-msgstr ""
+msgstr "Polyakca"
 
 #: objects/FS/function.c:703
-#, fuzzy
 msgid "Sand"
-msgstr "Yolla"
+msgstr "Qum"
 
 #: objects/FS/function.c:704
 msgid "Drill"
-msgstr ""
+msgstr "Qaz"
 
 #: objects/FS/function.c:705
 msgid "Lathe"
-msgstr ""
+msgstr "Torna"
 
 #: objects/FS/function.c:706 objects/FS/function.c:707
-#, fuzzy
 msgid "Refine"
-msgstr "   Incələşdir"
+msgstr "Incələşdir"
 
 #: objects/FS/function.c:708
 msgid "Purify"
-msgstr ""
+msgstr "Təmizlə"
 
 #: objects/FS/function.c:709
-#, fuzzy
 msgid "Strain"
-msgstr "Boşluq"
+msgstr "Nəsil"
 
 #: objects/FS/function.c:710
-#, fuzzy
 msgid "Filter"
-msgstr "Dosye"
+msgstr "Süzgəc"
 
 #: objects/FS/function.c:711
-#, fuzzy
 msgid "Percolate"
-msgstr "Xüsusi"
+msgstr "Süz"
 
 #: objects/FS/function.c:712
-#, fuzzy
 msgid "Clear"
-msgstr "Qapat"
+msgstr "Təmizlə"
 
 #: objects/FS/function.c:713 objects/FS/function.c:714
-#, fuzzy
 msgid "Distribute"
-msgstr "   Dağıt"
+msgstr "Dağıt"
 
 #: objects/FS/function.c:715
 msgid "Diverge"
-msgstr ""
+msgstr "Uzaqlaşdır"
 
 #: objects/FS/function.c:716
-#, fuzzy
 msgid "Scatter"
-msgstr "Böyüt :"
+msgstr "Saç"
 
 #: objects/FS/function.c:717
 msgid "Disperse"
-msgstr ""
+msgstr "Yay"
 
 #: objects/FS/function.c:718 objects/FS/function.c:725
 msgid "Diffuse"
-msgstr ""
+msgstr "Diffuziya Yarat"
 
 #: objects/FS/function.c:719
 msgid "Empty"
-msgstr ""
+msgstr "Boş"
 
 #: objects/FS/function.c:720 objects/FS/function.c:721
-#, fuzzy
 msgid "Dissipate"
-msgstr "   Xərclə"
+msgstr "Dağıt"
 
 #: objects/FS/function.c:722
 msgid "Absorb"
-msgstr ""
+msgstr "Hopdur"
 
 #: objects/FS/function.c:723
-#, fuzzy
 msgid "Dampen"
-msgstr "Ad"
+msgstr "İslat"
 
 #: objects/FS/function.c:724
-#, fuzzy
 msgid "Dispel"
-msgstr "   Göstər"
+msgstr "Həll Et"
 
 #: objects/FS/function.c:726
 msgid "Resist"
-msgstr ""
+msgstr "Müqavimət Göstər"
 
 #: objects/FS/function.c:727 objects/FS/function.c:728
 msgid "Provision"
 msgstr "Dəstək"
 
 #: objects/FS/function.c:729 objects/FS/function.c:730
-#, fuzzy
 msgid "Store"
-msgstr "   Saxla"
+msgstr "Saxla"
 
 #: objects/FS/function.c:731
-#, fuzzy
 msgid "Contain"
-msgstr "Parça :"
+msgstr "Daxil Et"
 
 #: objects/FS/function.c:732
-#, fuzzy
 msgid "Collect"
-msgstr "Bağla"
+msgstr "Topla"
 
 #: objects/FS/function.c:733
-#, fuzzy
 msgid "Reserve"
-msgstr "Təkrarlamalı"
+msgstr "Saxla"
 
 #: objects/FS/function.c:735 objects/FS/function.c:736
-#, fuzzy
 msgid "Supply"
-msgstr "   Ver"
+msgstr "Tədarük Et"
 
 #: objects/FS/function.c:737
-#, fuzzy
 msgid "Fill"
-msgstr "Dosye"
+msgstr "Doldur"
 
 #: objects/FS/function.c:738
-#, fuzzy
 msgid "Provide"
-msgstr "Dəstək"
+msgstr "Ver"
 
 #: objects/FS/function.c:739
-#, fuzzy
 msgid "Replenish"
-msgstr "Yerinə keç"
+msgstr "Təkrar Doldur"
 
 #: objects/FS/function.c:740
-#, fuzzy
 msgid "Expose"
-msgstr "Elips"
+msgstr "Ortaya Çıxart"
 
 #: objects/FS/function.c:741
-#, fuzzy
 msgid "Extract"
-msgstr "   Aç"
+msgstr "Xülasə"
 
 #: objects/FS/function.c:742 objects/FS/function.c:743
 msgid "Control Magnitude"
 msgstr "Böyüklüyü dəyişdir"
 
 #: objects/FS/function.c:744 objects/FS/function.c:745
-#, fuzzy
 msgid "Actuate"
-msgstr "   Hərəkətə Keçir"
+msgstr "Hərəkətə Keçir"
 
 #: objects/FS/function.c:746
-#, fuzzy
 msgid "Start"
-msgstr "Başlama oxu"
+msgstr "Başlat"
 
 #: objects/FS/function.c:747
-#, fuzzy
 msgid "Initiate"
-msgstr "Ilk addım"
+msgstr "Oyandır"
 
 #: objects/FS/function.c:748 objects/FS/function.c:749
-#, fuzzy
 msgid "Regulate"
-msgstr "   Quraşdır"
+msgstr "Tarazlaşdır"
 
 #: objects/FS/function.c:750 objects/FS/function.c:859
 #: objects/UML/classicon.c:133
@@ -2376,404 +2302,363 @@ msgstr "İdarə"
 
 #: objects/FS/function.c:753
 msgid "Enable"
-msgstr ""
+msgstr "Fəallaşdır"
 
 #: objects/FS/function.c:754
-#, fuzzy
 msgid "Disable"
-msgstr "Görünmə :"
+msgstr "Bağla"
 
 #: objects/FS/function.c:755
 msgid "Limit"
-msgstr ""
+msgstr "Sərhəd Qoy"
 
 #: objects/FS/function.c:756
-#, fuzzy
 msgid "Interrupt"
-msgstr "Bölüşdür"
+msgstr "Kəs"
 
 #: objects/FS/function.c:757 objects/FS/function.c:758
-#, fuzzy
 msgid "Change"
-msgstr "   Dəyişdir"
+msgstr "Dəyişdir"
 
 #: objects/FS/function.c:759
 msgid "Increase"
-msgstr ""
+msgstr "Artır"
 
 #: objects/FS/function.c:760
 msgid "Decrease"
-msgstr ""
+msgstr "Azalt"
 
 #: objects/FS/function.c:761
-#, fuzzy
 msgid "Amplify"
-msgstr "Əlavə Et"
+msgstr "Gücləndir"
 
 #: objects/FS/function.c:762
-#, fuzzy
 msgid "Reduce"
-msgstr "Yerinə keç"
+msgstr "Zəiflət"
 
 #: objects/FS/function.c:764
-#, fuzzy
 msgid "Normalize"
-msgstr "Standart"
+msgstr "Normallaşdır"
 
 #: objects/FS/function.c:765
-#, fuzzy
 msgid "Multiply"
-msgstr "Çoxalma:"
+msgstr "Çoxalt"
 
 #: objects/FS/function.c:766
-#, fuzzy
 msgid "Scale"
-msgstr "Böyüt :"
+msgstr "Miqyas"
 
 #: objects/FS/function.c:767
-#, fuzzy
 msgid "Rectify"
-msgstr "Həssasiyyət :"
+msgstr "İslah Et"
 
 #: objects/FS/function.c:768
 msgid "Adjust"
-msgstr ""
+msgstr "Quraşdır"
 
 #: objects/FS/function.c:769 objects/FS/function.c:770
-#, fuzzy
 msgid "Form"
-msgstr "   Şəkilləndir"
+msgstr "Şəkilləndir"
 
 #: objects/FS/function.c:771
 msgid "Compact"
-msgstr ""
+msgstr "Yığcam"
 
 #: objects/FS/function.c:772
 msgid "Crush"
-msgstr ""
+msgstr "Dağıt"
 
 #: objects/FS/function.c:773
 msgid "Shape"
-msgstr ""
+msgstr "Şəkil"
 
 #: objects/FS/function.c:774
 msgid "Compress"
-msgstr ""
+msgstr "Sıxışdır"
 
 #: objects/FS/function.c:775
-#, fuzzy
 msgid "Pierce"
-msgstr "Yazıçı"
+msgstr "Dəl"
 
 #: objects/FS/function.c:776 objects/FS/function.c:777
 msgid "Convert"
 msgstr "Dönüşdür"
 
 #: objects/FS/function.c:778
-#, fuzzy
 msgid "Transform"
-msgstr "   Transfer"
+msgstr "Döndər"
 
 #: objects/FS/function.c:779
 msgid "Liquefy"
-msgstr ""
+msgstr "Mayeləşdir"
 
 #: objects/FS/function.c:780
-#, fuzzy
 msgid "Solidify"
-msgstr "Dolğun"
+msgstr "Birləşdir"
 
 #: objects/FS/function.c:781
 msgid "Evaporate"
-msgstr ""
+msgstr "Buxarlaşdır"
 
 #: objects/FS/function.c:782
 msgid "Sublimate"
-msgstr ""
+msgstr "Sublimləşdir"
 
 #: objects/FS/function.c:783
-#, fuzzy
 msgid "Condense"
-msgstr "Bağla"
+msgstr "Kondensləşdir"
 
 #: objects/FS/function.c:784
-#, fuzzy
 msgid "Integrate"
-msgstr "Ara üz:"
+msgstr "Bütünləşdir"
 
 #: objects/FS/function.c:785
 msgid "Differentiate"
-msgstr ""
+msgstr "Fərqləndir"
 
+# fuzzy
 #: objects/FS/function.c:786
-#, fuzzy
 msgid "Process"
 msgstr "Qorumalı"
 
 #: objects/FS/function.c:789 objects/FS/function.c:790
-#, fuzzy
 msgid "Sense"
-msgstr "   Mə'na"
+msgstr "Hiss"
 
 #: objects/FS/function.c:791
-#, fuzzy
 msgid "Perceive"
-msgstr "Xüsusi"
+msgstr "İdrak Et"
 
 #: objects/FS/function.c:792
 msgid "Recognize"
-msgstr ""
+msgstr "Yadda Saxla"
 
 #: objects/FS/function.c:793
 msgid "Discern"
-msgstr ""
+msgstr "Ayırd Et"
 
 #: objects/FS/function.c:794
 msgid "Check"
-msgstr ""
+msgstr "Yoxla"
 
 #: objects/FS/function.c:796
 msgid "Verify"
-msgstr ""
+msgstr "Təsdiqlə"
 
 #: objects/FS/function.c:797 objects/FS/function.c:798
-#, fuzzy
 msgid "Indicate"
-msgstr "   Bildir"
+msgstr "Oyandır"
 
 #: objects/FS/function.c:799
 msgid "Mark"
-msgstr ""
+msgstr "Işarətlə"
 
 #: objects/FS/function.c:800
-#, fuzzy
 msgid "Display"
-msgstr "   Göstər"
+msgstr "Ekran"
 
 #: objects/FS/function.c:801 objects/FS/function.c:802
-#, fuzzy
 msgid "Measure"
-msgstr "   Ölçü"
+msgstr "Ölçü"
 
 #: objects/FS/function.c:803
-#, fuzzy
 msgid "Calculate"
-msgstr "Çağırış"
+msgstr "Hesabla"
 
 #: objects/FS/function.c:804
 msgid "Represent"
-msgstr ""
+msgstr "Nümayış Etdir"
 
 #: objects/FS/function.c:805
-#, fuzzy
 msgid "Noun"
-msgstr "Heç biri"
+msgstr "Ad"
 
 #: objects/FS/function.c:808
 msgid "Liquid"
-msgstr ""
+msgstr "Maye"
 
 #: objects/FS/function.c:809
 msgid "Gas"
-msgstr ""
+msgstr "Qaz"
 
 #: objects/FS/function.c:810 objects/FS/function.c:811
 #: objects/FS/function.c:853
 msgid "Human"
-msgstr ""
+msgstr "İnsan"
 
 #: objects/FS/function.c:812
 msgid "Hand"
-msgstr ""
+msgstr "Əl"
 
 #: objects/FS/function.c:813
-#, fuzzy
 msgid "Foot"
-msgstr "Yazı növü"
+msgstr "Ayaq"
 
 #: objects/FS/function.c:814
-#, fuzzy
 msgid "Head"
-msgstr "Yarım baş"
+msgstr "Baş"
 
 #: objects/FS/function.c:815
-#, fuzzy
 msgid "Finger"
-msgstr "Yazıçı"
+msgstr "Barmaq"
 
 #: objects/FS/function.c:816
-#, fuzzy
 msgid "Toe"
-msgstr "Üst"
+msgstr "Dil"
 
 #: objects/FS/function.c:817
 msgid "Biological"
-msgstr ""
+msgstr "Biologik"
 
 #: objects/FS/function.c:819
 msgid "Mechanical"
-msgstr ""
+msgstr "Mexanik"
 
 #: objects/FS/function.c:820
-#, fuzzy
 msgid "Mech. Energy"
-msgstr "Energiya"
+msgstr "Mexanik Energiya"
 
 #: objects/FS/function.c:821
-#, fuzzy
 msgid "Translation"
-msgstr "Keçişli"
+msgstr "Tərcümə"
 
 #: objects/FS/function.c:822
 msgid "Force"
-msgstr ""
+msgstr "Məcbur Et"
 
 #: objects/FS/function.c:823
-#, fuzzy
 msgid "Rotation"
-msgstr "Döndər:"
+msgstr "Dönmə"
 
 #: objects/FS/function.c:824
 msgid "Torque"
-msgstr ""
+msgstr "Bur"
 
 #: objects/FS/function.c:825
 msgid "Random Motion"
-msgstr ""
+msgstr "Təsadüfi Hərəkət"
 
 #: objects/FS/function.c:826
-#, fuzzy
 msgid "Vibration"
-msgstr "Görünən Gedişlər"
+msgstr "Vibrasiya"
 
 #: objects/FS/function.c:827
 msgid "Rotational Energy"
-msgstr ""
+msgstr "Rotasiya Energiyası"
 
 #: objects/FS/function.c:828
 msgid "Translational Energy"
-msgstr ""
+msgstr "Translasiya Energiyası"
 
 #: objects/FS/function.c:829
-#, fuzzy
 msgid "Electrical"
-msgstr "Şaquli tərs çevir"
+msgstr "Elektriki"
 
 #: objects/FS/function.c:830
-#, fuzzy
 msgid "Electricity"
-msgstr "Həssasiyyət :"
+msgstr "Elektrik"
 
 #: objects/FS/function.c:831
 msgid "Voltage"
-msgstr ""
+msgstr "Voltaj"
 
 #: objects/FS/function.c:832
-#, fuzzy
 msgid "Current"
-msgstr "Orta"
+msgstr "Hazırkı"
 
 #: objects/FS/function.c:833
 msgid "Hydraulic"
-msgstr ""
+msgstr "Hidrolik"
 
 #: objects/FS/function.c:834
 msgid "Pressure"
-msgstr ""
+msgstr "Təzyiq"
 
 #: objects/FS/function.c:835
 msgid "Volumetric Flow"
-msgstr ""
+msgstr "Volumetrik Axım"
 
 #: objects/FS/function.c:836
-#, fuzzy
 msgid "Thermal"
-msgstr "Standart"
+msgstr "Termal"
 
 #: objects/FS/function.c:837
-#, fuzzy
 msgid "Heat"
-msgstr "Yarat"
+msgstr "İstilik"
 
 #: objects/FS/function.c:838
-#, fuzzy
 msgid "Conduction"
-msgstr "Şart :"
+msgstr "Konduksiya"
 
 #: objects/FS/function.c:839
-#, fuzzy
 msgid "Convection"
-msgstr "Bağla"
+msgstr "Konveksiya"
 
 #: objects/FS/function.c:840 objects/FS/function.c:844
-#, fuzzy
 msgid "Radiation"
-msgstr "Şart :"
+msgstr "Radiasiya"
 
 #: objects/FS/function.c:841
 msgid "Pneumatic"
-msgstr ""
+msgstr "Pnevmatik"
 
 #: objects/FS/function.c:842
 msgid "Chemical"
-msgstr ""
+msgstr "Kimyəvi"
 
 #: objects/FS/function.c:843
 msgid "Radioactive"
-msgstr ""
+msgstr "Radioaktiv"
 
 #: objects/FS/function.c:845
 msgid "Microwaves"
-msgstr ""
+msgstr "Mukrodalğa"
 
 #: objects/FS/function.c:846
 msgid "Radio waves"
-msgstr ""
+msgstr "Radio Dalğaları"
 
 #: objects/FS/function.c:847
 msgid "X-Rays"
-msgstr ""
+msgstr "X Şüaları"
 
 #: objects/FS/function.c:848
 msgid "Gamma Rays"
-msgstr ""
+msgstr "Qamma Şüaları"
 
 #: objects/FS/function.c:849
 msgid "Acoustic Energy"
-msgstr ""
+msgstr "Akustik Energiya"
 
 #: objects/FS/function.c:850
-#, fuzzy
 msgid "Optical Energy"
-msgstr "Energiya"
+msgstr "Optik Energiya"
 
 #: objects/FS/function.c:851
-#, fuzzy
 msgid "Solar Energy"
-msgstr "Energiya"
+msgstr "Günəş Energiyası"
 
 #: objects/FS/function.c:852
 msgid "Magnetic Energy"
-msgstr ""
+msgstr "Maqnetik Energiya"
 
 #: objects/FS/function.c:854
 msgid "Human Motion"
-msgstr ""
+msgstr "İnsan Hərəkəti"
 
 #: objects/FS/function.c:855
 msgid "Human Force"
-msgstr ""
+msgstr "İnsan Gücü"
 
 #: objects/FS/function.c:858
 msgid "Status"
-msgstr ""
+msgstr "Vəziyyət"
 
 #: objects/FS/function.c:861
 msgid "User/Device Fn"
-msgstr ""
+msgstr "İstifadəçi/Avadanlıq Funk."
 
 #: objects/FS/function.c:862
-#, fuzzy
 msgid "Wish Fn"
 msgstr "Arzulanan funksiya"
 
@@ -2811,31 +2696,28 @@ msgid "Macro call"
 msgstr "Makro çağırışı"
 
 #: objects/GRAFCET/condition.c:129
-#, fuzzy
 msgid "Condition"
-msgstr "Şart :"
+msgstr "Şərait"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
-msgstr ""
+msgstr "Şəraitin bulean ekuasiyası"
 
 #: objects/GRAFCET/condition.c:131
-#, fuzzy
 msgid "The condition's font"
-msgstr "Bağlantı nöqtəsini sil"
+msgstr "Şəraitin yazı növü"
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
-msgstr ""
+msgstr "Şəraitin yazı növü böyüklüyü"
 
 #: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
-#, fuzzy
 msgid "Color"
-msgstr "Rəng :"
+msgstr "Rəng"
 
 #: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
-msgstr ""
+msgstr "Şəraitin rəngi"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -2882,35 +2764,32 @@ msgid "Color:"
 msgstr "Rəng :"
 
 #: objects/GRAFCET/transition.c:138
-#, fuzzy
 msgid "Receptivity"
-msgstr "Həssasiyyət :"
+msgstr "Həssasiyyət"
 
 #: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
-msgstr ""
+msgstr "Qəbuliyyətin bulean ekuasiyası"
 
 #: objects/GRAFCET/transition.c:140
 msgid "The receptivity's font"
-msgstr ""
+msgstr "Qəbuliyyətin yazı növü"
 
 #: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font size"
-msgstr ""
+msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
 #: objects/GRAFCET/transition.c:145
 msgid "The receptivity's color"
-msgstr ""
+msgstr "Qəbuliyyətin rəngi"
 
 #: objects/GRAFCET/transition.c:146
-#, fuzzy
 msgid "North point"
-msgstr "Başlama nöqtəsi"
+msgstr "Şimal nöqtəsi"
 
 #: objects/GRAFCET/transition.c:147
-#, fuzzy
 msgid "South point"
-msgstr "Başlama nöqtəsi"
+msgstr "Cənub nöqtəsi"
 
 #: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
 msgid "Draw arrow heads on upward arcs:"
@@ -3781,25 +3660,3 @@ msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 #: plug-ins/xfig/xfig-import.c:1012
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
-
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr ""
-#~ "Alexander Larsson'un Dia'sı\n"
-#~ "Buraxılış %s"
-
-#~ msgid "Hollow Diamond"
-#~ msgstr "Boş Briliant"
-
-#~ msgid "Function:"
-#~ msgstr "Funksiya :"
-
-#~ msgid "      Transmit"
-#~ msgstr "      Keçir"
-
-#~ msgid "      Rotate"
-#~ msgstr "      Döndər"
-
-#~ msgid "      Remove"
-#~ msgstr "      Sil"
