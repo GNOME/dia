@@ -1,3 +1,18 @@
+News in version 0.40: 
+
+* Internationalization
+* Preferences handling
+* Image objects
+* New standard objects: polyline,
+* New UML objects: lifeline, object, message, class icon
+* New network object: printer
+* Better standard objects
+* Better gnome compatibility
+* Statusbar in diagram window
+* Default properties for objects
+* Various new features
+* Asorted bugfixes
+
 News in version 0.30: 
 
 * Dia now has a layer system, much like the GIMP.
