@@ -136,6 +136,8 @@ struct _ShapeInfo {
   Point *connections;
   Rectangle shape_bounds;
   gboolean has_text;
+  gboolean resize_with_text;
+  gint text_align;
   Rectangle text_bounds;
 
   ShapeAspectType aspect_type;

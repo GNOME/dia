@@ -919,6 +919,21 @@ load_shape_info(const gchar *filename)
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
+      info->resize_with_text = TRUE;
+      str = xmlGetProp(node, "resize");
+      if (str) {
+	info->resize_with_text = strcmp(str, "no");
+	free(str);
+      }
+      info->text_align = ALIGN_CENTER;
+      str = xmlGetProp(node, "align");
+      if (str) {
+	if (!strcmp(str, "left")) 
+	  info->text_align = ALIGN_LEFT;
+	else if (!strcmp(str, "right"))
+	  info->text_align = ALIGN_RIGHT;
+	free(str);
+      }
       info->has_text = TRUE;
     } else if (node->ns == shape_ns && !strcmp(node->name, "aspectratio")) {
       tmp = xmlGetProp(node, "type");

@@ -887,25 +887,27 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* resize shape if text does not fit inside text_bounds */
   if (info->has_text) {
-    real width, height;
-    real xscale = 0.0, yscale = 0.0;
+    if (info->resize_with_text) {
+      real width, height;
+      real xscale = 0.0, yscale = 0.0;
 
-    transform_rect(custom, &info->text_bounds, &tb);
+      transform_rect(custom, &info->text_bounds, &tb);
 
-    width = custom->text->max_width + 2*custom->padding+custom->border_width;
-    height = custom->text->height * custom->text->numlines +
-      2 * custom->padding + custom->border_width;
+      width = custom->text->max_width + 2*custom->padding+custom->border_width;
+      height = custom->text->height * custom->text->numlines +
+	2 * custom->padding + custom->border_width;
 
-    xscale = width / (tb.right - tb.left);
-    yscale = height / (tb.bottom - tb.top);
+      xscale = width / (tb.right - tb.left);
+      yscale = height / (tb.bottom - tb.top);
 
-    if (xscale > 1.0) {
-      elem->width  *= xscale;
-      custom->xscale *= xscale;
-    }
-    if (yscale > 1.0) {
-      elem->height *= yscale;
-      custom->yscale *= yscale;
+      if (fabs(xscale - 1.0) > 0.00000001) {
+	elem->width  *= xscale;
+	custom->xscale *= xscale;
+      }
+      if (fabs(yscale - 1.0) > 0.00000001) {
+	elem->height *= yscale;
+	custom->yscale *= yscale;
+      }
     }
   }
 
@@ -1008,15 +1010,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* extend bouding box to include text bounds ... */
   if (info->has_text) {
-    transform_rect(custom, &info->text_bounds, &tb);
-    if (obj->bounding_box.top > tb.top)
-      obj->bounding_box.top = tb.top;
-    if (obj->bounding_box.bottom < tb.bottom)
-      obj->bounding_box.bottom = tb.bottom;
-    if (obj->bounding_box.left > tb.left)
-      obj->bounding_box.left = tb.left;
-    if (obj->bounding_box.right < tb.right)
-      obj->bounding_box.right = tb.right;
+    text_calc_boundingbox(custom->text, &tb);
+    rectangle_union(&obj->bounding_box, &tb);
   }
   obj->position = elem->corner;
   
