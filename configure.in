@@ -278,6 +278,7 @@ plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/wpg/Makefile
 plug-ins/svg/Makefile
+plug-ins/shape/Makefile
 )
 
 echo "

@@ -1,3 +1,13 @@
+2000-10-08  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/Makefile.am (SUBDIRS): add shape to the subdirs list.
+
+	* plug-ins/shape/*: the shape export plugin by Steffen Macke.
+
+	* app/interface.c (fill_sheet_wbox): use gdk-pixbuf to load the
+	object icon when loading from a file.  This allows you to have PNG
+	icon files for shapes.
+
 2000-10-07  James Henstridge  <james@daa.com.au>
 
 	* app/Makefile.am (dia_LDADD): remove GDK_IMLIB_LIBS reference.

@@ -18,16 +18,12 @@
 /* $Header$ */
 
 #include "config.h"
-
 #include "interface.h"
-
 #include "pixmaps.h"
-
 #include "preferences.h"
-
 #include "commands.h"
-
 #include "dia_dirs.h"
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 ToolButton tool_data[] =
 {
@@ -550,9 +546,13 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			gtk_widget_get_colormap(sheet_wbox), &mask, 
 			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap);
     } else if (sheet_obj->pixmap_file != NULL) {
-      pixmap = gdk_pixmap_colormap_create_from_xpm(NULL,
-			gtk_widget_get_colormap(sheet_wbox), &mask,
-			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap_file);
+      GdkPixbuf *pixbuf;
+
+      pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file);
+      if (pixbuf != NULL) {
+	gdk_pixbuf_render_pixmap_and_mask(pixbuf, &pixmap, &mask, 1.0);
+	gdk_pixbuf_unref(pixbuf);
+      }
     } else {
       ObjectType *type;
       type = object_get_type(sheet_obj->object_type);
