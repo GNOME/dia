@@ -1,6 +1,7 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm dummy dxf hpgl metapost pstricks shape svg wmf wpg xfig
+# dummy
+PLUGINS = cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig
 
 #broken since StdProp overhaul : diaimport 
 
@@ -73,7 +74,7 @@ OBJECTS = \
 !IFDEF OBJ_svg
 OBJECTS = \
   svg.obj \
-#  svg-import.obj \
+  svg-import.obj \
   render_svg.obj
 !ENDIF
 
@@ -97,25 +98,6 @@ PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
 !IFNDEF OBJECTS
 OBJECTS = $(PACKAGE).obj
 !ENDIF
-
-## common stuff
-## compiler and linker switches
-!IFNDEF DEBUG
-# Full optimization:
-OPTIMIZE = -Ox -MD
-LINKDEBUG =
-!ELSE
-# Debugging:
-OPTIMIZE = -Zi -MDd
-LINKDEBUG = /debug
-!ENDIF
-
-# cl -? describes the options
-CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
-
-# No general LDFLAGS needed
-LDFLAGS = /link $(LINKDEBUG)
-INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
 

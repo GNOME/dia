@@ -1,3 +1,24 @@
+2002-10-12  Hans Breuer  <hans@breuer.org>
+
+	[decrease inter-plug-in-dependencies]
+
+	* objects/custom/shape_info.[hc] : move parse_style()
+	to lib/dia_svg.[hc] as dia_svg_parse_style(); Namespace
+	the related structs and constants.
+	* objects/custom/custom_object.c : reflect namespace
+	changes
+
+	* lib/dia_svg.[hc] : new files
+	* lib/makefile.msc lib/Makefile.am : add new files
+	* lib/libdia.def : updated externals
+
+	* plug-ins/svg/svg-import.c : use dia_svg_parse_style()
+
+	* plug-ins/svg/svg.c : enable svg import for win32 (and
+	probably for other non ELF builds)
+
+	* plug-ins/makefile.msc : enable svg import
+
 2002-10-11  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/metapost/render_metapost.[hc] : ported

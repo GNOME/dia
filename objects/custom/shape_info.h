@@ -28,6 +28,7 @@
 #include "object.h"
 #include "text.h"
 #include "intl.h"
+#include "dia_svg.h"
 
 typedef enum {
   GE_LINE,
@@ -41,7 +42,6 @@ typedef enum {
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
-typedef struct _GraphicStyle GraphicStyle;
 typedef struct _GraphicElementAny GraphicElementAny;
 typedef struct _GraphicElementLine GraphicElementLine;
 typedef struct _GraphicElementPoly GraphicElementPoly;
@@ -50,42 +50,9 @@ typedef struct _GraphicElementEllipse GraphicElementEllipse;
 typedef struct _GraphicElementPath GraphicElementPath;
 typedef struct _GraphicElementText GraphicElementText;
 
-/* special colours */
-#define COLOUR_NONE -1
-#define COLOUR_FOREGROUND -2
-#define COLOUR_BACKGROUND -3
-#define COLOUR_TEXT -4
-
-/* these should be changed if they ever cause a conflict */
-#define LINECAPS_DEFAULT 20
-#define LINEJOIN_DEFAULT 20
-#define LINESTYLE_DEFAULT 20
-
-/* choose default font name for your locale. see also font_data structure
-   in lib/font.c. if "Courier" works for you, it would be better.  */
-#define FONT_DEFAULT N_("Courier")
-#define FONT_HEIGHT_DEFAULT 1
-#define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
-#define FONT_NAME_LENGTH_MAX 40
-
-struct _GraphicStyle {
-  real line_width;
-  gint32 stroke;
-  gint32 fill;
-
-  LineCaps linecap;
-  LineJoin linejoin;
-  LineStyle linestyle;
-  real dashlength;
-
-  DiaFont *font;
-  real font_height;
-  Alignment alignment;
-};
-
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
-  GraphicStyle s
+  DiaSvgGraphicStyle s
 
 struct _GraphicElementAny {
   SHAPE_INFO_COMMON;
@@ -179,8 +146,7 @@ ShapeInfo *shape_info_getbyname(const gchar *name);
 
 void shape_info_realise(ShapeInfo* info);
 void shape_info_print(ShapeInfo *info);
-void parse_style(xmlNodePtr node, GraphicStyle *s);
-void parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s);
+void parse_path(ShapeInfo *info, const char *path_str, DiaSvgGraphicStyle *s);
 
 #endif
 

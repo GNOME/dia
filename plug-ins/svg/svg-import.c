@@ -39,15 +39,14 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "dia_xml_libxml.h"
 #include "intl.h"
+#include "dia_svg.h"
 #include "create.h"
-#include "../objects/custom/shape_info.h"
 #include "font.h"
 
 gboolean import_svg(const gchar *filename, DiagramData *dia, void* user_data);
@@ -125,14 +124,14 @@ static PropDescription svg_text_prop_descs[] = {
 /* apply SVG style to object */
 static void
 apply_style(xmlNodePtr node, Object *obj) {
-      GraphicStyle *gs;
+      DiaSvgGraphicStyle *gs;
       GPtrArray *props;
       LinestyleProperty *lsprop;
       ColorProperty *cprop;
       RealProperty *rprop;
       BoolProperty *bprop;
       
-      gs = g_new(GraphicStyle, 1);
+      gs = g_new(DiaSvgGraphicStyle, 1);
       /* SVG defaults */
       gs->stroke = (-1);
       gs->line_width = 0.0;
@@ -140,7 +139,7 @@ apply_style(xmlNodePtr node, Object *obj) {
       gs->dashlength = 1;
       gs->fill = (-1);
       
-      parse_style(node, gs);
+      dia_svg_parse_style(node, gs);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 5);
   
@@ -183,10 +182,15 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
     Object *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
-    ShapeInfo *si;
     char *str;
     GList *tmp;
     
+#if 0
+    ShapeInfo *si;
+    /* the original code sets: si->display_list = NULL
+     * so the code below has no effect anyway and now it
+     * it doesn't compile anymore ...        --hb
+     */
     str = xmlGetProp(node, "d");
     si = g_new(ShapeInfo, 1);
     si->display_list = NULL;
@@ -228,6 +232,7 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
       }    
     }
     g_free(si);
+#endif
 }
 
 
@@ -242,12 +247,15 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
     TextProperty *prop;
     xmlChar *str;
     char *old_locale;
-    GraphicStyle *gs;
+    DiaSvgGraphicStyle *gs;
 
-    gs = g_new(GraphicStyle, 1);
+    gs = g_new(DiaSvgGraphicStyle, 1);
     gs->font = NULL;
     gs->font_height = 1.0;
     gs->alignment = ALIGN_CENTER;
+
+    point.x = 0;
+    point.y = 0;
 
     str = xmlGetProp(node, "x");
     if (str) {
@@ -256,7 +264,7 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
       setlocale(LC_NUMERIC, old_locale);
       xmlFree(str);
     }
-    else return;
+
     str = xmlGetProp(node, "y");
     if (str) {
       old_locale = setlocale(LC_NUMERIC, "C");
@@ -264,32 +272,33 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
       setlocale(LC_NUMERIC, old_locale);
       xmlFree(str);
     }
-    else return;
+
     str = xmlNodeGetContent(node);
-    if(!str) return;
-    
-    new_obj = otype->ops->create(&point, otype->default_user_data,
+    if(str) {
+      new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    layer_add_object(dia->active_layer, new_obj);
+      layer_add_object(dia->active_layer, new_obj);
 
-    props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
-    g_assert(props->len == 1);
+      props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
+      g_assert(props->len == 1);
 
-    parse_style(node, gs);
+      dia_svg_parse_style(node, gs);
     
-    if(gs->font == NULL) {
+      if(gs->font == NULL) {
 	gs->font = dia_font_new_from_legacy_name(_("Courier"));
+      }
+      prop = g_ptr_array_index(props, 0);
+      g_free(prop->text_data);
+      prop->text_data = g_strdup(str);
+      xmlFree(str);
+      prop->attr.alignment = gs->alignment;
+      prop->attr.position.x = point.x;
+      prop->attr.position.y = point.y;
+      prop->attr.font = gs->font;
+      prop->attr.height = gs->font_height;
+      new_obj->ops->set_props(new_obj, props);
+      prop_list_free(props);
     }
-    prop = g_ptr_array_index(props, 0);
-    g_free(prop->text_data);
-    prop->text_data = str;
-    prop->attr.alignment = gs->alignment;
-    prop->attr.position.x = point.x;
-    prop->attr.position.y = point.y;
-    prop->attr.font = gs->font;
-    prop->attr.height = gs->font_height;
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
     g_free(gs);
 }
 

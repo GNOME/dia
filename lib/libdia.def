@@ -245,6 +245,8 @@ EXPORTS
  dia_renderer_get_height_pixels
  dia_renderer_set_size
 
+ dia_svg_parse_style
+
  dia_svg_renderer_get_type
 
  dia_transform_new

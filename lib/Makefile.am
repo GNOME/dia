@@ -116,7 +116,9 @@ libdia_la_SOURCES =  \
 		diasvgrenderer.h \
 		diasvgrenderer.c \
 		dialibartrenderer.h \
-		dialibartrenderer.c 
+		dialibartrenderer.c \
+		dia_svg.h \
+		dia_svg.c
 
 #		charconv.c \
 #		charconv.h 

@@ -30,6 +30,7 @@ OBJECTS = \
 	diatransform.obj \
 	dia_dirs.obj \
 	dia_image.obj \
+	dia_svg.obj \
 	dia_xml.obj \
 	diagramdata.obj \
 	diagdkrenderer.obj \

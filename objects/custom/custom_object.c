@@ -490,15 +490,15 @@ static void
 get_colour(Custom *custom, Color *colour, gint32 c)
 {
   switch (c) {
-  case COLOUR_NONE:
+  case DIA_SVG_COLOUR_NONE:
     break;
-  case COLOUR_FOREGROUND:
+  case DIA_SVG_COLOUR_FOREGROUND:
     *colour = custom->border_color;
     break;
-  case COLOUR_BACKGROUND:
+  case DIA_SVG_COLOUR_BACKGROUND:
     *colour = custom->inner_color;
     break;
-  case COLOUR_TEXT:
+  case DIA_SVG_COLOUR_TEXT:
     *colour = custom->text->color;
     break;
   default:
@@ -550,22 +550,22 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
             renderer_ops->set_linewidth(renderer,
                                          custom->border_width*cur_line);
         }
-        if ((el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
+    if ((el->any.s.linecap == DIA_SVG_LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
             el->any.s.linecap != cur_caps) {
-            cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
+      cur_caps = (el->any.s.linecap!=DIA_SVG_LINECAPS_DEFAULT) ?
                 el->any.s.linecap : LINECAPS_BUTT;
             renderer_ops->set_linecaps(renderer, cur_caps);
         }
-        if ((el->any.s.linejoin==LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
+    if ((el->any.s.linejoin==DIA_SVG_LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
             el->any.s.linejoin != cur_join) {
-            cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
+      cur_join = (el->any.s.linejoin!=DIA_SVG_LINEJOIN_DEFAULT) ?
                 el->any.s.linejoin : LINEJOIN_MITER;
             renderer_ops->set_linejoin(renderer, cur_join);
         }
-        if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
+    if ((el->any.s.linestyle == DIA_SVG_LINESTYLE_DEFAULT &&
              cur_style != custom->line_style) ||
             el->any.s.linestyle != cur_style) {
-            cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
+      cur_style = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
                 el->any.s.linestyle : custom->line_style;
             renderer_ops->set_linestyle(renderer, cur_style);
         }
@@ -582,16 +582,16 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
             case GE_LINE:
                 transform_coord(custom, &el->line.p1, &p1);
                 transform_coord(custom, &el->line.p2, &p2);
-                if (el->any.s.stroke != COLOUR_NONE)
-                    renderer_ops->draw_line(renderer, &p1, &p2, &fg);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_line(renderer, &p1, &p2, &fg);
                 break;
             case GE_POLYLINE:
                 g_array_set_size(arr, el->polyline.npoints);
                 for (i = 0; i < el->polyline.npoints; i++)
                     transform_coord(custom, &el->polyline.points[i],
                                     &g_array_index(arr, Point, i));
-                if (el->any.s.stroke != COLOUR_NONE)
-                    renderer_ops->draw_polyline(renderer,
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_polyline(renderer,
                                                  (Point *)arr->data, el->polyline.npoints,
                                                  &fg);
                 break;
@@ -600,11 +600,11 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                 for (i = 0; i < el->polygon.npoints; i++)
                     transform_coord(custom, &el->polygon.points[i],
                                     &g_array_index(arr, Point, i));
-                if (custom->show_background && el->any.s.fill != COLOUR_NONE) 
+                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
                     renderer_ops->fill_polygon(renderer,
                                                 (Point *)arr->data, el->polygon.npoints,
                                                 &bg);
-                if (el->any.s.stroke != COLOUR_NONE)
+                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
                     renderer_ops->draw_polygon(renderer,
                                                 (Point *)arr->data, el->polygon.npoints,
                                                 &fg);
@@ -622,9 +622,9 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                     p1.y = p2.y;
                     p2.y = coord;
                 }
-                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
                     renderer_ops->fill_rect(renderer, &p1, &p2, &bg);
-                if (el->any.s.stroke != COLOUR_NONE)
+                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
                     renderer_ops->draw_rect(renderer, &p1, &p2, &fg);
                 break;
             case GE_TEXT:
@@ -634,12 +634,12 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                 break;
             case GE_ELLIPSE:
                 transform_coord(custom, &el->ellipse.center, &p1);
-                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
                     renderer_ops->fill_ellipse(renderer, &p1,
                                                 el->ellipse.width * fabs(custom->xscale),
                                                 el->ellipse.height * fabs(custom->yscale),
                                                 &bg);
-                if (el->any.s.stroke != COLOUR_NONE)
+                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
                     renderer_ops->draw_ellipse(renderer, &p1,
                                                 el->ellipse.width * fabs(custom->xscale),
                                                 el->ellipse.height * fabs(custom->yscale),
@@ -659,7 +659,7 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                             transform_coord(custom, &el->path.points[i].p1,
                                             &g_array_index(barr, BezPoint, i).p1);
                     }
-                if (el->any.s.stroke != COLOUR_NONE)
+                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
                     renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &fg);
                 break;
@@ -677,10 +677,10 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                             transform_coord(custom, &el->path.points[i].p1,
                                             &g_array_index(barr, BezPoint, i).p1);
                     }
-                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
                     renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &bg);
-                if (el->any.s.stroke != COLOUR_NONE)
+                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
                     renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &fg);
                 break;

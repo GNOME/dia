@@ -26,9 +26,7 @@
 #include "plug-ins.h"
 
 extern DiaExportFilter svg_export_filter;
-#ifndef _MSC_VER
 extern DiaImportFilter svg_import_filter;
-#endif
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -41,8 +39,7 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&svg_export_filter);
-#ifndef _MSC_VER
   filter_register_import(&svg_import_filter);
-#endif
+
   return DIA_PLUGIN_INIT_OK;
 }
