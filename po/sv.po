@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-02-10 14:49+0100\n"
-"PO-Revision-Date: 2003-02-10 14:51+0100\n"
+"POT-Creation-Date: 2003-02-16 16:16+0100\n"
+"PO-Revision-Date: 2003-02-16 16:17+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -505,11 +505,11 @@ msgstr "Ingen objektmeny"
 msgid "Diagram modified!"
 msgstr "Diagrammet är ändrat!"
 
-#: app/display.c:866
+#: app/display.c:890
 msgid "<unnamed>"
 msgstr "<namnlös>"
 
-#: app/display.c:868
+#: app/display.c:892
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -518,11 +518,11 @@ msgstr ""
 "Diagrammet \"%s\"\n"
 "har inte sparats. Vill du spara ändringar nu?"
 
-#: app/display.c:879
+#: app/display.c:903
 msgid "Close Diagram"
 msgstr "Stäng diagram"
 
-#: app/display.c:884
+#: app/display.c:908
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
@@ -532,7 +532,7 @@ msgstr "Förkasta ändringar"
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunde inte öppna: \"%s\" för skrivning.\n"
@@ -882,7 +882,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste ange en fil, inte en katalog.\n"
 
 #: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:81
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: \"%s\" för läsning.\n"
@@ -2374,16 +2374,16 @@ msgstr "Kunde inte hitta insticksmodulens init-funktion i \"%s\""
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Symbolen \"dia_plugin_init\" saknas"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
 msgstr "Anropet dia_plugin_init() misslyckades"
 
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Insticksmodulen %s kunde inte laddas ur"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2658,7 +2658,7 @@ msgid "Total:"
 msgstr "Totalt:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
 #: objects/standard/zigzagline.c:495 objects/UML/association.c:691
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
@@ -2666,7 +2666,7 @@ msgid "Add segment"
 msgstr "Lägg till segment"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
 #: objects/standard/zigzagline.c:496 objects/UML/association.c:692
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
@@ -3934,7 +3934,7 @@ msgstr ""
 "För att underlätta läsning kan flöden som börjar och slutar vertikalt färgas "
 "gråa"
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:561
 msgid "SADT Arrow"
 msgstr "SADT-pil"
 
@@ -4539,7 +4539,7 @@ msgstr "Kan inte exportera png utan libart!"
 msgid "dia shape file"
 msgstr "dia-figurfil"
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4776,43 +4776,45 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 msgid "XFig File Format"
 msgstr "XFig-filformat"
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "DIA_PLUGIN_PATH är inte inställt. Stilmallar är inte tillgängliga.\n"
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fel vid tolkning av %s\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fel vid tolkning av stilmallen %s\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:105
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "Fel vid tillämpning av stilmallen %s\n"
+
+#: plug-ins/xslt/xslt.c:113
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fel vid tolkning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:121
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fel vid tillämpning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:283
 msgid "XSL Transformation filter"
 msgstr "XSL-transformationsfilter"
 
-#: plug-ins/xslt/xslt.c:197
+#: plug-ins/xslt/xslt.c:298
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
 msgstr "Kunde inte läsa in XSLT-iblioteket (%s): %s"
 
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"Kunde inte läsa in XSLT-insticksmodulen; DIA_PLUGIN_PATH är inte inställd."
+"Ingen giltig konfigurationsfil hittades för XSLT-insticksmodulen, läser inte "
+"in."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6201,6 +6203,14 @@ msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
+#~ msgstr ""
+#~ "DIA_PLUGIN_PATH är inte inställt. Stilmallar är inte tillgängliga.\n"
+
+#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#~ msgstr ""
+#~ "Kunde inte läsa in XSLT-insticksmodulen; DIA_PLUGIN_PATH är inte inställd."
 
 #~ msgid "Plugins"
 #~ msgstr "Insticksmoduler"
