@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-29 19:28+0200\n"
-"PO-Revision-Date: 2003-09-01 21:39+0200\n"
+"POT-Creation-Date: 2003-09-08 19:34+0200\n"
+"PO-Revision-Date: 2003-09-09 22:06+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -515,7 +515,7 @@ msgstr "%0.3gcm × %0.3gcm"
 msgid "Page Setup"
 msgstr "Nastavení stránky"
 
-#: app/disp_callbacks.c:78 app/properties.c:144
+#: app/disp_callbacks.c:78 app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -563,7 +563,7 @@ msgstr "Zahodit změny"
 #: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -915,7 +915,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Musíte zadat soubor, ne adresář.\n"
 
 #: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1505 plug-ins/xslt/xslt.c:78
+#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít '%s' pro čtení.\n"
@@ -1888,19 +1888,19 @@ msgstr "Ne"
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: app/properties.c:52
+#: app/properties.c:55
 msgid "Object properties"
 msgstr "Vlastnosti objektu"
 
-#: app/properties.c:78
+#: app/properties.c:81
 msgid "This object has no properties."
 msgstr "Tento objekt nemá žádné vlastnosti."
 
-#: app/properties.c:194
+#: app/properties.c:203
 msgid "Properties: "
 msgstr "Vlastnosti:"
 
-#: app/properties.c:198
+#: app/properties.c:207
 msgid "Object properties:"
 msgstr "Vlastnosti objektu:"
 
@@ -4590,11 +4590,15 @@ msgstr "export/import bitmapy založené na gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Exportní filtr TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:828
+#: plug-ins/pstricks/render_pstricks.c:650
+msgid "Not valid UTF8"
+msgstr "Není platné UTF8"
+
+#: plug-ins/pstricks/render_pstricks.c:868
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -4620,11 +4624,11 @@ msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
-#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
-#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:213
-#: plug-ins/xfig/xfig-import.c:250 plug-ins/xfig/xfig-import.c:278
-#: plug-ins/xfig/xfig-import.c:315 plug-ins/xfig/xfig-import.c:351
-#: plug-ins/xfig/xfig-import.c:392
+#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
+#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
+#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
+#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
+#: plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
 
@@ -4649,11 +4653,11 @@ msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry do formátu Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1089
+#: plug-ins/wmf/wmf.cpp:1100
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1103
+#: plug-ins/wmf/wmf.cpp:1114
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -4689,179 +4693,180 @@ msgstr ""
 msgid "XFig format"
 msgstr "Formát XFig"
 
-#: plug-ins/xfig/xfig-import.c:461
+#: plug-ins/xfig/xfig-import.c:472
 msgid "Patterns are not supported by Dia"
 msgstr "Vzory nejsou aplikací Dia podporovány"
 
-#: plug-ins/xfig/xfig-import.c:489
+#: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 "Trojitě tečkované čáry nejsou aplikací Dia podporovány, použijí se dvojitě "
 "tečkované"
 
-#: plug-ins/xfig/xfig-import.c:493
+#: plug-ins/xfig/xfig-import.c:504
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Styl čáry %d by se neměl objevit\n"
 
-#: plug-ins/xfig/xfig-import.c:562
+#: plug-ins/xfig/xfig-import.c:573
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Chyba při čtení bodu č. %d z %d: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:584
+#: plug-ins/xfig/xfig-import.c:595
 msgid "Error while reading arrowhead\n"
 msgstr "Chyba při čtení hlavičky šipky\n"
 
-#: plug-ins/xfig/xfig-import.c:604
+#: plug-ins/xfig/xfig-import.c:615
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Neznámý typ šipky %d\n"
 
-#: plug-ins/xfig/xfig-import.c:701
+#: plug-ins/xfig/xfig-import.c:712
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Nelze načíst informace o elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:769
+#: plug-ins/xfig/xfig-import.c:780
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Nelze načíst informace o lomené čáře: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:784
+#: plug-ins/xfig/xfig-import.c:795
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Nelze načíst převrácený bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:802
+#: plug-ins/xfig/xfig-import.c:813
 msgid "Negative corner radius, negating"
 msgstr "Negativní poloměr rohu, neguje se"
 
-#: plug-ins/xfig/xfig-import.c:846 plug-ins/xfig/xfig-import.c:1162
+#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznámý podtyp lomené čáry: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:996 plug-ins/xfig/xfig-import.c:1028
+#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Nelze načíst informace o křivce: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1015 plug-ins/xfig/xfig-import.c:1033
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
 msgstr "Nelze zatím převést aproximovanou křivku."
 
-#: plug-ins/xfig/xfig-import.c:1073
+#: plug-ins/xfig/xfig-import.c:1084
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Neznámý podtyp křivky: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1136
+#: plug-ins/xfig/xfig-import.c:1147
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Nelze načíst informace o oblouku: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1226
+#: plug-ins/xfig/xfig-import.c:1237
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Nelze načíst informace o textu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1267
+#: plug-ins/xfig/xfig-import.c:1278
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Nelze identifikovat objekt FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1274
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Compound end outside compound\n"
 msgstr "Složený objekt končí mimo složený objekt\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1305
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Nelze načíst barvu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1338
+#: plug-ins/xfig/xfig-import.c:1350
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Nelze načíst rozšíření skupiny: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1349
+#: plug-ins/xfig/xfig-import.c:1361
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznámý typ objektu: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1372
+#: plug-ins/xfig/xfig-import.c:1384
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "Hodnota `%s' není jedna z hodnot `%s' nebo `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1382
+#: plug-ins/xfig/xfig-import.c:1394
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Chyba při čtení velikosti papíru: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1392
+#: plug-ins/xfig/xfig-import.c:1404
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznámá velikost papíru `%s', použije se výchozí\n"
 
-#: plug-ins/xfig/xfig-import.c:1404
+#: plug-ins/xfig/xfig-import.c:1416
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Chyba při čtení orientace papíru: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1414
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Chyba při čtení zarovnání: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1424
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Chyba při čtení jednotek: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1438
+#: plug-ins/xfig/xfig-import.c:1450
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Chyba při čtení zvětšení: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1449
+#: plug-ins/xfig/xfig-import.c:1461
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Chyba při čtení indikátoru více stran: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1460
+#: plug-ins/xfig/xfig-import.c:1472
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Chyba při čtení transparentní barvy: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1469 plug-ins/xfig/xfig-import.c:1524
+#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
+#: plug-ins/xfig/xfig-import.c:1554
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Chyba při čtení souboru FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1471 plug-ins/xfig/xfig-import.c:1526
+#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
 msgid "Premature end of FIG file\n"
 msgstr "Předčasný konec souboru ve formátu FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:1480
+#: plug-ins/xfig/xfig-import.c:1492
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Chyba při čtení rozlišení: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1511
+#: plug-ins/xfig/xfig-import.c:1523
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "To nevypadá jako soubor ve formátu Fig: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1517
+#: plug-ins/xfig/xfig-import.c:1529
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Toto je soubor ve formátu FIG verze %d.%d, možná bude nesrozumitelný\n"
 
-#: plug-ins/xfig/xfig-import.c:1558
+#: plug-ins/xfig/xfig-import.c:1577
 msgid "XFig File Format"
 msgstr "Formát souboru XFig"
 
@@ -5307,7 +5312,7 @@ msgstr "Příkazové ústrojí relé"
 msgid "Components for electric circuits"
 msgstr "Komponenty pro elektrické obvody"
 
-#: sheets/Electric.sheet.in.h:3
+#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Přípojný bod"
 
@@ -5624,14 +5629,10 @@ msgid "5/3 distributor"
 msgstr "Rozdělovač 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "Přípojný bod"
-
-#: sheets/Pneumatic.sheet.in.h:8
 msgid "Air exhaust orifice"
 msgstr "Ústí vývěvy"
 
-#: sheets/Pneumatic.sheet.in.h:9
+#: sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Komponenty pro pneumatické a hydraulické obvody"
 
@@ -7149,9 +7150,6 @@ msgstr "Replikační server Sybase"
 
 #~ msgid "Box with text inside"
 #~ msgstr "Obdélník s textem uvnitř"
-
-#~ msgid "Diamond with text inside"
-#~ msgstr "Diamant s textem uvnitř"
 
 #~ msgid "Ellipse with text inside"
 #~ msgstr "Elipsa s textem uvnitř"
