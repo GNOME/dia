@@ -1,3 +1,9 @@
+2002-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/render.h: 
+	* lib/render.c: 
+	Arc arrow prework.
+
 2002-07-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/group.c (group_draw): Forgotten commit: Groups to draw as

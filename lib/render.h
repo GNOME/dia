@@ -258,10 +258,11 @@ typedef void (*DrawPolyLineWithArrowsFunc) (Renderer *renderer,
 					    Arrow *start_arrow,
 					    Arrow *end_arrow);
 
+/* Note that this is different from the normal DrawArc function */
 typedef void (*DrawArcWithArrowsFunc) (Renderer *renderer,
-				       Point *center,
-				       real width, real height,
-				       real angle1, real angle2,
+				       Point *start, Point *end,
+				       Point *mid,
+				       real line_width,
 				       Color *color,
 				       Arrow *start_arrow,
 				       Arrow *end_arrow);

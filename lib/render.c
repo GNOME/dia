@@ -104,6 +104,13 @@ static void draw_polyline_with_arrows(Renderer *renderer,
 				      Color *line_color,
 				      Arrow *start_arrow,
 				      Arrow *end_arrow);
+static void draw_arc_with_arrows(Renderer *renderer, 
+				 Point *start, Point *end,
+				 Point *midpoint,
+				 real line_width,
+				 Color *color,
+				 Arrow *start_arrow,
+				 Arrow *end_arrow);
 static void draw_bezier_with_arrows(Renderer *renderer, 
 				    BezPoint *points,
 				    int num_points,
@@ -166,7 +173,7 @@ static RenderOps AbstractRenderOps = {
   /* placeholders */
   draw_line_with_arrows, /* DrawLineWithArrowsFunc */
   draw_polyline_with_arrows, /* DrawPolyLineWithArrowsFunc */
-  NULL, /* DrawArcWithArrowsFunc */
+  draw_arc_with_arrows, /* DrawArcWithArrowsFunc */
   draw_bezier_with_arrows,
 
   draw_object,
@@ -488,6 +495,180 @@ draw_polyline_with_arrows(Renderer *renderer,
 
   points[firstline] = oldstart;
   points[lastline-1] = oldend;
+}
+
+/** Figure the equation for a line given by two points.
+ * Returns FALSE if the line is vertical (infinite a).
+ */
+static gboolean
+points_to_line(real *a, real *b, Point *p1, Point *p2)
+{
+    if (p1->x - p2->x < 0.000000001)
+      return FALSE;
+    *a = (p2->y-p1->y)/(p2->x-p1->x);
+    *b = p1->y+(*a)*p1->x;
+    return TRUE;
+}
+
+/** Find the intersection between two lines.
+ * Returns TRUE if the lines intersect in a single point.
+ */
+static gboolean
+intersection_line_line(Point *cross,
+		       Point *p1a, Point *p1b,
+		       Point *p2a, Point *p2b)
+{
+  real a1, b1, a2, b2;
+
+  /* Find coefficients of lines */
+  if (!(points_to_line(&a1, &b1, p1a, p1b))) {
+    if (!(points_to_line(&a2, &b2, p2a, p2b))) {
+      if (p1a->x-p2a->x < 0.00000001) {
+	*cross = *p1a;
+	return TRUE;
+      } else return FALSE;
+    }
+    cross->x = p1a->x;
+    cross->y = a2*(p1a->x)+b2;
+    return TRUE;
+  }
+  if (!(points_to_line(&a2, &b2, p2a, p2b))) {
+    cross->x = p2a->x;
+    cross->y = a1*(p2a->x)+b1;
+    return TRUE;
+  }
+  /* Solve */
+  if (a1-a2 < 0.000000001) {
+    if (b1-b2 < 0.0000001) {
+      *cross = *p1a;
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  } else {
+    cross->x = (b1-b2)/(a1-a2);
+    cross->y = a1*cross->x+b1;
+    return TRUE;
+  }
+}
+
+/** Given three points, find the center of the circle they describe.
+ * Returns FALSE if the center could not be determined (i.e. the points
+ * all lie really close together).
+ */
+static gboolean
+find_center_point(Point *center, Point *p1, Point *p2, Point *p3) 
+{
+  Point mid1;
+  Point mid2;
+  Point orth1;
+  Point orth2;
+  real tmp;
+
+  /* Find vector from middle between two points towards center */
+  mid1 = *p1;
+  point_sub(&mid1, p2);
+  point_scale(&mid1, 0.5);
+  orth1 = mid1;
+  point_add(&mid1, p2); /* Now midpoint between p1 & p2 */
+  tmp = orth1.x;
+  orth1.x = orth1.y;
+  orth1.y = -tmp;
+  point_add(&orth1, &mid1);
+
+  /* Again, with two other points */
+  mid2 = *p2;
+  point_sub(&mid2, p3);
+  point_scale(&mid2, 0.5);
+  orth2 = mid2;
+  point_add(&mid2, p3); /* Now midpoint between p2 & p3 */
+  tmp = orth2.x;
+  orth2.x = orth2.y;
+  orth2.y = -tmp;
+  point_add(&orth2, &mid2);
+
+  /* The intersection between these two is the center */
+  if (!intersection_line_line(center, &mid1, &orth1, &mid2, &orth2)) {
+    /* Degenerate circle */
+    /* Either the points are really close together, or directly apart */
+    printf("Degenerate circle\n");
+    if ((p1->x + p2->x + p3->x)/3 - p1->x < 0.0000001 &&
+	(p1->y + p2->y + p3->y)/3 - p1->y < 0.0000001)
+      return FALSE;
+    
+    return TRUE;
+  }
+  return TRUE;
+}
+
+static void
+draw_arc_with_arrows(Renderer *renderer, 
+		     Point *startpoint, 
+		     Point *endpoint,
+		     Point *midpoint,
+		     real line_width,
+		     Color *color,
+		     Arrow *start_arrow,
+		     Arrow *end_arrow)
+{
+  Point oldstart = *startpoint;
+  Point oldend = *endpoint;
+  Point center;
+
+  if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
+    /* Not sure what to do here */
+  }
+  
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    Point move_arrow, move_line;
+    Point arrow_head;
+    calculate_arrow_point(start_arrow, startpoint, endpoint, 
+			  &move_arrow, &move_line,
+			  line_width);
+    arrow_head = *startpoint;
+    point_sub(&arrow_head, &move_arrow);
+    point_sub(startpoint, &move_line);
+    arrow_draw(renderer, start_arrow->type,
+	       &arrow_head, endpoint,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+#ifdef STEM
+    Point line_start = startpoint;
+    startpoint = arrow_head;
+    point_normalize(&move);
+    point_scale(&move, start_arrow->length);
+    point_sub(startpoint, &move);
+    renderer->ops->draw_line(renderer, &line_start, startpoint, color);
+#endif
+  }
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    Point move_arrow, move_line;
+    Point arrow_head;
+    calculate_arrow_point(end_arrow, endpoint, startpoint,
+ 			  &move_arrow, &move_line,
+			  line_width);
+    arrow_head = *endpoint;
+    point_sub(&arrow_head, &move_arrow);
+    point_sub(endpoint, &move_line);
+    arrow_draw(renderer, end_arrow->type,
+	       &arrow_head, startpoint,
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       color, &color_white);
+#ifdef STEM
+    Point line_start = endpoint;
+    endpoint = arrow_head;
+    point_normalize(&move);
+    point_scale(&move, end_arrow->length);
+    point_sub(endpoint, &move);
+    renderer->ops->draw_line(renderer, &line_start, endpoint, color);
+#endif
+  }
+  renderer->ops->draw_line(renderer, startpoint, endpoint, color);
+
+  *startpoint = oldstart;
+  *endpoint = oldend;
 }
 
 static void
