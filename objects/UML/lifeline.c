@@ -562,6 +562,8 @@ lifeline_apply_properties(Lifeline *lif)
 
   prop_dialog = properties_dialog;
 
+  old_state = (ObjectState*) lifeline_get_state(lif);
+
   /* Read from dialog and put in object: */
 
   lif->draw_focuscontrol = prop_dialog->draw_focus->active;
