@@ -264,10 +264,10 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(savedlg);
-      gtk_widget_destroy(GTK_DIALOG (dialog));
+      gtk_widget_destroy(dialog);
       return;
     }
-    gtk_widget_destroy(GTK_DIALOG (dialog));
+    gtk_widget_destroy(dialog);
   }
 
   dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
@@ -436,10 +436,10 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(exportdlg);
-      gtk_widget_destroy(GTK_DIALOG (dialog));
+      gtk_widget_destroy(dialog);
       return;
     }
-    gtk_widget_destroy(GTK_DIALOG (dialog));
+    gtk_widget_destroy(dialog);
   }
 
   ef = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(export_omenu)

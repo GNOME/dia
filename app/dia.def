@@ -23,6 +23,7 @@ EXPORTS
  diagram_get_sorted_selected
  diagram_get_sorted_selected_remove
  diagram_group_selected
+ diagram_is_modified
  diagram_is_selected
  diagram_load
  new_diagram

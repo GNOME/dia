@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#undef GTK_DISABLE_DEPRECATED /* GtkTypeInfo, gtk_widget_queue_clear, ... */
+
 #include <gtk/gtk.h>
 
 #include "intl.h"

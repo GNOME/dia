@@ -57,7 +57,7 @@ OBJECTS = \
 	handle_ops.obj \
 	interface.obj \
 	layer_dialog.obj \
-	lineprops_area.obj \
+#	lineprops_area.obj \
 	linewidth_area.obj \
 	load_save.obj \
 	magnify.obj \
@@ -77,7 +77,6 @@ OBJECTS = \
 	render_eps.obj \
 	render_gdk.obj \
 	render_libart.obj \
-	render_pixmap.obj \
 	scroll_tool.obj \
 	select.obj \
 	sheets.obj \

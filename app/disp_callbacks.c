@@ -185,7 +185,7 @@ create_object_menu(DiaMenu *dia_menu)
   dia_menu->app_data_free = dia_menu_free;
 }
 
-static DiaMenuItem empty_menu_items[] = { };
+static DiaMenuItem empty_menu_items[] = { 0, };
 static DiaMenu empty_menu = {
   NULL,
   sizeof(empty_menu_items)/sizeof(DiaMenuItem),

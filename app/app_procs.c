@@ -617,10 +617,10 @@ app_exit(void)
     gtk_widget_show_all (dialog);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK) {
-      gtk_widget_destroy(GTK_DIALOG(dialog));
+      gtk_widget_destroy(dialog);
       return;
     }
-    gtk_widget_destroy(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
   }
 
   prefs_save();

@@ -1,3 +1,30 @@
+2004-03-07  Hans Breuer  <hans@breuer.org>
+
+	* lib/diaarrowchooser.c lib/dialinechooser.c : #undef
+	GTK_DISABLE_DEPRECATED (I'd rather like if these widgets
+	would not use deprecated apis, but it's much simpler this way)
+
+	* lib/makefile.msc : build the above new widgets and render_pixmap
+	* lib/libdia.def app/dia.def app/makefile.msc : updated
+
+	* app/disp_callbacks.c : fix gccisms (without being able to make much sense of 
+	what I saw, i.e. how big is an empty array supposed to be ? ;-). 
+	Previously it gave :
+	disp_callbacks.c(188) : error C2059: syntax error : '}'
+	disp_callbacks.c(191) : warning C4034: sizeof returns 0
+
+	* app/interface.c : #include "dialinechooser.h"
+
+	* lib/diagdkrender.c : make the !HAVE_FREETYPE case compile again
+	[one more reason not to use it here : it's quite slow compared to
+	 the native win32 font renderer ;]
+
+	* app/app_procs.c app/filedlg.c : gtk_widget_destroy does not take
+	a GtkDialog*, removed unneeded cast
+
+	* app/render_eps.c : avoid assignment warning for void* user_data
+	not being an int 
+
 2004-03-06  Steffen Macke sdteffen@web.de>
 
 	* shapes/Map/Isometric/Makefile.am: added Makfile for Isometric

@@ -23,6 +23,8 @@
 #include <config.h>
 #endif
 
+#undef GTK_DISABLE_DEPRECATED /* GtkTypeInfo, gtk_widget_queue_clear, ... */
+
 #include "intl.h"
 #include "widgets.h"
 #include "dialinechooser.h"

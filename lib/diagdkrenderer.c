@@ -577,7 +577,7 @@ draw_string (DiaRenderer *object,
   /* My apologies for adding more #hell, but the alternative is an abhorrent
    * kludge.
    */
-#ifdef HAVE_FREETYPE
+#if defined HAVE_FREETYPE
   {
    FT_Bitmap ftbitmap;
    guint8 *graybitmap;
@@ -657,15 +657,18 @@ draw_string (DiaRenderer *object,
     g_object_unref(G_OBJECT(rgba));
   }
 #else
-  gdk_gc_set_foreground(gc, &gdkcolor);
-  dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+  {
+    GdkGC *gc = renderer->gc;
+    gdk_gc_set_foreground(gc, &gdkcolor);
+    dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
 
-  layout = dia_font_scaled_build_layout(
-              text, object->font,
-              object->font_height,
-              dia_transform_length (renderer->transform, 10.0) / 10.0);
-  y -= get_layout_first_baseline(layout);  
-  gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+    layout = dia_font_scaled_build_layout(
+                text, object->font,
+                object->font_height,
+                dia_transform_length (renderer->transform, 10.0) / 10.0);
+    y -= get_layout_first_baseline(layout);  
+    gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+  }
 #endif
 
       /* abuse_layout_object(layout,text); */

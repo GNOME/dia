@@ -36,6 +36,7 @@
 #include "navigation.h"
 #include "persistence.h"
 #include "diaarrowchooser.h"
+#include "dialinechooser.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"

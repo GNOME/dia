@@ -218,6 +218,8 @@ EXPORTS
  dia_interactive_renderer_interface_get_type
  dia_libart_renderer_get_type
 
+ dia_line_chooser_new
+
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
  dia_line_style_selector_new
@@ -368,6 +370,8 @@ EXPORTS
  message_error
  message_notice
  message_warning
+ set_message_func
+ format_string_length_upper_bound
 
  new_object_state_change
 
@@ -523,6 +527,7 @@ EXPORTS
  remove_focus
 
  rotate_matrix
+ nearest_pow
 
  new_text
  text_calc_boundingbox

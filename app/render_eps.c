@@ -145,25 +145,26 @@ DiaExportFilter eps_ft2_export_filter = {
   N_("Encapsulated Postscript (using Pango fonts)"),
   eps_extensions,
   export_ft2_eps,
-  PSTYPE_EPS,
+  GINT_TO_POINTER(PSTYPE_EPS), /* user_data */
   "eps-pango"
 };
-/* Commented out until we can actually make the preview.
+/* Disabled until we can actually make the preview. */
+#  if 0
 DiaExportFilter epsi_ft2_export_filter = {
   N_("Encapsulated Postscript with preview (using Pango fonts)"),
   epsi_extensions,
   export_ft2_eps,
-  PSTYPE_EPSI,
+  GINT_TO_POINTER(PSTYPE_EPSI), /* user_data */
   "epsi-pango"
 };
-*/
+#  endif
 #endif
 
 DiaExportFilter eps_export_filter = {
   N_("Encapsulated Postscript (using PostScript Latin-1 fonts)"),
   eps_extensions,
   export_eps,
-  PSTYPE_EPS,
+  GINT_TO_POINTER(PSTYPE_EPS), /* user_data */
   "eps-builtin"
 };
 /* Commented out until we can actually make the preview.
