@@ -106,6 +106,8 @@ new_display(Diagram *dia)
   ddisp->grid.entry_x = NULL;
   ddisp->grid.entry_y = NULL;
 
+  ddisp->show_cx_pts = prefs.show_cx_pts;
+
   ddisp->autoscroll = TRUE;
 
   ddisp->renderer = NULL;
@@ -341,7 +343,7 @@ ddisplay_obj_render(Object *obj, Renderer *renderer,
   int i;
 
   obj->ops->draw(obj, renderer);
-  if (active_layer) {
+  if (active_layer && ddisp->show_cx_pts) {
     for (i=0;i<obj->num_connections;i++) {
       connectionpoint_draw(obj->connections[i], ddisp);
     }
@@ -755,11 +757,13 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *rulers;
   static GtkWidget *visible_grid;
   static GtkWidget *snap_to_grid;
+  static GtkWidget *show_cx_pts;
 
   if (initialized==0) {
-    rulers = menus_get_item_from_path(_("<Display>/View/Toggle Rulers"));
+    rulers       = menus_get_item_from_path(_("<Display>/View/Show Rulers"));
     visible_grid = menus_get_item_from_path(_("<Display>/View/Visible Grid"));
     snap_to_grid = menus_get_item_from_path(_("<Display>/View/Snap To Grid"));
+    show_cx_pts  = menus_get_item_from_path(_("<Display>/View/Show Connection Points"));
     
     initialized = 1;
   }
@@ -769,11 +773,13 @@ display_update_menu_state(DDisplay *ddisp)
   diagram_update_menu_sensitivity(dia);
 
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
-				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
+				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
 				 ddisp->grid.visible);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
 				 ddisp->grid.snap);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
+				 ddisp->show_cx_pts); 
 }
 
 /* This is called when ddisp->shell is destroyed... */

@@ -55,6 +55,7 @@ struct _DDisplay {
 
   Grid grid;                      /* the grid in this display          */
 
+  gboolean show_cx_pts;		  /* Connection points toggle boolean  */
   gboolean autoscroll;
 
   RendererGdk *renderer;

@@ -1,5 +1,16 @@
 1999-05-18  Alexander Larsson  <alla@lysator.liu.se>
 
+	Patches from Dan Cohn <dan@internap.com>
+	
+	* app/commands.[ch]: 
+	* app/display.[ch]: 
+	* app/menus.c:
+	* app/preferences.[ch]:
+	Implements ability to turn on/off connection points in
+	current drawing and in global prefs.
+
+1999-05-18  Alexander Larsson  <alla@lysator.liu.se>
+
 	* lib/widgets.c (dia_line_style_selector_init): 
 	Fixed warnings.
 	

@@ -705,6 +705,31 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
 
 #ifdef GNOME
 void
+view_show_cx_pts_callback(GtkWidget *widget,
+			  gpointer callback_data)
+#else /* GNOME */
+void
+view_show_cx_pts_callback(gpointer callback_data,
+                          guint callback_action,
+                          GtkWidget *widget)
+#endif /* GNOME */
+{
+  DDisplay *ddisp;
+  int old_val;
+
+  ddisp = ddisplay_active();
+
+  old_val = ddisp->show_cx_pts;
+  ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM (widget)->active;
+  
+  if (old_val != ddisp->show_cx_pts) {
+    ddisplay_add_update_all(ddisp);
+    ddisplay_flush(ddisp);
+  }
+}
+
+#ifdef GNOME
+void
 view_visible_grid_callback(GtkWidget *widget,
 			   gpointer callback_data)
 #else /* GNOME */

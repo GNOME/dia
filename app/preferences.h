@@ -40,6 +40,7 @@ struct DiaPreferences {
     real zoom;
   } new_view;
   
+  int show_cx_pts;
   int reset_tools_after_create;
   int compress_save;
 };
