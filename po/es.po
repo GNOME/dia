@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-14 10:13+0100\n"
-"PO-Revision-Date: 2004-03-14 10:28+0100\n"
+"POT-Creation-Date: 2004-03-22 17:49+0100\n"
+"PO-Revision-Date: 2004-03-22 17:53+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -485,8 +485,8 @@ msgstr "Árbol del diagrama"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
-#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -896,8 +896,7 @@ msgstr "Editar atributos de capa"
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:268 lib/diaarrowchooser.c:248
-#: lib/dialinechooser.c:254
+#: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "Aceptar"
 
@@ -1452,35 +1451,41 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:230
 msgid "Select Printer"
 msgstr "Seleccionar impresora"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:242 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Impresora"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:255 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Archivo"
 
-#: app/paginate_psprint.c:353
+#: app/paginate_psprint.c:358
 #, c-format
-msgid "Could not run command '%s'"
-msgstr "No se pudo ejecutar el comando «%s»"
+msgid "Could not run command '%s': %s"
+msgstr "No se pudo ejecutar el comando «%s»: %s"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:361
 #, c-format
-msgid "Could not open '%s' for writing"
-msgstr "No se pudo abrir «%s» para escritura"
+msgid "Could not open '%s' for writing: %s"
+msgstr "No se pudo abrir «%s» para escritura: %s"
 
-#: app/paginate_psprint.c:381
-msgid "Error occured while printing"
-msgstr "Ocurrió un error mientras se imprimía"
+#: app/paginate_psprint.c:380
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Error de impresión: el comando «%s» devolvió %d\n"
+
+#: app/paginate_psprint.c:390
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Error de impresión: el comando «%s» causó un sigpipe."
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr "Extensiones"
+msgstr "Complementos"
 
 #: app/plugin-manager.c:256
 msgid "Loaded"
@@ -1793,7 +1798,7 @@ msgid "Sheet name:"
 msgstr "Nombre de la hoja:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Salto de línea"
 
@@ -1819,7 +1824,7 @@ msgstr "Tipo:"
 msgid "Sheet"
 msgstr "Hoja"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
 #: objects/UML/association.c:1112 objects/UML/class_dialog.c:879
 #: objects/UML/class_dialog.c:1813 objects/UML/class_dialog.c:2042
@@ -1891,55 +1896,55 @@ msgstr ""
 "%s\n"
 "Tipo no asignado"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "El nombre de archivo debe terminar en «%s»: «%s»"
 
-#: app/sheets_dialog_callbacks.c:807
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Error al examinar %s: %s"
 
-#: app/sheets_dialog_callbacks.c:827
+#: app/sheets_dialog_callbacks.c:828
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "No se pudo interpretar el archivo de figura: «%s»"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
 msgstr "La hoja debe tener un nombre"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "No se pudo abrir «%s»: %s"
 
-#: app/sheets_dialog_callbacks.c:1643
+#: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "No se pudo abrir: «%s» para escritura."
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
 msgstr "un usuario"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Fecha: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr "Para: %s"
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
 msgstr "añadir figuras aquí"
 
@@ -2053,18 +2058,34 @@ msgid "Cross"
 msgstr "Cruz"
 
 #: lib/arrows.c:62
+msgid "1-or-many"
+msgstr "1 o muchos"
+
+#: lib/arrows.c:63
+msgid "0-or-many"
+msgstr "0 o muchos"
+
+#: lib/arrows.c:64
+msgid "1-or-0"
+msgstr "1 o 0"
+
+#: lib/arrows.c:65
+msgid "1 exactly"
+msgstr "1 exactamente"
+
+#: lib/arrows.c:66
 msgid "Filled Concave"
 msgstr "Cóncavo relleno"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:67
 msgid "Blanked Concave"
 msgstr "Cóncavo vacío"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:68
 msgid "Round"
 msgstr "Ronda"
 
-#: lib/arrows.c:65
+#: lib/arrows.c:69
 msgid "Open Round"
 msgstr "Ronda abierta"
 
@@ -2114,7 +2135,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Propiedades de la flecha"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
 msgid "Details..."
 msgstr "Detalles..."
 
@@ -2161,7 +2182,7 @@ msgstr "Vista _preliminar:"
 msgid "Font Selection"
 msgstr "Selección de tipografía"
 
-#: lib/dialinechooser.c:243
+#: lib/dialinechooser.c:287
 msgid "Line Style Properties"
 msgstr "Propiedades de estilo de la línea"
 
@@ -2403,11 +2424,16 @@ msgstr "Multivalor:"
 msgid "Attribute"
 msgstr "Atributo"
 
-#: objects/ER/entity.c:132
+#: objects/ER/entity.c:135
 msgid "Weak:"
 msgstr "Débil:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
+# Activar sería Activate. FVD
+#: objects/ER/entity.c:137
+msgid "Associative:"
+msgstr "Asociativo:"
+
+#: objects/ER/entity.c:406 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entidad"
 
@@ -4311,20 +4337,20 @@ msgid "Flip vertical"
 msgstr "Invertir vertical"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1422
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: objects/custom/custom_object.c:1424
+#: objects/custom/custom_object.c:1423
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: objects/custom/custom_object.c:1461
+#: objects/custom/custom_object.c:1460
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:148 objects/standard/box.c:148
 msgid "Corner radius"
 msgstr "Radio de esquina"
 
@@ -4373,6 +4399,35 @@ msgstr "Control de suavidad"
 msgid "Cusp control"
 msgstr "Control de cúspide"
 
+# Esto en cambio debe ser un sustantivo. FVD
+#: objects/standard/box.c:135 objects/standard/ellipse.c:131
+msgid "Free"
+msgstr "Liberar"
+
+#: objects/standard/box.c:136 objects/standard/ellipse.c:132
+msgid "Fixed"
+msgstr "Fijado"
+
+#: objects/standard/box.c:137 objects/standard/box.c:687
+msgid "Square"
+msgstr "Cuadrado"
+
+#: objects/standard/box.c:150 objects/standard/ellipse.c:144
+msgid "Aspect ratio"
+msgstr "Proporción"
+
+#: objects/standard/box.c:683 objects/standard/ellipse.c:661
+msgid "Free aspect"
+msgstr "Liberar proporción"
+
+#: objects/standard/box.c:685 objects/standard/ellipse.c:663
+msgid "Fixed aspect"
+msgstr "Proporción fija"
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:665
+msgid "Circle"
+msgstr "Círculo"
+
 #: objects/standard/image.c:130
 msgid "Image file"
 msgstr "Archivo de imagen"
@@ -4383,7 +4438,7 @@ msgstr "Dibujar borde"
 
 #: objects/standard/image.c:134
 msgid "Keep aspect ratio"
-msgstr "Mantener proporción de aspecto"
+msgstr "Mantener proporción"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
@@ -5416,14 +5471,12 @@ msgid "Relay (vertical)"
 msgstr "Relé (vertical)"
 
 #: sheets/Electric.sheet.in.h:16
-#, fuzzy
 msgid "The command organ of a relay (horizontal)"
-msgstr "Actuador de un relé"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:17
-#, fuzzy
 msgid "The command organ of a relay (vertical)"
-msgstr "Actuador de un relé"
+msgstr ""
 
 #: sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
@@ -7337,6 +7390,9 @@ msgstr "Un servidor de datos sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
+
+#~ msgid "Error occured while printing"
+#~ msgstr "Ocurrió un error mientras se imprimía"
 
 #~ msgid "_New diagram"
 #~ msgstr "_Nuevo diagrama"
