@@ -140,20 +140,22 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 static void
-zoom_activate_callback(GtkEditable *editable, gpointer user_data) {
-  gchar *zoom_text = gtk_entry_get_text(GTK_ENTRY(editable));
-  float zoom_amount, magnify;
+zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   DDisplay *ddisp = (DDisplay *)user_data;
+  gchar *zoom_text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(ddisp->zoom_status)->entry));
+  float zoom_amount, magnify;
 
   if (sscanf(zoom_text, "%f", &zoom_amount)) {
     Point middle;
     Rectangle *visible;
 
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
-    visible = &ddisp->visible;
-    middle.x = visible->left*0.5 + visible->right*0.5;
-    middle.y = visible->top*0.5 + visible->bottom*0.5;
-    ddisplay_zoom(ddisp, &middle, magnify);
+    if (fabs(magnify - 1.0) > 0.000001) {
+      visible = &ddisp->visible;
+      middle.x = visible->left*0.5 + visible->right*0.5;
+      middle.y = visible->top*0.5 + visible->bottom*0.5;
+      ddisplay_zoom(ddisp, &middle, magnify);
+    }
   }
 }
 
@@ -178,6 +180,10 @@ create_zoom_widget(DDisplay *ddisp) {
   gtk_combo_disable_activate(GTK_COMBO(combo));
 
   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->entry), "activate",
+		      (GtkSignalFunc) zoom_activate_callback,
+		      ddisp);
+
+  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "unmap",
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
 
