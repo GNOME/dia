@@ -92,8 +92,7 @@ open_set_extension(GtkObject *item)
 {
   DiaImportFilter *ifilter = gtk_object_get_user_data(item);
   GString *s;
-  const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)
-                                                   ->selection_entry));
+  const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(opendlg));
   const gchar *last_dot = strrchr(text, '.');
 
   if (!ifilter || last_dot == text || text[0] == '\0' ||
@@ -105,8 +104,8 @@ open_set_extension(GtkObject *item)
     g_string_truncate(s, last_dot-text);
   g_string_append(s, ".");
   g_string_append(s, ifilter->extensions[0]);
-  gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)->selection_entry),
-                     s->str);
+  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(opendlg),
+				    s->str);
   g_string_free (s, TRUE);
 }
 
@@ -146,14 +145,14 @@ create_open_menu(void)
 }
 
 static void
-file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
+file_open_ok_callback(GtkWidget *w, GtkFileChooser *fs)
 {
   const char *filename;
   Diagram *diagram = NULL;
   DiaImportFilter *ifilter;
   DDisplay *ddisp;
 
-  filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(fs));
+  filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
   ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
 						->menu_item));
@@ -169,45 +168,73 @@ file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
   gtk_widget_hide(opendlg);
 }
 
+static void
+file_open_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
+{
+  const char *filename;
+  Diagram *diagram = NULL;
+  DiaImportFilter *ifilter;
+  DDisplay *ddisp;
+
+  if (response == GTK_RESPONSE_ACCEPT) {
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
+    
+    ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
+						  ->menu_item));
+    diagram = diagram_load(filename, ifilter);
+    
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      layer_dialog_set_diagram(diagram);
+      
+      ddisp = new_display(diagram);
+    }
+  }
+  gtk_widget_hide(opendlg);
+}
+
 void
 file_open_callback(gpointer data, guint action, GtkWidget *widget)
 {
   if (!opendlg) {
     DDisplay *ddisp;
     Diagram *dia = NULL;
+    GtkWindow *parent_window;
     gchar *filename = NULL;
     
     ddisp = ddisplay_active();
     if (ddisp) {
       dia = ddisp->diagram;
+      parent_window = GTK_WINDOW(ddisp->shell);
+    } else {
+      parent_window = GTK_WINDOW(interface_get_toolbox_shell());
     }
-    opendlg = gtk_file_selection_new(_("Open Diagram"));
+    opendlg = gtk_file_chooser_dialog_new(_("Open Diagram"), parent_window,
+					  GTK_FILE_CHOOSER_ACTION_OPEN,
+					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					  NULL);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
     if (dia && dia->filename)
       filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename == NULL)
       filename = g_strdup("." G_DIR_SEPARATOR_S);
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg), filename);
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), filename);
     g_free(filename);
-    g_signal_connect_swapped(
-		GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->cancel_button),
-	    "clicked", G_CALLBACK(file_dialog_hide),
-		GTK_OBJECT(opendlg));
+    g_signal_connect(GTK_OBJECT(opendlg), "response",
+		     G_CALLBACK(file_open_response_callback), opendlg);
     g_signal_connect(GTK_OBJECT(opendlg), "delete_event",
 		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(opendlg), "destroy",
-		       G_CALLBACK(gtk_widget_destroyed), &opendlg);
-    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->ok_button),
-		       "clicked", G_CALLBACK(file_open_ok_callback),
-		       opendlg);
+		     G_CALLBACK(gtk_widget_destroyed), &opendlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(opendlg));
   } else {
     gtk_widget_set_sensitive(opendlg, TRUE);
     if (GTK_WIDGET_VISIBLE(opendlg))
       return;
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
-				    "." G_DIR_SEPARATOR_S);
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg),
+				  "." G_DIR_SEPARATOR_S);
   }
   if (!open_options) {
     GtkWidget *hbox, *label, *omenu;
@@ -230,8 +257,8 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 
     gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), create_open_menu());
 
-    gtk_box_pack_end(GTK_BOX (GTK_FILE_SELECTION(opendlg)->main_vbox),
-                      open_options, FALSE, FALSE, 5);
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(opendlg),
+				      open_options);
   }
 
   gtk_widget_show(open_options);
@@ -239,55 +266,56 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 static void
-file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
+file_save_as_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
 {
   const char *filename;
   Diagram *dia;
   struct stat stat_struct;
 
-  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+  if (response == GTK_RESPONSE_ACCEPT) {
+    dia = gtk_object_get_user_data(GTK_OBJECT(fs));
 
-  filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(fs));
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
-  if (stat(filename, &stat_struct) == 0) {
-    GtkWidget *dialog = NULL;
-    char buffer[300];
-    char *utf8filename = NULL;
-    if (!g_utf8_validate(filename, -1, NULL)) {
-      utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
-      if (utf8filename == NULL) {
-	message_warning(_("Some characters in the filename are neither UTF-8 nor your local encoding.\nSome things will break."));
+    if (stat(filename, &stat_struct) == 0) {
+      GtkWidget *dialog = NULL;
+      char buffer[300];
+      char *utf8filename = NULL;
+      if (!g_utf8_validate(filename, -1, NULL)) {
+	utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+	if (utf8filename == NULL) {
+	  message_warning(_("Some characters in the filename are neither UTF-8 nor your local encoding.\nSome things will break."));
+	}
       }
-    }
-    if (utf8filename == NULL) utf8filename = g_strdup(filename);
+      if (utf8filename == NULL) utf8filename = g_strdup(filename);
 
-    g_snprintf(buffer, 300,
-	       _("The file '%s' already exists.\n"
-		 "Do you want to overwrite it?"), utf8filename);
-    g_free(utf8filename);
+      g_snprintf(buffer, 300,
+		 _("The file '%s' already exists.\n"
+		   "Do you want to overwrite it?"), utf8filename);
+      g_free(utf8filename);
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
-                                     GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
-                                     GTK_BUTTONS_YES_NO,
-                                     buffer);
-    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+      dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
+				       GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+				       GTK_BUTTONS_YES_NO,
+				       buffer);
+      gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+      gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
-    if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-      file_dialog_hide(savedlg);
+      if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
+	file_dialog_hide(savedlg);
+	gtk_widget_destroy(dialog);
+	return;
+      }
       gtk_widget_destroy(dialog);
-      return;
     }
-    gtk_widget_destroy(dialog);
+
+    dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+
+    diagram_update_extents(dia);
+
+    diagram_set_filename(dia, filename);
+    diagram_save(dia, filename);
   }
-
-  dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
-
-  diagram_update_extents(dia);
-
-  diagram_set_filename(dia, filename);
-  diagram_save(dia, filename);
-
   file_dialog_hide(savedlg);
 }
 
@@ -303,14 +331,19 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!savedlg) {
-    savedlg = gtk_file_selection_new(_("Save Diagram"));
+    savedlg = gtk_file_chooser_dialog_new(_("Save Diagram"),
+					  GTK_WINDOW(ddisp->shell),
+					  GTK_FILE_CHOOSER_ACTION_SAVE,
+					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					  NULL);
     gtk_window_set_role(GTK_WINDOW(savedlg), "save_diagram");
     gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
     /* Need better way to make it a reasonable size.  Isn't there some*/
     /* standard look for them (or is that just Gnome?)*/
     compressbutton = gtk_check_button_new_with_label(_("Compress diagram files"));
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_FILE_SELECTION(savedlg)->main_vbox),
-				compressbutton);
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(savedlg),
+				      compressbutton);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
 				 dia->data->is_compressed);
     g_signal_connect(G_OBJECT(compressbutton), "toggled",
@@ -319,16 +352,13 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_tooltips_set_tip(tool_tips, compressbutton,
 			 _("Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."), NULL);
     g_signal_connect_swapped(
-		GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->cancel_button),
-		"clicked", G_CALLBACK(file_dialog_hide),
+		(GTK_FILE_CHOOSER(savedlg)),
+		"response", G_CALLBACK(file_save_as_response_callback),
 		GTK_OBJECT(savedlg));
     g_signal_connect(GTK_OBJECT(savedlg), "delete_event",
 		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(savedlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &savedlg);
-    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->ok_button),
-		     "clicked", G_CALLBACK(file_save_as_ok_callback),
-		       savedlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
   } else {
     gtk_widget_set_sensitive(savedlg, TRUE);
@@ -347,7 +377,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename == NULL)
     filename = g_strdup("." G_DIR_SEPARATOR_S);
-  gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg), filename);
+  gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), filename);
   g_free(filename);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
   diagram_add_related_dialog(dia, savedlg);
@@ -374,22 +404,22 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
 static void
 export_set_extension(GtkObject *item)
 {
-  DiaExportFilter *ef = gtk_object_get_user_data(item);
+  DiaExportFilter *efilter = gtk_object_get_user_data(item);
   GString *s;
-  const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(exportdlg)
-                                                   ->selection_entry));
+  const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
   const gchar *last_dot = strrchr(text, '.');
 
-  if (!ef || last_dot == text || text[0] == '\0' || ef->extensions[0] == NULL)
+  if (!efilter || last_dot == text || text[0] == '\0' ||
+      efilter->extensions[0] == NULL)
     return;
 
   s = g_string_new(text);
   if (last_dot)
     g_string_truncate(s, last_dot-text);
   g_string_append(s, ".");
-  g_string_append(s, ef->extensions[0]);
-  gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(exportdlg)->selection_entry),
-		     s->str);
+  g_string_append(s, efilter->extensions[0]);
+  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg),
+				    s->str);
   g_string_free (s, TRUE);
 }
 
@@ -428,52 +458,53 @@ create_export_menu(void)
 }
 
 static void
-file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
+file_export_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
 {
   const char *filename;
   Diagram *dia;
   DiaExportFilter *ef;
   struct stat statbuf;
 
-  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
-  diagram_update_extents(dia);
+  if (response == GTK_RESPONSE_ACCEPT) {
+    dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+    diagram_update_extents(dia);
 
-  filename = gtk_file_selection_get_filename(fs);
+    filename = gtk_file_chooser_get_filename(fs);
 
-  if (stat(filename, &statbuf) == 0) {
-    GtkWidget *dialog = NULL;
-    char buffer[300];
+    if (stat(filename, &statbuf) == 0) {
+      GtkWidget *dialog = NULL;
+      char buffer[300];
 
-    g_snprintf(buffer, 300,
-	       _("The file '%s' already exists.\n"
-		 "Do you want to overwrite it?"), filename);
-    dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
-                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
-				     GTK_MESSAGE_QUESTION,
-                                     GTK_BUTTONS_YES_NO,
-                                     buffer);
-    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+      g_snprintf(buffer, 300,
+		 _("The file '%s' already exists.\n"
+		   "Do you want to overwrite it?"), filename);
+      dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
+				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
+				       GTK_MESSAGE_QUESTION,
+				       GTK_BUTTONS_YES_NO,
+				       buffer);
+      gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+      gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
-    if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-      file_dialog_hide(exportdlg);
+      if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
+	file_dialog_hide(exportdlg);
+	gtk_widget_destroy(dialog);
+	return;
+      }
       gtk_widget_destroy(dialog);
-      return;
     }
-    gtk_widget_destroy(dialog);
+
+    ef = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(export_omenu)
+					     ->menu_item));
+    if (!ef)
+      ef = filter_guess_export_filter(filename);
+    if (ef) {
+      g_object_ref(dia->data); 
+      ef->export_func(dia->data, filename, dia->filename, ef->user_data);
+    } else
+      message_error(_("Could not determine which export filter\n"
+		      "to use to save '%s'"), filename);
   }
-
-  ef = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(export_omenu)
-					   ->menu_item));
-  if (!ef)
-    ef = filter_guess_export_filter(filename);
-  if (ef) {
-    g_object_ref(dia->data); 
-    ef->export_func(dia->data, filename, dia->filename, ef->user_data);
-  } else
-    message_error(_("Could not determine which export filter\n"
-		    "to use to save '%s'"), filename);
-
   file_dialog_hide(exportdlg);
 }
 
@@ -490,26 +521,27 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!exportdlg) {
-    exportdlg = gtk_file_selection_new(_("Export Diagram"));
+    exportdlg = gtk_file_chooser_dialog_new(_("Export Diagram"),
+					    GTK_WINDOW(ddisp->shell),
+					    GTK_FILE_CHOOSER_ACTION_SAVE,
+					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					    NULL);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
     if (dia && dia->filename)
       filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename == NULL)
       filename = g_strdup("." G_DIR_SEPARATOR_S);
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg), filename);
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
 	g_free(filename);
-    g_signal_connect_swapped(
-		GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->cancel_button),
-	    "clicked", G_CALLBACK(file_dialog_hide),
-		GTK_OBJECT(exportdlg));
     g_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
 		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &exportdlg);
-    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->ok_button),
-		     "clicked", G_CALLBACK(file_export_ok_callback),
-		       exportdlg);
+    g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
+		     "response", G_CALLBACK(file_export_response_callback),
+		     exportdlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(exportdlg));
   }
   if (!export_options) {
@@ -533,8 +565,8 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 
     gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), create_export_menu());
 
-    gtk_box_pack_end(GTK_BOX (GTK_FILE_SELECTION(exportdlg)->main_vbox),
-		      export_options, FALSE, FALSE, 5);
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(exportdlg),
+				      export_options);
   }
  
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
@@ -547,7 +579,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename == NULL)
     filename = g_strdup("." G_DIR_SEPARATOR_S);
-  gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg), filename);
+  gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
   g_free(filename);
   export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
   export_item = gtk_menu_get_active(GTK_MENU(export_menu));

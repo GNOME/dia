@@ -1251,7 +1251,7 @@ diagram_place_down_selected(Diagram *dia)
 }
 
 void
-diagram_set_filename(Diagram *dia, char *filename)
+diagram_set_filename(Diagram *dia, const char *filename)
 {
   GSList *l;
   DDisplay *ddisp;
@@ -1274,7 +1274,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   g_free(title);
 
   layer_dialog_update_diagram_list();
-  recent_file_history_add((const char *)filename);
+  recent_file_history_add(filename);
 
   diagram_tree_update_name(diagram_tree(), dia);
 }

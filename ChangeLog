@@ -1,5 +1,11 @@
 2004-11-02  Lars Clausen  <lars@raeder.dk>
 
+	* app/filedlg.c: Changed to use 2.4 file dialog!  Finally,
+	finally, finally.  Not quite bulletproof yet, and I need to figure
+	out a minimum version of Gtk that doesn't spew warnings all over.
+
+	* app/diagram.[ch]: diagram_set_filename with const filename.
+
 	* app/sheets_dialog_callbacks.c
 	(on_sheets_dialog_button_apply_clicked): Sheet menu now almost
 	correctly recreated.  Still something fishy with the sheet menu in

@@ -135,7 +135,7 @@ void diagram_parent_selected(Diagram *dia);
 void diagram_unparent_selected(Diagram *dia);
 void diagram_unparent_children_selected(Diagram *dia);
 
-void diagram_set_filename(Diagram *dia, char *filename);
+void diagram_set_filename(Diagram *dia, const char *filename);
 gchar *diagram_get_name(Diagram *dia);
 
 int diagram_modified_exists(void);
