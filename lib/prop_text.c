@@ -27,10 +27,7 @@
 #include <config.h>
 #endif
 
-#define GTK_ENABLE_BROKEN /* GtkText */
-#undef GTK_DISABLE_DEPRECATED /* for GtkText */
 #include <gtk/gtk.h>
-#define WIDGET GtkWidget
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
@@ -83,7 +80,7 @@ stringprop_free(StringProperty *prop)
   g_free(prop);
 }
 
-static WIDGET *
+static GtkWidget *
 stringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_entry_new();
@@ -92,37 +89,54 @@ stringprop_get_widget(StringProperty *prop, PropDialog *dialog)
 }
 
 static void 
-stringprop_reset_widget(StringProperty *prop, WIDGET *widget)
+stringprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 {
   gtk_entry_set_text(GTK_ENTRY(widget),
                      prop->string_data ? prop->string_data : "");
 }
 
 static void 
-stringprop_set_from_widget(StringProperty *prop, WIDGET *widget) 
+stringprop_set_from_widget(StringProperty *prop, GtkWidget *widget) 
 {
   g_free(prop->string_data);
   prop->string_data =
     g_strdup (gtk_entry_get_text (GTK_ENTRY(widget)));
 }
 
-static WIDGET *
+static GtkWidget *
 multistringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
-  GtkWidget *ret = gtk_text_new(NULL,NULL);
-  gtk_text_set_editable(GTK_TEXT(ret),TRUE);
+  GtkWidget *ret = gtk_text_view_new();
+  GtkWidget *frame = gtk_frame_new(NULL);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
+  gtk_container_add(GTK_CONTAINER(frame), ret);
+  gtk_widget_show(ret);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
-  return ret;
+  return frame;
 }
 
 static void 
-multistringprop_reset_widget(StringProperty *prop, WIDGET *widget)
+multistringprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 {
-  gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, 
-                  prop->string_data ? prop->string_data : "", -1);
+  GtkWidget *textview = gtk_bin_get_child(GTK_BIN(widget));
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+  gtk_text_buffer_set_text(buffer,
+			   prop->string_data ? prop->string_data : "", -1);
 }
 
-static WIDGET *
+static void
+multistringprop_set_from_widget(StringProperty *prop, GtkWidget *widget) {
+  GtkWidget *textview = gtk_bin_get_child(GTK_BIN(widget));
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+  GtkTextIter start, end;
+  gtk_text_buffer_get_start_iter(buffer, &start);
+  gtk_text_buffer_get_end_iter(buffer, &end);
+  g_free(prop->string_data);
+  prop->string_data =
+    g_strdup (gtk_text_buffer_get_text (buffer, &start, &end, TRUE));
+}
+
+static GtkWidget *
 fileprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = dia_file_selector_new();
@@ -131,13 +145,13 @@ fileprop_get_widget(StringProperty *prop, PropDialog *dialog)
 }
 
 static void 
-fileprop_reset_widget(StringProperty *prop, WIDGET *widget)
+fileprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 {
   dia_file_selector_set_file(DIAFILESELECTOR(widget),prop->string_data);
 }
 
 static void 
-fileprop_set_from_widget(StringProperty *prop, WIDGET *widget) 
+fileprop_set_from_widget(StringProperty *prop, GtkWidget *widget) 
 {
   g_free(prop->string_data);
   prop->string_data = 
@@ -284,7 +298,7 @@ static const PropertyOps multistringprop_ops = {
   (PropertyType_Save) stringprop_save,
   (PropertyType_GetWidget) multistringprop_get_widget,
   (PropertyType_ResetWidget) multistringprop_reset_widget,
-  (PropertyType_SetFromWidget) stringprop_set_from_widget,
+  (PropertyType_SetFromWidget) multistringprop_set_from_widget,
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) stringprop_get_from_offset,

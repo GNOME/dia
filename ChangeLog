@@ -18,6 +18,10 @@
 	
 2003-02-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/prop_text.c (multistringprop_get_widget,
+	multistringprop_reset_widget, multistringprop_set_from_widget): 
+	Now uses GtkTextView instead of deprecated stuff, and also works:)
+
 	* configure.in: Slightly more informative error message for isinf.
 
 2003-02-28  Steffen Macke <sdteffen@web.de>
