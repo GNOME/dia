@@ -80,18 +80,18 @@ typedef struct _ZigzaglineProperties {
   Arrow start_arrow, end_arrow;
 } ZigzaglineProperties;
 
-struct _ZigzaglineDefaultsDialog {
+/*struct _ZigzaglineDefaultsDialog {
   GtkWidget *vbox;
 
   DiaLineStyleSelector *line_style;
   DiaArrowSelector *start_arrow;
   DiaArrowSelector *end_arrow;
-};
+  };*/
 
 
 static ZigzaglinePropertiesDialog *zigzagline_properties_dialog;
-static ZigzaglineDefaultsDialog *zigzagline_defaults_dialog;
-static ZigzaglineProperties default_properties;
+/* static ZigzaglineDefaultsDialog *zigzagline_defaults_dialog;
+   static ZigzaglineProperties default_properties; */
 
 
 static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
@@ -120,16 +120,16 @@ static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
 static Object *zigzagline_load(ObjectNode obj_node, int version,
 			       const char *filename);
-static GtkWidget *zigzagline_get_defaults();
-static void zigzagline_apply_defaults();
+/* static GtkWidget *zigzagline_get_defaults();
+   static void zigzagline_apply_defaults(); */
 
 static ObjectTypeOps zigzagline_type_ops =
 {
   (CreateFunc)zigzagline_create,   /* create */
   (LoadFunc)  zigzagline_load,     /* load */
   (SaveFunc)  zigzagline_save,      /* save */
-  (GetDefaultsFunc)   zigzagline_get_defaults,
-  (ApplyDefaultsFunc) zigzagline_apply_defaults
+  (GetDefaultsFunc)   NULL /*zigzagline_get_defaults*/,
+  (ApplyDefaultsFunc) NULL /*zigzagline_apply_defaults*/
 };
 
 static ObjectType zigzagline_type =
@@ -288,6 +288,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
   return zigzagline_properties_dialog->vbox;
 }
 
+/*
 static void
 zigzagline_init_defaults() {
   static int defaults_initialized = 0;
@@ -379,7 +380,7 @@ zigzagline_get_defaults()
 
   return zigzagline_defaults_dialog->vbox;
 }
-
+*/
 
 static real
 zigzagline_distance_from(Zigzagline *zigzagline, Point *point)
@@ -459,7 +460,7 @@ zigzagline_create(Point *startpoint,
   OrthConn *orth;
   Object *obj;
 
-  zigzagline_init_defaults();
+  /*zigzagline_init_defaults();*/
   zigzagline = g_malloc(sizeof(Zigzagline));
   orth = &zigzagline->orth;
   obj = (Object *) zigzagline;
@@ -473,10 +474,10 @@ zigzagline_create(Point *startpoint,
 
   zigzagline->line_width =  attributes_get_default_linewidth();
   zigzagline->line_color = attributes_get_foreground();
-  zigzagline->line_style = default_properties.line_style;
-  zigzagline->dashlength = default_properties.dashlength;
-  zigzagline->start_arrow = default_properties.start_arrow;
-  zigzagline->end_arrow = default_properties.end_arrow;
+  attributes_get_default_line_style(&zigzagline->line_style,
+				    &zigzagline->dashlength);
+  zigzagline->start_arrow = attributes_get_default_start_arrow();
+  zigzagline->end_arrow = attributes_get_default_end_arrow();
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];

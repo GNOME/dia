@@ -404,6 +404,7 @@ dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
+  set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
 }
 

@@ -22,6 +22,12 @@ static Color attributes_background = { 1.0f, 1.0f, 1.0f };
 
 static real attributes_default_linewidth = 0.1;
 
+static Arrow attributes_start_arrow = { ARROW_NONE, 0.8, 0.8 };
+static Arrow attributes_end_arrow = { ARROW_NONE, 0.8, 0.8 };
+
+static LineStyle attributes_linestyle = LINESTYLE_SOLID;
+static real attributes_dash_length = 1.0;
+
 Color 
 attributes_get_foreground(void)
 {
@@ -70,4 +76,41 @@ void
 attributes_set_default_linewidth(real width)
 {
   attributes_default_linewidth = width;
+}
+
+Arrow
+attributes_get_default_start_arrow(void)
+{
+  return attributes_start_arrow;
+}
+void
+attributes_set_default_start_arrow(Arrow arrow)
+{
+  attributes_start_arrow = arrow;
+}
+
+Arrow
+attributes_get_default_end_arrow(void)
+{
+  return attributes_end_arrow;
+}
+void
+attributes_set_default_end_arrow(Arrow arrow)
+{
+  attributes_end_arrow = arrow;
+}
+
+void
+attributes_get_default_line_style(LineStyle *style, real *dash_length)
+{
+  if (style)
+    *style = attributes_linestyle;
+  if (dash_length)
+    *dash_length = attributes_dash_length;
+}
+void
+attributes_set_default_line_style(LineStyle style, real dash_length)
+{
+  attributes_linestyle = style;
+  attributes_dash_length = dash_length;
 }

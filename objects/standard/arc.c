@@ -46,6 +46,7 @@ struct _ArcState {
   real curve_distance;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 };
 
@@ -58,6 +59,7 @@ typedef struct _Arc {
   real curve_distance;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 
   /* Calculated parameters: */
@@ -71,6 +73,7 @@ typedef struct _ArcProperties {
   Color line_color;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 } ArcProperties;
 
@@ -85,17 +88,17 @@ struct _ArcPropertiesDialog {
   DiaArrowSelector *end_arrow;
 };
 
-struct _ArcDefaultsDialog {
+/*struct _ArcDefaultsDialog {
   GtkWidget *vbox;
 
   DiaLineStyleSelector *line_style;
   DiaArrowSelector *start_arrow;
   DiaArrowSelector *end_arrow;
-};
+  };*/
 
 static ArcPropertiesDialog *arc_properties_dialog;
-static ArcDefaultsDialog *arc_defaults_dialog;
-static ArcProperties default_properties;
+/* static ArcDefaultsDialog *arc_defaults_dialog;
+   static ArcProperties default_properties; */
 
 
 static void arc_move_handle(Arc *arc, Handle *handle,
@@ -121,16 +124,16 @@ static void arc_set_state(Arc *arc, ArcState *state);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *arc_get_defaults();
-static void arc_apply_defaults();
+/* static GtkWidget *arc_get_defaults();
+   static void arc_apply_defaults(); */
 
 static ObjectTypeOps arc_type_ops =
 {
   (CreateFunc) arc_create,
   (LoadFunc)   arc_load,
   (SaveFunc)   arc_save,
-  (GetDefaultsFunc)   arc_get_defaults,
-  (ApplyDefaultsFunc) arc_apply_defaults
+  (GetDefaultsFunc)   NULL /*arc_get_defaults*/,
+  (ApplyDefaultsFunc) NULL /*arc_apply_defaults*/
 };
 
 ObjectType arc_type =
@@ -167,7 +170,7 @@ arc_apply_properties(Arc *arc)
   arc->line_width = gtk_spin_button_get_value_as_float(arc_properties_dialog->line_width);
   dia_color_selector_get_color(arc_properties_dialog->color, &arc->arc_color);
   dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style,
-					& arc->line_style, NULL);
+					&arc->line_style, &arc->dashlength);
   arc->start_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->start_arrow);
   arc->end_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->end_arrow);
   
@@ -269,7 +272,7 @@ arc_get_properties(Arc *arc)
   gtk_spin_button_set_value(arc_properties_dialog->line_width, arc->line_width);
   dia_color_selector_set_color(arc_properties_dialog->color, &arc->arc_color);
   dia_line_style_selector_set_linestyle(arc_properties_dialog->line_style,
-					arc->line_style, 1.0);
+					arc->line_style, arc->dashlength);
   dia_arrow_selector_set_arrow(arc_properties_dialog->start_arrow,
 			       arc->start_arrow);
   dia_arrow_selector_set_arrow(arc_properties_dialog->end_arrow,
@@ -278,6 +281,7 @@ arc_get_properties(Arc *arc)
   return arc_properties_dialog->vbox;
 }
 
+/*
 static void
 arc_init_defaults(void)
 {
@@ -372,7 +376,7 @@ arc_get_defaults()
 
   return arc_defaults_dialog->vbox;
 }
-
+*/
 
 static int
 in_angle(real angle, real startangle, real endangle)
@@ -508,6 +512,7 @@ arc_draw(Arc *arc, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, arc->line_width);
   renderer->ops->set_linestyle(renderer, arc->line_style);
+  renderer->ops->set_dashlength(renderer, arc->dashlength);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   /* Special case when almost line: */
@@ -586,16 +591,16 @@ arc_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  arc_init_defaults();
+  /*arc_init_defaults();*/
 
   arc = g_malloc(sizeof(Arc));
 
   arc->line_width =  attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground(); 
-  arc->line_style = default_properties.line_style;
-  arc->start_arrow = default_properties.start_arrow;
-  arc->end_arrow = default_properties.end_arrow;
+  attributes_get_default_line_style(&arc->line_style, &arc->dashlength);
+  arc->start_arrow = attributes_get_default_start_arrow();
+  arc->end_arrow = attributes_get_default_end_arrow();
 
   conn = &arc->connection;
   conn->endpoints[0] = *startpoint;
@@ -647,6 +652,7 @@ arc_copy(Arc *arc)
   newarc->curve_distance = arc->curve_distance;
   newarc->line_width = arc->line_width;
   newarc->line_style = arc->line_style;
+  newarc->dashlength = arc->dashlength;
   newarc->start_arrow = arc->start_arrow;
   newarc->end_arrow = arc->end_arrow;
   newarc->radius = arc->radius;
@@ -672,6 +678,7 @@ arc_get_state(Arc *arc)
   state->arc_color = arc->arc_color;
   state->curve_distance = arc->curve_distance;
   state->line_style = arc->line_style;
+  state->dashlength = arc->dashlength;
   state->start_arrow = arc->start_arrow;
   state->end_arrow = arc->end_arrow;
 
@@ -685,6 +692,7 @@ arc_set_state(Arc *arc, ArcState *state)
   arc->arc_color = state->arc_color;
   arc->curve_distance = state->curve_distance;
   arc->line_style = state->line_style;
+  arc->dashlength = state->dashlength;
   arc->start_arrow = state->start_arrow;
   arc->end_arrow = state->end_arrow;
 
@@ -796,6 +804,11 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
   if (arc->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  arc->line_style);
+
+  if (arc->line_style != LINESTYLE_SOLID &&
+      arc->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+		  arc->dashlength);
   
   if (arc->start_arrow.type != ARROW_NONE) {
     data_add_enum(new_attribute(obj_node, "start_arrow"),
@@ -852,6 +865,12 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     arc->line_style = data_enum(attribute_first_data(attr));
+
+  arc->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    arc->dashlength = data_real(attribute_first_data(attr));
+
 
   arc->start_arrow.type = ARROW_NONE;
   arc->start_arrow.length = 0.8;

@@ -28,8 +28,10 @@
 #include "tool.h"
 #include "sheet.h"
 #include "app_procs.h"
+#include "arrows.h"
 #include "color_area.h"
 #include "linewidth_area.h"
+#include "lineprops_area.h"
 
 #include "pixmaps.h"
 
@@ -564,6 +566,44 @@ create_color_area (GtkWidget *parent)
   gtk_widget_show (frame);
 }
 
+static void
+change_start_arrow_style(Arrow arrow, gpointer user_data)
+{
+  attributes_set_default_start_arrow(arrow);
+}
+static void
+change_end_arrow_style(Arrow arrow, gpointer user_data)
+{
+  attributes_set_default_end_arrow(arrow);
+}
+static void
+change_line_style(LineStyle lstyle, real dash_length, gpointer user_data)
+{
+  attributes_set_default_line_style(lstyle, dash_length);
+}
+
+static void
+create_lineprops_area(GtkWidget *parent)
+{
+  GtkWidget *hbox;
+  GtkWidget *chooser;
+
+  hbox = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (parent), hbox, FALSE, FALSE, 0);
+  gtk_widget_show(hbox);
+
+  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), chooser, FALSE, TRUE, 0);
+  gtk_widget_show(chooser);
+
+  chooser = dia_line_chooser_new(change_line_style, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), chooser, TRUE, TRUE, 0);
+  gtk_widget_show(chooser);
+
+  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
+  gtk_box_pack_start(GTK_BOX(hbox), chooser, FALSE, TRUE, 0);
+  gtk_widget_show(chooser);
+}
 
 void
 toolbox_delete (GtkWidget *widget, gpointer data)
@@ -637,6 +677,7 @@ create_toolbox ()
   create_tools (vbox);
   create_sheets (vbox);
   create_color_area (vbox);
+  create_lineprops_area (vbox);
   
   gtk_widget_show (window);
   toolbox_shell = window;

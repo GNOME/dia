@@ -80,7 +80,7 @@ struct _LinePropertiesDialog {
 
   Line *line;
 };
-
+/*
 struct _LineDefaultsDialog {
   GtkWidget *vbox;
 
@@ -88,10 +88,11 @@ struct _LineDefaultsDialog {
   DiaArrowSelector *start_arrow;
   DiaArrowSelector *end_arrow;
 };
+*/
 
 static LinePropertiesDialog *line_properties_dialog;
-static LineDefaultsDialog *line_defaults_dialog;
-static LineProperties default_properties;
+/* static LineDefaultsDialog *line_defaults_dialog;
+   static LineProperties default_properties; */
 
 static void line_move_handle(Line *line, Handle *handle,
 			     Point *to, HandleMoveReason reason, 
@@ -110,8 +111,8 @@ static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
 static GtkWidget *line_get_properties(Line *line);
 static ObjectChange *line_apply_properties(Line *line);
-static GtkWidget *line_get_defaults();
-static void line_apply_defaults();
+/* static GtkWidget *line_get_defaults();
+   static void line_apply_defaults(); */
 
 static LineState *line_get_state(Line *line);
 static void line_set_state(Line *line, LineState *state);
@@ -124,8 +125,8 @@ static ObjectTypeOps line_type_ops =
   (CreateFunc) line_create,
   (LoadFunc)   line_load,
   (SaveFunc)   line_save,
-  (GetDefaultsFunc)   line_get_defaults,
-  (ApplyDefaultsFunc) line_apply_defaults
+  (GetDefaultsFunc)   NULL /*line_get_defaults*/,
+  (ApplyDefaultsFunc) NULL /*line_apply_defaults*/
 };
 
 ObjectType line_type =
@@ -278,6 +279,7 @@ line_get_properties(Line *line)
   return line_properties_dialog->vbox;
 }
 
+/*
 static void
 line_init_defaults() {
   static int defaults_initialized = 0;
@@ -372,6 +374,7 @@ line_get_defaults()
 
   return line_defaults_dialog->vbox;
 }
+*/
 
 static real
 line_distance_from(Line *line, Point *point)
@@ -464,7 +467,7 @@ line_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  line_init_defaults();
+  /*line_init_defaults();*/
 
   line = g_malloc(sizeof(Line));
 
@@ -486,10 +489,9 @@ line_create(Point *startpoint,
   obj->connections[0] = &line->middle_point;
   line->middle_point.object = obj;
   line->middle_point.connected = NULL;
-  line->line_style = default_properties.line_style;
-  line->dashlength = default_properties.dashlength;
-  line->start_arrow = default_properties.start_arrow;
-  line->end_arrow = default_properties.end_arrow;
+  attributes_get_default_line_style(&line->line_style, &line->dashlength);
+  line->start_arrow = attributes_get_default_start_arrow();
+  line->end_arrow = attributes_get_default_end_arrow();
   line_update_data(line);
 
   *handle1 = obj->handles[0];

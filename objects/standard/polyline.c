@@ -44,6 +44,7 @@ struct _PolylineState {
   Color line_color;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 };
 
@@ -53,6 +54,7 @@ typedef struct _Polyline {
 
   Color line_color;
   LineStyle line_style;
+  real dashlength;
   real line_width;
   Arrow start_arrow, end_arrow;
 } Polyline;
@@ -61,6 +63,7 @@ typedef struct _PolylineProperties {
   Color line_color;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 } PolylineProperties;
 
@@ -77,18 +80,18 @@ struct _PolylinePropertiesDialog {
   Polyline *polyline;
 };
 
-struct _PolylineDefaultsDialog {
+/*struct _PolylineDefaultsDialog {
   GtkWidget *vbox;
 
   DiaLineStyleSelector *line_style;
   DiaArrowSelector *start_arrow;
   DiaArrowSelector *end_arrow;
-};
+  };*/
 
 
 static PolylinePropertiesDialog *polyline_properties_dialog;
-static PolylineDefaultsDialog *polyline_defaults_dialog;
-static PolylineProperties default_properties;
+/* static PolylineDefaultsDialog *polyline_defaults_dialog;
+   static PolylineProperties default_properties; */
 
 
 static void polyline_move_handle(Polyline *polyline, Handle *handle,
@@ -116,16 +119,16 @@ static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 static Object *polyline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
-static GtkWidget *polyline_get_defaults();
-static void polyline_apply_defaults();
+/* static GtkWidget *polyline_get_defaults();
+   static void polyline_apply_defaults(); */
 
 static ObjectTypeOps polyline_type_ops =
 {
   (CreateFunc)polyline_create,   /* create */
   (LoadFunc)  polyline_load,     /* load */
   (SaveFunc)  polyline_save,      /* save */
-  (GetDefaultsFunc)   polyline_get_defaults,
-  (ApplyDefaultsFunc) polyline_apply_defaults
+  (GetDefaultsFunc)   NULL /*polyline_get_defaults*/,
+  (ApplyDefaultsFunc) NULL /*polyline_apply_defaults*/
 };
 
 static ObjectType polyline_type =
@@ -170,7 +173,7 @@ polyline_apply_properties(Polyline *polyline)
     gtk_spin_button_get_value_as_float(polyline_properties_dialog->line_width);
   dia_color_selector_get_color(polyline_properties_dialog->color,
 			       &polyline->line_color);
-  dia_line_style_selector_get_linestyle(polyline_properties_dialog->line_style, &polyline->line_style, NULL);
+  dia_line_style_selector_get_linestyle(polyline_properties_dialog->line_style, &polyline->line_style, &polyline->dashlength);
   polyline->start_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->start_arrow);
   polyline->end_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->end_arrow);
 
@@ -274,7 +277,8 @@ polyline_get_properties(Polyline *polyline)
   dia_color_selector_set_color(polyline_properties_dialog->color,
 			       &polyline->line_color);
   dia_line_style_selector_set_linestyle(polyline_properties_dialog->line_style,
-					polyline->line_style, 1.0);
+					polyline->line_style,
+					polyline->dashlength);
   dia_arrow_selector_set_arrow(polyline_properties_dialog->start_arrow,
 					 polyline->start_arrow);
   dia_arrow_selector_set_arrow(polyline_properties_dialog->end_arrow,
@@ -283,6 +287,7 @@ polyline_get_properties(Polyline *polyline)
   return polyline_properties_dialog->vbox;
 }
 
+/*
 static void
 polyline_init_defaults()
 {
@@ -374,7 +379,7 @@ polyline_get_defaults()
 
   return polyline_defaults_dialog->vbox;
 }
-
+*/
 
 static real
 polyline_distance_from(Polyline *polyline, Point *point)
@@ -431,6 +436,7 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, polyline->line_width);
   renderer->ops->set_linestyle(renderer, polyline->line_style);
+  renderer->ops->set_dashlength(renderer, polyline->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -462,7 +468,7 @@ polyline_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  polyline_init_defaults();
+  /*polyline_init_defaults();*/
   polyline = g_malloc(sizeof(Polyline));
   poly = &polyline->poly;
   obj = (Object *) polyline;
@@ -480,9 +486,10 @@ polyline_create(Point *startpoint,
 
   polyline->line_width =  attributes_get_default_linewidth();
   polyline->line_color = attributes_get_foreground();
-  polyline->line_style = default_properties.line_style;
-  polyline->start_arrow = default_properties.start_arrow;
-  polyline->end_arrow = default_properties.end_arrow;
+  attributes_get_default_line_style(&polyline->line_style,
+				    &polyline->dashlength);
+  polyline->start_arrow = attributes_get_default_start_arrow();
+  polyline->end_arrow = attributes_get_default_end_arrow();
 
   *handle1 = poly->object.handles[0];
   *handle2 = poly->object.handles[1];
@@ -513,6 +520,7 @@ polyline_copy(Polyline *polyline)
   newpolyline->line_color = polyline->line_color;
   newpolyline->line_width = polyline->line_width;
   newpolyline->line_style = polyline->line_style;
+  newpolyline->dashlength = polyline->dashlength;
   newpolyline->start_arrow = polyline->start_arrow;
   newpolyline->end_arrow = polyline->end_arrow;
 
@@ -530,6 +538,7 @@ polyline_get_state(Polyline *polyline)
   state->line_color = polyline->line_color;
   state->line_width = polyline->line_width;
   state->line_style = polyline->line_style;
+  state->dashlength = polyline->dashlength;
   state->start_arrow = polyline->start_arrow;
   state->end_arrow = polyline->end_arrow;
 
@@ -542,6 +551,7 @@ polyline_set_state(Polyline *polyline, PolylineState *state)
   polyline->line_color = state->line_color;
   polyline->line_width = state->line_width;
   polyline->line_style = state->line_style;
+  polyline->dashlength = state->dashlength;
   polyline->start_arrow = state->start_arrow;
   polyline->end_arrow = state->end_arrow;
 
@@ -600,6 +610,11 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
   if (polyline->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  polyline->line_style);
+
+  if (polyline->line_style != LINESTYLE_SOLID &&
+      polyline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+		  polyline->dashlength);
   
   if (polyline->start_arrow.type != ARROW_NONE) {
     data_add_enum(new_attribute(obj_node, "start_arrow"),
@@ -652,6 +667,11 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     polyline->line_style = data_enum(attribute_first_data(attr));
+
+  polyline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    polyline->dashlength = data_real(attribute_first_data(attr));
 
   polyline->start_arrow.type = ARROW_NONE;
   polyline->start_arrow.length = 0.8;

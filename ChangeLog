@@ -1,3 +1,29 @@
+1999-08-23  James Henstridge  <james@daa.com.au>
+
+	* lib/widgets.c (dia_line_style_selector_set_linestyle): set the
+	sensitivity on the dash length selector when this function is called.
+
+	* objects/standard/arc.c: same.  Also handle dash length.
+	* objects/standard/zigzagline.c: same.
+	* objects/standard/polyline.c: same.  Also handle dash length.
+	* objects/standard/line.c: use default arrow/line styles.
+
+	* app/interface.c: added callbacks to set the default attributes.
+
+	* lib/attributes.c: added implementations of these functions.
+
+	* lib/attributes.h: added extra prototypes for the new line properties
+	area in the toolbox.
+
+	* app/interface.c (create_lineprops_area): added line properties
+	area to bottom of toolbox.
+
+	* app/lineprops_area.h: a header exporting a few routines of the
+	line properties area widgets.
+
+	* app/lineprops_area.c: new file containing a selector for arrows
+	and line styles to go in the main toolbox.
+
 1999-08-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* HACKING:

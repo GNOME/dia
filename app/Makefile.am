@@ -28,6 +28,7 @@ dia_SOURCES = \
 	    color_area.h \
 	    linewidth_area.c \
 	    linewidth_area.h \
+	    lineprops_area.c \
 	    grid.c \
 	    grid.h \
 	    group.c \

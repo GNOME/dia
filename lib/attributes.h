@@ -20,6 +20,8 @@
 
 #include "geometry.h"
 #include "color.h"
+#include "arrows.h"
+#include "render.h"
 
 extern Color attributes_get_foreground(void);
 extern Color attributes_get_background(void);
@@ -30,5 +32,16 @@ extern void attributes_default_fgbg(void);
 
 extern real attributes_get_default_linewidth(void);
 extern void attributes_set_default_linewidth(real width);
+
+extern Arrow attributes_get_default_start_arrow(void);
+extern void attributes_set_default_start_arrow(Arrow arrow);
+
+extern Arrow attributes_get_default_end_arrow(void);
+extern void attributes_set_default_end_arrow(Arrow arrow);
+
+extern void attributes_get_default_line_style(LineStyle *style,
+					      real *dash_length);
+extern void attributes_set_default_line_style(LineStyle style,
+					      real dash_length);
 
 #endif /* ATTRIBUTES_H */
