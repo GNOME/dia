@@ -27,5 +27,6 @@ extern void create_display_shell(DDisplay *ddisp,
 extern void create_toolbox ();
 
 extern GtkWidget *popup_shell;
+extern GtkWidget *modify_tool_button;
 
 #endif /* INTERFACE_H */

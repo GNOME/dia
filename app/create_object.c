@@ -127,7 +127,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   undo_set_transactionpoint(ddisp->diagram->undo);
   
   if (prefs.reset_tools_after_create)
-      tool_set(MODIFY_TOOL);
+      tool_reset();
 }
 static void
 create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
@@ -166,13 +166,12 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 
 
 
-Tool *create_create_object_tool(ObjectType *objtype, ToolType type,
-				void *user_data)
+Tool *create_create_object_tool(ObjectType *objtype, void *user_data)
 {
   CreateObjectTool *tool;
 
   tool = g_new(CreateObjectTool, 1);
-  tool->tool.type = type;
+  tool->tool.type = CREATE_OBJECT_TOOL;
   tool->tool.button_press_func = (ButtonPressFunc) &create_object_button_press;
   tool->tool.button_release_func = (ButtonReleaseFunc) &create_object_button_release;
   tool->tool.motion_func = (MotionFunc) &create_object_motion;

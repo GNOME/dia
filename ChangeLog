@@ -1,4 +1,15 @@
-1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
+1999-11-21  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/create_object.[ch]:
+	* app/menus.c:
+	* app/tool.[ch]:
+	* app/commands.[ch]:
+	* app/pixmaps.h:
+	* app/interface.[ch]:
+	Reverted the tool menu patch. It has some 'issues'.
+	I liked it though, so it'll probably return.
+
+1999-11-21  Alexander Larsson  <alla@lysator.liu.se>
 
         Fixed a lot of memory leaks. Thanks to Bruce Mitchener
 	<bruce@cybersight.com> for some purify runs and analysis.
