@@ -1,0 +1,3 @@
+objects/FS/flow-poly.c
+plug-ins/python/python.c
+plug-ins/wmf/wmf.cpp

@@ -232,11 +232,11 @@ app_init (int argc, char **argv)
   unicode_init();
 #endif 
 
-  bindtextdomain(PACKAGE, LOCALEDIR);
+  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
 #if defined GTK_TALKS_UTF8 && defined ENABLE_NLS
-  bind_textdomain_codeset(PACKAGE,"UTF-8");  
+  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
 #endif
-  textdomain(PACKAGE);
+  textdomain(GETTEXT_PACKAGE);
 
   if (argv) {
 #ifdef GNOME

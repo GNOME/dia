@@ -1,3 +1,10 @@
+2002-04-18  Abel Cheung  <maddog@linux.org.hk>
+
+	* ./app/app_procs.c: Use GETTEXT_DOMAIN in *textdomain*().
+	* ./app/diaconv.c: Ditto.
+	* configure.in: GETTEXT_PACKAGE related modification.
+	* acconfig.h: Added GETTEXT_PACKAGE.
+
 2002-03-20  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* configure.in: Added "sk" to ALL_LINGUAS.

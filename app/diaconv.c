@@ -113,11 +113,11 @@ main(int argc, char **argv)
 #ifdef HAVE_UNICODE
   unicode_init();
 #endif 
-  bindtextdomain(PACKAGE, LOCALEDIR);
+  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
 #ifdef UNICODE_WORK_IN_PROGRESS
-  /*  bind_textdomain_codeset(PACKAGE,"UTF-8"); */ /* only for GTK2 -- CC */
+  /*  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8"); */ /* only for GTK2 -- CC */
 #endif
-  textdomain(PACKAGE);
+  textdomain(GETTEXT_PACKAGE);
 
   printf("hi !\n");
 

@@ -1,3 +1,12 @@
+2002-04-18  Abel Cheung  <maddog@linux.org.hk>
+
+	* update.pl, update.sh, update_pofiles_in.sh: Removed. intltool can
+	handle dia sheets now.
+	* .cvsignore: Added file.
+	* POTFILES.in: Synced with source tree.
+	* POTFILES.skip: New file.
+	* zh_TW.po: Merged with new .pot, and converted to UTF-8.
+
 2002-04-02  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* sk.po: Updated Slovak translation by Zdenko Podobny <zdpo@mailbox.sk>.

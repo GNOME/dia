@@ -39,6 +39,9 @@
 /* define to enable XIM support */
 #undef USE_XIM
 
+/* needed for intltool */
+#undef GETTEXT_PACKAGE
+
 @BOTTOM@
 #endif /* !_DIA_CONFIG_H_ */
 
