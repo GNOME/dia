@@ -629,6 +629,7 @@ custom_draw(Custom *custom, Renderer *renderer)
   int i;
   GList *tmp;
   Element *elem;
+  real cur_line = 1.0;
   
   assert(custom != NULL);
   assert(renderer != NULL);
@@ -645,52 +646,76 @@ custom_draw(Custom *custom, Renderer *renderer)
 
   for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
+
+    if (el->any.line_width != cur_line)
+      renderer->ops->set_linewidth(renderer,
+				   custom->border_width * el->any.line_width);
+    cur_line = el->any.line_width;
     switch (el->type) {
     case GE_LINE:
-      transform_coord(custom, &el->d.line.p1, &p1);
-      transform_coord(custom, &el->d.line.p2, &p2);
-      renderer->ops->draw_line(renderer, &p1, &p2, &custom->border_color);
+      transform_coord(custom, &el->line.p1, &p1);
+      transform_coord(custom, &el->line.p2, &p2);
+      renderer->ops->draw_line(renderer, &p1, &p2,
+			       el->any.swap_stroke ?
+			         &custom->inner_color :
+			         &custom->border_color);
       break;
     case GE_POLYLINE:
-      g_array_set_size(arr, el->d.polyline.npoints);
-      for (i = 0; i < el->d.polyline.npoints; i++)
-	transform_coord(custom, &el->d.polyline.points[i],
+      g_array_set_size(arr, el->polyline.npoints);
+      for (i = 0; i < el->polyline.npoints; i++)
+	transform_coord(custom, &el->polyline.points[i],
 			&g_array_index(arr, Point, i));
       renderer->ops->draw_polyline(renderer,
-				   (Point *)arr->data, el->d.polyline.npoints,
-				   &custom->border_color);
+				   (Point *)arr->data, el->polyline.npoints,
+				   el->any.swap_stroke ?
+				     &custom->inner_color :
+				     &custom->border_color);
       break;
     case GE_POLYGON:
-      g_array_set_size(arr, el->d.polygon.npoints);
-      for (i = 0; i < el->d.polygon.npoints; i++)
-	transform_coord(custom, &el->d.polygon.points[i],
+      g_array_set_size(arr, el->polygon.npoints);
+      for (i = 0; i < el->polygon.npoints; i++)
+	transform_coord(custom, &el->polygon.points[i],
 			&g_array_index(arr, Point, i));
       if (custom->show_background) 
 	renderer->ops->fill_polygon(renderer,
-				    (Point *)arr->data, el->d.polygon.npoints,
-				    &custom->inner_color);
+				    (Point *)arr->data, el->polygon.npoints,
+				    el->any.swap_fill ?
+				      &custom->border_color :
+				      &custom->inner_color);
       renderer->ops->draw_polygon(renderer,
-				  (Point *)arr->data, el->d.polygon.npoints,
-				  &custom->border_color);
+				  (Point *)arr->data, el->polygon.npoints,
+				  el->any.swap_stroke ?
+				    &custom->inner_color :
+				    &custom->border_color);
       break;
     case GE_RECT:
-      transform_coord(custom, &el->d.rect.corner1, &p1);
-      transform_coord(custom, &el->d.rect.corner2, &p2);
+      transform_coord(custom, &el->rect.corner1, &p1);
+      transform_coord(custom, &el->rect.corner2, &p2);
       if (custom->show_background)
-	renderer->ops->fill_rect(renderer, &p1, &p2, &custom->inner_color);
-      renderer->ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
+	renderer->ops->fill_rect(renderer, &p1, &p2,
+				 el->any.swap_fill ?
+				   &custom->border_color :
+				   &custom->inner_color);
+      renderer->ops->draw_rect(renderer, &p1, &p2,
+			       el->any.swap_stroke ?
+			         &custom->inner_color :
+			         &custom->border_color);
       break;
     case GE_ELLIPSE:
-      transform_coord(custom, &el->d.ellipse.center, &p1);
+      transform_coord(custom, &el->ellipse.center, &p1);
       if (custom->show_background)
 	renderer->ops->fill_ellipse(renderer, &p1,
-				    el->d.ellipse.width * custom->xscale,
-				    el->d.ellipse.height * custom->yscale,
-				    &custom->inner_color); 
+				    el->ellipse.width * custom->xscale,
+				    el->ellipse.height * custom->yscale,
+				    el->any.swap_fill ?
+				      &custom->border_color :
+				      &custom->inner_color);
       renderer->ops->draw_ellipse(renderer, &p1,
-				  el->d.ellipse.width * custom->xscale,
-				  el->d.ellipse.height * custom->yscale,
-				  &custom->border_color);
+				  el->ellipse.width * custom->xscale,
+				  el->ellipse.height * custom->yscale,
+				  el->any.swap_stroke ?
+				    &custom->inner_color :
+				    &custom->border_color);
       break;
     }
   }
@@ -761,6 +786,14 @@ custom_update_data(Custom *custom)
   custom->yscale = elem->height / (info->shape_bounds.bottom -
 				   info->shape_bounds.top);
 
+  /* if aspect ratio should be fixed, make sure xscale == yscale */
+  if (info->fix_aspect_ratio && custom->xscale != custom->yscale) {
+    custom->xscale = custom->yscale = (custom->xscale + custom->yscale) / 2;
+    elem->width = custom->xscale * (info->shape_bounds.right -
+				    info->shape_bounds.left);
+    elem->height = custom->yscale * (info->shape_bounds.bottom -
+				     info->shape_bounds.top);
+  }
   /* resize shape if text does not fit inside text_bounds */
   if (info->has_text) {
     real width, height;

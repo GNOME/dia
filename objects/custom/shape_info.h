@@ -14,29 +14,55 @@ typedef enum {
   GE_ELLIPSE,
   /* GE_PATH */
 } GraphicElementType;
-typedef struct _GraphicElement GraphicElement;
-struct _GraphicElement {
+
+typedef union _GraphicElement GraphicElement;
+typedef struct _GraphicElementAny GraphicElementAny;
+typedef struct _GraphicElementLine GraphicElementLine;
+typedef struct _GraphicElementPoly GraphicElementPoly;
+typedef struct _GraphicElementRect GraphicElementRect;
+typedef struct _GraphicElementEllipse GraphicElementEllipse;
+
+#define SHAPE_INFO_COMMON  \
+  GraphicElementType type; \
+  real line_width;         \
+  gboolean swap_stroke;    \
+  gboolean swap_fill
+
+struct _GraphicElementAny {
+  SHAPE_INFO_COMMON;
+};
+
+struct _GraphicElementLine {
+  SHAPE_INFO_COMMON;
+  Point p1, p2;
+};
+
+struct _GraphicElementPoly {
+  SHAPE_INFO_COMMON;
+  int npoints;
+  Point points[1];
+};
+
+struct _GraphicElementRect {
+  SHAPE_INFO_COMMON;
+  Point corner1, corner2;
+};
+
+struct _GraphicElementEllipse {
+  SHAPE_INFO_COMMON;
+  Point center;
+  real width, height;
+};
+#undef SHAPE_INFO_COMMON
+
+union _GraphicElement {
   GraphicElementType type;
-  union {
-    struct {
-      Point p1, p2;
-    } line;
-    struct {
-      int npoints;
-      Point points[1];
-    } polyline;
-    struct {
-      int npoints;
-      Point points[1];
-    } polygon;
-    struct {
-      Point corner1, corner2;
-    } rect;
-    struct {
-      Point center;
-      real width, height;
-    } ellipse;
-  } d;
+  GraphicElementAny any;
+  GraphicElementLine line;
+  GraphicElementPoly polyline;
+  GraphicElementPoly polygon;
+  GraphicElementRect rect;
+  GraphicElementEllipse ellipse;
 };
 
 typedef struct _ShapeInfo ShapeInfo;
@@ -48,6 +74,7 @@ struct _ShapeInfo {
   Rectangle shape_bounds;
   gboolean has_text;
   Rectangle text_bounds;
+  gboolean fix_aspect_ratio;
   GList *display_list;
 
   ObjectType *object_type; /* back link so we can find the correct type */

@@ -37,39 +37,85 @@ shape_info_get(ObjectNode obj_node)
 }
 
 static void
-parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns)
+parse_style(xmlNodePtr node, real *line_width, gboolean *swap_stroke,
+	    gboolean *swap_fill)
+{
+  char *str, *ptr;
+
+  ptr = str = xmlGetProp(node, "style");
+  if (!str)
+    return;
+  while (ptr[0] != '\0') {
+    /* skip white space at start */
+    while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+    if (ptr[0] == '\0') break;
+
+    if (!strncmp("stroke-width:", ptr, 13)) {
+      ptr += 13;
+      *line_width = g_strtod(ptr, &ptr);
+    } else if (!strncmp("stroke:", ptr, 7)) {
+      ptr += 7;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+      *swap_stroke = !strncmp("background", ptr, 10) ||
+		     !strncmp("fill", ptr, 4);
+    } else if (!strncmp("fill:", ptr, 5)) {
+      ptr += 5;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+      *swap_fill = !strncmp("foreground", ptr, 10) ||
+		   !strncmp("stroke", ptr, 6);
+    }
+
+    /* skip up to the next attribute */
+    while (ptr[0] != '\0' && ptr[0] != ';' && ptr[0] != '\n') ptr++;
+    if (ptr[0] != '\0') ptr++;
+  }
+  free(str);
+}
+
+static void
+parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
+	       real line_width, gboolean swap_stroke, gboolean swap_fill)
 {
   CHAR *str;
 
   /* walk SVG node ... */
   for (node = node->childs; node != NULL; node = node->next) {
     GraphicElement *el = NULL;
+    real new_width = line_width;
+    gboolean new_fswap = swap_stroke, new_bswap = swap_stroke;
+
     if (node->type != XML_ELEMENT_NODE || node->ns != svg_ns)
       continue;
+    parse_style(node, &new_width, &new_fswap, &new_bswap);
     if (!strcmp(node->name, "line")) {
-      el = g_malloc0(sizeof(GraphicElementType) + 2*sizeof(Point));
-      el->type = GE_LINE;
+      GraphicElementLine *line = g_new(GraphicElementLine, 1);
+
+      el = (GraphicElement *)line;
+      line->type = GE_LINE;
       str = xmlGetProp(node, "x1");
       if (str) {
-	el->d.line.p1.x = g_strtod(str, NULL);
+	line->p1.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
-	el->d.line.p1.y = g_strtod(str, NULL);
+	line->p1.y = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
-	el->d.line.p2.x = g_strtod(str, NULL);
+	line->p2.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
-	el->d.line.p2.y = g_strtod(str, NULL);
+	line->p2.y = g_strtod(str, NULL);
 	free(str);
       }
     } else if (!strcmp(node->name, "polyline")) {
+      GraphicElementPoly *poly;
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
       real val, *rarr;
       char *tmp;
@@ -88,17 +134,18 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns)
       val = 0;
       if (arr->len % 2 == 1) 
 	g_array_append_val(arr, val);
-      el = g_malloc0(sizeof(GraphicElementType) + sizeof(int) +
-		     arr->len/2 * sizeof(Point));
-      el->type = GE_POLYLINE;
-      el->d.polyline.npoints = arr->len / 2;
+      poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
+      el = (GraphicElement *)poly;
+      poly->type = GE_POLYLINE;
+      poly->npoints = arr->len / 2;
       rarr = (real *)arr->data;
-      for (i = 0; i < el->d.polyline.npoints; i++) {
-	el->d.polyline.points[i].x = rarr[2*i];
-	el->d.polyline.points[i].y = rarr[2*i+1];
+      for (i = 0; i < poly->npoints; i++) {
+	poly->points[i].x = rarr[2*i];
+	poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
     } else if (!strcmp(node->name, "polygon")) {
+      GraphicElementPoly *poly;
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
       real val, *rarr;
       char *tmp;
@@ -117,89 +164,97 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns)
       val = 0;
       if (arr->len % 2 == 1) 
 	g_array_append_val(arr, val);
-      el = g_malloc0(sizeof(GraphicElementType) + sizeof(int) +
-		     arr->len/2 * sizeof(Point));
-      el->type = GE_POLYGON;
-      el->d.polygon.npoints = arr->len / 2;
+      poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
+      el = (GraphicElement *)poly;
+      poly->type = GE_POLYLINE;
+      poly->npoints = arr->len / 2;
       rarr = (real *)arr->data;
-      for (i = 0; i < el->d.polygon.npoints; i++) {
-	el->d.polygon.points[i].x = rarr[2*i];
-	el->d.polygon.points[i].y = rarr[2*i+1];
+      for (i = 0; i < poly->npoints; i++) {
+	poly->points[i].x = rarr[2*i];
+	poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
     } else if (!strcmp(node->name, "rect")) {
-      el = g_malloc0(sizeof(GraphicElementType) + 2*sizeof(Point));
-      el->type = GE_RECT;
+      GraphicElementRect *rect = g_new(GraphicElementRect, 1);
+
+      el = (GraphicElement *)rect;
+      rect->type = GE_RECT;
       str = xmlGetProp(node, "x1");
       if (str) {
-	el->d.rect.corner1.x = g_strtod(str, NULL);
+	rect->corner1.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
-	el->d.rect.corner1.y = g_strtod(str, NULL);
+	rect->corner1.y = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
-	el->d.rect.corner2.x = g_strtod(str, NULL);
+	rect->corner2.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
-	el->d.rect.corner2.y = g_strtod(str, NULL);
+	rect->corner2.y = g_strtod(str, NULL);
 	free(str);
       }
     } else if (!strcmp(node->name, "circle")) {
-      el = g_malloc0(sizeof(GraphicElementType) +
-		     sizeof(Point) + 2 * sizeof(real));
-      el->type = GE_ELLIPSE;
+      GraphicElementEllipse *ellipse = g_new(GraphicElementEllipse, 1);
+
+      el = (GraphicElement *)ellipse;
+      ellipse->type = GE_ELLIPSE;
       str = xmlGetProp(node, "cx");
       if (str) {
-	el->d.ellipse.center.x = g_strtod(str, NULL);
+	ellipse->center.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
-	el->d.ellipse.center.y = g_strtod(str, NULL);
+	ellipse->center.y = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "r");
       if (str) {
-	el->d.ellipse.width = el->d.ellipse.height = 2 * g_strtod(str, NULL);
+	ellipse->width = ellipse->height = 2 * g_strtod(str, NULL);
 	free(str);
       }
     } else if (!strcmp(node->name, "ellipse")) {
-      el = g_malloc0(sizeof(GraphicElementType) +
-		     sizeof(Point) + 2 * sizeof(real));
-      el->type = GE_ELLIPSE;
+      GraphicElementEllipse *ellipse = g_new(GraphicElementEllipse, 1);
+
+      el = (GraphicElement *)ellipse;
+      ellipse->type = GE_ELLIPSE;
       str = xmlGetProp(node, "cx");
       if (str) {
-	el->d.ellipse.center.x = g_strtod(str, NULL);
+	ellipse->center.x = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
-	el->d.ellipse.center.y = g_strtod(str, NULL);
+	ellipse->center.y = g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "rx");
       if (str) {
-	el->d.ellipse.width = 2 * g_strtod(str, NULL);
+	ellipse->width = 2 * g_strtod(str, NULL);
 	free(str);
       }
       str = xmlGetProp(node, "ry");
       if (str) {
-	el->d.ellipse.height = 2 * g_strtod(str, NULL);
+	ellipse->height = 2 * g_strtod(str, NULL);
 	free(str);
       }
     } else if (!strcmp(node->name, "path")) {
     } else if (!strcmp(node->name, "g")) {
       /* add elements from the group element */
-      parse_svg_node(info, node, svg_ns);
+      parse_svg_node(info, node, svg_ns, new_width, new_fswap, new_bswap);
     }
-    if (el)
+    if (el) {
+      el->any.line_width = new_width;
+      el->any.swap_stroke = new_fswap;
+      el->any.swap_fill   = new_bswap;
       info->display_list = g_list_append(info->display_list, el);
+    }
   }
 }
 
@@ -227,28 +282,28 @@ update_bounds(ShapeInfo *info)
 
     switch (el->type) {
     case GE_LINE:
-      check_point(info, &(el->d.line.p1));
-      check_point(info, &(el->d.line.p2));
+      check_point(info, &(el->line.p1));
+      check_point(info, &(el->line.p2));
       break;
     case GE_POLYLINE:
-      for (i = 0; i < el->d.polyline.npoints; i++)
-	check_point(info, &(el->d.polyline.points[i]));
+      for (i = 0; i < el->polyline.npoints; i++)
+	check_point(info, &(el->polyline.points[i]));
       break;
     case GE_POLYGON:
-      for (i = 0; i < el->d.polygon.npoints; i++)
-	check_point(info, &(el->d.polygon.points[i]));
+      for (i = 0; i < el->polygon.npoints; i++)
+	check_point(info, &(el->polygon.points[i]));
       break;
     case GE_RECT:
-      check_point(info, &(el->d.rect.corner1));
-      check_point(info, &(el->d.rect.corner2));
+      check_point(info, &(el->rect.corner1));
+      check_point(info, &(el->rect.corner2));
       break;
     case GE_ELLIPSE:
-      pt = el->d.ellipse.center;
-      pt.x -= el->d.ellipse.width / 2.0;
-      pt.y -= el->d.ellipse.height / 2.0;
+      pt = el->ellipse.center;
+      pt.x -= el->ellipse.width / 2.0;
+      pt.y -= el->ellipse.height / 2.0;
       check_point(info, &pt);
-      pt.x += el->d.ellipse.width;
-      pt.y += el->d.ellipse.height;
+      pt.x += el->ellipse.width;
+      pt.y += el->ellipse.height;
       check_point(info, &pt);
       break;
     }
@@ -354,8 +409,10 @@ load_shape_info(const gchar *filename)
 	free(str);
       }
       info->has_text = TRUE;
+    } else if (node->ns == shape_ns && !strcmp(node->name, "fixaspectratio")) {
+      info->fix_aspect_ratio = TRUE;
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
-      parse_svg_node(info, node, svg_ns);
+      parse_svg_node(info, node, svg_ns, 1.0, FALSE, FALSE);
       update_bounds(info);
     }
   }
@@ -382,16 +439,36 @@ shape_info_print(ShapeInfo *info)
   g_print("Display list:\n");
   for (tmp = info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
+    int i;
 
     switch (el->type) {
     case GE_LINE:
-      g_print("  line: (%g, %g) (%g, %g)\n", el->d.line.p1.x, el->d.line.p1.y,
-	      el->d.line.p2.x, el->d.line.p2.y);
+      g_print("  line: (%g, %g) (%g, %g)\n", el->line.p1.x, el->line.p1.y,
+	      el->line.p2.x, el->line.p2.y);
+      break;
+    case GE_POLYLINE:
+      g_print("  polyline:");
+      for (i = 0; i < el->polyline.npoints/2; i++)
+	g_print(" (%g, %g)", el->polyline.points[2*i],
+		el->polyline.points[2*i+1]);
+      g_print("\n");
+      break;
+    case GE_POLYGON:
+      g_print("  polygon:");
+      for (i = 0; i < el->polygon.npoints/2; i++)
+	g_print(" (%g, %g)", el->polygon.points[2*i],
+		el->polygon.points[2*i+1]);
+      g_print("\n");
       break;
     case GE_RECT:
       g_print("  rect: (%g, %g) (%g, %g)\n",
-	      el->d.rect.corner1.x, el->d.rect.corner1.y,
-	      el->d.rect.corner2.x, el->d.rect.corner2.y);
+	      el->rect.corner1.x, el->rect.corner1.y,
+	      el->rect.corner2.x, el->rect.corner2.y);
+      break;
+    case GE_ELLIPSE:
+      g_print("  ellipse: center=(%g, %g) width=%g height=%g\n",
+	      el->ellipse.center.x, el->ellipse.center.y,
+	      el->ellipse.width, el->ellipse.height);
       break;
     default:
       break;

@@ -1,5 +1,18 @@
 1999-08-23  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/custom_object.c (custom_update_data): if the aspect
+	ratio is fixed, make sure the shape is not distorted.
+
+	* object/custom/shape_info.h, objects/custom/shape_info.c: notice if
+	a <fixaspectratio/> tag is given in the shape file.
+
+	* objects/custom/shape_info.[ch], objects/custom/custom_object.c:
+	added support for stroke-width, stroke and fill CSS attributes
+	specified in style attributes of the SVG elements.  The line width
+	is relative to the user specified line width.  The stroke and fill
+	attributes can only be used to swap the foreground/background
+	colours.
+
 	* lib/widgets.c (dia_line_style_selector_set_linestyle): set the
 	sensitivity on the dash length selector when this function is called.
 
