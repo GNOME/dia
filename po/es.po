@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "POT-Creation-Date: 2004-10-31 22:25+0100\n"
-"PO-Revision-Date: 2004-09-19 17:17+0200\n"
+"PO-Revision-Date: 2004-12-13 22:44+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Report-Msgid-Bugs-To: \n"
 "serrador@hispalinux.es>\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: app/app_procs.c:219
@@ -36,8 +36,7 @@ msgstr "%s error: no se sabe cómo exportar a %s\n"
 #: app/app_procs.c:228
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
-"%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
 #: app/app_procs.c:235
 #, c-format
@@ -59,8 +58,7 @@ msgstr "No se pudo encontrar el formato de salida %s\n"
 #: app/app_procs.c:394
 #, fuzzy, c-format
 msgid "Select the filter/format.  Supported are: %s"
-msgstr ""
-"Exportar al formato de archivo y salir. Los formatos soportados son: %s"
+msgstr "Exportar al formato de archivo y salir. Los formatos soportados son: %s"
 
 #. &export_file_name
 #: app/app_procs.c:411
@@ -73,8 +71,9 @@ msgstr "SALIDA"
 
 #. &export_file_format
 #: app/app_procs.c:413
+# Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 msgid "TYPE"
-msgstr ""
+msgstr "TIPO"
 
 #: app/app_procs.c:416
 msgid "Export graphics size"
@@ -121,8 +120,7 @@ msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
 #: app/app_procs.c:549 app/app_procs.c:551
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 #: app/app_procs.c:592
@@ -130,12 +128,13 @@ msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 #: app/app_procs.c:634
+# Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
-"Esto no debería ocurrir. Rellene un informe de error en bugzilla.gnome.org\n"
-"describiendo cómo puede hacer que este mensaje aparezca.\n"
+"Esto no debería ocurrir. Por favor, rellene un informe de error en bugzilla.gnome.org\n"
+"describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
 #. no standard buttons
 #: app/app_procs.c:646
@@ -214,7 +213,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Otos autores son:\n"
+"Otros autores son:\n"
 "\n"
 
 #: app/app_procs.c:890
@@ -278,15 +277,17 @@ msgstr ""
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
-"Revisión de Francisco Vila <fravd@wanadoo.es>"
+"Revisión por Francisco Vila <fravd@wanadoo.es> "
+"2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com> "
 
 #: app/commands.c:620
 msgid "Dia"
 msgstr "Dia"
 
 #: app/commands.c:622
+# Yo no traduciría el artículo "The" en el copyright. RizOX.
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
-msgstr "Copyright © 1998-2002 la Free Software Foundation y los autores"
+msgstr "Copyright © 1998-2002 The Free Software Foundation y los autores"
 
 #: app/commands.c:623
 msgid ""
@@ -315,8 +316,9 @@ msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr "Visite http://www.gnome.org/projects/dia para más información"
 
 #: app/commands.c:720
+# "Contribuido" no lleva acento.
 msgid "Contributors:"
-msgstr "Han contribuído:"
+msgstr "Han contribuido:"
 
 #: app/defaults.c:43 app/defaults.c:146
 msgid "Object defaults"
@@ -356,12 +358,14 @@ msgstr "Espaciado visible"
 
 #. Hexes!
 #: app/dia-props.c:177 app/preferences.c:162
+# Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 msgid "Hex grid"
-msgstr "Rejilla hex."
+msgstr "Rejilla Hex."
 
 #: app/dia-props.c:185
+# Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 msgid "Hex grid size"
-msgstr "Tamaño de la rejilla hex."
+msgstr "Tamaño de la rejilla Hex."
 
 #: app/dia-props.c:198
 msgid "Grid"
@@ -399,6 +403,8 @@ msgid "X position"
 msgstr "Posición X"
 
 #: app/diacanvas.c:122
+# Traduzco "widget" por "elemento" tal y como se ha hecho más adelante en sucesivas apariciones. RizOX
+# widget no se traduce. Es una de las palabras que están en la normativa de gnome
 msgid "X position of child widget"
 msgstr "Posición X del widget hijo"
 
@@ -408,6 +414,7 @@ msgid "Y position"
 msgstr "Posición Y"
 
 #: app/diacanvas.c:132
+# Traduzco "widget" por "elemento" tal y como se ha hecho más adelante en sucesivas apariciones. RizOX
 msgid "Y position of child widget"
 msgstr "Posición Y del widget hijo"
 
@@ -469,7 +476,7 @@ msgstr "/Ordenar _diagramas/por _inserción"
 
 #: app/diagram_tree_menu.c:71
 msgid "/Sort diagrams/_Default"
-msgstr "/Ordenar _diagramas/Predeterminado"
+msgstr "/Ordenar diagramas/_Predeterminado"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
@@ -699,12 +706,13 @@ msgid "Compress diagram files"
 msgstr "Comprimir archivos del diagrama"
 
 #: app/filedlg.c:320
+# Me suena más natural y descriptivo "al cargar y al guardar" o "al cargar y guardar" que "del cargar y del guardar". RizOX
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 "La comprensión reduce el tamaño del archivo a menos de la décima parte e "
-"incrementa la velocidad del cargado y el guardado. Algunos programas de "
+"incrementa la velocidad al cargar y al guardar. Algunos programas de "
 "texto no pueden manipular archivos comprimidos."
 
 #: app/filedlg.c:474
@@ -733,20 +741,23 @@ msgid "Modify"
 msgstr "Modificar"
 
 # Yo diría "Ampliar" FVD
+# Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: app/interface.c:59 app/interface.c:60 objects/FS/function.c:975
 msgid "Magnify"
-msgstr "Magnificar"
+msgstr "Ampliar"
 
 # Esto es fuzzy, no? FVD
+# Yo diría "Desplazar sobre...". Fuzzy. RizOX.
 #: app/interface.c:64
 msgid "Scroll around the diagram"
-msgstr "Desplazamiento sobre el diagrama"
+msgstr "Desplazar sobre el diagrama"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
+# Yo más bien diría "Desplazar". Fuzzy. RizOX.
 #: app/interface.c:65
 msgid "Scroll"
-msgstr "Desplazamiento"
+msgstr "Desplazar"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
 #: lib/properties.h:516 lib/properties.h:519 objects/UML/activity.c:122
@@ -793,7 +804,7 @@ msgstr "Polilínea"
 
 #: app/interface.c:114 app/interface.c:115
 msgid "Bezierline"
-msgstr "Línea Bezier"
+msgstr "Línea Bézier"
 
 #: app/interface.c:119 app/interface.c:120
 msgid "Image"
@@ -808,6 +819,7 @@ msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
 #: app/interface.c:512
+# ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
 msgid "Zoom"
 msgstr "Ampliación"
 
@@ -816,63 +828,68 @@ msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
 #: app/interface.c:589
+# Fuzzy. RizOX
 msgid "NULL tooldata in tool_select_update"
-msgstr "tooldata NULL en tool_select_update"
+msgstr "Información de herramienta nula (NULL) en tool_select_update"
 
 #: app/interface.c:958
-#, fuzzy, c-format
+#, c-format
 msgid "No sheet named %s"
-msgstr "Nombre de la hoja:"
+msgstr "No hay ninguna hoja llamada %s"
 
 #: app/interface.c:1048
-#, fuzzy
+# ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
 msgid "Other sheets"
-msgstr ""
-"%s\n"
-"Hoja de usuario"
+msgstr "Otras hojas"
 
 #: app/interface.c:1124
+# Corregido: lleva doble espacio antes de cada frase.
+# "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
-"Colores de primer plano y fondo para objetos nuevos. Los pequeños cuadrados "
-"negro y blanco restablecen los colores. Las pequeñas flechas intercambian "
-"los colores. Doble pulsación para cambiar los colores."
+"Colores de primer plano y fondo para objetos nuevos.  Los pequeños cuadrados "
+"negro y blanco restablecen los colores.  Las pequeñas flechas intercambian "
+"los colores.  Pulse dos veces para cambiar los colores."
 
 #: app/interface.c:1139
+# Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "Anchura de líneas.  Pulse en una línea para establecer la anchura de línea "
-"preestablecida para los objetos nuevos. Pulse dos veces para establecer la "
-"anchura más precisamente."
+"preestablecida para los objetos nuevos.  Pulse dos veces para establecer la "
+"anchura con mayor precisión."
 
 #: app/interface.c:1179
+# La coma antes del "o" no queda bien en la frase en español. RizOX.
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 "Estilo de flecha al principio de las líneas nuevas. Pulse para escoger una "
-"flecha, o establezca los parámetros de la flecha en Detalles..."
+"flecha o establezca los parámetros de la flecha en Detalles..."
 
 #: app/interface.c:1184
+# La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
-"Estilo de línea para las líneas nuevas. Pulse para escoger un estilo de "
-"línea, o establezca los parámetros de estilo de línea en Detalles..."
+"Estilo de línea para las líneas nuevas.  Pulse para escoger un estilo de "
+"línea o establezca los parámetros de estilo de línea en Detalles..."
 
 #: app/interface.c:1198
+# La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
-"Estilo de flecha al final de las líneas nuevas. Pulse para escoger una "
-"flecha, o establezca los parámetros de la flecha con Detalles..."
+"Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
+"flecha o establezca los parámetros de la flecha en Detalles..."
 
 #: app/interface.c:1308
 msgid "Diagram Editor"
@@ -883,12 +900,15 @@ msgid "New Layer"
 msgstr "Nueva capa"
 
 #: app/layer_dialog.c:71
+# Lo traduciría por "Elevar" en vez de "Subir". RizOX.
 msgid "Raise Layer"
-msgstr "Subir capa"
+msgstr "Elevar capa"
 
 #: app/layer_dialog.c:72
+# No sé si quedaría en el contexto bien "Descender" en vez de "Bajar". RizOX.
+# Mejor Hundir.Cyphra
 msgid "Lower Layer"
-msgstr "Bajar capa"
+msgstr "Hundir capa"
 
 #: app/layer_dialog.c:73
 msgid "Delete Layer"
@@ -936,12 +956,13 @@ msgid "Line width:"
 msgstr "Ancho de línea:"
 
 #: app/load_save.c:260
+# Cambiado el orden de la frase para mayor naturalidad. RizOX.
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
 "Error cargando diagrama.\n"
-"Objeto enlazado no encontrado en el documento."
+"No se ha encontrado en el documento el objeto enlazado."
 
 #: app/load_save.c:263
 msgid ""
@@ -1278,8 +1299,9 @@ msgid "/Objects/_Ungroup"
 msgstr "/Objetos/_Desagrupar"
 
 #: app/menus.c:172
+# Me parece más descriptivo "Emparentar" que "Padre". RizOX.
 msgid "/Objects/_Parent"
-msgstr "/Objetos/_Padre"
+msgstr "/Objetos/Em_parentar"
 
 #: app/menus.c:173
 msgid "/Objects/_Unparent"
@@ -1398,12 +1420,14 @@ msgid "/Tools/Modify"
 msgstr "/Herramientas/Modificar"
 
 #: app/menus.c:213
+# Según lo traducido anteriormente creo más correcto "Ampliar" que "Magnificar".
 msgid "/Tools/Magnify"
-msgstr "/Herramientas/Magnificar"
+msgstr "/Herramientas/Ampliar"
 
 #: app/menus.c:214
+# Entiendo que se refiere a la acción de "Desplazar" (To Scroll), no al "Desplazamiento" (Offset). RizOX.
 msgid "/Tools/Scroll"
-msgstr "/Herramientas/Desplazamiento"
+msgstr "/Herramientas/Desplazar"
 
 #: app/menus.c:215
 msgid "/Tools/Text"
@@ -1458,8 +1482,9 @@ msgid "/_Input Methods"
 msgstr "/Métodos de _entrada"
 
 #: app/menus.c:399
+# Traduzco "tooldata". RizOX.
 msgid "NULL tooldata in tool_menu_select"
-msgstr "tooldata NULL en tool_menu_select"
+msgstr "Información de herramienta nula (NULL) en tool_menu_select"
 
 #: app/menus.c:497
 msgid "Diagram Menu"
@@ -1560,16 +1585,19 @@ msgid "Compress saved files"
 msgstr "Comprimir archivos guardados"
 
 #: app/preferences.c:122
+# Con las comillas se entiende mejor que "deshacer" se refiere a la "función deshacer". RizOX.
+# Se entiende perfectamente.
 msgid "Number of undo levels:"
 msgstr "Número de niveles de deshacer:"
 
 #: app/preferences.c:123
+# Reflexivo queda algo más natural dentro de lo que cabe. RizOX.
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
 msgstr ""
 "El arrastre inverso selecciona\n"
-"objetos que intersectan"
+"objetos que se intersectan"
 
 #: app/preferences.c:124
 msgid "Recent documents list size:"
@@ -1612,8 +1640,9 @@ msgid "Height:"
 msgstr "Alto:"
 
 #: app/preferences.c:141
+# Según lo traducido anteriormente "Ampliar" queda más natural que "Magnificar" que suena a barbarismo. RizOX.
 msgid "Magnify:"
-msgstr "Magnificar:"
+msgstr "Ampliar:"
 
 #: app/preferences.c:144
 msgid "Connection Points:"
@@ -1657,8 +1686,9 @@ msgid "Lines per major line"
 msgstr "Líneas por cada línea principal"
 
 #: app/preferences.c:163
+# Yo pondría "Hex" con mayúscula o diría directamente "hexadecimal" (si es que se refiere a eso). RizOX.
 msgid "Hex Size:"
-msgstr "Tamaño hex:"
+msgstr "Tamaño Hex:"
 
 #: app/preferences.c:182
 msgid "Diagram tree window:"
@@ -1700,8 +1730,9 @@ msgstr "Propiedades del objeto:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:61
+# Anteriormente se ha traducido "plug-in" por "Complemento" en vez de por "Extensión". Me parece más descriptivo "Complemento" y así lo mantengo en el resto de la traducción. RizOX.
 msgid "<Toolbox>/File/Plugins..."
-msgstr "<Caja de herramientas>/Archivo/Extensiones..."
+msgstr "<Caja de herramientas>/Archivo/Complementos..."
 
 #: app/recent_files.c:70 app/recent_files.c:143
 msgid "<Toolbox>/File/Quit"
@@ -1712,8 +1743,9 @@ msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "PostScript encapsulado (usando tipografía Pango)"
 
 #: app/render_eps.c:154
+# Faltaba por traducir "with preview". RizOX.
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "PostScript encapsulado (usando tipografía Pango)"
+msgstr "PostScript encapsulado con vista previa (usando tipografía Pango)"
 
 #: app/render_eps.c:164
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
@@ -1734,20 +1766,22 @@ msgstr ""
 
 #: app/sheets.c:156
 #, c-format
+# Si el anterior es "Hoja del sistema" este debe ser igualmente "Hoja del usuario".
 msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
 "%s\n"
-"Hoja de usuario"
+"Hoja del usuario"
 
 #: app/sheets.c:271
+# Nota: tiene pinta de que "shapes" no se refiere a "figuras" sino a "moldes", "modelos" o "formas". Me inclino por "formas" pendiente de verificación. RizOX.
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
 "No se pudo obtener el símbolo «custom_type» de ningún módulo.\n"
-"La edición de figuras está desactivada."
+"La edición de formas está desactivada."
 
 #: app/sheets.c:373
 #, c-format
@@ -1755,8 +1789,9 @@ msgid "Widget not found: %s"
 msgstr "Elemento no encontrado: %s"
 
 #: app/sheets.c:448
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid "SVG Shape"
-msgstr "Figura SVG"
+msgstr "Forma SVG"
 
 #: app/sheets.c:450
 msgid "Programmed DiaObject"
@@ -1810,8 +1845,9 @@ msgid "Browse..."
 msgstr "Navegar..."
 
 #: app/sheets_dialog.c:386
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid "SVG Shape:"
-msgstr "Figura SVG:"
+msgstr "Forma SVG:"
 
 #: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
@@ -1874,8 +1910,9 @@ msgid "Sheet:"
 msgstr "Hoja:"
 
 #: app/sheets_dialog.c:920
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid "Select SVG Shape File"
-msgstr "Seleccionar archivo de figura SVG"
+msgstr "Seleccionar archivo de forma SVG"
 
 #: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
@@ -1895,12 +1932,13 @@ msgstr "Mover todo ->"
 
 #: app/sheets_dialog_callbacks.c:303
 #, c-format
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid ""
 "%s\n"
 "Shape"
 msgstr ""
 "%s\n"
-"Figura"
+"Forma"
 
 #: app/sheets_dialog_callbacks.c:306
 #, c-format
@@ -1932,8 +1970,9 @@ msgstr "Error al examinar %s: %s"
 
 #: app/sheets_dialog_callbacks.c:828
 #, c-format
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid "Could not interpret shape file: '%s'"
-msgstr "No se pudo interpretar el archivo de figura: «%s»"
+msgstr "No se pudo interpretar el archivo de forma: «%s»"
 
 #: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
@@ -1969,8 +2008,9 @@ msgid "For: %s"
 msgstr "Para: %s"
 
 #: app/sheets_dialog_callbacks.c:1697
+# Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 msgid "add shapes here"
-msgstr "añadir figuras aquí"
+msgstr "añadir formas aquí"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -1982,14 +2022,13 @@ msgid "Dia v %s"
 msgstr "Dia v %s"
 
 #: dia.desktop.in.h:1
-#, fuzzy
 msgid "Dia Diagram Editor"
 msgstr "Editor de diagramas"
 
 #: dia.desktop.in.h:2
-#, fuzzy
+# Corregido según el original inglés. RizOX.
 msgid "Edit your Diagrams"
-msgstr "Exportar diagrama"
+msgstr "Edite sus diagramas"
 
 #: lib/arrows.c:40 objects/UML/association.c:1236 objects/Jackson/domain.c:96
 msgid "None"
@@ -2000,8 +2039,9 @@ msgid "Lines"
 msgstr "Líneas"
 
 #: lib/arrows.c:42
+# "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
 msgid "Hollow Triangle"
-msgstr "Triángulo vacío"
+msgstr "Triángulo hueco"
 
 #: lib/arrows.c:43
 msgid "Filled Triangle"
@@ -2012,6 +2052,7 @@ msgid "Unfilled Triangle"
 msgstr "Triángulo sin relleno"
 
 #: lib/arrows.c:45
+# "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
 msgid "Hollow Diamond"
 msgstr "Diamante hueco"
 
@@ -2088,16 +2129,19 @@ msgid "Cross"
 msgstr "Cruz"
 
 #: lib/arrows.c:64
+# Corrección: "ó" al estar al lado de número/s. RizOX.
 msgid "1-or-many"
-msgstr "1 o muchos"
+msgstr "1 ó muchos"
 
 #: lib/arrows.c:65
+# Corrección: "ó" al estar al lado de número/s. RizOX.
 msgid "0-or-many"
-msgstr "0 o muchos"
+msgstr "0 ó muchos"
 
 #: lib/arrows.c:66
+# Corrección: "ó" al estar al lado de número/s. RizOX.
 msgid "1-or-0"
-msgstr "1 o 0"
+msgstr "1 ó 0"
 
 #: lib/arrows.c:67
 msgid "1 exactly"
@@ -2112,20 +2156,23 @@ msgid "Blanked Concave"
 msgstr "Cóncavo vacío"
 
 #: lib/arrows.c:70
+# La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
 msgid "Round"
-msgstr "Ronda"
+msgstr "Curva"
 
 #: lib/arrows.c:71
+# La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
 msgid "Open Round"
-msgstr "Ronda abierta"
+msgstr "Curva abierta"
 
 #: lib/arrows.c:72
 msgid "Backslash"
 msgstr "Barra invertida"
 
 #: lib/bezier_conn.c:533
+# "Setting" se traduciría mejor como "Al establecer" o "Al fijar", no como un gerundio. En Español se escribe con minúscula tras los dos puntos. En inglés con mayúsculas. RizOX.
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Error interno: Estableciendo tipo esquina de punto final bézier"
+msgstr "Error interno: al establecer tipo esquina de punto final bézier"
 
 #: lib/dia_xml.c:154
 #, c-format
@@ -2143,7 +2190,7 @@ msgstr "Tomando el valor del punto de un nodo que no es un punto."
 #: lib/dia_xml.c:482
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Valor del punto x \"%s\" %f incorrecto, se descarta."
+msgstr "Valor incorrecto del punto x \"%s\" %f; se descarta."
 
 #: lib/dia_xml.c:489
 msgid "Error parsing point."
@@ -2153,17 +2200,17 @@ msgstr "Error analizando el punto."
 #: lib/dia_xml.c:497
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Valor del punto y \"%s\" %f incorrecto, se descarta."
+msgstr "Valor incorrecto del punto y \"%s\" %f; se descarta."
 
 #: lib/dia_xml.c:865
+# Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
-"Su juego de caracteres locales es UTF-8. A causa de asuntos relativos a "
-"libxml1 y el soporte de archivos generados por versiones anteriores de Dia, "
-"tendrá problemas. Por favor, informe a dia-list@gnome.org si ve este mensaje."
+"Su juego de caracteres locales es UTF-8. Tendrá problemas a causa de problemas relativos a "
+"libxml1 y el soporte de archivos generados por versiones anteriores de Dia. Por favor, informe a dia-list@gnome.org si ve este mensaje."
 
 #: lib/diaarrowchooser.c:251
 msgid "Arrow Properties"
@@ -2192,8 +2239,9 @@ msgid "Preview text"
 msgstr "Vista preliminar del texto"
 
 #: lib/diagtkfontsel.c:217
+# Creo que queda más natural así. RizOX.
 msgid "The text to display in order to demonstrate the selected font."
-msgstr "El texto que mostrar para visualizar la tipografía seleccionada."
+msgstr "El texto para mostrar como ejemplo de la tipografía seleccionada."
 
 #: lib/diagtkfontsel.c:321
 msgid "_Family:"
@@ -2252,17 +2300,19 @@ msgid "There are %d similar messages."
 msgstr "Hay %d mensajes similares."
 
 # no estoy de acuerdo. FVD
+# Yo tampoco. "Noticia" es "News". "Notice" significa "Observación". RizOX.
 #: lib/message.c:215
 msgid "Notice"
-msgstr "Noticia"
+msgstr "Observación"
 
 #: lib/object_defaults.c:127
 #, c-format
+# Si cabe yo añadiría "los valores predeterminados" en vez de sólo "predeterminados" que no aclara suficientemente a qué se refiere. RizOX.
 msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Error al cargar los predeterminados «%s».\n"
+"Error al cargar los valores predeterminados «%s».\n"
 "No es un archivo de diagrama de Dia."
 
 #: lib/plug-ins.c:120
@@ -2276,17 +2326,19 @@ msgstr "No se pudo deducir el camino correcto para «%s»"
 
 #: lib/plug-ins.c:234
 #, c-format
+# Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
 msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"No se pudo cargar la extensión «%s»\n"
+"No se pudo cargar el complemento «%s»\n"
 "%s"
 
 #: lib/plug-ins.c:247
 #, c-format
+# Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
 msgid "Could not find plugin init function in `%s'"
-msgstr "No se pudo encontrar función de iniciación de la extensión en «%s»"
+msgstr "No se pudo encontrar función de iniciación del complemento en «%s»"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
@@ -2298,8 +2350,9 @@ msgstr "falló la llamada a dia_plugin_init()"
 
 #: lib/plug-ins.c:284
 #, c-format
+# Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
 msgid "%s Plugin could not be unloaded"
-msgstr "La extensión %s no pudo ser descargado"
+msgstr "El complemento %s no pudo descargarse"
 
 #: lib/plug-ins.c:372
 #, c-format
@@ -2384,9 +2437,8 @@ msgid "Text colour"
 msgstr "Color de texto"
 
 #: lib/widgets.c:356
-#, fuzzy
 msgid "Other fonts"
-msgstr "Otras tipografías..."
+msgstr "Otras tipografías"
 
 #: lib/widgets.c:426
 #, c-format
@@ -2425,12 +2477,12 @@ msgstr "Seleccione color"
 
 #: lib/widgets.c:951
 msgid "More colors..."
-msgstr ""
+msgstr "Más colores"
 
 #: lib/widgets.c:1067
-#, fuzzy
+# Corregido, no tenía sentido. RizOX.
 msgid "More arrows"
-msgstr "Flecha punteada"
+msgstr "Más flechas"
 
 #: lib/widgets.c:1080
 msgid "Size: "
@@ -2445,9 +2497,9 @@ msgid "Browse"
 msgstr "Navegar"
 
 #: lib/widgets.c:1850
-#, fuzzy
+# Corregido. No tenía sentido. RizOX.
 msgid "Reset menu"
-msgstr "Utilizar barra de menú"
+msgstr "Restaurar menú"
 
 #: objects/ER/attribute.c:153
 msgid "Key:"
@@ -2507,12 +2559,14 @@ msgid "Delete segment"
 msgstr "Borrar segmento"
 
 #: objects/ER/relationship.c:140
+# Yo diría mejor "Cardinalidad a izquierdas". RizOX.
 msgid "Left Cardinality:"
-msgstr "Cardinalidad a la izquierda:"
+msgstr "Cardinalidad a izquierdas:"
 
 #: objects/ER/relationship.c:142
+# Yo diría mejor "Cardinalidad a derechas". RizOX.
 msgid "Right Cardinality:"
-msgstr "Cardinalidad a la derecha:"
+msgstr "Cardinalidad a derechas:"
 
 #: objects/ER/relationship.c:144
 msgid "Rotate:"
@@ -2551,6 +2605,8 @@ msgid "Function structure diagram objects"
 msgstr "Objetos de diagrama de estructura de función"
 
 #: objects/FS/function.c:140
+# Suena raro. Se podría traducir también como "Función recomendada". Por revisar en contexto. Fuzzy. RizOX.
+# Estoy de acuerdo , es muy raro.cyphra
 msgid "Wish function"
 msgstr "Función de deseo"
 
@@ -2684,8 +2740,9 @@ msgstr "Rotar"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: objects/FS/function.c:739
+# "Dar la vuelta" queda más clarificador que "Volver". RizOX.
 msgid "Turn"
-msgstr "Volver"
+msgstr "Dar la vuelta"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: objects/FS/function.c:741
@@ -2750,8 +2807,9 @@ msgstr "Estabilizar"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
 #: objects/FS/function.c:773
+# yo diría mejor "Firme" en vez de "Estable" como adjetivo/opción de "Estabilizar". RizOX.
 msgid "Steady"
-msgstr "Estable"
+msgstr "Firme"
 
 #. Translators: Menu item Verb/Support/Secure
 #: objects/FS/function.c:775 objects/FS/function.c:777
@@ -2761,7 +2819,7 @@ msgstr "Seguro"
 #. Translators: Menu item Verb/Support/Secure/Attach
 #: objects/FS/function.c:779 objects/FS/function.c:811
 msgid "Attach"
-msgstr "Adjuntar"
+msgstr "Anexar"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: objects/FS/function.c:781
@@ -2770,12 +2828,14 @@ msgstr "Montar"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: objects/FS/function.c:783 sheets/ciscomisc.sheet.in.h:21
+# Como antes se ha traducido "Unlock" como "Desbloquear" ahora esto es "Bloquear". RizOX.
 msgid "Lock"
-msgstr "Cerrar"
+msgstr "Bloquear"
 
-# Pero Fasten seat belts es Apriétense los cinturones. FVD
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: objects/FS/function.c:785
+# Pero Fasten seat belts es Apriétense los cinturones. FVD
+# Según el diccionario inglés se puede traducir como "Fijar firme" o como "unir/atar firmemente". RizOX.
 msgid "Fasten"
 msgstr "Fijar"
 
@@ -2784,10 +2844,11 @@ msgstr "Fijar"
 msgid "Hold"
 msgstr "Sostener"
 
-# Posicionar? FVD
 #. Translators: Menu item Verb/Support/Position
 #: objects/FS/function.c:789 objects/FS/function.c:791
 #: objects/Istar/actor.c:68
+# Posicionar? FVD
+# Creo que está correcto según se ve en los menús: "Soportar/Posición/...". RizOX.
 msgid "Position"
 msgstr "Posición"
 
@@ -2804,8 +2865,9 @@ msgstr "Alinear"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #: objects/FS/function.c:797 objects/FS/function.c:1039
+# "Locate" significa "Posicionar", no "Localizar" que vendría a ser "Find" (Buscar). RizOX.
 msgid "Locate"
-msgstr "Localizar"
+msgstr "Posicionar"
 
 #. Translators: Menu item Verb/Connect
 #: objects/FS/function.c:799 objects/FS/function.c:801
@@ -2838,11 +2900,12 @@ msgstr "Mezclar"
 msgid "Combine"
 msgstr "Combinar"
 
-# Eso sería Bend. FVD
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: objects/FS/function.c:819
+# Eso sería Bend. FVD
+# Corrección: "Blend" es "mezclar". RizOX.
 msgid "Blend"
-msgstr "Doblar"
+msgstr "Mezclar"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: objects/FS/function.c:821
@@ -2856,14 +2919,16 @@ msgstr "Empaquetar"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
 #: objects/FS/function.c:825
+# "Coalesce" significa más bien "Combinar" o "Unificar", pero como ya hay una opción "Combine". {Mirar en contexto.} RizOX.
 msgid "Coalesce"
 msgstr "Incorporar"
 
-# Si ha de ser un verbo debería ser Ramificar. FVD
 #. Translators: Menu item Verb/Branch
 #: objects/FS/function.c:827 objects/FS/function.c:829 sheets/UML.sheet.in.h:5
+# Si ha de ser un verbo debería ser Ramificar. FVD
+# En ese menú todo son verbos. Debría ser "Ramificar". RizOX.
 msgid "Branch"
-msgstr "Rama"
+msgstr "Ramificar"
 
 #. Translators: Menu item Verb/Branch/Separate
 #: objects/FS/function.c:831 objects/FS/function.c:833
@@ -2888,8 +2953,10 @@ msgstr "Soltar"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:843
+# Yo pondría "Desagregar" para refinar más la opción "Separar". No tiene mucho sentido "Separar/Separar". Según el diccionario inglés es el contrapuesto a "Attach" (Anexar o Agregar). RizOX.
+# Y Desprender?
 msgid "Detach"
-msgstr "Separar"
+msgstr "Desprender"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: objects/FS/function.c:845
@@ -2901,17 +2968,19 @@ msgstr "Desconectar"
 msgid "Cut"
 msgstr "Cortar"
 
-# Creo que más bien Pulir. FVD
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
 #: objects/FS/function.c:853
+# Creo que más bien Pulir. FVD
+# Exactamente, es "pulir" ó "refinar" (de rudezas) según el diccionario. RizOX.
 msgid "Polish"
-msgstr "Limpiar"
+msgstr "Pulir"
 
-# Sí pero debería ser un verbo. FVD
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
 #: objects/FS/function.c:855
+# Sí pero debería ser un verbo. FVD
+# Podría ser "Cubrir con arena" según el diccionario. RizOX.
 msgid "Sand"
-msgstr "Arena"
+msgstr "Cubrir de arena"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
 #: objects/FS/function.c:857
@@ -2960,8 +3029,9 @@ msgstr "Distribuir"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: objects/FS/function.c:879
+# Corrección: "Diverger", no "Divergir". RizOX.
 msgid "Diverge"
-msgstr "Divergir"
+msgstr "Diverger"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: objects/FS/function.c:881
@@ -3008,9 +3078,10 @@ msgstr "Disipar"
 msgid "Resist"
 msgstr "Resistir"
 
-# También creo que todo esto son verbos. FVD
 #. Translators: Menu item Verb/Provision
 #: objects/FS/function.c:903 objects/FS/function.c:905
+# También creo que todo esto son verbos. FVD
+# Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
 msgid "Provision"
 msgstr "Provisión"
 
@@ -3079,9 +3150,9 @@ msgstr "Animar"
 msgid "Start"
 msgstr "Iniciar"
 
-# Esto para distinguirlo de Start-->Iniciar. FVD
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
 #: objects/FS/function.c:943
+# Esto para distinguirlo de Start-->Iniciar. FVD
 msgid "Initiate"
 msgstr "Comenzar"
 
@@ -3775,8 +3846,7 @@ msgstr "Identificador de actividad/dato"
 
 #: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
-"El identificador que se muestra en la esquina inferior derecha de la caja"
+msgstr "El identificador que se muestra en la esquina inferior derecha de la caja"
 
 #: objects/SADT/box.c:446 objects/Istar/other.c:484
 #: objects/Jackson/domain.c:540 objects/KAOS/goal.c:588
@@ -4908,8 +4978,7 @@ msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
 
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr ""
-"Filtro de importación y exportación de gráficos de vector escalables (SVG)"
+msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
 #: plug-ins/wmf/wmf.cpp:1209
 msgid "Windows Meta File"
@@ -4953,8 +5022,7 @@ msgstr "Dia no admite patrones"
 
 #: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
-"Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
+msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
 #: plug-ins/xfig/xfig-import.c:504
 #, c-format
@@ -8094,462 +8162,3 @@ msgstr "Un servidor de datos sybase"
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
 
-#~ msgid "FORMAT"
-#~ msgstr "FORMATO"
-
-#~ msgid "Diagram editor"
-#~ msgstr "Editor de diagramas"
-
-#~ msgid "Select font"
-#~ msgstr "Seleccionar tipografía"
-
-#~ msgid "Export format to use"
-#~ msgstr "Formato de exportación a usar"
-
-#~ msgid "eps,png,wmf,cgm,dxf,fig"
-#~ msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#~ msgid "Export file name to use"
-#~ msgstr "Nombre del archivo exportado a usar"
-
-#~ msgid "Quiet operation"
-#~ msgstr "Operación silenciosa"
-
-#~ msgid ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Error: No se encontraron argumentos.\n"
-#~ "Ejecute «%s --help» para ver la lista completa de opciones de\n"
-#~ "la línea de comandos.\n"
-
-#~ msgid "%s error: can specify only one of -t or -o."
-#~ msgstr "%s error: sólo puede especificar -t o -o (no ambos)."
-
-#~ msgid ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "%s error: debe especificar sólo -t o -o (no ambos).\n"
-#~ "Ejecute «%s --help» para ver la lista completa de opciones de\n"
-#~ "la línea de comandos.\n"
-
-#~ msgid "%s error: no input file."
-#~ msgstr "%s error: no hay archivo de entrada."
-
-#~ msgid "%s error: only one input file expected."
-#~ msgstr "%s error: sólo se esperaba un archivo de entrada."
-
-#~ msgid "%s error: popt library not available on this system"
-#~ msgstr "%s error: la biblioteca popt no está disponible en este sistema"
-
-#~ msgid "Line gaps"
-#~ msgstr "Huecos entre líneas"
-
-#~ msgid "Absolute start gap"
-#~ msgstr "Hueco de inicio absoluto"
-
-#~ msgid "Absolute end gap"
-#~ msgstr "Hueco de finalización absoluto"
-
-#~ msgid "Fractional start gap"
-#~ msgstr "Hueco de inicio fraccional"
-
-#~ msgid "Fractional end gap"
-#~ msgstr "Hueco de inicio fraccional"
-
-#~ msgid "Helvetica"
-#~ msgstr "Helvética"
-
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "No se pudo abrir «%s» para escritura"
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "No se pudo abrir el archivo de historia para escritura."
-
-#~ msgid "Error occured while printing"
-#~ msgstr "Ocurrió un error mientras se imprimía"
-
-#~ msgid "_Diagram tree"
-#~ msgstr "Árbol del _diagrama"
-
-#~ msgid "Show diagram tree"
-#~ msgstr "Mostrar el árbol del diagrama"
-
-#~ msgid "_Sheets and Objects..."
-#~ msgstr "_Hojas y objetos..."
-
-#~ msgid "Modify sheets and their objects"
-#~ msgstr "Modificar las hojas y sus objetos"
-
-#~ msgid "P_lugins..."
-#~ msgstr "Ex_tensiones..."
-
-#~ msgid "_Export..."
-#~ msgstr "_Exportar..."
-
-#~ msgid "Page Set_up..."
-#~ msgstr "_Configurar página"
-
-#~ msgid "_Print Diagram..."
-#~ msgstr "_Imprimir diagrama..."
-
-#~ msgid "Duplicate"
-#~ msgstr "Duplicar"
-
-#~ msgid "Copy Text"
-#~ msgstr "Copiar texto"
-
-#~ msgid "Cut Text"
-#~ msgstr "Cortar texto"
-
-#~ msgid "Paste _Text"
-#~ msgstr "Pegar _texto"
-
-#~ msgid "Zoom _In"
-#~ msgstr "_Aumentar zoom"
-
-#~ msgid "Zoom in 50%"
-#~ msgstr "Zoom al 50%"
-
-#~ msgid "Zoom _Out"
-#~ msgstr "_Disminuir zoom"
-
-#~ msgid "Zoom out 50%"
-#~ msgstr "Disminuir zoom un 50%"
-
-#~ msgid "_Zoom"
-#~ msgstr "_Zoom"
-
-#~ msgid "Diagram Properties..."
-#~ msgstr "Propiedades del diagrama..."
-
-#~ msgid "_AntiAliased"
-#~ msgstr "_Antialias"
-
-#~ msgid "Show _Grid"
-#~ msgstr "Mostrar _cuadrícula"
-
-#~ msgid "_Snap To Grid"
-#~ msgstr "A_justar a cuadrícula"
-
-#~ msgid "Show _Rulers"
-#~ msgstr "Mostrar _reglas"
-
-#~ msgid "Show _Connection Points"
-#~ msgstr "Mostrar puntos de _conexión"
-
-#~ msgid "New _View"
-#~ msgstr "Nueva _vista"
-
-#~ msgid "Show _All"
-#~ msgstr "Mostrar _todo"
-
-#~ msgid "Redraw"
-#~ msgstr "Volver a dibujar"
-
-#~ msgid "Replace"
-#~ msgstr "Reemplazar"
-
-#~ msgid "Union"
-#~ msgstr "Unión"
-
-#~ msgid "Intersect"
-#~ msgstr "Intersección"
-
-#~ msgid "Invert"
-#~ msgstr "Invertir"
-
-#~ msgid "All"
-#~ msgstr "Todo"
-
-#~ msgid "Connected"
-#~ msgstr "Conectado"
-
-#~ msgid "Transitive"
-#~ msgstr "Transitivo"
-
-#~ msgid "Equal Distance"
-#~ msgstr "Equidistante"
-
-#~ msgid "Adjacent"
-#~ msgstr "Adyacente"
-
-#~ msgid "Top"
-#~ msgstr "Arriba"
-
-#~ msgid "Bottom"
-#~ msgstr "Abajo"
-
-#~ msgid "Send to _Back"
-#~ msgstr "Enviar al f_ondo"
-
-#~ msgid "Bring to _Front"
-#~ msgstr "Traer al f_rente"
-
-#~ msgid "Send Backwards"
-#~ msgstr "Enviar hacia atrás"
-
-#~ msgid "Bring Forwards"
-#~ msgstr "Traer al frente"
-
-#~ msgid "_Group"
-#~ msgstr "A_grupar"
-
-#~ msgid "_Ungroup"
-#~ msgstr "_Desagrupar"
-
-#~ msgid "_Parent"
-#~ msgstr "_Padre"
-
-#~ msgid "_Unparent"
-#~ msgstr "_Orfandar"
-
-#~ msgid "_Unparent Children"
-#~ msgstr "_Orfandar hijo"
-
-#~ msgid "Align _Horizontal"
-#~ msgstr "Alineación _horizontal"
-
-#~ msgid "Align _Vertical"
-#~ msgstr "Alineación _vertical"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Propiedades..."
-
-#~ msgid "_Layers"
-#~ msgstr "_Capas"
-
-#~ msgid "_Select"
-#~ msgstr "_Seleccionar"
-
-#~ msgid "_Objects"
-#~ msgstr "_Objetos"
-
-#~ msgid "_Tools"
-#~ msgstr "_Herramientas"
-
-#~ msgid "_Dialogs"
-#~ msgstr "_Diálogos"
-
-#~ msgid "_Input Methods"
-#~ msgstr "Métodos de _entrada"
-
-#~ msgid "_Help"
-#~ msgstr "A_yuda"
-
-#~ msgid "Length: "
-#~ msgstr "Longitud: "
-
-#~ msgid "Width: "
-#~ msgstr "Ancho: "
-
-#~ msgid "Delete"
-#~ msgstr "Borrar"
-
-#~ msgid "Relay"
-#~ msgstr "Retardo"
-
-#~ msgid "/View/Diagram Properties..."
-#~ msgstr "/Vista/Propiedades del diagrama..."
-
-#~ msgid "/Objects/Align Horizontal/---"
-#~ msgstr "/Objetos/Alineación horizontal/---"
-
-#~ msgid "/Objects/Align Horizontal/Equal Distance"
-#~ msgstr "/Objetos/Alineación horizontal/Equidistante"
-
-#~ msgid "/Objects/Align Horizontal/Adjacent"
-#~ msgstr "/Objetos/Alineación horizontal/Adyacente"
-
-#~ msgid "/Objects/Align Vertical/---"
-#~ msgstr "/Objetos/Alineación vertical/---"
-
-#~ msgid "/Objects/Align Vertical/Equal Distance"
-#~ msgstr "/Objetos/Alineación vertical/Equidistante"
-
-#~ msgid "/_Dialogs"
-#~ msgstr "/_Diálogos"
-
-#~ msgid "No object menu"
-#~ msgstr "No hay menú objeto"
-
-#~ msgid "Arrow type none -- shouldn't happen\n"
-#~ msgstr "Ningún tipo de flecha -- no debería ocurrir\n"
-
-#~ msgid "%s error: can specify only one of -f or -o."
-#~ msgstr "%s error: sólo puede especificar -f o -o (no ambos)."
-
-#~ msgid "This Dia version is compiled without libart/text support."
-#~ msgstr "Esta versión de Dia ha sido compilada sin soporte para libart/text."
-
-#~ msgid "A connection point"
-#~ msgstr "Un punto de conexión"
-
-#~ msgid "Box with text inside"
-#~ msgstr "Caja con texto dentro"
-
-#~ msgid "Diamond with text inside"
-#~ msgstr "Diamante con texto dentro"
-
-#~ msgid "Ellipse with text inside"
-#~ msgstr "Elipse con texto dentro"
-
-#~ msgid "Parallelogram with text inside"
-#~ msgstr "Paralelogramo con texto dentro"
-
-#~ msgid "/Dialogs/_Properties..."
-#~ msgstr "/Diálogos/_Propiedades..."
-
-#~ msgid "Create Text"
-#~ msgstr "Crear texto"
-
-#~ msgid "Create Ellipse"
-#~ msgstr "Crear elipse"
-
-#~ msgid "Create Polygon"
-#~ msgstr "Crear polígono"
-
-#~ msgid "Create Beziergon"
-#~ msgstr "Crear beziérgono"
-
-#~ msgid "Create Line"
-#~ msgstr "Crear línea"
-
-#~ msgid "Create Arc"
-#~ msgstr "Crear arco"
-
-#~ msgid "Create Zigzagline"
-#~ msgstr "Crear línea en zigzag"
-
-#~ msgid "Create Polyline"
-#~ msgstr "Crear polilínea"
-
-#~ msgid "Create Bezierline"
-#~ msgstr "Crear bezierlínea"
-
-#~ msgid "Create Image"
-#~ msgstr "Crear imagen"
-
-#~ msgid "Show at startup:"
-#~ msgstr "Mostrar al inicio:"
-
-#~ msgid "Default width:"
-#~ msgstr "Ancho predeterminado:"
-
-#~ msgid "Default height:"
-#~ msgstr "Alto predeterminado"
-
-#~ msgid "Remember last size:"
-#~ msgstr "Recordar el último tamaño:"
-
-#~ msgid "Could not load XSLT library (%s) : %s"
-#~ msgstr "No se pudo cargar la biblioteca XSLT (%s): %s"
-
-#~ msgid "A pnp bipolar transistor"
-#~ msgstr "Un transistor bipolar pnp"
-
-#~ msgid "A relay"
-#~ msgstr "Un relé"
-
-#~ msgid "Create a flow"
-#~ msgstr "Crear un flujo"
-
-#~ msgid "Create a function"
-#~ msgstr "Crear una función"
-
-#~ msgid "A macro call step"
-#~ msgstr "Un paso de llamada a macro"
-
-#~ msgid "A macro entry step"
-#~ msgstr "Un paso de entrada a macro"
-
-#~ msgid "A macro exit step"
-#~ msgstr "Un paso de salida de macro"
-
-#~ msgid "A regular step"
-#~ msgstr "Un paso regular"
-
-#~ msgid "A transition"
-#~ msgstr "Una transición"
-
-#~ msgid "An initial step"
-#~ msgstr "Un paso inicial"
-
-#~ msgid "A Nand gate"
-#~ msgstr "Una puerta Nand"
-
-# Una puerta NOT. FVD
-#~ msgid "A Not"
-#~ msgstr "Un No"
-
-#~ msgid "A Xor gate"
-#~ msgstr "Una puerta Xor"
-
-#~ msgid "An And gate"
-#~ msgstr "Una puerta Y"
-
-#~ msgid "Create a branch"
-#~ msgstr "Crear un salto"
-
-#~ msgid "Create a class"
-#~ msgstr "Crear una clase"
-
-#~ msgid "Create a component"
-#~ msgstr "Crear un componente"
-
-#~ msgid "Create a initial/end state"
-#~ msgstr "Crear un estado de inicio/fin"
-
-#~ msgid "Create a lifeline"
-#~ msgstr "Crear una línea de vida"
-
-#~ msgid "Create a message"
-#~ msgstr "Crear un mensaje"
-
-#~ msgid "Create a node"
-#~ msgstr "Crear un nodo"
-
-#~ msgid "Create a note"
-#~ msgstr "Crear una nota"
-
-#~ msgid "Create a state"
-#~ msgstr "Crear una estado"
-
-#~ msgid "Create a template class"
-#~ msgstr "Crear una clase plantilla"
-
-#~ msgid "Create a use case"
-#~ msgstr "Crear un caso de uso"
-
-#~ msgid "Create an activity"
-#~ msgstr "Crear una actividad"
-
-#~ msgid "Create an actor"
-#~ msgstr "Crear un actor"
-
-#~ msgid "Create an object"
-#~ msgstr "Crear un objeto"
-
-#~ msgid "Untitled-%d"
-#~ msgstr "Sin titulo-%d"
-
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "La renderización anti-aliased es defectuosa, y puede\n"
-#~ "causar cuelgues. Sabemos que hay errores, así que no\n"
-#~ "remita informes de cuelgues"
-
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
-
-#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-#~ msgstr ""
-#~ "No está fijado DIA_PLUGIN_PATH.  No están disponibles las hojas de "
-#~ "estilo.\n"
-
-#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-#~ msgstr "No se pudo cargar el plugin XSLT; DIA_PLUGIN_PATH no está fijada."
