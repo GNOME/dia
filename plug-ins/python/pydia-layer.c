@@ -106,8 +106,7 @@ PyDiaLayer_RemoveObject(PyDiaLayer *self, PyObject *args)
 {
     PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:remove_object", &PyDiaObject_Type, &obj,
-			  &pos))
+    if (!PyArg_ParseTuple(args, "O!:remove_object", &PyDiaObject_Type, &obj))
 	return NULL;
     layer_remove_object(self->layer, obj->object);
     Py_INCREF(Py_None);
@@ -154,7 +153,7 @@ PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
 {
     ConnectionPoint *cpoint = NULL;
     Point pos;
-    real distance;
+    real dist;
     PyObject *ret;
 
     if (!PyArg_ParseTuple(args, "dd:find_closest_connection_point",
@@ -224,7 +223,7 @@ PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
 	gint i;
 
 	ret = PyTuple_New(g_list_length(self->layer->objects));
-	for (i = 0; tmp = self->layer->objects; tmp; i++, tmp = tmp->next)
+	for (i = 0, tmp = self->layer->objects; tmp; i++, tmp = tmp->next)
 	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
 	return ret;
     } else if (!strcmp(attr, "visible"))

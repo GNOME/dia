@@ -96,7 +96,7 @@ PyTypeObject PyDiaHandle_Type = {
     0,
     (hashfunc)PyDiaHandle_Hash,
     (ternaryfunc)0,
-    (reprfunc)PyDiaHandle_Str,
+    (reprfunc)0,
     0L,0L,0L,0L,
     NULL
 };

@@ -1,3 +1,14 @@
+1999-12-02  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/python/pydia-*.c: fixed compile errors in these files.
+	
+	* plug-ins/python/Makefile.am: tried building everything.  It is
+	building as a library at the moment.  I will have to convert it
+	to a libtool library and add some initialisation code.
+	
+	* plug-ins/python/diamodule.c: start of the dia module, using the
+	other object wrappers.  Not complete.
+
 1999-12-01  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/python/pydia-object.c (PyDiaObject_GetAttr): implement

@@ -36,13 +36,13 @@ PyDiaObject_New(Object *object)
 }
 
 static void
-PyDiaObject_Dealloc(PyDiaLayer *self)
+PyDiaObject_Dealloc(PyDiaObject *self)
 {
      PyMem_DEL(self);
 }
 
 static int
-PyDiaObject_Compare(PyDiaLayer *self, PyDiaLayer *other)
+PyDiaObject_Compare(PyDiaObject *self, PyDiaObject *other)
 {
     if (self->object == other->object) return 0;
     if (self->object > other->object) return -1;
@@ -50,13 +50,13 @@ PyDiaObject_Compare(PyDiaLayer *self, PyDiaLayer *other)
 }
 
 static long
-PyDiaObject_Hash(PyDiaLayer *self)
+PyDiaObject_Hash(PyDiaObject *self)
 {
     return (long)self->object;
 }
 
 static PyObject *
-PyDiaObject_Str(PyDiaLayer *self)
+PyDiaObject_Str(PyDiaObject *self)
 {
     gchar *strname = g_strdup_printf("<DiaObject of type \"%s\" at %lx>",
 				     self->object->type->name,
@@ -68,7 +68,7 @@ PyDiaObject_Str(PyDiaLayer *self)
 }
 
 static PyObject *
-PyDiaObject_GetAttr(PyDiaLayer *self, gchar *attr)
+PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ssss]", "bounding_box", "connections",
@@ -136,13 +136,13 @@ PyDiaObjectType_New(ObjectType *otype)
 }
 
 static void
-PyDiaObjectType_Dealloc(PyDiaLayer *self)
+PyDiaObjectType_Dealloc(PyDiaObjectType *self)
 {
      PyMem_DEL(self);
 }
 
 static int
-PyDiaObjectType_Compare(PyDiaLayer *self, PyDiaLayer *other)
+PyDiaObjectType_Compare(PyDiaObjectType *self, PyDiaObjectType *other)
 {
     if (self->otype == other->otype) return 0;
     if (self->otype > other->otype) return -1;
@@ -150,13 +150,13 @@ PyDiaObjectType_Compare(PyDiaLayer *self, PyDiaLayer *other)
 }
 
 static long
-PyDiaObjectType_Hash(PyDiaLayer *self)
+PyDiaObjectType_Hash(PyDiaObjectType *self)
 {
     return (long)self->otype;
 }
 
 static PyObject *
-PyDiaObjectType_Repr(PyDiaLayer *self)
+PyDiaObjectType_Repr(PyDiaObjectType *self)
 {
     gchar *strname = g_strdup_printf("<DiaObjectType \"%s\">",
 				     self->otype->name);
@@ -167,13 +167,13 @@ PyDiaObjectType_Repr(PyDiaLayer *self)
 }
 
 static PyObject *
-PyDiaObjectType_Str(PyDiaLayer *self)
+PyDiaObjectType_Str(PyDiaObjectType *self)
 {
     return PyString_FromString(self->otype->name);
 }
 
 static PyObject *
-PyDiaObjectType_GetAttr(PyDiaLayer *self, gchar *attr)
+PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ss]", "name", "version");

@@ -21,6 +21,7 @@
 
 #include "pydia-diagram.h"
 #include "pydia-layer.h"
+#include "pydia-object.h"
 
 PyObject *
 PyDiaDiagram_New(Diagram *dia)
@@ -57,7 +58,7 @@ PyDiaDiagram_Hash(PyDiaDiagram *self)
 static PyObject *
 PyDiaDiagram_Str(PyDiaDiagram *self)
 {
-    return PyString_FromString(self->layer->name);
+    return PyString_FromString(self->dia->filename);
 }
 
 static PyObject *
@@ -87,7 +88,7 @@ PyDiaDiagram_LowerLayer(PyDiaDiagram *self, PyObject *args)
 static PyObject *
 PyDiaDiagram_AddLayer(PyDiaDiagram *self, PyObject *args)
 {
-    
+    gchar *name;
     int pos = -1;
     Layer *layer;
 
@@ -154,7 +155,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 			     "displays", "extents", "filename", "layers",
 			     "modified", "selected", "unsaved");
     else if (!strcmp(attr, "filename"))
-	return PyString_FromString(self->dia->name);
+	return PyString_FromString(self->dia->filename);
     else if (!strcmp(attr, "unsaved"))
 	return PyInt_FromLong(self->dia->unsaved);
     else if (!strcmp(attr, "modified"))
@@ -180,10 +181,10 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 	return PyDiaLayer_New(self->dia->data->active_layer);
     else if (!strcmp(attr, "selected")) {
 	guint i, len = self->dia->data->selected_count;
-	PyObject *ret = PyTuple_New(len);;
+	PyObject *ret = PyTuple_New(len);
 	GList *tmp;
 
-	for (i = 0; tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
+	for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
 	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
 	return ret;
     } else if (!strcmp(attr, "displays")) {
@@ -193,7 +194,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 	gint i;
 
 	ret = PyTuple_New(g_slist_length(self->dia->displays));
-	for (i = 0; tmp = self->dia->displays; tmp; i++, tmp = tmp->next)
+	for (i = 0, tmp = self->dia->displays; tmp; i++, tmp = tmp->next)
 	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((Object *)tmp->data));
 	return ret;
 #endif
