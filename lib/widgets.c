@@ -761,6 +761,7 @@ dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
+  gtk_check_menu_item_set_active (gtk_menu_get_active(GTK_MENU(as->linestyle_menu)), TRUE);
   set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
 }
@@ -1133,6 +1134,7 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
   }
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
+  gtk_check_menu_item_set_active (gtk_menu_get_active(GTK_MENU(as->arrow_type_menu)), TRUE);
   set_size_sensitivity(as);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);
