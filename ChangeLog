@@ -1,3 +1,15 @@
+2003-08-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/preferences.c (prefs_data): Make pretty formatted XML the
+	default.
+
+	* lib/dialibartrenderer.c: 
+	* app/render_libart.c: Make sure art_config.h is included, cause
+	some libart headers are broken.
+
+	* configure.in (HAVE_FREETYPE): Restore CPPFLAGS to old value
+	after test.  Add freetype-config cflags to cflags variable.
+
 2003-08-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/authors.h: Credits for Krzysztof.

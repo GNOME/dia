@@ -161,7 +161,7 @@ DiaPrefData prefs_data[] =
     &default_false,0,"render bounding boxes",NULL, TRUE},
 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
-    &default_false,0,"pretty formated xml",NULL, TRUE},
+    &default_true,0,"pretty formated xml",NULL, TRUE},
 
   { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
     &default_false,0,"prefer psprint", NULL, TRUE},
