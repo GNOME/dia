@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.90+ (cvs)\n"
-"POT-Creation-Date: 2003-01-20 14:12+0100\n"
-"PO-Revision-Date: 2003-01-20 14:12+0100\n"
+"POT-Creation-Date: 2003-01-20 22:18+0100\n"
+"PO-Revision-Date: 2003-01-20 22:18+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Fehler in Option %s: %s.\n"
-"Starten Sie „%s --help”, um die ganze Liste der verfügbaren Optionen zu "
+"Starten Sie »%s --help«, um die ganze Liste der verfügbaren Optionen zu "
 "erhalten.\n"
 
 #: app/app_procs.c:311
@@ -521,7 +521,7 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"Das Diagramm „%s” wurde nicht gespeichert.\n"
+"Das Diagramm »%s« wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
 #: app/display.c:879
@@ -652,7 +652,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "Es konnte nicht festgestellt werden, \n"
-"welcher Filter verwendet werden muss, um „%s” zu speichern"
+"welcher Filter verwendet werden muss, um »%s« zu speichern"
 
 #: app/filedlg.c:527
 msgid "Export Diagram"
@@ -1635,9 +1635,9 @@ msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
-"Menüeintrag „%s” konnte nicht gefunden werden!\n"
+"Menüeintrag »%s« konnte nicht gefunden werden!\n"
 "Dies ist wahrscheinlich ein Internationalisierungsproblem\n"
-"(Versuchen Sie's mit „LANG=C”)"
+"(Versuchen Sie's mit »LANG=C«)"
 
 #: app/modify_tool.c:315
 msgid "Couldn't get GTK settings"
@@ -2158,7 +2158,7 @@ msgstr "Punktwert von nicht-Punktknoten wird genommen"
 #: lib/dia_xml.c:478
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Falscher x-Punktwert „%s” %f; wird verworfen."
+msgstr "Falscher x-Punktwert »%s« %f; wird verworfen."
 
 #: lib/dia_xml.c:486
 msgid "Error parsing point."
@@ -2168,7 +2168,7 @@ msgstr "Fehler beim Parsen des Punktes."
 #: lib/dia_xml.c:494
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Falscher y-Punktwert „%s” %f; wird verworfen."
+msgstr "Falscher y-Punktwert »%s« %f; wird verworfen."
 
 #: lib/dia_xml.c:856
 msgid ""
@@ -2260,7 +2260,7 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Fehler beim Laden von „%s” (vorgegeben).\n"
+"Fehler beim Laden von »%s« (vorgegeben).\n"
 "Keine Dia-Diagrammdatei."
 
 #: lib/plug-ins.c:120
@@ -2270,7 +2270,7 @@ msgstr "???"
 #: lib/plug-ins.c:228
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "Der korrekte Pfad für „%s” konnte nicht hergeleitet werden."
+msgstr "Der korrekte Pfad für »%s« konnte nicht hergeleitet werden."
 
 #: lib/plug-ins.c:234
 #, c-format
@@ -2278,27 +2278,27 @@ msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"Plugin „%s” konnte nicht geladen werden\n"
+"Plugin »%s« konnte nicht geladen werden\n"
 "%s"
 
 #: lib/plug-ins.c:247
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr ""
-"Es konnte keine Initialisierungsfunktion im Plugin „%s” gefunden werden"
+"Es konnte keine Initialisierungsfunktion im Plugin »%s« gefunden werden"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr "Symbold „dia_plugin_init” fehlt"
+msgstr "Symbold »dia_plugin_init« fehlt"
 
 #: lib/plug-ins.c:257
 msgid "dia_pluin_init() call failed"
-msgstr "Aufruf von „dia_pluin_init()” fehlgeschlagen"
+msgstr "Aufruf von »dia_pluin_init()« fehlgeschlagen"
 
 #: lib/plug-ins.c:276
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "Das Plugin „%s” konnte nicht entladen werden"
+msgstr "Das Plugin »%s« konnte nicht entladen werden"
 
 #: lib/plug-ins.c:364
 #, c-format
@@ -2306,8 +2306,8 @@ msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr ""
-"„%s” konnte nicht geöffnet werden\n"
-"„%s”"
+"»%s« konnte nicht geöffnet werden\n"
+"»%s«"
 
 #: lib/properties.c:71 lib/properties.h:475
 msgid "Line colour"
@@ -2535,9 +2535,9 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 "@ Zeit    Den Zeiger auf eine absolute Zeit setzen.\n"
-"( Dauer   Das Signal setzen, dann für „Dauer” warten.\n"
-") Dauer   Das Signal herabnehmen, dann für „Dauer” warten.\n"
-"u Dauer   Das Signal in den Zustand „unbekannt” setzen, dann für „Dauer” "
+"( Dauer   Das Signal setzen, dann für »Dauer« warten.\n"
+") Dauer   Das Signal herabnehmen, dann für »Dauer« warten.\n"
+"u Dauer   Das Signal in den Zustand »unbekannt« setzen, dann für »Dauer« "
 "warten.\n"
 "Beispiel: @ 1.0 (2.0)1.0(2.0)\n"
 
@@ -4507,7 +4507,7 @@ msgstr "Skalierung: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
-msgstr "„read_dxf_codes” fehlgeschlagen\n"
+msgstr "»read_dxf_codes« fehlgeschlagen\n"
 
 #: plug-ins/dxf/dxf-import.c:1345
 #, c-format
@@ -4539,7 +4539,7 @@ msgid ""
 "%s\n"
 "%s"
 msgstr ""
-"Datei „%s” konnte nicht gespeichert werden:\n"
+"Datei »%s« konnte nicht gespeichert werden:\n"
 "%s"
 
 #: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
@@ -4607,7 +4607,7 @@ msgstr "SVG-Namespace konnte nicht gefunden werden."
 #: plug-ins/svg/svg-import.c:597
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr "Wurzelelement ist „%s” - „svg” erwartet."
+msgstr "Wurzelelement ist »%s« - »svg« erwartet."
 
 #: plug-ins/wmf/wmf.cpp:1089
 msgid "Windows Meta File"
@@ -4819,7 +4819,7 @@ msgstr "XFig Dateiformat"
 
 #: plug-ins/xslt/xslt.c:73
 msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "„DIA_PLUGIN_PATH” nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
+msgstr "»DIA_PLUGIN_PATH« nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
 
 #: plug-ins/xslt/xslt.c:98
 #, c-format
@@ -4848,12 +4848,12 @@ msgstr "XSL-Transformationsfilter"
 #: plug-ins/xslt/xslt.c:197
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
-msgstr "XSLT-Bibliothek „%s” konnte nicht geladen werden: %s"
+msgstr "XSLT-Bibliothek »%s« konnte nicht geladen werden: %s"
 
 #: plug-ins/xslt/xslt.c:211
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
 msgstr ""
-"XSLT-Plugin konnte nicht geladen werden; „DIA_PLUGIN_PATH” wurde nicht "
+"XSLT-Plugin konnte nicht geladen werden; »DIA_PLUGIN_PATH« wurde nicht "
 "gesetzt."
 
 #: plug-ins/xslt/xsltdialog.c:99
