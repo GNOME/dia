@@ -1,12 +1,13 @@
 # Swedish translation of Dia.
 # Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
 # Andreas Hyden <a.hyden@cyberpoint.se>
+# Tomas Ögren <stric@ing.umu.se>, 2000
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
 "POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 1999-04-04 10:12+02:00\n"
+"PO-Revision-Date: 2000-09-29 02:43+02:00\n"
 "Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
 #: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
-msgstr "[OPTION...] [FILE...]"
+msgstr "[FLAGGA...] [FIL...]"
 
 #: app/app_procs.c:171
 #, c-format
@@ -81,7 +82,7 @@ msgstr "Kunde inte skapa katalog för Dia-inställningar."
 
 #: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
-msgstr ""
+msgstr "Interna objekt och filter i dia"
 
 #: app/color_area.c:260 lib/widgets.c:492
 msgid "Select color"
@@ -164,34 +165,28 @@ msgid "This object has no defaults."
 msgstr "Detta objekt har inga standardvärden."
 
 #: app/dia_embedd.c:185
-#, fuzzy
 msgid "File/New diagram"
-msgstr "_Nytt diagram"
+msgstr "Arkiv/Nytt diagram"
 
 #: app/dia_embedd.c:189
-#, fuzzy
 msgid "File/Open..."
-msgstr "/Arkiv/_Öppna"
+msgstr "Arkiv/Öppna..."
 
 #: app/dia_embedd.c:193
-#, fuzzy
 msgid "File/Save As..."
-msgstr "/Arkiv/S_para som..."
+msgstr "Arkiv/Spara som..."
 
 #: app/dia_embedd.c:197
-#, fuzzy
 msgid "File/Close"
-msgstr "/Arkiv/S_täng"
+msgstr "Arkiv/Stäng"
 
 #: app/dia_embedd.c:201
-#, fuzzy
 msgid "File/Exit"
-msgstr "/Arkiv/_Avsluta"
+msgstr "Arkiv/Avsluta"
 
 #: app/dia_embedd.c:205
-#, fuzzy
 msgid "View/New View"
-msgstr "/Visa/Ny _vy"
+msgstr "Visa/Ny vy"
 
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
@@ -327,7 +322,7 @@ msgstr "Anpassa till:"
 
 #: app/diapagelayout.c:301
 msgid "by"
-msgstr ""
+msgstr "till"
 
 #: app/diapagelayout.c:704
 #, c-format
@@ -421,9 +416,8 @@ msgid "Error occurred while writing PNG"
 msgstr "Fel uppstod vid skrivning av PNG"
 
 #: app/export_png.c:156
-#, fuzzy
 msgid "Portable Network Graphics"
-msgstr "Skalbar vektorgrafik"
+msgstr "Portabel Nätverksgrafik"
 
 #: app/filedlg.c:94 app/filedlg.c:368
 msgid "By extension"
@@ -528,14 +522,12 @@ msgid "Polygon"
 msgstr "Polygon"
 
 #: app/interface.c:70
-#, fuzzy
 msgid "Create Beziergon"
 msgstr "Skapa bezierlinje"
 
 #: app/interface.c:71 app/menus.c:200
-#, fuzzy
 msgid "Beziergon"
-msgstr "Bezierlinje"
+msgstr "Beziergon"
 
 #: app/interface.c:75
 msgid "Create Line"
@@ -551,7 +543,7 @@ msgstr "Skapa båge"
 
 #: app/interface.c:81 app/menus.c:202
 msgid "Arc"
-msgstr ""
+msgstr "Båge"
 
 #: app/interface.c:85
 msgid "Create Zigzagline"
@@ -566,9 +558,8 @@ msgid "Create Polyline"
 msgstr "Skapa linje med flera noder"
 
 #: app/interface.c:91 app/menus.c:204
-#, fuzzy
 msgid "Polyline"
-msgstr "Skapa linje med flera noder"
+msgstr "Polylinje"
 
 #: app/interface.c:95
 msgid "Create Bezierline"
@@ -792,9 +783,8 @@ msgid "_Zoom"
 msgstr "_Zooma"
 
 #: app/menus.c:112
-#, fuzzy
 msgid "Diagram Propeties..."
-msgstr "/Dialoger/_Egenskaper"
+msgstr "Diagramegenskaper"
 
 #: app/menus.c:114
 msgid "_AntiAliased"
@@ -842,7 +832,7 @@ msgstr "Ansluten"
 
 #: app/menus.c:136
 msgid "Transitive"
-msgstr ""
+msgstr "Transitiv"
 
 #: app/menus.c:137
 msgid "Same Type"
@@ -928,24 +918,20 @@ msgid "_Layers"
 msgstr "_Lager"
 
 #: app/menus.c:231
-#, fuzzy
 msgid "_Select"
-msgstr "Välj"
+msgstr "_Välj"
 
 #: app/menus.c:232
-#, fuzzy
 msgid "_Objects"
-msgstr "/_Objekt"
+msgstr "_Objekt"
 
 #: app/menus.c:233
-#, fuzzy
 msgid "_Tools"
-msgstr "Verktyg"
+msgstr "_Verktyg"
 
 #: app/menus.c:234
-#, fuzzy
 msgid "_Dialogs"
-msgstr "/_Dialoger"
+msgstr "_Dialoger"
 
 #: app/menus.c:242 app/menus.c:256
 msgid "/_File"
@@ -985,12 +971,11 @@ msgstr "/Hjälp/_Om"
 
 #: app/menus.c:255
 msgid "/tearoff"
-msgstr ""
+msgstr "/tearoff"
 
 #: app/menus.c:257
-#, fuzzy
 msgid "/File/tearoff"
-msgstr "/Arkiv/_Ny"
+msgstr "/Arkiv/tearoff"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -1025,9 +1010,8 @@ msgid "/_Edit"
 msgstr "/_Redigera"
 
 #: app/menus.c:270
-#, fuzzy
 msgid "/Edit/tearoff"
-msgstr "/Redigera/Klistra in"
+msgstr "/Redigera/tearoff"
 
 #: app/menus.c:271
 msgid "/Edit/_Copy"
@@ -1062,9 +1046,8 @@ msgid "/_View"
 msgstr "/_Visa"
 
 #: app/menus.c:281
-#, fuzzy
 msgid "/View/tearoff"
-msgstr "/Visa/sep1"
+msgstr "/Visa/tearoff"
 
 #: app/menus.c:282
 msgid "/View/Zoom _In"
@@ -1079,9 +1062,8 @@ msgid "/View/_Zoom"
 msgstr "/Visa/_Zooma"
 
 #: app/menus.c:285
-#, fuzzy
 msgid "/View/Zoom/tearoff"
-msgstr "/Visa/_Zooma"
+msgstr "/Visa/Zooma/tearoff"
 
 #: app/menus.c:286
 #, c-format
@@ -1134,9 +1116,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Visa/Zooma/25%"
 
 #: app/menus.c:296
-#, fuzzy
 msgid "/View/Diagram Properties"
-msgstr "/Dialoger/_Egenskaper"
+msgstr "/Visa/Diagramegenskaper"
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
@@ -1171,14 +1152,12 @@ msgid "/View/Show _All"
 msgstr "/Visa/Visa _allt"
 
 #: app/menus.c:307
-#, fuzzy
 msgid "/_Select"
-msgstr "Välj"
+msgstr "/_Markera"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/Select/tearoff"
-msgstr "/Markera/Invertera"
+msgstr "/Markera/tearoff"
 
 #: app/menus.c:309
 msgid "/Select/All"
@@ -1197,9 +1176,8 @@ msgid "/Select/Connected"
 msgstr "/Markera/Ansluten"
 
 #: app/menus.c:313
-#, fuzzy
 msgid "/Select/Transitive"
-msgstr "En enkel skrivare"
+msgstr "/Markera/Transitiv"
 
 #: app/menus.c:314
 msgid "/Select/Same Type"
@@ -1230,9 +1208,8 @@ msgid "/_Objects"
 msgstr "/_Objekt"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/Objects/tearoff1"
-msgstr "/Objekt/sep1"
+msgstr "/Objekt/tearoff1"
 
 #: app/menus.c:323
 msgid "/Objects/Send to _Back"
@@ -1259,28 +1236,24 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Objekt/Justera _horisontelt"
 
 #: app/menus.c:330
-#, fuzzy
 msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/Objekt/Justera horisontelt/Mittpunkt"
+msgstr "/Objekt/Justera horisontelt/tearoff"
 
 #: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekt/Justera vertikalt"
 
 #: app/menus.c:337
-#, fuzzy
 msgid "/Objects/Align Vertical/tearoff"
-msgstr "/Objekt/Justera vertikalt/Mittpunkt"
+msgstr "/Objekt/Justera vertikalt/tearoff"
 
 #: app/menus.c:344
-#, fuzzy
 msgid "/_Tools"
-msgstr "/Verktyg/"
+msgstr "/_Verktyg"
 
 #: app/menus.c:345
-#, fuzzy
 msgid "/Tools/tearoff"
-msgstr "/Verktyg/Modifiera"
+msgstr "/Verktyg/tearoff"
 
 #: app/menus.c:346
 msgid "/Tools/Modify"
@@ -1311,9 +1284,8 @@ msgid "/Tools/Polygon"
 msgstr "/Verktyg/Polygon"
 
 #: app/menus.c:353
-#, fuzzy
 msgid "/Tools/Beziergon"
-msgstr "/Verktyg/Bezierlinje"
+msgstr "/Verktyg/Beziergon"
 
 #: app/menus.c:354
 msgid "/Tools/Line"
@@ -1321,7 +1293,7 @@ msgstr "/Verktyg/Linje"
 
 #: app/menus.c:355
 msgid "/Tools/Arc"
-msgstr ""
+msgstr "/Verktyg/Båge"
 
 #: app/menus.c:356
 msgid "/Tools/Zigzagline"
@@ -1329,7 +1301,7 @@ msgstr "/Verktyg/Zik-zak-linje"
 
 #: app/menus.c:357
 msgid "/Tools/Polyline"
-msgstr ""
+msgstr "/Verktyg/Polylinje"
 
 #: app/menus.c:358
 msgid "/Tools/Bezierline"
@@ -1344,9 +1316,8 @@ msgid "/_Dialogs"
 msgstr "/_Dialoger"
 
 #: app/menus.c:362
-#, fuzzy
 msgid "/Dialogs/tearoff"
-msgstr "/Dialoger/_Lager"
+msgstr "/Dialoger/tearoff"
 
 #: app/menus.c:363
 msgid "/Dialogs/_Properties"
@@ -1365,9 +1336,8 @@ msgid "/Tools/"
 msgstr "/Verktyg/"
 
 #: app/menus.c:513
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "Diagram:"
+msgstr "Diagrammeny"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
@@ -1379,11 +1349,11 @@ msgstr "Välj skrivare"
 
 #: app/paginate_psprint.c:206
 msgid "Printer"
-msgstr "Mittpunkt"
+msgstr "Skrivare"
 
 #: app/paginate_psprint.c:219
 msgid "File"
-msgstr "Arkiv"
+msgstr "Fil"
 
 #: app/plugin-manager.c:62
 msgid "yes"
@@ -1723,7 +1693,7 @@ msgstr "Enhet"
 
 #: objects/ER/er.c:40
 msgid "Entity/Relationship diagram objects"
-msgstr ""
+msgstr "Enhet/Relationsdiagramobjekt"
 
 #: objects/ER/participation.c:418
 msgid "Total:"
@@ -2008,18 +1978,16 @@ msgid "Macro call"
 msgstr "Macro anrop"
 
 #: objects/GRAFCET/condition.c:198
-#, fuzzy
 msgid "Condition:"
-msgstr "Komposition"
+msgstr "Kondition:"
 
 #: objects/GRAFCET/grafcet.c:40
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET diagramobjekt"
 
 #: objects/GRAFCET/step.c:251
-#, fuzzy
 msgid "Regular step"
-msgstr "   Regulera"
+msgstr "Vanligt steg"
 
 #: objects/GRAFCET/step.c:252
 msgid "Initial step"
@@ -2451,7 +2419,7 @@ msgstr "_Nytt diagram"
 
 #: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
 msgid "Aspect"
-msgstr ""
+msgstr "Aspekt"
 
 #: objects/chronogram/chronoline.c:302 objects/chronogram/chronoline.c:405
 msgid "Parameters"
@@ -2491,7 +2459,7 @@ msgstr "Sluttid:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
-msgstr ""
+msgstr "Stigtid:"
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
 msgid "Fall time:"
@@ -2669,13 +2637,12 @@ msgid "The image file '%s' was not found.\n"
 msgstr "Kunde inte hitta bildfilen '%s'.\n"
 
 #: objects/standard/line.c:118
-#, fuzzy
 msgid "Start point"
-msgstr "Starttid:"
+msgstr "Startpunkt"
 
 #: objects/standard/line.c:120
 msgid "End point"
-msgstr ""
+msgstr "Slutpunkt"
 
 #: objects/standard/polygon.c:517 objects/standard/polyline.c:484
 msgid "Add Corner"
@@ -2691,7 +2658,7 @@ msgstr "Standardobjekt"
 
 #: objects/standard/textobj.c:277
 msgid "Fontsize:"
-msgstr "Typsnittsstorlek"
+msgstr "Typsnittsstorlek:"
 
 #: objects/sybase/sybase.c:40
 msgid "Sybase replication domain diagram objects"
@@ -2746,113 +2713,3 @@ msgstr "Datagrafik metafil"
 #: plug-ins/svg/render_svg.c:820
 msgid "Scalable Vector Graphics"
 msgstr "Skalbar vektorgrafik"
-
-#~ msgid "Grid options"
-#~ msgstr "Inställningar för rutnät"
-
-#~ msgid "Grid x size:"
-#~ msgstr "Rutnät x storlek:"
-
-#~ msgid "Grid y size:"
-#~ msgstr "Rutnät y storlek:"
-
-#~ msgid "Edit Grid..."
-#~ msgstr "_Ändra rutnät..."
-
-#~ msgid "/View/Edit Grid..."
-#~ msgstr "/Visa/_Ändra rutnät..."
-
-#~ msgid "Line style:"
-#~ msgstr "Linjetyp:"
-
-#~ msgid ""
-#~ "Could not determine which import filter\n"
-#~ "to use to open '%s'"
-#~ msgstr ""
-#~ "Kunde inte avgöra vilket importfilter\n"
-#~ "att använda för att öppna \"%s\""
-
-#~ msgid "Objects"
-#~ msgstr "_Objekt"
-
-#~ msgid "Dialogs"
-#~ msgstr "_Dialoger"
-
-#~ msgid ""
-#~ "Couldn't find any libraries to load.\n"
-#~ "%s is not a directory.\n"
-#~ msgstr ""
-#~ "Kunde inte hitta några objektbibliotek.\n"
-#~ "%s är inte en filkatalog.\n"
-
-#~ msgid ""
-#~ "Error loading library: \"%s\":\n"
-#~ " %s\n"
-#~ msgstr ""
-#~ "Fel vid laddning av bibliotek: \"%s\":\n"
-#~ " %s\n"
-
-#~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "Filen \"%s\" är inte ett Dia-objektbibliotek.\n"
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an older version of Dia and cannot be "
-#~ "used.\n"
-#~ "Please upgrade it."
-#~ msgstr ""
-#~ "Objektbiblioteket \"%s\" är från en gammal version av Dia och kan inte "
-#~ "användas.\n"
-#~ "Var vänlig och uppgradera."
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an later version of Dia.\n"
-#~ "You need to upgrade Dia to use it."
-#~ msgstr ""
-#~ "Objektbiblioteket \"%s\" är från en senare version av Dia.\n"
-#~ "Du måste uppgradera Dia för att kunna använda det."
-
-#~ msgid ""
-#~ "Unable to find register_sheets in library:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Kan inte hitta register_sheets i bibliotek:\n"
-#~ "%s"
-
-#~ msgid "End arrow:"
-#~ msgstr "Slutpil"
-
-#~ msgid "A custom with text inside."
-#~ msgstr "En skräddarsydd med text inuti."
-
-#~ msgid "_Export To EPS"
-#~ msgstr "_Exportera till EPS"
-
-#~ msgid "Export To S_VG"
-#~ msgstr "Exportera till S_VG"
-
-#~ msgid "/File/Export To S_VG"
-#~ msgstr "/Arkiv/Exportera till S_VG"
-
-#~ msgid "Ethernet bus."
-#~ msgstr "Ethernet buss."
-
-#~ msgid "A Computer with a tower case."
-#~ msgstr "En dator med en tornlåda."
-
-#~ msgid "The symbol for storage. Disc or database."
-#~ msgstr "Symbol för en lagringsenhet. Disk eller databas."
-
-#~ msgid "A monitor, with a stand"
-#~ msgstr "En monitor med stativ"
-
-#~ msgid "Network"
-#~ msgstr "Nätverk"
-
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "Objekt för att rita nätverksdiagram"
-
-#~ msgid "A simple Printer"
-#~ msgstr "En enkel skrivare"
-
-#~ msgid "Number of handles:"
-#~ msgstr "Antal handtag:"
