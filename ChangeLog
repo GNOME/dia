@@ -2,7 +2,7 @@
 
 	* objects/UML/implements.c (implements_update_data): 
 	* objects/UML/realizes.c (realizes_update_data): 
-	* objects-UML/dependency.c (dependency_update_data): 
+	* objects/UML/dependency.c (dependency_update_data): 
 	Test for null strings before calling on ascent.
 
 	* objects/UML/realizes.c (realizes_draw): 
