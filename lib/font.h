@@ -33,11 +33,32 @@ struct _Font {
   char *name;
 };
 
+typedef struct _SuckFont SuckFont;
+typedef struct _SuckChar SuckChar;
+
+struct _SuckChar {
+	int     left_sb;
+	int     right_sb;
+	int     width;
+	int     ascent;
+	int     descent;
+	int     bitmap_offset; /* in pixels */
+};
+
+struct _SuckFont {
+	guchar *bitmap;
+	gint    bitmap_width;
+	gint    bitmap_height;
+	gint    ascent;
+	SuckChar chars[256];
+};
+
 extern GList *font_names; /* GList with 'char *' data.*/
 
 extern void font_init(void);
 extern Font *font_getfont(const char *name);
 extern GdkFont *font_get_gdkfont(Font *font, int height);
+extern SuckFont *font_get_suckfont(Font *font, int height);
 extern char *font_get_psfontname(Font *font);
 extern real font_string_width(const char *string, Font *font, real height);
 extern real font_ascent(Font *font, real height);

@@ -35,7 +35,14 @@
  * This license includes without limitation a license to do the foregoing
  * actions under any patents of the party supplying this software to the 
  * X Consortium.
+ */
+
+/*
+ * The font suck code was taken from the gnome canvas text object
+ * bearing the following copyright header:
+ * Copyright (C) 1998 The Free Software Foundation
  *
+ * Author: Federico Mena <federico@nuclecu.unam.mx>
  */
 
 
@@ -46,6 +53,7 @@
 #include "intl.h"
 #include "utils.h"
 #include "font.h"
+#include "color.h"
 #include "message.h"
 
 #define FONTCACHE_SIZE 17
@@ -58,6 +66,7 @@ typedef struct  _FontCacheItem FontCacheItem;
 struct _FontCacheItem {
   int height;
   GdkFont *gdk_font;
+  SuckFont *suck_font;
 };
 
 struct _FontPrivate {
@@ -302,6 +311,8 @@ char *last_resort_fonts[] = {
 };
 #define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
 
+static void suck_font_free (SuckFont *suckfont);
+static SuckFont *suck_font (GdkFont *font);
 
 static void
 init_x11_font(FontPrivate *font)
@@ -405,42 +416,90 @@ font_getfont(const char *name)
   return (Font *)font;
 }
 
-GdkFont *
-font_get_gdkfont(Font *font, int height)
+static FontCacheItem *
+font_get_cache(FontPrivate *font, int height)
 {
-  FontPrivate *fontprivate;
-  GdkFont *gdk_font;
   int index;
-  int bufsize;
-  char *buffer;
-
-  fontprivate = (FontPrivate *)font;
 
   if (height<=0)
     height = 1;
   
   index = height % FONTCACHE_SIZE;
   
-  if (fontprivate->cache[index]==NULL) {
-    fontprivate->cache[index] = g_new(FontCacheItem, 1);
-  } else if (fontprivate->cache[index]->height == height) {
-    return fontprivate->cache[index]->gdk_font;
-  } else {
-    gdk_font_unref(fontprivate->cache[index]->gdk_font);
+  if (font->cache[index]==NULL) {
+    font->cache[index] = g_new(FontCacheItem, 1);
+    font->cache[index]->height = height;
+    font->cache[index]->gdk_font = NULL;
+    font->cache[index]->suck_font = NULL;
+  } else if (font->cache[index]->height != height) {
+    gdk_font_unref(font->cache[index]->gdk_font);
+    if (font->cache[index]->suck_font)
+      suck_font_free(font->cache[index]->suck_font);
+    font->cache[index]->height = height;
+    font->cache[index]->gdk_font = NULL;
+    font->cache[index]->suck_font = NULL;
   }
+  return font->cache[index];
+}
+
+static GdkFont *
+font_get_gdkfont_helper(FontPrivate *font, int height)
+{
+  int bufsize;
+  char *buffer;
+  GdkFont *gdk_font;
+  
+  bufsize = strlen(font->fontname_x11)+6;  /* Should be enought*/
+  buffer = (char *)malloc(bufsize);
+  g_snprintf(buffer, bufsize, font->fontname_x11, height);
+  gdk_font = gdk_font_load(buffer);
+  free(buffer);
+
+  return gdk_font;
+}
+
+
+GdkFont *
+font_get_gdkfont(Font *font, int height)
+{
+  FontCacheItem *cache_item;
+  FontPrivate *fontprivate;
+
+  fontprivate = (FontPrivate *)font;
+
+  cache_item = font_get_cache(fontprivate, height);
+
+  if (cache_item->gdk_font)
+    return cache_item->gdk_font;
   
   /* Not in cache: */
   
-  bufsize = strlen(fontprivate->fontname_x11)+6;  /* Should be enought*/
-  buffer = (char *)malloc(bufsize);
-  g_snprintf(buffer, bufsize, fontprivate->fontname_x11, height);
-  gdk_font = gdk_font_load(buffer);
-  free(buffer);
-  
-  fontprivate->cache[index]->height = height;
-  fontprivate->cache[index]->gdk_font = gdk_font;
+  cache_item->gdk_font = font_get_gdkfont_helper(fontprivate, cache_item->height);
 
-  return gdk_font;
+  return cache_item->gdk_font;
+}
+
+SuckFont *
+font_get_suckfont(Font *font, int height)
+{
+  FontCacheItem *cache_item;
+  FontPrivate *fontprivate;
+
+  fontprivate = (FontPrivate *)font;
+
+  cache_item = font_get_cache(fontprivate, height);
+
+  if (!cache_item->gdk_font) {
+    /* gdk_font not in cache: */
+    cache_item->gdk_font = font_get_gdkfont_helper(fontprivate, cache_item->height);
+  }
+
+  if (!cache_item->suck_font) {
+    /* Not in cache: */
+    cache_item->suck_font = suck_font(cache_item->gdk_font);
+  }
+
+  return cache_item->suck_font;
 }
 
 char *
@@ -488,5 +547,105 @@ font_descent(Font *font, real height)
   FontPrivate *fontprivate;
   fontprivate = (FontPrivate *)font;
   return height*fontprivate->descent_ratio;
+}
+
+/* Routines for sucking fonts from the X server */
+
+static SuckFont *
+suck_font (GdkFont *font)
+{
+	SuckFont *suckfont;
+	int i;
+	int x, y;
+	char text[1];
+	int lbearing, rbearing, ch_width, ascent, descent;
+	GdkPixmap *pixmap;
+	GdkColor black, white;
+	GdkImage *image;
+	GdkGC *gc;
+	guchar *bitmap, *line;
+	int width, height;
+	int black_pixel, pixel;
+
+	if (!font)
+		return NULL;
+
+	suckfont = g_new (SuckFont, 1);
+
+	height = font->ascent + font->descent;
+	x = 0;
+	for (i = 0; i < 256; i++) {
+		text[0] = i;
+		gdk_text_extents (font, text, 1,
+				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
+		suckfont->chars[i].left_sb = lbearing;
+		suckfont->chars[i].right_sb = ch_width - rbearing;
+		suckfont->chars[i].width = rbearing - lbearing;
+		suckfont->chars[i].ascent = ascent;
+		suckfont->chars[i].descent = descent;
+		suckfont->chars[i].bitmap_offset = x;
+		x += (ch_width + 31) & -32;
+	}
+
+	width = x;
+
+	suckfont->bitmap_width = width;
+	suckfont->bitmap_height = height+1;
+	suckfont->ascent = font->ascent+1;
+
+	pixmap = gdk_pixmap_new (NULL, suckfont->bitmap_width,
+				 suckfont->bitmap_height, 1);
+	gc = gdk_gc_new (pixmap);
+	gdk_gc_set_font (gc, font);
+
+	black_pixel = color_gdk_black.pixel;
+	black.pixel = black_pixel;
+	white.pixel = color_gdk_white.pixel;
+	gdk_gc_set_foreground (gc, &white);
+	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, width, height);
+
+	gdk_gc_set_foreground (gc, &black);
+	for (i = 0; i < 256; i++) {
+		text[0] = i;
+		gdk_draw_text (pixmap, font, gc,
+			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
+			       font->ascent+1,
+			       text, 1);
+	}
+
+	/* The handling of the image leaves me with distinct unease.  But this
+	 * is more or less copied out of gimp/app/text_tool.c, so it _ought_ to
+	 * work. -RLL
+	 */
+
+	image = gdk_image_get (pixmap, 0, 0, width, height);
+	suckfont->bitmap = g_malloc0 ((width >> 3) * height);
+
+	line = suckfont->bitmap;
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x++) {
+			pixel = gdk_image_get_pixel (image, x, y);
+			if (pixel == black_pixel)
+				line[x >> 3] |= 128 >> (x & 7);
+		}
+		line += width >> 3;
+	}
+
+	gdk_image_destroy (image);
+
+	/* free the pixmap */
+	gdk_pixmap_unref (pixmap);
+
+	/* free the gc */
+	gdk_gc_destroy (gc);
+
+	return suckfont;
+}
+
+static void
+suck_font_free (SuckFont *suckfont)
+{
+	g_free (suckfont->bitmap);
+	g_free (suckfont);
 }
 

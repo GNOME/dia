@@ -33,6 +33,7 @@
 #include <libart_lgpl/art_rgb.h>
 #include <libart_lgpl/art_rgb_svp.h>
 #include <libart_lgpl/art_rgb_affine.h>
+#include "libart_lgpl/art_rgb_bitmap_affine.h"
 #include <libart_lgpl/art_filterlevel.h>
 
 static void begin_render(RendererLibart *renderer, DiagramData *data);
@@ -186,7 +187,10 @@ new_libart_renderer(DDisplay *ddisp)
   renderer->dash_enabled = 0;
   renderer->dash_length = 10;
   renderer->dot_length = 1;
-  
+
+  renderer->gdk_font = NULL;
+  renderer->suck_font = NULL;
+
   return renderer;
 }
 
@@ -213,7 +217,6 @@ libart_renderer_set_size(RendererLibart *renderer, GdkWindow *window,
     g_free(renderer->rgb_buffer);
   }
 
-  printf("Allocating new rgb buffer!\n");
   renderer->rgb_buffer = g_new (guint8, width * height * 3);
   for (i=0;i<width * height * 3;i++)
     renderer->rgb_buffer[i] = 0xff;
@@ -407,6 +410,7 @@ set_font(RendererLibart *renderer, Font *font, real height)
     ddisplay_transform_length(renderer->ddisp, height);
 
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+  renderer->suck_font = font_get_suckfont(font, renderer->font_height);
 }
 
 static void
@@ -1110,14 +1114,18 @@ draw_string(RendererLibart *renderer,
 	    Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;
-  int x,y;
+  int x, y, i, dx;
   int iwidth;
-  
+  int len;
+  double affine[6];
+  SuckFont *suckfont;
+  double xpos, ypos;
+  guint32 rgba;
+
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
   
   iwidth = gdk_string_width(renderer->gdk_font, text);
-
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1128,6 +1136,38 @@ draw_string(RendererLibart *renderer,
     x -= iwidth;
     break;
   }
+
+  suckfont = renderer->suck_font;
+
+  xpos = (double) x + 1; 
+  ypos = (double) (y - suckfont->ascent);
+  
+  rgba = color_to_rgba(color);
+  
+  len = strlen(text);
+  for (i = 0; i < len; i++) {
+    SuckChar *ch;
+    
+    ch = &suckfont->chars[(unsigned char)text[i]];
+    art_affine_translate(affine, xpos, ypos);
+    art_rgb_bitmap_affine(renderer->rgb_buffer,
+			  0, 0,
+			  renderer->renderer.pixel_width,
+			  renderer->renderer.pixel_height,
+			  renderer->renderer.pixel_width*3,
+			   suckfont->bitmap + (ch->bitmap_offset >> 3),
+			   ch->width,
+			   suckfont->bitmap_height,
+			   suckfont->bitmap_width >> 3,
+			   rgba,
+			   affine,
+			   ART_FILTER_NEAREST, NULL);
+    
+    dx = ch->left_sb + ch->width + ch->right_sb;
+    xpos += dx;
+  }
+
+  
   
 }
 
@@ -1548,4 +1588,5 @@ renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
 			       int x, int y, int width, int height)
 {
 }
+
 #endif
