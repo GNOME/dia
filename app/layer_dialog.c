@@ -182,11 +182,18 @@ layer_list_events (GtkWidget *widget,
   return FALSE;
 }
 
-/* Reset the cache when destroyed */
-static void
-layer_dialog_destroyed(GtkWidget *filesel, gpointer cache)
+static gboolean
+layer_dialog_delete(GtkWidget *widget, gpointer data)
 {
-  *(GtkWidget **)cache = NULL;
+  gtk_widget_hide(widget);
+  /* We're caching, so don't destroy */
+  return TRUE;
+}
+
+static void
+layer_dialog_destroyed(GtkWidget *widget, gpointer data)
+{
+  layer_dialog->dialog = NULL;
 }
 
 void
@@ -214,10 +221,9 @@ create_layer_dialog(void)
   gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-                      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+                      GTK_SIGNAL_FUNC(layer_dialog_delete), NULL);
   gtk_signal_connect (GTK_OBJECT (dialog), "destroy_event",
-                      GTK_SIGNAL_FUNC(layer_dialog_destroyed), &layer_dialog);
-
+                      GTK_SIGNAL_FUNC(layer_dialog_destroyed), NULL);
   
   vbox = GTK_DIALOG(dialog)->vbox;
 
@@ -545,6 +551,8 @@ layer_dialog_update_diagram_list(void)
 void
 layer_dialog_show()
 {
+  if (layer_dialog->dialog == NULL)
+    create_layer_dialog();
   gtk_widget_show(layer_dialog->dialog);
 }
 
@@ -558,10 +566,11 @@ layer_dialog_set_diagram(Diagram *dia)
   int sel_pos;
   int i,j;
 
-  
   if (dia!=NULL)
     active_layer = dia->data->active_layer;
   
+  if (layer_dialog->dialog == NULL)
+    create_layer_dialog();
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
   if (dia != NULL) {
