@@ -1,5 +1,13 @@
 2002-11-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/diagdkrenderer.c (get_text_width, draw_string): 
+	* lib/dialibartrenderer.c (draw_string): 
+	* lib/font.h: 
+	* lib/font.c (dia_font_init): Removed old kludgy font name compare.
+	(dia_font_build_layout): Unified the twiddle factors into a use of
+	global_size_one.  But I deeply distrust Pango for seeming to
+	change size of fonts every time I turn my back.
+
 	* app/display.c: 
 	* app/diagram.c: 
 	* app/menus.c:
@@ -13,7 +21,7 @@
 	* app/menus.c (menus_get_item_from_path): Non-gnome version now
 	gets menu_item rather than widget, which works better.
 
-2002-11-17  Cyrille Ch�p�lov  <cyrille@chepelov.org>
+2002-11-17  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/display.c: (new_display):
 	* app/menus.c: (menus_get_item_from_path):
@@ -2190,7 +2198,7 @@
 	* objects/UML/state.c: there was a (gratuitous?) change of on-XML
 	format for the UML State object. Now there's a hack to reload
 	older files, and get them converted on the fly. 
-	Justyna BiaÅa <nell@poczta.gazeta.pl> reported this. Thanks!
+	Justyna BiaÅ?a <nell@poczta.gazeta.pl> reported this. Thanks!
 
 	* lib/properties.h:
 	* lib/propobject.c:

@@ -27,7 +27,9 @@
 #include <string.h> /* strlen */
 
 #include <pango/pango.h>
+#ifdef HAVE_FREETYPE
 #include <pango/pangoft2.h>
+#endif
 #include <gdk/gdk.h>
 
 #include "font.h"
@@ -44,43 +46,7 @@ compare(const void *p1, const void *p2) {
 void
 dia_font_init(PangoContext* pcontext)
 {
-  PangoContext *ft2context;
-  PangoContext *gdkcontext;
-  int nft2families, ngdkfamilies;
-  PangoFontFamily **ft2families, **gdkfamilies;
-  int i, j;
-  GList *fonts = NULL;
-  GList *badft2fonts = NULL;
-  GList *badgdkfonts = NULL;
   pango_context = pcontext;
-  /* Check through the fonts available for GDK and FT2 contexts to
-     find list of unambiguous fonts.  Once X and FreeType agrees on
-     font names, this can be removed. */
-#ifdef HAVE_FREETYPE
-  ft2context = pango_ft2_get_context(10,10);
-  gdkcontext = gdk_pango_context_get();
-  pango_context_list_families(ft2context, &ft2families, &nft2families);
-  pango_context_list_families(gdkcontext, &gdkfamilies, &ngdkfamilies);
-  qsort(ft2families, nft2families, sizeof(*ft2families),
-	compare);
-  qsort(gdkfamilies, ngdkfamilies, sizeof(*gdkfamilies),
-	compare);
-  i = 0; j = 0;
-  while (i < nft2families && j < ngdkfamilies) {
-    int cmp = compare(&ft2families[i], &gdkfamilies[j]);
-    if (cmp < 0) {
-      badft2fonts = g_list_append(badft2fonts, ft2families[i]);
-      i++;
-    } else if (cmp > 0) {
-      badgdkfonts = g_list_append(badgdkfonts, gdkfamilies[j]);
-      j++;
-    } else {
-      fonts = g_list_append(fonts, ft2families[i]);
-      i++;
-      j++;
-    }
-  }
-#endif
 }
 
 static GList *pango_contexts;
@@ -471,6 +437,9 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     PangoAttribute* attr;
     guint length;
 
+#ifdef HAVE_FREETYPE
+    height *= global_size_one;
+#endif
     dia_font_set_height(font,height);
     layout = pango_layout_new(pango_context);
 
@@ -544,6 +513,7 @@ dia_font_vertical_extents(const char* string, DiaFont* font,
     }
     
     pango_layout_iter_get_line_extents(iter,&ink_rect,&logical_rect);
+
     *top = pdu_to_dcm(logical_rect.y);
     *bottom = pdu_to_dcm(logical_rect.y + logical_rect.height);
     *baseline = pdu_to_dcm(pango_layout_iter_get_baseline(iter));

@@ -101,6 +101,9 @@ begin_render(DiaRenderer *self)
 #ifdef HAVE_FREETYPE
   /* pango_ft2_get_context API docs :
    * ... Use of this function is discouraged, ...
+   *
+   * I don't see that at http://developer.gnome.org/doc/API/2.0/pango
+   * -Lars
    */
   dia_font_push_context(pango_ft2_get_context(10, 10));
 # define FONT_SCALE (1.0)
@@ -1006,35 +1009,38 @@ draw_string (DiaRenderer *self,
   old_zoom = ddisp->zoom_factor;
   ddisp->zoom_factor = ddisp->zoom_factor;
   */
-#define TWIDDLE 7.39
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    start_pos.x -= dia_font_string_width(
-                      text, renderer->font,
-                      renderer->font_height*TWIDDLE)/2;
+    start_pos.x -= dia_font_scaled_string_width(
+						text, renderer->font,
+						renderer->font_height,
+						dia_transform_length(renderer->transform, 1.0))/2;
     break;
   case ALIGN_RIGHT:
-    start_pos.x -= dia_font_string_width(
-                      text, renderer->font,
-                      renderer->font_height*TWIDDLE);
+    start_pos.x -= dia_font_scaled_string_width(
+						text, renderer->font,
+						renderer->font_height,
+						dia_transform_length(renderer->transform, 1.0));
     break;
   }
  
   font_height = dia_transform_length(renderer->transform, renderer->font_height);
 
-  start_pos.y -= dia_font_ascent(text, renderer->font,
-				 renderer->font_height*TWIDDLE);
+  start_pos.y -= dia_font_scaled_ascent(text, renderer->font,
+					renderer->font_height,
+					dia_transform_length(renderer->transform, 1.0));
   dia_transform_coords_double(renderer->transform, 
                               start_pos.x, start_pos.y, &x, &y);
 
   layout = dia_font_scaled_build_layout(
               text, renderer->font, renderer->font_height,
-              dia_transform_length(renderer->transform, TWIDDLE));
+              dia_transform_length(renderer->transform, 1.0));
   /*
   ddisp->zoom_factor = old_zoom;
   */
+
   pango_layout_get_pixel_size(layout, &width, &height);
   /* Pango doesn't have a 'render to raw bits' function, so we have
    * to render based on what other engines are available.
@@ -1044,8 +1050,17 @@ draw_string (DiaRenderer *self,
  {
    FT_Bitmap ftbitmap;
    guint8 *graybitmap;
+   FT_Face *face;
+   PangoFont *font;
+
    rowstride = 32*((width+31)/31);
    
+   font = pango_context_load_font(pango_ft2_get_context(10, 10),
+				  renderer->font->pfd);
+   face = pango_ft2_font_get_face(font);
+
+   printf("FT2: Font %p face %p\n", font, face);
+
    graybitmap = (guint8*)g_new0(guint8, height*rowstride);
 
    ftbitmap.rows = height;

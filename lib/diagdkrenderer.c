@@ -508,10 +508,6 @@ get_layout_first_baseline(PangoLayout* layout)
   return result;
 }
 
-#ifdef HAVE_FREETYPE
-#define TWIDDLE 6.37
-#endif
-
 static void 
 draw_string (DiaRenderer *object,
              const gchar *text, Point *pos, Alignment alignment,
@@ -544,27 +540,29 @@ draw_string (DiaRenderer *object,
    case ALIGN_LEFT:
      break;
    case ALIGN_CENTER:
-     start_pos.x -= dia_font_string_width (
-					   text, object->font,
-					   object->font_height*TWIDDLE)/2;
+     start_pos.x -= dia_font_scaled_string_width (
+						  text, object->font,
+						  object->font_height,
+						  dia_transform_length(renderer->transform, 1.0))/2;
      break;
    case ALIGN_RIGHT:
-     start_pos.x -= dia_font_string_width(
+     start_pos.x -= dia_font_scaled_string_width(
 					  text, object->font,
-					  object->font_height*TWIDDLE);
+					  object->font_height,
+					  dia_transform_length(renderer->transform, 1.0));
      break;
    }
    
-   start_pos.y -= dia_font_ascent(text, object->font,
-				  object->font_height*TWIDDLE);
+   start_pos.y -= dia_font_scaled_ascent(text, object->font,
+					 object->font_height,
+					 dia_transform_length(renderer->transform, 1.0));
 
    dia_transform_coords(renderer->transform, 
 			start_pos.x, start_pos.y, &x, &y);
 
-   layout = dia_font_scaled_build_layout(
-					 text, object->font,
+   layout = dia_font_scaled_build_layout(text, object->font,
 					 object->font_height,
-					 dia_transform_length (renderer->transform, TWIDDLE));
+					 dia_transform_length(renderer->transform, 1.0));
    /*   y -= get_layout_first_baseline(layout);  */
    pango_layout_get_pixel_size(layout, &width, &height);
    if (width > 0) {
@@ -682,9 +680,6 @@ get_text_width(DiaRenderer *object,
             object->font_height,
             dia_transform_length (renderer->transform, 10.0) / 10.0);
   }
-#ifdef HAVE_FREETYPE
-  result *= TWIDDLE;
-#endif
   return result;
 }
 
