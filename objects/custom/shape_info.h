@@ -33,10 +33,20 @@ typedef struct _GraphicElementPath GraphicElementPath;
 #define COLOUR_BACKGROUND -3
 #define COLOUR_TEXT -4
 
+/* these should be changed if they ever cause a conflict */
+#define LINECAPS_DEFAULT 20
+#define LINEJOIN_DEFAULT 20
+#define LINESTYLE_DEFAULT 20
+
 struct _GraphicStyle {
   real line_width;
   gint32 stroke;
   gint32 fill;
+
+  LineCaps linecap;
+  LineJoin linejoin;
+  LineStyle linestyle;
+  real dashlength;
 };
 
 #define SHAPE_INFO_COMMON  \

@@ -684,7 +684,10 @@ custom_draw(Custom *custom, Renderer *renderer)
   int i;
   GList *tmp;
   Element *elem;
-  real cur_line = 1.0;
+  real cur_line = 1.0, cur_dash = 1.0;
+  LineCaps cur_caps = LINECAPS_BUTT;
+  LineJoin cur_join = LINEJOIN_MITER;
+  LineStyle cur_style = custom->line_style;
   
   assert(custom != NULL);
   assert(renderer != NULL);
@@ -698,17 +701,44 @@ custom_draw(Custom *custom, Renderer *renderer)
 
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer->ops->set_linewidth(renderer, custom->border_width);
-  renderer->ops->set_linestyle(renderer, custom->line_style);
+  renderer->ops->set_linestyle(renderer, cur_style);
   renderer->ops->set_dashlength(renderer, custom->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, cur_caps);
+  renderer->ops->set_linejoin(renderer, cur_join);
 
   for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
     Color fg, bg;
 
-    if (el->any.s.line_width != cur_line)
+    if (el->any.s.line_width != cur_line) {
+      cur_line = el->any.s.line_width;
       renderer->ops->set_linewidth(renderer,
-				   custom->border_width*el->any.s.line_width);
+				   custom->border_width*cur_line);
+    }
+    if (el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT ||
+	el->any.s.linecap != cur_caps) {
+      cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
+	el->any.s.linecap : LINECAPS_BUTT;
+      renderer->ops->set_linecaps(renderer, cur_caps);
+    }
+    if (el->any.s.linejoin == LINEJOIN_DEFAULT && cur_join != LINEJOIN_MITER ||
+	el->any.s.linejoin != cur_join) {
+      cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
+	el->any.s.linejoin : LINEJOIN_MITER;
+      renderer->ops->set_linejoin(renderer, cur_join);
+    }
+    if (el->any.s.linestyle==LINESTYLE_DEFAULT&&cur_style!=custom->line_style||
+	el->any.s.linestyle != cur_style) {
+      cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
+	el->any.s.linestyle : custom->line_style;
+      renderer->ops->set_linestyle(renderer, cur_style);
+    }
+    if (el->any.s.dashlength != cur_dash) {
+      cur_dash = el->any.s.dashlength;
+      renderer->ops->set_dashlength(renderer,
+				    custom->dashlength*cur_dash);
+    }
+      
     cur_line = el->any.s.line_width;
     get_colour(custom, &fg, el->any.s.stroke);
     get_colour(custom, &bg, el->any.s.fill);

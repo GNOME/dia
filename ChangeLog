@@ -1,3 +1,15 @@
+1999-10-09  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/README: updated docs to cover changes to drawing
+	code.
+
+	* objects/custom/custom_object.c (custom_draw): honour the line
+	properties when drawing the shape.
+
+	* objects/custom/shape_info.[ch]: added support for setting line
+	properties for individual drawing elements in a custom shape.  You
+	can set the dash style, dash length, cap style and join style.
+
 1999-10-07  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/shape_info.c (parse_style): added a few extra synonyms

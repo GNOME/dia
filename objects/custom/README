@@ -159,15 +159,23 @@ attribute should be of the form:
 Currently only the following style attributes are understood:
   stroke-width - The width of the line, relative to the user specified
                  width.
-  stroke       - The stroke colour.  Currently the only recognised
-                 values are background or fill, which will use the
-                 background colour for drawing the outline.  Other
-                 values will just use the normal user specified stroke
-                 colour.
-  fill         - The fill colour.  Currently only foreground or stroke
-                 are recognised, which fill the shape with the
-                 foreground colour.  Other values cause the normal
-                 background colour to be used.
+  stroke-linecap    - The line cap style.  One of butt, round, square,
+                      projecting (a synonym for square), or default.
+  stroke-linejoin   - The line join style.  One of miter, round, bevel or
+                      default.
+  stroke-pattern    - The dash pattern.  One of none, dashed, dash-dot,
+                      dash-dot-dot, dotted or default.
+  stroke-dashlength - The length of the dashes in the dash pattern, in
+                      relation to the user selected value (default is a
+                      synonym for 1.0).
+
+  stroke       - The stroke colour.  You can use one of the symbolic
+                 names foreground, fg, default, background, bg inverse,
+                 text or none, or use a hex colour value of the form #rrggbb.
+  fill         - The fill colour.  The same values as for stroke are used,
+                 except that the meaning of default and inverse are
+                 exchanged.  By default, elements are not filled, so to get
+                 the default fill, use "fill: default"
 
 So to draw a rectangle with a hairline stroke, the following would do
 the trick:
@@ -190,19 +198,19 @@ The recognised drawing elements are:
   commas.  The suggested format is "x1,y1 x2,y2 x3,y3 ...".
 
 <svg:polygon points="...."/>
-  This is a filled polygon.  The points argument has the same format
-  as the polyline.
+  This is a polygon.  The points argument has the same format as the
+  polyline.
 
 <svg:rect x1="..." y1="..." x2="..." y2="..."/>
-  This is a filled rectangle.  The upper left corner is (x1,y1), and
-  the lower right corner is (x2,y2).
+  This is a rectangle.  The upper left corner is (x1,y1), and the lower
+  right corner is (x2,y2).
 
 <svg:circle cx="..." cy="..." r="..."/>
-  This is a filled circle with centre (cx,cy) and radius r.
+  This is a circle with centre (cx,cy) and radius r.
 
 <svg:ellipse cx="..." cy="..." rx="..." ry="..."/>
-  This is a filled ellipse with centre (cx, cy) and radius rx in the x
-  direction and ry in the y direction.
+  This is a ellipse with centre (cx, cy) and radius rx in the x direction
+  and ry in the y direction.
 
 <svg:path d="...."/>
   This is the most complicated drawing element.  It describes a path
@@ -226,7 +234,7 @@ The recognised drawing elements are:
                           the previous bezier.
     Z                     Close the path.
 
-  If the path is closed with z or Z, then it will be filled.
+  If the path is closed with z or Z, then it can be filled.
   Otherwise, it will just be drawn.
 
 

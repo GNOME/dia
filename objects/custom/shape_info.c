@@ -89,6 +89,58 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 	s->fill = COLOUR_TEXT;
       else if (ptr[0] == '#')
 	s->fill = strtol(ptr+1, NULL, 16) & 0xffffff;
+    } else if (!strncmp("stroke-linecap:", ptr, 15)) {
+      ptr += 15;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "butt", 4))
+	s->linecap = LINECAPS_BUTT;
+      else if (!strncmp(ptr, "round", 5))
+	s->linecap = LINECAPS_ROUND;
+      else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
+	s->linecap = LINECAPS_PROJECTING;
+      else if (!strncmp(ptr, "default", 7))
+	s->linecap = LINECAPS_DEFAULT;
+    } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
+      ptr += 16;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "miter", 5))
+	s->linejoin = LINEJOIN_MITER;
+      else if (!strncmp(ptr, "round", 5))
+	s->linejoin = LINEJOIN_ROUND;
+      else if (!strncmp(ptr, "bevel", 5))
+	s->linejoin = LINEJOIN_BEVEL;
+      else if (!strncmp(ptr, "default", 7))
+	s->linejoin = LINEJOIN_DEFAULT;
+    } else if (!strncmp("stroke-pattern:", ptr, 15)) {
+      ptr += 15;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "solid", 5))
+	s->linestyle = LINESTYLE_SOLID;
+      else if (!strncmp(ptr, "dashed", 6))
+	s->linestyle = LINESTYLE_DASHED;
+      else if (!strncmp(ptr, "dash-dot", 8))
+	s->linestyle = LINESTYLE_DASH_DOT;
+      else if (!strncmp(ptr, "dash-dot-dot", 12))
+	s->linestyle = LINESTYLE_DASH_DOT_DOT;
+      else if (!strncmp(ptr, "dotted", 6))
+	s->linestyle = LINESTYLE_DOTTED;
+      else if (!strncmp(ptr, "default", 7))
+	s->linestyle = LINESTYLE_DEFAULT;
+    } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
+      ptr += 18;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "default", 7))
+	s->dashlength = 1.0;
+      else
+	s->dashlength = g_strtod(ptr, &ptr);
     }
 
     /* skip up to the next attribute */
@@ -790,7 +842,10 @@ load_shape_info(const gchar *filename)
 	free(tmp);
       }
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
-      GraphicStyle s = { 1.0, COLOUR_FOREGROUND, COLOUR_NONE };
+      GraphicStyle s = {
+	1.0, COLOUR_FOREGROUND, COLOUR_NONE,
+	LINECAPS_DEFAULT, LINEJOIN_DEFAULT, LINESTYLE_DEFAULT, 1.0
+      };
 
       parse_style(node, &s);
       parse_svg_node(info, node, svg_ns, &s);
