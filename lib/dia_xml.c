@@ -39,6 +39,7 @@
 #include "utils.h"
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
+#include "geometry.h"		/* For isinf() on Solaris */
 #include "message.h"
 
 #ifdef G_OS_WIN32
@@ -49,7 +50,6 @@
 #include <float.h>
 #define isinf(a) (!_finite(a))
 #endif
-
 
 #define BUFLEN 1024
 

@@ -32,9 +32,6 @@
 #ifdef HAVE_IEEEFP_H
 #include <ieeefp.h>
 #endif
-#ifdef HAVE_SUNMATH_H
-#include <sunmath.h>
-#endif
 #ifndef HAVE_ISINF
 #define isinf(a) (!finite(a))
 #endif

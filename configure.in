@@ -54,11 +54,20 @@ AM_PATH_GLIB_2_0(2.0.0)
 AM_PATH_GTK_2_0(2.0.0)
 
 GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0"
-PKG_CHECK_MODULES(FREETYPE,pangoft2,have_freetype=true,have_freetype=false)
-if test "$have_freetype" = "true"; then
-  GTK_MODULES="$GTK_MODULES pangoft2"
-  AC_DEFINE(HAVE_FREETYPE,1,[Define if building with pangoft2])
-else
+PKG_CHECK_MODULES(PANGOFT2,pangoft2,have_pangoft2=true,have_pangoft2=false)
+if test "$have_pangoft2" = "true"; then
+  dnl On Solaris with Forte C, at least, need to link app/dia with -lfreetype.
+  dnl It's not enough that -lpangoft2 implicitly pulls it in.
+  have_freetype=false
+  AC_CHECK_LIB(freetype,FT_Init_FreeType,have_freetype=true)
+  if test "$have_freetype" = "true"; then
+    FREETYPE_LIBS=-lfreetype
+    AC_SUBST(FREETYPE_LIBS)
+    GTK_MODULES="$GTK_MODULES pangoft2"
+    AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])
+  fi
+fi
+if test "$have_pangoft2" = "false"; then
   GTK_MODULES="$GTK_MODULES pango"
 fi
 
@@ -90,7 +99,7 @@ AM_CONDITIONAL(HAVE_BONOBO,false)
 
 dnl XSLT
 
-export XSLT_DIR=""
+XSLT_DIR=""
 PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 if test "$have_xslt" = "true"; then
@@ -170,7 +179,7 @@ dnl GTK2: remove support for libxml1. move check for libxml2 in
 dnl AM_PATH_GTK_2_0's fourth argument (module is libxml-2.0)
 
 found_libxml=false
-if ! $found_libxml; then
+if test $found_libxml = false; then
   AC_CHECK_PROG(XML2_CONFIG, xml2-config, xml2-config)
   if test "x$XML2_CONFIG" != x ; then
     AC_MSG_CHECKING(for libxml >= 2.3.9)
@@ -198,7 +207,7 @@ if ! $found_libxml; then
   fi
 fi
 
-if ! $found_libxml; then
+if test $found_libxml = false; then
 AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
 if test "x$XML_CONFIG" != x ; then
   AC_MSG_CHECKING(for libxml >= 1.8.14)
@@ -216,7 +225,7 @@ if test "x$XML_CONFIG" != x ; then
 fi
 fi
 
-if ! $found_libxml; then
+if test $found_libxml = false; then
     AC_MSG_ERROR(Neither libxml1 or libxml2 found. You must install one (libxml1, preferably))
 fi
 
@@ -236,20 +245,21 @@ AC_CHECK_HEADERS(zlib.h,
             Z_LIBS="-lz"
         fi]))
 
+AC_SUBST(Z_LIBS)
+
 CFLAGS="${CFLAGS} ${Z_CFLAGS}"
 LIBS="${LIBS} ${Z_LIBS}"
 
 dnl Platform-specific fixes.
 dnl 
-dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h
+
+dnl Sun Forte C provides isinf() in the unbundled -lsunmath. Solaris
+dnl declares finite() in ieeefp.h. It's preferrable not to link 
+dnl to -lsunmath as it's not present on all machines.
 have_isinf=no
 AC_CHECK_HEADERS(math.h,
         AC_CHECK_LIB(m,isinf,
                 have_isinf=yes))
-
-AC_CHECK_HEADER(sunmath.h,
-        AC_CHECK_LIB(sunmath,isinf,
-                have_isinf=yes)) 
 
 if test "$have_isinf" = "no"; then
         AC_CHECK_HEADERS(ieeefp.h,
@@ -271,24 +281,27 @@ case "$host" in
     ;;
 esac
 
-DIA_CHECK_CFLAG(-Wall)
-DIA_CHECK_CFLAG(-Wunused)
-DIA_CHECK_CFLAG(-Winline)
-DIA_CHECK_CFLAG(-Wmissing-prototypes)
-DIA_CHECK_CFLAG(-Wmissing-declarations)
+if test "$GCC" = yes; then
+  dnl Relieve register pressure on i386. Other architectures may become unable
+  dnl to debug, and usually have more registers anyway.
+  dnl case "$host" in 
+  dnl  i?86-pc-*)
+  dnl    DIA_CHECK_CFLAG(-fomit-frame-pointer)
+  dnl    ;;
+  dnl esac
+  dnl (it looks like gdb is very confused by this now even on x86. We might be
+  dnl getting poor stack traces with bug-buddy because of this)
 
-dnl Relieve register pressure on i386. Other architectures may become unable
-dnl to debug, and usually have more registers anyway.
-dnl case "$host" in 
-dnl  i?86-pc-*)
-dnl    DIA_CHECK_CFLAG(-fomit-frame-pointer)
-dnl    ;;
-dnl esac
-dnl (it looks like gdb is very confused by this now even on x86. We might be
-dnl getting poor stack traces with bug-buddy because of this)
+  DIA_CHECK_CFLAG(-Wall)
+  DIA_CHECK_CFLAG(-Wunused)
+  DIA_CHECK_CFLAG(-Winline)
+  DIA_CHECK_CFLAG(-Wmissing-prototypes)
+  DIA_CHECK_CFLAG(-Wmissing-declarations)
+  DIA_CHECK_CFLAG(-finline-functions)
+  DIA_CHECK_CFLAG(-fstrict-aliasing)
+fi
 
-DIA_CHECK_CFLAG(-finline-functions)
-DIA_CHECK_CFLAG(-fstrict-aliasing)
+AM_CONDITIONAL(HAVE_GCC, test "$GCC" = yes)
 
 dnl Do we have the db2html script to build the documentation?
 AC_ARG_ENABLE(db2html,

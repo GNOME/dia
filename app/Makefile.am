@@ -152,7 +152,7 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
-	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
+	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
 #diaconv_LDADD = ../lib/libdia.la \
 #	$(EFENCE) \
@@ -170,7 +170,9 @@ dia_embedd_LDADD = ../lib/libdia.la \
 	$(APP_LIBS) $(PNG_LIBS) $(GTK_LIBS) $(INTLLIBS) 
 #$(BONOBO_LIBS)
 
+if HAVE_GCC
 LDFLAGS = -export-dynamic
+endif
 
 EXTRA_DIST = \
 	GNOME_Dia.oaf \

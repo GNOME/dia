@@ -2,7 +2,7 @@ INCLUDES = \
 	-I$(top_srcdir)/intl \
 	-I$(top_srcdir)/lib \
 	$(GTK_CFLAGS) \
-	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) \
+	$(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	$(PYTHON_INCLUDES) \
 	$(XML_CFLAGS) $(UNICODE_CFLAGS) 

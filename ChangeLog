@@ -1,3 +1,46 @@
+2002-09-09  Tor Lillqvist  <tml@iki.fi>
+
+	* configure.in: Check for both pangoft2 (using PKG_CHECK_MODULES,
+	as before) and -lfreetype (using AC_CHECK_LIB). At least on
+	Solaris with Sun's compiler (Forte C), you need to link also the
+	dia application with -lfreetype, even if it is implicitly linked
+	to by -lpangoft2. Rename FREETYPE_CFLAGS and _LIBS to PANGOFT2_*,
+	which is what they actually mean. Use FREETYPE_LIBS for
+	-lfreetype.
+
+	Don't look for libsunmath if isinf() is not found in math.h (as on
+	Solaris). The sunmath library is part of Forte C and not present
+	on all machines. Besides, even if isinf was found in libsunmath,
+	we didn't use it in the Makefile.am.
+	
+	Fix a couple of bashisms.
+
+	AC_SUBST also Z_LIBS, need to link the dia application to -lz,
+	too, on Solaris with Forte C.
+
+	Don't try to use the gcc flags with other compilers.
+	DIA_CHECK_CFLAG gives a false indication that Forte C understands
+	the gcc -f switches, but in fact they get interpreted meaning
+	something completely different.
+
+	Define the automake conditional HAVE_CGC.
+	
+	* app/Makefile.am (dia_LDADD): Add Z_LIBS and FREETYPE_LIBS.
+
+	Use -export-dynamic only with gcc.
+
+	* */Makefile.am
+	* */*/Makefile.am: Modify according to the FREETYPE_CFLAGS -> 
+	PANGOFT2_CFLAGS rename.
+
+	* lib/geometry.h: Drop HAVE_SUNMATH_H and <sunmath.h> per above.
+	
+	* lib/dia_xml.c: Include geometry.h for the isinf() stuff on
+	Solaris.
+
+	* lib/paper.c: Workaround for gccism: Can't use inline this way with
+	Forte C, either.
+
 2002-09-08  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* lib/text.c(set_string): fixed a memory leak (char* ain't no

@@ -150,7 +150,7 @@ get_paper_name_list(void)
   return name_list;
 }
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__SUNPRO_C)
 /* can't export inlined functions. Shouldn't they be declared as such
  * in paper.h ? The following is a hack. Isn't there a proper sollution
  * provided by glib ?
