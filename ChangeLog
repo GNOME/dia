@@ -1,6 +1,11 @@
 2000-11-18  Kevin Breit <battery841@mediaone.net>
 
-	* docs/en/dia-manual.sgml:
+	* doc/en/dia-manual.sgml:
+		Stupid spelling fixes.
+
+2000-11-18  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/dia-manual.sgml:
         	Just some small changes I made.  Props to Greg LeBlanc on the
                 recommendations.
 
