@@ -122,6 +122,64 @@ save_state (GnomeClient        *client,
 }
 #endif
 
+char *
+build_output_file_name(const char *infname, const char *format)
+{
+  /* FIXME: probably overly confident... */
+  char *p = strrchr(infname,'.');
+  char *tmp;
+  if (!p) {
+    return g_strconcat(infname,".",format,NULL);
+  }
+  tmp = g_malloc0(strlen(infname)+1+strlen(format)+1);
+  memcpy(tmp,infname,p-infname);
+  strcat(tmp,".");
+  strcat(tmp,format);
+  return tmp;
+}
+
+const char *argv0 = NULL;
+
+gboolean 
+do_convert(const char *infname,
+           const char *outfname)
+{
+  DiaExportFilter *ef = NULL;
+  DiaImportFilter *inf = NULL;
+  DiagramData *diagdata = NULL;
+
+  if (0==strcmp(infname,outfname)) {
+    fprintf(stderr,
+            _("%s error: input and output file name is identical: %s"),
+            argv0, infname);
+    exit(1);
+  }
+  
+  diagdata = new_diagram_data();
+  inf = filter_guess_import_filter(infname);
+  if (!inf) 
+    inf = &dia_import_filter;
+  if (!inf->import(infname,diagdata,inf->user_data)) {
+    fprintf(stderr,
+            _("%s error: need valid input file %s\n"),
+            argv0,infname);
+            exit(1);
+  }
+  ef = filter_guess_export_filter(outfname);
+  if (!ef) {
+    fprintf(stderr,
+            _("%s error: don't know how to export into %s\n"),
+            argv0,outfname);
+            exit(1);
+  }
+  ef->export(diagdata, outfname, infname, ef->user_data);
+  /* if (!quiet) */ fprintf(stdout,
+                      _("%s --> %s\n"),
+                        infname,outfname);
+  diagram_data_destroy(diagdata);
+  return TRUE;
+}
+
 void debug_break(void); /* shut gcc up */
 void
 debug_break(void)
@@ -132,24 +190,26 @@ debug_break(void)
 void
 app_init (int argc, char **argv)
 {
-  Diagram *diagram = NULL;
-  DDisplay *ddisp = NULL;
   gboolean nosplash = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
-  char *in_file_name = NULL;
   char *export_file_name = NULL;
+  char *export_file_format = NULL;
+  gboolean made_conversions = FALSE;
+
 #ifdef HAVE_POPT
 #ifndef GNOME
-  int rc;
-#endif
+  int rc = 0;
+#endif  
   poptContext poptCtx = NULL;
   struct poptOption options[] =
   {
     {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
      N_("Export loaded file and exit"), N_("OUTPUT")},
-    {"nosplash", 0, POPT_ARG_NONE, &nosplash, 0,
+    {"export-to-format",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
+     0, N_("Export to file format and exit"), N_("eps,png,wmf,cgm,dxf,fig")},
+    {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
 #ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
@@ -160,8 +220,11 @@ app_init (int argc, char **argv)
 
 #ifdef HAVE_POPT
   options[0].arg = &export_file_name;
+  options[1].arg = &export_file_format;
 #endif
 
+  argv0 = (argc > 0) ? argv[0] : "(none)";
+  
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
@@ -194,17 +257,28 @@ app_init (int argc, char **argv)
 #ifdef HAVE_POPT
     poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
     poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
-    if((rc = poptGetNextOpt(poptCtx)) < -1) {
-      fprintf(stderr, 
-	      _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
-	      poptBadOption(poptCtx, 0),
-	      poptStrerror(rc),
-	      argv[0]);
-      exit(1);
-    }
-    if(rc == 1) {
-      poptPrintHelp(poptCtx, stderr, 0);
-      exit(0);
+    while (rc >= 0) {
+        if((rc = poptGetNextOpt(poptCtx)) < -1) {
+            fprintf(stderr, 
+                    _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+                    poptBadOption(poptCtx, 0),
+                    poptStrerror(rc),
+                    argv[0]);
+            exit(1);
+        }
+        if(rc == 1) {
+            poptPrintHelp(poptCtx, stderr, 0);
+            exit(0);
+        }
+
+        if (export_file_format && export_file_name) {
+            fprintf(stderr,
+                    _("%s error: can specify only one of -f or -o."),
+                    argv[0]);
+            exit(1);
+        }
+  }
+
     }
 #endif
     gtk_init (&argc, &argv);
@@ -265,45 +339,73 @@ app_init (int argc, char **argv)
 
   if (argv) {
 #ifdef HAVE_POPT
-    while (poptPeekArg(poptCtx)) {
-      in_file_name = (char *)poptGetArg(poptCtx);
-      diagram = diagram_load (in_file_name, NULL);
-      if (export_file_name) {
-	DiaExportFilter *ef;
-	if (!diagram) {
-	  fprintf (stderr, _("Need valid input file\n"));
-	  exit (1);
-	}
-	ef = filter_guess_export_filter(export_file_name);
-	if (!ef)
-	  ef = &eps_export_filter;
-	ef->export(diagram->data, export_file_name, in_file_name, ef->user_data);
-	exit (0);
+      while (poptPeekArg(poptCtx)) {
+          Diagram *diagram = NULL;
+          DDisplay *ddisp = NULL;
+          char *in_file_name = (char *)poptGetArg(poptCtx);
+
+          if (export_file_name) {
+              made_conversions |= do_convert(in_file_name,export_file_name);
+          } else if (export_file_format) {
+              export_file_name = build_output_file_name(in_file_name,
+                                                        export_file_format);
+              made_conversions |= do_convert(in_file_name,export_file_name);
+              g_free(export_file_name);
+          } else {
+              diagram = diagram_load (in_file_name, NULL);
+              if (diagram != NULL) {
+                  diagram_update_extents(diagram);
+                  layer_dialog_set_diagram(diagram);
+                  
+                  ddisp = new_display(diagram);
+              }
+          }
       }
-      if (diagram != NULL) {
-	diagram_update_extents(diagram);
-	ddisp = new_display(diagram);
-      }
-    }
-    poptFreeContext(poptCtx);
+      poptFreeContext(poptCtx);
 #else
-    int i;
-    for (i=1; i<argc; i++) {
-      Diagram *diagram;
-      DDisplay *ddisp;
-      
-      diagram = diagram_load(argv[i], NULL);
-      
-      if (diagram != NULL) {
-	diagram_update_extents(diagram);
-	layer_dialog_set_diagram(diagram);
-	
-	ddisp = new_display(diagram);
+      int i;
+
+      for (i=1; i<argc; i++) {
+          Diagram *diagram = NULL;
+          DDisplay *ddisp;
+          char *in_file_name = argv[i]; /* unless it's an option... */
+          
+          if (0==strcmp(argv[i],"-t")) {
+              if (i < (argc-1)) {
+                  i++;
+                  export_file_format = argv[i];
+                  continue;
+              }
+          } else if (0 == strcmp(argv[i],"-e")) {
+              if (i < (argc-1)) {
+                  i++;
+                  export_file_name = argv[i];
+                  continue;
+              }
+          }
+          
+          if (export_file_name) {
+              made_conversions |= do_convert(in_file_name,export_file_name);
+          } else if (export_file_format) {
+              export_file_name = build_output_file_name(in_file_name,
+                                                        export_file_format);
+              made_conversions |= do_convert(in_file_name,export_file_name);
+              g_free(export_file_name);
+          } else {
+              diagram = diagram_load(in_file_name, NULL);
+              
+              if (diagram != NULL) {
+                  diagram_update_extents(diagram);
+                  layer_dialog_set_diagram(diagram);
+                  
+                  ddisp = new_display(diagram);
+              }
+              /* Error messages are done in diagram_load() */
+          }
       }
-      /* Error messages are done in diagram_load() */
-    }
 #endif
   }
+  if (made_conversions) exit(0);
 }
 
 static void

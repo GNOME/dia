@@ -65,80 +65,19 @@
 #include "utils.h"
 #include "filter.h"
 
-#if (defined(HAVE_POPT_H))
-#include <popt.h>
-
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
 #endif
 
+extern const char *argv0;
+int quiet = 0;
+
+#if (defined(HAVE_POPT_H))
+#include <popt.h>
+
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void stderr_message_internal(char *title, const char *fmt,
                                     va_list *args,  va_list *args2);
-
-const char *argv0 = NULL;
-int quiet = 0;
-
-static char *
-build_output_file_name(const char *infname, const char *format)
-{
-  /* FIXME */
-  char *p = strrchr(infname,'.');
-  char *tmp;
-  if (!p) {
-    return g_strconcat(infname,".",format,NULL);
-  }
-  tmp = g_malloc0(strlen(infname)+1+strlen(format)+1);
-  memcpy(tmp,infname,p-infname);
-  strcat(tmp,".");
-  strcat(tmp,format);
-  return tmp;
-}
-
-static void 
-do_convert(const char *infname,
-           const char *outfname)
-{
-  DiaExportFilter *ef = NULL;
-  DiaImportFilter *inf = NULL;
-  DiagramData *diagdata = NULL;
-
-  if (0==strcmp(infname,outfname)) {
-    fprintf(stderr,
-            _("%s error: input and output file name is identical: %s"),
-            argv0, infname);
-    exit(1);
-  }
-  
-  printf("about to get diagram\n");
-  diagdata = new_diagram_data();
-  printf("to get diagram\n");
-  inf = filter_guess_import_filter(infname);
-  if (!inf) 
-    inf = &dia_import_filter;
-  printf("got a filter\n");
-  
-  if (!inf->import(infname,diagdata,inf->user_data)) {
-    fprintf(stderr,
-            _("%s error: need valid input file %s\n"),
-            argv0,infname);
-            exit(1);
-  }
-  printf("got diagram\n");
-  ef = filter_guess_export_filter(outfname);
-  printf("got exp filter\n");
-  if (!ef) {
-    fprintf(stderr,
-            _("%s error: don't know how to export into %s\n"),
-            argv0,outfname);
-            exit(1);
-  }
-  ef->export(diagdata, outfname, infname, ef->user_data);
-  if (!quiet) fprintf(stdout,
-                      _("%s --> %s\n"),
-                        infname,outfname);
-  diagram_data_destroy(diagdata);
-}
 
 
 int 
@@ -301,7 +240,7 @@ main(int argc, char **argv)
 
 #else /* this is ugly. FIXME. */
 int 
-main() {
+main(int argc, char **argv) {
   fprintf(stderr,
           _("%s error: popt library not available on this system"),
           argv[0]);

@@ -193,8 +193,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->standalone = FALSE;
   xmlCreateIntSubset(renderer->doc, "svg",
-		     "-//W3C//DTD SVG 20000802//EN",
-		     "http://www.w3.org/TR/2000/CR-SVG-20000802/DTD/svg-20000802.dtd");
+		     "-//W3C//DTD SVG 1.0//EN",
+		     "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
   renderer->doc->xmlRootNode = renderer->root;
 

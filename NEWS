@@ -1,4 +1,11 @@
 dia-0.89:  XX-XXX-2001
+
+* all previously generated XML files (.pluginrc and .dia files,
+  mostly) will now cause a warning about a missing encoding, and the
+  default dia will take. If you have properly compiled dia, it should
+  choose the charset you normally use. This is normal and there is no
+  other sane possible way.
+
 * Updated Python interface.
 * Faster Postscript files when using an Unicode-enabled build.
 * An optional menu bar can be added to each display window, in
@@ -10,6 +17,11 @@ dia-0.89:  XX-XXX-2001
 * lots of internal changes and cleanups in the StdProp code. This
   breaks binary compatibility.
 * ongoing UTF-8 audit.
+* libxml-1.8.14 is now needed ; you can also have libxml2 installed,
+  but don't build with both development packages installed (this will 
+  most certanly end up in a library mismatch. To avoid this, the
+  configure script will stop if it detects both libxml development
+  packages)
 * Shapes can now have a <svg:text> element.
 * polybeziers and beziergons now have their bounding box properly computed.
 * autoconf-2.50 is strongly recommended (2.13 should still be fine) if
@@ -29,11 +41,11 @@ dia-0.89:  XX-XXX-2001
 * You need recent versions of the packages {jade, docbook,
   docbook-utils, docbook-dsssl, docbook-stylesheets,
   docbook-style-dsssl, gnome-doc-tools-2-0, cygnus-stylesheets, etc.}
-  of the whole DocBook rendering system. The exact names of the
-  packages vary from system to system; this list is only a starting
-  point! If compiling the documentation fails, please report on
-  dia-list@gnome.org once you've found which packages to install.
-
+  of the whole DocBook rendering system, to build the documentation.
+  The exact names of the packages vary from system to system; this
+  list is only a starting point! If compiling the documentation fails,
+  please report on dia-list@gnome.org once you've found which packages 
+  to install. 
 * a few new shapes have been added.
 * crashes in the right-click menu have been nailed.
 

@@ -3,6 +3,24 @@
 	* app/interface.c: (create_zoom_widget): connected one more signal
 	to the Zoom selector combo's list. Fixes #59879.
 
+	* app/app_procs.[ch]: (app_init) (do_convert)
+	(build_output_file_name): brought back into the main executable
+	the rare useful bits of the ill-fated diaconv. This means we have
+	one new feature : --export-to-format (-t), which should make
+	writing conversion scripts easier, and a crude implementation of
+	-t and -e for the poptless argument parsing, which means the Win32
+	port should be able to take advantage of it (that should make
+	resolving #58197 possible).
+
+	* app/diaconv.c: kept the poor duck compiling (but that's about
+	it).
+
+	* plug-ins/svg/render_svg.c: updated the SVG DTD header (I hope
+	I've got it right).
+
+	* NEWS: updated about the new feature above, and documented the 
+	"missing encoding specification" complaint. 
+	
 2001-09-01  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Rename zh_TW.Big5 -> zh_TW in ALL_LINGUAS.
