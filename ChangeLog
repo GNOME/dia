@@ -1,7 +1,17 @@
+2003-02-09  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/paginate_psprint.c (print_page): Set paper name, so it
+	convinces ps printers to use to right size.
+
 2003-02-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/properties.c (properties_show): Hide the dialog if the
 	object is NULL (get rid of 'no properties' randomly popping up).
+
+2003-02-06  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/pixbuf/pixbuf.c (export_data): Adjust width and height
+	for diagrams not starting at origo.
 
 2003-02-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 

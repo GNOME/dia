@@ -72,6 +72,8 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
   gfloat lmargin = data->paper.lmargin;
   gfloat scale = data->paper.scaling;
 
+  rend->paper = data->paper.name;
+
   /* count the number of objects in this region */
   data_render(data, diarend, bounds,
               (ObjectRenderer) count_objs, &nobjs);
