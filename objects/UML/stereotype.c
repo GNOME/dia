@@ -72,6 +72,7 @@ bracketted_to_string (utfchar *bracketted,
 		str_len -= start_len;
 	}
 	if (str_len >= end_len && end_len > 0) {
+#if !GLIB_CHECK_VERSION(2,0,0)
 		utfchar *utf = utfstr;
 		utfchar *utfprev;
 		int unilen = uni_strlen (utfend, end_len);
@@ -88,6 +89,10 @@ bracketted_to_string (utfchar *bracketted,
 		if (!strncmp (utf, utfend, end_len)) {
 			str_len -= end_len;
 		}
+#else
+		if (g_utf8_strrchr (utfstr, str_len, g_utf8_get_char (utfend)))
+			str_len -= end_len;
+#endif
 	}
 	retval = g_strndup (utfstr, str_len);
 

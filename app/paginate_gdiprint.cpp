@@ -28,6 +28,7 @@
 
 #include <glib.h>
 #include <math.h>
+#include <string.h>
 
 extern "C" {
 

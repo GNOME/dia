@@ -414,8 +414,8 @@ EXPORTS
 
  apply_textattr_properties
  apply_textstr_properties
- charconv_local8_to_utf8
- charconv_utf8_to_local8
+; charconv_local8_to_utf8
+; charconv_utf8_to_local8
  polyconn_set_points
  polyshape_set_points
  prop_desc_list_calculate_quarks
@@ -427,7 +427,7 @@ EXPORTS
  xmlDoParseFile
  xmlDiaSaveFile
 
- uni_get_utf8
+; uni_get_utf8
 
 ; custom_register_objects
 

@@ -20,6 +20,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include <gdk/gdk.h>
 
 #include "render_gdk.h"
@@ -1012,16 +1013,8 @@ draw_string (RendererGdk *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
 
   g_free (wcstr);
-# else
-#  if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
-    g_free(utfbuf);
-  }
-#  else
+# else /* both talk the same */
   iwidth = gdk_string_width(renderer->gdk_font, text);
-#  endif
 # endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 
   switch (alignment) {
@@ -1091,15 +1084,15 @@ get_text_width(RendererGdk *renderer,
 
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
+#elif defined (GTK_TALKS_UTF8) && defined (UNICODE_WORK_IN_PROGRESS)
+  g_print ("get_text_width (%s,%d)\n", text, length);
+  /* length is in num glyphs, we need bytes here */
+  p = text;
+  for (i = 0; i < length; i++)
+    p = g_utf8_next_char (p);
+  iwidth = gdk_text_width(renderer->gdk_font, text, p - text);
 #else
-# if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_text_width(renderer->gdk_font, utfbuf, length);
-    g_free(utfbuf);
-  }
-# else
-#  ifdef UNICODE_WORK_IN_PROGRESS
+# if definded UNICODE_WORK_IN_PROGRESS
   p = utfbuf = g_strdup (text);
   for (i = 0; i < length; i++)
 	  p = uni_next (p);
@@ -1133,7 +1126,6 @@ get_text_width(RendererGdk *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, len);
 
   g_free (wcstr);
-# endif
 #endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);

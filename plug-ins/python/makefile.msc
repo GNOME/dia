@@ -1,6 +1,6 @@
 TOP = ..\..\..
 
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 PY2=2
 
 !IFNDEF PY2
@@ -24,13 +24,14 @@ EXTRALIBS = $(PYTHON)\Python-2.2\PCbuild\python22_d.lib user32.lib
 OPTIMIZE = -Zi -MD
 !ENDIF
 
-CFLAGS = -DHAVE_CONFIG_H -I..\.. -I..\..\lib \
+CFLAGS = -FImsvc_recommended_pragmas.h \
+	-DHAVE_CONFIG_H -I..\.. -I..\..\lib \
 	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
-	$(LIBXML2_CFLAGS)
+	$(LIBXML2_CFLAGS) $(DIRENT_CFLAGS)
 
 # LIBXML2_CFLAGS we don't need it, but 'propinternals.h'
 
-EXTRALIBS = $(EXTRALIBS) ..\..\lib\libdia.lib ..\..\app\dia.lib
+EXTRALIBS = $(EXTRALIBS) $(DIRENT_LIBS) ..\..\lib\libdia.lib ..\..\app\dia.lib
 
 OBJECTS = \
 	diamodule.obj \

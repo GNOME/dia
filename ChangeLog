@@ -1,3 +1,63 @@
+2002-04-26  Hans Breuer  <hans@breuer.org>
+
+	[ Instead of fixing about 70 occurances in 20 files
+	  where GTK_TALKS_UTF8_WE_DONT needed to be handled
+	  Dia on win32 from now on uses glib-2.0 and not 
+	  only talks utf-8 with gtk-1.3 but also internally.
+	  GTK_TALKS_UTF8_WE_DONT isn't supported/needed
+	  anymore. ]
+
+	* config.h.win32 : #define UNICODE_WORK_IN_PROGRESS
+	#undef GTK_TALKS_UTF8_WE_DONT
+
+	* */makefile.msc : changes to use glib-2.0 (still
+	using gtk+1.3(win32-production)
+
+	* app/disp_callbacks.c : remove GTK_TALKS_UTF8_WE_DONT,
+	adapt kevent->string handling, add <string.h>
+	* app/render_gdk.c (get_text_width) : the length given
+	is in chars, gdk_text_width() needs bytes
+
+	* app/render_libart.c : 
+	* app/render_pixmap.c : remove GTK_TALKS_UTF8_WE_DONT
+	(could simplify the same way as done in render_gdk.c)
+
+	* app/diagram_tree.c app/paginate_gdiprint.cpp
+	  app/sheets.c :
+	* lib/prop_basic.c lib/prop_geomtypes.c 
+	  lib/propdialgs.c lib/propobject.c :
+	added <string.h> which is now removed from charconv.h
+
+	* lib/charconv.h : optional use infrastructure from
+	glib-2.0 -> only five direct function mapping left
+
+	* lib/charconv.c : avoid to build this with glib-2.0
+
+	* lib/font.c : no string conversion needed anymore	
+	when Dia and Gtk talk utf-8, also code adaptions
+	for GLIB_CHECK_VERSION(2,0,0)
+
+	* lib/libdia.def : removed charconv functions
+
+	* lib/prop_inttypes.c : removed GTK_TALKS_UTF8_WE_DONT,
+	replace charconv_unichar_to_utf8() with g_unichar_to_utf8()
+
+	* lib/prop_text.c lib/prop_widgets.c lib/font.c : 
+	removed GTK_TALKS_UTF8_WE_DONT
+
+	* lib/text.c : finally(?) fixed cursor <place|move>ment 
+	for Umlauts. Also fixed char insertion, still wondering
+	how this could ever work. Does realloc on Linux 
+	initialize the memory with zeros ?
+
+	* objects/chronogram/chronoline_event.c
+	  objects/grafcet/boolequation.c :
+	there is no uni_get_utf8 when building for glib-2.0.
+	Replace with g_utf8_get_char() and g_utf8_next_char().
+
+	* objects/uml/stereotype.c (bracketted_to_string) : 
+	simplify while adding code for glib-2.0 build
+
 2002-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/diagram.h: Autosave field

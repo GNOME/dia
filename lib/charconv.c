@@ -25,6 +25,10 @@
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
 
+#if GLIB_CHECK_VERSION (2,0,0) && defined (UNICODE_WORK_IN_PROGRESS)
+#error "This file isn't needed/supported anymore"
+#endif
+
 #ifdef HAVE_UNICODE
 #define UNICODE_WORK_IN_PROGRESS /* here, it's mandatory or we break. */
 #else

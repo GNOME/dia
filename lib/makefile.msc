@@ -1,12 +1,14 @@
 TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = libdia
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
 GDKPIXBUF = $(TOP)\dia-dev\gdk-pixbuf
 
-PKG_CFLAGS = -I.. \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-I.. \
 	$(GTK_CFLAGS) \
+	$(DIRENT_CFLAGS) \
 	-I$(GDKPIXBUF)\.. \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
@@ -15,7 +17,7 @@ PKG_CFLAGS = -I.. \
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
+PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(DIRENT_LIBS) \
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib
 
 OBJECTS = \
@@ -24,7 +26,7 @@ OBJECTS = \
 	bezier_conn.obj \
 	beziershape.obj \
 	boundingbox.obj \
-	charconv.obj \
+#	charconv.obj \
 	color.obj \
 	connection.obj \
 	connpoint_line.obj \

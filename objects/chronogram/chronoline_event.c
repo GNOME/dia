@@ -156,7 +156,12 @@ parse_clevent(const gchar *events, real rise, real fall)
   fall += CHEAT_CST;
   
   while (*p) {
+#if !GLIB_CHECK_VERSION(2,0,0)
     np = uni_get_utf8(p,&uc);
+#else
+    uc = g_utf8_get_char(p);
+    np = g_utf8_next_char(p);
+#endif
     switch (uc) { /* skip spaces */
     case ' ': 
     case '\t':

@@ -103,16 +103,6 @@ stringprop_reset_widget(StringProperty *prop, WIDGET *widget)
   } else {
 	  gtk_entry_set_text (GTK_ENTRY (widget), "");
   }
-#elif  defined(GTK_TALKS_UTF8_WE_DONT)
-  utfchar *utfbuf;
-
-  if (prop->string_data) {
-	  utfbuf = charconv_local8_to_utf8 (prop->string_data);
-	  gtk_entry_set_text (GTK_ENTRY (widget), utfbuf);
-	  g_free(utfbuf);
-  } else {
-	  gtk_entry_set_text (GTK_ENTRY (widget), "");
-  }
 #else
   gtk_entry_set_text(GTK_ENTRY(widget), prop->string_data);
 #endif

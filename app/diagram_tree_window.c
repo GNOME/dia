@@ -24,6 +24,8 @@
 #include <config.h>
 #endif
 
+#include <string.h>
+
 #include "intl.h"
 #include "preferences.h"
 #include "diagram.h"

@@ -1212,17 +1212,9 @@ draw_string (RendererLibart *renderer,
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
 
-#if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    fts = freetype_load_string(utfbuf, renderer->freetype_font, strlen(text));
-    iwidth = fts->width;
-    g_free(utfbuf);
-  }
-#else
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
   iwidth = fts->width;
-#endif
+
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1268,15 +1260,10 @@ draw_string (RendererLibart *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
 
   g_free (wcstr);
-# elif defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
-    g_free(utfbuf);
-  }
 #else
   iwidth = gdk_string_width(renderer->gdk_font, text);
 #endif
+
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1396,13 +1383,6 @@ get_text_width(RendererLibart *renderer,
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
 #else
-#if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
-    g_free(utfbuf);
-  }
-#else
 # ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   p = utfbuf = g_strdup (text);
   for (i = 0; i < length; i++)
@@ -1437,7 +1417,6 @@ get_text_width(RendererLibart *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, len);
 
   g_free (wcstr);
-#endif
 #endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);

@@ -21,6 +21,7 @@
 #endif
 
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -593,15 +594,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  int len = 0;
 	
 	  object_add_updates(obj, ddisp->diagram);
-#ifdef UNICODE_WORK_IN_PROGRESS
+#if defined (UNICODE_WORK_IN_PROGRESS) && !defined(GTK_TALKS_UTF8)
 	  utf = charconv_utf8_from_gtk_event_key (kevent->keyval, kevent->string);
 #else
-	  /* 'utf' is definetly not utf */
-#  ifdef GTK_TALKS_UTF8_WE_DONT
-	  utf = charconv_utf8_to_local8 (kevent->string);
-#  else
-	  utf = g_strdup (kevent->string);
-#  endif
+	  utf = g_strndup (kevent->string, kevent->length);
 #endif
 	  if (utf != NULL) len = uni_strlen (utf, strlen (utf));
 	  modified = (focus->key_event)(focus, kevent->keyval,

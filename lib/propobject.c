@@ -31,6 +31,8 @@
 #include <config.h>
 #endif
 
+#include <string.h>
+
 #include <glib.h>
 #include "properties.h"
 #include "propinternals.h"

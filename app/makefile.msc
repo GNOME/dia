@@ -1,16 +1,17 @@
 TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = dia
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
 GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
 
-PKG_CFLAGS = -I.. $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-I.. $(GLIB_CFLAGS) $(DIRENT_CFLAGS) $(GTK_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
 	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBART -DHAVE_LIBPNG \
 	-DWITHOUT_ZOOM_COMBO
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
+PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(DIRENT_LIBS) $(PNG_LIBS) \
 	$(LIBXML2_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
 	$(GDKPIXBUF)\gdk-pixbuf.lib

@@ -20,6 +20,8 @@
  *  
  */
 
+#include <string.h>
+
 #ifdef GNOME
 #include <gnome.h>
 #else

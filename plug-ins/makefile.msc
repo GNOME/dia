@@ -21,9 +21,10 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 PKG_DEF = ..\objects.def
 
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	$(GLIB_CFLAGS) $(GTK_CFLAGS) \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \

@@ -134,7 +134,13 @@ static Block *textblock_create(const utfchar **str)
 
   while (**str) {
     unichar c;
+#if !GLIB_CHECK_VERSION(2,0,0)
     utfchar *p1 = uni_get_utf8(*str, &c);
+#else
+    utfchar *p1;
+    c = g_utf8_get_char(*str);
+    p1 = g_utf8_next_char(*str);
+#endif
     if (isspecial(c)) break;
     *str = p1;
   }
@@ -230,7 +236,12 @@ static Block *opblock_create(const utfchar **str)
   Block *block;
   unichar c;
 
+#if !GLIB_CHECK_VERSION(2,0,0)
   *str = uni_get_utf8(*str,&c);
+#else
+  c = g_utf8_get_char(*str);
+  *str = g_utf8_next_char(*str);
+#endif
 
   block = g_new0(Block,1);
   block->type = BLOCK_OPERATOR;
@@ -497,7 +508,13 @@ compoundblock_create(const utfchar **str)
 
   while (*str && **str) {
     unichar c;
+#if !GLIB_CHECK_VERSION(2,0,0)
     utfchar *p = uni_get_utf8(*str,&c);
+#else
+    utfchar *p;
+    c = g_utf8_get_char(*str);
+    p = g_utf8_next_char(*str);
+#endif
 
     inblk = NULL;
     switch (c) {
@@ -520,7 +537,12 @@ compoundblock_create(const utfchar **str)
       break;
     case '!':
       *str = p;
+#if !GLIB_CHECK_VERSION(2,0,0)
       p = uni_get_utf8(*str,&c);
+#else
+      c = g_utf8_get_char(*str);
+      p = g_utf8_next_char(*str);
+#endif
       if (c == '(') {
 	*str = p;
 	inblk = overlineblock_create(compoundblock_create(str));

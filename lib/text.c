@@ -775,11 +775,17 @@ text_insert_char (Text *text, unichar c)
 	int row;
 	int i;
 	utfchar *line, *str;
-	utfchar *ch;
 	int unilen, length;
+#if !GLIB_CHECK_VERSION(2,0,0)
+	utfchar *ch;
 
 	ch = charconv_unichar_to_utf8 (c);
 	unilen = strlen (ch);
+#else
+	gchar ch[7];
+	unilen = g_unichar_to_utf8 (c, ch);
+	ch[unilen] = 0;
+#endif
 	row = text->cursor_row;
 
 	length = strlen (text->line[row]);
@@ -794,10 +800,13 @@ text_insert_char (Text *text, unichar c)
 	}
 
 	line = text->line[row];
+	/* copy the part to the right of the insertion */
 	for (i = length; &line[i] >= str; i--) {
 		line[i + unilen] = line[i];
 	}
 	strncpy (str, ch, unilen);
+	line[length + unilen] = 0; /* null terminate */
+
 	text->cursor_pos += 1;
 	text->strlen[row] = uni_strlen (text->line[row], strlen (text->line[row]));
 

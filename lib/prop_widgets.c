@@ -426,10 +426,6 @@ make_item(const gchar *line) {
   gchar *locbuf = charconv_utf8_to_local8(line);
   ret = gtk_list_item_new_with_label(locbuf);
   g_free(locbuf);
-#elif defined(GTK_TALKS_UTF8_WE_DONT)
-  utfchar *utfbuf = charconv_local8_to_utf8(line);
-  ret = gtk_list_item_new_with_label(utfbuf);
-  g_free(utfbuf);
 #else
   ret = gtk_list_item_new_with_label(line);
 #endif

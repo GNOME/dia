@@ -942,15 +942,7 @@ draw_string (RendererPixmap *renderer,
 
   g_free (wcstr);
 # else
-#  if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
-    g_free(utfbuf);
-  }
-#  else
   iwidth = gdk_string_width(renderer->gdk_font, text);
-#  endif
 # endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 
   switch (alignment) {
@@ -973,19 +965,9 @@ draw_string (RendererPixmap *renderer,
 		   x, y, str);
   g_free (str);
 # else
-#  if defined (GTK_TALKS_UTF8_WE_DONT)
-  {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
-    gdk_draw_string(renderer->pixmap,
-		    renderer->gdk_font, gc,
-		    x,y, utfbuf);
-    g_free(utfbuf);
-  }
-#  else
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
-#  endif
 #endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 #endif
 }

@@ -20,6 +20,8 @@
  *  
  */
 
+#include <string.h>
+
 #include "properties.h"
 #include "prop_text.h"
 #include "diagram_tree_menu.h"

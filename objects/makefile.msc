@@ -25,9 +25,10 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 PKG_DEF = ..\objects.def
 
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	$(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
@@ -52,6 +53,8 @@ OBJECTS = \
 	custom_object.obj \
 	custom_util.obj \
 	custom.obj
+PKG_CFLAGS = $(PKG_CFLAGS) $(DIRENT_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(DIRENT_LIBS)
 !ENDIF
 
 !IFDEF OBJ_eml
@@ -166,7 +169,7 @@ OBJECTS = \
         arch_connector.obj \
         arch_state.obj \
         mapping.obj
-# this plug-in imports diagram_load_and_disply () from dia.exe 
+# this plug-in imports diagram_load_and_display () from dia.exe 
 PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
 !ENDIF
 
