@@ -37,8 +37,11 @@ object_find_attribute(ObjectNode obj_node,
   while (attr != NULL) {
 
     name = xmlGetProp(attr, "name");
-    if ( (name!=NULL) && (strcmp(name, attrname)==0) )
+    if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
+      g_free(name);
       return attr;
+    }
+    g_free(name);
     
     attr = attr->next;
   }
@@ -56,8 +59,11 @@ composite_find_attribute(DataNode composite_node,
   while (attr != NULL) {
 
     name = xmlGetProp(attr, "name");
-    if ( (name!=NULL) && (strcmp(name, attrname)==0) )
+    if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
+      g_free(name);
       return attr;
+    }
+    g_free(name);
     
     attr = attr->next;
   }
@@ -127,6 +133,7 @@ int
 data_int(DataNode data)
 {
   const char *val;
+  int res;
   
   if (data_type(data)!=DATATYPE_INT) {
     message_error("Taking int value of non-int node.");
@@ -134,13 +141,16 @@ data_int(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-
-  return atoi(val);
+  res = atoi(val);
+  g_free(val);
+  
+  return res;
 }
 
 int data_enum(DataNode data)
 {
   const char *val;
+  int res;
   
   if (data_type(data)!=DATATYPE_ENUM) {
     message_error("Taking enum value of non-enum node.");
@@ -148,14 +158,17 @@ int data_enum(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-
-  return atoi(val);
+  res = atoi(val);
+  g_free(val);
+  
+  return res;
 }
 
 real
 data_real(DataNode data)
 {
   const char *val;
+  real res;
   
   if (data_type(data)!=DATATYPE_REAL) {
     message_error("Taking real value of non-real node.");
@@ -163,14 +176,17 @@ data_real(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-
-  return atof(val);
+  res = atof(val);
+  g_free(val);
+  
+  return res;
 }
 
 int
 data_boolean(DataNode data)
 {
   const char *val;
+  int res;
   
   if (data_type(data)!=DATATYPE_BOOLEAN) {
     message_error("Taking boolean value of non-boolean node.");
@@ -180,9 +196,13 @@ data_boolean(DataNode data)
   val = xmlGetProp(data, "val");
 
   if (strcmp(val, "true")==0) 
-    return TRUE;
+    res =  TRUE;
   else 
-    return FALSE;
+    res = FALSE;
+
+  g_free(val);
+
+  return res;
 }
 
 static int hex_digit(char c)
@@ -216,6 +236,8 @@ data_color(DataNode data, Color *col)
   g = hex_digit(val[3])*16 + hex_digit(val[4]);
   b = hex_digit(val[5])*16 + hex_digit(val[6]);
 
+  g_free(val);
+  
   col->red = ((float)r)/255.0;
   col->green = ((float)g)/255.0;
   col->blue = ((float)b)/255.0;
@@ -239,10 +261,12 @@ data_point(DataNode data, Point *point)
   if (*str==0){
     point->y = 0.0;
     message_error("Error parsing point.");
+    g_free(val);
     return;
   }
     
   point->y = strtod(str+1, NULL);
+  g_free(val);
 }
 
 void
@@ -265,6 +289,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
+    g_free(val);
     return;
   }
     
@@ -275,6 +300,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
+    g_free(val);
     return;
   }
 
@@ -285,10 +311,13 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
+    g_free(val);
     return;
   }
 
   rect->bottom = strtod(str+1, NULL);
+  
+  g_free(val);
 }
 
 char *
@@ -333,6 +362,7 @@ data_string(DataNode data)
       val++;
     }
     *p = 0;
+    g_free(val);
     return str;
   }
 
@@ -351,7 +381,7 @@ data_string(DataNode data)
 
     str[strlen(str)-1] = 0; /* Remove last '#' */
     
-    free(p);
+    g_free(p);
 
     return str;
   }
@@ -363,6 +393,7 @@ Font *
 data_font(DataNode data)
 {
   const char *name;
+  Font *font;
   
   if (data_type(data)!=DATATYPE_FONT) {
     message_error("Taking font value of non-font node.");
@@ -370,7 +401,10 @@ data_font(DataNode data)
   }
 
   name = xmlGetProp(data, "name");
-  return font_getfont(name);
+  font = font_getfont(name);
+  g_free(name);
+  
+  return font;
 }
 
 AttributeNode

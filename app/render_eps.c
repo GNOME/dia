@@ -358,6 +358,13 @@ new_eps_renderer(Diagram *dia, char *filename)
   return renderer;
 }
 
+void
+destroy_eps_renderer(RendererEPS *renderer)
+{
+  g_free(renderer);
+}
+
+
 RendererEPS *
 new_psprint_renderer(Diagram *dia, FILE *file)
 {

@@ -226,6 +226,11 @@ end_render(RendererSVG *renderer)
   xmlFreeDoc(renderer->doc);
 }
 
+void destroy_svg_renderer(RendererSVG *renderer)
+{
+  g_free(renderer);
+}
+
 static void
 set_linewidth(RendererSVG *renderer, real linewidth)
 {  /* 0 == hairline **/

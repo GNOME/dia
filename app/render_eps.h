@@ -40,6 +40,7 @@ struct _RendererEPS {
 
 extern RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
 extern RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
+extern void destroy_eps_renderer(RendererEPS *renderer);
 
 #endif /* RENDER_EPS_H */
 

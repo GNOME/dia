@@ -1,5 +1,42 @@
 1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
 
+        Fixed a lot of memory leaks. Thanks to Bruce Mitchener
+	<bruce@cybersight.com> for some purify runs and analysis.
+	Also a great thank you to Owen Taylor for creating MemProf, a
+	free memory leak detector that was used to find and verify a
+	lot of these fixes.
+	
+	* app/diagram.c:
+	* app/paginate_psprint.c:
+	* app/render_eps.[ch]:
+	* app/render_svg.[ch]:
+	Free renderers.
+
+	* app/interface.c:
+	Don't add a reference to ddisp->shell. Why was this done in
+	the first place?
+
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	* lib/sheet.c:
+	* lib/text.c:
+	Free all strings returned from xmlGetProp
+
+	* app/modify_tool.c:
+	Plug leak.
+
+	* objects/custom/custom.c:
+	Use closedir() after opendir().
+
+	* objects/custom/shape_info.c:
+	User g_free() instead of "if (tmp) free(tmp)".
+
+	* sheets/ER.sheet:
+	Add newline at end of file.
+	
+
+1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
+
         Based on patch from Patrick Reynolds <reynolds@cs.duke.edu>
 	Adds tool menu and keyboard shortcuts.
 

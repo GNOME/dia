@@ -860,6 +860,7 @@ data_text(AttributeNode text_attr)
   Alignment align;
   AttributeNode attr;
   DataNode composite_node;
+  Text *text;
 
   composite_node = attribute_first_data(text_attr);
 
@@ -891,7 +892,9 @@ data_text(AttributeNode text_attr)
   if (attr != NULL)
     align = data_enum(attribute_first_data(attr));
   
-  return new_text(string, font, height, &pos, &col, align);
+  text = new_text(string, font, height, &pos, &col, align);
+  g_free(string);
+  return text;
 }
 
 void

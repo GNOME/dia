@@ -52,4 +52,6 @@ struct _RendererSVG {
 };
 
 extern RendererSVG *new_svg_renderer(Diagram *dia, char *filename);
+extern void destroy_svg_renderer(RendererSVG *renderer);
+
 #endif /* RENDER_SVG_H */

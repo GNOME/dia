@@ -73,7 +73,6 @@ create_display_shell(DDisplay *ddisp,
 
   /*  The toplevel shell */
   ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_ref  (ddisp->shell);
   gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
   gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window",
 			  "Dia");

@@ -743,6 +743,7 @@ diagram_export_to_eps(Diagram *dia, char *filename)
   renderer = new_eps_renderer(dia, filename);
 
   data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
+  destroy_eps_renderer(renderer);
 }
 
 void
@@ -753,6 +754,7 @@ diagram_export_to_svg(Diagram *dia, char *filename)
   renderer = new_svg_renderer(dia, filename);
 
   data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
+  destroy_svg_renderer(renderer);
 }
 
 int diagram_modified_exists(void)

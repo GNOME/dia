@@ -474,8 +474,6 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     gdk_pointer_ungrab (event->time);
 
     if (tool->orig_pos != NULL) {
-      dest_pos = g_new(Point, 1);
-      
       undo_move_handle(ddisp->diagram, tool->handle, tool->object,
 		       *tool->orig_pos, tool->last_to);
     }

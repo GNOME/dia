@@ -205,14 +205,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      if (tmp) free(tmp);
+      g_free(tmp);
 
       if (name_score < 0 || score < name_score) {
         name_score = score;
-        tmp = xmlNodeGetContent(node);
         g_free(name);
-        name = g_strdup(tmp);
-        free(tmp);
+        name = xmlNodeGetContent(node);
       }      
     } else if (node->ns == ns && !strcmp(node->name, "description")) {
       gint score;
@@ -223,14 +221,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      if (tmp) free(tmp);
+      g_free(tmp);
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
-        tmp = xmlNodeGetContent(node);
         g_free(description);
-        description = g_strdup(tmp);
-        free(tmp);
+        description = xmlNodeGetContent(node);
       }
       
     } else if (node->ns == ns && !strcmp(node->name, "contents")) {
@@ -285,11 +281,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	char *p;
 	intdata = (gint)strtol(tmp,&p,0);
 	if (*p != 0) intdata = 0;
+	g_free(tmp);
       }
-      tmp = xmlGetProp(node,"chardata");
-      if (tmp) {
-	chardata = g_strdup(tmp);
-      }
+      chardata = xmlGetProp(node,"chardata");
     }
     
     if (isobject || isshape) {
@@ -304,14 +298,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  tmp = xmlGetProp(subnode, "xml:lang");
 	  if (!tmp) tmp = xmlGetProp(subnode, "lang");
 	  score = intl_score_locale(tmp);
-	  if (tmp) free(tmp);
+	  g_free(tmp);
 
 	  if (subdesc_score < 0 || score < subdesc_score) {
 	    subdesc_score = score;
-	    tmp = xmlNodeGetContent(subnode);
 	    g_free(objdesc);
-	    objdesc = g_strdup(tmp);
-	    free(tmp);
+	    objdesc = xmlNodeGetContent(subnode);
 	  }
 	  
 	} else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
@@ -345,6 +337,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  g_free(sheet_obj->pixmap_file);
 	  g_free(sheet_obj->object_type);
 	  g_free(sheet_obj);
+	  g_free(tmp);
 	  continue; 
 	}
       } else {
@@ -358,9 +351,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	  g_free(sheet_obj->pixmap_file);
 	  g_free(sheet_obj->object_type);
 	  g_free(sheet_obj);
+	  g_free(tmp);
 	  continue; 
 	}	  
       }
+      g_free(tmp);
       
       /* we don't need to fix up the icon and descriptions for simple objects,
 	 since they don't have their own description, and their icon is 

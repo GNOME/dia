@@ -137,7 +137,7 @@ paginate_psprint(Diagram *dia, FILE *file)
       nobjs += print_page(dia->data,rend, &page_bounds);
     }
 
-  g_free(rend);
+  destroy_eps_renderer(rend);
 }
 
 static void

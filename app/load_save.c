@@ -44,9 +44,9 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
   ObjectType *type;
   Object *obj;
   ObjectNode obj_node;
-  const char *typestr;
-  const char *versionstr;
-  const char *id;
+  char *typestr;
+  char *versionstr;
+  char *id;
   int version;
 
   list = NULL;
@@ -61,16 +61,19 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
       id = xmlGetProp(obj_node, "id");
       
       version = 0;
-      if (versionstr != NULL)
+      if (versionstr != NULL) {
 	version = atoi(versionstr);
+	g_free(versionstr);
+      }
       
       type = object_get_type((char *)typestr);
+      g_free(typestr);
       
       obj = type->ops->load(obj_node, version, filename);
       list = g_list_append(list, obj);
       
       g_hash_table_insert(objects_hash, (char *)id, obj);
-      
+   
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
@@ -91,9 +94,9 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   GList *list;
   xmlNodePtr connections;
   xmlNodePtr connection;
-  const char *handlestr;
-  const char *tostr;
-  const char *connstr;
+  char *handlestr;
+  char *tostr;
+  char *connstr;
   int handle, conn;
   Object *to;
   
@@ -115,11 +118,15 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  handlestr = xmlGetProp(connection, "handle");
 	  tostr = xmlGetProp(connection, "to");
 	  connstr = xmlGetProp(connection, "connection");
+	  
 	  handle = atoi(handlestr);
 	  conn = atoi(connstr);
-
-
+	  
 	  to = g_hash_table_lookup(objects_hash, tostr);
+
+	  g_free(handlestr);
+	  g_free(connstr);
+	  g_free(tostr);
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
@@ -138,6 +145,14 @@ read_connections(GList *objects, xmlNodePtr layer_node,
     list = g_list_next(list);
     obj_node = obj_node->next;
   }
+}
+
+static void 
+hash_free_string(gpointer       key,
+		 gpointer       value,
+		 gpointer       user_data)
+{
+  g_free(key);
 }
 
 Diagram *
@@ -297,7 +312,9 @@ diagram_load(char *filename)
   dia->data->active_layer = (Layer *) g_ptr_array_index(dia->data->layers, 0);
   
   xmlFreeDoc(doc);
-
+  
+  g_hash_table_foreach(objects_hash, hash_free_string, NULL);
+  
   g_hash_table_destroy(objects_hash);
   
   dia->unsaved = FALSE;
@@ -305,8 +322,6 @@ diagram_load(char *filename)
 
   return dia;
 }
-
-
 
 void
 write_objects(GList *objects, xmlNodePtr objects_node,

@@ -83,7 +83,8 @@ static void load_shapes_from_tree(const gchar *directory)
       object_register_type(ot);
     }
     g_free(filename);
-  }  
+  }
+  closedir(dp);
 }
 
 
