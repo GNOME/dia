@@ -1,3 +1,8 @@
+1999-03-04  Seth Alves  <alves@hungry.com>
+
+	* objects/UML/generalization.c (generalization_create): avoid
+	math on uninitialized genlz->text_width (NaN causes sigfpe)
+
 1999-03-01  Seth Alves  <alves@hungry.com>
 
 	* app/display.c (ddisplay_active): don't fly a warning panel

@@ -279,14 +279,12 @@ generalization_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  generalization_update_data(genlz);
-
   genlz->name = NULL;
   genlz->stereotype = NULL;
-
   genlz->text_width = 0;
-  
   genlz->properties_dialog = NULL;
+
+  generalization_update_data(genlz);
   
   *handle1 = &orth->endpoint_handles[0];
   *handle2 = &orth->endpoint_handles[1];
