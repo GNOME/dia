@@ -1138,11 +1138,8 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
   path ++; /* move past the / */
 
   if (strncmp(menu_name, "<Display>", strlen("<Display>")) == 0) {
-/*    ddisp = ddisplay_active ();
-      if (! ddisp)
-      return NULL; */
     widget = dia_gnome_menu_get_widget(display_menu, path);
-  } else if  (strncmp(menu_name, "<DisplayMBar>", strlen("<DisplayMBar>"))  == 0) {
+  } else if (strncmp(menu_name,"<DisplayMBar>",strlen("<DisplayMBar>")) == 0) {
       /* finding this requires an item factory*/
       widget = dia_gnome_menu_get_widget(display_menu, path);
   } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {

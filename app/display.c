@@ -107,6 +107,7 @@ new_display(Diagram *dia)
   Rectangle visible;
   GtkWidget* im_menu_item;
   GtkWidget* im_menu;
+  GtkWidget* im_menu_tearoff;
   static gboolean input_methods_done = FALSE;
   
   ddisp = g_new0(DDisplay,1);
@@ -192,16 +193,19 @@ new_display(Diagram *dia)
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
-  
+
   if (!input_methods_done) {
-      im_menu_item = menus_get_item_from_path("<Display>/Input Methods/tearoff", NULL);
-      if (im_menu_item) {
+      im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
+      if (im_menu_item) {          
           im_menu = gtk_menu_new();
-          gtk_im_multicontext_append_menuitems(GTK_IM_MULTICONTEXT(ddisp->im_context),
-                                               GTK_MENU_SHELL(im_menu));
+          im_menu_tearoff = gtk_tearoff_menu_item_new();
+          gtk_menu_shell_append(GTK_MENU_SHELL(im_menu),im_menu_tearoff);
+                                
+          gtk_im_multicontext_append_menuitems(
+              GTK_IM_MULTICONTEXT(ddisp->im_context),
+              GTK_MENU_SHELL(im_menu));
           
-          gtk_menu_item_set_submenu( GTK_MENU_ITEM(im_menu_item), 
-                                     im_menu);
+          gtk_menu_item_set_submenu( GTK_MENU_ITEM(im_menu_item), im_menu);
           input_methods_done = TRUE;
       }
   }
