@@ -1,15 +1,36 @@
 dia-0.91-pre1: 31-Jan-2003
 
-* Requires libgtk2.0 instead of libgtk1.2. FIXME:
+* Dia now uses Gtk2 which makes it look much prettier (menu
+  icons, scrolling menus, less flicker, better international 
+  text support, ...)
+* Dia tries to follow the Gnome User Interface Guidelines which
+  should make it more consistent with the Gnome2 desktop
+* Requires libgtk2.x instead of libgtk1.2. FIXME:
   document exactly what we need (do it in INSTALL too)
-
-* The XSLT plugin uses the gnome libxslt to export documents from 
-  DIA. The library is not required at compile time.
-
 * Relies on FreeType (pangoft2) for all Unix-side text handling.
-
 * Since text handling is totally changed, old diagrams will have different
   text sizes.  
+* Most Dia objects now support setting some defaults. Simply 
+  double-click on the respective object button to change them.
+* Better feedback what will happen by changing cursors e.g. for 
+  moving or connecting objects
+* Revamped DiaRenderers : Beside more maintainable source code
+  this gives export fiters the ability to write e.g. bezier
+  approximations without having to write a single line of code
+  in the export filter.
+* Improved lines with arrows handling
+* Autosave support.  No automatic restore yet.
+* The new XSLT plugin uses the gnome libxslt to export documents from 
+  DIA. The library is not required at compile time.
+* There is a new plug-in called 'Pixbuf' to export to jpeg and 
+  png (without the need of libart)
+* The Python plug-in allows to write more powerful scripts now,
+  see diasvg.py for an example. More examples! There is still no 
+  documentation beside examples and C source though.
+* UML classes can carry comments
+* A bunch of new Shapes
+* Support for dynamic refresh (animated objects)
+
 
 dia-0.90:  1-June-2002
 
