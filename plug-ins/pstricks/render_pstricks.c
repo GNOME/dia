@@ -28,10 +28,9 @@ TODO:
 1. transparent background in images
 2. fonts selection/sizes
 3. dots ???
-4. join procedures for drawing and filling
-5. Maybe draw and fill in a single move?? Will solve the problems
+4. Maybe draw and fill in a single move?? Will solve the problems
    with visible thin white line between the border and the fill
-6. Verify the Pango stuff isn't spitting out things TeX is unable to read
+5. Verify the Pango stuff isn't spitting out things TeX is unable to read
    
 NOT WORKING (exporting macros):
  1. linecaps
@@ -50,7 +49,6 @@ NOT WORKING (exporting macros):
 #include <unistd.h>
 #endif
 #include <errno.h>
-#include <locale.h>
 
 #include "intl.h"
 #include "render_pstricks.h"
@@ -60,6 +58,9 @@ NOT WORKING (exporting macros):
 #include "filter.h"
 
 #define POINTS_in_INCH 28.346
+#define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
+#define pstricks_dtostr(buf,d) \
+	g_ascii_formatd(buf,sizeof(buf),"%f",d)
 
 static void begin_render(DiaRenderer *self);
 static void end_render(DiaRenderer *self);
@@ -209,16 +210,28 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
 static void 
 set_line_color(PstricksRenderer *renderer,Color *color)
 {
-    fprintf(renderer->file, "\\newrgbcolor{dialinecolor}{%f %f %f}\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
+
+    fprintf(renderer->file, "\\newrgbcolor{dialinecolor}{%s %s %s}\n",
+	    pstricks_dtostr(red_buf, (gdouble) color->red),
+	    pstricks_dtostr(green_buf, (gdouble) color->green),
+	    pstricks_dtostr(blue_buf, (gdouble) color->blue) );
     fprintf(renderer->file,"\\psset{linecolor=dialinecolor}\n");
 }
 
 static void 
 set_fill_color(PstricksRenderer *renderer,Color *color)
 {
-    fprintf(renderer->file, "\\newrgbcolor{diafillcolor}{%f %f %f}\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
+
+    fprintf(renderer->file, "\\newrgbcolor{diafillcolor}{%s %s %s}\n",
+	    pstricks_dtostr(red_buf, (gdouble) color->red),
+	    pstricks_dtostr(green_buf, (gdouble) color->green),
+	    pstricks_dtostr(blue_buf, (gdouble) color->blue) );
     fprintf(renderer->file,"\\psset{fillcolor=diafillcolor}\n");
 }
 
@@ -240,8 +253,11 @@ static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+    gchar d_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\psset{linewidth=%f}\n", (double) linewidth);
+
+    fprintf(renderer->file, "\\psset{linewidth=%s}\n",
+	    pstricks_dtostr(d_buf, (gdouble) linewidth) );
 }
 
 static void
@@ -295,6 +311,9 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     real hole_width;
+    gchar dash_length_buf[DTOSTR_BUF_SIZE];
+    gchar dot_length_buf[DTOSTR_BUF_SIZE];
+    gchar hole_width_buf[DTOSTR_BUF_SIZE];
 
     renderer->saved_line_style = mode;
   
@@ -303,30 +322,38 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 	fprintf(renderer->file, "\\psset{linestyle=solid}\n");
 	break;
     case LINESTYLE_DASHED:
-	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%f %f}\n", 
-		renderer->dash_length,
-		renderer->dash_length);
+	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n", 
+		dash_length_buf,
+		dash_length_buf);
 	break;
     case LINESTYLE_DASH_DOT:
 	hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-	fprintf(renderer->file, "\\linestyleddashdotted{%f %f %f %f}\n",
-		renderer->dash_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width );
+	pstricks_dtostr(hole_width_buf,hole_width);
+	pstricks_dtostr(dot_length_buf,renderer->dot_length);
+	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	fprintf(renderer->file, "\\linestyleddashdotted{%s %s %s %s}\n",
+		dash_length_buf,
+		hole_width_buf,
+		dot_length_buf,
+		hole_width_buf );
 	break;
     case LINESTYLE_DASH_DOT_DOT:
 	hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
-	fprintf(renderer->file, "\\linestyleddashdotdotted{%f %f %f %f %f %f}\n",
-		renderer->dash_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width );
+	pstricks_dtostr(hole_width_buf,hole_width);
+	pstricks_dtostr(dot_length_buf,renderer->dot_length);
+	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	fprintf(renderer->file, "\\linestyleddashdotdotted{%s %s %s %s %s %s}\n",
+		dash_length_buf,
+		hole_width_buf,
+		dot_length_buf,
+		hole_width_buf,
+		dot_length_buf,
+		hole_width_buf );
 	break;
     case LINESTYLE_DOTTED:
-	fprintf(renderer->file, "\\psset{linestyle=dotted,dotsep=%f}\n", renderer->dot_length);
+	pstricks_dtostr(dot_length_buf,renderer->dot_length);
+	fprintf(renderer->file, "\\psset{linestyle=dotted,dotsep=%s}\n", dot_length_buf);
 	break;
     }
 }
@@ -360,9 +387,11 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+    gchar d_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\setfont{%s}{%f}\n",
-            dia_font_get_psfontname(font), (double)height);
+    fprintf(renderer->file, "\\setfont{%s}{%s}\n",
+            dia_font_get_psfontname(font),
+	    pstricks_dtostr(d_buf, (gdouble) height) );
 }
 
 static void
@@ -371,11 +400,18 @@ draw_line(DiaRenderer *self,
 	  Color *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+    gchar sx_buf[DTOSTR_BUF_SIZE];
+    gchar sy_buf[DTOSTR_BUF_SIZE];
+    gchar ex_buf[DTOSTR_BUF_SIZE];
+    gchar ey_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,line_color);
 
-    fprintf(renderer->file, "\\psline(%f,%f)(%f,%f)\n",
-	    start->x, start->y, end->x, end->y);
+    fprintf(renderer->file, "\\psline(%s,%s)(%s,%s)\n",
+	    pstricks_dtostr(sx_buf,start->x),
+	    pstricks_dtostr(sy_buf,start->y),
+	    pstricks_dtostr(ex_buf,end->x),
+	    pstricks_dtostr(ey_buf,end->y) );
 }
 
 static void
@@ -385,17 +421,45 @@ draw_polyline(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
   
     set_line_color(renderer,line_color);  
-    fprintf(renderer->file, "\\psline(%f,%f)",
-	    points[0].x, points[0].y);
+    fprintf(renderer->file, "\\psline(%s,%s)",
+	    pstricks_dtostr(px_buf,points[0].x),
+	    pstricks_dtostr(py_buf,points[0].y) );
 
     for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "(%f,%f)",
-		points[i].x, points[i].y);
+	fprintf(renderer->file, "(%s,%s)",
+		pstricks_dtostr(px_buf,points[i].x),
+		pstricks_dtostr(py_buf,points[i].y) );
     }
 
     fprintf(renderer->file, "\n");
+}
+
+static void
+pstricks_polygon(PstricksRenderer *renderer,
+		 Point *points, gint num_points,
+		 Color *line_color, gboolean filled)
+{
+    gint i;
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
+
+    set_line_color(renderer, line_color);
+
+    fprintf(renderer->file, "\\pspolygon%s(%s,%s)",
+	    (filled?"*":""),
+	    pstricks_dtostr(px_buf,points[0].x),
+	    pstricks_dtostr(py_buf,points[0].y) );
+    
+    for (i=1;i<num_points;i++) {
+	fprintf(renderer->file, "(%s,%s)",
+		pstricks_dtostr(px_buf,points[i].x),
+		pstricks_dtostr(py_buf,points[i].y) );
+    }
+    fprintf(renderer->file,"\n");
 }
 
 static void
@@ -404,18 +468,8 @@ draw_polygon(DiaRenderer *self,
 	     Color *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int i;
 
-    set_line_color(renderer,line_color);
-  
-    fprintf(renderer->file, "\\pspolygon(%f,%f)",
-	    points[0].x, points[0].y);
-
-    for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "(%f,%f)",
-		points[i].x, points[i].y);
-    }
-    fprintf(renderer->file,"\n");
+    pstricks_polygon(renderer,points,num_points,line_color,FALSE);
 }
 
 static void
@@ -424,18 +478,32 @@ fill_polygon(DiaRenderer *self,
 	     Color *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int i;
-  
-    set_line_color(renderer,line_color);
-  
-    fprintf(renderer->file, "\\pspolygon*(%f,%f)",
-	    points[0].x, points[0].y);
 
-    for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "(%f,%f)",
-		points[i].x, points[i].y);
-    }
-    fprintf(renderer->file,"\n");
+    pstricks_polygon(renderer,points,num_points,line_color,TRUE);
+}
+
+static void
+pstricks_rect(PstricksRenderer *renderer,
+	      Point *ul_corner, Point *lr_corner,
+	      Color *color, gboolean filled)
+{
+    set_line_color(renderer,color);
+    gchar ulx_buf[DTOSTR_BUF_SIZE];
+    gchar uly_buf[DTOSTR_BUF_SIZE];
+    gchar lrx_buf[DTOSTR_BUF_SIZE];
+    gchar lry_buf[DTOSTR_BUF_SIZE];
+
+    pstricks_dtostr(ulx_buf, (gdouble) ul_corner->x);
+    pstricks_dtostr(uly_buf, (gdouble) ul_corner->y);
+    pstricks_dtostr(lrx_buf, (gdouble) lr_corner->x);
+    pstricks_dtostr(lry_buf, (gdouble) lr_corner->y);
+    
+    fprintf(renderer->file, "\\pspolygon%s(%s,%s)(%s,%s)(%s,%s)(%s,%s)\n",
+	    (filled?"*":""),
+	    ulx_buf, uly_buf,
+	    ulx_buf, lry_buf,
+	    lrx_buf, lry_buf,
+	    lrx_buf, uly_buf );
 }
 
 static void
@@ -445,14 +513,7 @@ draw_rect(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    set_line_color(renderer,color);
-  
-    fprintf(renderer->file, "\\pspolygon(%f,%f)(%f,%f)(%f,%f)(%f,%f)\n",
-	    (double) ul_corner->x, (double) ul_corner->y,
-	    (double) ul_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) ul_corner->y );
-
+    pstricks_rect(renderer,ul_corner,lr_corner,color,FALSE);
 }
 
 static void
@@ -462,14 +523,7 @@ fill_rect(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    set_line_color(renderer,color);
-
-    fprintf(renderer->file, 
-	    "\\pspolygon*(%f,%f)(%f,%f)(%f,%f)(%f,%f)\n",
-	    (double) ul_corner->x, (double) ul_corner->y,
-	    (double) ul_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) ul_corner->y );
+    pstricks_rect(renderer,ul_corner,lr_corner,color,TRUE);
 }
 
 static void
@@ -480,20 +534,36 @@ pstricks_arc(PstricksRenderer *renderer,
 	     Color *color,int filled)
 {
     double radius1,radius2;
+    gchar cx_buf[DTOSTR_BUF_SIZE];
+    gchar cy_buf[DTOSTR_BUF_SIZE];
+    gchar r1_buf[DTOSTR_BUF_SIZE];
+    gchar r2_buf[DTOSTR_BUF_SIZE];
+    gchar sqrt_buf[DTOSTR_BUF_SIZE];
+    gchar angle1_buf[DTOSTR_BUF_SIZE];
+    gchar angle2_buf[DTOSTR_BUF_SIZE];
+    
     radius1=(double) width/2.0;
     radius2=(double) height/2.0;
 
+    pstricks_dtostr(cx_buf,center->x);
+    pstricks_dtostr(cy_buf,center->y);
+    pstricks_dtostr(r1_buf,radius1);
+    pstricks_dtostr(r2_buf,radius2);
+    pstricks_dtostr(sqrt_buf,sqrt(radius1*radius1+radius2*radius2));
+    pstricks_dtostr(angle1_buf,360.0-angle1);
+    pstricks_dtostr(angle2_buf,360.0-angle2);
+
     set_line_color(renderer,color);
 
-    fprintf(renderer->file,"\\psclip{\\pswedge[linestyle=none,fillstyle=none](%f,%f){%f}{%f}{%f}}\n",
-	    (double) center->x, (double) center->y,
-	    sqrt(radius1*radius1+radius2*radius2),
-	    (double) 360.0 - angle2, (double) 360.0 - angle1);
+    fprintf(renderer->file,"\\psclip{\\pswedge[linestyle=none,fillstyle=none](%s,%s){%s}{%s}{%s}}\n",
+	    cx_buf, cy_buf,
+	    sqrt_buf,
+	    angle2_buf, angle1_buf);
   
-    fprintf(renderer->file,"\\psellipse%s(%f,%f)(%f,%f)\n",
+    fprintf(renderer->file,"\\psellipse%s(%s,%s)(%s,%s)\n",
 	    (filled?"*":""),
-	    (double) center->x, (double) center->y,
-	    radius1,radius2);
+	    cx_buf, cy_buf,
+	    r1_buf, r2_buf);
 
     fprintf(renderer->file,"\\endpsclip\n");
 }
@@ -523,6 +593,27 @@ fill_arc(DiaRenderer *self,
 }
 
 static void
+pstricks_ellipse(PstricksRenderer *renderer,
+		 Point *center,
+		 real width, real height,
+		 Color *color, gboolean filled)
+{
+    gchar cx_buf[DTOSTR_BUF_SIZE];
+    gchar cy_buf[DTOSTR_BUF_SIZE];
+    gchar width_buf[DTOSTR_BUF_SIZE];
+    gchar height_buf[DTOSTR_BUF_SIZE];
+
+    set_line_color(renderer,color);
+
+    fprintf(renderer->file, "\\psellipse%s(%s,%s)(%s,%s)\n",
+	    (filled?"*":""),
+	    pstricks_dtostr(cx_buf,center->x),
+	    pstricks_dtostr(cy_buf,center->y),
+	    pstricks_dtostr(width_buf,width/2.0),
+	    pstricks_dtostr(height_buf,height/2.0) );
+}
+
+static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
@@ -530,11 +621,7 @@ draw_ellipse(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    set_line_color(renderer,color);
-
-    fprintf(renderer->file, "\\psellipse(%f,%f)(%f,%f)\n",
-	    (double) center->x, (double) center->y,
-	    (double) width/2.0, (double) height/2.0 );
+    pstricks_ellipse(renderer,center,width,height,color,FALSE);
 }
 
 static void
@@ -545,23 +632,22 @@ fill_ellipse(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    set_line_color(renderer,color);
-
-    fprintf(renderer->file, "\\psellipse*(%f,%f)(%f,%f)\n",
-	    (double) center->x, (double) center->y,
-	    (double) width/2.0, (double) height/2.0 );
+    pstricks_ellipse(renderer,center,width,height,color,TRUE);
 }
 
-
-
 static void
-draw_bezier(DiaRenderer *self, 
-	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+pstricks_bezier(PstricksRenderer *renderer,
+		BezPoint *points,
+		gint numpoints,
+		Color *color, gboolean filled)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int i;
+    gint i;
+    gchar p1x_buf[DTOSTR_BUF_SIZE];
+    gchar p1y_buf[DTOSTR_BUF_SIZE];
+    gchar p2x_buf[DTOSTR_BUF_SIZE];
+    gchar p2y_buf[DTOSTR_BUF_SIZE];
+    gchar p3x_buf[DTOSTR_BUF_SIZE];
+    gchar p3y_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
 
@@ -570,27 +656,46 @@ draw_bezier(DiaRenderer *self,
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    fprintf(renderer->file, "\\newpath\n\\moveto(%f,%f)\n",
-	    (double) points[0].p1.x, (double) points[0].p1.y);
-  
+    fprintf(renderer->file, "\\newpath\n\\moveto(%s,%s)\n",
+	    pstricks_dtostr(p1x_buf,points[0].p1.x),
+	    pstricks_dtostr(p1y_buf,points[0].p1.y) );
+
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
 	case BEZ_MOVE_TO:
 	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
 	    break;
 	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "\\lineto(%f,%f)\n",
-		    (double) points[i].p1.x, (double) points[i].p1.y);
+	    fprintf(renderer->file, "\\lineto(%s,%s)\n",
+		    pstricks_dtostr(p1x_buf,points[i].p1.x),
+		    pstricks_dtostr(p1y_buf,points[i].p1.y) );
 	    break;
 	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "\\curveto(%f,%f)(%f,%f)(%f,%f)\n",
-		    (double) points[i].p1.x, (double) points[i].p1.y,
-		    (double) points[i].p2.x, (double) points[i].p2.y,
-		    (double) points[i].p3.x, (double) points[i].p3.y );
+	    fprintf(renderer->file, "\\curveto(%s,%s)(%s,%s)(%s,%s)\n",
+		    pstricks_dtostr(p1x_buf,points[i].p1.x),
+		    pstricks_dtostr(p1y_buf,points[i].p1.y),
+		    pstricks_dtostr(p2x_buf,points[i].p2.x),
+		    pstricks_dtostr(p2y_buf,points[i].p2.y),
+		    pstricks_dtostr(p3x_buf,points[i].p3.x),
+		    pstricks_dtostr(p3y_buf,points[i].p3.y) );
 	    break;
 	}
+    
+    if (filled)
+	fprintf(renderer->file, "\\fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
+    else
+	fprintf(renderer->file, "\\stroke}\n");
+}
 
-    fprintf(renderer->file, "\\stroke}\n");
+static void
+draw_bezier(DiaRenderer *self, 
+	    BezPoint *points,
+	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    Color *color)
+{
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
+    pstricks_bezier(renderer,points,numpoints,color,FALSE);
 }
 
 
@@ -602,36 +707,8 @@ fill_bezier(DiaRenderer *self,
 	    Color *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int i;
 
-    set_fill_color(renderer,color);
-
-    fprintf(renderer->file, "\\pscustom{\n");
-
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-    fprintf(renderer->file, "\\newpath\n\\moveto(%f,%f)\n",
-	    (double) points[0].p1.x, (double) points[0].p1.y);
-  
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	    break;
-	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "\\lineto(%f,%f)\n",
-		    (double) points[i].p1.x, (double) points[i].p1.y);
-	    break;
-	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "\\curveto(%f,%f)(%f,%f)(%f,%f)\n",
-		    (double) points[i].p1.x, (double) points[i].p1.y,
-		    (double) points[i].p2.x, (double) points[i].p2.y,
-		    (double) points[i].p3.x, (double) points[i].p3.y );
-	    break;
-	}
-
-    fprintf(renderer->file, "\\fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
+    pstricks_bezier(renderer,points,numpoints,color,TRUE);
 }
 
 /* Do we really want to do this?  What if the text is intended as 
@@ -689,6 +766,8 @@ draw_string(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     gchar *escaped = tex_escape_string(text);
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
 
@@ -703,7 +782,10 @@ draw_string(DiaRenderer *self,
 	fprintf(renderer->file,"[r]");
 	break;
     }
-    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y, escaped);
+    fprintf(renderer->file,"(%s,%s){\\scalebox{1 -1}{%s}}\n",
+	    pstricks_dtostr(px_buf,pos->x),
+	    pstricks_dtostr(py_buf,pos->y),
+	    escaped );
     g_free(escaped);
 }
 
@@ -720,6 +802,14 @@ draw_image(DiaRenderer *self,
     unsigned char      *ptr;
     real ratio;
     guint8 *rgb_data;
+    gdouble points_in_inch = POINTS_in_INCH;
+    gchar points_in_inch_buf[DTOSTR_BUF_SIZE];
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
+    gchar width_buf[DTOSTR_BUF_SIZE];
+    gchar height_buf[DTOSTR_BUF_SIZE];
+
+    pstricks_dtostr(points_in_inch_buf,points_in_inch);
 
     img_width = dia_image_width(image);
     img_height = dia_image_height(image);
@@ -734,9 +824,14 @@ draw_image(DiaRenderer *self,
 	fprintf(renderer->file, "/grays %i string def\n", img_width);
 	fprintf(renderer->file, "/npixls 0 def\n");
 	fprintf(renderer->file, "/rgbindx 0 def\n");
-	fprintf(renderer->file, "%f %f scale\n", POINTS_in_INCH, POINTS_in_INCH);
-	fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
-	fprintf(renderer->file, "%f %f scale\n", width, height);
+	fprintf(renderer->file, "%s %s scale\n",
+		points_in_inch_buf, points_in_inch_buf);
+	fprintf(renderer->file, "%s %s translate\n",
+		pstricks_dtostr(px_buf,point->x),
+		pstricks_dtostr(py_buf,point->y) );
+	fprintf(renderer->file, "%s %s scale\n",
+		pstricks_dtostr(width_buf,width),
+		pstricks_dtostr(height_buf,height) );
 	fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
 	fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
 	fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
@@ -756,9 +851,14 @@ draw_image(DiaRenderer *self,
 	fprintf(renderer->file, "/grays %i string def\n", img_width);
 	fprintf(renderer->file, "/npixls 0 def\n");
 	fprintf(renderer->file, "/rgbindx 0 def\n");
-	fprintf(renderer->file, "%f %f scale\n", POINTS_in_INCH, POINTS_in_INCH);
-	fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
-	fprintf(renderer->file, "%f %f scale\n", width, height);
+	fprintf(renderer->file, "%s %s scale\n",
+		points_in_inch_buf, points_in_inch_buf);
+	fprintf(renderer->file, "%s %s translate\n",
+		pstricks_dtostr(px_buf,point->x),
+		pstricks_dtostr(py_buf,point->y) );
+	fprintf(renderer->file, "%s %s scale\n",
+		pstricks_dtostr(width_buf,width),
+		pstricks_dtostr(height_buf,height) );
 	fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
 	fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
 	fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
@@ -794,9 +894,14 @@ export_pstricks(DiagramData *data, const gchar *filename,
     double scale;
     Rectangle *extent;
     const char *name;
+    gchar el_buf[DTOSTR_BUF_SIZE];
+    gchar er_buf[DTOSTR_BUF_SIZE];
+    gchar eb_buf[DTOSTR_BUF_SIZE];
+    gchar et_buf[DTOSTR_BUF_SIZE];
+    gchar scale1_buf[DTOSTR_BUF_SIZE];
+    gchar scale2_buf[DTOSTR_BUF_SIZE];
 
     Color initial_color;
-    char *old_locale;
  
     file = fopen(filename, "wb");
 
@@ -804,7 +909,6 @@ export_pstricks(DiagramData *data, const gchar *filename,
 	message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
     }
 
-    old_locale = setlocale(LC_NUMERIC, "C");
     renderer = g_object_new(PSTRICKS_TYPE_RENDERER, NULL);
 
     renderer->pagenum = 1;
@@ -846,15 +950,14 @@ export_pstricks(DiagramData *data, const gchar *filename,
 	ctime(&time_now),
 	name);
 
-    fprintf(renderer->file,"\\pspicture(%f,%f)(%f,%f)\n",
-	    extent->left * data->paper.scaling,
-	    -extent->bottom * data->paper.scaling,
-	    extent->right * data->paper.scaling,
-	    -extent->top * data->paper.scaling
-	    );
-    fprintf(renderer->file,"\\scalebox{%f %f}{\n",
-	    data->paper.scaling,
-	    -data->paper.scaling);
+    fprintf(renderer->file,"\\pspicture(%s,%s)(%s,%s)\n",
+	    pstricks_dtostr(el_buf,extent->left * data->paper.scaling),
+	    pstricks_dtostr(eb_buf,-extent->bottom * data->paper.scaling),
+	    pstricks_dtostr(er_buf,extent->right * data->paper.scaling),
+	    pstricks_dtostr(et_buf,-extent->top * data->paper.scaling) );
+    fprintf(renderer->file,"\\scalebox{%s %s}{\n",
+	    pstricks_dtostr(scale1_buf,data->paper.scaling),
+	    pstricks_dtostr(scale2_buf,-data->paper.scaling) );
 
     initial_color.red=0.;
     initial_color.green=0.;
@@ -869,7 +972,6 @@ export_pstricks(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
-    setlocale(LC_NUMERIC, old_locale);
 }
 
 static const gchar *extensions[] = { "tex", NULL };

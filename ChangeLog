@@ -1,3 +1,9 @@
+2005-04-02  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/pstricks/render_pstricks.c: 
+	* plug-ins/xfig/xfig-export.c: Patch from Radek
+	Krahl <ptasz3k@o2.pl>: Fix decimal point problems. Fixes bugs 
+
 2005-04-02  Hans Breuer  <hans@breuer.org>
 
 	* lib/dia_image.c(dia_image_filename) : return the path 

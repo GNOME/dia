@@ -36,6 +36,9 @@
 #define XFIG_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), XFIG_TYPE_RENDERER, XfigRendererClass))
 #define XFIG_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFIG_TYPE_RENDERER))
 #define XFIG_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), XFIG_TYPE_RENDERER, XfigRendererClass))
+#define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
+#define xfig_dtostr(buf,d) \
+	g_ascii_formatd(buf, sizeof(buf), "%f", d)
 
 GType xfig_renderer_get_type (void) G_GNUC_CONST;
 
@@ -436,6 +439,10 @@ static void
 figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
 {
   int type, style;
+  gchar lw_buf[DTOSTR_BUF_SIZE];
+  gchar aw_buf[DTOSTR_BUF_SIZE];
+  gchar al_buf[DTOSTR_BUF_SIZE];
+  
   switch (arrow->type) {
   case ARROW_NONE:
     return;
@@ -458,10 +465,11 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   case ARROW_BLANKED_CONCAVE:
     type = 2; style = 0; break;
   }
-  fprintf(renderer->file, "  %d %d %f %f %f\n",
-	  type, style, figAltCoord(renderer, line_width), 
-	  figCoord(renderer, arrow->width),
-	  figCoord(renderer, arrow->length));	  
+  fprintf(renderer->file, "  %d %d %s %s %s\n",
+	  type, style,
+	  xfig_dtostr(lw_buf, figAltCoord(renderer, line_width)), 
+	  xfig_dtostr(aw_buf, figCoord(renderer, arrow->width)),
+	  xfig_dtostr(al_buf, figCoord(renderer, arrow->length)) );	  
 }
 
 static void 
@@ -556,17 +564,18 @@ draw_line(DiaRenderer *self,
           Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 2\n",
+  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 2\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer), 
-	  figCapsStyle(renderer));
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer), figCapsStyle(renderer) );
   fprintf(renderer->file, "\t%d %d %d %d\n",
 	  (int)figCoord(renderer, start->x), (int)figCoord(renderer, start->y), 
 	  (int)figCoord(renderer, end->x), (int)figCoord(renderer, end->y));
@@ -581,16 +590,18 @@ draw_line_with_arrows(DiaRenderer *self,
 		      Arrow *end_arrow) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 %d %d 2\n",
+  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d 2\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer), 
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer), 
 	  figCapsStyle(renderer),
 	  hasArrow(end_arrow),
 	  hasArrow(start_arrow));
@@ -612,16 +623,18 @@ draw_polyline(DiaRenderer *self,
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 %d\n",
+  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer), num_points);
   fprintf(renderer->file, "\t");
   for (i = 0; i < num_points; i++) {
@@ -641,16 +654,18 @@ draw_polyline_with_arrows(DiaRenderer *self,
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 %d %d %d\n",
+  fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer),
 	  hasArrow(end_arrow),
 	  hasArrow(start_arrow), num_points);
@@ -675,16 +690,18 @@ draw_polygon(DiaRenderer *self,
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 %d\n",
+  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer), num_points+1);
   fprintf(renderer->file, "\t");
   for (i = 0; i < num_points; i++) {
@@ -702,17 +719,19 @@ fill_polygon(DiaRenderer *self,
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 3 %d 0 %d %d %d 0 20 %f %d %d 0 0 0 %d\n",
+  fprintf(renderer->file, "2 3 %d 0 %d %d %d 0 20 %s %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer), num_points+1);
   fprintf(renderer->file, "\t");
   for (i = 0; i < num_points; i++) {
@@ -729,16 +748,18 @@ draw_rect(DiaRenderer *self,
           Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 5\n",
+  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer), 
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer), 
 	  figCapsStyle(renderer));
   fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y), 
@@ -754,17 +775,19 @@ fill_rect(DiaRenderer *self,
           Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "2 3 %d %d %d %d %d -1 20 %f %d %d 0 0 0 5\n",
+  fprintf(renderer->file, "2 3 %d %d %d %d %d -1 20 %s %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer), 
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer), 
 	  figCapsStyle(renderer));
   fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y), 
@@ -783,6 +806,9 @@ draw_arc(DiaRenderer *self,
 {
   Point first, second, last;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar dl_buf[DTOSTR_BUF_SIZE];
+  gchar cx_buf[DTOSTR_BUF_SIZE];
+  gchar cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
@@ -801,14 +827,14 @@ draw_arc(DiaRenderer *self,
   last.x += (width/2.0)*cos(angle2);
   last.y -= (height/2.0)*sin(angle2);
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %f %d 1 0 0 %f %f %d %d %d %d %d %d\n",
+  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer),
+	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
-	  figCoord(renderer, center->x), 
-	  figCoord(renderer, center->y),
+	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)), 
+	  xfig_dtostr(cy_buf, figCoord(renderer, center->y)),
 	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y), 
 	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y), 
 	  (int)figCoord(renderer, last.x), (int)figCoord(renderer, last.y));
@@ -830,6 +856,9 @@ draw_arc_with_arrows(DiaRenderer *self,
   Point l1, l2;
   Point p1, p2;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar dl_buf[DTOSTR_BUF_SIZE];
+  gchar cx_buf[DTOSTR_BUF_SIZE];
+  gchar cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
@@ -858,16 +887,16 @@ draw_arc_with_arrows(DiaRenderer *self,
   center.x = 0.0;
   center.y = 0.0;
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %f %d 1 %d %d %f %f %d %d %d %d %d %d\n",
+  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d 1 %d %d %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer),
+	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
 	  hasArrow(end_arrow),
 	  hasArrow(start_arrow),
-	  figCoord(renderer, center.x), 
-	  figCoord(renderer, center.y),
+	  xfig_dtostr(cx_buf, figCoord(renderer, center.x)),
+	  xfig_dtostr(cy_buf, figCoord(renderer, center.y)),
 	  (int)figCoord(renderer, startpoint->x), (int)figCoord(renderer, startpoint->y), 
 	  (int)figCoord(renderer, midpoint->x), (int)figCoord(renderer, midpoint->y), 
 	  (int)figCoord(renderer, endpoint->x), (int)figCoord(renderer, endpoint->y));
@@ -889,6 +918,9 @@ fill_arc(DiaRenderer *self,
 {
   Point first, second, last;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar dl_buf[DTOSTR_BUF_SIZE];
+  gchar cx_buf[DTOSTR_BUF_SIZE];
+  gchar cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
@@ -907,14 +939,14 @@ fill_arc(DiaRenderer *self,
   last.x += (width/2.0)*cos(angle2);
   last.y -= (height/2.0)*sin(angle2);
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 20 0 %f %d 1 0 0 %f %f %d %d %d %d %d %d\n",
+  fprintf(renderer->file, "5 1 %d %d %d %d %d 20 0 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer),
+	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
-	  figCoord(renderer, center->x), 
-	  figCoord(renderer, center->y),
+	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)), 
+	  xfig_dtostr(cy_buf, figCoord(renderer, center->y)),
 	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y), 
 	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y), 
 	  (int)figCoord(renderer, last.x), (int)figCoord(renderer, last.y));
@@ -928,18 +960,19 @@ draw_ellipse(DiaRenderer *self,
              Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "1 1 %d %d %d -1 %d 0 -1 %f 1 0.0 %d %d %d %d 0 0 0 0\n",
+  fprintf(renderer->file, "1 1 %d %d %d -1 %d 0 -1 %s 1 0.0 %d %d %d %d 0 0 0 0\n",
 	  figLineStyle(renderer), 
 	  figLineWidth(renderer), 
 	  figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
 	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
 
@@ -952,19 +985,20 @@ fill_ellipse(DiaRenderer *self,
              Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
 
-  fprintf(renderer->file, "1 1 %d %d %d %d %d 0 20 %f 1 0.0 %d %d %d %d 0 0 0 0\n",
+  fprintf(renderer->file, "1 1 %d %d %d %d %d 0 20 %s 1 0.0 %d %d %d %d 0 0 0 0\n",
 	  figLineStyle(renderer), 
 	  figLineWidth(renderer), 
 	  figColor(renderer, color),
 	  figColor(renderer, color),
 	  figDepth(renderer),
-	  figDashLength(renderer),
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
 	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
 }
@@ -1028,6 +1062,7 @@ draw_string(DiaRenderer *self,
 {
   guchar *figtext = NULL;
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
@@ -1036,12 +1071,12 @@ draw_string(DiaRenderer *self,
 
   figtext = figText(renderer, text);
   /* xfig texts are specials */
-  fprintf(renderer->file, "4 %d %d %d 0 %d %f 0.0 6 0.0 0.0 %d %d %s\\001\n",
+  fprintf(renderer->file, "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
 	  figAlignment(renderer, alignment),
 	  figColor(renderer, color), 
 	  figDepth(renderer),
 	  figFont(renderer),
-	  figFontSize(renderer),
+	  xfig_dtostr(d_buf, figFontSize(renderer)),
 	  (int)figCoord(renderer, pos->x),
 	  (int)figCoord(renderer, pos->y),
 	  figtext);
@@ -1055,13 +1090,15 @@ draw_image(DiaRenderer *self,
            DiaImage image) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass)
     return;
 
-  fprintf(renderer->file, "2 5 %d 0 -1 0 %d 0 -1 %f %d %d 0 0 0 5\n",
+  fprintf(renderer->file, "2 5 %d 0 -1 0 %d 0 -1 %s %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figDepth(renderer),
-	  figDashLength(renderer), figJoinStyle(renderer), 
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer), 
 	  figCapsStyle(renderer));
   fprintf(renderer->file, "\t0 %s\n", dia_image_filename(image));
   fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
@@ -1093,6 +1130,7 @@ export_fig(DiagramData *data, const gchar *filename,
   XfigRenderer *renderer;
   int i;
   Layer *layer;
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
   file = fopen(filename, "w");
 
@@ -1110,7 +1148,7 @@ export_fig(DiagramData *data, const gchar *filename,
   fprintf(file, "Center\n");
   fprintf(file, "Metric\n");
   fprintf(file, "%s\n", data->paper.name);
-  fprintf(file, "%f\n", data->paper.scaling*100.0);
+  fprintf(file, "%s\n", xfig_dtostr(d_buf, data->paper.scaling*100.0));
   fprintf(file, "Single\n"); /* Could we do layers this way? */
   fprintf(file, "-2\n");
   fprintf(file, "1200 2\n");

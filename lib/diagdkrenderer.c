@@ -37,6 +37,8 @@
 #include "font.h"
 #include "text.h"
 
+#include "time.h"
+
 #ifdef HAVE_FREETYPE
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
