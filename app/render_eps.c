@@ -125,14 +125,22 @@ static RenderOps EpsRenderOps = {
 
 static void print_reencode_font(FILE *file, char *fontname)
 {
-  fprintf(file,
-	  "/%s-latin1\n"
-	  "    /%s findfont\n"
-	  "    dup length dict begin\n"
-	  "	{1 index /FID ne {def} {pop pop} ifelse} forall\n"
-	  "	/Encoding isolatin1encoding def\n"
-	  "    currentdict end\n"
-	  "definefont pop\n", fontname, fontname);
+  /* Don't reencode the Symbol font, as it doesn't work in latin1 encoding.
+   * Instead, just define Symbol-latin1 to be the same as Symbol. */
+  if (!strcmp(fontname, "Symbol"))
+    fprintf(file,
+	    "/%s-latin1\n"
+	    "    /%s findfont\n"
+	    "definefont pop\n", fontname, fontname);
+  else
+    fprintf(file,
+	    "/%s-latin1\n"
+	    "    /%s findfont\n"
+	    "    dup length dict begin\n"
+	    "	{1 index /FID ne {def} {pop pop} ifelse} forall\n"
+	    "	/Encoding isolatin1encoding def\n"
+	    "    currentdict end\n"
+	    "definefont pop\n", fontname, fontname);
 }
 
 

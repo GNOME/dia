@@ -158,4 +158,6 @@ samples/Makefile
 sheets/Makefile
 sheets/UML/Makefile
 sheets/ER/Makefile
+plug-ins/Makefile
+plug-ins/cgm/Makefile
 )

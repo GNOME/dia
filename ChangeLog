@@ -1,3 +1,15 @@
+1999-12-21  James Henstridge  <james@daa.com.au>
+
+	* Makefile.am (SUBDIRS): recurse into plug-ins.
+
+	* configure.in: add plug-ins directory makefiles to list.
+
+	* plug-ins/cgm/cgm.c: start of cgm export filter.  Beziers and text
+	not done yet.  Also, the output files are not quite correct.
+
+	* app/render_eps.c (print_reencode_font): don't reencode the Symbol
+	font.  It doesn't work if you do.
+
 1999-12-20  James Henstridge  <james@daa.com.au>
 
 	* app/app_procs.c (app_init): don't use diagram_export_to_eps to

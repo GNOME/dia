@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib objects shapes intl app samples po sheets
+SUBDIRS = lib objects plug-ins shapes intl app samples po sheets
 
 pkgdata_DATA = dia_logo.png
 man_MANS = dia.1
