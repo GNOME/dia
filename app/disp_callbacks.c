@@ -326,6 +326,20 @@ set_input_dialog(DDisplay *ddisp, int x, int y)
 }
 #endif
 
+void
+ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
+{
+  popup_shell = ddisp->shell;
+  display_update_menu_state(ddisp);
+#ifdef GNOME
+  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, event, NULL);
+#else
+  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL,
+		 event->button, event->time);
+#endif  
+
+}
+
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
 			GdkEvent  *event,
@@ -437,14 +451,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	    popup_object_menu(ddisp, bevent);
 	    break;
 	  }
-	  popup_shell = ddisp->shell;
-          display_update_menu_state(ddisp);
-#         ifdef GNOME
-	  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, bevent, NULL);
-#         else
-	  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL,
-			 bevent->button, bevent->time);
-#         endif  
+	  ddisplay_popup_menu(ddisp, bevent);
  	  break;
 
 	default:

@@ -130,12 +130,21 @@ create_menus() {
  */
 GtkWidget *popup_shell = NULL;
 
+static gint
+origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+
+  ddisplay_popup_menu(ddisp, event);
+  return TRUE;
+}
+
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
 		     char *title, int top_level_window)
 {
-  GtkWidget *table;
+  GtkWidget *table, *widget;
   GtkWidget *status_hbox;
   int s_width, s_height;
 
@@ -204,8 +213,12 @@ create_display_shell(DDisplay *ddisp,
   gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
 
   /*  scrollbars, rulers, canvas, menu popup button  */
-  ddisp->origin = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
+  ddisp->origin = gtk_button_new();
+  widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
+  gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
+  gtk_widget_show(widget);
+  gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+		     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
 
   ddisp->hrule = gtk_hruler_new ();
   gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",

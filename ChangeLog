@@ -1,5 +1,12 @@
 2000-05-28  James Henstridge  <james@daa.com.au>
 
+	* app/interface.c (create_display_shell): make the widget in the
+	top left corner a button that can be used to pop up the right click
+	menu, like in gimp and sketch.
+
+	* app/disp_callbacks.c (ddisplay_popup_menu): new function to popup
+	the display menu.
+
 	* objects/standard/beziergon.c (beziergon_set_corner_type_callback):
 	add code to set corner types for beziergon.
 
