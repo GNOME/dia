@@ -105,11 +105,17 @@ dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
   if (is_other_font) {
     menu_entry_list = g_list_append(menu_entry_list, fontname);
   } else {
-    if (!strcmp(fontname, "Sans")) fse->entry_nr = 0;
-    if (!strcmp(fontname, "Serif")) fse->entry_nr = 1;
-    if (!strcmp(fontname, "Monospace")) fse->entry_nr = 2;
+    if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
+    if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
+    if (!g_strcasecmp(fontname, "monospace")) fse->entry_nr = 2;
   }
   return fse;
+}
+
+static
+gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
+{
+  return !(g_strcasecmp(*(char **)s1, *(char **)s2));
 }
 
 static void
@@ -118,11 +124,11 @@ dia_font_selector_read_persistence_file() {
   gchar *persistence_name;
   GError *error;
 
-  font_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
+  font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
 
-  dia_font_selector_add_font("Sans", FALSE);
-  dia_font_selector_add_font("Serif", FALSE);
-  dia_font_selector_add_font("Monospace", FALSE);
+  dia_font_selector_add_font("sans", FALSE);
+  dia_font_selector_add_font("serif", FALSE);
+  dia_font_selector_add_font("monospace", FALSE);
 
   persistence_name = dia_config_filename("font_menu");
   if (g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
@@ -187,9 +193,9 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
 
   group = NULL;
 
-  menuitem = dia_font_selector_add_menu_item("Sans", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("Serif", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("Monospace", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("sans", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("serif", &group, menu);
+  menuitem = dia_font_selector_add_menu_item("monospace", &group, menu);
 
   menuitem = gtk_separator_menu_item_new();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
@@ -287,7 +293,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, gchar *fontname)
 			       &families, &n_families);
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
-    if (!(strcmp(pango_font_family_get_name(families[i]), fontname)))
+    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname)))
       return families[i];
   }
   g_warning(_("Couldn't find font family for %s\n"), fontname);

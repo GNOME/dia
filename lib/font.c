@@ -103,13 +103,13 @@ static void
 dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) {
   switch (fam) {
   case DIA_FONT_SANS :
-    pango_font_description_set_family(pfd, "Sans");
+    pango_font_description_set_family(pfd, "sans");
     break;
   case DIA_FONT_SERIF :
-    pango_font_description_set_family(pfd, "Serif");
+    pango_font_description_set_family(pfd, "serif");
     break;
   case DIA_FONT_MONOSPACE :
-    pango_font_description_set_family(pfd, "Monospace");
+    pango_font_description_set_family(pfd, "monospace");
     break;
   default :
           /* Pango does allow fonts without a name */
@@ -430,7 +430,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_text(layout,string,length);
         
     list = pango_attr_list_new();
-
+    pango_font_description_set_family(font->pfd, g_utf8_strdown(pango_font_description_get_family(font->pfd), -1));
     attr = pango_attr_font_desc_new(font->pfd);
     attr->start_index = 0;
     attr->end_index = length;

@@ -1,3 +1,13 @@
+2002-08-04  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/font.c: 
+	* lib/widgets.c: 
+	* app/render_eps.c (create_eps_renderer): Fonts now lowercase
+	(again) and case-insensitive.
+
+	* objects/GRAFCET/condition.c (CONDITION_FONT): Changed to
+	BASIC_SANS_FONT. 
+
 2002-08-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/commands.c (edit_cut_text_callback): 

@@ -508,22 +508,12 @@ create_eps_renderer(DiagramData *data, const char *filename,
 #ifdef HAVE_FREETYPE
   renderer->context = pango_ft2_get_context (DPI, DPI/*dpi_x, dpi_y*/);
   
- {
-   PangoFontFamily **families;
-   int nfamilies, i;
-   pango_context_list_families(renderer->context, &families, &nfamilies);
-   printf("%d families found\n", nfamilies);
-   for (i = 0; i < nfamilies; i++) {
-     printf("Family %s\n", pango_font_family_get_name(families[i]));
-   }
- }
-
   /* Setup pango */
   pango_context_set_language (renderer->context, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (renderer->context, PANGO_DIRECTION_LTR);
 
   font_description = pango_font_description_new ();
-  pango_font_description_set_family (font_description, g_strdup("Sans"));
+  pango_font_description_set_family (font_description, g_strdup("sans"));
   pango_font_description_set_style (font_description, PANGO_STYLE_NORMAL);
   pango_font_description_set_variant (font_description, PANGO_VARIANT_NORMAL);
   pango_font_description_set_weight (font_description, PANGO_WEIGHT_NORMAL);
@@ -531,7 +521,6 @@ create_eps_renderer(DiagramData *data, const char *filename,
   pango_font_description_set_size (font_description, 12*PANGO_SCALE);
 
   pango_context_set_font_description (renderer->context, font_description);
-  printf("Font sans: %s\n", pango_font_description_get_family(font_description));
 #endif
 
   scale = 28.346 * data->paper.scaling;
@@ -773,7 +762,6 @@ draw_line(RendererEPS *renderer,
 {
   lazy_setcolor(renderer,line_color);
 
-  printf("Drawing line at %f, %f\n", start->x, start->y);
   fprintf(renderer->file, "n %f %f m %f %f l s\n",
 	  start->x, start->y, end->x, end->y);
 }
@@ -1126,10 +1114,6 @@ void postscript_draw_contour(RendererEPS *renderer,
 	fprintf(stderr, "No font found\n");
 	continue;
       } 
-      printf("Using font %s pfdname %s dianame %s\n", 
-	     pango_font_description_to_string(pango_font_describe(font)),
-	     pango_font_description_to_string(renderer->current_font->pfd),
-	     dia_font_get_family(renderer->current_font));
       ft_face = pango_ft2_font_get_face(font);
       if (ft_face == NULL) {
 	fprintf(stderr, "Failed to get face for font %s\n",
@@ -1243,8 +1227,6 @@ draw_string(RendererEPS *renderer,
   lazy_setcolor(renderer,color);
 
   dia_font_set_height(renderer->current_font, renderer->current_height);
-  printf("Using font %s\n", 
-	 pango_font_description_to_string(pango_context_get_font_description(renderer->context)));
   layout = pango_layout_new(renderer->context);
 
   length = text ? strlen(text) : 0;
@@ -1298,8 +1280,6 @@ draw_string(RendererEPS *renderer,
     }
     xoff *= 2.54/PANGO_SCALE/DPI /* dpi_x */;
 
-    printf("Rendering line at %f, %f with font %s xoff %f\n", xpos, ypos, 
-	   dia_font_get_family(renderer->current_font), xoff);
     postscript_draw_contour(renderer,
 			    DPI, /* dpi_x */
 			    layoutline,
