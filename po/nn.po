@@ -1,14 +1,13 @@
 # Norwegian (Nynorsk) translation of dia.
-# Copyright (C) 2000 Gaute Hvoslef Kvalnes.
-# Gaute Hvoslef Kvalnes <ai98ghk@stud.hib.no>, 2000
+# Copyright (C) 2001 Roy-Magne Mo
 # Kjartan Maraas  <kmaraas@gnome.org>, 2001.
 # Roy-Magne Mo <rmo@sunnmore.net>, 2001
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2001-11-14 18:43+0100\n"
-"PO-Revision-Date: 2001-11-10 20:51+0100\n"
+"POT-Creation-Date: 2001-11-27 09:42+0100\n"
+"PO-Revision-Date: 2001-11-27 20:51+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian Nynorsk <nn@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +17,7 @@ msgstr ""
 #: app/app_procs.c:153
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
+msgstr "%s feil: inn- og utfilnamn er identiske: %s"
 
 #: app/app_procs.c:164
 #, c-format
@@ -68,7 +67,7 @@ msgstr "Kan ikkje kopla økthandterar!\n"
 
 #: app/app_procs.c:259
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[VAL...] [FIL...]"
 
 #: app/app_procs.c:263
 #, fuzzy, c-format
@@ -121,7 +120,7 @@ msgstr ""
 
 #: app/app_procs.c:589
 msgid "Objects and filters internal to dia"
-msgstr ""
+msgstr "Interne dia objekt og filter"
 
 #: app/color_area.c:264 lib/widgets.c:519
 msgid "Select color"
@@ -133,14 +132,12 @@ msgid "Untitled-%d"
 msgstr "Utan-tittel-%d"
 
 #: app/commands.c:192
-#, fuzzy
 msgid "No existing object to paste.\n"
-msgstr "Ingenting å lima inn."
+msgstr "Ingen eksisterande objekt å lime inn.\n"
 
 #: app/commands.c:460 app/commands.c:483
-#, fuzzy
 msgid "Could not find help directory"
-msgstr "Fann ikkje katalogen."
+msgstr "Klarte ikkje å finne hjelpekatalog"
 
 #: app/commands.c:530
 msgid "About Dia"
@@ -149,15 +146,15 @@ msgstr "Om Dia"
 #: app/commands.c:573
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr ""
+msgstr "Dia v %s av Alexander Larsson"
 
 #: app/commands.c:578
 msgid "Maintainer: James Henstridge"
-msgstr ""
+msgstr "Vedlikehaldar: James Henstridge"
 
 #: app/commands.c:582
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr ""
+msgstr "Sjå http://www.lysator.liu.se/~alla/dia for meir informasjon"
 
 #: app/commands.c:587
 msgid "Contributors:"
@@ -166,7 +163,7 @@ msgstr "Medverkande:"
 #. setup buttons
 #: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:688
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:704
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
@@ -183,20 +180,19 @@ msgid "Object defaults"
 msgstr "Standardverdiar for objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:697 app/properties.c:101
+#: app/preferences.c:713 app/properties.c:101
 msgid "Apply"
 msgstr "Bruk"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:706
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:722
 #: app/properties.c:111
 msgid "Close"
 msgstr "Lukk"
 
 #: app/defaults.c:98
-#, fuzzy
 msgid "This object has no defaults."
-msgstr "Denne funksjonen har ingen parametrar."
+msgstr "Dette objektet har ingen standardval."
 
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
@@ -318,20 +314,19 @@ msgid "Really close?"
 msgstr "Verkeleg lukke?"
 
 #: app/display.c:927
-#, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
 msgstr ""
-"Bokmerka er endra.\n"
-"Lagra endringane?"
+"Dette diagrammet har ikkje vorte lagra\n"
+"Lagre endringar no?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:580
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:596
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:580
-#: app/preferences.c:591
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:596
+#: app/preferences.c:607
 msgid "No"
 msgstr "Nei"
 
@@ -340,49 +335,41 @@ msgstr "Nei"
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
 #: plug-ins/wpg/wpg.c:930
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Kunne ikkje opna fil for skriving"
+msgstr "Kunne ikkje opne «%s» for skriving.\n"
 
 #: app/export_png.c:87
-#, fuzzy
 msgid "Could not create PNG write structure"
-msgstr "Kunne ikkje laga katalog\n"
+msgstr "Klarte ikkje å opprette PNG-struktur."
 
 #: app/export_png.c:96
-#, fuzzy
 msgid "Could not create PNG header info structure"
-msgstr "Kunne ikkje laga katalog\n"
+msgstr "Klarte ikkje å lage PNG-topptekststruktur"
 
 #: app/export_png.c:104
-#, fuzzy
 msgid "Error occurred while writing PNG"
-msgstr "Feil under fjerning av fil!"
+msgstr "Feil under skriving av PNG"
 
 #: app/export_png.c:157
-#, fuzzy
 msgid "Portable Network Graphics"
-msgstr "Comment=Vektorgrafikk (Scalable Vector Graphics)"
+msgstr "Portabel Nettverks Grafikk"
 
 #: app/filedlg.c:99 app/filedlg.c:373
-#, fuzzy
 msgid "By extension"
-msgstr "Utviding"
+msgstr "Etter utviding"
 
 #: app/filedlg.c:158
-#, fuzzy
 msgid "Open Diagram"
-msgstr "&Opna katalog"
+msgstr "Opne diagram"
 
 #: app/filedlg.c:184
-#, fuzzy
 msgid "Open Options"
-msgstr "ZOO-val"
+msgstr "Val for opne"
 
 #: app/filedlg.c:192 app/filedlg.c:532
-#, fuzzy
 msgid "Determine file type:"
-msgstr "Lag ny filtype"
+msgstr "Avgjer filtype:"
 
 #: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
@@ -413,14 +400,12 @@ msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
 #: app/filedlg.c:524
-#, fuzzy
 msgid "Export Options"
-msgstr "Monteringsval"
+msgstr "Val for eksport"
 
 #: app/interface.c:43
-#, fuzzy
 msgid "Modify object(s)"
-msgstr "Flytt objekt"
+msgstr "Endre objekt"
 
 #: app/interface.c:44 app/menus.c:199
 msgid "Modify"
@@ -433,7 +418,7 @@ msgstr "Forstørre"
 
 #: app/interface.c:53
 msgid "Scroll around the diagram"
-msgstr ""
+msgstr "Rull rundt i diagrammet"
 
 #: app/interface.c:54 app/menus.c:201
 msgid "Scroll"
@@ -490,9 +475,8 @@ msgid "Beziergon"
 msgstr "Bezier"
 
 #: app/interface.c:83
-#, fuzzy
 msgid "Create Line"
-msgstr "Lag &ny"
+msgstr "Lag linje"
 
 #: app/interface.c:84 app/menus.c:207 objects/standard/line.c:188
 msgid "Line"
@@ -507,17 +491,16 @@ msgid "Arc"
 msgstr "Sirkelboge"
 
 #: app/interface.c:93
-#, fuzzy
 msgid "Create Zigzagline"
-msgstr "Lag bilete"
+msgstr "Lag sikksakklinje"
 
 #: app/interface.c:94 app/menus.c:209
 msgid "Zigzagline"
-msgstr ""
+msgstr "Sikksakklinje"
 
 #: app/interface.c:98
 msgid "Create Polyline"
-msgstr "Lag multilinje"
+msgstr "Lag polylinje"
 
 #: app/interface.c:99 app/menus.c:210
 msgid "Polyline"
@@ -552,39 +535,34 @@ msgid ""
 msgstr ""
 
 #: app/interface.c:1089
-#, fuzzy
 msgid "Diagram Editor"
-msgstr "Dialogredigering"
+msgstr "Diagramredigering"
 
 #: app/layer_dialog.c:69
 msgid "New Layer"
 msgstr "Nytt lag"
 
 #: app/layer_dialog.c:70
-#, fuzzy
 msgid "Raise Layer"
-msgstr "Endra namn på lag"
+msgstr "Hev lag"
 
 #: app/layer_dialog.c:71
-#, fuzzy
 msgid "Lower Layer"
-msgstr "Nedre skuff"
+msgstr "Senk lag"
 
 #: app/layer_dialog.c:72
-#, fuzzy
 msgid "Delete Layer"
-msgstr "Slett brukar"
+msgstr "Slett lag"
 
 #: app/layer_dialog.c:206
 msgid "Layers"
-msgstr "Lagdeling"
+msgstr "Lag"
 
 #: app/layer_dialog.c:219
 msgid "Diagrams:"
 msgstr "Diagram:"
 
 #: app/layer_dialog.c:309
-#, fuzzy
 msgid "New layer"
 msgstr "Nytt lag"
 
@@ -593,27 +571,24 @@ msgid "none"
 msgstr "ingen"
 
 #: app/layer_dialog.c:954
-#, fuzzy
 msgid "Edit Layer Attributes"
-msgstr " attributtar"
+msgstr "Rediger attributtar for lag"
 
 #: app/layer_dialog.c:970
 msgid "Layer name:"
 msgstr "Namn på lag:"
 
 #: app/lineprops_area.c:721
-#, fuzzy
 msgid "Arrow Properties"
-msgstr "Brukareigenskapar"
+msgstr "Eigenskapar for pil"
 
 #: app/lineprops_area.c:778 app/lineprops_area.c:964
 msgid "Details..."
 msgstr "Detaljar ..."
 
 #: app/lineprops_area.c:920
-#, fuzzy
 msgid "Line Style Properties"
-msgstr "Linjeeigenskapar"
+msgstr "Linjestil-eigenskapar"
 
 #: app/linewidth_area.c:216 lib/properties.h:477
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
@@ -625,9 +600,8 @@ msgid "Line width:"
 msgstr "Linjebreidd:"
 
 #: app/load_save.c:127
-#, fuzzy
 msgid "Error reading diagram file\n"
-msgstr "feil ved lesing frå fila %1\n"
+msgstr "Feil ved lesing av diagramfil\n"
 
 #: app/load_save.c:195
 msgid ""
@@ -683,26 +657,22 @@ msgid "Native Dia Diagram"
 msgstr "Nytt diagram"
 
 #: app/menus.c:47 app/menus.c:61
-#, fuzzy
 msgid "_New diagram"
-msgstr "Nytt diagram"
+msgstr "_Nytt diagram"
 
 #: app/menus.c:47 app/menus.c:61
 msgid "Create new diagram"
 msgstr "Lage nytt diagram"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "_Diagram tree"
-msgstr "Dialogredigering"
+msgstr "_Diagramtre"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "Show diagram tree"
-msgstr "Nytt diagram"
+msgstr "Vis diagramtre"
 
 #: app/menus.c:54 app/plugin-manager.c:129 app/plugin-manager.c:135
-#, fuzzy
 msgid "Plug-ins"
 msgstr "Tilleggsmodular"
 
@@ -716,9 +686,8 @@ msgid "Page Set_up..."
 msgstr "Name=Oppsett ..."
 
 #: app/menus.c:74
-#, fuzzy
 msgid "_Print Diagram..."
-msgstr "Skriv ut ramme ..."
+msgstr "S_kriv ut diagram ..."
 
 #: app/menus.c:89
 msgid "_Delete"
@@ -729,48 +698,42 @@ msgid "Copy Text"
 msgstr "Kopier tekst"
 
 #: app/menus.c:96
-#, fuzzy
 msgid "Cut Text"
-msgstr "Skriv tekst"
+msgstr "Klipp ut tekst"
 
 #: app/menus.c:97
-#, fuzzy
 msgid "Paste _Text"
-msgstr "Rediger &tekst"
+msgstr "Lim inn _tekst"
 
 #: app/menus.c:120
-#, fuzzy
 msgid "Zoom _In"
 msgstr "For_størr"
 
 #: app/menus.c:120
-#, fuzzy, c-format
+#, c-format
 msgid "Zoom in 50%"
-msgstr "Forstørr 10%"
+msgstr "Forstørr 50%"
 
 #: app/menus.c:121
-#, fuzzy
 msgid "Zoom _Out"
 msgstr "For_minsk"
 
 #: app/menus.c:121
-#, fuzzy, c-format
+#, c-format
 msgid "Zoom out 50%"
-msgstr "Forminsk 10%"
+msgstr "Forminsk 50%"
 
 #: app/menus.c:122
 msgid "_Zoom"
 msgstr "_Forstørring"
 
 #: app/menus.c:123
-#, fuzzy
 msgid "Diagram Properties..."
-msgstr "Eigenskapar for lag ..."
+msgstr "Eigenskapar for diagram ..."
 
 #: app/menus.c:125
-#, fuzzy
 msgid "_AntiAliased"
-msgstr "Anti-aliasing"
+msgstr "_Anti-aliasa"
 
 #: app/menus.c:128
 #, fuzzy
@@ -778,9 +741,8 @@ msgid "_Visible Grid"
 msgstr "Synleg"
 
 #: app/menus.c:130
-#, fuzzy
 msgid "_Snap To Grid"
-msgstr "Juster til rutenett"
+msgstr "Ju_ster til rutenett"
 
 #: app/menus.c:132
 msgid "Show _Rulers"
@@ -839,9 +801,8 @@ msgid "Transitive"
 msgstr "Send"
 
 #: app/menus.c:162
-#, fuzzy
 msgid "Same Type"
-msgstr "&Speltype"
+msgstr "Same type"
 
 #: app/menus.c:169 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
 msgid "Left"
@@ -857,9 +818,8 @@ msgid "Right"
 msgstr "Høgre"
 
 #: app/menus.c:172 app/menus.c:181
-#, fuzzy
 msgid "Equal Distance"
-msgstr "&Avstand"
+msgstr "Lik avstand"
 
 #: app/menus.c:173 app/menus.c:182
 #, fuzzy
@@ -867,12 +827,10 @@ msgid "Adjacent"
 msgstr "Vedlegg"
 
 #: app/menus.c:178
-#, fuzzy
 msgid "Top"
 msgstr "Øverst"
 
 #: app/menus.c:180
-#, fuzzy
 msgid "Bottom"
 msgstr "Nederst"
 
@@ -894,144 +852,118 @@ msgid "_Ungroup"
 msgstr "_Løys opp gruppe"
 
 #: app/menus.c:193
-#, fuzzy
 msgid "Align _Horizontal"
-msgstr "Del &topp/botn"
+msgstr "Juster _vassrett"
 
 #: app/menus.c:194
-#, fuzzy
 msgid "Align _Vertical"
-msgstr "Del &venstre/høgre"
+msgstr "Juster _loddrett"
 
 #: app/menus.c:217
-#, fuzzy
 msgid "_Properties"
-msgstr "Eigenskapar"
+msgstr "_Eigenskapar"
 
 #: app/menus.c:218
-#, fuzzy
 msgid "_Layers"
-msgstr "Lagdeling"
+msgstr "_Lag"
 
 #: app/menus.c:239
-#, fuzzy
 msgid "_Select"
-msgstr "Vel"
+msgstr "_Vel"
 
 #: app/menus.c:240
-#, fuzzy
 msgid "_Objects"
-msgstr "Objekt"
+msgstr "_Objekt"
 
 #: app/menus.c:241
 msgid "_Tools"
-msgstr "_Verkty"
+msgstr "Verk_ty"
 
 #: app/menus.c:242
 msgid "_Dialogs"
 msgstr "_Dialogar"
 
 #: app/menus.c:253 app/menus.c:281
-#, fuzzy
 msgid "/_File"
 msgstr "/_Fil"
 
 #: app/menus.c:255 app/menus.c:283
-#, fuzzy
 msgid "/File/_New"
-msgstr "Filnamn"
+msgstr "/Fil/_Ny"
 
 #: app/menus.c:256 app/menus.c:284
-#, fuzzy
 msgid "/File/_Open"
-msgstr "Opna fil"
+msgstr "/Fil/_Opne"
 
 #: app/menus.c:257
-#, fuzzy
 msgid "/File/Open _Recent"
-msgstr "Nyleg brukt"
+msgstr "/Fil/Opne ny_lege"
 
 #: app/menus.c:258
-#, fuzzy
 msgid "/File/Open Recent/---"
-msgstr "Nyleg brukt"
+msgstr "/Fil/Nyleg brukt/---"
 
 #: app/menus.c:260 app/menus.c:265 app/menus.c:288 app/menus.c:291
-#, fuzzy
 msgid "/File/---"
-msgstr "Fil"
+msgstr "/Fil/---"
 
 #: app/menus.c:261
-#, fuzzy
 msgid "/File/_Diagram tree"
-msgstr "Skriv ut ramme ..."
+msgstr "/Fil/_Diagramtre"
 
 #: app/menus.c:263
-#, fuzzy
 msgid "/File/_Preferences..."
-msgstr "Innstillingar ..."
+msgstr "/Fil/_Innstillingar ..."
 
 #: app/menus.c:264
-#, fuzzy
 msgid "/File/P_lugins"
-msgstr "Tilleggsmodular"
+msgstr "/Fil/Ti_lleggsmodular"
 
 #: app/menus.c:266 app/menus.c:294
-#, fuzzy
 msgid "/File/_Quit"
-msgstr "Fil-liste"
+msgstr "/Fil/_Avslutt"
 
 #: app/menus.c:267
-#, fuzzy
 msgid "/_Help"
 msgstr "/_Hjelp"
 
 #: app/menus.c:269
-#, fuzzy
 msgid "/Help/_Manual"
-msgstr "Manuell"
+msgstr "/Hjelp/_Manual"
 
 #: app/menus.c:270
-#, fuzzy
 msgid "/Help/---"
-msgstr "Hjelp"
+msgstr "/Hjelp/---"
 
 #: app/menus.c:271
 msgid "/Help/_About"
 msgstr "/Hjelp/_Om"
 
 #: app/menus.c:285
-#, fuzzy
 msgid "/File/_Save"
-msgstr "Fil lagra."
+msgstr "/Fil/_lagre"
 
 #: app/menus.c:286
-#, fuzzy
 msgid "/File/Save _As..."
-msgstr "Lagra &som ..."
+msgstr "/Fil/L_agre som ..."
 
 #: app/menus.c:287
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "Eksporter ..."
+msgstr "/Fil/_Eksporter ..."
 
 #: app/menus.c:289
-#, fuzzy
 msgid "/File/Page Set_up..."
-msgstr "Name=Oppsett ..."
+msgstr "/Fil/Side_oppsett ..."
 
 #: app/menus.c:290
-#, fuzzy
 msgid "/File/_Print Diagram..."
-msgstr "Skriv ut ramme ..."
+msgstr "/Fil/Skriv ut diagram ..."
 
 #: app/menus.c:292
-#, fuzzy
 msgid "/File/_Close"
-msgstr "Fil lukka."
+msgstr "/Fil/_Lukk"
 
 #: app/menus.c:295
-#, fuzzy
 msgid "/_Edit"
 msgstr "/_Rediger"
 
@@ -1041,176 +973,157 @@ msgstr "/Rediger/_Kopier"
 
 #: app/menus.c:298
 msgid "/Edit/C_ut"
-msgstr ""
+msgstr "/Rediger/Klipp _ut"
 
 #: app/menus.c:299
-#, fuzzy
 msgid "/Edit/_Paste"
-msgstr "Rediger speleliste"
+msgstr "/Rediger/_Lim inn"
 
 #: app/menus.c:300
 msgid "/Edit/_Delete"
 msgstr "/Rediger/_Slett"
 
 #: app/menus.c:301
-#, fuzzy
 msgid "/Edit/_Undo"
-msgstr "Rediger node"
+msgstr "/Rediger/Angre"
 
 #: app/menus.c:302
-#, fuzzy
 msgid "/Edit/_Redo"
-msgstr "Rediger post"
+msgstr "/Rediger/Gje_r om"
 
 #: app/menus.c:303
-#, fuzzy
 msgid "/Edit/Copy Text"
-msgstr "Rediger &tekst"
+msgstr "/Rediger/Kopier tekst"
 
 #: app/menus.c:304
 msgid "/Edit/Cut Text"
 msgstr "/Rediger/Klipp ut tekst"
 
 #: app/menus.c:305
-#, fuzzy
 msgid "/Edit/Paste _Text"
-msgstr "Rediger &tekst"
+msgstr "/Rediger/Lim inn _tekst"
 
 #: app/menus.c:306
-#, fuzzy
 msgid "/_View"
 msgstr "/_Vis"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/View/Zoom _In"
-msgstr "Forstørr"
+msgstr "/Vis/For_størr"
 
 #: app/menus.c:309
-#, fuzzy
 msgid "/View/Zoom _Out"
-msgstr "Forminsk"
+msgstr "/Vis/For_minsk"
 
 #: app/menus.c:310
 msgid "/View/_Zoom"
-msgstr ""
+msgstr "/Vis/_Forstørr"
 
 #: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/400%"
-msgstr ""
+msgstr "/Vis/Forstørr/400%"
 
 #: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/283%"
-msgstr ""
+msgstr "/Vis/Forstørr/283%"
 
 #: app/menus.c:314
 #, c-format
 msgid "/View/Zoom/200%"
-msgstr ""
+msgstr "/Vis/Forstøtt/200%"
 
 #: app/menus.c:315
 #, c-format
 msgid "/View/Zoom/141%"
-msgstr ""
+msgstr "/Vis/Forstørr/141%"
 
 #: app/menus.c:316
 #, c-format
 msgid "/View/Zoom/100%"
-msgstr ""
+msgstr "/Vis/Forstørr/100%"
 
 #: app/menus.c:317
 #, c-format
 msgid "/View/Zoom/85%"
-msgstr ""
+msgstr "/Vis/Forstørr/85%"
 
 #: app/menus.c:318
 #, c-format
 msgid "/View/Zoom/70.7%"
-msgstr ""
+msgstr "/Vis/Forstørr/70,7%"
 
 #: app/menus.c:319
 #, c-format
 msgid "/View/Zoom/50%"
-msgstr ""
+msgstr "/Vis/Forstørr/50%"
 
 #: app/menus.c:320
 #, c-format
 msgid "/View/Zoom/35.4%"
-msgstr ""
+msgstr "/Vis/Forstørr/35,4%"
 
 #: app/menus.c:321
 #, c-format
 msgid "/View/Zoom/25%"
-msgstr ""
+msgstr "/Vis/Forstørr/25%"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/View/Diagram Properties..."
-msgstr "Rammeeigenskapar ..."
+msgstr "/Vis/Diagrameigenskapar ..."
 
 #: app/menus.c:324
 msgid "/View/_AntiAliased"
-msgstr ""
+msgstr "/Vis/_Antialiasa"
 
 #: app/menus.c:326
 msgid "/View/_Visible Grid"
-msgstr ""
+msgstr "/Vis/Synleg _rutenett"
 
 #: app/menus.c:327
-#, fuzzy
 msgid "/View/_Snap To Grid"
-msgstr "Juster til rutenett"
+msgstr "/Vis/Ju_ster til rutenett"
 
 #: app/menus.c:328
-#, fuzzy
 msgid "/View/Show _Rulers"
-msgstr "Vis linjalar"
+msgstr "/Vie/Vis linjalar"
 
 #: app/menus.c:329
 msgid "/View/Show _Connection Points"
 msgstr ""
 
 #: app/menus.c:330
-#, fuzzy
 msgid "/View/---"
-msgstr "Vis"
+msgstr "/Vis/---"
 
 #: app/menus.c:331
-#, fuzzy
 msgid "/View/New _View"
-msgstr "&Ny vising"
+msgstr "/Vis/Ny _vising"
 
 #: app/menus.c:332
-#, fuzzy
 msgid "/View/Show _All"
-msgstr "&Vis alle"
+msgstr "/Vis/Vis _alle"
 
 #: app/menus.c:333
-#, fuzzy
 msgid "/_Select"
-msgstr "Vel"
+msgstr "/_Vel"
 
 #: app/menus.c:335
-#, fuzzy
 msgid "/Select/All"
-msgstr "Vel alle"
+msgstr "/Vel/Alle"
 
 #: app/menus.c:336
-#, fuzzy
 msgid "/Select/None"
-msgstr "Merk ingen"
+msgstr "/Vel/Ingen"
 
 #: app/menus.c:337 app/menus.c:350
-#, fuzzy
 msgid "/Select/Invert"
-msgstr "Vel skrivar"
+msgstr "/Vel/Inverter"
 
 #: app/menus.c:338
-#, fuzzy
 msgid "/Select/Connected"
-msgstr "Tilkopla"
+msgstr "/Vel/Tilkopla"
 
 #: app/menus.c:339
 #, fuzzy
@@ -1223,19 +1136,16 @@ msgid "/Select/Same Type"
 msgstr "Velg filer:"
 
 #: app/menus.c:341
-#, fuzzy
 msgid "/Select/---"
-msgstr "Vel"
+msgstr "/Vel/---"
 
 #: app/menus.c:342
-#, fuzzy
 msgid "/Select/Replace"
-msgstr "Vel pakke"
+msgstr "/Vel/Erstatt"
 
 #: app/menus.c:344
-#, fuzzy
 msgid "/Select/Union"
-msgstr "Val"
+msgstr "/Vel/Union"
 
 #: app/menus.c:346
 #, fuzzy
@@ -1243,19 +1153,16 @@ msgid "/Select/Intersect"
 msgstr "Valt område klipt ut"
 
 #: app/menus.c:348
-#, fuzzy
 msgid "/Select/Remove"
-msgstr "Vel ein film"
+msgstr "/Vel/Fjern"
 
 #: app/menus.c:352
-#, fuzzy
 msgid "/_Objects"
-msgstr "Objekt"
+msgstr "/_Objekt"
 
 #: app/menus.c:354
-#, fuzzy
 msgid "/Objects/Send to _Back"
-msgstr "Legg bakerst"
+msgstr "/Objekt/Legg _bakerst"
 
 #: app/menus.c:355
 #, fuzzy
@@ -1263,14 +1170,12 @@ msgid "/Objects/Bring to _Front"
 msgstr "Legg framst"
 
 #: app/menus.c:356 app/menus.c:359
-#, fuzzy
 msgid "/Objects/---"
-msgstr "Objekt"
+msgstr "/Objekt/---"
 
 #: app/menus.c:357
-#, fuzzy
 msgid "/Objects/_Group"
-msgstr "Objekt"
+msgstr "/Objekt/_Grupper"
 
 #: app/menus.c:358
 msgid "/Objects/_Ungroup"
@@ -1329,9 +1234,8 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr ""
 
 #: app/menus.c:375
-#, fuzzy
 msgid "/_Tools"
-msgstr "Verktøy"
+msgstr "/Verk_ty"
 
 #: app/menus.c:377
 #, fuzzy
@@ -1347,42 +1251,36 @@ msgid "/Tools/Scroll"
 msgstr "/Verkty/Rull"
 
 #: app/menus.c:380
-#, fuzzy
 msgid "/Tools/Text"
-msgstr "Verktøy"
+msgstr "/Verkty/Tekst"
 
 #: app/menus.c:381
-#, fuzzy
 msgid "/Tools/Box"
-msgstr "Verktøy"
+msgstr "/Verkty/Boks"
 
 #: app/menus.c:382
-#, fuzzy
 msgid "/Tools/Ellipse"
-msgstr "Ellipse"
+msgstr "/Verkty/Ellipse"
 
 #: app/menus.c:383
-#, fuzzy
 msgid "/Tools/Polygon"
-msgstr "Mangekant"
+msgstr "/Verkty/Mangekant"
 
 #: app/menus.c:384
 msgid "/Tools/Beziergon"
 msgstr ""
 
 #: app/menus.c:385
-#, fuzzy
 msgid "/Tools/Line"
-msgstr "Verktøy"
+msgstr "/Verkty/Linje"
 
 #: app/menus.c:386
-#, fuzzy
 msgid "/Tools/Arc"
-msgstr "Verktøy"
+msgstr "/Verkty/Boge"
 
 #: app/menus.c:387
 msgid "/Tools/Zigzagline"
-msgstr ""
+msgstr "/Verkty/Sikksakklinje"
 
 #: app/menus.c:388
 #, fuzzy
@@ -1394,38 +1292,32 @@ msgid "/Tools/Bezierline"
 msgstr ""
 
 #: app/menus.c:390
-#, fuzzy
 msgid "/Tools/Image"
-msgstr "Lukk bilete"
+msgstr "/Verkty/Bilete"
 
 #: app/menus.c:392
-#, fuzzy
 msgid "/_Dialogs"
-msgstr "Dialogar"
+msgstr "/_Dialogar"
 
 #: app/menus.c:394
-#, fuzzy
 msgid "/Dialogs/_Properties"
-msgstr "Fyll-eigenskapar"
+msgstr "/Dialogar/_Eigenskapar"
 
 #: app/menus.c:395
-#, fuzzy
 msgid "/Dialogs/_Layers"
-msgstr "Dialogboksar"
+msgstr "/Dialogar/_Lag"
 
 #: app/menus.c:567
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
 #: app/menus.c:733
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "Dra-meny"
+msgstr "Diagram-meny"
 
 #: app/paginate_gnomeprint.c:156
-#, fuzzy
 msgid "Print Diagram"
-msgstr "Skriv ut ramme"
+msgstr "Skriv ut diagram"
 
 #: app/paginate_gnomeprint.c:183
 #, fuzzy
@@ -1433,7 +1325,6 @@ msgid "An error occured while creating the print context"
 msgstr "Feil under opning av dette dokumentet"
 
 #: app/paginate_psprint.c:216
-#, fuzzy
 msgid "Select Printer"
 msgstr "Vel skrivar"
 
@@ -1446,26 +1337,24 @@ msgid "File"
 msgstr "Fil"
 
 #: app/paginate_psprint.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Could not run command '%s'"
-msgstr "Kunne ikkje lasta %1"
+msgstr "Klarte ikkje å køyre kommando «%s»"
 
 #: app/paginate_psprint.c:333
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open '%s' for writing"
-msgstr "Kunne ikkje opna fil for skriving"
+msgstr "Klarte ikkje å opne «%s» for skriving"
 
 #: app/paginate_psprint.c:357
-#, fuzzy
 msgid "Error occured while printing"
-msgstr "Feil ved endring av filnamn."
+msgstr "Feil oppstod under utskrift"
 
 #: app/plugin-manager.c:62
 msgid "yes"
 msgstr "ja"
 
 #: app/plugin-manager.c:62
-#, fuzzy
 msgid "no"
 msgstr "nei"
 
@@ -1487,191 +1376,182 @@ msgid "Description:"
 msgstr "Skildring:"
 
 #: app/plugin-manager.c:219
-#, fuzzy
 msgid "Loaded:"
-msgstr "Last inn"
+msgstr "Lasta:"
 
 #: app/plugin-manager.c:232
-#, fuzzy
 msgid "Autoload at startup"
-msgstr "Autostart"
+msgstr "Autolast ved oppstart"
 
 #: app/plugin-manager.c:243
 msgid "Load"
 msgstr "Last inn"
 
 #: app/plugin-manager.c:248
-#, fuzzy
 msgid "Unload"
-msgstr "Last opp"
+msgstr "Last ut"
 
-#: app/preferences.c:115
+#: app/preferences.c:120
 msgid "User Interface"
 msgstr "Brukargrensesnitt"
 
-#: app/preferences.c:116
-#, fuzzy
+#: app/preferences.c:121
 msgid "Diagram Defaults"
-msgstr "Dra-meny"
+msgstr "Standardverdiar for diagram"
 
-#: app/preferences.c:117
-#, fuzzy
+#: app/preferences.c:122
 msgid "View Defaults"
-msgstr "Bruk stan&dard"
+msgstr "Vis standardverdiar"
 
-#: app/preferences.c:118
-#, fuzzy
+#: app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Rutenett"
 
-#: app/preferences.c:132
+#: app/preferences.c:124
+msgid "Diagram Tree"
+msgstr "Diagramtre"
+
+#: app/preferences.c:138
 msgid "Reset tools after create:"
 msgstr ""
 
-#: app/preferences.c:133
-#, fuzzy
+#: app/preferences.c:139
 msgid "Compress saved files:"
-msgstr "Komprimert fil"
+msgstr "Komprimer lagra filer:"
 
-#: app/preferences.c:134
-#, fuzzy
+#: app/preferences.c:140
 msgid "Number of undo levels:"
-msgstr "Tal på bier:"
+msgstr "Tal på angrenivå:"
 
-#: app/preferences.c:135
+#: app/preferences.c:141
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:138
-#, fuzzy
+#: app/preferences.c:144
 msgid "New diagram:"
-msgstr "Nytt diagram"
+msgstr "Nytt diagram:"
 
-#: app/preferences.c:139
-#, fuzzy
+#: app/preferences.c:145
 msgid "Paper type:"
-msgstr "Melding"
+msgstr "Papirtype:"
 
-#: app/preferences.c:142
-#, fuzzy
+#: app/preferences.c:148
 msgid "New window:"
-msgstr "Nytt vindauge"
+msgstr "Nytt vindauge:"
 
-#: app/preferences.c:143
+#: app/preferences.c:149
 msgid "Width:"
 msgstr "Breidd:"
 
-#: app/preferences.c:144
+#: app/preferences.c:150
 msgid "Height:"
 msgstr "Høgd:"
 
-#: app/preferences.c:145
+#: app/preferences.c:151
 #, fuzzy
 msgid "Magnify:"
 msgstr "Magenta:"
 
-#: app/preferences.c:146
+#: app/preferences.c:152
 #, fuzzy
 msgid "Use menu bar:"
 msgstr "Brukarhandbok"
 
-#: app/preferences.c:148
-msgid "Show diagram tree at startup:"
-msgstr ""
-
-#: app/preferences.c:150
+#: app/preferences.c:154
 #, fuzzy
 msgid "Connection Points:"
 msgstr "Sambandsval"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:151 app/preferences.c:154 app/preferences.c:159
-#, fuzzy
+#: app/preferences.c:155 app/preferences.c:158 app/preferences.c:163
 msgid "Visible:"
-msgstr "Synleg"
+msgstr "Synleg:"
 
-#: app/preferences.c:153
-#, fuzzy
+#: app/preferences.c:157
 msgid "Page breaks:"
-msgstr "&Sidemerke"
+msgstr "Sidebrot:"
 
-#: app/preferences.c:155 app/preferences.c:163
+#: app/preferences.c:159 app/preferences.c:167
 msgid "Colour:"
 msgstr "Farge:"
 
-#: app/preferences.c:156 app/preferences.c:164
-#, fuzzy
+#: app/preferences.c:160 app/preferences.c:168
 msgid "Solid lines:"
-msgstr "Heil linje"
+msgstr "Heile linjer:"
 
-#: app/preferences.c:160
+#: app/preferences.c:164
 #, fuzzy
 msgid "Snap to:"
 msgstr "Fargedåm:"
 
-#: app/preferences.c:161
-#, fuzzy
+#: app/preferences.c:165
 msgid "X Size:"
-msgstr "Storleik:"
+msgstr "X-storleik:"
 
-#: app/preferences.c:162
-#, fuzzy
+#: app/preferences.c:166
 msgid "Y Size:"
-msgstr "Storleik:"
+msgstr "y-storleik:"
 
-#: app/preferences.c:287
-#, fuzzy, c-format
+#: app/preferences.c:176
+msgid "Diagram tree window:"
+msgstr "Diagramtre vindauge:"
+
+#: app/preferences.c:178
+msgid "Show at startup:"
+msgstr "Vis ved oppstart"
+
+#: app/preferences.c:180
+msgid "Default width:"
+msgstr "Standardbreidd:"
+
+#: app/preferences.c:182
+msgid "Default height:"
+msgstr "Standardhøgde"
+
+#: app/preferences.c:303
+#, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Kunne ikkje opna fil for skriving"
+msgstr "Kunne ikkje opne «%s» for skriving"
 
-#: app/preferences.c:656 app/preferences.c:665
-#, fuzzy
+#: app/preferences.c:672 app/preferences.c:681
 msgid "Preferences"
 msgstr "Brukarval"
 
 #: app/properties.c:62 app/properties.c:70
-#, fuzzy
 msgid "Object properties"
-msgstr "Brukareigenskapar"
+msgstr "Eigenskapar for objekt"
 
 #: app/properties.c:124
-#, fuzzy
 msgid "This object has no properties."
-msgstr "Denne funksjonen har ingen parametrar."
+msgstr "Dette objektet har ingen eigenskapar."
 
 #: app/properties.c:213
-#, fuzzy
 msgid "Properties: "
-msgstr "Eigenskapar"
+msgstr "Eigenskapar; "
 
 #: app/properties.c:221
-#, fuzzy
 msgid "Object properties:"
-msgstr "Brukareigenskapar"
+msgstr "Eigenskapar for objekt:"
 
 #: app/render_eps.c:1651
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Name=Encapsulated Postscript-bilete"
+msgstr "Encapsulated Postscript"
 
 #. remove recent files if list get's too long
 #: app/recent_files.c:75
-#, fuzzy
 msgid "/File/Plugins"
-msgstr "Tilleggsmodular"
+msgstr "/Fil/Tilleggsmodular"
 
 #: app/recent_files.c:81 app/recent_files.c:83 app/recent_files.c:112
 #: app/recent_files.c:114
-#, fuzzy
 msgid "/File/Open Recent/"
-msgstr "Nyleg brukt"
+msgstr "/Fil/Nyleg brukt/"
 
 #: app/recent_files.c:163
-#, fuzzy
 msgid "Can't open history file for writing."
-msgstr "Kan ikkje opna fila %1 for skriving"
+msgstr "Klarar ikkje å opne historikkfil for skriving."
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -1680,46 +1560,39 @@ msgstr "Opnar ..."
 #: app/splash.c:75
 #, c-format
 msgid "Dia v %s"
-msgstr ""
+msgstr "Dia v %s"
 
 #: lib/properties.c:71 lib/properties.h:480
-#, fuzzy
 msgid "Line colour"
-msgstr "&Linjefarge"
+msgstr "Linjefarge"
 
 #: lib/properties.c:72 lib/properties.h:483
-#, fuzzy
 msgid "Line style"
-msgstr "Linjestil:"
+msgstr "Linjestil"
 
 #: lib/properties.c:73 lib/properties.h:487
-#, fuzzy
 msgid "Fill colour"
-msgstr "Fyll kolonnar"
+msgstr "Fyllfarge"
 
 #: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
 #: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
-#, fuzzy
 msgid "Draw background"
-msgstr "Vindaugsbakgrunn"
+msgstr "Teikn bakgrunn"
 
 #: lib/properties.c:75 lib/properties.h:494
-#, fuzzy
 msgid "Start arrow"
-msgstr "St&art sÃ¸k"
+msgstr "Start pil"
 
 #: lib/properties.c:76 lib/properties.h:497
-#, fuzzy
 msgid "End arrow"
-msgstr "Slutt etter"
+msgstr "Avslutt pil"
 
 #: lib/properties.c:78 lib/properties.h:507
-#, fuzzy
 msgid "Text alignment"
-msgstr "Titteljustering"
+msgstr "Tekstjustering"
 
 #: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
@@ -1730,9 +1603,8 @@ msgstr "Skrifttype"
 #: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
-#, fuzzy
 msgid "Font size"
-msgstr "Skrift&storleik"
+msgstr "Skriftstorleik"
 
 #: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
@@ -1833,12 +1705,10 @@ msgid "Dashed"
 msgstr "Strekar"
 
 #: lib/widgets.c:335
-#, fuzzy
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
 #: lib/widgets.c:341
-#, fuzzy
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
@@ -1861,19 +1731,16 @@ msgid "Hollow Triangle"
 msgstr ""
 
 #: lib/widgets.c:663
-#, fuzzy
 msgid "Filled Triangle"
-msgstr "Fylt rektangel"
+msgstr "Fylt trekant"
 
 #: lib/widgets.c:664
-#, fuzzy
 msgid "Unfilled Triangle"
-msgstr "Fylt rektangel"
+msgstr "ufylt trekant"
 
 #: lib/widgets.c:665
-#, fuzzy
 msgid "Filled Diamond"
-msgstr "Diamant"
+msgstr "Fylt diamant"
 
 #: lib/widgets.c:666
 #, fuzzy
@@ -1934,22 +1801,18 @@ msgid "Slashed"
 msgstr "SkrÃ¥strek"
 
 #: lib/widgets.c:678
-#, fuzzy
 msgid "Integral Symbol"
-msgstr "Set inn del"
+msgstr "Integralsymbol"
 
 #: lib/widgets.c:714
-#, fuzzy
 msgid "Length: "
-msgstr "Lengd:"
+msgstr "Lengd: "
 
 #: lib/widgets.c:727
-#, fuzzy
 msgid "Width: "
-msgstr "Breidd:"
+msgstr "Breidd: "
 
 #: lib/widgets.c:853 objects/standard/image.c:536
-#, fuzzy
 msgid "Select image file"
 msgstr "Vel ei biletefil"
 
@@ -1992,8 +1855,9 @@ msgid ""
 msgstr ""
 
 #: objects/ER/attribute.c:151
+#, fuzzy
 msgid "Key:"
-msgstr "Nøkkel:"
+msgstr "Tast:"
 
 #: objects/ER/attribute.c:153
 msgid "Weak key:"
@@ -2014,14 +1878,12 @@ msgid "Attribute"
 msgstr "Attributt"
 
 #: objects/ER/entity.c:128
-#, fuzzy
 msgid "Weak:"
-msgstr "Veke"
+msgstr "Svak"
 
 #: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
-#, fuzzy
 msgid "Entity"
-msgstr "Identitet"
+msgstr "Entitet"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
@@ -2036,18 +1898,16 @@ msgstr "Totalt:"
 #: objects/UML/association.c:618 objects/UML/dependency.c:335
 #: objects/UML/generalization.c:327 objects/UML/realizes.c:330
 #: objects/standard/zigzagline.c:337
-#, fuzzy
 msgid "Add segment"
-msgstr "&Legg til element"
+msgstr "Legg til segment"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
 #: objects/UML/association.c:619 objects/UML/dependency.c:336
 #: objects/UML/generalization.c:328 objects/UML/realizes.c:331
 #: objects/standard/zigzagline.c:338
-#, fuzzy
 msgid "Delete segment"
-msgstr "Fjern oppfÃ¸ring"
+msgstr "Slett segment"
 
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
@@ -2107,9 +1967,8 @@ msgid "Flow:"
 msgstr "Flyt:"
 
 #: objects/FS/flow-ortho.c:722 objects/FS/flow.c:698
-#, fuzzy
 msgid "Flow type:"
-msgstr "Fil&type:"
+msgstr "Flyt-type:"
 
 #: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
@@ -2141,9 +2000,8 @@ msgstr "Free&Verb"
 
 #: objects/FS/function.c:609 objects/FS/function.c:610
 #: objects/FS/function.c:630
-#, fuzzy
 msgid "Channel"
-msgstr "&Kanal"
+msgstr "Kanal"
 
 #: objects/FS/function.c:611 objects/FS/function.c:612
 msgid "Import"
@@ -2159,7 +2017,7 @@ msgstr "Motta"
 
 #: objects/FS/function.c:615 objects/FS/function.c:751
 msgid "Allow"
-msgstr ""
+msgstr "Tillat"
 
 #: objects/FS/function.c:616
 #, fuzzy
@@ -2320,9 +2178,8 @@ msgid "Steady"
 msgstr "Standby"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
-#, fuzzy
 msgid "Secure"
-msgstr "Er sikker"
+msgstr "Sikker"
 
 #: objects/FS/function.c:665 objects/FS/function.c:681
 msgid "Attach"
@@ -2360,13 +2217,12 @@ msgid "Align"
 msgstr "Juster"
 
 #: objects/FS/function.c:674 objects/FS/function.c:795
-#, fuzzy
 msgid "Locate"
-msgstr "Skalert"
+msgstr "Lokaliser"
 
 #: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
-msgstr "Kopla til"
+msgstr "Kople til"
 
 #: objects/FS/function.c:677 objects/FS/function.c:678
 #, fuzzy
@@ -2387,9 +2243,8 @@ msgid "Mix"
 msgstr "Miks"
 
 #: objects/FS/function.c:684
-#, fuzzy
 msgid "Combine"
-msgstr "Kompiler"
+msgstr "Kombiner"
 
 #: objects/FS/function.c:685
 msgid "Blend"
@@ -2410,9 +2265,8 @@ msgid "Coalesce"
 msgstr "Kaskade"
 
 #: objects/FS/function.c:689 objects/FS/function.c:690
-#, fuzzy
 msgid "Branch"
-msgstr "Spor"
+msgstr "Grein"
 
 #: objects/FS/function.c:691 objects/FS/function.c:692
 #: objects/FS/function.c:693
@@ -2627,12 +2481,10 @@ msgstr "Vanleg tekst"
 
 #: objects/FS/function.c:750 objects/FS/function.c:859
 #: objects/UML/classicon.c:122
-#, fuzzy
 msgid "Control"
 msgstr "Kontroll"
 
 #: objects/FS/function.c:753
-#, fuzzy
 msgid "Enable"
 msgstr "Skru på"
 
@@ -2667,14 +2519,12 @@ msgid "Amplify"
 msgstr "Bruk"
 
 #: objects/FS/function.c:762
-#, fuzzy
 msgid "Reduce"
-msgstr "Ressurs"
+msgstr "Reduser"
 
 #: objects/FS/function.c:764
-#, fuzzy
 msgid "Normalize"
-msgstr "&Inga endring av storleik"
+msgstr "Normaliser"
 
 #: objects/FS/function.c:765
 msgid "Multiply"
@@ -2724,9 +2574,8 @@ msgid "Pierce"
 msgstr "&Brikker"
 
 #: objects/FS/function.c:776 objects/FS/function.c:777
-#, fuzzy
 msgid "Convert"
-msgstr "Konverterar"
+msgstr "Konverter"
 
 #: objects/FS/function.c:778
 msgid "Transform"
@@ -2757,14 +2606,12 @@ msgid "Condense"
 msgstr "Innhald"
 
 #: objects/FS/function.c:784
-#, fuzzy
 msgid "Integrate"
-msgstr "Integral"
+msgstr "Integrer"
 
 #: objects/FS/function.c:785
-#, fuzzy
 msgid "Differentiate"
-msgstr "Skilnad"
+msgstr "Differensier"
 
 #: objects/FS/function.c:786
 msgid "Process"
@@ -2799,9 +2646,8 @@ msgid "Verify"
 msgstr "Kontroller"
 
 #: objects/FS/function.c:797 objects/FS/function.c:798
-#, fuzzy
 msgid "Indicate"
-msgstr "India"
+msgstr "Indiker"
 
 #: objects/FS/function.c:799
 msgid "Mark"
@@ -2812,18 +2658,16 @@ msgid "Display"
 msgstr "Vising"
 
 #: objects/FS/function.c:801 objects/FS/function.c:802
-#, fuzzy
 msgid "Measure"
-msgstr "Funksjon"
+msgstr "Måle"
 
 #: objects/FS/function.c:803
 msgid "Calculate"
 msgstr "Rekn ut"
 
 #: objects/FS/function.c:804
-#, fuzzy
 msgid "Represent"
-msgstr "Tilbakestill"
+msgstr "Representer"
 
 #: objects/FS/function.c:805
 #, fuzzy
@@ -2835,69 +2679,61 @@ msgid "Liquid"
 msgstr ""
 
 #: objects/FS/function.c:809
-#, fuzzy
 msgid "Gas"
-msgstr "Spel"
+msgstr "Gass"
 
 #: objects/FS/function.c:810 objects/FS/function.c:811
 #: objects/FS/function.c:853
 msgid "Human"
-msgstr ""
+msgstr "Menneske"
 
 #: objects/FS/function.c:812
 msgid "Hand"
 msgstr "Hand"
 
 #: objects/FS/function.c:813
-#, fuzzy
 msgid "Foot"
-msgstr "Botntekst"
+msgstr "Fot"
 
 #: objects/FS/function.c:814
-#, fuzzy
 msgid "Head"
-msgstr "Deklarasjonsfil"
+msgstr "Hovud"
 
 #: objects/FS/function.c:815
 msgid "Finger"
 msgstr "Finger"
 
 #: objects/FS/function.c:816
-#, fuzzy
 msgid "Toe"
-msgstr "Til"
+msgstr "Tå"
 
 #: objects/FS/function.c:817
 msgid "Biological"
 msgstr "Biologisk"
 
 #: objects/FS/function.c:819
-#, fuzzy
 msgid "Mechanical"
-msgstr "Teknisk"
+msgstr "Mekanisk"
 
 #: objects/FS/function.c:820
-#, fuzzy
 msgid "Mech. Energy"
-msgstr "Energi"
+msgstr "Mek. energi"
 
 #: objects/FS/function.c:821
 msgid "Translation"
 msgstr "Omsetjing"
 
 #: objects/FS/function.c:822
-#, fuzzy
 msgid "Force"
-msgstr "For"
+msgstr "Kraft"
 
 #: objects/FS/function.c:823
 msgid "Rotation"
 msgstr "Rotering"
 
 #: objects/FS/function.c:824
-#, fuzzy
 msgid "Torque"
-msgstr "Dreiemoment:"
+msgstr "Dreiemoment"
 
 #: objects/FS/function.c:825
 #, fuzzy
@@ -2905,9 +2741,8 @@ msgid "Random Motion"
 msgstr "Tilfeldig lineær"
 
 #: objects/FS/function.c:826
-#, fuzzy
 msgid "Vibration"
-msgstr "Vibrafon"
+msgstr "Vibrasjon"
 
 #: objects/FS/function.c:827
 #, fuzzy
@@ -2920,14 +2755,12 @@ msgid "Translational Energy"
 msgstr "Omsetjar:"
 
 #: objects/FS/function.c:829
-#, fuzzy
 msgid "Electrical"
-msgstr "Elliptisk"
+msgstr "Elektrisk"
 
 #: objects/FS/function.c:830
-#, fuzzy
 msgid "Electricity"
-msgstr "Elastisitet:"
+msgstr "Elektrisistet"
 
 #: objects/FS/function.c:831
 msgid "Voltage"
@@ -2935,11 +2768,11 @@ msgstr "Spenning"
 
 #: objects/FS/function.c:832
 msgid "Current"
-msgstr "Noverande"
+msgstr "Straum"
 
 #: objects/FS/function.c:833
 msgid "Hydraulic"
-msgstr ""
+msgstr "Hydraulisk"
 
 #: objects/FS/function.c:834
 msgid "Pressure"
@@ -2951,19 +2784,16 @@ msgid "Volumetric Flow"
 msgstr "Lågare lyd"
 
 #: objects/FS/function.c:836
-#, fuzzy
 msgid "Thermal"
-msgstr "Terminal"
+msgstr "Termisk"
 
 #: objects/FS/function.c:837
-#, fuzzy
 msgid "Heat"
-msgstr "Haiti"
+msgstr "Varme"
 
 #: objects/FS/function.c:838
-#, fuzzy
 msgid "Conduction"
-msgstr "Vilkår"
+msgstr "Leiing"
 
 #: objects/FS/function.c:839
 #, fuzzy
@@ -2975,63 +2805,52 @@ msgid "Radiation"
 msgstr "Stråling"
 
 #: objects/FS/function.c:841
-#, fuzzy
 msgid "Pneumatic"
-msgstr "Automatisk"
+msgstr "Pneumatisk"
 
 #: objects/FS/function.c:842
 msgid "Chemical"
 msgstr "Kjemisk"
 
 #: objects/FS/function.c:843
-#, fuzzy
 msgid "Radioactive"
-msgstr "aktiv"
+msgstr "Radioaktiv"
 
 #: objects/FS/function.c:845
-#, fuzzy
 msgid "Microwaves"
-msgstr "Trekk"
+msgstr "Mikrobølger"
 
 #: objects/FS/function.c:846
-#, fuzzy
 msgid "Radio waves"
-msgstr "Radio-telefon"
+msgstr "Radiobølger"
 
 #: objects/FS/function.c:847
-#, fuzzy
 msgid "X-Rays"
-msgstr "dagar"
+msgstr "Røntgen-strålar"
 
 #: objects/FS/function.c:848
-#, fuzzy
 msgid "Gamma Rays"
-msgstr "Gamma"
+msgstr "Gammastrålar"
 
 #: objects/FS/function.c:849
-#, fuzzy
 msgid "Acoustic Energy"
-msgstr "Akustisk bass"
+msgstr "Akustisk energi"
 
 #: objects/FS/function.c:850
-#, fuzzy
 msgid "Optical Energy"
-msgstr "Optisk eining"
+msgstr "Optisk energi"
 
 #: objects/FS/function.c:851
-#, fuzzy
 msgid "Solar Energy"
-msgstr "Energi"
+msgstr "Solar energi"
 
 #: objects/FS/function.c:852
-#, fuzzy
 msgid "Magnetic Energy"
-msgstr "Vedlikehaldar"
+msgstr "Magentisk energi"
 
 #: objects/FS/function.c:854
-#, fuzzy
 msgid "Human Motion"
-msgstr "Automatisering"
+msgstr ""
 
 #: objects/FS/function.c:855
 #, fuzzy
@@ -3187,11 +3006,11 @@ msgstr ""
 
 #: objects/GRAFCET/vergent.c:122
 msgid "OR"
-msgstr "ELLER"
+msgstr "OR"
 
 #: objects/GRAFCET/vergent.c:123
 msgid "AND"
-msgstr "OG"
+msgstr "AND"
 
 #: objects/GRAFCET/vergent.c:134
 #, fuzzy
@@ -3226,9 +3045,8 @@ msgid "Imply resource (not shown downstairs)"
 msgstr ""
 
 #: objects/SADT/arrow.c:137
-#, fuzzy
 msgid "Dotted arrow"
-msgstr "Prikkar"
+msgstr "Prikka pil"
 
 #: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
@@ -3294,24 +3112,20 @@ msgid "Direction:"
 msgstr "Retning:"
 
 #: objects/UML/association.c:1008
-#, fuzzy
 msgid "From A to B"
-msgstr "Frå %1 til %2"
+msgstr "Frå A til B"
 
 #: objects/UML/association.c:1015
-#, fuzzy
 msgid "From B to A"
-msgstr "Frå %1 til %2"
+msgstr "Frå B til A"
 
 #: objects/UML/association.c:1039 objects/UML/association.c:1047
-#, fuzzy
 msgid "Side A"
-msgstr "Lysbilete"
+msgstr "Side A"
 
 #: objects/UML/association.c:1041 objects/UML/association.c:1049
-#, fuzzy
 msgid "Side B"
-msgstr "Lysbilete"
+msgstr "Side B"
 
 #: objects/UML/association.c:1055
 msgid "Role:"
@@ -3324,9 +3138,8 @@ msgstr "Multipliser"
 
 #. Show arrow:
 #: objects/UML/association.c:1078
-#, fuzzy
 msgid "Show arrow"
-msgstr "Vis rutenett"
+msgstr "Vis pil"
 
 #. Aggregate
 #: objects/UML/association.c:1084
@@ -3336,9 +3149,8 @@ msgstr "Laga"
 
 #. Composition
 #: objects/UML/association.c:1092
-#, fuzzy
 msgid "Composition"
-msgstr "posisjon"
+msgstr "Komposisjon"
 
 #: objects/UML/class.c:105 objects/UML/large_package.c:120
 msgid "Name"
@@ -3385,9 +3197,8 @@ msgid "Class"
 msgstr "Klasse"
 
 #: objects/UML/class_dialog.c:186
-#, fuzzy
 msgid "Class name:"
-msgstr "Klassenamn"
+msgstr "Klassenamn:"
 
 #: objects/UML/class_dialog.c:197 objects/UML/dependency.c:127
 #: objects/UML/generalization.c:123 objects/UML/realizes.c:124
@@ -3410,9 +3221,8 @@ msgid "Suppress operations"
 msgstr "Utan velkomsthelsing"
 
 #: objects/UML/class_dialog.c:240
-#, fuzzy
 msgid "Foreground Color"
-msgstr "Kolonnar:"
+msgstr "Framgrunnsfarge"
 
 #: objects/UML/class_dialog.c:250
 msgid "Background Color"
@@ -3453,28 +3263,24 @@ msgid "Value:"
 msgstr "Verdi:"
 
 #: objects/UML/class_dialog.c:770 objects/UML/class_dialog.c:1634
-#, fuzzy
 msgid "Visibility:"
-msgstr "Sikt:"
+msgstr "Synligheit:"
 
 #: objects/UML/class_dialog.c:779 objects/UML/class_dialog.c:1643
-#, fuzzy
 msgid "Public"
-msgstr "Gi ut"
+msgstr "Offentleg"
 
 #: objects/UML/class_dialog.c:787 objects/UML/class_dialog.c:1651
 msgid "Private"
 msgstr "Privat"
 
 #: objects/UML/class_dialog.c:795 objects/UML/class_dialog.c:1659
-#, fuzzy
 msgid "Protected"
-msgstr "Prosjekt"
+msgstr "Verna"
 
 #: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
-#, fuzzy
 msgid "Implementation"
-msgstr "GÃ¥ til implementasjon"
+msgstr "Implementasjon"
 
 #: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
 #, fuzzy
@@ -3497,9 +3303,8 @@ msgid "abstract"
 msgstr "Samandrag:"
 
 #: objects/UML/class_dialog.c:1701
-#, fuzzy
 msgid "Parameters:"
-msgstr "Parametrar"
+msgstr "Parametrar:"
 
 #: objects/UML/class_dialog.c:1763
 #, fuzzy
@@ -3517,9 +3322,8 @@ msgid "Templates"
 msgstr "Malar"
 
 #: objects/UML/class_dialog.c:2163
-#, fuzzy
 msgid "Template class"
-msgstr "Malar"
+msgstr "Malklasse"
 
 #: objects/UML/class_dialog.c:2220
 #, fuzzy
@@ -3547,9 +3351,8 @@ msgid "Show arrow:"
 msgstr "Vis rutenett"
 
 #: objects/UML/implements.c:121
-#, fuzzy
 msgid "Interface:"
-msgstr "Miljø"
+msgstr "Grensesnitt"
 
 #: objects/UML/lifeline.c:138
 #, fuzzy
@@ -3581,42 +3384,36 @@ msgid "Call"
 msgstr "alle"
 
 #: objects/UML/message.c:136
-#, fuzzy
 msgid "Create"
 msgstr "Lag"
 
 #: objects/UML/message.c:137
-#, fuzzy
 msgid "Destroy"
-msgstr "Skrivebord"
+msgstr "Øydelegg"
 
 #: objects/UML/message.c:138
-#, fuzzy
 msgid "Simple"
 msgstr "Enkel"
 
 #: objects/UML/message.c:139
 msgid "Return"
-msgstr "Return"
+msgstr "Returner"
 
 #: objects/UML/message.c:140
-#, fuzzy
 msgid "Send"
 msgstr "Send"
 
 #: objects/UML/message.c:141
-#, fuzzy
 msgid "Recursive"
-msgstr "&Rekursivt"
+msgstr "Rekursiv"
 
 #: objects/UML/message.c:148
 msgid "Message:"
 msgstr "Melding:"
 
 #: objects/UML/message.c:150
-#, fuzzy
 msgid "Message type:"
-msgstr "Melding"
+msgstr "Meldingstype:"
 
 #: objects/UML/object.c:146
 #, fuzzy
@@ -3645,7 +3442,6 @@ msgid "Begin"
 msgstr "Byrje"
 
 #: objects/UML/state.c:126
-#, fuzzy
 msgid "End"
 msgstr "Slutt"
 
@@ -3682,9 +3478,8 @@ msgid "Data name"
 msgstr "Etternamn:"
 
 #: objects/chronogram/chronoline.c:152
-#, fuzzy
 msgid "Events"
-msgstr "&Hendingar"
+msgstr "Hendingar"
 
 #: objects/chronogram/chronoline.c:155
 #, fuzzy
@@ -3705,12 +3500,10 @@ msgid "Parameters"
 msgstr "Parametrar"
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-#, fuzzy
 msgid "Start time"
 msgstr "Start-tid"
 
 #: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-#, fuzzy
 msgid "End time"
 msgstr "Slutt-tid"
 
@@ -3769,7 +3562,6 @@ msgid "Minor step line width"
 msgstr ""
 
 #: objects/custom/custom.c:124
-#, fuzzy
 msgid "Custom"
 msgstr "Eigendefinert"
 
@@ -3812,14 +3604,12 @@ msgid "Font size:"
 msgstr "Skriftstorleik:"
 
 #: objects/custom/custom_object.c:1516
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "Snu om &horisontalt"
+msgstr "Snu om vassrett"
 
 #: objects/custom/custom_object.c:1517
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "Snu om &vertikalt"
+msgstr "Snu om loddrett"
 
 #: objects/custom/custom_object.c:1554
 #, fuzzy, c-format
@@ -3897,9 +3687,8 @@ msgid "Curve distance"
 msgstr "MÃ¥l avstand"
 
 #: objects/standard/image.c:168
-#, fuzzy
 msgid "Image file"
-msgstr "Biletestorleik"
+msgstr "Biletefil"
 
 #: objects/standard/image.c:170
 #, fuzzy
@@ -4435,7 +4224,7 @@ msgstr "Snu om &vertikalt"
 
 #: sheets/civil.sheet.in.h:16
 msgid "Civil"
-msgstr ""
+msgstr "Sivil"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
@@ -4557,9 +4346,8 @@ msgid "Components for LADDER circuits"
 msgstr "Objekt for elektriske kretsar"
 
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "Lagdeling"
+msgstr "Stige"
 
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
@@ -4612,7 +4400,7 @@ msgstr "Lag sirkel"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
@@ -4635,9 +4423,8 @@ msgid "Editor for Entity Relations Diagrams"
 msgstr ""
 
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "Radio"
+msgstr "Deltaking"
 
 #: sheets/ER.sheet.in.h:7
 #, fuzzy
@@ -4666,24 +4453,20 @@ msgid "Collate"
 msgstr "Rekn ut"
 
 #: sheets/Flowchart.sheet.in.h:6
-#, fuzzy
 msgid "Delay"
 msgstr "Forseinking"
 
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
 msgstr "Dokument"
 
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "Utklippsbilete"
+msgstr "Flytdiagram"
 
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Internal Storage"
-msgstr "Set inn del"
+msgstr "Internt lager"
 
 #: sheets/Flowchart.sheet.in.h:12
 #, fuzzy
@@ -4761,7 +4544,6 @@ msgid "Summing Junction"
 msgstr "Virtuelle funksjonar"
 
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -4795,7 +4577,7 @@ msgstr ""
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
-msgstr ""
+msgstr "FS"
 
 #: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
@@ -4857,7 +4639,7 @@ msgstr "Førebokstavar"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 #, fuzzy
@@ -4865,7 +4647,6 @@ msgid "Objects to design GRAFCET charts"
 msgstr "Objekt til utforming av kronogrammer"
 
 #: sheets/jigsaw.sheet.in.h:1
-#, fuzzy
 msgid "Jigsaw"
 msgstr "Puslespel"
 
@@ -4988,14 +4769,12 @@ msgid "Boolean Logic"
 msgstr "lokal"
 
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "Logic"
-msgstr "Lås"
+msgstr "Logikk"
 
 #: sheets/MSE.sheet.in.h:1
-#, fuzzy
 msgid "Demultiplexer"
-msgstr "Multipliser"
+msgstr "Demultiplekser"
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
@@ -5003,12 +4782,11 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "Multipliser"
+msgstr "Multiplekser"
 
 #: sheets/MSE.sheet.in.h:5
 #, fuzzy
@@ -5029,17 +4807,15 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "Ein 3 1/2\" diskett"
 
 #: sheets/network.sheet.in.h:2
-#, fuzzy
 msgid "A Bigtower PC"
-msgstr "Ein rotor"
+msgstr "Ein stortårn datamaskin"
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Ein beholdar"
+msgstr "Ein datamaskin"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
@@ -5061,7 +4837,7 @@ msgstr "Ein rotor"
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Ein mobiltelefon"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
@@ -5106,9 +4882,8 @@ msgid "A simple Modem"
 msgstr "Eit enkelt modem"
 
 #: sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "A simple printer"
-msgstr "Vel skrivar"
+msgstr "Ein enkel skrivar"
 
 #: sheets/network.sheet.in.h:20
 #, fuzzy
@@ -5162,9 +4937,8 @@ msgid "Storage"
 msgstr "Lagring"
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "Switch Symbol"
-msgstr "breidd"
+msgstr "Svitsj symbol"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -5255,9 +5029,8 @@ msgid "Muscular command"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:23
-#, fuzzy
 msgid "Pneumatic/Hydraulic"
-msgstr "Automatisk"
+msgstr "Pneumatikk/hydraulikk"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
@@ -5282,7 +5055,7 @@ msgstr "Objekt til utforming av kronogrammer"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IEDFO"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
@@ -5294,14 +5067,12 @@ msgid "Block Type Reference"
 msgstr "Oppsett"
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
 msgstr "Merknad"
 
 #: sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "Skildring:"
+msgstr "Avgjersle"
 
 #: sheets/SDL.sheet.in.h:5
 #, fuzzy
@@ -5337,7 +5108,7 @@ msgstr "Ta i mot melding"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 #, fuzzy
@@ -5392,9 +5163,8 @@ msgid "Stable Storage Device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "SkrÃ¥strek"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
@@ -5419,14 +5189,12 @@ msgid "Create a (small) package"
 msgstr "Lag bilete"
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Lag sirkel"
+msgstr "Lag ei grein"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "Malar"
+msgstr "Lag ei klasse"
 
 #: sheets/UML.sheet.in.h:8
 #, fuzzy
