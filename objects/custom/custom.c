@@ -26,10 +26,29 @@
 #include <dirent.h>
 #include <glib.h>
 
-#include "custom.h"
 #include "sheet.h"
 #include "shape_info.h"
 #include "dia_dirs.h"
+
+void custom_object_new (ShapeInfo *info,
+                        ObjectType **otype);
+
+static gboolean
+custom_object_load(gchar *filename, ObjectType **otype)
+{
+  ShapeInfo *info;
+
+  if (!filename)
+    return FALSE;
+  info = shape_info_load(filename);
+  /*g_assert(info);*/
+  if (!info) {
+    *otype = NULL; 
+    return FALSE;
+  }
+  custom_object_new(info, otype);
+  return TRUE;
+}
 
 static void load_shapes_from_tree(const gchar *directory)
 {
@@ -70,17 +89,12 @@ static void load_shapes_from_tree(const gchar *directory)
     p = dirp->d_name + strlen(dirp->d_name) - 6;
     if (0==strcmp(".shape",p)) {
       ObjectType *ot;
-      SheetObject *so;
 
-      if (!custom_object_load(filename,&ot,&so)) {
+      if (!custom_object_load(filename, &ot)) {
 	g_warning("could not load shape file %s",filename);
       } else {
 	g_assert(ot); 
-	g_assert(so); 
-	g_assert(so->user_data);
-	/* maybe we ought to save so->user_data somewhere ? */
-	g_free(so); /* that's a bit unfortunate, because 
-		       we'll rebuild one soon */
+	g_assert(ot->default_user_data);
 	object_register_type(ot);
       }
     }
@@ -90,8 +104,13 @@ static void load_shapes_from_tree(const gchar *directory)
 }
 
 
+int get_version(void)
+{
+  return 0;
+}
+
 void
-custom_register_objects(void)
+register_objects(void)
 {
   char *shape_path;
   char *home_dir;
@@ -120,28 +139,6 @@ custom_register_objects(void)
   }
 }
 
-void custom_object_new (ShapeInfo *info,
-                        ObjectType **otype,
-                        SheetObject **sheetobj);
-
-
-
-
-gboolean
-custom_object_load(gchar *filename, ObjectType **otype,
-		   SheetObject **sheetobj)
+void register_sheets(void)
 {
-  ShapeInfo *info;
-
-  if (!filename)
-    return FALSE;
-  info = shape_info_load(filename);
-  /*g_assert(info);*/
-  if (!info) {
-    *otype = NULL; 
-    *sheetobj = NULL;
-    return FALSE;
-  }
-  custom_object_new(info, otype, sheetobj);
-  return TRUE;
 }

@@ -728,7 +728,9 @@ load_shape_info(const gchar *filename)
   xmlNodePtr node,root;
   ShapeInfo *info;
   char *tmp;
+#if 0
   int descr_score = -1;
+#endif
   
   if (!doc) {
     g_warning("parse error for %s", filename);
@@ -771,6 +773,7 @@ load_shape_info(const gchar *filename)
       g_free(info->name);
       info->name = g_strdup(tmp);
       free(tmp);
+#if 0
     } else if (node->ns == shape_ns && !strcmp(node->name, "description")) {
       gint score;
 
@@ -789,6 +792,7 @@ load_shape_info(const gchar *filename)
 	info->description = g_strdup(tmp);
 	free(tmp);
       }
+#endif
     } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->icon);
@@ -895,7 +899,9 @@ shape_info_print(ShapeInfo *info)
   GList *tmp;
   int i;
   g_print("Name        : %s\n", info->name);
+#if 0
   g_print("Description : %s\n", info->description);
+#endif
   g_print("Connections :\n");
   for (i = 0; i < info->nconnections; i++)
     g_print("  (%g, %g)\n", info->connections[i].x, info->connections[i].y);

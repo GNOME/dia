@@ -184,6 +184,7 @@ static ObjectType custom_type =
   &custom_type_ops      /* ops */
 };
 
+#if 0
 static SheetObject custom_sheetobj =
 {
   "Custom - Generic",
@@ -191,6 +192,7 @@ static SheetObject custom_sheetobj =
   (char **)custom_xpm,
   NULL
 };
+#endif
 
 static ObjectOps custom_ops = {
   (DestroyFunc)         custom_destroy,
@@ -1404,23 +1406,16 @@ custom_get_object_menu(Custom *custom, Point *clickedpoint)
 }
 
 void
-custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
+custom_object_new(ShapeInfo *info, ObjectType **otype)
 {
   ObjectType *obj = g_new(ObjectType, 1);
-  SheetObject *sheet = g_new(SheetObject, 1);
 
   *obj = custom_type;
-  *sheet = custom_sheetobj;
 
   obj->name = info->name;
   obj->default_user_data = info;
-  sheet->object_type = info->name;
-  sheet->description = info->description;
-  sheet->user_data = info;
 
   if (info->icon) {
-    sheet->pixmap = NULL;
-    sheet->pixmap_file = info->icon;
     obj->pixmap = NULL;
     obj->pixmap_file = info->icon;
   }
@@ -1428,5 +1423,4 @@ custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
   info->object_type = obj;
 
   *otype = obj;
-  *sheetobj = sheet;
 }

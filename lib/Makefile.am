@@ -57,7 +57,6 @@ libdia_a_SOURCES =  \
 		dia_image.h \
 		intl.c \
 		intl.h \
-		custom.h \
 		filter.c \
 		filter.h \
 		connpoint_line.c \

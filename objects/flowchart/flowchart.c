@@ -17,7 +17,6 @@
  */
 #include "intl.h"
 #include "object.h"
-#include "custom.h"
 
 extern ObjectType fc_box_type;
 extern ObjectType pgram_type;

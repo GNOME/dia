@@ -127,7 +127,9 @@ typedef enum {
 typedef struct _ShapeInfo ShapeInfo;
 struct _ShapeInfo {
   gchar *name;
+#if 0
   gchar *description;
+#endif
   gchar *icon;
 
   int nconnections;

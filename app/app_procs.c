@@ -57,7 +57,6 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
-#include "custom.h"
 #include "dia_dirs.h"
 #include "render_eps.h"
 #include "render_svg.h"
@@ -493,8 +492,6 @@ register_all_objects(void)
   char lib_dir[256];
   
   object_register_type(&group_type);
-
-  custom_register_objects();
 
   home_path = getenv("HOME");
   library_path = getenv("DIA_LIB_PATH");

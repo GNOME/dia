@@ -1,3 +1,28 @@
+2000-02-10  James Henstridge  <james@daa.com.au>
+
+	* app/Makefile.am (dia_LDADD): don't link with libcustom_objects.
+
+	* app/app_procs.c (register_all_objects): don't explicitely
+	register the custom objects library -- let it be loaded by the
+	normal plugin loading methods.
+
+	* lib/Makefile.am (libdia_a_SOURCES): don't include custom.h here.
+
+	* objects/custom/Makefile.am: build libcustom_objects as a shared
+	library again.
+
+	* objects/custom/shape_info.[ch]: don't read the description field
+	of custom shapes.  It makes more sense to have these in the sheet
+	file to localise the parts of dia that translators have to deal
+	with.
+
+	* objects/custom/custom_object.c (custom_object_new): do not
+	create the sheet object for the new custom shape -- this is
+	handled by the custom sheet code.
+
+	* objects/custom/custom.c: change over to being a normal plug-in
+	rather than being linked with the main dia executable.
+
 2000-02-09  James Henstridge  <james@daa.com.au>
 
 	* sheets/Circuit.sheet: 
