@@ -1,4 +1,19 @@
-2001-02-28  James Henstridge  <james@daa.com.au>
+2001-02-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/UML/actor.c
+	* objects/UML/realizes.c 
+	* objects/UML/implements.c 
+	* objects/UML/generalization.c 
+	* objects/UML/dependency.c 
+	* objects/UML/constraint.c
+	Updated to use properties.
+	
+	* objects/UML/stereotype.c 
+	* objects/UML/stereotype.h
+	Generalized to any kind of bracketting.
+	
+2001-02-28 
+	James Henstridge  <james@daa.com.au>
 
 	* app/menus.c: add help entry to the help menu.  Need to get this
 	working for the non GNOME case as well (maybe put help under
