@@ -12,6 +12,10 @@
 	* objects/flowchart/box.c: 
 	Removed GTK defaults stuff.
 	
+	* objects/UML/fork.c: 
+	* objects/UML/object.c: 
+	* objects/UML/lifeline.c: 
+	* objects/UML/branch.c: 
 	* objects/GRAFCET/transition.c: 
 	* objects/FS/function.c: Removed GTK include.
 
