@@ -1,5 +1,13 @@
 2004-10-30  Hans Breuer  <hans@breuer.org>
 
+        * shapes/Civil/civil_arrow_right.shape : removed
+        <aspectratio type="fixed" /> thus allowing to change
+        width and height independently, fixes #154897 
+        (Serge Robinson) by making it consistent with the
+        up arrow
+
+2004-10-30  Hans Breuer  <hans@breuer.org>
+
         * plug-ins/xfig-xfig-export.c(hasArrow) : don't crash
         on arrow being NULL, fixes bug #143063
 
