@@ -144,7 +144,7 @@
       <description>A horizontally aligned powersource</description>
     </object>
     <object name="Circuit - Vertical Powersource (European)">
-      <description xml:lang="de">En vertikalt plassert strømkilde</description>
+      <description xml:lang="no">En vertikalt plassert strømkilde</description>
       <description xml:lang="fr">Une source de tension alignée verticalement</description>
       <description xml:lang="de">Eine vertikal ausgerichtete Stromquelle</description>
       <description>A vertically aligned powersource</description>
