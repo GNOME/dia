@@ -1,3 +1,9 @@
+2003-11-30  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/diasvg.py : initialize self.dash_length
+	in constructor to avoid crashing if the renderer user
+	does not set it before first usage.
+
 2003-11-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c: Start of cache GDK text renderer -- not

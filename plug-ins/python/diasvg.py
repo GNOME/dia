@@ -26,6 +26,7 @@ class SvgRenderer :
 		self.line_caps = 0
 		self.line_join = 0
 		self.line_style = 0
+		self.dash_length = 0
 	def _open(self, filename) :
 		self.f = open(filename, "w")
 	def begin_render (self, data, filename) :
@@ -170,7 +171,7 @@ class SvgRenderer :
 		return rgb
 	def _stroke_style(self) :
 		# return the current line style as svg string
-		dashlen =self.dash_length
+		dashlen = self.dash_length
 		# dashlen/style interpretation like the DiaGdkRenderer
 		dotlen = dashlen * 0.1
 		caps = self.line_caps
