@@ -1,3 +1,7 @@
+2003-05-01  Steffen Macke <sdteffen@web.de>
+
+	* app/persistence.c: do not use unistd.h for MSVC build
+
 2003-04-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* sheets/Assorted.sheet.in
