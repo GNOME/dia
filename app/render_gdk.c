@@ -1006,7 +1006,7 @@ get_text_width(RendererGdk *renderer,
 # if defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
-    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
+    iwidth = gdk_text_width(renderer->gdk_font, utfbuf, length);
     g_free(utfbuf);
   }
 # else

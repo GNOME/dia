@@ -1233,11 +1233,14 @@ suck_font (GdkFont *font)
 #if defined (GTK_TALKS_UTF8_WE_DONT)
 		text[1] = 0;
 		utfbuf = charconv_local8_to_utf8(text);
-		gdk_draw_text (pixmap, font, gc,
-			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
-			       font->ascent+1,
-			       utfbuf, strlen(utfbuf));
-		g_free(utfbuf);
+		if (utfbuf) {
+			/* the conversion may fail ... */
+			gdk_draw_text (pixmap, font, gc,
+				       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
+				       font->ascent+1,
+				       utfbuf, strlen(utfbuf));
+			g_free(utfbuf);
+		}
 #else
 		gdk_draw_text (pixmap, font, gc,
 			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,

@@ -218,6 +218,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   change = undo_insert_objects(ddisp->diagram, paste_list, 0);
   (change->apply)(change, ddisp->diagram);
 
+  diagram_modified(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);
   
   diagram_remove_all_selected(ddisp->diagram, TRUE);
@@ -422,6 +423,8 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   change = undo_delete_objects(ddisp->diagram, delete_list);
   (change->apply)(change, ddisp->diagram);
   
+  diagram_modified(ddisp->diagram);
+
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
@@ -487,6 +490,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
       bestscore = score;
     }
   }
+  closedir(dp);
   g_free(helpdir);
   if (!helpindex) {
     message_warning(_("Could not find help directory"));

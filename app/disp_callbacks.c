@@ -578,7 +578,12 @@ ddisplay_canvas_events (GtkWidget *canvas,
 #ifdef UNICODE_WORK_IN_PROGRESS
 	  utf = charconv_utf8_from_gtk_event_key (kevent->keyval, kevent->string);
 #else
+	  /* 'utf' is definetly not utf */
+#  ifdef GTK_TALKS_UTF8_WE_DONT
+	  utf = charconv_utf8_to_local8 (kevent->string);
+#  else
 	  utf = g_strdup (kevent->string);
+#  endif
 #endif
 	  if (utf != NULL) len = uni_strlen (utf, strlen (utf));
 	  modified = (focus->key_event)(focus, kevent->keyval,

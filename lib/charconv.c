@@ -336,9 +336,17 @@ extern utfchar *
 charconv_local8_to_utf8(const gchar *local)
 {
 #if GLIB_CHECK_VERSION(1,3,1)
+  char* charset;
+
   if (!local) /* g_strdup() handles NULL, g_locale_to_utf8() does not (yet) */
-    g_strdup(local);
+    return g_strdup("");
+
+  get_local_charset(&charset);
+  return g_convert_with_fallback (local, -1, "UTF-8", charset, 
+                                  NULL, NULL, NULL, NULL);
+# ifdef GLIB_1_3_x_API_was_stable
   return g_locale_to_utf8 (local, /* -1, NULL, NULL, */ NULL);
+# endif
 #else
   return g_strdup(local);
 #endif
@@ -348,9 +356,17 @@ extern gchar *
 charconv_utf8_to_local8(const utfchar *utf)
 {
 #if GLIB_CHECK_VERSION(1,3,1)
-  if (!utf) /* g_strdup() handles NULL, g_locale_from_utf8() does not (yet) */
-    g_strdup(utf);
+  char* charset;
+
+  if (!utf) /* g_strdup() handles NULL, g_locale_to_utf8() does not (yet) */
+    return g_strdup("");
+
+  get_local_charset(&charset);
+  return g_convert_with_fallback (utf, -1, charset, "UTF-8",
+                                  NULL, NULL, NULL, NULL);
+# ifdef GLIB_1_3_x_API_was_stable
   return g_locale_from_utf8 (utf, /* -1, NULL, NULL, */ NULL);
+# endif
 #else
   return g_strdup(utf);
 #endif

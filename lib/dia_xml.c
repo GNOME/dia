@@ -919,7 +919,7 @@ int xmlDiaSaveFile(const char *filename,
 #ifdef HAVE_ZLIB_H
     if (cur->compression < 0) cur->compression = 0;
     if ((cur->compression > 0) && (cur->compression <= 9)) {
-        sprintf(mode, "w%d", cur->compression);
+        sprintf(mode, "wb%d", cur->compression);
         if (!strcmp(filename, "-")) 
             zoutput = gzdopen(1, mode);
         else
