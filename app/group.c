@@ -355,10 +355,9 @@ static const PropDescription *
 group_describe_props(Group *group)
 {
   if (group->pdesc == NULL) {
-    GList *descs, *tmp;
+    GList *descs = NULL, *tmp;
 
     /* create list of property descriptions */
-    descs = NULL;
     for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
       const PropDescription *desc = NULL;
       Object *obj = tmp->data;

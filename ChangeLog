@@ -1,3 +1,14 @@
+2000-03-02  James Henstridge  <james@daa.com.au>
+
+	* dia.spec (%build): unset LINGUAS before running configure.  This
+	ensures that all translations get included in the RPM.
+
+	* lib/properties.c (object_create_props_dialog): put in a check for
+	a NULL return from the describe_props() object method.
+	(prop_desc_lists_union): make sure that the returned array is not
+	NULL.
+	(prop_desc_lists_intersection): same here.
+
 2000-02-29  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/ER/Makefile.am:

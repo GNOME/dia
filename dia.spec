@@ -37,6 +37,10 @@ diagrams to a custom fileformat and export to postscript.
 %setup -q
 
 %build
+
+# this is to make sure all translations are included in the build
+unset LINGUAS
+
 if [ -x ./configure ]; then
   CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{prefix} --enable-gnome
 else 

@@ -84,12 +84,18 @@ prop_type_register(const gchar *name, PropType_Copy cfunc,
   return ret;
 }
 
+static const PropDescription null_prop_desc = { NULL };
+
 PropDescription *
 prop_desc_lists_union(GList *plists)
 {
   GArray *arr = g_array_new(TRUE, TRUE, sizeof(PropDescription));
   PropDescription *ret;
   GList *tmp;
+
+  /* make sure the array is allocated */
+  g_array_append_val(arr, null_prop_desc);
+  g_array_remove_index(arr, 0);
 
   for (tmp = plists; tmp; tmp = tmp->next) {
     PropDescription *plist = tmp->data;
@@ -116,6 +122,10 @@ prop_desc_lists_intersection(GList *plists)
   PropDescription *ret;
   GList *tmp;
   gint i;
+
+  /* make sure the array is allocated */
+  g_array_append_val(arr, null_prop_desc);
+  g_array_remove_index(arr, 0);
 
   if (plists) {
     ret = plists->data;
@@ -968,6 +978,8 @@ object_create_props_dialog(Object *obj)
   g_return_val_if_fail(obj->ops->set_props != NULL, NULL);
 
   pdesc = obj->ops->describe_props(obj);
+  g_return_val_if_fail(pdesc != NULL, NULL);
+
   for (i = 0; pdesc[i].name != NULL; i++)
     if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0)
       nprops++;
