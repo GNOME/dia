@@ -1,5 +1,8 @@
 2001-04-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/render_object.c (new_render_object): Made initial handles
+	behave like on most other objects.
+
 	* app/load_save.c (read_objects): Fixed premature free'ing ofr
 	typestr causing garbage.
 

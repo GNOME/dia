@@ -93,8 +93,8 @@ new_render_object(Point *startpoint,
 
   rendobj_update_data(rend_obj);
 
-  *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle1 = obj->handles[3];
+  *handle2 = obj->handles[7];  
   return (Object *)rend_obj;
 }
 
