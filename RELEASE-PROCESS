@@ -40,6 +40,8 @@ When a new version is about to be released:
    files, are notified of the upcoming release to give them time to
    translate new strings.  No further changes to translatable strings
    should happen from now till the final release ("string freeze").
+   Also mail gnome-i18n@gnome.org to notify the Gnome Translation Project
+   (and perhaps get new translators).
 
 3a) if a release-critical bug happens before D+10 (say, at D+n), the
    release process is paused until the bug is fixed and a new release

@@ -1,5 +1,7 @@
 2004-03-24  Lars Clausen  <lars@raeder.dk>
 
+	* RELEASE-PROCESS: 
+
 	* app/persistence.[ch]: 
 	* app/paginate_psprint.c (diagram_print_ps): New type of data can
 	be stored persistently:  Strings.  Only the printer command/file
