@@ -1,3 +1,7 @@
+1999-03-22  Seth Alves  <alves@hungry.com>
+
+	* app/menus.c: small changes so that gnome menus aren't broken
+
 1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* po/da.po:
@@ -9,7 +13,7 @@
 	* po/update_pofiles_in.sh:
 	Added script that updates POFILES.in.
 	This should probably be run automatically from somewhere.
-	
+
 1999-03-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/diagram.[ch]:

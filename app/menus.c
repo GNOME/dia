@@ -34,6 +34,7 @@ static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
+  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
   GNOMEUIINFO_END  
@@ -335,14 +336,15 @@ GtkWidget *menus_get_item_from_path (char *path)
   gint pos;
   GtkWidget *parentw;
   GtkMenuShell *parent;
+  DDisplay *ddisp = ddisplay_active ();
+
+  if (! ddisp) return NULL;
 
   /* drop the <Display>/ at the start */
   if (! (path = strchr (path, '/'))) return NULL;
-  path ++;
-  parentw = gnome_app_find_menu_pos (ddisplay_active ()->popup, path, &pos);
-  if (! parentw)
-    return NULL;
-
+  path ++; /* move past the / */
+  parentw = gnome_app_find_menu_pos (ddisp->popup, path, &pos);
+  if (! parentw) return NULL;
   parent = GTK_MENU_SHELL (parentw);
   widget = (GtkWidget *) g_list_nth (parent->children, pos-1)->data;
 

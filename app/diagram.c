@@ -119,12 +119,15 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   static GtkWidget *align_v_e;
 
   if (initialized==0) {
+#   ifdef GNOME
+    if (ddisplay_active () == NULL) return;
+#   endif
     copy = menus_get_item_from_path(_("<Display>/Edit/Copy"));
     cut = menus_get_item_from_path(_("<Display>/Edit/Cut"));
     paste = menus_get_item_from_path(_("<Display>/Edit/Paste"));
-#ifndef GNOME
+#   ifndef GNOME
     delete = menus_get_item_from_path(_("<Display>/Edit/Delete"));
-#endif
+#   endif
 
     send_to_back = menus_get_item_from_path(_("<Display>/Objects/Send to Back"));
     bring_to_front = menus_get_item_from_path(_("<Display>/Objects/Bring to Front"));

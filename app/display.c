@@ -619,15 +619,18 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 extern DDisplay *ddisplay_active(void)
 {
   DDisplay *ddisp;
-  GtkWidget *event_widget;
-  GtkWidget *toplevel_widget;
+  GtkWidget *event_widget = NULL;
+  GtkWidget *toplevel_widget = NULL;
   GdkEvent *event;
 
   /*  If the popup shell is valid, then get the gdisplay
       associated with that shell  */
   event = gtk_get_current_event ();
-  event_widget = gtk_get_event_widget (event);
-  gdk_event_free (event);
+  if (event)
+    {
+      event_widget = gtk_get_event_widget (event);
+      gdk_event_free (event);
+    }
 
   if (event_widget == NULL)
     return NULL;
