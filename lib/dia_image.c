@@ -153,17 +153,15 @@ dia_image_rowstride(DiaImage image)
 guint8 *
 dia_image_rgb_data(DiaImage image)
 {
-  int size = gdk_pixbuf_get_rowstride(image->image)*
-    gdk_pixbuf_get_height(image->image);
-  guint8 *rgb_pixels = g_malloc(size);
   int width = dia_image_width(image);
   int height = dia_image_height(image);
   int rowstride = dia_image_rowstride(image);
+  int size = height*rowstride;
+  guint8 *rgb_pixels = g_malloc(size);
 
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
     int i, j;
-
     for (i = 0; i < height; i++) {
       for (j = 0; j < width; j++) {
 	rgb_pixels[i*rowstride+j*3] = pixels[i*rowstride+j*4];
@@ -173,15 +171,9 @@ dia_image_rgb_data(DiaImage image)
     }
     return rgb_pixels;
   } else {
-    int i;
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
 
-    /* This needs to be copied a line at a time to remove the rowstride
-     * effect.  EPS export renders the other order, so it can't handle
-     * rowstride != width*bytesperpixel */
-    for(i = 0; i < height; i++) {	
-      g_memmove(&rgb_pixels[i*width*3], &pixels[i*rowstride], width*3);
-    }
+    g_memmove(rgb_pixels, pixels, height*rowstride);
     return rgb_pixels;
   }
 }

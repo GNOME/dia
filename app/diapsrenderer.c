@@ -579,22 +579,24 @@ draw_image(DiaRenderer *self,
   fprintf(renderer->file, "\n");
 
   if (mask_data) {
-    for (y = 0; y < img_width; y++) {
-      for (x = 0; x < img_height; x++) {
-        int i = y*img_height+x;
-        fprintf(renderer->file, "%02x", 255-(mask_data[i]*(255-rgb_data[i*3])/255));
-        fprintf(renderer->file, "%02x", 255-(mask_data[i]*(255-rgb_data[i*3+1])/255));
-        fprintf(renderer->file, "%02x", 255-(mask_data[i]*(255-rgb_data[i*3+2])/255));
+    for (y = 0; y < img_height; y++) {
+      for (x = 0; x < img_width; x++) {
+	int i = y*img_rowstride+x*3;
+	int m = y*img_width+x;
+        fprintf(renderer->file, "%02x", 255-(mask_data[m]*(255-rgb_data[i])/255));
+        fprintf(renderer->file, "%02x", 255-(mask_data[m]*(255-rgb_data[i+1])/255));
+        fprintf(renderer->file, "%02x", 255-(mask_data[m]*(255-rgb_data[i+2])/255));
       }
       fprintf(renderer->file, "\n");
     }
   } else {
     guint8 *ptr = rgb_data;
-    for (y = 0; y < img_width; y++) {
-      for (x = 0; x < img_height; x++) {
-        fprintf(renderer->file, "%02x", (int)(*ptr++));
-        fprintf(renderer->file, "%02x", (int)(*ptr++));
-        fprintf(renderer->file, "%02x", (int)(*ptr++));
+    for (y = 0; y < img_height; y++) {
+      for (x = 0; x < img_width; x++) {
+	int i = y*img_rowstride+x*3;
+        fprintf(renderer->file, "%02x", (int)(rgb_data[i]));
+        fprintf(renderer->file, "%02x", (int)(rgb_data[i+1]));
+        fprintf(renderer->file, "%02x", (int)(rgb_data[i+2]));
       }
       fprintf(renderer->file, "\n");
     }

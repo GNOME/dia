@@ -1,5 +1,9 @@
 2003-01-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dia_image.c (dia_image_rgb_data): 
+	* app/diapsrenderer.c (draw_image): Fixed rowstride problems
+	involving EPS.  Can't do transparency in EPS yet.
+
 	* lib/dia_image.h: 
 	* lib/dia_image.c (dia_image_rgba_data): New function to get RGBA
 	data as one chunk.  Documentation for the RGB data getting funcs.
