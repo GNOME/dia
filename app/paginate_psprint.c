@@ -37,6 +37,7 @@
 #include "diapsrenderer.h"
 #include "paginate_psprint.h"
 #include "diapagelayout.h"
+#include "persistence.h"
 
 #include <gtk/gtk.h>
 
@@ -48,14 +49,12 @@
 
 /* keep track of print options between prints */
 typedef struct _dia_print_options {
-    int printer;
-    char *command;
-    char *output;
+  int printer;
 } dia_print_options;
 
 static dia_print_options last_print_options = 
 {
-    1, NULL, NULL
+    1
 };
 
 static void
@@ -205,6 +204,7 @@ diagram_print_ps(Diagram *dia)
   gboolean cont = FALSE;
   DDisplay *ddisp;
   gchar *printcmd = NULL;
+  gchar *orig_command, *orig_file;
 
   FILE *file;
   gboolean is_pipe;
@@ -248,6 +248,7 @@ diagram_print_ps(Diagram *dia)
   gtk_table_attach(GTK_TABLE(table), cmd, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(cmd);
+
   g_signal_connect(GTK_OBJECT(iscmd), "toggled",
 		   G_CALLBACK(change_entry_state), cmd);
 
@@ -284,15 +285,11 @@ diagram_print_ps(Diagram *dia)
 
   /* Set default or old dialog values: */
 #ifdef G_OS_WIN32
-  gtk_entry_set_text(GTK_ENTRY(cmd), 
-		     last_print_options.command 
-		     ? last_print_options.command : win32_printer_default ());
+  gtk_entry_set_text(GTK_ENTRY(cmd), win32_printer_default ());
 #else
-  if (last_print_options.command) {
-    gtk_entry_set_text(GTK_ENTRY(cmd), last_print_options.command);
-  } else {
+  {
     gchar *printer = g_getenv("PRINTER");
-
+    
     if (printer) {
       printcmd = g_strdup_printf("lpr -P%s", printer);
     } else {
@@ -302,10 +299,14 @@ diagram_print_ps(Diagram *dia)
     gtk_entry_set_text(GTK_ENTRY(cmd), printcmd);
   }
 #endif
+  persistence_register_string_entry("printer-command", cmd);
+  printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
+  orig_command = printcmd;
   /* Ought to use filename+extension here */
-  gtk_entry_set_text(GTK_ENTRY(ofile), 
-		     last_print_options.output 
-		     ? last_print_options.output : "output.ps");
+  gtk_entry_set_text(GTK_ENTRY(ofile), "output.ps");
+  persistence_register_string_entry("printer-file", ofile);
+  orig_file = g_strdup(gtk_entry_get_text(GTK_ENTRY(ofile)));
+    
   /* Scaling is already set at creation. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(iscmd), last_print_options.printer);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
@@ -314,7 +315,11 @@ diagram_print_ps(Diagram *dia)
   gtk_main();
 
   if (!cont) {
+    persistence_change_string_entry("printer-command", orig_command, cmd);
+    persistence_change_string_entry("printer-file", orig_file, ofile);
     gtk_widget_destroy(dialog);
+    g_free(orig_command);
+    g_free(orig_file);
     return;
   }
 
@@ -344,11 +349,8 @@ diagram_print_ps(Diagram *dia)
   }
 
   /* Store dialog values */
-  g_free( last_print_options.command );
-  g_free( last_print_options.output );
-  if (printcmd)
-    last_print_options.command = g_strdup( printcmd );
-  last_print_options.output = g_strdup( gtk_entry_get_text(GTK_ENTRY(ofile)) );
+  g_free(orig_command);
+  g_free(orig_file);
   last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
   
   if (!file) {

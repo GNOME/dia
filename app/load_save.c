@@ -224,6 +224,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
       if (connections != NULL) {
 	connection = connections->xmlChildrenNode;
 	while (connection != NULL) {
+	  char *donestr;
           if (xmlIsBlankNode(connection)) {
             connection = connection->next;
             continue;
@@ -233,27 +234,43 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  connstr = xmlGetProp(connection, "connection");
 	  
 	  handle = atoi(handlestr);
-	  conn = atoi(connstr);
-	  
-	  to = g_hash_table_lookup(objects_hash, tostr);
+	  conn = strtol(connstr, &donestr, 10);
+	  if (*donestr != '\0') { /* Didn't convert it all -- use string */
+	    conn = -1;
+	  }
 
-	  if (handlestr) xmlFree(handlestr);
-	  if (connstr) xmlFree(connstr);
-	  if (tostr) xmlFree(tostr);
+	  to = g_hash_table_lookup(objects_hash, tostr);
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
 			    "Linked object not found in document."));
-	  } else if (conn >= 0 && conn >= to->num_connections) {
-	    message_error(_("Error loading diagram.\n"
-			    "connection point does not exist."));
-	  } else if (handle >= 0 && handle >= obj->num_handles) {
+	  } else if (handle < 0 || handle >= obj->num_handles) {
 	    message_error(_("Error loading diagram.\n"
 			    "connection handle does not exist."));
 	  } else {
-	    object_connect(obj, obj->handles[handle],
-			   to->connections[conn]);
+	    if (conn == -1) { /* Find named connpoint */
+	      int i;
+	      for (i = 0; i < to->num_connections; i++) {
+		if (to->connections[i]->name != NULL &&
+		    strcmp(to->connections[i]->name, connstr) == 0) {
+		  conn = i;
+		  break;
+		}
+	      }
+	    }
+	    if (conn >= 0 && conn < to->num_connections) {
+	      object_connect(obj, obj->handles[handle],
+			     to->connections[conn]);
+	    } else {
+	      message_error(_("Error loading diagram.\n"
+			      "connection point %s does not exist."),
+			    connstr);
+	    }
 	  }
+
+	  if (handlestr) xmlFree(handlestr);
+	  if (tostr) xmlFree(tostr);
+	  if (connstr) xmlFree(connstr);
 
 	  connection = connection->next;
 	}
@@ -677,10 +694,12 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 
 	  xmlSetProp(connection, "to", buffer);
 	  /* to what connection_point on that object */
-	  g_snprintf(buffer, 30, "%d", con_point_nr);
+	  if (other_obj->connections[con_point_nr]->name != NULL) {
+	    g_snprintf(buffer, 30, "%s", other_obj->connections[con_point_nr]->name);
+	  } else {
+	    g_snprintf(buffer, 30, "%d", con_point_nr);
+	  }
 	  xmlSetProp(connection, "connection", buffer);
-
-
 	}
       }
     }

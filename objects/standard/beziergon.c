@@ -258,7 +258,8 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
    * state.  This is a compromise until I fix this properly. */
-  if (renderer->is_interactive) {
+  if (renderer->is_interactive &&
+      dia_object_is_selected((Object*)beziergon)) {
     beziershape_draw_control_lines(&beziergon->bezier, renderer);
   }
 }

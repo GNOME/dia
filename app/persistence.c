@@ -40,7 +40,7 @@
 
 /* Hash table from window role (string) to PersistentWindow structure.
  */
-static GHashTable *persistent_windows;
+static GHashTable *persistent_windows, *persistent_strings;
 
 /* Returns the name used for a window in persistence.
  */
@@ -70,10 +70,8 @@ persistence_load_window(xmlNodePtr node)
   PersistentWindow *wininfo = g_new0(PersistentWindow, 1);
   gchar *name;
 
-  attr = composite_find_attribute(node, "role");
-  if (attr != NULL) {
-    name = data_string(attribute_first_data(attr));
-  } else {
+  name = xmlGetProp(node, "role");
+  if (name == NULL) {
     g_free(wininfo);
     return;
   }
@@ -102,13 +100,40 @@ persistence_load_window(xmlNodePtr node)
   g_hash_table_insert(persistent_windows, name, wininfo);
 }
 
+/** Load a persistent string into the strings hashtable */
+static void
+persistence_load_string(xmlNodePtr node)
+{
+  AttributeNode attr;
+  gchar *name, *string = NULL;
+
+  name = xmlGetProp(node, "role");
+  if (name == NULL) {
+    return;
+  }
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "stringvalue");
+  if (attr != NULL)
+    string = data_string(attribute_first_data(attr));
+  else 
+    return
+
+  if (persistent_strings == NULL) {
+    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  } else {
+    /* Do anything to avoid dups? */
+  }
+  if (string != NULL)
+    g_hash_table_insert(persistent_strings, name, string);
+}
+
 /* Load all persistent data. */
 void
 persistence_load()
 {
   xmlDocPtr doc;
   gchar *filename = dia_config_filename("persistence");
-  struct stat statbuf;
 
   if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
 
@@ -118,12 +143,18 @@ persistence_load()
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
       if (!strcmp (doc->xmlRootNode->name, "persistence") &&
 	  namespace != NULL) {
-	xmlNodePtr window_node;
+	xmlNodePtr window_node, string_node;
 	window_node = find_node_named(doc->xmlRootNode->xmlChildrenNode,
 				      "window");
 	while (window_node != NULL) {
 	  persistence_load_window(window_node);
 	  window_node = window_node->next;
+	}
+	string_node = find_node_named(doc->xmlRootNode->xmlChildrenNode,
+				      "entrystring");
+	while (string_node != NULL) {
+	  persistence_load_string(string_node);
+	  string_node = string_node->next;
 	}
       }
     }
@@ -146,7 +177,7 @@ persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
   }
 }
 
-gboolean
+static gboolean
 persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
 {
   gchar *name = persistence_get_window_name(window);
@@ -196,7 +227,7 @@ persistence_register_window(GtkWindow *window)
   if (wininfo != NULL) {
     gtk_window_move(window, wininfo->x, wininfo->y);
     gtk_window_resize(window, wininfo->width, wininfo->height);
-    if (wininfo->isopen) gtk_widget_show(window);
+    if (wininfo->isopen) gtk_widget_show(GTK_WIDGET(window));
   } else {
     wininfo = g_new0(PersistentWindow, 1);
     gtk_window_get_position(window, &wininfo->x, &wininfo->y);
@@ -243,6 +274,68 @@ persistence_register_window_create(gchar *role, NullaryFunc *func)
   }
 }
 
+static gboolean
+persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
+				gpointer userdata)
+{
+  gchar *role = (gchar*)userdata;
+
+  if (event->type == GDK_FOCUS_CHANGE) {
+    gchar *string = (gchar *)g_hash_table_lookup(persistent_strings, role);
+    gchar *entrystring = gtk_entry_get_text(GTK_ENTRY(widget));
+    if (string == NULL || strcmp(string, entrystring)) {
+      g_hash_table_insert(persistent_strings, role, g_strdup(entrystring));
+      if (string != NULL) g_free(string);
+    }
+  }
+
+  return FALSE;
+}
+
+/** Change the contents of the persistently stored string entry.
+ * If widget is non-null, it is updated to reflect the change.
+ * This can be used e.g. for when a dialog is cancelled and the old
+ * contents should be restored.
+ */
+gboolean
+persistence_change_string_entry(gchar *role, gchar *string,
+				GtkWidget *widget)
+{
+  gchar *old_string = (gchar*)g_hash_table_lookup(persistent_strings, role);
+  if (old_string != NULL) {
+    if (widget != NULL) {
+      gtk_entry_set_text(GTK_ENTRY(widget), string);
+    }
+    g_hash_table_insert(persistent_strings, role, g_strdup(string));
+    g_free(old_string);
+  }
+
+  return FALSE;
+}
+
+/** Register a string in a GtkEntry for persistence.
+ * This should include not only a unique name, but some way to update
+ * whereever the string is used.
+ */
+void
+persistence_register_string_entry(gchar *role, GtkWidget *entry)
+{
+  gchar *string;
+  if (role == NULL) return;
+  if (persistent_strings == NULL) {
+    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  string = (gchar *)g_hash_table_lookup(persistent_strings, role);
+  if (string != NULL) {
+    gtk_entry_set_text(GTK_ENTRY(entry), string);
+  } else {
+    string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+    g_hash_table_insert(persistent_strings, role, string);
+  }
+  g_signal_connect(G_OBJECT(entry), "event", 
+		   G_CALLBACK(persistence_update_string_entry), role);
+}
+
 /* Save the position of a window  */
 static void
 persistence_save_window(gpointer key, gpointer value, gpointer data)
@@ -250,17 +343,29 @@ persistence_save_window(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   PersistentWindow *window_pos = (PersistentWindow *)value;
   ObjectNode window;
-  AttributeNode attr;
 
   window = (ObjectNode)xmlNewChild(tree, NULL, "window", NULL);
-
-  data_add_string(new_attribute(window, "role"), key);
+  
+  xmlSetProp(window, "role", (char *)key);
   data_add_int(new_attribute(window, "xpos"), window_pos->x);
   data_add_int(new_attribute(window, "ypos"), window_pos->y);
   data_add_int(new_attribute(window, "width"), window_pos->width);
   data_add_int(new_attribute(window, "height"), window_pos->height);
   data_add_boolean(new_attribute(window, "isopen"), window_pos->isopen);
 
+}
+
+/* Save the contents of a string  */
+static void
+persistence_save_string(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode stringnode;
+
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
+
+  xmlSetProp(stringnode, "role", (char *)key);
+  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
 }
 
 /* Save all persistent data. */
@@ -284,6 +389,12 @@ persistence_save()
   if (persistent_windows != NULL &&
       g_hash_table_size(persistent_windows) != 0) {
     g_hash_table_foreach(persistent_windows, persistence_save_window, 
+			 doc->xmlRootNode);
+  }
+
+  if (persistent_strings != NULL &&
+      g_hash_table_size(persistent_strings) != 0) {
+    g_hash_table_foreach(persistent_strings, persistence_save_string, 
 			 doc->xmlRootNode);
   }
 

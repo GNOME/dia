@@ -49,6 +49,7 @@ struct _ConnectionPoint {
   Object *object;    /* pointer to the object having this point */
   GList *connected;  /* list of 'Object *' connected to this point*/
   gchar directions;  /* Directions that this connection point is open to */
+  gchar *name;       /* Name of this connpoint, NULL means uses number only.*/
 };
 
 /* Returns the available directions on a slope.
