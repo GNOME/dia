@@ -382,7 +382,6 @@ app_init (int argc, char **argv)
 
   dia_image_init();
 
-  
   gdk_rgb_init();
 
   gtk_rc_parse ("diagtkrc"); 
@@ -432,7 +431,9 @@ app_init (int argc, char **argv)
 
   create_toolbox();
 
-  create_layer_dialog();
+  persistence_register_window_create("layer_window",
+				     (NullaryFunc*)&create_layer_dialog);
+  /*  create_layer_dialog();*/
 
   /*fill recent file menu */
   recent_file_history_init();
