@@ -15,6 +15,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/* If you have a problem with the Function Structure (FS) components,
+ * please send e-mail to David Thompson <dcthomp@mail.utexas.edu>
+ */
+
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
@@ -24,6 +29,7 @@
 #include "config.h"
 #include "intl.h"
 #include "object.h"
+#include "objchange.h"
 #include "connection.h"
 #include "render.h"
 #include "handle.h"
@@ -34,12 +40,10 @@
 
 #include "pixmaps/orthflow.xpm"
 
-Color orthflow_color_energy   = { 1.0f, 0.0f, 0.0f };
-Color orthflow_color_material = { 0.8f, 0.0f, 0.8f };
-Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 typedef struct _Orthflow Orthflow;
 typedef struct _OrthflowDialog OrthflowDialog;
+typedef struct _OrthflowChange OrthflowChange;
 
 typedef enum {
   ORTHFLOW_ENERGY,
@@ -65,6 +69,24 @@ struct _OrthflowDialog {
   GtkWidget *m_material;
   GtkWidget *m_signal;
 };
+
+enum OrthflowChangeType {
+  TEXT_EDIT=1,
+  FLOW_TYPE=2,
+  BOTH=3
+};
+
+struct _OrthflowChange {
+  ObjectChange			obj_change ;
+  enum OrthflowChangeType	change_type ;
+  OrthflowType			type ;
+  char*				text ;
+};
+
+Color orthflow_color_energy   = { 1.0f, 0.0f, 0.0f };
+Color orthflow_color_material = { 0.8f, 0.0f, 0.8f };
+Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
+
   
 #define ORTHFLOW_WIDTH 0.1
 #define ORTHFLOW_MATERIAL_WIDTH 0.2
@@ -101,8 +123,8 @@ static void orthflow_destroy(Orthflow *orthflow);
 static Object *orthflow_copy(Orthflow *orthflow);
 static GtkWidget *orthflow_get_properties(Orthflow *orthflow);
 static ObjectChange *orthflow_apply_properties(Orthflow *orthflow);
-static GtkWidget *orthflow_get_defaults();
-static void orthflow_apply_defaults();
+static GtkWidget *orthflow_get_defaults(void);
+static void orthflow_apply_defaults(void);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
 			  const char *filename);
 static Object *orthflow_load(ObjectNode obj_node, int version,
@@ -117,14 +139,15 @@ static ObjectTypeOps orthflow_type_ops =
   (SaveFunc)		orthflow_save,
   (GetDefaultsFunc)	orthflow_get_defaults,
   (ApplyDefaultsFunc)	orthflow_apply_defaults
+  
 } ;
 
 ObjectType orthflow_type =
 {
-  "FS - Orthflow",         /* name */
-  0,                   /* version */
-  (char **) orthflow_xpm,  /* pixmap */
-  &orthflow_type_ops       /* ops */
+  "FS - Orthflow",		/* name */
+  0,				/* version */
+  (char **) orthflow_xpm,	/* pixmap */
+  &orthflow_type_ops		/* ops */
 };
 
 static ObjectOps orthflow_ops = {
@@ -139,6 +162,56 @@ static ObjectOps orthflow_ops = {
   (ApplyPropertiesFunc) orthflow_apply_properties,
   (ObjectMenuFunc)      orthflow_get_object_menu,
 };
+
+static void
+orthflow_change_apply_revert(ObjectChange* objchg, Object* obj)
+{
+  struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
+  Orthflow* oflow = (Orthflow*) obj ;
+
+  if ( change->change_type == FLOW_TYPE || change->change_type == BOTH ) {
+    OrthflowType type = oflow->type ;
+    oflow->type = change->type ;
+    change->type = type ;
+    orthflow_update_data(oflow) ;
+  }
+
+  if ( change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
+    char* tmp = text_get_string_copy( oflow->text ) ;
+    text_set_string( oflow->text, change->text ) ;
+    g_free( change->text ) ;
+    change->text = tmp ;
+  }
+}
+
+static void
+orthflow_change_free(ObjectChange* objchg)
+{
+  struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
+
+  if (change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
+    g_free(change->text) ;
+  }
+}
+
+static ObjectChange*
+orthflow_create_change( enum OrthflowChangeType change_type,
+			OrthflowType type, Text* text )
+{
+  struct _OrthflowChange* change ;
+  change = g_new( struct _OrthflowChange, 1 ) ;
+  change->obj_change.apply = (ObjectChangeApplyFunc) orthflow_change_apply_revert ;
+  change->obj_change.revert =  (ObjectChangeRevertFunc) orthflow_change_apply_revert ;
+  change->obj_change.free =  (ObjectChangeFreeFunc) orthflow_change_free ;
+  change->change_type = change_type ;
+
+  change->type = type ;
+  if ( text ) {
+    change->text = text_get_string_copy( text ) ;
+  }
+
+  return (ObjectChange*) change ;
+}
 
 static real
 orthflow_distance_from(Orthflow *orthflow, Point *point)
@@ -211,7 +284,7 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
 {
   ArrowType arrow_type;
   int n = orthflow->orth.numpoints ;
-  Color* render_color;
+  Color* render_color = &orthflow_color_signal;
   Point *points;
   
   assert(orthflow != NULL);
@@ -266,7 +339,7 @@ orthflow_create(Point *startpoint,
   Object *obj;
   Point p;
 
-  orthflow = g_malloc(sizeof(Orthflow));
+  orthflow = g_new(Orthflow,1);
 
   orth = &orthflow->orth ;
   orthconn_init( orth, startpoint ) ;
@@ -286,7 +359,7 @@ orthflow_create(Point *startpoint,
     orthflow->text = text_copy( orthflow_default_label ) ;
     text_set_position( orthflow->text, &p ) ;
   } else {
-    Color* color ;
+    Color* color = &orthflow_color_signal;
 
     if (orthflow_font == NULL)
       orthflow_font = font_getfont("Helvetica-Oblique");
@@ -311,12 +384,13 @@ orthflow_create(Point *startpoint,
   orthflow->text_handle.type = HANDLE_MINOR_CONTROL;
   orthflow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   orthflow->text_handle.connected_to = NULL;
-  obj->handles[2] = &orthflow->text_handle;
+  object_add_handle( obj, &orthflow->text_handle ) ;
   
   orthflow_update_data(orthflow);
 
+  /*obj->handles[1] = orth->handles[2] ;*/
   *handle1 = obj->handles[0];
-  *handle2 = obj->handles[1];
+  *handle2 = obj->handles[2];
   return (Object *)orthflow;
 }
 
@@ -359,7 +433,7 @@ orthflow_update_data(Orthflow *orthflow)
   OrthConn *orth = &orthflow->orth ;
   Object *obj = (Object *) orthflow;
   Rectangle rect;
-  Color* color ;
+  Color* color = &orthflow_color_signal;
   
   switch (orthflow->type) {
   case ORTHFLOW_ENERGY:
@@ -451,9 +525,12 @@ static ObjectChange *
 orthflow_apply_properties(Orthflow *orthflow)
 {
   OrthflowDialog *prop_dialog;
+  ObjectChange* change ;
   
   prop_dialog = properties_dialog;
 
+  change = orthflow_create_change( BOTH,
+				   orthflow->type, orthflow->text ) ;
   text_set_string(orthflow->text,
                   gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
 					  0, -1));
@@ -467,7 +544,7 @@ orthflow_apply_properties(Orthflow *orthflow)
 
   orthflow_update_data(orthflow);
 
-  return NULL;
+  return change ;
 }
 
 static void
@@ -621,19 +698,33 @@ orthflow_update_defaults( Orthflow* orthflow, char update_text )
 static ObjectChange *
 orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 {
+  ObjectChange* change ;
+  change = orthflow_create_change( FLOW_TYPE, ((Orthflow*)obj)->type, 0 ) ;
+
   ((Orthflow*)obj)->type = (int) data ;
   orthflow_update_defaults( (Orthflow*) obj, 1 ) ;
   if ( defaults_dialog )
     fill_in_defaults_dialog() ;
   orthflow_update_data((Orthflow*)obj);
 
-  return NULL;
+  return change;
+}
+
+static ObjectChange *
+orthflow_segment_callback (Object* obj, Point* clicked, gpointer data)
+{
+  if ( (int)data )
+     return orthconn_add_segment( (OrthConn*)obj, clicked ) ;
+
+  return orthconn_delete_segment( (OrthConn*)obj, clicked ) ;
 }
 
 static DiaMenuItem orthflow_menu_items[] = {
   { N_("Energy"), orthflow_set_type_callback, (void*)ORTHFLOW_ENERGY, 1 },
   { N_("Material"), orthflow_set_type_callback, (void*)ORTHFLOW_MATERIAL, 1 },
   { N_("Signal"), orthflow_set_type_callback, (void*)ORTHFLOW_SIGNAL, 1 },
+  { N_("Add segment"), orthflow_segment_callback, (void*)1, 1 },
+  { N_("Delete segment"), orthflow_segment_callback, (void*)0, 1 }
 };
 
 static DiaMenu orthflow_menu = {
@@ -651,7 +742,7 @@ orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint)
 }
 
 static GtkWidget *
-orthflow_get_defaults()
+orthflow_get_defaults(void)
 {
   OrthflowDialog *prop_dialog;
   GtkWidget *dialog;
@@ -716,7 +807,7 @@ orthflow_get_defaults()
 }
 
 static void
-orthflow_apply_defaults()
+orthflow_apply_defaults(void)
 {
   OrthflowDialog *prop_dialog;
   Color* color = 0 ;

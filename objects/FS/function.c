@@ -34,7 +34,7 @@
 
 typedef struct _Function Function;
 typedef struct _FunctionPropertiesDialog FunctionPropertiesDialog;
-
+typedef struct _FunctionChange FunctionChange;
 
 struct _Function {
   Element element;
@@ -54,6 +54,21 @@ struct _FunctionPropertiesDialog {
   GtkWidget *text;
   GtkToggleButton *wish;
   GtkToggleButton *user;
+};
+
+enum FuncChangeType {
+  WISH_FUNC,
+  USER_FUNC,
+  TEXT_EDIT,
+  ALL
+};
+
+struct _FunctionChange {
+  ObjectChange		obj_change ;
+  enum FuncChangeType	change_type ;
+  int			is_wish ;
+  int			is_user ;
+  char*			text ;
 };
 
 #define FUNCTION_BORDERWIDTH 0.1
@@ -116,6 +131,62 @@ static ObjectOps function_ops = {
   (ObjectMenuFunc)      function_get_object_menu
 };
 
+static void
+function_change_apply_revert( ObjectChange* objchg, Object* obj)
+{
+  int tmp ;
+  char* ttxt ;
+  FunctionChange* change = (FunctionChange*) objchg ;
+  Function* fcn = (Function*) obj ;
+
+  if ( change->change_type == WISH_FUNC || change->change_type == ALL ) {
+     tmp = fcn->is_wish ;
+     fcn->is_wish = change->is_wish ;
+     change->is_wish = tmp ;
+  }
+  if ( change->change_type == USER_FUNC || change->change_type == ALL ) {
+     tmp = fcn->is_user ;
+     fcn->is_user = change->is_user ;
+     change->is_user = tmp ;
+  }
+  if ( change->change_type == TEXT_EDIT || change->change_type == ALL ) {
+     ttxt = text_get_string_copy( fcn->text ) ;
+     text_set_string( fcn->text, change->text ) ;
+     g_free( change->text ) ;
+     change->text = ttxt ;
+  }
+}
+
+static void
+function_change_free( ObjectChange* objchg )
+{
+  FunctionChange* change = (FunctionChange*) objchg ;
+
+  if ( change->change_type == TEXT_EDIT ) {
+     g_free( change->text ) ;
+  }
+}
+
+static ObjectChange*
+function_create_change( Function* fcn, enum FuncChangeType change_type )
+{
+  FunctionChange* change = g_new(FunctionChange,1) ;
+  change->obj_change.apply = (ObjectChangeApplyFunc) function_change_apply_revert ;
+  change->obj_change.revert = (ObjectChangeRevertFunc) function_change_apply_revert ;
+  change->obj_change.free = (ObjectChangeFreeFunc) function_change_free ;
+  change->change_type = change_type ;
+
+  if ( change_type == WISH_FUNC || change_type == ALL )
+     change->is_wish = fcn->is_wish ;
+
+  if ( change_type == USER_FUNC || change_type == ALL )
+     change->is_user = fcn->is_user ;
+
+  if ( change_type == TEXT_EDIT || change_type == ALL )
+     change->text = text_get_string_copy( fcn->text ) ;
+  return (ObjectChange*) change ;
+}
+  
 static real
 function_distance_from(Function *pkg, Point *point)
 {
@@ -430,6 +501,7 @@ static ObjectChange *
 function_apply_properties(Function *dep)
 {
   FunctionPropertiesDialog *prop_dialog;
+  ObjectChange* change = function_create_change( dep, ALL ) ;
 
   prop_dialog = properties_dialog;
 
@@ -452,7 +524,7 @@ function_apply_properties(Function *dep)
   
   function_update_data(dep);
 
-  return NULL;
+  return change;
 }
 
 static void
@@ -532,6 +604,7 @@ static ObjectChange *
 function_insert_word( Object* obj, Point* clicked, gpointer data)
 {
   Function* func = (Function*)obj ;
+  ObjectChange* change = function_create_change( func, TEXT_EDIT ) ;
   char* word = (char*) data ;
   char* old_chars = text_get_string_copy( func->text ) ;
   char* new_chars = malloc( strlen( old_chars) + strlen( word ) + 1 ) ;
@@ -542,7 +615,7 @@ function_insert_word( Object* obj, Point* clicked, gpointer data)
   function_update_data( func ) ;
   text_set_cursor_at_end( func->text ) ;
 
-  return NULL;
+  return change;
 }
 
 struct _IndentedWords {

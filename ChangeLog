@@ -1,3 +1,9 @@
+2000-04-15  James Henstridge  <james@daa.com.au>
+
+	* objects/FS/flow-ortho.c, objects/FS/function.c: Applied David
+	Thompson's patch that adds undo support to the function structure
+	diagram objects.
+
 2000-04-14  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c (custom_distance_from): new
