@@ -1,3 +1,14 @@
+2002-07-27  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/svg/render_svg.c: added support for rounded
+	rectangles (fixes #69053 if compile with
+	-DNEW_RENDER_OPS)
+	* object/custom/shape_info.[c|h]: made parse_style and
+	parse_path accessible for svg plug-in
+	* plug-ins/svg/Makefile.am:
+	* plug-ins/svg/svg.c:
+	* plug-ins/svg/svg-import.c(new): added SVG import filter
+
 2002-07-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/box.c: 
