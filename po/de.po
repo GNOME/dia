@@ -6,14 +6,15 @@
 # Christian Meyer <chrisime@gnome.org>, 2001.
 # Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
 # Christian Neumair <chris@gnome-de.org>, 2002, 2003, 2004.
+# Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
 # 
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-21 11:48+0100\n"
-"PO-Revision-Date: 2005-02-21 11:46+0100\n"
+"POT-Creation-Date: 2005-02-25 08:57+0100\n"
+"PO-Revision-Date: 2005-02-25 08:57+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -5016,7 +5017,7 @@ msgstr "DXF Import- und Exportfilter"
 #: ../plug-ins/gprint/diagnomeprint.c:79
 #, c-format
 msgid ""
-"Gome Print Backend\n"
+"GNOME Print Backend\n"
 " '%s'\n"
 " not available"
 msgstr ""
