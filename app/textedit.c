@@ -35,16 +35,30 @@
 #include "object_ops.h"
 #include "text.h"
 
-/** Move the text edit focus either backwards or forwards. */
-Focus *
-textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
+static void
+textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
-  if (focus != NULL) {
     /* Leak of focus highlight color here, but should it be handled
        by highlight or by us?
     */
     highlight_object_off(focus->obj, ddisp->diagram);
     object_add_updates(focus->obj, ddisp->diagram);
+}
+
+static void
+textedit_begin_edit(DDisplay *ddisp, Focus *focus)
+{
+    Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
+    highlight_object(focus->obj, focus_col, ddisp->diagram);
+    object_add_updates(focus->obj, ddisp->diagram);
+}
+
+/** Move the text edit focus either backwards or forwards. */
+Focus *
+textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
+{
+  if (focus != NULL) {
+    textedit_end_edit(ddisp, focus);
   }
   if (forwards) {
     Focus *new_focus = focus_next();
@@ -56,9 +70,7 @@ textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
   focus = active_focus();
 
   if (focus != NULL) {
-    Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
-    highlight_object(focus->obj, focus_col, ddisp->diagram);
-    object_add_updates(focus->obj, ddisp->diagram);
+    textedit_begin_edit(ddisp, focus);
   }
   diagram_flush(ddisp->diagram);
   return focus;
@@ -72,14 +84,12 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 {
   if (active_focus()) {
     Focus *old_focus = active_focus();
-    object_add_updates(old_focus->obj, ddisp->diagram);
-    highlight_object_off(old_focus->obj, ddisp->diagram);
+    textedit_end_edit(ddisp, old_focus);
   }
-  highlight_object(focus->obj, color_new_rgb(1.0, 1.0, 0.0), ddisp->diagram);
   if (clicked) {
       text_set_cursor((Text*)focus->user_data, clicked, ddisp->renderer);
   }
-  object_add_updates(focus->obj, ddisp->diagram);
+  textedit_begin_edit(ddisp, focus);
   give_focus(focus);
   diagram_flush(ddisp->diagram);
 }
@@ -91,17 +101,15 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
   if (active_focus()) {
     Focus *focus = active_focus();
-    highlight_object_off(focus->obj, ddisp->diagram);
-    object_add_updates(focus->obj, ddisp->diagram);
+    textedit_end_edit(ddisp, focus);
   }
   Focus *new_focus = focus_get_first_on_object(obj);
   if (new_focus != NULL) {
-    give_focus(new_focus);
-    highlight_object(obj, color_new_rgb(1.0, 1.0, 0.0), ddisp->diagram);
+    give_focus(new_focus); 
     if (clicked) {
-      text_set_cursor((Text*)active_focus()->user_data, clicked, ddisp->renderer);
+      text_set_cursor((Text*)new_focus->user_data, clicked, ddisp->renderer);
     }
-    object_add_updates(obj, ddisp->diagram);
+    textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
   }
 }
@@ -116,7 +124,7 @@ textedit_deactivate_focus()
 {
   Focus *focus = active_focus();
   if (focus != NULL) {
-    highlight_object_off(focus->obj, ddisplay_active()->diagram);
+    textedit_end_edit(ddisplay_active(), focus);
     remove_focus();
   }
 }
@@ -125,8 +133,10 @@ textedit_deactivate_focus()
 void
 textedit_remove_focus(DiaObject *obj, Diagram *diagram)
 {
+  Focus *old_focus = active_focus();
   if (remove_focus_object(obj)) {
-    highlight_object_off(obj, ddisplay_active()->diagram);
+    /* TODO: make sure the focus is deactivated */
+    textedit_end_edit(ddisplay_active(), old_focus);
   }
 }
 
@@ -136,7 +146,8 @@ textedit_remove_focus_all(Diagram *diagram)
 {
   Focus *focus = active_focus();
   if (focus != NULL) {
-    highlight_object_off(focus->obj, diagram);
+    /* TODO: make sure the focus is deactivated */
+    textedit_end_edit(ddisplay_active(), focus);
   }
   reset_foci();
 }
