@@ -438,7 +438,7 @@ umlclass_calculate_data(UMLClass *umlclass)
 				 umlclass->classname_font,
 				 umlclass->classname_font_height);
 
-  umlclass->namebox_height = umlclass->classname_font_height + 2*0.1;
+  umlclass->namebox_height = umlclass->classname_font_height + 4*0.1;
   if (umlclass->stereotype_string != NULL) {
     g_free(umlclass->stereotype_string);
   }
@@ -591,8 +591,8 @@ fill_in_fontdata(UMLClass *umlclass)
   umlclass->classname_font_height = 1.2;
   umlclass->normal_font = font_getfont("Courier");
   umlclass->abstract_font = font_getfont("Courier-Oblique");
-  umlclass->classname_font = font_getfont("Courier-Bold");
-  umlclass->abstract_classname_font = font_getfont("Courier-BoldOblique");
+  umlclass->classname_font = font_getfont("Helvetica-Bold");
+  umlclass->abstract_classname_font = font_getfont("Helvetica-BoldOblique");
 }
 
 static Object *

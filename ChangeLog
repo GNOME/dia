@@ -1,3 +1,17 @@
+1998-12-01  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/class.c:
+	Changed classname font to Helvetica.
+	Added more space above the classname
+
+	* objects/UML/usecase.c:
+	Correct placements of connectionpoints on ellipse.
+	Better algorithm for deciding aspect ration on
+	ellipse.
+
+	These changes were made by Alejandro Aguilar Sierra
+	<asierra@servidor.unam.mx>. (asierra-981201)
+
 1998-11-30  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/actor.c:

@@ -40,8 +40,9 @@ struct _Usecase {
 };
 
 #define USECASE_WIDTH 3
-#define USECASE_HEIGHT 1.2
-#define USECASE_RATIO 1.7
+#define USECASE_HEIGHT 1.76
+#define USECASE_MIN_RATIO 1.5
+#define USECASE_MAX_RATIO 3
 #define USECASE_LINEWIDTH 0.1
 
 static real usecase_distance_from(Usecase *usecase, Point *point);
@@ -135,13 +136,11 @@ usecase_move(Usecase *usecase, Point *to)
   Point p;
   
   usecase->element.corner = *to;
-  if (usecase->text->numlines>1)  
-      h = usecase->text->height*usecase->text->numlines/2.0;
-  else
-      h = -usecase->text->ascent;
+  h = usecase->text->height*usecase->text->numlines;
+  
   p = *to;
   p.x += usecase->element.width/2.0;
-  p.y +=  (usecase->element.height - h)/2.0 ;
+  p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
   text_set_position(usecase->text, &p);
   usecase_update_data(usecase);
 }
@@ -185,7 +184,8 @@ usecase_draw(Usecase *usecase, Renderer *renderer)
 static void
 usecase_update_data(Usecase *usecase)
 {
-  real w, h, rx, ry;
+  real w, h, ratio;
+  Point c, half, r;
 
   Element *elem = &usecase->element;
   Object *obj = (Object *) usecase;
@@ -193,28 +193,45 @@ usecase_update_data(Usecase *usecase)
   w = usecase->text->max_width;
   h = usecase->text->height*usecase->text->numlines;
   
-  rx = USECASE_RATIO*h + w;
-  ry = rx / USECASE_RATIO;
+  ratio = w/h;
 
-  elem->width = (rx > USECASE_WIDTH) ? rx: USECASE_WIDTH;
-  elem->height = (ry > USECASE_HEIGHT) ? ry: USECASE_HEIGHT;
+  if (ratio > USECASE_MAX_RATIO) 
+      ratio = USECASE_MAX_RATIO;
+  
+  if (ratio < USECASE_MIN_RATIO) {
+      ratio = USECASE_MIN_RATIO;
+      r.y = w / ratio + h;
+      r.x = r.y * ratio;
+  } else {
+      r.x = ratio*h + w;
+      r.y = r.x / ratio;
+  }
+
+  elem->width = (r.x > USECASE_WIDTH) ? r.x: USECASE_WIDTH;
+  elem->height = (r.y > USECASE_HEIGHT) ? r.y: USECASE_HEIGHT;
+
+  c.x = elem->corner.x + elem->width / 2.0;
+  c.y = elem->corner.y + elem->height / 2.0;
+  half.x = elem->width * M_SQRT1_2 / 2.0;
+  half.y = elem->height * M_SQRT1_2 / 2.0;
 
   /* Update connections: */
-  usecase->connections[0].pos = elem->corner;
-  usecase->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
+  usecase->connections[0].pos.x = c.x - half.x;
+  usecase->connections[0].pos.y = c.y - half.y;
+  usecase->connections[1].pos.x = c.x;
   usecase->connections[1].pos.y = elem->corner.y;
-  usecase->connections[2].pos.x = elem->corner.x + elem->width;
-  usecase->connections[2].pos.y = elem->corner.y;
+  usecase->connections[2].pos.x = c.x + half.x;
+  usecase->connections[2].pos.y = c.y - half.y;
   usecase->connections[3].pos.x = elem->corner.x;
-  usecase->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
+  usecase->connections[3].pos.y = c.y;
   usecase->connections[4].pos.x = elem->corner.x + elem->width;
   usecase->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  usecase->connections[5].pos.x = elem->corner.x;
-  usecase->connections[5].pos.y = elem->corner.y + elem->height;
+  usecase->connections[5].pos.x = c.x - half.x;
+  usecase->connections[5].pos.y = c.y + half.y;
   usecase->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
   usecase->connections[6].pos.y = elem->corner.y + elem->height;
-  usecase->connections[7].pos.x = elem->corner.x + elem->width;
-  usecase->connections[7].pos.y = elem->corner.y + elem->height;
+  usecase->connections[7].pos.x = c.x + half.x;
+  usecase->connections[7].pos.y = c.y + half.y;
   
   element_update_boundingbox(elem);
 
