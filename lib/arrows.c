@@ -192,6 +192,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     point_normalize(move_line);
     point_scale(move_line, arrow->length);
     point_add(move_line, move_arrow);
+    return;
   case ARROW_HOLLOW_DIAMOND:
   case ARROW_FILLED_DIAMOND:
     /* Make move_line be a unit vector in direction of line */

@@ -1,5 +1,11 @@
 2003-09-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.c (calculate_arrow_point): Adjust arrow line
+	adjustment a bit for half diamond and open round.
+
+	* RELEASE-PROCESS: Added note about notifying translators and
+	maintainers. 
+
 	* doc/pl/dia-manual.sgml: 
 	* doc/en/dia-manual.xml: 
 	* dia.spec (Release): 

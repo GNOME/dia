@@ -34,6 +34,11 @@ When a new version is about to be released:
 
    Please see the section below on how to make a tarball (yes, please do).
 
+   Translators, as pulled from the Translation-Team: field in the .po
+   files, are notified of the upcoming release to give them time to
+   translate new strings.  No further changes to translatable strings
+   should happen from now till the final release ("string freeze").
+
 3a) if a release-critical bug happens before D+10 (say, at D+n), the
    release process is paused until the bug is fixed and a new release
    candidate tarball $VERSION-pre2 is re-made. Go to either step 3a or
@@ -49,7 +54,9 @@ When a new version is about to be released:
 4) once the new release is complete and uploaded, announcements on
    freshmeat, the dia web site, the dia mailing list,
    gnome-announce-list@gnome.org and maybe a gnotices story
-   (news.gnome.org) are made. 
+   (news.gnome.org) are made.  Alerting the package maintainers for the
+   various distributions is also a good idea, get names from MAINTAINERS
+   and update those who have changed.
 
 5) the CVS HEAD freeze is lifted one week /after/ the release is
    generally available, unless a release critical bug is discovered in
