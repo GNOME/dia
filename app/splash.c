@@ -36,6 +36,13 @@ get_logo_pixmap (void)
 
 static GtkWidget* splash = NULL;
 
+static void
+splash_expose (GtkWidget *widget, GdkEventExpose *event)
+{
+  /* this gets called after the splash screen gets exposed ... */
+  gtk_main_quit();
+}
+
 void
 app_splash_init (const gchar* fname)
 {
@@ -44,6 +51,7 @@ app_splash_init (const gchar* fname)
   GtkWidget *label;
   GtkWidget *frame;
   gchar str[256];
+  guint signal_id;
 
   splash = gtk_window_new (GTK_WINDOW_DIALOG);
   gtk_window_set_wmclass (GTK_WINDOW (splash), "start_dialog", "Dia");
@@ -64,21 +72,18 @@ app_splash_init (const gchar* fname)
 
   gtk_container_add (GTK_CONTAINER(frame), gpixmap);
 
-  g_snprintf(str, sizeof(str), _("Dia v %s\n by Alexander Larsson"), VERSION);
+  g_snprintf(str, sizeof(str), _("Dia v %s"), VERSION);
   label = gtk_label_new (str);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 1);
 
   gtk_widget_show_all (splash);
 
-#ifndef G_OS_WIN32
-  gtk_widget_show_now (splash);
-#else
-  /* Maybe a bug in Gtk+ for Windoze, but with the above the 
-   * splash screen remains undrawn ... 
-   */
-  while (gtk_events_pending ())
-    gtk_main_iteration ();
-#endif
+  signal_id = gtk_signal_connect_after(GTK_OBJECT(splash), "expose_event",
+				       GTK_SIGNAL_FUNC(splash_expose), NULL);
+
+  /* splash_expose gets us out of this */
+  gtk_main();
+  gtk_signal_disconnect(GTK_OBJECT(splash), signal_id);
 }
 
 void

@@ -130,6 +130,7 @@ app_init (int argc, char **argv)
 {
   Diagram *diagram = NULL;
   DDisplay *ddisp = NULL;
+  gboolean nosplash = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
@@ -143,8 +144,9 @@ app_init (int argc, char **argv)
   struct poptOption options[] =
   {
     {"export", 'e', POPT_ARG_STRING, &export_file_name, 0,
-     N_("Export loaded file and exit"),
-     N_("OUTPUT")},
+     N_("Export loaded file and exit"), N_("OUTPUT")},
+    {"nosplash", 0, POPT_ARG_NONE, &nosplash, 0,
+     N_("Don't show the splash screen"), NULL },
 #ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
 #endif
@@ -204,7 +206,8 @@ app_init (int argc, char **argv)
 
   gtk_rc_parse ("diagtkrc"); 
 
-  app_splash_init("");
+  if (!nosplash)
+    app_splash_init("");
   /*  enable_core_dumps(); */
 
   create_user_dirs();

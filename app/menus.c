@@ -214,6 +214,7 @@ static GnomeUIInfo dialogsmenu[] = {
 
 static GnomeUIInfo helpmenu[] = {
   GNOMEUIINFO_HELP("dia"),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_ABOUT_ITEM(help_about_callback, NULL),
   GNOMEUIINFO_END
 };

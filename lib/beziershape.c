@@ -875,7 +875,7 @@ beziershape_save(BezierShape *bezier, ObjectNode obj_node)
   attr = new_attribute(obj_node, "bez_points");
 
   data_add_point(attr, &bezier->points[0].p1);
-  for (i = 0; i < bezier->numpoints; i++) {
+  for (i = 1; i < bezier->numpoints; i++) {
     data_add_point(attr, &bezier->points[i].p1);
     data_add_point(attr, &bezier->points[i].p2);
     if (i < bezier->numpoints - 1)

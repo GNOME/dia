@@ -1,3 +1,23 @@
+2001-03-17  James Henstridge  <james@daa.com.au>
+
+	* lib/beziershape.c (beziershape_save): fix off by one error in
+	beziershape save code, which was adding an extra segment to the
+	object on save.
+
+	* app/menus.c: add a separator in the gnome version of the help
+	menu.
+
+	* app/app_procs.c (app_init): add a --nosplash argument which
+	disables the splash screen.
+
+	* app/dia_embedd.c (main): don't leave the splash screen open for
+	embeddable component.
+
+	* app/splash.c (app_splash_init): the gtk_widget_show_now() call
+	didn't seem to be showing the splash screen like expected, so I
+	have replaced it with some code that calls gtk_main() until the
+	first exposure of the window.
+
 2001-03-16  James Henstridge  <james@daa.com.au>
 
 	* app/Makefile.am (EXTRA_DIST): add extra pixmaps.
