@@ -11,7 +11,7 @@ libflowchart_objects_la_SOURCES = \
 libflowchart_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ \
-	@GNOME_CFLAGS@ -DSHAPE_DIR=\""$(shapedir)"\"
+	@GNOME_CFLAGS@
 
 shapedir = $(pkgdatadir)/shape-internal/flowchart
 shape_DATA = \

@@ -20,6 +20,7 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -107,11 +108,41 @@ void custom_object_new (ShapeInfo *info,
                         ObjectType **otype,
                         SheetObject **sheetobj);
 
+static gchar *findintshape(gchar *filename) {
+  gchar *ret;
+  static gchar *envvar = NULL;
+  static gboolean checked_env = FALSE;
+
+  if (!checked_env)
+    envvar = getenv("DIA_INT_SHAPE_PATH");
+  checked_env = TRUE;
+
+  if (envvar) {
+    ret = g_strconcat(envvar, G_DIR_SEPARATOR_S, filename, NULL);
+    if (!access(ret, R_OK))
+      return ret;
+    g_free(ret);
+  }
+  ret = g_strconcat(DIA_INT_SHAPEDIR, G_DIR_SEPARATOR_S, filename, NULL);
+  if (!access(ret, R_OK))
+    return ret;
+  g_free(ret);
+  if (!access(filename, R_OK))
+    return g_strdup(filename);
+  return NULL;
+}
+
 gboolean
 custom_object_load(gchar *filename, ObjectType **otype,
 		   SheetObject **sheetobj)
 {
-  ShapeInfo *info = shape_info_load(filename);
+  gchar *file = findintshape(filename);
+  ShapeInfo *info;
+
+  if (!file)
+    return FALSE;
+  info = shape_info_load(file);
+  g_free(file);
 
   if (!info)
     return FALSE;

@@ -1,5 +1,14 @@
 1999-10-25  James Henstridge  <james@daa.com.au>
 
+	* app/Makefile.am (run_dia.sh): allow dia to find internal shape files
+	before it is installed.
+
+	* objects/flowchart/flowchart.c: use relative paths to find shapes.
+
+	* objects/custom/custom.c (custom_object_load): take file names
+	relative to $(pkgdatadir)/shape-internal, and check an environment
+	variable for an alternative directory.
+
 	* app/...: added copyright messages to the top of my new code.
 
 	* app/paginate_psprint.c: some general clean ups.  Also, give an error

@@ -113,144 +113,144 @@ void register_objects(void) {
   object_register_type(&diamond_type);
   object_register_type(&fc_ellipse_type);
 
-  custom_object_load(SHAPE_DIR "/display.shape", &display_type,
+  custom_object_load("flowchart/display.shape", &display_type,
 		     &display_sheetobj);
   display_type->pixmap = display_xpm;
   display_sheetobj->pixmap = display_xpm;
   object_register_type(display_type);
 
-  custom_object_load(SHAPE_DIR "/transaction.shape", &transaction_type,
+  custom_object_load("flowchart/transaction.shape", &transaction_type,
 		     &transaction_sheetobj);
   transaction_type->pixmap = transaction_xpm;
   transaction_sheetobj->pixmap = transaction_xpm;
   object_register_type(transaction_type);
 
-  custom_object_load(SHAPE_DIR "/offpageconn.shape", &offpageconn_type,
+  custom_object_load("flowchart/offpageconn.shape", &offpageconn_type,
 		     &offpageconn_sheetobj);
   offpageconn_type->pixmap = offpageconn_xpm;
   offpageconn_sheetobj->pixmap = offpageconn_xpm;
   object_register_type(offpageconn_type);
 
-  custom_object_load(SHAPE_DIR "/document.shape", &doc_type, &doc_sheetobj);
+  custom_object_load("flowchart/document.shape", &doc_type, &doc_sheetobj);
   doc_type->pixmap = document_xpm;
   doc_sheetobj->pixmap = document_xpm;
   object_register_type(doc_type);
 
-  custom_object_load(SHAPE_DIR "/manualop.shape", &manualop_type,
+  custom_object_load("flowchart/manualop.shape", &manualop_type,
 		     &manualop_sheetobj);
   manualop_type->pixmap = manualop_xpm;
   manualop_sheetobj->pixmap = manualop_xpm;
   object_register_type(manualop_type);
 
-  custom_object_load(SHAPE_DIR "/preparation.shape", &preparation_type,
+  custom_object_load("flowchart/preparation.shape", &preparation_type,
 		     &preparation_sheetobj);
   preparation_type->pixmap = preparation_xpm;
   preparation_sheetobj->pixmap = preparation_xpm;
   object_register_type(preparation_type);
 
-  custom_object_load(SHAPE_DIR "/manualinput.shape", &manualinput_type,
+  custom_object_load("flowchart/manualinput.shape", &manualinput_type,
 		     &manualinput_sheetobj);
   manualinput_type->pixmap = manualinput_xpm;
   manualinput_sheetobj->pixmap = manualinput_xpm;
   object_register_type(manualinput_type);
 
-  custom_object_load(SHAPE_DIR "/predefdproc.shape", &predefdproc_type,
+  custom_object_load("flowchart/predefdproc.shape", &predefdproc_type,
 		     &predefdproc_sheetobj);
   predefdproc_type->pixmap = predefdproc_xpm;
   predefdproc_sheetobj->pixmap = predefdproc_xpm;
   object_register_type(predefdproc_type);
 
-  custom_object_load(SHAPE_DIR "/terminal.shape", &terminal_type,
+  custom_object_load("flowchart/terminal.shape", &terminal_type,
 		     &terminal_sheetobj);
   terminal_type->pixmap = terminal_xpm;
   terminal_sheetobj->pixmap = terminal_xpm;
   object_register_type(terminal_type);
 
-  custom_object_load(SHAPE_DIR "/magdisk.shape", &magdisk_type,
+  custom_object_load("flowchart/magdisk.shape", &magdisk_type,
 		     &magdisk_sheetobj);
   magdisk_type->pixmap = magdisk_xpm;
   magdisk_sheetobj->pixmap = magdisk_xpm;
   object_register_type(magdisk_type);
 
-  custom_object_load(SHAPE_DIR "/magtape.shape", &magtape_type,
+  custom_object_load("flowchart/magtape.shape", &magtape_type,
 		     &magtape_sheetobj);
   magtape_type->pixmap = magtape_xpm;
   magtape_sheetobj->pixmap = magtape_xpm;
   object_register_type(magtape_type);
 
-  custom_object_load(SHAPE_DIR "/intstorage.shape", &intstorage_type,
+  custom_object_load("flowchart/intstorage.shape", &intstorage_type,
 		     &intstorage_sheetobj);
   intstorage_type->pixmap = intstorage_xpm;
   intstorage_sheetobj->pixmap = intstorage_xpm;
   object_register_type(intstorage_type);
 
-  custom_object_load(SHAPE_DIR "/merge.shape", &merge_type,
+  custom_object_load("flowchart/merge.shape", &merge_type,
 		     &merge_sheetobj);
   merge_type->pixmap = merge_xpm;
   merge_sheetobj->pixmap = merge_xpm;
   object_register_type(merge_type);
 
-  custom_object_load(SHAPE_DIR "/extract.shape", &extract_type,
+  custom_object_load("flowchart/extract.shape", &extract_type,
 		     &extract_sheetobj);
   extract_type->pixmap = extract_xpm;
   extract_sheetobj->pixmap = extract_xpm;
   object_register_type(extract_type);
 
-  custom_object_load(SHAPE_DIR "/delay.shape", &delay_type,
+  custom_object_load("flowchart/delay.shape", &delay_type,
 		     &delay_sheetobj);
   delay_type->pixmap = delay_xpm;
   delay_sheetobj->pixmap = delay_xpm;
   object_register_type(delay_type);
 
-  custom_object_load(SHAPE_DIR "/sumjunction.shape", &sumjunction_type,
+  custom_object_load("flowchart/sumjunction.shape", &sumjunction_type,
 		     &sumjunction_sheetobj);
   sumjunction_type->pixmap = sumjunction_xpm;
   sumjunction_sheetobj->pixmap = sumjunction_xpm;
   object_register_type(sumjunction_type);
 
-  custom_object_load(SHAPE_DIR "/collate.shape", &collate_type,
+  custom_object_load("flowchart/collate.shape", &collate_type,
 		     &collate_sheetobj);
   collate_type->pixmap = collate_xpm;
   collate_sheetobj->pixmap = collate_xpm;
   object_register_type(collate_type);
 
-  custom_object_load(SHAPE_DIR "/sort.shape", &sort_type,
+  custom_object_load("flowchart/sort.shape", &sort_type,
 		     &sort_sheetobj);
   sort_type->pixmap = sort_xpm;
   sort_sheetobj->pixmap = sort_xpm;
   object_register_type(sort_type);
 
-  custom_object_load(SHAPE_DIR "/or.shape", &or_type,
+  custom_object_load("flowchart/or.shape", &or_type,
 		     &or_sheetobj);
   or_type->pixmap = or_xpm;
   or_sheetobj->pixmap = or_xpm;
   object_register_type(or_type);
 
-  custom_object_load(SHAPE_DIR "/punchedcard.shape", &punchedcard_type,
+  custom_object_load("flowchart/punchedcard.shape", &punchedcard_type,
 		     &punchedcard_sheetobj);
   punchedcard_type->pixmap = punchedcard_xpm;
   punchedcard_sheetobj->pixmap = punchedcard_xpm;
   object_register_type(punchedcard_type);
 
-  custom_object_load(SHAPE_DIR "/transmittape.shape", &transmittape_type,
+  custom_object_load("flowchart/transmittape.shape", &transmittape_type,
 		     &transmittape_sheetobj);
   transmittape_type->pixmap = transmittape_xpm;
   transmittape_sheetobj->pixmap = transmittape_xpm;
   object_register_type(transmittape_type);
 
-  custom_object_load(SHAPE_DIR "/punchedtape.shape", &punchedtape_type,
+  custom_object_load("flowchart/punchedtape.shape", &punchedtape_type,
 		     &punchedtape_sheetobj);
   punchedtape_type->pixmap = punchedtape_xpm;
   punchedtape_sheetobj->pixmap = punchedtape_xpm;
   object_register_type(punchedtape_type);
 
-  custom_object_load(SHAPE_DIR "/offlinestore.shape", &offlinestore_type,
+  custom_object_load("flowchart/offlinestore.shape", &offlinestore_type,
 		     &offlinestore_sheetobj);
   offlinestore_type->pixmap = offlinestore_xpm;
   offlinestore_sheetobj->pixmap = offlinestore_xpm;
   object_register_type(offlinestore_type);
 
-  custom_object_load(SHAPE_DIR "/magdrum.shape", &magdrum_type,
+  custom_object_load("flowchart/magdrum.shape", &magdrum_type,
 		     &magdrum_sheetobj);
   magdrum_type->pixmap = magdrum_xpm;
   magdrum_sheetobj->pixmap = magdrum_xpm;
