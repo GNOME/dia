@@ -1,0 +1,14 @@
+News in version 0.30: 
+
+* Dia now has a layer system, much like the GIMP.
+* The fileformat changed from my own binary format to an easily readable
+  XML format.
+* New objects for Entity-Relationship modeling.
+* New objects for UML and networking diagrams.
+* Much better properties dialogs for most objects.
+* Postscript output fixed, should work better now.
+* Updated to use Gtk 1.1.x features.
+* New features: Align objects, command line loading, etc.
+* Internal updates.
+* Lots of bugfixes and cleanups.
+

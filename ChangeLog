@@ -1,4 +1,14 @@
-1999-01-22  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1999-01-24  Alexander Larsson  <alla@lysator.liu.se>
+
+	* INSTALL:
+	Added text about needing gtk 1.1.13 and gnome-xml.
+	
+	* NEWS:
+	Described changes since last version (0.20).
+
+	Released version 0.30, tagged DIA_0_30.
+
+1999-01-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/magnify.c (magnify_button_release):
 	Fixed a problem when zooming in on a very small box would
