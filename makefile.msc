@@ -3,12 +3,12 @@ all: 	build \
 	build\win32\bin \
 	build\win32\bin\dia.exe \
 	build\win32\bin\libdia.dll \
-	build\win32\bin\libgtk-win32-2.0-0.dll \
-	build\win32\lib\zlib.dll \
 	build\win32\bin\libart_lgpl.dll \
+	build\win32\bin\libfontconfig-1.dll \
 	build\win32\bin\libxml2.dll \
-	build\win32\bin\libpng.dll \
 	build\win32\dia \
+	build\win32\lib \
+	build\win32\lib\locale \
 	build\win32\dia\bondgraph.dll \
 	build\win32\dia\chronogram.dll \
 	build\win32\dia\custom.dll \
@@ -32,10 +32,6 @@ all: 	build \
 	build\win32\dia\wmf.dll \
 	build\win32\dia\wpg.dll \
 	build\win32\dia\xfig.dll \
-	build\win32\lib \
-	build\win32\lib\pango \
-	build\win32\lib\gtk-2.0 \
-	build\win32\etc \
 	build\win32\dia_logo.png
 
 build:
@@ -49,9 +45,21 @@ build\win32\bin: build\win32
 
 build\win32\dia: build\win32
 	md build\win32\dia
+	
+build\win32\lib: build\win32
+	md build\win32\lib
+	
+build\win32\lib\locale: build\win32\lib
+	md build\win32\lib\locale
 
 build\win32\bin\dia.exe: build\win32\bin app\dia.exe
 	copy app\dia.exe build\win32\bin\dia.exe
+	
+build\win32\bin\libart_lgpl.dll: build\win32\bin ..\lib\libart_lgpl.dll
+	copy ..\lib\libart_lgpl.dll build\win32\bin
+
+build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\lib\libfontconfig-1.dll
+	copy ..\lib\libfontconfig-1.dll build\win32\bin
 
 build\win32\bin\libdia.dll: build\win32\bin lib\libdia.dll
 	copy lib\libdia.dll build\win32\bin\libdia.dll
@@ -155,8 +163,9 @@ build\win32\etc: build\win32 ..\etc
 build\win32\dia_logo.png: build\win32 dia_logo.png
 	copy dia_logo.png build\win32
 
-ALL_LINGUAS = am az be ca cs da de el en_GB es fi fr ga hu it ja ko mk ml ms nl nn no pl pt pt_BR ro ru sk sl sr sr@Latn sv tr uk vi zh_CN zh_TW	
+ALL_LINGUAS = am az be ca cs da de el en_GB es fi fr ga hu it ja ko mk mn ml ms nl nn no pl pt pt_BR ro ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW	
 
-po: build\win32\lib\locale\de
+po: build\win32\lib\locale
+ 	for %d in ($(ALL_LINGUAS)) do md build\win32\lib\locale\%d
+	for %d in ($(ALL_LINGUAS)) do md build\win32\lib\locale\%d\LC_MESSAGES
 	for %d in ($(ALL_LINGUAS)) do msgfmt --use-fuzzy -o build\win32\lib\locale\%d\LC_MESSAGES\dia.mo po\%d.po
-	for %d in ($(ALL_LINGUAS)) do copy /y ..\lib\locale\%d\LC_MESSAGES\g*.mo build\win32\lib\locale\%d\LC_MESSAGES

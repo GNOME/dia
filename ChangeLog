@@ -1,3 +1,8 @@
+2004-01-19  Steffen Macke <sdteffen@web.de>
+
+	* makefile.msc: updated for new GAIM-like installer build; sync'ed
+	ALL_LINGUAS with configure.in
+
 2004-01-18  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c (myXmlErrorReporting) : avoid possible crash 
