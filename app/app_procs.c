@@ -356,7 +356,6 @@ app_exit(void)
   
   /* Save menu accelerators */
   filename = dia_config_filename("menus" G_DIR_SEPARATOR_S "toolbox");
-
   if (filename!=NULL) {
     GtkPatternSpec pattern;
 
@@ -386,6 +385,9 @@ app_exit(void)
 
   }
   
+  /* save pluginrc */
+  dia_pluginrc_write();
+
 
   gtk_main_quit();
 }

@@ -49,19 +49,25 @@ gchar *dia_plugin_check_version(gint version);
 
 
 /* functiosn for use by dia ... */
+const gchar *dia_plugin_get_filename    (PluginInfo *info);
+const gchar *dia_plugin_get_name        (PluginInfo *info);
+const gchar *dia_plugin_get_description (PluginInfo *info);
+gboolean dia_plugin_can_unload       (PluginInfo *info);
+gboolean dia_plugin_is_loaded        (PluginInfo *info);
+gboolean dia_plugin_get_inhibit_load (PluginInfo *info);
+void     dia_plugin_set_inhibit_load (PluginInfo *info, gboolean inhibit_load);
 
-const gchar *dia_plugin_get_filename(PluginInfo *info);
-const gchar *dia_plugin_get_name(PluginInfo *info);
-const gchar *dia_plugin_get_description(PluginInfo *info);
-gboolean dia_plugin_can_unload(PluginInfo *info);
+void dia_plugin_load   (PluginInfo *info);
+void dia_plugin_unload (PluginInfo *info);
 
-void dia_register_plugin(const gchar *filename);
-void dia_register_plugins_in_dir(const gchar *directory);
-void dia_register_plugins(void);
-
-void dia_register_builtin_plugin(PluginInitFunc init_func);
+void dia_register_plugin         (const gchar *filename);
+void dia_register_plugins_in_dir (const gchar *directory);
+void dia_register_plugins        (void);
+void dia_register_builtin_plugin (PluginInitFunc init_func);
 
 GList *dia_list_plugins(void);
+
+void dia_pluginrc_write(void);
 
 /* macro defining the version check that should be implemented by all
  * plugins. */

@@ -19,12 +19,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <dirent.h>
+
+#include <parser.h>
+#include <tree.h>
 
 #include "plug-ins.h"
 #include "intl.h"
@@ -37,6 +41,7 @@ struct _PluginInfo {
   gchar *real_filename; /* not a .la file */
 
   gboolean is_loaded;
+  gboolean inhibit_load;
 
   gchar *name;
   gchar *description;
@@ -47,6 +52,11 @@ struct _PluginInfo {
 };
 
 static GList *plugins = NULL;
+
+static void     ensure_pluginrc(void);
+static void     free_pluginrc(void);
+static gboolean plugin_load_inhibited(const gchar *filename);
+static void     info_fill_from_pluginrc(PluginInfo *info);
 
 gboolean
 dia_plugin_info_init(PluginInfo *info, gchar *name, gchar *description,
@@ -88,13 +98,33 @@ dia_plugin_get_name(PluginInfo *info)
 }
 
 const gchar *
-dia_plugin_get_description(PluginInfo *info) {
+dia_plugin_get_description(PluginInfo *info)
+{
   return info->description;
 }
 
 gboolean
-dia_plugin_can_unload(PluginInfo *info) {
+dia_plugin_can_unload(PluginInfo *info)
+{
   return (info->can_unload_func != NULL) && (* info->can_unload_func)(info);
+}
+
+gboolean
+dia_plugin_is_loaded(PluginInfo *info)
+{
+  return info->is_loaded;
+}
+
+gboolean
+dia_plugin_get_inhibit_load(PluginInfo *info)
+{
+  return info->inhibit_load;
+}
+
+void
+dia_plugin_set_inhibit_load(PluginInfo *info, gboolean inhibit_load)
+{
+  info->inhibit_load = inhibit_load;
 }
 
 /* implementation stollen from BEAST/BSE */
@@ -146,54 +176,74 @@ find_real_filename(const gchar *filename)
   return ret;
 }
 
-static PluginInfo *
-plugin_load(const gchar *filename)
+void
+dia_plugin_load(PluginInfo *info)
 {
-  PluginInfo *info;
-  gchar *real_filename;
-  GModule *module;
-  PluginInitFunc init_func;
+  g_return_if_fail(info != NULL);
+  g_return_if_fail(info->filename != NULL);
 
-  g_return_val_if_fail(filename != NULL, NULL);
+  if (info->is_loaded)
+    return;
 
-  real_filename = find_real_filename(filename);
-  if (real_filename == NULL) {
-    message_error(_("Could not deduce correct path for `%s'"), filename);
-    return NULL;
+  g_free(info->real_filename);
+  info->real_filename = find_real_filename(info->filename);
+  if (info->real_filename == NULL) {
+    message_error(_("Could not deduce correct path for `%s'"), info->filename);
+    return;
   }
-  module = g_module_open(real_filename, G_MODULE_BIND_LAZY);
-  if (!module) {
-    g_free(real_filename);
-    message_error(_("Could not load plugin `%s'\n%s"), filename,
+  info->module = g_module_open(info->real_filename, G_MODULE_BIND_LAZY);
+  if (!info->module) {
+    message_error(_("Could not load plugin `%s'\n%s"), info->filename,
 		  g_module_error());
-    return NULL;
+    return;
   }
 
-  if (!g_module_symbol(module, "dia_plugin_init", (gpointer)&init_func)) {
-    g_module_close(module);
-    g_free(real_filename);
+  info->init_func = NULL;
+  if (!g_module_symbol(info->module, "dia_plugin_init",
+		       (gpointer)&info->init_func)) {
+    g_module_close(info->module);
+    info->module = NULL;
 
-    message_error(_("Could not find plugin init function in `%s'"), filename);
-    return NULL;
+    message_error(_("Could not find plugin init function in `%s'"),
+		  info->filename);
+    return;
   }
 
-  info = g_new0(PluginInfo, 1);
-  info->module = module;
-  info->filename = g_strdup(filename);
-  info->real_filename = real_filename;
-  info->is_loaded = TRUE;
-  info->init_func = init_func;
-  
-  if ((*info->init_func)(info) != DIA_PLUGIN_INIT_OK) {
+  if ((* info->init_func)(info) != DIA_PLUGIN_INIT_OK) {
     /* plugin displayed an error message */
-    g_module_close(module);
-    g_free(real_filename);
-    g_free(info->filename);
-    g_free(info);
-    return NULL;
+    g_module_close(info->module);
+    info->module = NULL;
+    return;
   }
 
-  return info;
+  info->is_loaded = TRUE;
+
+  return;
+}
+
+void
+dia_plugin_unload(PluginInfo *info)
+{
+  g_return_if_fail(info != NULL);
+  g_return_if_fail(info->filename != NULL);
+
+  if (!info->is_loaded)
+    return;
+
+  if (!dia_plugin_can_unload(info)) {
+    message(_("%s Plugin could not be unloaded"), info->name);
+    return;
+  }
+  /* perform plugin cleanup */
+  if (info->unload_func)
+    (* info->unload_func)(info);
+  g_module_close(info->module);
+  info->module = NULL;
+  info->init_func = NULL;
+  info->can_unload_func = NULL;
+  info->unload_func = NULL;
+
+  info->is_loaded = FALSE;
 }
 
 void
@@ -209,9 +259,19 @@ dia_register_plugin(const gchar *filename)
       return;
   }
 
-  info = plugin_load(filename);
-  if (info)
-    plugins = g_list_prepend(plugins, info);
+  /* set up plugin info structure */
+  info = g_new0(PluginInfo, 1);
+  info->filename = g_strdup(filename);
+  info->is_loaded = FALSE;
+  info->inhibit_load = FALSE;
+
+  /* check whether loading of the plugin has been inhibited */
+  if (plugin_load_inhibited(filename))
+    info_fill_from_pluginrc(info);
+  else
+    dia_plugin_load(info);
+
+  plugins = g_list_prepend(plugins, info);
 }
 
 void
@@ -275,6 +335,8 @@ dia_register_plugins(void)
     dia_register_plugins_in_dir(library_path);
     g_free(library_path);
   }
+  /* this isn't needed anymore */
+  free_pluginrc();
 }
 
 void
@@ -285,6 +347,7 @@ dia_register_builtin_plugin(PluginInitFunc init_func)
   info = g_new0(PluginInfo, 1);
   info->filename = "<builtin>";
   info->is_loaded = TRUE;
+  info->inhibit_load = FALSE;
 
   info->init_func = init_func;
 
@@ -300,4 +363,166 @@ GList *
 dia_list_plugins(void)
 {
   return plugins;
+}
+
+static xmlDocPtr pluginrc = NULL;
+/* format is:
+  <plugins>
+    <plugin filename="filename">
+      <name></name>
+      <description></description>
+      <inhibit-load/>
+    </plugin>
+  </plugins>
+*/
+
+static void
+ensure_pluginrc(void)
+{
+  gchar *filename;
+
+  if (pluginrc)
+    return;
+
+  filename = dia_config_filename("pluginrc");
+  pluginrc = xmlParseFile(filename);
+  g_free(filename);
+
+  if (!pluginrc) {
+    pluginrc = xmlNewDoc("1.0");
+    xmlDocSetRootElement(pluginrc,
+			 xmlNewDocNode(pluginrc, NULL, "plugins", NULL));
+  }
+}
+
+static void
+free_pluginrc(void)
+{
+  if (pluginrc) {
+    xmlFreeDoc(pluginrc);
+    pluginrc = NULL;
+  }
+}
+
+/* whether we should prevent loading on startup */
+static gboolean
+plugin_load_inhibited(const gchar *filename)
+{
+  xmlNodePtr node;
+
+  ensure_pluginrc();
+  for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+    CHAR *node_filename;
+
+    if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+      continue;
+    node_filename = xmlGetProp(node, "filename");
+    if (node_filename && !strcmp(filename, node_filename)) {
+      xmlNodePtr node2;
+
+      free(node_filename);
+      for (node2 = node->childs; node2 != NULL; node2 = node2->next) {
+	if (node2->type == XML_ELEMENT_NODE &&
+	    !strcmp(node2->name, "inhibit-load"))
+	  return TRUE;
+      }
+      return FALSE;
+    }
+    if (node_filename) free(node_filename);
+  }
+  return FALSE;
+}
+
+static void
+info_fill_from_pluginrc(PluginInfo *info)
+{
+  xmlNodePtr node;
+
+  info->module = NULL;
+  info->name = NULL;
+  info->description = NULL;
+  info->is_loaded = FALSE;
+  info->inhibit_load = TRUE;
+  info->init_func = NULL;
+  info->can_unload_func = NULL;
+  info->unload_func = NULL;
+
+  ensure_pluginrc();
+  for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+    CHAR *node_filename;
+
+    if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+      continue;
+    node_filename = xmlGetProp(node, "filename");
+    if (node_filename && !strcmp(info->filename, node_filename)) {
+      xmlNodePtr node2;
+
+      free(node_filename);
+      for (node2 = node->childs; node2 != NULL; node2 = node2->next) {
+	char *content;
+
+	if (node2->type != XML_ELEMENT_NODE)
+	  continue;
+	content = xmlNodeGetContent(node2);
+	if (!strcmp(node2->name, "name")) {
+	  g_free(info->name);
+	  info->name = g_strdup(content);
+	} else if (!strcmp(node2->name, "description")) {
+	  g_free(info->description);
+	  info->description = g_strdup(content);
+	}
+	free(content);
+      }
+      break;
+    }
+    if (node_filename) free(node_filename);
+  }
+}
+
+void
+dia_pluginrc_write(void)
+{
+  gchar *filename;
+  GList *tmp;
+
+  ensure_pluginrc();
+  for (tmp = plugins; tmp != NULL; tmp = tmp->next) {
+    PluginInfo *info = tmp->data;
+    xmlNodePtr node, pluginnode, datanode;
+
+    if (info == NULL) {
+      continue;
+    }
+
+    pluginnode = xmlNewNode(NULL, "plugin");
+    datanode = xmlNewChild(pluginnode, NULL, "name", info->name);
+    datanode = xmlNewChild(pluginnode, NULL, "description", info->description);
+    if (info->inhibit_load)
+      datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
+
+    for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+      CHAR *node_filename;
+
+      if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+	continue;
+      node_filename = xmlGetProp(node, "filename");
+      if (node_filename && !strcmp(info->filename, node_filename)) {
+	free(node_filename);
+	xmlReplaceNode(node, pluginnode);
+	xmlFreeNode(node);
+	break;
+      }
+      if (node_filename) free(node_filename);
+    }
+    /* node wasn't in document ... */
+    if (!node)
+      xmlAddChild(pluginrc->root, pluginnode);
+    /* have to call this after adding node to document */
+    xmlSetProp(pluginnode, "filename", info->filename);
+  }
+
+  filename = dia_config_filename("pluginrc");
+  xmlSaveFile(filename, pluginrc);
+  g_free(filename);
+  free_pluginrc();
 }

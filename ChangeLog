@@ -1,3 +1,24 @@
+2000-04-11  James Henstridge  <james@daa.com.au>
+
+	* lib/plug-ins.[ch]: added more accessors for use by a plugins dialog.
+	exposed the dia_plugin_load and dia_plugin_unload functions.
+
+	* lib/plug-ins.c (plugin_load): change plugin_load to work on an
+	already created PluginInfo structure.
+
+	* app/app_procs.c (app_exit): call dia_pluginrc_write() to write
+	the pluginrc file.
+
+	* lib/sheet.c: fix up call to dia_config_filename.
+
+	* lib/plug-ins.[ch]: started writing code for handling a pluginrc
+	file.  This would save information such as which plugins not to
+	load during startup.
+
+2000-04-09  James Henstridge  <james@daa.com.au>
+
+	* lib/sheet.c: use dia_config_filename to resolve file in ~/.dia.
+
 2000-04-10  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/plug-ins.c (dia_register_plugins):

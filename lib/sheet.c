@@ -99,10 +99,8 @@ void load_all_sheets(void) {
   char *sheet_path;
   char *home_dir;
 
-  home_dir = g_get_home_dir();
+  home_dir = dia_config_filename("sheets");
   if (home_dir) {
-    home_dir = g_strconcat(home_dir,G_DIR_SEPARATOR_S,".dia",
-			   G_DIR_SEPARATOR_S,"sheets",NULL);
     load_sheets_from_dir(home_dir);
     g_free(home_dir);
   }
