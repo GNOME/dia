@@ -105,10 +105,10 @@ dnl
 dnl gdk_pixbuf
 dnl
 
-AC_MSG_CHECKING([whether gdk_pixbuf should be used])
-AC_ARG_ENABLE(gdk_pixbuf,
+AC_MSG_CHECKING([whether gdk-pixbuf should be used])
+AC_ARG_ENABLE(gdk-pixbuf,
 [  --disable-gdk-pixbuf          disable gdk-pixbuf code (use gdk-imlib)],
-    GDK_PIXBUF=$enableval,
+    GDK_PIXBUF=$enable_val,
     GDK_PIXBUF=yes)
 AC_MSG_RESULT($GDK_PIXBUF)
 if test "$GDK_PIXBUF" = "yes"; then
@@ -135,7 +135,7 @@ AC_SUBST(GDK_PIXBUF_LIBS)
 dnl
 dnl Locate the imlib library
 dnl
-if test x$GDK_PIXBUF_CONFIG = xno; then
+if test x$GDK_PIXBUF != xyes; then
   AM_PATH_GDK_IMLIB()
 fi
 AC_SUBST(GDK_IMLIB_LIBS)

@@ -1,3 +1,8 @@
+2000-04-17  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* configure.in: Fixed some problems with the gdk-pixbuf/imlib
+	checks.  Weren't able to reproduce original bug, tough.
+
 2000-04-16  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/Electric.sheet:
