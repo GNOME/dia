@@ -30,7 +30,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
-#include "charconv.h"
 
 #include "pixmaps/actor.xpm"
 
@@ -315,7 +314,6 @@ actor_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  utfchar *utf;
   
   actor = g_malloc0(sizeof(Actor));
   elem = &actor->element;
@@ -334,14 +332,8 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - font_descent(font, 0.8);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utf = charconv_local8_to_utf8 (_("Actor"));
-#else
-  utf = g_strdup (_("Actor"));
-#endif
-  actor->text = new_text(utf, 
+  actor->text = new_text(_("Actor"), 
                          font, 0.8, &p, &color_black, ALIGN_CENTER);
-  g_free (utf);
   text_get_attributes(actor->text,&actor->attrs);
   
   element_init(elem, 8, 8);

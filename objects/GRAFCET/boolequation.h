@@ -30,7 +30,6 @@
 #include "dia_xml.h"
 #include "geometry.h"
 #include "render.h"
-#include "charconv.h"
 
 typedef struct _Block Block;
 typedef struct {
@@ -40,7 +39,7 @@ typedef struct {
 
   Point pos;
 
-  const utfchar *value;
+  const gchar *value;
   
   Block *rootblock;
 
@@ -51,17 +50,17 @@ typedef struct {
 } Boolequation;
 
   
-extern Boolequation *boolequation_create(const utfchar *value, DiaFont *font, 
+extern Boolequation *boolequation_create(const gchar *value, DiaFont *font, 
 				       real fontheight, Color *color);
 extern void boolequation_destroy(Boolequation *rcep);
-extern void boolequation_set_value(Boolequation *rcep, const utfchar *value);
+extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
 
 extern void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *rcep);
 
 extern Boolequation *load_boolequation(ObjectNode obj_node,
 				     const gchar *attrname,
-				     const utfchar *defaultvalue,
+				     const gchar *defaultvalue,
 				     DiaFont *font,
 				     real fontheight,
 				     Color *color);

@@ -100,7 +100,7 @@ static Object *step_create(Point *startpoint,
 			     Handle **handle2);
 static void step_destroy(Step *step);
 
-static void step_been_renamed(const utfchar *sid);
+static void step_been_renamed(const gchar *sid);
 
 static Object *step_load(ObjectNode obj_node, int version,
 			   const char *filename);
@@ -215,7 +215,7 @@ step_set_props(Step *step, GPtrArray *props)
 
 static int __stepnum = 0;
 static int __Astyle = 0;
-static utfchar *new_step_name() 
+static gchar *new_step_name() 
 {
   char snum[16];
   char *p = snum;
@@ -226,7 +226,7 @@ static utfchar *new_step_name()
   return g_strdup(snum);
 }
 
-static void step_been_renamed(const utfchar *sid) 
+static void step_been_renamed(const gchar *sid) 
 {
   gchar *endptr;
   long int snum;

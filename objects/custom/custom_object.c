@@ -26,12 +26,9 @@
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <gmodule.h>
-/* FIXME: not sure if this is already defined in Glib-1.2.x */
-#ifndef G_MODULE_EXPORT
-#define G_MODULE_EXPORT /* nothing is ok for *nix */
-#endif
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>

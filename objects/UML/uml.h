@@ -49,12 +49,12 @@ typedef enum _UMLParameterKind {
   UML_INOUT
 } UMLParameterKind;
 
-typedef utfchar * UMLStereotype;
+typedef gchar * UMLStereotype;
 
 struct _UMLAttribute {
-  utfchar *name;
-  utfchar *type;
-  utfchar *value; /* Can be NULL => No default value */
+  gchar *name;
+  gchar *type;
+  gchar *value; /* Can be NULL => No default value */
   UMLVisibility visibility;
   int abstract;
   int class_scope;
@@ -64,8 +64,8 @@ struct _UMLAttribute {
 };
 
 struct _UMLOperation {
-  utfchar *name;
-  utfchar *type; /* Return type, NULL => No return type */
+  gchar *name;
+  gchar *type; /* Return type, NULL => No return type */
   UMLStereotype stereotype;
   UMLVisibility visibility;
   UMLInheritanceType inheritance_type;
@@ -78,15 +78,15 @@ struct _UMLOperation {
 };
 
 struct _UMLParameter {
-  utfchar *name;
-  utfchar *type;
-  utfchar *value; /* Can be NULL => No default value */
+  gchar *name;
+  gchar *type;
+  gchar *value; /* Can be NULL => No default value */
   UMLParameterKind kind; /* Not currently used */
 };
 
 struct _UMLFormalParameter {
-  utfchar *name;
-  utfchar *type; /* Can be NULL => Type parameter */
+  gchar *name;
+  gchar *type; /* Can be NULL => Type parameter */
 };
 
 /* Characters used to start/end stereotypes: */
@@ -95,10 +95,10 @@ struct _UMLFormalParameter {
 /* end stereotype symbol(like \xbb) for local locale */
 #define UML_STEREOTYPE_END _(">>")
 
-extern utfchar *uml_get_attribute_string (UMLAttribute *attribute);
-extern utfchar *uml_get_operation_string(UMLOperation *operation);
-extern utfchar *uml_get_parameter_string(UMLParameter *param);
-extern utfchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
+extern gchar *uml_get_attribute_string (UMLAttribute *attribute);
+extern gchar *uml_get_operation_string(UMLOperation *operation);
+extern gchar *uml_get_parameter_string(UMLParameter *param);
+extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
 extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 extern UMLOperation *uml_operation_copy(UMLOperation *op);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);

@@ -30,7 +30,6 @@
 #include "render.h"
 #include "attributes.h"
 #include "properties.h"
-#include "charconv.h"
 
 #include "class.h"
 
@@ -524,30 +523,15 @@ umlclass_calculate_data(UMLClass *umlclass)
     g_free(umlclass->stereotype_string);
   }
   if (umlclass->stereotype != NULL) {
-	  utfchar *utfstart, *utfend;
+    umlclass->namebox_height += umlclass->font_height;
+    umlclass->stereotype_string = g_strconcat (
+			UML_STEREOTYPE_START,
+			umlclass->stereotype,
+			UML_STEREOTYPE_END,
+			NULL);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  utfstart = charconv_local8_to_utf8 (UML_STEREOTYPE_START);
-	  utfend = charconv_local8_to_utf8 (UML_STEREOTYPE_END);
-#else
-          utfstart = g_strdup (UML_STEREOTYPE_START);
-          utfend = g_strdup (UML_STEREOTYPE_END);
-#endif
-	  umlclass->namebox_height += umlclass->font_height;
-	  umlclass->stereotype_string =
-		  g_malloc (sizeof (utfchar) * (strlen (utfstart) +
-                                                strlen (umlclass->stereotype) +
-                                                strlen (utfend) + 1));
-
-	  strcpy (umlclass->stereotype_string, utfstart);
-	  strcat (umlclass->stereotype_string, umlclass->stereotype);
-	  strcat (umlclass->stereotype_string, utfend);
-
-          g_free (utfstart);
-          g_free (utfend);
-
-	  width = font_string_width (umlclass->stereotype_string, umlclass->normal_font, umlclass->font_height);
-	  maxwidth = MAX(width, maxwidth);
+    width = font_string_width (umlclass->stereotype_string, umlclass->normal_font, umlclass->font_height);
+    maxwidth = MAX(width, maxwidth);
   } else {
     umlclass->stereotype_string = NULL;
   }
@@ -565,7 +549,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   umlclass->attributes_strings = NULL;
   if (umlclass->num_attributes != 0) {
     umlclass->attributes_strings =
-      g_malloc (sizeof (utfchar *) * umlclass->num_attributes);
+      g_malloc (sizeof (gchar *) * umlclass->num_attributes);
     i = 0;
     list = umlclass->attributes;
     while (list != NULL) {
@@ -607,7 +591,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   umlclass->operations_strings = NULL;
   if (umlclass->num_operations != 0) {
     umlclass->operations_strings =
-      g_malloc (sizeof (utfchar *) * umlclass->num_operations);
+      g_malloc (sizeof (gchar *) * umlclass->num_operations);
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
@@ -659,7 +643,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   maxwidth = 2.3;
   if (umlclass->num_templates != 0) {
     umlclass->templates_strings =
-      g_malloc (sizeof (utfchar *) * umlclass->num_templates);
+      g_malloc (sizeof (gchar *) * umlclass->num_templates);
     i = 0;
     list = umlclass->formal_params;
     while (list != NULL) {
@@ -734,11 +718,7 @@ umlclass_create(Point *startpoint,
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  umlclass->name = charconv_local8_to_utf8 (_("Class"));
-#else
   umlclass->name = g_strdup (_("Class"));
-#endif
   umlclass->stereotype = NULL;
   
   umlclass->abstract = FALSE;

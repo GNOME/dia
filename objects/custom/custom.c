@@ -28,15 +28,7 @@
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
-#endif
 #include <glib.h>
-
-/* FIXME: not sure if this is already defined in Glib-1.2.x */
-#ifndef G_MODULE_EXPORT
-#define G_MODULE_EXPORT /* nothing is ok for *nix */
-#endif
 
 #include "sheet.h"
 #include "shape_info.h"
@@ -72,41 +64,31 @@ custom_object_load(gchar *filename, ObjectType **otype)
 
 static void load_shapes_from_tree(const gchar *directory)
 {
-  DIR *dp;
-  struct dirent *dirp;
-  struct stat statbuf;
+  GDir *dp;
+  const char *dentry;
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, NULL);
   if (dp == NULL) {
     return;
   }
-  while ( (dirp = readdir(dp)) ) {
+  while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				  dirp->d_name, NULL);
+				  dentry, NULL);
     gchar *p;
 
-    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
-      g_free(filename);
-      continue;
-    }
-
-    if (stat(filename, &statbuf) < 0) {
-      g_free(filename);
-      continue;
-    }
-    if (S_ISDIR(statbuf.st_mode)) {
+    if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
       load_shapes_from_tree(filename);
       g_free(filename);
       continue;
     }
     /* if it's not a directory, then it must be a .shape file */
-    if (!S_ISREG(statbuf.st_mode) || (strlen(dirp->d_name) < 6)) {
+    if (   !g_file_test(filename, G_FILE_TEST_IS_REGULAR)
+        || (strlen(dentry) < 6)) {
       g_free(filename);
       continue;
     }
     
-
-    p = dirp->d_name + strlen(dirp->d_name) - 6;
+    p = dentry + strlen(dentry) - 6;
     if (0==strcmp(".shape",p)) {
       ObjectType *ot;
 
@@ -120,7 +102,7 @@ static void load_shapes_from_tree(const gchar *directory)
     }
     g_free(filename);
   }
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 

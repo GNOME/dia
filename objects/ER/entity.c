@@ -56,7 +56,7 @@ struct _Entity {
   
   DiaFont *font;
   real font_height;
-  utfchar *name;
+  char *name;
   real name_width;
   
   int weak;
@@ -345,11 +345,7 @@ entity_create(Point *startpoint,
      in lib/font.c. if "Courier" works for you, it would be better.  */
   entity->font = font_getfont(_("Courier"));
   entity->font_height = FONT_HEIGHT;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  entity->name = charconv_local8_to_utf8 (_("Entity"));
-#else
   entity->name = g_strdup(_("Entity"));
-#endif
 
   entity->name_width =
     font_string_width(entity->name, entity->font, entity->font_height);

@@ -22,98 +22,55 @@
 
 #include <string.h>
 #include "stereotype.h"
-#include "charconv.h"
 
-utfchar *
-string_to_bracketted (utfchar *str, 
+gchar *
+string_to_bracketted (gchar *str, 
 		      const char *start_bracket, 
 		      const char *end_bracket)
 {
-	utfchar *utfstart, *utfend;
-	utfchar *retval;
-
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utfstart = charconv_local8_to_utf8 (start_bracket);
-	utfend = charconv_local8_to_utf8 (end_bracket);
-	retval = g_strconcat (utfstart, (str ? str : ""), utfend, NULL);
-	g_free (utfstart);
-	g_free (utfend);
-#else
-	retval = g_strconcat (start_bracket, (str ? str : ""), end_bracket, NULL);
-#endif
-
-	return retval;
+  return g_strconcat (start_bracket, (str ? str : ""), end_bracket, NULL);
 }
 
-utfchar *
-bracketted_to_string (utfchar *bracketted,
+gchar *
+bracketted_to_string (gchar *bracketted,
 		      const char *start_bracket,
 		      const char *end_bracket)
 {
-	utfchar *utfstart, *utfend, *utfstr;
-	utfchar *retval;
-	int start_len, end_len, str_len;
+  gchar *utfstart, *utfend, *utfstr;
+  utfchar *retval;
+  int start_len, end_len, str_len;
 
-	if (!bracketted) return NULL;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utfstart = charconv_local8_to_utf8 (start_bracket);
-	utfend = charconv_local8_to_utf8 (end_bracket);
-#else
-	utfstart = start_bracket;
-	utfend = end_bracket;
-#endif
-	start_len = strlen (utfstart);
-	end_len = strlen (utfend);
-	str_len = strlen (bracketted);
-	utfstr = bracketted;
+  if (!bracketted) return NULL;
 
-	if (!strncmp (utfstr, utfstart, start_len)) {
-		utfstr += start_len;
-		str_len -= start_len;
-	}
-	if (str_len >= end_len && end_len > 0) {
-#if !GLIB_CHECK_VERSION(2,0,0)
-		utfchar *utf = utfstr;
-		utfchar *utfprev;
-		int unilen = uni_strlen (utfend, end_len);
-		int i;
+  utfstart = start_bracket;
+  utfend = end_bracket;
 
-		while (*utf) {
-			utfprev = utf;
-			utf = uni_next (utf);
-		}
-		utf = utfprev;
-		for (i = 0; i < (unilen - 1); i++) {
-			utf = uni_previous (utfstr, utf);
-		}
-		if (!strncmp (utf, utfend, end_len)) {
-			str_len -= end_len;
-		}
-#else
-		if (g_utf8_strrchr (utfstr, str_len, g_utf8_get_char (utfend)))
-			str_len -= end_len;
-#endif
-	}
-	retval = g_strndup (utfstr, str_len);
+  start_len = strlen (utfstart);
+  end_len = strlen (utfend);
+  str_len = strlen (bracketted);
+  utfstr = bracketted;
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	g_free (utfstart);
-	g_free (utfend);
-#endif
-
-	return retval;
+  if (!strncmp (utfstr, utfstart, start_len)) {
+    utfstr += start_len;
+    str_len -= start_len;
+  }
+  if (str_len >= end_len && end_len > 0) {
+    if (g_utf8_strrchr (utfstr, str_len, g_utf8_get_char (utfend)))
+      str_len -= end_len;
+  }
+  return g_strndup (utfstr, str_len);
 }
 
-utfchar *
-string_to_stereotype (utfchar *str)
+gchar *
+string_to_stereotype (gchar *str)
 {
   if ((str) && str[0] != '\0')  
     return string_to_bracketted(str, UML_STEREOTYPE_START, UML_STEREOTYPE_END);
   return g_strdup(str);
 }
 
-utfchar *
-remove_stereotype_from_string (utfchar *stereotype)
+gchar *
+remove_stereotype_from_string (gchar *stereotype)
 {
   if (stereotype) { 
     utfchar *tmp = bracketted_to_string (stereotype, 
@@ -125,10 +82,9 @@ remove_stereotype_from_string (utfchar *stereotype)
   }
 }
 
-utfchar *
-stereotype_to_string (utfchar *stereotype)
+gchar *
+stereotype_to_string (gchar *stereotype)
 {
   return bracketted_to_string(stereotype, 
                               UML_STEREOTYPE_START, UML_STEREOTYPE_END);
 }
-

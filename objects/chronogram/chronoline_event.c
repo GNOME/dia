@@ -23,7 +23,6 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include "charconv.h"
 #include "chronoline_event.h"
 #include "message.h"
 
@@ -139,8 +138,8 @@ parse_clevent(const gchar *events, real rise, real fall)
 {
   real t = -1E10;
   double dt;
-  const utfchar *p,*p1,*np;
-  unichar uc;
+  const gchar *p,*p1,*np;
+  gunichar uc;
   CLEventType et = CLE_UNKNOWN;
   CLEventType oet = CLE_UNKNOWN;
   CLEventList *clel = NULL;
@@ -156,12 +155,8 @@ parse_clevent(const gchar *events, real rise, real fall)
   fall += CHEAT_CST;
   
   while (*p) {
-#if !GLIB_CHECK_VERSION(2,0,0)
-    np = uni_get_utf8(p,&uc);
-#else
     uc = g_utf8_get_char(p);
     np = g_utf8_next_char(p);
-#endif
     switch (uc) { /* skip spaces */
     case ' ': 
     case '\t':

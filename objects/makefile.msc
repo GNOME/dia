@@ -28,10 +28,10 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	$(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
@@ -53,8 +53,6 @@ OBJECTS = \
 	custom_object.obj \
 	custom_util.obj \
 	custom.obj
-PKG_CFLAGS = $(PKG_CFLAGS) $(DIRENT_CFLAGS)
-PKG_LINK = $(PKG_LINK) $(DIRENT_LIBS)
 !ENDIF
 
 !IFDEF OBJ_eml
@@ -121,20 +119,6 @@ OBJECTS = \
 	bus.obj \
 	network.obj \
 	wanlink.obj
-
-# these are already 'shaped'
-NOT_USED = \
-	computer.obj \
-	disc.obj \
-	monitor.obj \
-	printer.obj \
-	antenna.obj \
-	modem.obj \
-	flash.obj \
-	hub.obj \
-	modularswitch.obj \
-	rj45plug.obj \
-	scead-plug.obj
 !ENDIF
 
 !IFDEF OBJ_sadt

@@ -22,7 +22,6 @@
  */
 
 #include <config.h>
-#include "charconv.h"
 #include "boolequation.h"
 
 #define OVERLINE_RATIO .1
@@ -56,7 +55,7 @@ struct _Block {
   Point bl, ur, pos;
   union {
     Block *inside; /* overline, parens */
-    const utfchar *text;
+    const gchar *text;
     GSList *contained;
     OperatorType operator;
   } d;
@@ -64,7 +63,7 @@ struct _Block {
 
 
 /* utility */
-inline static gboolean isspecial(unichar c) 
+inline static gboolean isspecial(gunichar c) 
 {
   switch (c) {
   case '!':
@@ -127,20 +126,16 @@ static BlockOps text_block_ops = {
   textblock_draw,
   textblock_destroy};
   
-static Block *textblock_create(const utfchar **str) 
+static Block *textblock_create(const gchar **str) 
 {
-  const utfchar *p = *str;
+  const gchar *p = *str;
   Block *block;
 
   while (**str) {
-    unichar c;
-#if !GLIB_CHECK_VERSION(2,0,0)
-    utfchar *p1 = uni_get_utf8(*str, &c);
-#else
-    utfchar *p1;
+    gunichar c;
+    gchar *p1;
     c = g_utf8_get_char(*str);
     p1 = g_utf8_next_char(*str);
-#endif
     if (isspecial(c)) break;
     *str = p1;
   }
@@ -154,54 +149,24 @@ static Block *textblock_create(const utfchar **str)
 }
 
 /* Operator block */
-#if !defined(UNICODE_WORK_IN_PROGRESS) || !defined(GTK_TALKS_UTF8)
-static const gchar xor_symbol[] = { 197, 0 };
-static const gchar and_symbol[] = { 215,0 };
-static const gchar rise_symbol[] = { 173,0 };
-static const gchar fall_symbol[] = { 175,0 };
-#else
-static const utfchar xor_symbol[] = { 226, 138, 149, 0 }; /* 0x2295 */
-static const utfchar and_symbol[] = { 226, 136, 153, 0 }; /* 0x2219 */
-static const utfchar rise_symbol[] = { 226, 134, 145, 0 }; /* 0x2191 */
-static const utfchar fall_symbol[] = { 226, 134, 147, 0 }; /* 0x2193 */
-#endif
-static const utfchar or_symbol[] = { 43, 0 };
-static const utfchar lt_symbol[] = { 60,0 };
-static const utfchar equal_symbol[] = { 61,0 };
-static const utfchar gt_symbol[] = { 62,0 };
+static const gchar xor_symbol[] = { 226, 138, 149, 0 }; /* 0x2295 */
+static const gchar and_symbol[] = { 226, 136, 153, 0 }; /* 0x2219 */
+static const gchar rise_symbol[] = { 226, 134, 145, 0 }; /* 0x2191 */
+static const gchar fall_symbol[] = { 226, 134, 147, 0 }; /* 0x2193 */
+static const gchar or_symbol[] = { 43, 0 };
+static const gchar lt_symbol[] = { 60,0 };
+static const gchar equal_symbol[] = { 61,0 };
+static const gchar gt_symbol[] = { 62,0 };
 
-static const utfchar *opstring(OperatorType optype)
+static const gchar *opstring(OperatorType optype)
 {
   switch (optype) {
 
-#if defined(UNICODE_WORK_IN_PROGRESS) && (!defined(GTK_TALKS_UTF8))
-  case OP_AND: {
-      static const utfchar* utf_and = NULL;
-      if (!utf_and) utf_and = charconv_local8_to_utf8(and_symbol);
-      return utf_and;
-  }
-  case OP_XOR: {
-      static const utfchar* utf_xor = NULL;
-      if (!utf_xor) utf_xor = charconv_local8_to_utf8(xor_symbol);
-      return utf_xor;
-  }
-  case OP_RISE: {
-      static const utfchar* utf_rise = NULL;
-      if (!utf_rise) utf_rise = charconv_local8_to_utf8(rise_symbol);
-      return utf_rise;
-  }
-  case OP_FALL: {
-      static const utfchar* utf_fall = NULL;
-      if (!utf_fall) utf_fall = charconv_local8_to_utf8(fall_symbol);
-      return utf_fall;
-  }
-#else // sane case
   case OP_AND: return and_symbol;
+  case OP_OR: return or_symbol;
   case OP_XOR: return xor_symbol;
   case OP_RISE: return rise_symbol;
   case OP_FALL: return fall_symbol;
-#endif
-  case OP_OR: return or_symbol;
   case OP_EQUAL: return equal_symbol;
   case OP_LT: return lt_symbol;
   case OP_GT: return gt_symbol;
@@ -216,8 +181,8 @@ static void
 opblock_get_boundingbox(Block *block, Point *relpos,
 			Boolequation *booleq, Rectangle *rect)
 {
-    const utfchar* ops;
-    g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
+  const gchar* ops;
+  g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
   
   
   block->pos = *relpos;
@@ -237,9 +202,6 @@ static void
 opblock_draw(Block *block, Boolequation *booleq,Renderer *renderer)
 {
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
-#if !defined(UNICODE_WORK_IN_PROGRESS) || !defined(GTK_TALKS_UTF8) 
-  renderer->ops->set_font(renderer,symbol,booleq->fontheight);
-#endif
   renderer->ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
 			     ALIGN_LEFT,&booleq->color);
 }
@@ -256,17 +218,13 @@ static BlockOps operator_block_ops = {
   opblock_draw,
   opblock_destroy};
 
-static Block *opblock_create(const utfchar **str) 
+static Block *opblock_create(const gchar **str) 
 {
   Block *block;
-  unichar c;
+  gunichar c;
 
-#if !GLIB_CHECK_VERSION(2,0,0)
-  *str = uni_get_utf8(*str,&c);
-#else
   c = g_utf8_get_char(*str);
   *str = g_utf8_next_char(*str);
-#endif
 
   block = g_new0(Block,1);
   block->type = BLOCK_OPERATOR;
@@ -522,7 +480,7 @@ static BlockOps compound_block_ops = {
   compoundblock_destroy};
 
 static Block *
-compoundblock_create(const utfchar **str) 
+compoundblock_create(const gchar **str) 
 {
   Block *block, *inblk;
   
@@ -532,14 +490,10 @@ compoundblock_create(const utfchar **str)
   block->d.contained = NULL;
 
   while (*str && **str) {
-    unichar c;
-#if !GLIB_CHECK_VERSION(2,0,0)
-    utfchar *p = uni_get_utf8(*str,&c);
-#else
-    utfchar *p;
+    gunichar c;
+    gchar *p;
     c = g_utf8_get_char(*str);
     p = g_utf8_next_char(*str);
-#endif
 
     inblk = NULL;
     switch (c) {
@@ -562,12 +516,8 @@ compoundblock_create(const utfchar **str)
       break;
     case '!':
       *str = p;
-#if !GLIB_CHECK_VERSION(2,0,0)
-      p = uni_get_utf8(*str,&c);
-#else
       c = g_utf8_get_char(*str);
       p = g_utf8_next_char(*str);
-#endif
       if (c == '(') {
 	*str = p;
 	inblk = overlineblock_create(compoundblock_create(str));
@@ -592,10 +542,10 @@ compoundblock_create(const utfchar **str)
 
 /* Boolequation : */
 void 
-boolequation_set_value(Boolequation *booleq, const utfchar *value)
+boolequation_set_value(Boolequation *booleq, const gchar *value)
 {
   g_return_if_fail(booleq);
-  if (booleq->value) g_free((utfchar *)booleq->value);
+  if (booleq->value) g_free((gchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
 
   booleq->value = g_strdup(value);
@@ -605,7 +555,7 @@ boolequation_set_value(Boolequation *booleq, const utfchar *value)
 
 
 Boolequation *
-boolequation_create(const utfchar *value, DiaFont *font, real fontheight,
+boolequation_create(const gchar *value, DiaFont *font, real fontheight,
 		   Color *color)
 {
   Boolequation *booleq;
@@ -625,7 +575,7 @@ void
 boolequation_destroy(Boolequation *booleq)
 {
   g_return_if_fail(booleq);
-  if (booleq->value) g_free((utfchar *)booleq->value);
+  if (booleq->value) g_free((gchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
   g_free(booleq);
 }
@@ -633,17 +583,17 @@ boolequation_destroy(Boolequation *booleq)
 void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *booleq)
 {
-  data_add_string(new_attribute(obj_node,attrname),(utfchar *)booleq->value);
+  data_add_string(new_attribute(obj_node,attrname),(gchar *)booleq->value);
 }
 
 Boolequation *
 load_boolequation(ObjectNode obj_node,
 		 const gchar *attrname,
-		 const utfchar *defaultvalue,
+		 const gchar *defaultvalue,
 		 DiaFont *font,
 		 real fontheight, Color *color)
 {
-  const utfchar *value = NULL;
+  const gchar *value = NULL;
   Boolequation *booleq;
   AttributeNode attr;
 
@@ -652,9 +602,9 @@ load_boolequation(ObjectNode obj_node,
   booleq = boolequation_create(NULL,font,fontheight,color);
   attr = object_find_attribute(obj_node,attrname);
   if (attr) value = data_string(attribute_first_data(attr));
-  else value = (utfchar *)defaultvalue;
+  else value = (gchar *)defaultvalue;
   if (value) boolequation_set_value(booleq,value);
-  g_free((utfchar *)value);
+  g_free((gchar *)value);
 
   return booleq;
 }
@@ -683,9 +633,4 @@ void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
   booleq->width = box->right - box->left;
   booleq->height = box->bottom - box->top;
 }
-
-
-
-
-
 

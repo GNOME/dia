@@ -29,7 +29,6 @@
 #include "objchange.h"
 #include "intl.h"
 #include "class.h"
-#include "charconv.h"
 
 
 typedef struct _Disconnect {
@@ -118,28 +117,13 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
 static void
 class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
-  char *str;
-
   g_free(umlclass->name);
-  str = gtk_entry_get_text (prop_dialog->classname);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  umlclass->name = charconv_local8_to_utf8 (str);
-#else
-  umlclass->name = g_strdup (str);
-#endif
+  umlclass->name = g_strdup (gtk_entry_get_text (prop_dialog->classname));
+
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
   
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  if (strlen(str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  umlclass->stereotype = charconv_local8_to_utf8 (str);
-#else
-	  umlclass->stereotype = g_strdup (str);
-#endif
-  } else {
-	  umlclass->stereotype = NULL;
-  }
+  umlclass->stereotype = g_strdup (gtk_entry_get_text(prop_dialog->stereotype));
   
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
@@ -417,39 +401,23 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
 static void
 attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
 {
-	utfchar *utf_name, *utf_type;
-	char *str;
+  char *str;
 
-	g_free (attr->name);
-	g_free (attr->type);
-	if (attr->value != NULL)
-		g_free (attr->value);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->attr_name));
-	utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->attr_type));
-#else
-	utf_name = g_strdup (gtk_entry_get_text (prop_dialog->attr_name));
-	utf_type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
-#endif
-	attr->name = utf_name;
-	attr->type = utf_type;
+  g_free (attr->name);
+  g_free (attr->type);
+  if (attr->value != NULL)
+    g_free (attr->value);
+
+  attr->name = g_strdup (gtk_entry_get_text (prop_dialog->attr_name));
+  attr->type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
   
-	str = gtk_entry_get_text(prop_dialog->attr_value);
-	if (strlen (str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-		attr->value = charconv_local8_to_utf8 (str);
-#else
-		attr->value = g_strdup (str);
-#endif
-	} else {
-		attr->value = NULL;
-	}
+  attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
 
-	attr->visibility = (UMLVisibility)
+  attr->visibility = (UMLVisibility)
 		GPOINTER_TO_INT (gtk_object_get_user_data (
 					 GTK_OBJECT (gtk_menu_get_active (prop_dialog->attr_visible))));
     
-	attr->class_scope = prop_dialog->attr_class_scope->active;
+  attr->class_scope = prop_dialog->attr_class_scope->active;
 }
 
 static void
@@ -458,9 +426,7 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
   UMLAttribute *current_attr;
   GtkLabel *label;
   utfchar *new_str;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *str;
-#endif
+
   if (prop_dialog->current_attr != NULL) {
     current_attr = (UMLAttribute *)
       gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_attr));
@@ -468,13 +434,7 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
       attributes_get_values(prop_dialog, current_attr);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_attr)->child);
       new_str = uml_get_attribute_string(current_attr);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-      str = charconv_utf8_to_local8 (new_str);
-      gtk_label_set_text (label, str);
-      g_free (str);
-#else
       gtk_label_set_text (label, new_str);
-#endif
       g_free (new_str);
     }
   }
@@ -1041,37 +1001,17 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
 static void
 parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
 {
-  utfchar *utf_name, *utf_type;
-  char *str;
-  
   g_free(param->name);
   g_free(param->type);
   if (param->value != NULL)
     g_free(param->value);
   
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_name));
-  utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_type));
-#else
-  utf_name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
-  utf_type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
-#endif
-  param->name = utf_name;
-  param->type = utf_type;
+  param->name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
+  param->type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
   
-  str = gtk_entry_get_text(prop_dialog->param_value);
-  if (strlen (str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-    param->value = charconv_local8_to_utf8 (str);
-#else
-    param->value = g_strdup (str);
-#endif
-  } else {
-    param->value = NULL;
-  }
+  param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
 
   param->kind = (UMLParameterKind) GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->param_kind))));
-
 }
 
 static void
@@ -1419,37 +1359,14 @@ operations_clear_values(UMLClassDialog *prop_dialog)
 static void
 operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 {
-  char *str;
-  
   g_free(op->name);
   if (op->type != NULL)
 	  g_free(op->type);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  op->name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->op_name));
-#else
   op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
-#endif
-  str = gtk_entry_get_text(prop_dialog->op_type);
-  if ( strlen (str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  op->type = charconv_local8_to_utf8 (str);
-#else
-	  op->type = g_strdup (str);
-#endif
-  } else {
-	  op->type = NULL;
-  }
-  str = gtk_entry_get_text(prop_dialog->op_stereotype);
-  if ( strlen (str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  op->stereotype = charconv_local8_to_utf8 (str);
-#else
-	  op->stereotype = g_strdup (str);
-#endif
-  } else {
-	  op->stereotype = NULL;
-  }
+  op->type = g_strdup (gtk_entry_get_text(prop_dialog->op_type));
+
+  op->stereotype = g_strdup (gtk_entry_get_text(prop_dialog->op_stereotype));
 
   op->visibility = (UMLVisibility)
     GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->op_visible))));
@@ -1479,13 +1396,7 @@ operations_get_current_values(UMLClassDialog *prop_dialog)
       operations_get_values(prop_dialog, current_op);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_op)->child);
       new_str = uml_get_operation_string(current_op);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-      str = charconv_utf8_to_local8 (new_str);
-      gtk_label_set_text (label, str);
-      g_free (str);
-#else
       gtk_label_set_text (label, new_str);
-#endif
       g_free (new_str);
     }
   }
@@ -2226,26 +2137,10 @@ static void
 templates_set_values (UMLClassDialog *prop_dialog,
 		      UMLFormalParameter *param)
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utfchar *utf_name, *utf_type;
-
-	utf_name = charconv_utf8_to_local8 (param->name);
-	gtk_entry_set_text (prop_dialog->templ_name, utf_name);
-	if (param->type != NULL) {
-		utf_type = charconv_utf8_to_local8 (param->type);
-		gtk_entry_set_text (prop_dialog->templ_type, utf_type);
-		g_free (utf_type);
-	} else {
-		gtk_entry_set_text (prop_dialog->templ_type, "");
-	}
-	g_free (utf_name);
-#else
-  gtk_entry_set_text(prop_dialog->templ_name, param->name);
+  if (param->name)
+    gtk_entry_set_text(prop_dialog->templ_name, param->name);
   if (param->type != NULL)
     gtk_entry_set_text(prop_dialog->templ_type, param->type);
-  else
-    gtk_entry_set_text(prop_dialog->templ_type, "");
-#endif
 }
 
 static void
@@ -2258,27 +2153,12 @@ templates_clear_values(UMLClassDialog *prop_dialog)
 static void
 templates_get_values(UMLClassDialog *prop_dialog, UMLFormalParameter *param)
 {
-  char *str;
-  
   g_free(param->name);
   if (param->type != NULL)
     g_free(param->type);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  param->name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->templ_name));
-#else
   param->name = g_strdup (gtk_entry_get_text (prop_dialog->templ_name));
-#endif
-  str = gtk_entry_get_text (prop_dialog->templ_type);
-  if (strlen (str) != 0) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  param->type = charconv_local8_to_utf8 (str);
-#else
-	  param->type = g_strdup (str);
-#endif
-  } else {
-	  param->type = NULL;
-  }
+  param->type = g_strdup (gtk_entry_get_text (prop_dialog->templ_type));
 }
 
 
@@ -2287,10 +2167,7 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
 {
   UMLFormalParameter *current_param;
   GtkLabel *label;
-  utfchar *new_str;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *str;
-#endif
+  gchar* new_str;
 
   if (prop_dialog->current_templ != NULL) {
     current_param = (UMLFormalParameter *)
@@ -2299,13 +2176,7 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
       templates_get_values(prop_dialog, current_param);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_templ)->child);
       new_str = uml_get_formalparameter_string (current_param);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-      str = charconv_utf8_to_local8 (new_str);
-      gtk_label_set_text (label, str);
-      g_free (str);
-#else
       gtk_label_set_text(label, new_str);
-#endif
       g_free(new_str);
     }
   }

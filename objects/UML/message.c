@@ -38,7 +38,6 @@
 #include "pixmaps/message.xpm"
 
 #include "uml.h"
-#include "charconv.h"
 
 typedef struct _Message Message;
 
@@ -57,7 +56,7 @@ struct _Message {
 
   Handle text_handle;
 
-  utfchar *text;
+  gchar *text;
   Point text_pos;
   real text_width;
     
@@ -256,10 +255,7 @@ message_draw(Message *message, Renderer *renderer)
   Point *endpoints, p1, p2, px;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
-  utfchar *mname = NULL;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utfchar *utfstart, *utfend;
-#endif
+  gchar *mname = NULL;
 
   assert(message != NULL);
   assert(renderer != NULL);
@@ -318,26 +314,12 @@ message_draw(Message *message, Renderer *renderer)
   renderer->ops->set_font(renderer, message_font,
 			  MESSAGE_FONTHEIGHT);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utfstart = charconv_local8_to_utf8 (UML_STEREOTYPE_START);
-  utfend = charconv_local8_to_utf8 (UML_STEREOTYPE_END);
-  if (message->type==MESSAGE_CREATE)
-	  mname = g_strdup_printf ("%s%s%s", utfstart, "create", utfend);
-  else if (message->type==MESSAGE_DESTROY)
-	  mname = g_strdup_printf ("%s%s%s", utfstart, "destroy", utfend);
-
-  else
-	  mname = message->text;
-  g_free (utfstart);
-  g_free (utfend);
-#else
   if (message->type==MESSAGE_CREATE)
 	  mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "create", UML_STEREOTYPE_END);
   else if (message->type==MESSAGE_DESTROY)
 	  mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "destroy", UML_STEREOTYPE_END);
   else
 	  mname = message->text;
-#endif
 
   if (mname && strlen(mname) != 0) 
       renderer->ops->draw_string(renderer,
