@@ -54,7 +54,14 @@ AM_PATH_GLIB_2_0(2.0.0)
 AM_PATH_GTK_2_0(2.0.0)
 
 GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0"
-GTK_MODULES="$GTK_MODULES pangoft2"
+PKG_CHECK_MODULES(FREETYPE,"pangoft2",have_freetype=true,have_freetype=false)
+if test "$have_freetype" = "true"; then
+  GTK_MODULES="$GTK_MODULES pangoft2"
+  AC_DEFINE(HAVE_FREETYPE,1,[Define if building with pangoft2])
+else
+  GTK_MODULES="$GTK_MODULES pango"
+fi
+
 dnl GTK_MODULES="$GTK_MODULES libart-2.0"
 
 AC_MSG_CHECKING([whether GNOME specific code should be used])
@@ -63,6 +70,7 @@ AC_ARG_ENABLE(gnome,[  --enable-gnome          enable gnome code],
 if test "$GNOME" = "yes" ; then
     GTK_MODULES="$GTK_MODULES libgnome-2.0 libgnomeui-2.0"
     AC_DEFINE(GNOME,1,[Define if building with GNOME support])
+    AC_DEFINE_UNQUOTED(GNOME_ICONDIR, "${prefix}/share/pixmaps", [GNOME icon directory])
     have_gnome=true
 else
     have_gnome=false
@@ -79,6 +87,9 @@ dnl XSLT
 
 PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
+if test "$have_xslt" = "true"; then
+  XSLT_DIR="xslt"
+fi
 
 dnl
 dnl Popt

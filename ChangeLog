@@ -1,3 +1,29 @@
+2002-07-07  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/Makefile.am (SUBDIRS): Made the XSLT dir depend on
+	detecting XSLT
+
+	* app/Makefile.am: Commented out the diaconv parts while it's not
+	used anyway.  To come back later.
+
+	* configure.in (HAVE_FREETYPE): 
+	* app/app_procs.c: 
+	* app/render_eps.h: 
+	* app/render_eps.c: Support for printing with freetype, better
+	encapsulated now.  Renders the text nicely, but ignores font
+	setting.  Requires pangoft2 to get the font outline, but non-text
+	objects can still be rendered without it.
+
+	* app/commands.h: 
+	* app/commands.c (objects_place_up_callback) 
+	(objects_place_down_callback): 
+	* app/diagram.h: 
+	* app/diagram.c (diagram_place_down_selected) 
+	(diagram_place_up_selected): Starting support for moving objects
+	one level up/down.
+
+	* app/menus.c: Removed character/numeral shortcuts.
+
 2002-07-06  Hans Breuer  <hans@breuer.org>
 
 	* makefile.am app/makefile.am lib/makefile.am

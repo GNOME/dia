@@ -83,6 +83,8 @@
 extern DiaExportFilter png_export_filter;
 #endif
 
+extern DiaExportFilter eps_export_filter;
+
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 
@@ -267,8 +269,9 @@ app_init (int argc, char **argv)
 
   if (argv) {
 #ifdef GNOME
-    gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
-			       0, &poptCtx);
+    gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                          argc, argv, GNOME_PARAM_POPT_TABLE, options,
+                          GNOME_PARAM_NONE);
     
     client = gnome_master_client();
     if(client == NULL) {
@@ -280,6 +283,8 @@ app_init (int argc, char **argv)
       gtk_signal_connect(GTK_OBJECT (client), "die",
 			 GTK_SIGNAL_FUNC (session_die), NULL);
     }
+
+    gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
 #else
 #ifdef HAVE_POPT
     poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
@@ -606,9 +611,7 @@ internal_plugin_init(PluginInfo *info)
 
   /* register export filters */
   filter_register_export(&dia_export_filter);
-#ifdef HAVE_FREETYPE
   filter_register_export(&eps_export_filter);
-#endif
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
   filter_register_export(&png_export_filter);
 #endif

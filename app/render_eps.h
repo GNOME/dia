@@ -41,9 +41,13 @@ struct _RendererEPS {
   real dot_length;
   Color lcolor;
 
+#ifdef HAVE_FREETYPE
   DiaFont *current_font;
   real current_height;
   PangoContext *context;
+
+  real scale;
+#endif
 };
 
 RendererEPS *new_eps_renderer(Diagram *dia, char *filename);

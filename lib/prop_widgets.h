@@ -59,4 +59,4 @@ typedef struct {
 
 void prop_widgets_register(void);
 
-#endif;
+#endif

@@ -30,7 +30,7 @@ dia_get_data_directory (const gchar* subdir)
 {
 #ifdef G_OS_WIN32
   /*
-   * Calulate from executable path
+   * Calculate from executable path
    */
   gchar sLoc [MAX_PATH+1];
   HINSTANCE hInst = GetModuleHandle(NULL);

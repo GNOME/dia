@@ -738,6 +738,18 @@ diagram_place_over_selected(Diagram *dia)
 }
 
 void
+diagram_place_up_selected(Diagram *dia)
+{
+  message_error("Sorry, not implemented yet!");
+}
+
+void
+diagram_place_down_selected(Diagram *dia)
+{
+  message_error("Sorry, not implemented yet!");
+}
+
+void
 diagram_set_filename(Diagram *dia, char *filename)
 {
   GSList *l;

@@ -64,12 +64,24 @@
 /* Using FT2 with Pango is currently broken on win32 
  * as a result the whole eps renderer vanishes
  */
-#if defined (HAVE_FREETYPE)
+#ifdef HAVE_FREETYPE
 
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 /* I'd really rather avoid this */
 #include <freetype/ftglyph.h>
+
+#define DPI 300
+#endif
+
+/*
+If we can but get the TT font, OpenOffice has a converter at
+http://gsl.openoffice.org/source/browse/gsl/psprint/source/fontsubset
+
+For a chinese font with huge coverage, visit
+http://www.founder.com.cn/fontweb/chanpinzl/CP_chaoda.htm
+http://www.founder.com.cn/fontweb/chanpinzl/FA_chaoda.htm
+ */
 
 static void begin_render(RendererEPS *renderer);
 static void end_render(RendererEPS *renderer);
@@ -149,6 +161,7 @@ static void init_eps_renderer();
 
 static void null_func() {}
 
+#ifdef HAVE_FREETYPE
 /* These routines stolen mercilessly from PAPS
  * http://imagic.weizmann.ac.il/~dov/freesw/paps
  */
@@ -161,13 +174,13 @@ struct _OutlineInfo {
 };
 
 void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y);
-void postscript_draw_contour(FILE *OUT,
+void postscript_draw_contour(RendererEPS *renderer,
 			     int dpi_x,
 			     PangoLayoutLine *pango_line,
 			     double x_pos,
 			     double y_pos
 			     );
-void draw_bezier_outline(FILE *OUT,
+void draw_bezier_outline(RendererEPS *renderer,
 			 int dpi_x,
 			 FT_Face face,
 			 FT_UInt glyph_index,
@@ -186,6 +199,8 @@ static int paps_cubic_to( FT_Vector*  control1,
 			  FT_Vector*  control2,
 			  FT_Vector*  to,
 			  void *user_data);
+
+#endif
 
 static RenderOps *EpsRenderOps;
 static RenderOps *EpsPrologOps;
@@ -376,7 +391,9 @@ begin_prolog(RendererEPS *renderer)
 	    "image\n"
 	    "} bind def\n\n"
 	  */);
-  postscript_contour_headers(renderer->file, 150, 150 /* dpi_x, dpi_y */);
+#ifdef HAVE_FREETYPE
+  postscript_contour_headers(renderer->file, DPI, DPI /* dpi_x, dpi_y */);
+#endif
 }
 
 static void
@@ -488,7 +505,8 @@ create_eps_renderer(DiagramData *data, const char *filename,
   time_now  = time(NULL);
   extent = &data->extents;
   
-  renderer->context = pango_ft2_get_context (150, 150/*dpi_x, dpi_y*/);
+#ifdef HAVE_FREETYPE
+  renderer->context = pango_ft2_get_context (DPI, DPI/*dpi_x, dpi_y*/);
   
   /* Setup pango */
   pango_context_set_language (renderer->context, pango_language_from_string ("en_US"));
@@ -503,8 +521,10 @@ create_eps_renderer(DiagramData *data, const char *filename,
   pango_font_description_set_size (font_description, 12*PANGO_SCALE);
 
   pango_context_set_font_description (renderer->context, font_description);
+#endif
 
   scale = 28.346 * data->paper.scaling;
+  renderer->scale = scale;
   
   name = g_get_user_name();
   if (name==NULL)
@@ -962,6 +982,7 @@ fill_bezier(RendererEPS *renderer,
   fprintf(renderer->file, " f\n");
 }
 
+#ifdef HAVE_FREETYPE
 /* ********************************************************* */
 /*		   String rendering using PangoFt2           */
 /* ********************************************************* */
@@ -1052,7 +1073,7 @@ void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y)
 /* postscript_draw_contour() dumps out the information of a line. It shows how
    to access the ft font information out of the pango font info.
  */
-void postscript_draw_contour(FILE *OUT,
+void postscript_draw_contour(RendererEPS *renderer,
 			     int dpi_x,
 			     PangoLayoutLine *pango_line,
 			     double line_start_pos_x,
@@ -1081,7 +1102,9 @@ void postscript_draw_contour(FILE *OUT,
       PangoItem *item = run->item;
       PangoGlyphString *glyphs = run->glyphs;
       PangoAnalysis *analysis = &item->analysis;
-      PangoFont *font = analysis->font;
+      PangoFont *font = analysis->font;/*
+      PangoFont *font = pango_context_load_font(renderer->context,
+      renderer->current_font);*/
       FT_Face ft_face;
       int bidi_level;
       int num_glyphs;
@@ -1089,15 +1112,17 @@ void postscript_draw_contour(FILE *OUT,
       if (font == NULL) {
 	fprintf(stderr, "No font found\n");
 	continue;
-      }
-      printf("Using font %s\n", pango_font_description_to_string(pango_font_describe(font)));
-      /* Currently crashes here */
+      } 
       ft_face = pango_ft2_font_get_face(font);
       if (ft_face == NULL) {
 	fprintf(stderr, "Failed to get face for font %s\n",
 		pango_font_description_to_string(pango_font_describe(font)));
 	continue;
       }
+      printf("Using font %s (psname %s) pfdname %s\n", 
+	     pango_font_description_to_string(pango_font_describe(font)),
+	     FT_Get_Postscript_Name(ft_face),
+	     pango_font_description_to_string(renderer->current_font));
       bidi_level = item->analysis.level;
       num_glyphs = glyphs->num_glyphs;
       
@@ -1106,17 +1131,19 @@ void postscript_draw_contour(FILE *OUT,
 	  PangoGlyphGeometry geometry = glyphs->glyphs[glyph_idx].geometry;
 	  double pos_x;
 	  double pos_y;
-	  double scale = 72.0 / PANGO_SCALE  / dpi_x;
+	  double scale = 2.54/PANGO_SCALE/dpi_x;/*72.0 / PANGO_SCALE  / dpi_x;*/
 
 	  pos_x = line_start_pos_x + 1.0* geometry.x_offset * scale;
 	  pos_y = line_start_pos_y - 1.0*geometry.y_offset * scale;
 
 	  line_start_pos_x += 1.0 * geometry.width * scale;
 
-	  printf("Drawing glyph %d: index %d at %f, %f\n", glyph_idx, 
-		 glyphs->glyphs[glyph_idx].glyph, pos_x, pos_y);
-
-	  draw_bezier_outline(OUT,
+	  /*
+	  printf("Drawing glyph %d: index %d at %f, %f (w %d)\n", glyph_idx, 
+		 glyphs->glyphs[glyph_idx].glyph, pos_x, pos_y,
+		 geometry.width);
+	  */	  
+	  draw_bezier_outline(renderer,
 			      dpi_x,
 			      ft_face,
 			      (FT_UInt)(glyphs->glyphs[glyph_idx].glyph),
@@ -1129,7 +1156,7 @@ void postscript_draw_contour(FILE *OUT,
   
 }
 
-void draw_bezier_outline(FILE *OUT,
+void draw_bezier_outline(RendererEPS *renderer,
 			 int dpi_x,
 			 FT_Face face,
 			 FT_UInt glyph_index,
@@ -1156,10 +1183,12 @@ void draw_bezier_outline(FILE *OUT,
   outline_info.glyph_origin.x = pos_x;
   outline_info.glyph_origin.y = pos_y;
   outline_info.dpi = dpi_x;
-  outline_info.OUT = OUT;
+  outline_info.OUT = renderer->file;
 
-  fprintf(OUT, "gsave %f %f translate 0 0 0 setrgbcolor\n", pos_x, pos_y);
-  fprintf(OUT, "start_ol\n");
+  fprintf(renderer->file, 
+	  "gsave %f %f translate %f %f scale 0 0 0 setrgbcolor\n",
+	  pos_x, pos_y, 1.0/renderer->scale, -1.0/renderer->scale);
+  fprintf(renderer->file, "start_ol\n");
 
   if ((error=FT_Load_Glyph(face, glyph_index, load_flags))) {
     fprintf(stderr, "Can't load glyph: %d\n", error);
@@ -1168,7 +1197,7 @@ void draw_bezier_outline(FILE *OUT,
   FT_Get_Glyph (face->glyph, &glyph);
   FT_Outline_Decompose (&(((FT_OutlineGlyph)glyph)->outline),
                         &outlinefunc, &outline_info);
-  fprintf(OUT, "end_ol grestore \n");
+  fprintf(renderer->file, "end_ol grestore \n");
   
   FT_Done_Glyph (glyph);
 }
@@ -1178,7 +1207,7 @@ static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   renderer->current_font = font;
-  renderer->current_height = height;
+  renderer->current_height = height*1.6;
   pango_context_set_font_description(renderer->context, font->pfd);
 }
 
@@ -1200,7 +1229,9 @@ draw_string(RendererEPS *renderer,
 
   lazy_setcolor(renderer,color);
 
-  dia_font_set_height(renderer->current_font, renderer->current_height/25.4);
+  dia_font_set_height(renderer->current_font, renderer->current_height);
+  printf("Using font %s\n", 
+	 pango_font_description_to_string(pango_context_get_font_description(renderer->context)));
   layout = pango_layout_new(renderer->context);
 
   length = text ? strlen(text) : 0;
@@ -1218,6 +1249,7 @@ draw_string(RendererEPS *renderer,
 
   pango_layout_set_indent(layout,0);
   pango_layout_set_justify(layout,FALSE);
+
   switch (alignment) {
   case ALIGN_LEFT:
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
@@ -1231,20 +1263,54 @@ draw_string(RendererEPS *renderer,
   }
     
   pango_layout_get_size(layout, &width, NULL);
-  /*
-  fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
-  */
   linecount = pango_layout_get_line_count(layout);
   for (line = 0; line < linecount; line++) {
-    printf("Rendering line at %f, %f\n", xpos, ypos);
-    postscript_draw_contour(renderer->file,
-			    300, /* dpi_x */
-			    pango_layout_get_line(layout, line),
-			    xpos, ypos);
+    PangoLayoutLine *layoutline = pango_layout_get_line(layout, line);
+    real width, xoff = 0.0;
+    PangoRectangle rectangle;
+
+    pango_layout_line_get_extents(layoutline, &rectangle, NULL);
+    width = rectangle.width;
+
+    switch (alignment) {
+    case ALIGN_LEFT:
+      xoff = 0.0;
+      break;
+    case ALIGN_CENTER:
+      xoff = width/2.0;
+      break;
+    case ALIGN_RIGHT:
+      xoff = width;
+      break;
+    }
+    xoff *= 2.54/PANGO_SCALE/DPI /* dpi_x */;
+
+    printf("Rendering line at %f, %f with font %s xoff %f\n", xpos, ypos, 
+	   dia_font_get_family(renderer->current_font), xoff);
+    postscript_draw_contour(renderer,
+			    DPI, /* dpi_x */
+			    layoutline,
+			    xpos-xoff, ypos);
     /* xpos should be adjusted for align and/or RTL */
     ypos += 10;/* Some line height thing??? */
   }
 }
+#else
+static void
+set_font(RendererEPS *renderer, DiaFont *font, real height)
+{
+  message_error("Can't get Postscript names for Pango fonts.  Sorry, no text in PS files\n");
+}
+
+static void
+draw_string(RendererEPS *renderer,
+	    const gchar *text,
+	    Point *pos, Alignment alignment,
+	    Color *color)
+{
+  message_error("Can't get Postscript names for Pango fonts.  Sorry, no text in PS files\n");
+}
+#endif
 
 /* ****** */
 /* IMAGES */
@@ -1638,4 +1704,4 @@ DiaExportFilter eps_export_filter = {
   extensions,
   export_eps
 };
-#endif /* HAVE_FREETYPE */
+

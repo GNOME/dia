@@ -901,6 +901,18 @@ objects_place_under_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
+objects_place_up_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  diagram_place_up_selected(ddisplay_active()->diagram);
+}
+
+void
+objects_place_down_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  diagram_place_down_selected(ddisplay_active()->diagram);
+}
+
+void
 objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_group_selected(ddisplay_active()->diagram);

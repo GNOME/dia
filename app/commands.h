@@ -69,6 +69,10 @@ void objects_place_over_callback(gpointer data, guint action,
 				 GtkWidget *widget);
 void objects_place_under_callback(gpointer data, guint action,
 				  GtkWidget *widget);
+void objects_place_up_callback(gpointer data, guint action,
+				 GtkWidget *widget);
+void objects_place_down_callback(gpointer data, guint action,
+				  GtkWidget *widget);
 void objects_group_callback(gpointer data, guint action, GtkWidget *widget);
 void objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget);
 

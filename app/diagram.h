@@ -91,6 +91,8 @@ void diagram_update_popupmenu_sensitivity(Diagram *dia);
 
 void diagram_place_under_selected(Diagram *dia);
 void diagram_place_over_selected(Diagram *dia);
+void diagram_place_down_selected(Diagram *dia);
+void diagram_place_up_selected(Diagram *dia);
 void diagram_group_selected(Diagram *dia);
 void diagram_ungroup_selected(Diagram *dia);
 
