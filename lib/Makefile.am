@@ -37,8 +37,7 @@ ICON_PNG_PAIRS= \
 # Note that this doesn't seem to get run automatically.  It should, but
 # I'm not gonna chase goblins right now.
 dia-lib-icons.h:
-	gdk-pixbuf-csource --build-list \
-	$(ICON_PNG_PAIRS) > dia-lib-icons.h
+	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-lib-icons.h
 
 nodist_include_HEADERS = dia-lib-icons.h
 

@@ -46,8 +46,7 @@ ICON_PNG_PAIRS= \
 	dia_app_icon ../dia_gnome_icon.png
 
 dia-app-icons.h:
-	gdk-pixbuf-csource --build-list \
-	$(ICON_PNG_PAIRS) > dia-app-icons.h
+	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
 
 nodist_include_HEADERS = dia-app-icons.h
 
