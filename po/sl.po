@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-09-23 00:56+0200\n"
+"POT-Creation-Date: 2001-11-25 02:25+0100\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -19,6 +19,7 @@ msgid "%s error: input and output file name is identical: %s"
 msgstr "Napaka %s: vhodna in izhodna datoteka sta isti: %s"
 
 #: app/app_procs.c:164
+#, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Napaka %s: potrebujem veljavno vhodno datoteko %s\n"
 
@@ -89,11 +90,11 @@ msgstr ""
 "Nisem mogel najti standardnih premetov, ko sem iskal za knji¾nicami "
 "predmetov, konèujem...\n"
 
-#: app/app_procs.c:441 app/app_procs.c:447
+#: app/app_procs.c:443 app/app_procs.c:449
 msgid "Quit, are you sure?"
 msgstr "Izhod, ste preprièani?"
 
-#: app/app_procs.c:454
+#: app/app_procs.c:456
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -101,21 +102,21 @@ msgstr ""
 "Nekateri diagrami so bili spremenjeni.\n"
 "Ste preprièani, da ¾elite zakljuèiti?"
 
-#: app/app_procs.c:464 app/app_procs.c:469
+#: app/app_procs.c:466 app/app_procs.c:471
 msgid "Quit"
 msgstr "Konèaj"
 
-#: app/app_procs.c:481 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Preklièi"
 
-#: app/app_procs.c:556 app/app_procs.c:563
+#: app/app_procs.c:558 app/app_procs.c:565
 msgid "Could not create per-user Dia config directory"
 msgstr "Nisem mogel ustvariti direktorija z Dia nastavitvami"
 
-#: app/app_procs.c:565
+#: app/app_procs.c:567
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -123,7 +124,7 @@ msgstr ""
 "Nisem mogel ustvariti imenika za uporabnikove nastavitve. Prosim preprièajte "
 "se, da okoljska spremenljivka HOME ka¾e na obstojeè imenik."
 
-#: app/app_procs.c:587
+#: app/app_procs.c:589
 msgid "Objects and filters internal to dia"
 msgstr "Predmeti in filtri samo za dio"
 
@@ -131,49 +132,49 @@ msgstr "Predmeti in filtri samo za dio"
 msgid "Select color"
 msgstr "Izberi barvo"
 
-#: app/commands.c:129
+#: app/commands.c:130
 #, c-format
 msgid "Untitled-%d"
 msgstr "Neimenovan-%d"
 
-#: app/commands.c:190
+#: app/commands.c:192
 msgid "No existing object to paste.\n"
 msgstr "Obstojeèi predmet, ki naj se prilepi, ne obstaja.\n"
 
-#: app/commands.c:458 app/commands.c:481
+#: app/commands.c:460 app/commands.c:483
 msgid "Could not find help directory"
 msgstr "Nisem najdel imenika pomoèi"
 
-#: app/commands.c:528
+#: app/commands.c:530
 msgid "About Dia"
 msgstr "O Dii"
 
-#: app/commands.c:571
+#: app/commands.c:573
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia razlièica %s od Alexandra Larssona"
 
-#: app/commands.c:576
+#: app/commands.c:578
 msgid "Maintainer: James Henstridge"
 msgstr "Vzdr¾evalec: James Henstridge"
 
-#: app/commands.c:580
+#: app/commands.c:582
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Prosim za veè podatkov obi¹èite http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:585
+#: app/commands.c:587
 msgid "Contributors:"
 msgstr "Sodelujoèi:"
 
 #. setup buttons
-#: app/commands.c:602 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:704
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "V redu"
 
-#: app/commands.c:688
+#: app/commands.c:690
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -188,12 +189,12 @@ msgid "Object defaults"
 msgstr "Privzete nastavitve predmeta"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:691 app/properties.c:101
+#: app/preferences.c:713 app/properties.c:101
 msgid "Apply"
 msgstr "Uporabi"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:722
 #: app/properties.c:111
 msgid "Close"
 msgstr "Zapri"
@@ -295,7 +296,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Nastavitev strani"
 
-#: app/disp_callbacks.c:74 app/properties.c:174
+#: app/disp_callbacks.c:74 app/properties.c:176
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -307,7 +308,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Menuja predmetov ni"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:447
+#: app/display.c:141 app/display.c:142 app/interface.c:448
 msgid "Zoom"
 msgstr "Poveèava"
 
@@ -331,12 +332,12 @@ msgstr ""
 "Ta diagram ni bil shranjen.\n"
 "Sedaj shrani spremembe?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:596
 msgid "Yes"
 msgstr "Da"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
-#: app/preferences.c:585
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:596
+#: app/preferences.c:607
 msgid "No"
 msgstr "Ne"
 
@@ -415,28 +416,28 @@ msgstr "Izvozi diagram"
 msgid "Export Options"
 msgstr "Nastavitve izvoza"
 
-#: app/interface.c:42
+#: app/interface.c:43
 msgid "Modify object(s)"
 msgstr "Spremeni predmet(e)"
 
-#: app/interface.c:43 app/menus.c:194
+#: app/interface.c:44 app/menus.c:199
 msgid "Modify"
 msgstr "Spremeni"
 
-#: app/interface.c:47 app/interface.c:48 app/menus.c:195
+#: app/interface.c:48 app/interface.c:49 app/menus.c:200
 #: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "Poveèaj"
 
-#: app/interface.c:52
+#: app/interface.c:53
 msgid "Scroll around the diagram"
 msgstr "Drsi po diagramu"
 
-#: app/interface.c:53 app/menus.c:196
+#: app/interface.c:54 app/menus.c:201
 msgid "Scroll"
 msgstr "Drsi"
 
-#: app/interface.c:57
+#: app/interface.c:58
 msgid "Create Text"
 msgstr "Ustvari besedilo"
 
@@ -444,99 +445,99 @@ msgstr "Ustvari besedilo"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
-#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:59 app/menus.c:202 lib/properties.c:77 lib/properties.h:501
+#: lib/properties.h:504 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Besedilo"
 
-#: app/interface.c:62
+#: app/interface.c:63
 msgid "Create Box"
 msgstr "Ustvari ¹katlo"
 
-#: app/interface.c:63 app/menus.c:198
+#: app/interface.c:64 app/menus.c:203
 msgid "Box"
 msgstr "©katla"
 
-#: app/interface.c:67
+#: app/interface.c:68
 msgid "Create Ellipse"
 msgstr "Ustvari elipso"
 
-#: app/interface.c:68 app/menus.c:199
+#: app/interface.c:69 app/menus.c:204
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:72
+#: app/interface.c:73
 msgid "Create Polygon"
 msgstr "Ustvari poligon"
 
-#: app/interface.c:73 app/menus.c:200
+#: app/interface.c:74 app/menus.c:205
 msgid "Polygon"
 msgstr "Poligon"
 
-#: app/interface.c:77
+#: app/interface.c:78
 msgid "Create Beziergon"
 msgstr "Ustvari bezierjev poligon"
 
-#: app/interface.c:78 app/menus.c:201
+#: app/interface.c:79 app/menus.c:206
 msgid "Beziergon"
 msgstr "Bezierjev polgion"
 
-#: app/interface.c:82
+#: app/interface.c:83
 msgid "Create Line"
 msgstr "Ustvari èrto"
 
-#: app/interface.c:83 app/menus.c:202 objects/standard/line.c:188
+#: app/interface.c:84 app/menus.c:207 objects/standard/line.c:188
 msgid "Line"
 msgstr "Èrta"
 
-#: app/interface.c:87
+#: app/interface.c:88
 msgid "Create Arc"
 msgstr "Ustvari lok"
 
-#: app/interface.c:88 app/menus.c:203
+#: app/interface.c:89 app/menus.c:208
 msgid "Arc"
 msgstr "Lok"
 
-#: app/interface.c:92
+#: app/interface.c:93
 msgid "Create Zigzagline"
 msgstr "Ustvari cik-cak èrto"
 
-#: app/interface.c:93 app/menus.c:204
+#: app/interface.c:94 app/menus.c:209
 msgid "Zigzagline"
 msgstr "Cik-cak èrta"
 
-#: app/interface.c:97
+#: app/interface.c:98
 msgid "Create Polyline"
 msgstr "Ustvari lomljeno èrto"
 
-#: app/interface.c:98 app/menus.c:205
+#: app/interface.c:99 app/menus.c:210
 msgid "Polyline"
 msgstr "Lomljena èrta"
 
-#: app/interface.c:102
+#: app/interface.c:103
 msgid "Create Bezierline"
 msgstr "Ustvari bezierjevo krivuljo"
 
-#: app/interface.c:103 app/menus.c:206
+#: app/interface.c:104 app/menus.c:211
 msgid "Bezierline"
 msgstr "Bezierjeva krivulja"
 
-#: app/interface.c:107
+#: app/interface.c:108
 msgid "Create Image"
 msgstr "Ustvari sliko"
 
-#: app/interface.c:108 app/menus.c:207
+#: app/interface.c:109 app/menus.c:212
 msgid "Image"
 msgstr "Slika"
 
-#: app/interface.c:494
+#: app/interface.c:495
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata podatek v tool_select_update"
 
-#: app/interface.c:942
+#: app/interface.c:943
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -544,7 +545,7 @@ msgstr ""
 "Barve ozadja in ospredja.  Mali èrni in beli kvadrati ponastavijo barve "
 "Majhne pu¹èice zamenjajo barve. Dvojni kilk spremeni barve."
 
-#: app/interface.c:1088
+#: app/interface.c:1089
 msgid "Diagram Editor"
 msgstr "Urejevalnik diagrama"
 
@@ -600,7 +601,7 @@ msgstr "Podrobnosti..."
 msgid "Line Style Properties"
 msgstr "Lastnosti sloga èrte"
 
-#: app/linewidth_area.c:216 lib/properties.h:475
+#: app/linewidth_area.c:216 lib/properties.h:477
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Debelina èrte"
@@ -674,633 +675,645 @@ msgstr "Nisem uspel shraniti datoteke '%s'.\n"
 msgid "Native Dia Diagram"
 msgstr "Domaè Dia diagram"
 
-#: app/menus.c:45 app/menus.c:56
+#: app/menus.c:47 app/menus.c:61
 msgid "_New diagram"
 msgstr "_Nov diagram"
 
-#: app/menus.c:45 app/menus.c:56
+#: app/menus.c:47 app/menus.c:61
 msgid "Create new diagram"
 msgstr "Ustvari nov diagram"
 
-#: app/menus.c:49 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:52
+msgid "_Diagram tree"
+msgstr "_Drevo diagrama"
+
+#: app/menus.c:52
+msgid "Show diagram tree"
+msgstr "Ka¾i drevo diagrama"
+
+#: app/menus.c:54 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Vtièniki"
 
-#: app/menus.c:63
+#: app/menus.c:68
 msgid "_Export..."
 msgstr "Iz_vozi..."
 
-#: app/menus.c:67
+#: app/menus.c:72
 msgid "Page Set_up..."
 msgstr "N_astavitev strani..."
 
-#: app/menus.c:69
+#: app/menus.c:74
 msgid "_Print Diagram..."
 msgstr "Na_tisni diagram..."
 
-#: app/menus.c:84
+#: app/menus.c:89
 msgid "_Delete"
 msgstr "_Zbri¹i"
 
-#: app/menus.c:90
+#: app/menus.c:95
 msgid "Copy Text"
 msgstr "Kopiraj besedilo"
 
-#: app/menus.c:91
+#: app/menus.c:96
 msgid "Cut Text"
 msgstr "Izre¾i besedilo"
 
-#: app/menus.c:92
+#: app/menus.c:97
 msgid "Paste _Text"
 msgstr "Prilepi _besedilo"
 
-#: app/menus.c:115
+#: app/menus.c:120
 msgid "Zoom _In"
 msgstr "Po_veèaj"
 
-#: app/menus.c:115
+#: app/menus.c:120
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Poveèaj za 50%"
 
-#: app/menus.c:116
+#: app/menus.c:121
 msgid "Zoom _Out"
 msgstr "_Pomanj¹aj"
 
-#: app/menus.c:116
+#: app/menus.c:121
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Pomanj¹aj za 50%"
 
-#: app/menus.c:117
+#: app/menus.c:122
 msgid "_Zoom"
 msgstr "_Poveèava"
 
-#: app/menus.c:118
+#: app/menus.c:123
 msgid "Diagram Properties..."
 msgstr "Lastnosti diagrama..."
 
-#: app/menus.c:120
+#: app/menus.c:125
 msgid "_AntiAliased"
 msgstr "_Glajeni robovi"
 
-#: app/menus.c:123
+#: app/menus.c:128
 msgid "_Visible Grid"
 msgstr "_Vidna mre¾a"
 
-#: app/menus.c:125
+#: app/menus.c:130
 msgid "_Snap To Grid"
 msgstr "_Preskakuj do mre¾e"
 
-#: app/menus.c:127
+#: app/menus.c:132
 msgid "Show _Rulers"
 msgstr "Ka¾i _ravnila"
 
-#: app/menus.c:129
+#: app/menus.c:134
 msgid "Show _Connection Points"
 msgstr "Ka¾i _toèke povezav"
 
-#: app/menus.c:132
+#: app/menus.c:137
 msgid "New _View"
 msgstr "Nov _pogled"
 
-#: app/menus.c:133
+#: app/menus.c:138
 msgid "Show _All"
 msgstr "Ka¾i _vse"
 
-#: app/menus.c:138
+#: app/menus.c:143
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: app/menus.c:140
+#: app/menus.c:145
 msgid "Union"
 msgstr "Zdru¾i"
 
-#: app/menus.c:142
+#: app/menus.c:147
 msgid "Intersect"
 msgstr "Preseèi"
 
-#: app/menus.c:144 objects/FS/function.c:623 objects/FS/function.c:699
+#: app/menus.c:149 objects/FS/function.c:623 objects/FS/function.c:699
 #: objects/FS/function.c:700
 msgid "Remove"
 msgstr "Odstrani"
 
-#: app/menus.c:146 app/menus.c:154
+#: app/menus.c:151 app/menus.c:159
 msgid "Invert"
 msgstr "Obrni"
 
-#: app/menus.c:152
+#: app/menus.c:157
 msgid "All"
 msgstr "Vse"
 
-#: app/menus.c:153 lib/widgets.c:660 objects/UML/association.c:1001
+#: app/menus.c:158 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
 msgstr "brez"
 
-#: app/menus.c:155
+#: app/menus.c:160
 msgid "Connected"
 msgstr "Povezano"
 
-#: app/menus.c:156
+#: app/menus.c:161
 msgid "Transitive"
 msgstr "Prehodna"
 
-#: app/menus.c:157
+#: app/menus.c:162
 msgid "Same Type"
 msgstr "Isti Tip"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
+#: app/menus.c:169 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
 msgid "Left"
 msgstr "Levo"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
+#: app/menus.c:170 app/menus.c:179 lib/properties.c:63 lib/properties.h:466
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Sredina"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
+#: app/menus.c:171 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
 msgid "Right"
 msgstr "Desno"
 
-#: app/menus.c:167 app/menus.c:176
+#: app/menus.c:172 app/menus.c:181
 msgid "Equal Distance"
 msgstr "Enake Razdalje"
 
-#: app/menus.c:168 app/menus.c:177
+#: app/menus.c:173 app/menus.c:182
 msgid "Adjacent"
 msgstr "Skupaj"
 
-#: app/menus.c:173
+#: app/menus.c:178
 msgid "Top"
 msgstr "Zgoraj"
 
-#: app/menus.c:175
+#: app/menus.c:180
 msgid "Bottom"
 msgstr "Spodaj"
 
-#: app/menus.c:182
+#: app/menus.c:187
 msgid "Send to _Back"
 msgstr "Po¹lji na _dno"
 
-#: app/menus.c:183
+#: app/menus.c:188
 msgid "Bring to _Front"
 msgstr "Prinesi na _vrh"
 
-#: app/menus.c:185
+#: app/menus.c:190
 msgid "_Group"
 msgstr "_Grupiraj"
 
-#: app/menus.c:186
+#: app/menus.c:191
 msgid "_Ungroup"
 msgstr "_Odgrupiraj"
 
-#: app/menus.c:188
+#: app/menus.c:193
 msgid "Align _Horizontal"
 msgstr "Poravnaj _vodoravno"
 
-#: app/menus.c:189
+#: app/menus.c:194
 msgid "Align _Vertical"
 msgstr "Poravnaj _navpièno"
 
-#: app/menus.c:212
+#: app/menus.c:217
 msgid "_Properties"
 msgstr "_Lastnosti"
 
-#: app/menus.c:213
+#: app/menus.c:218
 msgid "_Layers"
 msgstr "_Plasti"
 
-#: app/menus.c:234
+#: app/menus.c:239
 msgid "_Select"
 msgstr "_Izberi"
 
-#: app/menus.c:235
+#: app/menus.c:240
 msgid "_Objects"
 msgstr "_Predmeti"
 
-#: app/menus.c:236
+#: app/menus.c:241
 msgid "_Tools"
 msgstr "_Orodja"
 
-#: app/menus.c:237
+#: app/menus.c:242
 msgid "_Dialogs"
 msgstr "D_ialogi"
 
-#: app/menus.c:248 app/menus.c:273
+#: app/menus.c:253 app/menus.c:281
 msgid "/_File"
 msgstr "/_Datoteka"
 
-#: app/menus.c:250 app/menus.c:275
+#: app/menus.c:255 app/menus.c:283
 msgid "/File/_New"
 msgstr "/Datoteka/_Nova"
 
-#: app/menus.c:251 app/menus.c:276
+#: app/menus.c:256 app/menus.c:284
 msgid "/File/_Open"
 msgstr "/Datoteka/_Odpri"
 
-#: app/menus.c:252
+#: app/menus.c:257
 msgid "/File/Open _Recent"
 msgstr "/Datoteka/Odpri _nedavne"
 
-#: app/menus.c:253
+#: app/menus.c:258
 msgid "/File/Open Recent/---"
 msgstr "/Datoteka/Odpri nedavne/---"
 
-#: app/menus.c:255
-msgid "/File/_Preferences..."
-msgstr "/Datoteka/_Nastavitve..."
-
-#: app/menus.c:256
-msgid "/File/P_lugins"
-msgstr "/Datoteka/_Vtièi"
-
-#: app/menus.c:257 app/menus.c:280 app/menus.c:283
+#: app/menus.c:260 app/menus.c:265 app/menus.c:288 app/menus.c:291
 msgid "/File/---"
 msgstr "/Datoteka/---"
 
-#: app/menus.c:258 app/menus.c:286
+#: app/menus.c:261
+msgid "/File/_Diagram tree"
+msgstr "/Datoteka/_Drevo diagrama..."
+
+#: app/menus.c:263
+msgid "/File/_Preferences..."
+msgstr "/Datoteka/_Nastavitve..."
+
+#: app/menus.c:264
+msgid "/File/P_lugins"
+msgstr "/Datoteka/_Vtièi"
+
+#: app/menus.c:266 app/menus.c:294
 msgid "/File/_Quit"
 msgstr "/Datoteka/Iz_hod"
 
-#: app/menus.c:259
+#: app/menus.c:267
 msgid "/_Help"
 msgstr "/_Pomoè"
 
-#: app/menus.c:261
+#: app/menus.c:269
 msgid "/Help/_Manual"
 msgstr "/Pomoè/_Priroènik"
 
-#: app/menus.c:262
+#: app/menus.c:270
 msgid "/Help/---"
 msgstr "/Pomoè/---"
 
-#: app/menus.c:263
+#: app/menus.c:271
 msgid "/Help/_About"
 msgstr "/Pomoè/_O"
 
-#: app/menus.c:277
+#: app/menus.c:285
 msgid "/File/_Save"
 msgstr "/Datoteka/_Shrani"
 
-#: app/menus.c:278
+#: app/menus.c:286
 msgid "/File/Save _As..."
 msgstr "/Datoteka/Shrani _kot..."
 
-#: app/menus.c:279
+#: app/menus.c:287
 msgid "/File/_Export..."
 msgstr "/Datoteka/Iz_vozi..."
 
-#: app/menus.c:281
+#: app/menus.c:289
 msgid "/File/Page Set_up..."
 msgstr "/Datoteka/N_astavitev strani..."
 
-#: app/menus.c:282
+#: app/menus.c:290
 msgid "/File/_Print Diagram..."
 msgstr "/Datoteka/Na_tisni diagram..."
 
-#: app/menus.c:284
+#: app/menus.c:292
 msgid "/File/_Close"
 msgstr "/Datoteka/_Zapri"
 
-#: app/menus.c:287
+#: app/menus.c:295
 msgid "/_Edit"
 msgstr "/_Uredi"
 
-#: app/menus.c:289
+#: app/menus.c:297
 msgid "/Edit/_Copy"
 msgstr "/Uredi/_Kopiraj"
 
-#: app/menus.c:290
+#: app/menus.c:298
 msgid "/Edit/C_ut"
 msgstr "/Uredi/_Izre¾i"
 
-#: app/menus.c:291
+#: app/menus.c:299
 msgid "/Edit/_Paste"
 msgstr "/Uredi/_Prilepi"
 
-#: app/menus.c:292
+#: app/menus.c:300
 msgid "/Edit/_Delete"
 msgstr "/Uredi/_Zbri¹i"
 
-#: app/menus.c:293
+#: app/menus.c:301
 msgid "/Edit/_Undo"
 msgstr "/Uredi/_Razveljavi"
 
-#: app/menus.c:294
+#: app/menus.c:302
 msgid "/Edit/_Redo"
 msgstr "/Uredi/_Obnovi"
 
-#: app/menus.c:295
+#: app/menus.c:303
 msgid "/Edit/Copy Text"
 msgstr "/Uredi/Kopiraj besedilo"
 
-#: app/menus.c:296
+#: app/menus.c:304
 msgid "/Edit/Cut Text"
 msgstr "/Uredi/Izre¾i besedilo"
 
-#: app/menus.c:297
+#: app/menus.c:305
 msgid "/Edit/Paste _Text"
 msgstr "/Uredi/Prilepi _besedilo"
 
-#: app/menus.c:298
+#: app/menus.c:306
 msgid "/_View"
 msgstr "/_Pogled"
 
-#: app/menus.c:300
+#: app/menus.c:308
 msgid "/View/Zoom _In"
 msgstr "/Pogled/_Poveèaj"
 
-#: app/menus.c:301
+#: app/menus.c:309
 msgid "/View/Zoom _Out"
 msgstr "/Pogled/P_omanj¹aj"
 
-#: app/menus.c:302
+#: app/menus.c:310
 msgid "/View/_Zoom"
 msgstr "/Pogled/Po_veèava"
 
-#: app/menus.c:304
+#: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Pogled/Poveèava/400%"
 
-#: app/menus.c:305
+#: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Pogled/Poveèava/400%"
 
-#: app/menus.c:306
+#: app/menus.c:314
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Pogled/Poveèava/200%"
 
-#: app/menus.c:307
+#: app/menus.c:315
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Pogled/Poveèava/141%"
 
-#: app/menus.c:308
+#: app/menus.c:316
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Pogled/Poveèava/100%"
 
-#: app/menus.c:309
+#: app/menus.c:317
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Pogled/Poveèava/85%"
 
-#: app/menus.c:310
+#: app/menus.c:318
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Pogled/Poveèava/70,7%"
 
-#: app/menus.c:311
+#: app/menus.c:319
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Pogled/Poveèava/50%"
 
-#: app/menus.c:312
+#: app/menus.c:320
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Pogled/Poveèava/35,4%"
 
-#: app/menus.c:313
+#: app/menus.c:321
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Pogled/Poveèava/25%"
 
-#: app/menus.c:314
+#: app/menus.c:322
 msgid "/View/Diagram Properties..."
 msgstr "/Pogled/Lastnosti diagrama..."
 
-#: app/menus.c:316
+#: app/menus.c:324
 msgid "/View/_AntiAliased"
 msgstr "/Pogled/_Glajeni robovi"
 
-#: app/menus.c:318
+#: app/menus.c:326
 msgid "/View/_Visible Grid"
 msgstr "/Pogled/Vidna mre¾a"
 
-#: app/menus.c:319
+#: app/menus.c:327
 msgid "/View/_Snap To Grid"
 msgstr "/Pogled/Preskakuj do mre¾e"
 
-#: app/menus.c:320
+#: app/menus.c:328
 msgid "/View/Show _Rulers"
 msgstr "/Pogled/Ka¾i _ravnila"
 
-#: app/menus.c:321
+#: app/menus.c:329
 msgid "/View/Show _Connection Points"
 msgstr "/Pogled/Ka¾i toèke _povezav"
 
-#: app/menus.c:322
+#: app/menus.c:330
 msgid "/View/---"
 msgstr "/Pogled/---"
 
-#: app/menus.c:323
+#: app/menus.c:331
 msgid "/View/New _View"
 msgstr "/Pogled/Nov _pogled"
 
-#: app/menus.c:324
+#: app/menus.c:332
 msgid "/View/Show _All"
 msgstr "/Pogled/Ka¾i _vse"
 
-#: app/menus.c:325
+#: app/menus.c:333
 msgid "/_Select"
 msgstr "/_Izberi"
 
-#: app/menus.c:327
+#: app/menus.c:335
 msgid "/Select/All"
 msgstr "/Pogled/Vse"
 
-#: app/menus.c:328
+#: app/menus.c:336
 msgid "/Select/None"
 msgstr "/Izberi/Nièesar"
 
-#: app/menus.c:329 app/menus.c:342
+#: app/menus.c:337 app/menus.c:350
 msgid "/Select/Invert"
 msgstr "/Izberi/Obrni izbiro"
 
-#: app/menus.c:330
+#: app/menus.c:338
 msgid "/Select/Connected"
 msgstr "/Izberi/Povezano"
 
-#: app/menus.c:331
+#: app/menus.c:339
 msgid "/Select/Transitive"
 msgstr "/Izberi/Prehodno"
 
-#: app/menus.c:332
+#: app/menus.c:340
 msgid "/Select/Same Type"
 msgstr "/Izberi/Isti tip"
 
-#: app/menus.c:333
+#: app/menus.c:341
 msgid "/Select/---"
 msgstr "/Izberi/---"
 
-#: app/menus.c:334
+#: app/menus.c:342
 msgid "/Select/Replace"
 msgstr "/Izberi/Zamenjaj"
 
-#: app/menus.c:336
+#: app/menus.c:344
 msgid "/Select/Union"
 msgstr "/Izberi/Zdru¾i"
 
-#: app/menus.c:338
+#: app/menus.c:346
 msgid "/Select/Intersect"
 msgstr "/Izberi/Presek"
 
-#: app/menus.c:340
+#: app/menus.c:348
 msgid "/Select/Remove"
 msgstr "/Izberi/Odstrani"
 
-#: app/menus.c:344
+#: app/menus.c:352
 msgid "/_Objects"
 msgstr "/_Predmeti"
 
-#: app/menus.c:346
+#: app/menus.c:354
 msgid "/Objects/Send to _Back"
 msgstr "/Predmeti/Po¹lji na _dno"
 
-#: app/menus.c:347
+#: app/menus.c:355
 msgid "/Objects/Bring to _Front"
 msgstr "/Predmeti/Prinesi na _vrh"
 
-#: app/menus.c:348 app/menus.c:351
+#: app/menus.c:356 app/menus.c:359
 msgid "/Objects/---"
 msgstr "/Predmeti/---"
 
-#: app/menus.c:349
+#: app/menus.c:357
 msgid "/Objects/_Group"
 msgstr "/Predmeti/_Grupiraj"
 
-#: app/menus.c:350
+#: app/menus.c:358
 msgid "/Objects/_Ungroup"
 msgstr "/Predmeti/_Odgrupiraj"
 
-#: app/menus.c:352
+#: app/menus.c:360
 msgid "/Objects/Align _Horizontal"
 msgstr "/Predmeti/Poravnaj _vodoravno"
 
-#: app/menus.c:354
+#: app/menus.c:362
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Predmeti/Poravnaj vodoravno/Levo"
 
-#: app/menus.c:355
+#: app/menus.c:363
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Predmeti/Poravnaj vodoravno/Po sredini"
 
-#: app/menus.c:356
+#: app/menus.c:364
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Predmeti/Poravnaj vodoravno/Desno"
 
-#: app/menus.c:357
+#: app/menus.c:365
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Predmeti/Poravnaj vodoravno/Enake razdalje"
 
-#: app/menus.c:358
+#: app/menus.c:366
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Predmeti/Poravnaj vodoravno/Skupaj"
 
-#: app/menus.c:359
+#: app/menus.c:367
 msgid "/Objects/Align _Vertical"
 msgstr "/Predmeti/Poravnaj _navpièno"
 
-#: app/menus.c:361
+#: app/menus.c:369
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Predmeti/Poravnaj navpièno/Zgoraj"
 
-#: app/menus.c:362
+#: app/menus.c:370
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Predmeti/Poravnaj navpièno/Po sredini"
 
-#: app/menus.c:363
+#: app/menus.c:371
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Predmeti/Poravnaj navpièno/Spodaj"
 
-#: app/menus.c:364
+#: app/menus.c:372
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Predmeti/Poravnaj navpièno/Enake razdalje"
 
-#: app/menus.c:365
+#: app/menus.c:373
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Predmeti/Poravnaj navpièno/Skupaj"
 
-#: app/menus.c:367
+#: app/menus.c:375
 msgid "/_Tools"
 msgstr "/_Orodja"
 
-#: app/menus.c:369
+#: app/menus.c:377
 msgid "/Tools/Modify"
 msgstr "/Orodja/Spremeni"
 
-#: app/menus.c:370
+#: app/menus.c:378
 msgid "/Tools/Magnify"
 msgstr "/Orodja/Poveèaj"
 
-#: app/menus.c:371
+#: app/menus.c:379
 msgid "/Tools/Scroll"
 msgstr "/Orodja/Drsi"
 
-#: app/menus.c:372
+#: app/menus.c:380
 msgid "/Tools/Text"
 msgstr "/Orodja/Besedilo"
 
-#: app/menus.c:373
+#: app/menus.c:381
 msgid "/Tools/Box"
 msgstr "/Orodja/©katla"
 
-#: app/menus.c:374
+#: app/menus.c:382
 msgid "/Tools/Ellipse"
 msgstr "/Orodja/Elipsa"
 
-#: app/menus.c:375
+#: app/menus.c:383
 msgid "/Tools/Polygon"
 msgstr "/Orodja/Poligon"
 
-#: app/menus.c:376
+#: app/menus.c:384
 msgid "/Tools/Beziergon"
 msgstr "/Orodja/Bezierjev poligon"
 
-#: app/menus.c:377
+#: app/menus.c:385
 msgid "/Tools/Line"
 msgstr "/Orodja/Èrta"
 
-#: app/menus.c:378
+#: app/menus.c:386
 msgid "/Tools/Arc"
 msgstr "/Orodja/Lok"
 
-#: app/menus.c:379
+#: app/menus.c:387
 msgid "/Tools/Zigzagline"
 msgstr "/Orodja/Cik-cak èrta"
 
-#: app/menus.c:380
+#: app/menus.c:388
 msgid "/Tools/Polyline"
 msgstr "/Orodja/Lomljena èrta"
 
-#: app/menus.c:381
+#: app/menus.c:389
 msgid "/Tools/Bezierline"
 msgstr "/Orodja/Bezierjeva krivulja"
 
-#: app/menus.c:382
+#: app/menus.c:390
 msgid "/Tools/Image"
 msgstr "/Orodja/Slika"
 
-#: app/menus.c:384
+#: app/menus.c:392
 msgid "/_Dialogs"
 msgstr "/D_ialogi"
 
-#: app/menus.c:386
+#: app/menus.c:394
 msgid "/Dialogs/_Properties"
 msgstr "/Dialogi/_Lastnosti"
 
-#: app/menus.c:387
+#: app/menus.c:395
 msgid "/Dialogs/_Layers"
 msgstr "/Dialogi/_Plasti"
 
-#: app/menus.c:559
+#: app/menus.c:567
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata podatki v tool_menu_select"
 
-#: app/menus.c:725
+#: app/menus.c:733
 msgid "Diagram Menu"
 msgstr "Menu diagrama"
 
@@ -1379,35 +1392,39 @@ msgstr "Nalo¾i"
 msgid "Unload"
 msgstr "Odstrani"
 
-#: app/preferences.c:115
+#: app/preferences.c:120
 msgid "User Interface"
 msgstr "Uporabni¹ki vmesnik"
 
-#: app/preferences.c:116
+#: app/preferences.c:121
 msgid "Diagram Defaults"
 msgstr "Privzete lastnosti diagrama"
 
-#: app/preferences.c:117
+#: app/preferences.c:122
 msgid "View Defaults"
 msgstr "Poglej privzete nastavitve"
 
-#: app/preferences.c:118
+#: app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Èrte Mre¾e"
 
-#: app/preferences.c:132
+#: app/preferences.c:124
+msgid "Diagram Tree"
+msgstr "Drevo diagrama"
+
+#: app/preferences.c:138
 msgid "Reset tools after create:"
 msgstr "Ponastavi orodja po ustvarjanju:"
 
-#: app/preferences.c:133
+#: app/preferences.c:139
 msgid "Compress saved files:"
 msgstr "Stistni datoteke ob shranjevanju:"
 
-#: app/preferences.c:134
+#: app/preferences.c:140
 msgid "Number of undo levels:"
 msgstr "©tevilo mo¾nih razveljavljavitev:"
 
-#: app/preferences.c:135
+#: app/preferences.c:141
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1415,73 +1432,89 @@ msgstr ""
 "Obrnjeno vleèenje izbere\n"
 "sekajoèe se predmete:"
 
-#: app/preferences.c:138
+#: app/preferences.c:144
 msgid "New diagram:"
 msgstr "Nov diagram:"
 
-#: app/preferences.c:139
+#: app/preferences.c:145
 msgid "Paper type:"
 msgstr "Vrsta papirja:"
 
-#: app/preferences.c:142
+#: app/preferences.c:148
 msgid "New window:"
 msgstr "Novo okno:"
 
-#: app/preferences.c:143
+#: app/preferences.c:149
 msgid "Width:"
 msgstr "©irina:"
 
-#: app/preferences.c:144
+#: app/preferences.c:150
 msgid "Height:"
 msgstr "Vi¹ina:"
 
-#: app/preferences.c:145
+#: app/preferences.c:151
 msgid "Magnify:"
 msgstr "Poveèaj:"
 
-#: app/preferences.c:146
+#: app/preferences.c:152
 msgid "Use menu bar:"
 msgstr "Uporabi menujsko vrstico:"
 
-#: app/preferences.c:148
+#: app/preferences.c:154
 msgid "Connection Points:"
 msgstr "Toèke povezav:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:157
+#: app/preferences.c:155 app/preferences.c:158 app/preferences.c:163
 msgid "Visible:"
 msgstr "Vidno:"
 
-#: app/preferences.c:151
+#: app/preferences.c:157
 msgid "Page breaks:"
 msgstr "Lomi strani:"
 
-#: app/preferences.c:153 app/preferences.c:161
+#: app/preferences.c:159 app/preferences.c:167
 msgid "Colour:"
 msgstr "Barva:"
 
-#: app/preferences.c:154 app/preferences.c:162
+#: app/preferences.c:160 app/preferences.c:168
 msgid "Solid lines:"
 msgstr "Polne èrte:"
 
-#: app/preferences.c:158
+#: app/preferences.c:164
 msgid "Snap to:"
 msgstr "Preskakuj na:"
 
-#: app/preferences.c:159
+#: app/preferences.c:165
 msgid "X Size:"
 msgstr "Vi¹ina (v pikslih):"
 
-#: app/preferences.c:160
+#: app/preferences.c:166
 msgid "Y Size:"
 msgstr "©irina (v pikslih):"
 
-#: app/preferences.c:282
+#: app/preferences.c:176
+msgid "Diagram tree window:"
+msgstr "Okno drevesa diagrama:"
+
+#: app/preferences.c:178
+msgid "Show at startup:"
+msgstr "Ka¾i ob zagonu:"
+
+#: app/preferences.c:180
+msgid "Default width:"
+msgstr "Privzeta ¹irina:"
+
+#: app/preferenc es.c:182
+msgid "Default height:"
+msgstr "Privzeta vi¹ina:"
+
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Ne morem odpreti `%s' za pisanje"
 
-#: app/preferences.c:650 app/preferences.c:659
+#: app/preferences.c:672 app/preferences.c:681
 msgid "Preferences"
 msgstr "Nastavitve"
 
@@ -1493,11 +1526,11 @@ msgstr "Lastnosti predmeta"
 msgid "This object has no properties."
 msgstr "Ta predmet nima lastnosti."
 
-#: app/properties.c:211
+#: app/properties.c:213
 msgid "Properties: "
 msgstr "Lastnosti:"
 
-#: app/properties.c:219
+#: app/properties.c:221
 msgid "Object properties:"
 msgstr "Lastnosti predmeta:"
 
@@ -1528,19 +1561,19 @@ msgstr "Nalagam ..."
 msgid "Dia v %s"
 msgstr "Dia razlièica %s"
 
-#: lib/properties.c:71 lib/properties.h:478
+#: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
 msgstr "Barva èrte"
 
-#: lib/properties.c:72 lib/properties.h:481
+#: lib/properties.c:72 lib/properties.h:483
 msgid "Line style"
 msgstr "Slog èrte"
 
-#: lib/properties.c:73 lib/properties.h:485
+#: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
 msgstr "Barva polnjenja"
 
-#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1548,31 +1581,31 @@ msgstr "Barva polnjenja"
 msgid "Draw background"
 msgstr "Ri¹i ozadje"
 
-#: lib/properties.c:75 lib/properties.h:492
+#: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
 msgstr "Pu¹èica zaèetka"
 
-#: lib/properties.c:76 lib/properties.h:495
+#: lib/properties.c:76 lib/properties.h:497
 msgid "End arrow"
 msgstr "Pu¹èica konca"
 
-#: lib/properties.c:78 lib/properties.h:505
+#: lib/properties.c:78 lib/properties.h:507
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Pisava"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Barva besedila"
