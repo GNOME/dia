@@ -1,5 +1,7 @@
 2001-08-16  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* sheets/civil.sheet: removed duplicate "Danish" entries.
+	
 	* app/display.[ch]: (ddisplay_autoscroll), (ddisplay_scroll):
 	* app/modify_tool.[ch]: (modify_motion): A (modified) patch from
 	<robert.young@dsto.defence.gov.au>, to fix #59090.

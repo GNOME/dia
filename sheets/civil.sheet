@@ -124,7 +124,6 @@
       <description xml:lang="da">En vandret placeret kompressor</description>
       <description xml:lang="fr">Un compresseur orienté horizontalement</description>
       <description xml:lang="nn">Ein vassrett plassert kompressor</description>
-      <description xml:lang="da">En horisontalt plassert kompressor</description>
     </object>
 
     <object name="Civil - Vertical Compressor">
@@ -145,7 +144,6 @@
       <description xml:lang="da">En lodret placeret ventil</description>
       <description xml:lang="fr">Une vanne orientée verticalement</description>
       <description xml:lang="nn">Ein loddrett plassert ventil</description>
-      <description xml:lang="da">En vertikalt plassert ventil</description>
     </object>
 
     <object name="Civil - Horizontal Valve">
