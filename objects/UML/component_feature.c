@@ -38,6 +38,7 @@
 #include "handle.h"
 #include "properties.h"
 #include "text.h"
+#include "arrows.h"
 
 #include "pixmaps/facet.xpm"
 
@@ -49,6 +50,13 @@ typedef enum {
   COMPPROP_EVENTSOURCE,
   COMPPROP_EVENTSINK,
 } CompRole;
+
+static int compprop_arrow[] = {
+  ARROW_HOLLOW_ELLIPSE,
+  ARROW_OPEN_ROUNDED,
+  ARROW_HOLLOW_DIAMOND,
+  ARROW_HALF_DIAMOND,
+};
 
 struct _Compfeat {
   OrthConn orth;
@@ -281,11 +289,10 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *points;
-  Point p;
-  Point save0;
   OrthConn *orth = &compfeat->orth;
   int n;
   gchar directions;
+  Arrow startarrow, endarrow;
 
   assert(compfeat != NULL);
   assert(renderer != NULL);
@@ -297,112 +304,28 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  save0 = points[0];
-  if (compfeat->orth.orientation[0] == HORIZONTAL) {
-    directions = (save0.x > points[1].x)? DIR_EAST: DIR_WEST;
+  if (compfeat->orth.orientation[orth->numorient - 1] == HORIZONTAL) {
+    directions = (points[n - 1].x > points[n - 2].x)? DIR_EAST: DIR_WEST;
   } else {
-    directions = (save0.y > points[1].y)? DIR_SOUTH: DIR_NORTH;
+    directions = (points[n - 1].y > points[n - 2].y)? DIR_SOUTH: DIR_NORTH;
   }
 
   if (compfeat->role == COMPPROP_FACET
       || compfeat->role == COMPPROP_EVENTSOURCE)
     compfeat->cp.directions = directions;
 
-  switch (directions) {
-  case DIR_EAST:
-    points[0].x -= COMPPROP_DIAMETER;
-    p = save0;
-    p.x -= COMPPROP_DIAMETER/2.0;
-    break;
-  case DIR_WEST:
-    points[0].x += COMPPROP_DIAMETER;
-    p = save0;
-    p.x += COMPPROP_DIAMETER/2.0;
-    break;
-  case DIR_SOUTH:
-    points[0].y -= COMPPROP_DIAMETER;
-    p = save0;
-    p.y -= COMPPROP_DIAMETER/2.0;
-    break;
-  case DIR_NORTH:
-    points[0].y += COMPPROP_DIAMETER;
-    p = save0;
-    p.y += COMPPROP_DIAMETER/2.0;
-    break;
-  }
-
-  renderer_ops->draw_polyline(renderer, points, n, &color_black);
-
-  if (compfeat->role == COMPPROP_FACET) {
-    renderer_ops->fill_ellipse(renderer, &p,
-			       COMPPROP_DIAMETER, COMPPROP_DIAMETER,
-			       &color_white);
-    renderer_ops->draw_ellipse(renderer, &p,
-			       COMPPROP_DIAMETER, COMPPROP_DIAMETER,
-			       &color_black);
-  } else if (compfeat->role == COMPPROP_RECEPTACLE) {
-    real start = 90.0, end = 270.0;
-
-    switch (directions) {
-    case DIR_WEST:
-      start = 270.0;
-      end = 90.0;
-      break;
-    case DIR_SOUTH:
-      start = 0.0;
-      end = 180.0;
-      break;
-    case DIR_NORTH:
-      start = 180.0;
-      end = 0.0;
-      break;
-    }
-    renderer_ops->draw_arc(renderer, &p,
-			   COMPPROP_DIAMETER, COMPPROP_DIAMETER,
-			   start, end, &color_black);
-  } else if (compfeat->role == COMPPROP_EVENTSOURCE) {
-    Point poly[4];
-
-    poly[0].x = p.x + COMPPROP_DIAMETER/2.0;
-    poly[0].y = p.y;
-    poly[1].x = p.x;
-    poly[1].y = p.y - COMPPROP_DIAMETER/2.0;
-    poly[2].x = p.x - COMPPROP_DIAMETER/2.0;
-    poly[2].y = p.y;
-    poly[3].x = p.x;
-    poly[3].y = p.y + COMPPROP_DIAMETER/2.0;
-    renderer_ops->fill_polygon(renderer, poly, 4, &color_white);
-    renderer_ops->draw_polygon(renderer, poly, 4, &color_black);
-  } else if (compfeat->role == COMPPROP_EVENTSINK) {
-    Point poly[3];
-
-    poly[0] = poly[2] = p;
-    poly[1] = points[0];
-    switch (directions) {
-    case DIR_EAST:
-      poly[0].y -= COMPPROP_DIAMETER/2.0;
-      poly[2].y += COMPPROP_DIAMETER/2.0;
-      break;
-    case DIR_WEST:
-      poly[0].y += COMPPROP_DIAMETER/2.0;
-      poly[2].y -= COMPPROP_DIAMETER/2.0;
-      break;
-    case DIR_SOUTH:
-      poly[0].x += COMPPROP_DIAMETER/2.0;
-      poly[2].x -= COMPPROP_DIAMETER/2.0;
-      break;
-    case DIR_NORTH:
-      poly[0].x -= COMPPROP_DIAMETER/2.0;
-      poly[2].x += COMPPROP_DIAMETER/2.0;
-      break;
-    }
-    renderer_ops->draw_polyline(renderer, poly, 3, &color_black);
-  }
+  startarrow.type = ARROW_NONE;
+  startarrow.length = COMPPROP_DIAMETER;
+  startarrow.width = COMPPROP_DIAMETER;
+  endarrow.length = COMPPROP_DIAMETER;
+  endarrow.width = COMPPROP_DIAMETER;
+  endarrow.type = compprop_arrow[compfeat->role];
+  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
+ 					  COMPPROP_WIDTH,
+ 					  &color_black,
+ 					  &startarrow, &endarrow);
 
   text_draw(compfeat->text, renderer);
-
-  /* restore old value */
-  points[0] = save0;
 }
 
 static Object *
@@ -480,7 +403,7 @@ compfeat_update_data(Compfeat *compfeat)
 
   if (compfeat->role == COMPPROP_FACET
       || compfeat->role == COMPPROP_EVENTSOURCE)
-    compfeat->cp.pos = points[0];
+    compfeat->cp.pos = points[n - 1];
 
   orthconn_update_data(orth);
 

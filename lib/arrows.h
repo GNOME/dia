@@ -54,6 +54,8 @@ typedef enum {
   ARROW_FILLED_CONCAVE,
   ARROW_BLANKED_CONCAVE,
   ARROW_ROUNDED,
+  ARROW_HALF_DIAMOND,		/* ---< */
+  ARROW_OPEN_ROUNDED,		/* ---c */
 } ArrowType;
 
 struct menudesc {

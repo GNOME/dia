@@ -42,6 +42,7 @@ struct menudesc arrow_types[] =
    {N_("Unfilled Triangle"),ARROW_UNFILLED_TRIANGLE},
    {N_("Hollow Diamond"),ARROW_HOLLOW_DIAMOND},
    {N_("Filled Diamond"),ARROW_FILLED_DIAMOND},
+   {N_("Half Diamond"), ARROW_HALF_DIAMOND},
    {N_("Half Head"),ARROW_HALF_HEAD},
    {N_("Slashed Cross"),ARROW_SLASHED_CROSS},
    {N_("Filled Ellipse"),ARROW_FILLED_ELLIPSE},
@@ -60,6 +61,7 @@ struct menudesc arrow_types[] =
    {N_("Filled Concave"),ARROW_FILLED_CONCAVE},
    {N_("Blanked Concave"),ARROW_BLANKED_CONCAVE},
    {N_("Round"), ARROW_ROUNDED},
+   {N_("Open Round"), ARROW_OPEN_ROUNDED},
    {NULL,0}};
 
 
@@ -173,14 +175,25 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     return;
   case ARROW_HOLLOW_TRIANGLE:
   case ARROW_UNFILLED_TRIANGLE:
+  case ARROW_FILLED_TRIANGLE:
+  case ARROW_FILLED_ELLIPSE:
+  case ARROW_HOLLOW_ELLIPSE:
+  case ARROW_ROUNDED:
     *move_line = *move_arrow;
     point_normalize(move_line);
     point_scale(move_line, arrow->length);
     point_add(move_line, move_arrow);
     return;
+  case ARROW_HALF_DIAMOND:
+  case ARROW_OPEN_ROUNDED:
+    /* These don't move the arrow, so *move_arrow can't be used. */
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    point_scale(move_line, arrow->length);
+    point_add(move_line, move_arrow);
   case ARROW_HOLLOW_DIAMOND:
   case ARROW_FILLED_DIAMOND:
-
     /* Make move_line be a unit vector in direction of line */
     *move_line = *to;
     point_sub(move_line, from);
@@ -211,15 +224,6 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     *move_line = *move_arrow;
     point_normalize(move_line);
     point_scale(move_line, .75*arrow->length);
-    point_add(move_line, move_arrow);
-    return;
-  case ARROW_FILLED_TRIANGLE:
-  case ARROW_FILLED_ELLIPSE:
-  case ARROW_HOLLOW_ELLIPSE:
-  case ARROW_ROUNDED:
-    *move_line = *move_arrow;
-    point_normalize(move_line);
-    point_scale(move_line, arrow->length);
     point_add(move_line, move_arrow);
     return;
   case ARROW_DOUBLE_HOLLOW_TRIANGLE:
@@ -739,6 +743,23 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 }
 
 static void
+draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *color)
+{
+  Point poly[4];
+
+  calculate_diamond(poly, to, from, length, width);
+  
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly+1, 3, color);
+}
+
+static void
 fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width,
 	     Color *color)
@@ -979,6 +1000,47 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p, to, fg_color);
 }
 
+static void
+draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *fg_color, Color *bg_color)
+{
+  Point p = *to;
+  Point delta;
+  real len, rayon;
+  real rapport;
+  real angle_start;
+  Point p_line;
+
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+  
+  delta = *from;
+  
+  point_sub(&delta, to);	
+  
+  len = sqrt(point_dot(&delta, &delta)); /* line length */
+  rayon = (length / 2.0);
+  rapport = rayon / len;
+  
+  p.x += delta.x * rapport;
+  p.y += delta.y * rapport;
+  
+  angle_start = 90.0 - asin((p.y - to->y) / rayon) * (180.0 / 3.14);
+  if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
+
+  p_line = p;
+  p_line.x += delta.x * rapport;
+  p_line.y += delta.y * rapport;
+  /*
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth * 2.0);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p_line, to, bg_color);
+  */
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start - 180.0, angle_start, fg_color);  
+}
+
 void
 arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -1010,6 +1072,10 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     break;
   case ARROW_FILLED_DIAMOND:
     fill_diamond(renderer, to, from, length, width, fg_color);
+    break;
+  case ARROW_HALF_DIAMOND:
+    /*    fill_diamond(renderer, to, from, length, width, bg_color);*/
+    draw_half_diamond(renderer, to, from, length, width, linewidth, fg_color);
     break;
   case ARROW_SLASHED_CROSS:
     draw_slashed_cross(renderer, to, from, length, width, linewidth, fg_color);
@@ -1064,6 +1130,10 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     break;
   case ARROW_ROUNDED:
     draw_rounded(renderer, to, from, length, width, linewidth, fg_color, bg_color);
+    break;
+  case ARROW_OPEN_ROUNDED:
+    draw_open_rounded(renderer, to, from, length, width, linewidth,
+		      fg_color, bg_color);
     break;
   } 
 }
