@@ -492,11 +492,11 @@ dia_color_selector_pressed(GtkWidget *widget)
     dialog = GTK_COLOR_SELECTION_DIALOG(cs->col_sel);
     gtk_widget_hide(dialog->help_button);
     
-    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "pressed",
+    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
 			(GtkSignalFunc) dia_color_selector_ok,
 			cs);
     
-    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "pressed",
+    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
 			      (GtkSignalFunc) gtk_widget_hide,
 			      GTK_OBJECT(dialog));
   }
@@ -532,7 +532,7 @@ dia_color_selector_init (DiaColorSelector *cs)
                       (GtkSignalFunc) dia_color_selector_draw_area,
                       cs);
   
-  gtk_signal_connect (GTK_OBJECT (cs), "pressed",
+  gtk_signal_connect (GTK_OBJECT (cs), "clicked",
                       (GtkSignalFunc) dia_color_selector_pressed,
                       NULL);
 }
@@ -863,7 +863,7 @@ dia_file_selector_init (DiaFileSelector *fs)
   gtk_widget_show(GTK_WIDGET(fs->entry));
   fs->browse = GTK_BUTTON(gtk_button_new_with_label(_("Browse")));
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->browse), FALSE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (fs->browse), "pressed",
+  gtk_signal_connect (GTK_OBJECT (fs->browse), "clicked",
                       (GtkSignalFunc) dia_file_selector_browse_pressed,
                       fs);
   gtk_widget_show(GTK_WIDGET(fs->browse));

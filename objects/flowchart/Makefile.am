@@ -1,0 +1,14 @@
+## Process this file with automake to produce Makefile.in
+
+SUBDIRS = pixmaps
+
+pkglib_LTLIBRARIES = 	libflowchart_objects.la
+libflowchart_objects_la_SOURCES = \
+			box.c \
+			parallelogram.c \
+			diamond.c \
+			flowchart.c
+
+libflowchart_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+
+INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@

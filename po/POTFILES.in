@@ -47,6 +47,10 @@ objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/uml.c
 objects/UML/usecase.c
+objects/flowchart/box.c
+objects/flowchart/diamond.c
+objects/flowchart/flowchart.c
+objects/flowchart/parallelogram.c
 objects/network/antenna.c
 objects/network/bus.c
 objects/network/computer.c

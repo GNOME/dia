@@ -1,5 +1,16 @@
 1999-08-17  James Henstridge  <james@daa.com.au>
 
+	* lib/widgets.c: changed handlers that were connected to the GtkButton
+	"pressed" signal to connect to the "clicked" signal.  This removes the
+	problem where dialogs are inactive until you click a mouse button
+	after using a colour selector.
+
+	* configure.in: added extra makefiles to AC_OUTPUT list.
+	
+	* objects/Makefile.am (SUBDIRS): added flowchart module
+
+	* objects/flowchart/*: a collection of shapes for use in flowcharts.
+
 	* app/color_area.c (color_area_events): similar here.
 
 	* app/linewidth_area.c (linewidth_area_events): sometimes a configure

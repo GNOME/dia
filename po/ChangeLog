@@ -1,3 +1,7 @@
+1999-08-17  James Henstridge  <james@daa.com.au>
+
+	* POTFILES.in: added flowchart object files.
+
 1999-08-11  Robert Brady  <rwb197@ecs.soton.ac.uk>
 
 	* en_GB.po: Added.
