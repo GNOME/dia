@@ -132,7 +132,9 @@ libdia_la_SOURCES =  \
 		render_pixmap.h \
 		render_pixmap.c \
 		diaarrowchooser.h \
-		diaarrowchooser.c
+		diaarrowchooser.c \
+		dialinechooser.h \
+		dialinechooser.c
 
 #		charconv.c \
 #		charconv.h 

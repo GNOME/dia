@@ -1,5 +1,17 @@
 2004-03-01  Hubert Figuiere  <hfiguiere@teaser.fr>
 
+	* app/Makefile.am:
+	* app/interface.h:
+	* app/lineprops_area.[ch]:
+	* lib/Makefile.am:
+	* lib/dialinechooser.[ch]:
+	* lib/widgets.c (dia_line_style_selector_init): use line preview 
+	instead of text labels. This involve moving away line_chooser to lib
+	from app.
+
+	* lib/diaarrowchooser.[ch] (close_and_hide): Make static to avoid
+	symbol conflicts.
+
 	* app/Makefile.am (dia_core_files): 
 	* app/interface.c (create_lineprops_area):
 	* app/render_pixmap.[ch]:
@@ -12,7 +24,6 @@
 	* lib/widgets.c (dia_arrow_fill_menu): Use arrow preview instead
 	of text labels. This involve moving away arrow_chooser to lib from
 	app.
-	
 
 2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 

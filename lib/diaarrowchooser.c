@@ -26,10 +26,10 @@
 #include "diaarrowchooser.h"
 #include "render_pixmap.h"
 
-const char *button_menu_key = "dia-button-menu";
-const char *menuitem_enum_key = "dia-menuitem-value";
+static const char *button_menu_key = "dia-button-menu";
+static const char *menuitem_enum_key = "dia-menuitem-value";
 
-gint close_and_hide(GtkWidget *wid, GdkEventAny *event) 
+static gint close_and_hide(GtkWidget *wid, GdkEventAny *event) 
 {
   gtk_widget_hide(wid);
   return TRUE;

@@ -34,7 +34,6 @@
 #include "arrows.h"
 #include "color_area.h"
 #include "linewidth_area.h"
-#include "lineprops_area.h"
 #include "attributes.h"
 
 void create_display_shell(DDisplay *ddisp,

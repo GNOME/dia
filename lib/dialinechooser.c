@@ -1,7 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * lineprops_area.h -- Copyright (C) 1999 James Henstridge.
+ * dialinechooser.c -- Copyright (C) 1999 James Henstridge.
+ *                     Copyright (C) 2004 Hubert Figuiere
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,38 +23,24 @@
 #include <config.h>
 #endif
 
-#include "lib/diaarrowchooser.h"
 #include "intl.h"
 #include "widgets.h"
-#include "lineprops_area.h"
-#include "interface.h"
-#include "render_pixmap.h"
+#include "dialinechooser.h"
 
-#include <gtk/gtk.h>
+static const char *button_menu_key = "dia-button-menu";
+static const char *menuitem_enum_key = "dia-menuitem-value";
 
-
+static gint close_and_hide(GtkWidget *wid, GdkEventAny *event) 
+{
+  gtk_widget_hide(wid);
+  return TRUE;
+}
 
 
 /* --------------- DiaLinePreview -------------------------------- */
-typedef struct _DiaLinePreview DiaLinePreview;
-typedef struct _DiaLinePreviewClass DiaLinePreviewClass;
 
 static GtkType dia_line_preview_get_type (void);
 static void dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle);
-static GtkWidget *dia_line_preview_new (LineStyle lstyle);
-
-#define DIA_LINE_PREVIEW(obj) (GTK_CHECK_CAST((obj),dia_line_preview_get_type(), DiaLinePreview))
-#define DIA_LINE_PREVIEW_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_preview_get_type(), DiaLinePreviewClass))
-
-struct _DiaLinePreview
-{
-  GtkMisc misc;
-  LineStyle lstyle;
-};
-struct _DiaLinePreviewClass
-{
-  GtkMiscClass parent_class;
-};
 
 static void dia_line_preview_class_init (DiaLinePreviewClass  *klass);
 static void dia_line_preview_init       (DiaLinePreview       *arrow);
@@ -102,7 +89,7 @@ dia_line_preview_init (DiaLinePreview *line)
   line->lstyle = LINESTYLE_SOLID;
 }
 
-static GtkWidget *
+GtkWidget *
 dia_line_preview_new (LineStyle lstyle)
 {
   DiaLinePreview *line = gtk_type_new (dia_line_preview_get_type());
@@ -195,31 +182,6 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 
 
 /* ------- Code for DiaLineChooser ---------------------- */
-static GtkType dia_line_chooser_get_type (void);
-
-#define DIA_LINE_CHOOSER(obj) (GTK_CHECK_CAST((obj),dia_line_chooser_get_type(), DiaLineChooser))
-#define DIA_LINE_CHOOSER_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_chooser_get_type(), DiaLineChooserClass))
-
-typedef struct _DiaLineChooser DiaLineChooser;
-typedef struct _DiaLineChooserClass DiaLineChooserClass;
-
-struct _DiaLineChooser
-{
-  GtkButton button;
-  DiaLinePreview *preview;
-  LineStyle lstyle;
-  real dash_length;
-
-  DiaChangeLineCallback callback;
-  gpointer user_data;
-
-  GtkWidget *dialog;
-  DiaLineStyleSelector *selector;
-};
-struct _DiaLineChooserClass
-{
-  GtkButtonClass parent_class;
-};
 
 static void dia_line_chooser_class_init (DiaLineChooserClass  *klass);
 static void dia_line_chooser_init       (DiaLineChooser       *arrow);
@@ -230,7 +192,7 @@ static void dia_line_chooser_dialog_cancel (DiaLineChooser *lchooser);
 static void dia_line_chooser_change_line_style (GtkMenuItem *mi,
 						DiaLineChooser *lchooser);
 
-static GtkType
+GtkType
 dia_line_chooser_get_type (void)
 {
   static GtkType arrow_type = 0;

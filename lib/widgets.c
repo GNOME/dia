@@ -25,6 +25,7 @@
 #include "dia_dirs.h"
 #include "arrows.h"
 #include "diaarrowchooser.h"
+#include "dialinechooser.h"
 
 #include <stdlib.h>
 #include <glib.h>
@@ -709,12 +710,13 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
 {
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *menuitem;
+  GtkWidget *menuitem, *ln;
   GtkWidget *label;
   GtkWidget *length;
   GtkWidget *box;
   GSList *group;
   GtkAdjustment *adj;
+  gint i;
   
   menu = gtk_option_menu_new();
   fs->omenu = GTK_OPTION_MENU(menu);
@@ -724,6 +726,16 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   submenu = NULL;
   group = NULL;
 
+  for (i = 0; i <= LINESTYLE_DOTTED; i++) {
+    menuitem = gtk_menu_item_new();
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+    ln = dia_line_preview_new(i);
+    gtk_container_add(GTK_CONTAINER(menuitem), ln);
+    gtk_widget_show(ln);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+    gtk_widget_show(menuitem);
+  }
+#if 0
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_SOLID));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
@@ -753,6 +765,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
+#endif
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
@@ -836,7 +849,8 @@ dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);
+/* TODO restore this later */
+/*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);*/
   set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
 }

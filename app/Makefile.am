@@ -72,8 +72,6 @@ dia_core_files = \
 	    color_area.h \
 	    linewidth_area.c \
 	    linewidth_area.h \
-	    lineprops_area.c \
-	    lineprops_area.h \
 	    grid.c \
 	    grid.h \
 	    handle_ops.c \

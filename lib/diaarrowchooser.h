@@ -29,11 +29,6 @@
 #include "arrows.h"
 #include "diatypes.h"
 
-extern const char *button_menu_key;
-extern const char *menuitem_enum_key;
-
-gint close_and_hide(GtkWidget *wid, GdkEventAny *event);
-
 
 /* --------------- DiaArrowPreview -------------------------------- */
 typedef struct _DiaArrowPreview DiaArrowPreview;
