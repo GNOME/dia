@@ -422,8 +422,7 @@ relationship_create(Point *startpoint,
     relationship->connections[i].connected = NULL;
   }
 
-  relationship->font = dia_font_new(BASIC_MONOSPACE_FONT,
-                                    STYLE_NORMAL,FONT_HEIGHT);
+  relationship->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,FONT_HEIGHT);
   relationship->font_height = FONT_HEIGHT;
   relationship->name = g_strdup(_("Relationship"));
   relationship->left_cardinality = g_strdup("");
