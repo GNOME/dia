@@ -124,7 +124,7 @@ msgstr "Vzdr¾evalec: James Henstridge"
 
 #: app/commands.c:529
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr "Prosim za veè informacij obi¹èite http://www.lysator.liu.se/~alla/dia"
+msgstr "Prosim za veè podatkov obi¹èite http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:534
 msgid "Contributors:"
@@ -331,7 +331,7 @@ msgid ""
 "Undo information erased."
 msgstr ""
 "Ta objekt ne podpira Razveljavi/Obnovi\n"
-"Informacije o razveljavitvi so zbrisane."
+"Podatki o razveljavitvi so zbrisani."
 
 #: app/disp_callbacks.c:166
 msgid "No object menu"
@@ -377,7 +377,7 @@ msgstr "/Pogled/Vidna mre¾e"
 
 #: app/display.c:841
 msgid "/View/Snap To Grid"
-msgstr "/Pogled/Preskajuj Do Mre¾e"
+msgstr "/Pogled/Preskakuj Do Mre¾e"
 
 #: app/display.c:843
 msgid "/View/Show Connection Points"
@@ -416,11 +416,11 @@ msgstr "Po priponi"
 
 #: app/filedlg.c:153
 msgid "Open Diagram"
-msgstr "Odpri Diagram"
+msgstr "Odpri diagram"
 
 #: app/filedlg.c:179
 msgid "Open Options"
-msgstr "Odpri Mo¾nosti"
+msgstr "Odpri mo¾nosti"
 
 #: app/filedlg.c:187 app/filedlg.c:527
 msgid "Determine file type:"
@@ -441,7 +441,7 @@ msgstr ""
 
 #: app/filedlg.c:295
 msgid "Save Diagram"
-msgstr "Shrani Diagram"
+msgstr "Shrani diagram"
 
 #: app/filedlg.c:475
 #, c-format
@@ -454,7 +454,7 @@ msgstr ""
 
 #: app/filedlg.c:492
 msgid "Export Diagram"
-msgstr "Izvozi Diagram"
+msgstr "Izvozi diagram"
 
 #: app/filedlg.c:519
 msgid "Export Options"
@@ -510,7 +510,7 @@ msgstr "©katla"
 
 #: app/interface.c:60
 msgid "Create Ellipse"
-msgstr "Naredi Elipso"
+msgstr "Naredi elipso"
 
 #: app/interface.c:61 app/menus.c:198
 msgid "Ellipse"
@@ -518,7 +518,7 @@ msgstr "Elipsa"
 
 #: app/interface.c:65
 msgid "Create Polygon"
-msgstr "Ustvari Poligon"
+msgstr "Ustvari poligon"
 
 #: app/interface.c:66 app/menus.c:199
 msgid "Polygon"
@@ -526,15 +526,15 @@ msgstr "Poligon"
 
 #: app/interface.c:70
 msgid "Create Beziergon"
-msgstr "Ustvari Bezierjev Poligon"
+msgstr "Ustvari Bezierjev poligon"
 
 #: app/interface.c:71 app/menus.c:200
 msgid "Beziergon"
-msgstr "Bezierjev Polgion"
+msgstr "Bezierjev polgion"
 
 #: app/interface.c:75
 msgid "Create Line"
-msgstr "Ustvari Èrto"
+msgstr "Ustvari èrto"
 
 #: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
 msgid "Line"
@@ -542,7 +542,7 @@ msgstr "Èrta"
 
 #: app/interface.c:80
 msgid "Create Arc"
-msgstr "Ustvari Lok"
+msgstr "Ustvari lok"
 
 #: app/interface.c:81 app/menus.c:202
 msgid "Arc"
@@ -550,31 +550,31 @@ msgstr "Lok"
 
 #: app/interface.c:85
 msgid "Create Zigzagline"
-msgstr "Ustvari Cik-cak Èrto"
+msgstr "Ustvari cik-cak èrto"
 
 #: app/interface.c:86 app/menus.c:203
 msgid "Zigzagline"
-msgstr "Cik-cak Èrta"
+msgstr "Cik-cak èrta"
 
 #: app/interface.c:90
 msgid "Create Polyline"
-msgstr "Ustvari Lomljeno Èrto"
+msgstr "Ustvari lomljeno èrto"
 
 #: app/interface.c:91 app/menus.c:204
 msgid "Polyline"
-msgstr "Lomljena Èrta"
+msgstr "Lomljena èrta"
 
 #: app/interface.c:95
 msgid "Create Bezierline"
-msgstr "Ustvari Bezierjevo Krivuljo"
+msgstr "Ustvari Bezierjevo krivuljo"
 
 #: app/interface.c:96 app/menus.c:205
 msgid "Bezierline"
-msgstr "Bezierjeva Krivulja"
+msgstr "Bezierjeva krivulja"
 
 #: app/interface.c:100
 msgid "Create Image"
-msgstr "Ustvari Sliko"
+msgstr "Ustvari sliko"
 
 #: app/interface.c:101 app/menus.c:206
 msgid "Image"
@@ -594,23 +594,23 @@ msgstr ""
 
 #: app/interface.c:708
 msgid "Diagram Editor"
-msgstr "Urejevalnik Diagrama"
+msgstr "Urejevalnik diagrama"
 
 #: app/layer_dialog.c:66
 msgid "New Layer"
-msgstr "Nova Plast"
+msgstr "Nova plast"
 
 #: app/layer_dialog.c:67
 msgid "Raise Layer"
-msgstr "Dvigni Plast"
+msgstr "Dvigni plast"
 
 #: app/layer_dialog.c:68
 msgid "Lower Layer"
-msgstr "Spusti Plast"
+msgstr "Spusti plast"
 
 #: app/layer_dialog.c:69
 msgid "Delete Layer"
-msgstr "Zbri¹i Plast"
+msgstr "Zbri¹i plast"
 
 #: app/layer_dialog.c:203
 msgid "Layers"
@@ -630,7 +630,7 @@ msgstr "brez"
 
 #: app/layer_dialog.c:951
 msgid "Edit Layer Attributes"
-msgstr "Uredi Atribute Plasti"
+msgstr "Uredi atribute plasti"
 
 #: app/layer_dialog.c:967
 msgid "Layer name:"
@@ -638,7 +638,7 @@ msgstr "Ime plasti:"
 
 #: app/lineprops_area.c:529
 msgid "Arrow Properties"
-msgstr "Lastnosti Pu¹èice"
+msgstr "Lastnosti pu¹èice"
 
 #: app/lineprops_area.c:586 app/lineprops_area.c:770
 msgid "Details..."
@@ -646,7 +646,7 @@ msgstr "Podrobnosti..."
 
 #: app/lineprops_area.c:726
 msgid "Line Style Properties"
-msgstr "Lastnosti Stila Èrte"
+msgstr "Lastnosti sloga èrte"
 
 #: app/linewidth_area.c:209
 msgid "Line width"
@@ -720,11 +720,11 @@ msgstr "Nisem uspel shraniti datoteke '%s'.\n"
 
 #: app/load_save.c:619 app/load_save.c:624
 msgid "Native Dia Diagram"
-msgstr "Domaè Dia Diagram"
+msgstr "Domaè Dia diagram"
 
 #: app/menus.c:39 app/menus.c:50
 msgid "_New diagram"
-msgstr "_Nov Diagram"
+msgstr "_Nov diagram"
 
 #: app/menus.c:39 app/menus.c:50
 msgid "Create new diagram"
@@ -740,11 +740,11 @@ msgstr "Iz_vozi..."
 
 #: app/menus.c:61
 msgid "Page Set_up..."
-msgstr "Nastavitev _Strani..."
+msgstr "Nastavitev _strani..."
 
 #: app/menus.c:63
 msgid "_Print Diagram..."
-msgstr "Na_tisni Diagram..."
+msgstr "Na_tisni diagram..."
 
 #: app/menus.c:78
 msgid "_Delete"
@@ -752,15 +752,15 @@ msgstr "_Izbri¹i"
 
 #: app/menus.c:84
 msgid "Copy Text"
-msgstr "Kopiraj Besedilo"
+msgstr "Kopiraj besedilo"
 
 #: app/menus.c:85
 msgid "Cut Text"
-msgstr "Izre¾i Besedilo"
+msgstr "Izre¾i besedilo"
 
 #: app/menus.c:86
 msgid "Paste _Text"
-msgstr "Prilepi _Besedilo"
+msgstr "Prilepi _besedilo"
 
 #: app/menus.c:109
 msgid "Zoom _In"
@@ -786,35 +786,35 @@ msgstr "_Poveèava"
 
 #: app/menus.c:112
 msgid "Edit Grid..."
-msgstr "Uredi Mre¾o..."
+msgstr "Uredi mre¾o..."
 
 #: app/menus.c:114
 msgid "_AntiAliased"
-msgstr "_Glajeni Robovi"
+msgstr "_Glajeni robovi"
 
 #: app/menus.c:117
 msgid "_Visible Grid"
-msgstr "_Vida Mre¾a"
+msgstr "_Vidna mre¾a"
 
 #: app/menus.c:119
 msgid "_Snap To Grid"
-msgstr "_Preskakuj Do Mre¾e"
+msgstr "_Preskakuj do mre¾e"
 
 #: app/menus.c:121
 msgid "Show _Rulers"
-msgstr "Ka¾i _Ravnila"
+msgstr "Ka¾i _ravnila"
 
 #: app/menus.c:123
 msgid "Show _Connection Points"
-msgstr "Ka¾i _Toèke Povezav"
+msgstr "Ka¾i _toèke povezav"
 
 #: app/menus.c:126
 msgid "New _View"
-msgstr "Nov _Pogled"
+msgstr "Nov _pogled"
 
 #: app/menus.c:127
 msgid "Show _All"
-msgstr "Prik_a¾i vse"
+msgstr "Ka¾i _vse"
 
 #: app/menus.c:132
 msgid "All"
@@ -1715,7 +1715,7 @@ msgstr "Skupaj:"
 #: objects/UML/generalization.c:280 objects/UML/realizes.c:283
 #: objects/standard/zigzagline.c:343
 msgid "Add segment"
-msgstr "Dodaj segment"
+msgstr "Dodaj daljico"
 
 #: objects/ER/participation.c:452 objects/FS/flow-ortho.c:727
 #: objects/GRAFCET/vector.c:401 objects/SADT/arrow.c:647
@@ -1723,7 +1723,7 @@ msgstr "Dodaj segment"
 #: objects/UML/generalization.c:281 objects/UML/realizes.c:284
 #: objects/standard/zigzagline.c:344
 msgid "Delete segment"
-msgstr "Zbri¹i segmnt"
+msgstr "Zbri¹i daljico"
 
 #: objects/ER/relationship.c:268
 msgid "Left Cardinality:"
@@ -2097,7 +2097,7 @@ msgstr "izkljuèi pu¹èiène glave"
 
 #: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
 msgid "Flow style:"
-msgstr "Stil toka:"
+msgstr "Slog toka:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
@@ -2456,28 +2456,28 @@ msgid ""
 msgstr ""
 "Doloèitev dogodkov:\n"
 "@ èas    nastavi kazalec na absolutni èas.\n"
-"( trajanje  postavi signal navzgor in nato poèaka 'trajanje'.\n"
-") duration  postavi signal navzdol in nato poèaka 'trajanje'.\n"
-"u duration  postavi signal v \"neznan\"-o stanje in nato poèaka 'trajanje'.\n"
+"( trajanje  postavi signal gor in nato poèaka 'trajanje'.\n"
+") trajanje  postavi signal dol in nato poèaka 'trajanje'.\n"
+"u trajanje  postavi signal v \"neznano\" stanje in nato poèaka 'trajanje'.\n"
 "primer : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
 #: objects/chronogram/chronoref.c:244 objects/chronogram/chronoref.c:309
 msgid "Start time:"
-msgstr "Zaèetni èas:"
+msgstr "Èas prièetka:"
 
 #: objects/chronogram/chronoline.c:318 objects/chronogram/chronoline.c:409
 #: objects/chronogram/chronoref.c:245 objects/chronogram/chronoref.c:310
 msgid "End time:"
-msgstr "Konèni èas:"
+msgstr "Èas zakljuèka:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
-msgstr "Dvigni èas:"
+msgstr "Èas dviga:"
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
 msgid "Fall time:"
-msgstr "Spusti èas:"
+msgstr "Èas spusta:"
 
 #: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
 msgid "Multi-bit data"
@@ -2582,11 +2582,11 @@ msgstr "Diagramski objekti Mre¾e"
 
 #: objects/standard/bezier.c:526
 msgid "Add Segment"
-msgstr "Dodaj Segment"
+msgstr "Dodaj daljico"
 
 #: objects/standard/bezier.c:527
 msgid "Delete Segment"
-msgstr "Zbri¹i Segment"
+msgstr "Zbri¹i daljico"
 
 #: objects/standard/bezier.c:529
 msgid "Symmetric control"
@@ -2602,7 +2602,7 @@ msgstr "Kontrola stika"
 
 #: objects/standard/image.c:165
 msgid "Image file"
-msgstr "Datoteka s sliko"
+msgstr "Slikovna datoteka"
 
 #: objects/standard/image.c:167
 msgid "Draw border"
@@ -2614,7 +2614,7 @@ msgstr "Ohrani razmerja"
 
 #: objects/standard/image.c:260
 msgid "Image file:"
-msgstr "Datoteka s sliko:"
+msgstr "Slikovna datoteka:"
 
 #: objects/standard/image.c:271
 msgid "Keep aspect ratio:"
@@ -2631,14 +2631,14 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"Datoteka s sliko '%s' ni bila najdena v tem imeniku.\n"
+"Slikovna datoteka '%s' ni bila najdena v tem imeniku.\n"
 "Namesto nje uporabljam datoteko '%s'\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:862 objects/standard/image.c:888
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "Datoteka s sliko '%s' ni bila najdena.\n"
+msgstr "Slikovna datoteka '%s' ni bila najdena.\n"
 
 #: objects/standard/line.c:118
 msgid "Start point"
@@ -2701,7 +2701,7 @@ msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makri"
 
 #~ msgid "Line style:"
-#~ msgstr "Stil èrte:"
+#~ msgstr "Slog èrte:"
 
 #~ msgid ""
 #~ "Could not determine which import filter\n"
