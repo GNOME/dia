@@ -1,3 +1,15 @@
+2001-07-26  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/group.c: added delivery of events to the first member of the
+	group which is able to process it.
+
+	* lib/properties.c(prop_desc_lists_intersection): properties
+	don't match if they don't have identical event handler.
+	* lib/properties.h: simplified the PropEventHandler signature.
+
+	Event delivery code is still untested so far, but should be
+	lurking harmless.
+	
 2001-07-25  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.[ch]: Added (untested !) property event handler

@@ -61,7 +61,7 @@ struct _PropEventData {
   guint index;   /* this property is dialog->props[index] */
 };
 
-typedef gboolean (*PropEventHandler) (const PropEventData *event);
+typedef gboolean (*PropEventHandler) (Object *obj, Property *prop);
 
 typedef enum {
   PROP_TYPE_INVALID = 0,

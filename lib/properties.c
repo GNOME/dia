@@ -152,11 +152,11 @@ prop_desc_lists_intersection(GList *plists)
       /* go through array in reverse so that removals don't stuff things up */
       for (i = arr->len - 1; i >= 0; i--) {
 	gint j;
-
+        PropDescription cand = g_array_index(arr,PropDescription,i);
 	for (j = 0; ret[j].name != NULL; j++) {
-	  if (g_array_index(arr, PropDescription, i).quark == ret[j].quark) {
-            if (!((ret[j].flags|g_array_index(arr, PropDescription, i).flags)
-                  & PROP_FLAG_DONT_MERGE))
+	  if (cand.quark == ret[j].quark) {
+            if ((!((ret[j].flags|cand.flags) & PROP_FLAG_DONT_MERGE)) &&
+                (ret[j].event_handler == cand.event_handler))                
               break; /* otherwise, one of the props doesn't want to be merged,
                         so we won't keep it. */                        
           }
@@ -373,7 +373,7 @@ property_signal_handler(GtkObject *obj,
 
     /* obj is a scratch object ; we can do what we want with it. */
     obj->ops->set_props(obj,pdd->props,pdd->nprops);
-    prop->event_handler(ped);
+    prop->event_handler(obj,prop);
     obj->ops->get_props(obj,pdd->props,pdd->nprops);
   } else {
     g_assert_not_reached();

@@ -353,9 +353,32 @@ group_objects(Object *group)
   return g->objects;
 }
 
+static gboolean
+group_prop_event_deliver(Group *group, Property *prop)
+{
+  GSList *tmp;
+  for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
+    Object *obj = tmp->data;
+
+    if (obj->ops->describe_props) {
+      PropDescription *pdesc,*plist;
+
+      /* I'm sorry. I haven't found a working less ugly solution :( */
+      plist = obj->ops->describe_props(obj);
+      pdesc = prop_desc_list_find_prop(plist,prop->name);
+      if (pdesc && pdesc->event_handler) {
+        /* deliver */
+        return pdesc->event_handler(obj,prop);
+      }
+    }
+  }
+  g_warning("undelivered group property event for prop %s",prop->name); 
+}
+
 static const PropDescription *
 group_describe_props(Group *group)
 {
+  int i;
   if (group->pdesc == NULL) {
     GList *descs = NULL, *tmp;
 
@@ -371,7 +394,17 @@ group_describe_props(Group *group)
     }
     group->pdesc = prop_desc_lists_intersection(descs);
     g_list_free(descs);
+
+    if (group->pdesc != NULL) {
+      /* hijack event delivery */
+      for (i=0; group->pdesc[i].name != NULL; i++) {
+        if (group->pdesc[i].event_handler) 
+          group->pdesc[i].event_handler = 
+            (PropEventHandler)group_prop_event_deliver;
+      }
+    }
   }
+
   return group->pdesc;
 }
 
@@ -389,7 +422,7 @@ group_get_props(Group *group, Property *props, guint nprops)
       obj->ops->get_props(obj, props, nprops);
 
       /* Check to see if all props have been read.
-       * Alternate method is to just itterate over all objects. */
+       * Alternate method is to just iterate over all objects. */
       for (i = 0; i < nprops; i++)
 	if (props[i].type == PROP_TYPE_INVALID)
 	  break;
