@@ -31,11 +31,6 @@ on_sheets_main_dialog_delete_event     (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
 
-gboolean
-on_sheets_main_dialog_destroy_event    (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
 void
 on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

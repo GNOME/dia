@@ -279,9 +279,6 @@ create_sheets_main_dialog (void)
   gtk_signal_connect (GTK_OBJECT (sheets_main_dialog), "delete_event",
                       GTK_SIGNAL_FUNC (on_sheets_main_dialog_delete_event),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (sheets_main_dialog), "destroy_event",
-                      GTK_SIGNAL_FUNC (on_sheets_main_dialog_destroy_event),
-                      NULL);
   gtk_signal_connect (GTK_OBJECT (button_copy), "clicked",
                       GTK_SIGNAL_FUNC (on_sheets_dialog_button_copy_clicked),
                       NULL);

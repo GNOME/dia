@@ -1,5 +1,11 @@
 2003-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/sheets_dialog_callbacks.h: 
+	* app/sheets_dialog_callbacks.c: 
+	* app/sheets_dialog.c (create_sheets_main_dialog): 
+	* app/sheets.c (sheets_dialog_create): More destroy stuff.  Trying
+	to handle destruction of main dialog cleanly, but it's a mess.
+
 	* configure.in: Downgraded ieeefp test to make it not produce
 	illegal shell code.
 

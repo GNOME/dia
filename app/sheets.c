@@ -217,24 +217,16 @@ sheets_dialog_create(void)
     }
   sheets_mods_list = NULL;
 
-  if (!GTK_IS_WIDGET(sheets_dialog))
+  if (sheets_dialog == NULL)
   {
     sheets_dialog = create_sheets_main_dialog();
-
-    /* This little bit identifies a custom object symbol so we can tell the
-       difference later between a SVG shape and a Programmed shape */
-
-    custom_type_symbol = NULL;
-    for (plugin_list = dia_list_plugins(); plugin_list != NULL;
-         plugin_list = g_list_next(plugin_list))
-    {
-       PluginInfo *info = plugin_list->data;
-
-       custom_type_symbol = (gpointer)dia_plugin_get_symbol (info,
-                                                             "custom_type");
-       if (custom_type_symbol)
-         break;
-    }
+    /* Make sure to null our pointer when destroyed */
+    gtk_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
+			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+			&sheets_dialog);
+    gtk_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
+			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+			&sheets_dialog_tooltips);
 
     sheet_left = NULL;
     sheet_right = NULL;
@@ -254,6 +246,24 @@ sheets_dialog_create(void)
 
     wrapbox = lookup_widget(sheets_dialog, "wrapbox_right");
     gtk_widget_destroy(wrapbox);
+  }
+
+  if (custom_type_symbol == NULL)
+  {
+    /* This little bit identifies a custom object symbol so we can tell the
+       difference later between a SVG shape and a Programmed shape */
+
+    custom_type_symbol = NULL;
+    for (plugin_list = dia_list_plugins(); plugin_list != NULL;
+         plugin_list = g_list_next(plugin_list))
+    {
+       PluginInfo *info = plugin_list->data;
+
+       custom_type_symbol = (gpointer)dia_plugin_get_symbol (info,
+                                                             "custom_type");
+       if (custom_type_symbol)
+         break;
+    }
   }
 
   if (!custom_type_symbol)
@@ -415,11 +425,10 @@ sheets_dialog_show_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GtkWidget *wrapbox;
   GtkWidget *option_menu;
-  static gboolean sheets_dialog_created = FALSE;
 
-  if (!sheets_dialog_created)
-    sheets_dialog_created = sheets_dialog_create();
-  if (!sheets_dialog_created)
+  if (!sheets_dialog)
+    sheets_dialog_create();
+  if (!sheets_dialog)
     return;
 
   wrapbox = gtk_object_get_data(GTK_OBJECT(sheets_dialog), "wrapbox_left");

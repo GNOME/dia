@@ -89,15 +89,6 @@ on_sheets_main_dialog_delete_event     (GtkWidget       *widget,
 }
 
 
-gboolean
-on_sheets_main_dialog_destroy_event    (GtkWidget       *widget,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-  sheets_dialog_hide();
-  return TRUE;
-}
-
 static void
 sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list, 
                                     GtkToggleButton *togglebutton)
