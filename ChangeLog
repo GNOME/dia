@@ -1,3 +1,19 @@
+2000-02-18  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/box.c: set extra data for corner radius and text
+	padding properties.
+
+	* objects/standard/box.c: set extra data for corner radius property.
+
+	* lib/properties.h: set extra data in some standard properties.
+
+	* lib/properties.c (prop_get_widget): look at the extra data for
+	int, real and enum property types.  They now use GtkSpinButton and
+	GtkOptionMenu respectively.
+
+	* lib/properties.h: extra data members for creating property setting
+	widgets.
+
 2000-02-17  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/box.c: reverted load/save functions back to

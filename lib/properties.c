@@ -30,6 +30,7 @@
 #include "intl.h"
 #include "widgets.h"
 
+#define LIBDIA_COMPILATION
 #undef G_INLINE_FUNC
 #define G_INLINE_FUNC extern
 #define G_CAN_INLINE 1
@@ -259,6 +260,7 @@ GtkWidget *
 prop_get_widget(Property *prop)
 {
   GtkWidget *ret = NULL;
+  GtkAdjustment *adj;
   gchar buf[256];
 
   switch (prop->type) {
@@ -279,15 +281,58 @@ prop_get_widget(Property *prop)
 				 PROP_VALUE_BOOL(*prop));
     break;
   case PROP_TYPE_INT:
+    if (prop->extra_data) {
+      PropNumData *numdata = prop->extra_data;
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
+					      numdata->min, numdata->max,
+					      numdata->step, numdata->step,
+					      numdata->step));
+    } else
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
+					      G_MININT, G_MAXINT,
+					      1.0, 1.0, 1.0));
+    ret = gtk_spin_button_new(adj, 1.0, 0);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
+    break;
   case PROP_TYPE_ENUM:
-    ret = gtk_entry_new(); /* should use spin button/option menu */
-    g_snprintf(buf, sizeof(buf), "%d", PROP_VALUE_INT(*prop));
-    gtk_entry_set_text(GTK_ENTRY(ret), buf);
+    if (prop->extra_data) {
+      PropEnumData *enumdata = prop->extra_data;
+      GtkWidget *menu;
+      guint i, pos = 0;
+
+      ret = gtk_option_menu_new();
+      menu = gtk_menu_new();
+      for (i = 0; enumdata[i].name != NULL; i++) {
+	GtkWidget *item = gtk_menu_item_new_with_label(_(enumdata[i].name));
+
+	if (enumdata[i].enumv == PROP_VALUE_ENUM(*prop))
+	  pos = i;
+	gtk_object_set_user_data(GTK_OBJECT(item),
+				 GUINT_TO_POINTER(enumdata[i].enumv));
+	gtk_container_add(GTK_CONTAINER(menu), item);
+	gtk_widget_show(item);
+      }
+      gtk_option_menu_set_menu(GTK_OPTION_MENU(ret), menu);
+      gtk_option_menu_set_history(GTK_OPTION_MENU(ret), i);
+    } else {
+      ret = gtk_entry_new(); /* should use spin button/option menu */
+      g_snprintf(buf, sizeof(buf), "%d", PROP_VALUE_ENUM(*prop));
+      gtk_entry_set_text(GTK_ENTRY(ret), buf);
+    }
     break;
   case PROP_TYPE_REAL:
-    ret = gtk_entry_new(); /* should use spin button */
-    g_snprintf(buf, sizeof(buf), "%g", PROP_VALUE_REAL(*prop));
-    gtk_entry_set_text(GTK_ENTRY(ret), buf);
+    if (prop->extra_data) {
+      PropNumData *numdata = prop->extra_data;
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
+					      numdata->min, numdata->max,
+					      numdata->step, numdata->step,
+					      numdata->step));
+    } else
+      adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
+					      G_MINFLOAT, G_MAXFLOAT,
+					      0.1, 0.1, 0.1));
+    ret = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
@@ -346,13 +391,20 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     PROP_VALUE_BOOL(*prop) = GTK_TOGGLE_BUTTON(widget)->active;
     break;
   case PROP_TYPE_INT:
+    PROP_VALUE_INT(*prop) = gtk_spin_button_get_value_as_int(
+					GTK_SPIN_BUTTON(widget));
+    break;
   case PROP_TYPE_ENUM:
-    PROP_VALUE_INT(*prop) = strtol(gtk_entry_get_text(GTK_ENTRY(widget)),
-				   NULL, 0);
+    if (GTK_IS_OPTION_MENU(widget))
+      PROP_VALUE_ENUM(*prop) = GPOINTER_TO_UINT(gtk_object_get_user_data(
+			GTK_OBJECT(GTK_OPTION_MENU(widget)->menu_item)));
+    else
+      PROP_VALUE_ENUM(*prop) = strtol(gtk_entry_get_text(GTK_ENTRY(widget)),
+				     NULL, 0);
     break;
   case PROP_TYPE_REAL:
-    PROP_VALUE_REAL(*prop) = g_strtod(gtk_entry_get_text(GTK_ENTRY(widget)),
-				      NULL);
+    PROP_VALUE_REAL(*prop) = gtk_spin_button_get_value_as_float(
+					GTK_SPIN_BUTTON(widget));
     break;
   case PROP_TYPE_STRING:
     g_free(PROP_VALUE_STRING(*prop));
@@ -1012,3 +1064,14 @@ object_save_props(Object *obj, ObjectNode obj_node)
   prop_list_free(props, nprops);
 }
 
+/* --------------------------------------- */
+
+/* standard property extra data members */
+PropNumData prop_std_line_width_data = { 0.0, 10.0, 0.01 };
+PropNumData prop_std_text_height_data = { 0.1, 10.0, 0.1 };
+PropEnumData prop_std_text_align_data[] = {
+  { N_("Left"), ALIGN_LEFT },
+  { N_("Center"), ALIGN_CENTER },
+  { N_("Right"), ALIGN_RIGHT },
+  { NULL, 0 }
+};

@@ -35,6 +35,17 @@
 #include "object.h"
 #include "dia_xml.h"
 
+#ifdef G_OS_WIN32
+#  ifdef LIBDIA_COMPILATION
+#    define DIAVAR __declspec(dllexport)
+#  else
+#    define DIAVAR extern __declspec(dllimport)
+#  endif
+#else  /* !G_OS_WIN32 */
+#  define DIAVAR extern
+#endif
+
+
 #ifndef _prop_typedefs_defined
 #define _prop_typedefs_defined
 typedef struct _PropDescription PropDescription;
@@ -108,6 +119,17 @@ struct _Property {
     
     gpointer other_data;
   } d;
+};
+
+/* extra data pointers for various property types */
+typedef struct _PropNumData PropNumData;
+struct _PropNumData {
+  gfloat min, max, step;
+};
+typedef struct _PropEnumData PropEnumData;
+struct _PropEnumData {
+  const gchar *name;
+  guint enumv;
 };
 
 #define PROP_VALUE_CHAR(prop)       ((prop).d.char_data)
@@ -281,9 +303,12 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
  * of a number of objects should be greater, making setting properties on
  * groups better. */
 
+DIAVAR PropNumData prop_std_line_width_data, prop_std_text_height_data;
+DIAVAR PropEnumData prop_std_text_align_data[];
+
 #define PROP_STD_LINE_WIDTH \
   { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
-    N_("Line width"), NULL, NULL }
+    N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE, \
     N_("Line colour"), NULL, NULL }
@@ -310,13 +335,13 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
     N_("Text"), NULL, NULL }
 #define PROP_STD_TEXT_ALIGNMENT \
   { "text_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
-    N_("Text alignment"), NULL, NULL }
+    N_("Text alignment"), NULL, prop_std_text_align_data }
 #define PROP_STD_TEXT_FONT \
   { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
     N_("Font"), NULL, NULL }
 #define PROP_STD_TEXT_HEIGHT \
   { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
-    N_("Font size"), NULL, NULL }
+    N_("Font size"), NULL, &prop_std_text_height_data }
 #define PROP_STD_TEXT_COLOUR \
   { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
     N_("Text colour"), NULL, NULL }

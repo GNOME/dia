@@ -136,6 +136,8 @@ static ObjectOps box_ops = {
   (SetPropsFunc)        box_set_props,
 };
 
+static PropNumData corner_radius_data = { 0.0, 10.0, 0.1 };
+
 static PropDescription box_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -144,7 +146,7 @@ static PropDescription box_props[] = {
   PROP_STD_SHOW_BACKGROUND,
   PROP_STD_LINE_STYLE,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
-    N_("Corner radius"), NULL, NULL },
+    N_("Corner radius"), NULL, &corner_radius_data },
   PROP_DESC_END
 };
 
