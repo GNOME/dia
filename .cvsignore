@@ -1,9 +1,10 @@
 .deps
-stamp-h.in
+stamp-h*
 Makefile
 dia.desktop
 Makefile.in
 aclocal.m4
+autom4te*.cache
 core-translation-report
 config.cache
 config.guess

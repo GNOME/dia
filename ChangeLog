@@ -1,3 +1,10 @@
+2002-11-26  Christian Neumair  <chris@gnome-de.org>
+
+	* .cvsignore: Changed.
+	* objects/bondgraph/.cvsignore, plug-ins/metapost/.cvsignore,
+	plug-ins/xslt/.cvsignore, shapes/Assorted/.cvsignore, shapes/Misc/.cvsignore:
+	Added.
+
 2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/pixmaps/delete.xpm: Trashcan stolen from Gimp.
