@@ -2163,7 +2163,7 @@ fill_in_dialog(UMLClass *umlclass)
   templates_fill_in_dialog(umlclass);
 }
 
-void
+ObjectChange *
 umlclass_apply_properties(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
@@ -2216,6 +2216,7 @@ umlclass_apply_properties(UMLClass *umlclass)
 
   /* Fill in class with the new data: */
   fill_in_dialog(umlclass);
+  retrun (ObjectChange *)NULL; /* Temporary. */
 }
 
 static void

@@ -1,5 +1,12 @@
 1999-09-19  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/UML/class.h: 
+	* objects/UML/class_dialog.c:
+	Retrun NULL ObjectChange on class property change.
+	This means no crashes, but "UML - Class" doesn't support undo yet.
+	
+1999-09-19  Alexander Larsson  <alla@lysator.liu.se>
+	
 	* lib/text.c:
 	Indentation fix.
 

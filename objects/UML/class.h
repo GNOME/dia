@@ -130,7 +130,7 @@ struct _UMLClassDialog {
 };
 
 extern GtkWidget *umlclass_get_properties(UMLClass *umlclass);
-extern void umlclass_apply_properties(UMLClass *umlclass);
+extern ObjectChange *umlclass_apply_properties(UMLClass *umlclass);
 extern void umlclass_calculate_data(UMLClass *umlclass);
 extern void umlclass_update_data(UMLClass *umlclass);
 
