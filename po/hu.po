@@ -171,7 +171,7 @@ msgstr "Nincs alapértéke az objektumnak."
 
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
-msgstr "Nem tudom a Bonobo-t elindítani!"
+msgstr "A Bonobo inicializálása nem sikerült!"
 
 #: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
@@ -1334,7 +1334,7 @@ msgstr "Eltávolít"
 
 #: app/preferences.c:87
 msgid "User Interface"
-msgstr "Felhasználói interfész"
+msgstr "Felhasználói felület"
 
 #: app/preferences.c:88
 msgid "View Defaults"
@@ -2360,7 +2360,7 @@ msgstr "Nyíl mutatása:"
 
 #: objects/UML/implements.c:561
 msgid "Interface:"
-msgstr "Interfész:"
+msgstr "Felület:"
 
 #: objects/UML/lifeline.c:607
 msgid "Show focus of control:"
