@@ -81,16 +81,55 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 {
   char *str, *ptr;
   char *old_locale;
+  gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
+  int i = 0;
+  gboolean over = FALSE;
 
   ptr = str = xmlGetProp(node, "style");
-  if (!str)
-    return;
+  s->alignment = -1;
+
+ if (str) {
   while (ptr[0] != '\0') {
     /* skip white space at start */
     while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
     if (ptr[0] == '\0') break;
 
-    if (!strncmp("stroke-width:", ptr, 13)) {
+     if (!strncmp("font-family:", ptr, 12)) {
+      ptr += 12;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+        if (i < FONT_NAME_LENGTH_MAX) {
+            temp[i] = ptr[0];
+        } else over = TRUE;
+        i++;
+        ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) s->font = font_getfont(temp);
+
+    } else if (!strncmp("font-size:", ptr, 10)) {
+      ptr += 10;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+        if (i < FONT_NAME_LENGTH_MAX) {
+            temp[i] = ptr[0];
+        } else over = TRUE;
+        i++;
+        ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) s->font_height = g_strtod(temp, NULL);
+
+    } else if (!strncmp("text-anchor:", ptr, 12)) {
+      ptr += 12;
+      if (!strncmp(ptr, "start", 5))
+        s->alignment = ALIGN_LEFT;
+      else if (!strncmp(ptr, "end", 3))
+        s->alignment = ALIGN_RIGHT;
+
+    } else if (!strncmp("stroke-width:", ptr, 13)) {
       ptr += 13;
       old_locale = setlocale(LC_NUMERIC, "C");
       s->line_width = strtod(ptr, &ptr);
@@ -191,6 +230,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
     if (ptr[0] != '\0') ptr++;
   }
   free(str);
+ }
 }
 
 /* routine to chomp off the start of the string */
@@ -621,14 +661,14 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	rect->corner1.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
-      }
+      } else rect->corner1.x = 0;
       str = xmlGetProp(node, "y");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
 	rect->corner1.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
-      }
+      } else rect->corner1.y = 0;
       str = xmlGetProp(node, "width");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
@@ -643,6 +683,32 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	  setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
+    } else if (!strcmp(node->name, "text")) {
+
+      GraphicElementText *text = g_new(GraphicElementText, 1);
+      el = (GraphicElement *)text;
+      text->type = GE_TEXT;
+      text->object = NULL;
+      str = xmlGetProp(node, "x");
+      if (str) {
+	old_locale = setlocale(LC_NUMERIC, "C");
+	text->anchor.x = strtod(str, NULL);
+	setlocale(LC_NUMERIC, old_locale);
+	free(str);
+      } else text->anchor.x = 0;
+      str = xmlGetProp(node, "y");
+      if (str) {
+	old_locale = setlocale(LC_NUMERIC, "C");
+	text->anchor.y = strtod(str, NULL);
+	setlocale(LC_NUMERIC, old_locale);
+	free(str);
+      } else text->anchor.y = 0;
+
+      str = xmlNodeGetContent(node);
+      if (str) {
+	    text->string = strdup(str);
+	    free(str);
+      } else text->string = "";
     } else if (!strcmp(node->name, "circle")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
@@ -757,6 +823,9 @@ update_bounds(ShapeInfo *info)
     case GE_RECT:
       check_point(info, &(el->rect.corner1));
       check_point(info, &(el->rect.corner2));
+      break;
+    case GE_TEXT:
+      check_point(info, &(el->text.anchor));
       break;
     case GE_ELLIPSE:
       pt = el->ellipse.center;
@@ -1041,6 +1110,10 @@ shape_info_print(ShapeInfo *info)
       g_print("  rect: (%g, %g) (%g, %g)\n",
 	      el->rect.corner1.x, el->rect.corner1.y,
 	      el->rect.corner2.x, el->rect.corner2.y);
+      break;
+    case GE_TEXT:
+      g_print("  text: (%g, %g)\n",
+	      el->text.anchor.x, el->text.anchor.y);
       break;
     case GE_ELLIPSE:
       g_print("  ellipse: center=(%g, %g) width=%g height=%g\n",

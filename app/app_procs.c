@@ -144,7 +144,7 @@ app_init (int argc, char **argv)
   poptContext poptCtx = NULL;
   struct poptOption options[] =
   {
-    {"export", 'e', POPT_ARG_STRING, &export_file_name, 0,
+    {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"nosplash", 0, POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
@@ -155,9 +155,14 @@ app_init (int argc, char **argv)
   };
 #endif
 
+#ifdef HAVE_POPT
+  options[0].arg = &export_file_name;
+#endif
+
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
+
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
 

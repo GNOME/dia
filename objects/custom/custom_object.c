@@ -26,6 +26,7 @@
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "intl.h"
 #include "shape_info.h"
@@ -119,6 +120,7 @@ static void custom_move_handle(Custom *custom, Handle *handle,
 static void custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, Renderer *renderer);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
+static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static Object *custom_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -522,6 +524,11 @@ custom_distance_from(Custom *custom, Point *point)
       }
       dist = distance_rectangle_point(&rect, point);
       break;
+    case GE_TEXT:
+      custom_reposition_text(custom, &el->text);
+      dist = text_distance_from(el->text.object, point);
+      text_set_position(el->text.object, &el->text.anchor);
+      break;
     case GE_ELLIPSE:
       transform_coord(custom, &el->ellipse.center, &p1);
       dist = distance_ellipse_point(&p1,
@@ -793,6 +800,11 @@ custom_draw(Custom *custom, Renderer *renderer)
       if (el->any.s.stroke != COLOUR_NONE)
 	renderer->ops->draw_rect(renderer, &p1, &p2, &fg);
       break;
+    case GE_TEXT:
+      custom_reposition_text(custom, &el->text);
+      text_draw(el->text.object, renderer);
+      text_set_position(el->text.object, &el->text.anchor);
+      break;
     case GE_ELLIPSE:
       transform_coord(custom, &el->ellipse.center, &p1);
       if (custom->show_background && el->any.s.fill != COLOUR_NONE)
@@ -873,6 +885,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   Rectangle tb;
   ElementBBExtras *extra = &elem->extra_spacing;
   int i;
+  GList *tmp;
   
   /* save starting points */
   center = bottom_right = elem->corner;
@@ -1012,11 +1025,11 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   {
     /* FIXME: this block is a bad hack, see BugZilla #52912.
      I want that crap to go away ASAP after 0.87 is released -- CC */
-    GList *tmp;
+    GList *utmp;
     real worst_lw = 0.0;
 
-    for (tmp = info->display_list; tmp; tmp = tmp->next) {
-      GraphicElement *el = tmp->data;
+    for (utmp = info->display_list; utmp; utmp = utmp->next) {
+      GraphicElement *el = utmp->data;
       if (el->any.s.line_width > worst_lw) worst_lw = el->any.s.line_width;
     }
     extra->border_trans += worst_lw * custom->border_width * 5.24  - custom->border_width/2; 
@@ -1029,9 +1042,48 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     text_calc_boundingbox(custom->text, &tb);
     rectangle_union(&obj->bounding_box, &tb);
   }
+
+  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
+       GraphicElement *el = tmp->data;
+       if (el->type == GE_TEXT)
+            rectangle_union(&obj->bounding_box, &el->text.text_bounds);
+  }
+
   obj->position = elem->corner;
   
   element_update_handles(elem);
+}
+
+/* reposition the text element to the new text bounding box ... */
+void custom_reposition_text(Custom *custom, GraphicElementText *text) {
+    Element *elem = &custom->element;
+    Point p;
+    Rectangle tb;
+
+    transform_rect(custom, &text->text_bounds, &tb);
+    switch (text->object->alignment) {
+    case ALIGN_LEFT:
+      p.x = tb.left;
+      break;
+    case ALIGN_RIGHT:
+      p.x = tb.right;
+      break;
+    case ALIGN_CENTER:
+      p.x = (tb.left + tb.right) / 2;
+      break;
+    }
+    /* align the text to be close to the shape ... */
+    if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
+      p.y = tb.top +
+	font_ascent(text->object->font, text->object->height);
+    else if ((tb.bottom+tb.top)/2 < elem->corner.y)
+      p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
+    else
+      p.y = (tb.top + tb.bottom -
+	     text->object->height * text->object->numlines) / 2 +
+	font_ascent(text->object->font, text->object->height);
+    text_set_position(text->object, &p);
+    return;
 }
 
 static Object *
@@ -1048,6 +1100,7 @@ custom_create(Point *startpoint,
   int i;
   Font *font;
   real font_height;
+  GList *tmp;
 
   g_return_val_if_fail(info!=NULL,NULL);
 
@@ -1086,6 +1139,19 @@ custom_create(Point *startpoint,
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
 			    default_properties.alignment);
   }
+  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
+       GraphicElement *el = tmp->data;
+       if (el->type == GE_TEXT) {
+            /* set default values for text style */
+            if (!el->text.s.font_height) el->text.s.font_height = FONT_HEIGHT_DEFAULT;
+            if (!el->text.s.font) el->text.s.font = font_getfont(FONT_DEFAULT);
+            if (el->text.s.alignment == -1) el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
+            el->text.object = new_text(el->text.string, el->text.s.font, el->text.s.font_height,
+	        &el->text.anchor, &color_black, el->text.s.alignment);
+	        text_calc_boundingbox(el->text.object, &el->text.text_bounds);
+       }
+  }
+
   element_init(elem, 8, info->nconnections);
 
   custom->connections = g_new0(ConnectionPoint, info->nconnections);
@@ -1105,8 +1171,15 @@ custom_create(Point *startpoint,
 static void
 custom_destroy(Custom *custom)
 {
+  GList *tmp;
+
   if (custom->info->has_text)
     text_destroy(custom->text);
+
+  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
+       GraphicElement *el = tmp->data;
+       if (el->type == GE_TEXT) text_destroy(el->text.object);
+  }
 
   element_destroy(&custom->element);
   

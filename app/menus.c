@@ -588,7 +588,11 @@ dia_menu_signal_proxy (GtkWidget *widget, GnomeUIInfo *uiinfo)
     (GtkItemFactoryCallback1)uiinfo->moreinfo;
   guint action = GPOINTER_TO_UINT (uiinfo->user_data);
 
-  (* signal_handler) (NULL, action, widget);
+  if (signal_handler) {
+    (* signal_handler) (NULL, action, widget);
+  } else {
+    g_warning("called dia_menu_signal_proxy with NULL signal_handler !");
+  }
 }
 
 static void

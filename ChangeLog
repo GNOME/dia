@@ -1,3 +1,24 @@
+2001-05-18  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/charconv.c: steps towards resolution of #53512 (inspired by
+	<frob@df.ru>'s patch).
+
+	* app/menus.c (dia_menu_signal_proxy): checked that the signal
+	handler is not NULL before transferring control to it... (fixes #52310)
+
+	* app/app_procs.c (app_init): removed non-constant initialiser
+	(fixes #52950)
+
+	* objects/custom/custom_object.c:
+	* objects/custom/shape_info.[ch]:
+	* objects/custom/test.xml: merged patch #53476 from Steven Hawkins 
+	<skh@mathstar.com>. This add support for a <svg:text> shape
+	element, and some related style properties (font, font height, 
+	alignment)
+
+	* doc/custom_shapes: a precision about the meaning of case in a
+	SVG path (closes #52364)
+	
 2001-05-17  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/network/network.c:

@@ -165,8 +165,10 @@ The recognised drawing elements are:
   is made up of a number of commands of the form "x arg1 arg2 ..."
   where x is a character code identifying the command, and the
   arguments are numbers separated by white space or commas.  Each
-  command has an absolute and relative variant.  The relative ones use
-  the end point of the previous command as the origin.
+  command has an absolute and relative variant.  The absolute one are
+  spelled with an upper case letter. The relative ones are spelled with
+  a lower case letter, and use the end point of the previous command
+  as the origin.
 
   The supported commands are:
     M x,y                 Move cursor

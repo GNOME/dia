@@ -27,6 +27,7 @@
 #include "render.h"
 #include "dia_xml.h"
 #include "object.h"
+#include "text.h"
 
 typedef enum {
   GE_LINE,
@@ -35,7 +36,8 @@ typedef enum {
   GE_RECT,
   GE_ELLIPSE,
   GE_PATH,
-  GE_SHAPE
+  GE_SHAPE,
+  GE_TEXT
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
@@ -46,6 +48,7 @@ typedef struct _GraphicElementPoly GraphicElementPoly;
 typedef struct _GraphicElementRect GraphicElementRect;
 typedef struct _GraphicElementEllipse GraphicElementEllipse;
 typedef struct _GraphicElementPath GraphicElementPath;
+typedef struct _GraphicElementText GraphicElementText;
 
 /* special colours */
 #define COLOUR_NONE -1
@@ -58,6 +61,11 @@ typedef struct _GraphicElementPath GraphicElementPath;
 #define LINEJOIN_DEFAULT 20
 #define LINESTYLE_DEFAULT 20
 
+#define FONT_DEFAULT "Courier"
+#define FONT_HEIGHT_DEFAULT 1
+#define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
+#define FONT_NAME_LENGTH_MAX 40
+
 struct _GraphicStyle {
   real line_width;
   gint32 stroke;
@@ -67,6 +75,10 @@ struct _GraphicStyle {
   LineJoin linejoin;
   LineStyle linestyle;
   real dashlength;
+
+  Font *font;
+  real font_height;
+  Alignment alignment;
 };
 
 #define SHAPE_INFO_COMMON  \
@@ -104,6 +116,15 @@ struct _GraphicElementPath {
   int npoints;
   BezPoint points[1];
 };
+
+struct _GraphicElementText {
+  SHAPE_INFO_COMMON;
+  Point anchor;
+  char *string;
+  Text *object;
+  Rectangle text_bounds;
+};
+
 #undef SHAPE_INFO_COMMON
 
 union _GraphicElement {
@@ -116,6 +137,7 @@ union _GraphicElement {
   GraphicElementEllipse ellipse;
   GraphicElementPath path;
   GraphicElementPath shape;
+  GraphicElementText text;
 };
 
 typedef enum {

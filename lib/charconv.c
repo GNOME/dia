@@ -29,9 +29,18 @@
 #include <string.h>
 #include <unicode.h>
 
+#ifdef HAVE_LANGINFO_CODESET
+#include <langinfo.h>
+#else /* HAVE_LANGINFO_CODESET */
 #ifndef EFAULT_8BIT_CHARSET /* this is a hack until dia talks utf8 internally. */
 #define EFAULT_8BIT_CHARSET "ISO-8859-1" /* this whole file is, anyway. */
-#endif
+#endif /* !EFAULT_8BIT_CHARSET */
+#define CODESET
+static const char *nl_langinfo(void) {
+  return EFAULT_8BIT_CHARSET;
+}
+
+#endif /* HAVE_LANGINFO_CODESET */
 
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
@@ -39,17 +48,17 @@ static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
 static void 
 check_conv_l2u(void){
   if (conv_u2l==(unicode_iconv_t)0) {
-    conv_u2l = unicode_iconv_open(EFAULT_8BIT_CHARSET,"UTF-8");
+    conv_u2l = unicode_iconv_open(nl_langinfo(CODESET),"UTF-8");
   } 
   if (conv_l2u==(unicode_iconv_t)0) {
-    conv_l2u = unicode_iconv_open("UTF-8",EFAULT_8BIT_CHARSET);
+    conv_l2u = unicode_iconv_open("UTF-8",nl_langinfo(CODESET));
   } 
 }
 
 static void 
 check_conv_u2l(void){
   if (conv_u2l==(unicode_iconv_t)0) {
-    conv_u2l = unicode_iconv_open(EFAULT_8BIT_CHARSET,"UTF-8");
+    conv_u2l = unicode_iconv_open(nl_langinfo(CODESET),"UTF-8");
   } 
 }
   
