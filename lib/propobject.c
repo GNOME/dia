@@ -213,7 +213,7 @@ object_load_props(Object *obj, ObjectNode obj_node)
   g_return_if_fail(object_complies_with_stdprop(obj));
 
   props = prop_list_from_descs(object_get_prop_descriptions(obj),
-                               pdtpp_do_save);  
+                               pdtpp_do_load);  
 
   prop_list_load(props,obj_node);
 

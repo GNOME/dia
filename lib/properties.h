@@ -236,6 +236,7 @@ struct _PropDescription {
 #define PROP_FLAG_DONT_SAVE 0x0002
 #define PROP_FLAG_DONT_MERGE 0x0004 /* in case group properties are edited */
 #define PROP_FLAG_NO_DEFAULTS 0x0008 /* don't edit this in defaults dlg. */
+#define PROP_FLAG_LOAD_ONLY 0x0010 /* for loading old formats */
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
@@ -357,6 +358,7 @@ gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
 gboolean pdtpp_is_visible(const PropDescription *pdesc); 
 gboolean pdtpp_is_not_visible(const PropDescription *pdesc); 
 gboolean pdtpp_do_save(const PropDescription *pdesc); 
+gboolean pdtpp_do_load(const PropDescription *pdesc);
 gboolean pdtpp_do_not_save(const PropDescription *pdesc); 
 /* all but DONT_MERGE and NO_DEFAULTS: */
 gboolean pdtpp_defaults(const PropDescription *pdesc); 

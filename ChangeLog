@@ -1,3 +1,24 @@
+2002-05-27  Cyrille Cheeplov  <cyrille@chepelov.org>
+
+	* objects/UML/state.c: there was a (gratuitous?) change of on-XML
+	format for the UML State object. Now there's a hack to reload
+	older files, and get them converted on the fly. 
+	Justyna "Nell" Biała reported this. Thanks!
+
+	* lib/properties.h:
+	* lib/propobject.c:
+	* lib/proplist.c: Added a new property flag, PROP_FLAG_LOAD_ONLY,
+	and adapter the proplist predicates. A LOAD_ONLY property is for
+	when you have legacy to support but can't resist moving your
+	fields around... (was needed to support the above state.c fix).
+
+	If the in-core of your object changes and you need a LOAD_ONLY
+	property for the old format, you must keep some spare room in your
+	object's struct to accomodate for the potential old-style
+	attributes. Then in foo_load(), after having called
+	object_load_using_properties(), you must inspect the old-style
+	fields and act accordingly. Don't ever change the on-disk formats...
+	
 2002-05-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* INSTALL: added platform notes from Mårten Svantesson, for when

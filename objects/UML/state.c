@@ -131,6 +131,12 @@ static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "state_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
   N_("State Type"), NULL, prop_state_type_data },
+      /* see below for the next field.
+
+      Warning: break this and you'll get angry UML users after you. */
+  { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY,
+    "hack", NULL, NULL },
+  
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
@@ -152,6 +158,12 @@ static PropOffset state_offsets[] = {
   {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
   { "state_type", PROP_TYPE_ENUM, offsetof(State, state_type) },
+  
+      /* HACK: this is to recover files from 0.88.1 and older.
+      if sizeof(enum) != sizeof(int), we're toast.             -- CC
+      */
+  { "type", PROP_TYPE_INT, offsetof(State, state_type) },
+  
   { NULL, 0, 0 },
 };
 
