@@ -425,8 +425,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   int type, style;
   switch (arrow->type) {
   case ARROW_NONE:
-    message_error(_("Arrow type none -- shouldn't happen\n"));
-    /* Notice fallthrough */
+    return;
   case ARROW_LINES:             /* {open arrow} */
     type = 0; style = 0; break;
   case ARROW_UNFILLED_TRIANGLE:

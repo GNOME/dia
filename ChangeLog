@@ -1,5 +1,12 @@
 2003-12-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-export.c (figArrow): Output nothing for
+	ARROW_TYPE_NONE.  Thanks to Jon A. Solworth for showing that this
+	can happen.
+
+	* objects/UML/component_feature.c: Patch from W. Borgert
+	<debacle@debian.org>:  Add handle to component feature text.
+
 	* lib/diagdkrenderer.c (draw_string): Remove poorly placed caching.
 
 	* lib/font.c: Caching PangoLayout for better rendering speed.

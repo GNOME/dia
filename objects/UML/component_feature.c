@@ -68,13 +68,16 @@ struct _Compfeat {
 
   Text *text;
   TextAttributes attrs;
+  Point text_pos;
+  Handle text_handle;
 };
 
 #define COMPPROP_WIDTH 0.1
 #define COMPPROP_FONTHEIGHT 0.8
 #define COMPPROP_DIAMETER 0.8
 #define COMPPROP_DEFAULTLEN 2.0
-#define COMPPROP_TEXTOFFSET 0.8
+#define COMPPROP_TEXTOFFSET 1.0
+#define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
 static ObjectChange* compfeat_move_handle(Compfeat *compfeat,
 					  Handle *handle,
@@ -148,10 +151,12 @@ static PropEnumData prop_compfeat_type_data[] = {
 static PropDescription compfeat_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
   { "role", PROP_TYPE_ENUM, 0, NULL, NULL, prop_compfeat_type_data },
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  PROP_STD_TEXT_ALIGNMENT,
+  { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
   PROP_DESC_END
 };
 
@@ -168,6 +173,7 @@ static ObjectChange *
 compfeat_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
+
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
   compfeat_update_data((Compfeat *)obj);
   return change;
@@ -216,6 +222,8 @@ static PropOffset compfeat_offsets[] = {
   { "text_font", PROP_TYPE_FONT, offsetof(Compfeat, attrs.font) },
   { "text_height", PROP_TYPE_REAL, offsetof(Compfeat, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat, attrs.color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat, attrs.alignment) },
+  { "text_pos", PROP_TYPE_POINT, offsetof(Compfeat, text_pos) },
   { NULL, 0, 0 }
 };
 
@@ -224,6 +232,7 @@ compfeat_get_props(Compfeat *compfeat, GPtrArray *props)
 {
   if (compfeat->roletmp)
     compfeat->role = compfeat->roletmp;
+  text_set_position(compfeat->text, &compfeat->text_pos);
   text_get_attributes(compfeat->text, &compfeat->attrs);
   object_get_props_from_offsets(&compfeat->orth.object,
                                 compfeat_offsets, props);
@@ -234,6 +243,8 @@ compfeat_set_props(Compfeat *compfeat, GPtrArray *props)
 {
   object_set_props_from_offsets(&compfeat->orth.object,
                                 compfeat_offsets, props);
+  compfeat->text_handle.pos = compfeat->text_pos;
+  text_set_position(compfeat->text, &compfeat->text_handle.pos);
   apply_textattr_properties(props, compfeat->text, "text", &compfeat->attrs);
   compfeat_update_data(compfeat);
 }
@@ -254,7 +265,7 @@ compfeat_select(Compfeat *compfeat, Point *clicked_point,
   orthconn_update_data(&compfeat->orth);
 }
 
-static ObjectChange*
+static ObjectChange *
 compfeat_move_handle(Compfeat *compfeat, Handle *handle,
 		     Point *to, ConnectionPoint *cp,
 		     HandleMoveReason reason,
@@ -266,18 +277,31 @@ compfeat_move_handle(Compfeat *compfeat, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle(&compfeat->orth, handle, to, cp, 
-				reason, modifiers);
+  if (handle->id == HANDLE_MOVE_TEXT) {
+    text_set_position(compfeat->text, to);
+    change = NULL;
+  } else  {
+    change = orthconn_move_handle(&compfeat->orth, handle, to, cp, 
+				  reason, modifiers);
+  }
   compfeat_update_data(compfeat);
 
   return change;
 }
 
-static ObjectChange*
+static ObjectChange *
 compfeat_move(Compfeat *compfeat, Point *to)
 {
   ObjectChange *change;
+  Point delta = *to;
 
+  delta = *to;
+  point_sub(&delta, &compfeat->orth.points[0]);
+
+  /* I don't understand this, but the text position is wrong directly
+     after compfeat_create()! */
+  point_add(&delta, &compfeat->text->position);
+  text_set_position(compfeat->text, &delta);
   change = orthconn_move(&compfeat->orth, to);
   compfeat_update_data(compfeat);
 
@@ -354,12 +378,20 @@ compfeat_create(Point *startpoint,
   orthconn_init(orth, startpoint);
 
   p = *startpoint;
+  p.y -= COMPPROP_TEXTOFFSET;
 
   compfeat->text = new_text("", font,
 			    COMPPROP_FONTHEIGHT, &p, &color_black,
 			    ALIGN_CENTER);
   dia_font_unref(font);
   text_get_attributes(compfeat->text, &compfeat->attrs);
+
+  compfeat->text_handle.id = HANDLE_MOVE_TEXT;
+  compfeat->text_handle.type = HANDLE_MINOR_CONTROL;
+  compfeat->text_handle.connect_type = HANDLE_NONCONNECTABLE;
+  compfeat->text_handle.connected_to = NULL;
+  compfeat->text_handle.pos = compfeat->text_pos = p;
+  object_add_handle(obj, &compfeat->text_handle);
 
   if (compfeat->role == COMPPROP_FACET
       || compfeat->role == COMPPROP_EVENTSOURCE) {
@@ -393,7 +425,6 @@ compfeat_update_data(Compfeat *compfeat)
   int n;
   Object *obj = &orth->object;
   Rectangle rect;
-  Point p;
   Point *points;
 
   points = &orth->points[0];
@@ -405,6 +436,8 @@ compfeat_update_data(Compfeat *compfeat)
       || compfeat->role == COMPPROP_EVENTSOURCE)
     compfeat->cp.pos = points[n - 1];
 
+  compfeat->text_pos = compfeat->text_handle.pos = compfeat->text->position;
+
   orthconn_update_data(orth);
 
   /* Boundingbox: */
@@ -414,17 +447,6 @@ compfeat_update_data(Compfeat *compfeat)
   extra->end_trans = COMPPROP_WIDTH + COMPPROP_DIAMETER;
 
   orthconn_update_boundingbox(orth);
-
-  /* Add boundingbox for text: */
-  p.x = (points[0].x < points[1].x)?
-    points[0].x + COMPPROP_TEXTOFFSET:
-    points[0].x - COMPPROP_TEXTOFFSET;
-  p.y = points[0].y
-    - (compfeat->text->height * compfeat->text->numlines);
-  text_set_alignment(compfeat->text,
-                     (points[0].x < points[1].x)?
-                     ALIGN_LEFT: ALIGN_RIGHT);
-  text_set_position(compfeat->text, &p);
   text_calc_boundingbox(compfeat->text, &rect);
   rectangle_union(&obj->bounding_box, &rect);
 }
