@@ -5,35 +5,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-09-02 22:50+0200\n"
-"PO-Revision-Date: 2001-07-28 11:03+0200\n"
-"Last-Translator: Vasif İsmayıloğlu <azerb_linux@hotmail.com>\n"
-"Language-Team: Azerbaijani Turkish <linuxaz@azerimail.net>\n"
+"POT-Creation-Date: 2001-11-11 06:14-0500\n"
+"PO-Revision-Date: 2001-11-28 16:49GMT+0200\n"
+"Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
+"Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.8\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #: app/app_procs.c:153
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
+msgstr "%s xətası: giriş və yekun faylları eynidir: %s"
 
 #: app/app_procs.c:164
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "Keçərli parametr faylı lazımdır\n"
+msgstr "%s xətası: hökmlü %s giriş faylına ehtiyac vardır\n"
 
 #: app/app_procs.c:171
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
+msgstr "%s xətası: %s necə idxal edilir, bilmirəm\n"
 
 #. if (!quiet)
 #: app/app_procs.c:177
 #, c-format
 msgid "%s --> %s\n"
-msgstr ""
+msgstr "%s --> %s\n"
 
 #. &export_file_name
 #: app/app_procs.c:209
@@ -46,13 +46,12 @@ msgstr "ÇIXIŞ"
 
 #. &export_file_format
 #: app/app_procs.c:211
-#, fuzzy
 msgid "Export to file format and exit"
-msgstr "Yüklənən faylı idxal et və çıx"
+msgstr "Fayl formatına ixrac et və çıx"
 
 #: app/app_procs.c:211
 msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr ""
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #: app/app_procs.c:213
 msgid "Don't show the splash screen"
@@ -82,19 +81,17 @@ msgstr ""
 #: app/app_procs.c:276
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
-msgstr ""
+msgstr "%s xətası: təkcə -f ya da -o seçilə bilər."
 
-#: app/app_procs.c:321 app/app_procs.c:323
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr ""
-"cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
+#: app/app_procs.c:320 app/app_procs.c:322
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
 
-#: app/app_procs.c:444 app/app_procs.c:450
+#: app/app_procs.c:443 app/app_procs.c:449
 msgid "Quit, are you sure?"
 msgstr "Çıxmaq istəyirsiniz?"
 
-#: app/app_procs.c:457
+#: app/app_procs.c:456
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -102,21 +99,21 @@ msgstr ""
 "Dəyişikliklər var.\n"
 "Həqiqətən də çıxmaq istəyirsiniz mi?"
 
-#: app/app_procs.c:467 app/app_procs.c:472
+#: app/app_procs.c:466 app/app_procs.c:471
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:484 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:483 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Ləğv Et"
 
-#: app/app_procs.c:559 app/app_procs.c:566
+#: app/app_procs.c:558 app/app_procs.c:565
 msgid "Could not create per-user Dia config directory"
 msgstr "Xüsusi Dia qurğu qovluğunu yarada bilmədim"
 
-#: app/app_procs.c:568
+#: app/app_procs.c:567
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -124,7 +121,7 @@ msgstr ""
 "İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, qlobal dəyişgən "
 "HOMEun mövcud cərgəyə nişanlanıb nişanlanmadığını yoxlayın."
 
-#: app/app_procs.c:590
+#: app/app_procs.c:589
 msgid "Objects and filters internal to dia"
 msgstr "Dianın daxili cism və süzgəcləri"
 
@@ -132,50 +129,49 @@ msgstr "Dianın daxili cism və süzgəcləri"
 msgid "Select color"
 msgstr "Rəngi seç"
 
-#: app/commands.c:129
+#: app/commands.c:130
 #, c-format
 msgid "Untitled-%d"
 msgstr "Adsız-%d"
 
-#: app/commands.c:190
+#: app/commands.c:192
 msgid "No existing object to paste.\n"
 msgstr "Yapışdırılacaq cism yoxdur.\n"
 
-#: app/commands.c:458 app/commands.c:481
+#: app/commands.c:460 app/commands.c:483
 msgid "Could not find help directory"
 msgstr "Kşmək sözlüyü tapıla bilmir"
 
-#: app/commands.c:528
+#: app/commands.c:530
 msgid "About Dia"
 msgstr "Dia haqqında"
 
-#: app/commands.c:571
+#: app/commands.c:573
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Alexander Larsson'un Dia'sı, buraxılış %s"
 
-#: app/commands.c:576
+#: app/commands.c:578
 msgid "Maintainer: James Henstridge"
 msgstr "İdarəci: James Henstridge"
 
-#: app/commands.c:580
+#: app/commands.c:582
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr ""
-"Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya get"
+msgstr "Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya get"
 
-#: app/commands.c:585
+#: app/commands.c:587
 msgid "Contributors:"
 msgstr "Dəstəkçilər :"
 
 #. setup buttons
-#: app/commands.c:602 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:688
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "Oldu"
 
-#: app/commands.c:688
+#: app/commands.c:690
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -190,12 +186,12 @@ msgid "Object defaults"
 msgstr "Cism Əsas Qurğuları"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:691 app/properties.c:101
+#: app/preferences.c:697 app/properties.c:101
 msgid "Apply"
 msgstr "Əlavə Et"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:706
 #: app/properties.c:111
 msgid "Close"
 msgstr "Qapat"
@@ -297,7 +293,7 @@ msgstr "%0.3gsm x %0.3gsm"
 msgid "Page Setup"
 msgstr "Səhifə Quruluşu"
 
-#: app/disp_callbacks.c:74 app/properties.c:174
+#: app/disp_callbacks.c:74 app/properties.c:176
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -309,7 +305,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Cism menyusu yoxdur"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:447
+#: app/display.c:141 app/display.c:142 app/interface.c:448
 msgid "Zoom"
 msgstr "Yaxınlaşdır"
 
@@ -333,19 +329,19 @@ msgstr ""
 "Diaqramma qeyd edilmədi.\n"
 "Dəyişiklikləri indi qeyd edim?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:580
 msgid "Yes"
 msgstr "Bəli"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
-#: app/preferences.c:585
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:580
+#: app/preferences.c:591
 msgid "No"
 msgstr "Xeyr"
 
 #: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
+#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -417,28 +413,28 @@ msgstr "Diaqrammanı idxal et"
 msgid "Export Options"
 msgstr "İtxal seçənəkləri"
 
-#: app/interface.c:42
+#: app/interface.c:43
 msgid "Modify object(s)"
 msgstr "Cism(ləri) dəyişdir"
 
-#: app/interface.c:43 app/menus.c:194
+#: app/interface.c:44 app/menus.c:199
 msgid "Modify"
 msgstr "Dəyişdir"
 
-#: app/interface.c:47 app/interface.c:48 app/menus.c:195
+#: app/interface.c:48 app/interface.c:49 app/menus.c:200
 #: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "Böyüdücü"
 
-#: app/interface.c:52
+#: app/interface.c:53
 msgid "Scroll around the diagram"
 msgstr "Diaqrammanı gəz"
 
-#: app/interface.c:53 app/menus.c:196
+#: app/interface.c:54 app/menus.c:201
 msgid "Scroll"
 msgstr "Sürüşdür"
 
-#: app/interface.c:57
+#: app/interface.c:58
 msgid "Create Text"
 msgstr "Mətni yarat"
 
@@ -446,99 +442,99 @@ msgstr "Mətni yarat"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
-#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:59 app/menus.c:202 lib/properties.c:77 lib/properties.h:501
+#: lib/properties.h:504 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Mətn"
 
-#: app/interface.c:62
+#: app/interface.c:63
 msgid "Create Box"
 msgstr "Qutu yarat"
 
-#: app/interface.c:63 app/menus.c:198
+#: app/interface.c:64 app/menus.c:203
 msgid "Box"
 msgstr "Qutu"
 
-#: app/interface.c:67
+#: app/interface.c:68
 msgid "Create Ellipse"
 msgstr "Elipsi yarat"
 
-#: app/interface.c:68 app/menus.c:199
+#: app/interface.c:69 app/menus.c:204
 msgid "Ellipse"
 msgstr "Elips"
 
-#: app/interface.c:72
+#: app/interface.c:73
 msgid "Create Polygon"
 msgstr "Çoxguşəli yarat"
 
-#: app/interface.c:73 app/menus.c:200
+#: app/interface.c:74 app/menus.c:205
 msgid "Polygon"
 msgstr "Çoxgüşəli"
 
-#: app/interface.c:77
+#: app/interface.c:78
 msgid "Create Beziergon"
 msgstr "Beziergon yarat"
 
-#: app/interface.c:78 app/menus.c:201
+#: app/interface.c:79 app/menus.c:206
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:82
+#: app/interface.c:83
 msgid "Create Line"
 msgstr "Xətt yarat"
 
-#: app/interface.c:83 app/menus.c:202 objects/standard/line.c:188
+#: app/interface.c:84 app/menus.c:207 objects/standard/line.c:188
 msgid "Line"
 msgstr "Xətt"
 
-#: app/interface.c:87
+#: app/interface.c:88
 msgid "Create Arc"
 msgstr "Yay yarat"
 
-#: app/interface.c:88 app/menus.c:203
+#: app/interface.c:89 app/menus.c:208
 msgid "Arc"
 msgstr "Yay"
 
-#: app/interface.c:92
+#: app/interface.c:93
 msgid "Create Zigzagline"
 msgstr "Ziqzaq xətti yarat"
 
-#: app/interface.c:93 app/menus.c:204
+#: app/interface.c:94 app/menus.c:209
 msgid "Zigzagline"
 msgstr "Ziqzaq"
 
-#: app/interface.c:97
+#: app/interface.c:98
 msgid "Create Polyline"
 msgstr "Çoxgüşəli xətt yarat"
 
-#: app/interface.c:98 app/menus.c:205
+#: app/interface.c:99 app/menus.c:210
 msgid "Polyline"
 msgstr "Çoxgüşəli xətt"
 
-#: app/interface.c:102
+#: app/interface.c:103
 msgid "Create Bezierline"
 msgstr "Bezyer xəttini yarata"
 
-#: app/interface.c:103 app/menus.c:206
+#: app/interface.c:104 app/menus.c:211
 msgid "Bezierline"
 msgstr "Bezyer xətti"
 
-#: app/interface.c:107
+#: app/interface.c:108
 msgid "Create Image"
 msgstr "Rəsmi yarat"
 
-#: app/interface.c:108 app/menus.c:207
+#: app/interface.c:109 app/menus.c:212
 msgid "Image"
 msgstr "Rəsm"
 
-#: app/interface.c:494
+#: app/interface.c:495
 msgid "NULL tooldata in tool_select_update"
 msgstr "tool_select_update'de NULL mə'lumatı verildi"
 
-#: app/interface.c:942
+#: app/interface.c:943
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -547,7 +543,7 @@ msgstr ""
 "sıfırlayır. Balaca oxlar rəngləri dəyişdirir. Cüt-tıqlayıb rəngləri "
 "dəyişdirə bilərsən. "
 
-#: app/interface.c:1088
+#: app/interface.c:1089
 msgid "Diagram Editor"
 msgstr "Diaqramma editoru"
 
@@ -603,7 +599,7 @@ msgstr "Ətraflı ..."
 msgid "Line Style Properties"
 msgstr "Xətt tərz xüsusiyyətləri"
 
-#: app/linewidth_area.c:216 lib/properties.h:475
+#: app/linewidth_area.c:216 lib/properties.h:477
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Xətt eni"
@@ -668,643 +664,654 @@ msgstr ""
 "%s diaqramması yüklənərkən xəta oldu .\n"
 "Bir Dia dosyesı deyildir ."
 
-#: app/load_save.c:771
+#: app/load_save.c:744
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "`%s' dosyes_inı qeyd edə bilmədim .\n"
 
-#: app/load_save.c:791 app/load_save.c:796
+#: app/load_save.c:764 app/load_save.c:769
 msgid "Native Dia Diagram"
 msgstr "Dia diaqramması"
 
-#: app/menus.c:45 app/menus.c:56
+#: app/menus.c:47 app/menus.c:61
 msgid "_New diagram"
 msgstr "_Təzə diaqram"
 
-#: app/menus.c:45 app/menus.c:56
+#: app/menus.c:47 app/menus.c:61
 msgid "Create new diagram"
 msgstr "Təzə bir diaqram yarat"
 
-#: app/menus.c:49 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:52
+msgid "_Diagram tree"
+msgstr "_Diaqramma ağacı"
+
+#: app/menus.c:52
+msgid "Show diagram tree"
+msgstr "Diaqram ağacını göstər"
+
+#: app/menus.c:54 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Əlavələr"
 
-#: app/menus.c:63
+#: app/menus.c:68
 msgid "_Export..."
 msgstr "_İtxal ..."
 
-#: app/menus.c:67
+#: app/menus.c:72
 msgid "Page Set_up..."
 msgstr "Səhifə _quruluşu ..."
 
-#: app/menus.c:69
+#: app/menus.c:74
 msgid "_Print Diagram..."
 msgstr "Diaqrammanı _çap et ..."
 
-#: app/menus.c:84
+#: app/menus.c:89
 msgid "_Delete"
 msgstr "_Sil"
 
-#: app/menus.c:90
+#: app/menus.c:95
 msgid "Copy Text"
 msgstr "Mətni köçürt"
 
-#: app/menus.c:91
+#: app/menus.c:96
 msgid "Cut Text"
 msgstr "Mətni kəs"
 
-#: app/menus.c:92
+#: app/menus.c:97
 msgid "Paste _Text"
 msgstr "Mətni _yapışdır"
 
-#: app/menus.c:115
+#: app/menus.c:120
 msgid "Zoom _In"
 msgstr "_Yaxınlaş"
 
-#: app/menus.c:115
+#: app/menus.c:120
 #, c-format
 msgid "Zoom in 50%"
 msgstr "%50 yaxınlaş"
 
-#: app/menus.c:116
+#: app/menus.c:121
 msgid "Zoom _Out"
 msgstr "_Uzaqlaş"
 
-#: app/menus.c:116
+#: app/menus.c:121
 #, c-format
 msgid "Zoom out 50%"
 msgstr "%50 uzaqlaş"
 
-#: app/menus.c:117
+#: app/menus.c:122
 msgid "_Zoom"
 msgstr "_Yaxınlıq"
 
-#: app/menus.c:118
+#: app/menus.c:123
 msgid "Diagram Properties..."
 msgstr "Diaqramma Xüsusiyyətləri..."
 
-#: app/menus.c:120
+#: app/menus.c:125
 msgid "_AntiAliased"
 msgstr "_Düzəlişli"
 
-#: app/menus.c:123
+#: app/menus.c:128
 msgid "_Visible Grid"
 msgstr "_Görünən tor"
 
-#: app/menus.c:125
+#: app/menus.c:130
 msgid "_Snap To Grid"
 msgstr "_Tora taxıl"
 
-#: app/menus.c:127
+#: app/menus.c:132
 msgid "Show _Rulers"
 msgstr "_Telləri göstər"
 
-#: app/menus.c:129
+#: app/menus.c:134
 msgid "Show _Connection Points"
 msgstr "_Bağlantı nöqtələri göstər"
 
-#: app/menus.c:132
+#: app/menus.c:137
 msgid "New _View"
 msgstr "_Təzə görünüş"
 
-#: app/menus.c:133
+#: app/menus.c:138
 msgid "Show _All"
 msgstr "_Hamısını göstər"
 
-#: app/menus.c:138
+#: app/menus.c:143
 msgid "Replace"
 msgstr "Yerinə keç"
 
-#: app/menus.c:140
+#: app/menus.c:145
 msgid "Union"
 msgstr "İttifaq"
 
-#: app/menus.c:142
+#: app/menus.c:147
 msgid "Intersect"
 msgstr "Bölüşdür"
 
-#: app/menus.c:144 objects/FS/function.c:623 objects/FS/function.c:699
+#: app/menus.c:149 objects/FS/function.c:623 objects/FS/function.c:699
 #: objects/FS/function.c:700
 msgid "Remove"
 msgstr "Sil"
 
-#: app/menus.c:146 app/menus.c:154
+#: app/menus.c:151 app/menus.c:159
 msgid "Invert"
 msgstr "Tərs çevir"
 
-#: app/menus.c:152
+#: app/menus.c:157
 msgid "All"
 msgstr "Hamısı"
 
-#: app/menus.c:153 lib/widgets.c:660 objects/UML/association.c:1001
+#: app/menus.c:158 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
 msgstr "Heç biri"
 
-#: app/menus.c:155
+#: app/menus.c:160
 msgid "Connected"
 msgstr "Bağlı"
 
-#: app/menus.c:156
+#: app/menus.c:161
 msgid "Transitive"
 msgstr "Keçişli"
 
-#: app/menus.c:157
+#: app/menus.c:162
 msgid "Same Type"
 msgstr "Eyni növ"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
+#: app/menus.c:169 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
 msgid "Left"
 msgstr "Sol"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
+#: app/menus.c:170 app/menus.c:179 lib/properties.c:63 lib/properties.h:466
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Orta"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
+#: app/menus.c:171 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
 msgid "Right"
 msgstr "Sağ"
 
-#: app/menus.c:167 app/menus.c:176
+#: app/menus.c:172 app/menus.c:181
 msgid "Equal Distance"
 msgstr "Eyni məsafədə"
 
-#: app/menus.c:168 app/menus.c:177
+#: app/menus.c:173 app/menus.c:182
 msgid "Adjacent"
 msgstr "Bitişik"
 
-#: app/menus.c:173
+#: app/menus.c:178
 msgid "Top"
 msgstr "Üst"
 
-#: app/menus.c:175
+#: app/menus.c:180
 msgid "Bottom"
 msgstr "Alt"
 
-#: app/menus.c:182
+#: app/menus.c:187
 msgid "Send to _Back"
 msgstr "Qa_bağa gətir"
 
-#: app/menus.c:183
+#: app/menus.c:188
 msgid "Bring to _Front"
 msgstr "_Dala göndər"
 
-#: app/menus.c:185
+#: app/menus.c:190
 msgid "_Group"
 msgstr "_Qruplaşdır"
 
-#: app/menus.c:186
+#: app/menus.c:191
 msgid "_Ungroup"
 msgstr "Qrupu q_aldır"
 
-#: app/menus.c:188
+#: app/menus.c:193
 msgid "Align _Horizontal"
 msgstr "_Üfüqi tərəflə"
 
-#: app/menus.c:189
+#: app/menus.c:194
 msgid "Align _Vertical"
 msgstr "_Şaquli tərəflə"
 
-#: app/menus.c:212
+#: app/menus.c:217
 msgid "_Properties"
 msgstr "Xü_susiyyətlər"
 
-#: app/menus.c:213
+#: app/menus.c:218
 msgid "_Layers"
 msgstr "_Səviyyələr"
 
-#: app/menus.c:234
+#: app/menus.c:239
 msgid "_Select"
 msgstr "_Seç"
 
-#: app/menus.c:235
+#: app/menus.c:240
 msgid "_Objects"
 msgstr "C_ismlər"
 
-#: app/menus.c:236
+#: app/menus.c:241
 msgid "_Tools"
 msgstr "_Vasitələ_r"
 
-#: app/menus.c:237
+#: app/menus.c:242
 msgid "_Dialogs"
 msgstr "D_ialoqlar"
 
-#: app/menus.c:248 app/menus.c:273
+#: app/menus.c:253 app/menus.c:281
 msgid "/_File"
 msgstr "/_Dosye"
 
-#: app/menus.c:250 app/menus.c:275
+#: app/menus.c:255 app/menus.c:283
 msgid "/File/_New"
 msgstr "/Fayl/_Yeni"
 
-#: app/menus.c:251 app/menus.c:276
+#: app/menus.c:256 app/menus.c:284
 msgid "/File/_Open"
 msgstr "/Fayl/_Aç"
 
-#: app/menus.c:252
+#: app/menus.c:257
 msgid "/File/Open _Recent"
 msgstr "/Fayl/_Axırıncıları Aç"
 
-#: app/menus.c:253
+#: app/menus.c:258
 msgid "/File/Open Recent/---"
 msgstr "/Fayl/Axırıncıları Aç/---"
 
-#: app/menus.c:255
-msgid "/File/_Preferences..."
-msgstr "/Fayl/_Qurğular ..."
-
-#: app/menus.c:256
-msgid "/File/P_lugins"
-msgstr "/Fayl/_Əlavələr"
-
-#: app/menus.c:257 app/menus.c:280 app/menus.c:283
+#: app/menus.c:260 app/menus.c:265 app/menus.c:288 app/menus.c:291
 msgid "/File/---"
 msgstr "/Fayl/---"
 
-#: app/menus.c:258 app/menus.c:286
+#: app/menus.c:261
+msgid "/File/_Diagram tree"
+msgstr "/Fayl/_Diaqram ağacı"
+
+#: app/menus.c:263
+msgid "/File/_Preferences..."
+msgstr "/Fayl/_Qurğular ..."
+
+#: app/menus.c:264
+msgid "/File/P_lugins"
+msgstr "/Fayl/_Əlavələr"
+
+#: app/menus.c:266 app/menus.c:294
 msgid "/File/_Quit"
 msgstr "/Fayl/Çı_x"
 
-#: app/menus.c:259
+#: app/menus.c:267
 msgid "/_Help"
 msgstr "/_Kömək"
 
-#: app/menus.c:261
+#: app/menus.c:269
 msgid "/Help/_Manual"
 msgstr "/Yardım/_Bələdçi"
 
-#: app/menus.c:262
+#: app/menus.c:270
 msgid "/Help/---"
 msgstr "/Yardım/---"
 
-#: app/menus.c:263
+#: app/menus.c:271
 msgid "/Help/_About"
 msgstr "/Kömək/_Haqqında"
 
-#: app/menus.c:277
+#: app/menus.c:285
 msgid "/File/_Save"
 msgstr "/Fayl/_Qeyd Et"
 
-#: app/menus.c:278
+#: app/menus.c:286
 msgid "/File/Save _As..."
 msgstr "/Fayl/_Fərqli qeyd et ..."
 
-#: app/menus.c:279
+#: app/menus.c:287
 msgid "/File/_Export..."
 msgstr "/Fayl/_Ithel .."
 
-#: app/menus.c:281
+#: app/menus.c:289
 msgid "/File/Page Set_up..."
 msgstr "/Fayl/Səhifə _quruluşu ..."
 
-#: app/menus.c:282
+#: app/menus.c:290
 msgid "/File/_Print Diagram..."
 msgstr "/Fayl/Diaqrammanı _çap et ..."
 
-#: app/menus.c:284
+#: app/menus.c:292
 msgid "/File/_Close"
 msgstr "/Fayl/_Qapat"
 
-#: app/menus.c:287
+#: app/menus.c:295
 msgid "/_Edit"
 msgstr "/_Düzəlt"
 
-#: app/menus.c:289
+#: app/menus.c:297
 msgid "/Edit/_Copy"
 msgstr "/Düzəlt/_Köçürt"
 
-#: app/menus.c:290
+#: app/menus.c:298
 msgid "/Edit/C_ut"
 msgstr "/Düzəlt/Kə_s"
 
-#: app/menus.c:291
+#: app/menus.c:299
 msgid "/Edit/_Paste"
 msgstr "/Düzəlt/_Yapışdır"
 
-#: app/menus.c:292
+#: app/menus.c:300
 msgid "/Edit/_Delete"
 msgstr "/Düzəlt/_Sil"
 
-#: app/menus.c:293
+#: app/menus.c:301
 msgid "/Edit/_Undo"
 msgstr "/Düzəlt/_Arxaya al"
 
-#: app/menus.c:294
+#: app/menus.c:302
 msgid "/Edit/_Redo"
 msgstr "/Düzəlt/_Təzədən et"
 
-#: app/menus.c:295
+#: app/menus.c:303
 msgid "/Edit/Copy Text"
 msgstr "/Düzəlt/Mətni köçürt"
 
-#: app/menus.c:296
+#: app/menus.c:304
 msgid "/Edit/Cut Text"
 msgstr "/Düzəlt/Mətni kəs"
 
-#: app/menus.c:297
+#: app/menus.c:305
 msgid "/Edit/Paste _Text"
 msgstr "/Düzəlt/Mətni ya_pışdır"
 
-#: app/menus.c:298
+#: app/menus.c:306
 msgid "/_View"
 msgstr "/_Göstər"
 
-#: app/menus.c:300
+#: app/menus.c:308
 msgid "/View/Zoom _In"
 msgstr "/Göstər/_Yaxınlaş"
 
-#: app/menus.c:301
+#: app/menus.c:309
 msgid "/View/Zoom _Out"
 msgstr "/Göstər/_Uzaqlaş"
 
-#: app/menus.c:302
+#: app/menus.c:310
 msgid "/View/_Zoom"
 msgstr "/Göstər/_Yaxınlaşdır"
 
-#: app/menus.c:304
+#: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Göstər/Yaxınlıq/%400"
 
-#: app/menus.c:305
+#: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Göstər/Yaxınlıq/%283"
 
-#: app/menus.c:306
+#: app/menus.c:314
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Göstər/Yaxınlıq/%200"
 
-#: app/menus.c:307
+#: app/menus.c:315
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Göstər/Yaxınlıq/%141"
 
-#: app/menus.c:308
+#: app/menus.c:316
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Göstər/Yaxınlıq/%100"
 
-#: app/menus.c:309
+#: app/menus.c:317
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Göstər/Yaxınlıq/%85"
 
-#: app/menus.c:310
+#: app/menus.c:318
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Göstər/Yaxınlıq/%70.7"
 
-#: app/menus.c:311
+#: app/menus.c:319
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Göstər/Yaxınlıq/%50"
 
-#: app/menus.c:312
+#: app/menus.c:320
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Göstər/Yaxınlıq/%35.4"
 
-#: app/menus.c:313
+#: app/menus.c:321
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Göstər/Yaxınlıq/%25"
 
-#: app/menus.c:314
-#, fuzzy
+#: app/menus.c:322
 msgid "/View/Diagram Properties..."
-msgstr "/Göstər/Diaqramma xüsusiyyətləri"
+msgstr "/Göstər/Diaqramma Xüsusiyyətləri..."
 
-#: app/menus.c:316
+#: app/menus.c:324
 msgid "/View/_AntiAliased"
 msgstr "/Göstər/_Düzəlişli"
 
-#: app/menus.c:318
+#: app/menus.c:326
 msgid "/View/_Visible Grid"
 msgstr "/Göstər/_Görünən tor"
 
-#: app/menus.c:319
+#: app/menus.c:327
 msgid "/View/_Snap To Grid"
 msgstr "/Göstər/_Tora taxıl"
 
-#: app/menus.c:320
+#: app/menus.c:328
 msgid "/View/Show _Rulers"
 msgstr "/Göstər/_Telləri göstər"
 
-#: app/menus.c:321
+#: app/menus.c:329
 msgid "/View/Show _Connection Points"
 msgstr "/Göstər/_Bağlantı nöqtələrini göstər"
 
-#: app/menus.c:322
+#: app/menus.c:330
 msgid "/View/---"
 msgstr "/Göstər/---"
 
-#: app/menus.c:323
+#: app/menus.c:331
 msgid "/View/New _View"
 msgstr "/Göstər/_Təzə görünüş"
 
-#: app/menus.c:324
+#: app/menus.c:332
 msgid "/View/Show _All"
 msgstr "/Göstər/_Hamısını göstər"
 
-#: app/menus.c:325
+#: app/menus.c:333
 msgid "/_Select"
 msgstr "/_Seç"
 
-#: app/menus.c:327
+#: app/menus.c:335
 msgid "/Select/All"
 msgstr "/Seç/Hamısını"
 
-#: app/menus.c:328
+#: app/menus.c:336
 msgid "/Select/None"
 msgstr "/Seç/Heç birini"
 
-#: app/menus.c:329 app/menus.c:342
+#: app/menus.c:337 app/menus.c:350
 msgid "/Select/Invert"
 msgstr "/Seç/Tərs çevir"
 
-#: app/menus.c:330
+#: app/menus.c:338
 msgid "/Select/Connected"
 msgstr "/Seç/Başlı olanları"
 
-#: app/menus.c:331
+#: app/menus.c:339
 msgid "/Select/Transitive"
 msgstr "/Seç/Keçişliləri"
 
-#: app/menus.c:332
+#: app/menus.c:340
 msgid "/Select/Same Type"
 msgstr "/Seç/Eyni növdəkilər"
 
-#: app/menus.c:333
+#: app/menus.c:341
 msgid "/Select/---"
 msgstr "/Seç/---"
 
-#: app/menus.c:334
+#: app/menus.c:342
 msgid "/Select/Replace"
 msgstr "/Seç/Yerinə qoy"
 
-#: app/menus.c:336
+#: app/menus.c:344
 msgid "/Select/Union"
 msgstr "/Seç/İttifaq"
 
-#: app/menus.c:338
+#: app/menus.c:346
 msgid "/Select/Intersect"
 msgstr "/Seç/Bölüşülənlər"
 
-#: app/menus.c:340
+#: app/menus.c:348
 msgid "/Select/Remove"
 msgstr "/Seç/Sil"
 
-#: app/menus.c:344
+#: app/menus.c:352
 msgid "/_Objects"
 msgstr "/_Cismlər"
 
-#: app/menus.c:346
+#: app/menus.c:354
 msgid "/Objects/Send to _Back"
 msgstr "/Cismlər/Qa_bağa gətir"
 
-#: app/menus.c:347
+#: app/menus.c:355
 msgid "/Objects/Bring to _Front"
 msgstr "/Cismlər/_Dala göndər"
 
-#: app/menus.c:348 app/menus.c:351
+#: app/menus.c:356 app/menus.c:359
 msgid "/Objects/---"
 msgstr "/Cismlər/---"
 
-#: app/menus.c:349
+#: app/menus.c:357
 msgid "/Objects/_Group"
 msgstr "/Cismlər/_Qruplaşdır"
 
-#: app/menus.c:350
+#: app/menus.c:358
 msgid "/Objects/_Ungroup"
 msgstr "/Cismlər/Qrupu kı_r"
 
-#: app/menus.c:352
+#: app/menus.c:360
 msgid "/Objects/Align _Horizontal"
 msgstr "/Cismlər/_Üfüqi tərəfləmə"
 
-#: app/menus.c:354
+#: app/menus.c:362
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Sol"
 
-#: app/menus.c:355
+#: app/menus.c:363
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Orta"
 
-#: app/menus.c:356
+#: app/menus.c:364
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Sağ"
 
-#: app/menus.c:357
+#: app/menus.c:365
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Eyni Məsafə"
 
-#: app/menus.c:358
+#: app/menus.c:366
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Cismlər/Üfüqi Tərəfləmə/Bitişik"
 
-#: app/menus.c:359
+#: app/menus.c:367
 msgid "/Objects/Align _Vertical"
 msgstr "/Cismlər/_Şaquli tərəfləmə"
 
-#: app/menus.c:361
+#: app/menus.c:369
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Üst"
 
-#: app/menus.c:362
+#: app/menus.c:370
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Orta"
 
-#: app/menus.c:363
+#: app/menus.c:371
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Alt"
 
-#: app/menus.c:364
+#: app/menus.c:372
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Eyni Məsafə"
 
-#: app/menus.c:365
+#: app/menus.c:373
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Cismlər/Şaquli Tərəfləmə/Bitişik"
 
-#: app/menus.c:367
+#: app/menus.c:375
 msgid "/_Tools"
 msgstr "/_Vasitələr"
 
-#: app/menus.c:369
+#: app/menus.c:377
 msgid "/Tools/Modify"
 msgstr "/Vasitələr/Düzəlt"
 
-#: app/menus.c:370
+#: app/menus.c:378
 msgid "/Tools/Magnify"
 msgstr "/Vasitələr/Böyüdücü"
 
-#: app/menus.c:371
+#: app/menus.c:379
 msgid "/Tools/Scroll"
 msgstr "/Vasitələr/Sürüşdürmə"
 
-#: app/menus.c:372
+#: app/menus.c:380
 msgid "/Tools/Text"
 msgstr "/Vasitələr/Mətn"
 
-#: app/menus.c:373
+#: app/menus.c:381
 msgid "/Tools/Box"
 msgstr "/Vasitələr/Qutu"
 
-#: app/menus.c:374
+#: app/menus.c:382
 msgid "/Tools/Ellipse"
 msgstr "/Vasitələr/Elips"
 
-#: app/menus.c:375
+#: app/menus.c:383
 msgid "/Tools/Polygon"
 msgstr "/Vasitələr/Poliqon"
 
-#: app/menus.c:376
+#: app/menus.c:384
 msgid "/Tools/Beziergon"
 msgstr "/Vasitələr/Beziergon"
 
-#: app/menus.c:377
+#: app/menus.c:385
 msgid "/Tools/Line"
 msgstr "/Vasitələr/Xətt"
 
-#: app/menus.c:378
+#: app/menus.c:386
 msgid "/Tools/Arc"
 msgstr "/Vasitələr/Üst-dairə"
 
-#: app/menus.c:379
+#: app/menus.c:387
 msgid "/Tools/Zigzagline"
 msgstr "/Vasitələr/Ziqzaq xətti"
 
-#: app/menus.c:380
+#: app/menus.c:388
 msgid "/Tools/Polyline"
 msgstr "/Vasitələr/Çoxguşəli xətt"
 
-#: app/menus.c:381
+#: app/menus.c:389
 msgid "/Tools/Bezierline"
 msgstr "/Vasitələr/Bezyer xətti"
 
-#: app/menus.c:382
+#: app/menus.c:390
 msgid "/Tools/Image"
 msgstr "/Vasitələr/Rəsm"
 
-#: app/menus.c:384
+#: app/menus.c:392
 msgid "/_Dialogs"
 msgstr "/_Dialoqlar"
 
-#: app/menus.c:386
+#: app/menus.c:394
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoqlar/_Xüsusiyyətlər"
 
-#: app/menus.c:387
+#: app/menus.c:395
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoqlar/_Səviyyələr"
 
-#: app/menus.c:559
+#: app/menus.c:567
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tool_menu_select'də tooldata NULL olaraq verildi"
 
-#: app/menus.c:725
+#: app/menus.c:733
 msgid "Diagram Menu"
 msgstr "Diaqramma menyusu"
 
@@ -1448,47 +1455,48 @@ msgid "Use menu bar:"
 msgstr "Menyu çubuğu işlət:"
 
 #: app/preferences.c:148
+msgid "Show diagram tree at startup:"
+msgstr "Başlanğıcda diaqram ağacını göstər:"
+
+#: app/preferences.c:150
 msgid "Connection Points:"
 msgstr "Bağlantı nöqtələri :"
 
-#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:151 app/preferences.c:154 app/preferences.c:159
 msgid "Visible:"
 msgstr "Görünmə :"
 
-#: app/preferences.c:151
-msgid "Grid:"
-msgstr "Tor :"
-
 #: app/preferences.c:153
-msgid "Snap to:"
-msgstr "Yaxalama hədəfi :"
-
-#: app/preferences.c:154
-msgid "X Size:"
-msgstr "X böyüklüyü :"
-
-#: app/preferences.c:155
-msgid "Y Size:"
-msgstr "Y böyüklüyü :"
-
-#: app/preferences.c:156 app/preferences.c:161
-msgid "Colour:"
-msgstr "Rəng :"
-
-#: app/preferences.c:157 app/preferences.c:162
-msgid "Solid lines:"
-msgstr "Dolğun xəttləri :"
-
-#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Səhifə qırılmaları :"
 
-#: app/preferences.c:282
+#: app/preferences.c:155 app/preferences.c:163
+msgid "Colour:"
+msgstr "Rəng :"
+
+#: app/preferences.c:156 app/preferences.c:164
+msgid "Solid lines:"
+msgstr "Dolğun xəttləri :"
+
+#: app/preferences.c:160
+msgid "Snap to:"
+msgstr "Yaxalama hədəfi :"
+
+#: app/preferences.c:161
+msgid "X Size:"
+msgstr "X böyüklüyü :"
+
+#: app/preferences.c:162
+msgid "Y Size:"
+msgstr "Y böyüklüyü :"
+
+#: app/preferences.c:287
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "`%s''ni yazmaq üçün aça bilmədim"
 
-#: app/preferences.c:650 app/preferences.c:659
+#: app/preferences.c:656 app/preferences.c:665
 msgid "Preferences"
 msgstr "Qurğular"
 
@@ -1500,11 +1508,11 @@ msgstr "Cism xüsusiyyətləri"
 msgid "This object has no properties."
 msgstr "Bu cismnin xüsusiyyətləri yoxdur ."
 
-#: app/properties.c:211
+#: app/properties.c:213
 msgid "Properties: "
 msgstr "Xüsusiyyətlər : "
 
-#: app/properties.c:219
+#: app/properties.c:221
 msgid "Object properties:"
 msgstr "Cism xüsusiyyətləri:"
 
@@ -1535,19 +1543,19 @@ msgstr "Yüklənir..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:71 lib/properties.h:478
+#: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
 msgstr "Sətir rəngi"
 
-#: lib/properties.c:72 lib/properties.h:481
+#: lib/properties.c:72 lib/properties.h:483
 msgid "Line style"
 msgstr "Sətər tərzi"
 
-#: lib/properties.c:73 lib/properties.h:485
+#: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
-#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1555,31 +1563,31 @@ msgstr "Doldurma rəngi"
 msgid "Draw background"
 msgstr "Arxa Planı boya"
 
-#: lib/properties.c:75 lib/properties.h:492
+#: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
 msgstr "Başlama oxu"
 
-#: lib/properties.c:76 lib/properties.h:495
+#: lib/properties.c:76 lib/properties.h:497
 msgid "End arrow"
 msgstr "Bitiş oxu"
 
-#: lib/properties.c:78 lib/properties.h:505
+#: lib/properties.c:78 lib/properties.h:507
 msgid "Text alignment"
 msgstr "Mətn tərəfləməsi"
 
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Yazı növü"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Yazı növü böyüklüyü"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Mətn rəngi"
@@ -1620,10 +1628,9 @@ msgstr "`%s''ni aça bilmədim"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
-"Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
+msgstr "Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
 
-#: lib/font.c:427
+#: lib/font.c:428
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1632,29 +1639,28 @@ msgstr ""
 "Xəbərdarlıq : %s üçün X yazı növü tapıla bilmədi,\n"
 "Onun yerinə %s'yi istifadə edirəm .\n"
 
-#: lib/font.c:532
+#: lib/font.c:533
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-msgstr ""
-"Xəbərdarlıq: FreeType seçilidir, amma kitabxana yüklənmək istəmir: %d\n"
+msgstr "Xəbərdarlıq: FreeType seçilidir, amma kitabxana yüklənmək istəmir: %d\n"
 
-#: lib/font.c:541
+#: lib/font.c:542
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Xəbərdarlıq : Heç X yazı növü tapıla bilmədi. Kəlmə sonlanır."
 
-#: lib/font.c:848
+#: lib/font.c:849
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
-msgstr ""
+msgstr "Xəta, yazı növü tapıla bilmir. Olmamalıdır.\n"
 
-#: lib/font.c:850 lib/font.c:851 lib/font.c:884
+#: lib/font.c:851 lib/font.c:852 lib/font.c:885
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm .\n"
 
-#: lib/font.c:861
+#: lib/font.c:862
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
-msgstr ""
+msgstr "%s yazı növü %s tərzinə malik deyil, %s istifadə edilir\n"
 
 #: lib/message.c:149
 msgid "Notice"
@@ -1781,38 +1787,44 @@ msgstr "Rəsm faylını seç"
 msgid "Browse"
 msgstr "Gəz"
 
-#: lib/dia_xml.c:128
+#: lib/dia_xml.c:146
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
+"%s faylının dil kodlaması bildirilməyib;\n"
+"%s kodlamasında olduğunu qəbul edirəm"
 
-#: lib/dia_xml.c:458
+#: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
 msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
 
-#: lib/dia_xml.c:470
+#: lib/dia_xml.c:488
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Səhv x Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
-#: lib/dia_xml.c:478
+#: lib/dia_xml.c:496
 msgid "Error parsing point."
 msgstr "Xəta darama nöqtəsi."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:486
+#: lib/dia_xml.c:504
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
-#: lib/dia_xml.c:920
+#: lib/dia_xml.c:867
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
+"Sizin kodlamanız UTF-8 olaraq seçilib. libxml1 və əvvəlki dia "
+"faylları səbəbiylə probleməlriniz olacaqdır. "
+"Xahiş edirik, bu ismarışı gördüyünüzdə dia-list@gnome.org ünvanına "
+"xəbər verin."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -3225,9 +3237,8 @@ msgid "Message type:"
 msgstr "İsmarıc növü :"
 
 #: objects/UML/object.c:146
-#, fuzzy
 msgid "Explicit state"
-msgstr "Aydın hal :"
+msgstr "Aydın hal"
 
 #: objects/UML/object.c:151
 msgid "Active object"
@@ -3238,9 +3249,8 @@ msgid "Show attributes"
 msgstr "Xüsusiyyətləri göstər"
 
 #: objects/UML/object.c:155
-#, fuzzy
 msgid "Multiple instance"
-msgstr "çoxlu quruluş"
+msgstr "Çoxlu quruluş"
 
 #: objects/UML/state.c:125
 msgid "Begin"
@@ -3564,11 +3574,11 @@ msgstr "TeX Pstricks idxal süzgəci"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroları"
 
-#: plug-ins/shape/shape-export.c:921
+#: plug-ins/shape/shape-export.c:937
 msgid "Can't export png without libart!"
 msgstr "\"Png\"ni \"libart\" olmadan idxal edə bilmirəm!"
 
-#: plug-ins/shape/shape-export.c:948
+#: plug-ins/shape/shape-export.c:964
 msgid "dia shape file"
 msgstr "dia şəkil faylı"
 
@@ -3576,7 +3586,7 @@ msgstr "dia şəkil faylı"
 msgid "dia shape export filter"
 msgstr "Dia şəkil ixrac süzgəci"
 
-#: plug-ins/svg/render_svg.c:821
+#: plug-ins/svg/render_svg.c:835
 msgid "Scalable Vector Graphics"
 msgstr "Böyüdüləbilən vektor qrafikaları ( SVG )"
 
@@ -3759,1346 +3769,1170 @@ msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
 
 #: sheets/chronogram.sheet.in.h:1
-#, fuzzy
 msgid "A data line"
-msgstr "Data xətti eni"
+msgstr "Data sətri"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
-msgstr ""
+msgstr "Vaxt şkalası"
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Xronoqram"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr ""
+msgstr "Xronoqram qrafikaları cismləri"
 
 #: sheets/Circuit.sheet.in.h:1
-#, fuzzy
 msgid "A Horizontal Jumper"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi Jamper"
 
 #: sheets/Circuit.sheet.in.h:2
-#, fuzzy
 msgid "A Horizontally aligned inductor"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş induktor"
 
 #: sheets/Circuit.sheet.in.h:3
-#, fuzzy
 msgid "A Horizontally aligned inductor (European)"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş induktor (Avropa)"
 
 #: sheets/Circuit.sheet.in.h:4
-#, fuzzy
 msgid "A Horizontally aligned resistor"
-msgstr "Üfüqi tərs çevir"
+msgstr "Üfüqi tərəflənmiş müqavimət"
 
 #: sheets/Circuit.sheet.in.h:5
-#, fuzzy
 msgid "A Horizontally aligned resistor (European)"
-msgstr "Üfüqi tərs çevir"
+msgstr "Üfüqi tərəflənmiş müqavimət (Avropa)"
 
 #: sheets/Circuit.sheet.in.h:6
-#, fuzzy
 msgid "A PMOS transistor"
-msgstr "Tərcümə"
+msgstr "PMOS müqaviməti"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A Speaker"
-msgstr ""
+msgstr "Məruzəçi"
 
 #: sheets/Circuit.sheet.in.h:8
-#, fuzzy
 msgid "A Vertically aligned inductor"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəflənmiş induktor"
 
 #: sheets/Circuit.sheet.in.h:9
-#, fuzzy
 msgid "A Vertically aligned inductor (European)"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəflənmiş induktor (Avropa)"
 
 #: sheets/Circuit.sheet.in.h:10
-#, fuzzy
 msgid "A Vertically aligned resistor"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəflənmiş müaqavimət"
 
 #: sheets/Circuit.sheet.in.h:11
-#, fuzzy
 msgid "A Vertically aligned resistor (European)"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəflənmiş induktor (Avropa)"
 
 #: sheets/Circuit.sheet.in.h:12
-#, fuzzy
 msgid "A ground point"
-msgstr "Bitiş nöqtəsi"
+msgstr "Zəmin nöqtəsi"
 
 #: sheets/Circuit.sheet.in.h:13
-#, fuzzy
 msgid "A horizontally aligned LED"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş LED"
 
 #: sheets/Circuit.sheet.in.h:14
-#, fuzzy
 msgid "A horizontally aligned capacitor"
-msgstr "Üfüqi tərs çevir"
+msgstr "Üfüqi tərəflənmiş kapasitor"
 
 #: sheets/Circuit.sheet.in.h:15
-#, fuzzy
 msgid "A horizontally aligned diode"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş diod"
 
 #: sheets/Circuit.sheet.in.h:16
-#, fuzzy
 msgid "A horizontally aligned fuse"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş fitil"
 
 #: sheets/Circuit.sheet.in.h:17
-#, fuzzy
 msgid "A horizontally aligned powersource"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş güc mənbəyi"
 
 #: sheets/Circuit.sheet.in.h:18
-#, fuzzy
 msgid "A horizontally aligned zener diode"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəflənmiş zener diod"
 
 #: sheets/Circuit.sheet.in.h:19
-#, fuzzy
 msgid "A lamp"
-msgstr "Ekran"
+msgstr "Lampa"
 
 #: sheets/Circuit.sheet.in.h:20
-#, fuzzy
 msgid "A npn bipolar transistor"
-msgstr "Tərcümə"
+msgstr "NPN ikiqütblü müavimət"
 
 #: sheets/Circuit.sheet.in.h:21
-#, fuzzy
 msgid "A pnp bipolar transistor"
-msgstr "Tərcümə"
+msgstr "PNP ikiqütblü müavimət"
 
 #: sheets/Circuit.sheet.in.h:22
-#, fuzzy
 msgid "A vertically aligned LED"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəflənmiş LED"
 
 #: sheets/Circuit.sheet.in.h:23
-#, fuzzy
 msgid "A vertically aligned capacitor"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəflənmiş kapasitor"
 
 #: sheets/Circuit.sheet.in.h:24
-#, fuzzy
 msgid "A vertically aligned diode"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəflənmiş diod"
 
 #: sheets/Circuit.sheet.in.h:25
-#, fuzzy
 msgid "A vertically aligned fuse"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəflənmiş fitil"
 
 #: sheets/Circuit.sheet.in.h:26
-#, fuzzy
 msgid "A vertically aligned powersource"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəflənmiş güc mənbəyi"
 
 #: sheets/Circuit.sheet.in.h:27
-#, fuzzy
 msgid "A vertically aligned zener diode"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəflənmiş zener diod"
 
 #: sheets/Circuit.sheet.in.h:28
-#, fuzzy
 msgid "An NMOS transistor"
-msgstr "Tərcümə"
+msgstr "NMOS müqaviməti"
 
 #: sheets/Circuit.sheet.in.h:29
-#, fuzzy
 msgid "An operational amplifier"
-msgstr "_Üfüqi tərəflə"
+msgstr "İcraçı amplikator"
 
 #: sheets/Circuit.sheet.in.h:30
-#, fuzzy
 msgid "Circuit"
-msgstr "Yön"
+msgstr "Dövrə"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "Dairəvi diaqram parçaları"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Geri Axış Preventeri"
 
 #: sheets/civil.sheet.in.h:2
-#, fuzzy
 msgid "A Basin"
-msgstr "Tərcümə"
+msgstr "Basin"
 
 #: sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "A Container"
-msgstr "Daxil Et"
+msgstr "Konteyner"
 
 #: sheets/civil.sheet.in.h:4
-#, fuzzy
 msgid "A Frequency Converter"
-msgstr "Tərs çevir"
+msgstr "Sıxlıq Dönüşdürücü"
 
 #: sheets/civil.sheet.in.h:5
 msgid "A Gas Bottle"
-msgstr ""
+msgstr "Qaz Şüşəsi"
 
 #: sheets/civil.sheet.in.h:6
-#, fuzzy
 msgid "A Motor"
-msgstr "Gedişatcı"
+msgstr "Mühərrik"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
-msgstr ""
+msgstr "İlkin Klarifikasiya Tankı"
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "A Rotor"
-msgstr "Gedişatcı"
+msgstr "Rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "A final-settling Basin"
 
 #: sheets/civil.sheet.in.h:10
-#, fuzzy
 msgid "A horizontal limiting line"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi hüdüdlandırılmış cızıq"
 
 #: sheets/civil.sheet.in.h:11
-#, fuzzy
 msgid "A horizontally aligned Arrow"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəfləndirilmiş Ox"
 
 #: sheets/civil.sheet.in.h:12
-#, fuzzy
 msgid "A vertical limiting line"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli hüdudlandırılmış cızıq"
 
 #: sheets/civil.sheet.in.h:13
-#, fuzzy
 msgid "A vertically aligned Arrow"
-msgstr "Üfüqi tərs çevir"
+msgstr "Şaquli tərəfləndirilmiş Ox"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
-msgstr ""
+msgstr "Qabarcıqlı aerator"
 
 #: sheets/civil.sheet.in.h:15
-#, fuzzy
 msgid "Bivalent Vertical Rest"
-msgstr "Şaquli tərs çevir"
+msgstr "İkivalnetli Şaquli Rest"
 
 #: sheets/civil.sheet.in.h:16
 msgid "Civil"
-msgstr ""
+msgstr "Mülki"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Mülki Mühəndislik Parçaları"
 
 #: sheets/civil.sheet.in.h:18
-#, fuzzy
 msgid "Horizontal Rest"
-msgstr "Üfüqi tərs çevir"
+msgstr "Üfüqi Rest"
 
 #: sheets/civil.sheet.in.h:19
-#, fuzzy
 msgid "Horizontally aligned Valve"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəfləndirilmiş Qapaq"
 
 #: sheets/civil.sheet.in.h:20
-#, fuzzy
 msgid "Horizontally aligned compressor"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəfləndirilmiş kompressor"
 
 #: sheets/civil.sheet.in.h:21
-#, fuzzy
 msgid "Horizontally aligned pump"
-msgstr "_Üfüqi tərəflə"
+msgstr "Üfüqi tərəfləndirilmiş nasos"
 
 #: sheets/civil.sheet.in.h:22
-#, fuzzy
 msgid "Reference Line"
-msgstr "Xətt yarat"
+msgstr "Referens Cızıq"
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Soil"
-msgstr "Dolğun"
+msgstr "Torpaqlama"
 
 #: sheets/civil.sheet.in.h:24
-#, fuzzy
 msgid "Vertical Rest"
-msgstr "Şaquli tərs çevir"
+msgstr "Şaquli Rest"
 
 #: sheets/civil.sheet.in.h:25
-#, fuzzy
 msgid "Vertically aligned Propeller"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəfləndirilmiş pərvanə"
 
 #: sheets/civil.sheet.in.h:26
-#, fuzzy
 msgid "Vertically aligned Valve"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaqilə tərəfləndirilmiş Qapaq"
 
 #: sheets/civil.sheet.in.h:27
-#, fuzzy
 msgid "Vertically aligned compressor"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəfləndirilmiş kompressor"
 
 #: sheets/civil.sheet.in.h:28
-#, fuzzy
 msgid "Vertically aligned pump"
-msgstr "_Üfüqi tərəflə"
+msgstr "Şaquli tərəfləndirilmiş nasos"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
-msgstr ""
+msgstr "Su Səviyyəsi"
 
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
-msgstr ""
+msgstr "'əgər deyilsə' (əsasən qapalı) nərdivan rabitəsi"
 
 #: sheets/Contact.sheet.in.h:2
 msgid "A 'if' (normally open) ladder contact"
-msgstr ""
+msgstr "'əgər deyilsə' (əsasən açıq) nərdivan rabitəsi"
 
 #: sheets/Contact.sheet.in.h:3
-#, fuzzy
 msgid "A 'jump' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "'atlama' yekunu dəyişəni"
 
 #: sheets/Contact.sheet.in.h:4
-#, fuzzy
 msgid "A 'reset' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "'sıfırla' yekunu dəyişəni"
 
 #: sheets/Contact.sheet.in.h:5
-#, fuzzy
 msgid "A 'set' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "'ver' yekunu dəyişəni"
 
 #: sheets/Contact.sheet.in.h:6
-#, fuzzy
 msgid "A negative output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Mənfi yekun dəyişəni"
 
 #: sheets/Contact.sheet.in.h:7
-#, fuzzy
 msgid "A power-saved 'reset' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Güc qoruyucu 'sıfırla' yekunu dəyişəni"
 
 #: sheets/Contact.sheet.in.h:8
-#, fuzzy
 msgid "A power-saved 'set' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Güc qoruyucu 'ver' yekunu dəyişəni"
 
 #: sheets/Contact.sheet.in.h:9
-#, fuzzy
 msgid "A power-saved negative output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Güc qoruyucu mənfi yekun dəyişəni"
 
 #: sheets/Contact.sheet.in.h:10
-#, fuzzy
 msgid "A power-saved simple output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Güc qoruyucu sadə yekun dəyişəni"
 
 #: sheets/Contact.sheet.in.h:11
-#, fuzzy
 msgid "A receptivity output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Qəbuledici yekun dəyişəni"
 
 #: sheets/Contact.sheet.in.h:12
-#, fuzzy
 msgid "A simple output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+msgstr "Sadə yekun dəyişəni"
 
 #: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
-msgstr ""
+msgstr "NƏRDİVAN dairəsi parçaları"
 
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "Səviyyəler"
+msgstr "Nərdivan"
 
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "A connection point"
-msgstr "Bağlantı nöqtəsi əlavə et"
+msgstr "Bağlama nüqtəsi"
 
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr ""
+msgstr "Lampa ya da indikator işığı"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr ""
+msgstr "Əsasən qapalı rabitə"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
-msgstr ""
+msgstr "Əsasən qapalı pozisiya keçışı"
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr ""
+msgstr "Əsasən açıq rabitə"
 
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
-msgstr ""
+msgstr "Əsasən açıq pozisiya keçışı"
 
 #: sheets/Electric.sheet.in.h:7
-#, fuzzy
 msgid "A relay"
-msgstr "Ekran"
+msgstr "Gecikmə"
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
-msgstr ""
+msgstr "Elektrik dövrləri parçaları"
 
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
-msgstr "Elektriki"
+msgstr "Elektrik"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
-msgstr ""
+msgstr "The command organ of a relay"
 
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "Yay yarat"
+msgstr "Gedişat yarat"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
-#, fuzzy
 msgid "Editor for EML Static Structure Diagrams."
-msgstr "Funksiya şəkli diaqram cismləri"
+msgstr "EML Sabit Struktura Diaqramları Editoru."
 
 #: sheets/EML.sheet.in.h:4
 msgid "Instantiation. One process create others"
-msgstr ""
+msgstr "İnstansiasiya. Bir gedişat digərini yaradar"
 
 #: sheets/EML.sheet.in.h:5
 msgid "Interaction between processes."
-msgstr ""
+msgstr "Gedişatlar arasında təsirlənmə."
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Varlıq/Bağ diaqram cismləri"
+msgstr "Üzv Əlaqə Diaqramları Editoru"
 
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "Radiasiya"
+msgstr "Töküntü"
 
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "Varlıq"
+msgstr "Zəif Üzv"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
-msgstr ""
+msgstr "Qutu içində mətn"
 
 #: sheets/Flowchart.sheet.in.h:2
 msgid "A diamond with text inside"
-msgstr ""
+msgstr "Almaz içində mətn"
 
 #: sheets/Flowchart.sheet.in.h:3
 msgid "A ellipse with text inside"
-msgstr ""
+msgstr "Elips içində mətn"
 
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "Paraleloqram içində mətn"
 
 #: sheets/Flowchart.sheet.in.h:5
-#, fuzzy
 msgid "Collate"
-msgstr "Hesabla"
+msgstr "Topla"
 
 #: sheets/Flowchart.sheet.in.h:6
-#, fuzzy
 msgid "Delay"
-msgstr "Ekran"
+msgstr "Gecikmə"
 
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
-msgstr "Bağla"
+msgstr "Sənəd"
 
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "Axış diaqram cismləri"
+msgstr "Axış diaqramları"
 
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Internal Storage"
-msgstr "İnteqral Simvolu"
+msgstr "Daxili Ambar"
 
 #: sheets/Flowchart.sheet.in.h:12
-#, fuzzy
 msgid "Magnetic Disk"
-msgstr "Maqnetik Energiya"
+msgstr "Maqnetik Disk"
 
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic Drum"
-msgstr "Maqnetik Energiya"
+msgstr "Maqnetik Təbil"
 
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic Tape"
-msgstr "Maqnetik Energiya"
+msgstr "Maqnetik Lent"
 
 #: sheets/Flowchart.sheet.in.h:15
-#, fuzzy
 msgid "Manual Input"
-msgstr "Gedişlər"
+msgstr "Əl Girişi"
 
 #: sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual Operation"
-msgstr "Gedişlər"
+msgstr "Əl Əməliyyatı"
 
 #: sheets/Flowchart.sheet.in.h:17
-#, fuzzy
 msgid "Merge"
-msgstr "Ölçü"
+msgstr "Birləşdir"
 
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
-msgstr ""
+msgstr "Axım diaqramları cismləri."
 
 #: sheets/Flowchart.sheet.in.h:19
-#, fuzzy
 msgid "Off Page Connector"
-msgstr "Bağla"
+msgstr "Bağlama Səhifəsi Konnektoru"
 
 #: sheets/Flowchart.sheet.in.h:20
-#, fuzzy
 msgid "Offline Storage"
-msgstr "İnteqral Simvolu"
+msgstr "Oflayn Ambar"
 
 #: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
-msgstr ""
+msgstr "Və Ya"
 
 #: sheets/Flowchart.sheet.in.h:22
-#, fuzzy
 msgid "Predefined Process"
-msgstr "Qurğular"
+msgstr "Ön Qurğulu Gedişat"
 
 #: sheets/Flowchart.sheet.in.h:23
-#, fuzzy
 msgid "Preparation"
-msgstr "Gedişlər"
+msgstr "Hazırlanma"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
-msgstr ""
+msgstr "Dəlikli Kart"
 
 #: sheets/Flowchart.sheet.in.h:25
 msgid "Punched Tape"
-msgstr ""
+msgstr "Dəlikli Kaset"
 
 #: sheets/Flowchart.sheet.in.h:26
-#, fuzzy
 msgid "Sort"
-msgstr "Dəstəkle"
+msgstr "Nizamla"
 
 #: sheets/Flowchart.sheet.in.h:27
-#, fuzzy
 msgid "Summing Junction"
-msgstr "Arzulanan funksiya"
+msgstr "Toplayıcı Birləşmə"
 
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
-msgstr "Termal"
+msgstr "Terminal"
 
 #: sheets/Flowchart.sheet.in.h:29
-#, fuzzy
 msgid "Transaction File"
-msgstr "Tərcümə"
+msgstr "Transaksiya Faylı"
 
 #: sheets/Flowchart.sheet.in.h:30
-#, fuzzy
 msgid "Transmittal Tape"
-msgstr "Keçir"
+msgstr "Keçirici Lent"
 
 #: sheets/FS.sheet.in.h:1
-#, fuzzy
 msgid "Create a flow"
-msgstr "Qutu yarat"
+msgstr "Axım yarat"
 
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "İstifadəçi funksiyası"
+msgstr "Funksiya yarat"
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
-msgstr ""
+msgstr "Ortoqonal çoxcızıqlı axışı yarat"
 
 #: sheets/FS.sheet.in.h:4
-#, fuzzy
 msgid "Editor for Function Structure Diagrams."
-msgstr "Funksiya şəkli diaqram cismləri"
+msgstr "Funksiya Strukturası Diaqramları Editoru."
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
-msgstr ""
+msgstr "FS"
 
 #: sheets/GRAFCET.sheet.in.h:1
-#, fuzzy
 msgid "A AND vergent"
-msgstr "GRAFCET VEYA/VE kenarı"
+msgstr "VƏ kənarı"
 
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
 msgid "A OR vergent"
-msgstr "GRAFCET VEYA/VE kenarı"
+msgstr "VƏ YA kənarı"
 
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
 msgid "A condition (of an action)"
-msgstr "Şəraitin yazı növü"
+msgstr "Şərait (gedişatın)"
 
 #: sheets/GRAFCET.sheet.in.h:4
-#, fuzzy
 msgid "A macro call step"
 msgstr "Makro çağırış addımı"
 
 #: sheets/GRAFCET.sheet.in.h:5
-#, fuzzy
 msgid "A macro entry step"
-msgstr "Makro başlanğıc addımı"
+msgstr "Makro girişi addımı"
 
 #: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "A macro exit step"
 msgstr "Makro bitiş addımı"
 
 #: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
 msgid "A macro sub-program call step"
-msgstr "Alt Proqram çağırış addımı"
+msgstr "Makto alt proqram çağırış addımı"
 
 #: sheets/GRAFCET.sheet.in.h:8
-#, fuzzy
 msgid "A regular step"
 msgstr "Standart addım"
 
 #: sheets/GRAFCET.sheet.in.h:9
-#, fuzzy
 msgid "A transition"
-msgstr "Tərcümə"
+msgstr "Transaksiya"
 
 #: sheets/GRAFCET.sheet.in.h:10
-#, fuzzy
 msgid "An action to associate to a step"
-msgstr "Bu gediş makro addıma çağırış aparır"
+msgstr "Addıma veriləcək gedişat"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Qövs"
 
 #: sheets/GRAFCET.sheet.in.h:12
-#, fuzzy
 msgid "An initial step"
-msgstr "Ilk addım"
+msgstr "Ilkin addım"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "GRAFCET qrafikaları parçaları"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr ""
+msgstr "Jiqso"
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Jigsaw - part_iiii"
 
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Jigsaw - part_iiio"
 
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Jigsaw - part_iioi"
 
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Jigsaw - part_iioo"
 
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Jigsaw - part_ioii"
 
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Jigsaw - part_ioio"
 
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Jigsaw - part_iooi"
 
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Jigsaw - part_iooo"
 
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Jigsaw - part_oiii"
 
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Jigsaw - part_oiio"
 
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Jigsaw - part_oioi"
 
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Jigsaw - part_oioo"
 
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Jigsaw - part_ooii"
 
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Jigsaw - part_ooio"
 
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Jigsaw - part_oooi"
 
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Jigsaw - part_oooo"
 
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "Jiqso parçaları"
 
 #: sheets/Logic.sheet.in.h:1
-#, fuzzy
 msgid "A Nand gate"
-msgstr "Daxil Et"
+msgstr "Nand qapısı"
 
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
 msgid "A Nor gate"
-msgstr "Daxil Et"
+msgstr "Nor qapısı"
 
 #: sheets/Logic.sheet.in.h:3
-#, fuzzy
 msgid "A Not"
-msgstr "Daxil Et"
+msgstr "Not"
 
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "A Xor gate"
-msgstr "Daxil Et"
+msgstr "Xor qapısı"
 
 #: sheets/Logic.sheet.in.h:5
-#, fuzzy
 msgid "A crossconnector"
-msgstr "Bağlantıyı kəs"
+msgstr "Çarpaz konnektor"
 
 #: sheets/Logic.sheet.in.h:6
-#, fuzzy
 msgid "A simple Buffer"
-msgstr "Yazıçıyı seç"
+msgstr "Sadə Bufer"
 
 #: sheets/Logic.sheet.in.h:7
-#, fuzzy
 msgid "An And gate"
-msgstr "Daxil Et"
+msgstr "Və qapısı"
 
 #: sheets/Logic.sheet.in.h:8
-#, fuzzy
 msgid "An Inverter"
-msgstr "Tərs çevir"
+msgstr "İnverter"
 
 #: sheets/Logic.sheet.in.h:9
-#, fuzzy
 msgid "An Or gate"
-msgstr "Daxil Et"
+msgstr "Və Ya qapısı"
 
 #: sheets/Logic.sheet.in.h:10
-#, fuzzy
 msgid "Boolean Logic"
-msgstr "Biologik"
+msgstr "Bulean Məntiqi"
 
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "Logic"
-msgstr "Qıfılla"
+msgstr "Məntiq"
 
 #: sheets/MSE.sheet.in.h:1
-#, fuzzy
 msgid "Demultiplexer"
-msgstr "Çoxalt"
+msgstr "Demultiplekser"
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
-msgstr ""
+msgstr "Geniş Uzantı Düyünü"
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "Çoxalt"
+msgstr "Multiplekser"
 
 #: sheets/MSE.sheet.in.h:5
-#, fuzzy
 msgid "Node Center"
-msgstr "Orta"
+msgstr "Düyün Mərkəzi"
 
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
-msgstr ""
+msgstr "Kiçik Uzantı Düyünü"
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Taktik Satellik Rabitə Terminalı"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "ABŞ Mobiı Subskrayber Təchizatı Parçaları"
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "A 3 1/2 inç disket"
 
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
-msgstr ""
+msgstr "Böyük Qullə ŞK"
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Bucaq əlavə et"
+msgstr "Kompüter"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
-msgstr ""
+msgstr "Masa Üstü ŞK"
 
 #: sheets/network.sheet.in.h:5
 msgid "A Firewall router"
-msgstr ""
+msgstr "Fayrvol roteri"
 
 #: sheets/network.sheet.in.h:6
 msgid "A Miditower PC"
-msgstr ""
+msgstr "Orta Qullə ŞK"
 
 #: sheets/network.sheet.in.h:7
-#, fuzzy
 msgid "A Minitower PC"
-msgstr "Gedişatcı"
+msgstr "Kiçik Qüllə ŞK"
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Əl Telefonus"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
-msgstr ""
+msgstr "A RJ45 Wall-Plug"
 
 #: sheets/network.sheet.in.h:10
 msgid "A UNIX Workstation"
-msgstr ""
+msgstr "UNIX İş Stansiyası"
 
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "A WAN Connection"
-msgstr "Konveksiya"
+msgstr "WAN Bağlantısı"
 
 #: sheets/network.sheet.in.h:12
-#, fuzzy
 msgid "A WAN Link"
-msgstr "Konveksiya"
+msgstr "WAN Körpüsü"
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
+msgstr "A Wall-Plug for the scEAD Cabling System"
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "İş Mühiti Monitoru"
 
 #: sheets/network.sheet.in.h:15
 msgid "A ZIP Disk"
-msgstr ""
+msgstr "ZIP Diski"
 
 #: sheets/network.sheet.in.h:16
 msgid "A modular switching system"
-msgstr ""
+msgstr "Modular keçış sistemi"
 
 #: sheets/network.sheet.in.h:17
-#, fuzzy
 msgid "A monitor"
-msgstr "Gedişatcı"
+msgstr "Monitor"
 
 #: sheets/network.sheet.in.h:18
-#, fuzzy
 msgid "A simple Modem"
-msgstr "Yazıçıyı seç"
+msgstr "Sadə Modem"
 
 #: sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "A simple printer"
-msgstr "Yazıçıyı seç"
+msgstr "Sadə çapedici"
 
 #: sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "A speaker with integrated amplifier"
-msgstr "_Üfüqi tərəflə"
+msgstr "Daxili gücləndiricili kolon"
 
 #: sheets/network.sheet.in.h:21
-#, fuzzy
 msgid "A speaker without amplifier"
-msgstr "_Üfüqi tərəflə"
+msgstr "Gücləndiricisiz kolon"
 
 #: sheets/network.sheet.in.h:22
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "Yığılabilən hab ya da keçış"
 
 #: sheets/network.sheet.in.h:23
-#, fuzzy
 msgid "ATM Switch Symbol"
-msgstr "Keç"
+msgstr "ATM Keçiş Simvolu"
 
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
-msgstr ""
+msgstr "Eternet bas"
 
 #: sheets/network.sheet.in.h:25
 msgid "An antenna for wireless transmission"
-msgstr ""
+msgstr "Naqilsiz rabitə anteni"
 
 #: sheets/network.sheet.in.h:26
 msgid "An external DAT drive"
-msgstr ""
+msgstr "Xarici DAT sürücüsü"
 
 #: sheets/network.sheet.in.h:27
-#, fuzzy
 msgid "Network"
-msgstr "Təzə"
+msgstr "Şəbəkə"
 
 #: sheets/network.sheet.in.h:28
-#, fuzzy
 msgid "Network Cloud"
-msgstr "Təzə"
+msgstr "Şəbəkə Buludu"
 
 #: sheets/network.sheet.in.h:29
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "Şəbəkə diaqramları üçün parçalar"
 
 #: sheets/network.sheet.in.h:30
-#, fuzzy
 msgid "Router Symbol"
-msgstr "İnteqral Simvolu"
+msgstr "Ruter Simvolu"
 
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "Storage"
-msgstr "Saxla"
+msgstr "Ambar"
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "Switch Symbol"
-msgstr "Keç"
+msgstr "Keçış Simvolu"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
-msgstr ""
+msgstr "2/2 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:2
 msgid "A 3/2 distributor"
-msgstr ""
+msgstr "3/2 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:3
 msgid "A 3/3 distributor"
-msgstr ""
+msgstr "3/3 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:4
 msgid "A 4/2 distributor"
-msgstr ""
+msgstr "4/2 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "5/2 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "5/3 distributor"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
-msgstr ""
+msgstr "Qoşa təsirli ling"
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "Ümumi təzyiq mənbəyi"
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "Hidrolik təzyiq mənbəyi"
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "A normally-in simple-effect jack"
-msgstr ""
+msgstr "Əsasən açıq olan sadə təsirli ling"
 
 #: sheets/Pneumatic.sheet.in.h:12
 msgid "A normally-out simple-effect jack"
-msgstr ""
+msgstr "Əsasən bağlı olan sadə təsirli ling"
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr ""
+msgstr "Pnevmatik təzyiq mənbəyi"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
-msgstr ""
+msgstr "Hava püskürtən deşik"
 
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
+msgstr "Havalı və mayeli dövrlər üçün parçalar"
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
-msgstr ""
+msgstr "Electrik əmri (qoşa halqa)"
 
 #: sheets/Pneumatic.sheet.in.h:17
 msgid "Electric command (single coil)"
-msgstr ""
+msgstr "Electrik əmri (tək halqa)"
 
 #: sheets/Pneumatic.sheet.in.h:18
 msgid "Indirect command by hydraulic driver"
-msgstr ""
+msgstr "Hidrolik sürücünün indirekt əmri"
 
 #: sheets/Pneumatic.sheet.in.h:19
 msgid "Indirect command by pneumatic driver"
-msgstr ""
+msgstr "Pnevmatik sürücünün indirekt əmri"
 
 #: sheets/Pneumatic.sheet.in.h:20
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Yayın mexaniki əmri"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Lingin mexaniki əmri"
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
-msgstr ""
+msgstr "Əzələvi əmr"
 
 #: sheets/Pneumatic.sheet.in.h:23
-#, fuzzy
 msgid "Pneumatic/Hydraulic"
-msgstr "Hidrolik"
+msgstr "Havalı/Mayeli"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
-msgstr ""
+msgstr "Basma düyməsi əmri"
 
 #: sheets/SADT.sheet.in.h:1
-#, fuzzy
 msgid "A activity/data flow arrow"
-msgstr "Gediş/Haqqında izahatcısı"
+msgstr "Fəaliyyət/verilənlər axışı oxu"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
-msgstr ""
+msgstr "Axış etiketi"
 
 #: sheets/SADT.sheet.in.h:3
-#, fuzzy
 msgid "An activity/data box"
-msgstr "Gediş/Haqqında izahatcısı"
+msgstr "Fəaliyyət/verilənlər qutusu"
 
 #: sheets/SADT.sheet.in.h:4
 msgid "Objects to design SADT diagrams"
-msgstr ""
+msgstr "SADT diaqramları yaratma cismləri"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IDEF0"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "İcra edilən hərəkət"
 
 #: sheets/SDL.sheet.in.h:2
-#, fuzzy
 msgid "Block Type Reference"
-msgstr "Qurğular"
+msgstr "Blok Növ Referensi"
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "Orta"
+msgstr "Şərh"
 
 #: sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "İzahat :"
+msgstr "Qərar"
 
 #: sheets/SDL.sheet.in.h:5
-#, fuzzy
 msgid "Function Header"
-msgstr "Makro çağırışı"
+msgstr "Funksiya Başlığı"
 
 #: sheets/SDL.sheet.in.h:6
-#, fuzzy
 msgid "Function call"
-msgstr "Makro çağırışı"
+msgstr "Funksiya çağrısı"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
-msgstr ""
+msgstr "Generik Mətn Qeydi"
 
 #: sheets/SDL.sheet.in.h:8
-#, fuzzy
 msgid "In/Out Connector"
-msgstr "Bağla"
+msgstr "Giriş/Çıxış Konnektoru"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
-msgstr ""
+msgstr "Prosedura Yekunu"
 
 #: sheets/SDL.sheet.in.h:11
-#, fuzzy
 msgid "Process Type Reference"
-msgstr "Qurğular"
+msgstr "Gedişat Növü Referensi"
 
 #: sheets/SDL.sheet.in.h:12
-#, fuzzy
 msgid "Receive message"
-msgstr "Al"
+msgstr "İsmarış al"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
-#, fuzzy
 msgid "Save State"
-msgstr "Başlat"
+msgstr "Vəziyyəti Qeyd Et"
 
 #: sheets/SDL.sheet.in.h:15
-#, fuzzy
 msgid "Send message"
-msgstr "İsmarıc :"
+msgstr "İsmarış yolla"
 
 #: sheets/SDL.sheet.in.h:16
-#, fuzzy
 msgid "Service Type Reference"
-msgstr "Qurğular"
+msgstr "Xidmət Növü Referensi"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
+msgstr "Xüsusiyyətlər və İzahat Dili."
 
 #: sheets/SDL.sheet.in.h:18
-#, fuzzy
 msgid "State"
-msgstr "Başlat"
+msgstr "Vəziyyət"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
-msgstr ""
+msgstr "Sybase Alıcı Təminatı"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "A Sybase Dataserver"
-msgstr ""
+msgstr "Sybase Dataserver"
 
 #: sheets/sybase.sheet.in.h:3
 msgid "A Sybase Replication Server"
-msgstr ""
+msgstr "Sybase Replikasiya Vericisi"
 
 #: sheets/sybase.sheet.in.h:4
 msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
+msgstr "Qeyd Daşıma İdarəçisi və ya Toxuma Vasitəsi"
 
 #: sheets/sybase.sheet.in.h:5
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr ""
+msgstr "Objects to design Sybase replication domain diagrams with"
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Replication Server Manager"
-msgstr ""
+msgstr "Replikasiya Vericisi İdarəçisi"
 
 #: sheets/sybase.sheet.in.h:7
 msgid "Stable Storage Device"
-msgstr ""
+msgstr "Sabit Saxlama Avadanlığı"
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "Tireli"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Aqreqasiya, bir sinif digərinin parçasıdırs"
 
 #: sheets/UML.sheet.in.h:2
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Asosiasiya, iki sinif asosiasiyadadır"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Məhdudlaşdırma, hər hansı bir şey üstünə məhdudlaşdırıcı qoy"
 
 #: sheets/UML.sheet.in.h:4
-#, fuzzy
 msgid "Create a (large) package"
-msgstr "Rəsmi yarat"
+msgstr "Paket (böyük) yarat"
 
 #: sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Create a (small) package"
-msgstr "Rəsmi yarat"
+msgstr "Paket (kiçik) yarat"
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Yay yarat"
+msgstr "Şaxə yarat"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "Nümunə sinifi"
+msgstr "Sinif yarat"
 
 #: sheets/UML.sheet.in.h:8
-#, fuzzy
 msgid "Create a class stereotype icon"
-msgstr "Nümunə sinifi"
+msgstr "Sinif stereotip timsalı yarat"
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
 msgid "Create a component"
-msgstr "Çoxguşəli yarat"
+msgstr "Komponent yarat"
 
 #: sheets/UML.sheet.in.h:10
-#, fuzzy
 msgid "Create a dependency"
-msgstr "Bezyer xəttini yarata"
+msgstr "Asılılıq yarat"
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Create a lifeline"
-msgstr "Bezyer xəttini yarata"
+msgstr "Həyat xətti yarat"
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a message"
-msgstr "Rəsmi yarat"
+msgstr "İsmarış yarat"
 
 #: sheets/UML.sheet.in.h:13
-#, fuzzy
 msgid "Create a node"
-msgstr "Xətt yarat"
+msgstr "Düyün yarat"
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "Xətt yarat"
+msgstr "Qeyd yarat"
 
 #: sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Create a state machine"
-msgstr "Xətt yarat"
+msgstr "Maşn yarat"
 
 #: sheets/UML.sheet.in.h:16
-#, fuzzy
 msgid "Create a template class"
-msgstr "Nümunə sinifi"
+msgstr "Nümunəvi sinif yarat"
 
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a use case"
-msgstr "Rəsmi yarat"
+msgstr "Create a use case"
 
 #: sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Create an actor"
-msgstr "Təzə bir diaqram yarat"
+msgstr "Aktyor yarat"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "Xətt yarat"
+msgstr "Cism yarat"
 
 #: sheets/UML.sheet.in.h:20
-#, fuzzy
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Funksiya şəkli diaqram cismləri"
+msgstr "UML Statik Quruluş Diaqram Editoru"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Ümumiləşdirmə, sinif mirası"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Tamamlayıcı, sinif xüsusi ara üzü tamamlayır"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Həyata keçirici, xüsusi ara üzü tamamlayır"
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: dia.desktop.in.h:1
-#, fuzzy
 msgid "A Diagram Editor"
-msgstr "Diaqramma editoru"
+msgstr "Diaqram Editoru"
 
 #: dia.desktop.in.h:2
-#, fuzzy
 msgid "Dia"
-msgstr "Ekran"
+msgstr "Dia"
 
-#~ msgid "No edit widget"
-#~ msgstr "Dəyişdirilə bilən bir widget deyildir"
-
-#~ msgid "Class name"
-#~ msgstr "Sinif adı"
-
-#~ msgid "Attributes:"
-#~ msgstr "Xüsusiyyətler :"
