@@ -455,7 +455,7 @@ msgstr "ダイアグラムに沿ったスクロール"
 
 #: app/interface.c:46 app/menus.c:179
 msgid "Scroll"
-msgstr ""
+msgstr "スクロール"
 
 #: app/interface.c:50
 msgid "Create Text"
@@ -463,15 +463,15 @@ msgstr "テキストの生成"
 
 #: app/interface.c:51 app/menus.c:180
 msgid "Text"
-msgstr ""
+msgstr "テキスト"
 
 #: app/interface.c:55
 msgid "Create Box"
-msgstr "ボックスの生成"
+msgstr "矩形の生成"
 
 #: app/interface.c:56 app/menus.c:181
 msgid "Box"
-msgstr ""
+msgstr "矩形"
 
 #: app/interface.c:60
 msgid "Create Ellipse"
@@ -479,15 +479,15 @@ msgstr "楕円の生成"
 
 #: app/interface.c:61 app/menus.c:182
 msgid "Ellipse"
-msgstr ""
+msgstr "楕円"
 
 #: app/interface.c:65
 msgid "Create Polygon"
-msgstr ""
+msgstr "多角形の作成"
 
 #: app/interface.c:66 app/menus.c:183
 msgid "Polygon"
-msgstr ""
+msgstr "多角形"
 
 #: app/interface.c:70
 msgid "Create Line"
@@ -499,11 +499,11 @@ msgstr "線 (両側)"
 
 #: app/interface.c:75
 msgid "Create Arc"
-msgstr "弧の生成"
+msgstr "円弧の生成"
 
 #: app/interface.c:76 app/menus.c:185
 msgid "Arc"
-msgstr ""
+msgstr "円弧"
 
 #: app/interface.c:80
 msgid "Create Zigzagline"
@@ -511,7 +511,7 @@ msgstr "ジグザグ線の生成"
 
 #: app/interface.c:81 app/menus.c:186
 msgid "Zigzagline"
-msgstr ""
+msgstr "ジグザグ線"
 
 #: app/interface.c:85
 msgid "Create Polyline"
@@ -519,7 +519,7 @@ msgstr "連続線の生成"
 
 #: app/interface.c:86 app/menus.c:187
 msgid "Polyline"
-msgstr ""
+msgstr "連続線"
 
 #: app/interface.c:90
 msgid "Create Bezierline"
@@ -527,7 +527,7 @@ msgstr "ベジエ曲線の作成"
 
 #: app/interface.c:91 app/menus.c:188
 msgid "Bezierline"
-msgstr ""
+msgstr "ベジエ曲線"
 
 #: app/interface.c:95
 msgid "Create Image"
