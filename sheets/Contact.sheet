@@ -3,6 +3,7 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Ladder</name>
   <description xml:lang="fr">Composants de diagrammes LADDER</description>
+  <description xml:lang="nl">LADDER componenten</description>
   <description>Components for LADDER circuits</description>
   <contents>
     <object name="LADDER - if">

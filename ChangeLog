@@ -1,5 +1,14 @@
 2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* sheets/Circuit.sheet:
+	* sheets/Contact.sheet:
+	* sheets/Logic.sheet:
+	* sheets/chronogram.sheet:
+	* sheets/sybase.sheet: 
+	Dutch translations from Dag Wieers <dag@wieers.com>
+
+2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* po-checktrans.py: Now shows the detailed counts alongside the
 	percentage of translations.
 	

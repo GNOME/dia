@@ -8,6 +8,7 @@
   <description xml:lang="fr">Objets pour l'écriture de chronogrammes</description>
   <description xml:lang="de">Objekte für Zeitdiagrammentwurf</description>
   <description xml:lang="sl">Predmeti za oblikovanje kronogramov</description>
+  <description xml:lang="nl">Objekten voor het onterp van chronogram grafieken</description>
   <description>Objects to design chronogram charts</description>
   <contents>
     <object name="chronogram - reference">
@@ -15,6 +16,7 @@
       <description xml:lang="fr">Une échelle de temps</description>
       <description xml:lang="de">Eine Zeitscala</description>
       <description xml:lang="sl">Èasovna skala</description>
+      <description xml:lang="nl">Een tijdsschaal</description>
       <description>A time scale</description>
     </object>
     <object name="chronogram - line">
@@ -22,6 +24,7 @@
       <description xml:lang="fr">Une ligne de données</description>
       <description xml:lang="de">Eine Datenlinie</description>
       <description xml:lang="sl">Podatkovna èrta</description>
+      <description xml:lang="nl">Een datalijn</description>
       <description>A data line</description>
     </object>
   </contents>

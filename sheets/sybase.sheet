@@ -5,42 +5,49 @@
   <description xml:lang="no">Objekter til utforming av domene-diagrammer for replikering i Sybase databaser</description>
   <description xml:lang="fr">Diagrammes pour la conception de réplication de domaines Sybase</description>
   <description xml:lang="de">Objekte für Sybase-Replikationsdiagrammdesign</description>
+  <description xml:lang="nl">Objekten voor het ontwerp van Sybase replicatie domein diagrammen</description>
   <description>Objects to design Sybase replication domain diagrams with</description>
   <contents>
     <object name="Sybase - Dataserver">
       <description xml:lang="no">En Sybase databasetjener</description>
       <description xml:lang="fr">Un serveur de données Sybase</description>
       <description xml:lang="de">Ein Sybase Datenserver</description>
+      <description xml:lang="nl">Een Sybase dataserver</description>
       <description>A Sybase Dataserver</description>
     </object>
     <object name="Sybase - Replication Server">
       <description xml:lang="no">En Sybase replikeringstjener</description>
       <description xml:lang="fr">Un Serveur de Réplication Sybase</description>
       <description xml:lang="de">Ein Sybase Replikationsserver</description>
+      <description xml:lang="nl">Een Sybase replicatieserver</description>
       <description>A Sybase Replication Server</description>
     </object>
     <object name="Sybase - Log Transfer Manager/Rep Agent">
       <description xml:lang="no">Loggoverføringshåndterer eller Rep agent</description>
       <description xml:lang="fr">Gestionnaire de transfert de journaux ou agent de réplication</description>
       <description xml:lang="de">Logtransfermanager or Replikationsagent</description>
+      <description xml:lang="nl">Logtransfer manager of replicatieagent</description>
       <description>Log Transfer Manager or Rep Agent</description>
     </object>
     <object name="Sybase - Stable Queue">
       <description xml:lang="no">Stabil diskenhet</description>
       <description xml:lang="fr">Périphérique Disque stable</description>
       <description xml:lang="de">Stabiles Speichersystem</description>
+      <description xml:lang="nl">Betrouwbaar opslagsysteem</description>
       <description>Stable Storage Device</description>
     </object>
     <object name="Sybase - Client Application">
       <description xml:lang="no">Klientapplikasjon for Sybase</description>
       <description xml:lang="fr">Une application cliente Sybase</description>
       <description xml:lang="de">Eine Sybase Anwendung</description>
+      <description xml:lang="nl">Een Sybase applicatie</description>
       <description>A Sybase Client Application</description>
     </object>
     <object name="Sybase - Replication Server Manager">
       <description xml:lang="no">Håndterer for replikeringstjener</description>
       <description xml:lang="fr">Gestionnaire de Serveur de Réplication</description>
       <description xml:lang="de">Replikationsservermanager</description>
+      <description xml:lang="nl">Replicatieserver manager</description>
       <description>Replication Server Manager</description>
     </object>
   </contents>
