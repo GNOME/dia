@@ -59,6 +59,16 @@
       Pfeil</description>
     </object>
 
+    <object name="Civil - Horizontal Limiting Line">
+      <description>A horizontal limiting line</description>
+      <description xml:lang="de">Eine horizontale Begenzungslinie</description>
+    </object>
+
+    <object name="Civil - Vertical Limiting Line">
+      <description>A vertical limiting line</description>
+      <description xml:lang="de">Eine vertikale Begrenzungslinie</description>
+    </object>
+
     <object name="Civil - Horizontal Pump">
       <description>Horizontally aligned pump</description>
 
