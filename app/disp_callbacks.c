@@ -42,6 +42,7 @@
 #include "magnify.h"
 #include "diamenu.h"
 #include "preferences.h"
+#include "scroll_tool.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;

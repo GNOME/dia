@@ -113,7 +113,7 @@ paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
 
   /* iterate through all the pages in the diagram */
   for (y = inity, ypos = 0; y < extents->bottom; y += height, ypos++)
-    for (x = inity, xpos = 0; x < extents->right; x += width, xpos++) {
+    for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
       Rectangle page_bounds;
 
       page_bounds.left = x;
