@@ -1,0 +1,9 @@
+.cvsignore
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+*.la
+*.pyc
+
