@@ -488,7 +488,6 @@ create_display_shell(DDisplay *ddisp,
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
 		   grid_toggle_snap, ddisp);
-  g_object_set(G_OBJECT(ddisp->grid_status), "can-focus", FALSE);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
 		      FALSE, FALSE, 0);
 
