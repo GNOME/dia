@@ -18,7 +18,7 @@
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <gnome-xml/tree.h>
+#include <tree.h>
 #include "utils.h"
 #include "dia_xml.h"
 #include "message.h"

@@ -157,7 +157,7 @@ objet_move_handle(Objet *pkg, Handle *handle,
 static void
 objet_move(Objet *pkg, Point *to)
 {
-  Point p;
+  /*  Point p; */
   
   pkg->element.corner = *to;
   /*
@@ -251,7 +251,7 @@ objet_update_data(Objet *pkg)
   Object *obj = (Object *) pkg;
   Font *font;
   Point p1, p2;
-  real x, h, w = 0;
+  real h, w = 0;
   
   font = pkg->text->font;
   h = elem->corner.y + OBJET_MARGIN_Y;

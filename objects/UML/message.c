@@ -479,7 +479,6 @@ static void
 message_apply_properties(Message *message)
 {
   MessageDialog *prop_dialog;
-  char *str;
   
   prop_dialog = message->properties_dialog;
 
@@ -515,7 +514,6 @@ fill_in_dialog(Message *message)
 {
   MessageDialog *prop_dialog;
   char *str;
-  GtkWidget *button;
   
   prop_dialog = message->properties_dialog;
 

@@ -1,3 +1,17 @@
+1999-02-06  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	Reverted back from #include <gnome-xml/tree.h> to
+	#include <tree.h> as this is fixed by the xml-config program.
+	The former way broke for some people.
+	Reported by blizzard@redhat.com.
+
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/object.c:
+	Removed some warnings.
+	
 1999-02-04  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/lifeline.c: 

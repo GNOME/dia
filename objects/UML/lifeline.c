@@ -275,7 +275,6 @@ lifeline_create(Point *startpoint,
   Lifeline *lifeline;
   Connection *conn;
   Object *obj;
-  Point defaultlen = { 1.0, 1.0 };
   int i;
 
   if (lifeline_font == NULL)
@@ -542,7 +541,6 @@ lifeline_get_properties(Lifeline *lif)
   
   GtkWidget *dialog;
   GtkWidget *checkbox;
-  GtkWidget *label;
 
   if (lif->properties_dialog == NULL) {
 
