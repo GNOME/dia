@@ -670,15 +670,18 @@ draw_string(DiaRenderer *self,
   style = (char*)get_fill_style(renderer, colour);
   /* return value must not be freed */
   renderer->linewidth = saved_width;
+  /* This is going to break for non-LTR texts, as SVG thinks 'start' is
+   * 'right' for those.
+   */
   switch (alignment) {
   case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-align: left", NULL);
+    style = g_strconcat(style, "; text-anchor:start", NULL);
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-align: center", NULL);
+    style = g_strconcat(style, "; text-anchor:middle", NULL);
     break;
   case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-align: right", NULL);
+    style = g_strconcat(style, "; text-anchor:end", NULL);
     break;
   }
   old_locale = setlocale(LC_NUMERIC, "C");

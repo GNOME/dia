@@ -1,5 +1,9 @@
 2003-04-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/diasvgrenderer.c (draw_string): 
+	* lib/dia_svg.c (dia_svg_parse_style): Use
+	text-anchor:(start|middle|end).
+
 	* lib/diasvgrenderer.c (draw_polygon, fill_polygon): Use svg
 	polygon rather than polyline & avoid missing line pieces.
 	(get_draw_style): Set fill-opacity to 0 on draw_style to avoid
