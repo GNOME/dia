@@ -638,7 +638,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
        GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
       /* Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities) */
-  label = gtk_label_new(_("Maintainers: Lars Clausen and Cyrille Chépélov"));
+  label = gtk_label_new(_("Maintainers: Lars Clausen and Cyrille Chepelov"));
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 1,2,
        GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
