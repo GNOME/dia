@@ -1,5 +1,8 @@
 2003-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.c (calculate_arrow_point): Fix of wrong arrow
+	adjustment for diamondheads.
+
 	* lib/plug-ins.c (dia_plugin_load): Fixed typo.
 
 	* app/properties.c (create_dialog): Destroy properties dialog and
