@@ -15,7 +15,8 @@
 	
 	* lib/diagramdata.c: draw bounding boxes only if the relevant
 	variable is set (as before), but also only if the rendere is
-	interactive (ie, don't bother rendering bounding boxes on Postscript...)
+	interactive (ie, don't bother rendering bounding boxes on 
+	Postscript...)
 	Made the bounding box's line width a fixed value, 0.01
 	
 	* lib/boundingbox.c: fixed the "pointy corners" code for polylines
@@ -28,6 +29,9 @@
 	* shapes/network/antenna.shape: fixed #55074 (antenna is now
 	properly translucent, except for its base where it makes sense. It
 	doesn't look that ugly anymore if transparent mode is on).
+
+	* configure.in: --enable-unicode is now the default. This
+	still currently affects only printing.
 	
 2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
 
