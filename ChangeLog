@@ -1,3 +1,7 @@
+2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
 2004-01-19  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c app/diaconv : 
