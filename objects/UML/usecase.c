@@ -89,7 +89,7 @@ static void usecase_save(Usecase *usecase, ObjectNode obj_node,
 static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
-static ObjectChange *usecase_apply_properties(Usecase *usecase);
+static ObjectChange *usecase_apply_properties(Usecase *usecase, GtkWidget *widget);
 static GtkWidget *usecase_get_properties(Usecase *dep);
 static PropDescription *usecase_describe_props(Usecase *usecase);
 static void usecase_get_props(Usecase *usecase, Property *props, guint nprops);
@@ -119,7 +119,7 @@ static ObjectOps usecase_ops = {
   (CopyFunc)            usecase_copy,
   (MoveFunc)            usecase_move,
   (MoveHandleFunc)      usecase_move_handle,
-  (GetPropertiesFunc)   usecase_get_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesFunc) usecase_apply_properties,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   usecase_describe_props,
@@ -129,9 +129,9 @@ static ObjectOps usecase_ops = {
 
 static PropDescription usecase_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "text_outside", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Text outside"), NULL, NULL },
-  { "collaboration", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "collaboration", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Collaboration"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
@@ -151,8 +151,8 @@ usecase_describe_props(Usecase *usecase)
 
 static PropOffset usecase_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "text_outside", PROP_TYPE_INT, offsetof(Usecase, text_outside) },
-  { "collaboration", PROP_TYPE_INT, offsetof(Usecase, collaboration) },
+  { "text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
+  { "collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
   { NULL, 0, 0 },
 };
 
@@ -173,7 +173,7 @@ usecase_get_props(Usecase * usecase, Property *props, guint nprops)
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
   for (i = 0; i < nprops; i++) {
     GQuark pquark = g_quark_from_string(props[i].name);
@@ -203,7 +203,7 @@ usecase_set_props(Usecase *usecase, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
 	quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {
@@ -588,19 +588,17 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-usecase_apply_properties(Usecase *usecase)
+usecase_apply_properties(Usecase *usecase, GtkWidget *widget)
 {
-  UsecasePropertiesDialog *prop_dialog;
   ObjectState *old_state;
   real h;
   Point p;
 
-  prop_dialog = properties_dialog;
 
   old_state = (ObjectState *)usecase_get_state(usecase);
 
-  usecase->text_outside = prop_dialog->text_out->active;
-  usecase->collaboration = prop_dialog->collaboration->active;
+  object_apply_props_from_dialog((Object *)usecase, widget);
+
   usecase_update_data(usecase);
 
   h = usecase->text->height*usecase->text->numlines;
@@ -615,47 +613,4 @@ usecase_apply_properties(Usecase *usecase)
   return new_object_state_change(&usecase->element.object, old_state, 
 				 (GetStateFunc)usecase_get_state,
 				 (SetStateFunc)usecase_set_state);
-}
-
-static void
-fill_in_dialog(Usecase *usecase)
-{
-  UsecasePropertiesDialog *prop_dialog;
-  prop_dialog = properties_dialog;
-  gtk_toggle_button_set_active(prop_dialog->text_out, usecase->text_outside);
-  gtk_toggle_button_set_active(prop_dialog->collaboration, usecase->collaboration);
-}
-
-static GtkWidget *
-usecase_get_properties(Usecase *dep)
-{
-  UsecasePropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *checkbox;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(UsecasePropertiesDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    checkbox = gtk_check_button_new_with_label(_("Text outside:"));
-    prop_dialog->text_out = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
-
-    checkbox = gtk_check_button_new_with_label(_("Collaboration"));
-    prop_dialog->collaboration = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
-  }
-  
-  fill_in_dialog(dep);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }

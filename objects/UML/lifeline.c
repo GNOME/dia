@@ -27,6 +27,7 @@
 #include "connection.h"
 #include "render.h"
 #include "handle.h"
+#include "properties.h"
 
 #include "pixmaps/lifeline.xpm"
 
@@ -94,12 +95,17 @@ static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
 			  const char *filename);
 static Object *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
-static ObjectChange *lifeline_apply_properties(Lifeline *lif);
+static ObjectChange *lifeline_apply_properties(Lifeline *lif, GtkWidget *widget);
 static GtkWidget *lifeline_get_properties(Lifeline *lif);
+static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
 static LifelineState *lifeline_get_state(Lifeline *lif);
 static void lifeline_set_state(Lifeline *lif,
 			       LifelineState *state);
+static void lifeline_get_props(Lifeline * lifeline, Property *props, 
+			       guint nprops);
+static void lifeline_set_props(Lifeline * lifeline, Property *props,
+			       guint nprops);
 
 
 static ObjectTypeOps lifeline_type_ops =
@@ -125,10 +131,57 @@ static ObjectOps lifeline_ops = {
   (CopyFunc)            lifeline_copy,
   (MoveFunc)            lifeline_move,
   (MoveHandleFunc)      lifeline_move_handle,
-  (GetPropertiesFunc)   lifeline_get_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesFunc) lifeline_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   lifeline_describe_props,
+  (GetPropsFunc)        lifeline_get_props,
+  (SetPropsFunc)        lifeline_set_props
 };
+
+static PropDescription lifeline_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "focus_control", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Draw focus of control:"), NULL, NULL },
+  { "cross", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Draw destruction mark:"), NULL, NULL },
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+lifeline_describe_props(Lifeline *lifeline)
+{
+  if (lifeline_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(lifeline_props);
+  return lifeline_props;
+}
+
+static PropOffset lifeline_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "focus_control", PROP_TYPE_BOOL, offsetof(Lifeline, draw_focuscontrol) },
+  { "cross", PROP_TYPE_BOOL, offsetof(Lifeline, draw_cross) },
+  { NULL, 0, 0 },
+};
+
+static void
+lifeline_get_props(Lifeline * lifeline, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&lifeline->connection.object, 
+                                    lifeline_offsets, props, nprops))
+    return;
+}
+
+static void
+lifeline_set_props(Lifeline *lifeline, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&lifeline->connection.object, 
+                                     lifeline_offsets, props, nprops)) {
+  }
+  lifeline_update_data(lifeline);
+}
 
 static real
 lifeline_distance_from(Lifeline *lifeline, Point *point)
@@ -554,69 +607,16 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
 
 
 static ObjectChange *
-lifeline_apply_properties(Lifeline *lif)
+lifeline_apply_properties(Lifeline *lif, GtkWidget *widget)
 {
-  LifelineDialog *prop_dialog;
   ObjectState *old_state;
-
-  prop_dialog = properties_dialog;
 
   old_state = (ObjectState*) lifeline_get_state(lif);
 
-  /* Read from dialog and put in object: */
-
-  lif->draw_focuscontrol = prop_dialog->draw_focus->active;
-  lif->draw_cross = prop_dialog->draw_cross->active;
+  object_apply_props_from_dialog((Object *)lif, widget);
   
   lifeline_update_data(lif);
   return new_object_state_change(&lif->connection.object, old_state, 
 				 (GetStateFunc)lifeline_get_state,
 				 (SetStateFunc)lifeline_set_state);
-}
-
-static void
-fill_in_dialog(Lifeline *lif)
-{
-  LifelineDialog *prop_dialog;
-
-  prop_dialog = properties_dialog;
-
-  gtk_toggle_button_set_active(prop_dialog->draw_focus, lif->draw_focuscontrol);
-  gtk_toggle_button_set_active(prop_dialog->draw_cross, lif->draw_cross);
-}
-
-static GtkWidget *
-lifeline_get_properties(Lifeline *lif)
-{
-  LifelineDialog *prop_dialog;
-  
-  GtkWidget *dialog;
-  GtkWidget *checkbox;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(LifelineDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    checkbox = gtk_check_button_new_with_label(_("Show focus of control:"));
-    prop_dialog->draw_focus = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
-
-    checkbox = gtk_check_button_new_with_label(_("Show destruction mark:"));
-    prop_dialog->draw_cross = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
-
-  }
-  
-  fill_in_dialog(lif);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }

@@ -28,6 +28,7 @@
 #include "render.h"
 #include "handle.h"
 #include "arrows.h"
+#include "properties.h"
 
 #include "pixmaps/message.xpm"
 
@@ -106,8 +107,7 @@ static real message_distance_from(Message *message, Point *point);
 static void message_update_data(Message *message);
 static void message_destroy(Message *message);
 static Object *message_copy(Message *message);
-static GtkWidget *message_get_properties(Message *message);
-static ObjectChange *message_apply_properties(Message *message);
+static ObjectChange *message_apply_properties(Message *message, GtkWidget *widget);
 
 static MessageState *message_get_state(Message *message);
 static void message_set_state(Message *message,
@@ -118,6 +118,9 @@ static void message_save(Message *message, ObjectNode obj_node,
 static Object *message_load(ObjectNode obj_node, int version,
 			    const char *filename);
 
+static PropDescription *message_describe_props(Message *mes);
+static void message_get_props(Message * message, Property *props, guint nprops);
+static void message_set_props(Message *message, Property *props, guint nprops);
 
 static ObjectTypeOps message_type_ops =
 {
@@ -142,10 +145,69 @@ static ObjectOps message_ops = {
   (CopyFunc)            message_copy,
   (MoveFunc)            message_move,
   (MoveHandleFunc)      message_move_handle,
-  (GetPropertiesFunc)   message_get_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,/*message_get_properties,*/
   (ApplyPropertiesFunc) message_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   message_describe_props,
+  (GetPropsFunc)        message_get_props,
+  (SetPropsFunc)        message_set_props
 };
+
+static PropEnumData prop_message_type_data[] = {
+  { N_("Call"), MESSAGE_CALL },
+  { N_("Create"), MESSAGE_CREATE },
+  { N_("Destroy"), MESSAGE_DESTROY },
+  { N_("Simple"), MESSAGE_SIMPLE },
+  { N_("Return"), MESSAGE_RETURN },
+  { N_("Send"), MESSAGE_SEND },
+  { N_("Recursive"), MESSAGE_RECURSIVE },
+  { NULL, 0}
+};
+
+static PropDescription message_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "message", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Message:"), NULL, NULL },
+  { "message_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Message type:"), NULL, prop_message_type_data },
+  PROP_DESC_END
+};
+
+static PropDescription *
+message_describe_props(Message *mes)
+{
+  if (message_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(message_props);
+  return message_props;
+
+}
+
+static PropOffset message_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "message", PROP_TYPE_STRING, offsetof(Message, text) },
+  { "message_type", PROP_TYPE_ENUM, offsetof(Message, type) },
+  { NULL, 0, 0 }
+};
+
+static void
+message_get_props(Message * message, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&message->connection.object, 
+                                    message_offsets, props, nprops))
+    return;
+}
+
+static void
+message_set_props(Message *message, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&message->connection.object, 
+                                     message_offsets, props, nprops)) {
+  }
+  message_update_data(message);
+}
+
 
 static real
 message_distance_from(Message *message, Point *point)
@@ -287,7 +349,7 @@ message_draw(Message *message, Renderer *renderer)
   else
       mname = message->text;
 
-  if (mname) 
+  if (mname && strlen(mname) != 0) 
       renderer->ops->draw_string(renderer,
 				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
@@ -323,7 +385,7 @@ message_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-  message->text = NULL;
+  message->text = strdup("");
   message->text_width = 0.0;
   message->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   message->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
@@ -373,7 +435,7 @@ message_copy(Message *message)
   newmessage->text_handle = message->text_handle;
   newobj->handles[2] = &newmessage->text_handle;
 
-  newmessage->text = (message->text) ? strdup(message->text): NULL;
+  newmessage->text = strdup(message->text);
   newmessage->text_pos = message->text_pos;
   newmessage->text_width = message->text_width;
 
@@ -430,7 +492,7 @@ message_update_data(Message *message)
   connection_update_boundingbox(conn);
 
   /* Add boundingbox for text: */
-  rect.left = message->text_pos.x;
+  rect.left = message->text_pos.x-message->text_width/2;
   rect.right = rect.left + message->text_width;
   rect.top = message->text_pos.y - font_ascent(message_font, MESSAGE_FONTHEIGHT);
   rect.bottom = rect.top + MESSAGE_FONTHEIGHT;
@@ -480,6 +542,8 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     message->text = data_string(attribute_first_data(attr));
+  else
+    message->text = strdup("");
 
   attr = object_find_attribute(obj_node, "text_pos");
   if (attr != NULL)
@@ -513,168 +577,19 @@ message_load(ObjectNode obj_node, int version, const char *filename)
 
 
 static ObjectChange *
-message_apply_properties(Message *message)
+message_apply_properties(Message *message, GtkWidget *widget)
 {
-  MessageDialog *prop_dialog;
   ObjectState *old_state;
   
-  prop_dialog = properties_dialog;
-
   old_state = (ObjectState *)message_get_state(message);
 
+  object_apply_props_from_dialog((Object *)message, widget);
+
   /* Read from dialog and put in object: */
-  g_free(message->text);
-  message->text = strdup(gtk_entry_get_text(prop_dialog->text));
     
-  message->text_width =
-      font_string_width(message->text, message_font,
-			MESSAGE_FONTHEIGHT);
-  
-  
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_call)->active) 
-      message->type = MESSAGE_CALL;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_return )->active) 
-      message->type = MESSAGE_RETURN;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_create )->active) 
-      message->type = MESSAGE_CREATE;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_destroy )->active) 
-      message->type = MESSAGE_DESTROY;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_send )->active) 
-      message->type = MESSAGE_SEND;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_simple )->active) 
-      message->type = MESSAGE_SIMPLE;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_recursive )->active) 
-      message->type = MESSAGE_RECURSIVE;
-  
   message_update_data(message);
 
   return new_object_state_change(&message->connection.object, old_state, 
 				 (GetStateFunc)message_get_state,
 				 (SetStateFunc)message_set_state);
-}
-
-static void
-fill_in_dialog(Message *message)
-{
-  MessageDialog *prop_dialog;
-  char *str;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = properties_dialog;
-
-  if (message->text) {
-      str = strdup(message->text);
-      gtk_entry_set_text(prop_dialog->text, str);
-      g_free(str);
-  } else {
-      gtk_entry_set_text(prop_dialog->text, "");
-  }
-
-  switch (message->type) {
-  case MESSAGE_CALL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_call);
-      break;
-  case MESSAGE_CREATE:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_create);
-      break;
-  case MESSAGE_DESTROY:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_destroy);
-      break;
-  case MESSAGE_SIMPLE:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_simple);
-      break;
-  case MESSAGE_RETURN:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_return);
-      break;
-  case MESSAGE_SEND:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_send);
-      break;
-  case MESSAGE_RECURSIVE:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_recursive);
-      break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
-
-static GtkWidget *
-message_get_properties(Message *message)
-{
-  MessageDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GSList *group;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(MessageDialog, 1);
-    properties_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Message:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->text = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    label = gtk_label_new(_("Message type:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    /* */
-    prop_dialog->m_call = gtk_radio_button_new_with_label (NULL, _("Call"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_call, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_call);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_call), TRUE);
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_call));
-    prop_dialog->m_return = gtk_radio_button_new_with_label(group, _("Return"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_return, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_return);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_return));
-    prop_dialog->m_send = gtk_radio_button_new_with_label(group, _("Asynchronous"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_send, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_send);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_send));
-    prop_dialog->m_create = gtk_radio_button_new_with_label(group, _("Create"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_create, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_create);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_create));
-    prop_dialog->m_destroy = gtk_radio_button_new_with_label(group, _("Destroy"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_destroy, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_destroy);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_destroy));
-    prop_dialog->m_simple = gtk_radio_button_new_with_label(group, _("Simple"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_simple, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_simple);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_simple));
-    prop_dialog->m_recursive = gtk_radio_button_new_with_label(group, _("Recursive"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_recursive, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_recursive);
-  }
-  
-  fill_in_dialog(message);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }
