@@ -31,32 +31,18 @@
 #include "render.h"
 #include "attributes.h"
 #include "arrows.h"
+#include "properties.h"
 
 #include "pixmaps/participation.xpm"
 
 typedef struct _Participation Participation;
-typedef struct _ParticipationState ParticipationState;
-typedef struct _ParticipationPropertiesDialog ParticipationPropertiesDialog;
-
-struct _ParticipationState {
-  ObjectState obj_state;
-
-  gboolean total;  
-};
 
 struct _Participation {
   OrthConn orth;
 
   gboolean total;
-
-  ParticipationPropertiesDialog* properties_dialog;
 };
 
-struct _ParticipationPropertiesDialog {
-  GtkWidget *vbox;
-  
-  GtkToggleButton *total;
-};
 
 #define PARTICIPATION_WIDTH 0.1
 #define PARTICIPATION_DASHLEN 0.4
@@ -74,17 +60,18 @@ static Object *participation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
-static void participation_destroy(Participation *dep);
 static Object *participation_copy(Participation *dep);
-static GtkWidget *participation_get_properties(Participation *dep);
-static ObjectChange *participation_apply_properties(Participation *dep);
 static void participation_save(Participation *dep, ObjectNode obj_node,
 			       const char *filename);
 static Object *participation_load(ObjectNode obj_node, int version,
 				  const char *filename);
 static void participation_update_data(Participation *dep);
-static ParticipationState *participation_get_state(Participation *participation);
-static void participation_set_state(Participation *participation, ParticipationState *state);
+static PropDescription *
+participation_describe_props(Participation *participation);
+static void
+participation_get_props(Participation *participation, Property *props, guint nprops);
+static void
+participation_set_props(Participation *participation, Property *props, guint nprops);
 static DiaMenu *participation_get_object_menu(Participation *participation,
 					      Point *clickedpoint);
 
@@ -105,17 +92,58 @@ ObjectType participation_type =
 };
 
 static ObjectOps participation_ops = {
-  (DestroyFunc)         participation_destroy,
+  (DestroyFunc)         orthconn_destroy,
   (DrawFunc)            participation_draw,
   (DistanceFunc)        participation_distance_from,
   (SelectFunc)          participation_select,
   (CopyFunc)            participation_copy,
   (MoveFunc)            participation_move,
   (MoveHandleFunc)      participation_move_handle,
-  (GetPropertiesFunc)   participation_get_properties,
-  (ApplyPropertiesFunc) participation_apply_properties,
-  (ObjectMenuFunc)      participation_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      participation_get_object_menu,
+  (DescribePropsFunc)   participation_describe_props,
+  (GetPropsFunc)        participation_get_props,
+  (SetPropsFunc)        participation_set_props
 };
+
+static PropDescription participation_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "total", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Total:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+participation_describe_props(Participation *participation)
+{
+  if (participation_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(participation_props);
+  return participation_props;
+}
+
+static PropOffset participation_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "total", PROP_TYPE_BOOL, offsetof(Participation, total) },
+  { NULL, 0, 0}
+};
+
+
+static void
+participation_get_props(Participation *participation, Property *props, guint nprops)
+{
+  object_get_props_from_offsets(&participation->orth.object, 
+                                participation_offsets, props, nprops);
+}
+
+static void
+participation_set_props(Participation *participation, Property *props, guint nprops)
+{
+  object_set_props_from_offsets(&participation->orth.object, 
+                                participation_offsets, props, nprops);
+  participation_update_data(participation);
+}
+
 
 static real
 participation_distance_from(Participation *participation, Point *point)
@@ -277,23 +305,10 @@ participation_create(Point *startpoint,
 
   participation->total = FALSE;
   
-  participation->properties_dialog = NULL;
-  
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
   return &participation->orth.object;
-}
-
-static void
-participation_destroy(Participation *participation)
-{
-  if (participation->properties_dialog != NULL) {
-    gtk_widget_destroy(participation->properties_dialog->vbox);
-    g_free(participation->properties_dialog);
-  }
-
-  orthconn_destroy(&participation->orth);
 }
 
 static Object *
@@ -312,7 +327,6 @@ participation_copy(Participation *participation)
   orthconn_copy(orth, neworth);
 
   newparticipation->total = participation->total;
-  newparticipation->properties_dialog = NULL;
   
   participation_update_data(newparticipation);
   
@@ -352,85 +366,9 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     participation->total = data_boolean(attribute_first_data(attr));
 
-  participation->properties_dialog = NULL;
-      
   participation_update_data(participation);
 
   return &participation->orth.object;
-}
-
-static ParticipationState *
-participation_get_state(Participation *participation)
-{
-  ParticipationState *state = g_new(ParticipationState, 1);
-
-  state->total = participation->total;
-
-  return state;
-}
-
-static void 
-participation_set_state(Participation *participation, ParticipationState *state)
-{
-  participation->total = state->total;
-
-  g_free(state);
-
-  participation_update_data(participation);
-}
-
-static ObjectChange *
-participation_apply_properties(Participation *participation)
-{
-  ObjectState *old_state;
-  ParticipationPropertiesDialog *prop_dialog;
-
-  prop_dialog = participation->properties_dialog;
-
-  old_state = (ObjectState *)participation_get_state(participation);
-
-  /* Read from dialog and put in object: */
-  
-  participation->total = prop_dialog->total->active;
-
-  participation_update_data(participation);
-
-  return new_object_state_change(&participation->orth.object, 
-                                 old_state,
-				 (GetStateFunc)participation_get_state,
-				 (SetStateFunc)participation_set_state);
-}
-
-static GtkWidget *
-participation_get_properties(Participation *participation)
-{
-  ParticipationPropertiesDialog *prop_dialog;
-  GtkWidget *vbox;
-  GtkWidget *checkbox;
-  GtkWidget *hbox;
-
-  if (participation->properties_dialog == NULL) {
-    prop_dialog = g_new(ParticipationPropertiesDialog, 1);
-    participation->properties_dialog = prop_dialog;
-
-    vbox = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    prop_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Total:"));
-    prop_dialog->total = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox),	checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show_all (vbox);
-  }
-  prop_dialog = participation->properties_dialog;
-
-  gtk_toggle_button_set_active(prop_dialog->total, participation->total);
-
-  return prop_dialog->vbox;
 }
 
 static ObjectChange *

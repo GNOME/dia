@@ -32,6 +32,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "properties.h"
 
 #include "pixmaps/attribute.xpm"
 
@@ -43,9 +44,7 @@
 #define TEXT_BORDER_WIDTH_X 1.0
 #define TEXT_BORDER_WIDTH_Y 0.5
 
-typedef struct _AttributeState AttributeState;
 typedef struct _Attribute Attribute;
-typedef struct _AttributePropertiesDialog AttributePropertiesDialog;
 
 struct _AttributeState {
   ObjectState obj_state;
@@ -81,20 +80,6 @@ struct _Attribute {
   Color border_color;
   Color inner_color;
  
-  AttributePropertiesDialog *properties_dialog;
-};
-
-struct _AttributePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkEntry *name;
-  GtkToggleButton *key;
-  GtkToggleButton *weakkey;
-  GtkToggleButton *derived;
-  GtkToggleButton *multivalue;
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
 };
 
 static real attribute_distance_from(Attribute *attribute, Point *point);
@@ -112,15 +97,17 @@ static Object *attribute_create(Point *startpoint,
 			      Handle **handle2);
 static void attribute_destroy(Attribute *attribute);
 static Object *attribute_copy(Attribute *attribute);
-static GtkWidget *attribute_get_properties(Attribute *attribute);
-static ObjectChange *attribute_apply_properties(Attribute *attribute);
+static PropDescription *
+attribute_describe_props(Attribute *attribute);
+static void
+attribute_get_props(Attribute *attribute, Property *props, guint nprops);
+static void
+attribute_set_props(Attribute *attribute, Property *props, guint nprops);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
 			   const char *filename);
 static Object *attribute_load(ObjectNode obj_node, int version,
 			      const char *filename);
-static AttributeState *attribute_get_state(Attribute *Attribute);
-static void attribute_set_state(Attribute *Attribute, AttributeState *state);
 
 static ObjectTypeOps attribute_type_ops =
 {
@@ -148,140 +135,68 @@ static ObjectOps attribute_ops = {
   (CopyFunc)            attribute_copy,
   (MoveFunc)            attribute_move,
   (MoveHandleFunc)      attribute_move_handle,
-  (GetPropertiesFunc)   attribute_get_properties,
-  (ApplyPropertiesFunc) attribute_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   attribute_describe_props,
+  (GetPropsFunc)        attribute_get_props,
+  (SetPropsFunc)        attribute_set_props,
 };
 
-static ObjectChange *
-attribute_apply_properties(Attribute *attribute)
+static PropDescription attribute_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  { "key", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Key:"), NULL, NULL },
+  { "weakkey", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Weak key:"), NULL, NULL },
+  { "derived", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Derived:"), NULL, NULL },
+  { "multivalue", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Multivalue:"), NULL, NULL },
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_DESC_END
+};
+
+static PropDescription *
+attribute_describe_props(Attribute *attribute)
 {
-  ObjectState *old_state;
-  AttributePropertiesDialog *prop_dialog;
+  if (attribute_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(attribute_props);
+  return attribute_props;
+}
 
-  prop_dialog = attribute->properties_dialog;
+static PropOffset attribute_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Attribute, name) },
+  { "key", PROP_TYPE_BOOL, offsetof(Attribute, key) },
+  { "weakkey", PROP_TYPE_BOOL, offsetof(Attribute, weakkey) },
+  { "derived", PROP_TYPE_BOOL, offsetof(Attribute, derived) },
+  { "multivalue", PROP_TYPE_BOOL, offsetof(Attribute, multivalue) },
+  { "line_width", PROP_TYPE_REAL, offsetof(Attribute, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Attribute, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Attribute, inner_color) },
+  { NULL, 0, 0}
+};
 
-  old_state = (ObjectState *)attribute_get_state(attribute);
 
-  attribute->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
-  dia_color_selector_get_color(prop_dialog->fg_color, &attribute->border_color);
-  dia_color_selector_get_color(prop_dialog->bg_color, &attribute->inner_color);
-  g_free(attribute->name);
-  attribute->name = g_strdup(gtk_entry_get_text(prop_dialog->name));
-  attribute->key = prop_dialog->key->active;
-  attribute->weakkey = prop_dialog->weakkey->active;
-  attribute->derived = prop_dialog->derived->active;
-  attribute->multivalue = prop_dialog->multivalue->active;
+static void
+attribute_get_props(Attribute *attribute, Property *props, guint nprops)
+{
+  object_get_props_from_offsets(&attribute->element.object, 
+                                attribute_offsets, props, nprops);
+}
 
-  attribute->name_width =
-    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
-
+static void
+attribute_set_props(Attribute *attribute, Property *props, guint nprops)
+{
+  object_set_props_from_offsets(&attribute->element.object, 
+                                attribute_offsets, props, nprops);
   attribute_update_data(attribute);
-
-  return new_object_state_change(&attribute->element.object, old_state,
-				 (GetStateFunc)attribute_get_state,
-				 (SetStateFunc)attribute_set_state);
 }
-
-static GtkWidget *
-attribute_get_properties(Attribute *attribute)
-{
-  AttributePropertiesDialog *prop_dialog;
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *border_width;
-  GtkWidget *entry;
-  GtkWidget *checkbox;
-  GtkAdjustment *adj;
-
-  if (attribute->properties_dialog == NULL) {
-  
-    prop_dialog = g_new(AttributePropertiesDialog, 1);
-    attribute->properties_dialog = prop_dialog;
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    prop_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Name:"));
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Key"));
-    prop_dialog->key = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Weak key"));
-    prop_dialog->weakkey = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Derived"));
-    prop_dialog->derived = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Multivalue"));
-    prop_dialog->multivalue = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.1, 0.1);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    prop_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    color = dia_color_selector_new();
-    prop_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    color = dia_color_selector_new();
-    prop_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show_all (vbox);
-  }
-
-  prop_dialog = attribute->properties_dialog;
-    
-  gtk_entry_set_text(prop_dialog->name, attribute->name);
-  gtk_toggle_button_set_active(prop_dialog->key, attribute->key);
-  gtk_toggle_button_set_active(prop_dialog->weakkey, attribute->weakkey);
-  gtk_toggle_button_set_active(prop_dialog->derived, attribute->derived);
-  gtk_toggle_button_set_active(prop_dialog->multivalue, attribute->multivalue);
-  gtk_spin_button_set_value(prop_dialog->border_width, attribute->border_width);
-  dia_color_selector_set_color(prop_dialog->fg_color, &attribute->border_color);
-  dia_color_selector_set_color(prop_dialog->bg_color, &attribute->inner_color);
-  
-  return prop_dialog->vbox;
-}
-
 
 static real
 attribute_distance_from(Attribute *attribute, Point *point)
@@ -393,6 +308,9 @@ attribute_update_data(Attribute *attribute)
   ElementBBExtras *extra = &elem->extra_spacing;
   real half_x, half_y;
 
+  attribute->name_width =
+    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+
   elem->width = attribute->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
 
@@ -429,43 +347,6 @@ attribute_update_data(Attribute *attribute)
   
 }
 
-static AttributeState *attribute_get_state(Attribute *attribute)
-{
-  AttributeState *state = g_new(AttributeState, 1);
-
-  state->obj_state.free = NULL;
-
-  state->name = g_strdup(attribute->name);
-  state->name_width = attribute->name_width;
-  state->key = attribute->key;
-  state->weakkey = attribute->weakkey;
-  state->derived = attribute->derived;
-  state->multivalue = attribute->multivalue;
-  state->border_width = attribute->border_width;
-  state->border_color = attribute->border_color;
-  state->inner_color = attribute->inner_color;
-
-  return state;
-}
-
-static void attribute_set_state(Attribute *attribute, AttributeState *state)
-{
-  g_free(attribute->name);
-  attribute->name = g_strdup(state->name);
-  attribute->name_width = state->name_width;
-  attribute->key = state->key;
-  attribute->weakkey = state->weakkey;
-  attribute->derived = state->derived;
-  attribute->multivalue = state->multivalue;
-  attribute->border_width = state->border_width;
-  attribute->border_color = state->border_color;
-  attribute->inner_color = state->inner_color;
-
-  g_free(state);
-
-  attribute_update_data(attribute);
-}
-
 static Object *
 attribute_create(Point *startpoint,
 	       void *user_data,
@@ -487,8 +368,6 @@ attribute_create(Point *startpoint,
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_WIDTH;
-
-  attribute->properties_dialog = NULL;
 
   attribute->border_width =  attributes_get_default_linewidth();
   attribute->border_color = attributes_get_foreground();
@@ -526,10 +405,6 @@ attribute_create(Point *startpoint,
 static void
 attribute_destroy(Attribute *attribute)
 {
-  if (attribute->properties_dialog != NULL) {
-    gtk_widget_destroy(attribute->properties_dialog->vbox);
-    g_free(attribute->properties_dialog);
-  }
   element_destroy(&attribute->element);
   g_free(attribute->name);
 }
@@ -570,8 +445,6 @@ attribute_copy(Attribute *attribute)
   newattribute->weakkey = attribute->weakkey;
   newattribute->derived = attribute->derived;
   newattribute->multivalue = attribute->multivalue;
-
-  newattribute->properties_dialog = NULL;
 
   return &newattribute->element.object;
 }
@@ -618,8 +491,6 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   obj->ops = &attribute_ops;
 
   element_load(elem, obj_node);
-
-  attribute->properties_dialog = NULL;
 
   attribute->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");

@@ -32,6 +32,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "properties.h"
 
 #include "pixmaps/relationship.xpm"
 
@@ -44,26 +45,6 @@
 #define CARDINALITY_DISTANCE 0.3
 
 typedef struct _Relationship Relationship;
-typedef struct _RelationshipState RelationshipState;
-typedef struct _RelationshipPropertiesDialog RelationshipPropertiesDialog;
-
-struct _RelationshipState {
-  ObjectState obj_state;
-
-  gchar *name;
-  gchar *left_cardinality;
-  gchar *right_cardinality;
-  real name_width;
-  real left_card_width;
-  real right_card_width;
-
-  gboolean identifying;
-  gboolean rotate;
-
-  real border_width;
-  Color border_color;
-  Color inner_color;
-};
 
 struct _Relationship {
   Element element;
@@ -85,21 +66,8 @@ struct _Relationship {
   Color border_color;
   Color inner_color;
 
-  RelationshipPropertiesDialog *properties_dialog;
 };
 
-struct _RelationshipPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkEntry *name;
-  GtkEntry *left_cardinality;
-  GtkEntry *right_cardinality;
-  GtkToggleButton *identifying;
-  GtkToggleButton *rotate;
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-};
 
 static real relationship_distance_from(Relationship *relationship, Point *point);
 static void relationship_select(Relationship *relationship, Point *clicked_point,
@@ -115,15 +83,17 @@ static Object *relationship_create(Point *startpoint,
 			  Handle **handle2);
 static void relationship_destroy(Relationship *relationship);
 static Object *relationship_copy(Relationship *relationship);
-static GtkWidget *relationship_get_properties(Relationship *relationship);
-static ObjectChange *relationship_apply_properties(Relationship *relationship);
 
 static void relationship_save(Relationship *relationship,
 			      ObjectNode obj_node, const char *filename);
 static Object *relationship_load(ObjectNode obj_node, int version,
 				 const char *filename);
-static RelationshipState *relationship_get_state(Relationship *relationship);
-static void relationship_set_state(Relationship *relationship, RelationshipState *state);
+static PropDescription *
+relationship_describe_props(Relationship *relationship);
+static void
+relationship_get_props(Relationship *relationship, Property *props, guint nprops);
+static void
+relationship_set_props(Relationship *relationship, Property *props, guint nprops);
 
 static ObjectTypeOps relationship_type_ops =
 {
@@ -151,195 +121,69 @@ static ObjectOps relationship_ops = {
   (CopyFunc)            relationship_copy,
   (MoveFunc)            relationship_move,
   (MoveHandleFunc)      relationship_move_handle,
-  (GetPropertiesFunc)   relationship_get_properties,
-  (ApplyPropertiesFunc) relationship_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   relationship_describe_props,
+  (GetPropsFunc)        relationship_get_props,
+  (SetPropsFunc)        relationship_set_props,
 };
 
-static ObjectChange *
-relationship_apply_properties(Relationship *relationship)
+static PropDescription relationship_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  { "left_cardinality", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Left Cardinality:"), NULL, NULL },
+  { "right_cardinality", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Right Cardinality:"), NULL, NULL },
+  { "rotate", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Rotate:"), NULL, NULL },
+  { "identifying", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Identifying:"), NULL, NULL },
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_DESC_END
+};
+
+static PropDescription *
+relationship_describe_props(Relationship *relationship)
 {
-  ObjectState *old_state;
-  RelationshipPropertiesDialog *prop_dialog;
-
-  prop_dialog = relationship->properties_dialog;
-
-  old_state = (ObjectState *)relationship_get_state(relationship);
-
-  relationship->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
-  dia_color_selector_get_color(prop_dialog->fg_color, &relationship->border_color);
-  dia_color_selector_get_color(prop_dialog->bg_color, &relationship->inner_color);
-  g_free(relationship->name);
-  relationship->name = g_strdup(gtk_entry_get_text(prop_dialog->name));
-  relationship->identifying = prop_dialog->identifying->active;
-  relationship->rotate = prop_dialog->rotate->active;
-  g_free(relationship->left_cardinality);
-  relationship->left_cardinality = 
-    g_strdup(gtk_entry_get_text(prop_dialog->left_cardinality));
-  g_free(relationship->right_cardinality);
-  relationship->right_cardinality = 
-    g_strdup(gtk_entry_get_text(prop_dialog->right_cardinality));
-
-  relationship->name_width =
-    font_string_width(relationship->name, relationship->font, FONT_HEIGHT);
-  relationship->left_card_width =
-    font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
-  relationship->right_card_width =
-    font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
-
-  relationship_update_data(relationship);
-
-  return new_object_state_change(&relationship->element.object, 
-                                 old_state,
-				 (GetStateFunc)relationship_get_state,
-				 (SetStateFunc)relationship_set_state);
+  if (relationship_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(relationship_props);
+  return relationship_props;
 }
 
-static RelationshipState *
-relationship_get_state(Relationship *relationship)
+static PropOffset relationship_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Relationship, name) },
+  { "left_cardinality", PROP_TYPE_STRING, offsetof(Relationship, left_cardinality) },
+  { "right_cardinality", PROP_TYPE_STRING, offsetof(Relationship, right_cardinality) },
+  { "rotate", PROP_TYPE_BOOL, offsetof(Relationship, rotate) },
+  { "identifying", PROP_TYPE_BOOL, offsetof(Relationship, identifying) },
+  { "line_width", PROP_TYPE_REAL, offsetof(Relationship, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Relationship, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Relationship, inner_color) },
+  { NULL, 0, 0}
+};
+
+
+static void
+relationship_get_props(Relationship *relationship, Property *props, guint nprops)
 {
-  RelationshipState *state = g_new(RelationshipState, 1);
-  
-  state->obj_state.free = NULL;
-
-  state->name = g_strdup(relationship->name);
-  state->left_cardinality = relationship->left_cardinality;
-  state->right_cardinality = relationship->right_cardinality;
-  state->name_width = relationship->name_width;
-  state->left_card_width = relationship->left_card_width;
-  state->right_card_width = relationship->right_card_width;
-  state->identifying = relationship->identifying;
-  state->rotate = relationship->rotate;
-  state->border_width = relationship->border_width;
-  state->border_color = relationship->border_color;
-  state->inner_color = relationship->inner_color;
-
-  return state;
+  object_get_props_from_offsets(&relationship->element.object, 
+                                relationship_offsets, props, nprops);
 }
 
 static void
-relationship_set_state(Relationship *relationship, RelationshipState *state)
+relationship_set_props(Relationship *relationship, Property *props, guint nprops)
 {
-  g_free(relationship->name);
-  relationship->name = g_strdup(state->name);
-  relationship->left_cardinality = state->left_cardinality;
-  relationship->right_cardinality = state->right_cardinality;
-  relationship->name_width = state->name_width;
-  relationship->left_card_width = state->left_card_width;
-  relationship->right_card_width = state->right_card_width;
-  relationship->identifying = state->identifying;
-  relationship->rotate = state->rotate;
-  relationship->border_width = state->border_width;
-  relationship->border_color = state->border_color;
-  relationship->inner_color = state->inner_color;
-
-  g_free(state);
-
+  object_set_props_from_offsets(&relationship->element.object, 
+                                relationship_offsets, props, nprops);
   relationship_update_data(relationship);
 }
 
-static GtkWidget *
-relationship_get_properties(Relationship *relationship)
-{
-  RelationshipPropertiesDialog *prop_dialog;
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *border_width;
-  GtkWidget *entry;
-  GtkWidget *checkbox;
-  GtkAdjustment *adj;
-
-  if (relationship->properties_dialog == NULL) {
-  
-    prop_dialog = g_new(RelationshipPropertiesDialog, 1);
-    relationship->properties_dialog = prop_dialog;
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    prop_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Name:"));
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Left Cardinality:"));
-    entry = gtk_entry_new();
-    prop_dialog->left_cardinality = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Right Cardinality:"));
-    entry = gtk_entry_new();
-    prop_dialog->right_cardinality = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Rotate"));
-    prop_dialog->rotate = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Identifying"));
-    prop_dialog->identifying = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.1, 0.1);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    prop_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start (GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    color = dia_color_selector_new();
-    prop_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    color = dia_color_selector_new();
-    prop_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show_all (vbox);
-  }
-
-  prop_dialog = relationship->properties_dialog;
-    
-  gtk_spin_button_set_value(prop_dialog->border_width, relationship->border_width);
-  dia_color_selector_set_color(prop_dialog->fg_color, &relationship->border_color);
-  dia_color_selector_set_color(prop_dialog->bg_color, &relationship->inner_color);
-  gtk_entry_set_text(prop_dialog->left_cardinality, relationship->left_cardinality);
-  gtk_entry_set_text(prop_dialog->right_cardinality, relationship->right_cardinality);
-  gtk_entry_set_text(prop_dialog->name, relationship->name); 
-  gtk_toggle_button_set_active(prop_dialog->rotate, relationship->rotate);
-  gtk_toggle_button_set_active(prop_dialog->identifying, relationship->identifying);
- 
-  return prop_dialog->vbox;
-}
 
 static real
 relationship_distance_from(Relationship *relationship, Point *point)
@@ -470,6 +314,13 @@ relationship_update_data(Relationship *relationship)
   Object *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
 
+  relationship->name_width =
+    font_string_width(relationship->name, relationship->font, FONT_HEIGHT);
+  relationship->left_card_width =
+    font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
+  relationship->right_card_width =
+    font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
+
   elem->width = relationship->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = elem->width * DIAMOND_RATIO;
 
@@ -551,8 +402,6 @@ relationship_create(Point *startpoint,
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_WIDTH;
 
-  relationship->properties_dialog = NULL;
-  
   relationship->border_width =  attributes_get_default_linewidth();
   relationship->border_color = attributes_get_foreground();
   relationship->inner_color = attributes_get_background();
@@ -593,10 +442,6 @@ relationship_create(Point *startpoint,
 static void
 relationship_destroy(Relationship *relationship)
 {
-  if (relationship->properties_dialog != NULL) {
-    gtk_widget_destroy(relationship->properties_dialog->vbox);
-    g_free(relationship->properties_dialog);
-  }
   element_destroy(&relationship->element);
   g_free(relationship->name);
   g_free(relationship->left_cardinality);
@@ -644,8 +489,6 @@ relationship_copy(Relationship *relationship)
   newrelationship->identifying = relationship->identifying;
   newrelationship->rotate = relationship->rotate;
   
-  newrelationship->properties_dialog = NULL;
-
   return &newrelationship->element.object;
 }
 
@@ -691,8 +534,6 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
 
   element_load(elem, obj_node);
   
-  relationship->properties_dialog = NULL;
-
   relationship->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
