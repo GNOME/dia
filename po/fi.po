@@ -5,80 +5,87 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.85\n"
+"Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-11 00:12+0300\n"
-"PO-Revision-Date: 2003-10-11 00:14+0300\n"
+"POT-Creation-Date: 2003-11-23 14:53+0200\n"
+"PO-Revision-Date: 2003-11-23 15:00+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:162
-#, c-format
-msgid "%s error: input and output file name is identical: %s"
-msgstr "%s virhe: syöte- ja tulostetiedostonimet ovat identtiset: %s"
-
-#: app/app_procs.c:173
-#, c-format
-msgid "%s error: need valid input file %s\n"
-msgstr "%s virhe: tarvitaan käypä syötetiedosto %s\n"
-
-#: app/app_procs.c:180
+#: app/app_procs.c:169
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s virhe: ei tiedä kuinka viedään %s\n"
 
+#: app/app_procs.c:179
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s virhe: syöte- ja tulostetiedostonimet ovat identtiset: %s"
+
+#: app/app_procs.c:187
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s virhe: tarvitaan käypä syötetiedosto %s\n"
+
 #. if (!quiet)
-#: app/app_procs.c:186
+#: app/app_procs.c:193
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
+#: app/app_procs.c:235
+#, c-format
+msgid "Can't find output format %s\n"
+msgstr "Tulostemuotoa %s ei löydy\n"
+
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:319
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr "Vie tiedostomuotoon ja lopeta.  Tuetut muodot ovat: %s"
+
 #. &export_file_name
-#: app/app_procs.c:244
+#: app/app_procs.c:328
 msgid "Export loaded file and exit"
 msgstr "Vie ladattu tiedosto ja lopeta"
 
-#: app/app_procs.c:244 app/diaconv.c:94
+#: app/app_procs.c:328 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "TULOSTE"
 
 #. &export_file_format
-#: app/app_procs.c:246
-msgid "Export to file format and exit"
-msgstr "Vie tiedostomuotoon ja lopeta"
+#: app/app_procs.c:330
+msgid "FORMAT"
+msgstr "MUOTO"
 
-#: app/app_procs.c:246 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#: app/app_procs.c:248
+#: app/app_procs.c:333
 msgid "Don't show the splash screen"
 msgstr "Älä näytä käynnistysruutua"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:335
 msgid "Display credits list and exit"
 msgstr "Näytä tekijäluettelo ja lopeta"
 
-#: app/app_procs.c:252
+#: app/app_procs.c:337
 msgid "Display version and exit"
 msgstr "Näytä versio ja lopeta"
 
-#: app/app_procs.c:254 app/diaconv.c:95
+#: app/app_procs.c:339 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Näytä tämä ohjeviesti"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:371
 msgid "Can't connect to session manager!\n"
 msgstr "Ei voitu yhdistää istunnonhallintaan.\n"
 
-#: app/app_procs.c:301 app/diaconv.c:119
+#: app/app_procs.c:386 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[VALITSIN...] [TIEDOSTO...]"
 
-#: app/app_procs.c:305 app/diaconv.c:126
+#: app/app_procs.c:390 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -89,29 +96,24 @@ msgstr ""
 "olevista\n"
 "valitsimista.\n"
 
-#: app/app_procs.c:318
-#, c-format
-msgid "%s error: can specify only one of -f or -o."
-msgstr "%s virhe: vain jompi kumpi -f tai -o voi määrittää."
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:331
+#: app/app_procs.c:409
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, versio %s, käännetty %s %s\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:411
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, versio %s\n"
 
-#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Etsittäessä objektikirjastoja standardiobjekteja ei löytynyt, lopetetaan...\n"
 
-#: app/app_procs.c:543
+#: app/app_procs.c:585
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -120,7 +122,7 @@ msgstr ""
 "bugzilla.gnome.org kertoen kuinka sait tämän viestin aikaiseksi.\n"
 
 #. no standard buttons
-#: app/app_procs.c:555
+#: app/app_procs.c:597
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -130,21 +132,21 @@ msgstr ""
 "Haluatko varmasti lopettaa Dian\n"
 "tallentamatta muutoksia?"
 
-#: app/app_procs.c:559
+#: app/app_procs.c:601
 msgid "Quit Dia"
 msgstr "Lopeta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:614
+#: app/app_procs.c:656
 msgid "Thank you for using Dia.\n"
 msgstr "Kiitos, kun käytit Diaa.\n"
 
-#: app/app_procs.c:628 app/app_procs.c:635
+#: app/app_procs.c:670 app/app_procs.c:677
 msgid "Could not create per-user Dia config directory"
 msgstr "Ei voitu luoda käyttäjäkohtaista Dia-asetushakemistoa"
 
-#: app/app_procs.c:637
+#: app/app_procs.c:679
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -152,7 +154,7 @@ msgstr ""
 "Käyttäjäkohtaista Dia-asetushakemistoa ei voi luoda. Tarkista, että "
 "ympäristömuuttuja HOME osoittaa olemassaolevaan hakemistoon."
 
-#: app/app_procs.c:659 app/diaconv.c:249
+#: app/app_procs.c:701 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Dian sisäiset objektit ja suodattimet"
 
@@ -319,6 +321,10 @@ msgstr "Ei pystytty alustamaan Bonoboa"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Käytettävä vientimuoto"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -532,7 +538,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ei objektivalikkoa"
 
-#: app/disp_callbacks.c:865
+#: app/disp_callbacks.c:856
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -544,11 +550,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Kaaviota muokattu"
 
-#: app/display.c:992
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<nimetön>"
 
-#: app/display.c:994
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -557,18 +563,18 @@ msgstr ""
 "Kaaviota \"%s\"\n"
 "ei ole tallennettu. Tallennetaanko muutokset nyt?"
 
-#: app/display.c:1005
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Sulje kaavio"
 
-#: app/display.c:1010
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Hylkää muutokset"
 
-#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
+#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -683,25 +689,25 @@ msgstr "Vie kaavio"
 msgid "Export Options"
 msgstr "Vientiasetukset"
 
-#: app/interface.c:43
+#: app/interface.c:45
 msgid "Modify object(s)"
 msgstr "Muokkaa objektia/objekteja"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:46 app/menus.c:221
 msgid "Modify"
 msgstr "Muokkaa"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:50 app/interface.c:51 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Suurenna"
 
-#: app/interface.c:53
+#: app/interface.c:55
 msgid "Scroll around the diagram"
 msgstr "Vieritä kaaviota"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:56 app/menus.c:223
 msgid "Scroll"
 msgstr "Vieritä"
 
@@ -709,7 +715,7 @@ msgstr "Vieritä"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -719,64 +725,64 @@ msgstr "Vieritä"
 msgid "Text"
 msgstr "Teksti"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:65 app/interface.c:66 app/menus.c:225
 msgid "Box"
 msgstr "Laatikko"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:70 app/interface.c:71 app/menus.c:226
 msgid "Ellipse"
 msgstr "Ellipsi"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:75 app/interface.c:76 app/menus.c:227
 msgid "Polygon"
 msgstr "Monikulmio"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:80 app/interface.c:81 app/menus.c:228
 msgid "Beziergon"
 msgstr "Bezier-kulmio"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:85 app/interface.c:86 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Viiva"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:90 app/interface.c:91 app/menus.c:231
 msgid "Arc"
 msgstr "Kaari"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:95 app/interface.c:96 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Siksakkiviiva"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:100 app/interface.c:101 app/menus.c:233
 msgid "Polyline"
 msgstr "Moniviiva"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:105 app/interface.c:106 app/menus.c:234
 msgid "Bezierline"
 msgstr "Bezier-viiva"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:110 app/interface.c:111 app/menus.c:236
 msgid "Image"
 msgstr "Kuva"
 
-#: app/interface.c:371
+#: app/interface.c:373
 msgid "Diagram menu."
 msgstr "Kaaviovalikko."
 
-#: app/interface.c:480
+#: app/interface.c:482
 msgid "Zoom"
 msgstr "Zoomaus"
 
-#: app/interface.c:494
+#: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
 msgstr "Kiinnitä ruudukkoon -kytkin tälle ikkunalle."
 
-#: app/interface.c:538
+#: app/interface.c:540
 msgid "NULL tooldata in tool_select_update"
 msgstr "TYHJÄ työvälinetieto työväline_valinta_päivityksessä"
 
-#: app/interface.c:1020
+#: app/interface.c:1023
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -786,7 +792,7 @@ msgstr ""
 "palauttavat värit alkutilaan. Pienet nuolet vaihtavat värejä. "
 "Kaksoisnapsauta vaihtaaksesi värejä."
 
-#: app/interface.c:1035
+#: app/interface.c:1038
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -794,7 +800,7 @@ msgstr ""
 "Viivan paksuudet.  Napsauta viivaa asettaaksesi viivan oletuspaksuuden "
 "uusille objekteille.  Kaksoisnapsauta jos haluat asettaa tarkemmin."
 
-#: app/interface.c:1067
+#: app/interface.c:1070
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -802,7 +808,7 @@ msgstr ""
 "Nuolen tyyli uusien viivojen alussa. Napsauta valitaksesi nuolen tai muokkaa "
 "nuoliparametreja Tiedot-painikkeesta"
 
-#: app/interface.c:1072
+#: app/interface.c:1075
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -810,7 +816,7 @@ msgstr ""
 "Viivan tyyli uusille viivoille. Napsauta asettaaksesi viivan tyyli tai "
 "muokkaa viivan tyyliparametrit Tiedot-painikkeesta"
 
-#: app/interface.c:1077
+#: app/interface.c:1080
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -819,7 +825,7 @@ msgstr ""
 "nuoliparametreja Tiedot-painikkeesta"
 
 # Vai kaaviomuokkain?
-#: app/interface.c:1185
+#: app/interface.c:1188
 msgid "Diagram Editor"
 msgstr "Kaavioeditori"
 
@@ -893,7 +899,7 @@ msgstr "Viivan paksuus"
 msgid "Line width:"
 msgstr "Viivan paksuus:"
 
-#: app/load_save.c:220
+#: app/load_save.c:245
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -901,7 +907,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota.\n"
 "Linkitettyä objektia ei löytynyt dokumentista."
 
-#: app/load_save.c:223
+#: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -909,7 +915,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota.\n"
 "Liitoskohtaa ei ole olemassa."
 
-#: app/load_save.c:226
+#: app/load_save.c:251
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -917,17 +923,22 @@ msgstr ""
 "Virhe ladattaessa kaaviota.\n"
 "Liitoskahvaa ei ole olemassa."
 
-#: app/load_save.c:276
+#: app/load_save.c:273
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "Objektin %2$s isää %1$s ei löydy\n"
+
+#: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Sinun täytyy määritellä tiedosto, ei hakemistoa.\n"
 
-#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ei pystynyt aukaisemaan tiedostoa \"%s\" luettavaksi.\n"
 
-#: app/load_save.c:300 app/load_save.c:305
+#: app/load_save.c:342 app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -936,7 +947,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota %s.\n"
 "Tuntematon tiedostotyyppi."
 
-#: app/load_save.c:312
+#: app/load_save.c:354
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -945,7 +956,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota %s.\n"
 "Ei ole Dia-tiedosto."
 
-#: app/load_save.c:509
+#: app/load_save.c:551
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -956,12 +967,12 @@ msgstr ""
 "%s.\n"
 "Kelvollisessa Dia-tiedostossa on vähintään yksi taso."
 
-#: app/load_save.c:839
+#: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Tiedoston \"%s\" tallennus epäonnistui.\n"
 
-#: app/load_save.c:909 app/load_save.c:914
+#: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
 msgstr "Puhdas Dia-kaavio"
 
@@ -1930,9 +1941,9 @@ msgstr "Ei voitu avata historiatiedostoa kirjoittamista varten."
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Encapsulated Postscriptiä (Pango-kirjasimilla)"
 
-#: app/render_eps.c:147
-msgid "Encapsulated Postscript (using builtin PS fonts)"
-msgstr "Encapsulated Postscriptiä (sisäiset PS-kirjasimet)"
+#: app/render_eps.c:149
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "Encapsulated Postscriptiä (PostScript Latin-1 -kirjasimilla)"
 
 #: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
@@ -2379,6 +2390,11 @@ msgstr "_Esikatselu:"
 #: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Kirjasimen valinta"
+
+#: lib/filter.c:120
+#, c-format
+msgid "Multiple export filters with unique name %s"
+msgstr "Useita vientisuodattimia uniikilla nimellä %s"
 
 #: lib/font.c:87
 #, c-format
@@ -3986,7 +4002,7 @@ msgid "Template"
 msgstr "Malli"
 
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
+#: objects/UML/class.c:178 objects/UML/class.c:938
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Luokka"
@@ -4593,11 +4609,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
 msgid "GdkPixbuf bitmap"
 msgstr "GdkPixbuf-bittikartta"
 
-#: plug-ins/pixbuf/pixbuf.c:185
+#: plug-ins/pixbuf/pixbuf.c:187
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf-pohjainen bittikartan vienti/tuonti"
 
@@ -4605,11 +4621,11 @@ msgstr "gdk-pixbuf-pohjainen bittikartan vienti/tuonti"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks -vientisuodatin"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Virheellistä UTF8-merkistöä"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks -makrot"
 
@@ -5087,18 +5103,22 @@ msgid "Trapezoid"
 msgstr "Puolisuunnikas"
 
 #: sheets/Assorted.sheet.in.h:38
+msgid "Turn-up arrow"
+msgstr "Kääntönuoli"
+
+#: sheets/Assorted.sheet.in.h:39
 msgid "Up arrow"
 msgstr "Nuoli ylös"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up-down arrow"
 msgstr "Nuoli ylös-alas"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down-left arrow"
 msgstr "Nuoli ylös-alas-vasen"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Vertical parallelogram"
 msgstr "Pystysuunnikas"
 
