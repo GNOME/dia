@@ -1,3 +1,10 @@
+2004-03-15  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/ellipse.c: Patch from dooms@info.ucl.ac.be:
+	Fixed and circle aspect ratios for ellipses.  Bug #137156, #87966,
+	#93940. 
+	Added object menu access.
+
 2004-03-07  Hans Breuer  <hans@breuer.org>
 
 	* lib/diaarrowchooser.c lib/dialinechooser.c : #undef

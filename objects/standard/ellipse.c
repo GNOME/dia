@@ -39,6 +39,12 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.15
 
+typedef enum {
+  FREE_ASPECT,
+  FIXED_ASPECT,
+  CIRCLE_ASPECT
+} AspectType;
+
 typedef struct _Ellipse Ellipse;
 
 struct _Ellipse {
@@ -51,13 +57,15 @@ struct _Ellipse {
   Color border_color;
   Color inner_color;
   gboolean show_background;
+  AspectType aspect;
   LineStyle line_style;
   real dashlength;
 };
 
 static struct _EllipseProperties {
+  AspectType aspect;
   gboolean show_background;
-} default_properties = { TRUE };
+} default_properties = { FREE_ASPECT, TRUE };
 
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
@@ -81,6 +89,7 @@ static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
+static DiaMenu *ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -112,12 +121,18 @@ static ObjectOps ellipse_ops = {
   (MoveHandleFunc)      ellipse_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
+  (ObjectMenuFunc)      ellipse_get_object_menu,
   (DescribePropsFunc)   ellipse_describe_props,
   (GetPropsFunc)        ellipse_get_props,
   (SetPropsFunc)        ellipse_set_props,
 };
 
+static PropEnumData prop_aspect_data[] = {
+  { N_("Free"), FREE_ASPECT },
+  { N_("Fixed"), FIXED_ASPECT },
+  { N_("Circle"), CIRCLE_ASPECT },
+  { NULL, 0 }
+};
 static PropDescription ellipse_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -125,6 +140,8 @@ static PropDescription ellipse_props[] = {
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   PROP_STD_LINE_STYLE,
+  { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Aspect ratio"), NULL, prop_aspect_data },
   PROP_DESC_END
 };
 
@@ -142,6 +159,7 @@ static PropOffset ellipse_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },
+  { "aspect", PROP_TYPE_ENUM, offsetof(Ellipse, aspect) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
   { NULL, 0, 0 }
@@ -157,8 +175,10 @@ ellipse_get_props(Ellipse *ellipse, GPtrArray *props)
 static void
 ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 {
+  
   object_set_props_from_offsets(&ellipse->element.object, 
                                 ellipse_offsets, props);
+
   ellipse_update_data(ellipse);
 }
 
@@ -202,16 +222,61 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
     corner_to.y = elem->corner.y + delta.y;
     return ellipse_move(ellipse, &corner_to);
   } else {
-    Point center;
-    center.x = elem->corner.x + elem->width/2;
-    center.y = elem->corner.y + elem->height/2;
-    Point opposite_to;
-    opposite_to.x = center.x - (to->x-center.x);
-    opposite_to.y = center.y - (to->y-center.y);
+    if (ellipse->aspect != FREE_ASPECT){
+        float width, height;
+        float new_width, new_height;
+        float to_width, aspect_width;
+        width = ellipse->element.width;
+        height = ellipse->element.height;
+        Point center;
+        center.x = elem->corner.x + width/2;
+        center.y = elem->corner.y + height/2;
+        switch (handle->id) {
+        case HANDLE_RESIZE_E:
+        case HANDLE_RESIZE_W:
+            new_width = 2 * fabsf(to->x - center.x);
+            new_height = new_width / width * height;
+            break;
+        case HANDLE_RESIZE_N:
+        case HANDLE_RESIZE_S:
+            new_height = 2 * fabsf(to->y - center.y);
+            new_width = new_height / height * width;
+            break;
+        case HANDLE_RESIZE_NW:
+        case HANDLE_RESIZE_NE:
+        case HANDLE_RESIZE_SW:
+        case HANDLE_RESIZE_SE:
+            to_width = 2 * fabsf(to->x - center.x);
+            aspect_width = 2 * fabsf(to->y - center.y) / height * width;
+            new_width = to_width < aspect_width ? to_width : aspect_width;
+            new_height = new_width / width * height;
+            break;
+	default: 
+	    new_width = width;
+	    new_height = height;
+	    break;
+        }
+	
+        Point nw_to, se_to;
+        nw_to.x = center.x - new_width/2;
+        nw_to.y = center.y - new_height/2;
+        se_to.x = center.x + new_width/2;
+        se_to.y = center.y + new_height/2;
+        
+        element_move_handle(&ellipse->element, HANDLE_RESIZE_NW, &nw_to, cp, reason, modifiers);
+        element_move_handle(&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
+    } else {
+        Point center;
+        center.x = elem->corner.x + elem->width/2;
+        center.y = elem->corner.y + elem->height/2;
+        Point opposite_to;
+        opposite_to.x = center.x - (to->x-center.x);
+        opposite_to.y = center.y - (to->y-center.y);
 
-    element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
-    element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
-    
+        element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
+        element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
+    }
+
     ellipse_update_data(ellipse);
 
     return NULL;
@@ -269,6 +334,12 @@ ellipse_update_data(Ellipse *ellipse)
   Object *obj = &elem->object;
   Point center;
   real half_x, half_y;
+  
+  /* handle circle implies height=width */
+  if (ellipse->aspect == CIRCLE_ASPECT){
+	float size = elem->height < elem->width ? elem->height : elem->width;
+	elem->height = elem->width = size;
+  }
 
   center.x = elem->corner.x + elem->width / 2.0;
   center.y = elem->corner.y + elem->height / 2.0;
@@ -347,6 +418,7 @@ ellipse_create(Point *startpoint,
   attributes_get_default_line_style(&ellipse->line_style,
 				    &ellipse->dashlength);
   ellipse->show_background = default_properties.show_background;
+  ellipse->aspect = default_properties.aspect;
 
   element_init(elem, 9, 9);
 
@@ -395,6 +467,7 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->inner_color = ellipse->inner_color;
   newellipse->dashlength = ellipse->dashlength;
   newellipse->show_background = ellipse->show_background;
+  newellipse->aspect = ellipse->aspect;
   newellipse->line_style = ellipse->line_style;
 
   for (i=0;i<9;i++) {
@@ -430,6 +503,10 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
     data_add_boolean(new_attribute(obj_node, "show_background"),
 		     ellipse->show_background);
   
+  if (ellipse->aspect)
+    data_add_enum(new_attribute(obj_node, "aspect"),
+		  ellipse->aspect);
+
   if (ellipse->line_style != LINESTYLE_SOLID) {
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  ellipse->line_style);
@@ -477,6 +554,11 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   if (attr != NULL)
     ellipse->show_background = data_boolean(attribute_first_data(attr));
 
+  ellipse->aspect = FREE_ASPECT;
+  attr = object_find_attribute(obj_node, "aspect");
+  if (attr != NULL)
+    ellipse->aspect = data_enum(attribute_first_data(attr));
+
   ellipse->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
@@ -503,4 +585,102 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   ellipse_update_data(ellipse);
 
   return &ellipse->element.object;
+}
+
+struct AspectChange {
+  ObjectChange obj_change;
+  AspectType old_type, new_type;
+  /* The points before this got applied.  Afterwards, all points can be
+   * calculated.
+   */
+  Point topleft;
+  real width, height;
+};
+
+static void
+aspect_change_free(struct AspectChange *change)
+{
+}
+
+static void
+aspect_change_apply(struct AspectChange *change, Object *obj)
+{
+  Ellipse *ellipse = (Ellipse*)obj;
+
+  ellipse->aspect = change->new_type;
+  ellipse_update_data(ellipse);
+}
+
+static void
+aspect_change_revert(struct AspectChange *change, Object *obj)
+{
+  Ellipse *ellipse = (Ellipse*)obj;
+
+  ellipse->aspect = change->old_type;
+  ellipse->element.corner = change->topleft;
+  ellipse->element.width = change->width;
+  ellipse->element.height = change->height;
+  ellipse_update_data(ellipse);
+}
+
+static ObjectChange *
+aspect_create_change(Ellipse *ellipse, AspectType aspect)
+{
+  struct AspectChange *change;
+
+  change = g_new(struct AspectChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) aspect_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) aspect_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) aspect_change_free;
+
+  change->old_type = ellipse->aspect;
+  change->new_type = aspect;
+  change->topleft = ellipse->element.corner;
+  change->width = ellipse->element.width;
+  change->height = ellipse->element.height;
+
+  return (ObjectChange *)change;
+}
+
+
+static ObjectChange *
+ellipse_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
+{
+  ObjectChange *change;
+
+  change = aspect_create_change((Ellipse*)obj, (AspectType)data);
+  change->apply(change, obj);
+
+  return change;
+}
+
+static DiaMenuItem ellipse_menu_items[] = {
+  { N_("Free"), ellipse_set_aspect_callback, (void*)FREE_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+  { N_("Fixed"), ellipse_set_aspect_callback, (void*)FIXED_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+  { N_("Circle"), ellipse_set_aspect_callback, (void*)CIRCLE_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE},
+};
+
+static DiaMenu ellipse_menu = {
+  "Ellipse",
+  sizeof(ellipse_menu_items)/sizeof(DiaMenuItem),
+  ellipse_menu_items,
+  NULL
+};
+
+static DiaMenu *
+ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint)
+{
+  /* Set entries sensitive/selected etc here */
+  ellipse_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+  ellipse_menu_items[1].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+  ellipse_menu_items[2].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+
+  ellipse_menu_items[ellipse->aspect].active = 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON;
+  
+  return &ellipse_menu;
 }
