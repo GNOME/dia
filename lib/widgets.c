@@ -27,6 +27,8 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
 
+void dia_font_selector_set_styles (DiaFontSelector *fs, DiaFont *font);
+
 struct menudesc {
   char *name;
   int enum_value;
@@ -102,16 +104,17 @@ dia_font_selector_set_font_menu (gpointer key, gpointer value, gpointer user_dat
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 }
-#endif
 
 static void
-dia_font_selector_font_selected(GtkWidget *button, gpointer data) {
+dia_font_selector_font_selected(GtkWidget *button, gpointer data)
+{
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
 
   GtkWidget *active = gtk_menu_get_active(fs->font_menu);
   char *fontname = (char *)gtk_object_get_user_data(GTK_OBJECT(active));
   dia_font_selector_set_styles(fs, font_getfont(fontname));
 }
+#endif
 
 
 static void
@@ -243,6 +246,7 @@ dia_font_selector_new ()
   return GTK_WIDGET ( gtk_type_new (dia_font_selector_get_type ()));
 }
 
+#ifdef HAVE_FREETYPE
 void
 dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
 {
@@ -265,6 +269,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = menu;
 }
+#endif
 
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
