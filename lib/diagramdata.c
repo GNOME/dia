@@ -699,7 +699,8 @@ real layer_find_closest_connectionpoint(Layer *layer,
   return mindist;
 }
 
-int layer_update_extents(Layer *layer)
+int
+layer_update_extents(Layer *layer)
 {
   GList *l;
   DiaObject *obj;

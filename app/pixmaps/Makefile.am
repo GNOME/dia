@@ -1,6 +1,8 @@
 imagedir = $(pkgdatadir)/images
 
 IMAGES = \
+	connectable.png \
+	connectable-empty.png \
 	selectable.png \
 	selectable-empty.png \
 	on-grid.png \

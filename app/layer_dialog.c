@@ -36,14 +36,10 @@
 #include "persistence.h"
 #include "widgets.h"
 
-#include "pixmaps/eye.xbm"
 #include "pixmaps/new.xpm"
 #include "pixmaps/lower.xpm"
 #include "pixmaps/raise.xpm"
 #include "pixmaps/delete.xpm"
-
-static int select_width = eye_width;
-static int select_height = eye_height;
 
 static struct LayerDialog *layer_dialog = NULL;
 
@@ -92,9 +88,6 @@ static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
 #define NORMAL 0
 #define SELECTED 1
 #define INSENSITIVE 2
-
-static GdkPixmap *eye_pixmap[3] = {NULL, NULL, NULL};
-static GdkPixmap *select_pixmap[3] = {NULL, NULL, NULL};
 
 static GtkWidget *
 create_button_box(GtkWidget *parent)
@@ -633,6 +626,12 @@ dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
 }
 
 static void
+dia_layer_widget_set_visible(DiaLayerWidget *layer_widget, gboolean on)
+{
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(layer_widget->visible), on);
+}
+
+static void
 dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
 {
   GList *list;
@@ -654,9 +653,9 @@ dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
   while (list) {
     lw = DIA_LAYER_WIDGET(list->data);
     if (lw != layer_widget)
-      lw->layer->visible = !visible;
+      dia_layer_widget_set_visible(lw, !visible);
     else
-      lw->layer->visible = TRUE;
+      dia_layer_widget_set_visible(lw, TRUE);
     gtk_widget_queue_draw(GTK_WIDGET(lw));
     
     list = g_list_next(list);
@@ -686,7 +685,7 @@ dia_layer_widget_exclusive_connectable(DiaLayerWidget *layer_widget)
     }
   }
 
-  /*  Now, toggle the selectability for all layers except the specified one  */
+  /*  Now, toggle the connectability for all layers except the specified one  */
   list = GTK_LIST(layer_dialog->layer_list)->children;
   while (list) {
     lw = DIA_LAYER_WIDGET(list->data);
@@ -705,8 +704,8 @@ static gboolean shifted = FALSE;
 
 static gboolean
 dia_layer_widget_button_event(GtkWidget *widget,
-				   GdkEventButton *event,
-				   gpointer userdata)
+			      GdkEventButton *event,
+			      gpointer userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
 
@@ -744,6 +743,8 @@ dia_layer_widget_visible_toggled(GtkToggleButton *widget,
     lw->layer->visible = gtk_toggle_button_get_active(widget);
   }
   gtk_widget_queue_draw(GTK_WIDGET(lw));
+  diagram_add_update_all(lw->dia);
+  diagram_flush(lw->dia);
 }
 
 static void
@@ -760,45 +761,25 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->dia = NULL;
   lw->layer = NULL;
   lw->edit_dialog = NULL;
-  
-  /*
-  alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-  lw->visible = visible = gtk_drawing_area_new ();
-  gtk_drawing_area_size (GTK_DRAWING_AREA (visible), 
-			 eye_width, eye_height);
-  gtk_widget_set_events (visible, BUTTON_EVENT_MASK);
-  g_signal_connect (GTK_OBJECT (visible), "event",
-                      (GtkSignalFunc) dia_layer_widget_visible_button_events,
-                      lw);
-  gtk_object_set_user_data (GTK_OBJECT (visible), lw);
-  gtk_widget_show(visible);
-
-  gtk_container_add (GTK_CONTAINER (alignment), visible);
-  gtk_box_pack_start (GTK_BOX (hbox), alignment, FALSE, TRUE, 2);
-  gtk_widget_show(alignment);
-  */
-
+ 
   lw->visible = visible = 
     dia_toggle_button_new_with_images("visible.png",
 				      "visible-empty.png");
-  
-  gtk_container_set_border_width(GTK_CONTAINER(visible), 0);
+
   g_signal_connect(G_OBJECT(visible), "button-release-event",
 		   dia_layer_widget_button_event, lw);
   g_signal_connect(G_OBJECT(visible), "button-press-event",
 		   dia_layer_widget_button_event, lw);
   g_signal_connect(G_OBJECT(visible), "toggled",
 		   dia_layer_widget_visible_toggled, lw);
-
   gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
   gtk_widget_show(visible);
 
 
   lw->connectable = connectable = 
-    dia_toggle_button_new_with_images("selectable.png", 
-				      "selectable-empty.png");
+    dia_toggle_button_new_with_images("connectable.png", 
+				      "connectable-empty.png");
 
-  gtk_container_set_border_width(GTK_CONTAINER(connectable), 0);
   g_signal_connect(G_OBJECT(connectable), "button-release-event",
 		   dia_layer_widget_button_event, lw);
   g_signal_connect(G_OBJECT(connectable), "button-press-event",
@@ -860,9 +841,11 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
   return widget;
 }
 
+/** Layer has either been selected or created */
 void
 dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 {
+
   widget->dia = dia;
   widget->layer = layer;
 
@@ -872,6 +855,11 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 void
 dia_layer_update_from_layer (DiaLayerWidget *widget)
 {
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->visible),
+			       widget->layer->visible);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable),
+			       widget->layer->connectable);
+
   gtk_label_set_text (GTK_LABEL (widget->label), widget->layer->name);
 }
 

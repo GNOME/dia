@@ -1,3 +1,11 @@
+2004-06-04  Lars Clausen  <lars@raeder.dk>
+
+	* app/pixmaps/Makefile.am: Also install connectable images.
+	
+	* app/layer_dialog.c (dia_layer_update_from_layer): Initially set
+	layer toggles from layer itself.  Also update diagram correctly
+	for visibility.  Still need updates for connectivity behaviour.
+
 2004-06-03  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/wpg/wpg.c(draw_image) : take rowstride into account
