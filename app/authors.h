@@ -94,6 +94,7 @@ static const gchar *authors[] =	{
     "Vadim Berezniker <vadim@berezniker.com>",
     "Krzysztof Foltman <kfoltman@onet.pl>",
     "W. Borgert <debacle@debian.org>",
+    "Luc Pionchon <luc@handhelds.org>",
     NULL
 };
 

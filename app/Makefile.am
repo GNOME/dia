@@ -149,6 +149,8 @@ dia_core_files = \
 	    diapsft2renderer.c \
 	    persistence.h \
 	    persistence.c \
+	    navigation.h \
+	    navigation.c \
 	    $(print_files)
 
 dia_SOURCES = \

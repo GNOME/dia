@@ -27,7 +27,10 @@ struct _DiaGdkRenderer
   guint32 height;                 /* The height of the pixmap in pixels */
   GdkGC *gc;
   GdkRegion *clip_region;
-
+  gboolean rendertext;            /* rendertext: if the render must render the text.
+                                   * diagdkrenderer.c->draw_string() check this value.
+                                   * Set to FALSE for speedup thumbnail rendering.
+                                   */
   /* line attributes: */
   int line_width;
   GdkLineStyle line_style;

@@ -151,6 +151,8 @@ renderer_init (DiaGdkRenderer *renderer, void* p)
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
   renderer->dot_length = 2;
+
+  renderer->rendertext = TRUE;
 }
 
 static void
@@ -625,6 +627,8 @@ draw_string (DiaRenderer *object,
   PangoLayout* layout;
   
   long t1, t2;
+
+  if(renderer->rendertext == FALSE) return;/* renderer do not want to render text */
 
   point_copy(&start_pos,pos);
 

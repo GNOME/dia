@@ -1,3 +1,31 @@
+2003-12-30  Lars Clausen  <lc@pc770>
+
+	* lib/diagdkrenderer.[ch]: From Luc: New option to GdkRenderer to
+	remove text rendering.  May be turned into greeking at some later
+	stage.
+
+	* app/interface.c: 
+	* app/Makefile.am (dia_core_files): 
+	* app/navigation.[ch]: Patch from Luc Pionchon <luc@handhelds.org>:
+	Adds navigation window a la Gimp, though without text being
+	rendered at all.
+
+2003-12-27  Luc Pionchon <luc@handhelds.org>
+
+	* app/navigation.h: (new file)
+	* app/navigation.c: (new file) creates a navigation window with a
+	thumbnail view of the whole diagram.
+	* app/Makefile.am (dia_core_files): added new files.
+
+	* app/interface.c (create_display_shell): added a button between
+	the scrollbars to popup a navigation window.
+
+	* lib/diagdkrenderer.h (struct_DiaGdkRenderer): added rendertext
+	boolean
+	* lib/diagdkrenderer.c (renderer_init): set rendertext TRUE by default
+	* lib/diagdkrenderer.c (draw_string): returns if the renderer do
+	not want text rendering.	
+
 2003-12-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* shapes/Circuit/hresistor.shape: Uses new extra attribute thing.

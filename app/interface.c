@@ -34,6 +34,7 @@
 #include "diagram_tree_window.h"
 #include "intl.h"
 /* #include <gdk-pixbuf/gdk-pixbuf.h> */
+#include "navigation.h"
 
 static const GtkTargetEntry create_object_targets[] = {
   { "application/x-dia-object", 0, 0 },
@@ -289,6 +290,7 @@ create_display_shell(DDisplay *ddisp,
 		     char *title, int use_mbar, int top_level_window)
 {
   GtkWidget *table, *widget;
+  GtkWidget *navigation_button;
   GtkWidget *status_hbox;
   GtkWidget *root_vbox = NULL;
   GtkWidget *zoom_hbox, *zoom_label;
@@ -405,6 +407,13 @@ create_display_shell(DDisplay *ddisp,
 		    G_CALLBACK(ddisplay_vsb_update),
 		      ddisp);
 
+  /*  Popup button between scrollbars for navigation window  */
+  navigation_button = navigation_popup_new(ddisp);
+  gtk_tooltips_set_tip(tool_tips, navigation_button,
+                       _("Pops up the Navigation window."), NULL);
+  gtk_widget_show(navigation_button);
+
+  /*  Canvas  */
   ddisp->canvas = gtk_drawing_area_new ();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
@@ -437,6 +446,8 @@ create_display_shell(DDisplay *ddisp,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
+                    GTK_FILL, GTK_FILL, 0, 0);
 
   menus_get_image_menu (NULL, &ddisp->accel_group);
   if (top_level_window)
