@@ -140,7 +140,21 @@ uml_get_operation_string (UMLOperation *operation)
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
-
+    
+    switch(param->kind)
+      {
+      case UML_UNDEF_KIND:
+	break;  
+      case UML_IN:
+	len += 3;
+	break;
+      case UML_OUT:
+	len += 4;
+	break;
+      case UML_INOUT:
+	len += 6;
+	break;	  
+      }
     len += strlen (param->name) + strlen (param->type);
     if (param->type[0] && param->name[0]) {
       len += 1;
@@ -148,11 +162,12 @@ uml_get_operation_string (UMLOperation *operation)
     if (param->value != NULL) {
       len += 1 + strlen (param->value);
     }
-
+    
     if (list != NULL) {
       len += 1; /* ',' */
     }
   }
+
   len += 1; /* ')' */
   if (operation->type != NULL) {
     len += 2 + strlen (operation->type);
@@ -174,7 +189,21 @@ uml_get_operation_string (UMLOperation *operation)
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
-
+    
+    switch(param->kind)
+      {
+      case UML_UNDEF_KIND:
+	break;
+      case UML_IN:
+	strcat (str, "in ");
+	break;
+      case UML_OUT:
+	strcat (str, "out ");
+	break;
+      case UML_INOUT:
+	strcat (str, "inout ");
+	break;
+      }
     strcat (str, param->name);
     if (param->type[0] && param->name[0]) {
       strcat (str, ":");
@@ -219,9 +248,43 @@ uml_get_parameter_string (UMLParameter *param)
     len += 1 + strlen (param->value) ;
   }
 
+  switch(param->kind)
+    {
+    case UML_UNDEF_KIND:
+      break;
+    case UML_IN:
+      len += 3;
+      break;
+    case UML_OUT:
+      len += 4;
+      break;
+    case UML_INOUT:
+      len += 6;
+      break;	  
+    }
+
   /* Generate string: */
   str = g_malloc (sizeof (utfchar) * (len + 1));
-  strcpy (str, param->name);
+
+  strcpy(str, "");
+
+  switch(param->kind)
+    {
+    case UML_UNDEF_KIND:
+      break;     
+    case UML_IN:
+      strcat (str, "in ");
+      break;
+    case UML_OUT:
+      strcat (str, "out ");
+      break;
+    case UML_INOUT:
+      strcat (str, "inout ");
+      break;
+    }
+  
+
+  strcat (str, param->name);
   strcat (str, ":");
   strcat (str, param->type);
   if (param->value != NULL) {

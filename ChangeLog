@@ -1,3 +1,14 @@
+2002-02-04  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* NEWS: updated with the new dependencies.
+        
+	Patch from Matthieu Sozeau <mattam@netcourrier.com>:
+
+        * objects/UML/class.h:
+        * objects/UML/class.c:  
+        * objects/UML/class_dialog.c: added code to handle the UMLParameterKind
+        property using a GtkMenu. Options are Undefined, In, Out, In & Out
+
 2002-02-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_libart.c: Slow but working libart freetype renderer,

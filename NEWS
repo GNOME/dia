@@ -14,6 +14,7 @@ dia-0.89:  XX-XXX-2001
 * Metapost renderer
 * Updated Python interface.
 * Faster Postscript files when using an Unicode-enabled build.
+* More options in the UML Class dialog.
 * An optional menu bar can be added to each display window, in
   addition to the popup menu.
 * All RenderObjects have been replaced by equivalent shapes, and
@@ -23,7 +24,7 @@ dia-0.89:  XX-XXX-2001
 * lots of internal changes and cleanups in the StdProp code. This
   breaks binary compatibility.
 * ongoing UTF-8 audit.
-* libxml-1.8.14 is now needed ; you can also have libxml2 installed,
+* libxml-1.8.14 is now needed; you can also have libxml2 installed,
   but don't build with both development packages installed (this will 
   most certanly end up in a library mismatch. To avoid this, the
   configure script will stop if it detects both libxml development
@@ -35,11 +36,7 @@ dia-0.89:  XX-XXX-2001
 * You now need libtool-1.4 to build the package.
 * automake-1.4-p4 is probably needed as well.
 * gettext-0.10.38 is now mandatory if you want to call ./autogen.sh.
-* The version of xml-i18n-tools which will be released after 0.9 is
-  now mandatory if you want to call ./autogen.sh. 
-
-  XXX in the meantime, there's a workaround. You need one recent
-  xml-i18n-tools, though.
+* intltools-0.12 is now mandatory if you want to call ./autogen.sh. 
 
   In general, don't call ./autogen.sh at all if your system is not on
   the bleeding edge.

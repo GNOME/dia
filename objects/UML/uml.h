@@ -44,8 +44,8 @@ typedef enum _UMLInheritanceType {
 typedef enum _UMLParameterKind {
   UML_UNDEF_KIND,
   UML_IN,
-  UML_INOUT,
-  UML_OUT
+  UML_OUT,
+  UML_INOUT
 } UMLParameterKind;
 
 struct _UMLAttribute {

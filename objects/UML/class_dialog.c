@@ -154,8 +154,10 @@ static void
 class_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
-  
+#endif
+
   prop_dialog = umlclass->properties_dialog;
 
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
@@ -389,8 +391,9 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
   UMLAttribute *current_attr;
   GtkLabel *label;
   utfchar *new_str;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
-
+#endif
   if (prop_dialog->current_attr != NULL) {
     current_attr = (UMLAttribute *)
       gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_attr));
@@ -463,8 +466,9 @@ attributes_list_new_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLAttribute *attr;
   utfchar *utfstr;
-  char *str;
-
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  gchar *str;
+#endif
   prop_dialog = umlclass->properties_dialog;
 
   attributes_get_current_values(prop_dialog);
@@ -670,7 +674,9 @@ attributes_fill_in_dialog(UMLClass *umlclass)
   GtkWidget *list_item;
   GList *list;
   int i;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -919,6 +925,8 @@ parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_name), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_value), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind_button), val);
 }
 
 static void
@@ -948,6 +956,8 @@ parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
   else
     gtk_entry_set_text(prop_dialog->param_value, "");
 #endif
+  gtk_option_menu_set_history(prop_dialog->param_kind_button,
+			      (gint)param->kind);
 }
 
 static void
@@ -956,39 +966,45 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->param_name, "");
   gtk_entry_set_text(prop_dialog->param_type, "");
   gtk_entry_set_text(prop_dialog->param_value, "");
+  gtk_option_menu_set_history(prop_dialog->param_kind_button,
+			      (gint) UML_UNDEF_KIND);
+
 }
 
 static void
 parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
 {
-	utfchar *utf_name, *utf_type;
-	char *str;
-
-	g_free(param->name);
-	g_free(param->type);
-	if (param->value != NULL)
-		g_free(param->value);
-
+  utfchar *utf_name, *utf_type;
+  char *str;
+  
+  g_free(param->name);
+  g_free(param->type);
+  if (param->value != NULL)
+    g_free(param->value);
+  
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_name));
-	utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_type));
+  utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_name));
+  utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_type));
 #else
-	utf_name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
-	utf_type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
+  utf_name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
+  utf_type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
 #endif
-	param->name = utf_name;
-	param->type = utf_type;
-
-	str = gtk_entry_get_text(prop_dialog->param_value);
-	if (strlen (str) != 0) {
+  param->name = utf_name;
+  param->type = utf_type;
+  
+  str = gtk_entry_get_text(prop_dialog->param_value);
+  if (strlen (str) != 0) {
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-		param->value = charconv_local8_to_utf8 (str);
+    param->value = charconv_local8_to_utf8 (str);
 #else
-		param->value = g_strdup (str);
+    param->value = g_strdup (str);
 #endif
-	} else {
-		param->value = NULL;
-	}
+  } else {
+    param->value = NULL;
+  }
+
+  param->kind = (UMLParameterKind) GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->param_kind))));
+
 }
 
 static void
@@ -997,7 +1013,9 @@ parameters_get_current_values(UMLClassDialog *prop_dialog)
   UMLParameter *current_param;
   GtkLabel *label;
   utfchar *new_str;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
+#endif
 
   if (prop_dialog->current_param != NULL) {
     current_param = (UMLParameter *)
@@ -1644,7 +1662,9 @@ operations_fill_in_dialog(UMLClass *umlclass)
   GtkWidget *list_item;
   GList *list;
   int i;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2027,6 +2047,59 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
 
+  hbox2 = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Direction:"));
+
+  omenu = gtk_option_menu_new ();
+  menu = gtk_menu_new ();
+  prop_dialog->param_kind = GTK_MENU(menu);
+  prop_dialog->param_kind_button = GTK_OPTION_MENU(omenu);
+  submenu = NULL;
+  group = NULL;
+    
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Undefined"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_UNDEF_KIND) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("In"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_IN) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Out"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_OUT) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("In & Out"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_INOUT) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
+
+
+  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, FALSE, TRUE, 0);
+
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
  
   gtk_widget_show_all (vbox);
@@ -2112,7 +2185,9 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
   UMLFormalParameter *current_param;
   GtkLabel *label;
   utfchar *new_str;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
+#endif
 
   if (prop_dialog->current_templ != NULL) {
     current_param = (UMLFormalParameter *)
@@ -2187,7 +2262,9 @@ templates_list_new_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLFormalParameter *param;
   utfchar *utfstr;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2348,8 +2425,9 @@ templates_fill_in_dialog(UMLClass *umlclass)
   GList *list;
   GtkWidget *list_item;
   int i;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   gchar *str;
-
+#endif
   prop_dialog = umlclass->properties_dialog;
 
   gtk_toggle_button_set_active(prop_dialog->templ_template, umlclass->template);

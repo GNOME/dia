@@ -127,6 +127,8 @@ struct _UMLClassDialog {
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
+  GtkMenu *param_kind;
+  GtkOptionMenu *param_kind_button;
   GtkWidget *param_new_button;
   GtkWidget *param_delete_button;
   GtkWidget *param_up_button;
