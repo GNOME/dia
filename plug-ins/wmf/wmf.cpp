@@ -1023,7 +1023,7 @@ draw_rounded_rect (DiaRenderer *self,
     W32::RoundRect(renderer->hFileDC,
                    SCX(ul_corner->x), SCY(ul_corner->y),
                    SCX(lr_corner->x), SCY(lr_corner->y),
-                   SCX(radius*2), SCY(radius*2));
+                   SC(radius*2), SC(radius*2));
 
     DonePen(renderer, hPen);
 }
@@ -1254,7 +1254,7 @@ static DiaExportFilter my_export_filter = {
     extensions,
     export_data,
     NULL, /* user data */
-    "wmf::native"
+    "wmf"
 };
 
 

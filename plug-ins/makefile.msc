@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy
-PLUGINS = cairo cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt
+PLUGINS = gprint cairo cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt
 
 #broken since StdProp overhaul : diaimport 
 
@@ -56,6 +56,15 @@ OBJECTS = \
   dxf.obj \
   dxf-export.obj \
   dxf-import.obj
+!ENDIF
+
+!IFDEF OBJ_gprint
+PKG_CFLAGS = $(PKG_CFLAGS) $(GNOMEPRINT_CFLAGS) $(LIBART_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(GNOMEPRINT_LIBS) $(LIBART_LIBS)
+OBJECTS = \
+  diagnomeprint.obj \
+  diagnomeprintrenderer.obj \
+  
 !ENDIF
 
 !IFDEF OBJ_metapost

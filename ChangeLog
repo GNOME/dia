@@ -1,3 +1,30 @@
+2004-11-21  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : some more #if-mess, but one day
+	we should rely on GLib's 2.6 Option Parser alone
+	
+	* plug-ins/wmf/wmf.cpp : use SC() when scaling width
+	and height for RoundRect() - otherwise size depends on offset,
+	shorten the unique name
+	
+	* plug-ins/python/diamodule.c : provide a unique name
+	for python filters as well
+
+	* lib/dialibartrenderer.c : fix the drawing of Gdk based text
+	by using the right colors (need black background cause we
+	are tinitng it with the real color later)
+
+	* lib/dia_dirs.c(dia_get_canonical_path) : use G_DIR_SEPARATOR_S
+	instead of hardcoded slahes, improved portability 
+
+	* app/paginate_gdiprint.cpp : use the right filter name to find wmf
+	plug-in. Also added some more error reporting (e.g. no printer driver)
+
+	* plug-ins/gprint/diagnomeprintrenderer.[hc] plug-ins/gprint/diagnomeprint.c
+	  plug-ins/makefile.msc : resurrection of the gnome print renderer. 
+	Kinda works (alpha quality) for export but does not print yet. 
+	With bug #158972 resolved this does even work on win32 :-)
+
 2004-11-07  Hans Breuer  <hans@breuer.org>
 
         * doc/diagram.dtd : <composite> can have <composite/>,

@@ -1,4 +1,3 @@
-
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -103,6 +102,8 @@ static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
 			 poptContext poptCtx, struct poptOption options[],
+#elif GLIB_CHECK_VERSION(2,5,5)
+			 GOptionContext* context, GOptionEntry options[],
 #endif
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size);
@@ -370,30 +371,27 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 #define WMF ""
 #endif
 
-
 void
 app_init (int argc, char **argv)
 {
-  gboolean nosplash = FALSE;
-  gboolean credits = FALSE;
-  gboolean version = FALSE;
-  gboolean log_to_stderr = FALSE;
+  static gboolean nosplash = FALSE;
+  static gboolean credits = FALSE;
+  static gboolean version = FALSE;
+  static gboolean log_to_stderr = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
-  char *export_file_name = NULL;
-  char *export_file_format = NULL;
-  char *size = NULL;
+  static char *export_file_name = NULL;
+  static char *export_file_format = NULL;
+  static char *size = NULL;
   gboolean made_conversions = FALSE;
   GSList *files = NULL;
 
-#ifdef HAVE_POPT
-  poptContext poptCtx = NULL;
   gchar *export_format_string = 
      /* Translators:  The argument is a list of options, not to be translated */
-    g_strdup_printf(_("Select the filter/format.  Supported are: %s"),
+    g_strdup_printf(_("Select the filter/format out of: %s"),
 		    "cgm, dia, dxf, eps, " EPS_PANGO
-		    "fig, mp, plt, hpgl, " "png ("
+		    "fig, mp, plt, hpgl, png ("
 #  if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 		    "png-libart, "
 #  endif
@@ -401,10 +399,33 @@ app_init (int argc, char **argv)
 		    "png-cairo, "
 #  endif
 		    /* we always have pixbuf but don't know exactly all it's *few* save formats */
-		    "gdkpixbuf), jpg, ras, wbmp, "
+		    "gdkpixbuf), jpg, "
 		    "shape, svg, tex, " WMF
 		    "wpg");
 
+#if GLIB_CHECK_VERSION(2,5,5)
+  GOptionContext *context = NULL;
+  static GOptionEntry options[] =
+  {
+    {"export", 'e', 0, G_OPTION_ARG_STRING, NULL /* &export_file_name */,
+     N_("Export loaded file and exit"), N_("OUTPUT")},
+    {"filter",'t', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
+     NULL /* &export_format_string */, N_("TYPE")
+    },
+    {"size", 's', 0, G_OPTION_ARG_STRING, NULL,
+     N_("Export graphics size"), N_("WxH")},
+    {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
+     N_("Don't show the splash screen"), NULL },
+    {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
+     N_("Send error messages to stderr instead of showing dialogs."), NULL },
+    {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
+     N_("Display credits list and exit"), NULL },
+    {"version", 'v', 0, G_OPTION_ARG_NONE, &version,
+     N_("Display version and exit"), NULL },
+    { NULL }
+  };
+#elif definded HAVE_POPT
+  poptContext context = NULL;
   struct poptOption options[] =
   {
     {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
@@ -427,10 +448,15 @@ app_init (int argc, char **argv)
   };
 #endif
 
-#ifdef HAVE_POPT
+#if defined HAVE_POPT
   options[0].arg = &export_file_name;
   options[1].arg = &export_file_format;
   options[2].arg = &size;
+#elif GLIB_CHECK_VERSION(2,5,5)
+  options[0].arg_data = &export_file_name;
+  options[1].arg_data = &export_file_format;
+  options[1].description = export_format_string;
+  options[2].arg_data = &size;
 #endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
@@ -442,8 +468,8 @@ app_init (int argc, char **argv)
   textdomain(GETTEXT_PACKAGE);
 
   process_opts(argc, argv, 
-#ifdef HAVE_POPT
-               poptCtx, options, 
+#if defined HAVE_POPT || GLIB_CHECK_VERSION(2,5,5)
+               context, options, 
 #endif
                &files,
 	     &export_file_name, &export_file_format, &size);
@@ -482,10 +508,8 @@ app_init (int argc, char **argv)
   else
     g_type_init();
 
-#ifdef HAVE_POPT
   /* done with option parsing, don't leak */
   g_free(export_format_string);
-#endif
   
   if (version) {
 #if (defined __TIME__) && (defined __DATE__)
@@ -784,6 +808,8 @@ static void
 process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
 	     poptContext poptCtx, struct poptOption options[],
+#elif GLIB_CHECK_VERSION(2,5,5)
+	     GOptionContext *context, GOptionEntry options[],
 #endif
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size)
@@ -814,6 +840,27 @@ process_opts(int argc, char **argv,
 	    *files = g_slist_append(*files, in_file_name);
       }
       poptFreeContext(poptCtx);
+#elif GLIB_CHECK_VERSION(2,5,5)
+      GError *error = NULL;
+      int i;
+      
+      context = g_option_context_new(_("[FILE...]"));
+      g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+      g_option_context_add_group (context, gtk_get_option_group (TRUE));
+      if (!g_option_context_parse (context, &argc, &argv, &error)) {
+	g_print (error->message);
+	g_error_free (error);
+	exit(0);
+      }
+      if (argc < 2)
+	return;
+      for (i = 1; i < argc; i++) {
+	if (!g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
+	  g_print (_("'%s' not found!\n"), argv[i]);
+	  exit(2);
+	}
+	*files = g_slist_append(*files, argv[i]);
+      }
 #else
       int i;
 

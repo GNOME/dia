@@ -135,7 +135,7 @@ diagram_print_gdi(Diagram *dia)
   DiaExportFilter* pExp = NULL;
   int i;
 
-  pExp = filter_get_by_name("wmf::native");
+  pExp = filter_get_by_name("wmf");
 
   if (!pExp) {
     message_error("Can't print without the WMF plugin installed");
@@ -180,8 +180,18 @@ diagram_print_gdi(Diagram *dia)
 
   if (!W32::PrintDlg (&printDlg)) {
     W32::DWORD dwError = W32::CommDlgExtendedError ();
-    if (dwError)
-      message_error("Print Dialog failed with error %d", dwError);
+    if (dwError) {
+	const gchar *emsg;
+      /* ugly common dialog api does *not* use standard windoze error codes */
+	if (dwError < PDERR_PRINTERCODES) emsg = "Common Dialog Error";
+	else if (dwError == PDERR_LOADDRVFAILURE) emsg = "Failed to load driver";
+	else if (dwError == PDERR_PRINTERNOTFOUND) emsg = "Printer Not Found";
+	else if (dwError < CFERR_CHOOSEFONTCODES) emsg = "Printer Selection Error";
+	else emsg = "Unexpected Error"; /* Other common dialogs errors */
+
+      message_error("Print Dialog failed with error %d\n%s", 
+                    dwError, emsg);
+    }
     return;
   }
 

@@ -132,7 +132,7 @@ dia_config_ensure_dir(const gchar *filename)
  * Returns a newly allocated string, or NULL if too many ..'s were found */
 static gchar *
 dia_get_canonical_path (gchar *path) {
-  if (g_str_has_suffix(path, "/..")) {
+  if (g_str_has_suffix(path, G_DIR_SEPARATOR_S "..")) {
     gchar *prev = g_path_get_dirname(path);
     path = prev;
     prev = dia_get_canonical_path(path);
@@ -147,7 +147,7 @@ dia_get_canonical_path (gchar *path) {
     }
     g_free(path);
     return prev;
-  } else if (g_str_has_suffix(path, "/.")) {
+  } else if (g_str_has_suffix(path, G_DIR_SEPARATOR_S ".")) {
     gchar *prev = g_path_get_dirname(path);
     path = prev;
     prev = dia_get_canonical_path(path);
