@@ -1,3 +1,7 @@
+2003-02-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: Slightly more informative error message for isinf.
+
 2003-02-28  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Circuit/hjumper.png:

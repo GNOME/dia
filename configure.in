@@ -290,8 +290,7 @@ if test "$have_isinf" = "no"; then
  			          [Define if finite() is defined in ieeefp.h])
                          AC_MSG_ERROR(Can't find a definition of neither 
                                      finite nor isinf)])],
-                [AC_MSG_ERROR(Can't find a definition of neither finite 
-                             nor isinf)])
+                [AC_MSG_ERROR(Can't find neither a definition of isinf nor ieeefp.h)])
 else
         AC_DEFINE([HAVE_ISINF], 1, 
                   [Define if the isinf() function is available])
