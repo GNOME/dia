@@ -1,13 +1,11 @@
-# dia ja.po
-# Copyright (C) 1999 Free Software Foundation, Inc.
-# Yukihiro Nakai <nakai@FreeBSD.org>, 1999.
+# Copyright (C) 1999-2000 Free Software Foundation, Inc.
+# Yukihiro Nakai <nakai@FreeBSD.org>, 1999, 2000.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
 "POT-Creation-Date: 1999-12-24 22:20+0800\n"
-"PO-Revision-Date: 1999-11-25 14:03+0900\n"
+"PO-Revision-Date: 2000-01-21 14:00+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@FreeBSD.org>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +13,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:130
-#, fuzzy
 msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをpostscriptに出力して終了する"
 
@@ -33,7 +30,7 @@ msgstr "セッションマネージャに接続できません!\n"
 
 #: app/app_procs.c:163
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[オプション...][ファイル...]"
 
 #: app/app_procs.c:166
 #, c-format
@@ -142,7 +139,7 @@ msgstr "色の選択"
 
 #: app/commands.c:137
 msgid "Open diagram"
-msgstr "ダイアグラムを開く"
+msgstr "ダイヤグラムを開く"
 
 #: app/commands.c:198
 msgid "File already exists"
@@ -214,77 +211,75 @@ msgstr "了解"
 
 #: app/diagram.c:136
 msgid "/Edit/Copy"
-msgstr "/編集/コピー"
+msgstr "/編集(_E)/コピー"
 
 #: app/diagram.c:138
 msgid "/Edit/Cut"
-msgstr "/編集/切り取り"
+msgstr "/編集(_E)/切り取り"
 
 #: app/diagram.c:140
 msgid "/Edit/Paste"
-msgstr "/編集/貼り付け"
+msgstr "/編集(_E)/貼り付け"
 
 #: app/diagram.c:143
 msgid "/Edit/Delete"
-msgstr "/編集/削除"
+msgstr "/編集(_E)/削除"
 
 #: app/diagram.c:147
 msgid "/Objects/Send to Back"
-msgstr "/オブジェクト/背面に送る"
+msgstr "/オブジェクト(_O)/背面に送る"
 
 #: app/diagram.c:149
 msgid "/Objects/Bring to Front"
-msgstr "/オブジェクト/前面に移動する"
+msgstr "/オブジェクト(_O)/前面に移動する"
 
 #: app/diagram.c:152
 msgid "/Objects/Group"
-msgstr "/オブジェクト/グループ化"
+msgstr "/オブジェクト(_O)/グループ化"
 
 #: app/diagram.c:154
 msgid "/Objects/Ungroup"
-msgstr "/オブジェクト/グループ解除"
+msgstr "/オブジェクト(_O)/グループ解除"
 
 #: app/diagram.c:157 app/menus.c:243
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/オブジェクト/水平位置/左"
+msgstr "/オブジェクト(_O)/水平位置/左"
 
 #: app/diagram.c:159 app/menus.c:244
 msgid "/Objects/Align Horizontal/Center"
-msgstr "/オブジェクト/水平位置/中央"
+msgstr "/オブジェクト(_O)/水平位置/中央"
 
 #: app/diagram.c:161 app/menus.c:245
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/オブジェクト/水平位置/右"
+msgstr "/オブジェクト(_O)/水平位置/右"
 
 #: app/diagram.c:163 app/menus.c:246
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/オブジェクト/水平位置/同列"
+msgstr "/オブジェクト(_O)/水平位置/同列"
 
 #: app/diagram.c:165 app/menus.c:247
-#, fuzzy
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/オブジェクト/水平位置/中央"
+msgstr "/オブジェクト(_O)/水平位置/中央"
 
 #: app/diagram.c:167 app/menus.c:249
 msgid "/Objects/Align Vertical/Top"
-msgstr "/オブジェクト/垂直位置/上"
+msgstr "/オブジェクト(_O)/垂直位置/上"
 
 #: app/diagram.c:169 app/menus.c:250
 msgid "/Objects/Align Vertical/Center"
-msgstr "/オブジェクト/垂直位置/中央"
+msgstr "/オブジェクト(_O)/垂直位置/中央"
 
 #: app/diagram.c:171 app/menus.c:251
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/オブジェクト/垂直位置/下"
+msgstr "/オブジェクト(_O)/垂直位置/下"
 
 #: app/diagram.c:173 app/menus.c:252
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/オブジェクト/垂直位置/同列"
+msgstr "/オブジェクト(_O)/垂直位置/同列"
 
 #: app/diagram.c:175 app/menus.c:253
-#, fuzzy
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/オブジェクト/垂直位置/中央"
+msgstr "/オブジェクト(_O)/垂直位置/中央"
 
 #: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
@@ -320,19 +315,19 @@ msgstr ""
 
 #: app/display.c:787
 msgid "/View/Show Rulers"
-msgstr "/表示/目盛りの表示"
+msgstr "/表示(_V)/目盛りの表示"
 
 #: app/display.c:789
 msgid "/View/Visible Grid"
-msgstr "/表示/グリッドの表示"
+msgstr "/表示(_V)/グリッドの表示"
 
 #: app/display.c:791
 msgid "/View/Snap To Grid"
-msgstr "/表示/グリッドにあわせる"
+msgstr "/表示(_V)/グリッドにあわせる"
 
 #: app/display.c:793
 msgid "/View/Show Connection Points"
-msgstr "/表示/接続ポイントの表示"
+msgstr "/表示(_V)/接続ポイントの表示"
 
 #: app/grid.c:148
 msgid "Grid options"
@@ -387,7 +382,6 @@ msgid "Create Polyline"
 msgstr "多角形の生成"
 
 #: app/interface.c:99
-#, fuzzy
 msgid "Create Bezierline"
 msgstr "ライフラインの作成"
 
@@ -465,7 +459,6 @@ msgstr ""
 "リンクされたオブジェクトはドキュメントには見つかりませんでした。"
 
 #: app/load_save.c:135
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -474,7 +467,6 @@ msgstr ""
 "不明なファイルタイプです。"
 
 #: app/load_save.c:138
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -516,7 +508,6 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr "開けないので書き込めません: '%s'\n"
 
 #: app/load_save.c:554
-#, fuzzy
 msgid "Native Dia Diagram"
 msgstr "ダイアグラムを保存する"
 
@@ -529,7 +520,6 @@ msgid "Create new diagram"
 msgstr "新規ダイアグラムの生成"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "_Export..."
 msgstr "   エクスポート"
 
@@ -542,7 +532,6 @@ msgid "_Print Diagram..."
 msgstr ""
 
 #: app/menus.c:73
-#, fuzzy
 msgid "_Delete"
 msgstr "削除"
 
@@ -566,7 +555,7 @@ msgstr "ズームアウト50%"
 
 #: app/menus.c:103
 msgid "_Zoom"
-msgstr "ズーム(_Z)"
+msgstr "拡大(_Z)"
 
 #: app/menus.c:104
 msgid "Edit Grid..."
@@ -658,11 +647,11 @@ msgstr "レイヤ(_L)"
 
 #: app/menus.c:170
 msgid "Objects"
-msgstr "オブジェクト"
+msgstr "オブジェクト(_O)"
 
 #: app/menus.c:171
 msgid "Dialogs"
-msgstr "ダイアログ"
+msgstr "ダイアログ(_D)"
 
 #: app/menus.c:178 app/menus.c:190
 msgid "/_File"
@@ -706,21 +695,18 @@ msgid "/File/Save _As..."
 msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
 #: app/menus.c:196
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "/ファイル(_F)/EPS出力(_E)"
+msgstr "/ファイル(_F)/エクスポート(_E)..."
 
 #: app/menus.c:198
-#, fuzzy
 msgid "/File/Page Set_up..."
 msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
-msgstr ""
+msgstr "/ファイル(_F)/印刷(_P)..."
 
 #: app/menus.c:200
-#, fuzzy
 msgid "/File/sep2"
 msgstr "/ファイル(_F)/sep1"
 
@@ -735,127 +721,126 @@ msgstr "/編集(_E)"
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:205
 msgid "/Edit/_Copy"
-msgstr "/編集/コピー(_C)"
+msgstr "/編集(_E)/コピー(_C)"
 
 #: app/menus.c:206
 msgid "/Edit/C_ut"
-msgstr "/編集/切り取り(_U)"
+msgstr "/編集(_E)/切り取り(_U)"
 
 #: app/menus.c:207
 msgid "/Edit/_Paste"
-msgstr "/編集/貼り付け(_P)"
+msgstr "/編集(_E)/貼り付け(_P)"
 
 #: app/menus.c:208
 msgid "/Edit/_Delete"
-msgstr "/編集/削除(_D)"
+msgstr "/編集(_E)/削除(_D)"
 
 #: app/menus.c:209
-#, fuzzy
 msgid "/Edit/_Undo"
-msgstr "/編集/取消(_U)"
+msgstr "/編集(_E)/取消(_U)"
 
 #: app/menus.c:210
 msgid "/Edit/_Redo"
-msgstr "/編集/やり直し(_R)"
+msgstr "/編集(_E)/やり直し(_R)"
 
 #: app/menus.c:211
 msgid "/_View"
-msgstr "表示(_V)"
+msgstr "/表示(_V)"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:213
 msgid "/View/Zoom _In"
-msgstr "/表示/ズームイン(_I)"
+msgstr "/表示(_V)/ズームイン(_I)"
 
 #: app/menus.c:214
 msgid "/View/Zoom _Out"
-msgstr "/表示/ズームアウト(_O)"
+msgstr "/表示(_V)/ズームアウト(_O)"
 
 #: app/menus.c:215
 msgid "/View/_Zoom"
-msgstr "/表示/拡大(_Z)"
+msgstr "/表示(_V)/拡大(_Z)"
 
 #: app/menus.c:216
 #, c-format
 msgid "/View/Zoom/400%"
-msgstr "/表示/拡大/400%"
+msgstr "/表示(_V)/拡大(_Z)/400%"
 
 #: app/menus.c:217
 #, c-format
 msgid "/View/Zoom/283%"
-msgstr "/表示/拡大/283%"
+msgstr "/表示(_V)/拡大(_Z)/283%"
 
 #: app/menus.c:218
 #, c-format
 msgid "/View/Zoom/200%"
-msgstr "/表示/拡大/200%"
+msgstr "/表示(_V)/拡大(_Z)/200%"
 
 #: app/menus.c:219
 #, c-format
 msgid "/View/Zoom/141%"
-msgstr "/表示/拡大/141%"
+msgstr "/表示(_V)/拡大(_Z)/141%"
 
 #: app/menus.c:220
 #, c-format
 msgid "/View/Zoom/100%"
-msgstr "/表示/拡大/100%"
+msgstr "/表示(_V)/拡大(_Z)/100%"
 
 #: app/menus.c:221
 #, c-format
 msgid "/View/Zoom/85%"
-msgstr "/表示/拡大/85%"
+msgstr "/表示(_V)/拡大(_Z)/85%"
 
 #: app/menus.c:222
 #, c-format
 msgid "/View/Zoom/70.7%"
-msgstr "/表示/拡大/70.7%"
+msgstr "/表示(_V)/拡大(_Z)/70.7%"
 
 #: app/menus.c:223
 #, c-format
 msgid "/View/Zoom/50%"
-msgstr "/表示/拡大/50%"
+msgstr "/表示(_V)/拡大(_Z)/50%"
 
 #: app/menus.c:224
 #, c-format
 msgid "/View/Zoom/35.4%"
-msgstr "/表示/拡大/35.4%"
+msgstr "/表示(_V)/拡大(_Z)/35.4%"
 
 #: app/menus.c:225
 #, c-format
 msgid "/View/Zoom/25%"
-msgstr "/表示/拡大/25%"
+msgstr "/表示(_V)/拡大(_Z)/25%"
 
 #: app/menus.c:226
 msgid "/View/Edit Grid..."
-msgstr "/表示/拡大/グリッドの編集"
+msgstr "/表示(_V)/拡大(_Z)/グリッドの編集"
 
 #: app/menus.c:227
 msgid "/View/_Visible Grid"
-msgstr "/表示/グリッドの表示(_V)"
+msgstr "/表示(_V)/グリッドの表示(_V)"
 
 #: app/menus.c:228
 msgid "/View/_Snap To Grid"
-msgstr "/表示/グリッドにあわせる(_S)"
+msgstr "/表示(_V)/グリッドにあわせる(_S)"
 
 #: app/menus.c:229
 msgid "/View/Show _Rulers"
-msgstr "/表示/目盛りの表示(_R)"
+msgstr "/表示(_V)/目盛りの表示(_R)"
 
 #: app/menus.c:230
 msgid "/View/Show _Connection Points"
-msgstr "/表示/コネクションポイントの表示(_C)"
+msgstr "/表示(_V)/コネクションポイントの表示(_C)"
 
 #: app/menus.c:231
 msgid "/View/sep1"
-msgstr "/表示/sep1"
+msgstr "/表示(_V)/sep1"
 
 #: app/menus.c:232
 msgid "/View/New _View"
-msgstr "/表示/新規ビュー(_V)"
+msgstr "/表示(_V)/新規ビュー(_V)"
 
 #: app/menus.c:233
 msgid "/View/Show _All"
-msgstr "/表示/すべて表示(_A)"
+msgstr "/表示(_V)/すべて表示(_A)"
 
 #: app/menus.c:234
 msgid "/_Objects"
@@ -864,31 +849,31 @@ msgstr "/オブジェクト(_O)"
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:236
 msgid "/Objects/Send to _Back"
-msgstr "/オブジェクト/背面に送る(_B)"
+msgstr "/オブジェクト(_O)/背面に送る(_B)"
 
 #: app/menus.c:237
 msgid "/Objects/Bring to _Front"
-msgstr "/オブジェクト/前面に送る(_F)"
+msgstr "/オブジェクト(_O)/前面に送る(_F)"
 
 #: app/menus.c:238 app/menus.c:241
 msgid "/Objects/sep1"
-msgstr "/オブジェクト/sep1"
+msgstr "/オブジェクト(_O)/sep1"
 
 #: app/menus.c:239
 msgid "/Objects/_Group"
-msgstr "/オブジェクト/グループ化(_G)"
+msgstr "/オブジェクト(_O)/グループ化(_G)"
 
 #: app/menus.c:240
 msgid "/Objects/_Ungroup"
-msgstr "/オブジェクト/グループ解除(_U)"
+msgstr "/オブジェクト(_O)/グループ解除(_U)"
 
 #: app/menus.c:242
 msgid "/Objects/Align _Horizontal"
-msgstr "オブジェクト/水平位置(_H)"
+msgstr "オブジェクト(_O)/水平位置(_H)"
 
 #: app/menus.c:248
 msgid "/Objects/Align _Vertical"
-msgstr "オブジェクト/垂直位置(_V)"
+msgstr "オブジェクト(_O)/垂直位置(_V)"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:256
@@ -897,11 +882,11 @@ msgstr "/ダイアログ(_D)"
 
 #: app/menus.c:257
 msgid "/Dialogs/_Properties"
-msgstr "/ダイアログ/プロパティ(_P)"
+msgstr "/ダイアログ(_D)/プロパティ(_P)"
 
 #: app/menus.c:258
 msgid "/Dialogs/_Layers"
-msgstr "/ダイアログ/レイヤ(_L)"
+msgstr "/ダイアログ(_D)/レイヤ(_L)"
 
 #: app/properties.c:45
 msgid "Object properties"
@@ -916,7 +901,6 @@ msgid "This object has no properties."
 msgstr "このオブジェクトにはプロパティはありません。"
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
 msgstr "postscriptに出力する"
 
@@ -958,7 +942,7 @@ msgstr "表示："
 
 #: app/preferences.c:86
 msgid "Snap to:"
-msgstr ""
+msgstr "スナップ先:"
 
 #: app/preferences.c:87
 msgid "X Size:"
@@ -969,12 +953,10 @@ msgid "Y Size:"
 msgstr "Yサイズ："
 
 #: app/preferences.c:89
-#, fuzzy
 msgid "Colour"
 msgstr "色："
 
 #: app/preferences.c:90
-#, fuzzy
 msgid "Solid lines"
 msgstr "ソリッド"
 
@@ -1004,25 +986,23 @@ msgstr "設定"
 
 #: app/render_svg.c:834
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "スケーラブルベクターグラフィクス(SVG)"
 
 #: app/lineprops_area.c:496
-#, fuzzy
 msgid "Arrow Properties"
 msgstr "プロパティ(_P)"
 
 #: app/lineprops_area.c:553 app/lineprops_area.c:737
 msgid "Details..."
-msgstr ""
+msgstr "詳細..."
 
 #: app/lineprops_area.c:693
-#, fuzzy
 msgid "Line Style Properties"
 msgstr "オブジェクトのプロパティ"
 
 #: lib/diagramdata.c:47
 msgid "Background"
-msgstr "背景"
+msgstr "バックグラウンド"
 
 #: lib/font.c:344
 #, c-format
@@ -1068,7 +1048,7 @@ msgstr "ダッシュドットドット"
 
 #: lib/widgets.c:320
 msgid "Dotted"
-msgstr ""
+msgstr "ドット"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
@@ -1502,12 +1482,10 @@ msgid "Relationship"
 msgstr "関連"
 
 #: objects/network/bus.c:569
-#, fuzzy
 msgid "Add Handle"
 msgstr "コーナーの追加"
 
 #: objects/network/bus.c:570
-#, fuzzy
 msgid "Delete Handle"
 msgstr "レイヤを削除する"
 
@@ -1824,39 +1802,35 @@ msgstr "   メジャー"
 #: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
 #: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
 msgid "Text padding:"
-msgstr ""
+msgstr "テキストパディング:"
 
 #: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
 #: objects/flowchart/box.c:342 objects/flowchart/box.c:488
 #: objects/flowchart/diamond.c:322 objects/flowchart/diamond.c:451
 #: objects/flowchart/ellipse.c:322 objects/flowchart/ellipse.c:451
 #: objects/flowchart/parallelogram.c:345 objects/flowchart/parallelogram.c:492
-#, fuzzy
 msgid "Font size:"
 msgstr "フォントサイズ："
 
 #: objects/custom/custom_object.c:383 objects/flowchart/box.c:356
 #: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
 #: objects/flowchart/parallelogram.c:359
-#, fuzzy
 msgid "Font color:"
 msgstr "文字色："
 
 #: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
 msgid "Shear angle:"
-msgstr ""
+msgstr "シアーの角度:"
 
 #: objects/custom/custom_object.c:190
 msgid "A custom with text inside."
 msgstr ""
 
 #: objects/custom/custom_object.c:1386
-#, fuzzy
 msgid "Flip Horizontal"
 msgstr "水平位置(_H)"
 
 #: objects/custom/custom_object.c:1387
-#, fuzzy
 msgid "Flip Vertical"
 msgstr "垂直位置(_V)"
 
@@ -1869,18 +1843,3 @@ msgstr ""
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Export to SVG"
-#~ msgstr "EPSへの出力(_E)"
-
-#~ msgid "_Export To EPS"
-#~ msgstr "EPSへの出力(_E)"
-
-#, fuzzy
-#~ msgid "Export To S_VG"
-#~ msgstr "EPSへの出力(_E)"
-
-#, fuzzy
-#~ msgid "/File/Export To S_VG"
-#~ msgstr "/ファイル(_F)/EPS出力(_E)"
