@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-06-10 01:11+0200\n"
-"PO-Revision-Date: 2001-06-10 01:12+0200\n"
+"POT-Creation-Date: 2001-06-11 16:30+0200\n"
+"PO-Revision-Date: 2001-06-11 17:24+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -322,12 +322,12 @@ msgstr ""
 "Vill du spara ändringar nu?"
 
 #: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: lib/properties.c:305
 msgid "Yes"
 msgstr "Ja"
 
 #: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/preferences.c:514 lib/properties.c:307 lib/properties.c:328
 msgid "No"
 msgstr "Nej"
 
@@ -431,7 +431,7 @@ msgstr "Rulla"
 msgid "Create Text"
 msgstr "Skapa text"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1344
 msgid "Text"
 msgstr "Text"
 
@@ -793,17 +793,17 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
+#: app/menus.c:164 lib/properties.c:1329 lib/properties.h:342
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1330 lib/properties.h:343
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
+#: app/menus.c:166 lib/properties.c:1331 lib/properties.h:344
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "Höger"
@@ -1543,7 +1543,7 @@ msgstr "Kunde inte öppna \"%s\""
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
 
-#: lib/font.c:389
+#: lib/font.c:394
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1552,28 +1552,28 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:443
+#: lib/font.c:449
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/properties.c:382 lib/properties.c:414
+#: lib/properties.c:401 lib/properties.c:433
 msgid "No edit widget"
 msgstr "Ingen redigeringskomponent"
 
-#: lib/properties.c:1256
+#: lib/properties.c:1338
 msgid "Line colour"
 msgstr "Linjefärg"
 
-#: lib/properties.c:1257
+#: lib/properties.c:1339
 msgid "Line style"
 msgstr "Linjetyp"
 
-#: lib/properties.c:1258
+#: lib/properties.c:1340
 msgid "Fill colour"
 msgstr "Fyllningsfärg"
 
-#: lib/properties.c:1259 objects/custom/custom_object.c:362
+#: lib/properties.c:1341 objects/custom/custom_object.c:362
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1581,29 +1581,29 @@ msgstr "Fyllningsfärg"
 msgid "Draw background"
 msgstr "Rita bakgrund"
 
-#: lib/properties.c:1260
+#: lib/properties.c:1342
 msgid "Start arrow"
 msgstr "Startpil"
 
-#: lib/properties.c:1261
+#: lib/properties.c:1343
 msgid "End arrow"
 msgstr "Slutpil"
 
-#: lib/properties.c:1263
+#: lib/properties.c:1345
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: lib/properties.c:1264 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1346 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/transition.c:140
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:1265 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1347 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/transition.c:142
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: lib/properties.c:1266
+#: lib/properties.c:1348
 msgid "Text colour"
 msgstr "Textfärg"
 
@@ -1973,7 +1973,7 @@ msgstr "Räta ut"
 
 #: objects/FS/function.c:641
 msgid "Steer"
-msgstr "Styr"
+msgstr "Manövrera"
 
 #: objects/FS/function.c:642
 msgid "Translate"
@@ -2037,7 +2037,7 @@ msgstr "Stabilisera"
 
 #: objects/FS/function.c:662
 msgid "Steady"
-msgstr "Gör stadig"
+msgstr "Stadga"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
 msgid "Secure"
@@ -2109,7 +2109,7 @@ msgstr "Blanda ihop"
 
 #: objects/FS/function.c:686
 msgid "Add"
-msgstr "Addera"
+msgstr "Lägg till"
 
 #: objects/FS/function.c:687
 msgid "Pack"
@@ -2304,7 +2304,7 @@ msgstr "Reglera"
 #: objects/FS/function.c:750 objects/FS/function.c:859
 #: objects/UML/classicon.c:133
 msgid "Control"
-msgstr "Kontrollera"
+msgstr "Styr"
 
 #: objects/FS/function.c:753
 msgid "Enable"
@@ -2668,38 +2668,13 @@ msgstr "Användar-/enhetsfunktion"
 msgid "Wish Fn"
 msgstr "Önskad funktion"
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "Typsnitt:"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "Typsnittsstorlek:"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "Typsnittsfärg:"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:135
 msgid "Macro call"
 msgstr "Makroanrop"
+
+#: objects/GRAFCET/action.c:135
+msgid "This action is a call to a macro-step"
+msgstr "Denna åtgärd är ett anrop till ett makrosteg"
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
@@ -2765,6 +2740,32 @@ msgstr "Aktiv"
 msgid "Step type"
 msgstr "Stegtyp"
 
+#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
+#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
+#: objects/SADT/box.c:210 objects/SADT/box.c:252
+#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
+#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
+#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
+msgid "Font:"
+msgstr "Typsnitt:"
+
+#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
+#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
+#: objects/SADT/box.c:211 objects/SADT/box.c:253
+#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
+#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
+#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
+msgid "Font size:"
+msgstr "Typsnittsstorlek:"
+
+#: objects/GRAFCET/step.c:277
+msgid "Text color:"
+msgstr "Typsnittsfärg:"
+
 #: objects/GRAFCET/step.c:317
 msgid "Color:"
 msgstr "Färg:"
@@ -2801,28 +2802,28 @@ msgstr "Sydpunkt"
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Rita pilhuvuden på uppåtpekande bågar:"
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "ELLER"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "OCH"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr "Kanttyp:"
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:539
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Lägg till anslutningspunkt"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "Ta bort anslutningspunkt"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET ELLER/OCH-kant"
 
@@ -3126,6 +3127,18 @@ msgstr "Rita kontrollens fokus:"
 #: objects/UML/lifeline.c:142
 msgid "Draw destruction mark:"
 msgstr "Rita ödeläggelsemarkering:"
+
+#: objects/UML/lifeline.c:405
+msgid "Add connection points"
+msgstr "Lägg till anslutningspunkter"
+
+#: objects/UML/lifeline.c:406
+msgid "Remove connection points"
+msgstr "Ta bort anslutningspunkter"
+
+#: objects/UML/lifeline.c:410
+msgid "UML Lifeline"
+msgstr "UML-livlina"
 
 #: objects/UML/message.c:158
 msgid "Call"
