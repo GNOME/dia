@@ -1,3 +1,10 @@
+2003-07-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/flowchart/parallelogram.c (pgram_update_data):
+	Left/right alignment for parallelograms.  Doesn't use all
+	available space, but then pgrams also ignore their shear value.
+	This thing needs a loving hand.
+
 2003-07-01  Hans Breuer  <hans@breuer.org>
 
 	* lib/properties.h : introduce PROP_FLAG_OPTIONAL

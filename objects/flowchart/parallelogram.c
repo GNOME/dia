@@ -152,6 +152,7 @@ static PropDescription pgram_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -179,6 +180,7 @@ static PropOffset pgram_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Pgram,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Pgram,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,attrs.alignment)},
   { NULL, 0, 0 },
 };
 
@@ -364,6 +366,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   Point p;
   real offs;
   real width, height;
+  real avail_width;
 
   /* save starting points */
   center = bottom_right = elem->corner;
@@ -379,10 +382,20 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
     pgram->border_width;
   if (height > elem->height) elem->height = height;
 
+  avail_width = elem->width - (pgram->padding*2 + pgram->border_width +
+    fabs(pgram->shear_grad) * (elem->height + pgram->text->height
+			       * pgram->text->numlines));
+  if (avail_width < pgram->text->max_width) {
+    elem->width = (elem->width-avail_width) + pgram->text->max_width;
+    avail_width = pgram->text->max_width;
+  }
+
+  /*
   width = pgram->text->max_width + pgram->padding*2 + pgram->border_width +
     fabs(pgram->shear_grad) * (elem->height + pgram->text->height
 			       * pgram->text->numlines);
   if (width > elem->width) elem->width = width;
+  */
   
   /* move shape if necessary ... */
   switch (horiz) {
@@ -406,6 +419,16 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
       pgram->text->ascent;
+  switch (pgram->text->alignment) {
+  case ALIGN_LEFT:
+    p.x -= avail_width/2;
+    break;
+  case ALIGN_RIGHT:
+    p.x += avail_width/2;
+    break;
+  case ALIGN_CENTER:
+    break;
+  }
   text_set_position(pgram->text, &p);
   
   /* Update connections: */
