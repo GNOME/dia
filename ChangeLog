@@ -1,5 +1,19 @@
 1999-10-16  Alexander Larsson  <alla@lysator.liu.se>
 
+	* configure.in:
+	Updated version number to 0.80.
+
+	* KNOWN_BUGS:
+	New file.
+
+	* TODO:
+	Updated. Moved bugs to KNOWN_BUGS.
+
+	* NEWS:
+	Updated with 0.80 release notes.
+	
+1999-10-16  Alexander Larsson  <alla@lysator.liu.se>
+	
 	* lib/orth_conn.c:
 	For backwards compatibility, make sure handle 0 and 1 are the
 	first and last handle. Fixes compatibility with 0.41, breaks

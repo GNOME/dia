@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia CVS\n"
-"POT-Creation-Date: 1999-10-10 22:20+0800\n"
+"POT-Creation-Date: 1999-10-16 17:01+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Robert Brady <rwb197@ecs.soton.ac.uk>\n"
 "Language-Team: \n"
@@ -14,76 +14,76 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:127
+#: app/app_procs.c:128
 msgid "Export loaded file to postscript and exit"
 msgstr ""
 
-#: app/app_procs.c:128
+#: app/app_procs.c:129
 msgid "OUTPUT"
 msgstr ""
 
-#: app/app_procs.c:145
+#: app/app_procs.c:146
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
-#: app/app_procs.c:183 app/app_procs.c:185
+#: app/app_procs.c:184 app/app_procs.c:186
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
-#: app/app_procs.c:200
+#: app/app_procs.c:201
 msgid "Need valid input file\n"
 msgstr ""
 
-#: app/app_procs.c:238
+#: app/app_procs.c:239
 msgid "Quit, are you sure?"
 msgstr ""
 
-#: app/app_procs.c:240
+#: app/app_procs.c:241
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
 
-#: app/app_procs.c:249
+#: app/app_procs.c:250
 msgid "Quit"
 msgstr ""
 
-#: app/app_procs.c:261 app/layer_dialog.c:980 app/lineprops_area.c:518
-#: app/lineprops_area.c:716
+#: app/app_procs.c:262 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr ""
 
-#: app/app_procs.c:295
+#: app/app_procs.c:296
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:340
+#: app/app_procs.c:341
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
 
-#: app/app_procs.c:347
+#: app/app_procs.c:348
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr ""
 
-#: app/app_procs.c:360 app/app_procs.c:361 app/app_procs.c:385
-#: app/app_procs.c:386
+#: app/app_procs.c:361 app/app_procs.c:362 app/app_procs.c:389
+#: app/app_procs.c:390
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
 msgstr ""
 
-#: app/app_procs.c:366 app/app_procs.c:367
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr ""
 
-#: app/app_procs.c:372 app/app_procs.c:373
+#: app/app_procs.c:374 app/app_procs.c:375
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -91,14 +91,14 @@ msgid ""
 "Please upgrade it."
 msgstr ""
 
-#: app/app_procs.c:378 app/app_procs.c:379
+#: app/app_procs.c:381 app/app_procs.c:382
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
 "You need to upgrade Dia to use it."
 msgstr ""
 
-#: app/app_procs.c:447
+#: app/app_procs.c:455
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -179,8 +179,8 @@ msgstr ""
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 
-#: app/commands.c:817 app/layer_dialog.c:970 app/lineprops_area.c:509
-#: app/lineprops_area.c:706 app/preferences.c:543 app/properties.c:54
+#: app/commands.c:817 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/lineprops_area.c:704 app/preferences.c:543 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr ""
@@ -418,15 +418,15 @@ msgstr ""
 msgid "Layer name:"
 msgstr ""
 
-#: app/lineprops_area.c:498
+#: app/lineprops_area.c:496
 msgid "Arrow Properties"
 msgstr ""
 
-#: app/lineprops_area.c:555 app/lineprops_area.c:739
+#: app/lineprops_area.c:553 app/lineprops_area.c:737
 msgid "Details..."
 msgstr ""
 
-#: app/lineprops_area.c:695
+#: app/lineprops_area.c:693
 msgid "Line Style Properties"
 msgstr ""
 
@@ -1049,27 +1049,27 @@ msgid "Multivalue"
 msgstr ""
 
 #: objects/ER/attribute.c:246 objects/ER/entity.c:222
-#: objects/ER/relationship.c:303 objects/custom/custom_object.c:272
-#: objects/flowchart/box.c:256 objects/flowchart/diamond.c:251
-#: objects/flowchart/ellipse.c:251 objects/flowchart/parallelogram.c:259
+#: objects/ER/relationship.c:303 objects/custom/custom_object.c:271
+#: objects/flowchart/box.c:255 objects/flowchart/diamond.c:250
+#: objects/flowchart/ellipse.c:250 objects/flowchart/parallelogram.c:258
 #: objects/standard/box.c:207 objects/standard/ellipse.c:188
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr ""
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:233
-#: objects/ER/relationship.c:314 objects/custom/custom_object.c:287
-#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:266
-#: objects/flowchart/ellipse.c:266 objects/flowchart/parallelogram.c:274
+#: objects/ER/relationship.c:314 objects/custom/custom_object.c:286
+#: objects/flowchart/box.c:270 objects/flowchart/diamond.c:265
+#: objects/flowchart/ellipse.c:265 objects/flowchart/parallelogram.c:273
 #: objects/standard/box.c:222 objects/standard/ellipse.c:203
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Foreground colour:"
 
 #: objects/ER/attribute.c:265 objects/ER/entity.c:241
-#: objects/ER/relationship.c:322 objects/custom/custom_object.c:298
-#: objects/flowchart/box.c:282 objects/flowchart/diamond.c:277
-#: objects/flowchart/ellipse.c:277 objects/flowchart/parallelogram.c:285
+#: objects/ER/relationship.c:322 objects/custom/custom_object.c:297
+#: objects/flowchart/box.c:281 objects/flowchart/diamond.c:276
+#: objects/flowchart/ellipse.c:276 objects/flowchart/parallelogram.c:284
 #: objects/standard/box.c:233 objects/standard/ellipse.c:214
 msgid "Background color:"
 msgstr "Background colour:"
@@ -1143,43 +1143,43 @@ msgstr ""
 msgid "Create an orthogonal polyline flow"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:566 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:745 objects/FS/flow.c:629 objects/FS/flow.c:742
+#: objects/FS/flow-ortho.c:568 objects/FS/flow-poly.c:634
+#: objects/FS/flow-poly.c:749 objects/FS/flow.c:631 objects/FS/flow.c:746
 msgid "Flow:"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:581 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:761 objects/FS/flow.c:644 objects/FS/flow.c:758
+#: objects/FS/flow-ortho.c:583 objects/FS/flow-poly.c:649
+#: objects/FS/flow-poly.c:765 objects/FS/flow.c:646 objects/FS/flow.c:762
 msgid "Flow type:"
 msgstr ""
 
 #.
-#: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:639
-#: objects/FS/flow-ortho.c:699 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:705 objects/FS/flow-poly.c:766 objects/FS/flow.c:649
-#: objects/FS/flow.c:702 objects/FS/flow.c:763
+#: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:641
+#: objects/FS/flow-ortho.c:701 objects/FS/flow-poly.c:654
+#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:770 objects/FS/flow.c:651
+#: objects/FS/flow.c:706 objects/FS/flow.c:767
 msgid "Energy"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:593 objects/FS/flow-ortho.c:640
-#: objects/FS/flow-ortho.c:706 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:706 objects/FS/flow-poly.c:773 objects/FS/flow.c:656
-#: objects/FS/flow.c:703 objects/FS/flow.c:770
+#: objects/FS/flow-ortho.c:595 objects/FS/flow-ortho.c:642
+#: objects/FS/flow-ortho.c:708 objects/FS/flow-poly.c:661
+#: objects/FS/flow-poly.c:710 objects/FS/flow-poly.c:777 objects/FS/flow.c:658
+#: objects/FS/flow.c:707 objects/FS/flow.c:774
 msgid "Material"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:599 objects/FS/flow-ortho.c:641
-#: objects/FS/flow-ortho.c:712 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:779 objects/FS/flow.c:662
-#: objects/FS/flow.c:704 objects/FS/flow.c:776 objects/FS/function.c:593
+#: objects/FS/flow-ortho.c:601 objects/FS/flow-ortho.c:643
+#: objects/FS/flow-ortho.c:714 objects/FS/flow-poly.c:667
+#: objects/FS/flow-poly.c:711 objects/FS/flow-poly.c:783 objects/FS/flow.c:664
+#: objects/FS/flow.c:708 objects/FS/flow.c:780 objects/FS/function.c:596
 msgid "Signal"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:678
+#: objects/FS/flow-ortho.c:680
 msgid "Orthflow:"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:694
+#: objects/FS/flow-ortho.c:696
 msgid "Orthflow type:"
 msgstr ""
 
@@ -1201,167 +1201,167 @@ msgstr ""
 msgid "Create a function"
 msgstr ""
 
-#: objects/FS/function.c:507
+#: objects/FS/function.c:508
 msgid "Function:"
 msgstr ""
 
-#: objects/FS/function.c:517
+#: objects/FS/function.c:518
 msgid "Wish function"
 msgstr ""
 
-#: objects/FS/function.c:522
+#: objects/FS/function.c:523
 msgid "User function"
 msgstr ""
 
-#: objects/FS/function.c:559
+#: objects/FS/function.c:562
 msgid "Channel"
 msgstr ""
 
-#: objects/FS/function.c:560
+#: objects/FS/function.c:563
 msgid "   Import"
 msgstr ""
 
-#: objects/FS/function.c:561
+#: objects/FS/function.c:564
 msgid "   Export"
 msgstr ""
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:565
 msgid "   Transfer"
 msgstr ""
 
-#: objects/FS/function.c:563
+#: objects/FS/function.c:566
 msgid "      Transport"
 msgstr ""
 
-#: objects/FS/function.c:564
+#: objects/FS/function.c:567
 msgid "      Transmit"
 msgstr ""
 
-#: objects/FS/function.c:565
+#: objects/FS/function.c:568
 msgid "   Guide"
 msgstr ""
 
-#: objects/FS/function.c:566
+#: objects/FS/function.c:569
 msgid "      Translate"
 msgstr ""
 
-#: objects/FS/function.c:567
+#: objects/FS/function.c:570
 msgid "      Rotate"
 msgstr ""
 
-#: objects/FS/function.c:568
+#: objects/FS/function.c:571
 msgid "      Allow DOF"
 msgstr ""
 
-#: objects/FS/function.c:569
+#: objects/FS/function.c:572
 msgid "Support"
 msgstr ""
 
-#: objects/FS/function.c:570
+#: objects/FS/function.c:573
 msgid "   Stop"
 msgstr ""
 
-#: objects/FS/function.c:571
+#: objects/FS/function.c:574
 msgid "   Stabilize"
 msgstr ""
 
-#: objects/FS/function.c:572
+#: objects/FS/function.c:575
 msgid "   Secure"
 msgstr ""
 
-#: objects/FS/function.c:573
+#: objects/FS/function.c:576
 msgid "   Position"
 msgstr ""
 
-#: objects/FS/function.c:574
+#: objects/FS/function.c:577
 msgid "Connect"
 msgstr ""
 
-#: objects/FS/function.c:575
+#: objects/FS/function.c:578
 msgid "   Couple"
 msgstr ""
 
-#: objects/FS/function.c:576
+#: objects/FS/function.c:579
 msgid "   Mix"
 msgstr ""
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:580
 msgid "Branch"
 msgstr ""
 
-#: objects/FS/function.c:578
+#: objects/FS/function.c:581
 msgid "   Separate"
 msgstr ""
 
-#: objects/FS/function.c:579
+#: objects/FS/function.c:582
 msgid "      Remove"
 msgstr ""
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:583
 msgid "   Refine"
 msgstr ""
 
-#: objects/FS/function.c:581
+#: objects/FS/function.c:584
 msgid "   Distribute"
 msgstr ""
 
-#: objects/FS/function.c:582
+#: objects/FS/function.c:585
 msgid "   Dissipate"
 msgstr ""
 
-#: objects/FS/function.c:583
+#: objects/FS/function.c:586
 msgid "Provision"
 msgstr ""
 
-#: objects/FS/function.c:584
+#: objects/FS/function.c:587
 msgid "   Store"
 msgstr ""
 
-#: objects/FS/function.c:585
+#: objects/FS/function.c:588
 msgid "   Supply"
 msgstr ""
 
-#: objects/FS/function.c:586
+#: objects/FS/function.c:589
 msgid "   Extract"
 msgstr ""
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:590
 msgid "Control Magnitude"
 msgstr ""
 
-#: objects/FS/function.c:588
+#: objects/FS/function.c:591
 msgid "   Actuate"
 msgstr ""
 
-#: objects/FS/function.c:589
+#: objects/FS/function.c:592
 msgid "   Regulate"
 msgstr ""
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:593
 msgid "   Change"
 msgstr ""
 
-#: objects/FS/function.c:591
+#: objects/FS/function.c:594
 msgid "   Form"
 msgstr ""
 
-#: objects/FS/function.c:592
+#: objects/FS/function.c:595
 msgid "Convert"
 msgstr ""
 
-#: objects/FS/function.c:594
+#: objects/FS/function.c:597
 msgid "   Sense"
 msgstr ""
 
-#: objects/FS/function.c:595
+#: objects/FS/function.c:598
 msgid "   Indicate"
 msgstr ""
 
-#: objects/FS/function.c:596
+#: objects/FS/function.c:599
 msgid "   Display"
 msgstr ""
 
-#: objects/FS/function.c:597
+#: objects/FS/function.c:600
 msgid "   Measure"
 msgstr ""
 
@@ -1760,18 +1760,18 @@ msgstr ""
 msgid "A custom with text inside."
 msgstr ""
 
-#: objects/custom/custom_object.c:309 objects/custom/custom_object.c:473
-#: objects/flowchart/box.c:293 objects/flowchart/box.c:451
-#: objects/flowchart/diamond.c:288 objects/flowchart/diamond.c:429
-#: objects/flowchart/ellipse.c:288 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:296 objects/flowchart/parallelogram.c:455
+#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
+#: objects/flowchart/box.c:292 objects/flowchart/box.c:450
+#: objects/flowchart/diamond.c:287 objects/flowchart/diamond.c:427
+#: objects/flowchart/ellipse.c:287 objects/flowchart/ellipse.c:427
+#: objects/flowchart/parallelogram.c:295 objects/flowchart/parallelogram.c:454
 #: objects/standard/box.c:244 objects/standard/box.c:332
 msgid "Draw background"
 msgstr ""
 
-#: objects/custom/custom_object.c:317 objects/flowchart/box.c:301
-#: objects/flowchart/diamond.c:296 objects/flowchart/ellipse.c:296
-#: objects/flowchart/parallelogram.c:304 objects/standard/arc.c:230
+#: objects/custom/custom_object.c:316 objects/flowchart/box.c:300
+#: objects/flowchart/diamond.c:295 objects/flowchart/ellipse.c:295
+#: objects/flowchart/parallelogram.c:303 objects/standard/arc.c:230
 #: objects/standard/box.c:252 objects/standard/ellipse.c:225
 #: objects/standard/image.c:288 objects/standard/image.c:383
 #: objects/standard/line.c:227 objects/standard/polyline.c:232
@@ -1779,48 +1779,48 @@ msgstr ""
 msgid "Line style:"
 msgstr ""
 
-#: objects/custom/custom_object.c:334 objects/custom/custom_object.c:482
-#: objects/flowchart/box.c:327 objects/flowchart/box.c:473
-#: objects/flowchart/diamond.c:307 objects/flowchart/diamond.c:437
-#: objects/flowchart/ellipse.c:307 objects/flowchart/ellipse.c:436
-#: objects/flowchart/parallelogram.c:330 objects/flowchart/parallelogram.c:477
+#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
+#: objects/flowchart/box.c:326 objects/flowchart/box.c:472
+#: objects/flowchart/diamond.c:306 objects/flowchart/diamond.c:435
+#: objects/flowchart/ellipse.c:306 objects/flowchart/ellipse.c:435
+#: objects/flowchart/parallelogram.c:329 objects/flowchart/parallelogram.c:476
 msgid "Text padding:"
 msgstr ""
 
-#: objects/custom/custom_object.c:348 objects/custom/custom_object.c:496
+#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
 #: objects/standard/textobj.c:196 objects/standard/textobj.c:290
 msgid "Alignment:"
 msgstr ""
 
-#: objects/custom/custom_object.c:359 objects/custom/custom_object.c:507
-#: objects/flowchart/box.c:341 objects/flowchart/box.c:487
-#: objects/flowchart/diamond.c:321 objects/flowchart/diamond.c:451
-#: objects/flowchart/ellipse.c:321 objects/flowchart/ellipse.c:450
-#: objects/flowchart/parallelogram.c:344 objects/flowchart/parallelogram.c:491
+#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
+#: objects/flowchart/box.c:340 objects/flowchart/box.c:486
+#: objects/flowchart/diamond.c:320 objects/flowchart/diamond.c:449
+#: objects/flowchart/ellipse.c:320 objects/flowchart/ellipse.c:449
+#: objects/flowchart/parallelogram.c:343 objects/flowchart/parallelogram.c:490
 #: objects/standard/textobj.c:207 objects/standard/textobj.c:301
 msgid "Font:"
 msgstr ""
 
-#: objects/custom/custom_object.c:370 objects/custom/custom_object.c:518
-#: objects/flowchart/box.c:352 objects/flowchart/box.c:498
-#: objects/flowchart/diamond.c:332 objects/flowchart/diamond.c:462
-#: objects/flowchart/ellipse.c:332 objects/flowchart/ellipse.c:461
-#: objects/flowchart/parallelogram.c:355 objects/flowchart/parallelogram.c:502
+#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
+#: objects/flowchart/box.c:351 objects/flowchart/box.c:497
+#: objects/flowchart/diamond.c:331 objects/flowchart/diamond.c:460
+#: objects/flowchart/ellipse.c:331 objects/flowchart/ellipse.c:460
+#: objects/flowchart/parallelogram.c:354 objects/flowchart/parallelogram.c:501
 msgid "Font size:"
 msgstr ""
 
-#: objects/custom/custom_object.c:384 objects/flowchart/box.c:366
-#: objects/flowchart/diamond.c:346 objects/flowchart/ellipse.c:346
-#: objects/flowchart/parallelogram.c:369
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:365
+#: objects/flowchart/diamond.c:345 objects/flowchart/ellipse.c:345
+#: objects/flowchart/parallelogram.c:368
 #, fuzzy
 msgid "Font color:"
 msgstr "Foreground colour:"
 
-#: objects/custom/custom_object.c:1370
+#: objects/custom/custom_object.c:1377
 msgid "Flip Horizontal"
 msgstr ""
 
-#: objects/custom/custom_object.c:1371
+#: objects/custom/custom_object.c:1378
 msgid "Flip Vertical"
 msgstr ""
 
@@ -1828,7 +1828,7 @@ msgstr ""
 msgid "A box with text inside."
 msgstr ""
 
-#: objects/flowchart/box.c:312 objects/flowchart/box.c:459
+#: objects/flowchart/box.c:311 objects/flowchart/box.c:458
 #: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
 msgstr ""
@@ -1841,11 +1841,11 @@ msgstr ""
 msgid "A ellipse with text inside."
 msgstr ""
 
-#: objects/flowchart/flowchart.c:46
+#: objects/flowchart/flowchart.c:264
 msgid "Flowchart"
 msgstr ""
 
-#: objects/flowchart/flowchart.c:47
+#: objects/flowchart/flowchart.c:265
 msgid "Objects to draw flowcharts"
 msgstr ""
 
@@ -1853,7 +1853,7 @@ msgstr ""
 msgid "A parallelogram with text inside."
 msgstr ""
 
-#: objects/flowchart/parallelogram.c:315 objects/flowchart/parallelogram.c:463
+#: objects/flowchart/parallelogram.c:314 objects/flowchart/parallelogram.c:462
 msgid "Shear angle:"
 msgstr ""
 
@@ -1863,12 +1863,16 @@ msgid "A Antenna for wireless transmissions"
 msgstr ""
 
 #. type
-#: objects/network/bus.c:97
+#: objects/network/bus.c:128
 msgid "Ethernet bus."
 msgstr ""
 
-#: objects/network/bus.c:189
-msgid "Number of handles:"
+#: objects/network/bus.c:578
+msgid "Add Handle"
+msgstr ""
+
+#: objects/network/bus.c:579
+msgid "Delete Handle"
 msgstr ""
 
 #. type
@@ -1906,11 +1910,11 @@ msgstr ""
 msgid "A monitor, with a stand"
 msgstr ""
 
-#: objects/network/network.c:75
+#: objects/network/network.c:77
 msgid "Network"
 msgstr ""
 
-#: objects/network/network.c:76
+#: objects/network/network.c:78
 msgid "Objects to design network diagrams with"
 msgstr ""
 

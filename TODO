@@ -1,92 +1,78 @@
 TODO:
 =====
-general:
-* change cursors more, ie. when the mouse is grabbed for resizing/moving stuff.
-* Run purify on Dia. I don't have purify, anyone who has it is welcome to try!
+* Option for turning on/off showing of connection points.
+
+* When creating an object and moving the mouse to resize it. Warp the
+  pointer to the handle that is being moved.
+  
+* Change cursors more often, ie. when the mouse is grabbed for
+  resizing/moving stuff.
+  
+* Run purify on Dia. I don't have purify, anyone who has it is welcome
+  to try!
+  
 * Tab order in properties dialogs. (How do you specify this in gtk?)
+
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
-* Must be able to change background color.
+  
+* Should be able to change background color.
+
 * Is there a better way to calculate font-properties? Rendering 100 pixel high
   fonts is very slow.
-* Update to automake 1.4 and libtool 1.3 when they're released. It has
-  much better support for dlopen:ed modules.
-* Add paper size + paper orientation. Draw the paper on screen. Flip ps output
-  if landscape orientation. Export real size to postscript file.
-* Export to WMF.
+  
+* Add paper size + paper orientation. Draw the paper on screen.
+  Flip ps output if landscape orientation. Export real size to
+  postscript file.
+  
+* Add export to WMF capabilities for windows stuff.
+
 * Accelerators for buttons in the toolbar.
-* Fix the transitive selection
+
+* Implement transitive selection. This means you select an object and all
+  objects it is somehow connected to.
+  
 * resizable groups.
 
-functions:
 * Turn on/off showing of connectionpoints
-* undo, see event model later in this file.
+
 * auto-save backup files
 
-objects:
-* Add bezier object.
-* finish the network objects
-* Add connections to the network bus object via the object menu.
-* render_object: better distance_from that can be specified by the object programmer.
-* Vector image object (for maps and stuff). CGM?
+* Add bezier line object.
 
-UML:
- Aggregate: * Has some problems laying out the text at the ends.
- All:   * Change some entries to comboboxes with pre-selectable texts.
-          (Mostly stereotypes)
- Class:
-   * Keyboard shortcuts in properties dialog... new, duplicate, up/down etc.
-   * Scroll to end of properties list when new prop added.
+* Add more network objects
 
+* render_object: better distance_from that can be specified by the
+  object programmer.
+  
+* Vector image object (for maps and stuff). CGM? SVG?
 
+* Add pre-selectable stereotypes to all UML objects with stereotypes.
 
-Big stuff:
- * some kind of 'plug-in api' so that libraries like uml can add new
-   functions to the menus (like: load UMX or export SQL ). This is the reason
-   that DiagramData was broken out of Diagram and moved to lib/diagramdata.h.
+* Add keyboard shortcuts in the "UML - Class" properties dialog.
 
- * Add a clean event model so that all modifications of the diagram and objects
-   goes by a well known path. This makes it possible to have a history of
-   modifications which means UNDO is easy!
+* In "UML - Class" properties dialog. Scroll to the end of the
+  properties list when new properties are added. Same thing with
+  operations. 
 
----------------------------------------------------------------
-
-BUGS:
-=====
-* Entering an erronous command as print command crashes dia.
-
-* Strings with only spaces in them seems to get zero width. Most visible on an "UML - Note".
-
-* doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
-
-* If you move an object outside the visible screen, scroll there move the object back
-  and then scroll back, the (now) unused area is not removed.
-
-* Toggling rulers changes the size of the window to the default size.
-  I don't know how this can be fixed.
-
-* Changing arrow properties on a line and then double-clicking on another line sometimes crashes
-  Dia.
-
-Old bugs i can't reproduce but don't know if they're solved:
-============================================================
-
-* Sometimes the scrollbars turn weird when you remove the last
-  object. (Try: move around the last object a bit and then press ctrl-x.)
-
-* UML - Association with direction==Right doesn't always show arrow.
-  Problem with bounding box.
-
----------------------------------------------------------------
+* Add some kind of 'plug-in api' so that libraries like uml can add new
+  functions to the menus (like: load UMX or export SQL ). This is the
+  reason that DiagramData was broken out of Diagram and moved to
+  lib/diagramdata.h. 
 
 Interesting Stuff from the real Visio:
 ======================================
-Move connection points
-Fill patterns
-line patterns
-shadow color
-object corner types
-Editing of groups in a separate window
-Perspecitve point
-Lockable handles
-Rotate stuff, to complex to be implemented in this version.
+This part contains some stuff that exist in the Windows program
+Visio. These are not on my "TODO" list for stuff to be implemented
+right now, but they are nice to have around in case someone wants to
+work with Dia and needs ideas for new cool stuff.
+
+* Move connection points
+* Fill patterns
+* line patterns
+* shadow color
+* object corner types
+* Editing of groups in a separate window
+* Perspecitve point
+* Lockable handles
+* Rotate stuff, to complex to be implemented in this version.

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-10-14 10:55+0200\n"
+"POT-Creation-Date: 1999-10-16 17:01+0200\n"
 "PO-Revision-Date: 1999-09-25 15:28+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -1844,11 +1844,11 @@ msgstr "Størrelse på skrifttype:"
 msgid "Font color:"
 msgstr "Skriftfarge:"
 
-#: objects/custom/custom_object.c:1373
+#: objects/custom/custom_object.c:1377
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1374
+#: objects/custom/custom_object.c:1378
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
@@ -1869,11 +1869,11 @@ msgstr "En diamant med tekst inni."
 msgid "A ellipse with text inside."
 msgstr "En ellipse med tekst inni."
 
-#: objects/flowchart/flowchart.c:129
+#: objects/flowchart/flowchart.c:264
 msgid "Flowchart"
 msgstr "Flytdiagram"
 
-#: objects/flowchart/flowchart.c:130
+#: objects/flowchart/flowchart.c:265
 msgid "Objects to draw flowcharts"
 msgstr "Objekter for å tegne flytdiagrammer"
 
@@ -2017,6 +2017,7 @@ msgstr ""
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Bildefilen '%s' ble ikke funnet.\n"
+
 #: objects/standard/polyline.c:741
 msgid "Add Corner"
 msgstr "Legg til hjørne"
@@ -2068,4 +2069,3 @@ msgid "Objects to design Sybase replication domain diagrams with"
 msgstr ""
 "Objekter til å utforming av domene-diagrammer for replikering i Sybase "
 "databaser"
-

@@ -1,3 +1,9 @@
+News in version 0.80:
+* Undo capabilities
+* Printing support
+* Possibilities to create new objects in XML.
+* 
+
 News in version 0.41:
 * Some internalization bugfixes.
 Note that some translations still has problems. "sv" works.

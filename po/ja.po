@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
-"POT-Creation-Date: 1999-10-10 22:20+0800\n"
+"POT-Creation-Date: 1999-10-16 17:01+0200\n"
 "PO-Revision-Date: 1999-08-03 14:03+0900\n"
 "Last-Translator: Yukihiro Nakai <nacai@iname.com>\n"
 "Language-Team: Japanese GNOME Users Group <ja@li.org>\n"
@@ -14,34 +14,34 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-japan\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:127
+#: app/app_procs.c:128
 msgid "Export loaded file to postscript and exit"
 msgstr "ÆÉ¤ß¹þ¤ó¤À¥Õ¥¡¥¤¥ë¤òpostscript¤Ë½ÐÎÏ¤·¤Æ½ªÎ»¤¹¤ë"
 
-#: app/app_procs.c:128
+#: app/app_procs.c:129
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:145
+#: app/app_procs.c:146
 msgid "Can't connect to session manager!\n"
 msgstr "¥»¥Ã¥·¥ç¥ó¥Þ¥Í¡¼¥¸¥ã¤ËÀÜÂ³¤Ç¤­¤Þ¤»¤ó!\n"
 
-#: app/app_procs.c:183 app/app_procs.c:185
+#: app/app_procs.c:184 app/app_procs.c:186
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "object-libs¤òÃµ¤·¤Þ¤·¤¿¤¬¡¢É¸½à¥ª¥Ö¥¸¥§¥¯¥È¤ò¸«¤Ä¤±¤é¤ì¤Ê¤«¤Ã¤¿¤Î¤Ç¡¢½ªÎ»¤·¤Þ"
 "¤¹...\n"
 
-#: app/app_procs.c:200
+#: app/app_procs.c:201
 msgid "Need valid input file\n"
 msgstr "Í­¸ú¤ÊÆþÎÏ¥Õ¥¡¥¤¥ë¤¬É¬Í×¤Ç¤¹\n"
 
-#: app/app_procs.c:238
+#: app/app_procs.c:239
 msgid "Quit, are you sure?"
 msgstr "½ªÎ»¤·¤Þ¤¹¡£¤è¤í¤·¤¤¤Ç¤¹¤«?"
 
-#: app/app_procs.c:240
+#: app/app_procs.c:241
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -49,20 +49,20 @@ msgstr ""
 "ÊÑ¹¹¤µ¤ì¤¿¥À¥¤¥¢¥°¥é¥à¤¬¤¢¤ê¤Þ¤¹¡£\n"
 "½ªÎ»¤·¤Æ¤â¤è¤í¤·¤¤¤Ç¤¹¤«?"
 
-#: app/app_procs.c:249
+#: app/app_procs.c:250
 msgid "Quit"
 msgstr ""
 
-#: app/app_procs.c:261 app/layer_dialog.c:980 app/lineprops_area.c:518
-#: app/lineprops_area.c:716
+#: app/app_procs.c:262 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr "¥­¥ã¥ó¥»¥ë"
 
-#: app/app_procs.c:295
+#: app/app_procs.c:296
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:340
+#: app/app_procs.c:341
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -71,13 +71,13 @@ msgstr ""
 "ÆÉ¤ß¹þ¤à¥é¥¤¥Ö¥é¥ê¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£\n"
 "%s¤Ï¥Ç¥£¥ì¥¯¥È¥ê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:347
+#: app/app_procs.c:348
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "\"%s\"¤ò³«¤±¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:360 app/app_procs.c:361 app/app_procs.c:385
-#: app/app_procs.c:386
+#: app/app_procs.c:361 app/app_procs.c:362 app/app_procs.c:389
+#: app/app_procs.c:390
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -86,12 +86,12 @@ msgstr ""
 "¥é¥¤¥Ö¥é¥ê¤ÎÆÉ¤ß¹þ¤ß¤Ë¼ºÇÔ¤·¤Þ¤·¤¿: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:366 app/app_procs.c:367
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "¥Õ¥¡¥¤¥ë\"%s\"¤ÏDia¥ª¥Ö¥¸¥§¥¯¥È¥é¥¤¥Ö¥é¥ê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:372 app/app_procs.c:373
+#: app/app_procs.c:374 app/app_procs.c:375
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -102,7 +102,7 @@ msgstr ""
 "¤­¤Þ¤»¤ó¡£\n"
 "¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: app/app_procs.c:378 app/app_procs.c:379
+#: app/app_procs.c:381 app/app_procs.c:382
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -111,7 +111,7 @@ msgstr ""
 "¥ª¥Ö¥¸¥§¥¯¥È¥é¥¤¥Ö¥é¥ê\"%s\"¤Ï¡¢¿·¤·¤¤¥Ð¡¼¥¸¥ç¥ó¤ÎDia¤Î¤â¤Î¤Ç¤¹¡£\n"
 "¤³¤ì¤ò»È¤¦¾ì¹ç¤Ë¤Ï¡¢Dia¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: app/app_procs.c:447
+#: app/app_procs.c:455
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -200,8 +200,8 @@ msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "¾ÜºÙ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï http://www.lysator.liu.se/~alla/dia ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤"
 
-#: app/commands.c:817 app/layer_dialog.c:970 app/lineprops_area.c:509
-#: app/lineprops_area.c:706 app/preferences.c:543 app/properties.c:54
+#: app/commands.c:817 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/lineprops_area.c:704 app/preferences.c:543 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr "Î»²ò"
@@ -443,16 +443,16 @@ msgstr "¥ì¥¤¥ä¤ÎÂ°À­¤òÊÔ½¸¤¹¤ë"
 msgid "Layer name:"
 msgstr "¥ì¥¤¥äÌ¾:"
 
-#: app/lineprops_area.c:498
+#: app/lineprops_area.c:496
 #, fuzzy
 msgid "Arrow Properties"
 msgstr "¥×¥í¥Ñ¥Æ¥£(_P)"
 
-#: app/lineprops_area.c:555 app/lineprops_area.c:739
+#: app/lineprops_area.c:553 app/lineprops_area.c:737
 msgid "Details..."
 msgstr ""
 
-#: app/lineprops_area.c:695
+#: app/lineprops_area.c:693
 #, fuzzy
 msgid "Line Style Properties"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤Î¥×¥í¥Ñ¥Æ¥£"
@@ -1091,27 +1091,27 @@ msgid "Multivalue"
 msgstr "Ê£¿ôÃÍ"
 
 #: objects/ER/attribute.c:246 objects/ER/entity.c:222
-#: objects/ER/relationship.c:303 objects/custom/custom_object.c:272
-#: objects/flowchart/box.c:256 objects/flowchart/diamond.c:251
-#: objects/flowchart/ellipse.c:251 objects/flowchart/parallelogram.c:259
+#: objects/ER/relationship.c:303 objects/custom/custom_object.c:271
+#: objects/flowchart/box.c:255 objects/flowchart/diamond.c:250
+#: objects/flowchart/ellipse.c:250 objects/flowchart/parallelogram.c:258
 #: objects/standard/box.c:207 objects/standard/ellipse.c:188
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr "¶­³¦ÀþÉý¡§"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:233
-#: objects/ER/relationship.c:314 objects/custom/custom_object.c:287
-#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:266
-#: objects/flowchart/ellipse.c:266 objects/flowchart/parallelogram.c:274
+#: objects/ER/relationship.c:314 objects/custom/custom_object.c:286
+#: objects/flowchart/box.c:270 objects/flowchart/diamond.c:265
+#: objects/flowchart/ellipse.c:265 objects/flowchart/parallelogram.c:273
 #: objects/standard/box.c:222 objects/standard/ellipse.c:203
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Ê¸»ú¿§¡§"
 
 #: objects/ER/attribute.c:265 objects/ER/entity.c:241
-#: objects/ER/relationship.c:322 objects/custom/custom_object.c:298
-#: objects/flowchart/box.c:282 objects/flowchart/diamond.c:277
-#: objects/flowchart/ellipse.c:277 objects/flowchart/parallelogram.c:285
+#: objects/ER/relationship.c:322 objects/custom/custom_object.c:297
+#: objects/flowchart/box.c:281 objects/flowchart/diamond.c:276
+#: objects/flowchart/ellipse.c:276 objects/flowchart/parallelogram.c:284
 #: objects/standard/box.c:233 objects/standard/ellipse.c:214
 msgid "Background color:"
 msgstr "ÇØ·Ê¿§¡§"
@@ -1185,43 +1185,43 @@ msgstr "¥¢¥¤¥Ç¥ó¥Æ¥£¥Õ¥¡¥¤"
 msgid "Create an orthogonal polyline flow"
 msgstr "orthogonal polyline flow¤òºî¤ë"
 
-#: objects/FS/flow-ortho.c:566 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:745 objects/FS/flow.c:629 objects/FS/flow.c:742
+#: objects/FS/flow-ortho.c:568 objects/FS/flow-poly.c:634
+#: objects/FS/flow-poly.c:749 objects/FS/flow.c:631 objects/FS/flow.c:746
 msgid "Flow:"
 msgstr "¥Õ¥í¡¼¡§"
 
-#: objects/FS/flow-ortho.c:581 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:761 objects/FS/flow.c:644 objects/FS/flow.c:758
+#: objects/FS/flow-ortho.c:583 objects/FS/flow-poly.c:649
+#: objects/FS/flow-poly.c:765 objects/FS/flow.c:646 objects/FS/flow.c:762
 msgid "Flow type:"
 msgstr "¥Õ¥í¡¼¤Î·¿¡§"
 
 #.
-#: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:639
-#: objects/FS/flow-ortho.c:699 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:705 objects/FS/flow-poly.c:766 objects/FS/flow.c:649
-#: objects/FS/flow.c:702 objects/FS/flow.c:763
+#: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:641
+#: objects/FS/flow-ortho.c:701 objects/FS/flow-poly.c:654
+#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:770 objects/FS/flow.c:651
+#: objects/FS/flow.c:706 objects/FS/flow.c:767
 msgid "Energy"
 msgstr "¥¨¥Ê¥¸¡¼"
 
-#: objects/FS/flow-ortho.c:593 objects/FS/flow-ortho.c:640
-#: objects/FS/flow-ortho.c:706 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:706 objects/FS/flow-poly.c:773 objects/FS/flow.c:656
-#: objects/FS/flow.c:703 objects/FS/flow.c:770
+#: objects/FS/flow-ortho.c:595 objects/FS/flow-ortho.c:642
+#: objects/FS/flow-ortho.c:708 objects/FS/flow-poly.c:661
+#: objects/FS/flow-poly.c:710 objects/FS/flow-poly.c:777 objects/FS/flow.c:658
+#: objects/FS/flow.c:707 objects/FS/flow.c:774
 msgid "Material"
 msgstr "ºàÎÁ"
 
-#: objects/FS/flow-ortho.c:599 objects/FS/flow-ortho.c:641
-#: objects/FS/flow-ortho.c:712 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:779 objects/FS/flow.c:662
-#: objects/FS/flow.c:704 objects/FS/flow.c:776 objects/FS/function.c:593
+#: objects/FS/flow-ortho.c:601 objects/FS/flow-ortho.c:643
+#: objects/FS/flow-ortho.c:714 objects/FS/flow-poly.c:667
+#: objects/FS/flow-poly.c:711 objects/FS/flow-poly.c:783 objects/FS/flow.c:664
+#: objects/FS/flow.c:708 objects/FS/flow.c:780 objects/FS/function.c:596
 msgid "Signal"
 msgstr "¥·¥°¥Ê¥ë"
 
-#: objects/FS/flow-ortho.c:678
+#: objects/FS/flow-ortho.c:680
 msgid "Orthflow:"
 msgstr "Orthflow¡§"
 
-#: objects/FS/flow-ortho.c:694
+#: objects/FS/flow-ortho.c:696
 msgid "Orthflow type:"
 msgstr "Orthflow¤Î·¿¡§"
 
@@ -1243,167 +1243,167 @@ msgstr "´Ø¿ô¹½Â¤¥À¥¤¥¢¥°¥é¥à¤Î¥¨¥Ç¥£¥¿¡£"
 msgid "Create a function"
 msgstr "´Ø¿ô¤ÎºîÀ®"
 
-#: objects/FS/function.c:507
+#: objects/FS/function.c:508
 msgid "Function:"
 msgstr "´Ø¿ô¡§"
 
-#: objects/FS/function.c:517
+#: objects/FS/function.c:518
 msgid "Wish function"
 msgstr "´õË¾¤¹¤ë´Ø¿ô"
 
-#: objects/FS/function.c:522
+#: objects/FS/function.c:523
 msgid "User function"
 msgstr "¥æ¡¼¥¶´Ø¿ô"
 
-#: objects/FS/function.c:559
+#: objects/FS/function.c:562
 msgid "Channel"
 msgstr "¥Á¥ã¥Í¥ë"
 
-#: objects/FS/function.c:560
+#: objects/FS/function.c:563
 msgid "   Import"
 msgstr "   ¥¤¥ó¥Ý¡¼¥È"
 
-#: objects/FS/function.c:561
+#: objects/FS/function.c:564
 msgid "   Export"
 msgstr "   ¥¨¥¯¥¹¥Ý¡¼¥È"
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:565
 msgid "   Transfer"
 msgstr "   ¥È¥é¥ó¥¹¥Õ¥¡¡¼"
 
-#: objects/FS/function.c:563
+#: objects/FS/function.c:566
 msgid "      Transport"
 msgstr "      ¥È¥é¥ó¥¹¥Ý¡¼¥È"
 
-#: objects/FS/function.c:564
+#: objects/FS/function.c:567
 msgid "      Transmit"
 msgstr "      ¥È¥é¥ó¥¹¥ß¥Ã¥È"
 
-#: objects/FS/function.c:565
+#: objects/FS/function.c:568
 msgid "   Guide"
 msgstr "   ¥¬¥¤¥É"
 
-#: objects/FS/function.c:566
+#: objects/FS/function.c:569
 msgid "      Translate"
 msgstr "      ¥È¥é¥ó¥¹¥ì¡¼¥È"
 
-#: objects/FS/function.c:567
+#: objects/FS/function.c:570
 msgid "      Rotate"
 msgstr "      ²óÅ¾"
 
-#: objects/FS/function.c:568
+#: objects/FS/function.c:571
 msgid "      Allow DOF"
 msgstr "      DOF¤òµö¤¹"
 
-#: objects/FS/function.c:569
+#: objects/FS/function.c:572
 msgid "Support"
 msgstr "¥µ¥Ý¡¼¥È"
 
-#: objects/FS/function.c:570
+#: objects/FS/function.c:573
 msgid "   Stop"
 msgstr "   ¥¹¥È¥Ã¥×"
 
-#: objects/FS/function.c:571
+#: objects/FS/function.c:574
 msgid "   Stabilize"
 msgstr "   ¥¹¥¿¥Ó¥é¥¤¥º"
 
-#: objects/FS/function.c:572
+#: objects/FS/function.c:575
 msgid "   Secure"
 msgstr "   ¥»¥­¥å¥¢"
 
-#: objects/FS/function.c:573
+#: objects/FS/function.c:576
 msgid "   Position"
 msgstr "   °ÌÃÖ"
 
-#: objects/FS/function.c:574
+#: objects/FS/function.c:577
 msgid "Connect"
 msgstr "ÀÜÂ³"
 
-#: objects/FS/function.c:575
+#: objects/FS/function.c:578
 msgid "   Couple"
 msgstr "   ¥«¥Ã¥×¥ë"
 
-#: objects/FS/function.c:576
+#: objects/FS/function.c:579
 msgid "   Mix"
 msgstr "   ¥ß¥Ã¥¯¥¹"
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:580
 msgid "Branch"
 msgstr "Ê¬´ô"
 
-#: objects/FS/function.c:578
+#: objects/FS/function.c:581
 msgid "   Separate"
 msgstr "   Ê¬³ä"
 
-#: objects/FS/function.c:579
+#: objects/FS/function.c:582
 msgid "      Remove"
 msgstr "      ºï½ü"
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:583
 msgid "   Refine"
 msgstr "   ¥ê¥Õ¥¡¥¤¥ó"
 
-#: objects/FS/function.c:581
+#: objects/FS/function.c:584
 msgid "   Distribute"
 msgstr "   ÇÛÉÛ"
 
-#: objects/FS/function.c:582
+#: objects/FS/function.c:585
 msgid "   Dissipate"
 msgstr "   ¥Ç¥£¥·¥Ú¡¼¥È"
 
-#: objects/FS/function.c:583
+#: objects/FS/function.c:586
 msgid "Provision"
 msgstr "¥×¥í¥Ó¥¸¥ç¥ó"
 
-#: objects/FS/function.c:584
+#: objects/FS/function.c:587
 msgid "   Store"
 msgstr "   ¥¹¥È¥¢"
 
-#: objects/FS/function.c:585
+#: objects/FS/function.c:588
 msgid "   Supply"
 msgstr "   ¥µ¥×¥é¥¤"
 
-#: objects/FS/function.c:586
+#: objects/FS/function.c:589
 msgid "   Extract"
 msgstr "   Å¸³«"
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:590
 msgid "Control Magnitude"
 msgstr "¥³¥ó¥È¥í¡¼¥ëÇÜÎ¨"
 
-#: objects/FS/function.c:588
+#: objects/FS/function.c:591
 msgid "   Actuate"
 msgstr "   ¥¢¥¯¥Á¥å¥¨¡¼¥È"
 
-#: objects/FS/function.c:589
+#: objects/FS/function.c:592
 msgid "   Regulate"
 msgstr "   ¥ì¥®¥å¥ì¡¼¥È"
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:593
 msgid "   Change"
 msgstr "   ÊÑ¹¹"
 
-#: objects/FS/function.c:591
+#: objects/FS/function.c:594
 msgid "   Form"
 msgstr "   ¥Õ¥©¡¼¥à"
 
-#: objects/FS/function.c:592
+#: objects/FS/function.c:595
 msgid "Convert"
 msgstr "¥³¥ó¥Ð¡¼¥È"
 
-#: objects/FS/function.c:594
+#: objects/FS/function.c:597
 msgid "   Sense"
 msgstr "   ¥»¥ó¥¹"
 
-#: objects/FS/function.c:595
+#: objects/FS/function.c:598
 msgid "   Indicate"
 msgstr "¥¤¥ó¥Ç¥£¥±¡¼¥È"
 
-#: objects/FS/function.c:596
+#: objects/FS/function.c:599
 msgid "   Display"
 msgstr "   É½¼¨"
 
-#: objects/FS/function.c:597
+#: objects/FS/function.c:600
 msgid "   Measure"
 msgstr "   ¥á¥¸¥ã¡¼"
 
@@ -1802,18 +1802,18 @@ msgstr "¥³¥é¥Ü¥ì¡¼¥·¥ç¥ó"
 msgid "A custom with text inside."
 msgstr ""
 
-#: objects/custom/custom_object.c:309 objects/custom/custom_object.c:473
-#: objects/flowchart/box.c:293 objects/flowchart/box.c:451
-#: objects/flowchart/diamond.c:288 objects/flowchart/diamond.c:429
-#: objects/flowchart/ellipse.c:288 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:296 objects/flowchart/parallelogram.c:455
+#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
+#: objects/flowchart/box.c:292 objects/flowchart/box.c:450
+#: objects/flowchart/diamond.c:287 objects/flowchart/diamond.c:427
+#: objects/flowchart/ellipse.c:287 objects/flowchart/ellipse.c:427
+#: objects/flowchart/parallelogram.c:295 objects/flowchart/parallelogram.c:454
 #: objects/standard/box.c:244 objects/standard/box.c:332
 msgid "Draw background"
 msgstr "¥Ð¥Ã¥¯¥°¥é¥¦¥ó¥É¤ÎÉÁ²è"
 
-#: objects/custom/custom_object.c:317 objects/flowchart/box.c:301
-#: objects/flowchart/diamond.c:296 objects/flowchart/ellipse.c:296
-#: objects/flowchart/parallelogram.c:304 objects/standard/arc.c:230
+#: objects/custom/custom_object.c:316 objects/flowchart/box.c:300
+#: objects/flowchart/diamond.c:295 objects/flowchart/ellipse.c:295
+#: objects/flowchart/parallelogram.c:303 objects/standard/arc.c:230
 #: objects/standard/box.c:252 objects/standard/ellipse.c:225
 #: objects/standard/image.c:288 objects/standard/image.c:383
 #: objects/standard/line.c:227 objects/standard/polyline.c:232
@@ -1821,50 +1821,50 @@ msgstr "¥Ð¥Ã¥¯¥°¥é¥¦¥ó¥É¤ÎÉÁ²è"
 msgid "Line style:"
 msgstr "Àþ¤Î¥¹¥¿¥¤¥ë¡§"
 
-#: objects/custom/custom_object.c:334 objects/custom/custom_object.c:482
-#: objects/flowchart/box.c:327 objects/flowchart/box.c:473
-#: objects/flowchart/diamond.c:307 objects/flowchart/diamond.c:437
-#: objects/flowchart/ellipse.c:307 objects/flowchart/ellipse.c:436
-#: objects/flowchart/parallelogram.c:330 objects/flowchart/parallelogram.c:477
+#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
+#: objects/flowchart/box.c:326 objects/flowchart/box.c:472
+#: objects/flowchart/diamond.c:306 objects/flowchart/diamond.c:435
+#: objects/flowchart/ellipse.c:306 objects/flowchart/ellipse.c:435
+#: objects/flowchart/parallelogram.c:329 objects/flowchart/parallelogram.c:476
 msgid "Text padding:"
 msgstr ""
 
-#: objects/custom/custom_object.c:348 objects/custom/custom_object.c:496
+#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
 #: objects/standard/textobj.c:196 objects/standard/textobj.c:290
 msgid "Alignment:"
 msgstr "¥¢¥é¥¤¥ó¥á¥ó¥È¡§"
 
-#: objects/custom/custom_object.c:359 objects/custom/custom_object.c:507
-#: objects/flowchart/box.c:341 objects/flowchart/box.c:487
-#: objects/flowchart/diamond.c:321 objects/flowchart/diamond.c:451
-#: objects/flowchart/ellipse.c:321 objects/flowchart/ellipse.c:450
-#: objects/flowchart/parallelogram.c:344 objects/flowchart/parallelogram.c:491
+#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
+#: objects/flowchart/box.c:340 objects/flowchart/box.c:486
+#: objects/flowchart/diamond.c:320 objects/flowchart/diamond.c:449
+#: objects/flowchart/ellipse.c:320 objects/flowchart/ellipse.c:449
+#: objects/flowchart/parallelogram.c:343 objects/flowchart/parallelogram.c:490
 #: objects/standard/textobj.c:207 objects/standard/textobj.c:301
 msgid "Font:"
 msgstr "¥Õ¥©¥ó¥È¡§"
 
-#: objects/custom/custom_object.c:370 objects/custom/custom_object.c:518
-#: objects/flowchart/box.c:352 objects/flowchart/box.c:498
-#: objects/flowchart/diamond.c:332 objects/flowchart/diamond.c:462
-#: objects/flowchart/ellipse.c:332 objects/flowchart/ellipse.c:461
-#: objects/flowchart/parallelogram.c:355 objects/flowchart/parallelogram.c:502
+#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
+#: objects/flowchart/box.c:351 objects/flowchart/box.c:497
+#: objects/flowchart/diamond.c:331 objects/flowchart/diamond.c:460
+#: objects/flowchart/ellipse.c:331 objects/flowchart/ellipse.c:460
+#: objects/flowchart/parallelogram.c:354 objects/flowchart/parallelogram.c:501
 #, fuzzy
 msgid "Font size:"
 msgstr "¥Õ¥©¥ó¥È¥µ¥¤¥º¡§"
 
-#: objects/custom/custom_object.c:384 objects/flowchart/box.c:366
-#: objects/flowchart/diamond.c:346 objects/flowchart/ellipse.c:346
-#: objects/flowchart/parallelogram.c:369
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:365
+#: objects/flowchart/diamond.c:345 objects/flowchart/ellipse.c:345
+#: objects/flowchart/parallelogram.c:368
 #, fuzzy
 msgid "Font color:"
 msgstr "Ê¸»ú¿§¡§"
 
-#: objects/custom/custom_object.c:1370
+#: objects/custom/custom_object.c:1377
 #, fuzzy
 msgid "Flip Horizontal"
 msgstr "¿åÊ¿°ÌÃÖ(_H)"
 
-#: objects/custom/custom_object.c:1371
+#: objects/custom/custom_object.c:1378
 #, fuzzy
 msgid "Flip Vertical"
 msgstr "¿âÄ¾°ÌÃÖ(_V)"
@@ -1873,7 +1873,7 @@ msgstr "¿âÄ¾°ÌÃÖ(_V)"
 msgid "A box with text inside."
 msgstr ""
 
-#: objects/flowchart/box.c:312 objects/flowchart/box.c:459
+#: objects/flowchart/box.c:311 objects/flowchart/box.c:458
 #: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
 msgstr "¥³¡¼¥Ê¡¼¤Î´Ý¤á¤«¤¿¡§"
@@ -1886,11 +1886,11 @@ msgstr ""
 msgid "A ellipse with text inside."
 msgstr ""
 
-#: objects/flowchart/flowchart.c:46
+#: objects/flowchart/flowchart.c:264
 msgid "Flowchart"
 msgstr ""
 
-#: objects/flowchart/flowchart.c:47
+#: objects/flowchart/flowchart.c:265
 msgid "Objects to draw flowcharts"
 msgstr ""
 
@@ -1898,7 +1898,7 @@ msgstr ""
 msgid "A parallelogram with text inside."
 msgstr ""
 
-#: objects/flowchart/parallelogram.c:315 objects/flowchart/parallelogram.c:463
+#: objects/flowchart/parallelogram.c:314 objects/flowchart/parallelogram.c:462
 msgid "Shear angle:"
 msgstr ""
 
@@ -1908,13 +1908,19 @@ msgid "A Antenna for wireless transmissions"
 msgstr "ÌµÀþÄÌ¿®¤Î¥¢¥ó¥Æ¥Ê"
 
 #. type
-#: objects/network/bus.c:97
+#: objects/network/bus.c:128
 msgid "Ethernet bus."
 msgstr "¥¤¡¼¥µ¥Í¥Ã¥È¡¦¥Ð¥¹"
 
-#: objects/network/bus.c:189
-msgid "Number of handles:"
-msgstr "¥Ï¥ó¥É¥ë¤Î¿ô¡§"
+#: objects/network/bus.c:578
+#, fuzzy
+msgid "Add Handle"
+msgstr "¥³¡¼¥Ê¡¼¤ÎÄÉ²Ã"
+
+#: objects/network/bus.c:579
+#, fuzzy
+msgid "Delete Handle"
+msgstr "¥ì¥¤¥ä¤òºï½ü¤¹¤ë"
 
 #. type
 #: objects/network/computer.c:55
@@ -1951,11 +1957,11 @@ msgstr "¥â¥¸¥å¥é¡¼¥¹¥¤¥Ã¥Á¥ó¥°¥·¥¹¥Æ¥à"
 msgid "A monitor, with a stand"
 msgstr "¥¹¥¿¥ó¥ÉÉÕ¤­¤Î¥â¥Ë¥¿"
 
-#: objects/network/network.c:75
+#: objects/network/network.c:77
 msgid "Network"
 msgstr "¥Í¥Ã¥È¥ï¡¼¥¯"
 
-#: objects/network/network.c:76
+#: objects/network/network.c:78
 msgid "Objects to design network diagrams with"
 msgstr "¥Í¥Ã¥È¥ï¡¼¥¯¥À¥¤¥¢¥°¥é¥à¤ò¥Ç¥¶¥¤¥ó¤¹¤ë¤¿¤á¤Î¥ª¥Ö¥¸¥§¥¯¥È"
 
@@ -2082,3 +2088,6 @@ msgid "Objects to design Sybase replication domain diagrams with"
 msgstr ""
 "¥µ¥¤¥Ù¡¼¥¹¥ì¥×¥ê¥±¡¼¥·¥ç¥ó¥É¥á¥¤¥ó¥À¥¤¥¢¥°¥é¥à¤ò¥Ç¥¶¥¤¥ó¤¹¤ë¤¿¤á¤Î¥ª¥Ö¥¸¥§¥¯¥"
 "È"
+
+#~ msgid "Number of handles:"
+#~ msgstr "¥Ï¥ó¥É¥ë¤Î¿ô¡§"

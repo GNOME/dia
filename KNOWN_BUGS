@@ -1,0 +1,37 @@
+Known bugs in Dia
+=================
+
+This document describes some known bugs in this version of Dia.	If you
+have a fix for any of these bugs please contact me.
+
+* On Linux Alpha we need to link to -mieee or Dia segfaults on
+startup. This is done by some magic in configure.in. This is probably
+due to some strange floating point exception stuff thats not supposed
+to happen. Dia shouldn't really need strict IEEE compliance, and the
+Alpha version would run faster if this were fixed correctly instead of
+worked around. Alas, i don't have access to any Linux Alpha machines,
+so i can't fix this.
+
+* Keyboard accels must be disabled whilst dragging an object or
+handle, else stuff can crash easily by deleting (Ctrl-X) while dragging.
+
+* The FS objects don't support undo. They also use menus in a non-standard
+way. They have to be cleaned up some day.
+
+* Entering an erronous command as print command crashes dia when
+printing. This is due to writing to the broken pipe. How can this be
+caught and handled?
+
+* Strings with only spaces in them seems to get zero width. Most
+  visible on an "UML - Note".
+
+* Toggling rulers changes the size of the window to the default size.
+  I don't know how this can be fixed.
+
+* Changing arrow properties on a line and then double-clicking on
+  another line sometimes crashes Dia.
+  
+* "UML - Aggregate" lays out the text at the endpoint pretty
+  bad. It collides with the diamond and arrows.
+
+
