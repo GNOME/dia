@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-10-13 18:51+0200\n"
-"PO-Revision-Date: 2000-10-13 18:47+0200\n"
+"POT-Creation-Date: 2000-10-15 16:55+0200\n"
+"PO-Revision-Date: 2000-10-15 18:27+0200\n"
 "Last-Translator: Almer S. Tigelaar <almer1@dds.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -306,7 +306,8 @@ msgstr "Nee"
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:177
+#: plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kon '%s' niet openen voor schrijven.\n"
@@ -431,11 +432,11 @@ msgstr "Polygon"
 
 #: app/interface.c:66
 msgid "Create Beziergon"
-msgstr ""
+msgstr "Maak Beziergon"
 
 #: app/interface.c:67 app/menus.c:200
 msgid "Beziergon"
-msgstr ""
+msgstr "Beziergon"
 
 #: app/interface.c:71
 msgid "Create Line"
@@ -471,11 +472,11 @@ msgstr "Polylijn"
 
 #: app/interface.c:91
 msgid "Create Bezierline"
-msgstr ""
+msgstr "Maak Kromme lijn"
 
 #: app/interface.c:92 app/menus.c:205
 msgid "Bezierline"
-msgstr ""
+msgstr "Kromme lijn"
 
 #: app/interface.c:96
 msgid "Create Image"
@@ -704,7 +705,7 @@ msgstr "_Zichtbaar Rooster"
 
 #: app/menus.c:119
 msgid "_Snap To Grid"
-msgstr ""
+msgstr "_Hecht Aan Rooster"
 
 #: app/menus.c:121
 msgid "Show _Rulers"
@@ -1021,7 +1022,7 @@ msgstr "/Zicht/_Zichtbaar Rooster"
 
 #: app/menus.c:303
 msgid "/View/_Snap To Grid"
-msgstr ""
+msgstr "/View/_Hecht Aan Rooster"
 
 #: app/menus.c:304
 msgid "/View/Show _Rulers"
@@ -1197,7 +1198,7 @@ msgstr "/Hulpmiddelen/Polygon"
 
 #: app/menus.c:350
 msgid "/Tools/Beziergon"
-msgstr ""
+msgstr "/Hulpmiddelen/Beziergon"
 
 #: app/menus.c:351
 msgid "/Tools/Line"
@@ -1217,7 +1218,7 @@ msgstr "/Hulpmiddelen/Polyline"
 
 #: app/menus.c:355
 msgid "/Tools/Bezierline"
-msgstr ""
+msgstr "/"
 
 #: app/menus.c:356
 msgid "/Tools/Image"
@@ -1246,6 +1247,10 @@ msgstr "Diagram Menu"
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Diagram Afdrukken"
+
+#: app/paginate_gnomeprint.c:175
+msgid "An error occured while creating the print context"
+msgstr "Een fout is opgetreden bij het maken van de afdruk context"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
@@ -1362,7 +1367,7 @@ msgstr "Rooster:"
 
 #: app/preferences.c:115
 msgid "Snap to:"
-msgstr ""
+msgstr "Hecht aan:"
 
 #: app/preferences.c:116
 msgid "X Size:"
@@ -1407,7 +1412,7 @@ msgstr "Encapsulated Postscript"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
+msgstr "Interne fout: Instellen van hoek type van eindpunt van bezier"
 
 #: lib/font.c:386
 #, c-format
@@ -1525,7 +1530,7 @@ msgstr "Half Hoofd"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Gestreept Kruis"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
@@ -1727,7 +1732,7 @@ msgstr "      Draaien"
 
 #: objects/FS/function.c:636
 msgid "      Allow DOF"
-msgstr ""
+msgstr "      Sta DOF toe"
 
 #: objects/FS/function.c:637
 msgid "Support"
@@ -1787,7 +1792,7 @@ msgstr "   Verdwijnen"
 
 #: objects/FS/function.c:651
 msgid "Provision"
-msgstr ""
+msgstr "Provisie"
 
 #: objects/FS/function.c:652
 msgid "   Store"
@@ -1795,23 +1800,23 @@ msgstr "   Opslaan"
 
 #: objects/FS/function.c:653
 msgid "   Supply"
-msgstr ""
+msgstr "   Voorraad"
 
 #: objects/FS/function.c:654
 msgid "   Extract"
-msgstr ""
+msgstr "   Extraheren"
 
 #: objects/FS/function.c:655
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Controle Grootte"
 
 #: objects/FS/function.c:656
 msgid "   Actuate"
-msgstr ""
+msgstr "   Drijven"
 
 #: objects/FS/function.c:657
 msgid "   Regulate"
-msgstr ""
+msgstr "   Regelen"
 
 #: objects/FS/function.c:658
 msgid "   Change"
@@ -1819,7 +1824,7 @@ msgstr "   Veranderen"
 
 #: objects/FS/function.c:659
 msgid "   Form"
-msgstr ""
+msgstr "   Vorm"
 
 #: objects/FS/function.c:660
 msgid "Convert"
@@ -1827,7 +1832,7 @@ msgstr "Converteren"
 
 #: objects/FS/function.c:662
 msgid "   Sense"
-msgstr ""
+msgstr "   Bespeuren"
 
 #: objects/FS/function.c:663
 msgid "   Indicate"
@@ -2009,7 +2014,7 @@ msgstr "Tekst opvullen:"
 
 #: objects/SADT/box.c:208
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "Activiteit/Gegevens identificatie"
 
 #: objects/SADT/box.c:539 objects/standard/line.c:178
 msgid "Delete connection point"
@@ -2603,14 +2608,13 @@ msgstr "TeX Pstricks uitvoer filter"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
-#: plug-ins/wpg/wpg.c:1032
-#, c-format
-msgid "File: %s type/version unsupported.\n"
-msgstr "Bestand: %s type/versie niet ondersteund.\n"
+#: plug-ins/shape/shape-export.c:931
+msgid "dia shape file"
+msgstr "dia vorm bestand"
 
-#: plug-ins/wpg/wpg.c:1181
-msgid "WordPerfect Graphics export filter"
-msgstr "WordPerfect Graphics uitvoer filter"
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "dia vorm uitvoer filter"
 
 #: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
@@ -2619,3 +2623,12 @@ msgstr "Scalable Vector Graphics"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Scalable Vector Graphics uitvoer filter"
+
+#: plug-ins/wpg/wpg.c:1032
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Bestand: %s type/versie niet ondersteund.\n"
+
+#: plug-ins/wpg/wpg.c:1181
+msgid "WordPerfect Graphics export filter"
+msgstr "WordPerfect Graphics uitvoer filter"
