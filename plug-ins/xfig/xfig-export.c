@@ -74,7 +74,7 @@ struct _XfigRenderer
 /* check whether there exists an arrow head */
 static int hasArrow(Arrow *arrow)
 {
-  return (ARROW_NONE==arrow->type) ? 0 : 1;
+  return (!arrow || ARROW_NONE==arrow->type) ? 0 : 1;
 }
 
 static void begin_render(DiaRenderer *self);
