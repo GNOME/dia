@@ -1,8 +1,13 @@
+2003-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/menus.c: Removed prefs item from Gnome diagram menu.  Made
+	Align Vertical Adjacent call _v rather than _h.
+
 2003-07-29  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/scroll_tool.c (create_scroll_tool): 
-	* app/modify_tool.c (create_modify_tool): use g_new0() to initialize the
-	tool
+	* app/modify_tool.c (create_modify_tool): use g_new0() to
+	initialize the tool
 
 2003-07-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 

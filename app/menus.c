@@ -71,7 +71,6 @@ static GnomeUIInfo filemenu[] = {
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_ITEM(file_save_callback, NULL),
-  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
 
   { GNOME_APP_UI_ITEM, N_("_Export..."), NULL,
@@ -194,7 +193,7 @@ static GnomeUIInfo objects_align_v[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, DIA_ALIGN_BOTTOM),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, DIA_ALIGN_EQUAL),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, DIA_ALIGN_ADJACENT),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_v_callback, DIA_ALIGN_ADJACENT),
   GNOMEUIINFO_END
 };
 
