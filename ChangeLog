@@ -12,12 +12,13 @@
 	* lib/widgets.h:
 	* lib/arrows.h:
 	* lib/widgets.c:
-	Support for sizeable arrows.
+	Support for sizeable arrows. 
 
 	* objects/standard/box.c:
 	* objects/standard/ellipse.c:
 	* objects/standard/image.c:
 	Changed creation handle to lower-right.
+	Transparent box/ellipse.
 	
 	* objects/standard/image.c:
 	Better layout of properties boxes.
