@@ -1,3 +1,11 @@
+2002-11-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagdkrenderer.c (get_text_width, draw_string):
+	Freetype-based string drawing now works.  Not very fast, though.
+	I wish I could use the graphics card for this:(  I'm doing three
+	bitmap loops where I should be doing one.  The size is not correct
+	either, despite having get_text_width give the right thing.
+
 2002-10-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/connectionpoint_ops.c (diagram_update_connections_object):

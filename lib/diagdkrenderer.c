@@ -211,6 +211,9 @@ dia_gdk_renderer_class_init (DiaGdkRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
+
+  /* Interactive functions */
+  renderer_class->get_text_width = get_text_width;
 }
 
 static void 
@@ -505,6 +508,10 @@ get_layout_first_baseline(PangoLayout* layout)
   return result;
 }
 
+#ifdef HAVE_FREETYPE
+#define TWIDDLE 6.37
+#endif
+
 static void 
 draw_string (DiaRenderer *object,
              const gchar *text, Point *pos, Alignment alignment,
@@ -521,21 +528,18 @@ draw_string (DiaRenderer *object,
   point_copy(&start_pos,pos);
 
   color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
 
   /* My apologies for adding more #hell, but the alternative is an abhorrent
    * kludge.
    */
 #ifdef HAVE_FREETYPE
- {
+  {
    FT_Bitmap ftbitmap;
    guint8 *graybitmap;
    int width, height;
    int rowstride;
    double font_height;
-   GdkPixbuf *background = NULL;
 
-#define TWIDDLE 6.37
    switch (alignment) {
    case ALIGN_LEFT:
      break;
@@ -563,25 +567,61 @@ draw_string (DiaRenderer *object,
 					 dia_transform_length (renderer->transform, TWIDDLE));
    /*   y -= get_layout_first_baseline(layout);  */
    pango_layout_get_pixel_size(layout, &width, &height);
-   rowstride = 32*((width+31)/31);
-   
-   graybitmap = (guint8*)g_new0(guint8, height*rowstride);
+   if (width > 0) {
+     rowstride = 32*((width+31)/31);
+     
+     graybitmap = (guint8*)g_new0(guint8, height*rowstride);
+     
+     ftbitmap.rows = height;
+     ftbitmap.width = width;
+     ftbitmap.pitch = rowstride;
+     ftbitmap.buffer = graybitmap;
+     ftbitmap.num_grays = 256;
+     ftbitmap.pixel_mode = ft_pixel_mode_grays;
+     ftbitmap.palette_mode = 0;
+     ftbitmap.palette = 0;
+     pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
 
-   ftbitmap.rows = height;
-   ftbitmap.width = width;
-   ftbitmap.pitch = rowstride;
-   ftbitmap.buffer = graybitmap;
-   ftbitmap.num_grays = 256;
-   ftbitmap.pixel_mode = ft_pixel_mode_grays;
-   ftbitmap.palette_mode = 0;
-   ftbitmap.palette = 0;
-   pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+     {
+       GdkPixbuf *rgba = 
+	 gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
+       int stride = gdk_pixbuf_get_rowstride(rgba);
+       guchar* pixels = gdk_pixbuf_get_pixels(rgba);
+       int i,j;
+       for (i = 0; i < height; i++) {
+	 for (j = 0; j < width; j++) {
+	   pixels[i*stride+j*4] = gdkcolor.red>>8;
+	   pixels[i*stride+j*4+1] = gdkcolor.green>>8;
+	   pixels[i*stride+j*4+2] = gdkcolor.blue>>8;
+	   pixels[i*stride+j*4+3] = graybitmap[i*rowstride+j];
+	 }
+       }
+       /*
+	 gdk_draw_pixbuf(renderer->pixmap, gc, rgba, 0, 0, x, y, width, height,
+	 GDK_RGB_DITHER_NONE, 0, 0);
+       */
+       gdk_pixbuf_render_to_drawable_alpha(rgba, 
+					   renderer->pixmap,
+					   0, 0,
+					   x, y,
+					   width, height,
+					   GDK_PIXBUF_ALPHA_FULL,
+					   128,
+					   GDK_RGB_DITHER_NONE,
+					   0, 0);
+       g_object_unref(G_OBJECT(rgba));
+       g_free(graybitmap);
+     }
+   }
+   /*
    gdk_gc_set_function(gc, GDK_COPY_INVERT);
    gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
 		       GDK_RGB_DITHER_NONE, graybitmap, rowstride);
    gdk_gc_set_function(gc, GDK_COPY);
+   */
  }
 #else
+  gdk_gc_set_foreground(gc, &gdkcolor);
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -619,10 +659,10 @@ get_text_width(DiaRenderer *object,
                const gchar *text, int length)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+  real result;
 
   if (length != strlen(text)) {
     char *othertx;
-    real result;
     int ulen;
     /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхцНОПРЄ є Ґ Њ Ћ Џ */
     ulen = g_utf8_offset_to_pointer(text, length)-text;
@@ -635,13 +675,17 @@ get_text_width(DiaRenderer *object,
                 object->font_height,
                 dia_transform_length (renderer->transform, 10.0) / 10.0);
     g_free(othertx);
-    return result;
-  }
-    
-  return dia_font_scaled_string_width(
+  } else {
+    result = 
+      dia_font_scaled_string_width(
             text,object->font,
             object->font_height,
             dia_transform_length (renderer->transform, 10.0) / 10.0);
+  }
+#ifdef HAVE_FREETYPE
+  result *= TWIDDLE;
+#endif
+  return result;
 }
 
 static void 
