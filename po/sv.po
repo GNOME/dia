@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-05-02 16:54+0200\n"
+"POT-Creation-Date: 2000-05-07 06:15+0200\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -19,7 +19,7 @@ msgstr "Exportera laddad fil och avsluta"
 
 #: app/app_procs.c:136
 msgid "OUTPUT"
-msgstr "UTFIL"
+msgstr "OUTPUT"
 
 #: app/app_procs.c:138
 msgid "Show this help message"
@@ -240,7 +240,7 @@ msgstr "/Objekt/Justera vertikalt/Bredvid"
 #: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
 #: app/paginate_gnomeprint.c:202
 msgid "Paper Size"
-msgstr ""
+msgstr "Pappersstorlek"
 
 #. orientation
 #: app/diapagelayout.c:163
@@ -250,7 +250,7 @@ msgstr ""
 #. margins
 #: app/diapagelayout.c:201
 msgid "Margins"
-msgstr ""
+msgstr "Marginaler"
 
 #: app/diapagelayout.c:213
 msgid "Top:"
@@ -272,7 +272,7 @@ msgstr "Höger:"
 #: app/diapagelayout.c:266 app/paginate_gnomeprint.c:178
 #: app/paginate_gnomeprint.c:183
 msgid "Scaling"
-msgstr ""
+msgstr "Skalning"
 
 #: app/diapagelayout.c:277
 msgid "Scale:"
@@ -280,7 +280,7 @@ msgstr "Skala:"
 
 #: app/diapagelayout.c:289
 msgid "Fit to:"
-msgstr ""
+msgstr "Anpassa till:"
 
 #: app/diapagelayout.c:301
 msgid "by"
@@ -289,7 +289,7 @@ msgstr ""
 #: app/diapagelayout.c:704
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
@@ -368,9 +368,8 @@ msgid "Could not create PNG write structure"
 msgstr "Kunde inte skapa PNG skrivstruktur"
 
 #: app/export_png.c:95
-#, fuzzy
 msgid "Could not create PNG header info structure"
-msgstr "Kunde inte skapa katalog för Dia-inställningar."
+msgstr "Kunde inte skapa PNG-rubrik infostruktur"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
@@ -423,7 +422,7 @@ msgstr "Inställningar för export"
 
 #: app/filedlg.c:443
 msgid "Determine file type:"
-msgstr ""
+msgstr "Fastställ filtyp:"
 
 #: app/grid.c:190
 msgid "Grid options"
@@ -455,7 +454,7 @@ msgstr "Scrolla i diagrammet"
 
 #: app/interface.c:46 app/menus.c:179
 msgid "Scroll"
-msgstr ""
+msgstr "Skroll"
 
 #: app/interface.c:50
 msgid "Create Text"
@@ -463,7 +462,7 @@ msgstr "Skapa text"
 
 #: app/interface.c:51 app/menus.c:180
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: app/interface.c:55
 msgid "Create Box"
@@ -471,7 +470,7 @@ msgstr "Skapa rektangel"
 
 #: app/interface.c:56 app/menus.c:181
 msgid "Box"
-msgstr ""
+msgstr "Låda"
 
 #: app/interface.c:60
 msgid "Create Ellipse"
@@ -482,13 +481,12 @@ msgid "Ellipse"
 msgstr "Ellips"
 
 #: app/interface.c:65
-#, fuzzy
 msgid "Create Polygon"
-msgstr "Skapa linje med flera noder"
+msgstr "Skapa polygon"
 
 #: app/interface.c:66 app/menus.c:183
 msgid "Polygon"
-msgstr ""
+msgstr "Polygon"
 
 #: app/interface.c:70
 msgid "Create Line"
@@ -511,9 +509,8 @@ msgid "Create Zigzagline"
 msgstr "Skapa zik-zak-linje"
 
 #: app/interface.c:81 app/menus.c:186
-#, fuzzy
 msgid "Zigzagline"
-msgstr "Skapa zik-zak-linje"
+msgstr "Zik-zak-linje"
 
 #: app/interface.c:85
 msgid "Create Polyline"
@@ -526,12 +523,11 @@ msgstr "Skapa linje med flera noder"
 
 #: app/interface.c:90
 msgid "Create Bezierline"
-msgstr "Skapa beizerlinje"
+msgstr "Skapa bezierlinje"
 
 #: app/interface.c:91 app/menus.c:188
-#, fuzzy
 msgid "Bezierline"
-msgstr "Skapa beizerlinje"
+msgstr "Bezierlinje"
 
 #: app/interface.c:95
 msgid "Create Image"
@@ -543,7 +539,7 @@ msgstr "Bild"
 
 #: app/interface.c:301
 msgid "NULL tooldata in tool_select_update"
-msgstr ""
+msgstr "NULL tooldata i tool_select_update"
 
 #: app/interface.c:657
 msgid ""
@@ -694,7 +690,7 @@ msgstr "Skapa ett nytt diagram"
 
 #: app/menus.c:42 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
-msgstr ""
+msgstr "Insticksprogram"
 
 #: app/menus.c:56
 msgid "_Export..."
@@ -780,7 +776,7 @@ msgstr "Visa _allt"
 
 #: app/menus.c:131
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: app/menus.c:132 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
@@ -800,21 +796,19 @@ msgstr ""
 
 #: app/menus.c:136
 msgid "Same Type"
-msgstr ""
+msgstr "Samma typ"
 
 #: app/menus.c:138
 msgid "Replace"
 msgstr "Byt ut"
 
 #: app/menus.c:139
-#, fuzzy
 msgid "Union"
-msgstr "inget"
+msgstr "Union"
 
 #: app/menus.c:140
-#, fuzzy
 msgid "Intersect"
-msgstr "Gränssnitt:"
+msgstr "Skär"
 
 #: app/menus.c:141
 msgid "Remove"
@@ -917,9 +911,8 @@ msgid "/File/_Preferences..."
 msgstr "/Arkiv/_Inställningar..."
 
 #: app/menus.c:232
-#, fuzzy
 msgid "/File/P_lugins"
-msgstr "/Arkiv/_Avsluta"
+msgstr "/Arkiv/_Insticksprogram"
 
 #: app/menus.c:233 app/menus.c:248
 msgid "/File/sep1"
@@ -1103,21 +1096,19 @@ msgstr "/Visa/Visa _allt"
 
 #: app/menus.c:291
 msgid "/Select/All"
-msgstr ""
+msgstr "/Markera/Alla"
 
 #: app/menus.c:292
-#, fuzzy
 msgid "/Select/None"
-msgstr "En enkel skrivare"
+msgstr "/Markera/Ingen"
 
 #: app/menus.c:293 app/menus.c:302 app/select.c:246
-#, fuzzy
 msgid "/Select/Invert"
-msgstr "En enkel skrivare"
+msgstr "/Markera/Invertera"
 
 #: app/menus.c:294
 msgid "/Select/Connected"
-msgstr ""
+msgstr "/Markera/Ansluten"
 
 #: app/menus.c:295
 #, fuzzy
@@ -1125,22 +1116,20 @@ msgid "/Select/Transitive"
 msgstr "En enkel skrivare"
 
 #: app/menus.c:296
-#, fuzzy
 msgid "/Select/Same Type"
-msgstr "Välj färg"
+msgstr "/Markera/Samma typ"
 
 #: app/menus.c:297
-#, fuzzy
 msgid "/Select/sep1"
-msgstr "/Arkiv/sep1"
+msgstr "/Markera/sep1"
 
 #: app/menus.c:298 app/select.c:238
 msgid "/Select/Replace"
-msgstr ""
+msgstr "/Markera/Ersätt"
 
 #: app/menus.c:299 app/select.c:240
 msgid "/Select/Union"
-msgstr ""
+msgstr "/Markera/Union"
 
 #: app/menus.c:300 app/select.c:242
 #, fuzzy
@@ -1149,7 +1138,7 @@ msgstr "En enkel skrivare"
 
 #: app/menus.c:301 app/select.c:244
 msgid "/Select/Remove"
-msgstr ""
+msgstr "/Markera/Ta bort"
 
 #: app/menus.c:303
 msgid "/_Objects"
@@ -1186,35 +1175,35 @@ msgstr "/Objekt/Justera vertikalt"
 
 #: app/menus.c:324
 msgid "/Tools/Modify"
-msgstr ""
+msgstr "/Verktyg/Modifiera"
 
 #: app/menus.c:325
 msgid "/Tools/Magnify"
-msgstr "/Verktyg/förstora"
+msgstr "/Verktyg/Förstora"
 
 #: app/menus.c:326
 msgid "/Tools/Scroll"
-msgstr ""
+msgstr "/Verktyg/Skroll"
 
 #: app/menus.c:327
 msgid "/Tools/Text"
-msgstr "/Verktyg/text"
+msgstr "/Verktyg/Text"
 
 #: app/menus.c:328
 msgid "/Tools/Box"
-msgstr ""
+msgstr "/Verktyg/Låda"
 
 #: app/menus.c:329
 msgid "/Tools/Ellipse"
-msgstr "/Verktyg/ellips"
+msgstr "/Verktyg/Ellips"
 
 #: app/menus.c:330
 msgid "/Tools/Polygon"
-msgstr ""
+msgstr "/Verktyg/Polygon"
 
 #: app/menus.c:331
 msgid "/Tools/Line"
-msgstr "/Verktyg/linje"
+msgstr "/Verktyg/Linje"
 
 #: app/menus.c:332
 msgid "/Tools/Arc"
@@ -1222,7 +1211,7 @@ msgstr ""
 
 #: app/menus.c:333
 msgid "/Tools/Zigzagline"
-msgstr ""
+msgstr "/Verktyg/Zik-zak-linje"
 
 #: app/menus.c:334
 msgid "/Tools/Polyline"
@@ -1230,7 +1219,7 @@ msgstr ""
 
 #: app/menus.c:335
 msgid "/Tools/Bezierline"
-msgstr ""
+msgstr "/Verktyg/Bezierlinje"
 
 #: app/menus.c:336
 msgid "/Tools/Image"
@@ -1251,11 +1240,11 @@ msgstr "/Dialoger/_Lager"
 
 #: app/menus.c:359
 msgid "NULL tooldata in tool_menu_select"
-msgstr ""
+msgstr "NULL tooldata i tool_menu_select"
 
 #: app/menus.c:390 app/menus.c:495
 msgid "/Tools/"
-msgstr ""
+msgstr "/Verktyg/"
 
 #: app/paginate_gnomeprint.c:158
 msgid "Print Diagram"
@@ -1270,9 +1259,8 @@ msgid "Select Printer"
 msgstr "Välj skrivare"
 
 #: app/paginate_psprint.c:214
-#, fuzzy
 msgid "File"
-msgstr "/_Arkiv"
+msgstr "Arkiv"
 
 #: app/plugin-manager.c:62
 msgid "yes"
@@ -1305,15 +1293,15 @@ msgstr "Laddad:"
 
 #: app/plugin-manager.c:232
 msgid "Autoload at startup"
-msgstr ""
+msgstr "Autoladda vid uppstart"
 
 #: app/plugin-manager.c:243
 msgid "Load"
-msgstr ""
+msgstr "Ladda"
 
 #: app/plugin-manager.c:248
 msgid "Unload"
-msgstr ""
+msgstr "Ladda ur"
 
 #: app/preferences.c:84
 msgid "User Interface"
@@ -1398,6 +1386,7 @@ msgid "Page breaks:"
 msgstr "Sidobrytning:"
 
 #: app/preferences.c:233
+#, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
@@ -1458,14 +1447,15 @@ msgstr "Fel"
 #: lib/plug-ins.c:192
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Kunde inte härleda korrekt sökväg för \"%s\""
 
 #: lib/plug-ins.c:197
-#, fuzzy, c-format
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
-msgstr "Kunde inte öppna \"%s\".\n"
+msgstr ""
+"Kunde inte ladda insticksprogrammet \"%s\"\n"
+"%s"
 
 #: lib/plug-ins.c:208
 #, c-format
@@ -1475,14 +1465,15 @@ msgstr ""
 #: lib/plug-ins.c:235
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr ""
+msgstr "Insticksprogrammet %s kunde inte laddas ur"
 
 #: lib/plug-ins.c:288
 #, c-format
 msgid "`%s' is not a directory"
-msgstr ""
+msgstr "\"%s\" är inte en katalog"
 
 #: lib/plug-ins.c:294
+#, c-format
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
 
@@ -1905,7 +1896,7 @@ msgstr "Typsnittsfärg"
 
 #: objects/GRAFCET/action.c:196
 msgid "Macro call"
-msgstr ""
+msgstr "Macro anrop"
 
 #: objects/GRAFCET/condition.c:198
 #, fuzzy
@@ -1913,9 +1904,8 @@ msgid "Condition:"
 msgstr "Komposition"
 
 #: objects/GRAFCET/grafcet.c:40
-#, fuzzy
 msgid "GRAFCET diagram objects"
-msgstr "_Nytt diagram"
+msgstr "GRAFCET diagramobjekt"
 
 #: objects/GRAFCET/step.c:251
 #, fuzzy
@@ -1924,7 +1914,7 @@ msgstr "   Regulera"
 
 #: objects/GRAFCET/step.c:252
 msgid "Initial step"
-msgstr ""
+msgstr "Begynnelsesteg"
 
 #: objects/GRAFCET/step.c:253
 msgid "Macro entry step"
@@ -1932,29 +1922,27 @@ msgstr ""
 
 #: objects/GRAFCET/step.c:254
 msgid "Macro exit step"
-msgstr ""
+msgstr "Macro avslutningssteg"
 
 #: objects/GRAFCET/step.c:255
 msgid "Macro call step"
-msgstr ""
+msgstr "Macro anropssteg"
 
 #: objects/GRAFCET/step.c:256
 msgid "Subprogram call step"
 msgstr ""
 
 #: objects/GRAFCET/step.c:265
-#, fuzzy
 msgid "Step name"
-msgstr "Lager namn:"
+msgstr "Stegnamn"
 
 #: objects/GRAFCET/step.c:266
 msgid "Active"
 msgstr "Aktiv"
 
 #: objects/GRAFCET/step.c:267
-#, fuzzy
 msgid "Step type"
-msgstr "Stereotyp:"
+msgstr "Stegtyp"
 
 #: objects/GRAFCET/step.c:310
 msgid "Color:"
@@ -1970,11 +1958,11 @@ msgstr ""
 
 #: objects/GRAFCET/vergent.c:169
 msgid "OR"
-msgstr ""
+msgstr "OR"
 
 #: objects/GRAFCET/vergent.c:170
 msgid "AND"
-msgstr ""
+msgstr "AND"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
 #, fuzzy
@@ -2016,27 +2004,24 @@ msgid "Imply resource (not shown downstairs)"
 msgstr ""
 
 #: objects/SADT/arrow.c:190
-#, fuzzy
 msgid "Dotted arrow"
-msgstr "Punkterad"
+msgstr "Punkterad pil"
 
 #: objects/SADT/arrow.c:191
 msgid "disable arrow heads"
-msgstr ""
+msgstr "avaktivera pilrubriker"
 
 #: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
-#, fuzzy
 msgid "Flow style:"
-msgstr "Flödetyp:"
+msgstr "Flödestil:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
 msgstr ""
 
 #: objects/SADT/arrow.c:651
-#, fuzzy
 msgid "SADT Arrow"
-msgstr "Visa pil"
+msgstr "SADT pil"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
 #: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
@@ -2048,7 +2033,7 @@ msgstr "Text stoppning:"
 
 #: objects/SADT/box.c:208
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "Aktivitet/Dataidentifierare"
 
 #: objects/SADT/box.c:539 objects/standard/line.c:172
 msgid "Delete connection point"
@@ -2059,9 +2044,8 @@ msgid "SADT box"
 msgstr ""
 
 #: objects/SADT/sadt.c:37
-#, fuzzy
 msgid "SADT diagram objects"
-msgstr "_Nytt diagram"
+msgstr "SADT diagramobjekt"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -2073,11 +2057,11 @@ msgstr "Riktning:"
 
 #: objects/UML/association.c:998
 msgid "From A to B"
-msgstr ""
+msgstr "Från A till B"
 
 #: objects/UML/association.c:1005
 msgid "From B to A"
-msgstr ""
+msgstr "Från B till A"
 
 #: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side A"
@@ -2372,13 +2356,12 @@ msgid "Data"
 msgstr "Data"
 
 #: objects/chronogram/chronoline.c:305
-#, fuzzy
 msgid "Data name:"
-msgstr "Lager namn:"
+msgstr "Datanamn:"
 
 #: objects/chronogram/chronoline.c:307
 msgid "Events:"
-msgstr ""
+msgstr "Händelser:"
 
 #: objects/chronogram/chronoline.c:308
 msgid ""
@@ -2392,44 +2375,38 @@ msgstr ""
 
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
 #: objects/chronogram/chronoref.c:244 objects/chronogram/chronoref.c:309
-#, fuzzy
 msgid "Start time:"
-msgstr "Startpil"
+msgstr "Starttid:"
 
 #: objects/chronogram/chronoline.c:318 objects/chronogram/chronoline.c:409
 #: objects/chronogram/chronoref.c:245 objects/chronogram/chronoref.c:310
 msgid "End time:"
-msgstr ""
+msgstr "Sluttid:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
 msgstr ""
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#, fuzzy
 msgid "Fall time:"
-msgstr "Flödetyp:"
+msgstr "Falltid:"
 
 #: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#, fuzzy
 msgid "Multi-bit data"
-msgstr "Attribut data"
+msgstr "Multi-but data"
 
 #: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:418
-#, fuzzy
 msgid "Data color:"
-msgstr "Typsnittsfärg:"
+msgstr "Datafärg:"
 
 #: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-#, fuzzy
 msgid "Data line width:"
-msgstr "Linjebredd:"
+msgstr "Datalinjebredd:"
 
 #: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:421
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-#, fuzzy
 msgid "Line color:"
-msgstr "Typsnittsfärg:"
+msgstr "Linjefärg:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
@@ -2516,9 +2493,8 @@ msgid "Delete Handle"
 msgstr "Ta bort handtag"
 
 #: objects/network/network.c:47
-#, fuzzy
 msgid "Network diagram objects"
-msgstr "_Nytt diagram"
+msgstr "Nätverks diagramobjekt"
 
 #: objects/standard/bezier.c:526
 msgid "Add Segment"
@@ -2530,12 +2506,11 @@ msgstr "Ta bort segment"
 
 #: objects/standard/bezier.c:529
 msgid "Symmetric control"
-msgstr ""
+msgstr "Symmetrikontroll"
 
 #: objects/standard/bezier.c:531
-#, fuzzy
 msgid "Smooth control"
-msgstr "Visa kontrollens fokus"
+msgstr "Jämnkontroll"
 
 #: objects/standard/bezier.c:533
 #, fuzzy
@@ -2591,9 +2566,8 @@ msgid "Delete Corner"
 msgstr "Ta bort nod"
 
 #: objects/standard/standard.c:39
-#, fuzzy
 msgid "Standard objects"
-msgstr "Är ett objekt"
+msgstr "Standardobjekt"
 
 #: objects/standard/textobj.c:282
 msgid "Fontsize:"
@@ -2616,9 +2590,8 @@ msgid "Computer Graphics Metafile"
 msgstr "Datagrafik metafil"
 
 #: plug-ins/cgm/cgm.c:1266
-#, fuzzy
 msgid "Computer Graphics Metafile export filter"
-msgstr "Datagrafik metafil"
+msgstr ""
 
 #~ msgid ""
 #~ "Couldn't find any libraries to load.\n"
