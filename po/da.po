@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-03-08 23:08+0100\n"
-"PO-Revision-Date: 2000-03-09 00:02+01:00\n"
+"PO-Revision-Date: 2000-03-13 01:27+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish <sslug-locale@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,8 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"fejl ved flag %s: %s.\n"
+"Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
 
 #: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
@@ -1795,7 +1797,7 @@ msgstr "   Indikér"
 
 #: objects/FS/function.c:591
 msgid "   Display"
-msgstr ""
+msgstr "     Skærm"
 
 #: objects/FS/function.c:592
 msgid "   Measure"
