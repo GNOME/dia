@@ -1,5 +1,8 @@
 2000-04-13  James Henstridge  <james@daa.com.au>
 
+	* lib/dia_image.c (dia_image_draw): use the new enumeration values
+	from after the gdk-pixbuf cleanup.
+
 	* lib/geometry.c (bez_point_distance_and_ray_crosses): fix up limit
 	on for loop.  Last set of coefficients were not beeing calculated,
 	which caused a bit of breakage.

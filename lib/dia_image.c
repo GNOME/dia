@@ -113,14 +113,14 @@ dia_image_draw(DiaImage image, GdkWindow *window,
       if (image->scaled)
 	gdk_pixbuf_unref(image->scaled);
       image->scaled = gdk_pixbuf_scale_simple(image->image, width, height, 
-					      ART_FILTER_TILES);
+					      GDK_INTERP_TILES);
       image->scaled_width = width;
       image->scaled_height = height;
     }
     scaled = image->scaled;
 #else
     scaled = gdk_pixbuf_scale_simple(image->image, width, height, 
-				     ART_FILTER_TILES);
+				     GDK_INTERP_TILES);
 #endif
   } else {
     scaled = image->image;
@@ -202,7 +202,7 @@ dia_image_filename(DiaImage image)
   return image->filename;
 }
 
-#else HAVE_GDK_PIXBUF
+#else /* HAVE_GDK_PIXBUF */
 struct DiaImage {
   GdkImlibImage *image;
   int refcount;
