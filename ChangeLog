@@ -1,5 +1,8 @@
 2002-12-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/render_eps.c (export_eps, new_psprint_renderer): Using
+	PS_FT2 renderer when available.  Old render stuff killed.  Yay!
+
 	* lib/properties.h: Fixed bad frame end def.
 
 	* app/Makefile.am (dia_core_files): Added diapsft2renderer.[ch].
