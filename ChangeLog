@@ -1,5 +1,18 @@
 2004-05-23  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo.c : a new exporter based on
+	Cairo http://cairographics.org rendering api. Currently
+	it just can export PNG and PS but one day it might get
+	PDF and more almost for free. [It is not yet included
+	in the *NIX build system due to lack of auto* magic.]
+
+	* plug-ins/pixbuf/pixbuf.c : always register the export
+	filter part. If the user does not want it it can be 
+	disabled by File/Plugins or explicit selected the other
+	one in the Export Formats List
+
+2004-05-23  Hans Breuer  <hans@breuer.org>
+
 	* lib/dia_dirs.c : #include "message.h"
 	  lib/widgets.c : #include "persistence.h"
 	  lib/widgets.c(dia_font_selector_init) : still not C99

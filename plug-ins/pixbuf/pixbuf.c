@@ -154,19 +154,14 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
   return FALSE;
 }
 
-#if (!(HAVE_LIBPNG && HAVE_LIBART))
-/* For now, only allow these when the higher quality libpng/libart rendering
- * is not available.
- */
 static const gchar *extensions[] = { "png", "jpg", "jpeg", NULL };
 static DiaExportFilter export_filter = {
-    N_("GdkPixbuf bitmap"),
+    N_("GdkPixbuf - not antialiased"),
     extensions,
     export_data,
     NULL,
     "gdkpixbuf"
 };
-#endif
 
 static const gchar *extensions_import[] = {
 	"bmp", "gif", "jpg", "png", "pnm", "ras", "tif", NULL };
@@ -188,9 +183,7 @@ dia_plugin_init(PluginInfo *info)
                             NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-#if (!(HAVE_LIBPNG && HAVE_LIBART))
   filter_register_export(&export_filter);
-#endif
   filter_register_import(&import_filter);
 
   return DIA_PLUGIN_INIT_OK;
