@@ -1,3 +1,8 @@
+dia-0.94-pre4: 1-Aug-2004
+
+Important fix for export filters.  Still some leaking from layout cache,
+but not as awful.
+
 dia-0.94-pre3: 25-Jul-2004
 
 Fixing a number of png issues and a few bugs.

@@ -290,7 +290,7 @@ handle_initial_diagram(const char *in_file_name,
 
   if (export_file_format) {
     char *export_file_name = NULL;
-    DiaExportFilter *ef;
+    DiaExportFilter *ef = NULL;
 
     /* First try guessing based on extension */
     export_file_name = build_output_file_name(in_file_name,

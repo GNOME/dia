@@ -1,3 +1,23 @@
+2004-08-01  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* configure.in: 
+	* dia.spec (Release): 
+	* config.h.win32: 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: Prerelease 4.
+
+	* lib/font.c (dia_font_build_layout): Better comparision and
+	freeing of font cache.
+
+2004-07-31  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.c (dia_font_build_layout): Faster update to avoid
+	memory leaks.
+
+	* app/app_procs.c: Fix from Tom Parker <palfrey@bits.bris.ac.uk>:
+	Correctly initialize export filter variable.
+
 2004-07-25  Lars Clausen  <lars@raeder.dk>
 
 	* dia.spec (Release): 

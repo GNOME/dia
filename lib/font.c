@@ -524,7 +524,7 @@ layout_cache_equals(gconstpointer e1, gconstpointer e2)
 
   return strcmp(i1->string, i2->string) == 0 &&
     fabs(i1->height - i2->height) < 0.00001 &&
-    i1->font == i2->font;
+    pango_font_description_equal(i1->font->pfd, i2->font->pfd);
 }
 
 static guint
@@ -534,7 +534,7 @@ layout_cache_hash(gconstpointer el)
 
   return g_str_hash(item->string) ^
     (int)(item->height*1000) ^
-    (int)(item->font);
+    (int)(item->font->pfd);
 }
 
 static long layout_cache_last_use;
@@ -556,7 +556,6 @@ layout_cache_cleanup_idle(gpointer data)
   GHashTable *table = (GHashTable*)(data);
 
   g_hash_table_foreach_remove(table, layout_cache_cleanup_entry, NULL);
-
   return FALSE;
 }
 
@@ -567,7 +566,7 @@ static gboolean
 layout_cache_cleanup(gpointer data)
 {
   /* Only cleanup if there has been font activity since last cleanup */
-  if (time(0) - layout_cache_last_use < 60*10) {
+  if (time(0) - layout_cache_last_use < 10) {
     /* Don't go directly to cleanup, wait till there's a pause. */
     g_idle_add(layout_cache_cleanup_idle, data);
   }
@@ -586,7 +585,7 @@ layout_cache_free_key(gpointer data)
     }
 
     if (item->font != NULL) {
-      g_object_unref(item->font);
+      dia_font_unref(item->font);
       item->font = NULL;
     }
 
@@ -616,7 +615,13 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 					  layout_cache_equals,
 					  layout_cache_free_key,
 					  NULL);
-      g_timeout_add(10*60*1000, layout_cache_cleanup, (gpointer)layoutcache);
+      /** Check for cache cleanup every 10 seconds. */
+      /** This frequent a check is really a hack while we figure out the
+       *  exact problems with reffing the fonts.
+       *  Note to self:  The equals function should compare pfd's, but
+       *  then DiaFonts are freed too early. 
+       */
+      g_timeout_add(10*1000, layout_cache_cleanup, (gpointer)layoutcache);
     } else {
       LayoutCacheItem item;
       item.string = string;
@@ -633,7 +638,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     cached = g_new0(LayoutCacheItem,1);
     cached->string = g_strdup(string);
     cached->font = font;
-    g_object_ref(font);
+    dia_font_ref(font);
     cached->height = height;
 
     height *= 0.7;
@@ -673,7 +678,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     cached->layout = layout;
     g_object_ref(layout);
     cached->usecount = 1;
-    g_hash_table_insert(layoutcache, cached, cached);
+    g_hash_table_replace(layoutcache, cached, cached);
 
     return layout;
 }
