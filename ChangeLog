@@ -2,9 +2,12 @@
 
 	* plug-ins/cgm/cgm.c: added support for text.  Now only images and
 	beziers are left to do.  The text seems to be the wrong way up
-	still.  I don't know if this is a ralcgm bug or a bug in my output
-	code.  Other than this, the CGMs dia produces are readable (and
-	displayable) by ralcgm and corel draw.
+	still.  This is probably a problem with character orientation
+	element, but I have used what the settings given in the standard.
+	Other than this, the CGMs dia produces are readable (and displayable)
+	by ralcgm and corel draw.
+	(draw_string): subtract from the X coord rather than the Y coord for
+	center and right aligned text.
 
 	* plug-ins/cgm/cgm.c: a few fixups for the output.  Use REALSIZE as
 	the size of a real number, and changed name of write_double to

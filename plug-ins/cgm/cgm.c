@@ -713,10 +713,10 @@ draw_string(RendererCGM *renderer,
     case ALIGN_LEFT:
 	break;
     case ALIGN_CENTER:
-	y -= font_string_width(text, renderer->font, renderer->font_height)/2;
+	x -= font_string_width(text, renderer->font, renderer->font_height)/2;
 	break;
     case ALIGN_RIGHT:
-	y -= font_string_width(text, renderer->font, renderer->font_height);
+	x -= font_string_width(text, renderer->font, renderer->font_height);
 	break;
     }
     /* work out size of first chunk of text */
