@@ -604,7 +604,7 @@ msgid ""
 "Unknown file type."
 msgstr ""
 "Fout bij laden diagram %s.\n"
-"Onbekend bestandstype.\n"
+"Onbekend bestandstype."
 
 #: app/load_save.c:223
 #, c-format
