@@ -1,4 +1,10 @@
 2003-07-11  Lars Clausen  <lrclause@cs.uiuc.edu>
+	
+	* plug-ins/metapost/render_metapost.[ch] : Applied patch from
+	Chris Sperandio <sperandi@eng.usf.edu>:  Fixed linewidths and
+	arcs.  Implemented images (though there is some pixelization and
+	banding in the output).  Changed output file format to be a little
+	more readable.  
 
 	* app/app_procs.c (app_exit): Added message for double exit, which
 	shouldn't happen any more.  Also preventing strange g_object_unref

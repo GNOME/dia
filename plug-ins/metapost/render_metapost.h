@@ -28,6 +28,7 @@
 
 #include "geometry.h"
 #include "diarenderer.h"
+#include "diagramdata.h"
 
 G_BEGIN_DECLS
 
@@ -51,6 +52,8 @@ struct _MetapostRenderer
   LineStyle saved_line_style;
   LineCaps  saved_line_cap;
   LineJoin  saved_line_join;
+
+  Color color;
 
   real line_width;
   real dash_length;

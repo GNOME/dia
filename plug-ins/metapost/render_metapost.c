@@ -32,8 +32,6 @@
  * 2. Linestyles really need tweaking.
  * 3. Font selection (I like using the latex font though)
  * 4. Font size
- * 5. Images
- * 6. Pen widths
  */
 
 
@@ -52,6 +50,7 @@
 #include "message.h"
 #include "diagramdata.h"
 #include "filter.h"
+#include "dia_image.h"
 
 #define POINTS_in_INCH 28.346
 
@@ -209,10 +208,12 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
 static void
 end_draw_op(MetapostRenderer *renderer)
 {
-    /*
-     * this was originally put here to handle each drawoption per
-     * primitive  
-     */ 
+    fprintf(renderer->file, "\n    withpen pencircle scaled %5.4fx", 
+            (double)renderer->line_width);
+    fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
+            (double)renderer->color.red,
+            (double)renderer->color.green,
+            (double)renderer->color.blue);
     draw_with_linestyle(renderer);
     fprintf(renderer->file, ";\n");
 }
@@ -220,10 +221,9 @@ end_draw_op(MetapostRenderer *renderer)
 static void 
 set_line_color(MetapostRenderer *renderer,Color *color)
 {
-    fprintf(renderer->file, "%% set_line_color\n");
-    fprintf(renderer->file,
-	    "drawoptions(withcolor (%f,%f,%f));\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+    renderer->color = *color;
+    fprintf(renderer->file, "%% set_line_color %f, %f, %f\n", 
+            (double)color->red, (double)color->green, (double)color->blue);
 }
 
 static void 
@@ -252,8 +252,8 @@ static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-
-    fprintf(renderer->file, "drawoptions (withpen pencircle scaled %fx);\n", (double) linewidth); 
+    fprintf(renderer->file, "%% set_linewidth %f\n", linewidth);
+    renderer->line_width = linewidth;
 }
 
 static void
@@ -311,7 +311,6 @@ static void
 set_linestyle(DiaRenderer *self, LineStyle mode)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-
     renderer->saved_line_style = mode;
 }
 
@@ -324,13 +323,13 @@ draw_with_linestyle(MetapostRenderer *renderer)
     case LINESTYLE_SOLID:
 	break;
     case LINESTYLE_DASHED:
-	fprintf(renderer->file, "\n dashed dashpattern (on %fx off %fx)", 
+	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx)", 
 		renderer->dash_length,
 		renderer->dash_length);
 	break;
     case LINESTYLE_DASH_DOT:
 	hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-	fprintf(renderer->file, "\n dashed dashpattern (on %fx off %fx on %fx off %fx)",
+	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx on %fx off %fx)",
 		renderer->dash_length,
 		hole_width,
 		renderer->dot_length,
@@ -338,7 +337,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
 	break;
     case LINESTYLE_DASH_DOT_DOT:
 	hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
-	fprintf(renderer->file, "\n dashed dashpattern (on %fx off %fx on %fx off %fx on %fx off %fx)",
+	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx on %fx off %fx on %fx off %fx)",
 		renderer->dash_length,
 		hole_width,
 		renderer->dot_length,
@@ -347,7 +346,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
 		hole_width );
 	break;
     case LINESTYLE_DOTTED:
-	fprintf(renderer->file, "\n dashed dashpattern (on %fx off %fx)", 
+	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx)", 
 		renderer->dash_length,
 		renderer->dash_length);
 	break;
@@ -402,7 +401,7 @@ draw_line(DiaRenderer *self,
 
     set_line_color(renderer,line_color);
 
-    fprintf(renderer->file, "draw (%fx,%fy)--(%fx,%fy)",
+    fprintf(renderer->file, "  draw (%fx,%fy)--(%fx,%fy)",
 	    start->x, start->y, end->x, end->y);
     end_draw_op(renderer);
 }
@@ -418,7 +417,7 @@ draw_polyline(DiaRenderer *self,
     set_line_color(renderer,line_color);
   
     fprintf(renderer->file, 
-	    "draw (%fx,%fy)",
+	    "  draw (%fx,%fy)",
 	    points[0].x, points[0].y);
 
     for (i=1;i<num_points;i++) {
@@ -439,7 +438,7 @@ draw_polygon(DiaRenderer *self,
     set_line_color(renderer,line_color);
   
     fprintf(renderer->file, 
-	    "draw (%fx,%fy)",
+	    "  draw (%fx,%fy)",
 	    points[0].x, points[0].y);
 
     for (i=1;i<num_points;i++) {
@@ -460,16 +459,18 @@ fill_polygon(DiaRenderer *self,
 
     set_line_color(renderer,line_color);
     
+    fprintf(renderer->file, "%% fill_polygon\n");
     fprintf(renderer->file, 
-	    "path p;\n"
-	    "p = (%f,%f)",
+	    "  path p;\n"
+	    "  p = (%fx,%fy)",
 	    points[0].x, points[0].y);
 
     for (i=1;i<num_points;i++) {
 	fprintf(renderer->file, "--(%fx,%fy)",
 		points[i].x, points[i].y);
     }
-    fprintf(renderer->file,"--cycle");
+    fprintf(renderer->file,"--cycle;\n");
+    fprintf(renderer->file,"  fill p ");
     end_draw_op(renderer);
 }
 
@@ -483,7 +484,7 @@ draw_rect(DiaRenderer *self,
     set_line_color(renderer,color);
 
     fprintf(renderer->file, 
-	    "draw (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle",
+	    "  draw (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle",
 	    (double) ul_corner->x, (double) ul_corner->y,
 	    (double) ul_corner->x, (double) lr_corner->y,
 	    (double) lr_corner->x, (double) lr_corner->y,
@@ -499,14 +500,14 @@ fill_rect(DiaRenderer *self,
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
     fprintf(renderer->file, 
-	    "path p;\n"
-	    "p = (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle;\n",
+	    "  path p;\n"
+	    "  p = (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle;\n",
 	    (double) ul_corner->x, (double) ul_corner->y,
 	    (double) ul_corner->x, (double) lr_corner->y,
 	    (double) lr_corner->x, (double) lr_corner->y,
 	    (double) lr_corner->x, (double) ul_corner->y );
     fprintf(renderer->file,
-	    "fill p withcolor (%f,%f,%f);\n",
+	    "  fill p withcolor (%f,%f,%f);\n",
 	    (double) color->red, (double) color->green, (double) color->blue);
 }
 
@@ -515,20 +516,35 @@ metapost_arc(MetapostRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
-	     Color *color,int filled)
+	     Color *color, int filled)
 {
     double radius1,radius2;
-    double angle3 = (double) angle2 - angle1;
+    double angle3;
     double cx = (double) center->x;
     double cy = (double) center->y;
 
     radius1=(double) width/2.0;
     radius2=(double) height/2.0;
 
+    fprintf(renderer->file,"%%metapost_arc\n");
+    fprintf(renderer->file, "%% %s = %f", "center->x", center->x);
+    fprintf(renderer->file, "%% %s = %f", "center->y", center->y);
+    fprintf(renderer->file, "%% %s = %f", "width", width);
+    fprintf(renderer->file, "%% %s = %f", "height", height);
+    fprintf(renderer->file, "%% %s = %f", "angle1", angle1);
+    fprintf(renderer->file, "%% %s = %f", "angle2", angle2);
+    
+    
+    angle1 = angle1*M_PI/180;
+    angle2 = angle2*M_PI/180;
+    angle3 = (double) (angle1+angle2)/2;
+    if (angle1 > angle2)
+        angle3 += M_PI;
+
     set_line_color(renderer,color);
 
     fprintf(renderer->file,
-	    "draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)",
+	    "  draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)",
 	    cx + radius1*cos(angle1), cy - radius2*sin(angle1),
 	    cx + radius1*cos(angle3), cy - radius2*sin(angle3),
 	    cx + radius1*cos(angle2), cy - radius2*sin(angle2));
@@ -570,7 +586,7 @@ draw_ellipse(DiaRenderer *self,
     set_line_color(renderer,color);
     
     fprintf(renderer->file, 
-	    "draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle",
+	    "  draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle",
 	    (double) center->x+width/2.0, (double) center->y,
 	    (double) center->x,           (double) center->y+height/2.0,
 	    (double) center->x-width/2.0, (double) center->y,
@@ -587,15 +603,15 @@ fill_ellipse(DiaRenderer *self,
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
     fprintf(renderer->file, 
-	    "path p;\n"
-	    "p = (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle;\n",
+	    "  path p;\n"
+	    "  p = (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle;\n",
 	    (double) center->x+width/2.0, (double) center->y,
 	    (double) center->x,           (double) center->y+height/2.0,
 	    (double) center->x-width/2.0, (double) center->y,
 	    (double) center->x,           (double) center->y-height/2.0);
 
     fprintf(renderer->file,
-	    "fill p withcolor (%f,%f,%f);\n",
+	    "  fill p withcolor (%f,%f,%f);\n",
 	    (double) color->red, (double) color->green, (double) color->blue);
 }
 
@@ -615,7 +631,7 @@ draw_bezier(DiaRenderer *self,
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    fprintf(renderer->file, "draw (%fx,%fy)",
+    fprintf(renderer->file, "  draw (%fx,%fy)",
 	    (double) points[0].p1.x, (double) points[0].p1.y);
   
     for (i = 1; i < numpoints; i++)
@@ -628,7 +644,7 @@ draw_bezier(DiaRenderer *self,
 		    (double) points[i].p1.x, (double) points[i].p1.y);
 	    break;
 	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n ..(%fx,%fy)\n",
+	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n    ..(%fx,%fy)",
 		    (double) points[i].p1.x, (double) points[i].p1.y,
 		    (double) points[i].p2.x, (double) points[i].p2.y,
 		    (double) points[i].p3.x, (double) points[i].p3.y);
@@ -651,8 +667,8 @@ fill_bezier(DiaRenderer *self,
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    fprintf(renderer->file, "path p;\n");
-    fprintf(renderer->file, "p = (%fx,%fy)",
+    fprintf(renderer->file, "  path p;\n");
+    fprintf(renderer->file, "  p = (%fx,%fy)",
 	    (double) points[0].p1.x, (double) points[0].p1.y);
   
     for (i = 1; i < numpoints; i++)
@@ -665,16 +681,16 @@ fill_bezier(DiaRenderer *self,
 		    (double) points[i].p1.x, (double) points[i].p1.y);
 	    break;
 	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n ..(%fx,%fy)\n",
+	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n    ..(%fx,%fy)",
 		    (double) points[i].p1.x, (double) points[i].p1.y,
 		    (double) points[i].p2.x, (double) points[i].p2.y,
 		    (double) points[i].p3.x, (double) points[i].p3.y);
 	    break;
 	}
-    fprintf(renderer->file, "\n ..cycle;\n");
+    fprintf(renderer->file, "\n    ..cycle;\n");
 
     fprintf(renderer->file,
-	    "fill p withcolor (%f,%f,%f);\n",
+	    "  fill p withcolor (%f,%f,%f);\n",
 	    (double) color->red, (double) color->green, (double) color->blue);
 }
 
@@ -690,13 +706,13 @@ draw_string(DiaRenderer *self,
 
     switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,"label.rt");
+	fprintf(renderer->file,"  label.rt");
 	break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,"label");
+	fprintf(renderer->file,"  label");
 	break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"label.lft");
+	fprintf(renderer->file,"  label.lft");
 	break;
     }
     fprintf(renderer->file,
@@ -710,8 +726,65 @@ draw_image(DiaRenderer *self,
 	   real width, real height,
 	   DiaImage image)
 {
+    /* images have a banding problem */
+    int img_width, img_height, img_rowstride;
+    int x, y;
+    real xstep, ystep;
+    guint8 *rgb_data;
+    guint8 *mask_data;
+    double ix, iy;
+
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    /* TODO: implement image */
+
+    fprintf(renderer->file, "  %% draw_image: %s\n", dia_image_filename(image));
+    
+
+    img_width = dia_image_width(image);
+    img_rowstride = dia_image_rowstride(image);
+    img_height = dia_image_height(image);
+
+    xstep = width/img_width;
+    ystep = height/img_height;
+
+    rgb_data = dia_image_rgb_data(image);
+    mask_data = dia_image_mask_data(image);
+
+    fprintf(renderer->file, "  pickup pensquare scaled %fx scaled %f;\n",
+            (double) xstep,
+            (double) (ystep/xstep));
+
+
+    if (mask_data) {
+        fprintf(renderer->file, "  %% have mask\n");
+        for (y = 0, iy = point->y; y < img_height; y++, iy += ystep) {
+            for (x = 0, ix = point->x; x < img_width; x++, ix += xstep) {
+                int i = y*img_rowstride+x*3;
+                int m = y*img_width+x;
+                fprintf(renderer->file, "  draw (%fx, %fy) withcolor (%5.4f, %5.4f, %5.4f);\n",
+                        ix, iy,
+                        (255-(mask_data[m]*(255-rgb_data[i])/255)/255.0),
+                        (255-(mask_data[m]*(255-rgb_data[i+1])/255))/255.0,
+                        (255-(mask_data[m]*(255-rgb_data[i+2])/255))/255.0);
+            }
+            fprintf(renderer->file, "\n");
+        }
+    } else {
+        guint8 *ptr = rgb_data;
+        for (y = 0, iy = point->y; y < img_height; y++, iy += ystep) {
+            for (x = 0, ix = point->x; x < img_width; x++, ix += xstep) {
+                int i = y*img_rowstride+x*3;
+                fprintf(renderer->file, "  draw (%fx, %fy) withcolor (%5.4f, %5.4f, %5.4f);\n",
+                        ix, iy,
+                        (double)(rgb_data[i])/255.0,
+                        (double)(rgb_data[i+1])/255.0,
+                        (double)(rgb_data[i+2])/255.0);
+            }
+            fprintf(renderer->file, "\n");
+        }
+    }
+    
+    g_free(mask_data);
+    g_free (rgb_data);
 }
 
 /* --- export filter interface --- */
@@ -763,13 +836,13 @@ export_metapost(DiagramData *data, const gchar *filename,
 	    ctime(&time_now),
 	    name);
  
-    fprintf(renderer->file,"%% picture(%f,%f)(%f,%f)\n",
+    fprintf(renderer->file,"  %% picture(%f,%f)(%f,%f)\n",
 	    extent->left * data->paper.scaling,
 	    -extent->bottom * data->paper.scaling,
 	    extent->right * data->paper.scaling,
 	    -extent->top * data->paper.scaling
 	    );
-    fprintf(renderer->file,"x = %fcm; y = %fcm;\n\n",
+    fprintf(renderer->file,"  x = %fcm; y = %fcm;\n\n",
 	    data->paper.scaling,
 	    -data->paper.scaling);
 
