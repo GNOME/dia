@@ -1,5 +1,11 @@
 1999-12-06  James Henstridge  <james@daa.com.au>
 
+	* plug-ins/python/test.py: test script for the python plug-in.
+
+	* plug-ins/python/python.c: this file contains the plug-in startup
+	code for the python plugin.  Right now, it just initialises the
+	dia module and executes a script.
+
 	* objects/standard/polyline.c (polyline_draw): fix start arrow size.
 
 	* objects/standard/bezier.c (bezierline_draw): draw control lines for
