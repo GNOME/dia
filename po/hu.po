@@ -861,15 +861,15 @@ msgstr "/Fájl/_Plugin-ok"
 
 #: app/menus.c:253 app/menus.c:267 app/menus.c:270
 msgid "/File/---"
-msgstr "/_Fájl/---"
+msgstr "/Fájl/---"
 
 #: app/menus.c:254 app/menus.c:273
 msgid "/File/_Quit"
-msgstr "/Fájl/_Kilép"
+msgstr "/Fájl/_Kilépés"
 
 #: app/menus.c:255
 msgid "/_Help"
-msgstr "_Súgó"
+msgstr "/_Súgó"
 
 #: app/menus.c:256
 msgid "/Help/_About"
@@ -1006,14 +1006,12 @@ msgid "/View/Zoom/25%"
 msgstr "/Nézet/Nagyítás/25%"
 
 #: app/menus.c:298
-#, fuzzy
 msgid "/View/Diagram Properties"
-msgstr "/Dialógusok/_Tulajdonságok"
+msgstr "/Nézet/Ábra _tulajdonságai"
 
 #: app/menus.c:300
-#, fuzzy
 msgid "/View/_AntiAliased"
-msgstr "/Nézet/AntiAlias-olt"
+msgstr "/Nézet/Él_simított"
 
 #: app/menus.c:302
 msgid "/View/_Visible Grid"
@@ -1029,12 +1027,11 @@ msgstr "/Nézet/_Vonalzók"
 
 #: app/menus.c:305
 msgid "/View/Show _Connection Points"
-msgstr "/Nézet/_Csatlakozási pontokat mutat"
+msgstr "/Nézet/_Csatlakozási pontok"
 
 #: app/menus.c:306
-#, fuzzy
 msgid "/View/---"
-msgstr "/_Nézet"
+msgstr "/Nézet/---"
 
 #: app/menus.c:307
 msgid "/View/New _View"
@@ -1046,23 +1043,23 @@ msgstr "/Nézet/Mutat _Mindent"
 
 #: app/menus.c:309
 msgid "/_Select"
-msgstr "/_Kijelöl"
+msgstr "/_Kijelölés"
 
 #: app/menus.c:310
 msgid "/Select/All"
-msgstr "/Kijelöl/Mindent"
+msgstr "/Kijelölés/Mindent"
 
 #: app/menus.c:311
 msgid "/Select/None"
-msgstr "/Kijelöl/Semmit"
+msgstr "/Kijelölés/Semmit"
 
 #: app/menus.c:312 app/menus.c:321
 msgid "/Select/Invert"
-msgstr "/Kijelöl/Invertál"
+msgstr "/Kijelölés/Invertál"
 
 #: app/menus.c:313
 msgid "/Select/Connected"
-msgstr "/Kijelöl/Összekötött"
+msgstr "/Kijelölés/Összekötött"
 
 #: app/menus.c:314
 msgid "/Select/Transitive"
@@ -1070,28 +1067,27 @@ msgstr "/Kijelöl/Tranzitív"
 
 #: app/menus.c:315
 msgid "/Select/Same Type"
-msgstr "/Kijelöl/Azonos típus"
+msgstr "/Kijelölés/Azonos típus"
 
 #: app/menus.c:316
-#, fuzzy
 msgid "/Select/---"
-msgstr "/_Kijelöl"
+msgstr "/Kijelölés/---"
 
 #: app/menus.c:317
 msgid "/Select/Replace"
-msgstr "/Kijelöl/Cserél"
+msgstr "/Kijelölés/Cserél"
 
 #: app/menus.c:318
 msgid "/Select/Union"
-msgstr "/Kijelöl/Únió"
+msgstr "/Kijelölés/Únió"
 
 #: app/menus.c:319
 msgid "/Select/Intersect"
-msgstr "/Kijelöl/Metszet"
+msgstr "/Kijelölés/Metszet"
 
 #: app/menus.c:320
 msgid "/Select/Remove"
-msgstr "/Kijelöl/Töröl"
+msgstr "/Kijelölés/Töröl"
 
 #: app/menus.c:322
 msgid "/_Objects"
@@ -1106,9 +1102,8 @@ msgid "/Objects/Bring to _Front"
 msgstr "/Objektumok/_Elõtérbe hoz"
 
 #: app/menus.c:325 app/menus.c:328
-#, fuzzy
 msgid "/Objects/---"
-msgstr "/_Objektumok"
+msgstr "/Objektumok/---"
 
 #: app/menus.c:326
 msgid "/Objects/_Group"
@@ -1120,52 +1115,51 @@ msgstr "/Objektumok/Csoport f_elbonása"
 
 #: app/menus.c:329
 msgid "/Objects/Align _Horizontal"
-msgstr "/Objektumok/_Vizszintes"
+msgstr "/Objektumok/_Vizszintes igazítás"
 
 #: app/menus.c:330
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes/Balra"
+msgstr "/Objektumok/Vizszintes igazítás/Balra"
 
 #: app/menus.c:331
 msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "/Objektumok/Vizszintes igazítás/Középre"
 
 #: app/menus.c:332
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/Vizszintes/Jobbra"
+msgstr "/Objektumok/Vizszintes igazítás/Jobbra"
 
 #: app/menus.c:333
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objektumok/Vizszintes/Egyenlõ távolság"
+msgstr "/Objektumok/Vizszintes igazítás/Egyenlõ távolság"
 
 #: app/menus.c:334
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objektumok/Vizszintes/Egymás mellé"
+msgstr "/Objektumok/Vizszintes igazítás/Egymás mellé"
 
 #: app/menus.c:335
 msgid "/Objects/Align _Vertical"
-msgstr "/Objektumok/_Függõleges"
+msgstr "/Objektumok/_Függõleges igazítás"
 
 #: app/menus.c:336
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Objektumok/Függõleges/Fent"
+msgstr "/Objektumok/Függõleges igazítás/Fent"
 
 #: app/menus.c:337
 msgid "/Objects/Align Vertical/Center"
-msgstr "/Objektumok/Függõleges/Középre"
+msgstr "/Objektumok/Függõleges igazítás/Középre"
 
 #: app/menus.c:338
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/Függõleges/Lent"
+msgstr "/Objektumok/Függõleges igazítás/Lent"
 
 #: app/menus.c:339
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/Függõleges/Egyenlõ távolság"
+msgstr "/Objektumok/Függõleges igazítás/Egyenlõ távolság"
 
 #: app/menus.c:340
-#, fuzzy
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objektumok/Függõleges/Középre"
+msgstr "/Objektumok/Függõleges igazítás/Egymás mellé"
 
 #: app/menus.c:342
 msgid "/_Tools"
@@ -1173,15 +1167,15 @@ msgstr "/_Eszközök"
 
 #: app/menus.c:343
 msgid "/Tools/Modify"
-msgstr "/Eszközök/Módosít"
+msgstr "/Eszközök/Módosítás"
 
 #: app/menus.c:344
 msgid "/Tools/Magnify"
-msgstr "/Eszközök/Nagyít"
+msgstr "/Eszközök/Nagyítás"
 
 #: app/menus.c:345
 msgid "/Tools/Scroll"
-msgstr "/Eszközök/Görget"
+msgstr "/Eszközök/Görgetés"
 
 #: app/menus.c:346
 msgid "/Tools/Text"
@@ -1209,7 +1203,7 @@ msgstr "/Eszközök/Vonal"
 
 #: app/menus.c:352
 msgid "/Tools/Arc"
-msgstr "/Eszközök/Körcikk"
+msgstr "/Eszközök/Körív"
 
 #: app/menus.c:353
 msgid "/Tools/Zigzagline"
@@ -1229,53 +1223,47 @@ msgstr "/Eszközök/Kép"
 
 #: app/menus.c:358
 msgid "/_Dialogs"
-msgstr "/_Dialógusok"
+msgstr "/_Párbeszédek"
 
 #: app/menus.c:359
 msgid "/Dialogs/_Properties"
-msgstr "/Dialógusok/_Tulajdonságok"
+msgstr "/Párbeszédek/_Tulajdonságok"
 
 #: app/menus.c:360
 msgid "/Dialogs/_Layers"
-msgstr "/Dialógusok/_Rétegek"
+msgstr "/Párbeszédek/_Rétegek"
 
 #: app/menus.c:532
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
 #: app/menus.c:806
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "Diagrammok:"
+msgstr "Ábramenü"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
-msgstr "Diagramm nyomtatás"
+msgstr "Ábra nyomtatása"
 
 #: app/paginate_psprint.c:194
-#, fuzzy
 msgid "Select Printer"
-msgstr "Sarok törlése"
+msgstr "Nyomtató kiválasztása"
 
 #: app/paginate_psprint.c:206
-#, fuzzy
 msgid "Printer"
-msgstr "Saját"
+msgstr "Nyomtató"
 
 #: app/paginate_psprint.c:219
-#, fuzzy
 msgid "File"
-msgstr "/_Fájl"
+msgstr "Fájl"
 
 #: app/plugin-manager.c:62
-#, fuzzy
 msgid "yes"
-msgstr "Rétegek"
+msgstr "igen"
 
 #: app/plugin-manager.c:62
-#, fuzzy
 msgid "no"
-msgstr "semmi"
+msgstr "nem"
 
 #: app/plugin-manager.c:181 objects/ER/attribute.c:206 objects/ER/entity.c:190
 #: objects/ER/relationship.c:260 objects/UML/association.c:969
@@ -1287,30 +1275,28 @@ msgid "Name:"
 msgstr "Név:"
 
 #: app/plugin-manager.c:193
-#, fuzzy
 msgid "File name:"
-msgstr "Osztály neve:"
+msgstr "Fájl neve:"
 
 #: app/plugin-manager.c:205
-#, fuzzy
 msgid "Description:"
-msgstr "Irány:"
+msgstr "Leírás:"
 
 #: app/plugin-manager.c:219
 msgid "Loaded:"
-msgstr ""
+msgstr "Betöltve:"
 
 #: app/plugin-manager.c:232
 msgid "Autoload at startup"
-msgstr ""
+msgstr "Automatikus betöltés induláskor"
 
 #: app/plugin-manager.c:243
 msgid "Load"
-msgstr ""
+msgstr "Betölt"
 
 #: app/plugin-manager.c:248
 msgid "Unload"
-msgstr ""
+msgstr "Eltávolít"
 
 #: app/preferences.c:85
 msgid "User Interface"
@@ -1318,12 +1304,11 @@ msgstr "Felhasználói interfész"
 
 #: app/preferences.c:86
 msgid "View Defaults"
-msgstr "Alapbeállítások nézete"
+msgstr "Alapbeállítások"
 
 #: app/preferences.c:87
-#, fuzzy
 msgid "Grid Lines"
-msgstr "Vonalak"
+msgstr "Rácsvonalak"
 
 #: app/preferences.c:101
 msgid "Reset tools after create:"
@@ -1331,11 +1316,11 @@ msgstr "Létrehozás után eszközök beállítása:"
 
 #: app/preferences.c:102
 msgid "Compress saved files:"
-msgstr ""
+msgstr "Elmentett fájlok tömörítése:"
 
 #: app/preferences.c:103
 msgid "Number of undo levels:"
-msgstr ""
+msgstr "Visszavonások száma:"
 
 #: app/preferences.c:104
 msgid ""
@@ -1360,9 +1345,8 @@ msgid "Magnify:"
 msgstr "Nagyítás:"
 
 #: app/preferences.c:110
-#, fuzzy
 msgid "Connection Points:"
-msgstr "_Csatlakozási pontokat mutat"
+msgstr "Csatlakozási pontok:"
 
 #: app/preferences.c:111 app/preferences.c:114 app/preferences.c:122
 msgid "Visible:"
@@ -1374,7 +1358,7 @@ msgstr "Rács:"
 
 #: app/preferences.c:115
 msgid "Snap to:"
-msgstr ""
+msgstr "Rácsra ugrik:"
 
 #: app/preferences.c:116
 msgid "X Size:"
@@ -1386,21 +1370,20 @@ msgstr "Y méret:"
 
 #: app/preferences.c:118 app/preferences.c:123
 msgid "Colour:"
-msgstr ""
+msgstr "Szín:"
 
 #: app/preferences.c:119 app/preferences.c:124
-#, fuzzy
 msgid "Solid lines:"
-msgstr "Polivonal"
+msgstr "Teli vonalak:"
 
 #: app/preferences.c:121
 msgid "Page breaks:"
-msgstr ""
+msgstr "Laptörés:"
 
 #: app/preferences.c:235
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
+msgstr "Nem tudom megnyitni: '%s' nem írható"
 
 #: app/preferences.c:566 app/preferences.c:575
 msgid "Preferences"
@@ -1416,11 +1399,11 @@ msgstr "Nincsenek tulajdonságai az objektumnak."
 
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Encapsulated Postscript"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
+msgstr "Belsõ hiba: Setting corner tzpe of endpoint of bezier"
 
 #: lib/font.c:386
 #, c-format
@@ -1446,12 +1429,12 @@ msgstr "Figyelmeztetés"
 
 #: lib/message.c:141
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 #: lib/plug-ins.c:205
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Nem tudtam megállapítani a megfelelõ útvonalat `%s'-hez"
 
 #: lib/plug-ins.c:210
 #, c-format
@@ -1459,34 +1442,36 @@ msgid ""
 "Could not load plugin `%s'\n"
 "%s"
 msgstr ""
+"%s plugin betöltése sikertlen\n"
+"%s"
 
 #: lib/plug-ins.c:221
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr ""
+msgstr "A plugin inicializáló függvénye nem található `%s'-ben"
 
 #: lib/plug-ins.c:248
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr ""
+msgstr "%s plugint nem tudtam eltávolítani"
 
 #: lib/plug-ins.c:301
 #, c-format
 msgid "`%s' is not a directory"
-msgstr ""
+msgstr "`%s' nem könyvtár"
 
 #: lib/plug-ins.c:307
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open `%s'"
-msgstr "Nem tudom megnyitni: '%s' nem olvasható.\n"
+msgstr "Nem tudom megnyitni a következõt: '%s' "
 
 #: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
-msgstr ""
+msgstr "Nincs edit widget"
 
 #: lib/widgets.c:296
 msgid "Solid"
-msgstr "Szolíd"
+msgstr "Teli"
 
 #: lib/widgets.c:302
 msgid "Dashed"
@@ -1506,9 +1491,8 @@ msgstr "Pontozott"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
-#, fuzzy
 msgid "Dash length: "
-msgstr "Hossz: "
+msgstr "Vonal hossza: "
 
 #: lib/widgets.c:660
 msgid "Lines"
@@ -1539,14 +1523,12 @@ msgid "Slashed Cross"
 msgstr ""
 
 #: lib/widgets.c:703
-#, fuzzy
 msgid "Filled Ellipse"
-msgstr "Ellipszis"
+msgstr "Teli ellipszis"
 
 #: lib/widgets.c:709
-#, fuzzy
 msgid "Hollow Ellipse"
-msgstr "Ellipszis"
+msgstr "Lyukas ellipszis"
 
 #: lib/widgets.c:725
 msgid "Length: "
@@ -1562,7 +1544,7 @@ msgstr "Válassz ki egy képfájlt"
 
 #: lib/widgets.c:884
 msgid "Browse"
-msgstr "Keres"
+msgstr "Keresés"
 
 #: objects/ER/attribute.c:214
 msgid "Key"
@@ -1609,7 +1591,7 @@ msgstr "Megjelenés"
 
 #: objects/ER/er.c:40
 msgid "Entity/Relationship diagram objects"
-msgstr ""
+msgstr "Egyed-kapcsolat diagram objektumok"
 
 #: objects/ER/participation.c:418
 msgid "Total:"
@@ -1621,16 +1603,15 @@ msgstr "Teljes:"
 #: objects/UML/generalization.c:280 objects/UML/realizes.c:283
 #: objects/standard/zigzagline.c:343
 msgid "Add segment"
-msgstr ""
+msgstr "Szegmens hozzáadása"
 
 #: objects/ER/participation.c:452 objects/FS/flow-ortho.c:727
 #: objects/GRAFCET/vector.c:401 objects/SADT/arrow.c:647
 #: objects/UML/association.c:609 objects/UML/dependency.c:289
 #: objects/UML/generalization.c:281 objects/UML/realizes.c:284
 #: objects/standard/zigzagline.c:344
-#, fuzzy
 msgid "Delete segment"
-msgstr "Réteget töröl"
+msgstr "Szegmens törlése"
 
 #: objects/ER/relationship.c:268
 msgid "Left Cardinality:"
@@ -1653,9 +1634,8 @@ msgid "Relationship"
 msgstr "Rokonság"
 
 #: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:745
-#, fuzzy
 msgid "Flow:"
-msgstr "Betûtípus:"
+msgstr ""
 
 #: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:761
 msgid "Flow type:"
@@ -1666,19 +1646,19 @@ msgstr ""
 #: objects/FS/flow-ortho.c:788 objects/FS/flow.c:649 objects/FS/flow.c:702
 #: objects/FS/flow.c:766
 msgid "Energy"
-msgstr ""
+msgstr "Energia"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
 #: objects/FS/flow-ortho.c:795 objects/FS/flow.c:656 objects/FS/flow.c:703
 #: objects/FS/flow.c:773
 msgid "Material"
-msgstr ""
+msgstr "Anyag"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
 #: objects/FS/flow-ortho.c:801 objects/FS/flow.c:662 objects/FS/flow.c:704
 #: objects/FS/flow.c:779 objects/FS/function.c:661
 msgid "Signal"
-msgstr ""
+msgstr "Jel"
 
 #: objects/FS/flow-ortho.c:767
 msgid "Orthflow:"
@@ -1693,31 +1673,29 @@ msgid "Function structure diagram objects"
 msgstr ""
 
 #: objects/FS/function.c:572
-#, fuzzy
 msgid "Function:"
-msgstr "Irány:"
+msgstr "Függvény:"
 
 #: objects/FS/function.c:582
 msgid "Wish function"
-msgstr ""
+msgstr "Whish függvény"
 
 #: objects/FS/function.c:587
 msgid "User function"
-msgstr ""
+msgstr "Felhasználói függvény"
 
 #: objects/FS/function.c:627
-#, fuzzy
 msgid "Channel"
-msgstr "Mégsem"
+msgstr "Csatorna"
 
 #: objects/FS/function.c:628
 msgid "   Import"
-msgstr ""
+msgstr "   Import"
 
 #: objects/FS/function.c:629
 #, fuzzy
 msgid "   Export"
-msgstr "_Exportál"
+msgstr "   Export"
 
 #: objects/FS/function.c:630
 msgid "   Transfer"
