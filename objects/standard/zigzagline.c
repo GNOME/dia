@@ -280,6 +280,8 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
 
+  zigzagline_update_data(newzigzagline);
+
   return &newzigzagline->orth.object;
 }
 

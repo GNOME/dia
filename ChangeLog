@@ -1,5 +1,8 @@
 2002-07-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/standard/zigzagline.c (zigzagline_copy): Fix for bug
+	#84429: Now calls update_data after copy.
+
 	* app/interface.c (fill_sheet_wbox): Better fix for bug #88601:
 	Now doesn't steal selection from non-object tools.
 
