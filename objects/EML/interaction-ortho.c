@@ -43,12 +43,12 @@ static ObjectChange* interaction_ortho_move_handle(InteractionOrtho*inter, Handl
 						   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* interaction_ortho_move(InteractionOrtho*inter, Point *to);
 static void interaction_ortho_draw(InteractionOrtho*inter, Renderer *renderer);
-static Object *interaction_ortho_create(Point *startpoint,
+static DiaObject *interaction_ortho_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static void interaction_ortho_destroy(InteractionOrtho*inter);
-static Object *interaction_ortho_copy(InteractionOrtho*inter);
+static DiaObject *interaction_ortho_copy(InteractionOrtho*inter);
 static GtkWidget *interaction_ortho_get_properties(InteractionOrtho*inter);
 static ObjectChange *interaction_ortho_apply_properties(InteractionOrtho*inter);
 static DiaMenu *interaction_ortho_get_object_menu(InteractionOrtho*inter,
@@ -60,7 +60,7 @@ static void interaction_ortho_set_state(InteractionOrtho*inter,
 
 static void interaction_ortho_save(InteractionOrtho*inter, ObjectNode obj_node,
 				const char *filename);
-static Object *interaction_ortho_load(ObjectNode obj_node, int version,
+static DiaObject *interaction_ortho_load(ObjectNode obj_node, int version,
 				   const char *filename);
 
 static void interaction_ortho_update_data(InteractionOrtho*inter);
@@ -219,7 +219,7 @@ static void
 interaction_ortho_update_data(InteractionOrtho*inter)
 {
   OrthConn *orth = &inter->orth;
-  Object *obj = (Object *) inter;
+  DiaObject *obj = (Object *) inter;
   int num_segm, i;
   Point *points;
   Rectangle rect;
@@ -254,7 +254,7 @@ interaction_ortho_update_data(InteractionOrtho*inter)
 }
 
 static ObjectChange *
-interaction_ortho_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+interaction_ortho_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -263,7 +263,7 @@ interaction_ortho_add_segment_callback(Object *obj, Point *clicked, gpointer dat
 }
 
 static ObjectChange *
-interaction_ortho_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+interaction_ortho_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -272,7 +272,7 @@ interaction_ortho_delete_segment_callback(Object *obj, Point *clicked, gpointer 
 }
 
 static ObjectChange *
-interaction_ortho_set_type_callback(Object *obj, Point *clicked, gpointer data)
+interaction_ortho_set_type_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   InteractionOrtho *inter;
   ObjectState *old_state;
@@ -283,7 +283,7 @@ interaction_ortho_set_type_callback(Object *obj, Point *clicked, gpointer data)
   inter->type = (int) data ;
   interaction_ortho_update_data(inter);
 
-  return new_object_state_change((Object *)inter, old_state, 
+  return new_object_state_change((DiaObject *)inter, old_state, 
                                  (GetStateFunc)interaction_ortho_get_state,
                                  (SetStateFunc)interaction_ortho_set_state);
 
@@ -317,7 +317,7 @@ interaction_ortho_get_object_menu(InteractionOrtho*inter, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 interaction_ortho_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -325,7 +325,7 @@ interaction_ortho_create(Point *startpoint,
 {
   InteractionOrtho*inter;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   Point p;
 
   if (inter_font == NULL) {
@@ -336,7 +336,7 @@ interaction_ortho_create(Point *startpoint,
   
   inter = g_malloc0(sizeof(InteractionOrtho));
   orth = &inter->orth;
-  obj = (Object *) inter;
+  obj = (DiaObject *) inter;
   
   obj->type = &interaction_ortho_type;
 
@@ -365,7 +365,7 @@ interaction_ortho_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[2];
 
-  return (Object *)inter;
+  return (DiaObject *)inter;
 }
 
 static void
@@ -381,18 +381,18 @@ interaction_ortho_destroy(InteractionOrtho*inter)
   }
 }
 
-static Object *
+static DiaObject *
 interaction_ortho_copy(InteractionOrtho*inter)
 {
   InteractionOrtho*newinter;
   OrthConn *orth, *neworth;
-  Object *newobj;
+  DiaObject *newobj;
   
   orth = &inter->orth;
   
   newinter = g_malloc0(sizeof(InteractionOrtho));
   neworth = &newinter->orth;
-  newobj = (Object *) newinter;
+  newobj = (DiaObject *) newinter;
 
   orthconn_copy(orth, neworth);
 
@@ -405,7 +405,7 @@ interaction_ortho_copy(InteractionOrtho*inter)
   
   interaction_ortho_update_data(newinter);
   
-  return (Object *)newinter;
+  return (DiaObject *)newinter;
 }
 
 static void
@@ -451,14 +451,14 @@ interaction_ortho_save(InteractionOrtho*inter, ObjectNode obj_node,
                inter->type);
 }
 
-static Object *
+static DiaObject *
 interaction_ortho_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {
   InteractionOrtho*inter;
   AttributeNode attr;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   if (inter_font == NULL) {
 	  /* choose default font name for your locale. see also font_data structure
@@ -469,7 +469,7 @@ interaction_ortho_load(ObjectNode obj_node, int version,
   inter = g_new0(InteractionOrtho, 1);
 
   orth = &inter->orth;
-  obj = (Object *) inter;
+  obj = (DiaObject *) inter;
 
   obj->type = &interaction_ortho_type;
   obj->ops = &interaction_ortho_ops;
@@ -496,7 +496,7 @@ interaction_ortho_load(ObjectNode obj_node, int version,
 
   interaction_ortho_update_data(inter);
 
-  return (Object *)inter;
+  return (DiaObject *)inter;
 }
 
 static ObjectChange *
@@ -516,7 +516,7 @@ interaction_ortho_apply_properties(InteractionOrtho*inter)
     inter->type = INTER_UNIDIR;
 
   interaction_ortho_update_data(inter);
-  return new_object_state_change((Object *)inter, old_state, 
+  return new_object_state_change((DiaObject *)inter, old_state, 
                                  (GetStateFunc)interaction_ortho_get_state,
                                  (SetStateFunc)interaction_ortho_set_state);
 }

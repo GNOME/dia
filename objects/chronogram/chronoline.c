@@ -92,12 +92,12 @@ static ObjectChange* chronoline_move_handle(Chronoline *chronoline, Handle *hand
 static ObjectChange* chronoline_move(Chronoline *chronoline, Point *to);
 static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
 static void chronoline_update_data(Chronoline *chronoline);
-static Object *chronoline_create(Point *startpoint,
+static DiaObject *chronoline_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void chronoline_destroy(Chronoline *chronoline);
-static Object *chronoline_load(ObjectNode obj_node, int version, 
+static DiaObject *chronoline_load(ObjectNode obj_node, int version, 
                                const char *filename);
 static PropDescription *chronoline_describe_props(Chronoline *chronoline);
 static void chronoline_get_props(Chronoline *chronoline, 
@@ -246,7 +246,7 @@ chronoline_set_props(Chronoline *chronoline, GPtrArray *props)
 static real
 chronoline_distance_from(Chronoline *chronoline, Point *point)
 {
-  Object *obj = &chronoline->element.object;
+  DiaObject *obj = &chronoline->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -482,7 +482,7 @@ static void
 chronoline_update_data(Chronoline *chronoline)
 {
   Element *elem = &chronoline->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   real time_span;
   Point ur_corner;
   int shouldbe,i;
@@ -591,7 +591,7 @@ chronoline_update_data(Chronoline *chronoline)
   }
 }
 
-static Object *
+static DiaObject *
 chronoline_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -599,7 +599,7 @@ chronoline_create(Point *startpoint,
 {
   Chronoline *chronoline;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
 
   chronoline = g_new0(Chronoline,1);
   elem = &(chronoline->element);
@@ -653,7 +653,7 @@ chronoline_destroy(Chronoline *chronoline)
   element_destroy(&chronoline->element);
 }
 
-static Object *
+static DiaObject *
 chronoline_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&chronoline_type,

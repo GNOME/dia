@@ -61,12 +61,12 @@ static ObjectChange* note_move_handle(Note *note, Handle *handle,
 				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* note_move(Note *note, Point *to);
 static void note_draw(Note *note, DiaRenderer *renderer);
-static Object *note_create(Point *startpoint,
+static DiaObject *note_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
 static void note_destroy(Note *note);
-static Object *note_load(ObjectNode obj_node, int version,
+static DiaObject *note_load(ObjectNode obj_node, int version,
 			 const char *filename);
 
 static PropDescription *note_describe_props(Note *note);
@@ -161,7 +161,7 @@ note_set_props(Note *note, GPtrArray *props)
 static real
 note_distance_from(Note *note, Point *point)
 {
-  Object *obj = &note->element.object;
+  DiaObject *obj = &note->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -255,7 +255,7 @@ static void
 note_update_data(Note *note)
 {
   Element *elem = &note->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point p;
 
   text_calc_boundingbox(note->text, NULL);
@@ -300,7 +300,7 @@ note_update_data(Note *note)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 note_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -308,7 +308,7 @@ note_create(Point *startpoint,
 {
   Note *note;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -363,7 +363,7 @@ note_destroy(Note *note)
   element_destroy(&note->element);
 }
 
-static Object *
+static DiaObject *
 note_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&note_type,

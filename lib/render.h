@@ -254,7 +254,7 @@ typedef void (*DrawBezierWithArrowsFunc) (Renderer *renderer,
 					  Arrow *end_arrow);
 
 typedef void (*DrawObjectFunc) (Renderer *renderer,
-				Object *object);
+				DiaObject *object);
 
 struct _RenderOps {
   /* Control ops: */

@@ -39,7 +39,7 @@
 
 typedef struct _Textobj Textobj;
 struct _Textobj {
-  Object object;
+  DiaObject object;
   
   Handle text_handle;
 
@@ -60,7 +60,7 @@ static ObjectChange* textobj_move_handle(Textobj *textobj, Handle *handle,
 static ObjectChange* textobj_move(Textobj *textobj, Point *to);
 static void textobj_draw(Textobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(Textobj *textobj);
-static Object *textobj_create(Point *startpoint,
+static DiaObject *textobj_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
@@ -72,7 +72,7 @@ static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
-static Object *textobj_load(ObjectNode obj_node, int version,
+static DiaObject *textobj_load(ObjectNode obj_node, int version,
 			    const char *filename);
 
 static ObjectTypeOps textobj_type_ops =
@@ -208,7 +208,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 static void
 textobj_update_data(Textobj *textobj)
 {
-  Object *obj = &textobj->object;
+  DiaObject *obj = &textobj->object;
   
   obj->position = textobj->text->position;
   
@@ -217,14 +217,14 @@ textobj_update_data(Textobj *textobj)
   textobj->text_handle.pos = textobj->text->position;
 }
 
-static Object *
+static DiaObject *
 textobj_create(Point *startpoint,
 	       void *user_data,
 	       Handle **handle1,
 	       Handle **handle2)
 {
   Textobj *textobj;
-  Object *obj;
+  DiaObject *obj;
   Color col;
   DiaFont *font = NULL;
   real font_height;
@@ -274,11 +274,11 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
 		textobj->text);
 }
 
-static Object *
+static DiaObject *
 textobj_load(ObjectNode obj_node, int version, const char *filename)
 {
   Textobj *textobj;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
   Point startpoint = {0.0, 0.0};
 

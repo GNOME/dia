@@ -32,7 +32,7 @@ struct _CreateObjectTool {
   
   int moving;
   Handle *handle;
-  Object *obj;
+  DiaObject *obj;
   Point last_to;
   int invert_persistence;
 };

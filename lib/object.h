@@ -73,7 +73,7 @@ typedef enum {
   - handle2    : (return) Handle dragged on creation
   both handle1 and handle2 can be NULL
 */
-typedef Object* (*CreateFunc) (Point *startpoint,
+typedef DiaObject* (*CreateFunc) (Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
@@ -89,14 +89,14 @@ typedef Object* (*CreateFunc) (Point *startpoint,
   in the save format. All objects must be capable of reading all earlier
   version.
 */
-typedef Object* (*LoadFunc) (ObjectNode obj_node, int version,
+typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
 			     const char *filename);
 
 /*
   This function save the object's data to file fd. No header is required.
   The data should be written using the functions in lib/files.h
 */
-typedef void (*SaveFunc) (Object* obj, ObjectNode obj_node,
+typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
 			  const char *filename);
 
 
@@ -108,7 +108,7 @@ typedef void (*SaveFunc) (Object* obj, ObjectNode obj_node,
   Must also unconnect itself from all other objects.
   (This is by calling object_destroy, or letting the super-class call it)
 */
-typedef void (*DestroyFunc) (Object* obj);
+typedef void (*DestroyFunc) (DiaObject* obj);
 
 
 /*
@@ -116,14 +116,14 @@ typedef void (*DestroyFunc) (Object* obj);
   Every drawing must be done through the use of the Renderer, so that we
   can render the picture on screen, in an eps file, ...
 */
-typedef void (*DrawFunc) (Object* obj, DiaRenderer* ddisp);
+typedef void (*DrawFunc) (DiaObject* obj, DiaRenderer* ddisp);
 
 
 /*
-  This function must return the distance between the Object and the Point.
+  This function must return the distance between the DiaObject and the Point.
   Several functions are provided in geometry.h to facilitate this calculus
 */
-typedef real (*DistanceFunc) (Object* obj, Point* point);
+typedef real (*DistanceFunc) (DiaObject* obj, Point* point);
 
 
 /*
@@ -138,16 +138,16 @@ typedef real (*DistanceFunc) (Object* obj, Point* point);
 			 (Don't draw to the renderer)
   This function need not redraw the object.
 */
-typedef void (*SelectFunc) (Object*   obj,
+typedef void (*SelectFunc) (DiaObject*   obj,
 			    Point*    clicked_point,
 			    DiaRenderer* interactive_renderer);
 
 /*
-  Returns a copy of Object.
+  Returns a copy of DiaObject.
   This must be an depth-copy (pointers must be duplicated and so on)
   as the initial object can be deleted any time
 */
-typedef Object* (*CopyFunc) (Object* obj);
+typedef DiaObject* (*CopyFunc) (Object* obj);
 
 /*
   Function called to move the entire object.
@@ -159,7 +159,7 @@ typedef Object* (*CopyFunc) (Object* obj);
   (in most cases) NULL.  Undo for moving the object itself is handled
   elsewhere.
 */
-typedef ObjectChange* (*MoveFunc) (Object* obj, Point * pos);
+typedef ObjectChange* (*MoveFunc) (DiaObject* obj, Point * pos);
 
 
 /**
@@ -185,7 +185,7 @@ typedef ObjectChange* (*MoveFunc) (Object* obj, Point * pos);
  *  (in most cases) NULL.  Undo for moving the handle itself is handled
  *  elsewhere.
  */
-typedef ObjectChange* (*MoveHandleFunc) (Object*          obj,
+typedef ObjectChange* (*MoveHandleFunc) (DiaObject*          obj,
 					 Handle*          handle,
 					 Point*           pos,
 					 ConnectionPoint* cp,
@@ -193,7 +193,7 @@ typedef ObjectChange* (*MoveHandleFunc) (Object*          obj,
 					 ModifierKeys     modifiers);
 
 /*
-  Function called when the user has double clicked on an Object.
+  Function called when the user has double clicked on an DiaObject.
   This function should return a dialog to edit the properties
   of the object.
   When this function is called and the dialog already is created,
@@ -212,7 +212,7 @@ typedef ObjectChange* (*MoveHandleFunc) (Object*          obj,
   If is_default is true, this dialog is for object defaults, and
   the toolbox options should not be shown.
 */
-typedef GtkWidget *(*GetPropertiesFunc) (Object* obj, gboolean is_default);
+typedef GtkWidget *(*GetPropertiesFunc) (DiaObject* obj, gboolean is_default);
 
 /*
   Thiss function is called when the user clicks on
@@ -222,27 +222,27 @@ typedef GtkWidget *(*GetPropertiesFunc) (Object* obj, gboolean is_default);
   Must returns a Change that can be used for undo/redo.
   The returned change is already applied.
 */
-typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj, GtkWidget *widget);
+typedef ObjectChange *(*ApplyPropertiesFunc) (DiaObject* obj, GtkWidget *widget);
 
 /*
   This function is called to return a list of property
   descriptions the object supports.  The list should be
   NULL terminated.
 */
-typedef const PropDescription *(* DescribePropsFunc) (Object *obj);
+typedef const PropDescription *(* DescribePropsFunc) (DiaObject *obj);
 
 /*
   This function is called to return the current values
   (and type information) for a number of properties of
   the object.
 */
-typedef void (* GetPropsFunc) (Object *obj, GPtrArray *props);
+typedef void (* GetPropsFunc) (DiaObject *obj, GPtrArray *props);
 
 /*
   This function is called to set the value of a number
   of properties of the object.
 */
-typedef void (* SetPropsFunc) (Object *obj, GPtrArray *props);
+typedef void (* SetPropsFunc) (DiaObject *obj, GPtrArray *props);
 
 
 /*
@@ -262,19 +262,19 @@ typedef void *(*ApplyDefaultsFunc) ();
 /*
   Return an object-specific menu with toggles etc. properly set.
 */
-typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
+typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
 
 /*************************************
  **  The functions provided in object.c
  *************************************/
 
 void dia_object_new(int num_handles, int num_connections);
-void object_destroy(Object *obj); /* Unconnects handles, so don't
+void object_destroy(DiaObject *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
-void object_copy(Object *from, Object *to);
+void object_copy(DiaObject *from, Object *to);
 
-void object_save(Object *obj, ObjectNode obj_node);
-void object_load(Object *obj, ObjectNode obj_node);
+void object_save(DiaObject *obj, ObjectNode obj_node);
+void object_load(DiaObject *obj, ObjectNode obj_node);
 
 GList *object_copy_list(GList *list);
 ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
@@ -286,28 +286,28 @@ ObjectChange* object_list_rotate(GList *objects, Point *center, real angle);
  * the object is used. */
 ObjectChange* object_list_scale(GList *objects, Point *center, real factor);
 void destroy_object_list(GList *list);
-void object_add_handle(Object *obj, Handle *handle);
-void object_add_handle_at(Object *obj, Handle *handle, int pos);
-void object_remove_handle(Object *obj, Handle *handle);
-void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
-void object_remove_connectionpoint(Object *obj,
+void object_add_handle(DiaObject *obj, Handle *handle);
+void object_add_handle_at(DiaObject *obj, Handle *handle, int pos);
+void object_remove_handle(DiaObject *obj, Handle *handle);
+void object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint);
+void object_remove_connectionpoint(DiaObject *obj,
 				   ConnectionPoint *conpoint);
-void object_add_connectionpoint_at(Object *obj, 
+void object_add_connectionpoint_at(DiaObject *obj, 
 				   ConnectionPoint *conpoint,
 				   int pos);
-void object_connect(Object *obj, Handle *handle,
+void object_connect(DiaObject *obj, Handle *handle,
 		    ConnectionPoint *conpoint);
-void object_unconnect(Object *connected_obj, Handle *handle);
+void object_unconnect(DiaObject *connected_obj, Handle *handle);
 void object_remove_connections_to(ConnectionPoint *conpoint);
-void object_unconnect_all(Object *connected_obj);
+void object_unconnect_all(DiaObject *connected_obj);
 void object_registry_init(void);
 void object_register_type(ObjectType *type);
 void object_registry_foreach(GHFunc func, gpointer  user_data);
 ObjectType *object_get_type(char *name);
 
-int object_return_false(Object *obj); /* Just returns FALSE */
-void *object_return_null(Object *obj); /* Just returns NULL */
-void object_return_void(Object *obj); /* Just an empty function */
+int object_return_false(DiaObject *obj); /* Just returns FALSE */
+void *object_return_null(DiaObject *obj); /* Just returns NULL */
+void object_return_void(DiaObject *obj); /* Just an empty function */
 
 /* These functions can be used as a default implementation for an object which
    can be completely described, loaded and saved through standard properties.
@@ -315,9 +315,9 @@ void object_return_void(Object *obj); /* Just an empty function */
 Object *object_load_using_properties(const ObjectType *type,
                                      ObjectNode obj_node, int version,
                                      const char *filename);
-void object_save_using_properties(Object *obj, ObjectNode obj_node, 
+void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
                                   int version, const char *filename);
-Object *object_copy_using_properties(Object *obj);
+Object *object_copy_using_properties(DiaObject *obj);
 
 /*****************************************
  **  The structures used to define an object
@@ -371,11 +371,11 @@ struct _ObjectOps {
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[6]))(Object *obj,...); 
+  void      (*(unused[6]))(DiaObject *obj,...); 
 };
 
 /*
-  The base class in the Object hierarcy.
+  The base class in the DiaObject hierarcy.
   All information in this structure read-only
   from the application point of view except
   when connection objects. (Then handles and
@@ -404,7 +404,7 @@ struct _Object {
 			  This may only be set by functions internal to
 			  the layer, and accessed via 
 			  dia_object_get_parent_layer() */
-  Object *parent;
+  DiaObject *parent;
   GList *children;
   gboolean can_parent;
 
@@ -425,7 +425,7 @@ struct _ObjectTypeOps {
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[10]))(Object *obj,...); 
+  void      (*(unused[10]))(DiaObject *obj,...); 
 };
 
 /*
@@ -452,18 +452,18 @@ struct _DiaObjectClass {
 /* base property stuff ... */
 #define OBJECT_COMMON_PROPERTIES \
   { "obj_pos", PROP_TYPE_POINT, 0, \
-    "Object position", "Where the object is located"}, \
+    "DiaObject position", "Where the object is located"}, \
   { "obj_bb", PROP_TYPE_RECT, 0, \
-    "Object bounding box", "The bounding box of the object"}
+    "DiaObject bounding box", "The bounding box of the object"}
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \
-  { "obj_pos", PROP_TYPE_POINT, offsetof(Object, position) }, \
-  { "obj_bb", PROP_TYPE_RECT, offsetof(Object, bounding_box) }
+  { "obj_pos", PROP_TYPE_POINT, offsetof(DiaObject, position) }, \
+  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }
 
 
 gboolean       dia_object_defaults_load (const gchar *filename,
                                          gboolean create_lazy);
-void           dia_object_default_make (const Object *obj_from);
+void           dia_object_default_make (const DiaObject *obj_from);
 Object  *dia_object_default_get  (const ObjectType *type);
 Object  *dia_object_default_create (const ObjectType *type,
                                     Point *startpoint,
@@ -471,8 +471,8 @@ Object  *dia_object_default_create (const ObjectType *type,
                                     Handle **handle1,
                                     Handle **handle2);
 gboolean       dia_object_defaults_save (const gchar *filename);
-Layer         *dia_object_get_parent_layer(Object *obj);
-gboolean       dia_object_is_selected (const Object *obj);
+Layer         *dia_object_get_parent_layer(DiaObject *obj);
+gboolean       dia_object_is_selected (const DiaObject *obj);
 
 G_END_DECLS
 

@@ -83,12 +83,12 @@ static ObjectChange* chronoref_move_handle(Chronoref *chronoref, Handle *handle,
 static ObjectChange* chronoref_move(Chronoref *chronoref, Point *to);
 static void chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer);
 static void chronoref_update_data(Chronoref *chronoref);
-static Object *chronoref_create(Point *startpoint,
+static DiaObject *chronoref_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void chronoref_destroy(Chronoref *chronoref);
-static Object *chronoref_load(ObjectNode obj_node, int version, 
+static DiaObject *chronoref_load(ObjectNode obj_node, int version, 
                               const char *filename);
 static PropDescription *chronoref_describe_props(Chronoref *chronoref);
 static void chronoref_get_props(Chronoref *chronoref, 
@@ -225,7 +225,7 @@ chronoref_set_props(Chronoref *chronoref, GPtrArray *props)
 static real
 chronoref_distance_from(Chronoref *chronoref, Point *point)
 {
-  Object *obj = &chronoref->element.object;
+  DiaObject *obj = &chronoref->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -326,7 +326,7 @@ static void
 chronoref_update_data(Chronoref *chronoref)
 {
   Element *elem = &chronoref->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   real time_span,t;
   Point p1,p2;
   Point ur_corner;
@@ -411,7 +411,7 @@ chronoref_update_data(Chronoref *chronoref)
   connpointline_putonaline(chronoref->scale,&p1,&p2);
 }
 
-static Object *
+static DiaObject *
 chronoref_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -419,7 +419,7 @@ chronoref_create(Point *startpoint,
 {
   Chronoref *chronoref;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
 
   chronoref = g_new0(Chronoref,1);
   elem = &(chronoref->element);
@@ -462,7 +462,7 @@ chronoref_destroy(Chronoref *chronoref)
   element_destroy(&chronoref->element);
 }
 
-static Object *
+static DiaObject *
 chronoref_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&chronoref_type,

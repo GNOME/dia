@@ -55,7 +55,7 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
   ObjectChange *obj_change;
 
   DDisplay *ddisp = ddisplay_active();
-  Object *obj = (Object *)ddisp->diagram->data->selected->data;
+  DiaObject *obj = (Object *)ddisp->diagram->data->selected->data;
 
   dia_menu_item = (DiaMenuItem *) data;
 
@@ -197,7 +197,7 @@ static void
 popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 {
   Diagram *diagram;
-  Object *obj;
+  DiaObject *obj;
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
   GList *selected_list;
@@ -217,7 +217,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     return;
   }
   
-  obj = (Object *)g_list_first(selected_list)->data;
+  obj = (DiaObject *)g_list_first(selected_list)->data;
   
   /* Possibly react differently at a handle? */
 
@@ -357,7 +357,7 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 
 static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
                              const gchar *str, int strlen) {
-  Object *obj = focus->obj;
+  DiaObject *obj = focus->obj;
   Point p = obj->position;
   ObjectChange *obj_change = NULL;
   gboolean modified;
@@ -451,7 +451,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   GdkModifierType tmask;
   guint state = 0;
   Focus *focus;
-  Object *obj;
+  DiaObject *obj;
   Rectangle *visible;
   Point middle;
   int return_val;
@@ -839,7 +839,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
   Point droppoint;
   Point droppoint_orig;
   Handle *handle1, *handle2;
-  Object *obj, *p_obj;
+  DiaObject *obj, *p_obj;
   GList *list;
   real click_distance;
 

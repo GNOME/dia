@@ -80,16 +80,16 @@ static ObjectChange* relationship_move_handle(Relationship *relationship, Handle
 static ObjectChange* relationship_move(Relationship *relationship, Point *to);
 static void relationship_draw(Relationship *relationship, DiaRenderer *renderer);
 static void relationship_update_data(Relationship *relationship);
-static Object *relationship_create(Point *startpoint,
+static DiaObject *relationship_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void relationship_destroy(Relationship *relationship);
-static Object *relationship_copy(Relationship *relationship);
+static DiaObject *relationship_copy(Relationship *relationship);
 
 static void relationship_save(Relationship *relationship,
 			      ObjectNode obj_node, const char *filename);
-static Object *relationship_load(ObjectNode obj_node, int version,
+static DiaObject *relationship_load(ObjectNode obj_node, int version,
 				 const char *filename);
 static PropDescription *
 relationship_describe_props(Relationship *relationship);
@@ -325,7 +325,7 @@ static void
 relationship_update_data(Relationship *relationship)
 {
   Element *elem = &relationship->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
 
   relationship->name_width =
@@ -410,7 +410,7 @@ relationship_update_data(Relationship *relationship)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 relationship_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -418,7 +418,7 @@ relationship_create(Point *startpoint,
 {
   Relationship *relationship;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   relationship = g_malloc0(sizeof(Relationship));
@@ -473,13 +473,13 @@ relationship_destroy(Relationship *relationship)
   g_free(relationship->right_cardinality);
 }
 
-static Object *
+static DiaObject *
 relationship_copy(Relationship *relationship)
 {
   int i;
   Relationship *newrelationship;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &relationship->element;
   
@@ -546,12 +546,12 @@ relationship_save(Relationship *relationship, ObjectNode obj_node,
   		relationship->font_height);
 }
 
-static Object *
+static DiaObject *
 relationship_load(ObjectNode obj_node, int version, const char *filename)
 {
   Relationship *relationship;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

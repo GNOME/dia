@@ -58,14 +58,14 @@ static ObjectChange* zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer);
-static Object *zigzagline_create(Point *startpoint,
+static DiaObject *zigzagline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real zigzagline_distance_from(Zigzagline *zigzagline, Point *point);
 static void zigzagline_update_data(Zigzagline *zigzagline);
 static void zigzagline_destroy(Zigzagline *zigzagline);
-static Object *zigzagline_copy(Zigzagline *zigzagline);
+static DiaObject *zigzagline_copy(Zigzagline *zigzagline);
 static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
@@ -75,7 +75,7 @@ static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
-static Object *zigzagline_load(ObjectNode obj_node, int version,
+static DiaObject *zigzagline_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
 static ObjectTypeOps zigzagline_type_ops =
@@ -226,7 +226,7 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
 					   &zigzagline->end_arrow);
 }
 
-static Object *
+static DiaObject *
 zigzagline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -234,7 +234,7 @@ zigzagline_create(Point *startpoint,
 {
   Zigzagline *zigzagline;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   /*zigzagline_init_defaults();*/
   zigzagline = g_malloc0(sizeof(Zigzagline));
@@ -266,12 +266,12 @@ zigzagline_destroy(Zigzagline *zigzagline)
   orthconn_destroy(&zigzagline->orth);
 }
 
-static Object *
+static DiaObject *
 zigzagline_copy(Zigzagline *zigzagline)
 {
   Zigzagline *newzigzagline;
   OrthConn *orth, *neworth;
-  Object *newobj;
+  DiaObject *newobj;
   
   orth = &zigzagline->orth;
  
@@ -316,7 +316,7 @@ zigzagline_update_data(Zigzagline *zigzagline)
 }
 
 static ObjectChange *
-zigzagline_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+zigzagline_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -325,7 +325,7 @@ zigzagline_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-zigzagline_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -403,12 +403,12 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 		  zigzagline->dashlength);
 }
 
-static Object *
+static DiaObject *
 zigzagline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Zigzagline *zigzagline;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   zigzagline = g_malloc0(sizeof(Zigzagline));

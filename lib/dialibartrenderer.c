@@ -1358,7 +1358,7 @@ draw_image(DiaRenderer *self,
 
 
 static void
-draw_object (DiaRenderer *renderer, Object *object)
+draw_object (DiaRenderer *renderer, DiaObject *object)
 {
   if (object->highlight_color != NULL) {
     DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);

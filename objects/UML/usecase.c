@@ -76,12 +76,12 @@ static ObjectChange* usecase_move_handle(Usecase *usecase, Handle *handle,
 					 HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* usecase_move(Usecase *usecase, Point *to);
 static void usecase_draw(Usecase *usecase, DiaRenderer *renderer);
-static Object *usecase_create(Point *startpoint,
+static DiaObject *usecase_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
 static void usecase_destroy(Usecase *usecase);
-static Object *usecase_load(ObjectNode obj_node, int version,
+static DiaObject *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
 static PropDescription *usecase_describe_props(Usecase *usecase);
@@ -180,7 +180,7 @@ usecase_set_props(Usecase *usecase, GPtrArray *props)
 static real
 usecase_distance_from(Usecase *usecase, Point *point)
 {
-  Object *obj = &usecase->element.object;
+  DiaObject *obj = &usecase->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -286,7 +286,7 @@ usecase_update_data(Usecase *usecase)
   Point c, half, r,p;
   
   Element *elem = &usecase->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   
   text_calc_boundingbox(usecase->text, NULL);
   w = usecase->text->max_width;
@@ -385,7 +385,7 @@ usecase_update_data(Usecase *usecase)
 
 }
 
-static Object *
+static DiaObject *
 usecase_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -393,7 +393,7 @@ usecase_create(Point *startpoint,
 {
   Usecase *usecase;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -448,7 +448,7 @@ usecase_destroy(Usecase *usecase)
   element_destroy(&usecase->element);
 }
 
-static Object *
+static DiaObject *
 usecase_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&usecase_type,

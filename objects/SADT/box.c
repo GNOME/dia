@@ -82,12 +82,12 @@ static ObjectChange* sadtbox_move_handle(Box *box, Handle *handle,
 static ObjectChange* sadtbox_move(Box *box, Point *to);
 static void sadtbox_draw(Box *box, DiaRenderer *renderer);
 static void sadtbox_update_data(Box *box, AnchorShape horix, AnchorShape vert);
-static Object *sadtbox_create(Point *startpoint,
+static DiaObject *sadtbox_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void sadtbox_destroy(Box *box);
-static Object *sadtbox_load(ObjectNode obj_node, int version, 
+static DiaObject *sadtbox_load(ObjectNode obj_node, int version, 
                             const char *filename);
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
 
@@ -313,7 +313,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real width, height;
@@ -416,7 +416,7 @@ sadtbox_create_change(Box *box, ObjectChange *inner, ConnPointLine *cpl) {
 }
 
 static ObjectChange *
-sadtbox_add_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+sadtbox_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
   ObjectChange *change;
   ConnPointLine *cpl;
@@ -429,7 +429,7 @@ sadtbox_add_connpoint_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-sadtbox_remove_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+sadtbox_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
   ObjectChange *change;
   ConnPointLine *cpl;
@@ -467,7 +467,7 @@ sadtbox_get_object_menu(Box *box, Point *clickedpoint)
 }
 
 
-static Object *
+static DiaObject *
 sadtbox_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -475,7 +475,7 @@ sadtbox_create(Point *startpoint,
 {
   Box *box;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont* font;
   
@@ -539,7 +539,7 @@ sadtbox_destroy(Box *box)
 }
 
 
-static Object *
+static DiaObject *
 sadtbox_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&sadtbox_type,

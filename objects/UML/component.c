@@ -66,12 +66,12 @@ static ObjectChange* component_move_handle(Component *cmp, Handle *handle,
 					   HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* component_move(Component *cmp, Point *to);
 static void component_draw(Component *cmp, DiaRenderer *renderer);
-static Object *component_create(Point *startpoint,
+static DiaObject *component_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
 				   Handle **handle2);
 static void component_destroy(Component *cmp);
-static Object *component_load(ObjectNode obj_node, int version,
+static DiaObject *component_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *component_describe_props(Component *component);
@@ -171,7 +171,7 @@ component_set_props(Component *component, GPtrArray *props)
 static real
 component_distance_from(Component *cmp, Point *point)
 {
-  Object *obj = &cmp->element.object;
+  DiaObject *obj = &cmp->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -278,7 +278,7 @@ static void
 component_update_data(Component *cmp)
 {
   Element *elem = &cmp->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point p;
   real cw2, ch;
 
@@ -365,7 +365,7 @@ component_update_data(Component *cmp)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 component_create(Point *startpoint,
 		    void *user_data,
 		    Handle **handle1,
@@ -373,7 +373,7 @@ component_create(Point *startpoint,
 {
   Component *cmp;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -432,7 +432,7 @@ component_destroy(Component *cmp)
   element_destroy(&cmp->element);
 }
 
-static Object *
+static DiaObject *
 component_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&component_type,

@@ -22,11 +22,11 @@
 #include "object.h"
 #include "boundingbox.h"
 
-/* This is a subclass of Object used to help implementing objects
+/* This is a subclass of DiaObject used to help implementing objects
  * of a line-like type. */
 struct _Connection {
-  /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+  /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
   
   Point endpoints[2];
   Handle endpoint_handles[2];

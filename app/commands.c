@@ -282,7 +282,7 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 {
   ObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
-  Object *obj = focus->obj;
+  DiaObject *obj = focus->obj;
 
   while (text != NULL) {
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
@@ -356,7 +356,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
-  Object *obj;
+  DiaObject *obj;
   GPtrArray *textprops;
   TextProperty *prop;
 
@@ -391,7 +391,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
-  Object *obj;
+  DiaObject *obj;
   Text *text;
   GPtrArray *textprops;
   TextProperty *prop;
@@ -1008,7 +1008,7 @@ void
 dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
-  Object *selected;
+  DiaObject *selected;
 
   dia = ddisplay_active()->diagram; 
 

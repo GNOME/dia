@@ -580,7 +580,7 @@ create_sheets_edit_dialog (void)
   gtk_widget_show (vbox1);
   gtk_box_pack_start (GTK_BOX (dialog_vbox3), vbox1, TRUE, TRUE, 0);
 
-  frame_object = gtk_frame_new (_("Object"));
+  frame_object = gtk_frame_new (_("DiaObject"));
   gtk_widget_ref (frame_object);
   gtk_object_set_data_full (GTK_OBJECT (sheets_edit_dialog), "frame_object", frame_object,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -806,7 +806,7 @@ create_sheets_remove_dialog (void)
   gtk_widget_show (table7);
   gtk_container_add (GTK_CONTAINER (frame), table7);
 
-  radiobutton_object = gtk_radio_button_new_with_label (table7_group, _("Object:"));
+  radiobutton_object = gtk_radio_button_new_with_label (table7_group, _("DiaObject:"));
   table7_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton_object));
   gtk_widget_ref (radiobutton_object);
   gtk_object_set_data_full (GTK_OBJECT (sheets_remove_dialog), "radiobutton_object", radiobutton_object,

@@ -64,9 +64,9 @@ struct _PropDialog { /* This is to be treated as opaque ! */
   GArray *prop_widgets; /* of PropWidgetAssoc. This is a "flat" listing of 
                            properties and widgets (no nesting information is 
                            kept here) */
-  Object *obj_copy; /* if !NULL, a copy of the object which can be used 
+  DiaObject *obj_copy; /* if !NULL, a copy of the object which can be used 
                        as scratch. */
-  Object *orig_obj; /* The original object (do not touch !) */
+  DiaObject *orig_obj; /* The original object (do not touch !) */
 
   GPtrArray *containers;
   WIDGET *lastcont;
@@ -81,7 +81,7 @@ struct _PropEventData {
   Property *self; 
 };
 
-typedef gboolean (*PropEventHandler) (Object *obj, Property *prop);
+typedef gboolean (*PropEventHandler) (DiaObject *obj, Property *prop);
 
 struct _PropEventHandlerChain {
   PropEventHandler handler;
@@ -399,45 +399,45 @@ struct _PropOffset {
 
 /* returns TRUE if this object can be handled (at least in part) through this
    library. */
-gboolean object_complies_with_stdprop(const Object *obj);
+gboolean object_complies_with_stdprop(const DiaObject *obj);
 
 /* will do whatever is needed to make the PropDescription * list look good to 
    the rest of the properties code. Can return NULL. */
-const PropDescription *object_get_prop_descriptions(const Object *obj);
+const PropDescription *object_get_prop_descriptions(const DiaObject *obj);
 
-gboolean object_get_props_from_offsets(Object *obj, PropOffset *offsets,
+gboolean object_get_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 				       GPtrArray *props);
-gboolean object_set_props_from_offsets(Object *obj, PropOffset *offsets,
+gboolean object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 				       GPtrArray *props);
 
 /* apply some properties and return a corresponding object change */
-ObjectChange *object_apply_props(Object *obj, GPtrArray *props);
+ObjectChange *object_apply_props(DiaObject *obj, GPtrArray *props);
 
 /* standard properties dialogs that can be used for objects that
  * implement describe_props, get_props and set_props.
  * If is_default is set, this is a default dialog, not an object dialog.
  */
-WIDGET *object_create_props_dialog     (Object *obj, gboolean is_default);
-ObjectChange *object_apply_props_from_dialog (Object *obj, WIDGET *dialog);
+WIDGET *object_create_props_dialog     (DiaObject *obj, gboolean is_default);
+ObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
 
 /* create a property from the object's property descriptors. To be freed with
    prop->ops->free(prop); or put it into a single property list. NULL if object
    has nothing matching. Property's value is initialised by the object.
    Serve cold. */
-Property *object_prop_by_name(Object *obj, const char *name);
-Property *object_prop_by_name_type(Object *obj, const char *name, const char *type);
+Property *object_prop_by_name(DiaObject *obj, const char *name);
+Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
 
 /* standard way to load/save properties of an object */
-void          object_load_props(Object *obj, ObjectNode obj_node);
-void          object_save_props(Object *obj, ObjectNode obj_node);
+void          object_load_props(DiaObject *obj, ObjectNode obj_node);
+void          object_save_props(DiaObject *obj, ObjectNode obj_node);
 
 /* standard way to copy the properties of an object into another (of the
    same type) */
-void          object_copy_props(Object *dest, const Object *src,
+void          object_copy_props(DiaObject *dest, const Object *src,
                                 gboolean is_default);
 
 /* Return a reference to objects property with 'name' or NULL */
-Property     *object_get_prop_by_name (Object *obj, const char* name);
+Property     *object_get_prop_by_name (DiaObject *obj, const char* name);
  
 /* ************************************************************* */ 
 

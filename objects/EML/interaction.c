@@ -47,14 +47,14 @@ static ObjectChange* interaction_move(Interaction *interaction, Point *to);
 static void interaction_select(Interaction *interaction, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void interaction_draw(Interaction *interaction, Renderer *renderer);
-static Object *interaction_create(Point *startpoint,
+static DiaObject *interaction_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real interaction_distance_from(Interaction *interaction, Point *point);
 static void interaction_update_data(Interaction *interaction);
 static void interaction_destroy(Interaction *interaction);
-static Object *interaction_copy(Interaction *interaction);
+static DiaObject *interaction_copy(Interaction *interaction);
 static GtkWidget *interaction_get_properties(Interaction *interaction);
 static ObjectChange *interaction_apply_properties(Interaction *interaction);
 static DiaMenu *interaction_get_object_menu(Interaction *interaction,
@@ -66,7 +66,7 @@ static void interaction_set_state(Interaction *interaction,
 
 static void interaction_save(Interaction *interaction, ObjectNode obj_node,
 			    const char *filename);
-static Object *interaction_load(ObjectNode obj_node, int version,
+static DiaObject *interaction_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
 static ObjectTypeOps interaction_type_ops =
@@ -271,7 +271,7 @@ interaction_draw(Interaction *interaction, Renderer *renderer)
                                  &color_black);
 }
 
-static Object *
+static DiaObject *
 interaction_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -279,7 +279,7 @@ interaction_create(Point *startpoint,
 {
   Interaction *interaction;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   if (interaction_font == NULL) {
@@ -295,7 +295,7 @@ interaction_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) interaction;
+  obj = (DiaObject *) interaction;
   
   obj->type = &interaction_type;
   obj->ops = &interaction_ops;
@@ -322,7 +322,7 @@ interaction_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)interaction;
+  return (DiaObject *)interaction;
 }
 
 
@@ -339,18 +339,18 @@ interaction_destroy(Interaction *interaction)
   }
 }
 
-static Object *
+static DiaObject *
 interaction_copy(Interaction *interaction)
 {
   Interaction *newinteraction;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   
   conn = &interaction->connection;
   
   newinteraction = g_malloc0(sizeof(Interaction));
   newconn = &newinteraction->connection;
-  newobj = (Object *) newinteraction;
+  newobj = (DiaObject *) newinteraction;
 
   connection_copy(conn, newconn);
 
@@ -364,7 +364,7 @@ interaction_copy(Interaction *interaction)
 
   newinteraction->properties_dialog = NULL;
 
-  return (Object *)newinteraction;
+  return (DiaObject *)newinteraction;
 }
 
 static void
@@ -409,7 +409,7 @@ static void
 interaction_update_data(Interaction *interaction)
 {
   Connection *conn = &interaction->connection;
-  Object *obj = (Object *) interaction;
+  DiaObject *obj = (Object *) interaction;
   Rectangle rect;
   
   obj->position = conn->endpoints[0];
@@ -437,7 +437,7 @@ interaction_update_data(Interaction *interaction)
 
 static
 ObjectChange *
-interaction_set_type_callback(Object *obj, Point *clicked, gpointer data)
+interaction_set_type_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   Interaction *inter;
   ObjectState *old_state;
@@ -448,7 +448,7 @@ interaction_set_type_callback(Object *obj, Point *clicked, gpointer data)
   inter->type = (int) data ;
   interaction_update_data(inter);
 
-  return new_object_state_change((Object *)inter, old_state, 
+  return new_object_state_change((DiaObject *)inter, old_state, 
                                  (GetStateFunc)interaction_get_state,
                                  (SetStateFunc)interaction_set_state);
 
@@ -486,13 +486,13 @@ interaction_save(Interaction *interaction, ObjectNode obj_node,
 		 &interaction->text_pos);
 }
 
-static Object *
+static DiaObject *
 interaction_load(ObjectNode obj_node, int version, const char *filename)
 {
   Interaction *interaction;
   AttributeNode attr;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
 
   if (interaction_font == NULL) {
 	  /* choose default font name for your locale. see also font_data structure
@@ -503,7 +503,7 @@ interaction_load(ObjectNode obj_node, int version, const char *filename)
   interaction = g_malloc0(sizeof(Interaction));
 
   conn = &interaction->connection;
-  obj = (Object *) interaction;
+  obj = (DiaObject *) interaction;
 
   obj->type = &interaction_type;
   obj->ops = &interaction_ops;
@@ -541,7 +541,7 @@ interaction_load(ObjectNode obj_node, int version, const char *filename)
   
   interaction_update_data(interaction);
   
-  return (Object *)interaction;
+  return (DiaObject *)interaction;
 }
 
 
@@ -569,7 +569,7 @@ interaction_apply_properties(Interaction *interaction)
 			INTERACTION_FONTHEIGHT);
   
   interaction_update_data(interaction);
-  return new_object_state_change((Object *)interaction, old_state, 
+  return new_object_state_change((DiaObject *)interaction, old_state, 
 				 (GetStateFunc)interaction_get_state,
 				 (SetStateFunc)interaction_set_state);
 

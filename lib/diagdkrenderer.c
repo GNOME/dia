@@ -106,7 +106,7 @@ static void draw_polyline (DiaRenderer *renderer,
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *color);
-static void draw_object (DiaRenderer *renderer, Object *object);
+static void draw_object (DiaRenderer *renderer, DiaObject *object);
 
 static real get_text_width (DiaRenderer *renderer,
                             const gchar *text, int length);
@@ -946,7 +946,7 @@ draw_polygon (DiaRenderer *self,
 }
 
 static void
-draw_object (DiaRenderer *renderer, Object *object)
+draw_object (DiaRenderer *renderer, DiaObject *object)
 {
   if (object->highlight_color != NULL) {
     DiaGdkRenderer *gdk_rend = DIA_GDK_RENDERER(renderer);

@@ -42,8 +42,8 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   Point clickedpoint, origpoint;
   Handle *handle1;
   Handle *handle2;
-  Object *obj;
-  Object *parent_obj;
+  DiaObject *obj;
+  DiaObject *parent_obj;
   real click_distance;
   GList *avoid = NULL;
 

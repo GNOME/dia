@@ -48,7 +48,7 @@ _obj_create (gpointer key,
   gchar *name = (gchar *)key;
   ObjectType *type = (ObjectType *)value;
   GHashTable *ht = (GHashTable *) user_data;
-  Object *obj;
+  DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
@@ -71,7 +71,7 @@ _obj_create (gpointer key,
 static void
 _obj_destroy (gpointer val)
 {
-  Object *obj = (Object *)val;
+  DiaObject *obj = (Object *)val;
 
   obj->ops->destroy (obj);
 }
@@ -142,7 +142,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 		  char *version = xmlGetProp(obj_node, "version");
 		  if (typestr)
 		    {
-		      Object *obj = g_hash_table_lookup (defaults_hash, typestr);
+		      DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
 		      if (!obj)
 		        {
 			  if (!create_lazy)
@@ -166,7 +166,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 #if 0 /* lots of complaining about missing attributes */
 			  object_load_props(obj, obj_node); /* leaks ?? */
 #else
-			  Object *def_obj;
+			  DiaObject *def_obj;
 			  def_obj = obj->type->ops->load (
 					obj_node,
 			                version ? atoi(version) : 0,
@@ -203,9 +203,9 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
  * Remember as defaults from a diagram object
  */
 void
-dia_object_default_make (const Object *obj_from)
+dia_object_default_make (const DiaObject *obj_from)
 {
-  Object *obj_to;
+  DiaObject *obj_to;
 
   g_return_if_fail (obj_from);
 
@@ -224,7 +224,7 @@ dia_object_default_make (const Object *obj_from)
 Object *
 dia_object_default_get (const ObjectType *type)
 {
-  Object *obj;
+  DiaObject *obj;
 
   obj = g_hash_table_lookup (defaults_hash, type->name);
   if (!obj && object_default_create_lazy)
@@ -265,8 +265,8 @@ dia_object_default_create (const ObjectType *type,
                            Handle **handle1,
                            Handle **handle2)
 {
-  const Object *def_obj;
-  Object *obj;
+  const DiaObject *def_obj;
+  DiaObject *obj;
 
   g_return_val_if_fail (type != NULL, NULL);
 
@@ -312,7 +312,7 @@ _obj_store (gpointer key,
             gpointer user_data)
 {
   gchar *name = (gchar *)key;
-  Object *obj = (Object *)value;
+  DiaObject *obj = (Object *)value;
   MyRootInfo *ri = (MyRootInfo *)user_data;
   ObjectNode obj_node;
   gchar *layer_name;

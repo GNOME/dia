@@ -92,7 +92,7 @@ static ObjectChange* step_move_handle(Step *step, Handle *handle,
 static ObjectChange* step_move(Step *step, Point *to);
 static void step_draw(Step *step, DiaRenderer *renderer);
 static void step_update_data(Step *step);
-static Object *step_create(Point *startpoint,
+static DiaObject *step_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
 			     Handle **handle2);
@@ -100,7 +100,7 @@ static void step_destroy(Step *step);
 
 static void step_been_renamed(const gchar *sid);
 
-static Object *step_load(ObjectNode obj_node, int version,
+static DiaObject *step_load(ObjectNode obj_node, int version,
 			   const char *filename);
 static PropDescription *step_describe_props(Step *step);
 static void step_get_props(Step *step, 
@@ -379,7 +379,7 @@ static void
 step_update_data(Step *step)
 {
   Element *elem = &step->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
   Point *p,ulc;
 
@@ -476,7 +476,7 @@ step_update_data(Step *step)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 step_create(Point *startpoint,
 	      void *user_data,
 	      Handle **handle1,
@@ -484,7 +484,7 @@ step_create(Point *startpoint,
 {
   Step *step;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   int type;
   
@@ -556,7 +556,7 @@ step_destroy(Step *step)
   element_destroy(&step->element);
 }
 
-static Object *
+static DiaObject *
 step_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&step_type,

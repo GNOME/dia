@@ -37,7 +37,7 @@ struct _ModifyTool {
   enum ModifyToolState state;
   int break_connections;
   Point move_compensate;
-  Object *object;
+  DiaObject *object;
   Handle *handle;
   Point last_to;
   Point start_at;

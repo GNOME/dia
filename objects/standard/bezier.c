@@ -62,14 +62,14 @@ static ObjectChange* bezierline_move(Bezierline *bezierline, Point *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer);
-static Object *bezierline_create(Point *startpoint,
+static DiaObject *bezierline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real bezierline_distance_from(Bezierline *bezierline, Point *point);
 static void bezierline_update_data(Bezierline *bezierline);
 static void bezierline_destroy(Bezierline *bezierline);
-static Object *bezierline_copy(Bezierline *bezierline);
+static DiaObject *bezierline_copy(Bezierline *bezierline);
 
 static PropDescription *bezierline_describe_props(Bezierline *bezierline);
 static void bezierline_get_props(Bezierline *bezierline, GPtrArray *props);
@@ -77,7 +77,7 @@ static void bezierline_set_props(Bezierline *bezierline, GPtrArray *props);
 
 static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			  const char *filename);
-static Object *bezierline_load(ObjectNode obj_node, int version,
+static DiaObject *bezierline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
 
@@ -275,12 +275,12 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
    * only checking while selected.  But we'll do that if needed.
    */
   if (renderer->is_interactive &&
-      dia_object_is_selected((Object*)bezierline)) {
+      dia_object_is_selected((DiaObject*)bezierline)) {
     bezierconn_draw_control_lines(&bezierline->bez, renderer);
   }
 }
 
-static Object *
+static DiaObject *
 bezierline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -288,7 +288,7 @@ bezierline_create(Point *startpoint,
 {
   Bezierline *bezierline;
   BezierConn *bez;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { .3, .3 };
 
   bezierline = g_new0(Bezierline, 1);
@@ -335,12 +335,12 @@ bezierline_destroy(Bezierline *bezierline)
   bezierconn_destroy(&bezierline->bez);
 }
 
-static Object *
+static DiaObject *
 bezierline_copy(Bezierline *bezierline)
 {
   Bezierline *newbezierline;
   BezierConn *bez, *newbez;
-  Object *newobj;
+  DiaObject *newobj;
   
   bez = &bezierline->bez;
  
@@ -365,7 +365,7 @@ static void
 bezierline_update_data(Bezierline *bezierline)
 {
   BezierConn *bez = &bezierline->bez;
-  Object *obj = &bez->object;
+  DiaObject *obj = &bez->object;
   PolyBBExtras *extra = &bez->extra_spacing;
 
   bezierconn_update_data(bez);
@@ -429,12 +429,12 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
   }
 }
 
-static Object *
+static DiaObject *
 bezierline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bezierline *bezierline;
   BezierConn *bez;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   bezierline = g_new0(Bezierline, 1);
@@ -499,7 +499,7 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-bezierline_add_segment_callback (Object *obj, Point *clicked, gpointer data)
+bezierline_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bezierline *bezierline = (Bezierline*) obj;
   int segment;
@@ -512,7 +512,7 @@ bezierline_add_segment_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-bezierline_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
+bezierline_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   int seg_nr;
   Bezierline *bezierline = (Bezierline*) obj;
@@ -527,7 +527,7 @@ bezierline_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-bezierline_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
+bezierline_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *closest;
   Bezierline *bezierline = (Bezierline*) obj;

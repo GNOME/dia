@@ -117,7 +117,7 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
   pixbuf = gdk_pixbuf_new_from_file (filename, &error);
   if (pixbuf)
     {
-      Object *obj;
+      DiaObject *obj;
       Handle *h1, *h2;
       Point point;
       point.x = point.y = 0.0;

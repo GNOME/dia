@@ -467,7 +467,7 @@ text_draw(Text *text, DiaRenderer *renderer)
  *  object is selected.
  */
 void
-text_register_editable(Text *text, Object *obj)
+text_register_editable(Text *text, DiaObject *obj)
 {
   DiagramData *dia;
 
@@ -485,7 +485,7 @@ text_reset_editable(DiagramData *dia)
 }
 
 void
-text_grab_focus(Text *text, Object *object)
+text_grab_focus(Text *text, DiaObject *object)
 {
   text->focus.obj = object;
   request_focus(&text->focus);
@@ -1040,7 +1040,7 @@ text_set_attributes(Text *text, TextAttributes *attr)
 }
 
 static void
-text_change_apply(struct TextObjectChange *change, Object *obj)
+text_change_apply(struct TextObjectChange *change, DiaObject *obj)
 {
   Text *text = change->text;
   switch (change->type) {
@@ -1076,7 +1076,7 @@ text_change_apply(struct TextObjectChange *change, Object *obj)
 }
 
 static void
-text_change_revert(struct TextObjectChange *change, Object *obj)
+text_change_revert(struct TextObjectChange *change, DiaObject *obj)
 {
   Text *text = change->text;
   switch (change->type) {

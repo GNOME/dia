@@ -27,7 +27,7 @@
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
 PyObject *
-PyDiaHandle_New(Handle *handle, Object *owner)
+PyDiaHandle_New(Handle *handle, DiaObject *owner)
 {
     PyDiaHandle *self;
 

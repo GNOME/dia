@@ -15,14 +15,14 @@ PyObject* PyDiaProperty_New (Property* property);
 
 typedef struct {
     PyObject_HEAD
-    Object* object;
+    DiaObject* object;
     int nprops;
 } PyDiaProperties;
 
 extern PyTypeObject PyDiaProperties_Type;
-PyObject* PyDiaProperties_New (Object* obj);
+PyObject* PyDiaProperties_New (DiaObject* obj);
 
-int PyDiaProperty_ApplyToObject (Object *object, gchar *key, Property *prop, PyObject *val);
+int PyDiaProperty_ApplyToObject (DiaObject *object, gchar *key, Property *prop, PyObject *val);
 
 #define PyDiaProperty_Check(o) ((o)->ob_type == &PyDiaProperty_Type)
 

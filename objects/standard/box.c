@@ -78,19 +78,19 @@ static ObjectChange* box_move_handle(Box *box, Handle *handle,
 static ObjectChange* box_move(Box *box, Point *to);
 static void box_draw(Box *box, DiaRenderer *renderer);
 static void box_update_data(Box *box);
-static Object *box_create(Point *startpoint,
+static DiaObject *box_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void box_destroy(Box *box);
-static Object *box_copy(Box *box);
+static DiaObject *box_copy(Box *box);
 
 static PropDescription *box_describe_props(Box *box);
 static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
-static Object *box_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *box_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
 
 static ObjectTypeOps box_type_ops =
@@ -352,7 +352,7 @@ box_update_data(Box *box)
 {
   Element *elem = &box->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   real radius;
   
   if (box->aspect == SQUARE_ASPECT){
@@ -412,7 +412,7 @@ box_update_data(Box *box)
   }
 }
 
-static Object *
+static DiaObject *
 box_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -420,7 +420,7 @@ box_create(Point *startpoint,
 {
   Box *box;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   box = g_malloc0(sizeof(Box));
@@ -466,13 +466,13 @@ box_destroy(Box *box)
   element_destroy(&box->element);
 }
 
-static Object *
+static DiaObject *
 box_copy(Box *box)
 {
   int i;
   Box *newbox;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &box->element;
   
@@ -539,12 +539,12 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
 		  box->aspect);
 }
 
-static Object *
+static DiaObject *
 box_load(ObjectNode obj_node, int version, const char *filename)
 {
   Box *box;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 
@@ -627,7 +627,7 @@ aspect_change_free(struct AspectChange *change)
 }
 
 static void
-aspect_change_apply(struct AspectChange *change, Object *obj)
+aspect_change_apply(struct AspectChange *change, DiaObject *obj)
 {
   Box *box = (Box*)obj;
 
@@ -636,7 +636,7 @@ aspect_change_apply(struct AspectChange *change, Object *obj)
 }
 
 static void
-aspect_change_revert(struct AspectChange *change, Object *obj)
+aspect_change_revert(struct AspectChange *change, DiaObject *obj)
 {
   Box *box = (Box*)obj;
 
@@ -669,7 +669,7 @@ aspect_create_change(Box *box, AspectType aspect)
 
 
 static ObjectChange *
-box_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
+box_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   ObjectChange *change;
 

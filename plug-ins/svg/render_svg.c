@@ -71,7 +71,7 @@ G_END_DECLS
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
 static void draw_object       (DiaRenderer *renderer,
-                               Object *object);
+                               DiaObject *object);
 static void draw_rounded_rect (DiaRenderer *renderer, 
                                Point *ul_corner, Point *lr_corner,
                                Color *colour, real rounding);
@@ -215,7 +215,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
 
 static void 
 draw_object(DiaRenderer *renderer,
-            Object *object) 
+            DiaObject *object) 
 {
   /* TODO: wrap in  <g></g> */
   object->ops->draw(object, renderer);

@@ -252,7 +252,7 @@ element_move_handle_aspect(Element *elem, HandleId id,
 void
 element_init(Element *elem, int num_handles, int num_connections)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &elem->object;
@@ -272,7 +272,7 @@ element_init(Element *elem, int num_handles, int num_connections)
 void
 element_copy(Element *from, Element *to)
 {
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
   int i;
 
   fromobj = &from->object;

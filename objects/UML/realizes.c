@@ -69,7 +69,7 @@ static ObjectChange* realizes_move_handle(Realizes *realize, Handle *handle,
 					  HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* realizes_move(Realizes *realize, Point *to);
 static void realizes_draw(Realizes *realize, DiaRenderer *renderer);
-static Object *realizes_create(Point *startpoint,
+static DiaObject *realizes_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -81,7 +81,7 @@ static PropDescription *realizes_describe_props(Realizes *realizes);
 static void realizes_get_props(Realizes * realizes, GPtrArray *props);
 static void realizes_set_props(Realizes * realizes, GPtrArray *props);
 
-static Object *realizes_load(ObjectNode obj_node, int version,
+static DiaObject *realizes_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
 static void realizes_update_data(Realizes *realize);
@@ -260,7 +260,7 @@ static void
 realizes_update_data(Realizes *realize)
 {
   OrthConn *orth = &realize->orth;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   int num_segm, i;
   Point *points;
   Rectangle rect;
@@ -337,7 +337,7 @@ realizes_update_data(Realizes *realize)
 }
 
 static ObjectChange *
-realizes_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+realizes_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -346,7 +346,7 @@ realizes_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-realizes_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+realizes_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -381,7 +381,7 @@ realizes_get_object_menu(Realizes *realize, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 realizes_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -389,7 +389,7 @@ realizes_create(Point *startpoint,
 {
   Realizes *realize;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   PolyBBExtras *extra;
 
   if (realize_font == NULL) {
@@ -438,7 +438,7 @@ realizes_destroy(Realizes *realize)
   orthconn_destroy(&realize->orth);
 }
 
-static Object *
+static DiaObject *
 realizes_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&realizes_type,

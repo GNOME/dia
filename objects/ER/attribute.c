@@ -93,12 +93,12 @@ static ObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
 static ObjectChange* attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
 static void attribute_update_data(Attribute *attribute);
-static Object *attribute_create(Point *startpoint,
+static DiaObject *attribute_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
 static void attribute_destroy(Attribute *attribute);
-static Object *attribute_copy(Attribute *attribute);
+static DiaObject *attribute_copy(Attribute *attribute);
 static PropDescription *
 attribute_describe_props(Attribute *attribute);
 static void
@@ -108,7 +108,7 @@ attribute_set_props(Attribute *attribute, GPtrArray *props);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
 			   const char *filename);
-static Object *attribute_load(ObjectNode obj_node, int version,
+static DiaObject *attribute_load(ObjectNode obj_node, int version,
 			      const char *filename);
 
 static ObjectTypeOps attribute_type_ops =
@@ -207,7 +207,7 @@ attribute_set_props(Attribute *attribute, GPtrArray *props)
 static real
 attribute_distance_from(Attribute *attribute, Point *point)
 {
-  Object *obj = &attribute->element.object;
+  DiaObject *obj = &attribute->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -317,7 +317,7 @@ static void
 attribute_update_data(Attribute *attribute)
 {
   Element *elem = &attribute->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center;
   ElementBBExtras *extra = &elem->extra_spacing;
   real half_x, half_y;
@@ -378,7 +378,7 @@ attribute_update_data(Attribute *attribute)
   
 }
 
-static Object *
+static DiaObject *
 attribute_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -386,7 +386,7 @@ attribute_create(Point *startpoint,
 {
   Attribute *attribute;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   attribute = g_malloc0(sizeof(Attribute));
@@ -442,13 +442,13 @@ attribute_destroy(Attribute *attribute)
   g_free(attribute->name);
 }
 
-static Object *
+static DiaObject *
 attribute_copy(Attribute *attribute)
 {
   int i;
   Attribute *newattribute;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &attribute->element;
   
@@ -512,12 +512,12 @@ attribute_save(Attribute *attribute, ObjectNode obj_node,
 		attribute->font_height);
 }
 
-static Object *attribute_load(ObjectNode obj_node, int version,
+static DiaObject *attribute_load(ObjectNode obj_node, int version,
 			      const char *filename)
 {
   Attribute *attribute;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

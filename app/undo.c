@@ -302,14 +302,14 @@ move_objects_apply(struct MoveObjectsChange *change, Diagram *dia)
 {
   GList *list;
   int i;
-  Object *obj;
+  DiaObject *obj;
 
   object_add_updates_list(change->obj_list, dia);
 
   list = change->obj_list;
   i=0;
   while (list != NULL) {
-    obj = (Object *)  list->data;
+    obj = (DiaObject *)  list->data;
     
     obj->ops->move(obj, &change->dest_pos[i]);
     
@@ -318,7 +318,7 @@ move_objects_apply(struct MoveObjectsChange *change, Diagram *dia)
 
   list = change->obj_list;
   while (list!=NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     
     diagram_update_connections_object(dia, obj, TRUE);
     
@@ -333,14 +333,14 @@ move_objects_revert(struct MoveObjectsChange *change, Diagram *dia)
 {
   GList *list;
   int i;
-  Object *obj;
+  DiaObject *obj;
 
   object_add_updates_list(change->obj_list, dia);
 
   list = change->obj_list;
   i=0;
   while (list != NULL) {
-    obj = (Object *)  list->data;
+    obj = (DiaObject *)  list->data;
     
     obj->ops->move(obj, &change->orig_pos[i]);
     
@@ -349,7 +349,7 @@ move_objects_revert(struct MoveObjectsChange *change, Diagram *dia)
 
   list = change->obj_list;
   while (list!=NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     
     diagram_update_connections_object(dia, obj, TRUE);
     
@@ -396,7 +396,7 @@ struct MoveHandleChange {
   Point orig_pos;
   Point dest_pos;
   Handle *handle;
-  Object *obj;
+  DiaObject *obj;
 };
 
 static void
@@ -429,7 +429,7 @@ move_handle_free(struct MoveHandleChange *change)
 
 Change *
 undo_move_handle(Diagram *dia,
-		 Handle *handle, Object *obj,
+		 Handle *handle, DiaObject *obj,
 		 Point orig_pos, Point dest_pos)
 {
   struct MoveHandleChange *change;
@@ -456,7 +456,7 @@ undo_move_handle(Diagram *dia,
 struct ConnectChange {
   Change change;
 
-  Object *obj;
+  DiaObject *obj;
   Handle *handle;
   ConnectionPoint *connectionpoint;
   Point handle_pos;
@@ -495,7 +495,7 @@ connect_free(struct ConnectChange *change)
 }
 
 extern Change *
-undo_connect(Diagram *dia, Object *obj, Handle *handle,
+undo_connect(Diagram *dia, DiaObject *obj, Handle *handle,
 	     ConnectionPoint *connectionpoint)
 {
   struct ConnectChange *change;
@@ -521,7 +521,7 @@ undo_connect(Diagram *dia, Object *obj, Handle *handle,
 struct UnconnectChange {
   Change change;
 
-  Object *obj;
+  DiaObject *obj;
   Handle *handle;
   ConnectionPoint *connectionpoint;
 };
@@ -548,7 +548,7 @@ unconnect_free(struct UnconnectChange *change)
 }
 
 extern Change *
-undo_unconnect(Diagram *dia, Object *obj, Handle *handle)
+undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle)
 {
   struct UnconnectChange *change;
 
@@ -592,7 +592,7 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
   
   list = change->obj_list;
   while (list != NULL) {
-    Object *obj = (Object *)list->data;
+    DiaObject *obj = (Object *)list->data;
 
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
@@ -625,7 +625,7 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
  list = change->obj_list;
  while (list)
  {
-   Object *obj = (Object *) list->data;
+   DiaObject *obj = (Object *) list->data;
    if (obj->parent) /* Restore child references */
    	obj->parent->children = g_list_append(obj->parent->children, obj);
 
@@ -711,7 +711,7 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
   
   list = change->obj_list;
   while (list != NULL) {
-    Object *obj = (Object *)list->data;
+    DiaObject *obj = (Object *)list->data;
 
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
@@ -822,7 +822,7 @@ undo_reorder_objects(Diagram *dia, GList *changed_list, GList *orig_list)
 struct ObjectChangeChange {
   Change change;
 
-  Object *obj;
+  DiaObject *obj;
   ObjectChange *obj_change;
 };
 
@@ -871,7 +871,7 @@ object_change_free(struct ObjectChangeChange *change)
 }
 
 Change *
-undo_object_change(Diagram *dia, Object *obj,
+undo_object_change(Diagram *dia, DiaObject *obj,
 		   ObjectChange *obj_change)
 {
   struct ObjectChangeChange *change;
@@ -902,7 +902,7 @@ struct GroupObjectsChange {
   Change change;
 
   Layer *layer;
-  Object *group;   /* owning reference if not applied */
+  DiaObject *group;   /* owning reference if not applied */
   GList *obj_list; /* The list of objects in this group.  Owned by the
 		      group */
   GList *orig_list; /* A copy of the original list of all objects,
@@ -927,7 +927,7 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
 
   list = change->obj_list;
   while (list != NULL) {
-    Object *obj = (Object *)list->data;
+    DiaObject *obj = (Object *)list->data;
     
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
@@ -982,7 +982,7 @@ group_objects_free(struct GroupObjectsChange *change)
 }
 
 Change *
-undo_group_objects(Diagram *dia, GList *obj_list, Object *group,
+undo_group_objects(Diagram *dia, GList *obj_list, DiaObject *group,
 		   GList *orig_list)
 {
   struct GroupObjectsChange *change;
@@ -1010,7 +1010,7 @@ struct UngroupObjectsChange {
   Change change;
 
   Layer *layer;
-  Object *group;   /* owning reference if applied */
+  DiaObject *group;   /* owning reference if applied */
   GList *obj_list; /* This list is owned by the ungroup. */
   int group_index;
   int applied;
@@ -1051,7 +1051,7 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
 
   list = change->obj_list;
   while (list != NULL) {
-    Object *obj = (Object *)list->data;
+    DiaObject *obj = (Object *)list->data;
     
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
@@ -1083,7 +1083,7 @@ ungroup_objects_free(struct UngroupObjectsChange *change)
 }
 
 Change *
-undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
+undo_ungroup_objects(Diagram *dia, GList *obj_list, DiaObject *group,
 		     int group_index)
 {
   struct UngroupObjectsChange *change;
@@ -1109,14 +1109,14 @@ undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
 
 struct ParentChange {
   Change change;
-  Object *parentobj, *childobj;
+  DiaObject *parentobj, *childobj;
   gboolean parent;
 };
 
 /** Performs the actual parenting of a child to a parent.
  * Since no display changes arise from this, we need call no update. */
 static void
-parent_object(Diagram *dia, Object *parent, Object *child)
+parent_object(Diagram *dia, DiaObject *parent, Object *child)
 {
   child->parent = parent;
   parent->children = g_list_prepend(parent->children, child);
@@ -1125,7 +1125,7 @@ parent_object(Diagram *dia, Object *parent, Object *child)
 /** Performs the actual removal of a child from a parent.
  * Since no display changes arise from this, we need call no update. */
 static void
-unparent_object(Diagram *dia, Object *parent, Object *child)
+unparent_object(Diagram *dia, DiaObject *parent, Object *child)
 {
   child->parent = NULL;
   parent->children = g_list_remove(parent->children, child);
@@ -1166,7 +1166,7 @@ parent_change_free(Change *change)
  * child of parentobj.
  */
 Change *
-undo_parenting(Diagram *dia, Object* parentobj, Object* childobj,
+undo_parenting(Diagram *dia, DiaObject* parentobj, Object* childobj,
 	       gboolean parent)
 {
   struct ParentChange *parentchange = g_new0(struct ParentChange, 1);

@@ -54,10 +54,10 @@ find_hidden_type(gconstpointer type, gconstpointer object_type)
   g_list_find_custom(dtree->hidden, (gpointer)type, find_hidden_type)
 
 #define is_hidden_object(dtree, object)		\
-  is_hidden_type(dtree, ((Object *)object)->type->name)
+  is_hidden_type(dtree, ((DiaObject *)object)->type->name)
 
 static void
-update_object(DiagramTree *tree, GtkCTreeNode *node, Object *object);
+update_object(DiagramTree *tree, GtkCTreeNode *node, DiaObject *object);
 
 static void
 select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
@@ -65,7 +65,7 @@ select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
   Diagram *d = NULL;
   GtkCTreeNode *dnode = (is_object_node(node)) ?
     GTK_CTREE_ROW(node)->parent : node;
-  Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
+  DiaObject *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
 
  
   d = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, dnode);
@@ -97,7 +97,7 @@ static void
 update_last_node(DiagramTree *tree) 
 {
   if (is_object_node(tree->last)) {
-    Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+    DiaObject *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
     if (o) update_object(tree, tree->last, o);
   }
 }
@@ -173,7 +173,7 @@ get_diagram_objects(Diagram *diagram)
 }
 
 static void
-create_object_pixmap(Object *object, GtkWidget *parent,
+create_object_pixmap(DiaObject *object, GtkWidget *parent,
 		     GdkPixmap **pixmap, GdkBitmap **mask)
 {
   GtkStyle *style;
@@ -205,7 +205,7 @@ create_object_pixmap(Object *object, GtkWidget *parent,
 }
 
 static gchar * 
-get_object_name(Object *object)
+get_object_name(DiaObject *object)
 {
   enum {SIZE = 31};
   static gchar BUFFER[SIZE];
@@ -231,7 +231,7 @@ get_object_name(Object *object)
 }
 
 static void
-update_object(DiagramTree *tree, GtkCTreeNode *node, Object *object)
+update_object(DiagramTree *tree, GtkCTreeNode *node, DiaObject *object)
 {
   char *text = get_object_name(object);
   char *old = NULL;
@@ -247,7 +247,7 @@ update_object(DiagramTree *tree, GtkCTreeNode *node, Object *object)
 }
 
 static void
-create_object_node(DiagramTree *tree, GtkCTreeNode *dnode, Object *obj)
+create_object_node(DiagramTree *tree, GtkCTreeNode *dnode, DiaObject *obj)
 {
   gboolean expanded = GTK_CTREE_ROW(dnode)->expanded;
   char *text[] = {NULL};
@@ -271,7 +271,7 @@ create_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
   GList *objects = get_diagram_objects(diagram);
   while (objects) {
     if (!is_hidden_object(tree, objects->data)) {
-      create_object_node(tree, node, (Object *)objects->data);
+      create_object_node(tree, node, (DiaObject *)objects->data);
     }
     objects = g_list_next(objects);
   }
@@ -297,7 +297,7 @@ update_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
   while (dobjects) {
     if (!is_hidden_object(tree, dobjects->data)
 	&& !gtk_ctree_find_by_row_data(tree->tree, node, dobjects->data))
-      create_object_node(tree, node, (Object *)dobjects->data);
+      create_object_node(tree, node, (DiaObject *)dobjects->data);
     dobjects = g_list_next(dobjects);
   }
   g_list_free(org);
@@ -408,7 +408,7 @@ diagram_tree_update_name(DiagramTree *tree, Diagram *diagram)
 }
 
 void
-diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, Object *object)
+diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object)
 {
   if (tree) {
     g_return_if_fail(diagram);
@@ -428,7 +428,7 @@ diagram_tree_add_objects(DiagramTree *tree, Diagram *diagram, GList *objects)
   if (tree) {
     g_return_if_fail(diagram);
     while (objects) {
-      diagram_tree_add_object(tree, diagram, (Object *)objects->data);
+      diagram_tree_add_object(tree, diagram, (DiaObject *)objects->data);
       objects = g_list_next(objects);
     }
   }
@@ -436,7 +436,7 @@ diagram_tree_add_objects(DiagramTree *tree, Diagram *diagram, GList *objects)
 
 
 void
-diagram_tree_remove_object(DiagramTree *tree, Object *object)
+diagram_tree_remove_object(DiagramTree *tree, DiaObject *object)
 {
   if (tree) {
     if (object) {
@@ -452,7 +452,7 @@ diagram_tree_remove_objects(DiagramTree *tree, GList *objects)
 {
   if (tree) {
     while (objects) {
-      diagram_tree_remove_object(tree, (Object *)objects->data);
+      diagram_tree_remove_object(tree, (DiaObject *)objects->data);
       objects = g_list_next(objects);
     }
   }
@@ -460,7 +460,7 @@ diagram_tree_remove_objects(DiagramTree *tree, GList *objects)
 
 void
 diagram_tree_update_object(DiagramTree *tree, Diagram *diagram,
-			   Object *object)
+			   DiaObject *object)
 {
   if (tree) {
     g_return_if_fail(diagram);
@@ -489,8 +489,8 @@ diagram_tree_show_properties(const DiagramTree *tree)
     GtkCTreeNode *parent = GTK_CTREE_ROW(tree->last)->parent;
     if (parent) {
       Diagram *dia = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, parent);
-      Object *obj =
-	(Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+      DiaObject *obj =
+	(DiaObject *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
       properties_show(dia, obj);
     }
   }
@@ -500,8 +500,8 @@ const gchar *
 diagram_tree_hide_type(DiagramTree *tree)
 {
   if (tree && tree->last && is_object_node(tree->last)) {
-    Object *obj =
-      (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+    DiaObject *obj =
+      (DiaObject *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
     g_assert(!is_hidden_object(tree, obj));
     diagram_tree_hide_explicit_type(tree, obj->type->name);
     return obj->type->name;
@@ -553,8 +553,8 @@ static gint
 cmp_type_(GtkCList *tree, GtkCListRow *lhm, GtkCListRow *rhm)
 {
   int k;
-  Object *o1 = (Object *)lhm->data;
-  Object *o2 = (Object *)rhm->data;
+  DiaObject *o1 = (Object *)lhm->data;
+  DiaObject *o2 = (Object *)rhm->data;
   k = strcmp(o1->type->name, o2->type->name);
   if (k > 0) return 1;
   if (k < 0) return -1;

@@ -29,7 +29,7 @@
 
 static void cpl_reorder_connections(ConnPointLine *cpl);
 
-inline static ConnectionPoint *new_connpoint(Object *obj)
+inline static ConnectionPoint *new_connpoint(DiaObject *obj)
 {
   ConnectionPoint *cp = g_new0(ConnectionPoint,1);
   cp->object = obj;
@@ -113,7 +113,7 @@ cpl_add_connectionpoint(ConnPointLine *cpl,ConnectionPoint *cp)
 }
 
 ConnPointLine *
-connpointline_create(Object *parent, int num_connections) 
+connpointline_create(DiaObject *parent, int num_connections) 
 {
   ConnPointLine *cpl;
   int i;
@@ -137,7 +137,7 @@ connpointline_destroy(ConnPointLine *cpl)
 }
 
 static ConnPointLine *
-cpl_inplacecreate(Object *obj, int nc, int *realconncount)
+cpl_inplacecreate(DiaObject *obj, int nc, int *realconncount)
 {
   int i;
   ConnPointLine *newcpl;
@@ -159,7 +159,7 @@ cpl_inplacecreate(Object *obj, int nc, int *realconncount)
 }
 
 ConnPointLine *
-connpointline_load(Object *obj,ObjectNode obj_node,
+connpointline_load(DiaObject *obj,ObjectNode obj_node,
 		   const gchar *name, int default_nc,int *realconncount)
 {
   ConnPointLine *cpl;
@@ -188,7 +188,7 @@ connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
 }
 
 ConnPointLine *
-connpointline_copy(Object *newobj,ConnPointLine *cpl, int *realconncount)
+connpointline_copy(DiaObject *newobj,ConnPointLine *cpl, int *realconncount)
 {
   g_assert(realconncount);
   return cpl_inplacecreate(newobj,cpl->num_connections,realconncount);
@@ -241,7 +241,7 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
 /* These object_* functions are useful to me, because of what they do, I think
    they belong to lib/object.c ; should I move them ? */
 static void 
-object_move_connection(Object *obj,int sourcepos,int destpos)
+object_move_connection(DiaObject *obj,int sourcepos,int destpos)
 {
   ConnectionPoint *cp;
   g_assert(destpos < sourcepos);
@@ -253,7 +253,7 @@ object_move_connection(Object *obj,int sourcepos,int destpos)
 }
 
 static int
-object_find_connection(Object *obj, ConnectionPoint *cp, int startpos)
+object_find_connection(DiaObject *obj, ConnectionPoint *cp, int startpos)
 {
   int i;
   for (i = startpos; i < obj->num_connections; i++) {
@@ -264,7 +264,7 @@ object_find_connection(Object *obj, ConnectionPoint *cp, int startpos)
 
 
 #if DEBUG_ORDER
-static int obj_find_connection(Object *obj,ConnectionPoint *cp)
+static int obj_find_connection(DiaObject *obj,ConnectionPoint *cp)
 {
   int i;
   for (i=0;i<obj->num_connections;i++)
@@ -275,7 +275,7 @@ static int obj_find_connection(Object *obj,ConnectionPoint *cp)
 
 static void cpl_dump_connections(ConnPointLine *cpl)
 {
-  Object *obj = cpl->parent;
+  DiaObject *obj = cpl->parent;
   int i;
   GSList *elem;
   ConnectionPoint *cp;
@@ -310,7 +310,7 @@ cpl_reorder_connections(ConnPointLine *cpl)
   int i,j,first;
   ConnectionPoint *cp;
   GSList *elem;
-  Object *obj;
+  DiaObject *obj;
 
   if (!cpl->connections) return;
   #if DEBUG_ORDER
@@ -488,7 +488,7 @@ connpointline_add_points(ConnPointLine *cpl,
   pos = cpl_get_pointbefore(cpl,clickedpoint);
   change = cpl_create_change(cpl,pos,count);
 
-  change->apply(change, (Object *)cpl);
+  change->apply(change, (DiaObject *)cpl);
   return change;
 }
 
@@ -503,7 +503,7 @@ connpointline_remove_points(ConnPointLine *cpl,
   pos = cpl_get_pointbefore(cpl,clickedpoint);
   change = cpl_create_change(cpl,pos,-count);
 
-  change->apply(change, (Object *)cpl);
+  change->apply(change, (DiaObject *)cpl);
   return change;
 }
 

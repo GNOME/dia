@@ -72,21 +72,21 @@ static ObjectChange* line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static void line_draw(Line *line, DiaRenderer *renderer);
-static Object *line_create(Point *startpoint,
+static DiaObject *line_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
 static real line_distance_from(Line *line, Point *point);
 static void line_update_data(Line *line);
 static void line_destroy(Line *line);
-static Object *line_copy(Line *line);
+static DiaObject *line_copy(Line *line);
 
 static PropDescription *line_describe_props(Line *line);
 static void line_get_props(Line *line, GPtrArray *props);
 static void line_set_props(Line *line, GPtrArray *props);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
-static Object *line_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *line_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
 void calculate_gap_endpoints(Line *line, Point *gap_endpoints);
@@ -220,7 +220,7 @@ line_init_defaults() {
 }
 
 static ObjectChange *
-line_add_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
   ObjectChange *oc;
   oc = connpointline_add_point(((Line *)obj)->cpl,clicked);
@@ -229,7 +229,7 @@ line_add_connpoint_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-line_remove_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
   ObjectChange *oc;
   oc = connpointline_remove_point(((Line *)obj)->cpl,clicked);
@@ -280,7 +280,7 @@ line_get_object_menu(Line *line, Point *clickedpoint)
   gap.
 */
 Point
-calculate_object_edge(Point *objmid, Point *end, Object *obj) 
+calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
 {
 #define MAXITER 25
 #ifdef TRACE_DIST
@@ -463,7 +463,7 @@ line_draw(Line *line, DiaRenderer *renderer)
   }
 }
 
-static Object *
+static DiaObject *
 line_create(Point *startpoint,
 	    void *user_data,
 	    Handle **handle1,
@@ -471,7 +471,7 @@ line_create(Point *startpoint,
 {
   Line *line;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   line_init_defaults();
@@ -517,12 +517,12 @@ line_destroy(Line *line)
   connection_destroy(&line->connection);
 }
 
-static Object *
+static DiaObject *
 line_copy(Line *line)
 {
   Line *newline;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   int rcc = 0;
 
   conn = &line->connection;
@@ -557,7 +557,7 @@ static void
 line_update_data(Line *line)
 {
   Connection *conn = &line->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
   Point start, end;
 
@@ -656,12 +656,12 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 		  line->dashlength);
 }
 
-static Object *
+static DiaObject *
 line_load(ObjectNode obj_node, int version, const char *filename)
 {
   Line *line;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   line = g_malloc0(sizeof(Line));

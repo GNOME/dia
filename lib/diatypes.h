@@ -116,7 +116,7 @@ typedef struct _ObjectState ObjectState;
 typedef struct _ObjectChange ObjectChange;
 
 /* In object.h: */
-typedef struct _Object Object;
+typedef struct _Object DiaObject;
 typedef struct _ObjectOps ObjectOps;
 typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;

@@ -62,12 +62,12 @@ static ObjectChange* actor_move_handle(Actor *actor, Handle *handle,
 				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* actor_move(Actor *actor, Point *to);
 static void actor_draw(Actor *actor, DiaRenderer *renderer);
-static Object *actor_create(Point *startpoint,
+static DiaObject *actor_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
 static void actor_destroy(Actor *actor);
-static Object *actor_load(ObjectNode obj_node, int version,
+static DiaObject *actor_load(ObjectNode obj_node, int version,
 			  const char *filename);
 
 static PropDescription *actor_describe_props(Actor *actor);
@@ -161,7 +161,7 @@ actor_set_props(Actor *actor, GPtrArray *props)
 static real
 actor_distance_from(Actor *actor, Point *point)
 {
-  Object *obj = &actor->element.object;
+  DiaObject *obj = &actor->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -275,7 +275,7 @@ static void
 actor_update_data(Actor *actor)
 {
   Element *elem = &actor->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Rectangle text_box;
   Point p;
   
@@ -327,7 +327,7 @@ actor_update_data(Actor *actor)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 actor_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -335,7 +335,7 @@ actor_create(Point *startpoint,
 {
   Actor *actor;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -391,7 +391,7 @@ actor_destroy(Actor *actor)
   element_destroy(&actor->element);
 }
 
-static Object *
+static DiaObject *
 actor_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&actor_type,

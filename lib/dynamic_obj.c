@@ -23,13 +23,13 @@
 #include <dynamic_obj.h>
 
 typedef struct {
-    Object* obj;
+    DiaObject* obj;
     guint timeout;
 } DynobjRec;
 
 static GList* dyn_obj_list;
 
-void dynobj_list_add_object(Object* obj, guint timeout) {
+void dynobj_list_add_object(DiaObject* obj, guint timeout) {
     DynobjRec *dor = g_new(DynobjRec,1);
     dor->obj = obj;
     dor->timeout = timeout;
@@ -39,14 +39,14 @@ void dynobj_list_add_object(Object* obj, guint timeout) {
 
 static gint dor_found(gconstpointer data, gconstpointer user_data) {
     const DynobjRec* dor = (const DynobjRec*)data;
-    const Object* obj = (const Object*)user_data;
+    const DiaObject* obj = (const Object*)user_data;
     
     if ((!dor) || (!obj)) return 1;
     if (dor->obj != obj) return 1;
     return 0;
 }
                           
-void dynobj_list_remove_object(Object* obj) {
+void dynobj_list_remove_object(DiaObject* obj) {
     GList* item = g_list_find_custom(dyn_obj_list,obj,dor_found);
 
     if (item) {

@@ -80,12 +80,12 @@ static ObjectChange* objet_move_handle(Objet *ob, Handle *handle,
 				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* objet_move(Objet *ob, Point *to);
 static void objet_draw(Objet *ob, DiaRenderer *renderer);
-static Object *objet_create(Point *startpoint,
+static DiaObject *objet_create(Point *startpoint,
 			    void *user_data,
 			    Handle **handle1,
 			    Handle **handle2);
 static void objet_destroy(Objet *ob);
-static Object *objet_load(ObjectNode obj_node, int version,
+static DiaObject *objet_load(ObjectNode obj_node, int version,
 			  const char *filename);
 static PropDescription *objet_describe_props(Objet *objet);
 static void objet_get_props(Objet *objet, GPtrArray *props);
@@ -113,7 +113,7 @@ ObjectType objet_type =
 
 ObjectType umlobject_type =
 {
-  "UML - Object",   /* name */
+  "UML - DiaObject",   /* name */
   0,                      /* version */
   (char **) object_xpm,  /* pixmap */
   
@@ -209,7 +209,7 @@ objet_set_props(Objet *objet, GPtrArray *props)
 static real
 objet_distance_from(Objet *ob, Point *point)
 {
-  Object *obj = &ob->element.object;
+  DiaObject *obj = &ob->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -348,7 +348,7 @@ static void
 objet_update_data(Objet *ob)
 {
   Element *elem = &ob->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   DiaFont *font;
   Point p1, p2;
   real h, w = 0;
@@ -443,7 +443,7 @@ objet_update_data(Objet *ob)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 objet_create(Point *startpoint,
 		    void *user_data,
 		    Handle **handle1,
@@ -451,7 +451,7 @@ objet_create(Point *startpoint,
 {
   Objet *ob;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -523,7 +523,7 @@ objet_destroy(Objet *ob)
   element_destroy(&ob->element);
 }
 
-static Object *
+static DiaObject *
 objet_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&objet_type,

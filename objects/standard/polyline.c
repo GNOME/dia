@@ -58,14 +58,14 @@ static ObjectChange* polyline_move(Polyline *polyline, Point *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polyline_draw(Polyline *polyline, DiaRenderer *renderer);
-static Object *polyline_create(Point *startpoint,
+static DiaObject *polyline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real polyline_distance_from(Polyline *polyline, Point *point);
 static void polyline_update_data(Polyline *polyline);
 static void polyline_destroy(Polyline *polyline);
-static Object *polyline_copy(Polyline *polyline);
+static DiaObject *polyline_copy(Polyline *polyline);
 
 static PropDescription *polyline_describe_props(Polyline *polyline);
 static void polyline_get_props(Polyline *polyline, GPtrArray *props);
@@ -73,7 +73,7 @@ static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
-static Object *polyline_load(ObjectNode obj_node, int version,
+static DiaObject *polyline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 
@@ -238,7 +238,7 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
     If user_data is NULL, the startpoint is used and a 1x1 line is created.
     Otherwise, the startpoint is ignored.
 */
-static Object *
+static DiaObject *
 polyline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -246,7 +246,7 @@ polyline_create(Point *startpoint,
 {
   Polyline *polyline;
   PolyConn *poly;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   /*polyline_init_defaults();*/
@@ -297,12 +297,12 @@ polyline_destroy(Polyline *polyline)
   polyconn_destroy(&polyline->poly);
 }
 
-static Object *
+static DiaObject *
 polyline_copy(Polyline *polyline)
 {
   Polyline *newpolyline;
   PolyConn *poly, *newpoly;
-  Object *newobj;
+  DiaObject *newobj;
   
   poly = &polyline->poly;
  
@@ -326,7 +326,7 @@ static void
 polyline_update_data(Polyline *polyline)
 {
   PolyConn *poly = &polyline->poly;
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
   PolyBBExtras *extra = &poly->extra_spacing;
 
   polyconn_update_data(&polyline->poly);
@@ -390,12 +390,12 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
   }
 }
 
-static Object *
+static DiaObject *
 polyline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Polyline *polyline;
   PolyConn *poly;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   polyline = g_malloc0(sizeof(Polyline));
@@ -460,7 +460,7 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-polyline_add_corner_callback (Object *obj, Point *clicked, gpointer data)
+polyline_add_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Polyline *poly = (Polyline*) obj;
   int segment;
@@ -473,7 +473,7 @@ polyline_add_corner_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-polyline_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
+polyline_delete_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
   int handle_nr, i;

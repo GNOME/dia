@@ -30,7 +30,7 @@
 #define OBJECT_CONNECT_DISTANCE 4.5
 
 void
-object_add_updates(Object *obj, Diagram *dia)
+object_add_updates(DiaObject *obj, Diagram *dia)
 {
   int i;
 
@@ -56,10 +56,10 @@ object_add_updates(Object *obj, Diagram *dia)
 void
 object_add_updates_list(GList *list, Diagram *dia)
 {
-  Object *obj;
+  DiaObject *obj;
   
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     object_add_updates(obj, dia);
     
@@ -68,7 +68,7 @@ object_add_updates_list(GList *list, Diagram *dia)
 }
 
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos, Object *notthis)
+object_find_connectpoint_display(DDisplay *ddisp, Point *pos, DiaObject *notthis)
 {
   real distance;
   ConnectionPoint *connectionpoint;
@@ -87,7 +87,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos, Object *notthis)
 
 /* pushes undo info */
 void
-object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
+object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle)
 {
   ConnectionPoint *connectionpoint;
 
@@ -110,19 +110,19 @@ Point
 object_list_corner(GList *list)
 {
   Point p = {0.0,0.0};
-  Object *obj;
+  DiaObject *obj;
 
   if (list == NULL)
     return p;
 
-  obj = (Object *)list->data;
+  obj = (DiaObject *)list->data;
   p.x = obj->bounding_box.left;
   p.y = obj->bounding_box.top;
 
   list = g_list_next(list);
   
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     if (p.x > obj->bounding_box.left)
       p.x = obj->bounding_box.left;
@@ -137,8 +137,8 @@ object_list_corner(GList *list)
 
 static int
 object_list_sort_vertical(const void *o1, const void *o2) {
-    Object *obj1 = *(Object **)o1;
-    Object *obj2 = *(Object **)o2;
+    DiaObject *obj1 = *(Object **)o1;
+    DiaObject *obj2 = *(Object **)o2;
 
     return (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
 	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
@@ -154,7 +154,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   Point *orig_pos;
   Point *dest_pos;
   real y_pos = 0;
-  Object *obj;
+  DiaObject *obj;
   Point pos;
   real top, bottom, freespc;
   int nobjs;
@@ -164,7 +164,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   if (objects==NULL)
     return;
 
-  obj = (Object *) objects->data; /*  First object */
+  obj = (DiaObject *) objects->data; /*  First object */
 
   top = obj->bounding_box.top;
   bottom = obj->bounding_box.bottom;
@@ -173,7 +173,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   nobjs = 1;
   list = objects->next;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     if (obj->bounding_box.top < top)
       top = obj->bounding_box.top;
@@ -191,17 +191,17 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-      Object **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+      DiaObject **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
       int i = 0;
 
       list = objects;
       while (list != NULL) {
-	  obj = (Object *) list->data;
+	  obj = (DiaObject *) list->data;
 	  object_array[i] = obj;
 	  i++;
 	  list = g_list_next(list);
       }
-      qsort(object_array, nobjs, sizeof(Object*), object_list_sort_vertical);
+      qsort(object_array, nobjs, sizeof(DiaObject*), object_list_sort_vertical);
       list = NULL;
       for (i = 0; i < nobjs; i++) {
 	  list = g_list_append(list, object_array[i]);
@@ -241,7 +241,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   i = 0;
   list = objects;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     pos.x = obj->position.x;
     
@@ -285,8 +285,8 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
 static int
 object_list_sort_horizontal(const void *o1, const void *o2) {
-  Object *obj1 = *(Object **)o1;
-  Object *obj2 = *(Object **)o2;
+  DiaObject *obj1 = *(Object **)o1;
+  DiaObject *obj2 = *(Object **)o2;
 
   return (obj1->bounding_box.right+obj1->bounding_box.left)/2 -
     (obj2->bounding_box.right+obj2->bounding_box.left)/2;
@@ -302,7 +302,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   Point *orig_pos;
   Point *dest_pos;
   real x_pos = 0;
-  Object *obj;
+  DiaObject *obj;
   Point pos;
   real left, right, freespc = 0;
   int nobjs;
@@ -312,7 +312,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   if (objects==NULL)
     return;
 
-  obj = (Object *) objects->data; /*  First object */
+  obj = (DiaObject *) objects->data; /*  First object */
 
   left = obj->bounding_box.left;
   right = obj->bounding_box.right;
@@ -321,7 +321,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   nobjs = 1;
   list = objects->next;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     if (obj->bounding_box.left < left)
       left = obj->bounding_box.left;
@@ -339,17 +339,17 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-    Object **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+    DiaObject **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
     int i = 0;
 
     list = objects;
     while (list != NULL) {
-      obj = (Object *) list->data;
+      obj = (DiaObject *) list->data;
       object_array[i] = obj;
       i++;
       list = g_list_next(list);
     }
-    qsort(object_array, nobjs, sizeof(Object*), object_list_sort_horizontal);
+    qsort(object_array, nobjs, sizeof(DiaObject*), object_list_sort_horizontal);
     list = NULL;
     for (i = 0; i < nobjs; i++) {
       list = g_list_append(list, object_array[i]);
@@ -389,7 +389,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   i = 0;
   list = objects;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     switch (align) {
     case DIA_ALIGN_LEFT:

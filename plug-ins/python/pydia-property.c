@@ -277,7 +277,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
  * Similar to SetAttr but the property is directly applied
  * to the DiaObject
  */
-int PyDiaProperty_ApplyToObject (Object   *object, 
+int PyDiaProperty_ApplyToObject (DiaObject   *object, 
                                  gchar    *key, 
                                  Property *prop, 
                                  PyObject *val)

@@ -26,9 +26,9 @@ DIAVAR ObjectType group_type;
  * outside of the created group before calling group_create().
  */
 Object *group_create(GList *objects);
-GList *group_objects(Object *group);
+GList *group_objects(DiaObject *group);
 
-void group_destroy_shallow(Object *group);
+void group_destroy_shallow(DiaObject *group);
 
 #define IS_GROUP(obj) ((obj)->type == &group_type)
 

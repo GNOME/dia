@@ -47,20 +47,20 @@ static ObjectChange* umlclass_move_handle(UMLClass *umlclass, Handle *handle,
                                           HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* umlclass_move(UMLClass *umlclass, Point *to);
 static void umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer);
-static Object *umlclass_create(Point *startpoint,
+static DiaObject *umlclass_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
 static void umlclass_destroy(UMLClass *umlclass);
-static Object *umlclass_copy(UMLClass *umlclass);
+static DiaObject *umlclass_copy(UMLClass *umlclass);
 
 static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 			  const char *filename);
-static Object *umlclass_load(ObjectNode obj_node, int version,
+static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
-static DiaMenu * umlclass_object_menu(Object *obj, Point *p);
-static ObjectChange *umlclass_show_comments_callback(Object *obj, Point *pos, gpointer data);
+static DiaMenu * umlclass_object_menu(DiaObject *obj, Point *p);
+static ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data);
 
 static PropDescription *umlclass_describe_props(UMLClass *umlclass);
 static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
@@ -172,7 +172,7 @@ umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
 }
 
 DiaMenu *
-umlclass_object_menu(Object *obj, Point *p)
+umlclass_object_menu(DiaObject *obj, Point *p)
 {
   DiaMenu *menu;
   menu = g_malloc0(sizeof(DiaMenu));
@@ -188,7 +188,7 @@ umlclass_object_menu(Object *obj, Point *p)
   return menu;
 }
 
-ObjectChange *umlclass_show_comments_callback(Object *obj, Point *pos, gpointer data)
+ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
 {
   ObjectChange *change = new_object_state_change(obj, NULL, NULL, NULL );
 
@@ -210,7 +210,7 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 static real
 umlclass_distance_from(UMLClass *umlclass, Point *point)
 {
-  Object *obj = &umlclass->element.object;
+  DiaObject *obj = &umlclass->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -552,7 +552,7 @@ void
 umlclass_update_data(UMLClass *umlclass)
 {
   Element *elem = &umlclass->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   real x,y;
   GList *list;
   int i;
@@ -914,7 +914,7 @@ fill_in_fontdata(UMLClass *umlclass)
    }
 }
 
-static Object *
+static DiaObject *
 umlclass_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -922,7 +922,7 @@ umlclass_create(Point *startpoint,
 {
   UMLClass *umlclass;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   umlclass = g_malloc0(sizeof(UMLClass));
@@ -1073,13 +1073,13 @@ umlclass_destroy(UMLClass *umlclass)
   }
 }
 
-static Object *
+static DiaObject *
 umlclass_copy(UMLClass *umlclass)
 {
   int i;
   UMLClass *newumlclass;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   GList *list;
   UMLAttribute *attr;
   UMLAttribute *newattr;
@@ -1332,12 +1332,12 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   }
 }
 
-static Object *umlclass_load(ObjectNode obj_node, int version,
+static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 			     const char *filename)
 {
   UMLClass *umlclass;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   UMLAttribute *attr;
   UMLOperation *op;
   UMLFormalParameter *formal_param;

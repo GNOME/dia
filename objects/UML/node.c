@@ -66,12 +66,12 @@ static ObjectChange* node_move_handle(Node *node, Handle *handle,
 				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* node_move(Node *node, Point *to);
 static void node_draw(Node *node, DiaRenderer *renderer);
-static Object *node_create(Point *startpoint,
+static DiaObject *node_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
 				   Handle **handle2);
 static void node_destroy(Node *node);
-static Object *node_load(ObjectNode obj_node, int version,
+static DiaObject *node_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *node_describe_props(Node *node);
@@ -169,7 +169,7 @@ node_set_props(Node *node, GPtrArray *props)
 static real
 node_distance_from(Node *node, Point *point)
 {
-  Object *obj = &node->element.object;
+  DiaObject *obj = &node->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -276,7 +276,7 @@ static void
 node_update_data(Node *node)
 {
   Element *elem = &node->element;
-  Object *obj = &node->element.object;
+  DiaObject *obj = &node->element.object;
   DiaFont *font;
   Point p1;
   real h, w = 0;
@@ -330,11 +330,11 @@ node_update_data(Node *node)
   element_update_handles(elem);
 }
 
-static Object *node_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
 {
   Node *node;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -381,7 +381,7 @@ static void node_destroy(Node *node)
   element_destroy(&node->element);
 }
 
-static Object *node_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *node_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&node_type,
                                       obj_node,version,filename);

@@ -59,12 +59,12 @@ static ObjectChange* fork_move_handle(Fork *branch, Handle *handle,
 				      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* fork_move(Fork *branch, Point *to);
 static void fork_draw(Fork *branch, DiaRenderer *renderer);
-static Object *fork_create(Point *startpoint,
+static DiaObject *fork_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
 			     Handle **handle2);
 static void fork_destroy(Fork *branch);
-static Object *fork_load(ObjectNode obj_node, int version,
+static DiaObject *fork_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
 static PropDescription *fork_describe_props(Fork *branch);
@@ -146,7 +146,7 @@ fork_set_props(Fork *branch, GPtrArray *props)
 static real
 fork_distance_from(Fork *branch, Point *point)
 {
-  Object *obj = &branch->element.object;
+  DiaObject *obj = &branch->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -225,7 +225,7 @@ static void fork_draw(Fork *branch, DiaRenderer *renderer)
 static void fork_update_data(Fork *branch)
 {
   Element *elem = &branch->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
      
   /* Update connections: */
   branch->connections[0].pos.x = elem->corner.x + FORK_MARGIN*elem->width;
@@ -247,11 +247,11 @@ static void fork_update_data(Fork *branch)
   element_update_handles(elem);
 }
 
-static Object *fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
 {
   Fork *branch;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   
   branch = g_malloc0(sizeof(Fork));
@@ -291,7 +291,7 @@ static void fork_destroy(Fork *branch)
   element_destroy(&branch->element);
 }
 
-static Object *fork_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *fork_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&fork_type,
                                       obj_node,version,filename);

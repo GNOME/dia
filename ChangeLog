@@ -1,5 +1,21 @@
 2004-05-02  Lars Clausen  <lars@raeder.dk>
 
+	* lib/object.[ch]: Making DiaObject a GObject.  Now can I avoid
+	  having to make all the children objects conform to
+	  GObject style at once?  Warning!  Does not compile right now.
+
+	* many, many files: Rename Object to DiaObject in preparation for
+	  making it a GObject.
+	
+	* app/diagram.[ch]: Turn diagram into a real GObject.
+
+	* app/pagesetup.c: 
+	* app/filedlg.c: Correctly ref and unref diagram. 
+
+	* lib/diagramdata.h: Starting to turn it into a GObject as well.
+
+2004-05-02  Lars Clausen  <lars@raeder.dk>
+
 	* lib/object.[ch]: Starting to convert Object to DiaObject, son of
 	GObject. 
 

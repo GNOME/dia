@@ -58,7 +58,7 @@ static dia_print_options last_print_options =
 };
 
 static void
-count_objs(Object *obj, DiaRenderer *renderer, int active_layer, guint *nobjs)
+count_objs(DiaObject *obj, DiaRenderer *renderer, int active_layer, guint *nobjs)
 {
   (*nobjs)++;
 }

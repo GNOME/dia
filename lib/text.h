@@ -27,7 +27,7 @@
 
 struct _Text {
   /** The object that owns this text. */
-  Object *parent_object;
+  DiaObject *parent_object;
   /* don't change these values directly, use the text_set* functions */
   
   /* Text data: */
@@ -74,7 +74,7 @@ void text_draw(Text *text, DiaRenderer *renderer);
 void text_set_cursor(Text *text, Point *clicked_point,
 		     DiaRenderer *interactive_renderer);
 void text_set_cursor_at_end( Text* text );
-void text_grab_focus(Text *text, Object *object);
+void text_grab_focus(Text *text, DiaObject *object);
 int text_is_empty(Text *text);
 int text_delete_all(Text *text, ObjectChange **change);
 void text_get_attributes(Text *text, TextAttributes *attr);

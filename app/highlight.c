@@ -42,7 +42,7 @@
 static Color red = { 1.0, 0.0, 0.0 };
 
 void
-highlight_object(Object *obj, Color *col, Diagram *dia)
+highlight_object(DiaObject *obj, Color *col, Diagram *dia)
 {
   if (col) 
     obj->highlight_color = col;
@@ -53,7 +53,7 @@ highlight_object(Object *obj, Color *col, Diagram *dia)
 }
 
 void
-highlight_object_off(Object *obj, Diagram *dia)
+highlight_object_off(DiaObject *obj, Diagram *dia)
 {
   if (obj->highlight_color != NULL) {
     /* Must add updates first, so we get the border erased. */
@@ -72,7 +72,7 @@ highlight_reset_layer(Layer *layer, Diagram *dia)
 
   for (objects = layer->objects; objects != NULL;
        objects = g_list_next(objects)) {
-    Object *object = (Object*)objects->data;
+    DiaObject *object = (Object*)objects->data;
     highlight_object_off(object, dia);
   }
 }

@@ -39,10 +39,10 @@
 const gchar *prop_dialogdata_key = "object-props:dialogdata";
 
 static void prop_dialog_signal_destroy(GtkWidget *dialog_widget);
-static void prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default);
+static void prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default);
 
 PropDialog *
-prop_dialog_new(Object *obj, gboolean is_default) 
+prop_dialog_new(DiaObject *obj, gboolean is_default) 
 {
   PropDialog *dialog = g_new0(PropDialog,1);
   dialog->props = NULL;
@@ -175,7 +175,7 @@ property_signal_handler(GtkObject *obj,
   if (ped) {
     PropDialog *dialog = ped->dialog;
     Property *prop = ped->self;
-    Object *obj = dialog->obj_copy;
+    DiaObject *obj = dialog->obj_copy;
     int j;
 
     g_assert(prop->event_handler);
@@ -214,7 +214,7 @@ prophandler_connect(const Property *prop,
                     GtkObject *object,
                     const gchar *signal)
 {
-  Object *obj = prop->self.dialog->obj_copy;
+  DiaObject *obj = prop->self.dialog->obj_copy;
 
   if (!prop->event_handler) return;
   if (0==strcmp(signal,"FIXME")) {
@@ -291,7 +291,7 @@ prop_get_data_from_widgets(PropDialog *dialog)
 }
 extern gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc);
 static void 
-prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default) {
+prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
   const PropDescription *pdesc;
   GPtrArray *props;
 

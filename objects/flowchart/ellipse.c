@@ -87,7 +87,7 @@ static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse, AnchorShape h,AnchorShape v);
-static Object *ellipse_create(Point *startpoint,
+static DiaObject *ellipse_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
@@ -98,7 +98,7 @@ static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
-static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *ellipse_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -349,7 +349,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &ellipse->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p, c;
   real dw, dh;
@@ -446,7 +446,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 ellipse_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -454,7 +454,7 @@ ellipse_create(Point *startpoint,
 {
   Ellipse *ellipse;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   int i;
   DiaFont *font = NULL;
@@ -547,12 +547,12 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
   data_add_text(new_attribute(obj_node, "text"), ellipse->text);
 }
 
-static Object *
+static DiaObject *
 ellipse_load(ObjectNode obj_node, int version, const char *filename)
 {
   Ellipse *ellipse;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

@@ -69,7 +69,7 @@ static ObjectChange* instantiation_move_handle(Instantiation *inst, Handle *hand
 					       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* instantiation_move(Instantiation *inst, Point *to);
 static void instantiation_draw(Instantiation *inst, Renderer *renderer);
-static Object *instantiation_create(Point *startpoint,
+static DiaObject *instantiation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -78,7 +78,7 @@ static void instantiation_destroy(Instantiation *inst);
 static DiaMenu *instantiation_get_object_menu(Instantiation *inst,
 						Point *clickedpoint);
 
-static Object *instantiation_load(ObjectNode obj_node, int version,
+static DiaObject *instantiation_load(ObjectNode obj_node, int version,
 				   const char *filename);
 
 static void instantiation_update_data(Instantiation *inst);
@@ -329,7 +329,7 @@ static void
 instantiation_update_data(Instantiation *inst)
 {
   OrthConn *orth = &inst->orth;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   int i, cur_segm;
   real dist;
   Point *points;
@@ -411,7 +411,7 @@ instantiation_update_data(Instantiation *inst)
 }
 
 static ObjectChange *
-instantiation_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+instantiation_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -420,7 +420,7 @@ instantiation_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-instantiation_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+instantiation_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -429,7 +429,7 @@ instantiation_delete_segment_callback(Object *obj, Point *clicked, gpointer data
 }
 
 static ObjectChange *
-instantiation_set_type_callback(Object *obj, Point *clicked, gpointer data)
+instantiation_set_type_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   static Property prop = {"type",PROP_TYPE_BOOL};
 
@@ -468,7 +468,7 @@ instantiation_get_object_menu(Instantiation *inst, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 instantiation_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -476,7 +476,7 @@ instantiation_create(Point *startpoint,
 {
   Instantiation *inst;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   Point p;
 
   if (inst_font == NULL) {
@@ -528,7 +528,7 @@ instantiation_destroy(Instantiation *inst)
   g_free(inst->procnum);
 }
 
-static Object *
+static DiaObject *
 instantiation_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {

@@ -40,16 +40,16 @@ static ObjectChange* emlprocess_move_handle(EMLProcess *emlprocess, Handle *hand
 					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* emlprocess_move(EMLProcess *emlprocess, Point *to);
 static void emlprocess_draw(EMLProcess *emlprocess, Renderer *renderer);
-static Object *emlprocess_create(Point *startpoint,
+static DiaObject *emlprocess_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
 static void emlprocess_destroy(EMLProcess *emlprocess);
-static Object *emlprocess_copy(EMLProcess *emlprocess);
+static DiaObject *emlprocess_copy(EMLProcess *emlprocess);
 
 static void emlprocess_save(EMLProcess *emlprocess, ObjectNode obj_node,
 			  const char *filename);
-static Object *emlprocess_load(ObjectNode obj_node, int version,
+static DiaObject *emlprocess_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
 static ObjectTypeOps emlprocess_type_ops =
@@ -85,7 +85,7 @@ static ObjectOps emlprocess_ops = {
 static real
 emlprocess_distance_from(EMLProcess *emlprocess, Point *point)
 {
-  Object *obj = &emlprocess->element.object;
+  DiaObject *obj = &emlprocess->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -200,7 +200,7 @@ void
 emlprocess_update_data(EMLProcess *emlprocess)
 {
   Element *elem = &emlprocess->element;
-  Object *obj = (Object *)emlprocess;
+  DiaObject *obj = (Object *)emlprocess;
 
   element_update_boundingbox(elem);
   /* fix boundingemlprocess for line_width: */
@@ -531,14 +531,14 @@ emlprocess_create(Point *startpoint,
 {
   EMLProcess *emlprocess;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   GList *list;
   int i;
   ConnectionPoint *connection;
 
   emlprocess = g_new0(EMLProcess, 1);
   elem = &emlprocess->element;
-  obj = (Object *) emlprocess;
+  obj = (DiaObject *) emlprocess;
   
   obj->type = &emlprocess_type;
 
@@ -585,7 +585,7 @@ emlprocess_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)emlprocess;
+  return (DiaObject *)emlprocess;
 
 }
 
@@ -618,12 +618,12 @@ emlprocess_destroy(EMLProcess *emlprocess)
 
 }
 
-static Object *
+static DiaObject *
 emlprocess_copy(EMLProcess *emlprocess)
 {
   EMLProcess *newemlprocess;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   GList *list;
   ConnectionPoint *connection;
   int i;
@@ -632,7 +632,7 @@ emlprocess_copy(EMLProcess *emlprocess)
   
   newemlprocess = g_new0(EMLProcess, 1);
   newelem = &newemlprocess->element;
-  newobj = (Object *) newemlprocess;
+  newobj = (DiaObject *) newemlprocess;
 
   element_copy(elem, newelem);
 
@@ -691,7 +691,7 @@ emlprocess_copy(EMLProcess *emlprocess)
 
   emlprocess_update_data(newemlprocess);
 
-  return (Object *)newemlprocess;
+  return (DiaObject *)newemlprocess;
 
 }
 
@@ -727,12 +727,12 @@ emlprocess_save(EMLProcess *emlprocess, ObjectNode obj_node,
 
 }
 
-static Object *emlprocess_load(ObjectNode obj_node, int version,
+static DiaObject *emlprocess_load(ObjectNode obj_node, int version,
 			     const char *filename)
 {
   EMLProcess *emlprocess;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr_node;
   DataNode composite;
   EMLInterface *iface;
@@ -743,7 +743,7 @@ static Object *emlprocess_load(ObjectNode obj_node, int version,
   
   emlprocess = g_new0(EMLProcess, 1);
   elem = &emlprocess->element;
-  obj = (Object *) emlprocess;
+  obj = (DiaObject *) emlprocess;
   
   obj->type = &emlprocess_type;
   obj->ops = &emlprocess_ops;
@@ -809,6 +809,6 @@ static Object *emlprocess_load(ObjectNode obj_node, int version,
 
   emlprocess_dialog_init(emlprocess);
 
-  return (Object *)emlprocess;
+  return (DiaObject *)emlprocess;
 }
 

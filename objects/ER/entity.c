@@ -77,12 +77,12 @@ static ObjectChange* entity_move_handle(Entity *entity, Handle *handle,
 static ObjectChange* entity_move(Entity *entity, Point *to);
 static void entity_draw(Entity *entity, DiaRenderer *renderer);
 static void entity_update_data(Entity *entity);
-static Object *entity_create(Point *startpoint,
+static DiaObject *entity_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
 			     Handle **handle2);
 static void entity_destroy(Entity *entity);
-static Object *entity_copy(Entity *entity);
+static DiaObject *entity_copy(Entity *entity);
 static PropDescription *
 entity_describe_props(Entity *entity);
 static void entity_get_props(Entity *entity, GPtrArray *props);
@@ -90,7 +90,7 @@ static void entity_set_props(Entity *entity, GPtrArray *props);
 
 static void entity_save(Entity *entity, ObjectNode obj_node,
 			const char *filename);
-static Object *entity_load(ObjectNode obj_node, int version,
+static DiaObject *entity_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
 static ObjectTypeOps entity_type_ops =
@@ -308,7 +308,7 @@ static void
 entity_update_data(Entity *entity)
 {
   Element *elem = &entity->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
 
   entity->name_width =
@@ -365,7 +365,7 @@ entity_update_data(Entity *entity)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 entity_create(Point *startpoint,
 	      void *user_data,
 	      Handle **handle1,
@@ -373,7 +373,7 @@ entity_create(Point *startpoint,
 {
   Entity *entity;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   entity = g_malloc0(sizeof(Entity));
@@ -427,13 +427,13 @@ entity_destroy(Entity *entity)
   g_free(entity->name);
 }
 
-static Object *
+static DiaObject *
 entity_copy(Entity *entity)
 {
   int i;
   Entity *newentity;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &entity->element;
   
@@ -488,12 +488,12 @@ entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
   		entity->font_height);
 }
 
-static Object *
+static DiaObject *
 entity_load(ObjectNode obj_node, int version, const char *filename)
 {
   Entity *entity;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

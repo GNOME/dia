@@ -66,12 +66,12 @@ static ObjectChange* smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
 					      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* smallpackage_move(SmallPackage *pkg, Point *to);
 static void smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer);
-static Object *smallpackage_create(Point *startpoint,
+static DiaObject *smallpackage_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
 				   Handle **handle2);
 static void smallpackage_destroy(SmallPackage *pkg);
-static Object *smallpackage_load(ObjectNode obj_node, int version,
+static DiaObject *smallpackage_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *smallpackage_describe_props(SmallPackage *smallpackage);
@@ -173,7 +173,7 @@ smallpackage_set_props(SmallPackage *smallpackage,
 static real
 smallpackage_distance_from(SmallPackage *pkg, Point *point)
 {
-  Object *obj = &pkg->element.object;
+  DiaObject *obj = &pkg->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -275,7 +275,7 @@ static void
 smallpackage_update_data(SmallPackage *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point p;
   DiaFont *font;
 
@@ -341,7 +341,7 @@ smallpackage_update_data(SmallPackage *pkg)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 smallpackage_create(Point *startpoint,
 		    void *user_data,
 		    Handle **handle1,
@@ -349,7 +349,7 @@ smallpackage_create(Point *startpoint,
 {
   SmallPackage *pkg;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -409,7 +409,7 @@ smallpackage_destroy(SmallPackage *pkg)
   element_destroy(&pkg->element);
 }
 
-static Object *
+static DiaObject *
 smallpackage_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&smallpackage_type,

@@ -73,20 +73,20 @@ static ObjectChange* bus_move(Bus *bus, Point *to);
 static void bus_select(Bus *bus, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void bus_draw(Bus *bus, DiaRenderer *renderer);
-static Object *bus_create(Point *startpoint,
+static DiaObject *bus_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static real bus_distance_from(Bus *bus, Point *point);
 static void bus_update_data(Bus *bus);
 static void bus_destroy(Bus *bus);
-static Object *bus_copy(Bus *bus);
+static DiaObject *bus_copy(Bus *bus);
 
 static PropDescription *bus_describe_props(Bus *bus);
 static void bus_get_props(Bus *bus, GPtrArray *props);
 static void bus_set_props(Bus *bus, GPtrArray *props);
 static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
-static Object *bus_load(ObjectNode obj_node, int version,
+static DiaObject *bus_load(ObjectNode obj_node, int version,
 			const char *filename);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
@@ -280,7 +280,7 @@ bus_move(Bus *bus, Point *to)
 {
   Point delta;
   Point *endpoints = &bus->connection.endpoints[0]; 
-  Object *obj = &bus->connection.object;
+  DiaObject *obj = &bus->connection.object;
   int i;
   
   delta = *to;
@@ -330,7 +330,7 @@ bus_draw(Bus *bus, DiaRenderer *renderer)
   }
 }
 
-static Object *
+static DiaObject *
 bus_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -339,7 +339,7 @@ bus_create(Point *startpoint,
   Bus *bus;
   Connection *conn;
   LineBBExtras *extra;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 5.0, 0.0 };
   int i;
 
@@ -396,12 +396,12 @@ bus_destroy(Bus *bus)
   g_free(bus->parallel_points);
 }
 
-static Object *
+static DiaObject *
 bus_copy(Bus *bus)
 {
   Bus *newbus;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   int i;
   
   conn = &bus->connection;
@@ -436,7 +436,7 @@ static void
 bus_update_data(Bus *bus)
 {
   Connection *conn = &bus->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   int i;
   Point u, v, vhat;
   Point *endpoints;
@@ -536,7 +536,7 @@ bus_remove_handle(Bus *bus, Handle *handle)
 }
 
 static ObjectChange *
-bus_add_handle_callback (Object *obj, Point *clicked, gpointer data)
+bus_add_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bus *bus = (Bus *) obj;
   Handle *handle;
@@ -573,7 +573,7 @@ bus_point_near_handle(Bus *bus, Point *p)
 }
 
 static ObjectChange *
-bus_delete_handle_callback (Object *obj, Point *clicked, gpointer data)
+bus_delete_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bus *bus = (Bus *) obj;
   Handle *handle;
@@ -631,13 +631,13 @@ bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
   }
 }
 
-static Object *
+static DiaObject *
 bus_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bus *bus;
   Connection *conn;
   LineBBExtras *extra;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
   DataNode data;
   int i;
@@ -697,7 +697,7 @@ bus_change_free(struct PointChange *change)
 }
 
 static void
-bus_change_apply(struct PointChange *change, Object *obj)
+bus_change_apply(struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -713,7 +713,7 @@ bus_change_apply(struct PointChange *change, Object *obj)
 }
 
 static void
-bus_change_revert(struct PointChange *change, Object *obj)
+bus_change_revert(struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:

@@ -73,14 +73,14 @@ static ObjectChange* condition_move(Condition *condition, Point *to);
 static void condition_select(Condition *condition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void condition_draw(Condition *condition, DiaRenderer *renderer);
-static Object *condition_create(Point *startpoint,
+static DiaObject *condition_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real condition_distance_from(Condition *condition, Point *point);
 static void condition_update_data(Condition *condition);
 static void condition_destroy(Condition *condition);
-static Object *condition_load(ObjectNode obj_node, int version,
+static DiaObject *condition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *condition_describe_props(Condition *condition);
 static void condition_get_props(Condition *condition, 
@@ -270,7 +270,7 @@ static void
 condition_update_data(Condition *condition)
 {
   Connection *conn = &condition->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
 
   obj->position = conn->endpoints[0];
   connection_update_boundingbox(conn);
@@ -317,7 +317,7 @@ condition_draw(Condition *condition, DiaRenderer *renderer)
   boolequation_draw(condition->cond,renderer);
 }
 
-static Object *
+static DiaObject *
 condition_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -326,7 +326,7 @@ condition_create(Point *startpoint,
   Condition *condition;
   Connection *conn;
   LineBBExtras *extra;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
 
   DiaFont *default_font; 
@@ -385,7 +385,7 @@ condition_destroy(Condition *condition)
   connection_destroy(&condition->connection);
 }
 
-static Object *
+static DiaObject *
 condition_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&condition_type,

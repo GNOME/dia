@@ -73,12 +73,12 @@ static ObjectChange* classicon_move_handle(Classicon *cicon, Handle *handle,
 					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* classicon_move(Classicon *cicon, Point *to);
 static void classicon_draw(Classicon *cicon, DiaRenderer *renderer);
-static Object *classicon_create(Point *startpoint,
+static DiaObject *classicon_create(Point *startpoint,
 				void *user_data,
 				Handle **handle1,
 				Handle **handle2);
 static void classicon_destroy(Classicon *cicon);
-static Object *classicon_load(ObjectNode obj_node, int version,
+static DiaObject *classicon_load(ObjectNode obj_node, int version,
 			      const char *filename);
 static PropDescription *classicon_describe_props(Classicon *classicon);
 static void classicon_get_props(Classicon *classicon, GPtrArray *props);
@@ -185,7 +185,7 @@ classicon_set_props(Classicon *classicon, GPtrArray *props)
 static real
 classicon_distance_from(Classicon *cicon, Point *point)
 {
-  Object *obj = &cicon->element.object;
+  DiaObject *obj = &cicon->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -333,7 +333,7 @@ static void
 classicon_update_data(Classicon *cicon)
 {
   Element *elem = &cicon->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   DiaFont *font;
   Point p1;
   real h, wt, w = 0;
@@ -409,7 +409,7 @@ classicon_update_data(Classicon *cicon)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 classicon_create(Point *startpoint,
 		    void *user_data,
 		    Handle **handle1,
@@ -417,7 +417,7 @@ classicon_create(Point *startpoint,
 {
   Classicon *cicon;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -474,7 +474,7 @@ classicon_destroy(Classicon *cicon)
   element_destroy(&cicon->element);
 }
 
-static Object *
+static DiaObject *
 classicon_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&classicon_type,

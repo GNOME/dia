@@ -89,7 +89,7 @@ static ObjectChange* pgram_move_handle(Pgram *pgram, Handle *handle,
 static ObjectChange* pgram_move(Pgram *pgram, Point *to);
 static void pgram_draw(Pgram *pgram, DiaRenderer *renderer);
 static void pgram_update_data(Pgram *pgram, AnchorShape h, AnchorShape v);
-static Object *pgram_create(Point *startpoint,
+static DiaObject *pgram_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
@@ -100,7 +100,7 @@ static void pgram_get_props(Pgram *pgram, GPtrArray *props);
 static void pgram_set_props(Pgram *pgram, GPtrArray *props);
 
 static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
-static Object *pgram_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *pgram_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps pgram_type_ops =
 {
@@ -367,7 +367,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &pgram->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real offs;
@@ -520,7 +520,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 pgram_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -528,7 +528,7 @@ pgram_create(Point *startpoint,
 {
   Pgram *pgram;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   int i;
   DiaFont *font = NULL;
@@ -626,12 +626,12 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
   data_add_text(new_attribute(obj_node, "text"), pgram->text);
 }
 
-static Object *
+static DiaObject *
 pgram_load(ObjectNode obj_node, int version, const char *filename)
 {
   Pgram *pgram;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

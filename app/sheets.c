@@ -447,7 +447,7 @@ sheet_object_mod_get_type_string(SheetObjectMod *som)
   case OBJECT_TYPE_SVG:
     return _("SVG Shape");
   case OBJECT_TYPE_PROGRAMMED:
-    return _("Programmed Object");
+    return _("Programmed DiaObject");
   default:
     g_assert_not_reached();
     return FALSE;           /* shut gcc up */

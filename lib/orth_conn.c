@@ -168,7 +168,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
 {
   int n;
   int handle_nr;
-  Object *obj = (Object *)orth;
+  DiaObject *obj = (Object *)orth;
   ObjectChange *change = NULL;
 
   switch(handle->id) {
@@ -301,7 +301,7 @@ void
 orthconn_update_data(OrthConn *orth)
 {
   int i;
-  Object *obj = (Object *)orth;
+  DiaObject *obj = (Object *)orth;
   
   if (!orth->points) {
     g_warning("very sick OrthConn object...");
@@ -398,14 +398,14 @@ orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint)
 
 /* Needs to have at least 2 handles. 
    The handles are stored in order in the OrthConn, but need
-   not be stored in order in the Object.handles array. This
+   not be stored in order in the DiaObject.handles array. This
    is so that derived object can do what they want with
-   Object.handles. */
+   DiaObject.handles. */
 
 void
 orthconn_init(OrthConn *orth, Point *startpoint)
 {
-  Object *obj;
+  DiaObject *obj;
 
   obj = &orth->object;
 
@@ -486,7 +486,7 @@ void
 orthconn_copy(OrthConn *from, OrthConn *to)
 {
   int i;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -536,11 +536,11 @@ orthconn_destroy(OrthConn *orth)
 static void 
 place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
 {
-  Object *obj;
+  DiaObject *obj;
   Handle *tmp;
   int j;
 
-  obj = (Object *)orth;
+  obj = (DiaObject *)orth;
   if (obj->handles[index] == handle)
     return; /* Nothing to do */
 
@@ -591,7 +591,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   DataNode data;
   int n;
   
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
 
   object_load(obj, obj_node);
 
@@ -692,7 +692,7 @@ orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
 				      orth->handles[segment+1]);
   }
 
-  change->apply(change, (Object *)orth);
+  change->apply(change, (DiaObject *)orth);
   
   return change;
 }
@@ -739,7 +739,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 				      handle2);
   }
 
-  change->apply(change, (Object *)orth);
+  change->apply(change, (DiaObject *)orth);
 
   return change;
 }
@@ -751,7 +751,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 static ObjectChange *
 orthconn_set_autorouting(OrthConn *conn, gboolean on)
 {
-  Object *obj = (Object *)conn;
+  DiaObject *obj = (Object *)conn;
   ObjectChange *change;
 
   change = autoroute_create_change(conn, on);
@@ -851,7 +851,7 @@ endsegment_change_free(struct EndSegmentChange *change)
 }
 
 static void
-endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
+endsegment_change_apply(struct EndSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
 
@@ -893,7 +893,7 @@ endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
 }
 
 static void
-endsegment_change_revert(struct EndSegmentChange *change, Object *obj)
+endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
   
@@ -977,7 +977,7 @@ midsegment_change_free(struct MidSegmentChange *change)
 }
 
 static void
-midsegment_change_apply(struct MidSegmentChange *change, Object *obj)
+midsegment_change_apply(struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
   change->applied = 1;
@@ -1006,7 +1006,7 @@ midsegment_change_apply(struct MidSegmentChange *change, Object *obj)
 }
 
 static void
-midsegment_change_revert(struct MidSegmentChange *change, Object *obj)
+midsegment_change_revert(struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
   
@@ -1066,7 +1066,7 @@ autoroute_change_free(struct AutorouteChange *change)
 }
 
 static void
-autoroute_change_apply(struct AutorouteChange *change, Object *obj)
+autoroute_change_apply(struct AutorouteChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn*)obj;
 
@@ -1081,7 +1081,7 @@ autoroute_change_apply(struct AutorouteChange *change, Object *obj)
 }
 
 static void
-autoroute_change_revert(struct AutorouteChange *change, Object *obj)
+autoroute_change_revert(struct AutorouteChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn*)obj;
 
@@ -1116,7 +1116,7 @@ autoroute_create_change(OrthConn *orth, gboolean on)
 }
 
 ObjectChange *
-orthconn_toggle_autorouting_callback(Object *obj, Point *clicked, gpointer data)
+orthconn_toggle_autorouting_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   /* This is kinda hackish.  Since we can't see the menu item, we have to

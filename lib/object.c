@@ -84,7 +84,7 @@ dia_object_new(int num_handles, int num_connections) {
 
 
 void
-object_init(Object *obj,
+object_init(DiaObject *obj,
 	    int num_handles,
 	    int num_connections)
 {
@@ -102,7 +102,7 @@ object_init(Object *obj,
 }
 
 void
-object_destroy(Object *obj)
+object_destroy(DiaObject *obj)
 {
   object_unconnect_all(obj);
   
@@ -121,7 +121,7 @@ object_destroy(Object *obj)
    children/parents
 */
 void
-object_copy(Object *from, Object *to)
+object_copy(DiaObject *from, Object *to)
 {
   to->type = from->type;
   to->position = from->position;
@@ -159,8 +159,8 @@ object_copy_list(GList *list_orig)
 {
   GList *list_copy;
   GList *list;
-  Object *obj;
-  Object *obj_copy;
+  DiaObject *obj;
+  DiaObject *obj_copy;
   GHashTable *hash_table;
   int i;
 
@@ -169,7 +169,7 @@ object_copy_list(GList *list_orig)
   list = list_orig;
   list_copy = NULL;
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     obj_copy = obj->ops->copy(obj);
 
@@ -184,7 +184,7 @@ object_copy_list(GList *list_orig)
   objects in the list: */
   list = list_orig;
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
     obj_copy = g_hash_table_lookup(hash_table, obj);
     
     if (obj_copy->parent)
@@ -195,7 +195,7 @@ object_copy_list(GList *list_orig)
       GList *child_list = obj_copy->children;
       while(child_list)
       {
-        Object *child_obj = (Object *) child_list->data;
+        DiaObject *child_obj = (Object *) child_list->data;
         child_list->data = g_hash_table_lookup(hash_table, child_obj);
 	child_list = g_list_next(child_list);
       }
@@ -206,8 +206,8 @@ object_copy_list(GList *list_orig)
       con_point = obj->handles[i]->connected_to;
       
       if ( con_point != NULL ) {
-	Object *other_obj;
-	Object *other_obj_copy;
+	DiaObject *other_obj;
+	DiaObject *other_obj_copy;
 	int con_point_nr;
 	
 	other_obj = con_point->object;
@@ -238,7 +238,7 @@ ObjectChange*
 object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
   Point pos;
   ObjectChange *objchange = NULL;
 
@@ -247,7 +247,7 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 
   list = objects;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     
     pos = obj->position;
     point_add(&pos, delta);
@@ -277,7 +277,7 @@ extern ObjectChange*
 object_list_move_delta(GList *objects, Point *delta)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
   GList *process;
   ObjectChange *objchange = NULL;
 
@@ -287,7 +287,7 @@ object_list_move_delta(GList *objects, Point *delta)
      (in selection) objects so we have to have this extra loop */
   while (list != NULL)
   {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     process = NULL;
     process = g_list_append(process, obj);
@@ -303,11 +303,11 @@ void
 destroy_object_list(GList *list_to_be_destroyed)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
   
   list = list_to_be_destroyed;
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     obj->ops->destroy(obj);
     g_free(obj);
@@ -319,7 +319,7 @@ destroy_object_list(GList *list_to_be_destroyed)
 }
 
 void
-object_add_handle(Object *obj, Handle *handle)
+object_add_handle(DiaObject *obj, Handle *handle)
 {
   obj->num_handles++;
 
@@ -330,7 +330,7 @@ object_add_handle(Object *obj, Handle *handle)
 }
 
 void
-object_add_handle_at(Object *obj, Handle *handle, int pos)
+object_add_handle_at(DiaObject *obj, Handle *handle, int pos)
 {
   int i;
   
@@ -346,7 +346,7 @@ object_add_handle_at(Object *obj, Handle *handle, int pos)
 }
 
 void
-object_remove_handle(Object *obj, Handle *handle)
+object_remove_handle(DiaObject *obj, Handle *handle)
 {
   int i, handle_nr;
 
@@ -373,7 +373,7 @@ object_remove_handle(Object *obj, Handle *handle)
 }
 
 void
-object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint)
+object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
 {
   obj->num_connections++;
 
@@ -385,7 +385,7 @@ object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint)
 }
 
 void 
-object_add_connectionpoint_at(Object *obj, 
+object_add_connectionpoint_at(DiaObject *obj, 
 			      ConnectionPoint *conpoint, int pos)
 {
   int i;
@@ -403,7 +403,7 @@ object_add_connectionpoint_at(Object *obj,
 }
 
 void
-object_remove_connectionpoint(Object *obj, ConnectionPoint *conpoint)
+object_remove_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
 {
   int i, nr;
 
@@ -434,7 +434,7 @@ object_remove_connectionpoint(Object *obj, ConnectionPoint *conpoint)
 
 
 void
-object_connect(Object *obj, Handle *handle,
+object_connect(DiaObject *obj, Handle *handle,
 	       ConnectionPoint *connectionpoint)
 {
   if (handle->connect_type==HANDLE_NONCONNECTABLE) {
@@ -448,7 +448,7 @@ object_connect(Object *obj, Handle *handle,
 }
 
 void
-object_unconnect(Object *connected_obj, Handle *handle)
+object_unconnect(DiaObject *connected_obj, Handle *handle)
 {
   ConnectionPoint *connectionpoint;
 
@@ -465,12 +465,12 @@ void
 object_remove_connections_to(ConnectionPoint *conpoint)
 {
   GList *list;
-  Object *connected_obj;
+  DiaObject *connected_obj;
   int i;
   
   list = conpoint->connected;
   while (list != NULL) {
-    connected_obj = (Object *)list->data;
+    connected_obj = (DiaObject *)list->data;
 
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == conpoint) {
@@ -484,7 +484,7 @@ object_remove_connections_to(ConnectionPoint *conpoint)
 }
 
 void
-object_unconnect_all(Object *obj)
+object_unconnect_all(DiaObject *obj)
 {
   int i;
   
@@ -496,7 +496,7 @@ object_unconnect_all(Object *obj)
   }
 }
 
-void object_save(Object *obj, ObjectNode obj_node)
+void object_save(DiaObject *obj, ObjectNode obj_node)
 {
   data_add_point(new_attribute(obj_node, "obj_pos"),
 		 &obj->position);
@@ -504,7 +504,7 @@ void object_save(Object *obj, ObjectNode obj_node)
 		     &obj->bounding_box);
 }
 
-void object_load(Object *obj, ObjectNode obj_node)
+void object_load(DiaObject *obj, ObjectNode obj_node)
 {
   AttributeNode attr;
 
@@ -521,7 +521,7 @@ void object_load(Object *obj, ObjectNode obj_node)
     data_rectangle( attribute_first_data(attr), &obj->bounding_box );
 }
 
-Layer *dia_object_get_parent_layer(Object *obj) {
+Layer *dia_object_get_parent_layer(DiaObject *obj) {
   return obj->parent_layer;
 }
 
@@ -530,7 +530,7 @@ Layer *dia_object_get_parent_layer(Object *obj) {
  * objects, so don't use it frivolously.
  */
 gboolean
-dia_object_is_selected (const Object *obj)
+dia_object_is_selected (const DiaObject *obj)
 {
   Layer *layer = obj->parent_layer;
   DiagramData *diagram = layer->parent_diagram;
@@ -542,7 +542,7 @@ dia_object_is_selected (const Object *obj)
   return FALSE;
 }
 
-/****** Object register: **********/
+/****** DiaObject register: **********/
 
 static guint hash(gpointer key)
 {
@@ -598,19 +598,19 @@ object_get_type(char *name)
 
 
 int
-object_return_false(Object *obj)
+object_return_false(DiaObject *obj)
 {
   return FALSE;
 }
 
 void *
-object_return_null(Object *obj)
+object_return_null(DiaObject *obj)
 {
   return NULL;
 }
 
 void
-object_return_void(Object *obj)
+object_return_void(DiaObject *obj)
 {
   return;
 }
@@ -620,7 +620,7 @@ object_load_using_properties(const ObjectType *type,
                              ObjectNode obj_node, int version,
                              const char *filename)
 {
-  Object *obj;
+  DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
@@ -630,17 +630,17 @@ object_load_using_properties(const ObjectType *type,
 }
 
 void 
-object_save_using_properties(Object *obj, ObjectNode obj_node, 
+object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
                              int version, const char *filename)
 {
   object_save_props(obj,obj_node);
 }
 
-Object *object_copy_using_properties(Object *obj)
+Object *object_copy_using_properties(DiaObject *obj)
 {
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  Object *newobj = obj->type->ops->create(&startpoint,NULL,
+  DiaObject *newobj = obj->type->ops->create(&startpoint,NULL,
                                           &handle1,&handle2);
   object_copy_props(newobj,obj,FALSE);
   return newobj;

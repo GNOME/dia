@@ -154,7 +154,7 @@ Object *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     ObjectType *otype = object_get_type("Standard - Line");  
     Handle *h1, *h2;
     
-    Object *line_obj;
+    DiaObject *line_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
     GPtrArray *props;
     PointProperty *ptprop;
@@ -248,7 +248,7 @@ Object *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    ObjectType *otype = object_get_type("Standard - Polygon");  
    Handle *h1, *h2;
    
-   Object *polygon_obj;
+   DiaObject *polygon_obj;
    MultipointCreateData *pcd;
 
    Color fill_colour = { 0.5, 0.5, 0.5 };
@@ -401,7 +401,7 @@ Object *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     ObjectType *otype = object_get_type("Standard - PolyLine");
     Handle *h1, *h2;
     
-    Object *polyline_obj;
+    DiaObject *polyline_obj;
     MultipointCreateData *pcd;
 
     Color line_colour = { 0.0, 0.0, 0.0 };
@@ -610,7 +610,7 @@ Object *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     ObjectType *otype = object_get_type("Standard - Ellipse");  
     Handle *h1, *h2;
     
-    Object *ellipse_obj;
+    DiaObject *ellipse_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
 
     PointProperty *ptprop;
@@ -700,7 +700,7 @@ Object *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     ObjectType *otype = object_get_type("Standard - Arc");  
     Handle *h1, *h2;
   
-    Object *arc_obj;
+    DiaObject *arc_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
 
     ColorProperty *cprop;
@@ -795,7 +795,7 @@ Object *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     ObjectType *otype = object_get_type("Standard - Ellipse");
     Handle *h1, *h2;
     
-    Object *ellipse_obj; 
+    DiaObject *ellipse_obj; 
     Color line_colour = { 0.0, 0.0, 0.0 };
     PointProperty *ptprop;
     RealProperty *rprop;
@@ -883,7 +883,7 @@ Object *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     ObjectType *otype = object_get_type("Standard - Text");
     Handle *h1, *h2;
     
-    Object *text_obj;
+    DiaObject *text_obj;
     Color text_colour = { 0.0, 0.0, 0.0 };
 
     TextProperty *tprop;
@@ -1211,7 +1211,7 @@ void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf, group_items = 0, group = 0;
     GList *group_list = NULL;
-    Object *obj = NULL;
+    DiaObject *obj = NULL;
     Layer *group_layer = NULL;
    
     if (read_dxf_codes(filedxf, data) == FALSE){

@@ -36,12 +36,12 @@ typedef enum {
 #endif 
 
 
-/* This is a subclass of Object used to help implementing objects
+/* This is a subclass of DiaObject used to help implementing objects
  * that connect points with orthogonal line-segments.
  */
 struct _NewOrthConn {
-  /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+  /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
 
   int numpoints; /* >= 3 */
   Point *points; /* [numpoints] */

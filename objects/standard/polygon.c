@@ -70,14 +70,14 @@ static ObjectChange* polygon_move(Polygon *polygon, Point *to);
 static void polygon_select(Polygon *polygon, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polygon_draw(Polygon *polygon, DiaRenderer *renderer);
-static Object *polygon_create(Point *startpoint,
+static DiaObject *polygon_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real polygon_distance_from(Polygon *polygon, Point *point);
 static void polygon_update_data(Polygon *polygon);
 static void polygon_destroy(Polygon *polygon);
-static Object *polygon_copy(Polygon *polygon);
+static DiaObject *polygon_copy(Polygon *polygon);
 
 static PropDescription *polygon_describe_props(Polygon *polygon);
 static void polygon_get_props(Polygon *polygon, GPtrArray *props);
@@ -85,7 +85,7 @@ static void polygon_set_props(Polygon *polygon, GPtrArray *props);
 
 static void polygon_save(Polygon *polygon, ObjectNode obj_node,
 			  const char *filename);
-static Object *polygon_load(ObjectNode obj_node, int version,
+static DiaObject *polygon_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polygon_get_object_menu(Polygon *polygon, Point *clickedpoint);
 
@@ -241,7 +241,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   renderer_ops->draw_polygon(renderer, points, n, &polygon->line_color);
 }
 
-static Object *
+static DiaObject *
 polygon_create(Point *startpoint,
 	       void *user_data,
 	       Handle **handle1,
@@ -249,7 +249,7 @@ polygon_create(Point *startpoint,
 {
   Polygon *polygon;
   PolyShape *poly;
-  Object *obj;
+  DiaObject *obj;
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
@@ -295,12 +295,12 @@ polygon_destroy(Polygon *polygon)
   polyshape_destroy(&polygon->poly);
 }
 
-static Object *
+static DiaObject *
 polygon_copy(Polygon *polygon)
 {
   Polygon *newpolygon;
   PolyShape *poly, *newpoly;
-  Object *newobj;
+  DiaObject *newobj;
 
   poly = &polygon->poly;
  
@@ -325,7 +325,7 @@ static void
 polygon_update_data(Polygon *polygon)
 {
   PolyShape *poly = &polygon->poly;
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
   ElementBBExtras *extra = &poly->extra_spacing;
 
   polyshape_update_data(poly);
@@ -368,12 +368,12 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
   
 }
 
-static Object *
+static DiaObject *
 polygon_load(ObjectNode obj_node, int version, const char *filename)
 {
   Polygon *polygon;
   PolyShape *poly;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   polygon = g_malloc0(sizeof(Polygon));
@@ -422,7 +422,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-polygon_add_corner_callback (Object *obj, Point *clicked, gpointer data)
+polygon_add_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Polygon *poly = (Polygon*) obj;
   int segment;
@@ -436,7 +436,7 @@ polygon_add_corner_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-polygon_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
+polygon_delete_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
   int handle_nr, i;

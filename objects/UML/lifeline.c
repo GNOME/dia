@@ -85,14 +85,14 @@ static ObjectChange* lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
                             DiaRenderer *interactive_renderer);
 static void lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer);
-static Object *lifeline_create(Point *startpoint,
+static DiaObject *lifeline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real lifeline_distance_from(Lifeline *lifeline, Point *point);
 static void lifeline_update_data(Lifeline *lifeline);
 static void lifeline_destroy(Lifeline *lifeline);
-static Object *lifeline_load(ObjectNode obj_node, int version,
+static DiaObject *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
@@ -340,7 +340,7 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   }
 }
 
-/* Object menu handling */
+/* DiaObject menu handling */
 
 typedef struct {
   ObjectChange obj_change;
@@ -348,7 +348,7 @@ typedef struct {
   ObjectChange *northeast,*southeast,*northwest,*southwest;
 } LifelineChange;
 
-static void lifeline_change_apply(LifelineChange *change, Object *obj)
+static void lifeline_change_apply(LifelineChange *change, DiaObject *obj)
 {
   change->northwest->apply(change->northwest,obj);
   change->southwest->apply(change->southwest,obj);
@@ -356,7 +356,7 @@ static void lifeline_change_apply(LifelineChange *change, Object *obj)
   change->southeast->apply(change->southeast,obj);
 }
 
-static void lifeline_change_revert(LifelineChange *change, Object *obj)
+static void lifeline_change_revert(LifelineChange *change, DiaObject *obj)
 {
   change->northwest->revert(change->northwest,obj);
   change->southwest->revert(change->southwest,obj);
@@ -402,13 +402,13 @@ lifeline_create_change(Lifeline *lifeline, int add, Point *clicked)
 }
 
 static ObjectChange *
-lifeline_add_cp_callback(Object *obj, Point *clicked, gpointer data)
+lifeline_add_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   return lifeline_create_change((Lifeline *)obj,1,clicked);
 }
 
 static ObjectChange *
-lifeline_delete_cp_callback(Object *obj, Point *clicked, gpointer data)
+lifeline_delete_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 { 
   return lifeline_create_change((Lifeline *)obj,0,clicked); 
 }
@@ -442,7 +442,7 @@ lifeline_get_object_menu(Lifeline *lifeline, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 lifeline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -450,7 +450,7 @@ lifeline_create(Point *startpoint,
 {
   Lifeline *lifeline;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   lifeline = g_malloc0(sizeof(Lifeline));
@@ -526,7 +526,7 @@ static void
 lifeline_update_data(Lifeline *lifeline)
 {
   Connection *conn = &lifeline->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
   Point p1, p2, pnw, psw, pne, pse, pmw,pme;
 
@@ -594,7 +594,7 @@ lifeline_update_data(Lifeline *lifeline)
   connpointline_putonaline(lifeline->southeast,&pme,&pse);
 }
 
-static Object *
+static DiaObject *
 lifeline_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&lifeline_type,

@@ -96,11 +96,11 @@ skip_comments(FILE *file) {
     return FALSE;
 }
 
-static Object *
+static DiaObject *
 create_standard_text(real xpos, real ypos,
 		     DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Text");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
 
@@ -145,11 +145,11 @@ static GPtrArray *make_element_props(real xpos, real ypos,
     return props;
 }
 
-static Object *
+static DiaObject *
 create_standard_ellipse(real xpos, real ypos, real width, real height,
 			DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Ellipse");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     
     GPtrArray *props;
@@ -175,11 +175,11 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 }
 
 
-static Object *
+static DiaObject *
 create_standard_box(real xpos, real ypos, real width, real height,
 		    DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Box");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -208,14 +208,14 @@ static PropDescription xfig_line_prop_descs[] = {
     PROP_STD_END_ARROW,
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_polyline(int num_points, 
 			 Point *points,
 			 Arrow *end_arrow,
 			 Arrow *start_arrow,
 			 DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - PolyLine");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
     GPtrArray *props;
@@ -248,12 +248,12 @@ create_standard_polyline(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_polygon(int num_points, 
 			Point *points,
 			DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Polygon");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
 
@@ -273,14 +273,14 @@ create_standard_polygon(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_bezierline(int num_points, 
 			   BezPoint *points,
 			   Arrow *end_arrow,
 			   Arrow *start_arrow,
 			   DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - BezierLine");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
     GPtrArray *props;
@@ -313,12 +313,12 @@ create_standard_bezierline(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_beziergon(int num_points, 
 			  BezPoint *points,
 			  DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Beziergon");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
 
@@ -346,14 +346,14 @@ static PropDescription xfig_arc_prop_descs[] = {
     PROP_STD_END_ARROW,
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_arc(real x1, real y1, real x2, real y2,
 		    real radius, 
 		    Arrow *end_arrow,
 		    Arrow *start_arrow,
 		    DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Arc");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -389,11 +389,11 @@ static PropDescription xfig_file_prop_descs[] = {
     { "image_file", PROP_TYPE_FILE },
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_image(real xpos, real ypos, real width, real height,
 		      char *file, DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Image");
-    Object *new_obj;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -427,9 +427,9 @@ create_standard_image(real xpos, real ypos, real width, real height,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_group(GList *items, DiagramData *dia) {
-    Object *new_obj;
+    DiaObject *new_obj;
 
     new_obj = group_create((GList*)items);
 
@@ -507,7 +507,7 @@ fig_line_style_to_dia(int line_style)
 }
 
 static void
-fig_simple_properties(Object *obj,
+fig_simple_properties(DiaObject *obj,
 		      int line_style,
 		      float dash_length,
 		      int thickness,
@@ -693,7 +693,7 @@ static GSList *compound_stack = NULL;
    level.  Best we can do now. */
 static int compound_depth;
 
-static Object *
+static DiaObject *
 fig_read_ellipse(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -710,7 +710,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int radius_x, radius_y;
     int start_x, start_y;
     int end_x, end_y;
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
@@ -757,7 +757,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
-static Object *
+static DiaObject *
 fig_read_polyline(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -776,7 +776,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     int flipped = 0;
     char *image_file = NULL;
 
@@ -988,7 +988,7 @@ static real matrix_catmull_to_bezier[4][4] =
      {0,      1,   5,   5/6.0},
      {0,      0,   5,   5/6.0}};
 
-static Object *
+static DiaObject *
 fig_read_spline(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -1005,7 +1005,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     BezPoint *bezpoints;
     int i;
 
@@ -1123,7 +1123,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
-static Object *
+static DiaObject *
 fig_read_arc(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -1138,7 +1138,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     int direction;
     int forward_arrow, backward_arrow;
     Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     real center_x, center_y;
     int x1, y1;
     int x2, y2;
@@ -1221,12 +1221,12 @@ static PropDescription xfig_text_descs[] = {
     /* Flags */
 };
 
-static Object *
+static DiaObject *
 fig_read_text(FILE *file, DiagramData *dia) {
     GPtrArray *props = NULL;
     TextProperty *tprop;
 
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     int sub_type;
     int color;
     int depth;
@@ -1290,7 +1290,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 static gboolean
 fig_read_object(FILE *file, DiagramData *dia) {
     int objecttype;
-    Object *item = NULL;
+    DiaObject *item = NULL;
 
     if (fscanf(file, "%d ", &objecttype) != 1) {
 	if (!feof(file)) {

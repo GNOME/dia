@@ -47,6 +47,8 @@ static int
 file_dialog_hide (GtkWidget *filesel)
 {
   gtk_widget_hide (filesel);
+  g_object_unref(gtk_object_get_user_data(GTK_OBJECT(filesel)));
+  gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
 
 #if 0
   menus_set_sensitive ("<Toolbox>/File/Open...", TRUE);
@@ -263,7 +265,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-      gtk_widget_hide(savedlg);
+      file_dialog_hide(savedlg);
       gtk_widget_destroy(dialog);
       return;
     }
@@ -277,7 +279,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
   diagram_set_filename(dia, filename);
   diagram_save(dia, filename);
 
-  gtk_widget_hide(savedlg);
+  file_dialog_hide(savedlg);
 }
 
 void
@@ -331,6 +333,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 				  dia->filename ? dia->filename
 				  : "." G_DIR_SEPARATOR_S);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+  g_object_ref(dia);
   gtk_widget_show(savedlg);
 }
 
@@ -435,7 +438,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-      gtk_widget_hide(exportdlg);
+      file_dialog_hide(exportdlg);
       gtk_widget_destroy(dialog);
       return;
     }
@@ -452,7 +455,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
       message_error(_("Could not determine which export filter\n"
 		      "to use to save '%s'"), filename);
 
-  gtk_widget_hide(exportdlg);
+  file_dialog_hide(exportdlg);
 }
 
 void
@@ -512,6 +515,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   }
  
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
+  g_object_ref(dia);
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;

@@ -133,12 +133,12 @@ static ObjectChange* association_move_handle(Association *assoc, Handle *handle,
 					     HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* association_move(Association *assoc, Point *to);
 static void association_draw(Association *assoc, DiaRenderer *renderer);
-static Object *association_create(Point *startpoint,
+static DiaObject *association_create(Point *startpoint,
 				  void *user_data,
 				  Handle **handle1,
 				  Handle **handle2);
 static void association_destroy(Association *assoc);
-static Object *association_copy(Association *assoc);
+static DiaObject *association_copy(Association *assoc);
 static GtkWidget *association_get_properties(Association *assoc, gboolean is_default);
 static ObjectChange *association_apply_properties(Association *assoc);
 static DiaMenu *association_get_object_menu(Association *assoc,
@@ -153,7 +153,7 @@ static void association_set_state(Association *assoc,
 
 static void association_save(Association *assoc, ObjectNode obj_node,
 			     const char *filename);
-static Object *association_load(ObjectNode obj_node, int version,
+static DiaObject *association_load(ObjectNode obj_node, int version,
 				const char *filename);
 
 static void association_update_data(Association *assoc);
@@ -515,7 +515,7 @@ association_update_data(Association *assoc)
            fundamentally slow. */
 
   OrthConn *orth = &assoc->orth;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i, n;
   Point *points;
@@ -667,7 +667,7 @@ static coord get_aggregate_pos_diff(AssociationEnd *end)
   return width;
 }
 
-static Object *
+static DiaObject *
 association_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -675,7 +675,7 @@ association_create(Point *startpoint,
 {
   Association *assoc;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   int i;
   int user_d;
 
@@ -725,7 +725,7 @@ association_create(Point *startpoint,
 }
 
 static ObjectChange *
-association_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+association_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -734,7 +734,7 @@ association_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-association_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+association_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -789,12 +789,12 @@ association_destroy(Association *assoc)
   }
 }
 
-static Object *
+static DiaObject *
 association_copy(Association *assoc)
 {
   Association *newassoc;
   OrthConn *orth, *neworth;
-  Object *newobj;
+  DiaObject *newobj;
   int i;
   
   orth = &assoc->orth;
@@ -854,14 +854,14 @@ association_save(Association *assoc, ObjectNode obj_node,
   }
 }
 
-static Object *
+static DiaObject *
 association_load(ObjectNode obj_node, int version, const char *filename)
 {
   Association *assoc;
   AttributeNode attr;
   DataNode composite;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   int i;
   
   if (assoc_font == NULL) {

@@ -506,7 +506,7 @@ ddisplay_flush(DDisplay *ddisp)
 }
 
 static void
-ddisplay_obj_render(Object *obj, DiaRenderer *renderer,
+ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
 		    int active_layer,
 		    gpointer data)
 {
@@ -525,7 +525,7 @@ void
 ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
   int i;
   DiaInteractiveRendererInterface *renderer;
   
@@ -554,7 +554,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   /* Draw handles for all selected objects */
   list = ddisp->diagram->data->selected;
   while (list!=NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     for (i=0;i<obj->num_handles;i++) {
        handle_draw(obj->handles[i], ddisp);
@@ -873,7 +873,7 @@ ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
 /** Scroll display so that obj is centered.
  * Returns TRUE if anything changed.  */
 gboolean
-ddisplay_scroll_to_object(DDisplay *ddisp, Object *obj)
+ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
 {
   Rectangle r = obj->bounding_box;
 

@@ -58,14 +58,14 @@ static ObjectChange* participation_move_handle(Participation *dep, Handle *handl
 					       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* participation_move(Participation *dep, Point *to);
 static void participation_draw(Participation *dep, DiaRenderer *renderer);
-static Object *participation_create(Point *startpoint,
+static DiaObject *participation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
-static Object *participation_copy(Participation *dep);
+static DiaObject *participation_copy(Participation *dep);
 static void participation_save(Participation *dep, ObjectNode obj_node,
 			       const char *filename);
-static Object *participation_load(ObjectNode obj_node, int version,
+static DiaObject *participation_load(ObjectNode obj_node, int version,
 				  const char *filename);
 static void participation_update_data(Participation *dep);
 static PropDescription *
@@ -293,7 +293,7 @@ participation_update_data(Participation *participation)
   orthconn_update_boundingbox(orth);
 }
 
-static Object *
+static DiaObject *
 participation_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -301,7 +301,7 @@ participation_create(Point *startpoint,
 {
   Participation *participation;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   
   participation = g_malloc0(sizeof(Participation));
   orth = &participation->orth;
@@ -323,12 +323,12 @@ participation_create(Point *startpoint,
   return &participation->orth.object;
 }
 
-static Object *
+static DiaObject *
 participation_copy(Participation *participation)
 {
   Participation *newparticipation;
   OrthConn *orth, *neworth;
-  Object *newobj;
+  DiaObject *newobj;
   
   orth = &participation->orth;
   
@@ -356,13 +356,13 @@ participation_save(Participation *participation, ObjectNode obj_node,
 		   participation->total);
 }
 
-static Object *
+static DiaObject *
 participation_load(ObjectNode obj_node, int version, const char *filename)
 {
   AttributeNode attr;
   Participation *participation;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   participation = g_new0(Participation, 1);
 
@@ -384,7 +384,7 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-participation_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+participation_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -393,7 +393,7 @@ participation_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-participation_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+participation_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);

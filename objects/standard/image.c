@@ -74,19 +74,19 @@ static ObjectChange* image_move_handle(Image *image, Handle *handle,
 static ObjectChange* image_move(Image *image, Point *to);
 static void image_draw(Image *image, DiaRenderer *renderer);
 static void image_update_data(Image *image);
-static Object *image_create(Point *startpoint,
+static DiaObject *image_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void image_destroy(Image *image);
-static Object *image_copy(Image *image);
+static DiaObject *image_copy(Image *image);
 
 static PropDescription *image_describe_props(Image *image);
 static void image_get_props(Image *image, GPtrArray *props);
 static void image_set_props(Image *image, GPtrArray *props);
 
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
-static Object *image_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *image_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps image_type_ops =
 {
@@ -361,7 +361,7 @@ image_update_data(Image *image)
 {
   Element *elem = &image->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
 
   /* Update connections: */
   image->connections[0].pos = elem->corner;
@@ -389,7 +389,7 @@ image_update_data(Image *image)
 }
 
 
-static Object *
+static DiaObject *
 image_create(Point *startpoint,
 	     void *user_data,
 	     Handle **handle1,
@@ -397,7 +397,7 @@ image_create(Point *startpoint,
 {
   Image *image;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   image = g_malloc0(sizeof(Image));
@@ -458,13 +458,13 @@ image_destroy(Image *image) {
   element_destroy(&image->element);
 }
 
-static Object *
+static DiaObject *
 image_copy(Image *image)
 {
   int i;
   Image *newimage;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &image->element;
   
@@ -578,12 +578,12 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
   }
 }
 
-static Object *
+static DiaObject *
 image_load(ObjectNode obj_node, int version, const char *filename)
 {
   Image *image;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
   char *diafile_dir;

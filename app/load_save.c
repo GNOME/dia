@@ -62,7 +62,7 @@ static void GHFuncUnknownObjects(gpointer key,
 				 gpointer user_data);
 static GList *read_objects(xmlNodePtr objects, Layer *layer,
 			   GHashTable *objects_hash,
-			   const char *filename, Object *parent);
+			   const char *filename, DiaObject *parent);
 static void hash_free_string(gpointer       key,
 			     gpointer       value,
 			     gpointer       user_data);
@@ -92,11 +92,11 @@ GHFuncUnknownObjects(gpointer key,
 
 static GList *
 read_objects(xmlNodePtr objects, Layer *layer,
-             GHashTable *objects_hash,const char *filename, Object *parent)
+             GHashTable *objects_hash,const char *filename, DiaObject *parent)
 {
   GList *list;
   ObjectType *type;
-  Object *obj;
+  DiaObject *obj;
   ObjectNode obj_node;
   char *typestr;
   char *versionstr;
@@ -204,12 +204,12 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   char *tostr;
   char *connstr;
   int handle, conn;
-  Object *to;
+  DiaObject *to;
   
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (Object *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
@@ -585,7 +585,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
   list = objects;
   while (list != NULL) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (Object *) list->data;
 
     if (g_hash_table_lookup(objects_hash, obj))
     {
@@ -648,7 +648,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (Object *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
@@ -666,7 +666,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	con_point = handle->connected_to;
 	
 	if ( con_point != NULL ) {
-	  Object *other_obj;
+	  DiaObject *other_obj;
 	  int con_point_nr;
 	  
 	  other_obj = con_point->object;
@@ -705,7 +705,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
     }
 
     if (obj->parent) {
-      Object *other_obj = obj->parent;
+      DiaObject *other_obj = obj->parent;
       xmlNodePtr parent;
       g_snprintf(buffer, 30, "O%d",
 		 GPOINTER_TO_INT(g_hash_table_lookup(objects_hash, other_obj)));

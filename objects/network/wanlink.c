@@ -46,7 +46,7 @@ typedef struct _WanLink {
     Point poly[WANLINK_POLY_LEN];
 } WanLink;
 
-static Object *wanlink_create(Point *startpoint,
+static DiaObject *wanlink_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
@@ -55,7 +55,7 @@ static void wanlink_draw (WanLink *wanlink, DiaRenderer *renderer);
 static real wanlink_distance_from(WanLink *wanlink, Point *point);
 static void wanlink_select(WanLink *wanlink, Point *clicked_point,
 			 DiaRenderer *interactive_renderer);
-static Object *wanlink_copy(WanLink *wanlink);
+static DiaObject *wanlink_copy(WanLink *wanlink);
 static ObjectChange* wanlink_move(WanLink *wanlink, Point *to);
 static ObjectChange* wanlink_move_handle(WanLink *wanlink, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
@@ -67,7 +67,7 @@ static void wanlink_get_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_set_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_save(WanLink *wanlink, ObjectNode obj_node,
 			 const char *filename);
-static Object *wanlink_load(ObjectNode obj_node, int version,
+static DiaObject *wanlink_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void wanlink_update_data(WanLink *wanlink);
 
@@ -148,7 +148,7 @@ wanlink_set_props(WanLink *wanlink, GPtrArray *props)
 #define FLASH_BOTTOM (FLASH_HEIGHT)
 
 
-static Object *
+static DiaObject *
 wanlink_create(Point *startpoint,
 	       void *user_data,
 	       Handle **handle1,
@@ -156,7 +156,7 @@ wanlink_create(Point *startpoint,
 {
   WanLink *wanlink;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   int i;
   Point defaultpoly = {0.0, 0.0};
   Point defaultlen = { 5.0, 0.0 };
@@ -168,7 +168,7 @@ wanlink_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) wanlink;
+  obj = (DiaObject *) wanlink;
   
   obj->type = &wanlink_type;
   obj->ops = &wanlink_ops;
@@ -184,7 +184,7 @@ wanlink_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)wanlink;
+  return (DiaObject *)wanlink;
 }
 
 
@@ -233,24 +233,24 @@ wanlink_select(WanLink *wanlink, Point *clicked_point,
   connection_update_handles(&wanlink->connection);
 }
 
-static Object *
+static DiaObject *
 wanlink_copy(WanLink *wanlink)
 {
   WanLink *newwanlink;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   
   conn = &wanlink->connection;
   
   newwanlink = g_malloc0(sizeof(WanLink));
   newconn = &newwanlink->connection;
-  newobj = (Object *) newwanlink;
+  newobj = (DiaObject *) newwanlink;
   
   connection_copy(conn, newconn);
 
   newwanlink->width = wanlink->width;
 
-  return (Object *)newwanlink;
+  return (DiaObject *)newwanlink;
 }
 
 static ObjectChange*
@@ -258,7 +258,7 @@ wanlink_move(WanLink *wanlink, Point *to)
 {
   Point delta;
   Point *endpoints = &wanlink->connection.endpoints[0]; 
-  Object *obj = (Object *) wanlink;
+  DiaObject *obj = (Object *) wanlink;
   int i;
     
   delta = *to;
@@ -298,19 +298,19 @@ wanlink_save(WanLink *wanlink, ObjectNode obj_node,
     data_add_real(attr, wanlink->width);
 }
 
-static Object *
+static DiaObject *
 wanlink_load(ObjectNode obj_node, int version, const char *filename)
 {
     WanLink *wanlink;
     Connection *conn;
-    Object *obj;
+    DiaObject *obj;
     AttributeNode attr;
     DataNode data;
     
     wanlink = g_malloc0(sizeof(WanLink));
 
     conn = &wanlink->connection;
-    obj = (Object *) wanlink;
+    obj = (DiaObject *) wanlink;
     
     obj->type = &wanlink_type;
     obj->ops = &wanlink_ops;
@@ -339,7 +339,7 @@ static void
 wanlink_update_data(WanLink *wanlink)
 {
   Connection *conn = &wanlink->connection;
-  Object *obj = (Object *) wanlink;
+  DiaObject *obj = (Object *) wanlink;
   Point v, vhat;
   Point *endpoints;
   real min_par, max_par;

@@ -35,7 +35,7 @@
 #include "prop_text.h"
 #include "gtk/gtk.h"
 
-static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
+static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint,
@@ -48,7 +48,7 @@ static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			  DDisplay *ddisp);
 static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
 				DDisplay *ddisp);
-void modify_make_text_edit(DDisplay *ddisp, Object *obj, 
+void modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, 
 			   Point *clickedpoint);
 
 
@@ -85,16 +85,16 @@ free_modify_tool(Tool *tool)
 /*
   This function is buggy. Fix it later!
 static void
-transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
+transitive_select(DDisplay *ddisp, Point *clickedpoint, DiaObject *obj)
 {
   guint i;
   GList *j;
-  Object *obj1;
+  DiaObject *obj1;
 
   for(i = 0; i < obj->num_connections; i++) {
     printf("%d\n", i);
     j = obj->connections[i]->connected;
-    while(j != NULL && (obj1 = (Object *)j->data) != NULL) {
+    while(j != NULL && (obj1 = (DiaObject *)j->data) != NULL) {
       diagram_select(ddisp->diagram, obj1);
       obj1->ops->select(obj1, clickedpoint,
 			(Renderer *)ddisp->renderer);
@@ -105,13 +105,13 @@ transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
 }
 */
 
-static Object *
+static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)
 {
   Diagram *diagram;
   real click_distance;
-  Object *obj;
+  DiaObject *obj;
   
   diagram = ddisp->diagram;
   
@@ -162,7 +162,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
 	/* Remove the selected selected */
 	ddisplay_do_update_menu_sensitivity(ddisp);
-	diagram_unselect_object(ddisp->diagram, (Object *)already->data);
+	diagram_unselect_object(ddisp->diagram, (DiaObject *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
 	/* Maybe start editing text */
@@ -187,7 +187,7 @@ time_micro()
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint, GdkEventButton *event)
 {
-  Object *obj;
+  DiaObject *obj;
   Handle *handle;
   real dist;
   
@@ -216,7 +216,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
 		     DDisplay *ddisp)
 {
   Point clickedpoint;
-  Object *clicked_obj;
+  DiaObject *clicked_obj;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -273,7 +273,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 		    DDisplay *ddisp)
 {
   Point clickedpoint;
-  Object *clicked_obj;
+  DiaObject *clicked_obj;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -372,14 +372,14 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (tool->orig_pos == NULL) {
       GList *list;
       int i;
-      Object *obj;
+      DiaObject *obj;
 
       /* consider non-selected children affected */
       list = parent_list_affected(ddisp->diagram->data->selected);
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (Object *)  list->data;
+	obj = (DiaObject *)  list->data;
 	tool->orig_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
@@ -532,7 +532,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   Point *dest_pos, to;
   GList *list;
   int i;
-  Object *obj;
+  DiaObject *obj;
   ObjectChange *objchange;
   
   tool->break_connections = FALSE;
@@ -558,7 +558,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       dest_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (Object *)  list->data;
+	obj = (DiaObject *)  list->data;
 	dest_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
@@ -629,7 +629,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     {
       Rectangle r;
       GList *list, *list_to_free;
-      Object *obj;
+      DiaObject *obj;
 
       r.left = MIN(tool->start_box.x, tool->end_box.x);
       r.right = MAX(tool->start_box.x, tool->end_box.x);
@@ -659,7 +659,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         GList *intersection = NULL;
 
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
           
           if (diagram_is_selected(ddisp->diagram, obj)) {
             intersection = g_list_append(intersection, obj);
@@ -670,7 +670,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         list = intersection;
         diagram_remove_all_selected(ddisp->diagram, TRUE);
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
 
           diagram_select(ddisp->diagram, obj);
 
@@ -679,7 +679,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         g_list_free(intersection);
       } else {
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
           
           if (selection_style == SELECT_REMOVE) {
             if (diagram_is_selected(ddisp->diagram, obj))
@@ -722,7 +722,7 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
   int foo = printf("Ending focus\n");
   GtkTextView *view = GTK_TEXT_VIEW(widget);
-  Object *obj = (Object*)data;
+  DiaObject *obj = (Object*)data;
   GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
   PropDescription *props = obj->ops->describe_props(obj);
   int i;
@@ -766,7 +766,7 @@ modify_edit_first_text(DDisplay *ddisp)
 }
 
 void
-modify_start_text_edit(DDisplay *ddisp, Text *text, Object *obj, Point *clickedpoint)
+modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *clickedpoint)
 {
   GtkWidget *view = gtk_text_view_new();
   int x, y, i;
@@ -831,7 +831,7 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, Object *obj, Point *clickedp
 }
 
 void
-modify_make_text_edit(DDisplay *ddisp, Object *obj, Point *clickedpoint)
+modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
 {
   PropDescription *props = obj->ops->describe_props(obj);
   int i;

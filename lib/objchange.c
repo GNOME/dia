@@ -31,11 +31,11 @@ struct _ObjectStateChange {
   SetStateFunc set_state;
 
   ObjectState *saved_state;
-  Object *obj;
+  DiaObject *obj;
 };
 
 static void
-object_state_change_apply_revert(ObjectStateChange *change, Object *obj)
+object_state_change_apply_revert(ObjectStateChange *change, DiaObject *obj)
 {
   ObjectState *old_state;
   
@@ -54,7 +54,7 @@ object_state_change_free(ObjectStateChange *change)
   g_free(change->saved_state);
 }
 
-ObjectChange *new_object_state_change(Object *obj,
+ObjectChange *new_object_state_change(DiaObject *obj,
 				      ObjectState *old_state,
 				      GetStateFunc get_state,
 				      SetStateFunc set_state )

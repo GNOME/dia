@@ -67,7 +67,7 @@ static ObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
-static Object *arc_create(Point *startpoint,
+static DiaObject *arc_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
@@ -75,14 +75,14 @@ static real arc_distance_from(Arc *arc, Point *point);
 static void arc_update_data(Arc *arc);
 static void arc_update_handles(Arc *arc);
 static void arc_destroy(Arc *arc);
-static Object *arc_copy(Arc *arc);
+static DiaObject *arc_copy(Arc *arc);
 
 static PropDescription *arc_describe_props(Arc *arc);
 static void arc_get_props(Arc *arc, GPtrArray *props);
 static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
-static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *arc_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps arc_type_ops =
 {
@@ -337,7 +337,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   
 }
 
-static Object *
+static DiaObject *
 arc_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -345,7 +345,7 @@ arc_create(Point *startpoint,
 {
   Arc *arc;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   arc = g_malloc0(sizeof(Arc));
@@ -388,12 +388,12 @@ arc_destroy(Arc *arc)
   connection_destroy(&arc->connection);
 }
 
-static Object *
+static DiaObject *
 arc_copy(Arc *arc)
 {
   Arc *newarc;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   
   conn = &arc->connection;
   
@@ -427,7 +427,7 @@ arc_update_data(Arc *arc)
 {
   Connection *conn = &arc->connection;
   LineBBExtras *extra =&conn->extra_spacing;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Point *endpoints;
   real x1,y1,x2,y2,xc,yc;
   real lensq, alpha, radius;
@@ -544,12 +544,12 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
   }
 }
 
-static Object *
+static DiaObject *
 arc_load(ObjectNode obj_node, int version, const char *filename)
 {
   Arc *arc;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   arc = g_malloc0(sizeof(Arc));

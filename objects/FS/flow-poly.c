@@ -73,17 +73,17 @@ static ObjectChange* flow_move(Flow *flow, Point *to);
 static void flow_select(Flow *flow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void flow_draw(Flow *flow, DiaRenderer *renderer);
-static Object *flow_create(Point *startpoint,
+static DiaObject *flow_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real flow_distance_from(Flow *flow, Point *point);
 static void flow_update_data(Flow *flow);
 static void flow_destroy(Flow *flow);
-static Object *flow_copy(Flow *flow);
+static DiaObject *flow_copy(Flow *flow);
 static void flow_save(Flow *flow, ObjectNode obj_node,
 			 const char *filename);
-static Object *flow_load(ObjectNode obj_node, int version,
+static DiaObject *flow_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static DiaMenu *flow_get_object_menu(Flow *flow, Point *clickedpoint) ;
 
@@ -351,7 +351,7 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
   text_draw(flow->text, renderer);
 }
 
-static Object *
+static DiaObject *
 flow_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -360,7 +360,7 @@ flow_create(Point *startpoint,
   Flow *flow;
   ConnectionBBExtras *extra;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point p ;
   Point n ;
 
@@ -421,12 +421,12 @@ flow_destroy(Flow *flow)
   text_destroy(flow->text) ;
 }
 
-static Object *
+static DiaObject *
 flow_copy(Flow *flow)
 {
   Flow *newflow;
   Connection *conn, *newconn;
-  Object *newobj;
+  DiaObject *newobj;
   
   conn = &flow->connection;
   
@@ -450,7 +450,7 @@ static void
 flow_update_data(Flow *flow)
 {
   Connection *conn = &flow->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Rectangle rect;
   Color* color ;
   
@@ -493,13 +493,13 @@ flow_save(Flow *flow, ObjectNode obj_node, const char *filename)
 		   flow->type);
 }
 
-static Object *
+static DiaObject *
 flow_load(ObjectNode obj_node, int version, const char *filename)
 {
   Flow *flow;
   AttributeNode attr;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   ConnectionBBExtras *extra;
 
   if (flow_font == NULL) {
@@ -547,7 +547,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-flow_set_type_callback (Object* obj, Point* clicked, gpointer data)
+flow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   ((Flow*)obj)->type = (int) data ;
   flow_update_defaults( (Flow*) obj, 1 ) ;

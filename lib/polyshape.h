@@ -24,12 +24,12 @@
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
-/* This is a subclass of Object used to help implementing objects
+/* This is a subclass of DiaObject used to help implementing objects
  * that form a polygon-like shape of line-segments.
  */
 struct _PolyShape {
-  /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+  /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
 
   int numpoints; /* >= 3 */
   Point *points;

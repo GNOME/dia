@@ -99,7 +99,7 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
 }
@@ -187,7 +187,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 
 	ret = PyTuple_New(g_list_length(self->data->selected));
 	for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
     }
 

@@ -66,7 +66,7 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
-    message_warning("Object '%s' needed in sheet '%s' was not found.\n"
+    message_warning("DiaObject '%s' needed in sheet '%s' was not found.\n"
 		    "It will not be available for use.",
 		    obj->object_type, sheet->name);
   } else {
@@ -81,7 +81,7 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
-    message_warning("Object '%s' needed in sheet '%s' was not found.\n"
+    message_warning("DiaObject '%s' needed in sheet '%s' was not found.\n"
 		    "It will not be availible for use.",
 		    obj->object_type, sheet->name);
   } else {

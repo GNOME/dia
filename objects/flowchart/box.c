@@ -88,7 +88,7 @@ static ObjectChange* box_move_handle(Box *box, Handle *handle,
 static ObjectChange* box_move(Box *box, Point *to);
 static void box_draw(Box *box, DiaRenderer *renderer);
 static void box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
-static Object *box_create(Point *startpoint,
+static DiaObject *box_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
@@ -98,7 +98,7 @@ static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
-static Object *box_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *box_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps box_type_ops =
 {
@@ -421,7 +421,7 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real radius;
@@ -574,7 +574,7 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   }
 }
 
-static Object *
+static DiaObject *
 box_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -582,7 +582,7 @@ box_create(Point *startpoint,
 {
   Box *box;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   int i;
   DiaFont *font = NULL;
@@ -680,12 +680,12 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
   data_add_text(new_attribute(obj_node, "text"), box->text);
 }
 
-static Object *
+static DiaObject *
 box_load(ObjectNode obj_node, int version, const char *filename)
 {
   Box *box;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 
