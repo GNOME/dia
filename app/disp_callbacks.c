@@ -668,7 +668,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
         focus = active_focus();
         if (focus != NULL) {
-          if ((state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
+          if (!(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
 	    /* Keys goes to the active focus. */
 	    obj = focus->obj;
 	    if (diagram_is_selected(ddisp->diagram, obj)) {

@@ -509,9 +509,6 @@ text_set_cursor(Text *text, Point *clicked_point,
   int row;
   int i;
 
-  /* New edit model doesn't use this. */
-  return;
-
   top = text->position.y - text->ascent;
   
   row = (int)floor((clicked_point->y - top) / text->height);

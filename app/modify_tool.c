@@ -168,7 +168,9 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 	diagram_flush(ddisp->diagram);
       } else {
 	/* Maybe start editing text */
+#ifdef NEW_TEXT_EDIT
 	modify_make_text_edit(ddisp, obj, clickedpoint);
+#endif
 	return obj;
       }
     }
