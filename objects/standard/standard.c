@@ -27,7 +27,7 @@ extern ObjectType *_polyline_type;
 extern ObjectType *_bezierline_type;
 extern ObjectType *_textobj_type;
 extern ObjectType *_image_type;
-
+extern ObjectType *_polygon_type;
 int get_version(void) {
   return 0;
 }
@@ -42,6 +42,7 @@ void register_objects(void) {
   object_register_type(_bezierline_type);
   object_register_type(_textobj_type);
   object_register_type(_image_type);
+  object_register_type(_polygon_type);
 }
 
 void register_sheets(void) {

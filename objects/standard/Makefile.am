@@ -10,7 +10,8 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			polyline.c \
 			bezier.c \
 			standard.c \
-			image.c 
+			image.c \
+			polygon.c
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
@@ -25,4 +26,5 @@ EXTRA_DIST = \
 	pixmaps/polyline.xpm \
 	pixmaps/bezier.xpm \
 	pixmaps/text.xpm \
-	pixmaps/zigzag.xpm
+	pixmaps/zigzag.xpm \
+	pixmaps/polygon.xpm

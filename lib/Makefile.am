@@ -49,6 +49,8 @@ libdia_a_SOURCES =  \
 		connection.h \
 		element.c \
 		element.h \
+		polyshape.c \
+		polyshape.h \
 		objchange.c \
 		objchange.h \
 		widgets.c \
