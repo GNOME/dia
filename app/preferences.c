@@ -83,8 +83,8 @@ static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
 static guint default_recent_documents = 5;
-static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
-static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
+static Color default_colour = DEFAULT_GRID_COLOR;
+static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
 static const gchar *default_paper_name = NULL;
@@ -129,6 +129,8 @@ DiaPrefData prefs_data[] =
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
     &default_paper_name, 1, N_("Paper type:"), NULL, FALSE,
     get_paper_name_list },
+  { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
+    &color_white, 1, N_("Background Colour:") },
   { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
@@ -143,7 +145,7 @@ DiaPrefData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
   { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible") },
-  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(pagebreak.colour), &pbreak_colour, 2, N_("Colour:") },
+  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, 2, N_("Colour:") },
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines") },
   { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
   
@@ -153,7 +155,7 @@ DiaPrefData prefs_data[] =
   { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, 3, N_("Dynamic grid resizing") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 3, N_("Colour:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, 3, N_("Colour:") },
   { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, 3, N_("Lines per major line") },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 

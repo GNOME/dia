@@ -41,14 +41,17 @@ new_diagram_data (NewDiagramData *prefs)
 	data->extents.top = 0.0; 
 	data->extents.bottom = 10.0; 
  
-	data->bg_color = color_white;
+	data->bg_color = prefs->bg_color;
+	data->pagebreak_color = prefs->pagebreak_color;
 
 	get_paper_info (&data->paper, -1, prefs);
 
+	data->grid.dynamic = TRUE;
 	data->grid.width_x = 1.0;
 	data->grid.width_y = 1.0;
 	data->grid.visible_x = 1;
 	data->grid.visible_y = 1;
+	data->grid.colour = prefs->grid_color;
 
 	data->guides.nhguides = 0;
 	data->guides.hguides = NULL;

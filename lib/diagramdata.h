@@ -34,12 +34,14 @@ struct _NewDiagramData {
   gfloat scaling;
   gboolean fitto;
   gint fitwidth, fitheight;
+  Color bg_color, pagebreak_color, grid_color;
 };
 
 struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */
 
   Color bg_color;
+  Color pagebreak_color;
 
   PaperInfo paper;       /* info about the page info for the diagram */
 

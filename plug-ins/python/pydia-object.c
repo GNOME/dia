@@ -166,7 +166,7 @@ PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
     }
 
     self->object->ops->move_handle(self->object, handle->handle, &point,
-				   reason, modifiers);
+				   NULL, reason, modifiers);
     Py_INCREF(Py_None);
     return Py_None;
 }

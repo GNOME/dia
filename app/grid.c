@@ -186,7 +186,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
       ddisplay_transform_coords(ddisp, pos,0,&x,&y);
       irenderer->draw_pixel_line(renderer,
                                  x, 0, x, height,
-				 &prefs.pagebreak.colour);
+				 &dia->data->pagebreak_color);
       pos += pwidth;
     }
     /* Horizontal lines: */
@@ -195,7 +195,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
       ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
       irenderer->draw_pixel_line(renderer,
 				 0, y, width, y,
-				 &prefs.pagebreak.colour);
+				 &dia->data->pagebreak_color);
       pos += pheight;
     }
   }

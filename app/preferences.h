@@ -23,6 +23,9 @@
 #include "diagram_tree_window.h"
 #include "diagramdata.h"
 
+#define DEFAULT_GRID_COLOR { 0.85, .90, .90 }
+#define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6 }
+
 struct DiaPreferences {
   struct {
     int visible;
@@ -30,7 +33,6 @@ struct DiaPreferences {
     gboolean dynamic;
     real x;
     real y;
-    Color colour;
     int major_lines;
   } grid;
   
@@ -52,7 +54,6 @@ struct DiaPreferences {
   
   struct {
     int visible;
-    Color colour;
     int solid;
   } pagebreak;
 

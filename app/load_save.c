@@ -313,10 +313,15 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     find_node_named (doc->xmlRootNode->xmlChildrenNode, "diagramdata");
 
   /* Read in diagram data: */
-  data->bg_color = color_white;
+  data->bg_color = prefs.new_diagram.bg_color;
   attr = composite_find_attribute(diagramdata, "background");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &data->bg_color);
+
+  data->pagebreak_color = prefs.new_diagram.pagebreak_color;
+  attr = composite_find_attribute(diagramdata, "pagebreak");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &data->pagebreak_color);
 
   /* load paper information from diagramdata section */
   attr = composite_find_attribute(diagramdata, "paper");
@@ -406,6 +411,12 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     attr = composite_find_attribute(gridinfo, "visible_y");
     if (attr != NULL)
       data->grid.visible_y = data_int(attribute_first_data(attr));
+
+    data->grid.colour = prefs.new_diagram.grid_color;
+    attr = composite_find_attribute(diagramdata, "color");
+    if (attr != NULL)
+      data_color(attribute_first_data(attr), &data->grid.colour);
+
   }
   attr = composite_find_attribute(diagramdata, "guides");
   if (attr != NULL) {
@@ -649,6 +660,9 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
 
+  attr = new_attribute((ObjectNode)tree, "pagebreak");
+  data_add_color(attr, &data->pagebreak_color);
+
   attr = new_attribute((ObjectNode)tree, "paper");
   pageinfo = data_add_composite(attr, "paper");
   data_add_string(composite_add_attribute(pageinfo, "name"),
@@ -684,6 +698,10 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
 	       data->grid.visible_x);
   data_add_int(composite_add_attribute(gridinfo, "visible_y"),
 	       data->grid.visible_y);
+  attr = new_attribute((ObjectNode)tree, "color");
+  data_add_composite(gridinfo, "color");
+  data_add_color(attr, &data->grid.colour);
+  
 
   attr = new_attribute((ObjectNode)tree, "guides");
   guideinfo = data_add_composite(attr, "guides");

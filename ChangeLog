@@ -10,6 +10,35 @@
 
 2003-08-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/python/pydia-object.c (PyDiaObject_MoveHandle): Fix
+	move_handle call.
+
+	* lib/diagramdata.h: Colors added to prefs.
+	* lib/diagramdata.c (new_diagram_data): Set diagram colors from prefs.
+	New field for pagebreak color, which should
+	behave the same as grid color and be settable for a diagram.
+
+	* app/diagram.c (diagram_init): Update diagram pagebreak color
+	from prefs. 
+
+	* app/grid.c (pagebreak_draw): Draw using diagrams pagebreak
+	colors. 
+
+	* app/preferences.[ch]: Default diagram colors now #defines, so
+	loading can use it.  Also, colors are now in NewDiagramData, so
+	are passed nicely into new diagrams directly from prefs.  Yum.
+
+	* app/load_save.c (diagram_data_write_doc, diagram_data_load): 
+	Support for loading and saving grid and pagebreak colors with the
+	diagram.  I'm inclined to make all the three Colors in diagram
+	Color*s instead, so we can tell if they're specified for the
+	diagram or merely the default setting.  There'd be no way for the
+	user to tell if the color of a diagram is default, though, unless
+	we add a 'reset to default' button to prefs.
+
+	* app/dia-props.c: Adding widgets for dynamic grid, grid colour,
+	pagebreak color.  Unsensitizing grid size when dynamic.
+
 	* objects/UML/component.c: Patch from Krzysztof Foltman
 	<kfoltman@onet.pl>: Add two new connectionpoints and adjust a
 	third.  Makes the left side connections actually be on the line
@@ -695,6 +724,27 @@
 	* app/diagram_tree.c : add scrolling of drawing area
 	to desired object on "Locate".  Patch modified to use new ddisplay
 	function ddisplay_scroll_to_object().
+
+2003-06-11  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagramdata.h: Added major_lines, dynamic and colour to grid
+	info.  Before next version, the grid dialog (view dialog, really)
+	must be redone to allow a) instant apply, b) apply to all
+	diagrams, and c) setting colour, dynamic, major lines.
+
+	* app/preferences.h: 
+	* app/preferences.c (prefs_data): Remove option to use stippled
+	grid, add option for major line offset.  Default to 5 minor lines
+	per major line.
+	Add option for dynamically sized grid.
+
+	* app/display.c (ddisplay_render_pixmap): Call pagebreak_draw as well.
+
+	* app/grid.c: Pagebreak drawing separated out.  Grid drawing using
+	stippled/solid to display minor/major grid lines.  Line drawing in
+	separate function away from calculating line distance.
+
+	* app/grid.h: Split page break drawing out of grid_draw.
 
 2003-05-15  Hans Breuer  <hans@breuer.org>
 
