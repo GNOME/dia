@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - HootPhone</name>
+<icon>hootphone.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2128.25 -5349.58l209.844 0 l0 -49.2578l-209.844 0l0 49.2578z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2128.25 -5349.58l209.844 0 l0 -49.2578l-209.844 0l0 49.2578" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2338.1 -5398.84l-210.08 0l99.84 -144.9l200.78 0l-90.55 144.9z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2338.1 -5398.84l-210.08 0l99.84 -144.9l200.78 0l-90.55 144.9" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2428.64 -5541.58l0 90.48l-90.55 102.07l0 -47.64l90.55 -144.91z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2428.64 -5541.58l0 90.48l-90.55 102.07l0 -47.64l90.55 -144.91" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2267.96 -5517.38c-12.91 14.82 -28.81 32.1 -39 48.87l0.86 15.21l-31.8 49.12l-3.69 -36.29c6.05 -24.19 81.13 -119.26 98.4 -130.49l5.86 31.97l-29.82 36.13l-0.8 -14.52z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2267.96 -5517.38c-12.91 14.82 -28.81 32.1 -39 48.87l0.86 15.21l-31.8 49.12l-3.69 -36.29c6.05 -24.19 81.13 -119.26 98.4 -130.49l5.86 31.97l-29.82 36.13l-0.8 -14.52" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2156.77 -5440.48l-3.69 36.29l44.94 0l-3.69 -36.29l-37.56 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2156.77 -5440.48l-3.69 36.29l44.94 0l-3.69 -36.29l-37.56 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2292.72 -5570.97c-17.27 11.23 -92.34 106.3 -98.4 130.49l-37.56 0c6.04 -24.19 81.11 -119.26 98.4 -130.49l37.56 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2292.72 -5570.97c-17.27 11.23 -92.34 106.3 -98.4 130.49l-37.56 0c6.04 -24.19 81.11 -119.26 98.4 -130.49l37.56 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2236.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2236.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2266.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2266.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2296.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2296.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M2326.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2326.45 -5413.39l-13.52 0l6.46 -7.5l13.54 0l-6.48 7.5" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="2255" y="-5570"/>
+<point x="2274" y="-5570"/>
+<point x="2293" y="-5570"/>
+<point x="2128" y="-5349"/>
+<point x="2233" y="-5349"/>
+<point x="2338" y="-5349"/>
+<point x="2128" y="-5398"/>
+<point x="2429" y="-5543"/>
+<point x="2429" y="-5542"/>
+<point x="2429" y="-5541"/>
+<point x="2429" y="-5495.5"/>
+<point x="2429" y="-5450"/>
+</connections>
+</shape>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Router</name>
+<icon>router.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1878.93 -3742.38c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 104.77c0 39.5 82.34 71.52 183.93 71.52c101.58 0 183.93 -32.02 183.93 -71.52l0 -104.77z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1878.93 -3742.38c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 104.77c0 39.5 82.34 71.52 183.93 71.52c101.58 0 183.93 -32.02 183.93 -71.52l0 -104.77" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1695 -3670.86c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.52 -183.93 -71.52c-101.58 0 -183.93 32.01 -183.93 71.52c0 39.5 82.34 71.52 183.93 71.52z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1695 -3670.86c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.52 -183.93 -71.52c-101.58 0 -183.93 32.01 -183.93 71.52c0 39.5 82.34 71.52 183.93 71.52" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1653 -3770.35l15.19 22.78l-57.42 13.27l12.55 -10.45l-88.75 -15.17l22.27 -16.69l85.64 14.5l10.54 -8.25z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1733.8 -3715.11l-10.36 -23.49l51.8 -10.35l-8.98 8.05l86.33 14.75l-20.71 16.57l-85.81 -16.11l-12.26 10.59z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1705.48 -3782.79l58.02 -15.88l0.68 24.86l-14.5 -2.76l-28.31 23.49l-27.02 -3.94l29.23 -22.97l-18.1 -2.79z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1680.61 -3693.69l-55.24 10.35l-2.07 -25.55l15.88 3.45l30.41 -25.97l26.91 4.55l-32.46 28.32l16.57 4.84z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1695" y="-3813"/>
+<point x="1695" y="-3565"/>
+<point x="1511" y="-3741"/>
+<point x="1511" y="-3689"/>
+<point x="1511" y="-3637"/>
+<point x="1879" y="-3741"/>
+<point x="1879" y="-3689"/>
+<point x="1879" y="-3637"/>
+</connections>
+</shape>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - IPTV content manager</name>
+<icon>iptv_content_manager.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5329.26 -3600.31l303.721 0 l0 -171.835l-303.721 0l0 171.835z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5329.26 -3600.31l303.721 0 l0 -171.835l-303.721 0l0 171.835" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5634.06 -3600.31l0 -171.83l62.71 -69.28l0 171.84l-62.71 69.28z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5634.06 -3600.31l0 -171.83l62.71 -69.28l0 171.84l-62.71 69.28" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5632.96 -3772.14l-303.86 0l75.13 -67.39l292.09 -0.25l-63.36 67.65z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5632.96 -3772.14l-303.86 0l75.13 -67.39l292.09 -0.25l-63.36 67.65" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5393.1 -3708.65l-54.37 0.04l0 -10.16l54.38 -0.04l0.02 -15.85l31.44 20.94l-31.44 20.95l-0.02 -15.88z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5588.59 -3647.49l-54.36 0.05l0 -10.16l54.36 -0.04l0.02 -15.86l31.45 20.95l-31.45 20.94l-0.02 -15.88z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5431.09 -3678.68l45.9082 0 l0 -75l-45.9082 0l0 75z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5431.09 -3678.68l45.9082 0 l0 -75l-45.9082 0l0 75" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5457.24 -3647.94l45.8992 0 l0 -75l-45.8992 0l0 75z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5457.24 -3647.94l45.8992 0 l0 -75l-45.8992 0l0 75" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5483.38 -3617.19l45.8892 0 l0 -75l-45.8892 0l0 75z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5483.38 -3617.19l45.8892 0 l0 -75l-45.8892 0l0 75" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="5697" y="-3840"/>
+<point x="5329" y="-3599"/>
+<point x="5481" y="-3599"/>
+<point x="5633" y="-3599"/>
+<point x="5633.5" y="-3599"/>
+<point x="5634" y="-3599"/>
+<point x="5329" y="-3771"/>
+<point x="5697" y="-3669"/>
+</connections>
+</shape>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Unity server</name>
+<icon>unity_server.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2812.06 -1901.05l183.877 0 l0 -277.636l-183.877 0l0 277.636z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2995.94 -2178.69l-183.88 0l0 277.64l183.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2995.94 -1901.05l49.14 -49.14l0 -277.64l-183.88 0l-49.14 49.14l183.88 0l0 277.64z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2995.94 -1901.05l49.14 -49.14l0 -277.64l-183.88 0l-49.14 49.14l183.88 0l0 277.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2995.94 -2178.69l49.14 -49.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2995.94 -2178.69l49.14 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2814.54 -2100.69l180.01 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2814.54 -1928.2l180.01 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2849.54 -2140.69l43.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2832.04 -2125.69l77.51 0 l0 -31.25l-77.51 0l0 31.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2916.59 -2007.39c0 10.58 -6.39 15.12 -16.51 15.12c-3.7 0 -9.19 -0.89 -12.77 -4.87c-2.18 -2.46 -3.02 -5.7 -3.14 -9.75l0 -26.65l8.57 0l0 26.09c0 5.6 3.24 8.07 7.17 8.07c5.76 0 8.11 -2.8 8.11 -7.67l0 -26.49l8.57 0l0 26.15z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2900.57 -1984.49c16.91 0 30.6 -13.69 30.6 -30.6c0 -16.89 -13.69 -30.59 -30.6 -30.59c-16.88 0 -30.59 13.7 -30.59 30.59c0 16.9 13.7 30.6 30.59 30.6" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+<svg:path d="M2900.57 -2045.67l53.09 0" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+<svg:path d="M2956.56 -2061.76l0 30.76l18.53 -14.78l-18.53 -15.99z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2956.56 -2061.76l0 30.76l18.53 -14.78l-18.53 -15.99" style="stroke: background; stroke-width: 0.256; stroke-miterlimit: 4"/>
+<svg:path d="M2870.02 -2014.86l0 -53.13" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+<svg:path d="M2854.32 -2070.59l30.77 0l-14.78 -18.53l-15.99 18.53z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2854.32 -2070.59l30.77 0l-14.78 -18.53l-15.99 18.53" style="stroke: background; stroke-width: 0.256; stroke-miterlimit: 4"/>
+<svg:path d="M2931.23 -2015.25l0 53.12" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+<svg:path d="M2946.88 -1959.69l-30.74 0l14.92 18.54l15.82 -18.54z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2946.88 -1959.69l-30.74 0l14.92 18.54l15.82 -18.54" style="stroke: background; stroke-width: 0.256; stroke-miterlimit: 4"/>
+<svg:path d="M2901.33 -1984.53l-53.14 0" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+<svg:path d="M2847.95 -1968.34l0 -30.76l-18.53 14.77l18.53 16z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2847.95 -1968.34l0 -30.76l-18.53 14.77l18.53 16" style="stroke: background; stroke-width: 0.256; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="2861" y="-2227"/>
+<point x="2953" y="-2227"/>
+<point x="3045" y="-2227"/>
+<point x="2812" y="-1900"/>
+<point x="2904" y="-1900"/>
+<point x="2996" y="-1900"/>
+<point x="2812" y="-2178"/>
+<point x="3045" y="-1949"/>
+</connections>
+</shape>

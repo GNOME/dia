@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - ISDN switch</name>
+<icon>isdn_switch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1467.65 -2068.34l226.758 0 l0 -230.732l-226.758 0l0 230.732z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1467.65 -2068.34l226.758 0 l0 -230.732l-226.758 0l0 230.732" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1503.64 -2220.67l33.91 -33.91l-36.71 -4.14l2.8 38.05z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1651.37 -2142.19l-33.91 33.91l36.71 4.14l-2.8 -38.05z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1740.32 -2345.02l-45.92 45.87l-227.02 0l49.03 -45.87l223.91 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1740.32 -2345.02l-45.92 45.87l-227.02 0l49.03 -45.87l223.91 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1740.6 -2123.93l0 -220.94l-46.2 45.94l0 229.69l46.2 -54.69z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1740.6 -2123.93l0 -220.94l-46.2 45.94l0 229.69l46.2 -54.69" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1518.73 -2240.79l119.06 119.07" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre; stroke-dasharray: 32.001,12.8; stroke-pattern: dashed"/>
+</svg:svg>
+<connections>
+<point x="1516" y="-2344"/>
+<point x="1628" y="-2344"/>
+<point x="1740" y="-2344"/>
+<point x="1740.5" y="-2344"/>
+<point x="1741" y="-2344"/>
+<point x="1468" y="-2067"/>
+<point x="1581" y="-2067"/>
+<point x="1694" y="-2067"/>
+<point x="1467" y="-2298"/>
+<point x="1741" y="-2123"/>
+</connections>
+</shape>

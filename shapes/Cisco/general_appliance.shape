@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - General appliance</name>
+<icon>general_appliance.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2054.69 -5243.13l51.13 -48.75l0 -225l-51.13 48.75l0 225z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2054.69 -5243.13l51.13 -48.75l0 -225l-51.13 48.75l0 225" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2105.82 -5516.88l-51.13 48.75l-249.45 0l65 -48.75l235.59 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2105.82 -5516.88l-51.13 48.75l-249.45 0l65 -48.75l235.59 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1805.86 -5243.12l248.828 0 l0 -225l-248.828 0l0 225z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1805.86 -5243.12l248.828 0 l0 -225l-248.828 0l0 225" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1926.67 -5441.93l0 161.36l-9.14 0l13.42 20.22l13.42 -20.22l-9.04 0l0 -161.36z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1857.41 -5441.93l0 161.36l-9.14 0l13.42 20.22l13.4 -20.22l-9.02 0l0 -161.36z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1992.88 -5441.93l0 161.36l-9.14 0l13.42 20.22l13.4 -20.22l-9.02 0l0 -161.36z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1832.29 -5382.49l198.301 0 l0 -63.3398l-198.301 0l0 63.3398" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="1870" y="-5516"/>
+<point x="1988" y="-5516"/>
+<point x="2106" y="-5516"/>
+<point x="1806" y="-5242"/>
+<point x="1930.5" y="-5242"/>
+<point x="2055" y="-5242"/>
+<point x="1805" y="-5467"/>
+<point x="2106" y="-5291"/>
+</connections>
+</shape>

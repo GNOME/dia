@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - FDDI Ring</name>
+<icon>fddi_ring.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M569.65 -6190.17c114.27 0 206.91 -42.1 206.91 -94.04c0 -51.93 -92.64 -94.04 -206.91 -94.04c-114.27 0 -206.89 42.11 -206.89 94.04c0 51.94 92.63 94.04 206.89 94.04" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M569.65 -6171.44c128.05 0 231.86 -50.49 231.86 -112.76c0 -62.27 -103.81 -112.76 -231.86 -112.76c-128.05 0 -231.84 50.49 -231.84 112.76c0 62.27 103.8 112.76 231.84 112.76" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M185.9 -6269.21l180 0" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M160.9 -6292.96l180 0" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M470 -6310l37 0l0 9l-27 0l0 11l23 0l0 8l-23 0l0 23l-10
+0l0 -49z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M520 -6310l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19
+22l-23 0l0 -49 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M531 -6299l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11
+0l0 -33 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M570 -6310l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19
+22l-23 0l0 -49 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M581 -6299l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11
+0l0 -33 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M620 -6310l9 0l0 51l-9 0l0 -51z" style="fill: #0000;
+stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="570" y="-6396"/>
+<point x="570" y="-6170"/>
+<point x="161" y="-6292"/>
+<point x="802" y="-6283"/>
+</connections>
+</shape>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Centri Firewall</name>
+<icon>centri.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M318.784 -2815.09l153.877 0 l0 -245.117l-153.877 0l0 245.117z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M472.66 -3060.21l-153.88 0l0 245.12l153.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M472.66 -2815.09l49.15 -49.14l0 -245.12l-153.89 0l-49.14 49.14l153.88 0l0 245.12z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M472.66 -2815.09l49.15 -49.14l0 -245.12l-153.89 0l-49.14 49.14l153.88 0l0 245.12" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M472.66 -3060.21l49.15 -49.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M472.66 -3060.21l49.15 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M321.27 -2988.88l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M356.27 -3022.22l43.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M338.774 -3007.22l77.5 0 l0 -31.25l-77.5 0l0 31.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M350.67 -2875.69l0 -58.32l55.66 28.19l-55.66 30.13z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M416.06 -2878.35l17.304 0 l0 -54.0042l-17.304 0l0 54.0042z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M393.13 -2841.46c34.99 0 63.36 -28.36 63.36 -63.35c0 -34.99 -28.37 -63.36 -63.36 -63.36c-34.99 0 -63.36 28.37 -63.36 63.36c0 34.99 28.37 63.35 63.36 63.35" style="stroke: background; stroke-width: 1.4; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="368" y="-3108"/>
+<point x="445" y="-3108"/>
+<point x="522" y="-3108"/>
+<point x="319" y="-2814"/>
+<point x="396" y="-2814"/>
+<point x="473" y="-2814"/>
+<point x="319" y="-3059"/>
+<point x="522" y="-2863"/>
+</connections>
+</shape>

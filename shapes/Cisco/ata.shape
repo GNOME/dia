@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - ATA</name>
+<icon>ata.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3370.76 -5404.36l144.3 -116.68l333.09 0l-119.4 116.68l-357.99 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3370.76 -5404.36l144.3 -116.68l333.09 0l-119.4 116.68l-357.99 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3728.75 -5288.4l119.4 -117.4l0 -117.9l-119.4 119.35l0 115.96z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3728.75 -5288.4l119.4 -117.4l0 -117.9l-119.4 119.35l0 115.96" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3371.25 -5288.3l357.5 0 l0 -116.064l-357.5 0l0 116.064z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3371.25 -5288.3l357.5 0 l0 -116.064l-357.5 0l0 116.064" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3583.09 -5386.33c0 0 4.79 -0.54 5.86 4.26l1.06 18.31l31.93 5.32l3.18 -6.91l-7.99 -22.04c-40.96 -10.11 -68.28 -6.92 -68.28 -6.92l1.58 0c0 0 -21.56 -3.19 -62.54 6.92l-7.97 22.04l3.18 6.91l31.93 -5.32l1.05 -18.31c1.05 -4.79 5.86 -4.26 5.86 -4.26l61.13 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3519 -5299.54l66.9729 0 l0 -68.4277l-66.9729 0l0 68.4277z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3519 -5299.54l66.9729 0 l0 -68.4277l-66.9729 0l0 68.4277" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3504.82 -5431.92c0 6.9 -14.55 12.5 -32.5 12.5c-17.95 0 -32.5 -5.6 -32.5 -12.5c0 -6.9 14.55 -12.5 32.5 -12.5c17.95 0 32.5 5.6 32.5 12.5z" style="fill: #999999; stroke-width: 0"/>
+<svg:path d="M3504.82 -5439.87c0 6.9 -14.55 12.5 -32.5 12.5c-17.95 0 -32.5 -5.6 -32.5 -12.5c0 -6.9 14.55 -12.5 32.5 -12.5c17.95 0 32.5 5.6 32.5 12.5z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3524 -5363l16 0l11 45l11 -45l16 0l-20 60 l-14 0l -20 -60z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="3848" y="-5523"/>
+<point x="3371" y="-5287"/>
+<point x="3550" y="-5287"/>
+<point x="3729" y="-5287"/>
+<point x="3371" y="-5403"/>
+<point x="3848" y="-5520"/>
+<point x="3848" y="-5462.5"/>
+<point x="3848" y="-5405"/>
+</connections>
+</shape>

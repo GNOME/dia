@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Satellite dish</name>
+<icon>satellite_dish.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2241.51 -7079.56c128.87 0 233.34 -19.78 233.34 -44.19c0 -24.41 -104.47 -44.19 -233.34 -44.19c-128.87 0 -233.34 19.78 -233.34 44.19c0 24.41 104.47 44.19 233.34 44.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2241.51 -7079.56c128.87 0 233.34 -19.78 233.34 -44.19c0 -24.41 -104.47 -44.19 -233.34 -44.19c-128.87 0 -233.34 19.78 -233.34 44.19c0 24.41 104.47 44.19 233.34 44.19" style="stroke: foreground; stroke-width: 0.3; stroke-miterlimit: 4"/>
+<svg:path d="M2242.76 -7002.05c128.87 0 232.09 -97.29 232.09 -121.7c0 -24.41 -104.47 -44.19 -233.34 -44.19c-128.87 0 -233.34 19.78 -233.34 44.19c0 24.41 105.72 121.7 234.59 121.7z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2241.51 -7079.56c128.87 0 233.34 -19.78 233.34 -44.19c0 -24.41 -104.47 -44.19 -233.34 -44.19c-128.87 0 -233.34 19.78 -233.34 44.19c0 24.41 104.47 44.19 233.34 44.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2241.51 -7079.56c128.87 0 233.34 -19.78 233.34 -44.19c0 -24.41 -104.47 -44.19 -233.34 -44.19c-128.87 0 -233.34 19.78 -233.34 44.19c0 24.41 104.47 44.19 233.34 44.19" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2180.85 -7156.83c-36.82 2.24 -69.49 6.52 -95.01 12.24" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2183.33 -7147.6c-35.72 2.61 -66.99 7.38 -90.62 13.61" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2185.87 -7137.68c-34.96 3.02 -65.08 8.37 -86.84 15.24" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2190.9 -7126.12c-34.15 3.3 -63.21 9.07 -83.48 16.42" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2193.35 -7115.36c-32.39 3.73 -59.47 9.98 -77.5 17.78" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2197.74 -7102.63c-25.68 3.51 -47.48 8.8 -63.16 15.28" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2199.24 -7090.78c-10.36 1.87 -19.89 4.1 -28.39 6.6" style="stroke: #999999; stroke-width: 0.75; stroke-miterlimit: 4"/>
+<svg:path d="M2007.55 -7119.55l235.22 -117.95l232.09 113.75" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2244.01 -7207.67c8.79 0 15.91 -3.56 15.91 -7.95c0 -4.4 -7.12 -7.95 -15.91 -7.95c-8.79 0 -15.91 3.56 -15.91 7.95c0 4.4 7.12 7.95 15.91 7.95z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2244.01 -7253.75l-5 163.75l11.25 0l-6.25 -163.75z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2192.76 -6973.75l112.5 0 l0 -26.25l-112.5 0l0 26.25z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2214.01 -6976.25l71.25 0l0 47.5c0 0 -72.5 22.5 -71.25 22.5c1.25 0 0 -70 0 -70z" style="fill: foreground; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="2244" y="-7253"/>
+<point x="2214" y="-6905"/>
+<point x="2008" y="-7123"/>
+<point x="2008" y="-7121"/>
+<point x="2008" y="-7119"/>
+<point x="2475" y="-7123"/>
+</connections>
+</shape>

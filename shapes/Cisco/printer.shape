@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Printer</name>
+<icon>printer.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M287.788 -1136.22l277.481 0 l0 -126.25l-277.481 0l0 126.25z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M287.788 -1136.22l277.481 0 l0 -126.25l-277.481 0l0 126.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M565.27 -1135.83l0 -126.64l-277.64 0l35.74 -35.74l277.36 0l0 126.64l-35.47 35.74z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M565.27 -1135.83l0 -126.64l-277.64 0l35.74 -35.74l243.56 0l33.81 0l0 126.64l-35.47 35.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M565.27 -1262.47l35.47 -35.74z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M565.27 -1262.47l35.47 -35.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M565.27 -1169.69l-277.48 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M600.74 -1205.03l-35.47 35.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M714.08 -1271.75l-35.47 35.75l-113.34 39.94l35.47 -35.75l113.34 -39.94z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M714.08 -1271.75l-35.47 35.75l-113.34 39.94l35.47 -35.75l113.34 -39.94" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="323" y="-1297"/>
+<point x="445" y="-1297"/>
+<point x="567" y="-1297"/>
+<point x="584" y="-1297"/>
+<point x="601" y="-1297"/>
+<point x="288" y="-1135"/>
+<point x="426.5" y="-1135"/>
+<point x="565" y="-1135"/>
+<point x="288" y="-1261"/>
+<point x="288" y="-1215"/>
+<point x="288" y="-1169"/>
+<point x="714" y="-1271"/>
+</connections>
+</shape>

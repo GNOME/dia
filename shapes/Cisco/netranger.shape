@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - NetRanger</name>
+<icon>netranger.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3588.62 -7078.95l61.25 -51.14l295 0l-48.75 51.14l-307.5 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3588.62 -7078.95l61.25 -51.14l295 0l-48.75 51.14l-307.5 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3944.87 -7130.09l-48.75 51.14l0 189.04l48.75 -64.58l0 -175.6z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3944.87 -7130.09l-48.75 51.14l0 189.04l48.75 -64.58l0 -175.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3588.62 -6889.91l307.5 0 l0 -189.038l-307.5 0l0 189.038z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3588.62 -6889.91l307.5 0 l0 -189.038l-307.5 0l0 189.038" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3740.09 -6905.28c44.26 0 80.14 -35.88 80.14 -80.14c0 -44.26 -35.88 -80.14 -80.14 -80.14c-44.27 0 -80.15 35.88 -80.15 80.14c0 44.26 35.88 80.14 80.15 80.14" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M3620.42 -7032l227.19 0l0 -10.05l20.24 14.76l-20.24 14.75l0 -9.94l-227.19 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3614.82 -7027.88l227.19 0l0 -10.05l20.22 14.76l-20.22 14.75l0 -9.94l-227.19 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3865.76 -6943.66l-227.19 0l0 10.05l-20.22 -14.75l20.22 -14.76l0 9.94l227.19 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3858.26 -6939.53l-227.19 0l0 10.05l-20.22 -14.75l20.22 -14.75l0 9.94l227.19 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="3650" y="-7129"/>
+<point x="3797.5" y="-7129"/>
+<point x="3945" y="-7129"/>
+<point x="3589" y="-6889"/>
+<point x="3742.5" y="-6889"/>
+<point x="3896" y="-6889"/>
+<point x="3589" y="-7078"/>
+<point x="3945" y="-6953"/>
+</connections>
+</shape>

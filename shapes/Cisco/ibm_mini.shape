@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - IBM Mini (AS400)</name>
+<icon>ibm_mini.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3916.82 -5342.87l153.877 0 l0 -245.127l-153.877 0l0 245.127z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4070.69 -5587.99l-153.88 0l0 245.13l153.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4070.69 -5342.87l49.15 -49.14l0 -245.13l-140.14 0l-62.89 49.14l153.88 0l0 245.13z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4070.69 -5342.87l49.15 -49.14l0 -245.13l-140.14 0l-62.89 49.14l153.88 0l0 245.13" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4070.69 -5587.99l49.15 -49.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4070.69 -5587.99l49.15 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3919.31 -5568.13l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4070.56 -5566.58l48.13 -48.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3930.52 -5508.12l53.125 0 l0 -12.5l-53.125 0l0 12.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4002.39 -5508.12l53.125 0 l0 -12.5l-53.125 0l0 12.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="3980" y="-5636"/>
+<point x="4050" y="-5636"/>
+<point x="4120" y="-5636"/>
+<point x="3917" y="-5342"/>
+<point x="3994" y="-5342"/>
+<point x="4071" y="-5342"/>
+<point x="3917" y="-5587"/>
+<point x="4120" y="-5391"/>
+</connections>
+</shape>

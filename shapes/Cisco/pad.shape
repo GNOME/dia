@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - PAD</name>
+<icon>pad.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M811.978 -2105.5l359.628 0 l0 -189.004l-359.628 0l0 189.004z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M811.978 -2105.5l359.628 0 l0 -189.004l-359.628 0l0 189.004" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1171.61 -2294.5l19.56 -19.46l-399.37 0l20.19 19.46l359.63 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1171.61 -2294.5l19.56 -19.46l-399.37 0l20.19 19.46l359.63 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1191.17 -2086.03l0 -227.93l-19.56 19.46l0 189l19.56 19.46z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1191.17 -2086.03l0 -227.93l-19.56 19.46l0 189l19.56 19.46" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1171.61 -2105.39l19.56 19.36l-399.37 0l20.19 -19.36l359.63 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1171.61 -2105.39l19.56 19.36l-399.37 0l20.19 -19.36l359.63 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M791.79 -2086.03l0 -227.93l20.19 19.46l0 189l-20.19 19.46z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M791.79 -2086.03l0 -227.93l20.19 19.46l0 189l-20.19 19.46" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="792" y="-2313"/>
+<point x="991.5" y="-2313"/>
+<point x="1191" y="-2313"/>
+<point x="792" y="-2085"/>
+<point x="991.5" y="-2085"/>
+<point x="1191" y="-2085"/>
+</connections>
+</shape>

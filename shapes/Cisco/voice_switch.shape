@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Voice switch</name>
+<icon>voice_switch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M248.418 -691.445l357.197 0 l0 -115.948l-357.197 0l0 115.948z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M247.49 -806.81l144.29 -116.94l333.29 0l-119.78 116.94l-357.79 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M247.49 -806.81l144.29 -116.94l333.29 0l-119.78 116.94l-357.79 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M605.42 -687.78l119.32 -128.92l0.08 -106.84l-119.39 116.56l0 119.19z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M605.42 -687.78l119.32 -128.92l0.08 -106.84l-119.39 116.56l0 119.19" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M456.86 -837.23l-6.92 5.68l-89.09 0l-8.88 8.88l-24.16 -10.52l48.55 -13.89l-8.59 9.84l89.09 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M526.86 -880.98l-6.92 5.68l-89.09 0l-8.88 8.88l-24.16 -10.52l48.55 -13.89l-8.59 9.84l89.09 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M472.59 -852.69l6.92 -5.67l89.09 0l8.88 -8.88l24.16 10.52l-48.56 13.88l8.59 -9.84l-89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M518.84 -896.44l6.92 -5.67l89.09 0l8.88 -8.88l24.16 10.52l-48.56 13.88l8.59 -9.84l-89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M380.762 -704.082l83.9939 0 l0 -84.0039l-83.9939 0l0 84.0039z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M380.762 -704.082l83.9939 0 l0 -84.0039l-83.9939 0l0 84.0039" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M385 -784l22 0l14 58l14 -58l22 0l-25 75 l-22 0l -25 -75z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="392" y="-923"/>
+<point x="558.5" y="-923"/>
+<point x="725" y="-923"/>
+<point x="605" y="-687"/>
+<point x="247" y="-806"/>
+<point x="725" y="-816"/>
+</connections>
+</shape>

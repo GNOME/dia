@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - BBFW</name>
+<icon>bbfw.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M369.17 -6966.48l-22.09 0c-11.83 -13.42 -10.26 -41.02 -10.26 -41.02l-22.85 0l0 -44.16l22.85 0c0 0 -1.56 -27.6 10.26 -41.01l22.09 0l0 126.19z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M369.17 -6966.48l-22.09 0c-11.83 -13.42 -10.26 -41.02 -10.26 -41.02l-22.85 0l0 -18.93l0 -6.3l0 -18.94l22.85 0c0 0 -1.56 -27.6 10.26 -41.01l22.09 0l0 126.19" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="347" y="-7092"/>
+<point x="358" y="-7092"/>
+<point x="369" y="-7092"/>
+<point x="347" y="-6965"/>
+<point x="358" y="-6965"/>
+<point x="369" y="-6965"/>
+<point x="314" y="-7051"/>
+<point x="314" y="-7007"/>
+</connections>
+</shape>

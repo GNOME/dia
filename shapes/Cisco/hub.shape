@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Hub</name>
+<icon>hub.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5370.89 -5267.67l276.543 0 l0 -241.738l-276.543 0l0 241.738z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5370.89 -5267.67l276.543 0 l0 -241.738l-276.543 0l0 241.738" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5402.74 -5542.08l-31.85 32.68l276.54 0l31.88 -32.68l-276.56 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5402.74 -5542.08l-31.85 32.68l276.54 0l31.88 -32.68l-276.56 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5679.31 -5300.35l0 -241.73l-31.87 32.68l0 241.74l31.88 -32.69z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5679.31 -5300.35l0 -241.73l-31.87 32.68l0 241.74l31.88 -32.69" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5391.51 -5287.24l150.781 0 l0 -199.024l-150.781 0l0 199.024" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5417.43 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5441.26 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5465.09 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5489.44 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5513.25 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="5403" y="-5541"/>
+<point x="5541" y="-5541"/>
+<point x="5679" y="-5541"/>
+<point x="5371" y="-5267"/>
+<point x="5509" y="-5267"/>
+<point x="5647" y="-5267"/>
+<point x="5371" y="-5508"/>
+<point x="5679" y="-5299"/>
+</connections>
+</shape>

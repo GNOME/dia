@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Cisco 1000</name>
+<icon>1000.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M471.56 -2063.6l58.95 112.32z" style="fill: #595959; stroke-width: 0"/>
+<svg:path d="M502.66 -2126.67l-101.95 0l-31.1 18.15l101.95 0l31.1 -18.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M502.66 -2126.67l-101.95 0l-31.1 18.15l101.95 0l31.1 -18.15" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M530.63 -1951.28l0 44.92l29.42 -18.15l0 -44.92l-57.39 -112.32l0 -44.92l-31.1 18.15l0 44.92z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M530.63 -1951.28l0 44.92l29.42 -18.15l0 -44.92l-57.39 -112.32l0 -44.92l-31.1 18.15l0 44.92" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M530.5 -1951.41l-58.95 -112.32l0 0.12l0 -44.92l-101.95 0l0 44.92l0 -0.12l-57.03 112.32l0.18 0.13l0 44.92l217.99 0l0 -44.92l-0.23 -0.13z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M530.5 -1951.41l-58.95 -112.32l0 0.12l0 -44.92l-101.95 0l0 44.92l0 -0.12l-57.03 112.32l0.18 0.13l0 44.92l217.99 0l0 -44.92l-0.23 -0.13" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M419.83 -2008.72l6.04 0l0 44.28l30.05 0l-33.16 39.59l-32.97 -39.59l30.05 0l-0.01 -44.28z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M425.87 -2008.83l-6.04 0l0.01 -44.29l-30.05 0l33.15 -39.57l32.98 39.57l-30.05 0l0 44.29z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="401" y="-2126"/>
+<point x="452" y="-2126"/>
+<point x="503" y="-2126"/>
+<point x="313" y="-1905"/>
+<point x="422" y="-1905"/>
+<point x="531" y="-1905"/>
+<point x="313" y="-1950"/>
+<point x="560" y="-1968"/>
+<point x="560" y="-1946"/>
+<point x="560" y="-1924"/>
+</connections>
+</shape>

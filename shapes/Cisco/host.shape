@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Host</name>
+<icon>host.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5134.35 -5314.3l0 -200.27l-44.37 45.52l0 200.27l44.37 -45.52z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5134.35 -5314.3l0 -200.27l-44.37 45.52l0 200.27l44.37 -45.52" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4646.18 -5268.78l443.789 0 l0 -200.273l-443.789 0l0 200.273z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4646.18 -5268.78l443.789 0 l0 -200.273l-443.789 0l0 200.273" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4690.56 -5514.57l-44.37 45.52l443.79 0l44.37 -45.52l-443.79 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4690.56 -5514.57l-44.37 45.52l443.79 0l44.37 -45.52l-443.79 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="4691" y="-5514"/>
+<point x="4912.5" y="-5514"/>
+<point x="5134" y="-5514"/>
+<point x="4646" y="-5268"/>
+<point x="4868" y="-5268"/>
+<point x="5090" y="-5268"/>
+<point x="4646" y="-5468"/>
+<point x="5134" y="-5313"/>
+</connections>
+</shape>

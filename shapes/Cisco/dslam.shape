@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - DSLAM</name>
+<icon>dslam.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4829.35 -7115.24l-112.32 -58.94z" style="fill: #595959; stroke-width: 0"/>
+<svg:path d="M4945.05 -7146.35l0 101.95l-18.15 31.11l0 -101.96l18.15 -31.1z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4945.05 -7146.35l0 101.95l-18.15 31.11l0 -101.96l18.15 -31.1" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4769.66 -7174.32l-44.92 0l18.15 -29.41l44.92 0l112.32 57.38l44.92 0l-18.15 31.1l-44.92 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4769.66 -7174.32l-44.92 0l18.15 -29.41l44.92 0l112.32 57.38l44.92 0l-18.15 31.1l-44.92 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4769.78 -7174.19l112.32 58.94l-0.12 0l44.92 0l0 101.96l-44.92 0l0.12 0l-112.32 57.01l-0.13 -0.17l-44.92 0l0 -217.98l44.92 0l0.13 0.24z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4769.78 -7174.19l112.32 58.94l-0.12 0l44.92 0l0 101.96l-44.92 0l0.12 0l-112.32 57.01l-0.13 -0.17l-44.92 0l0 -217.98l44.92 0l0.13 0.24" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4871.49 -7067.69l0 -13.17l39.57 16.1l-39.57 16.3l0 -13.17l-88.04 0l0 -6.05l88.04 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4780.75 -7116.02l0 -5.19l61.6 0l38.83 21.31l6.34 -11.56l26.94 33.15l-42.53 -4.74l6.34 -11.56l-35.7 -20.87l-61.82 -0.54z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4842.57 -7012.78l35.7 -20.87l-6.34 -11.56l42.53 -4.75l-26.94 33.16l-6.34 -11.56l-38.83 21.3l-61.6 0l0 -5.19l61.82 -0.54z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="4743" y="-7203"/>
+<point x="4788" y="-7203"/>
+<point x="4725" y="-6955"/>
+<point x="4770" y="-6955"/>
+<point x="4717" y="-7173"/>
+<point x="4945" y="-7145"/>
+<point x="4945" y="-7094"/>
+<point x="4945" y="-7043"/>
+</connections>
+</shape>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - ADM</name>
+<icon>adm.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2154.53 -5268.56l333.164 0 l0 -194.51l-333.164 0l0 194.51z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2154.53 -5268.56l333.164 0 l0 -194.51l-333.164 0l0 194.51" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M2527.6 -5326.91l-39.9 58.36l0 -194.51l39.9 -48.38l0 184.53z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2527.6 -5326.91l-39.9 58.36l0 -194.51l39.9 -48.38l0 184.53" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M2214.39 -5511.44l313.21 0l-39.9 48.38l-333.16 0l59.85 -48.38z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2214.39 -5511.44l313.21 0l-39.9 48.38l-333.16 0l59.85 -48.38" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M2314.09 -5346.46l0 26.02l-19.44 -0.41l27.42 42.57l29.11 -42.57l-20.29 0.41l0 -26.02z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2367.14 -5362.19l-144.26 0l-0.66 -18.69l-42.58 27.16l42.58 29.38l0.66 -21.06l89.38 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2333.25 -5345.45l94.8 0l0.67 18.69l42.58 -27.16l-42.58
+-28.56l-0.67 20.23l-147.05 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2256 -5445l11 0l18 50l-9 0l-5 -11l-19 0l-4 11l-10 0l18 -50z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2262 -5434l6 19l-12 0l6 -19z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2302 -5445l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19
+22l-23 0l0 -49 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2313 -5436l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11
+0l0 -33 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2360 -5445l15 0l10 40l9 -40l16 0l0 51l-10 0l0 -39l-10 39l-10 0l-10 -39l0 39l-10 0l0 -51z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="2214" y="-5510"/>
+<point x="2371" y="-5510"/>
+<point x="2528" y="-5510"/>
+<point x="2155" y="-5268"/>
+<point x="2321.5" y="-5268"/>
+<point x="2488" y="-5268"/>
+<point x="2155" y="-5462"/>
+<point x="2528" y="-5326"/>
+</connections>
+</shape>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Repeater</name>
+<icon>repeater.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4774.36 -5249.58l268.076 0 l0 -166.797l-268.076 0l0 166.797z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4774.36 -5249.58l268.076 0 l0 -166.797l-268.076 0l0 166.797" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4807.56 -5450.42l-33.19 34.04l268.08 0l33.19 -34.04l-268.08 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4807.56 -5450.42l-33.19 34.04l268.08 0l33.19 -34.04l-268.08 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M5075.64 -5283.62l0 -166.8l-33.19 34.04l0 166.8l33.19 -34.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5075.64 -5283.62l0 -166.8l-33.19 34.04l0 166.8l33.19 -34.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4843.87 -5278.52l130.488 0 l0 -110.634l-130.488 0l0 110.634" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4864.43 -5358.23l90.21 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4864.43 -5333.42l90.21 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4864.43 -5308.59l90.21 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="4808" y="-5449"/>
+<point x="4942" y="-5449"/>
+<point x="5076" y="-5449"/>
+<point x="4774" y="-5249"/>
+<point x="4908" y="-5249"/>
+<point x="5042" y="-5249"/>
+<point x="4774" y="-5415"/>
+<point x="5076" y="-5283"/>
+</connections>
+</shape>

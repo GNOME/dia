@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - ATM Switch</name>
+<icon>atm_switch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5334.49 -5268.2l215.733 0 l0 -219.766l-215.733 0l0 219.766z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5334.49 -5268.2l215.733 0 l0 -219.766l-215.733 0l0 219.766" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5550.23 -5487.97l-215.48 0l54.49 -43.83l205.61 0l0 218.47l-44.62 45l0 -219.64z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5550.23 -5487.97l-215.48 0l54.49 -43.83l205.61 0l0 218.47l-44.62 45l0 -219.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5550.23 -5487.97l44.62 -43.83" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5522.27 -5312.4l-47.25 0l-64.12 -129.36l-42.36 0" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5365.27 -5312.6l45.63 0l63.54 -128.73l49.45 0" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5507.56 -5464.98l0 45.66l27.52 -21.93l-27.52 -23.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5507.56 -5464.98l0 45.66l27.52 -21.93l-27.52 -23.73" style="stroke: background; stroke-width: 0.38; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5507.56 -5336.27l0 45.67l27.52 -21.94l-27.52 -23.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5507.56 -5336.27l0 45.67l27.52 -21.94l-27.52 -23.73" style="stroke: background; stroke-width: 0.38; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5374.92 -5418.48l0 -45.66l-27.51 21.93l27.51 23.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5374.92 -5418.48l0 -45.66l-27.51 21.93l27.51 23.73" style="stroke: background; stroke-width: 0.38; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5374.92 -5289.1l0 -45.66l-27.51 21.93l27.51 23.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5374.92 -5289.1l0 -45.66l-27.51 21.93l27.51 23.73" style="stroke: background; stroke-width: 0.38; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="5389" y="-5531"/>
+<point x="5492" y="-5531"/>
+<point x="5595" y="-5531"/>
+<point x="5334" y="-5267"/>
+<point x="5442" y="-5267"/>
+<point x="5550" y="-5267"/>
+<point x="5334" y="-5487"/>
+<point x="5595" y="-5312"/>
+</connections>
+</shape>

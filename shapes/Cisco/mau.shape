@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - MAU</name>
+<icon>mau.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2703.02 -3729.69l333.154 0 l0 -83.0659l-333.154 0l0 83.0659z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2703.02 -3729.69l333.154 0 l0 -83.0659l-333.154 0l0 83.0659" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2724.57 -3772.87l58.8091 0 l0 -11.0347l-58.8091 0l0 11.0347z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2724.57 -3772.87l58.8091 0 l0 -11.0347l-58.8091 0l0 11.0347" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2799.91 -3772.87l58.8088 0 l0 -11.0347l-58.8088 0l0 11.0347z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2799.91 -3772.87l58.8088 0 l0 -11.0347l-58.8088 0l0 11.0347" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2875.26 -3772.87l58.8079 0 l0 -11.0347l-58.8079 0l0 11.0347z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2875.26 -3772.87l58.8079 0 l0 -11.0347l-58.8079 0l0 11.0347" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2950.6 -3772.87l58.8193 0 l0 -11.0347l-58.8193 0l0 11.0347z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2950.6 -3772.87l58.8193 0 l0 -11.0347l-58.8193 0l0 11.0347" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3036.17 -3812.75l-333.15 0l49.16 -37.56l334.8 0l-50.81 37.56z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3036.17 -3812.75l-333.15 0l49.16 -37.56l334.8 0l-50.81 37.56" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3036.17 -3729.69l0 -83.07l50.81 -37.56l0 76l-50.81 44.63z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3036.17 -3729.69l0 -83.07l50.81 -37.56l0 76l-50.81 44.63" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="2752" y="-3849"/>
+<point x="2919.5" y="-3849"/>
+<point x="3087" y="-3849"/>
+<point x="2703" y="-3729"/>
+<point x="2869.5" y="-3729"/>
+<point x="3036" y="-3729"/>
+<point x="2703" y="-3812"/>
+<point x="3087" y="-3773"/>
+</connections>
+</shape>

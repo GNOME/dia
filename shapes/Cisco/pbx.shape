@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - PBX</name>
+<icon>pbx.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1413.77 -2071.66l226.796 0 l0 -230.742l-226.796 0l0 230.742z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1413.77 -2071.66l226.796 0 l0 -230.742l-226.796 0l0 230.742" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1602.86 -2220.49l0 50.48l30.41 -24.25l-30.41 -26.23z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1509.18 -2262.69l50.48 0l-24.25 -30.41l-26.23 30.41z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1560.57 -2116.81l-50.48 0l24.48 30.4l26 -30.4z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1461.17 -2164.05l0 -50.48l-30.41 24.25l30.41 26.23z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1597.61 -2215.23l0 50.47l30.41 -24.24l-30.41 -26.23z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1597.61 -2215.23l0 50.47l30.41 -24.24l-30.41 -26.23" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1503.94 -2257.44l50.47 0l-24.25 -30.41l-26.22 30.41z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1503.94 -2257.44l50.47 0l-24.25 -30.41l-26.22 30.41" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1555.31 -2111.56l-50.47 0l24.48 30.41l25.99 -30.41z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1555.31 -2111.56l-50.47 0l24.48 30.41l25.99 -30.41" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1455.26 -2158.81l0 -50.47l-30.41 24.24l30.41 26.23z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1455.26 -2158.81l0 -50.47l-30.41 24.24l30.41 26.23" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1639.78 -2302.67l-225.75 0l57.23 -45.67l215.77 0l0 0.26l-0.65 0l-46.06 45.28l0 1.45l-0.53 -1.32z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1639.78 -2302.67l-225.75 0l57.23 -45.67l215.77 0l0 0.26l-0.65 0l-46.06 45.28l0 1.45l-0.53 -1.32" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1686.51 -2117.73l0 -230.34l-45.95 45.93l0 230.35l45.95 -45.94z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1686.51 -2117.73l0 -230.34l-45.95 45.93l0 230.35l45.95 -45.94" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1565.7 -2218.85l0 19.2l24.62 0l0 -13.19c0 -21.56 -27.27 -33.04 -60.92 -33.04l0.97 0c-33.64 0 -60.92 11.48 -60.92 33.04l0 13.19l24.62 0l0 -19.2c32.51 -42.54 71.63 0 71.63 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1534.14 -2225.44l21.3 0l0 23.99l23.72 19.8l0 47.39l-98.74 0l0 -47.39l23.72 -19.8l0 -23.99l30 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1565.58 -2213.45l0 19.2l24.62 0l0 -13.19c0 -21.56 -27.27 -33.04 -60.92 -33.04l0.97 0c-33.64 0 -60.92 11.47 -60.92 33.04l0 13.19l24.62 0l0 -19.2c32.51 -42.54 71.63 0 71.63 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1534.02 -2220.05l21.29 0l0 24l23.72 19.81l0 47.39l-98.74 0l0 -47.39l23.72 -19.81l0 -24l30.01 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1471" y="-2347"/>
+<point x="1578.5" y="-2347"/>
+<point x="1686" y="-2347"/>
+<point x="1686.5" y="-2347"/>
+<point x="1687" y="-2347"/>
+<point x="1414" y="-2071"/>
+<point x="1527.5" y="-2071"/>
+<point x="1641" y="-2071"/>
+<point x="1414" y="-2302"/>
+<point x="1414" y="-2301.5"/>
+<point x="1414" y="-2301"/>
+<point x="1687" y="-2117"/>
+</connections>
+</shape>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - PIX Firewall</name>
+<icon>pix_firewall.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1315.6 -5471.62c0 38.79 -80.86 70.23 -180.6 70.23c-99.75 0 -180.61 -31.45 -180.61 -70.23l0 102.87c0 38.79 80.86 70.24 180.61 70.24c99.75 0 180.6 -31.45 180.6 -70.24l0 -102.87z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1315.6 -5471.62c0 38.79 -80.86 70.23 -180.6 70.23c-99.75 0 -180.61 -31.45 -180.61 -70.23l0 102.87c0 38.79 80.86 70.24 180.61 70.24c99.75 0 180.6 -31.45 180.6 -70.24l0 -102.87" style="stroke: background; stroke-width: 0.8364; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1315.6 -5471.62c0 38.79 -80.86 70.23 -180.6 70.23c-99.75 0 -180.61 -31.45 -180.61 -70.23l0 102.87c0 38.79 80.86 70.24 180.61 70.24c99.75 0 180.6 -31.45 180.6 -70.24l0 -102.87z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1315.6 -5471.62c0 38.79 -80.86 70.23 -180.6 70.23c-99.75 0 -180.61 -31.45 -180.61 -70.23l0 102.87c0 38.79 80.86 70.24 180.61 70.24c99.75 0 180.6 -31.45 180.6 -70.24l0 -102.87" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1135 -5401.39c99.75 0 180.6 -31.45 180.6 -70.23c0 -38.79 -80.86 -70.23 -180.6 -70.23c-99.75 0 -180.61 31.44 -180.61 70.23c0 38.79 80.86 70.23 180.61 70.23z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1135 -5401.39c99.75 0 180.6 -31.45 180.6 -70.23c0 -38.79 -80.86 -70.23 -180.6 -70.23c-99.75 0 -180.61 31.44 -180.61 70.23c0 38.79 80.86 70.23 180.61 70.23" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1081.7 -5432.66l0 -91.12l86.98 44.05l-86.98 47.07z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1170.13 -5436.8l27.041 0 l0 -84.3652l-27.041 0l0 84.3652z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1135" y="-5541"/>
+<point x="1135" y="-5298"/>
+<point x="954" y="-5471"/>
+<point x="954" y="-5419.5"/>
+<point x="954" y="-5368"/>
+<point x="1316" y="-5471"/>
+<point x="1316" y="-5419.5"/>
+<point x="1316" y="-5368"/>
+</connections>
+</shape>

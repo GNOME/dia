@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Server with PC Router</name>
+<icon>server_with_pc_router.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3461.64 -3596.52l161.621 0 l0 -281.856l-161.621 0l0 281.856z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3461.64 -3596.52l161.621 0 l0 -281.856l-161.621 0l0 281.856" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3461.64 -3878.38l30.88 -25.1l155.84 0l-25.1 25.1l-161.62 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3461.64 -3878.38l30.88 -25.1l155.84 0l-25.1 25.1l-161.62 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3623.26 -3596.52l25.1 -30.89l0 -276.06l-25.1 25.1l0 281.86z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3623.26 -3596.52l25.1 -30.89l0 -276.06l-25.1 25.1l0 281.86" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3461.58 -3767.64l160.9 0" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4"/>
+<svg:path d="M3461.58 -3615.76l160.9 0" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4"/>
+<svg:path d="M3530.19 -3678.01l0 23.12l-9.04 0l18.11 23.12l18.59 -23.12l-9.04 0l0 -23.13l-18.61 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3530.19 -3696.37l0 -23.13l-9.04 0l18.11 -23.13l18.59 23.12l-9.04 0l0 23.12l-18.61 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3483.07 -3695.29l23.13 0l0 -9.04l23.13 18.11l-23.12 18.59l0 -9.04l-23.13 0l0 -18.61z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3595.31 -3695.29l-23.12 0l0 -9.04l-23.12 18.11l23.13 18.59l0 -9.04l23.13 0l0 -18.61z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3474.47 -3827.6l75 0 l0 -30.8201l-75 0l0 30.8201z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3481.97 -3841.95l60.84 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3550.31 -3858.61l-75.84 0l0 30" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3473.04 -3826.95l76.67 0l0 -32.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="3493" y="-3902"/>
+<point x="3570.5" y="-3902"/>
+<point x="3648" y="-3902"/>
+<point x="3462" y="-3596"/>
+<point x="3542.5" y="-3596"/>
+<point x="3623" y="-3596"/>
+<point x="3462" y="-3877"/>
+<point x="3462" y="-3822"/>
+<point x="3462" y="-3767"/>
+<point x="3462" y="-3691"/>
+<point x="3462" y="-3615"/>
+<point x="3648" y="-3626"/>
+</connections>
+</shape>

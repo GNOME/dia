@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wireless Transport</name>
+<icon>wireless_transport.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5302.38 -3768.2l336.504 0 l0 -232.241l-336.504 0l0 232.241z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5302.38 -3768.2l336.504 0 l0 -232.241l-336.504 0l0 232.241" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5302.38 -4000.44l25.41 -25.4l336.5 0l-25.41 25.4l-336.5 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5302.38 -4000.44l25.41 -25.4l336.5 0l-25.41 25.4l-336.5 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5638.89 -3768.2l25.41 -25.39l0 -232.25l-25.41 25.4l0 232.24z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5638.89 -3768.2l25.41 -25.39l0 -232.25l-25.41 25.4l0 232.24" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5499.08 -3859.02c7.38 -7.6 9.84 -20.24 9.84 -32.85c0 -12.65 -2.46 -25.28 -9.84 -32.87l9.84 -17.69c9.86 12.64 17.25 30.32 14.79 50.56c0 20.22 -4.92 37.89 -14.79 50.53l-9.84 -17.68z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5555.72 -3846.41c7.38 -10.1 9.86 -25.25 9.86 -42.95c0 -15.17 -2.48 -32.85 -9.86 -42.97l9.86 -20.22c9.84 17.7 14.77 40.43 14.77 63.18c0 22.73 -4.92 45.49 -14.77 63.18l-9.86 -20.23z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5439.98 -3859.02c-4.92 -7.6 -9.84 -20.24 -9.84 -32.85c0 -12.65 4.92 -25.28 9.84 -32.87l-9.84 -17.69c-9.86 12.64 -14.78 30.32 -14.78 50.56c0 20.22 4.92 37.89 14.78 50.53l9.84 -17.68z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5390.72 -3846.41c-4.92 -10.1 -9.84 -25.25 -9.84 -42.95c0 -15.17 4.92 -32.85 9.84 -42.97l-9.84 -20.22c-9.86 17.7 -14.79 40.43 -14.79 63.18c0 22.73 4.92 45.49 14.79 63.18l9.84 -20.23z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5468.52 -3884.3l0 75.8" style="stroke: background; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5474.18 -3892.01c0 3.44 -2.77 6.23 -6.21 6.23c-3.44 0 -6.23 -2.79 -6.23 -6.23c0 -3.44 2.79 -6.22 6.23 -6.22c3.44 0 6.21 2.78 6.21 6.22z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="5328" y="-4025"/>
+<point x="5496" y="-4025"/>
+<point x="5664" y="-4025"/>
+<point x="5302" y="-3767"/>
+<point x="5470.5" y="-3767"/>
+<point x="5639" y="-3767"/>
+<point x="5302" y="-3999"/>
+<point x="5664" y="-3793"/>
+</connections>
+</shape>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Generic softswitch</name>
+<icon>generic_softswitch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3553.2 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3553.2 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3608.79 -5607.65l-55.59 38l185.25 0l46.07 -38l-175.74 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3608.79 -5607.65l-55.59 38l185.25 0l46.07 -38l-175.74 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3784.53 -5302.9l0 -304.75l-46.07 38l0 317.29l46.07 -50.55z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3784.53 -5302.9l0 -304.75l-46.07 38l0 317.29l46.07 -50.55" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3625.18 -5513.35l83.57 -0.05l0 10.58l-83.57 0.04l-0.02 16.5l-37.95 -21.8l37.95 -21.81l0.02 16.53z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3678.67 -5426.2l-83.57 0.06l0 -10.58l83.57 -0.04l0.04 -16.51l37.93 21.81l-37.93 21.81l-0.04 -16.54z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="3609" y="-5607"/>
+<point x="3697" y="-5607"/>
+<point x="3785" y="-5607"/>
+<point x="3553" y="-5251"/>
+<point x="3645.5" y="-5251"/>
+<point x="3738" y="-5251"/>
+<point x="3553" y="-5569"/>
+<point x="3785" y="-5302"/>
+</connections>
+</shape>

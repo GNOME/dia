@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - VIP</name>
+<icon>vip.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4289.36 -1945.63l0 -357.5l-51.34 48.75l0 357.5l51.34 -48.75z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4289.36 -1945.63l0 -357.5l-51.34 48.75l0 357.5l51.34 -48.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4289.36 -2303.13l-51.34 48.75l-248.99 0l64.5 -48.75l235.83 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4289.36 -2303.13l-51.34 48.75l-248.99 0l64.5 -48.75l235.83 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3989.03 -2008.12l248.994 0 l0 -246.25l-248.994 0l0 246.25z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3989.03 -2008.12l248.994 0 l0 -246.25l-248.994 0l0 246.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3989.03 -1896.88l248.994 0 l0 -108.75l-248.994 0l0 108.75z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3989.03 -1896.88l248.994 0 l0 -108.75l-248.994 0l0 108.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4091.33 -2160.45l-37.88 -37.88l6.43 -6.43l-23.79 -4.81l4.81 23.79l6.43 -6.43l37.89 37.87l6.11 -6.11z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4077.47 -2135.64l-53.58 0l0 -9.08l-20.22 13.41l20.22 13.41l0 -9.08l53.58 0l0 -8.65z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4085.22 -2108.31l-37.89 37.88l-6.43 -6.43l-4.81 23.79l23.79 -4.82l-6.43 -6.43l37.88 -37.87l-6.11 -6.12z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4110.01 -2094.45l0 53.57l-9.08 0l13.41 20.23l13.41 -20.23l-9.08 0l0 -53.57l-8.65 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4110.01 -2166.64l0 -53.57l-9.08 0l13.41 -20.22l13.41 20.22l-9.08 0l0 53.57l-8.65 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4137.34 -2102.19l37.88 37.87l-6.42 6.43l23.78 4.82l-4.81 -23.79l-6.43 6.43l-37.89 -37.88l-6.11 6.12z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4151.2 -2126.99l53.57 0l0 9.08l20.23 -13.41l-20.23 -13.41l0 9.08l-53.57 0l0 8.65z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4143.46 -2154.34l37.89 -37.87l6.43 6.43l4.81 -23.79l-23.78 4.81l6.43 6.43l-37.89 37.88l6.11 6.11z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4147.22 -2085.97c25.28 -17.71 31.43 -52.55 13.72 -77.82c-17.7 -25.28 -52.54 -31.43 -77.82 -13.73c-25.27 17.71 -31.43 52.56 -13.72 77.83c17.7 25.27 52.55 31.43 77.82 13.72z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4147.22 -2085.97c25.28 -17.71 31.43 -52.55 13.72 -77.82c-17.7 -25.28 -52.54 -31.43 -77.82 -13.73c-25.27 17.71 -31.43 52.56 -13.72 77.83c17.7 25.27 52.55 31.43 77.82 13.72" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4118.61 -1971.51l9.13 0l-13.41 -20.22l-13.41 20.22l9.03 0l0 42.19l-9.13 0l13.41 20.22l13.41 -20.22l-9.03 0l0 -42.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4049.35 -1971.51l9.14 0l-13.42 -20.22l-13.41 20.22l9.04 0l0 42.19l-9.14 0l13.41 20.22l13.42 -20.22l-9.04 0l0 -42.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4184.81 -1971.51l9.14 0l-13.41 -20.22l-13.42 20.22l9.04 0l0 42.19l-9.14 0l13.41 20.22l13.42 -20.22l-9.04 0l0 -42.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="4054" y="-2302"/>
+<point x="4171.5" y="-2302"/>
+<point x="4289" y="-2302"/>
+<point x="3989" y="-1896"/>
+<point x="4113.5" y="-1896"/>
+<point x="4238" y="-1896"/>
+<point x="3989" y="-2253"/>
+<point x="3989" y="-2130"/>
+<point x="3989" y="-2007"/>
+<point x="3989" y="-2006"/>
+<point x="3989" y="-2005"/>
+<point x="4289" y="-1945"/>
+</connections>
+</shape>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Handheld</name>
+<icon>handheld.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1868.79 -5390.55l0 -159.63l-16.02 14.06l0 159.63l16.02 -14.06z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1868.79 -5390.55l0 -159.63l-16.02 14.06l0 159.63l16.02 -14.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1551.21 -5376.74l301.221 0 l0 -159.072l-301.221 0l0 159.072z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1551.21 -5376.74l301.221 0 l0 -159.072l-301.221 0l0 159.072" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1569.54 -5500.93c0 -15.97 16.56 -18.33 16.56 -18.33c0 0 173.16 0 188.53 0c20.1 0 19.51 18.93 19.51 18.93c0 0 0 78.05 0 89.3c0 11.23 -15.37 15.96 -15.37 15.96c0 0 -176.12 0 -190.31 0c-14.2 0 -18.93 -14.79 -18.93 -14.79l0 -91.06z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1569.54 -5500.93c0 -15.97 16.56 -18.33 16.56 -18.33c0 0 173.16 0 188.53 0c20.1 0 19.51 18.93 19.51 18.93c0 0 0 78.05 0 89.3c0 11.23 -15.37 15.96 -15.37 15.96c0 0 -176.12 0 -190.31 0c-14.2 0 -18.93 -14.79 -18.93 -14.79l0 -91.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1868.79 -5550.11l-301.23 0l-16.36 14.3l301.22 0l16.37 -14.3z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1868.79 -5550.11l-301.23 0l-16.36 14.3l301.22 0l16.37 -14.3" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1831.14 -5503.04c0 2.53 -3.73 4.58 -8.34 4.58c-4.59 0 -8.32 -2.05 -8.32 -4.58c0 -2.53 3.73 -4.58 8.32 -4.58c4.61 0 8.34 2.05 8.34 4.58z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1831.14 -5503.04c0 2.53 -3.73 4.58 -8.34 4.58c-4.59 0 -8.32 -2.05 -8.32 -4.58c0 -2.53 3.73 -4.58 8.32 -4.58c4.61 0 8.34 2.05 8.34 4.58" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1831.14 -5469.71c0 2.54 -3.73 4.59 -8.34 4.59c-4.59 0 -8.32 -2.05 -8.32 -4.59c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1831.14 -5469.71c0 2.54 -3.73 4.59 -8.34 4.59c-4.59 0 -8.32 -2.05 -8.32 -4.59c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1831.14 -5436.37c0 2.52 -3.73 4.57 -8.34 4.57c-4.59 0 -8.32 -2.05 -8.32 -4.57c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1831.14 -5436.37c0 2.52 -3.73 4.57 -8.34 4.57c-4.59 0 -8.32 -2.05 -8.32 -4.57c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1831.14 -5403.05c0 2.54 -3.73 4.59 -8.34 4.59c-4.59 0 -8.32 -2.05 -8.32 -4.59c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1831.14 -5403.05c0 2.54 -3.73 4.59 -8.34 4.59c-4.59 0 -8.32 -2.05 -8.32 -4.59c0 -2.54 3.73 -4.59 8.32 -4.59c4.61 0 8.34 2.05 8.34 4.59" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="1568" y="-5549"/>
+<point x="1718.5" y="-5549"/>
+<point x="1869" y="-5549"/>
+<point x="1853" y="-5375"/>
+<point x="1551" y="-5535"/>
+<point x="1551" y="-5455.5"/>
+<point x="1551" y="-5376"/>
+<point x="1869" y="-5390"/>
+</connections>
+</shape>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Running man</name>
+<icon>running_man.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1791.75 -7311.2l-23.12 -8.13l-34.48 23.29l22.06 21.79l1.88 -3.22l4.32 4.03l5.11 0.26l2.15 -5.11l1.85 -0.07l0.58 -3.43l2.42 0.54l1.89 -4.31l6.19 2.16l1.61 -1.08l0.81 -13.18l4.85 -2.73l2.11 -9.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1794.06 -7125.97l11.96 -12.67l3.52 4.22l17.58 4.92l4.22 14.78l-5.62 -0.7l-4.22 9.14l-2.81 -3.52l-7.03 6.33l-0.7 -7.03l-7.03 -0.7l-4.22 -10.55l-5.63 -4.22z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1578.7 -7190.27l-11.46 6.01l-2.84 5.5l-14.21 10.15l1.32 4.17l12.33 -7.75l-11.5 12.26l2.57 3.2l11.62 -9.01l-9.53 14.99l3.55 2.55l10.34 -12.93l-3.47 13.71l4.2 1.11l7.32 -17.71l3.23 -0.13l4.81 8.35l4.31 -0.25l-2.57 -14.33l1.43 -12.64l-11.47 -7.26z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1803.92 -7108.39l4.22 2.11l-1.41 4.92l-1.41 7.73l-6.34 -2.81l1.42 -7.03l3.52 -4.92z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1832.04 -7121.75l7.73 3.52l1.41 7.03l-6.33 2.81l0 -6.33l-2.81 -7.03z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1861.57 -7115.42l-89.32 31.65l18.93 62.36l12.73 10.78l82.98 -31.65l-9.14 -64l-16.18 -9.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1800.4 -6930.45l-10.56 9.84l-14.06 -1.41l-2.82 11.25l2.82 11.96l20.39 0l4.23 -4.23l11.25 4.23l24.61 0l9.14 -3.53l-2.81 -7.73l-23.91 -4.92l-14.77 -9.84l-3.52 -5.63z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1534.4 -6981.07l-7.21 -12.49l4.53 -13.39l-10.33 -5.27l-12.29 0.05l-4.59 19.87l3.16 5.06l-6.64 10.02l-5.54 23.98l1.37 9.7l8.17 -1l10.18 -22.2l12.91 -12.18l6.27 -2.16z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1633.02 -7121.75l-13.36 -11.96l25.31 -40.79l10.55 -63.29l-25.31 14.06l-23.21 41.49l-27.43 -16.17l28.84 -54.16l63.99 -39.39l52.75 1.41l28.83 21.81l26.03 35.17l-9.15 9.84l-3.52 48.52l36.58 33.06l-24.62 19.7l-42.9 -37.28l1.41 46.42z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1737.8 -7113.31l40.09 67.52l34.46 99.86l-41.5 14.07l-33.05 -91.44l-50.64 -71.04l-26.03 78.07l-104.79 40.09l-16.17 -34.45l78.07 -30.24l1.41 -9.14l8.44 0.7l8.44 -56.27l-3.52 -16.17l104.79 8.44z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1629.68 -7125.09l70.41 22.43l33.33 -15.83z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1791.95 -7309.53l7.82 0.31l-5.37 -12.65l-22.33 -15.33l-13.72 -0.54l-12.11 6.99l-12.1 34.71l11.36 -8.29l13.13 -5.63l1.25 3.12l6.88 3.75l6.25 -11.25l18.75 3.12z" style="fill: foreground; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1758" y="-7337"/>
+<point x="1776" y="-6898"/>
+<point x="1836" y="-6898"/>
+<point x="1495" y="-6952"/>
+<point x="1887" y="-7041"/>
+</connections>
+</shape>

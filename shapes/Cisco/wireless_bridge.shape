@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wireless Bridge</name>
+<icon>wireless_bridge.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4169.56 -7134.07l-78.81 40.73c192.64 122.36 305.88 -7.8 305.88 -7.8c-114.51 68.98 -227.07 -32.93 -227.07 -32.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4169.56 -7134.07l-78.81 40.73c192.64 122.36 305.88 -7.8 305.88 -7.8c-114.51 68.98 -227.07 -32.93 -227.07 -32.93" style="stroke: background; stroke-width: 0.9; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4446.1 -7146.7c-13.03 26.04 -50.76 46.85 -50.76 46.85l0 243.41l50.76 -41.65l0 -248.6z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4446.1 -7146.7c-13.03 26.04 -50.76 46.85 -50.76 46.85l0 243.41l50.76 -41.65l0 -248.6" style="stroke: background; stroke-width: 0.9; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4395.34 -7099.85c0 0 -111.95 128.88 -304.59 6.51l0 236.9l304.59 0l0 -243.41z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4395.34 -7099.85c0 0 -111.95 128.88 -304.59 6.51l0 236.9l304.59 0l0 -243.41" style="stroke: background; stroke-width: 0.9; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4373.7 -6952.04c0 0 -19.57 50.3 -43.1 -0.16c-23.52 -50.43 -43.12 -0.11 -43.12 -0.11c0 0 -19.55 50.35 -43.05 -0.09c-23.5 -50.45 -43 0.31 -43 0.31c0 0 -19.52 50.34 -43.04 -0.12c-23.52 -50.43 -43.01 -0.14 -43.01 -0.14" style="stroke: foreground; stroke-width: 0.9; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M4115.38 -6952.04c0 0 19.57 50.3 43.09 -0.16c23.51 -50.43 43.11 -0.11 43.11 -0.11c0 0 19.56 50.35 43.06 -0.09c23.5 -50.45 43.01 0.31 43.01 0.31c0 0 19.51 50.34 43.03 -0.12c23.51 -50.43 43.03 -0.14 43.03 -0.14" style="stroke: foreground; stroke-width: 1.8; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M4369.17 -6952.04c0 0 -19.59 50.3 -43.11 -0.16c-23.51 -50.43 -43.1 -0.11 -43.1 -0.11c0 0 -19.57 50.35 -43.07 -0.09c-23.5 -50.45 -43 0.3 -43 0.3c0 0 -19.52 50.35 -43.04 -0.11c-23.51 -50.43 -43.01 -0.14 -43.01 -0.14" style="stroke: background; stroke-width: 0.9; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M4110.85 -6952.04c0 0 19.57 50.3 43.09 -0.16c23.51 -50.43 43.12 -0.11 43.12 -0.11c0 0 19.56 50.35 43.06 -0.09c23.5 -50.45 43.01 0.3 43.01 0.3c0 0 19.51 50.35 43.05 -0.11c23.5 -50.43 43.01 -0.14 43.01 -0.14" style="stroke: background; stroke-width: 1.8; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="4446" y="-7146"/>
+<point x="4091" y="-6855"/>
+<point x="4243" y="-6855"/>
+<point x="4395" y="-6855"/>
+<point x="4091" y="-7092"/>
+<point x="4446" y="-6897"/>
+</connections>
+</shape>

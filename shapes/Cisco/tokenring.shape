@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - TokenRing</name>
+<icon>tokenring.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5515.71 -5318.6c78.09 0 141.39 -63.31 141.39 -141.4c0 -78.09 -63.3 -141.4 -141.39 -141.4c-78.09 0 -141.41 63.31 -141.41 141.4c0 78.09 63.32 141.4 141.41 141.4z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5515.71 -5318.6c78.09 0 141.39 -63.31 141.39 -141.4c0 -78.09 -63.3 -141.4 -141.39 -141.4c-78.09 0 -141.41 63.31 -141.41 141.4c0 78.09 63.32 141.4 141.41 141.4" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="5516" y="-5600"/>
+<point x="5516" y="-5318"/>
+<point x="5374" y="-5459"/>
+<point x="5657" y="-5459"/>
+</connections>
+</shape>

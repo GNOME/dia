@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - MultiSwitch Device</name>
+<icon>multiswitch_device.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2288.06 -7076.37l144.29 -116.67l333.09 0l-119.39 116.67l-357.99 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2288.06 -7076.37l144.29 -116.67l333.09 0l-119.39 116.67l-357.99 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2553.97 -7152.73l-3.5 3.5l-98.01 0l-9.77 9.77l-26.56 -11.57l53.41 -15.27l-13.58 13.58l98.01 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2646.04 -6887.07l119.39 -121.68l0 -184.08l-119.39 116.46l0 189.3z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2646.04 -6887.07l119.39 -121.68l0 -184.08l-119.39 116.46l0 189.3" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2667.22 -7171.2l9.76 -9.77l26.68 12.19l-53.52 15.38l13.58 -14.31l-100.39 0l5.88 -3.5l98.01 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2501.47 -7097.73l-3.5 3.5l-98.01 0l-9.77 9.77l-26.56 -11.57l53.41 -15.27l-13.58 13.58l98.01 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2614.72 -7116.2l9.76 -9.77l26.68 12.19l-53.52 15.38l13.58 -14.31l-100.39 0l5.88 -3.5l98.01 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2288.54 -6886.96l357.5 0 l0 -189.404l-357.5 0l0 189.404z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2288.54 -6886.96l357.5 0 l0 -189.404l-357.5 0l0 189.404" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2345.75 -6995.3l54.082 0 l0 -28.1438l-54.082 0l0 28.1438z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2523.45 -6995.3l54.082 0 l0 -28.1438l-54.082 0l0 28.1438z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2345.75 -6924.92l54.082 0 l0 -28.1494l-54.082 0l0 28.1494z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2523.45 -6924.92l54.082 0 l0 -28.1494l-54.082 0l0 28.1494z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2382.45 -7009.37l166.1 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2382.45 -6938.99l166.1 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2372.79 -6938.99l175.76 -70.38" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2372.79 -7009.37l175.76 70.38" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2703.15 -7051.59l13.17 -67.12l12.81 -13.94l0.07 -13.87l22.12 -0.76l-20.08 42.21l0.38 -20.08l-9.09 12.54l-11.95 63.69l-2.9 13.51l-16 72.84l-13.78 15.81l0.02 13.43l-20.88 6.75l19.19 -49.38l0.11 19.28l8.66 -10.48l15.24 -70.92l2.9 -13.51z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2674.69 -7064.46l-0.12 -0.09l8.48 -7.75l16.13 30.83l6.14 10.18l17.09 29.21l14.93 -10.55l-0.61 17.66l20.44 -39.09l-20.95 1.68l-0.16 11.87l-12.03 9.59l-18.41 -32.18l-4.79 -9.18l-16.99 -29.47l-8.98 8.02l-0.05 -19.02l-21.54 44.73l21.26 -4.38l0.17 -12.05z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="2432" y="-7192"/>
+<point x="2598.5" y="-7192"/>
+<point x="2765" y="-7192"/>
+<point x="2289" y="-6886"/>
+<point x="2467.5" y="-6886"/>
+<point x="2646" y="-6886"/>
+<point x="2288" y="-7075"/>
+<point x="2765" y="-7008"/>
+</connections>
+</shape>

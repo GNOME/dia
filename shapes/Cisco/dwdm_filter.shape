@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - DWDM Filter</name>
+<icon>dwdm_filter.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5516.2 -7203.1l-51.87 -80.08l13.85 -13.94l53.59 80.08l-15.57 13.94z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.2 -7203.1l-51.87 -80.08l13.85 -13.94l53.59 80.08l-15.57 13.94" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.33 -6962.88l51.88 -80.08l0 -160.15l-51.87 -80.08l0 320.3z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5464.33 -6962.88l51.88 -80.08l0 -160.15l-51.87 -80.08l0 320.3" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5516.2 -7042.96l0 -160.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.2 -7042.96l0 -160.15" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5516.2 -7042.96l0 -160.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.2 -7042.96l0 -160.15" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15l13.83 -13.93l0 160.15l-13.83 13.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15l13.83 -13.93l0 160.15l-13.83 13.93" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0l15.55 -13.93l77.83 0l-13.83 13.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0l15.55 -13.93l77.83 0l-13.83 13.93" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5516.36 -7203.34l0 160.15l79.55 0l0 -160.15l-79.55 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.36 -7203.34l0 160.15l79.55 0l0 -160.15l-79.55 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5516.36 -7043.19l79.55 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.36 -7043.19l79.55 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5516.36 -7043.19l79.55 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5516.36 -7043.19l79.55 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7043.19l0 -160.15" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5595.91 -7203.34l-79.55 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5515.71 -7132.9l-50.06 -84.18" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5515.71 -7132.9l-50.06 -31.85" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5515.71 -7129.92l-50.06 84.18" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5515.71 -7129.92l-50.06 31.86" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5515.71 -7132.9l-50.06 0" style="stroke: background; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.37 -7216.44l-50.04 0" style="stroke: foreground; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.37 -7164.12l-50.04 0" style="stroke: foreground; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.37 -7131.13l-50.04 0" style="stroke: foreground; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.37 -7099.28l-50.04 0" style="stroke: foreground; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5464.37 -7045.82l-50.04 0" style="stroke: foreground; stroke-width: 0.68; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M5654.46 -7129.38l-52.3 0" style="stroke: foreground; stroke-width: 3.4; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="5478" y="-7296"/>
+<point x="5464" y="-6962"/>
+<point x="5414" y="-7215"/>
+<point x="5414" y="-7163"/>
+<point x="5414" y="-7130"/>
+<point x="5414" y="-7098"/>
+<point x="5414" y="-7045"/>
+<point x="5654" y="-7128"/>
+</connections>
+</shape>

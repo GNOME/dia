@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Network Management</name>
+<icon>network_management.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4760.6 -6909.26l221.347 0 l0 -209.521l-221.347 0l0 209.521z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4760.6 -6909.26l221.347 0 l0 -209.521l-221.347 0l0 209.521" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4981.94 -7118.78l57.45 -47.3l-201.06 0l-77.73 47.3l221.35 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4981.94 -7118.78l57.45 -47.3l-201.06 0l-77.73 47.3l221.35 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M5039.4 -6956.57l0 -209.51l-57.45 47.3l0 209.52l57.45 -47.31z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5039.4 -6956.57l0 -209.51l-57.45 47.3l0 209.52l57.45 -47.31" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4783.56 -6919.71c5.27 0 9.55 -4.28 9.55 -9.55c0 -5.26 -4.28 -9.53 -9.55 -9.53c-5.27 0 -9.55 4.27 -9.55 9.53c0 5.27 4.28 9.55 9.55 9.55z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4783.56 -6919.71c5.27 0 9.55 -4.28 9.55 -9.55c0 -5.26 -4.28 -9.53 -9.55 -9.53c-5.27 0 -9.55 4.27 -9.55 9.53c0 5.27 4.28 9.55 9.55 9.55" style="stroke: foreground; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M4775.39 -6939.43l18.65 18.22l52.71 -53.95l-18.65 -18.22l-52.71 53.94z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4775.39 -6939.43l18.65 18.22l52.71 -53.95l-18.65 -18.22l-52.71 53.94" style="stroke: foreground; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M4820.64 -7033.1c0 39.43 32.09 71.51 71.52 71.51c39.43 0 71.52 -32.08 71.52 -71.51c0 -39.43 -32.09 -71.52 -71.52 -71.52c-39.43 0 -71.52 32.09 -71.52 71.52l10 0c0 -33.93 27.6 -61.52 61.52 -61.52c33.93 0 61.52 27.6 61.52 61.52c0 33.92 -27.6 61.51 -61.52 61.51c-33.93 0 -61.52 -27.6 -61.52 -61.51z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4820.64 -7033.1c0 39.43 32.09 71.51 71.52 71.51c39.43 0 71.52 -32.08 71.52 -71.51c0 -39.43 -32.09 -71.52 -71.52 -71.52c-39.43 0 -71.52 32.09 -71.52 71.52l10 0c0 -33.93 27.6 -61.52 61.52 -61.52c33.93 0 61.52 27.6 61.52 61.52c0 33.92 -27.6 61.51 -61.52 61.51c-33.93 0 -61.52 -27.6 -61.52 -61.51" style="stroke: foreground; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M4812.26 -7028.98c0 39.43 32.09 71.52 71.52 71.52c39.43 0 71.51 -32.09 71.51 -71.52c0 -39.43 -32.08 -71.52 -71.51 -71.52c-39.43 0 -71.52 32.09 -71.52 71.52l10 0c0 -33.93 27.6 -61.52 61.52 -61.52c33.92 0 61.51 27.6 61.51 61.52c0 33.92 -27.6 61.52 -61.51 61.52c-33.92 0 -61.52 -27.6 -61.52 -61.52z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4812.26 -7028.98c0 39.43 32.09 71.52 71.52 71.52c39.43 0 71.51 -32.09 71.51 -71.52c0 -39.43 -32.08 -71.52 -71.51 -71.52c-39.43 0 -71.52 32.09 -71.52 71.52l10 0c0 -33.93 27.6 -61.52 61.52 -61.52c33.92 0 61.51 27.6 61.51 61.52c0 33.92 -27.6 61.52 -61.51 61.52c-33.92 0 -61.52 -27.6 -61.52 -61.52" style="stroke: foreground; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M4859.7 -7003.96l53.5352 0 l0 -53.5552l-53.5352 0l0 53.5552" style="stroke: background; stroke-width: 2.6226; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="4838" y="-7165"/>
+<point x="4938.5" y="-7165"/>
+<point x="5039" y="-7165"/>
+<point x="4761" y="-6908"/>
+<point x="4871.5" y="-6908"/>
+<point x="4982" y="-6908"/>
+<point x="4761" y="-7118"/>
+<point x="5039" y="-6956"/>
+</connections>
+</shape>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Mini VAX</name>
+<icon>mini_vax.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4416.94 -3724.72l203.194 0 l0 -177.637l-203.194 0l0 177.637z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4416.94 -3724.72l203.194 0 l0 -177.637l-203.194 0l0 177.637" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4620.14 -3724.72l32.92 -32.93l0 -177.64l-203.19 0l-32.92 32.93l203.19 0l0 177.64z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4620.14 -3724.72l32.92 -32.93l0 -177.64l-203.19 0l-32.92 32.93l203.19 0l0 177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4620.14 -3902.35l32.92 -32.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4620.14 -3902.35l32.92 -32.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4555.06 -3724.72l0 -177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4620.14 -3857.47l-203.19 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M4486.01 -3724.72l0 -177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="4450" y="-3934"/>
+<point x="4551.5" y="-3934"/>
+<point x="4653" y="-3934"/>
+<point x="4417" y="-3724"/>
+<point x="4451.5" y="-3724"/>
+<point x="4486" y="-3724"/>
+<point x="4520.5" y="-3724"/>
+<point x="4555" y="-3724"/>
+<point x="4587.5" y="-3724"/>
+<point x="4620" y="-3724"/>
+<point x="4417" y="-3901"/>
+<point x="4417" y="-3878.5"/>
+<point x="4417" y="-3856"/>
+<point x="4653" y="-3757"/>
+</connections>
+</shape>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Protocol Translator</name>
+<icon>protocol_translator.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2289.34 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2289.34 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M2344.91 -5607.65l-55.58 38l185.25 0l46.07 -38l-175.75 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2344.91 -5607.65l-55.58 38l185.25 0l46.07 -38l-175.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M2520.66 -5309.35l0 -298.29l-46.07 38l0 317.29l46.07 -57z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2520.66 -5309.35l0 -298.29l-46.07 38l0 317.29l46.07 -57" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M2429.46 -5495.51l0.04 108.57l-8.14 0l-0.03 -108.57l-12.7 -0.02l16.77 -22.77l16.78 22.77l-12.72 0.02z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2338.21 -5409.35l0.04 -108.58l-8.14 0l-0.03 108.58l-12.7 0.03l16.77 22.76l16.78 -22.76l-12.72 -0.03z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2417.9 -5318.79l-12.36 0.07l17.76 -22.76l16.78 22.76l-12.03 -0.05c-5.04 19.71 -27.35 33.56 -47.55 33.56c-24.17 0 -48.76 -19.98 -48.76 -45.85l8.75 0c0 20.7 20.67 37.48 40.01 37.48c15.35 0 32.61 -10.47 37.4 -25.21z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="2345" y="-5607"/>
+<point x="2433" y="-5607"/>
+<point x="2521" y="-5607"/>
+<point x="2289" y="-5251"/>
+<point x="2382" y="-5251"/>
+<point x="2475" y="-5251"/>
+<point x="2289" y="-5569"/>
+<point x="2521" y="-5308"/>
+</connections>
+</shape>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Fax</name>
+<icon>fax.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5096.04 -6979.73l397.754 0 l0 -131.187l-397.754 0l0 131.187z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5096.04 -6979.73l397.754 0 l0 -131.187l-397.754 0l0 131.187" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5096.04 -7110.92l397.75 0l63.12 -63.11l-383.92 0l-76.95 63.11z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5096.04 -7110.92l397.75 0l63.12 -63.11l-383.92 0l-76.95 63.11" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5493.8 -6979.73l63.12 -71.58l0 -122.72l-63.12 63.11l0 131.19z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5493.8 -6979.73l63.12 -71.58l0 -122.72l-63.12 63.11l0 131.19" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5205.15 -7188.93l-5.08 27.13l48.98 0l-5.09 -27.13l-38.81 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5205.15 -7188.93l-5.08 27.13l48.98 0l-5.09 -27.13l-38.81 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5144.5 -7145.15l-5.08 27.13l48.97 0l-5.08 -27.13l-38.81 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5144.5 -7145.15l-5.08 27.13l48.97 0l-5.08 -27.13l-38.81 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5211.02 -7155.87l29.83 0l-7.03 -16.22l-22.8 16.22z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5211.02 -7155.87l29.83 0l-7.03 -16.22l-22.8 16.22" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5205.15 -7188.93c-32.5 -3.39 -61.82 34.99 -60.64 43.78l38.81 0c-1.18 -8.79 28.14 -47.17 60.64 -43.78l-38.81 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5205.15 -7188.93c-32.5 -3.39 -61.82 34.99 -60.64 43.78l38.81 0c-1.18 -8.79 28.14 -47.17 60.64 -43.78l-38.81 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5249.04 -7161.8l-8.19 5.92l-7.03 -16.22l-24.34 17.57l-2.53 23.11l-18.56 13.4l-5.08 -27.13c-1.18 -8.79 28.14 -47.17 60.64 -43.78l5.09 27.13z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5249.04 -7161.8l-8.19 5.92l-7.03 -16.22l-24.34 17.57l-2.53 23.11l-18.56 13.4l-5.08 -27.13c-1.18 -8.79 28.14 -47.17 60.64 -43.78l5.09 27.13" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5298.2 -7260.27l-63.12 63.11l8.63 0l63.11 -63.11l-8.62 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5298.2 -7260.27l-63.12 63.11l8.63 0l63.11 -63.11l-8.62 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5361.16 -7174.03l-63.12 63.11l-54.33 -86.25l63.11 -63.11l54.34 86.24z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5361.16 -7174.03l-63.12 63.11l-54.33 -86.25l63.11 -63.11l54.34 86.24" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5289.42 -7110.92l-54.34 -86.25l8.63 0l54.33 86.25l-8.62 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5289.42 -7110.92l-54.34 -86.25l8.63 0l54.33 86.25l-8.62 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5691.36 -7154.08l-63.96 64.45l-134.11 47.81l63.96 -64.45l134.11 -47.82z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5691.36 -7154.08l-63.96 64.45l-134.11 47.81l63.96 -64.45l134.11 -47.82" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5691.87 -7142.94l-63.95 64.45l-0.52 -11.15l63.96 -64.45l0.51 11.15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5691.87 -7142.94l-63.95 64.45l-0.52 -11.15l63.96 -64.45l0.51 11.15" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5493.29 -7041.82l0 7.3l134.63 -43.96l0 -11.15l-134.63 47.81z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5493.29 -7041.82l0 7.3l134.63 -43.96l0 -11.15l-134.63 47.81" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5295.56 -7245.49l51.62 81.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5295.56 -7245.49l51.62 81.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M5282.94 -7232.87l51.62 81.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5282.94 -7232.87l51.62 81.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M5270.32 -7220.25l51.61 81.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5270.32 -7220.25l51.61 81.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: mitre"/>
+<svg:path d="M5257.69 -7207.63l51.61 81.93z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5257.69 -7207.63l51.61 81.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="5307" y="-7259"/>
+<point x="5096" y="-6979"/>
+<point x="5295" y="-6979"/>
+<point x="5494" y="-6979"/>
+<point x="5096" y="-7110"/>
+<point x="5692" y="-7142"/>
+</connections>
+</shape>

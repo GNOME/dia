@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Class 4/5 switch</name>
+<icon>class45_switch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3691.59 -2271.94l70.42 -69.66l-0.89 0.49l-242.24 0l-79.41 69.67l252.12 0l0 -0.5z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3691.59 -2271.94l70.42 -69.66l-0.89 0.49l-242.24 0l-79.41 69.67l252.12 0l0 -0.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3439.47 -1918.4l252.119 0 l0 -353.047l-252.119 0l0 353.047z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3439.47 -1918.4l252.119 0 l0 -353.047l-252.119 0l0 353.047" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3691.59 -2106.58l-252.12 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3691.59 -2106.58l-252.12 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3471.07 -2023.52l78.22 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3471.07 -2023.52l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3471.07 -2006.68l78.22 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3471.07 -2006.68l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3471.07 -1989.84l78.22 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3471.07 -1989.84l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3471.07 -1973.01l78.22 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3471.07 -1973.01l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3471.07 -1956.18l78.22 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3471.07 -1956.18l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3761.52 -1993.62l0 -347.31l-69.93 69.1l0 353.44l69.93 -75.23z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3761.52 -1993.62l0 -347.31l-69.93 69.1l0 353.44l69.93 -75.23" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M3691.59 -2103.05l-252.12 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3691.59 -2103.05l-252.12 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="3519" y="-2340"/>
+<point x="3640" y="-2340"/>
+<point x="3761" y="-2340"/>
+<point x="3761.5" y="-2340"/>
+<point x="3762" y="-2340"/>
+<point x="3439" y="-1917"/>
+<point x="3565.5" y="-1917"/>
+<point x="3692" y="-1917"/>
+<point x="3439" y="-2270"/>
+<point x="3439" y="-2188"/>
+<point x="3439" y="-2106"/>
+<point x="3439" y="-2104"/>
+<point x="3439" y="-2102"/>
+<point x="3762" y="-2341"/>
+<point x="3762" y="-2167"/>
+<point x="3762" y="-1993"/>
+</connections>
+</shape>

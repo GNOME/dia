@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Universal Gateway</name>
+<icon>universal_gateway.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3617.84 -1927.2l-0.22 -219.65l-215.53 -0.16l-0.12 219.86l215.86 -0.06z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3617.84 -1927.2l-0.22 -219.65l-215.53 -0.16l-0.12 219.86l215.86 -0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3509.95 -1989.91c26.35 0 47.72 -21.37 47.72 -47.72c0 -26.37 -21.37 -47.71 -47.72 -47.71c-26.35 0 -47.71 21.35 -47.71 47.71c0 26.35 21.37 47.72 47.71 47.72" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4"/>
+<svg:path d="M3509.95 -2085.34l72.03 0" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4"/>
+<svg:path d="M3582.72 -2112.35l0 52.13l31.41 -25.04l-31.41 -27.09z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3582.72 -2112.35l0 52.13l31.41 -25.04l-31.41 -27.09" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M3462.24 -2037.33l0 -72.03" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4"/>
+<svg:path d="M3435.73 -2109.7l52.15 0l-25.04 -31.41l-27.11 31.41z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3435.73 -2109.7l52.15 0l-25.04 -31.41l-27.11 31.41" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M3557.67 -2037.86l0 72.03" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4"/>
+<svg:path d="M3584.13 -1965.71l-52.15 0l25.31 31.41l26.84 -31.41z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3584.13 -1965.71l-52.15 0l25.31 31.41l26.84 -31.41" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M3510.97 -1989.95l-72.03 0" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4"/>
+<svg:path d="M3437.9 -1962.8l0 -52.15l-31.41 25.06l31.41 27.09z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3437.9 -1962.8l0 -52.15l-31.41 25.06l31.41 27.09" style="stroke: background; stroke-width: 0.4; stroke-miterlimit: 4"/>
+<svg:path d="M3617.63 -2146.85l-215.53 -0.16l54.63 -43.63l205.49 0l0 218.38l-44.37 45.06l-0.22 -219.65z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3617.63 -2146.85l-215.53 -0.16l54.63 -43.63l205.49 0l0 0.25l0 218.12l-44.37 45.06l-0.22 -219.65" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3617.63 -2146.85l44.98 -44.39" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3535.46 -2060.2l0 30.78c0 13.22 -8.28 24.37 -26.02 24.37c-17.36 0 -24.82 -11.15 -24.82 -23.22l0 -31.93l8.73 0l0 29.51c0 14.04 8.54 17.91 16.37 17.91c8.01 0 17.01 -3.69 17.01 -17.73l0 -29.69l8.73 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="3457" y="-2190"/>
+<point x="3559.5" y="-2190"/>
+<point x="3662" y="-2190"/>
+<point x="3662.5" y="-2190"/>
+<point x="3663" y="-2190"/>
+<point x="3402" y="-1926"/>
+<point x="3510" y="-1926"/>
+<point x="3618" y="-1926"/>
+<point x="3402" y="-2146"/>
+</connections>
+</shape>

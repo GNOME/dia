@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - BBFW media</name>
+<icon>bbfw_media.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M615.02 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.01 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M629.47 -7003.1c-9.6 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.45 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M643.92 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.02 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M658.36 -7003.1c-9.59 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M672.82 -7003.1c-9.59 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.45 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M687.27 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.02 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M615.02 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.01 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M629.47 -7003.1c-9.6 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.45 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M643.92 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.02 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M658.36 -7003.1c-9.59 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M672.82 -7003.1c-9.59 -7.69 -15.93 -21.01 -15.93 -36.15c0 -15.94 7.01 -29.85 17.45 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M687.27 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.02 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="617" y="-7076"/>
+<point x="689" y="-7076"/>
+<point x="615" y="-7002"/>
+<point x="687" y="-7002"/>
+<point x="599" y="-7038"/>
+</connections>
+</shape>

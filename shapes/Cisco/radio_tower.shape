@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Radio Tower</name>
+<icon>radio_tower.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1137.87 -1315.17l62.998 0 l0 -224.004l-62.998 0l0 224.004z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1137.87 -1315.17l62.998 0 l0 -224.004l-62.998 0l0 224.004" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1096.31 -1092.92l41.56 -223.99l63 0l37.19 223.99z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1096.31 -1092.92l41.56 -223.99l63 0l37.19 223.99" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1094.12 -1092.92l129.5 -64.75l-105 -59.5l87.5 -54.25l-64.76 -43.75l57.75 -77l-59.5 -49l61.25 -54.25l-63 -42" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1239.11 -1092.92l-124.98 -64.75l105 -59.5l-87.5 -54.25l64.75 -43.75l-57.74 -77l59.5 -49l-61.25 -54.25l63 -42" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1197.13 -1539.17l-57.75 0l14.4 -27.91l28.3 0l15.05 27.91" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1214.21 -1460.29l11.562 0 l0 -82.842l-11.562 0l0 82.842z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1225.77 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1227.11 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #444444; stroke-width: 0"/>
+<svg:path d="M1228.46 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #535353; stroke-width: 0"/>
+<svg:path d="M1229.8 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #636363; stroke-width: 0"/>
+<svg:path d="M1231.15 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #717171; stroke-width: 0"/>
+<svg:path d="M1232.49 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #7e7e7e; stroke-width: 0"/>
+<svg:path d="M1233.83 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #8b8b8b; stroke-width: 0"/>
+<svg:path d="M1235.18 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #979797; stroke-width: 0"/>
+<svg:path d="M1236.52 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #a2a2a2; stroke-width: 0"/>
+<svg:path d="M1237.87 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #acacac; stroke-width: 0"/>
+<svg:path d="M1239.21 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #b6b6b6; stroke-width: 0"/>
+<svg:path d="M1240.56 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #bebebe; stroke-width: 0"/>
+<svg:path d="M1241.9 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #c7c7c7; stroke-width: 0"/>
+<svg:path d="M1243.24 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #cecece; stroke-width: 0"/>
+<svg:path d="M1244.58 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #d5d5d5; stroke-width: 0"/>
+<svg:path d="M1245.93 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #dbdbdb; stroke-width: 0"/>
+<svg:path d="M1247.27 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #e1e1e1; stroke-width: 0"/>
+<svg:path d="M1248.62 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #e6e6e6; stroke-width: 0"/>
+<svg:path d="M1249.96 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #eaeaea; stroke-width: 0"/>
+<svg:path d="M1251.31 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #eeeeee; stroke-width: 0"/>
+<svg:path d="M1252.65 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #f2f2f2; stroke-width: 0"/>
+<svg:path d="M1253.99 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #f5f5f5; stroke-width: 0"/>
+<svg:path d="M1255.34 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #f7f7f7; stroke-width: 0"/>
+<svg:path d="M1256.68 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #fafafa; stroke-width: 0"/>
+<svg:path d="M1258.03 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #fbfbfb; stroke-width: 0"/>
+<svg:path d="M1259.37 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #fdfdfd; stroke-width: 0"/>
+<svg:path d="M1260.71 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #fefefe; stroke-width: 0"/>
+<svg:path d="M1262.06 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1263.4 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1264.75 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1266.09 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1267.44 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1268.78 -1460.29l8.448 0 l0 -82.842l-8.448 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1224.21 -1533.58l5.19 -6.37l3.57 0l0 33.46l21.51 0l1.99 1.99l1.99 0l3.38 -3.39c3.39 -1.4 5.38 4.98 5.38 4.98l0 2.38c0 0 -1.99 6.38 -5.38 4.99l-3.38 -3.39l-1.99 0l-1.99 1.98l-21.51 0l0 33.47l-3.57 0l-5.19 -6.38l0 -63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1224.21 -1469.85l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -22.3l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73z" style="fill: #b3b3b3; stroke-width: 0"/>
+<svg:path d="M1224.21 -1469.85l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -9.55l0 -3.19l0 -9.56l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1200.31 -1494.94" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M1214.21 -1460.29l11.562 0 l0 -82.842l-11.562 0l0 82.842z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1225.77 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1227.11 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #444444; stroke-width: 0"/>
+<svg:path d="M1228.46 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #535353; stroke-width: 0"/>
+<svg:path d="M1229.8 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #636363; stroke-width: 0"/>
+<svg:path d="M1231.15 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #717171; stroke-width: 0"/>
+<svg:path d="M1232.49 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #7e7e7e; stroke-width: 0"/>
+<svg:path d="M1233.83 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #8b8b8b; stroke-width: 0"/>
+<svg:path d="M1235.18 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #979797; stroke-width: 0"/>
+<svg:path d="M1236.52 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #a2a2a2; stroke-width: 0"/>
+<svg:path d="M1237.87 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #acacac; stroke-width: 0"/>
+<svg:path d="M1239.21 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #b6b6b6; stroke-width: 0"/>
+<svg:path d="M1240.56 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #bebebe; stroke-width: 0"/>
+<svg:path d="M1241.9 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #c7c7c7; stroke-width: 0"/>
+<svg:path d="M1243.24 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #cecece; stroke-width: 0"/>
+<svg:path d="M1244.58 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #d5d5d5; stroke-width: 0"/>
+<svg:path d="M1245.93 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #dbdbdb; stroke-width: 0"/>
+<svg:path d="M1247.27 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #e1e1e1; stroke-width: 0"/>
+<svg:path d="M1248.62 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #e6e6e6; stroke-width: 0"/>
+<svg:path d="M1249.96 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #eaeaea; stroke-width: 0"/>
+<svg:path d="M1251.31 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #eeeeee; stroke-width: 0"/>
+<svg:path d="M1252.65 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #f2f2f2; stroke-width: 0"/>
+<svg:path d="M1253.99 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #f5f5f5; stroke-width: 0"/>
+<svg:path d="M1255.34 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #f7f7f7; stroke-width: 0"/>
+<svg:path d="M1256.68 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: #fafafa; stroke-width: 0"/>
+<svg:path d="M1258.03 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #fbfbfb; stroke-width: 0"/>
+<svg:path d="M1259.37 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: #fdfdfd; stroke-width: 0"/>
+<svg:path d="M1260.71 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: #fefefe; stroke-width: 0"/>
+<svg:path d="M1262.06 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1263.4 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1264.75 -1460.29l1.34302 0 l0 -82.842l-1.34302 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1266.09 -1460.29l1.3479 0 l0 -82.842l-1.3479 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1267.44 -1460.29l1.34204 0 l0 -82.842l-1.34204 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1268.78 -1460.29l8.448 0 l0 -82.842l-8.448 0l0 82.842z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1224.21 -1533.58l5.19 -6.37l3.57 0l0 33.46l21.51 0l1.99 1.99l1.99 0l3.38 -3.39c3.39 -1.4 5.38 4.98 5.38 4.98l0 2.38c0 0 -1.99 6.38 -5.38 4.99l-3.38 -3.39l-1.99 0l-1.99 1.98l-21.51 0l0 33.47l-3.57 0l-5.19 -6.38l0 -63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1224.21 -1469.85l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -22.3l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73z" style="fill: #b3b3b3; stroke-width: 0"/>
+<svg:path d="M1224.21 -1469.85l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -9.55l0 -3.19l0 -9.56l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1200.31 -1494.94" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M1214.21 -1357.06l11.562 0 l0 -82.8411l-11.562 0l0 82.8411z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1225.77 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1227.11 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #444444; stroke-width: 0"/>
+<svg:path d="M1228.46 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #535353; stroke-width: 0"/>
+<svg:path d="M1229.8 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #636363; stroke-width: 0"/>
+<svg:path d="M1231.15 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #717171; stroke-width: 0"/>
+<svg:path d="M1232.49 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #7e7e7e; stroke-width: 0"/>
+<svg:path d="M1233.83 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #8b8b8b; stroke-width: 0"/>
+<svg:path d="M1235.18 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #979797; stroke-width: 0"/>
+<svg:path d="M1236.52 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #a2a2a2; stroke-width: 0"/>
+<svg:path d="M1237.87 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #acacac; stroke-width: 0"/>
+<svg:path d="M1239.21 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #b6b6b6; stroke-width: 0"/>
+<svg:path d="M1240.56 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #bebebe; stroke-width: 0"/>
+<svg:path d="M1241.9 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #c7c7c7; stroke-width: 0"/>
+<svg:path d="M1243.24 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #cecece; stroke-width: 0"/>
+<svg:path d="M1244.58 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #d5d5d5; stroke-width: 0"/>
+<svg:path d="M1245.93 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #dbdbdb; stroke-width: 0"/>
+<svg:path d="M1247.27 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #e1e1e1; stroke-width: 0"/>
+<svg:path d="M1248.62 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #e6e6e6; stroke-width: 0"/>
+<svg:path d="M1249.96 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #eaeaea; stroke-width: 0"/>
+<svg:path d="M1251.31 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #eeeeee; stroke-width: 0"/>
+<svg:path d="M1252.65 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #f2f2f2; stroke-width: 0"/>
+<svg:path d="M1253.99 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #f5f5f5; stroke-width: 0"/>
+<svg:path d="M1255.34 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #f7f7f7; stroke-width: 0"/>
+<svg:path d="M1256.68 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #fafafa; stroke-width: 0"/>
+<svg:path d="M1258.03 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #fbfbfb; stroke-width: 0"/>
+<svg:path d="M1259.37 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #fdfdfd; stroke-width: 0"/>
+<svg:path d="M1260.71 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #fefefe; stroke-width: 0"/>
+<svg:path d="M1262.06 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1263.4 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1264.75 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1266.09 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1267.44 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1268.78 -1357.06l8.448 0 l0 -82.8411l-8.448 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1224.21 -1430.33l5.19 -6.38l3.57 0l0 33.47l21.51 0l1.99 1.99l1.99 0l3.38 -3.4c3.39 -1.39 5.38 4.99 5.38 4.99l0 2.38c0 0 -1.99 6.38 -5.38 4.98l-3.38 -3.39l-1.99 0l-1.99 1.99l-21.51 0l0 33.46l-3.57 0l-5.19 -6.37l0 -63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1224.21 -1366.6l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -22.3l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73z" style="fill: #b3b3b3; stroke-width: 0"/>
+<svg:path d="M1224.21 -1366.6l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -9.56l0 -3.18l0 -9.56l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1200.31 -1391.69" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M1214.21 -1357.06l11.562 0 l0 -82.8411l-11.562 0l0 82.8411z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1225.77 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #333333; stroke-width: 0"/>
+<svg:path d="M1227.11 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #444444; stroke-width: 0"/>
+<svg:path d="M1228.46 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #535353; stroke-width: 0"/>
+<svg:path d="M1229.8 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #636363; stroke-width: 0"/>
+<svg:path d="M1231.15 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #717171; stroke-width: 0"/>
+<svg:path d="M1232.49 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #7e7e7e; stroke-width: 0"/>
+<svg:path d="M1233.83 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #8b8b8b; stroke-width: 0"/>
+<svg:path d="M1235.18 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #979797; stroke-width: 0"/>
+<svg:path d="M1236.52 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #a2a2a2; stroke-width: 0"/>
+<svg:path d="M1237.87 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #acacac; stroke-width: 0"/>
+<svg:path d="M1239.21 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #b6b6b6; stroke-width: 0"/>
+<svg:path d="M1240.56 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #bebebe; stroke-width: 0"/>
+<svg:path d="M1241.9 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #c7c7c7; stroke-width: 0"/>
+<svg:path d="M1243.24 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #cecece; stroke-width: 0"/>
+<svg:path d="M1244.58 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #d5d5d5; stroke-width: 0"/>
+<svg:path d="M1245.93 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #dbdbdb; stroke-width: 0"/>
+<svg:path d="M1247.27 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #e1e1e1; stroke-width: 0"/>
+<svg:path d="M1248.62 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #e6e6e6; stroke-width: 0"/>
+<svg:path d="M1249.96 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #eaeaea; stroke-width: 0"/>
+<svg:path d="M1251.31 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #eeeeee; stroke-width: 0"/>
+<svg:path d="M1252.65 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #f2f2f2; stroke-width: 0"/>
+<svg:path d="M1253.99 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #f5f5f5; stroke-width: 0"/>
+<svg:path d="M1255.34 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #f7f7f7; stroke-width: 0"/>
+<svg:path d="M1256.68 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: #fafafa; stroke-width: 0"/>
+<svg:path d="M1258.03 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #fbfbfb; stroke-width: 0"/>
+<svg:path d="M1259.37 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: #fdfdfd; stroke-width: 0"/>
+<svg:path d="M1260.71 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: #fefefe; stroke-width: 0"/>
+<svg:path d="M1262.06 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1263.4 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1264.75 -1357.06l1.34302 0 l0 -82.8411l-1.34302 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1266.09 -1357.06l1.3479 0 l0 -82.8411l-1.3479 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1267.44 -1357.06l1.34204 0 l0 -82.8411l-1.34204 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1268.78 -1357.06l8.448 0 l0 -82.8411l-8.448 0l0 82.8411z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1224.21 -1430.33l5.19 -6.38l3.57 0l0 33.47l21.51 0l1.99 1.99l1.99 0l3.38 -3.4c3.39 -1.39 5.38 4.99 5.38 4.99l0 2.38c0 0 -1.99 6.38 -5.38 4.98l-3.38 -3.39l-1.99 0l-1.99 1.99l-21.51 0l0 33.46l-3.57 0l-5.19 -6.37l0 -63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1224.21 -1366.6l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -22.3l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73z" style="fill: #b3b3b3; stroke-width: 0"/>
+<svg:path d="M1224.21 -1366.6l-11.15 0c-5.98 -6.78 -5.18 -20.71 -5.18 -20.71l-11.55 0l0 -9.56l0 -3.18l0 -9.56l11.55 0c0 0 -0.8 -13.94 5.18 -20.71l11.15 0l0 63.73" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1"/>
+<svg:path d="M1200.31 -1391.69" style="stroke: foreground; stroke-width: 1.6; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="1154" y="-1566"/>
+<point x="1168" y="-1566"/>
+<point x="1182" y="-1566"/>
+<point x="1094" y="-1092"/>
+<point x="1239" y="-1092"/>
+<point x="1277" y="-1542"/>
+<point x="1277" y="-1500.5"/>
+<point x="1277" y="-1459"/>
+<point x="1277" y="-1439"/>
+<point x="1277" y="-1397.5"/>
+<point x="1277" y="-1356"/>
+</connections>
+</shape>

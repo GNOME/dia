@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Directory Server</name>
+<icon>directory_server.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2956.1 -6950.9l37.64 -27.58l-157.38 -250.63l-37.05 22.21z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2956.1 -6950.9l37.64 -27.58l-157.38 -250.63l-37.05 22.21" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2655.93 -6952.34l300.04 0.2l-157.38 -252.81l-142.66 252.62z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2655.93 -6952.34l300.04 0.2l-157.38 -252.81l-142.66 252.62" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2798.76 -7029.92c11.99 0 21.72 -9.73 21.72 -21.72c0 -11.99 -9.73 -21.72 -21.72 -21.72c-11.99 0 -21.72 9.73 -21.72 21.72c0 11.99 9.73 21.72 21.72 21.72z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2798.76 -7109.28c11.99 0 21.72 -9.73 21.72 -21.72c0 -12 -9.73 -21.73 -21.72 -21.73c-11.99 0 -21.72 9.73 -21.72 21.73c0 11.99 9.73 21.72 21.72 21.72z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2857.31 -6971.36c12 0 21.73 -9.73 21.73 -21.73c0 -11.99 -9.73 -21.72 -21.73 -21.72c-11.99 0 -21.72 9.73 -21.72 21.72c0 12 9.73 21.73 21.72 21.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2740.83 -6971.99c12 0 21.73 -9.73 21.73 -21.73c0 -12 -9.73 -21.73 -21.73 -21.73c-11.99 0 -21.72 9.73 -21.72 21.73c0 12 9.73 21.73 21.72 21.73z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2798.62 -7126.52l0 73.6l-59.2 59.2" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M2798.62 -7049.73l54.39 54.4" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="2836" y="-7228"/>
+<point x="2956" y="-6950"/>
+<point x="2656" y="-6951"/>
+<point x="2994" y="-6977"/>
+</connections>
+</shape>

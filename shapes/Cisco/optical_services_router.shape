@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Optical Services Router</name>
+<icon>optical_services_router.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1366.1 -6281.52l0 168.44l-83.97 67.17l-174.48 0l-87.24 -67.17l0 -168.44z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1366.1 -6281.52l0 168.44l-83.97 67.17l-174.48 0l-87.24 -67.17l0 -168.44" style="stroke: background; stroke-width: 0.77; stroke-miterlimit: 4"/>
+<svg:path d="M1280.49 -6347.42l-171.19 0l-88.89 65.9l87.24 67.17l174.48 0l83.97 -67.17l-85.61 -65.9z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1280.49 -6347.42l-171.19 0l-88.89 65.9l87.24 67.17l174.48 0l83.97 -67.17l-85.61 -65.9" style="stroke: background; stroke-width: 0.77; stroke-miterlimit: 4"/>
+<svg:path d="M1106.14 -6046.99l0 -167.36" style="stroke: background; stroke-width: 0.77; stroke-miterlimit: 4"/>
+<svg:path d="M1281.8 -6046.99l0 -167.36" style="stroke: background; stroke-width: 0.77; stroke-miterlimit: 4"/>
+<svg:path d="M1195.59 -6330.66l0 97.21" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1287.22 -6282.06l-178.45 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1287.22 -6282.06l-178.45 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1195.59 -6330.66l0 102.07" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1195.59 -6330.66l0 97.21" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1287.22 -6282.06l-178.45 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1287.22 -6282.06l-178.45 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1108.77 -6325.8l43.41 0l91.65 92.34l38.57 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1282.41 -6325.8l-38.57 0l-91.65 92.34l-43.41 0" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1195.59 -6330.66l0 102.07" style="stroke: background; stroke-width: 1.155; stroke-miterlimit: 1"/>
+<svg:path d="M1173.69 -6117.08l34.7161 0 l0 -30.147l-34.7161 0l0 30.147z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1245.92 -6134.72l-46.1 0" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M1270.1 -6134.37l-42.43 17.34l10.07 -17.34l-10.07 -17.32l42.43 17.32z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1139.28 -6134.72l38.04 0" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M1156.82 -6152.7l-10.08 17.33l10.08 17.34l-42.43 -17.34l42.43 -17.33z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1191.22 -6181.53l0 43.28" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M1191.5 -6205.2l17.33 42.43l-17.33 -10.08l-17.33 10.08l17.33 -42.43z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1191.22 -6079.4l0 -42.6" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4"/>
+<svg:path d="M1173.83 -6097.31l17.33 10.08l17.33 -10.08l-17.33 42.44l-17.33 -42.44z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1109" y="-6346"/>
+<point x="1194.5" y="-6346"/>
+<point x="1280" y="-6346"/>
+<point x="1108" y="-6045"/>
+<point x="1195" y="-6045"/>
+<point x="1282" y="-6045"/>
+<point x="1020" y="-6281"/>
+<point x="1020" y="-6196.5"/>
+<point x="1020" y="-6112"/>
+<point x="1366" y="-6281"/>
+<point x="1366" y="-6196.5"/>
+<point x="1366" y="-6112"/>
+</connections>
+</shape>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Workgroup switch</name>
+<icon>workgroup_switch.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1469.08 -5640.67l357.197 0 l0 -115.957l-357.197 0l0 115.957z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1468.14 -5756.04l144.29 -116.93l333.29 0l-119.78 116.93l-357.8 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1468.14 -5756.04l144.29 -116.93l333.29 0l-119.78 116.93l-357.8 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1826.07 -5637.02l119.32 -128.92l0.09 -106.83l-119.4 116.56l0 119.19z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1826.07 -5637.02l119.32 -128.92l0.09 -106.83l-119.4 116.56l0 119.19" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1677.52 -5786.46l-6.92 5.68l-89.09 0l-8.88 8.88l-24.15 -10.52l48.55 -13.89l-8.59 9.84l89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1747.52 -5830.21l-6.92 5.68l-89.09 0l-8.88 8.88l-24.15 -10.52l48.55 -13.89l-8.59 9.84l89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1693.24 -5801.92l6.92 -5.68l89.09 0l8.89 -8.88l24.15 10.52l-48.56 13.89l8.58 -9.84l-89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1739.49 -5845.67l6.92 -5.68l89.09 0l8.89 -8.88l24.15 10.52l-48.56 13.89l8.58 -9.84l-89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1612" y="-5872"/>
+<point x="1778.5" y="-5872"/>
+<point x="1945" y="-5872"/>
+<point x="1945.5" y="-5872"/>
+<point x="1946" y="-5872"/>
+<point x="1826" y="-5636"/>
+<point x="1468" y="-5755"/>
+</connections>
+</shape>

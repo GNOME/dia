@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - 3174 (desktop) cluster controller</name>
+<icon>3174.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1528.34 -6958.22l297.783 0 l0 -94.4429l-297.783 0l0 94.4429z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1528.34 -6958.22l297.783 0 l0 -94.4429l-297.783 0l0 94.4429" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M1888.47 -7108.82l0 82.31l-62.34 68.65l0 -94.81l-297.93 0l73.65 -56.15l286.62 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1888.47 -7108.82l0 82.31l-62.34 68.65l0 -94.81l-297.93 0l73.65 -56.15l286.62 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M1826.78 -7052.76l58.39 -54.91z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1826.78 -7052.76l58.39 -54.91" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M1556.68 -6983.91l67.5 0 l0 -15l-67.5 0l0 15z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1556.68 -6983.91l67.5 0 l0 -15l-67.5 0l0 15" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M1719.18 -7022.03l76.25 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1719.18 -7022.03l76.25 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M1719.18 -6989.53l76.25 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1719.18 -6989.53l76.25 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+</svg:svg>
+<connections>
+<point x="1602" y="-7108"/>
+<point x="1745" y="-7108"/>
+<point x="1888" y="-7108"/>
+<point x="1528" y="-6957"/>
+<point x="1677" y="-6957"/>
+<point x="1826" y="-6957"/>
+<point x="1528" y="-7052"/>
+<point x="1888" y="-7026"/>
+</connections>
+</shape>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Optical Amplifier</name>
+<icon>optical_amplifier.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M664.35 -6163.43l-279.95 -117.52l0 203.01l279.95 -85.49z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M664.35 -6163.43l-279.95 -117.52l0 203.01l279.95 -85.49" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M659.3 -6161.69l-273.65 -112.5l45 -45l273.65 112.5l-45 45z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M659.3 -6161.69l-273.65 -112.5l45 -45l273.65 112.5l-45 45" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="431" y="-6318"/>
+<point x="384" y="-6077"/>
+<point x="384" y="-6280"/>
+<point x="704" y="-6206"/>
+</connections>
+</shape>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Broadband router</name>
+<icon>broadband_router.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1717.02 -3853.52c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 227.05c0 39.51 82.34 71.53 183.93 71.53c101.58 0 183.93 -32.02 183.93 -71.53l0 -227.05z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1717.02 -3853.52c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 227.05c0 39.51 82.34 71.53 183.93 71.53c101.58 0 183.93 -32.02 183.93 -71.53l0 -227.05" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1533.1 -3782c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.53 -183.93 -71.53c-101.58 0 -183.93 32.02 -183.93 71.53c0 39.5 82.34 71.52 183.93 71.52z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1533.1 -3782c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.53 -183.93 -71.53c-101.58 0 -183.93 32.02 -183.93 71.53c0 39.5 82.34 71.52 183.93 71.52" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1513.11 -3744.33l0 136.67l159.8 -66.07l-159.8 -70.6z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1495.87 -3745.6l0.02 28.56l-51.84 0.04l-0.02 -28.54l51.84 -0.06z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1495.87 -3745.6l0.02 28.56l-51.84 0.04l-0.02 -28.54l51.84 -0.06" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1495.87 -3708.36l0.02 28.56l-51.84 0.04l-0.02 -28.55l51.84 -0.06z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1495.87 -3708.36l0.02 28.56l-51.84 0.04l-0.02 -28.55l51.84 -0.06" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1495.87 -3670.36l0.02 28.57l-51.84 0.03l-0.02 -28.54l51.84 -0.06z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1495.87 -3670.36l0.02 28.57l-51.84 0.03l-0.02 -28.54l51.84 -0.06" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1495.87 -3632.36l0.02 28.57l-51.84 0.03l-0.02 -28.53l51.84 -0.07z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1495.87 -3632.36l0.02 28.57l-51.84 0.03l-0.02 -28.53l51.84 -0.07" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1493.7 -3883.97l15.2 22.78l-57.42 13.27l12.54 -10.46l-88.74 -15.16l22.26 -16.69l85.65 14.5l10.53 -8.25z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1574.5 -3828.72l-10.35 -23.48l51.8 -10.36l-8.98 8.06l86.33 14.74l-20.72 16.57l-85.8 -16.11l-12.27 10.59z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1546.19 -3896.4l58.02 -15.89l0.68 24.86l-14.5 -2.76l-28.31 23.48l-27.02 -3.93l29.23 -22.99l-18.1 -2.77z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1521.33 -3807.31l-55.24 10.36l-2.07 -25.55l15.88 3.45l30.41 -25.97l26.91 4.56l-32.46 28.31l16.57 4.83z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1533" y="-3924"/>
+<point x="1533" y="-3554"/>
+<point x="1349" y="-3853"/>
+<point x="1349" y="-3739"/>
+<point x="1349" y="-3625"/>
+<point x="1717" y="-3853"/>
+<point x="1717" y="-3739"/>
+<point x="1717" y="-3625"/>
+</connections>
+</shape>

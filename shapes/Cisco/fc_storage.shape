@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - FC Storage</name>
+<icon>fc_storage.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M194.814 -5276.2l330.748 0 l0 -178.135l-330.748 0l0 178.135z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M194.814 -5276.2l330.748 0 l0 -178.135l-330.748 0l0 178.135" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M194.81 -5454.34l26.99 -27l330.75 0l-26.99 27l-330.75 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M194.81 -5454.34l26.99 -27l330.75 0l-26.99 27l-330.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M525.56 -5276.2l26.99 -20.24l0 -184.89l-26.99 27l0 178.13z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M525.56 -5276.2l26.99 -20.24l0 -184.89l-26.99 27l0 178.13" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M221.81 -5393.59l0 60.76l6.74 6.74l60.76 0l6.74 -6.74l0 -60.76l-6.74 -6.74l-60.76 0l-6.74 6.74z" style="fill: foreground; stroke-width: 0; fill-rule: evenodd"/>
+<svg:path d="M221.81 -5393.59l0 60.76l6.74 6.74l60.76 0l6.74 -6.74l0 -60.76l-6.74 -6.74l-60.76 0l-6.74 6.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M221.81 -5393.59l6.74 6.76l33.75 6.75l27.01 -6.75l6.74 -6.76" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M323.05 -5393.59l0 60.76l6.74 6.74l60.77 0l6.74 -6.74l0 -60.76l-6.74 -6.74l-60.77 0l-6.74 6.74z" style="fill: foreground; stroke-width: 0; fill-rule: evenodd"/>
+<svg:path d="M323.05 -5393.59l0 60.76l6.74 6.74l60.77 0l6.74 -6.74l0 -60.76l-6.74 -6.74l-60.77 0l-6.74 6.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M323.05 -5393.59l6.74 6.76l33.76 6.75l27.01 -6.75l6.74 -6.76" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M424.31 -5386.84l0 54l6.74 6.74l33.75 6.76l27.01 -6.76l6.74 -6.74l0 -54l-6.74 -6.76l-27.01 -6.74l-33.75 6.74l-6.74 6.76z" style="fill: foreground; stroke-width: 0; fill-rule: evenodd"/>
+<svg:path d="M424.31 -5386.84l0 54l6.74 6.74l33.75 6.76l27.01 -6.76l6.74 -6.74l0 -54l-6.74 -6.76l-27.01 -6.74l-33.75 6.74l-6.74 6.76" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+<svg:path d="M424.31 -5386.84l6.74 6.75l33.75 0l27.01 0l6.74 -6.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 10; stroke-linecap: round; stroke-linejoin: round"/>
+</svg:svg>
+<connections>
+<point x="222" y="-5480"/>
+<point x="387.5" y="-5480"/>
+<point x="553" y="-5480"/>
+<point x="195" y="-5275"/>
+<point x="360.5" y="-5275"/>
+<point x="526" y="-5275"/>
+<point x="195" y="-5453"/>
+<point x="553" y="-5295"/>
+</connections>
+</shape>

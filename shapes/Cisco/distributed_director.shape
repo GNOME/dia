@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Distributed Director</name>
+<icon>distributed_director.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3348.55 -6948.08l381.484 0 l0 -250.635l-381.484 0l0 250.635z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3348.55 -6948.08l381.484 0 l0 -250.635l-381.484 0l0 250.635" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3773.93 -7012.27l-43.89 64.19l0 -250.63l43.89 -53.21l0 239.66z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3773.93 -7012.27l-43.89 64.19l0 -250.63l43.89 -53.21l0 239.66" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3414.39 -7251.92l359.54 0l-43.89 53.21l-381.48 0l65.83 -53.21z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3414.39 -7251.92l359.54 0l-43.89 53.21l-381.48 0l65.83 -53.21" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3465.96 -7062.83l-63.88 0.05l0 -10.15l63.88 -0.04l0.03 -15.86l37 20.94l-37 20.94l-0.03 -15.88z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3598.87 -7062.83l-63.89 0.05l0 -10.15l63.89 -0.04l0.02 -15.86l37 20.94l-37 20.94l-0.02 -15.88z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3587.84 -7114l-53.55 34.82l-5.53 -8.51l53.55 -34.83l-8.61 -13.31l42.43 -2.59l-19.62 37.71l-8.67 -13.3z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3587.84 -7022.4l-53.55 -34.84l-5.53 8.53l53.55 34.82l-8.61 13.31l42.43 2.59l-19.62 -37.71l-8.67 13.31z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3484.85 -7150.47c-61.56 -12.29 -94.05 19.24 -88.92 46.49l0.41 1.48c-47.97 8.16 -35.4 64.79 -12.38 64.79l2.26 -0.08c-5.8 26.6 50.26 53.67 81.52 40.16l2.01 -2.21c11.14 23.93 50.74 27.93 89.9 28.93c33.94 0.86 53.74 -1.82 68.29 -16.7l2.25 0.66c54.32 4.37 79.05 -33.15 67.18 -60.1l2.93 -0.82c18.52 -4.9 20.65 -47.65 -11.11 -53.96l0.61 -1.66c13.8 -27.81 -18.73 -54.04 -63.88 -49.11l-3.14 -1.63c-32.31 -29.26 -125.31 -24.49 -136.08 4.45l-1.85 -0.68" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="3414" y="-7251"/>
+<point x="3594" y="-7251"/>
+<point x="3774" y="-7251"/>
+<point x="3349" y="-6947"/>
+<point x="3539.5" y="-6947"/>
+<point x="3730" y="-6947"/>
+<point x="3349" y="-7198"/>
+<point x="3774" y="-7011"/>
+</connections>
+</shape>

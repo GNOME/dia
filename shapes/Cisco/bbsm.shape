@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - BBSM</name>
+<icon>bbsm.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M703.818 -3617.71l357.198 0 l0 -77.0608l-357.198 0l0 77.0608z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M702.88 -3694.18l144.29 -116.93l333.3 0l-119.78 116.93l-357.8 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M702.88 -3694.18l144.29 -116.93l333.3 0l-119.78 116.93l-357.8 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1060.82 -3614.05l119.32 -118.83l0.08 -78.03l-119.4 116.56l0 80.29z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1060.82 -3614.05l119.32 -118.83l0.08 -78.03l-119.4 116.56l0 80.29" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M934.3 -3780.77l8.07 26.57l-54.79 -6.84l15.34 -5.62l-55.97 -30.41l21.58 -8.22l53.25 28.74l12.52 -4.23z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M961.3 -3725.04l-9.23 -25.58l54.3 7.03l-9.82 4.7l60.81 28.53l-22.51 8.96l-60.18 -29.66l-13.37 6.02z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1075.59 -3802.12l59.98 4.58l-7.72 23.64l-12.72 -7.49l-123.32 28.83l-24.12 -12.79l124 -28.06l-16.09 -8.71z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M814.68 -3701.79l-55.51 -8.85l6.65 -24.76l13.8 8.59l124.88 -25.46l23.8 13.35l-127.6 26.98l13.97 10.14z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M728.594 -3641.41l76.25 0 l0 -31.25l-76.25 0l0 31.25z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M953.32 -3641.41l76.25 0 l0 -31.25l-76.25 0l0 31.25z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="847" y="-3810"/>
+<point x="1013.5" y="-3810"/>
+<point x="1180" y="-3810"/>
+<point x="1061" y="-3613"/>
+<point x="703" y="-3693"/>
+<point x="1180" y="-3732"/>
+</connections>
+</shape>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - MoH server (Music on Hold)</name>
+<icon>moh_server.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1114.28 -6889.52l153.877 0 l0 -245.137l-153.877 0l0 245.137z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1268.15 -7134.66l-153.88 0l0 245.14l153.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1268.15 -6889.52l49.15 -49.14l0 -245.14l-153.89 0l-49.14 49.14l153.88 0l0 245.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1268.15 -6889.52l49.15 -49.14l0 -245.14l-153.89 0l-49.14 49.14l153.88 0l0 245.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1268.15 -7134.66l49.15 -49.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1268.15 -7134.66l49.15 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1116.77 -7039.16l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1116.77 -6926.66l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1151.77 -7096.66l43.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1134.27 -7081.66l77.5 0 l0 -31.25l-77.5 0l0 31.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1165.63 -6932.59l-3.25 -113.75l82.87 -31.69l1.63 129.19l-4.87 0l-5.69 -73.13l-66.62 23.57l0 65l-4.06 0.81z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1246.44 -6946.13c0.47 7.84 -9.14 14.78 -21.46 15.52c-12.32 0.73 -22.69 -5.02 -23.15 -12.86c-0.47 -7.84 9.14 -14.78 21.46 -15.52c12.32 -0.74 22.69 5.02 23.15 12.86z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1169.61 -6929.07c0.47 7.84 -9.14 14.79 -21.46 15.53c-12.32 0.73 -22.69 -5.03 -23.15 -12.87c-0.47 -7.83 9.14 -14.79 21.46 -15.52c12.31 -0.74 22.68 5.02 23.14 12.86z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1235.21 -7033.67l-63.38 21.93l0 -12.19l63.38 -21.93l0 12.19z" style="fill: foreground; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1163" y="-7183"/>
+<point x="1240" y="-7183"/>
+<point x="1317" y="-7183"/>
+<point x="1114" y="-6889"/>
+<point x="1191" y="-6889"/>
+<point x="1268" y="-6889"/>
+<point x="1114" y="-7134"/>
+<point x="1317" y="-6938"/>
+</connections>
+</shape>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<icon>pc_video.xpm</icon>
+<name>Cisco - PC Video</name>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4360.12 -2166.71c54.68 0 98.99 -44.33 98.99 -98.99c0 -54.67 -44.32 -98.99 -98.99 -98.99c-54.68 0 -98.99 44.33 -98.99 98.99c0 54.67 44.32 98.99 98.99 98.99z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4216.73 -2115.46l25.59 -153.24c0 65.6 53.18 118.8 118.8 118.8c65.61 0 118.79 -53.19 118.79 -118.8l24.16 153.4l-287.34 -0.16z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4292.29 -2239.9l135 0 l0 -45l-135 0l0 45z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="4360" y="-2364"/>
+<point x="4217" y="-2114"/>
+<point x="4360.5" y="-2114"/>
+<point x="4504" y="-2114"/>
+</connections>
+</shape>

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - 6732</name>
+<icon>6732.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4053.07 -6938.4l366.7 0 l0 -269.903l-366.7 0l0 269.903z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4053.07 -6938.4l366.7 0 l0 -269.903l-366.7 0l0 269.903" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4419.19 -7208.49l-365.93 0l41.69 -33.28l358.66 0l0 268.85l-34.04 34.42l0 -269.04l-0.38 -0.95z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4419.19 -7208.49l-365.93 0l41.69 -33.28l358.66 0l0 0.19l0 268.66l-34.04 34.42l0 -269.04l-0.38 -0.95" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4418.31 -7206.5l29.5 -29.49" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4419.19 -7076.51l-365.93 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4419.19 -7076.51l-365.93 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4388.97 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4388.97 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4358.38 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4358.38 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4327.77 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4327.77 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4297.17 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4297.17 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4266.57 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4266.57 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4235.98 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4235.98 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4205.37 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4205.37 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4174.77 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4174.77 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4144.18 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4144.18 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4113.57 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4113.57 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4082.97 -6938.5l0 -269.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4082.97 -6938.5l0 -269.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4164.2 -7013.72l145.342 0 l0 -137.695l-145.342 0l0 137.695z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4164.2 -7013.72l145.342 0 l0 -137.695l-145.342 0l0 137.695" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4236.17 -7057.12c11.33 0 20.49 -9.17 20.49 -20.48c0 -11.31 -9.16 -20.47 -20.49 -20.47c-11.3 0 -20.47 9.16 -20.47 20.47c0 11.31 9.17 20.48 20.47 20.48" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4236.17 -7098.07l35.58 0" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4272.11 -7111.41l0 25.74l15.51 -12.36l-15.51 -13.38z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4272.11 -7111.41l0 25.74l15.51 -12.36l-15.51 -13.38" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4215.73 -7077.45l0 -35.56" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4202.66 -7113.16l25.74 0l-12.36 -15.52l-13.38 15.52z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4202.66 -7113.16l25.74 0l-12.36 -15.52l-13.38 15.52" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4256.7 -7077.71l0 35.57" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4269.77 -7042.1l-25.74 0l12.48 15.51l13.26 -15.51z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4269.77 -7042.1l-25.74 0l12.48 15.51l13.26 -15.51" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4236.69 -7057.15l-35.57 0" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M4200.61 -7043.74l0 -25.74l-15.5 12.36l15.5 13.38z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4200.61 -7043.74l0 -25.74l-15.5 12.36l15.5 13.38" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt"/>
+</svg:svg>
+<connections>
+<point x="4095" y="-7241"/>
+<point x="4274.5" y="-7241"/>
+<point x="4454" y="-7241"/>
+<point x="4053" y="-6937"/>
+<point x="4236.5" y="-6937"/>
+<point x="4420" y="-6937"/>
+<point x="4053" y="-7207"/>
+<point x="4053" y="-7141.5"/>
+<point x="4053" y="-7076"/>
+<point x="4454" y="-6972"/>
+</connections>
+</shape>

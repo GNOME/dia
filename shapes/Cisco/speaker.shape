@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Speaker</name>
+<icon>speaker.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M5045.83 -7139.3c-20.92 3.67 -67.5 22.65 -67.5 46.97c0 23.76 49.39 45.38 69.14 50.25z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5155.04 -7318.1c-18.27 0 -85.25 64.18 -103.53 131.92c-9.32 34.58 -4.8 71.63 -4.8 100.01c0 25.5 -3.75 54.77 4.62 83.17c19.22 65.14 89.1 124.18 108.31 124.18z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5155.04 -7318.1c-18.27 0 -85.25 64.18 -103.53 131.92c-9.32 34.58 -4.8 71.63 -4.8 100.01c0 25.5 -3.75 54.77 4.62 83.17c19.22 65.14 89.1 124.18 108.31 124.18" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5164.25 -6878.43c34.79 0 63 -99.21 63 -221.57c0 -122.36 -28.2 -221.57 -63 -221.57c-34.79 0 -62.99 99.21 -62.99 221.57c0 122.36 28.2 221.57 62.99 221.57z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5164.25 -6878.43c34.79 0 63 -99.21 63 -221.57c0 -122.36 -28.2 -221.57 -63 -221.57c-34.79 0 -62.99 99.21 -62.99 221.57c0 122.36 28.2 221.57 62.99 221.57" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5216.67 -7129.79c-0.16 -9.16 -11.44 -16.36 -25.21 -16.08c-13.79 0.27 -25.12 -9.86 -24.87 5.41l1.48 90.6c0.24 15.27 11.23 3.47 25 3.19c13.79 -0.27 24.82 -7.93 24.69 -17.08l-1.07 -66.04z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5216.67 -7129.79c-0.16 -9.16 -11.44 -16.36 -25.21 -16.08c-13.79 0.27 -25.12 -9.86 -24.87 5.41l1.48 90.6c0.24 15.27 11.23 3.47 25 3.19c13.79 -0.27 24.82 -7.93 24.69 -17.08l-1.07 -66.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5125.46 -6941.57l39.57 -68.89c7.79 -13.13 12.52 3.15 25.64 10.96c13.13 7.8 19.98 20.51 15.29 28.39l-33.75 56.78c-4.68 7.87 -19.11 7.93 -32.25 0.13c-3.28 -1.94 -4.23 -2.63 -7.44 -3.68z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5125.46 -6941.57l39.57 -68.89c7.79 -13.13 12.52 3.15 25.64 10.96c13.13 7.8 19.98 20.51 15.29 28.39l-33.75 56.78c-4.68 7.87 -19.11 7.93 -32.25 0.13c-3.28 -1.94 -4.23 -2.63 -7.44 -3.68" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5110.4 -7004.82c4.98 7.92 7.82 12.43 13.92 12.43c19.19 0 34.76 -44.75 34.76 -99.93c0 -55.19 -15.57 -99.92 -34.76 -99.92c-7.98 0 -12.45 7.73 -18.31 20.71z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5110.4 -7004.82c4.98 7.92 7.82 12.43 13.92 12.43c19.19 0 34.76 -44.75 34.76 -99.93c0 -55.19 -15.57 -99.92 -34.76 -99.92c-7.98 0 -12.45 7.73 -18.31 20.71" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5105.89 -7043.16l13.82 0c27.15 0 27.65 -22.01 27.65 -49.16c0 -27.14 -0.5 -49.15 -27.65 -49.15l-14.01 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5105.89 -7043.16l13.82 0c27.15 0 27.65 -22.01 27.65 -49.16c0 -27.14 -0.5 -49.15 -27.65 -49.15l-14.01 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M5127.41 -7264.02l37.62 63.73c7.79 13.12 12.52 -3.15 25.64 -10.96c13.13 -7.8 19.98 -20.51 15.29 -28.39l-33.75 -56.78c-4.68 -7.87 -17.52 -8.55 -30.64 -0.75z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M5127.41 -7264.02l37.62 63.73c7.79 13.12 12.52 -3.15 25.64 -10.96c13.13 -7.8 19.98 -20.51 15.29 -28.39l-33.75 -56.78c-4.68 -7.87 -17.52 -8.55 -30.64 -0.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="5164" y="-7321"/>
+<point x="5160" y="-6878"/>
+<point x="4978" y="-7091"/>
+<point x="5227" y="-7099"/>
+</connections>
+</shape>

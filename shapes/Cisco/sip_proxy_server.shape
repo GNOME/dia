@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - SIP Proxy server</name>
+<icon>sip_proxy_server.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4120.07 -3598.91l161.055 0 l0 -281.016l-161.055 0l0 281.016z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4281.12 -3879.92l-161.06 0l0 281.02l161.06 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4281.12 -3598.91l49.15 -49.14l0 -281.02l-161.06 0l-49.14 49.14l161.06 0l0 281.02z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4281.12 -3598.91l49.15 -49.14l0 -281.02l-161.06 0l-49.14 49.14l161.06 0l0 281.02" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4281.12 -3879.92l49.15 -49.14z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4281.12 -3879.92l49.15 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4122.56 -3784.67l157.18 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4122.56 -3636.03l157.18 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4164.74 -3841.93l43.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4147.24 -3826.93l77.5 0 l0 -31.25l-77.5 0l0 31.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M4262.94 -3753.87l-107.67 0c-12.26 0 -22.21 9.94 -22.21 22.21c0 12.26 10.92 21.35 23.17 21.35l18.04 0c12.26 0 21.22 11.15 21.22 23.42c0 12.27 -9.93 22.19 -22.19 22.19l-32.94 0" style="stroke: background; stroke-width: 2.31; stroke-miterlimit: 4"/>
+<svg:path d="M4258.81 -3767.79l0 27.91l16.81 -13.4l-16.81 -14.51z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4258.81 -3767.79l0 27.91l16.81 -13.4l-16.81 -14.51" style="stroke: background; stroke-width: 0.2212; stroke-miterlimit: 4"/>
+<svg:path d="M4141 -3650.92l0 -27.89l-16.81 13.38l16.81 14.51z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4141 -3650.92l0 -27.89l-16.81 13.38l16.81 14.51" style="stroke: background; stroke-width: 0.2212; stroke-miterlimit: 4"/>
+<svg:path d="M4213 -3714l9 0l0 51l-9 0l0 -51z" style="fill: background;
+stroke: background; stroke-width: 0"/>
+<svg:path d="M4233 -3714l28 0c6 0 11 6 11 13l0 5c0 7 -6 14 -12 14l -17 0l0 19l-10 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4244 -3706l13 0c4 0 4 0 4 4l0 6c0 4 0 4 -4 4l-13 0l0 -14 z" style="fill: foreground; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="4169" y="-3928"/>
+<point x="4249.5" y="-3928"/>
+<point x="4330" y="-3928"/>
+<point x="4120" y="-3598"/>
+<point x="4200.5" y="-3598"/>
+<point x="4281" y="-3598"/>
+<point x="4120" y="-3879"/>
+<point x="4330" y="-3647"/>
+</connections>
+</shape>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wavelength router</name>
+<icon>wavelength_router.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3758.44 -7048.15l0 95l-87.25 69.78l-181.27 0l-90.65 -69.78l0 -95z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3758.44 -7048.15l0 95l-87.25 69.78l-181.27 0l-90.65 -69.78l0 -95" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3669.49 -7116.62l-177.87 0l-92.34 68.47l90.65 69.78l181.27 0l87.25 -69.78l-88.95 -68.47z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M3669.49 -7116.62l-177.87 0l-92.34 68.47l90.65 69.78l181.27 0l87.25 -69.78l-88.95 -68.47" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3543.53 -7074.43l13.85 20.76l-52.34 12.1l11.44 -9.52l-66.97 -14.21l20.3 -15.22l64.11 13.6l9.61 -7.52z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3617.19 -7024.08l-9.45 -21.4l47.23 -9.44l-8.19 7.33l69.93 11.99l-18.87 15.12l-69.47 -13.25l-11.17 9.65z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3595.12 -7090.77l52.89 -14.48l0.63 22.67l-13.22 -2.52l-25.81 21.41l-24.63 -3.59l26.65 -20.93l-16.5 -2.55z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3562.84 -6999.94l-50.36 9.44l-1.87 -23.29l14.47 3.13l27.71 -23.68l24.53 4.17l-29.59 25.82l15.11 4.41z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M3488.34 -6884.49l0 -93.89" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M3670.84 -6884.49l0 -93.89" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="3492" y="-7116"/>
+<point x="3580.5" y="-7116"/>
+<point x="3669" y="-7116"/>
+<point x="3490" y="-6882"/>
+<point x="3580.5" y="-6882"/>
+<point x="3671" y="-6882"/>
+<point x="3399" y="-7047"/>
+<point x="3399" y="-6999.5"/>
+<point x="3399" y="-6952"/>
+<point x="3758" y="-7047"/>
+<point x="3758" y="-6999.5"/>
+<point x="3758" y="-6952"/>
+</connections>
+</shape>

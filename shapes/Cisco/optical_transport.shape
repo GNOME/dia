@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Optical Transport</name>
+<icon>optical_transport.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2007.07 -6329.4c0 38.96 -81.2 70.53 -181.37 70.53c-100.17 0 -181.37 -31.57 -181.37 -70.53l0 224.98c0 38.96 81.2 70.53 181.37 70.53c100.17 0 181.37 -31.57 181.37 -70.53l0 -224.98z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2007.07 -6329.4c0 38.96 -81.2 70.53 -181.37 70.53c-100.17 0 -181.37 -31.57 -181.37 -70.53l0 224.98c0 38.96 81.2 70.53 181.37 70.53c100.17 0 181.37 -31.57 181.37 -70.53l0 -224.98" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1825.73 -6258.54c100.07 0 181.17 -31.55 181.17 -70.45c0 -38.91 -81.1 -70.45 -181.17 -70.45c-100.06 0 -181.17 31.56 -181.17 70.45c0 38.91 81.11 70.45 181.17 70.45z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1825.73 -6258.54c100.07 0 181.17 -31.55 181.17 -70.45c0 -38.91 -81.1 -70.45 -181.17 -70.45c-100.06 0 -181.17 31.56 -181.17 70.45c0 38.91 81.11 70.45 181.17 70.45" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M1783.03 -6371.04l74.3 -7.26l-14.3 23.75l-18.99 -3.67l-111.19 42l-19.89 -5.47l108.88 -41.42l-18.8 -7.94z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1869.04 -6344.71l74.3 -7.26l-14.3 23.75l-19 -3.67l-111.19 42l-19.88 -5.47l108.88 -41.42l-18.8 -7.94z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1751.12 -6059.75l0 -47.95l-28.89 23.03l28.89 24.92z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1890.39 -6244.44l0 47.96l28.89 -23.04l-28.89 -24.92z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1751.12 -6194.75l0 -47.95l-28.89 23.03l28.89 24.92z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1908.94 -6084.23l-49.59 0l-67.33 -135.81l-51.35 0" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 4"/>
+<svg:path d="M1740.98 -6084.44l47.91 0l66.71 -135.16l51.93 0" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 4"/>
+<svg:path d="M1890.39 -6108.81l0 47.96l28.89 -23.04l-28.89 -24.92z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1826" y="-6398"/>
+<point x="1826" y="-6033"/>
+<point x="1644" y="-6328"/>
+<point x="1644" y="-6215.5"/>
+<point x="1644" y="-6103"/>
+<point x="2007" y="-6328"/>
+<point x="2007" y="-6215.5"/>
+<point x="2007" y="-6103"/>
+</connections>
+</shape>

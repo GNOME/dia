@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Content Service Switch 1100</name>
+<icon>css1100.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1012.18 -976.172l357.216 0 l0 -215.947l-357.216 0l0 215.947z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1011.25 -1191.53l109.29 -83.6l333.29 0l-84.77 83.6l-357.81 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1011.25 -1191.53l109.29 -83.6l333.29 0l-84.77 83.6l-357.81 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1369.18 -972.52l84.32 -95.58l0.1 -206.84l-84.41 83.23l0 219.18z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1369.18 -972.52l84.32 -95.58l0.1 -206.84l-84.41 83.23l0 219.18" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1150.43 -1114.07c8.27 -33.17 -12.96 -50.68 -31.33 -47.92l-1.01 0.22c-5.5 -25.86 -43.63 -19.08 -43.63 -6.68l0.05 1.22c-17.92 -3.13 -36.16 27.09 -27.04 43.95l1.47 1.07c-16.11 6.02 -18.81 27.34 -19.48 48.46c-0.59 18.29 1.22 28.98 11.24 36.81l-0.44 1.2c-2.95 29.29 22.33 42.62 40.49 36.22l0.56 1.57c3.29 9.98 32.1 11.13 36.36 -6l1.11 0.34c18.73 7.42 36.41 -10.11 33.09 -34.44l1.09 -1.67c19.73 -17.41 16.5 -67.55 -2.99 -73.35l0.46 -1.01z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1150.43 -1114.07c8.27 -33.17 -12.96 -50.68 -31.33 -47.92l-1.01 0.22c-5.5 -25.86 -43.63 -19.08 -43.63 -6.68l0.05 1.22c-17.92 -3.13 -36.16 27.09 -27.04 43.95l1.47 1.07c-16.11 6.02 -18.81 27.34 -19.48 48.46c-0.59 18.29 1.22 28.98 11.24 36.81l-0.44 1.2c-2.95 29.29 22.33 42.62 40.49 36.22l0.56 1.57c3.29 9.98 32.1 11.13 36.36 -6l1.11 0.34c18.73 7.42 36.41 -10.11 33.09 -34.44l1.09 -1.67c19.73 -17.41 16.5 -67.55 -2.99 -73.35l0.46 -1.01" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1331.8 -1114.07c8.27 -33.17 -12.96 -50.68 -31.33 -47.92l-1.01 0.22c-5.5 -25.86 -43.63 -19.08 -43.63 -6.68l0.05 1.22c-17.92 -3.13 -36.16 27.09 -27.04 43.95l1.47 1.07c-16.11 6.02 -18.81 27.34 -19.48 48.46c-0.59 18.29 1.22 28.98 11.24 36.81l-0.44 1.2c-2.95 29.29 22.33 42.62 40.49 36.22l0.56 1.57c3.29 9.98 32.1 11.13 36.36 -6l1.11 0.34c18.73 7.42 36.41 -10.11 33.09 -34.44l1.09 -1.67c19.73 -17.41 16.5 -67.55 -2.99 -73.35l0.46 -1.01z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1331.8 -1114.07c8.27 -33.17 -12.96 -50.68 -31.33 -47.92l-1.01 0.22c-5.5 -25.86 -43.63 -19.08 -43.63 -6.68l0.05 1.22c-17.92 -3.13 -36.16 27.09 -27.04 43.95l1.47 1.07c-16.11 6.02 -18.81 27.34 -19.48 48.46c-0.59 18.29 1.22 28.98 11.24 36.81l-0.44 1.2c-2.95 29.29 22.33 42.62 40.49 36.22l0.56 1.57c3.29 9.98 32.1 11.13 36.36 -6l1.11 0.34c18.73 7.42 36.41 -10.11 33.09 -34.44l1.09 -1.67c19.73 -17.41 16.5 -67.55 -2.99 -73.35l0.46 -1.01" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M1107.55 -1111.24l-20.57 -20.56l-10.07 10.07l-2.19 -31.06l31.51 1.75l-10.94 10.94l20.56 20.56l-8.31 8.31z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1107.55 -1050.55l-20.57 20.56l-10.07 -10.07l-2.19 31.07l31.51 -1.75l-10.94 -10.94l20.56 -20.56l-8.31 -8.32z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1087.55 -1074.53l-29.07 0l0 14.24l-23.52 -20.42l23.52 -21.04l0 15.47l29.07 0l0 11.76z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1273.17 -1111.24l20.56 -20.56l10.07 10.07l2.19 -31.06l-31.5 1.75l10.94 10.94l-20.56 20.56l8.31 8.31z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1273.17 -1050.55l20.56 20.56l10.07 -10.07l2.19 31.07l-31.5 -1.75l10.94 -10.94l-20.56 -20.56l8.31 -8.32z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1289.83 -1074.53l29.07 0l0 14.24l23.52 -20.42l-23.52 -21.04l0 15.47l-29.07 0l0 11.76z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1159.65 -1074.19l57.657 0 l0 -11.7581l-57.657 0l0 11.7581z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1209.83 -1074.53l29.07 0l0 14.24l23.52 -20.42l-23.52 -21.04l0 15.47l-29.07 0l0 11.76z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1165.21 -1074.53l-29.07 0l0 14.24l-23.52 -20.42l23.52 -21.04l0 15.47l29.07 0l0 11.76z" style="fill: foreground; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="1121" y="-1274"/>
+<point x="1287.5" y="-1274"/>
+<point x="1454" y="-1274"/>
+<point x="1369" y="-972"/>
+<point x="1011" y="-1191"/>
+<point x="1454" y="-1067"/>
+</connections>
+</shape>

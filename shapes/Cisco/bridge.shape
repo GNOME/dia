@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Bridge</name>
+<icon>bridge.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M195.43 -3829.9l2.63 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M246.62 -3882.01l-51.85 52.76l0 227.06l295.31 0l47.58 -40.36l-0.33 -239.46z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M490.09 -3836.47c0 0 -112.8 122.88 -295.31 7.22" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M246.62 -3882.01l290.71 0c0 0 -82.97 149.52 -290.71 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M490.09 -3836.47l0 0.65l0 234.28" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M494.68 -3836.47l42.66 -42" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="247" y="-3881"/>
+<point x="392" y="-3881"/>
+<point x="537" y="-3881"/>
+<point x="195" y="-3601"/>
+<point x="342.5" y="-3601"/>
+<point x="490" y="-3601"/>
+<point x="195" y="-3829"/>
+<point x="195" y="-3828.5"/>
+<point x="195" y="-3828"/>
+<point x="538" y="-3642"/>
+</connections>
+</shape>

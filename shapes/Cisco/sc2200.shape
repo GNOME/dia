@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - SC2200 (Signalling Controller)</name>
+<icon>sc2200.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2191.84 -3598.42l161.631 0 l0 -281.846l-161.631 0l0 281.846z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2191.84 -3598.42l161.631 0 l0 -281.846l-161.631 0l0 281.846" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2191.84 -3880.26l30.88 -25.1l155.84 0l-25.09 25.1l-161.63 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2191.84 -3880.26l30.88 -25.1l155.84 0l-25.09 25.1l-161.63 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2353.47 -3598.42l25.09 -30.88l0 -276.06l-25.09 25.1l0 281.85z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M2353.47 -3598.42l25.09 -30.88l0 -276.06l-25.09 25.1l0 281.85" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2376.42 -3642.51l36.07 0l0 -33.84l-36.07 0.09" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2198.29 -3832.51l-4.91 0l-36.06 0l0 33.84l36.06 -0.09l4.29 0" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2199.54 -3675.55l-7.23 0c-36.14 0 -41.44 -32.5 -41.44 -32.5l0 33.75c0 0 5.29 32.5 41.44 32.5l6.6 0" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2372.67 -3798.76l4.82 0c36.14 0 41.9 32.5 41.9 32.5l0 -33.75c0 0 -5.74 -32.5 -41.9 -32.5l-7.95 0" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2419.39 -3801.89l0 40c-3.93 47.5 -88.15 45 -88.15 45l0 35l-55 -55l55 -55l0 35c0 0 85.65 2.5 88.15 -45z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2419.39 -3801.89l0 40c-3.93 47.5 -88.15 45 -88.15 45l0 2.5l0 32.5l-55 -55l55 -55l0 35c0 0 85.65 2.5 88.15 -45" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2151.06 -3672.42l0 -40c2.5 -47.5 60 -45 60 -45l0 -35l55 55l-55 55l0 -35c0 0 -57.5 -2.5 -60 45z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M2151.06 -3672.42l0 -40c2.5 -47.5 60 -45 60 -45l0 -2.5l0 -32.5l55 55l-55 55l0 -35c0 0 -57.5 -2.5 -60 45" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<svg:path d="M2245 -3670l15 0l10 40l9 -40l16 0l0 51l-10 0l0 -39l-10 39l-10 0l-10 -39l0 39l-10 0l0 -51z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="2223" y="-3904"/>
+<point x="2301" y="-3904"/>
+<point x="2379" y="-3904"/>
+<point x="2192" y="-3597"/>
+<point x="2272.5" y="-3597"/>
+<point x="2353" y="-3597"/>
+<point x="2151" y="-3711"/>
+<point x="2151" y="-3671"/>
+<point x="2419" y="-3801"/>
+<point x="2419" y="-3761"/>
+</connections>
+</shape>

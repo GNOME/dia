@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - 7500ARS (7513)</name>
+<icon>7500ars.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M4997.26 -7229.07c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 224.79c0 39.51 82.34 71.53 183.93 71.53c101.58 0 183.93 -32.02 183.93 -71.53l0 -224.79z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4997.26 -7229.07c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 224.79c0 39.51 82.34 71.53 183.93 71.53c101.58 0 183.93 -32.02 183.93 -71.53l0 -224.79" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4813.33 -7157.54c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.52 -183.93 -71.52c-101.58 0 -183.93 32.01 -183.93 71.52c0 39.5 82.34 71.52 183.93 71.52z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M4813.33 -7157.54c101.58 0 183.93 -32.02 183.93 -71.52c0 -39.51 -82.34 -71.52 -183.93 -71.52c-101.58 0 -183.93 32.01 -183.93 71.52c0 39.5 82.34 71.52 183.93 71.52" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4771.33 -7257.04l15.19 22.78l-57.42 13.27l12.55 -10.45l-88.75 -15.17l22.26 -16.69l85.64 14.5l10.54 -8.25z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4852.13 -7201.79l-10.36 -23.48l51.8 -10.36l-8.98 8.06l86.33 14.74l-20.71 16.57l-85.81 -16.11l-12.26 10.59z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4823.81 -7269.47l58.02 -15.89l0.68 24.86l-14.5 -2.76l-28.31 23.49l-27.02 -3.94l29.23 -22.99l-18.09 -2.77z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4798.94 -7180.39l-55.24 10.36l-2.07 -25.55l15.88 3.45l30.41 -25.97l26.91 4.56l-32.46 28.31l16.57 4.83z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M4968.33 -7165.47l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4948.33 -7154.45l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4927.9 -7146.43l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4904.28 -7139.85l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4881.47 -7134.85l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4858.88 -7131.83l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4834.5 -7128.31l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4652.08 -7165.47l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4672.08 -7154.45l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4692.52 -7146.43l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4716.14 -7139.85l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4738.94 -7134.85l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4761.54 -7131.83l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4785.92 -7128.31l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<svg:path d="M4810.13 -7127.68l0 170" style="stroke: background; stroke-width: 1; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+</svg:svg>
+<connections>
+<point x="4813" y="-7300"/>
+<point x="4813" y="-6932"/>
+<point x="4629" y="-7228"/>
+<point x="4629" y="-7115.5"/>
+<point x="4629" y="-7003"/>
+<point x="4997" y="-7228"/>
+<point x="4997" y="-7115.5"/>
+<point x="4997" y="-7003"/>
+</connections>
+</shape>

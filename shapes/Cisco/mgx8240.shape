@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - MGX 8240</name>
+<icon>mgx8240.xpm</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M882.91 -863.98l101.97 -47.91l349.77 0l-75.86 47.91l-375.88 0z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M882.91 -863.98l101.97 -47.91l349.77 0l-75.86 47.91l-375.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1258.79 -658.22l75.86 -60.84l0 -192.83l-75.86 47.91l0 205.76z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1258.79 -658.22l75.86 -60.84l0 -192.83l-75.86 47.91l0 205.76" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M883.418 -658.105l375.371 0 l0 -205.879l-375.371 0l0 205.879z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M883.418 -658.105l375.371 0 l0 -205.879l-375.371 0l0 205.879" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M1213.75 -717.3c0 0 -36.68 23.71 -39.1 25.29c-3.03 0 -120.96 0 -120.96 0l0 10.51l124.04 0l41.72 -26.97l-0.37 -0.21l8.09 10.02l12.77 -32.01l-34.18 4.02l8.18 11.54l-0.19 -2.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1213.75 -799.71c0 0 -36.68 -23.73 -39.1 -25.29c-3.03 0 -120.96 0 -120.96 0l0 -10.51l124.04 0l41.72 26.97l-0.37 0.22l8.09 -10.02l12.77 32.01l-34.18 -4.02l8.18 -11.54l-0.19 2.19z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1176.62 -753.26l-125.33 0l0 -10.49l125.33 0l-0.6 0.78l0 -12.87l30.02 16.99l-30.02 16.99l0 -12.89l0.6 1.48z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M895.352 -707.715l135.195 0 l0 -101.074l-135.195 0l0 101.074" style="stroke: #fcfcfc; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M915 -787l28 0c6 0 11 6 11 13l0 5c0 7 -6 14 -12 14l -17 0l0 19l-10 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M926 -779l13 0c4 0 4 0 4 4l0 6c0 4 0 4 -4 4l-13 0l0 -14 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M974 -787l9 0l0 43l26 0l0 8l-35 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
+</svg:svg>
+<connections>
+<point x="985" y="-911"/>
+<point x="1160" y="-911"/>
+<point x="1335" y="-911"/>
+<point x="883" y="-657"/>
+<point x="1071" y="-657"/>
+<point x="1259" y="-657"/>
+<point x="883" y="-863"/>
+<point x="1335" y="-718"/>
+</connections>
+</shape>
