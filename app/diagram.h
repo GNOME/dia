@@ -31,6 +31,7 @@ typedef struct _Diagram Diagram;
 #include "undo.h"
 #include "filter.h"
 #include "menus.h"
+#include "diagrid.h"
 
 GType diagram_get_type (void) G_GNUC_CONST;
 
@@ -41,7 +42,7 @@ GType diagram_get_type (void) G_GNUC_CONST;
 #define DIA_DIAGRAM_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_DIAGRAM, DiagramClass))
 
 struct _Diagram {
-  GObject parent_instance;
+  DiagramData parent_instance;
 
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
@@ -49,9 +50,19 @@ struct _Diagram {
   gboolean autosaved;     /* True if the diagram is autosaved since last mod */
   char *autosavefilename;     /* Holds the name of the current autosave file
 			       * for this diagram, or NULL.  */
-  
-  DiagramData *data;
-  
+
+  Color pagebreak_color; /*!< just to show page breaks */
+  DiaGrid     grid;      /*!< the display grid */
+
+  /*! almost completely unused guides (load and save code is there) */  
+  struct {
+    /* sorted arrays of the guides for the diagram */
+    real *hguides, *vguides;
+    guint nhguides, nvguides;
+  } guides;
+
+  DiagramData *data;     /*! just for compatibility, now that the Diagram _is_ and not _has_ DiagramData */
+
   guint display_count;
   GSList *displays;       /* List of all displays showing this diagram */
 

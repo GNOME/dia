@@ -1,5 +1,33 @@
 2004-12-11  Hans Breuer  <hans@breuer.org>
 
+	* lib/widgets.c(dia_font_selector_set_font) : initialize
+	the font style widget, too. Gets rid of empty font
+	style and thus default broken font style, e.g. UML::class_name
+
+	* lib/widgets.c(dia_color_selector_more_callback) : fill
+	the color palette from dynamic menu entries and also
+	preselect the current color to the last select entry
+	
+	* plug-ins/python/pydia-diagramdata.c : hold a reference
+	to the underlying GObject
+	
+	* app/Makefile.am app/diagrid.h : new file containing the 
+	grid 'class' moved from DiagramData to Diagram. 
+	Also moved pagebreak_color and guides cause they are only 
+	used for visual appearance not 'data'.
+	* lib/diagramdata.[ch] app/diagram.h app/dia-props.c app/grid.c
+	  app/load_save.c plug-ins/python/pydia-diagramdata.c : reflect 
+	the above change
+
+	* lib/diagramdata.[ch] app/app_procs.c app/diagram.c 
+	  lib/libdia.def : get rid of new_diagram_data() 
+	Diagram _is_ DiagramData (and does not have one any longer,
+	just a compatibility pointer)
+	
+	* lib/diarenderer.h : a small doc improvement
+
+2004-12-11  Hans Breuer  <hans@breuer.org>
+
 	* objects/UML/class.c : line wrapping code buffer
 	overrun fixed by Gabor Simon, bug #160865
 

@@ -153,6 +153,7 @@ dia_core_files = \
 	    highlight.h \
 	    textedit.c \
 	    textedit.h \
+	    diagrid.h \
 	    $(print_files)
 
 dia_SOURCES = \

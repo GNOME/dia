@@ -24,12 +24,15 @@
 #include "diagramdata.h"
 #include "diarenderer.h"
 #include "paper.h"
+#include "persistence.h"
+
 #include "dynamic_obj.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
 
 static void diagram_data_class_init (DiagramDataClass *klass);
+static void diagram_data_init (DiagramData *object);
 
 static gpointer parent_class = NULL;
 
@@ -50,7 +53,7 @@ diagram_data_get_type (void)
         NULL,           /* class_data */
         sizeof (DiagramData),
         0,              /* n_preallocs */
-	NULL            /* init */
+	(GInstanceInitFunc)diagram_data_init /* init */
       };
 
       object_type = g_type_register_static (G_TYPE_OBJECT,
@@ -59,6 +62,35 @@ diagram_data_get_type (void)
     }
   
   return object_type;
+}
+
+static void
+diagram_data_init (DiagramData *data)
+{
+  Color* color = persistence_register_color ("new_diagram_bgcolour", &color_white);
+  gboolean compress = persistence_register_boolean ("compress_save", TRUE);
+  Layer *first_layer;
+
+  data->extents.left = 0.0; 
+  data->extents.right = 10.0; 
+  data->extents.top = 0.0; 
+  data->extents.bottom = 10.0; 
+ 
+  data->bg_color = *color;
+
+  get_paper_info (&data->paper, -1, NULL);
+
+  first_layer = new_layer(g_strdup(_("Background")),data);
+  
+  data->layers = g_ptr_array_new ();
+  g_ptr_array_add (data->layers, first_layer);
+  data->active_layer = first_layer;
+
+  data->selected_count_private = 0;
+  data->selected = NULL;
+  
+  data->is_compressed = compress; /* Overridden by doc */
+
 }
 
 static void
@@ -95,46 +127,9 @@ DiagramData *
 new_diagram_data (NewDiagramData *prefs)
 {
   DiagramData *data;
-  Layer *first_layer;
    
   data = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
    
-  data->extents.left = 0.0; 
-  data->extents.right = 10.0; 
-  data->extents.top = 0.0; 
-  data->extents.bottom = 10.0; 
- 
-  data->bg_color = prefs->bg_color;
-  data->pagebreak_color = prefs->pagebreak_color;
-
-  get_paper_info (&data->paper, -1, prefs);
-
-  data->grid.dynamic = TRUE;
-  data->grid.width_x = 1.0;
-  data->grid.width_y = 1.0;
-  data->grid.width_w = 1.0;
-  data->grid.visible_x = 1;
-  data->grid.visible_y = 1;
-  data->grid.colour = prefs->grid_color;
-  data->grid.hex = FALSE;
-  data->grid.hex_size = 1.0;
-
-  data->guides.nhguides = 0;
-  data->guides.hguides = NULL;
-  data->guides.nvguides = 0;
-  data->guides.vguides = NULL;
-
-  first_layer = new_layer(g_strdup(_("Background")),data);
-  
-  data->layers = g_ptr_array_new ();
-  g_ptr_array_add (data->layers, first_layer);
-  data->active_layer = first_layer;
-
-  data->selected_count_private = 0;
-  data->selected = NULL;
-  
-  data->is_compressed = prefs->compress_save; /* Overridden by doc */
-
   return data;
 }
 

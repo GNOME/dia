@@ -231,7 +231,8 @@ do_convert(const char *infname,
     exit(1);
   }
   
-  diagdata = new_diagram_data(&prefs.new_diagram);
+  diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+
   if (!inf->import_func(infname,diagdata,inf->user_data)) {
     g_error(_("%s error: need valid input file %s\n"),
             argv0, infname);

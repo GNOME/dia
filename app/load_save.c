@@ -345,6 +345,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   Layer *layer;
   xmlNsPtr namespace;
   gchar firstchar;
+  Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
     message_error(_("You must specify a file, not a directory.\n"));
@@ -401,11 +402,12 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &data->bg_color);
 
-  data->pagebreak_color = prefs.new_diagram.pagebreak_color;
-  attr = composite_find_attribute(diagramdata, "pagebreak");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &data->pagebreak_color);
-
+  if (diagram) {
+    diagram->pagebreak_color = prefs.new_diagram.pagebreak_color;
+    attr = composite_find_attribute(diagramdata, "pagebreak");
+    if (attr != NULL)
+      data_color(attribute_first_data(attr), &diagram->pagebreak_color);
+  }
   /* load paper information from diagramdata section */
   attr = composite_find_attribute(diagramdata, "paper");
   if (attr != NULL) {
@@ -481,55 +483,59 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     data->paper.width /= data->paper.scaling;
     data->paper.height /= data->paper.scaling;
   }
-  attr = composite_find_attribute(diagramdata, "grid");
-  if (attr != NULL) {
-    gridinfo = attribute_first_data(attr);
 
-    attr = composite_find_attribute(gridinfo, "width_x");
-    if (attr != NULL)
-      data->grid.width_x = data_real(attribute_first_data(attr));
-    attr = composite_find_attribute(gridinfo, "width_y");
-    if (attr != NULL)
-      data->grid.width_y = data_real(attribute_first_data(attr));
-    attr = composite_find_attribute(gridinfo, "visible_x");
-    if (attr != NULL)
-      data->grid.visible_x = data_int(attribute_first_data(attr));
-    attr = composite_find_attribute(gridinfo, "visible_y");
-    if (attr != NULL)
-      data->grid.visible_y = data_int(attribute_first_data(attr));
-
-    data->grid.colour = prefs.new_diagram.grid_color;
-    attr = composite_find_attribute(diagramdata, "color");
-    if (attr != NULL)
-      data_color(attribute_first_data(attr), &data->grid.colour);
-
-  }
-  attr = composite_find_attribute(diagramdata, "guides");
-  if (attr != NULL) {
-    guint i;
-    DataNode guide;
-
-    guideinfo = attribute_first_data(attr);
-
-    attr = composite_find_attribute(guideinfo, "hguides");
+  if (diagram) {
+    attr = composite_find_attribute(diagramdata, "grid");
     if (attr != NULL) {
-      data->guides.nhguides = attribute_num_data(attr);
-      g_free(data->guides.hguides);
-      data->guides.hguides = g_new(real, data->guides.nhguides);
-    
-      guide = attribute_first_data(attr);
-      for (i = 0; i < data->guides.nhguides; i++, guide = data_next(guide))
-	data->guides.hguides[i] = data_real(guide);
+      gridinfo = attribute_first_data(attr);
+
+      attr = composite_find_attribute(gridinfo, "width_x");
+      if (attr != NULL)
+        diagram->grid.width_x = data_real(attribute_first_data(attr));
+      attr = composite_find_attribute(gridinfo, "width_y");
+      if (attr != NULL)
+        diagram->grid.width_y = data_real(attribute_first_data(attr));
+      attr = composite_find_attribute(gridinfo, "visible_x");
+      if (attr != NULL)
+        diagram->grid.visible_x = data_int(attribute_first_data(attr));
+      attr = composite_find_attribute(gridinfo, "visible_y");
+      if (attr != NULL)
+        diagram->grid.visible_y = data_int(attribute_first_data(attr));
+
+      diagram->grid.colour = prefs.new_diagram.grid_color;
+      attr = composite_find_attribute(diagramdata, "color");
+      if (attr != NULL)
+        data_color(attribute_first_data(attr), &diagram->grid.colour);
     }
-    attr = composite_find_attribute(guideinfo, "vguides");
+  }
+  if (diagram) {
+    attr = composite_find_attribute(diagramdata, "guides");
     if (attr != NULL) {
-      data->guides.nvguides = attribute_num_data(attr);
-      g_free(data->guides.vguides);
-      data->guides.vguides = g_new(real, data->guides.nvguides);
+      guint i;
+      DataNode guide;
+
+      guideinfo = attribute_first_data(attr);
+
+      attr = composite_find_attribute(guideinfo, "hguides");
+      if (attr != NULL) {
+        diagram->guides.nhguides = attribute_num_data(attr);
+        g_free(diagram->guides.hguides);
+        diagram->guides.hguides = g_new(real, diagram->guides.nhguides);
     
-      guide = attribute_first_data(attr);
-      for (i = 0; i < data->guides.nvguides; i++, guide = data_next(guide))
-	data->guides.vguides[i] = data_real(guide);
+        guide = attribute_first_data(attr);
+        for (i = 0; i < diagram->guides.nhguides; i++, guide = data_next(guide))
+	  diagram->guides.hguides[i] = data_real(guide);
+      }
+      attr = composite_find_attribute(guideinfo, "vguides");
+      if (attr != NULL) {
+        diagram->guides.nvguides = attribute_num_data(attr);
+        g_free(diagram->guides.vguides);
+        diagram->guides.vguides = g_new(real, diagram->guides.nvguides);
+    
+        guide = attribute_first_data(attr);
+        for (i = 0; i < diagram->guides.nvguides; i++, guide = data_next(guide))
+	  diagram->guides.vguides[i] = data_real(guide);
+      }
     }
   }
 
@@ -752,6 +758,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   Layer *layer;
   AttributeNode attr;
   xmlNs *name_space;
+  Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
 
   doc = xmlNewDoc("1.0");
   doc->encoding = xmlStrdup("UTF-8");
@@ -767,9 +774,10 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
 
-  attr = new_attribute((ObjectNode)tree, "pagebreak");
-  data_add_color(attr, &data->pagebreak_color);
-
+  if (diagram) {
+    attr = new_attribute((ObjectNode)tree, "pagebreak");
+    data_add_color(attr, &diagram->pagebreak_color);
+  }
   attr = new_attribute((ObjectNode)tree, "paper");
   pageinfo = data_add_composite(attr, "paper");
   data_add_string(composite_add_attribute(pageinfo, "name"),
@@ -795,29 +803,30 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
 		 data->paper.fitheight);
   }
 
-  attr = new_attribute((ObjectNode)tree, "grid");
-  gridinfo = data_add_composite(attr, "grid");
-  data_add_real(composite_add_attribute(gridinfo, "width_x"),
-		data->grid.width_x);
-  data_add_real(composite_add_attribute(gridinfo, "width_y"),
-		data->grid.width_y);
-  data_add_int(composite_add_attribute(gridinfo, "visible_x"),
-	       data->grid.visible_x);
-  data_add_int(composite_add_attribute(gridinfo, "visible_y"),
-	       data->grid.visible_y);
-  attr = new_attribute((ObjectNode)tree, "color");
-  data_add_composite(gridinfo, "color");
-  data_add_color(attr, &data->grid.colour);
+  if (diagram) {
+    attr = new_attribute((ObjectNode)tree, "grid");
+    gridinfo = data_add_composite(attr, "grid");
+    data_add_real(composite_add_attribute(gridinfo, "width_x"),
+		  diagram->grid.width_x);
+    data_add_real(composite_add_attribute(gridinfo, "width_y"),
+		  diagram->grid.width_y);
+    data_add_int(composite_add_attribute(gridinfo, "visible_x"),
+	         diagram->grid.visible_x);
+    data_add_int(composite_add_attribute(gridinfo, "visible_y"),
+	         diagram->grid.visible_y);
+    attr = new_attribute((ObjectNode)tree, "color");
+    data_add_composite(gridinfo, "color");
+    data_add_color(attr, &diagram->grid.colour);
   
-
-  attr = new_attribute((ObjectNode)tree, "guides");
-  guideinfo = data_add_composite(attr, "guides");
-  attr = composite_add_attribute(guideinfo, "hguides");
-  for (i = 0; i < data->guides.nhguides; i++)
-    data_add_real(attr, data->guides.hguides[i]);
-  attr = composite_add_attribute(guideinfo, "vguides");
-  for (i = 0; i < data->guides.nvguides; i++)
-    data_add_real(attr, data->guides.vguides[i]);
+    attr = new_attribute((ObjectNode)tree, "guides");
+    guideinfo = data_add_composite(attr, "guides");
+    attr = composite_add_attribute(guideinfo, "hguides");
+    for (i = 0; i < diagram->guides.nhguides; i++)
+      data_add_real(attr, diagram->guides.hguides[i]);
+    attr = composite_add_attribute(guideinfo, "vguides");
+    for (i = 0; i < diagram->guides.nvguides; i++)
+    data_add_real(attr, diagram->guides.vguides[i]);
+  }
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 

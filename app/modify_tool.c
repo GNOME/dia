@@ -336,8 +336,8 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
   }
   dist = distance_point_point_manhattan(&tool->start_at, to);
   if (ddisp->grid.snap) {
-    real grid_x = ddisp->diagram->data->grid.width_x;
-    real grid_y = ddisp->diagram->data->grid.width_y;
+    real grid_x = ddisp->diagram->grid.width_x;
+    real grid_y = ddisp->diagram->grid.width_y;
     if (dist > grid_x || dist > grid_y) {
       return TRUE;
     }

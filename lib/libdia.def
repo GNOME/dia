@@ -303,7 +303,6 @@ EXPORTS
  sheet_append_sheet_obj
 
  diagram_data_destroy
- new_diagram_data
 
  dia_unit_spinner_get_type
  dia_unit_spinner_get_value

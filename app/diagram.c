@@ -77,7 +77,7 @@ diagram_get_type (void)
 	NULL            /* init */
       };
 
-      object_type = g_type_register_static (G_TYPE_OBJECT,
+      object_type = g_type_register_static (DIA_TYPE_DIAGRAM_DATA,
                                             "Diagram",
                                             &object_info, 0);
     }
@@ -104,10 +104,6 @@ diagram_finalize(GObject *object)
 
   diagram_cleanup_autosave(dia);
 
-  if (dia->data)
-    g_object_unref(dia->data);
-  dia->data = NULL;
-  
   if (dia->filename)
     g_free(dia->filename);
   dia->filename = NULL;
@@ -167,16 +163,25 @@ dia_open_diagrams(void)
 static void
 diagram_init(Diagram *dia, const char *filename)
 {
-  if (dia->data)
-    diagram_data_destroy(dia->data);
-  
-  dia->data = new_diagram_data(&prefs.new_diagram);
-  dia->data->grid.width_x = prefs.grid.x;
-  dia->data->grid.width_y = prefs.grid.y;
-  dia->data->grid.width_w = prefs.grid.w;
-  dia->data->grid.hex = prefs.grid.hex;
-  dia->data->grid.dynamic = prefs.grid.dynamic;
-  dia->data->grid.major_lines = prefs.grid.major_lines;
+  dia->data = &dia->parent_instance; /* compatibility */
+
+  dia->pagebreak_color = prefs.new_diagram.pagebreak_color;
+
+  dia->grid.width_x = prefs.grid.x;
+  dia->grid.width_y = prefs.grid.y;
+  dia->grid.width_w = prefs.grid.w;
+  dia->grid.hex_size = 1.0;
+  dia->grid.colour = prefs.new_diagram.grid_color;
+  dia->grid.hex = prefs.grid.hex;
+  dia->grid.visible_x = 1;
+  dia->grid.visible_y = 1;
+  dia->grid.dynamic = prefs.grid.dynamic;
+  dia->grid.major_lines = prefs.grid.major_lines;
+
+  dia->guides.nhguides = 0;
+  dia->guides.hguides = NULL;
+  dia->guides.nvguides = 0;
+  dia->guides.vguides = NULL;
 
   if (dia->filename != NULL)
     g_free(dia->filename);

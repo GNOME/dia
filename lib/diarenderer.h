@@ -1,3 +1,5 @@
+
+/*! \file diarenderer.h -- the basic renderer interface definition */
 #ifndef DIA_RENDERER_H
 #define DIA_RENDERER_H
 
@@ -19,8 +21,8 @@ GType dia_renderer_get_type (void) G_GNUC_CONST;
 
 struct _DiaRenderer
 {
-  GObject parent_instance;
-  gboolean is_interactive;
+  GObject parent_instance; 
+  gboolean is_interactive; /*!< if the user can interact */
   /*< private >*/
   DiaFont *font;
   real font_height; /* IMO It should be possible use the font's size to keep
@@ -30,16 +32,25 @@ struct _DiaRenderer
   BezierApprox *bezier;
 };
 
+/*!
+ * \class _DiaRendererClass
+ *
+ * \brief Base class for all of Dia's render facilities
+ *
+ * Renderers work in close cooperation with DiaObject. They provide the way to
+ * make all the object drawing independent of concrete drawing backends
+ */
 struct _DiaRendererClass
 {
-  GObjectClass parent_class;
+  GObjectClass parent_class; /*!< the base class */
 
-  /* return size in pixels, only for interactive renderers */
+  /*! return width in pixels, only for interactive renderers */
   int (*get_width_pixels) (DiaRenderer*);
+  /*! return width in pixels, only for interactive renderers */
   int (*get_height_pixels) (DiaRenderer*);
-  /* simply calls the objects draw function, which calls this again */
+  /*! simply calls the objects draw function, which calls this again */
   void (*draw_object) (DiaRenderer*, DiaObject*);
-  /* Returns the EXACT width of text in cm, using the current font.
+  /*! Returns the EXACT width of text in cm, using the current font.
      There has been some confusion as to the definition of this.
      It used to say the width was in pixels, but actual width returned
      was cm.  You shouldn't know about pixels anyway.
@@ -51,72 +62,72 @@ struct _DiaRendererClass
   /* 
    * Function which MUST be implemented by any DiaRenderer 
    */
-  /* Called before rendering begins.
+  /*! Called before rendering begins.
      Can be used to do various pre-rendering setup. */
   void (*begin_render) (DiaRenderer *);
-  /* Called after all rendering is done.
+  /*! Called after all rendering is done.
      Used to do various clean-ups.*/
   void (*end_render) (DiaRenderer *);
 
-  /* Set the current line width
+  /*! Set the current line width
      if linewidth==0, the line will be an 'hairline' */
   void (*set_linewidth) (DiaRenderer *renderer, real linewidth);
-  /* Set the current linecap (the way lines are ended) */
+  /*! Set the current linecap (the way lines are ended) */
   void (*set_linecaps) (DiaRenderer *renderer, LineCaps mode);
-  /* Set the current linejoin (the way two lines are joined together) */
+  /*! Set the current linejoin (the way two lines are joined together) */
   void (*set_linejoin) (DiaRenderer *renderer, LineJoin mode);
-  /* Set the current line style */
+  /*! Set the current line style */
   void (*set_linestyle) (DiaRenderer *renderer, LineStyle mode);
-  /* Set the dash length, when the style is not SOLID
+  /*! Set the dash length, when the style is not SOLID
      A dot will be 10% of length */
   void (*set_dashlength) (DiaRenderer *renderer, real length);
-  /* Set the fill style */
+  /*! Set the fill style */
   void (*set_fillstyle) (DiaRenderer *renderer, FillStyle mode);
-  /* Set the current font */
+  /*! Set the current font */
   void (*set_font) (DiaRenderer *renderer, DiaFont *font, real height);
 
-  /* Draw a line from start to end, using color and the current line style */
+  /*! Draw a line from start to end, using color and the current line style */
   void (*draw_line) (DiaRenderer *renderer,
                      Point *start, Point *end,
                      Color *color);
-  /* Fill a rectangle, given its upper-left and lower-right corners */
+  /*! Fill a rectangle, given its upper-left and lower-right corners */
   void (*fill_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
                      Color *color);
-  /* the polygon is filled using the current fill type, no border is drawn */
+  /*! the polygon is filled using the current fill type, no border is drawn */
   void (*fill_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
                         Color *color);
-  /* Draw an arc, given its center, the bounding box (widget, height),
+  /*! Draw an arc, given its center, the bounding box (widget, height),
      the start angle and the end angle */
   void (*draw_arc) (DiaRenderer *renderer,
                     Point *center,
                     real width, real height,
                     real angle1, real angle2,
                     Color *color);
-  /* Same a DrawArcFunc except the arc is filled (a pie-chart) */
+  /*! Same a DrawArcFunc except the arc is filled (a pie-chart) */
   void (*fill_arc) (DiaRenderer *renderer,
                     Point *center,
                     real width, real height,
                     real angle1, real angle2,
                     Color *color);
-  /* Draw an ellipse, given its center and the bounding box */
+  /*! Draw an ellipse, given its center and the bounding box */
   void (*draw_ellipse) (DiaRenderer *renderer,
                         Point *center,
                         real width, real height,
                         Color *color);
-  /* Same a DrawEllipse, except the ellips is filled */
+  /*! Same a DrawEllipse, except the ellips is filled */
   void (*fill_ellipse) (DiaRenderer *renderer,
                         Point *center,
                         real width, real height,
                         Color *color);
-  /* Print a string at pos, using the current font */
+  /*! Print a string at pos, using the current font */
   void (*draw_string) (DiaRenderer *renderer,
                        const gchar *text,
                        Point *pos,
                        Alignment alignment,
                        Color *color);
-  /* Draw an image, given its bounding box */
+  /*! Draw an image, given its bounding box */
   void (*draw_image) (DiaRenderer *renderer,
                       Point *point,
                       real width, real height,
@@ -126,38 +137,38 @@ struct _DiaRendererClass
    * Functions which SHOULD be implemented by specific renderer, but
    * have a default implementation based on the above functions 
    */
-  /* Draw a bezier curve, given it's control points. The first BezPoint must 
+  /*! Draw a bezier curve, given it's control points. The first BezPoint must 
      be of type MOVE_TO, and no other ones may be MOVE_TO's. */
   void (*draw_bezier) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,
                        Color *color);
-  /* Same as DrawBezierFunc, except the last point must be the same as the
+  /*! Same as DrawBezierFunc, except the last point must be the same as the
      first point, and the resulting shape is filled */
   void (*fill_bezier) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,
                        Color *color);
-  /* Draw a line joining multiple points, using color and the current
+  /*! Draw a line joining multiple points, using color and the current
      line style */
   void (*draw_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
                          Color *color);
-  /* Draw a line joining multiple points, using color and the current
+  /*! Draw a line joining multiple points, using color and the current
      line style with rounded corners between segments */
   void (*draw_rounded_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
                          Color *color, real radius );
-  /* Draw a polygone, using the current line style
+  /*! Draw a polygone, using the current line style
      The polygon is closed even if the first point is not the same as the
      last point */
   void (*draw_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
                         Color *color);
-  /* Print a Text.  It holds its own information. */
+  /*! Print a Text.  It holds its own information. */
   void (*draw_text) (DiaRenderer *renderer,
                      Text *text);
-  /* Draw a rectangle, given its upper-left and lower-right corners */
+  /*! Draw a rectangle, given its upper-left and lower-right corners */
   void (*draw_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
                      Color *color);
@@ -166,22 +177,24 @@ struct _DiaRendererClass
    * Highest level functions, probably only to be implemented by 
    * special 'high level' renderers
    */
-  /* Draw a rounded rectangle, given its upper-left and lower-right corners */
+  /*! Draw a rounded rectangle, given its upper-left and lower-right corners */
   void (*draw_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
                              Color *color, real radius);
-  /* Same a DrawRoundedRectangleFunc, except the rectangle is filled using the
+  /*! Same a DrawRoundedRectangleFunc, except the rectangle is filled using the
      current fill style */
   void (*fill_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
                              Color *color, real radius);
 
+  /*! Highest level function doing specific arrow positioning */
   void (*draw_line_with_arrows)  (DiaRenderer *renderer, 
                                   Point *start, Point *end, 
                                   real line_width,
                                   Color *line_color,
                                   Arrow *start_arrow,
                                   Arrow *end_arrow);
+  /*! Highest level function doing specific arrow positioning */
   void (*draw_arc_with_arrows)  (DiaRenderer *renderer, 
                                  Point *start, Point *end,
                                  Point *midpoint,
@@ -189,6 +202,7 @@ struct _DiaRendererClass
                                  Color *color,
                                  Arrow *start_arrow,
                                  Arrow *end_arrow);
+  /*! Highest level function doing specific arrow positioning */
   void (*draw_polyline_with_arrows) (DiaRenderer *renderer, 
                                      Point *points, int num_points,
                                      real line_width,

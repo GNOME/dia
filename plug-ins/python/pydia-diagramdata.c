@@ -28,6 +28,7 @@
 #include "pydia-layer.h"
 #include "pydia-color.h"
 
+#include "app/diagram.h"
 
 PyObject *
 PyDiaDiagramData_New(DiagramData *dd)
@@ -37,14 +38,16 @@ PyDiaDiagramData_New(DiagramData *dd)
     self = PyObject_NEW(PyDiaDiagramData, &PyDiaDiagramData_Type);
 
     if (!self) return NULL;
-    self->data = dd; /* FIXME: how long is it supposed to live ? */
+    g_object_ref (dd);
+    self->data = dd;
     return (PyObject *)self;
 }
 
 static void
 PyDiaDiagramData_Dealloc(PyDiaDiagramData *self)
 {
-     PyMem_DEL(self);
+    g_object_unref (self->data);
+    PyMem_DEL(self);
 }
 
 static int
@@ -132,6 +135,8 @@ static PyMethodDef PyDiaDiagramData_Methods[] = {
 static PyObject *
 PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 {
+    Diagram *diagram = DIA_DIAGRAM(self->data);
+
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ssssssssss]", 
                            "extents", "bg_color", "paper",
@@ -148,24 +153,24 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
       /* XXX */
       return NULL;
     }
-    else if (!strcmp(attr, "grid.width")) 
-      return Py_BuildValue("(dd)", self->data->grid.width_x, self->data->grid.width_y);
-    else if (!strcmp(attr, "grid.visible")) 
-      return Py_BuildValue("(ii)", self->data->grid.visible_x, self->data->grid.visible_y);
-    else if (!strcmp(attr, "hguides")) {
-      int len = self->data->guides.nhguides;
+    else if (diagram && !strcmp(attr, "grid.width")) 
+      return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);
+    else if (diagram && !strcmp(attr, "grid.visible")) 
+      return Py_BuildValue("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
+    else if (diagram && !strcmp(attr, "hguides")) {
+      int len = diagram->guides.nhguides;
       PyObject *ret = PyTuple_New(len);
       int i;
       for (i = 0; i < len; i++)
-        PyTuple_SetItem(ret, i, PyFloat_FromDouble(self->data->guides.hguides[i]));
+        PyTuple_SetItem(ret, i, PyFloat_FromDouble(diagram->guides.hguides[i]));
       return ret;
     }
-    else if (!strcmp(attr, "vguides")) {
-      int len = self->data->guides.nvguides;
+    else if (diagram && !strcmp(attr, "vguides")) {
+      int len = diagram->guides.nvguides;
       PyObject *ret = PyTuple_New(len);
       int i;
       for (i = 0; i < len; i++)
-        PyTuple_SetItem(ret, i, PyFloat_FromDouble(self->data->guides.vguides[i]));
+        PyTuple_SetItem(ret, i, PyFloat_FromDouble(diagram->guides.vguides[i]));
       return ret;
     }
     else if (!strcmp(attr, "layers")) {

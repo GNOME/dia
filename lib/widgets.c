@@ -500,6 +500,10 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
 
   g_free(faces);
 
+  if (stylebits == 0) {
+    g_warning ("'%s' has no style!", pango_font_family_get_name (pff));
+  }
+
   for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkWidget *menuitem;
     /**
@@ -555,6 +559,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   gchar *fontname = dia_font_get_family(font);
   dia_dynamic_menu_add_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
+  dia_font_selector_set_styles(fs, fontname, dia_font_get_style (font));
 }
 
 DiaFont *
@@ -931,15 +936,53 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 {
   GtkColorSelectionDialog *dialog = gtk_color_selection_dialog_new(_("Select color"));
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
+  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel);
+  GString *palette = g_string_new ("");
 
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
-  g_free(old_color);
 
-  gtk_color_selection_set_has_palette 
-    (GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel),
-     FALSE);
+  if (ddm->default_entries != NULL) {
+    GList *tmplist;
+    int index = 0;
+    gboolean advance = TRUE;
+
+    for (tmplist = ddm->default_entries; 
+         tmplist != NULL || advance; 
+         tmplist = g_list_next(tmplist)) {
+      const gchar* spec;
+      GdkColor color;
+
+      /* handle both lists */
+      if (!tmplist && advance) {
+        advance = FALSE;
+        tmplist = persistent_list_get_glist(ddm->persistent_name);
+        if (!tmplist)
+          break;
+      }
+      spec = (gchar *)tmplist->data;
+
+      gdk_color_parse (spec, &color);
+#if 0
+      /* the easy way if the Gtk Team would decide to make it public */
+      gtk_color_selection_set_palette_color (colorsel, index, &color);
+#else
+      g_string_append (palette, spec);
+      g_string_append (palette, ":");
+#endif
+      if (0 == strcmp (spec, old_color)) {
+        gtk_color_selection_set_previous_color (colorsel, &color);
+        gtk_color_selection_set_current_color (colorsel, &color);
+      }
+      index++;
+    }
+  }
+
+  g_object_set (gtk_widget_get_settings (GTK_WIDGET (colorsel)), "gtk-color-palette", palette->str, NULL);
+  gtk_color_selection_set_has_palette (colorsel, TRUE);
+  g_string_free (palette, TRUE);
+  g_free(old_color);
   
   gtk_widget_hide(dialog->help_button);
   

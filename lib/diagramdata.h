@@ -55,40 +55,10 @@ struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */
 
   Color bg_color;
-  Color pagebreak_color;
 
   PaperInfo paper;       /* info about the page info for the diagram */
   gboolean is_compressed; /* TRUE if by default it should be save compressed.
 			     The user can override this in Save As... */
-
-  struct  {
-    /* grid line intervals */
-    real width_x, width_y, width_w;
-    /* the interval between visible grid lines */
-    guint visible_x, visible_y;
-    /* the interval between major lines (non-stippled).
-     * if 0, no major lines are drawn (all lines are stippled).
-     * if 1, all lines are solid.
-     */
-    guint major_lines;
-    /* True if the grid is dynamically calculated.
-     * When true, width_x and width_y are ignored.
-     */
-    gboolean dynamic;
-    /* The color of the grid lines.
-     */
-    Color colour;
-    /** True if this grid is a hex grid. */
-    gboolean hex;
-    /** Size of each edge on a hex grid. */
-    real hex_size;
-  } grid;
-
-  struct {
-    /* sorted arrays of the guides for the diagram */
-    real *hguides, *vguides;
-    guint nhguides, nvguides;
-  } guides;
 
   GPtrArray *layers;     /* Layers ordered by decreasing z-order */
   Layer *active_layer;
@@ -132,7 +102,6 @@ struct _Layer {
 
 DIAVAR int render_bounding_boxes;
 
-DiagramData *new_diagram_data(NewDiagramData *prefs);
 void diagram_data_destroy(DiagramData *data);
 
 Layer *new_layer (char *name, DiagramData *parent);
