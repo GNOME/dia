@@ -55,7 +55,7 @@ dia_plugin_init(PluginInfo *info)
 
   object_register_type(&computer_type);
   object_register_type(&monitor_type);
-  object_register_type(&disc_type);
+  /* object_register_type(&disc_type); */
   object_register_type(&bus_type_std);
   object_register_type(&bus_type);
   object_register_type(&printer_type);

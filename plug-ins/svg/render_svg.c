@@ -626,7 +626,7 @@ draw_ellipse(RendererSVG *renderer,
   g_snprintf(buf, sizeof(buf), "%g", width / 2);
   xmlSetProp(node, "rx", buf);
   g_snprintf(buf, sizeof(buf), "%g", height / 2);
-  xmlSetProp(node, "rx", buf);
+  xmlSetProp(node, "ry", buf);
 }
 
 static void
@@ -649,7 +649,7 @@ fill_ellipse(RendererSVG *renderer,
   g_snprintf(buf, sizeof(buf), "%g", width / 2);
   xmlSetProp(node, "rx", buf);
   g_snprintf(buf, sizeof(buf), "%g", height / 2);
-  xmlSetProp(node, "rx", buf);
+  xmlSetProp(node, "ry", buf);
 }
 
 static void

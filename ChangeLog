@@ -1,5 +1,16 @@
 2001-05-16  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* plug-ins/svg/render_svg.c: typo made exported ellipses
+	corrupted (zero Y pseudo-radius).
+
+	* objects/network/network.c:
+	* objects/network/disc.c:
+	* shapes/network/disc.(shape|xpm): Converted the first
+	Renderobject into a shape. Normally, old diagrams should reload
+	without problems (please check this against your diagrams). More
+	flexibility should be gained that way. I intend to hunt and
+	eradicate all renderobjects as I can commit cycles to that. 
+	
 	* app/commands.c:
 	* app/diagram.[ch]:
 	* app/disp_callbacks.c:
