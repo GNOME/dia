@@ -583,17 +583,6 @@ freetype_add_font(char *dirname, char *filename) {
     FT_Select_Charmap(face, ft_encoding_unicode);
 #endif
 
-    //    if (face->face_flags & FT_FACE_FLAG_SFNT) 
-    if (FT_IS_SFNT(face)) printf("%s is SFNT\n", new_font->family);
-
-    {
-      TT_Header *head = (TT_Header *)FT_Get_Sfnt_Table(face, 0);
-      if (head != 0) {
-	printf("Head table:  %s is %ld,%ld\n", new_font->family,
-	       head->Table_Version, head->Font_Revision);
-      }
-    }
-
     if (facenum == 0) first_face = face;
     facenum++;
   } while (facenum < first_face->num_faces);
@@ -605,7 +594,6 @@ freetype_scan_directory(char *dirname) {
   DIR *fontdir;
   struct dirent *dirent;
 
-  LC_DEBUG (fprintf(stderr, "freetype_scan_directory %s\n", dirname));
   /* If doing this at other than startup, first remove all old files
      from this dir */
   if(dirname[0] != '/') return;
@@ -1174,6 +1162,19 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 	gdk_gc_destroy (gc);
 
 	return suckfont;
+}
+
+FT_Face
+font_get_freetype_face(DiaFont *font)
+{
+  FontPrivate *fontprivate;
+
+  LC_DEBUG (fprintf(stderr, "font_get_psfontname\n"));
+  g_assert(font!=NULL);
+
+  fontprivate = (FontPrivate *)font;
+  
+  return fontprivate->fontface_freetype;
 }
 
 char *

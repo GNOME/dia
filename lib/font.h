@@ -130,6 +130,7 @@ char *font_get_freetypefontname(DiaFont *font);
 DiaFont *font_getfont_with_style(const char *name, const char *style);
 void freetype_render_string(FreetypeString *fts, int x, int y, 
 			    BitmapCopyFunc func, gpointer userdata);
+FT_Face font_get_freetype_face(DiaFont *font);
 #endif
 /* Get the width of the string with the given font in cm */
 real font_string_width(const char *string, DiaFont *font, real height);

@@ -1,3 +1,8 @@
+2002-03-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_eps.c: Support for dumping TrueType fonts (taken from
+	ttfps).
+
 2002-03-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/render.c: New abstract super class for renderers.
