@@ -1,3 +1,15 @@
+2000-07-23  James Henstridge  <james@daa.com.au>
+
+	* app/preferences.c (prefs_data): set the "reset tools after
+	create" preference to true by default.  That seems to be what most
+	people expect.
+
+	* app/interface.c (create_sheets): instead of a notebook, use an
+	option menu that updates the sheet tools.  The notebook tabs were
+	getting a bit unwieldly, so the option menu should fix that.  This
+	also reduces the number of widgets in the tools radio button
+	group, which should make the UI a little more responsive.
+
 2000-07-19  Fatih Demir	<kabalak@gmx.net>
 	
 	* configure.in: Added tr to ALL_LINGUAS.

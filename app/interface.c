@@ -116,14 +116,6 @@ static GSList *tool_group = NULL;
 
 GtkWidget *modify_tool_button;
 
-/*  If we create *all* menus at startup, we can read a .menurc file and
- *  get persistent menu shortcuts.  Yummy!
- */
-void
-create_menus() {
-}
-
-
 /*  The popup shell is a pointer to the display shell that posted the latest
  *  popup menu.  When this is null, and a command is invoked, then the
  *  assumption is that the command was a result of a keyboard accelerator
@@ -423,6 +415,11 @@ create_tools(GtkWidget *parent)
   }
 }
 
+static GtkWidget *sheet_option_menu;
+static GtkWidget *sheet_menu;
+static GtkWidget *sheet_wbox;
+
+#if 0
 static GtkWidget *
 create_sheet_page(GtkWidget *parent, Sheet *sheet)
 {
@@ -521,20 +518,120 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
   
   return scrolled_window;
 }
+#endif
+
+static void
+fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
+{
+  int rows;
+  GtkStyle *style;
+  GSList *tmp;
+
+  gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
+			(GtkCallback)gtk_widget_destroy, NULL);
+  tool_group = gtk_radio_button_group(GTK_RADIO_BUTTON(tool_widgets[0]));
+
+  /* set the aspect ratio on the wbox */
+  rows = (g_slist_length(sheet->objects) - 1) / COLUMNS + 1;
+  if (rows<1) rows = 1;
+  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(sheet_wbox),
+				COLUMNS * 1.0 / rows);
+  style = gtk_widget_get_style(sheet_wbox);
+  for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
+    SheetObject *sheet_obj = tmp->data;
+    GdkPixmap *pixmap;
+    GdkBitmap *mask;
+    GtkWidget *pixmapwidget;
+    GtkWidget *button;
+    ToolButtonData *data;
+
+    if (sheet_obj->pixmap != NULL) {
+      pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+			gtk_widget_get_colormap(sheet_wbox), &mask, 
+			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap);
+    } else if (sheet_obj->pixmap_file != NULL) {
+      pixmap = gdk_pixmap_colormap_create_from_xpm(NULL,
+			gtk_widget_get_colormap(sheet_wbox), &mask,
+			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap_file);
+    } else {
+      ObjectType *type;
+      type = object_get_type(sheet_obj->object_type);
+      pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+			gtk_widget_get_colormap(sheet_wbox), &mask, 
+			&style->bg[GTK_STATE_NORMAL], type->pixmap);
+    }
+    if (pixmap) {
+      pixmapwidget = gtk_pixmap_new(pixmap, mask);
+      gdk_pixmap_unref(pixmap);
+      if (mask) gdk_bitmap_unref(mask);
+    } else
+      pixmapwidget = gtk_type_new(gtk_pixmap_get_type());
+
+    button = gtk_radio_button_new (tool_group);
+    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER (button), 0);
+    tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
+
+    gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
+    gtk_widget_show(pixmapwidget);
+
+    gtk_wrap_box_pack(GTK_WRAP_BOX(sheet_wbox), button,
+		      FALSE, TRUE, FALSE, TRUE);
+    gtk_widget_show(button);
+    if (sheet_obj->line_break)
+      gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(sheet_wbox),
+					  button, TRUE);
+
+    data = g_new(ToolButtonData, 1);
+    data->type = CREATE_OBJECT_TOOL;
+    data->extra_data = sheet_obj->object_type;
+    data->user_data = sheet_obj->user_data;
+    gtk_object_set_data_full(GTK_OBJECT(button), "Dia::ToolButtonData",
+			     data, (GdkDestroyNotify)g_free);
+    
+    gtk_signal_connect (GTK_OBJECT (button), "toggled",
+			GTK_SIGNAL_FUNC (tool_select_update), data);
+    gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
+			GTK_SIGNAL_FUNC (tool_button_press), data);
+
+    gtk_tooltips_set_tip (tool_tips, button,
+			  gettext(sheet_obj->description), NULL);
+  }
+}
+
+static void
+fill_sheet_menu(void)
+{
+  GSList *tmp;
+
+  gtk_container_foreach(GTK_CONTAINER(sheet_menu),
+			(GtkCallback)gtk_widget_destroy, NULL);
+  gtk_widget_ref(sheet_menu);
+  gtk_option_menu_remove_menu(GTK_OPTION_MENU(sheet_option_menu));
+  for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
+    Sheet *sheet = tmp->data;
+    GtkWidget *menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
+
+    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
+		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
+    gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
+    gtk_widget_show(menuitem);
+  }
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
+  gtk_widget_unref(sheet_menu);
+  gtk_menu_item_activate(
+	GTK_MENU_ITEM(GTK_OPTION_MENU(sheet_option_menu)->menu_item));
+}
 
 static void
 create_sheets(GtkWidget *parent)
 {
-  GtkWidget *notebook;
   GtkWidget *separator;
-  GSList *list;
-  Sheet *sheet;
-  GtkWidget *child;
   GtkWidget *label;
-  GtkWidget *menu_label;
+  GtkWidget *swin;
   
   separator = gtk_hseparator_new ();
-  /* add a bit of padding around the label */
+  /* add a bit of padding around the separator */
   label = gtk_vbox_new(FALSE, 0);
   gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
   gtk_widget_show(label);
@@ -543,40 +640,30 @@ create_sheets(GtkWidget *parent)
   gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), label, TRUE);
   gtk_widget_show(separator);
 
-  notebook = gtk_notebook_new ();
-  /*
-  gtk_signal_connect (GTK_OBJECT (notebook), "switch_page",
-		      GTK_SIGNAL_FUNC (page_switch), NULL);
-  */
-  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-  gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), TRUE);
-  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
-  gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook));
-  gtk_container_set_border_width (GTK_CONTAINER (notebook), 1);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), notebook, TRUE, TRUE, TRUE, TRUE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), notebook, TRUE);
-  
-  list = get_sheets_list();
-  while (list != NULL) {
-    sheet = (Sheet *) list->data;
+  sheet_option_menu = gtk_option_menu_new();
+  gtk_widget_set_usize(sheet_option_menu, 20, -1);
+  sheet_menu = gtk_menu_new();
+  gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
+  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), sheet_option_menu,
+		    TRUE, TRUE, FALSE, FALSE);
+  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), sheet_option_menu,
+				      TRUE);
+  gtk_widget_show(sheet_option_menu);
 
-    label = gtk_label_new(gettext(sheet->name));
-    menu_label = gtk_label_new(gettext(sheet->name));
-    gtk_misc_set_alignment(GTK_MISC(menu_label), 0.0, 0.5);
-    
-    child = create_sheet_page(notebook, sheet);
-    
-    gtk_widget_show(label);
-    gtk_widget_show(menu_label);
-    gtk_widget_show_all(child);
+  swin = gtk_scrolled_window_new(NULL, NULL);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swin),
+				 GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), swin, TRUE, TRUE, TRUE, TRUE);
+  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), swin, TRUE);
+  gtk_widget_show(swin);
 
-    gtk_notebook_append_page_menu (GTK_NOTEBOOK (notebook),
-				   child, label, menu_label);
-    
-    list = g_slist_next(list);
-  }
-  
-  gtk_widget_show(notebook);
+  sheet_wbox = gtk_hwrap_box_new(FALSE);
+  gtk_wrap_box_set_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_TOP);
+  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_LEFT);
+  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
+  gtk_widget_show(sheet_wbox);
+
+  fill_sheet_menu();
 }
 
 static void
@@ -714,6 +801,7 @@ create_toolbox ()
   gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
 			  "Dia");
   gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, FALSE);
+  gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 		      GTK_SIGNAL_FUNC (toolbox_delete),
@@ -740,7 +828,7 @@ create_toolbox ()
 			   &main_vbox->style->fg[GTK_STATE_NORMAL]);*/
 
   wrapbox = gtk_hwrap_box_new(FALSE);
-  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 143.0 / 283.0);
+  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 144.0 / 318.0);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
   gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
 
