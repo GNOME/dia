@@ -1,3 +1,8 @@
+2002-07-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/render.c (draw_polyline_with_arrows): Handles degenerate
+	line segments at the ends (bug #86603).
+
 2002-07-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/zigzagline.c (zigzagline_copy): Fix for bug

@@ -414,59 +414,80 @@ draw_polyline_with_arrows(Renderer *renderer,
 			  Arrow *start_arrow,
 			  Arrow *end_arrow)
 {
-  Point oldstart = points[0];
-  Point oldend = points[num_points-1];
+  /* Index of first and last point with a non-zero length segment */
+  int firstline = 0;
+  int lastline = num_points;
+  Point oldstart = points[firstline];
+  Point oldend = points[lastline-1];
+
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
-    calculate_arrow_point(start_arrow, &points[0], &points[1], 
+    while (firstline < num_points-1 &&
+	   distance_point_point(&points[firstline], 
+				&points[firstline+1]) < 0.0000001)
+      firstline++;
+    if (firstline == num_points-1)
+      firstline = 0; /* No non-zero lines, it doesn't matter. */
+    oldstart = points[firstline];
+    calculate_arrow_point(start_arrow, 
+			  &points[firstline], &points[firstline+1], 
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[0];
+    arrow_head = points[firstline];
     point_sub(&arrow_head, &move_arrow);
-    point_sub(&points[0], &move_line);
+    point_sub(&points[firstline], &move_line);
     arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, &points[1],
+	       &arrow_head, &points[firstline+1],
 	       start_arrow->length, start_arrow->width,
 	       line_width,
 	       color, &color_white);
 #ifdef STEM
-    Point line_start = &points[0];
-    &points[0] = arrow_head;
+    Point line_start = &points[firstline];
+    &points[firstline] = arrow_head;
     point_normalize(&move);
     point_scale(&move, start_arrow->length);
-    point_sub(&points[0], &move);
-    renderer->ops->draw_line(renderer, &line_start, &points[0], color);
+    point_sub(&points[firstline], &move);
+    renderer->ops->draw_line(renderer, &line_start, &points[firstline], color);
 #endif
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
-    calculate_arrow_point(end_arrow, &points[num_points-1], 
-			  &points[num_points-2],
+    while (lastline > 0 && 
+	   distance_point_point(&points[lastline-1], 
+				&points[lastline-2]) < 0.0000001)
+      lastline--;
+    if (lastline == 0)
+      firstline = num_points; /* No non-zero lines, it doesn't matter. */
+    oldend = points[lastline-1];
+    calculate_arrow_point(end_arrow, &points[lastline-1], 
+			  &points[lastline-2],
  			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[num_points-1];
+    arrow_head = points[lastline-1];
     point_sub(&arrow_head, &move_arrow);
-    point_sub(&points[num_points-1], &move_line);
+    point_sub(&points[lastline-1], &move_line);
     arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, &points[num_points-2],
+	       &arrow_head, &points[lastline-2],
 	       end_arrow->length, end_arrow->width,
 	       line_width,
 	       color, &color_white);
 #ifdef STEM
-    Point line_start = &points[num_points-1];
-    &points[num_points-1] = arrow_head;
+    Point line_start = &points[lastline-1];
+    &points[lastline-1] = arrow_head;
     point_normalize(&move);
     point_scale(&move, end_arrow->length);
-    point_sub(&points[num_points-1], &move);
-    renderer->ops->draw_line(renderer, &line_start, &points[num_points-1], color);
+    point_sub(&points[lastline-1], &move);
+    renderer->ops->draw_line(renderer, &line_start, &points[lastline-1], color);
 #endif
   }
-  renderer->ops->draw_polyline(renderer, points, num_points, color);
+  /* Don't draw degenerate line segments at end of line */
+  renderer->ops->draw_polyline(renderer, &points[firstline], 
+			       lastline-firstline, color);
 
-  points[0] = oldstart;
-  points[num_points-1] = oldend;
+  points[firstline] = oldstart;
+  points[lastline-1] = oldend;
 }
 
 static void
