@@ -10,44 +10,51 @@ Contents
 
 When a new version is about to be released:
 
-1) The core developers agree on the version number. It's called
+0) Day Zero (D+0): The core developers announce their intention of
+   making a new release. They call for a feature freeze on the CVS
+   HEAD (bug fixes are okay to commit). They also announce the
+   provisional duration of the freeze before the first release
+   candidate tarball is about to be made (actual freeze duration may vary for
+   instance according to the perceived amount of changes since the
+   last release; for the purpose of this document, it's assumed to be
+   three days).
+
+   Advanced users are encouraged to download the CVS HEAD or the
+   snapshot tarballs, and pound on them.
+
+1) The core developers agree on the next version number. It's called
    $VERSION thereafter. 
 
-2) Day Zero (D+0): the imminence of a release is announced. This is a
-   call for advanced users to pound on the CVS version.
-
-3) D+3: a release candidate tarball is made. It is called
+2) D+3: a release candidate tarball is made. It is called
    $VERSION-pre1. Simultaneously, a CVS tag is made with the name
    "DIA_$VERSION_PRE1" (with the non-alphanumeric characters in
    $VERSION replaced by underscores). $VERSION-pre1 is registered with
-   the Bugzilla (FIXME: only if it can later on be de-registered !)
+   the Bugzilla, however it is encouraged that bug reports are made
+   directly (or simultaneously) to the mailing list.
 
-4a) D+10: if there are no release-critical bugs in the pre-release,
+3a) if a release-critical bug happens before D+10 (say, at D+n), the
+   release process is paused until the bug is fixed and a new release
+   candidate tarball $VERSION-pre2 is re-made. Go to either step 3a or
+   3b with D+10 replaced by D+n+10.
+
+3b) D+10: if there are no release-critical bugs in the pre-release,
    then the same source (fetched from the CVS tag) is rebuilt with the
    final $VERSION number (and the resulting "new" version is re-tagged
    in CVS). $VERSION is registered with the Bugzilla, and all
    $VERSION-preX are removed (from now on, bugs against -preX are
    rejected as INVALID).
 
-4b) if a release-critical bug happens before D+10 (say, at D+n), the
-   release process is paused until the bug is fixed and a new release
-   candidate tarball $VERSION-pre2 is re-made. Go to either step 4a or
-   4b with D+10 replaced by D+n+10.
+4) once the new release is complete and uploaded, announcements on
+   freshmeat and the dia web site are made. 
+
+5) the CVS HEAD freeze is lifted one week /after/ the release is
+   generally available, unless a release critical bug is discovered in
+   the release. If the latter is the case, a new, fixed "brown bag" release is
+   released and announced as soon as possible (extending the one-week
+   delay on the CVS HEAD thaw).
 
 Issues to solve
 ---------------
 
-What to do with Windows; changing the version number causes a complete
-rebuild, and this seems to be a problem for Hans. In particular, it
-seems to upsets him to rebuild when the only change is going from
-$VERSION-preX to $VERSION.
-
-OTOH, if there is no prominent "pre-release" marker very visible
-anywhere (setup does not count: nobody pays attention to what's going
-on in the setup !), there is a high risk that the typical Windows user
-will happily mash up things when reporting bugs, which will just
-result in nightmare.
-
-Any ideas ? (a small text file, which if present next to dia.exe, is
-read and supplements the version number at run time ?)
-
+agreeing on how to properly handle the case of having only ten two-decimal
+place version numbers until we hit 1.0 
