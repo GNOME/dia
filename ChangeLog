@@ -1,5 +1,7 @@
 2003-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-import.c: Added import of arrows.
+
 	* app/menus.c: Removed prefs item from Gnome diagram menu.  Made
 	Align Vertical Adjacent call _v rather than _h.
 

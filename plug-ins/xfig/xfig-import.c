@@ -192,14 +192,22 @@ create_standard_box(real xpos, real ypos, real width, real height,
   return new_obj;
 }
 
+static PropDescription xfig_line_prop_descs[] = {
+    PROP_STD_START_ARROW,
+    PROP_STD_END_ARROW,
+    PROP_DESC_END};
+
 static Object *
 create_standard_polyline(int num_points, 
 			 Point *points,
+			 Arrow *end_arrow,
+			 Arrow *start_arrow,
 			 DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - PolyLine");
     Object *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
+    GPtrArray *props;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
@@ -214,6 +222,17 @@ create_standard_polyline(int num_points,
 				 &h1, &h2);
 
     g_free(pcd);
+
+    props = prop_list_from_descs(xfig_line_prop_descs,pdtpp_true);
+    g_assert(props->len == 2);
+    
+    if (start_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
+    if (end_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
     
     return new_obj;
 }
@@ -246,11 +265,14 @@ create_standard_polygon(int num_points,
 static Object *
 create_standard_bezierline(int num_points, 
 			   BezPoint *points,
+			   Arrow *end_arrow,
+			   Arrow *start_arrow,
 			   DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - BezierLine");
     Object *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
+    GPtrArray *props;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
@@ -265,6 +287,17 @@ create_standard_bezierline(int num_points,
 				 &h1, &h2);
 
     g_free(bcd);
+    
+    props = prop_list_from_descs(xfig_line_prop_descs,pdtpp_true);
+    g_assert(props->len == 2);
+    
+    if (start_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
+    if (end_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
     
     return new_obj;
 }
@@ -298,11 +331,16 @@ create_standard_beziergon(int num_points,
 
 static PropDescription xfig_arc_prop_descs[] = {
     { "curve_distance", PROP_TYPE_REAL },
+    PROP_STD_START_ARROW,
+    PROP_STD_END_ARROW,
     PROP_DESC_END};
 
 static Object *
 create_standard_arc(real x1, real y1, real x2, real y2,
-		    real radius, DiagramData *dia) {
+		    real radius, 
+		    Arrow *end_arrow,
+		    Arrow *start_arrow,
+		    DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Arc");
     Object *new_obj;
     Handle *h1, *h2;
@@ -322,9 +360,14 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     /*    layer_add_object(dia->active_layer, new_obj); */
     
     props = prop_list_from_descs(xfig_arc_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);
+    g_assert(props->len == 3);
     
     ((RealProperty *)g_ptr_array_index(props,0))->real_data = radius;
+    if (start_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *start_arrow;
+    if (end_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 2))->arrow_data = *end_arrow;
+
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
 
@@ -528,14 +571,45 @@ fig_read_n_points(FILE *file, int n, Point **points) {
   return TRUE;
 }
 
-static void
+static Arrow *
 fig_read_arrow(FILE *file) {
     int arrow_type, style;
     real thickness, width, height;
+    Arrow *arrow;
+
     if (fscanf(file, "%d %d %lf %lf %lf\n",
-	       &arrow_type, &style, &thickness, &width, &height) != 5) {
+	       &arrow_type, &style, &thickness,
+	       &width, &height) != 5) {
 	message_error(_("Error while reading arrowhead\n"));
+	return NULL;
     }
+
+    arrow = g_new(Arrow, 1);
+
+    switch (arrow_type) {
+    case 0:
+	arrow->type = ARROW_LINES;
+	break;
+    case 1:
+	arrow->type = (style?ARROW_FILLED_TRIANGLE:ARROW_HOLLOW_TRIANGLE);
+	break;
+    case 2:
+	arrow->type = (style?ARROW_FILLED_CONCAVE:ARROW_BLANKED_CONCAVE);
+	break;
+    case 3:
+	arrow->type = (style?ARROW_FILLED_DIAMOND:ARROW_HOLLOW_DIAMOND);
+	break;
+    default:
+	message_error(_("Unknown arrow type %d\n"), arrow_type);
+	g_free(arrow);
+	return NULL;
+    }
+    arrow->width = width/FIG_UNIT;
+    arrow->length = height/FIG_UNIT;
+
+    printf("Arrow type %d size %f, %f\n", arrow->type, arrow->width, arrow->length);
+
+    return arrow;
 }
 
 static void
@@ -668,8 +742,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     int join_style;
     int cap_style;
     int radius;
-    int forward_arrow;
-    int backward_arrow;
+    int forward_arrow, backward_arrow;
+    Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
@@ -694,22 +768,22 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	       &backward_arrow,
 	       &npoints) != 15) {
 	message_error(_("Couldn't read polyline info: %s\n"), strerror(errno));
-	return NULL;
+	goto exit;
     }
 
     if (forward_arrow == 1) {
-	fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file);
     }
 
     if (backward_arrow == 1) {
-	fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file);
     }
 
     if (sub_type == 5) { /* image has image name before npoints */
 	/* Despite what the specs say */
 	if (fscanf(file, " %d", &flipped) != 1) {
 	    message_error(_("Couldn't read flipped bit: %s\n"), strerror(errno));
-	    return NULL;
+	    goto exit;
 	}
 
 	image_file = fig_read_text_line(file);
@@ -717,7 +791,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     }
 
     if (!fig_read_n_points(file, npoints, &points)) {
-	return NULL;
+	goto exit;
     }
      
     switch (sub_type) {
@@ -759,7 +833,10 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	if (newobj == NULL) goto exit;
 	break;
     case 1: /* polyline */
-	newobj = create_standard_polyline(npoints, points, dia);
+	newobj = create_standard_polyline(npoints, points, 
+					  forward_arrow_info, 
+					  backward_arrow_info,
+					  dia);
 	if (newobj == NULL) goto exit;
 	break;
     case 3: /* polygon */
@@ -785,8 +862,9 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	if (compound_depth > depth) compound_depth = depth;
  exit:
     prop_list_free(props);
-    if (image_file != NULL)
-	g_free(image_file);
+    g_free(forward_arrow_info);
+    g_free(backward_arrow_info);
+    g_free(image_file);
     return newobj;
 }
 
@@ -893,8 +971,8 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     int area_fill;
     real style_val;
     int cap_style;
-    int forward_arrow;
-    int backward_arrow;
+    int forward_arrow, backward_arrow;
+    Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
@@ -917,19 +995,19 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 	       &backward_arrow,
 	       &npoints) != 13) {
 	message_error(_("Couldn't read spline info: %s\n"), strerror(errno));
-	return NULL;
+	goto exit;
     }
 
     if (forward_arrow == 1) {
-	fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file);
     }
 
     if (backward_arrow == 1) {
-	fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file);
     }
 
     if (!fig_read_n_points(file, npoints, &points)) {
-	return NULL;
+	goto exit;
     }
      
     switch (sub_type) {
@@ -963,7 +1041,10 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 #if 0
 	    if (sub_type%2 == 0) {
 		bezpoints = fig_transform_spline(npoints, points, FALSE, f);
-		newobj = create_standard_bezierline(npoints, bezpoints, dia);
+		newobj = create_standard_bezierline(npoints, bezpoints,
+						    forward_arrow_info,
+						    backward_arrow_info,
+						    dia);
 	    } else {
 		points = g_renew(Point, points, npoints+1);
 		points[npoints] = points[0];
@@ -974,7 +1055,10 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 #else
 	    if (sub_type%2 == 0) {
 		bezpoints = transform_spline(npoints, points, FALSE);
-		newobj = create_standard_bezierline(npoints, bezpoints, dia);
+		newobj = create_standard_bezierline(npoints, bezpoints,
+						    forward_arrow_info,
+						    backward_arrow_info,
+						    dia);
 	    } else {
 		points = g_renew(Point, points, npoints+1);
 		points[npoints] = points[0];
@@ -1004,6 +1088,8 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 	if (compound_depth > depth) compound_depth = depth;
  exit:
     prop_list_free(props);
+    g_free(forward_arrow_info);
+    g_free(backward_arrow_info);
     g_free(points);
     return newobj;
 }
@@ -1021,8 +1107,8 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     real style_val;
     int cap_style;
     int direction;
-    int forward_arrow;
-    int backward_arrow;
+    int forward_arrow, backward_arrow;
+    Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
     Object *newobj = NULL;
     real center_x, center_y;
     int x1, y1;
@@ -1049,15 +1135,15 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 	       &x2, &y2,
 	       &x3, &y3) != 21) {
 	message_error(_("Couldn't read arc info: %s\n"), strerror(errno));
-	return NULL;
+	goto exit;
     }
 
     if (forward_arrow == 1) {
-	fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file);
     }
 
     if (backward_arrow == 1) {
-	fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file);
     }
 
     radius = sqrt((x1-center_x)*(x1-center_x)+(y1-center_y)*(y1-center_y))/FIG_UNIT;
@@ -1067,12 +1153,15 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     case 1: 
 	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
 				     x3/FIG_UNIT, y3/FIG_UNIT,
-				     radius, dia);
-	if (newobj == NULL) return NULL;
+				     radius, 
+				     forward_arrow_info,
+				     backward_arrow_info,
+				     dia);
+	if (newobj == NULL) goto exit;
 	break;
     default: 
 	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
-	return NULL;
+	goto exit;
     }
 
     fig_simple_properties(newobj, line_style, thickness,
@@ -1089,6 +1178,9 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     else
 	if (compound_depth > depth) compound_depth = depth;
 
+ exit:
+    g_free(forward_arrow_info);
+    g_free(backward_arrow_info);
     return newobj;
 }
 
