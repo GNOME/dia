@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dia 0.86\n"
 "POT-Creation-Date: 2000-08-16 11:57+0000\n"
 "PO-Revision-Date: 2000-08-16 13:51+00:00\n"
-"Last-Translator: Benedikt Roth <Benedikt.Roth@gmx.net>\n"
+"Last-Translator: Daniel Egger <egger@suse.de>\n"
 "Language-Team: de <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -212,14 +212,12 @@ msgid "y"
 msgstr "y"
 
 #: app/dia-props.c:137
-#, fuzzy
 msgid "Spacing"
-msgstr "Skalierung"
+msgstr "Abstand"
 
 #: app/dia-props.c:157
-#, fuzzy
 msgid "Visible spacing"
-msgstr "Gitter sichtbar"
+msgstr "Sichtbarer Abstand"
 
 #: app/dia-props.c:177
 msgid "Grid"
@@ -2647,9 +2645,8 @@ msgid "Scalable Vector Graphics"
 msgstr "Skalierbare Vektorgrafiken"
 
 #: plug-ins/svg/svg.c:36
-#, fuzzy
 msgid "Scalable Vector Graphics export filter"
-msgstr "Skalierbare Vektorgrafiken"
+msgstr "Skalierbare VektorGrafiken Exportfilter"
 
 #~ msgid "/Edit/Copy"
 #~ msgstr "/Bearbeiten/Kopieren"
