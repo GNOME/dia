@@ -1,3 +1,7 @@
+2005-02-14  Lars Clausen  <lars@LittlePooter.local.>
+
+	* INSTALL (ftp): Fixed Pango release typo (bug #153007)
+
 2005-02-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.c: First stab at using Gtk 2.4 functions for fixing

@@ -44,7 +44,7 @@ font-config 1.0.1
 GLib 2.1.3
 ATK 2.0.0
 FreeType 2.0.9
-Pango 2.1.5
+Pango 1.1.5
 GTK+ 2.0.0
 libxml 2.3.9
 
