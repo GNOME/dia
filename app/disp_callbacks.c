@@ -351,17 +351,34 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
  
 }
 
-#ifdef USE_XIM
-static void
-set_input_dialog(DDisplay *ddisp, int x, int y)
+void
+ddisplay_size_allocate (GtkWidget *widget,
+			GtkAllocation *allocation,
+			gpointer data)
 {
-  if (gdk_im_ready () && ddisp->ic && (gdk_ic_get_style(ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
-    ddisp->ic_attr->spot_location.x = x;
-    ddisp->ic_attr->spot_location.y = y; 
-    gdk_ic_set_attr(ddisp->ic, ddisp->ic_attr, GDK_IC_SPOT_LOCATION);
-  }
-}
+	DDisplay *ddisp;
+
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (allocation != NULL);
+	g_return_if_fail (data != NULL);
+
+	widget->allocation = *allocation;
+	ddisp = (DDisplay *)data;
+#ifdef USE_XIM
+	if (GTK_WIDGET_REALIZED (widget)) {
+		if (gdk_im_ready () && ddisp->ic &&
+		    (gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
+			gint width, height;
+
+			gdk_window_get_size (widget, &width, &height);
+			ddisp->ic_attr->preedit_area.width = width;
+			ddisp->ic_attr->preedit_area.height = height;
+			gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,
+					 GDK_IC_PREEDIT_AREA);
+		}
+	}
 #endif
+}
 
 void
 ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
@@ -576,11 +593,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  int len = 0;
 	
 	  object_add_updates(obj, ddisp->diagram);
-#ifdef USE_XIM
-	  ddisplay_transform_coords(ddisp, obj->position.x, obj->position.y,
-				    &x, &y);
-	  set_input_dialog(ddisp, x, y);
-#endif
 #ifdef UNICODE_WORK_IN_PROGRESS
 	  utf = charconv_utf8_from_gtk_event_key (kevent->keyval, kevent->string);
 #else

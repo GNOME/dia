@@ -296,6 +296,9 @@ create_display_shell(DDisplay *ddisp,
   gtk_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
                       GTK_SIGNAL_FUNC (ddisplay_unrealize),
 		      ddisp);
+  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "size_allocate",
+		      GTK_SIGNAL_FUNC (ddisplay_size_allocate),
+		      ddisp);
 
   /* Clipboard handling signals */
   gtk_signal_connect (GTK_OBJECT(ddisp->shell), "selection_get",

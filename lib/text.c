@@ -30,6 +30,7 @@
 #include "message.h"
 #include "charconv.h"
 #include "intl.h"
+#include "../app/display.h"
 
 static int text_key_event(Focus *focus, guint keysym,
 			  utfchar *str, int strlen,
@@ -408,6 +409,7 @@ text_draw(Text *text, Renderer *renderer)
 {
   Point pos;
   int i;
+  DDisplay *ddisp = ddisplay_active ();
   
   renderer->ops->set_font(renderer, text->font, text->height);
   
@@ -459,6 +461,24 @@ text_draw(Text *text, Renderer *renderer)
     renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     renderer->ops->set_linewidth(renderer, 0.1);
     renderer->ops->draw_line(renderer, &p1, &p2, &color_black);
+
+#ifdef USE_XIM
+    if (gdk_im_ready () && ddisp->ic &&
+	(gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
+	    gint x, y, width, height, ascent, descent;
+
+	    ascent = ddisp->canvas->style->font->ascent;
+	    descent = ddisp->canvas->style->font->descent;
+	    gdk_window_get_size (ddisp->canvas->window, &width, &height);
+	    ddisplay_transform_coords (ddisp, p2.x, p2.y, &x, &y);
+	    ddisp->ic_attr->spot_location.x = x + ((ascent + descent) * 2);
+	    ddisp->ic_attr->spot_location.y = y + ((ascent - descent) * 2);
+	    ddisp->ic_attr->preedit_area.width = width;
+	    ddisp->ic_attr->preedit_area.height = height;
+	    gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,
+			     GDK_IC_SPOT_LOCATION | GDK_IC_PREEDIT_AREA);
+    }
+#endif
   }
 }
 

@@ -1,3 +1,16 @@
+2002-02-10  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_draw): fixed XIM transaction.
+
+	* app/interface.c (create_display_shell): add signal for
+	size_allocate.
+
+	* app/disp_callbacks.c (ddisplay_size_allocate): add new function for
+	XIM transaction.
+	(set_input_dialog): remove.
+	(ddisplay_canvas_events): remove XIM transaction. it can't transact
+	correctly on this function.
+
 2002-02-10  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* app/app_procs.c:
