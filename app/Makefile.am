@@ -196,6 +196,8 @@ EXTRA_DIST = \
 	winmain.c \
 	makefile.msc \
 	dia.def \
+	dia.ico \
+	dia.rc \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \
