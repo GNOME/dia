@@ -15,7 +15,8 @@ shapedir = $(pkgdatadir)/shapes
 
 # add -DDEBUG_CUSTOM here to get extra debugging info.
 INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib $(GTK_CFLAGS) \
-	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(XML_CFLAGS) -DDIA_SHAPEDIR=\""$(shapedir)"\"
+	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) \
+	-DDIA_SHAPEDIR=\""$(shapedir)"\"
 
 EXTRA_DIST = \
 	pixmaps/custom.xpm

@@ -1,3 +1,22 @@
+2002-03-15  Steffen Macke <sdteffen@yahoo.com>
+
+	* objects/standard/Makefile.am:
+	* objects/network/Makefile.am:
+	* objects/UML/Makefile.am:
+	* objects/ER/Makefile.am:
+	* objects/FS/Makefile.am:
+	* objects/flowchart/Makefile.am:
+	* objects/custom/Makefile.am:
+	* objects/GRAFCET/Makefile.am:
+	* objects/chronogram/Makefile.am:
+	* objects/SADT/Makefile.am:
+	* plug-ins/cgm/Makefile.am:
+	* plug-ins/pstricks/Makefile.am:
+	* plug-ins/hpgl/Makefile.am:
+	* plug-ins/wpg/Makefile.am:
+	* plug-ins/svg/Makefile.am:
+	* plug-ins/shape/Makefile.am: added $(UNICODE_CFLAGS)
+	
 2002-03-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_eps.c: Support for dumping TrueType fonts (taken from
