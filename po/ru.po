@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-05-18 12:26+0000\n"
-"PO-Revision-Date: 2000-05-18 12:33+00:00\n"
+"POT-Creation-Date: 2000-05-25 17:31+0000\n"
+"PO-Revision-Date: 2000-05-25 17:49+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Выход"
 
 #: app/app_procs.c:331 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
-#: app/paginate_psprint.c:241
+#: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -135,7 +135,7 @@ msgstr "Разработчики:"
 #. setup buttons
 #: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:233 app/preferences.c:601 app/properties.c:82
+#: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "ОК"
@@ -162,87 +162,87 @@ msgstr "У этого объекта нет исх.свойств."
 msgid "Could not initialize Bonobo!"
 msgstr "Не удалось инициализировать Bonobo!"
 
-#: app/diagram.c:155
+#: app/diagram.c:176
 msgid "/Edit/Copy"
 msgstr "/Правка/Скопировать"
 
-#: app/diagram.c:157
+#: app/diagram.c:178
 msgid "/Edit/Cut"
 msgstr "/Правка/Вырезать"
 
-#: app/diagram.c:159
+#: app/diagram.c:180
 msgid "/Edit/Paste"
 msgstr "/Правка/Вставить"
 
-#: app/diagram.c:162
+#: app/diagram.c:183
 msgid "/Edit/Delete"
 msgstr "/Правка/Удалить"
 
-#: app/diagram.c:166 app/menus.c:277
+#: app/diagram.c:187 app/menus.c:277
 msgid "/Edit/Copy Text"
 msgstr "/Правка/Скопировать текст"
 
-#: app/diagram.c:168 app/menus.c:278
+#: app/diagram.c:189 app/menus.c:278
 msgid "/Edit/Cut Text"
 msgstr "/Правка/Вырезать текст"
 
-#: app/diagram.c:170
+#: app/diagram.c:191
 msgid "/Edit/Paste Text"
 msgstr "/Правка/Вставить текст"
 
-#: app/diagram.c:173
+#: app/diagram.c:194
 msgid "/Objects/Send to Back"
 msgstr "/Объекты/Переместить назад"
 
-#: app/diagram.c:175
+#: app/diagram.c:196
 msgid "/Objects/Bring to Front"
 msgstr "/Объекты/Переместить вперед"
 
-#: app/diagram.c:178
+#: app/diagram.c:199
 msgid "/Objects/Group"
 msgstr "/Объекты/Сгруппировать"
 
-#: app/diagram.c:180
+#: app/diagram.c:201
 msgid "/Objects/Ungroup"
 msgstr "/Объекты/Разгруппировать"
 
-#: app/diagram.c:183 app/menus.c:327
+#: app/diagram.c:204 app/menus.c:327
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Объекты/Выравнивание гор./Влево"
 
-#: app/diagram.c:185 app/menus.c:328
+#: app/diagram.c:206 app/menus.c:328
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Объекты/Выравнивание гор./По центру"
 
-#: app/diagram.c:187 app/menus.c:329
+#: app/diagram.c:208 app/menus.c:329
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Объекты/Выравнивание гор./Вправо"
 
-#: app/diagram.c:189 app/menus.c:330
+#: app/diagram.c:210 app/menus.c:330
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Объекты/Выравнивание гор./Равные расстояния"
 
-#: app/diagram.c:191 app/menus.c:331
+#: app/diagram.c:212 app/menus.c:331
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Объекты/Выравнивание гор./Смежное"
 
-#: app/diagram.c:193 app/menus.c:333
+#: app/diagram.c:214 app/menus.c:333
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Объекты/Выравнивание верт./По верху"
 
-#: app/diagram.c:195 app/menus.c:334
+#: app/diagram.c:216 app/menus.c:334
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Объекты/Выравнивание верт./По центру"
 
-#: app/diagram.c:197 app/menus.c:335
+#: app/diagram.c:218 app/menus.c:335
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Объекты/Выравнивание верт./По низу"
 
-#: app/diagram.c:199 app/menus.c:336
+#: app/diagram.c:220 app/menus.c:336
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Объекты/Выравнивание верт./Равные расстояния"
 
-#: app/diagram.c:201 app/menus.c:337
+#: app/diagram.c:222 app/menus.c:337
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Объекты/Выравнивание верт./Смежное"
 
@@ -337,12 +337,12 @@ msgstr ""
 "Эта диаграмма не была сохранена.\n"
 "Вы уверены, что хотите закрыть это окно?"
 
-#: app/display.c:818 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
+#: app/display.c:818 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
 #: lib/properties.c:267
 msgid "Yes"
 msgstr "Да"
 
-#: app/display.c:828 app/filedlg.c:267 app/filedlg.c:456 app/preferences.c:495
+#: app/display.c:828 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
 #: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
 msgid "No"
 msgstr "Нет"
@@ -367,7 +367,7 @@ msgstr "/Вид/Показывать соединительные точки"
 msgid "/View/AntiAliased"
 msgstr "/Вид/Сглаженный"
 
-#: app/export_png.c:78 app/load_save.c:517 app/render_eps.c:162
+#: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
 #: plug-ins/pstricks/render_pstricks.c:185
 #, c-format
@@ -390,36 +390,27 @@ msgstr "При записи PNG обнаружена ошибка"
 msgid "Portable Network Graphics"
 msgstr "Переносимая сетевая графика (PNG)"
 
-#: app/filedlg.c:94 app/filedlg.c:381
+#: app/filedlg.c:94 app/filedlg.c:368
 msgid "By extension"
 msgstr "По расширению"
 
-#: app/filedlg.c:142
-#, c-format
-msgid ""
-"Could not determine which import filter\n"
-"to use to open '%s'"
-msgstr ""
-"Невозможно определить какой фильтр\n"
-"использовать для того чтобы открыть '%s'"
-
-#: app/filedlg.c:166
+#: app/filedlg.c:153
 msgid "Open Diagram"
 msgstr "Открыть диаграмму"
 
-#: app/filedlg.c:192
+#: app/filedlg.c:179
 msgid "Open Options"
 msgstr "Параметры открытия"
 
-#: app/filedlg.c:200 app/filedlg.c:540
+#: app/filedlg.c:187 app/filedlg.c:527
 msgid "Determine file type:"
 msgstr "Определять тип файла:"
 
-#: app/filedlg.c:240 app/filedlg.c:428
+#: app/filedlg.c:227 app/filedlg.c:415
 msgid "File already exists"
 msgstr "Файл уже существует"
 
-#: app/filedlg.c:244 app/filedlg.c:431
+#: app/filedlg.c:231 app/filedlg.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -428,11 +419,11 @@ msgstr ""
 "Файл '%s' уже существует.\n"
 "Хотите переписать его?"
 
-#: app/filedlg.c:308
+#: app/filedlg.c:295
 msgid "Save Diagram"
 msgstr "Сохранить диаграмму"
 
-#: app/filedlg.c:488
+#: app/filedlg.c:475
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -441,11 +432,11 @@ msgstr ""
 "Невозможно определить какой экспортный\n"
 "фильтр использовать для сохранения '%s'"
 
-#: app/filedlg.c:505
+#: app/filedlg.c:492
 msgid "Export Diagram"
 msgstr "Экспорт диаграммы"
 
-#: app/filedlg.c:532
+#: app/filedlg.c:519
 msgid "Export Options"
 msgstr "Экспорт параметров"
 
@@ -517,7 +508,7 @@ msgstr "Многоугольник"
 msgid "Create Line"
 msgstr "Создать линию"
 
-#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:177
+#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:183
 msgid "Line"
 msgstr "Линия"
 
@@ -563,7 +554,7 @@ msgstr "Изображение"
 
 #: app/interface.c:301
 msgid "NULL tooldata in tool_select_update"
-msgstr ""
+msgstr "NULL данные инструмента в tool_select_update"
 
 #: app/interface.c:657
 msgid ""
@@ -695,12 +686,12 @@ msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
 "Это не Dia файл."
 
-#: app/load_save.c:615
+#: app/load_save.c:599
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Не удалось сохранить файл '%s'.\n"
 
-#: app/load_save.c:635 app/load_save.c:640
+#: app/load_save.c:619 app/load_save.c:624
 msgid "Native Dia Diagram"
 msgstr "Собственный формат диаграмм Dia"
 
@@ -1262,7 +1253,7 @@ msgstr "/Диалоги/Слои"
 
 #: app/menus.c:374
 msgid "NULL tooldata in tool_menu_select"
-msgstr ""
+msgstr "NULL данные инструмента в tool_menu_select"
 
 #: app/menus.c:405 app/menus.c:510
 msgid "/Tools/"
@@ -1272,15 +1263,15 @@ msgstr "/Инструменты/"
 msgid "Print Diagram"
 msgstr "Напечатать диаграмму"
 
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:205
+#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
 msgid "Printer"
 msgstr "Принтер"
 
-#: app/paginate_psprint.c:193
+#: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Выбрать принтер"
 
-#: app/paginate_psprint.c:218
+#: app/paginate_psprint.c:219
 msgid "File"
 msgstr "Файл"
 
@@ -1673,35 +1664,30 @@ msgstr "Идентификация"
 msgid "Relationship"
 msgstr "Отношение"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:747 objects/FS/flow.c:629 objects/FS/flow.c:744
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:744
 msgid "Flow:"
 msgstr "Поток:"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:763 objects/FS/flow.c:644 objects/FS/flow.c:760
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:760
 msgid "Flow type:"
 msgstr "Тип потока:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:785 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:768 objects/FS/flow.c:649
-#: objects/FS/flow.c:704 objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:649 objects/FS/flow.c:704
+#: objects/FS/flow.c:765
 msgid "Energy"
 msgstr "Энергия"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:792 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:708 objects/FS/flow-poly.c:775 objects/FS/flow.c:656
-#: objects/FS/flow.c:705 objects/FS/flow.c:772
+#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:656 objects/FS/flow.c:705
+#: objects/FS/flow.c:772
 msgid "Material"
 msgstr "Материал"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:798 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:781 objects/FS/flow.c:662
-#: objects/FS/flow.c:706 objects/FS/flow.c:778 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:662 objects/FS/flow.c:706
+#: objects/FS/flow.c:778 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Сигнал"
 
@@ -1992,7 +1978,7 @@ msgid "Vergent type:"
 msgstr ""
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
-#: objects/standard/line.c:171
+#: objects/standard/line.c:177
 msgid "Add connection point"
 msgstr "Добавить соединительную точку"
 
@@ -2057,13 +2043,13 @@ msgstr "Заполнение текста:"
 msgid "Activity/Data identifier"
 msgstr "Идентификатор деятельности/данных"
 
-#: objects/SADT/box.c:539 objects/standard/line.c:172
+#: objects/SADT/box.c:539 objects/standard/line.c:178
 msgid "Delete connection point"
 msgstr "Удалить соединительную точку"
 
 #: objects/SADT/box.c:544
 msgid "SADT box"
-msgstr ""
+msgstr "Ячейка SADT"
 
 #: objects/SADT/sadt.c:37
 msgid "SADT diagram objects"
@@ -2438,15 +2424,15 @@ msgstr "Цвет линии:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
-msgstr ""
+msgstr "Основной шаг времени:"
 
 #: objects/chronogram/chronoref.c:248 objects/chronogram/chronoref.c:313
 msgid "Minor time step:"
-msgstr ""
+msgstr "Вспомогательный шаг времени:"
 
 #: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Minor step line width:"
-msgstr ""
+msgstr "Ширина линии вспомогательного шага:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
@@ -2582,6 +2568,14 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Файл изображения \"%s\" не был найден.\n"
 
+#: objects/standard/line.c:118
+msgid "Start point"
+msgstr "Начальная точка:"
+
+#: objects/standard/line.c:120
+msgid "End point"
+msgstr "Конечная точка"
+
 #: objects/standard/polygon.c:597 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Добавить уголок"
@@ -2622,9 +2616,9 @@ msgstr "Фильтр экспорта файлов Computer Graphics Metafile"
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файла обмена изображениями)"
 
-#: plug-ins/dxf/dxf.c:15
-msgid "Drawing Interchange File export filter"
-msgstr "Экспортный фильтр DIF"
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Фильтр экспорта/импорта DIF (Drawing Interchange File)"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
