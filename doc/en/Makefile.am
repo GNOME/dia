@@ -31,7 +31,16 @@ GRAPHICS = \
 EXTRA_DIST = \
 	topic.dat \
 	$(GRAPHICS) \
-	$(XML_FILES)
+	$(XML_FILES) \
+	dia.1
+
+man_MANS = dia.1
+
+# This is NOT tested yet.  Convert by hand until then.
+#DB2MAN=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl
+#
+#dia.1: dia.dbk
+#	xsltproc --nonet --novalid $(DB2MAN) dia.dbk
 
 if HAVE_DB2HTML
 stamp-doc: $(XML_FILES)

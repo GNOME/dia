@@ -5,7 +5,6 @@ SUBDIRS = lib objects plug-ins shapes app samples po sheets doc
 gnomedatadir = $(datadir)
 
 pkgdata_DATA = dia_logo.png
-man_MANS = dia.1
 
 pixmapdir = $(gnomedatadir)/pixmaps
 pixmap_DATA = dia_gnome_icon.png dia-diagram.png
@@ -43,7 +42,7 @@ core-translation-report: po/dia.pot po-checktrans.py po-checktrans
 all-local: core-translation-report po/Makefile
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
-	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
+	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) \
 	dia-diagram.png dia.mime dia.keys.in \
 	core-translation-report po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \

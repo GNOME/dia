@@ -1,3 +1,8 @@
+dia-0.92: 19-Oct-2003
+
+* Like pre7, but with some updated translations and documentation.  Now
+  included man page.
+
 dia-0.92-pre7: 14-Oct-2003
 
 * EPS output with built-in fonts now does locale conversion.  The PS still

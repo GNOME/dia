@@ -50,7 +50,7 @@
        <title>Adjuster Dots</title>
        <screenshot>
          <screeninfo>The green dots allow resizing the image.</screeninfo>
-         <graphic format="png" fileref="graphics/greendots.png" srccredit=
+         <graphic format="PNG" fileref="graphics/greendots.png" srccredit=
 	 "Kevin Breit" />
        </screenshot>
      </figure> 
@@ -109,7 +109,7 @@
       <title>The line icon</title>
      <screenshot>
       <screeninfo>The line icon</screeninfo>
-      <graphic format="png" fileref="graphics/line_icon.png" srccredit=
+      <graphic format="PNG" fileref="graphics/line_icon.png" srccredit=
       "Steffen Macke" />
       </screenshot>
     </figure>
@@ -126,7 +126,7 @@
     <title>Line properties</title>
       <screenshot>
         <screeninfo>The three sections are all described below.</screeninfo>
-        <graphic format="png" fileref="graphics/line_props.png" 
+        <graphic format="PNG" fileref="graphics/line_props.png" 
 	srccredit="Kevin Breit" />
       </screenshot>
     </figure>

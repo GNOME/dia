@@ -183,11 +183,11 @@
        The second could be it is easier to manage objects that behave efficiently in
        following established rules and can be accessed in a few clicks.
      </para>
-     <note>
-      <!-- para To learn more about advantages in connecting different objects together, you
+     <!-- <note>
+       para To learn more about advantages in connecting different objects together, you
         should read the Connecting Objects section.
-      para -->
-     </note>
+      para
+     </note>  -->
      <para>
        Selecting objects connected to a particular object, is as simple than selecting
        this particular object, right click on the Canvas to get the

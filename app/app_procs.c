@@ -278,6 +278,24 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 }
 #endif
 
+#ifdef HAVE_FREETYPE
+#define EPS_PANGO "eps-pango, "
+#else
+#define EPS_PANGO ""
+#endif
+
+#ifdef G_OS_WIN32
+#define WMF "wmf, "
+#else
+#define WMF ""
+#endif
+
+#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+#define BITMAPS "png, "
+#else
+#define BITMAPS "bmp, gif, jpg, png, pnm, ras, tif, "
+#endif
+
 void
 app_init (int argc, char **argv)
 {
@@ -301,7 +319,12 @@ app_init (int argc, char **argv)
     {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"export-to-format",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
-     0, N_("Export to file format and exit"), N_("eps,png,wmf,cgm,dxf,fig")},
+     0, N_("Export to file format and exit.  Supported formats are: "
+	   "cgm, dia, dxf, eps, " EPS_PANGO
+	   "fig, mp, plt, hpgl, " BITMAPS
+	   "shape, svg, tex, " WMF
+	   "wpg"), N_("FORMAT")
+    },
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
