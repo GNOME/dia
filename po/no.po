@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.40\n"
-"POT-Creation-Date: 1999-04-09 17:17+0200\n"
+"POT-Creation-Date: 1999-05-06 00:57+0200\n"
 "PO-Revision-Date: 1999-04-05 01:22+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -49,12 +49,12 @@ msgstr ""
 "Er du sikker på at du vil avslutte?"
 
 #: app/app_procs.c:251 app/commands.c:200 app/commands.c:371 app/display.c:720
-#: app/preferences.c:404
+#: app/preferences.c:412
 msgid "Yes"
 msgstr "Ja"
 
 #: app/app_procs.c:264 app/commands.c:213 app/commands.c:384 app/display.c:731
-#: app/preferences.c:404 app/preferences.c:415
+#: app/preferences.c:412 app/preferences.c:423
 msgid "No"
 msgstr "Nei"
 
@@ -184,7 +184,8 @@ msgstr "Om dia"
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:612 app/layer_dialog.c:946 lib/message.c:63
+#: app/commands.c:612 app/layer_dialog.c:946 app/preferences.c:493
+#: app/properties.c:52 lib/message.c:63
 msgid "OK"
 msgstr "OK"
 
@@ -380,8 +381,8 @@ msgstr "Lag"
 msgid "Diagrams:"
 msgstr "Diagrammer:"
 
-#: app/defaults.c:52 app/layer_dialog.c:252 app/preferences.c:485
-#: app/properties.c:51
+#: app/defaults.c:52 app/layer_dialog.c:252 app/preferences.c:513
+#: app/properties.c:71
 msgid "Close"
 msgstr "Lukk"
 
@@ -405,11 +406,11 @@ msgstr "Navn på lag:"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/load_save.c:76
+#: app/load_save.c:77
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:123
+#: app/load_save.c:124
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -417,16 +418,16 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:159
+#: app/load_save.c:160
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:165
+#: app/load_save.c:166
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:174 app/load_save.c:179
+#: app/load_save.c:175 app/load_save.c:180
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -435,7 +436,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:186
+#: app/load_save.c:187
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -444,7 +445,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:377 app/render_eps.c:139
+#: app/load_save.c:378 app/render_eps.c:139
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -814,15 +815,15 @@ msgstr "/Dialoger/_Egenskaper"
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
-#: app/properties.c:42
+#: app/properties.c:43
 msgid "Object properties"
 msgstr "Egenskaper for objekt"
 
-#: app/defaults.c:61 app/preferences.c:494 app/properties.c:60
+#: app/defaults.c:61 app/preferences.c:503 app/properties.c:61
 msgid "Apply"
 msgstr "Bruk"
 
-#: app/properties.c:73
+#: app/properties.c:83
 msgid "This object has no properties."
 msgstr "Dette objektet har ingen egenskaper."
 
@@ -846,39 +847,43 @@ msgstr "Vis standardverdier"
 msgid "Reset tools after create:"
 msgstr "Nullstill verktøy etter opprett:"
 
-#: app/preferences.c:78
+#: app/preferences.c:77
+msgid "Compress saved files:"
+msgstr "Komprimer lagrede filer:"
+
+#: app/preferences.c:79
 msgid "Grid:"
 msgstr "Rutenett:"
 
-#: app/preferences.c:79
+#: app/preferences.c:80
 msgid "Visible:"
 msgstr "Synlig:"
 
-#: app/preferences.c:80
+#: app/preferences.c:81
 msgid "X Size:"
 msgstr "X-størrelse:"
 
-#: app/preferences.c:81
+#: app/preferences.c:82
 msgid "Y Size:"
 msgstr "Y-størrelse:"
 
-#: app/preferences.c:83
+#: app/preferences.c:84
 msgid "New window:"
 msgstr "Nytt vindu:"
 
-#: app/preferences.c:84
+#: app/preferences.c:85
 msgid "Width:"
 msgstr "Bredde:"
 
-#: app/preferences.c:85
+#: app/preferences.c:86
 msgid "Height:"
 msgstr "Høyde:"
 
-#: app/preferences.c:86
+#: app/preferences.c:87
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: app/preferences.c:476
+#: app/preferences.c:484
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1050,7 +1055,7 @@ msgid "Create a template class"
 msgstr "Lag en malklasse"
 
 #. Class page:
-#: objects/UML/class.c:628 objects/UML/class_dialog.c:90
+#: objects/UML/class.c:629 objects/UML/class_dialog.c:90
 msgid "Class"
 msgstr "Klasse"
 
@@ -1060,7 +1065,7 @@ msgstr "Navn på klasse:"
 
 #: objects/UML/class_dialog.c:107 objects/UML/dependency.c:524
 #: objects/UML/generalization.c:501 objects/UML/large_package.c:532
-#: objects/UML/object.c:689 objects/UML/realizes.c:497
+#: objects/UML/object.c:693 objects/UML/realizes.c:497
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
@@ -1081,8 +1086,8 @@ msgid "Operations visible"
 msgstr "Synlige operasjoner"
 
 #: objects/UML/class_dialog.c:142
-msgid "Operations Attributes"
-msgstr "Attributter for operasjoner"
+msgid "Suppress operations"
+msgstr "Skjul operasjoner"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:550
@@ -1245,36 +1250,40 @@ msgid "Editor for UML Static Structure Diagrams."
 msgstr "Editor for UML Statiske Struktur Diagrammer."
 
 #. type
-#: objects/UML/usecase.c:105
+#: objects/UML/usecase.c:107
 msgid "Create a use case"
 msgstr "Lag et brukerkasus"
 
-#: objects/UML/usecase.c:475
+#: objects/UML/usecase.c:519
 msgid "Text outside:"
 msgstr "Tekst utenfor:"
+
+#: objects/UML/usecase.c:524
+msgid "Collaboration"
+msgstr "Samarbeid"
 
 #. type
 #: objects/UML/object.c:118
 msgid "Create an object"
 msgstr "Lag et objekt"
 
-#: objects/UML/object.c:677
+#: objects/UML/object.c:681
 msgid "Explicit state:"
 msgstr "Eksplisitt tilstand:"
 
-#: objects/UML/object.c:699
+#: objects/UML/object.c:703
 msgid "Attributes:"
 msgstr "Attributter:"
 
-#: objects/UML/object.c:709
+#: objects/UML/object.c:713
 msgid "Show attributes"
 msgstr "Vis attributter"
 
-#: objects/UML/object.c:713
+#: objects/UML/object.c:717
 msgid "Active object"
 msgstr "Aktiver objekt"
 
-#: objects/UML/object.c:718
+#: objects/UML/object.c:722
 msgid "multiple instance"
 msgstr "flere hendelser"
 
@@ -1296,40 +1305,40 @@ msgstr "Vis ødeleggelsesmerke:"
 msgid "Create a message"
 msgstr "Lag en melding"
 
-#: objects/UML/message.c:571
+#: objects/UML/message.c:573
 msgid "Message:"
 msgstr "Melding:"
 
-#: objects/UML/message.c:585
+#: objects/UML/message.c:587
 msgid "Message type:"
 msgstr "Meldingstype:"
 
 #.
-#: objects/UML/message.c:590
+#: objects/UML/message.c:592
 msgid "Call"
 msgstr "Kall"
 
-#: objects/UML/message.c:595
+#: objects/UML/message.c:597
 msgid "Return"
 msgstr "Retur"
 
-#: objects/UML/message.c:600
+#: objects/UML/message.c:602
 msgid "Asynchronous"
 msgstr "Asynkron"
 
-#: objects/UML/message.c:605
+#: objects/UML/message.c:607
 msgid "Create"
 msgstr "Lag"
 
-#: objects/UML/message.c:610
+#: objects/UML/message.c:612
 msgid "Destroy"
 msgstr "Ødelegg"
 
-#: objects/UML/message.c:615
+#: objects/UML/message.c:617
 msgid "Simple"
 msgstr "Enkel"
 
-#: objects/UML/message.c:620
+#: objects/UML/message.c:622
 msgid "Recursive"
 msgstr "Rekursiv"
 
@@ -1453,11 +1462,11 @@ msgstr "Symbolet for lagring. Disk eller database."
 msgid "A monitor, with a stand"
 msgstr "En monitor, med stativ"
 
-#: objects/network/network.c:54
+#: objects/network/network.c:75
 msgid "Network"
 msgstr "Nettverk"
 
-#: objects/network/network.c:55
+#: objects/network/network.c:76
 msgid "Objects to design network diagrams with"
 msgstr "Objekter til å utforme nettverksdiagrammer med"
 
