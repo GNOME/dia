@@ -1,3 +1,7 @@
+2002-06-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* ChangeLog: Fixed bad UTF-8 mess.  Apologies.
+
 2002-06-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/interface.c: sscanf now returns EOF on empty string, so
@@ -317,7 +321,7 @@
 	* objects/UML/state.c: there was a (gratuitous?) change of on-XML
 	format for the UML State object. Now there's a hack to reload
 	older files, and get them converted on the fly. 
-	Justyna BiaÅa <nell@poczta.gazeta.pl> reported this. Thanks!
+	Justyna Biała <nell@poczta.gazeta.pl> reported this. Thanks!
 
 	* lib/properties.h:
 	* lib/propobject.c:
@@ -340,7 +344,7 @@
 	
 2002-05-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
-	* INSTALL: added platform notes from MÃ¥rten Svantesson, for when
+	* INSTALL: added platform notes from Mårten Svantesson, for when
 	using libtool on an AFS partition.
 
 	* po/update_potfiles_in.sh: now simply calls the recent intltools 
@@ -355,7 +359,7 @@
 	(the usual suspects, in fact).
 
 	* configure.in: improved the isinf() / isfinite() detection on
-	Solaris (MÃ¥rten Svantesson)
+	Solaris (Mårten Svantesson)
 	
 2002-05-25  Cyrille Chepelov  <cyrille@chepelov.org>
 
@@ -537,7 +541,7 @@
 
 	* po/POTFILES.in: added app/sheets_dialog.c
 
-2002-05-15  Cyrille ChÃ©pÃ©lov  <cyrille@chepelov.org>
+2002-05-15  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* lib/charconv.c: (charconv_local8_to_utf8),
 	(charconv_utf8_to_local8): tweaked the warnings to get more 
@@ -659,6 +663,10 @@
 	items, to aid translators.
 
 2002-05-11  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* app/menus.c (display_menu_items): Added a few shortcuts for zooms.
+
+	* app/menus.c (display_menu_items): Added a few shortcuts for zooms.
 
 	* app/interface.c (create_toolbox): Disallow shrinking beyond
 	requested size.  Fixes bug #59439, and confirms to GTK guidelines
@@ -2623,7 +2631,7 @@
 2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* sheets/*.sheet: Added some Norwegian translations (both nynorsk
-	and bokmÃ¥l).
+	and bokmål).
 	
 2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
 
@@ -9436,7 +9444,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* dia_gnome_icon.png
 	* dia_gnome_menu_icon.png
 	* dia_logo.png
-	Graphics by Toussaint FrÃ©dÃ©ric <ftoussin@club-internet.fr>.
+	Graphics by Toussaint Frédéric <ftoussin@club-internet.fr>.
 
 	* app/commands.c
 	About dialog shows dia_logo.png. Removed the GNOME about dialog.
@@ -10199,7 +10207,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* lib/text.c: 
 	Added flags to prevent crash with void strings
 
-1999-02-07  Matthias KÃ¶ster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
+1999-02-07  Matthias Köster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
 	* app/display.[ch]:
 	Added statusbar to the display widget. Currently shows the zoom
 	factor and modified flag of the viewed diagram. The statusbar is
@@ -10380,7 +10388,7 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 	* app/display.[ch]:
 	* app/modify_tool.c:
 	Added autoscrolling while doing rubber-band select.
-	This patch from Matthias KÃ¶ster
+	This patch from Matthias Köster
 	(Matthias.Koester@Informatik.Uni-Oldenburg.DE)
 	
 
