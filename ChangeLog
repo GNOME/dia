@@ -1,4 +1,6 @@
-2000-03-10 Alastair McKinstry <mckinstry@computer.org>
+2000-03-11  Alastair McKinstry  <mckinstry@computer.org>
+
+	* dia.desktop: Added Irish translation.
 	
 	* configure.in (ALL_LINGUAS): Added Irish (ga) translation.
 
