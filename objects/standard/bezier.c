@@ -507,10 +507,30 @@ bezierline_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
   return change;
 }
 
+static ObjectChange *
+bezierline_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Handle *closest;
+  Bezierline *bezierline = (Bezierline*) obj;
+  ObjectChange *change;
+  
+  closest = bezierconn_closest_handle(&bezierline->bez, clicked);
+  change = bezierconn_set_corner_type(&bezierline->bez, closest, 
+				      GPOINTER_TO_INT(data));
+  
+  bezierline_update_data(bezierline);
+  return change;
+}
 
 static DiaMenuItem bezierline_menu_items[] = {
   { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), bezierline_delete_segment_callback, NULL, 1 },
+  { N_("Symmetric control"), bezierline_set_corner_type_callback, 
+    GINT_TO_POINTER(0), 1 },
+  { N_("Smooth control"), bezierline_set_corner_type_callback, 
+    GINT_TO_POINTER(1), 1 },
+  { N_("Cuspy control"), bezierline_set_corner_type_callback,
+    GINT_TO_POINTER(2), 1 },
 };
 
 static DiaMenu bezierline_menu = {
@@ -523,8 +543,21 @@ static DiaMenu bezierline_menu = {
 static DiaMenu *
 bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
 {
+  Handle *closest;
+  gboolean closest_is_endpoint;
+
+  closest = bezierconn_closest_handle(&bezierline->bez, clickedpoint);
+  if (closest->id == HANDLE_MOVE_STARTPOINT ||
+      closest->id == HANDLE_MOVE_ENDPOINT)
+    closest_is_endpoint = TRUE;
+  else
+    closest_is_endpoint = FALSE;
+
   /* Set entries sensitive/selected etc here */
   bezierline_menu_items[0].active = 1;
   bezierline_menu_items[1].active = bezierline->bez.numpoints > 2;
+  bezierline_menu_items[2].active = !closest_is_endpoint;
+  bezierline_menu_items[3].active = !closest_is_endpoint;
+  bezierline_menu_items[4].active = !closest_is_endpoint;
   return &bezierline_menu;
 }

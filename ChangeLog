@@ -1,3 +1,12 @@
+2000-04-16  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* lib/geometry.h: 
+	* lib/bezier_conn.h: 
+	* objects/standard/bezier.c: 
+	* lib/bezier_conn.c: Support for cuspy, smooth and symmetric
+	bezier points.  Only one minor problem known:  Menus are active
+	for endpoints minor handles.
+
 2000-04-15  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* configure.in: Added check for gdk-pixbuf being >= 0.7.0 since

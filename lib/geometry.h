@@ -63,6 +63,7 @@ struct _IntRectangle {
  */
 struct _BezPoint {
   enum {BEZ_MOVE_TO, BEZ_LINE_TO, BEZ_CURVE_TO} type;
+  enum {BEZ_CORNER_SYMMETRIC, BEZ_CORNER_SMOOTH, BEZ_CORNER_CUSP} corner_type;
   Point p1, p2, p3;
 };
 
