@@ -416,7 +416,7 @@ ellipse_create(Point *startpoint,
   ellipse_update_data(ellipse);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];
+  *handle2 = obj->handles[7];
   return (Object *)ellipse;
 }
 

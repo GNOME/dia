@@ -1,3 +1,27 @@
+1999-02-23  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/message.c (fill_in_dialog):
+	Fixed warnings.
+
+1999-02-22  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* objects/standard/zigzagline.c:
+	* objects/standard/polyline.c:
+	* objects/standard/line.c:
+	* objects/standard/arc.c:
+	* lib/widgets.h:
+	* lib/arrows.h:
+	* lib/widgets.c:
+	Support for sizeable arrows.
+
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	Changed creation handle to lower-right.
+	
+	* objects/standard/image.c:
+	Better layout of properties boxes.
+
 1999-02-20  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/message.c (fill_in_dialog): 

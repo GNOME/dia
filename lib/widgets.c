@@ -539,25 +539,53 @@ dia_color_selector_set_color (DiaColorSelector *cs,
 }
 
 
-/************* DiaArrowTypeSelector: ***************/
+/************* DiaArrowSelector: ***************/
 static void
-dia_arrow_type_selector_class_init (DiaArrowTypeSelectorClass *class)
+dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
 {
-  GtkObjectClass *object_class;
+}
   
-  object_class = (GtkObjectClass*) class;
+static void
+set_size_sensitivity(DiaArrowSelector *as)
+{
+  int state;
+  GtkWidget *menuitem;
+  if (!as->arrow_type_menu) return;
+  menuitem = gtk_menu_get_active(as->arrow_type_menu);
+  state = (GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)))
+	   != ARROW_NONE);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(as->lengthlabel), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(as->length), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(as->widthlabel), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(as->width), state);
 }
 
 static void
-dia_arrow_type_selector_init (DiaArrowTypeSelector *fs)
+arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
 {
+  set_size_sensitivity(DIAARROWSELECTOR(as));
+}
+
+static void
+dia_arrow_selector_init (DiaArrowSelector *as)
+{
+  GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
+  GtkWidget *length;
+  GtkWidget *width;
+  GtkWidget *box;
+  GtkWidget *label;
+  GtkAdjustment *adj;
   GSList *group;
   
+  omenu = gtk_option_menu_new();
+  as->omenu = GTK_OPTION_MENU(omenu);
+
   menu = gtk_menu_new ();
-  fs->arrow_type_menu = GTK_MENU(menu);
+  as->arrow_type_menu = GTK_MENU(menu);
   submenu = NULL;
   group = NULL;
 
@@ -597,57 +625,105 @@ dia_arrow_type_selector_init (DiaArrowTypeSelector *fs)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Half Head");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HALF_HEAD));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
   gtk_menu_set_active(GTK_MENU (menu), 0);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 
+			    GTK_SIGNAL_FUNC(arrow_type_change_callback), (gpointer)as);
+  gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
+  gtk_widget_show(omenu);
+
+  box = gtk_hbox_new(FALSE,0);
+  as->sizebox = GTK_HBOX(box);
+
+  label = gtk_label_new("Length: ");
+  as->lengthlabel = GTK_LABEL(label);
+  gtk_box_pack_start_defaults(GTK_BOX(box), label);
+  gtk_widget_show(label);
+
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  length = gtk_spin_button_new(adj, 1.0, 2);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
+  as->length = GTK_SPIN_BUTTON(length);
+  gtk_box_pack_start_defaults(GTK_BOX (box), length);
+  gtk_widget_show (length);
+
+  label = gtk_label_new("Width: ");
+  as->widthlabel = GTK_LABEL(label);
+  gtk_box_pack_start_defaults(GTK_BOX(box), label);
+  gtk_widget_show(label);
+
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  width = gtk_spin_button_new(adj, 1.0, 2);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(width), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width), TRUE);
+  as->width = GTK_SPIN_BUTTON(width);
+  gtk_box_pack_start_defaults(GTK_BOX (box), width);
+  gtk_widget_show (width);
+
+  set_size_sensitivity(as);
+  gtk_box_pack_start_defaults(GTK_BOX(as), box);
+  gtk_widget_show(box);
+
 }
 
 guint
-dia_arrow_type_selector_get_type        (void)
+dia_arrow_selector_get_type        (void)
 {
   static guint dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
-      "DiaArrowTypeSelector",
-      sizeof (DiaArrowTypeSelector),
-      sizeof (DiaArrowTypeSelectorClass),
-      (GtkClassInitFunc) dia_arrow_type_selector_class_init,
-      (GtkObjectInitFunc) dia_arrow_type_selector_init,
+      "DiaArrowSelector",
+      sizeof (DiaArrowSelector),
+      sizeof (DiaArrowSelectorClass),
+      (GtkClassInitFunc) dia_arrow_selector_class_init,
+      (GtkObjectInitFunc) dia_arrow_selector_init,
       (GtkArgSetFunc) NULL,
       (GtkArgGetFunc) NULL
     };
     
-    dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
+    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
   }
   
   return dfs_type;
 }
 
 GtkWidget *
-dia_arrow_type_selector_new ()
+dia_arrow_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_arrow_type_selector_get_type ()));
+  return GTK_WIDGET ( gtk_type_new (dia_arrow_selector_get_type ()));
 }
 
 
-ArrowType 
-dia_arrow_type_selector_get_arrow_type(DiaArrowTypeSelector *fs)
+Arrow 
+dia_arrow_selector_get_arrow(DiaArrowSelector *as)
 {
   GtkWidget *menuitem;
-  void *align;
-  
-  menuitem = gtk_menu_get_active(fs->arrow_type_menu);
-  align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  Arrow at;
 
-  return GPOINTER_TO_INT(align);
+  menuitem = gtk_menu_get_active(as->arrow_type_menu);
+  at.type = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
+  at.width = gtk_spin_button_get_value_as_float(as->width);
+  at.length = gtk_spin_button_get_value_as_float(as->length);
+  return at;
 }
 
 void
-dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
-				       ArrowType arrow)
+dia_arrow_selector_set_arrow (DiaArrowSelector *as,
+			      Arrow arrow)
 {
-  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as), arrow);
+  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow.type);
+  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow.type);
+  set_size_sensitivity(as);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);
 }
 
 /************* DiaFileSelector: ***************/
@@ -656,14 +732,9 @@ dia_file_selector_unrealize(GtkWidget *widget)
 {
   DiaFileSelector *fs = DIAFILESELECTOR(widget);
 
-  if (fs->browse != NULL) {
-    gtk_widget_destroy(GTK_WIDGET(fs->browse));
-    fs->browse = NULL;
-  }
-
-  if (fs->entry != NULL) {
-    gtk_widget_destroy(GTK_WIDGET(fs->entry));
-    fs->entry = NULL;
+  if (fs->dialog != NULL) {
+    gtk_widget_destroy(GTK_WIDGET(fs->dialog));
+    fs->dialog = NULL;
   }
 
   (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);

@@ -39,7 +39,7 @@ typedef struct _LineProperties {
   Color line_color;
   real line_width;
   LineStyle line_style;
-  ArrowType start_arrow, end_arrow;
+  Arrow start_arrow, end_arrow;
 } LineProperties;
 
 typedef struct _Line {
@@ -50,7 +50,7 @@ typedef struct _Line {
   Color line_color;
   real line_width;
   LineStyle line_style;
-  ArrowType start_arrow, end_arrow;
+  Arrow start_arrow, end_arrow;
 } Line;
 
 struct _LinePropertiesDialog {
@@ -60,8 +60,8 @@ struct _LinePropertiesDialog {
   DiaColorSelector *color;
   DiaLineStyleSelector *line_style;
 
-  DiaArrowTypeSelector *start_arrow;
-  DiaArrowTypeSelector *end_arrow;
+  DiaArrowSelector *start_arrow;
+  DiaArrowSelector *end_arrow;
 
   Line *line;
 };
@@ -70,8 +70,8 @@ struct _LineDefaultsDialog {
   GtkWidget *vbox;
 
   DiaLineStyleSelector *line_style;
-  DiaArrowTypeSelector *start_arrow;
-  DiaArrowTypeSelector *end_arrow;
+  DiaArrowSelector *start_arrow;
+  DiaArrowSelector *end_arrow;
 };
 
 static LinePropertiesDialog *line_properties_dialog;
@@ -144,8 +144,8 @@ line_apply_properties(Line *line)
   dia_color_selector_get_color(line_properties_dialog->color, &line->line_color);
   line->line_style = dia_line_style_selector_get_linestyle(line_properties_dialog->line_style);
 
-  line->start_arrow = dia_arrow_type_selector_get_arrow_type(line_properties_dialog->start_arrow);
-  line->end_arrow = dia_arrow_type_selector_get_arrow_type(line_properties_dialog->end_arrow);
+  line->start_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->start_arrow);
+  line->end_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->end_arrow);
   
   line_update_data(line);
 }
@@ -160,6 +160,7 @@ line_get_properties(Line *line)
   GtkWidget *linestyle;
   GtkWidget *arrow;
   GtkWidget *line_width;
+  GtkWidget *align;
   GtkAdjustment *adj;
 
   if (line_properties_dialog == NULL) {
@@ -207,10 +208,13 @@ line_get_properties(Line *line)
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Start arrow:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
+    gtk_container_add(GTK_CONTAINER(align), label);
+    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    arrow = dia_arrow_type_selector_new();
-    line_properties_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_widget_show(align);
+    arrow = dia_arrow_selector_new();
+    line_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -218,10 +222,13 @@ line_get_properties(Line *line)
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("End arrow:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
+    gtk_container_add(GTK_CONTAINER(align), label);
+    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    arrow = dia_arrow_type_selector_new();
-    line_properties_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_widget_show(align);
+    arrow = dia_arrow_selector_new();
+    line_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -236,20 +243,33 @@ line_get_properties(Line *line)
   dia_color_selector_set_color(line_properties_dialog->color, &line->line_color);
   dia_line_style_selector_set_linestyle(line_properties_dialog->line_style,
 					line->line_style);
-  dia_arrow_type_selector_set_arrow_type(line_properties_dialog->start_arrow,
+  dia_arrow_selector_set_arrow(line_properties_dialog->start_arrow,
 			       line->start_arrow);
-  dia_arrow_type_selector_set_arrow_type(line_properties_dialog->end_arrow,
+  dia_arrow_selector_set_arrow(line_properties_dialog->end_arrow,
 			       line->end_arrow);
   
   return line_properties_dialog->vbox;
 }
 
 static void
+line_init_defaults() {
+  static defaults_initialized = 0;
+
+  if (!defaults_initialized) {
+    default_properties.start_arrow.length = 0.8;
+    default_properties.start_arrow.width = 0.8;
+    default_properties.end_arrow.length = 0.8;
+    default_properties.end_arrow.width = 0.8;
+    defaults_initialized = 1;
+  }
+}
+
+static void
 line_apply_defaults()
 {
   default_properties.line_style = dia_line_style_selector_get_linestyle(line_defaults_dialog->line_style);
-  default_properties.start_arrow = dia_arrow_type_selector_get_arrow_type(line_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_type_selector_get_arrow_type(line_defaults_dialog->end_arrow);
+  default_properties.start_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->start_arrow);
+  default_properties.end_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->end_arrow);
 }
 
 static GtkWidget *
@@ -260,8 +280,10 @@ line_get_defaults()
   GtkWidget *label;
   GtkWidget *arrow;
   GtkWidget *linestyle;
+  GtkWidget *align;
 
   if (line_defaults_dialog == NULL) {
+    line_init_defaults();
   
     line_defaults_dialog = g_new(LineDefaultsDialog, 1);
 
@@ -281,10 +303,13 @@ line_get_defaults()
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Start arrow:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
+    gtk_container_add(GTK_CONTAINER(align), label);
+    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    arrow = dia_arrow_type_selector_new();
-    line_defaults_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_widget_show(align);
+    arrow = dia_arrow_selector_new();
+    line_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -292,10 +317,13 @@ line_get_defaults()
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("End arrow:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
+    gtk_container_add(GTK_CONTAINER(align), label);
+    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    arrow = dia_arrow_type_selector_new();
-    line_defaults_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_widget_show(align);
+    arrow = dia_arrow_selector_new();
+    line_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -306,9 +334,9 @@ line_get_defaults()
 
   dia_line_style_selector_set_linestyle(line_defaults_dialog->line_style,
 					default_properties.line_style);
-  dia_arrow_type_selector_set_arrow_type(line_defaults_dialog->start_arrow,
+  dia_arrow_selector_set_arrow(line_defaults_dialog->start_arrow,
 					 default_properties.start_arrow);
-  dia_arrow_type_selector_set_arrow_type(line_defaults_dialog->end_arrow,
+  dia_arrow_selector_set_arrow(line_defaults_dialog->end_arrow,
 					 default_properties.end_arrow);
 
   return line_defaults_dialog->vbox;
@@ -369,16 +397,18 @@ line_draw(Line *line, Renderer *renderer)
 
   endpoints = &line->connection.endpoints[0];
   
-  if (line->start_arrow != ARROW_NONE) {
-    arrow_draw(renderer, line->start_arrow,
+  if (line->start_arrow.type != ARROW_NONE) {
+    arrow_draw(renderer, line->start_arrow.type,
 	       &endpoints[0], &endpoints[1],
-	       0.8, 0.8, line->line_width,
+	       line->start_arrow.length, line->start_arrow.width, 
+	       line->line_width,
 	       &line->line_color, &color_white);
   }
-  if (line->end_arrow != ARROW_NONE) {
-    arrow_draw(renderer, line->end_arrow,
+  if (line->end_arrow.type != ARROW_NONE) {
+    arrow_draw(renderer, line->end_arrow.type,
 	       &endpoints[1], &endpoints[0],
-	       0.8, 0.8, line->line_width,
+	       line->end_arrow.length, line->end_arrow.width, 
+	       line->line_width,
 	       &line->line_color, &color_white);
   }
 
@@ -401,6 +431,8 @@ line_create(Point *startpoint,
   Connection *conn;
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
+
+  line_init_defaults();
 
   line = g_malloc(sizeof(Line));
 
@@ -488,12 +520,18 @@ line_update_data(Line *line)
   obj->bounding_box.right += line->line_width/2;
 
   /* Fix boundingbox for arrowheads */
-  if (line->start_arrow != ARROW_NONE ||
-      line->end_arrow != ARROW_NONE) {
-    obj->bounding_box.top -= 0.8+line->line_width/2;
-    obj->bounding_box.left -= 0.8+line->line_width/2;
-    obj->bounding_box.bottom += 0.8+line->line_width/2;
-    obj->bounding_box.right += 0.8+line->line_width/2;
+  if (line->start_arrow.type != ARROW_NONE ||
+      line->end_arrow.type != ARROW_NONE) {
+    real arrow_width = 0.0;
+    if (line->start_arrow.type != ARROW_NONE)
+      arrow_width = line->start_arrow.width;
+    if (line->end_arrow.type != ARROW_NONE)
+      arrow_width = MAX(arrow_width, line->start_arrow.width);
+
+    obj->bounding_box.top -= arrow_width;
+    obj->bounding_box.left -= arrow_width;
+    obj->bounding_box.bottom += arrow_width;
+    obj->bounding_box.right += arrow_width;
   }
 
   obj->position = conn->endpoints[0];
@@ -513,10 +551,22 @@ line_save(Line *line, ObjectNode obj_node)
 		line->line_width);
   data_add_enum(new_attribute(obj_node, "line_style"),
 		line->line_style);
+  if (line->start_arrow.type != ARROW_NONE) {
   data_add_enum(new_attribute(obj_node, "start_arrow"),
-		line->start_arrow);
+		  line->start_arrow.type);
+    data_add_real(new_attribute(obj_node, "start_arrow_length"),
+		  line->start_arrow.length);
+    data_add_real(new_attribute(obj_node, "start_arrow_width"),
+		  line->start_arrow.width);
+  }
+  if (line->end_arrow.type != ARROW_NONE) {
   data_add_enum(new_attribute(obj_node, "end_arrow"),
-		line->end_arrow);
+		  line->end_arrow.type);
+    data_add_real(new_attribute(obj_node, "end_arrow_length"),
+		  line->end_arrow.length);
+    data_add_real(new_attribute(obj_node, "end_arrow_width"),
+		  line->end_arrow.width);
+  }
 }
 
 static Object *
@@ -552,15 +602,31 @@ line_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr));
 
-  line->start_arrow = ARROW_NONE;
+  line->start_arrow.type = ARROW_NONE;
+  line->start_arrow.length = 0.8;
+  line->start_arrow.width = 0.8;
   attr = object_find_attribute(obj_node, "start_arrow");
   if (attr != NULL)
-    line->start_arrow = data_enum(attribute_first_data(attr));
+    line->start_arrow.type = data_enum(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, "start_arrow_length");
+  if (attr != NULL)
+    line->start_arrow.type = data_real(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, "start_arrow_width");
+  if (attr != NULL)
+    line->start_arrow.type = data_real(attribute_first_data(attr));
 
-  line->end_arrow = ARROW_NONE;
+  line->end_arrow.type = ARROW_NONE;
+  line->end_arrow.length = 0.8;
+  line->end_arrow.width = 0.8;
   attr = object_find_attribute(obj_node, "end_arrow");
   if (attr != NULL)
-    line->end_arrow = data_enum(attribute_first_data(attr));
+    line->end_arrow.type = data_enum(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, "end_arrow_length");
+  if (attr != NULL)
+    line->end_arrow.type = data_real(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, "end_arrow_width");
+  if (attr != NULL)
+    line->end_arrow.type = data_real(attribute_first_data(attr));
 
   connection_init(conn, 2, 1);
 

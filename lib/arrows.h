@@ -34,6 +34,12 @@ typedef enum {
   ARROW_HALF_HEAD
 } ArrowType;
 
+typedef struct {
+  ArrowType type;
+  real length;
+  real width;
+} Arrow;
+
 extern void arrow_draw(Renderer *renderer, ArrowType type,
 		       Point *to, Point *from,
 		       real length, real width, real linewidth,

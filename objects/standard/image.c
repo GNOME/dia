@@ -202,6 +202,33 @@ image_get_properties(Image *image)
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Image file:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    file = dia_file_selector_new();
+    prop_dialog->file = DIAFILESELECTOR(file);
+    gtk_box_pack_start (GTK_BOX (hbox), file, TRUE, TRUE, 0);
+    gtk_widget_show (file);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Keep aspect ratio");
+    prop_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Show border");
+    prop_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Border width:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -237,33 +264,6 @@ image_get_properties(Image *image)
     gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Image file:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    file = dia_file_selector_new();
-    prop_dialog->file = DIAFILESELECTOR(file);
-    gtk_box_pack_start (GTK_BOX (hbox), file, TRUE, TRUE, 0);
-    gtk_widget_show (file);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Show border");
-    prop_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Keep aspect ratio");
-    prop_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     gtk_widget_show (vbox);
   }
@@ -323,17 +323,6 @@ image_get_defaults()
     image_defaults_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Line style:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    image_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Image file:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -345,6 +334,14 @@ image_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Keep aspect ratio:");
+    image_defaults_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label("Show border:");
     image_defaults_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
@@ -353,12 +350,15 @@ image_get_defaults()
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label("Keep aspect ratio:");
-    image_defaults_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    image_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     gtk_widget_show (vbox);
   }
@@ -628,7 +628,7 @@ image_create(Point *startpoint,
   image->properties_dialog = NULL;
   
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[7];  
   return (Object *)image;
 }
 

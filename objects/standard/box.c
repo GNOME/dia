@@ -44,6 +44,7 @@ struct _Box {
   real border_width;
   Color border_color;
   Color inner_color;
+  gboolean show_background;
   LineStyle line_style;
   real corner_radius;
   
@@ -53,6 +54,7 @@ struct _Box {
 typedef struct _BoxProperties {
   Color *fg_color;
   Color *bg_color;
+  gboolean show_background;
   real border_width;
   LineStyle line_style;
   real corner_radius;
@@ -64,6 +66,7 @@ struct _BoxPropertiesDialog {
   GtkSpinButton *border_width;
   DiaColorSelector *fg_color;
   DiaColorSelector *bg_color;
+  GtkToggleButton *show_background;
   DiaLineStyleSelector *line_style;
   GtkSpinButton *corner_radius;
 };
@@ -71,6 +74,7 @@ struct _BoxPropertiesDialog {
 struct _BoxDefaultsDialog {
   GtkWidget *vbox;
 
+  GtkToggleButton *show_background;
   DiaLineStyleSelector *line_style;
   GtkSpinButton *corner_radius;
 };
@@ -143,6 +147,7 @@ box_apply_properties(Box *box)
   box->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
   dia_color_selector_get_color(prop_dialog->fg_color, &box->border_color);
   dia_color_selector_get_color(prop_dialog->bg_color, &box->inner_color);
+  box->show_background = gtk_toggle_button_get_active(prop_dialog->show_background);
   box->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
   box->corner_radius = gtk_spin_button_get_value_as_float(prop_dialog->corner_radius);
   
@@ -157,6 +162,7 @@ box_get_properties(Box *box)
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *color;
+  GtkWidget *checkbox;
   GtkWidget *linestyle;
   GtkWidget *border_width;
   GtkAdjustment *adj;
@@ -207,6 +213,14 @@ box_get_properties(Box *box)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Draw background");
+    prop_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line style:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -221,7 +235,7 @@ box_get_properties(Box *box)
     label = gtk_label_new("Corner rounding:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
     border_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
@@ -238,6 +252,8 @@ box_get_properties(Box *box)
   gtk_spin_button_set_value(prop_dialog->border_width, box->border_width);
   dia_color_selector_set_color(prop_dialog->fg_color, &box->border_color);
   dia_color_selector_set_color(prop_dialog->bg_color, &box->inner_color);
+  gtk_toggle_button_set_active(prop_dialog->show_background, 
+			       box->show_background);
   dia_line_style_selector_set_linestyle(prop_dialog->line_style,
 					box->line_style);
   gtk_spin_button_set_value(prop_dialog->corner_radius, box->corner_radius);
@@ -249,6 +265,17 @@ box_apply_defaults()
 {
   default_properties.line_style = dia_line_style_selector_get_linestyle(box_defaults_dialog->line_style);
   default_properties.corner_radius = gtk_spin_button_get_value_as_float(box_defaults_dialog->corner_radius);
+  default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
+}
+
+static void
+init_default_values() {
+  static defaults_initialized = 0;
+
+  if (!defaults_initialized) {
+    default_properties.show_background = 1;
+    defaults_initialized = 1;
+  }
 }
 
 static GtkWidget *
@@ -257,16 +284,27 @@ box_get_defaults()
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
+  GtkWidget *checkbox;
   GtkWidget *linestyle;
   GtkWidget *corner_radius;
   GtkAdjustment *adj;
 
   if (box_defaults_dialog == NULL) {
   
+    init_default_values();
+
     box_defaults_dialog = g_new(BoxDefaultsDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
     box_defaults_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label("Draw background");
+    box_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line style:");
@@ -283,7 +321,7 @@ box_get_defaults()
     label = gtk_label_new("Corner rounding:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
     corner_radius = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(corner_radius), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(corner_radius), TRUE);
@@ -296,6 +334,8 @@ box_get_defaults()
     gtk_widget_show (vbox);
   }
 
+  gtk_toggle_button_set_active(box_defaults_dialog->show_background, 
+			       default_properties.show_background);
   dia_line_style_selector_set_linestyle(box_defaults_dialog->line_style,
 					default_properties.line_style);
   gtk_spin_button_set_value(box_defaults_dialog->corner_radius, 
@@ -379,7 +419,7 @@ box_draw(Box *box, Renderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  
+  if (box->show_background) {
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
   /* Problem:  How do we make the fill with rounded corners? */
@@ -424,6 +464,7 @@ box_draw(Box *box, Renderer *renderer)
 			   &elem->corner,
 			   &lr_corner, 
 			   &box->inner_color);
+  }
   }
 
   renderer->ops->set_linewidth(renderer, box->border_width);
@@ -541,6 +582,8 @@ box_create(Point *startpoint,
   Object *obj;
   int i;
 
+  init_default_values();
+
   box = g_malloc(sizeof(Box));
   elem = &box->element;
   obj = (Object *) box;
@@ -558,6 +601,7 @@ box_create(Point *startpoint,
   box->border_width =  attributes_get_default_linewidth();
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
+  box->show_background = default_properties.show_background;
   box->line_style = default_properties.line_style;
   box->corner_radius = default_properties.corner_radius;
   
@@ -572,7 +616,7 @@ box_create(Point *startpoint,
   box_update_data(box);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[7];  
   return (Object *)box;
 }
 
@@ -605,6 +649,7 @@ box_copy(Box *box)
   newbox->border_width = box->border_width;
   newbox->border_color = box->border_color;
   newbox->inner_color = box->inner_color;
+  newbox->show_background = box->show_background;
   newbox->line_style = box->line_style;
   newbox->corner_radius = box->corner_radius;
   
@@ -632,6 +677,7 @@ box_save(Box *box, ObjectNode obj_node)
 		 &box->border_color);
   data_add_color(new_attribute(obj_node, "inner_color"),
 		 &box->inner_color);
+  data_add_boolean(new_attribute(obj_node, "show_background"), box->show_background);
   data_add_enum(new_attribute(obj_node, "line_style"),
 		box->line_style);
   if (box->corner_radius > 0.0)
@@ -674,6 +720,11 @@ box_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &box->inner_color);
   
+  box->show_background = TRUE;
+  attr = object_find_attribute(obj_node, "show_background");
+  if (attr != NULL)
+    box->show_background = data_boolean( attribute_first_data(attr) );
+
   box->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)

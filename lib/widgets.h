@@ -25,6 +25,7 @@
 #include <gtk/gtkcolorsel.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkfilesel.h>
+#include <gtk/gtkspinbutton.h>
 
 #include "font.h"
 #include "render.h"
@@ -139,32 +140,38 @@ void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
 void       dia_color_selector_set_color (DiaColorSelector *cs,
 					 Color *color);
 
-/* DiaArrowTypeSelector */
-#define DIAARROWTYPESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_type_selector_get_type (), DiaArrowTypeSelector)
-#define DIAARROWTYPESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_type_selector_get_type (), DiaArrowTypeSelectorClass)
-#define IS_DIAARROWTYPESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_type_selector_get_type ())
+/* DiaArrowSelector */
+#define DIAARROWSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector)
+#define DIAARROWSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass)
+#define IS_DIAARROWSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_selector_get_type ())
 
-typedef struct _DiaArrowTypeSelector       DiaArrowTypeSelector;
-typedef struct _DiaArrowTypeSelectorClass  DiaArrowTypeSelectorClass;
+typedef struct _DiaArrowSelector       DiaArrowSelector;
+typedef struct _DiaArrowSelectorClass  DiaArrowSelectorClass;
 
-struct _DiaArrowTypeSelector
+struct _DiaArrowSelector
 {
-  GtkOptionMenu omenu;
+  GtkVBox vbox;
 
-  GtkMenu *arrow_type_menu;
+  GtkHBox *sizebox;
+  GtkLabel *lengthlabel;
+  GtkSpinButton *length;
+  GtkLabel *widthlabel;
+  GtkSpinButton *width;
   
+  GtkOptionMenu *omenu;
+  GtkMenu *arrow_type_menu;
 };
 
-struct _DiaArrowTypeSelectorClass
+struct _DiaArrowSelectorClass
 {
-  GtkOptionMenuClass parent_class;
+  GtkVBoxClass parent_class;
 };
 
-guint      dia_arrow_type_selector_get_type      (void);
-GtkWidget* dia_arrow_type_selector_new           (void);
-ArrowType  dia_arrow_type_selector_get_arrow_type (DiaArrowTypeSelector *as);
-void       dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
-						   ArrowType arrow);
+guint      dia_arrow_selector_get_type      (void);
+GtkWidget* dia_arrow_selector_new           (void);
+Arrow  dia_arrow_selector_get_arrow (DiaArrowSelector *as);
+void       dia_arrow_selector_set_arrow (DiaArrowSelector *as,
+					 Arrow arrow);
 
 
 /* DiaFileSelector: */

@@ -503,7 +503,7 @@ fill_in_dialog(Message *message)
 {
   MessageDialog *prop_dialog;
   char *str;
-  GtkToggleButton *button;
+  GtkToggleButton *button=NULL;
 
   prop_dialog = properties_dialog;
 
@@ -515,25 +515,25 @@ fill_in_dialog(Message *message)
 
   switch (message->type) {
   case MESSAGE_CALL:
-      button = prop_dialog->m_call;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_call);
       break;
   case MESSAGE_CREATE:
-      button = prop_dialog->m_create;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_create);
       break;
   case MESSAGE_DESTROY:
-      button = prop_dialog->m_destroy;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_destroy);
       break;
   case MESSAGE_SIMPLE:
-      button = prop_dialog->m_simple;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_simple);
       break;
   case MESSAGE_RETURN:
-      button = prop_dialog->m_return;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_return);
       break;
   case MESSAGE_SEND:
-      button = prop_dialog->m_send;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_send);
       break;
   case MESSAGE_RECURSIVE:
-      button = prop_dialog->m_recursive;
+      button = GTK_TOGGLE_BUTTON(prop_dialog->m_recursive);
       break;
   }
 
