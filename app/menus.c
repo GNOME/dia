@@ -549,6 +549,7 @@ save_accels(gpointer data)
   return TRUE;
 }
 
+#ifndef GNOME
 static void
 menus_create_item (GtkItemFactory       *item_factory,
 		   GtkItemFactoryEntry  *entry,
@@ -727,6 +728,7 @@ menus_init_mru (void)
   g_free (accelerators);
   g_free (last_opened_entries); */
 }
+#endif
 
 static void
 menus_init(void)

@@ -143,8 +143,6 @@ view_factory (BonoboEmbeddable *embeddable,
   EmbeddedView *view_data;
   BonoboView  *view;
   GtkWidget *menuitem;
-  GString *path;
-
   
   /*
    * Create the private view data.
@@ -180,32 +178,18 @@ view_factory (BonoboEmbeddable *embeddable,
 		      GTK_SIGNAL_FUNC (dia_view_destroy), view_data);
 
 
-  /* Gross stuff: */
-  path = g_string_new("<Display>/");
-  g_string_append(path, _("File/New diagram"));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/File/New diagram");
   gtk_widget_hide(menuitem);
-  g_string_truncate(path, 10);
-  g_string_append(path, _("File/Open..."));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/File/Open...");
   gtk_widget_hide(menuitem);
-  g_string_truncate(path, 10);
-  g_string_append(path, _("File/Save As..."));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/File/Save As...");
   gtk_widget_hide(menuitem);
-  g_string_truncate(path, 10);
-  g_string_append(path, _("File/Close"));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/File/Close");
   gtk_widget_hide(menuitem);
-  g_string_truncate(path, 10);
-  g_string_append(path, _("File/Exit"));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/File/Exit");
   gtk_widget_hide(menuitem);
-  g_string_truncate(path, 10);
-  g_string_append(path, _("View/New View"));
-  menuitem = menus_get_item_from_path(path->str);
+  menuitem = menus_get_item_from_path("<Display>/View/New View");
   gtk_widget_hide(menuitem);
-  g_string_free(path, TRUE);
   
   return view;
 }

@@ -1,3 +1,11 @@
+2000-08-17  Daniel Egger  <egger@suse.de>
+
+	* app/menus.c: #ifdef'ed some code for the none GNOME
+	case.
+	* app/dia_embedd.c: Changed obvious hackery. Can anyone
+	please have a look at the GNOME UI menu creation? The
+	gnome-app-helper code is ages old and plainly broken!
+
 2000-08-15  Daniel Egger  <egger@suse.de>
 
 	* app/commands.c:
