@@ -776,7 +776,7 @@ prefs_create_dialog(void)
       gtk_widget_show (widget);
       gtk_table_attach (current_table, widget, 0, 2,
 			row, row + 1,
-			GTK_FILL, GTK_FILL, 1, 1);
+			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
       current_table = GTK_TABLE(gtk_table_new (9, 2, FALSE));
       gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(current_table));
       gtk_widget_show(GTK_WIDGET(current_table));
@@ -789,7 +789,7 @@ prefs_create_dialog(void)
       gtk_widget_show (widget);
       gtk_table_attach (current_table, widget, 0, 2,
 			row, row + 1,
-			GTK_FILL, GTK_FILL, 1, 1);
+			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
       break;
     default:
       label = gtk_label_new (gettext(prefs_data[i].label_text));
@@ -798,7 +798,7 @@ prefs_create_dialog(void)
       
       gtk_table_attach (current_table, label, 0, 1,
 			row, row + 1,
-			GTK_FILL, GTK_FILL, 1, 1);
+			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
       
       widget = prefs_get_property_widget(&prefs_data[i]);
       if (widget != NULL) {

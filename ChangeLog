@@ -1,5 +1,8 @@
 2004-02-22  Hubert Figuiere  <hfiguiere@teaser.fr>
 
+	* app/preferences.c (prefs_create_dialog): Change packing policy
+	for widget to expand.
+
 	* app/Makefile.am (run_dia.sh): Fixed a typo in wrapper that prevented
 	running with a debugger.
 
