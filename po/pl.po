@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.30\n"
-"POT-Creation-Date: 1999-03-28 20:56+0200\n"
+"POT-Creation-Date: 1999-03-28 23:43+0200\n"
 "PO-Revision-Date: 1999-03-26 01:43+0100\n"
 "Last-Translator: Tomasz K³oczko <kloczek@pld.org.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -158,74 +158,74 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: app/diagram.c:125
-msgid "<Display>/Edit/Copy"
-msgstr "<Display>/Edycja/Kopiuj"
-
 #: app/diagram.c:126
-#, fuzzy
-msgid "<Display>/Edit/Cut"
+msgid "<Display>/Edit/Copy"
 msgstr "<Display>/Edycja/Kopiuj"
 
 #: app/diagram.c:127
 #, fuzzy
+msgid "<Display>/Edit/Cut"
+msgstr "<Display>/Edycja/Kopiuj"
+
+#: app/diagram.c:128
+#, fuzzy
 msgid "<Display>/Edit/Paste"
 msgstr "<Display>/Edycja/Kopiuj"
 
-#: app/diagram.c:129
+#: app/diagram.c:130
 #, fuzzy
 msgid "<Display>/Edit/Delete"
 msgstr "<Display>/Edycja/Kopiuj"
 
-#: app/diagram.c:132
+#: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
 msgstr ""
 
-#: app/diagram.c:133
+#: app/diagram.c:134
 msgid "<Display>/Objects/Bring to Front"
 msgstr ""
 
-#: app/diagram.c:135
+#: app/diagram.c:136
 msgid "<Display>/Objects/Group"
 msgstr ""
 
-#: app/diagram.c:136
+#: app/diagram.c:137
 msgid "<Display>/Objects/Ungroup"
 msgstr ""
 
-#: app/diagram.c:138
+#: app/diagram.c:139
 msgid "<Display>/Objects/Align Horizontal/Left"
 msgstr ""
 
-#: app/diagram.c:139
+#: app/diagram.c:140
 msgid "<Display>/Objects/Align Horizontal/Center"
 msgstr ""
 
-#: app/diagram.c:140
+#: app/diagram.c:141
 msgid "<Display>/Objects/Align Horizontal/Right"
 msgstr ""
 
-#: app/diagram.c:141
+#: app/diagram.c:142
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
 msgstr ""
 
-#: app/diagram.c:142
+#: app/diagram.c:143
 msgid "<Display>/Objects/Align Vertical/Top"
 msgstr ""
 
-#: app/diagram.c:143
+#: app/diagram.c:144
 msgid "<Display>/Objects/Align Vertical/Center"
 msgstr ""
 
-#: app/diagram.c:144
+#: app/diagram.c:145
 msgid "<Display>/Objects/Align Vertical/Bottom"
 msgstr ""
 
-#: app/diagram.c:145
+#: app/diagram.c:146
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr ""
 
-#: app/diagram.c:474
+#: app/diagram.c:475
 msgid "Trying to ungroup with more or less that one selected object."
 msgstr ""
 
@@ -880,14 +880,14 @@ msgstr ""
 msgid "Background"
 msgstr ""
 
-#: lib/font.c:343
+#: lib/font.c:344
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
 
-#: lib/font.c:396
+#: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
@@ -1224,11 +1224,11 @@ msgstr ""
 msgid "Create a (small) package"
 msgstr ""
 
-#: objects/UML/uml.c:92
+#: objects/UML/uml.c:94
 msgid "UML"
 msgstr ""
 
-#: objects/UML/uml.c:93
+#: objects/UML/uml.c:95
 msgid "Editor for UML Static Structure Diagrams."
 msgstr ""
 
@@ -1526,7 +1526,7 @@ msgid "Show border:"
 msgstr ""
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:859 objects/standard/image.c:870
+#: objects/standard/image.c:858 objects/standard/image.c:869
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1534,7 +1534,7 @@ msgid ""
 msgstr ""
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:876 objects/standard/image.c:902
+#: objects/standard/image.c:875 objects/standard/image.c:901
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr ""

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia ?\n"
-"POT-Creation-Date: 1999-03-28 20:56+0200\n"
+"POT-Creation-Date: 1999-03-28 23:43+0200\n"
 "PO-Revision-Date: 1999-03-22 19:03+MET\n"
 "Last-Translator: Shooby Ban <bansz@szif.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -163,85 +163,85 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: app/diagram.c:125
+#: app/diagram.c:126
 #, fuzzy
 msgid "<Display>/Edit/Copy"
 msgstr "/Szerkeszt/_Másol"
 
-#: app/diagram.c:126
+#: app/diagram.c:127
 #, fuzzy
 msgid "<Display>/Edit/Cut"
 msgstr "/Szerkeszt/_Kivág"
 
-#: app/diagram.c:127
+#: app/diagram.c:128
 #, fuzzy
 msgid "<Display>/Edit/Paste"
 msgstr "/Szerkeszt/_Beilleszt"
 
-#: app/diagram.c:129
+#: app/diagram.c:130
 #, fuzzy
 msgid "<Display>/Edit/Delete"
 msgstr "/Szerkeszt/_Töröl"
 
-#: app/diagram.c:132
+#: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
 msgstr ""
 
-#: app/diagram.c:133
+#: app/diagram.c:134
 msgid "<Display>/Objects/Bring to Front"
 msgstr ""
 
-#: app/diagram.c:135
+#: app/diagram.c:136
 #, fuzzy
 msgid "<Display>/Objects/Group"
 msgstr "/Objektumok/_Csoport"
 
-#: app/diagram.c:136
+#: app/diagram.c:137
 #, fuzzy
 msgid "<Display>/Objects/Ungroup"
 msgstr "/Objektumok/Csoport f_elbonása"
 
-#: app/diagram.c:138
+#: app/diagram.c:139
 #, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Left"
 msgstr "/Objektumok/Vizszintes/Középre"
 
-#: app/diagram.c:139
+#: app/diagram.c:140
 #, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Center"
 msgstr "/Objektumok/Vizszintes/Középre"
 
-#: app/diagram.c:140
+#: app/diagram.c:141
 #, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Right"
 msgstr "/Objektumok/_Vizszintes"
 
-#: app/diagram.c:141
+#: app/diagram.c:142
 #, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objektumok/Vizszintes/Középre"
 
-#: app/diagram.c:142
+#: app/diagram.c:143
 #, fuzzy
 msgid "<Display>/Objects/Align Vertical/Top"
 msgstr "/Objektumok/_Függõleges"
 
-#: app/diagram.c:143
+#: app/diagram.c:144
 #, fuzzy
 msgid "<Display>/Objects/Align Vertical/Center"
 msgstr "/Objektumok/Függõleges/Középre"
 
-#: app/diagram.c:144
+#: app/diagram.c:145
 #, fuzzy
 msgid "<Display>/Objects/Align Vertical/Bottom"
 msgstr "/Objektumok/Függõleges/Balra"
 
-#: app/diagram.c:145
+#: app/diagram.c:146
 #, fuzzy
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr "/Objektumok/Függõleges/Jobbra"
 
-#: app/diagram.c:474
+#: app/diagram.c:475
 msgid "Trying to ungroup with more or less that one selected object."
 msgstr ""
 
@@ -928,14 +928,14 @@ msgstr ""
 msgid "Background"
 msgstr ""
 
-#: lib/font.c:343
+#: lib/font.c:344
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
 
-#: lib/font.c:396
+#: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
@@ -1275,11 +1275,11 @@ msgstr ""
 msgid "Create a (small) package"
 msgstr ""
 
-#: objects/UML/uml.c:92
+#: objects/UML/uml.c:94
 msgid "UML"
 msgstr ""
 
-#: objects/UML/uml.c:93
+#: objects/UML/uml.c:95
 msgid "Editor for UML Static Structure Diagrams."
 msgstr ""
 
@@ -1578,7 +1578,7 @@ msgid "Show border:"
 msgstr ""
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:859 objects/standard/image.c:870
+#: objects/standard/image.c:858 objects/standard/image.c:869
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1586,7 +1586,7 @@ msgid ""
 msgstr ""
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:876 objects/standard/image.c:902
+#: objects/standard/image.c:875 objects/standard/image.c:901
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr ""

@@ -4,8 +4,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.30\n"
-"POT-Creation-Date: 1999-03-28 20:56+0200\n"
+"Project-Id-Version: dia 0.40\n"
+"POT-Creation-Date: 1999-03-28 23:43+0200\n"
 "PO-Revision-Date: 1999-03-27 10:10+0100\n"
 "Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -174,71 +174,71 @@ msgstr "Dia v %s av Alexander Larsson"
 msgid "OK"
 msgstr ""
 
-#: app/diagram.c:125
+#: app/diagram.c:126
 msgid "<Display>/Edit/Copy"
 msgstr "<Display>/Redigera/Kopiera"
 
-#: app/diagram.c:126
+#: app/diagram.c:127
 msgid "<Display>/Edit/Cut"
 msgstr "<Display>/Redigera/Klipp ut"
 
-#: app/diagram.c:127
+#: app/diagram.c:128
 msgid "<Display>/Edit/Paste"
 msgstr "<Display>/Redigera/Klistra in"
 
-#: app/diagram.c:129
+#: app/diagram.c:130
 msgid "<Display>/Edit/Delete"
 msgstr "<Display>/Redigera/Ta bort"
 
-#: app/diagram.c:132
+#: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
 msgstr "<Display>/Objekt/Lägg underst"
 
-#: app/diagram.c:133
+#: app/diagram.c:134
 msgid "<Display>/Objects/Bring to Front"
 msgstr "<Display>/Objekt/Lägg överst"
 
-#: app/diagram.c:135
+#: app/diagram.c:136
 msgid "<Display>/Objects/Group"
 msgstr "<Display>/Objekt/Gruppera"
 
-#: app/diagram.c:136
+#: app/diagram.c:137
 msgid "<Display>/Objects/Ungroup"
 msgstr "<Display>/Objet/Avgruppera"
 
-#: app/diagram.c:138
+#: app/diagram.c:139
 msgid "<Display>/Objects/Align Horizontal/Left"
 msgstr ""
 
-#: app/diagram.c:139
+#: app/diagram.c:140
 msgid "<Display>/Objects/Align Horizontal/Center"
 msgstr ""
 
-#: app/diagram.c:140
+#: app/diagram.c:141
 msgid "<Display>/Objects/Align Horizontal/Right"
 msgstr ""
 
-#: app/diagram.c:141
+#: app/diagram.c:142
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
 msgstr ""
 
-#: app/diagram.c:142
+#: app/diagram.c:143
 msgid "<Display>/Objects/Align Vertical/Top"
 msgstr ""
 
-#: app/diagram.c:143
+#: app/diagram.c:144
 msgid "<Display>/Objects/Align Vertical/Center"
 msgstr ""
 
-#: app/diagram.c:144
+#: app/diagram.c:145
 msgid "<Display>/Objects/Align Vertical/Bottom"
 msgstr ""
 
-#: app/diagram.c:145
+#: app/diagram.c:146
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr ""
 
-#: app/diagram.c:474
+#: app/diagram.c:475
 msgid "Trying to ungroup with more or less that one selected object."
 msgstr ""
 
@@ -893,14 +893,14 @@ msgstr "Inställningar"
 msgid "Background"
 msgstr "Bakgrund"
 
-#: lib/font.c:343
+#: lib/font.c:344
 #, fuzzy, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr "Varning: Inget X-typsnitt för %s hittat, använder Fixed \n"
 
-#: lib/font.c:396
+#: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
@@ -1237,11 +1237,11 @@ msgstr ""
 msgid "Create a (small) package"
 msgstr ""
 
-#: objects/UML/uml.c:92
+#: objects/UML/uml.c:94
 msgid "UML"
 msgstr ""
 
-#: objects/UML/uml.c:93
+#: objects/UML/uml.c:95
 msgid "Editor for UML Static Structure Diagrams."
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgid "Show border:"
 msgstr "Visa ram:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:859 objects/standard/image.c:870
+#: objects/standard/image.c:858 objects/standard/image.c:869
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1547,7 +1547,7 @@ msgid ""
 msgstr ""
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:876 objects/standard/image.c:902
+#: objects/standard/image.c:875 objects/standard/image.c:901
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr ""
