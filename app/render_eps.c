@@ -1251,6 +1251,7 @@ find_max_non_replicated(char *src, int srclen, enum color_channel chan)
   return MIN(items, 128);
 }
 
+/* Find the max number of chars < 128 that are the same */
 static int 
 find_max_replicated(char *src, int srclen, enum color_channel chan)
 {
@@ -1266,7 +1267,7 @@ find_max_replicated(char *src, int srclen, enum color_channel chan)
     }
     items++;
   }
-  return items+1;
+  return MIN(items+1, 128);
 }
 
 /* Return a 128-terminated char array with the RLE-encoding of src */
@@ -1286,9 +1287,9 @@ RLE_encode(guchar *src, int srclen, enum color_channel chan, int *len) {
     if (max_same > 2) {
       /* This is a good replication block */
       output[output_pos] = 257-max_same;
-      output[output_pos+1] = src[src_pos];
+      output[output_pos+1] = src[src_pos+CHANNEL_ADD(chan)];
       output_pos += 2;
-      src_pos += max_same;
+      src_pos += max_same*CHANNEL_SKIP(chan);
     } else {
       /* Put out a block of non-replicated bytes */
       int max_non_repl = find_max_non_replicated(src+src_pos, srclen-src_pos, chan);
@@ -1299,7 +1300,7 @@ RLE_encode(guchar *src, int srclen, enum color_channel chan, int *len) {
 	output[output_pos+i+1] = src[src_pos+i*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)];
       }
       output_pos += max_non_repl+1;
-      src_pos += max_non_repl;
+      src_pos += max_non_repl*CHANNEL_SKIP(chan);
     }
 
     if (output_alloc < output_pos + 128) {
@@ -1317,21 +1318,13 @@ ASCII85_encode(guchar *src, int srclen) {
   int blocks = (srclen+3)/4;
   guchar *output = (char *)g_malloc(blocks*5+3);
   int output_pos = 0, i;
+  unsigned long val;
 
-  for (i = 0; i < blocks; i++) {
-    if (i == blocks-1) {
-      /* Special treatment for last block */
-      long val;
-      val = src[i*4]<<24;
-      if (srclen%4 != 1) {
-	val += src[i*4+1]<<16;
-	if (srclen%4 != 2) {
-	  val += src[i*4+2]<<8;
-	  if (srclen%4 != 3) {
-	    val += src[i*4+3];
-	  }
-	}
-      }
+  for (i = 0; i < blocks-1; i++) {
+    val = (src[i*4]<<24)+(src[i*4+1]<<16)+(src[i*4+2]<<8)+src[i*4+3];
+    if (val == 0) {
+      output[output_pos++] = 'z';
+    } else {
       output[output_pos+4] = (val%85)+33;
       val /= 85;
       output[output_pos+3] = (val%85)+33;
@@ -1342,28 +1335,47 @@ ASCII85_encode(guchar *src, int srclen) {
       val /= 85;
       output[output_pos+0] = (val%85)+33;
       output_pos += 5;
-    } else {
-      unsigned long val;
-      val = (src[i*4]<<24)+(src[i*4+1]<<16)+(src[i*4+2]<<8)+src[i*4+3];
-      if (val == 0) {
-	output[output_pos++] = 'z';
-      } else {
-	output[output_pos+4] = (val%85)+33;
-	val /= 85;
-	output[output_pos+3] = (val%85)+33;
-	val /= 85;
-	output[output_pos+2] = (val%85)+33;
-	val /= 85;
-	output[output_pos+1] = (val%85)+33;
-	val /= 85;
-	output[output_pos+0] = (val%85)+33;
-	output_pos += 5;
+    }
+  }
+
+  /* Special treatment for last block */
+  val = (src[i*4]<<24);
+  if (srclen%4 != 1) {
+    val += (src[i*4+1]<<16);
+    if (srclen%4 != 2) {
+      val += (src[i*4+2]<<8);
+      if (srclen%4 != 3) {
+	val += src[i*4+3];
       }
     }
   }
+  output[output_pos+4] = (val%85)+33;
+  val /= 85;
+  output[output_pos+3] = (val%85)+33;
+  val /= 85;
+  output[output_pos+2] = (val%85)+33;
+  val /= 85;
+  output[output_pos+1] = (val%85)+33;
+  val /= 85;
+  output[output_pos+0] = (val%85)+33;
+  output_pos += 5;
+
   output[output_pos] = '~';
   output[output_pos+1] = '>';
   output[output_pos+2] = 0;
+  return output;
+}
+
+/* For testing porpoises only */
+static guchar *
+extract_channel(guchar *src, int srclen, enum color_channel chan, int *len)
+{
+  guchar *output = (guchar *)g_malloc(srclen/3);
+  int i;
+
+  for (i = 0; i < srclen/3; i++) {
+    output[i] = src[i*3+CHANNEL_ADD(chan)];
+  }
   return output;
 }
 
@@ -1409,33 +1421,96 @@ draw_image(RendererEPS *renderer,
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
     */
-
+#define ASCII85
+#define FILTERS
+#ifdef FILTERS
 #if RLE
     fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
     fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
     fprintf(renderer->file, "0 /RunLengthDecode filter\n");
     fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
     fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
     fprintf(renderer->file, "0 /RunLengthDecode filter\n");
     fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
     fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
     fprintf(renderer->file, "0 /RunLengthDecode filter\n");
     fprintf(renderer->file, "true 3 colorimage\n");
     rle = RLE_encode(rgb_data, img_width*img_height*3, RED, &len);
+#ifdef ASCII85
     ascii = ASCII85_encode(rle, len);
     fprintf(renderer->file, "%s\n", ascii);
-    g_free(rle);
     g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
     rle = RLE_encode(rgb_data, img_width*img_height*3, GREEN, &len);
+#ifdef ASCII85
     ascii = ASCII85_encode(rle, len);
     fprintf(renderer->file, "%s\n", ascii);
-    g_free(rle);
     g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
     rle = RLE_encode(rgb_data, img_width*img_height*3, BLUE, &len);
+#ifdef ASCII85
     ascii = ASCII85_encode(rle, len);
     fprintf(renderer->file, "%s\n", ascii);
-    g_free(rle);
     g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
+#else /* No filters */
+    fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
+    fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
+    fprintf(renderer->file, "currentfile\n");
+#ifdef ASCII85
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+#endif
+    fprintf(renderer->file, "true 3 colorimage\n");
+    rle = extract_channel(rgb_data, img_width*img_height*3, RED, &len);
+#ifdef ASCII85
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
+    rle = extract_channel(rgb_data, img_width*img_height*3, GREEN, &len);
+#ifdef ASCII85
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
+    rle = extract_channel(rgb_data, img_width*img_height*3, BLUE, &len);
+#ifdef ASCII85
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(ascii);
+#else
+    fwrite(rle, len, 1, renderer->file);
+#endif
+    g_free(rle);
+#endif
+
 #else
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "false 3 colorimage\n");
