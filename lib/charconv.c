@@ -48,6 +48,28 @@ static const char *nl_langinfo(void) {
 }
 #endif /* HAVE_LANGINFO_CODESET */
 
+
+int get_local_charset(char **charset) 
+{
+  static char *this_charset = NULL;
+  static int local_is_utf8 = 0;
+
+  if (this_charset) {
+    *charset = this_charset;
+    return local_is_utf8;
+  }
+ 
+  local_is_utf8 = unicode_get_charset(charset);
+  if (local_is_utf8) return local_is_utf8;
+
+  if (0==strcmp(charset,"US-ASCII")) {
+    *charset = nl_langinfo(CODESET);
+    local_is_utf8 = (0==strcmp(charset,"UTF-8"));
+  }
+  return local_is_utf8;
+}
+
+
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
 static local_is_utf8 = 0;
@@ -57,10 +79,8 @@ check_conv_l2u(void){
   char *charset = NULL;
   
   if (local_is_utf8 || (conv_l2u!=(unicode_iconv_t)0)) return;
-  local_is_utf8 = unicode_get_charset(&charset);
+  local_is_utf8 = get_local_charset(&charset);
   if (local_is_utf8) return;
-
-  if (0==strcmp(charset,"US-ASCII")) charset = nl_langinfo(CODESET);
   
   conv_l2u = unicode_iconv_open("UTF-8",charset);
 }
@@ -70,11 +90,9 @@ check_conv_u2l(void){
   char *charset = NULL;
   
   if (local_is_utf8 || (conv_u2l!=(unicode_iconv_t)0)) return;
-  local_is_utf8 = unicode_get_charset(&charset);
+  local_is_utf8 = get_local_charset(&charset);
   if (local_is_utf8) return;
 
-  if (0==strcmp(charset,"US-ASCII")) charset = nl_langinfo(CODESET);
-  
   conv_u2l = unicode_iconv_open(charset,"UTF-8");
 }
   

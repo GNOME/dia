@@ -23,6 +23,8 @@
 #ifndef CHARCONV_H
 #include <glib.h>
 
+int get_local_charset(char **charset);
+
 /* The following code is for the case we don't HAVE_UNICODE. We'll have to 
    define the same-looking macros around libunicode, but only when that's 
    actually expected to work :-) */

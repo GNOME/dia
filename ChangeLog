@@ -7,6 +7,8 @@
 	charset. No need to use <langinfo.h>, libunicode already takes the
 	burden of figuring that out. Also, if local charset is utf8, no
 	conversion will take place.
+	Exposed a way to get the current charset (similar to
+	unicode_get_charset() but actually working, hopefully).
 
 	* lib/charconv.h: Added a partial non-UTF8 implementation of
 	unicode.h if !HAVE_UNICODE (actually, all the time for the
@@ -15,7 +17,7 @@
 	unicode_, unless that code is to be compiled only if HAVE_UNICODE).
 	From now on, all strings which don't *need* to be ASCII should be
 	utfchar *, not gchar *. Just include charconv.h, let it sort out
-	the details (such as: "is libunicode available and enabled" ?) 
+	the details (such as: "is libunicode available and enabled?") 
 
 	* lib/ps-utf8.c: fixed a few name clashes. Used the charconv.h
 	"API" instead of directly libunicode. Removed the now unnecessary
