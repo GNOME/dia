@@ -4,6 +4,17 @@
 # Kenneth Christiansen <kenneth@ripen.dk>, 1999-2000
 # Keld Simonsen <keld@dkuug.dk>, 2000-2002.
 #
+# Danskgruppens indledning til dansk oversættelse:
+# http://guadec.gnome.dk/dansk/oversaet.html
+# Læs før du skriver!
+#
+# Underlige udtryk:
+# splash-skærm (splash screen)
+# konfigmappe (config directory)
+#
+# Specielle udtryk:
+# 'sheet' (om en gruppe objekter): objektsamling
+# 'spline': kurve
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
@@ -98,9 +109,9 @@ msgid "Dia version %s, compiled %s %s\n"
 msgstr ""
 
 #: app/app_procs.c:326
-#, fuzzy, c-format
+#, c-format
 msgid "Dia version %s\n"
-msgstr "Dia v %s"
+msgstr "Dia version %s\n"
 
 #: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
@@ -109,19 +120,18 @@ msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
 #. no standard buttons
 #: app/app_procs.c:536
-#, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
 "Der er ændrede diagrammer.\n"
-"Er du sikker på at du vil afslutte?"
+"Er du sikker på at du vil afslutte\n"
+"uden at gemme dem?"
 
 #: app/app_procs.c:540
-#, fuzzy
 msgid "Quit Dia"
-msgstr "Om dia"
+msgstr "Afslut Dia"
 
 #: app/app_procs.c:600 app/app_procs.c:607
 msgid "Could not create per-user Dia config directory"
@@ -137,12 +147,11 @@ msgstr ""
 
 #: app/app_procs.c:631 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
-msgstr "Interne objekter og filtre for dia"
+msgstr "Interne objekter og filtre for Dia"
 
 #: app/autosave.c:92
-#, fuzzy
 msgid "Recovering autosaved diagrams"
-msgstr "Unified Modelling Language diagramobjekter"
+msgstr "Finder automatisk gemte diagrammer"
 
 #: app/autosave.c:100
 msgid ""
@@ -168,11 +177,13 @@ msgid "Could not find help directory"
 msgstr "Kunne ikke finde hjælpekatalog"
 
 #: app/commands.c:475
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Kunne ikke finde hjælpekatalog"
+msgstr ""
+"Kunne ikke finde hjælpekatalog:\n"
+"%s"
 
 #.
 #. * Translators should localize the following string
@@ -182,6 +193,9 @@ msgstr "Kunne ikke finde hjælpekatalog"
 #: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
+"Lars Clausen <lrclause@cs.uiuc.edu>\n"
+"Kenneth Christiansen <kenneth@ripen.dk>\n"
+"Keld Simonsen <keld@dkuug.dk>"
 
 #: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
@@ -192,11 +206,11 @@ msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr ""
 
 #: app/commands.c:553
-#, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr ""
+"Dia er et program til at lave structurerede diagrammer.\n"
 "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
 #: app/commands.c:592
@@ -211,13 +225,11 @@ msgstr "Dia version %s af Alexander Larsson"
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
 #: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille ChÃ©pÃ©lov"
-msgstr ""
+msgstr "Vedligeholdere: Lars Clausen og Cyrille Chépélov"
 
 #: app/commands.c:645
-#, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr ""
-"Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
+msgstr "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
 #: app/commands.c:650
 msgid "Contributors:"
@@ -232,7 +244,6 @@ msgid "This object has no defaults."
 msgstr "Dette objekt har ingen standardindstillinger."
 
 #: app/defaults.c:111
-#, fuzzy
 msgid "Defaults: "
 msgstr "Vis standard"
 
@@ -350,17 +361,16 @@ msgid "/Sort _diagrams/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:71
-#, fuzzy
 msgid "/Sort diagrams/_Default"
 msgstr "/Sortér diagrammer/Standard"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr ""
+msgstr "/Sortér diagrammer/Standard/efter _navn"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr ""
+msgstr "/Sortér diagrammer/Standard/efter indsættelse"
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
 msgid "/_Locate"
@@ -502,23 +512,21 @@ msgid "<unnamed>"
 msgstr ""
 
 #: app/display.c:856
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"Dette diagram er ikke gemt.\n"
-"Skal ændringer gemmes nu?"
+"Diagrammet '%s' er ikke gemt.\n"
+"Skal ændringerne gemmes nu?"
 
 #: app/display.c:867
-#, fuzzy
 msgid "Close Diagram"
-msgstr "Luk Diagram?"
+msgstr "Luk Diagram"
 
 #: app/display.c:872
-#, fuzzy
 msgid "Discard Changes"
-msgstr "Aflad"
+msgstr "Smid ændringer væk"
 
 #: app/export_png.c:115 app/load_save.c:740 app/render_eps.c:484
 #: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:521
@@ -934,9 +942,8 @@ msgid "Show diagram tree"
 msgstr "_Vis diagramtræ"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "_Sheets and Objects..."
-msgstr "Standard objekter"
+msgstr "Objekter og objektsamlinger"
 
 #: app/menus.c:57
 msgid "Modify sheets and their objects"
@@ -1103,20 +1110,19 @@ msgstr "Nederst"
 
 #: app/menus.c:193
 msgid "Send to _Back"
-msgstr "Send _bagud"
+msgstr "Send _bagerst"
 
 #: app/menus.c:194
 msgid "Bring to _Front"
-msgstr "Bring _frem"
+msgstr "Bring _forrest"
 
 #: app/menus.c:195
-#, fuzzy
 msgid "Send Backwards"
-msgstr "Send _bagud"
+msgstr "Send bagud"
 
 #: app/menus.c:196
 msgid "Bring Forwards"
-msgstr ""
+msgstr "Bring fremad"
 
 #: app/menus.c:198
 msgid "_Group"
@@ -1375,9 +1381,8 @@ msgid "/View/Show _All"
 msgstr "/Vis/Vis _alt"
 
 #: app/menus.c:361
-#, fuzzy
 msgid "/View/Re_draw"
-msgstr "/Vis/Ny _visning"
+msgstr "/Vis/Gentegn"
 
 #: app/menus.c:362
 msgid "/_Select"
@@ -1433,19 +1438,17 @@ msgstr "/_Objekter"
 
 #: app/menus.c:383
 msgid "/Objects/Send to _Back"
-msgstr "/Objekter/Send _bagud"
+msgstr "/Objekter/Send _bagerst"
 
 #: app/menus.c:384
 msgid "/Objects/Bring to _Front"
-msgstr "/Objekter/Hent _fremad"
+msgstr "/Objekter/Hent _forrest"
 
 #: app/menus.c:385
-#, fuzzy
 msgid "/Objects/Send Backwards"
 msgstr "/Objekter/Send _bagud"
 
 #: app/menus.c:386
-#, fuzzy
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekter/Hent _fremad"
 
@@ -1624,9 +1627,8 @@ msgid "Plug-ins"
 msgstr "Indstik"
 
 #: app/plugin-manager.c:254
-#, fuzzy
 msgid "Loaded"
-msgstr "Indlæst:"
+msgstr "Indlæst"
 
 #: app/plugin-manager.c:261 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
@@ -1634,19 +1636,16 @@ msgid "Name"
 msgstr "Navn"
 
 #: app/plugin-manager.c:267
-#, fuzzy
 msgid "Description"
-msgstr "Beskrivelse:"
+msgstr "Beskrivelse"
 
 #: app/plugin-manager.c:276
-#, fuzzy
 msgid "Load at Startup"
 msgstr "Indlæs automatisk ved opstart"
 
 #: app/plugin-manager.c:283
-#, fuzzy
 msgid "File Name"
-msgstr "Filnavn:"
+msgstr "Filnavn"
 
 #: app/preferences.c:103
 msgid "User Interface"
@@ -1689,9 +1688,8 @@ msgstr ""
 "skærende objekter"
 
 #: app/preferences.c:125
-#, fuzzy
 msgid "Recent documents list size:"
-msgstr "Husk seneste størrelse"
+msgstr "Antal nyeste dokumenter vist:"
 
 #: app/preferences.c:126
 msgid "Use menu bar:"
@@ -1893,9 +1891,8 @@ msgid "_Edit"
 msgstr "_Redigér"
 
 #: app/sheets_dialog.c:263
-#, fuzzy
 msgid "Revert"
-msgstr "Invertér"
+msgstr "Fortryd ændringer"
 
 #: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
@@ -1991,18 +1988,22 @@ msgid "Move All ->"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:312
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "Shape"
-msgstr "Form"
+msgstr ""
+"%s\n"
+"Form"
 
 #: app/sheets_dialog_callbacks.c:315
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "Object"
-msgstr "Objekt"
+msgstr ""
+"%s\n"
+"Objekt"
 
 #: app/sheets_dialog_callbacks.c:318
 #, fuzzy, c-format
@@ -2122,17 +2123,16 @@ msgstr ""
 
 #: lib/message.c:87
 msgid "There is one similar message."
-msgstr ""
+msgstr "Der er én lignende meddelelse"
 
 #: lib/message.c:92
-#, fuzzy
 msgid "Show repeated messages"
-msgstr "Lav en meddelelse"
+msgstr "Vis lignende medelelser"
 
 #: lib/message.c:105
-#, fuzzy, c-format
+#, c-format
 msgid "There are %d similar messages."
-msgstr "Lav en meddelelse"
+msgstr "Der er %d lignende meddelelser"
 
 #: lib/message.c:115 lib/message.c:194
 msgid "Error"
@@ -2147,12 +2147,12 @@ msgid "Notice"
 msgstr "Bemærk"
 
 #: lib/object_defaults.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Fejl under indlæsning af diagrammet %s.\n"
+"Fejl under indlæsning af diagrammet '%s'.\n"
 "Ikke en Dia fil."
 
 #: lib/plug-ins.c:120
@@ -2192,11 +2192,13 @@ msgid "%s Plugin could not be unloaded"
 msgstr "%s indstik kunne ikke fjernes"
 
 #: lib/plug-ins.c:357
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
-msgstr "Kunne ikke åbne '%s'"
+msgstr ""
+"Kunne ikke åbne `%s'\n"
+"`%s'"
 
 #: lib/properties.c:71 lib/properties.h:486
 msgid "Line colour"
@@ -2251,15 +2253,14 @@ msgid "Other fonts..."
 msgstr ""
 
 #: lib/widgets.c:299
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr "Kunne ikke læse farve: %s\n"
+msgstr "Kunne ikke finde skrifttypefamilie %s\n"
 
 #. We hit the Other fonts... entry
 #: lib/widgets.c:346
-#, fuzzy
 msgid "Select font"
-msgstr "Vælg printer"
+msgstr "Vælg skrifttype"
 
 #. Translators: Menu item Noun/Material/Solid
 #: lib/widgets.c:639 objects/FS/function.c:1039
@@ -2368,14 +2369,12 @@ msgid "Cross"
 msgstr "Kors"
 
 #: lib/widgets.c:997
-#, fuzzy
 msgid "Filled Concave"
-msgstr "Udfyldt boks"
+msgstr "Udfyldt konkav"
 
 #: lib/widgets.c:998
-#, fuzzy
 msgid "Blanked Concave"
-msgstr "Blank boks"
+msgstr "Blank konkav"
 
 #: lib/widgets.c:1035
 msgid "Length: "
@@ -4035,9 +4034,8 @@ msgid "Visible Operations"
 msgstr "Synlige handlinger"
 
 #: objects/UML/class.c:121
-#, fuzzy
 msgid "Visible Comments"
-msgstr "Synlige handlinger"
+msgstr "Synlige kommentarer"
 
 #: objects/UML/class.c:127
 msgid "Template"
@@ -4050,9 +4048,8 @@ msgid "Class"
 msgstr "Klasse"
 
 #: objects/UML/class.c:178
-#, fuzzy
 msgid "Show comments"
-msgstr "Kommentar"
+msgstr "Vis kommentarer"
 
 #: objects/UML/class_dialog.c:261
 msgid "Class name:"
@@ -4066,9 +4063,8 @@ msgstr "Stereotype:"
 
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
 #: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
-#, fuzzy
 msgid "Comment:"
-msgstr "Kommentar"
+msgstr "Kommentar:"
 
 #: objects/UML/class_dialog.c:296
 msgid "Attributes visible"
@@ -4083,9 +4079,8 @@ msgid "Suppress operations"
 msgstr "Undertryk operationer"
 
 #: objects/UML/class_dialog.c:314
-#, fuzzy
 msgid "Comments visible"
-msgstr "Synlige operationer"
+msgstr "Synlige kommentarer"
 
 #. head line
 #: objects/UML/class_dialog.c:324
@@ -4105,9 +4100,8 @@ msgid "Class Name"
 msgstr "Klassenavn"
 
 #: objects/UML/class_dialog.c:353
-#, fuzzy
 msgid "Abstract Class"
-msgstr "Sammendrag"
+msgstr "Abstrakt klasse"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:370
@@ -4421,9 +4415,8 @@ msgid "Scalable Vector Graphics"
 msgstr "Skalérbar vektorgrafik"
 
 #: plug-ins/svg/svg.c:37
-#, fuzzy
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "Eksportfilter for skalerbar vektorgrafik"
+msgstr "Import- og eksportfilter for skalerbar vektorgrafik (SVG)"
 
 #: plug-ins/svg/svg-import.c:200 plug-ins/svg/svg-import.c:214
 #: plug-ins/xfig/xfig-import.c:98 plug-ins/xfig/xfig-import.c:149
@@ -4443,9 +4436,8 @@ msgid "Courier"
 msgstr "Courier"
 
 #: plug-ins/svg/svg-import.c:582
-#, fuzzy
 msgid "Could not find SVG namespace."
-msgstr "Kunne ikke finde hjælpekatalog"
+msgstr "Kunne ikke finde SVG navnerum."
 
 #: plug-ins/svg/svg-import.c:588
 #, c-format
@@ -4529,20 +4521,20 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Ukendt undertype for polylinje: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:863 plug-ins/xfig/xfig-import.c:895
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr "Kunne ikke læse info om polylinje: %s\n"
+msgstr "Kunne ikke læse kurveinformation: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: plug-ins/xfig/xfig-import.c:882 plug-ins/xfig/xfig-import.c:900
 msgid "Cannot convert approximated spline yet."
-msgstr ""
+msgstr "Kan ikke konvertere omtrentlige kurver endnu."
 
 #: plug-ins/xfig/xfig-import.c:921
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr "Ukendt undertype for polylinje: %d\n"
+msgstr "Ukendt undertype for kurve: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:982
 #, c-format
@@ -4652,36 +4644,33 @@ msgid "XFig File Format"
 msgstr "XFig filformat"
 
 #: plug-ins/xslt/xslt.c:92
-#, fuzzy, c-format
+#, c-format
 msgid "Error while parsing %s\n"
-msgstr "Fejl under læsning af pilhovedet\n"
+msgstr "Fejl under læsning af %s\n"
 
 #: plug-ins/xslt/xslt.c:102 plug-ins/xslt/xslt.c:108
-#, fuzzy, c-format
+#, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr "Fejl under læsning %d. af %d punkter: %s\n"
+msgstr "Fejl under læsning af stilark %s\n"
 
 #: plug-ins/xslt/xslt.c:120
-#, fuzzy, c-format
+#, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr "Fejl under læsning %d. af %d punkter: %s\n"
+msgstr "Fejl under læsning af stilark %s:\n"
 
 #: plug-ins/xslt/xslt.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr "Fejl under læsning %d. af %d punkter: %s\n"
+msgstr "Fejl under brug af stilark: %s\n"
 
 #: plug-ins/xslt/xslt.c:176
-#, fuzzy
 msgid "XSL Transformation filter"
-msgstr "Transaktionsfil"
+msgstr "XSL transformationsfilter"
 
 #: plug-ins/xslt/xslt.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load XSLT library (%s) : %s"
-msgstr ""
-"Kunne ikke indlæse indstik '%s'\n"
-"%s"
+msgstr "Kunne ikke indlæse XSLT bibliotek (%s): %s"
 
 #: plug-ins/xslt/xslt.c:205
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
@@ -4692,14 +4681,12 @@ msgid "Export through XSLT"
 msgstr ""
 
 #: plug-ins/xslt/xsltdialog.c:114
-#, fuzzy
 msgid "From:"
-msgstr "Formgiv"
+msgstr "Fra:"
 
 #: plug-ins/xslt/xsltdialog.c:149
-#, fuzzy
 msgid "To:"
-msgstr "Øverst:"
+msgstr "Til:"
 
 #: sheets/Assorted.sheet.in.h:1
 msgid ""
@@ -4724,14 +4711,12 @@ msgid "Curved Four Point Star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:6
-#, fuzzy
 msgid "Diamond"
-msgstr "Udfyldt firkant"
+msgstr "Ruder"
 
 #: sheets/Assorted.sheet.in.h:7
-#, fuzzy
 msgid "Down Arrow"
-msgstr "Vis pil"
+msgstr "Pil nedad"
 
 #: sheets/Assorted.sheet.in.h:8
 msgid "Eight Point Star"
@@ -4742,9 +4727,8 @@ msgid "Four Point Star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:10
-#, fuzzy
 msgid "Heart"
-msgstr "Varme"
+msgstr "Hjerte"
 
 #: sheets/Assorted.sheet.in.h:11
 msgid "Heptagon. Seven Sided Shape"
@@ -4755,9 +4739,8 @@ msgid "Hexagon. Six Sided Shape"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:13
-#, fuzzy
 msgid "Horizontal Parallelogram"
-msgstr "Vandret ophold"
+msgstr "Vandret parallelogram"
 
 #: sheets/Assorted.sheet.in.h:14
 #, fuzzy
