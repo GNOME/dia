@@ -1,10 +1,12 @@
 [Desktop Entry]
 Name=Dia
+Name[da]=Dia
 Name[ga]=Dia
 Name[ja]=Dia
 Name[pl]=Dia
 Name[fr]=Dia
 Comment=A Diagram Editor
+Comment[da]=Et diagramredigeringsprogram
 Comment[ga]=Eagarthoír Léaráid
 Comment[ja]=¥À¥¤¥¢¥°¥é¥à¥¨¥Ç¥£¥¿
 Comment[pl]=Edytor diagramów w Gtk+ 
