@@ -733,53 +733,44 @@ draw_line_with_arrows(DiaRenderer *renderer,
 {
   Point oldstart = *startpoint;
   Point oldend = *endpoint;
+  Point start_arrow_head;
+  Point end_arrow_head;
+
+  /* Calculate how to more the line to account for arrow heads */
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
     calculate_arrow_point(start_arrow, startpoint, endpoint, 
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = *startpoint;
-    point_sub(&arrow_head, &move_arrow);
+    start_arrow_head = *startpoint;
+    point_sub(&start_arrow_head, &move_arrow);
     point_sub(startpoint, &move_line);
-    arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, endpoint,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-#ifdef STEM
-    Point line_start = startpoint;
-    startpoint = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, start_arrow->length);
-    point_sub(startpoint, &move);
-    renderer_ops->draw_line(renderer, &line_start, startpoint, color);
-#endif
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
     calculate_arrow_point(end_arrow, endpoint, startpoint,
  			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = *endpoint;
-    point_sub(&arrow_head, &move_arrow);
+    end_arrow_head = *endpoint;
+    point_sub(&end_arrow_head, &move_arrow);
     point_sub(endpoint, &move_line);
+  }
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, startpoint, endpoint, color);
+
+  /* Actual arrow drawing down here so line styles aren't disturbed */
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, start_arrow->type,
+	       &start_arrow_head, endpoint,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
     arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, startpoint,
+	       &end_arrow_head, startpoint,
 	       end_arrow->length, end_arrow->width,
 	       line_width,
 	       color, &color_white);
-#ifdef STEM
-    Point line_start = endpoint;
-    endpoint = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, end_arrow->length);
-    point_sub(endpoint, &move);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, endpoint, color);
-#endif
-  }
-  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, startpoint, endpoint, color);
 
   *startpoint = oldstart;
   *endpoint = oldend;
@@ -798,10 +789,11 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   int lastline = num_points;
   Point oldstart = points[firstline];
   Point oldend = points[lastline-1];
+  Point start_arrow_head;
+  Point end_arrow_head;
 
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
     while (firstline < num_points-1 &&
 	   distance_point_point(&points[firstline], 
 				&points[firstline+1]) < 0.0000001)
@@ -813,26 +805,12 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
 			  &points[firstline], &points[firstline+1], 
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[firstline];
-    point_sub(&arrow_head, &move_arrow);
+    start_arrow_head = points[firstline];
+    point_sub(&start_arrow_head, &move_arrow);
     point_sub(&points[firstline], &move_line);
-    arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, &points[firstline+1],
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-#ifdef STEM
-    Point line_start = &points[firstline];
-    &points[firstline] = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, start_arrow->length);
-    point_sub(&points[firstline], &move);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, &points[firstline], color);
-#endif
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
     while (lastline > 0 && 
 	   distance_point_point(&points[lastline-1], 
 				&points[lastline-2]) < 0.0000001)
@@ -844,26 +822,25 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
 			  &points[lastline-2],
  			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[lastline-1];
-    point_sub(&arrow_head, &move_arrow);
+    end_arrow_head = points[lastline-1];
+    point_sub(&end_arrow_head, &move_arrow);
     point_sub(&points[lastline-1], &move_line);
-    arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, &points[lastline-2],
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
-#ifdef STEM
-    Point line_start = &points[lastline-1];
-    &points[lastline-1] = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, end_arrow->length);
-    point_sub(&points[lastline-1], &move);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, &points[lastline-1], color);
-#endif
   }
   /* Don't draw degenerate line segments at end of line */
   DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline], 
 			       lastline-firstline, color);
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, start_arrow->type,
+	       &start_arrow_head, &points[firstline+1],
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, end_arrow->type,
+	       &end_arrow_head, &points[lastline-2],
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       color, &color_white);
 
   points[firstline] = oldstart;
   points[lastline-1] = oldend;
@@ -1004,7 +981,11 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   real width, angle1, angle2;
   Point dot1, dot2;
   gboolean righthand;
-  
+  Point start_arrow_head;
+  Point start_arrow_end;
+  Point end_arrow_head;
+  Point end_arrow_end;
+
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
     /* Degenerate circle -- should have been caught by the drawer? */
   }
@@ -1020,79 +1001,49 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
-    Point arrow_end;
     real tmp;
 
-    arrow_end = *startpoint;
-    point_sub(&arrow_end, &center);
-    tmp = arrow_end.x;
+    start_arrow_end = *startpoint;
+    point_sub(&start_arrow_end, &center);
+    tmp = start_arrow_end.x;
     if (righthand) {
-      arrow_end.x = -arrow_end.y;
-      arrow_end.y = tmp;
+      start_arrow_end.x = -start_arrow_end.y;
+      start_arrow_end.y = tmp;
     } else {
-      arrow_end.x = arrow_end.y;
-      arrow_end.y = -tmp;
+      start_arrow_end.x = start_arrow_end.y;
+      start_arrow_end.y = -tmp;
     }
-    point_add(&arrow_end, startpoint);
+    point_add(&start_arrow_end, startpoint);
 
-    calculate_arrow_point(start_arrow, startpoint, &arrow_end, 
+    calculate_arrow_point(start_arrow, startpoint, &start_arrow_end, 
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = *startpoint;
-    point_sub(&arrow_head, &move_arrow);
+    start_arrow_head = *startpoint;
+    point_sub(&start_arrow_head, &move_arrow);
     point_sub(startpoint, &move_line);
-    arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, &arrow_end,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-#ifdef STEM
-    Point line_start = startpoint;
-    startpoint = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, start_arrow->length);
-    point_sub(startpoint, &move);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, startpoint, color);
-#endif
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    Point arrow_head;
-    Point arrow_end;
     real tmp;
 
-    arrow_end = *endpoint;
-    point_sub(&arrow_end, &center);
-    tmp = arrow_end.x;
+    end_arrow_end = *endpoint;
+    point_sub(&end_arrow_end, &center);
+    tmp = end_arrow_end.x;
     if (righthand) {
-      arrow_end.x = arrow_end.y;
-      arrow_end.y = -tmp;
+      end_arrow_end.x = end_arrow_end.y;
+      end_arrow_end.y = -tmp;
     } else {
-      arrow_end.x = -arrow_end.y;
-      arrow_end.y = tmp;
+      end_arrow_end.x = -end_arrow_end.y;
+      end_arrow_end.y = tmp;
     }
-    point_add(&arrow_end, endpoint);
+    point_add(&end_arrow_end, endpoint);
 
-    calculate_arrow_point(end_arrow, endpoint, &arrow_end,
+    calculate_arrow_point(end_arrow, endpoint, &end_arrow_end,
  			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = *endpoint;
-    point_sub(&arrow_head, &move_arrow);
+    end_arrow_head = *endpoint;
+    point_sub(&end_arrow_head, &move_arrow);
     point_sub(endpoint, &move_line);
-    arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, &arrow_end,
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
-#ifdef STEM
-    Point line_start = endpoint;
-    endpoint = arrow_head;
-    point_normalize(&move);
-    point_scale(&move, end_arrow->length);
-    point_sub(endpoint, &move);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, endpoint, color);
-#endif
   }
 
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
@@ -1114,6 +1065,18 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   }
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
 			  angle1, angle2, color);
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, start_arrow->type,
+	       &start_arrow_head, &start_arrow_end,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, end_arrow->type,
+	       &end_arrow_head, &end_arrow_end,
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       color, &color_white);
 
   *startpoint = oldstart;
   *endpoint = oldend;
@@ -1129,6 +1092,8 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
                         Arrow *end_arrow)
 {
   Point startpoint, endpoint;
+  Point start_arrow_head;
+  Point end_arrow_head;
 
   startpoint = points[0].p1;
   endpoint = points[num_points-1].p3;
@@ -1136,53 +1101,37 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow;
     Point move_line;
-    Point arrow_head;
     calculate_arrow_point(start_arrow, &points[0].p1, &points[1].p1,
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[0].p1;
-    point_sub(&arrow_head, &move_arrow);
+    start_arrow_head = points[0].p1;
+    point_sub(&start_arrow_head, &move_arrow);
     point_sub(&points[0].p1, &move_line);
-    arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, &points[1].p1,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-    if (0) {
-      Point line_start = points[0].p1;
-      points[0].p1 = arrow_head;
-      point_normalize(&move_arrow);
-      point_scale(&move_arrow, start_arrow->length);
-      point_sub(&points[0].p1, &move_arrow);
-      DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, &points[0].p1, color);
-    }
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow;
     Point move_line;
-    Point arrow_head;
     calculate_arrow_point(end_arrow,
 			  &points[num_points-1].p3, &points[num_points-1].p2,
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = points[num_points-1].p3;
-    point_sub(&arrow_head, &move_arrow);
+    end_arrow_head = points[num_points-1].p3;
+    point_sub(&end_arrow_head, &move_arrow);
     point_sub(&points[num_points-1].p3, &move_line);
+  }
+  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, num_points, color);
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, start_arrow->type,
+	       &start_arrow_head, &points[1].p1,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
     arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, &points[num_points-1].p2,
+	       &end_arrow_head, &points[num_points-1].p2,
 	       end_arrow->length, end_arrow->width,
 	       line_width,
 	       color, &color_white);
-    if (0) {
-      Point line_start = points[num_points-1].p3;
-      points[num_points-1].p3 = arrow_head;
-      point_normalize(&move_arrow);
-      point_scale(&move_arrow, end_arrow->length);
-      point_sub(&points[num_points-1].p3, &move_arrow);
-      DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &line_start, &points[num_points-1].p3, color);
-    }
-  }
-  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, num_points, color);
 
   points[0].p1 = startpoint;
   points[num_points-1].p3 = endpoint;
