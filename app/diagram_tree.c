@@ -113,6 +113,8 @@ button_press_callback(GtkCTree *tree, GdkEventButton *event,
       diagram_tree_menus_popup_menu(dtree->menus, menu, event->time);
     } else if (event->button == 1) {
       select_node(dtree, dtree->last, FALSE);
+      /* need to return FALSE to let gtk process it further */
+      return FALSE;
     }
   }
   return TRUE;

@@ -22,6 +22,16 @@
 #include "display.h"
 #include "diagram.h"
 
+/* Note that TOP/LEFT and BOTTOM/RIGHT are the same */
+#define DIA_ALIGN_TOP 0
+#define DIA_ALIGN_LEFT 0
+#define DIA_ALIGN_CENTER 1
+#define DIA_ALIGN_BOTTOM 2
+#define DIA_ALIGN_RIGHT 2
+#define DIA_ALIGN_POSITION 3
+#define DIA_ALIGN_EQUAL 4
+#define DIA_ALIGN_ADJACENT 5
+
 void object_add_updates(Object *obj, Diagram *dia);
 void object_add_updates_list(GList *list, Diagram *dia);
 ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,

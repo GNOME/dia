@@ -21,6 +21,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include <string.h>
 
 #ifdef GNOME
@@ -38,6 +39,7 @@
 #include "select.h"
 #include "dia_dirs.h"
 #include "diagram_tree_window.h"
+#include "object_ops.h"
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
@@ -51,7 +53,9 @@ static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_TOGGLEITEM(N_("_Diagram tree"), N_("Show diagram tree"),
 			 diagtree_show_callback, NULL),
-  GNOMEUIINFO_ITEM_NONE(N_("Plug-ins"), NULL, file_plugins_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("P_lugins"), NULL, file_plugins_callback),
+  GNOMEUIINFO_SEPARATOR,
+    /* recent file list is dynamically inserted here */
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
   GNOMEUIINFO_END  
@@ -166,20 +170,20 @@ static GnomeUIInfo selectmenu[] = {
 };
 
 static GnomeUIInfo objects_align_h[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, 2),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, 4),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,5),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, DIA_ALIGN_LEFT),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, DIA_ALIGN_CENTER),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, DIA_ALIGN_RIGHT),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, DIA_ALIGN_EQUAL),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,DIAL_ALIGN_ADJACENT),
   GNOMEUIINFO_END
 };
 
 static GnomeUIInfo objects_align_v[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, 4),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,5),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, DIA_ALIGN_TOP),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, DIA_ALIGN_CENTER),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, DIA_ALIGN_BOTTOM),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, DIA_ALIGN_EQUAL),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,5, DIA_ALIGN_ADJACENT),
   GNOMEUIINFO_END
 };
 
@@ -256,9 +260,6 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
       "<StockItem>", GTK_STOCK_NEW },
   {N_("/File/_Open"),          "<control>O", file_open_callback,        0,
       "<StockItem>", GTK_STOCK_OPEN },
-  {N_("/File/Open _Recent"),   NULL,         NULL,       0,    "<Branch>" },
-  {N_("/File/Open Recent/---"),
-                               NULL,         NULL,       0, "<Separator>" },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Diagram tree"),  NULL,         diagtree_show_callback,    0,
    "<ToggleItem>" },
@@ -266,11 +267,13 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
       "<StockItem>", GTK_STOCK_PREFERENCES },
   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
+    /* recent file list is dynamically inserted here */
+  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0,
       "<StockItem>", GTK_STOCK_QUIT },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Manual"),        NULL,         help_manual_callback,      0 },
+  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0 },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
@@ -379,18 +382,18 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
   {   "/Objects/Align Horizontal/tearoff", NULL, NULL,        0, "<Tearoff>" },
-  {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  0},
-  {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  1},
-  {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  2},
-  {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    4},
-  {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    5},
+  {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT},
+  {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER},
+  {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT},
+  {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
+  {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
   {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
   {   "/Objects/Align Vertical/tearoff",   NULL, NULL,        0, "<Tearoff>" },
-  {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  0},
-  {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  1},
-  {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  2},
-  {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    4},
-  {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  5},
+  {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
+  {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
+  {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
+  {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
+  {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
 
   {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
   {   "/Tools/tearoff",           NULL,         NULL,         0, "<Tearoff>" },

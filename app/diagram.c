@@ -82,7 +82,7 @@ diagram_load_into(Diagram         *diagram,
   if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
-    recent_file_history_add(filename, ifilter);
+    recent_file_history_add(filename, ifilter, 0);
     diagram_tree_add(diagram_tree(), diagram);
     return TRUE;
   } else
@@ -759,7 +759,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   }
 
   layer_dialog_update_diagram_list();
-  recent_file_history_add((const char *)filename, NULL);
+  recent_file_history_add((const char *)filename, NULL, 0);
 
   diagram_tree_update_name(diagram_tree(), dia);
 }
