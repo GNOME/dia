@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-04-27 11:12+0400\n"
-"PO-Revision-Date: 2000-04-27 13:34+04:00\n"
+"POT-Creation-Date: 2000-05-03 13:13+0000\n"
+"PO-Revision-Date: 2000-05-03 14:36+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,7 @@ msgstr "У этого объекта нет исх.свойств."
 
 #: app/dia_embedd.c:276
 msgid "Could not initialize Bonobo!"
-msgstr ""
+msgstr "Не удалось инициализировать Bonobo!"
 
 #: app/diagram.c:156
 msgid "/Edit/Copy"
@@ -367,12 +367,11 @@ msgstr "Не удалось открыть: '%s' для записи.\n"
 
 #: app/export_png.c:86
 msgid "Could not create PNG write structure"
-msgstr ""
+msgstr "Невозможно создать структуру записи PNG"
 
 #: app/export_png.c:95
-#, fuzzy
 msgid "Could not create PNG header info structure"
-msgstr "Невозможно создать пользовательский каталог конфигурации Dia"
+msgstr "Невозможно создать структуру информационного заголовка PNG"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
@@ -1329,11 +1328,12 @@ msgid "Number of undo levels:"
 msgstr "Число уровней отката:"
 
 #: app/preferences.c:103
-#, fuzzy
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
-msgstr "Гибкое связывание справа на лево выделяя пересекающиеся объекты"
+msgstr ""
+"Обратное перетягивание выделяет\n"
+"пересекающиеся объекты:"
 
 #: app/preferences.c:104
 msgid "New window:"
@@ -1412,9 +1412,9 @@ msgstr "Encapsulated PostScript"
 msgid "Scalable Vector Graphics"
 msgstr "Маштабируемая векторная графика (SVG)"
 
-#: lib/bezier_conn.c:519
+#: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
+msgstr "Внутренняя ошибка: установка типа угла для конечной точки кривой Безье"
 
 #: lib/diagramdata.c:50
 msgid "Background"
@@ -1449,7 +1449,7 @@ msgstr "Ошибка"
 #: lib/plug-ins.c:192
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Невозможно вычислить корректный путь для `%s'"
 
 #: lib/plug-ins.c:197
 #, c-format
@@ -1463,7 +1463,7 @@ msgstr ""
 #: lib/plug-ins.c:208
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr ""
+msgstr "Невозможно найти функцию инициализации дополнения в `%s'"
 
 #: lib/plug-ins.c:235
 #, c-format
@@ -1721,7 +1721,7 @@ msgstr "   Экспорт"
 
 #: objects/FS/function.c:630
 msgid "   Transfer"
-msgstr "   Передача"
+msgstr "   Перенос"
 
 #: objects/FS/function.c:631
 msgid "      Transport"
@@ -1729,15 +1729,15 @@ msgstr "      Транспорт"
 
 #: objects/FS/function.c:632
 msgid "      Transmit"
-msgstr ""
+msgstr "      Передача"
 
 #: objects/FS/function.c:633
 msgid "   Guide"
-msgstr ""
+msgstr "   Руководство"
 
 #: objects/FS/function.c:634
 msgid "      Translate"
-msgstr ""
+msgstr "      Перевод"
 
 #: objects/FS/function.c:635
 msgid "      Rotate"
@@ -1745,7 +1745,7 @@ msgstr "      Вращение"
 
 #: objects/FS/function.c:636
 msgid "      Allow DOF"
-msgstr ""
+msgstr "      Позволить DOF"
 
 #: objects/FS/function.c:637
 msgid "Support"
@@ -1769,15 +1769,15 @@ msgstr "   Позиция"
 
 #: objects/FS/function.c:642
 msgid "Connect"
-msgstr "Подключить"
+msgstr "Подключение"
 
 #: objects/FS/function.c:643
 msgid "   Couple"
-msgstr ""
+msgstr "   Пара"
 
 #: objects/FS/function.c:644
 msgid "   Mix"
-msgstr ""
+msgstr "   Смесь"
 
 #: objects/FS/function.c:645
 msgid "Branch"
@@ -1801,11 +1801,11 @@ msgstr "   Распределить"
 
 #: objects/FS/function.c:650
 msgid "   Dissipate"
-msgstr ""
+msgstr "   Рассеять"
 
 #: objects/FS/function.c:651
 msgid "Provision"
-msgstr ""
+msgstr "Снабжение"
 
 #: objects/FS/function.c:652
 msgid "   Store"
@@ -1825,11 +1825,11 @@ msgstr ""
 
 #: objects/FS/function.c:656
 msgid "   Actuate"
-msgstr ""
+msgstr "   Привести в действие"
 
 #: objects/FS/function.c:657
 msgid "   Regulate"
-msgstr ""
+msgstr "   Регулировать"
 
 #: objects/FS/function.c:658
 msgid "   Change"
@@ -1849,7 +1849,7 @@ msgstr ""
 
 #: objects/FS/function.c:663
 msgid "   Indicate"
-msgstr ""
+msgstr "   Указать"
 
 #: objects/FS/function.c:664
 msgid "   Display"
@@ -1911,41 +1911,39 @@ msgstr "Объекты диаграммы GRAFCET"
 
 #: objects/GRAFCET/step.c:251
 msgid "Regular step"
-msgstr ""
+msgstr "Обычный шаг"
 
 #: objects/GRAFCET/step.c:252
 msgid "Initial step"
-msgstr ""
+msgstr "Начальный шаг"
 
 #: objects/GRAFCET/step.c:253
 msgid "Macro entry step"
-msgstr ""
+msgstr "Шаг входа в макрос"
 
 #: objects/GRAFCET/step.c:254
 msgid "Macro exit step"
-msgstr ""
+msgstr "Шаг выхода из макроса"
 
 #: objects/GRAFCET/step.c:255
 msgid "Macro call step"
-msgstr ""
+msgstr "Шаг вызова макроса"
 
 #: objects/GRAFCET/step.c:256
 msgid "Subprogram call step"
-msgstr ""
+msgstr "Шаг вызова подпрограммы"
 
 #: objects/GRAFCET/step.c:265
-#, fuzzy
 msgid "Step name"
-msgstr "Название слоя:"
+msgstr "Название шага"
 
 #: objects/GRAFCET/step.c:266
 msgid "Active"
 msgstr "Действующий"
 
 #: objects/GRAFCET/step.c:267
-#, fuzzy
 msgid "Step type"
-msgstr "Стереотип:"
+msgstr "Тип шага"
 
 #: objects/GRAFCET/step.c:310
 msgid "Color:"
@@ -1953,7 +1951,7 @@ msgstr "Цвет:"
 
 #: objects/GRAFCET/transition.c:208
 msgid "Receptivity:"
-msgstr ""
+msgstr "Восприимчивость:"
 
 #: objects/GRAFCET/vector.c:172 objects/GRAFCET/vector.c:206
 msgid "Draw arrow heads on upward arcs:"
@@ -1968,9 +1966,8 @@ msgid "AND"
 msgstr "И"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
-#, fuzzy
 msgid "Vergent type:"
-msgstr "Тип сообщения:"
+msgstr ""
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
 #: objects/standard/line.c:171
@@ -2000,20 +1997,19 @@ msgstr "Нормальный"
 
 #: objects/SADT/arrow.c:188
 msgid "Import resource (not shown upstairs)"
-msgstr ""
+msgstr "Импорт ресурса (не показывать звездочки)"
 
 #: objects/SADT/arrow.c:189
 msgid "Imply resource (not shown downstairs)"
 msgstr ""
 
 #: objects/SADT/arrow.c:190
-#, fuzzy
 msgid "Dotted arrow"
-msgstr "Точечная"
+msgstr "Точечная стрелка"
 
 #: objects/SADT/arrow.c:191
 msgid "disable arrow heads"
-msgstr ""
+msgstr "отключить наконечник стрелки"
 
 #: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
 msgid "Flow style:"
@@ -2021,12 +2017,11 @@ msgstr "Стиль потока:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "Автоматически выделять вертикальные потоки:"
 
 #: objects/SADT/arrow.c:651
-#, fuzzy
 msgid "SADT Arrow"
-msgstr "Показать стрелку"
+msgstr "SADT стрелка"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
 #: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
@@ -2049,9 +2044,8 @@ msgid "SADT box"
 msgstr ""
 
 #: objects/SADT/sadt.c:37
-#, fuzzy
 msgid "SADT diagram objects"
-msgstr "Объекты диаграммы сети"
+msgstr "Объекты диаграммы SADT"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -2345,13 +2339,12 @@ msgid "Collaboration"
 msgstr "Кооперация"
 
 #: objects/chronogram/chronogram.c:36
-#, fuzzy
 msgid "Chronogram diagram objects"
-msgstr "Объекты диаграммы сети"
+msgstr "Объекты диаграммы хронограммы"
 
 #: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
 msgid "Aspect"
-msgstr ""
+msgstr "Вид"
 
 #: objects/chronogram/chronoline.c:302 objects/chronogram/chronoline.c:405
 msgid "Parameters"
@@ -2429,11 +2422,11 @@ msgstr ""
 
 #: objects/custom/custom.c:117
 msgid "Custom"
-msgstr ""
+msgstr "Пользовательская"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "Загрузчик пользовательских XML-форм"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
@@ -2487,7 +2480,7 @@ msgstr "Объекты диаграммы потоков"
 
 #: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
 msgid "Shear angle:"
-msgstr ""
+msgstr "Угол смещения:"
 
 #: objects/network/bus.c:569
 msgid "Add Handle"
@@ -2518,9 +2511,8 @@ msgid "Smooth control"
 msgstr "Гладкая точка"
 
 #: objects/standard/bezier.c:533
-#, fuzzy
 msgid "Cusp control"
-msgstr "Управление"
+msgstr "Управляющая точка"
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2587,6 +2579,8 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Длина строки изображения больше чем максимальный массив ячеек.\n"
+"Изображение не экспортировано в CGM."
 
 #: plug-ins/cgm/cgm.c:1252
 msgid "Computer Graphics Metafile"
