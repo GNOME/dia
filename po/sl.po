@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-07-03 02:05+0200\n"
+"POT-Creation-Date: 2001-07-27 23:41+0200\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -97,66 +97,53 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Predmeti in filtri samo za dio"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Izberi barvo"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Datoteka ni bila najdena\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "Uvozi iz XFig-a"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Neimenovan-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Obstojeèi predmet, ki naj se prilepi, ne obstaja.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Nisem najdel imenika pomoèi"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "O Dii"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia razlièica %s od Alexandra Larssona"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "Vzdr¾evalec: James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Prosim za veè podatkov obi¹èite http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Sodelujoèi:"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "V redu"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -171,12 +158,12 @@ msgid "Object defaults"
 msgstr "Privzete nastavitve predmeta"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Uporabi"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Zapri"
@@ -314,13 +301,13 @@ msgstr ""
 "Ta diagram ni bil shranjen.\n"
 "Sedaj shrani spremembe?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:348
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:351
 msgid "Yes"
 msgstr "Da"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:350 lib/properties.c:382
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:353 lib/properties.c:370
 msgid "No"
 msgstr "Ne"
 
@@ -424,8 +411,8 @@ msgstr "Drsi"
 msgid "Create Text"
 msgstr "Ustvari besedilo"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1702
-#: lib/properties.h:402
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1794
+#: lib/properties.h:406
 msgid "Text"
 msgstr "Besedilo"
 
@@ -577,7 +564,7 @@ msgstr "Podrobnosti..."
 msgid "Line Style Properties"
 msgstr "Lastnosti sloga èrte"
 
-#: app/linewidth_area.c:216 lib/properties.h:378
+#: app/linewidth_area.c:216 lib/properties.h:382
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Debelina èrte"
@@ -770,7 +757,7 @@ msgstr "Obrni"
 msgid "All"
 msgstr "Vse"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "brez"
 
@@ -786,18 +773,18 @@ msgstr "Prehodna"
 msgid "Same Type"
 msgstr "Isti Tip"
 
-#: app/menus.c:164 lib/properties.c:1687 lib/properties.h:366
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Levo"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1688 lib/properties.h:367
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Sredina"
 
-#: app/menus.c:166 lib/properties.c:1689 lib/properties.h:368
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Desno"
 
@@ -1358,31 +1345,35 @@ msgstr "Nalo¾i"
 msgid "Unload"
 msgstr "Odstrani"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Uporabni¹ki vmesnik"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+msgid "Diagram Defaults"
+msgstr "Privzete lastnosti diagrama"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Poglej privzete nastavitve"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Èrte Mre¾e"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Ponastavi orodja po ustvarjanju:"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Stistni datoteke ob shranjevanju:"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "©tevilo mo¾nih razveljavljavitev:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1390,68 +1381,76 @@ msgstr ""
 "Obrnjeno vleèenje izbere\n"
 "sekajoèe se predmete:"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+msgid "New diagram:"
+msgstr "Nov diagram:"
+
+#: app/preferences.c:139
+msgid "Paper type:"
+msgstr "Vrsta papirja:"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Novo okno:"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "©irina:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Vi¹ina:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Poveèaj:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Uporabi menujsko vrstico:"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Toèke povezav:"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Vidno:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Mre¾a:"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Preskakuj na:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "Vi¹ina (v pikslih):"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "©irina (v pikslih):"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Barva:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Polne èrte:"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Lomi strani:"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Ne morem odpreti `%s' za pisanje"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Nastavitve"
 
@@ -1498,19 +1497,19 @@ msgstr "Nalagam ..."
 msgid "Dia v %s"
 msgstr "Dia razlièica %s"
 
-#: lib/properties.c:1696 lib/properties.h:381
+#: lib/properties.c:1788 lib/properties.h:385
 msgid "Line colour"
 msgstr "Barva èrte"
 
-#: lib/properties.c:1697 lib/properties.h:384
+#: lib/properties.c:1789 lib/properties.h:388
 msgid "Line style"
 msgstr "Slog èrte"
 
-#: lib/properties.c:1698 lib/properties.h:388
+#: lib/properties.c:1790 lib/properties.h:392
 msgid "Fill colour"
 msgstr "Barva polnjenja"
 
-#: lib/properties.c:1699 lib/properties.h:391
+#: lib/properties.c:1791 lib/properties.h:395
 #: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1519,31 +1518,31 @@ msgstr "Barva polnjenja"
 msgid "Draw background"
 msgstr "Ri¹i ozadje"
 
-#: lib/properties.c:1700 lib/properties.h:395
+#: lib/properties.c:1792 lib/properties.h:399
 msgid "Start arrow"
 msgstr "Pu¹èica zaèetka"
 
-#: lib/properties.c:1701 lib/properties.h:398
+#: lib/properties.c:1793 lib/properties.h:402
 msgid "End arrow"
 msgstr "Pu¹èica konca"
 
-#: lib/properties.c:1703 lib/properties.h:405
+#: lib/properties.c:1795 lib/properties.h:409
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
-#: lib/properties.c:1704 lib/properties.h:408 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1796 lib/properties.h:412 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Pisava"
 
-#: lib/properties.c:1705 lib/properties.h:411 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1797 lib/properties.h:415 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: lib/properties.c:1706 lib/properties.h:414 objects/GRAFCET/step.c:167
+#: lib/properties.c:1798 lib/properties.h:418 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Barva besedila"
@@ -1588,7 +1587,7 @@ msgstr ""
 "Notranja napaka: Nastavljanje vogalnega tipa za konèno toèko bezierjeve "
 "krivulje"
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1597,12 +1596,22 @@ msgstr ""
 "Opozorilo, nobena pisava X za %s ni bila najdena, \n"
 "Namesto tega uporabljam %s.\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "Opozorilo: Izbran je bil FreeType, a knji¾nica se noèe nalo¾iti: %d\n"
+
+#: lib/font.c:526
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Opozorilo: Nobena pisava X ni bila najdena. Konec je sveta."
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Pisava %s ni bila najdena, namesto nje uporabljam Courier.\n"
 
-#: lib/properties.c:494 lib/properties.c:532
+#: lib/properties.c:437 lib/properties.c:466
 msgid "No edit widget"
 msgstr "Ni urejevalnega gradnika"
 
@@ -1618,116 +1627,116 @@ msgstr "Opozorilo"
 msgid "Error"
 msgstr "Napaka"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "polna"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "èrtkana"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "èrtica-pika"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "èrtica-pika-pika"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "pikèasta"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Dol¾ina èrtic: "
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "èrte"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "prazen trikotnik"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "zapolnjen trikotnik"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 msgid "Unfilled Triangle"
 msgstr "nezapolnjen trikotnik"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "zapolnjen karo"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "polovica pu¹èice"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "po¹even kri¾ec"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "zapolnjena elipsa"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "prazna elipsa"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 msgid "Filled Dot"
 msgstr "polnjena pika"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "izvor dimenzije"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "prazna pika"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 msgid "Double Hollow triangle"
 msgstr "dvojen prazen trikotnik"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 msgid "Double Filled triangle"
 msgstr "dvojen polnjen trikotnik"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 msgid "Filled Box"
 msgstr "polnjena ¹katla"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "prazna ¹katla"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 msgid "Slashed"
 msgstr "èrtkano"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "simbol za integral"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Dol¾ina: "
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "©irina: "
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Izberite datoteko s sliko"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Brskaj"
 
@@ -1736,6 +1745,7 @@ msgid "Taking point value of non-point node."
 msgstr "Jemljem vrednost toèke netoèkastega vozli¹èa."
 
 #: lib/dia_xml.c:285
+#, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna x vrednost toèke \"%s\" %f; ne bo upo¹tevana:"
 
@@ -2838,7 +2848,8 @@ msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr ""
-"Za la¾je branje so lahko tokovi, ki se zaènejo in konèajo navpi¹no narisani sivo"
+"Za la¾je branje so lahko tokovi, ki se zaènejo in konèajo navpi¹no narisani "
+"sivo"
 
 #: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
@@ -3502,11 +3513,11 @@ msgstr "Izvozni filter za TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makri"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "Ne morem izvoziti datoteke png brez knji¾nice libart!"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "dia datoteka z obliko"
 
@@ -3590,6 +3601,7 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznana podvrsta poligonske èrte: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:707
+#, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Nisem mogel prebrati podatkov o loku: %s\n"
 
@@ -3638,6 +3650,7 @@ msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznana velikost papirja `%s', uporabljam privzeto\n"
 
 #: plug-ins/xfig/xfig-import.c:962
+#, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Napaka ob branju usmerjenosti papirja: %s\n"
 
@@ -3693,6 +3706,16 @@ msgstr "To je datoteka FIG razlièice %d.%d, morda je ne bom razumel\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "Oblika datoteke XFig"
+
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Datoteka ni bila najdena\n"
+#~ "%s\n"
+
+#~ msgid "Import from XFig"
+#~ msgstr "Uvozi iz XFig-a"
 
 #~ msgid "Text color:"
 #~ msgstr "Barva besedila:"
