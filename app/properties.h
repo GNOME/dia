@@ -22,6 +22,7 @@
 #include "diagram.h"
 
 extern void properties_show(Diagram *dia, Object *obj);
+extern void properties_update_if_shown(Diagram *dia, Object *obj);
 extern void properties_hide_if_shown(Diagram *dia, Object *obj);
 
 

@@ -2307,8 +2307,6 @@ umlclass_apply_properties(UMLClass *umlclass)
 
     umlclass_store_disconnects(prop_dialog, connection);
     object_remove_connections_to(connection);
-    printf("removed all connections from connection.\n");
-    g_assert(connection->connected == NULL); /* Paranoid */
     
     list = g_list_next(list);
   }
@@ -2568,7 +2566,6 @@ umlclass_change_apply(UMLClassChange *change, Object *obj)
 {
   UMLClassState *old_state;
   GList *list;
-  printf("umlclass_change_apply()\n");
   
   old_state = umlclass_get_state(change->obj);
 
@@ -2592,7 +2589,6 @@ umlclass_change_revert(UMLClassChange *change, Object *obj)
 {
   UMLClassState *old_state;
   GList *list;
-  printf("umlclass_change_revert()\n");
   
   old_state = umlclass_get_state(change->obj);
 
@@ -2615,7 +2611,6 @@ static void
 umlclass_change_free(UMLClassChange *change)
 {
   GList *list, *free_list;
-  printf("umlclass_change_free()\n");
 
   umlclass_free_state(change->saved_state);
   g_free(change->saved_state);

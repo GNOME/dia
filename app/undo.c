@@ -723,6 +723,8 @@ object_change_apply(struct ObjectChangeChange *change,
   object_add_updates(change->obj, dia);
   
   diagram_update_connections_object(dia, change->obj, TRUE);
+
+  properties_update_if_shown(dia, change->obj);
 }
 
 static void
@@ -738,6 +740,8 @@ object_change_revert(struct ObjectChangeChange *change,
   object_add_updates(change->obj, dia);
   
   diagram_update_connections_object(dia, change->obj, TRUE);
+
+  properties_update_if_shown(dia, change->obj);
 }
 
 static void

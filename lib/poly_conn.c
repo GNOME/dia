@@ -16,12 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Known bugs:
-   Bounding box does not correctly incorporate the corners, especially at
-   acute angles.
-   Connections are not correctly updated when points are added.
-   In the callback proxy for add/remove points:  The screen is not updated.
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>

@@ -183,6 +183,14 @@ properties_hide_if_shown(Diagram *dia, Object *obj)
   }
 }
 
+void
+properties_update_if_shown(Diagram *dia, Object *obj)
+{
+  if (current_obj == obj) {
+    properties_show(dia, obj);
+  }
+}
+
 
 
 

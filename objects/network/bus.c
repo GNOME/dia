@@ -27,12 +27,13 @@
 #include "render.h"
 #include "attributes.h"
 #include "sheet.h"
+#include "diamenu.h"
 
 #include "pixmaps/bus.xpm"
 
 #define LINE_WIDTH 0.1
 
-#define DEFAULT_NUMHANDLES 10
+#define DEFAULT_NUMHANDLES 6
 #define HANDLE_BUS (HANDLE_CUSTOM1)
 
 typedef struct _BusPropertiesDialog BusPropertiesDialog;
@@ -52,6 +53,23 @@ struct _BusPropertiesDialog {
   GtkWidget *dialog;
 
   GtkSpinButton *num_handles_spinner;
+};
+
+enum change_type {
+  TYPE_ADD_POINT,
+  TYPE_REMOVE_POINT
+};
+
+struct PointChange {
+  ObjectChange obj_change;
+
+  enum change_type type;
+  int applied;
+  
+  Point point;
+  Handle *handle; /* owning ref when not applied for ADD_POINT
+		     owning ref when applied for REMOVE_POINT */
+  ConnectionPoint *connected_to; /* NULL if not connected */
 };
 
 static void bus_move_handle(Bus *bus, Handle *handle,
@@ -74,6 +92,12 @@ static Object *bus_load(ObjectNode obj_node, int version,
 			const char *filename);
 static GtkWidget *bus_get_properties(Bus *bus);
 static void bus_apply_properties(Bus *bus);
+static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
+
+static ObjectChange *
+bus_create_change(Bus *bus, enum change_type type,
+		  Point *point, Handle *handle,
+		  ConnectionPoint *connected_to);
 
 
 static ObjectTypeOps bus_type_ops =
@@ -85,6 +109,14 @@ static ObjectTypeOps bus_type_ops =
 
 ObjectType bus_type =
 {
+  "Network - Bus",   /* name */
+  0,                  /* version */
+  (char **) bus_xpm,  /* pixmap */
+  &bus_type_ops       /* ops */
+};
+
+ObjectType bus_type_std = /* Old mistake, left for backwards compatibility */
+{
   "Standard - Bus",   /* name */
   0,                  /* version */
   (char **) bus_xpm,  /* pixmap */
@@ -93,7 +125,7 @@ ObjectType bus_type =
 
 SheetObject bus_sheetobj =
 {
-  "Standard - Bus",             /* type */
+  "Network - Bus",             /* type */
   N_("Ethernet bus."),        /* description */
   (char **) bus_xpm,     /* pixmap */
   NULL                   /* user_data */
@@ -109,7 +141,7 @@ static ObjectOps bus_ops = {
   (MoveHandleFunc)      bus_move_handle,
   (GetPropertiesFunc)   bus_get_properties,
   (ApplyPropertiesFunc) bus_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      bus_get_object_menu
 };
 
 
@@ -208,7 +240,7 @@ bus_get_properties(Bus *bus)
     gtk_widget_show (dialog);
   }
 
-  
+  return NULL;
   return bus->properties_dialog->dialog;
 }
 
@@ -528,6 +560,135 @@ bus_update_data(Bus *bus)
   connection_update_handles(conn);
 }
 
+static void
+bus_add_handle(Bus *bus, Point *p, Handle *handle)
+{
+  int i;
+  
+  bus->num_handles++;
+
+  /* Allocate more handles */
+  bus->handles = g_realloc(bus->handles,
+			   sizeof(Handle *)*bus->num_handles);
+  bus->parallel_points = g_realloc(bus->parallel_points,
+				   sizeof(Point)*bus->num_handles);
+
+  i = bus->num_handles - 1;
+  
+  bus->handles[i] = handle;
+  bus->handles[i]->id = HANDLE_BUS;
+  bus->handles[i]->type = HANDLE_MINOR_CONTROL;
+  bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
+  bus->handles[i]->connected_to = NULL;
+  bus->handles[i]->pos = *p;
+  object_add_handle((Object *) bus, bus->handles[i]);
+}
+
+static void
+bus_remove_handle(Bus *bus, Handle *handle)
+{
+  int i, j;
+  
+  for (i=0;i<bus->num_handles;i++) {
+    if (bus->handles[i] == handle) {
+      object_remove_handle((Object *) bus, handle);
+
+      for (j=i;j<bus->num_handles-1;j++) {
+	bus->handles[j] = bus->handles[j+1];
+	bus->parallel_points[j] = bus->parallel_points[j+1];
+      }
+
+      bus->num_handles--;
+      bus->handles = g_realloc(bus->handles,
+			       sizeof(Handle *)*bus->num_handles);
+      bus->parallel_points = g_realloc(bus->parallel_points,
+				       sizeof(Point)*bus->num_handles);
+
+      break;
+    }
+  }
+}
+
+static ObjectChange *
+bus_add_handle_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Bus *bus = (Bus *) obj;
+  Handle *handle;
+
+  handle = g_new(Handle,1);
+  bus_add_handle(bus, clicked, handle);
+  bus_update_data(bus);
+
+  return bus_create_change(bus, TYPE_ADD_POINT, clicked, handle, NULL);
+}
+
+static int
+bus_point_near_handle(Bus *bus, Point *p)
+{
+  int i, min;
+  real dist = 1000.0;
+  real d;
+
+  min = -1;
+  for (i=0;i<bus->num_handles;i++) {
+    d = distance_line_point(&bus->parallel_points[i],
+			    &bus->handles[i]->pos, 0.0, p);
+
+    if (d < dist) {
+      dist = d;
+      min = i;
+    }
+  }
+
+  if (dist < 0.5)
+    return min;
+  else
+    return -1;
+}
+
+static ObjectChange *
+bus_delete_handle_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Bus *bus = (Bus *) obj;
+  Handle *handle;
+  int handle_num;
+  ConnectionPoint *connectionpoint;
+  Point p;
+
+  handle_num = bus_point_near_handle(bus, clicked);
+
+  handle = bus->handles[handle_num];
+  p = handle->pos;
+  connectionpoint = handle->connected_to;
+  
+  object_unconnect(obj, handle);
+  bus_remove_handle(bus, handle );
+  bus_update_data(bus);
+
+  return bus_create_change(bus, TYPE_REMOVE_POINT, &p, handle,
+			   connectionpoint);
+}
+
+static DiaMenuItem bus_menu_items[] = {
+  { N_("Add Handle"), bus_add_handle_callback, NULL, 1 },
+  { N_("Delete Handle"), bus_delete_handle_callback, NULL, 1 },
+};
+
+static DiaMenu bus_menu = {
+  "Bus",
+  sizeof(bus_menu_items)/sizeof(DiaMenuItem),
+  bus_menu_items,
+  NULL
+};
+
+static DiaMenu *
+bus_get_object_menu(Bus *bus, Point *clickedpoint)
+{
+  /* Set entries sensitive/selected etc here */
+  bus_menu_items[0].active = 1;
+  bus_menu_items[1].active = (bus_point_near_handle(bus, clickedpoint) >= 0);
+  return &bus_menu;
+}
 
 static void
 bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
@@ -593,3 +754,71 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
 
   return (Object *)bus;
 }
+
+static void
+bus_change_free(struct PointChange *change)
+{
+  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
+       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+    if (change->handle)
+      g_free(change->handle);
+    change->handle = NULL;
+  }
+}
+
+static void
+bus_change_apply(struct PointChange *change, Object *obj)
+{
+  change->applied = 1;
+  switch (change->type) {
+  case TYPE_ADD_POINT:
+    bus_add_handle((Bus *)obj, &change->point, change->handle);
+    break;
+  case TYPE_REMOVE_POINT:
+    object_unconnect(obj, change->handle);
+    bus_remove_handle((Bus *)obj, change->handle);
+    break;
+  }
+  bus_update_data((Bus *)obj);
+}
+
+static void
+bus_change_revert(struct PointChange *change, Object *obj)
+{
+  switch (change->type) {
+  case TYPE_ADD_POINT:
+    bus_remove_handle((Bus *)obj, change->handle);
+    break;
+  case TYPE_REMOVE_POINT:
+    bus_add_handle((Bus *)obj, &change->point, change->handle);
+    if (change->connected_to) {
+      object_connect(obj, change->handle, change->connected_to);
+    }
+    break;
+  }
+  bus_update_data((Bus *)obj);
+  change->applied = 0;
+}
+
+static ObjectChange *
+bus_create_change(Bus *bus, enum change_type type,
+		  Point *point, Handle *handle,
+		  ConnectionPoint *connected_to)
+{
+  struct PointChange *change;
+
+  change = g_new(struct PointChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) bus_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) bus_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) bus_change_free;
+
+  change->type = type;
+  change->applied = 1;
+  change->point = *point;
+  change->handle = handle;
+  change->connected_to = connected_to;
+
+  return (ObjectChange *)change;
+}
+

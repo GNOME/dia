@@ -1,3 +1,27 @@
+1999-10-10  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/network/bus.c:
+	Implemented undo.
+	Handles are now added and removed using the object menu.
+	Default to 6 handles instead of 10.
+	Changed name from "Standard - Bus" to "Network - Bus". Kept old
+	name for backwards compatibility.
+
+	* objects/network/network.c:
+	Changed name from "Standard - Bus" to "Network - Bus". Kept old
+	name for backwards compatibility.
+
+	* app/properties.[ch]:
+	* app/undo.c:
+	Update properties in properties dialog if the shown object
+	is part of and ObjectChange (undo or redo).
+
+	* lib/poly_conn.c:
+	Remove old known bugs list.
+
+	* objects/UML/class_dialog.c:
+	Removed debug printf's.
+
 1999-10-10  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom.c (custom_object_load): new function that

@@ -28,6 +28,7 @@ extern ObjectType computer_type;
 extern ObjectType monitor_type;
 extern ObjectType disc_type;
 extern ObjectType bus_type;
+extern ObjectType bus_type_std;
 extern ObjectType printer_type;
 extern ObjectType flash_type;
 extern ObjectType hub_type;
@@ -45,6 +46,7 @@ void register_objects(void) {
   object_register_type(&computer_type);
   object_register_type(&monitor_type);
   object_register_type(&disc_type);
+  object_register_type(&bus_type_std);
   object_register_type(&bus_type);
   object_register_type(&printer_type);
   object_register_type(&flash_type);
