@@ -73,7 +73,7 @@
     </object>
 	<br/>
     <object name="Pneum - connpoint">
-      <_description>A connection point</_description>
+      <_description>Connection point</_description>
     </object>
     <!-- TODO: anti-return valves, variable and non-variable stranglers,
          combinations of these, pressure limiters (a whole family !), pressure
