@@ -2321,9 +2321,8 @@ msgid "The X string that represents this font."
 msgstr ""
 
 #: lib/diagtkfontsel.c:216
-#, fuzzy
 msgid "Preview text"
-msgstr "Szöveg készítése"
+msgstr "Mintaszöveg"
 
 #: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
