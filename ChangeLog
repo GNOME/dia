@@ -14,7 +14,7 @@
 	Added a special case for Symbol strings, so that they're not
 	re-encoded using the LN encoding (we use the bare Adobe encoding
 	instead).
-	
+
 2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/boundingbox.c: fixed a minor logic error wrt closed shapes. 
