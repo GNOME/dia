@@ -530,10 +530,11 @@ app_init (int argc, char **argv)
     exit(1);
   }
 
-  prefs_load();
-
   if (dia_is_interactive) {
     persistence_load();
+
+    /** Must load prefs after persistence */
+    prefs_load();
 
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
@@ -556,6 +557,8 @@ app_init (int argc, char **argv)
 
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/
+  } else {
+    prefs_load();
   }
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size);
@@ -622,7 +625,6 @@ app_exit(void)
     }
     gtk_widget_destroy(dialog);
   }
-
   prefs_save();
 
   persistence_save();

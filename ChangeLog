@@ -1,3 +1,12 @@
+2004-03-31  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c: Do persistence before prefs.  Prefs are to be
+	phased out anyway.
+	
+	* lib/persistence.[ch]: 
+	* app/preferences.c: Adding persistence for integers, reals,
+	booleans.  Fixed stupid list bug.  Test persistence for prefs.
+
 2004-03-30  Lars Clausen  <lars@raeder.dk>
 
 	* app/recent_files.c: 

@@ -43,6 +43,8 @@
 #include "paper.h"
 #include "interface.h"
 
+#include "persistence.h"
+
 #ifdef G_OS_WIN32
 #include <io.h> /* open, close */
 #endif
@@ -325,15 +327,18 @@ prefs_save(void)
     switch (prefs_data[i].type) {
     case PREF_BOOLEAN:
       fprintf(file, (*(int *)ptr)?"true\n":"false\n");
+      persistence_set_boolean(prefs_data[i].name, *(gint *)ptr);
       break;
     case PREF_INT:
     case PREF_UINT:
       fprintf(file, "%d\n", *(int *)ptr);
+      persistence_set_integer(prefs_data[i].name, *(gint *)ptr);
       break;
     case PREF_REAL:
     case PREF_UREAL:
       
       fprintf(file, "%f\n", (double) *(real *)ptr);
+      persistence_set_real(prefs_data[i].name, *(real *)ptr);
       break;
     case PREF_COLOUR:
       fprintf(file, "%f %f %f\n", (double) ((Color *)ptr)->red,
@@ -383,6 +388,7 @@ prefs_parse_line(GScanner *scanner)
       *(int *)ptr = 1;
     else
     *(int *)ptr = 0;
+    persistence_register_boolean(prefs_data[symbol_nr].name, *(int *)ptr);
     break;
     
   case PREF_INT:
@@ -391,6 +397,7 @@ prefs_parse_line(GScanner *scanner)
       return G_TOKEN_INT;
     
     *(int *)ptr = scanner->value.v_int;
+    persistence_register_integer(prefs_data[symbol_nr].name, *(int *)ptr);
     break;
 
   case PREF_REAL:
@@ -399,6 +406,8 @@ prefs_parse_line(GScanner *scanner)
       return G_TOKEN_FLOAT;
     
     *(real *)ptr = scanner->value.v_float;
+    printf("Real is %f\n", scanner->value.v_float);
+    persistence_register_real(prefs_data[symbol_nr].name, scanner->value.v_float);
     break;
   case PREF_COLOUR:
     if (token != G_TOKEN_FLOAT)

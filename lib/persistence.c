@@ -41,6 +41,8 @@
 /* Hash table from window role (string) to PersistentWindow structure.
  */
 static GHashTable *persistent_windows, *persistent_strings, *persistent_lists;
+static GHashTable *persistent_integers, *persistent_reals;
+static GHashTable *persistent_booleans, *persistent_enums;
 
 /* *********************** LOADING FUNCTIONS *********************** */
 
@@ -68,11 +70,6 @@ persistence_load_window(gchar *role, xmlNodePtr node)
   if (attr != NULL)
     wininfo->isopen = data_boolean(attribute_first_data(attr));
 
-  if (persistent_windows == NULL) {
-    persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
-  } else {
-    /* Do anything to avoid dups? */
-  }
   g_hash_table_insert(persistent_windows, role, wininfo);
 }
 
@@ -90,11 +87,6 @@ persistence_load_string(gchar *role, xmlNodePtr node)
   else 
     return;
 
-  if (persistent_strings == NULL) {
-    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
-  } else {
-    /* Do anything to avoid dups? */
-  }
   if (string != NULL)
     g_hash_table_insert(persistent_strings, role, string);
 }
@@ -112,12 +104,6 @@ persistence_load_list(gchar *role, xmlNodePtr node)
   else 
     return;
 
-  if (persistent_lists == NULL) {
-    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
-  } else {
-    /* Do anything to avoid dups? */
-  }
-  printf("List %s with string %s\n", role, string);
   if (string != NULL) {
     gchar **strings = g_strsplit(string, "\n", -1);
     GList *list = NULL;
@@ -127,9 +113,73 @@ persistence_load_list(gchar *role, xmlNodePtr node)
     }
     /* This frees the strings, too? */
     g_strfreev(strings);
-    g_hash_table_insert(persistent_lists, role, list);
-  printf("List %s has %d items\n", role, g_list_length(list));
+    PersistentList *plist = g_new(PersistentList, 1);
+    plist->glist = list;
+    plist->role = role;
+    plist->sorted = FALSE;
+    plist->max_members = G_MAXINT;
+    g_hash_table_insert(persistent_lists, role, plist);
   }
+}
+
+static void
+persistence_load_integer(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  gint *integer;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "intvalue");
+  if (attr != NULL) {
+    integer = g_new(gint, 1);
+    *integer = data_int(attribute_first_data(attr));
+  } else 
+    return;
+
+  if (g_hash_table_lookup(persistent_integers, role) == NULL) 
+    g_hash_table_insert(persistent_integers, role, integer);
+  else 
+    printf("Int %s registered before loading persistence!\n", role);
+}
+
+static void
+persistence_load_real(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  real *realval;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "realvalue");
+  if (attr != NULL) {
+    realval = g_new(real, 1);
+    *realval = data_real(attribute_first_data(attr));
+  } else 
+    return;
+
+  if (g_hash_table_lookup(persistent_reals, role) == NULL) 
+    g_hash_table_insert(persistent_reals, role, realval);
+  else 
+    printf("Real %s registered before loading persistence!\n", role);
+}
+
+static void
+persistence_load_boolean(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  gboolean *booleanval;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "booleanvalue");
+  if (attr != NULL) {
+    booleanval = g_new(gboolean, 1);
+    *booleanval = data_boolean(attribute_first_data(attr));
+  } else 
+    return;
+
+  if (g_hash_table_lookup(persistent_booleans, role) == NULL) 
+    g_hash_table_insert(persistent_booleans, role, booleanval);
+  else 
+    printf("Boolean %s registered before loading persistence!\n", role);
 }
 
 static xmlNodePtr
@@ -175,6 +225,36 @@ persistence_set_type_handler(gchar *name, PersistenceLoadFunc func)
   g_hash_table_insert(type_handlers, name, (gpointer)func);
 }
 
+static void
+persistence_init()
+{
+  persistence_set_type_handler("window", persistence_load_window);
+  persistence_set_type_handler("entrystring", persistence_load_string);
+  persistence_set_type_handler("list", persistence_load_list);
+  persistence_set_type_handler("integer", persistence_load_integer);
+  persistence_set_type_handler("real", persistence_load_real);
+  persistence_set_type_handler("boolean", persistence_load_boolean);
+
+  if (persistent_windows == NULL) {
+    persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_strings == NULL) {
+    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_lists == NULL) {
+    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_integers == NULL) {
+    persistent_integers = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_reals == NULL) {
+    persistent_reals = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_booleans == NULL) {
+    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+}
+
 /* Load all persistent data. */
 void
 persistence_load()
@@ -182,11 +262,9 @@ persistence_load()
   xmlDocPtr doc;
   gchar *filename = dia_config_filename("persistence");
 
-  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
+  persistence_init();
 
-  persistence_set_type_handler("window", persistence_load_window);
-  persistence_set_type_handler("entrystring", persistence_load_string);
-  persistence_set_type_handler("list", persistence_load_list);
+  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
 
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
@@ -252,8 +330,8 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   xmlSetProp(listnode, "role", (char *)key);
   /* Make a string out of the list */
   buf = g_string_new("");
-  for (items = (GList*)value; items != NULL; items = g_list_next(items)) {
-    printf("Writing recent file %s\n", items->data);
+  for (items = ((PersistentList*)value)->glist; items != NULL;
+       items = g_list_next(items)) {
     g_string_append(buf, (gchar *)items->data);
     if (g_list_next(items) != NULL) g_string_append(buf, "\n");
   }
@@ -262,6 +340,43 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   /* Does data_add_string keep the string?  If so, use TRUE */
   g_string_free(buf, FALSE);
 }
+
+static void
+persistence_save_integer(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode integernode;
+
+  integernode = (ObjectNode)xmlNewChild(tree, NULL, "integer", NULL);
+
+  xmlSetProp(integernode, "role", (char *)key);
+  data_add_int(new_attribute(integernode, "intvalue"), *(gint *)value);
+}
+
+static void
+persistence_save_real(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode realnode;
+
+  realnode = (ObjectNode)xmlNewChild(tree, NULL, "real", NULL);
+
+  xmlSetProp(realnode, "role", (char *)key);
+  data_add_real(new_attribute(realnode, "realvalue"), *(real *)value);
+}
+
+static void
+persistence_save_boolean(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode booleannode;
+
+  booleannode = (ObjectNode)xmlNewChild(tree, NULL, "boolean", NULL);
+
+  xmlSetProp(booleannode, "role", (char *)key);
+  data_add_boolean(new_attribute(booleannode, "booleanvalue"), *(gboolean *)value);
+}
+
 
 void
 persistence_save_type(xmlDocPtr doc, GHashTable *entries, GHFunc func)
@@ -288,9 +403,18 @@ persistence_save()
 			"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
+  printf("Saving windows\n");
   persistence_save_type(doc, persistent_windows, persistence_save_window);
+  printf("Saving strings\n");
   persistence_save_type(doc, persistent_strings, persistence_save_string);
+  printf("Saving lists\n");
   persistence_save_type(doc, persistent_lists, persistence_save_list);
+  printf("Saving integers\n");
+  persistence_save_type(doc, persistent_integers, persistence_save_integer);
+  printf("Saving reals\n");
+  persistence_save_type(doc, persistent_reals, persistence_save_real);
+  printf("Saving booleans\n");
+  persistence_save_type(doc, persistent_booleans, persistence_save_boolean);
 
   xmlDiaSaveFile(filename, doc);
   g_free(filename);
@@ -594,4 +718,142 @@ persistent_list_remove(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
   plist->glist = g_list_remove(plist->glist, item);
+}
+
+/* ********* INTEGERS ********** */
+gint
+persistence_register_integer(gchar *role, int defaultvalue)
+{
+  gint *integer;
+  if (role == NULL) return 0;
+  if (persistent_integers == NULL) {
+    persistent_integers = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  integer = (gint *)g_hash_table_lookup(persistent_integers, role);
+  if (integer == NULL) {
+    integer = g_new(gint, 1);
+    *integer = defaultvalue;
+    g_hash_table_insert(persistent_integers, role, integer);
+  }
+  return *integer;
+}
+
+gint
+persistence_get_integer(gchar *role)
+{
+  gint *integer;
+  if (persistent_integers == NULL) {
+    printf("No persistent integers to get for %s!\n", role);
+    return 0;
+  }
+  integer = (gint *)g_hash_table_lookup(persistent_integers, role);
+  if (integer != NULL) return *integer;
+  printf("No integer to get for %s\n", role);
+  return 0;
+}
+
+void
+persistence_set_integer(gchar *role, gint newvalue)
+{
+  gint *integer;
+  if (persistent_integers == NULL) {
+    printf("No persistent integers yet for %s!\n", role);
+    return;
+  }
+  integer = (gint *)g_hash_table_lookup(persistent_integers, role);
+  if (integer != NULL) *integer = newvalue;
+  else printf("No integer to set for %s\n", role);
+}
+
+/* ********* REALS ********** */
+real
+persistence_register_real(gchar *role, real defaultvalue)
+{
+  real *realval;
+  if (role == NULL) return 0;
+  if (persistent_reals == NULL) {
+    persistent_reals = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  realval = (real *)g_hash_table_lookup(persistent_reals, role);
+  if (realval == NULL) {
+    realval = g_new(real, 1);
+    *realval = defaultvalue;
+    g_hash_table_insert(persistent_reals, role, realval);
+  }
+  return *realval;
+}
+
+real
+persistence_get_real(gchar *role)
+{
+  real *realval;
+  if (persistent_reals == NULL) {
+    printf("No persistent reals to get for %s!\n", role);
+    return 0;
+  }
+  realval = (real *)g_hash_table_lookup(persistent_reals, role);
+  if (realval != NULL) return *realval;
+  printf("No real to get for %s\n", role);
+  return 0;
+}
+
+void
+persistence_set_real(gchar *role, real newvalue)
+{
+  real *realval;
+  if (persistent_reals == NULL) {
+    printf("No persistent reals yet for %s!\n", role);
+    return;
+  }
+  realval = (real *)g_hash_table_lookup(persistent_reals, role);
+  printf("Setting real %s to %f\n", role, newvalue);
+  if (realval != NULL) *realval = newvalue;
+  else printf("No real to set for %s\n", role);
+}
+
+
+/* ********* BOOLEANS ********** */
+gboolean
+persistence_register_boolean(gchar *role, gboolean defaultvalue)
+{
+  gboolean *booleanval;
+  if (role == NULL) return 0;
+  if (persistent_booleans == NULL) {
+    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
+  if (booleanval == NULL) {
+    booleanval = g_new(gboolean, 1);
+    *booleanval = defaultvalue;
+    g_hash_table_insert(persistent_booleans, role, booleanval);
+  }
+  return *booleanval;
+}
+
+gboolean
+persistence_get_boolean(gchar *role)
+{
+  gboolean *booleanval;
+  if (persistent_booleans == NULL) {
+    printf("No persistent booleans to get for %s!\n", role);
+    return 0;
+  }
+  booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
+  if (booleanval != NULL) return *booleanval;
+  printf("No boolean to get for %s\n", role);
+  return 0;
+}
+
+void
+persistence_set_boolean(gchar *role, gboolean newvalue)
+{
+  gboolean *booleanval;
+  if (persistent_booleans == NULL) {
+    printf("No persistent booleans yet for %s!\n", role);
+    return;
+  }
+  booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
+  printf("Setting boolean %s to %d\n", role, newvalue);
+  if (booleanval != NULL) *booleanval = newvalue;
+  else printf("No boolean to set for %s\n", role);
 }

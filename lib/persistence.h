@@ -22,6 +22,7 @@
 #ifndef PERSISTENCE_H
 #define PERSISTENCE_H
 #include "config.h"
+#include "geometry.h"
 
 #include <gtk/gtk.h>
 
@@ -52,9 +53,9 @@ gboolean persistence_change_string_entry(gchar *role, gchar *string,
  */
 typedef struct _PersistentList {
   const gchar *role;
-  GList *glist;
   gboolean sorted;
   gint max_members;
+  GList *glist;
 } PersistentList;
 
 PersistentList *persistence_register_list(const gchar *role);
@@ -63,5 +64,17 @@ GList *persistent_list_get_glist(const gchar *role);
 void persistent_list_add(const gchar *role, const gchar *item);
 void persistent_list_set_max_length(const gchar *role, gint max);
 void persistent_list_remove(const gchar *role, const gchar *item);
+
+gint persistence_register_integer(gchar *role, int defaultvalue);
+gint persistence_get_integer(gchar *role);
+void persistence_set_integer(gchar *role, gint newvalue);
+
+real persistence_register_real(gchar *role, real defaultvalue);
+real persistence_get_real(gchar *role);
+void persistence_set_real(gchar *role, real newvalue);
+
+gboolean persistence_register_boolean(gchar *role, gboolean defaultvalue);
+gboolean persistence_get_boolean(gchar *role);
+void persistence_set_boolean(gchar *role, gboolean newvalue);
 
 #endif
