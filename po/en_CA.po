@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-24 21:03-0500\n"
-"PO-Revision-Date: 2004-11-24 22:44-0400\n"
+"POT-Creation-Date: 2004-12-05 13:56-0500\n"
+"PO-Revision-Date: 2004-12-05 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,27 +97,27 @@ msgid "Can't connect to session manager!\n"
 msgstr "Cannot connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:517
+#: app/app_procs.c:524
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compiled %s %s\n"
 
-#: app/app_procs.c:519
+#: app/app_procs.c:526
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:578 app/app_procs.c:580
+#: app/app_procs.c:585 app/app_procs.c:587
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Could not find standard objects when looking for object-libs, exiting...\n"
 
-#: app/app_procs.c:621
+#: app/app_procs.c:628
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:663
+#: app/app_procs.c:670
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -125,7 +125,7 @@ msgstr ""
 "This should not happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 
-#: app/app_procs.c:675
+#: app/app_procs.c:682
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -135,21 +135,21 @@ msgstr ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 
-#: app/app_procs.c:679
+#: app/app_procs.c:685
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:731
+#: app/app_procs.c:737
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: app/app_procs.c:748 app/app_procs.c:755
+#: app/app_procs.c:754 app/app_procs.c:761
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: app/app_procs.c:757
+#: app/app_procs.c:763
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -157,15 +157,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:779
+#: app/app_procs.c:785
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:820
+#: app/app_procs.c:826
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:823
+#: app/app_procs.c:829
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -174,16 +174,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: app/app_procs.c:847
+#: app/app_procs.c:853
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: app/app_procs.c:859
+#: app/app_procs.c:865
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: app/app_procs.c:929
+#: app/app_procs.c:935
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -191,7 +191,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: app/app_procs.c:934
+#: app/app_procs.c:940
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -201,7 +201,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: app/app_procs.c:939
+#: app/app_procs.c:945
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -211,7 +211,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: app/app_procs.c:944
+#: app/app_procs.c:950
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -491,7 +491,7 @@ msgstr "Diagram tree"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -564,7 +564,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Properties..."
 
-#: app/disp_callbacks.c:935
+#: app/disp_callbacks.c:938
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -576,11 +576,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram modified!"
 
-#: app/display.c:983
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:985
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -589,11 +589,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: app/display.c:996
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: app/display.c:1001
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -643,31 +643,41 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:435
+#: app/filedlg.c:126 app/filedlg.c:487
 msgid "By extension"
 msgstr "By extension"
 
-#: app/filedlg.c:213
+#: app/filedlg.c:199
 msgid "Open Diagram"
 msgstr "Open Diagram"
 
-#: app/filedlg.c:243
+#: app/filedlg.c:227
 msgid "Open Options"
 msgstr "Open Options"
 
-#: app/filedlg.c:251 app/filedlg.c:559
+#: app/filedlg.c:235 app/filedlg.c:617
 msgid "Determine file type:"
 msgstr "Determine file type:"
 
-#: app/filedlg.c:288
+#: app/filedlg.c:251 app/filedlg.c:629
+msgid "All Files"
+msgstr "All Files"
+
+#: app/filedlg.c:256 app/filedlg.c:634
+msgid "Supported Formats"
+msgstr "Supported Formats"
+
+#: app/filedlg.c:292
 msgid ""
-"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
 "Some things will break."
 
-#: app/filedlg.c:294 app/filedlg.c:480
+#: app/filedlg.c:299 app/filedlg.c:532
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -676,21 +686,21 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 
-#: app/filedlg.c:302 app/filedlg.c:487
+#: app/filedlg.c:307 app/filedlg.c:539
 msgid "File already exists"
 msgstr "File already exists"
 
-#: app/filedlg.c:335
+#: app/filedlg.c:350
 msgid "Save Diagram"
 msgstr "Save Diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:345
+#: app/filedlg.c:361
 msgid "Compress diagram files"
 msgstr "Compress diagram files"
 
-#: app/filedlg.c:354
+#: app/filedlg.c:370
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -698,7 +708,7 @@ msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 
-#: app/filedlg.c:506
+#: app/filedlg.c:561
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -707,11 +717,11 @@ msgstr ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 
-#: app/filedlg.c:525
+#: app/filedlg.c:584
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: app/filedlg.c:551
+#: app/filedlg.c:609
 msgid "Export Options"
 msgstr "Export Options"
 
@@ -737,10 +747,10 @@ msgid "Scroll"
 msgstr "Scroll"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 lib/properties.h:519 objects/UML/activity.c:122
-#: objects/UML/actor.c:120 objects/UML/classicon.c:141
-#: objects/UML/component.c:126 objects/UML/component_feature.c:154
-#: objects/UML/node.c:125 objects/UML/note.c:119 objects/UML/object.c:145
+#: lib/properties.h:516 objects/UML/activity.c:122 objects/UML/actor.c:120
+#: objects/UML/classicon.c:141 objects/UML/component.c:126
+#: objects/UML/component_feature.c:154 objects/UML/node.c:125
+#: objects/UML/note.c:119 objects/UML/object.c:145
 #: objects/UML/small_package.c:126 objects/UML/state.c:139
 #: objects/UML/usecase.c:136 objects/Jackson/requirement.c:144
 #: objects/network/basestation.c:131 objects/network/radiocell.c:146
@@ -910,7 +920,7 @@ msgstr "Edit Layer Attributes"
 msgid "Layer name:"
 msgstr "Layer name:"
 
-#: app/layer_dialog.c:996 app/paginate_psprint.c:283
+#: app/layer_dialog.c:996 app/paginate_psprint.c:284
 msgid "OK"
 msgstr "OK"
 
@@ -997,7 +1007,7 @@ msgstr ""
 msgid "Failed to save file '%s'.\n"
 msgstr "Failed to save file '%s'.\n"
 
-#: app/load_save.c:1008 app/load_save.c:1013
+#: app/load_save.c:1009 app/load_save.c:1014
 msgid "Dia Diagram File"
 msgstr "Dia Diagram File"
 
@@ -1470,34 +1480,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Could not get GTK settings"
 
-#: app/paginate_psprint.c:242
+#: app/paginate_psprint.c:243
 msgid "Select Printer"
 msgstr "Select Printer"
 
-#: app/paginate_psprint.c:254 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Printer"
 
-#: app/paginate_psprint.c:268 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:379
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Could not run command '%s': %s"
 
-#: app/paginate_psprint.c:381
+#: app/paginate_psprint.c:382
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Could not open '%s' for writing: %s"
 
-#: app/paginate_psprint.c:398
+#: app/paginate_psprint.c:399
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Printing error: command '%s' returned %d\n"
 
-#: app/paginate_psprint.c:409
+#: app/paginate_psprint.c:410
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Printing error: command '%s' caused sigpipe."
@@ -2211,7 +2221,7 @@ msgstr "Font Selection"
 msgid "Line Style Properties"
 msgstr "Line Style Properties"
 
-#: lib/filter.c:120
+#: lib/filter.c:126
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Multiple export filters with unique name %s"
@@ -2259,12 +2269,12 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: lib/plug-ins.c:228
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Could not deduce correct path for `%s'"
 
-#: lib/plug-ins.c:234
+#: lib/plug-ins.c:233
 #, c-format
 msgid ""
 "Could not load plugin '%s'\n"
@@ -2273,25 +2283,25 @@ msgstr ""
 "Could not load plugin '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Could not find plugin init function in `%s'"
 
-#: lib/plug-ins.c:249
+#: lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Missing symbol 'dia_plugin_init'"
 
-#: lib/plug-ins.c:257 lib/plug-ins.c:265
+#: lib/plug-ins.c:256 lib/plug-ins.c:264
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init() call failed"
 
-#: lib/plug-ins.c:284
+#: lib/plug-ins.c:283
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s Plugin could not be unloaded"
 
-#: lib/plug-ins.c:372
+#: lib/plug-ins.c:371
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2300,15 +2310,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:609
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:612
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:615
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:618
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:621
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:624
 msgid "Right"
 msgstr "Right"
 
@@ -2342,14 +2352,14 @@ msgid "Text alignment"
 msgstr "Text alignment"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:525 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class.c:137 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Font"
 
-#: lib/properties.c:80 lib/properties.h:528 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2368,7 +2378,7 @@ msgstr "Line colour"
 msgid "Fill colour"
 msgstr "Fill colour"
 
-#: lib/properties.h:531 lib/properties.h:534
+#: lib/properties.h:539
 msgid "Text colour"
 msgstr "Text colour"
 
@@ -2382,56 +2392,56 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Could not find font family for %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:757 objects/FS/function.c:1063
+#: lib/widgets.c:760 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:763
+#: lib/widgets.c:766
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:769
+#: lib/widgets.c:772
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:775
+#: lib/widgets.c:778
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:781
+#: lib/widgets.c:784
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:800
+#: lib/widgets.c:803
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:928
+#: lib/widgets.c:931
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:956
+#: lib/widgets.c:959
 msgid "More colors..."
 msgstr "More colours..."
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1084
 msgid "More arrows"
 msgstr "More arrows"
 
-#: lib/widgets.c:1094
+#: lib/widgets.c:1097
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1239
+#: lib/widgets.c:1242
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1275
+#: lib/widgets.c:1278
 msgid "Browse"
 msgstr "Browse"
 
-#: lib/widgets.c:1871
+#: lib/widgets.c:1874
 msgid "Reset menu"
 msgstr "Reset menu"
 
@@ -3853,7 +3863,7 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: objects/UML/class.c:109 objects/UML/class.c:246 objects/UML/class.c:1162
+#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1163
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
@@ -3932,7 +3942,7 @@ msgstr "Attributes"
 msgid "Operations"
 msgstr "Operations"
 
-#: objects/UML/class.c:240
+#: objects/UML/class.c:241
 msgid "Show Comments"
 msgstr "Show Comments"
 
@@ -4694,7 +4704,7 @@ msgstr "Draw border"
 msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
-#: objects/standard/image.c:669 objects/standard/image.c:680
+#: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -4704,7 +4714,7 @@ msgstr ""
 "Using the file '%s' instead\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:714
+#: objects/standard/image.c:689 objects/standard/image.c:711
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "The image file '%s' was not found.\n"
@@ -4761,7 +4771,7 @@ msgstr "Cairo old WMF"
 msgid "Cairo Clipboard"
 msgstr "Cairo Clipboard"
 
-#: plug-ins/cairo/diacairo.c:1097
+#: plug-ins/cairo/diacairo.c:1108
 msgid "Cairo based Rendering"
 msgstr "Cairo-based Rendering"
 
@@ -4777,7 +4787,7 @@ msgstr ""
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1379
+#: plug-ins/cgm/cgm.c:1390
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
 
@@ -4803,7 +4813,7 @@ msgstr "read_dxf_codes failed\n"
 msgid "Unknown dxf code %d\n"
 msgstr "Unknown dxf code %d\n"
 
-#: plug-ins/dxf/dxf.c:37
+#: plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import and export filters"
 
@@ -4811,11 +4821,11 @@ msgstr "Drawing Interchange File import and export filters"
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: plug-ins/hpgl/hpgl.c:786
+#: plug-ins/hpgl/hpgl.c:797
 msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language export filter"
 
-#: plug-ins/metapost/metapost.c:34
+#: plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost export filter"
 
@@ -4823,7 +4833,7 @@ msgstr "TeX Metapost export filter"
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost macros"
 
-#: plug-ins/pixbuf/pixbuf.c:95
+#: plug-ins/pixbuf/pixbuf.c:90
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -4834,19 +4844,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:159
-msgid "GdkPixbuf - not antialiased"
-msgstr "GdkPixbuf - not antialiased"
-
-#: plug-ins/pixbuf/pixbuf.c:169
-msgid "GdkPixbuf bitmap"
-msgstr "GdkPixbuf bitmap"
-
-#: plug-ins/pixbuf/pixbuf.c:189
+#: plug-ins/pixbuf/pixbuf.c:197
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf based bitmap export/import"
 
-#: plug-ins/pstricks/pstricks.c:14
+#: plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks export filter"
 
@@ -4858,7 +4860,7 @@ msgstr "Not valid UTF8"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1186
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Could not open: '%s' for writing.\n"
@@ -4909,15 +4911,15 @@ msgstr "Could not find SVG namespace."
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "root element was '%s' -- expecting 'svg'."
 
-#: plug-ins/svg/svg.c:37
+#: plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics import and export filters"
 
-#: plug-ins/wmf/wmf.cpp:1253
+#: plug-ins/wmf/wmf.cpp:1249
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1269
+#: plug-ins/wmf/wmf.cpp:1265
 msgid "WMF export filter"
 msgstr "WMF export filter"
 
@@ -4930,7 +4932,7 @@ msgstr "File: %s type/version unsupported.\n"
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1333
+#: plug-ins/wpg/wpg.c:1347
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics export filter"
 
@@ -5122,7 +5124,7 @@ msgstr "This is a FIG version %d.%d file, I may not understand it\n"
 msgid "XFig File Format"
 msgstr "XFig File Format"
 
-#: plug-ins/xfig/xfig.c:39
+#: plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
 msgstr "Fig Format import and export filter"
 
