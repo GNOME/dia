@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia CVS-20011212\n"
-"POT-Creation-Date: 2002-01-29 18:39+0900\n"
-"PO-Revision-Date: 2002-01-29 18:42+0900\n"
+"Project-Id-Version: dia CVS-20020130\n"
+"POT-Creation-Date: 2002-01-30 19:59+0900\n"
+"PO-Revision-Date: 2002-01-30 20:19+0900\n"
 "Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -270,9 +270,9 @@ msgstr ""
 "い。\n"
 
 #: app/diaconv.c:164
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: can specify only one of -t or -o."
-msgstr "%s エラー: -f か -o のどちらかだけを指定してください"
+msgstr "%s エラー: -f か -o のどちらかだけを指定できます"
 
 #: app/diaconv.c:170
 #, fuzzy, c-format
@@ -285,14 +285,14 @@ msgstr ""
 "い。\n"
 
 #: app/diaconv.c:179
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: no input file."
-msgstr "%s エラー: 有効な入力ファイル %s が必要です\n"
+msgstr "%s エラー: 入力ファイルがありません"
 
 #: app/diaconv.c:232
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: only one input file expected."
-msgstr "%s エラー: 有効な入力ファイル %s が必要です\n"
+msgstr ""
 
 #: app/diaconv.c:245
 #, c-format
@@ -300,18 +300,16 @@ msgid "%s error: popt library not available on this system"
 msgstr ""
 
 #: app/diagram_tree_menu.c:45
-#, fuzzy
 msgid "/_Sort objects"
-msgstr "フローチャートオブジェクト"
+msgstr "/オブジェクトのソート(_S)"
 
 #: app/diagram_tree_menu.c:46
-#, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "オブジェクトメニューはありません"
+msgstr "/オブジェクトのソート/名前(_n)"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr ""
+msgstr "/オブジェクトのソート/種類(_y)"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
@@ -331,64 +329,59 @@ msgstr ""
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
-msgstr ""
+msgstr "/オブジェクトのソート/デフォルト(_D)"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr ""
+msgstr "/オブジェクトのソート/デフォルト/名前(_n)"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr ""
+msgstr "/オブジェクトのソート/デフォルト/種類(_y)"
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:66
-#, fuzzy
 msgid "/Sort _diagrams"
-msgstr "ダイアグラムのエクスポート"
+msgstr "/ダイアグラムのソート(_d)"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
-msgstr ""
+msgstr "/ダイアグラムのソート(_d)/名前(_n)"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:71
-#, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "ダイアグラムのデフォルト"
+msgstr "/ダイアグラムのソート/デフォルト(_D)"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr ""
+msgstr "/ダイアグラムのソート/デフォルト/名前(_n)"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
-#, fuzzy
 msgid "/_Locate"
-msgstr "場所"
+msgstr "/場所(_L)"
 
 #: app/diagram_tree_menu.c:83
-#, fuzzy
 msgid "/_Properties"
-msgstr "プロパティ(_P)"
+msgstr "/プロパティ(_P)"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
-msgstr ""
+msgstr "/この種類を隠す(_H)"
 
 #: app/diagram_tree_window.c:75
-#, fuzzy
 msgid "Diagram tree"
-msgstr "ダイアグラムツリー(_D)"
+msgstr "ダイアグラムツリー"
 
 #. paper size
 #: app/diapagelayout.c:112
@@ -459,7 +452,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "オブジェクトメニューはありません"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:448
+#: app/display.c:141 app/display.c:142 app/interface.c:449
 msgid "Zoom"
 msgstr "ズーム"
 
@@ -569,28 +562,28 @@ msgstr "ダイアグラムのエクスポート"
 msgid "Export Options"
 msgstr "エクスポートオプション"
 
-#: app/interface.c:43
+#: app/interface.c:44
 msgid "Modify object(s)"
 msgstr "オブジェクトの変更"
 
-#: app/interface.c:44 app/menus.c:203
+#: app/interface.c:45 app/menus.c:203
 msgid "Modify"
 msgstr "変更"
 
-#: app/interface.c:48 app/interface.c:49 app/menus.c:204
-#: objects/FS/function.c:763
+#: app/interface.c:49 app/interface.c:50 app/menus.c:204
+#: objects/FS/function.c:765
 msgid "Magnify"
 msgstr "拡大"
 
-#: app/interface.c:53
+#: app/interface.c:54
 msgid "Scroll around the diagram"
 msgstr "ダイアグラムに沿ったスクロール"
 
-#: app/interface.c:54 app/menus.c:205
+#: app/interface.c:55 app/menus.c:205
 msgid "Scroll"
 msgstr "スクロール"
 
-#: app/interface.c:58
+#: app/interface.c:59
 msgid "Create Text"
 msgstr "テキストの生成"
 
@@ -598,7 +591,7 @@ msgstr "テキストの生成"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
+#: app/interface.c:60 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
 #: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
@@ -606,91 +599,91 @@ msgstr "テキストの生成"
 msgid "Text"
 msgstr "テキスト"
 
-#: app/interface.c:63
+#: app/interface.c:64
 msgid "Create Box"
 msgstr "矩形の生成"
 
-#: app/interface.c:64 app/menus.c:207
+#: app/interface.c:65 app/menus.c:207
 msgid "Box"
 msgstr "矩形"
 
-#: app/interface.c:68
+#: app/interface.c:69
 msgid "Create Ellipse"
 msgstr "楕円の生成"
 
-#: app/interface.c:69 app/menus.c:208
+#: app/interface.c:70 app/menus.c:208
 msgid "Ellipse"
 msgstr "楕円"
 
-#: app/interface.c:73
+#: app/interface.c:74
 msgid "Create Polygon"
 msgstr "多角形の作成"
 
-#: app/interface.c:74 app/menus.c:209
+#: app/interface.c:75 app/menus.c:209
 msgid "Polygon"
 msgstr "多角形"
 
-#: app/interface.c:78
+#: app/interface.c:79
 msgid "Create Beziergon"
 msgstr "ベジエ曲線の作成"
 
-#: app/interface.c:79 app/menus.c:210
+#: app/interface.c:80 app/menus.c:210
 msgid "Beziergon"
 msgstr "ベジエ曲線"
 
-#: app/interface.c:83
+#: app/interface.c:84
 msgid "Create Line"
 msgstr "線の生成"
 
-#: app/interface.c:84 app/menus.c:211 objects/standard/line.c:188
+#: app/interface.c:85 app/menus.c:211 objects/standard/line.c:188
 msgid "Line"
 msgstr "線 (両側)"
 
-#: app/interface.c:88
+#: app/interface.c:89
 msgid "Create Arc"
 msgstr "円弧の生成"
 
-#: app/interface.c:89 app/menus.c:212
+#: app/interface.c:90 app/menus.c:212
 msgid "Arc"
 msgstr "円弧"
 
-#: app/interface.c:93
+#: app/interface.c:94
 msgid "Create Zigzagline"
 msgstr "ジグザグ線の生成"
 
-#: app/interface.c:94 app/menus.c:213
+#: app/interface.c:95 app/menus.c:213
 msgid "Zigzagline"
 msgstr "ジグザグ線"
 
-#: app/interface.c:98
+#: app/interface.c:99
 msgid "Create Polyline"
 msgstr "連続線の生成"
 
-#: app/interface.c:99 app/menus.c:214
+#: app/interface.c:100 app/menus.c:214
 msgid "Polyline"
 msgstr "連続線"
 
-#: app/interface.c:103
+#: app/interface.c:104
 msgid "Create Bezierline"
 msgstr "ベジエ曲線の作成"
 
-#: app/interface.c:104 app/menus.c:215
+#: app/interface.c:105 app/menus.c:215
 msgid "Bezierline"
 msgstr "ベジエ曲線"
 
-#: app/interface.c:108
+#: app/interface.c:109
 msgid "Create Image"
 msgstr "イメージの生成"
 
-#: app/interface.c:109 app/menus.c:216
+#: app/interface.c:110 app/menus.c:216
 msgid "Image"
 msgstr "イメージ"
 
-#: app/interface.c:495
+#: app/interface.c:496
 msgid "NULL tooldata in tool_select_update"
 msgstr "tool_select_updateでNULLのtooldataがあります"
 
-#: app/interface.c:943
+#: app/interface.c:958
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -698,7 +691,7 @@ msgstr ""
 "文字と背景の色です. 黒と白の小さな四角は, 色をリセットします. 小さな矢印は色"
 "を交換します. ダブルクリックで色を変更します."
 
-#: app/interface.c:1089
+#: app/interface.c:1104
 msgid "Diagram Editor"
 msgstr "ダイアグラムエディタ"
 
@@ -845,9 +838,8 @@ msgid "Show diagram tree"
 msgstr "ダイアグラムツリーを表示します"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "P_lugins"
-msgstr "プラグイン"
+msgstr "プラグイン(_l)"
 
 #: app/menus.c:72
 msgid "_Export..."
@@ -943,8 +935,8 @@ msgstr "結合"
 msgid "Intersect"
 msgstr "交差"
 
-#: app/menus.c:153 objects/FS/function.c:623 objects/FS/function.c:699
-#: objects/FS/function.c:700
+#: app/menus.c:153 objects/FS/function.c:625 objects/FS/function.c:701
+#: objects/FS/function.c:702
 msgid "Remove"
 msgstr "削除"
 
@@ -1700,18 +1692,16 @@ msgstr "オブジェクトのプロパティ:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:140
-#, fuzzy
 msgid "<Toolbox>/File/Plugins"
-msgstr "/ファイル(_F)/プラグイン(_L)"
+msgstr "<Toolbox>/ファイル/プラグイン"
 
 #: app/recent_files.c:265
 msgid "<Toolbox>/File/Exit"
-msgstr ""
+msgstr "<Toolbox>/ファイル/終了"
 
 #: app/recent_files.c:267
-#, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "/ファイル(_F)/終了(_Q)"
+msgstr "<Toolbox>/ファイル/終了"
 
 #: app/recent_files.c:304
 msgid "Can't open history file for writing."
@@ -1743,15 +1733,25 @@ msgstr "Dia"
 #: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:968
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/ER/attribute.c:390
-#: objects/ER/attribute.c:543 objects/ER/entity.c:341 objects/ER/entity.c:471
-#: objects/ER/relationship.c:419 objects/ER/relationship.c:587
+#: objects/EML/interaction.c:496 objects/EML/process.c:511
+#: objects/ER/attribute.c:390 objects/ER/attribute.c:547
+#: objects/ER/entity.c:341 objects/ER/entity.c:475
+#: objects/ER/relationship.c:419 objects/ER/relationship.c:591
 #: objects/UML/association.c:556 objects/UML/association.c:741
-#: objects/UML/class.c:663 objects/UML/constraint.c:269
+#: objects/UML/class.c:665 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:301 objects/UML/realizes.c:367
-#: objects/UML/small_package.c:341 objects/standard/textobj.c:388
+#: objects/UML/small_package.c:341 objects/custom/shape_info.h:67
+#: objects/network/antenna.c:91 objects/network/computer.c:92
+#: objects/network/disc.c:92 objects/network/flash.c:88
+#: objects/network/hub.c:92 objects/network/modem.c:90
+#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
+#: objects/network/printer.c:91 objects/network/rj45plug.c:90
+#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
+#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
+#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
+#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
 #: plug-ins/dxf/dxf-import.c:545
 msgid "Courier"
 msgstr "Ryumin-Light"
@@ -1909,24 +1909,24 @@ msgstr "末尾の矢印"
 msgid "Text alignment"
 msgstr "文字の配置"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "フォント"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "フォントサイズ"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "文字色"
 
-#: lib/widgets.c:323 objects/FS/function.c:807
+#: lib/widgets.c:323 objects/FS/function.c:809
 msgid "Solid"
 msgstr "実線"
 
@@ -2075,7 +2075,7 @@ msgid "Multiple"
 msgstr "増殖"
 
 #: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:802
 #: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
 #: objects/UML/association.c:620 objects/UML/dependency.c:335
 #: objects/UML/generalization.c:327 objects/UML/realizes.c:330
@@ -2084,7 +2084,7 @@ msgid "Add segment"
 msgstr "セグメントの追加"
 
 #: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:803
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
 #: objects/UML/association.c:621 objects/UML/dependency.c:336
 #: objects/UML/generalization.c:328 objects/UML/realizes.c:331
@@ -2140,112 +2140,107 @@ msgstr "上移動"
 msgid "Move Down"
 msgstr "下移動"
 
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/EML/process.c:514 objects/EML/process.c:515
+#: objects/EML/process.c:516 objects/EML/process.c:517
+#: objects/FS/function.c:405 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:331 objects/UML/classicon.c:414
+#: objects/UML/component.c:347 objects/UML/message.c:358
+#: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
+#: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "GothicBBB-Medium"
+
 #: objects/EML/process_dialog.c:625
 #, fuzzy
 msgid "relation"
 msgstr "準備"
 
 #: objects/EML/process_dialog.c:882
-#, fuzzy
 msgid "Interface functions"
-msgstr "ユーザ関数"
+msgstr "インターフェース関数"
 
 #: objects/EML/process_dialog.c:883
-#, fuzzy
 msgid "Function"
-msgstr "関数呼びだし"
+msgstr "関数"
 
 #: objects/EML/process_dialog.c:899
-#, fuzzy
 msgid "Function module:"
-msgstr "関数ヘッダ"
+msgstr "関数モジュール:"
 
 #: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-#, fuzzy
 msgid "Function name:"
-msgstr "関数ヘッダ"
+msgstr "関数名:"
 
 #: objects/EML/process_dialog.c:1097
-#, fuzzy
 msgid "Interfaces"
-msgstr "インターフェース:"
+msgstr "インターフェース"
 
 #: objects/EML/process_dialog.c:1098
-#, fuzzy
 msgid "Interface"
-msgstr "インターフェース:"
+msgstr "インターフェース"
 
 #: objects/EML/process_dialog.c:1114
-#, fuzzy
 msgid "Interface name:"
-msgstr "インターフェース:"
+msgstr "インターフェース名"
 
 #: objects/EML/process_dialog.c:1132
-#, fuzzy
 msgid "Interface messages"
-msgstr "メッセージの受信"
+msgstr "インターフェースメッセージ"
 
 #: objects/EML/process_dialog.c:1133
-#, fuzzy
 msgid "Message"
-msgstr "メッセージ:"
+msgstr "メッセージ"
 
 #: objects/EML/process_dialog.c:1134
-#, fuzzy
 msgid "Message parameters"
-msgstr "メッセージタイプ:"
+msgstr "メッセージパラメータ"
 
 #: objects/EML/process_dialog.c:1135
-#, fuzzy
 msgid "Message parameter"
-msgstr "メッセージタイプ:"
+msgstr "メッセージパラメータ"
 
 #: objects/EML/process_dialog.c:1148
-#, fuzzy
 msgid "Functions"
-msgstr "関数呼びだし"
+msgstr "関数"
 
 #: objects/EML/process_dialog.c:1151
-#, fuzzy
 msgid "Messages"
-msgstr "メッセージ:"
+msgstr "メッセージ"
 
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:786
+#: objects/EML/process_dialog.c:1238 objects/FS/function.c:788
 msgid "Process"
-msgstr "処理"
+msgstr "プロセス"
 
 #: objects/EML/process_dialog.c:1242
-#, fuzzy
 msgid "Process name:"
-msgstr "処理"
+msgstr "プロセス名:"
 
 #: objects/EML/process_dialog.c:1246
 msgid "Process reference name:"
-msgstr ""
+msgstr "プロセスの参照名:"
 
 #: objects/EML/process_dialog.c:1251
 msgid "Process lifetime:"
-msgstr ""
+msgstr "プロセスのライフタイム:"
 
 #: objects/EML/process_dialog.c:1299
-#, fuzzy
 msgid "Module name:"
-msgstr "ファイル名:"
+msgstr "モジュール名:"
 
 #: objects/EML/process_dialog.c:1311
-#, fuzzy
 msgid "Function parameters"
-msgstr "関数ヘッダ"
+msgstr "関数パラメータ"
 
 #: objects/EML/process_dialog.c:1312
-#, fuzzy
 msgid "Parameter"
 msgstr "パラメータ"
 
 #: objects/EML/process_dialog.c:1313
-#, fuzzy
 msgid "Relation members"
-msgstr "関連"
+msgstr ""
 
 #: objects/EML/process_dialog.c:1314
 msgid "Relation member"
@@ -2267,7 +2262,8 @@ msgstr "派生:"
 msgid "Multivalue:"
 msgstr "複数値:"
 
-#: objects/ER/attribute.c:391 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:392 objects/ER/attribute.c:394
+#: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "属性"
 
@@ -2275,7 +2271,8 @@ msgstr "属性"
 msgid "Weak:"
 msgstr "ウィーク:"
 
-#: objects/ER/entity.c:342 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:343 objects/ER/entity.c:345 objects/UML/classicon.c:124
+#: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "エンティティ"
 
@@ -2303,33 +2300,34 @@ msgstr "回転:"
 msgid "Identifying:"
 msgstr "確認:"
 
-#: objects/ER/relationship.c:420 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:421 objects/ER/relationship.c:423
+#: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "関連"
 
 #.
-#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:727
-#: objects/FS/flow-ortho.c:793 objects/FS/flow-ortho.c:858
-#: objects/FS/flow-poly.c:664 objects/FS/flow-poly.c:719
-#: objects/FS/flow-poly.c:783 objects/FS/flow.c:154 objects/FS/flow.c:639
-#: objects/FS/flow.c:703 objects/FS/function.c:818
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:733
+#: objects/FS/flow-ortho.c:799 objects/FS/flow-ortho.c:864
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:154 objects/FS/flow.c:645
+#: objects/FS/flow.c:709 objects/FS/function.c:820
 msgid "Energy"
 msgstr "エナジー"
 
-#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:734
-#: objects/FS/flow-ortho.c:794 objects/FS/flow-ortho.c:865
-#: objects/FS/flow-poly.c:671 objects/FS/flow-poly.c:720
-#: objects/FS/flow-poly.c:790 objects/FS/flow.c:155 objects/FS/flow.c:640
-#: objects/FS/flow.c:710 objects/FS/function.c:806
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:740
+#: objects/FS/flow-ortho.c:800 objects/FS/flow-ortho.c:871
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:155 objects/FS/flow.c:646
+#: objects/FS/flow.c:716 objects/FS/function.c:808
 msgid "Material"
 msgstr "材料"
 
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:740
-#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:871
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:721
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:641
-#: objects/FS/flow.c:716 objects/FS/function.c:787 objects/FS/function.c:788
-#: objects/FS/function.c:856 objects/FS/function.c:857
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:746
+#: objects/FS/flow-ortho.c:801 objects/FS/flow-ortho.c:877
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:156 objects/FS/flow.c:647
+#: objects/FS/flow.c:722 objects/FS/function.c:789 objects/FS/function.c:790
+#: objects/FS/function.c:858 objects/FS/function.c:859
 msgid "Signal"
 msgstr "シグナル"
 
@@ -2339,21 +2337,30 @@ msgstr "シグナル"
 msgid "Type:"
 msgstr "型:"
 
-#: objects/FS/flow-ortho.c:707 objects/FS/flow-poly.c:644
-#: objects/FS/flow-poly.c:762 objects/FS/flow.c:682
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/flow-ortho.c:424 objects/FS/flow-ortho.c:554
+#: objects/FS/flow-ortho.c:913 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:417
+#: objects/FS/flow.c:546 objects/FS/flow.c:758
+msgid "Helvetica-Oblique"
+msgstr "GothicBBB-Medium"
+
+#: objects/FS/flow-ortho.c:713 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:688
 msgid "Flow:"
 msgstr "フロー:"
 
-#: objects/FS/flow-ortho.c:722 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:778 objects/FS/flow.c:698
+#: objects/FS/flow-ortho.c:728 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:704
 msgid "Flow type:"
 msgstr "フローの型:"
 
-#: objects/FS/flow-ortho.c:837
+#: objects/FS/flow-ortho.c:843
 msgid "Orthflow:"
 msgstr "Orthflow:"
 
-#: objects/FS/flow-ortho.c:853
+#: objects/FS/flow-ortho.c:859
 msgid "Orthflow type:"
 msgstr "Orthflowの型:"
 
@@ -2369,818 +2376,826 @@ msgstr "希望する関数"
 msgid "User function"
 msgstr "ユーザ関数"
 
-#: objects/FS/function.c:608
+#: objects/FS/function.c:610
 msgid "Verb"
 msgstr "動詞"
 
-#: objects/FS/function.c:609 objects/FS/function.c:610
-#: objects/FS/function.c:630
+#: objects/FS/function.c:611 objects/FS/function.c:612
+#: objects/FS/function.c:632
 msgid "Channel"
 msgstr "チャネル"
 
-#: objects/FS/function.c:611 objects/FS/function.c:612
+#: objects/FS/function.c:613 objects/FS/function.c:614
 msgid "Import"
 msgstr "インポート"
 
-#: objects/FS/function.c:613
+#: objects/FS/function.c:615
 msgid "Input"
 msgstr "入力"
 
-#: objects/FS/function.c:614
+#: objects/FS/function.c:616
 msgid "Receive"
 msgstr "受取"
 
-#: objects/FS/function.c:615 objects/FS/function.c:751
+#: objects/FS/function.c:617 objects/FS/function.c:753
 msgid "Allow"
 msgstr "許可"
 
-#: objects/FS/function.c:616
+#: objects/FS/function.c:618
 msgid "Form Entrance"
 msgstr "フォームの入口"
 
-#: objects/FS/function.c:617 objects/FS/function.c:734
+#: objects/FS/function.c:619 objects/FS/function.c:736
 msgid "Capture"
 msgstr "捕獲"
 
-#: objects/FS/function.c:618 objects/FS/function.c:619
+#: objects/FS/function.c:620 objects/FS/function.c:621
 msgid "Export"
 msgstr "エクスポート"
 
-#: objects/FS/function.c:620
+#: objects/FS/function.c:622
 msgid "Discharge"
 msgstr "開放"
 
-#: objects/FS/function.c:621
+#: objects/FS/function.c:623
 msgid "Eject"
 msgstr "排出"
 
-#: objects/FS/function.c:622
+#: objects/FS/function.c:624
 msgid "Dispose"
 msgstr "処分"
 
-#: objects/FS/function.c:624 objects/FS/function.c:625
-#: objects/FS/function.c:634
+#: objects/FS/function.c:626 objects/FS/function.c:627
+#: objects/FS/function.c:636
 msgid "Transfer"
 msgstr "転送"
 
-#: objects/FS/function.c:626 objects/FS/function.c:627
+#: objects/FS/function.c:628 objects/FS/function.c:629
 msgid "Transport"
 msgstr "輸送"
 
-#: objects/FS/function.c:628
+#: objects/FS/function.c:630
 msgid "Lift"
 msgstr "解除"
 
-#: objects/FS/function.c:629
+#: objects/FS/function.c:631
 msgid "Move"
 msgstr "移動"
 
-#: objects/FS/function.c:631 objects/FS/function.c:632
+#: objects/FS/function.c:633 objects/FS/function.c:634
 msgid "Transmit"
 msgstr "送信"
 
-#: objects/FS/function.c:633
+#: objects/FS/function.c:635
 msgid "Conduct"
 msgstr "処理"
 
-#: objects/FS/function.c:635
+#: objects/FS/function.c:637
 msgid "Convey"
 msgstr "運搬"
 
-#: objects/FS/function.c:636 objects/FS/function.c:637
-#: objects/FS/function.c:638
+#: objects/FS/function.c:638 objects/FS/function.c:639
+#: objects/FS/function.c:640
 msgid "Guide"
 msgstr "ガイド"
 
-#: objects/FS/function.c:639
+#: objects/FS/function.c:641
 msgid "Direct"
 msgstr "案内"
 
-#: objects/FS/function.c:640
+#: objects/FS/function.c:642
 msgid "Straighten"
 msgstr "整備"
 
-#: objects/FS/function.c:641
+#: objects/FS/function.c:643
 msgid "Steer"
 msgstr "運転"
 
-#: objects/FS/function.c:642
+#: objects/FS/function.c:644
 msgid "Translate"
 msgstr "翻訳"
 
-#: objects/FS/function.c:643 objects/FS/function.c:644
+#: objects/FS/function.c:645 objects/FS/function.c:646
 msgid "Rotate"
 msgstr "回転"
 
-#: objects/FS/function.c:645
+#: objects/FS/function.c:647
 msgid "Turn"
 msgstr "向きを変える"
 
-#: objects/FS/function.c:646
+#: objects/FS/function.c:648
 msgid "Spin"
 msgstr "回転"
 
-#: objects/FS/function.c:647 objects/FS/function.c:648
+#: objects/FS/function.c:649 objects/FS/function.c:650
 msgid "Allow DOF"
 msgstr "DOFを許可"
 
-#: objects/FS/function.c:649
+#: objects/FS/function.c:651
 msgid "Constrain"
 msgstr "制約"
 
-#: objects/FS/function.c:650
+#: objects/FS/function.c:652
 msgid "Unlock"
 msgstr "ロック解除"
 
-#: objects/FS/function.c:651 objects/FS/function.c:652
+#: objects/FS/function.c:653 objects/FS/function.c:654
 msgid "Support"
 msgstr "サポート"
 
-#: objects/FS/function.c:653 objects/FS/function.c:654
+#: objects/FS/function.c:655 objects/FS/function.c:656
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "停止"
 
-#: objects/FS/function.c:655
+#: objects/FS/function.c:657
 msgid "Insulate"
 msgstr "分離"
 
-#: objects/FS/function.c:656
+#: objects/FS/function.c:658
 msgid "Protect"
 msgstr "保護"
 
-#: objects/FS/function.c:657 objects/FS/function.c:752
+#: objects/FS/function.c:659 objects/FS/function.c:754
 msgid "Prevent"
 msgstr "予防"
 
-#: objects/FS/function.c:658
+#: objects/FS/function.c:660
 msgid "Shield"
 msgstr "遮断"
 
-#: objects/FS/function.c:659
+#: objects/FS/function.c:661
 msgid "Inhibit"
 msgstr "抑制"
 
-#: objects/FS/function.c:660 objects/FS/function.c:661
+#: objects/FS/function.c:662 objects/FS/function.c:663
 msgid "Stabilize"
 msgstr "安定"
 
-#: objects/FS/function.c:662
+#: objects/FS/function.c:664
 msgid "Steady"
 msgstr "固定"
 
-#: objects/FS/function.c:663 objects/FS/function.c:664
+#: objects/FS/function.c:665 objects/FS/function.c:666
 msgid "Secure"
 msgstr "安全"
 
-#: objects/FS/function.c:665 objects/FS/function.c:681
+#: objects/FS/function.c:667 objects/FS/function.c:683
 msgid "Attach"
 msgstr "取り付け"
 
-#: objects/FS/function.c:666
+#: objects/FS/function.c:668
 msgid "Mount"
 msgstr "埋め込み"
 
-#: objects/FS/function.c:667
+#: objects/FS/function.c:669
 msgid "Lock"
 msgstr "ロック"
 
-#: objects/FS/function.c:668
+#: objects/FS/function.c:670
 msgid "Fasten"
 msgstr "結び付ける"
 
-#: objects/FS/function.c:669
+#: objects/FS/function.c:671
 msgid "Hold"
 msgstr "ホールド"
 
-#: objects/FS/function.c:670 objects/FS/function.c:671
+#: objects/FS/function.c:672 objects/FS/function.c:673
 msgid "Position"
 msgstr "位置"
 
-#: objects/FS/function.c:672
+#: objects/FS/function.c:674
 msgid "Orient"
 msgstr "方向"
 
-#: objects/FS/function.c:673
+#: objects/FS/function.c:675
 msgid "Align"
 msgstr "配置"
 
-#: objects/FS/function.c:674 objects/FS/function.c:795
+#: objects/FS/function.c:676 objects/FS/function.c:797
 msgid "Locate"
 msgstr "場所"
 
-#: objects/FS/function.c:675 objects/FS/function.c:676
+#: objects/FS/function.c:677 objects/FS/function.c:678
 msgid "Connect"
 msgstr "接続"
 
-#: objects/FS/function.c:677 objects/FS/function.c:678
+#: objects/FS/function.c:679 objects/FS/function.c:680
 msgid "Couple"
 msgstr "連結"
 
-#: objects/FS/function.c:679
+#: objects/FS/function.c:681
 msgid "Join"
 msgstr "結合"
 
-#: objects/FS/function.c:680
+#: objects/FS/function.c:682
 msgid "Assemble"
 msgstr "集合"
 
-#: objects/FS/function.c:682 objects/FS/function.c:683
+#: objects/FS/function.c:684 objects/FS/function.c:685
 msgid "Mix"
 msgstr "混合"
 
-#: objects/FS/function.c:684
+#: objects/FS/function.c:686
 msgid "Combine"
 msgstr "合成"
 
-#: objects/FS/function.c:685
+#: objects/FS/function.c:687
 msgid "Blend"
 msgstr "調和"
 
-#: objects/FS/function.c:686
+#: objects/FS/function.c:688
 msgid "Add"
 msgstr "追加"
 
-#: objects/FS/function.c:687
+#: objects/FS/function.c:689
 msgid "Pack"
 msgstr "梱包"
 
-#: objects/FS/function.c:688
+#: objects/FS/function.c:690
 msgid "Coalesce"
 msgstr "合体"
 
-#: objects/FS/function.c:689 objects/FS/function.c:690
+#: objects/FS/function.c:691 objects/FS/function.c:692
 msgid "Branch"
 msgstr "分岐"
 
-#: objects/FS/function.c:691 objects/FS/function.c:692
-#: objects/FS/function.c:693
+#: objects/FS/function.c:693 objects/FS/function.c:694
+#: objects/FS/function.c:695
 msgid "Separate"
 msgstr "分離"
 
-#: objects/FS/function.c:694
+#: objects/FS/function.c:696
 msgid "Switch"
 msgstr "交替"
 
-#: objects/FS/function.c:695
+#: objects/FS/function.c:697
 msgid "Divide"
 msgstr "分割"
 
-#: objects/FS/function.c:696
+#: objects/FS/function.c:698
 msgid "Release"
 msgstr "置換"
 
-#: objects/FS/function.c:697
+#: objects/FS/function.c:699
 msgid "Detach"
 msgstr "引き離す"
 
-#: objects/FS/function.c:698
+#: objects/FS/function.c:700
 msgid "Disconnect"
 msgstr "切断"
 
-#: objects/FS/function.c:701
+#: objects/FS/function.c:703
 msgid "Cut"
 msgstr "切取り"
 
-#: objects/FS/function.c:702
+#: objects/FS/function.c:704
 msgid "Polish"
 msgstr "艶を出す"
 
-#: objects/FS/function.c:703
+#: objects/FS/function.c:705
 msgid "Sand"
 msgstr "磨く"
 
-#: objects/FS/function.c:704
+#: objects/FS/function.c:706
 msgid "Drill"
 msgstr "ドリル"
 
-#: objects/FS/function.c:705
+#: objects/FS/function.c:707
 msgid "Lathe"
 msgstr "旋盤"
 
-#: objects/FS/function.c:706 objects/FS/function.c:707
+#: objects/FS/function.c:708 objects/FS/function.c:709
 msgid "Refine"
 msgstr "精錬"
 
-#: objects/FS/function.c:708
+#: objects/FS/function.c:710
 msgid "Purify"
 msgstr "洗練"
 
-#: objects/FS/function.c:709
+#: objects/FS/function.c:711
 msgid "Strain"
 msgstr ""
 
-#: objects/FS/function.c:710
+#: objects/FS/function.c:712
 msgid "Filter"
 msgstr "フィルタ"
 
-#: objects/FS/function.c:711
+#: objects/FS/function.c:713
 msgid "Percolate"
 msgstr "浸透"
 
-#: objects/FS/function.c:712
+#: objects/FS/function.c:714
 msgid "Clear"
 msgstr "透明"
 
-#: objects/FS/function.c:713 objects/FS/function.c:714
+#: objects/FS/function.c:715 objects/FS/function.c:716
 msgid "Distribute"
 msgstr "配布"
 
-#: objects/FS/function.c:715
+#: objects/FS/function.c:717
 msgid "Diverge"
 msgstr "分岐"
 
-#: objects/FS/function.c:716
+#: objects/FS/function.c:718
 msgid "Scatter"
 msgstr "散乱"
 
-#: objects/FS/function.c:717
+#: objects/FS/function.c:719
 msgid "Disperse"
 msgstr "分散"
 
-#: objects/FS/function.c:718 objects/FS/function.c:725
+#: objects/FS/function.c:720 objects/FS/function.c:727
 msgid "Diffuse"
 msgstr "拡散"
 
-#: objects/FS/function.c:719
+#: objects/FS/function.c:721
 msgid "Empty"
 msgstr "空"
 
-#: objects/FS/function.c:720 objects/FS/function.c:721
+#: objects/FS/function.c:722 objects/FS/function.c:723
 msgid "Dissipate"
 msgstr ""
 
-#: objects/FS/function.c:722
+#: objects/FS/function.c:724
 msgid "Absorb"
 msgstr "吸収"
 
-#: objects/FS/function.c:723
+#: objects/FS/function.c:725
 msgid "Dampen"
 msgstr ""
 
-#: objects/FS/function.c:724
+#: objects/FS/function.c:726
 msgid "Dispel"
 msgstr ""
 
-#: objects/FS/function.c:726
+#: objects/FS/function.c:728
 msgid "Resist"
 msgstr ""
 
-#: objects/FS/function.c:727 objects/FS/function.c:728
+#: objects/FS/function.c:729 objects/FS/function.c:730
 msgid "Provision"
 msgstr "供給"
 
-#: objects/FS/function.c:729 objects/FS/function.c:730
+#: objects/FS/function.c:731 objects/FS/function.c:732
 msgid "Store"
 msgstr "保存"
 
-#: objects/FS/function.c:731
+#: objects/FS/function.c:733
 msgid "Contain"
 msgstr "収容"
 
-#: objects/FS/function.c:732
+#: objects/FS/function.c:734
 msgid "Collect"
 msgstr "回収"
 
-#: objects/FS/function.c:733
+#: objects/FS/function.c:735
 msgid "Reserve"
 msgstr "蓄積"
 
-#: objects/FS/function.c:735 objects/FS/function.c:736
+#: objects/FS/function.c:737 objects/FS/function.c:738
 msgid "Supply"
 msgstr "支給"
 
-#: objects/FS/function.c:737
+#: objects/FS/function.c:739
 msgid "Fill"
 msgstr "補充"
 
-#: objects/FS/function.c:738
+#: objects/FS/function.c:740
 msgid "Provide"
 msgstr "供給"
 
-#: objects/FS/function.c:739
+#: objects/FS/function.c:741
 msgid "Replenish"
 msgstr "補給"
 
-#: objects/FS/function.c:740
+#: objects/FS/function.c:742
 msgid "Expose"
 msgstr ""
 
-#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:743 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "展開"
 
-#: objects/FS/function.c:742 objects/FS/function.c:743
+#: objects/FS/function.c:744 objects/FS/function.c:745
 msgid "Control Magnitude"
 msgstr "コントロール倍率"
 
-#: objects/FS/function.c:744 objects/FS/function.c:745
+#: objects/FS/function.c:746 objects/FS/function.c:747
 msgid "Actuate"
 msgstr "作動"
 
-#: objects/FS/function.c:746
+#: objects/FS/function.c:748
 msgid "Start"
 msgstr "開始"
 
-#: objects/FS/function.c:747
+#: objects/FS/function.c:749
 msgid "Initiate"
 msgstr "初期"
 
-#: objects/FS/function.c:748 objects/FS/function.c:749
+#: objects/FS/function.c:750 objects/FS/function.c:751
 msgid "Regulate"
 msgstr "制限"
 
-#: objects/FS/function.c:750 objects/FS/function.c:859
+#: objects/FS/function.c:752 objects/FS/function.c:861
 #: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "制御"
 
-#: objects/FS/function.c:753
+#: objects/FS/function.c:755
 msgid "Enable"
 msgstr "有効"
 
-#: objects/FS/function.c:754
+#: objects/FS/function.c:756
 msgid "Disable"
 msgstr "無効"
 
-#: objects/FS/function.c:755
+#: objects/FS/function.c:757
 msgid "Limit"
 msgstr ""
 
-#: objects/FS/function.c:756
+#: objects/FS/function.c:758
 msgid "Interrupt"
 msgstr "中断"
 
-#: objects/FS/function.c:757 objects/FS/function.c:758
+#: objects/FS/function.c:759 objects/FS/function.c:760
 msgid "Change"
 msgstr "変更"
 
-#: objects/FS/function.c:759
+#: objects/FS/function.c:761
 msgid "Increase"
 msgstr "増加"
 
-#: objects/FS/function.c:760
+#: objects/FS/function.c:762
 msgid "Decrease"
 msgstr "減少"
 
-#: objects/FS/function.c:761
+#: objects/FS/function.c:763
 msgid "Amplify"
 msgstr "増幅"
 
-#: objects/FS/function.c:762
+#: objects/FS/function.c:764
 msgid "Reduce"
 msgstr "縮小"
 
-#: objects/FS/function.c:764
+#: objects/FS/function.c:766
 msgid "Normalize"
 msgstr "正規化"
 
-#: objects/FS/function.c:765
+#: objects/FS/function.c:767
 msgid "Multiply"
 msgstr "増殖"
 
-#: objects/FS/function.c:766
+#: objects/FS/function.c:768
 msgid "Scale"
 msgstr "倍率"
 
-#: objects/FS/function.c:767
+#: objects/FS/function.c:769
 msgid "Rectify"
 msgstr "整流"
 
-#: objects/FS/function.c:768
+#: objects/FS/function.c:770
 msgid "Adjust"
 msgstr "調整"
 
-#: objects/FS/function.c:769 objects/FS/function.c:770
+#: objects/FS/function.c:771 objects/FS/function.c:772
 msgid "Form"
 msgstr "整形"
 
-#: objects/FS/function.c:771
+#: objects/FS/function.c:773
 msgid "Compact"
 msgstr "コンパクト"
 
-#: objects/FS/function.c:772
+#: objects/FS/function.c:774
 msgid "Crush"
 msgstr ""
 
-#: objects/FS/function.c:773
+#: objects/FS/function.c:775
 msgid "Shape"
 msgstr ""
 
-#: objects/FS/function.c:774
+#: objects/FS/function.c:776
 msgid "Compress"
 msgstr ""
 
-#: objects/FS/function.c:775
+#: objects/FS/function.c:777
 msgid "Pierce"
 msgstr ""
 
-#: objects/FS/function.c:776 objects/FS/function.c:777
+#: objects/FS/function.c:778 objects/FS/function.c:779
 msgid "Convert"
 msgstr "変換"
 
-#: objects/FS/function.c:778
+#: objects/FS/function.c:780
 msgid "Transform"
 msgstr "変形"
 
-#: objects/FS/function.c:779
+#: objects/FS/function.c:781
 msgid "Liquefy"
 msgstr "液化"
 
-#: objects/FS/function.c:780
+#: objects/FS/function.c:782
 msgid "Solidify"
 msgstr "凝固"
 
-#: objects/FS/function.c:781
+#: objects/FS/function.c:783
 msgid "Evaporate"
 msgstr "気化"
 
-#: objects/FS/function.c:782
+#: objects/FS/function.c:784
 msgid "Sublimate"
 msgstr "昇華"
 
-#: objects/FS/function.c:783
+#: objects/FS/function.c:785
 msgid "Condense"
 msgstr "凝縮"
 
-#: objects/FS/function.c:784
+#: objects/FS/function.c:786
 msgid "Integrate"
 msgstr "統合"
 
-#: objects/FS/function.c:785
+#: objects/FS/function.c:787
 msgid "Differentiate"
 msgstr ""
 
-#: objects/FS/function.c:789 objects/FS/function.c:790
+#: objects/FS/function.c:791 objects/FS/function.c:792
 msgid "Sense"
 msgstr "判断"
 
-#: objects/FS/function.c:791
+#: objects/FS/function.c:793
 msgid "Perceive"
 msgstr "感知"
 
-#: objects/FS/function.c:792
+#: objects/FS/function.c:794
 msgid "Recognize"
 msgstr "認知"
 
-#: objects/FS/function.c:793
+#: objects/FS/function.c:795
 msgid "Discern"
 msgstr "識別"
 
-#: objects/FS/function.c:794
+#: objects/FS/function.c:796
 msgid "Check"
 msgstr "照合"
 
-#: objects/FS/function.c:796
+#: objects/FS/function.c:798
 msgid "Verify"
 msgstr "確認"
 
-#: objects/FS/function.c:797 objects/FS/function.c:798
+#: objects/FS/function.c:799 objects/FS/function.c:800
 msgid "Indicate"
 msgstr "指示"
 
-#: objects/FS/function.c:799
+#: objects/FS/function.c:801
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:802 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "表示"
 
-#: objects/FS/function.c:801 objects/FS/function.c:802
+#: objects/FS/function.c:803 objects/FS/function.c:804
 msgid "Measure"
 msgstr "測定"
 
-#: objects/FS/function.c:803
+#: objects/FS/function.c:805
 msgid "Calculate"
 msgstr "予測"
 
-#: objects/FS/function.c:804
+#: objects/FS/function.c:806
 msgid "Represent"
 msgstr ""
 
-#: objects/FS/function.c:805
+#: objects/FS/function.c:807
 msgid "Noun"
 msgstr ""
 
-#: objects/FS/function.c:808
+#: objects/FS/function.c:810
 msgid "Liquid"
 msgstr ""
 
-#: objects/FS/function.c:809
+#: objects/FS/function.c:811
 msgid "Gas"
 msgstr "ガス"
 
-#: objects/FS/function.c:810 objects/FS/function.c:811
-#: objects/FS/function.c:853
+#: objects/FS/function.c:812 objects/FS/function.c:813
+#: objects/FS/function.c:855
 msgid "Human"
 msgstr "人"
 
-#: objects/FS/function.c:812
+#: objects/FS/function.c:814
 msgid "Hand"
 msgstr "手"
 
-#: objects/FS/function.c:813
+#: objects/FS/function.c:815
 msgid "Foot"
 msgstr "足"
 
-#: objects/FS/function.c:814
+#: objects/FS/function.c:816
 msgid "Head"
 msgstr "頭"
 
-#: objects/FS/function.c:815
+#: objects/FS/function.c:817
 msgid "Finger"
 msgstr "指"
 
-#: objects/FS/function.c:816
+#: objects/FS/function.c:818
 msgid "Toe"
 msgstr "足指"
 
-#: objects/FS/function.c:817
+#: objects/FS/function.c:819
 msgid "Biological"
 msgstr "生物学"
 
-#: objects/FS/function.c:819
+#: objects/FS/function.c:821
 msgid "Mechanical"
 msgstr "機械"
 
-#: objects/FS/function.c:820
+#: objects/FS/function.c:822
 msgid "Mech. Energy"
 msgstr ""
 
-#: objects/FS/function.c:821
+#: objects/FS/function.c:823
 msgid "Translation"
 msgstr ""
 
-#: objects/FS/function.c:822
+#: objects/FS/function.c:824
 msgid "Force"
 msgstr ""
 
-#: objects/FS/function.c:823
+#: objects/FS/function.c:825
 msgid "Rotation"
 msgstr "回転"
 
-#: objects/FS/function.c:824
+#: objects/FS/function.c:826
 msgid "Torque"
 msgstr "トルク"
 
-#: objects/FS/function.c:825
+#: objects/FS/function.c:827
 msgid "Random Motion"
 msgstr ""
 
-#: objects/FS/function.c:826
+#: objects/FS/function.c:828
 msgid "Vibration"
 msgstr "振動"
 
-#: objects/FS/function.c:827
+#: objects/FS/function.c:829
 msgid "Rotational Energy"
 msgstr ""
 
-#: objects/FS/function.c:828
+#: objects/FS/function.c:830
 msgid "Translational Energy"
 msgstr ""
 
-#: objects/FS/function.c:829
+#: objects/FS/function.c:831
 msgid "Electrical"
 msgstr ""
 
-#: objects/FS/function.c:830
+#: objects/FS/function.c:832
 msgid "Electricity"
 msgstr "電気"
 
-#: objects/FS/function.c:831
+#: objects/FS/function.c:833
 msgid "Voltage"
 msgstr "電圧"
 
-#: objects/FS/function.c:832
+#: objects/FS/function.c:834
 msgid "Current"
 msgstr "電流"
 
-#: objects/FS/function.c:833
+#: objects/FS/function.c:835
 msgid "Hydraulic"
 msgstr "水力"
 
-#: objects/FS/function.c:834
+#: objects/FS/function.c:836
 msgid "Pressure"
 msgstr "圧力"
 
-#: objects/FS/function.c:835
+#: objects/FS/function.c:837
 msgid "Volumetric Flow"
 msgstr "流量"
 
-#: objects/FS/function.c:836
+#: objects/FS/function.c:838
 msgid "Thermal"
 msgstr "温度"
 
-#: objects/FS/function.c:837
+#: objects/FS/function.c:839
 msgid "Heat"
 msgstr "熱"
 
-#: objects/FS/function.c:838
+#: objects/FS/function.c:840
 msgid "Conduction"
 msgstr ""
 
-#: objects/FS/function.c:839
+#: objects/FS/function.c:841
 msgid "Convection"
 msgstr "対流"
 
-#: objects/FS/function.c:840 objects/FS/function.c:844
+#: objects/FS/function.c:842 objects/FS/function.c:846
 msgid "Radiation"
 msgstr "放熱"
 
-#: objects/FS/function.c:841
+#: objects/FS/function.c:843
 msgid "Pneumatic"
 msgstr "気体"
 
-#: objects/FS/function.c:842
+#: objects/FS/function.c:844
 msgid "Chemical"
 msgstr "化学"
 
-#: objects/FS/function.c:843
+#: objects/FS/function.c:845
 msgid "Radioactive"
 msgstr "放射能"
 
-#: objects/FS/function.c:845
+#: objects/FS/function.c:847
 msgid "Microwaves"
 msgstr "マイクロ波"
 
-#: objects/FS/function.c:846
+#: objects/FS/function.c:848
 msgid "Radio waves"
 msgstr "電磁波"
 
-#: objects/FS/function.c:847
+#: objects/FS/function.c:849
 msgid "X-Rays"
 msgstr "X線"
 
-#: objects/FS/function.c:848
+#: objects/FS/function.c:850
 msgid "Gamma Rays"
 msgstr "ガンマ線"
 
-#: objects/FS/function.c:849
+#: objects/FS/function.c:851
 msgid "Acoustic Energy"
 msgstr ""
 
-#: objects/FS/function.c:850
+#: objects/FS/function.c:852
 msgid "Optical Energy"
 msgstr ""
 
-#: objects/FS/function.c:851
+#: objects/FS/function.c:853
 msgid "Solar Energy"
 msgstr ""
 
-#: objects/FS/function.c:852
+#: objects/FS/function.c:854
 msgid "Magnetic Energy"
 msgstr ""
 
-#: objects/FS/function.c:854
+#: objects/FS/function.c:856
 msgid "Human Motion"
 msgstr ""
 
-#: objects/FS/function.c:855
+#: objects/FS/function.c:857
 msgid "Human Force"
 msgstr ""
 
-#: objects/FS/function.c:858
+#: objects/FS/function.c:860
 msgid "Status"
 msgstr "状態"
 
-#: objects/FS/function.c:861
+#: objects/FS/function.c:863
 msgid "User/Device Fn"
 msgstr ""
 
-#: objects/FS/function.c:862
+#: objects/FS/function.c:864
 msgid "Wish Fn"
 msgstr "希望する関数"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
+#: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
+#: objects/SADT/box.c:500 objects/UML/class.c:671
+msgid "Helvetica-Bold"
+msgstr "GothicBBB-Medium"
+
+#: objects/GRAFCET/action.c:136 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "マクロ呼出し"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:136
 msgid "This action is a call to a macro-step"
 msgstr "この動作はマクロを呼びだします"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:131
 msgid "Condition"
 msgstr "状況"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:131
 msgid "The boolean equation of the condition"
 msgstr ""
 
-#: objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/condition.c:133
 msgid "The condition's font"
 msgstr ""
 
-#: objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/condition.c:135
 msgid "The condition's font size"
 msgstr ""
 
-#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/condition.c:138 objects/GRAFCET/transition.c:147
 msgid "Color"
 msgstr "色"
 
-#: objects/GRAFCET/condition.c:136
+#: objects/GRAFCET/condition.c:138
 msgid "The condition's color"
 msgstr ""
 
@@ -3188,79 +3203,79 @@ msgstr ""
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCETダイアグラムオブジェクト"
 
-#: objects/GRAFCET/step.c:146
+#: objects/GRAFCET/step.c:148
 msgid "Regular step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:147
+#: objects/GRAFCET/step.c:149
 msgid "Initial step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:148
+#: objects/GRAFCET/step.c:150
 msgid "Macro entry step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:151
 msgid "Macro exit step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:150
+#: objects/GRAFCET/step.c:152
 msgid "Macro call step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:151
+#: objects/GRAFCET/step.c:153
 msgid "Subprogram call step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:159
 msgid "Step name"
 msgstr ""
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:159
 msgid "The name of the step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:161
 msgid "Step type"
 msgstr ""
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:161
 msgid "The kind of step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:163
 msgid "Active"
 msgstr ""
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:138
+#: objects/GRAFCET/transition.c:140
 msgid "Receptivity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:138
+#: objects/GRAFCET/transition.c:140
 msgid "The boolean equation of the receptivity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:142
+#: objects/GRAFCET/transition.c:144
 msgid "The receptivity's font size"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/transition.c:147
 msgid "The receptivity's color"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:146
+#: objects/GRAFCET/transition.c:148
 msgid "North point"
 msgstr "北点"
 
-#: objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/transition.c:149
 msgid "South point"
 msgstr "南点"
 
@@ -3357,7 +3372,7 @@ msgstr ""
 msgid "SADT diagram objects"
 msgstr ""
 
-#: objects/UML/actor.c:335 objects/UML/actor.c:337
+#: objects/UML/actor.c:337 objects/UML/actor.c:339
 msgid "Actor"
 msgstr "アクター"
 
@@ -3440,24 +3455,18 @@ msgstr "テンプレート"
 
 #. choose default font name for abstract for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:666
+#: objects/UML/class.c:668
 msgid "Courier-Oblique"
 msgstr "Ryumin-Light"
 
-#. choose default font name for class name font for your locale. see also font_data
-#. structure in lib/font.c.
-#: objects/UML/class.c:669
-msgid "Helvetica-Bold"
-msgstr "GothicBBB-Medium"
-
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:672
+#: objects/UML/class.c:674
 msgid "Helvetica-BoldOblique"
 msgstr "GothicBBB-Medium"
 
 #. Class page:
-#: objects/UML/class.c:702 objects/UML/class.c:704
+#: objects/UML/class.c:704 objects/UML/class.c:706
 #: objects/UML/class_dialog.c:205
 msgid "Class"
 msgstr "クラス"
@@ -4043,9 +4052,8 @@ msgid "No more user-definable colors - using black"
 msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:794
-#, fuzzy
 msgid "XFig format"
-msgstr "XFig ファイル形式"
+msgstr "XFig 形式"
 
 #: plug-ins/xfig/xfig-import.c:75
 msgid "Polygon import is not implemented yet"
@@ -5371,12 +5379,3 @@ msgstr ""
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
-
-#~ msgid "/File/Open _Recent"
-#~ msgstr "/ファイル(_F)/最近のファイルを開く(_R)"
-
-#~ msgid "/File/Open Recent/---"
-#~ msgstr "/ファイル(_F)/最近のファイルを開く(_R)/---"
-
-#~ msgid "/File/Open Recent/"
-#~ msgstr "/ファイル(_F)/最近のファイルを開く(_R)/"
