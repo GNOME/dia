@@ -1,4 +1,4 @@
-<?xml version="1.0"?> <!-- -*- xml -*- -->
+<?xml version="1.0" encoding="iso-8859-1"?> <!-- -*- xml -*- -->
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>SDL</name>
@@ -8,54 +8,71 @@
   <contents>
     <object name="SDL - Block">
       <description>Block Type Reference</description>
+      <description xml:lang="fr">Référence de type Bloc</description>
     </object>
     <object name="SDL - Service">
       <description>Service Type Reference</description>
+      <description xml:lang="fr">Référence de type Service</description>
     </object>
     <object name="SDL - Process">
       <description>Process Type Reference</description>
+      <description xml:lang="fr">Référence de type Processus</description>
     </object>
     <object name="SDL - State">
       <description>State</description>
+      <description xml:lang="fr">État</description>
     </object>
     <object name="SDL - Function Header">
       <description>Function Header</description>
+      <description xml:lang="fr">En-tête de fonction</description>
     </object>
     <object name="SDL - Send">
       <description>Send message</description>
+      <description xml:lang="fr">Envoi de message</description>
     </object>
     <object name="SDL - Receive">
       <description>Receive message</description>
+      <description xml:lang="fr">Réception de message</description>
     </object>
     <object name="SDL - Function">
       <description>Function call</description>
+      <description xml:lang="fr">Appel de fonction</description>
     </object>
     <object name="SDL - Macro">
       <description>Macro call</description>
+      <description xml:lang="fr">Appel de macro</description>
     </object>
     <object name="SDL - Task">
       <description>Action being executed</description>
+      <description xml:lang="fr">Action en cours d'exécution</description>
     </object>
     <object name="SDL - Save">
       <description>Save State</description>
+      <description xml:lang="fr">Sauvegarde d'état</description>
     </object>
     <object name="SDL - Decision">
       <description>Decision</description>
+      <description xml:lang="fr">Décision</description>
     </object>
     <object name="SDL - InOut">
       <description>In/Out Connector</description>
+      <description xml:lang="fr">Connecteur d'entrée/sortie</description>
     </object>
     <object name="SDL - Stop">
       <description>Stop</description>
+      <description xml:lang="fr">Arrêt</description>
     </object>
     <object name="SDL - Return">
       <description>Procedure Return</description>
+      <description xml:lang="fr">Retour de procédure</description>
     </object>
     <object name="SDL - Comment">
       <description>Comment</description>
+      <description xml:lang="fr">Commentaire</description>
     </object>
     <object name="SDL - Note">
       <description>Generic Text Note</description>
+      <description xml:lang="fr">Note de texte générique</description>
     </object>
     <!-- TODO : All other objects ... -->
     <br/>

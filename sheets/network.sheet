@@ -200,7 +200,7 @@
       <description>A ZIP Disk</description>
     </object>
     <object name="Network - An external DAT drive">
-      <description xml:kang="no">En ekstern DAT-stasjon</description>
+      <description xml:lang="no">En ekstern DAT-stasjon</description>
       <description xml:lang="de">Ein externer DAT-Streamer</description>
       <description xml:lang="hu">Külsõ DAT meghajtó</description>
       <description xml:lang="fr">Un lecteur de DAT externe</description>
