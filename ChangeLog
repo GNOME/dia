@@ -1,3 +1,9 @@
+2002-11-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diapsrenderer.c: Freetype rendering is back in force.
+
+	* app/disp_callbacks.c: Added missing updates for pre-text-change.
+
 2002-11-25  David Hoover <jazzdaq@yahoo.com>
 
 	* app/render_libart.c: Added missing #include line for libart.

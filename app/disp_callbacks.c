@@ -322,8 +322,12 @@ static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
   Object *obj = focus->obj;
   Point p = obj->position;
   ObjectChange *obj_change = NULL;
-  gboolean modified = (focus->key_event)(focus, keysym, str, strlen,
-                                         &obj_change);
+  gboolean modified;
+
+  object_add_updates(obj, ddisp->diagram);
+  
+  modified = (focus->key_event)(focus, keysym, str, strlen,
+				&obj_change);
 
       /* Make sure object updates its data and its connected: */
   p = obj->position;
