@@ -1,3 +1,10 @@
+1999-09-10  James Henstridge  <james@daa.com.au>
+
+	* app/render_gnomeprint.c (draw_ellipse, fill_ellipse): since
+	gnome-print does not support elliptic arcs at the moment, approximate
+	the ellipse with eight bezier curves.  This gives a pretty good
+	match to a true ellipse.
+
 1999-09-09  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (file_gnome_print_callback): added support for

@@ -442,18 +442,72 @@ fill_arc(RendererGPrint *renderer,
 	  (double) 360.0 - angle2, (double) 360.0 - angle1 ); */
 }
 
+/* This constant is equal to sqrt(2)/3*(8*cos(pi/8) - 4 - 1/sqrt(2)) - 1.
+ * Its use should be quite obvious.
+ */
+#define ELLIPSE_CTRL1 0.26521648984
+/* this constant is equal to 1/sqrt(2)*(1-ELLIPSE_CTRL1).
+ * Its use should also be quite obvious.
+ */
+#define ELLIPSE_CTRL2 0.519570402739
+#define ELLIPSE_CTRL3 M_SQRT1_2
+/* this constant is equal to 1/sqrt(2)*(1+ELLIPSE_CTRL1).
+ * Its use should also be quite obvious.
+ */
+#define ELLIPSE_CTRL4 0.894643159635
+
 static void
 draw_ellipse(RendererGPrint *renderer, 
 	     Point *center,
 	     real width, real height,
 	     Color *color)
 {
-  /*fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  real x1 = center->x - width/2,  x2 = center->x + width/2;
+  real y1 = center->y - height/2, y2 = center->y + height/2;
+  real cw1 = ELLIPSE_CTRL1 * width / 2, cw2 = ELLIPSE_CTRL2 * width / 2;
+  real cw3 = ELLIPSE_CTRL3 * width / 2, cw4 = ELLIPSE_CTRL4 * width / 2;
+  real ch1 = ELLIPSE_CTRL1 * height / 2, ch2 = ELLIPSE_CTRL2 * height / 2;
+  real ch3 = ELLIPSE_CTRL3 * height / 2, ch4 = ELLIPSE_CTRL4 * height / 2;
 
-  fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse cp s\n",
-	  (double) center->x, (double) center->y,
-	  (double) width/2.0, (double) height/2.0 ); */
+  gnome_print_setrgbcolor(renderer->ctx, (double)color->red,
+			  (double)color->green, (double)color->blue);
+
+  gnome_print_newpath(renderer->ctx);
+  gnome_print_moveto(renderer->ctx, x1, center->y);
+  gnome_print_curveto(renderer->ctx,
+		      x1,              center->y - ch1,
+		      center->x - cw4, center->y - ch2,
+		      center->x - cw3, center->y - ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw2, center->y - ch4,
+		      center->x - cw1, y1,
+		      center->x,       y1);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw1, y1,
+		      center->x + cw2, center->y - ch4,
+		      center->x + cw3, center->y - ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw4, center->y - ch2,
+		      x2,              center->y - ch1,
+		      x2,              center->y);
+  gnome_print_curveto(renderer->ctx,
+		      x2,              center->y + ch1,
+		      center->x + cw4, center->y + ch2,
+		      center->x + cw3, center->y + ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw2, center->y + ch4,
+		      center->x + cw1, y2,
+		      center->x,       y2);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw1, y2,
+		      center->x - cw2, center->y + ch4,
+		      center->x - cw3, center->y + ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw4, center->y + ch2,
+		      x1,              center->y + ch1,
+		      x1,              center->y);
+  gnome_print_closepath(renderer->ctx);
+  gnome_print_stroke(renderer->ctx);
 }
 
 static void
@@ -462,12 +516,51 @@ fill_ellipse(RendererGPrint *renderer,
 	     real width, real height,
 	     Color *color)
 {
-  /*fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  real x1 = center->x - width/2,  x2 = center->x + width/2;
+  real y1 = center->y - height/2, y2 = center->y + height/2;
+  real cw1 = ELLIPSE_CTRL1 * width / 2, cw2 = ELLIPSE_CTRL2 * width / 2;
+  real cw3 = ELLIPSE_CTRL3 * width / 2, cw4 = ELLIPSE_CTRL4 * width / 2;
+  real ch1 = ELLIPSE_CTRL1 * height / 2, ch2 = ELLIPSE_CTRL2 * height / 2;
+  real ch3 = ELLIPSE_CTRL3 * height / 2, ch4 = ELLIPSE_CTRL4 * height / 2;
 
-  fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse f\n",
-	  (double) center->x, (double) center->y,
-	  (double) width/2.0, (double) height/2.0 ); */
+  gnome_print_setrgbcolor(renderer->ctx, (double)color->red,
+			  (double)color->green, (double)color->blue);
+
+  gnome_print_newpath(renderer->ctx);
+  gnome_print_moveto(renderer->ctx, x1, center->y);
+  gnome_print_curveto(renderer->ctx,
+		      x1,              center->y - ch1,
+		      center->x - cw4, center->y - ch2,
+		      center->x - cw3, center->y - ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw2, center->y - ch4,
+		      center->x - cw1, y1,
+		      center->x,       y1);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw1, y1,
+		      center->x + cw2, center->y - ch4,
+		      center->x + cw3, center->y - ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw4, center->y - ch2,
+		      x2,              center->y - ch1,
+		      x2,              center->y);
+  gnome_print_curveto(renderer->ctx,
+		      x2,              center->y + ch1,
+		      center->x + cw4, center->y + ch2,
+		      center->x + cw3, center->y + ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x + cw2, center->y + ch4,
+		      center->x + cw1, y2,
+		      center->x,       y2);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw1, y2,
+		      center->x - cw2, center->y + ch4,
+		      center->x - cw3, center->y + ch3);
+  gnome_print_curveto(renderer->ctx,
+		      center->x - cw4, center->y + ch2,
+		      x1,              center->y + ch1,
+		      x1,              center->y);
+  gnome_print_fill(renderer->ctx);
 }
 
 static void
