@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
   <name>Circuit - Speaker (European)</name>
   <description>A Speaker</description>
   <icon>speaker_de.xpm</icon>
@@ -10,8 +10,8 @@
     <point x="1.75" y="3"/>
   </connections>
   <svg:svg width="3.0" height="3.0">
-   <svg:rect x1="1" y1="2" x2="2.75" y2="3" style="fill: default" />
+   <svg:rect x="1" y="2" width="1.75" height="1" style="fill: default" />
    <svg:polygon points="2.75,2 4,1 4,4 2.75,3" style="fill: default" /> 
-   <svg:rect x1="2.6" y1="1.8" x2="2.75" y2="3.2" style="fill: inverse" />
+   <svg:rect x="2.6" y="1.8" width="0.15" height="1.4" style="fill: inverse" />
    </svg:svg>
 </shape>

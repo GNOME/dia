@@ -579,24 +579,24 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
       el = (GraphicElement *)rect;
       rect->type = GE_RECT;
-      str = xmlGetProp(node, "x1");
+      str = xmlGetProp(node, "x");
       if (str) {
 	rect->corner1.x = g_strtod(str, NULL);
 	free(str);
       }
-      str = xmlGetProp(node, "y1");
+      str = xmlGetProp(node, "y");
       if (str) {
 	rect->corner1.y = g_strtod(str, NULL);
 	free(str);
       }
-      str = xmlGetProp(node, "x2");
+      str = xmlGetProp(node, "width");
       if (str) {
-	rect->corner2.x = g_strtod(str, NULL);
+	rect->corner2.x = rect->corner1.x + g_strtod(str, NULL);
 	free(str);
       }
-      str = xmlGetProp(node, "y2");
+      str = xmlGetProp(node, "height");
       if (str) {
-	rect->corner2.y = g_strtod(str, NULL);
+	rect->corner2.y = rect->corner1.y + g_strtod(str, NULL);
 	free(str);
       }
     } else if (!strcmp(node->name, "circle")) {
@@ -753,10 +753,13 @@ load_shape_info(const gchar *filename)
     return NULL;
   }
   if (!(svg_ns = xmlSearchNsByHref(doc, root,
+		"http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd"))) {
+    if (!(svg_ns = xmlSearchNsByHref(doc, root,
 		"http://www.w3.org/Graphics/SVG/svg-19990730.dtd"))) {
-    xmlFreeDoc(doc);
-    g_warning("could not find svg namespace");
-    return NULL;
+      xmlFreeDoc(doc);
+      g_warning("could not find svg namespace");
+      return NULL;
+    }
   }
   if (root->ns != shape_ns || strcmp(root->name, "shape")) {
     g_warning("root element was %s -- expecting shape", root->name);

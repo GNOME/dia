@@ -1,5 +1,15 @@
 2000-08-01  James Henstridge  <james@daa.com.au>
 
+	* shapes/*/*.shape: change namespace URI for the SVG portion to the
+	one for the latest draft.
+
+	* shapes/*/*.shape: fix up rect definitions.
+
+	* objects/custom/shape_info.c (load_shape_info): recognise newer
+	namespace tag for SVG.
+	(parse_svg_node): the rect element should take attributes x, y, width
+	and height -- not x1,y1,x2,y2.
+
 	* plug-ins/svg/render_svg.c (new_svg_renderer): updated doctype
 	output to use the newest draft DTD.
 

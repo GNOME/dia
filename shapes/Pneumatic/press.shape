@@ -1,7 +1,7 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
   <name>Pneum - press</name>
   <description>press</description>
   <icon>press.xpm</icon>

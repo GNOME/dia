@@ -1,7 +1,7 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
   <name>Pneum - dist52</name>
   <description>dist52</description>
   <icon>dist52.xpm</icon>
@@ -19,9 +19,9 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="2" height="1">
-    <svg:rect x1="0" y1="0" x2="1" y2="1"
+    <svg:rect x="0" y="0" width="1" height="1"
 	      svg:style="fill:background; stroke-width: 1"/>
-    <svg:rect x1="1" y1="0" x2="2" y2="1"
+    <svg:rect x="1" y="0" width="1" height="1"
 	      svg:style="fill:background; stroke-width: 1"/>
 
     <svg:line x1="1.25" y1="1" x2="1.375" y2="0"/> 

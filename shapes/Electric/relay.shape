@@ -1,7 +1,7 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
   <name>Electric - relay</name>
   <description>relay</description>
   <icon>relay.xpm</icon>
@@ -16,7 +16,7 @@
   <svg:svg width="1" height="1">
     <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
     <svg:line x1="0" y1=".5" x2="1" y2=".5"/>
-    <svg:rect x1=".3" y1=".2" x2=".7" y2=".8" svg:style="fill:background"/>
+    <svg:rect x=".3" y=".2" width=".4" height=".6" svg:style="fill:background"/>
     <svg:line x1=".3" y1=".6" x2=".7" y2=".4"/>
   </svg:svg>
 </shape>

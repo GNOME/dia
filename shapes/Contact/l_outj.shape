@@ -1,7 +1,7 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
   <name>LADDER - outj</name>
   <description>out jump</description>
   <icon>l_outj.xpm</icon>
@@ -13,7 +13,7 @@
   <textbox x1="-4" y1="-2.4" x2="4" y2="-.7"/>
   <aspectratio type="fixed"/>
   <svg:svg width="4" height="4">
-    <svg:rect x1="-2" y1="-3" x2="2" y2="1" 
+    <svg:rect x="-2" y="-3" width="4" height="4" 
 	      svg:style="stroke:none"/>
     <svg:polyline points="-2,0 -.75,0"/>
     <svg:polyline points="2,0 .75,0"/>
