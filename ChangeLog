@@ -1,3 +1,8 @@
+2000-12-03  Kevin Breit  <battery841@mediaone.net>
+
+	* doc/en/dia-manual.sgml Integrated a few diffs.  New section should be
+        the selection <sect1>
+
 2000-11-29  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/load_save.c (diagram_data_save): avoid using obsoleted
