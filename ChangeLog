@@ -1,5 +1,7 @@
 2003-04-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/autoroute.c: Removed printfs.
+
 	* lib/orth_conn.c: 
 	* lib/autoroute.[ch] (autoroute_layout_orthconn): Handle
 	non-connected orthconns too.
