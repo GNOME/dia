@@ -156,4 +156,6 @@ shapes/flowchart/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile
+sheets/UML/Makefile
+sheets/ER/Makefile
 )

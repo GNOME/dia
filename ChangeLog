@@ -1,3 +1,10 @@
+1999-11-24  James Henstridge  <james@daa.com.au>
+
+	* sheets/UML/*: 
+	* sheet/ER/*: moved extra sheet pixmaps back to separate dirs as
+	discussed with Alex.  Also added extra makefiles so that make install
+	works correctly.
+
 1999-11-23  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/preferences.[ch]:

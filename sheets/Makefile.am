@@ -1,6 +1,6 @@
+SUBDIRS = UML ER
+
 sheetdir = $(pkgdatadir)/sheets
-UMLsheetdir = $(sheetdir)/UML
-ERsheetdir = $(sheetdir)/ER
 
 SHEETS = \
 	UML.sheet  \
@@ -11,14 +11,6 @@ SHEETS = \
 	Flowchart.sheet \
 	Circuit.sheet
 
-PIX = \
-	umlclass_template.xpm \
-	aggregation.xpm \
-	weakentity.xpm
-
-EXTRA_DIST = $(SHEETS) $(PIX)
+EXTRA_DIST = $(SHEETS)
 
 sheet_DATA = $(SHEETS)
-
-UMLsheet_DATA = umlclass_template.xpm aggregation.xpm
-ERsheet_DATA = weakentity.xpm
