@@ -1,3 +1,8 @@
+2002-07-19  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_gdk.c (get_text_width): Fixed use of wrong string.
+	Cursor now better.
+
 2002-07-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-export.c: First use of draw_object render

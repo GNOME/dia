@@ -1056,7 +1056,7 @@ get_text_width(RendererGdk *renderer,
         real result;
         
         othertx = g_strndup(text,length);
-        result = dia_font_scaled_string_width(text,renderer->font,
+        result = dia_font_scaled_string_width(othertx,renderer->font,
                                               renderer->font_height,
                                               renderer->ddisp->zoom_factor);
         g_free(othertx);
