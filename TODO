@@ -47,8 +47,6 @@ Big stuff:
 
 BUGS:
 =====
-* Keyboard shortcuts doesn't work in all windows, only the first.
-
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
 
 * If you move an object outside the visible screen, scroll there move the object back

@@ -64,11 +64,11 @@ class_fill_in_dialog(UMLClass *umlclass)
   else 
     gtk_entry_set_text(prop_dialog->stereotype, "");
 
-  gtk_toggle_button_set_state(prop_dialog->abstract_class, umlclass->abstract);
-  gtk_toggle_button_set_state(prop_dialog->attr_vis, umlclass->visible_attributes);
-  gtk_toggle_button_set_state(prop_dialog->op_vis, umlclass->visible_operations);
-  gtk_toggle_button_set_state(prop_dialog->attr_supp, umlclass->suppress_attributes);
-  gtk_toggle_button_set_state(prop_dialog->op_supp, umlclass->suppress_operations);
+  gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
+  gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
+  gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
+  gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
+  gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
 }
 
 static void 
@@ -88,7 +88,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   page_label = gtk_label_new ("Class");
   
   vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
   
   hbox = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new("Class name:");
@@ -178,7 +178,7 @@ attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
 
   gtk_option_menu_set_history(prop_dialog->attr_visible_button,
 			      (gint)attr->visibility);
-  gtk_toggle_button_set_state(prop_dialog->attr_class_scope, attr->class_scope);
+  gtk_toggle_button_set_active(prop_dialog->attr_class_scope, attr->class_scope);
 }
 
 static void
@@ -187,7 +187,7 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->attr_name, "");
   gtk_entry_set_text(prop_dialog->attr_type, "");
   gtk_entry_set_text(prop_dialog->attr_value, "");
-  gtk_toggle_button_set_state(prop_dialog->attr_class_scope, FALSE);
+  gtk_toggle_button_set_active(prop_dialog->attr_class_scope, FALSE);
 }
 
 static void
@@ -229,7 +229,7 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
       attributes_get_values(prop_dialog, current_attr);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_attr)->child);
       new_str = uml_get_attribute_string(current_attr);
-      gtk_label_set(label, new_str);
+      gtk_label_set_text(label, new_str);
       g_free(new_str);
     }
   }
@@ -548,7 +548,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   page_label = gtk_label_new ("Attributes");
   
   vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new(FALSE, 5);
   
@@ -604,7 +604,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   frame = gtk_frame_new("Attribute data");
   vbox2 = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox2), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox2), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
@@ -777,7 +777,7 @@ parameters_get_current_values(UMLClassDialog *prop_dialog)
       parameters_get_values(prop_dialog, current_param);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_param)->child);
       new_str = uml_get_parameter_string(current_param);
-      gtk_label_set(label, new_str);
+      gtk_label_set_text(label, new_str);
       g_free(new_str);
     }
   }
@@ -1016,8 +1016,8 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
 			      (gint)op->visibility);
-  gtk_toggle_button_set_state(prop_dialog->op_class_scope, op->class_scope);
-  gtk_toggle_button_set_state(prop_dialog->op_abstract, op->abstract);
+  gtk_toggle_button_set_active(prop_dialog->op_class_scope, op->class_scope);
+  gtk_toggle_button_set_active(prop_dialog->op_abstract, op->abstract);
 
   gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
   prop_dialog->current_param = NULL;
@@ -1043,8 +1043,8 @@ operations_clear_values(UMLClassDialog *prop_dialog)
 {
   gtk_entry_set_text(prop_dialog->op_name, "");
   gtk_entry_set_text(prop_dialog->op_type, "");
-  gtk_toggle_button_set_state(prop_dialog->op_class_scope, FALSE);
-  gtk_toggle_button_set_state(prop_dialog->op_abstract, FALSE);
+  gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
+  gtk_toggle_button_set_active(prop_dialog->op_abstract, FALSE);
 
   gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
   prop_dialog->current_param = NULL;
@@ -1091,7 +1091,7 @@ operations_get_current_values(UMLClassDialog *prop_dialog)
       operations_get_values(prop_dialog, current_op);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_op)->child);
       new_str = uml_get_operation_string(current_op);
-      gtk_label_set(label, new_str);
+      gtk_label_set_text(label, new_str);
       g_free(new_str);
     }
   }
@@ -1412,7 +1412,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   page_label = gtk_label_new ("Operations");
   
   vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new(FALSE, 5);
   
@@ -1469,7 +1469,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   frame = gtk_frame_new("Operation data");
   hbox = gtk_hbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (hbox), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
   gtk_container_add (GTK_CONTAINER (frame), hbox);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
@@ -1632,7 +1632,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   frame = gtk_frame_new("Parameter data");
   vbox3 = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox3), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox3), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox3);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
@@ -1743,7 +1743,7 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
       templates_get_values(prop_dialog, current_param);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_templ)->child);
       new_str = uml_get_formalparameter_string(current_param);
-      gtk_label_set(label, new_str);
+      gtk_label_set_text(label, new_str);
       g_free(new_str);
     }
   }
@@ -1960,7 +1960,7 @@ templates_fill_in_dialog(UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  gtk_toggle_button_set_state(prop_dialog->templ_template, umlclass->template);
+  gtk_toggle_button_set_active(prop_dialog->templ_template, umlclass->template);
 
   /* copy in new template-parameters: */
   if (prop_dialog->templates_list->children == NULL) {
@@ -2027,7 +2027,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   page_label = gtk_label_new ("Templates");
   
   vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
   checkbox = gtk_check_button_new_with_label("Template class");
@@ -2089,7 +2089,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   frame = gtk_frame_new("Formal parameter data");
   vbox2 = gtk_vbox_new(FALSE, 5);
-  gtk_container_border_width (GTK_CONTAINER (vbox2), 10);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox2), 10);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
@@ -2248,7 +2248,7 @@ umlclass_get_properties(UMLClass *umlclass)
     notebook = gtk_notebook_new ();
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
     gtk_box_pack_start (GTK_BOX (vbox),	notebook, TRUE, TRUE, 0);
-    gtk_container_border_width (GTK_CONTAINER (notebook), 10);
+    gtk_container_set_border_width (GTK_CONTAINER (notebook), 10);
 
     gtk_object_set_user_data(GTK_OBJECT(notebook), (gpointer) umlclass);
     

@@ -298,7 +298,6 @@ data_render(DiagramData *data, Renderer *renderer,
 	    gpointer gdata)
 {
   Layer *layer;
-  Object *obj;
   int i;
   int active_layer;
 
@@ -346,20 +345,19 @@ layer_render(Layer *layer, Renderer *renderer,
   }
 }
 
-int
+void
 layer_add_object(Layer *layer, Object *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
-
 }
 
-int
+void
 layer_add_objects(Layer *layer, GList *obj_list)
 {
   layer->objects = g_list_concat(layer->objects, obj_list);
 }
 
-int
+void
 layer_add_objects_first(Layer *layer, GList *obj_list)
 {
   layer->objects = g_list_concat(obj_list, layer->objects);

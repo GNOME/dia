@@ -483,7 +483,7 @@ fill_in_dialog(Dependency *dep)
     gtk_entry_set_text(prop_dialog->stereotype, "");
   }
 
-  gtk_toggle_button_set_state(prop_dialog->draw_arrow, dep->draw_arrow);
+  gtk_toggle_button_set_active(prop_dialog->draw_arrow, dep->draw_arrow);
 }
 
 static GtkWidget *
@@ -517,7 +517,7 @@ dependency_get_properties(Dependency *dep)
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_border_width (GTK_CONTAINER (hbox), 5);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
     label = gtk_label_new("Stereotype:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();

@@ -34,6 +34,7 @@
 #include "grid.h"
 #include "properties.h"
 #include "layer_dialog.h"
+#include "connectionpoint_ops.h"
 
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
@@ -68,7 +69,7 @@ void file_open_callback(GtkWidget *widget, gpointer data)
 
   window = gtk_file_selection_new ("Open diagram");
 
-  gtk_window_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
+  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
 
   gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (window)->ok_button),
 		      "clicked", GTK_SIGNAL_FUNC(file_open_dialog_ok_callback),
@@ -125,7 +126,7 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
 			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
     gtk_window_set_title (GTK_WINDOW (dialog), "File already exists");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     snprintf(buffer, 300,
 	     "The file '%s' already exists.\n"
 	     "Do you want to overwrite it?", filename);
@@ -194,7 +195,7 @@ file_save_as_callback(GtkWidget *widget, gpointer data)
   ddisp = ddisplay_active();
 
   window = gtk_file_selection_new ("Save diagram");
-  gtk_window_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
+  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
   
   gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
   
@@ -237,7 +238,7 @@ file_export_to_eps_dialog_ok_callback (GtkWidget        *w,
 					 GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
     gtk_window_set_title (GTK_WINDOW (dialog), "File already exists");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     snprintf(buffer, 300,
 	     "The file '%s' already exists.\n"
 	     "Do you want to overwrite it?", filename);
@@ -305,7 +306,7 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
   ddisp = ddisplay_active();
 
   window = gtk_file_selection_new ("Export to postscript");
-  gtk_window_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
+  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
   
   gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
   

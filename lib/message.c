@@ -49,7 +49,7 @@ message_internal(char *title, const char *fmt,
   dialog_window = gtk_dialog_new ();
   
   gtk_window_set_title (GTK_WINDOW (dialog_window), title);
-  gtk_container_border_width (GTK_CONTAINER (dialog_window), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog_window), 0);
 
   label = gtk_label_new (buf);
   gtk_misc_set_padding (GTK_MISC (label), 10, 10);

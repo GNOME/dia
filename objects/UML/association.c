@@ -778,11 +778,11 @@ fill_in_dialog(Association *assoc)
     else 
       gtk_entry_set_text(prop_dialog->end[i].multiplicity, "");
 
-    gtk_toggle_button_set_state(prop_dialog->end[i].draw_arrow,
+    gtk_toggle_button_set_active(prop_dialog->end[i].draw_arrow,
 				assoc->end[i].arrow);
-    gtk_toggle_button_set_state(prop_dialog->end[i].aggregate,
+    gtk_toggle_button_set_active(prop_dialog->end[i].aggregate,
 				assoc->end[i].aggregate == AGGREGATE_NORMAL);
-    gtk_toggle_button_set_state(prop_dialog->end[i].composition,
+    gtk_toggle_button_set_active(prop_dialog->end[i].composition,
 				assoc->end[i].aggregate == AGGREGATE_COMPOSITION);
   }
 }
@@ -801,10 +801,10 @@ mutex_aggregate_callback(GtkWidget *widget,
 
   for (i=0;i<2;i++) {
     if (prop_dialog->end[i].aggregate != button) {
-      gtk_toggle_button_set_state(prop_dialog->end[i].aggregate, 0);
+      gtk_toggle_button_set_active(prop_dialog->end[i].aggregate, 0);
     }
     if (prop_dialog->end[i].composition != button) {
-      gtk_toggle_button_set_state(prop_dialog->end[i].composition, 0);
+      gtk_toggle_button_set_active(prop_dialog->end[i].composition, 0);
     }
   }
 }
@@ -958,7 +958,7 @@ association_get_properties(Association *assoc)
       gtk_widget_show(checkbox);
       gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
 	
-      gtk_container_border_width(GTK_CONTAINER(vbox), 5);
+      gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
       gtk_container_add(GTK_CONTAINER(frame), vbox);
       gtk_box_pack_start (GTK_BOX (split_hbox), frame, TRUE, TRUE, 0);
       gtk_widget_show(vbox);

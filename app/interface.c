@@ -147,7 +147,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
   gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
   gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
-  gtk_container_border_width (GTK_CONTAINER (table), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
   gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
 
   /*  scrollbars, rulers, canvas, menu popup button  */
@@ -205,9 +205,7 @@ create_display_shell(DDisplay *ddisp,
   menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
 
   /*  the accelerator table/group for the popup */
-  gtk_accel_group_attach (ddisp->accel_group, GTK_OBJECT (ddisp->shell));
-  /*  gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
-      ddisp->accel);*/
+  gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
@@ -264,7 +262,7 @@ create_tools(GtkWidget *parent)
 
   for (i = 0; i < NUM_TOOLS; i++) {
     tool_widgets[i] = button = gtk_radio_button_new (tool_group);
-    gtk_container_border_width (GTK_CONTAINER (button), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
 
@@ -368,7 +366,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 
     
     button = gtk_radio_button_new (tool_group);
-    gtk_container_border_width (GTK_CONTAINER (button), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
     
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
@@ -435,7 +433,7 @@ create_sheets(GtkWidget *parent)
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), TRUE);
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
-  gtk_container_border_width (GTK_CONTAINER (notebook), 1);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook), 1);
   gtk_box_pack_start (GTK_BOX (parent), notebook, TRUE, TRUE, 0);
   
   list = get_sheets_list();
@@ -487,12 +485,12 @@ create_color_area (GtkWidget *parent)
   gtk_widget_realize (frame);
 
   hbox = gtk_hbox_new (FALSE, 1);
-  gtk_container_border_width (GTK_CONTAINER (hbox), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_container_add (GTK_CONTAINER (frame), hbox);
   
   /* Color area: */
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-  gtk_container_border_width (GTK_CONTAINER (alignment), 3);
+  gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
   
   col_area = color_area_create (54, 42, default_pixmap, swap_pixmap);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
@@ -509,7 +507,7 @@ create_color_area (GtkWidget *parent)
   
   /* Linewidth area: */
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-  gtk_container_border_width (GTK_CONTAINER (alignment), 3);
+  gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
   
   line_area = linewidth_area_create ();
   gtk_container_add (GTK_CONTAINER (alignment), line_area);
@@ -559,7 +557,7 @@ create_toolbox ()
 		      NULL);
 
   main_vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_border_width (GTK_CONTAINER (main_vbox), 1);
+  gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);
 
@@ -578,7 +576,7 @@ create_toolbox ()
   
   vbox = gtk_vbox_new (FALSE, 1);
   gtk_box_pack_start (GTK_BOX (main_vbox), vbox, TRUE, TRUE, 0);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 0);
   gtk_widget_show (vbox);
 
   create_tools (vbox);

@@ -244,10 +244,10 @@ attribute_get_properties(Attribute *attribute)
   prop_dialog = attribute->properties_dialog;
     
   gtk_entry_set_text(prop_dialog->name, attribute->name);
-  gtk_toggle_button_set_state(prop_dialog->key, attribute->key);
-  gtk_toggle_button_set_state(prop_dialog->weakkey, attribute->weakkey);
-  gtk_toggle_button_set_state(prop_dialog->derived, attribute->derived);
-  gtk_toggle_button_set_state(prop_dialog->multivalue, attribute->multivalue);
+  gtk_toggle_button_set_active(prop_dialog->key, attribute->key);
+  gtk_toggle_button_set_active(prop_dialog->weakkey, attribute->weakkey);
+  gtk_toggle_button_set_active(prop_dialog->derived, attribute->derived);
+  gtk_toggle_button_set_active(prop_dialog->multivalue, attribute->multivalue);
   gtk_spin_button_set_value(prop_dialog->border_width, attribute->border_width);
   dia_color_selector_set_color(prop_dialog->fg_color, &attribute->border_color);
   dia_color_selector_set_color(prop_dialog->bg_color, &attribute->inner_color);

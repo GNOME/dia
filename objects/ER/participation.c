@@ -150,7 +150,6 @@ participation_draw(Participation *participation, Renderer *renderer)
   Point *left_points;
   Point *right_points;
   int i, n;
-  Point pos;
   real last_left, last_right;
   
   points = &orth->points[0];
@@ -359,7 +358,6 @@ static void
 participation_apply_properties(Participation *participation)
 {
   ParticipationPropertiesDialog *prop_dialog;
-  char *str;
 
   prop_dialog = participation->properties_dialog;
 
@@ -376,9 +374,7 @@ participation_get_properties(Participation *participation)
   ParticipationPropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *checkbox;
-  GtkWidget *entry;
   GtkWidget *hbox;
-  GtkWidget *label;
 
   if (participation->properties_dialog == NULL) {
     prop_dialog = g_new(ParticipationPropertiesDialog, 1);
@@ -397,7 +393,7 @@ participation_get_properties(Participation *participation)
   }
   prop_dialog = participation->properties_dialog;
 
-  gtk_toggle_button_set_state(prop_dialog->total, participation->total);
+  gtk_toggle_button_set_active(prop_dialog->total, participation->total);
 
   return prop_dialog->vbox;
 }

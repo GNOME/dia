@@ -261,7 +261,7 @@ color_area_edit (void)
         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
 	GTK_UPDATE_CONTINUOUS);
     
-    gtk_window_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
+    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
     
     gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 			GTK_SIGNAL_FUNC(color_selection_delete),

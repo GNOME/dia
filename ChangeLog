@@ -1,3 +1,50 @@
+1999-01-16  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/interface.c:
+	* app/menus.c:
+	Fixed so accelerator groups work in all windows.
+	Updated to new gtk function names.
+
+	* TODO (BUGS):
+	Removed fixed bug.
+
+	* app/display.c:
+	Updated to new gtk function names.
+	Set sensitivity of the align menu items.	
+
+	* objects/ER/pixmaps/Makefile.am:
+	* objects/UML/pixmaps/Makefile.am:
+	* objects/network/pixmaps/Makefile.am:
+	Fix so that make dist works.
+
+	* app/app_procs.c:
+	* app/color_area.c:
+	* app/commands.c:
+	* app/diagram.c:
+	* app/grid.c:
+	* app/layer_dialog.c:
+	* app/load_save.c:
+	* app/object_ops.c:
+	* app/properties.c:
+	* lib/diagramdata.[ch]:	
+	* lib/message.c:
+	* lib/objects/ER/attribute.c:
+	* lib/objects/ER/entity.c:
+	* lib/objects/ER/participation.c:
+	* lib/objects/ER/relationship.c:
+	* lib/objects/ER/.c:
+	* objects/UML/actor.c:
+	* objects/UML/association.c:
+	* objects/UML/class_dialog.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/large_package.c:
+	* objects/UML/realizes.c:
+	* objects/UML/.c:
+	* objects/UML/.c:
+	Updated to new gtk function names.
+	Removed warnings.
+
 1999-01-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* TODO:

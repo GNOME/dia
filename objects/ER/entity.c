@@ -111,7 +111,7 @@ SheetObject entity_sheetobj =
   "Entity",      /* description */
   (char **) entity_xpm, /* pixmap */
 
-  FALSE                /* user_data */
+  GINT_TO_POINTER(FALSE)                /* user_data */
 };
 
 SheetObject weakentity_sheetobj =
@@ -120,7 +120,7 @@ SheetObject weakentity_sheetobj =
   "Weak Entity",      /* description */
   (char **) weakentity_xpm, /* pixmap */
 
-  TRUE                /* user_data */
+  GINT_TO_POINTER(TRUE)                /* user_data */
 };
 
 ObjectType *_entity_type = (ObjectType *) &entity_type;
@@ -229,7 +229,7 @@ entity_get_properties(Entity *entity)
   dia_color_selector_set_color(prop_dialog->fg_color, &entity->border_color);
   dia_color_selector_set_color(prop_dialog->bg_color, &entity->inner_color);
   gtk_entry_set_text(prop_dialog->name, entity->name);
-  gtk_toggle_button_set_state(prop_dialog->weak, entity->weak);
+  gtk_toggle_button_set_active(prop_dialog->weak, entity->weak);
   
   return prop_dialog->vbox;
 }

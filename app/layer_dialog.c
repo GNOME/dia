@@ -80,7 +80,6 @@ create_button_box(GtkWidget *parent)
 {
   GtkWidget *button;
   GtkWidget *button_box;
-  GtkWidget *box;
   GtkWidget *pixmapwid;
   GdkPixmap *pixmap;
   GdkBitmap *mask;
@@ -803,9 +802,6 @@ guint
 dia_layer_widget_get_type(void)
 {
   static guint dlw_type = 0;
-  GList *list;
-  char *fontname;
-  int i;
 
   if (!dlw_type) {
     GtkTypeInfo dlw_info = {
@@ -847,7 +843,7 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 void
 dia_layer_update_from_layer(DiaLayerWidget *widget)
 {
-  gtk_label_set(GTK_LABEL(widget->label), widget->layer->name);
+  gtk_label_set_text(GTK_LABEL(widget->label), widget->layer->name);
 }
 
 
@@ -919,7 +915,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
   dialog->dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes", "Dia");
   gtk_window_set_title (GTK_WINDOW (dialog->dialog), "Edit Layer Attributes");
-  gtk_window_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
+  gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 
   /*  handle the wm close signal */
   gtk_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
@@ -928,7 +924,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
 
   /*  the main vbox  */
   vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->vbox), vbox, TRUE, TRUE, 0);
 
   /*  the name entry hbox, label and entry  */

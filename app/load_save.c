@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -25,6 +26,8 @@
 /* gnome-xml: */
 #include <tree.h>
 #include <parser.h>
+
+#include "config.h"
 
 #include "load_save.h"
 #include "dia_xml.h"
@@ -145,7 +148,6 @@ diagram_load(char *filename)
   xmlDocPtr doc;
   xmlNodePtr diagramdata;
   xmlNodePtr layer_node;
-  xmlNodePtr objects;
   AttributeNode attr;
   Layer *layer;
   
@@ -196,8 +198,8 @@ diagram_load(char *filename)
   while (layer_node != NULL) {
     char *name;
     char *visible;
-    name = xmlGetProp(layer_node, "name");
-    visible = xmlGetProp(layer_node, "visible");
+    name = (char *)xmlGetProp(layer_node, "name");
+    visible = (char *)xmlGetProp(layer_node, "visible");
     layer = new_layer(name);
     
     layer->visible = FALSE;

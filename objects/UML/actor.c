@@ -213,7 +213,6 @@ actor_draw(Actor *actor, Renderer *renderer)
 static void
 actor_update_data(Actor *actor)
 {
-  real w;
   Element *elem = &actor->element;
   Object *obj = (Object *) actor;
   Rectangle text_box;

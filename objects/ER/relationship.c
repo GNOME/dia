@@ -262,8 +262,8 @@ relationship_get_properties(Relationship *relationship)
   gtk_entry_set_text(prop_dialog->left_cardinality, relationship->left_cardinality);
   gtk_entry_set_text(prop_dialog->right_cardinality, relationship->right_cardinality);
   gtk_entry_set_text(prop_dialog->name, relationship->name); 
-  gtk_toggle_button_set_state(prop_dialog->rotate, relationship->rotate);
-  gtk_toggle_button_set_state(prop_dialog->identifying, relationship->identifying);
+  gtk_toggle_button_set_active(prop_dialog->rotate, relationship->rotate);
+  gtk_toggle_button_set_active(prop_dialog->identifying, relationship->identifying);
  
   return prop_dialog->vbox;
 }
@@ -312,7 +312,7 @@ relationship_move(Relationship *relationship, Point *to)
 static void
 relationship_draw(Relationship *relationship, Renderer *renderer)
 {
-  Point corners[4], corners2[4];
+  Point corners[4];
   Point lc, rc;
   Point p;
   Element *elem;

@@ -37,6 +37,8 @@
 #include "group.h"
 #include "message.h"
 #include "display.h"
+#include "layer_dialog.h"
+#include "load_save.h"
 
 
 #ifdef RTLD_LAZY        /* Solaris 2. */
@@ -52,18 +54,6 @@
 static void register_all_objects(void);
 static void register_all_sheets(void);
 static int name_is_lib(char *name);
-
-static void
-enable_core_dumps(void)
-{
-  signal (SIGHUP, SIG_DFL);
-  signal (SIGINT, SIG_DFL);
-  signal (SIGQUIT, SIG_DFL);
-  signal (SIGBUS, SIG_DFL);
-  signal (SIGSEGV, SIG_DFL);
-  signal (SIGPIPE, SIG_DFL);
-  signal (SIGTERM, SIG_DFL);
-}
 
 void
 app_init (int argc, char **argv)
@@ -145,7 +135,7 @@ app_exit(void)
 			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
     gtk_window_set_title (GTK_WINDOW (dialog), "Quit, are you sure?");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     label = gtk_label_new ("Modified diagrams exists.\n"
 			   "Are you sure you want to quit?");
   

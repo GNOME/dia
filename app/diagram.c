@@ -499,8 +499,6 @@ void
 diagram_export_to_eps(Diagram *dia, char *filename)
 {
   RendererEPS *renderer;
-  GList *list;
-  Object *obj;
  
   renderer = new_eps_renderer(dia, filename);
 

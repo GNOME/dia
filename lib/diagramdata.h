@@ -81,9 +81,9 @@ extern void layer_render(Layer *layer, Renderer *renderer,
 			 gpointer data,
 			 int active_layer);
 
-extern int layer_add_object(Layer *layer, Object *obj);
-extern int layer_add_objects(Layer *layer, GList *obj_list);
-extern int layer_add_objects_first(Layer *layer, GList *obj_list);
+extern void layer_add_object(Layer *layer, Object *obj);
+extern void layer_add_objects(Layer *layer, GList *obj_list);
+extern void layer_add_objects_first(Layer *layer, GList *obj_list);
 extern void layer_remove_object(Layer *layer, Object *obj);
 extern GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
 extern Object *layer_find_closest_object(Layer *layer, Point *pos,

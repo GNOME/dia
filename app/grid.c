@@ -136,7 +136,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     
     grid->dialog = dialog = gtk_window_new(GTK_WINDOW_DIALOG);
     gtk_window_set_title (GTK_WINDOW (dialog), "Grid options");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
 			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
 

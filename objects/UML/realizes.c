@@ -490,7 +490,7 @@ realizes_get_properties(Realizes *realize)
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_border_width (GTK_CONTAINER (hbox), 5);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
     label = gtk_label_new("Stereotype:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     entry = gtk_entry_new();

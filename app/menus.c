@@ -33,6 +33,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {"/Help/_About",  NULL,         NULL,               0 },
 };
 
+#if 0
 static void
 tearoff (gpointer             callback_data,
 	 guint                callback_action,
@@ -40,6 +41,7 @@ tearoff (gpointer             callback_data,
 {
   g_message ("ItemFactory: activated \"%s\"", gtk_item_factory_path_from_widget (widget));
 }
+#endif
 
 static GtkItemFactoryEntry display_menu_items[] =
 {
@@ -105,6 +107,7 @@ static int display_nmenu_items = sizeof(display_menu_items) / sizeof(display_men
 
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
+static GtkAccelGroup *display_accel_group = NULL;
 
 void
 menus_get_toolbox_menubar (GtkWidget **menubar,
@@ -123,14 +126,15 @@ void
 menus_get_image_menu (GtkWidget **menu,
 		      GtkAccelGroup **accel_group)
 {
-  *accel_group = gtk_accel_group_new ();
   if (display_item_factory == NULL) {
-    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", *accel_group);
+    display_accel_group = gtk_accel_group_new ();
+    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", display_accel_group);
     gtk_item_factory_create_items (display_item_factory,
 				   display_nmenu_items,
 				   display_menu_items, NULL);
   }
   
+  *accel_group = display_accel_group;
   *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
 }
 

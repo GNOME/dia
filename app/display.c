@@ -584,7 +584,7 @@ ddisplay_close(DDisplay *ddisp)
   dialog = gtk_dialog_new();
 
   gtk_window_set_title (GTK_WINDOW (dialog), "Really close?");
-  gtk_container_border_width (GTK_CONTAINER (dialog), 0);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
   
   label = gtk_label_new ("This diagram has not been saved.\n"
 			 "Are you sure you want to close this window?");
@@ -644,10 +644,24 @@ display_set_menu_sensitivity(DDisplay *ddisp)
 		      dia->data->selected_count > 0);
   menus_set_sensitive("<Display>/Objects/Place Over",
 		      dia->data->selected_count > 0);
+  
   menus_set_sensitive("<Display>/Objects/Group", dia->data->selected_count > 1);
   menus_set_sensitive("<Display>/Objects/Ungroup",
 		      (dia->data->selected_count == 1) &&
 		      IS_GROUP((Object *)dia->data->selected->data));
+
+  menus_set_sensitive("<Display>/Objects/Align Horizontal/Top",
+		      dia->data->selected_count > 1);
+  menus_set_sensitive("<Display>/Objects/Align Horizontal/Center",
+		      dia->data->selected_count > 1);
+  menus_set_sensitive("<Display>/Objects/Align Horizontal/Bottom",
+		      dia->data->selected_count > 1);
+  menus_set_sensitive("<Display>/Objects/Align Vertical/Left",
+		      dia->data->selected_count > 1);
+  menus_set_sensitive("<Display>/Objects/Align Vertical/Center",
+		      dia->data->selected_count > 1);
+  menus_set_sensitive("<Display>/Objects/Align Vertical/Right",
+		      dia->data->selected_count > 1);
 
   menus_set_state ("<Display>/View/Toggle Rulers", GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
   menus_set_state ("<Display>/View/Visible Grid", ddisp->grid.visible);
