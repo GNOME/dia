@@ -1,3 +1,23 @@
+1999-12-20  James Henstridge  <james@daa.com.au>
+
+	* app/app_procs.c (app_init): register the SVG export filter.  Have
+	to get EPS code converted to this API, and maybe also allow saving in
+	DIA's native format from the export dialog.  In fact, it is now
+	possible to load an export filter from a shared library and it will
+	integrate into the interface correctly.
+
+	* app/menus.c: removed references to the SVG renderer.
+
+	* app/commands.[ch]: removed svg stuff.
+
+	* app/diagram.[ch]: removed diagram_export_to_svg function.
+
+	* app/render_svg.[ch]: added a DiaExportFilter structure for this
+	renderer.
+
+	* app/filedlg.[ch]: code for the new export diagram dialog.  Will
+	probably move the open/save dialogs to this file as well.
+
 1999-12-19  James Henstridge  <james@daa.com.au>
 
 	* lib/filter.[ch]: start of interface for generalised handling of
