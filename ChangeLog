@@ -6,6 +6,13 @@
 	* configure.in: removed macro nesting related to libpng.h, which
 	was causing some problems on some systems (like mine, which made
 	the snapshots bad).
+
+	* NEWS:
+	* app/makefile.mingw:
+	* dia.spec:
+	* doc/en/dia-manual.sgml:
+	* plug-ins/makefile.mingw:
+	* configure.in: bumped up the version number to 0.90.RC1
 	
 2002-05-13  Steffen Macke <sdteffen@web.de>
 

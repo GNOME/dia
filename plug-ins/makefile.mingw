@@ -23,7 +23,7 @@ include $(TOP)/build/win32/make.mingw
 
 PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)/lib \
-	-DVERSION=\"0.88\"
+	-DVERSION=\"0.90.RC1\"
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(LIBXML2_LIBS) \
 	-L $(PRJ_TOP)/lib -llibdia

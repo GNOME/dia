@@ -1,4 +1,4 @@
-dia-0.89:  XX-XXX-2001
+dia-0.90.RC1:  13-May-2002
 
 * from now on, all XML files produced by dia will be encoded as UTF-8.
   This version of dia is also capable of reading dia file encoded with

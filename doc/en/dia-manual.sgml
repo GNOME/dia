@@ -1,5 +1,5 @@
 <!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
-<!ENTITY VERSION "0.86">
+<!ENTITY VERSION "0.90">
 <!ENTITY INTRODUCTION SYSTEM "intro.sgml">
 <!ENTITY QUICKSTART SYSTEM "usage-quickstart.sgml">
 <!ENTITY CANVAS SYSTEM "usage-canvas.sgml">
