@@ -36,6 +36,8 @@ extern ObjectType implements_type;
 extern ObjectType constraint_type;
 extern ObjectType smallpackage_type;
 extern ObjectType largepackage_type;
+extern ObjectType actor_type;
+extern ObjectType usecase_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -48,6 +50,8 @@ void register_objects(void) {
   object_register_type(&constraint_type);
   object_register_type(&smallpackage_type);
   object_register_type(&largepackage_type);
+  object_register_type(&actor_type);    
+  object_register_type(&usecase_type);    
 }
 
 extern SheetObject umlclass_sheetobj;
@@ -62,6 +66,8 @@ extern SheetObject implements_sheetobj;
 extern SheetObject constraint_sheetobj;
 extern SheetObject smallpackage_sheetobj;
 extern SheetObject largepackage_sheetobj;
+extern SheetObject actor_sheetobj;
+extern SheetObject usecase_sheetobj;
 
 void register_sheets(void) {
   Sheet *sheet;
@@ -80,6 +86,8 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &constraint_sheetobj);
   sheet_append_sheet_obj(sheet, &smallpackage_sheetobj);
   sheet_append_sheet_obj(sheet, &largepackage_sheetobj);
+  sheet_append_sheet_obj(sheet, &actor_sheetobj);
+  sheet_append_sheet_obj(sheet, &usecase_sheetobj);
 
   register_sheet(sheet);
 }

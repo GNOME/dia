@@ -10,6 +10,8 @@ libuml_objects_la_SOURCES = \
 			class.h \
 			class_dialog.c \
 			note.c \
+			actor.c \
+			usecase.c \
 			realizes.c \
 			constraint.c \
 			small_package.c \
