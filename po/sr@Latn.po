@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-15 19:14+0200\n"
-"PO-Revision-Date: 2003-10-15 19:19+0200\n"
+"POT-Creation-Date: 2003-10-26 02:05+0100\n"
+"PO-Revision-Date: 2003-10-26 04:07+0100\n"
 "Last-Translator: Dejan Matijević <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,49 +44,61 @@ msgid "Can't find output format %s\n"
 msgstr "Ne mogu da nađem vrstu izlaza %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:302
+#: app/app_procs.c:320
 msgid "Export loaded file and exit"
 msgstr "Izvezi učitanu datoteku i izađi"
 
-#: app/app_procs.c:302 app/diaconv.c:94
+#: app/app_procs.c:320 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "IZLAZ"
 
-#  &export_file_format
 #. &export_file_format
-#: app/app_procs.c:304
-msgid "Export to file format and exit"
-msgstr "Izvezi u novi format i izađi"
+#: app/app_procs.c:322
+msgid ""
+"Export to file format and exit.  Supported formats are: cgm, dia, dxf, eps, "
+msgstr "Izvezi u vrstu datoteke i izađi. Podržane vrste su: cgm, dia, dxf, eps, "
 
-#: app/app_procs.c:304 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
+#: app/app_procs.c:324
+msgid "fig, mp, plt, hpgl, "
+msgstr "fig, mp, plt, hpgl, "
 
-#: app/app_procs.c:306
+#: app/app_procs.c:325
+msgid "shape, svg, tex, "
+msgstr "shape, svg, tex, "
+
+#: app/app_procs.c:326
+msgid "wpg"
+msgstr "wpg"
+
+#: app/app_procs.c:326
+msgid "FORMAT"
+msgstr "VRSTA"
+
+#: app/app_procs.c:329
 msgid "Don't show the splash screen"
 msgstr "Ne prikazuj naslovni ekran"
 
-#: app/app_procs.c:308
+#: app/app_procs.c:331
 msgid "Display credits list and exit"
 msgstr "Prikaži zasluge i izađi"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:333
 msgid "Display version and exit"
 msgstr "Pokaži verziju i izađi"
 
-#: app/app_procs.c:312 app/diaconv.c:95
+#: app/app_procs.c:335 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Prikaži ovaj pomoćni tekst"
 
-#: app/app_procs.c:344
+#: app/app_procs.c:367
 msgid "Can't connect to session manager!\n"
 msgstr "Ne može se povezati sa upravnikom sesije!\n"
 
-#: app/app_procs.c:359 app/diaconv.c:119
+#: app/app_procs.c:382 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIJA...] [DATOTEKA...]"
 
-#: app/app_procs.c:363 app/diaconv.c:126
+#: app/app_procs.c:386 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -97,22 +109,22 @@ msgstr ""
 "linije.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:382
+#: app/app_procs.c:405
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzija %s, prevedena %s %s\n"
 
-#: app/app_procs.c:384
+#: app/app_procs.c:407
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzija %s\n"
 
-#: app/app_procs.c:464 app/app_procs.c:466 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nemože da nađe standardane objekte kada traži object-libs, izlazi...\n"
 
-#: app/app_procs.c:558
+#: app/app_procs.c:581
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -121,7 +133,7 @@ msgstr ""
 "opisujući se greška može izazvati.\n"
 
 #. no standard buttons
-#: app/app_procs.c:570
+#: app/app_procs.c:593
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -131,21 +143,21 @@ msgstr ""
 "Da li ste sigurni da želite da završite Dia\n"
 "bez prethodnog snimanja?"
 
-#: app/app_procs.c:574
+#: app/app_procs.c:597
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:629
+#: app/app_procs.c:652
 msgid "Thank you for using Dia.\n"
 msgstr "Hvala vam što koristite Diu.\n"
 
-#: app/app_procs.c:643 app/app_procs.c:650
+#: app/app_procs.c:666 app/app_procs.c:673
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika"
 
-#: app/app_procs.c:652
+#: app/app_procs.c:675
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -153,7 +165,7 @@ msgstr ""
 "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika. Proverite "
 "da li promenljiva okruženja HOME pokazuje na postojeći direktorijum."
 
-#: app/app_procs.c:674 app/diaconv.c:249
+#: app/app_procs.c:697 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekti i filteri interni za diu"
 
@@ -323,6 +335,10 @@ msgstr "Ne može da pokrene Bonobo!"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Izvezi format datoteke koja će se koristiti."
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -776,7 +792,7 @@ msgstr "Isključuje ili uključuje prijanjanje uz mrežu za ovaj prozor."
 
 #: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
-msgstr ""
+msgstr "NULL tooldata u tool_select_update"
 
 #: app/interface.c:1020
 msgid ""
@@ -1680,7 +1696,7 @@ msgstr "/_Načini unosa"
 
 #: app/menus.c:644
 msgid "NULL tooldata in tool_menu_select"
-msgstr ""
+msgstr "NULL tooldata u tool_menu_select"
 
 #: app/menus.c:811
 msgid "Diagram Menu"
@@ -3047,7 +3063,7 @@ msgstr "Izbuši"
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
 #: objects/FS/function.c:859
 msgid "Lathe"
-msgstr ""
+msgstr "Strug"
 
 #. Translators: Menu item Verb/Branch/Refine
 #: objects/FS/function.c:861 objects/FS/function.c:863
@@ -4739,7 +4755,7 @@ msgstr "Vrsta strelice je ništa — ne sme se dogoditi\n"
 #: plug-ins/xfig/xfig-export.c:442
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr ""
+msgstr "FIG zapis ne omogućava strelice stila %s, koristi običnu strelicu.\n"
 
 #: plug-ins/xfig/xfig-export.c:463
 msgid "No more user-definable colors - using black"
@@ -4978,15 +4994,16 @@ msgstr "Do:"
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr ""
+msgstr "Raznovrsni skup poligona, bezijerovih poligona i drugih raznih geometrijskih oblika"
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
-msgstr ""
+msgstr "Raznovrsni"
 
+# Hmmmm...
 #: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
-msgstr ""
+msgstr "Epoleta"
 
 #: sheets/Assorted.sheet.in.h:4
 msgid "Curved eight point star"
@@ -5305,23 +5322,23 @@ msgstr "Negativna izlazna promenjiva"
 
 #: sheets/Contact.sheet.in.h:9
 msgid "Power-saved 'reset' output variable"
-msgstr ""
+msgstr "Izlazna „resetuj“ promenljiva sa štednjom struje"
 
 #: sheets/Contact.sheet.in.h:10
 msgid "Power-saved 'set' output variable"
-msgstr ""
+msgstr "Izlazna „postavi“ promenljiva sa štednjom struje"
 
 #: sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
-msgstr ""
+msgstr "Izlazna negativna promenljiva sa štednjom struje"
 
 #: sheets/Contact.sheet.in.h:12
 msgid "Power-saved simple output variable"
-msgstr ""
+msgstr "Izlazna jednostavna promenljiva sa štednjom struje"
 
 #: sheets/Contact.sheet.in.h:13
 msgid "Receptivity output variable"
-msgstr ""
+msgstr "Prijemna izlazna promenljiva"
 
 #: sheets/Contact.sheet.in.h:14
 msgid "Simple output variable"
@@ -5333,31 +5350,31 @@ msgstr "EML"
 
 #: sheets/EML.sheet.in.h:2
 msgid "Editor for EML Static Structure Diagrams."
-msgstr ""
+msgstr "Uređivač za EML statične strukturne dijagrame."
 
 #: sheets/EML.sheet.in.h:3
 msgid "Instantiation. One process create others"
-msgstr ""
+msgstr "Obrazovanje. Jedan proces obrazuje druge"
 
 #: sheets/EML.sheet.in.h:4
 msgid "Interaction between processes."
-msgstr ""
+msgstr "Međudelovanje procesa."
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
-msgstr ""
+msgstr "Uređivač za dijagrame odnosa entiteta (ER)"
 
 #: sheets/ER.sheet.in.h:5
 msgid "Participation"
-msgstr ""
+msgstr "Sudelovanje"
 
 #: sheets/ER.sheet.in.h:7
 msgid "Weak entity"
-msgstr ""
+msgstr "Slab entitet"
 
 #: sheets/Electric.sheet.in.h:1
 msgid "Command organ of a relay"
@@ -5517,7 +5534,7 @@ msgstr "Uredi"
 
 #: sheets/Flowchart.sheet.in.h:27
 msgid "Summing junction"
-msgstr ""
+msgstr "Zbirna tačka"
 
 #: sheets/Flowchart.sheet.in.h:28
 msgid "Terminal Interrupt"
@@ -5533,7 +5550,7 @@ msgstr "Traka za prenos"
 
 #: sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"
-msgstr ""
+msgstr "I ivica"
 
 #: sheets/GRAFCET.sheet.in.h:2
 msgid "Action to associate to a step"
@@ -5557,7 +5574,7 @@ msgstr "Korak poziva makro podprograma"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "OR vergent"
-msgstr ""
+msgstr "ILI ivica"
 
 #: sheets/GRAFCET.sheet.in.h:12
 msgid "Objects to design GRAFCET charts"
@@ -5577,7 +5594,7 @@ msgstr "Bulova logika"
 
 #: sheets/Logic.sheet.in.h:3
 msgid "Crossconnector"
-msgstr ""
+msgstr "Ukrsni povezivač"
 
 #: sheets/Logic.sheet.in.h:4
 msgid "Inverter"
@@ -5721,23 +5738,23 @@ msgstr "Neposredna naredba od pneumatskog pokretača"
 
 #: sheets/Pneumatic.sheet.in.h:17
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Mehanička naredba pomoću opruge"
 
 #: sheets/Pneumatic.sheet.in.h:18
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Mehanička naredba pomoću podizača"
 
 #: sheets/Pneumatic.sheet.in.h:19
 msgid "Muscular command"
-msgstr ""
+msgstr "Mišićna naredba"
 
 #: sheets/Pneumatic.sheet.in.h:20
 msgid "Normally-in simple-effect jack"
-msgstr ""
+msgstr "Obično-uključeno gnezdo jednostavnog-uticaja"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Normally-out simple-effect jack"
-msgstr ""
+msgstr "Obično-isključeno gnezdo jednostavnog-uticaja"
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Pneumatic pressure source"
@@ -5753,11 +5770,11 @@ msgstr "Pritisni--dugme komanda"
 
 #: sheets/SADT.sheet.in.h:1
 msgid "Activity/data box"
-msgstr ""
+msgstr "Kućica za aktivnost/podaci"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "Activity/data flow arrow"
-msgstr ""
+msgstr "Strelica toka za aktivnost/podaci"
 
 #: sheets/SADT.sheet.in.h:3
 msgid "Flow label"
@@ -5777,7 +5794,7 @@ msgstr "Radnja izvršena"
 
 #: sheets/SDL.sheet.in.h:2
 msgid "Block type reference"
-msgstr ""
+msgstr "Referenca blokovskog tipa"
 
 #: sheets/SDL.sheet.in.h:5
 msgid "Function call"
@@ -5801,7 +5818,7 @@ msgstr "Povratak procedure"
 
 #: sheets/SDL.sheet.in.h:11
 msgid "Process type reference"
-msgstr ""
+msgstr "Referenca procesnog tipa"
 
 #: sheets/SDL.sheet.in.h:12
 msgid "Receive message"
@@ -5821,7 +5838,7 @@ msgstr "Pošalji poruku"
 
 #: sheets/SDL.sheet.in.h:16
 msgid "Service type reference"
-msgstr ""
+msgstr "Referenca uslužnog tipa"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
@@ -5837,15 +5854,15 @@ msgstr "Radnja"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Agregacija, jedna klasa čini deo druge"
 
 #: sheets/UML.sheet.in.h:4
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Asocijacija, dve klase su u vezi"
 
 #: sheets/UML.sheet.in.h:7
 msgid "Class stereotype icon"
-msgstr ""
+msgstr "Ikona stereotipa klasa"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Component"
@@ -5853,7 +5870,7 @@ msgstr "Deo"
 
 #: sheets/UML.sheet.in.h:9
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Ograničenje, postavite ograničenje na nešto"
 
 #: sheets/UML.sheet.in.h:10
 msgid "Dependency"
@@ -5865,7 +5882,7 @@ msgstr "Uređivač UML statičkih strukturnih dijagrama"
 
 #: sheets/UML.sheet.in.h:15
 msgid "Fork/union"
-msgstr ""
+msgstr "Rastavi/sjedini"
 
 #: sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
@@ -5901,7 +5918,7 @@ msgstr "Napomena"
 
 #: sheets/UML.sheet.in.h:25
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Ostvaruje, obezbeđuje naročitu spregu"
 
 #: sheets/UML.sheet.in.h:27
 msgid "Small package"
@@ -6201,7 +6218,7 @@ msgstr "Svič koji se programira"
 
 #: sheets/ciscohub.sheet.in.h:22
 msgid "Route switch processor"
-msgstr ""
+msgstr "Obrađivač rutirajućeg sviča"
 
 #: sheets/ciscohub.sheet.in.h:23
 msgid "Small hub"
@@ -6209,7 +6226,7 @@ msgstr "Mali hab"
 
 #: sheets/ciscohub.sheet.in.h:24
 msgid "Voice ATM switch"
-msgstr ""
+msgstr "Svič za glasovni ATM"
 
 #: sheets/ciscohub.sheet.in.h:25
 msgid "Voice switch"
@@ -6238,7 +6255,7 @@ msgstr "Odeljenje kancelarije"
 
 #: sheets/ciscomisc.sheet.in.h:4
 msgid "Breakout box"
-msgstr ""
+msgstr "Kutija za iskakanje"
 
 #: sheets/ciscomisc.sheet.in.h:5
 msgid "Car"
@@ -6287,7 +6304,7 @@ msgstr "H.323"
 
 #: sheets/ciscomisc.sheet.in.h:16
 msgid "HootPhone"
-msgstr ""
+msgstr "HootPhone"
 
 #: sheets/ciscomisc.sheet.in.h:17
 msgid "IP phone"
@@ -6724,7 +6741,7 @@ msgstr "VPN prolaz"
 
 #: sheets/cisconetwork.sheet.in.h:78
 msgid "Virtual switch controller (VSC 3000)"
-msgstr ""
+msgstr "Virtuelni svič kontroler (VSC 3000)"
 
 #: sheets/cisconetwork.sheet.in.h:79
 msgid "Wireless bridge"
@@ -6756,7 +6773,7 @@ msgstr "ATM tag switch router"
 
 #: sheets/ciscorouter.sheet.in.h:7
 msgid "Broadband router"
-msgstr ""
+msgstr "Širokopojasni ruter"
 
 #: sheets/ciscorouter.sheet.in.h:8
 msgid "Cisco - Router"
@@ -6772,7 +6789,7 @@ msgstr "Ruter usluživanja sadržaja"
 
 #: sheets/ciscorouter.sheet.in.h:11
 msgid "Gigabit switch router (ATM tag)"
-msgstr ""
+msgstr "Gigabitni svič ruter (ATM oznaka)"
 
 #: sheets/ciscorouter.sheet.in.h:12
 msgid "IAD router"
@@ -6824,19 +6841,19 @@ msgstr "Ruter glasa"
 
 #: sheets/ciscorouter.sheet.in.h:24
 msgid "Wavelength router"
-msgstr ""
+msgstr "Ruter talasne dužine"
 
 #: sheets/ciscorouter.sheet.in.h:25
 msgid "Workgroup 5000 multilayer switch"
-msgstr ""
+msgstr "Workgroup 5000 višeslojni svič"
 
 #: sheets/ciscorouter.sheet.in.h:26
 msgid "Workgroup 5002 multilayer switch"
-msgstr ""
+msgstr "Workgroup 5002 višeslojni svič"
 
 #: sheets/ciscorouter.sheet.in.h:27
 msgid "Workgroup 5500 multilayer switch"
-msgstr ""
+msgstr "Workgroup 5500 višeslojni svič"
 
 #: sheets/ciscorouter.sheet.in.h:28
 msgid "uBR910"
@@ -6844,7 +6861,7 @@ msgstr "uBR910"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
-msgstr ""
+msgstr "Ventilacija sa mehurima"
 
 #: sheets/civil.sheet.in.h:2
 msgid "Backflow preventer"
@@ -6912,7 +6929,7 @@ msgstr "Motor"
 
 #: sheets/civil.sheet.in.h:18
 msgid "Preliminary clarification tank"
-msgstr ""
+msgstr "Probni tank za prečišćavanje"
 
 #: sheets/civil.sheet.in.h:19
 msgid "Reference line"
@@ -7205,6 +7222,10 @@ msgstr "Sybase srver podataka"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replikacioni server"
+
+#  &export_file_format
+#~ msgid "Export to file format and exit"
+#~ msgstr "Izvezi u novi format i izađi"
 
 #~ msgid "%s error: can specify only one of -f or -o."
 #~ msgstr "%s greška: može da odredi samo jedno od -f ili -o."
