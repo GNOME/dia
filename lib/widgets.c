@@ -340,7 +340,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
   length = gtk_spin_button_new(adj, DEFAULT_LINESTYLE_DASHLEN, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
@@ -727,7 +727,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
   length = gtk_spin_button_new(adj, DEFAULT_ARROW_LENGTH, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
@@ -740,7 +740,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
   width = gtk_spin_button_new(adj, DEFAULT_ARROW_WIDTH, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(width), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width), TRUE);

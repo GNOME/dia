@@ -310,12 +310,12 @@ prop_get_widget(Property *prop)
       PropNumData *numdata = prop->extra_data;
       adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
 					      numdata->min, numdata->max,
-					      numdata->step, numdata->step,
-					      numdata->step));
+					      numdata->step, 10.0 * numdata->step,
+					      10.0 * numdata->step));
     } else
       adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
 					      G_MININT, G_MAXINT,
-					      1.0, 1.0, 1.0));
+					      1.0, 10.0, 10.0));
     ret = gtk_spin_button_new(adj, 1.0, 0);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;
@@ -350,12 +350,12 @@ prop_get_widget(Property *prop)
       PropNumData *numdata = prop->extra_data;
       adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
 					      numdata->min, numdata->max,
-					      numdata->step, numdata->step,
-					      numdata->step));
+					      numdata->step, 10.0 * numdata->step,
+					      10.0 * numdata->step));
     } else
       adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_REAL(*prop),
 					      G_MINFLOAT, G_MAXFLOAT,
-					      0.1, 0.1, 0.1));
+					      0.1, 1.0, 1.0));
     ret = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;

@@ -219,7 +219,7 @@ linewidth_create_dialog()
   label = gtk_label_new(_("Line width:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
   gtk_widget_show (label);
-  adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+  adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.05, 0.0);
   linewidth_button = gtk_spin_button_new(adj, attributes_get_default_linewidth(), 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(linewidth_button), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(linewidth_button), TRUE);

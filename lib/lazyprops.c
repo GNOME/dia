@@ -242,7 +242,7 @@ __propdlg_build_real(GtkWidget *dialog, const gchar *desc,
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0); 
   gtk_widget_show(label); 
   adj = (GtkAdjustment *) gtk_adjustment_new(0.1, lower, upper, 
-					     step_increment, 0.0, 0.0); 
+					     step_increment, 10.0 * step_increment, 0.0); 
   spin = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spin), TRUE); 
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(spin), TRUE); 

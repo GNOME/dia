@@ -295,7 +295,7 @@ relationship_get_properties(Relationship *relationship)
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Border width:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.1, 0.1);
     border_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);

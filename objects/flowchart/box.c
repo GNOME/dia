@@ -320,7 +320,7 @@ box_get_defaults()
     label = gtk_label_new(_("Corner rounding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
     corner_radius = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(corner_radius), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(corner_radius), TRUE);
@@ -334,7 +334,7 @@ box_get_defaults()
     label = gtk_label_new(_("Text padding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
     padding = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
@@ -359,7 +359,7 @@ box_get_defaults()
     label = gtk_label_new(_("Font size:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
     font_size = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);

@@ -1,3 +1,25 @@
+2001-02-07  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/interface.c:
+	* app/linewidth_area.c:
+	* lib/lazyprops.c:
+	* lib/properties.c:
+	* lib/widgets.c:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/relationship.c:
+	* objects/custom/custom_object.c:
+	* objects/flowchart/box.c:
+	* objects/flowchart/diamond.c:
+	* objects/flowchart/ellipse.c:
+	* objects/flowchart/parallelogram.c:
+	* objects/standard/box.c:
+	* objects/standard/textobj.c: per Vlad Harchev's request, made
+	page sizes of gtk_adjustments different than their step sizes.
+	When sensible values of page size weren't found (overwhelming
+	majority of cases), page sizes were set to 10.0 * respective step
+	size.	
+
 2001-02-07  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/network/hub.c: 
