@@ -289,6 +289,8 @@ add_handles(BezierConn *bez, int pos, BezPoint *point, Handle *handle1,
     bez->points[i] = bez->points[i-1];
   }
   bez->points[pos] = *point; 
+  bez->points[pos].p1 = bez->points[pos+1].p1;
+  bez->points[pos+1].p1 = point->p1;;
   object_add_handle_at(obj, handle1, 3*pos-2);
   object_add_handle_at(obj, handle2, 3*pos-1);
   object_add_handle_at(obj, handle3, 3*pos);
@@ -305,6 +307,7 @@ remove_handles(BezierConn *bez, int pos)
   int i;
   Object *obj;
   Handle *old_handle1, *old_handle2, *old_handle3;
+  Point tmppoint;
 
   assert(pos > 0);
 
@@ -317,9 +320,11 @@ remove_handles(BezierConn *bez, int pos)
 
   /* delete the points */
   bez->numpoints--;
+  tmppoint = bez->points[pos].p1;
   for (i = pos; i < bez->numpoints; i++) {
     bez->points[i] = bez->points[i+1];
   }
+  bez->points[pos].p1 = tmppoint;
   bez->points = g_realloc(bez->points, bez->numpoints*sizeof(BezPoint));
 
   old_handle1 = obj->handles[3*pos-2];
@@ -334,22 +339,31 @@ remove_handles(BezierConn *bez, int pos)
 /* Add a point by splitting segment into two, putting the new point at
  'point' or, if NULL, in the middle */
 ObjectChange *
-bezierconn_add_segment(BezierConn *bez, int segment, BezPoint *point)
+bezierconn_add_segment(BezierConn *bez, int segment, Point *point)
 {
   BezPoint realpoint;
   Handle *new_handle1, *new_handle2, *new_handle3;
+  Point startpoint;
 
   if (segment == 0)
-    bez->points[0].p3 = bez->points[0].p1;
+    startpoint = bez->points[0].p1;
+  else
+    startpoint = bez->points[segment].p3;
+
   if (point == NULL) {
-    realpoint.p1.x = (bez->points[segment].p3.x+bez->points[segment+1].p3.x)/6;
-    realpoint.p1.y = (bez->points[segment].p3.y+bez->points[segment+1].p3.y)/6;
-    realpoint.p2.x = (bez->points[segment].p3.x+bez->points[segment+1].p3.x)/3;
-    realpoint.p2.y = (bez->points[segment].p3.y+bez->points[segment+1].p3.y)/3;
-    realpoint.p3.x = (bez->points[segment].p3.x+bez->points[segment+1].p3.x)/2;
-    realpoint.p3.y = (bez->points[segment].p3.y+bez->points[segment+1].p3.y)/2;
+    realpoint.p1.x = (startpoint.x + bez->points[segment+1].p3.x) / 6;
+    realpoint.p1.y = (startpoint.y + bez->points[segment+1].p3.y) / 6;
+    realpoint.p2.x = (startpoint.x + bez->points[segment+1].p3.x) / 3;
+    realpoint.p2.y = (startpoint.y + bez->points[segment+1].p3.y) / 3;
+    realpoint.p3.x = (startpoint.x + bez->points[segment+1].p3.x) / 2;
+    realpoint.p3.y = (startpoint.y + bez->points[segment+1].p3.y) / 2;
   } else {
-    realpoint = *point;
+    realpoint.p2.x = point->x+(startpoint.x - bez->points[segment+1].p3.x)/3;
+    realpoint.p2.y = point->y+(startpoint.y - bez->points[segment+1].p3.y)/3;
+    realpoint.p3 = *point;
+    /* this really goes into the next segment ... */
+    realpoint.p1.x = point->x-(startpoint.x - bez->points[segment+1].p3.x)/3;
+    realpoint.p1.y = point->y-(startpoint.y - bez->points[segment+1].p3.y)/3;
   }
   realpoint.type = BEZ_CURVE_TO;
 

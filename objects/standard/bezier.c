@@ -723,7 +723,7 @@ bezierline_add_segment_callback (Object *obj, Point *clicked, gpointer data)
   ObjectChange *change;
 
   segment = bezierline_closest_segment(bezierline, clicked);
-  change = bezierconn_add_segment(&bezierline->bez, segment, /*clicked*/NULL);
+  change = bezierconn_add_segment(&bezierline->bez, segment, clicked);
   bezierline_update_data(bezierline);
   return change;
 }

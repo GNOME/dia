@@ -1,3 +1,15 @@
+1999-12-07  James Henstridge  <james@daa.com.au>
+
+	* AUTHORS: added Lars and Cyrille to the authors file.
+
+	* objects/standard/bezier.c (bezierline_add_segment_callback): place
+	new point correctly.
+
+	* lib/bezier_conn.h (bezierconn_closest_segment): fixed prototype.
+
+	* lib/bezier_conn.c: applied Lars's patch for placement of the new
+	point when adding a segment to a BezierConn.
+
 1999-12-06  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/python/test.py: test script for the python plug-in.

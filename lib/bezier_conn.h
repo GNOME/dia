@@ -45,7 +45,7 @@ extern void bezierconn_destroy(BezierConn *bez);
 extern void bezierconn_copy(BezierConn *from, BezierConn *to);
 extern void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
 extern void bezierconn_load(BezierConn *bez, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, BezPoint *point);
+extern ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
 extern ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
 extern void bezierconn_move_handle(BezierConn *bez, Handle *id,
 				 Point *to, HandleMoveReason reason);
