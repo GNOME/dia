@@ -28,6 +28,7 @@
 #include <libxml/parserInternals.h>
 #include <libxml/xmlmemory.h>
 
+#include <unistd.h>
 #include <zlib.h>
 
 #include "intl.h"

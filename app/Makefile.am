@@ -208,28 +208,7 @@ EXTRA_DIST = \
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
 	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH" >> run_dia.sh
-	echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/custom/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/UML/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/ER/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/network/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/FS/.libs >> run_dia.sh
-## echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/SADT/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/GRAFCET/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/chronogram/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/cgm/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/pstricks/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/dxf/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/xfig/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/svg/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/shape/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/wmf/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/python/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/wpg/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/hpgl/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/EML/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=`pwd`/../objects// >> run_dia.sh
 	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
 	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh

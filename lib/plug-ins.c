@@ -52,10 +52,12 @@
 #if defined(G_OS_WIN32) || defined(__EMX__)
 #  define PLUG_IN_EXT ".dll"
 #  define PLUG_IN_EXT_LEN 4
+#  define USING_LIBTOOL 0
 #else
 /* this one should work on any platform where libtool is used to compile dia */
 #  define PLUG_IN_EXT ".la"
 #  define PLUG_IN_EXT_LEN 3
+#  define USING_LIBTOOL 1
 #endif
 
 struct _PluginInfo {
@@ -297,8 +299,36 @@ dia_register_plugin(const gchar *filename)
   plugins = g_list_prepend(plugins, info);
 }
 
-void
-dia_register_plugins_in_dir(const gchar *directory)
+static gboolean
+this_is_a_plugin(const gchar *name) 
+{
+#if USING_LIBTOOL
+  gchar *soname,*basename;
+  struct stat statbuf;  
+#endif
+  guint len = strlen(name);
+  if (0 != strcmp(&name[len-PLUG_IN_EXT_LEN], PLUG_IN_EXT)) 
+    return FALSE;
+#if USING_LIBTOOL
+  basename = g_strndup(name,len-PLUG_IN_EXT_LEN);
+  soname = g_strconcat(basename,".so",NULL);
+  if ((stat(soname, &statbuf) < 0)||(!S_ISREG(statbuf.st_mode))) {    
+    g_free(basename);
+    g_free(soname);
+    return FALSE;
+  }
+  g_free(basename);
+  g_free(soname);
+#endif
+  return TRUE;
+}
+
+typedef void (*ForEachInDirDoFunc)(const gchar *name);
+typedef gboolean (*ForEachInDirFilterFunc)(const gchar *name);
+
+static void 
+for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
+                ForEachInDirFilterFunc filter)
 {
   struct stat statbuf;
   struct dirent *dirp;
@@ -318,18 +348,67 @@ dia_register_plugins_in_dir(const gchar *directory)
   }
 
   while ((dirp = readdir(dp)) != NULL) {
-    gint len = strlen(dirp->d_name);
+    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dirp->d_name,NULL);
 
-    if (len > PLUG_IN_EXT_LEN &&
-	!strcmp(&dirp->d_name[len-PLUG_IN_EXT_LEN], PLUG_IN_EXT)) {
-      gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				    dirp->d_name, NULL);
-
-      dia_register_plugin(filename);
-      g_free(filename);
-    }
+    if (filter(name)) dofunc(name);
+    g_free(name);
   }
   closedir(dp);
+}
+
+static gboolean 
+directory_filter(const gchar *name)
+{
+  guint len = strlen(name);
+  struct stat statbuf;
+
+  if (0 == strcmp(G_DIR_SEPARATOR_S ".",
+                  &name[len-strlen(G_DIR_SEPARATOR_S ".")])) return FALSE;
+  if (0 == strcmp(G_DIR_SEPARATOR_S "..",
+                  &name[len-strlen(G_DIR_SEPARATOR_S "..")])) return FALSE;
+
+  if (stat(name,&statbuf) < 0) return FALSE;
+  if (!S_ISDIR(statbuf.st_mode)) return FALSE;
+
+  return TRUE;
+}
+
+static gboolean 
+dia_plugin_filter(const gchar *name) 
+{
+  gint len = strlen(name);
+  struct stat statbuf;
+  if (stat(name,&statbuf) < 0) return FALSE;
+  if (!S_ISREG(statbuf.st_mode) || S_ISDIR(statbuf.st_mode)) return FALSE;
+  
+  if (len <= PLUG_IN_EXT_LEN) return FALSE;
+
+  return this_is_a_plugin(name);
+}
+
+static void
+walk_dirs_for_plugins(const gchar *dirname)
+{
+  for_each_in_dir(dirname,walk_dirs_for_plugins,directory_filter);  
+  for_each_in_dir(dirname,dia_register_plugin,dia_plugin_filter);
+}
+
+#define RECURSE (G_DIR_SEPARATOR_S G_DIR_SEPARATOR_S)
+
+void
+dia_register_plugins_in_dir(const gchar *directory)
+{
+  guint reclen = strlen(RECURSE);
+  guint len = strlen(directory);
+
+  if ((len >= reclen) &&
+      (0 == strcmp(&directory[len-reclen],RECURSE))) {
+    gchar *dirbase = g_strndup(directory,len-reclen);
+    for_each_in_dir(dirbase,walk_dirs_for_plugins,directory_filter);
+    g_free(dirbase);
+  };
+  /* intentional fallback. */
+  for_each_in_dir(directory,dia_register_plugin,dia_plugin_filter);
 }
 
 void

@@ -1,3 +1,19 @@
+2001-08-17  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/plug-ins.c: (dia_register_plugins_in_dir): If there is a
+	trailing // (or whatever (G_DIR_SEPARATOR * 2) is), a recursive
+	search for plug-ins is done.
+	* app/Makefile.am: made app/run_dia.sh use the // capability. No
+	need to update this anymore if we get a new plug-in library (or
+	remove one).
+
+	* lib/dia_xml.c: #include <unistd.h> was missing.
+	
+	* lib/properties.h: 
+	* lib/proplist.c: (pdtpp_defaults): Added a new flag,
+	PROP_FLAG_NO_DEFAULTS. Will be used in the "automatic defaults"
+	support.	
+
 2001-08-16  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/civil.sheet: removed duplicate "Danish" entries.
