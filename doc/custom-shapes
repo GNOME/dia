@@ -203,6 +203,16 @@ The recognised drawing elements are:
   If the path is closed with z or Z, then it can be filled.
   Otherwise, it will just be drawn.
 
+<svg:text x="..." y="..." style="...">...</svg:text>
+  A text in the shape. The text has to be enclosed in the tags
+  
+  The parameters are:
+  x,y			  The text position
+  style			  Text formatting options
+  
+  The following style options are supported:
+  font-size: font size in pt  
+  
 The Sheet description
 =====================
 

@@ -1,3 +1,7 @@
+2003-01-04  Steffen Macke <sdteffen@web.de>
+
+	* doc/custom-shapes: incomplete description of <svg:text>
+
 2003-01-03  Steffen Macke <sdteffen@web.de>
 
 	* makefile.msc(new): new makefile to create file
