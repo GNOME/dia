@@ -1,3 +1,26 @@
+2004-02-06  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.c : don't use gtk_drawing_area_size() to avoid
+	the defaut size being also the minimum size. Instead use
+	gtk_window_set_default_size() on the display shell. Fixes #130982.
+
+	[fixing #131210, but umlauts in the 'main' filename still not really 
+	 supported on systems where filesystem encoding != utf8
+	(Problems with recent file menu and window title)]
+	* lib/dia_xml.[hc] : add data_filename() and data_add_filename()
+	to deal with possible differnces in filename encodings, see
+	g_filename_<to|from>_utf8()
+	* objects/standard/image.c : use them.
+
+	* lib/widgets.c : handle possible encoding difference here, too.
+	Also get rid of most warnings by using const and GTK casts where 
+	appropriate; one wrong cast (probably causing a crash) was found/fixed 
+	by this - the remaining give a hint on finally leaking FontSelectorEntry.
+
+	* lib/widgets.[hc] : hide _DiaFileSelector and *Class in .c. Modified
+	dia_file_selector_<get|set>_file to behave like the respective Gtk 
+	functions do : encoding- and const-wise ;-)
+
 2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.

@@ -136,19 +136,6 @@ void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
 #define IS_DIAFILESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_file_selector_get_type ())
 
 
-struct _DiaFileSelector
-{
-  GtkHBox hbox;
-  GtkEntry *entry;
-  GtkButton *browse;
-  GtkFileSelection *dialog;
-};
-
-struct _DiaFileSelectorClass
-{
-  GtkHBoxClass parent_class;
-};
-
 guint      dia_file_selector_get_type        (void);
 GtkWidget* dia_file_selector_new             (void);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);

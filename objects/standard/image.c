@@ -561,10 +561,10 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
       if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */
-	data_add_string(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir));
+	data_add_filename(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir));
       } else {
 	/* Save the absolute path: */
-	data_add_string(new_attribute(obj_node, "file"), image->file);
+	data_add_filename(new_attribute(obj_node, "file"), image->file);
       }
       
       g_free(diafile_dir);
@@ -572,7 +572,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
     } else {
       /* Relative path. Must be an erronous filename...
 	 Just save the filename. */
-      data_add_string(new_attribute(obj_node, "file"), image->file);
+      data_add_filename(new_attribute(obj_node, "file"), image->file);
     }
     
   }
@@ -629,7 +629,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "file");
   if (attr != NULL) {
-    image->file =  data_string( attribute_first_data(attr) );
+    image->file =  data_filename( attribute_first_data(attr) );
   } else {
     image->file = g_strdup("");
   }

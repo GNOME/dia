@@ -324,6 +324,7 @@ create_display_shell(DDisplay *ddisp,
       if (pixbuf)
         gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
     }
+    gtk_window_set_default_size(ddisp->shell, width, height);
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
@@ -429,7 +430,7 @@ create_display_shell(DDisplay *ddisp,
   ddisp->canvas = gtk_drawing_area_new ();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
-  gtk_drawing_area_size (GTK_DRAWING_AREA (ddisp->canvas), width, height);
+
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",

@@ -62,6 +62,7 @@ void data_color(DataNode data, Color *col);
 void data_point(DataNode data, Point *point);
 void data_rectangle(DataNode data, Rectangle *rect);
 char *data_string(DataNode data);
+char *data_filename(DataNode data);
 DiaFont *data_font(DataNode data);
 
 AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
@@ -75,6 +76,7 @@ void data_add_color(AttributeNode attr, const Color *col);
 void data_add_point(AttributeNode attr, const Point *point);
 void data_add_rectangle(AttributeNode attr, const Rectangle *rect);
 void data_add_string(AttributeNode attr, const char *str);
+void data_add_filename(AttributeNode attr, const char *str);
 void data_add_font(AttributeNode attr, const DiaFont *font);
 DataNode data_add_composite(AttributeNode attr, 
                             const char *type); /* can be NULL */

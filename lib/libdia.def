@@ -109,6 +109,7 @@ EXPORTS
  data_add_color
  data_add_composite
  data_add_enum
+ data_add_filename
  data_add_font
  data_add_int
  data_add_layer
@@ -121,6 +122,7 @@ EXPORTS
  data_color
  data_delete_layer
  data_enum
+ data_filename
  data_font
  data_get_sorted_selected
  data_get_sorted_selected_remove

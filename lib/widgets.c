@@ -93,7 +93,7 @@ static void dia_font_selector_set_styles(DiaFontSelector *fs,
 			     DiaFontStyle dia_style);
 
 static FontSelectorEntry *
-dia_font_selector_add_font(char *lowername, gchar *fontname,
+dia_font_selector_add_font(const char *lowername, const gchar *fontname,
 			   gboolean is_other_font) {
   FontSelectorEntry *fse;
   fse = g_new(FontSelectorEntry, 1);
@@ -224,11 +224,12 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
 
-  gtk_signal_connect(GTK_OBJECT(menu), "unmap", dia_font_selector_menu_callback, fs);
+  gtk_signal_connect(GTK_OBJECT(menu), "unmap", 
+                     GTK_SIGNAL_FUNC(dia_font_selector_menu_callback), fs);
 }
 
 static FontSelectorEntry *
-dia_font_selector_get_new_font(DiaFontSelector *fs, gchar *fontname)
+dia_font_selector_get_new_font(DiaFontSelector *fs, const gchar *fontname)
 {
   gchar *lowername = g_utf8_strdown(fontname, -1);
   FontSelectorEntry *fse = 
@@ -328,7 +329,7 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
 {
   DiaGtkFontSelectionDialog *fs = (DiaGtkFontSelectionDialog*)widget;
   DiaFontSelector *dfs = (DiaFontSelector*)data;
-  gchar *fontname;
+  const gchar *fontname;
   PangoFontDescription *pfd;
   DiaFont *diafont;
 
@@ -352,7 +353,8 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
     gtk_option_menu_set_history(GTK_OPTION_MENU(dfs->font_omenu), 
 				dfs->old_font);
     gtk_menu_set_active(dfs->font_menu, dfs->old_font);
-    gtk_check_menu_item_set_active(gtk_menu_get_active(dfs->font_menu), TRUE);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (gtk_menu_get_active(dfs->font_menu)), 
+                                   TRUE);
 
     active = gtk_menu_get_active(dfs->font_menu);
     if (active == NULL) {
@@ -386,9 +388,9 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
       (DIA_GTK_FONT_SELECTION_DIALOG(fsd),
       dia_font_get_context());
     gtk_signal_connect(GTK_OBJECT(fsd), "response", 
-		       dia_font_selector_dialog_callback, data);
+		   GTK_SIGNAL_FUNC(dia_font_selector_dialog_callback), data);
     if (fs->textsample != NULL)
-      dia_gtk_font_selection_dialog_set_preview_text(fs, fs->textsample);
+      dia_gtk_font_selection_dialog_set_preview_text(DIA_GTK_FONT_SELECTION_DIALOG(fsd), fs->textsample);
     gtk_widget_show(fsd);
   } else {
     FontSelectorEntry *fse;
@@ -441,7 +443,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
 
   if (fse->family == NULL) {
     PangoFontFamily *pff;
-    pff = dia_font_selector_get_family_from_name(fs, fse->name);
+    pff = dia_font_selector_get_family_from_name(GTK_WIDGET(fs), fse->name);
     fse->family = pff;
     if (fse->family == NULL)
       return;
@@ -494,7 +496,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
   gtk_menu_set_active(fs->style_menu, select);
   gtk_widget_set_sensitive(GTK_WIDGET(fs->style_omenu), menu_item_nr > 1);
-  gtk_check_menu_item_set_active(gtk_menu_get_active(fs->style_menu), TRUE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(fs->style_menu)), TRUE);
 }
 
 /* API functions */
@@ -516,7 +518,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   DiaFontStyle style = dia_font_get_style(font);
   GtkMenuItem *menuitem;
   FontSelectorEntry *fse;
-  gchar *fontname = dia_font_get_family(font);
+  const gchar *fontname = dia_font_get_family(font);
 
   fse = dia_font_selector_get_new_font(fs, fontname);
   fse->last_select = time(0);
@@ -526,7 +528,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
-  gtk_check_menu_item_set_active(gtk_menu_get_active(fs->font_menu), TRUE);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(fs->font_menu)), TRUE);
   fs->old_font = font_nr;
 }
 
@@ -833,7 +835,7 @@ dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
-  gtk_check_menu_item_set_active (gtk_menu_get_active(GTK_MENU(as->linestyle_menu)), TRUE);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);
   set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
 }
@@ -1224,13 +1226,27 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
   }
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
-  gtk_check_menu_item_set_active (gtk_menu_get_active(GTK_MENU(as->arrow_type_menu)), TRUE);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->arrow_type_menu))), TRUE);
   set_size_sensitivity(as);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);
 }
 
 /************* DiaFileSelector: ***************/
+struct _DiaFileSelector
+{
+  GtkHBox hbox;
+  GtkEntry *entry;
+  GtkButton *browse;
+  GtkFileSelection *dialog;
+  gchar *sys_filename;
+};
+
+struct _DiaFileSelectorClass
+{
+  GtkHBoxClass parent_class;
+};
+
 static void
 dia_file_selector_unrealize(GtkWidget *widget)
 {
@@ -1239,6 +1255,10 @@ dia_file_selector_unrealize(GtkWidget *widget)
   if (fs->dialog != NULL) {
     gtk_widget_destroy(GTK_WIDGET(fs->dialog));
     fs->dialog = NULL;
+  }
+  if (fs->sys_filename) {
+    g_free(fs->sys_filename);
+    fs->sys_filename = NULL;
   }
 
   (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
@@ -1258,11 +1278,14 @@ dia_file_selector_class_init (DiaFileSelectorClass *class)
 static void
 dia_file_selector_ok(GtkWidget *widget, gpointer data)
 {
+  gchar *utf8;
   GtkFileSelection *dialog = GTK_FILE_SELECTION(data);
   DiaFileSelector *fs =
     DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
-  gtk_entry_set_text(GTK_ENTRY(fs->entry),
-		     gtk_file_selection_get_filename(dialog));
+  utf8 = g_filename_to_utf8(gtk_file_selection_get_filename(dialog), 
+                            -1, NULL, NULL, NULL);
+  gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
+  g_free(utf8);
   gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
@@ -1271,6 +1294,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 {
   GtkFileSelection *dialog;
   DiaFileSelector *fs = DIAFILESELECTOR(data);
+  gchar *filename;
   
   if (fs->dialog == NULL) {
     dialog = fs->dialog =
@@ -1294,8 +1318,9 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
   }
 
-  gtk_file_selection_set_filename(fs->dialog,
-				  gtk_entry_get_text(fs->entry));
+  filename = g_filename_from_utf8(gtk_entry_get_text(fs->entry), -1, NULL, NULL, NULL);
+  gtk_file_selection_set_filename(fs->dialog, filename);
+  g_free(filename);
   
   gtk_widget_show(GTK_WIDGET(fs->dialog));
 }
@@ -1305,6 +1330,7 @@ dia_file_selector_init (DiaFileSelector *fs)
 {
   /* Here's where we set up the real thing */
   fs->dialog = NULL;
+  fs->sys_filename = NULL;  
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(fs->entry));
@@ -1350,13 +1376,19 @@ dia_file_selector_new ()
 void
 dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
 {
-  /* UTF8 conversions here ? */
-  gtk_entry_set_text(GTK_ENTRY(fs->entry), file);
+  /* filename is in system encoding */
+  gchar *utf8 = g_filename_to_utf8(file, -1, NULL, NULL, NULL);
+  gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
+  g_free(utf8);
 }
 
 const gchar *
 dia_file_selector_get_file(DiaFileSelector *fs)
 {
-  return gtk_entry_get_text(GTK_ENTRY(fs->entry));
+  /* let it behave like gtk_file_selector_get_file */
+  g_free(fs->sys_filename);
+  fs->sys_filename = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(fs->entry)),
+                                          -1, NULL, NULL, NULL);
+  return fs->sys_filename;
 }
 

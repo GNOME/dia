@@ -636,6 +636,15 @@ data_string(DataNode data)
   return NULL;
 }
 
+char *
+data_filename(DataNode data)
+{
+  char *utf8 = data_string(data);
+  char *filename = g_filename_from_utf8(utf8, -1, NULL, NULL, NULL);
+  g_free(utf8);
+  return filename;
+}
+
 DiaFont *
 data_font(DataNode data)
 {
@@ -827,6 +836,16 @@ data_add_string(AttributeNode attr, const char *str)
     data_node = xmlNewChild(attr, NULL, "string", sharped_str);
   
     g_free(sharped_str);
+}
+
+void
+data_add_filename(DataNode data, const char *str)
+{
+  char *utf8 = g_filename_to_utf8(str, -1, NULL, NULL, NULL);
+
+  data_add_string(data, utf8);
+
+  g_free(utf8);
 }
 
 void
