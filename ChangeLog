@@ -1,5 +1,10 @@
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
+        * app/diapsrenderer.c : don't convert to locale but to 
+        "LATIN1", fixes bug #146641
+
+2004-11-06  Hans Breuer  <hans@breuer.org>
+
 	* app/diagram_tree.c : still no C99 everwhere ...
 	* lib/libdia.def : update externals
 	* plug-ins/pstricks/render_pstricks.c : #include <locale.h>

@@ -521,9 +521,7 @@ draw_string(DiaRenderer *self,
 
   lazy_setcolor(renderer,color);
 
-  /* TODO: Use latin-1 encoding */
-
-  localestr = g_locale_from_utf8(text, -1, NULL, NULL, &error);
+  localestr = g_convert(text, -1, "LATIN1", "UTF-8", NULL, NULL, &error);
 
   if (localestr == NULL) {
     message_error("Can't convert string %s: %s\n", text, error->message);
