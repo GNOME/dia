@@ -345,7 +345,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
 	  diagram_flush(ddisp->diagram);
 
-	  key_handled = TRUE;
+	  return_val = key_handled = TRUE;
 	}
       }
       if (!key_handled) {
