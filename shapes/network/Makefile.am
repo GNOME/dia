@@ -48,7 +48,15 @@ SHAPES = \
 	antenna.shape \
 	antenna.xpm \
 	modem.shape \
-	modem.xpm
+	modem.xpm \
+	modularswitch.shape \
+	modularswitch.xpm \
+	printer.shape \
+	printer.xpm \
+	genmonitor.shape \
+	genmonitor.xpm \
+	computer.shape \
+	computer.xpm
 
 EXTRA_DIST = $(SHAPES)
 

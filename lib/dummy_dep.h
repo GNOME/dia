@@ -20,8 +20,8 @@
 #include "element.h"
 #include "font.h"
 #include "text.h"
-#include "render_store.h"
-#include "render_object.h"
+/* #include "render_store.h"
+   #include "render_object.h" */
 #include "orth_conn.h"
 #include "neworth_conn.h"
 #include "arrows.h"
@@ -53,8 +53,8 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   beziershape_init,
   new_text,
   font_getfont,
-  new_render_store,
-  new_render_object,
+  /*  new_render_store,
+      new_render_object, */
   nearest_pow,
   arrow_draw,
   dia_font_selector_new, /* widgets.o */

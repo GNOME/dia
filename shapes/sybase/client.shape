@@ -12,13 +12,13 @@
   </connections>
   <textbox x1="-1" y1="2" x2="3" y2="5" align="center" resize="no"/>
   <svg:svg width="2cm" height="2cm">
-    <svg:circle style="fill:background; stroke: foreground; stroke-width:0.05"
+    <svg:circle style="fill:background; stroke: foreground; stroke-width:0.5"
     cx="1" cy="1" r="1"/>
-    <svg:path style="stroke:foreground; stroke-width: 0.05" 
+    <svg:path style="stroke:foreground; stroke-width: 0.5" 
     d="M0.6,0.5 L0.60,0.9 L1,0.7 L0.6,0.5"/>
-    <svg:path style="stroke:foreground; stroke-width: 0.05" 
+    <svg:path style="stroke:foreground; stroke-width: 0.5" 
     d="M.6,1.5 L.6,1.1 L1,1.3 L.6,1.5"/>
-    <svg:path style="stroke:foreground; stroke-width: 0.05" 
+    <svg:path style="stroke:foreground; stroke-width: 0.5" 
     d="M1.2,.8 L1.2,1.2 L1.6,1 L1.2,.8"/>
   </svg:svg>
 </shape>   

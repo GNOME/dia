@@ -1,15 +1,18 @@
 ## Process this file with automake to produce Makefile.in
 
+## This is, essentially, empty. This will disappear soon.
+
 pkglib_LTLIBRARIES = 	libsybase_objects.la
 libsybase_objects_la_SOURCES = \
 			      sybase.h \
-			      dataserver.c \
-			      repserver.c \
-			      ltm.c \
-			      client.c \
-			      stableq.c \
-			      rsm.c \
-			      sybase.c
+				sybase.c
+##			      dataserver.c \
+##			      repserver.c \
+##			      ltm.c \
+##			      client.c \
+##			      stableq.c \
+##			      rsm.c \
+##			      sybase.c
 
 libsybase_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 

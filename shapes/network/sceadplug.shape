@@ -9,9 +9,9 @@
   </connections>
   <textbox x1="0" y1="6.1" x2="4" y2="9.1" align="center" resize="no"/>
   <svg:svg width="4cm" height="6cm">
-    <svg:rect style="stroke:foreground;stroke-width:.08;fill:background" 
+    <svg:rect style="stroke:foreground;stroke-width:.8;fill:background" 
      x="0" y="0" width="4" height="6"/>
-    <svg:rect style="stroke:foreground;stroke-width:.08;fill:#B3B3B3" 
+    <svg:rect style="stroke:foreground;stroke-width:.8;fill:#B3B3B3" 
      x=".5" y=".48" width="3" height="5.04"/>
     <svg:rect style="stroke:none; fill:foreground"
      x=".5" y=".48" width="1" height=".48"/>

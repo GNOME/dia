@@ -1,10 +1,40 @@
+2001-05-20  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/network/network.c:
+	* shapes/network/modularswitch.(shape|xpm) (NEW):
+	* shapes/network/printer.(shape|xpm) (NEW):
+	* shapes/network/genmonitor.(shape|xpm) (NEW):
+	* shapes/network/computer.(shape|xpm) (NEW):
+	* shapes/network/Makefile.am: four less objects, four more shapes.
+	These were the last known RenderObjects. (phew !)
+
+	* lib/Makefile.am:
+	* lib/dummy_dep.h:
+	* objects/sybase/Makefile.am: 
+	* objects/network/Makefile.am: Removed the older Renderobjects
+	from the build, and their infrastructure (not yet deleted,
+	though).
+
+	* shapes/network/sceadplug.shape:
+	* shapes/network/antenna.shape:
+	* shapes/network/modem.shape:
+	* shapes/network/hub.shape:
+	* shapes/network/rj45plug.shape:
+	* shapes/sybase/client.shape:
+	* shapes/sybase/dataserver.shape:
+	* shapes/sybase/ltm.shape:
+	* shapes/sybase/repserver.shape:
+	* shapes/sybase/rsm.shape:
+	* shapes/sybase/stableq.shape: Minor corrections (line widths were
+	ten times too narrow).
+	
 2001-05-19  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/network/network.c:
 	* shapes/network/sceadplug.(shape|xpm) (NEW):
 	* shapes/network/antenna.(shape|xpm) (NEW):
 	* shapes/network/modem.(shape|xpm) (NEW):
-	* shapes/network/Makefile.am: three less objects, three more shapes.
+	* shapes/network/Makefile.am: four less objects, four more shapes.
 	
 	* lib/Makefile.am:
 	* lib/diagramdata.c:

@@ -33,12 +33,11 @@ extern ObjectType bus_type;
 extern ObjectType bus_type_std;
 extern ObjectType wanlink_type;
 
+/*
 extern ObjectType modularswitch_type;
-extern ObjectType printer_type;
 extern ObjectType computer_type;
 extern ObjectType monitor_type;
-
-/*
+extern ObjectType printer_type;
 extern ObjectType disc_type;
 extern ObjectType rj45plug_type;
 extern ObjectType modem_type;
@@ -60,12 +59,11 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&bus_type);
   object_register_type(&wanlink_type);
 
-  object_register_type(&computer_type);
+  /* object_register_type(&disc_type); 
   object_register_type(&monitor_type);
+  object_register_type(&computer_type);
   object_register_type(&printer_type);
   object_register_type(&modularswitch_type);
-
-  /* object_register_type(&disc_type); 
   object_register_type(&modem_type);
   object_register_type(&antenna_type);
   object_register_type(&rj45plug_type);

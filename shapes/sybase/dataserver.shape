@@ -12,9 +12,9 @@
   </connections>
   <textbox x1="-1" y1="2" x2="3" y2="5" align="center" resize="no"/>
   <svg:svg width="2cm" height="2cm">
-    <svg:circle style="fill:background; stroke: foreground; stroke-width:0.05"
+    <svg:circle style="fill:background; stroke: foreground; stroke-width:0.5"
    cx="1" cy="1" r="1"/>
-    <svg:path style="stroke:foreground; stroke-width: 0.05" 
+    <svg:path style="stroke:foreground; stroke-width: 0.5" 
     d="M 1.5,0.146 L 1.5,1.856 M .24,0.33333 L 1.5,0.33333 
     M 0.0706,0.66667 L 1.5,0.66667 M 0,1 L 1.5,1 M 0.0706,1.33333 L
   1.5,1.33333 M 0.24,1.66667 L 1.5,1.66667" /> 

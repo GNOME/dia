@@ -17,7 +17,7 @@
   <aspectratio type="fixed"/>
   <textbox x1="0" y1="2.3" x2="5" y2="5.3" align="center" resize="no"/>
   <svg:svg width="5cm" height="2.2cm">
-    <svg:rect style="stroke: foreground; stroke-width:.08; fill:#B3B3B3"
+    <svg:rect style="stroke: foreground; stroke-width:.8; fill:#B3B3B3"
      x="0" y="0" width="5" height="2.2"/>
 
     <svg:rect style="stroke:none; fill:foreground"

@@ -14,10 +14,6 @@ libdia_a_SOURCES =  \
 		dia_xml.h \
 		attributes.h \
 		attributes.c \
-		render_store.c \
-		render_store.h \
-		render_object.c \
-		render_object.h \
 		text.c \
 		text.h \
 		font.c \
@@ -83,6 +79,11 @@ libdia_a_SOURCES =  \
 		ps-utf8.h \
 		string_prerenderer.c \
 		string_prerenderer.h
+
+##		render_store.c \
+##		render_store.h \
+##		render_object.c \
+##		render_object.h \
 
 CPPFLAGS = \
 	-DLIBDIR=\"$(libdir)\" \
