@@ -5,6 +5,7 @@
 # Benedikt Roth <Benedikt.Roth@gmx.net>, 2000
 # Christian Meyer <chrisime@gnome.org>, 2001.
 # Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
+# Christian Neumair <chris@gnome-de.org>, 2002.
 # (Feel free to update this file without asking!)
 # 2000-10-15: Bitte alles infinitivisch nach der deutschen
 # Richtlinie umformen. -cm-
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86(cvs)\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
-"PO-Revision-Date: 2002-11-01 23:07+0100\n"
+"POT-Creation-Date: 2002-11-27 09:18+0100\n"
+"PO-Revision-Date: 2002-11-27 09:18+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,7 +161,7 @@ msgstr ""
 "Es existieren automatisch gespeicherte Dateien.\n"
 "Bitte wählen Sie diejenige aus, die Sie wiederherstellen möchten."
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "Farbe wählen"
 
@@ -515,11 +516,11 @@ msgstr "Kein Objektmenü"
 msgid "Diagram modified!"
 msgstr "Diagramm wurde verändert!"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<namenlos>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -528,12 +529,12 @@ msgstr ""
 "Das Diagramm »%s« wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "Diagramm schließen"
 
 # CHECK Translation
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "Änderungen verwerfen"
 
@@ -582,7 +583,7 @@ msgstr "Bildhöhe:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "Nach Erweiterung"
 
@@ -594,15 +595,24 @@ msgstr "Diagramm öffnen"
 msgid "Open Options"
 msgstr "Optionen zum Öffnen"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "Dateityp bestimmen:"
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "Die Datei exisiert bereits"
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+"Einige Zeichen dieses Dateinamens sind weder UTF-8-, noch entsprechend Ihren "
+"Lokalisierungseinstellungen kodiert.\n"
+"Daher funktionieren einige Dinge nicht."
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -611,27 +621,27 @@ msgstr ""
 "Die Datei %s existiert bereits.\n"
 "Wollen Sie sie überschreiben?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nein"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "Diagramm speichern"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "Diagrammdateien komprimieren"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -640,7 +650,7 @@ msgstr ""
 "das Laden und Speichern. Einige Texteditoren können komprimierte Dateien "
 "nicht bearbeiten."
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -649,11 +659,11 @@ msgstr ""
 "Es konnte nicht festgestellt werden, \n"
 "welcher Filter verwendet werden muss, um \"%s\" zu speichern"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "Diagramm exportieren"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "Export-Optionen"
 
@@ -732,7 +742,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Linie erzeugen"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:226
 msgid "Line"
 msgstr "Linie"
 
@@ -1080,7 +1090,7 @@ msgstr "Invertieren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "Keine"
 
@@ -1096,15 +1106,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Gleicher Typ"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "Rechts"
 
@@ -1624,7 +1634,7 @@ msgstr "NULL tooldata in tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagramm-Menü"
 
-#: app/menus.c:1164
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1744,7 +1754,7 @@ msgstr "Menüleiste verwenden:"
 
 #: app/preferences.c:128
 msgid "Keep tool box on top of diagram windows:"
-msgstr ""
+msgstr "Werkzeugkasten oberhalb der Diagrammfenster halten:"
 
 #: app/preferences.c:130
 msgid "New diagram:"
@@ -1862,11 +1872,11 @@ msgstr "Objekteigenschaften:"
 msgid "<Toolbox>/File/Plugins"
 msgstr "<Werkzeugkasten>/Datei/Plugins"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<Werkzeugkasten>/Datei/Beenden"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "Chronikdatei kann zum Schreiben nicht geöffnet werden."
 
@@ -1874,7 +1884,7 @@ msgstr "Chronikdatei kann zum Schreiben nicht geöffnet werden."
 msgid "Encapsulated Postscript"
 msgstr "Gekapseltes PostScript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:321 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Es wurde ein nicht unterstützter Füllmodus angegeben!\n"
 
@@ -2172,6 +2182,49 @@ msgstr ""
 "wurden, gibt, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an dia-"
 "list@gnome.org, wenn Sie diese Meldung erhalten."
 
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: lib/diagtkfontsel.c:207
+msgid "Font name"
+msgstr "Schriftname"
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr "Die X-Zeichenkette, die diese Schrift repräsentiert."
+
+#: lib/diagtkfontsel.c:214
+msgid "Preview text"
+msgstr "Vorschautext"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr "Der zur Demonstration der gewählten Schriftart anzuzeigende Text."
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr "_Familie:"
+
+#: lib/diagtkfontsel.c:325
+msgid "_Style:"
+msgstr "_Stil:"
+
+#: lib/diagtkfontsel.c:331
+msgid "Si_ze:"
+msgstr "_Größe:"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+msgid "_Preview:"
+msgstr "_Vorschau:"
+
+#: lib/diagtkfontsel.c:1250
+msgid "Font Selection"
+msgstr "Schriftwähler"
+
 #: lib/message.c:86
 msgid "There is one similar message."
 msgstr "Es ist eine gleichlautende Meldung vorhanden."
@@ -2300,149 +2353,154 @@ msgstr "Schriftgröße"
 msgid "Text colour"
 msgstr "Schriftfarbe"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr "Andere Schriften..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:319
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Schriftfamilie von %s konnte nicht gefunden\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:362
 msgid "Select font"
 msgstr "Schrift wählen"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Durchgezogen"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "Gestrichelt"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "Strich-Punkt"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "Strich-Punkt-Punkt"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "Gepunktet"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "Strichlänge: "
 
-#: lib/widgets.c:979
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "Linien"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "Gefülltes Dreieck"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "Gefüllter Diamant"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "Halber Pfeil"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "Kreuz"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "Gefüllte Ellipse"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "Unausgefüllte Ellipse"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "Gefüllter Punkt"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "Unausgefüllter Punkt"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "Doppelt unausgefülltes Dreieck"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "Doppelt gefülltes Dreieck"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "Gefüllter Kasten"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "Unausgefüllter Kasten"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "Gestrichelt"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr "Krähenfuß"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "Kreuz"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1030
 msgid "Filled Concave"
 msgstr "Gefüllte Aushöhlung"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1031
 msgid "Blanked Concave"
 msgstr "Leere Aushöhlung"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "Länge: "
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "Breite: "
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "Bilddatei auswählen"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "Auswählen"
+
+# CHECK
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr "Graph-Bindungsobjekte"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2551,15 +2609,15 @@ msgstr "Horizontal spiegeln"
 msgid "Flip vertical"
 msgstr "Vertikal spiegeln"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "Horizontal spiegeln"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "Vertikal spiegeln"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -2603,7 +2661,7 @@ msgstr "Insgesamt:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:686
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
 msgid "Add segment"
@@ -2611,7 +2669,7 @@ msgstr "Segment hinzufügen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:687
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
 msgid "Delete segment"
@@ -3226,6 +3284,7 @@ msgstr "Initialisieren"
 msgid "Regulate"
 msgstr "Regulieren"
 
+#  Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: objects/FS/function.c:925 objects/FS/function.c:1143
 #: objects/UML/classicon.c:122
@@ -3816,7 +3875,7 @@ msgid "Vergent type:"
 msgstr "Randtyp:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "Verbindungspunkt hinzufügen"
 
@@ -3914,7 +3973,7 @@ msgstr "Aktivitäts-/Datenmerkmal"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Der Bezeichner, der in der rechten, unteren Ecke des Kastens erscheint"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:221
 msgid "Delete connection point"
 msgstr "Verbindungspunkt hinzufügen"
 
@@ -3978,13 +4037,29 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Die Bilddatei '%s' wurde nicht gefunden.\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:134
 msgid "Start point"
 msgstr "Startpunkt"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:136
 msgid "End point"
 msgstr "Endpunkt"
+
+#: objects/standard/line.c:138
+msgid "Start gap"
+msgstr "Startabstand"
+
+#: objects/standard/line.c:140
+msgid "End gap"
+msgstr "Endabstand"
+
+#: objects/standard/line.c:142
+msgid "Start fractional gap"
+msgstr "Gebrochender Startabstand"
+
+#: objects/standard/line.c:144
+msgid "End fractional gap"
+msgstr "Gebrochender Endabstand"
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
