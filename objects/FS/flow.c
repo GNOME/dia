@@ -100,8 +100,8 @@ static void flow_destroy(Flow *flow);
 static Object *flow_copy(Flow *flow);
 static GtkWidget *flow_get_properties(Flow *flow);
 static ObjectChange *flow_apply_properties(Flow *flow);
-static GtkWidget *flow_get_defaults();
-static void flow_apply_defaults();
+static GtkWidget *flow_get_defaults(void);
+static void flow_apply_defaults(void);
 static void flow_save(Flow *flow, ObjectNode obj_node,
 		      const char *filename);
 static Object *flow_load(ObjectNode obj_node, int version,
@@ -256,7 +256,7 @@ flow_draw(Flow *flow, Renderer *renderer)
   Point *endpoints, p1, p2;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
-  Color* render_color ;
+  Color* render_color = NULL;
 
   assert(flow != NULL);
   assert(renderer != NULL);
@@ -351,7 +351,7 @@ flow_create(Point *startpoint,
     flow->text = text_copy( flow_default_label ) ;
     text_set_position( flow->text, &p ) ;
   } else {
-    Color* color ;
+    Color* color = NULL;
 
     if (flow_font == NULL)
       flow_font = font_getfont("Helvetica-Oblique");
@@ -424,7 +424,7 @@ flow_update_data(Flow *flow)
   Connection *conn = &flow->connection;
   Object *obj = (Object *) flow;
   Rectangle rect;
-  Color* color ;
+  Color* color = NULL;
   
   obj->position = conn->endpoints[0];
 
@@ -571,7 +571,7 @@ fill_in_dialog(Flow *flow)
 
 
 static void
-fill_in_defaults_dialog()
+fill_in_defaults_dialog(void)
 {
   FlowDialog *prop_dialog;
   GtkToggleButton *button=NULL;
@@ -677,8 +677,6 @@ flow_get_properties(Flow *flow)
 static void
 flow_update_defaults( Flow* flow, char update_text )
 {
-  FlowDialog *prop_dialog = defaults_dialog ;
-
   flow_most_recent_type = flow->type ;
 
   if (update_text) {
@@ -722,7 +720,7 @@ flow_get_object_menu(Flow *flow, Point *clickedpoint)
 }
 
 static GtkWidget *
-flow_get_defaults()
+flow_get_defaults(void)
 {
   FlowDialog *prop_dialog;
   GtkWidget *dialog;
@@ -738,6 +736,9 @@ flow_get_defaults()
     
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
+
+    gtk_object_ref(GTK_OBJECT(dialog));
+    gtk_object_sink(GTK_OBJECT(dialog));
 
     hbox = gtk_hbox_new(FALSE, 5);
 
@@ -787,7 +788,7 @@ flow_get_defaults()
 }
 
 static void
-flow_apply_defaults()
+flow_apply_defaults(void)
 {
   FlowDialog *prop_dialog;
   Color* color = 0 ;

@@ -93,8 +93,8 @@ static void ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *ellipse_get_defaults();
-static void ellipse_apply_defaults();
+static GtkWidget *ellipse_get_defaults(void);
+static void ellipse_apply_defaults(void);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -177,14 +177,14 @@ ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
 }
 
 static void
-ellipse_apply_defaults()
+ellipse_apply_defaults(void)
 {
   default_properties.show_background = 
     gtk_toggle_button_get_active(ellipse_defaults_dialog->show_background);
 }
  
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -194,11 +194,10 @@ init_default_values() {
 }
 
 static GtkWidget *
-ellipse_get_defaults()
+ellipse_get_defaults(void)
 {
   GtkWidget *vbox;
   GtkWidget *hbox;
-  GtkWidget *label;
   GtkWidget *checkbox;
  
   if (ellipse_defaults_dialog == NULL) {
@@ -209,7 +208,10 @@ ellipse_get_defaults()
  
     vbox = gtk_vbox_new(FALSE, 5);
     ellipse_defaults_dialog->vbox = vbox;
- 
+
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
+
     hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label(_("Draw background"));
     ellipse_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
@@ -515,7 +517,3 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
 
   return (Object *)ellipse;
 }
-
-
-
-

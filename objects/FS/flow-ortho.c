@@ -759,6 +759,9 @@ orthflow_get_defaults(void)
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
 
+    gtk_object_ref(GTK_OBJECT(dialog));
+    gtk_object_sink(GTK_OBJECT(dialog));
+
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new(_("Orthflow:"));

@@ -219,6 +219,9 @@ box_get_defaults()
     vbox = gtk_vbox_new(FALSE, 5);
     box_defaults_dialog->vbox = vbox;
 
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
+
     hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label(_("Draw background"));
     box_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );

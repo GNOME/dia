@@ -248,6 +248,9 @@ textobj_get_defaults()
     vbox = gtk_vbox_new(FALSE, 5);
     textobj_defaults_dialog->vbox = vbox;
 
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
+
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Alignment:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);

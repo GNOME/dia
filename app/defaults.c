@@ -24,6 +24,7 @@
 #  include <gtk/gtk.h>
 #endif
 
+#include "defaults.h"
 #include "intl.h"
 #include "properties.h"
 #include "object_ops.h"
@@ -94,6 +95,9 @@ static void create_dialog()
 
   no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
+
+  gtk_widget_ref(no_defaults_dialog);
+  gtk_object_sink(GTK_OBJECT(no_defaults_dialog));
 }
 
 static gint
@@ -143,9 +147,7 @@ defaults_show(ObjectType *objtype)
   }
 
   if (object_part != NULL) {
-    gtk_widget_ref(object_part);
     gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
-    gtk_widget_unparent(object_part);
     object_part = NULL;
   }
   gtk_signal_connect (GTK_OBJECT (defaults), "destroy",

@@ -120,8 +120,8 @@ static void image_set_props(Image *image, Property *props, guint nprops);
 
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
 static Object *image_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *image_get_defaults();
-static void image_apply_defaults();
+static GtkWidget *image_get_defaults(void);
+static void image_apply_defaults(void);
 
 static ObjectTypeOps image_type_ops =
 {
@@ -219,7 +219,7 @@ image_set_props(Image *image, Property *props, guint nprops)
 }
 
 static void
-image_init_defaults() {
+image_init_defaults(void) {
   static int defaults_initialized = 0;
 
   if (defaults_initialized) return;
@@ -232,7 +232,7 @@ image_init_defaults() {
 }
 
 static void
-image_apply_defaults()
+image_apply_defaults(void)
 {
   default_properties.file = dia_file_selector_get_file(image_defaults_dialog->file);
   default_properties.draw_border = gtk_toggle_button_get_active(image_defaults_dialog->draw_border);
@@ -240,7 +240,7 @@ image_apply_defaults()
 }
 
 static GtkWidget *
-image_get_defaults()
+image_get_defaults(void)
 {
   GtkWidget *vbox;
   GtkWidget *hbox;
@@ -255,6 +255,9 @@ image_get_defaults()
 
     vbox = gtk_vbox_new(FALSE, 5);
     image_defaults_dialog->vbox = vbox;
+
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Image file:"));

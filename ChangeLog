@@ -1,3 +1,28 @@
+2000-07-31  James Henstridge  <james@daa.com.au>
+
+	* objects/standard/textobj.c (textobj_get_defaults): 
+	* objects/standard/polygon.c (polygon_get_defaults): 
+	* objects/standard/image.c (image_get_defaults): 
+	* objects/standard/ellipse.c (ellipse_get_defaults): 
+	* objects/standard/box.c (box_get_defaults): 
+	* objects/standard/beziergon.c (beziergon_get_defaults): 
+	* objects/flowchart/parallelogram.c (pgram_get_defaults): 
+	* objects/flowchart/ellipse.c (ellipse_get_defaults): 
+	* objects/flowchart/diamond.c (diamond_get_defaults): 
+	* objects/flowchart/box.c (box_get_defaults): 
+	* objects/custom/custom_object.c (custom_get_defaults): 
+	* objects/FS/flow.c (flow_get_defaults): 
+	* objects/FS/flow-poly.c (flow_get_defaults): 
+	* objects/FS/flow-ortho.c (orthflow_get_defaults): ref and sink the
+	defaults widget.
+
+	* app/defaults.c (defaults_show): don't keep on ref'ing the defaults
+	widgets for various object types.
+	(create_dialog): ref and sink the no_defaults_dialog.
+
+	* app/preferences.c (prefs_create_dialog): change
+	gtk_container_border_width call to gtk_container_set_border_width.
+
 2000-07-29  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (view_aa_callback): show a warning dialog if

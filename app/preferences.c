@@ -630,7 +630,7 @@ prefs_create_dialog(void)
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
   gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
-  gtk_container_border_width (GTK_CONTAINER (notebook), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
   gtk_widget_show (notebook);
 
   for (i=0;i<NUM_PREFS_TABS;i++) {
