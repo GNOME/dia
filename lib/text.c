@@ -326,19 +326,20 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   box->bottom = box->top + text->height*text->numlines + text->descent;
 
   if (text->focus.has_focus) {
+    real height = text->ascent + text->descent;
     if (text->cursor_pos == 0) {
       /* Half the cursor width */
-      box->left -= text->height/(CURSOR_HEIGHT_RATIO*2);
+      box->left -= height/(CURSOR_HEIGHT_RATIO*2);
     } else {
       /* Half the cursor width. Assume that
 	 if it isn't at position zero, it might be 
 	 at the last position possible. */
-      box->right += text->height/(CURSOR_HEIGHT_RATIO*2);
+      box->right += height/(CURSOR_HEIGHT_RATIO*2);
     }
    
     /* Account for the size of the cursor top and bottom */
-    box->top -= text->height/(CURSOR_HEIGHT_RATIO*2);
-    box->bottom += text->height/CURSOR_HEIGHT_RATIO;
+    box->top -= height/(CURSOR_HEIGHT_RATIO*2);
+    box->bottom += height/CURSOR_HEIGHT_RATIO;
   }
 }
 
@@ -438,6 +439,7 @@ text_draw(Text *text, DiaRenderer *renderer)
     real str_width_first;
     real str_width_whole;
     Point p1, p2;
+    real height = text->ascent+text->descent;
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height; 
 
     str_width_first =
@@ -462,12 +464,12 @@ text_draw(Text *text, DiaRenderer *renderer)
     }
 
     p1.x = curs_x;
-    p1.y = curs_y + text->descent/2;
+    p1.y = curs_y;
     p2.x = curs_x;
-    p2.y = curs_y + text->height + text->descent/2;
+    p2.y = curs_y + height;
     
     DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, text->height/CURSOR_HEIGHT_RATIO);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, height/CURSOR_HEIGHT_RATIO);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p1, &p2, &color_black);
   }
 }
