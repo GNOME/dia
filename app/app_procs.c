@@ -90,6 +90,13 @@ handle_initial_diagram(const char *input_file_name,
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
+static void process_opts(int argc, char **argv,
+			 poptContext poptCtx, struct poptOption options[],
+			 GSList **files, char **export_file_name,
+			 char **export_file_format, char **size);
+static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
+				    char *export_file_format, char *size);
+static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = TRUE;
 
@@ -235,9 +242,11 @@ handle_initial_diagram(const char *in_file_name,
   if (export_file_format) {
     char *export_file_name = NULL;
     DiaExportFilter *ef;
+
     /* First try guessing based on extension */
     export_file_name = build_output_file_name(in_file_name,
 					      export_file_format);
+
     ef = filter_guess_export_filter(export_file_name);
     if (ef == NULL) {
       ef = filter_get_by_name(export_file_format);
@@ -262,9 +271,10 @@ handle_initial_diagram(const char *in_file_name,
 	      
     if (diagram != NULL) {
       diagram_update_extents(diagram);
-      layer_dialog_set_diagram(diagram);
-                  
-      ddisp = new_display(diagram);
+      if (app_is_interactive()) {
+	layer_dialog_set_diagram(diagram);
+	ddisp = new_display(diagram);
+      }
     }
   }
   return made_conversions;
@@ -321,11 +331,9 @@ app_init (int argc, char **argv)
   char *export_file_format = NULL;
   char *size = NULL;
   gboolean made_conversions = FALSE;
+  GSList *files = NULL;
 
 #ifdef HAVE_POPT
-#ifndef GNOME
-  int rc = 0;
-#endif  
   poptContext poptCtx = NULL;
   gchar *export_format_string = 
      /* Translators:  The argument is a list of options, not to be translated */
@@ -364,7 +372,7 @@ app_init (int argc, char **argv)
 #endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
-  
+
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
@@ -374,6 +382,8 @@ app_init (int argc, char **argv)
 #endif
   textdomain(GETTEXT_PACKAGE);
 
+  process_opts(argc, argv, poptCtx, options, &files,
+	       &export_file_name, &export_file_format, &size);
   if (argv) {
 #ifdef GNOME
     GnomeProgram *program =
@@ -395,27 +405,12 @@ app_init (int argc, char **argv)
 
     /* This smaller icon is 48x48, standard Gnome size */
     gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
-#else
-    gtk_init (&argc, &argv);
-#ifdef HAVE_POPT
-    poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
-    poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
-    while (rc >= 0) {
-        if((rc = poptGetNextOpt(poptCtx)) < -1) {
-            fprintf(stderr, 
-                    _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
-                    poptBadOption(poptCtx, 0),
-                    poptStrerror(rc),
-                    argv[0]);
-            exit(1);
-        }
-        if(rc == 1) {
-            poptPrintHelp(poptCtx, stderr, 0);
-            exit(0);
-        }
 
-    }
-#endif
+#else
+    if (dia_is_interactive)
+      gtk_init(&argc, &argv);
+    else
+      g_type_init();
 #endif
   }
 
@@ -429,43 +424,7 @@ app_init (int argc, char **argv)
     exit(0);
   }
 
-  /* --credits option. Added by Andrew Ferrier.
-  
-     Hopefully we're not ignoring anything too crucial by
-     quitting directly after the credits.
-
-     The phrasing of the English here might need changing
-     if we switch from plural to non-plural (say, only
-     one maintainer).
-  */
-
-  if (credits) {
-      int i;
-      const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
-      const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
-
-      printf("The original author of Dia was:\n\n");
-      for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
-          printf(authors[i]); printf("\n");
-      }
-
-      printf("\nThe current maintainers of Dia are:\n\n");
-      for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
-	  printf(authors[i]); printf("\n");
-      }
-
-      printf("\nOther authors are:\n\n");
-      for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
-          printf(authors[i]); printf("\n");
-      }
-
-      printf("\nDia is documented by:\n\n");
-      for (i = 0; i < ndocumentors; i++) {
-          printf(documentors[i]); printf("\n");
-      }
-
-      exit(0);
-  }
+  print_credits(credits);
 
   LIBXML_TEST_VERSION;
 
@@ -479,9 +438,9 @@ app_init (int argc, char **argv)
 
   gdk_rgb_init();
 
-  gtk_rc_parse ("diagtkrc"); 
+  gtk_rc_parse("diagtkrc"); 
 
-  if (!nosplash)
+  if (dia_is_interactive && !nosplash)
     app_splash_init("");
 
   create_user_dirs();
@@ -489,8 +448,10 @@ app_init (int argc, char **argv)
   color_init();
 
   /* Init cursors: */
-  default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
-  ddisplay_set_all_cursor(default_cursor);
+  if (dia_is_interactive) {
+    default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
+    ddisplay_set_all_cursor(default_cursor);
+  }
 
   object_registry_init();
 
@@ -513,84 +474,47 @@ app_init (int argc, char **argv)
 
   prefs_load();
 
-  persistence_load();
+  if (dia_is_interactive) {
+    persistence_load();
 
-  /* further initialization *before* reading files */  
-  active_tool = create_modify_tool();
+    /* further initialization *before* reading files */  
+    active_tool = create_modify_tool();
 
-  create_toolbox();
+    create_toolbox();
 
-  persistence_register_window_create("layer_window",
-				     (NullaryFunc*)&create_layer_dialog);
+    persistence_register_window_create("layer_window",
+				       (NullaryFunc*)&create_layer_dialog);
 
-  /*fill recent file menu */
-  recent_file_history_init();
+    /*fill recent file menu */
+    recent_file_history_init();
 
-  /* Set up autosave to check every 5 minutes */
-  gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
+    /* Set up autosave to check every 5 minutes */
+    gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
 
-  create_tree_window();
+    create_tree_window();
 
-  persistence_register_window_create("sheets_main_dialog",
-				     (NullaryFunc*)&sheets_dialog_create);
+    persistence_register_window_create("sheets_main_dialog",
+				       (NullaryFunc*)&sheets_dialog_create);
 
-  /* In current setup, we can't find the autosaved files. */
-  /*autosave_restore_documents();*/
-  
-  if (argv) {
-#ifdef HAVE_POPT
-      while (poptPeekArg(poptCtx)) {
-          char *in_file_name = (char *)poptGetArg(poptCtx);
-
-	  made_conversions |= handle_initial_diagram(in_file_name,
-						     export_file_name,
-						     export_file_format,
-						     size);
-      }
-      poptFreeContext(poptCtx);
-#else
-      int i;
-
-      for (i=1; i<argc; i++) {
-          char *in_file_name = argv[i]; /* unless it's an option... */
-          
-          if (0==strcmp(argv[i],"-t")) {
-              if (i < (argc-1)) {
-                  i++;
-                  export_file_format = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-e")) {
-              if (i < (argc-1)) {
-                  i++;
-                  export_file_name = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-s")) {
-              if (i < (argc-1)) {
-                  i++;
-                  size = argv[i];
-                  continue;
-              }
-          }
-          
-	  made_conversions |= handle_initial_diagram(in_file_name,
-						     export_file_name,
-						     export_file_format,
-						     size);
-      }
-#endif
+    /* In current setup, we can't find the autosaved files. */
+    /*autosave_restore_documents();*/
   }
+  made_conversions = handle_all_diagrams(files, export_file_name,
+					 export_file_format, size);
+  g_slist_free(files);
   if (made_conversions) exit(0);
 
   dynobj_refresh_init();
 }
 
+#if 0
+/* app_procs.c: warning: `set_true_callback' defined but not used */
 static void
 set_true_callback(GtkWidget *w, int *data)
 {
   *data = TRUE;
 }
+#endif
 
 void
 app_exit(void)
@@ -747,6 +671,131 @@ internal_plugin_init(PluginInfo *info)
 #endif
 
   return DIA_PLUGIN_INIT_OK;
+}
+
+static void
+process_opts(int argc, char **argv,
+	     poptContext poptCtx, struct poptOption options[],
+	     GSList **files, char **export_file_name,
+	     char **export_file_format, char **size)
+{
+#ifndef GNOME
+  int rc = 0;
+#endif  
+
+#ifdef HAVE_POPT
+  poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
+  poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
+  while (rc >= 0) {
+    if((rc = poptGetNextOpt(poptCtx)) < -1) {
+      fprintf(stderr, 
+	      _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+	      poptBadOption(poptCtx, 0),
+	      poptStrerror(rc),
+	      argv[0]);
+      exit(1);
+    }
+    if(rc == 1) {
+      poptPrintHelp(poptCtx, stderr, 0);
+      exit(0);
+    }
+  }
+#endif
+  if (argv) {
+#ifdef HAVE_POPT
+      while (poptPeekArg(poptCtx)) {
+          char *in_file_name = (char *)poptGetArg(poptCtx);
+
+	  *files = g_slist_append(*files, in_file_name);
+      }
+      poptFreeContext(poptCtx);
+#else
+      int i;
+
+      for (i=1; i<argc; i++) {
+          char *in_file_name = argv[i]; /* unless it's an option... */
+          
+          if (0==strcmp(argv[i],"-t")) {
+              if (i < (argc-1)) {
+                  i++;
+                  *export_file_format = argv[i];
+                  continue;
+              }
+          } else if (0 == strcmp(argv[i],"-e")) {
+              if (i < (argc-1)) {
+                  i++;
+                  *export_file_name = argv[i];
+                  continue;
+              }
+          } else if (0 == strcmp(argv[i],"-s")) {
+              if (i < (argc-1)) {
+                  i++;
+                  *size = argv[i];
+                  continue;
+              }
+          }
+	  *files = g_slist_append(*files, in_file_name);
+      }
+#endif
+  }
+  if (*export_file_name || *export_file_format || *size)
+    dia_is_interactive = FALSE;
+}
+
+static gboolean
+handle_all_diagrams(GSList *files, char *export_file_name,
+		    char *export_file_format, char *size)
+{
+  GSList *node = NULL;
+  gboolean made_conversions = FALSE;
+
+  for (node = files; node; node = node->next) {
+    made_conversions |=
+      handle_initial_diagram(files->data, export_file_name,
+			     export_file_format, size);
+  }
+  return made_conversions;
+}
+
+/* --credits option. Added by Andrew Ferrier.
+  
+   Hopefully we're not ignoring anything too crucial by
+   quitting directly after the credits.
+
+   The phrasing of the English here might need changing
+   if we switch from plural to non-plural (say, only
+   one maintainer).
+*/
+static void
+print_credits(gboolean credits)
+{
+  if (credits) {
+      int i;
+      const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
+      const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
+
+      printf("The original author of Dia was:\n\n");
+      for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
+          printf(authors[i]); printf("\n");
+      }
+
+      printf("\nThe current maintainers of Dia are:\n\n");
+      for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
+	  printf(authors[i]); printf("\n");
+      }
+
+      printf("\nOther authors are:\n\n");
+      for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
+          printf(authors[i]); printf("\n");
+      }
+
+      printf("\nDia is documented by:\n\n");
+      for (i = 0; i < ndocumentors; i++) {
+          printf(documentors[i]); printf("\n");
+      }
+
+      exit(0);
+  }
 }
 
 /* parses a string of the form "[0-9]*x[0-9]*" and transforms it into

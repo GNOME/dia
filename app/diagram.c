@@ -76,7 +76,8 @@ diagram_init(Diagram *dia, const char *filename)
   if (!g_list_find(open_diagrams, dia))
     open_diagrams = g_list_prepend(open_diagrams, dia);
 
-  layer_dialog_update_diagram_list();
+  if (app_is_interactive())
+    layer_dialog_update_diagram_list();
 }
 
 int
@@ -94,7 +95,8 @@ diagram_load_into(Diagram         *diagram,
   if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
-    recent_file_history_add(filename, ifilter, 0);
+    if (app_is_interactive())
+      recent_file_history_add(filename, ifilter, 0);
     diagram_tree_add(diagram_tree(), diagram);
     return TRUE;
   } else

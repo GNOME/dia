@@ -35,6 +35,9 @@ int main(int argc, char *argv[])
 {
   app_init(argc, argv);
 
+  if (!app_is_interactive())
+    return 0;
+
   toolbox_show();
 
   app_splash_done();

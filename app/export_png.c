@@ -75,7 +75,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   Rectangle visible;
   guint32 width, height, band, row, i;
   real band_height;
-  guint32 imagewidth, imageheight;
+  guint32 imagewidth = 0, imageheight = 0;
   long req_width, req_height;
   real imagezoom;
 

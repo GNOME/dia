@@ -40,7 +40,8 @@ struct _DiaImage {
 void 
 dia_image_init(void)
 {
-  gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
+  if (app_is_interactive())
+    gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
 }
 
 DiaImage

@@ -1,10 +1,19 @@
 2003-12-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dia_image.c: 
+	* app/main.c: 
+	* app/export_png.c: 
+	* app/diagram.c: 
+	* app/app_procs.c: Patch from W. Borgert <debacle@debian.org>:
+	Allow running without a $DISPLAY!
+
+	* lib/color.c: Remove warnings for non-interactive run.
+
 	* doc/en/dia.dbk: 
 	* app/export_png.c: 
 	* app/diaconv.c: 
 	* app/app_procs.[ch]: 
-	Patch from W. Borgert <debacle@debian.org>: Allow a -size argument
+	Patch from W. Borgert <debacle@debian.org>: Allow a --size argument
 	to specify size for PNG output.
 
 	* app/lineprops_area.c (dia_arrow_preview_expose): Make arrows
