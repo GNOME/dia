@@ -24,6 +24,10 @@
 #define finite(d) _finite(d)
 #endif
 
+#ifdef __EMX__
+#define finite(d) isfinite(d)
+#endif
+
 #include "arrows.h"
 
 static void

@@ -1,3 +1,7 @@
+2000-03-03  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* lib/arrows.c (finite): define finite(d) isfinite(d)  for OS/2
+
 2000-03-02  James Henstridge  <james@daa.com.au>
 
 	* dia.spec (%build): unset LINGUAS before running configure.  This
