@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-03-16 22:28+0800\n"
-"PO-Revision-Date: 2001-03-06 15:10+0100\n"
+"POT-Creation-Date: 2001-03-16 18:27+0100\n"
+"PO-Revision-Date: 2001-03-16 18:27+100\n"
 "Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: app/app_procs.c:257
 msgid "Need valid input file\n"
-msgstr "Benötigt eine gültige Eingabedatei\n"
+msgstr "Eine gültige Eingabedatei ist erforderlich\n"
 
 #: app/app_procs.c:315 app/app_procs.c:321
 msgid "Quit, are you sure?"
@@ -103,7 +103,7 @@ msgid ""
 "No such file found\n"
 "%s\n"
 msgstr ""
-"Keine solche Datei gefunden\n"
+"Keine Datei gefunden\n"
 "%s\n"
 
 #: app/commands.c:109
@@ -121,7 +121,7 @@ msgstr "Kein existierendes Objekt zum Einfügen.\n"
 
 #: app/commands.c:483 app/commands.c:506
 msgid "Could not find help directory"
-msgstr ""
+msgstr "Hilfeverzeichnis konnte nicht gefunden werden"
 
 #: app/commands.c:550
 msgid "About Dia"
@@ -187,7 +187,7 @@ msgstr "Bonobo konnte nicht initialisiert werden!"
 
 #: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
-msgstr "Diagramm Eigenschaften"
+msgstr "Diagramm-Eigenschaften"
 
 #: app/dia-props.c:130
 msgid "x"
@@ -251,7 +251,7 @@ msgstr "Rechts:"
 #. Scaling
 #: app/diapagelayout.c:248
 msgid "Scaling"
-msgstr "Skalierung"
+msgstr "Skalieren"
 
 #: app/diapagelayout.c:259
 msgid "Scale:"
@@ -347,7 +347,7 @@ msgstr "Portable Network Graphics"
 
 #: app/filedlg.c:99 app/filedlg.c:373
 msgid "By extension"
-msgstr "Durch Erweiterung"
+msgstr "Nach Erweiterung"
 
 #: app/filedlg.c:158
 msgid "Open Diagram"
@@ -413,7 +413,7 @@ msgstr "Diagramminhalt verschieben"
 
 #: app/interface.c:53 app/menus.c:194
 msgid "Scroll"
-msgstr "Scrollen"
+msgstr "Rollen"
 
 #: app/interface.c:57
 msgid "Create Text"
@@ -562,7 +562,7 @@ msgstr "Name der Ebene:"
 
 #: app/lineprops_area.c:533
 msgid "Arrow Properties"
-msgstr "Pfeil Eigenschaften"
+msgstr "Pfeil-Eigenschaften"
 
 #: app/lineprops_area.c:590 app/lineprops_area.c:774
 msgid "Details..."
@@ -685,11 +685,11 @@ msgstr "Text ausschneiden"
 
 #: app/menus.c:90
 msgid "Paste _Text"
-msgstr "Text e_infügen"
+msgstr "Text einfügen"
 
 #: app/menus.c:113
 msgid "Zoom _In"
-msgstr "Hineinzoomen"
+msgstr "_Heranzoomen"
 
 #: app/menus.c:113
 #, c-format
@@ -698,7 +698,7 @@ msgstr "50% vergrößern"
 
 #: app/menus.c:114
 msgid "Zoom _Out"
-msgstr "Herauszoomen"
+msgstr "_Wegzoomen"
 
 #: app/menus.c:114
 #, c-format
@@ -711,7 +711,7 @@ msgstr "_Zoomen"
 
 #: app/menus.c:116
 msgid "Diagram Properties..."
-msgstr "Diagramm Eigenschaften..."
+msgstr "Diagramm-Eigenschaften..."
 
 #: app/menus.c:118
 msgid "_AntiAliased"
@@ -826,15 +826,15 @@ msgstr "_Gruppieren"
 
 #: app/menus.c:184
 msgid "_Ungroup"
-msgstr "Gruppierung aufheben"
+msgstr "Gruppierung _aufheben"
 
 #: app/menus.c:186
 msgid "Align _Horizontal"
-msgstr "_Horizontal anordnen"
+msgstr "H_orizontal anordnen"
 
 #: app/menus.c:187
 msgid "Align _Vertical"
-msgstr "_Vertikal anordnen"
+msgstr "V_ertikal anordnen"
 
 #: app/menus.c:210
 msgid "_Properties"
@@ -901,14 +901,12 @@ msgid "/_Help"
 msgstr "/_Hilfe"
 
 #: app/menus.c:258
-#, fuzzy
 msgid "/Help/_Manual"
-msgstr "/Hilfe/_Info"
+msgstr "/Hilfe/Hand_buch"
 
 #: app/menus.c:259
-#, fuzzy
 msgid "/Help/---"
-msgstr "/Auswahl/---"
+msgstr "/Hulfe/---"
 
 #: app/menus.c:260
 msgid "/Help/_About"
@@ -984,11 +982,11 @@ msgstr "/_Ansicht"
 
 #: app/menus.c:293
 msgid "/View/Zoom _In"
-msgstr "/Ansicht/H_ineinzoomen"
+msgstr "/Ansicht/_Heranzoomen"
 
 #: app/menus.c:294
 msgid "/View/Zoom _Out"
-msgstr "/Ansicht/He_rauszoomen"
+msgstr "/Ansicht/_Wegzoomen"
 
 #: app/menus.c:295
 msgid "/View/_Zoom"
@@ -1046,7 +1044,7 @@ msgstr "/Ansicht/Zoomen/25%"
 
 #: app/menus.c:307
 msgid "/View/Diagram Properties"
-msgstr "/Ansicht/Diagramm Eigenschaften"
+msgstr "/Ansicht/Diagramm-Eigenschaften"
 
 #: app/menus.c:309
 msgid "/View/_AntiAliased"
@@ -1062,7 +1060,7 @@ msgstr "/Ansicht/Am Gitter einras_ten"
 
 #: app/menus.c:313
 msgid "/View/Show _Rulers"
-msgstr "/Ansicht/_Lineale anzeigen"
+msgstr "/Ansicht/_Lineale zeigen"
 
 #: app/menus.c:314
 msgid "/View/Show _Connection Points"
@@ -1214,7 +1212,7 @@ msgstr "/Werkzeuge/Vergrößern"
 
 #: app/menus.c:364
 msgid "/Tools/Scroll"
-msgstr "/Werkzeuge/Scrollen"
+msgstr "/Werkzeuge/Rollen"
 
 #: app/menus.c:365
 msgid "/Tools/Text"
@@ -1262,7 +1260,7 @@ msgstr "/Werkzeuge/Bild"
 
 #: app/menus.c:377
 msgid "/_Dialogs"
-msgstr "/D_ialoge"
+msgstr "/Dia_loge"
 
 #: app/menus.c:379
 msgid "/Dialogs/_Properties"
@@ -1278,7 +1276,7 @@ msgstr "NULL tooldata in tool_menu_select"
 
 #: app/menus.c:779
 msgid "Diagram Menu"
-msgstr "Diagramm Menu"
+msgstr "Diagramm-Menü"
 
 #: app/paginate_gnomeprint.c:152
 msgid "Print Diagram"
@@ -1347,7 +1345,7 @@ msgstr "Benutzerschnittstelle"
 
 #: app/preferences.c:88
 msgid "View Defaults"
-msgstr "Ansicht (Vorgaben)"
+msgstr "Vorgaben einstellen"
 
 #: app/preferences.c:89
 msgid "Grid Lines"
@@ -2160,7 +2158,7 @@ msgstr "Rolle:"
 
 #: objects/UML/association.c:1067
 msgid "Multiplicity:"
-msgstr "Anzahl:"
+msgstr "Vielfachheit:"
 
 #. Show arrow:
 #: objects/UML/association.c:1078
@@ -2264,12 +2262,12 @@ msgstr "Löschen"
 #: objects/UML/class_dialog.c:710 objects/UML/class_dialog.c:1583
 #: objects/UML/class_dialog.c:1745 objects/UML/class_dialog.c:2204
 msgid "Move up"
-msgstr "Hinaufschieben"
+msgstr "Raufschieben"
 
 #: objects/UML/class_dialog.c:716 objects/UML/class_dialog.c:1589
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:2210
 msgid "Move down"
-msgstr "Hinunterschieben"
+msgstr "Runterschieben"
 
 #: objects/UML/class_dialog.c:727
 msgid "Attribute data"
@@ -2510,7 +2508,7 @@ msgstr "Endzeit:"
 
 #: objects/chronogram/chronoline.c:325 objects/chronogram/chronoline.c:416
 msgid "Rise time:"
-msgstr "Ansteigezeit:"
+msgstr "Anstiegszeit:"
 
 #: objects/chronogram/chronoline.c:327 objects/chronogram/chronoline.c:418
 msgid "Fall time:"
@@ -2531,7 +2529,7 @@ msgstr "Datenzeilen Breite:"
 #: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
 msgid "Line color:"
-msgstr "Zeilenftfarbe:"
+msgstr "Zeilenfarbe:"
 
 #: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Major time step:"
@@ -2543,7 +2541,7 @@ msgstr "Kleiner Zeitschritt:"
 
 #: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
 msgid "Minor step line width:"
-msgstr "Kleiner Zeitschritt-Breite:"
+msgstr "Kleine Zeitschritt-Breite:"
 
 #: objects/custom/custom.c:124
 msgid "Custom"
@@ -2803,7 +2801,7 @@ msgstr "Mehrfachlinien-Information konnte nicht gelesen werden: %s\n"
 #: plug-ins/xfig/xfig-import.c:976
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr ""
+msgstr "Gedrehtes Bit %s konnte nicht gelesen werden\n"
 
 #: plug-ins/xfig/xfig-import.c:1019
 #, c-format
@@ -2879,7 +2877,7 @@ msgstr "Fehler beim Lesen der Vergrößerung: %s\n"
 #: plug-ins/xfig/xfig-import.c:1334
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr ""
+msgstr "Fehler beim Lesen des Mehrfachseiten-Indikators: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1345
 #, c-format
