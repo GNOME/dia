@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>LADDER - outs</name>
   <description>out set</description>
-  <icon>l_outs.xpm</icon>
+  <icon>l_outs.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

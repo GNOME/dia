@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Bigtower PC</name>
-  <icon>pc_bigtower.xpm</icon>
+  <icon>pc_bigtower.png</icon>
   <connections>
    <point x="2" y="0" />
    <point x="2" y="30" />

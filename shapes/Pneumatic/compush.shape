@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - compush</name>
   <description>compush</description>
-  <icon>compush.xpm</icon>
+  <icon>compush.png</icon>
   <connections>
   </connections>
   <aspectratio type="fixed"/>

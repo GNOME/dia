@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Node Center</name>
   <description>Node Center</description>
-  <icon>node_center.xpm</icon>
+  <icon>node_center.png</icon>
   <connections>
     <point x="0.669874" y="2.5"/>
     <point x="5" y="0"/>

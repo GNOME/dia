@@ -10,6 +10,8 @@
 #define HAVE_GDK_PIXBUF
 #define HAVE_DIRENT_H
 
+/* #undef HAVE_CAIRO */
+
 #define ENABLE_NLS
 #define HAVE_BIND_TEXTDOMAIN_CODESET
 #define GETTEXT_PACKAGE "dia"

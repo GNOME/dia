@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Horizontal Pump</name>
 
-  <icon>hpump.xpm</icon>
+  <icon>hpump.png</icon>
 
   <connections>
     <point x="1" y="0" />

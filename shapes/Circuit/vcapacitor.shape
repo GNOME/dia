@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Vertical Capacitor</name>
   <description>A vertically aligned capacitor</description>
-  <icon>vcapacitor.xpm</icon>
+  <icon>vcapacitor.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="0" y="5"/>

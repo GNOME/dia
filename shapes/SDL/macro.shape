@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - Macro</name>
   <description>Macro Call</description>
-  <icon>macro.xpm</icon>
+  <icon>macro.png</icon>
   <connections>
     <point x="1.25" y="0"/>
     <point x="1.25" y="2.0"/>

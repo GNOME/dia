@@ -29,7 +29,9 @@
 #include <glib.h>
 #include <errno.h>
 
+#ifdef HAVE_CAIRO
 #include <cairo.h>
+#endif
 
 #include "intl.h"
 #include "message.h"
@@ -39,7 +41,7 @@
 #include "filter.h"
 #include "plug-ins.h"
 
-
+#ifdef HAVE_CAIRO
 /* --- the renderer --- */
 G_BEGIN_DECLS
 
@@ -978,6 +980,8 @@ static DiaExportFilter png_export_filter = {
     NULL
 };
 
+#endif
+
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
@@ -1003,12 +1007,13 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
+#if HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_register_export(&ps_export_filter);
 #endif
 #ifdef CAIRO_HAS_PNG_SURFACE
   filter_register_export(&png_export_filter);
 #endif
-
+#endif
   return DIA_PLUGIN_INIT_OK;
 }

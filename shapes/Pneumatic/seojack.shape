@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - SEOJack</name>
   <description>seojack</description>
-  <icon>seojack.xpm</icon>
+  <icon>seojack.png</icon>
   <connections>
     <point x=".6" y="0"/>
     <point x="-1" y=".6"/>

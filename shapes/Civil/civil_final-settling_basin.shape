@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Final-Settling Basin</name>
 
-  <icon>civil_final-settling_basin.xpm</icon>
+  <icon>civil_final-settling_basin.png</icon>
 
   <connections>
     <point x="0" y="0" />

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Electric - vcommand</name>
   <description>vcommand</description>
-  <icon>vcommand.xpm</icon>
+  <icon>vcommand.png</icon>
   <connections>
     <point x=".5" y="0"/>
     <point x=".5" y="1" />

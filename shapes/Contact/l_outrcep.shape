@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>LADDER - outrcep</name>
   <description>out rcep</description>
-  <icon>l_outrcep.xpm</icon>
+  <icon>l_outrcep.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - dist42</name>
   <description>dist42</description>
-  <icon>dist42.xpm</icon>
+  <icon>dist42.png</icon>
   <connections>
     <point x=".25" y="0"/>
     <point x=".25" y="1"/>

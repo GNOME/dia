@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - Return</name>
   <description>Procedure Return</description>
-  <icon>return.xpm</icon>
+  <icon>return.png</icon>
   <connections>
     <point x="0.5" y="0"/>
   </connections>

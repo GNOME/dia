@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Microphone (European)</name>
   <description>A Microphone</description>
-  <icon>microphone_de.xpm</icon>
+  <icon>microphone_de.png</icon>
   <connections>
     <point x="1.4" y="2.5"/>
     

@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Aerator</name>
 
-  <icon>civil_aerator.xpm</icon>
+  <icon>civil_aerator.png</icon>
 
   <connections>
     <point x="0.5" y="2" />

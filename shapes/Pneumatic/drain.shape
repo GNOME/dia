@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - drain</name>
   <description>drain</description>
-  <icon>drain.xpm</icon>
+  <icon>drain.png</icon>
   <connections>
     <point x="0" y=".5"/>
   </connections>

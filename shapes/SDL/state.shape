@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - State</name>
   <description>State</description>
-  <icon>state.xpm</icon>
+  <icon>state.png</icon>
   <connections>
     <point x="1.25" y="0"/>
     <point x="1.25" y="2"/>

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Internal Storage</name>
   <description>Internal Storage</description>
-  <icon>intstorage.xpm</icon>
+  <icon>intstorage.png</icon>
   <connections>
     <point x="0"   y="0"/>
     <point x="2.5" y="0"/>

@@ -1,15 +1,9 @@
 
-if WITH_CAIRO
 plugin_sources = diacairo.c
-plugin_extra_dist =
-else
-plugin_sources = 
-plugin_extra_dist = diacairo.c
-endif
 
 pkglib_LTLIBRARIES = libcairo_filter.la
 
-EXTRA_DIST = $(plugin_extra_dist)
+EXTRA_DIST =
 
 libcairo_filter_la_SOURCES = $(plugin_sources)
 

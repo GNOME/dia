@@ -7,7 +7,7 @@
   <description xml:lang="en@layman">Small black plastic thing</description>
   -->
   <description>An pnp bipolar transistor</description>
-  <icon>pnp.xpm</icon>
+  <icon>pnp.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="-4"/>

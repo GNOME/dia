@@ -129,6 +129,7 @@ if test "x$with_cairo" != "xno"; then
   PKG_CHECK_MODULES(CAIRO, cairo,have_cairo=yes,have_cairo=no)
   AC_SUBST(CAIRO_LIBS)
   AC_SUBST(CAIRO_CFLAGS)
+  AC_DEFINE(HAVE_CAIRO,1,[Define if building with Cairo support])
 fi
 AM_CONDITIONAL(WITH_CAIRO, test "x$with_cairo" != "xno")
 

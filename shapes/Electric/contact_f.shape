@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Electric - contact_f</name>
   <description>contact_f</description>
-  <icon>contact_f.xpm</icon>
+  <icon>contact_f.png</icon>
   <connections>
     <point x="0" y=".5"/>
     <point x="1" y=".5" />

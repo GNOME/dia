@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Manual Input</name>
   <description>Manual Input</description>
-  <icon>manualinput.xpm</icon>
+  <icon>manualinput.png</icon>
   <connections>
     <point x="0"   y="4"/>
     <point x="2.5" y="3"/>

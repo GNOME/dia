@@ -1,3 +1,21 @@
+2004-07-11  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialibartrenderer.c: 
+	* lib/dialibartrenderer.h (struct _DiaLibartRenderer): 
+	* lib/object.c: 
+	* lib/object.h (OBJECT_COMMON_PROPERTIES): First attempt at actual
+	rotation.  Very primitive interface, only rect can rotate, only in
+	libart, and there the box collapses:(  But it's progress.
+
+2004-07-10  Lars Clausen  <lars@raeder.dk>
+ 
+	* app/sheets_dialog_callbacks.c (write_user_sheet): 
+	* lib/sheet.c (load_register_sheet): Don't introduce double
+	slashes in namespace.
+
+	* lib/dia_xml.h (DIA_XML_NAME_SPACE_BASE): Keep consistent with
+	old diagrams, or XSLT will barf all over.
+	
 2004-07-10  Steffen Macke <sdteffen@web.de>
 
 	* makefile.msc: added doc target; updated for 0.94-pre1 release

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A ZIP Disk</name>
-  <icon>zip-disk.xpm</icon>
+  <icon>zip-disk.png</icon>
   <connections>
    <point x="0.875" y="0.375"/>
    <point x="4.875" y="0"/>

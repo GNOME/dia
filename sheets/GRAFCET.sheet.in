@@ -8,23 +8,23 @@
     </object>
     <object name="GRAFCET - Step" intdata="1">
       <_description>Initial step</_description>
-      <icon>GRAFCET/etapei.xpm</icon>
+      <icon>GRAFCET/etapei.png</icon>
     </object>
     <object name="GRAFCET - Step" intdata="2">
       <_description>Macro entry step</_description>
-      <icon>GRAFCET/etapeme.xpm</icon>
+      <icon>GRAFCET/etapeme.png</icon>
     </object>
     <object name="GRAFCET - Step" intdata="3">
       <_description>Macro exit step</_description>
-      <icon>GRAFCET/etapems.xpm</icon>
+      <icon>GRAFCET/etapems.png</icon>
     </object>
     <object name="GRAFCET - Step" intdata="4">
       <_description>Macro call step</_description>
-      <icon>GRAFCET/etapemc.xpm</icon>
+      <icon>GRAFCET/etapemc.png</icon>
     </object>
     <object name="GRAFCET - Step" intdata="5">
       <_description>Macro sub-program call step</_description>
-      <icon>GRAFCET/etapesp.xpm</icon>
+      <icon>GRAFCET/etapesp.png</icon>
     </object>
     <br/>
     <object name="GRAFCET - Action">
@@ -42,7 +42,7 @@
     </object>
     <object name="GRAFCET - Vergent" intdata="1">
       <_description>AND vergent</_description>
-      <icon>GRAFCET/vergent_and.xpm</icon>
+      <icon>GRAFCET/vergent_and.png</icon>
     </object>
     <br/>
     <object name="GRAFCET - Arc">

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - WAN Connection</name>
-  <icon>flash.xpm</icon>
+  <icon>flash.png</icon>
   <connections>
      <point x="3.5" y="11"/>
   </connections>

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - comelec1</name>
   <description>comelec1</description>
-  <icon>comelec1.xpm</icon>
+  <icon>comelec1.png</icon>
   <connections>
     <point x=".5" y=".3"/>
     <point x=".5" y=".7"/>

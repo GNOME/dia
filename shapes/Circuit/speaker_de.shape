@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Speaker (European)</name>
   <description>A Speaker</description>
-  <icon>speaker_de.xpm</icon>
+  <icon>speaker_de.png</icon>
   <connections>
     <point x="1.75" y="2"/>
     <point x="1.75" y="3"/>

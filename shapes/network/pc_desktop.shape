@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Desktop PC</name>
-  <icon>pc_desktop.xpm</icon>
+  <icon>pc_desktop.png</icon>
   <connections>
    <point x="0" y="0"/>
    <point x="21" y="0"/>

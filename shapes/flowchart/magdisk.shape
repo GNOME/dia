@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Magnetic Disk</name>
   <description>Magnetic Disk</description>
-  <icon>magdisk.xpm</icon>
+  <icon>magdisk.png</icon>
   <connections>
     <point x="0"   y="2"/>
     <point x="2.5" y="0.4375"/>

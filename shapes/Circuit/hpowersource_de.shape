@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Horizontal Powersource (European)</name>
   <description>A horizontally aligned powersource</description>
-  <icon>hpowersource_de.xpm</icon>
+  <icon>hpowersource_de.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="0"/>

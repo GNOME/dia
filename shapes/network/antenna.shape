@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Antenna</name>
-  <icon>antenna.xpm</icon>
+  <icon>antenna.png</icon>
   <aspectratio type="fixed"/>
   <connections>
      <point x=".5" y="4"/>

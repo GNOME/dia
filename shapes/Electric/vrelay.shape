@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Electric - vrelay</name>
   <description>vrelay</description>
-  <icon>vrelay.xpm</icon>
+  <icon>vrelay.png</icon>
   <connections>
     <point x=".5" y="0"/>
     <point x=".5" y="1" />

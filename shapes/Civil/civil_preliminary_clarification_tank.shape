@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Preliminary Clarification Tank</name>
 
-  <icon>civil_preliminary_clarification_tank.xpm</icon>
+  <icon>civil_preliminary_clarification_tank.png</icon>
 
   <connections>
     <point x="0" y="0" />

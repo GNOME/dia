@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Horizontal Zener Diode</name>
   <description>A horizontally aligned zener diode</description>
-  <icon>hzener.xpm</icon>
+  <icon>hzener.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="5.85" y="0"/>

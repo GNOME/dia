@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Manual Operation</name>
   <description>Manual Operation</description>
-  <icon>manualop.xpm</icon>
+  <icon>manualop.png</icon>
   <connections>
     <point x="0"   y="0"/>
     <point x="2.5" y="0"/>

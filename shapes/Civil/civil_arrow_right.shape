@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Right Arrow</name>
 
-  <icon>civil_arrow_right.xpm</icon>
+  <icon>civil_arrow_right.png</icon>
 
   <connections>
     <point x="0" y="0.5" />

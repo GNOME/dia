@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Op Amp</name>
   <description>An operational amplifier</description>
-  <icon>opamp.xpm</icon>
+  <icon>opamp.png</icon>
   <connections>
     <point x="0" y="-1"/>
     <point x="0" y="1"/>

@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Rotor</name>
 
-  <icon>civil_rotor.xpm</icon>
+  <icon>civil_rotor.png</icon>
 
   <connections>
     <point x="1.5" y="2.5" />

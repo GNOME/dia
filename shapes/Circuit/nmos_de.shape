@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - NMOS Transistor (European)</name>
   <description>An NMOS transistor</description>
-  <icon>nmos_de.xpm</icon>
+  <icon>nmos_de.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="-4"/>

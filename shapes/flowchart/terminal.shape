@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Terminal</name>
   <description>Terminal</description>
-  <icon>terminal.xpm</icon>
+  <icon>terminal.png</icon>
   <connections>
     <point x="2"       y="0"/>
     <point x="4"       y="0"/>

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Magnetic Drum</name>
   <description>Magnetic Drum</description>
-  <icon>magdrum.xpm</icon>
+  <icon>magdrum.png</icon>
   <connections>
     <point x="0"   y="0"/>
     <point x="2.5" y="0"/>

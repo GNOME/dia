@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Patch Panel</name>
-  <icon>patch-panel.xpm</icon>
+  <icon>patch-panel.png</icon>
   <connections>
      <point x=".625" y=".45"/>
      <point x="1.125" y=".45"/>

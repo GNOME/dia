@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Ground</name>
   <description>A ground point</description>
-  <icon>ground.xpm</icon>
+  <icon>ground.png</icon>
   <connections>
     <point x="0" y="0"/>
   </connections>

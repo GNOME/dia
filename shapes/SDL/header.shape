@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - Function Header</name>
   <description>Function Header</description>
-  <icon>header.xpm</icon>
+  <icon>header.png</icon>
   <connections>
     <point x="1.25" y="0"/>
     <point x="1.25" y="2"/>

@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Motor</name>
 
-  <icon>civil_motor.xpm</icon>
+  <icon>civil_motor.png</icon>
 
   <connections>
     <point x="0.5" y="1" />

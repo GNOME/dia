@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - SEIJack</name>
   <description>seijack</description>
-  <icon>seijack.xpm</icon>
+  <icon>seijack.png</icon>
   <connections>
     <point x="2.8" y="0" />
     <point x="0" y=".6"/>

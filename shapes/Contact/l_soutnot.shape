@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>LADDER - soutnot</name>
   <description>ps outnot</description>
-  <icon>l_soutnot.xpm</icon>
+  <icon>l_soutnot.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

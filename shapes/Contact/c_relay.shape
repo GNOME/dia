@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Contact - relay</name> <!-- XXX OBSOLETE -->
   <description>relay</description>
-  <icon>c_relay.xpm</icon>
+  <icon>c_relay.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Gas Bottle</name>
-  <icon>civil_gas_bottle.xpm</icon>
+  <icon>civil_gas_bottle.png</icon>
   <connections>
     <point x="21.4" y="18.55"/>
     <point x="21.4" y="20.55"/>

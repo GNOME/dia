@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Container</name>
 
-  <icon>civil_container.xpm</icon>
+  <icon>civil_container.png</icon>
 
   <connections>
     <point x="1.5" y="0" />

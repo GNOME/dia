@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Cloud</name>
-  <icon>nwcloud.xpm</icon>
+  <icon>nwcloud.png</icon>
   <connections>
     <point x="0.731687" y="7.33522"/>
     <point x="9.89242" y="14.2758"/>

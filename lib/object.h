@@ -438,16 +438,21 @@ struct _DiaObjectType {
 			      the .sheet file */
 };
 
+PropNumData rotation_data;
+
 /* base property stuff ... */
 #define OBJECT_COMMON_PROPERTIES \
   { "obj_pos", PROP_TYPE_POINT, 0, \
     "DiaObject position", "Where the object is located"}, \
   { "obj_bb", PROP_TYPE_RECT, 0, \
-    "DiaObject bounding box", "The bounding box of the object"}
+    "DiaObject bounding box", "The bounding box of the object"}, \
+  { "obj_rotate", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+    N_("Rotation"), "Degrees of rotation", &rotation_data }
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \
   { "obj_pos", PROP_TYPE_POINT, offsetof(DiaObject, position) }, \
-  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }
+  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }, \
+  { "obj_rotate", PROP_TYPE_REAL, offsetof(DiaObject, affine.rotation) }
 
 
 gboolean       dia_object_defaults_load (const gchar *filename,

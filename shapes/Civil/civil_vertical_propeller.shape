@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Vertical Propeller</name>
 
-  <icon>civil_vertical_propeller.xpm</icon>
+  <icon>civil_vertical_propeller.png</icon>
 
   <connections>
     <point x="0.5" y="0.9" />

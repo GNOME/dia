@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Modular Switch</name>
-  <icon>modularswitch.xpm</icon>
+  <icon>modularswitch.png</icon>
   <aspectratio type="fixed"/>
   <connections>
      <point x="4.75" y="8.2"/>

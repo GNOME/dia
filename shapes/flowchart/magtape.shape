@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Magnetic Tape</name>
   <description>Magnetic Tape</description>
-  <icon>magtape.xpm</icon>
+  <icon>magtape.png</icon>
   <connections>
     <point x="0"      y="5"/>
     <point x="1.4645" y="1.4645"/>

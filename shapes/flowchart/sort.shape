@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Flowchart - Sort</name>
   <description>Sort</description>
-  <icon>sort.xpm</icon>
+  <icon>sort.png</icon>
   <connections>
     <point x="5"    y="0"/>
     <point x="3.75" y="1.25"/>

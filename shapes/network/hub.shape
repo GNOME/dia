@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Hub</name>
-  <icon>hub.xpm</icon>
+  <icon>hub.png</icon>
   <connections>
      <point x="2.5" y="2.2"/>
      <point x=".625" y=".87"/>

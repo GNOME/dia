@@ -8,11 +8,11 @@
     </object>
     <object name="Jackson - domain" intdata="2">
       <_description>A Jackson designed domain</_description>
-      <icon>Jackson/designed_domain.xpm</icon>
+      <icon>Jackson/designed_domain.png</icon>
     </object>
     <object name="Jackson - domain" intdata="3">
       <_description>A Jackson machine domain</_description>
-      <icon>Jackson/machine_domain.xpm</icon>
+      <icon>Jackson/machine_domain.png</icon>
     </object>
     <object name="Jackson - requirement" intdata="1">
       <_description>A Jackson requirement</_description>
@@ -22,7 +22,7 @@
     </object>
     <object name="Jackson - phenomenon" intdata="2">
       <_description>A Jackson requirement phenomenon</_description>
-      <icon>Jackson/req_phen.xpm</icon>
+      <icon>Jackson/req_phen.png</icon>
     </object>
   </contents>
 </sheet>

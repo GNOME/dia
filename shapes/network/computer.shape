@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - General Computer (Tower)</name>
-  <icon>computer.xpm</icon>
+  <icon>computer.png</icon>
   <aspectratio type="fixed"/>
   <connections>
      <point x="1.1" y="0"/>

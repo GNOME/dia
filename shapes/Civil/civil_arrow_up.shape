@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Up Arrow</name>
 
-  <icon>civil_arrow_up.xpm</icon>
+  <icon>civil_arrow_up.png</icon>
 
   <connections>
     <point x="1" y="3" />

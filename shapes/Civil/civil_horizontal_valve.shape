@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Horizontal Valve</name>
 
-  <icon>civil_horizontal_valve.xpm</icon>
+  <icon>civil_horizontal_valve.png</icon>
 
   <connections>
     <point x="0" y="1" />

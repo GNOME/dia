@@ -8,7 +8,7 @@
     </object>
     <object name="UML - Class" intdata="1">
       <_description>Template class</_description>
-      <icon>UML/umlclass_template.xpm</icon>
+      <icon>UML/umlclass_template.png</icon>
     </object>
     <object name="UML - Note">
       <_description>Note</_description>
@@ -27,7 +27,7 @@
     </object>
     <object name="UML - Association" intdata="1">
       <_description>Aggregation, one class is part of another</_description>
-      <icon>UML/aggregation.xpm</icon>
+      <icon>UML/aggregation.png</icon>
     </object>
     <object name="UML - Implements">
       <_description>Implements, class implements a specific interface</_description>
@@ -64,15 +64,15 @@
     </object>
     <object name="UML - Component Feature" intdata="1">
       <_description>Receptacle</_description>
-      <icon>UML/receptacle.xpm</icon>
+      <icon>UML/receptacle.png</icon>
     </object>
     <object name="UML - Component Feature" intdata="2">
       <_description>Event Source</_description>
-      <icon>UML/eventsource.xpm</icon>
+      <icon>UML/eventsource.png</icon>
     </object>
     <object name="UML - Component Feature" intdata="3">
       <_description>Event Sink</_description>
-      <icon>UML/eventsink.xpm</icon>
+      <icon>UML/eventsink.png</icon>
     </object>
     <object name="UML - Node">
       <_description>Node</_description>

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - DEJack</name>
   <description>dejack</description>
-  <icon>dejack.xpm</icon>
+  <icon>dejack.png</icon>
   <connections>
     <point x=".6" y="0"/>
     <point x="2.8" y="0" />

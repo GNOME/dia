@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Basin</name>
 
-  <icon>civil_basin.xpm</icon>
+  <icon>civil_basin.png</icon>
 
   <connections>
     <point x="0" y="0" />

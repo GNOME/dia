@@ -5,87 +5,87 @@
   <contents>
     <object name="KAOS - goal" intdata="2">
       <_description>A KAOS softgoal</_description>
-      <icon>KAOS/softgoal.xpm</icon>
+      <icon>KAOS/softgoal.png</icon>
     </object>
     <object name="KAOS - goal" intdata="1">
       <_description>A KAOS goal</_description>
     </object>
     <object name="KAOS - goal" intdata="3">
       <_description>A KAOS requirement</_description>
-      <icon>KAOS/requirement.xpm</icon>
+      <icon>KAOS/requirement.png</icon>
     </object>
     <object name="KAOS - goal" intdata="4">
       <_description>A KAOS assumption</_description>
-      <icon>KAOS/assumption.xpm</icon>
+      <icon>KAOS/assumption.png</icon>
     </object>
     <object name="KAOS - goal" intdata="5">
       <_description>A KAOS obstacle</_description>
-      <icon>KAOS/obstacle.xpm</icon>
+      <icon>KAOS/obstacle.png</icon>
     </object>
     <object name="KAOS - maor" intdata="1">
       <_description>A KAOS AND refinement</_description>
-      <icon>KAOS/and-ref.xpm</icon>
+      <icon>KAOS/and-ref.png</icon>
     </object>
     <object name="KAOS - maor" intdata="2">
       <_description>A KAOS complete AND refinement</_description>
-      <icon>KAOS/and-complete-ref.xpm</icon>
+      <icon>KAOS/and-complete-ref.png</icon>
     </object>
     <object name="KAOS - maor" intdata="3">
       <_description>A KAOS OR refinement</_description>
-      <icon>KAOS/or-ref.xpm</icon>
+      <icon>KAOS/or-ref.png</icon>
     </object>
     <object name="KAOS - maor" intdata="4">
       <_description>A KAOS complete OR refinement</_description>
-      <icon>KAOS/or-complete-ref.xpm</icon>
+      <icon>KAOS/or-complete-ref.png</icon>
     </object>
     <object name="KAOS - maor" intdata="5">
       <_description>A KAOS operationalization</_description>
-      <icon>KAOS/op-ref.xpm</icon>
+      <icon>KAOS/op-ref.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="1">
       <_description>A KAOS contribution</_description>
     </object>
     <object name="KAOS - mbr" intdata="2">
       <_description>A KAOS obstruction</_description>
-      <icon>KAOS/obstructs.xpm</icon>
+      <icon>KAOS/obstructs.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="3">
       <_description>A KAOS binary conflict</_description>
-      <icon>KAOS/conflicts.xpm</icon>
+      <icon>KAOS/conflicts.png</icon>
     </object>
     <object name="KAOS - other" intdata="1">
       <_description>A KAOS agent</_description>
     </object>
     <object name="KAOS - mbr" intdata="4">
       <_description>A KAOS responsibility</_description>
-      <icon>KAOS/responsibility.xpm</icon>
+      <icon>KAOS/responsibility.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="5">
       <_description>A KAOS monitor link</_description>
-      <icon>KAOS/monitors.xpm</icon>
+      <icon>KAOS/monitors.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="6">
       <_description>A KAOS control link</_description>
-      <icon>KAOS/controls.xpm</icon>
+      <icon>KAOS/controls.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="7">
       <_description>A KAOS capable-of</_description>
-      <icon>KAOS/capable-of.xpm</icon>
+      <icon>KAOS/capable-of.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="8">
       <_description>A KAOS performs</_description>
-      <icon>KAOS/performs.xpm</icon>
+      <icon>KAOS/performs.png</icon>
     </object>
     <object name="KAOS - operation">
       <_description>A KAOS operation</_description>
     </object>
     <object name="KAOS - mbr" intdata="9">
       <_description>A KAOS input</_description>
-      <icon>KAOS/input.xpm</icon>
+      <icon>KAOS/input.png</icon>
     </object>
     <object name="KAOS - mbr" intdata="10">
       <_description>A KAOS output</_description>
-      <icon>KAOS/output.xpm</icon>
+      <icon>KAOS/output.png</icon>
     </object>
   </contents>
 </sheet>

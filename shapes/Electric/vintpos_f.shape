@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Electric - vintpos_f</name>
   <description>vintpos_f</description>
-  <icon>vintpos_f.xpm</icon>
+  <icon>vintpos_f.png</icon>
   <connections>
     <point x=".5" y="0"/>
     <point x=".5" y="1" />

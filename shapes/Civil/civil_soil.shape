@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Soil</name>
 
-  <icon>civil_soil.xpm</icon>
+  <icon>civil_soil.png</icon>
 
   <connections>
     <point x="1.11395" y="0.749772" />

@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>LADDER - souts</name>
   <description>ps out set</description>
-  <icon>l_souts.xpm</icon>
+  <icon>l_souts.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

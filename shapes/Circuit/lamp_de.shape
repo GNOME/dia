@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Lamp (European)</name>
   <description>A lamp</description>
-  <icon>lamp_de.xpm</icon>
+  <icon>lamp_de.png</icon>
   <connections>
     <point x="3" y="0"/>
     <point x="0" y="3"/>

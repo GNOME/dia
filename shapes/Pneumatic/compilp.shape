@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - compilp</name>
   <description>compilp</description>
-  <icon>compilp.xpm</icon>
+  <icon>compilp.png</icon>
   <connections>
     <point x=".5" y=".3"/>
     <point x=".5" y=".7"/>

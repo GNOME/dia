@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Demultiplexer</name>
   <description>Demultiplexer</description>
-  <icon>demultiplexer.xpm</icon>
+  <icon>demultiplexer.png</icon>
   <connections>
     <point x="10" y="5"/>
     <point x="0" y="0"/>

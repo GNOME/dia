@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Contact - ifnot</name> <!-- XXX - OBSOLETE -->
   <description>if not</description>
-  <icon>c_ifnot.xpm</icon>
+  <icon>c_ifnot.png</icon>
   <connections>
     <point x="-2" y="0"/>
     <point x="2" y="0" />

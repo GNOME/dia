@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - Receive</name>
   <description>Receive Message</description>
-  <icon>receive.xpm</icon>
+  <icon>receive.png</icon>
   <connections>
     <point x="1.25" y="0"/>
     <point x="1.25" y="2.0"/>

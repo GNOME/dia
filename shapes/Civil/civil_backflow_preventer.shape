@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>Civil - Backflow Preventer</name>
 
-  <icon>civil_backflow_preventer.xpm</icon>
+  <icon>civil_backflow_preventer.png</icon>
 
   <connections>
     <point x="0" y="0" />
