@@ -27,6 +27,29 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
 
+struct menudesc {
+  char *name;
+  int enum_value;
+};
+
+static void fill_menu(GtkMenu *menu, GSList **group, 
+                      const struct menudesc *menudesc)
+{
+  GtkWidget *menuitem;
+  const struct menudesc *md = menudesc;
+
+  while (md->name) {
+    menuitem = gtk_radio_menu_item_new_with_label (*group, md->name);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), 
+                             GINT_TO_POINTER(md->enum_value));
+    *group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+    gtk_menu_append (menu, menuitem);
+    gtk_widget_show (menuitem);
+
+    md++;
+  }
+}
+
 /************* DiaFontSelector: ***************/
 
 static GHashTable *font_nr_hashtable = NULL;
@@ -629,13 +652,34 @@ arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
   set_size_sensitivity(DIAARROWSELECTOR(as));
 }
 
+static struct menudesc arrow_types[] =
+{{N_("None"),ARROW_NONE},
+ {N_("Lines"),ARROW_LINES},
+ {N_("Hollow Triangle"),ARROW_HOLLOW_TRIANGLE},
+ {N_("Filled Triangle"),ARROW_FILLED_TRIANGLE},
+ {N_("Unfilled Triangle"),ARROW_UNFILLED_TRIANGLE},
+ {N_("Filled Diamond"),ARROW_FILLED_DIAMOND},
+ {N_("Half Head"),ARROW_HALF_HEAD},
+ {N_("Slashed Cross"),ARROW_SLASHED_CROSS},
+ {N_("Filled Ellipse"),ARROW_FILLED_ELLIPSE},
+ {N_("Hollow Ellipse"),ARROW_HOLLOW_ELLIPSE},
+ {N_("Filled Dot"),ARROW_FILLED_DOT},
+ {N_("Dimension Origin"),ARROW_DIMENSION_ORIGIN},
+ {N_("Blanked Dot"),ARROW_BLANKED_DOT},
+ {N_("Double Hollow triangle"),ARROW_DOUBLE_HOLLOW_TRIANGLE},
+ {N_("Double Filled triangle"),ARROW_DOUBLE_FILLED_TRIANGLE},
+ {N_("Filled Box"),ARROW_FILLED_BOX},
+ {N_("Blanked Box"),ARROW_BLANKED_BOX},
+ {N_("Slashed"),ARROW_SLASH_ARROW},
+ {N_("Integral Symbol"),ARROW_INTEGRAL_SYMBOL},
+ {NULL,0}};
+
 static void
 dia_arrow_selector_init (DiaArrowSelector *as)
 {
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *menuitem;
   GtkWidget *length;
   GtkWidget *width;
   GtkWidget *box;
@@ -651,78 +695,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   submenu = NULL;
   group = NULL;
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("None"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_NONE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Lines"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_LINES));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Triangle"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_TRIANGLE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Triangle"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_TRIANGLE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Diamond"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_DIAMOND));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Diamond"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_DIAMOND));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Half Head"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HALF_HEAD));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Slashed Cross"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), 
-			   GINT_TO_POINTER(ARROW_SLASHED_CROSS));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Ellipse"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_ELLIPSE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Ellipse"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_ELLIPSE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Double Hollow Triangle"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_DOUBLE_HOLLOW_TRIANGLE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Double Filled Triangle"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_DOUBLE_FILLED_TRIANGLE));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+  fill_menu(GTK_MENU(menu),&group,arrow_types);
 
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ARROW);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
@@ -812,8 +785,18 @@ void
 dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 			      Arrow arrow)
 {
-  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow.type);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow.type);
+  int arrow_type_index = 0,i = 0;
+  const struct menudesc *md = arrow_types;
+  
+  while (md->name) {
+    if (md->enum_value == arrow.type) {
+      arrow_type_index = i;
+      break;
+    }
+    md++; i++;
+  }
+  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
+  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
   set_size_sensitivity(as);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);

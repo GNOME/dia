@@ -23,20 +23,30 @@
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
-   
+
+/* Comments in curly braces mention ISO 10303-AP201 names */
+
 typedef enum {
   ARROW_NONE,
-  ARROW_LINES,
-  ARROW_HOLLOW_TRIANGLE,
-  ARROW_FILLED_TRIANGLE,
-  ARROW_HOLLOW_DIAMOND,
+  ARROW_LINES,             /* {open arrow} */
+  ARROW_HOLLOW_TRIANGLE,   /* {blanked arrow} */
+  ARROW_FILLED_TRIANGLE,   /* {filled arrow} */
+  ARROW_HOLLOW_DIAMOND,    
   ARROW_FILLED_DIAMOND,
   ARROW_HALF_HEAD,
-  ARROW_SLASHED_CROSS,
+  ARROW_SLASHED_CROSS,     
   ARROW_FILLED_ELLIPSE,
   ARROW_HOLLOW_ELLIPSE,
   ARROW_DOUBLE_HOLLOW_TRIANGLE,
-  ARROW_DOUBLE_FILLED_TRIANGLE
+  ARROW_DOUBLE_FILLED_TRIANGLE,
+  ARROW_UNFILLED_TRIANGLE,       /* {unfilled arrow} */
+  ARROW_FILLED_DOT,              /* {filled dot} */      
+  ARROW_DIMENSION_ORIGIN,        /* {dimension origin} */ 
+  ARROW_BLANKED_DOT,             /* {blanked dot} */       
+  ARROW_FILLED_BOX,              /* {filled box} */        
+  ARROW_BLANKED_BOX,             /* {blanked box} */       
+  ARROW_SLASH_ARROW,             /* {slash arrow} */
+  ARROW_INTEGRAL_SYMBOL          /* {integral symbol} */   
 } ArrowType;
 
 typedef struct {

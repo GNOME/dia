@@ -177,6 +177,23 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 	gdk_draw_line(win, gc, x, y+height/2, x+width-5-height/2, y+height/2);
       }
       break;
+    case ARROW_UNFILLED_TRIANGLE:
+      if (arrow->left) {
+	pts[0].x = x+5;          pts[0].y = y+height/2;
+	pts[1].x = x+5+height/2; pts[1].y = y+5;
+	pts[2].x = x+5+height/2; pts[2].y = y+height-5;
+	pts[3].x = x+5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+        gdk_draw_line(win, gc, x+5, y+height/2, x+width, y+height/2);
+      } else {
+	pts[0].x = x+width-5;          pts[0].y = y+height/2;
+	pts[1].x = x+width-5-height/2; pts[1].y = y+5;
+	pts[2].x = x+width-5-height/2; pts[2].y = y+height-5;
+	pts[3].x = x+width-5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+        gdk_draw_line(win, gc, x, y+height/2, x+width-5, y+height/2);
+      }
+      break;
     case ARROW_FILLED_TRIANGLE:
       if (arrow->left) {
 	pts[0].x = x+5;          pts[0].y = y+height/2;
@@ -336,6 +353,109 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 	gdk_draw_line(win, gc, x, y+height/2, x+width-5-height, y+height/2);
       }
       break;    
+    case ARROW_FILLED_DOT:
+      if (arrow->left) {
+	gdk_draw_line(win,gc,x+5+6,y+height/2,x+width,y+height/2);
+        gdk_draw_line(win,gc,x+5+6,y,x+5+6,y+height);
+	gdk_draw_arc(win,gc,TRUE,x+5,y+height/2-6,12,12,0,64*360);
+      } else {
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-6,y+height/2);
+        gdk_draw_line(win,gc,x+width-5-6,y,x+width-5-6,y+height);
+	gdk_draw_arc(win,gc,TRUE,x+width-5-12,y+height/2-6,12,12,0,64*360);
+      }        
+      break;
+    case ARROW_BLANKED_DOT:
+      if (arrow->left) {
+	gdk_draw_line(win,gc,x+5+6,y+height/2,x+width,y+height/2);
+        gdk_draw_line(win,gc,x+5+6,y,x+5+6,y+height);
+	gdk_draw_arc(win,gc,FALSE,x+5,y+height/2-6,12,12,0,64*360);
+      } else {
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-6,y+height/2);
+        gdk_draw_line(win,gc,x+width-5-6,y,x+width-5-6,y+height);
+	gdk_draw_arc(win,gc,FALSE,x+width-5-12,y+height/2-6,12,12,0,64*360);
+      }        
+      break;
+    case ARROW_DIMENSION_ORIGIN:
+      if (arrow->left) {
+	gdk_draw_line(win,gc,x+5+12,y+height/2,x+width,y+height/2);
+        gdk_draw_line(win,gc,x+5+6,y,x+5+6,y+height);
+	gdk_draw_arc(win,gc,FALSE,x+5,y+height/2-6,12,12,0,64*360);
+      } else {
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-12,y+height/2);
+        gdk_draw_line(win,gc,x+width-5-6,y,x+width-5-6,y+height);
+	gdk_draw_arc(win,gc,FALSE,x+width-5-12,y+height/2-6,12,12,0,64*360);
+      }        
+      break;
+    case ARROW_FILLED_BOX:
+      if (arrow->left) {
+      	pts[0].x = x+5;          pts[0].y = y+height/2-6;
+      	pts[1].x = x+5;          pts[1].y = y+height/2+6;
+      	pts[2].x = x+5+12;       pts[2].y = y+height/2+6;
+      	pts[3].x = x+5+12;       pts[3].y = y+height/2-6;        
+	gdk_draw_line(win,gc,x+5+12,y+height/2,x+width,y+height/2);
+        gdk_draw_line(win,gc,x+5+6,y,x+5+6,y+height);        
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+      } else {
+      	pts[0].x = x+width-5;          pts[0].y = y+height/2-6;
+      	pts[1].x = x+width-5;          pts[1].y = y+height/2+6;
+      	pts[2].x = x+width-5-12;       pts[2].y = y+height/2+6;
+      	pts[3].x = x+width-5-12;       pts[3].y = y+height/2-6;        
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-12,y+height/2);
+        gdk_draw_line(win,gc,x+width-5-6,y,x+width-5-6,y+height);
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+      }        
+      break;
+    case ARROW_BLANKED_BOX:
+      if (arrow->left) {
+      	pts[0].x = x+5;          pts[0].y = y+height/2-6;
+      	pts[1].x = x+5;          pts[1].y = y+height/2+6;
+      	pts[2].x = x+5+12;       pts[2].y = y+height/2+6;
+      	pts[3].x = x+5+12;       pts[3].y = y+height/2-6;        
+	gdk_draw_line(win,gc,x+5+12,y+height/2,x+width,y+height/2);
+        gdk_draw_line(win,gc,x+5+6,y,x+5+6,y+height);        
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+      } else {
+      	pts[0].x = x+width-5;          pts[0].y = y+height/2-6;
+      	pts[1].x = x+width-5;          pts[1].y = y+height/2+6;
+      	pts[2].x = x+width-5-12;       pts[2].y = y+height/2+6;
+      	pts[3].x = x+width-5-12;       pts[3].y = y+height/2-6;        
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-12,y+height/2);
+        gdk_draw_line(win,gc,x+width-5-6,y,x+width-5-6,y+height);
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+      }        
+      break;
+    case ARROW_SLASH_ARROW:
+      if (arrow->left) {
+        gdk_draw_line(win, gc, x+height/2,y+height/2, x+width,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+5,y+height-5, x+height-5,y+5);   /*slash*/
+        gdk_draw_line(win, gc, x+height/2,y+height-4, x+height/2,y+4); 
+	/*cross */
+      } else {
+        gdk_draw_line(win, gc, x,y+height/2, x+width-height/2,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+width-height/2-5,y+height-5, x+width-5,y+5);  
+	/*slash*/
+        gdk_draw_line(win, gc, x+width-height/2,y+height-4, x+width-height/2,
+		      y+4);  /*cross*/
+      }
+      break;
+    case ARROW_INTEGRAL_SYMBOL:
+      if (arrow->left) {
+        gdk_draw_line(win, gc, x+height/2,y+height/2, x+width,y+height/2); /*line*/
+	gdk_draw_arc(win,gc,FALSE,x+height/2-12,y+height/2-9,
+                     12,12,64*270,64*60);
+        gdk_draw_arc(win,gc,FALSE,x+height/2+1,y+height/2-5,
+                     12,12,64*90,64*60);
+        gdk_draw_line(win, gc, x+height/2,y+height-4, x+height/2,y+4); 
+      } else {
+        gdk_draw_line(win, gc, x,y+height/2, x+width-height/2,y+height/2); /*line*/
+	gdk_draw_arc(win,gc,FALSE,x+width-height/2-13,y+height/2-8,
+                     12,12,64*270,64*60);
+        gdk_draw_arc(win,gc,FALSE,x+width-height/2-0,y+height/2-5,
+                     12,12,64*90,64*60);
+        gdk_draw_line(win, gc, x+width-height/2,y+height-4, x+width-height/2,
+		      y+4);  /*cross*/
+      }
+      break;
     }    
     gdk_gc_set_line_attributes(gc, gcvalues.line_width, gcvalues.line_style,
 			       gcvalues.cap_style, gcvalues.join_style);
@@ -633,7 +753,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; i <= ARROW_DOUBLE_FILLED_TRIANGLE; i++) {
+  for (i = 0; i <= ARROW_INTEGRAL_SYMBOL; i++) {
     mi = gtk_menu_item_new();
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ar = dia_arrow_preview_new(i, left);

@@ -140,6 +140,228 @@ draw_fill_ellipse(Renderer *renderer, Point *to, Point *from,
   }
 }
 
+static void 
+draw_fill_box(Renderer *renderer, Point *to, Point *from,
+	     real length, real width, real linewidth,
+	     Color *fg_color,Color *bg_color)
+{
+  Point vl,vt;
+  Point bs,be;
+  Point poly[4];
+  real lw_factor,clength,cwidth;
+  
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  if (fg_color == bg_color) {
+    /* Filled dot */
+    lw_factor = linewidth;
+  } else {
+    /* Hollow dot or dimension origin */
+    lw_factor = 0.0;
+  }
+  clength = length + lw_factor;
+  cwidth = width + lw_factor;
+
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+
+  point_copy_add_scaled(&bs,to,&vl,length/4);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+  
+  point_copy(&poly[0],to);
+  point_copy(&poly[1],&poly[0]);
+  point_add_scaled(&poly[0],&vt,cwidth/4.0);
+  point_add_scaled(&poly[1],&vt,-cwidth/4.0);
+  point_copy_add_scaled(&poly[2],&poly[1],&vl,clength/2.0);
+  point_copy_add_scaled(&poly[3],&poly[0],&vl,clength/2.0);
+
+  if (fg_color == bg_color) {
+    renderer->ops->fill_polygon(renderer, poly, 4, fg_color);
+  } else {
+    renderer->ops->fill_polygon(renderer, poly, 4, bg_color);
+    renderer->ops->draw_polygon(renderer, poly, 4, fg_color);
+  }
+  renderer->ops->draw_line(renderer,&bs,&be,fg_color);
+}
+
+static void 
+draw_fill_dot(Renderer *renderer, Point *to, Point *from,
+	     real length, real width, real linewidth,
+	     Color *fg_color,Color *bg_color)
+{
+  BezPoint bp[5];
+  Point vl,vt;
+  Point bs,be;
+  real lw_factor,clength,cwidth;
+  
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  if (fg_color == bg_color) {
+    /* Filled dot */
+    lw_factor = linewidth;
+  } else {
+    /* Hollow dot or dimension origin */
+    lw_factor = 0.0;
+  }
+  clength = length + lw_factor;
+  cwidth = width + lw_factor;
+
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+
+  point_copy_add_scaled(&bs,to,&vl,length/4);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+  
+  /* This pile of crap is quite well handled by gcc. */ 
+  bp[0].type = BEZ_MOVE_TO;
+  point_copy(&bp[0].p1,to);
+  bp[1].type = bp[2].type = bp[3].type = bp[4].type = BEZ_CURVE_TO;
+  point_copy(&bp[4].p3,&bp[0].p1);
+
+  point_copy_add_scaled(&bp[2].p3,&bp[0].p1,&vl,clength/2);
+  point_copy_add_scaled(&bp[2].p2,&bp[2].p3,&vt,-cwidth / 8.0);
+  point_copy_add_scaled(&bp[3].p1,&bp[2].p3,&vt,cwidth / 8.0);
+  point_copy_add_scaled(&bp[1].p1,&bp[0].p1,&vt,-cwidth / 8.0);
+  point_copy_add_scaled(&bp[4].p2,&bp[0].p1,&vt,cwidth / 8.0);
+  point_copy_add_scaled(&bp[1].p3,&bp[0].p1,&vl,clength / 4.0); /* temp */
+  point_copy_add_scaled(&bp[3].p3,&bp[1].p3,&vt,cwidth / 4.0);
+  point_add_scaled(&bp[1].p3,&vt,-cwidth / 4.0);
+  point_copy_add_scaled(&bp[1].p2,&bp[1].p3,&vl,-clength / 8.0);
+  point_copy_add_scaled(&bp[4].p1,&bp[3].p3,&vl,-clength / 8.0);
+  point_copy_add_scaled(&bp[2].p1,&bp[1].p3,&vl,clength / 8.0);
+  point_copy_add_scaled(&bp[3].p2,&bp[3].p3,&vl,clength / 8.0);
+
+  if (!bg_color) {
+    /* Means dimension origin */
+    Point dos,doe;
+
+    //point_copy(&doe,to);
+    point_copy_add_scaled(&doe,to,&vl,length);
+    point_copy_add_scaled(&dos,to,&vl,length/2);
+    
+    renderer->ops->draw_line(renderer,&dos,&doe,fg_color);
+  } else {
+    renderer->ops->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
+  }
+  if (fg_color != bg_color) {
+    renderer->ops->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+  }
+  renderer->ops->draw_line(renderer,&bs,&be,fg_color);
+}
+
+static void
+draw_integral(Renderer *renderer, Point *to, Point *from,
+	   real length, real width, real linewidth,
+	   Color *fg_color, Color *bg_color)
+{
+  BezPoint bp[2];
+  Point vl,vt;
+  Point bs,be, bs2,be2;
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+
+  point_copy_add_scaled(&bs,to,&vl,length/2);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+
+  point_copy_add_scaled(&bs2,to,&vl,length/2);
+  point_copy_add_scaled(&be2,&bs2,&vl,length/2);
+  
+  bp[0].type = BEZ_MOVE_TO;
+  bp[1].type = BEZ_CURVE_TO;
+  point_copy_add_scaled(&bp[0].p1,to,&vl,.1*length);
+  point_add_scaled(&bp[0].p1,&vt,.4*width);
+  point_copy_add_scaled(&bp[1].p3,to,&vl,.9*length);
+  point_add_scaled(&bp[1].p3,&vt,-.4*width);
+  point_copy_add_scaled(&bp[1].p1,&bp[0].p1,&vl,.35*length);
+  point_copy_add_scaled(&bp[1].p2,&bp[1].p3,&vl,-.35*length);
+
+  renderer->ops->draw_line(renderer, to, &bs2, bg_color); /* kludge */
+  renderer->ops->draw_line(renderer, &bs2, &be2, fg_color);
+  renderer->ops->draw_line(renderer, &bs, &be, fg_color);
+  renderer->ops->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+}
+
+static void
+draw_slashed(Renderer *renderer, Point *to, Point *from,
+	   real length, real width, real linewidth,
+	   Color *fg_color, Color *bg_color)
+{
+  Point vl,vt;
+  Point bs,be, bs2,be2, bs3,be3;
+  
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+
+  point_copy_add_scaled(&bs,to,&vl,length/2);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+
+  point_copy_add_scaled(&bs2,to,&vl,length/2);
+  point_copy_add_scaled(&be2,&bs2,&vl,length/2);
+  
+  point_copy_add_scaled(&bs3,to,&vl,.1*length);
+  point_add_scaled(&bs3,&vt,.4*width);
+  point_copy_add_scaled(&be3,to,&vl,.9*length);
+  point_add_scaled(&be3,&vt,-.4*width);
+
+  renderer->ops->draw_line(renderer, to, &bs2, bg_color); /* kludge */
+  renderer->ops->draw_line(renderer, &bs2, &be2, fg_color);
+  renderer->ops->draw_line(renderer, &bs, &be, fg_color);
+  renderer->ops->draw_line(renderer, &bs3, &be3, fg_color);
+}
+
+
 /* Only draw the upper part of the arrow */
 static void
 draw_halfhead(Renderer *renderer, Point *to, Point *from,
@@ -389,6 +611,9 @@ arrow_draw(Renderer *renderer, ArrowType type,
     fill_triangle(renderer, to, from, length, width, bg_color);
     draw_triangle(renderer, to, from, length, width, linewidth, fg_color);
     break;
+  case ARROW_UNFILLED_TRIANGLE:
+    draw_triangle(renderer, to, from, length, width, linewidth, fg_color);
+    break;    
   case ARROW_FILLED_TRIANGLE:
     fill_triangle(renderer, to, from, length, width, fg_color);
     break;
@@ -417,10 +642,29 @@ arrow_draw(Renderer *renderer, ArrowType type,
   case ARROW_DOUBLE_FILLED_TRIANGLE:
     fill_double_triangle(renderer, to, from, length, width, fg_color);
     break;
-  }
-  
+  case ARROW_FILLED_DOT:
+    draw_fill_dot(renderer,to,from,length,width,linewidth,fg_color,fg_color);
+    break;
+  case ARROW_BLANKED_DOT:
+    draw_fill_dot(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_FILLED_BOX:
+    draw_fill_box(renderer,to,from,length,width,linewidth,fg_color,fg_color);
+    break;
+  case ARROW_BLANKED_BOX:
+    draw_fill_box(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_DIMENSION_ORIGIN:
+    draw_fill_dot(renderer,to,from,length,width,linewidth,fg_color,NULL);
+    break;
+  case ARROW_INTEGRAL_SYMBOL:
+    draw_integral(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_SLASH_ARROW:
+    draw_slashed(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  } 
 }
-
 
 
 

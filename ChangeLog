@@ -1,4 +1,10 @@
 2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
+        * lib/arrows.[ch]:
+	* lib/widgets.c:
+	* app/lineprops_area.c: The return of the revenge of the arrow
+	heads. Now all types covered by ISO 10303-201 should be covered.
+	
+2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/Flowchart.sheet: translations in probably Hungarian were
 	a victim of cut-n-paste from the German one. Fixed (hopefully).
@@ -13,7 +19,10 @@
 	translated into which language (I wish the result was prettier...)
 
 	* po/README: most translators don't read this file, but anyway...
-	
+
+	* sheets/.cvsignore:
+	* objects/network/.cvsignore: the usual negotiation with CVS.
+
 2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/*.sheet: French translations
