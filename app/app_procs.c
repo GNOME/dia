@@ -390,7 +390,7 @@ app_init (int argc, char **argv)
   gchar *export_format_string = 
      /* Translators:  The argument is a list of options, not to be translated */
     g_strdup_printf(_("Select the filter/format out of: %s"),
-		    "cgm, dia, dxf, eps, " EPS_PANGO
+		    "cgm, dia, dxf, eps, eps-builtin, " EPS_PANGO
 		    "fig, mp, plt, hpgl, png ("
 #  if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 		    "png-libart, "
