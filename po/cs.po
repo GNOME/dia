@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-18 03:08+0100\n"
-"PO-Revision-Date: 2004-03-18 19:28+0100\n"
+"POT-Creation-Date: 2004-03-19 03:12+0100\n"
+"PO-Revision-Date: 2004-03-19 13:44+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1810,7 +1810,7 @@ msgstr "Typ:"
 msgid "Sheet"
 msgstr "List"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
 #: objects/UML/association.c:1112 objects/UML/class_dialog.c:879
 #: objects/UML/class_dialog.c:1813 objects/UML/class_dialog.c:2042
@@ -2045,18 +2045,34 @@ msgid "Cross"
 msgstr "Křížek"
 
 #: lib/arrows.c:62
+msgid "1-or-many"
+msgstr "1-nebo-mnoho"
+
+#: lib/arrows.c:63
+msgid "0-or-many"
+msgstr "0-nebo-mnoho"
+
+#: lib/arrows.c:64
+msgid "1-or-0"
+msgstr "1-nebo-0"
+
+#: lib/arrows.c:65
+msgid "1 exactly"
+msgstr "právě 1"
+
+#: lib/arrows.c:66
 msgid "Filled Concave"
 msgstr "Plná konkáva"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:67
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:68
 msgid "Round"
 msgstr "Kulatý"
 
-#: lib/arrows.c:65
+#: lib/arrows.c:69
 msgid "Open Round"
 msgstr "Otevřený kulatý"
 
@@ -2395,11 +2411,15 @@ msgstr "Vícehodnota:"
 msgid "Attribute"
 msgstr "Atribut"
 
-#: objects/ER/entity.c:132
+#: objects/ER/entity.c:135
 msgid "Weak:"
 msgstr "Slabý:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:137
+msgid "Associative:"
+msgstr "Asociativní:"
+
+#: objects/ER/entity.c:406 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entita"
 
@@ -4342,12 +4362,10 @@ msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
 #: objects/standard/box.c:135 objects/standard/ellipse.c:131
-#: objects/standard/ellipse.c:659
 msgid "Free"
 msgstr "Volné"
 
 #: objects/standard/box.c:136 objects/standard/ellipse.c:132
-#: objects/standard/ellipse.c:661
 msgid "Fixed"
 msgstr "Pevné"
 
@@ -4359,11 +4377,11 @@ msgstr "Čtverec"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: objects/standard/box.c:683
+#: objects/standard/box.c:683 objects/standard/ellipse.c:659
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: objects/standard/box.c:685
+#: objects/standard/box.c:685 objects/standard/ellipse.c:661
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
