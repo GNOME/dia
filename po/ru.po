@@ -1,13 +1,13 @@
-# Copyright (C) 1999-2002 Free Software Foundation, Inc.
-# Valek Filippov <frob@df.ru>, 1999-2002.
+# Copyright (C) 1999 Free Software Foundation, Inc.
+# Valek Filippov <frob@df.ru>, 1999.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dia2\n"
+"Project-Id-Version: Dia-0.86\n"
 "POT-Creation-Date: 2002-03-07 19:35-0500\n"
-"PO-Revision-Date: 2002-03-09 16:00+03:00\n"
+"PO-Revision-Date: 2001-09-28 19:27+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
-"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -15,23 +15,23 @@ msgstr ""
 #: app/app_procs.c:157
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s ошибка: одинаковые названия файла ввода и файла вывода: %s"
+msgstr ""
 
 #: app/app_procs.c:168
-#, c-format
+#, fuzzy, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "%s ошибка: Нужен правильный файл ввода %s\n"
+msgstr "Нужен правильный файл ввода\n"
 
 #: app/app_procs.c:175
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "%s ошибка: неизвестно как экспортировать в %s\n"
+msgstr ""
 
 #. if (!quiet)
 #: app/app_procs.c:181
 #, c-format
 msgid "%s --> %s\n"
-msgstr "%s --> %s\n"
+msgstr ""
 
 #. &export_file_name
 #: app/app_procs.c:219
@@ -242,139 +242,151 @@ msgstr "Не удалось инициализировать Bonobo!"
 
 #. &export_file_format
 #: app/diaconv.c:95
+#, fuzzy
 msgid "Export format to use"
-msgstr "Используемый для экспортирования формат"
+msgstr "Экспортировать в указанный формат и выйти"
 
 #. &export_file_name
 #: app/diaconv.c:97
+#, fuzzy
 msgid "Export file name to use"
-msgstr "Название файла используемое при экспорте"
+msgstr "Экспортировать в указанный формат и выйти"
 
 #: app/diaconv.c:99
+#, fuzzy
 msgid "Quiet operation"
-msgstr "Бесшумное выполнение"
+msgstr "Подавить действия"
 
 #: app/diaconv.c:154
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Ошибка: не найдены аргументы.\n"
-"Запустите \"%s --help\", чтобы просмотреть полный список доступных параметров командной строки.\n"
+"Ошибка в параметре %s: %s.\n"
+"Запустите \"%s --help\", чтобы просмотреть полный список доступных "
+"параметров командной строки.\n"
 
 #: app/diaconv.c:164
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
-msgstr "%s ошибка: можно указать либо -t, либо -o."
+msgstr ""
 
 #: app/diaconv.c:170
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Ошибка %s: можно указать либо -t, либо -o.\n"
-"Запустите \"%s --help\", чтобы просмотреть полный список доступных параметров командной строки.\n"
+"Ошибка в параметре %s: %s.\n"
+"Запустите \"%s --help\", чтобы просмотреть полный список доступных "
+"параметров командной строки.\n"
 
 #: app/diaconv.c:179
-#, c-format
+#, fuzzy, c-format
 msgid "%s error: no input file."
-msgstr "%s ошибка: Нет файла ввода."
+msgstr "Нужен правильный файл ввода\n"
 
 #: app/diaconv.c:232
-#, c-format
+#, fuzzy, c-format
 msgid "%s error: only one input file expected."
-msgstr "%s ошибка: Нужен только один файл ввода."
+msgstr "Нужен правильный файл ввода\n"
 
 #: app/diaconv.c:245
 #, c-format
 msgid "%s error: popt library not available on this system"
-msgstr "%s ошибка: в этой системе недоступна библиотека popt"
+msgstr ""
 
 #: app/diagram_tree_menu.c:45
+#, fuzzy
 msgid "/_Sort objects"
-msgstr "/Сортирова объектов"
+msgstr "Объекты диаграммы потоков"
 
 #: app/diagram_tree_menu.c:46
+#, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "/Сортировка объектов/По названию"
+msgstr "Нет меню объекта"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr "/Сортировка объектов/По типу"
+msgstr ""
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr "/Сортировка объектов/По порядку вставки"
+msgstr ""
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr "/Сортировка объектов/Всех по имени"
+msgstr ""
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr "/Сортировка объектов/Всех по типу"
+msgstr ""
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr "/Сортировка объектов/Всех в порядке вставки"
+msgstr ""
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
-msgstr "/Сортировка объектов/По умолчанию"
+msgstr ""
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr "/Сортировка объектов/По умолчанию/По названию"
+msgstr ""
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr "/Сортировка объектов/По умолчанию/По типу"
+msgstr ""
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
-msgstr "/Сортировка объектов/По умолчанию/В порядке вставки"
+msgstr ""
 
 #: app/diagram_tree_menu.c:66
+#, fuzzy
 msgid "/Sort _diagrams"
-msgstr "/Сортировка диаграмм"
+msgstr "Экспорт диаграммы"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
-msgstr "/Сортировка диаграмм/По названию"
+msgstr ""
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr "/Сортировка диаграмм/В порядке вставки"
+msgstr ""
 
 #: app/diagram_tree_menu.c:71
+#, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "/Сортировка диаграмм/По умолчанию"
+msgstr "Исх.значения диаграммы"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr "/Сортировка диаграмм/По умолчанию/По названию"
+msgstr ""
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr "/Сортировка диаграмм/По умолчанию/В порядке вставки"
+msgstr ""
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
+#, fuzzy
 msgid "/_Locate"
-msgstr "/Определить место"
+msgstr "Расположение"
 
 #: app/diagram_tree_menu.c:83
+#, fuzzy
 msgid "/_Properties"
-msgstr "/Свойства"
+msgstr "Свойства"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
-msgstr "/Скрыть этот тип"
+msgstr ""
 
 #: app/diagram_tree_window.c:75
+#, fuzzy
 msgid "Diagram tree"
-msgstr "Дерево диаграммы"
+msgstr "Редактор диаграмм"
 
 #. paper size
 #: app/diapagelayout.c:112
@@ -504,24 +516,27 @@ msgstr "При записи PNG обнаружена ошибка"
 
 #: app/export_png.c:252
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
 
 #. Create a dialog
 #: app/export_png.c:301
+#, fuzzy
 msgid "PNG Export Options"
-msgstr "Параметры экспорта PNG"
+msgstr "Экспорт параметров"
 
 #: app/export_png.c:302 objects/FS/function.c:631 objects/FS/function.c:632
 msgid "Export"
 msgstr "Экспорт"
 
 #: app/export_png.c:307
+#, fuzzy
 msgid "Image width:"
-msgstr "Ширина изображения:"
+msgstr "Файл изображения:"
 
 #: app/export_png.c:310
+#, fuzzy
 msgid "Image height:"
-msgstr "Высота изображения:"
+msgstr "Файл изображения:"
 
 #: app/export_png.c:355
 msgid "Portable Network Graphics"
@@ -846,14 +861,17 @@ msgid "Create new diagram"
 msgstr "Создать новую диаграмму"
 
 #: app/menus.c:54
+#, fuzzy
 msgid "_Diagram tree"
-msgstr "Дерево диаграммы"
+msgstr "Редактор диаграмм"
 
 #: app/menus.c:54
+#, fuzzy
 msgid "Show diagram tree"
-msgstr "Показать дерево диаграммы"
+msgstr "Новая диаграмма"
 
 #: app/menus.c:56
+#, fuzzy
 msgid "P_lugins"
 msgstr "Дополнения"
 
@@ -1074,8 +1092,9 @@ msgid "/File/---"
 msgstr "/Файл/---"
 
 #: app/menus.c:262
+#, fuzzy
 msgid "/File/_Diagram tree"
-msgstr "/Файл/Дерево диаграммы"
+msgstr "/Файл/Напечатать диаграмму..."
 
 #: app/menus.c:264
 msgid "/File/_Preferences..."
@@ -1558,8 +1577,9 @@ msgid "Grid Lines"
 msgstr "Линии сетки"
 
 #: app/preferences.c:125
+#, fuzzy
 msgid "Diagram Tree"
-msgstr "Дерево диаграммы"
+msgstr "Меню диаграммы"
 
 #: app/preferences.c:139
 msgid "Reset tools after create:"
@@ -1583,7 +1603,7 @@ msgstr ""
 
 #: app/preferences.c:143
 msgid "Recent documents list size:"
-msgstr "Размер списка истории документов:"
+msgstr ""
 
 #: app/preferences.c:146
 msgid "New diagram:"
@@ -1647,28 +1667,31 @@ msgid "Y Size:"
 msgstr "Размер Y:"
 
 #: app/preferences.c:181
+#, fuzzy
 msgid "Diagram tree window:"
-msgstr "Окно дерева диаграммы:"
+msgstr "Меню диаграммы"
 
 #: app/preferences.c:183
+#, fuzzy
 msgid "Show at startup:"
-msgstr "Показывать при запуске:"
+msgstr "Автозагрузка при запуске"
 
 #: app/preferences.c:185
+#, fuzzy
 msgid "Default width:"
-msgstr "Исходная ширина:"
+msgstr "Ширина линии:"
 
 #: app/preferences.c:187
 msgid "Default height:"
-msgstr "Исходная высота:"
+msgstr ""
 
 #: app/preferences.c:189
 msgid "Remember last size:"
-msgstr "Запоминать последний размер:"
+msgstr ""
 
 #: app/preferences.c:191
 msgid "Save hidden object types:"
-msgstr "Сохранять типы скрытых объектов:"
+msgstr ""
 
 #: app/preferences.c:314
 #, c-format
@@ -1698,16 +1721,18 @@ msgstr "Свойства объекта:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:140
+#, fuzzy
 msgid "<Toolbox>/File/Plugins"
-msgstr "<Toolbox>/Файл/Дополнения"
+msgstr "/Файл/Дополнения"
 
 #: app/recent_files.c:265
 msgid "<Toolbox>/File/Exit"
-msgstr "<Toolbox>/Файл/Выйти"
+msgstr ""
 
 #: app/recent_files.c:267
+#, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "<Toolbox>/Файл/Выйти"
+msgstr "/Файл/Выход"
 
 #: app/recent_files.c:304
 msgid "Can't open history file for writing."
@@ -1760,7 +1785,7 @@ msgstr "Dia"
 #: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
 #: plug-ins/dxf/dxf-import.c:545
 msgid "Courier"
-msgstr "Courier"
+msgstr ""
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -1877,7 +1902,7 @@ msgstr "'%s' не является каталогом"
 #: lib/plug-ins.c:356
 #, c-format
 msgid "Could not open `%s'"
-msgstr "Не удалось открыть \"%s\""
+msgstr "Не удалось открыть '%s'"
 
 #: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
@@ -2026,12 +2051,14 @@ msgid "Integral Symbol"
 msgstr "Символ интеграла"
 
 #: lib/widgets.c:852
+#, fuzzy
 msgid "Crow Foot"
-msgstr "Воронья лапа"
+msgstr "Нога"
 
 #: lib/widgets.c:853
+#, fuzzy
 msgid "Cross"
-msgstr "Крест"
+msgstr "Сжать"
 
 #: lib/widgets.c:889
 msgid "Length: "
@@ -2050,24 +2077,29 @@ msgid "Browse"
 msgstr "Просмотр"
 
 #: objects/EML/eml.c:40
+#, fuzzy
 msgid "Event Modelling Language diagram"
-msgstr "Диаграмма языка моделирования событий (EML)"
+msgstr "Объекты диаграмм Унифицированного языка моделирования (UML)"
 
 #: objects/EML/instantiation.c:130
+#, fuzzy
 msgid "Number of processes:"
-msgstr "Число процессов:"
+msgstr "Число уровней отката:"
 
 #: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
+#, fuzzy
 msgid "multiple"
-msgstr "много"
+msgstr "Демультиплексор"
 
 #: objects/EML/instantiation.c:433
+#, fuzzy
 msgid "Single"
-msgstr "Один"
+msgstr "Простой"
 
 #: objects/EML/instantiation.c:435
+#, fuzzy
 msgid "Multiple"
-msgstr "Много"
+msgstr "Перемножить"
 
 #: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
@@ -2088,24 +2120,29 @@ msgid "Delete segment"
 msgstr "Удалить сегмент"
 
 #: objects/EML/instantiation.c:442
+#, fuzzy
 msgid "Instantiation"
-msgstr "Установка"
+msgstr "Трансляция"
 
 #: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
+#, fuzzy
 msgid "Unidirectional"
-msgstr "Однонаправленный"
+msgstr "Направление:"
 
 #: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
+#, fuzzy
 msgid "Bidirectional"
-msgstr "Двунаправленный"
+msgstr "Направление:"
 
 #: objects/EML/interaction.c:612
+#, fuzzy
 msgid "Interaction name:"
-msgstr "Название взаимодействия:"
+msgstr "Интерфейс:"
 
 #: objects/EML/interaction.c:623
+#, fuzzy
 msgid "bidirectional"
-msgstr "двунаправленный"
+msgstr "Направление:"
 
 #: objects/EML/nlist.c:37 objects/UML/class_dialog.c:870
 #: objects/UML/class_dialog.c:1882 objects/UML/class_dialog.c:2099
@@ -2123,9 +2160,10 @@ msgstr "Удалить"
 #: objects/UML/class_dialog.c:1894 objects/UML/class_dialog.c:2113
 #: objects/UML/class_dialog.c:2675
 msgid "Move up"
-msgstr "Переместить вверх"
+msgstr "Перенести вверх"
 
 #: objects/EML/nlist.c:52
+#, fuzzy
 msgid "Move Down"
 msgstr "Переместить вниз"
 
@@ -2139,100 +2177,121 @@ msgstr "Переместить вниз"
 #: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
 #: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
+#, fuzzy
 msgid "Helvetica"
-msgstr "Helvetica"
+msgstr "Вертикальное отражение"
 
 #: objects/EML/process_dialog.c:625
+#, fuzzy
 msgid "relation"
-msgstr "отношение"
+msgstr "Операции"
 
 #: objects/EML/process_dialog.c:882
+#, fuzzy
 msgid "Interface functions"
-msgstr "Функции интерфейса"
+msgstr "Функция пользователя"
 
 #: objects/EML/process_dialog.c:883
+#, fuzzy
 msgid "Function"
-msgstr "Функция"
+msgstr "Вызов функции"
 
 #: objects/EML/process_dialog.c:899
+#, fuzzy
 msgid "Function module:"
-msgstr "Модуль функции:"
+msgstr "Заголовок функции"
 
 #: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
+#, fuzzy
 msgid "Function name:"
-msgstr "Название функции:"
+msgstr "Заголовок функции"
 
 #: objects/EML/process_dialog.c:1097
+#, fuzzy
 msgid "Interfaces"
-msgstr "Интерфейсы"
+msgstr "Интерфейс:"
 
 #: objects/EML/process_dialog.c:1098
+#, fuzzy
 msgid "Interface"
-msgstr "Интерфейс"
+msgstr "Интерфейс:"
 
 #: objects/EML/process_dialog.c:1114
+#, fuzzy
 msgid "Interface name:"
-msgstr "Название интерфейса:"
+msgstr "Интерфейс:"
 
 #: objects/EML/process_dialog.c:1132
+#, fuzzy
 msgid "Interface messages"
-msgstr "Сообщения интерфейса"
+msgstr "Получить"
 
 #: objects/EML/process_dialog.c:1133
+#, fuzzy
 msgid "Message"
-msgstr "Сообщение"
+msgstr "Сообщение:"
 
 #: objects/EML/process_dialog.c:1134
+#, fuzzy
 msgid "Message parameters"
-msgstr "Параметры сообщения"
+msgstr "Тип сообщения:"
 
 #: objects/EML/process_dialog.c:1135
+#, fuzzy
 msgid "Message parameter"
-msgstr "Параметр сообщения"
+msgstr "Тип сообщения:"
 
 #: objects/EML/process_dialog.c:1148
+#, fuzzy
 msgid "Functions"
-msgstr "Функции"
+msgstr "Вызов функции"
 
 #: objects/EML/process_dialog.c:1151
+#, fuzzy
 msgid "Messages"
-msgstr "Сообщения"
+msgstr "Сообщение:"
 
 #: objects/EML/process_dialog.c:1238 objects/FS/function.c:799
 msgid "Process"
-msgstr "Процесс"
+msgstr ""
 
 #: objects/EML/process_dialog.c:1242
+#, fuzzy
 msgid "Process name:"
-msgstr "Название процесса:"
+msgstr "Название класса:"
 
 #: objects/EML/process_dialog.c:1246
+#, fuzzy
 msgid "Process reference name:"
-msgstr "Ссылочное название процесса:"
+msgstr "Настройки"
 
 #: objects/EML/process_dialog.c:1251
 msgid "Process lifetime:"
-msgstr "Время существования процесса:"
+msgstr ""
 
 #: objects/EML/process_dialog.c:1299
+#, fuzzy
 msgid "Module name:"
-msgstr "Название модуля:"
+msgstr "Название файла:"
 
 #: objects/EML/process_dialog.c:1311
+#, fuzzy
 msgid "Function parameters"
-msgstr "Параметры функции"
+msgstr "Заголовок функции"
 
 #: objects/EML/process_dialog.c:1312
+#, fuzzy
 msgid "Parameter"
-msgstr "Параметр"
+msgstr "Параметры"
 
 #: objects/EML/process_dialog.c:1313
+#, fuzzy
 msgid "Relation members"
-msgstr "Члены отношения"
+msgstr "Отношение"
 
 #: objects/EML/process_dialog.c:1314
 msgid "Relation member"
-msgstr "Член отношения"
+msgstr ""
 
 #: objects/ER/attribute.c:150
 msgid "Key:"
@@ -3479,36 +3538,42 @@ msgid "Suppress operations"
 msgstr "Подавить действия"
 
 #: objects/UML/class_dialog.c:292
+#, fuzzy
 msgid "Normal Font"
-msgstr "Обычный шрифт"
+msgstr "Нормальный"
 
 #: objects/UML/class_dialog.c:300
+#, fuzzy
 msgid "Normal Font Size"
-msgstr "Размер обычного шрифта"
+msgstr "Нормализовать"
 
 #: objects/UML/class_dialog.c:309
+#, fuzzy
 msgid "Abstract Font"
-msgstr "Шрифт абстракции"
+msgstr "Абстракция"
 
 #: objects/UML/class_dialog.c:317
+#, fuzzy
 msgid "Abstract Font Size"
-msgstr "Размер шрифта абстракции"
+msgstr "Абстракция"
 
 #: objects/UML/class_dialog.c:326
+#, fuzzy
 msgid "Class name Font"
-msgstr "Шрифт названия класса"
+msgstr "Название класса:"
 
 #: objects/UML/class_dialog.c:334
+#, fuzzy
 msgid "Class name Font Size"
-msgstr "Размер шрифта названия класса"
+msgstr "Название класса:"
 
 #: objects/UML/class_dialog.c:343
 msgid "Abstract Class name Font"
-msgstr "Шрифт названия абстрактного класса"
+msgstr ""
 
 #: objects/UML/class_dialog.c:351
 msgid "Abstract Class name Font Size"
-msgstr "Размер шрифта названия абстрактного класса"
+msgstr ""
 
 #: objects/UML/class_dialog.c:360
 msgid "Foreground Color"
@@ -3570,12 +3635,13 @@ msgid "Operation data"
 msgstr "Данные операции"
 
 #: objects/UML/class_dialog.c:2014
+#, fuzzy
 msgid "Inheritance type:"
-msgstr "Тип наследования:"
+msgstr "Тип сообщения:"
 
 #: objects/UML/class_dialog.c:2031
 msgid "Polymorphic (virtual)"
-msgstr "Полиморфный (виртуальный)"
+msgstr ""
 
 #: objects/UML/class_dialog.c:2039
 msgid "Leaf (final)"
@@ -3583,7 +3649,7 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:2057
 msgid "Query"
-msgstr "Запрос"
+msgstr ""
 
 #: objects/UML/class_dialog.c:2070
 msgid "Parameters:"
@@ -3599,19 +3665,21 @@ msgstr "Исх. значение:"
 
 #: objects/UML/class_dialog.c:2186
 msgid "Undefined"
-msgstr "Неопределённый"
+msgstr ""
 
 #: objects/UML/class_dialog.c:2194
 msgid "In"
-msgstr "Ввод"
+msgstr ""
 
 #: objects/UML/class_dialog.c:2203
+#, fuzzy
 msgid "Out"
-msgstr "Вывод"
+msgstr "Вырезать"
 
 #: objects/UML/class_dialog.c:2212
+#, fuzzy
 msgid "In & Out"
-msgstr "Ввод и вывод"
+msgstr "Ввод"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2629
@@ -3774,6 +3842,7 @@ msgid "Event specification"
 msgstr "Спецификация события"
 
 #: objects/chronogram/chronoline.c:156
+#, fuzzy
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -3781,6 +3850,7 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
+"Характеристики события:\n"
 "@ время   устанавливает указатель на абсолютное время.\n"
 "( длительность  включает сигнал и ждет указанное время.\n"
 ") длительность  выключает сигнал и ждет указанное время.\n"
@@ -4016,8 +4086,9 @@ msgid "Fontsize:"
 msgstr "Размер шрифта:"
 
 #: objects/sybase/sybase.c:44
+#, fuzzy
 msgid "Sybase replication domain diagram objects"
-msgstr "Объекты для разработки диаграмм домена репликации Sybase"
+msgstr "Объекты диаграммы Сущностей/Отношений"
 
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
@@ -4048,12 +4119,14 @@ msgid "HP Graphics Language export filter"
 msgstr "Фильтр экспорта файлов HPGL"
 
 #: plug-ins/metapost/metapost.c:34
+#, fuzzy
 msgid "TeX Metapost export filter"
-msgstr "Фильтр экспорта файлов TeX Metapost"
+msgstr "Фильтр экспорта файлов TeX Pstricks"
 
 #: plug-ins/metapost/render_metapost.c:726
+#, fuzzy
 msgid "TeX Metapost macros"
-msgstr "Макрос TeX Metapost"
+msgstr "Макрос TeX Pstricks"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4065,7 +4138,7 @@ msgstr "Макрос TeX Pstricks"
 
 #: plug-ins/python/python.c:76
 msgid "Python scripting support"
-msgstr "Поддержка скриптов Python"
+msgstr ""
 
 #: plug-ins/shape/shape-export.c:937
 msgid "Can't export png without libart!"
@@ -4089,11 +4162,12 @@ msgstr "Фильтр экспорта маштабируемой векторной графики (SVG)"
 
 #: plug-ins/wmf/wmf.cpp:959
 msgid "Windows Meta File"
-msgstr "Windows Meta File"
+msgstr ""
 
 #: plug-ins/wmf/wmf.cpp:973
+#, fuzzy
 msgid "WMF export filter"
-msgstr "Фильтр экспорта WMF"
+msgstr "Фильтр экспорта форм dia"
 
 #: plug-ins/wpg/wpg.c:1048
 #, c-format
@@ -4109,8 +4183,9 @@ msgid "No more user-definable colors - using black"
 msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:794
+#, fuzzy
 msgid "XFig format"
-msgstr "Формат XFig"
+msgstr "Файл в формате XFig"
 
 #: plug-ins/xfig/xfig-import.c:75
 msgid "Polygon import is not implemented yet"
@@ -4287,7 +4362,7 @@ msgstr "Горизонтально ориентированный проводник"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "A Horizontally aligned inductor (European)"
-msgstr "Горизонтально ориентированный проводник (Европа)"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "A Horizontally aligned resistor"
@@ -4295,15 +4370,16 @@ msgstr "Горизонтально ориентированный резистор"
 
 #: sheets/Circuit.sheet.in.h:5
 msgid "A Horizontally aligned resistor (European)"
-msgstr "Горизонтально ориентированный резистор (Европа)"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:6
+#, fuzzy
 msgid "A Microphone"
-msgstr "Микрофон"
+msgstr "Мобильный телефон"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A PMOS transistor"
-msgstr "КМОП транзистор"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "A Speaker"
@@ -4315,7 +4391,7 @@ msgstr "Вертикально ориентированный проводник"
 
 #: sheets/Circuit.sheet.in.h:10
 msgid "A Vertically aligned inductor (European)"
-msgstr "Вертикально ориентированный проводник (Европа)"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:11
 msgid "A Vertically aligned resistor"
@@ -4323,11 +4399,12 @@ msgstr "Вертикально ориентированный резистор"
 
 #: sheets/Circuit.sheet.in.h:12
 msgid "A Vertically aligned resistor (European)"
-msgstr "Вертикально ориентированный резистор (Европа)"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:13
+#, fuzzy
 msgid "A ground point"
-msgstr "Общий контакт"
+msgstr "Конечная точка"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned LED"
@@ -4359,11 +4436,11 @@ msgstr "Лампочка"
 
 #: sheets/Circuit.sheet.in.h:21
 msgid "A npn bipolar transistor"
-msgstr "Биполярный транзистор npn"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:22
 msgid "A pnp bipolar transistor"
-msgstr "Биполярный транзистор pnp"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned LED"
@@ -4391,7 +4468,7 @@ msgstr "Вертикально ориентированный диод Зенера"
 
 #: sheets/Circuit.sheet.in.h:29
 msgid "An NMOS transistor"
-msgstr "КМОП-транзистор"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:30
 msgid "An operational amplifier"
@@ -4399,11 +4476,11 @@ msgstr "Операционный усилитель"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Circuit"
-msgstr "Электроника"
+msgstr "Ток"
 
 #: sheets/Circuit.sheet.in.h:32
 msgid "Components for circuit diagrams"
-msgstr "Компоненты для электронных схем"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
@@ -4467,15 +4544,15 @@ msgstr "Создать процесс"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr "EML"
+msgstr ""
 
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
-msgstr "Редатор для диаграмм статических структур EML."
+msgstr ""
 
 #: sheets/EML.sheet.in.h:4
 msgid "Instantiation. One process create others"
-msgstr "Установка. Один процесс создаёт другие"
+msgstr ""
 
 #: sheets/EML.sheet.in.h:5
 msgid "Interaction between processes."
@@ -4483,15 +4560,16 @@ msgstr "Взаимодействие между процессами."
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr "ER"
+msgstr ""
 
 #: sheets/ER.sheet.in.h:3
+#, fuzzy
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Редактор диаграмм Сущностей/Отношений"
+msgstr "Объекты диаграммы Сущностей/Отношений"
 
 #: sheets/ER.sheet.in.h:5
 msgid "Participation"
-msgstr "Участие"
+msgstr ""
 
 #: sheets/ER.sheet.in.h:7
 msgid "Weak Entity"
@@ -4527,7 +4605,7 @@ msgstr ""
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
-msgstr "Компоненты для электрических схем"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:9
 msgid "Electric"
@@ -4538,8 +4616,9 @@ msgid "The command organ of a relay"
 msgstr ""
 
 #: sheets/FS.sheet.in.h:1
+#, fuzzy
 msgid "Create a flow"
-msgstr "Создать поток"
+msgstr "Создать прямоугольник"
 
 #: sheets/FS.sheet.in.h:2
 msgid "Create a function"
@@ -4550,12 +4629,13 @@ msgid "Create an orthogonal polyline flow"
 msgstr ""
 
 #: sheets/FS.sheet.in.h:4
+#, fuzzy
 msgid "Editor for Function Structure Diagrams."
-msgstr "Редактор диаграммы функциональной структуры"
+msgstr "Объекты диаграммы функциональной структуры"
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
-msgstr "FS"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
@@ -4575,11 +4655,12 @@ msgstr "Параллелограм с текстом внутри"
 
 #: sheets/Flowchart.sheet.in.h:5
 msgid "Collate"
-msgstr "Сопоставление"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:6
+#, fuzzy
 msgid "Delay"
-msgstr "Задержка"
+msgstr "Показать"
 
 #: sheets/Flowchart.sheet.in.h:8
 msgid "Document"
@@ -4590,8 +4671,9 @@ msgid "Flowchart"
 msgstr "Диаграмма потоков"
 
 #: sheets/Flowchart.sheet.in.h:11
+#, fuzzy
 msgid "Internal Storage"
-msgstr "Внутреннее хранение"
+msgstr "Символ интеграла"
 
 #: sheets/Flowchart.sheet.in.h:12
 msgid "Magnetic Disk"
@@ -4615,11 +4697,11 @@ msgstr "Ручная операция"
 
 #: sheets/Flowchart.sheet.in.h:17
 msgid "Merge"
-msgstr "Объединение"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
-msgstr "Объекты для диаграмм потоков"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:19
 msgid "Off Page Connector"
@@ -4634,12 +4716,14 @@ msgid "Or"
 msgstr "Или"
 
 #: sheets/Flowchart.sheet.in.h:22
+#, fuzzy
 msgid "Predefined Process"
-msgstr "Предопределённый процессы"
+msgstr "Настройки"
 
 #: sheets/Flowchart.sheet.in.h:23
+#, fuzzy
 msgid "Preparation"
-msgstr "Подготовка"
+msgstr "Операции"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
@@ -4650,104 +4734,121 @@ msgid "Punched Tape"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:26
+#, fuzzy
 msgid "Sort"
-msgstr "Сортировка"
+msgstr "Поддержка"
 
 #: sheets/Flowchart.sheet.in.h:27
+#, fuzzy
 msgid "Summing Junction"
-msgstr ""
+msgstr "Функция наибольшего правдоподобия"
 
 #: sheets/Flowchart.sheet.in.h:28
 msgid "Terminal"
 msgstr "Терминал"
 
 #: sheets/Flowchart.sheet.in.h:29
+#, fuzzy
 msgid "Transaction File"
-msgstr "Файл транзакций"
+msgstr "Трансляция"
 
 #: sheets/Flowchart.sheet.in.h:30
+#, fuzzy
 msgid "Transmittal Tape"
-msgstr ""
+msgstr "Передать"
 
 #: sheets/GRAFCET.sheet.in.h:1
+#, fuzzy
 msgid "A AND vergent"
-msgstr ""
+msgstr "GRAFCET И/ИЛИ хребет"
 
 #: sheets/GRAFCET.sheet.in.h:2
+#, fuzzy
 msgid "A OR vergent"
-msgstr ""
+msgstr "GRAFCET И/ИЛИ хребет"
 
 #: sheets/GRAFCET.sheet.in.h:3
+#, fuzzy
 msgid "A condition (of an action)"
-msgstr "Условие (действия)"
+msgstr "Шрифт условия"
 
 #: sheets/GRAFCET.sheet.in.h:4
+#, fuzzy
 msgid "A macro call step"
 msgstr "Шаг вызова макроса"
 
 #: sheets/GRAFCET.sheet.in.h:5
+#, fuzzy
 msgid "A macro entry step"
 msgstr "Шаг входа в макрос"
 
 #: sheets/GRAFCET.sheet.in.h:6
+#, fuzzy
 msgid "A macro exit step"
 msgstr "Шаг выхода из макроса"
 
 #: sheets/GRAFCET.sheet.in.h:7
+#, fuzzy
 msgid "A macro sub-program call step"
 msgstr "Шаг вызова подпрограммы"
 
 #: sheets/GRAFCET.sheet.in.h:8
+#, fuzzy
 msgid "A regular step"
 msgstr "Обычный шаг"
 
 #: sheets/GRAFCET.sheet.in.h:9
+#, fuzzy
 msgid "A transition"
-msgstr ""
+msgstr "Трансляция"
 
 #: sheets/GRAFCET.sheet.in.h:10
 msgid "An action to associate to a step"
-msgstr "Действие ассоциируемое с шагом"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
 msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:12
+#, fuzzy
 msgid "An initial step"
 msgstr "Начальный шаг"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr "GRAFCET"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr "Объекты для создания диаграмм GRAFCET"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
 msgstr ""
 
 #: sheets/Logic.sheet.in.h:2
+#, fuzzy
 msgid "A Nor gate"
-msgstr ""
+msgstr "Агрегировать"
 
 #: sheets/Logic.sheet.in.h:3
 msgid "A Not"
 msgstr ""
 
 #: sheets/Logic.sheet.in.h:4
+#, fuzzy
 msgid "A Xor gate"
-msgstr ""
+msgstr "Агрегировать"
 
 #: sheets/Logic.sheet.in.h:5
+#, fuzzy
 msgid "A crossconnector"
-msgstr ""
+msgstr "Отключить"
 
 #: sheets/Logic.sheet.in.h:6
 msgid "A simple Buffer"
-msgstr "Простой буффер"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:7
 msgid "An And gate"
@@ -4758,16 +4859,19 @@ msgid "An Inverter"
 msgstr "Инвертор"
 
 #: sheets/Logic.sheet.in.h:9
+#, fuzzy
 msgid "An Or gate"
-msgstr ""
+msgstr "Агрегировать"
 
 #: sheets/Logic.sheet.in.h:10
+#, fuzzy
 msgid "Boolean Logic"
-msgstr "Двоичная логика"
+msgstr "Биологический"
 
 #: sheets/Logic.sheet.in.h:11
+#, fuzzy
 msgid "Logic"
-msgstr "Логика"
+msgstr "Заблокировать"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
@@ -4786,8 +4890,9 @@ msgid "Multiplexer"
 msgstr "Мультиплексор"
 
 #: sheets/MSE.sheet.in.h:5
+#, fuzzy
 msgid "Node Center"
-msgstr "Центральный узел"
+msgstr "По центру"
 
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
@@ -4831,11 +4936,11 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr "Обычный источник давления"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr "Гидравлический источник давления"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "A normally-in simple-effect jack"
@@ -4847,7 +4952,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr "Пневматический источник давления"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
@@ -4855,7 +4960,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Компоненты для пневматических и гидравлических потоков"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
@@ -4883,7 +4988,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
-msgstr "Мускульная команда"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:23
 msgid "Pneumatic/Hydraulic"
@@ -4891,15 +4996,16 @@ msgstr "Пневматика/Гидравлика"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
-msgstr "Команда по нажатию кнопки"
+msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
+#, fuzzy
 msgid "A activity/data flow arrow"
-msgstr "Стрелка потока управления/данных"
+msgstr "Идентификатор деятельности/данных"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
-msgstr "Метка потока"
+msgstr ""
 
 #: sheets/SADT.sheet.in.h:3
 msgid "An activity/data box"
@@ -4926,8 +5032,9 @@ msgid "Comment"
 msgstr "Комментарий"
 
 #: sheets/SDL.sheet.in.h:4
+#, fuzzy
 msgid "Decision"
-msgstr "Решение"
+msgstr "Описание:"
 
 #: sheets/SDL.sheet.in.h:5
 msgid "Function Header"
@@ -4939,23 +5046,26 @@ msgstr "Вызов функции"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
-msgstr "Обычный текстовый комментарий"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:8
+#, fuzzy
 msgid "In/Out Connector"
-msgstr ""
+msgstr "Подключение"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
 msgstr "Возврат процедуры"
 
 #: sheets/SDL.sheet.in.h:11
+#, fuzzy
 msgid "Process Type Reference"
-msgstr ""
+msgstr "Настройки"
 
 #: sheets/SDL.sheet.in.h:12
+#, fuzzy
 msgid "Receive message"
-msgstr "Получить сообщение"
+msgstr "Получить"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
@@ -4963,7 +5073,7 @@ msgstr ""
 
 #: sheets/SDL.sheet.in.h:14
 msgid "Save State"
-msgstr "Сохранить состояние"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:15
 msgid "Send message"
@@ -4983,27 +5093,27 @@ msgstr "Состояние"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
-msgstr "Агрегация, один класс часть другого"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:2
 msgid "Association, two classes are associated"
-msgstr "Ассоциация, два класса связаны"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:3
 msgid "Constraint, place a constraint on something"
-msgstr "Ограничение, ограничение для чего-либо"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:4
 msgid "Create a (large) package"
-msgstr "Создать (большой) пакет"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:5
 msgid "Create a (small) package"
-msgstr "Создать (маленький) пакет"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:6
 msgid "Create a branch"
-msgstr "Создать ветвь"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:7
 msgid "Create a class"
@@ -5011,7 +5121,7 @@ msgstr "Создать класс"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Create a class stereotype icon"
-msgstr "Создать пиктограмму стереотипа класса"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:9
 msgid "Create a component"
@@ -5022,8 +5132,9 @@ msgid "Create a dependency"
 msgstr "Создать зависимость"
 
 #: sheets/UML.sheet.in.h:11
+#, fuzzy
 msgid "Create a lifeline"
-msgstr ""
+msgstr "Создать кривую Безье"
 
 #: sheets/UML.sheet.in.h:12
 msgid "Create a message"
@@ -5035,7 +5146,7 @@ msgstr "Создать узел"
 
 #: sheets/UML.sheet.in.h:14
 msgid "Create a note"
-msgstr "Создать комментарий"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:15
 msgid "Create a state machine"
@@ -5046,12 +5157,14 @@ msgid "Create a template class"
 msgstr "Создать класс-шаблон"
 
 #: sheets/UML.sheet.in.h:17
+#, fuzzy
 msgid "Create a use case"
-msgstr ""
+msgstr "Создать изображение"
 
 #: sheets/UML.sheet.in.h:18
+#, fuzzy
 msgid "Create an actor"
-msgstr "Создать исполнителя"
+msgstr "Создать новую диаграмму"
 
 #: sheets/UML.sheet.in.h:19
 msgid "Create an object"
@@ -5059,7 +5172,7 @@ msgstr "Создать объект"
 
 #: sheets/UML.sheet.in.h:20
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Редактор для диаграмм статических структур UML"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
@@ -5067,7 +5180,7 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr "Реализует, класс реализует специфический интерфейс"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
@@ -5078,12 +5191,13 @@ msgid "UML"
 msgstr "UML"
 
 #: sheets/chronogram.sheet.in.h:1
+#, fuzzy
 msgid "A data line"
-msgstr "Линии данных"
+msgstr "Ширина линии данных"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
-msgstr "Масштаб времени"
+msgstr ""
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
@@ -5091,7 +5205,7 @@ msgstr "Хронограмма"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr "Объекты для хронограмм"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
@@ -5183,7 +5297,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:23
 msgid "Soil"
-msgstr "Почва"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:24
 msgid "Vertical Rest"
@@ -5211,75 +5325,75 @@ msgstr "Уровень воды"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr "Мозаика"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr "Мозаика - элемент iiii"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr "Мозаика - элемент iiio"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr "Мозаика - элемент iioi"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr "Мозаика - элемент iioo"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr "<Мозаика - элемент ioii"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr "Мозаика - элемент ioio"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr "Мозаика - элемент iooi"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr "Мозаика - элемент iooo"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr "Мозаика - элемент oiii"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr "Мозаика - элемент oiio"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr "Мозаика - элемент oioo"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr "Мозаика - элемент oioo"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr "Мозаика - элемент ooii"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr "Мозаика - элемент ooio"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr "Мозаика - элемент oooi"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr "Мозаика - элемент oooo"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr "Кусочки мозаики"
+msgstr ""
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
@@ -5295,11 +5409,11 @@ msgstr "Компьютер"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
-msgstr "Настольный компьютер"
+msgstr ""
 
 #: sheets/network.sheet.in.h:5
 msgid "A Firewall router"
-msgstr "Межсетевой экран"
+msgstr ""
 
 #: sheets/network.sheet.in.h:6
 msgid "A Miditower PC"
@@ -5315,19 +5429,20 @@ msgstr "Мобильный телефон"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
-msgstr "Розетка RJ-45"
+msgstr ""
 
 #: sheets/network.sheet.in.h:10
 msgid "A UNIX Workstation"
-msgstr "Рабочая станция UNIX"
+msgstr ""
 
 #: sheets/network.sheet.in.h:11
+#, fuzzy
 msgid "A WAN Connection"
-msgstr "Подключение с глобальной сети"
+msgstr "Конвекция"
 
 #: sheets/network.sheet.in.h:12
 msgid "A WAN Link"
-msgstr "Соединение с глобальной сетью"
+msgstr ""
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
@@ -5335,15 +5450,15 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
-msgstr "Монитор рабочей станции"
+msgstr ""
 
 #: sheets/network.sheet.in.h:15
 msgid "A ZIP Disk"
-msgstr "Диск ZIP"
+msgstr ""
 
 #: sheets/network.sheet.in.h:16
 msgid "A modular switching system"
-msgstr "Модульная коммутирующая система"
+msgstr ""
 
 #: sheets/network.sheet.in.h:17
 msgid "A monitor"
@@ -5351,11 +5466,11 @@ msgstr "Монитор"
 
 #: sheets/network.sheet.in.h:18
 msgid "A simple Modem"
-msgstr "Обычный модем"
+msgstr ""
 
 #: sheets/network.sheet.in.h:19
 msgid "A simple printer"
-msgstr "Обычный принтер"
+msgstr "Принтер"
 
 #: sheets/network.sheet.in.h:20
 msgid "A speaker with integrated amplifier"
@@ -5363,11 +5478,11 @@ msgstr "Громкоговоритель со встроенным усилителем"
 
 #: sheets/network.sheet.in.h:21
 msgid "A speaker without amplifier"
-msgstr "Громкоговоритель без усилителя"
+msgstr ""
 
 #: sheets/network.sheet.in.h:22
 msgid "A stackable hub or switch"
-msgstr "Расширяемый концентратор или коммутатор"
+msgstr ""
 
 #: sheets/network.sheet.in.h:23
 msgid "ATM Switch Symbol"
@@ -5375,15 +5490,15 @@ msgstr "Символ ATM-коммутатора"
 
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
-msgstr "Шина Ethernet"
+msgstr ""
 
 #: sheets/network.sheet.in.h:25
 msgid "An antenna for wireless transmission"
-msgstr "Антенна для беспроводной связи"
+msgstr ""
 
 #: sheets/network.sheet.in.h:26
 msgid "An external DAT drive"
-msgstr "Внешний дисковод DAT"
+msgstr ""
 
 #: sheets/network.sheet.in.h:27
 msgid "Network"
@@ -5395,7 +5510,7 @@ msgstr "Сетевое облако"
 
 #: sheets/network.sheet.in.h:29
 msgid "Objects to design network diagrams with"
-msgstr "Объекты для разработки диаграмм сетей"
+msgstr ""
 
 #: sheets/network.sheet.in.h:30
 msgid "Router Symbol"
@@ -5403,7 +5518,7 @@ msgstr "Символ маршрутизатора"
 
 #: sheets/network.sheet.in.h:31
 msgid "Storage"
-msgstr "Хранилище"
+msgstr ""
 
 #: sheets/network.sheet.in.h:32
 msgid "Switch Symbol"
@@ -5411,15 +5526,15 @@ msgstr "Символ коммутатора"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
-msgstr "Клиентское приложение Sybase"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:2
 msgid "A Sybase Dataserver"
-msgstr "Сервер данных Sybase"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:3
 msgid "A Sybase Replication Server"
-msgstr "Сервер репликации Sybase"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:4
 msgid "Log Transfer Manager or Rep Agent"
@@ -5427,11 +5542,11 @@ msgstr ""
 
 #: sheets/sybase.sheet.in.h:5
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Объекты для разработки диаграмм домена репликации Sybase"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Replication Server Manager"
-msgstr "Диспетчер сервера репликации"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:7
 msgid "Stable Storage Device"
@@ -5440,3 +5555,18 @@ msgstr ""
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#~ msgid "/File/Open _Recent"
+#~ msgstr "/Файл/Открыть последние"
+
+#~ msgid "/File/Open Recent/---"
+#~ msgstr "/Файл/Открыть последние/---"
+
+#~ msgid "Grid:"
+#~ msgstr "Сетка:"
+
+#~ msgid "/File/Open Recent/"
+#~ msgstr "/Файл/Открыть последние/"
+
+#~ msgid "abstract"
+#~ msgstr "абстрактный"
