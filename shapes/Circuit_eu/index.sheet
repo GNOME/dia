@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<sheet xmlns="http://www.daa.com.au/~james/dia-sheet-ns">
+  <name>Circuit / European</name>
+  <description>European Circuit Components</description>
+  <shapes>
+    <shape>hresistor_de.shape</shape>
+    <shape>vresistor_de.shape</shape> 
+    <shape>hinductor_de.shape</shape>
+    <shape>vinductor_de.shape</shape>
+    <shape>hpowersource_de.shape</shape> 
+    <shape>vpowersource_de.shape</shape>
+    <shape>hfuse_de.shape</shape>
+    <shape>vfuse_de.shape</shape>
+    <shape>lamp_de.shape</shape>
+    <shape>speaker_de.shape</shape>
+  </shapes>
+</sheet>

@@ -1,3 +1,11 @@
+1999-10-20  James Henstridge  <james@daa.com.au>
+
+	* configure.in: added extra makefile.
+	
+	* shapes/Circuit_eu/*: a new set of european circuit shapes from
+	Andreas Scherf <scherfa@fh-trier.de>.  Made a few small modifications
+	(added fuses to makefile, fill the area of some of the components).
+
 1999-10-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/Makefile.am:
