@@ -15,3 +15,7 @@ ltconfig
 ltmain.sh
 main
 stamp-h
+COPYING
+mkinstalldirs
+missing
+install-sh

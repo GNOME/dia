@@ -171,7 +171,7 @@ menus_set_state (char *path,
 
   if (widget != NULL) {
     if (GTK_IS_CHECK_MENU_ITEM (widget))
-      gtk_check_menu_item_set_state (GTK_CHECK_MENU_ITEM (widget), state);
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (widget), state);
   }  else {
     message_error("Unable to set state for menu which doesn't exist: %s", path);
   }

@@ -1,3 +1,8 @@
+1999-01-19  Jeff Garzik  <jgarzik@pobox.com>
+
+	* app/menus.c:
+	Renamed deprecated Gtk+ function.
+
 1999-01-16  Alexander Larsson  <alla@lysator.liu.se>
 
 	* Makefile.am:
