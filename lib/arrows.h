@@ -53,6 +53,7 @@ typedef enum {
   ARROW_CROSS,                   /* Vertical line */
   ARROW_FILLED_CONCAVE,
   ARROW_BLANKED_CONCAVE,
+  ARROW_ROUNDED,
 } ArrowType;
 
 struct menudesc {
@@ -83,6 +84,6 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
  * tip of the arrow into 'arrowtip'.
  */
 void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
-                       int linewidth, Point *arrowtip);
+			    int linewidth, Point *arrowtip);
 
 #endif /* ARROWS_H */

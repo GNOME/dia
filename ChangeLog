@@ -1,3 +1,9 @@
+2003-04-04  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/arrows.c: Adjusted arrow head spacing, more systematic arrow
+	head spacing calculations.  Added half-circle arrow from Matthieu
+	Sozeau <mattam@netcourrier.com> 
+
 2003-04-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/linewidth_area.c (linewidth_area_create) 
