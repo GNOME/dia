@@ -1,3 +1,8 @@
+2001-02-07  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/network/hub.c: 
+	Patch from Hubert Figuiere applied, adding connection points.
+
 2001-02-02  James Henstridge  <james@daa.com.au>
 
 	* app/display.c (new_display): set update id to 0 here.
