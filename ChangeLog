@@ -1,3 +1,7 @@
+2000-06-11  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* lib/plug-ins.c: Handle OS/2 dll's too.
+
 2000-06-07  James Henstridge  <james@daa.com.au>
 
 	* app/plugin-manager.c (get_plugin_manager): set some table

@@ -299,7 +299,11 @@ dia_register_plugins_in_dir(const gchar *directory)
     gint len = strlen(dirp->d_name);
 
 #ifndef G_OS_WIN32
+#ifndef __EMX__
     if (len > 3 && !strcmp(&dirp->d_name[len-3], ".la")) {
+#else
+    if (len > 4 && !strcmp(&dirp->d_name[len-4], ".dll")) {    
+#endif
 #else
     if (len > 3) {
 #endif
@@ -322,6 +326,7 @@ dia_register_plugins(void)
   library_path = g_getenv("DIA_LIB_PATH");
 
   lib_dir = dia_config_filename("objects");
+
   if (lib_dir != NULL) {
     dia_register_plugins_in_dir(lib_dir);
     g_free(lib_dir);
@@ -337,6 +342,7 @@ dia_register_plugins(void)
     g_strfreev(paths);
   } else {
     library_path = dia_get_lib_directory("dia");
+
     dia_register_plugins_in_dir(library_path);
     g_free(library_path);
   }
