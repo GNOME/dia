@@ -48,6 +48,9 @@
 /* Define if you have the libart_lgpg library (-lart_lgpl).  */
 #undef HAVE_LIBART
 
+/* define if you have libpng */
+#undef HAVE_LIBPNG
+
 /* Define as 1 if you have gettext and don't want to use GNU gettext.  */
 #undef HAVE_GETTEXT
 

@@ -61,6 +61,10 @@
 #include "render_eps.h"
 #include "render_svg.h"
 
+#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+extern DiaExportFilter png_export_filter;
+#endif
+
 static void register_all_objects(void);
 static void register_all_sheets(void);
 static int name_is_lib(char *name);
@@ -205,6 +209,9 @@ app_init (int argc, char **argv)
   filter_register_export(&dia_export_filter);
   filter_register_export(&eps_export_filter);
   filter_register_export(&svg_export_filter);
+#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+  filter_register_export(&png_export_filter);
+#endif
 
   debug_break();
 

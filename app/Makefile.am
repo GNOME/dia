@@ -75,6 +75,7 @@ dia_SOURCES = \
 	    render_eps.h \
 	    render_svg.c \
 	    render_svg.h \
+	    export_png.c \
 	    undo.c \
 	    undo.h \
 	    tool.c \
@@ -100,7 +101,7 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
     $(EFENCE) \
-    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@
+    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@
 
 CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"

@@ -1,5 +1,13 @@
 2000-02-27  James Henstridge  <james@daa.com.au>
 
+	* app/app_procs.c: add the png export filter if it was compiled in.
+
+	* app/export_png.c (export_png): new PNG export filter.  This requires
+	the libart renderer to work as it needs a renderer that renders to a
+	pixel buffer.
+
+	* configure.in: add check for libpng.
+
 	* lib/message.c (message_internal): use a GNOME dialog here as well.
 
 	* app/display.c (ddisplay_close): use a GNOME dialog here.
