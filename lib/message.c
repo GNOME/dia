@@ -22,10 +22,13 @@
 #include <string.h>
 #include <stdarg.h>
 #include <gtk/gtk.h>
+#include <glib.h>
 
 #include "intl.h"
 #include "utils.h"
 #include "message.h"
+
+static GHashTable *window_hash_table;
 
 static void
 gtk_message_internal(const char* title, const char *fmt,
@@ -34,45 +37,66 @@ gtk_message_internal(const char* title, const char *fmt,
   static gchar *buf = NULL;
   static gint   alloc = 0;
   gint len;
-  GtkWidget *dialog;
+  GtkWidget *dialog = NULL;
   GtkMessageType type = GTK_MESSAGE_INFO;
 
-  len = format_string_length_upper_bound (fmt, args);
-
-  if (len >= alloc) {
-    if (buf)
-      g_free (buf);
-    
-    alloc = nearest_pow (MAX(len + 1, 1024));
-    
-    buf = g_new (char, alloc);
+  if (window_hash_table == NULL) {
+    window_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
   }
+
+  dialog = (GtkWidget*)g_hash_table_lookup(window_hash_table, fmt);
+  if (dialog != NULL) {
+    gint repeats = 
+      GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(dialog)));
+    
+    gtk_object_set_user_data(GTK_OBJECT(dialog), GINT_TO_POINTER(repeats+1));
+    if (repeats > 0) {
+      GtkWidget *vbox = GTK_DIALOG(dialog)->vbox;
+    } else {
+      GtkWidget *label = gtk_label_new(_("This message is repeated."));
+      gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
+      gtk_widget_show(label);
+    }
+  } else {
+    len = format_string_length_upper_bound (fmt, args);
+
+    if (len >= alloc) {
+      if (buf)
+	g_free (buf);
+    
+      alloc = nearest_pow (MAX(len + 1, 1024));
+    
+      buf = g_new (char, alloc);
+    }
   
-  vsprintf (buf, fmt, *args2);
+    vsprintf (buf, fmt, *args2);
 
-  /* quite dirty to not change Dia's message api */
-  if (title) {
-    if (0 == strcmp (title, _("Error")))
-      type = GTK_MESSAGE_ERROR;
-    else if (0 == strcmp (title, _("Warning")))
-      type = GTK_MESSAGE_WARNING;
-  }
-  dialog = gtk_message_dialog_new (NULL, /* no parent window */
-                                   0,    /* GtkDialogFlags */
-                                   type,
-                                   GTK_BUTTONS_CLOSE,
-                                   buf);
-  if (title) {
-    gchar *real_title;
+    /* quite dirty to not change Dia's message api */
+    if (title) {
+      if (0 == strcmp (title, _("Error")))
+	type = GTK_MESSAGE_ERROR;
+      else if (0 == strcmp (title, _("Warning")))
+	type = GTK_MESSAGE_WARNING;
+    }
+    dialog = gtk_message_dialog_new (NULL, /* no parent window */
+				     0,    /* GtkDialogFlags */
+				     type,
+				     GTK_BUTTONS_CLOSE,
+				     buf);
+    if (title) {
+      gchar *real_title;
 
-    real_title = g_strdup_printf ("Dia: %s", title);
-    gtk_window_set_title (GTK_WINDOW(dialog), real_title);
-    g_free (real_title);
+      real_title = g_strdup_printf ("Dia: %s", title);
+      gtk_window_set_title (GTK_WINDOW(dialog), real_title);
+      g_free (real_title);
+    }
+    gtk_widget_show (dialog);
+    g_signal_connect (G_OBJECT (dialog), "response",
+		      G_CALLBACK (gtk_widget_destroy),
+		      NULL);
+    g_hash_table_insert(window_hash_table, fmt, dialog);
+    gtk_object_set_user_data(GTK_OBJECT(dialog), GINT_TO_POINTER(0));
   }
-  gtk_widget_show (dialog);
-  g_signal_connect (G_OBJECT (dialog), "response",
-		        G_CALLBACK (gtk_widget_destroy),
-		        NULL);
 }
 
 static MessageInternal message_internal = gtk_message_internal;
