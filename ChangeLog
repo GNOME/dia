@@ -1,3 +1,13 @@
+2002-02-05  Hans Breuer  <hans@breuer.org>
+
+	* lib/dia_xml.c : use g_strconcat() instead of 
+	malloc, strcpy, strcat dance
+	* app/properties.c : same here and plug memory leak
+	(gtk functions don't eat strings)
+
+	* objects/UML/message.c : there is no g_sprintf()
+	use g_strdup_printf() instead ...
+
 2002-02-05  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/message.c (gtk_message_internal): doesn't need to convert to

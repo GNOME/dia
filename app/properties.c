@@ -210,13 +210,11 @@ properties_show(Diagram *dia, Object *obj)
   if (obj != NULL) {
     ObjectType *otype;
     gchar *buf;
-    gchar *prop_part = _("Properties: ");
 
     otype = obj->type;
-    buf = g_malloc(strlen(prop_part)+strlen(otype->name)+1);
-    strcpy(buf, prop_part);
-    strcat(buf, otype->name);
+    buf = g_strconcat(_("Properties: "), otype->name, NULL);
     gtk_window_set_title(GTK_WINDOW(dialog), buf);
+    g_free(buf);
   } else {
     gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
   }

@@ -809,7 +809,6 @@ data_add_string (AttributeNode attr, const utfchar *str)
     DataNode data_node;
     xmlChar *escaped_str;
     xmlChar *sharped_str;
-    int len;
 
     if (str==NULL) {
         data_node = xmlNewChild(attr, NULL, "string", NULL);
@@ -826,11 +825,7 @@ data_add_string (AttributeNode attr, const utfchar *str)
     escaped_str = xmlEncodeEntitiesReentrant(attr->doc,str);
 #endif
     
-    len = 2+strlen(escaped_str);
-    sharped_str = g_malloc0(len+1);
-    *sharped_str='#';
-    strcpy(sharped_str+1,escaped_str);
-    strcat(sharped_str, "#");
+    sharped_str = g_strconcat("#", escaped_str, "#", NULL);
 
     xmlFree(escaped_str);
     
