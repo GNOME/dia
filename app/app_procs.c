@@ -291,6 +291,7 @@ app_exit(void)
 {
   GList *list;
   GSList *slist;
+  gchar *filename;
   
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
@@ -364,6 +365,19 @@ app_exit(void)
       return;
   }
   
+  /* Save menu accelerators */
+  filename = dia_config_filename("menus/toolbox");
+
+  if (filename!=NULL) {
+    GtkPatternSpec pattern;
+
+    gtk_pattern_spec_init(&pattern, "*<Toolbox>*");
+
+    gtk_item_factory_dump_rc (filename, &pattern, TRUE);
+    g_free (filename);
+    gtk_pattern_spec_free_segs(&pattern);
+  }
+
   /* Free loads of stuff (toolbox) */
 
   list = open_diagrams;
@@ -403,6 +417,9 @@ static void create_user_dirs(void)
   mkdir(subdir, 0755);
   g_free(subdir);
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "sheets", NULL);
+  mkdir(subdir, 0755);
+  g_free(subdir);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "menus", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
 
@@ -518,21 +535,20 @@ static void
 register_all_objects(void)
 {
   char *library_path;
-  char *home_path;
   char *path;
-  char lib_dir[256];
+  char *lib_dir;
   
   object_register_type(&group_type);
 
-  home_path = getenv("HOME");
   library_path = getenv("DIA_LIB_PATH");
   if (library_path != NULL)
     library_path = strdup(library_path);
 
-  if (home_path!=NULL) {
-    strncpy(lib_dir, home_path, 256);
-    strncat(lib_dir, "/.dia/objects", 256);
+  lib_dir = dia_config_filename("objects");
+
+  if (lib_dir != NULL) {
     register_objects_in(lib_dir);
+    g_free(lib_dir);
   }
 
   if (library_path != NULL) {

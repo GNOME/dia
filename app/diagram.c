@@ -60,11 +60,26 @@ new_diagram(char *filename)  /* Note: filename is copied */
 void
 diagram_destroy(Diagram *dia)
 {
+  char *home_path;
+
   assert(dia->displays==NULL);
 
   diagram_data_destroy(dia->data);
   
   g_free(dia->filename);
+
+  /* Save menu accelerators */
+  home_path = dia_config_filename("menus/display");
+
+  if (home_path != NULL) {
+    GtkPatternSpec pattern;
+
+    gtk_pattern_spec_init(&pattern, "*<Display>*");
+
+    gtk_item_factory_dump_rc (home_path, &pattern, TRUE);
+    g_free (home_path);
+    gtk_pattern_spec_free_segs(&pattern);
+  }
 
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();

@@ -23,6 +23,8 @@
 
 #include "pixmaps.h"
 
+#include "preferences.h"
+
 ToolButton tool_data[] =
 {
   { (char **) arrow_xpm,
@@ -229,9 +231,16 @@ create_display_shell(DDisplay *ddisp,
 #endif
 
   if (top_level_window) {
+    gchar *accelfilename = dia_config_filename("menus/display");
+
     /*  the accelerator table/group for the popup */
     gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
 				ddisp->accel_group);
+    
+    if (accelfilename) {
+      gtk_item_factory_parse_rc(accelfilename);
+      g_free(accelfilename);
+    }
   }
 
 
@@ -722,6 +731,7 @@ create_toolbox ()
   GtkWidget *window;
   GtkWidget *main_vbox;
   GtkWidget *vbox;
+  gchar *accelfilename;
 #ifndef GNOME
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
@@ -764,6 +774,12 @@ create_toolbox ()
   gtk_widget_show (menubar);
 #endif
   
+  accelfilename = dia_config_filename("menus/toolbox");
+  
+  if (accelfilename) {
+    gtk_item_factory_parse_rc(accelfilename);
+    g_free(accelfilename);
+  }
   /*  tooltips  */
   tool_tips = gtk_tooltips_new ();
 
