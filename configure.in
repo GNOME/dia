@@ -144,7 +144,7 @@ case "$host" in
     ;;
 esac
 
-CFLAGS="$CFLAGS -Wall -Winline -finline-functions"
+CFLAGS="$CFLAGS -Wall -Winline -finline-functions -fstrict-aliasing"
 
 AC_OUTPUT(
 Makefile
