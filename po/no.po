@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-07-30 01:46+0200\n"
-"PO-Revision-Date: 1999-08-03 10:59+02:00\n"
+"POT-Creation-Date: 1999-08-12 23:52+0200\n"
+"PO-Revision-Date: 1999-08-12 23:53+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -234,35 +234,35 @@ msgstr "/Objekter/Grupper"
 msgid "/Objects/Ungroup"
 msgstr "/Objekter/Avgrupper"
 
-#: app/diagram.c:155 app/menus.c:223
+#: app/diagram.c:155 app/menus.c:225
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekter/Juster horisontal/Venstre"
 
-#: app/diagram.c:157 app/menus.c:224
+#: app/diagram.c:157 app/menus.c:226
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekter/Juster horisontal/Senter"
 
-#: app/diagram.c:159 app/menus.c:225
+#: app/diagram.c:159 app/menus.c:227
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekter/Juster horisontal/Høyre"
 
-#: app/diagram.c:161 app/menus.c:226
+#: app/diagram.c:161 app/menus.c:228
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekter/Juster horisontal/Lik avstand"
 
-#: app/diagram.c:163 app/menus.c:228
+#: app/diagram.c:163 app/menus.c:230
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekter/Juster vertikal/Øverst"
 
-#: app/diagram.c:165 app/menus.c:229
+#: app/diagram.c:165 app/menus.c:231
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekter/Juster vertikal/Senter"
 
-#: app/diagram.c:167 app/menus.c:230
+#: app/diagram.c:167 app/menus.c:232
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekter/Juster vertikal/Nederst"
 
-#: app/diagram.c:169 app/menus.c:231
+#: app/diagram.c:169 app/menus.c:233
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekter/Juster vertikal/Lik avstand"
 
@@ -482,340 +482,340 @@ msgstr "Lag nytt diagram"
 msgid "_Export To EPS"
 msgstr "_Eksporter til EPS"
 
-#: app/menus.c:86
+#: app/menus.c:88
 msgid "Zoom _In"
 msgstr "Zoom _inn"
 
-#: app/menus.c:86
+#: app/menus.c:88
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom inn 50%"
 
-#: app/menus.c:87
+#: app/menus.c:89
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: app/menus.c:87
+#: app/menus.c:89
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom ut 50%"
 
-#: app/menus.c:88
+#: app/menus.c:90
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: app/menus.c:89
+#: app/menus.c:91
 msgid "Edit Grid..."
 msgstr "Rediger rutenett..."
 
-#: app/menus.c:90
+#: app/menus.c:92
 msgid "_Visible Grid"
 msgstr "S_ynlig rutenett"
 
-#: app/menus.c:92
+#: app/menus.c:94
 msgid "_Snap To Grid"
 msgstr "Fe_st til rutenett"
 
-#: app/menus.c:94
+#: app/menus.c:96
 msgid "Show _Rulers"
 msgstr "Vis linjale_r"
 
-#: app/menus.c:96
+#: app/menus.c:98
 msgid "Show _Connection Points"
 msgstr "Vis _forbindelsespunkter"
 
-#: app/menus.c:99
+#: app/menus.c:101
 msgid "New _View"
 msgstr "Ny _visning"
 
-#: app/menus.c:100
+#: app/menus.c:102
 msgid "Show _All"
 msgstr "Vis _alt"
 
-#: app/menus.c:105 lib/widgets.c:176 objects/UML/association.c:880
+#: app/menus.c:107 lib/widgets.c:176 objects/UML/association.c:880
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:106 app/menus.c:114 lib/widgets.c:182
+#: app/menus.c:108 app/menus.c:116 lib/widgets.c:182
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:107 lib/widgets.c:188 objects/UML/association.c:873
+#: app/menus.c:109 lib/widgets.c:188 objects/UML/association.c:873
 msgid "Right"
 msgstr "Høyre"
 
-#: app/menus.c:108 app/menus.c:116
+#: app/menus.c:110 app/menus.c:118
 msgid "Equal Distance"
 msgstr "Lik avstand"
 
-#: app/menus.c:113
+#: app/menus.c:115
 msgid "Top"
 msgstr "Øverst"
 
-#: app/menus.c:115
+#: app/menus.c:117
 msgid "Bottom"
 msgstr "Nederst"
 
-#: app/menus.c:121
+#: app/menus.c:123
 msgid "Send to _Back"
 msgstr "Send til _bakgrunn"
 
-#: app/menus.c:122
+#: app/menus.c:124
 msgid "Bring to _Front"
 msgstr "Hent til _forgrunn"
 
-#: app/menus.c:124
+#: app/menus.c:126
 msgid "_Group"
 msgstr "_Grupper"
 
-#: app/menus.c:125
+#: app/menus.c:127
 msgid "_Ungroup"
 msgstr "Avgrupper"
 
-#: app/menus.c:127
+#: app/menus.c:129
 msgid "Align _Horizontal"
 msgstr "Juster _horisontalt"
 
-#: app/menus.c:128
+#: app/menus.c:130
 msgid "Align _Vertical"
 msgstr "Juster _vertikalt"
 
-#: app/menus.c:133
+#: app/menus.c:135
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: app/menus.c:134
+#: app/menus.c:136
 msgid "_Layers"
 msgstr "_Lag"
 
-#: app/menus.c:153
+#: app/menus.c:155
 msgid "Objects"
 msgstr "Objekter"
 
-#: app/menus.c:154
+#: app/menus.c:156
 msgid "Dialogs"
 msgstr "Dialoger"
 
-#: app/menus.c:161 app/menus.c:173
+#: app/menus.c:163 app/menus.c:175
 msgid "/_File"
 msgstr "/_Fil"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:162 app/menus.c:175
+#: app/menus.c:164 app/menus.c:177
 msgid "/File/_New"
 msgstr "/Fil/_Ny"
 
-#: app/menus.c:163 app/menus.c:176
+#: app/menus.c:165 app/menus.c:178
 msgid "/File/_Open"
 msgstr "/Fil/_Åpne"
 
-#: app/menus.c:164
+#: app/menus.c:166
 msgid "/File/_Preferences..."
 msgstr "/Fil/_Innstillinger..."
 
-#: app/menus.c:165 app/menus.c:180
+#: app/menus.c:167 app/menus.c:182
 msgid "/File/sep1"
 msgstr "/Fil/sep1"
 
-#: app/menus.c:166 app/menus.c:182
+#: app/menus.c:168 app/menus.c:184
 msgid "/File/_Quit"
 msgstr "/Fil/_Avslutt"
 
-#: app/menus.c:167
+#: app/menus.c:169
 msgid "/_Help"
 msgstr "/_Hjelp"
 
-#: app/menus.c:168
+#: app/menus.c:170
 msgid "/Help/_About"
 msgstr "/Hjelp/_Om"
 
-#: app/menus.c:177
+#: app/menus.c:179
 msgid "/File/_Save"
 msgstr "/Fil/_Lagre"
 
-#: app/menus.c:178
+#: app/menus.c:180
 msgid "/File/Save _As..."
 msgstr "/Fil/Lagre _som..."
 
-#: app/menus.c:179
+#: app/menus.c:181
 msgid "/File/_Export To EPS"
 msgstr "/Fil/_Eksporter til EPS"
 
-#: app/menus.c:181
+#: app/menus.c:183
 msgid "/File/_Close"
 msgstr "/_Fil/Lukk"
 
-#: app/menus.c:183
+#: app/menus.c:185
 msgid "/_Edit"
 msgstr "/_Rediger"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:185
+#: app/menus.c:187
 msgid "/Edit/_Copy"
 msgstr "/Rediger/_Kopier"
 
-#: app/menus.c:186
+#: app/menus.c:188
 msgid "/Edit/C_ut"
 msgstr "/Rediger/Klipp _ut"
 
-#: app/menus.c:187
+#: app/menus.c:189
 msgid "/Edit/_Paste"
 msgstr "/Rediger/_Lim inn"
 
-#: app/menus.c:188
+#: app/menus.c:190
 msgid "/Edit/_Delete"
 msgstr "/Rediger/_Slett"
 
-#: app/menus.c:189
-msgid "/Edit/_undo"
-msgstr "/Rediger/_angre"
+#: app/menus.c:191
+msgid "/Edit/_Undo"
+msgstr "/Rediger/_Angre"
 
-#: app/menus.c:190
+#: app/menus.c:192
 msgid "/Edit/_Redo"
 msgstr "/Rediger/_Gjenopprett"
 
-#: app/menus.c:191
+#: app/menus.c:193
 msgid "/_View"
 msgstr "/_Vis"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:193
+#: app/menus.c:195
 msgid "/View/Zoom _In"
 msgstr "/_Vis/Zoom _inn"
 
-#: app/menus.c:194
+#: app/menus.c:196
 msgid "/View/Zoom _Out"
 msgstr "/Vis/Zoom _ut"
 
-#: app/menus.c:195
+#: app/menus.c:197
 msgid "/View/_Zoom"
 msgstr "/Vis/_Zoom"
 
-#: app/menus.c:196
+#: app/menus.c:198
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vis/Zoom/400%"
 
-#: app/menus.c:197
+#: app/menus.c:199
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vis/Zoom/283%"
 
-#: app/menus.c:198
+#: app/menus.c:200
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vis/Zoom/200%"
 
-#: app/menus.c:199
+#: app/menus.c:201
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vis/Zoom/141%"
 
-#: app/menus.c:200
+#: app/menus.c:202
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vis/Zoom/100%"
 
-#: app/menus.c:201
+#: app/menus.c:203
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vis/Zoom/85%"
 
-#: app/menus.c:202
+#: app/menus.c:204
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vis/Zoom/70.7%"
 
-#: app/menus.c:203
+#: app/menus.c:205
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vis/Zoom/50%"
 
-#: app/menus.c:204
+#: app/menus.c:206
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vis/Zoom/35.4%"
 
-#: app/menus.c:205
+#: app/menus.c:207
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
-#: app/menus.c:206
+#: app/menus.c:208
 msgid "/View/Edit Grid..."
 msgstr "/Vis/Rediger rutenett..."
 
-#: app/menus.c:207
+#: app/menus.c:209
 msgid "/View/_Visible Grid"
 msgstr "/Vis/_Synlig rutenett"
 
-#: app/menus.c:208
+#: app/menus.c:210
 msgid "/View/_Snap To Grid"
 msgstr "/Vis/_Fest til rutenett"
 
-#: app/menus.c:209
+#: app/menus.c:211
 msgid "/View/Show _Rulers"
 msgstr "/Vis/Vis linjale_r"
 
-#: app/menus.c:210
+#: app/menus.c:212
 msgid "/View/Show _Connection Points"
 msgstr "Vis/Vis _forbindelsespunkter"
 
-#: app/menus.c:211
+#: app/menus.c:213
 msgid "/View/sep1"
 msgstr "/Vis/sep1"
 
-#: app/menus.c:212
+#: app/menus.c:214
 msgid "/View/New _View"
 msgstr "/Vis/Ny _visning"
 
-#: app/menus.c:213
+#: app/menus.c:215
 msgid "/View/Show _All"
 msgstr "/Vis/Vis alle"
 
-#: app/menus.c:214
+#: app/menus.c:216
 msgid "/_Objects"
 msgstr "/_Objekter"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:216
+#: app/menus.c:218
 msgid "/Objects/Send to _Back"
 msgstr "/Objekter/Send til _bakgrunn"
 
-#: app/menus.c:217
+#: app/menus.c:219
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekter/Hent til _forgrunn"
 
-#: app/menus.c:218 app/menus.c:221
+#: app/menus.c:220 app/menus.c:223
 msgid "/Objects/sep1"
 msgstr "/Objekter/sep1"
 
-#: app/menus.c:219
+#: app/menus.c:221
 msgid "/Objects/_Group"
 msgstr "/Objekter/_Grupper"
 
-#: app/menus.c:220
+#: app/menus.c:222
 msgid "/Objects/_Ungroup"
 msgstr "/Objekter/_Avgrupper"
 
-#: app/menus.c:222
+#: app/menus.c:224
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekter/Juster _horisontalt"
 
-#: app/menus.c:227
+#: app/menus.c:229
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekter/Juster _vertikalt"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:234
+#: app/menus.c:236
 msgid "/_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:235
+#: app/menus.c:237
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaper"
 
-#: app/menus.c:236
+#: app/menus.c:238
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
@@ -986,12 +986,12 @@ msgid "Browse"
 msgstr "Bla gjennom"
 
 #. type
-#: objects/ER/attribute.c:122 objects/ER/attribute.c:454
+#: objects/ER/attribute.c:141 objects/ER/attribute.c:517
 msgid "Attribute"
 msgstr "Attributt"
 
-#: objects/ER/attribute.c:188 objects/ER/entity.c:187
-#: objects/ER/relationship.c:196 objects/UML/association.c:844
+#: objects/ER/attribute.c:214 objects/ER/entity.c:208
+#: objects/ER/relationship.c:267 objects/UML/association.c:844
 #: objects/UML/class_dialog.c:615 objects/UML/class_dialog.c:1482
 #: objects/UML/class_dialog.c:1644 objects/UML/class_dialog.c:2100
 #: objects/UML/dependency.c:509 objects/UML/generalization.c:486
@@ -999,51 +999,51 @@ msgstr "Attributt"
 msgid "Name:"
 msgstr "Navn:"
 
-#: objects/ER/attribute.c:196
+#: objects/ER/attribute.c:222
 msgid "Key"
 msgstr "Nøkkel"
 
-#: objects/ER/attribute.c:202
+#: objects/ER/attribute.c:228
 msgid "Weak key"
 msgstr "Svak nøkkel"
 
-#: objects/ER/attribute.c:208
+#: objects/ER/attribute.c:234
 msgid "Derived"
 msgstr "Utledet"
 
-#: objects/ER/attribute.c:214
+#: objects/ER/attribute.c:240
 msgid "Multivalue"
 msgstr "Multiverdi"
 
-#: objects/ER/attribute.c:220 objects/ER/entity.c:201
-#: objects/ER/relationship.c:232 objects/standard/box.c:205
+#: objects/ER/attribute.c:246 objects/ER/entity.c:222
+#: objects/ER/relationship.c:303 objects/standard/box.c:205
 #: objects/standard/ellipse.c:198 objects/standard/image.c:262
 msgid "Border width:"
 msgstr "Grensebredde:"
 
-#: objects/ER/attribute.c:231 objects/ER/entity.c:212
-#: objects/ER/relationship.c:243 objects/standard/box.c:220
+#: objects/ER/attribute.c:257 objects/ER/entity.c:233
+#: objects/ER/relationship.c:314 objects/standard/box.c:220
 #: objects/standard/ellipse.c:213 objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
 
-#: objects/ER/attribute.c:239 objects/ER/entity.c:220
-#: objects/ER/relationship.c:251 objects/standard/box.c:231
+#: objects/ER/attribute.c:265 objects/ER/entity.c:241
+#: objects/ER/relationship.c:322 objects/standard/box.c:231
 #: objects/standard/ellipse.c:224
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
 
 #. type
-#: objects/ER/entity.c:115 objects/ER/entity.c:414 objects/UML/classicon.c:586
+#: objects/ER/entity.c:129 objects/ER/entity.c:468 objects/UML/classicon.c:586
 msgid "Entity"
 msgstr "Enhet"
 
 #. type
-#: objects/ER/entity.c:124
+#: objects/ER/entity.c:138
 msgid "Weak Entity"
 msgstr "Svak enhet"
 
-#: objects/ER/entity.c:195
+#: objects/ER/entity.c:216
 msgid "Weak"
 msgstr "Svak"
 
@@ -1056,32 +1056,40 @@ msgid "Editor for Entity Relations Diagrams."
 msgstr "Editor for Enhets Relasjons Diagrammer."
 
 #. type
-#: objects/ER/participation.c:97
+#: objects/ER/participation.c:107
 msgid "Create a participation"
 msgstr "Lag en deltakelse"
 
-#: objects/ER/participation.c:390
+#: objects/ER/participation.c:426
 msgid "Total:"
 msgstr "Total:"
 
+#: objects/ER/participation.c:459 objects/standard/zigzagline.c:598
+msgid "Add segment"
+msgstr "Legg til segment"
+
+#: objects/ER/participation.c:460 objects/standard/zigzagline.c:599
+msgid "Delete segment"
+msgstr "Slett segment"
+
 #. type
-#: objects/ER/relationship.c:123 objects/ER/relationship.c:506
+#: objects/ER/relationship.c:144 objects/ER/relationship.c:577
 msgid "Relationship"
 msgstr "Forhold"
 
-#: objects/ER/relationship.c:204
+#: objects/ER/relationship.c:275
 msgid "Left Cardinality:"
 msgstr "Venstrekardinalitet:"
 
-#: objects/ER/relationship.c:212
+#: objects/ER/relationship.c:283
 msgid "Right Cardinality:"
 msgstr "Høyrekardinalitet:"
 
-#: objects/ER/relationship.c:220
+#: objects/ER/relationship.c:291
 msgid "Rotate"
 msgstr "Roter"
 
-#: objects/ER/relationship.c:226
+#: objects/ER/relationship.c:297
 msgid "Identifying"
 msgstr "Identifiserer"
 
@@ -1873,14 +1881,6 @@ msgstr "Skrifttype:"
 #: objects/standard/textobj.c:218 objects/standard/textobj.c:312
 msgid "Fontsize:"
 msgstr "Størrelse på skrifttype:"
-
-#: objects/standard/zigzagline.c:598
-msgid "Add segment"
-msgstr "Legg til segment"
-
-#: objects/standard/zigzagline.c:599
-msgid "Delete segment"
-msgstr "Slett segment"
 
 #. type
 #: objects/sybase/client.c:55
