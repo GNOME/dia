@@ -1,17 +1,17 @@
 # dia ja.po
 # Copyright (C) 1999 Free Software Foundation, Inc.
-# Yukihiro Nakai <nacai@iname.com>, 1999.
+# Yukihiro Nakai <nakai@FreeBSD.org>, 1999.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
 "POT-Creation-Date: 1999-10-31 14:58+0100\n"
-"PO-Revision-Date: 1999-08-03 14:03+0900\n"
-"Last-Translator: Yukihiro Nakai <nacai@iname.com>\n"
-"Language-Team: Japanese GNOME Users Group <ja@li.org>\n"
+"PO-Revision-Date: 1999-11-25 14:03+0900\n"
+"Last-Translator: Yukihiro Nakai <nakai@FreeBSD.org>\n"
+"Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=euc-japan\n"
+"Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:127
@@ -626,23 +626,23 @@ msgstr "/ファイル(_F)"
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:178 app/menus.c:191
 msgid "/File/_New"
-msgstr "/ファイル/新規(_N)"
+msgstr "/ファイル(_F)/新規(_N)"
 
 #: app/menus.c:179 app/menus.c:192
 msgid "/File/_Open"
-msgstr "/ファイル/開く(_O)"
+msgstr "/ファイル(_F)/開く(_O)"
 
 #: app/menus.c:180
 msgid "/File/_Preferences..."
-msgstr "/ファイル/設定(_P)"
+msgstr "/ファイル(_F)/設定(_P)"
 
 #: app/menus.c:181 app/menus.c:197
 msgid "/File/sep1"
-msgstr "/ファイル/sep1"
+msgstr "/ファイル(_F)/sep1"
 
 #: app/menus.c:182 app/menus.c:202
 msgid "/File/_Quit"
-msgstr "/ファイル/終了(_Q)"
+msgstr "/ファイル(_F)/終了(_Q)"
 
 #: app/menus.c:183
 msgid "/_Help"
@@ -650,29 +650,29 @@ msgstr "/ヘルプ(_H)"
 
 #: app/menus.c:184
 msgid "/Help/_About"
-msgstr "/ヘルプ/情報(_A)"
+msgstr "/ヘルプ(_H)/情報(_A)"
 
 #: app/menus.c:193
 msgid "/File/_Save"
-msgstr "/ファイル/保存(_S)"
+msgstr "/ファイル(_F)/保存(_S)"
 
 #: app/menus.c:194
 msgid "/File/Save _As..."
-msgstr "/ファイル/名前をつけて保存(_A)"
+msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
 #: app/menus.c:195
 msgid "/File/_Export To EPS"
-msgstr "/ファイル/EPS出力(_E)"
+msgstr "/ファイル(_F)/EPS出力(_E)"
 
 #: app/menus.c:196
 #, fuzzy
 msgid "/File/Export To S_VG"
-msgstr "/ファイル/EPS出力(_E)"
+msgstr "/ファイル(_F)/EPS出力(_E)"
 
 #: app/menus.c:198
 #, fuzzy
 msgid "/File/Page Set_up..."
-msgstr "/ファイル/名前をつけて保存(_A)"
+msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
@@ -681,11 +681,11 @@ msgstr ""
 #: app/menus.c:200
 #, fuzzy
 msgid "/File/sep2"
-msgstr "/ファイル/sep1"
+msgstr "/ファイル(_F)/sep1"
 
 #: app/menus.c:201
 msgid "/File/_Close"
-msgstr "/ファイル/閉じる(_C)"
+msgstr "/ファイル(_F)/閉じる(_C)"
 
 #: app/menus.c:203
 msgid "/_Edit"
