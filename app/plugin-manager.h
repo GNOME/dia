@@ -24,6 +24,6 @@
 
 #include <gtk/gtk.h>
 
-void file_plugins_callback(GtkWidget *widget, gpointer user_data);
+void file_plugins_callback(gpointer data, guint action, GtkWidget *widget);
 
 #endif

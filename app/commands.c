@@ -65,7 +65,7 @@
 
 GdkPixbuf *logo;
 
-void file_quit_callback(GtkWidget *widget, gpointer data)
+void file_quit_callback(gpointer data, guint action, GtkWidget *widget)
 {
   app_exit();
 }
@@ -96,7 +96,7 @@ file_import_from_xfig_dialog_ok_callback (GtkWidget        *w,
 }
 
 void
-file_import_from_xfig_callback (GtkWidget *widget, gpointer data)
+file_import_from_xfig_callback (gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   GtkWidget *window = NULL;
@@ -124,7 +124,7 @@ file_import_from_xfig_callback (GtkWidget *widget, gpointer data)
 }
 
 void
-file_pagesetup_callback(GtkWidget *widget, gpointer data)
+file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
 
@@ -133,7 +133,7 @@ file_pagesetup_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-file_print_callback(GtkWidget *widget, gpointer data)
+file_print_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
 
@@ -146,13 +146,13 @@ file_print_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-file_close_callback(GtkWidget *widget, gpointer data)
+file_close_callback(gpointer data, guint action, GtkWidget *widget)
 {
   ddisplay_close(ddisplay_active());
 } 
 
 void
-file_new_callback(GtkWidget *widget, gpointer data)
+file_new_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   DDisplay *ddisp;
@@ -166,14 +166,14 @@ file_new_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-file_preferences_callback(GtkWidget *widget, gpointer data)
+file_preferences_callback(gpointer data, guint action, GtkWidget *widget)
 {
   prefs_show();
 }
 
 
 void
-edit_copy_callback(GtkWidget *widget, gpointer data)
+edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *copy_list;
   DDisplay *ddisp;
@@ -185,7 +185,7 @@ edit_copy_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-edit_cut_callback(GtkWidget *widget, gpointer data)
+edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *cut_list;
   DDisplay *ddisp;
@@ -209,7 +209,7 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-edit_paste_callback(GtkWidget *widget, gpointer data)
+edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *paste_list;
   DDisplay *ddisp;
@@ -316,7 +316,7 @@ get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 }
 
 void
-edit_copy_text_callback(GtkWidget *widget, gpointer data)
+edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
@@ -357,12 +357,12 @@ edit_copy_text_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-edit_cut_text_callback(GtkWidget *widget, gpointer data)
+edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
 }
 
 void
-edit_paste_text_callback(GtkWidget *widget, gpointer data)
+edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
 
@@ -373,7 +373,7 @@ edit_paste_text_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-edit_delete_callback(GtkWidget *widget, gpointer data)
+edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *delete_list;
   DDisplay *ddisp;
@@ -396,7 +396,7 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
 } 
 
 void
-edit_undo_callback(GtkWidget *widget, gpointer data)
+edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -410,7 +410,7 @@ edit_undo_callback(GtkWidget *widget, gpointer data)
 } 
 
 void
-edit_redo_callback(GtkWidget *widget, gpointer data)
+edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -424,7 +424,7 @@ edit_redo_callback(GtkWidget *widget, gpointer data)
 } 
 
 void
-help_about_callback(GtkWidget *widget, gpointer data)
+help_about_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GtkWidget *dialog;
   GtkWidget *vbox;
@@ -539,7 +539,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_zoom_in_callback(GtkWidget *widget, gpointer data)
+view_zoom_in_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Point middle;
@@ -554,7 +554,7 @@ view_zoom_in_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_zoom_out_callback(GtkWidget *widget, gpointer data)
+view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Point middle;
@@ -569,16 +569,9 @@ view_zoom_out_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-#ifdef GNOME
-view_zoom_set_callback(GtkWidget *widget, gpointer data)
-#else
-view_zoom_set_callback(GtkWidget *widget, gpointer data, guint action)
-#endif
+view_zoom_set_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
-#ifndef GNOME
-  int percent;
-#endif
   real scale;
   Point middle;
   Rectangle *visible;
@@ -588,26 +581,13 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data, guint action)
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
 
-# if GNOME
-  {
-    /* XXX get the % out of the menu's label -- this is gross */
-    float v;
-    GtkBin *mi = GTK_BIN (widget);
-    GtkLabel *lbl = GTK_LABEL (mi->child);
-    sscanf (lbl->label, "%f", &v);
-    scale = ((real) v)/100.0 * DDISPLAY_NORMAL_ZOOM;
-  }
-# else
-  percent = (int) action;
-  scale = ((real) percent)/1000.0 * DDISPLAY_NORMAL_ZOOM;
-# endif
+  scale = ((real) action)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
   ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
 }
 
 void
-view_show_cx_pts_callback(GtkWidget *widget,
-			  gpointer callback_data)
+view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   int old_val;
@@ -624,8 +604,7 @@ view_show_cx_pts_callback(GtkWidget *widget,
 }
 
 void
-view_aa_callback(GtkWidget *widget,
-		 gpointer callback_data)
+view_aa_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   int aa;
@@ -649,8 +628,7 @@ view_aa_callback(GtkWidget *widget,
 }
 
 void
-view_visible_grid_callback(GtkWidget *widget,
-			   gpointer callback_data)
+view_visible_grid_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   int old_val;
@@ -667,8 +645,7 @@ view_visible_grid_callback(GtkWidget *widget,
 }
 
 void
-view_snap_to_grid_callback(GtkWidget *widget,
-			   gpointer callback_data)
+view_snap_to_grid_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   int old_val;
@@ -679,8 +656,7 @@ view_snap_to_grid_callback(GtkWidget *widget,
   ddisp->grid.snap =  GTK_CHECK_MENU_ITEM(widget)->active;
 }
 
-void view_toggle_rulers_callback(GtkWidget *widget,
-				 gpointer callback_data)
+void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
 {
   DDisplay *ddisp;
   
@@ -721,7 +697,7 @@ void view_toggle_rulers_callback(GtkWidget *widget,
 }
 
 extern void
-view_new_view_callback(GtkWidget *widget, gpointer data)
+view_new_view_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -733,7 +709,7 @@ view_new_view_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_show_all_callback(GtkWidget *widget, gpointer data)
+view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -765,7 +741,7 @@ view_show_all_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_diagram_properties_callback(GtkWidget *widget, gpointer data)
+view_diagram_properties_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
 
@@ -775,31 +751,31 @@ view_diagram_properties_callback(GtkWidget *widget, gpointer data)
 
 
 void
-objects_place_over_callback(GtkWidget *widget, gpointer data)
+objects_place_over_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_place_over_selected(ddisplay_active()->diagram);
 }
 
 void
-objects_place_under_callback(GtkWidget *widget, gpointer data)
+objects_place_under_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_place_under_selected(ddisplay_active()->diagram);
 }
 
 void
-objects_group_callback(GtkWidget *widget, gpointer data)
+objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_group_selected(ddisplay_active()->diagram);
 } 
 
 void
-objects_ungroup_callback(GtkWidget *widget, gpointer data)
+objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_ungroup_selected(ddisplay_active()->diagram);
 } 
 
 void
-dialogs_properties_callback(GtkWidget *widget, gpointer data)
+dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   Object *selected;
@@ -815,7 +791,7 @@ dialogs_properties_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-dialogs_layers_callback(GtkWidget *widget, gpointer data)
+dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget)
 {
   layer_dialog_set_diagram(ddisplay_active()->diagram);
   layer_dialog_show();
@@ -823,21 +799,13 @@ dialogs_layers_callback(GtkWidget *widget, gpointer data)
 
 
 void
-#ifdef GNOME
-objects_align_h_callback(GtkWidget *widget, gpointer data)
-#else
-objects_align_h_callback(GtkWidget *widget, gpointer data, guint action)
-#endif
+objects_align_h_callback(gpointer data, guint action, GtkWidget *widget)
 {
   int align;
   Diagram *dia;
   GList *objects;
 
-#ifdef GNOME
-  align = GPOINTER_TO_INT(data);
-#else
   align = action;
-#endif
 
   dia = ddisplay_active()->diagram;
   objects = dia->data->selected;
@@ -852,21 +820,14 @@ objects_align_h_callback(GtkWidget *widget, gpointer data, guint action)
 }
 
 void
-#ifdef GNOME
-objects_align_v_callback(GtkWidget *widget, gpointer data)
-#else
-objects_align_v_callback(GtkWidget *widget, gpointer data, guint action)
-#endif
+objects_align_v_callback(gpointer data, guint action, GtkWidget *widget)
 {
   int align;
   Diagram *dia;
   GList *objects;
 
-#ifdef GNOME
-  align = GPOINTER_TO_INT(data);
-#else
   align = action;
-#endif
+
   dia = ddisplay_active()->diagram;
   objects = dia->data->selected;
 

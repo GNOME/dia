@@ -27,7 +27,7 @@
 enum SelectionStyle selection_style = SELECT_REPLACE;
 
 void
-select_all_callback(GtkWidget *widget, gpointer data)
+select_all_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   GList *objects;
@@ -51,7 +51,7 @@ select_all_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-select_none_callback(GtkWidget *widget, gpointer data)
+select_none_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram * dia = ddisplay_active()->diagram;
 
@@ -63,7 +63,7 @@ select_none_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-select_invert_callback(GtkWidget *widget, gpointer data)
+select_invert_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   GList *tmp;
@@ -88,7 +88,7 @@ select_invert_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-select_connected_callback(GtkWidget *widget, gpointer data)
+select_connected_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia = ddisplay_active()->diagram;
   GList *objects, *tmp;
@@ -172,7 +172,7 @@ select_transitively(Diagram *dia, Object *obj)
 }
 
 void
-select_transitive_callback(GtkWidget *widget, gpointer data)
+select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia = ddisplay_active()->diagram;
   GList *objects, *tmp;
@@ -189,7 +189,7 @@ select_transitive_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-select_same_type_callback(GtkWidget *widget, gpointer data)
+select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
 {
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */
@@ -223,47 +223,11 @@ select_same_type_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-select_style_callback(GtkWidget *widget, gpointer data)
+select_style_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  static GtkWidget *item;
-  
-#ifdef GNOME
   if (ddisplay_active () == NULL) return;
-#endif
 
-  item = menus_get_item_from_path("<Display>/Select/Replace");
-  if (item==widget)
-    {
-      selection_style = SELECT_REPLACE;
-      return;
-    }  
-  
-  item = menus_get_item_from_path("<Display>/Select/Union");
-  if (item==widget)
-    {
-      selection_style = SELECT_UNION;
-      return;
-    }  
-  
-  item = menus_get_item_from_path( "<Display>/Select/Intersect");
-  if (item==widget)
-    {
-      selection_style = SELECT_INTERSECTION;
-      return;
-    }  
-  
-  item = menus_get_item_from_path("<Display>/Select/Remove");
-  if (item==widget)
-    {
-      selection_style = SELECT_REMOVE;
-      return;
-    }  
-  
-  item = menus_get_item_from_path("<Display>/Select/Invert");
-  if (item==widget)
-    {
-      selection_style = SELECT_INVERT;
-      return;
-    }  
+  /* simply set the selection style to the value of `action' */
+  selection_style = action;
 }
 

@@ -1,3 +1,43 @@
+2001-02-21  James Henstridge  <james@daa.com.au>
+
+	* acconfig.h: guard against multiple inclusion of config.h.
+
+	* app/select.c (select_style_callback): simply set the selection
+	style to the value of action.
+
+	* app/menus.c (menus_init): simplify the item factory based menu
+	code a bit.  It looks like it was using some code cut and pasted
+	from the gimp, which looked a bit unnecessary.  Things work fine
+	without it.
+	(selectmenu): set the action to the type of selection mode
+	requested.
+	(display_menu_items): use the symbolic enumeration values for the
+	action field.
+
+	* app/plugin-manager.c: 
+	* app/plugin-manager.h: 
+	* app/filedlg.c:
+	* app/filedlg.h: 
+	* app/select.c:
+	* app/select.h: change prototypes.
+
+	* app/commands.c: update all callback prototypes, and get rid of
+	some #ifdef GNOME's.
+
+	* app/commands.h: change function prototypes.
+
+	* app/dia_embedd.c (save_fn):
+	s/ex_Bonobo_IOError/ex_BonoboStorage_IOError/
+
+	* app/menus.c (menus_init): for gnome menus, use
+	gnome_app_fill_menu_custom and pass in a GnomeUIBuilderData
+	structure that proxies the callbacks to have the same signature as
+	GtkItemFactory type 1 callbacks.
+	(menus_init): for GTK menus, change from callback type 2 to type
+	1.
+	(display_menu_items): add back tearoffs.  I don't know who removed
+	these for the gtk menu case.
+
 2001-02-20  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/usage-objects-special.sgml: Fixed a few of the special

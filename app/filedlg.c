@@ -145,7 +145,7 @@ file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 }
 
 void
-file_open_callback(GtkWidget *widget, gpointer user_data)
+file_open_callback(gpointer data, guint action, GtkWidget *widget)
 {
   if (!opendlg) {
     DDisplay *ddisp;
@@ -287,7 +287,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 }
 
 void
-file_save_as_callback(GtkWidget *widget, gpointer user_data)
+file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -326,14 +326,14 @@ file_save_as_callback(GtkWidget *widget, gpointer user_data)
 }
 
 void
-file_save_callback(GtkWidget *widget, gpointer user_data)
+file_save_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
 
   if (ddisp->diagram->unsaved) {
-    file_save_as_callback(widget, user_data);
+    file_save_as_callback(data, action, widget);
   } else {
     diagram_update_extents(ddisp->diagram);
     diagram_save(ddisp->diagram, ddisp->diagram->filename);
@@ -484,7 +484,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 }
 
 void
-file_export_callback(GtkWidget *widget, gpointer user_data)
+file_export_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;

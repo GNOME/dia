@@ -199,7 +199,7 @@ save_fn (BonoboPersistFile *pf,
 
   if (!diagram_save (dia->diagram, filename))
     CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
-			 ex_Bonobo_IOError, NULL);
+			 ex_Bonobo_Storage_IOError, NULL);
   return 0;
 }
 

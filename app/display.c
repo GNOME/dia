@@ -924,7 +924,7 @@ void
 display_update_menu_state(DDisplay *ddisp)
 {
   Diagram *dia;
-  static int initialized = 0;
+  static gboolean initialized = 0;
 
   static GtkWidget *rulers;
   static GtkWidget *visible_grid;
@@ -934,7 +934,7 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *antialiased;
 #endif
 
-  if (initialized==0) {
+  if (!initialized) {
     rulers       = menus_get_item_from_path("<Display>/View/Show Rulers");
     visible_grid = menus_get_item_from_path("<Display>/View/Visible Grid");
     snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid");
@@ -944,7 +944,7 @@ display_update_menu_state(DDisplay *ddisp)
     antialiased = menus_get_item_from_path("<Display>/View/AntiAliased");
 #endif
 
-    initialized = 1;
+    initialized = TRUE;
   }
   
   dia = ddisp->diagram;

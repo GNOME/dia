@@ -280,7 +280,7 @@ get_plugin_manager(void)
 }
 
 void
-file_plugins_callback(GtkWidget *widget, gpointer user_data)
+file_plugins_callback(gpointer data, guint action, GtkWidget *widget)
 {
   PluginManager *pm = get_plugin_manager();
 

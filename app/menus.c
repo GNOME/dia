@@ -34,7 +34,7 @@
 #include "select.h"
 #include "dia_dirs.h"
 
-#if GNOME
+#ifdef GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
 			    file_new_callback, NULL),
@@ -137,15 +137,15 @@ static GnomeUIInfo selectmenu[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Same Type"), NULL, select_same_type_callback, 0),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_RADIOITEM(N_("Replace"), NULL, select_style_callback, 
-			 NULL),
+			GPOINTER_FROM_UINT(SELECT_REPLACE)),
   GNOMEUIINFO_RADIOITEM(N_("Union"), NULL, select_style_callback,
-			 NULL),
+			GPOINTER_FROM_UINT(SELECT_UNION)),
   GNOMEUIINFO_RADIOITEM(N_("Intersect"), NULL, select_style_callback,
-			 NULL),
+			GPOINTER_FROM_UINT(SELECT_INTERSECTION)),
   GNOMEUIINFO_RADIOITEM(N_("Remove"), NULL, select_style_callback, 
-			 NULL), 
+			GPOINTER_FROM_UINT(SELECT_REMOVE)), 
   GNOMEUIINFO_RADIOITEM(N_("Invert"), NULL, select_style_callback, 
-			 NULL),
+			GPOINTER_FROM_UINT(SELECT_INVERT)),
   GNOMEUIINFO_END
 };
 
@@ -227,15 +227,13 @@ static GnomeUIInfo display_menu[] = {
 
 #else /* !GNOME */
 
-static void menus_create_branches (GtkItemFactory       *item_factory,
-				   GtkItemFactoryEntry  *entry);
-
 #define MRU_MENU_ENTRY_SIZE (strlen ("/File/MRU00 ") + 1)
 #define MRU_MENU_ACCEL_SIZE sizeof ("<control>0")
 
 static GtkItemFactoryEntry toolbox_menu_items[] =
 {
   {N_("/_File"),               NULL,         NULL,                      0, "<Branch>"},
+  {   "/File/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/File/_New"),           "<control>N", file_new_callback,         0 },
   {N_("/File/_Open"),          "<control>O", file_open_callback,        0 },
   {N_("/File/Open _Recent"),   NULL,         NULL,                      0, "<Branch>"},
@@ -246,12 +244,15 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/---"),            NULL,         NULL,                      0, "<Separator>"},
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
   {N_("/_Help"),               NULL,         NULL,                      0, "<Branch>" },
+  {   "/Help/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
 
 static GtkItemFactoryEntry display_menu_items[] =
 {
+  {   "/tearoff",                 NULL,         NULL,         0, "<Tearoff>" },
   {N_("/_File"),                  NULL,         NULL,           0, "<Branch>"},
+  {   "/File/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
   {N_("/File/_New"),              "<control>N", file_new_callback,          0},
   {N_("/File/_Open"),             "<control>O", file_open_callback,         0},
   {N_("/File/_Save"),             "<control>S", file_save_callback,         0},
@@ -265,6 +266,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {   "/File/---MRU",             NULL,         NULL,        0, "<Separator>"},
   {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0},
   {N_("/_Edit"),                  NULL,         NULL,           0, "<Branch>"},
+  {   "/Edit/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0},
   {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0},
   {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0},
@@ -275,9 +277,11 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
   {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
   {N_("/_View"),                  NULL,         NULL,           0, "<Branch>"},
+  {   "/View/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
   {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0},
   {N_("/View/Zoom _Out"),         NULL,          view_zoom_out_callback,    0},
   {N_("/View/_Zoom"),             NULL,         NULL,           0, "<Branch>"},
+  {   "/View/Zoom/tearoff",       NULL,         NULL,         0, "<Tearoff>" },
   {N_("/View/Zoom/400%"),         NULL,         view_zoom_set_callback,  4000},
   {N_("/View/Zoom/283%"),         NULL,         view_zoom_set_callback,  2828},
   {N_("/View/Zoom/200%"),         NULL,         view_zoom_set_callback,  2000},
@@ -300,6 +304,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
   {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
   {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
+  {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Select/All"),             NULL,         select_all_callback,        0},
   {N_("/Select/None"),            NULL,         select_none_callback,       0},
   {N_("/Select/Invert"),          NULL,         select_invert_callback,     0},
@@ -307,12 +312,18 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Select/Transitive"),      NULL,         select_transitive_callback, 0},
   {N_("/Select/Same Type"),       NULL,         select_same_type_callback,  0},
   {N_("/Select/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Select/Replace"),       NULL, select_style_callback, 0, "<RadioItem>"},
-  {N_("/Select/Union"),     NULL, select_style_callback, 1, "/Select/Replace"},
-  {N_("/Select/Intersect"), NULL, select_style_callback, 2, "/Select/Replace"},
-  {N_("/Select/Remove"),    NULL, select_style_callback, 3, "/Select/Replace"},
-  {N_("/Select/Invert"),    NULL, select_style_callback, 4, "/Select/Replace"},
+  {N_("/Select/Replace"),       NULL, select_style_callback,
+   SELECT_REPLACE, "<RadioItem>"},
+  {N_("/Select/Union"),     NULL, select_style_callback,
+   SELECT_UNION, "/Select/Replace"},
+  {N_("/Select/Intersect"), NULL, select_style_callback,
+   SELECT_INTERSECTION, "/Select/Replace"},
+  {N_("/Select/Remove"),    NULL, select_style_callback,
+   SELECT_REMOVE, "/Select/Replace"},
+  {N_("/Select/Invert"),    NULL, select_style_callback,
+   SELECT_INVERT, "/Select/Replace"},
   {N_("/_Objects"),               NULL,         NULL,           0, "<Branch>"},
+  {   "/Objects/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Objects/Send to _Back"),  "<control>B",objects_place_under_callback,0},
   {N_("/Objects/Bring to _Front"),"<control>F", objects_place_over_callback,0},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
@@ -320,12 +331,14 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/_Ungroup"),       "<control>U", objects_ungroup_callback,   0},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
+  {   "/Objects/Align Horizontal/tearoff", NULL, NULL,        0, "<Tearoff>" },
   {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  0},
   {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  1},
   {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  2},
   {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    4},
   {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    5},
   {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
+  {   "/Objects/Align Vertical/tearoff",   NULL, NULL,        0, "<Tearoff>" },
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  0},
   {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  1},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  2},
@@ -333,6 +346,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  5},
 
   {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
+  {   "/Tools/tearoff",           NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Tools/Modify"),           NULL,     NULL,                           0},
   {N_("/Tools/Magnify"),          NULL,     NULL,                           0},
   {N_("/Tools/Scroll"),           NULL,     NULL,                           0},
@@ -349,6 +363,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Tools/Image"),            NULL,     NULL,                           0},
 
   {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
+  {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Dialogs/_Properties"),    NULL,     dialogs_properties_callback,    0},
   {N_("/Dialogs/_Layers"),        NULL,     dialogs_layers_callback,        0},
 };
@@ -544,95 +559,6 @@ save_accels(gpointer data)
 
 #ifndef GNOME
 static void
-menus_create_item (GtkItemFactory       *item_factory,
-		   GtkItemFactoryEntry  *entry,
-		   gpointer              callback_data,
-		   guint                 callback_type)
-{
-  GtkWidget *menu_item;
-
-  if (!(strstr (entry->path, "tearoff1")))
-    menus_create_branches (item_factory, entry);
-
-  gtk_item_factory_create_item (item_factory,
-				(GtkItemFactoryEntry *) entry,
-				callback_data,
-				callback_type);
-
-  menu_item = gtk_item_factory_get_item (item_factory, entry->path);
-}
-
-static void
-menus_create_items (GtkItemFactory       *item_factory,
-		    guint                 n_entries,
-		    GtkItemFactoryEntry *entries,
-		    gpointer              callback_data,
-		    guint                 callback_type)
-{
-  gint i;
-
-  for (i = 0; i < n_entries; i++)
-    {
-      menus_create_item (item_factory,
-			 entries + i,
-			 callback_data,
-			 callback_type);
-    }
-}
-
-static void
-menus_create_branches (GtkItemFactory       *item_factory,
-		       GtkItemFactoryEntry  *entry)
-{
-  GString *tearoff_path;
-  gint factory_length;
-  gchar *p;
-  gchar *path;
-
-  tearoff_path = g_string_new ("");
-
-  path = entry->path;
-  p = strchr (path, '/');
-  factory_length = p - path;
-
-  /*  skip the first slash  */
-  if (p)
-    p = strchr (p + 1, '/');
-
-  while (p)
-    {
-      g_string_assign (tearoff_path, path + factory_length);
-      g_string_truncate (tearoff_path, p - path - factory_length);
-
-      if (!gtk_item_factory_get_widget (item_factory, tearoff_path->str))
-	{
-	  GtkItemFactoryEntry branch_entry =
-	  { NULL, NULL, NULL, 0, "<Branch>" };
-
-	  branch_entry.path = tearoff_path->str;
-	  gtk_object_set_data (GTK_OBJECT (item_factory), "complete", path);
-	  menus_create_item (item_factory, &branch_entry, NULL, 2);
-	  gtk_object_remove_data (GTK_OBJECT (item_factory), "complete");
-	}
-
-      g_string_append (tearoff_path, "/tearoff1");
-
-      if (!gtk_item_factory_get_widget (item_factory, tearoff_path->str))
-	{
-	  GtkItemFactoryEntry tearoff_entry =
-	  { NULL, NULL, NULL, 0, "<Tearoff>" };
-
-	  tearoff_entry.path = tearoff_path->str;
-	  menus_create_item (item_factory, &tearoff_entry, NULL, 2);
-	}
-
-      p = strchr (p + 1, '/');
-    }
-
-  g_string_free (tearoff_path, TRUE);
-}
-
-static void
 menus_last_opened_cmd_callback (GtkWidget *widget,
                                 gpointer   callback_data,
                                 guint      num)
@@ -723,6 +649,38 @@ menus_init_mru (void)
 }
 #endif
 
+#ifdef GNOME
+/* create the GnomeUIBuilderData structure that connects the callbacks
+ * so that they have the same signature as type 1 GtkItemFactory
+ * callbacks */
+
+static void
+dia_menu_signal_proxy (GtkWidget *widget, GnomeUIInfo *uiinfo)
+{
+  GtkItemFactoryCallback1 signal_handler =
+    (GtkItemFactoryCallback1)uiinfo->moreinfo;
+  guint action = GPOINTER_TO_UINT (uiinfo->user_data);
+
+  (* signal_handler) (NULL, action, widget);
+}
+
+static void
+dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
+			     GnomeUIBuilderData *uibdata)
+{
+  gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
+		      GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);
+}
+
+static GnomeUIBuilderData dia_menu_uibdata = {
+  dia_menu_signal_connect_func, /* connect_func */
+  NULL,                         /* data */
+  FALSE,                        /* is_interp */
+  (GtkCallbackMarshal) 0,       /* relay_func */
+  (GtkDestroyNotify) 0          /* destroy_func */
+};
+#endif
+
 static void
 menus_init(void)
 {
@@ -740,8 +698,8 @@ menus_init(void)
   /* the toolbox menu */
   toolbox_accels = gtk_accel_group_new();
   toolbox_menubar = gtk_menu_bar_new();
-  gnome_app_fill_menu(GTK_MENU_SHELL(toolbox_menubar), toolbox_menu,
-		      toolbox_accels, TRUE, 0);
+  gnome_app_fill_menu_custom(GTK_MENU_SHELL(toolbox_menubar), toolbox_menu,
+			     &dia_menu_uibdata, toolbox_accels, TRUE, 0);
 
   /* the display menu */
   display_menus = gtk_menu_new();
@@ -749,8 +707,8 @@ menus_init(void)
   gtk_menu_set_accel_group(GTK_MENU(display_menus), display_accels);
   menuitem = gtk_tearoff_menu_item_new();
   gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
-  gnome_app_fill_menu(GTK_MENU_SHELL(display_menus), display_menu,
-		      display_accels, FALSE, 0);
+  gnome_app_fill_menu_custom(GTK_MENU_SHELL(display_menus), display_menu,
+			     &dia_menu_uibdata, display_accels, FALSE, 0);
   /* and the tearoff ... */
   menuitem = gtk_tearoff_menu_item_new();
   gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
@@ -766,10 +724,10 @@ menus_init(void)
   gtk_item_factory_set_translate_func (toolbox_item_factory, menu_translate,
 				       "<Toolbox>", NULL);
 #endif
-  menus_create_items (toolbox_item_factory,
-		      toolbox_nmenu_items,
-		      toolbox_menu_items,
-		      NULL, 2);
+  gtk_item_factory_create_items (toolbox_item_factory,
+				 toolbox_nmenu_items,
+				 toolbox_menu_items,
+				 NULL);
   
   menus_init_mru ();
 
@@ -784,10 +742,10 @@ menus_init(void)
   gtk_item_factory_set_translate_func (display_item_factory, menu_translate,
 				       "<Display>", NULL);
 #endif
-  menus_create_items (display_item_factory,
-		      display_nmenu_items,
-		      display_menu_items,
-		      NULL, 2);
+  gtk_item_factory_create_items (display_item_factory,
+				 display_nmenu_items,
+				 display_menu_items,
+				 NULL);
 
   display_menus = gtk_item_factory_get_widget(display_item_factory,
 					      "<Display>");

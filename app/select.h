@@ -26,12 +26,12 @@ enum SelectionStyle {SELECT_REPLACE, SELECT_UNION,
 
 extern enum SelectionStyle selection_style;
 
-void select_all_callback(GtkWidget *widget, gpointer data);
-void select_none_callback(GtkWidget *widget, gpointer data);
-void select_invert_callback(GtkWidget *widget, gpointer data);
-void select_connected_callback(GtkWidget *widget, gpointer data);
-void select_transitive_callback(GtkWidget *widget, gpointer data);
-void select_same_type_callback(GtkWidget *widget, gpointer data);
-void select_style_callback(GtkWidget *widget, gpointer data);
+void select_all_callback(gpointer data, guint action, GtkWidget *widget);
+void select_none_callback(gpointer data, guint action, GtkWidget *widget);
+void select_invert_callback(gpointer data, guint action, GtkWidget *widget);
+void select_connected_callback(gpointer data, guint action, GtkWidget *widget);
+void select_transitive_callback(gpointer data, guint action, GtkWidget*widget);
+void select_same_type_callback(gpointer data, guint action, GtkWidget *widget);
+void select_style_callback(gpointer data, guint action, GtkWidget *widget);
 
 #endif
