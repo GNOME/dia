@@ -120,12 +120,16 @@ app_init (int argc, char **argv)
   char *in_file_name = NULL;
   char *export_file_name = NULL;
 #ifdef HAVE_POPT
+  int rc;
   poptContext poptCtx;
   struct poptOption options[] =
   {
     {"export-to-ps", 'e', POPT_ARG_STRING, &export_file_name, 0,
      N_("Export loaded file to postscript and exit"),
      N_("OUTPUT")},
+#ifndef GNOME
+    {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
+#endif
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 #endif
@@ -150,10 +154,22 @@ app_init (int argc, char **argv)
     gtk_signal_connect(GTK_OBJECT (client), "die",
 		       GTK_SIGNAL_FUNC (session_die), NULL);
   }
-
 #else
 #ifdef HAVE_POPT
   poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
+  poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
+  if((rc = poptGetNextOpt(poptCtx)) < -1) {
+    fprintf(stderr, 
+	    _("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
+	    poptBadOption(poptCtx, 0),
+	    poptStrerror(rc),
+	    argv[0]);
+    exit(1);
+  }
+  if(rc == 1) {
+    poptPrintHelp(poptCtx, stderr, 0);
+    exit(0);
+  }
 #endif
   gtk_init (&argc, &argv);
   dia_image_init();
@@ -208,6 +224,7 @@ app_init (int argc, char **argv)
       ddisp = new_display(diagram);
     }
   }
+  poptFreeContext(poptCtx);
 #endif
 
   active_tool = create_modify_tool();

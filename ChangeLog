@@ -1,3 +1,7 @@
+1999-11-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/app_procs.c: Fixed popt stuff.
+
 1999-11-01  James Henstridge  <james@daa.com.au>
 
 	* shapes/Circuit/[hv]led_de.{shape,xpm}: new circuit shapes from
