@@ -1,0 +1,53 @@
+Status
+------
+
+This document, at this point, is a proposal only. It attempts to
+document how we intend to make the upcoming releases, in order to make
+as sure as possible no stupid bugs creep in just before the release.
+
+Contents
+--------
+
+When a new version is about to be released:
+
+1) The core developers agree on the version number. It's called
+   $VERSION thereafter. 
+
+2) Day Zero (D+0): the imminence of a release is announced. This is a
+   call for advanced users to pound on the CVS version.
+
+3) D+3: a release candidate tarball is made. It is called
+   $VERSION-pre1. Simultaneously, a CVS tag is made with the name
+   "DIA_$VERSION_PRE1" (with the non-alphanumeric characters in
+   $VERSION replaced by underscores). $VERSION-pre1 is registered with
+   the Bugzilla (FIXME: only if it can later on be de-registered !)
+
+4a) D+10: if there are no release-critical bugs in the pre-release,
+   then the same source (fetched from the CVS tag) is rebuilt with the
+   final $VERSION number (and the resulting "new" version is re-tagged
+   in CVS). $VERSION is registered with the Bugzilla, and all
+   $VERSION-preX are removed (from now on, bugs against -preX are
+   rejected as INVALID).
+
+4b) if a release-critical bug happens before D+10 (say, at D+n), the
+   release process is paused until the bug is fixed and a new release
+   candidate tarball $VERSION-pre2 is re-made. Go to either step 4a or
+   4b with D+10 replaced by D+n+10.
+
+Issues to solve
+---------------
+
+What to do with Windows; changing the version number causes a complete
+rebuild, and this seems to be a problem for Hans. In particular, it
+seems to upsets him to rebuild when the only change is going from
+$VERSION-preX to $VERSION.
+
+OTOH, if there is no prominent "pre-release" marker very visible
+anywhere (setup does not count: nobody pays attention to what's going
+on in the setup !), there is a high risk that the typical Windows user
+will happily mash up things when reporting bugs, which will just
+result in nightmare.
+
+Any ideas ? (a small text file, which if present next to dia.exe, is
+read and supplements the version number at run time ?)
+

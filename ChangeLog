@@ -1,3 +1,8 @@
+2002-05-12  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* RELEASE-PROCESS (new): a draft document about how to release. To
+	be discussed.
+
 2002-05-12  Steffen Macke <sdteffen@web.de>
 
 	* sheets/Makefile.am: re-added Misc sheet to make process
