@@ -95,7 +95,7 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
 	return NULL;
     list = tmp = data_get_sorted_selected(self->data);
 
-    len = self->data->selected_count;
+    len = g_list_length (self->data->selected);
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)

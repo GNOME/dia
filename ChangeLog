@@ -1,5 +1,37 @@
 2004-10-30  Hans Breuer  <hans@breuer.org>
 
+        * lib/diagramdata.c app/diagram.c app/disp_callbacks.c
+          plug-ins/python/pydia-diagram.c plug-ins/python/pydia-diagramdata.c :
+        removed use of chached variable DiagramData::selected_count
+        * lib/diagramdata.h : renamed to selected_count_private
+        (kept for binary compatibility and sanity checks)
+        * lib/diagramdata.c : more checks on a screwed up selection list
+
+        * app/diagram.c(diagram_group_selected) : don't screw up the
+        DiagramData::selected list, was assignment of parent_list_affected(),
+        * lib/diagramdata.c (data_select, data_unselect) : protect against
+        multiple selections of the same object and removement of a not selected
+        object (apparently caused by the recently added group undo stuff)
+        together with the above this finally fixes bug #153525
+
+        * app/Makefile.am : fix ./autogen.sh ->
+        app/Makefile.am:171: blank line following trailing backslash
+
+        * app/commands.c(objects_group_callback,objects_ungroup_callback) :
+        ddisplay_do_update_menu_sensitivity() here as well
+
+        * configure.in : make the experimental state of the cairo plug-in
+        more visible
+        
+        * app/dia-props.c(diagram_properties_update_sensitivity) : don't
+        try to update anything if we can't find an active diagram
+        Additionally set static dialog pointer to NULL by gtk_widget_destroyed
+        
+        * configure.in : another attempt to fix bug #155166. If there is
+        anyone with autotools knowledge reading this - help appreciated ;-)
+
+2004-10-30  Hans Breuer  <hans@breuer.org>
+
 	* objects/makefile.msc objects/UML/Makefile.am
 	  objects/UML/uml.c objects/UML/transition.c 
 	  objects/UML/pixmaps/transition.xpm sheets/uml.sheet.in : 

@@ -92,7 +92,7 @@ struct _DiagramData {
   GPtrArray *layers;     /* Layers ordered by decreasing z-order */
   Layer *active_layer;
 
-  guint selected_count;
+  guint selected_count_private; /* kept for binary compatibility and sanity, don't use ! */
   GList *selected;        /* List of objects that are selected,
 			     all from the active layer! */
 

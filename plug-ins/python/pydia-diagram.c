@@ -209,7 +209,7 @@ PyDiaDiagram_GetSortedSelected(PyDiaDiagram *self, PyObject *args)
 	return NULL;
     list = tmp = diagram_get_sorted_selected(self->dia);
 
-    len = self->dia->data->selected_count;
+    len = g_list_length (self->dia->data->selected);
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
@@ -229,7 +229,7 @@ PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
 	return NULL;
     list = tmp = diagram_get_sorted_selected_remove(self->dia);
 
-    len = self->dia->data->selected_count;
+    len = g_list_length (self->dia->data->selected);
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
@@ -440,7 +440,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
     } else if (!strcmp(attr, "active_layer"))
 	return PyDiaLayer_New(self->dia->data->active_layer);
     else if (!strcmp(attr, "selected")) {
-	guint i, len = self->dia->data->selected_count;
+	guint i, len = g_list_length (self->dia->data->selected);
 	PyObject *ret = PyTuple_New(len);
 	GList *tmp;
 

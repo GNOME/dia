@@ -44,19 +44,15 @@ static void diagram_properties_respond(GtkWidget *widget,
                                        gpointer user_data);
 
 static void
-diagram_properties_dialog_destroyed(GtkWidget *widget, gpointer userdata)
-{
-  printf("Destroyed dialog\n");
-  dialog = NULL;
-}
-
-static void
 diagram_properties_update_sensitivity(GtkToggleButton *widget,
 				      gpointer userdata)
 {
   Diagram *dia = ddisplay_active_diagram();
   gboolean dyn_grid, square_grid, hex_grid;
 
+  if (!dia)
+    return; /* safety first */
+  
   dia->data->grid.dynamic =
         gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
   dyn_grid = dia->data->grid.dynamic;
@@ -106,7 +102,7 @@ create_diagram_properties_dialog(Diagram *dia)
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
   g_signal_connect(G_OBJECT(dialog), "destroy",
-		   G_CALLBACK(diagram_properties_dialog_destroyed), NULL);
+		   G_CALLBACK(gtk_widget_destroyed), &dialog);
 
   notebook = gtk_notebook_new();
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
@@ -257,12 +253,14 @@ static void
 diagram_properties_retrieve(Diagram *dia)
 {
   gchar *title;
-  gchar *name = diagram_get_name(dia);
+  gchar *name = dia ? diagram_get_name(dia) : "?";
 
   g_return_if_fail(dia != NULL);
+  if (!dialog)
+    return;
 
   /* Can we be sure that the filename is the 'proper title'? */
-  title = g_strdup_printf(_("Diagram Properties: %s"), name);
+  title = g_strdup_printf(_("Diagram Properties: %s"), name ? name : "??");
   gtk_window_set_title(GTK_WINDOW(dialog), title);
   g_free(name);
   g_free(title);
@@ -361,4 +359,3 @@ diagram_properties_set_diagram(Diagram *dia)
     diagram_properties_retrieve(dia);
   }
 }
-

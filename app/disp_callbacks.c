@@ -208,7 +208,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   int num_items;
   
   diagram = ddisp->diagram;
-  if (diagram->data->selected_count != 1)
+  if (g_list_length (diagram->data->selected) != 1)
     return;
   
   selected_list = diagram->data->selected;
@@ -216,7 +216,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   /* Have to have exactly one selected object */
   if (selected_list == NULL || g_list_next(selected_list) != NULL) {
     message_error("Selected list is %s while selected_count is %d\n",
-		  (selected_list?"long":"empty"), diagram->data->selected_count);
+		  (selected_list?"long":"empty"), g_list_length (diagram->data->selected));
     return;
   }
   

@@ -78,7 +78,7 @@ diagram_data_finalize(GObject *object)
 
   g_list_free(data->selected);
   data->selected = NULL; /* for safety */
-  data->selected_count = 0;
+  data->selected_count_private = 0;
 }
 
 static void
@@ -130,7 +130,7 @@ new_diagram_data (NewDiagramData *prefs)
   g_ptr_array_add (data->layers, first_layer);
   data->active_layer = first_layer;
 
-  data->selected_count = 0;
+  data->selected_count_private = 0;
   data->selected = NULL;
   
   data->is_compressed = prefs->compress_save; /* Overridden by doc */
@@ -274,15 +274,19 @@ data_delete_layer(DiagramData *data, Layer *layer)
 void
 data_select(DiagramData *data, DiaObject *obj)
 {
+  if (g_list_find (data->selected, obj))
+    return; /* should this be an error?`*/
   data->selected = g_list_prepend(data->selected, obj);
-  data->selected_count++;
+  data->selected_count_private++;
 }
 
 void
 data_unselect(DiagramData *data, DiaObject *obj)
 {
+  if (!g_list_find (data->selected, obj))
+    return; /* should this be an error?`*/
   data->selected = g_list_remove(data->selected, obj);
-  data->selected_count--;
+  data->selected_count_private--;
 }
 
 /** Clears the list of selected objects.
@@ -292,8 +296,8 @@ void
 data_remove_all_selected(DiagramData *data)
 {
   g_list_free(data->selected); /* Remove previous selection */
-  data->selected_count = 0;
   data->selected = NULL;
+  data->selected_count_private = 0;
 }
 
 static gboolean
@@ -395,9 +399,10 @@ data_get_sorted_selected(DiagramData *data)
   GList *found;
   DiaObject *obj;
 
-  if (data->selected_count == 0)
+  g_assert (g_list_length (data->selected) == data->selected_count_private);
+  if (data->selected_count_private == 0)
     return NULL;
-  
+ 
   sorted_list = NULL;
   list = g_list_last(data->active_layer->objects);
   while (list != NULL) {
@@ -423,7 +428,8 @@ data_get_sorted_selected_remove(DiagramData *data)
   GList *found;
   DiaObject *obj;
   
-  if (data->selected_count == 0)
+  g_assert (g_list_length (data->selected) == data->selected_count_private);
+  if (data->selected_count_private == 0)
     return NULL;
   
   sorted_list = NULL;

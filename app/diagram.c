@@ -351,17 +351,15 @@ diagram_selected_can_parent(Diagram *dia) {
 void 
 diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
+  gint selected_count = g_list_length (dia->data->selected);
   /* Edit menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->copy),
-			   dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->cut),
-			   dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->copy), selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->cut), selected_count > 0);
   gtk_widget_set_sensitive(GTK_WIDGET(items->paste),
 			   cnp_exist_stored_objects());
-  #ifndef GNOME
-  gtk_widget_set_sensitive(GTK_WIDGET(items->edit_delete),
-			   dia->data->selected_count > 0);
-  #endif
+#ifndef GNOME
+  gtk_widget_set_sensitive(GTK_WIDGET(items->edit_delete), selected_count > 0);
+#endif
   gtk_widget_set_sensitive(GTK_WIDGET(items->copy_text),
 			   active_focus() != NULL);
   gtk_widget_set_sensitive(GTK_WIDGET(items->cut_text),
@@ -370,14 +368,10 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			   active_focus() != NULL);
   
   /* Objects menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->send_to_back),
-			   dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front),
-			   dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->send_backwards),
-			   dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_forwards),
-			   dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->send_to_back), selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front), selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->send_backwards), selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_forwards), selected_count > 0);
     
   gtk_widget_set_sensitive(GTK_WIDGET(items->parent),
 			   diagram_selected_can_parent(dia));
@@ -385,34 +379,22 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			   diagram_selected_any_children(dia));
   gtk_widget_set_sensitive(GTK_WIDGET(items->unparent_children),
 			   diagram_selected_any_parents(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->group),
-			   dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->group), selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
 			   diagram_selected_any_groups(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->properties),
-			   dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->properties), selected_count > 0);
   
   /* Objects->Align menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_l),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_c),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_r),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_e),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_a),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_t),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_c),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_b),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_e),
-			   dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_a),
-			   dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_l), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_c), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_r), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_e), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_a), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_t), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_c), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_b), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_e), selected_count > 1);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_a), selected_count > 1);
 }
     
   
@@ -998,8 +980,13 @@ void diagram_group_selected(Diagram *dia)
   GList *orig_list;
   Change *change;
 
+#if 0
+  /* the following is wrong as it screws up the selected list, see bug #153525
+     * I just don't get what was originally intented so please speak up if you know  --hb
+     */    
   dia->data->selected = parent_list_affected(dia->data->selected);
-
+#endif
+    
   orig_list = g_list_copy(dia->data->active_layer->objects);
   
   /* We have to rebuild the selection list so that it is the same
@@ -1059,7 +1046,7 @@ void diagram_ungroup_selected(Diagram *dia)
   int group_index;
   int any_groups = 0;
   
-  if (dia->data->selected_count < 1) {
+  if (g_list_length(dia->data->selected) < 1) {
     message_error("Trying to ungroup with no selected objects.");
     return;
   }
@@ -1135,7 +1122,7 @@ diagram_place_under_selected(Diagram *dia)
   GList *sorted_list;
   GList *orig_list;
 
-  if (dia->data->selected_count == 0)
+  if (g_list_length (dia->data->selected) == 0)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
@@ -1157,7 +1144,7 @@ diagram_place_over_selected(Diagram *dia)
   GList *sorted_list;
   GList *orig_list;
 
-  if (dia->data->selected_count == 0)
+  if (g_list_length (dia->data->selected) == 0)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
@@ -1181,7 +1168,7 @@ diagram_place_up_selected(Diagram *dia)
   GList *tmp, *stmp;
   GList *new_list = NULL;
 
-  if (dia->data->selected_count == 0)
+  if (g_list_length (dia->data->selected) == 0)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
@@ -1224,7 +1211,7 @@ diagram_place_down_selected(Diagram *dia)
   GList *tmp, *stmp;
   GList *new_list = NULL;
 
-  if (dia->data->selected_count == 0)
+  if (g_list_length (dia->data->selected) == 0)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
@@ -1233,7 +1220,7 @@ diagram_place_down_selected(Diagram *dia)
   object_add_updates_list(orig_list, dia);
 
   /* Sanity check */
-  g_assert(dia->data->selected_count == g_list_length(sorted_list));
+  g_assert(g_list_length (dia->data->selected) == g_list_length(sorted_list));
 
   new_list = g_list_copy(orig_list);
   tmp = new_list;

@@ -1020,13 +1020,23 @@ objects_unparent_children_callback(gpointer data, guint action, GtkWidget *widge
 void
 objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 {
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
   diagram_group_selected(ddisplay_active_diagram());
+  ddisplay_do_update_menu_sensitivity(ddisp);
 } 
 
 void
 objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget)
 {
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
   diagram_ungroup_selected(ddisplay_active_diagram());
+  ddisplay_do_update_menu_sensitivity(ddisp);
 } 
 
 void
