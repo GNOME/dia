@@ -56,6 +56,7 @@ struct _DDisplay {
     
 
   GtkWidget *zoom_status;         
+  GtkWidget *grid_status;
   GtkWidget *modified_status;
 
   GtkAccelGroup *accel_group;
@@ -111,7 +112,7 @@ void ddisplay_set_origo(DDisplay *ddisp,
 			coord x, coord y);
 void ddisplay_zoom(DDisplay *ddisp, Point *point,
 		   real zoom_factor);
-
+void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
 void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
 void ddisplay_resize_canvas(DDisplay *ddisp,
 			    int width,

@@ -47,6 +47,9 @@
 #include "render_gdk.h"
 #include "render_libart.h"
 
+#include "pixmaps/on-grid.xpm"
+#include "pixmaps/off-grid.xpm"
+
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 
@@ -634,6 +637,63 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
   update_zoom_status (ddisp);
 }
 
+/** Set the display's snap-to-grid setting, updating menu and button
+ * in the process */
+void
+ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
+{
+  GtkCheckMenuItem *snap_to_grid;
+  ddisp->grid.snap = snap;
+
+  if (ddisp->menu_bar == NULL) {
+    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
+  } else {
+    snap_to_grid = ddisp->snap_to_grid;
+  }
+
+  /* Currently, this can cause double emit, but that's a small problem.
+   */
+  gtk_check_menu_item_set_active(snap_to_grid,
+				 ddisp->grid.snap);
+  ddisplay_update_statusbar(ddisp);
+}
+
+/** Update the button showing whether snap-to-grid is on */
+static void
+update_snap_grid_status(DDisplay *ddisp)
+{
+  GtkWidget *image = NULL;
+  if (ddisp->grid.snap) {
+    image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
+					 "on grid image"));
+    if (image == NULL) {
+      GdkColormap *cmap = gtk_widget_get_colormap(ddisp->grid_status);
+      g_assert(cmap != NULL);
+      image = gtk_image_new_from_pixmap(gdk_pixmap_colormap_create_from_xpm_d(NULL, cmap, NULL, NULL, on_grid_xpm), NULL);
+      g_object_ref(G_OBJECT(image));
+      g_object_set_data(G_OBJECT(ddisp->grid_status), "on grid image", image);
+    }
+  } else {
+    image = GTK_WIDGET(g_object_get_data(G_OBJECT(ddisp->grid_status),
+					 "off grid image"));
+    if (image == NULL) {
+      GdkColormap *cmap = gtk_widget_get_colormap(ddisp->grid_status);
+      g_assert(cmap != NULL);
+      image = gtk_image_new_from_pixmap(gdk_pixmap_colormap_create_from_xpm_d(NULL, cmap, NULL, NULL, off_grid_xpm), NULL);
+      g_object_ref(G_OBJECT(image));
+      g_object_set_data(G_OBJECT(ddisp->grid_status), "off grid image", image);
+      
+    }
+  }
+  gtk_container_remove(GTK_CONTAINER(ddisp->grid_status),
+		       gtk_bin_get_child(GTK_BIN(ddisp->grid_status)));
+  gtk_container_add(GTK_CONTAINER(ddisp->grid_status),
+		    image);
+  gtk_widget_show(image);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->grid_status),
+			       ddisp->grid.snap);
+}
+
 gboolean
 ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
 {
@@ -1065,6 +1125,7 @@ void
 ddisplay_update_statusbar(DDisplay *ddisp)
 {
   update_zoom_status (ddisp);
+  update_snap_grid_status (ddisp);
   update_modified_status (ddisp);
 }
 

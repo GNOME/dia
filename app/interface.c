@@ -124,6 +124,14 @@ static GSList *tool_group = NULL;
 
 GtkWidget *modify_tool_button;
 
+static void
+grid_toggle_snap(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+  ddisplay_set_snap_to_grid(ddisp, 
+			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+}
+
 /*  The popup shell is a pointer to the display shell that posted the latest
  *  popup menu.  When this is null, and a command is invoked, then the
  *  assumption is that the command was a result of a keyboard accelerator
@@ -463,9 +471,9 @@ create_display_shell(DDisplay *ddisp,
     gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
   */
-  ddisp->zoom_status = create_zoom_widget(ddisp);
-  ddisp->modified_status = gtk_statusbar_new ();
 
+  /* Zoom status pseudo-optionmenu */
+  ddisp->zoom_status = create_zoom_widget(ddisp);
   zoom_hbox = gtk_hbox_new(FALSE, 0);
   zoom_label = gtk_label_new(_("Zoom"));
   gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
@@ -475,11 +483,23 @@ create_display_shell(DDisplay *ddisp,
 
   gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
 
-  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  /* Grid on/off button */
+  ddisp->grid_status = gtk_toggle_button_new();
+  
+  g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
+		   grid_toggle_snap, ddisp);
+  g_object_set(G_OBJECT(ddisp->grid_status), "can-focus", FALSE);
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
+		      FALSE, FALSE, 0);
+
+  /* Statusbar */
+  ddisp->modified_status = gtk_statusbar_new ();
 
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
 		      TRUE, TRUE, 0);
+
+  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
+                    GTK_FILL, GTK_FILL, 0, 0);
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
@@ -490,6 +510,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->zoom_status);
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
+  gtk_widget_show (ddisp->grid_status);
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);

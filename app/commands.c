@@ -785,12 +785,10 @@ void
 view_snap_to_grid_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
-  int old_val;
 
   ddisp = ddisplay_active();
   
-  old_val = ddisp->grid.snap;
-  ddisp->grid.snap =  GTK_CHECK_MENU_ITEM(widget)->active;
+  ddisplay_set_snap_to_grid(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
 }
 
 void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)

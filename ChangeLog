@@ -1,3 +1,12 @@
+2003-04-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/display.h: 
+	* app/commands.c (view_snap_to_grid_callback): 
+	* app/display.c (ddisplay_set_snap_to_grid) 
+	(update_snap_grid_status): 
+	* app/interface.c (create_display_shell, grid_toggle_snap): 
+	Added snap-to-grid status button.
+
 2003-03-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* NEWS: 
