@@ -203,9 +203,8 @@ find_real_filename(const gchar *filename)
     return NULL;
   }
   
-  str = g_dirname(filename);
-  ret = g_strconcat(str, G_DIR_SEPARATOR_S, scanner->value.v_string,
-		    NULL);
+  str = g_path_get_dirname(filename);
+  ret = g_build_filename(str, scanner->value.v_string, NULL);
   g_free(str);
   g_scanner_destroy(scanner);
   close(fd);

@@ -400,6 +400,8 @@ EXPORTS
 
  line_bbox
 
+ dia_error_quark
+ 
  message_error
  message_notice
  message_warning

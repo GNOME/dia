@@ -157,12 +157,12 @@ new_shape_renderer(DiagramData *data, const char *filename)
                                       "http://www.w3.org/2000/svg", "svg");
   renderer->doc->xmlRootNode = renderer->root;
 
-  dirname = g_dirname(filename);
-  sheetname = g_basename(dirname);
+  dirname = g_path_get_dirname(filename);
+  sheetname = g_path_get_basename(dirname);
   shapename = g_strndup(g_basename(filename), strlen(g_basename(filename))-6);
-  fullname = g_malloc(strlen(sheetname)+3+strlen(shapename)+1);
-  sprintf(fullname, "%s - %s", sheetname, shapename);
+  fullname = g_strdup_print ("%s - %s", sheetname, shapename);
   g_free(dirname);
+  g_free(sheetname);
   g_free(shapename);
 
   xmlNewChild(renderer->root, NULL, "name", fullname);

@@ -46,6 +46,7 @@ OBJECTS = \
 	dia_image.obj \
 	dia_svg.obj \
 	dia_xml.obj \
+	diaerror.obj \
 	diagramdata.obj \
 	diagdkrenderer.obj \
 	diagtkfontsel.obj \

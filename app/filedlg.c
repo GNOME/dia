@@ -95,19 +95,23 @@ open_set_extension(GtkObject *item)
   GString *s;
   const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(opendlg));
   const gchar *last_dot = strrchr(text, '.');
+  gchar *basename = NULL;
 
   if (!ifilter || last_dot == text || text[0] == '\0' ||
       ifilter->extensions[0] == NULL)
     return;
 
-  s = g_string_new(text);
+  basename = g_path_get_basename (text);
+  last_dot = strrchr(basename, '.');
+  s = g_string_new(basename);
   if (last_dot)
-    g_string_truncate(s, last_dot-text);
+    g_string_truncate(s, last_dot-basename);
   g_string_append(s, ".");
   g_string_append(s, ifilter->extensions[0]);
   gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(opendlg),
 				    s->str);
   g_string_free (s, TRUE);
+  g_free (basename);
 }
 
 static GtkWidget *
@@ -210,8 +214,9 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     } else {
       parent_window = GTK_WINDOW(interface_get_toolbox_shell());
     }
-    opendlg = gtk_file_chooser_dialog_new(_("Open Diagram"), parent_window,
+    opendlg = gtk_file_chooser_dialog_new_with_backend(_("Open Diagram"), parent_window,
 					  GTK_FILE_CHOOSER_ACTION_OPEN,
+					  "default", /* default, not gnome-vfs */
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					  NULL);
@@ -333,9 +338,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!savedlg) {
-    savedlg = gtk_file_chooser_dialog_new(_("Save Diagram"),
+    savedlg = gtk_file_chooser_dialog_new_with_backend(_("Save Diagram"),
 					  GTK_WINDOW(ddisp->shell),
 					  GTK_FILE_CHOOSER_ACTION_SAVE,
+					  "default", /* default, not gnome-vfs */
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					  NULL);
@@ -413,19 +419,22 @@ export_set_extension(GtkObject *item)
   GString *s;
   const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
   const gchar *last_dot = text ? strrchr(text, '.') : NULL;
+  gchar *basename = NULL;
 
   if (!efilter || last_dot == text || text[0] == '\0' ||
       efilter->extensions[0] == NULL)
     return;
-
-  s = g_string_new(text);
+  basename = g_path_get_basename (text);
+  last_dot = strrchr(basename, '.');
+  s = g_string_new(basename);
   if (last_dot)
-    g_string_truncate(s, last_dot-text);
+    g_string_truncate(s, last_dot-basename);
   g_string_append(s, ".");
   g_string_append(s, efilter->extensions[0]);
   gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg),
 				    s->str);
   g_string_free (s, TRUE);
+  g_free (basename);
 }
 
 static GtkWidget *
@@ -526,9 +535,10 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!exportdlg) {
-    exportdlg = gtk_file_chooser_dialog_new(_("Export Diagram"),
+    exportdlg = gtk_file_chooser_dialog_new_with_backend(_("Export Diagram"),
 					    GTK_WINDOW(ddisp->shell),
 					    GTK_FILE_CHOOSER_ACTION_SAVE,
+					    "default", /* default, not gnome-vfs */
 					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					    NULL);

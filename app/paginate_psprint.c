@@ -354,14 +354,14 @@ diagram_print_ps(Diagram *dia)
   } else {
     const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
     if (!g_path_is_absolute(filename)) {
-      char *diagram_dir;
+      char *dirname;
       char *full_filename;
 
-      diagram_dir = g_dirname(dia->filename);
-      full_filename = g_malloc(strlen(diagram_dir)+strlen(filename)+2);
-      sprintf(full_filename, "%s" G_DIR_SEPARATOR_S "%s", diagram_dir, filename);
+      dirname = g_path_get_dirname(dia->filename);
+      full_filename = g_build_filename(dirname, filename, NULL);
       file = fopen(full_filename, "w");
       g_free(full_filename);
+      g_free(dirname);
     } else {
       file = fopen(filename, "w");
     }

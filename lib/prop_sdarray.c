@@ -93,6 +93,7 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
 {
   const PDCAE *extra = prop->common.descr->extra_data;
   DataNode composite;
+  GError *err = NULL;
 
   arrayprop_freerecords(prop);
   g_ptr_array_set_size(prop->records,0);
@@ -102,7 +103,11 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
        composite = data_next(composite)) {
     GPtrArray *record = prop_list_from_descs(extra->record,
                                              prop->common.reason);
-    prop_list_load(record,composite);
+    if (!prop_list_load(record,composite, &err)) {
+      g_warning ("%s:%s", prop->common.name, err->message);
+      g_error_free (err);
+      err = NULL;
+    }
     g_ptr_array_add(prop->records,record);
   }
 }

@@ -2995,7 +2995,7 @@ msgstr "Izloži"
 #. Translators: Menu item Verb/Provision/Extract
 #: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
-msgstr "&Raspakiravanje"
+msgstr "Raspakiravanje"
 
 #. Translators: Menu item Verb/Control Magnitude
 #.  Translators: Menu item Verb/Control Magnitude/Control Magnitude

@@ -138,7 +138,9 @@ libdia_la_SOURCES =  \
 		dialinechooser.h \
 		dialinechooser.c \
 		persistence.c \
-		persistence.h
+		persistence.h \
+		diaerror.c \
+		diaerror.h
 
 #		charconv.c \
 #		charconv.h 

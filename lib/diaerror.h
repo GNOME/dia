@@ -1,8 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998, 1999 Alexander Larsson
- *
- * Custom Objects -- objects defined in XML rather than C.
- * Copyright (C) 1999 James Henstridge.
+ * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,22 +16,21 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#ifndef DIA_ERROR_H
+#define DIA_ERROR_H
 
-#include "custom_util.h"
+#include <glib.h>
 
-gchar *
-custom_get_relative_filename(const gchar *current, const gchar *relative)
+/* the domain of the error */
+#define DIA_ERROR dia_error_quark ()
+
+/* some more detailed error code */
+typedef enum
 {
-  gchar *dirname, *tmp;
+  DIA_ERROR_FORMAT, /* something wrong with our xml format */
+  DIA_ERROR_FILE,   /*  to be got from inport filters? */
+} DiaError;
 
-  g_return_val_if_fail(current != NULL, NULL);
-  g_return_val_if_fail(relative != NULL, NULL);
+GQuark dia_error_quark (void);
 
-  if (g_path_is_absolute(relative))
-    return g_strdup(relative);
-  dirname = g_path_get_dirname(current);
-  tmp = g_build_filename(dirname, relative, NULL);
-  g_free(dirname);
-  return tmp;
-}
+#endif /* DIA_ERROR_H */

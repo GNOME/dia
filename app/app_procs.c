@@ -674,8 +674,7 @@ app_exit(void)
                GTK_BUTTONS_NONE, /* no standard buttons */
 	       _("Modified diagrams exist.\n"
            "Are you sure you want to quit Dia\n"
-           "without saving them?"),
-	       NULL);
+           "without saving them?"));
     gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
 
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);

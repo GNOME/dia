@@ -1,8 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998, 1999 Alexander Larsson
- *
- * Custom Objects -- objects defined in XML rather than C.
- * Copyright (C) 1999 James Henstridge.
+ * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,22 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "diaerror.h"
 
-#include "custom_util.h"
-
-gchar *
-custom_get_relative_filename(const gchar *current, const gchar *relative)
+GQuark
+dia_error_quark (void)
 {
-  gchar *dirname, *tmp;
-
-  g_return_val_if_fail(current != NULL, NULL);
-  g_return_val_if_fail(relative != NULL, NULL);
-
-  if (g_path_is_absolute(relative))
-    return g_strdup(relative);
-  dirname = g_path_get_dirname(current);
-  tmp = g_build_filename(dirname, relative, NULL);
-  g_free(dirname);
-  return tmp;
+  static GQuark q = 0;
+  if (!q)
+    q = g_quark_from_static_string("dia-error-quark");
+  return q;
 }

@@ -1745,19 +1745,19 @@ msgstr "シートとオブジェクト"
 
 #: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
-msgstr "<- コピー"
+msgstr "&lt;- コピー"
 
 #: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
-msgstr "<- 全てコピー"
+msgstr "&lt;- 全てコピー"
 
 #: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
-msgstr "<- 移動"
+msgstr "&lt;- 移動"
 
 #: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
-msgstr "<- 全て移動"
+msgstr "&lt;- 全て移動"
 
 #: app/sheets_dialog.c:233
 msgid "Edit"
@@ -5707,19 +5707,19 @@ msgstr "シンプル出力変数"
 
 #: sheets/Cybernetics.sheet.in.h:1
 msgid "Constant factor below -1"
-msgstr "定係数 < -1"
+msgstr "定係数 &lt; -1"
 
 #: sheets/Cybernetics.sheet.in.h:2
 msgid "Constant factor between 0 and -1"
-msgstr "-1 < 定係数 < 0 "
+msgstr "-1 &lt; 定係数 &lt; 0 "
 
 #: sheets/Cybernetics.sheet.in.h:3
 msgid "Constant factor between 0 and 1"
-msgstr "0 < 定係数 < 1"
+msgstr "0 &lt; 定係数 &lt; 1"
 
 #: sheets/Cybernetics.sheet.in.h:4
 msgid "Constant factor greater 1"
-msgstr "1 < 定係数"
+msgstr "1 &lt; 定係数"
 
 #: sheets/Cybernetics.sheet.in.h:5
 msgid "Constant negative shift on the y-axis"
@@ -6660,7 +6660,7 @@ msgstr "サービス種の参照"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr "Specification & Description Language"
+msgstr "Specification and Description Language"
 
 #: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:28
 msgid "State"

@@ -1,5 +1,34 @@
 2004-11-26  Hans Breuer  <hans@breuer.org>
 
+	* dia.desktop.in : added Bug Buddy headers (as seen
+	in planner). Hopefully the automatically filling of
+	bugs is more meaningful by this.
+	
+	* objects/custom/custom_util.c objects/standard/image.c
+	  lib/plug-ins.c : getting rid of deprecated g_dirname,
+	fixes some more memory bugs : AddrAddress 0x3586C010 is 24 
+	bytes inside a block of size 44 free'd
+	
+	* lib/persistence.c(persistence_load_list) : don't
+	leak string
+	
+	* lib/diaerror.[ch] : (new file) start of better error handling
+	* lib/Makefile.am lib/makefile.msc lib/libdia.def: 
+	added new files/funcs
+	* lib/proplist.c lib/propinternals.h (prop_list_load) : 
+	allow to propagate error to caller. Also set PXP_NOTSET
+	to avoid applying unset properties, fixes bug #155255
+	* lib/propobject.c lib/prop_sdarray.c : still spewing
+	g_warnings but now with context information
+	
+	* app/filedlg.c : more absolute filenames where required
+	and strip them where we need the filename only
+	Also explicit DONT choose gnome-vfs backend cause its
+	threading appears to crash Dia - at least in GNOME build,
+	see bug #159558
+
+2004-11-26  Hans Breuer  <hans@breuer.org>
+
 	* app/filedlg.c : don't use relative filenames for
 	gtk_file_chooser_set_filename(), GtkFileChooserDialog is very
 	pedantic about it.

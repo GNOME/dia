@@ -115,6 +115,8 @@ persistence_load_list(gchar *role, xmlNodePtr node)
     }
     /* This frees the strings, too? */
     g_strfreev(strings);
+    /* yes but not the other one --hb */
+    g_free (string);
     plist = g_new(PersistentList, 1);
     plist->glist = list;
     plist->role = role;

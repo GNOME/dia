@@ -40,7 +40,8 @@ gboolean propdescs_can_be_merged(const PropDescription *p1,
 void prophandler_connect(const Property *prop, GtkObject *object,
                          const gchar *signal);
 
-void prop_list_load(GPtrArray *props, DataNode data);
+/* returns FALSE if error is set cause of meesed up format */
+gboolean prop_list_load(GPtrArray *props, DataNode data, GError **err);
 void prop_list_save(GPtrArray *props, DataNode data);
 
 #define struct_member(sp, off, tp) (*(tp *)(((char *)sp) + off))

@@ -514,12 +514,12 @@ get_directory(const char *filename)
   if (filename==NULL)
     return NULL;
 
-  dirname = g_dirname(filename);
+  dirname = g_path_get_dirname(filename);
   if (g_path_is_absolute(dirname)) {
-      directory = g_strconcat(dirname, G_DIR_SEPARATOR_S, NULL);
+      directory = g_build_path(G_DIR_SEPARATOR_S, dirname, NULL);
   } else {
       cwd = g_get_current_dir();
-      directory = g_strconcat(cwd, G_DIR_SEPARATOR_S, dirname, NULL);
+      directory = g_build_path(G_DIR_SEPARATOR_S, cwd, dirname, NULL);
       g_free(cwd);
   }
   g_free(dirname);

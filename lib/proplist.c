@@ -30,6 +30,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "dia_xml.h"
+#include "diaerror.h"
 
 /* ------------------------------------------------------------------------- */
 /* Construction of a list of properties from a filtered list of descriptors. */
@@ -141,10 +142,11 @@ prop_list_copy_empty(GPtrArray *plist)
   return dest;
 }
 
-void 
-prop_list_load(GPtrArray *props, DataNode data)
+gboolean 
+prop_list_load(GPtrArray *props, DataNode data, GError **err)
 {
   int i;
+  gboolean ret = TRUE;
 
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
@@ -155,12 +157,18 @@ prop_list_load(GPtrArray *props, DataNode data)
       continue;
     }
     if ((!attr) || (!data)) {
-      g_warning("No attribute %s (%p) or no data(%p) in this attribute",
-                prop->name,attr,data);
+      if (err && !*err)
+	*err = g_error_new (DIA_ERROR,
+                            DIA_ERROR_FORMAT,
+			    _("No attribute '%s' (%p) or no data(%p) in this attribute"),
+			    prop->name,attr,data);
+      prop->experience |= PXP_NOTSET;
+      ret = FALSE;
       continue;
     }
     prop->ops->load(prop,attr,data);
-  }    
+  }
+  return ret;
 }
 
 void 
