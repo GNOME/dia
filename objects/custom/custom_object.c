@@ -42,6 +42,8 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define CORRECT_DISTANCE
+
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -125,8 +127,8 @@ static void custom_set_props(Custom *custom, Property *props, guint nprops);
 
 static void custom_save(Custom *custom, ObjectNode obj_node, const char *filename);
 static Object *custom_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *custom_get_defaults();
-static void custom_apply_defaults();
+static GtkWidget *custom_get_defaults(void);
+static void custom_apply_defaults(void);
 
 static ObjectTypeOps custom_type_ops =
 {
@@ -296,7 +298,7 @@ custom_set_props(Custom *custom, Property *props, guint nprops)
 }
 
 static void
-custom_apply_defaults()
+custom_apply_defaults(void)
 {
   default_properties.show_background = gtk_toggle_button_get_active(custom_defaults_dialog->show_background);
 
@@ -307,7 +309,7 @@ custom_apply_defaults()
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -321,7 +323,7 @@ init_default_values() {
 }
 
 static GtkWidget *
-custom_get_defaults()
+custom_get_defaults(void)
 {
   GtkWidget *vbox;
   GtkWidget *hbox;
@@ -448,6 +450,122 @@ transform_rect(Custom *custom, const Rectangle *r1, Rectangle *out)
   }
 }
 
+#ifdef CORRECT_DISTANCE
+static real
+custom_distance_from(Custom *custom, Point *point)
+{
+  static GArray *arr = NULL, *barr = NULL;
+  Point p1, p2;
+  Rectangle rect;
+  gint i;
+  GList *tmp;
+  real min_dist = G_MAXFLOAT, dist = G_MAXFLOAT;
+
+  if (!arr)
+    arr = g_array_new(FALSE, FALSE, sizeof(Point));
+  if (!barr)
+    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+
+  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    real line_width = el->any.s.line_width * custom->border_width;
+
+    switch (el->type) {
+    case GE_LINE:
+      transform_coord(custom, &el->line.p1, &p1);
+      transform_coord(custom, &el->line.p2, &p2);
+      dist = distance_line_point(&p1, &p2, line_width, point);
+      break;
+    case GE_POLYLINE:
+      transform_coord(custom, &el->polyline.points[0], &p1);
+      dist = G_MAXFLOAT;
+      for (i = 1; i < el->polyline.npoints; i++) {
+	real seg_dist;
+
+	transform_coord(custom, &el->polyline.points[i], &p2);
+	seg_dist = distance_line_point(&p1, &p2, line_width, point);
+	p1 = p2;
+	dist = MIN(dist, seg_dist);
+	if (dist == 0.0)
+	  break;
+      }
+      break;
+    case GE_POLYGON:
+      g_array_set_size(arr, el->polygon.npoints);
+      for (i = 0; i < el->polygon.npoints; i++)
+	transform_coord(custom, &el->polygon.points[i],
+			&g_array_index(arr, Point, i));
+      dist = distance_polygon_point((Point *)arr->data, el->polygon.npoints,
+				    line_width, point);
+      break;
+    case GE_RECT:
+      transform_coord(custom, &el->rect.corner1, &p1);
+      transform_coord(custom, &el->rect.corner2, &p2);
+      if (p1.x < p2.x) {
+	rect.left = p1.x - line_width/2;  rect.right = p2.x + line_width/2;
+      } else {
+	rect.left = p2.x - line_width/2;  rect.right = p1.x + line_width/2;
+      }
+      if (p1.y < p2.y) {
+	rect.top = p1.y - line_width/2;  rect.bottom = p2.y + line_width/2;
+      } else {
+	rect.top = p2.y - line_width/2;  rect.bottom = p1.y + line_width/2;
+      }
+      dist = distance_rectangle_point(&rect, point);
+      break;
+    case GE_ELLIPSE:
+      transform_coord(custom, &el->ellipse.center, &p1);
+      dist = distance_ellipse_point(&p1,
+				    el->ellipse.width * abs(custom->xscale),
+				    el->ellipse.height * abs(custom->yscale),
+				    line_width, point);
+      break;
+    case GE_PATH:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      dist = distance_bez_line_point((BezPoint *)barr->data, el->path.npoints,
+				     line_width, point);
+      break;
+    case GE_SHAPE:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      dist = distance_bez_shape_point((BezPoint *)barr->data, el->path.npoints,
+				      line_width, point);
+      break;
+    }
+    min_dist = MIN(min_dist, dist);
+    if (min_dist == 0.0)
+      break;
+  }
+  if (custom->info->has_text && min_dist != 0.0) {
+    dist = text_distance_from(custom->text, point);
+    min_dist = MIN(min_dist, dist);
+  }
+  return min_dist;
+}
+#else
 static real
 custom_distance_from(Custom *custom, Point *point)
 {
@@ -469,6 +587,7 @@ custom_distance_from(Custom *custom, Point *point)
   }
   return dist1;
 }
+#endif
 
 static void
 custom_select(Custom *custom, Point *clicked_point,
