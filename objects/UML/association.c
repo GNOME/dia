@@ -143,6 +143,7 @@ static Object *association_load(ObjectNode obj_node, int version,
 				const char *filename);
 
 static void association_update_data(Association *assoc);
+static coord get_aggregate_pos_diff(AssociationEnd *end);
 
 static ObjectTypeOps association_type_ops =
 {
@@ -486,14 +487,25 @@ association_update_data(Association *assoc)
   end->text_pos = points[0];
   switch (assoc->orth.orientation[0]) {
   case HORIZONTAL:
-    end->text_pos.y -= font_descent(assoc_font, ASSOCIATION_FONTHEIGHT);
-    if (points[0].x < points[1].x)
+    if (points[0].x < points[1].x) {
       end->text_align = ALIGN_LEFT;
-    else
-      end->text_align = ALIGN_RIGHT;
+      end->text_pos.x += get_aggregate_pos_diff(end);
+    } else {
+      end->text_align = ALIGN_RIGHT;    
+      end->text_pos.x -= get_aggregate_pos_diff(end);
+    }
     break;
   case VERTICAL:
     end->text_pos.y += font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
+    if (points[0].y > points[1].y) {
+      if (end->role!=NULL)
+	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+      if (end->multiplicity!=NULL)
+	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+      end->text_pos.y -= get_aggregate_pos_diff(end);
+    } else {
+      end->text_pos.y += get_aggregate_pos_diff(end);
+    }
     end->text_align = ALIGN_LEFT;
     break;
   }
@@ -512,10 +524,13 @@ association_update_data(Association *assoc)
   switch (assoc->orth.orientation[n-1]) {
   case HORIZONTAL:
     end->text_pos.y -= font_descent(assoc_font, ASSOCIATION_FONTHEIGHT);
-    if (points[n].x < points[n-1].x)
+    if (points[n].x < points[n-1].x) {
       end->text_align = ALIGN_LEFT;
-    else
+      end->text_pos.x += get_aggregate_pos_diff(end);
+    } else {
       end->text_align = ALIGN_RIGHT;
+      end->text_pos.x -= get_aggregate_pos_diff(end);
+    }
     break;
   case VERTICAL:
     end->text_pos.y += font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
@@ -524,6 +539,9 @@ association_update_data(Association *assoc)
 	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
       if (end->multiplicity!=NULL)
 	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+      end->text_pos.y -= get_aggregate_pos_diff(end);
+    } else {
+      end->text_pos.y += get_aggregate_pos_diff(end);
     }
     end->text_align = ALIGN_LEFT;
     break;
@@ -535,6 +553,23 @@ association_update_data(Association *assoc)
   rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
   
   rectangle_union(&obj->bounding_box, &rect);
+}
+
+static coord get_aggregate_pos_diff(AssociationEnd *end)
+{
+  coord width=0;
+  if(end->arrow){
+    width = ASSOCIATION_TRIANGLESIZE;
+  }
+  switch(end->aggregate){
+  case AGGREGATE_COMPOSITION:
+  case AGGREGATE_NORMAL:
+    if(width!=0) width = MAX(ASSOCIATION_TRIANGLESIZE, ASSOCIATION_DIAMONDLEN);
+    else width = ASSOCIATION_DIAMONDLEN;
+  case AGGREGATE_NONE:
+    break;
+  }
+  return width;
 }
 
 static Object *
