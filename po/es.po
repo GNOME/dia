@@ -1,3 +1,4 @@
+# translation of es.po to Spanish
 # translation of dia.HEAD.po to Spanish
 # translation of dia.HEAD.es.po to Spanish
 # Spanish translation for Dia.
@@ -8,91 +9,93 @@
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 # Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>, 2003.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia.HEAD\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-11 14:27+0100\n"
-"PO-Revision-Date: 2003-11-11 16:47+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>\n"
+"POT-Creation-Date: 2003-12-13 14:08+0100\n"
+"PO-Revision-Date: 2003-12-13 17:23+0100\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"serrador@hispalinux.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: app/app_procs.c:173
+#: app/app_procs.c:169
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:179
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: app/app_procs.c:191
+#: app/app_procs.c:187
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:197
+#: app/app_procs.c:193
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:239
+#: app/app_procs.c:235
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "No se pudo encontrar el formato de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:323
+#: app/app_procs.c:319
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Exportar al formato de archivo y salir. Los formatos soportados son: %s"
 
 #. &export_file_name
-#: app/app_procs.c:332
+#: app/app_procs.c:328
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: app/app_procs.c:332 app/diaconv.c:94
+#: app/app_procs.c:328 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 #. &export_file_format
-#: app/app_procs.c:334
+#: app/app_procs.c:330
 msgid "FORMAT"
 msgstr "FORMATO"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:333
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: app/app_procs.c:339
+#: app/app_procs.c:335
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: app/app_procs.c:341
+#: app/app_procs.c:337
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: app/app_procs.c:343 app/diaconv.c:95
+#: app/app_procs.c:339 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Mostrar este mensaje de ayuda"
 
-#: app/app_procs.c:375
+#: app/app_procs.c:371
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
-#: app/app_procs.c:390 app/diaconv.c:119
+#: app/app_procs.c:386 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓN...] [ARCHIVO...]"
 
-#: app/app_procs.c:394 app/diaconv.c:126
+#: app/app_procs.c:390 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -103,31 +106,31 @@ msgstr ""
 "la línea de comandos.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:413
+#: app/app_procs.c:409
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:411
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
 msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
-#: app/app_procs.c:589
+#: app/app_procs.c:585
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 "Esto no debería ocurrir. Rellene un informe de error en bugzilla.gnome.org\n"
-"describiendo cómo puede hacer que este mensaje apararezca.\n"
+"describiendo cómo puede hacer que este mensaje aparezca.\n"
 
 #. no standard buttons
-#: app/app_procs.c:601
+#: app/app_procs.c:597
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -137,21 +140,21 @@ msgstr ""
 "¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: app/app_procs.c:605
+#: app/app_procs.c:601
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:660
+#: app/app_procs.c:656
 msgid "Thank you for using Dia.\n"
 msgstr "Gracias por usar Dia.\n"
 
-#: app/app_procs.c:674 app/app_procs.c:681
+#: app/app_procs.c:670 app/app_procs.c:677
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: app/app_procs.c:683
+#: app/app_procs.c:679
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -160,7 +163,7 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: app/app_procs.c:705 app/diaconv.c:249
+#: app/app_procs.c:701 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
@@ -553,11 +556,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "¡Diagrama modificado!"
 
-#: app/display.c:992
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
-#: app/display.c:994
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -566,11 +569,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: app/display.c:1005
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/display.c:1010
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Descartar los cambios"
 
@@ -692,28 +695,28 @@ msgstr "Exportar diagrama"
 msgid "Export Options"
 msgstr "Exportar opciones"
 
-#: app/interface.c:43
+#: app/interface.c:45
 msgid "Modify object(s)"
 msgstr "Modificar objeto(s)"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:46 app/menus.c:221
 msgid "Modify"
 msgstr "Modificar"
 
 # Yo diría "Ampliar" FVD
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:50 app/interface.c:51 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Magnificar"
 
 # Esto es fuzzy, no? FVD
-#: app/interface.c:53
+#: app/interface.c:55
 msgid "Scroll around the diagram"
 msgstr "Desplazamiento sobre el diagrama"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:56 app/menus.c:223
 msgid "Scroll"
 msgstr "Desplazamiento"
 
@@ -721,7 +724,7 @@ msgstr "Desplazamiento"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -731,74 +734,74 @@ msgstr "Desplazamiento"
 msgid "Text"
 msgstr "Texto"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:65 app/interface.c:66 app/menus.c:225
 msgid "Box"
 msgstr "Caja"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:70 app/interface.c:71 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:75 app/interface.c:76 app/menus.c:227
 msgid "Polygon"
 msgstr "Polígono"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:80 app/interface.c:81 app/menus.c:228
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:85 app/interface.c:86 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Línea"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:90 app/interface.c:91 app/menus.c:231
 msgid "Arc"
 msgstr "Arco"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:95 app/interface.c:96 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:100 app/interface.c:101 app/menus.c:233
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:105 app/interface.c:106 app/menus.c:234
 msgid "Bezierline"
 msgstr "Línea Bezier"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:110 app/interface.c:111 app/menus.c:236
 msgid "Image"
 msgstr "Imagen"
 
-#: app/interface.c:371
+#: app/interface.c:373
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
-#: app/interface.c:480
+#: app/interface.c:482
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: app/interface.c:494
+#: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: app/interface.c:538
+#: app/interface.c:540
 msgid "NULL tooldata in tool_select_update"
 msgstr "tooldata NULL en tool_select_update"
 
-#: app/interface.c:1020
+#: app/interface.c:1023
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
 "Colores de primer plano y fondo para objetos nuevos. Los pequeños cuadrados "
-"negro y blanco reestablecen los colores. Las pequeñas flechas intercambian "
+"negro y blanco restablecen los colores. Las pequeñas flechas intercambian "
 "los colores. Doble pulsación para cambiar los colores."
 
-#: app/interface.c:1035
+#: app/interface.c:1038
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -807,7 +810,7 @@ msgstr ""
 "preestablecida para los objetos nuevos. Pulse dos veces para establecer la "
 "anchura más precisamente."
 
-#: app/interface.c:1067
+#: app/interface.c:1070
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -815,7 +818,7 @@ msgstr ""
 "Estilo de flecha al principio de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha en Detalles..."
 
-#: app/interface.c:1072
+#: app/interface.c:1075
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -823,7 +826,7 @@ msgstr ""
 "Estilo de línea para las líneas nuevas. Pulse para escoger un estilo de "
 "línea, o establezca los parámetros de estilo de línea en Detalles..."
 
-#: app/interface.c:1077
+#: app/interface.c:1080
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -831,7 +834,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas. Pulse para escoger una "
 "flecha, o establezca los parámetros de la flecha con Detalles..."
 
-#: app/interface.c:1185
+#: app/interface.c:1188
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1064,7 +1067,7 @@ msgstr "Propiedades del diagrama..."
 
 #: app/menus.c:135
 msgid "_AntiAliased"
-msgstr "_Aliasado"
+msgstr "_Antialias"
 
 #. TODO: Show Menu Bar  F9.  Hub's cool code.
 #: app/menus.c:139
@@ -1199,7 +1202,7 @@ msgstr "_Padre"
 
 #: app/menus.c:210
 msgid "_Unparent"
-msgstr "_Horfandar"
+msgstr "_Orfandar"
 
 #: app/menus.c:211
 msgid "_Unparent Children"
@@ -1551,7 +1554,7 @@ msgstr "/Objetos/_Padre"
 
 #: app/menus.c:422
 msgid "/Objects/_Unparent"
-msgstr "/Objetos/_Horfandar"
+msgstr "/Objetos/_Orfandar"
 
 #: app/menus.c:423
 msgid "/Objects/_Unparent Children"
@@ -1615,7 +1618,7 @@ msgstr "/Objetos/Alineación vertical/Adyacente"
 
 #: app/menus.c:442
 msgid "/Objects/_Properties..."
-msgstr "/Objectos/_Propiedades..."
+msgstr "/Objetos/_Propiedades..."
 
 #: app/menus.c:443
 msgid "/_Tools"
@@ -1799,7 +1802,7 @@ msgid ""
 "intersecting objects"
 msgstr ""
 "El arrastre inverso selecciona\n"
-"objetos que intersecan"
+"objetos que intersectan"
 
 #: app/preferences.c:122
 msgid "Recent documents list size:"
@@ -1944,11 +1947,11 @@ msgstr "No se pudo abrir el archivo de historia para escritura."
 
 #: app/render_eps.c:140
 msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Postscript encapsulado (usando tipografía Pango)"
+msgstr "PostScript encapsulado (usando tipografía Pango)"
 
 #: app/render_eps.c:149
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Postscript encapsulado (usando tipografía PostScript Latin-1)"
+msgstr "PostScript encapsulado (usando tipografía PostScript Latin-1)"
 
 #: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
@@ -2351,7 +2354,7 @@ msgid ""
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 "Su juego de caracteres locales es UTF-8. A causa de asuntos relativos a "
-"libxml1 y el soporte de archivos generados por versiones anteriores de dia, "
+"libxml1 y el soporte de archivos generados por versiones anteriores de Dia, "
 "tendrá problemas. Por favor, informe a dia-list@gnome.org si ve este mensaje."
 
 #. This is the default text shown in the preview entry, though the user
@@ -3100,7 +3103,7 @@ msgstr "Distribuir"
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: objects/FS/function.c:879
 msgid "Diverge"
-msgstr "Diverger"
+msgstr "Divergir"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: objects/FS/function.c:881
@@ -3574,7 +3577,7 @@ msgstr "Corriente"
 #. Translators: Menu item Noun/Energy/Hydraulic
 #: objects/FS/function.c:1115
 msgid "Hydraulic"
-msgstr "Hidraúlica"
+msgstr "Hidráulica"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: objects/FS/function.c:1117
@@ -4030,7 +4033,7 @@ msgid "Template"
 msgstr "Plantilla"
 
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
+#: objects/UML/class.c:178 objects/UML/class.c:938
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Clase"
@@ -4218,7 +4221,7 @@ msgstr "Es objeto"
 
 #: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
 msgid "Facet"
-msgstr "Facet"
+msgstr "Faceta"
 
 #: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
@@ -4448,24 +4451,24 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
 msgid "Flip horizontal"
 msgstr "Invertir horizontal"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
 msgid "Flip vertical"
 msgstr "Invertir vertical"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1328
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1329
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1366
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
@@ -4671,19 +4674,19 @@ msgstr "No se pudo abrir: «%s» para escritura.\n"
 msgid "Python scripting support"
 msgstr "Soporte de scripts de python"
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr "¡No se puede exportar png sin libart!"
 
-#: plug-ins/shape/shape-export.c:498
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
-msgstr "archivo de figura de dia"
+msgstr "archivo de figura de Dia"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr "Filtro de exportación de archivo de figura de dia"
+msgstr "Filtro de exportación de archivo de figura de Dia"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:299 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4774,7 +4777,7 @@ msgstr "El estilo de línea %d no debería aparecer\n"
 #: plug-ins/xfig/xfig-import.c:573
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr "Error leyendo el punto %dth de %d: %s\n"
+msgstr "Error leyendo el punto %dº de %d: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:595
 msgid "Error while reading arrowhead\n"
@@ -4814,18 +4817,18 @@ msgstr "Subtipo de polilínea desconocido: %d\n"
 #: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr "No se pudo leer la información de la línea sp: %s\n"
+msgstr "No se pudo leer la información de la línea spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
-msgstr "No se puede convertir aproximadamente todavía la línea sp."
+msgstr "No se puede convertir aproximadamente todavía la línea spline."
 
 #: plug-ins/xfig/xfig-import.c:1084
 #, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr "Subtipo de línea sp desconocido: %d\n"
+msgstr "Subtipo de línea spline desconocido: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:1147
 #, c-format
@@ -4894,7 +4897,7 @@ msgstr "Error leyendo unidades: %s\n"
 #: plug-ins/xfig/xfig-import.c:1450
 #, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "Error leyendo magnificación: %s\n"
+msgstr "Error leyendo aumento: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1461
 #, c-format
@@ -4992,7 +4995,7 @@ msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
-"Una colección surtida de polígonos, polígonos béziér y otras figuras "
+"Una colección surtida de polígonos, polígonos Bézier y otras figuras "
 "geométricas varias"
 
 #: sheets/Assorted.sheet.in.h:2
@@ -5141,18 +5144,22 @@ msgid "Trapezoid"
 msgstr "Trapezoide"
 
 #: sheets/Assorted.sheet.in.h:38
+msgid "Turn-up arrow"
+msgstr "Flecha girar-arriba"
+
+#: sheets/Assorted.sheet.in.h:39
 msgid "Up arrow"
 msgstr "Flecha hacia arriba"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up-down arrow"
 msgstr "Flecha arriba-abajo"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down-left arrow"
 msgstr "Flecha arriba-abajo-izquierda"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Vertical parallelogram"
 msgstr "Paralelogramo vertical"
 
@@ -6374,7 +6381,7 @@ msgstr "Satélite"
 
 #: sheets/ciscomisc.sheet.in.h:36
 msgid "Satellite dish"
-msgstr "Dico de satélite"
+msgstr "Disco de satélite"
 
 #: sheets/ciscomisc.sheet.in.h:37
 msgid "Sitting woman"
@@ -6402,7 +6409,7 @@ msgstr "Sitio de teleconmutación"
 
 #: sheets/ciscomisc.sheet.in.h:44
 msgid "Telecommuter house/router"
-msgstr "Telecommuter house/router"
+msgstr "House/router de teleconmutación"
 
 #: sheets/ciscomisc.sheet.in.h:45
 msgid "TokenRing"
@@ -6730,7 +6737,7 @@ msgstr "VIP"
 
 #: sheets/cisconetwork.sheet.in.h:76
 msgid "VPN concentrator"
-msgstr "Conventrador VPN"
+msgstr "Concentrador VPN"
 
 #: sheets/cisconetwork.sheet.in.h:77
 msgid "VPN gateway"
@@ -6770,7 +6777,7 @@ msgstr "Símbolo del encaminador conmutador ATM"
 
 #: sheets/ciscorouter.sheet.in.h:7
 msgid "Broadband router"
-msgstr "Encamindador de banda ancha"
+msgstr "Encaminador de banda ancha"
 
 #: sheets/ciscorouter.sheet.in.h:8
 msgid "Cisco - Router"
@@ -7190,7 +7197,7 @@ msgstr "Disco ZIP"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "Log transfer manager or rep agent"
-msgstr "Agente rep o gestor de transferencia de log"
+msgstr "Agente rep o gestor de transferencia de registro"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
