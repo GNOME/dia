@@ -289,6 +289,7 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   
   retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
   retval->pfd = pfd;
+  retval->legacy_name = NULL;
   return retval;
 }
 

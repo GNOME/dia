@@ -1,3 +1,11 @@
+2004-06-27  Lars Clausen  <larsrc@linux.local>
+
+	* lib/font.c (dia_font_new_from_style): Initialize legacy name.
+
+	* lib/widgets.c (dia_font_selector_get_family_from_name): Don't
+	free family list before taking out the pointer we need. Also set
+	the entry_nr correctly so we get the menu set up right.
+
 2004-06-23  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.c (dia_toggle_button_new_with_images): Sink the

@@ -322,10 +322,8 @@ dia_font_selector_add_font(const char *lowername, const gchar *fontname,
   fse->name = fontname;
   fse->family = NULL;
   fse->last_select = time(0);
-  fse->entry_nr = g_list_length(persistent_list_get_glist("font-menu"))+4; /* Skip first entries */
   g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
-  if (is_other_font) {
-  } else {
+  if (!is_other_font) {
     if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
     if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
     if (!g_strcasecmp(fontname, "monospace")) fse->entry_nr = 2;
@@ -358,6 +356,7 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   GtkWidget *menuitem;
   GSList *group;
   GList *entry;
+  int i;
 
   if (fs->font_omenu != NULL) {
     gtk_option_menu_remove_menu(fs->font_omenu);
@@ -379,9 +378,15 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  for (entry = persistent_list_get_glist("font-menu");
-       entry != NULL; entry = entry->next) {
+  for (i = 4, entry = persistent_list_get_glist("font-menu");
+       entry != NULL; entry = entry->next, i++) {
+    gchar *fontname = (gchar*)entry->data;
+    gchar *lowername = g_utf8_strdown(fontname, -1);
+    FontSelectorEntry *fse = 
+      (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
+    fse->entry_nr = i;
     menuitem = dia_font_selector_add_menu_item((gchar *)entry->data, &group, menu);
+    g_free(lowername);
   }
   menuitem = gtk_separator_menu_item_new();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
@@ -440,15 +445,12 @@ dia_font_selector_init (DiaFontSelector *fs)
     dia_font_selector_add_font("monospace", "Monospace", FALSE);
 
     other_fonts = persistent_list_get_glist("font-menu");
-    printf("Adding %d other fonts\n", g_list_length(other_fonts));
 
     for (other_fonts = g_list_last(other_fonts);
 	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
       
       gchar *lowername = g_ascii_strdown((gchar*)other_fonts->data,
 					 strlen((gchar*)other_fonts->data));
-
-      printf("Adding font %s\n", (gchar*)other_fonts->data);
 
       dia_font_selector_add_font(lowername,
 				 (gchar*)other_fonts->data, TRUE);
@@ -513,8 +515,9 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
     if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname))) {
+      PangoFontFamily *fam = families[i];
       g_free(families);
-      return families[i];
+      return fam;
     }
   }
   g_warning(_("Couldn't find font family for %s\n"), fontname);
@@ -633,8 +636,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
                              DiaFontStyle dia_style)
 {
   int i=0, select = 0;
-  PangoFontFace **faces;
-  int nfaces;
+  PangoFontFace **faces = NULL;
+  int nfaces = 0;
   GtkWidget *menu = NULL;
   long stylebits = 0;
   int menu_item_nr = 0;
@@ -716,20 +719,20 @@ dia_font_selector_set_preview(DiaFontSelector *fs, gchar *text) {
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
-  int font_nr;
+  int font_nr = 0;
   FontSelectorEntry *fse;
-  const gchar *fontname = dia_font_get_family(font);
+  gchar *fontname = g_utf8_strdown(dia_font_get_family(font), -1);
 
   fse = dia_font_selector_get_new_font(fs, fontname);
   fse->last_select = time(0);
   dia_font_selector_set_styles(fs, fse, dia_font_get_style(font));
 
   font_nr = fse->entry_nr;
-
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
-  gtk_menu_set_active(fs->font_menu, font_nr);
+       /*  gtk_menu_set_active(fs->font_menu, font_nr);*/
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(fs->font_menu)), TRUE);
   fs->old_font = font_nr;
+  g_free(fontname);
 }
 
 DiaFont *
