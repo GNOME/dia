@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-08-20 20:58+0200\n"
-"PO-Revision-Date: 2003-08-20 21:00+0200\n"
+"POT-Creation-Date: 2003-08-22 12:06+0200\n"
+"PO-Revision-Date: 2003-08-22 12:07+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -267,40 +267,52 @@ msgstr "Detta objekt har inga standardvärden."
 msgid "Defaults: "
 msgstr "Standardvärden: "
 
-#: app/dia-props.c:61
+#: app/dia-props.c:75
 msgid "Diagram Properties"
 msgstr "Diagramegenskaper"
 
-#: app/dia-props.c:96
+#: app/dia-props.c:110
+msgid "Dynamic grid"
+msgstr "Dynamiskt rutnät"
+
+#: app/dia-props.c:118
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:100
+#: app/dia-props.c:122
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:105
+#: app/dia-props.c:127
 msgid "Spacing"
 msgstr "Mellanrum"
 
-#: app/dia-props.c:125
+#: app/dia-props.c:147
 msgid "Visible spacing"
 msgstr "Synliga mellanrum"
 
-#: app/dia-props.c:145
+#: app/dia-props.c:167
 msgid "Grid"
 msgstr "Rutnät"
 
-#: app/dia-props.c:156
-msgid "Background Colour"
-msgstr "Bakgrundsfärg"
-
-#: app/dia-props.c:167 lib/diagramdata.c:58
+#: app/dia-props.c:178 lib/diagramdata.c:61
 msgid "Background"
 msgstr "Bakgrund"
 
+#: app/dia-props.c:189 app/preferences.c:103
+msgid "Grid Lines"
+msgstr "Rutlinjer"
+
+#: app/dia-props.c:200
+msgid "Page Breaks"
+msgstr "Sidbrytningar"
+
+#: app/dia-props.c:211
+msgid "Colours"
+msgstr "Färger"
+
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:185
+#: app/dia-props.c:230
 #, c-format
 msgid "Diagram Properties: %s"
 msgstr "Diagramegenskaper: %s"
@@ -513,7 +525,7 @@ msgstr "%0.3gcm × %0.3gcm"
 msgid "Page Setup"
 msgstr "Sidinställningar"
 
-#: app/disp_callbacks.c:77 app/properties.c:141
+#: app/disp_callbacks.c:78 app/properties.c:141
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -521,11 +533,11 @@ msgstr ""
 "Detta objekt stöder inte Ångra/Gör om.\n"
 "Ångrainformationen raderad."
 
-#: app/disp_callbacks.c:219
+#: app/disp_callbacks.c:220
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/disp_callbacks.c:864
+#: app/disp_callbacks.c:865
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -558,7 +570,7 @@ msgstr "Stäng diagram"
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
-#: app/export_png.c:116 app/load_save.c:779 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:797 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
@@ -936,7 +948,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Inte en Dia-fil."
 
-#: app/load_save.c:489
+#: app/load_save.c:500
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -947,12 +959,12 @@ msgstr ""
 "%s.\n"
 "En giltig Dia-fil anger minst ett lager."
 
-#: app/load_save.c:812
+#: app/load_save.c:830
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades med att spara filen \"%s\".\n"
 
-#: app/load_save.c:882 app/load_save.c:887
+#: app/load_save.c:900 app/load_save.c:905
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
@@ -1753,10 +1765,6 @@ msgstr "Standardalternativ för diagram"
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:103
-msgid "Grid Lines"
-msgstr "Rutlinjer"
-
 #: app/preferences.c:104
 msgid "Diagram Tree"
 msgstr "Diagramträd"
@@ -1805,86 +1813,90 @@ msgstr "Stående"
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:134
+#: app/preferences.c:133
+msgid "Background Colour:"
+msgstr "Bakgrundsfärg:"
+
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:140
+#: app/preferences.c:142
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:141 app/preferences.c:145 app/preferences.c:151
+#: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
 msgid "Visible"
 msgstr "Synligt"
 
-#: app/preferences.c:144
+#: app/preferences.c:146
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:146 app/preferences.c:156
+#: app/preferences.c:148 app/preferences.c:158
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:147
+#: app/preferences.c:149
 msgid "Solid lines"
 msgstr "Hela linjer"
 
-#: app/preferences.c:152
+#: app/preferences.c:154
 msgid "Snap to"
 msgstr "Fäst vid"
 
-#: app/preferences.c:153
+#: app/preferences.c:155
 msgid "Dynamic grid resizing"
 msgstr "Dynamisk storleksändring av rutnät"
 
-#: app/preferences.c:154
+#: app/preferences.c:156
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:155
+#: app/preferences.c:157
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:157
+#: app/preferences.c:159
 msgid "Lines per major line"
 msgstr "Linjer per huvudlinje"
 
-#: app/preferences.c:172
+#: app/preferences.c:174
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:174
+#: app/preferences.c:176
 msgid "Save hidden object types"
 msgstr "Spara dolda objekttyper"
 
-#: app/preferences.c:303
+#: app/preferences.c:305
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:583 lib/prop_inttypes.c:151
+#: app/preferences.c:585 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:583 app/preferences.c:594 lib/prop_inttypes.c:153
+#: app/preferences.c:585 app/preferences.c:596 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/preferences.c:696
+#: app/preferences.c:698
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -7150,6 +7162,48 @@ msgstr "Sybase-dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-replikationsserver"
+
+#~ msgid "Page Breaks:"
+#~ msgstr "Sidbrytningar:"
+
+#~ msgid "Colors"
+#~ msgstr "Färger"
+
+#~ msgid "Colour"
+#~ msgstr "Färg"
+
+#~ msgid "Color:"
+#~ msgstr "Färg:"
+
+#~ msgid "Colours:"
+#~ msgstr "Färger:"
+
+#~ msgid "Colors:"
+#~ msgstr "Färger:"
+
+#~ msgid "Background Colour"
+#~ msgstr "Bakgrundsfärg"
+
+#~ msgid "Background Color:"
+#~ msgstr "Bakgrundsfärg:"
+
+#~ msgid "Line color:"
+#~ msgstr "Linjefärg:"
+
+#~ msgid "Line Color"
+#~ msgstr "Linjefärg"
+
+#~ msgid "Fill color"
+#~ msgstr "Fyllnadsfärg"
+
+#~ msgid "Text color"
+#~ msgstr "Textfärg"
+
+#~ msgid "Arrow color"
+#~ msgstr "Pilfärg"
+
+#~ msgid "Seconds arrow color"
+#~ msgstr "Färg på sekundpil"
 
 #~ msgid "Receptable"
 #~ msgstr "Mottaglig"
