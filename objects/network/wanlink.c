@@ -22,7 +22,6 @@
  */
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "config.h"
@@ -36,11 +35,6 @@
 
 #include "pixmaps/wanlink.xpm"
 
-typedef struct _WanLinkPropertiesDialog 
-{
-    GtkWidget *dialog;
-} WanLinkPropertiesDialog;
-
 #define WANLINK_POLY_LEN 6
 
 
@@ -49,7 +43,6 @@ typedef struct _WanLink {
 
     real width;
     Point poly[WANLINK_POLY_LEN];
-    WanLinkPropertiesDialog *properties_dialog;
 } WanLink;
 
 static Object *wanlink_create(Point *startpoint,
@@ -66,9 +59,10 @@ static void wanlink_move(WanLink *wanlink, Point *to);
 static void wanlink_move_handle(WanLink *wanlink, Handle *handle,
 			      Point *to, HandleMoveReason reason, 
 			      ModifierKeys modifiers);
-static GtkWidget *wanlink_get_properties(WanLink *wanlink, gboolean is_default);
 
-
+static PropDescription *wanlink_describe_props(WanLink *wanlink);
+static void wanlink_get_props(WanLink *wanlink, GPtrArray *props);
+static void wanlink_set_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_save(WanLink *wanlink, ObjectNode obj_node,
 			 const char *filename);
 static Object *wanlink_load(ObjectNode obj_node, int version,
@@ -79,7 +73,9 @@ static ObjectTypeOps wanlink_type_ops =
 {
   (CreateFunc) wanlink_create,
   (LoadFunc)   wanlink_load,
-  (SaveFunc)   wanlink_save
+  (SaveFunc)   wanlink_save,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 static ObjectOps wanlink_ops =
@@ -91,9 +87,13 @@ static ObjectOps wanlink_ops =
   (CopyFunc)            wanlink_copy,
   (MoveFunc)            wanlink_move,
   (MoveHandleFunc)      wanlink_move_handle,
-  (GetPropertiesFunc)   wanlink_get_properties,
-  (ApplyPropertiesFunc) NULL,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   wanlink_describe_props,
+  (GetPropsFunc)        wanlink_get_props,
+  (SetPropsFunc)        wanlink_set_props,
+
 };
 
 ObjectType wanlink_type =
@@ -105,18 +105,45 @@ ObjectType wanlink_type =
   &wanlink_type_ops      /* ops */
 };
 
+static PropDescription wanlink_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_DESC_END
+};
+
+static PropDescription *
+wanlink_describe_props(WanLink *wanlink)
+{
+  if (wanlink_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(wanlink_props);
+  return wanlink_props;
+}
+
+static PropOffset wanlink_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { NULL, 0, 0 }
+};
+
+static void
+wanlink_get_props(WanLink *wanlink, GPtrArray *props)
+{
+  object_get_props_from_offsets(&wanlink->connection.object, wanlink_offsets,
+				props);
+}
+
+static void
+wanlink_set_props(WanLink *wanlink, GPtrArray *props)
+{
+  object_set_props_from_offsets(&wanlink->connection.object, wanlink_offsets,
+				props);
+  wanlink_update_data(wanlink);
+}
+
 #define FLASH_LINE NETWORK_GENERAL_LINEWIDTH
 #define FLASH_WIDTH 1.0
 #define FLASH_HEIGHT 11.0
 #define FLASH_BORDER 0.325
 
 #define FLASH_BOTTOM (FLASH_HEIGHT)
-
-static GtkWidget *
-wanlink_get_properties(WanLink *wanlink, gboolean is_default)
-{
-  return NULL;
-}
 
 
 static Object *
@@ -150,7 +177,6 @@ wanlink_create(Point *startpoint,
       wanlink->poly[i] = defaultpoly;
   
   wanlink->width = FLASH_WIDTH;
-  wanlink->properties_dialog = NULL;
   
   wanlink_update_data(wanlink);
 
@@ -164,10 +190,6 @@ wanlink_create(Point *startpoint,
 static void
 wanlink_destroy(WanLink *wanlink)
 {
-  if (wanlink->properties_dialog != NULL) {
-    gtk_widget_destroy(wanlink->properties_dialog->dialog);
-    g_free(wanlink->properties_dialog);
-  }
   connection_destroy(&wanlink->connection);
 }
 
@@ -224,7 +246,6 @@ wanlink_copy(WanLink *wanlink)
   connection_copy(conn, newconn);
 
   newwanlink->width = wanlink->width;
-  newwanlink->properties_dialog = NULL;
 
   return (Object *)newwanlink;
 }
@@ -284,8 +305,6 @@ wanlink_load(ObjectNode obj_node, int version, const char *filename)
     
     obj->type = &wanlink_type;
     obj->ops = &wanlink_ops;
-
-    wanlink->properties_dialog = NULL;
 
     connection_load(conn, obj_node);
     connection_init(conn, 2, 0);

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -39,7 +38,6 @@
 #define DEFAULT_NUMHANDLES 6
 #define HANDLE_BUS (HANDLE_CUSTOM1)
 
-typedef struct _BusPropertiesDialog BusPropertiesDialog;
 
 typedef struct _Bus {
   Connection connection;
@@ -49,14 +47,7 @@ typedef struct _Bus {
   Point *parallel_points;
   Point real_ends[2];
 
-  BusPropertiesDialog *properties_dialog;
 } Bus;
-
-struct _BusPropertiesDialog {
-  GtkWidget *dialog;
-
-  GtkSpinButton *num_handles_spinner;
-};
 
 enum change_type {
   TYPE_ADD_POINT,
@@ -90,10 +81,12 @@ static void bus_update_data(Bus *bus);
 static void bus_destroy(Bus *bus);
 static Object *bus_copy(Bus *bus);
 
+static PropDescription *bus_describe_props(Bus *bus);
+static void bus_get_props(Bus *bus, GPtrArray *props);
+static void bus_set_props(Bus *bus, GPtrArray *props);
 static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
 static Object *bus_load(ObjectNode obj_node, int version,
 			const char *filename);
-static GtkWidget *bus_get_properties(Bus *bus, gboolean is_default);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
 static ObjectChange *
@@ -106,7 +99,9 @@ static ObjectTypeOps bus_type_ops =
 {
   (CreateFunc) bus_create,
   (LoadFunc)   bus_load,
-  (SaveFunc)   bus_save
+  (SaveFunc)   bus_save,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType bus_type =
@@ -133,15 +128,45 @@ static ObjectOps bus_ops = {
   (CopyFunc)            bus_copy,
   (MoveFunc)            bus_move,
   (MoveHandleFunc)      bus_move_handle,
-  (GetPropertiesFunc)   bus_get_properties,
-  (ApplyPropertiesFunc) NULL,
-  (ObjectMenuFunc)      bus_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      bus_get_object_menu,
+  (DescribePropsFunc)   bus_describe_props,
+  (GetPropsFunc)        bus_get_props,
+  (SetPropsFunc)        bus_set_props,
 };
 
-static GtkWidget *
-bus_get_properties(Bus *bus, gboolean is_default)
+static PropDescription bus_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_DESC_END
+};
+
+static PropDescription *
+bus_describe_props(Bus *bus)
 {
-  return NULL;
+  if (bus_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(bus_props);
+  return bus_props;
+}
+
+static PropOffset bus_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { NULL, 0, 0 }
+};
+
+static void
+bus_get_props(Bus *bus, GPtrArray *props)
+{
+  object_get_props_from_offsets(&bus->connection.object, bus_offsets,
+				props);
+}
+
+static void
+bus_set_props(Bus *bus, GPtrArray *props)
+{
+  object_set_props_from_offsets(&bus->connection.object, bus_offsets,
+				props);
+  bus_update_data(bus);
 }
 
 static real
@@ -341,8 +366,6 @@ bus_create(Point *startpoint,
     obj->handles[2+i] = bus->handles[i];
   }
 
-  bus->properties_dialog = NULL;
-
   extra->start_trans = 
     extra->end_trans = 
     extra->start_long =
@@ -358,10 +381,6 @@ static void
 bus_destroy(Bus *bus)
 {
   int i;
-  if (bus->properties_dialog != NULL) {
-    gtk_widget_destroy(bus->properties_dialog->dialog);
-    g_free(bus->properties_dialog);
-  }
   connection_destroy(&bus->connection);
   for (i=0;i<bus->num_handles;i++)
     g_free(bus->handles[i]);
@@ -400,8 +419,6 @@ bus_copy(Bus *bus)
 
   newbus->real_ends[0] = bus->real_ends[0];
   newbus->real_ends[1] = bus->real_ends[1];
-
-  newbus->properties_dialog = NULL;
 
   return &newbus->connection.object;
 }
@@ -626,8 +643,6 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &bus_type;
   obj->ops = &bus_ops;
 
-  bus->properties_dialog = NULL;
-  
   connection_load(conn, obj_node);
 
   attr = object_find_attribute(obj_node, "bus_handles");
