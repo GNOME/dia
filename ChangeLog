@@ -1,5 +1,8 @@
 2004-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/app_procs.c: Patch #131159 from J. H. M. Dassen
+	(jdassen@debian.org): Include fix.
+
 	* app/interface.c: Patch #130100 from luc@handhelds.org:  Make
 	sure the initial diagram size is correct.
 

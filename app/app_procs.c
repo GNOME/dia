@@ -49,6 +49,10 @@ typedef void* poptContext;
 #  endif
 #endif
 
+#ifdef HAVE_FREETYPE
+#include <pango/pangoft2.h>
+#endif
+
 #include <libxml/parser.h>
 #include <libxml/xmlerror.h>
 
