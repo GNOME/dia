@@ -169,6 +169,8 @@ AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no)
 AC_CHECK_LIB(png, png_read_info, ,png_ok=no, -lz -lm)
 if test "$png_ok" = yes; then
   AC_MSG_CHECKING([for png_structp in png.h])
+  dnl Why can't AC_LINK_IFELSE take extra libs?
+  LIBS="${LIBS} -lz -lm"
   AC_LINK_IFELSE([#include <png.h>
                   png_structp pp;
 		  png_infop info; 
