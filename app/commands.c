@@ -30,6 +30,12 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+/* Added by Andrew Ferrier: for use of gnome_about_new() */
+
+#ifdef GNOME
+#  include <gnome.h>
+#endif
+
 #ifdef G_OS_WIN32
 /*
  * Instead of polluting the Dia namespace with windoze headers, declare the
@@ -504,6 +510,102 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 void
 help_about_callback(gpointer data, guint action, GtkWidget *widget)
 {
+        /* Wouldn't it be neat to display (where applicable) the names
+           of the authors in their original (non-Roman) scripts, where
+           applicable ?  -- cc */
+    static const gchar *authors[] =		{
+    "Alexander Larsson <alexl@redhat.com>",
+    "James Henstridge <james@daa.com.au>",
+    "Jerome Abela <abela@solsoft.fr>",
+    "Hans Breuer <hans@breuer.org>",
+    "Emmanuel Briot <briot@volga.gnat.com>",
+    "Cyrille Chépélov <cyrille@chepelov.org>",
+    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
+    "Fredrik Hallenberg <hallon@debian.org>",
+    "Francis J. Lacoste <francis@contre.com>",
+    "Steffen Macke <sdteffen@web.de>",
+    "M. C. Nelson <mcn@mani.kobayashimaru.org>",
+    "Jacek Pliszka <Jacek@Pliszka.fuw.edu.pl>",
+    "Henk Jan Priester <hj@justcroft.com>",
+    "Alejandro Aguilar Sierra <asierra@servidor.unam.mx>",
+    "Hubert Figuière <hfiguiere@teaser.fr>",
+    "Alexey Novodvorsky <aen@logic.ru>",
+    "Patric Sung <phsung@ualberta.ca>",
+    "Robert Young <robert@young.dsto.defence.gov.au>",
+    "Akira TAGOH <tagoh@redhat.com>",
+    "Richard Rowell <rwrowell@bellsouth.net>",
+    "Frank Gevaerts <frank.gevaerts@fks.be>",
+    "M. C. Nelson <mcn@kobayashimaru.org>",
+    "Matthieu Sozeau <mattam@netcourrier.com>",
+    "Andrew Ferrier <andrew@new-destiny.co.uk>",
+    NULL
+  };
+  
+  static const gchar *documentors[] =	{
+    "Henry House <hajhouse@houseag.com>",
+    "Judith Samson <judith@samsonsource.com>",
+    "Kevin Breit <battery841@mypad.com>",
+    NULL
+  };
+  
+#ifdef GNOME
+
+  /*  Take advantage of gnome_about_new(),
+   *  which is much cleaner and GNOME2 HIG compliant,
+   *  Originally implemented by Xing Wang, modified
+   *  by Andrew Ferrier.
+   */
+  
+  static GtkWidget *about;
+  
+  /*
+   * Translators should localize the following string
+   * which will give them credit in the About box.
+   * E.g. "Fulano de Tal <fulano@detal.com>"
+   */
+  
+  gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
+  gchar logo_file[100];
+  
+  if (!about) {
+    GdkPixbuf *logo;
+  
+    gchar* datadir = dia_get_data_directory(""); 
+    g_snprintf(logo_file, sizeof(logo_file),
+                             "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
+
+  	logo = gdk_pixbuf_new_from_file(logo_file, NULL);
+    g_free(datadir);
+  
+    about = gnome_about_new(
+      _("Dia"),
+      VERSION,
+      _("Copyright (C) 1998-2002 The Free Software Foundation and the authors"),
+      _("Dia is a program for drawing structured diagrams.\n"
+      "Please visit http://www.lysator.liu.se/~alla/dia for more information."),
+      authors,
+      documentors,
+      (strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+      ? translators : NULL),
+      logo);
+  
+    if (logo)
+        g_object_unref (logo);
+      
+  	g_signal_connect (about, "destroy",
+         G_CALLBACK (gtk_widget_destroyed),
+         &about);
+  }
+
+  gtk_widget_show_now (about);
+  
+#else
+
+  /* No GNOME, fall back to the old GTK method */
+
+  const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
+  const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
+
   GtkWidget *dialog;
   GtkWidget *vbox;
   GtkWidget *table;
@@ -515,31 +617,15 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   gint i;
   
   GtkWidget *gpixmap;
-
-  static const gchar *contributors[] = {
-    "Jerome Abela",
-    "Hans Breuer",
-    "Emmanuel Briot",
-    "Cyrille Chepelov",
-    "Lars R. Clausen",
-    "Fredrik Hallenberg",
-    "Francis J. Lacoste",
-    "Steffen Macke",
-    "M. C. Nelson",
-    "Jacek Pliszka",
-    "Henk Jan Priester",
-    "Alejandro Aguilar Sierra",
-  };
-  const gint ncontributors = sizeof(contributors) / sizeof(contributors[0]);
-
+  
   dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
   gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
   gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, FALSE);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
-		      GTK_SIGNAL_FUNC (gtk_widget_destroy), 
-		      GTK_OBJECT (dialog));
+          GTK_SIGNAL_FUNC (gtk_widget_destroy), 
+          GTK_OBJECT (dialog));
 
   vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
@@ -580,26 +666,34 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   g_snprintf(str, sizeof(str), _("Dia v %s by Alexander Larsson"), VERSION);
   label = gtk_label_new (str);
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
-  
-  label = gtk_label_new(_("Maintainer: James Henstridge"));
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+
+      /* Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities) */
+  label = gtk_label_new(_("Maintainers: Lars Clausen and Cyrille Chépélov"));
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
   label = gtk_label_new (_("Please visit http://www.lysator.liu.se/~alla/dia "
-			   "for more info"));
+         "for more information"));
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
   label = gtk_label_new (_("Contributors:"));
   gtk_table_attach(GTK_TABLE(table), label, 0,2, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
-  for (i = 0; i < ncontributors; i++) {
-    label = gtk_label_new(contributors[i]);
+  for (i = 0; i < nauthors; i++) {
+    label = gtk_label_new(authors[i]);
     gtk_table_attach(GTK_TABLE(table), label, i%2,i%2+1, i/2+4,i/2+5,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
   }
+
+  for (i = nauthors; i < nauthors + ndocumentors; i++) {
+    label = gtk_label_new(documentors[i - nauthors]);
+    gtk_table_attach(GTK_TABLE(table), label, i%2,i%2+1, i/2+4,i/2+5,
+       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
+  }
+
   gtk_table_set_col_spacings(GTK_TABLE(table), 1);
   gtk_table_set_row_spacings(GTK_TABLE(table), 1);
 
@@ -608,13 +702,15 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_button_box_set_child_size(GTK_BUTTON_BOX(bbox), 80, 0);
   gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 10);
 
-  button = gtk_button_new_with_label(_("OK"));
+  button = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_container_add(GTK_CONTAINER(bbox), button);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			    GTK_OBJECT(dialog));
+          GTK_SIGNAL_FUNC(gtk_widget_destroy),
+          GTK_OBJECT(dialog));
 
   gtk_widget_show_all (dialog);
+
+#endif /*  GNOME  */
 }
 
 void

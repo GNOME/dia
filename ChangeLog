@@ -19,7 +19,19 @@
 
 	* AUTHORS: added contributors, updated maintainers. Removed the
 	specific areas of action.
-	
+
+	* Patch from Andrew Ferrier <andrew@new-destiny.co.uk>, derived
+	from a patch by Xing Wang <quixon@gnuchina.org>:
+
+	* app/commands.c: help_about_callback now supports
+	new-style GNOME about box as well as old GTK style. 
+	code also tidied (Closes: #85726)
+
+	(end of Patch)
+
+	* app/commands.c: fixed the copyright (it's not all FSF), and
+	maintainers.
+		
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/message.c: More work on repeating messages, now with
