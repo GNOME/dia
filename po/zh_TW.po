@@ -1,13 +1,13 @@
 # traditional Chinese translation for dia.
-# Copyright (C) 2000, 01, 03 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
 # Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000
 # Abel Cheung <maddog@linux.org.hk>, 2001, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.91\n"
-"POT-Creation-Date: 2003-04-23 21:54+0800\n"
-"PO-Revision-Date: 2003-04-23 21:56+0800\n"
+"POT-Creation-Date: 2003-05-22 07:30+0800\n"
+"PO-Revision-Date: 2003-05-27 03:41+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.hk>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "顯示本說明訊息"
 
 #: app/app_procs.c:285
 msgid "Can't connect to session manager!\n"
-msgstr "無法連接作業階段管理程式！\n"
+msgstr "無法連接作業階段總管！\n"
 
 #: app/app_procs.c:300 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
@@ -108,7 +108,7 @@ msgid ""
 msgstr "搜尋物件函式時找不到標準物件，結束程式...\n"
 
 #. no standard buttons
-#: app/app_procs.c:558
+#: app/app_procs.c:557
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -118,21 +118,21 @@ msgstr ""
 "是否確定離開而且\n"
 "不儲存圖表？"
 
-#: app/app_procs.c:562
+#: app/app_procs.c:561
 msgid "Quit Dia"
 msgstr "結束 Dia"
 
-#: app/app_procs.c:626 app/app_procs.c:633
+#: app/app_procs.c:625 app/app_procs.c:632
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立 Dia 個人組態目錄"
 
-#: app/app_procs.c:635
+#: app/app_procs.c:634
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "無法建立 Dia 個人組態目錄。請確定 HOME 環境變數是一個已存在的目錄。"
 
-#: app/app_procs.c:657 app/diaconv.c:249
+#: app/app_procs.c:656 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部物件及過濾器"
 
@@ -148,9 +148,13 @@ msgstr ""
 "發現自動儲存的檔案。\n"
 "請選取希望恢復原狀的檔案。"
 
-#: app/color_area.c:314 lib/widgets.c:848
-msgid "Select color"
-msgstr "選取色彩"
+#: app/color_area.c:316 app/color_area.c:363
+msgid "Select foreground color"
+msgstr "選取前景顏色"
+
+#: app/color_area.c:317 app/color_area.c:364
+msgid "Select background color"
+msgstr "選取背景顏色"
 
 #: app/commands.c:132
 #, c-format
@@ -179,7 +183,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:536
+#: app/commands.c:534
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "i18n 程式中文化計劃\n"
@@ -188,15 +192,15 @@ msgstr ""
 "Abel Cheung <maddog@linux.org.hk>, 2001,2003\n"
 "Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000"
 
-#: app/commands.c:550 dia.desktop.in.h:1
+#: app/commands.c:548 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:552
+#: app/commands.c:550
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "版權所有 ©1998-2002 自由軟體基金會及軟體開發者"
 
-#: app/commands.c:553
+#: app/commands.c:551
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -204,25 +208,25 @@ msgstr ""
 "Dia 是用來繪製結構性圖表的程式。\n"
 "請瀏覽 http://www.lysator.liu.se/~alla/dia 獲取更多資料。"
 
-#: app/commands.c:592
+#: app/commands.c:590
 msgid "About Dia"
 msgstr "關於 Dia"
 
-#: app/commands.c:635
+#: app/commands.c:633
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia %s 版本由 Alexander Larsson 編寫"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:641
+#: app/commands.c:639
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "維護者：Lars Clausen 及 Cyrille Chépélov"
 
-#: app/commands.c:645
+#: app/commands.c:643
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "請瀏覽 http://www.lysator.liu.se/~alla/dia 獲取進一步的資料"
 
-#: app/commands.c:650
+#: app/commands.c:648
 msgid "Contributors:"
 msgstr "貢獻者："
 
@@ -312,15 +316,15 @@ msgstr "/排列物件(S)/根據加入的次序(_I)"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr ""
+msgstr "/排列物件(S)/全部，根據名稱"
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr ""
+msgstr "/排列物件(S)/全部，根據類型"
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/排列物件(S)/全部，根據加入的次序"
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
@@ -376,14 +380,14 @@ msgstr ""
 
 #: app/diagram_tree_window.c:76
 msgid "Diagram tree"
-msgstr "圖表結構"
+msgstr "圖表結構樹"
 
 #: app/dialogs.c:51
 msgid "Ok"
 msgstr "確定"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1008 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:257
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:258
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "取消"
@@ -477,15 +481,15 @@ msgstr "背景顏色"
 msgid "Background"
 msgstr "背景"
 
-#: app/disp_callbacks.c:76 app/properties.c:125
+#: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
 "該物件不支援復原/取消復原程序。\n"
-"已清除復原資訊。"
+"清除有關復原的資訊。"
 
-#: app/disp_callbacks.c:218
+#: app/disp_callbacks.c:219
 msgid "No object menu"
 msgstr "沒有物件選單"
 
@@ -514,48 +518,47 @@ msgstr "關閉圖表"
 msgid "Discard Changes"
 msgstr "放棄更改內容"
 
-#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
-#: plug-ins/metapost/render_metapost.c:733
-#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
-#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
-#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
+#: app/export_png.c:116 app/load_save.c:747 app/render_eps.c:83
+#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:734
+#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
 #, c-format
-msgid "Couldn't open: '%s' for writing.\n"
-msgstr "無法開啟‘%s’來寫入資料。\n"
+msgid "Can't open output file %s: %s\n"
+msgstr "無法開啟輸出檔 %s：%s\n"
 
-#: app/export_png.c:122
+#: app/export_png.c:124
 msgid "Could not create PNG write structure"
 msgstr "無法產生 PNG 寫入結構"
 
-#: app/export_png.c:131
+#: app/export_png.c:133
 msgid "Could not create PNG header info structure"
 msgstr "無法產生 PNG 標頭資訊結構"
 
-#: app/export_png.c:139
+#: app/export_png.c:141
 msgid "Error occurred while writing PNG"
 msgstr "當寫入 PNG 時發生錯誤"
 
 #. Create a dialog
-#: app/export_png.c:263
+#: app/export_png.c:265
 msgid "PNG Export Options"
 msgstr "PNG 匯出選項"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:264 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:266 objects/FS/function.c:661 objects/FS/function.c:663
 msgid "Export"
 msgstr "匯出"
 
-#: app/export_png.c:269
+#: app/export_png.c:271
 msgid "Image width:"
 msgstr "圖像寬度："
 
-#: app/export_png.c:272
+#: app/export_png.c:274
 msgid "Image height:"
 msgstr "圖像高度："
 
-#: app/export_png.c:317
+#: app/export_png.c:319
 msgid "Portable Network Graphics"
 msgstr "PNG"
 
@@ -580,7 +583,7 @@ msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"檔案名稱中某些字元不屬於 UTF-8，也不屬於閣下目前使用的編碼。\n"
+"檔案名稱中某些字元不屬於 UTF-8，也不屬於您目前使用的編碼。\n"
 "將來可能會發生錯誤。"
 
 #: app/filedlg.c:240 app/filedlg.c:412
@@ -653,105 +656,61 @@ msgstr "在圖表中捲動"
 msgid "Scroll"
 msgstr "捲動"
 
-#: app/interface.c:58
-msgid "Create Text"
-msgstr "製作文字"
-
 #. PROP_STD_TEXT_ALIGNMENT,
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:497
-#: lib/properties.h:500 objects/UML/activity.c:123 objects/UML/actor.c:114
-#: objects/UML/classicon.c:137 objects/UML/component.c:120
-#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
-#: objects/UML/small_package.c:120 objects/UML/state.c:133
-#: objects/UML/usecase.c:130
+#: app/interface.c:58 app/interface.c:59 app/menus.c:219 lib/properties.c:77
+#: lib/properties.h:498 lib/properties.h:501 objects/UML/activity.c:123
+#: objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
+#: objects/UML/object.c:141 objects/UML/small_package.c:120
+#: objects/UML/state.c:133 objects/UML/usecase.c:130
 msgid "Text"
 msgstr "文字"
 
-#: app/interface.c:63
-msgid "Create Box"
-msgstr "繪畫方框"
-
-#: app/interface.c:64 app/menus.c:220
+#: app/interface.c:63 app/interface.c:64 app/menus.c:220
 msgid "Box"
 msgstr "方框"
 
-#: app/interface.c:68
-msgid "Create Ellipse"
-msgstr "繪畫橢圓"
-
-#: app/interface.c:69 app/menus.c:221
+#: app/interface.c:68 app/interface.c:69 app/menus.c:221
 msgid "Ellipse"
 msgstr "橢圓"
 
-#: app/interface.c:73
-msgid "Create Polygon"
-msgstr "繪畫多邊形"
-
-#: app/interface.c:74 app/menus.c:222
+#: app/interface.c:73 app/interface.c:74 app/menus.c:222
 msgid "Polygon"
 msgstr "多邊形"
 
-#: app/interface.c:78
-msgid "Create Beziergon"
-msgstr "繪畫貝茲 (Bezier) 封閉曲線"
-
-#: app/interface.c:79 app/menus.c:223
+#: app/interface.c:78 app/interface.c:79 app/menus.c:223
 msgid "Beziergon"
 msgstr "貝茲封閉曲線"
 
-#: app/interface.c:83
-msgid "Create Line"
-msgstr "繪畫直線"
-
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
+#: app/interface.c:83 app/interface.c:84 app/menus.c:225
+#: objects/standard/line.c:246
 msgid "Line"
 msgstr "直線"
 
-#: app/interface.c:88
-msgid "Create Arc"
-msgstr "繪畫弧線"
-
-#: app/interface.c:89 app/menus.c:226
+#: app/interface.c:88 app/interface.c:89 app/menus.c:226
 msgid "Arc"
 msgstr "弧線"
 
-#: app/interface.c:93
-msgid "Create Zigzagline"
-msgstr "繪畫 Z 形線"
-
-#: app/interface.c:94 app/menus.c:227
+#: app/interface.c:93 app/interface.c:94 app/menus.c:227
 msgid "Zigzagline"
 msgstr "Z 形線"
 
-#: app/interface.c:98
-msgid "Create Polyline"
-msgstr "繪畫自由線段"
-
-#: app/interface.c:99 app/menus.c:228
+#: app/interface.c:98 app/interface.c:99 app/menus.c:228
 msgid "Polyline"
 msgstr "自由線段"
 
-#: app/interface.c:103
-msgid "Create Bezierline"
-msgstr "繪畫貝茲 (Bezier) 曲線"
-
-#: app/interface.c:104 app/menus.c:229
+#: app/interface.c:103 app/interface.c:104 app/menus.c:229
 msgid "Bezierline"
 msgstr "貝茲曲線"
 
-#: app/interface.c:108
-msgid "Create Image"
-msgstr "顯示圖像"
-
-#: app/interface.c:109 app/menus.c:231
+#: app/interface.c:108 app/interface.c:109 app/menus.c:231
 msgid "Image"
 msgstr "圖像"
 
 #: app/interface.c:370
-#, fuzzy
 msgid "Diagram menu."
 msgstr "圖表選單"
 
@@ -768,13 +727,12 @@ msgid "NULL tooldata in tool_select_update"
 msgstr "在 tool_select_update 中 tooldata 的值為 NULL"
 
 #: app/interface.c:999
-#, fuzzy
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
-"前景及背景顏色。\n"
+"新的物件的前景及背景顏色。\n"
 "黑白小方塊可重設顏色。\n"
 "小箭頭可交換顏色。\n"
 "雙擊可更改顏色。"
@@ -839,20 +797,20 @@ msgstr "關閉"
 msgid "New layer"
 msgstr "新圖層"
 
-#: app/layer_dialog.c:522
+#: app/layer_dialog.c:525
 msgid "none"
 msgstr "無"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:971
 msgid "Edit Layer Attributes"
 msgstr "修改圖層屬性"
 
-#: app/layer_dialog.c:989
+#: app/layer_dialog.c:990
 msgid "Layer name:"
 msgstr "圖層名稱："
 
-#: app/layer_dialog.c:998 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:248 app/paginate_psprint.c:268
+#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:249 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "確定"
 
@@ -868,16 +826,16 @@ msgstr "細節..."
 msgid "Line Style Properties"
 msgstr "線段樣式屬性"
 
-#: app/linewidth_area.c:229 lib/properties.h:473
+#: app/linewidth_area.c:230 lib/properties.h:474
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "線段寬度"
 
-#: app/linewidth_area.c:235
+#: app/linewidth_area.c:236
 msgid "Line width:"
 msgstr "線段寬度："
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -885,7 +843,7 @@ msgstr ""
 "載入圖表時發生錯誤。\n"
 "文件內找不到連結物件。"
 
-#: app/load_save.c:203
+#: app/load_save.c:204
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -893,25 +851,25 @@ msgstr ""
 "載入圖表時發生錯誤。\n"
 "連接點不存在。"
 
-#: app/load_save.c:206
+#: app/load_save.c:207
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 "載入圖表時發生錯誤。\n"
-"連接控制項不存在。"
+"連接元件不存在。"
 
-#: app/load_save.c:255
+#: app/load_save.c:256
 msgid "You must specify a file, not a directory.\n"
-msgstr "閣下必須指定檔案而不是目錄。\n"
+msgstr "您必須指定檔案而不是目錄。\n"
 
-#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
+#: app/load_save.c:263 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "無法開啟‘%s’來讀取資料。\n"
 
-#: app/load_save.c:271 app/load_save.c:276
+#: app/load_save.c:272 app/load_save.c:277
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -920,7 +878,7 @@ msgstr ""
 "載入圖表 %s 時發生錯誤。\n"
 "檔案類型不明。"
 
-#: app/load_save.c:283
+#: app/load_save.c:284
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -929,7 +887,7 @@ msgstr ""
 "載入圖表 %s 時發生錯誤。\n"
 "不是 Dia 檔案。"
 
-#: app/load_save.c:469
+#: app/load_save.c:470
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -939,12 +897,12 @@ msgstr ""
 "載入圖表 %s 時發生錯誤。\n"
 "有效的 Dia 檔案最少有一個圖層。"
 
-#: app/load_save.c:779
+#: app/load_save.c:780
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "無法儲存檔案‘%s’。\n"
 
-#: app/load_save.c:849 app/load_save.c:854
+#: app/load_save.c:850 app/load_save.c:855
 msgid "Native Dia Diagram"
 msgstr ""
 
@@ -958,11 +916,11 @@ msgstr "製作新圖表"
 
 #: app/menus.c:54
 msgid "_Diagram tree"
-msgstr "圖表結構(_D)"
+msgstr "圖表結構樹(_D)"
 
 #: app/menus.c:54
 msgid "Show diagram tree"
-msgstr "顯示圖表結構"
+msgstr "顯示圖表結構樹"
 
 #: app/menus.c:56
 msgid "_Sheets and Objects..."
@@ -1087,7 +1045,7 @@ msgstr "相反區域"
 msgid "All"
 msgstr "全部"
 
-#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1078
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1125
 msgid "None"
 msgstr "無"
 
@@ -1103,15 +1061,15 @@ msgstr ""
 msgid "Same Type"
 msgstr "相同類型"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:461 lib/widgets.c:531
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:462 lib/widgets.c:531
 msgid "Left"
 msgstr "靠左"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:462 lib/widgets.c:537
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:463 lib/widgets.c:537
 msgid "Center"
 msgstr "置中"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:463 lib/widgets.c:543
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:464 lib/widgets.c:543
 msgid "Right"
 msgstr "靠右"
 
@@ -1136,14 +1094,12 @@ msgid "Bottom"
 msgstr "靠下"
 
 #: app/menus.c:202
-#, fuzzy
 msgid "Send to _Back"
-msgstr "送到下層(_B)"
+msgstr ""
 
 #: app/menus.c:203
-#, fuzzy
 msgid "Bring to _Front"
-msgstr "移到前層(_F)"
+msgstr ""
 
 #: app/menus.c:204
 msgid "Send Backwards"
@@ -1191,7 +1147,7 @@ msgstr "工具(_T)"
 
 #: app/menus.c:266
 msgid "_Dialogs"
-msgstr "對話窗(_D)"
+msgstr "對話方塊(_D)"
 
 #: app/menus.c:267
 msgid "_Input Methods"
@@ -1217,7 +1173,7 @@ msgstr "/檔案(F)/---"
 
 #: app/menus.c:285
 msgid "/File/_Diagram tree"
-msgstr "/檔案(F)/圖表結構(_D)"
+msgstr "/檔案(F)/圖表結構樹(_D)"
 
 #: app/menus.c:287
 msgid "/File/Sheets and Objects..."
@@ -1265,7 +1221,7 @@ msgstr "/檔案(F)/匯出(_E)..."
 
 #: app/menus.c:325
 msgid "/File/Page Set_up..."
-msgstr "/檔案(F)/頁面設定..."
+msgstr "/檔案(F)/頁面設定(_U)..."
 
 #: app/menus.c:326
 msgid "/File/_Print Diagram..."
@@ -1297,7 +1253,7 @@ msgstr "/編輯(E)/複製(_C)"
 
 #: app/menus.c:343
 msgid "/Edit/C_ut"
-msgstr "/編輯(E)/剪下(_u)"
+msgstr "/編輯(E)/剪下(_U)"
 
 #: app/menus.c:345
 msgid "/Edit/_Paste"
@@ -1619,15 +1575,15 @@ msgstr "/工具(T)/圖像"
 
 #: app/menus.c:451
 msgid "/_Dialogs"
-msgstr "/對話窗(_D)"
+msgstr "/對話方塊(_D)"
 
 #: app/menus.c:453
 msgid "/Dialogs/_Properties..."
-msgstr "/對話窗(D)/屬性(_P)..."
+msgstr "/對話方塊(D)/屬性(_P)..."
 
 #: app/menus.c:454
 msgid "/Dialogs/_Layers..."
-msgstr "/對話窗(D)/圖層(_L)..."
+msgstr "/對話方塊(D)/圖層(_L)..."
 
 #: app/menus.c:456
 msgid "/_Input Methods"
@@ -1662,7 +1618,7 @@ msgstr "選取印表機"
 msgid "Printer"
 msgstr "印表機"
 
-#: app/paginate_psprint.c:253
+#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "檔案"
 
@@ -1714,9 +1670,8 @@ msgid "Diagram Defaults"
 msgstr "圖表預設值"
 
 #: app/preferences.c:100
-#, fuzzy
 msgid "View Defaults"
-msgstr "檢視預設值"
+msgstr ""
 
 #: app/preferences.c:101
 msgid "Grid Lines"
@@ -1724,12 +1679,11 @@ msgstr "格線"
 
 #: app/preferences.c:102
 msgid "Diagram Tree"
-msgstr "圖表結構"
+msgstr "圖表結構樹"
 
 #: app/preferences.c:116
-#, fuzzy
 msgid "Reset tools after create:"
-msgstr "建立之後重設工具："
+msgstr ""
 
 #: app/preferences.c:117
 msgid "Compress saved files:"
@@ -1754,11 +1708,11 @@ msgstr ""
 
 #: app/preferences.c:121
 msgid "Use menu bar:"
-msgstr "使用選單："
+msgstr "使用選單列："
 
 #: app/preferences.c:123
 msgid "Keep tool box on top of diagram windows:"
-msgstr ""
+msgstr "令工具箱不會被任何圖表視窗遮蔽："
 
 #: app/preferences.c:125
 msgid "New diagram:"
@@ -1823,7 +1777,7 @@ msgstr "Y 軸大小："
 
 #: app/preferences.c:161
 msgid "Diagram tree window:"
-msgstr "圖表結構視窗："
+msgstr "圖表結構樹視窗："
 
 #: app/preferences.c:163
 msgid "Save hidden object types:"
@@ -1847,19 +1801,19 @@ msgstr "否"
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: app/properties.c:48
+#: app/properties.c:52
 msgid "Object properties"
 msgstr "物件屬性"
 
-#: app/properties.c:72
+#: app/properties.c:78
 msgid "This object has no properties."
 msgstr "此物件沒有任何屬性。"
 
-#: app/properties.c:175
+#: app/properties.c:191
 msgid "Properties: "
 msgstr "屬性："
 
-#: app/properties.c:179
+#: app/properties.c:195
 msgid "Object properties:"
 msgstr "物件屬性："
 
@@ -1877,7 +1831,7 @@ msgstr "<Toolbox>/檔案(F)/結束"
 msgid "Can't open history file for writing."
 msgstr "無法開啟紀錄檔來寫入紀錄。"
 
-#: app/render_eps.c:114
+#: app/render_eps.c:119
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
@@ -1912,7 +1866,7 @@ msgstr "找不到視窗元件：%s"
 
 #: app/sheets.c:448
 msgid "SVG Shape"
-msgstr ""
+msgstr "SVG 圖形"
 
 #: app/sheets.c:450
 msgid "Programmed Object"
@@ -1985,7 +1939,7 @@ msgstr "換行"
 msgid "Edit Attributes"
 msgstr "修改屬性"
 
-#: app/sheets_dialog.c:583
+#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:21
 msgid "Object"
 msgstr "物件"
 
@@ -2004,11 +1958,11 @@ msgid "Sheet"
 msgstr ""
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1056
-#: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
-#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: objects/ER/relationship.c:137 objects/UML/association.c:198
+#: objects/UML/association.c:1103 objects/UML/class_dialog.c:865
+#: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2022
+#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:127
+#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Name:"
 msgstr "名稱："
 
@@ -2022,7 +1976,7 @@ msgstr ""
 
 #: app/sheets_dialog.c:920
 msgid "Select SVG Shape File"
-msgstr ""
+msgstr "選取 SVG 圖形檔"
 
 #: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
@@ -2047,7 +2001,7 @@ msgid ""
 "Shape"
 msgstr ""
 "%s\n"
-"形狀"
+"圖形"
 
 #: app/sheets_dialog_callbacks.c:306
 #, c-format
@@ -2064,6 +2018,8 @@ msgid ""
 "%s\n"
 "Unassigned type"
 msgstr ""
+"%s\n"
+"未指定類別"
 
 #: app/sheets_dialog_callbacks.c:799
 #, c-format
@@ -2078,7 +2034,7 @@ msgstr ""
 #: app/sheets_dialog_callbacks.c:827
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr ""
+msgstr "無法分析圖形檔：‘%s’"
 
 #: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
@@ -2115,7 +2071,7 @@ msgstr ""
 
 #: app/sheets_dialog_callbacks.c:1689
 msgid "add shapes here"
-msgstr ""
+msgstr "在這裡加入圖形"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2160,7 +2116,7 @@ msgstr "半邊箭頭"
 
 #: lib/arrows.c:46
 msgid "Slashed Cross"
-msgstr "劃線十字"
+msgstr "十字上加斜線"
 
 #: lib/arrows.c:47
 msgid "Filled Ellipse"
@@ -2223,13 +2179,12 @@ msgid "Blanked Concave"
 msgstr ""
 
 #: lib/arrows.c:62
-#, fuzzy
 msgid "Round"
-msgstr "名詞"
+msgstr ""
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "內部錯誤：設定貝茲曲線終點的角落類別"
+msgstr "內部錯誤：設定貝茲曲線終點的角落的類型"
 
 #: lib/dialibartrenderer.c:1115
 msgid "This Dia version is compiled without libart/text support."
@@ -2269,6 +2224,9 @@ msgid ""
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
+"您現在使用 UTF-8 字元集編碼。因為 libxml1 的緣故，及對於以往版本的 dia 產生"
+"出來的檔案支援不足，您將會遇到問題。當您看到這個訊息時，請向 dia-list@gnome"
+".org 匯報。"
 
 #: lib/font.c:87
 #, c-format
@@ -2279,7 +2237,7 @@ msgstr "無法載入字型 %s。\n"
 #. can set it. Remember that some fonts only have capital letters.
 #: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "abc ABC 中文測試"
 
 #: lib/diagtkfontsel.c:209
 msgid "Font name"
@@ -2287,7 +2245,7 @@ msgstr "字型名稱"
 
 #: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
-msgstr ""
+msgstr "代表本字型的 X 字型格式字串"
 
 #: lib/diagtkfontsel.c:216
 msgid "Preview text"
@@ -2295,7 +2253,7 @@ msgstr "預覽文字"
 
 #: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
-msgstr ""
+msgstr "當選取字型後，顯示指定的文字作為示範。"
 
 #: lib/diagtkfontsel.c:321
 msgid "_Family:"
@@ -2328,7 +2286,7 @@ msgstr "警告"
 
 #: lib/message.c:106
 msgid "There is one similar message."
-msgstr ""
+msgstr "有 1 個類似的訊息。"
 
 #: lib/message.c:111
 msgid "Show repeated messages"
@@ -2337,20 +2295,18 @@ msgstr "顯示重複的訊息"
 #: lib/message.c:170
 #, c-format
 msgid "There are %d similar messages."
-msgstr ""
+msgstr "有 %d 個類似的訊息。"
 
 #: lib/message.c:215
 msgid "Notice"
 msgstr "注意"
 
 #: lib/object_defaults.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"載入圖表 %s 時發生錯誤。\n"
-"不是 Dia 檔案。"
 
 #: lib/plug-ins.c:120
 msgid "???"
@@ -2377,7 +2333,7 @@ msgstr "找不到‘%s’中的增效模組 init 函式"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr ""
+msgstr "缺少了‘dia_plugin_init’函式"
 
 #: lib/plug-ins.c:257 lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
@@ -2397,49 +2353,49 @@ msgstr ""
 "無法開啟‘%s’\n"
 "‘%s’"
 
-#: lib/properties.c:71 lib/properties.h:476
+#: lib/properties.c:71 lib/properties.h:477
 msgid "Line colour"
 msgstr "線段顏色"
 
-#: lib/properties.c:72 lib/properties.h:479
+#: lib/properties.c:72 lib/properties.h:480
 msgid "Line style"
 msgstr "線段樣式"
 
-#: lib/properties.c:73 lib/properties.h:483
+#: lib/properties.c:73 lib/properties.h:484
 msgid "Fill colour"
 msgstr "填入顏色"
 
-#: lib/properties.c:74 lib/properties.h:486
+#: lib/properties.c:74 lib/properties.h:487
 msgid "Draw background"
 msgstr "繪製背景"
 
-#: lib/properties.c:75 lib/properties.h:490
+#: lib/properties.c:75 lib/properties.h:491
 msgid "Start arrow"
 msgstr "開始箭頭"
 
-#: lib/properties.c:76 lib/properties.h:493
+#: lib/properties.c:76 lib/properties.h:494
 msgid "End arrow"
-msgstr "完結箭頭"
+msgstr "結束箭頭"
 
-#: lib/properties.c:78 lib/properties.h:503
+#: lib/properties.c:78 lib/properties.h:504
 msgid "Text alignment"
 msgstr "對齊文字"
 
-#: lib/properties.c:79 lib/properties.h:506
+#: lib/properties.c:79 lib/properties.h:507
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "字型"
 
-#: lib/properties.c:80 lib/properties.h:509
+#: lib/properties.c:80 lib/properties.h:510
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
 #: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "字型大小"
 
-#: lib/properties.c:81 lib/properties.h:512
+#: lib/properties.c:81 lib/properties.h:513
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:168
 msgid "Text colour"
@@ -2484,6 +2440,10 @@ msgstr "點狀"
 #: lib/widgets.c:694
 msgid "Dash length: "
 msgstr "虛線長度："
+
+#: lib/widgets.c:848
+msgid "Select color"
+msgstr "選取色彩"
 
 #: lib/widgets.c:1046
 msgid "Length: "
@@ -2565,15 +2525,16 @@ msgstr "多位元資料"
 
 #: objects/chronogram/chronoline.c:172 objects/chronogram/chronoref.c:155
 msgid "Aspect"
-msgstr ""
+msgstr "顯示方式"
 
 #: objects/chronogram/chronoline.c:174
 msgid "Data color"
 msgstr "資料顏色"
 
 #: objects/chronogram/chronoline.c:176
+#, fuzzy
 msgid "Data line width"
-msgstr "資料行寬度"
+msgstr "資料行寬"
 
 #: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
 msgid "Line color"
@@ -2611,15 +2572,15 @@ msgstr "使用水平鏡像"
 msgid "Flip vertical"
 msgstr "使用垂直鏡像"
 
-#: objects/custom/custom_object.c:1406
+#: objects/custom/custom_object.c:1412
 msgid "Flip Horizontal"
 msgstr "使用水平鏡像"
 
-#: objects/custom/custom_object.c:1407
+#: objects/custom/custom_object.c:1413
 msgid "Flip Vertical"
 msgstr "使用垂直鏡像"
 
-#: objects/custom/custom_object.c:1444
+#: objects/custom/custom_object.c:1450
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "無法開啟物件類別‘%2$s’所用的圖示檔 %1$s。"
@@ -2662,17 +2623,17 @@ msgstr "總計："
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
-#: objects/standard/zigzagline.c:329 objects/UML/association.c:691
-#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
-#: objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:329 objects/UML/association.c:738
+#: objects/UML/dependency.c:356 objects/UML/generalization.c:352
+#: objects/UML/realizes.c:345
 msgid "Add segment"
 msgstr "新增區段"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
-#: objects/standard/zigzagline.c:330 objects/UML/association.c:692
-#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
-#: objects/UML/realizes.c:341
+#: objects/standard/zigzagline.c:330 objects/UML/association.c:739
+#: objects/UML/dependency.c:357 objects/UML/generalization.c:353
+#: objects/UML/realizes.c:346
 msgid "Delete segment"
 msgstr "刪除區段"
 
@@ -3041,7 +3002,7 @@ msgid "Coalesce"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:803 objects/FS/function.c:805
+#: objects/FS/function.c:803 objects/FS/function.c:805 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "分支"
 
@@ -3237,7 +3198,7 @@ msgid "Expose"
 msgstr ""
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:8
 msgid "Extract"
 msgstr ""
 
@@ -3418,7 +3379,7 @@ msgid "Differentiate"
 msgstr ""
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:997
+#: objects/FS/function.c:997 sheets/EML.sheet.in.h:5
 msgid "Process"
 msgstr "程序"
 
@@ -3463,7 +3424,7 @@ msgid "Mark"
 msgstr "記認"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:5
 msgid "Display"
 msgstr "顯示"
 
@@ -3757,23 +3718,23 @@ msgstr "條件所用的顏色"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET 圖表物件"
 
-#: objects/GRAFCET/step.c:145
+#: objects/GRAFCET/step.c:145 sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
 msgstr "標準步驟"
 
-#: objects/GRAFCET/step.c:146
+#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
 msgstr "初始化步驟"
 
-#: objects/GRAFCET/step.c:147
+#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
 msgstr "巨集進入步驟"
 
-#: objects/GRAFCET/step.c:148
+#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
 msgstr "巨集離開步驟"
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr "巨集呼叫步驟"
 
@@ -3961,23 +3922,23 @@ msgstr "SADT 圖表物件"
 msgid "Curve distance"
 msgstr "曲線距離"
 
-#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
+#: objects/standard/bezier.c:536 objects/standard/beziergon.c:494
 msgid "Add Segment"
 msgstr "增加區段"
 
-#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
 msgid "Delete Segment"
 msgstr "刪除區段"
 
-#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
 msgid "Symmetric control"
 msgstr "對稱控制"
 
-#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
 msgid "Smooth control"
 msgstr ""
 
-#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
+#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
 msgid "Cusp control"
 msgstr ""
 
@@ -4021,11 +3982,11 @@ msgstr "起點"
 msgid "End point"
 msgstr "終點"
 
-#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+#: objects/standard/polygon.c:454 objects/standard/polyline.c:490
 msgid "Add Corner"
 msgstr "增加角落"
 
-#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
+#: objects/standard/polygon.c:455 objects/standard/polyline.c:491
 msgid "Delete Corner"
 msgstr "刪除角落"
 
@@ -4035,54 +3996,54 @@ msgstr "標準物件"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:299
+#: objects/UML/activity.c:302
 msgid "Helvetica"
 msgstr ""
 
-#: objects/UML/actor.c:332 objects/UML/actor.c:334
+#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "相關角色"
 
-#: objects/UML/association.c:1068 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1115 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "方向："
 
-#: objects/UML/association.c:1085
+#: objects/UML/association.c:1132
 msgid "From A to B"
 msgstr "從 A 到 B"
 
-#: objects/UML/association.c:1092
+#: objects/UML/association.c:1139
 msgid "From B to A"
 msgstr "從 B 到 A"
 
-#: objects/UML/association.c:1116 objects/UML/association.c:1124
+#: objects/UML/association.c:1163 objects/UML/association.c:1171
 msgid "Side A"
 msgstr "A 面"
 
-#: objects/UML/association.c:1118 objects/UML/association.c:1126
+#: objects/UML/association.c:1165 objects/UML/association.c:1173
 msgid "Side B"
 msgstr "B 面"
 
-#: objects/UML/association.c:1132
+#: objects/UML/association.c:1179
 msgid "Role:"
 msgstr "角色："
 
-#: objects/UML/association.c:1144
+#: objects/UML/association.c:1191
 msgid "Multiplicity:"
 msgstr ""
 
 #. Show arrow:
-#: objects/UML/association.c:1155
+#: objects/UML/association.c:1202
 msgid "Show arrow"
 msgstr "顯示箭頭"
 
 #. Aggregate
-#: objects/UML/association.c:1161
+#: objects/UML/association.c:1208
 msgid "Aggregate"
 msgstr "聚集"
 
 #. Composition
-#: objects/UML/association.c:1169
+#: objects/UML/association.c:1216
 msgid "Composition"
 msgstr "組成"
 
@@ -4139,7 +4100,7 @@ msgstr "模板"
 
 #. Class page:
 #: objects/UML/class.c:177 objects/UML/class.c:918
-#: objects/UML/class_dialog.c:255
+#: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "階層"
 
@@ -4152,8 +4113,8 @@ msgid "Class name:"
 msgstr "階層名稱："
 
 #: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
-#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/realizes.c:124
+#: objects/UML/dependency.c:129 objects/UML/generalization.c:125
+#: objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "定型："
 
@@ -4308,7 +4269,7 @@ msgstr ""
 msgid "Templates"
 msgstr "模板"
 
-#: objects/UML/class_dialog.c:2471
+#: objects/UML/class_dialog.c:2471 sheets/UML.sheet.in.h:25
 msgid "Template class"
 msgstr ""
 
@@ -4328,7 +4289,7 @@ msgstr "是一個物件"
 msgid "Constraint:"
 msgstr "限制："
 
-#: objects/UML/dependency.c:129
+#: objects/UML/dependency.c:131
 msgid "Show arrow:"
 msgstr "顯示箭頭："
 
@@ -4410,7 +4371,7 @@ msgstr ""
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:382
+#: objects/UML/state.c:385
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4433,7 +4394,7 @@ msgstr ""
 msgid "Collaboration"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1108
+#: plug-ins/cgm/cgm.c:1109
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -4441,11 +4402,11 @@ msgstr ""
 "圖像高度大於最大儲存陣列長度。\n"
 "圖像不會匯出至 CGM。"
 
-#: plug-ins/cgm/cgm.c:1364
+#: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
 msgstr "電腦圖像中介檔 (CGM)"
 
-#: plug-ins/cgm/cgm.c:1378
+#: plug-ins/cgm/cgm.c:1379
 msgid "Computer Graphics Metafile export filter"
 msgstr "電腦圖像中介檔 (CGM) 匯出過濾器"
 
@@ -4453,7 +4414,7 @@ msgstr "電腦圖像中介檔 (CGM) 匯出過濾器"
 msgid "Drawing Interchange File import and export filters"
 msgstr "繪圖交換檔 (DIF) 匯入/匯出過濾器"
 
-#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "繪圖交換檔 (DIF)"
 
@@ -4475,11 +4436,11 @@ msgstr "read_dxf_codes 失敗\n"
 msgid "Unknown dxf code %d\n"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:771
+#: plug-ins/hpgl/hpgl.c:772
 msgid "HP Graphics Language"
 msgstr "HP 圖形語言 (HP-GL)"
 
-#: plug-ins/hpgl/hpgl.c:785
+#: plug-ins/hpgl/hpgl.c:786
 msgid "HP Graphics Language export filter"
 msgstr "HP 圖形語言 (HP-GL) 匯出過濾器"
 
@@ -4487,7 +4448,7 @@ msgstr "HP 圖形語言 (HP-GL) 匯出過濾器"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost 匯出過濾器"
 
-#: plug-ins/metapost/render_metapost.c:793
+#: plug-ins/metapost/render_metapost.c:794
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost 巨集"
 
@@ -4514,9 +4475,14 @@ msgstr "以 gdk-pixbuf 為基礎的點陣圖匯出/匯入過濾器"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks 匯出過濾器"
 
-#: plug-ins/pstricks/render_pstricks.c:827
+#: plug-ins/pstricks/render_pstricks.c:828
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks 巨集"
+
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "無法開啟‘%s’來寫入資料。\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
@@ -4526,20 +4492,19 @@ msgstr ""
 msgid "dia shape export filter"
 msgstr "dia 形狀匯出過濾器"
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:471
 msgid "Can't export png without libart!"
 msgstr "無法在沒有 libart 的情況下匯出成為 png！"
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:498
 msgid "dia shape file"
 msgstr "dia 形狀檔案"
 
-#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "可縮放向量圖 (SVG)"
 
 #: plug-ins/svg/svg.c:37
-#, fuzzy
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "可縮放向量圖 (SVG) 匯入/匯出過濾器"
 
@@ -4577,16 +4542,16 @@ msgstr ""
 msgid "WMF export filter"
 msgstr "WMF 匯出過濾器"
 
-#: plug-ins/wpg/wpg.c:1180
+#: plug-ins/wpg/wpg.c:1181
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "檔案：不支援 %s 類型或版本。\n"
 
-#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+#: plug-ins/wpg/wpg.c:1311 plug-ins/wpg/wpg.c:1318
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1331
+#: plug-ins/wpg/wpg.c:1332
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect 圖形匯出過濾器"
 
@@ -4604,7 +4569,7 @@ msgstr "XFig 格式"
 
 #: plug-ins/xfig/xfig-import.c:418
 msgid "Patterns are not supported by Dia"
-msgstr "Dia 不支援樣式"
+msgstr "Dia 不支援任何樣式"
 
 #: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
@@ -4771,41 +4736,36 @@ msgstr "這是 FIG 版本 %d.%d 的檔案。可能無法識別\n"
 msgid "XFig File Format"
 msgstr "XFig 檔案格式"
 
-#: plug-ins/xslt/xslt.c:91
+#: plug-ins/xslt/xslt.c:95
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "分析 %s 時發生錯誤\n"
 
-#: plug-ins/xslt/xslt.c:99
+#: plug-ins/xslt/xslt.c:103
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:105
+#: plug-ins/xslt/xslt.c:109
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:113
+#: plug-ins/xslt/xslt.c:117
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:121
+#: plug-ins/xslt/xslt.c:125
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:283
+#: plug-ins/xslt/xslt.c:287
 msgid "XSL Transformation filter"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:298
-#, c-format
-msgid "Could not load XSLT library (%s) : %s"
-msgstr "無法載入 XSLT 函式庫 (%s)：%s"
-
-#: plug-ins/xslt/xslt.c:326
+#: plug-ins/xslt/xslt.c:315
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 
@@ -4833,14 +4793,14 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
-msgstr ""
+msgstr "Chevron"
 
 #: sheets/Assorted.sheet.in.h:4
-msgid "Curved Eight Point Star"
+msgid "Curved eight point star"
 msgstr "曲八角星"
 
 #: sheets/Assorted.sheet.in.h:5
-msgid "Curved Four Point Star"
+msgid "Curved four point star"
 msgstr "曲四角星"
 
 #: sheets/Assorted.sheet.in.h:6
@@ -4848,15 +4808,15 @@ msgid "Diamond"
 msgstr "菱形"
 
 #: sheets/Assorted.sheet.in.h:7
-msgid "Down Arrow"
-msgstr ""
+msgid "Down arrow"
+msgstr "箭頭(下)"
 
 #: sheets/Assorted.sheet.in.h:8
-msgid "Eight Point Star"
+msgid "Eight point star"
 msgstr "八角星"
 
 #: sheets/Assorted.sheet.in.h:9
-msgid "Four Point Star"
+msgid "Four point star"
 msgstr "四角星"
 
 #: sheets/Assorted.sheet.in.h:10
@@ -4864,99 +4824,99 @@ msgid "Heart"
 msgstr "心型"
 
 #: sheets/Assorted.sheet.in.h:11
-msgid "Heptagon. Seven Sided Shape"
+msgid "Heptagon. Seven sided shape"
 msgstr "七邊形"
 
 #: sheets/Assorted.sheet.in.h:12
-msgid "Hexagon. Six Sided Shape"
+msgid "Hexagon. Six sided shape"
 msgstr "六邊形"
 
 #: sheets/Assorted.sheet.in.h:13
-msgid "Horizontal Parallelogram"
+msgid "Horizontal parallelogram"
 msgstr "水平平行四邊形"
 
 #: sheets/Assorted.sheet.in.h:14
-msgid "Isoceles Triangle"
+msgid "Isoceles triangle"
 msgstr "等腰三角形"
 
 #: sheets/Assorted.sheet.in.h:15
-msgid "Left Arrow"
-msgstr ""
+msgid "Left arrow"
+msgstr "箭頭(左)"
 
 #: sheets/Assorted.sheet.in.h:16
-msgid "Left-Right Arrow"
-msgstr ""
+msgid "Left-right arrow"
+msgstr "箭頭(左、右)"
 
 #: sheets/Assorted.sheet.in.h:17
-msgid "Left-Right-Up Arrow"
-msgstr ""
+msgid "Left-right-up arrow"
+msgstr "箭頭(左、右、上)"
 
 #: sheets/Assorted.sheet.in.h:18
-msgid "Left-Up Arrow"
-msgstr ""
+msgid "Left-up arrow"
+msgstr "箭頭(左、上)"
 
 #: sheets/Assorted.sheet.in.h:19
-msgid "Maltese Cross"
-msgstr ""
+msgid "Maltese cross"
+msgstr "馬爾他(maltese)十字"
 
 #: sheets/Assorted.sheet.in.h:20
-msgid "Notched Left Arrow"
+msgid "Notched left arrow"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:21
-msgid "Notched Right Arrow"
+msgid "Notched right arrow"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:22
-msgid "Octogon. Eight Sided Shape"
+msgid "Octogon. Eight sided shape"
 msgstr "八邊形"
 
 #: sheets/Assorted.sheet.in.h:23
-msgid "Pentagon Block Arrow"
+msgid "Pentagon block arrow"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:24
-msgid "Pentagon. Five Sided Shape"
+msgid "Pentagon. Five sided shape"
 msgstr "五邊形"
 
 #: sheets/Assorted.sheet.in.h:25
-msgid "Perfect Circle"
+msgid "Perfect circle"
 msgstr "正圓形"
 
 #: sheets/Assorted.sheet.in.h:26
-msgid "Perfect Square, Height equals Width"
+msgid "Perfect square, height equals width"
 msgstr "正方形"
 
 #: sheets/Assorted.sheet.in.h:27
-msgid "Quad Arrow"
-msgstr ""
+msgid "Quad arrow"
+msgstr "箭頭(上下左右)"
 
 #: sheets/Assorted.sheet.in.h:28
-msgid "Quarter Circle"
+msgid "Quarter circle"
 msgstr "四分一個圓形"
 
 #: sheets/Assorted.sheet.in.h:29
-msgid "Quarter Moon"
+msgid "Quarter moon"
 msgstr "彎月"
 
 #: sheets/Assorted.sheet.in.h:30
-msgid "Right Angle Triangle"
+msgid "Right angle triangle"
 msgstr "直角三角形"
 
 #: sheets/Assorted.sheet.in.h:31
-msgid "Right Arrow"
-msgstr ""
+msgid "Right arrow"
+msgstr "箭頭(右)"
 
 #: sheets/Assorted.sheet.in.h:32
-msgid "Seven Point Star"
+msgid "Seven point star"
 msgstr "七角星"
 
 #: sheets/Assorted.sheet.in.h:33
-msgid "Sharp Eight Point Star"
+msgid "Sharp eight point star"
 msgstr "尖八角星"
 
 #: sheets/Assorted.sheet.in.h:34
-msgid "Six Point Star"
+msgid "Six point star"
 msgstr "六角星"
 
 #: sheets/Assorted.sheet.in.h:35
@@ -4964,402 +4924,398 @@ msgid "Sun"
 msgstr "太陽"
 
 #: sheets/Assorted.sheet.in.h:36
-msgid "Swiss Cross"
-msgstr ""
+msgid "Swiss cross"
+msgstr "瑞士十字"
 
 #: sheets/Assorted.sheet.in.h:37
 msgid "Trapezoid"
 msgstr "梯形"
 
 #: sheets/Assorted.sheet.in.h:38
-msgid "Up Arrow"
-msgstr ""
+msgid "Up arrow"
+msgstr "箭頭(上)"
 
 #: sheets/Assorted.sheet.in.h:39
-msgid "Up-Down Arrow"
-msgstr ""
+msgid "Up-down arrow"
+msgstr "箭頭(上、下)"
 
 #: sheets/Assorted.sheet.in.h:40
-msgid "Up-Down-Left Arrow"
-msgstr ""
+msgid "Up-down-left arrow"
+msgstr "箭頭(上、下、左)"
 
 #: sheets/Assorted.sheet.in.h:41
-msgid "Vertical Parallelogram"
+msgid "Vertical parallelogram"
 msgstr "垂直平行四邊形"
 
 #: sheets/chronogram.sheet.in.h:1
-msgid "A data line"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
 msgstr "年代表"
 
-#: sheets/chronogram.sheet.in.h:4
+#: sheets/chronogram.sheet.in.h:2
+msgid "Data line"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
 msgid "Objects to design chronogram charts"
 msgstr "設計年代表所用的物件"
 
+#: sheets/chronogram.sheet.in.h:4
+msgid "Time scale"
+msgstr "時間線"
+
 #: sheets/Circuit.sheet.in.h:1
-msgid "A Horizontal Jumper"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:2
-msgid "A Horizontally aligned inductor"
-msgstr "水平放置的導體"
-
-#: sheets/Circuit.sheet.in.h:3
-msgid "A Horizontally aligned inductor (European)"
-msgstr "水平放置的導體 (歐式)"
-
-#: sheets/Circuit.sheet.in.h:4
-msgid "A Horizontally aligned resistor"
-msgstr "水平放置的電阻"
-
-#: sheets/Circuit.sheet.in.h:5
-msgid "A Horizontally aligned resistor (European)"
-msgstr "水平放置的電阻 (歐式)"
-
-#: sheets/Circuit.sheet.in.h:6
-msgid "A Microphone"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:7
-msgid "A PMOS transistor"
-msgstr "PMOS 電晶體"
-
-#: sheets/Circuit.sheet.in.h:8
-msgid "A Speaker"
-msgstr "揚聲器"
-
-#: sheets/Circuit.sheet.in.h:9
-msgid "A Vertically aligned inductor"
-msgstr "水平放置的導體"
-
-#: sheets/Circuit.sheet.in.h:10
-msgid "A Vertically aligned inductor (European)"
-msgstr "水平放置的導體 (歐式)"
-
-#: sheets/Circuit.sheet.in.h:11
-msgid "A Vertically aligned resistor"
-msgstr "垂直放置的電阻"
-
-#: sheets/Circuit.sheet.in.h:12
-msgid "A Vertically aligned resistor (European)"
-msgstr "垂直放置的電阻 (歐式)"
-
-#: sheets/Circuit.sheet.in.h:13
-msgid "A ground point"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:14
-msgid "A horizontally aligned LED"
-msgstr "水平放置的 LED"
-
-#: sheets/Circuit.sheet.in.h:15
-msgid "A horizontally aligned capacitor"
-msgstr "水平放置的電容"
-
-#: sheets/Circuit.sheet.in.h:16
-msgid "A horizontally aligned diode"
-msgstr "水平放置的二極管"
-
-#: sheets/Circuit.sheet.in.h:17
-msgid "A horizontally aligned fuse"
-msgstr "水平放置的保險絲"
-
-#: sheets/Circuit.sheet.in.h:18
-msgid "A horizontally aligned powersource"
-msgstr "水平放置的電源"
-
-#: sheets/Circuit.sheet.in.h:19
-msgid "A horizontally aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:20
-msgid "A lamp"
-msgstr "燈"
-
-#: sheets/Circuit.sheet.in.h:21
-msgid "A npn bipolar transistor"
-msgstr "npn 二極電晶體"
-
-#: sheets/Circuit.sheet.in.h:22
-msgid "A pnp bipolar transistor"
-msgstr "pnp 二極電晶體"
-
-#: sheets/Circuit.sheet.in.h:23
-msgid "A vertically aligned LED"
-msgstr "垂直放置的 LED"
-
-#: sheets/Circuit.sheet.in.h:24
-msgid "A vertically aligned capacitor"
-msgstr "垂直放置的電容"
-
-#: sheets/Circuit.sheet.in.h:25
-msgid "A vertically aligned diode"
-msgstr "垂直放置的二極管"
-
-#: sheets/Circuit.sheet.in.h:26
-msgid "A vertically aligned fuse"
-msgstr "垂直放置的保險絲"
-
-#: sheets/Circuit.sheet.in.h:27
-msgid "A vertically aligned powersource"
-msgstr "垂直放置的電源"
-
-#: sheets/Circuit.sheet.in.h:28
-msgid "A vertically aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:29
-msgid "An NMOS transistor"
-msgstr "NMOS 電晶體"
-
-#: sheets/Circuit.sheet.in.h:30
-msgid "An operational amplifier"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:31
 msgid "Circuit"
 msgstr "電路"
 
-#: sheets/Circuit.sheet.in.h:32
+#: sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
 msgstr "電路圖的元件"
 
+#: sheets/Circuit.sheet.in.h:3
+msgid "Ground point"
+msgstr "接地位置"
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "Horizontal jumper"
+msgstr "水平放置的跨接線"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "Horizontally aligned LED"
+msgstr "水平放置的 LED"
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "Horizontally aligned capacitor"
+msgstr "水平放置的電容"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "Horizontally aligned diode"
+msgstr "水平放置的二極管"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "Horizontally aligned fuse"
+msgstr "水平放置的保險絲"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "Horizontally aligned inductor"
+msgstr "水平放置的導體"
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "Horizontally aligned inductor (European)"
+msgstr "水平放置的導體 (歐式)"
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "Horizontally aligned powersource"
+msgstr "水平放置的電源"
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "Horizontally aligned resistor"
+msgstr "水平放置的電阻"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "Horizontally aligned resistor (European)"
+msgstr "水平放置的電阻 (歐式)"
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "Horizontally aligned zener diode"
+msgstr "水平放置的齊納二極管"
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "Lamp"
+msgstr "燈"
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "Microphone"
+msgstr "擴音器"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "NMOS transistor"
+msgstr "NMOS 電晶體"
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "NPN bipolar transistor"
+msgstr "NPN 二極電晶體"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "Operational amplifier"
+msgstr "運算放大器"
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "PMOS transistor"
+msgstr "PMOS 電晶體"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "PNP bipolar transistor"
+msgstr "PNP 二極電晶體"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "Speaker"
+msgstr "揚聲器"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "Vertically aligned LED"
+msgstr "垂直放置的 LED"
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "Vertically aligned capacitor"
+msgstr "垂直放置的電容"
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "Vertically aligned diode"
+msgstr "垂直放置的二極管"
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "Vertically aligned fuse"
+msgstr "垂直放置的保險絲"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "Vertically aligned inductor"
+msgstr "水平放置的導體"
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "Vertically aligned inductor (European)"
+msgstr "水平放置的導體 (歐式)"
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "Vertically aligned powersource"
+msgstr "垂直放置的電源"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "Vertically aligned resistor"
+msgstr "垂直放置的電阻"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Vertically aligned resistor (European)"
+msgstr "垂直放置的電阻 (歐式)"
+
+#: sheets/Circuit.sheet.in.h:32
+msgid "Vertically aligned zener diode"
+msgstr "垂直放置的齊納二極管"
+
 #: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
+msgid "Aerator with bubbles"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:2
-msgid "A Basin"
+msgid "Backflow preventer"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:3
-msgid "A Container"
-msgstr "容器"
+msgid "Basin"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:4
-msgid "A Frequency Converter"
-msgstr "變頻器"
+msgid "Bivalent vertical rest"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr "氣瓶"
+msgid "Civil"
+msgstr "土木工程"
 
 #: sheets/civil.sheet.in.h:6
-msgid "A Motor"
-msgstr "馬達"
+msgid "Civil Engineering Components"
+msgstr "土木工程元件"
 
 #: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
+msgid "Container"
+msgstr "容器"
 
 #: sheets/civil.sheet.in.h:8
-msgid "A Rotor"
-msgstr "轉子"
+msgid "Final-settling basin"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
+msgid "Frequency converter"
+msgstr "變頻器"
 
 #: sheets/civil.sheet.in.h:10
-msgid "A horizontal limiting line"
-msgstr ""
+msgid "Gas bottle"
+msgstr "氣瓶"
 
 #: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr "水平放置的箭頭"
+msgid "Horizontal limiting line"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr "垂直放置的箭頭"
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:15
-msgid "Bivalent Vertical Rest"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:18
-msgid "Horizontal Rest"
+msgid "Horizontal rest"
 msgstr "水平放置的承托座"
 
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr "水平放置的活塞"
+#: sheets/civil.sheet.in.h:13
+msgid "Horizontally aligned arrow"
+msgstr "水平方向的箭頭"
 
-#: sheets/civil.sheet.in.h:20
+#: sheets/civil.sheet.in.h:14
 msgid "Horizontally aligned compressor"
 msgstr "水平放置的壓縮機"
 
-#: sheets/civil.sheet.in.h:21
+#: sheets/civil.sheet.in.h:15
 msgid "Horizontally aligned pump"
 msgstr "水平放置的泵"
 
-#: sheets/civil.sheet.in.h:22
-msgid "Reference Line"
-msgstr "基準線"
+#: sheets/civil.sheet.in.h:16
+msgid "Horizontally aligned valve"
+msgstr "水平放置的活塞"
 
-#: sheets/civil.sheet.in.h:23
+#: sheets/civil.sheet.in.h:17
+msgid "Motor"
+msgstr "馬達"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Preliminary clarification tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:19
+msgid "Reference line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+msgid "Rotor"
+msgstr "轉子"
+
+#: sheets/civil.sheet.in.h:21
 msgid "Soil"
 msgstr "泥土"
 
-#: sheets/civil.sheet.in.h:24
-msgid "Vertical Rest"
+#: sheets/civil.sheet.in.h:22
+msgid "Vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:23
+msgid "Vertical rest"
 msgstr "垂直放置的承托座"
 
+#: sheets/civil.sheet.in.h:24
+msgid "Vertically aligned arrow"
+msgstr "垂直方向的箭頭"
+
 #: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr "垂直放置的推進器"
-
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr "垂直放置的活塞"
-
-#: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned compressor"
 msgstr "垂直放置的壓縮機"
 
-#: sheets/civil.sheet.in.h:28
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned propeller"
+msgstr "垂直放置的推進器"
+
+#: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned pump"
 msgstr "垂直放置的泵"
 
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned valve"
+msgstr "垂直放置的活塞"
+
 #: sheets/civil.sheet.in.h:29
-msgid "Water Level"
+msgid "Water level"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:1
-msgid "A 'if not' (normally closed) ladder contact"
+msgid "'if not' (normally closed) ladder contact"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:2
-msgid "A 'if' (normally open) ladder contact"
+msgid "'if' (normally open) ladder contact"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:3
-msgid "A 'jump' output variable"
+msgid "'jump' output variable"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:4
-msgid "A 'reset' output variable"
+msgid "'reset' output variable"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:5
-msgid "A 'set' output variable"
+msgid "'set' output variable"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:6
-msgid "A negative output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:7
-msgid "A power-saved 'reset' output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:8
-msgid "A power-saved 'set' output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:9
-msgid "A power-saved negative output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:10
-msgid "A power-saved simple output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:11
-msgid "A receptivity output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:12
-msgid "A simple output variable"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
 msgstr ""
 
-#: sheets/Contact.sheet.in.h:14
+#: sheets/Contact.sheet.in.h:7
 msgid "Ladder"
 msgstr ""
 
-#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "連接點"
+#: sheets/Contact.sheet.in.h:8
+msgid "Negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:9
+msgid "Power-saved 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:10
+msgid "Power-saved 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:11
+msgid "Power-saved negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:12
+msgid "Power-saved simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Receptivity output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Simple output variable"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:1
+msgid "Command organ of a relay"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:2
-msgid "A lamp or indicator light"
-msgstr "燈或指示光源"
-
-#: sheets/Electric.sheet.in.h:3
-msgid "A normally closed contact"
-msgstr "一般情況下關閉的觸點"
-
-#: sheets/Electric.sheet.in.h:4
-msgid "A normally closed position switch"
-msgstr "一般情況下關閉的位置開關"
-
-#: sheets/Electric.sheet.in.h:5
-msgid "A normally open contact"
-msgstr "一般情況下開啟的觸點"
-
-#: sheets/Electric.sheet.in.h:6
-msgid "A normally open position switch"
-msgstr "一般情況下開啟的位置開關"
-
-#: sheets/Electric.sheet.in.h:7
-msgid "A relay"
-msgstr "繼電器"
-
-#: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
 msgstr "電路圖的元件"
 
-#: sheets/Electric.sheet.in.h:9
+#: sheets/Electric.sheet.in.h:3
+msgid "Connection point"
+msgstr "連接點"
+
+#: sheets/Electric.sheet.in.h:4
 msgid "Electric"
 msgstr "電子"
 
+#: sheets/Electric.sheet.in.h:5
+msgid "Lamp or indicator light"
+msgstr "燈或指示光源"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "Normally closed contact"
+msgstr "一般情況下關閉的觸點"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "Normally closed position switch"
+msgstr "一般情況下關閉的位置開關"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Normally open contact"
+msgstr "一般情況下開啟的觸點"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Normally open position switch"
+msgstr "一般情況下開啟的位置開關"
+
 #: sheets/Electric.sheet.in.h:10
-msgid "The command organ of a relay"
-msgstr ""
+msgid "Relay"
+msgstr "繼電器"
 
 #: sheets/EML.sheet.in.h:1
-msgid "Create a process"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:2
 msgid "EML"
 msgstr "EML"
 
-#: sheets/EML.sheet.in.h:3
+#: sheets/EML.sheet.in.h:2
 msgid "Editor for EML Static Structure Diagrams."
 msgstr ""
 
-#: sheets/EML.sheet.in.h:4
+#: sheets/EML.sheet.in.h:3
 msgid "Instantiation. One process create others"
 msgstr ""
 
-#: sheets/EML.sheet.in.h:5
+#: sheets/EML.sheet.in.h:4
 msgid "Interaction between processes."
 msgstr ""
 
@@ -5369,94 +5325,94 @@ msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
-msgstr "「本體/關係」圖表編輯器"
+msgstr ""
 
 #: sheets/ER.sheet.in.h:5
 msgid "Participation"
 msgstr "參與"
 
 #: sheets/ER.sheet.in.h:7
-msgid "Weak Entity"
+msgid "Weak entity"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:1
-msgid "A box with text inside"
+msgid "Box with text inside"
 msgstr "內有文字的方塊"
 
 #: sheets/Flowchart.sheet.in.h:2
-msgid "A diamond with text inside"
-msgstr "內有文字的菱形"
-
-#: sheets/Flowchart.sheet.in.h:3
-msgid "A ellipse with text inside"
-msgstr "內有文字的橢圓"
-
-#: sheets/Flowchart.sheet.in.h:4
-msgid "A parallelogram with text inside"
-msgstr "內有文字的平形四邊形"
-
-#: sheets/Flowchart.sheet.in.h:5
 msgid "Collate"
 msgstr ""
 
-#: sheets/Flowchart.sheet.in.h:6
+#: sheets/Flowchart.sheet.in.h:3
 msgid "Delay"
 msgstr "延遲"
 
-#: sheets/Flowchart.sheet.in.h:8
+#: sheets/Flowchart.sheet.in.h:4
+msgid "Diamond with text inside"
+msgstr "內有文字的菱形"
+
+#: sheets/Flowchart.sheet.in.h:6
 msgid "Document"
 msgstr "文件"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:7
+msgid "Ellipse with text inside"
+msgstr "內有文字的橢圓"
+
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Flowchart"
 msgstr "流程圖"
 
-#: sheets/Flowchart.sheet.in.h:11
-msgid "Internal Storage"
-msgstr ""
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Internal storage"
+msgstr "內部儲存器"
 
-#: sheets/Flowchart.sheet.in.h:12
-msgid "Magnetic Disk"
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Magnetic disk"
 msgstr "磁碟"
 
-#: sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic Drum"
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic drum"
 msgstr "磁鼓"
 
-#: sheets/Flowchart.sheet.in.h:14
-msgid "Magnetic Tape"
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic tape"
 msgstr "磁帶"
 
-#: sheets/Flowchart.sheet.in.h:15
-msgid "Manual Input"
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Manual input"
 msgstr "人手輸入"
 
-#: sheets/Flowchart.sheet.in.h:16
-msgid "Manual Operation"
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual operation"
 msgstr "人手操作"
 
-#: sheets/Flowchart.sheet.in.h:17
+#: sheets/Flowchart.sheet.in.h:16
 msgid "Merge"
 msgstr "合併"
 
-#: sheets/Flowchart.sheet.in.h:18
+#: sheets/Flowchart.sheet.in.h:17
 msgid "Objects to draw flowcharts"
 msgstr "繪畫流程圖用的物件"
 
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Off page connector"
+msgstr ""
+
 #: sheets/Flowchart.sheet.in.h:19
-msgid "Off Page Connector"
+msgid "Offline storage"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:20
-msgid "Offline Storage"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
 msgstr "或"
 
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Parallelogram with text inside"
+msgstr "內有文字的平形四邊形"
+
 #: sheets/Flowchart.sheet.in.h:22
-msgid "Predefined Process"
+msgid "Predefined process"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:23
@@ -5464,19 +5420,19 @@ msgid "Preparation"
 msgstr "準備"
 
 #: sheets/Flowchart.sheet.in.h:24
-msgid "Punched Card"
-msgstr ""
+msgid "Punched card"
+msgstr "穿孔卡片"
 
 #: sheets/Flowchart.sheet.in.h:25
-msgid "Punched Tape"
-msgstr ""
+msgid "Punched tape"
+msgstr "穿孔紙帶"
 
 #: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
-msgstr ""
+msgstr "排序"
 
 #: sheets/Flowchart.sheet.in.h:27
-msgid "Summing Junction"
+msgid "Summing junction"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:28
@@ -5484,88 +5440,69 @@ msgid "Terminal"
 msgstr "終端機"
 
 #: sheets/Flowchart.sheet.in.h:29
-msgid "Transaction File"
+msgid "Transaction file"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:30
-msgid "Transmittal Tape"
+msgid "Transmittal tape"
 msgstr ""
 
 #: sheets/FS.sheet.in.h:1
-msgid "Create a flow"
-msgstr ""
-
-#: sheets/FS.sheet.in.h:2
-msgid "Create a function"
-msgstr ""
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr ""
-
-#: sheets/FS.sheet.in.h:4
+#, fuzzy
 msgid "Editor for Function Structure Diagrams."
 msgstr "「功能結構」圖表編輯器"
 
-#: sheets/FS.sheet.in.h:5
+#: sheets/FS.sheet.in.h:2
 msgid "FS"
 msgstr ""
 
+#: sheets/FS.sheet.in.h:3
+msgid "Flow"
+msgstr "流程"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Function"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:5
+msgid "Orthogonal polyline flow"
+msgstr ""
+
 #: sheets/GRAFCET.sheet.in.h:1
-msgid "A AND vergent"
+msgid "AND vergent"
 msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:2
-msgid "A OR vergent"
+msgid "Action to associate to a step"
 msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:3
-msgid "A condition (of an action)"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:4
-msgid "A macro call step"
-msgstr "呼叫巨集步驟"
-
-#: sheets/GRAFCET.sheet.in.h:5
-msgid "A macro entry step"
-msgstr "進入巨集步驟"
-
-#: sheets/GRAFCET.sheet.in.h:6
-msgid "A macro exit step"
-msgstr "離開巨集步驟"
-
-#: sheets/GRAFCET.sheet.in.h:7
-msgid "A macro sub-program call step"
-msgstr "巨集呼叫副程式步驟"
-
-#: sheets/GRAFCET.sheet.in.h:8
-msgid "A regular step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:9
-msgid "A transition"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:10
-msgid "An action to associate to a step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "An arc (upward)"
+msgid "Arc (upward)"
 msgstr "弧線 (向上)"
 
-#: sheets/GRAFCET.sheet.in.h:12
-msgid "An initial step"
-msgstr "初始步驟"
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "Condition (of an action)"
+msgstr ""
 
-#: sheets/GRAFCET.sheet.in.h:13
+#: sheets/GRAFCET.sheet.in.h:5
 msgid "GRAFCET"
 msgstr "GRAFCET"
 
-#: sheets/GRAFCET.sheet.in.h:14
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "Macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "OR vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
 msgid "Objects to design GRAFCET charts"
 msgstr "設計 GRAFCET 圖表所需的物件"
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Transition"
+msgstr "位置"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -5640,75 +5577,71 @@ msgid "Pieces of a jigsaw"
 msgstr "拼圖的組成部份"
 
 #: sheets/Logic.sheet.in.h:1
-msgid "A Nand gate"
-msgstr "反及閘"
-
-#: sheets/Logic.sheet.in.h:2
-msgid "A Nor gate"
-msgstr "反或閘"
-
-#: sheets/Logic.sheet.in.h:3
-msgid "A Not"
-msgstr "反閘"
-
-#: sheets/Logic.sheet.in.h:4
-msgid "A Xor gate"
-msgstr "互斥或閘"
-
-#: sheets/Logic.sheet.in.h:5
-msgid "A crossconnector"
-msgstr ""
-
-#: sheets/Logic.sheet.in.h:6
-msgid "A simple Buffer"
-msgstr "緩衝器"
-
-#: sheets/Logic.sheet.in.h:7
-msgid "An And gate"
+msgid "AND gate"
 msgstr "及閘"
 
-#: sheets/Logic.sheet.in.h:8
-msgid "An Inverter"
-msgstr "變流器"
-
-#: sheets/Logic.sheet.in.h:9
-msgid "An Or gate"
-msgstr "或閘"
-
-#: sheets/Logic.sheet.in.h:10
+#: sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
 msgstr "布林邏輯"
 
-#: sheets/Logic.sheet.in.h:11
+#: sheets/Logic.sheet.in.h:3
+msgid "Crossconnector"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:4
+msgid "Inverter"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:5
 msgid "Logic"
 msgstr "邏輯"
 
-#: sheets/Misc.sheet.in.h:1
-msgid "A File"
-msgstr "檔案"
+#: sheets/Logic.sheet.in.h:6
+msgid "NAND gate"
+msgstr "反及閘"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "NOR gate"
+msgstr "反或閘"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "NOT"
+msgstr "反閘"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "OR gate"
+msgstr "或閘"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Simple buffer"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:11
+msgid "XOR gate"
+msgstr "互斥或閘"
 
 #: sheets/Misc.sheet.in.h:2
-msgid "A Folder"
+msgid "Folder"
 msgstr "資料夾"
 
 #: sheets/Misc.sheet.in.h:3
-msgid "A traditional clock"
-msgstr "典型時鐘"
-
-#: sheets/Misc.sheet.in.h:4
 msgid "Misc"
 msgstr "其它"
 
-#: sheets/Misc.sheet.in.h:5
+#: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
 msgstr "其它形狀"
+
+#: sheets/Misc.sheet.in.h:5
+msgid "Traditional clock"
+msgstr "一般時鐘"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
 msgstr ""
 
 #: sheets/MSE.sheet.in.h:2
-msgid "Large Extension Node"
+msgid "Large extension node"
 msgstr "大延伸節點"
 
 #: sheets/MSE.sheet.in.h:3
@@ -5720,15 +5653,15 @@ msgid "Multiplexer"
 msgstr ""
 
 #: sheets/MSE.sheet.in.h:5
-msgid "Node Center"
+msgid "Node center"
 msgstr "節點中心"
 
 #: sheets/MSE.sheet.in.h:6
-msgid "Small Extension Node"
+msgid "Small extension node"
 msgstr "小延伸節點"
 
 #: sheets/MSE.sheet.in.h:7
-msgid "Tactical Satellite Communications Terminal"
+msgid "Tactical satellite communications terminal"
 msgstr "戰略衛星通訊終端機"
 
 #: sheets/MSE.sheet.in.h:8
@@ -5736,232 +5669,236 @@ msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr "美軍戰術區域通訊系統 (Mobile Subscriber Equipment) 元件"
 
 #: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
+msgid "3 1/2 inch diskette"
 msgstr "3.5 吋軟磁片"
 
 #: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr ""
+msgid "ATM switch symbol"
+msgstr "ATM 交換器(switch)"
 
 #: sheets/network.sheet.in.h:3
-msgid "A Computer"
-msgstr "電腦"
+msgid "Antenna for wireless transmission"
+msgstr "無線網路天線"
 
 #: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr "桌上型個人電腦"
+msgid "Bigtower PC"
+msgstr "Bigtower PC"
 
 #: sheets/network.sheet.in.h:5
-msgid "A Digitizing Board"
-msgstr ""
+msgid "Computer"
+msgstr "電腦"
 
 #: sheets/network.sheet.in.h:6
-msgid "A Firewall router"
-msgstr "防火牆"
+msgid "Desktop PC"
+msgstr "平躺式 PC"
 
 #: sheets/network.sheet.in.h:7
-msgid "A Laptop PC"
-msgstr "攜帶型電腦"
+msgid "Digitizing board"
+msgstr "視訊卡"
 
 #: sheets/network.sheet.in.h:8
-msgid "A Miditower PC"
-msgstr ""
+msgid "Ethernet bus"
+msgstr "Ethernet 匯流排"
 
 #: sheets/network.sheet.in.h:9
-msgid "A Minitower PC"
-msgstr ""
+msgid "External DAT drive"
+msgstr "外置 DAT 磁帶機"
 
 #: sheets/network.sheet.in.h:10
-msgid "A Mobile Phone"
-msgstr "行動電話"
+msgid "Firewall router"
+msgstr "防火牆"
 
 #: sheets/network.sheet.in.h:11
-msgid "A Plotter"
-msgstr "繪圖機"
+msgid "Laptop PC"
+msgstr "攜帶型電腦"
 
 #: sheets/network.sheet.in.h:12
-msgid "A RJ45 Wall-Plug"
-msgstr "RJ45 插頭"
+msgid "Miditower PC"
+msgstr "Midtower PC"
 
 #: sheets/network.sheet.in.h:13
-msgid "A Telephone"
-msgstr "電話"
+msgid "Minitower PC"
+msgstr "Minitower PC"
 
 #: sheets/network.sheet.in.h:14
-msgid "A UNIX Workstation"
-msgstr "UNIX 工作站"
+msgid "Mobile phone"
+msgstr "行動電話"
 
 #: sheets/network.sheet.in.h:15
-msgid "A WAN Connection"
+msgid "Modular switching system"
 msgstr ""
 
 #: sheets/network.sheet.in.h:16
-msgid "A WAN Link"
-msgstr ""
-
-#: sheets/network.sheet.in.h:17
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
-
-#: sheets/network.sheet.in.h:18
-msgid "A Workstation Monitor"
-msgstr "工作站螢幕"
-
-#: sheets/network.sheet.in.h:19
-msgid "A ZIP Disk"
-msgstr "ZIP 碟"
-
-#: sheets/network.sheet.in.h:20
-msgid "A modular switching system"
-msgstr ""
-
-#: sheets/network.sheet.in.h:21
-msgid "A monitor"
+msgid "Monitor"
 msgstr "螢幕"
 
-#: sheets/network.sheet.in.h:22
-msgid "A simple Modem"
-msgstr "普通數據機"
-
-#: sheets/network.sheet.in.h:23
-msgid "A simple printer"
-msgstr "普通印表機"
-
-#: sheets/network.sheet.in.h:24
-msgid "A speaker with integrated amplifier"
-msgstr "內置增幅器的揚聲器"
-
-#: sheets/network.sheet.in.h:25
-msgid "A speaker without amplifier"
-msgstr "沒有增幅器的揚聲器"
-
-#: sheets/network.sheet.in.h:26
-msgid "A stackable hub or switch"
-msgstr ""
-
-#: sheets/network.sheet.in.h:27
-msgid "ATM Switch Symbol"
-msgstr ""
-
-#: sheets/network.sheet.in.h:28
-msgid "An Ethernet bus"
-msgstr "Ethernet 匯流排"
-
-#: sheets/network.sheet.in.h:29
-msgid "An antenna for wireless transmission"
-msgstr "無線網路用的天線"
-
-#: sheets/network.sheet.in.h:30
-msgid "An external DAT drive"
-msgstr "外置 DAT 磁帶機"
-
-#: sheets/network.sheet.in.h:31
+#: sheets/network.sheet.in.h:17
 msgid "Network"
 msgstr "網路"
 
-#: sheets/network.sheet.in.h:32
-msgid "Network Cloud"
+#: sheets/network.sheet.in.h:18
+msgid "Network cloud"
 msgstr "代表網路的雲狀圖案"
 
-#: sheets/network.sheet.in.h:33
+#: sheets/network.sheet.in.h:19
 msgid "Objects to design network diagrams with"
 msgstr "設計網路圖表用的物件"
 
-#: sheets/network.sheet.in.h:34
-msgid "Router Symbol"
+#: sheets/network.sheet.in.h:20
+msgid "Plotter"
+msgstr "繪圖機"
+
+#: sheets/network.sheet.in.h:21
+msgid "RJ45 wall-plug"
+msgstr "RJ45 插頭"
+
+#: sheets/network.sheet.in.h:22
+msgid "Router symbol"
 msgstr "路由器符號"
 
-#: sheets/network.sheet.in.h:35
+#: sheets/network.sheet.in.h:23
+msgid "Simple modem"
+msgstr "普通數據機"
+
+#: sheets/network.sheet.in.h:24
+msgid "Simple printer"
+msgstr "普通印表機"
+
+#: sheets/network.sheet.in.h:25
+msgid "Speaker with integrated amplifier"
+msgstr "內置增幅器的揚聲器"
+
+#: sheets/network.sheet.in.h:26
+msgid "Speaker without amplifier"
+msgstr "沒有增幅器的揚聲器"
+
+#: sheets/network.sheet.in.h:27
+msgid "Stackable hub or switch"
+msgstr "可疊放式集線器(hub)或交換器(switch)"
+
+#: sheets/network.sheet.in.h:28
 msgid "Storage"
 msgstr "儲存裝置"
 
-#: sheets/network.sheet.in.h:36
-msgid "Switch Symbol"
+#: sheets/network.sheet.in.h:29
+msgid "Switch symbol"
+msgstr "交換器(switch)"
+
+#: sheets/network.sheet.in.h:30
+msgid "Telephone"
+msgstr "電話"
+
+#: sheets/network.sheet.in.h:31
+msgid "UNIX workstation"
+msgstr "UNIX 工作站"
+
+#: sheets/network.sheet.in.h:32
+msgid "WAN connection"
 msgstr ""
 
+#: sheets/network.sheet.in.h:33
+msgid "WAN link"
+msgstr ""
+
+#: sheets/network.sheet.in.h:34
+msgid "Wall-plug for the scEAD cabling system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:35
+msgid "Workstation monitor"
+msgstr "工作站螢幕"
+
+#: sheets/network.sheet.in.h:36
+msgid "ZIP disk"
+msgstr "ZIP 碟"
+
 #: sheets/Pneumatic.sheet.in.h:1
-msgid "A 2/2 distributor"
+msgid "2/2 distributor"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:2
-msgid "A 3/2 distributor"
+msgid "3/2 distributor"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:3
-msgid "A 3/3 distributor"
+msgid "3/3 distributor"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:4
-msgid "A 4/2 distributor"
+msgid "4/2 distributor"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:5
-msgid "A 5/2 distributor"
+msgid "5/2 distributor"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:6
-msgid "A 5/3 distributor"
+msgid "5/3 distributor"
 msgstr ""
 
+#: sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "連接點"
+
 #: sheets/Pneumatic.sheet.in.h:8
-msgid "A double-effect jack"
+msgid "Air exhaust orifice"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
-msgid "A generic pressure source"
-msgstr "壓力來源"
-
-#: sheets/Pneumatic.sheet.in.h:10
-msgid "A hydraulic pressure source"
-msgstr "水壓來源"
-
-#: sheets/Pneumatic.sheet.in.h:11
-msgid "A normally-in simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "A normally-out simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "A pneumatic pressure source"
-msgstr "氣壓來源"
-
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "An air exhaust orifice"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:16
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "Double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
 msgid "Electric command (double coil)"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:17
+#: sheets/Pneumatic.sheet.in.h:12
 msgid "Electric command (single coil)"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:18
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "Generic pressure source"
+msgstr "一般壓力來源"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "Hydraulic pressure source"
+msgstr "水壓來源"
+
+#: sheets/Pneumatic.sheet.in.h:15
 msgid "Indirect command by hydraulic driver"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:19
+#: sheets/Pneumatic.sheet.in.h:16
 msgid "Indirect command by pneumatic driver"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:20
+#: sheets/Pneumatic.sheet.in.h:17
 msgid "Mechanical command by spring"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:21
+#: sheets/Pneumatic.sheet.in.h:18
 msgid "Mechanical command by tappet"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:22
+#: sheets/Pneumatic.sheet.in.h:19
 msgid "Muscular command"
 msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Pneumatic pressure source"
+msgstr "氣壓來源"
 
 #: sheets/Pneumatic.sheet.in.h:23
 msgid "Pneumatic/Hydraulic"
@@ -5972,15 +5909,15 @@ msgid "Push-button command"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
-msgid "A activity/data flow arrow"
+msgid "Activity/data box"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:2
-msgid "A flow label"
+msgid "Activity/data flow arrow"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:3
-msgid "An activity/data box"
+msgid "Flow label"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:4
@@ -5996,7 +5933,7 @@ msgid "Action being executed"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:2
-msgid "Block Type Reference"
+msgid "Block type reference"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:4
@@ -6004,27 +5941,27 @@ msgid "Decision"
 msgstr "決策"
 
 #: sheets/SDL.sheet.in.h:5
-msgid "Function Header"
+msgid "Function call"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:6
-msgid "Function call"
-msgstr "函式呼叫"
+msgid "Function header"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:7
-msgid "Generic Text Note"
+msgid "Generic text note"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:8
-msgid "In/Out Connector"
+msgid "In/Out connector"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:10
-msgid "Procedure Return"
+msgid "Procedure return"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:11
-msgid "Process Type Reference"
+msgid "Process type reference"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:12
@@ -6036,164 +5973,188 @@ msgid "SDL"
 msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
-msgid "Save State"
-msgstr "儲存狀態"
+msgid "Save state"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:15
 msgid "Send message"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:16
-msgid "Service Type Reference"
+msgid "Service type reference"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
 msgstr "規格描述語言 (Specification and Description Language)"
 
-#: sheets/SDL.sheet.in.h:18
+#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:24
 msgid "State"
 msgstr "狀態"
 
 #: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr "Sybase 用戶端程式"
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr "Sybase 資料伺服器"
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr "Sybase 備援伺服器"
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
+msgid "Log transfer manager or rep agent"
 msgstr ""
 
-#: sheets/sybase.sheet.in.h:5
+#: sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
 msgstr ""
 
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
+#: sheets/sybase.sheet.in.h:3
+msgid "Replication server manager"
 msgstr "備援伺服器總管"
 
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr "穩定的儲存裝置s"
+#: sheets/sybase.sheet.in.h:4
+msgid "Stable storage device"
+msgstr "穩定的儲存裝置"
 
-#: sheets/sybase.sheet.in.h:8
+#: sheets/sybase.sheet.in.h:5
 msgid "Sybase"
 msgstr "Sybase"
 
-#: sheets/UML.sheet.in.h:1
-msgid "Aggregation, one class is part of another"
-msgstr ""
+#: sheets/sybase.sheet.in.h:6
+msgid "Sybase client application"
+msgstr "Sybase 客戶端程式"
 
-#: sheets/UML.sheet.in.h:2
-msgid "Association, two classes are associated"
+#: sheets/sybase.sheet.in.h:7
+msgid "Sybase dataserver"
+msgstr "Sybase 數據庫"
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase replication server"
+msgstr "Sybase 備援伺服器"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Activity"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:3
-msgid "Constraint, place a constraint on something"
+msgid "Aggregation, one class is part of another"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:4
-msgid "Create a (large) package"
+msgid "Association, two classes are associated"
 msgstr ""
-
-#: sheets/UML.sheet.in.h:5
-msgid "Create a (small) package"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:6
-msgid "Create a branch"
-msgstr "製作分支"
 
 #: sheets/UML.sheet.in.h:7
-msgid "Create a class"
+msgid "Class stereotype icon"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:8
-msgid "Create a class stereotype icon"
+msgid "Component"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:9
-msgid "Create a component"
+msgid "Constraint, place a constraint on something"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:10
-msgid "Create a dependency"
-msgstr ""
+msgid "Dependency"
+msgstr "相依性"
 
 #: sheets/UML.sheet.in.h:11
-msgid "Create a fork/union"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:12
-msgid "Create a initial/end state"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:13
-msgid "Create a lifeline"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:14
-msgid "Create a message"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:15
-msgid "Create a node"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:16
-msgid "Create a note"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:17
-msgid "Create a state"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:18
-msgid "Create a template class"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:19
-msgid "Create a use case"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:20
-msgid "Create an activity"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:21
-msgid "Create an actor"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:22
-msgid "Create an object"
-msgstr "製作物件"
-
-#: sheets/UML.sheet.in.h:23
 msgid "Editor for UML Static Structure Diagrams"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:24
+#: sheets/UML.sheet.in.h:12
+msgid "Fork/union"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:13
 msgid "Generalization, class inheritance"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:25
+#: sheets/UML.sheet.in.h:14
 msgid "Implements, class implements a specific interface"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:26
+#: sheets/UML.sheet.in.h:15
+msgid "Initial/end state"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:16
+msgid "Large package"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:17
+msgid "Lifeline"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:18
+msgid "Message"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:19
+msgid "Node"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:20
+msgid "Note"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
 msgid "Realizes, implements a specific interface"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:27
+#: sheets/UML.sheet.in.h:23
+msgid "Small package"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:26
 msgid "UML"
 msgstr "UML"
+
+#: sheets/UML.sheet.in.h:27
+msgid "Use case"
+msgstr ""
+
+#~ msgid "Create Text"
+#~ msgstr "製作文字"
+
+#~ msgid "Create Box"
+#~ msgstr "繪畫方框"
+
+#~ msgid "Create Ellipse"
+#~ msgstr "繪畫橢圓"
+
+#~ msgid "Create Polygon"
+#~ msgstr "繪畫多邊形"
+
+#~ msgid "Create Beziergon"
+#~ msgstr "繪畫貝茲 (Bezier) 封閉曲線"
+
+#~ msgid "Create Line"
+#~ msgstr "繪畫直線"
+
+#~ msgid "Create Arc"
+#~ msgstr "繪畫弧線"
+
+#~ msgid "Create Zigzagline"
+#~ msgstr "繪畫 Z 形線"
+
+#~ msgid "Create Polyline"
+#~ msgstr "繪畫自由線段"
+
+#~ msgid "Create Bezierline"
+#~ msgstr "繪畫貝茲 (Bezier) 曲線"
+
+#~ msgid "Create Image"
+#~ msgstr "顯示圖像"
+
+#~ msgid "Could not load XSLT library (%s) : %s"
+#~ msgstr "無法載入 XSLT 函式庫 (%s)：%s"
+
+#~ msgid "A pnp bipolar transistor"
+#~ msgstr "pnp 二極電晶體"
+
+#~ msgid "A relay"
+#~ msgstr "繼電器"
+
+#~ msgid "An Inverter"
+#~ msgstr "變流器"
+
+#~ msgid "A File"
+#~ msgstr "檔案"
 
 #~ msgid "Show at startup:"
 #~ msgstr "程式啟動時自動顯示："
@@ -6219,24 +6180,6 @@ msgstr "UML"
 #~ msgid "Font size:"
 #~ msgstr "文字大小："
 
-#~ msgid "Corner rounding:"
-#~ msgstr "圓形角落："
-
-#~ msgid "Flow:"
-#~ msgstr "流程："
-
-#~ msgid "Flow type:"
-#~ msgstr "流程種類："
-
-#~ msgid "Orthflow:"
-#~ msgstr "正規流程："
-
-#~ msgid "Orthflow type:"
-#~ msgstr "正規流程種類："
-
-#~ msgid "Begin"
-#~ msgstr "開始"
-
 #~ msgid "End"
 #~ msgstr "結束"
 
@@ -6246,23 +6189,14 @@ msgstr "UML"
 #~ msgid "A Diagram Editor"
 #~ msgstr "圖表編輯器"
 
-#~ msgid "Image file:"
-#~ msgstr "圖像檔："
-
 #~ msgid "Keep aspect ratio:"
 #~ msgstr "保持比例："
-
-#~ msgid "Polygon import is not implemented yet"
-#~ msgstr "未完成匯入多邊形的功能"
 
 #~ msgid "Fontsize:"
 #~ msgstr "文字大小："
 
 #~ msgid "Print Diagram"
 #~ msgstr "列印圖表"
-
-#~ msgid "An error occured while creating the print context"
-#~ msgstr "建立列印資料時發生錯誤"
 
 #~ msgid "Load"
 #~ msgstr "載入"
@@ -6287,6 +6221,3 @@ msgstr "UML"
 
 #~ msgid "Attributes:"
 #~ msgstr "屬性："
-
-#~ msgid "Asynchronous"
-#~ msgstr "非同步"
