@@ -252,74 +252,79 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
 }
 
 void
-ddisplay_realize(GtkWidget *widget, gpointer data)
+ddisplay_realize (GtkWidget *widget, gpointer data)
 {
-  DDisplay *ddisp;
+	DDisplay *ddisp;
 
-  g_return_if_fail(widget != NULL);
-  g_return_if_fail(data != NULL);
+	g_return_if_fail(widget != NULL);
+	g_return_if_fail(data != NULL);
 
-  ddisp = (DDisplay *)data;
+	ddisp = (DDisplay *)data;
 
 #ifdef USE_XIM
-  if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
-    gint width, height;
-    GdkColormap *colormap;
-    GdkICAttr *attr = ddisp->ic_attr;
-    GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
-    GdkIMStyle style;
-    GdkIMStyle supported_style =
-      GDK_IM_PREEDIT_NONE |
-      GDK_IM_PREEDIT_NOTHING |
-      GDK_IM_PREEDIT_POSITION |
-      GDK_IM_STATUS_NONE |
-      GDK_IM_STATUS_NOTHING;
+	if (gdk_im_ready () && (ddisp->ic_attr = gdk_ic_attr_new ()) != NULL) {
+		gint width, height;
+		GdkColormap *colormap;
+		GdkEventMask mask;
+		GdkICAttr *attr = ddisp->ic_attr;
+		GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
+		GdkIMStyle style;
+		GdkIMStyle supported_style =
+			GDK_IM_PREEDIT_NONE |
+			GDK_IM_PREEDIT_NOTHING |
+			GDK_IM_PREEDIT_POSITION |
+			GDK_IM_STATUS_NONE |
+			GDK_IM_STATUS_NOTHING;
 
-    if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
-      supported_style &= ~GDK_IM_PREEDIT_POSITION;
+		if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
+			supported_style &= ~GDK_IM_PREEDIT_POSITION;
 
-    attr->style = style = gdk_im_decide_style(supported_style);
-    attr->client_window = widget->window;
+		attr->style = style = gdk_im_decide_style (supported_style);
+		attr->client_window = widget->window;
 
-    if ((colormap = gtk_widget_get_colormap(widget)) !=
-	gtk_widget_get_default_colormap()) {
-      attrmask |= GDK_IC_PREEDIT_COLORMAP;
-      attr->preedit_colormap = colormap;
-    }
+		if ((colormap = gtk_widget_get_colormap (widget)) !=
+		    gtk_widget_get_default_colormap ()) {
+			attrmask |= GDK_IC_PREEDIT_COLORMAP;
+			attr->preedit_colormap = colormap;
+		}
 
-    attrmask |= GDK_IC_PREEDIT_FOREGROUND;
-    attrmask |= GDK_IC_PREEDIT_BACKGROUND;
-    attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
-    attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
+		attrmask |= GDK_IC_PREEDIT_FOREGROUND;
+		attrmask |= GDK_IC_PREEDIT_BACKGROUND;
+		attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
+		attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
 
 
-    switch (style & GDK_IM_PREEDIT_MASK) {
-    case GDK_IM_PREEDIT_POSITION:
-      if (ddisp->canvas->style &&
-	  ddisp->canvas->style->font->type != GDK_FONT_FONTSET) {
-	g_warning("over-the-spot style requires fontset");
-	break;
-      }
-      attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
-      gdk_window_get_size(widget->window, &width, &height);
-      attr->spot_location.x = 0;
-      attr->spot_location.y = 14;
-      attr->preedit_area.x = 0;
-      attr->preedit_area.y = 0;
-      attr->preedit_area.width = width;
-      attr->preedit_area.height = height;
-      attr->preedit_fontset = widget->style->font;
-    }
-    ddisp->ic = gdk_ic_new(attr, attrmask);
-    if (ddisp->ic == NULL)
-      g_warning("could not create input context");
-    else {
-      gtk_widget_add_events(ddisp->canvas, gdk_ic_get_events(ddisp->ic));
+		switch (style & GDK_IM_PREEDIT_MASK) {
+		    case GDK_IM_PREEDIT_POSITION:
+			    if (widget->style &&
+				widget->style->font->type != GDK_FONT_FONTSET) {
+				    g_warning("over-the-spot style requires fontset");
+				    break;
+			    }
+			    gdk_window_get_size (widget->window, &width, &height);
 
-      if (GTK_WIDGET_HAS_FOCUS(widget))
-	gdk_im_begin(ddisp->ic, widget->window);
-    }
-  }
+			    attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
+			    attr->spot_location.x = 0;
+			    attr->spot_location.y = 14;
+			    attr->preedit_area.x = 0;
+			    attr->preedit_area.y = 0;
+			    attr->preedit_area.width = width;
+			    attr->preedit_area.height = height;
+			    attr->preedit_fontset = widget->style->font;
+			    break;
+		}
+		ddisp->ic = gdk_ic_new (attr, attrmask);
+		if (ddisp->ic == NULL)
+			g_warning("could not create input context");
+		else {
+			mask = gdk_window_get_events (widget->window);
+			mask |= gdk_ic_get_events (ddisp->ic);
+			gdk_window_set_events (widget->window, mask);
+
+			if (GTK_WIDGET_HAS_FOCUS (widget))
+				gdk_im_begin (ddisp->ic, widget->window);
+		}
+	}
 #endif
 }
 
