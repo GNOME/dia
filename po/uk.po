@@ -204,7 +204,7 @@ msgstr "Dia верс╕╖ %s. Автор: Alexander Larsson"
 #: app/commands.c:576
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
-"ПБудь ласка, звертайтесь за додатковою ╕нформац╕╓ю за адресою "
+"Будь ласка, звертайтесь за додатковою ╕нформац╕╓ю за адресою "
 "http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
@@ -991,7 +991,7 @@ msgstr "Установки"
 
 #: app/render_svg.c:834
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Векторна граф╕ка"
 
 #: app/lineprops_area.c:496
 msgid "Arrow Properties"
@@ -1106,7 +1106,7 @@ msgstr "Переглянути"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
-msgstr ""
+msgstr "Агент"
 
 #: objects/ER/participation.c:449 objects/UML/association.c:608
 #: objects/UML/dependency.c:288 objects/UML/generalization.c:280
@@ -1147,7 +1147,7 @@ msgstr "Роль:"
 
 #: objects/UML/association.c:1055
 msgid "Multiplicity:"
-msgstr ""
+msgstr "Чисельн╕сть:"
 
 #. Show arrow:
 #: objects/UML/association.c:1066
@@ -1157,7 +1157,7 @@ msgstr "Показати стр╕лку"
 #. Aggregate
 #: objects/UML/association.c:1072
 msgid "Aggregate"
-msgstr ""
+msgstr "Сукупн╕сть"
 
 #. Composition
 #: objects/UML/association.c:1080
@@ -1189,7 +1189,7 @@ msgstr "Видим╕ атрибути"
 
 #: objects/UML/class_dialog.c:211
 msgid "Suppress Attributes"
-msgstr ""
+msgstr "Сховати атрибути"
 
 #: objects/UML/class_dialog.c:219
 msgid "Operations visible"
@@ -1197,7 +1197,7 @@ msgstr "Видим╕ д╕╖"
 
 #: objects/UML/class_dialog.c:223
 msgid "Suppress operations"
-msgstr ""
+msgstr "Сховати операц╕╖"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
@@ -1313,11 +1313,11 @@ msgstr "╤нтерфейс:"
 
 #: objects/UML/usecase.c:542
 msgid "Text outside:"
-msgstr ""
+msgstr "Зовн╕шн╕й текст:"
 
 #: objects/UML/usecase.c:547
 msgid "Collaboration"
-msgstr ""
+msgstr "Сп╕впраця"
 
 #: objects/UML/object.c:753
 msgid "Explicit state:"
@@ -1406,7 +1406,7 @@ msgstr "Межа"
 
 #: objects/ER/entity.c:448 objects/UML/classicon.c:617
 msgid "Entity"
-msgstr ""
+msgstr "Сутн╕сть"
 
 #: objects/UML/classicon.c:625
 msgid "Is an object"
@@ -1833,11 +1833,11 @@ msgstr "Дов╕льний об'╓кт з написом всередин╕"
 
 #: objects/custom/custom_object.c:1386
 msgid "Flip Horizontal"
-msgstr "Обернути горизонтально"
+msgstr "В╕дзеркалити горизонтально"
 
 #: objects/custom/custom_object.c:1387
 msgid "Flip Vertical"
-msgstr "Обернути вертикально"
+msgstr "В╕дзеркалити вертикально"
 
 #: plug-ins/cgm/cgm.c:765
 msgid ""
