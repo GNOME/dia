@@ -38,14 +38,6 @@
 #include "pixmaps/classicon.xpm"
 
 typedef struct _Classicon Classicon;
-typedef struct _ClassiconState ClassiconState;
-
-struct _ClassiconState {
-  ObjectState obj_state;
-  
-  int stereotype;
-  int is_object;
-};
 
 struct _Classicon {
   Element element;
@@ -55,6 +47,7 @@ struct _Classicon {
   int stereotype;
   int is_object;
   Text *text;
+  TextAttributes attrs;
 };
 
 enum CLassIconStereotype {
@@ -83,25 +76,21 @@ static Object *classicon_create(Point *startpoint,
 				Handle **handle1,
 				Handle **handle2);
 static void classicon_destroy(Classicon *cicon);
-static Object *classicon_copy(Classicon *cicon);
-static void classicon_save(Classicon *cicon, ObjectNode obj_node,
-			   const char *filename);
 static Object *classicon_load(ObjectNode obj_node, int version,
 			      const char *filename);
 static PropDescription *classicon_describe_props(Classicon *classicon);
 static void classicon_get_props(Classicon *classicon, Property *props, guint nprops);
 static void classicon_set_props(Classicon *classicon, Property *props, guint nprops);
 static void classicon_update_data(Classicon *cicon);
-static ClassiconState *classicon_get_state(Classicon *cicon);
-static void classicon_set_state(Classicon *cicon,
-				ClassiconState *state);
 
 
 static ObjectTypeOps classicon_type_ops =
 {
   (CreateFunc) classicon_create,
-  (LoadFunc)   classicon_load,
-  (SaveFunc)   classicon_save
+  (LoadFunc)   classicon_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType classicon_type =
@@ -118,7 +107,7 @@ static ObjectOps classicon_ops = {
   (DrawFunc)            classicon_draw,
   (DistanceFunc)        classicon_distance_from,
   (SelectFunc)          classicon_select,
-  (CopyFunc)            classicon_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            classicon_move,
   (MoveHandleFunc)      classicon_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -145,7 +134,7 @@ static PropDescription classicon_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
 };
@@ -153,8 +142,6 @@ static PropDescription classicon_props[] = {
 static PropDescription *
 classicon_describe_props(Classicon *classicon)
 {
-  if (classicon_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(classicon_props);
   return classicon_props;
 }
 
@@ -162,73 +149,28 @@ static PropOffset classicon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "stereotype", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
+  { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Classicon,attrs.font)},
+  { "text_height",PROP_TYPE_REAL,offsetof(Classicon,attrs.height)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,attrs.color)},
   { NULL, 0, 0 },
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
 };
 
 static void
 classicon_get_props(Classicon * classicon, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&classicon->element.object, 
-                                    classicon_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = classicon->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = classicon->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = classicon->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(classicon->text);
-    }
-  }
+  text_get_attributes(classicon->text,&classicon->attrs);
+  object_get_props_from_offsets(&classicon->element.object,
+                                classicon_offsets,props,nprops);
 }
 
 static void
 classicon_set_props(Classicon *classicon, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&classicon->element.object, 
-                                     classicon_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(classicon->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(classicon->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(classicon->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(classicon->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&classicon->element.object,
+                                classicon_offsets,props,nprops);
+  apply_textattr_properties(props,nprops,
+                            classicon->text,"text",&classicon->attrs);
   classicon_update_data(classicon);
 }
 
@@ -477,6 +419,7 @@ classicon_create(Point *startpoint,
   p.x = 0.0;
   p.y = 0.0;
   cicon->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  text_get_attributes(cicon->text,&cicon->attrs);
   
   element_init(elem, 8, 8);
   
@@ -506,125 +449,9 @@ classicon_destroy(Classicon *cicon)
 }
 
 static Object *
-classicon_copy(Classicon *cicon)
-{
-  int i;
-  Classicon *newcicon;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &cicon->element;
-  
-  newcicon = g_malloc0(sizeof(Classicon));
-  newelem = &newcicon->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newcicon->text = text_copy(cicon->text);
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newcicon->connections[i];
-    newcicon->connections[i].object = newobj;
-    newcicon->connections[i].connected = NULL;
-    newcicon->connections[i].pos = cicon->connections[i].pos;
-    newcicon->connections[i].last_pos = cicon->connections[i].last_pos;
-  }
-
-  newcicon->stereotype = cicon->stereotype;
-  newcicon->is_object = cicon->is_object;
-
-  classicon_update_data(newcicon);
-  
-  return &newcicon->element.object;
-}
-
-static ClassiconState *
-classicon_get_state(Classicon *cicon)
-{
-  ClassiconState *state = g_new0(ClassiconState, 1);
-
-  state->obj_state.free = NULL;
-
-  state->stereotype = cicon->stereotype;
-  state->is_object = cicon->is_object;
-
-  return state;
-}
-
-static void
-classicon_set_state(Classicon *cicon, ClassiconState *state)
-{
-  cicon->stereotype = state->stereotype;
-  cicon->is_object = state->is_object;
-  
-  g_free(state);
-  
-  classicon_update_data(cicon);
-}
-
-static void
-classicon_save(Classicon *cicon, ObjectNode obj_node, const char *filename)
-{
-  element_save(&cicon->element, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		cicon->text);
-
-  data_add_int(new_attribute(obj_node, "stereotype"),
-		   cicon->stereotype);
-
-  data_add_boolean(new_attribute(obj_node, "is_object"),
-		   cicon->is_object);
-}
-
-static Object *
 classicon_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Classicon *cicon;
-  AttributeNode attr;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  cicon = g_malloc0(sizeof(Classicon));
-  elem = &cicon->element;
-  obj = &elem->object;
-  
-  obj->type = &classicon_type;
-  obj->ops = &classicon_ops;
-
-  element_load(elem, obj_node);
-  
-  cicon->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    cicon->text = data_text(attribute_first_data(attr));
-
-  cicon->stereotype = 0;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-      cicon->stereotype = data_int(attribute_first_data(attr));
-
-  cicon->is_object = 0;
-  attr = object_find_attribute(obj_node, "is_object");
-  if (attr != NULL)
-      cicon->is_object = data_boolean(attribute_first_data(attr));
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &cicon->connections[i];
-    cicon->connections[i].object = obj;
-    cicon->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = 0.0;
-  classicon_update_data(cicon);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &cicon->element.object;
+  return object_load_using_properties(&classicon_type,
+                                      obj_node,version,filename);
 }
 

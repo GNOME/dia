@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -39,15 +38,6 @@
 #include "pixmaps/largepackage.xpm"
 
 typedef struct _LargePackage LargePackage;
-typedef struct _LargePackageState LargePackageState;
-typedef struct _PackagePropertiesDialog PackagePropertiesDialog;
-
-struct _LargePackageState {
-  ObjectState obj_state;
-  
-  char *name;
-  char *stereotype; /* Can be NULL, including << and >> */
-};
 
 struct _LargePackage {
   Element element;
@@ -56,20 +46,12 @@ struct _LargePackage {
 
   char *name;
   char *stereotype; /* Can be NULL, including << and >> */
+  char *st_stereotype; 
 
   DiaFont *font;
   
   real topwidth;
   real topheight;
-
-  PackagePropertiesDialog* properties_dialog;
-};
-
-struct _PackagePropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *name;
-  GtkEntry *stereotype;
 };
 
 #define LARGEPACKAGE_BORDERWIDTH 0.1
@@ -87,30 +69,22 @@ static Object *largepackage_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void largepackage_destroy(LargePackage *pkg);
-static Object *largepackage_copy(LargePackage *pkg);
-
-static void largepackage_save(LargePackage *pkg, ObjectNode obj_node,
-			      const char *filename);
-static Object *largepackage_load(ObjectNode obj_node, int version,
-				 const char *filename);
 
 static void largepackage_update_data(LargePackage *pkg);
-static GtkWidget *largepackage_get_properties(LargePackage *pkg);
-static ObjectChange *largepackage_apply_properties(LargePackage *pkg);
 
 static PropDescription *largepackage_describe_props(LargePackage *largepackage);
 static void largepackage_get_props(LargePackage *largepackage, Property *props, guint nprops);
 static void largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops);
-
-static LargePackageState *largepackage_get_state(LargePackage *pkg);
-static void largepackage_set_state(LargePackage *pkg,
-				 LargePackageState *state);
+static Object *largepackage_load(ObjectNode obj_node, int version, 
+                                 const char *filename);
 
 static ObjectTypeOps largepackage_type_ops =
 {
   (CreateFunc) largepackage_create,
-  (LoadFunc)   largepackage_load,
-  (SaveFunc)   largepackage_save
+  (LoadFunc)   largepackage_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType largepackage_type =
@@ -127,11 +101,11 @@ static ObjectOps largepackage_ops = {
   (DrawFunc)            largepackage_draw,
   (DistanceFunc)        largepackage_distance_from,
   (SelectFunc)          largepackage_select,
-  (CopyFunc)            largepackage_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            largepackage_move,
   (MoveHandleFunc)      largepackage_move_handle,
-  (GetPropertiesFunc)   largepackage_get_properties,
-  (ApplyPropertiesFunc) largepackage_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   largepackage_describe_props,
   (GetPropsFunc)        largepackage_get_props,
@@ -140,21 +114,23 @@ static ObjectOps largepackage_ops = {
 
 static PropDescription largepackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  /* XXX */
-  
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Name"), NULL, NULL },
   PROP_DESC_END
 };
 
 static PropDescription *
 largepackage_describe_props(LargePackage *largepackage)
 {
-  if (largepackage_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(largepackage_props);
   return largepackage_props;
 }
 
 static PropOffset largepackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"stereotype", PROP_TYPE_STRING, offsetof(LargePackage , stereotype) },
+  {"name", PROP_TYPE_STRING, offsetof(LargePackage , name) },
 
   { NULL, 0, 0 },
 };
@@ -171,6 +147,8 @@ largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops
 {
   object_set_props_from_offsets(&largepackage->element.object, 
                                 largepackage_offsets, props, nprops);
+  g_free(largepackage->st_stereotype);
+  largepackage->st_stereotype = NULL;
   largepackage_update_data(largepackage);
 }
 
@@ -261,8 +239,8 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
 
 
 
-  if (pkg->stereotype) {
-    renderer->ops->draw_string(renderer, pkg->stereotype, &p1,
+  if (pkg->st_stereotype) {
+    renderer->ops->draw_string(renderer, pkg->st_stereotype, &p1,
 			       ALIGN_LEFT, &color_black);
   }
   p1.y += LARGEPACKAGE_FONTHEIGHT;
@@ -277,6 +255,21 @@ largepackage_update_data(LargePackage *pkg)
 {
   Element *elem = &pkg->element;
   Object *obj = &elem->object;
+
+  pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
+  if (!pkg->st_stereotype) {
+    pkg->st_stereotype =  string_to_stereotype(pkg->stereotype);
+  }
+  
+  pkg->topwidth = 2.0;
+  if (pkg->name != NULL)
+    pkg->topwidth = MAX(pkg->topwidth,
+                        font_string_width(pkg->name, pkg->font,
+                                          LARGEPACKAGE_FONTHEIGHT)+2*0.1);
+  if (pkg->st_stereotype != NULL)
+    pkg->topwidth = MAX(pkg->topwidth,
+                        font_string_width(pkg->st_stereotype, pkg->font,
+                                          LARGEPACKAGE_FONTHEIGHT)+2*0.1);
 
   if (elem->width < (pkg->topwidth + 0.2))
     elem->width = pkg->topwidth + 0.2;
@@ -338,13 +331,12 @@ largepackage_create(Point *startpoint,
   pkg->font = font_getfont("Courier");
 
   pkg->stereotype = NULL;
+  pkg->st_stereotype = NULL;
   pkg->name = strdup("");
 
   pkg->topwidth = 2.0;
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
 
-  pkg->properties_dialog = NULL;
-  
   for (i=0;i<8;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
@@ -361,272 +353,18 @@ largepackage_create(Point *startpoint,
 static void
 largepackage_destroy(LargePackage *pkg)
 {
-
-  if (pkg->stereotype != NULL)
-    g_free(pkg->stereotype);
-  
+  g_free(pkg->stereotype);
+  g_free(pkg->st_stereotype);
   g_free(pkg->name);
-  
-  if (pkg->properties_dialog != NULL) {
-    gtk_widget_destroy(pkg->properties_dialog->dialog);
-    g_free(pkg->properties_dialog);
-  }
   
   element_destroy(&pkg->element);
 }
 
 static Object *
-largepackage_copy(LargePackage *pkg)
-{
-  int i;
-  LargePackage *newpkg;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &pkg->element;
-  
-  newpkg = g_malloc0(sizeof(LargePackage));
-  newelem = &newpkg->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  if (pkg->stereotype == NULL)
-    newpkg->stereotype = NULL;
-  else
-    newpkg->stereotype = strdup(pkg->stereotype);
-
-  newpkg->name = strdup(pkg->name);
-
-  newpkg->font = pkg->font;
-  newpkg->topwidth = pkg->topwidth;
-  newpkg->topheight = pkg->topheight;
-  newpkg->properties_dialog = NULL;
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newpkg->connections[i];
-    newpkg->connections[i].object = newobj;
-    newpkg->connections[i].connected = NULL;
-    newpkg->connections[i].pos = pkg->connections[i].pos;
-    newpkg->connections[i].last_pos = pkg->connections[i].last_pos;
-  }
-
-  largepackage_update_data(newpkg);
-  
-  return &newpkg->element.object;
-}
-
-static void
-largepackage_state_free(ObjectState *ostate)
-{
-  LargePackageState *state = (LargePackageState *)ostate;
-  g_free(state->name);
-  g_free(state->stereotype);
-}
-
-static LargePackageState *
-largepackage_get_state(LargePackage *pkg)
-{
-  LargePackageState *state = g_new0(LargePackageState, 1);
-
-  state->obj_state.free = largepackage_state_free;
-
-  state->name = g_strdup(pkg->name);
-  state->stereotype = g_strdup(pkg->stereotype);
-
-  return state;
-}
-
-static void
-largepackage_set_state(LargePackage *pkg, LargePackageState *state)
-{
-  g_free(pkg->name);
-  pkg->name = state->name;
-  g_free(pkg->stereotype);
-  pkg->stereotype = state->stereotype;
-  
-  g_free(state);
-  
-  largepackage_update_data(pkg);
-}
-
-static void
-largepackage_save(LargePackage *pkg, ObjectNode obj_node,
-		  const char *filename)
-{
-  element_save(&pkg->element, obj_node);
-
-  data_add_string(new_attribute(obj_node, "name"),
-		  pkg->name);
-  data_add_string(new_attribute(obj_node, "stereotype"),
-		  pkg->stereotype);
-}
-
-static Object *
 largepackage_load(ObjectNode obj_node, int version, const char *filename)
 {
-  LargePackage *pkg;
-  AttributeNode attr;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  pkg = g_malloc0(sizeof(LargePackage));
-  elem = &pkg->element;
-  obj = &elem->object;
-  
-  obj->type = &largepackage_type;
-  obj->ops = &largepackage_ops;
-
-  element_load(elem, obj_node);
-
-  pkg->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL)
-    pkg->name = data_string(attribute_first_data(attr));
-  
-  pkg->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-    pkg->stereotype = data_string(attribute_first_data(attr));
-
-  pkg->font = font_getfont("Courier");
-
-  pkg->topwidth = 2.0;
-  if (pkg->name != NULL)
-    pkg->topwidth = MAX(pkg->topwidth,
-			font_string_width(pkg->name, pkg->font,
-					  LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-  if (pkg->stereotype != NULL)
-    pkg->topwidth = MAX(pkg->topwidth,
-			font_string_width(pkg->stereotype, pkg->font,
-					  LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-  
-  pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
-
-  pkg->properties_dialog = NULL;
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &pkg->connections[i];
-    pkg->connections[i].object = obj;
-    pkg->connections[i].connected = NULL;
-  }
-  largepackage_update_data(pkg);
-
-  return &pkg->element.object;
-}
-
-static ObjectChange *
-largepackage_apply_properties(LargePackage *pkg)
-{
-  PackagePropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = pkg->properties_dialog;
-
-  old_state = (ObjectState *)largepackage_get_state(pkg);
-
-  /* Read from dialog and put in object: */
-  g_free(pkg->name);
-  str = gtk_entry_get_text(prop_dialog->name);
-  pkg->name = strdup(str);
-
-  if (pkg->stereotype != NULL)
-    g_free(pkg->stereotype);
-  
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  
-  if (strlen(str) != 0) {
-    pkg->stereotype = string_to_stereotype(str);
-  } else {
-    pkg->stereotype = NULL;
-  }
-
-  pkg->topwidth = 2.0;
-  pkg->topwidth = MAX(pkg->topwidth,
-		      font_string_width(pkg->name, pkg->font,
-					LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-  if (pkg->stereotype != NULL)
-    pkg->topwidth = MAX(pkg->topwidth,
-			font_string_width(pkg->stereotype, pkg->font,
-					  LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-  
-  pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
-  pkg->element.extra_spacing.border_trans = LARGEPACKAGE_BORDERWIDTH/2.0;
-
-  largepackage_update_data(pkg);
-  return new_object_state_change(&pkg->element.object, old_state, 
-				 (GetStateFunc)largepackage_get_state,
-				 (SetStateFunc)largepackage_set_state);
-}
-
-static void
-fill_in_dialog(LargePackage *pkg)
-{
-  PackagePropertiesDialog *prop_dialog;
-  char *str;
-  
-  prop_dialog = pkg->properties_dialog;
-
-  gtk_entry_set_text(prop_dialog->name, pkg->name);
-  
-  if (pkg->stereotype != NULL) {
-    str = stereotype_to_string(pkg->stereotype);
-    gtk_entry_set_text(prop_dialog->stereotype, str);
-    g_free(str);
-  } else {
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
-}
-
-static GtkWidget *
-largepackage_get_properties(LargePackage *pkg)
-{
-  PackagePropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (pkg->properties_dialog == NULL) {
-    prop_dialog = g_new(PackagePropertiesDialog, 1);
-    pkg->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new(_("Stereotype:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->stereotype = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-  }
-  fill_in_dialog(pkg);
-  gtk_widget_show (pkg->properties_dialog->dialog);
-  return pkg->properties_dialog->dialog;
+  return object_load_using_properties(&largepackage_type,
+                                      obj_node,version,filename);
 }
 
 

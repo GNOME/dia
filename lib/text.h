@@ -84,6 +84,9 @@ Text *data_text(AttributeNode attr);
 gboolean apply_textattr_properties(Property *props, guint nprops,
                                    Text *text, const gchar *textname,
                                    TextAttributes *attrs);
+gboolean apply_textstr_properties(Property *props, guint nprops,
+                                  Text *text, const gchar *textname,
+                                  const gchar *str);
 #endif /* TEXT_H */
 
 

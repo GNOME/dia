@@ -44,12 +44,6 @@ enum {
   STATE_END
 };
 
-struct _StateState {
-  ObjectState obj_state;
-
-  int state_type;
-};
-
 struct _State {
   Element element;
 
@@ -57,6 +51,8 @@ struct _State {
 
   Text *text;
   int state_type;
+
+  TextAttributes attrs;
 };
 
 
@@ -80,10 +76,6 @@ static Object *state_create(Point *startpoint,
 			   Handle **handle1,
 			   Handle **handle2);
 static void state_destroy(State *state);
-static Object *state_copy(State *state);
-
-static void state_save(State *state, ObjectNode obj_node,
-			 const char *filename);
 static Object *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static PropDescription *state_describe_props(State *state);
@@ -91,18 +83,16 @@ static void state_get_props(State *state, Property *props, guint nprops);
 static void state_set_props(State *state, Property *props, guint nprops);
 static void state_update_data(State *state);
 
-static StateState *state_get_state(State *state);
-static void state_set_state(State *state, StateState *sstate);
-
-
 void
 draw_rounded_rectangle(Renderer *renderer, Point p1, Point p2, real radio);
 
 static ObjectTypeOps state_type_ops =
 {
   (CreateFunc) state_create,
-  (LoadFunc)   state_load,
-  (SaveFunc)   state_save
+  (LoadFunc)   state_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType state_type =
@@ -119,7 +109,7 @@ static ObjectOps state_ops = {
   (DrawFunc)            state_draw,
   (DistanceFunc)        state_distance_from,
   (SelectFunc)          state_select,
-  (CopyFunc)            state_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            state_move,
   (MoveHandleFunc)      state_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -144,7 +134,7 @@ static PropDescription state_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
 };
@@ -152,81 +142,34 @@ static PropDescription state_props[] = {
 static PropDescription *
 state_describe_props(State *state)
 {
-  if (state_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(state_props);
   return state_props;
 }
 
 static PropOffset state_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"text",PROP_TYPE_TEXT,offsetof(State,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
   { "state_type", PROP_TYPE_ENUM, offsetof(State, state_type) },
   { NULL, 0, 0 },
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
 };
 
 static void
 state_get_props(State * state, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&state->element.object, 
-                                    state_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = state->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = state->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = state->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(state->text);
-    }
-  }
+  text_get_attributes(state->text,&state->attrs);
+  object_get_props_from_offsets(&state->element.object,
+                                state_offsets,props,nprops);
 }
 
 static void
 state_set_props(State *state, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&state->element.object, state_offsets,
-		     props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(state->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(state->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(state->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(state->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&state->element.object,
+                                state_offsets,props,nprops);
+  apply_textattr_properties(props,nprops,
+                            state->text,"text",&state->attrs);
   state_update_data(state);
 }
 
@@ -398,6 +341,7 @@ state_create(Point *startpoint,
   p.y += STATE_HEIGHT/2.0;
   
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  text_get_attributes(state->text,&state->attrs);
   state->state_type = STATE_NORMAL;
   element_init(elem, 8, 8);
   
@@ -427,113 +371,10 @@ state_destroy(State *state)
 }
 
 static Object *
-state_copy(State *state)
-{
-  int i;
-  State *newstate;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &state->element;
-  
-  newstate = g_malloc0(sizeof(State));
-  newelem = &newstate->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newstate->text = text_copy(state->text);
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newstate->connections[i];
-    newstate->connections[i].object = newobj;
-    newstate->connections[i].connected = NULL;
-    newstate->connections[i].pos = state->connections[i].pos;
-    newstate->connections[i].last_pos = state->connections[i].last_pos;
-  }
-
-  newstate->state_type = state->state_type;
-
-  state_update_data(newstate);
-  
-  return &newstate->element.object;
-}
-
-static StateState *
-state_get_state(State *state)
-{
-  StateState *sstate = g_new0(StateState, 1);
-
-  sstate->obj_state.free = NULL;
-
-  sstate->state_type = state->state_type;
-  
-  return sstate;
-}
-
-static void
-state_set_state(State *state, StateState *sstate)
-{
-  state->state_type = sstate->state_type;
-  
-  g_free(sstate);
-  
-  state_update_data(state);
-}
-
-static void
-state_save(State *state, ObjectNode obj_node, const char *filename)
-{
-  element_save(&state->element, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		state->text);
-
-  data_add_int(new_attribute(obj_node, "type"),
-	       state->state_type);
-
-}
-
-static Object *
 state_load(ObjectNode obj_node, int version, const char *filename)
 {
-  State *state;
-  Element *elem;
-  Object *obj;
-  int i;
-  AttributeNode attr;
-
-  state = g_malloc0(sizeof(State));
-  elem = &state->element;
-  obj = &elem->object;
-  
-  obj->type = &state_type;
-  obj->ops = &state_ops;
-
-  element_load(elem, obj_node);
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-      state->text = data_text(attribute_first_data(attr));
-  
-  attr = object_find_attribute(obj_node, "type");
-  if (attr != NULL)
-      state->state_type = data_int(attribute_first_data(attr));
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &state->connections[i];
-    state->connections[i].object = obj;
-    state->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = 0.0;
-  state_update_data(state);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &state->element.object;
+  return object_load_using_properties(&state_type,
+                                      obj_node,version,filename);
 }
 
 

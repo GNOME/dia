@@ -24,7 +24,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -47,6 +46,7 @@ struct _Node
   Element element;
   ConnectionPoint connections[8];
   Text *name;
+  TextAttributes attrs;
 };
 
 static const double NODE_BORDERWIDTH = 0.1;
@@ -67,10 +67,6 @@ static Object *node_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void node_destroy(Node *node);
-static Object *node_copy(Node *node);
-
-static void node_save(Node *node, ObjectNode obj_node,
-			      const char *filename);
 static Object *node_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
@@ -83,8 +79,10 @@ static void node_update_data(Node *node);
 static ObjectTypeOps node_type_ops =
 {
   (CreateFunc) node_create,
-  (LoadFunc)   node_load,
-  (SaveFunc)   node_save
+  (LoadFunc)   node_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType node_type =
@@ -102,7 +100,7 @@ static ObjectOps node_ops =
   (DrawFunc)            node_draw,
   (DistanceFunc)        node_distance_from,
   (SelectFunc)          node_select,
-  (CopyFunc)            node_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            node_move,
   (MoveHandleFunc)      node_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -118,90 +116,42 @@ static PropDescription node_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  { "name", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
 
 static PropDescription *
 node_describe_props(Node *node)
 {
-  if (node_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(node_props);
   return node_props;
 }
 
 static PropOffset node_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  /*  { "name", PROP_TYPE_STRING, offsetof(Node, name) },*/
+  {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Node,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,attrs.color)},
   { NULL, 0, 0 },
 };
 
 static void
 node_get_props(Node * node, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&node->element.object, node_offsets, props, nprops))
-    return;
-
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = node->name->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = node->name->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = node->name->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(node->name);
-    }
-  }
-
+  text_get_attributes(node->name,&node->attrs);
+  object_get_props_from_offsets(&node->element.object,
+                                node_offsets,props,nprops);
 }
 
 static void
 node_set_props(Node *node, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&node->element.object, 
-                                     node_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(node->name, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(node->name, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(node->name, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(node->name, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&node->element.object,
+                                node_offsets,props,nprops);
+  apply_textattr_properties(props,nprops,
+                            node->name,"name",&node->attrs);
   node_update_data(node);
 }
 
@@ -376,6 +326,7 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   p.x = 0.0;
   p.y = 0.0;
   node->name = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  text_get_attributes(node->name,&node->attrs);
 
   element_init(elem, 8, 8);
 
@@ -398,71 +349,8 @@ static void node_destroy(Node *node)
   element_destroy(&node->element);
 }
 
-static Object *node_copy(Node *node)
-{
-  int i;
-  Node *newnode;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &node->element;
-  
-  newnode = g_malloc0(sizeof(Node));
-  newelem = &newnode->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-  newnode->name = text_copy(node->name);
-  
-  for (i=0;i<8;i++)
-    {
-      newobj->connections[i] = &newnode->connections[i];
-      newnode->connections[i].object = newobj;
-      newnode->connections[i].connected = NULL;
-      newnode->connections[i].pos = node->connections[i].pos;
-      newnode->connections[i].last_pos = node->connections[i].last_pos;
-    }
-
-  node_update_data(newnode);
-  return &newnode->element.object;
-}
-
-static void node_save(Node *node, ObjectNode obj_node, const char *filename)
-{
-  element_save(&node->element, obj_node);
-  data_add_text(new_attribute(obj_node, "name"), node->name);
-}
-
 static Object *node_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Node *node;
-  AttributeNode attr;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  node = g_malloc0(sizeof(Node));
-  elem = &node->element;
-  obj = &elem->object;
-
-  obj->type = &node_type;
-  obj->ops = &node_ops;
-
-  element_load(elem, obj_node);
-
-  node->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL) node->name = data_text(attribute_first_data(attr));
-  
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++)
-    {
-      obj->connections[i] = &node->connections[i];
-      node->connections[i].object = obj;
-      node->connections[i].connected = NULL;
-    }
-  elem->extra_spacing.border_trans = NODE_BORDERWIDTH/2.0;
-  node_update_data(node);
-  return &node->element.object;
+  return object_load_using_properties(&node_type,
+                                      obj_node,version,filename);
 }

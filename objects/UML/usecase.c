@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -39,13 +38,6 @@ typedef struct _UsecasePropertiesDialog UsecasePropertiesDialog;
 typedef struct _Usecase Usecase;
 typedef struct _UsecaseState UsecaseState;
 
-struct _UsecaseState {
-  ObjectState obj_state;
-  
-  int text_outside;
-  int collaboration;
-};
-
 struct _Usecase {
   Element element;
 
@@ -54,6 +46,7 @@ struct _Usecase {
   Text *text;
   int text_outside;
   int collaboration;
+  TextAttributes attrs;
 };
 
 
@@ -84,10 +77,6 @@ static Object *usecase_create(Point *startpoint,
 			      Handle **handle1,
 			      Handle **handle2);
 static void usecase_destroy(Usecase *usecase);
-static Object *usecase_copy(Usecase *usecase);
-
-static void usecase_save(Usecase *usecase, ObjectNode obj_node,
-			 const char *filename);
 static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
@@ -99,8 +88,10 @@ static void usecase_set_props(Usecase *usecase, Property *props, guint nprops);
 static ObjectTypeOps usecase_type_ops =
 {
   (CreateFunc) usecase_create,
-  (LoadFunc)   usecase_load,
-  (SaveFunc)   usecase_save
+  (LoadFunc)   usecase_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType usecase_type =
@@ -117,11 +108,11 @@ static ObjectOps usecase_ops = {
   (DrawFunc)            usecase_draw,
   (DistanceFunc)        usecase_distance_from,
   (SelectFunc)          usecase_select,
-  (CopyFunc)            usecase_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            usecase_move,
   (MoveHandleFunc)      usecase_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) usecase_apply_properties,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   usecase_describe_props,
   (GetPropsFunc)        usecase_get_props,
@@ -137,7 +128,7 @@ static PropDescription usecase_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
 };
@@ -145,82 +136,35 @@ static PropDescription usecase_props[] = {
 static PropDescription *
 usecase_describe_props(Usecase *usecase)
 {
-  if (usecase_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(usecase_props);
   return usecase_props;
 }
 
 static PropOffset usecase_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
-  { "collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
+  {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
+  {"collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
+  {"text",PROP_TYPE_TEXT,offsetof(Usecase,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Usecase,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Usecase,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,attrs.color)},
   { NULL, 0, 0 },
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
 };
 
 static void
 usecase_get_props(Usecase * usecase, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&usecase->element.object, 
-                                    usecase_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = usecase->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = usecase->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = usecase->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(usecase->text);
-    }
-  }
+  text_get_attributes(usecase->text,&usecase->attrs);
+  object_get_props_from_offsets(&usecase->element.object,
+                                usecase_offsets,props,nprops);
 }
 
 static void
 usecase_set_props(Usecase *usecase, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&usecase->element.object, 
-                                     usecase_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(usecase->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(usecase->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(usecase->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(usecase->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&usecase->element.object,
+                                usecase_offsets,props,nprops);
+  apply_textattr_properties(props,nprops,
+                            usecase->text,"text",&usecase->attrs);
   usecase_update_data(usecase);
 }
 
@@ -324,7 +268,7 @@ static void
 usecase_update_data(Usecase *usecase)
 {
   real w, h, ratio;
-  Point c, half, r;
+  Point c, half, r,p;
   
   Element *elem = &usecase->element;
   Object *obj = &elem->object;
@@ -398,11 +342,22 @@ usecase_update_data(Usecase *usecase)
       usecase->connections[7].pos.y = c.y + half.y;
   }
 
+  h = usecase->text->height*usecase->text->numlines;
+  p = usecase->element.corner;
+  p.x += usecase->element.width/2.0;
+  if (usecase->text_outside) {
+      p.y += usecase->element.height - h + usecase->text->ascent;
+  } else {
+      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+  }
+  text_set_position(usecase->text, &p);
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
 
   element_update_handles(elem);
+
 }
 
 static Object *
@@ -434,6 +389,7 @@ usecase_create(Point *startpoint,
   p.y += USECASE_HEIGHT/2.0;
   
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  text_get_attributes(usecase->text,&usecase->attrs);
   usecase->text_outside = 0;
   usecase->collaboration = 0;
   element_init(elem, 8, 8);
@@ -464,154 +420,10 @@ usecase_destroy(Usecase *usecase)
 }
 
 static Object *
-usecase_copy(Usecase *usecase)
-{
-  int i;
-  Usecase *newusecase;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &usecase->element;
-  
-  newusecase = g_malloc0(sizeof(Usecase));
-  newelem = &newusecase->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newusecase->text = text_copy(usecase->text);
-  newusecase->text_outside = usecase->text_outside;
-  newusecase->collaboration = usecase->collaboration;
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newusecase->connections[i];
-    newusecase->connections[i].object = newobj;
-    newusecase->connections[i].connected = NULL;
-    newusecase->connections[i].pos = usecase->connections[i].pos;
-    newusecase->connections[i].last_pos = usecase->connections[i].last_pos;
-  }
-
-  newusecase->text_outside = usecase->text_outside;
-  newusecase->collaboration = usecase->collaboration;
-  usecase_update_data(newusecase);
-  
-  return &newusecase->element.object;
-}
-
-static UsecaseState *
-usecase_get_state(Usecase *usecase)
-{
-  UsecaseState *state = g_new0(UsecaseState, 1);
-
-  state->obj_state.free = NULL;
-
-  state->text_outside = usecase->text_outside;
-  state->collaboration = usecase->collaboration;
-
-  return state;
-}
-
-static void
-usecase_set_state(Usecase *usecase, UsecaseState *state)
-{
-  usecase->text_outside = state->text_outside;
-  usecase->collaboration = state->collaboration;
-  
-  g_free(state);
-  
-  usecase_update_data(usecase);
-}
-
-static void
-usecase_save(Usecase *usecase, ObjectNode obj_node, const char *filename)
-{
-  element_save(&usecase->element, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		usecase->text);
-
-  data_add_boolean(new_attribute(obj_node, "textout"),
-		   usecase->text_outside);
-
-  data_add_boolean(new_attribute(obj_node, "collaboration"),
-		   usecase->collaboration);
-}
-
-static Object *
 usecase_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Usecase *usecase;
-  Element *elem;
-  Object *obj;
-  int i;
-  AttributeNode attr;
-
-  usecase = g_malloc0(sizeof(Usecase));
-  elem = &usecase->element;
-  obj = &elem->object;
-  
-  obj->type = &usecase_type;
-  obj->ops = &usecase_ops;
-
-  element_load(elem, obj_node);
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-      usecase->text = data_text(attribute_first_data(attr));
-
-
-  attr = object_find_attribute(obj_node, "textout");
-  if (attr != NULL)
-    usecase->text_outside = data_boolean(attribute_first_data(attr));
-  else
-    usecase->text_outside = 0;
-
-  attr = object_find_attribute(obj_node, "collaboration");
-  if (attr != NULL)
-    usecase->collaboration = data_boolean(attribute_first_data(attr));
-  else
-    usecase->collaboration = 0;
-  
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &usecase->connections[i];
-    usecase->connections[i].object = obj;
-    usecase->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = 0.0;
-  usecase_update_data(usecase);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &usecase->element.object;
+  return object_load_using_properties(&usecase_type,
+                                      obj_node,version,filename);
 }
 
-static ObjectChange *
-usecase_apply_properties(Usecase *usecase, GtkWidget *widget)
-{
-  ObjectState *old_state;
-  real h;
-  Point p;
 
-
-  old_state = (ObjectState *)usecase_get_state(usecase);
-
-  object_apply_props_from_dialog((Object *)usecase, widget);
-
-  usecase_update_data(usecase);
-
-  h = usecase->text->height*usecase->text->numlines;
-  p = usecase->element.corner;
-  p.x += usecase->element.width/2.0;
-  if (usecase->text_outside) {
-      p.y += usecase->element.height - h + usecase->text->ascent;
-  } else {
-      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
-  }
-  text_set_position(usecase->text, &p);
-  return new_object_state_change(&usecase->element.object, old_state, 
-				 (GetStateFunc)usecase_get_state,
-				 (SetStateFunc)usecase_set_state);
-}

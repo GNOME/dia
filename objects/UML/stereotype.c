@@ -25,7 +25,9 @@
 #include "charconv.h"
 
 char *
-string_to_bracketted(char *str, char *start_bracket, char *end_bracket) {
+string_to_bracketted(char *str, 
+                     const char *start_bracket, 
+                     const char *end_bracket) {
 #ifdef UNICODE_WORK_IN_PROGRESS
   char *bracketted;
 
@@ -53,13 +55,13 @@ static char *strend(char *p) {
 #ifdef UNICODE_WORK_IN_PROGRESS
 char *
 bracketted_to_string(utfchar *bracketted, 
-                     utfchar *start_bracket, 
-                     utfchar *end_bracket){
+                     const utfchar *start_bracket, 
+                     const utfchar *end_bracket){
 #else
 static char *
 _bracketted_to_string(utfchar *bracketted, 
-                      utfchar *start_bracket, 
-                      utfchar *end_bracket){
+                      const utfchar *start_bracket, 
+                      const utfchar *end_bracket){
 #endif
   char *str;
   int start_len = strlen(start_bracket);
@@ -73,7 +75,9 @@ _bracketted_to_string(utfchar *bracketted,
     str += start_len;
     str_len -= start_len;
   }
-  if (0 == strncmp(strend(str) - end_len,end_bracket,end_len)) {
+  
+  if ((str_len >= end_len) && 
+      (0 == strncmp(strend(str) - end_len,end_bracket,end_len))) {
     str_len -= end_len;
   }
   return g_strndup(str,str_len);
@@ -81,7 +85,9 @@ _bracketted_to_string(utfchar *bracketted,
 
 #ifndef UNICODE_WORK_IN_PROGRESS
 char *
-bracketted_to_string(char *bracketted, char *start_bracket, char *end_bracket){
+bracketted_to_string(char *bracketted, 
+                     const char *start_bracket, 
+                     const char *end_bracket){
   char *tmp = charconv_local8_to_utf8((bracketted?bracketted:""));  
   char *uref = _bracketted_to_string(tmp,start_bracket,end_bracket);
   char *ret = charconv_utf8_to_local8(uref);
@@ -91,19 +97,18 @@ bracketted_to_string(char *bracketted, char *start_bracket, char *end_bracket){
 }  
 #endif
 
-char uml_start_bracket[] = { UML_STEREOTYPE_START, '\0'};
-char uml_end_bracket[] = { UML_STEREOTYPE_END, '\0'};
-
 char *
 string_to_stereotype(char *str) {
-  return string_to_bracketted(str, uml_start_bracket, uml_end_bracket);
+  if ((str) && str[0] != '\0')  
+    return string_to_bracketted(str, UML_STEREOTYPE_START, UML_STEREOTYPE_END);
+  return g_strdup(str);
 }
 
 char *
 remove_stereotype_from_string(char *stereotype) {
   if (stereotype) { 
     char *tmp = bracketted_to_string(stereotype, 
-                                     uml_start_bracket, uml_end_bracket);
+                                     UML_STEREOTYPE_START, UML_STEREOTYPE_END);
     g_free(stereotype);
     return tmp;
   } else {
@@ -114,6 +119,6 @@ remove_stereotype_from_string(char *stereotype) {
 char *
 stereotype_to_string(char *stereotype) {
   return bracketted_to_string(stereotype, 
-                              uml_start_bracket, uml_end_bracket);
+                              UML_STEREOTYPE_START, UML_STEREOTYPE_END);
 }
 

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -125,8 +124,6 @@ static PropDescription component_props[] = {
 static PropDescription *
 component_describe_props(Component *component)
 {
-  if (component_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(component_props);
   return component_props;
 }
 
@@ -249,8 +246,8 @@ component_draw(Component *cmp, Renderer *renderer)
 			   &p1, &p2,
 			   &color_black);
 
-  if (cmp->stereotype != NULL &&
-      cmp->stereotype[0] != '\0') {
+  if (cmp->st_stereotype != NULL &&
+      cmp->st_stereotype[0] != '\0') {
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
     renderer->ops->draw_string(renderer, cmp->st_stereotype, &p1, 
@@ -266,7 +263,6 @@ component_update_data(Component *cmp)
   Element *elem = &cmp->element;
   Object *obj = &elem->object;
   Point p;
-
 
   cmp->stereotype = remove_stereotype_from_string(cmp->stereotype);
   if (!cmp->st_stereotype) {

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -45,6 +44,9 @@ struct _SmallPackage {
 
   char *stereotype;
   Text *text;
+  
+  char *st_stereotype;
+  TextAttributes attrs;
 };
 
 #define SMALLPACKAGE_BORDERWIDTH 0.1
@@ -65,10 +67,6 @@ static Object *smallpackage_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void smallpackage_destroy(SmallPackage *pkg);
-static Object *smallpackage_copy(SmallPackage *pkg);
-
-static void smallpackage_save(SmallPackage *pkg, ObjectNode obj_node,
-			      const char *filename);
 static Object *smallpackage_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
@@ -81,8 +79,10 @@ static void smallpackage_update_data(SmallPackage *pkg);
 static ObjectTypeOps smallpackage_type_ops =
 {
   (CreateFunc) smallpackage_create,
-  (LoadFunc)   smallpackage_load,
-  (SaveFunc)   smallpackage_save
+  (LoadFunc)   smallpackage_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType smallpackage_type =
@@ -99,7 +99,7 @@ static ObjectOps smallpackage_ops = {
   (DrawFunc)            smallpackage_draw,
   (DistanceFunc)        smallpackage_distance_from,
   (SelectFunc)          smallpackage_select,
-  (CopyFunc)            smallpackage_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            smallpackage_move,
   (MoveHandleFunc)      smallpackage_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -117,108 +117,45 @@ static PropDescription smallpackage_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
-  
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },     
   PROP_DESC_END
 };
 
 static PropDescription *
 smallpackage_describe_props(SmallPackage *smallpackage)
 {
-  if (smallpackage_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(smallpackage_props);
   return smallpackage_props;
 }
 
 static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  /*  { "stereotype", PROP_TYPE_STRING, offsetof(SmallPackage, stereotype) },*/
+  {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
+  {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(SmallPackage,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,attrs.color)},  
   { NULL, 0, 0 },
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" },
-  { "stereotype" }
-};
-
 static void
-smallpackage_get_props(SmallPackage * smallpackage, Property *props, guint nprops)
+smallpackage_get_props(SmallPackage * smallpackage, 
+                       Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&smallpackage->element.object, 
-                                    smallpackage_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = smallpackage->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = smallpackage->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = smallpackage->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(smallpackage->text);
-    } else if (pquark == quarks[4].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      if (smallpackage->stereotype != NULL &&
-	  smallpackage->stereotype[0] != '\0')
-	PROP_VALUE_STRING(props[i]) =
-	  stereotype_to_string(smallpackage->stereotype);
-      else
-	PROP_VALUE_STRING(props[i]) = NULL;	
-    }
-  }
+  text_get_attributes(smallpackage->text,&smallpackage->attrs);
+  object_get_props_from_offsets(&smallpackage->element.object,
+                                smallpackage_offsets,props,nprops);
 }
 
 static void
-smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops)
+smallpackage_set_props(SmallPackage *smallpackage, 
+                       Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&smallpackage->element.object, 
-                                     smallpackage_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(smallpackage->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(smallpackage->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(smallpackage->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(smallpackage->text, PROP_VALUE_STRING(props[i]));
-      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
-	if (smallpackage->stereotype != NULL)
-	  g_free(smallpackage->stereotype);
-	if (PROP_VALUE_STRING(props[i]) != NULL &&
-	    PROP_VALUE_STRING(props[i])[0] != '\0')
-	  smallpackage->stereotype =
-	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
-	else 
-	  smallpackage->stereotype = NULL;
-      }
-    }
-  }
+  object_set_props_from_offsets(&smallpackage->element.object, 
+                                smallpackage_offsets, props, nprops);
+  apply_textattr_properties(props,nprops,
+                            smallpackage->text,"text",&smallpackage->attrs);
+  g_free(smallpackage->st_stereotype);
+  smallpackage->st_stereotype = NULL;
   smallpackage_update_data(smallpackage);
 }
 
@@ -309,10 +246,10 @@ smallpackage_draw(SmallPackage *pkg, Renderer *renderer)
 
   text_draw(pkg->text, renderer);
 
-  if (pkg->stereotype != NULL) {
+  if (pkg->st_stereotype != NULL) {
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
-    renderer->ops->draw_string(renderer, pkg->stereotype, &p1, 
+    renderer->ops->draw_string(renderer, pkg->st_stereotype, &p1, 
 			       ALIGN_LEFT, &color_black);
   }
 }
@@ -324,6 +261,11 @@ smallpackage_update_data(SmallPackage *pkg)
   Object *obj = &elem->object;
   Point p;
   DiaFont *font;
+
+  pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
+  if (!pkg->st_stereotype) {
+    pkg->st_stereotype =  string_to_stereotype(pkg->stereotype);
+  }
 
   elem->width = pkg->text->max_width + 2*SMALLPACKAGE_MARGIN_X;
   elem->width = MAX(elem->width, SMALLPACKAGE_TOPWIDTH+1.0);
@@ -337,7 +279,7 @@ smallpackage_update_data(SmallPackage *pkg)
   if (pkg->stereotype != NULL) {
     font = pkg->text->font;
     elem->height += pkg->text->height;
-    elem->width = MAX(elem->width, font_string_width(pkg->stereotype,
+    elem->width = MAX(elem->width, font_string_width(pkg->st_stereotype,
 						     font, pkg->text->height)+
 		      2*SMALLPACKAGE_MARGIN_X);
     p.y += pkg->text->height;
@@ -400,6 +342,7 @@ smallpackage_create(Point *startpoint,
   p.y += SMALLPACKAGE_MARGIN_Y + font_ascent(font, 0.8);
   
   pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  text_get_attributes(pkg->text,&pkg->attrs);
   
   element_init(elem, 8, 8);
   
@@ -409,13 +352,14 @@ smallpackage_create(Point *startpoint,
     pkg->connections[i].connected = NULL;
   }
   elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
+
+  pkg->stereotype = NULL;
+  pkg->st_stereotype = NULL;
   smallpackage_update_data(pkg);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
-
-  pkg->stereotype = NULL;
 
   *handle1 = NULL;
   *handle2 = NULL;
@@ -427,109 +371,19 @@ smallpackage_destroy(SmallPackage *pkg)
 {
   text_destroy(pkg->text);
 
-  if (pkg->stereotype)
-    g_free(pkg->stereotype);
+  g_free(pkg->stereotype);
+  g_free(pkg->st_stereotype);
 
   element_destroy(&pkg->element);
 }
 
 static Object *
-smallpackage_copy(SmallPackage *pkg)
-{
-  int i;
-  SmallPackage *newpkg;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &pkg->element;
-  
-  newpkg = g_malloc0(sizeof(SmallPackage));
-  newelem = &newpkg->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newpkg->text = text_copy(pkg->text);
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newpkg->connections[i];
-    newpkg->connections[i].object = newobj;
-    newpkg->connections[i].connected = NULL;
-    newpkg->connections[i].pos = pkg->connections[i].pos;
-    newpkg->connections[i].last_pos = pkg->connections[i].last_pos;
-  }
-
-  if (pkg->stereotype != NULL) 
-    newpkg->stereotype = strdup(pkg->stereotype);
-  else
-    newpkg->stereotype = NULL;
-
-  smallpackage_update_data(newpkg);
-  
-  return &newpkg->element.object;
-}
-
-
-static void
-smallpackage_save(SmallPackage *pkg, ObjectNode obj_node,
-		  const char *filename)
-{
-  element_save(&pkg->element, obj_node);
-
-  if (pkg->stereotype != NULL)
-    data_add_string(new_attribute(obj_node, "stereotype"),
-		    pkg->stereotype);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		pkg->text);
-}
-
-static Object *
 smallpackage_load(ObjectNode obj_node, int version, const char *filename)
 {
-  SmallPackage *pkg;
-  AttributeNode attr;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  pkg = g_malloc0(sizeof(SmallPackage));
-  elem = &pkg->element;
-  obj = &elem->object;
-  
-  obj->type = &smallpackage_type;
-  obj->ops = &smallpackage_ops;
-
-  element_load(elem, obj_node);
-  
-  pkg->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-    pkg->stereotype = data_string(attribute_first_data(attr));
-  else
-    pkg->stereotype = NULL;
-
-  pkg->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    pkg->text = data_text(attribute_first_data(attr));
-  
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &pkg->connections[i];
-    pkg->connections[i].object = obj;
-    pkg->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
-  smallpackage_update_data(pkg);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &pkg->element.object;
+  return object_load_using_properties(&smallpackage_type,
+                                      obj_node,version,filename);
 }
+
 
 
 

@@ -1080,3 +1080,28 @@ apply_textattr_properties(Property *props, guint nprops,
   return FALSE;
 }
 
+gboolean 
+apply_textstr_properties(Property *props, guint nprops,
+                         Text *text, const gchar *textname,
+                         const gchar *str)
+{
+  int i;
+  Property *textprop = NULL;
+  GQuark prop_quark = g_quark_from_string(textname);
+
+  for (i=0;i<nprops;i++) {
+    if (!props[i].descr) continue;
+    if (props[i].descr->quark == prop_quark) {
+      textprop = &props[i];
+      break;
+    }
+  }
+
+  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+    /* most likely we're called after the dialog box has been applied */
+    text_set_string(text,str);
+    return TRUE; 
+  }
+  return FALSE;
+}
+

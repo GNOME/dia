@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -36,9 +35,13 @@
 
 #include "pixmaps/message.xpm"
 
+#include "uml.h"
+
+#ifndef UNICODE_WORK_IN_PROGRESS
+#include "charconv.h"
+#endif
+
 typedef struct _Message Message;
-typedef struct _MessageState MessageState;
-typedef struct _MessageDialog MessageDialog;
 
 typedef enum {
     MESSAGE_CALL,
@@ -49,13 +52,6 @@ typedef enum {
     MESSAGE_SEND, /* Asynchronous */
     MESSAGE_RECURSIVE
 } MessageType;
-
-struct _MessageState {
-  ObjectState obj_state;
-
-  char *text;
-  MessageType type;
-};
 
 struct _Message {
   Connection connection;
@@ -69,20 +65,6 @@ struct _Message {
   MessageType type;
 };
 
-struct _MessageDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *text;
-
-  GtkWidget *m_call;
-  GtkWidget *m_return;
-  GtkWidget *m_create;
-  GtkWidget *m_destroy;
-  GtkWidget *m_send;
-  GtkWidget *m_simple;
-  GtkWidget *m_recursive;
-};
-  
 #define MESSAGE_WIDTH 0.1
 #define MESSAGE_DASHLEN 0.4
 #define MESSAGE_FONTHEIGHT 0.8
@@ -90,8 +72,9 @@ struct _MessageDialog {
 #define MESSAGE_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-#define MESSAGE_CREATE_LABEL "«create»"
-#define MESSAGE_DESTROY_LABEL "«destroy»"
+
+#define MESSAGE_CREATE_LABEL (UML_STEREOTYPE_START "create" UML_STEREOTYPE_END)
+#define MESSAGE_DESTROY_LABEL (UML_STEREOTYPE_START "destroy" UML_STEREOTYPE_END)
 
 static DiaFont *message_font = NULL;
 
@@ -108,14 +91,6 @@ static Object *message_create(Point *startpoint,
 static real message_distance_from(Message *message, Point *point);
 static void message_update_data(Message *message);
 static void message_destroy(Message *message);
-static ObjectChange *message_apply_properties(Message *message, GtkWidget *widget);
-
-static MessageState *message_get_state(Message *message);
-static void message_set_state(Message *message,
-			      MessageState *state);
-
-static void message_save(Message *message, ObjectNode obj_node,
-			 const char *filename);
 static Object *message_load(ObjectNode obj_node, int version,
 			    const char *filename);
 
@@ -126,8 +101,10 @@ static void message_set_props(Message *message, Property *props, guint nprops);
 static ObjectTypeOps message_type_ops =
 {
   (CreateFunc) message_create,
-  (LoadFunc)   message_load,
-  (SaveFunc)   message_save
+  (LoadFunc)   message_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType message_type =
@@ -146,8 +123,8 @@ static ObjectOps message_ops = {
   (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            message_move,
   (MoveHandleFunc)      message_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,/*message_get_properties,*/
-  (ApplyPropertiesFunc) message_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   message_describe_props,
   (GetPropsFunc)        message_get_props,
@@ -167,9 +144,9 @@ static PropEnumData prop_message_type_data[] = {
 
 static PropDescription message_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "message", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Message:"), NULL, NULL },  
-  { "message_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Message type:"), NULL, prop_message_type_data },
   { "text_pos", PROP_TYPE_POINT, 0, 
     "text_pos:", NULL,NULL },
@@ -187,8 +164,8 @@ message_describe_props(Message *mes)
 
 static PropOffset message_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
-  { "message", PROP_TYPE_STRING, offsetof(Message, text) },
-  { "message_type", PROP_TYPE_ENUM, offsetof(Message, type) },
+  { "text", PROP_TYPE_STRING, offsetof(Message, text) },
+  { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) }, 
   { NULL, 0, 0 }
 };
@@ -284,7 +261,10 @@ message_draw(Message *message, Renderer *renderer)
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
   char *mname;
-
+#ifndef UNICODE_WORK_IN_PROGRESS
+  char *create = NULL;
+  char *destroy = NULL;
+#endif
   assert(message != NULL);
   assert(renderer != NULL);
 
@@ -342,12 +322,22 @@ message_draw(Message *message, Renderer *renderer)
   renderer->ops->set_font(renderer, message_font,
 			  MESSAGE_FONTHEIGHT);
 
+#ifdef UNICODE_WORK_IN_PROGRESS
   if (message->type==MESSAGE_CREATE) 
       mname = MESSAGE_CREATE_LABEL;
   else if (message->type==MESSAGE_DESTROY) 
       mname = MESSAGE_DESTROY_LABEL;
   else
       mname = message->text;
+#else
+  if (message->type==MESSAGE_CREATE) {
+    if (!create) create = charconv_utf8_to_local8(MESSAGE_CREATE_LABEL);
+      mname = create;
+  } else if (message->type==MESSAGE_DESTROY) {
+    if (!destroy) destroy = charconv_utf8_to_local8(MESSAGE_DESTROY_LABEL);
+      mname = destroy;
+  } else mname = message->text;
+#endif
 
   if (mname && strlen(mname) != 0) 
       renderer->ops->draw_string(renderer,
@@ -408,7 +398,6 @@ message_create(Point *startpoint,
   return &message->connection.object;
 }
 
-
 static void
 message_destroy(Message *message)
 {
@@ -416,39 +405,6 @@ message_destroy(Message *message)
 
   g_free(message->text);
 }
-
-static void
-message_state_free(ObjectState *ostate)
-{
-  MessageState *state = (MessageState *)ostate;
-  g_free(state->text);
-}
-
-static MessageState *
-message_get_state(Message *message)
-{
-  MessageState *state = g_new0(MessageState, 1);
-
-  state->obj_state.free = message_state_free;
-
-  state->text = g_strdup(message->text);
-  state->type = message->type;
-
-  return state;
-}
-
-static void
-message_set_state(Message *message, MessageState *state)
-{
-  g_free(message->text);
-  message->text = state->text;
-  message->type = state->type;
-  
-  g_free(state);
-  
-  message_update_data(message);
-}
-
 
 static void
 message_update_data(Message *message)
@@ -476,90 +432,11 @@ message_update_data(Message *message)
 }
 
 
-static void
-message_save(Message *message, ObjectNode obj_node, const char *filename)
-{
-  connection_save(&message->connection, obj_node);
-
-  data_add_string(new_attribute(obj_node, "text"),
-		  message->text);
-  data_add_point(new_attribute(obj_node, "text_pos"),
-		 &message->text_pos);
-  data_add_int(new_attribute(obj_node, "type"),
-		   message->type);
-}
-
 static Object *
 message_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Message *message;
-  AttributeNode attr;
-  Connection *conn;
-  LineBBExtras *extra;
-  Object *obj;
-
-  if (message_font == NULL)
-    message_font = font_getfont("Helvetica");
-
-  message = g_malloc0(sizeof(Message));
-
-  conn = &message->connection;
-  obj = &conn->object;
-  extra = &conn->extra_spacing;
-
-  obj->type = &message_type;
-  obj->ops = &message_ops;
-
-  connection_load(conn, obj_node);
-  
-  connection_init(conn, 3, 0);
-
-  message->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    message->text = data_string(attribute_first_data(attr));
-
-  attr = object_find_attribute(obj_node, "text_pos");
-  if (attr != NULL)
-    data_point(attribute_first_data(attr), &message->text_pos);
-
-  attr = object_find_attribute(obj_node, "type");
-  if (attr != NULL)
-    message->type = (MessageType)data_int(attribute_first_data(attr));
-
-  message->text_width = 0;
-  
-  message->text_handle.id = HANDLE_MOVE_TEXT;
-  message->text_handle.type = HANDLE_MINOR_CONTROL;
-  message->text_handle.connect_type = HANDLE_NONCONNECTABLE;
-  message->text_handle.connected_to = NULL;
-  obj->handles[2] = &message->text_handle;
-  
-  extra->start_long = 
-    extra->start_trans = 
-    extra->end_long = MESSAGE_WIDTH/2.0;
-  extra->end_trans = MAX(MESSAGE_WIDTH,MESSAGE_ARROWLEN)/2.0;
-  
-  message_update_data(message);
-  
-  return &message->connection.object;
+  return object_load_using_properties(&message_type,
+                                      obj_node,version,filename);
 }
 
 
-static ObjectChange *
-message_apply_properties(Message *message, GtkWidget *widget)
-{
-  ObjectState *old_state;
-  
-  old_state = (ObjectState *)message_get_state(message);
-
-  object_apply_props_from_dialog((Object *)message, widget);
-
-  /* Read from dialog and put in object: */
-    
-  message_update_data(message);
-
-  return new_object_state_change(&message->connection.object, old_state, 
-				 (GetStateFunc)message_get_state,
-				 (SetStateFunc)message_set_state);
-}

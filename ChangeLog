@@ -8,6 +8,7 @@
 	* lib/text.c: Added an apply_textattr_properties() function to
 	factor out some common code related to applying a dialog's text
 	attribute properties to a (Text *) which wasn't edited there. 
+	Ditto for textstr, for the string part of an objet.
 
 	* objects/GRAFCET/action.c:
 	* objects/SADT/annotation.c:
@@ -17,12 +18,22 @@
 	* objects/UML/branch.c:
 	* objects/UML/component.c:
 	* objects/UML/constraint.c:
-	slim-fast(tm) cure using more StdProps.
-
-	* objects/UML/stereotype.[ch]: use UTF-8 internally.
+	* objects/UML/small_package.c:
+	* objects/UML/state.c:
+	* objects/UML/usecase.c:
+	* objects/UML/large_package.c:
+	* objects/UML/note.c:
+	* objects/UML/node.c:
+	* objects/UML/message.c:
+	* objects/UML/classicon.c:
+	* objects/UML/object.c:
+	slim-fast(tm) cure using more StdProps, and UTF-8 audit.
+	(most objects were already using StdProps to some extent ; this
+	systematises usage and removes some dead wood). 
+	
+	* objects/UML/stereotype.[ch]: use UTF-8 internally. const police work.
 	* objects/UML/uml.[ch]: audited for UTF-8.
 
-	* objects/UML/object.c:
 	* objects/UML/class.c: the UML_STEREOTYPE_* strings defined by
 	uml.h can be in UTF-8... this code isn't yet ready. Duplicating a
 	private (ISO-8859-1) definition.

@@ -35,30 +35,12 @@
 #include "properties.h"
 
 #include "uml.h"
+#include "stereotype.h"
 
 #include "pixmaps/object.xpm"
 
-#undef UML_STEREOTYPE_START
-#undef UML_STEREOTYPE_END
-#define UML_STEREOTYPE_START ((char) 171)
-#define UML_STEREOTYPE_END ((char) 187)
-
 typedef struct _Objet Objet;
-typedef struct _ObjetState ObjetState;
-typedef struct _ObjetPropertiesDialog ObjetPropertiesDialog;
 
-struct _ObjetState {
-  ObjectState obj_state;
-
-  char *stereotype;
-  char *exstate;  /* used for explicit state */
-  char *attributes;
-  
-  int is_active;
-  int show_attributes;
-  int is_multiple;  
-};
- 
 struct _Objet {
   Element element;
 
@@ -73,17 +55,10 @@ struct _Objet {
   int is_active;
   int show_attributes;
   int is_multiple;  
-};
-
-struct _ObjetPropertiesDialog {
-  GtkWidget *dialog;
   
-  GtkEntry *name;
-  GtkEntry *stereotype;
-  GtkWidget *attribs;
-  GtkToggleButton *show_attrib;
-  GtkToggleButton *active;
-  GtkToggleButton *multiple;
+  char *attrib;
+  
+  char *st_stereotype;
 };
 
 #define OBJET_BORDERWIDTH 0.1
@@ -93,8 +68,6 @@ struct _ObjetPropertiesDialog {
 #define OBJET_MARGIN_Y 0.5
 #define OBJET_MARGIN_M 0.4
 #define OBJET_FONTHEIGHT 0.8
-
-static ObjetPropertiesDialog* properties_dialog = NULL;
 
 static real objet_distance_from(Objet *ob, Point *point);
 static void objet_select(Objet *ob, Point *clicked_point,
@@ -108,27 +81,20 @@ static Object *objet_create(Point *startpoint,
 			    Handle **handle1,
 			    Handle **handle2);
 static void objet_destroy(Objet *ob);
-static Object *objet_copy(Objet *ob);
-static void objet_save(Objet *ob, ObjectNode obj_node,
-		       const char *filename);
 static Object *objet_load(ObjectNode obj_node, int version,
 			  const char *filename);
 static PropDescription *objet_describe_props(Objet *objet);
 static void objet_get_props(Objet *objet, Property *props, guint nprops);
 static void objet_set_props(Objet *objet, Property *props, guint nprops);
 static void objet_update_data(Objet *ob);
-static GtkWidget *objet_get_properties(Objet *ob);
-static ObjectChange *objet_apply_properties(Objet *ob);
-
-static ObjetState *objet_get_state(Objet *ob);
-static void objet_set_state(Objet *ob,
-			    ObjetState *state);
 
 static ObjectTypeOps objet_type_ops =
 {
   (CreateFunc) objet_create,
-  (LoadFunc)   objet_load,
-  (SaveFunc)   objet_save
+  (LoadFunc)   objet_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 /* Non-nice typo, needed for backwards compatibility. */
@@ -155,11 +121,11 @@ static ObjectOps objet_ops = {
   (DrawFunc)            objet_draw,
   (DistanceFunc)        objet_distance_from,
   (SelectFunc)          objet_select,
-  (CopyFunc)            objet_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            objet_move,
   (MoveHandleFunc)      objet_move_handle,
-  (GetPropertiesFunc)   objet_get_properties,
-  (ApplyPropertiesFunc) objet_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   objet_describe_props,
   (GetPropsFunc)        objet_get_props,
@@ -169,28 +135,30 @@ static ObjectOps objet_ops = {
 
 static PropDescription objet_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_TEXT_ALIGNMENT,
+  /*PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_TEXT_COLOUR,*/
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype"), NULL, NULL },
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Class name"), NULL, NULL },
-
-  /*
-   * XXX Lists: "attributes" "operations" "templates"
-   */
-
+  { "exstate", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Explicit state"),NULL, NULL },
+  { "attribstr", PROP_TYPE_MULTISTRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
+    N_("Attributes"),NULL, GINT_TO_POINTER(6) },
+  { "attrib", PROP_TYPE_TEXT, 0, NULL,NULL, NULL },
+  { "is_active", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Active object"),NULL,NULL},
+  { "show_attribs", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Show attributes"),NULL,NULL}, 
+  { "multiple", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Multiple instance"),NULL,NULL}, 
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
 
 static PropDescription *
 objet_describe_props(Objet *ob)
 {
-  if (objet_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(objet_props);
   return objet_props;
 }
 
@@ -198,81 +166,36 @@ static PropOffset objet_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Objet, exstate) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Objet, stereotype) },
+  { "text", PROP_TYPE_TEXT, offsetof(Objet, text) },
+  { "exstate", PROP_TYPE_STRING, offsetof(Objet, exstate) },
+  { "attribstr", PROP_TYPE_MULTISTRING, offsetof(Objet, attrib)},
+  { "attrib", PROP_TYPE_TEXT, offsetof(Objet, attributes)},
+  { "is_active", PROP_TYPE_BOOL, offsetof(Objet,is_active)},
+  { "show_attribs", PROP_TYPE_BOOL, offsetof(Objet, show_attributes)},
+  { "multiple", PROP_TYPE_BOOL, offsetof(Objet, is_multiple)},
   { NULL, 0, 0 },
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_alignment" },
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
 };
 
 static void
 objet_get_props(Objet * objet, Property *props, guint nprops)
 {
-  guint i;
+  if (objet->attrib) g_free(objet->attrib);
+  objet->attrib = text_get_string_copy(objet->attributes);
 
-  if (object_get_props_from_offsets(&objet->element.object, 
-                                    objet_offsets, props, nprops))
-    return;
-
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
- 
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_ENUM;
-      PROP_VALUE_ENUM(props[i]) = objet->text->alignment;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = objet->text->font;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = objet->text->height;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = objet->text->color;
-    } else if (pquark == quarks[4].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(objet->text);
-    }
-  }
-
+  object_get_props_from_offsets(&objet->element.object,
+                                objet_offsets,props,nprops);
 }
 
 static void
 objet_set_props(Objet *objet, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&objet->element.object, objet_offsets,
-		     props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
-	text_set_alignment(objet->text, PROP_VALUE_ENUM(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(objet->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(objet->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(objet->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(objet->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&objet->element.object,
+                                objet_offsets,props,nprops);
+  apply_textstr_properties(props,nprops,
+                           objet->attributes,"attrib",
+                           objet->attrib);
+  g_free(objet->st_stereotype);
+  objet->st_stereotype = NULL;
   objet_update_data(objet);
 }
 
@@ -364,9 +287,9 @@ objet_draw(Objet *ob, Renderer *renderer)
   
   text_draw(ob->text, renderer);
 
-  if (ob->stereotype != NULL) {
+  if (ob->st_stereotype != NULL) {
       renderer->ops->draw_string(renderer,
-				 ob->stereotype,
+				 ob->st_stereotype,
 				 &ob->st_pos, ALIGN_CENTER,
 				 &color_black);
   }
@@ -417,6 +340,11 @@ objet_update_data(Objet *ob)
   Point p1, p2;
   real h, w = 0;
   
+  ob->stereotype = remove_stereotype_from_string(ob->stereotype);
+  if (!ob->st_stereotype) {
+    ob->st_stereotype =  string_to_stereotype(ob->stereotype);
+  }
+
   font = ob->text->font;
   h = elem->corner.y + OBJET_MARGIN_Y;
 
@@ -424,8 +352,8 @@ objet_update_data(Objet *ob)
     h += OBJET_MARGIN_M;
   }
     
-  if (ob->stereotype != NULL) {
-      w = font_string_width(ob->stereotype, font, OBJET_FONTHEIGHT);
+  if (ob->st_stereotype != NULL) {
+      w = font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT);
       h += OBJET_FONTHEIGHT;
       ob->st_pos.y = h;
       h += OBJET_MARGIN_Y/2.0;
@@ -523,13 +451,15 @@ objet_create(Point *startpoint,
 
   ob->exstate = NULL;
   ob->stereotype = NULL;
+  ob->st_stereotype = NULL;
 
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
   ob->attributes = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  ob->attrib = NULL;
   ob->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  
+
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {
@@ -554,379 +484,20 @@ static void
 objet_destroy(Objet *ob)
 {
   text_destroy(ob->text);
-
-  if (ob->stereotype != NULL)
-      g_free(ob->stereotype);
-
-  if (ob->exstate != NULL)
-      g_free(ob->exstate);
-
   text_destroy(ob->attributes);
+
+  g_free(ob->stereotype);
+  g_free(ob->st_stereotype);
+  g_free(ob->exstate);
+  g_free(ob->attrib);
 
   element_destroy(&ob->element);
 }
 
 static Object *
-objet_copy(Objet *ob)
-{
-  int i;
-  Objet *newob;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &ob->element;
-  
-  newob = g_malloc0(sizeof(Objet));
-  newelem = &newob->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newob->text = text_copy(ob->text);
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newob->connections[i];
-    newob->connections[i].object = newobj;
-    newob->connections[i].connected = NULL;
-    newob->connections[i].pos = ob->connections[i].pos;
-    newob->connections[i].last_pos = ob->connections[i].last_pos;
-  }
-
-  newob->stereotype = (ob->stereotype != NULL) ? 
-      strdup(ob->stereotype): NULL;
-
-  newob->exstate = (ob->exstate != NULL) ? 
-      strdup(ob->exstate): NULL;
-
-  newob->attributes = text_copy(ob->attributes);
-
-  newob->is_active = ob->is_active;
-  newob->show_attributes = ob->show_attributes;
-  newob->is_multiple = ob->is_multiple;
-  
-  objet_update_data(newob);
-  
-  return &newob->element.object;
-}
-
-static void
-objet_state_free(ObjectState *ostate)
-{
-  ObjetState *state = (ObjetState *)ostate;
-  g_free(state->stereotype);
-  g_free(state->exstate);
-  g_free(state->attributes);
-}
-
-static ObjetState *
-objet_get_state(Objet *ob)
-{
-  ObjetState *state = g_new0(ObjetState, 1);
-
-  state->obj_state.free = objet_state_free;
-
-  state->stereotype = g_strdup(ob->stereotype);
-  state->exstate = g_strdup(ob->exstate);
-  state->attributes = text_get_string_copy(ob->attributes);
-
-  state->is_active = ob->is_active;
-  state->show_attributes = ob->show_attributes;
-  state->is_multiple = ob->is_multiple;
-
-  return state;
-}
-
-static void
-objet_set_state(Objet *ob, ObjetState *state)
-{
-  g_free(ob->stereotype);
-  ob->stereotype = state->stereotype;
-  g_free(ob->exstate);
-  ob->exstate = state->exstate;
-  text_set_string(ob->attributes, state->attributes);
-  g_free(state->attributes);
-		  
-  ob->is_active = state->is_active;
-  ob->show_attributes = state->show_attributes;
-  ob->is_multiple = state->is_multiple;
-
-  g_free(state);
-  
-  objet_update_data(ob);
-}
-
-static void
-objet_save(Objet *ob, ObjectNode obj_node, const char *filename)
-{
-  element_save(&ob->element, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		ob->text);
-
-  data_add_string(new_attribute(obj_node, "stereotype"),
-		  ob->stereotype);
-
-  data_add_string(new_attribute(obj_node, "exstate"),
-		  ob->exstate);
-
-  data_add_text(new_attribute(obj_node, "attrib"),
-		ob->attributes);
-    
-  data_add_boolean(new_attribute(obj_node, "is_active"),
-		   ob->is_active);
-  
-  data_add_boolean(new_attribute(obj_node, "show_attribs"),
-		   ob->show_attributes);
-
-  data_add_boolean(new_attribute(obj_node, "multiple"),
-		   ob->is_multiple);
-}
-
-static Object *
 objet_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Objet *ob;
-  AttributeNode attr;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  ob = g_malloc0(sizeof(Objet));
-  elem = &ob->element;
-  obj = &elem->object;
-  
-  obj->type = &objet_type;
-  obj->ops = &objet_ops;
-
-  element_load(elem, obj_node);
-  
-  ob->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    ob->text = data_text(attribute_first_data(attr));
-
-  ob->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-      ob->stereotype = data_string(attribute_first_data(attr));
-
-  ob->exstate = NULL;
-  attr = object_find_attribute(obj_node, "exstate");
-  if (attr != NULL)
-      ob->exstate = data_string(attribute_first_data(attr));
-
-  ob->attributes = NULL;
-  attr = object_find_attribute(obj_node, "attrib");
-  if (attr != NULL)
-    ob->attributes = data_text(attribute_first_data(attr));
-
-  attr = object_find_attribute(obj_node, "is_active");
-  if (attr != NULL)
-    ob->is_active = data_boolean(attribute_first_data(attr));
-  else
-    ob->is_active = FALSE;
-
-  attr = object_find_attribute(obj_node, "show_attribs");
-  if (attr != NULL)
-    ob->show_attributes = data_boolean(attribute_first_data(attr));
-  else
-    ob->show_attributes = FALSE;
-  
-  attr = object_find_attribute(obj_node, "multiple");
-  if (attr != NULL)
-    ob->is_multiple = data_boolean(attribute_first_data(attr));
-  else
-    ob->is_multiple = FALSE;
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &ob->connections[i];
-    ob->connections[i].object = obj;
-    ob->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = OBJET_BORDERWIDTH/2.0;
-  objet_update_data(ob);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &ob->element.object;
-}
-
-
-static ObjectChange *
-objet_apply_properties(Objet *ob)
-{
-  ObjetPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = properties_dialog;
-
-  old_state = (ObjectState *)objet_get_state(ob);
-
-  /* Read from dialog and put in object: */
-  if (ob->exstate != NULL)
-    g_free(ob->exstate);
-  str = gtk_entry_get_text(prop_dialog->name);
-  if (strlen(str) != 0) {
-      ob->exstate = g_malloc(sizeof(char)*strlen(str)+2+1);
-      sprintf(ob->exstate, "[%s]", str);
-  } else
-    ob->exstate = NULL;
-
-  if (ob->stereotype != NULL)
-    g_free(ob->stereotype);
-  
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  
-  if (strlen(str) != 0) {
-    ob->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-    ob->stereotype[0] = UML_STEREOTYPE_START;
-    ob->stereotype[1] = 0;
-    strcat(ob->stereotype, str);
-    ob->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-    ob->stereotype[strlen(str)+2] = 0;
-  } else {
-    ob->stereotype = NULL;
-  }
-
-  ob->is_active = prop_dialog->active->active;
-  ob->show_attributes = prop_dialog->show_attrib->active;
-  ob->is_multiple = prop_dialog->multiple->active;
-
-  
-  text_set_string(ob->attributes,
-		  gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->attribs),
-						 0, -1));
-
-  objet_update_data(ob);
-  
-  return new_object_state_change(&ob->element.object, old_state, 
-				 (GetStateFunc)objet_get_state,
-				 (SetStateFunc)objet_set_state);
-}
-
-static void
-fill_in_dialog(Objet *ob)
-{
-  ObjetPropertiesDialog *prop_dialog;
-  char *str;
-  
-  prop_dialog = properties_dialog;
-
-  if (ob->exstate != NULL) {
-      str = strdup(ob->exstate+1);
-      str[strlen(str)-1] = 0;
-      gtk_entry_set_text(prop_dialog->name, str);
-      g_free(str);
-  } else 
-    gtk_entry_set_text(prop_dialog->name, "");
-  
-  
-  if (ob->stereotype != NULL) {
-    str = strdup(ob->stereotype);
-    strcpy(str, ob->stereotype+1);
-    str[strlen(str)-1] = 0;
-    gtk_entry_set_text(prop_dialog->stereotype, str);
-    g_free(str);
-  } else {
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
-
-  gtk_toggle_button_set_active(prop_dialog->show_attrib, ob->show_attributes);
-  gtk_toggle_button_set_active(prop_dialog->active, ob->is_active);
-  gtk_toggle_button_set_active(prop_dialog->multiple, ob->is_multiple);
-
-
-  gtk_text_freeze(GTK_TEXT(prop_dialog->attribs));
-  gtk_text_set_point(GTK_TEXT(prop_dialog->attribs), 0);
-  gtk_text_forward_delete( GTK_TEXT(prop_dialog->attribs), gtk_text_get_length(GTK_TEXT(prop_dialog->attribs)));
-  gtk_text_insert( GTK_TEXT(prop_dialog->attribs),
-		   NULL, NULL, NULL,
-		   text_get_string_copy(ob->attributes),
-		   -1);
-  gtk_text_thaw(GTK_TEXT(prop_dialog->attribs));
-}
-
-static GtkWidget *
-objet_get_properties(Objet *ob)
-{
-  ObjetPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *checkbox;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(ObjetPropertiesDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Explicit state:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new(_("Stereotype:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->stereotype = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-    
-    label = gtk_label_new(_("Attributes:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->attribs = entry;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_box_pack_start (GTK_BOX (dialog), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-        
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Show attributes"));
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
-    prop_dialog->show_attrib = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    checkbox = gtk_check_button_new_with_label(_("Active object"));
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
-    prop_dialog->active = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-      
-    checkbox = gtk_check_button_new_with_label(_("multiple instance"));
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
-    prop_dialog->multiple = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-      
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-
-  }
-  
-  fill_in_dialog(ob);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
+  return object_load_using_properties(&objet_type,
+                                      obj_node,version,filename);
 }
 
