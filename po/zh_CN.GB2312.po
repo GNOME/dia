@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-04-13 01:02+0800\n"
-"PO-Revision-Date: 2001-04-13 02:30+0800\n"
+"POT-Creation-Date: 2001-04-15 01:41+0800\n"
+"PO-Revision-Date: 2001-04-15 02:30+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
 "Language-Team: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -49,18 +49,17 @@ msgstr ""
 #: app/app_procs.c:234 app/app_procs.c:236
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr ""
-"查找对象库时无法找到标准的对象，正在退出...\n"
+msgstr "查找对象库时无法找到标准的对象，正在退出...\n"
 
 #: app/app_procs.c:261
 msgid "Need valid input file\n"
 msgstr "需要有效的输入文件\n"
 
-#: app/app_procs.c:319 app/app_procs.c:325
+#: app/app_procs.c:327 app/app_procs.c:333
 msgid "Quit, are you sure?"
 msgstr "退出，您确定吗？"
 
-#: app/app_procs.c:332
+#: app/app_procs.c:340
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -68,28 +67,27 @@ msgstr ""
 "存在修改后的图表。\n"
 "您确定要退出吗？"
 
-#: app/app_procs.c:342 app/app_procs.c:347
+#: app/app_procs.c:350 app/app_procs.c:355
 msgid "Quit"
 msgstr "退出"
 
-#: app/app_procs.c:359 app/display.c:926 app/layer_dialog.c:989
+#: app/app_procs.c:367 app/display.c:926 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:433 app/app_procs.c:440
+#: app/app_procs.c:442 app/app_procs.c:449
 msgid "Could not create per-user Dia config directory"
 msgstr "无法创建用户的 Dia 配置目录"
 
-#: app/app_procs.c:442
+#: app/app_procs.c:451
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr ""
-"无法创建用户的 Dia 配置目录。请确定环境变量 HOME 指向存在的目录。"
+msgstr "无法创建用户的 Dia 配置目录。请确定环境变量 HOME 指向存在的目录。"
 
-#: app/app_procs.c:464
+#: app/app_procs.c:473
 msgid "Objects and filters internal to dia"
 msgstr "dia 内部的对象和过滤程序"
 
@@ -282,7 +280,7 @@ msgstr ""
 "这个对象不支持撤消或重复。\n"
 "已删除撤消信息。"
 
-#: app/disp_callbacks.c:171
+#: app/disp_callbacks.c:186
 msgid "No object menu"
 msgstr "没有对象菜单"
 
@@ -404,6 +402,7 @@ msgid "Modify"
 msgstr "修改"
 
 #: app/interface.c:47 app/interface.c:48 app/menus.c:193
+#: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "放大"
 
@@ -511,8 +510,7 @@ msgstr ""
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
-msgstr ""
-"前景和背景色。小的黑和白方块重置颜色。小箭头调换颜色。双击以改变颜色。"
+msgstr "前景和背景色。小的黑和白方块重置颜色。小箭头调换颜色。双击以改变颜色。"
 
 #: app/interface.c:1033
 msgid "Diagram Editor"
@@ -751,7 +749,8 @@ msgstr "合并"
 msgid "Intersect"
 msgstr "交叉"
 
-#: app/menus.c:142
+#: app/menus.c:142 objects/FS/function.c:623 objects/FS/function.c:699
+#: objects/FS/function.c:700
 msgid "Remove"
 msgstr "移除"
 
@@ -1481,20 +1480,20 @@ msgstr "Dia v %s"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "内部错误：设置贝塞尔曲线端点的拐角类型"
 
-#: lib/dia_xml.c:267
+#: lib/dia_xml.c:273
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:276
+#: lib/dia_xml.c:282
 #, c-format
 msgid "Incorrect x Point value %f; discarding it."
 msgstr "不正确的 x 点值 %f；放弃它。"
 
-#: lib/dia_xml.c:284
+#: lib/dia_xml.c:290
 msgid "Error parsing point."
 msgstr "分析点时发生错误。"
 
-#: lib/dia_xml.c:291
+#: lib/dia_xml.c:297
 #, c-format
 msgid "Incorrect y Point value %f; discarding it."
 msgstr "不正确的 y 点值 %f；放弃它。"
@@ -1585,12 +1584,11 @@ msgstr "绘制背景"
 
 #: lib/properties.h:381
 msgid "Start arrow"
-msgstr ""
+msgstr "起始箭头"
 
 #: lib/properties.h:382
-#, fuzzy
 msgid "End arrow"
-msgstr "显示箭头:"
+msgstr "终止箭头"
 
 #: lib/properties.h:384
 msgid "Text alignment"
@@ -1608,7 +1606,7 @@ msgstr "字体大小"
 msgid "Text colour"
 msgstr "文字颜色"
 
-#: lib/widgets.c:319
+#: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
 msgstr "实心"
 
@@ -1692,13 +1690,12 @@ msgid "Double Filled triangle"
 msgstr "实心三角形"
 
 #: lib/widgets.c:671
-#, fuzzy
 msgid "Filled Box"
-msgstr "实心菱形"
+msgstr "实心方框"
 
 #: lib/widgets.c:672
 msgid "Blanked Box"
-msgstr ""
+msgstr "空心方框"
 
 #: lib/widgets.c:673
 #, fuzzy
@@ -1751,11 +1748,11 @@ msgstr ""
 
 #: objects/ER/entity.c:342 objects/UML/classicon.c:135
 msgid "Entity"
-msgstr ""
+msgstr "实体"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr ""
+msgstr "实体/关系图表对象"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
@@ -1765,7 +1762,7 @@ msgstr "总共："
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
 #: objects/UML/association.c:618 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
-#: objects/standard/zigzagline.c:337
+#: objects/standard/zigzagline.c:339
 msgid "Add segment"
 msgstr "添加图段"
 
@@ -1773,17 +1770,17 @@ msgstr "添加图段"
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
 #: objects/UML/association.c:619 objects/UML/dependency.c:377
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
-#: objects/standard/zigzagline.c:338
+#: objects/standard/zigzagline.c:340
 msgid "Delete segment"
 msgstr "删除图段"
 
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "左基数："
 
 #: objects/ER/relationship.c:139
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "右基数："
 
 #: objects/ER/relationship.c:141
 msgid "Rotate:"
@@ -1791,7 +1788,7 @@ msgstr "旋转："
 
 #: objects/ER/relationship.c:143
 msgid "Identifying:"
-msgstr ""
+msgstr "标识："
 
 #: objects/ER/relationship.c:418
 msgid "Relationship"
@@ -1801,47 +1798,50 @@ msgstr "关系"
 #: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:727
 #: objects/FS/flow-ortho.c:793 objects/FS/flow-ortho.c:858
 #: objects/FS/flow.c:154 objects/FS/flow.c:639 objects/FS/flow.c:703
+#: objects/FS/function.c:818
 msgid "Energy"
-msgstr ""
+msgstr "能量"
 
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:734
 #: objects/FS/flow-ortho.c:794 objects/FS/flow-ortho.c:865
 #: objects/FS/flow.c:155 objects/FS/flow.c:640 objects/FS/flow.c:710
+#: objects/FS/function.c:806
 msgid "Material"
-msgstr ""
+msgstr "物质"
 
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:740
 #: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:871
 #: objects/FS/flow.c:156 objects/FS/flow.c:641 objects/FS/flow.c:716
-#: objects/FS/function.c:596
+#: objects/FS/function.c:787 objects/FS/function.c:788
+#: objects/FS/function.c:856 objects/FS/function.c:857
 msgid "Signal"
-msgstr ""
+msgstr "信号"
 
 #: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
 #: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
 #: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
-msgstr "类型:"
+msgstr "类型："
 
 #: objects/FS/flow-ortho.c:707 objects/FS/flow.c:682
 msgid "Flow:"
-msgstr ""
+msgstr "流："
 
 #: objects/FS/flow-ortho.c:722 objects/FS/flow.c:698
 msgid "Flow type:"
-msgstr ""
+msgstr "流类型："
 
 #: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
-msgstr ""
+msgstr "直角流："
 
 #: objects/FS/flow-ortho.c:853
 msgid "Orthflow type:"
-msgstr ""
+msgstr "直角流类型："
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr ""
+msgstr "功能结构图表对象"
 
 #: objects/FS/function.c:136
 msgid "Wish function"
@@ -1851,156 +1851,828 @@ msgstr ""
 msgid "User function"
 msgstr ""
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:608
+msgid "Verb"
+msgstr "动词"
+
+#: objects/FS/function.c:609 objects/FS/function.c:610
+#: objects/FS/function.c:630
 msgid "Channel"
+msgstr "通道"
+
+#: objects/FS/function.c:611 objects/FS/function.c:612
+msgid "Import"
+msgstr "导入"
+
+#: objects/FS/function.c:613
+msgid "Input"
+msgstr "输入"
+
+#: objects/FS/function.c:614
+msgid "Receive"
+msgstr "接收"
+
+#: objects/FS/function.c:615 objects/FS/function.c:751
+msgid "Allow"
+msgstr "允许"
+
+#: objects/FS/function.c:616
+msgid "Form Entrance"
 msgstr ""
 
-#: objects/FS/function.c:563
-msgid "   Import"
+#: objects/FS/function.c:617 objects/FS/function.c:734
+msgid "Capture"
+msgstr "捕捉"
+
+#: objects/FS/function.c:618 objects/FS/function.c:619
+msgid "Export"
+msgstr "导出"
+
+#: objects/FS/function.c:620
+msgid "Discharge"
+msgstr "释放"
+
+#: objects/FS/function.c:621
+msgid "Eject"
+msgstr "弹出"
+
+#: objects/FS/function.c:622
+msgid "Dispose"
+msgstr "处理"
+
+#: objects/FS/function.c:624 objects/FS/function.c:625
+#: objects/FS/function.c:634
+msgid "Transfer"
+msgstr "传输"
+
+#: objects/FS/function.c:626 objects/FS/function.c:627
+msgid "Transport"
+msgstr "输送"
+
+#: objects/FS/function.c:628
+msgid "Lift"
+msgstr "提升"
+
+#: objects/FS/function.c:629
+msgid "Move"
+msgstr "移动"
+
+#: objects/FS/function.c:631 objects/FS/function.c:632
+msgid "Transmit"
+msgstr "发射"
+
+#: objects/FS/function.c:633
+msgid "Conduct"
+msgstr "传导"
+
+#: objects/FS/function.c:635
+msgid "Convey"
 msgstr ""
 
-#: objects/FS/function.c:564
-msgid "   Export"
+#: objects/FS/function.c:636 objects/FS/function.c:637
+#: objects/FS/function.c:638
+msgid "Guide"
+msgstr "导向"
+
+#: objects/FS/function.c:639
+msgid "Direct"
+msgstr "方向"
+
+#: objects/FS/function.c:640
+msgid "Straighten"
+msgstr "弄直"
+
+#: objects/FS/function.c:641
+msgid "Steer"
 msgstr ""
 
-#: objects/FS/function.c:565
-msgid "   Transfer"
+#: objects/FS/function.c:642
+msgid "Translate"
+msgstr "转化"
+
+#: objects/FS/function.c:643 objects/FS/function.c:644
+msgid "Rotate"
+msgstr "旋转"
+
+#: objects/FS/function.c:645
+msgid "Turn"
 msgstr ""
 
-#: objects/FS/function.c:566
-msgid "      Transport"
+#: objects/FS/function.c:646
+#, fuzzy
+msgid "Spin"
+msgstr "间距"
+
+#: objects/FS/function.c:647 objects/FS/function.c:648
+msgid "Allow DOF"
 msgstr ""
 
-#: objects/FS/function.c:567
-msgid "      Transmit"
-msgstr ""
+#: objects/FS/function.c:649
+msgid "Constrain"
+msgstr "约束"
 
-#: objects/FS/function.c:568
-msgid "   Guide"
-msgstr ""
+#: objects/FS/function.c:650
+msgid "Unlock"
+msgstr "解锁"
 
-#: objects/FS/function.c:569
-msgid "      Translate"
-msgstr ""
-
-#: objects/FS/function.c:570
-msgid "      Rotate"
-msgstr ""
-
-#: objects/FS/function.c:571
-msgid "      Allow DOF"
-msgstr ""
-
-#: objects/FS/function.c:572
+#: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
-#: objects/FS/function.c:573
-msgid "   Stop"
-msgstr ""
+#: objects/FS/function.c:653 objects/FS/function.c:654
+msgid "Stop"
+msgstr "停止"
 
-#: objects/FS/function.c:574
-msgid "   Stabilize"
-msgstr ""
+#: objects/FS/function.c:655
+msgid "Insulate"
+msgstr "隔离"
 
-#: objects/FS/function.c:575
-msgid "   Secure"
-msgstr ""
+#: objects/FS/function.c:656
+msgid "Protect"
+msgstr "保护"
 
-#: objects/FS/function.c:576
-msgid "   Position"
-msgstr ""
+#: objects/FS/function.c:657 objects/FS/function.c:752
+msgid "Prevent"
+msgstr "阻止"
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:658
+msgid "Shield"
+msgstr "屏蔽"
+
+#: objects/FS/function.c:659
+msgid "Inhibit"
+msgstr "禁止"
+
+#: objects/FS/function.c:660 objects/FS/function.c:661
+msgid "Stabilize"
+msgstr "稳定"
+
+#: objects/FS/function.c:662
+msgid "Steady"
+msgstr "稳定"
+
+#: objects/FS/function.c:663 objects/FS/function.c:664
+msgid "Secure"
+msgstr "牢固"
+
+#: objects/FS/function.c:665 objects/FS/function.c:681
+msgid "Attach"
+msgstr "附着"
+
+#: objects/FS/function.c:666
+msgid "Mount"
+msgstr "安装"
+
+#: objects/FS/function.c:667
+msgid "Lock"
+msgstr "锁定"
+
+#: objects/FS/function.c:668
+msgid "Fasten"
+msgstr "固定"
+
+#: objects/FS/function.c:669
+msgid "Hold"
+msgstr "保持"
+
+#: objects/FS/function.c:670 objects/FS/function.c:671
+msgid "Position"
+msgstr "位置"
+
+#: objects/FS/function.c:672
+msgid "Orient"
+msgstr "方向"
+
+#: objects/FS/function.c:673
+msgid "Align"
+msgstr "对齐"
+
+#: objects/FS/function.c:674 objects/FS/function.c:795
+msgid "Locate"
+msgstr "定位"
+
+#: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
-msgstr ""
+msgstr "连接"
 
-#: objects/FS/function.c:578
-msgid "   Couple"
-msgstr ""
+#: objects/FS/function.c:677 objects/FS/function.c:678
+msgid "Couple"
+msgstr "结合"
 
-#: objects/FS/function.c:579
-msgid "   Mix"
-msgstr ""
+#: objects/FS/function.c:679
+msgid "Join"
+msgstr "联接"
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:680
+msgid "Assemble"
+msgstr "集合"
+
+#: objects/FS/function.c:682 objects/FS/function.c:683
+msgid "Mix"
+msgstr "混合"
+
+#: objects/FS/function.c:684
+msgid "Combine"
+msgstr "联合"
+
+#: objects/FS/function.c:685
+msgid "Blend"
+msgstr "融合"
+
+#: objects/FS/function.c:686
+msgid "Add"
+msgstr "添加"
+
+#: objects/FS/function.c:687
+msgid "Pack"
+msgstr "包装"
+
+#: objects/FS/function.c:688
+msgid "Coalesce"
+msgstr "聚结"
+
+#: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
+msgstr "分支"
+
+#: objects/FS/function.c:691 objects/FS/function.c:692
+#: objects/FS/function.c:693
+msgid "Separate"
+msgstr "分离"
+
+#: objects/FS/function.c:694
+msgid "Switch"
+msgstr "转换"
+
+#: objects/FS/function.c:695
+msgid "Divide"
+msgstr "划分"
+
+#: objects/FS/function.c:696
+msgid "Release"
+msgstr "释放"
+
+#: objects/FS/function.c:697
+msgid "Detach"
+msgstr "拆开"
+
+#: objects/FS/function.c:698
+msgid "Disconnect"
+msgstr "断开连接"
+
+#: objects/FS/function.c:701
+msgid "Cut"
+msgstr "切开"
+
+#: objects/FS/function.c:702
+msgid "Polish"
+msgstr "抛光"
+
+#: objects/FS/function.c:703
+msgid "Sand"
+msgstr "沙磨"
+
+#: objects/FS/function.c:704
+msgid "Drill"
+msgstr "钻孔"
+
+#: objects/FS/function.c:705
+msgid "Lathe"
+msgstr "车"
+
+#: objects/FS/function.c:706 objects/FS/function.c:707
+msgid "Refine"
+msgstr "精制"
+
+#: objects/FS/function.c:708
+msgid "Purify"
+msgstr "提纯"
+
+#: objects/FS/function.c:709
+msgid "Strain"
+msgstr "拉紧"
+
+#: objects/FS/function.c:710
+msgid "Filter"
+msgstr "过滤"
+
+#: objects/FS/function.c:711
+msgid "Percolate"
+msgstr "渗滤"
+
+#: objects/FS/function.c:712
+msgid "Clear"
+msgstr "清除"
+
+#: objects/FS/function.c:713 objects/FS/function.c:714
+msgid "Distribute"
+msgstr "分发"
+
+#: objects/FS/function.c:715
+msgid "Diverge"
+msgstr "发散"
+
+#: objects/FS/function.c:716
+msgid "Scatter"
+msgstr "散布"
+
+#: objects/FS/function.c:717
+msgid "Disperse"
+msgstr "疏散"
+
+#: objects/FS/function.c:718 objects/FS/function.c:725
+msgid "Diffuse"
+msgstr "扩散"
+
+#: objects/FS/function.c:719
+msgid "Empty"
+msgstr "清空"
+
+#: objects/FS/function.c:720 objects/FS/function.c:721
+msgid "Dissipate"
 msgstr ""
 
-#: objects/FS/function.c:581
-msgid "   Separate"
+#: objects/FS/function.c:722
+msgid "Absorb"
 msgstr ""
 
-#: objects/FS/function.c:582
-msgid "      Remove"
+#: objects/FS/function.c:723
+msgid "Dampen"
 msgstr ""
 
-#: objects/FS/function.c:583
-msgid "   Refine"
+#: objects/FS/function.c:724
+#, fuzzy
+msgid "Dispel"
+msgstr "   显示"
+
+#: objects/FS/function.c:726
+msgid "Resist"
 msgstr ""
 
-#: objects/FS/function.c:584
-msgid "   Distribute"
-msgstr ""
-
-#: objects/FS/function.c:585
-msgid "   Dissipate"
-msgstr ""
-
-#: objects/FS/function.c:586
+#: objects/FS/function.c:727 objects/FS/function.c:728
 msgid "Provision"
 msgstr ""
 
-#: objects/FS/function.c:587
-msgid "   Store"
+#: objects/FS/function.c:729 objects/FS/function.c:730
+msgid "Store"
 msgstr ""
 
-#: objects/FS/function.c:588
-msgid "   Supply"
+#: objects/FS/function.c:731
+#, fuzzy
+msgid "Contain"
+msgstr "条件:"
+
+#: objects/FS/function.c:732
+#, fuzzy
+msgid "Collect"
+msgstr "连接的"
+
+#: objects/FS/function.c:733
+#, fuzzy
+msgid "Reserve"
+msgstr "移除"
+
+#: objects/FS/function.c:735 objects/FS/function.c:736
+#, fuzzy
+msgid "Supply"
+msgstr "应用"
+
+#: objects/FS/function.c:737
+#, fuzzy
+msgid "Fill"
+msgstr "文件"
+
+#: objects/FS/function.c:738
+msgid "Provide"
 msgstr ""
 
-#: objects/FS/function.c:589
-msgid "   Extract"
+#: objects/FS/function.c:739
+#, fuzzy
+msgid "Replenish"
+msgstr "替换"
+
+#: objects/FS/function.c:740
+#, fuzzy
+msgid "Expose"
+msgstr "椭圆"
+
+#: objects/FS/function.c:741
+msgid "Extract"
 msgstr ""
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:742 objects/FS/function.c:743
 msgid "Control Magnitude"
 msgstr ""
 
-#: objects/FS/function.c:591
-msgid "   Actuate"
+#: objects/FS/function.c:744 objects/FS/function.c:745
+#, fuzzy
+msgid "Actuate"
+msgstr "属性"
+
+#: objects/FS/function.c:746
+#, fuzzy
+msgid "Start"
+msgstr "起点"
+
+#: objects/FS/function.c:747
+msgid "Initiate"
 msgstr ""
 
-#: objects/FS/function.c:592
-msgid "   Regulate"
+#: objects/FS/function.c:748 objects/FS/function.c:749
+#, fuzzy
+msgid "Regulate"
+msgstr "替换"
+
+#: objects/FS/function.c:750 objects/FS/function.c:859
+#: objects/UML/classicon.c:133
+msgid "Control"
+msgstr "控制"
+
+#: objects/FS/function.c:753
+msgid "Enable"
 msgstr ""
 
-#: objects/FS/function.c:593
-msgid "   Change"
+#: objects/FS/function.c:754
+#, fuzzy
+msgid "Disable"
+msgstr "可见："
+
+#: objects/FS/function.c:755
+msgid "Limit"
 msgstr ""
 
-#: objects/FS/function.c:594
-msgid "   Form"
+#: objects/FS/function.c:756
+#, fuzzy
+msgid "Interrupt"
+msgstr "交叉"
+
+#: objects/FS/function.c:757 objects/FS/function.c:758
+#, fuzzy
+msgid "Change"
+msgstr "取消"
+
+#: objects/FS/function.c:759
+msgid "Increase"
 msgstr ""
 
-#: objects/FS/function.c:595
+#: objects/FS/function.c:760
+msgid "Decrease"
+msgstr ""
+
+#: objects/FS/function.c:761
+#, fuzzy
+msgid "Amplify"
+msgstr "应用"
+
+#: objects/FS/function.c:762
+#, fuzzy
+msgid "Reduce"
+msgstr "替换"
+
+#: objects/FS/function.c:764
+msgid "Normalize"
+msgstr ""
+
+#: objects/FS/function.c:765
+msgid "Multiply"
+msgstr ""
+
+#: objects/FS/function.c:766
+#, fuzzy
+msgid "Scale"
+msgstr "比例："
+
+#: objects/FS/function.c:767
+msgid "Rectify"
+msgstr ""
+
+#: objects/FS/function.c:768
+msgid "Adjust"
+msgstr ""
+
+#: objects/FS/function.c:769 objects/FS/function.c:770
+msgid "Form"
+msgstr ""
+
+#: objects/FS/function.c:771
+msgid "Compact"
+msgstr ""
+
+#: objects/FS/function.c:772
+msgid "Crush"
+msgstr ""
+
+#: objects/FS/function.c:773
+msgid "Shape"
+msgstr ""
+
+#: objects/FS/function.c:774
+msgid "Compress"
+msgstr ""
+
+#: objects/FS/function.c:775
+#, fuzzy
+msgid "Pierce"
+msgstr "打印机"
+
+#: objects/FS/function.c:776 objects/FS/function.c:777
 msgid "Convert"
 msgstr ""
 
-#: objects/FS/function.c:597
-msgid "   Sense"
+#: objects/FS/function.c:778
+msgid "Transform"
 msgstr ""
 
-#: objects/FS/function.c:598
-msgid "   Indicate"
+#: objects/FS/function.c:779
+msgid "Liquefy"
 msgstr ""
 
-#: objects/FS/function.c:599
-msgid "   Display"
+#: objects/FS/function.c:780
+#, fuzzy
+msgid "Solidify"
+msgstr "实心"
+
+#: objects/FS/function.c:781
+msgid "Evaporate"
+msgstr ""
+
+#: objects/FS/function.c:782
+msgid "Sublimate"
+msgstr ""
+
+#: objects/FS/function.c:783
+#, fuzzy
+msgid "Condense"
+msgstr "关闭"
+
+#: objects/FS/function.c:784
+#, fuzzy
+msgid "Integrate"
+msgstr "界面:"
+
+#: objects/FS/function.c:785
+msgid "Differentiate"
+msgstr ""
+
+#: objects/FS/function.c:786
+#, fuzzy
+msgid "Process"
+msgstr "保护"
+
+#: objects/FS/function.c:789 objects/FS/function.c:790
+msgid "Sense"
+msgstr ""
+
+#: objects/FS/function.c:791
+#, fuzzy
+msgid "Perceive"
+msgstr "私有"
+
+#: objects/FS/function.c:792
+msgid "Recognize"
+msgstr ""
+
+#: objects/FS/function.c:793
+msgid "Discern"
+msgstr ""
+
+#: objects/FS/function.c:794
+msgid "Check"
+msgstr ""
+
+#: objects/FS/function.c:796
+msgid "Verify"
+msgstr ""
+
+#: objects/FS/function.c:797 objects/FS/function.c:798
+msgid "Indicate"
+msgstr ""
+
+#: objects/FS/function.c:799
+msgid "Mark"
+msgstr ""
+
+#: objects/FS/function.c:800
+#, fuzzy
+msgid "Display"
 msgstr "   显示"
 
-#: objects/FS/function.c:600
-msgid "   Measure"
+#: objects/FS/function.c:801 objects/FS/function.c:802
+msgid "Measure"
+msgstr ""
+
+#: objects/FS/function.c:803
+msgid "Calculate"
+msgstr ""
+
+#: objects/FS/function.c:804
+msgid "Represent"
+msgstr ""
+
+#: objects/FS/function.c:805
+#, fuzzy
+msgid "Noun"
+msgstr "无"
+
+#: objects/FS/function.c:808
+msgid "Liquid"
+msgstr ""
+
+#: objects/FS/function.c:809
+msgid "Gas"
+msgstr ""
+
+#: objects/FS/function.c:810 objects/FS/function.c:811
+#: objects/FS/function.c:853
+msgid "Human"
+msgstr ""
+
+#: objects/FS/function.c:812
+msgid "Hand"
+msgstr ""
+
+#: objects/FS/function.c:813
+#, fuzzy
+msgid "Foot"
+msgstr "字体"
+
+#: objects/FS/function.c:814
+msgid "Head"
+msgstr ""
+
+#: objects/FS/function.c:815
+#, fuzzy
+msgid "Finger"
+msgstr "打印机"
+
+#: objects/FS/function.c:816
+#, fuzzy
+msgid "Toe"
+msgstr "上"
+
+#: objects/FS/function.c:817
+msgid "Biological"
+msgstr ""
+
+#: objects/FS/function.c:819
+msgid "Mechanical"
+msgstr ""
+
+#: objects/FS/function.c:820
+msgid "Mech. Energy"
+msgstr ""
+
+#: objects/FS/function.c:821
+#, fuzzy
+msgid "Translation"
+msgstr "触及的"
+
+#: objects/FS/function.c:822
+msgid "Force"
+msgstr ""
+
+#: objects/FS/function.c:823
+#, fuzzy
+msgid "Rotation"
+msgstr "旋转："
+
+#: objects/FS/function.c:824
+msgid "Torque"
+msgstr ""
+
+#: objects/FS/function.c:825
+msgid "Random Motion"
+msgstr ""
+
+#: objects/FS/function.c:826
+#, fuzzy
+msgid "Vibration"
+msgstr "可见间距"
+
+#: objects/FS/function.c:827
+msgid "Rotational Energy"
+msgstr ""
+
+#: objects/FS/function.c:828
+msgid "Translational Energy"
+msgstr ""
+
+#: objects/FS/function.c:829
+#, fuzzy
+msgid "Electrical"
+msgstr "垂直翻转"
+
+#: objects/FS/function.c:830
+msgid "Electricity"
+msgstr ""
+
+#: objects/FS/function.c:831
+msgid "Voltage"
+msgstr ""
+
+#: objects/FS/function.c:832
+#, fuzzy
+msgid "Current"
+msgstr "中"
+
+#: objects/FS/function.c:833
+msgid "Hydraulic"
+msgstr ""
+
+#: objects/FS/function.c:834
+msgid "Pressure"
+msgstr ""
+
+#: objects/FS/function.c:835
+msgid "Volumetric Flow"
+msgstr ""
+
+#: objects/FS/function.c:836
+msgid "Thermal"
+msgstr ""
+
+#: objects/FS/function.c:837
+#, fuzzy
+msgid "Heat"
+msgstr "创建"
+
+#: objects/FS/function.c:838
+#, fuzzy
+msgid "Conduction"
+msgstr "条件:"
+
+#: objects/FS/function.c:839
+#, fuzzy
+msgid "Convection"
+msgstr "条件:"
+
+#: objects/FS/function.c:840 objects/FS/function.c:844
+#, fuzzy
+msgid "Radiation"
+msgstr "条件:"
+
+#: objects/FS/function.c:841
+msgid "Pneumatic"
+msgstr ""
+
+#: objects/FS/function.c:842
+msgid "Chemical"
+msgstr ""
+
+#: objects/FS/function.c:843
+msgid "Radioactive"
+msgstr ""
+
+#: objects/FS/function.c:845
+msgid "Microwaves"
+msgstr ""
+
+#: objects/FS/function.c:846
+msgid "Radio waves"
+msgstr ""
+
+#: objects/FS/function.c:847
+msgid "X-Rays"
+msgstr ""
+
+#: objects/FS/function.c:848
+msgid "Gamma Rays"
+msgstr ""
+
+#: objects/FS/function.c:849
+msgid "Acoustic Energy"
+msgstr ""
+
+#: objects/FS/function.c:850
+msgid "Optical Energy"
+msgstr ""
+
+#: objects/FS/function.c:851
+msgid "Solar Energy"
+msgstr ""
+
+#: objects/FS/function.c:852
+msgid "Magnetic Energy"
+msgstr ""
+
+#: objects/FS/function.c:854
+msgid "Human Motion"
+msgstr ""
+
+#: objects/FS/function.c:855
+msgid "Human Force"
+msgstr ""
+
+#: objects/FS/function.c:858
+msgid "Status"
+msgstr ""
+
+#: objects/FS/function.c:861
+msgid "User/Device Fn"
+msgstr ""
+
+#: objects/FS/function.c:862
+msgid "Wish Fn"
 msgstr ""
 
 #: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
@@ -2401,10 +3073,6 @@ msgstr "模板类"
 #: objects/UML/class_dialog.c:2220
 msgid "Formal parameter data"
 msgstr ""
-
-#: objects/UML/classicon.c:133
-msgid "Control"
-msgstr "控制"
 
 #: objects/UML/classicon.c:134
 msgid "Boundary"
