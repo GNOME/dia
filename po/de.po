@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.90+ (cvs)\n"
-"POT-Creation-Date: 2003-02-02 17:44+0100\n"
-"PO-Revision-Date: 2003-02-02 17:44+0100\n"
+"POT-Creation-Date: 2003-02-24 16:20+0100\n"
+"PO-Revision-Date: 2003-02-24 16:21+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,48 +39,48 @@ msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:240
+#: app/app_procs.c:242
 msgid "Export loaded file and exit"
 msgstr "Die geöffnete Datei exportieren und beenden"
 
-#: app/app_procs.c:240 app/diaconv.c:94
+#: app/app_procs.c:242 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "AUSGABE"
 
 #. &export_file_format
-#: app/app_procs.c:242
+#: app/app_procs.c:244
 msgid "Export to file format and exit"
 msgstr "In ein Dateiformat exportieren und beenden"
 
-#: app/app_procs.c:242 app/diaconv.c:92
+#: app/app_procs.c:244 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps, png, wmf, cgm, dxf, fig"
 
-#: app/app_procs.c:244
+#: app/app_procs.c:246
 msgid "Don't show the splash screen"
 msgstr "Den Startbildschirm nicht anzeigen"
 
-#: app/app_procs.c:246
+#: app/app_procs.c:248
 msgid "Display credits list and exit"
 msgstr "Mitwirkende anzeigen und beenden"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:250
 msgid "Display version and exit"
 msgstr "Die Dia-Version anzeigen und beenden"
 
-#: app/app_procs.c:250 app/diaconv.c:95
+#: app/app_procs.c:252 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Diese Hilfemeldung anzeigen"
 
-#: app/app_procs.c:280
+#: app/app_procs.c:283
 msgid "Can't connect to session manager!\n"
 msgstr "Es kann keine Verbindung zum Sitzungsmanager hergestellt werden\n"
 
-#: app/app_procs.c:295 app/diaconv.c:119
+#: app/app_procs.c:298 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [DATEI...]"
 
-#: app/app_procs.c:299 app/diaconv.c:126
+#: app/app_procs.c:302 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -90,22 +90,23 @@ msgstr ""
 "Starten Sie »%s --help«, um die ganze Liste der verfügbaren Optionen zu "
 "erhalten.\n"
 
-#: app/app_procs.c:312
+#: app/app_procs.c:315
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s-Fehler: es kann nur entweder -f oder -o übergeben werden."
 
-#: app/app_procs.c:324
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:328
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia-Version %s, kompiliert %s %s\n"
 
-#: app/app_procs.c:326
+#: app/app_procs.c:330
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia-Version %s\n"
 
-#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -113,7 +114,7 @@ msgstr ""
 "Abbruch...\n"
 
 #. no standard buttons
-#: app/app_procs.c:542
+#: app/app_procs.c:546
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -123,15 +124,15 @@ msgstr ""
 "Wollen Sie Dia beenden, ohne diese zu speichern?"
 
 # CHECK: Eigentlich ist "Info" GNOME-Standard
-#: app/app_procs.c:546
+#: app/app_procs.c:550
 msgid "Quit Dia"
 msgstr "Dia beenden"
 
-#: app/app_procs.c:608 app/app_procs.c:615
+#: app/app_procs.c:612 app/app_procs.c:619
 msgid "Could not create per-user Dia config directory"
 msgstr "Das Benutzer-Konfigurationsverzeichnis konnte nicht erstellt werden"
 
-#: app/app_procs.c:617
+#: app/app_procs.c:621
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -140,7 +141,7 @@ msgstr ""
 "stellen Sie sicher, dass die HOME-Variable auf ein existierendes Verzeichnis "
 "zeigt."
 
-#: app/app_procs.c:639 app/diaconv.c:249
+#: app/app_procs.c:643 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interne Dia-Objekte und -Filter"
 
@@ -392,7 +393,7 @@ msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
 #: app/lineprops_area.c:679 app/linewidth_area.c:252
-#: app/paginate_psprint.c:274
+#: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -501,11 +502,11 @@ msgstr "Kein Objektmenü"
 msgid "Diagram modified!"
 msgstr "Diagramm wurde verändert!"
 
-#: app/display.c:866
+#: app/display.c:890
 msgid "<unnamed>"
 msgstr "<namenlos>"
 
-#: app/display.c:868
+#: app/display.c:892
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -514,12 +515,12 @@ msgstr ""
 "Das Diagramm »%s« wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
-#: app/display.c:879
+#: app/display.c:903
 msgid "Close Diagram"
 msgstr "Diagramm schließen"
 
 # CHECK Translation
-#: app/display.c:884
+#: app/display.c:908
 msgid "Discard Changes"
 msgstr "Änderungen verwerfen"
 
@@ -529,7 +530,7 @@ msgstr "Änderungen verwerfen"
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "»%s« konnte nicht zum Schreiben geöffnet werden.\n"
@@ -761,15 +762,15 @@ msgstr "Bild erzeugen"
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:474
+#: app/interface.c:470
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:518
+#: app/interface.c:514
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:979
+#: app/interface.c:975
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -778,7 +779,7 @@ msgstr ""
 "Quadrate setzen die Farben zurück.  Die kleinen Pfeile vertauschen die "
 "Farben.  Doppelklicken, um die Farbe zu wechseln."
 
-#: app/interface.c:1128
+#: app/interface.c:1124
 msgid "Diagram Editor"
 msgstr "Diagrammeditor"
 
@@ -827,7 +828,7 @@ msgid "Layer name:"
 msgstr "Name der Ebene:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:266
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -881,7 +882,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Sie müssen eine Datei und kein Verzeichnis angeben.\n"
 
 #: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "»%s« konnte nicht zum Lesen geöffnet werden.\n"
@@ -1063,7 +1064,7 @@ msgstr "Invertieren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 objects/UML/association.c:1076
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1076
 msgid "None"
 msgstr "Keine"
 
@@ -1458,7 +1459,7 @@ msgstr "/Objekte/Nach hinten"
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekte/Nach vorne"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:411 app/menus.c:415
 msgid "/Objects/---"
 msgstr "/Objekte/---"
 
@@ -1487,6 +1488,10 @@ msgstr "/Objekte/Horizontal anordnen/Mitte"
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekte/Horizontal anordnen/Rechts"
 
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Objekte/Horizontal anordnen/---"
+
 #: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekte/Horizontal anordnen/Gleicher Abstand"
@@ -1510,6 +1515,10 @@ msgstr "/Objekte/Vertikal anordnen/Mitte"
 #: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekte/Vertikal anordnen/Unten"
+
+#: app/menus.c:429
+msgid "/Objects/Align Vertical/---"
+msgstr "/Objekte/Vertikal anordnen/---"
 
 #: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
@@ -1621,29 +1630,29 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "GTK-Einstellungen konnten nicht ermittelt werden"
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
 msgstr "Drucker auswählen"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
 msgstr "Drucker"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253
 msgid "File"
 msgstr "Datei"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Befehl »%s« konnte nicht ausgeführt werden"
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "»%s« konnte nicht zum Schreiben geöffnet werden"
 
-#: app/paginate_psprint.c:368
+#: app/paginate_psprint.c:370
 msgid "Error occured while printing"
 msgstr "Während des Druckens trat ein Fehler auf"
 
@@ -1836,11 +1845,11 @@ msgstr "Objekteigenschaften"
 msgid "This object has no properties."
 msgstr "Dieses Objekt hat keine Eigenschaften."
 
-#: app/properties.c:169
+#: app/properties.c:175
 msgid "Properties: "
 msgstr "Eigenschaften: "
 
-#: app/properties.c:173
+#: app/properties.c:179
 msgid "Object properties:"
 msgstr "Objekteigenschaften:"
 
@@ -2117,6 +2126,98 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "Diagrammeditor"
 
+#: lib/arrows.c:39
+msgid "Lines"
+msgstr "Linien"
+
+#: lib/arrows.c:40
+msgid "Hollow Triangle"
+msgstr "Unausgefülltes Dreieck"
+
+#: lib/arrows.c:41
+msgid "Filled Triangle"
+msgstr "Gefülltes Dreieck"
+
+#: lib/arrows.c:42
+msgid "Unfilled Triangle"
+msgstr "Unausgefülltes Dreieck"
+
+#: lib/arrows.c:43
+msgid "Hollow Diamond"
+msgstr "Unausgefüllter Diamant"
+
+#: lib/arrows.c:44
+msgid "Filled Diamond"
+msgstr "Gefüllter Diamant"
+
+#: lib/arrows.c:45
+msgid "Half Head"
+msgstr "Halber Pfeil"
+
+#: lib/arrows.c:46
+msgid "Slashed Cross"
+msgstr "Kreuz"
+
+#: lib/arrows.c:47
+msgid "Filled Ellipse"
+msgstr "Gefüllte Ellipse"
+
+#: lib/arrows.c:48
+msgid "Hollow Ellipse"
+msgstr "Unausgefüllte Ellipse"
+
+#: lib/arrows.c:49
+msgid "Filled Dot"
+msgstr "Gefüllter Punkt"
+
+#: lib/arrows.c:50
+msgid "Dimension Origin"
+msgstr "Dimensionsursprung"
+
+#: lib/arrows.c:51
+msgid "Blanked Dot"
+msgstr "Unausgefüllter Punkt"
+
+#: lib/arrows.c:52
+msgid "Double Hollow triangle"
+msgstr "Doppelt unausgefülltes Dreieck"
+
+#: lib/arrows.c:53
+msgid "Double Filled triangle"
+msgstr "Doppelt gefülltes Dreieck"
+
+#: lib/arrows.c:54
+msgid "Filled Box"
+msgstr "Gefüllter Kasten"
+
+#: lib/arrows.c:55
+msgid "Blanked Box"
+msgstr "Unausgefüllter Kasten"
+
+#: lib/arrows.c:56
+msgid "Slashed"
+msgstr "Gestrichelt"
+
+#: lib/arrows.c:57
+msgid "Integral Symbol"
+msgstr "Integralsymbol"
+
+#: lib/arrows.c:58
+msgid "Crow Foot"
+msgstr "Krähenfuß"
+
+#: lib/arrows.c:59
+msgid "Cross"
+msgstr "Kreuz"
+
+#: lib/arrows.c:60
+msgid "Filled Concave"
+msgstr "Gefüllte Aushöhlung"
+
+#: lib/arrows.c:61
+msgid "Blanked Concave"
+msgstr "Leere Aushöhlung"
+
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Interner Fehler: Setzen der Eckentyp der Endpunkte der Bezierkurve"
@@ -2274,16 +2375,16 @@ msgstr ""
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Symbol »dia_plugin_init« fehlt"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
 msgstr "Aufruf von »dia_plugin_init()« fehlgeschlagen"
 
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Das Plugin »%s« konnte nicht entladen werden"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2559,7 +2660,7 @@ msgid "Total:"
 msgstr "Insgesamt:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
 #: objects/standard/zigzagline.c:495 objects/UML/association.c:691
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
@@ -2567,7 +2668,7 @@ msgid "Add segment"
 msgstr "Segment hinzufügen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
 #: objects/standard/zigzagline.c:496 objects/UML/association.c:692
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
@@ -3859,7 +3960,7 @@ msgstr ""
 "Um die Lesbarkeit zu verbessern, können Ströme die vertikal beginnen und "
 "enden grau dargestellt werden"
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:561
 msgid "SADT Arrow"
 msgstr "SADT Pfeil"
 
@@ -4437,11 +4538,11 @@ msgstr ""
 "Datei »%s« konnte nicht gespeichert werden:\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:159 plug-ins/pixbuf/pixbuf.c:167
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
 msgid "GdkPixbuf bitmap"
 msgstr "GdkPixbuf-Bitmap"
 
-#: plug-ins/pixbuf/pixbuf.c:180
+#: plug-ins/pixbuf/pixbuf.c:185
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf-basierender Export/Import von Bitmaps"
 
@@ -4470,7 +4571,7 @@ msgstr "png kann ohne libart nicht exportiert werden!"
 msgid "dia shape file"
 msgstr "Dia Form-Datei"
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Skalierbare Vektorgrafik (SVG)"
 
@@ -4582,174 +4683,175 @@ msgstr "Gedrehtes Bit %s konnte nicht gelesen werden\n"
 msgid "Negative corner radius, negating"
 msgstr "Negativer Eckenradius; wird invertiert"
 
-#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1007
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1074
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Unbekannter Mehrfachlinien-Untertyp: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:865 plug-ins/xfig/xfig-import.c:897
+#: plug-ins/xfig/xfig-import.c:919 plug-ins/xfig/xfig-import.c:951
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Mehrfachlinien-Informationen konnte nicht gelesen werden: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:902
+#: plug-ins/xfig/xfig-import.c:938 plug-ins/xfig/xfig-import.c:956
 msgid "Cannot convert approximated spline yet."
 msgstr "Annäherungs-Mehrfachkurven können noch nicht konvertiert werden."
 
-#: plug-ins/xfig/xfig-import.c:923
+#: plug-ins/xfig/xfig-import.c:990
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Unbekannter Mehrfachlinien-Untertyp %d\n"
 
-#: plug-ins/xfig/xfig-import.c:984
+#: plug-ins/xfig/xfig-import.c:1051
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Bogeninformationen konnten nicht gelesen werden: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1068
+#: plug-ins/xfig/xfig-import.c:1135
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Textinformationen konnten nicht gelesen werden: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1109
+#: plug-ins/xfig/xfig-import.c:1176
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "FIG-Objekt konnte nicht identifiziert werden %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1116
+#: plug-ins/xfig/xfig-import.c:1183
 msgid "Compound end outside compound\n"
 msgstr "Verbund endete ausserhalb des Verbundes\n"
 
-#: plug-ins/xfig/xfig-import.c:1135
+#: plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Farbe konnte nicht gelesen werden: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1180
+#: plug-ins/xfig/xfig-import.c:1247
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Gruppengültigkeit konnte nicht gelesen werden: '%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1191
+#: plug-ins/xfig/xfig-import.c:1258
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Unbekannter Objekttyp %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1214
+#: plug-ins/xfig/xfig-import.c:1281
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' ist nicht einer von `%s' oder `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1224
+#: plug-ins/xfig/xfig-import.c:1291
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Fehler beim Lesen der Papiergröße: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1234
+#: plug-ins/xfig/xfig-import.c:1301
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Unbekannte Papiergröße »%s«, Vorgabe wird verwendet\n"
 
-#: plug-ins/xfig/xfig-import.c:1246
+#: plug-ins/xfig/xfig-import.c:1313
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Fehler beim Lesen der Papierausrichtung: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1256
+#: plug-ins/xfig/xfig-import.c:1323
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Fehler beim Lesen der Ausrichtung: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1266
+#: plug-ins/xfig/xfig-import.c:1333
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Fehler beim Lesen der Einheiten: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1280
+#: plug-ins/xfig/xfig-import.c:1347
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Fehler beim Lesen der Vergrößerung: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1291
+#: plug-ins/xfig/xfig-import.c:1358
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Fehler beim Lesen des Mehrfachseiten-Indikators: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1302
+#: plug-ins/xfig/xfig-import.c:1369
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Fehler beim Lesen der transparenten Farbe: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
+#: plug-ins/xfig/xfig-import.c:1378 plug-ins/xfig/xfig-import.c:1433
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Fehler beim Lesen der FIG-Datei: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1313 plug-ins/xfig/xfig-import.c:1368
+#: plug-ins/xfig/xfig-import.c:1380 plug-ins/xfig/xfig-import.c:1435
 msgid "Premature end of FIG file\n"
 msgstr "Vorzeitiges Ende der FIG-Datei\n"
 
-#: plug-ins/xfig/xfig-import.c:1322
+#: plug-ins/xfig/xfig-import.c:1389
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Fehler beim Lesen der Auflösung: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1353
+#: plug-ins/xfig/xfig-import.c:1420
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Sieht nicht nach einer FIG-Datei aus: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1359
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr ""
 "Dies ist eine FIG-Datei Version %d.%d, es kann sein, dass sie nicht lesbar "
 "ist\n"
 
-#: plug-ins/xfig/xfig-import.c:1400
+#: plug-ins/xfig/xfig-import.c:1467
 msgid "XFig File Format"
 msgstr "XFig Dateiformat"
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "»DIA_PLUGIN_PATH« nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fehler beim Verarbeiten von %s\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fehler beim Verarbeiten der Stilvorlage %s\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:105
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "Fehler beim Anwenden der Stilvorlage %s\n"
+
+#: plug-ins/xslt/xslt.c:113
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fehler beim Verarbeiten der Stilvorlage: %s\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:121
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fehler beim Anwenden der Stilvorlage: %s\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:283
 msgid "XSL Transformation filter"
 msgstr "XSL-Transformationsfilter"
 
-#: plug-ins/xslt/xslt.c:197
+#: plug-ins/xslt/xslt.c:298
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
 msgstr "XSLT-Bibliothek »%s« konnte nicht geladen werden: %s"
 
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"XSLT-Plugin konnte nicht geladen werden; »DIA_PLUGIN_PATH« wurde nicht "
-"gesetzt."
+"Für das XSLT-Plugin konnten keine gültigen Konfigurationsdateien gefunden "
+"werden. Daher wird es nicht geladen."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6142,6 +6244,14 @@ msgstr "Realisierung, implementiert eine spezielle Schnittstelle"
 msgid "UML"
 msgstr "UML"
 
+#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
+#~ msgstr "»DIA_PLUGIN_PATH« nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
+
+#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#~ msgstr ""
+#~ "XSLT-Plugin konnte nicht geladen werden; »DIA_PLUGIN_PATH« wurde nicht "
+#~ "gesetzt."
+
 #~ msgid ""
 #~ "The anti aliased renderer is buggy, and may cause\n"
 #~ "crashes.  We know there are bugs in it, so don't\n"
@@ -6153,72 +6263,6 @@ msgstr "UML"
 
 #~ msgid "Apply"
 #~ msgstr "Anwenden"
-
-#~ msgid "Lines"
-#~ msgstr "Linien"
-
-#~ msgid "Hollow Triangle"
-#~ msgstr "Unausgefülltes Dreieck"
-
-#~ msgid "Filled Triangle"
-#~ msgstr "Gefülltes Dreieck"
-
-#~ msgid "Unfilled Triangle"
-#~ msgstr "Unausgefülltes Dreieck"
-
-#~ msgid "Filled Diamond"
-#~ msgstr "Gefüllter Diamant"
-
-#~ msgid "Half Head"
-#~ msgstr "Halber Pfeil"
-
-#~ msgid "Slashed Cross"
-#~ msgstr "Kreuz"
-
-#~ msgid "Filled Ellipse"
-#~ msgstr "Gefüllte Ellipse"
-
-#~ msgid "Hollow Ellipse"
-#~ msgstr "Unausgefüllte Ellipse"
-
-#~ msgid "Filled Dot"
-#~ msgstr "Gefüllter Punkt"
-
-#~ msgid "Dimension Origin"
-#~ msgstr "Dimensionsursprung"
-
-#~ msgid "Blanked Dot"
-#~ msgstr "Unausgefüllter Punkt"
-
-#~ msgid "Double Hollow triangle"
-#~ msgstr "Doppelt unausgefülltes Dreieck"
-
-#~ msgid "Double Filled triangle"
-#~ msgstr "Doppelt gefülltes Dreieck"
-
-#~ msgid "Filled Box"
-#~ msgstr "Gefüllter Kasten"
-
-#~ msgid "Blanked Box"
-#~ msgstr "Unausgefüllter Kasten"
-
-#~ msgid "Slashed"
-#~ msgstr "Gestrichelt"
-
-#~ msgid "Integral Symbol"
-#~ msgstr "Integralsymbol"
-
-#~ msgid "Crow Foot"
-#~ msgstr "Krähenfuß"
-
-#~ msgid "Cross"
-#~ msgstr "Kreuz"
-
-#~ msgid "Filled Concave"
-#~ msgstr "Gefüllte Aushöhlung"
-
-#~ msgid "Blanked Concave"
-#~ msgstr "Leere Aushöhlung"
 
 #~ msgid "Untitled-%d"
 #~ msgstr "Namenlos-%d"
