@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-24 10:40+0100\n"
-"PO-Revision-Date: 2004-11-24 12:50+0100\n"
+"POT-Creation-Date: 2004-12-07 10:40+0100\n"
+"PO-Revision-Date: 2004-12-07 18:00+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -99,26 +99,26 @@ msgid "Can't connect to session manager!\n"
 msgstr "Nelze se připojit ke správci sezení!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:517
+#: app/app_procs.c:524
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verze %s, sestavená %s %s\n"
 
-#: app/app_procs.c:519
+#: app/app_procs.c:526
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:578 app/app_procs.c:580
+#: app/app_procs.c:586 app/app_procs.c:588
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:621
+#: app/app_procs.c:629
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:663
+#: app/app_procs.c:671
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -127,7 +127,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:675
+#: app/app_procs.c:684
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -137,21 +137,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:679
+#: app/app_procs.c:687
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:731
+#: app/app_procs.c:740
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:748 app/app_procs.c:755
+#: app/app_procs.c:757 app/app_procs.c:764
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:757
+#: app/app_procs.c:766
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -159,15 +159,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:779
+#: app/app_procs.c:788
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: app/app_procs.c:820
+#: app/app_procs.c:829
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:823
+#: app/app_procs.c:832
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -177,16 +177,16 @@ msgstr ""
 "Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
 "příkazové řádky.\n"
 
-#: app/app_procs.c:847
+#: app/app_procs.c:856
 msgid "[FILE...]"
 msgstr "[SOUBOR...]"
 
-#: app/app_procs.c:859
+#: app/app_procs.c:868
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' nenalezeno!\n"
 
-#: app/app_procs.c:929
+#: app/app_procs.c:938
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -194,7 +194,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: app/app_procs.c:934
+#: app/app_procs.c:943
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -204,7 +204,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: app/app_procs.c:939
+#: app/app_procs.c:948
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -214,7 +214,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: app/app_procs.c:944
+#: app/app_procs.c:953
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -494,7 +494,7 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -567,7 +567,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
-#: app/disp_callbacks.c:935
+#: app/disp_callbacks.c:938
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -579,11 +579,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:983
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:985
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -592,11 +592,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:996
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:1001
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -646,32 +646,41 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:435
+#: app/filedlg.c:126 app/filedlg.c:487
 msgid "By extension"
 msgstr "Podle přípony"
 
-#: app/filedlg.c:213
+#: app/filedlg.c:199
 msgid "Open Diagram"
 msgstr "Otevřít diagram"
 
-#: app/filedlg.c:243
+#: app/filedlg.c:227
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:251 app/filedlg.c:559
+#: app/filedlg.c:235 app/filedlg.c:617
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:288
+#: app/filedlg.c:251 app/filedlg.c:629
+msgid "All Files"
+msgstr "Všechny soubory"
+
+#: app/filedlg.c:256 app/filedlg.c:634
+msgid "Supported Formats"
+msgstr "Podporované formáty"
+
+#: app/filedlg.c:292
 msgid ""
-"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Některé znaky ve jméně souboru nejsou ani v UTF-8 ani ve vašem místním "
-"kódování.\n"
+"Některé znaky ve jméně souboru nejsou ani v UTF-8\n"
+"ani ve vašem místním kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:294 app/filedlg.c:480
+#: app/filedlg.c:299 app/filedlg.c:532
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -680,21 +689,21 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:302 app/filedlg.c:487
+#: app/filedlg.c:307 app/filedlg.c:539
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: app/filedlg.c:335
+#: app/filedlg.c:350
 msgid "Save Diagram"
 msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:345
+#: app/filedlg.c:361
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:354
+#: app/filedlg.c:370
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -703,7 +712,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:506
+#: app/filedlg.c:561
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -712,11 +721,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:525
+#: app/filedlg.c:584
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:551
+#: app/filedlg.c:609
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -742,10 +751,10 @@ msgid "Scroll"
 msgstr "Posunovat"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 lib/properties.h:519 objects/UML/activity.c:122
-#: objects/UML/actor.c:120 objects/UML/classicon.c:141
-#: objects/UML/component.c:126 objects/UML/component_feature.c:154
-#: objects/UML/node.c:125 objects/UML/note.c:119 objects/UML/object.c:145
+#: lib/properties.h:516 objects/UML/activity.c:122 objects/UML/actor.c:120
+#: objects/UML/classicon.c:141 objects/UML/component.c:126
+#: objects/UML/component_feature.c:154 objects/UML/node.c:125
+#: objects/UML/note.c:119 objects/UML/object.c:145
 #: objects/UML/small_package.c:126 objects/UML/state.c:139
 #: objects/UML/usecase.c:136 objects/Jackson/requirement.c:144
 #: objects/network/basestation.c:131 objects/network/radiocell.c:146
@@ -914,7 +923,7 @@ msgstr "Upravit vlastnosti vrstvy"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:996 app/paginate_psprint.c:283
+#: app/layer_dialog.c:996 app/paginate_psprint.c:284
 msgid "OK"
 msgstr "OK"
 
@@ -1001,7 +1010,7 @@ msgstr ""
 msgid "Failed to save file '%s'.\n"
 msgstr "Selhalo uložení souboru '%s'.\n"
 
-#: app/load_save.c:1008 app/load_save.c:1013
+#: app/load_save.c:1009 app/load_save.c:1014
 msgid "Dia Diagram File"
 msgstr "Soubor diagramu Dia"
 
@@ -1474,34 +1483,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Nelze získat nastavení GTK"
 
-#: app/paginate_psprint.c:242
+#: app/paginate_psprint.c:243
 msgid "Select Printer"
 msgstr "Vybrat tiskárnu"
 
-#: app/paginate_psprint.c:254 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Tiskárna"
 
-#: app/paginate_psprint.c:268 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:379
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nemohu spustit příkaz '%s': %s"
 
-#: app/paginate_psprint.c:381
+#: app/paginate_psprint.c:382
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nemohu otevřít '%s' pro zápis: %s"
 
-#: app/paginate_psprint.c:398
+#: app/paginate_psprint.c:399
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
 
-#: app/paginate_psprint.c:409
+#: app/paginate_psprint.c:410
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
@@ -2218,7 +2227,7 @@ msgstr "Výběr písma"
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
-#: lib/filter.c:120
+#: lib/filter.c:126
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Více exportních filtrů s jedinečným názvem %s"
@@ -2266,12 +2275,12 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: lib/plug-ins.c:228
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Nelze vydedukovat správná cesta pro `%s'"
 
-#: lib/plug-ins.c:234
+#: lib/plug-ins.c:233
 #, c-format
 msgid ""
 "Could not load plugin '%s'\n"
@@ -2280,25 +2289,25 @@ msgstr ""
 "Nelze načíst zásuvný modul '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Nelze nalézt inicializační funkci modulu v `%s'"
 
-#: lib/plug-ins.c:249
+#: lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Chybějící symbol 'dia_plugin_init'"
 
-#: lib/plug-ins.c:257 lib/plug-ins.c:265
+#: lib/plug-ins.c:256 lib/plug-ins.c:264
 msgid "dia_plugin_init() call failed"
 msgstr "volání dia_plugin_init() selhalo"
 
-#: lib/plug-ins.c:284
+#: lib/plug-ins.c:283
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Zásuvný modul %s nebylo možné uvolnit"
 
-#: lib/plug-ins.c:372
+#: lib/plug-ins.c:371
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2307,15 +2316,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:609
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:612
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:615
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:618
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:621
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:624
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2349,14 +2358,14 @@ msgid "Text alignment"
 msgstr "Zarovnání textu"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:525 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class.c:137 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Písmo"
 
-#: lib/properties.c:80 lib/properties.h:528 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2375,7 +2384,7 @@ msgstr "Barva čáry"
 msgid "Fill colour"
 msgstr "Barva výplně"
 
-#: lib/properties.h:531 lib/properties.h:534
+#: lib/properties.h:539
 msgid "Text colour"
 msgstr "Barva textu"
 
@@ -2389,57 +2398,57 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:757 objects/FS/function.c:1063
+#: lib/widgets.c:760 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:763
+#: lib/widgets.c:766
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:769
+#: lib/widgets.c:772
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:775
+#: lib/widgets.c:778
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:781
+#: lib/widgets.c:784
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:800
+#: lib/widgets.c:803
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:928
+#: lib/widgets.c:931
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:956
+#: lib/widgets.c:959
 msgid "More colors..."
 msgstr "Další barvy..."
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1084
 msgid "More arrows"
 msgstr "Další šipky"
 
-#: lib/widgets.c:1094
+#: lib/widgets.c:1097
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1239
+#: lib/widgets.c:1242
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1275
+#: lib/widgets.c:1278
 msgid "Browse"
 msgstr "Probírat"
 
 # ???
-#: lib/widgets.c:1871
+#: lib/widgets.c:1874
 msgid "Reset menu"
 msgstr "Vynulovat menu"
 
@@ -3861,7 +3870,7 @@ msgstr "Agregát"
 msgid "Composition"
 msgstr "Kompozice"
 
-#: objects/UML/class.c:109 objects/UML/class.c:246 objects/UML/class.c:1162
+#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1163
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Třída"
@@ -3940,7 +3949,7 @@ msgstr "Atributy"
 msgid "Operations"
 msgstr "Operace"
 
-#: objects/UML/class.c:240
+#: objects/UML/class.c:241
 msgid "Show Comments"
 msgstr "Zobrazit komentáře"
 
@@ -4706,7 +4715,7 @@ msgstr "Zachovat poměr stran"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: objects/standard/image.c:669 objects/standard/image.c:680
+#: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -4716,7 +4725,7 @@ msgstr ""
 "Použije se místo něj soubor '%s'\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:714
+#: objects/standard/image.c:689 objects/standard/image.c:711
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem '%s' nebyl nalezen.\n"
@@ -4773,7 +4782,7 @@ msgstr "Cairo starý WMF"
 msgid "Cairo Clipboard"
 msgstr "Cairo Schránka"
 
-#: plug-ins/cairo/diacairo.c:1097
+#: plug-ins/cairo/diacairo.c:1108
 msgid "Cairo based Rendering"
 msgstr "Vykreslování založené na Cairo"
 
@@ -4789,7 +4798,7 @@ msgstr ""
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1379
+#: plug-ins/cgm/cgm.c:1390
 msgid "Computer Graphics Metafile export filter"
 msgstr "Exportní filtr formátu Computer Graphics Metafile"
 
@@ -4815,7 +4824,7 @@ msgstr "selhalo read_dxf_codes\n"
 msgid "Unknown dxf code %d\n"
 msgstr "Neznámý kód dxf %d\n"
 
-#: plug-ins/dxf/dxf.c:37
+#: plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Exportní a importní filtry formátu Drawing Interchange File"
 
@@ -4823,11 +4832,11 @@ msgstr "Exportní a importní filtry formátu Drawing Interchange File"
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: plug-ins/hpgl/hpgl.c:786
+#: plug-ins/hpgl/hpgl.c:797
 msgid "HP Graphics Language export filter"
 msgstr "Exportní filtr formátu Grafický jazyk HP"
 
-#: plug-ins/metapost/metapost.c:34
+#: plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
 msgstr "Exportní filtr formátu TeX Metapost"
 
@@ -4835,7 +4844,7 @@ msgstr "Exportní filtr formátu TeX Metapost"
 msgid "TeX Metapost macros"
 msgstr "Makra formátu TeX Metapost"
 
-#: plug-ins/pixbuf/pixbuf.c:95
+#: plug-ins/pixbuf/pixbuf.c:90
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -4846,19 +4855,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:159
-msgid "GdkPixbuf - not antialiased"
-msgstr "GdkPixbuf - nevyhlazováno"
-
-#: plug-ins/pixbuf/pixbuf.c:169
-msgid "GdkPixbuf bitmap"
-msgstr "Bitmapa GdkPixbuf"
-
-#: plug-ins/pixbuf/pixbuf.c:189
+#: plug-ins/pixbuf/pixbuf.c:197
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založené na gdk-pixbuf"
 
-#: plug-ins/pstricks/pstricks.c:14
+#: plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
 msgstr "Exportní filtr TeX Pstricks"
 
@@ -4870,7 +4871,7 @@ msgstr "Není platné UTF8"
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1186
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -4921,15 +4922,15 @@ msgstr "Nelze nalézt jmenný prostor SVG"
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
 
-#: plug-ins/svg/svg.c:37
+#: plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry do formátu Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1253
+#: plug-ins/wmf/wmf.cpp:1249
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1269
+#: plug-ins/wmf/wmf.cpp:1265
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -4942,7 +4943,7 @@ msgstr "Soubor %s má nepodporovaný typ nebo verzi.\n"
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1333
+#: plug-ins/wpg/wpg.c:1347
 msgid "WordPerfect Graphics export filter"
 msgstr "Exportní filtr formátu WordPerfect Graphics"
 
@@ -5138,7 +5139,7 @@ msgstr "Toto je soubor ve formátu FIG verze %d.%d, možná bude nesrozumitelný
 msgid "XFig File Format"
 msgstr "Formát souboru XFig"
 
-#: plug-ins/xfig/xfig.c:39
+#: plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
 msgstr "Importní a exportní filtr formátu Fig"
 
@@ -8113,6 +8114,12 @@ msgstr "Datový server Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
+
+#~ msgid "GdkPixbuf - not antialiased"
+#~ msgstr "GdkPixbuf - nevyhlazováno"
+
+#~ msgid "GdkPixbuf bitmap"
+#~ msgstr "Bitmapa GdkPixbuf"
 
 #~ msgid "FORMAT"
 #~ msgstr "FORMÁT"
