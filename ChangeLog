@@ -1,3 +1,8 @@
+2001-04-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/standard/image.c (get_directory): Changed get_directory
+	to use g_dirname to find the directory part.
+
 2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/ER.sheet:

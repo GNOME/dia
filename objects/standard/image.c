@@ -683,30 +683,28 @@ get_directory(const char *filename)
 {
   char *cwd;
   char *directory;
-  char *end;
+  char *dirname;
   int len;
   
   if (filename==NULL)
     return NULL;
 
-  if (g_path_is_absolute(filename)) {
-    end = strrchr(filename, G_DIR_SEPARATOR);
-    len = end - filename + 1;
-    directory = g_malloc((len+1)*sizeof(char));
-    memcpy(directory, filename, len);
-    directory[len] = 0; /* zero terminate string */
+  dirname = g_dirname(filename);
+  if (g_path_is_absolute(dirname)) {
+    len = strlen(dirname)+2;
+    directory = g_malloc(len*sizeof(char));
+    strcpy(directory, dirname);
+    strcat(directory, "/");
   } else {
     cwd = g_get_current_dir();
-    len = strlen(cwd)+strlen(filename)+1;
+    len = strlen(cwd)+strlen(dirname)+1;
     directory = g_malloc(len*sizeof(char));
-    strncpy(directory, cwd, len);
-    strncat(directory, "/", len);
-    strncat(directory, filename, len);
+    strcpy(directory, cwd);
+    strcat(directory, "/");
+    strcat(directory, dirname);
     g_free(cwd);
-    end = strrchr(directory, G_DIR_SEPARATOR);
-    if (end!=NULL)
-      *(end+1) = 0;
   }
+  g_free(dirname);
 
   return directory;
 }
