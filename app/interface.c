@@ -839,6 +839,17 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 
 gchar *interface_current_sheet_name;
 
+static Sheet *
+get_sheet_by_name(gchar *name)
+{
+  GList *tmp;
+  for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
+    Sheet *sheet = tmp->data;
+    if (!g_strcasecmp(name, sheet->name)) return sheet;
+  }
+  return NULL;
+}
+
 static void
 fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 {
@@ -938,6 +949,17 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			    GTK_BUTTON(first_button), NULL);
 }
 
+static void
+fill_sheet_wbox_from_string(GtkMenuItem *menu_item, gchar *string)
+{
+  Sheet *sheet = get_sheet_by_name(string);
+  if (sheet == NULL) {
+    message_warning(g_strdup_printf(_("No sheet named %s"), string));
+  } else {
+    fill_sheet_wbox(menu_item, sheet);
+  }
+}
+
 void
 fill_sheet_menu(void)
 {
@@ -981,6 +1003,18 @@ fill_sheet_menu(void)
   gtk_widget_show_all(sheet_menu);
 }
 
+GList *
+get_sheet_names()
+{
+  GList *tmp;
+  GList *names = NULL;
+  for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
+    Sheet *sheet = tmp->data;
+    names = g_list_append(names, gettext(sheet->name));
+  }
+  return names;
+}
+
 void
 create_sheets(GtkWidget *parent)
 {
@@ -997,12 +1031,30 @@ create_sheets(GtkWidget *parent)
   gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE, TRUE);
   gtk_widget_show(separator);
 
+  /*
   sheet_option_menu = gtk_option_menu_new();
   gtk_widget_set_size_request(sheet_option_menu, 20, -1);
   sheet_menu = gtk_menu_new();
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
 		    TRUE, TRUE, FALSE, FALSE, TRUE);
+  */
+  {
+    GList *sheet_names = get_sheet_names();
+    GtkWidget *item = gtk_menu_item_new_with_label("Other sheets");
+    gtk_widget_show(item);
+    sheet_option_menu = dia_dynamic_menu_new_stringlistbased(_("Other sheets"),
+							     sheet_names, 
+							     fill_sheet_wbox_from_string,
+							     "sheets");
+    dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				       "Misc");
+    dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				       "UML");
+    /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
+    gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
+			      TRUE, TRUE, FALSE, FALSE, TRUE);    
+  }
   gtk_widget_show(sheet_option_menu);
 
   swin = gtk_scrolled_window_new(NULL, NULL);
@@ -1017,7 +1069,7 @@ create_sheets(GtkWidget *parent)
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
   gtk_widget_show(sheet_wbox);
 
-  fill_sheet_menu();
+  /*  fill_sheet_menu();*/
 }
 
 static void

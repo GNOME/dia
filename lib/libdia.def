@@ -160,6 +160,18 @@ EXPORTS
  dia_color_selector_set_color
  dia_config_filename
 
+ dia_dynamic_menu_get_type
+ dia_dynamic_menu_new
+ dia_dynamic_menu_new_stringbased
+ dia_dynamic_menu_new_listbased
+ dia_dynamic_menu_new_stringlistbased
+ dia_dynamic_menu_add_default_entry
+ dia_dynamic_menu_add_entry
+ dia_dynamic_menu_set_sorting_method
+ dia_dynamic_menu_reset
+ dia_dynamic_menu_set_max_entries
+ dia_dynamic_menu_set_columns
+
  arrow_type_from_name
 
  dia_file_selector_get_file

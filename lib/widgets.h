@@ -30,6 +30,7 @@
 #include <gtk/gtkspinbutton.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkcolorseldialog.h>
+#include <gtk/gtkmenuitem.h>
 
 #include "diatypes.h"
 
@@ -191,6 +192,75 @@ GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
 				       DiaUnit adj_unit);
 void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gfloat val);
 gfloat     dia_unit_spinner_get_value (DiaUnitSpinner *self);
+
+/* DiaDynamicMenu */
+
+#define DIA_DYNAMIC_MENU(obj) GTK_CHECK_CAST(obj, dia_dynamic_menu_get_type(), DiaDynamicMenu)
+#define DIA_DYNAMIC_MENU_CLASS(klass) GTK_CHECK_CLASS_CAST(klass, dia_dynamic_menu_get_type(), DiaDynamicMenuClass)
+#define DIA_IS_DYNAMIC_MENU(obj) GTK_CHECK_TYPE(obj, dia_dynamic_menu_get_type())
+
+typedef struct _DiaDynamicMenu DiaDynamicMenu;
+typedef struct _DiaDynamicMenuClass DiaDynamicMenuClass;
+
+/** The ways the non-default entries in the menu can be sorted:
+ * DDM_SORT_TOP: Just add new ones at the top, removing them from the middle.
+ * Not currently implemented.
+ * DDM_SORT_NEWEST:  Add new ones to the top, and move selected ones to the
+ * top as well.
+ * DDM_SORT_SORT:  Sort the entries according to the CompareFunc order.
+ */
+typedef enum { DDM_SORT_TOP, DDM_SORT_NEWEST, DDM_SORT_SORT } DdmSortType;
+
+typedef GtkWidget *(* DDMCreateItemFunc)(DiaDynamicMenu *, gchar *);
+typedef void (* DDMCallbackFunc)(DiaDynamicMenu *, gchar *);
+
+struct _DiaDynamicMenu {
+  GtkOptionMenu parent;
+
+  GList *default_entries;
+
+  GCompareFunc compare_func;
+  DDMCreateItemFunc create_func;
+
+  GtkMenuItem *other_item;
+
+  gchar *persistent_name;
+  gint cols;
+
+  /** For the list-based versions, these are the options */
+  GList *options;
+
+  /** For the string-based versions, this is the activate function */
+  DDMCallbackFunc activate_func;
+};
+
+struct _DiaDynamicMenuClass {
+  GtkOptionMenuClass parent_class;
+};
+
+GtkType    dia_dynamic_menu_get_type  (void);
+
+GtkWidget *dia_dynamic_menu_new(GCompareFunc comp, DDMCreateItemFunc create,
+				DDMCallbackFunc activate,
+				GtkMenuItem *otheritem, gchar *persist);
+GtkWidget *dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
+					    DDMCallbackFunc activate,
+					    gchar *persist);
+GtkWidget *dia_dynamic_menu_new_listbased(GCompareFunc comp, 
+					  DDMCreateItemFunc create,
+					  DDMCallbackFunc activate,
+					  gchar *other_label,
+					  GList *items, gchar *persist);
+GtkWidget *dia_dynamic_menu_new_stringlistbased(gchar *other_label,
+						GList *items, 
+						DDMCallbackFunc activate,
+						gchar *persist);
+void dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, gchar *entry);
+gint dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry);
+void dia_dynamic_menu_set_sorting_method(DiaDynamicMenu *ddm, DdmSortType sort);
+void dia_dynamic_menu_reset(DiaDynamicMenu *ddm);
+void dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max);
+void dia_dynamic_menu_set_columns(DiaDynamicMenu *ddm, gint cols);
 
 
 /* **** Util functions for Gtk stuff **** */

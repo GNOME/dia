@@ -1,3 +1,16 @@
+2004-10-09  Lars Clausen  <lars@raeder.dk>
+
+	* lib/libdia.def: Added new global functions.
+
+	* lib/persistence.[ch]: Two of the persistent_list functions to
+	return whether the item was found in the list.
+
+	* app/interface.c (create_sheets): Use DiaDynamicMenu to handle
+	the growing number of sheets.
+
+	* lib/widgets.[ch]: Add DiaDynamicMenu as a generalization of the
+	font menu.
+
 2004-10-05  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/association.c: Patch from Harvey Thompson

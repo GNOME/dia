@@ -744,15 +744,25 @@ persistent_list_cut_length(GList *list, gint length)
   return list;
 }
 
-void
+/** Add a new entry to this persistent list.
+ * @param role The name of a persistent list.
+ * @param item An entry to add.
+ * @returns FALSE if the entry already existed in the list, TRUE otherwise.
+ */
+gboolean
 persistent_list_add(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
-  if(plist == NULL) printf("Can't find list for %s when adding %s\n", 
-			   role, item);
+  if(plist == NULL) {
+    printf("Can't find list for %s when adding %s\n", 
+	   role, item);
+    return TRUE;
+  }
   if (plist->sorted) {
     /* Sorting not implemented yet. */
+    return TRUE;
   } else {
+    gboolean existed = FALSE;
     GList *tmplist = plist->glist;
     GList *old_elem = g_list_find_custom(tmplist, item, strcmp);
     while (old_elem != NULL) {
@@ -764,10 +774,12 @@ persistent_list_add(const gchar *role, const gchar *item)
       /*g_free(old_elem->data);*/
       g_list_free_1(old_elem);
       old_elem = g_list_find_custom(tmplist, item, strcmp);
+      existed = TRUE;
     }
     tmplist = g_list_prepend(tmplist, g_strdup(item));
     tmplist = persistent_list_cut_length(tmplist, plist->max_members);
     plist->glist = tmplist;
+    return existed;
   }
 }
 
@@ -779,11 +791,18 @@ persistent_list_set_max_length(const gchar *role, gint max)
   plist->glist = persistent_list_cut_length(plist->glist, max);
 }
 
-void
+/** Remove an item from the persistent list.
+ * @param role The name of the persistent list.
+ * @param role The entry to remove.
+ * @returns TRUE if the item existed in the list, FALSE otherwise.
+ */
+gboolean
 persistent_list_remove(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
+  gint len = g_list_length(plist->glist);
   plist->glist = g_list_remove(plist->glist, item);
+  return g_list_length(plist->glist) < len;
 }
 
 /* ********* INTEGERS ********** */
