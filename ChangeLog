@@ -1,3 +1,7 @@
+2003-10-22  Steffen Macke <sdteffen@web.de>
+
+	* doc/en/dia-manual.xml: removed superfluous external references
+	
 2003-10-21  Steffen Macke <sdteffen@web.de>
 
 	* lib/libdia.def: added filter_get_by_name
