@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-12-03 12:15+0100\n"
-"PO-Revision-Date: 2002-12-03 12:17+0100\n"
+"POT-Creation-Date: 2002-12-06 10:03+0100\n"
+"PO-Revision-Date: 2002-12-06 10:07+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2178,6 +2178,11 @@ msgstr ""
 "för filer som är genererade med tidigare versioner av dia kommer du att "
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
+
+#: lib/font.c:81
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr "Kan inte läsa in typsnittet %s.\n"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
