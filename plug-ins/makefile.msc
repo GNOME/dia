@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm dummy dxf hpgl pstricks shape svg wmf wpg
+PLUGINS = cgm diaimport dummy dxf hpgl pstricks shape svg wmf wpg
 
 # The main target
 all : sub-all
@@ -9,9 +9,9 @@ sub-all:
 	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-one THIS=%d
 
 sub-one:
-	cd $(THIS)
-	nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
-	cd ..
+	@cd $(THIS)
+	@nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
+	@cd ..
 
 !ELSE
 

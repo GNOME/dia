@@ -100,7 +100,11 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter) {
 	/* add to the menu */
 	basename = g_strdup(g_basename(fname));
 	basename = g_strdelimit(basename, "_", '\\');
+#if GLIB_CHECK_VERSION (1,3,0)
+	basename = g_strescape(basename, NULL);
+#else
 	basename = g_strescape(basename);
+#endif
 	basename = g_strdelimit(basename, "\\", '_');
 	new_entry = g_new(GtkItemFactoryEntry, 1);
 	length = strlen(N_("/File/Open Recent/"))+strlen(basename)+1;

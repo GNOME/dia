@@ -1080,13 +1080,15 @@ draw_image(RendererCGM *renderer,
     gint rowlen = dia_image_width(image) * 3, lines = dia_image_height(image);
     double linesize = (y1 - y2) / lines;
     gint chunk, clines = lines;
-    guint8 *ptr = dia_image_rgb_data(image);
+    guint8 *pImg, *ptr;
 
     if (rowlen > maxlen) {
 	message_error(_("Image row length larger than maximum cell array.\n"
 			"Image not exported to CGM."));
 	return;
     }
+
+    ptr = pImg = dia_image_rgb_data(image);
 
     while (lines > 0) {
 	chunk = MIN(rowlen * lines, maxlen);
@@ -1114,6 +1116,7 @@ draw_image(RendererCGM *renderer,
 	ptr += chunk;
 	y1 -= clines * linesize;
     }
+    g_free (pImg);
 }
 
 static void

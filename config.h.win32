@@ -19,45 +19,6 @@
 #define S_IXUSR _S_IEXEC
 #endif
 
-#include <math.h>
-#define M_SQRT2	1.41421356237309504880	/* sqrt(2) */
-#define M_SQRT1_2 0.70710678118654752440	/* 1/sqrt(2) */
-#define M_PI      3.14159265358979323846
+#define getlogin g_get_user_name
 
-static char* getlogin(void) { return (char*)0; }
-
-static int isinf (double d) { 
-    int expon = 0; 
-    double val = frexp (d, &expon); 
-    if (expon == 1025) { 
-        if (val == 0.5) { 
-            return 1; 
-        } else if (val == -0.5) { 
-            return -1; 
-        } else { 
-            return 0; 
-        } 
-    } else { 
-        return 0; 
-    } 
-}
-
-#define HAVE_ISINF
- 
-static int isnan (double d) { 
-    int expon = 0; 
-    double val = frexp (d, &expon); 
-    if (expon == 1025) { 
-        if (val == 0.5) { 
-            return 0; 
-        } else if (val == -0.5) { 
-            return 0; 
-        } else { 
-            return 1; 
-        } 
-    } else { 
-        return 0; 
-    } 
-}
-
-#endif 
+#endif

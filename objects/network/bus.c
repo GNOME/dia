@@ -621,6 +621,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
 
   conn = &bus->connection;
   obj = &conn->object;
+  extra = &conn->extra_spacing;
 
   obj->type = &bus_type;
   obj->ops = &bus_ops;

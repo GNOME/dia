@@ -5,7 +5,9 @@
 #include <Python.h>
 #include <stdio.h>
 #include <glib.h>
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 
 #include "intl.h"
 #include "plug-ins.h"

@@ -1,3 +1,36 @@
+2001-02-25  Hans Breuer  <hans@breuer.org>
+
+	* config.h.win32 : some cleanup
+
+	* app/prefererences.c : g_scanner_(freeze|thaw)_symbol_table
+	are deprecated since glib-1.3.2. Sorry needing to use them
+	contionally, but there is no glib-1.2 for win32
+
+	* app/recent_files.c : use g_strescape (params) conditionally
+
+	* lib/connection.c : include string.h for memcpy
+
+	* lib/geometry.h : added some stuff for compatibility with
+	msvc, which previously came from included config.h
+
+	* lib/libdia.def : updated
+
+	* objects/makefile.msc : updated
+
+	* objects/GRAFCET/action.c(490) : fixed warning C4700: local variable 
+	'extra' used without having been initialized
+
+	* objects/network/bus.c(658) : initialize 'extra'
+
+	* plug-ins/makefile.msc : updated
+
+	* plug-ins/cgm/cgm.c :
+	* plug-ins/pstricks/render_pstricks.c : 
+	g_free() memory allocated by dia_image_rgb_data(). Plugs possibly 
+	huge memory leaks.
+
+	* plug-ins/python/python.c : use HAVE_DIRENT_H
+
 2001-02-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/connection.c (connection_update_boundingbox): 

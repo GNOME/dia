@@ -380,15 +380,17 @@ prefs_load(void)
   g_scanner_input_file (scanner, fd);
 
   scanner->input_name = filename;
-
+#if !GLIB_CHECK_VERSION (1,3,2)
   g_scanner_freeze_symbol_table(scanner);
+#endif
   for (i = 0; i < NUM_PREFS_DATA; i++)
     if (prefs_data[i].type != PREF_NONE) {
       g_scanner_add_symbol(scanner, prefs_data[i].name,
 			   GINT_TO_POINTER(i));
     }
+#if !GLIB_CHECK_VERSION (1,3,2)
   g_scanner_thaw_symbol_table(scanner);
-  
+#endif  
   while (1) {
     if (g_scanner_peek_next_token(scanner) == G_TOKEN_EOF) {
       break;

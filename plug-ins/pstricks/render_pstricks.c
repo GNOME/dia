@@ -742,6 +742,8 @@ draw_image(RendererPSTRICKS *renderer,
     /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);*/
     fprintf(renderer->file, "grestore\n");
     fprintf(renderer->file, "}}\n");
+
+    g_free (rgb_data);
 }
 
 /* --- export filter interface --- */

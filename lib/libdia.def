@@ -1,6 +1,4 @@
 EXPORTS
-
-
  __propdlg_build_bool
  __propdlg_build_color
  __propdlg_build_enum
@@ -277,6 +275,7 @@ EXPORTS
  neworthconn_update_data
  object_add_connectionpoint
  object_add_handle
+ object_apply_props
  object_apply_props_from_dialog
  object_connect
  object_copy
@@ -348,6 +347,7 @@ EXPORTS
  prop_desc_lists_intersection
  prop_free
  prop_copy
+ prop_list_free
  rectangle_add_point
  rectangle_intersection
  rectangle_intersects

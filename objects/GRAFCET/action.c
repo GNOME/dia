@@ -467,6 +467,7 @@ action_create(Point *startpoint,
   action = g_malloc0(sizeof(Action));
   conn = &action->connection;
   obj = &conn->object;
+  extra = &conn->extra_spacing;
   
   obj->type = &action_type;
   obj->ops = &action_ops;
