@@ -1,0 +1,6 @@
+EXPORTS
+	dia_plugin_init
+;	get_version
+;	register_objects
+;	register_sheets
+ 
