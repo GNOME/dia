@@ -669,13 +669,13 @@ custom_draw(Custom *custom, Renderer *renderer)
       transform_coord(custom, &el->ellipse.center, &p1);
       if (custom->show_background && el->any.s.fill != COLOUR_NONE)
 	renderer->ops->fill_ellipse(renderer, &p1,
-				    el->ellipse.width * custom->xscale,
-				    el->ellipse.height * custom->yscale,
+				    el->ellipse.width * abs(custom->xscale),
+				    el->ellipse.height * abs(custom->yscale),
 				    &bg);
       if (el->any.s.stroke != COLOUR_NONE)
 	renderer->ops->draw_ellipse(renderer, &p1,
-				    el->ellipse.width * custom->xscale,
-				    el->ellipse.height * custom->yscale,
+				    el->ellipse.width * abs(custom->xscale),
+				    el->ellipse.height * abs(custom->yscale),
 				    &fg);
       break;
     case GE_PATH:

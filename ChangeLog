@@ -1,3 +1,11 @@
+2000-04-11  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/custom/custom_object.c: not all renderers like ellipses with
+	negative dimensions. This could cause ellipses to disappear when using
+	the flip_h and flip_v functions.
+
+	* samples/grafcet.dia: fixed speling and correctness.
+	
 2000-04-11  James Henstridge  <james@daa.com.au>
 
 	* lib/plug-ins.[ch]: added more accessors for use by a plugins dialog.
