@@ -1837,7 +1837,9 @@ msgstr "`%s' is geen pad"
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
-msgstr "Kon `%s' niet openen"
+msgstr ""
+"Kon `%s' niet openen\n"
+"`%s'"
 
 #: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
