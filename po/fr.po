@@ -9,35 +9,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-10-10 11:34+0200\n"
-"PO-Revision-Date: 2000-10-10 11:35+0200\n"
+"POT-Creation-Date: 2000-10-20 15:33+0200\n"
+"PO-Revision-Date: 2000-10-20 15:35+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:136
 msgid "Export loaded file and exit"
 msgstr "Exporter le fichier en postscript et sortir"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:137
 msgid "OUTPUT"
 msgstr "SORTIE"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:139
 msgid "Show this help message"
 msgstr "Afficher ce message d'aide"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Ne peut se connecter au gestionnaire de session !\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FICHIER...]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,20 +47,20 @@ msgstr ""
 "Tapez '%s --help' pour voir une liste complète des options en ligne "
 "decommande.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Ne peut trouver les objets standards dans object-libs, terminé...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Nécessite un fichier d'entrée valide\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:299 app/app_procs.c:305
 msgid "Quit, are you sure?"
 msgstr "Êtes-vous sûr de vouloir quitter ?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:312
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -68,21 +68,21 @@ msgstr ""
 "Des diagrammes ont été modifies.\n"
 "Voulez-vous vraiment quitter ?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:322 app/app_procs.c:327
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
-#: app/lineprops_area.c:747 app/linewidth_area.c:239
+#: app/app_procs.c:339 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:407
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne peut créer le répertoire de configuration personnel de Dia"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:427
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres interne à Dia"
 
@@ -134,14 +134,14 @@ msgid "Contributors:"
 msgstr "Contributeurs :"
 
 #. setup buttons
-#: app/commands.c:530 app/dia-props.c:84 app/layer_dialog.c:976
-#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
-#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
-#: app/properties.c:82 lib/message.c:85
+#: app/commands.c:530 app/dia-props.c:86 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:600
+#: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "Valider"
 
-#: app/commands.c:631
+#: app/commands.c:633
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -155,13 +155,13 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Caractéristiques de l'objet par défaut."
 
-#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
-#: app/preferences.c:607 app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:609 app/properties.c:91
 msgid "Apply"
 msgstr "Appliquer"
 
-#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:618
 #: app/properties.c:101
 msgid "Close"
 msgstr "Fermer"
@@ -174,35 +174,35 @@ msgstr "Cet objet n'a pas de caractéristiques par défaut."
 msgid "Could not initialize Bonobo!"
 msgstr "Ne peut initialiser Bonobo !"
 
-#: app/dia-props.c:58 app/dia-props.c:65
+#: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
 msgstr "Propriétés du diagramme"
 
-#: app/dia-props.c:128
+#: app/dia-props.c:130
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:132
+#: app/dia-props.c:134
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:137
+#: app/dia-props.c:139
 msgid "Spacing"
 msgstr "Espacement"
 
-#: app/dia-props.c:157
+#: app/dia-props.c:159
 msgid "Visible spacing"
 msgstr "Espacement visible"
 
-#: app/dia-props.c:177
+#: app/dia-props.c:179
 msgid "Grid"
 msgstr "Grille"
 
-#: app/dia-props.c:187
+#: app/dia-props.c:189
 msgid "Background Colour"
 msgstr "Couleur du fond"
 
-#: app/dia-props.c:198 lib/diagramdata.c:53
+#: app/dia-props.c:200 lib/diagramdata.c:53
 msgid "Background"
 msgstr "Fond"
 
@@ -263,7 +263,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configuration de la Page"
 
-#: app/disp_callbacks.c:69 app/properties.c:164
+#: app/disp_callbacks.c:70 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -271,7 +271,7 @@ msgstr ""
 "Cet objet ne supporte pas l'opération Annuler/Recommencer. \n"
 "Informations 'Annuler' effacées."
 
-#: app/disp_callbacks.c:166
+#: app/disp_callbacks.c:167
 msgid "No object menu"
 msgstr "Pas de menu pour cet objet"
 
@@ -283,24 +283,24 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagramme modifié!"
 
-#: app/display.c:753 app/display.c:759
+#: app/display.c:754 app/display.c:760
 msgid "Really close?"
 msgstr "Vraiment fermer?"
 
-#: app/display.c:764
+#: app/display.c:765
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
 msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
-"Voulez-vous vraiment fermer cette fenêtre?"
+"Voulez-vous vraiment fermer cette fenêtre ?"
 
-#: app/display.c:782 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
+#: app/display.c:783 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:792 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
+#: app/display.c:793 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Non"
@@ -308,7 +308,8 @@ msgstr "Non"
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:177
+#: plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Ne peut ouvrir '%s' en écriture.\n"
@@ -319,7 +320,7 @@ msgstr "Ne peut créer la structure d'écriture PNG"
 
 #: app/export_png.c:95
 msgid "Could not create PNG header info structure"
-msgstr "Ne peut créer la structure d'information d'en-tete PNG"
+msgstr "Ne peut créer la structure d'information d'en-tête PNG"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
@@ -556,11 +557,11 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:209
+#: app/linewidth_area.c:211
 msgid "Line width"
 msgstr "Largeur de ligne"
 
-#: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
+#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
 msgid "Line width:"
@@ -877,7 +878,7 @@ msgstr "/_Aide"
 
 #: app/menus.c:256
 msgid "/Help/_About"
-msgstr "/Aide/_A Propos"
+msgstr "/Aide/À _propos"
 
 #: app/menus.c:264
 msgid "/File/_Save"
@@ -893,7 +894,7 @@ msgstr "/Fichier/_Exporter..."
 
 #: app/menus.c:268
 msgid "/File/Page Set_up..."
-msgstr "/Fichier/Mise en page..."
+msgstr "/Fichier/Mise en p_age..."
 
 #: app/menus.c:269
 msgid "/File/_Print Diagram..."
@@ -913,11 +914,11 @@ msgstr "/Édition/_Copier"
 
 #: app/menus.c:276
 msgid "/Edit/C_ut"
-msgstr "/Édition/C_ouper"
+msgstr "/Édition/Co_uper"
 
 #: app/menus.c:277
 msgid "/Edit/_Paste"
-msgstr "/Édition/Co_ller"
+msgstr "/Édition/C_oller"
 
 #: app/menus.c:278
 msgid "/Edit/_Delete"
@@ -1159,7 +1160,7 @@ msgstr "/Objets/Alignement vertical/Bas"
 
 #: app/menus.c:339
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objets/Alignement vertical/Equidistance"
+msgstr "/Objets/Alignement vertical/Équidistance"
 
 #: app/menus.c:340
 msgid "/Objects/Align Vertical/Adjacent"
@@ -1187,7 +1188,7 @@ msgstr "/Outils/Texte"
 
 #: app/menus.c:347
 msgid "/Tools/Box"
-msgstr "/Outils/Boite"
+msgstr "/Outils/Boîte"
 
 #: app/menus.c:348
 msgid "/Tools/Ellipse"
@@ -1199,7 +1200,7 @@ msgstr "/Outils/Polygon"
 
 #: app/menus.c:350
 msgid "/Tools/Beziergon"
-msgstr "/Outils/Polygone de Bezier"
+msgstr "/Outils/Polygone de Bézier"
 
 #: app/menus.c:351
 msgid "/Tools/Line"
@@ -1219,7 +1220,7 @@ msgstr "/Outils/Polyligne"
 
 #: app/menus.c:355
 msgid "/Tools/Bezierline"
-msgstr "/Outils/Ligne de Bezier"
+msgstr "/Outils/Ligne de Bézier"
 
 #: app/menus.c:356
 msgid "/Tools/Image"
@@ -1231,7 +1232,7 @@ msgstr "/_Dialogues"
 
 #: app/menus.c:359
 msgid "/Dialogs/_Properties"
-msgstr "/Dialogues/Propriétés"
+msgstr "/Dialogues/_Propriétés"
 
 #: app/menus.c:360
 msgid "/Dialogs/_Layers"
@@ -1248,6 +1249,10 @@ msgstr "Menu du diagramme"
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Imprimer le diagramme"
+
+#: app/paginate_gnomeprint.c:175
+msgid "An error occured while creating the print context"
+msgstr "Une erreur est survenue lors de la création du contexte d'impression"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
@@ -1391,7 +1396,7 @@ msgstr "Sauts de page :"
 msgid "Could not open `%s' for writing"
 msgstr "Ne peut ouvrir `%s' en écriture"
 
-#: app/preferences.c:566 app/preferences.c:575
+#: app/preferences.c:568 app/preferences.c:577
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -1425,15 +1430,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvé, utilisation de la police Courier à la place.\n"
 
-#: lib/message.c:118
+#: lib/message.c:120
 msgid "Notice"
 msgstr "Note"
 
-#: lib/message.c:129
+#: lib/message.c:131
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/message.c:141
+#: lib/message.c:143
 msgid "Error"
 msgstr "Erreur"
 
@@ -1772,7 +1777,7 @@ msgstr "   Sépare"
 
 #: objects/FS/function.c:647
 msgid "      Remove"
-msgstr "      Éfface"
+msgstr "      Efface"
 
 #: objects/FS/function.c:648
 msgid "   Refine"
@@ -2018,11 +2023,11 @@ msgstr "Supprimer un point de connexion"
 
 #: objects/SADT/box.c:544
 msgid "SADT box"
-msgstr "Boite SADT"
+msgstr "Boîte SADT"
 
 #: objects/SADT/sadt.c:37
 msgid "SADT diagram objects"
-msgstr "Objeys de diagrammes SADT"
+msgstr "Objets de diagrammes SADT"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -2175,7 +2180,7 @@ msgstr "Opérations"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
-msgstr "Données de l'opération"
+msgstr "Donnée de l'opération"
 
 #: objects/UML/class_dialog.c:1660
 msgid "abstract"
@@ -2187,7 +2192,7 @@ msgstr "Paramètres :"
 
 #: objects/UML/class_dialog.c:1734
 msgid "Parameter data"
-msgstr "Données du paramètre"
+msgstr "Donnée du paramètre"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
@@ -2603,14 +2608,13 @@ msgstr "Filtre d'export TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: plug-ins/wpg/wpg.c:1032
-#, c-format
-msgid "File: %s type/version unsupported.\n"
-msgstr "Fichier : type/version %s non supporté.\n"
+#: plug-ins/shape/shape-export.c:931
+msgid "dia shape file"
+msgstr "fichier de forme dia"
 
-#: plug-ins/wpg/wpg.c:1181
-msgid "WordPerfect Graphics export filter"
-msgstr "Filtre d'export WordPerfect"
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "Filtre d'export de forme dia"
 
 #: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
@@ -2620,14 +2624,20 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Filtre d'export Scalable Vector Graphics"
 
+#: plug-ins/wpg/wpg.c:1032
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Fichier : type/version %s non supporté.\n"
+
+#: plug-ins/wpg/wpg.c:1181
+msgid "WordPerfect Graphics export filter"
+msgstr "Filtre d'export WordPerfect"
+
 #~ msgid "Python scripting support"
 #~ msgstr "Support de script Python"
 
 #~ msgid "Windows Meta File"
 #~ msgstr "Windows Meta File"
-
-#~ msgid "WMF export filter"
-#~ msgstr "Filtre d'export Windows Meta File"
 
 #, fuzzy
 #~ msgid "File/New diagram"
