@@ -69,7 +69,6 @@ autosave_check_autosave(gpointer data)
   GList *diagrams = open_diagrams;
   Diagram *diagram;
 
-  printf("autosave_check_autosave\n");
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
     if (diagram->modified && 
