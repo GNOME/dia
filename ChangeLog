@@ -1,3 +1,54 @@
+1998-12-17  Alexander Larsson  <alla@lysator.liu.se>
+	* app/layer_dialog.[ch]:
+	New files. Handles the layers dialog. Needs a bugfix for glib to
+	work. Sent patch to gtk-list.
+	
+	* app/pixmaps/new.xpm:
+	* app/pixmaps/eye.xbm:
+	* app/pixmaps/lower.xpm:
+	* app/pixmaps/raise.xpm:
+	* app/pixmaps/delete.xpm:
+	New files. Images for the layer dialog buttons.
+	
+	* lib/diagramdata.h
+	* lib/diagramdata.c
+	New files for the DiagramData and Layer structures and functions.
+	
+	* app/app_procs.c:
+	Added call to create_layer_dialog() on startup.
+	
+	* app/commands.[ch]:
+	New callbacks for showing the properties and layout dialog.
+	Changes for the new DiagramData structure.
+
+	* app/connectionpoint_ops.c:
+	* app/cut_n_paste.c:
+	* app/diagram.[ch]:
+	* app/display.[ch]:
+	* app/group.c:
+	* app/modify_tool.c:
+	* app/object_ops.[ch]:
+	* app/render_eps.c:
+	* lib/object.[ch]:
+	Changes for the new DiagramData structure.
+
+	* app/interface.c:
+	* app/properties.c:
+	Set correct wmclasses.
+
+	* app/load_save.c:
+	Fix load and save of layers.
+
+	* diagram.dtd:
+	Update DTD for layers.
+	
+	* app/menus.c:
+	New menus for dialogs.
+
+	
+	* TODO:
+	Some updates.
+	
 1998-12-06  Alexander Larsson  <alla@lysator.liu.se>
 
 	* TODO:

@@ -1,8 +1,11 @@
-<!ELEMENT diagram (diagramdata, objects) >
+<!ELEMENT diagram (diagramdata, (layer)*) >
 
 <!ELEMENT diagramdata (attribute)* >
 
-<!ELEMENT objects (object | group)*>
+<!ELEMENT layer (object | group)*>
+<!ATTLIST layer
+   name CDATA #REQUIRED
+   visible (true|false) #REQUIRED >
 
 <!ELEMENT object ((attribute)*, connections?)>
 <!ATTLIST object

@@ -83,6 +83,10 @@ static GtkItemFactoryEntry display_menu_items[] =
   {"/Objects/sep1",           NULL,         NULL,                        0, "<Separator>"},
   {"/Objects/_Group",         NULL,         objects_group_callback,      0},
   {"/Objects/_Ungroup",       NULL,         objects_ungroup_callback,    0},
+  /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {"/_Dialogs",               NULL,         NULL,                        0, "<Branch>"},
+  {"/Dialogs/_Properties",    NULL,         dialogs_properties_callback,0},
+  {"/Dialogs/_Layers",        NULL,         dialogs_layers_callback,0},
 };
 
 /* calculate the number of menu_item's */

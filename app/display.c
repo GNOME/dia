@@ -273,6 +273,22 @@ ddisplay_flush(DDisplay *ddisp)
   ddisp->display_areas = NULL;
 }
 
+static void
+ddisplay_obj_render(Object *obj, Renderer *renderer,
+		    int active_layer,
+		    gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+  int i;
+
+  obj->ops->draw(obj, renderer);
+  if (active_layer) {
+    for (i=0;i<obj->num_connections;i++) {
+      connectionpoint_draw(obj->connections[i], ddisp);
+    }
+  }
+}
+
 void
 ddisplay_render_pixmap(DDisplay *ddisp)
 {
@@ -294,26 +310,16 @@ ddisplay_render_pixmap(DDisplay *ddisp)
 					       0, 0,
 					       renderer->pixel_width,
 					       renderer->pixel_height,
-					       &ddisp->diagram->bg_color);
+					       &ddisp->diagram->data->bg_color);
 
   /* Draw grid */
   grid_draw(ddisp);
 
-  /* Draw all objects: */
-  list = ddisp->diagram->objects;
-  while (list!=NULL) {
-    obj = (Object *) list->data;
-
-    obj->ops->draw(obj, (Renderer *)ddisp->renderer);
-    for (i=0;i<obj->num_connections;i++) {
-      connectionpoint_draw(obj->connections[i], ddisp);
-    }
-
-    list = g_list_next(list);
-  }
+  data_render(ddisp->diagram->data, (Renderer *)ddisp->renderer,
+	      ddisplay_obj_render, (gpointer) ddisp);
   
   /* Draw handles for all selected objects */
-  list = ddisp->diagram->selected;
+  list = ddisp->diagram->data->selected;
   while (list!=NULL) {
     obj = (Object *) list->data;
 
@@ -327,7 +333,7 @@ ddisplay_render_pixmap(DDisplay *ddisp)
 void
 ddisplay_update_scrollbars(DDisplay *ddisp)
 {
-  Rectangle *extents = &ddisp->diagram->extents;
+  Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
   GtkAdjustment *hsbdata, *vsbdata;
 
@@ -359,7 +365,7 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 void
 ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
 {
-  Rectangle *extents = &ddisp->diagram->extents;
+  Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
   int width = ddisp->renderer->renderer.pixel_width;
   int height = ddisp->renderer->renderer.pixel_height;
@@ -429,7 +435,7 @@ void ddisplay_scroll(DDisplay *ddisp, Point *delta)
   width = visible->right - visible->left;
   height = visible->bottom - visible->top;
   
-  extents = ddisp->diagram->extents;
+  extents = ddisp->diagram->data->extents;
   rectangle_union(&extents, visible);
   
   if (new_origo.x < extents.left)
@@ -626,22 +632,22 @@ display_set_menu_sensitivity(DDisplay *ddisp)
   dia = ddisp->diagram;
 
   menus_set_sensitive("<Display>/Edit/Copy",
-		      dia->selected_count > 0);
+		      dia->data->selected_count > 0);
   menus_set_sensitive("<Display>/Edit/Cut",
-		      dia->selected_count > 0);
+		      dia->data->selected_count > 0);
   menus_set_sensitive("<Display>/Edit/Paste",
 		      cnp_exist_stored_objects());
   menus_set_sensitive("<Display>/Edit/Delete",
-		      dia->selected_count > 0);
+		      dia->data->selected_count > 0);
 
   menus_set_sensitive("<Display>/Objects/Place Under",
-		      dia->selected_count > 0);
+		      dia->data->selected_count > 0);
   menus_set_sensitive("<Display>/Objects/Place Over",
-		      dia->selected_count > 0);
-  menus_set_sensitive("<Display>/Objects/Group", dia->selected_count > 1);
+		      dia->data->selected_count > 0);
+  menus_set_sensitive("<Display>/Objects/Group", dia->data->selected_count > 1);
   menus_set_sensitive("<Display>/Objects/Ungroup",
-		      (dia->selected_count == 1) &&
-		      IS_GROUP((Object *)dia->selected->data));
+		      (dia->data->selected_count == 1) &&
+		      IS_GROUP((Object *)dia->data->selected->data));
 
   menus_set_state ("<Display>/View/Toggle Rulers", GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
   menus_set_state ("<Display>/View/Visible Grid", ddisp->grid.visible);

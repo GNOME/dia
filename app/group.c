@@ -181,7 +181,7 @@ group_destroy_shallow(Object *group)
 static void 
 group_destroy(Group *group)
 {
-  object_destroy_list(group->objects);
+  destroy_object_list(group->objects);
   
   object_destroy(&group->object);
 }

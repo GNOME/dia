@@ -194,6 +194,7 @@ extern void object_copy(Object *from, Object *to);
 extern void object_save(Object *obj, ObjectNode obj_node);
 extern void object_load(Object *obj, ObjectNode obj_node);
 
+extern void destroy_object_list(GList *list);
 extern void object_add_handle(Object *obj, Handle *handle);
 extern void object_remove_handle(Object *obj, Handle *handle);
 extern void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);

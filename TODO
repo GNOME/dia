@@ -47,12 +47,14 @@ Big stuff:
  * Add a clean event model so that all modifications of the diagram and objects
    goes by a well known path. This makes it possible to have a history of
    modifications which means UNDO is easy!
- * Add a layer dialog and a layer rendering system. Also add layer-effects?
+ * Fix up the layer dialog. Also add layer-effects?
 
 ---------------------------------------------------------------
 
 BUGS:
 =====
+* Applying the properties does not recalculate extents.
+
 * UML - Association with direction==Right doesn't always show arrow.
   Problem with bounding box.
 

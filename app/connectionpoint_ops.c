@@ -62,7 +62,7 @@ connectionpoint_add_update(ConnectionPoint *conpoint,
 void
 diagram_update_connections_selection(Diagram *dia)
 {
-  GList *list = dia->selected;
+  GList *list = dia->data->selected;
 
   while (list!=NULL) {
     Object * selected_obj = (Object *) list->data;
@@ -123,7 +123,7 @@ ddisplay_connect_selected(DDisplay *ddisp)
   Object *selected_obj;
   int i;
 
-  list = ddisp->diagram->selected;
+  list = ddisp->diagram->data->selected;
     
   while (list!=NULL) {
     selected_obj = (Object *) list->data;
@@ -146,7 +146,7 @@ diagram_unconnect_selected(Diagram *dia)
   Handle *handle;
   int i;
 
-  list = dia->selected;
+  list = dia->data->selected;
     
   while (list!=NULL) {
     selected_obj = (Object *) list->data;

@@ -78,7 +78,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash)
 }
 
 void
-read_connections(GList *objects, xmlNodePtr objects_node,
+read_connections(GList *objects, xmlNodePtr layer_node,
 		 GHashTable *objects_hash)
 {
   ObjectNode obj_node;
@@ -92,7 +92,7 @@ read_connections(GList *objects, xmlNodePtr objects_node,
   Object *to;
   
   list = objects;
-  obj_node = objects_node->childs;
+  obj_node = layer_node->childs;
   while (list != NULL) {
     Object *obj = (Object *) list->data;
 
@@ -144,8 +144,10 @@ diagram_load(char *filename)
   Diagram *dia;
   xmlDocPtr doc;
   xmlNodePtr diagramdata;
+  xmlNodePtr layer_node;
   xmlNodePtr objects;
   AttributeNode attr;
+  Layer *layer;
   
   fd = open(filename, O_RDONLY);
 
@@ -172,26 +174,50 @@ diagram_load(char *filename)
   /* Create the diagram: */
   dia = new_diagram(filename);
 
+  /* Destroy the default layer: */
+  g_ptr_array_remove(dia->data->layers, dia->data->active_layer);
+  layer_destroy(dia->data->active_layer);
+  
   dia->unsaved = FALSE;
 
   diagramdata = doc->root->childs;
 
   /* Read in diagram data: */
-  dia->bg_color = color_white;
+  dia->data->bg_color = color_white;
   attr = composite_find_attribute(diagramdata, "background");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &dia->bg_color);
+    data_color(attribute_first_data(attr), &dia->data->bg_color);
 
-  /* Read in all objects: */
-  objects = diagramdata->next;
-  
+  /* Read in all layers: */
+  layer_node = diagramdata->next;
+
   objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
-  
-  list = read_objects(objects, objects_hash);
-  diagram_add_object_list(dia, list);
-  read_connections( list, objects, objects_hash);
-  
 
+  while (layer_node != NULL) {
+    char *name;
+    char *visible;
+    name = xmlGetProp(layer_node, "name");
+    visible = xmlGetProp(layer_node, "visible");
+    layer = new_layer(name);
+    
+    layer->visible = FALSE;
+    if (strcmp(visible, "true")==0)
+      layer->visible = TRUE;
+    free(visible);
+
+    /* Read in all objects: */
+    
+    list = read_objects(layer_node, objects_hash);
+    layer->objects = list;
+    read_connections( list, layer_node, objects_hash);
+
+    data_add_layer(dia->data, layer);
+
+    layer_node = layer_node->next;
+  }
+
+  dia->data->active_layer = (Layer *) g_ptr_array_index(dia->data->layers, 0);
+  
   xmlFreeDoc(doc);
 
   g_hash_table_destroy(objects_hash);
@@ -244,7 +270,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 }
 
 int
-write_connections(GList *objects, xmlNodePtr objects_node,
+write_connections(GList *objects, xmlNodePtr layer_node,
 		  GHashTable *objects_hash)
 {
   ObjectNode obj_node;
@@ -255,7 +281,7 @@ write_connections(GList *objects, xmlNodePtr objects_node,
   int i;
 
   list = objects;
-  obj_node = objects_node->childs;
+  obj_node = layer_node->childs;
   while (list != NULL) {
     Object *obj = (Object *) list->data;
 
@@ -317,11 +343,12 @@ diagram_save(Diagram *dia, char *filename)
   FILE *file;
   xmlDocPtr doc;
   xmlNodePtr tree;
-  xmlNodePtr objects_node;
+  xmlNodePtr layer_node;
   GHashTable *objects_hash;
   int res;
   int obj_nr;
-  
+  int i;
+  Layer *layer;
   AttributeNode attr;
   
   file = fopen(filename, "w");
@@ -338,18 +365,27 @@ diagram_save(Diagram *dia, char *filename)
   tree = xmlNewChild(doc->root, NULL, "diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
-  data_add_color(attr, &dia->bg_color);
-
-  objects_node = xmlNewChild(doc->root, NULL, "objects", NULL);
+  data_add_color(attr, &dia->data->bg_color);
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 
   obj_nr = 0;
-  write_objects(dia->objects, objects_node, objects_hash, &obj_nr);
+
+  for (i=0;i<dia->data->layers->len;i++) {
+    layer_node = xmlNewChild(doc->root, NULL, "layer", NULL);
+    layer = (Layer *) g_ptr_array_index(dia->data->layers, i);
+    xmlSetProp(layer_node, "name", layer->name);
+    if (layer->visible)
+      xmlSetProp(layer_node, "visible", "true");
+    else
+      xmlSetProp(layer_node, "visible", "false");
+    
+    write_objects(layer->objects, layer_node, objects_hash, &obj_nr);
   
-  res = write_connections(dia->objects, objects_node, objects_hash);
-  if (!res)
-    return FALSE;
+    res = write_connections(layer->objects, layer_node, objects_hash);
+    if (!res)
+      return FALSE;
+  }
   
   xmlDocDump(file, doc);
   xmlFreeDoc(doc);

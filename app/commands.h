@@ -54,5 +54,8 @@ extern void objects_place_under_callback(GtkWidget *widget, gpointer data);
 extern void objects_group_callback(GtkWidget *widget, gpointer data);
 extern void objects_ungroup_callback(GtkWidget *widget, gpointer data);
 
+extern void dialogs_properties_callback(GtkWidget *widget, gpointer data);
+extern void dialogs_layers_callback(GtkWidget *widget, gpointer data);
+
 
 #endif /* COMMANDS_H */

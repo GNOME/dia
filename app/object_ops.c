@@ -164,25 +164,6 @@ object_copy_list(GList *list_orig)
   return list_copy;
 }
 
-void
-object_destroy_list(GList *list_to_be_destroyed)
-{
-  GList *list;
-  Object *obj;
-  
-  list = list_to_be_destroyed;
-  while (list != NULL) {
-    obj = (Object *)list->data;
-
-    obj->ops->destroy(obj);
-    g_free(obj);
-    
-    list = g_list_next(list);
-  }
-
-  g_list_free(list_to_be_destroyed);
-}
-
 Point
 object_list_corner(GList *list)
 {

@@ -2,6 +2,8 @@
 
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
+		diagramdata.h \
+		diagramdata.c \
 		geometry.h \
 		geometry.c \
 		color.h \

@@ -26,7 +26,7 @@ static GList *stored_list = NULL;
 static void free_stored(void)
 {
   if (stored_list != NULL) {
-    object_destroy_list(stored_list);
+    destroy_object_list(stored_list);
     stored_list = NULL;
   }
 }

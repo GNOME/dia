@@ -32,6 +32,8 @@
 #include "message.h"
 #include "config.h"
 #include "grid.h"
+#include "properties.h"
+#include "layer_dialog.h"
 
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
@@ -365,7 +367,7 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
 
   cnp_store_objects(object_copy_list(cut_list));
 
-  object_destroy_list(cut_list); /* Have to destroy it so that any attribut
+  destroy_object_list(cut_list); /* Have to destroy it so that any attribut
 				    dialogs open are closed. */
   
   diagram_flush(ddisp->diagram);
@@ -421,7 +423,7 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
   diagram_remove_all_selected(ddisp->diagram);
 
   object_add_updates_list(delete_list, ddisp->diagram);
-  object_destroy_list(delete_list);
+  destroy_object_list(delete_list);
 
   diagram_flush(ddisp->diagram);
 } 
@@ -586,12 +588,12 @@ view_show_all_callback(GtkWidget *widget, gpointer data)
   height = ddisp->renderer->renderer.pixel_height;
   
   zoom_x = (real)width /
-    (dia->extents.right - dia->extents.left);
+    (dia->data->extents.right - dia->data->extents.left);
   zoom_y = (real)height /
-    (dia->extents.bottom - dia->extents.top);
+    (dia->data->extents.bottom - dia->data->extents.top);
 
   ddisp->zoom_factor = (zoom_x<zoom_y)?zoom_x:zoom_y;
-  ddisplay_set_origo(ddisp, dia->extents.left, dia->extents.top);
+  ddisplay_set_origo(ddisp, dia->data->extents.left, dia->data->extents.top);
 
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
@@ -633,6 +635,18 @@ objects_ungroup_callback(GtkWidget *widget, gpointer data)
   diagram_ungroup_selected(ddisplay_active()->diagram);
 } 
 
+void
+dialogs_properties_callback(GtkWidget *widget, gpointer data)
+{
+  properties_show(ddisplay_active()->diagram, NULL);
+}
+
+void
+dialogs_layers_callback(GtkWidget *widget, gpointer data)
+{
+  layer_dialog_set_diagram(ddisplay_active()->diagram);
+  layer_dialog_show();
+}
 
 
 

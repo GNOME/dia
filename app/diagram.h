@@ -27,21 +27,15 @@ typedef struct _Diagram Diagram;
 #include "handle.h"
 #include "connectionpoint.h"
 #include "display.h"
+#include "diagramdata.h"
 
 struct _Diagram {
-  Rectangle extents;      /* The extents of the diagram        */
-
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
   int modified;
   
-  Color bg_color;
+  DiagramData *data;
   
-  GList *objects;         /* List of objects in the diagram,
-			     sorted by decreasing z-valued     */
-  guint selected_count;
-  GList *selected;        /* List of objects that are selected */
-
   guint display_count;
   GSList *displays;       /* List of all displays showing this diagram */
 };
@@ -64,6 +58,7 @@ extern GList *diagram_get_sorted_selected(Diagram *dia);
 /* Removes selected from objects list, NOT selected list: */
 extern GList *diagram_get_sorted_selected_remove(Diagram *dia);
 extern void diagram_add_update(Diagram *dia, Rectangle *update);
+extern void diagram_add_update_all(Diagram *dia);
 extern void diagram_add_update_pixels(Diagram *dia, Point *point,
 				      int pixel_width, int pixel_height);
 extern void diagram_flush(Diagram *dia);

@@ -128,7 +128,8 @@ create_display_shell(DDisplay *ddisp,
   ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_ref  (ddisp->shell);
   gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-  gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window", "Diagram-program");
+  gtk_window_set_wmclass (GTK_WINDOW (ddisp->shell), "diagram_window",
+			  "Dia");
   gtk_window_set_policy (GTK_WINDOW (ddisp->shell), TRUE, TRUE, TRUE);
   gtk_object_set_user_data (GTK_OBJECT (ddisp->shell), (gpointer) ddisp);
   gtk_widget_set_events (ddisp->shell, GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
@@ -547,7 +548,7 @@ create_toolbox ()
   gtk_widget_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
   gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
-			  "Diagram-program");
+			  "Dia");
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 		      GTK_SIGNAL_FUNC (toolbox_delete),

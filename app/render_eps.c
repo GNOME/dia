@@ -144,7 +144,7 @@ new_eps_renderer(Diagram *dia, char *filename)
   renderer->saved_line_style = LINESTYLE_SOLID;
   
   time_now  = time(NULL);
-  extent = &dia->extents;
+  extent = &dia->data->extents;
   
   scale = 28.346;
   

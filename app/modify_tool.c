@@ -86,7 +86,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
     GList *already;
     printf("Selected object!\n");
       
-    already = g_list_find(diagram->selected, obj);
+    already = g_list_find(diagram->data->selected, obj);
     if (already == NULL) { /* Not already selected */
       printf("Not already selected\n");
 
@@ -99,7 +99,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
 
-      object_add_updates_list(diagram->selected, diagram);
+      object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
 
       return obj;
@@ -107,7 +107,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       printf("Already selected\n");
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
-      object_add_updates_list(diagram->selected, diagram);
+      object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
       
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
@@ -254,9 +254,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     delta = to;
     point_sub(&delta, &now);
     
-    object_add_updates_list(ddisp->diagram->selected, ddisp->diagram);
-    object_list_move_delta(ddisp->diagram->selected, &delta);
-    object_add_updates_list(ddisp->diagram->selected, ddisp->diagram);
+    object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
+    object_list_move_delta(ddisp->diagram->data->selected, &delta);
+    object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
   
     diagram_update_connections_selection(ddisp->diagram);
     diagram_flush(ddisp->diagram);
@@ -382,19 +382,21 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       r.right = MAX(tool->start_box.x, tool->end_box.x);
       r.top = MIN(tool->start_box.y, tool->end_box.y);
       r.bottom = MAX(tool->start_box.y, tool->end_box.y);
-      
-      list = ddisp->diagram->objects;
 
+      list =
+	layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+      
       while (list != NULL) {
 	obj = (Object *)list->data;
 
-	if (rectangle_in_rectangle(&r, &obj->bounding_box)) {
-	  if (!diagram_is_selected(ddisp->diagram, obj))
-	    diagram_add_selected(ddisp->diagram, obj);
-	}
+	if (!diagram_is_selected(ddisp->diagram, obj))
+	  diagram_add_selected(ddisp->diagram, obj);
 	
 	list = g_list_next(list);
       }
+
+      g_list_free(list);
+      
     }
     
     ddisplay_flush(ddisp);

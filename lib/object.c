@@ -56,6 +56,7 @@ object_destroy(Object *obj)
 
 }
 
+
 /* After this copying you have to fix up:
    handles
    connections
@@ -80,6 +81,26 @@ object_copy(Object *from, Object *to)
     to->connections = NULL;
 
   to->ops = from->ops;
+}
+
+
+void
+destroy_object_list(GList *list_to_be_destroyed)
+{
+  GList *list;
+  Object *obj;
+  
+  list = list_to_be_destroyed;
+  while (list != NULL) {
+    obj = (Object *)list->data;
+
+    obj->ops->destroy(obj);
+    g_free(obj);
+    
+    list = g_list_next(list);
+  }
+
+  g_list_free(list_to_be_destroyed);
 }
 
 void
@@ -160,6 +181,7 @@ object_remove_connectionpoint(Object *obj, ConnectionPoint *conpoint)
   obj->connections =
     g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
 }
+
 
 void
 object_connect(Object *obj, Handle *handle,

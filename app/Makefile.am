@@ -18,6 +18,8 @@ dia_SOURCES = \
 	    load_save.h \
 	    disp_callbacks.c \
 	    disp_callbacks.h \
+	    layer_dialog.c \
+	    layer_dialog.h \
 	    display.c \
 	    display.h \
 	    color_area.c \

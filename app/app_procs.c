@@ -103,6 +103,7 @@ app_init (int    argc,
 
   create_toolbox();
 
+  create_layer_dialog();
 }
 
 static void

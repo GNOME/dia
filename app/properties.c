@@ -39,6 +39,8 @@ static void create_dialog()
   dialog = gtk_dialog_new();
   
   gtk_window_set_title (GTK_WINDOW (dialog), "Object properties");
+  gtk_window_set_wmclass (GTK_WINDOW (dialog),
+			  "properties_window", "Dia");
   gtk_window_set_policy (GTK_WINDOW (dialog),
 			 TRUE, TRUE, TRUE);
   gtk_container_border_width (GTK_CONTAINER (dialog), 5);
@@ -92,12 +94,13 @@ void properties_show(Diagram *dia, Object *obj)
 {
   GtkWidget *properties;
 
-  properties = obj->ops->get_properties(obj);
+  if (obj != NULL) 
+    properties = obj->ops->get_properties(obj);
 
   if (dialog == NULL)
     create_dialog();
 
-  if (properties == NULL) { /* No properties */
+  if ((obj==NULL) || (properties == NULL)) { /* No properties or no object */
     properties = no_properties_dialog;
     obj = NULL;
     dia = NULL;

@@ -29,7 +29,6 @@ extern ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
 extern void object_connect_display(DDisplay *ddisp, Object *obj,
 				   Handle *handle);
 extern GList *object_copy_list(GList *list);
-extern void object_destroy_list(GList *list);
 extern Point object_list_corner(GList *list);
 extern void object_list_move_delta(GList *objects, Point *delta);
 #endif /* OBJECT_OPS_H */
