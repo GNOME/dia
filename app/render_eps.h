@@ -43,6 +43,7 @@ struct _RendererEPS {
 
   DiaFont *current_font;
   real current_height;
+  PangoContext *context;
 };
 
 RendererEPS *new_eps_renderer(Diagram *dia, char *filename);

@@ -417,7 +417,8 @@ create_eps_renderer(DiagramData *data, const char *filename,
   double scale;
   Rectangle *extent;
   char *name;
- 
+  PangoFontDescription *font_description;
+
   file = fopen(filename, "wb");
 
   if (file==NULL) {
@@ -445,6 +446,22 @@ create_eps_renderer(DiagramData *data, const char *filename,
   time_now  = time(NULL);
   extent = &data->extents;
   
+  renderer->context = pango_ft2_get_context (300, 300/*dpi_x, dpi_y*/);
+  
+  /* Setup pango */
+  pango_context_set_language (renderer->context, pango_language_from_string ("en_US"));
+  pango_context_set_base_dir (renderer->context, PANGO_DIRECTION_LTR);
+
+  font_description = pango_font_description_new ();
+  pango_font_description_set_family (font_description, "sans");
+  pango_font_description_set_style (font_description, PANGO_STYLE_NORMAL);
+  pango_font_description_set_variant (font_description, PANGO_VARIANT_NORMAL);
+  pango_font_description_set_weight (font_description, PANGO_WEIGHT_NORMAL);
+  pango_font_description_set_stretch (font_description, PANGO_STRETCH_NORMAL);
+  pango_font_description_set_size (font_description, PANGO_SCALE);
+
+  pango_context_set_font_description (renderer->context, font_description);
+
   scale = 28.346 * data->paper.scaling;
   
   name = g_get_user_name();
@@ -1205,6 +1222,7 @@ set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   renderer->current_font = font;
   renderer->current_height = height;
+  pango_context_set_font_description(renderer->context, font->pfd);
 }
 
 static void
