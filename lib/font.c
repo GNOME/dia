@@ -1104,7 +1104,7 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 	gdk_draw_string (pixmap, font, gc,
 			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
 			 font->ascent + 1,
-			 utfbuf);
+			 text);
 #endif
 	g_free (str);
 

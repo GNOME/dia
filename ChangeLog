@@ -1,3 +1,14 @@
+2002-02-13  Akira TAGOH  <tagoh@redhat.com>
+
+	* app/render_libart.c (draw_string): fixed build issue for Win32.
+
+	* lib/font.c (font_get_suckfont): fixed typo. it could't build under
+	Win32.
+
+	* configure.in: fixed testing gtk_advancement.
+
+	* app/render_gnomeprint.c (draw_string): uses utfchar instead of char.
+
 2002-02-12  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/text.c (text_draw): fixed XIM position, when menubar is shown for

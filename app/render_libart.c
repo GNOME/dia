@@ -1257,7 +1257,7 @@ draw_string (RendererLibart *renderer,
   iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
 
   g_free (wcstr);
-# elif GTK_TALKS_UTF8_WE_DONT
+# elif defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
     iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
