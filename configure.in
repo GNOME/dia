@@ -1,6 +1,6 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.91-pre4, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
+AC_INIT(dia, 0.91-pre6, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
@@ -284,16 +284,17 @@ AC_CHECK_HEADERS(math.h,
                 have_isinf=yes))
 
 if test "$have_isinf" = "no"; then
-         AC_CHECK_HEADERS(ieeefp.h,
-                [AC_CHECK_FUNC(finite, 
-		        [AC_DEFINE([HAVE_IEEEFP_H], 1,
- 			          [Define if finite() is defined in ieeefp.h])
-                         AC_MSG_ERROR(Can't find a definition of neither 
-                                     finite nor isinf)])],
-                [AC_MSG_ERROR(Can't find neither a definition of isinf nor ieeefp.h)])
+    AC_CHECK_HEADER(ieeefp.h,
+             [AC_CHECK_FUNC(finite, 
+	               AC_DEFINE(HAVE_IEEEFP_H,1,
+		                 [Define if finite() is defined in ieeefp.h]),
+                       AC_MSG_ERROR([Can't find a definition of neither 
+                                     finite nor isinf]))],
+             [AC_MSG_ERROR(Can't find neither a definition of
+	                   isinf nor ieeefp.h)])
 else
-        AC_DEFINE([HAVE_ISINF], 1, 
-                  [Define if the isinf() function is available])
+    AC_DEFINE([HAVE_ISINF], 1, 
+              [Define if the isinf() function is available])
 fi
 
 dnl Alpha needs -mieee or we get a segfault

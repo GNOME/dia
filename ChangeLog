@@ -1,3 +1,10 @@
+2003-03-04  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: Missing comma broke HAVE_IEEEFP_H test.
+
+	* app/lineprops_area.c (dia_arrow_chooser_new): Fixing bug
+	#107511:  Make arrow selector for correct arrow type.
+
 2003-03-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* shapes/Circuit/Makefile.am (SHAPES): Added hjumper.png to
