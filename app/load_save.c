@@ -130,7 +130,13 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
-			  "Linked object not found in document."));
+			    "Linked object not found in document."));
+	  } else if (conn >= 0 && conn >= to->num_connections) {
+	    message_error(_("Error loading diagram.\n"
+			    "connection point does not exist."));
+	  } else if (handle >= 0 && handle >= obj->num_handles) {
+	    message_error(_("Error loading diagram.\n"
+			    "connection handle does not exist."));
 	  } else {
 	    object_connect(obj, obj->handles[handle],
 			   to->connections[conn]);
