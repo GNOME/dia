@@ -1,3 +1,27 @@
+dia-0.85:  18-May-2000
+* Bug fix for bringing up properties window when a group of objects that don't
+  implement the properties code are selected (james).
+* New sheets: Pneumatic, Electric and Civil (from Cyrille and Steffen).
+* New export filters: TeX PSTricks and DXF (from Jacek and Steffen
+  respectively).
+* New polygon object (Lars).
+* You can now select between symmetric, smooth and cusp as the vertex style
+  for the segments in a bezier line object (Lars, james).
+* Some fixups to make sure preferences and save files are written with
+  LC_NUMERIC set to C (james).
+* dia will now use gdk-pixbuf in preference to imlib if it is found on the
+  system when compiling.
+* there is a simple (unfinished) bonobo component now.  To build it, you
+  must pass --enable-bonobo to configure (this will not affect whether the
+  normal dia is built).  (Alex)
+* Bug fixes in FS objects by David Thompson.
+* new plugin system, along with a plugin manager where you can prevent
+  plugins from being loaded (james).
+* Objects handled by the custom sheet code now have a better distance
+  algorithm -- before it just used a bounding box (james).
+* New select submenu in the right click menu that makes it easier to select
+  groups of objects (Lars).
+
 dia-0.84:  29-February-2000
 * Bug fixes in sheet loading and object initialisation code -- this fixes
   some of the seg faults in 0.83.

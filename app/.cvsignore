@@ -3,4 +3,5 @@
 Makefile
 Makefile.in
 dia
+dia-embed
 run_dia.sh

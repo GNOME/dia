@@ -1,3 +1,14 @@
+2000-05-18  James Henstridge  <james@daa.com.au>
+
+	* NEWS: added (lots of) news items for the 0.85 release.
+
+	* app/preferences.c (prefs_save): set LC_NUMERIC to C while writing
+	the config file.
+
+	* configure.in: updated version number here.
+
+	* app/Makefile.am (run_dia.sh): include plug-ins in the lib path.
+
 2000-05-17  James Henstridge  <james@daa.com.au>
 
 	* app/app_procs.c (internal_plugin_init): register the native import

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-05-09 21:24+0200\n"
+"POT-Creation-Date: 2000-05-18 11:20+0800\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -109,23 +109,32 @@ msgstr "Namnlös-%d"
 msgid "No existing object to paste.\n"
 msgstr "Finns inget objekt att klistra in.\n"
 
-#: app/commands.c:446
+#: app/commands.c:462
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:502
+#: app/commands.c:518
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:506
+#: app/commands.c:523
+msgid "Maintainer: James Henstridge"
+msgstr ""
+
+#: app/commands.c:527
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
+#: app/commands.c:532
+#, fuzzy
+msgid "Contributors:"
+msgstr "Begränsning"
+
 #. setup buttons
-#: app/commands.c:515 app/layer_dialog.c:970 app/lineprops_area.c:540
+#: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:233 app/preferences.c:596 app/properties.c:82
+#: app/paginate_psprint.c:233 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "OK"
@@ -134,13 +143,13 @@ msgstr "OK"
 msgid "Object defaults"
 msgstr "Standardvärden för objektet"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:605
+#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:610
 #: app/properties.c:91
 msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:614 app/properties.c:101
+#: app/plugin-manager.c:146 app/preferences.c:619 app/properties.c:101
 msgid "Close"
 msgstr "Stäng"
 
@@ -152,87 +161,87 @@ msgstr "Detta objekt har inga standardvärden."
 msgid "Could not initialize Bonobo!"
 msgstr "Kunde inte initialisera Bonobo!"
 
-#: app/diagram.c:156
+#: app/diagram.c:155
 msgid "/Edit/Copy"
 msgstr "/Redigera/Kopiera"
 
-#: app/diagram.c:158
+#: app/diagram.c:157
 msgid "/Edit/Cut"
 msgstr "/Redigera/Klipp ut"
 
-#: app/diagram.c:160
+#: app/diagram.c:159
 msgid "/Edit/Paste"
 msgstr "/Redigera/Klistra in"
 
-#: app/diagram.c:163
+#: app/diagram.c:162
 msgid "/Edit/Delete"
 msgstr "/Redigera/Radera"
 
-#: app/diagram.c:167 app/menus.c:277
+#: app/diagram.c:166 app/menus.c:277
 msgid "/Edit/Copy Text"
 msgstr "/Redigera/Kopiera text"
 
-#: app/diagram.c:169 app/menus.c:278
+#: app/diagram.c:168 app/menus.c:278
 msgid "/Edit/Cut Text"
 msgstr "/Redigera/Klipp ut text"
 
-#: app/diagram.c:171
+#: app/diagram.c:170
 msgid "/Edit/Paste Text"
 msgstr "/Redigera/Klistra in text"
 
-#: app/diagram.c:174
+#: app/diagram.c:173
 msgid "/Objects/Send to Back"
 msgstr "/Objekt/Lägg underst"
 
-#: app/diagram.c:176
+#: app/diagram.c:175
 msgid "/Objects/Bring to Front"
 msgstr "/Objekt/Lägg överst"
 
-#: app/diagram.c:179
+#: app/diagram.c:178
 msgid "/Objects/Group"
 msgstr "/Objekt/Gruppera"
 
-#: app/diagram.c:181
+#: app/diagram.c:180
 msgid "/Objects/Ungroup"
 msgstr "/Objekt/Avgruppera"
 
-#: app/diagram.c:184 app/menus.c:327
+#: app/diagram.c:183 app/menus.c:327
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekt/Justera horisontelt/Vänster"
 
-#: app/diagram.c:186 app/menus.c:328
+#: app/diagram.c:185 app/menus.c:328
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekt/Justera horisontelt/Mittpunkt"
 
-#: app/diagram.c:188 app/menus.c:329
+#: app/diagram.c:187 app/menus.c:329
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekt/Justera horisontelt/Höger"
 
-#: app/diagram.c:190 app/menus.c:330
+#: app/diagram.c:189 app/menus.c:330
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekt/Justera horisontelt/Lika avstånd"
 
-#: app/diagram.c:192 app/menus.c:331
+#: app/diagram.c:191 app/menus.c:331
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekt/Justera horisontelt/Bredvid"
 
-#: app/diagram.c:194 app/menus.c:333
+#: app/diagram.c:193 app/menus.c:333
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekt/Justera vertikalt/Ovansida"
 
-#: app/diagram.c:196 app/menus.c:334
+#: app/diagram.c:195 app/menus.c:334
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekt/Justera vertikalt/Mittpunkt"
 
-#: app/diagram.c:198 app/menus.c:335
+#: app/diagram.c:197 app/menus.c:335
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekt/Justera vertikalt/Undersida"
 
-#: app/diagram.c:200 app/menus.c:336
+#: app/diagram.c:199 app/menus.c:336
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekt/Justera vertikalt/Lika avstånd"
 
-#: app/diagram.c:202 app/menus.c:337
+#: app/diagram.c:201 app/menus.c:337
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekt/Justera vertikalt/Bredvid"
 
@@ -327,13 +336,13 @@ msgstr ""
 "Detta diagram har inte sparats.\n"
 "Är du säker på att du vill stänga detta fönster?"
 
-#: app/display.c:818 app/filedlg.c:157 app/filedlg.c:346 app/preferences.c:490
+#: app/display.c:818 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
 #: lib/properties.c:267
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:828 app/filedlg.c:170 app/filedlg.c:359 app/preferences.c:490
-#: app/preferences.c:501 lib/properties.c:269 lib/properties.c:290
+#: app/display.c:828 app/filedlg.c:267 app/filedlg.c:456 app/preferences.c:495
+#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
 msgid "No"
 msgstr "Nej"
 
@@ -357,7 +366,7 @@ msgstr "/Visa/Visa kopplingspunkter"
 msgid "/View/AntiAliased"
 msgstr "/Visa/_Kantutjämnad"
 
-#: app/export_png.c:78 app/load_save.c:510 app/render_eps.c:162
+#: app/export_png.c:78 app/load_save.c:517 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -380,15 +389,37 @@ msgstr "Fel uppstod vid skrivning av PNG"
 msgid "Portable Network Graphics"
 msgstr "Skalbar vektorgrafik"
 
-#: app/filedlg.c:95
+#: app/filedlg.c:94 app/filedlg.c:381
+msgid "By extension"
+msgstr "Efter filändelse"
+
+#: app/filedlg.c:142
+#, fuzzy, c-format
+msgid ""
+"Could not determine which import filter\n"
+"to use to open '%s'"
+msgstr ""
+"Kunde inte avgöra vilket exportfilter\n"
+"att använda för att spara \"%s\""
+
+#: app/filedlg.c:166
 msgid "Open Diagram"
 msgstr "Öppna diagram"
 
-#: app/filedlg.c:143 app/filedlg.c:331
+#: app/filedlg.c:192
+#, fuzzy
+msgid "Open Options"
+msgstr "Operationer"
+
+#: app/filedlg.c:200 app/filedlg.c:540
+msgid "Determine file type:"
+msgstr "Fastställ filtyp:"
+
+#: app/filedlg.c:240 app/filedlg.c:428
 msgid "File already exists"
 msgstr "Filen finns redan"
 
-#: app/filedlg.c:147 app/filedlg.c:334
+#: app/filedlg.c:244 app/filedlg.c:431
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -397,15 +428,11 @@ msgstr ""
 "Filen '%s' existerar redan.\n"
 "Vill du skriva över den?"
 
-#: app/filedlg.c:211
+#: app/filedlg.c:308
 msgid "Save Diagram"
 msgstr "Spara diagram"
 
-#: app/filedlg.c:284
-msgid "By extension"
-msgstr "Efter filändelse"
-
-#: app/filedlg.c:391
+#: app/filedlg.c:488
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -414,17 +441,13 @@ msgstr ""
 "Kunde inte avgöra vilket exportfilter\n"
 "att använda för att spara \"%s\""
 
-#: app/filedlg.c:408
+#: app/filedlg.c:505
 msgid "Export Diagram"
 msgstr "Exportera diagram"
 
-#: app/filedlg.c:435
+#: app/filedlg.c:532
 msgid "Export Options"
 msgstr "Inställningar för export"
-
-#: app/filedlg.c:443
-msgid "Determine file type:"
-msgstr "Fastställ filtyp:"
 
 #: app/grid.c:190
 msgid "Grid options"
@@ -646,16 +669,16 @@ msgstr ""
 "Fel vid laddning av diagram.\n"
 "anslutningshandtag existerar inte."
 
-#: app/load_save.c:194
+#: app/load_save.c:193
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: '%s' för läsning.\n"
 
-#: app/load_save.c:200
+#: app/load_save.c:199
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste specificera en fil, inte en katalog.\n"
 
-#: app/load_save.c:209 app/load_save.c:214
+#: app/load_save.c:208 app/load_save.c:213
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -664,7 +687,7 @@ msgstr ""
 "Fel vid laddning av diagrammet %s.\n"
 "Okänd filtyp."
 
-#: app/load_save.c:221
+#: app/load_save.c:220
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -673,12 +696,12 @@ msgstr ""
 "Fel vid laddning av diagrammet %s.\n"
 "Dia känner inte igen denna fil."
 
-#: app/load_save.c:608
+#: app/load_save.c:615
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades att spara filen '%s'.\n"
 
-#: app/load_save.c:628
+#: app/load_save.c:635 app/load_save.c:640
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia diagram"
 
@@ -1304,94 +1327,94 @@ msgstr "Ladda"
 msgid "Unload"
 msgstr "Ladda ur"
 
-#: app/preferences.c:84
+#: app/preferences.c:85
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:85
+#: app/preferences.c:86
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:86
+#: app/preferences.c:87
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "Reset tools after create:"
 msgstr "Nollställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:103
+#: app/preferences.c:104
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:104
+#: app/preferences.c:105
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:105
+#: app/preferences.c:106
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:106
+#: app/preferences.c:107
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:107
+#: app/preferences.c:108
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:109
+#: app/preferences.c:110
 msgid "Connection Points:"
 msgstr "Kopplingspunkter:"
 
-#: app/preferences.c:110 app/preferences.c:113 app/preferences.c:121
+#: app/preferences.c:111 app/preferences.c:114 app/preferences.c:122
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:112
+#: app/preferences.c:113
 msgid "Grid:"
 msgstr "Rutnät:"
 
-#: app/preferences.c:114
+#: app/preferences.c:115
 msgid "Snap to:"
 msgstr "Hoppa till:"
 
-#: app/preferences.c:115
+#: app/preferences.c:116
 msgid "X Size:"
 msgstr "X storlek:"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Y Size:"
 msgstr "Y storlek:"
 
-#: app/preferences.c:117 app/preferences.c:122
+#: app/preferences.c:118 app/preferences.c:123
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:118 app/preferences.c:123
+#: app/preferences.c:119 app/preferences.c:124
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Page breaks:"
 msgstr "Sidobrytning:"
 
-#: app/preferences.c:233
+#: app/preferences.c:235
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:564 app/preferences.c:573
+#: app/preferences.c:569 app/preferences.c:578
 msgid "Preferences"
 msgstr "Inställningar"
 

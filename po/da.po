@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2000-05-10 10:37+0200\n"
+"POT-Creation-Date: 2000-05-18 11:20+0800\n"
 "PO-Revision-Date: 2000-05-17 11:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -134,7 +134,7 @@ msgstr "Bidragsydere:"
 #. setup buttons
 #: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:233 app/preferences.c:596 app/properties.c:82
+#: app/paginate_psprint.c:233 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "Ok"
@@ -143,13 +143,13 @@ msgstr "Ok"
 msgid "Object defaults"
 msgstr "Standardindstillinger for objekt"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:605
+#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:610
 #: app/properties.c:91
 msgid "Apply"
 msgstr "Anvend"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:614 app/properties.c:101
+#: app/plugin-manager.c:146 app/preferences.c:619 app/properties.c:101
 msgid "Close"
 msgstr "Luk"
 
@@ -336,13 +336,13 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:818 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:490
+#: app/display.c:818 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
 #: lib/properties.c:267
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:828 app/filedlg.c:267 app/filedlg.c:456 app/preferences.c:490
-#: app/preferences.c:501 lib/properties.c:269 lib/properties.c:290
+#: app/display.c:828 app/filedlg.c:267 app/filedlg.c:456 app/preferences.c:495
+#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
 msgid "No"
 msgstr "Nej"
 
@@ -422,7 +422,8 @@ msgstr "Fil eksisterer allerede"
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
-msgstr "Filen '%s' eksisterer allerede\n"
+msgstr ""
+"Filen '%s' eksisterer allerede\n"
 "Ønsker du at overskrive den"
 
 #: app/filedlg.c:308
@@ -1324,31 +1325,31 @@ msgstr "Indlæs"
 msgid "Unload"
 msgstr "Fjern"
 
-#: app/preferences.c:84
+#: app/preferences.c:85
 msgid "User Interface"
 msgstr "Brugergrænseflade"
 
-#: app/preferences.c:85
+#: app/preferences.c:86
 msgid "View Defaults"
 msgstr "Vis standard"
 
-#: app/preferences.c:86
+#: app/preferences.c:87
 msgid "Grid Lines"
 msgstr "Gitterlinjer"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "Reset tools after create:"
 msgstr "Nulstil værktøj efter opret:"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Compress saved files:"
 msgstr "Komprimér gemte filer:"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Number of undo levels:"
 msgstr "Antal fortrydniveauer:"
 
-#: app/preferences.c:103
+#: app/preferences.c:104
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1356,64 +1357,64 @@ msgstr ""
 "Omvendt trækning udpeger\n"
 "skærende objekter"
 
-#: app/preferences.c:104
+#: app/preferences.c:105
 msgid "New window:"
 msgstr "Nyt vindue:"
 
-#: app/preferences.c:105
+#: app/preferences.c:106
 msgid "Width:"
 msgstr "Bredde:"
 
-#: app/preferences.c:106
+#: app/preferences.c:107
 msgid "Height:"
 msgstr "Højde:"
 
-#: app/preferences.c:107
+#: app/preferences.c:108
 msgid "Magnify:"
 msgstr "Forstør:"
 
-#: app/preferences.c:109
+#: app/preferences.c:110
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:110 app/preferences.c:113 app/preferences.c:121
+#: app/preferences.c:111 app/preferences.c:114 app/preferences.c:122
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:112
+#: app/preferences.c:113
 msgid "Grid:"
 msgstr "Gitter:"
 
-#: app/preferences.c:114
+#: app/preferences.c:115
 msgid "Snap to:"
 msgstr "Hægt til:"
 
-#: app/preferences.c:115
+#: app/preferences.c:116
 msgid "X Size:"
 msgstr "X størrelse:"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Y Size:"
 msgstr "Y størrelse:"
 
-#: app/preferences.c:117 app/preferences.c:122
+#: app/preferences.c:118 app/preferences.c:123
 msgid "Colour:"
 msgstr "Farve:"
 
-#: app/preferences.c:118 app/preferences.c:123
+#: app/preferences.c:119 app/preferences.c:124
 msgid "Solid lines:"
 msgstr "Ubrudte linier:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Page breaks:"
 msgstr "Sideskift:"
 
-#: app/preferences.c:233
+#: app/preferences.c:235
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikke åbne '%s' for skriving"
 
-#: app/preferences.c:564 app/preferences.c:573
+#: app/preferences.c:569 app/preferences.c:578
 msgid "Preferences"
 msgstr "Indstillinger"
 
