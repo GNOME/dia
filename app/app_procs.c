@@ -545,7 +545,10 @@ app_exit(void)
    */
   static gboolean app_exit_once = FALSE;
 
-  g_return_if_fail (!app_exit_once);
+  if (app_exit_once) {
+    g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\ndescribing how you can cause this message to appear.\n"));
+    return;
+  }
 
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
@@ -610,6 +613,9 @@ app_exit(void)
   recent_file_history_write();
   
   gtk_main_quit();
+  /* This printf seems to prevent a race condition with unrefs. */
+  /* Yuck.  -Lars */
+  printf(_("Thank you for using Dia.\n"));
   app_exit_once = TRUE;
 }
 

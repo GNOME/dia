@@ -1058,17 +1058,25 @@ create_lineprops_area(GtkWidget *parent)
 }
 
 static void
-toolbox_delete (GtkWidget *widget, gpointer data)
-{
-  if (!app_is_embedded())
-    app_exit();
-}
-
-static void
 toolbox_destroy (GtkWidget *widget, gpointer data)
 {
   app_exit();
 }
+
+static void
+toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+  if (!app_is_embedded()) {
+    gulong handlerid;
+    /** Stop toolbox_destroy from being called */
+    handlerid = g_signal_handler_find(widget, G_SIGNAL_MATCH_FUNC,
+				      0, 0, NULL, toolbox_destroy, NULL);
+    if (handlerid != 0)
+      g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
+    app_exit();
+  }
+}
+
 
 /* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
  */
@@ -1160,11 +1168,11 @@ create_toolbox ()
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 		      GTK_SIGNAL_FUNC (toolbox_delete),
-		      NULL);
+		      window);
 
   gtk_signal_connect (GTK_OBJECT (window), "destroy",
 		      GTK_SIGNAL_FUNC (toolbox_destroy),
-		      NULL);
+		      window);
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);

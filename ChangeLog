@@ -1,3 +1,13 @@
+2003-07-11  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_exit): Added message for double exit, which
+	shouldn't happen any more.  Also preventing strange g_object_unref
+	messages by having a printf after gtk_main_quit.  This is really
+	weird.
+
+	* app/interface.c (toolbox_delete): Avoid double app_exit call by
+	removing handler for destroy when delete is called.
+
 2003-07-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/display.h: 
