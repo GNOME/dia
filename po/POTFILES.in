@@ -8,6 +8,7 @@ app/defaults.c
 app/dia-props.c
 app/dia_embedd.c
 app/diacanvas.c
+app/diaconv.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
 app/diagram_tree_window.c
@@ -52,10 +53,12 @@ lib/message.c
 lib/object_defaults.c
 lib/plug-ins.c
 lib/prop_inttypes.c
+lib/prop_text.c
 lib/prop_widgets.c
 lib/propdialogs.c
 lib/properties.c
 lib/properties.h
+lib/proplist.c
 lib/text.c
 lib/widgets.c
 objects/ER/attribute.c
@@ -102,6 +105,7 @@ objects/UML/realizes.c
 objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/state_term.c
+objects/UML/transition.c
 objects/UML/uml.c
 objects/UML/usecase.c
 objects/bondgraph/bondgraph.c
@@ -150,6 +154,8 @@ plug-ins/cgm/cgm.c
 plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c
 plug-ins/dxf/dxf.c
+plug-ins/gprint/diagnomeprint.c
+plug-ins/gprint/diagnomeprintrenderer.c
 plug-ins/hpgl/hpgl.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c

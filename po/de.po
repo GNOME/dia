@@ -8,13 +8,12 @@
 # Christian Neumair <chris@gnome-de.org>, 2002, 2003, 2004.
 # 
 # 
-#: ../app/sheets.c:453
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 09:39+0100\n"
-"PO-Revision-Date: 2005-02-01 09:38+0100\n"
+"POT-Creation-Date: 2005-02-21 11:48+0100\n"
+"PO-Revision-Date: 2005-02-21 11:46+0100\n"
 "Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +57,7 @@ msgstr "Ausgabeformat/-filter auswählen: %s"
 msgid "Export loaded file and exit"
 msgstr "Die geöffnete Datei exportieren und beenden"
 
-#: ../app/app_procs.c:412 ../app/app_procs.c:433
+#: ../app/app_procs.c:412 ../app/app_procs.c:433 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "AUSGABE"
 
@@ -93,7 +92,7 @@ msgstr "Mitwirkende anzeigen und beenden"
 msgid "Display version and exit"
 msgstr "Die Dia-Version anzeigen und beenden"
 
-#: ../app/app_procs.c:447
+#: ../app/app_procs.c:447 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Diese Hilfemeldung anzeigen"
 
@@ -112,7 +111,9 @@ msgstr "Dia-Version %s, kompiliert %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia-Version %s\n"
 
-#: ../app/app_procs.c:587 ../app/app_procs.c:589
+#: ../app/app_procs.c:587 ../app/app_procs.c:589 ../app/diaconv.c:201
+#: ../app/diaconv.c:203
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -165,15 +166,15 @@ msgstr ""
 "stellen Sie sicher, dass die HOME-Variable auf ein existierendes Verzeichnis "
 "zeigt."
 
-#: ../app/app_procs.c:789
+#: ../app/app_procs.c:789 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Interne Dia-Objekte und -Filter"
 
-#: ../app/app_procs.c:830
+#: ../app/app_procs.c:830 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [DATEI...]"
 
-#: ../app/app_procs.c:833
+#: ../app/app_procs.c:833 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -412,6 +413,64 @@ msgstr "Y-Position"
 msgid "Y position of child widget"
 msgstr "Y-Position des Kind-Widgets"
 
+#. &export_file_format
+#: ../app/diaconv.c:92
+msgid "Export format to use"
+msgstr "Zu verwendendes Export-Format"
+
+#: ../app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
+
+#. &export_file_name
+#: ../app/diaconv.c:94
+msgid "Export file name to use"
+msgstr "Zu verwendender Dateiname für den Export"
+
+#: ../app/diaconv.c:96
+msgid "Quiet operation"
+msgstr "Stiller Modus"
+
+#: ../app/diaconv.c:149
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Fehler: Keine Argumente übergeben.\n"
+"Starten Sie »%s --help«, um die ganze Liste der verfügbaren Optionen zu "
+"erhalten.\n"
+
+#: ../app/diaconv.c:159
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr "%s-Fehler: Nur eine der Optionen -t oder -o erlaubt."
+
+#: ../app/diaconv.c:165
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"%s-Fehler: Nur eine der Optionen -t oder -o erlaubt.\n"
+"Starten Sie »%s --help«, um die ganze Liste der verfügbaren Optionen zu "
+"erhalten.\n"
+
+#: ../app/diaconv.c:174
+#, c-format
+msgid "%s error: no input file."
+msgstr "%s-Fehler: Eine Eingabedatei ist erforderlich."
+
+#: ../app/diaconv.c:227
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr "%s-Fehler: Nur eine Eingabedatei wird erwartet."
+
+#: ../app/diaconv.c:240
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr "%s-Fehler: Die »popt«-Bibliothek ist auf diesem System nicht verfügbar"
+
 #: ../app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
 msgstr "/Objekte _sortieren"
@@ -500,8 +559,7 @@ msgstr "Diagrammbaum"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../app/dialogs.c:52 ../app/layer_dialog.c:1006
-#: ../app/paginate_psprint.c:292
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -596,11 +654,11 @@ msgstr "»%d« Objekte ausgewählt"
 msgid "Selected '%s'"
 msgstr "»%s« ausgewählt"
 
-#: ../app/display.c:1025
+#: ../app/display.c:1027
 msgid "<unnamed>"
 msgstr "<namenlos>"
 
-#: ../app/display.c:1027
+#: ../app/display.c:1029
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -609,11 +667,11 @@ msgstr ""
 "Das Diagramm »%s« wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
-#: ../app/display.c:1038
+#: ../app/display.c:1040
 msgid "Close Diagram"
 msgstr "Diagramm schließen"
 
-#: ../app/display.c:1043
+#: ../app/display.c:1045
 msgid "Discard Changes"
 msgstr "Änderungen verwerfen"
 
@@ -681,11 +739,11 @@ msgstr "Optionen zum Öffnen"
 msgid "Determine file type:"
 msgstr "Dateityp bestimmen:"
 
-#: ../app/filedlg.c:252 ../app/filedlg.c:640
+#: ../app/filedlg.c:252 ../app/filedlg.c:641
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../app/filedlg.c:257 ../app/filedlg.c:645
+#: ../app/filedlg.c:257 ../app/filedlg.c:646
 msgid "Supported Formats"
 msgstr "Unterstützte Formate"
 
@@ -922,32 +980,25 @@ msgid "Layers"
 msgstr "Ebenen"
 
 #: ../app/layer_dialog.c:226
-msgid "Diagrams:"
-msgstr "Diagramme:"
+msgid "Diagram:"
+msgstr "Diagramm:"
 
-#: ../app/layer_dialog.c:271
-msgid "Close"
-msgstr "Schließen"
+#: ../app/layer_dialog.c:332
+#, c-format
+msgid "New layer %d"
+msgstr "Neue Ebene %d"
 
-#: ../app/layer_dialog.c:331
-msgid "New layer"
-msgstr "Neue Ebene"
-
-#: ../app/layer_dialog.c:537
+#: ../app/layer_dialog.c:540
 msgid "none"
 msgstr "keine"
 
-#: ../app/layer_dialog.c:968
+#: ../app/layer_dialog.c:971
 msgid "Edit Layer Attributes"
 msgstr "Ebenenattribute bearbeiten"
 
-#: ../app/layer_dialog.c:987
+#: ../app/layer_dialog.c:990
 msgid "Layer name:"
 msgstr "Name der Ebene:"
-
-#: ../app/layer_dialog.c:996 ../app/paginate_psprint.c:284
-msgid "OK"
-msgstr "OK"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:480 ../lib/properties.h:483
 #: ../objects/chronogram/chronoline.c:181
@@ -1038,466 +1089,483 @@ msgstr "Datei »%s« konnte nicht gespeichert werden.\n"
 msgid "Dia Diagram File"
 msgstr "Dia-Diagrammdatei"
 
-#: ../app/menus.c:49 ../app/menus.c:84
+#: ../app/menus.c:49 ../app/menus.c:87
 msgid "/_File"
 msgstr "/_Datei"
 
-#: ../app/menus.c:51 ../app/menus.c:86
+#: ../app/menus.c:51 ../app/menus.c:89
 msgid "/File/_New"
 msgstr "/Datei/_Neu"
 
-#: ../app/menus.c:53 ../app/menus.c:88
+#: ../app/menus.c:53 ../app/menus.c:91
 msgid "/File/_Open..."
 msgstr "/Datei/Ö_ffnen"
 
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #. recent file list is dynamically inserted here
-#: ../app/menus.c:55 ../app/menus.c:60 ../app/menus.c:64 ../app/menus.c:66
-#: ../app/menus.c:95 ../app/menus.c:99
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#: ../app/menus.c:57 ../app/menus.c:62 ../app/menus.c:67 ../app/menus.c:69
+#: ../app/menus.c:95 ../app/menus.c:102 ../app/menus.c:106
 msgid "/File/---"
 msgstr "/Datei/---"
 
-#: ../app/menus.c:56
+#: ../app/menus.c:58
 msgid "/File/_Diagram tree"
 msgstr "/Datei/_Diagrammbaum"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:60
 msgid "/File/Sheets and Objects..."
 msgstr "/Datei/Objektbögen…"
 
-#: ../app/menus.c:61
+#: ../app/menus.c:63
 msgid "/File/_Preferences..."
 msgstr "/Datei/_Einstellungen…"
 
-#: ../app/menus.c:63
+#: ../app/menus.c:65
 msgid "/File/P_lugins..."
 msgstr "/Datei/_Plugins…"
 
-#: ../app/menus.c:67 ../app/menus.c:103
+#: ../app/menus.c:70 ../app/menus.c:110
 msgid "/File/_Quit"
 msgstr "/Datei/_Beenden"
 
-#: ../app/menus.c:69 ../app/menus.c:231
+#: ../app/menus.c:72 ../app/menus.c:257
 msgid "/_Help"
 msgstr "/_Hilfe"
 
-#: ../app/menus.c:71 ../app/menus.c:233
+#: ../app/menus.c:74 ../app/menus.c:259
 msgid "/Help/_Manual"
 msgstr "/Hilfe/Hand_buch"
 
-#: ../app/menus.c:73 ../app/menus.c:235
+#: ../app/menus.c:76 ../app/menus.c:261
 msgid "/Help/---"
 msgstr "/Hulfe/---"
 
-#: ../app/menus.c:74 ../app/menus.c:236
+#: ../app/menus.c:77 ../app/menus.c:262
 msgid "/Help/_About..."
 msgstr "/Hilfe/_Info…"
 
-#: ../app/menus.c:90
+#: ../app/menus.c:96
 msgid "/File/_Save"
 msgstr "/Datei/_Speichern"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:98
 msgid "/File/Save _As..."
 msgstr "/Datei/Speichern _unter…"
 
-#: ../app/menus.c:94
+#: ../app/menus.c:100
 msgid "/File/_Export..."
 msgstr "/Datei/E_xportieren"
 
-#: ../app/menus.c:96
+#: ../app/menus.c:103
 msgid "/File/Page Set_up..."
 msgstr "/Datei/Seiteneins_tellungen…"
 
-#: ../app/menus.c:97
+#: ../app/menus.c:104
 msgid "/File/_Print Diagram..."
 msgstr "/Datei/Diagramm _drucken…"
 
-#: ../app/menus.c:100
+#: ../app/menus.c:107
 msgid "/File/_Close"
 msgstr "/Datei/S_chließen"
 
-#: ../app/menus.c:105
+#: ../app/menus.c:112
 msgid "/_Edit"
 msgstr "/_Bearbeiten"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:114
 msgid "/Edit/_Undo"
 msgstr "/Bearbeiten/_Rückgängig"
 
-#: ../app/menus.c:109
+#: ../app/menus.c:116
 msgid "/Edit/_Redo"
 msgstr "/Bearbeiten/_Wiederherstellen"
 
-#: ../app/menus.c:111 ../app/menus.c:121
+#: ../app/menus.c:118 ../app/menus.c:128
 msgid "/Edit/---"
 msgstr "/Bearbeiten/---"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:119
 msgid "/Edit/_Copy"
 msgstr "/Bearbeiten/_Kopieren"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:121
 msgid "/Edit/C_ut"
 msgstr "/Bearbeiten/_Ausschneiden"
 
-#: ../app/menus.c:116
+#: ../app/menus.c:123
 msgid "/Edit/_Paste"
 msgstr "/Bearbeiten/E_infügen"
 
-#: ../app/menus.c:118
+#: ../app/menus.c:125
 msgid "/Edit/_Duplicate"
 msgstr "/Bearbeiten/_Duplizieren"
 
-#: ../app/menus.c:119
+#: ../app/menus.c:126
 msgid "/Edit/_Delete"
 msgstr "/Bearbeiten/_Löschen"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:129
 msgid "/Edit/Copy Text"
 msgstr "/Bearbeiten/Text kopieren"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:131
 msgid "/Edit/Cut Text"
 msgstr "/Bearbeiten/Text ausschneiden"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:133
 msgid "/Edit/Paste _Text"
 msgstr "/Bearbeiten/_Text einfügen"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:135
 msgid "/_Diagram"
 msgstr "/_Diagramm"
 
-#: ../app/menus.c:127
+#: ../app/menus.c:137
 msgid "/Diagram/_Properties..."
 msgstr "/Diagramm/Ei_genschaften…"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:139
 msgid "/Diagram/_Layers..."
 msgstr "/Diagramm/_Ebenen…"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:140
 msgid "/_View"
 msgstr "/_Ansicht"
 
-#: ../app/menus.c:131
+#: ../app/menus.c:142
 msgid "/View/Zoom _In"
 msgstr "/Ansicht/Ver_größern"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:144
 msgid "/View/Zoom _Out"
 msgstr "/Ansicht/Ver_kleinern"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:146
 msgid "/View/_Zoom"
 msgstr "/Ansicht/_Zoom"
 
-#: ../app/menus.c:137
+#: ../app/menus.c:148
+msgid "/View/Zoom/1600%"
+msgstr "/Ansicht/Zoom/1600%"
+
+#: ../app/menus.c:149
+msgid "/View/Zoom/800%"
+msgstr "/Ansicht/Zoom/800%"
+
+#: ../app/menus.c:150
 msgid "/View/Zoom/400%"
 msgstr "/Ansicht/Zoom/400%"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:151
 msgid "/View/Zoom/283%"
 msgstr "/Ansicht/Zoom/283%"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:152
 msgid "/View/Zoom/200%"
 msgstr "/Ansicht/Zoom/200%"
 
-#: ../app/menus.c:140
+#: ../app/menus.c:153
 msgid "/View/Zoom/141%"
 msgstr "/Ansicht/Zoom/141%"
 
-#: ../app/menus.c:141
+#: ../app/menus.c:154
 msgid "/View/Zoom/100%"
 msgstr "/Ansicht/Zoom/100%"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:156
 msgid "/View/Zoom/85%"
 msgstr "/Ansicht/Zoom/85%"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:157
 msgid "/View/Zoom/70.7%"
 msgstr "/Ansicht/Zoom/70.7%"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:158
 msgid "/View/Zoom/50%"
 msgstr "/Ansicht/Zoom/50%"
 
-#: ../app/menus.c:146
+#: ../app/menus.c:159
 msgid "/View/Zoom/35.4%"
 msgstr "/Ansicht/Zoom/35.4%"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:160
 msgid "/View/Zoom/25%"
 msgstr "/Ansicht/Zoom/25%"
 
-#: ../app/menus.c:148 ../app/menus.c:157
+#: ../app/menus.c:161 ../app/menus.c:170
 msgid "/View/---"
 msgstr "/Ansicht/---"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:162
 msgid "/View/Fullscr_een"
 msgstr "/Ansicht/_Vollbild"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:164
 msgid "/View/_AntiAliased"
 msgstr "/Ansicht/Kantenglätt_ung"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:166
 msgid "/View/Show _Grid"
 msgstr "/Ansicht/G_itter anzeigen"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:167
 msgid "/View/_Snap To Grid"
 msgstr "/Ansicht/Am Gitter einra_sten"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:168
 msgid "/View/Show _Rulers"
 msgstr "/Ansicht/_Lineale anzeigen"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:169
 msgid "/View/Show _Connection Points"
 msgstr "/Ansicht/Ver_bindungspunkte anzeigen"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:171
 msgid "/View/New _View"
 msgstr "/Ansicht/_Neue Ansicht"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:160
+#: ../app/menus.c:173
 msgid "/View/Show _All"
 msgstr "/Ansicht/_Alles anzeigen"
 
-#: ../app/menus.c:161
+#: ../app/menus.c:175
 msgid "/View/Re_draw"
 msgstr "/Ansicht/Neu zei_chnen"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:177
 msgid "/_Objects"
 msgstr "/_Objekte"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:179
 msgid "/Objects/Send to _Back"
 msgstr "/Objekte/Ganz nach _hinten"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:181
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekte/Ganz nach _vorne"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:183
 msgid "/Objects/Send Backwards"
 msgstr "/Objekte/Nach hinten"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:185
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekte/Nach vorne"
 
-#: ../app/menus.c:168 ../app/menus.c:172 ../app/menus.c:176 ../app/menus.c:190
+#: ../app/menus.c:187 ../app/menus.c:191 ../app/menus.c:195 ../app/menus.c:213
 msgid "/Objects/---"
 msgstr "/Objekte/---"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:188
 msgid "/Objects/_Group"
 msgstr "/Objekte/_Gruppieren"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:171
+#: ../app/menus.c:190
 msgid "/Objects/_Ungroup"
 msgstr "/Objekte/Gruppierung _aufheben"
 
 # CHECK
-#: ../app/menus.c:173
+#: ../app/menus.c:192
 msgid "/Objects/_Parent"
 msgstr "/Objekte/Elternelement _zuordnen"
 
 # CHECK
-#: ../app/menus.c:174
+#: ../app/menus.c:193
 msgid "/Objects/_Unparent"
 msgstr "/Objekte/Elternelement _trennen"
 
 # CHECK
-#: ../app/menus.c:175
+#: ../app/menus.c:194
 msgid "/Objects/_Unparent Children"
 msgstr "/Objekte/Elternelement des Kindes _trennen"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:196
 msgid "/Objects/Align"
 msgstr "/Objekte/Anordnen"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:198
 msgid "/Objects/Align/Left"
 msgstr "/Objekte/Anordnen/Links"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:200
 msgid "/Objects/Align/Center"
 msgstr "/Objekte/Anordnen/Mitte (horizontal)"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:202
 msgid "/Objects/Align/Right"
 msgstr "/Objekte/Anordnen/Rechts"
 
-#: ../app/menus.c:182
-msgid "/Objects/Align/Top"
-msgstr "/Objekte/Anordnen/Oben"
-
-#: ../app/menus.c:183
-msgid "/Objects/Align/Middle"
-msgstr "/Objekte/Anordnen/Mitte (vertikal)"
-
-#: ../app/menus.c:184
-msgid "/Objects/Align/Bottom"
-msgstr "/Objekte/Anordnen/Unten"
-
-#: ../app/menus.c:185
+#: ../app/menus.c:204 ../app/menus.c:208
 msgid "/Objects/Align/---"
 msgstr "/Objekte/Anordnen/---"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:205
+msgid "/Objects/Align/Top"
+msgstr "/Objekte/Anordnen/Oben"
+
+#: ../app/menus.c:206
+msgid "/Objects/Align/Middle"
+msgstr "/Objekte/Anordnen/Mitte (vertikal)"
+
+#: ../app/menus.c:207
+msgid "/Objects/Align/Bottom"
+msgstr "/Objekte/Anordnen/Unten"
+
+#: ../app/menus.c:209
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objekte/Anordnen/Horizontal verteilen"
 
-#: ../app/menus.c:187
+#: ../app/menus.c:210
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objekte/Anordnen/Vertikal verteilen"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:211
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objekte/Anordnen/Angrenzend"
 
-#: ../app/menus.c:189
+#: ../app/menus.c:212
 msgid "/Objects/Align/Stacked"
 msgstr "/Objekte/Anordnen/Stapeln"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:214
 msgid "/Objects/_Properties..."
 msgstr "/Objekte/Ei_genschaften…"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:216
 msgid "/_Select"
 msgstr "/Aus_wahl"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:218
 msgid "/Select/All"
 msgstr "/Auswahl/Alles"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:219
 msgid "/Select/None"
 msgstr "/Auswahl/Nichts"
 
-#: ../app/menus.c:196 ../app/menus.c:209
+#: ../app/menus.c:220
 msgid "/Select/Invert"
 msgstr "/Auswahl/Invertieren"
 
-#: ../app/menus.c:197
-msgid "/Select/Connected"
-msgstr "/Auswahl/Verbunden"
-
-#: ../app/menus.c:198
-msgid "/Select/Transitive"
-msgstr "/Auswahl/Transitiv"
-
-#: ../app/menus.c:199
-msgid "/Select/Same Type"
-msgstr "/Auswahl/Gleicher Typ"
-
-#: ../app/menus.c:200
+#: ../app/menus.c:221 ../app/menus.c:225
 msgid "/Select/---"
 msgstr "/Auswahl/---"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:222
+msgid "/Select/Transitive"
+msgstr "/Auswahl/Transitiv"
+
+#: ../app/menus.c:223
+msgid "/Select/Connected"
+msgstr "/Auswahl/Verbunden"
+
+#: ../app/menus.c:224
+msgid "/Select/Same Type"
+msgstr "/Auswahl/Gleicher Typ"
+
+#: ../app/menus.c:226
 msgid "/Select/Replace"
 msgstr "/Auswahl/Ersetzen"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:228
 msgid "/Select/Union"
-msgstr "/Auswahl/Vereinigen"
+msgstr "/Auswahl/Vereinigung"
 
-#: ../app/menus.c:205
-msgid "/Select/Intersect"
-msgstr "/Auswahl/Schneiden"
+#: ../app/menus.c:230
+msgid "/Select/Intersection"
+msgstr "/Auswahl/Überschneidung"
 
-#: ../app/menus.c:207
+#: ../app/menus.c:232
 msgid "/Select/Remove"
 msgstr "/Auswahl/Entfernen"
 
-#: ../app/menus.c:211
+#. Cannot also be called Invert, duplicate names caused keybinding problems
+#: ../app/menus.c:235
+msgid "/Select/Inverse"
+msgstr "/Auswahl/Umkehrung"
+
+#: ../app/menus.c:237
 msgid "/_Tools"
 msgstr "/_Werkzeuge"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:239
 msgid "/Tools/Modify"
 msgstr "/Werkzeuge/Modifizieren"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:240
 msgid "/Tools/Magnify"
 msgstr "/Werkzeuge/Vergrößern"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:241
 msgid "/Tools/Scroll"
 msgstr "/Werkzeuge/Rollen"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:242
 msgid "/Tools/Text"
 msgstr "/Werkzeuge/Text"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:243
 msgid "/Tools/Box"
 msgstr "/Werkzeuge/Rechteck"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:244
 msgid "/Tools/Ellipse"
 msgstr "/Werkzeuge/Ellipse"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:245
 msgid "/Tools/Polygon"
 msgstr "/Werkzeuge/Vieleck"
 
-#: ../app/menus.c:220
+#: ../app/menus.c:246
 msgid "/Tools/Beziergon"
 msgstr "/Werkzeuge/Beziergon"
 
-#: ../app/menus.c:221 ../app/menus.c:227
+#: ../app/menus.c:247 ../app/menus.c:253
 msgid "/Tools/---"
 msgstr "/Werkzeuge/---"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:248
 msgid "/Tools/Line"
 msgstr "/Werkzeuge/Linie"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:249
 msgid "/Tools/Arc"
 msgstr "/Werkzeuge/Bogen"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:250
 msgid "/Tools/Zigzagline"
 msgstr "/Werkzeuge/Zickzacklinie"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:251
 msgid "/Tools/Polyline"
 msgstr "/Werkzeuge/Linienzug"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:252
 msgid "/Tools/Bezierline"
 msgstr "/Werkzeuge/Bezierlinie"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:254
 msgid "/Tools/Image"
 msgstr "/Werkzeuge/Bild"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:255
 msgid "/_Input Methods"
 msgstr "/_Eingabemethoden"
 
-#: ../app/menus.c:400
+#: ../app/menus.c:427
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Werkzeugdaten in tool_menu_select ist NULL"
 
-#: ../app/menus.c:498
+#: ../app/menus.c:525
 msgid "Diagram Menu"
 msgstr "Diagrammmenü"
 
-#: ../app/menus.c:633
+#: ../app/menus.c:660
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1522,6 +1590,10 @@ msgstr "Drucker"
 #: ../app/paginate_psprint.c:269 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Datei"
+
+#: ../app/paginate_psprint.c:284
+msgid "OK"
+msgstr "OK"
 
 #: ../app/paginate_psprint.c:379
 #, c-format
@@ -2347,15 +2419,20 @@ msgstr ""
 "»%s« konnte nicht geöffnet werden\n"
 "»%s«"
 
-#: ../lib/properties.c:62 ../lib/properties.h:468 ../lib/widgets.c:622
+#: ../lib/prop_text.c:466
+#, c-format
+msgid "Group with %d objects"
+msgstr "Gruppe mit %d Objekten"
+
+#: ../lib/properties.c:62 ../lib/properties.h:468 ../lib/widgets.c:639
 msgid "Left"
 msgstr "Links"
 
-#: ../lib/properties.c:63 ../lib/properties.h:469 ../lib/widgets.c:628
+#: ../lib/properties.c:63 ../lib/properties.h:469 ../lib/widgets.c:645
 msgid "Center"
 msgstr "Mitte"
 
-#: ../lib/properties.c:64 ../lib/properties.h:470 ../lib/widgets.c:634
+#: ../lib/properties.c:64 ../lib/properties.h:470 ../lib/widgets.c:651
 msgid "Right"
 msgstr "Rechts"
 
@@ -2422,66 +2499,71 @@ msgstr "Füllfarbe"
 msgid "Text colour"
 msgstr "Schriftfarbe"
 
-#: ../lib/widgets.c:361
+#: ../lib/proplist.c:163
+#, c-format
+msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
+msgstr "Kein Attribut »%s« (%p) oder keine Daten (%p) in diesem Attribut"
+
+#: ../lib/widgets.c:378
 msgid "Other fonts"
 msgstr "Andere Schriften"
 
-#: ../lib/widgets.c:431
+#: ../lib/widgets.c:448
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Schriftfamilie von %s konnte nicht gefunden\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:770 ../objects/FS/function.c:1063
+#: ../lib/widgets.c:787 ../objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Durchgezogen"
 
-#: ../lib/widgets.c:776
+#: ../lib/widgets.c:793
 msgid "Dashed"
 msgstr "Gestrichelt"
 
-#: ../lib/widgets.c:782
+#: ../lib/widgets.c:799
 msgid "Dash-Dot"
 msgstr "Strich-Punkt"
 
-#: ../lib/widgets.c:788
+#: ../lib/widgets.c:805
 msgid "Dash-Dot-Dot"
 msgstr "Strich-Punkt-Punkt"
 
-#: ../lib/widgets.c:794
+#: ../lib/widgets.c:811
 msgid "Dotted"
 msgstr "Gepunktet"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:813
+#: ../lib/widgets.c:830
 msgid "Dash length: "
 msgstr "Strichlänge: "
 
-#: ../lib/widgets.c:941
+#: ../lib/widgets.c:958
 msgid "Select color"
 msgstr "Wählen Sie eine Farbe"
 
-#: ../lib/widgets.c:1007
+#: ../lib/widgets.c:1024
 msgid "More colors..."
 msgstr "Weitere Farben…"
 
-#: ../lib/widgets.c:1132
+#: ../lib/widgets.c:1149
 msgid "More arrows"
 msgstr "Weitere Pfeile"
 
-#: ../lib/widgets.c:1145
+#: ../lib/widgets.c:1162
 msgid "Size: "
 msgstr "Größe: "
 
-#: ../lib/widgets.c:1290
+#: ../lib/widgets.c:1307
 msgid "Select image file"
 msgstr "Bilddatei auswählen"
 
-#: ../lib/widgets.c:1326
+#: ../lib/widgets.c:1343
 msgid "Browse"
 msgstr "Auswählen"
 
-#: ../lib/widgets.c:1922
+#: ../lib/widgets.c:1939
 msgid "Reset menu"
 msgstr "Menü zurücksetzen"
 
@@ -2530,7 +2612,8 @@ msgstr "Total:"
 #: ../objects/GRAFCET/vector.c:311 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:725 ../objects/UML/component_feature.c:183
 #: ../objects/UML/dependency.c:372 ../objects/UML/generalization.c:368
-#: ../objects/UML/realizes.c:359 ../objects/standard/zigzagline.c:346
+#: ../objects/UML/realizes.c:359 ../objects/UML/transition.c:156
+#: ../objects/standard/zigzagline.c:346
 msgid "Add segment"
 msgstr "Segment hinzufügen"
 
@@ -2538,7 +2621,8 @@ msgstr "Segment hinzufügen"
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:726 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:373 ../objects/UML/generalization.c:369
-#: ../objects/UML/realizes.c:360 ../objects/standard/zigzagline.c:347
+#: ../objects/UML/realizes.c:360 ../objects/UML/transition.c:157
+#: ../objects/standard/zigzagline.c:347
 msgid "Delete segment"
 msgstr "Segment löschen"
 
@@ -3983,7 +4067,7 @@ msgstr "Sichtbare Kommentare"
 
 #: ../objects/UML/class.c:132 ../objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
-msgstr ""
+msgstr "Operationen umbrechen"
 
 #: ../objects/UML/class.c:134
 msgid "Wrap after char"
@@ -4340,6 +4424,30 @@ msgstr ""
 #: ../objects/UML/state_term.c:118
 msgid "Is final"
 msgstr "Ist Ende"
+
+#: ../objects/UML/transition.c:129
+msgid "Trigger"
+msgstr "Auslöser"
+
+#: ../objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr "Das Ereignis, dass den Zustandsübergang hervorruft"
+
+#: ../objects/UML/transition.c:131
+msgid "Action"
+msgstr "Aktion"
+
+#: ../objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr "Auszuführende Aktion beim Zustandsübergang"
+
+#: ../objects/UML/transition.c:133
+msgid "Guard"
+msgstr "Bedingung"
+
+#: ../objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr "Bedingung für den Zustandsübergang, wenn das Ereignis ausgelöst wurde"
 
 #: ../objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
@@ -4904,6 +5012,33 @@ msgstr "Unbekannter dfx-Code %d\n"
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "DXF Import- und Exportfilter"
+
+#: ../plug-ins/gprint/diagnomeprint.c:79
+#, c-format
+msgid ""
+"Gome Print Backend\n"
+" '%s'\n"
+" not available"
+msgstr ""
+"GNOME Print Backend\n"
+" »%s«\n"
+" nicht verfügbar"
+
+#: ../plug-ins/gprint/diagnomeprint.c:110
+msgid "GNOME PostScript"
+msgstr "GNOME PostScript"
+
+#: ../plug-ins/gprint/diagnomeprint.c:119
+msgid "GNOME Portable Document Format"
+msgstr "GNOME Portable Document Format"
+
+#: ../plug-ins/gprint/diagnomeprint.c:128
+msgid "GNOME Scalable Vector Graphic"
+msgstr "GNOME Skalierbare Vektorgrafik"
+
+#: ../plug-ins/gprint/diagnomeprint.c:159
+msgid "GNOME Print based Rendering"
+msgstr "GNOME Print-basierte Darstellung"
 
 # HP Graphics Language ist ein Name. Nicht uebersetzen.
 #: ../plug-ins/hpgl/hpgl.c:758
@@ -8204,3 +8339,6 @@ msgstr "Sybase-Datenserver"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-Replikations-Server"
+
+#~ msgid "Close"
+#~ msgstr "Schließen"
