@@ -1,5 +1,9 @@
 2001-04-16  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/display.c: remove the display idle handler in case we
+	destroy the ddisplay (causes crashes in ddd, probably random
+	crashes elsewhere).
+
 	* autogen.sh: 
 	* configure.in:
 	* Makefile.am: hack around gettext-0.10.36's new "features".

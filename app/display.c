@@ -821,6 +821,16 @@ ddisplay_active_diagram(void)
   return ddisp->diagram;
 }
 
+static void 
+ddisp_destroy(DDisplay *ddisp)
+{
+  if (ddisp->update_id) {
+    gtk_idle_remove(ddisp->update_id);
+    ddisp->update_id = 0;
+  }
+  gtk_widget_destroy (ddisp->shell);
+}
+
 static void
 are_you_sure_close_dialog_cancel(GtkWidget *widget, GtkWidget *dialog)
 {
@@ -838,8 +848,13 @@ are_you_sure_close_dialog_yes(GtkWidget *widget,
   /* save changes */
   diagram_save(ddisp->diagram, ddisp->diagram->filename);
   
+  if (ddisp->update_id) {
+    gtk_idle_remove(ddisp->update_id);
+    ddisp->update_id = 0;
+  }
+
   gtk_widget_destroy(dialog);
-  gtk_widget_destroy (ddisp->shell);
+  ddisp_destroy (ddisp);
 }
 
 static void
@@ -851,9 +866,8 @@ are_you_sure_close_dialog_no(GtkWidget *widget,
   ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
 
   gtk_widget_destroy(dialog);
-  gtk_widget_destroy (ddisp->shell);
+  ddisp_destroy(ddisp);
 }
-
 
 void
 ddisplay_close(DDisplay *ddisp)
@@ -868,7 +882,7 @@ ddisplay_close(DDisplay *ddisp)
   
   if ( (dia->display_count > 1) ||
        (!dia->modified) ) {
-    gtk_widget_destroy (ddisp->shell);
+    ddisp_destroy(ddisp);
     return;
   }
 
