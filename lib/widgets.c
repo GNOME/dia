@@ -1000,6 +1000,13 @@ dia_color_selector_set_color (GtkWidget *widget,
   red = color->red * 255;
   green = color->green * 255;
   blue = color->blue * 255;
+  if (color->red > 1.0 || color->green > 1.0 || color->blue > 1.0) {
+    printf("Color out of range: r %f, g %f, b %f\n",
+	   color->red, color->green, color->blue);
+    red = MIN(red, 255);
+    green = MIN(green, 255);
+    blue = MIN(blue, 255);
+  }
   entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(widget), entry);
 }

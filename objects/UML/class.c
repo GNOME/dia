@@ -1,4 +1,3 @@
-/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 c-style: "K&R" -*- */
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -1682,7 +1681,68 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->text_color); 
 
-  /* Attribute info: */
+  attr_node = object_find_attribute(obj_node, "normal_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->normal_font);
+    umlclass->normal_font = data_font(attribute_first_data(attr_node));
+  }
+  attr_node = object_find_attribute(obj_node, "abstract_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->abstract_font);
+    umlclass->abstract_font = data_font(attribute_first_data(attr_node));
+  }
+  attr_node = object_find_attribute(obj_node, "polymorphic_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->polymorphic_font);
+    umlclass->polymorphic_font = data_font(attribute_first_data(attr_node));
+  }
+  attr_node = object_find_attribute(obj_node, "classname_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->classname_font);
+    umlclass->classname_font = data_font(attribute_first_data(attr_node));
+  }
+  attr_node = object_find_attribute(obj_node, "abstract_classname_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->abstract_classname_font);
+    umlclass->abstract_classname_font = data_font(attribute_first_data(attr_node));
+  }
+  attr_node = object_find_attribute(obj_node, "comment_font");
+  if (attr_node != NULL) {
+    dia_font_unref(umlclass->comment_font);
+    umlclass->comment_font = data_font(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "font_height");
+  if (attr_node != NULL) {
+    umlclass->font_height = data_real(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "polymorphic_font_height");
+  if (attr_node != NULL) {
+    umlclass->polymorphic_font_height = data_real(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "abstract_font_height");
+  if (attr_node != NULL) {
+    umlclass->abstract_font_height = data_real(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "classname_font_height");
+  if (attr_node != NULL) {
+    umlclass->classname_font_height = data_real(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "abstract_classname_font_height");
+  if (attr_node != NULL) {
+    umlclass->abstract_classname_font_height = data_real(attribute_first_data(attr_node));
+  }
+
+  attr_node = object_find_attribute(obj_node, "comment_font_height");
+  if (attr_node != NULL) {
+    umlclass->comment_font_height = data_real(attribute_first_data(attr_node));
+  }
+
+ /* Attribute info: */
   attr_node = object_find_attribute(obj_node, "attributes");
   num_attr = num = attribute_num_data(attr_node);
   composite = attribute_first_data(attr_node);
