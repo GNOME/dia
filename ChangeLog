@@ -1,3 +1,16 @@
+2000-08-28  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* app/magnify.c:
+	* app/cursor.h:
+	* app/cursor.c:
+	* app/scroll_tool.c:
+	Standardized cursor function get_cursor().  Magnify now has
+	looking-glass cursor with + and -.
+
+	* app/create_object.c (create_object_button_press): 
+	Newly created connections now snap to connection points even when
+	off the grid. 
+
 2000-08-17  Daniel Egger  <egger@suse.de>
 
 	* app/menus.c: #ifdef'ed some code for the none GNOME
