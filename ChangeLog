@@ -1,3 +1,18 @@
+2002-07-11  Andrew Ferrier  <andrew@new-destiny.co.uk>
+
+       * HACKING: completely changed to bring up-to-date.
+       * AUTHORS: file needs REMOVING from CVS as now
+         dynamically generated.
+       * app/authors.h: split into subcategories for original
+         authors, maintainers, etc.
+       * app/app_procs.c: --credits rewritten to support new
+         app/authors.h
+       * app/commands.c: no changes to about box code, comment
+         added though.
+       * Makefile.am: added rule for AUTHORS. I'm still
+         inexperienced with automake, it seems to work, but
+         for AUTHORS-related bugs, look at this change first.
+
 2002-07-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/uml.c: 
