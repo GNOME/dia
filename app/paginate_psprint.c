@@ -9,7 +9,7 @@
 
 /* Paper definitions stollen from gnome-libs.
  * All measurements are in centimetres. */
-static const struct {
+static const struct _dia_paper_metrics {
   gchar *paper;
   gdouble pswidth, psheight;
   gdouble lmargin, tmargin, rmargin, bmargin;
@@ -33,6 +33,19 @@ static const struct {
   { "Envelope-C5", 16.2278, 22.9306, 0.1764, 0.1764, 0.1764, 0.1764 },
   { "EuroPostcard", 10.5128, 14.8167, 0.1764, 0.1764, 0.1764, 0.1764 },
   { NULL, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }
+};
+
+/* keep track of print options between prints */
+typedef struct _dia_print_options {
+    int printer;
+    char *command;
+    char *output;
+    int paper;
+    float scaling;
+} dia_print_options;
+static dia_print_options last_print_options = 
+{
+    0, NULL, NULL, 0, 1.000
 };
 
 static void
@@ -144,7 +157,7 @@ paginate_psprint(Diagram *dia, FILE *file, const gchar *paper_name,
       nobjs += print_page(dia->data,rend, &page_bounds, lmargin,bmargin,scale);
     }
 
-  free(rend);
+  g_free(rend);
 }
 
 static void
@@ -204,7 +217,9 @@ diagram_print_ps(Diagram *dia)
   gtk_widget_show(iscmd);
 
   cmd = gtk_entry_new();
-  gtk_entry_set_text(GTK_ENTRY(cmd), "lpr");
+  gtk_entry_set_text(GTK_ENTRY(cmd), 
+		     last_print_options.command 
+		     ? last_print_options.command : "lpr");
   gtk_table_attach(GTK_TABLE(table), cmd, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(cmd);
@@ -219,7 +234,9 @@ diagram_print_ps(Diagram *dia)
 
   ofile = gtk_entry_new();
   gtk_widget_set_sensitive(ofile, FALSE);
-  gtk_entry_set_text(GTK_ENTRY(ofile), "output.ps");
+  gtk_entry_set_text(GTK_ENTRY(ofile), 
+		     last_print_options.output 
+		     ? last_print_options.output : "output.ps");
   gtk_table_attach(GTK_TABLE(table), ofile, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(ofile);
@@ -243,6 +260,7 @@ diagram_print_ps(Diagram *dia)
   gtk_combo_set_popdown_strings(GTK_COMBO(papersel), items);
   gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(papersel)->entry), "A4");
   gtk_box_pack_start(GTK_BOX(box), papersel, TRUE, TRUE, 0);
+  /* TODO: set selection to last_print_options.paper */
   gtk_widget_show(papersel);
 
   frame = gtk_frame_new(_("Scaling"));
@@ -256,7 +274,7 @@ diagram_print_ps(Diagram *dia)
   gtk_widget_show(box);
 
   scaler = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1.0,0.1,10.0,0.1,0.1,1.0)), 0, 3);
+	GTK_ADJUSTMENT(gtk_adjustment_new(last_print_options.scaling,0.1,10.0,0.1,0.1,1.0)), 0, 3);
   gtk_box_pack_start(GTK_BOX(box), scaler, TRUE, TRUE, 0);
   gtk_widget_show(scaler);
 
@@ -288,12 +306,31 @@ diagram_print_ps(Diagram *dia)
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
     file = popen(gtk_entry_get_text(GTK_ENTRY(cmd)), "w");
     is_pipe = TRUE;
+
+    last_print_options.printer = 0;
+    if ( last_print_options.command ) 
+	g_free( last_print_options.command );
+    last_print_options.command = 
+	g_strdup( gtk_entry_get_text(GTK_ENTRY(cmd)) );
+    
   } else {
     file = fopen(gtk_entry_get_text(GTK_ENTRY(ofile)), "w");
     is_pipe = FALSE;
+
+    last_print_options.printer = 1;
+    if ( last_print_options.output ) 
+	g_free( last_print_options.output );
+    last_print_options.output = 
+	g_strdup( gtk_entry_get_text(GTK_ENTRY(ofile)) );
   }
+
   papername = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(papersel)->entry));
+  last_print_options.paper = 
+      ( (char*)(GTK_COMBO(papersel)->entry) - (char *)(paper_metrics) ) 
+      / sizeof( struct _dia_paper_metrics );
+
   scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(scaler));
+  last_print_options.scaling = scale;
 
   if (!file)
     g_warning("could not open file");
