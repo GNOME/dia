@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-11 15:04-0400\n"
-"PO-Revision-Date: 2004-09-11 22:44-0400\n"
+"POT-Creation-Date: 2004-09-20 11:35-0400\n"
+"PO-Revision-Date: 2004-09-20 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -263,7 +263,7 @@ msgstr ""
 "Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
 
-#: app/commands.c:620 dia.desktop.in.h:1
+#: app/commands.c:620
 msgid "Dia"
 msgstr "Dia"
 
@@ -1946,9 +1946,13 @@ msgstr "Loading ..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
+#: dia.desktop.in.h:1
+msgid "Dia Diagram Editor"
+msgstr "Dia Diagram Editor"
+
 #: dia.desktop.in.h:2
-msgid "Diagram editor"
-msgstr "Diagram editor"
+msgid "Edit your Diagrams"
+msgstr "Edit your Diagrams"
 
 #: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
 msgid "None"
@@ -4820,7 +4824,7 @@ msgstr "Dia Shape File"
 msgid "dia shape export filter"
 msgstr "dia shape export filter"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:641
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:643
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4841,11 +4845,11 @@ msgstr "Unexpected SVG path element"
 msgid "Courier"
 msgstr "Courier"
 
-#: plug-ins/svg/svg-import.c:590
+#: plug-ins/svg/svg-import.c:592
 msgid "Could not find SVG namespace."
 msgstr "Could not find SVG namespace."
 
-#: plug-ins/svg/svg-import.c:596
+#: plug-ins/svg/svg-import.c:598
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "root element was '%s' -- expecting 'svg'."
