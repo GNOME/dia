@@ -692,71 +692,50 @@ beziershape_draw_control_lines(BezierShape *bez, Renderer *renderer)
 }
 
 void
-beziershape_init(BezierShape *bezier)
+beziershape_init(BezierShape *bezier, int num_points)
 {
   Object *obj;
+  int i;
 
   obj = &bezier->object;
 
-  object_init(obj, 6, 4);
+  object_init(obj, 3*(num_points-1), 2*(num_points-1));
   
-  bezier->numpoints = 3;
+  bezier->numpoints = num_points;
 
-  bezier->points = g_new(BezPoint, 3);
+  bezier->points = g_new(BezPoint, num_points);
   bezier->points[0].type = BEZ_MOVE_TO;
-  bezier->points[1].type = BEZ_CURVE_TO;
-  bezier->points[2].type = BEZ_CURVE_TO;
+  bezier->corner_types = g_new(BezCornerType, num_points);
+  for (i = 1; i < num_points; i++) {
+    bezier->points[i].type = BEZ_CURVE_TO;
+    bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+  }
 
-  bezier->corner_types = g_new(BezCornerType, 3);
-  bezier->corner_types[0] = BEZ_CORNER_SYMMETRIC;
-  bezier->corner_types[1] = BEZ_CORNER_SYMMETRIC;
-  bezier->corner_types[2] = BEZ_CORNER_SYMMETRIC;
-
-  bezier->object.handles[0] = g_new(Handle, 1);
-  bezier->object.handles[1] = g_new(Handle, 1);
-  bezier->object.handles[2] = g_new(Handle, 1);
-  bezier->object.handles[3] = g_new(Handle, 1);
-  bezier->object.handles[4] = g_new(Handle, 1);
-  bezier->object.handles[5] = g_new(Handle, 1);
-
-  obj->handles[0]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[0]->connected_to = NULL;
-  obj->handles[0]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[0]->id = HANDLE_RIGHTCTRL;
+  for (i = 0; i < num_points-1; i++) {
+    obj->handles[3*i] = g_new(Handle, 1);
+    obj->handles[3*i+1] = g_new(Handle, 1);
+    obj->handles[3*i+2] = g_new(Handle, 1);
   
-  obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id = HANDLE_LEFTCTRL;
+    obj->handles[3*i]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3*i]->connected_to = NULL;
+    obj->handles[3*i]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3*i]->id = HANDLE_RIGHTCTRL;
 
-  obj->handles[2]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[2]->connected_to = NULL;
-  obj->handles[2]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[2]->id = HANDLE_BEZMAJOR;
-
-  obj->handles[3]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[3]->connected_to = NULL;
-  obj->handles[3]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[3]->id = HANDLE_RIGHTCTRL;
+    obj->handles[3*i+1]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3*i+1]->connected_to = NULL;
+    obj->handles[3*i+1]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3*i+1]->id = HANDLE_LEFTCTRL;
   
-  obj->handles[4]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[4]->connected_to = NULL;
-  obj->handles[4]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[4]->id = HANDLE_LEFTCTRL;
+    obj->handles[3*i+2]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3*i+2]->connected_to = NULL;
+    obj->handles[3*i+2]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[3*i+2]->id = HANDLE_BEZMAJOR;
 
-  obj->handles[5]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[5]->connected_to = NULL;
-  obj->handles[5]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[5]->id = HANDLE_BEZMAJOR;
-
-  obj->connections[0] = g_new0(ConnectionPoint, 1);
-  obj->connections[1] = g_new0(ConnectionPoint, 1);
-  obj->connections[2] = g_new0(ConnectionPoint, 1);
-  obj->connections[3] = g_new0(ConnectionPoint, 1);
-  obj->connections[0]->object = obj;
-  obj->connections[1]->object = obj;
-  obj->connections[2]->object = obj;
-  obj->connections[3]->object = obj;
+    obj->connections[2*i] = g_new0(ConnectionPoint, 1);
+    obj->connections[2*i+1] = g_new0(ConnectionPoint, 1);
+    obj->connections[2*i]->object = obj;
+    obj->connections[2*i+1]->object = obj;
+  }
 
   /* The points are not assigned at this point, so don't try to use
      them */

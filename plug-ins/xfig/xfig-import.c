@@ -244,6 +244,58 @@ create_standard_polygon(int num_points,
     return new_obj;
 }
 
+static Object *
+create_standard_bezierline(int num_points, 
+			   BezPoint *points,
+			   DiagramData *dia) {
+    ObjectType *otype = object_get_type("Standard - BezierLine");
+    Object *new_obj;
+    Handle *h1, *h2;
+    BezierlineCreateData *bcd;
+
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
+    }
+
+    bcd = g_new(BezierlineCreateData, 1);
+    bcd->num_points = num_points;
+    bcd->points = points;
+
+    new_obj = otype->ops->create(NULL, bcd,
+				 &h1, &h2);
+
+    g_free(bcd);
+    
+    return new_obj;
+}
+
+static Object *
+create_standard_beziergon(int num_points, 
+			  BezPoint *points,
+			  DiagramData *dia) {
+    ObjectType *otype = object_get_type("Standard - Beziergon");
+    Object *new_obj;
+    Handle *h1, *h2;
+    BeziergonCreateData *bcd;
+
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
+    }
+
+    bcd = g_new(BeziergonCreateData, 1);
+    bcd->num_points = num_points;
+    bcd->points = points;
+
+    new_obj = otype->ops->create(NULL, bcd,
+				 &h1, &h2);
+
+    g_free(bcd);
+    
+    return new_obj;
+}
+
 
 static PropDescription xfig_arc_prop_descs[] = {
     { "curve_distance", PROP_TYPE_REAL },
@@ -602,138 +654,289 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 
 static Object *
 fig_read_polyline(FILE *file, DiagramData *dia) {
-     int sub_type;
-     int line_style;
-     int thickness;
-     int pen_color;
-     int fill_color;
-     int depth;
-     int pen_style;
-     int area_fill;
-     real style_val;
-     int join_style;
-     int cap_style;
-     int radius;
-     int forward_arrow;
-     int backward_arrow;
-     int npoints;
-     Point *points;
-     GPtrArray *props = g_ptr_array_new();
-     Object *newobj = NULL;
-     int flipped = 0;
-     char *image_file = NULL;
+    int sub_type;
+    int line_style;
+    int thickness;
+    int pen_color;
+    int fill_color;
+    int depth;
+    int pen_style;
+    int area_fill;
+    real style_val;
+    int join_style;
+    int cap_style;
+    int radius;
+    int forward_arrow;
+    int backward_arrow;
+    int npoints;
+    Point *points;
+    GPtrArray *props = g_ptr_array_new();
+    Object *newobj = NULL;
+    int flipped = 0;
+    char *image_file = NULL;
 
-     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %d %d\n",
-		&sub_type,
-		&line_style,
-		&thickness,
-		&pen_color,
-		&fill_color,
-		&depth,
-		&pen_style,
-		&area_fill,
-		&style_val,
-		&join_style,
-		&cap_style,
-		&radius,
-		&forward_arrow,
-		&backward_arrow,
-		&npoints) != 15) {
-       message_error(_("Couldn't read polyline info: %s\n"), strerror(errno));
-       return NULL;
-     }
+    if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %d %d\n",
+	       &sub_type,
+	       &line_style,
+	       &thickness,
+	       &pen_color,
+	       &fill_color,
+	       &depth,
+	       &pen_style,
+	       &area_fill,
+	       &style_val,
+	       &join_style,
+	       &cap_style,
+	       &radius,
+	       &forward_arrow,
+	       &backward_arrow,
+	       &npoints) != 15) {
+	message_error(_("Couldn't read polyline info: %s\n"), strerror(errno));
+	return NULL;
+    }
 
-     if (forward_arrow == 1) {
-       fig_read_arrow(file);
-     }
+    if (forward_arrow == 1) {
+	fig_read_arrow(file);
+    }
 
-     if (backward_arrow == 1) {
-       fig_read_arrow(file);
-     }
+    if (backward_arrow == 1) {
+	fig_read_arrow(file);
+    }
 
-     if (sub_type == 5) { /* image has image name before npoints */
-	                  /* Despite what the specs say */
-	 if (fscanf(file, " %d", &flipped) != 1) {
-	     message_error(_("Couldn't read flipped bit: %s\n"), strerror(errno));
-	     return NULL;
-	 }
+    if (sub_type == 5) { /* image has image name before npoints */
+	/* Despite what the specs say */
+	if (fscanf(file, " %d", &flipped) != 1) {
+	    message_error(_("Couldn't read flipped bit: %s\n"), strerror(errno));
+	    return NULL;
+	}
 
-	 image_file = fig_read_text_line(file);
+	image_file = fig_read_text_line(file);
 
-     }
+    }
 
-     if (!fig_read_n_points(file, npoints, &points)) {
-       return NULL;
-     }
+    if (!fig_read_n_points(file, npoints, &points)) {
+	return NULL;
+    }
      
-     switch (sub_type) {
-     case 4: {
-         RealProperty *rprop = 
-             (RealProperty *)make_new_prop("corner_radius",
-                                           PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
-	 if (radius < 0) {
-	     message_warning(_("Negative corner radius, negating"));
-             rprop->real_data = -radius/FIG_ALT_UNIT;
-	 } else {
-             rprop->real_data = radius/FIG_ALT_UNIT;
-	 }
-         g_ptr_array_add(props,rprop);
-     }
-	 /* Notice fallthrough */
-     case 2: /* box */
-	 if (points[0].x > points[2].x) {
-	     real tmp = points[0].x;
-	     points[0].x = points[2].x;
-	     points[2].x = tmp;
-	 }
-	 if (points[0].y > points[2].y) {
-	     real tmp = points[0].y;
-	     points[0].y = points[2].y;
-	     points[2].y = tmp;
-	 }
-	 newobj = create_standard_box(points[0].x, points[0].y,
-				      points[2].x-points[0].x,
-				      points[2].y-points[0].y, dia);
-	 if (newobj == NULL) goto exit;
-	 newobj->ops->set_props(newobj, props);
-	 break;
-     case 5: /* imported-picture bounding-box) */
-	 newobj = create_standard_image(points[0].x, points[0].y,
-					points[2].x-points[0].x,
-					points[2].y-points[0].y,
-					image_file, dia);
-	 if (newobj == NULL) goto exit;
-	 break;
-     case 1: /* polyline */
-	 newobj = create_standard_polyline(npoints, points, dia);
-	 if (newobj == NULL) goto exit;
-	 break;
-     case 3: /* polygon */
-	 newobj = create_standard_polygon(npoints, points, dia);
-	 if (newobj == NULL) goto exit;
-	 break;
-     default: 
-       message_error(_("Unknown polyline subtype: %d\n"), sub_type);
-       goto exit;
-     }
+    switch (sub_type) {
+    case 4: {
+	RealProperty *rprop = 
+	    (RealProperty *)make_new_prop("corner_radius",
+					  PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
+	if (radius < 0) {
+	    message_warning(_("Negative corner radius, negating"));
+	    rprop->real_data = -radius/FIG_ALT_UNIT;
+	} else {
+	    rprop->real_data = radius/FIG_ALT_UNIT;
+	}
+	g_ptr_array_add(props,rprop);
+    }
+	/* Notice fallthrough */
+    case 2: /* box */
+	if (points[0].x > points[2].x) {
+	    real tmp = points[0].x;
+	    points[0].x = points[2].x;
+	    points[2].x = tmp;
+	}
+	if (points[0].y > points[2].y) {
+	    real tmp = points[0].y;
+	    points[0].y = points[2].y;
+	    points[2].y = tmp;
+	}
+	newobj = create_standard_box(points[0].x, points[0].y,
+				     points[2].x-points[0].x,
+				     points[2].y-points[0].y, dia);
+	if (newobj == NULL) goto exit;
+	newobj->ops->set_props(newobj, props);
+	break;
+    case 5: /* imported-picture bounding-box) */
+	newobj = create_standard_image(points[0].x, points[0].y,
+				       points[2].x-points[0].x,
+				       points[2].y-points[0].y,
+				       image_file, dia);
+	if (newobj == NULL) goto exit;
+	break;
+    case 1: /* polyline */
+	newobj = create_standard_polyline(npoints, points, dia);
+	if (newobj == NULL) goto exit;
+	break;
+    case 3: /* polygon */
+	newobj = create_standard_polygon(npoints, points, dia);
+	if (newobj == NULL) goto exit;
+	break;
+    default: 
+	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
+	goto exit;
+    }
 
-     fig_simple_properties(newobj, line_style, thickness,
-			   pen_color, fill_color, area_fill);
-     /* Pen style field (not used) */
-     /* Style_val (size of dots and dashes) in 1/80 inch*/
-     /* Join style */
-     /* Cap style */
+    fig_simple_properties(newobj, line_style, thickness,
+			  pen_color, fill_color, area_fill);
+    /* Pen style field (not used) */
+    /* Style_val (size of dots and dashes) in 1/80 inch*/
+    /* Join style */
+    /* Cap style */
      
-     /* Depth field */
-     if (compound_stack == NULL)
-	 depths[depth] = g_list_prepend(depths[depth], newobj);
-     else
-	 if (compound_depth > depth) compound_depth = depth;
+    /* Depth field */
+    if (compound_stack == NULL)
+	depths[depth] = g_list_prepend(depths[depth], newobj);
+    else
+	if (compound_depth > depth) compound_depth = depth;
  exit:
-     prop_list_free(props);
-     if (image_file != NULL)
-	 g_free(image_file);
-     return newobj;
+    prop_list_free(props);
+    if (image_file != NULL)
+	g_free(image_file);
+    return newobj;
+}
+
+#define TENSION 0.25
+
+static BezPoint *transform_spline(int npoints, Point *points, gboolean closed) {
+    BezPoint *bezpoints = g_new(BezPoint, npoints);
+    int i;
+    Point vector;
+
+    for (i = 0; i < npoints; i++) {
+	bezpoints[i].p3 = points[i];
+	bezpoints[i].type = BEZ_CURVE_TO;
+    }
+    bezpoints[0].type = BEZ_MOVE_TO;
+    bezpoints[0].p1 = points[0];
+    for (i = 1; i < npoints-1; i++) {
+	bezpoints[i].p2 = points[i];
+	bezpoints[i+1].p1 = points[i];
+	vector = points[i-1];
+	point_sub(&vector, &points[i+1]);
+	point_scale(&vector, -TENSION);
+	point_sub(&bezpoints[i].p2, &vector);
+	point_add(&bezpoints[i+1].p1, &vector);
+    }
+    if (closed) {
+	bezpoints[npoints-1].p2 = points[i];
+	bezpoints[1].p1 = points[i];
+	vector = points[npoints-2];
+	point_sub(&vector, &points[1]);
+	point_scale(&vector, -TENSION);
+	point_sub(&bezpoints[npoints-1].p2, &vector);
+	point_add(&bezpoints[1].p1, &vector);
+    } else {
+	bezpoints[1].p1 = points[0];
+	bezpoints[npoints-1].p2 = bezpoints[npoints-1].p3;
+    }
+    return bezpoints;
+}
+
+static Object *
+fig_read_spline(FILE *file, DiagramData *dia) {
+    int sub_type;
+    int line_style;
+    int thickness;
+    int pen_color;
+    int fill_color;
+    int depth;
+    int pen_style;
+    int area_fill;
+    real style_val;
+    int cap_style;
+    int forward_arrow;
+    int backward_arrow;
+    int npoints;
+    Point *points;
+    GPtrArray *props = g_ptr_array_new();
+    Object *newobj = NULL;
+    BezPoint *bezpoints;
+    int i;
+
+    if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d\n",
+	       &sub_type,
+	       &line_style,
+	       &thickness,
+	       &pen_color,
+	       &fill_color,
+	       &depth,
+	       &pen_style,
+	       &area_fill,
+	       &style_val,
+	       &cap_style,
+	       &forward_arrow,
+	       &backward_arrow,
+	       &npoints) != 13) {
+	message_error(_("Couldn't read spline info: %s\n"), strerror(errno));
+	return NULL;
+    }
+
+    if (forward_arrow == 1) {
+	fig_read_arrow(file);
+    }
+
+    if (backward_arrow == 1) {
+	fig_read_arrow(file);
+    }
+
+    if (!fig_read_n_points(file, npoints, &points)) {
+	return NULL;
+    }
+     
+    switch (sub_type) {
+    case 0: /* Open approximated spline */
+    case 1: /* Closed approximated spline */
+	message_warning(_("Cannot convert approximated spline yet."));
+	goto exit;
+    case 2: /* Open interpolated spline */
+    case 3: /* Closed interpolated spline */
+	/* Despite what the Fig description says, interpolated splines
+	   now also have the line with spline info from the X-spline */
+    case 4: /* Open X-spline */
+    case 5: /* Closed X-spline */
+	{
+	    gboolean interpolated = TRUE;
+	    for (i = 0; i < npoints; i++) {
+		double f;
+		if (fscanf(file, " %lf ", &f) != 1) {
+		    message_error(_("Couldn't read spline info: %s\n"),
+				  strerror(errno));
+		    goto exit;
+		}
+		if (f != -1.0 && f != 0.0) {
+		    message_warning(_("Cannot convert approximated spline yet."));
+		    interpolated = FALSE;
+		}
+	    }
+	    if (!interpolated)
+		goto exit;
+	}
+	/* Notice fallthrough */
+	if (sub_type%2 == 0) {
+	    bezpoints = transform_spline(npoints, points, FALSE);
+	    newobj = create_standard_bezierline(npoints, bezpoints, dia);
+	} else {
+	    points = g_renew(Point, points, npoints+1);
+	    points[npoints] = points[0];
+	    npoints++;
+	    bezpoints = transform_spline(npoints, points, TRUE);
+	    newobj = create_standard_beziergon(npoints, bezpoints, dia);
+	}
+	if (newobj == NULL) goto exit;
+	break;
+    default: 
+	message_error(_("Unknown spline subtype: %d\n"), sub_type);
+	goto exit;
+    }
+
+    fig_simple_properties(newobj, line_style, thickness,
+			  pen_color, fill_color, area_fill);
+    /* Pen style field (not used) */
+    /* Style_val (size of dots and dashes) in 1/80 inch*/
+    /* Cap style */
+     
+    /* Depth field */
+    if (compound_stack == NULL)
+	depths[depth] = g_list_prepend(depths[depth], newobj);
+    else
+	if (compound_depth > depth) compound_depth = depth;
+ exit:
+    prop_list_free(props);
+    g_free(points);
+    return newobj;
 }
 
 static Object *
@@ -953,8 +1156,11 @@ fig_read_object(FILE *file, DiagramData *dia) {
       }
       break;
   case 3: /* Spline which includes closed/open control/interpolated spline. */
-      message_warning(_("Spline import is not implemented yet"));
-      return FALSE;
+      item = fig_read_spline(file, dia);
+      if (item == NULL) {
+	  return FALSE;
+      }
+      break;
   case 4: /* Text. */
       item = fig_read_text(file, dia);
       if (item == NULL) {

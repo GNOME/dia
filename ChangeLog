@@ -1,5 +1,8 @@
 2002-07-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-import.c: 
+	Spline import for xfig.  Not perfect.
+
 	* objects/standard/create.h: 
 	* objects/standard/bezier.c (bezierline_create): 
 	* lib/bezier_conn.c: 

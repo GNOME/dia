@@ -37,6 +37,7 @@
 #include "diamenu.h"
 #include "message.h"
 #include "properties.h"
+#include "create.h"
 
 #include "pixmaps/beziergon.xpm"
 
@@ -333,24 +334,30 @@ beziergon_create(Point *startpoint,
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
-  beziershape_init(bezier);
+  if (user_data == NULL) {
+    beziershape_init(bezier, 3);
 
-  bezier->points[0].p1 = *startpoint;
-  bezier->points[0].p3 = *startpoint;
-  bezier->points[2].p3 = *startpoint;
+    bezier->points[0].p1 = *startpoint;
+    bezier->points[0].p3 = *startpoint;
+    bezier->points[2].p3 = *startpoint;
 
-  bezier->points[1].p1 = *startpoint;
-  point_add(&bezier->points[1].p1, &defaultx);
-  bezier->points[2].p2 = *startpoint;
-  point_sub(&bezier->points[2].p2, &defaultx);
+    bezier->points[1].p1 = *startpoint;
+    point_add(&bezier->points[1].p1, &defaultx);
+    bezier->points[2].p2 = *startpoint;
+    point_sub(&bezier->points[2].p2, &defaultx);
 
-  bezier->points[1].p3 = *startpoint;
-  point_add(&bezier->points[1].p3, &defaulty);
-  bezier->points[1].p2 = bezier->points[1].p3;
-  point_add(&bezier->points[1].p2, &defaultx);
-  bezier->points[2].p1 = bezier->points[1].p3;
-  point_sub(&bezier->points[2].p1, &defaultx);
-  
+    bezier->points[1].p3 = *startpoint;
+    point_add(&bezier->points[1].p3, &defaulty);
+    bezier->points[1].p2 = bezier->points[1].p3;
+    point_add(&bezier->points[1].p2, &defaultx);
+    bezier->points[2].p1 = bezier->points[1].p3;
+    point_sub(&bezier->points[2].p1, &defaultx);
+  } else {
+    BeziergonCreateData *bcd = (BeziergonCreateData*)user_data;
+
+    beziershape_init(bezier, bcd->num_points);
+    beziershape_set_points(bezier, bcd->num_points, bcd->points);
+  }  
   beziergon->line_width =  attributes_get_default_linewidth();
   beziergon->line_color = attributes_get_foreground();
   beziergon->inner_color = attributes_get_background();
