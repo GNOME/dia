@@ -75,7 +75,10 @@ dnl GTK2:     libgnomecanvas-2.0 ?
 PKG_CHECK_MODULES(GTK,$GTK_MODULES)
 AM_CONDITIONAL(HAVE_BONOBO,false)
 
+dnl XSLT
 
+PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
+AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 
 dnl
 dnl Popt
@@ -284,6 +287,7 @@ plug-ins/metapost/Makefile
 plug-ins/svg/Makefile
 plug-ins/shape/Makefile
 plug-ins/xfig/Makefile
+plug-ins/xslt/Makefile
 plug-ins/python/Makefile
 doc/Makefile
 doc/en/Makefile

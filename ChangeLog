@@ -1,3 +1,19 @@
+2002-06-23  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	
+	* patch from Matthieu Sozeau  <mattam@netcourrier.com>:
+
+	* plug-ins/xslt : Added an XSLT plugin to export dia files using
+	XML Stylesheets. The plug-in requires DIA_PLUGIN_PATH to be set.
+	It includes a small config file to tell it what stylesheets to use.
+
+	(end of patch)
+	
+	* plug-ins/xslt/xsltdialog.c: modified the dialog to be more 
+	GTK2.0/HIG compliant (the labels could be slightly more verbose,
+	perhaps). Added back a couple forgotten _(). Removed //-style
+	comments.
+	
 2002-06-23  Hans Breuer  <hans@breuer.org>
 
 	* lib/plug-ins.c

@@ -1,0 +1,20 @@
+This plugin allow direct transformation of a DIA file to another format using XSLT.
+
+You must have the gnome xslt library installed before using it.
+
+The syntax of the config file is :
+{Name of dia object type}: {primary stylesheet filename}
+{Name of secondary stylesheet} = {filename}
+{Name of secondary stylesheet} = {filename}
+.
+
+If you don't need a secondary stylesheet, make one with this template:
+
+<xsl:template match="@*|node()" priority="-1">
+    <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+</xsl:template>
+
+
+

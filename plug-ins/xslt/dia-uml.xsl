@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!-- 
+     Transform dia UML objects to a convenient structure
+     
+     Copyright(c) 2002 Matthieu Sozeau <mattam@netcourrier.com>     
+
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation; either version 2 of the License, or
+     (at your option) any later version.
+     
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+     
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+-->
+
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:dia="http://www.lysator.liu.se/~alla/dia/"
+  version="1.0">
+  <xsl:output method="xml" indent="yes"/>
+
+  <xsl:template match="/">
+    <xsl:element name="dia-uml">
+      <xsl:choose>
+        <xsl:when test="*/*/*/dia:object[@type='UML - LargePackage']">
+          <xsl:apply-templates select="*/*/*/dia:object[@type='UML - LargePackage']"/>      
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="dia:object[@type='UML - LargePackage']">
+    <xsl:element name="package">
+      <xsl:element name="name">
+
+        <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+      </xsl:element>
+      <xsl:apply-templates select="../dia:object[@type='UML - Class']"/>      
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="dia:object[@type='UML - Class']">
+    <xsl:element name="class">
+      <xsl:attribute name="name">
+        <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>            
+      </xsl:attribute>
+      <xsl:if test="dia:attribute[@name='stereotype']">
+        <xsl:attribute name="stereotype">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='stereotype']/dia:string, '#'), '#')"/>                
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="dia:attribute[@name='abstract']/dia:boolean/@val='true'">
+        <xsl:attribute name="abstract">1</xsl:attribute>
+      </xsl:if>
+      <xsl:element name="attributes">
+        <xsl:apply-templates select="dia:attribute[@name='attributes']"/>
+      </xsl:element>
+      <xsl:element name="operations">
+        <xsl:apply-templates select="dia:attribute[@name='operations']"/>
+      </xsl:element>
+    </xsl:element>    
+  </xsl:template>
+
+
+  <xsl:template match="dia:composite[@type='umlattribute']">
+    <xsl:element name="attribute">
+      <xsl:if test="dia:attribute[@name='class_scope']/dia:boolean/@val='true'">
+        <xsl:attribute name="class_scope">1</xsl:attribute>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=1">
+          <xsl:attribute name="visibility">private</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=2">
+          <xsl:attribute name="visibility">protected</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=0">
+          <xsl:attribute name="visibility">public</xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+
+      <xsl:element name="type">
+        <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
+      </xsl:element>
+
+      <xsl:element name="name">
+        <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+      </xsl:element>
+
+      <xsl:if test="not(dia:attribute[@name='value']/dia:string='')">
+        <xsl:element name="value">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='value']/dia:string, '#'), '#')"/>
+        </xsl:element>
+      </xsl:if>
+    </xsl:element>
+  </xsl:template>
+  
+  
+  <xsl:template match="dia:composite[@type='umloperation']">
+    <xsl:element name="operation">
+      <xsl:choose>
+        <xsl:when test="dia:attribute[@name='inheritance_type']/dia:enum/@val=2">
+          <xsl:attribute name="inheritance">leaf</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='inheritance_type']/dia:enum/@val=1">
+          <xsl:attribute name="inheritance">polymorphic</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='inheritance_type']/dia:enum/@val=0">
+          <xsl:attribute name="inheritance">abstract</xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:choose>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=1">
+          <xsl:attribute name="visibility">private</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=2">
+          <xsl:attribute name="visibility">protected</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="dia:attribute[@name='visibility']/dia:enum/@val=0">
+          <xsl:attribute name="visibility">public</xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+      
+      <xsl:if test="dia:attribute[@name='class_scope']/dia:boolean/@val='true'">
+        <xsl:attribute name="class_scope">1</xsl:attribute>
+      </xsl:if>
+
+      <xsl:choose>
+        <xsl:when test="dia:attribute[@name='query']/dia:boolean/@val='true'">
+          <xsl:attribute name="query">1</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="query">0</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+      
+      <xsl:if test="not(dia:attribute[@name='type']/dia:string='')">
+        <xsl:element name="type">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
+        </xsl:element>
+      </xsl:if>    
+      
+      <xsl:element name="name">
+        <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+      </xsl:element>
+      
+      <xsl:element name="parameters">
+        <xsl:for-each select="dia:attribute[@name='parameters']/dia:composite[@type='umlparameter']">
+          <xsl:element name="parameter">
+            <xsl:choose>
+              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=1">
+                <xsl:attribute name="kind">in</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=2">
+                <xsl:attribute name="kind">out</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="dia:attribute[@name='kind']/dia:enum/@val=3">
+                <xsl:attribute name="kind">inout</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+            
+            <xsl:element name="type">
+              <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string, '#'), '#')"/>
+            </xsl:element>
+            
+            <xsl:element name="name">
+              <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+            </xsl:element>
+            
+            <xsl:if test="not(dia:attribute[@name='value']/dia:string='')">
+              <xsl:element name="value">
+                <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='value']/dia:string, '#'), '#')"/>
+              </xsl:element>              
+            </xsl:if>
+
+          </xsl:element>
+        </xsl:for-each>      
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  
+  <xsl:template match="text()"></xsl:template>
+
+  <xsl:template match="node()|@*">
+    <xsl:apply-templates match="node()|@*"/>  
+  </xsl:template>
+</xsl:stylesheet>

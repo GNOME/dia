@@ -3,6 +3,9 @@ dia-0.91: XX-XXX-XXXX
 * Very likely to require libgtk2.0 instead of libgtk1.2. FIXME:
   document exactly what we need (do it in INSTALL too)
 
+* The XSLT plugin uses the gnome libxslt to export documents from 
+  DIA. The library is not required at compile time.
+
 dia-0.90:  1-June-2002
 
 * identical to 0.90.RC3 save for some makefile juggling.

@@ -316,7 +316,7 @@ dia_font_get_legacy_name(const DiaFont* font)
 }
 
 /* Conversion between our style and pango style/weight */
-int 
+int
 dia_font_pango_style_weight_to_dia(int style, int weight)
 {
   return style + (3*(weight-200)/100) + 1;
