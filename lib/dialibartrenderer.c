@@ -1059,8 +1059,6 @@ draw_string (DiaRenderer *self,
 				  renderer->font->pfd);
    face = pango_ft2_font_get_face(font);
 
-   printf("FT2: Font %p face %p\n", font, face);
-
    graybitmap = (guint8*)g_new0(guint8, height*rowstride);
 
    ftbitmap.rows = height;

@@ -8,6 +8,8 @@
 	* lib/text.c (text_insert_char): Fixed small buffer overflow for
 	length = 0.
 
+	* lib/dialibartrenderer.c (draw_string): Removed debugging printf.
+
 	* app/diapsft2renderer.h: 
 	* app/diapsft2renderer.c: 
 	* app/diapsrenderer.h: 
