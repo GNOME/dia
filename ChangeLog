@@ -1,3 +1,27 @@
+2001-02-28  James Henstridge  <james@daa.com.au>
+
+	* app/menus.c: add help entry to the help menu.  Need to get this
+	working for the non GNOME case as well (maybe put help under
+	$(datadir)/dia/help for non GNOME?)
+
+	* doc/en/topic.dat: add a topic.dat file for GNOME menus.
+
+	* doc/en/dia-manual.sgml (legalnotice): add an id attribute to
+	this element so that we get a meaningful filename in the html
+	translation.
+
+	* doc/Makefile.am, doc/en/Makefile.am: new makefiles to handle the
+	documentation.
+
+	* configure.in (DB2HTML): add a check for the db2html program, and
+	set an automake conditional if it is found.
+
+	* Makefile.am: remove EXTRA_DIST rules that cover doc/ directory,
+	and descend into doc/ directory while building.
+
+	* configure.in (AC_OUTPUT): add doc/ makefiles to output list, now
+	we need more complex rules for building the docs.
+
 2001-02-25  Hans Breuer  <hans@breuer.org>
 
 	* config.h.win32 : some cleanup

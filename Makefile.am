@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib objects plug-ins shapes intl app samples po sheets
+SUBDIRS = lib objects plug-ins shapes intl app samples po sheets doc
 
 gnomedatadir = $(datadir)
 
@@ -25,5 +25,4 @@ mime_DATA = dia.mime dia.keys
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
-	dia-diagram.png dia.mime dia.keys.in \
-	doc/diagram.dtd doc/sheet.dtd doc/shape.dtd doc/custom-shapes
+	dia-diagram.png dia.mime dia.keys.in

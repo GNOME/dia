@@ -285,6 +285,10 @@ esac
 DIA_CHECK_CFLAG(-finline-functions)
 DIA_CHECK_CFLAG(-fstrict-aliasing)
 
+dnl Do we have the db2html script to build the documentation?
+AC_PATH_PROG(DB2HTML, db2html, no)
+AM_CONDITIONAL(HAVE_DB2HTML, test "x$DB2HTML" != xno)
+
 AC_OUTPUT(
 Makefile
 lib/Makefile
@@ -329,6 +333,8 @@ plug-ins/wpg/Makefile
 plug-ins/svg/Makefile
 plug-ins/shape/Makefile
 plug-ins/xfig/Makefile
+doc/Makefile
+doc/en/Makefile
 )
 
 echo "
