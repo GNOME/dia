@@ -1,6 +1,6 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
-<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Network</name>
   <description xml:lang="fr">Objets pour dessiner des diagrammes réseau.</description>
   <description>Objects to design network diagrams with.</description>

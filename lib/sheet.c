@@ -180,11 +180,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   while (root && (root->type != XML_ELEMENT_NODE)) root=root->next;
   if (!root) return;
 
-  if (ns = xmlSearchNsByHref(doc,root,
-	   "http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns")) {
-    g_warning("sheet namespace http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns is \ndeprecated, please upgrade");
-   
-  } else if (!(ns = xmlSearchNsByHref(doc,root,
+  if (!(ns = xmlSearchNsByHref(doc,root,
 	   "http://www.lysator.liu.se/~alla/dia/dia-sheet-ns"))) {
     g_warning("could not find sheet namespace");
     xmlFreeDoc(doc); 

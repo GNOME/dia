@@ -150,10 +150,6 @@ gboolean
 custom_object_load(gchar *filename, ObjectType **otype,
 		   SheetObject **sheetobj)
 {
-  /*  gchar *file = findintshape(filename); */
-  /* XXX : we want to get rid of findintshape above -- replace by g_strdup.
-   But only when the libraries loose knoweldge of internal shapes. */
-
   ShapeInfo *info;
 
   if (!filename)

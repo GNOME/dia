@@ -1,6 +1,6 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
-<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Circuit</name>
   <description xml:lang="fr">Composants de circuits</description>
   <description>Components for circuit diagrams.</description>
@@ -59,49 +59,62 @@
     </shape>
     
     <shape name="Circuit - Horizontal Diode">
+      <description xml:lang="fr">Une diode alignée horizontalement</description>
       <description>A horizontally aligned diode</description>
     </shape>
     <shape name="Circuit - Vertical Diode">
+      <description xml:lang="fr">Une diode alignée verticalement</description>
       <description>A vertically aligned diode</description>
     </shape>
     <shape name="Circuit - Horizontal Zener Diode">
+      <description xml:lang="fr">Une diode Zener alignée horizontalement</description>
       <description>A horizontally aligned zener diode</description>
     </shape>
     <shape name="Circuit - Vertical Zener Diode">
+      <description xml:lang="fr">Une diode Zener alignée verticalement</description>
       <description>A vertically aligned zener diode</description>
     </shape>
 
     <shape name="Circuit - Ground">
+      <description xml:lang="fr">Un point de masse</description>
       <description>A ground point</description>
     </shape>
     <shape name="Circuit - Op Amp">
+      <description xml:lang="fr">Un amplificateur opérationnel</description>
       <description>An operational amplifier</description>
     </shape>
     <shape name="Circuit - Horizontal Fuse (European)">
+      <description xml:lang="fr">Un fusible aligné horizontalement</description>
       <description>A horizontally aligned fuse</description>
     </shape>
     <shape name="Circuit - Vertical Fuse (European)">
+      <description xml:lang="fr">Un fusible aligné verticalement</description>
       <description>A vertically aligned fuse</description>
     </shape>
 
     <shape name="Circuit - Horizontal Powersource (European)">
+      <description xml:lang="fr">Une source de tension alignée horizontalement</description>
       <description>A horizontally aligned powersource</description>
     </shape>
     <shape name="Circuit - Vertical Powersource (European)">
+      <description xml:lang="fr">Une source de tension alignée verticalement</description>
       <description>A vertically aligned powersource</description>
     </shape>
     <shape name="Circuit - Lamp (European)">
+      <description xml:lang="fr">Une lampe</description>
       <description>A lamp</description>
     </shape>
     <shape name="Circuit - Speaker (European)">
+      <description xml:lang="fr">Un haut-parleur</description>
       <description>A Speaker</description>
     </shape>
-    
     <shape name="Circuit - Horizontal Led (European)">
-      <description>A horizontally aligned led</description>
+      <description xml:lang="fr">Une diode électro-luminescente (LED) alignée horizontalement</description>
+      <description>A horizontally aligned LED</description>
     </shape>
     <shape name="Circuit - Vertical Led (European)">
-      <description>A vertically aligned led</description>
+      <description xml:lang="fr">Une diode électro-luminescente (LED) alignée verticalement</description>
+      <description>A vertically aligned LED</description>
     </shape>
  </contents>
 </sheet>

@@ -1,3 +1,24 @@
+1999-11-15  Alexander Larsson  <alla@lysator.liu.se>
+	Patch from Cyrille Chepelov <chepelov@rmcnet.fr>
+
+	* sheets/Circuit.sheet:
+	* sheets/ER.sheet:
+	* sheets/FS.sheet:
+	* sheets/Flowchart.sheet:
+	* sheets/UML.sheet:
+	* sheets/network.sheet:
+	* sheets/sybase.sheet:
+	Changed name space
+
+	* sheets/Circuit.sheet:
+	added some missing French translations
+
+	* lib/sheet.c:
+	killed the temporary sheet namespace
+
+	* objects/custom/custom.c:
+	obsolete comment cleaned up
+
 1999-11-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in:
