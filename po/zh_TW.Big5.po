@@ -1,12 +1,12 @@
-# dia 1.14
+# dia 1.16
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Jing-Jong SHYUE <shyue@sonoma.com.tw>, 2000
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 1.14\n"
-"POT-Creation-Date: 2000-07-02 01:09+0800\n"
-"PO-Revision-Date: 2000-07-03 20:00+0800\n"
+"Project-Id-Version: dia 1.16\n"
+"POT-Creation-Date: 2000-07-23 01:11+0800\n"
+"PO-Revision-Date: 2000-07-23 20:00+0800\n"
 "Last-Translator: Jing-Jong SHYUE <shyue@sonoma.com.tw>\n"
 "Language-Team: Chinese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2521,8 +2521,9 @@ msgstr "垂直翻轉"
 
 #: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
 #: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
-#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
-#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
+#: objects/flowchart/parallelogram.c:314 objects/standard/beziergon.c:215
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "繪製背景"
 
@@ -2575,23 +2576,23 @@ msgstr "刪除控制"
 msgid "Network diagram objects"
 msgstr "網路圖表物件"
 
-#: objects/standard/bezier.c:526
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:541
 msgid "Add Segment"
 msgstr "增加區段"
 
-#: objects/standard/bezier.c:527
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:542
 msgid "Delete Segment"
 msgstr "刪除區段"
 
-#: objects/standard/bezier.c:529
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:544
 msgid "Symmetric control"
 msgstr "系統性控制"
 
-#: objects/standard/bezier.c:531
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:546
 msgid "Smooth control"
 msgstr "柔軟控制"
 
-#: objects/standard/bezier.c:533
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:548
 msgid "Cusp control"
 msgstr " 尖銳控制"
 
