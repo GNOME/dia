@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-02-29 09:57+0800\n"
+"POT-Creation-Date: 2000-02-29 16:04+0100\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -491,7 +491,7 @@ msgstr "Kunde inte öppna: '%s' för skrivning.\n"
 #: app/load_save.c:604
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr ""
+msgstr "Misslyckades att spara filen '%s'.\n"
 
 #: app/load_save.c:624
 msgid "Native Dia Diagram"
@@ -549,7 +549,7 @@ msgstr "_Ändra rutnät..."
 
 #: app/menus.c:106
 msgid "_AntiAliased"
-msgstr ""
+msgstr "_Kantutjämnad"
 
 #: app/menus.c:109
 msgid "_Visible Grid"
@@ -808,7 +808,7 @@ msgstr "/Visa/_Ändra rutnät..."
 
 #: app/menus.c:232
 msgid "/View/_AntiAliased"
-msgstr ""
+msgstr "/Visa/_Kantutjämning"
 
 #: app/menus.c:234
 msgid "/View/_Visible Grid"
@@ -917,9 +917,8 @@ msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
 #: app/preferences.c:84
-#, fuzzy
 msgid "Grid Lines"
-msgstr "Inställningar för rutnät"
+msgstr "Rutlinjer"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
@@ -974,18 +973,16 @@ msgid "Y Size:"
 msgstr "Y storlek:"
 
 #: app/preferences.c:115 app/preferences.c:120
-#, fuzzy
 msgid "Colour:"
-msgstr "Färg"
+msgstr "Färg:"
 
 #: app/preferences.c:116 app/preferences.c:121
-#, fuzzy
 msgid "Solid lines:"
-msgstr "Hela linjer"
+msgstr "Hela linjer:"
 
 #: app/preferences.c:118
 msgid "Page breaks:"
-msgstr ""
+msgstr "Sidobrytning:"
 
 #: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
@@ -1092,17 +1089,15 @@ msgstr "Halvt huvud"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Slaskigt kryss"
 
 #: lib/widgets.c:703
-#, fuzzy
 msgid "Filled Ellipse"
-msgstr "Skapa ellips"
+msgstr "Fylld ellips"
 
 #: lib/widgets.c:709
-#, fuzzy
 msgid "Hollow Ellipse"
-msgstr "Ihålig triangel"
+msgstr "Ihålig ellips"
 
 #: lib/widgets.c:725
 msgid "Length: "
@@ -1122,7 +1117,7 @@ msgstr "Bläddra"
 
 #: lib/properties.c:346 lib/properties.c:378
 msgid "No edit widget"
-msgstr ""
+msgstr "Ingen redigerkomponent"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -1507,9 +1502,8 @@ msgid "Delete Handle"
 msgstr "Ta bort handtag"
 
 #: objects/flowchart/box.c:165 objects/standard/box.c:149
-#, fuzzy
 msgid "Corner radius"
-msgstr "Rundade hörn:"
+msgstr "Hörnradie"
 
 #: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
@@ -1524,19 +1518,16 @@ msgid "Corner rounding:"
 msgstr "Rundade hörn:"
 
 #: objects/standard/line.c:171
-#, fuzzy
 msgid "Add connection point"
-msgstr "Kopplingspunkter:"
+msgstr "Lägg till kopplingspunkt"
 
 #: objects/standard/line.c:172
-#, fuzzy
 msgid "Delete connection point"
-msgstr "Kopplingspunkter:"
+msgstr "Ta bort kopplingspunkt"
 
 #: objects/standard/line.c:177
-#, fuzzy
 msgid "Line"
-msgstr "Linjer"
+msgstr "Linje"
 
 #: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
 msgid "Alignment:"
@@ -1555,14 +1546,12 @@ msgid "Fontsize:"
 msgstr "Typsnittsstorlek"
 
 #: objects/standard/image.c:165
-#, fuzzy
 msgid "Image file"
-msgstr "Bildfil:"
+msgstr "Bildfil"
 
 #: objects/standard/image.c:167
-#, fuzzy
 msgid "Draw border"
-msgstr "Visa ram"
+msgstr "Rita ram"
 
 #: objects/standard/image.c:169
 msgid "Keep aspect ratio"
@@ -1804,9 +1793,8 @@ msgid "   Measure"
 msgstr "   Mät"
 
 #: objects/flowchart/box.c:167
-#, fuzzy
 msgid "Text padding"
-msgstr "Text stoppning:"
+msgstr "Text stoppning"
 
 #: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
 #: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
@@ -1837,18 +1825,16 @@ msgid "Shear angle:"
 msgstr "Klipp vinkel:"
 
 #: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
-#, fuzzy
 msgid "Flip horizontal"
-msgstr "Vänd _horisontelt"
+msgstr "Vänd horisontellt"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
-#, fuzzy
 msgid "Flip vertical"
-msgstr "Vänd _vertikalt"
+msgstr "Vänd vertikalt"
 
 #: objects/custom/custom_object.c:1218
 msgid "Flip Horizontal"
-msgstr "Vänd _horisontelt"
+msgstr "Vänd _horisontellt"
 
 #: objects/custom/custom_object.c:1219
 msgid "Flip Vertical"
