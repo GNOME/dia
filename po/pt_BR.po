@@ -12,126 +12,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-06 18:43+0100\n"
-"PO-Revision-Date: 2005-03-06 18:41-0300\n"
+"POT-Creation-Date: 2005-03-13 18:56+0100\n"
+"PO-Revision-Date: 2005-03-14 12:11-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
-#: app/app_procs.c:223
+#: app/app_procs.c:228
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "erro %s: não é possível exportar para %s\n"
 
-#: app/app_procs.c:232
+#: app/app_procs.c:237
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "erro %s: os nomes dos arquivos de entrada e saída são idênticos: %s"
 
-#: app/app_procs.c:240
+#: app/app_procs.c:245
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário um arquivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:285
+#: app/app_procs.c:290
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:338
+#: app/app_procs.c:436
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Impossível localizar o formato de filtro %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:424
+#: app/app_procs.c:523
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Selecione o filtro/formato fora de: %s"
 
 #. &export_file_name
-#: app/app_procs.c:443 app/app_procs.c:464
+#: app/app_procs.c:542 app/app_procs.c:566
 msgid "Export loaded file and exit"
 msgstr "Exportar o arquivo carregado e sair"
 
-#: app/app_procs.c:443 app/app_procs.c:464 app/diaconv.c:94
+#: app/app_procs.c:542 app/app_procs.c:566 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: app/app_procs.c:445 app/app_procs.c:466
+#: app/app_procs.c:544 app/app_procs.c:568
 msgid "TYPE"
 msgstr "TIPO"
 
-#: app/app_procs.c:448 app/app_procs.c:469
+#: app/app_procs.c:546 app/app_procs.c:571
 msgid "Export graphics size"
 msgstr "Tamanho do gráfico exportado"
 
-#: app/app_procs.c:448 app/app_procs.c:469
+#: app/app_procs.c:546 app/app_procs.c:571
 msgid "WxH"
 msgstr "LxA"
 
-#: app/app_procs.c:450 app/app_procs.c:473
-msgid "Don't show the splash screen"
-msgstr "Não mostrar a tela de abertura"
-
-#: app/app_procs.c:452 app/app_procs.c:475
-msgid "Send error messages to stderr instead of showing dialogs."
-msgstr "Enviar mensagens de erro pra stderr ao contrário de mostrar diálogos."
-
-#: app/app_procs.c:454 app/app_procs.c:477
-msgid "Display credits list and exit"
-msgstr "Mostrar a lista de créditos e sair"
-
-#: app/app_procs.c:456 app/app_procs.c:479
-msgid "Display version and exit"
-msgstr "Mostrar a versão e sair"
-
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:471
+#: app/app_procs.c:548 app/app_procs.c:573
 msgid "Show only specified layers (e.g. when exporting)"
 msgstr "Mostrar apenas camadas especificadas (por exemplo, quando exportando)"
 
-#: app/app_procs.c:471
+#: app/app_procs.c:548 app/app_procs.c:573
 msgid "LAYER,LAYER,..."
 msgstr "CAMADA,CAMADA,..."
 
-#: app/app_procs.c:480 app/diaconv.c:95
+#: app/app_procs.c:550 app/app_procs.c:575
+msgid "Don't show the splash screen"
+msgstr "Não mostrar a tela de abertura"
+
+#: app/app_procs.c:552 app/app_procs.c:577
+msgid "Send error messages to stderr instead of showing dialogs."
+msgstr "Enviar mensagens de erro pra stderr ao contrário de mostrar diálogos."
+
+#: app/app_procs.c:554 app/app_procs.c:579
+msgid "Display credits list and exit"
+msgstr "Mostrar a lista de créditos e sair"
+
+#: app/app_procs.c:556 app/app_procs.c:581
+msgid "Generate verbose output"
+msgstr "Gerar saída do interpretador"
+
+#: app/app_procs.c:558 app/app_procs.c:583
+msgid "Display version and exit"
+msgstr "Mostrar a versão e sair"
+
+#: app/app_procs.c:584 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: app/app_procs.c:527
+#: app/app_procs.c:632
 msgid "Can't connect to session manager!\n"
 msgstr "Impossível se conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:559
+#: app/app_procs.c:664
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versão do Dia %s, compilado %s %s\n"
 
-#: app/app_procs.c:561
+#: app/app_procs.c:666
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versão do Dia %s\n"
 
-#: app/app_procs.c:621 app/app_procs.c:623 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:728 app/app_procs.c:730 app/diaconv.c:201 app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Impossível encontrar os objetos padrão ao procurar object-libs, saindo...\n"
 
-#: app/app_procs.c:664
+#: app/app_procs.c:771
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: app/app_procs.c:706
+#: app/app_procs.c:813
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -140,7 +144,7 @@ msgstr ""
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
 #. no standard buttons
-#: app/app_procs.c:719
+#: app/app_procs.c:826
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -150,21 +154,21 @@ msgstr ""
 "Tem certeza de que deseja sair do Dia\n"
 "sem salvá-los?"
 
-#: app/app_procs.c:722
+#: app/app_procs.c:829
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:775
+#: app/app_procs.c:882
 msgid "Thank you for using Dia.\n"
 msgstr "Obrigado por utilizar o Dia.\n"
 
-#: app/app_procs.c:792 app/app_procs.c:799
+#: app/app_procs.c:899 app/app_procs.c:906
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: app/app_procs.c:801
+#: app/app_procs.c:908
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -173,15 +177,15 @@ msgstr ""
 "Certifique-se de que a variável de ambiente HOME aponta para um diretório "
 "existente."
 
-#: app/app_procs.c:823 app/diaconv.c:251
+#: app/app_procs.c:930 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: app/app_procs.c:865 app/diaconv.c:121
+#: app/app_procs.c:972 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [ARQUIVO...]"
 
-#: app/app_procs.c:868 app/diaconv.c:128
+#: app/app_procs.c:975 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -190,16 +194,16 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: app/app_procs.c:892
+#: app/app_procs.c:999
 msgid "[FILE...]"
 msgstr "[ARQUIVO...]"
 
-#: app/app_procs.c:907
+#: app/app_procs.c:1014
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' não encontrado!\n"
 
-#: app/app_procs.c:986
+#: app/app_procs.c:1093
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -207,7 +211,7 @@ msgstr ""
 "O autor original do Dia foi:\n"
 "\n"
 
-#: app/app_procs.c:991
+#: app/app_procs.c:1098
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -217,7 +221,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: app/app_procs.c:996
+#: app/app_procs.c:1103
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -227,7 +231,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: app/app_procs.c:1001
+#: app/app_procs.c:1108
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -266,11 +270,11 @@ msgstr "Diagrama%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Não existe objeto para colar.\n"
 
-#: app/commands.c:529 app/commands.c:567
+#: app/commands.c:528 app/commands.c:566
 msgid "Could not find help directory"
 msgstr "Não foi possível encontrar o diretório de ajuda"
 
-#: app/commands.c:536
+#: app/commands.c:535
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -284,7 +288,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:606
+#: app/commands.c:605
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Afonso Celso Medina <medina@maua.br>\n"
@@ -294,15 +298,15 @@ msgstr ""
 
 # dia.desktop.in.h:2
 # dia.desktop.in.h:2
-#: app/commands.c:620
+#: app/commands.c:619
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:622
+#: app/commands.c:621
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation e os autores"
 
-#: app/commands.c:623
+#: app/commands.c:622
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
@@ -310,26 +314,26 @@ msgstr ""
 "Dia é um programa para desenhar diagramas estruturados.\n"
 "Visite http://www.gnome.org/projects/dia/ para maiores informações."
 
-#: app/commands.c:662
+#: app/commands.c:661
 msgid "About Dia"
 msgstr "Sobre o Dia"
 
-#: app/commands.c:705
+#: app/commands.c:704
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s por Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:711
+#: app/commands.c:710
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Mantenedores: Lars Clausen e Cyrille Chepelov"
 
-#: app/commands.c:715
+#: app/commands.c:714
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr ""
 "Por favor, visite http://www.gnome.org/projects/dia/ para mais informações"
 
-#: app/commands.c:720
+#: app/commands.c:719
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
@@ -685,7 +689,7 @@ msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:943 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
@@ -905,20 +909,20 @@ msgstr "Alterna entre alinhar na grade ou não para esta janela."
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dados de ferramenta NULOS em tool_select_update"
 
-#: app/interface.c:859
+#: app/interface.c:871
 #, c-format
 msgid "No sheet named %s"
 msgstr "Nenhuma folha nomeada %s"
 
-#: app/interface.c:891
+#: app/interface.c:903
 msgid "Other sheets"
 msgstr "Outras folhas"
 
-#: app/interface.c:949 sheets/Misc.sheet.in.h:3
+#: app/interface.c:961 sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: app/interface.c:1010
+#: app/interface.c:1022
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -928,7 +932,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: app/interface.c:1025
+#: app/interface.c:1037
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -937,7 +941,7 @@ msgstr ""
 "padrão para novos objetos.  Clique duplo para definir a largura de linha "
 "mais precisamente."
 
-#: app/interface.c:1065
+#: app/interface.c:1077
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -945,7 +949,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas.  Clique para escolher um seta, ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1070
+#: app/interface.c:1082
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -953,7 +957,7 @@ msgstr ""
 "Estilo de linha para novas linhas.  Clique para escolher um estilo de linha, "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes..."
 
-#: app/interface.c:1084
+#: app/interface.c:1096
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -961,7 +965,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas.  Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1191
+#: app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -4892,35 +4896,35 @@ msgstr "Apagar Canto"
 msgid "Standard objects"
 msgstr "Objetos padrão"
 
-#: plug-ins/cairo/diacairo.c:1026
+#: plug-ins/cairo/diacairo.c:1031
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: plug-ins/cairo/diacairo.c:1035
+#: plug-ins/cairo/diacairo.c:1040
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: plug-ins/cairo/diacairo.c:1044
+#: plug-ins/cairo/diacairo.c:1049
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: plug-ins/cairo/diacairo.c:1052
+#: plug-ins/cairo/diacairo.c:1057
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: plug-ins/cairo/diacairo.c:1061
+#: plug-ins/cairo/diacairo.c:1066
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:1070
+#: plug-ins/cairo/diacairo.c:1075
 msgid "Cairo old WMF"
 msgstr "Cairo WMF antigo"
 
-#: plug-ins/cairo/diacairo.c:1079
+#: plug-ins/cairo/diacairo.c:1084
 msgid "Cairo Clipboard"
 msgstr "Cairo Bloco de Notas"
 
-#: plug-ins/cairo/diacairo.c:1122
+#: plug-ins/cairo/diacairo.c:1127
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada no Cairo"
 
@@ -5058,32 +5062,19 @@ msgstr "Arquivo de Formas do Dia"
 msgid "dia shape export filter"
 msgstr "filtro de exportação para formas do Dia"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:643
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: plug-ins/svg/svg-import.c:203 plug-ins/svg/svg-import.c:217
-#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
-#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
-#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
-#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
-#: plug-ins/xfig/xfig-import.c:403
+#: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
+#: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
+#: plug-ins/xfig/xfig-import.c:224 plug-ins/xfig/xfig-import.c:261
+#: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
+#: plug-ins/xfig/xfig-import.c:362 plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
 msgstr "Impossível encontrar os objetos padrão"
 
-#: plug-ins/svg/svg-import.c:229
-msgid "Unexpected SVG path element"
-msgstr "Elemento de caminho SVG inesperado"
-
-#: plug-ins/svg/svg-import.c:287
-msgid "Courier"
-msgstr "Courier"
-
-#: plug-ins/svg/svg-import.c:592
-msgid "Could not find SVG namespace."
-msgstr "Impossível encontrar o SVG namespace."
-
-#: plug-ins/svg/svg-import.c:598
+#: plug-ins/svg/svg-import.c:650
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elemento raíz era '%s' -- esperava-se 'svg'."
@@ -8277,6 +8268,15 @@ msgstr "Servidor de dados Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Unexpected SVG path element"
+#~ msgstr "Elemento de caminho SVG inesperado"
+
+#~ msgid "Courier"
+#~ msgstr "Courier"
+
+#~ msgid "Could not find SVG namespace."
+#~ msgstr "Impossível encontrar o SVG namespace."
 
 #~ msgid "Close"
 #~ msgstr "Fechar"
