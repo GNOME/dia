@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-10 22:51+0900\n"
-"PO-Revision-Date: 2004-07-10 22:49+0900\n"
+"POT-Creation-Date: 2004-08-08 23:35+0900\n"
+"PO-Revision-Date: 2004-08-08 22:38+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -39,88 +39,87 @@ msgstr "%s エラー: 適切な入力ファイル %s が必要です\n"
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:303
+#: app/app_procs.c:307
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "出力フォーマット %s が見つかりません\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:390
+#: app/app_procs.c:401
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "ファイルへエキスポートして終了する (サポートする形式: %s)"
 
 #. &export_file_name
-#: app/app_procs.c:399
+#: app/app_procs.c:410
 msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをエキスポートして終了する"
 
-#: app/app_procs.c:399 app/diaconv.c:94
+#: app/app_procs.c:410
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
-#: app/app_procs.c:401
+#: app/app_procs.c:412
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:415
 msgid "Export graphics size"
 msgstr "指定した大きさのグラフィックスにエキスポートする"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:415
 msgid "WxH"
 msgstr "WxH"
 
-#: app/app_procs.c:406
+#: app/app_procs.c:417
 msgid "Don't show the splash screen"
 msgstr "スプラッシュスクリーンを表示しない"
 
-#: app/app_procs.c:408
+#: app/app_procs.c:419
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "エラー・メッセージをダイアログで表示する代わりに標準エラー出力へ出力する"
 
-#: app/app_procs.c:410
+#: app/app_procs.c:421
 msgid "Display credits list and exit"
 msgstr "クレジットを表示して終了する"
 
-#: app/app_procs.c:412
+#: app/app_procs.c:423
 msgid "Display version and exit"
 msgstr "バージョンを表示して終了する"
 
-#: app/app_procs.c:413 app/diaconv.c:95
+#: app/app_procs.c:424
 msgid "Show this help message"
 msgstr "このヘルプ・メッセージを表示する"
 
-#: app/app_procs.c:454
+#: app/app_procs.c:465
 msgid "Can't connect to session manager!\n"
 msgstr "セッション・マネージャへ接続できません！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:481
+#: app/app_procs.c:492
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia バージョン %s (%s %s でコンパイル済)\n"
 
-#: app/app_procs.c:483
+#: app/app_procs.c:494
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia バージョン %s\n"
 
-#: app/app_procs.c:537 app/app_procs.c:539 app/diaconv.c:201 app/diaconv.c:203
-#, c-format
+#: app/app_procs.c:548 app/app_procs.c:550
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "object-libsを探しましたが標準オブジェクトを見つけられなかったので、終了しま"
 "す...\n"
 
-#: app/app_procs.c:580
+#: app/app_procs.c:591
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:619
+#: app/app_procs.c:633
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -129,7 +128,7 @@ msgstr ""
 "bugzilla.gnome.org まで報告して下さい。\n"
 
 #. no standard buttons
-#: app/app_procs.c:631
+#: app/app_procs.c:645
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -139,21 +138,21 @@ msgstr ""
 "保存せずに Dia を終了しても\n"
 "よろしいですか？"
 
-#: app/app_procs.c:635
+#: app/app_procs.c:649
 msgid "Quit Dia"
 msgstr "Dia の終了"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:686
+#: app/app_procs.c:700
 msgid "Thank you for using Dia.\n"
 msgstr "Dia を使ってくれてありがとう。\n"
 
-#: app/app_procs.c:702 app/app_procs.c:709
+#: app/app_procs.c:716 app/app_procs.c:723
 msgid "Could not create per-user Dia config directory"
 msgstr "ユーザ用の Dia 設定フォルダを作成できませんでした"
 
-#: app/app_procs.c:711
+#: app/app_procs.c:725
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -161,15 +160,15 @@ msgstr ""
 "ユーザ用の Dia 設定フォルダを作成できませんでした。環境変数 $HOME が既存の"
 "フォルダを指しているか確認して下さい。"
 
-#: app/app_procs.c:733 app/diaconv.c:251
+#: app/app_procs.c:747
 msgid "Objects and filters internal to dia"
 msgstr "Dia に内蔵されたオブジェクトとフィルタ"
 
-#: app/app_procs.c:772 app/diaconv.c:121
+#: app/app_procs.c:786
 msgid "[OPTION...] [FILE...]"
 msgstr "[オプション...][ファイル...]"
 
-#: app/app_procs.c:775 app/diaconv.c:128
+#: app/app_procs.c:789
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -179,7 +178,7 @@ msgstr ""
 "'%s --help' を実行して使用可能なコマンドライン・オプション一覧をご覧下さ"
 "い。\n"
 
-#: app/app_procs.c:860
+#: app/app_procs.c:874
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -187,7 +186,7 @@ msgstr ""
 "オリジナルの Dia 開発者:\n"
 "\n"
 
-#: app/app_procs.c:865
+#: app/app_procs.c:879
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -197,7 +196,7 @@ msgstr ""
 "Dia の現在のメンテナ:\n"
 "\n"
 
-#: app/app_procs.c:870
+#: app/app_procs.c:884
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -207,7 +206,7 @@ msgstr ""
 "その他の開発者:\n"
 "\n"
 
-#: app/app_procs.c:875
+#: app/app_procs.c:889
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -402,64 +401,6 @@ msgstr "位置 Y"
 msgid "Y position of child widget"
 msgstr "子ウィジットの Y-位置"
 
-#. &export_file_format
-#: app/diaconv.c:92
-msgid "Export format to use"
-msgstr "エキスポートで使用する形式"
-
-#: app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#. &export_file_name
-#: app/diaconv.c:94
-msgid "Export file name to use"
-msgstr "エキスポートで使用するファイル名"
-
-#: app/diaconv.c:96
-msgid "Quiet operation"
-msgstr "操作の表示を抑制する"
-
-#: app/diaconv.c:149
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"エラー: 引数が見つかりませんでした。\n"
-"'%s --help' を実行して使用可能なコマンドライン・オプション一覧をご覧下さ"
-"い。\n"
-
-#: app/diaconv.c:159
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "%s エラー: -f か -o のどちらかだけを指定できます"
-
-#: app/diaconv.c:165
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%s エラー: -t あるいは -o のどちらかを指定して下さい。\n"
-"'%s --help' を実行して使用可能なコマンドライン・オプション一覧をご覧下さ"
-"い。\n"
-
-#: app/diaconv.c:174
-#, c-format
-msgid "%s error: no input file."
-msgstr "%s エラー: 入力ファイルがありません"
-
-#: app/diaconv.c:227
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr "%s エラー: 入力ファイルは一つだけ指定して下さい"
-
-#: app/diaconv.c:240
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "%s エラー: お使いのシステムで popt ライブラリは利用できません"
-
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
 msgstr "/オブジェクトの並び替え(_S)"
@@ -548,8 +489,7 @@ msgstr "ダイアグラム・ツリー"
 msgid "Ok"
 msgstr "OK"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:275
-#: lib/diaarrowchooser.c:257
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -622,7 +562,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "プロパティ..."
 
-#: app/disp_callbacks.c:904
+#: app/disp_callbacks.c:919
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -655,8 +595,8 @@ msgstr "ダイアグラムを閉じる"
 msgid "Discard Changes"
 msgstr "破棄する"
 
-#: app/export_png.c:134 app/load_save.c:893 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:911 plug-ins/cgm/cgm.c:1157
+#: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
+#: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -701,23 +641,23 @@ msgstr "画像の高さ:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:393
+#: app/filedlg.c:122 app/filedlg.c:404
 msgid "By extension"
 msgstr "拡張子で判断する"
 
-#: app/filedlg.c:183
+#: app/filedlg.c:184
 msgid "Open Diagram"
 msgstr "ダイアグラムを開く"
 
-#: app/filedlg.c:211
+#: app/filedlg.c:215
 msgid "Open Options"
 msgstr "ファイルのオプション"
 
-#: app/filedlg.c:219 app/filedlg.c:511
+#: app/filedlg.c:223 app/filedlg.c:526
 msgid "Determine file type:"
 msgstr "種類の指定:"
 
-#: app/filedlg.c:256
+#: app/filedlg.c:259
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -726,7 +666,7 @@ msgstr ""
 "標準の UTF-8 でもなく、お使いのエンコーディングのものでもありません。\n"
 "文字化けを起こすかもしれません。"
 
-#: app/filedlg.c:262 app/filedlg.c:437
+#: app/filedlg.c:265 app/filedlg.c:448
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -735,21 +675,21 @@ msgstr ""
 "ファイル '%s' は既に存在します。\n"
 "上書きしますか？"
 
-#: app/filedlg.c:270 app/filedlg.c:444
+#: app/filedlg.c:273 app/filedlg.c:455
 msgid "File already exists"
 msgstr "ファイルは既に存在します"
 
-#: app/filedlg.c:302
+#: app/filedlg.c:306
 msgid "Save Diagram"
 msgstr "ダイアグラムの保存"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:307
+#: app/filedlg.c:311
 msgid "Compress diagram files"
 msgstr "ファイルを圧縮する"
 
-#: app/filedlg.c:316
+#: app/filedlg.c:320
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -758,7 +698,7 @@ msgstr ""
 "ながります (注意: 圧縮したファイルを処理できないテキスト処理プログラムがいく"
 "つかあります)"
 
-#: app/filedlg.c:463
+#: app/filedlg.c:474
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -768,11 +708,11 @@ msgstr ""
 "エキスポートのフィルタを\n"
 "決定することができませんでした"
 
-#: app/filedlg.c:481
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr "ダイアグラムのエキスポート"
 
-#: app/filedlg.c:503
+#: app/filedlg.c:518
 msgid "Export Options"
 msgstr "エキスポートのオプション"
 
@@ -824,7 +764,7 @@ msgstr "多角形を入力します"
 msgid "Beziergon"
 msgstr "ベジエゴンを入力します"
 
-#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:234
+#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:238
 msgid "Line"
 msgstr "線を入力します"
 
@@ -958,7 +898,7 @@ msgstr "レイヤの属性を編集します"
 msgid "Layer name:"
 msgstr "レイヤ名:"
 
-#: app/layer_dialog.c:996 app/paginate_psprint.c:267 lib/diaarrowchooser.c:248
+#: app/layer_dialog.c:996 app/paginate_psprint.c:283
 msgid "OK"
 msgstr "OK"
 
@@ -971,7 +911,7 @@ msgstr "線幅"
 msgid "Line width:"
 msgstr "線幅:"
 
-#: app/load_save.c:247
+#: app/load_save.c:260
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -979,7 +919,7 @@ msgstr ""
 "ダイアグラムを読み込む際にエラーが発生しました\n"
 "(ドキュメントの中にリンクしたオブジェクトがありません)"
 
-#: app/load_save.c:250
+#: app/load_save.c:263
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -987,7 +927,7 @@ msgstr ""
 "ダイアグラムを読み込む際にエラーが発生しました\n"
 "(接続ハンドルが存在しません)"
 
-#: app/load_save.c:267
+#: app/load_save.c:280
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -996,22 +936,22 @@ msgstr ""
 "ダイアグラムを読み込む際にエラーが発生しました\n"
 "(接続点 %s が存在しません)。"
 
-#: app/load_save.c:292
+#: app/load_save.c:305
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "オブジェクト %2$s の親オブジェクト %1$s がありません\n"
 
-#: app/load_save.c:337
+#: app/load_save.c:350
 msgid "You must specify a file, not a directory.\n"
 msgstr "フォルダではなく、ファイルを指定して下さい。\n"
 
-#: app/load_save.c:344 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1170
+#: app/load_save.c:357 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1170
 #: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "'%s' を読み込みモードで開けませんでした。\n"
 
-#: app/load_save.c:361 app/load_save.c:366
+#: app/load_save.c:374 app/load_save.c:379
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1020,7 +960,7 @@ msgstr ""
 "ダイアグラム %s を読み込む際にエラー\n"
 "(ファイルの種類が不明です)"
 
-#: app/load_save.c:373
+#: app/load_save.c:386
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1029,7 +969,7 @@ msgstr ""
 "ダイアグラム %s を読み込む際にエラー\n"
 "(Dia ファイルではありません)"
 
-#: app/load_save.c:575
+#: app/load_save.c:586
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1040,12 +980,12 @@ msgstr ""
 "%s\n"
 "正しい Dia ファイルには少なくもレイヤが一つあります"
 
-#: app/load_save.c:926
+#: app/load_save.c:937
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "ファイル '%s' の保存に失敗しました。\n"
 
-#: app/load_save.c:997 app/load_save.c:1002
+#: app/load_save.c:1008 app/load_save.c:1013
 msgid "Native Dia Diagram"
 msgstr "ネィテイブな Dia ダイアグラム"
 
@@ -1514,34 +1454,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "GTK+ の設定を取得できませんでした"
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:242
 msgid "Select Printer"
 msgstr "プリンタの選択"
 
-#: app/paginate_psprint.c:238 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:254 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "プリンタ"
 
-#: app/paginate_psprint.c:252 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:268 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "ファイル"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:377
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "コマンド \"%s\" を実行できませんでした: %s"
 
-#: app/paginate_psprint.c:359
+#: app/paginate_psprint.c:380
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "'%s' を書き込みモードで開けませんでした: %s"
 
-#: app/paginate_psprint.c:376
+#: app/paginate_psprint.c:397
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "印刷エラー: コマンド \"%s\" が %d を返しました\n"
 
-#: app/paginate_psprint.c:387
+#: app/paginate_psprint.c:408
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "印刷エラー: コマンド '%s' で SIGPIPE (Broken PIPE) が発生しました"
@@ -1739,7 +1679,7 @@ msgstr "オブジェクトのプロパティ:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox>/ファイル/プラグイン..."
 
-#: app/recent_files.c:70 app/recent_files.c:149
+#: app/recent_files.c:70 app/recent_files.c:143
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/ファイル/終了"
 
@@ -2168,26 +2108,26 @@ msgstr ""
 "ファイル %s には特定のエンコーディングがありません;\n"
 "%s を使います"
 
-#: lib/dia_xml.c:475
+#: lib/dia_xml.c:471
 msgid "Taking point value of non-point node."
 msgstr "座標のないノードの座標値を取得しようとしています"
 
-#: lib/dia_xml.c:487
+#: lib/dia_xml.c:482
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "不正な X-座標値 \"%s\" %fです; この値は破棄します"
 
-#: lib/dia_xml.c:495
+#: lib/dia_xml.c:489
 msgid "Error parsing point."
 msgstr "座標の解析時にエラーが発生しました"
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:503
+#: lib/dia_xml.c:497
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "不正な Y-座標値 \"%s\" %fです; この値は破棄します"
 
-#: lib/dia_xml.c:884
+#: lib/dia_xml.c:865
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2197,11 +2137,11 @@ msgstr ""
 "ジョンの Dia で生成したファイルのサポートで問題に出くわすかもしれません。もし"
 "このメッセージを見た場合は、dia-list@gnome.orgへ報告して下さい。"
 
-#: lib/diaarrowchooser.c:233
+#: lib/diaarrowchooser.c:251
 msgid "Arrow Properties"
 msgstr "矢印のプロパティ"
 
-#: lib/diaarrowchooser.c:313 lib/dialinechooser.c:333
+#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "詳細..."
 
@@ -2341,15 +2281,15 @@ msgstr ""
 "'%s' を開けませんでした\n"
 "'%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:791
 msgid "Left"
 msgstr "左寄せ"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:797
 msgid "Center"
 msgstr "中央寄せ"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:803
 msgid "Right"
 msgstr "右寄せ"
 
@@ -2417,55 +2357,55 @@ msgstr "文字の色"
 msgid "Other fonts..."
 msgstr "その他のフォント..."
 
-#: lib/widgets.c:523
+#: lib/widgets.c:522
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "%s 用のフォント・ファミリが見つかりませんでした\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:588
+#: lib/widgets.c:587
 msgid "Select font"
 msgstr "フォントの選択"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:940 objects/FS/function.c:1063
+#: lib/widgets.c:939 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "実線"
 
-#: lib/widgets.c:946
+#: lib/widgets.c:945
 msgid "Dashed"
 msgstr "鎖線"
 
-#: lib/widgets.c:952
+#: lib/widgets.c:951
 msgid "Dash-Dot"
 msgstr "一点鎖線"
 
-#: lib/widgets.c:958
+#: lib/widgets.c:957
 msgid "Dash-Dot-Dot"
 msgstr "二点鎖線"
 
-#: lib/widgets.c:964
+#: lib/widgets.c:963
 msgid "Dotted"
 msgstr "点線"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:983
+#: lib/widgets.c:982
 msgid "Dash length: "
 msgstr "鎖線の長さ："
 
-#: lib/widgets.c:1138
+#: lib/widgets.c:1137
 msgid "Select color"
 msgstr "色の選択"
 
-#: lib/widgets.c:1356
+#: lib/widgets.c:1355
 msgid "Size: "
 msgstr "大きさ:"
 
-#: lib/widgets.c:1505
+#: lib/widgets.c:1504
 msgid "Select image file"
 msgstr "画像ファイルの選択"
 
-#: lib/widgets.c:1541
+#: lib/widgets.c:1540
 msgid "Browse"
 msgstr "参照"
 
@@ -3734,7 +3674,7 @@ msgstr "分岐の種類:"
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
 #: objects/Istar/other.c:483 objects/Jackson/domain.c:539
 #: objects/KAOS/goal.c:587 objects/KAOS/other.c:535
-#: objects/standard/line.c:228
+#: objects/standard/line.c:232
 msgid "Add connection point"
 msgstr "接続点の追加"
 
@@ -3827,7 +3767,7 @@ msgstr "Box の右下に表示する識別子です"
 
 #: objects/SADT/box.c:446 objects/Istar/other.c:484
 #: objects/Jackson/domain.c:540 objects/KAOS/goal.c:588
-#: objects/KAOS/other.c:536 objects/standard/line.c:229
+#: objects/KAOS/other.c:536 objects/standard/line.c:233
 msgid "Delete connection point"
 msgstr "接続点の削除"
 
@@ -3886,7 +3826,7 @@ msgstr "アグリゲート"
 msgid "Composition"
 msgstr "コンポジション"
 
-#: objects/UML/class.c:110 objects/UML/class.c:245 objects/UML/class.c:1157
+#: objects/UML/class.c:110 objects/UML/class.c:247 objects/UML/class.c:1163
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "クラス"
@@ -3965,9 +3905,9 @@ msgstr "属性"
 msgid "Operations"
 msgstr "オペレーション"
 
-#: objects/UML/class.c:251
-msgid "Show comments"
-msgstr "コメントを表示する"
+#: objects/UML/class.c:241
+msgid "Show Comments"
+msgstr "コメントの表示"
 
 #. Class page:
 #: objects/UML/class_dialog.c:265
@@ -4404,15 +4344,15 @@ msgstr "水平方向への折り返し"
 msgid "Flip vertical"
 msgstr "垂直方向への折り返し"
 
-#: objects/custom/custom_object.c:1422
+#: objects/custom/custom_object.c:1431
 msgid "Flip Horizontal"
 msgstr "水平方向に折り返し"
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1432
 msgid "Flip Vertical"
 msgstr "垂直方向に折り返し"
 
-#: objects/custom/custom_object.c:1460
+#: objects/custom/custom_object.c:1469
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "オブジェクトの種類 '%2$s' のアイコン・ファイル %1$s を開けません"
@@ -4739,7 +4679,7 @@ msgstr ""
 "(代わりにファイル '%s' を使います)\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:712
+#: objects/standard/image.c:686 objects/standard/image.c:714
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "画像ファイル '%s' がありませんでした\n"
@@ -4756,26 +4696,6 @@ msgstr "開始点"
 msgid "End point"
 msgstr "終了点"
 
-#: objects/standard/line.c:143
-msgid "Line gaps"
-msgstr "線のギャップ"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr "絶対始点のギャップ"
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr "絶対終点のギャップ"
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr "部分始点のギャップ"
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr "部分終点のギャップ"
-
 #: objects/standard/polygon.c:460 objects/standard/polyline.c:515
 msgid "Add Corner"
 msgstr "四隅の追加"
@@ -4788,15 +4708,15 @@ msgstr "四隅の削除"
 msgid "Standard objects"
 msgstr "標準オブジェクト"
 
-#: plug-ins/cairo/diacairo.c:965
+#: plug-ins/cairo/diacairo.c:967
 msgid "Cairo PostScript"
 msgstr "Cairo ポストスクリプト"
 
-#: plug-ins/cairo/diacairo.c:974
+#: plug-ins/cairo/diacairo.c:976
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:1001
+#: plug-ins/cairo/diacairo.c:1004
 msgid "Cairo based Rendering"
 msgstr "Cairo ベースのレンダリング"
 
@@ -4893,7 +4813,7 @@ msgstr "UTF8 が正しくありません"
 msgid "TeX PSTricks macros"
 msgstr "Tex PSTricks マクロ"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1140
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "'%s' を書き込みモードで開けませんでした\n"
@@ -4948,11 +4868,11 @@ msgstr "ルートの要素が '%s' でした -- 'svg' であるべきです."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "SVG のインポート/エキスポート用フィルタ"
 
-#: plug-ins/wmf/wmf.cpp:1207
+#: plug-ins/wmf/wmf.cpp:1204
 msgid "Windows Meta File"
 msgstr "Windows メタ・ファイル"
 
-#: plug-ins/wmf/wmf.cpp:1223
+#: plug-ins/wmf/wmf.cpp:1220
 msgid "WMF export filter"
 msgstr "WMF のエキスポート用フィルタ"
 
