@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Misc</_name>
+  <_description>Miscellaneous Shapes</_description>
+  <contents>
+    <object name="Filesystem - Folder">
+      <_description>A Folder</_description>
+    </object>
+    <object name="Filesystem - File">
+      <_description>A File</_description>
+    </object>
+  </contents>
+</sheet>
+

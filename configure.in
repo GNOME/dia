@@ -442,6 +442,7 @@ shapes/MSE/Makefile
 shapes/SDL/Makefile
 shapes/Logic/Makefile
 shapes/sybase/Makefile
+shapes/Misc/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile
