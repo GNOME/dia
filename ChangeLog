@@ -1,3 +1,11 @@
+2000-04-11  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* objects/standard/polygon.c: Connectionpoints now properly
+	managed in a GList.  As far as I can tell, this will not dieturb
+	the order (but I have the nagging doubt...)
+
+	* lib/polyshape.c: No longer knows about connectionpoints.
+
 2000-04-11  James Henstridge  <james@daa.com.au>
 
 	* app/Makefile.am: fix makefile for bonobo build.

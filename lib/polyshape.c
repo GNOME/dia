@@ -299,7 +299,7 @@ polyshape_init(PolyShape *poly)
 
   obj = &poly->object;
 
-  object_init(obj, 3, 3);
+  object_init(obj, 3, 0);
   
   poly->numpoints = 3;
 

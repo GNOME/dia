@@ -49,7 +49,9 @@ typedef struct _PolygonDefaultsDialog PolygonDefaultsDialog;
 typedef struct _Polygon {
   PolyShape poly;
 
-  ConnectionPoint *connections;
+  /* This is purely to be able to correctly free ConnectionPoints.
+     See what a GC would get you? */
+  GList *connections;
 
   Color line_color;
   LineStyle line_style;
@@ -316,7 +318,6 @@ polygon_create(Point *startpoint,
 
   init_default_values();
 
-
   /*polygon_init_defaults();*/
   polygon = g_malloc(sizeof(Polygon));
   poly = &polygon->poly;
@@ -333,8 +334,6 @@ polygon_create(Point *startpoint,
   poly->points[2] = *startpoint;
   point_add(&poly->points[2], &defaulty);
 
-  polygon->connections = (ConnectionPoint *)g_malloc(3*sizeof(ConnectionPoint));
-
   polygon->line_width =  attributes_get_default_linewidth();
   polygon->line_color = attributes_get_foreground();
   polygon->inner_color = attributes_get_background();
@@ -342,10 +341,14 @@ polygon_create(Point *startpoint,
 				    &polygon->dashlength);
   polygon->show_background = default_properties.show_background;
 
-  for (i=0;i<3;i++) {
-    obj->connections[i] = &polygon->connections[i];
-    polygon->connections[i].object = obj;
-    polygon->connections[i].connected = NULL;
+  polygon->connections = NULL;
+
+  for (i=0; i<3; i++) {
+    ConnectionPoint *newconn = (ConnectionPoint *)g_malloc(sizeof(ConnectionPoint));
+    object_add_connectionpoint(obj, newconn);
+    newconn->object = obj;
+    newconn->connected = NULL;
+    polygon->connections = g_list_prepend(polygon->connections, newconn);
   }
 
   polygon_update_data(polygon);
@@ -358,7 +361,13 @@ polygon_create(Point *startpoint,
 static void
 polygon_destroy(Polygon *polygon)
 {
+  GList *connlist;
+
   polyshape_destroy(&polygon->poly);
+  for (connlist = polygon->connections; connlist != NULL; connlist = g_list_next(connlist)) {
+    g_free(connlist->data);
+  }
+  g_list_free(polygon->connections);
 }
 
 static Object *
@@ -367,7 +376,8 @@ polygon_copy(Polygon *polygon)
   Polygon *newpolygon;
   PolyShape *poly, *newpoly;
   Object *newobj;
-  
+  int i;
+
   poly = &polygon->poly;
  
   newpolygon = g_malloc(sizeof(Polygon));
@@ -381,6 +391,16 @@ polygon_copy(Polygon *polygon)
   newpolygon->line_style = polygon->line_style;
   newpolygon->dashlength = polygon->dashlength;
   newpolygon->show_background = polygon->show_background;
+
+  newpolygon->connections = NULL;
+
+  for (i = 0; i < poly->numpoints; i++) {
+    ConnectionPoint *newconn = (ConnectionPoint *)g_malloc(sizeof(ConnectionPoint));
+    /* Shouldn't this be a function in object.c? */
+    newobj->connections[i] = newconn;
+    *newconn = *(poly->object.connections[i]);
+    newpolygon->connections = g_list_prepend(newpolygon->connections, newconn);
+  }
 
   return (Object *)newpolygon;
 }
@@ -405,7 +425,7 @@ polygon_update_data(Polygon *polygon)
   obj->position = poly->points[0];
 
   for (i = 0; i < poly->numpoints; i++) {
-    polygon->connections[i].pos = poly->points[i];
+    obj->connections[i]->pos = poly->points[i];
   }
 }
 
@@ -448,6 +468,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   PolyShape *poly;
   Object *obj;
   AttributeNode attr;
+  int i;
 
   polygon = g_malloc(sizeof(Polygon));
 
@@ -489,6 +510,16 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     polygon->dashlength = data_real(attribute_first_data(attr));
 
+  polygon->connections = NULL;
+
+  for (i=0; i<polygon->poly.numpoints; i++) {
+    ConnectionPoint *newconn = (ConnectionPoint *)g_malloc(sizeof(ConnectionPoint));
+    object_add_connectionpoint(obj, newconn);
+    newconn->object = obj;
+    newconn->connected = NULL;
+    polygon->connections = g_list_prepend(polygon->connections, newconn);
+  }
+
   polygon_update_data(polygon);
 
   return (Object *)polygon;
@@ -500,9 +531,16 @@ polygon_add_corner_callback (Object *obj, Point *clicked, gpointer data)
   Polygon *poly = (Polygon*) obj;
   int segment;
   ObjectChange *change;
+  ConnectionPoint *newconn = (ConnectionPoint *)g_malloc(sizeof(ConnectionPoint));
   
   segment = polygon_closest_segment(poly, clicked);
   change = polyshape_add_point(&poly->poly, segment, clicked);
+
+  object_add_connectionpoint(obj, newconn);
+  newconn->object = obj;
+  newconn->connected = NULL;
+  poly->connections = g_list_prepend(poly->connections, newconn);
+
   polygon_update_data(poly);
   return change;
 }
@@ -514,6 +552,7 @@ polygon_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
   int handle_nr, i;
   Polygon *poly = (Polygon*) obj;
   ObjectChange *change;
+  ConnectionPoint *oldconn;
   
   handle = polygon_closest_handle(poly, clicked);
 
@@ -522,6 +561,12 @@ polygon_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
   }
   handle_nr = i;
   change = polyshape_remove_point(&poly->poly, handle_nr);
+
+  oldconn = obj->connections[i];
+  object_remove_connectionpoint(obj, oldconn);
+  poly->connections = g_list_remove(poly->connections, oldconn);
+  g_free(oldconn);
+
   polygon_update_data(poly);
   return change;
 }
