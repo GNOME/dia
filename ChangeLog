@@ -1,3 +1,15 @@
+1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
+
+	* po/da.po:
+	Added danish translation from lrclause@cs.uiuc.edu.
+
+	* po/POFILES.in:
+	Updated file.
+
+	* po/update_pofiles_in.sh:
+	Added script that updates POFILES.in.
+	This should probably be run automatically from somewhere.
+	
 1999-03-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/diagram.[ch]:
@@ -79,6 +91,9 @@
 	Don't allow shrinking of dialog.
 	Add i18n of some strings.
 
+1999-03-11  Kjartan Maraas  <kmaraas@fib.hl.no>
+        * po/no.po:
+	Norwegian translation added.
 	
 1999-03-11  Alexander Larsson  <alla@lysator.liu.se>
 
