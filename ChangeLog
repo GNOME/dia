@@ -30,7 +30,7 @@
 	(end of Patch)
 
 	* app/commands.c: fixed the copyright (it's not all FSF), and
-	maintainers.
+	maintainers. Synced contributors list with AUTHORS.
 		
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
