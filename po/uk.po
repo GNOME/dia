@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2001-01-15 16:06+0200\n"
+"POT-Creation-Date: 2001-01-19 13:09+0200\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -1424,10 +1424,36 @@ msgstr "В цього об'╓кта нема╓ властивостей."
 msgid "Encapsulated Postscript"
 msgstr "Вбудований Postscript"
 
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+msgid "/File/Plugins"
+msgstr "/Файл/Доповнення"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+msgid "/File/Open Recent/"
+msgstr "/Файл/В╕дкрити недавн╕й/"
+
+#: app/recent_files.c:153
+msgid "Can't open history file for writing."
+msgstr "Неможливо в╕дкрити файл ╕стор╕╖ для запису."
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr "Завантаження..."
+
+#: app/splash.c:67
+#, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr ""
+"Dia верс╕╖ %s\n"
+"Автор: Alexander Larsson"
+
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
-"Внутр╕шня помилка: встановлення типу кута для к╕нцево╖ точки криво╖ Без'е"
+msgstr "Внутр╕шня помилка: встановлення типу кута для к╕нцево╖ точки криво╖ Без'е"
 
 #: lib/font.c:387
 #, c-format
@@ -2089,11 +2115,14 @@ msgstr "Сукупн╕сть"
 msgid "Composition"
 msgstr "Композиц╕я"
 
-#: objects/UML/class.c:96
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
 msgid "Name"
 msgstr "Назва"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146 objects/UML/object.c:164
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
 msgid "Stereotype"
 msgstr "Стереотип"
 
@@ -2352,6 +2381,10 @@ msgstr "Активний об'╓кт"
 #: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "множинн╕ входження"
+
+#: objects/UML/node.c:115
+msgid "Node name"
+msgstr "Назва вузла"
 
 #: objects/UML/state.c:147
 msgid "State Type"
