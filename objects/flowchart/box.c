@@ -487,38 +487,70 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   radius *= (1-M_SQRT1_2);
   
   /* Update connections: */
-  box->connections[0].pos.x = elem->corner.x + radius;
-  box->connections[0].pos.y = elem->corner.y + radius;
-  box->connections[1].pos.x = elem->corner.x + elem->width / 4.0;
-  box->connections[1].pos.y = elem->corner.y;
-  box->connections[2].pos.x = elem->corner.x + elem->width / 2.0;
-  box->connections[2].pos.y = elem->corner.y;
-  box->connections[3].pos.x = elem->corner.x + elem->width * 3.0 / 4.0;
-  box->connections[3].pos.y = elem->corner.y;
-  box->connections[4].pos.x = elem->corner.x + elem->width - radius;
-  box->connections[4].pos.y = elem->corner.y + radius;
-  box->connections[5].pos.x = elem->corner.x;
-  box->connections[5].pos.y = elem->corner.y + elem->height / 4.0;
-  box->connections[6].pos.x = elem->corner.x + elem->width;
-  box->connections[6].pos.y = elem->corner.y + elem->height / 4.0;
-  box->connections[7].pos.x = elem->corner.x;
-  box->connections[7].pos.y = elem->corner.y + elem->height / 2.0;
-  box->connections[8].pos.x = elem->corner.x + elem->width;
-  box->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
-  box->connections[9].pos.x = elem->corner.x;
-  box->connections[9].pos.y = elem->corner.y + elem->height * 3.0 / 4.0;
-  box->connections[10].pos.x = elem->corner.x + elem->width;
-  box->connections[10].pos.y = elem->corner.y + elem->height * 3.0 / 4.0;
-  box->connections[11].pos.x = elem->corner.x + radius;
-  box->connections[11].pos.y = elem->corner.y + elem->height - radius;
-  box->connections[12].pos.x = elem->corner.x + elem->width / 4.0;
-  box->connections[12].pos.y = elem->corner.y + elem->height;
-  box->connections[13].pos.x = elem->corner.x + elem->width / 2.0;
-  box->connections[13].pos.y = elem->corner.y + elem->height;
-  box->connections[14].pos.x = elem->corner.x + elem->width * 3.0 / 4.0;
-  box->connections[14].pos.y = elem->corner.y + elem->height;
-  box->connections[15].pos.x = elem->corner.x + elem->width - radius;
-  box->connections[15].pos.y = elem->corner.y + elem->height - radius;
+  connpoint_update(&box->connections[0],
+		    elem->corner.x + radius,
+		    elem->corner.y + radius,
+		    DIR_NORTHWEST);
+  connpoint_update(&box->connections[1],
+		    elem->corner.x + elem->width / 4.0,
+		    elem->corner.y,
+		    DIR_NORTH);
+  connpoint_update(&box->connections[2],
+		    elem->corner.x + elem->width / 2.0,
+		    elem->corner.y,
+		    DIR_NORTH);
+  connpoint_update(&box->connections[3],
+		    elem->corner.x + elem->width * 3.0 / 4.0,
+		    elem->corner.y,
+		    DIR_NORTH);
+  connpoint_update(&box->connections[4],
+		    elem->corner.x + elem->width - radius,
+		    elem->corner.y + radius,
+		    DIR_NORTHEAST);
+  connpoint_update(&box->connections[5],
+		    elem->corner.x,
+		    elem->corner.y + elem->height / 4.0,
+		    DIR_WEST);
+  connpoint_update(&box->connections[6],
+		    elem->corner.x + elem->width,
+		    elem->corner.y + elem->height / 4.0,
+		    DIR_EAST);
+  connpoint_update(&box->connections[7],
+		    elem->corner.x,
+		    elem->corner.y + elem->height / 2.0,
+		    DIR_WEST);
+  connpoint_update(&box->connections[8],
+		    elem->corner.x + elem->width,
+		    elem->corner.y + elem->height / 2.0,
+		    DIR_EAST);
+  connpoint_update(&box->connections[9],
+		    elem->corner.x,
+		    elem->corner.y + elem->height * 3.0 / 4.0,
+		    DIR_WEST);
+  connpoint_update(&box->connections[10],
+		    elem->corner.x + elem->width,
+		    elem->corner.y + elem->height * 3.0 / 4.0,
+		    DIR_EAST);
+  connpoint_update(&box->connections[11],
+		    elem->corner.x + radius,
+		    elem->corner.y + elem->height - radius,
+		    DIR_SOUTHWEST);
+  connpoint_update(&box->connections[12],
+		    elem->corner.x + elem->width / 4.0,
+		    elem->corner.y + elem->height,
+		    DIR_SOUTH);
+  connpoint_update(&box->connections[13],
+		    elem->corner.x + elem->width / 2.0,
+		    elem->corner.y + elem->height,
+		    DIR_SOUTH);
+  connpoint_update(&box->connections[14],
+		    elem->corner.x + elem->width * 3.0 / 4.0,
+		    elem->corner.y + elem->height,
+		    DIR_SOUTH);
+  connpoint_update(&box->connections[15],
+		    elem->corner.x + elem->width - radius,
+		    elem->corner.y + elem->height - radius,
+		    DIR_SOUTHEAST);
 
   extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -655,7 +687,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  box = g_new(Box, 1);
+  box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
   

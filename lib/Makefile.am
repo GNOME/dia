@@ -58,6 +58,7 @@ libdia_la_SOURCES =  \
 		focus.h \
 		sheet.c \
 		sheet.h \
+		connectionpoint.c \
 		connectionpoint.h \
 		handle.h \
 		object.h \

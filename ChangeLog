@@ -1,5 +1,10 @@
 2003-08-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/flowchart/box.c (box_update_data): Add directions, use
+	connpoint_update. 
+	(box_load): Use g_malloc0.
+
+	* lib/Makefile.am (libdia_la_SOURCES):
 	* lib/connectionpoint.c (connpoint_update): 
 	Function to call to update a connection point info in _update_data().
 	
