@@ -1,3 +1,15 @@
+2002-05-17  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* po/POTFILES.in: added app/sheets_dialog_callbacks.c
+
+	* app/sheets_dialog_callbacks.c: While reviewing UTF-8isation upon
+	Lars' request, minor cosmetic stuff (mostly _() of human-readable
+	XML comments in .sheet files; one translator booby-trap disarmed).
+
+	* lib/charconv.c: moved #hell inside the body of the new
+	charconv_*gtk* functions (otherwise the Win32 or gtk2.0 linker
+	will yell)
+	
 2002-05-16  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* plug-ins/wpg/Makefile.am (INCLUDES): 

@@ -69,6 +69,7 @@
 #include "sheets_dialog.h"
 
 #include "pixmaps/line_break.xpm"
+#include "intl.h"
 
 static GSList *radio_group = NULL;
 
@@ -795,7 +796,8 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     p = file_name + strlen(file_name) - 6;
     if (strcmp(p, ".shape"))
     {
-      message_error(_("Filename must end with '.shape': '%s'"), file_name);
+      message_error(_("Filename must end with '%s': '%s'"),
+                    ".shape", file_name);
       g_free(file_name);
       return;
     }
@@ -1644,7 +1646,7 @@ write_user_sheet(Sheet *sheet)
   time_now = time(NULL);
   username = getlogin();
   if (username==NULL)
-    username = "a user";
+    username = _("a user");
 
   doc = xmlNewDoc("1.0");
   doc->encoding = xmlStrdup("UTF-8");
@@ -1657,14 +1659,14 @@ write_user_sheet(Sheet *sheet)
   xmlAddChild(root, xmlNewText("\n"));
   xmlAddChild(root, xmlNewComment("Dia-Version: "VERSION));
   xmlAddChild(root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "File: %s", filename);
+  g_snprintf(buf, sizeof(buf), _("File: %s"), filename);
   xmlAddChild(root, xmlNewComment(buf));
   xmlAddChild(root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "Date: %s", ctime(&time_now));
+  g_snprintf(buf, sizeof(buf), _("Date: %s"), ctime(&time_now));
   buf[strlen(buf)-1] = '\0'; /* remove the trailing new line */
   xmlAddChild(root, xmlNewComment(buf));
   xmlAddChild(root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "For: %s", username);
+  g_snprintf(buf, sizeof(buf), _("For: %s"), username);
   xmlAddChild(root, xmlNewComment(buf));
   xmlAddChild(root, xmlNewText("\n\n"));
 
@@ -1681,7 +1683,7 @@ write_user_sheet(Sheet *sheet)
   /* content */
   node = xmlNewChild(root, NULL, "contents", NULL);
   xmlAddChild(node, xmlNewText("\n"));
-  xmlAddChild(node, xmlNewComment("add shapes here"));
+  xmlAddChild(node, xmlNewComment(_("add shapes here")));
   xmlAddChild(node, xmlNewText("\n"));
 
   /* objects */
