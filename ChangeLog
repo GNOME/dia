@@ -1,3 +1,11 @@
+1999-08-22  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom_object.c: fixed up dialogs for these objects.
+	(custom_create): fix for objects without text areas.
+
+	* objects/custom/shape_info.h, objects/custom/custom_object.c: loading
+	and saving of custom object works correctly now.
+
 1999-08-21  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/ellipse.c: 

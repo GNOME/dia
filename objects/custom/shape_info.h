@@ -4,6 +4,7 @@
 #include <glib.h>
 #include "geometry.h"
 #include "dia_xml.h"
+#include "object.h"
 
 typedef enum {
   GE_LINE,
@@ -48,6 +49,8 @@ struct _ShapeInfo {
   gboolean has_text;
   Rectangle text_bounds;
   GList *display_list;
+
+  ObjectType *object_type; /* back link so we can find the correct type */
 };
 
 ShapeInfo *shape_info_load(const gchar *filename);

@@ -88,6 +88,7 @@ typedef struct _CustomProperties {
   real padding;
   Font *font;
   real font_size;
+  Alignment alignment;
   Color *font_color;
 } CustomProperties;
 
@@ -100,7 +101,9 @@ struct _CustomPropertiesDialog {
   GtkToggleButton *show_background;
   DiaLineStyleSelector *line_style;
 
+  GtkWidget *text_vbox;
   GtkSpinButton *padding;
+  DiaAlignmentSelector *alignment;
   DiaFontSelector *font;
   GtkSpinButton *font_size;
   DiaColorSelector *font_color;
@@ -115,6 +118,7 @@ struct _CustomDefaultsDialog {
   DiaLineStyleSelector *line_style;
 
   GtkSpinButton *padding;
+  DiaAlignmentSelector *alignment;
   DiaFontSelector *font;
   GtkSpinButton *font_size;
 };
@@ -195,6 +199,7 @@ custom_apply_properties(Custom *custom)
   ObjectState *old_state;
   Font *font;
   Color col;
+  Alignment align;
 
   if (custom != custom_properties_dialog->custom) {
     message_warning("Custom dialog problem:  %p != %p\n", custom,
@@ -210,13 +215,17 @@ custom_apply_properties(Custom *custom)
   custom->show_background = gtk_toggle_button_get_active(custom_properties_dialog->show_background);
   dia_line_style_selector_get_linestyle(custom_properties_dialog->line_style, &custom->line_style, NULL);
 
-  custom->padding = gtk_spin_button_get_value_as_float(custom_properties_dialog->padding);
-  font = dia_font_selector_get_font(custom_properties_dialog->font);
-  text_set_font(custom->text, font);
-  text_set_height(custom->text, gtk_spin_button_get_value_as_float(
+  if (custom->info->has_text) {
+    custom->padding = gtk_spin_button_get_value_as_float(custom_properties_dialog->padding);
+    align = dia_alignment_selector_get_alignment(custom_properties_dialog->alignment);
+    text_set_alignment(custom->text, align);
+    font = dia_font_selector_get_font(custom_properties_dialog->font);
+    text_set_font(custom->text, font);
+    text_set_height(custom->text, gtk_spin_button_get_value_as_float(
 					custom_properties_dialog->font_size));
-  dia_color_selector_get_color(custom_properties_dialog->font_color, &col);
-  text_set_color(custom->text, &col);
+    dia_color_selector_get_color(custom_properties_dialog->font_color, &col);
+    text_set_color(custom->text, &col);
+  }
   
   custom_update_data(custom);
   return new_object_state_change((Object *)custom, old_state, 
@@ -235,6 +244,7 @@ custom_get_properties(Custom *custom)
   GtkWidget *linestyle;
   GtkWidget *border_width;
   GtkWidget *padding;
+  GtkWidget *alignment;
   GtkWidget *font;
   GtkWidget *font_size;
   GtkWidget *font_color;
@@ -302,6 +312,12 @@ custom_get_properties(Custom *custom)
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
+    vbox = gtk_vbox_new(FALSE, 5);
+    gtk_widget_show(vbox);
+    custom_properties_dialog->text_vbox = vbox;
+    gtk_box_pack_start(GTK_BOX(custom_properties_dialog->vbox), vbox,
+		       TRUE, TRUE, 0);
+
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Text padding:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
@@ -313,6 +329,17 @@ custom_get_properties(Custom *custom)
     custom_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
     gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
     gtk_widget_show (padding);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new(_("Alignment:"));
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    alignment = dia_alignment_selector_new();
+    custom_properties_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
+    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
+    gtk_widget_show (alignment);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -368,14 +395,19 @@ custom_get_properties(Custom *custom)
   dia_line_style_selector_set_linestyle(custom_properties_dialog->line_style,
 					custom->line_style, 1.0);
 
-  gtk_spin_button_set_value(custom_properties_dialog->padding,
-			    custom->padding);
-  dia_font_selector_set_font(custom_properties_dialog->font, custom->text->font);
-  gtk_spin_button_set_value(custom_properties_dialog->font_size,
-			    custom->text->height);
-  dia_color_selector_set_color(custom_properties_dialog->font_color,
-			       &custom->text->color);
-  
+  if (custom->info->has_text) {
+    gtk_spin_button_set_value(custom_properties_dialog->padding,
+			      custom->padding);
+    dia_alignment_selector_set_alignment(custom_properties_dialog->alignment, custom->text->alignment);
+    dia_font_selector_set_font(custom_properties_dialog->font, custom->text->font);
+    gtk_spin_button_set_value(custom_properties_dialog->font_size,
+			      custom->text->height);
+    dia_color_selector_set_color(custom_properties_dialog->font_color,
+				 &custom->text->color);
+    gtk_widget_show(custom_properties_dialog->text_vbox);
+  } else
+    gtk_widget_hide(custom_properties_dialog->text_vbox);
+
   return custom_properties_dialog->vbox;
 }
 static void
@@ -386,6 +418,7 @@ custom_apply_defaults()
   default_properties.show_background = gtk_toggle_button_get_active(custom_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(custom_defaults_dialog->padding);
+  default_properties.alignment = dia_alignment_selector_get_alignment(custom_defaults_dialog->alignment);
   default_properties.font = dia_font_selector_get_font(custom_defaults_dialog->font);
   default_properties.font_size = gtk_spin_button_get_value_as_float(custom_defaults_dialog->font_size);
 }
@@ -397,6 +430,7 @@ init_default_values() {
   if (!defaults_initialized) {
     default_properties.show_background = 1;
     default_properties.padding = 0.5 * M_SQRT1_2;
+    default_properties.alignment = ALIGN_CENTER;
     default_properties.font = font_getfont("Courier");
     default_properties.font_size = 0.8;
     defaults_initialized = 1;
@@ -412,6 +446,7 @@ custom_get_defaults()
   GtkWidget *checkcustom;
   GtkWidget *linestyle;
   GtkWidget *padding;
+  GtkWidget *alignment;
   GtkWidget *font;
   GtkWidget *font_size;
   GtkAdjustment *adj;
@@ -459,6 +494,17 @@ custom_get_defaults()
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new(_("Alignment:"));
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    alignment = dia_alignment_selector_new();
+    custom_defaults_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
+    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
+    gtk_widget_show (alignment);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -494,6 +540,8 @@ custom_get_defaults()
 
   gtk_spin_button_set_value(custom_defaults_dialog->padding,
 			    default_properties.padding);
+  dia_alignment_selector_set_alignment(custom_defaults_dialog->alignment,
+				       default_properties.alignment);
   dia_font_selector_set_font(custom_defaults_dialog->font,
 			     default_properties.font);
   gtk_spin_button_set_value(custom_defaults_dialog->font_size,
@@ -815,7 +863,7 @@ custom_create(Point *startpoint,
   elem = &custom->element;
   obj = (Object *) custom;
   
-  obj->type = &custom_type;
+  obj->type = info->object_type;
 
   obj->ops = &custom_ops;
 
@@ -840,10 +888,9 @@ custom_create(Point *startpoint,
     custom->text = new_text("", default_properties.font,
 			    default_properties.font_size, &p,
 			    &custom->border_color,
-			    ALIGN_CENTER);
-
-    element_init(elem, 8, info->nconnections);
+			    default_properties.alignment);
   }
+  element_init(elem, 8, info->nconnections);
 
   custom->connections = g_new(ConnectionPoint, info->nconnections);
   for (i = 0; i < info->nconnections; i++) {
@@ -951,14 +998,14 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   elem = &custom->element;
   obj = (Object *) custom;
   
-  obj->type = &custom_type;
+  /* find out what type of object this is ... */
+  custom->info = shape_info_get(obj_node);
+  
+  obj->type = custom->info->object_type;;
   obj->ops = &custom_ops;
 
   element_load(elem, obj_node);
 
-  /* find out what type of object this is ... */
-  custom->info = shape_info_get(obj_node);
-  
   custom->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -993,6 +1040,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
 
   element_init(elem, 8, custom->info->nconnections);
 
+  custom->connections = g_new(ConnectionPoint, custom->info->nconnections);
   for (i = 0; i < custom->info->nconnections; i++) {
     obj->connections[i] = &custom->connections[i];
     custom->connections[i].object = obj;
@@ -1018,6 +1066,8 @@ custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
   sheet->object_type = info->name;
   sheet->description = info->description;
   sheet->user_data = info;
+
+  info->object_type = obj;
 
   *otype = obj;
   *sheetobj = sheet;

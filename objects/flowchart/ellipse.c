@@ -648,9 +648,9 @@ ellipse_update_data(Ellipse *ellipse)
   real radius1, radius2;
   int i;
 
-  width = ellipse->text->height * ellipse->text->numlines +
+  width = ellipse->text->max_width + 2 * ellipse->padding;
+  height = ellipse->text->height * ellipse->text->numlines +
     2 * ellipse->padding;
-  height = ellipse->text->max_width + 2 * ellipse->padding;
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height / 2;

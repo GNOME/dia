@@ -653,9 +653,9 @@ diamond_update_data(Diamond *diamond)
   real dw, dh;
   real width, height;
 
-  width = diamond->text->height * diamond->text->numlines +
+  width = diamond->text->max_width + 2*diamond->padding+diamond->border_width;
+  height = diamond->text->height * diamond->text->numlines +
     2 * diamond->padding + diamond->border_width;
-  height = diamond->text->max_width + 2*diamond->padding+diamond->border_width;
 
   if (height > (elem->width - width) * elem->height / elem->width) {
     /* increase size of the parallelogram while keeping its aspect ratio */
