@@ -9,12 +9,15 @@
   </connections>
   <textbox x1="-1" y1="3.8" x2="3" y2="6.8" align="center" resize="no"/>
   <svg:svg width="1cm" height="3cm">
-    <svg:path style="stroke:foreground; stroke-width:1"
-    d="M0,.51 L.5,.75 M0,.75 L.5,.99 M0,.99 L.5,1.26 M0,1.26 L.5,1.5 M0,1.5 L.5,1.74 M0,1.74 L.5,2.01 M0,2.01 L.5,2.25 M0,2.25 L.5,2.49  M0,2.49 L.5,2.76 "/>
-    <svg:path style="stroke:foreground; stroke-width:1"
-    d="M1,.51 L.5,.75 M1,.75 L.5,.99 M1,.99 L.5,1.26 M1,1.26 L.5,1.5 M1,1.5 L.5,1.74 M1,1.74 L.5,2.01 M1,2.01 L.5,2.25 M1,2.25 L.5,2.49 M1,2.49 L.5,2.76"/>
+
     <svg:polygon style="stroke:none; fill:background"
-    points="0,0 1,0 1,2.76 .5,.51 0,2.76"/>
+    points="0,2.76 .5,2.49 1,2.76 .5,3"/>
+
+    <svg:path style="stroke:foreground; stroke-width:1"
+    d="M.45,.73 L.5,.75 M.40,.94 L.5,.99 M.35,1.17 L.5,1.26 M.30,1.40 L.5,1.5 M.25,1.62 L.5,1.74 M.2,1.85 L.5,2.01 M.15,2.08 L.5,2.25 M.1,2.3 L.5,2.49 M.05,2.52 L.5,2.76 "/>
+    <svg:path style="stroke:foreground; stroke-width:1"
+    d="M.55,.73 L.5,.75 M.6,.94 L.5,.99 M.65,1.18 L.5,1.26 M.69,1.40 L.5,1.5 M.75,1.62 L.5,1.74 M.81,1.85 L.5,2.01 M.85,2.08 L.5,2.25 M.9,2.3 L.5,2.49 M.95,2.52 L.5,2.76"/>
+    
 
     <svg:path style="stroke:foreground; stroke-width:1"
     d="M.5,.51 L.44,.24 L.5,.375 L.375,0"/>

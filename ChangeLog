@@ -25,7 +25,10 @@
 	by Hubert in #55075.
 	
 	* shapes/network/computer.shape: typo fixed.
-
+	* shapes/network/antenna.shape: fixed #55074 (antenna is now
+	properly translucent, except for its base where it makes sense. It
+	doesn't look that ugly anymore if transparent mode is on).
+	
 2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/boundingbox.c: fixed a minor logic error wrt closed shapes. 
