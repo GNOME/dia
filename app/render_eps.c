@@ -938,9 +938,11 @@ export_eps(DiagramData *data, const gchar *filename,
            const gchar *diafilename, void* user_data)
 {
   DiaPsRenderer *renderer;
+  FILE *outfile;
 
   renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
-  renderer->file =  fopen(filename, "w");
+  outfile = fopen(filename, "w");
+  renderer->file = outfile;
   renderer->scale = 28.346 * data->paper.scaling;
   renderer->extent = data->extents;
   renderer->is_eps = TRUE;
@@ -951,6 +953,7 @@ export_eps(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
   }
   g_object_unref (renderer);
+  fclose(outfile);
 }
 
 DiaRenderer *

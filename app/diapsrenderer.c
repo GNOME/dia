@@ -837,7 +837,7 @@ dia_ps_renderer_finalize (GObject *object)
   DiaPsRenderer *renderer = DIA_PS_RENDERER (object);
 
   g_free(renderer->title);
-  fclose(renderer->file);
+  /*  fclose(renderer->file);*/
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

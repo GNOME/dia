@@ -1,5 +1,9 @@
 2002-10-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/render_eps.c (export_eps): 
+	* app/diapsrenderer.c (dia_ps_renderer_finalize): 
+	Fixed file closing confusion, no longer dependent on PS/EPS.
+
 	* app/diagram.c (diagram_place_down_selected) 
 	(diagram_place_up_selected): Now implemented.
 
