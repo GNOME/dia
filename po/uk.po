@@ -1422,11 +1422,11 @@ msgstr "Слабкий ключ"
 
 #: objects/ER/attribute.c:224
 msgid "Derived"
-msgstr ""
+msgstr "Пох╕дний"
 
 #: objects/ER/attribute.c:230
 msgid "Multivalue"
-msgstr ""
+msgstr "Багатозначний"
 
 #: objects/ER/attribute.c:236 objects/ER/entity.c:202
 #: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
