@@ -27,6 +27,7 @@
 #include <locale.h>
 #include <string.h> /* strlen */
 #include <signal.h>
+#include <errno.h>
 
 #include "intl.h"
 #include "message.h"
@@ -203,6 +204,7 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
   DDisplay *ddisp;
+  gchar *printcmd = NULL;
 
   FILE *file;
   gboolean is_pipe;
@@ -289,7 +291,6 @@ diagram_print_ps(Diagram *dia)
   if (last_print_options.command) {
     gtk_entry_set_text(GTK_ENTRY(cmd), last_print_options.command);
   } else {
-    gchar *printcmd;
     gchar *printer = g_getenv("PRINTER");
 
     if (printer) {
@@ -318,10 +319,11 @@ diagram_print_ps(Diagram *dia)
   }
 
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
+    printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
 #ifdef G_OS_WIN32
-    file = win32_printer_open (gtk_entry_get_text(GTK_ENTRY(cmd)));
+    file = win32_printer_open (printcmd);
 #else
-    file = popen(gtk_entry_get_text(GTK_ENTRY(cmd)), "w");
+    file = popen(printcmd, "w");
 #endif
     is_pipe = TRUE;
   } else {
@@ -344,17 +346,18 @@ diagram_print_ps(Diagram *dia)
   /* Store dialog values */
   g_free( last_print_options.command );
   g_free( last_print_options.output );
-  last_print_options.command = g_strdup( gtk_entry_get_text(GTK_ENTRY(cmd)) );
+  if (printcmd)
+    last_print_options.command = g_strdup( printcmd );
   last_print_options.output = g_strdup( gtk_entry_get_text(GTK_ENTRY(ofile)) );
   last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
   
   if (!file) {
-    if (is_pipe)
-      message_warning(_("Could not run command '%s'"),
-		      gtk_entry_get_text(GTK_ENTRY(cmd)));
-    else
-      message_warning(_("Could not open '%s' for writing"),
-		      gtk_entry_get_text(GTK_ENTRY(ofile)));
+    if (is_pipe) {
+      message_warning(_("Could not run command '%s': %s"), printcmd, strerror(errno));
+      g_free(printcmd);
+    } else
+      message_warning(_("Could not open '%s' for writing: %s"),
+		      gtk_entry_get_text(GTK_ENTRY(ofile)), strerror(errno));
     gtk_widget_destroy(dialog);
     return;
   }
@@ -369,14 +372,21 @@ diagram_print_ps(Diagram *dia)
 
   paginate_psprint(dia, file);
   gtk_widget_destroy(dialog);
-  if (is_pipe)
-    pclose(file);
-  else
+  if (is_pipe) {
+    int exitval = pclose(file);
+    if (exitval != NULL) {
+      message_error(_("Printing error: command '%s' returned %d\n"),
+		    printcmd, exitval);
+    }
+  } else
     fclose(file);
 
 #ifndef G_OS_WIN32
   sigaction(SIGPIPE, &old_action, NULL);
 #endif
   if (sigpipe_received)
-    message_error(_("Error occured while printing"));
+    message_error(_("Printing error: command '%s' caused sigpipe."),
+		  printcmd);
+
+  if (is_pipe) g_free(printcmd);
 }

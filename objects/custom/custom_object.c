@@ -299,7 +299,6 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 				xmlFree(str);
 
 				/* we got here, then fill an entry */
-				printf("ExtAttr %s %s (%d)\n", ptype, pname, ptype);
 				info->props[i].name = g_strdup_printf("custom:%s", pname);
 				info->props[i].type = ptype;
 				info->props[i].flags = PROP_FLAG_VISIBLE;

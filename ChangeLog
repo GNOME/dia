@@ -1,5 +1,11 @@
 2004-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* objects/custom/custom_object.c (custom_setup_properties):
+	Removed debugging output
+
+	* app/paginate_psprint.c (diagram_print_ps): Slightly more
+	readable printer error messages.
+
 	* xmldocs.make: 
 	* omf.make: 
 	* doc/en/Makefile.am: 
