@@ -64,7 +64,7 @@ if test "$have_pangoft2" = "true"; then
     dnl Need 2.0.9, as a bug was fixed for us there.
     dnl However, freetype-config doesn't give a meaningful version, so we must
     dnl do it like this.
-    AC_MSG_CHECKING([for version of FreeType])
+    AC_MSG_CHECKING([if FreeType version is 2.0.9 or higher])
     old_CPPFLAGS="$CPPFLAGS"
     CPPFLAGS=`freetype-config --cflags`
     AC_TRY_CPP([#include <freetype/freetype.h>
@@ -72,7 +72,7 @@ if test "$have_pangoft2" = "true"; then
 #error Freetype version too low.
 #endif
 ],
-        [AC_MSG_RESULT(good)
+        [AC_MSG_RESULT(yes)
 	 FREETYPE_LIBS=-lfreetype
 	 AC_SUBST(FREETYPE_LIBS)
 	 GTK_MODULES="$GTK_MODULES pangoft2"
