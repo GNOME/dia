@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-01-30 01:27+0100\n"
-"PO-Revision-Date: 2002-01-30 01:27+0100\n"
+"POT-Creation-Date: 2002-01-31 14:11+0100\n"
+"PO-Revision-Date: 2002-01-31 14:11+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/color_area.c:264 lib/widgets.c:519
+#: app/color_area.c:264 lib/widgets.c:584
 msgid "Select color"
 msgstr "Välj färg"
 
@@ -453,7 +453,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:448
+#: app/display.c:141 app/display.c:142 app/interface.c:449
 msgid "Zoom"
 msgstr "Zooma"
 
@@ -563,28 +563,28 @@ msgstr "Exportera diagram"
 msgid "Export Options"
 msgstr "Exportinställningar"
 
-#: app/interface.c:43
+#: app/interface.c:44
 msgid "Modify object(s)"
 msgstr "Modifiera objekt"
 
-#: app/interface.c:44 app/menus.c:203
+#: app/interface.c:45 app/menus.c:203
 msgid "Modify"
 msgstr "Modifiera"
 
-#: app/interface.c:48 app/interface.c:49 app/menus.c:204
-#: objects/FS/function.c:763
+#: app/interface.c:49 app/interface.c:50 app/menus.c:204
+#: objects/FS/function.c:765
 msgid "Magnify"
 msgstr "Förstora"
 
-#: app/interface.c:53
+#: app/interface.c:54
 msgid "Scroll around the diagram"
 msgstr "Rulla i diagrammet"
 
-#: app/interface.c:54 app/menus.c:205
+#: app/interface.c:55 app/menus.c:205
 msgid "Scroll"
 msgstr "Rulla"
 
-#: app/interface.c:58
+#: app/interface.c:59
 msgid "Create Text"
 msgstr "Skapa text"
 
@@ -592,7 +592,7 @@ msgstr "Skapa text"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
+#: app/interface.c:60 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
 #: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
@@ -600,91 +600,91 @@ msgstr "Skapa text"
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:63
+#: app/interface.c:64
 msgid "Create Box"
 msgstr "Skapa låda"
 
-#: app/interface.c:64 app/menus.c:207
+#: app/interface.c:65 app/menus.c:207
 msgid "Box"
 msgstr "Låda"
 
-#: app/interface.c:68
+#: app/interface.c:69
 msgid "Create Ellipse"
 msgstr "Skapa ellips"
 
-#: app/interface.c:69 app/menus.c:208
+#: app/interface.c:70 app/menus.c:208
 msgid "Ellipse"
 msgstr "Ellips"
 
-#: app/interface.c:73
+#: app/interface.c:74
 msgid "Create Polygon"
 msgstr "Skapa polygon"
 
-#: app/interface.c:74 app/menus.c:209
+#: app/interface.c:75 app/menus.c:209
 msgid "Polygon"
 msgstr "Polygon"
 
-#: app/interface.c:78
+#: app/interface.c:79
 msgid "Create Beziergon"
 msgstr "Skapa beziergon"
 
-#: app/interface.c:79 app/menus.c:210
+#: app/interface.c:80 app/menus.c:210
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:83
+#: app/interface.c:84
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:211 objects/standard/line.c:188
+#: app/interface.c:85 app/menus.c:211 objects/standard/line.c:188
 msgid "Line"
 msgstr "Linje"
 
-#: app/interface.c:88
+#: app/interface.c:89
 msgid "Create Arc"
 msgstr "Skapa båge"
 
-#: app/interface.c:89 app/menus.c:212
+#: app/interface.c:90 app/menus.c:212
 msgid "Arc"
 msgstr "Båge"
 
-#: app/interface.c:93
+#: app/interface.c:94
 msgid "Create Zigzagline"
 msgstr "Skapa sicksacklinje"
 
-#: app/interface.c:94 app/menus.c:213
+#: app/interface.c:95 app/menus.c:213
 msgid "Zigzagline"
 msgstr "Sicksacklinje"
 
-#: app/interface.c:98
+#: app/interface.c:99
 msgid "Create Polyline"
 msgstr "Skapa polylinje"
 
-#: app/interface.c:99 app/menus.c:214
+#: app/interface.c:100 app/menus.c:214
 msgid "Polyline"
 msgstr "Polylinje"
 
-#: app/interface.c:103
+#: app/interface.c:104
 msgid "Create Bezierline"
 msgstr "Skapa bezierkurva"
 
-#: app/interface.c:104 app/menus.c:215
+#: app/interface.c:105 app/menus.c:215
 msgid "Bezierline"
 msgstr "Bezierkurva"
 
-#: app/interface.c:108
+#: app/interface.c:109
 msgid "Create Image"
 msgstr "Skapa bild"
 
-#: app/interface.c:109 app/menus.c:216
+#: app/interface.c:110 app/menus.c:216
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:495
+#: app/interface.c:496
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL-tooldata i tool_select_update"
 
-#: app/interface.c:943
+#: app/interface.c:958
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -692,7 +692,7 @@ msgstr ""
 "För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer "
 "färgerna. Pilarna byter färger. Dubbelklicka för att ändra färgerna."
 
-#: app/interface.c:1089
+#: app/interface.c:1104
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
@@ -936,8 +936,8 @@ msgstr "Union"
 msgid "Intersect"
 msgstr "Skär"
 
-#: app/menus.c:153 objects/FS/function.c:623 objects/FS/function.c:699
-#: objects/FS/function.c:700
+#: app/menus.c:153 objects/FS/function.c:625 objects/FS/function.c:701
+#: objects/FS/function.c:702
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -949,7 +949,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:162 lib/widgets.c:660 objects/UML/association.c:1040
+#: app/menus.c:162 lib/widgets.c:725 objects/UML/association.c:1040
 msgid "None"
 msgstr "Ingen"
 
@@ -965,16 +965,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
+#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:268
 msgid "Left"
 msgstr "Vänster"
 
 #: app/menus.c:174 app/menus.c:183 lib/properties.c:63 lib/properties.h:466
-#: lib/widgets.c:209
+#: lib/widgets.c:274
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
+#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:280
 msgid "Right"
 msgstr "Höger"
 
@@ -1737,9 +1737,9 @@ msgstr "Dia"
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
 #: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:390 objects/ER/attribute.c:543
-#: objects/ER/entity.c:341 objects/ER/entity.c:471
-#: objects/ER/relationship.c:419 objects/ER/relationship.c:587
+#: objects/ER/attribute.c:390 objects/ER/attribute.c:547
+#: objects/ER/entity.c:341 objects/ER/entity.c:475
+#: objects/ER/relationship.c:419 objects/ER/relationship.c:591
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:665 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
@@ -1802,7 +1802,7 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
-#: lib/font.c:500
+#: lib/font.c:499
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1811,25 +1811,25 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:605
+#: lib/font.c:604
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:614
+#: lib/font.c:613
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:921
+#: lib/font.c:931
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:923 lib/font.c:924 lib/font.c:957
+#: lib/font.c:933 lib/font.c:934 lib/font.c:967
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:934
+#: lib/font.c:944
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
@@ -1912,141 +1912,141 @@ msgstr "Slutpil"
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:323 objects/FS/function.c:807
+#: lib/widgets.c:388 objects/FS/function.c:809
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:329
+#: lib/widgets.c:394
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:335
+#: lib/widgets.c:400
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:341
+#: lib/widgets.c:406
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:347
+#: lib/widgets.c:412
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:365
+#: lib/widgets.c:430
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:661
+#: lib/widgets.c:726
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:727
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:728
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:729
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:730
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:731
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:732
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:733
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:734
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:735
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:736
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:737
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:738
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:739
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:675
+#: lib/widgets.c:740
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:741
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:677
+#: lib/widgets.c:742
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:678
+#: lib/widgets.c:743
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:679
+#: lib/widgets.c:744
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:680
+#: lib/widgets.c:745
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:716
+#: lib/widgets.c:781
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:729
+#: lib/widgets.c:794
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:855 objects/standard/image.c:536
+#: lib/widgets.c:920 objects/standard/image.c:536
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:885
+#: lib/widgets.c:950
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -2071,7 +2071,7 @@ msgid "Multiple"
 msgstr "Flera"
 
 #: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:802
 #: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
 #: objects/UML/association.c:620 objects/UML/dependency.c:335
 #: objects/UML/generalization.c:327 objects/UML/realizes.c:330
@@ -2080,7 +2080,7 @@ msgid "Add segment"
 msgstr "Lägg till segment"
 
 #: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:803
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
 #: objects/UML/association.c:621 objects/UML/dependency.c:336
 #: objects/UML/generalization.c:328 objects/UML/realizes.c:331
@@ -2134,6 +2134,12 @@ msgstr "Flytta ned"
 #. in lib/font.c.
 #: objects/EML/process.c:514 objects/EML/process.c:515
 #: objects/EML/process.c:516 objects/EML/process.c:517
+#: objects/FS/function.c:405 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:331 objects/UML/classicon.c:414
+#: objects/UML/component.c:347 objects/UML/message.c:358
+#: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
+#: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
 msgid "Helvetica"
 msgstr "Helvetica"
 
@@ -2193,7 +2199,7 @@ msgstr "Funktioner"
 msgid "Messages"
 msgstr "Meddelanden"
 
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:786
+#: objects/EML/process_dialog.c:1238 objects/FS/function.c:788
 msgid "Process"
 msgstr "Bearbeta"
 
@@ -2245,7 +2251,8 @@ msgstr "Härledd:"
 msgid "Multivalue:"
 msgstr "Multivärde:"
 
-#: objects/ER/attribute.c:391 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:392 objects/ER/attribute.c:394
+#: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -2253,7 +2260,8 @@ msgstr "Attribut"
 msgid "Weak:"
 msgstr "Svag:"
 
-#: objects/ER/entity.c:342 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:343 objects/ER/entity.c:345 objects/UML/classicon.c:124
+#: sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Enhet"
 
@@ -2281,33 +2289,34 @@ msgstr "Rotera:"
 msgid "Identifying:"
 msgstr "Identifierar:"
 
-#: objects/ER/relationship.c:420 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:421 objects/ER/relationship.c:423
+#: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Förhållande"
 
 #.
-#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:727
-#: objects/FS/flow-ortho.c:793 objects/FS/flow-ortho.c:858
-#: objects/FS/flow-poly.c:664 objects/FS/flow-poly.c:719
-#: objects/FS/flow-poly.c:783 objects/FS/flow.c:154 objects/FS/flow.c:639
-#: objects/FS/flow.c:703 objects/FS/function.c:818
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:733
+#: objects/FS/flow-ortho.c:799 objects/FS/flow-ortho.c:864
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:154 objects/FS/flow.c:645
+#: objects/FS/flow.c:709 objects/FS/function.c:820
 msgid "Energy"
 msgstr "Energi"
 
-#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:734
-#: objects/FS/flow-ortho.c:794 objects/FS/flow-ortho.c:865
-#: objects/FS/flow-poly.c:671 objects/FS/flow-poly.c:720
-#: objects/FS/flow-poly.c:790 objects/FS/flow.c:155 objects/FS/flow.c:640
-#: objects/FS/flow.c:710 objects/FS/function.c:806
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:740
+#: objects/FS/flow-ortho.c:800 objects/FS/flow-ortho.c:871
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:155 objects/FS/flow.c:646
+#: objects/FS/flow.c:716 objects/FS/function.c:808
 msgid "Material"
 msgstr "Material"
 
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:740
-#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:871
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:721
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:641
-#: objects/FS/flow.c:716 objects/FS/function.c:787 objects/FS/function.c:788
-#: objects/FS/function.c:856 objects/FS/function.c:857
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:746
+#: objects/FS/flow-ortho.c:801 objects/FS/flow-ortho.c:877
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:156 objects/FS/flow.c:647
+#: objects/FS/flow.c:722 objects/FS/function.c:789 objects/FS/function.c:790
+#: objects/FS/function.c:858 objects/FS/function.c:859
 msgid "Signal"
 msgstr "Signal"
 
@@ -2317,21 +2326,30 @@ msgstr "Signal"
 msgid "Type:"
 msgstr "Typ:"
 
-#: objects/FS/flow-ortho.c:707 objects/FS/flow-poly.c:644
-#: objects/FS/flow-poly.c:762 objects/FS/flow.c:682
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/flow-ortho.c:424 objects/FS/flow-ortho.c:554
+#: objects/FS/flow-ortho.c:913 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:417
+#: objects/FS/flow.c:546 objects/FS/flow.c:758
+msgid "Helvetica-Oblique"
+msgstr "Helvetica-Oblique"
+
+#: objects/FS/flow-ortho.c:713 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:688
 msgid "Flow:"
 msgstr "Flöde:"
 
-#: objects/FS/flow-ortho.c:722 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:778 objects/FS/flow.c:698
+#: objects/FS/flow-ortho.c:728 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:704
 msgid "Flow type:"
 msgstr "Flödestyp:"
 
-#: objects/FS/flow-ortho.c:837
+#: objects/FS/flow-ortho.c:843
 msgid "Orthflow:"
 msgstr "Ortoflöde:"
 
-#: objects/FS/flow-ortho.c:853
+#: objects/FS/flow-ortho.c:859
 msgid "Orthflow type:"
 msgstr "Ortoflödestyp:"
 
@@ -2347,820 +2365,828 @@ msgstr "Önskad funktion"
 msgid "User function"
 msgstr "Användarfunktion"
 
-#: objects/FS/function.c:608
+#: objects/FS/function.c:610
 msgid "Verb"
 msgstr "Verb"
 
-#: objects/FS/function.c:609 objects/FS/function.c:610
-#: objects/FS/function.c:630
+#: objects/FS/function.c:611 objects/FS/function.c:612
+#: objects/FS/function.c:632
 msgid "Channel"
 msgstr "Kanal"
 
-#: objects/FS/function.c:611 objects/FS/function.c:612
+#: objects/FS/function.c:613 objects/FS/function.c:614
 msgid "Import"
 msgstr "Importera"
 
-#: objects/FS/function.c:613
+#: objects/FS/function.c:615
 msgid "Input"
 msgstr "Indata"
 
-#: objects/FS/function.c:614
+#: objects/FS/function.c:616
 msgid "Receive"
 msgstr "Ta emot"
 
-#: objects/FS/function.c:615 objects/FS/function.c:751
+#: objects/FS/function.c:617 objects/FS/function.c:753
 msgid "Allow"
 msgstr "Tillåt"
 
-#: objects/FS/function.c:616
+#: objects/FS/function.c:618
 msgid "Form Entrance"
 msgstr "Formuläringång"
 
-#: objects/FS/function.c:617 objects/FS/function.c:734
+#: objects/FS/function.c:619 objects/FS/function.c:736
 msgid "Capture"
 msgstr "Fånga"
 
-#: objects/FS/function.c:618 objects/FS/function.c:619
+#: objects/FS/function.c:620 objects/FS/function.c:621
 msgid "Export"
 msgstr "Exportera"
 
-#: objects/FS/function.c:620
+#: objects/FS/function.c:622
 msgid "Discharge"
 msgstr "Ladda ur"
 
-#: objects/FS/function.c:621
+#: objects/FS/function.c:623
 msgid "Eject"
 msgstr "Mata ut"
 
-#: objects/FS/function.c:622
+#: objects/FS/function.c:624
 msgid "Dispose"
 msgstr "Kasta"
 
-#: objects/FS/function.c:624 objects/FS/function.c:625
-#: objects/FS/function.c:634
+#: objects/FS/function.c:626 objects/FS/function.c:627
+#: objects/FS/function.c:636
 msgid "Transfer"
 msgstr "Överför"
 
-#: objects/FS/function.c:626 objects/FS/function.c:627
+#: objects/FS/function.c:628 objects/FS/function.c:629
 msgid "Transport"
 msgstr "Transportera"
 
-#: objects/FS/function.c:628
+#: objects/FS/function.c:630
 msgid "Lift"
 msgstr "Lyft"
 
-#: objects/FS/function.c:629
+#: objects/FS/function.c:631
 msgid "Move"
 msgstr "Flytta"
 
-#: objects/FS/function.c:631 objects/FS/function.c:632
+#: objects/FS/function.c:633 objects/FS/function.c:634
 msgid "Transmit"
 msgstr "Sänd ut"
 
-#: objects/FS/function.c:633
+#: objects/FS/function.c:635
 msgid "Conduct"
 msgstr "Genomför"
 
-#: objects/FS/function.c:635
+#: objects/FS/function.c:637
 msgid "Convey"
 msgstr "Transportera"
 
-#: objects/FS/function.c:636 objects/FS/function.c:637
-#: objects/FS/function.c:638
+#: objects/FS/function.c:638 objects/FS/function.c:639
+#: objects/FS/function.c:640
 msgid "Guide"
 msgstr "Guida"
 
-#: objects/FS/function.c:639
+#: objects/FS/function.c:641
 msgid "Direct"
 msgstr "Dirigera"
 
-#: objects/FS/function.c:640
+#: objects/FS/function.c:642
 msgid "Straighten"
 msgstr "Räta ut"
 
-#: objects/FS/function.c:641
+#: objects/FS/function.c:643
 msgid "Steer"
 msgstr "Manövrera"
 
-#: objects/FS/function.c:642
+#: objects/FS/function.c:644
 msgid "Translate"
 msgstr "Översätt"
 
-#: objects/FS/function.c:643 objects/FS/function.c:644
+#: objects/FS/function.c:645 objects/FS/function.c:646
 msgid "Rotate"
 msgstr "Rotera"
 
-#: objects/FS/function.c:645
+#: objects/FS/function.c:647
 msgid "Turn"
 msgstr "Vänd"
 
-#: objects/FS/function.c:646
+#: objects/FS/function.c:648
 msgid "Spin"
 msgstr "Rotera"
 
-#: objects/FS/function.c:647 objects/FS/function.c:648
+#: objects/FS/function.c:649 objects/FS/function.c:650
 msgid "Allow DOF"
 msgstr "Tillåt DOF"
 
-#: objects/FS/function.c:649
+#: objects/FS/function.c:651
 msgid "Constrain"
 msgstr "Begränsa"
 
-#: objects/FS/function.c:650
+#: objects/FS/function.c:652
 msgid "Unlock"
 msgstr "Lås upp"
 
-#: objects/FS/function.c:651 objects/FS/function.c:652
+#: objects/FS/function.c:653 objects/FS/function.c:654
 msgid "Support"
 msgstr "Stöd"
 
-#: objects/FS/function.c:653 objects/FS/function.c:654
+#: objects/FS/function.c:655 objects/FS/function.c:656
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Stoppa"
 
-#: objects/FS/function.c:655
+#: objects/FS/function.c:657
 msgid "Insulate"
 msgstr "Isolera"
 
-#: objects/FS/function.c:656
+#: objects/FS/function.c:658
 msgid "Protect"
 msgstr "Skydda"
 
-#: objects/FS/function.c:657 objects/FS/function.c:752
+#: objects/FS/function.c:659 objects/FS/function.c:754
 msgid "Prevent"
 msgstr "Förebygg"
 
-#: objects/FS/function.c:658
+#: objects/FS/function.c:660
 msgid "Shield"
 msgstr "Dölj"
 
-#: objects/FS/function.c:659
+#: objects/FS/function.c:661
 msgid "Inhibit"
 msgstr "Begränsa"
 
-#: objects/FS/function.c:660 objects/FS/function.c:661
+#: objects/FS/function.c:662 objects/FS/function.c:663
 msgid "Stabilize"
 msgstr "Stabilisera"
 
-#: objects/FS/function.c:662
+#: objects/FS/function.c:664
 msgid "Steady"
 msgstr "Stadga"
 
-#: objects/FS/function.c:663 objects/FS/function.c:664
+#: objects/FS/function.c:665 objects/FS/function.c:666
 msgid "Secure"
 msgstr "Säkra"
 
-#: objects/FS/function.c:665 objects/FS/function.c:681
+#: objects/FS/function.c:667 objects/FS/function.c:683
 msgid "Attach"
 msgstr "Bifoga"
 
-#: objects/FS/function.c:666
+#: objects/FS/function.c:668
 msgid "Mount"
 msgstr "Montera"
 
-#: objects/FS/function.c:667
+#: objects/FS/function.c:669
 msgid "Lock"
 msgstr "Lås"
 
-#: objects/FS/function.c:668
+#: objects/FS/function.c:670
 msgid "Fasten"
 msgstr "Fäst"
 
-#: objects/FS/function.c:669
+#: objects/FS/function.c:671
 msgid "Hold"
 msgstr "Håll"
 
-#: objects/FS/function.c:670 objects/FS/function.c:671
+#: objects/FS/function.c:672 objects/FS/function.c:673
 msgid "Position"
 msgstr "Positionera"
 
-#: objects/FS/function.c:672
+#: objects/FS/function.c:674
 msgid "Orient"
 msgstr "Orientera"
 
-#: objects/FS/function.c:673
+#: objects/FS/function.c:675
 msgid "Align"
 msgstr "Justera"
 
-#: objects/FS/function.c:674 objects/FS/function.c:795
+#: objects/FS/function.c:676 objects/FS/function.c:797
 msgid "Locate"
 msgstr "Sök"
 
-#: objects/FS/function.c:675 objects/FS/function.c:676
+#: objects/FS/function.c:677 objects/FS/function.c:678
 msgid "Connect"
 msgstr "Anslut"
 
-#: objects/FS/function.c:677 objects/FS/function.c:678
+#: objects/FS/function.c:679 objects/FS/function.c:680
 msgid "Couple"
 msgstr "Para"
 
-#: objects/FS/function.c:679
+#: objects/FS/function.c:681
 msgid "Join"
 msgstr "Anslut"
 
-#: objects/FS/function.c:680
+#: objects/FS/function.c:682
 msgid "Assemble"
 msgstr "Sätt ihop"
 
-#: objects/FS/function.c:682 objects/FS/function.c:683
+#: objects/FS/function.c:684 objects/FS/function.c:685
 msgid "Mix"
 msgstr "Mixa"
 
-#: objects/FS/function.c:684
+#: objects/FS/function.c:686
 msgid "Combine"
 msgstr "Kombinera"
 
-#: objects/FS/function.c:685
+#: objects/FS/function.c:687
 msgid "Blend"
 msgstr "Blanda ihop"
 
-#: objects/FS/function.c:686
+#: objects/FS/function.c:688
 msgid "Add"
 msgstr "Lägg till"
 
-#: objects/FS/function.c:687
+#: objects/FS/function.c:689
 msgid "Pack"
 msgstr "Packa"
 
-#: objects/FS/function.c:688
+#: objects/FS/function.c:690
 msgid "Coalesce"
 msgstr "Väx samman"
 
-#: objects/FS/function.c:689 objects/FS/function.c:690
+#: objects/FS/function.c:691 objects/FS/function.c:692
 msgid "Branch"
 msgstr "Grena"
 
-#: objects/FS/function.c:691 objects/FS/function.c:692
-#: objects/FS/function.c:693
+#: objects/FS/function.c:693 objects/FS/function.c:694
+#: objects/FS/function.c:695
 msgid "Separate"
 msgstr "Separera"
 
-#: objects/FS/function.c:694
+#: objects/FS/function.c:696
 msgid "Switch"
 msgstr "Växla"
 
-#: objects/FS/function.c:695
+#: objects/FS/function.c:697
 msgid "Divide"
 msgstr "Dela"
 
-#: objects/FS/function.c:696
+#: objects/FS/function.c:698
 msgid "Release"
 msgstr "Släpp"
 
-#: objects/FS/function.c:697
+#: objects/FS/function.c:699
 msgid "Detach"
 msgstr "Lösgör"
 
-#: objects/FS/function.c:698
+#: objects/FS/function.c:700
 msgid "Disconnect"
 msgstr "Koppla från"
 
-#: objects/FS/function.c:701
+#: objects/FS/function.c:703
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: objects/FS/function.c:702
+#: objects/FS/function.c:704
 msgid "Polish"
 msgstr "Polera"
 
-#: objects/FS/function.c:703
+#: objects/FS/function.c:705
 msgid "Sand"
 msgstr "Slipa"
 
-#: objects/FS/function.c:704
+#: objects/FS/function.c:706
 msgid "Drill"
 msgstr "Borra"
 
-#: objects/FS/function.c:705
+#: objects/FS/function.c:707
 msgid "Lathe"
 msgstr "Svarva"
 
-#: objects/FS/function.c:706 objects/FS/function.c:707
+#: objects/FS/function.c:708 objects/FS/function.c:709
 msgid "Refine"
 msgstr "Förfina"
 
-#: objects/FS/function.c:708
+#: objects/FS/function.c:710
 msgid "Purify"
 msgstr "Rena"
 
-#: objects/FS/function.c:709
+#: objects/FS/function.c:711
 msgid "Strain"
 msgstr "Ansträng"
 
-#: objects/FS/function.c:710
+#: objects/FS/function.c:712
 msgid "Filter"
 msgstr "Filtrera"
 
-#: objects/FS/function.c:711
+#: objects/FS/function.c:713
 msgid "Percolate"
 msgstr "Sila"
 
-#: objects/FS/function.c:712
+#: objects/FS/function.c:714
 msgid "Clear"
 msgstr "Rensa"
 
-#: objects/FS/function.c:713 objects/FS/function.c:714
+#: objects/FS/function.c:715 objects/FS/function.c:716
 msgid "Distribute"
 msgstr "Distribuera"
 
-#: objects/FS/function.c:715
+#: objects/FS/function.c:717
 msgid "Diverge"
 msgstr "Divergera"
 
-#: objects/FS/function.c:716
+#: objects/FS/function.c:718
 msgid "Scatter"
 msgstr "Sprid ut"
 
-#: objects/FS/function.c:717
+#: objects/FS/function.c:719
 msgid "Disperse"
 msgstr "Skingra"
 
-#: objects/FS/function.c:718 objects/FS/function.c:725
+#: objects/FS/function.c:720 objects/FS/function.c:727
 msgid "Diffuse"
 msgstr "Sprid"
 
-#: objects/FS/function.c:719
+#: objects/FS/function.c:721
 msgid "Empty"
 msgstr "Töm"
 
-#: objects/FS/function.c:720 objects/FS/function.c:721
+#: objects/FS/function.c:722 objects/FS/function.c:723
 msgid "Dissipate"
 msgstr "Splittra"
 
-#: objects/FS/function.c:722
+#: objects/FS/function.c:724
 msgid "Absorb"
 msgstr "Absorbera"
 
-#: objects/FS/function.c:723
+#: objects/FS/function.c:725
 msgid "Dampen"
 msgstr "Dämpa"
 
-#: objects/FS/function.c:724
+#: objects/FS/function.c:726
 msgid "Dispel"
 msgstr "Fördriv"
 
-#: objects/FS/function.c:726
+#: objects/FS/function.c:728
 msgid "Resist"
 msgstr "Motstå"
 
-#: objects/FS/function.c:727 objects/FS/function.c:728
+#: objects/FS/function.c:729 objects/FS/function.c:730
 msgid "Provision"
 msgstr "Förbered"
 
-#: objects/FS/function.c:729 objects/FS/function.c:730
+#: objects/FS/function.c:731 objects/FS/function.c:732
 msgid "Store"
 msgstr "Lagra"
 
-#: objects/FS/function.c:731
+#: objects/FS/function.c:733
 msgid "Contain"
 msgstr "Innehåll"
 
-#: objects/FS/function.c:732
+#: objects/FS/function.c:734
 msgid "Collect"
 msgstr "Samla"
 
-#: objects/FS/function.c:733
+#: objects/FS/function.c:735
 msgid "Reserve"
 msgstr "Reservera"
 
-#: objects/FS/function.c:735 objects/FS/function.c:736
+#: objects/FS/function.c:737 objects/FS/function.c:738
 msgid "Supply"
 msgstr "Leverera"
 
-#: objects/FS/function.c:737
+#: objects/FS/function.c:739
 msgid "Fill"
 msgstr "Fyll"
 
-#: objects/FS/function.c:738
+#: objects/FS/function.c:740
 msgid "Provide"
 msgstr "Tillhandahåll"
 
 # eller kanske "förmera"?
-#: objects/FS/function.c:739
+#: objects/FS/function.c:741
 msgid "Replenish"
 msgstr "Fyll på"
 
-#: objects/FS/function.c:740
+#: objects/FS/function.c:742
 msgid "Expose"
 msgstr "Exponera"
 
-#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:743 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Extrahera"
 
-#: objects/FS/function.c:742 objects/FS/function.c:743
+#: objects/FS/function.c:744 objects/FS/function.c:745
 msgid "Control Magnitude"
 msgstr "Styr magnitud"
 
-#: objects/FS/function.c:744 objects/FS/function.c:745
+#: objects/FS/function.c:746 objects/FS/function.c:747
 msgid "Actuate"
 msgstr "Driv"
 
-#: objects/FS/function.c:746
+#: objects/FS/function.c:748
 msgid "Start"
 msgstr "Starta"
 
-#: objects/FS/function.c:747
+#: objects/FS/function.c:749
 msgid "Initiate"
 msgstr "Initiera"
 
-#: objects/FS/function.c:748 objects/FS/function.c:749
+#: objects/FS/function.c:750 objects/FS/function.c:751
 msgid "Regulate"
 msgstr "Reglera"
 
-#: objects/FS/function.c:750 objects/FS/function.c:859
+#: objects/FS/function.c:752 objects/FS/function.c:861
 #: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "Styr"
 
-#: objects/FS/function.c:753
+#: objects/FS/function.c:755
 msgid "Enable"
 msgstr "Aktivera"
 
-#: objects/FS/function.c:754
+#: objects/FS/function.c:756
 msgid "Disable"
 msgstr "Deaktivera"
 
-#: objects/FS/function.c:755
+#: objects/FS/function.c:757
 msgid "Limit"
 msgstr "Begränsa"
 
-#: objects/FS/function.c:756
+#: objects/FS/function.c:758
 msgid "Interrupt"
 msgstr "Avbryt"
 
-#: objects/FS/function.c:757 objects/FS/function.c:758
+#: objects/FS/function.c:759 objects/FS/function.c:760
 msgid "Change"
 msgstr "Ändra"
 
-#: objects/FS/function.c:759
+#: objects/FS/function.c:761
 msgid "Increase"
 msgstr "Öka"
 
-#: objects/FS/function.c:760
+#: objects/FS/function.c:762
 msgid "Decrease"
 msgstr "Minska"
 
-#: objects/FS/function.c:761
+#: objects/FS/function.c:763
 msgid "Amplify"
 msgstr "Förstärk"
 
-#: objects/FS/function.c:762
+#: objects/FS/function.c:764
 msgid "Reduce"
 msgstr "Reducera"
 
-#: objects/FS/function.c:764
+#: objects/FS/function.c:766
 msgid "Normalize"
 msgstr "Normalisera"
 
-#: objects/FS/function.c:765
+#: objects/FS/function.c:767
 msgid "Multiply"
 msgstr "Multiplicera"
 
-#: objects/FS/function.c:766
+#: objects/FS/function.c:768
 msgid "Scale"
 msgstr "Skala"
 
-#: objects/FS/function.c:767
+#: objects/FS/function.c:769
 msgid "Rectify"
 msgstr "Korrigera"
 
-#: objects/FS/function.c:768
+#: objects/FS/function.c:770
 msgid "Adjust"
 msgstr "Justera"
 
-#: objects/FS/function.c:769 objects/FS/function.c:770
+#: objects/FS/function.c:771 objects/FS/function.c:772
 msgid "Form"
 msgstr "Bilda"
 
-#: objects/FS/function.c:771
+#: objects/FS/function.c:773
 msgid "Compact"
 msgstr "Pressa samman"
 
-#: objects/FS/function.c:772
+#: objects/FS/function.c:774
 msgid "Crush"
 msgstr "Krossa"
 
-#: objects/FS/function.c:773
+#: objects/FS/function.c:775
 msgid "Shape"
 msgstr "Forma"
 
-#: objects/FS/function.c:774
+#: objects/FS/function.c:776
 msgid "Compress"
 msgstr "Tryck ihop"
 
-#: objects/FS/function.c:775
+#: objects/FS/function.c:777
 msgid "Pierce"
 msgstr "Genomborra"
 
-#: objects/FS/function.c:776 objects/FS/function.c:777
+#: objects/FS/function.c:778 objects/FS/function.c:779
 msgid "Convert"
 msgstr "Konvertera"
 
-#: objects/FS/function.c:778
+#: objects/FS/function.c:780
 msgid "Transform"
 msgstr "Omvandla"
 
-#: objects/FS/function.c:779
+#: objects/FS/function.c:781
 msgid "Liquefy"
 msgstr "Smält"
 
-#: objects/FS/function.c:780
+#: objects/FS/function.c:782
 msgid "Solidify"
 msgstr "Frys"
 
-#: objects/FS/function.c:781
+#: objects/FS/function.c:783
 msgid "Evaporate"
 msgstr "Förånga"
 
-#: objects/FS/function.c:782
+#: objects/FS/function.c:784
 msgid "Sublimate"
 msgstr "Sublimera"
 
-#: objects/FS/function.c:783
+#: objects/FS/function.c:785
 msgid "Condense"
 msgstr "Kondensera"
 
-#: objects/FS/function.c:784
+#: objects/FS/function.c:786
 msgid "Integrate"
 msgstr "Integrera"
 
-#: objects/FS/function.c:785
+#: objects/FS/function.c:787
 msgid "Differentiate"
 msgstr "Differentiera"
 
-#: objects/FS/function.c:789 objects/FS/function.c:790
+#: objects/FS/function.c:791 objects/FS/function.c:792
 msgid "Sense"
 msgstr "Känn av"
 
-#: objects/FS/function.c:791
+#: objects/FS/function.c:793
 msgid "Perceive"
 msgstr "Uppfatta"
 
-#: objects/FS/function.c:792
+#: objects/FS/function.c:794
 msgid "Recognize"
 msgstr "Känn igen"
 
-#: objects/FS/function.c:793
+#: objects/FS/function.c:795
 msgid "Discern"
 msgstr "Särskilj"
 
-#: objects/FS/function.c:794
+#: objects/FS/function.c:796
 msgid "Check"
 msgstr "Kontrollera"
 
-#: objects/FS/function.c:796
+#: objects/FS/function.c:798
 msgid "Verify"
 msgstr "Verifiera"
 
-#: objects/FS/function.c:797 objects/FS/function.c:798
+#: objects/FS/function.c:799 objects/FS/function.c:800
 msgid "Indicate"
 msgstr "Indikera"
 
-#: objects/FS/function.c:799
+#: objects/FS/function.c:801
 msgid "Mark"
 msgstr "Markera"
 
-#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:802 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Visa"
 
-#: objects/FS/function.c:801 objects/FS/function.c:802
+#: objects/FS/function.c:803 objects/FS/function.c:804
 msgid "Measure"
 msgstr "Mät"
 
-#: objects/FS/function.c:803
+#: objects/FS/function.c:805
 msgid "Calculate"
 msgstr "Beräkna"
 
-#: objects/FS/function.c:804
+#: objects/FS/function.c:806
 msgid "Represent"
 msgstr "Representera"
 
-#: objects/FS/function.c:805
+#: objects/FS/function.c:807
 msgid "Noun"
 msgstr "Substantiv"
 
-#: objects/FS/function.c:808
+#: objects/FS/function.c:810
 msgid "Liquid"
 msgstr "Vätska"
 
-#: objects/FS/function.c:809
+#: objects/FS/function.c:811
 msgid "Gas"
 msgstr "Gas"
 
-#: objects/FS/function.c:810 objects/FS/function.c:811
-#: objects/FS/function.c:853
+#: objects/FS/function.c:812 objects/FS/function.c:813
+#: objects/FS/function.c:855
 msgid "Human"
 msgstr "Människa"
 
-#: objects/FS/function.c:812
+#: objects/FS/function.c:814
 msgid "Hand"
 msgstr "Hand"
 
-#: objects/FS/function.c:813
+#: objects/FS/function.c:815
 msgid "Foot"
 msgstr "Fot"
 
-#: objects/FS/function.c:814
+#: objects/FS/function.c:816
 msgid "Head"
 msgstr "Huvud"
 
-#: objects/FS/function.c:815
+#: objects/FS/function.c:817
 msgid "Finger"
 msgstr "Finger"
 
-#: objects/FS/function.c:816
+#: objects/FS/function.c:818
 msgid "Toe"
 msgstr "Tå"
 
-#: objects/FS/function.c:817
+#: objects/FS/function.c:819
 msgid "Biological"
 msgstr "Biologisk"
 
-#: objects/FS/function.c:819
+#: objects/FS/function.c:821
 msgid "Mechanical"
 msgstr "Mekanisk"
 
-#: objects/FS/function.c:820
+#: objects/FS/function.c:822
 msgid "Mech. Energy"
 msgstr "Mekanisk energi"
 
-#: objects/FS/function.c:821
+#: objects/FS/function.c:823
 msgid "Translation"
 msgstr "Omvandling"
 
-#: objects/FS/function.c:822
+#: objects/FS/function.c:824
 msgid "Force"
 msgstr "Kraft"
 
-#: objects/FS/function.c:823
+#: objects/FS/function.c:825
 msgid "Rotation"
 msgstr "Rotation"
 
-#: objects/FS/function.c:824
+#: objects/FS/function.c:826
 msgid "Torque"
 msgstr "Vridmoment"
 
-#: objects/FS/function.c:825
+#: objects/FS/function.c:827
 msgid "Random Motion"
 msgstr "Slumprörelse"
 
-#: objects/FS/function.c:826
+#: objects/FS/function.c:828
 msgid "Vibration"
 msgstr "Vibration"
 
-#: objects/FS/function.c:827
+#: objects/FS/function.c:829
 msgid "Rotational Energy"
 msgstr "Rotationsenergi"
 
-#: objects/FS/function.c:828
+#: objects/FS/function.c:830
 msgid "Translational Energy"
 msgstr "Omvandlingsenergi"
 
-#: objects/FS/function.c:829
+#: objects/FS/function.c:831
 msgid "Electrical"
 msgstr "Elektrisk"
 
-#: objects/FS/function.c:830
+#: objects/FS/function.c:832
 msgid "Electricity"
 msgstr "Elektricitet"
 
-#: objects/FS/function.c:831
+#: objects/FS/function.c:833
 msgid "Voltage"
 msgstr "Spänning"
 
-#: objects/FS/function.c:832
+#: objects/FS/function.c:834
 msgid "Current"
 msgstr "Ström"
 
-#: objects/FS/function.c:833
+#: objects/FS/function.c:835
 msgid "Hydraulic"
 msgstr "Hydraulisk"
 
-#: objects/FS/function.c:834
+#: objects/FS/function.c:836
 msgid "Pressure"
 msgstr "Tryck"
 
 # Tveksam
-#: objects/FS/function.c:835
+#: objects/FS/function.c:837
 msgid "Volumetric Flow"
 msgstr "Volymetriskt flöde"
 
-#: objects/FS/function.c:836
+#: objects/FS/function.c:838
 msgid "Thermal"
 msgstr "Termisk"
 
-#: objects/FS/function.c:837
+#: objects/FS/function.c:839
 msgid "Heat"
 msgstr "Värme"
 
-#: objects/FS/function.c:838
+#: objects/FS/function.c:840
 msgid "Conduction"
 msgstr "Ledning"
 
-#: objects/FS/function.c:839
+#: objects/FS/function.c:841
 msgid "Convection"
 msgstr "Konvektion"
 
-#: objects/FS/function.c:840 objects/FS/function.c:844
+#: objects/FS/function.c:842 objects/FS/function.c:846
 msgid "Radiation"
 msgstr "Strålning"
 
-#: objects/FS/function.c:841
+#: objects/FS/function.c:843
 msgid "Pneumatic"
 msgstr "Pneumatisk"
 
-#: objects/FS/function.c:842
+#: objects/FS/function.c:844
 msgid "Chemical"
 msgstr "Kemisk"
 
-#: objects/FS/function.c:843
+#: objects/FS/function.c:845
 msgid "Radioactive"
 msgstr "Radioaktiv"
 
-#: objects/FS/function.c:845
+#: objects/FS/function.c:847
 msgid "Microwaves"
 msgstr "Mikrovågor"
 
-#: objects/FS/function.c:846
+#: objects/FS/function.c:848
 msgid "Radio waves"
 msgstr "Radiovågor"
 
-#: objects/FS/function.c:847
+#: objects/FS/function.c:849
 msgid "X-Rays"
 msgstr "Röntgenstrålar"
 
-#: objects/FS/function.c:848
+#: objects/FS/function.c:850
 msgid "Gamma Rays"
 msgstr "Gammastrålar"
 
-#: objects/FS/function.c:849
+#: objects/FS/function.c:851
 msgid "Acoustic Energy"
 msgstr "Akustisk energi"
 
-#: objects/FS/function.c:850
+#: objects/FS/function.c:852
 msgid "Optical Energy"
 msgstr "Optisk energi"
 
-#: objects/FS/function.c:851
+#: objects/FS/function.c:853
 msgid "Solar Energy"
 msgstr "Solenergi"
 
-#: objects/FS/function.c:852
+#: objects/FS/function.c:854
 msgid "Magnetic Energy"
 msgstr "Magnetisk energi"
 
-#: objects/FS/function.c:854
+#: objects/FS/function.c:856
 msgid "Human Motion"
 msgstr "Mänsklig rörelse"
 
-#: objects/FS/function.c:855
+#: objects/FS/function.c:857
 msgid "Human Force"
 msgstr "Människokraft"
 
-#: objects/FS/function.c:858
+#: objects/FS/function.c:860
 msgid "Status"
 msgstr "Status"
 
-#: objects/FS/function.c:861
+#: objects/FS/function.c:863
 msgid "User/Device Fn"
 msgstr "Användar-/enhetsfunktion"
 
-#: objects/FS/function.c:862
+#: objects/FS/function.c:864
 msgid "Wish Fn"
 msgstr "Önskad funktion"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
+#: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
+#: objects/SADT/box.c:500 objects/UML/class.c:671
+msgid "Helvetica-Bold"
+msgstr "Helvetica-Bold"
+
+#: objects/GRAFCET/action.c:136 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makroanrop"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:136
 msgid "This action is a call to a macro-step"
 msgstr "Denna åtgärd är ett anrop till ett makrosteg"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:131
 msgid "Condition"
 msgstr "Villkor"
 
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:131
 msgid "The boolean equation of the condition"
 msgstr "Villkoret i form av en boolesk ekvation"
 
-#: objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/condition.c:133
 msgid "The condition's font"
 msgstr "Typsnitt på villkoret"
 
-#: objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/condition.c:135
 msgid "The condition's font size"
 msgstr "Villkorets typsnittsstorlek"
 
-#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/condition.c:138 objects/GRAFCET/transition.c:147
 msgid "Color"
 msgstr "Färg"
 
-#: objects/GRAFCET/condition.c:136
+#: objects/GRAFCET/condition.c:138
 msgid "The condition's color"
 msgstr "Färg på villkoret"
 
@@ -3168,79 +3194,79 @@ msgstr "Färg på villkoret"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET-diagramobjekt"
 
-#: objects/GRAFCET/step.c:146
+#: objects/GRAFCET/step.c:148
 msgid "Regular step"
 msgstr "Vanligt steg"
 
-#: objects/GRAFCET/step.c:147
+#: objects/GRAFCET/step.c:149
 msgid "Initial step"
 msgstr "Begynnelsesteg"
 
-#: objects/GRAFCET/step.c:148
+#: objects/GRAFCET/step.c:150
 msgid "Macro entry step"
 msgstr "Makroenhetssteg"
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:151
 msgid "Macro exit step"
 msgstr "Makroavslutningssteg"
 
-#: objects/GRAFCET/step.c:150
+#: objects/GRAFCET/step.c:152
 msgid "Macro call step"
 msgstr "Makroanropssteg"
 
-#: objects/GRAFCET/step.c:151
+#: objects/GRAFCET/step.c:153
 msgid "Subprogram call step"
 msgstr "Anrop av subprogramsteg"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:159
 msgid "Step name"
 msgstr "Stegnamn"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:159
 msgid "The name of the step"
 msgstr "Namnet på steget"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:161
 msgid "Step type"
 msgstr "Stegtyp"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:161
 msgid "The kind of step"
 msgstr "Typen av steg"
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:163
 msgid "Active"
 msgstr "Aktiv"
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Visar en röd punkt för att åskådliggöra stegets aktivitet"
 
-#: objects/GRAFCET/transition.c:138
+#: objects/GRAFCET/transition.c:140
 msgid "Receptivity"
 msgstr "Känslighet"
 
-#: objects/GRAFCET/transition.c:138
+#: objects/GRAFCET/transition.c:140
 msgid "The boolean equation of the receptivity"
 msgstr "Känsligheten i form av en boolesk ekvation"
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font"
 msgstr "Typsnitt på känsligheten"
 
-#: objects/GRAFCET/transition.c:142
+#: objects/GRAFCET/transition.c:144
 msgid "The receptivity's font size"
 msgstr "Känslighetens typsnittsstorlek"
 
-#: objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/transition.c:147
 msgid "The receptivity's color"
 msgstr "Färg på känsligheten"
 
-#: objects/GRAFCET/transition.c:146
+#: objects/GRAFCET/transition.c:148
 msgid "North point"
 msgstr "Nordpunkt"
 
-#: objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/transition.c:149
 msgid "South point"
 msgstr "Sydpunkt"
 
@@ -3339,7 +3365,7 @@ msgstr "SADT-rektangel"
 msgid "SADT diagram objects"
 msgstr "SADT-diagramobjekt"
 
-#: objects/UML/actor.c:335 objects/UML/actor.c:337
+#: objects/UML/actor.c:337 objects/UML/actor.c:339
 msgid "Actor"
 msgstr "Skådespelare"
 
@@ -3425,12 +3451,6 @@ msgstr "Mall"
 #: objects/UML/class.c:668
 msgid "Courier-Oblique"
 msgstr "Courier-Oblique"
-
-#. choose default font name for class name font for your locale. see also font_data
-#. structure in lib/font.c.
-#: objects/UML/class.c:671
-msgid "Helvetica-Bold"
-msgstr "Helvetica-Bold"
 
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
