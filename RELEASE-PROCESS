@@ -91,3 +91,9 @@ News
 configure.in
 doc/en/dia-manual.sgml?
 dia.spec
+
+Webpages
+--------
+
+Remember to also update the webpages.  In particular, the download page,
+the NEWS page and the FAQ needs updating.
