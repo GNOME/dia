@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 03:03+0200\n"
+"POT-Creation-Date: 2004-08-19 11:04+0200\n"
 "PO-Revision-Date: 2004-01-12 15:23+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -239,9 +239,10 @@ msgstr ""
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Laurent Dhima, <laurenti@alblinux.net>"
 
+#. GRUT modified this item
 #: app/commands.c:620 dia.desktop.in.h:1
 msgid "Dia"
-msgstr ""
+msgstr "Dia"
 
 #: app/commands.c:622
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
@@ -295,17 +296,20 @@ msgstr ""
 msgid "Dynamic grid"
 msgstr ""
 
+#. GRUT modified this item
 #: app/dia-props.c:131
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: app/dia-props.c:135
 msgid "y"
 msgstr "p"
 
+#. GRUT modified this item
+#. GRUT modified this item
 #: app/dia-props.c:140
 msgid "Spacing"
-msgstr "Hapësira"
+msgstr "Hapësira e ndërmjetme"
 
 #: app/dia-props.c:160
 msgid "Visible spacing"
@@ -450,13 +454,15 @@ msgstr ""
 msgid "Diagram tree"
 msgstr ""
 
+#. GRUT modified this item
 #: app/dialogs.c:51
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
+#. GRUT modified this item
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
 msgid "Cancel"
-msgstr "Anulloje"
+msgstr "Anullo"
 
 #. paper size
 #: app/diapagelayout.c:116
@@ -502,9 +508,10 @@ msgstr ""
 msgid "Fit to:"
 msgstr ""
 
+#. GRUT modified this item
 #: app/diapagelayout.c:287
 msgid "by"
-msgstr "sipas"
+msgstr "nga"
 
 #: app/diapagelayout.c:682
 #, c-format
@@ -612,9 +619,10 @@ msgstr ""
 msgid "Open Options"
 msgstr ""
 
+#. GRUT modified this item
 #: app/filedlg.c:223 app/filedlg.c:526
 msgid "Determine file type:"
-msgstr ""
+msgstr "Përcakto llojin e file:"
 
 #: app/filedlg.c:259
 msgid ""
@@ -720,7 +728,6 @@ msgstr "Linja"
 msgid "Arc"
 msgstr "Arc"
 
-#. GRUT modified this item
 #: app/interface.c:103 app/interface.c:104
 msgid "Zigzagline"
 msgstr "Zigzag"
@@ -918,9 +925,10 @@ msgstr ""
 msgid "/_File"
 msgstr "/_File"
 
+#. GRUT modified this item
 #: app/menus.c:51 app/menus.c:86
 msgid "/File/_New"
-msgstr ""
+msgstr "/File/_I Ri"
 
 #: app/menus.c:53 app/menus.c:88
 msgid "/File/_Open..."
@@ -948,17 +956,19 @@ msgstr ""
 msgid "/File/P_lugins..."
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:67 app/menus.c:103
 msgid "/File/_Quit"
-msgstr "/File/_Dil"
+msgstr "/File/_Dalja"
 
 #: app/menus.c:69 app/menus.c:230
 msgid "/_Help"
 msgstr "/_Ndihmë"
 
+#. GRUT modified this item
 #: app/menus.c:71 app/menus.c:232
 msgid "/Help/_Manual"
-msgstr ""
+msgstr "/Ndihmë/_Manuali"
 
 #: app/menus.c:73 app/menus.c:234
 msgid "/Help/---"
@@ -988,9 +998,10 @@ msgstr ""
 msgid "/File/_Print Diagram..."
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:100
 msgid "/File/_Close"
-msgstr "/File/_Mbylle"
+msgstr "/File/_Mbyll"
 
 #: app/menus.c:105
 msgid "/_Edit"
@@ -1292,9 +1303,10 @@ msgstr ""
 msgid "/Select/Remove"
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:210
 msgid "/_Tools"
-msgstr "/_Instrumentët"
+msgstr "/_Instrumentë"
 
 #: app/menus.c:212
 msgid "/Tools/Modify"
@@ -2130,9 +2142,10 @@ msgstr ""
 msgid "There are %d similar messages."
 msgstr ""
 
+#. GRUT modified this item
 #: lib/message.c:215
 msgid "Notice"
-msgstr ""
+msgstr "Njoftim"
 
 #: lib/object_defaults.c:127
 #, c-format
@@ -2269,10 +2282,11 @@ msgstr ""
 msgid "Select font"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Material/Solid
 #: lib/widgets.c:939 objects/FS/function.c:1063
 msgid "Solid"
-msgstr ""
+msgstr "Solid"
 
 #: lib/widgets.c:945
 msgid "Dashed"
@@ -2299,10 +2313,10 @@ msgstr ""
 msgid "Select color"
 msgstr ""
 
+#. GRUT modified this item
 #: lib/widgets.c:1355
-#, fuzzy
 msgid "Size: "
-msgstr "Madhë_sia:"
+msgstr "Madhësia: "
 
 #: lib/widgets.c:1504
 msgid "Select image file"
@@ -2389,11 +2403,12 @@ msgstr ""
 msgid "Relationship"
 msgstr "Marrëdhënie"
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Energy
 #: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
 #: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1085
 msgid "Energy"
-msgstr ""
+msgstr "Energjia"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
@@ -2464,7 +2479,6 @@ msgstr "Lejo"
 msgid "Form Entrance"
 msgstr ""
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:683 objects/FS/function.c:917
@@ -2592,12 +2606,13 @@ msgstr ""
 msgid "Support"
 msgstr "Suporti"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:755 objects/FS/function.c:757
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
-msgstr "Ndalo"
+msgstr "Ndal"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
 #: objects/FS/function.c:759
@@ -2648,10 +2663,11 @@ msgstr "I sigurtë"
 msgid "Attach"
 msgstr "Bashkangjit"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: objects/FS/function.c:781
 msgid "Mount"
-msgstr ""
+msgstr "Monto"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: objects/FS/function.c:783 sheets/ciscomisc.sheet.in.h:21
@@ -3000,21 +3016,23 @@ msgstr "Aktivo"
 msgid "Disable"
 msgstr "Ç'aktivo"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: objects/FS/function.c:959
 msgid "Limit"
-msgstr ""
+msgstr "Kufiri"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: objects/FS/function.c:961
 msgid "Interrupt"
 msgstr "Ndërprit"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:963 objects/FS/function.c:965
 msgid "Change"
-msgstr ""
+msgstr "Ndrysho"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: objects/FS/function.c:967
@@ -3164,12 +3182,12 @@ msgstr ""
 msgid "Discern"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Signal/Sense/Check
 #: objects/FS/function.c:1037
 msgid "Check"
-msgstr ""
+msgstr "Kontrolli"
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: objects/FS/function.c:1041
 msgid "Verify"
@@ -3245,10 +3263,11 @@ msgstr ""
 msgid "Head"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Material/Human/Finger
 #: objects/FS/function.c:1079
 msgid "Finger"
-msgstr "Kërkuesi"
+msgstr "Treguesi"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: objects/FS/function.c:1081
@@ -3315,10 +3334,11 @@ msgstr ""
 msgid "Electrical"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
 #: objects/FS/function.c:1109
 msgid "Electricity"
-msgstr ""
+msgstr "Elektrike"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
 #: objects/FS/function.c:1111
@@ -3688,9 +3708,10 @@ msgstr ""
 msgid "Actor"
 msgstr "Actor"
 
+#. GRUT modified this item
 #: objects/UML/association.c:1139 objects/UML/class_dialog.c:2107
 msgid "Direction:"
-msgstr ""
+msgstr "Drejtimi:"
 
 #: objects/UML/association.c:1156
 msgid "From A to B"
@@ -3805,13 +3826,15 @@ msgstr "Abstract"
 msgid " "
 msgstr " "
 
+#. GRUT modified this item
 #: objects/UML/class.c:172 objects/UML/object.c:151
 msgid "Attributes"
-msgstr "Vlerat"
+msgstr "Veçoritë"
 
+#. GRUT modified this item
 #: objects/UML/class.c:174
 msgid "Operations"
-msgstr ""
+msgstr "Operacionet"
 
 #: objects/UML/class.c:241
 #, fuzzy
@@ -3919,9 +3942,10 @@ msgstr "Lëviz poshtë"
 msgid "Attribute data"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/UML/class_dialog.c:922
 msgid "Value:"
-msgstr ""
+msgstr "Vlera:"
 
 #: objects/UML/class_dialog.c:945 objects/UML/class_dialog.c:1869
 msgid "Visibility:"
@@ -4046,9 +4070,10 @@ msgstr ""
 msgid "Show arrow:"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/UML/implements.c:128
 msgid "Interface:"
-msgstr ""
+msgstr "Interfaqja:"
 
 #: objects/UML/lifeline.c:144
 msgid "Draw focus of control:"
@@ -4163,7 +4188,6 @@ msgstr "Të dhëna"
 msgid "Data name"
 msgstr ""
 
-#. GRUT modified this item
 #: objects/chronogram/chronoline.c:152
 msgid "Events"
 msgstr "Ndodhitë"
@@ -4181,9 +4205,10 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/chronogram/chronoline.c:162
 msgid "Parameters"
-msgstr ""
+msgstr "Parametrat"
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
@@ -4386,10 +4411,10 @@ msgstr ""
 msgid "Jackson diagram"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/Jackson/phenomenon.c:134
-#, fuzzy
 msgid "Shared"
-msgstr "Rërë"
+msgstr "E përbashkët"
 
 #: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
 msgid "Requirement"
@@ -4452,10 +4477,10 @@ msgstr "Konflikte"
 msgid "Responsibility"
 msgstr "Shikueshmëria:"
 
+#. GRUT modified this item
 #: objects/KAOS/metabinrel.c:169
-#, fuzzy
 msgid "Monitors"
-msgstr "Ekrani"
+msgstr "Ekranet"
 
 #: objects/KAOS/metabinrel.c:170
 msgid "Controls"
@@ -4647,7 +4672,6 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 
-#. GRUT modified this item
 #: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
 msgstr "Metafile Computer Graphics"
@@ -4751,7 +4775,6 @@ msgstr ""
 msgid "dia shape export filter"
 msgstr ""
 
-#. GRUT modified this item
 #: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:641
 msgid "Scalable Vector Graphics"
 msgstr "Grafikë vektorialë të shkallëzueshëm"
@@ -5186,9 +5209,10 @@ msgstr ""
 msgid "Six point star"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/Assorted.sheet.in.h:39
 msgid "Sun"
-msgstr ""
+msgstr "Dje"
 
 #: sheets/Assorted.sheet.in.h:40
 msgid "Swiss cross"
@@ -5436,9 +5460,10 @@ msgstr ""
 msgid "Water Cooler, vertical"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
-msgstr ""
+msgstr "Qark"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
@@ -5860,9 +5885,10 @@ msgstr ""
 msgid "FS"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/FS.sheet.in.h:3
 msgid "Flow"
-msgstr "Fluks"
+msgstr "Fluksi"
 
 #: sheets/FS.sheet.in.h:4
 msgid "Function"
@@ -5897,7 +5923,6 @@ msgstr "Dokument"
 msgid "Flowchart"
 msgstr "Diagrama e fluksit"
 
-#. GRUT modified this item
 #: sheets/Flowchart.sheet.in.h:10
 msgid "Input/Output"
 msgstr "Input/Output"
@@ -5967,9 +5992,10 @@ msgstr ""
 msgid "Punched tape"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/Flowchart.sheet.in.h:28
 msgid "Sort"
-msgstr "Rendit"
+msgstr "Renditja"
 
 #. XXX
 #: sheets/Flowchart.sheet.in.h:30
@@ -6590,7 +6616,6 @@ msgstr ""
 msgid "State"
 msgstr "Gjendja"
 
-#. GRUT modified this item
 #: sheets/UML.sheet.in.h:1
 msgid "Activity"
 msgstr "Aktiviteti"
@@ -6783,9 +6808,10 @@ msgstr ""
 msgid "PC Video"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/ciscocomputer.sheet.in.h:24
 msgid "PDA"
-msgstr ""
+msgstr "PDA"
 
 #: sheets/ciscocomputer.sheet.in.h:26
 msgid "Relational Database"
@@ -6807,9 +6833,10 @@ msgstr ""
 msgid "SUN workstation"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/ciscocomputer.sheet.in.h:31
 msgid "Scanner"
-msgstr ""
+msgstr "Skaner"
 
 #: sheets/ciscocomputer.sheet.in.h:32
 msgid "Server with PC Router"
@@ -6871,9 +6898,10 @@ msgstr "Wireless (pa fije)"
 msgid "Workgroup director"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/ciscocomputer.sheet.in.h:47
 msgid "Workstation"
-msgstr ""
+msgstr "Workstation"
 
 #: sheets/ciscohub.sheet.in.h:1
 msgid "100BaseT hub"
@@ -7299,7 +7327,6 @@ msgstr ""
 msgid "FDDI ring"
 msgstr ""
 
-#. GRUT modified this item
 #: sheets/cisconetwork.sheet.in.h:33
 msgid "Firewall"
 msgstr "Firewall"
@@ -7372,9 +7399,10 @@ msgstr ""
 msgid "Metro 1500"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/cisconetwork.sheet.in.h:51
 msgid "Modem"
-msgstr ""
+msgstr "Modem"
 
 #: sheets/cisconetwork.sheet.in.h:52
 msgid "NetRanger intrusion detection system"
@@ -7444,9 +7472,10 @@ msgstr ""
 msgid "RateMUX"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/cisconetwork.sheet.in.h:69
 msgid "Repeater"
-msgstr ""
+msgstr "Përsëritës"
 
 #: sheets/cisconetwork.sheet.in.h:70
 msgid "SC2200 (Signalling controller)"
@@ -7616,9 +7645,10 @@ msgstr ""
 msgid "Bivalent vertical rest"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/civil.sheet.in.h:5
 msgid "Civil"
-msgstr ""
+msgstr "Civil"
 
 #: sheets/civil.sheet.in.h:6
 msgid "Civil Engineering Components"
@@ -7676,9 +7706,10 @@ msgstr ""
 msgid "Reference line"
 msgstr ""
 
+#. GRUT modified this item
 #: sheets/civil.sheet.in.h:20
 msgid "Rotor"
-msgstr ""
+msgstr "Rotor"
 
 #: sheets/civil.sheet.in.h:21
 msgid "Soil"
@@ -7908,7 +7939,6 @@ msgstr ""
 msgid "Stackable hub or switch"
 msgstr ""
 
-#. GRUT modified this item
 #: sheets/network.sheet.in.h:31
 msgid "Storage"
 msgstr "Magazinim"
