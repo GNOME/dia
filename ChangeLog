@@ -27,6 +27,9 @@
 
 2003-01-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/association.c (association_update_data): Better
+	bounding box for assoc with arrows.
+
 	* lib/properties.h: New flag for properties with multiple values
 	in groups.
 

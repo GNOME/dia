@@ -478,6 +478,11 @@ association_update_data(Association *assoc)
                          ASSOCIATION_WIDTH/2.0:
                          (ASSOCIATION_WIDTH + ASSOCIATION_DIAMONDLEN)/2.0);
 
+  if (assoc->end[0].arrow)
+    extra->start_trans = MAX(extra->start_trans, ASSOCIATION_TRIANGLESIZE);
+  if (assoc->end[1].arrow)
+    extra->end_trans = MAX(extra->end_trans, ASSOCIATION_TRIANGLESIZE);
+
   orthconn_update_boundingbox(orth);
   
   /* Calc text pos: */
