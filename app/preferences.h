@@ -21,6 +21,7 @@
 #include "geometry.h"
 #include "color.h"
 #include "diagram_tree_window.h"
+#include "diagramdata.h"
 
 struct DiaPreferences {
   struct {
@@ -39,15 +40,8 @@ struct DiaPreferences {
     int use_menu_bar;
   } new_view;
 
-  struct {
-    gchar *papertype;
-    gfloat tmargin, bmargin, lmargin, rmargin;
-    gboolean is_portrait;
-    gfloat scaling;
-    gboolean fitto;
-    gint fitwidth, fitheight;
-  } new_diagram;
-  
+  NewDiagramData new_diagram;
+
   int show_cx_pts;
   int reset_tools_after_create;
   int compress_save;

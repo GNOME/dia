@@ -162,7 +162,7 @@ do_convert(const char *infname,
     exit(1);
   }
   
-  diagdata = new_diagram_data();
+  diagdata = new_diagram_data(&prefs.new_diagram);
   inf = filter_guess_import_filter(infname);
   if (!inf) 
     inf = &dia_import_filter;

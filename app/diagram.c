@@ -48,7 +48,7 @@ diagram_init(Diagram *dia, const char *filename)
   if(dia->data)
     diagram_data_destroy(dia->data);
   
-  dia->data = new_diagram_data();
+  dia->data = new_diagram_data(&prefs.new_diagram);
   dia->data->grid.width_x = prefs.grid.x;
   dia->data->grid.width_y = prefs.grid.y;
 

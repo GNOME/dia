@@ -74,11 +74,20 @@ struct _Layer {
 				  layer_get_parent_diagram() */
 };
 
+typedef struct {
+  gchar *papertype;
+  gfloat tmargin, bmargin, lmargin, rmargin;
+  gboolean is_portrait;
+  gfloat scaling;
+  gboolean fitto;
+  gint fitwidth, fitheight;
+} NewDiagramData;
+
 #include "object.h"
 
 DIAVAR int render_bounding_boxes;
 
-DiagramData *new_diagram_data(void);
+DiagramData *new_diagram_data(NewDiagramData *prefs);
 void diagram_data_destroy(DiagramData *data);
 
 Layer *new_layer (char *name);

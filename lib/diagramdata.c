@@ -31,7 +31,7 @@ static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
 
 DiagramData *
-new_diagram_data (void)
+new_diagram_data (NewDiagramData *prefs)
 {
 	DiagramData *data;
 	Layer *first_layer;
@@ -45,7 +45,7 @@ new_diagram_data (void)
  
 	data->bg_color = color_white;
 
-	get_paper_info (&data->paper, -1);
+	get_paper_info (&data->paper, -1, prefs);
 
 	data->grid.width_x = 1.0;
 	data->grid.width_y = 1.0;

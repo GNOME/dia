@@ -105,17 +105,10 @@ get_default_paper(void)
 }
 
 void
-get_paper_info(PaperInfo *paper, int i)
+get_paper_info(PaperInfo *paper, int i, NewDiagramData *prefs)
 {
-#ifndef _MSC_VER
-  /* 
-   * It isn't that simple to get on a variable living in app under win32
-   * and it even appears to be quesionable design to make lib depend
-   * on app this way ...          --hb
-   */
   if (i == -1)
-    i = find_paper(prefs.new_diagram.papertype);
-#endif
+    i = find_paper(prefs->papertype);
   if (i == -1)
     i = get_default_paper();
 
@@ -124,11 +117,7 @@ get_paper_info(PaperInfo *paper, int i)
   paper->bmargin = paper_metrics[i].bmargin;
   paper->lmargin = paper_metrics[i].lmargin;
   paper->rmargin = paper_metrics[i].rmargin;
-#ifndef _MSC_VER
-  paper->is_portrait = prefs.new_diagram.is_portrait;
-#else
-  paper->is_portrait = FALSE;
-#endif
+  paper->is_portrait = prefs->is_portrait;
   paper->scaling = 1.0;
   paper->fitto = FALSE;
   paper->fitwidth = 1;
