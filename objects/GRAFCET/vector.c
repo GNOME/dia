@@ -26,7 +26,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -210,6 +209,7 @@ arc_draw(Arc *arc, Renderer *renderer)
     for (i=0;i<n-1; i++) {
       if ((points[i].y > points[i+1].y) &&
 	  (ABS(points[i+1].y-points[i].y) > 5 * ARC_ARROW_LENGTH)) {
+	/* Draw an arrow on the middle of the line */
 	Point m;
 	m.x = points[i].x; /* == points[i+1].x */
 	m.y = .5 * (points[i].y + points[i+1].y) - (.5 * ARC_ARROW_LENGTH);
