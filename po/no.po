@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-05-26 23:49+0200\n"
-"PO-Revision-Date: 2000-05-26 23:50+02:00\n"
+"POT-Creation-Date: 2000-06-04 00:56+0200\n"
+"PO-Revision-Date: 2000-06-04 00:59+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:331 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:331 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
@@ -80,7 +80,7 @@ msgstr "Avbryt"
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:422
+#: app/app_procs.c:419
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
@@ -114,26 +114,26 @@ msgstr "Ingen eksisterende objekter kan limes inn.\n"
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:518
+#: app/commands.c:520
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:523
+#: app/commands.c:525
 msgid "Maintainer: James Henstridge"
 msgstr "Maintainer: James Henstridge"
 
-#: app/commands.c:527
+#: app/commands.c:529
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:532
+#: app/commands.c:534
 msgid "Contributors:"
 msgstr "Hjelpere:"
 
 #. setup buttons
-#: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
+#: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
@@ -158,7 +158,31 @@ msgstr "Lukk"
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: app/dia_embedd.c:276
+#: app/dia_embedd.c:176
+msgid "File/New diagram"
+msgstr "Fil/Nytt diagram"
+
+#: app/dia_embedd.c:180
+msgid "File/Open..."
+msgstr "Fil/Åpne..."
+
+#: app/dia_embedd.c:184
+msgid "File/Save As..."
+msgstr "Fil/Lagre som..."
+
+#: app/dia_embedd.c:188
+msgid "File/Close"
+msgstr "Fil/Lukk"
+
+#: app/dia_embedd.c:192
+msgid "File/Exit"
+msgstr "Fil/Avslutt"
+
+#: app/dia_embedd.c:196
+msgid "View/New View"
+msgstr "Vis/Ny visning"
+
+#: app/dia_embedd.c:261
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
@@ -206,43 +230,43 @@ msgstr "/Objekter/Grupper"
 msgid "/Objects/Ungroup"
 msgstr "/Objekter/Avgrupper"
 
-#: app/diagram.c:204 app/menus.c:327
+#: app/diagram.c:204 app/menus.c:331
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekter/Juster horisontal/Venstre"
 
-#: app/diagram.c:206 app/menus.c:328
+#: app/diagram.c:206 app/menus.c:332
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekter/Juster horisontal/Senter"
 
-#: app/diagram.c:208 app/menus.c:329
+#: app/diagram.c:208 app/menus.c:333
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekter/Juster horisontal/Høyre"
 
-#: app/diagram.c:210 app/menus.c:330
+#: app/diagram.c:210 app/menus.c:334
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekter/Juster horisontal/Lik avstand"
 
-#: app/diagram.c:212 app/menus.c:331
+#: app/diagram.c:212 app/menus.c:335
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekter/Juster horisontalt/Ved siden av"
 
-#: app/diagram.c:214 app/menus.c:333
+#: app/diagram.c:214 app/menus.c:338
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekter/Juster vertikal/Øverst"
 
-#: app/diagram.c:216 app/menus.c:334
+#: app/diagram.c:216 app/menus.c:339
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekter/Juster vertikal/Senter"
 
-#: app/diagram.c:218 app/menus.c:335
+#: app/diagram.c:218 app/menus.c:340
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekter/Juster vertikal/Nederst"
 
-#: app/diagram.c:220 app/menus.c:336
+#: app/diagram.c:220 app/menus.c:341
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekter/Juster vertikal/Lik avstand"
 
-#: app/diagram.c:222 app/menus.c:337
+#: app/diagram.c:222 app/menus.c:342
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekter/Juster vertikalt/Ved siden av"
 
@@ -317,19 +341,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:64 app/display.c:65
+#: app/display.c:68 app/display.c:69
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:84
+#: app/display.c:88
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:792 app/display.c:798
+#: app/display.c:762 app/display.c:768
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:803
+#: app/display.c:773
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -337,33 +361,33 @@ msgstr ""
 "Dette diagrammet har ikke blitt lagret.\n"
 "Er du sikker på at du vil lukke dette vinduet?"
 
-#: app/display.c:821 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
-#: lib/properties.c:267
+#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
+#: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:831 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
-#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
+#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
+#: app/preferences.c:506 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nei"
 
-#: app/display.c:867
+#: app/display.c:837
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis linjaler"
 
-#: app/display.c:869
+#: app/display.c:839
 msgid "/View/Visible Grid"
 msgstr "/Vis/Synlig rutenett"
 
-#: app/display.c:871
+#: app/display.c:841
 msgid "/View/Snap To Grid"
 msgstr "/Vis/Fest til rutenett"
 
-#: app/display.c:873
+#: app/display.c:843
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
-#: app/display.c:876
+#: app/display.c:846
 msgid "/View/AntiAliased"
 msgstr "/Vis/Antialiased"
 
@@ -456,11 +480,11 @@ msgstr "Rutenett y-størrelse:"
 msgid "Modify object(s)"
 msgstr "Modifiser objekt(er)"
 
-#: app/interface.c:36 app/menus.c:192
+#: app/interface.c:36 app/menus.c:193
 msgid "Modify"
 msgstr "Modifiser"
 
-#: app/interface.c:40 app/interface.c:41 app/menus.c:193
+#: app/interface.c:40 app/interface.c:41 app/menus.c:194
 msgid "Magnify"
 msgstr "Forstørr"
 
@@ -468,7 +492,7 @@ msgstr "Forstørr"
 msgid "Scroll around the diagram"
 msgstr "Rull rundt i diagrammet"
 
-#: app/interface.c:46 app/menus.c:194
+#: app/interface.c:46 app/menus.c:195
 msgid "Scroll"
 msgstr "Rull"
 
@@ -476,7 +500,7 @@ msgstr "Rull"
 msgid "Create Text"
 msgstr "Lag tekst"
 
-#: app/interface.c:51 app/menus.c:195
+#: app/interface.c:51 app/menus.c:196
 msgid "Text"
 msgstr "Tekst"
 
@@ -484,7 +508,7 @@ msgstr "Tekst"
 msgid "Create Box"
 msgstr "Lag boks"
 
-#: app/interface.c:56 app/menus.c:196
+#: app/interface.c:56 app/menus.c:197
 msgid "Box"
 msgstr "Boks"
 
@@ -492,7 +516,7 @@ msgstr "Boks"
 msgid "Create Ellipse"
 msgstr "Lag elipse"
 
-#: app/interface.c:61 app/menus.c:197
+#: app/interface.c:61 app/menus.c:198
 msgid "Ellipse"
 msgstr "Elipse"
 
@@ -500,63 +524,71 @@ msgstr "Elipse"
 msgid "Create Polygon"
 msgstr "Lag polygon"
 
-#: app/interface.c:66 app/menus.c:198
+#: app/interface.c:66 app/menus.c:199
 msgid "Polygon"
 msgstr "Polygon"
 
 #: app/interface.c:70
+msgid "Create Beziergon"
+msgstr "Lag Beziergon"
+
+#: app/interface.c:71 app/menus.c:200
+msgid "Beziergon"
+msgstr "Beziergon"
+
+#: app/interface.c:75
 msgid "Create Line"
 msgstr "Lag linje"
 
-#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:183
+#: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
 msgid "Line"
 msgstr "Linje"
 
-#: app/interface.c:75
+#: app/interface.c:80
 msgid "Create Arc"
 msgstr "Lag bue"
 
-#: app/interface.c:76 app/menus.c:200
+#: app/interface.c:81 app/menus.c:202
 msgid "Arc"
 msgstr "Bue"
 
-#: app/interface.c:80
+#: app/interface.c:85
 msgid "Create Zigzagline"
 msgstr "Lag sikksakk-linje"
 
-#: app/interface.c:81 app/menus.c:201
+#: app/interface.c:86 app/menus.c:203
 msgid "Zigzagline"
 msgstr "Sikksakk-linje"
 
-#: app/interface.c:85
+#: app/interface.c:90
 msgid "Create Polyline"
 msgstr "Lag polilinje"
 
-#: app/interface.c:86 app/menus.c:202
+#: app/interface.c:91 app/menus.c:204
 msgid "Polyline"
 msgstr "Polilinje"
 
-#: app/interface.c:90
+#: app/interface.c:95
 msgid "Create Bezierline"
 msgstr "Lag Bezier linje"
 
-#: app/interface.c:91 app/menus.c:203
+#: app/interface.c:96 app/menus.c:205
 msgid "Bezierline"
 msgstr "Bezier linje"
 
-#: app/interface.c:95
+#: app/interface.c:100
 msgid "Create Image"
 msgstr "Lag bilde"
 
-#: app/interface.c:96 app/menus.c:204
+#: app/interface.c:101 app/menus.c:206
 msgid "Image"
 msgstr "Bilde"
 
-#: app/interface.c:313
+#: app/interface.c:320
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL verktøydata i tool_select_update"
 
-#: app/interface.c:669
+#: app/interface.c:627
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -564,7 +596,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:774
+#: app/interface.c:708
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -600,11 +632,11 @@ msgstr "Nytt lag"
 msgid "none"
 msgstr "ingen"
 
-#: app/layer_dialog.c:945
+#: app/layer_dialog.c:951
 msgid "Edit Layer Attributes"
 msgstr "Rediger lagets attributter"
 
-#: app/layer_dialog.c:961
+#: app/layer_dialog.c:967
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
@@ -694,255 +726,262 @@ msgstr "Klarte ikke å lagre file '%s'.\n"
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
-#: app/menus.c:38 app/menus.c:49
+#: app/menus.c:39 app/menus.c:50
 msgid "_New diagram"
 msgstr "_Nytt diagram"
 
-#: app/menus.c:38 app/menus.c:49
+#: app/menus.c:39 app/menus.c:50
 msgid "Create new diagram"
 msgstr "Lag nytt diagram"
 
-#: app/menus.c:42 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Tillegg"
 
-#: app/menus.c:56
+#: app/menus.c:57
 msgid "_Export..."
 msgstr "_Eksportér..."
 
-#: app/menus.c:60
+#: app/menus.c:61
 msgid "Page Set_up..."
 msgstr "Side_oppsett..."
 
-#: app/menus.c:62
+#: app/menus.c:63
 msgid "_Print Diagram..."
 msgstr "_Skriv ut diagram..."
 
-#: app/menus.c:77
+#: app/menus.c:78
 msgid "_Delete"
 msgstr "_Slett"
 
-#: app/menus.c:83
+#: app/menus.c:84
 msgid "Copy Text"
 msgstr "Kopier tekst"
 
-#: app/menus.c:84
+#: app/menus.c:85
 msgid "Cut Text"
 msgstr "Klipp ut tekst"
 
-#: app/menus.c:85
+#: app/menus.c:86
 msgid "Paste _Text"
 msgstr "Lim inn _tekst"
 
-#: app/menus.c:108
+#: app/menus.c:109
 msgid "Zoom _In"
 msgstr "Zoom _inn"
 
-#: app/menus.c:108
+#: app/menus.c:109
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom inn 50%"
 
-#: app/menus.c:109
+#: app/menus.c:110
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: app/menus.c:109
+#: app/menus.c:110
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom ut 50%"
 
-#: app/menus.c:110
+#: app/menus.c:111
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: app/menus.c:111
+#: app/menus.c:112
 msgid "Edit Grid..."
 msgstr "Rediger rutenett..."
 
-#: app/menus.c:113
+#: app/menus.c:114
 msgid "_AntiAliased"
 msgstr "_Antialiased"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "_Visible Grid"
 msgstr "S_ynlig rutenett"
 
-#: app/menus.c:118
+#: app/menus.c:119
 msgid "_Snap To Grid"
 msgstr "Fe_st til rutenett"
 
-#: app/menus.c:120
+#: app/menus.c:121
 msgid "Show _Rulers"
 msgstr "Vis linjale_r"
 
-#: app/menus.c:122
+#: app/menus.c:123
 msgid "Show _Connection Points"
 msgstr "Vis _forbindelsespunkter"
 
-#: app/menus.c:125
+#: app/menus.c:126
 msgid "New _View"
 msgstr "Ny _visning"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "Show _All"
 msgstr "Vis _alt"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:132 lib/widgets.c:654 objects/UML/association.c:991
+#: app/menus.c:133 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
 msgstr "Ingen"
 
-#: app/menus.c:133 app/menus.c:146
+#: app/menus.c:134 app/menus.c:147
 msgid "Invert"
 msgstr "Inverter"
 
-#: app/menus.c:134
+#: app/menus.c:135
 msgid "Connected"
 msgstr "Koblet til"
 
-#: app/menus.c:135
+#: app/menus.c:136
 msgid "Transitive"
 msgstr "Transitiv"
 
-#: app/menus.c:136
+#: app/menus.c:137
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:138
+#: app/menus.c:139
 msgid "Replace"
 msgstr "Erstatt"
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "Union"
 msgstr "Union"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "Intersect"
 msgstr "Kryss"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "Remove"
 msgstr "Fjern"
 
-#: app/menus.c:152 lib/properties.c:1118 lib/properties.h:313
+#: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
 #: lib/widgets.c:176
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:154 app/menus.c:168 lib/properties.c:1119 lib/properties.h:314
+#: app/menus.c:155 app/menus.c:169 lib/properties.c:1177 lib/properties.h:325
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:156 lib/properties.c:1120 lib/properties.h:315
+#: app/menus.c:157 lib/properties.c:1178 lib/properties.h:326
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Høyre"
 
-#: app/menus.c:158 app/menus.c:172
+#: app/menus.c:159 app/menus.c:173
 msgid "Equal Distance"
 msgstr "Lik avstand"
 
-#: app/menus.c:160 app/menus.c:174
+#: app/menus.c:161 app/menus.c:175
 msgid "Adjacent"
 msgstr "Ved siden av"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "Top"
 msgstr "Øverst"
 
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "Bottom"
 msgstr "Nederst"
 
-#: app/menus.c:180
+#: app/menus.c:181
 msgid "Send to _Back"
 msgstr "Send til _bakgrunn"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "Bring to _Front"
 msgstr "Hent til _forgrunn"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "_Group"
 msgstr "_Grupper"
 
-#: app/menus.c:184
+#: app/menus.c:185
 msgid "_Ungroup"
 msgstr "Avgrupper"
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "Align _Horizontal"
 msgstr "Juster _horisontalt"
 
-#: app/menus.c:187
+#: app/menus.c:188
 msgid "Align _Vertical"
 msgstr "Juster _vertikalt"
 
-#: app/menus.c:209
+#: app/menus.c:211
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: app/menus.c:210
+#: app/menus.c:212
 msgid "_Layers"
 msgstr "_Lag"
 
-#: app/menus.c:229
-msgid "Select"
-msgstr "Velg"
-
-#: app/menus.c:230
-msgid "Objects"
-msgstr "Objekter"
-
 #: app/menus.c:231
-msgid "Tools"
-msgstr "Verktøy"
+msgid "_Select"
+msgstr "_Velg"
 
 #: app/menus.c:232
-msgid "Dialogs"
-msgstr "Dialoger"
+msgid "_Objects"
+msgstr "_Objekter"
 
-#: app/menus.c:243 app/menus.c:256
+#: app/menus.c:233
+msgid "_Tools"
+msgstr "Verk_tøy"
+
+#: app/menus.c:234
+msgid "_Dialogs"
+msgstr "_Dialoger"
+
+#: app/menus.c:242 app/menus.c:256
 msgid "/_File"
 msgstr "/_Fil"
 
-#. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:244 app/menus.c:258
+#: app/menus.c:243 app/menus.c:258
 msgid "/File/_New"
 msgstr "/Fil/_Ny"
 
-#: app/menus.c:245 app/menus.c:259
+#: app/menus.c:244 app/menus.c:259
 msgid "/File/_Open"
 msgstr "/Fil/_Åpne"
 
-#: app/menus.c:246
+#: app/menus.c:245
 msgid "/File/_Preferences..."
 msgstr "/Fil/_Innstillinger..."
 
-#: app/menus.c:247
+#: app/menus.c:246
 msgid "/File/P_lugins"
 msgstr "/Fil/Ti_llegg"
 
-#: app/menus.c:248 app/menus.c:263
+#: app/menus.c:247 app/menus.c:263
 msgid "/File/sep1"
 msgstr "/Fil/sep1"
 
-#: app/menus.c:249 app/menus.c:268
+#: app/menus.c:248 app/menus.c:268
 msgid "/File/_Quit"
 msgstr "/Fil/_Avslutt"
 
-#: app/menus.c:250
+#: app/menus.c:249
 msgid "/_Help"
 msgstr "/_Hjelp"
 
-#: app/menus.c:251
+#: app/menus.c:250
 msgid "/Help/_About"
 msgstr "/Hjelp/_Om"
+
+#: app/menus.c:255
+msgid "/tearoff"
+msgstr "/avrevet"
+
+#: app/menus.c:257
+msgid "/File/tearoff"
+msgstr "/Fil/_avrevet"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -976,7 +1015,10 @@ msgstr "/_Fil/Lukk"
 msgid "/_Edit"
 msgstr "/_Rediger"
 
-#. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
+#: app/menus.c:270
+msgid "/Edit/tearoff"
+msgstr "/Rediger/avrevet"
+
 #: app/menus.c:271
 msgid "/Edit/_Copy"
 msgstr "/Rediger/_Kopier"
@@ -1009,7 +1051,10 @@ msgstr "/Rediger/Lim inn tekst"
 msgid "/_View"
 msgstr "/_Vis"
 
-#. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:281
+msgid "/View/tearoff"
+msgstr "/Vis/avrevet"
+
 #: app/menus.c:282
 msgid "/View/Zoom _In"
 msgstr "/_Vis/Zoom _inn"
@@ -1023,240 +1068,282 @@ msgid "/View/_Zoom"
 msgstr "/Vis/_Zoom"
 
 #: app/menus.c:285
+msgid "/View/Zoom/tearoff"
+msgstr "/Vis/Zoom/avrevet"
+
+#: app/menus.c:286
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vis/Zoom/400%"
 
-#: app/menus.c:286
+#: app/menus.c:287
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vis/Zoom/283%"
 
-#: app/menus.c:287
+#: app/menus.c:288
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vis/Zoom/200%"
 
-#: app/menus.c:288
+#: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vis/Zoom/141%"
 
-#: app/menus.c:289
+#: app/menus.c:290
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vis/Zoom/100%"
 
-#: app/menus.c:290
+#: app/menus.c:291
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vis/Zoom/85%"
 
-#: app/menus.c:291
+#: app/menus.c:292
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vis/Zoom/70.7%"
 
-#: app/menus.c:292
+#: app/menus.c:293
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vis/Zoom/50%"
 
-#: app/menus.c:293
+#: app/menus.c:294
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vis/Zoom/35.4%"
 
-#: app/menus.c:294
+#: app/menus.c:295
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
-#: app/menus.c:295
+#: app/menus.c:296
 msgid "/View/Edit Grid..."
 msgstr "/Vis/Rediger rutenett..."
 
-#: app/menus.c:297
+#: app/menus.c:298
 msgid "/View/_AntiAliased"
 msgstr "/Vis/_Antialiased"
 
-#: app/menus.c:299
+#: app/menus.c:300
 msgid "/View/_Visible Grid"
 msgstr "/Vis/_Synlig rutenett"
 
-#: app/menus.c:300
+#: app/menus.c:301
 msgid "/View/_Snap To Grid"
 msgstr "/Vis/_Fest til rutenett"
 
-#: app/menus.c:301
+#: app/menus.c:302
 msgid "/View/Show _Rulers"
 msgstr "/Vis/Vis linjale_r"
 
-#: app/menus.c:302
+#: app/menus.c:303
 msgid "/View/Show _Connection Points"
 msgstr "Vis/Vis _forbindelsespunkter"
 
-#: app/menus.c:303
+#: app/menus.c:304
 msgid "/View/sep1"
 msgstr "/Vis/sep1"
 
-#: app/menus.c:304
+#: app/menus.c:305
 msgid "/View/New _View"
 msgstr "/Vis/Ny _visning"
 
-#: app/menus.c:305
+#: app/menus.c:306
 msgid "/View/Show _All"
 msgstr "/Vis/Vis alle"
 
-#: app/menus.c:306
+#: app/menus.c:307
+msgid "/_Select"
+msgstr "/_Velg"
+
+#: app/menus.c:308
+msgid "/Select/tearoff"
+msgstr "/Velg/avrevet"
+
+#: app/menus.c:309
 msgid "/Select/All"
 msgstr "/Marker/Alt"
 
-#: app/menus.c:307
+#: app/menus.c:310
 msgid "/Select/None"
 msgstr "/Marker/Ingenting"
 
-#: app/menus.c:308 app/menus.c:317 app/select.c:254
+#: app/menus.c:311 app/menus.c:320 app/select.c:254
 msgid "/Select/Invert"
 msgstr "/Marker/Inverter"
 
-#: app/menus.c:309
+#: app/menus.c:312
 msgid "/Select/Connected"
 msgstr "/Marker/Tilkoblede"
 
-#: app/menus.c:310
+#: app/menus.c:313
 msgid "/Select/Transitive"
 msgstr "/Marker/Transitive"
 
-#: app/menus.c:311
+#: app/menus.c:314
 msgid "/Select/Same Type"
 msgstr "/Marker/Samme type"
 
-#: app/menus.c:312
+#: app/menus.c:315
 msgid "/Select/sep1"
 msgstr "/Marker/sep1"
 
-#: app/menus.c:313 app/select.c:246
+#: app/menus.c:316 app/select.c:246
 msgid "/Select/Replace"
 msgstr "/Marker/Erstatt"
 
-#: app/menus.c:314 app/select.c:248
+#: app/menus.c:317 app/select.c:248
 msgid "/Select/Union"
 msgstr "/Marker/Union"
 
-#: app/menus.c:315 app/select.c:250
+#: app/menus.c:318 app/select.c:250
 msgid "/Select/Intersect"
 msgstr "/Marker/Kryss"
 
-#: app/menus.c:316 app/select.c:252
+#: app/menus.c:319 app/select.c:252
 msgid "/Select/Remove"
 msgstr "/Marker/Fjern"
 
-#: app/menus.c:318
+#: app/menus.c:321
 msgid "/_Objects"
 msgstr "/_Objekter"
 
-#. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:320
+#: app/menus.c:322
+msgid "/Objects/tearoff1"
+msgstr "/Objekter/avrevet1"
+
+#: app/menus.c:323
 msgid "/Objects/Send to _Back"
 msgstr "/Objekter/Send til _bakgrunn"
 
-#: app/menus.c:321
+#: app/menus.c:324
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekter/Hent til _forgrunn"
 
-#: app/menus.c:322 app/menus.c:325
+#: app/menus.c:325 app/menus.c:328
 msgid "/Objects/sep1"
 msgstr "/Objekter/sep1"
 
-#: app/menus.c:323
+#: app/menus.c:326
 msgid "/Objects/_Group"
 msgstr "/Objekter/_Grupper"
 
-#: app/menus.c:324
+#: app/menus.c:327
 msgid "/Objects/_Ungroup"
 msgstr "/Objekter/_Avgrupper"
 
-#: app/menus.c:326
+#: app/menus.c:329
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekter/Juster _horisontalt"
 
-#: app/menus.c:332
+#: app/menus.c:330
+msgid "/Objects/Align Horizontal/tearoff"
+msgstr "/Objekter/Juster horisontalt/avrevet"
+
+#: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekter/Juster _vertikalt"
 
-#: app/menus.c:339
+#: app/menus.c:337
+msgid "/Objects/Align Vertical/tearoff"
+msgstr "/Objekter/Juster vertikalt/avrevet"
+
+#: app/menus.c:344
+msgid "/_Tools"
+msgstr "/Verk_tøy/"
+
+#: app/menus.c:345
+msgid "/Tools/tearoff"
+msgstr "/Verktøy/avrevet"
+
+#: app/menus.c:346
 msgid "/Tools/Modify"
 msgstr "/Verktøy/Endre"
 
-#: app/menus.c:340
+#: app/menus.c:347
 msgid "/Tools/Magnify"
 msgstr "/Verktøy/Forstørr"
 
-#: app/menus.c:341
+#: app/menus.c:348
 msgid "/Tools/Scroll"
 msgstr "/Verktøy/Rull"
 
-#: app/menus.c:342
+#: app/menus.c:349
 msgid "/Tools/Text"
 msgstr "/Verktøy/Tekst"
 
-#: app/menus.c:343
+#: app/menus.c:350
 msgid "/Tools/Box"
 msgstr "/Verktøy/Boks"
 
-#: app/menus.c:344
+#: app/menus.c:351
 msgid "/Tools/Ellipse"
 msgstr "/Verktøy/Elipse"
 
-#: app/menus.c:345
+#: app/menus.c:352
 msgid "/Tools/Polygon"
 msgstr "/Verktøy/Polygon"
 
-#: app/menus.c:346
+#: app/menus.c:353
+msgid "/Tools/Beziergon"
+msgstr "/Verktøy/Beziergon"
+
+#: app/menus.c:354
 msgid "/Tools/Line"
 msgstr "/Verktøy/Linje"
 
-#: app/menus.c:347
+#: app/menus.c:355
 msgid "/Tools/Arc"
 msgstr "/Verktøy/Bue"
 
-#: app/menus.c:348
+#: app/menus.c:356
 msgid "/Tools/Zigzagline"
 msgstr "/Verktøy/Sikk-sakk linje"
 
-#: app/menus.c:349
+#: app/menus.c:357
 msgid "/Tools/Polyline"
 msgstr "/Verktøy/Polylinje"
 
-#: app/menus.c:350
+#: app/menus.c:358
 msgid "/Tools/Bezierline"
 msgstr "/Verktøy/Bezierlinje"
 
-#: app/menus.c:351
+#: app/menus.c:359
 msgid "/Tools/Image"
 msgstr "/Verktøy/Bilde"
 
-#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:354
+#: app/menus.c:361
 msgid "/_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:355
+#: app/menus.c:362
+msgid "/Dialogs/tearoff"
+msgstr "/Dialoger/avrevet"
+
+#: app/menus.c:363
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaper"
 
-#: app/menus.c:356
+#: app/menus.c:364
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
-#: app/menus.c:374
+#: app/menus.c:423
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL verktøydata i tool_menu_select"
 
-#: app/menus.c:405 app/menus.c:510
+#: app/menus.c:500
 msgid "/Tools/"
 msgstr "/Verktøy/"
+
+#: app/menus.c:513
+msgid "Diagram Menu"
+msgstr "Diagrammeny"
 
 #: app/paginate_gnomeprint.c:158
 msgid "Print Diagram"
@@ -1492,7 +1579,7 @@ msgstr "`%s' er ikke en katalog"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
 
-#: lib/properties.c:357 lib/properties.c:389
+#: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
 msgstr "Ingen redigeringswidget"
 
@@ -2454,7 +2541,7 @@ msgstr "Vend vertikalt"
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
 #: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:226
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
@@ -2575,15 +2662,15 @@ msgstr "Startpunkt"
 msgid "End point"
 msgstr "Endepunkt"
 
-#: objects/standard/polygon.c:597 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Legg til hjørne"
 
-#: objects/standard/polygon.c:598 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Slett hjørne"
 
-#: objects/standard/standard.c:39
+#: objects/standard/standard.c:40
 msgid "Standard objects"
 msgstr "Standard objekter"
 
