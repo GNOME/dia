@@ -1,0 +1,35 @@
+I haven't had time to write anything here yet.
+Read INSTALL for some brief installation instructions.
+
+Homepage for dia is at:
+ http://www.lysator.liu.se/~alla/dia/dia.html
+
+Some comments about the source:
+-------------------------------
+
+ Everything on the screen 'inherits' from the structure Object 
+in lib/object.h. (ps. this is a nice place to start reading the code.).
+Inherits in C means (as in gtk) that it begins with a copy of that structure. 
+Some base classes exists in lib/, like element.h (for doing 'box-like' 
+objects), connection.h (for doing 'line-like' objects), orth_conn.h (for doing 
+connections with orthogonal lines, like the uml-stuff) and render_object.h 
+(for doing picture-like objects). These base classes are then subclassed in 
+the different object in the object-libraries like objects/standard object/UML 
+and object/network.
+
+ The objects work by filling out two structures that the main program (app/*) 
+uses to handle the objects. The ObjectType structure which consists of some 
+info and a pointer to the type-operations (create+load+save). There's one 
+ObjectType per object type currently loaded. Then the Object structure, there 
+exists a copy of this for each object of the kind on screen (and in 
+copy-buffers). This contains some info like: type, bounding_box, position, 
+handles (the rectangles you move with the mouse) and connections. It also 
+contains a pointer to the object-operations. These are called from the main 
+program when if wants the object to do something. All ops take an Object as 
+the first argument. This is usually casted to the subtype in the function 
+headed (gives all those pita warnings) so that you directly can use the info 
+stored in the subclasses. Most ops are quite self-describing, and the code can 
+be copy-pasted from an object like the one you're doing. Rendering to 
+screen/postscript is done through a 'Renderer' abstraction that can be found 
+in lib/render.h.
+ 

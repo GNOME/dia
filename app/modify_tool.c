@@ -1,0 +1,327 @@
+/* xxxxxx -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <stdio.h>
+
+#include "modify_tool.h"
+#include "handle_ops.h"
+#include "object_ops.h"
+#include "connectionpoint_ops.h"
+#include "message.h"
+
+static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
+				   GdkEventButton *event);
+static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
+				Point *clickedpoint,
+				GdkEventButton *event);
+static void modify_button_press(ModifyTool *tool, GdkEventButton *event,
+				 DDisplay *ddisp);
+static void modify_button_release(ModifyTool *tool, GdkEventButton *event,
+				  DDisplay *ddisp);
+static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
+			  DDisplay *ddisp);
+static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
+				DDisplay *ddisp);
+
+Tool *
+create_modify_tool(void)
+{
+  ModifyTool *tool;
+
+  tool = g_new(ModifyTool, 1);
+  tool->tool.type = MODIFY_TOOL;
+  tool->tool.button_press_func = (ButtonPressFunc) &modify_button_press;
+  tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;
+  tool->tool.motion_func = (MotionFunc) &modify_motion;
+  tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
+
+  tool->state = STATE_NONE;
+  tool->break_connections = 0;
+
+  return (Tool *)tool;
+}
+
+
+void
+free_modify_tool(Tool *tool)
+{
+  g_free(tool);
+}
+
+static Object *
+click_select_object(DDisplay *ddisp, Point *clickedpoint,
+		    GdkEventButton *event)
+{
+  Diagram *diagram;
+  real click_distance;
+  Object *obj;
+  
+  diagram = ddisp->diagram;
+  
+  /* Find the closest object to select it: */
+
+  click_distance = ddisplay_untransform_length(ddisp, 3.0);
+  
+  obj = diagram_find_clicked_object(diagram, clickedpoint,
+				    click_distance);
+
+  if (obj!=NULL) {
+    /* Selected an object. */
+    GList *already;
+    printf("Selected object!\n");
+      
+    already = g_list_find(diagram->selected, obj);
+    if (already == NULL) { /* Not already selected */
+      printf("Not already selected\n");
+
+      if (!(event->state & GDK_SHIFT_MASK)) {
+	/* Not Multi-select => remove current selection */
+	diagram_remove_all_selected(diagram);
+      }
+      
+      diagram_add_selected(diagram, obj);
+      obj->ops->select(obj, clickedpoint,
+		       (Renderer *)ddisp->renderer);
+
+      object_add_updates_list(diagram->selected, diagram);
+      diagram_flush(diagram);
+
+      return obj;
+    } else { /* Clicked on already selected. */
+      printf("Already selected\n");
+      obj->ops->select(obj, clickedpoint,
+		       (Renderer *)ddisp->renderer);
+      object_add_updates_list(diagram->selected, diagram);
+      diagram_flush(diagram);
+      
+      if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
+	/* Remove the selected selected */
+	diagram_remove_selected(ddisp->diagram, (Object *)already->data);
+	diagram_flush(ddisp->diagram);
+      } else {
+	return obj;
+      }
+    }
+  } else { /* No object selected */
+    printf("didn't select object\n");
+    if (!(event->state & GDK_SHIFT_MASK)) {
+      /* Not Multi-select => Remove all selected */
+      diagram_remove_all_selected(diagram);
+      diagram_flush(ddisp->diagram);
+    }
+  }
+  return NULL;
+}
+
+static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
+				Point *clickedpoint, GdkEventButton *event)
+{
+  Object *obj;
+  Handle *handle;
+  real dist;
+  
+  handle = NULL;
+  dist = diagram_find_closest_handle(ddisp->diagram, &handle,
+				     &obj, clickedpoint);
+  if  (handle_is_clicked(ddisp, handle, clickedpoint)) {
+    tool->state = STATE_MOVE_HANDLE;
+    tool->break_connections = TRUE;
+    tool->last_to = handle->pos;
+    tool->handle = handle;
+    tool->object = obj;
+    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                      NULL, NULL, event->time);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+static void
+modify_button_press(ModifyTool *tool, GdkEventButton *event,
+		     DDisplay *ddisp)
+{
+  Point clickedpoint;
+  Object *clicked_obj;
+  
+  ddisplay_untransform_coords(ddisp,
+			      (int)event->x, (int)event->y,
+			      &clickedpoint.x, &clickedpoint.y);
+
+  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
+    return;
+
+  clicked_obj = click_select_object(ddisp, &clickedpoint, event);
+  
+  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
+    return;
+  
+  if ( clicked_obj != NULL ) {
+    tool->state = STATE_MOVE_OBJECT;
+    tool->object = clicked_obj;
+    tool->move_compensate = clicked_obj->position;
+    point_sub(&tool->move_compensate, &clickedpoint);
+    tool->break_connections = TRUE;
+    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                      NULL, NULL, event->time);
+  }
+}
+
+
+static void
+modify_double_click(ModifyTool *tool, GdkEventButton *event,
+		    DDisplay *ddisp)
+{
+  Point clickedpoint;
+  Object *clicked_obj;
+  
+  ddisplay_untransform_coords(ddisp,
+			      (int)event->x, (int)event->y,
+			      &clickedpoint.x, &clickedpoint.y);
+
+  clicked_obj = click_select_object(ddisp, &clickedpoint, event);
+  
+  if ( clicked_obj != NULL ) {
+    clicked_obj->ops->show_properties(clicked_obj,
+				      &object_changed_callback,
+				      ddisp->diagram);
+  }
+}
+
+
+static void
+modify_motion(ModifyTool *tool, GdkEventMotion *event,
+	      DDisplay *ddisp)
+{
+  Point to;
+  Point now, delta;
+  ConnectionPoint *connectionpoint;
+
+  if (tool->state==STATE_NONE)
+    return; /* Fast path... */
+  
+  ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+
+  switch (tool->state) {
+  case STATE_MOVE_OBJECT:
+    
+    if (tool->break_connections)
+      diagram_unconnect_selected(ddisp->diagram);
+  
+    point_add(&to, &tool->move_compensate);
+    snap_to_grid(&ddisp->grid, &to.x, &to.y);
+  
+    now = tool->object->position;
+    
+    delta = to;
+    point_sub(&delta, &now);
+    
+    object_add_updates_list(ddisp->diagram->selected, ddisp->diagram);
+    object_list_move_delta(ddisp->diagram->selected, &delta);
+    object_add_updates_list(ddisp->diagram->selected, ddisp->diagram);
+  
+    diagram_update_connections_selection(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
+    break;
+  case STATE_MOVE_HANDLE:
+    /* Move to ConnectionPoint if near: */
+    connectionpoint =
+      object_find_connectpoint_display(ddisp, &to);
+    if ( (tool->handle->connectable) && (connectionpoint != NULL) ) {
+      to = connectionpoint->pos;
+    } else {
+      /* No connectionopoint near, then snap to grid (if enabled) */
+      snap_to_grid(&ddisp->grid, &to.x, &to.y);
+    }
+
+    if (tool->break_connections) {
+      /* break connections to the handle currently selected. */
+      if (tool->handle->connected_to!=NULL) {
+	object_unconnect(tool->object, tool->handle);
+      }
+    }
+
+    object_add_updates(tool->object, ddisp->diagram);
+    tool->object->ops->move_handle(tool->object, tool->handle, &to,
+				   HANDLE_MOVE_USER);
+    object_add_updates(tool->object, ddisp->diagram);
+  
+    diagram_update_connections_selection(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
+    break;
+  case STATE_NONE:
+    
+    break;
+  default:
+    message_error("Internal error: Strange state in modify_tool\n");
+  }
+
+  tool->last_to = to;
+}
+
+
+static void
+modify_button_release(ModifyTool *tool, GdkEventButton *event,
+		      DDisplay *ddisp)
+{
+  switch (tool->state) {
+  case STATE_MOVE_OBJECT:
+    gdk_pointer_ungrab (event->time);
+    ddisplay_connect_selected(ddisp);
+    diagram_update_connections_selection(ddisp->diagram);
+    diagram_update_extents(ddisp->diagram);
+    diagram_modified(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
+    tool->state = STATE_NONE;
+    break;
+  case STATE_MOVE_HANDLE:
+    gdk_pointer_ungrab (event->time);
+
+    /* Final move: */
+    object_add_updates(tool->object, ddisp->diagram);
+    tool->object->ops->move_handle(tool->object, tool->handle,
+				   &tool->last_to,
+				   HANDLE_MOVE_USER_FINAL);
+    object_add_updates(tool->object, ddisp->diagram);
+
+    /* Connect if possible: */
+    if (tool->handle->connectable) {
+      object_connect_display(ddisp, tool->object, tool->handle);
+      diagram_update_connections_selection(ddisp->diagram);
+    }
+    
+    diagram_flush(ddisp->diagram);
+    
+    diagram_modified(ddisp->diagram);
+    diagram_update_extents(ddisp->diagram);
+    tool->state = STATE_NONE;
+    break;
+  case STATE_NONE:
+    break;
+  default:
+    message_error("Internal error: Strange state in modify_tool\n");
+      
+  }
+  tool->break_connections = FALSE;
+}
+
+
+
+
+
+

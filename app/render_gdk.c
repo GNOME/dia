@@ -1,0 +1,807 @@
+/* xxxxxx -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+#include <math.h>
+
+#include <gtk/gtkfeatures.h>
+
+#ifndef GTK_HAVE_FEATURES_1_1_0 
+#define Font XXXFont /* Ugly namespace collision... */
+#include <gdk/gdkx.h>
+#undef Font
+#endif
+
+#include "render_gdk.h"
+#include "message.h"
+
+static void set_linewidth(RendererGdk *renderer, real linewidth);
+static void set_linecaps(RendererGdk *renderer, LineCaps mode);
+static void set_linejoin(RendererGdk *renderer, LineJoin mode);
+static void set_linestyle(RendererGdk *renderer, LineStyle mode);
+static void set_dashlength(RendererGdk *renderer, real length);
+static void set_fillstyle(RendererGdk *renderer, FillStyle mode);
+static void set_font(RendererGdk *renderer, Font *font, real height);
+static void draw_line(RendererGdk *renderer, 
+		      Point *start, Point *end, 
+		      Color *line_color);
+static void draw_polyline(RendererGdk *renderer, 
+			  Point *points, int num_points, 
+			  Color *line_color);
+static void draw_polygon(RendererGdk *renderer, 
+			 Point *points, int num_points, 
+			 Color *line_color);
+static void fill_polygon(RendererGdk *renderer, 
+			 Point *points, int num_points, 
+			 Color *line_color);
+static void draw_rect(RendererGdk *renderer, 
+		      Point *ul_corner, Point *lr_corner,
+		      Color *color);
+static void fill_rect(RendererGdk *renderer, 
+		      Point *ul_corner, Point *lr_corner,
+		      Color *color);
+static void draw_arc(RendererGdk *renderer, 
+		     Point *center,
+		     real width, real height,
+		     real angle1, real angle2,
+		     Color *color);
+static void fill_arc(RendererGdk *renderer, 
+		     Point *center,
+		     real width, real height,
+		     real angle1, real angle2,
+		     Color *color);
+static void draw_ellipse(RendererGdk *renderer, 
+			 Point *center,
+			 real width, real height,
+			 Color *color);
+static void fill_ellipse(RendererGdk *renderer, 
+			 Point *center,
+			 real width, real height,
+			 Color *color);
+static void draw_bezier(RendererGdk *renderer, 
+			Point *points,
+			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			Color *color);
+static void fill_bezier(RendererGdk *renderer, 
+			Point *points, /* Last point must be same as first point */
+			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			Color *color);
+static void draw_string(RendererGdk *renderer,
+			const char *text,
+			Point *pos, Alignment alignment,
+			Color *color);
+static void draw_image(RendererGdk *renderer,
+		       Point *point,
+		       real width, real height,
+		       void *not_decided_yet);
+
+static real get_text_width(RendererGdk *renderer,
+			   const char *text, int length);
+
+
+static RenderOps GdkRenderOps = {
+  (SetLineWidthFunc) set_linewidth,
+  (SetLineCapsFunc) set_linecaps,
+  (SetLineJoinFunc) set_linejoin,
+  (SetLineStyleFunc) set_linestyle,
+  (SetDashLengthFunc) set_dashlength,
+  (SetFillStyleFunc) set_fillstyle,
+  (SetFontFunc) set_font,
+  
+  (DrawLineFunc) draw_line,
+  (DrawPolyLineFunc) draw_polyline,
+  
+  (DrawPolygonFunc) draw_polygon,
+  (FillPolygonFunc) fill_polygon,
+
+  (DrawRectangleFunc) draw_rect,
+  (FillRectangleFunc) fill_rect,
+
+  (DrawArcFunc) draw_arc,
+  (FillArcFunc) fill_arc,
+
+  (DrawEllipseFunc) draw_ellipse,
+  (FillEllipseFunc) fill_ellipse,
+
+  (DrawBezierFunc) draw_bezier,
+  (FillBezierFunc) fill_bezier,
+
+  (DrawStringFunc) draw_string,
+
+  (DrawImageFunc) draw_image,
+};
+
+static InteractiveRenderOps GdkInteractiveRenderOps = {
+  (GetTextWidthFunc) get_text_width
+};
+
+RendererGdk *
+new_gdk_renderer(DDisplay *ddisp)
+{
+  RendererGdk *renderer;
+
+  renderer = g_new(RendererGdk, 1);
+  renderer->renderer.ops = &GdkRenderOps;
+  renderer->renderer.is_interactive = 1;
+  renderer->renderer.interactive_ops = &GdkInteractiveRenderOps;
+  renderer->ddisp = ddisp;
+  renderer->render_gc = gdk_gc_new(ddisp->pixmap);
+
+  renderer->line_width = 1;
+  renderer->line_style = GDK_LINE_SOLID;
+  renderer->cap_style = GDK_CAP_BUTT;
+  renderer->join_style = GDK_JOIN_MITER;
+  
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+
+  renderer->saved_line_style = LINESTYLE_SOLID;
+  renderer->dash_length = 10;
+  renderer->dot_length = 1;
+  
+  return renderer;
+}
+
+static void
+set_linewidth(RendererGdk *renderer, real linewidth)
+{  /* 0 == hairline **/
+  renderer->line_width =
+    ddisplay_transform_length(renderer->ddisp, linewidth);
+
+  if (renderer->line_width<=0)
+    renderer->line_width = 1; /* Minimum 1 pixel. */
+
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+}
+
+static void
+set_linecaps(RendererGdk *renderer, LineCaps mode)
+{
+  switch(mode) {
+  case LINECAPS_BUTT:
+    renderer->cap_style = GDK_CAP_BUTT;
+    break;
+  case LINECAPS_ROUND:
+    renderer->cap_style = GDK_CAP_ROUND;
+    break;
+  case LINECAPS_PROJECTING:
+    renderer->cap_style = GDK_CAP_PROJECTING;
+    break;
+  }
+ 
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+}
+
+static void
+set_linejoin(RendererGdk *renderer, LineJoin mode)
+{
+  switch(mode) {
+  case LINEJOIN_MITER:
+    renderer->cap_style = GDK_JOIN_MITER;
+    break;
+  case LINEJOIN_ROUND:
+    renderer->cap_style = GDK_JOIN_ROUND;
+    break;
+  case LINEJOIN_BEVEL:
+    renderer->cap_style = GDK_JOIN_BEVEL;
+    break;
+  }
+ 
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+}
+
+static void
+set_linestyle(RendererGdk *renderer, LineStyle mode)
+{
+  char dash_list[6];
+  int hole_width;
+  
+  renderer->saved_line_style = mode;
+  switch(mode) {
+  case LINESTYLE_SOLID:
+    renderer->line_style = GDK_LINE_SOLID;
+    break;
+  case LINESTYLE_DASHED:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    dash_list[0] = renderer->dash_length;
+    dash_list[1] = renderer->dash_length;
+#ifndef GTK_HAVE_FEATURES_1_1_0 
+    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
+	       0, dash_list, 2);
+#else
+    gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 2);
+#endif
+    break;
+  case LINESTYLE_DASH_DOT:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    hole_width = (renderer->dash_length - renderer->dot_length) / 2;
+    if (hole_width==0)
+      hole_width = 1;
+    dash_list[0] = renderer->dash_length;
+    dash_list[1] = hole_width;
+    dash_list[2] = renderer->dot_length;
+    dash_list[3] = hole_width;
+#ifndef GTK_HAVE_FEATURES_1_1_0 
+    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
+	       0, dash_list, 4);
+#else
+    gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 4);
+#endif
+    break;
+  case LINESTYLE_DASH_DOT_DOT:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3;
+    if (hole_width==0)
+      hole_width = 1;
+    dash_list[0] = renderer->dash_length;
+    dash_list[1] = hole_width;
+    dash_list[2] = renderer->dot_length;
+    dash_list[3] = hole_width;
+    dash_list[4] = renderer->dot_length;
+    dash_list[5] = hole_width;
+#ifndef GTK_HAVE_FEATURES_1_1_0 
+    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
+	       0, dash_list, 6);
+#else
+    gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 6);
+#endif
+    break;
+  }
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+}
+
+static void
+set_dashlength(RendererGdk *renderer, real length)
+{  /* dot = 10% of len */
+  real ddisp_len;
+
+  ddisp_len =
+    ddisplay_transform_length(renderer->ddisp, length);
+  
+  renderer->dash_length = (int)floor(ddisp_len+0.5);
+  renderer->dot_length = (int)floor(ddisp_len*0.1+0.5);
+  
+  if (renderer->dash_length<=0)
+    renderer->dash_length = 1;
+  if (renderer->dash_length>255)
+    renderer->dash_length = 255;
+  if (renderer->dot_length<=0)
+    renderer->dot_length = 1;
+  if (renderer->dot_length>255)
+    renderer->dot_length = 255;
+  set_linestyle(renderer, renderer->saved_line_style);
+}
+
+static void
+set_fillstyle(RendererGdk *renderer, FillStyle mode)
+{
+  switch(mode) {
+  case FILLSTYLE_SOLID:
+    break;
+  default:
+    message_error("gdk_renderer: Unsupported fill mode specified!\n");
+  }
+}
+
+static void
+set_font(RendererGdk *renderer, Font *font, real height)
+{
+  renderer->font_height =
+    ddisplay_transform_length(renderer->ddisp, height);
+
+  renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+}
+
+static void
+draw_line(RendererGdk *renderer, 
+	  Point *start, Point *end, 
+	  Color *line_color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor color;
+  int x1,y1,x2,y2;
+  
+  ddisplay_transform_coords(ddisp, start->x, start->y, &x1, &y1);
+  ddisplay_transform_coords(ddisp, end->x, end->y, &x2, &y2);
+  
+  color_convert(line_color, &color);
+  gdk_gc_set_foreground(gc, &color);
+  
+  gdk_draw_line(ddisp->pixmap, gc,
+		x1, y1,	x2, y2);
+}
+
+static void
+draw_polyline(RendererGdk *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor color;
+  GdkPoint *gdk_points;
+  int i,x,y;
+
+  gdk_points = g_new(GdkPoint, num_points);
+
+  for (i=0;i<num_points;i++) {
+    ddisplay_transform_coords(ddisp, points[i].x, points[i].y, &x, &y);
+    gdk_points[i].x = x;
+    gdk_points[i].y = y;
+  }
+  
+  color_convert(line_color, &color);
+  gdk_gc_set_foreground(gc, &color);
+  
+  gdk_draw_lines(ddisp->pixmap, gc, gdk_points, num_points);
+  g_free(gdk_points);
+}
+
+static void
+draw_polygon(RendererGdk *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor color;
+  GdkPoint *gdk_points;
+  int i,x,y;
+  
+  gdk_points = g_new(GdkPoint, num_points);
+
+  for (i=0;i<num_points;i++) {
+    ddisplay_transform_coords(ddisp, points[i].x, points[i].y, &x, &y);
+    gdk_points[i].x = x;
+    gdk_points[i].y = y;
+  }
+  
+  color_convert(line_color, &color);
+  gdk_gc_set_foreground(gc, &color);
+  
+  gdk_draw_polygon(ddisp->pixmap, gc, FALSE, gdk_points, num_points);
+  g_free(gdk_points);
+}
+
+static void
+fill_polygon(RendererGdk *renderer, 
+	      Point *points, int num_points, 
+	      Color *line_color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor color;
+  GdkPoint *gdk_points;
+  int i,x,y;
+  
+  gdk_points = g_new(GdkPoint, num_points);
+
+  for (i=0;i<num_points;i++) {
+    ddisplay_transform_coords(ddisp, points[i].x, points[i].y, &x, &y);
+    gdk_points[i].x = x;
+    gdk_points[i].y = y;
+  }
+  
+  color_convert(line_color, &color);
+  gdk_gc_set_foreground(gc, &color);
+  
+  gdk_draw_polygon(ddisp->pixmap, gc, TRUE, gdk_points, num_points);
+  g_free(gdk_points);
+}
+
+static void
+draw_rect(RendererGdk *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  gint top, bottom, left, right;
+    
+  ddisplay_transform_coords(ddisp, ul_corner->x, ul_corner->y,
+			    &left, &top);
+  ddisplay_transform_coords(ddisp, lr_corner->x, lr_corner->y,
+			    &right, &bottom);
+  
+  if ((left>right) || (top>bottom))
+    return;
+
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  gdk_draw_rectangle (ddisp->pixmap,
+		      gc, FALSE,
+		      left, top,
+		      right-left,
+		      bottom-top);
+}
+
+static void
+fill_rect(RendererGdk *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  gint top, bottom, left, right;
+    
+  ddisplay_transform_coords(ddisp, ul_corner->x, ul_corner->y,
+			    &left, &top);
+  ddisplay_transform_coords(ddisp, lr_corner->x, lr_corner->y,
+			    &right, &bottom);
+  
+  if ((left>right) || (top>bottom))
+    return;
+  
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  gdk_draw_rectangle (ddisp->pixmap,
+		      gc, TRUE,
+		      left, top,
+		      right-left,
+		      bottom-top);
+}
+
+static void
+draw_arc(RendererGdk *renderer, 
+	 Point *center,
+	 real width, real height,
+	 real angle1, real angle2,
+	 Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  gint top, left, bottom, right;
+  real dangle;
+  
+  ddisplay_transform_coords(ddisp,
+			    center->x - width/2, center->y - height/2,
+			    &left, &top);
+  ddisplay_transform_coords(ddisp,
+			    center->x + width/2, center->y + height/2,
+			    &right, &bottom);
+  
+  if ((left>right) || (top>bottom))
+    return;
+
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  dangle = angle2-angle1;
+  if (dangle<0)
+    dangle += 360.0;
+  
+  gdk_draw_arc(ddisp->pixmap,
+	       gc, FALSE,
+	       left, top, right-left, bottom-top,
+	       (int) (angle1*64.0), (int) (dangle*64.0));
+}
+
+static void
+fill_arc(RendererGdk *renderer, 
+	 Point *center,
+	 real width, real height,
+	 real angle1, real angle2,
+	 Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  gint top, left, bottom, right;
+  real dangle;
+  
+  ddisplay_transform_coords(ddisp,
+			    center->x - width/2, center->y - height/2,
+			    &left, &top);
+  ddisplay_transform_coords(ddisp,
+			    center->x + width/2, center->y + height/2,
+			    &right, &bottom);
+  
+  if ((left>right) || (top>bottom))
+    return;
+
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+  
+  dangle = angle2-angle1;
+  if (dangle<0)
+    dangle += 360.0;
+  
+  gdk_draw_arc(ddisp->pixmap,
+	       gc, TRUE,
+	       left, top, right-left, bottom-top,
+	       (int) (angle1*64), (int) (dangle*64));
+}
+
+static void
+draw_ellipse(RendererGdk *renderer, 
+	     Point *center,
+	     real width, real height,
+	     Color *color)
+{
+  draw_arc(renderer, center, width, height, 0.0, 360.0, color); 
+}
+
+static void
+fill_ellipse(RendererGdk *renderer, 
+	     Point *center,
+	     real width, real height,
+	     Color *color)
+{
+  fill_arc(renderer, center, width, height, 0.0, 360.0, color); 
+}
+
+struct bezier_curve {
+  GdkPoint *gdk_points;
+  int numpoints;
+  int currpoint;
+};
+
+#define BEZIER_SUBDIVIDE_LIMIT 0.03
+#define BEZIER_SUBDIVIDE_LIMIT_SQ (BEZIER_SUBDIVIDE_LIMIT*BEZIER_SUBDIVIDE_LIMIT)
+
+static void
+bezier_add_point(DDisplay *ddisp,
+		 struct bezier_curve *bezier,
+		 Point *point)
+{
+  int x,y;
+  
+  /* Grow if needed: */
+  if (bezier->currpoint == bezier->numpoints) {
+    bezier->numpoints += 40;
+    bezier->gdk_points = g_realloc(bezier->gdk_points,
+				   bezier->numpoints*sizeof(GdkPoint));
+  }
+  
+  ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
+  
+  bezier->gdk_points[bezier->currpoint].x = x;
+  bezier->gdk_points[bezier->currpoint].y = y;
+  
+  bezier->currpoint++;
+}
+
+static void
+bezier_add_lines(DDisplay *ddisp,
+		 Point points[4],
+		 struct bezier_curve *bezier)
+{
+  Point u, v, x, y;
+  Point r[4];
+  Point s[4];
+  Point middle;
+  coord delta;
+
+  /* Check if almost flat: */
+  u = points[1];
+  point_sub(&u, &points[0]);
+  v = points[3];
+  point_sub(&v, &points[0]);
+  y = v;
+  point_scale(&y, point_dot(&u,&v)/point_dot(&v,&v));
+  x = u;
+  point_sub(&x,&y);
+  delta = ddisplay_transform_length(ddisp, point_dot(&x,&x));
+  if (delta < BEZIER_SUBDIVIDE_LIMIT_SQ) {
+    u = points[2];
+    point_sub(&u, &points[3]);
+    v = points[0];
+    point_sub(&v, &points[3]);
+    y = v;
+    point_scale(&y, point_dot(&u,&v)/point_dot(&v,&v));
+    x = u;
+    point_sub(&x,&y);
+    delta = ddisplay_transform_length(ddisp, point_dot(&x,&x));
+    if (delta < BEZIER_SUBDIVIDE_LIMIT_SQ) {
+      bezier_add_point(ddisp, bezier, &points[3]);
+      return;
+    }
+  }
+  /* Subdivide into two bezier curves: */
+
+  middle = points[1];
+  point_add(&middle, &points[2]);
+  point_scale(&middle, 0.5);
+  
+  r[0] = points[0];
+  
+  r[1] = points[0];
+  point_add(&r[1], &points[1]);
+  point_scale(&r[1], 0.5);
+
+  r[2] = r[1];
+  point_add(&r[2], &middle);
+  point_scale(&r[2], 0.5);
+
+  s[3] = points[3];
+
+  s[2] = points[2];
+  point_add(&s[2], &points[3]);
+  point_scale(&s[2], 0.5);
+  
+  s[1] = s[2];
+  point_add(&s[1], &middle);
+  point_scale(&s[1], 0.5);
+
+  r[3] = r[2];
+  point_add(&r[3], &s[1]);
+  point_scale(&r[3], 0.5);
+  
+  s[0] = r[3];
+
+  bezier_add_lines(ddisp, r, bezier);
+  bezier_add_lines(ddisp, s, bezier);
+}
+
+static struct bezier_curve bezier = { NULL, 0, 0 };
+
+static void
+draw_bezier(RendererGdk *renderer, 
+	    Point *points,
+	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdk_color;
+  int i;
+  
+  if (bezier.gdk_points == NULL) {
+    bezier.numpoints = 30;
+    bezier.gdk_points = g_malloc(bezier.numpoints*sizeof(GdkPoint));
+  }
+
+  bezier.currpoint = 0;
+  
+  bezier_add_point(renderer->ddisp, &bezier, &points[0]);
+  i = 0;
+  while (i<=numpoints-3) {
+    bezier_add_lines(ddisp, &points[i], &bezier);
+    i += 3;
+  }
+  
+  color_convert(color, &gdk_color);
+  gdk_gc_set_foreground(gc, &gdk_color);
+  
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     GDK_JOIN_ROUND);
+
+  gdk_draw_lines(ddisp->pixmap, gc, bezier.gdk_points, bezier.currpoint);
+
+  gdk_gc_set_line_attributes(renderer->render_gc,
+			     renderer->line_width,
+			     renderer->line_style,
+			     renderer->cap_style,
+			     renderer->join_style);
+}
+
+static void
+fill_bezier(RendererGdk *renderer, 
+	    Point *points, /* Last point must be same as first point */
+	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdk_color;
+  int i;
+  
+  if (bezier.gdk_points == NULL) {
+    bezier.numpoints = 30;
+    bezier.gdk_points = g_malloc(bezier.numpoints*sizeof(GdkPoint));
+  }
+
+  bezier.currpoint = 0;
+  
+  bezier_add_point(renderer->ddisp, &bezier, &points[0]);
+  i = 0;
+  while (i<=numpoints-3) {
+    bezier_add_lines(ddisp, &points[i], &bezier);
+    i += 3;
+  }
+  
+  color_convert(color, &gdk_color);
+  gdk_gc_set_foreground(gc, &gdk_color);
+  
+  gdk_draw_polygon(ddisp->pixmap, gc, TRUE,
+		   bezier.gdk_points, bezier.currpoint);
+}
+
+static void
+draw_string(RendererGdk *renderer,
+	    const char *text,
+	    Point *pos, Alignment alignment,
+	    Color *color)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  int x,y;
+  int iwidth;
+  
+  ddisplay_transform_coords(ddisp, pos->x, pos->y,
+			    &x, &y);
+  
+  iwidth = gdk_string_width(renderer->gdk_font, text);
+
+  switch (alignment) {
+  case ALIGN_LEFT:
+    break;
+  case ALIGN_CENTER:
+    x -= iwidth/2;
+    break;
+  case ALIGN_RIGHT:
+    x -= iwidth;
+    break;
+  }
+  
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+      
+  gdk_draw_string(ddisp->pixmap,
+		  renderer->gdk_font, gc,
+		  x,y, text);
+}
+
+static void
+draw_image(RendererGdk *renderer,
+	   Point *point,
+	   real width, real height,
+	   void *not_decided_yet)
+{
+  message_error("gkd_renderer: Images are not supported yet!\n");
+}
+
+static real
+get_text_width(RendererGdk *renderer,
+	       const char *text, int length)
+{
+  int iwidth;
+  
+  iwidth = gdk_text_width(renderer->gdk_font, text, length);
+
+  return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
+}
+

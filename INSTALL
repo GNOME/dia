@@ -1,0 +1,14 @@
+
+To build, run:
+
+ ./configure
+ make
+
+then you can try it out in place by running
+ ./app/run_dia.sh
+
+or install it (defaulting at /usr/local/, change it with --prefix=xxx in configure) and run by:
+ make install
+ /usr/local/bin/dia
+
+

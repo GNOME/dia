@@ -1,0 +1,81 @@
+TODO:
+=====
+general:
+* change cursors more, ie. when the mouse is grabbed for resizing/moving stuff.
+* download insure++ and try it on dia. Maybe try purify too.
+* check the write_* functions on different architectures.
+* command line options (load files)
+* Tab order in properties dialogs. (How do you specify this in gtk?)
+* If you hold down shift while moving the handle of an 'Element',
+  scale while keeping same proportions.
+
+gtk:
+ keyboard accelerators can be better:
+*  They don't work at all on 1.1.x
+*  On 1.0.x you have to open the pop-up menu once in a window befor you
+    can use them
+
+functions:
+ undo
+ 
+renderer:
+ images
+
+tool:
+ drag-box selection of objects (in modify_tool)
+
+objects:
+ text_object: Add font to properties dialog.
+ render_object: better distance_from that can be specified by the object programmer.
+ Bitmapped image object
+ Vector image object (for maps and stuff). CGM?
+ properties dialogs in all object-types, see textobj
+
+UML:
+ Class: * class can be object => underlined name
+          (Is this really in UML? Can't find it in specs?)
+ Aggregate: * Has some problems laying out the text at the ends.
+ All:   * Change some entries to comboboxes with pre-selectable texts.
+          (Mostly stereotypes)
+
+Big stuff:
+ * load/save in xml-format. Needs much support so objects can easily save their variables and so the format is easy for other programs to generate.
+ * some kind of 'plug-in api' so that libraries like uml can add new
+   functions to the menus (like: load UMX)
+
+---------------------------------------------------------------
+
+BUGS:
+=====
+* pressing '+' and '-' when a focus is activated it gets both to the focus and zooms.
+
+* doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
+
+* If you move an object outside the visible screen, scroll there move the object back
+  and then scroll back, the (now) unused area is not removed.
+
+* If you double-click on the color-selector as the first thing you do
+  sometimes the program crashes.
+
+* eps imported into lyx is shown ok, but the bounding-box is wrong...
+
+* Sometimes the scrollbars turn weird when you remove the last
+  object. (Try: move around the last object a bit and then press ctrl-x.)
+
+---------------------------------------------------------------
+
+Interesting Stuff from the real Visio:
+======================================
+Move connection points
+Fill patterns
+line patterns
+shadow color
+object corner types
+Editing of groups in a separate window
+Perspecitve point
+Lockable handles
+Rotate stuff, to complex to be implemented in this version.
+
+
+
+

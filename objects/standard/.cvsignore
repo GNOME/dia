@@ -1,0 +1,12 @@
+.deps
+.libs
+Makefile
+arc.lo
+box.lo
+elipse.lo
+ellipse.lo
+libstandard_objects.la
+line.lo
+standard.lo
+textobj.lo
+zigzagline.lo

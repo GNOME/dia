@@ -1,0 +1,562 @@
+/* xxxxxx -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <assert.h>
+#include <gtk/gtk.h>
+#include <math.h>
+#include <string.h>
+
+#include "object.h"
+#include "connection.h"
+#include "render.h"
+#include "files.h"
+#include "sheet.h"
+#include "handle.h"
+
+#include "pixmaps/implements.xpm"
+
+typedef struct _Implements Implements;
+typedef struct _ImplementsDialog ImplementsDialog;
+
+struct _Implements {
+  Connection connection;
+
+  Handle text_handle;
+  Handle circle_handle;
+
+  real circle_diameter;
+
+  Point circle_center; /* Calculated from diameter*/
+
+  char *text;
+  Point text_pos;
+  real text_width;
+
+  ImplementsDialog *properties_dialog;
+};
+
+struct _ImplementsDialog {
+  GtkWidget *dialog;
+  
+  GtkEntry *text;
+  
+  ObjectChangedFunc *changed_callback;
+  void *changed_callback_data;
+};
+  
+#define IMPLEMENTS_WIDTH 0.1
+#define IMPLEMENTS_FONTHEIGHT 0.8
+
+#define HANDLE_CIRCLE_SIZE (HANDLE_CUSTOM1)
+#define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
+
+
+static Font *implements_font = NULL;
+
+static void implements_move_handle(Implements *implements, Handle *handle,
+				   Point *to, HandleMoveReason reason);
+static void implements_move(Implements *implements, Point *to);
+static void implements_select(Implements *implements, Point *clicked_point,
+			      Renderer *interactive_renderer);
+static void implements_draw(Implements *implements, Renderer *renderer);
+static Object *implements_create(Point *startpoint,
+				 void *user_data,
+				 Handle **handle1,
+				 Handle **handle2);
+static real implements_distance_from(Implements *implements, Point *point);
+static void implements_update_data(Implements *implements);
+static void implements_destroy(Implements *implements);
+static Object *implements_copy(Implements *implements);
+static void implements_show_properties(Implements *implements,
+				       ObjectChangedFunc *changed_callback,
+				       void *changed_callback_data);
+
+static void implements_save(Implements *implements, int fd);
+static Object *implements_load(int fd, int version);
+
+
+static ObjectTypeOps implements_type_ops =
+{
+  (CreateFunc) implements_create,
+  (LoadFunc)   implements_load,
+  (SaveFunc)   implements_save
+};
+
+ObjectType implements_type =
+{
+  "UML - Implements",   /* name */
+  0,                   /* version */
+  (char **) implements_xpm,  /* pixmap */
+  &implements_type_ops       /* ops */
+};
+
+SheetObject implements_sheetobj =
+{
+  &implements_type,             /* type */
+  "Implements, class implements a specific interface.",
+                                /* description */
+  (char **) implements_xpm, /* pixmap */
+  NULL                          /* user_data */
+};
+
+static ObjectOps implements_ops = {
+  (DestroyFunc)        implements_destroy,
+  (DrawFunc)           implements_draw,
+  (DistanceFunc)       implements_distance_from,
+  (SelectFunc)         implements_select,
+  (CopyFunc)           implements_copy,
+  (MoveFunc)           implements_move,
+  (MoveHandleFunc)     implements_move_handle,
+  (ShowPropertiesFunc) implements_show_properties,
+  (IsEmptyFunc)        object_return_false
+};
+
+static real
+implements_distance_from(Implements *implements, Point *point)
+{
+  Point *endpoints;
+  real dist1, dist2;
+  
+  endpoints = &implements->connection.endpoints[0];
+  dist1 = distance_line_point( &endpoints[0], &endpoints[1],
+			      IMPLEMENTS_WIDTH, point);
+  dist2 = distance_point_point( &implements->circle_center, point)
+    - implements->circle_diameter/2.0;
+  if (dist2<0)
+    dist2 = 0;
+  
+  return MIN(dist1, dist2);
+}
+
+static void
+implements_select(Implements *implements, Point *clicked_point,
+	    Renderer *interactive_renderer)
+{
+  connection_update_handles(&implements->connection);
+}
+
+static void
+implements_move_handle(Implements *implements, Handle *handle,
+		 Point *to, HandleMoveReason reason)
+{
+  Point v1, v2;
+  
+  assert(implements!=NULL);
+  assert(handle!=NULL);
+  assert(to!=NULL);
+
+  if (handle->id == HANDLE_MOVE_TEXT) {
+    implements->text_pos = *to;
+  } else if (handle->id == HANDLE_CIRCLE_SIZE) {
+    v1 = implements->connection.endpoints[0];
+    point_sub(&v1, &implements->connection.endpoints[1]);
+    point_normalize(&v1);
+    v2 = *to;
+    point_sub(&v2, &implements->connection.endpoints[1]);
+    implements->circle_diameter = point_dot(&v1, &v2);
+    if (implements->circle_diameter<0.03)
+      implements->circle_diameter = 0.03;
+  } else {
+    v1 = implements->connection.endpoints[1];
+    connection_move_handle(&implements->connection, handle->id, to, reason);
+    point_sub(&v1, &implements->connection.endpoints[1]);
+    point_sub(&implements->text_pos, &v1);
+  }
+
+  implements_update_data(implements);
+}
+
+static void
+implements_move(Implements *implements, Point *to)
+{
+  Point start_to_end;
+  Point delta;
+  Point *endpoints = &implements->connection.endpoints[0]; 
+
+  delta = *to;
+  point_sub(&delta, &endpoints[0]);
+  
+  start_to_end = endpoints[1];
+  point_sub(&start_to_end, &endpoints[0]);
+
+  endpoints[1] = endpoints[0] = *to;
+  point_add(&endpoints[1], &start_to_end);
+
+  point_add(&implements->text_pos, &delta);
+  
+  implements_update_data(implements);
+}
+
+static void
+implements_draw(Implements *implements, Renderer *renderer)
+{
+  Point *endpoints;
+  
+  assert(implements != NULL);
+  assert(renderer != NULL);
+
+  endpoints = &implements->connection.endpoints[0];
+  
+  renderer->ops->set_linewidth(renderer, IMPLEMENTS_WIDTH);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  renderer->ops->draw_line(renderer,
+			   &endpoints[0], &endpoints[1],
+			   &color_black);
+
+  renderer->ops->fill_ellipse(renderer, &implements->circle_center,
+			      implements->circle_diameter,
+			      implements->circle_diameter,
+			      &color_white);
+  renderer->ops->draw_ellipse(renderer, &implements->circle_center,
+			      implements->circle_diameter,
+			      implements->circle_diameter,
+			      &color_black);
+
+
+  renderer->ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
+  renderer->ops->draw_string(renderer,
+			     implements->text,
+			     &implements->text_pos, ALIGN_LEFT,
+			     &color_black);
+}
+
+static Object *
+implements_create(Point *startpoint,
+		  void *user_data,
+		  Handle **handle1,
+		  Handle **handle2)
+{
+  Implements *implements;
+  Connection *conn;
+  Object *obj;
+  Point defaultlen = { 1.0, 1.0 };
+
+  if (implements_font == NULL)
+    implements_font = font_getfont("Courier");
+  
+  implements = g_malloc(sizeof(Implements));
+
+  conn = &implements->connection;
+  conn->endpoints[0] = *startpoint;
+  conn->endpoints[1] = *startpoint;
+  point_add(&conn->endpoints[1], &defaultlen);
+ 
+  obj = (Object *) implements;
+  
+  obj->type = &implements_type;
+  obj->ops = &implements_ops;
+  
+  connection_init(conn, 4, 0);
+
+  implements->text = strdup("");
+  implements->text_width = 0.0;
+  implements->text_pos = conn->endpoints[1];
+  implements->text_pos.x -= 0.3;
+  implements->circle_diameter = 0.7;
+
+  implements->text_handle.id = HANDLE_MOVE_TEXT;
+  implements->text_handle.type = HANDLE_MINOR_CONTROL;
+  implements->text_handle.connectable = FALSE;
+  implements->text_handle.connected_to = NULL;
+  obj->handles[2] = &implements->text_handle;
+  
+  implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
+  implements->circle_handle.type = HANDLE_MINOR_CONTROL;
+  implements->circle_handle.connectable = FALSE;
+  implements->circle_handle.connected_to = NULL;
+  obj->handles[3] = &implements->circle_handle;
+
+  implements->properties_dialog = NULL;
+  
+  implements_update_data(implements);
+
+  *handle1 = obj->handles[0];
+  *handle2 = obj->handles[1];
+  return (Object *)implements;
+}
+
+
+static void
+implements_destroy(Implements *implements)
+{
+  connection_destroy(&implements->connection);
+  g_free(implements->text);
+
+  if (implements->properties_dialog != NULL) {
+    gtk_widget_destroy(implements->properties_dialog->dialog);
+    g_free(implements->properties_dialog);
+  }
+}
+
+static Object *
+implements_copy(Implements *implements)
+{
+  Implements *newimplements;
+  Connection *conn, *newconn;
+  Object *newobj;
+  
+  conn = &implements->connection;
+  
+  newimplements = g_malloc(sizeof(Implements));
+  newconn = &newimplements->connection;
+  newobj = (Object *) newimplements;
+
+  connection_copy(conn, newconn);
+
+  newimplements->text_handle = implements->text_handle;
+  newobj->handles[2] = &newimplements->text_handle;
+  newimplements->circle_handle = implements->circle_handle;
+  newobj->handles[3] = &newimplements->circle_handle;
+
+  newimplements->circle_diameter = implements->circle_diameter;
+  newimplements->circle_center = implements->circle_center;
+
+  newimplements->text = strdup(implements->text);
+  newimplements->text_pos = implements->text_pos;
+  newimplements->text_width = implements->text_width;
+
+  newimplements->properties_dialog = NULL;
+
+  return (Object *)newimplements;
+}
+
+
+static void
+implements_update_data(Implements *implements)
+{
+  Connection *conn = &implements->connection;
+  Object *obj = (Object *) implements;
+  Point delta;
+  Point point;
+  real len;
+  Rectangle rect;
+  
+
+  obj->position = conn->endpoints[0];
+
+  implements->text_handle.pos = implements->text_pos;
+
+  /* circle handle/center pos: */
+  delta = conn->endpoints[0];
+  point_sub(&delta, &conn->endpoints[1]);
+  len = sqrt(point_dot(&delta, &delta));
+  delta.x /= len; delta.y /= len;
+
+  point = delta;
+  point_scale(&point, implements->circle_diameter);
+  point_add(&point, &conn->endpoints[1]);
+  implements->circle_handle.pos = point;
+
+  point = delta;
+  point_scale(&point, implements->circle_diameter/2.0);
+  point_add(&point, &conn->endpoints[1]);
+  implements->circle_center = point;
+
+  connection_update_handles(conn);
+
+  /* Boundingbox: */
+  connection_update_boundingbox(conn);
+
+  /* Add boundingbox for circle: */
+  rect.left = implements->circle_center.x - implements->circle_diameter/2.0;
+  rect.right = implements->circle_center.x + implements->circle_diameter/2.0;
+  rect.top = implements->circle_center.y - implements->circle_diameter/2.0;
+  rect.bottom = implements->circle_center.y + implements->circle_diameter/2.0;
+  rectangle_union(&obj->bounding_box, &rect);
+
+  /* Add boundingbox for text: */
+  rect.left = implements->text_pos.x;
+  rect.right = rect.left + implements->text_width;
+  rect.top = implements->text_pos.y - font_ascent(implements_font, IMPLEMENTS_FONTHEIGHT);
+  rect.bottom = rect.top + IMPLEMENTS_FONTHEIGHT;
+  rectangle_union(&obj->bounding_box, &rect);
+
+  /* fix boundingbox for implements_width: */
+  obj->bounding_box.top -= IMPLEMENTS_WIDTH/2;
+  obj->bounding_box.left -= IMPLEMENTS_WIDTH/2;
+  obj->bounding_box.bottom += IMPLEMENTS_WIDTH/2;
+  obj->bounding_box.right += IMPLEMENTS_WIDTH/2;
+
+}
+
+
+static void
+implements_save(Implements *implements, int fd)
+{
+  connection_save(&implements->connection, fd);
+
+  write_real(fd, implements->circle_diameter);
+  write_string(fd, implements->text);
+  write_point(fd, &implements->text_pos);
+  
+}
+
+static Object *
+implements_load(int fd, int version)
+{
+  Implements *implements;
+  Connection *conn;
+  Object *obj;
+
+  if (implements_font == NULL)
+    implements_font = font_getfont("Courier");
+
+  implements = g_malloc(sizeof(Implements));
+
+  conn = &implements->connection;
+  obj = (Object *) implements;
+
+  obj->type = &implements_type;
+  obj->ops = &implements_ops;
+
+  connection_load(conn, fd);
+  
+  connection_init(conn, 4, 0);
+
+  implements->circle_diameter = read_real(fd);
+  implements->text = read_string(fd);
+  read_point(fd, &implements->text_pos);
+
+  implements->text_width =
+      font_string_width(implements->text, implements_font,
+			IMPLEMENTS_FONTHEIGHT);
+
+  implements->text_handle.id = HANDLE_MOVE_TEXT;
+  implements->text_handle.type = HANDLE_MINOR_CONTROL;
+  implements->text_handle.connectable = FALSE;
+  implements->text_handle.connected_to = NULL;
+  obj->handles[2] = &implements->text_handle;
+  
+  implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
+  implements->circle_handle.type = HANDLE_MINOR_CONTROL;
+  implements->circle_handle.connectable = FALSE;
+  implements->circle_handle.connected_to = NULL;
+  obj->handles[3] = &implements->circle_handle;
+
+  implements->properties_dialog = NULL;
+
+  
+  implements_update_data(implements);
+  
+  return (Object *)implements;
+}
+
+
+static void
+apply_callback(GtkWidget *widget, gpointer data)
+{
+  Implements *implements;
+  ImplementsDialog *prop_dialog;
+
+  implements = (Implements *)data;
+  prop_dialog = implements->properties_dialog;
+
+  (prop_dialog->changed_callback)((Object *)implements,
+				  prop_dialog->changed_callback_data,
+				  BEFORE_CHANGE);
+
+  /* Read from dialog and put in object: */
+  g_free(implements->text);
+  implements->text = strdup(gtk_entry_get_text(prop_dialog->text));
+
+  implements->text_width =
+      font_string_width(implements->text, implements_font,
+			IMPLEMENTS_FONTHEIGHT);
+  
+  implements_update_data(implements);
+  
+  (prop_dialog->changed_callback)((Object *)implements,
+				  prop_dialog->changed_callback_data,
+				  AFTER_CHANGE);
+  
+}
+
+static void
+fill_in_dialog(Implements *implements)
+{
+  ImplementsDialog *prop_dialog;
+  
+  prop_dialog = implements->properties_dialog;
+
+  gtk_entry_set_text(prop_dialog->text, implements->text);
+}
+
+static void implements_show_properties(Implements *implements,
+				       ObjectChangedFunc *changed_callback,
+				       void *changed_callback_data)
+{
+  ImplementsDialog *prop_dialog;
+  GtkWidget *dialog;
+  GtkWidget *button;
+  GtkWidget *entry;
+  GtkWidget *hbox;
+  GtkWidget *label;
+
+  if (implements->properties_dialog == NULL) {
+
+    prop_dialog = g_new(ImplementsDialog, 1);
+    implements->properties_dialog = prop_dialog;
+
+    prop_dialog->changed_callback = changed_callback;
+    prop_dialog->changed_callback_data = changed_callback_data;
+    
+    dialog = gtk_dialog_new();
+    prop_dialog->dialog = dialog;
+    
+    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
+			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+    
+    gtk_window_set_title (GTK_WINDOW (dialog), "Implements properties");
+    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+
+    label = gtk_label_new("Interface:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    entry = gtk_entry_new();
+    prop_dialog->text = GTK_ENTRY(entry);
+    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show (entry);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
+			hbox, TRUE, TRUE, 0);
+    gtk_widget_show(hbox);
+
+
+    button = gtk_button_new_with_label ("Apply");
+    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+			button, TRUE, TRUE, 0);
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
+			GTK_SIGNAL_FUNC(apply_callback),
+			implements);
+    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
+			GTK_SIGNAL_FUNC(gtk_widget_hide),
+			GTK_OBJECT(dialog));
+    gtk_widget_grab_default (button);
+    gtk_widget_show (button);
+  } else {
+    implements->properties_dialog->changed_callback = changed_callback;
+    implements->properties_dialog->changed_callback_data = changed_callback_data;
+
+  }
+  fill_in_dialog(implements);
+  gtk_widget_show (implements->properties_dialog->dialog);
+ 
+}

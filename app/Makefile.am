@@ -1,0 +1,76 @@
+## Process this file with automake to produce Makefile.in
+
+SUBDIRS = pixmaps
+
+noinst_PROGRAMS = run_dia.sh
+run_dia_sh_SOURCES = 
+bin_PROGRAMS = dia
+dia_SOURCES = \
+	    connectionpoint_ops.h \
+	    connectionpoint_ops.c \
+	    diagram.c \
+	    diagram.h \
+	    commands.c \
+	    commands.h \
+	    app_procs.c \
+	    app_procs.h \
+	    load_save.c \
+	    load_save.h \
+	    disp_callbacks.c \
+	    disp_callbacks.h \
+	    display.c \
+	    display.h \
+	    color_area.c \
+	    color_area.h \
+	    linewidth_area.c \
+	    linewidth_area.h \
+	    grid.c \
+	    grid.h \
+	    group.c \
+	    group.h \
+	    handle_ops.c \
+	    handle_ops.h \
+	    interface.c \
+	    interface.h \
+	    main.c \
+	    modify_tool.c \
+	    modify_tool.h \
+	    scroll_tool.c \
+	    scroll_tool.h \
+	    create_object.c \
+	    create_object.h \
+	    magnify.c \
+	    magnify.h \
+	    menus.c \
+	    menus.h \
+	    cut_n_paste.c \
+	    cut_n_paste.h \
+	    object_ops.c \
+	    object_ops.h \
+	    render_gdk.c \
+	    render_gdk.h \
+	    render_eps.c \
+	    render_eps.h \
+	    tool.c \
+	    tool.h \
+	    pixmaps.h 
+
+CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\"
+
+CFLAGS = -Wall -g 
+
+INCLUDES = -I../lib
+
+LDFLAGS = -export-dynamic
+
+LDADD =  @GTK_LIBS@  -ldl ../lib/libdia.a
+
+
+run_dia.sh: Makefile.am
+	 echo "#!$(SHELL) " > run_dia.sh
+	 echo "export DIA_LIB_PATH" >> run_dia.sh
+	 echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs:`pwd`/../objects/network/.libs:`pwd`/../objects/UML/.libs >> run_dia.sh
+	 echo >> run_dia.sh
+	 echo "`pwd`/dia" >> run_dia.sh
+	 chmod a+x run_dia.sh
+

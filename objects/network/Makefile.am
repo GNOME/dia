@@ -1,0 +1,17 @@
+## Process this file with automake to produce Makefile.in
+
+SUBDIRS = pixmaps
+
+pkglib_LTLIBRARIES = 	libnetwork_objects.la
+libnetwork_objects_la_SOURCES = \
+			      network.h \
+			      computer.c \
+			      disc.c \
+			      monitor.c \
+			      network.c
+
+libnetwork_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+
+CPPFLAGS = @GTK_CFLAGS@
+INCLUDES = -I../../lib
+CFLAGS = -Wall -g

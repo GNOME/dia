@@ -1,0 +1,5 @@
+.deps
+.libs
+Makefile
+dia
+run_dia.sh
