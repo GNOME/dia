@@ -175,6 +175,7 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
 void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	int codedxf;
+	char *old_locale;
 	
 	/* circle data */
 	Point center;
@@ -250,6 +251,7 @@ void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
 void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	int codedxf;
+	char *old_locale;
 	
 	/* ellipse data */
 	Point center;
@@ -330,6 +332,7 @@ void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 
 void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
   int codedxf;
+  char *old_locale;
 
 	/* text data */
 	Point location;

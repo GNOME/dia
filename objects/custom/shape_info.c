@@ -480,7 +480,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	       GraphicStyle *style)
 {
   CHAR *str;
-  char *locale;
+  char *old_locale;
 
   /* walk SVG node ... */
   for (node = node->childs; node != NULL; node = node->next) {
@@ -769,7 +769,7 @@ load_shape_info(const gchar *filename)
   xmlNodePtr node,root;
   ShapeInfo *info;
   char *tmp;
-  char *locale;
+  char *old_locale;
 #if 0
   int descr_score = -1;
 #endif
