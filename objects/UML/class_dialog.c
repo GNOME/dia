@@ -1011,6 +1011,11 @@ operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_abstract), val);
+
+  gtk_widget_set_sensitive(prop_dialog->param_new_button, val);
+  gtk_widget_set_sensitive(prop_dialog->param_delete_button, val);
+  gtk_widget_set_sensitive(prop_dialog->param_down_button, val);
+  gtk_widget_set_sensitive(prop_dialog->param_up_button, val);
 }
 
 static void
@@ -1608,24 +1613,28 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   vbox3 = gtk_vbox_new(FALSE, 5);
 
   button = gtk_button_new_with_label ("New");
+  prop_dialog->param_new_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
   button = gtk_button_new_with_label ("Delete");
+  prop_dialog->param_delete_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_delete_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
   button = gtk_button_new_with_label ("Move up");
+  prop_dialog->param_up_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_move_up_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
   button = gtk_button_new_with_label ("Move down");
+  prop_dialog->param_down_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_move_down_callback),
 		      umlclass);
@@ -2194,42 +2203,6 @@ switch_page_callback(GtkNotebook *notebook,
     templates_get_current_values(prop_dialog);
   }
 }
-static void
-apply_callback(GtkWidget *widget, gpointer data)
-{
-  UMLClass *umlclass;
-  UMLClassDialog *prop_dialog;
-
-  umlclass = (UMLClass *)data;
-  prop_dialog = umlclass->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)umlclass,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
-
-  /* Read from dialog and put in object: */
-  class_read_from_dialog(umlclass, prop_dialog);
-  attributes_read_from_dialog(umlclass, prop_dialog);
-  operations_read_from_dialog(umlclass, prop_dialog);
-  templates_read_from_dialog(umlclass, prop_dialog);
-
-  /* Update data: */
-  umlclass_calculate_data(umlclass);
-  umlclass_update_data(umlclass);
-
-  (prop_dialog->changed_callback)((Object *)umlclass,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
-}
-
-static void
-create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
-{
-  class_create_page(notebook, umlclass);
-  attributes_create_page(notebook, umlclass);
-  operations_create_page(notebook, umlclass);
-  templates_create_page(notebook, umlclass);
-}
 
 static void
 fill_in_dialog(UMLClass *umlclass)
@@ -2241,41 +2214,57 @@ fill_in_dialog(UMLClass *umlclass)
 }
 
 void
-umlclass_show_properties(UMLClass *umlclass,
-			 ObjectChangedFunc *changed_callback,
-			 void *changed_callback_data)
+umlclass_apply_properties(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *button;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  /* Read from dialog and put in object: */
+  class_read_from_dialog(umlclass, prop_dialog);
+  attributes_read_from_dialog(umlclass, prop_dialog);
+  operations_read_from_dialog(umlclass, prop_dialog);
+  templates_read_from_dialog(umlclass, prop_dialog);
+
+  /* Update data: */
+  umlclass_calculate_data(umlclass);
+  umlclass_update_data(umlclass);
+
+  /* Fill in class with the new data: */
+  fill_in_dialog(umlclass);
+}
+
+static void
+create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
+{
+  class_create_page(notebook, umlclass);
+  attributes_create_page(notebook, umlclass);
+  operations_create_page(notebook, umlclass);
+  templates_create_page(notebook, umlclass);
+}
+
+GtkWidget *
+umlclass_get_properties(UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *vbox;
   GtkWidget *notebook;
 
   if (umlclass->properties_dialog == NULL) {
     prop_dialog = g_new(UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
-    prop_dialog->dialog = dialog;
+    vbox = gtk_vbox_new(FALSE, 0);
+    prop_dialog->dialog = vbox;
 
     prop_dialog->current_attr = NULL;
     prop_dialog->current_op = NULL;
     prop_dialog->current_param = NULL;
     prop_dialog->current_templ = NULL;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Class properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
-
     notebook = gtk_notebook_new ();
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
-			notebook, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox),	notebook, TRUE, TRUE, 0);
     gtk_container_border_width (GTK_CONTAINER (notebook), 10);
 
     gtk_object_set_user_data(GTK_OBJECT(notebook), (gpointer) umlclass);
@@ -2284,32 +2273,16 @@ umlclass_show_properties(UMLClass *umlclass,
 			"switch_page",
 			GTK_SIGNAL_FUNC(switch_page_callback),
 			(gpointer) umlclass);
-
-    gtk_widget_realize (notebook);
     
     create_dialog_pages(GTK_NOTEBOOK( notebook ), umlclass);
 
     gtk_widget_show (notebook);
-      
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			umlclass);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    umlclass->properties_dialog->changed_callback = changed_callback;
-    umlclass->properties_dialog->changed_callback_data = changed_callback_data;
   }
 
   fill_in_dialog(umlclass);
   gtk_widget_show (umlclass->properties_dialog->dialog);
+
+  return umlclass->properties_dialog->dialog;
 }
 
 

@@ -49,9 +49,6 @@ struct _ConstraintDialog {
   GtkWidget *dialog;
   
   GtkEntry *text;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
   
 #define CONSTRAINT_WIDTH 0.1
@@ -79,10 +76,8 @@ static real constraint_distance_from(Constraint *constraint, Point *point);
 static void constraint_update_data(Constraint *constraint);
 static void constraint_destroy(Constraint *constraint);
 static Object *constraint_copy(Constraint *constraint);
-static void constraint_show_properties(Constraint *constraint,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data);
-
+static GtkWidget *constraint_get_properties(Constraint *constraint);
+static void constraint_apply_properties(Constraint *constraint);
 static void constraint_save(Constraint *constraint, int fd);
 static Object *constraint_load(int fd, int version);
 
@@ -112,15 +107,16 @@ SheetObject constraint_sheetobj =
 };
 
 static ObjectOps constraint_ops = {
-  (DestroyFunc)        constraint_destroy,
-  (DrawFunc)           constraint_draw,
-  (DistanceFunc)       constraint_distance_from,
-  (SelectFunc)         constraint_select,
-  (CopyFunc)           constraint_copy,
-  (MoveFunc)           constraint_move,
-  (MoveHandleFunc)     constraint_move_handle,
-  (ShowPropertiesFunc) constraint_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         constraint_destroy,
+  (DrawFunc)            constraint_draw,
+  (DistanceFunc)        constraint_distance_from,
+  (SelectFunc)          constraint_select,
+  (CopyFunc)            constraint_copy,
+  (MoveFunc)            constraint_move,
+  (MoveHandleFunc)      constraint_move_handle,
+  (GetPropertiesFunc)   constraint_get_properties,
+  (ApplyPropertiesFunc) constraint_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -398,18 +394,12 @@ constraint_load(int fd, int version)
 
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+constraint_apply_properties(Constraint *constraint)
 {
-  Constraint *constraint;
   ConstraintDialog *prop_dialog;
   char *str;
   
-  constraint = (Constraint *)data;
   prop_dialog = constraint->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)constraint,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   g_free(constraint->text);
@@ -424,11 +414,6 @@ apply_callback(GtkWidget *widget, gpointer data)
 			CONSTRAINT_FONTHEIGHT);
   
   constraint_update_data(constraint);
-  
-  (prop_dialog->changed_callback)((Object *)constraint,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
-  
 }
 
 static void
@@ -446,13 +431,11 @@ fill_in_dialog(Constraint *constraint)
   g_free(str);
 }
 
-static void constraint_show_properties(Constraint *constraint,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data)
+static GtkWidget *
+constraint_get_properties(Constraint *constraint)
 {
   ConstraintDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -461,19 +444,10 @@ static void constraint_show_properties(Constraint *constraint,
 
     prop_dialog = g_new(ConstraintDialog, 1);
     constraint->properties_dialog = prop_dialog;
-
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
     
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Constraint properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Constraint:");
@@ -483,29 +457,12 @@ static void constraint_show_properties(Constraint *constraint,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
-
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			constraint);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    constraint->properties_dialog->changed_callback = changed_callback;
-    constraint->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
+  
   fill_in_dialog(constraint);
   gtk_widget_show (constraint->properties_dialog->dialog);
- 
+
+  return constraint->properties_dialog->dialog;
 }

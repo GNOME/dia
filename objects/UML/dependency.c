@@ -56,9 +56,6 @@ struct _DependencyPropertiesDialog {
   GtkEntry *name;
   GtkEntry *stereotype;
   GtkToggleButton *draw_arrow;
-
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 #define DEPENDENCY_WIDTH 0.1
@@ -82,10 +79,8 @@ static Object *dependency_create(Point *startpoint,
 				 Handle **handle2);
 static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
-static void dependency_show_properties(Dependency *dep,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data);
-
+static GtkWidget *dependency_get_properties(Dependency *dep);
+static void dependency_apply_properties(Dependency *dep);
 static void dependency_save(Dependency *dep, int fd);
 static Object *dependency_load(int fd, int version);
 
@@ -117,15 +112,16 @@ SheetObject dependency_sheetobj =
 };
 
 static ObjectOps dependency_ops = {
-  (DestroyFunc)        dependency_destroy,
-  (DrawFunc)           dependency_draw,
-  (DistanceFunc)       dependency_distance_from,
-  (SelectFunc)         dependency_select,
-  (CopyFunc)           dependency_copy,
-  (MoveFunc)           dependency_move,
-  (MoveHandleFunc)     dependency_move_handle,
-  (ShowPropertiesFunc) dependency_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         dependency_destroy,
+  (DrawFunc)            dependency_draw,
+  (DistanceFunc)        dependency_distance_from,
+  (SelectFunc)          dependency_select,
+  (CopyFunc)            dependency_copy,
+  (MoveFunc)            dependency_move,
+  (MoveHandleFunc)      dependency_move_handle,
+  (GetPropertiesFunc)   dependency_get_properties,
+  (ApplyPropertiesFunc) dependency_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -402,18 +398,12 @@ dependency_load(int fd, int version)
 
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+dependency_apply_properties(Dependency *dep)
 {
-  Dependency *dep;
   DependencyPropertiesDialog *prop_dialog;
   char *str;
 
-  dep = (Dependency *)data;
   prop_dialog = dep->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)dep,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   if (dep->name != NULL)
@@ -454,10 +444,6 @@ apply_callback(GtkWidget *widget, gpointer data)
   }
   
   dependency_update_data(dep);
-  
-  (prop_dialog->changed_callback)((Object *)dep,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
 }
 
 static void
@@ -487,14 +473,11 @@ fill_in_dialog(Dependency *dep)
   gtk_toggle_button_set_state(prop_dialog->draw_arrow, dep->draw_arrow);
 }
 
-static void
-dependency_show_properties(Dependency *dep,
-			   ObjectChangedFunc *changed_callback,
-			   void *changed_callback_data)
+static GtkWidget *
+dependency_get_properties(Dependency *dep)
 {
   DependencyPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *checkbox;
   GtkWidget *entry;
   GtkWidget *hbox;
@@ -505,18 +488,9 @@ dependency_show_properties(Dependency *dep,
     prop_dialog = g_new(DependencyPropertiesDialog, 1);
     dep->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Dependency properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Name:");
@@ -526,8 +500,7 @@ dependency_show_properties(Dependency *dep,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -539,8 +512,7 @@ dependency_show_properties(Dependency *dep,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
     
 
@@ -549,32 +521,15 @@ dependency_show_properties(Dependency *dep,
     prop_dialog->draw_arrow = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox),
-			checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
-
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			dep);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    dep->properties_dialog->changed_callback = changed_callback;
-    dep->properties_dialog->changed_callback_data = changed_callback_data;
+    gtk_box_pack_start (GTK_BOX (hbox),	checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
 
   }
+  
   fill_in_dialog(dep);
   gtk_widget_show (dep->properties_dialog->dialog);
 
+  return dep->properties_dialog->dialog;
 }
 
 

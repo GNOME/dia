@@ -53,9 +53,6 @@ struct _RealizesPropertiesDialog {
   
   GtkEntry *name;
   GtkEntry *stereotype;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 #define REALIZES_WIDTH 0.1
@@ -78,10 +75,8 @@ static Object *realizes_create(Point *startpoint,
 				 Handle **handle2);
 static void realizes_destroy(Realizes *realize);
 static Object *realizes_copy(Realizes *realize);
-static void realizes_show_properties(Realizes *realize,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data);
-
+static GtkWidget *realizes_get_properties(Realizes *realize);
+static void realizes_apply_properties(Realizes *realize);
 static void realizes_save(Realizes *realize, int fd);
 static Object *realizes_load(int fd, int version);
 
@@ -114,15 +109,16 @@ SheetObject realizes_sheetobj =
 };
 
 static ObjectOps realizes_ops = {
-  (DestroyFunc)        realizes_destroy,
-  (DrawFunc)           realizes_draw,
-  (DistanceFunc)       realizes_distance_from,
-  (SelectFunc)         realizes_select,
-  (CopyFunc)           realizes_copy,
-  (MoveFunc)           realizes_move,
-  (MoveHandleFunc)     realizes_move_handle,
-  (ShowPropertiesFunc) realizes_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         realizes_destroy,
+  (DrawFunc)            realizes_draw,
+  (DistanceFunc)        realizes_distance_from,
+  (SelectFunc)          realizes_select,
+  (CopyFunc)            realizes_copy,
+  (MoveFunc)            realizes_move,
+  (MoveHandleFunc)      realizes_move_handle,
+  (GetPropertiesFunc)   realizes_get_properties,
+  (ApplyPropertiesFunc) realizes_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -384,18 +380,12 @@ realizes_load(int fd, int version)
 }
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+realizes_apply_properties(Realizes *realize)
 {
-  Realizes *realize;
   RealizesPropertiesDialog *prop_dialog;
   char *str;
 
-  realize = (Realizes *)data;
   prop_dialog = realize->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)realize,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   if (realize->name != NULL)
@@ -434,10 +424,6 @@ apply_callback(GtkWidget *widget, gpointer data)
   }
   
   realizes_update_data(realize);
-  
-  (prop_dialog->changed_callback)((Object *)realize,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
 }
 
 static void
@@ -465,14 +451,11 @@ fill_in_dialog(Realizes *realize)
   }
 }
 
-static void
-realizes_show_properties(Realizes *realize,
-			   ObjectChangedFunc *changed_callback,
-			   void *changed_callback_data)
+static GtkWidget *
+realizes_get_properties(Realizes *realize)
 {
   RealizesPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -481,19 +464,10 @@ realizes_show_properties(Realizes *realize,
 
     prop_dialog = g_new(RealizesPropertiesDialog, 1);
     realize->properties_dialog = prop_dialog;
-
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
     
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Realizes properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Name:");
@@ -503,8 +477,7 @@ realizes_show_properties(Realizes *realize,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -516,30 +489,13 @@ realizes_show_properties(Realizes *realize,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
-    
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			realize);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    realize->properties_dialog->changed_callback = changed_callback;
-    realize->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
   fill_in_dialog(realize);
   gtk_widget_show (realize->properties_dialog->dialog);
+
+  return realize->properties_dialog->dialog;
 }
 
 

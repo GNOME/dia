@@ -87,15 +87,16 @@ ObjectType arc_type =
 ObjectType *_arc_type = (ObjectType *) &arc_type;
 
 static ObjectOps arc_ops = {
-  (DestroyFunc)        arc_destroy,
-  (DrawFunc)           arc_draw,
-  (DistanceFunc)       arc_distance_from,
-  (SelectFunc)         arc_select,
-  (CopyFunc)           arc_copy,
-  (MoveFunc)           arc_move,
-  (MoveHandleFunc)     arc_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none_yet,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         arc_destroy,
+  (DrawFunc)            arc_draw,
+  (DistanceFunc)        arc_distance_from,
+  (SelectFunc)          arc_select,
+  (CopyFunc)            arc_copy,
+  (MoveFunc)            arc_move,
+  (MoveHandleFunc)      arc_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 

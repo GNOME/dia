@@ -88,10 +88,6 @@ struct _AssociationPropertiesDialog {
     GtkToggleButton *aggregate;
     GtkToggleButton *composition;
   } end[2];
-
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 #define ASSOCIATION_WIDTH 0.1
@@ -114,10 +110,8 @@ static Object *association_create(Point *startpoint,
 				  Handle **handle2);
 static void association_destroy(Association *assoc);
 static Object *association_copy(Association *assoc);
-static void association_show_properties(Association *assoc,
-					ObjectChangedFunc *changed_callback,
-					void *changed_callback_data);
-
+static GtkWidget *association_get_properties(Association *assoc);
+static void association_apply_properties(Association *assoc);
 static void association_save(Association *assoc, int fd);
 static Object *association_load(int fd, int version);
 
@@ -160,15 +154,16 @@ SheetObject aggregation_sheetobj =
 };
 
 static ObjectOps association_ops = {
-  (DestroyFunc)        association_destroy,
-  (DrawFunc)           association_draw,
-  (DistanceFunc)       association_distance_from,
-  (SelectFunc)         association_select,
-  (CopyFunc)           association_copy,
-  (MoveFunc)           association_move,
-  (MoveHandleFunc)     association_move_handle,
-  (ShowPropertiesFunc) association_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         association_destroy,
+  (DrawFunc)            association_draw,
+  (DistanceFunc)        association_distance_from,
+  (SelectFunc)          association_select,
+  (CopyFunc)            association_copy,
+  (MoveFunc)            association_move,
+  (MoveHandleFunc)      association_move_handle,
+  (GetPropertiesFunc)   association_get_properties,
+  (ApplyPropertiesFunc) association_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -644,20 +639,14 @@ association_load(int fd, int version)
 }
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+association_apply_properties(Association *assoc)
 {
-  Association *assoc;
   AssociationPropertiesDialog *prop_dialog;
   char *str;
   GtkWidget *menuitem;
   int i;
   
-  assoc = (Association *)data;
   prop_dialog = assoc->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)assoc,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   if (assoc->name != NULL)
@@ -721,13 +710,7 @@ apply_callback(GtkWidget *widget, gpointer data)
 
   }
 
-    
-  
   association_update_data(assoc);
-  
-  (prop_dialog->changed_callback)((Object *)assoc,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
 }
 
 static void
@@ -788,15 +771,12 @@ mutex_aggregate_callback(GtkWidget *widget,
   }
 }
 
-static void
-association_show_properties(Association *assoc,
-			   ObjectChangedFunc *changed_callback,
-			   void *changed_callback_data)
+static GtkWidget *
+association_get_properties(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
   GtkWidget *frame;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *split_hbox;
@@ -815,18 +795,9 @@ association_show_properties(Association *assoc,
     prop_dialog = g_new(AssociationPropertiesDialog, 1);
     assoc->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Association properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     /* Name entry: */
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Name:");
@@ -836,8 +807,7 @@ association_show_properties(Association *assoc,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
 
     /* Direction entry: */
@@ -878,13 +848,11 @@ association_show_properties(Association *assoc,
     
     gtk_widget_show (label);
     gtk_widget_show (omenu);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
     
     split_hbox = gtk_hbox_new(TRUE, 5);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			split_hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), split_hbox, TRUE, TRUE, 0);
     gtk_widget_show(split_hbox);
 
     group = NULL; /* For the radio-buttons */
@@ -959,25 +927,11 @@ association_show_properties(Association *assoc,
       gtk_widget_show(frame);
     }
 
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			assoc);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    assoc->properties_dialog->changed_callback = changed_callback;
-    assoc->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
   fill_in_dialog(assoc);
   gtk_widget_show (assoc->properties_dialog->dialog);
+
+  return assoc->properties_dialog->dialog;
 }
 
 

@@ -15,22 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef OBJECT_OPS_H
-#define OBJECT_OPS_H
+#ifndef PROPERTIES_H
+#define PROPERTIES_H
 
 #include "object.h"
-#include "display.h"
 #include "diagram.h"
 
-extern void object_add_updates(Object *obj, Diagram *dia);
-extern void object_add_updates_list(GList *list, Diagram *dia);
-extern ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
-							 Point *pos);
-extern void object_connect_display(DDisplay *ddisp, Object *obj,
-				   Handle *handle);
-extern GList *object_copy_list(GList *list);
-extern void object_destroy_list(GList *list);
-extern Point object_list_corner(GList *list);
-extern void object_list_move_delta(GList *objects, Point *delta);
-#endif /* OBJECT_OPS_H */
+extern void properties_show(Diagram *dia, Object *obj);
+
+
+#endif /* PROPERTIES_H */
+
 

@@ -53,9 +53,6 @@ struct _ImplementsDialog {
   GtkWidget *dialog;
   
   GtkEntry *text;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
   
 #define IMPLEMENTS_WIDTH 0.1
@@ -81,10 +78,8 @@ static real implements_distance_from(Implements *implements, Point *point);
 static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
-static void implements_show_properties(Implements *implements,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data);
-
+static GtkWidget *implements_get_properties(Implements *implements);
+static void implements_apply_properties(Implements *implements);
 static void implements_save(Implements *implements, int fd);
 static Object *implements_load(int fd, int version);
 
@@ -114,15 +109,16 @@ SheetObject implements_sheetobj =
 };
 
 static ObjectOps implements_ops = {
-  (DestroyFunc)        implements_destroy,
-  (DrawFunc)           implements_draw,
-  (DistanceFunc)       implements_distance_from,
-  (SelectFunc)         implements_select,
-  (CopyFunc)           implements_copy,
-  (MoveFunc)           implements_move,
-  (MoveHandleFunc)     implements_move_handle,
-  (ShowPropertiesFunc) implements_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         implements_destroy,
+  (DrawFunc)            implements_draw,
+  (DistanceFunc)        implements_distance_from,
+  (SelectFunc)          implements_select,
+  (CopyFunc)            implements_copy,
+  (MoveFunc)            implements_move,
+  (MoveHandleFunc)      implements_move_handle,
+  (GetPropertiesFunc)   implements_get_properties,
+  (ApplyPropertiesFunc) implements_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -459,17 +455,11 @@ implements_load(int fd, int version)
 
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+implements_apply_properties(Implements *implements)
 {
-  Implements *implements;
   ImplementsDialog *prop_dialog;
 
-  implements = (Implements *)data;
   prop_dialog = implements->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)implements,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   g_free(implements->text);
@@ -480,11 +470,6 @@ apply_callback(GtkWidget *widget, gpointer data)
 			IMPLEMENTS_FONTHEIGHT);
   
   implements_update_data(implements);
-  
-  (prop_dialog->changed_callback)((Object *)implements,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
-  
 }
 
 static void
@@ -497,13 +482,11 @@ fill_in_dialog(Implements *implements)
   gtk_entry_set_text(prop_dialog->text, implements->text);
 }
 
-static void implements_show_properties(Implements *implements,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data)
+static GtkWidget *
+implements_get_properties(Implements *implements)
 {
   ImplementsDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -513,18 +496,9 @@ static void implements_show_properties(Implements *implements,
     prop_dialog = g_new(ImplementsDialog, 1);
     implements->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Implements properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Interface:");
@@ -534,29 +508,11 @@ static void implements_show_properties(Implements *implements,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
-
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			implements);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    implements->properties_dialog->changed_callback = changed_callback;
-    implements->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
   fill_in_dialog(implements);
   gtk_widget_show (implements->properties_dialog->dialog);
- 
+
+  return implements->properties_dialog->dialog;
 }

@@ -85,15 +85,16 @@ ObjectType *_zigzagline_type = (ObjectType *) &zigzagline_type;
 
 
 static ObjectOps zigzagline_ops = {
-  (DestroyFunc)        zigzagline_destroy,
-  (DrawFunc)           zigzagline_draw,
-  (DistanceFunc)       zigzagline_distance_from,
-  (SelectFunc)         zigzagline_select,
-  (CopyFunc)           zigzagline_copy,
-  (MoveFunc)           zigzagline_move,
-  (MoveHandleFunc)     zigzagline_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none_yet,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         zigzagline_destroy,
+  (DrawFunc)            zigzagline_draw,
+  (DistanceFunc)        zigzagline_distance_from,
+  (SelectFunc)          zigzagline_select,
+  (CopyFunc)            zigzagline_copy,
+  (MoveFunc)            zigzagline_move,
+  (MoveHandleFunc)      zigzagline_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 

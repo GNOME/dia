@@ -56,9 +56,6 @@ struct _PackagePropertiesDialog {
   
   GtkEntry *name;
   GtkEntry *stereotype;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 #define LARGEPACKAGE_BORDERWIDTH 0.1
@@ -82,9 +79,8 @@ static void largepackage_save(LargePackage *pkg, int fd);
 static Object *largepackage_load(int fd, int version);
 
 static void largepackage_update_data(LargePackage *pkg);
-static void largepackage_show_properties(LargePackage *pkg,
-					 ObjectChangedFunc *changed_callback,
-					 void *changed_callback_data);
+static GtkWidget *largepackage_get_properties(LargePackage *pkg);
+static void largepackage_apply_properties(LargePackage *pkg);
 
 static ObjectTypeOps largepackage_type_ops =
 {
@@ -112,15 +108,16 @@ SheetObject largepackage_sheetobj =
 };
 
 static ObjectOps largepackage_ops = {
-  (DestroyFunc)        largepackage_destroy,
-  (DrawFunc)           largepackage_draw,
-  (DistanceFunc)       largepackage_distance_from,
-  (SelectFunc)         largepackage_select,
-  (CopyFunc)           largepackage_copy,
-  (MoveFunc)           largepackage_move,
-  (MoveHandleFunc)     largepackage_move_handle,
-  (ShowPropertiesFunc) largepackage_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         largepackage_destroy,
+  (DrawFunc)            largepackage_draw,
+  (DistanceFunc)        largepackage_distance_from,
+  (SelectFunc)          largepackage_select,
+  (CopyFunc)            largepackage_copy,
+  (MoveFunc)            largepackage_move,
+  (MoveHandleFunc)      largepackage_move_handle,
+  (GetPropertiesFunc)   largepackage_get_properties,
+  (ApplyPropertiesFunc) largepackage_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -424,18 +421,12 @@ largepackage_load(int fd, int version)
 }
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+largepackage_apply_properties(LargePackage *pkg)
 {
-  LargePackage *pkg;
   PackagePropertiesDialog *prop_dialog;
   char *str;
 
-  pkg = (LargePackage *)data;
   prop_dialog = pkg->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)pkg,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   g_free(pkg->name);
@@ -470,10 +461,6 @@ apply_callback(GtkWidget *widget, gpointer data)
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
 
   largepackage_update_data(pkg);
-  
-  (prop_dialog->changed_callback)((Object *)pkg,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
 }
 
 static void
@@ -497,35 +484,22 @@ fill_in_dialog(LargePackage *pkg)
   }
 }
 
-static void
-largepackage_show_properties(LargePackage *pkg,
-			     ObjectChangedFunc *changed_callback,
-			     void *changed_callback_data)
+static GtkWidget *
+largepackage_get_properties(LargePackage *pkg)
 {
   PackagePropertiesDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *label;
 
   if (pkg->properties_dialog == NULL) {
-
     prop_dialog = g_new(PackagePropertiesDialog, 1);
     pkg->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Package properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Name:");
@@ -535,8 +509,7 @@ largepackage_show_properties(LargePackage *pkg,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -548,30 +521,12 @@ largepackage_show_properties(LargePackage *pkg,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
-    
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			pkg);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    pkg->properties_dialog->changed_callback = changed_callback;
-    pkg->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
   fill_in_dialog(pkg);
   gtk_widget_show (pkg->properties_dialog->dialog);
+  return pkg->properties_dialog->dialog;
 }
 
 

@@ -22,6 +22,7 @@
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "message.h"
+#include "properties.h"
 
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -212,6 +213,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 {
   Point clickedpoint;
   Object *clicked_obj;
+  GtkWidget *properties;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -220,9 +222,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
   clicked_obj = click_select_object(ddisp, &clickedpoint, event);
   
   if ( clicked_obj != NULL ) {
-    clicked_obj->ops->show_properties(clicked_obj,
-				      &object_changed_callback,
-				      ddisp->diagram);
+    properties_show(ddisp->diagram, clicked_obj);
   }
 }
 

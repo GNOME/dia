@@ -31,15 +31,16 @@ static void rendobj_destroy(RenderObject *rend_obj);
 static Object *rendobj_copy(RenderObject *rend_obj);
 
 static ObjectOps rendobj_ops = {
-  (DestroyFunc)        rendobj_destroy,
-  (DrawFunc)           rendobj_draw,
-  (DistanceFunc)       rendobj_distance_from,
-  (SelectFunc)         rendobj_select,
-  (CopyFunc)           rendobj_copy,
-  (MoveFunc)           rendobj_move,
-  (MoveHandleFunc)     rendobj_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         rendobj_destroy,
+  (DrawFunc)            rendobj_draw,
+  (DistanceFunc)        rendobj_distance_from,
+  (SelectFunc)          rendobj_select,
+  (CopyFunc)            rendobj_copy,
+  (MoveFunc)            rendobj_move,
+  (MoveHandleFunc)      rendobj_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 Object *

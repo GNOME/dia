@@ -81,15 +81,16 @@ ObjectType ellipse_type =
 ObjectType *_ellipse_type = (ObjectType *) &ellipse_type;
 
 static ObjectOps ellipse_ops = {
-  (DestroyFunc)        ellipse_destroy,
-  (DrawFunc)           ellipse_draw,
-  (DistanceFunc)       ellipse_distance_from,
-  (SelectFunc)         ellipse_select,
-  (CopyFunc)           ellipse_copy,
-  (MoveFunc)           ellipse_move,
-  (MoveHandleFunc)     ellipse_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none_yet,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         ellipse_destroy,
+  (DrawFunc)            ellipse_draw,
+  (DistanceFunc)        ellipse_distance_from,
+  (SelectFunc)          ellipse_select,
+  (CopyFunc)            ellipse_copy,
+  (MoveFunc)            ellipse_move,
+  (MoveHandleFunc)      ellipse_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real

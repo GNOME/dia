@@ -90,15 +90,16 @@ SheetObject note_sheetobj =
 };
 
 static ObjectOps note_ops = {
-  (DestroyFunc)        note_destroy,
-  (DrawFunc)           note_draw,
-  (DistanceFunc)       note_distance_from,
-  (SelectFunc)         note_select,
-  (CopyFunc)           note_copy,
-  (MoveFunc)           note_move,
-  (MoveHandleFunc)     note_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         note_destroy,
+  (DrawFunc)            note_draw,
+  (DistanceFunc)        note_distance_from,
+  (SelectFunc)          note_select,
+  (CopyFunc)            note_copy,
+  (MoveFunc)            note_move,
+  (MoveHandleFunc)      note_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real

@@ -77,15 +77,16 @@ ObjectType line_type =
 ObjectType *_line_type = (ObjectType *) &line_type;
 
 static ObjectOps line_ops = {
-  (DestroyFunc)        line_destroy,
-  (DrawFunc)           line_draw,
-  (DistanceFunc)       line_distance_from,
-  (SelectFunc)         line_select,
-  (CopyFunc)           line_copy,
-  (MoveFunc)           line_move,
-  (MoveHandleFunc)     line_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none_yet,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         line_destroy,
+  (DrawFunc)            line_draw,
+  (DistanceFunc)        line_distance_from,
+  (SelectFunc)          line_select,
+  (CopyFunc)            line_copy,
+  (MoveFunc)            line_move,
+  (MoveHandleFunc)      line_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 

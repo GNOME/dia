@@ -48,15 +48,16 @@ static void group_destroy(Group *group);
 static Object *group_copy(Group *group);
 
 static ObjectOps group_ops = {
-  (DestroyFunc)        group_destroy,
-  (DrawFunc)           group_draw,
-  (DistanceFunc)       group_distance_from,
-  (SelectFunc)         group_select,
-  (CopyFunc)           group_copy,
-  (MoveFunc)           group_move,
-  (MoveHandleFunc)     group_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none_yet,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         group_destroy,
+  (DrawFunc)            group_draw,
+  (DistanceFunc)        group_distance_from,
+  (SelectFunc)          group_select,
+  (CopyFunc)            group_copy,
+  (MoveFunc)            group_move,
+  (MoveHandleFunc)      group_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 ObjectType group_type = {

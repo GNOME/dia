@@ -232,22 +232,3 @@ object_list_move_delta(GList *objects, Point *delta)
   }
 }
 
-void
-object_changed_callback(Object *object, void *data,
-			ChangedObjectTime time)
-{
-  Diagram *dia;
-
-  dia = (Diagram *) data;
-
-  switch (time) {
-  case BEFORE_CHANGE:
-    object_add_updates(object, dia);
-    break;
-  case AFTER_CHANGE:
-    object_add_updates(object, dia);
-    diagram_modified(dia);
-    diagram_flush(dia);
-    break;
-  }
-}

@@ -92,15 +92,16 @@ SheetObject smallpackage_sheetobj =
 };
 
 static ObjectOps smallpackage_ops = {
-  (DestroyFunc)        smallpackage_destroy,
-  (DrawFunc)           smallpackage_draw,
-  (DistanceFunc)       smallpackage_distance_from,
-  (SelectFunc)         smallpackage_select,
-  (CopyFunc)           smallpackage_copy,
-  (MoveFunc)           smallpackage_move,
-  (MoveHandleFunc)     smallpackage_move_handle,
-  (ShowPropertiesFunc) object_show_properties_none,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         smallpackage_destroy,
+  (DrawFunc)            smallpackage_draw,
+  (DistanceFunc)        smallpackage_distance_from,
+  (SelectFunc)          smallpackage_select,
+  (CopyFunc)            smallpackage_copy,
+  (MoveFunc)            smallpackage_move,
+  (MoveHandleFunc)      smallpackage_move_handle,
+  (GetPropertiesFunc)   object_return_null,
+  (ApplyPropertiesFunc) object_return_void,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real

@@ -51,9 +51,6 @@ struct _BoxPropertiesDialog {
   GtkWidget *dialog;
 
   GtkSpinButton *border_width_spinner;
-
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 static real box_distance_from(Box *box, Point *point);
@@ -70,8 +67,8 @@ static Object *box_create(Point *startpoint,
 			  Handle **handle2);
 static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
-static void box_show_properties(Box *box, ObjectChangedFunc *changed_callback,
-				void *changed_callback_data);
+static GtkWidget *box_get_properties(Box *box);
+static void box_apply_properties(Box *box);
 
 static void box_save(Box *box, int fd);
 static Object *box_load(int fd, int version);
@@ -95,43 +92,36 @@ ObjectType box_type =
 ObjectType *_box_type = (ObjectType *) &box_type;
 
 static ObjectOps box_ops = {
-  (DestroyFunc)        box_destroy,
-  (DrawFunc)           box_draw,
-  (DistanceFunc)       box_distance_from,
-  (SelectFunc)         box_select,
-  (CopyFunc)           box_copy,
-  (MoveFunc)           box_move,
-  (MoveHandleFunc)     box_move_handle,
-  (ShowPropertiesFunc) box_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         box_destroy,
+  (DrawFunc)            box_draw,
+  (DistanceFunc)        box_distance_from,
+  (SelectFunc)          box_select,
+  (CopyFunc)            box_copy,
+  (MoveFunc)            box_move,
+  (MoveHandleFunc)      box_move_handle,
+  (GetPropertiesFunc)   box_get_properties,
+  (ApplyPropertiesFunc) box_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+box_apply_properties(Box *box)
 {
-  Box *box;
   BoxPropertiesDialog *prop_dialog;
 
-  box = (Box *) data;
   prop_dialog = box->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)box, prop_dialog->changed_callback_data, BEFORE_CHANGE);
 
   box->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width_spinner);
   box_update_data(box);
-
-  (prop_dialog->changed_callback)((Object *)box, prop_dialog->changed_callback_data, AFTER_CHANGE);
 }
 
-static void
-box_show_properties(Box *box, ObjectChangedFunc *changed_callback,
-		    void *changed_callback_data)
+static GtkWidget *
+box_get_properties(Box *box)
 {
   BoxPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
   GtkWidget *label;
   GtkWidget *spinner;
-  GtkWidget *button;
   GtkAdjustment *adj;
 
   if (box->properties_dialog == NULL) {
@@ -139,21 +129,12 @@ box_show_properties(Box *box, ObjectChangedFunc *changed_callback,
     prop_dialog = g_new(BoxPropertiesDialog, 1);
     box->properties_dialog = prop_dialog;
 
-    box->properties_dialog->changed_callback = changed_callback;
-    box->properties_dialog->changed_callback_data = changed_callback_data;
-
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
         
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Box properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 0);
-
     label = gtk_label_new ("Border width");
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
+    gtk_box_pack_start (GTK_BOX (dialog), 
 			label, TRUE, TRUE, 0);
     gtk_widget_show (label);
 
@@ -161,33 +142,16 @@ box_show_properties(Box *box, ObjectChangedFunc *changed_callback,
     spinner = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinner), TRUE);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner), box->border_width);
-
     prop_dialog->border_width_spinner = GTK_SPIN_BUTTON(spinner);
 
-    gtk_box_pack_start(GTK_BOX (GTK_DIALOG (dialog)->vbox),
+    gtk_box_pack_start(GTK_BOX (dialog),
 		       spinner, FALSE, TRUE, 0);
     gtk_widget_show (spinner);
     
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			box);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);    
     gtk_widget_show (dialog);
-  } else {
-    box->properties_dialog->changed_callback = changed_callback;
-    box->properties_dialog->changed_callback_data = changed_callback_data;
-    gtk_spin_button_set_value(box->properties_dialog->border_width_spinner, 
-			      box->border_width);
-    gtk_widget_show (box->properties_dialog->dialog);
   }
+  
+  return box->properties_dialog->dialog;
 }
 
 static real

@@ -85,15 +85,16 @@ SheetObject umlclass_template_sheetobj =
 };
 
 static ObjectOps umlclass_ops = {
-  (DestroyFunc)        umlclass_destroy,
-  (DrawFunc)           umlclass_draw,
-  (DistanceFunc)       umlclass_distance_from,
-  (SelectFunc)         umlclass_select,
-  (CopyFunc)           umlclass_copy,
-  (MoveFunc)           umlclass_move,
-  (MoveHandleFunc)     umlclass_move_handle,
-  (ShowPropertiesFunc) umlclass_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         umlclass_destroy,
+  (DrawFunc)            umlclass_draw,
+  (DistanceFunc)        umlclass_distance_from,
+  (SelectFunc)          umlclass_select,
+  (CopyFunc)            umlclass_copy,
+  (MoveFunc)            umlclass_move,
+  (MoveHandleFunc)      umlclass_move_handle,
+  (GetPropertiesFunc)   umlclass_get_properties,
+  (ApplyPropertiesFunc) umlclass_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real

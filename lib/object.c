@@ -256,72 +256,16 @@ object_return_false(Object *obj)
   return FALSE;
 }
 
+void *
+object_return_null(Object *obj)
+{
+  return NULL;
+}
+
 void
 object_return_void(Object *obj)
 {
   return;
 }
 
-void
-object_show_properties_none(Object *obj,
-			    ObjectChangedFunc *changed_callback,
-			    void *changed_callback_data)
-{
-  GtkWidget *dialog;
-  GtkWidget *button;
-  GtkWidget *label;
-
-  dialog = gtk_dialog_new();
-  
-  gtk_window_set_title (GTK_WINDOW (dialog), "Object properties");
-  gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
-  label = gtk_label_new("This object has no properties.\n");
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), label,
-		      TRUE, TRUE, 0);
-  gtk_widget_show (label);
-    
-  button = gtk_button_new_with_label ("Apply");
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			     GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			     GTK_OBJECT(dialog));
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
-  gtk_widget_show (dialog);
-}
-
-void
-object_show_properties_none_yet(Object *obj,
-				ObjectChangedFunc *changed_callback,
-				void *changed_callback_data)
-{
-  GtkWidget *dialog;
-  GtkWidget *button;
-  GtkWidget *label;
-
-  dialog = gtk_dialog_new();
-  
-  gtk_window_set_title (GTK_WINDOW (dialog), "Object properties");
-  gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
-  label = gtk_label_new("This object has no properties yet.\n"
-			"This is not finished code you know.");
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), label,
-		      TRUE, TRUE, 0);
-  gtk_widget_show (label);
-    
-  button = gtk_button_new_with_label ("Apply");
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			     GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			     GTK_OBJECT(dialog));
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
-  gtk_widget_show (dialog);
-}
 

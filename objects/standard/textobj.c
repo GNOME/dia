@@ -48,9 +48,6 @@ struct _TextobjPropertiesDialog {
   GtkWidget *dialog;
   
   GtkMenu *menu;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
@@ -67,8 +64,8 @@ static Object *textobj_create(Point *startpoint,
 			      Handle **handle2);
 static void textobj_destroy(Textobj *textobj);
 static Object *textobj_copy(Textobj *textobj);
-static void textobj_show_properties(Textobj *textobj, ObjectChangedFunc *changed_callback,
-				    void *changed_callback_data);
+static GtkWidget *textobj_get_properties(Textobj *textobj);
+static void textobj_apply_properties(Textobj *textobj);
 
 static void textobj_save(Textobj *textobj, int fd);
 static Object *textobj_load(int fd, int version);
@@ -93,46 +90,38 @@ ObjectType textobj_type =
 ObjectType *_textobj_type = (ObjectType *) &textobj_type;
 
 static ObjectOps textobj_ops = {
-  (DestroyFunc)        textobj_destroy,
-  (DrawFunc)           textobj_draw,
-  (DistanceFunc)       textobj_distance_from,
-  (SelectFunc)         textobj_select,
-  (CopyFunc)           textobj_copy,
-  (MoveFunc)           textobj_move,
-  (MoveHandleFunc)     textobj_move_handle,
-  (ShowPropertiesFunc) textobj_show_properties,
-  (IsEmptyFunc)        textobj_is_empty
+  (DestroyFunc)         textobj_destroy,
+  (DrawFunc)            textobj_draw,
+  (DistanceFunc)        textobj_distance_from,
+  (SelectFunc)          textobj_select,
+  (CopyFunc)            textobj_copy,
+  (MoveFunc)            textobj_move,
+  (MoveHandleFunc)      textobj_move_handle,
+  (GetPropertiesFunc)   textobj_get_properties,
+  (ApplyPropertiesFunc) textobj_apply_properties,
+  (IsEmptyFunc)         textobj_is_empty
 };
 
-
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+textobj_apply_properties(Textobj *textobj)
 {
-  Textobj *textobj;
   TextobjPropertiesDialog *prop_dialog;
   Alignment *align;
   GtkWidget *menuitem;
   
-  textobj = (Textobj *)data;
   prop_dialog = textobj->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)textobj, prop_dialog->changed_callback_data, BEFORE_CHANGE);
 
   menuitem = gtk_menu_get_active(prop_dialog->menu);
   align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
   text_set_alignment(textobj->text, *align);
   textobj_update_data(textobj);
-
-  (prop_dialog->changed_callback)((Object *)textobj, prop_dialog->changed_callback_data, AFTER_CHANGE);
 }
 
-static void
-textobj_show_properties(Textobj *textobj, ObjectChangedFunc *changed_callback,
-			void *changed_callback_data)
+static GtkWidget *
+textobj_get_properties(Textobj *textobj)
 {
   TextobjPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
@@ -146,52 +135,35 @@ textobj_show_properties(Textobj *textobj, ObjectChangedFunc *changed_callback,
 
     prop_dialog = g_new(TextobjPropertiesDialog, 1);
     textobj->properties_dialog = prop_dialog;
-
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
     
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Text properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     omenu = gtk_option_menu_new ();
     menu = gtk_menu_new ();
     prop_dialog->menu = GTK_MENU(menu);
     submenu = NULL;
     group = NULL;
     
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Center");
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), &center);
-    gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-			GTK_SIGNAL_FUNC(apply_callback),
-			textobj);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
     menuitem = gtk_radio_menu_item_new_with_label (group, "Left");
     gtk_object_set_user_data(GTK_OBJECT(menuitem), &left);
-    gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-			GTK_SIGNAL_FUNC(apply_callback),
-			textobj);
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
+    menuitem = gtk_radio_menu_item_new_with_label (group, "Center");
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), &center);
+    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+    gtk_menu_append (GTK_MENU (menu), menuitem);
+    gtk_widget_show (menuitem);
+
     menuitem = gtk_radio_menu_item_new_with_label (group, "Right");
     gtk_object_set_user_data(GTK_OBJECT(menuitem), &right);
-    gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-			GTK_SIGNAL_FUNC(apply_callback),
-			textobj);
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
     
+    gtk_menu_set_active(GTK_MENU (menu), textobj->text->alignment);
     gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -200,33 +172,15 @@ textobj_show_properties(Textobj *textobj, ObjectChangedFunc *changed_callback,
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), omenu, TRUE, TRUE, 0);
     
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX(dialog), hbox, TRUE, TRUE, 0);
 
     gtk_widget_show (label);
     gtk_widget_show (omenu);
     gtk_widget_show(hbox);
-    
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			textobj);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-    gtk_widget_show (dialog);
-  } else {
-    textobj->properties_dialog->changed_callback = changed_callback;
-    textobj->properties_dialog->changed_callback_data = changed_callback_data;
-
-    /* TODO: Set the active menu here! */
-    gtk_widget_show (textobj->properties_dialog->dialog);
+    gtk_widget_show(dialog);
   }
+
+  return textobj->properties_dialog->dialog;
 }
 
 

@@ -115,21 +115,20 @@ struct _UMLClassDialog {
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
+  GtkWidget *param_new_button;
+  GtkWidget *param_delete_button;
+  GtkWidget *param_up_button;
+  GtkWidget *param_down_button;
   
   GtkList *templates_list;
   GtkListItem *current_templ;
   GtkToggleButton *templ_template;
   GtkEntry *templ_name;
   GtkEntry *templ_type;
-
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
-extern void
-umlclass_show_properties(UMLClass *umlclass,
-			 ObjectChangedFunc *changed_callback,
-			 void *changed_callback_data);
+extern GtkWidget *umlclass_get_properties(UMLClass *umlclass);
+extern void umlclass_apply_properties(UMLClass *umlclass);
 extern void umlclass_calculate_data(UMLClass *umlclass);
 extern void umlclass_update_data(UMLClass *umlclass);
 

@@ -53,9 +53,6 @@ struct _GeneralizationPropertiesDialog {
   
   GtkEntry *name;
   GtkEntry *stereotype;
-  
-  ObjectChangedFunc *changed_callback;
-  void *changed_callback_data;
 };
 
 #define GENERALIZATION_WIDTH 0.1
@@ -77,9 +74,8 @@ static Object *generalization_create(Point *startpoint,
 				 Handle **handle2);
 static void generalization_destroy(Generalization *genlz);
 static Object *generalization_copy(Generalization *genlz);
-static void generalization_show_properties(Generalization *genlz,
-				       ObjectChangedFunc *changed_callback,
-				       void *changed_callback_data);
+static GtkWidget *generalization_get_properties(Generalization *genlz);
+static void generalization_apply_properties(Generalization *genlz);
 
 static void generalization_save(Generalization *genlz, int fd);
 static Object *generalization_load(int fd, int version);
@@ -113,15 +109,16 @@ SheetObject generalization_sheetobj =
 };
 
 static ObjectOps generalization_ops = {
-  (DestroyFunc)        generalization_destroy,
-  (DrawFunc)           generalization_draw,
-  (DistanceFunc)       generalization_distance_from,
-  (SelectFunc)         generalization_select,
-  (CopyFunc)           generalization_copy,
-  (MoveFunc)           generalization_move,
-  (MoveHandleFunc)     generalization_move_handle,
-  (ShowPropertiesFunc) generalization_show_properties,
-  (IsEmptyFunc)        object_return_false
+  (DestroyFunc)         generalization_destroy,
+  (DrawFunc)            generalization_draw,
+  (DistanceFunc)        generalization_distance_from,
+  (SelectFunc)          generalization_select,
+  (CopyFunc)            generalization_copy,
+  (MoveFunc)            generalization_move,
+  (MoveHandleFunc)      generalization_move_handle,
+  (GetPropertiesFunc)   generalization_get_properties,
+  (ApplyPropertiesFunc) generalization_apply_properties,
+  (IsEmptyFunc)         object_return_false
 };
 
 static real
@@ -385,18 +382,12 @@ generalization_load(int fd, int version)
 }
 
 static void
-apply_callback(GtkWidget *widget, gpointer data)
+generalization_apply_properties(Generalization *genlz)
 {
-  Generalization *genlz;
   GeneralizationPropertiesDialog *prop_dialog;
   char *str;
 
-  genlz = (Generalization *)data;
   prop_dialog = genlz->properties_dialog;
-
-  (prop_dialog->changed_callback)((Object *)genlz,
-				  prop_dialog->changed_callback_data,
-				  BEFORE_CHANGE);
 
   /* Read from dialog and put in object: */
   if (genlz->name != NULL)
@@ -435,10 +426,6 @@ apply_callback(GtkWidget *widget, gpointer data)
   }
   
   generalization_update_data(genlz);
-  
-  (prop_dialog->changed_callback)((Object *)genlz,
-				  prop_dialog->changed_callback_data,
-				  AFTER_CHANGE);
 }
 
 static void
@@ -466,14 +453,11 @@ fill_in_dialog(Generalization *genlz)
   }
 }
 
-static void
-generalization_show_properties(Generalization *genlz,
-			   ObjectChangedFunc *changed_callback,
-			   void *changed_callback_data)
+static GtkWidget *
+generalization_get_properties(Generalization *genlz)
 {
   GeneralizationPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
-  GtkWidget *button;
   GtkWidget *entry;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -483,18 +467,9 @@ generalization_show_properties(Generalization *genlz,
     prop_dialog = g_new(GeneralizationPropertiesDialog, 1);
     genlz->properties_dialog = prop_dialog;
 
-    prop_dialog->changed_callback = changed_callback;
-    prop_dialog->changed_callback_data = changed_callback_data;
-    
-    dialog = gtk_dialog_new();
+    dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
     
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), "Generalization properties");
-    gtk_container_border_width (GTK_CONTAINER (dialog), 5);
-
     hbox = gtk_hbox_new(FALSE, 5);
 
     label = gtk_label_new("Name:");
@@ -504,8 +479,7 @@ generalization_show_properties(Generalization *genlz,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
 
     hbox = gtk_hbox_new(FALSE, 5);
@@ -517,30 +491,14 @@ generalization_show_properties(Generalization *genlz,
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
     gtk_widget_show (label);
     gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
     gtk_widget_show(hbox);
-    
-
-    button = gtk_button_new_with_label ("Apply");
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(apply_callback),
-			genlz);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(gtk_widget_hide),
-			GTK_OBJECT(dialog));
-    gtk_widget_grab_default (button);
-    gtk_widget_show (button);
-  } else {
-    genlz->properties_dialog->changed_callback = changed_callback;
-    genlz->properties_dialog->changed_callback_data = changed_callback_data;
-
   }
+  
   fill_in_dialog(genlz);
   gtk_widget_show (genlz->properties_dialog->dialog);
+
+  return genlz->properties_dialog->dialog;
 }
 
 

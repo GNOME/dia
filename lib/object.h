@@ -18,7 +18,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <glib.h>
+#include <gtk/gtk.h>
 
 typedef guint16 ObjectId; /* The id of an objecttype */
 typedef struct _Object Object;
@@ -154,36 +154,18 @@ typedef void (*MoveHandleFunc) (Object*          obj,
 				HandleMoveReason reason);
 
 /*
-  Gtk callback.
-  It is called after the user has changed the properties of an object
-
-  When the user changes some properties:
-   first call with time = BEFORE_CHANGE
-   then change the object
-   then call with time = AFTER_CHANGE
-*/
-
-typedef enum _ChangedObjectTime { BEFORE_CHANGE, AFTER_CHANGE } ChangedObjectTime;
-
-typedef void (ObjectChangedFunc) (Object *object,
-				  void *data,
-				  ChangedObjectTime time);
-
-/*
   Function called when the user has double clicked on an Object.
-  This function should pop up a dialog to update the properties
+  This function should return a dialog to edit the properties
   of the object.
   Remember to destroy this dialog when the object is destroyed!
-  
-  changed_callback needs to  be called when the user clicks on
-  the "Apply" button.
-  
-  The callback and the callback_data are valid until next call
-  of this operation.
 */
-typedef void (*ShowPropertiesFunc) (Object*            obj,
-				    ObjectChangedFunc* changed_callback,
-				    void*              changed_callback_data);
+typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
+
+/*
+  Thiss function is called when the user clicks on
+  the "Apply" button.
+*/
+typedef void (*ApplyPropertiesFunc) (Object* obj);
 
 /*
   Return TRUE if object does not contain anything
@@ -207,12 +189,6 @@ extern void object_copy(Object *from, Object *to);
 
 extern void object_save(Object *obj, int fd);
 extern void object_load(Object *obj, int fd);
-extern void object_show_properties_none(Object *obj,
-					ObjectChangedFunc *changed_callback,
-					void *changed_callback_data);
-extern void object_show_properties_none_yet(Object *obj,
-					    ObjectChangedFunc *changed_callback,
-					    void *changed_callback_data);
 
 extern void object_add_handle(Object *obj, Handle *handle);
 extern void object_remove_handle(Object *obj, Handle *handle);
@@ -225,6 +201,7 @@ extern void object_registry_init(void);
 extern void object_register_type(ObjectType *type);
 extern ObjectType *object_get_type(char *name);
 extern int object_return_false(Object *obj); /* Just returns FALSE */
+extern void *object_return_null(Object *obj); /* Just returns NULL */
 extern void object_return_void(Object *obj); /* Just an empty function */
 
 /*****************************************
@@ -237,15 +214,16 @@ extern void object_return_void(Object *obj); /* Just an empty function */
 */
 
 struct _ObjectOps {
-  DestroyFunc        destroy;
-  DrawFunc           draw;
-  DistanceFunc       distance_from;
-  SelectFunc         select;
-  CopyFunc           copy;
-  MoveFunc           move;
-  MoveHandleFunc     move_handle;
-  ShowPropertiesFunc show_properties;
-  IsEmptyFunc        is_empty;
+  DestroyFunc         destroy;
+  DrawFunc            draw;
+  DistanceFunc        distance_from;
+  SelectFunc          select;
+  CopyFunc            copy;
+  MoveFunc            move;
+  MoveHandleFunc      move_handle;
+  GetPropertiesFunc   get_properties;
+  ApplyPropertiesFunc apply_properties;
+  IsEmptyFunc         is_empty;
   
   /*
     Unused places (for extension).
@@ -257,7 +235,7 @@ struct _ObjectOps {
 };
 
 /*
-  The base class in the Objecy hierarchie.
+  The base class in the Objecy hierarcy.
   All information in this structure read-only
   from the application point of view except
   when connection objects. (Then handles and
