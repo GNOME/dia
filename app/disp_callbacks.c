@@ -210,7 +210,7 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   gtk_widget_draw_focus(widget);
 
 #ifdef USE_XIM
-  if (ddisp->ic)
+  if (gdk_im_ready () && ddisp->ic)
     gdk_im_begin(ddisp->ic, widget->window);
 #endif
 
@@ -324,12 +324,14 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
   ddisp = (DDisplay *) data;
 
 #ifdef USE_XIM
-  if (ddisp->ic)
-    gdk_ic_destroy (ddisp->ic);
-  ddisp->ic = NULL;
-  if (ddisp->ic_attr)
-    gdk_ic_attr_destroy (ddisp->ic_attr);
-  ddisp->ic_attr = NULL;
+  if (gdk_im_ready ()) {
+    if (ddisp->ic)
+      gdk_ic_destroy (ddisp->ic);
+    ddisp->ic = NULL;
+    if (ddisp->ic_attr)
+      gdk_ic_attr_destroy (ddisp->ic_attr);
+    ddisp->ic_attr = NULL;
+  }
 #endif
  
 }
@@ -338,7 +340,7 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 static void
 set_input_dialog(DDisplay *ddisp, int x, int y)
 {
-  if (ddisp->ic && (gdk_ic_get_style(ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
+  if (gdk_im_ready () && ddisp->ic && (gdk_ic_get_style(ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
     ddisp->ic_attr->spot_location.x = x;
     ddisp->ic_attr->spot_location.y = y; 
     gdk_ic_set_attr(ddisp->ic, ddisp->ic_attr, GDK_IC_SPOT_LOCATION);

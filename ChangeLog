@@ -1,3 +1,8 @@
+2001-07-09  Alex Larsson  <alexl@redhat.com>
+
+	* app/disp_callbacks.c:
+	Add gdk_im_ready() calls to XIM code.
+
 2001-07-04  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.[ch]: splitted prop_get_widget() into
