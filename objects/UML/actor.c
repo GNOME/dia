@@ -100,8 +100,8 @@ static ObjectOps actor_ops = {
   (CopyFunc)            actor_copy,
   (MoveFunc)            actor_move,
   (MoveHandleFunc)      actor_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   actor_describe_props,
   (GetPropsFunc)        actor_get_props,
@@ -149,7 +149,7 @@ actor_get_props(Actor * actor, Property *props, guint nprops)
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
   for (i = 0; i < nprops; i++) {
     GQuark pquark = g_quark_from_string(props[i].name);
@@ -179,7 +179,7 @@ actor_set_props(Actor *actor, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
 	quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {
