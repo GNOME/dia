@@ -50,8 +50,8 @@ handle_draw(Handle *handle, DDisplay *ddisp)
 
     col.red = 1.0; col.green = 0.4; col.blue = 0.0;
     color_convert(&col, &handle_color[HANDLE_MINOR_CONTROL]);
-    handle_color_connected[HANDLE_MINOR_CONTROL] = 
-      handle_color[HANDLE_MINOR_CONTROL];
+    col.red = 1.0; col.green = 0.1; col.blue = 0.0;
+    color_convert(&col, &handle_color_connected[HANDLE_MINOR_CONTROL]);
 
     col.red = 0.0; col.green = 0.0; col.blue = 0.4;
     color_convert(&col, &handle_color[HANDLE_NON_MOVABLE]);
