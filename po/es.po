@@ -7,84 +7,92 @@
 # Ana María García Molina <ana_gm@eresmas.com>, 2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
+# Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-15 19:25+0200\n"
-"PO-Revision-Date: 2003-09-20 13:49+0200\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
+"POT-Creation-Date: 2003-11-11 14:27+0100\n"
+"PO-Revision-Date: 2003-11-11 16:47+0100\n"
+"Last-Translator: Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: app/app_procs.c:162
-#, c-format
-msgid "%s error: input and output file name is identical: %s"
-msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
-
 #: app/app_procs.c:173
-#, c-format
-msgid "%s error: need valid input file %s\n"
-msgstr "%s error: se necesita un archivo de entrada válido %s\n"
-
-#: app/app_procs.c:180
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
+#: app/app_procs.c:183
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+
+#: app/app_procs.c:191
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s error: se necesita un archivo de entrada válido %s\n"
+
 #. if (!quiet)
-#: app/app_procs.c:186
+#: app/app_procs.c:197
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
+#: app/app_procs.c:239
+#, c-format
+msgid "Can't find output format %s\n"
+msgstr "No se pudo encontrar el formato de salida %s\n"
+
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:323
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr "Exportar al formato de archivo y salir. Los formatos soportados son: %s"
+
 #. &export_file_name
-#: app/app_procs.c:244
+#: app/app_procs.c:332
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: app/app_procs.c:244 app/diaconv.c:94
+#: app/app_procs.c:332 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 #. &export_file_format
-#: app/app_procs.c:246
-msgid "Export to file format and exit"
-msgstr "Exportar al formato de archivo y salir"
+#: app/app_procs.c:334
+msgid "FORMAT"
+msgstr "FORMATO"
 
-#: app/app_procs.c:246 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#: app/app_procs.c:248
+#: app/app_procs.c:337
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:339
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: app/app_procs.c:252
+#: app/app_procs.c:341
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: app/app_procs.c:254 app/diaconv.c:95
+#: app/app_procs.c:343 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Mostrar este mensaje de ayuda"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:375
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
-#: app/app_procs.c:301 app/diaconv.c:119
+#: app/app_procs.c:390 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓN...] [ARCHIVO...]"
 
-#: app/app_procs.c:305 app/diaconv.c:126
+#: app/app_procs.c:394 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -94,28 +102,23 @@ msgstr ""
 "Ejecute '%s --help' para ver la lista completa de opciones de\n"
 "la línea de comandos.\n"
 
-#: app/app_procs.c:318
-#, c-format
-msgid "%s error: can specify only one of -f or -o."
-msgstr "%s error: sólo puede especificar -f o -o (no ambos)."
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:331
+#: app/app_procs.c:413
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:415
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: app/app_procs.c:423 app/app_procs.c:425 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
 msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
-#: app/app_procs.c:553
+#: app/app_procs.c:589
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -124,7 +127,7 @@ msgstr ""
 "describiendo cómo puede hacer que este mensaje apararezca.\n"
 
 #. no standard buttons
-#: app/app_procs.c:565
+#: app/app_procs.c:601
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -134,21 +137,21 @@ msgstr ""
 "¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: app/app_procs.c:569
+#: app/app_procs.c:605
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:624
+#: app/app_procs.c:660
 msgid "Thank you for using Dia.\n"
 msgstr "Gracias por usar Dia.\n"
 
-#: app/app_procs.c:638 app/app_procs.c:645
+#: app/app_procs.c:674 app/app_procs.c:681
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: app/app_procs.c:647
+#: app/app_procs.c:683
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -157,7 +160,7 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: app/app_procs.c:669 app/diaconv.c:249
+#: app/app_procs.c:705 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
@@ -322,6 +325,10 @@ msgstr "¡No se pudo iniciar Bonobo!"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Formato de exportación a usar"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -534,7 +541,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "No hay menú objeto"
 
-#: app/disp_callbacks.c:865
+#: app/disp_callbacks.c:856
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -567,10 +574,10 @@ msgstr "Cerrar el diagrama"
 msgid "Discard Changes"
 msgstr "Descartar los cambios"
 
-#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -898,7 +905,7 @@ msgstr "Ancho de línea"
 msgid "Line width:"
 msgstr "Ancho de línea:"
 
-#: app/load_save.c:220
+#: app/load_save.c:245
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -906,7 +913,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "Objeto enlazado no encontrado en el documento."
 
-#: app/load_save.c:223
+#: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -914,7 +921,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No existe el punto de conexión."
 
-#: app/load_save.c:226
+#: app/load_save.c:251
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -922,17 +929,22 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No existe manejador de conexión."
 
-#: app/load_save.c:276
+#: app/load_save.c:273
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "No se pudo encontrar el objeto padre %s de %s\n"
+
+#: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: app/load_save.c:300 app/load_save.c:305
+#: app/load_save.c:342 app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -941,7 +953,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: app/load_save.c:312
+#: app/load_save.c:354
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -950,7 +962,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: app/load_save.c:509
+#: app/load_save.c:551
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -961,12 +973,12 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: app/load_save.c:839
+#: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Fallo al cargar el archivo «%s».\n"
 
-#: app/load_save.c:909 app/load_save.c:914
+#: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
 msgstr "Diagrama nativo de Dia"
 
@@ -1930,9 +1942,13 @@ msgstr "<Caja de herramientas>/Archivo/Salir"
 msgid "Can't open history file for writing."
 msgstr "No se pudo abrir el archivo de historia para escritura."
 
-#: app/render_eps.c:119
-msgid "Encapsulated Postscript"
-msgstr "Postscript encapsulado"
+#: app/render_eps.c:140
+msgid "Encapsulated Postscript (using Pango fonts)"
+msgstr "Postscript encapsulado (usando tipografía Pango)"
+
+#: app/render_eps.c:149
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "Postscript encapsulado (usando tipografía PostScript Latin-1)"
 
 #: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
@@ -2381,9 +2397,10 @@ msgstr "Vista _preliminar:"
 msgid "Font Selection"
 msgstr "Selección de tipografía"
 
-#: lib/dialibartrenderer.c:1114
-msgid "This Dia version is compiled without libart/text support."
-msgstr "Esta versión de Dia ha sido compilada sin soporte para libart/text."
+#: lib/filter.c:120
+#, c-format
+msgid "Multiple export filters with unique name %s"
+msgstr "Filtros múltiples de exportación con nombre único %s"
 
 #: lib/font.c:87
 #, c-format
@@ -4624,11 +4641,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
 msgid "GdkPixbuf bitmap"
 msgstr "Mapa de bits GDK Pixbuf"
 
-#: plug-ins/pixbuf/pixbuf.c:185
+#: plug-ins/pixbuf/pixbuf.c:187
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "exportación/importación de mapa de bits basada en gdk-pixbuf"
 
@@ -4636,11 +4653,11 @@ msgstr "exportación/importación de mapa de bits basada en gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Filtro de exportación Pstricks de TeX"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "UTF-8 no válido"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "Macros PSTricks de TeX"
 
@@ -7202,6 +7219,12 @@ msgstr "Un servidor de datos sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
+
+#~ msgid "%s error: can specify only one of -f or -o."
+#~ msgstr "%s error: sólo puede especificar -f o -o (no ambos)."
+
+#~ msgid "This Dia version is compiled without libart/text support."
+#~ msgstr "Esta versión de Dia ha sido compilada sin soporte para libart/text."
 
 #~ msgid "A connection point"
 #~ msgstr "Un punto de conexión"
