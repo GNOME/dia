@@ -201,7 +201,6 @@ dia_font_selector_new ()
 }
 
 static char *style_labels[] = {
-  "Normal",
   "Ultralight",
   "Ultralight-Oblique",
   "Ultralight-Italic",
@@ -246,9 +245,13 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
     PangoStyle style = pango_font_description_get_style(pfd);
     PangoWeight weight = pango_font_description_get_weight(pfd);
     /**
-     * FIXME: quite bad hack, need to think about a proper api --hb
+     * This is a quick and dirty way to pick the styles present,
+     * sort them and avoid duplicates.  
+     * We set a bit for each style present, bit (weight*3+style)
+     * From style_labels, we pick #(weight*3+style)
+     * where weight and style are the Dia types.  
      */
-    stylebits |= 1 << (((weight - 200) / 100) + (9 * style));
+    stylebits |= 1 << (3*((weight - 200) / 100) + style);
     pango_font_description_free(pfd);
   }
 
@@ -260,8 +263,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
     int weight = DIA_FONT_STYLE_GET_WEIGHT(i) >> 4;
     int obliquity = DIA_FONT_STYLE_GET_OBLIQUITY(i) >> 2;
     if (DIA_FONT_STYLE_GET_OBLIQUITY(i) > DIA_FONT_ITALIC) continue;
-    if (!(stylebits & (1 << (weight + 9 * obliquity)))) continue;
-    menuitem = gtk_menu_item_new_with_label (style_labels[weight*3+obliquity]);
+    if (!(stylebits & (1 << (3*weight + obliquity)))) continue;
+    menuitem = gtk_menu_item_new_with_label (style_labels[3*weight+obliquity]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
     if (dia_style == i) select = menu_item_nr;
     menu_item_nr++;

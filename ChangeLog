@@ -1,3 +1,8 @@
+2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/widgets.c (dia_font_selector_set_styles): Fixed the style
+	selector. 
+
 2002-06-24  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* plug-ins/dxf/dxf-import.c:
