@@ -9,13 +9,34 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-08-21 13:06+0200\n"
-"PO-Revision-Date: 2001-09-03 10:14+0200\n"
+"POT-Creation-Date: 2001-10-14 15:30+0200\n"
+"PO-Revision-Date: 2001-10-14 15:32+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: app/app_procs.c:1
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr ""
+
+#: app/app_procs.c:1
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "B³±d %s: wymagany poprawny plik wej¶ciowy %s\n"
+
+#: app/app_procs.c:1
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr ""
+
+#. if (!quiet)
+#: app/app_procs.c:1
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
 
 #. &export_file_name
 #: app/app_procs.c:1
@@ -25,6 +46,15 @@ msgstr "Eksportuje wczytany plik i koñczy"
 #: app/app_procs.c:1
 msgid "OUTPUT"
 msgstr "WYJ¦CIE"
+
+#. &export_file_format
+#: app/app_procs.c:1
+msgid "Export to file format and exit"
+msgstr "Eksportuje plik do podanego formatu i koñczy"
+
+#: app/app_procs.c:1
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #: app/app_procs.c:1
 msgid "Don't show the splash screen"
@@ -51,16 +81,17 @@ msgstr ""
 "B³±d przy opcji %s: %s.\n"
 "Wykonaj '%s --help', aby wypisaæ pe³n± listê dostêpnych opcji.\n"
 
+#: app/app_procs.c:1
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr ""
+
 #: app/app_procs.c:1 app/app_procs.c:1
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Nie mo¿na odnale¼æ standardowych obiektów w bibliotekach obiektów, "
 "zakoñczenie...\n"
-
-#: app/app_procs.c:1
-msgid "Need valid input file\n"
-msgstr "Wymagany poprawny plik wej¶ciowy\n"
 
 #: app/app_procs.c:1 app/app_procs.c:1
 msgid "Quit, are you sure?"
@@ -554,7 +585,7 @@ msgstr "brak"
 
 #: app/layer_dialog.c:1
 msgid "Edit Layer Attributes"
-msgstr "Modyfikuj atrybuty warstwy"
+msgstr "Zmodyfikuj atrybuty warstwy"
 
 #: app/layer_dialog.c:1
 msgid "Layer name:"
@@ -1041,8 +1072,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Widok/Powiêkszenie/25%"
 
 #: app/menus.c:1
-msgid "/View/Diagram Properties"
-msgstr "/Widok/W³a¶ciwo¶ci diagramu"
+msgid "/View/Diagram Properties..."
+msgstr "/Widok/W³a¶ciwo¶ci diagramu..."
 
 #: app/menus.c:1
 msgid "/View/_AntiAliased"
@@ -1419,13 +1450,22 @@ msgstr "Pasek menu:"
 msgid "Connection Points:"
 msgstr "Punkty po³±czenia:"
 
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
 #: app/preferences.c:1 app/preferences.c:1 app/preferences.c:1
 msgid "Visible:"
 msgstr "Wy¶wietlanie:"
 
 #: app/preferences.c:1
-msgid "Grid:"
-msgstr "Siatka:"
+msgid "Page breaks:"
+msgstr "Podzia³ stron:"
+
+#: app/preferences.c:1 app/preferences.c:1
+msgid "Colour:"
+msgstr "Kolor:"
+
+#: app/preferences.c:1 app/preferences.c:1
+msgid "Solid lines:"
+msgstr "Jednolite linie:"
 
 #: app/preferences.c:1
 msgid "Snap to:"
@@ -1438,18 +1478,6 @@ msgstr "Rozmiar poziomy:"
 #: app/preferences.c:1
 msgid "Y Size:"
 msgstr "Rozmiar pionowy:"
-
-#: app/preferences.c:1 app/preferences.c:1
-msgid "Colour:"
-msgstr "Kolor:"
-
-#: app/preferences.c:1 app/preferences.c:1
-msgid "Solid lines:"
-msgstr "Jednolite linie:"
-
-#: app/preferences.c:1
-msgid "Page breaks:"
-msgstr "Podzia³ stron:"
 
 #: app/preferences.c:1
 #, c-format
@@ -4134,10 +4162,9 @@ msgstr "Równoleg³obok z tekstem w ¶rodku"
 msgid "Collate"
 msgstr ""
 
-# [cyba] Nie nale¿y wymieniaæ alternatyw!
 #: sheets/Flowchart.sheet.in.h:1
 msgid "Delay"
-msgstr "Opó¼nienie, zw³oka"
+msgstr "Opó¼nienie"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "Document"
