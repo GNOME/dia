@@ -41,7 +41,8 @@ enum change_type {
 
 /* Invariant:
    # of handles = 3*(numpoints-1)
-   # of connections = 2*(numpoints-1)
+   # of connections = 2*(numpoints-1) + 1 (main point)
+   For historical reasons, the main point is the last cp.
  */
 struct PointChange {
   ObjectChange obj_change;
@@ -612,12 +613,13 @@ beziershape_update_data(BezierShape *bezier)
 {
   int i;
   Point last;
+  Point minp, maxp;
   
   DiaObject *obj = &bezier->object;
   
   /* handle the case of whole points array update (via set_prop) */
   if (3*(bezier->numpoints-1) != obj->num_handles ||
-      2*(bezier->numpoints-1) != obj->num_connections) {
+      2*(bezier->numpoints-1) + 1 != obj->num_connections) {
     object_unconnect_all(obj); /* too drastic ? */
 
     /* delete the old ones */
@@ -630,7 +632,7 @@ beziershape_update_data(BezierShape *bezier)
 
     obj->num_handles = 3*(bezier->numpoints-1);
     obj->handles = g_new(Handle*, obj->num_handles);
-    obj->num_connections = 2*(bezier->numpoints-1);
+    obj->num_connections = 2*(bezier->numpoints-1) + 1;
     obj->connections = g_new(ConnectionPoint *, obj->num_connections);
 
     new_handles_and_connections(bezier, bezier->numpoints);
@@ -643,9 +645,9 @@ beziershape_update_data(BezierShape *bezier)
   /* Update handles: */
   bezier->points[0].p3 = bezier->points[0].p1;
   for (i = 1; i < bezier->numpoints; i++) {
-    bezier->object.handles[3*i-3]->pos = bezier->points[i].p1;
-    bezier->object.handles[3*i-2]->pos = bezier->points[i].p2;
-    bezier->object.handles[3*i-1]->pos = bezier->points[i].p3;
+    obj->handles[3*i-3]->pos = bezier->points[i].p1;
+    obj->handles[3*i-2]->pos = bezier->points[i].p2;
+    obj->handles[3*i-1]->pos = bezier->points[i].p3;
   }
 
   /* Update connection points: */
@@ -661,19 +663,32 @@ beziershape_update_data(BezierShape *bezier)
     point_scale(&slopepoint2, .5);
     point_add(&slopepoint2, &bezier->points[i].p3);
 
-    bezier->object.connections[2*i-2]->pos = last;
-    bezier->object.connections[2*i-2]->directions =
+    obj->connections[2*i-2]->pos = last;
+    obj->connections[2*i-2]->directions =
       find_slope_directions(last, bezier->points[i].p1);
-    bezier->object.connections[2*i-1]->pos.x =
+    obj->connections[2*i-1]->pos.x =
       (last.x + 3*bezier->points[i].p1.x + 3*bezier->points[i].p2.x +
        bezier->points[i].p3.x)/8;
-    bezier->object.connections[2*i-1]->pos.y =
+    obj->connections[2*i-1]->pos.y =
       (last.y + 3*bezier->points[i].p1.y + 3*bezier->points[i].p2.y +
        bezier->points[i].p3.y)/8;
-    bezier->object.connections[2*i-1]->directions = 
+    obj->connections[2*i-1]->directions = 
       find_slope_directions(slopepoint1, slopepoint2);
     last = bezier->points[i].p3;
   }
+  
+  /* Find the middle of the object (or some approximation at least) */
+  minp = maxp = bezier->points[0].p1;
+  for (i = 1; i < bezier->numpoints; i++) {
+    Point p = bezier->points[i].p3;
+    if (p.x < minp.x) minp.x = p.x;
+    if (p.x > maxp.x) maxp.x = p.x;
+    if (p.y < minp.y) minp.y = p.y;
+    if (p.y > maxp.y) maxp.y = p.y;
+  }
+  obj->connections[obj->num_connections-1]->pos.x = (minp.x + maxp.x) / 2;
+  obj->connections[obj->num_connections-1]->pos.y = (minp.y + maxp.y) / 2;
+  obj->connections[obj->num_connections-1]->directions = DIR_ALL;
 }
 
 void
@@ -770,7 +785,14 @@ new_handles_and_connections(BezierShape *bezier, int num_points)
     obj->connections[2*i+1] = g_new0(ConnectionPoint, 1);
     obj->connections[2*i]->object = obj;
     obj->connections[2*i+1]->object = obj;
+    obj->connections[2*i]->flags = 0;
+    obj->connections[2*i+1]->flags = 0;
   }
+
+  /** Main point */
+  obj->connections[obj->num_connections-1] = g_new0(ConnectionPoint, 1);
+  obj->connections[obj->num_connections-1]->object = obj;
+  obj->connections[obj->num_connections-1]->flags = CP_FLAGS_MAIN;
 }
 
 void
@@ -781,7 +803,7 @@ beziershape_init(BezierShape *bezier, int num_points)
 
   obj = &bezier->object;
 
-  object_init(obj, 3*(num_points-1), 2*(num_points-1));
+  object_init(obj, 3*(num_points-1), 2*(num_points-1) + 1);
   
   bezier->numpoints = num_points;
 
@@ -840,13 +862,14 @@ beziershape_copy(BezierShape *from, BezierShape *to)
     to->corner_types[i] = from->corner_types[i];
   }
 
-  for (i = 0; i < to->object.num_handles; i++) {
-    to->object.handles[i] = g_new(Handle, 1);
-    setup_handle(to->object.handles[i], from->object.handles[i]->id);
+  for (i = 0; i < toobj->num_handles; i++) {
+    toobj->handles[i] = g_new(Handle, 1);
+    setup_handle(toobj->handles[i], fromobj->handles[i]->id);
   }
-  for (i = 0; i < to->object.num_connections; i++) {
-    to->object.connections[i] = g_new0(ConnectionPoint, 1);
-    to->object.connections[i]->object = &to->object;
+  for (i = 0; i < toobj->num_connections; i++) {
+    toobj->connections[i] = g_new0(ConnectionPoint, 1);
+    toobj->connections[i]->object = &to->object;
+    toobj->connections[i]->flags = fromobj->connections[i]->flags;
   }
 
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));  
@@ -926,7 +949,8 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   else
     bezier->numpoints = 0;
 
-  object_init(obj, 3 * (bezier->numpoints - 1), 2 * (bezier->numpoints - 1));
+  object_init(obj, 3 * (bezier->numpoints - 1),
+	      2 * (bezier->numpoints - 1) + 1);
 
   data = attribute_first_data(attr);
   if (bezier->numpoints != 0) {
@@ -972,10 +996,11 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
     setup_handle(obj->handles[3*i+1], HANDLE_LEFTCTRL);
     setup_handle(obj->handles[3*i+2],   HANDLE_BEZMAJOR);
   }
-  for (i = 0; i < bezier->object.num_connections; i++) {
+  for (i = 0; i < obj->num_connections; i++) {
     obj->connections[i] = g_new0(ConnectionPoint, 1);
     obj->connections[i]->object = obj;
   }
+  obj->connections[obj->num_connections-1]->flags = CP_FLAGS_MAIN;
 
   beziershape_update_data(bezier);
 }

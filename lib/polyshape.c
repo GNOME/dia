@@ -28,6 +28,8 @@
 #include "message.h"
 #include "diarenderer.h"
 
+#define NUM_CONNECTIONS(poly) ((poly)->numpoints * 2 + 1)
+
 enum change_type {
   TYPE_ADD_POINT,
   TYPE_REMOVE_POINT
@@ -301,10 +303,11 @@ polyshape_update_data(PolyShape *poly)
   Point next;
   int i;
   DiaObject *obj = &poly->object;
+  Point minp, maxp;
   
   /* handle the case of whole points array update (via set_prop) */
   if (poly->numpoints != obj->num_handles ||
-      poly->numpoints*2 != obj->num_connections) {
+      NUM_CONNECTIONS(poly) != obj->num_connections) {
     object_unconnect_all(obj); /* too drastic ? */
 
     obj->handles = g_realloc(obj->handles, 
@@ -317,18 +320,19 @@ polyshape_update_data(PolyShape *poly)
 
     obj->connections = g_realloc(obj->connections,
                                  poly->numpoints * 2 * sizeof(ConnectionPoint *));
-    for (i = 0; i < poly->numpoints * 2; i++) {
+    for (i = 0; i < NUM_CONNECTIONS(poly); i++) {
       obj->connections[i] = g_new0(ConnectionPoint, 1);
       obj->connections[i]->object = obj;
     }
-    poly->object.num_connections = poly->numpoints*2;
+    obj->num_connections = NUM_CONNECTIONS(poly);
   }
 
   /* Update handles: */
+  minp = maxp = poly->points[0];
   for (i = 0; i < poly->numpoints; i++) {
     gint thisdir, nextdir;
     Point prev;
-    poly->object.handles[i]->pos = poly->points[i];
+    obj->handles[i]->pos = poly->points[i];
 
     if (i == 0)
       prev = poly->points[poly->numpoints-1];
@@ -344,11 +348,20 @@ polyshape_update_data(PolyShape *poly)
     thisdir = find_tip_directions(prev, poly->points[i], next);
     nextdir = find_slope_directions(poly->points[i], next);
 
-    poly->object.connections[2*i]->pos = poly->points[i];
-    poly->object.connections[2*i]->directions = thisdir;
-    poly->object.connections[2*i+1]->pos = next;
-    poly->object.connections[2*i+1]->directions = nextdir;
+    obj->connections[2*i]->pos = poly->points[i];
+    obj->connections[2*i]->directions = thisdir;
+    obj->connections[2*i+1]->pos = next;
+    obj->connections[2*i+1]->directions = nextdir;
+
+    if (poly->points[i].x < minp.x) minp.x = poly->points[i].x;
+    if (poly->points[i].x > maxp.x) maxp.x = poly->points[i].x;
+    if (poly->points[i].y < minp.y) minp.y = poly->points[i].y;
+    if (poly->points[i].y > maxp.y) maxp.y = poly->points[i].y;
   }
+
+  obj->connections[obj->num_connections-1]->pos.x = (minp.x + maxp.x) / 2;
+  obj->connections[obj->num_connections-1]->pos.y = (minp.y + maxp.y) / 2;
+  obj->connections[obj->num_connections-1]->directions = DIR_ALL;
 }
 
 void
@@ -398,14 +411,14 @@ polyshape_init(PolyShape *poly, int num_points)
 
   obj = &poly->object;
 
-  object_init(obj, num_points, 2*num_points);
+  object_init(obj, num_points, 2 * num_points + 1);
   
   poly->numpoints = num_points;
 
   poly->points = g_malloc(num_points*sizeof(Point));
 
   for (i = 0; i < num_points; i++) {
-    poly->object.handles[i] = g_new(Handle, 1);
+    obj->handles[i] = g_new(Handle, 1);
 
     obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[i]->connected_to = NULL;
@@ -413,10 +426,13 @@ polyshape_init(PolyShape *poly, int num_points)
     obj->handles[i]->id = HANDLE_CORNER;
   }
 
-  for (i = 0; i < 2*num_points; i++) {
-    poly->object.connections[i] = g_new0(ConnectionPoint, 1);
-    poly->object.connections[i]->object = &poly->object;
+  for (i = 0; i < NUM_CONNECTIONS(poly); i++) {
+    obj->connections[i] = g_new0(ConnectionPoint, 1);
+    obj->connections[i]->object = &poly->object;
+    obj->connections[i]->flags = 0;
   }
+  obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;
+  
 
   /* Since the points aren't set yet, and update_data only deals with
      the points, don't call it (Thanks, valgrind!) */
@@ -452,13 +468,15 @@ polyshape_copy(PolyShape *from, PolyShape *to)
   polyshape_set_points(to, from->numpoints, from->points);
 
   for (i=0;i<to->numpoints;i++) {
-    to->object.handles[i] = g_new(Handle, 1);
-    setup_handle(to->object.handles[i]);
-    to->object.connections[2*i] = g_new0(ConnectionPoint, 1);
-    to->object.connections[2*i]->object = &to->object;
-    to->object.connections[2*i+1] = g_new0(ConnectionPoint, 1);
-    to->object.connections[2*i+1]->object = &to->object;
+    toobj->handles[i] = g_new(Handle, 1);
+    setup_handle(toobj->handles[i]);
+    toobj->connections[2*i] = g_new0(ConnectionPoint, 1);
+    toobj->connections[2*i]->object = &to->object;
+    toobj->connections[2*i+1] = g_new0(ConnectionPoint, 1);
+    toobj->connections[2*i+1]->object = &to->object;
   }
+  toobj->connections[toobj->num_connections - 1] = g_new0(ConnectionPoint, 1);
+  toobj->connections[toobj->num_connections - 1]->object = &to->object;
 
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
   polyshape_update_data(to);
@@ -477,8 +495,8 @@ polyshape_destroy(PolyShape *poly)
   for (i=0;i<poly->numpoints;i++)
     temp_handles[i] = poly->object.handles[i];
 
-  temp_cps = g_new(ConnectionPoint *, poly->numpoints*2);
-  for (i = 0; i < poly->numpoints * 2; i++)
+  temp_cps = g_new(ConnectionPoint *, NUM_CONNECTIONS(poly));
+  for (i = 0; i < NUM_CONNECTIONS(poly); i++)
     temp_cps[i] = poly->object.connections[i];
 
   object_destroy(&poly->object);
@@ -486,7 +504,7 @@ polyshape_destroy(PolyShape *poly)
   for (i=0;i<poly->numpoints;i++)
     g_free(temp_handles[i]);
   g_free(temp_handles);
-  for (i = 0; i < poly->numpoints*2; i++)
+  for (i = 0; i < NUM_CONNECTIONS(poly); i++)
     g_free(temp_cps[i]);
   g_free(temp_cps);
   
@@ -527,7 +545,7 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
   else
     poly->numpoints = 0;
 
-  object_init(obj, poly->numpoints, 2*poly->numpoints);
+  object_init(obj, poly->numpoints, NUM_CONNECTIONS(poly));
 
   data = attribute_first_data(attr);
   poly->points = g_new(Point, poly->numpoints);
@@ -540,10 +558,11 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
     obj->handles[i] = g_new(Handle, 1);
     setup_handle(obj->handles[i]);
   }
-  for (i = 0; i < poly->numpoints * 2; i++) {
+  for (i = 0; i < NUM_CONNECTIONS(poly); i++) {
     obj->connections[i] = g_new0(ConnectionPoint, 1);
     obj->connections[i]->object = obj;
   }
+  obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;
 
   polyshape_update_data(poly);
 }

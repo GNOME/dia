@@ -1,3 +1,10 @@
+2005-04-03  Lars Clausen  <lars@raeder.dk>
+
+	* lib/polyshape.c: 
+	* lib/beziershape.c: Main points.  A crude solution, having the
+	center in the middle of the bb.  Shows a bug in the distance_from
+	code for polyshape when a side is horizontal.
+
 2005-04-02  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/pstricks/render_pstricks.c: 
