@@ -18,6 +18,9 @@
 
 	* doc/custom_shapes: a precision about the meaning of case in a
 	SVG path (closes #52364)
+
+	* lib/dummy_dep.h: fix for SGI IRIX 6.2 (#53053, reported and
+	fixed by <drk@sgi.com>)
 	
 2001-05-17  Cyrille Chepelov  <chepelov@calixo.net>
 

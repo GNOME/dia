@@ -40,7 +40,10 @@
    object files will be linked into the app.
 */
 
-static void *dummy_dep[] G_GNUC_UNUSED = {
+#ifndef __sgi
+static 
+#endif
+void *dummy_dep[] G_GNUC_UNUSED = {
   connection_move_handle,
   element_update_boundingbox,
   orthconn_update_data,
