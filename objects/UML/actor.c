@@ -264,7 +264,7 @@ actor_update_data(Actor *actor)
   Point p;
   
   elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
-  elem->height = ACTOR_HEIGHT;
+  elem->height = ACTOR_HEIGHT+actor->text->height;
 
   /* Update connections: */
   actor->connections[0].pos.x = elem->corner.x;
@@ -288,7 +288,7 @@ actor_update_data(Actor *actor)
 
   p = elem->corner;
   p.x += elem->width/2;
-  p.y +=  ACTOR_HEIGHT + actor->text->height;
+  p.y +=  ACTOR_HEIGHT + actor->text->ascent;
   text_set_position(actor->text, &p);
 
   /* Add bounding box for text: */

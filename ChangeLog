@@ -1,3 +1,8 @@
+2002-02-09  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* objects/UML/actor.c (actor_update_data): Changed to have
+	connection points below text.
+
 2002-02-08  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/text.c (text_split_line): use g_strndup() instead of g_malloc()
