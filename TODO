@@ -21,9 +21,6 @@ functions:
 renderer:
  images
 
-tool:
- drag-box selection of objects (in modify_tool)
-
 objects:
  text_object: Add font to properties dialog.
  render_object: better distance_from that can be specified by the object programmer.
