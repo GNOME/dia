@@ -1,5 +1,10 @@
 2003-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* doc/pl/Makefile.am (install-data-hook): Fixed installation bug
+	for gif images.
+
+	* plug-ins/xslt/dia-uml2owl.xsl: Added OWL XSLT from Dan Connolly.
+
 	* acinclude.m4: Better Python configure code patch (can't find
 	author, author please speak up!)
 
