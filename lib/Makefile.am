@@ -56,6 +56,8 @@ libdia_a_SOURCES =  \
 		intl.c \
 		intl.h \
 		custom.h \
+		filter.c \
+		filter.h \
 		dummy_dep.h
 
 sheetdir = $(pkgdatadir)/sheets

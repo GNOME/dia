@@ -757,9 +757,9 @@ image_copy(Image *image)
   }
 
   newimage->file = g_strdup(image->file);
-  if (strcmp(image->file, "")) {
-    newimage->image = dia_image_load(image->file);
-  }
+  if (image->image)
+    dia_image_add_ref(image->image);
+  newimage->image = image->image;
 
   newimage->draw_border = image->draw_border;
   newimage->keep_aspect = image->keep_aspect;

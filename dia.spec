@@ -54,9 +54,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS
 %{prefix}/bin/dia
 %{prefix}/lib/dia
+%{prefix}/man/man1/dia.1
 %{prefix}/share/dia
-%{prefix}/share/pixmaps/*
 %{prefix}/share/gnome/apps/Applications/dia.desktop
+%{prefix}/share/*/*/*
 %{prefix}/share/mime-info/*
-
-
+%{prefix}/share/pixmaps/*

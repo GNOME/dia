@@ -582,8 +582,9 @@ bezierconn_copy(BezierConn *from, BezierConn *to)
     to->object.handles[i] = g_new(Handle, 1);
     setup_corner_handle(to->object.handles[i], from->object.handles[i]->id);
   }
-  to->object.handles[to->numpoints-1] = g_new(Handle,1);
-  *to->object.handles[to->numpoints-1] = *from->object.handles[to->numpoints-1];
+  to->object.handles[to->object.num_handles-1] = g_new(Handle,1);
+  *to->object.handles[to->object.num_handles-1] =
+    *from->object.handles[to->object.num_handles-1];
 
   bezierconn_update_data(to);
 }
