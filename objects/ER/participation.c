@@ -230,24 +230,23 @@ static void
 participation_update_data(Participation *participation)
 {
   OrthConn *orth = &participation->orth;
-  Object *obj = (Object *) participation;
+  OrthConnBBExtras *extra = &orth->extra_spacing;
   real extra_width;
   
   orthconn_update_data(orth);
-  
-  orthconn_update_boundingbox(orth);
 
   if (participation->total) {
     extra_width = TOTAL_SEPARATION/2.0;
   } else {
     extra_width = 0.0;
   }
+  extra->middle_trans = 
+    extra->start_trans = 
+    extra->end_trans = 
+    extra->start_long = 
+    extra->end_long = PARTICIPATION_WIDTH/2.0 + extra_width;
   
-  /* fix boundingparticipation for linewidth */
-  obj->bounding_box.top -= PARTICIPATION_WIDTH/2.0 + extra_width;
-  obj->bounding_box.left -= PARTICIPATION_WIDTH/2.0 + extra_width;
-  obj->bounding_box.bottom += PARTICIPATION_WIDTH/2.0 + extra_width;
-  obj->bounding_box.right += PARTICIPATION_WIDTH/2.0 + extra_width;
+  orthconn_update_boundingbox(orth);
 }
 
 static Object *
@@ -262,7 +261,7 @@ participation_create(Point *startpoint,
   
   participation = g_malloc(sizeof(Participation));
   orth = &participation->orth;
-  obj = (Object *) participation;
+  obj = &orth->object;
   
   obj->type = &participation_type;
 
@@ -279,7 +278,7 @@ participation_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)participation;
+  return &participation->orth.object;
 }
 
 static void
@@ -304,7 +303,7 @@ participation_copy(Participation *participation)
   
   newparticipation = g_malloc(sizeof(Participation));
   neworth = &newparticipation->orth;
-  newobj = (Object *) newparticipation;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -313,7 +312,7 @@ participation_copy(Participation *participation)
   
   participation_update_data(newparticipation);
   
-  return (Object *)newparticipation;
+  return &newparticipation->orth.object;
 }
 
 
@@ -338,7 +337,7 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
   participation = g_new(Participation, 1);
 
   orth = &participation->orth;
-  obj = (Object *) participation;
+  obj = &orth->object;
 
   obj->type = &participation_type;
   obj->ops = &participation_ops;
@@ -353,7 +352,7 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
       
   participation_update_data(participation);
 
-  return (Object *)participation;
+  return &participation->orth.object;
 }
 
 static ParticipationState *
@@ -392,7 +391,8 @@ participation_apply_properties(Participation *participation)
 
   participation_update_data(participation);
 
-  return new_object_state_change((Object *)participation, old_state,
+  return new_object_state_change(&participation->orth.object, 
+                                 old_state,
 				 (GetStateFunc)participation_get_state,
 				 (SetStateFunc)participation_set_state);
 }

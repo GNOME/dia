@@ -196,9 +196,8 @@ static struct { const gchar *name; GQuark q; } quarks[] = {
 static void
 objet_get_props(Objet * objet, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets((Object *)objet, objet_offsets, props, nprops))
+  if (object_get_props_from_offsets(&objet->element.object, 
+                                    objet_offsets, props, nprops))
     return;
   /* XXX ? */
 }
@@ -206,7 +205,7 @@ objet_get_props(Objet * objet, Property *props, guint nprops)
 static void
 objet_set_props(Objet *objet, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)objet, objet_offsets,
+  if (!object_set_props_from_offsets(&objet->element.object, objet_offsets,
 		     props, nprops)) {
     /* XXX ? */
   }
@@ -225,7 +224,7 @@ objet_select(Objet *ob, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(ob->text, clicked_point, interactive_renderer);
-  text_grab_focus(ob->text, (Object *)ob);
+  text_grab_focus(ob->text, &ob->element.object);
   element_update_handles(&ob->element);
 }
 
@@ -349,7 +348,7 @@ static void
 objet_update_data(Objet *ob)
 {
   Element *elem = &ob->element;
-  Object *obj = (Object *) ob;
+  Object *obj = &elem->object;
   Font *font;
   Point p1, p2;
   real h, w = 0;
@@ -425,14 +424,7 @@ objet_update_data(Objet *ob)
   ob->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingobjet for line width and top rectangle: */
-  obj->bounding_box.top -= OBJET_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= OBJET_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += OBJET_BORDERWIDTH/2.0;
-  obj->bounding_box.right += OBJET_BORDERWIDTH/2.0;
-
   obj->position = elem->corner;
-
   element_update_handles(elem);
 }
 
@@ -451,7 +443,7 @@ objet_create(Point *startpoint,
   
   ob = g_malloc(sizeof(Objet));
   elem = &ob->element;
-  obj = (Object *) ob;
+  obj = &elem->object;
   
   obj->type = &umlobject_type;
 
@@ -481,6 +473,7 @@ objet_create(Point *startpoint,
     ob->connections[i].object = obj;
     ob->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = OBJET_BORDERWIDTH/2.0;
   objet_update_data(ob);
 
   for (i=0;i<8;i++) {
@@ -490,7 +483,7 @@ objet_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = NULL;
 
-  return (Object *)ob;
+  return &ob->element.object;
 }
 
 static void
@@ -521,7 +514,7 @@ objet_copy(Objet *ob)
   
   newob = g_malloc(sizeof(Objet));
   newelem = &newob->element;
-  newobj = (Object *) newob;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -549,7 +542,7 @@ objet_copy(Objet *ob)
   
   objet_update_data(newob);
   
-  return (Object *)newob;
+  return &newob->element.object;
 }
 
 static void
@@ -636,7 +629,7 @@ objet_load(ObjectNode obj_node, int version, const char *filename)
   
   ob = g_malloc(sizeof(Objet));
   elem = &ob->element;
-  obj = (Object *) ob;
+  obj = &elem->object;
   
   obj->type = &objet_type;
   obj->ops = &objet_ops;
@@ -688,13 +681,14 @@ objet_load(ObjectNode obj_node, int version, const char *filename)
     ob->connections[i].object = obj;
     ob->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = OBJET_BORDERWIDTH/2.0;
   objet_update_data(ob);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *) ob;
+  return &ob->element.object;
 }
 
 
@@ -746,7 +740,7 @@ objet_apply_properties(Objet *ob)
 
   objet_update_data(ob);
   
-  return new_object_state_change((Object *)ob, old_state, 
+  return new_object_state_change(&ob->element.object, old_state, 
 				 (GetStateFunc)objet_get_state,
 				 (SetStateFunc)objet_set_state);
 }

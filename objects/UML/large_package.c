@@ -159,15 +159,16 @@ largepackage_get_props(LargePackage * largepackage, Property *props, guint nprop
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)largepackage, largepackage_offsets, props, nprops))
+  if (object_get_props_from_offsets(&largepackage->element.object, 
+                                    largepackage_offsets, props, nprops))
     return;
 }
 
 static void
 largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)largepackage, largepackage_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&largepackage->element.object, 
+                                     largepackage_offsets, props, nprops)) {
   }
   largepackage_update_data(largepackage);
 }
@@ -273,7 +274,7 @@ static void
 largepackage_update_data(LargePackage *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = (Object *) pkg;
+  Object *obj = &elem->object;
 
   if (elem->width < (pkg->topwidth + 0.2))
     elem->width = pkg->topwidth + 0.2;
@@ -298,11 +299,8 @@ largepackage_update_data(LargePackage *pkg)
   pkg->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundinglargepackage for line width and top rectangle: */
-  obj->bounding_box.top -= LARGEPACKAGE_BORDERWIDTH/2.0 + pkg->topheight;
-  obj->bounding_box.left -= LARGEPACKAGE_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += LARGEPACKAGE_BORDERWIDTH/2.0;
-  obj->bounding_box.right += LARGEPACKAGE_BORDERWIDTH/2.0;
+  /* fix boundingbox for top rectangle: */
+  obj->bounding_box.top -= pkg->topheight;
 
   obj->position = elem->corner;
 
@@ -322,7 +320,7 @@ largepackage_create(Point *startpoint,
   
   pkg = g_malloc(sizeof(LargePackage));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &largepackage_type;
 
@@ -350,11 +348,12 @@ largepackage_create(Point *startpoint,
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->element.extra_spacing.border_trans = LARGEPACKAGE_BORDERWIDTH/2.0;
   largepackage_update_data(pkg);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  return (Object *)pkg;
+  return &pkg->element.object;
 }
 
 static void
@@ -386,7 +385,7 @@ largepackage_copy(LargePackage *pkg)
   
   newpkg = g_malloc(sizeof(LargePackage));
   newelem = &newpkg->element;
-  newobj = (Object *) newpkg;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -412,7 +411,7 @@ largepackage_copy(LargePackage *pkg)
 
   largepackage_update_data(newpkg);
   
-  return (Object *)newpkg;
+  return &newpkg->element.object;
 }
 
 static void
@@ -472,7 +471,7 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   
   pkg = g_malloc(sizeof(LargePackage));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &largepackage_type;
   obj->ops = &largepackage_ops;
@@ -513,7 +512,7 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   }
   largepackage_update_data(pkg);
 
-  return (Object *) pkg;
+  return &pkg->element.object;
 }
 
 static ObjectChange *
@@ -558,9 +557,10 @@ largepackage_apply_properties(LargePackage *pkg)
 					  LARGEPACKAGE_FONTHEIGHT)+2*0.1);
   
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
+  pkg->element.extra_spacing.border_trans = LARGEPACKAGE_BORDERWIDTH/2.0;
 
   largepackage_update_data(pkg);
-  return new_object_state_change((Object *)pkg, old_state, 
+  return new_object_state_change(&pkg->element.object, old_state, 
 				 (GetStateFunc)largepackage_get_state,
 				 (SetStateFunc)largepackage_set_state);
 }

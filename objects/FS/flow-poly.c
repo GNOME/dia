@@ -161,7 +161,7 @@ flow_select(Flow *flow, Point *clicked_point,
 	    Renderer *interactive_renderer)
 {
   text_set_cursor(flow->text, clicked_point, interactive_renderer);
-  text_grab_focus(flow->text, (Object *)flow);
+  text_grab_focus(flow->text, &flow->connection.object);
 
   connection_update_handles(&flow->connection);
 }
@@ -312,6 +312,7 @@ flow_create(Point *startpoint,
 		  Handle **handle2)
 {
   Flow *flow;
+  ConnectionBBExtras *extra;
   Connection *conn;
   Object *obj;
   Point p ;
@@ -324,8 +325,9 @@ flow_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   conn->endpoints[1].x += 1.5;
  
-  obj = (Object *) flow;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &flow_type;
   obj->ops = &flow_ops;
   
@@ -378,12 +380,17 @@ flow_create(Point *startpoint,
   flow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   flow->text_handle.connected_to = NULL;
   obj->handles[2] = &flow->text_handle;
+
+  extra->start_trans = 
+    extra->start_long = 
+    extra->end_long = FLOW_WIDTH/2.0;
+  extra->end_trans = MAX(FLOW_WIDTH,FLOW_ARROWLEN)/2.0;
   
   flow_update_data(flow);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)flow;
+  return &flow->connection.object;
 }
 
 
@@ -405,7 +412,7 @@ flow_copy(Flow *flow)
   
   newflow = g_malloc(sizeof(Flow));
   newconn = &newflow->connection;
-  newobj = (Object *) newflow;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -415,7 +422,7 @@ flow_copy(Flow *flow)
   newflow->text = text_copy(flow->text);
   newflow->type = flow->type;
 
-  return (Object *)newflow;
+  return &newflow->connection.object;
 }
 
 
@@ -423,7 +430,7 @@ static void
 flow_update_data(Flow *flow)
 {
   Connection *conn = &flow->connection;
-  Object *obj = (Object *) flow;
+  Object *obj = &conn->object;
   Rectangle rect;
   Color* color ;
   
@@ -452,12 +459,6 @@ flow_update_data(Flow *flow)
   /* Add boundingbox for text: */
   text_calc_boundingbox(flow->text, &rect) ;
   rectangle_union(&obj->bounding_box, &rect);
-
-  /* fix boundingbox for flow_width and arrow: */
-  obj->bounding_box.top -= FLOW_WIDTH/2 + FLOW_ARROWLEN;
-  obj->bounding_box.left -= FLOW_WIDTH/2 + FLOW_ARROWLEN;
-  obj->bounding_box.bottom += FLOW_WIDTH/2 + FLOW_ARROWLEN;
-  obj->bounding_box.right += FLOW_WIDTH/2 + FLOW_ARROWLEN;
 }
 
 
@@ -479,6 +480,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   Connection *conn;
   Object *obj;
+  ConnectionBBExtras *extra;
 
   if (flow_font == NULL)
     flow_font = font_getfont("Helvetica-Oblique");
@@ -486,7 +488,8 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   flow = g_malloc(sizeof(Flow));
 
   conn = &flow->connection;
-  obj = (Object *) flow;
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
 
   obj->type = &flow_type;
   obj->ops = &flow_ops;
@@ -510,9 +513,14 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   flow->text_handle.connected_to = NULL;
   obj->handles[2] = &flow->text_handle;
   
+  extra->start_trans = 
+    extra->start_long = 
+    extra->end_long = FLOW_WIDTH/2.0;
+  extra->end_trans = MAX(FLOW_WIDTH,FLOW_ARROWLEN)/2.0;
+
   flow_update_data(flow);
   
-  return (Object *)flow;
+  return &flow->connection.object;
 }
 
 

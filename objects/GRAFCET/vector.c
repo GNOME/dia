@@ -111,8 +111,8 @@ static void vector_save(Vector *vector, ObjectNode obj_node,
 			    const char *filename);
 static Object *vector_load(ObjectNode obj_node, int version,
 			       const char *filename);
-static PROPDLG_TYPE vector_get_defaults();
-static void vector_apply_defaults(); 
+static PROPDLG_TYPE vector_get_defaults(void);
+static void vector_apply_defaults(void); 
 
 static ObjectTypeOps vector_type_ops =
 {
@@ -158,7 +158,7 @@ vector_apply_properties(Vector *vector)
   PROPDLG_APPLY_BOOL(dlg,uparrow);
 
   vector_update_data(vector);
-  return new_object_state_change((Object *)vector, old_state, 
+  return new_object_state_change(&vector->orth.object, old_state, 
 				 (GetStateFunc)vector_get_state,
 				 (SetStateFunc)vector_set_state);
 }
@@ -178,7 +178,7 @@ vector_get_properties(Vector *vector)
 }
 
 static void
-vector_init_defaults() {
+vector_init_defaults(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -188,7 +188,7 @@ vector_init_defaults() {
 } 
 
 static void
-vector_apply_defaults()
+vector_apply_defaults(void)
 {
   VectorDefaultsDialog *dlg = vector_defaults_dialog;  
 
@@ -291,7 +291,7 @@ vector_create(Point *startpoint,
   vector_init_defaults();
   vector = g_malloc(sizeof(Vector));
   orth = &vector->orth;
-  obj = (Object *) vector;
+  obj = &orth->object;
   
   obj->type = &vector_type;
   obj->ops = &vector_ops;
@@ -304,7 +304,7 @@ vector_create(Point *startpoint,
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
-  return (Object *)vector;
+  return &vector->orth.object;
 }
 
 static void
@@ -324,13 +324,13 @@ vector_copy(Vector *vector)
  
   newvector = g_malloc(sizeof(Vector));
   neworth = &newvector->orth;
-  newobj = (Object *) newvector;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
   newvector->uparrow = vector->uparrow;
 
-  return (Object *)newvector;
+  return &newvector->orth.object;
 }
 
 static VectorState *
@@ -359,22 +359,21 @@ static void
 vector_update_data(Vector *vector)
 {
   OrthConn *orth = &vector->orth;
-  Object *obj = (Object *) vector;
+  OrthConnBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&vector->orth);
+  
+  extra->start_trans = 
+    extra->start_long =
+    extra->end_long  = 
+    extra->end_trans = VECTOR_LINE_WIDTH/2.0;
+  if (vector->uparrow) {
+    extra->middle_trans = (VECTOR_LINE_WIDTH + VECTOR_ARROW_WIDTH)/2.0;
+  } else {
+    extra->middle_trans = VECTOR_LINE_WIDTH/2.0;
+  }
     
   orthconn_update_boundingbox(orth);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= VECTOR_LINE_WIDTH/2;
-  obj->bounding_box.left -= VECTOR_LINE_WIDTH/2;
-  obj->bounding_box.bottom += VECTOR_LINE_WIDTH/2;
-  obj->bounding_box.right += VECTOR_LINE_WIDTH/2;
-
-  if (vector->uparrow) {
-    /* fix boundingbox for arrow heads: */
-    obj->bounding_box.right += VECTOR_ARROW_WIDTH/2;
-    obj->bounding_box.left -= VECTOR_ARROW_WIDTH/2;
-  }
 }
 
 
@@ -442,7 +441,7 @@ vector_load(ObjectNode obj_node, int version, const char *filename)
   vector = g_malloc(sizeof(Vector));
 
   orth = &vector->orth;
-  obj = (Object *) vector;
+  obj = &orth->object;
   
   obj->type = &vector_type;
   obj->ops = &vector_ops;
@@ -453,5 +452,5 @@ vector_load(ObjectNode obj_node, int version, const char *filename)
 
   vector_update_data(vector);
 
-  return (Object *)vector;
+  return &vector->orth.object;
 }

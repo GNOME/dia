@@ -174,7 +174,7 @@ attribute_apply_properties(Attribute *attribute)
 
   attribute_update_data(attribute);
 
-  return new_object_state_change((Object *)attribute, old_state,
+  return new_object_state_change(&attribute->element.object, old_state,
 				 (GetStateFunc)attribute_get_state,
 				 (SetStateFunc)attribute_set_state);
 }
@@ -384,8 +384,9 @@ static void
 attribute_update_data(Attribute *attribute)
 {
   Element *elem = &attribute->element;
-  Object *obj = (Object *) attribute;
+  Object *obj = &elem->object;
   Point center;
+  ElementBBExtras *extra = &elem->extra_spacing;
   real half_x, half_y;
 
   elem->width = attribute->name_width + 2*TEXT_BORDER_WIDTH_X;
@@ -415,12 +416,8 @@ attribute_update_data(Attribute *attribute)
   attribute->connections[7].pos.x = center.x + half_x;
   attribute->connections[7].pos.y = center.y + half_y;
 
+  extra->border_trans = attribute->border_width/2.0;
   element_update_boundingbox(elem);
-  /* fix boundingattribute for line_width: */
-  obj->bounding_box.top -= attribute->border_width/2;
-  obj->bounding_box.left -= attribute->border_width/2;
-  obj->bounding_box.bottom += attribute->border_width/2;
-  obj->bounding_box.right += attribute->border_width/2;
 
   obj->position = elem->corner;
 
@@ -478,7 +475,7 @@ attribute_create(Point *startpoint,
 
   attribute = g_malloc(sizeof(Attribute));
   elem = &attribute->element;
-  obj = (Object *) attribute;
+  obj = &elem->object;
   
   obj->type = &attribute_type;
   obj->ops = &attribute_ops;
@@ -519,7 +516,7 @@ attribute_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  return (Object *)attribute;
+  return &attribute->element.object;
 }
 
 static void
@@ -545,7 +542,7 @@ attribute_copy(Attribute *attribute)
   
   newattribute = g_malloc(sizeof(Attribute));
   newelem = &newattribute->element;
-  newobj = (Object *) newattribute;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -572,7 +569,7 @@ attribute_copy(Attribute *attribute)
 
   newattribute->properties_dialog = NULL;
 
-  return (Object *)newattribute;
+  return &newattribute->element.object;
 }
 
 
@@ -611,7 +608,7 @@ static Object *attribute_load(ObjectNode obj_node, int version,
 
   attribute = g_malloc(sizeof(Attribute));
   elem = &attribute->element;
-  obj = (Object *) attribute;
+  obj = &elem->object;
   
   obj->type = &attribute_type;
   obj->ops = &attribute_ops;
@@ -674,5 +671,5 @@ static Object *attribute_load(ObjectNode obj_node, int version,
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)attribute;
+  return &attribute->element.object;
 }

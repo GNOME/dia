@@ -146,14 +146,14 @@ static PropOffset zigzagline_offsets[] = {
 static void
 zigzagline_get_props(Zigzagline *zigzagline, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)zigzagline, zigzagline_offsets,
+  object_get_props_from_offsets(&zigzagline->orth.object, zigzagline_offsets,
 				props, nprops);
 }
 
 static void
 zigzagline_set_props(Zigzagline *zigzagline, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)zigzagline, zigzagline_offsets,
+  object_set_props_from_offsets(&zigzagline->orth.object, zigzagline_offsets,
 				props, nprops);
   zigzagline_update_data(zigzagline);
 }
@@ -239,7 +239,7 @@ zigzagline_create(Point *startpoint,
   /*zigzagline_init_defaults();*/
   zigzagline = g_malloc(sizeof(Zigzagline));
   orth = &zigzagline->orth;
-  obj = (Object *) zigzagline;
+  obj = &orth->object;
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
@@ -257,7 +257,7 @@ zigzagline_create(Point *startpoint,
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
-  return (Object *)zigzagline;
+  return &zigzagline->orth.object;
 }
 
 static void
@@ -277,7 +277,7 @@ zigzagline_copy(Zigzagline *zigzagline)
  
   newzigzagline = g_malloc(sizeof(Zigzagline));
   neworth = &newzigzagline->orth;
-  newobj = (Object *) newzigzagline;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -288,38 +288,27 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
 
-  return (Object *)newzigzagline;
+  return &newzigzagline->orth.object;
 }
 
 static void
 zigzagline_update_data(Zigzagline *zigzagline)
 {
   OrthConn *orth = &zigzagline->orth;
-  Object *obj = (Object *) zigzagline;
+  OrthConnBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&zigzagline->orth);
     
+  extra->start_long = 
+    extra->end_long = 
+    extra->middle_trans = zigzagline->line_width/2.0;
+
+  if (zigzagline->start_arrow.type != ARROW_NONE) 
+    extra->start_trans = MAX(extra->start_trans,zigzagline->start_arrow.width);
+  if (zigzagline->end_arrow.type != ARROW_NONE) 
+    extra->end_trans = MAX(extra->end_trans,zigzagline->end_arrow.width);
+  
   orthconn_update_boundingbox(orth);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= zigzagline->line_width/2;
-  obj->bounding_box.left -= zigzagline->line_width/2;
-  obj->bounding_box.bottom += zigzagline->line_width/2;
-  obj->bounding_box.right += zigzagline->line_width/2;
-
-  /* Fix boundingbox for arrowheads */
-  if (zigzagline->start_arrow.type != ARROW_NONE ||
-      zigzagline->end_arrow.type != ARROW_NONE) {
-    real arrow_width = 0.0;
-    if (zigzagline->start_arrow.type != ARROW_NONE)
-      arrow_width = zigzagline->start_arrow.width;
-    if (zigzagline->end_arrow.type != ARROW_NONE)
-      arrow_width = MAX(arrow_width, zigzagline->start_arrow.width);
-
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
-  }
 }
 
 static ObjectChange *
@@ -418,7 +407,7 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   zigzagline = g_malloc(sizeof(Zigzagline));
 
   orth = &zigzagline->orth;
-  obj = (Object *) zigzagline;
+  obj = &orth->object;
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
@@ -473,5 +462,5 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   
   zigzagline_update_data(zigzagline);
 
-  return (Object *)zigzagline;
+  return &zigzagline->orth.object;
 }

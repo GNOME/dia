@@ -53,26 +53,37 @@ connection_update_boundingbox(Connection *conn)
 {
   Rectangle *bb;
   Point *endpoints;
+  Point vec;
+  ConnectionBBExtras *extra;
   
   assert(conn != NULL);
 
+  extra = &conn->extra_spacing;  
   bb = &conn->object.bounding_box;
   endpoints = &conn->endpoints[0];
   
   bb->left = endpoints[0].x;
-  bb->right = endpoints[1].x;
-  if (bb->left > bb->right) {
-    coord temp = bb->left;
-    bb->left = bb->right;
-    bb->right = temp;
-  }
   bb->top = endpoints[0].y;
-  bb->bottom = endpoints[1].y;
-  if (bb->top > bb->bottom) {
-    coord temp = bb->top;
-    bb->top = bb->bottom;
-    bb->bottom = temp;
-  }
+
+  vec = endpoints[1];
+  point_sub(&vec,&endpoints[0]);
+  point_normalize(&vec);
+
+  check_bb_x(bb,endpoints[0].x - extra->start_long * vec.x,vec.x);
+  check_bb_y(bb,endpoints[0].y - extra->start_long * vec.y,vec.y);
+
+  check_bb_x(bb,endpoints[0].x + extra->start_trans * vec.y,vec.y);
+  check_bb_x(bb,endpoints[0].x - extra->start_trans * vec.y,vec.y);
+  check_bb_y(bb,endpoints[0].y + extra->start_trans * vec.x,vec.x);
+  check_bb_y(bb,endpoints[0].y - extra->start_trans * vec.x,vec.x);
+
+  check_bb_x(bb,endpoints[1].x + extra->end_long * vec.x,vec.x);
+  check_bb_y(bb,endpoints[1].y + extra->end_long * vec.y,vec.y);
+
+  check_bb_x(bb,endpoints[1].x + extra->end_trans * vec.y,vec.y);
+  check_bb_x(bb,endpoints[1].x - extra->end_trans * vec.y,vec.y);
+  check_bb_y(bb,endpoints[1].y + extra->end_trans * vec.x,vec.x);
+  check_bb_y(bb,endpoints[1].y - extra->end_trans * vec.x,vec.x);
 }
 
 /* Needs to have at least 2 handles 
@@ -122,6 +133,7 @@ connection_copy(Connection *from, Connection *to)
     to->endpoint_handles[i].connected_to = NULL;
     toobj->handles[i] = &to->endpoint_handles[i];
   }
+  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
 }
 
 void

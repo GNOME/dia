@@ -199,7 +199,8 @@ static PropOffset image_offsets[] = {
 static void
 image_get_props(Image *image, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)image, image_offsets, props, nprops);
+  object_get_props_from_offsets(&image->element.object, 
+                                image_offsets, props, nprops);
 }
 
 static void
@@ -207,11 +208,12 @@ image_set_props(Image *image, Property *props, guint nprops)
 {
   char *old_file = image->file ? g_strdup(image->file) : NULL;
 
-  object_set_props_from_offsets((Object *)image, image_offsets, props, nprops);
+  object_set_props_from_offsets(&image->element.object, 
+                                image_offsets, props, nprops);
 
   /* handle changing the image. */
   if (strcmp(image->file, old_file) != 0) {
-    Element *elem = (Element *)image;
+    Element *elem = &image->element;
     DiaImage img = dia_image_load(image->file);
 
     if (img)
@@ -309,7 +311,7 @@ image_get_defaults(void)
 static real
 image_distance_from(Image *image, Point *point)
 {
-  Element *elem = (Element *)image;
+  Element *elem = &image->element;
   Rectangle rect;
 
   rect.left = elem->corner.x - image->border_width;
@@ -330,6 +332,7 @@ static void
 image_move_handle(Image *image, Handle *handle,
 		  Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  Element *elem = &image->element;
   assert(image!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -351,12 +354,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+(image->element.width-new_width);
       to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle((Element *)image, HANDLE_RESIZE_NW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NW, to, reason);
       break;
     case HANDLE_RESIZE_N:
       new_width = (-(to->y-image->element.corner.y)+height)*width/height;
       to->x = image->element.corner.x+new_width;
-      element_move_handle((Element *)image, HANDLE_RESIZE_NE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NE, to, reason);
       break;
     case HANDLE_RESIZE_NE:
       new_width = to->x-image->element.corner.x;
@@ -368,12 +371,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+new_width;
       to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle((Element *)image, HANDLE_RESIZE_NE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_NE, to, reason);
       break;
     case HANDLE_RESIZE_E:
       new_height = (to->x-image->element.corner.x)*height/width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle((Element *)image, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
       break;
     case HANDLE_RESIZE_SE:
       new_width = to->x-image->element.corner.x;
@@ -385,12 +388,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+new_width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle((Element *)image, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
       break;
     case HANDLE_RESIZE_S:
       new_width = (to->y-image->element.corner.y)*width/height;
       to->x = image->element.corner.x+new_width;
-      element_move_handle((Element *)image, HANDLE_RESIZE_SE, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SE, to, reason);
       break;
     case HANDLE_RESIZE_SW:
       new_width = -(to->x-image->element.corner.x)+width;
@@ -402,12 +405,12 @@ image_move_handle(Image *image, Handle *handle,
       }
       to->x = image->element.corner.x+(image->element.width-new_width);
       to->y = image->element.corner.y+new_height;
-      element_move_handle((Element *)image, HANDLE_RESIZE_SW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SW, to, reason);
       break;
     case HANDLE_RESIZE_W:
       new_height = (-(to->x-image->element.corner.x)+width)*height/width;
       to->y = image->element.corner.y+new_height;
-      element_move_handle((Element *)image, HANDLE_RESIZE_SW, to, reason);
+      element_move_handle(elem, HANDLE_RESIZE_SW, to, reason);
       break;
     default:
       message_warning("Unforeseen handle in image_move_handle: %d\n",
@@ -415,7 +418,7 @@ image_move_handle(Image *image, Handle *handle,
       
     }
   } else {
-    element_move_handle((Element *)image, handle->id, to, reason);
+    element_move_handle(elem, handle->id, to, reason);
   }
   image_update_data(image);
 }
@@ -470,8 +473,9 @@ image_draw(Image *image, Renderer *renderer)
 static void
 image_update_data(Image *image)
 {
-  Element *elem = (Element *)image;
-  Object *obj = (Object *)image;
+  Element *elem = &image->element;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
 
   /* Update connections: */
   image->connections[0].pos = elem->corner;
@@ -489,13 +493,9 @@ image_update_data(Image *image)
   image->connections[6].pos.y = elem->corner.y + elem->height;
   image->connections[7].pos.x = elem->corner.x + elem->width;
   image->connections[7].pos.y = elem->corner.y + elem->height;
-
+  
+  extra->border_trans = image->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= image->border_width;
-  obj->bounding_box.left -= image->border_width;
-  obj->bounding_box.bottom += image->border_width;
-  obj->bounding_box.right += image->border_width;
   
   obj->position = elem->corner;
   
@@ -513,14 +513,12 @@ static GtkFileSelection *dialog;
 static void
 image_browse_ok(GtkWidget *widget, gpointer data) {
   Image *image = (Image *)data;
-  Element *elem;
+  Element *elem = &image->element;
 
   image->file = gtk_file_selection_get_filename(dialog);
   image->image = dia_image_load(image->file);
 
   if (image->image) {
-    elem = (Element *) image;
-
     elem->width = (elem->width*(float)dia_image_width(image->image))/
       (float)dia_image_height(image->image);
   }
@@ -572,11 +570,10 @@ image_create(Point *startpoint,
   int i;
 
   image = g_malloc(sizeof(Image));
-  elem = (Element *) image;
-  obj = (Object *) image;
+  elem = &image->element;
+  obj = &elem->object;
   
   obj->type = &image_type;
-
   obj->ops = &image_ops;
 
   elem->corner = *startpoint;
@@ -621,7 +618,7 @@ image_create(Point *startpoint,
   
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)image;
+  return &image->element.object;
 }
 
 static void 
@@ -643,11 +640,11 @@ image_copy(Image *image)
   Element *elem, *newelem;
   Object *newobj;
   
-  elem = (Element *)image;
+  elem = &image->element;
   
   newimage = g_malloc(sizeof(Image));
-  newelem = (Element *)newimage;
-  newobj = (Object *) newimage;
+  newelem = &newimage->element;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -671,7 +668,7 @@ image_copy(Image *image)
   newimage->draw_border = image->draw_border;
   newimage->keep_aspect = image->keep_aspect;
 
-  return (Object *)newimage;
+  return &newimage->element.object;
 }
 
 /* Gets the directory path of a filename.
@@ -776,8 +773,8 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   char *diafile_dir;
   
   image = g_malloc(sizeof(Image));
-  elem = (Element *)image;
-  obj = (Object *)image;
+  elem = &image->element;
+  obj = &elem->object;
   
   obj->type = &image_type;
   obj->ops = &image_ops;
@@ -906,6 +903,5 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 
   image_update_data(image);
 
-  return (Object *)image;
-
+  return &image->element.object;
 }

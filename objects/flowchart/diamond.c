@@ -199,8 +199,8 @@ diamond_get_props(Diamond *diamond, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)diamond, diamond_offsets,
-				    props, nprops))
+  if (object_get_props_from_offsets(&diamond->element.object, 
+                                    diamond_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -229,8 +229,8 @@ diamond_get_props(Diamond *diamond, Property *props, guint nprops)
 static void
 diamond_set_props(Diamond *diamond, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)diamond, diamond_offsets,
-                                     props, nprops)) {
+  if (!object_set_props_from_offsets(&diamond->element.object, 
+                                     diamond_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -414,7 +414,7 @@ diamond_select(Diamond *diamond, Point *clicked_point,
 	   Renderer *interactive_renderer)
 {
   text_set_cursor(diamond->text, clicked_point, interactive_renderer);
-  text_grab_focus(diamond->text, (Object *)diamond);
+  text_grab_focus(diamond->text, &diamond->element.object);
 
   element_update_handles(&diamond->element);
 }
@@ -506,7 +506,8 @@ static void
 diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &diamond->element;
-  Object *obj = (Object *) diamond;
+  Object *obj = &elem->object;
+  ElementBBExtras *extra = &elem->extra_spacing;
   Point center, bottom_right;
   Point p;
   real dw, dh;
@@ -592,12 +593,8 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   diamond->connections[15].pos.x = elem->corner.x + 3*dw;
   diamond->connections[15].pos.y = elem->corner.y + dh;
 
+  extra->border_trans = diamond->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= diamond->border_width/2;
-  obj->bounding_box.left -= diamond->border_width/2;
-  obj->bounding_box.bottom += diamond->border_width/2;
-  obj->bounding_box.right += diamond->border_width/2;
   
   obj->position = elem->corner;
   
@@ -622,7 +619,7 @@ diamond_create(Point *startpoint,
 
   diamond = g_malloc(sizeof(Diamond));
   elem = &diamond->element;
-  obj = (Object *) diamond;
+  obj = &elem->object;
   
   obj->type = &diamond_type;
 
@@ -659,7 +656,7 @@ diamond_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)diamond;
+  return &diamond->element.object;
 }
 
 static void
@@ -682,7 +679,7 @@ diamond_copy(Diamond *diamond)
   
   newdiamond = g_malloc(sizeof(Diamond));
   newelem = &newdiamond->element;
-  newobj = (Object *) newdiamond;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -704,7 +701,7 @@ diamond_copy(Diamond *diamond)
     newdiamond->connections[i].last_pos = diamond->connections[i].last_pos;
   }
 
-  return (Object *)newdiamond;
+  return &newdiamond->element.object;
 }
 
 static void
@@ -751,7 +748,7 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
 
   diamond = g_malloc(sizeof(Diamond));
   elem = &diamond->element;
-  obj = (Object *) diamond;
+  obj = &elem->object;
   
   obj->type = &diamond_type;
   obj->ops = &diamond_ops;
@@ -808,5 +805,5 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
 
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)diamond;
+  return &diamond->element.object;
 }

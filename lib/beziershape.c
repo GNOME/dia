@@ -608,42 +608,79 @@ beziershape_update_boundingbox(BezierShape *bezier)
 {
   Rectangle *bb;
   BezPoint *points;
+  Point pt1,pt0;
+  BezierShapeBBExtras *extra;
   int i;
   
   assert(bezier != NULL);
 
+  extra = &bezier->extra_spacing;
   bb = &bezier->object.bounding_box;
   points = &bezier->points[0];
 
   bb->right = bb->left = points[0].p1.x;
   bb->top = bb->bottom = points[0].p1.y;
-  for (i = 1; i < bezier->numpoints; i++) {
-    if (points[i].p1.x < bb->left)
-      bb->left = points[i].p1.x;
-    if (points[i].p1.x > bb->right)
-      bb->right = points[i].p1.x;
-    if (points[i].p1.y < bb->top)
-      bb->top = points[i].p1.y;
-    if (points[i].p1.y > bb->bottom)
-      bb->bottom = points[i].p1.y;
-    if (points[i].type == BEZ_CURVE_TO) {
-      if (points[i].p2.x < bb->left)
-        bb->left = points[i].p2.x;
-      if (points[i].p2.x > bb->right)
-        bb->right = points[i].p2.x;
-      if (points[i].p2.y < bb->top)
-        bb->top = points[i].p2.y;
-      if (points[i].p2.y > bb->bottom)
-        bb->bottom = points[i].p2.y;
-      if (points[i].p3.x < bb->left)
-        bb->left = points[i].p3.x;
-      if (points[i].p3.x > bb->right)
-        bb->right = points[i].p3.x;
-      if (points[i].p3.y < bb->top)
-        bb->top = points[i].p3.y;
-      if (points[i].p3.y > bb->bottom)
-        bb->bottom = points[i].p3.y;
+
+
+  for (i=0;i<=(bezier->numpoints);i++) {
+    int imod = i % bezier->numpoints;
+    int ipomod = (i+1) % bezier->numpoints;
+    if (points[imod].type == BEZ_CURVE_TO) {
+      pt1 = points[imod].p3; 
+    } else {
+      pt1 = points[imod].p1;
     }
+    if (points[ipomod].type == BEZ_CURVE_TO) {
+      point_sub(&pt1,&(points[ipomod].p3));
+    } else {
+      point_sub(&pt1,&(points[ipomod].p1));
+    }
+    point_normalize(&pt1);
+
+    if (i!=0) {
+      real co;
+
+      if (points[i].type == BEZ_CURVE_TO) {
+        /* FIXME : dig up the math, do something closer to the curve (CC) */        
+        check_bb_x(bb,points[i].p1.x + extra->border_trans * 1.41,1);
+        check_bb_x(bb,points[i].p1.x - extra->border_trans * 1.41,1);
+        check_bb_x(bb,points[i].p2.x + extra->border_trans * 1.41,1);
+        check_bb_x(bb,points[i].p2.x - extra->border_trans * 1.41,1);
+        check_bb_x(bb,points[i].p3.x + extra->border_trans * 1.41,1);
+        check_bb_x(bb,points[i].p3.x - extra->border_trans * 1.41,1);
+
+        check_bb_y(bb,points[i].p1.y + extra->border_trans * 1.41,1);
+        check_bb_y(bb,points[i].p1.y - extra->border_trans * 1.41,1);
+        check_bb_y(bb,points[i].p2.y + extra->border_trans * 1.41,1);
+        check_bb_y(bb,points[i].p2.y - extra->border_trans * 1.41,1);
+        check_bb_y(bb,points[i].p3.y + extra->border_trans * 1.41,1);
+        check_bb_y(bb,points[i].p3.y - extra->border_trans * 1.41,1);
+      } else {
+        check_bb_x(bb, points[imod].p1.x + (extra->border_trans * pt1.y),pt1.y);
+        check_bb_x(bb, points[imod].p1.x - (extra->border_trans * pt1.y),pt1.y);
+        check_bb_y(bb, points[imod].p1.y + (extra->border_trans * pt1.x),pt1.x);
+        check_bb_y(bb, points[imod].p1.y - (extra->border_trans * pt1.x),pt1.x);
+      
+        co = point_dot(&pt1,&pt0);
+        if (co > -0.9816) { /* 0.9816 == cos(11deg) */
+          real alpha = fabs(acos(-co));
+          real overshoot = extra->border_trans / (sin(alpha/2.0));
+          Point pts;
+          
+          pts = pt1; point_sub(&pts,&pt0);
+          point_normalize(&pts);
+
+          check_bb_x(bb,points[imod].p1.x + (overshoot * pts.x),pts.x);
+          check_bb_y(bb,points[imod].p1.y + (overshoot * pts.y),pts.y);
+        } else { 
+          check_bb_x(bb, points[imod].p1.x + (extra->border_trans * pt0.y),pt0.y);
+          check_bb_x(bb, points[imod].p1.x - (extra->border_trans * pt0.y),pt0.y);
+          check_bb_y(bb, points[imod].p1.y + (extra->border_trans * pt0.x),pt0.x);
+          check_bb_y(bb, points[imod].p1.y - (extra->border_trans * pt0.x),pt0.x);
+        } 
+      }
+    }
+    pt0=pt1;
   }
 }
 
@@ -790,6 +827,7 @@ beziershape_copy(BezierShape *from, BezierShape *to)
     to->object.connections[i]->object = &to->object;
   }
 
+  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));  
   beziershape_update_data(to);
 }
 

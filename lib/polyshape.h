@@ -23,6 +23,11 @@
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
 typedef struct _PolyShape PolyShape;
+typedef struct _PolyShapeBBExtras PolyShapeBBExtras;
+
+struct _PolyShapeBBExtras {
+  real border_trans;
+};
 
 /* This is a subclass of Object used to help implementing objects
  * that form a polygon-like shape of line-segments.
@@ -33,6 +38,8 @@ struct _PolyShape {
 
   int numpoints; /* >= 3 */
   Point *points;
+
+  PolyShapeBBExtras extra_spacing;
 };
 
 void polyshape_update_data(PolyShape *poly);

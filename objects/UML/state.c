@@ -179,7 +179,8 @@ state_get_props(State * state, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)state, state_offsets, props, nprops))
+  if (object_get_props_from_offsets(&state->element.object, 
+                                    state_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -208,7 +209,7 @@ state_get_props(State * state, Property *props, guint nprops)
 static void
 state_set_props(State *state, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)state, state_offsets,
+  if (!object_set_props_from_offsets(&state->element.object, state_offsets,
 		     props, nprops)) {
     guint i;
 
@@ -245,7 +246,7 @@ state_select(State *state, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(state->text, clicked_point, interactive_renderer);
-  text_grab_focus(state->text, (Object *)state);
+  text_grab_focus(state->text, &state->element.object);
   element_update_handles(&state->element);
 }
 
@@ -330,7 +331,7 @@ state_update_data(State *state)
   real w, h;
 
   Element *elem = &state->element;
-  Object *obj = (Object *) state;
+  Object *obj = &elem->object;
   Point p;
   
   if (state->state_type==STATE_NORMAL) { 
@@ -387,7 +388,7 @@ state_create(Point *startpoint,
   
   state = g_malloc(sizeof(State));
   elem = &state->element;
-  obj = (Object *) state;
+  obj = &elem->object;
   
   obj->type = &state_type;
   obj->ops = &state_ops;
@@ -409,6 +410,7 @@ state_create(Point *startpoint,
     state->connections[i].object = obj;
     state->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   state_update_data(state);
 
   for (i=0;i<8;i++) {
@@ -417,7 +419,7 @@ state_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)state;
+  return &state->element.object;
 }
 
 static void
@@ -440,7 +442,7 @@ state_copy(State *state)
   
   newstate = g_malloc(sizeof(State));
   newelem = &newstate->element;
-  newobj = (Object *) newstate;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -458,7 +460,7 @@ state_copy(State *state)
 
   state_update_data(newstate);
   
-  return (Object *)newstate;
+  return &newstate->element.object;
 }
 
 static StateState *
@@ -507,7 +509,7 @@ state_load(ObjectNode obj_node, int version, const char *filename)
 
   state = g_malloc(sizeof(State));
   elem = &state->element;
-  obj = (Object *) state;
+  obj = &elem->object;
   
   obj->type = &state_type;
   obj->ops = &state_ops;
@@ -528,13 +530,14 @@ state_load(ObjectNode obj_node, int version, const char *filename)
     state->connections[i].object = obj;
     state->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   state_update_data(state);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)state;
+  return &state->element.object;
 }
 
 
@@ -556,7 +559,7 @@ state_apply_properties(State *state)
       state->state_type = STATE_END;
 
   state_update_data(state);
-  return new_object_state_change((Object *)state, old_state, 
+  return new_object_state_change(&state->element.object, old_state, 
 				 (GetStateFunc)state_get_state,
 				 (SetStateFunc)state_set_state);
 }

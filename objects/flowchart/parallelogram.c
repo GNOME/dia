@@ -206,8 +206,8 @@ pgram_get_props(Pgram *pgram, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)pgram, pgram_offsets,
-                                    props, nprops))
+  if (object_get_props_from_offsets(&pgram->element.object, 
+                                    pgram_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -236,8 +236,8 @@ pgram_get_props(Pgram *pgram, Property *props, guint nprops)
 static void
 pgram_set_props(Pgram *pgram, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)pgram, pgram_offsets,
-                                     props, nprops)) {
+  if (!object_set_props_from_offsets(&pgram->element.object, 
+                                     pgram_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -438,7 +438,7 @@ pgram_select(Pgram *pgram, Point *clicked_point,
 	   Renderer *interactive_renderer)
 {
   text_set_cursor(pgram->text, clicked_point, interactive_renderer);
-  text_grab_focus(pgram->text, (Object *)pgram);
+  text_grab_focus(pgram->text, &pgram->element.object);
 
   element_update_handles(&pgram->element);
 }
@@ -538,7 +538,8 @@ static void
 pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &pgram->element;
-  Object *obj = (Object *) pgram;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real offs;
@@ -653,12 +654,8 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
     pgram->connections[14].pos.x -= offs;
   }
 
+  extra->border_trans = pgram->border_width/2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= pgram->border_width/2;
-  obj->bounding_box.left -= pgram->border_width/2;
-  obj->bounding_box.bottom += pgram->border_width/2;
-  obj->bounding_box.right += pgram->border_width/2;
   
   obj->position = elem->corner;
   
@@ -683,7 +680,7 @@ pgram_create(Point *startpoint,
 
   pgram = g_malloc(sizeof(Pgram));
   elem = &pgram->element;
-  obj = (Object *) pgram;
+  obj = &elem->object;
   
   obj->type = &pgram_type;
 
@@ -722,7 +719,7 @@ pgram_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)pgram;
+  return &pgram->element.object;
 }
 
 static void
@@ -745,7 +742,7 @@ pgram_copy(Pgram *pgram)
   
   newpgram = g_malloc(sizeof(Pgram));
   newelem = &newpgram->element;
-  newobj = (Object *) newpgram;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -769,7 +766,7 @@ pgram_copy(Pgram *pgram)
     newpgram->connections[i].last_pos = pgram->connections[i].last_pos;
   }
 
-  return (Object *)newpgram;
+  return &newpgram->element.object;
 }
 
 static void
@@ -819,7 +816,7 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
 
   pgram = g_malloc(sizeof(Pgram));
   elem = &pgram->element;
-  obj = (Object *) pgram;
+  obj = &elem->object;
   
   obj->type = &pgram_type;
   obj->ops = &pgram_ops;
@@ -882,5 +879,5 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
 
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)pgram;
+  return &pgram->element.object;
 }

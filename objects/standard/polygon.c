@@ -171,15 +171,15 @@ static PropOffset polygon_offsets[] = {
 static void
 polygon_get_props(Polygon *polygon, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)polygon, polygon_offsets,
-				props, nprops);
+  object_get_props_from_offsets(&polygon->poly.object, 
+                                polygon_offsets, props, nprops);
 }
 
 static void
 polygon_set_props(Polygon *polygon, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)polygon, polygon_offsets,
-				props, nprops);
+  object_set_props_from_offsets(&polygon->poly.object, 
+                                polygon_offsets, props, nprops);
   polygon_update_data(polygon);
 }
 
@@ -316,7 +316,7 @@ polygon_create(Point *startpoint,
   /*polygon_init_defaults();*/
   polygon = g_new(Polygon, 1);
   poly = &polygon->poly;
-  obj = (Object *) polygon;
+  obj = &poly->object;
 
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
@@ -340,7 +340,7 @@ polygon_create(Point *startpoint,
 
   *handle1 = poly->object.handles[0];
   *handle2 = poly->object.handles[2];
-  return (Object *)polygon;
+  return &polygon->poly.object;
 }
 
 static void
@@ -360,7 +360,7 @@ polygon_copy(Polygon *polygon)
  
   newpolygon = g_malloc(sizeof(Polygon));
   newpoly = &newpolygon->poly;
-  newobj = (Object *) newpolygon;
+  newobj = &newpoly->object;
 
   polyshape_copy(poly, newpoly);
 
@@ -371,7 +371,7 @@ polygon_copy(Polygon *polygon)
   newpolygon->inner_color = polygon->inner_color;
   newpolygon->show_background = polygon->show_background;
 
-  return (Object *)newpolygon;
+  return &newpolygon->poly.object;
 }
 
 
@@ -379,16 +379,13 @@ static void
 polygon_update_data(Polygon *polygon)
 {
   PolyShape *poly = &polygon->poly;
-  Object *obj = (Object *) polygon;
+  Object *obj = &poly->object;
+  PolyShapeBBExtras *extra = &poly->extra_spacing;
 
   polyshape_update_data(poly);
   
+  extra->border_trans = polygon->line_width / 2.0;
   polyshape_update_boundingbox(poly);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= polygon->line_width/2;
-  obj->bounding_box.left -= polygon->line_width/2;
-  obj->bounding_box.bottom += polygon->line_width/2;
-  obj->bounding_box.right += polygon->line_width/2;
 
   obj->position = poly->points[0];
 }
@@ -436,7 +433,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   polygon = g_malloc(sizeof(Polygon));
 
   poly = &polygon->poly;
-  obj = (Object *) polygon;
+  obj = &poly->object;
   
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
@@ -475,7 +472,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
 
   polygon_update_data(polygon);
 
-  return (Object *)polygon;
+  return &polygon->poly.object;
 }
 
 static ObjectChange *

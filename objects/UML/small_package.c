@@ -146,7 +146,8 @@ smallpackage_get_props(SmallPackage * smallpackage, Property *props, guint nprop
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)smallpackage, smallpackage_offsets, props, nprops))
+  if (object_get_props_from_offsets(&smallpackage->element.object, 
+                                    smallpackage_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -175,8 +176,8 @@ smallpackage_get_props(SmallPackage * smallpackage, Property *props, guint nprop
 static void
 smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)smallpackage, smallpackage_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&smallpackage->element.object, 
+                                     smallpackage_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -212,7 +213,7 @@ smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(pkg->text, clicked_point, interactive_renderer);
-  text_grab_focus(pkg->text, (Object *)pkg);
+  text_grab_focus(pkg->text, &pkg->element.object);
   element_update_handles(&pkg->element);
 }
 
@@ -293,7 +294,7 @@ static void
 smallpackage_update_data(SmallPackage *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = (Object *) pkg;
+  Object *obj = &elem->object;
   
   elem->width = pkg->text->max_width + 2*SMALLPACKAGE_MARGIN_X;
   elem->width = MAX(elem->width, SMALLPACKAGE_TOPWIDTH+1.0);
@@ -318,11 +319,8 @@ smallpackage_update_data(SmallPackage *pkg)
   pkg->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingsmallpackage for line width and top rectangle: */
-  obj->bounding_box.top -= SMALLPACKAGE_BORDERWIDTH/2.0 + SMALLPACKAGE_TOPHEIGHT;
-  obj->bounding_box.left -= SMALLPACKAGE_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += SMALLPACKAGE_BORDERWIDTH/2.0;
-  obj->bounding_box.right += SMALLPACKAGE_BORDERWIDTH/2.0;
+  /* fix boundingbox for top rectangle: */
+  obj->bounding_box.top -= SMALLPACKAGE_TOPHEIGHT;
 
   obj->position = elem->corner;
 
@@ -344,7 +342,7 @@ smallpackage_create(Point *startpoint,
   
   pkg = g_malloc(sizeof(SmallPackage));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &smallpackage_type;
 
@@ -366,6 +364,7 @@ smallpackage_create(Point *startpoint,
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
   smallpackage_update_data(pkg);
 
   for (i=0;i<8;i++) {
@@ -374,7 +373,7 @@ smallpackage_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)pkg;
+  return &pkg->element.object;
 }
 
 static void
@@ -397,7 +396,7 @@ smallpackage_copy(SmallPackage *pkg)
   
   newpkg = g_malloc(sizeof(SmallPackage));
   newelem = &newpkg->element;
-  newobj = (Object *) newpkg;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -413,7 +412,7 @@ smallpackage_copy(SmallPackage *pkg)
 
   smallpackage_update_data(newpkg);
   
-  return (Object *)newpkg;
+  return &newpkg->element.object;
 }
 
 
@@ -438,7 +437,7 @@ smallpackage_load(ObjectNode obj_node, int version, const char *filename)
   
   pkg = g_malloc(sizeof(SmallPackage));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &smallpackage_type;
   obj->ops = &smallpackage_ops;
@@ -457,13 +456,14 @@ smallpackage_load(ObjectNode obj_node, int version, const char *filename)
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
   smallpackage_update_data(pkg);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *) pkg;
+  return &pkg->element.object;
 }
 
 

@@ -45,7 +45,8 @@
 #define CONDITION_FONT "Helvetica-Bold"
 #define CONDITION_FONT_HEIGHT 0.8
 #define CONDITION_LENGTH (1.5)
-#define CONDITION_ARROW_SIZE .5
+#define CONDITION_ARROW_SIZE 0.0 /* XXX The norm says there's no arrow head.
+                                    a lot of people do put it, though. */
 
 typedef struct _ConditionPropertiesDialog ConditionPropertiesDialog;
 typedef struct _ConditionDefaultsDialog ConditionDefaultsDialog;
@@ -129,8 +130,8 @@ static void condition_save(Condition *condition, ObjectNode obj_node,
 static Object *condition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-static GtkWidget *condition_get_defaults();
-static void condition_apply_defaults();
+static GtkWidget *condition_get_defaults(void);
+static void condition_apply_defaults(void);
 
 static ObjectTypeOps condition_type_ops =
 {
@@ -184,7 +185,7 @@ condition_apply_properties(Condition *condition)
   condition->cond->color = condition->cond_color;
   
   condition_update_data(condition);
-  return new_object_state_change((Object *)condition, old_state, 
+  return new_object_state_change(&condition->connection.object, old_state, 
 				 (GetStateFunc)condition_get_state,
 				 (SetStateFunc)condition_set_state);
 }
@@ -208,7 +209,7 @@ condition_get_properties(Condition *condition)
 }
 
 static void 
-condition_apply_defaults()
+condition_apply_defaults(void)
 {
   ConditionDefaultsDialog *dlg = condition_defaults_dialog;  
 
@@ -220,7 +221,7 @@ condition_apply_defaults()
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialised = 0;
   
   if (!defaults_initialised) {
@@ -233,7 +234,7 @@ init_default_values() {
 }
 
 static PROPDLG_TYPE
-condition_get_defaults()
+condition_get_defaults(void)
 {
   ConditionDefaultsDialog *dlg = condition_defaults_dialog;
   init_default_values();
@@ -338,7 +339,7 @@ static void
 condition_update_data(Condition *condition)
 {
   Connection *conn = &condition->connection;
-  Object *obj = (Object *) condition;
+  Object *obj = &conn->object;
 
   obj->position = conn->endpoints[0];
   connection_update_boundingbox(conn);
@@ -352,12 +353,6 @@ condition_update_data(Condition *condition)
   boolequation_calc_boundingbox(condition->cond, &condition->labelbb);
   rectangle_union(&obj->bounding_box,&condition->labelbb);
 
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= (CONDITION_ARROW_SIZE + CONDITION_LINE_WIDTH)/2;
-  obj->bounding_box.left -= (CONDITION_ARROW_SIZE + CONDITION_LINE_WIDTH)/2;
-  obj->bounding_box.bottom += (CONDITION_ARROW_SIZE + CONDITION_LINE_WIDTH)/2;
-  obj->bounding_box.right += (CONDITION_ARROW_SIZE + CONDITION_LINE_WIDTH)/2;
-  
   connection_update_handles(conn);
 }
 
@@ -374,12 +369,14 @@ condition_draw(Condition *condition, Renderer *renderer)
   renderer->ops->draw_line(renderer,
 			   &conn->endpoints[0],&conn->endpoints[1],
 			   &color_black);
-  arrow_draw(renderer, ARROW_FILLED_TRIANGLE,
-	     &conn->endpoints[1],&conn->endpoints[0],
-	     CONDITION_ARROW_SIZE,CONDITION_ARROW_SIZE/2,
-	     CONDITION_LINE_WIDTH,
-	     &color_black,&color_white);
-  
+  if (CONDITION_ARROW_SIZE > (CONDITION_LINE_WIDTH/2.0)) {
+    arrow_draw(renderer, ARROW_FILLED_TRIANGLE,
+               &conn->endpoints[1],&conn->endpoints[0],
+               CONDITION_ARROW_SIZE,CONDITION_ARROW_SIZE/2,
+               CONDITION_LINE_WIDTH,
+               &color_black,&color_white);
+  }
+
   boolequation_draw(condition->cond,renderer);
 }
 
@@ -391,14 +388,16 @@ condition_create(Point *startpoint,
 {
   Condition *condition;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
 
   init_default_values();
   condition = g_malloc0(sizeof(Condition));
   conn = &condition->connection;
-  obj = (Object *) condition;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &condition_type;
   obj->ops = &condition_ops;
   
@@ -416,13 +415,18 @@ condition_create(Point *startpoint,
   condition->cond_fontheight = defaults.font_size;
   condition->cond_color = defaults.font_color;
 
+  extra->start_trans = 
+    extra->start_long = 
+    extra->end_long = CONDITION_LINE_WIDTH/2.0;
+  extra->end_trans = MAX(CONDITION_LINE_WIDTH,CONDITION_ARROW_SIZE) / 2.0;
+
   condition_update_data(condition);
 
   conn->endpoint_handles[0].connect_type = HANDLE_NONCONNECTABLE;
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
 
-  return (Object *)condition;
+  return &condition->connection.object;
 }
 
 static void
@@ -444,7 +448,7 @@ condition_copy(Condition *condition)
  
   newcondition = g_malloc0(sizeof(Condition));
   newconn = &newcondition->connection;
-  newobj = (Object *) newcondition;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
   
@@ -457,7 +461,7 @@ condition_copy(Condition *condition)
   newcondition->cond_fontheight = condition->cond_fontheight;
   newcondition->cond_color = condition->cond_color;
 
-  return (Object *)newcondition;
+  return &newcondition->connection.object;
 }
 
 static ConditionState *
@@ -507,14 +511,16 @@ condition_load(ObjectNode obj_node, int version, const char *filename)
 {
   Condition *condition;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
 
   init_default_values();
   condition = g_malloc0(sizeof(Condition));
 
   conn = &condition->connection;
-  obj = (Object *) condition;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &condition_type;
   obj->ops = &condition_ops;
 
@@ -534,9 +540,14 @@ condition_load(ObjectNode obj_node, int version, const char *filename)
 
   condition->cond_value = g_strdup(condition->cond->value);
 
+  extra->start_trans = 
+    extra->start_long = 
+    extra->end_long = CONDITION_LINE_WIDTH/2.0;
+  extra->end_trans = MAX(CONDITION_LINE_WIDTH,CONDITION_ARROW_SIZE) / 2.0;
+
   condition_update_data(condition);
 
-  return (Object *)condition;
+  return &condition->connection.object;
 }
 
 

@@ -146,14 +146,15 @@ umlclass_get_props(UMLClass * umlclass, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)umlclass, umlclass_offsets, props, nprops))
+  if (object_get_props_from_offsets(&umlclass->element.object, 
+                                    umlclass_offsets, props, nprops))
     return;
 }
 
 static void
 umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)umlclass, umlclass_offsets,
+  if (!object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
 		     props, nprops)) {
   }
   umlclass_update_data(umlclass);
@@ -402,7 +403,7 @@ void
 umlclass_update_data(UMLClass *umlclass)
 {
   Element *elem = &umlclass->element;
-  Object *obj = (Object *)umlclass;
+  Object *obj = &elem->object;
   real x,y;
   GList *list;
 
@@ -460,12 +461,6 @@ umlclass_update_data(UMLClass *umlclass)
   }
   
   element_update_boundingbox(elem);
-  /* fix boundingumlclass for line_width: */
-  obj->bounding_box.top -= UMLCLASS_BORDER/2.0;
-  obj->bounding_box.left -= UMLCLASS_BORDER/2.0;
-  obj->bounding_box.bottom += UMLCLASS_BORDER/2.0;
-  obj->bounding_box.right += UMLCLASS_BORDER/2.0;
-
 
   if (umlclass->template) {
     /* fix boundingumlclass for templates: */
@@ -671,7 +666,7 @@ umlclass_create(Point *startpoint,
 
   umlclass = g_malloc(sizeof(UMLClass));
   elem = &umlclass->element;
-  obj = (Object *) umlclass;
+  obj = &elem->object;
   
   obj->type = &umlclass_type;
 
@@ -717,6 +712,7 @@ umlclass_create(Point *startpoint,
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
+  umlclass->element.extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
   for (i=0;i<8;i++) {
@@ -725,7 +721,7 @@ umlclass_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)umlclass;
+  return &umlclass->element.object;
 }
 
 static void
@@ -821,7 +817,7 @@ umlclass_copy(UMLClass *umlclass)
   
   newumlclass = g_malloc(sizeof(UMLClass));
   newelem = &newumlclass->element;
-  newobj = (Object *) newumlclass;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -942,7 +938,7 @@ umlclass_copy(UMLClass *umlclass)
 
   umlclass_update_data(newumlclass);
   
-  return (Object *)newumlclass;
+  return &newumlclass->element.object;
 }
 
 
@@ -1026,7 +1022,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   
   umlclass = g_malloc(sizeof(UMLClass));
   elem = &umlclass->element;
-  obj = (Object *) umlclass;
+  obj = &elem->object;
   
   obj->type = &umlclass_type;
   obj->ops = &umlclass_ops;
@@ -1186,7 +1182,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
       list = g_list_next(list);
     }
   }
-
+  umlclass->element.extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
   
@@ -1194,7 +1190,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)umlclass;
+  return &umlclass->element.object;
 }
 
 

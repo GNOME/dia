@@ -302,6 +302,7 @@ message_create(Point *startpoint,
 {
   Message *message;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
 
   if (message_font == NULL)
@@ -314,8 +315,9 @@ message_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   conn->endpoints[1].x += 1.5;
  
-  obj = (Object *) message;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &message_type;
   obj->ops = &message_ops;
   
@@ -332,11 +334,16 @@ message_create(Point *startpoint,
   message->text_handle.connected_to = NULL;
   obj->handles[2] = &message->text_handle;
   
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = MESSAGE_WIDTH/2.0;
+  extra->end_trans = MAX(MESSAGE_WIDTH,MESSAGE_ARROWLEN)/2.0;
+  
   message_update_data(message);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)message;
+  return &message->connection.object;
 }
 
 
@@ -359,7 +366,7 @@ message_copy(Message *message)
   
   newmessage = g_malloc(sizeof(Message));
   newconn = &newmessage->connection;
-  newobj = (Object *) newmessage;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -372,7 +379,7 @@ message_copy(Message *message)
 
   newmessage->type = message->type;
 
-  return (Object *)newmessage;
+  return &newmessage->connection.object;
 }
 
 static void
@@ -412,7 +419,7 @@ static void
 message_update_data(Message *message)
 {
   Connection *conn = &message->connection;
-  Object *obj = (Object *) message;
+  Object *obj = &conn->object;
   Rectangle rect;
   
   obj->position = conn->endpoints[0];
@@ -420,8 +427,6 @@ message_update_data(Message *message)
   message->text_handle.pos = message->text_pos;
 
   connection_update_handles(conn);
-
-  /* Boundingbox: */
   connection_update_boundingbox(conn);
 
   /* Add boundingbox for text: */
@@ -430,12 +435,6 @@ message_update_data(Message *message)
   rect.top = message->text_pos.y - font_ascent(message_font, MESSAGE_FONTHEIGHT);
   rect.bottom = rect.top + MESSAGE_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
-
-  /* fix boundingbox for message_width and arrow: */
-  obj->bounding_box.top -= MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
-  obj->bounding_box.left -= MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
-  obj->bounding_box.bottom += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
-  obj->bounding_box.right += MESSAGE_WIDTH/2 + MESSAGE_ARROWLEN;
 }
 
 
@@ -458,6 +457,7 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   Message *message;
   AttributeNode attr;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
 
   if (message_font == NULL)
@@ -466,7 +466,8 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   message = g_malloc(sizeof(Message));
 
   conn = &message->connection;
-  obj = (Object *) message;
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
 
   obj->type = &message_type;
   obj->ops = &message_ops;
@@ -500,9 +501,14 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   message->text_handle.connected_to = NULL;
   obj->handles[2] = &message->text_handle;
   
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = MESSAGE_WIDTH/2.0;
+  extra->end_trans = MAX(MESSAGE_WIDTH,MESSAGE_ARROWLEN)/2.0;
+  
   message_update_data(message);
   
-  return (Object *)message;
+  return &message->connection.object;
 }
 
 
@@ -542,7 +548,7 @@ message_apply_properties(Message *message)
   
   message_update_data(message);
 
-  return new_object_state_change((Object *)message, old_state, 
+  return new_object_state_change(&message->connection.object, old_state, 
 				 (GetStateFunc)message_get_state,
 				 (SetStateFunc)message_set_state);
 }

@@ -23,6 +23,11 @@
 #include "connectionpoint.h"
 
 typedef struct _Element Element;
+typedef struct _ElementBBExtras ElementBBExtras;
+
+struct _ElementBBExtras {
+  real border_trans;
+};
 
 /* This is a subclass of Object used to help implementing objects
  * of a type with 8 handles around ..... more info here. */
@@ -35,6 +40,8 @@ struct _Element {
   Point corner;
   real width;
   real height;
+
+  ElementBBExtras extra_spacing;
 };
 
 void element_update_handles(Element *elem);

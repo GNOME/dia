@@ -138,8 +138,8 @@ static void transition_save(Transition *transition, ObjectNode obj_node,
 static Object *transition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-static GtkWidget *transition_get_defaults();
-static void transition_apply_defaults();
+static GtkWidget *transition_get_defaults(void);
+static void transition_apply_defaults(void);
 
 static ObjectTypeOps transition_type_ops =
 {
@@ -193,8 +193,10 @@ transition_apply_properties(Transition *transition)
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
 
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
-  return new_object_state_change((Object *)transition, old_state, 
+  return new_object_state_change(&transition->element.object, 
+                                 old_state, 
 				 (GetStateFunc)transition_get_state,
 				 (SetStateFunc)transition_set_state);
 }
@@ -217,7 +219,7 @@ transition_get_properties(Transition *transition)
 }
 
 static void 
-transition_apply_defaults()
+transition_apply_defaults(void)
 {
   TransitionDefaultsDialog *dlg = transition_defaults_dialog;  
 
@@ -227,7 +229,7 @@ transition_apply_defaults()
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
   
   if (!defaults_initialized) {
@@ -240,7 +242,7 @@ init_default_values() {
 }
 
 static PROPDLG_TYPE
-transition_get_defaults()
+transition_get_defaults(void)
 {
   TransitionDefaultsDialog *dlg = transition_defaults_dialog;
   init_default_values();
@@ -296,6 +298,7 @@ transition_set_state(Transition *transition, TransitionState *state)
 
   g_free(state);
   
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
 }
 
@@ -303,7 +306,7 @@ static void
 transition_update_data(Transition *transition)
 {
   Element *elem = &transition->element;
-  Object *obj = (Object *) transition;
+  Object *obj = &elem->object;
   Point *p;
 
   obj->position = elem->corner;
@@ -347,29 +350,19 @@ transition_update_data(Transition *transition)
   transition->SD1.y = transition->SD2.y = 
     (transition->south.pos.y + transition->B.y) / 2.0;
 
-#if 0
-  /* Not really a good idea */
-  obj->connections[0]->pos = transition->north.pos;
-  obj->connections[1]->pos = transition->south.pos;
-#else
   obj->connections[0]->pos = transition->A;
   obj->connections[1]->pos = transition->B;
-#endif
+
 
   element_update_boundingbox(elem);
 
   rectangle_add_point(&obj->bounding_box,&transition->north.pos);
   rectangle_add_point(&obj->bounding_box,&transition->south.pos);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= TRANSITION_LINE_WIDTH/2;
-  obj->bounding_box.left -= TRANSITION_LINE_WIDTH/2 ;
-  obj->bounding_box.bottom += TRANSITION_LINE_WIDTH/2;
-  obj->bounding_box.right += TRANSITION_LINE_WIDTH/2;
 
   /* compute the rcept's width and bounding box, then merge. */
   boolequation_calc_boundingbox(transition->receptivity,&transition->rceptbb);
-
   rectangle_union(&obj->bounding_box,&transition->rceptbb);
+
   element_update_handles(elem);
 }
 
@@ -483,7 +476,7 @@ transition_create(Point *startpoint,
   init_default_values();
   transition = g_malloc0(sizeof(Transition));
   elem = &transition->element;
-  obj = (Object *) transition;
+  obj = &elem->object;
   
   obj->type = &transition_type;
   obj->ops = &transition_ops;
@@ -524,12 +517,13 @@ transition_create(Point *startpoint,
     obj->connections[i]->connected = NULL;
   }
 
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
 
-  return (Object *)transition;
+  return &transition->element.object;
 }
 
 static void
@@ -552,7 +546,7 @@ transition_copy(Transition *transition)
  
   newtransition = g_malloc0(sizeof(Transition));
   newelem = &newtransition->element;
-  newobj = (Object *) newtransition;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -585,9 +579,10 @@ transition_copy(Transition *transition)
     newobj->connections[i]->connected = NULL;
   }
 
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(newtransition);
 
-  return (Object *)newtransition;
+  return &newtransition->element.object;
 }
 
 
@@ -620,7 +615,7 @@ transition_load(ObjectNode obj_node, int version, const char *filename)
   transition = g_malloc0(sizeof(Transition));
 
   elem = &transition->element;
-  obj = (Object *) transition;
+  obj = &elem->object;
   
   obj->type = &transition_type;
   obj->ops = &transition_ops;
@@ -664,9 +659,10 @@ transition_load(ObjectNode obj_node, int version, const char *filename)
   obj->handles[8] = &transition->north;
   obj->handles[9] = &transition->south;
 
+  transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
   transition_update_data(transition);
 
-  return (Object *)transition;
+  return &transition->element.object;
 }
 
 

@@ -21,6 +21,12 @@
 #include "object.h"
 
 typedef struct _Connection Connection;
+typedef struct _ConnectionBBExtras ConnectionBBExtras;
+
+struct _ConnectionBBExtras {
+  real start_long, start_trans;
+  real end_long, end_trans;
+};
 
 /* This is a subclass of Object used to help implementing objects
  * of a line-like type. */
@@ -30,6 +36,7 @@ struct _Connection {
   
   Point endpoints[2];
   Handle endpoint_handles[2];
+  ConnectionBBExtras extra_spacing;
 };
 
 void connection_update_handles(Connection *conn);

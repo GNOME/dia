@@ -129,8 +129,8 @@ static void sadtarrow_save(Sadtarrow *sadtarrow, ObjectNode obj_node,
 static Object *sadtarrow_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-static PROPDLG_TYPE sadtarrow_get_defaults();
-static void sadtarrow_apply_defaults();
+static PROPDLG_TYPE sadtarrow_get_defaults(void);
+static void sadtarrow_apply_defaults(void);
 
 static ObjectTypeOps sadtarrow_type_ops =
 {
@@ -178,7 +178,7 @@ sadtarrow_apply_properties(Sadtarrow *sadtarrow)
   PROPDLG_APPLY_BOOL(dlg,autogray);
 
   sadtarrow_update_data(sadtarrow);
-  return new_object_state_change((Object *)sadtarrow, old_state, 
+  return new_object_state_change(&sadtarrow->orth.object, old_state, 
 				 (GetStateFunc)sadtarrow_get_state,
 				 (SetStateFunc)sadtarrow_set_state);
 }
@@ -207,7 +207,7 @@ sadtarrow_get_properties(Sadtarrow *sadtarrow)
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -218,7 +218,7 @@ init_default_values() {
 }
 
 static void 
-sadtarrow_apply_defaults()
+sadtarrow_apply_defaults(void)
 {
   SadtarrowDefaultsDialog *dlg = sadtarrow_defaults_dialog;
 
@@ -528,8 +528,8 @@ sadtarrow_create(Point *startpoint,
   init_default_values();
   sadtarrow = g_malloc0(sizeof(Sadtarrow));
   orth = &sadtarrow->orth;
-  obj = (Object *) sadtarrow;
-  
+  obj = &orth->object;
+
   obj->type = &sadtarrow_type;
   obj->ops = &sadtarrow_ops;
   
@@ -542,7 +542,7 @@ sadtarrow_create(Point *startpoint,
 
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
-  return (Object *)sadtarrow;
+  return &sadtarrow->orth.object;
 }
 
 static void
@@ -562,14 +562,14 @@ sadtarrow_copy(Sadtarrow *sadtarrow)
  
   newsadtarrow = g_malloc0(sizeof(Sadtarrow));
   neworth = &newsadtarrow->orth;
-  newobj = (Object *) newsadtarrow;
+  newobj = &neworth->object;
 
   neworthconn_copy(orth, neworth);
 
   newsadtarrow->style = sadtarrow->style;
   newsadtarrow->autogray = sadtarrow->autogray;
 
-  return (Object *)newsadtarrow;
+  return &newsadtarrow->orth.object;
 }
 
 static SadtarrowState *
@@ -599,29 +599,39 @@ sadtarrow_set_state(Sadtarrow *sadtarrow, SadtarrowState *state)
 static void
 sadtarrow_update_data(Sadtarrow *sadtarrow)
 {
-  real arrow_width;
-
   NewOrthConn *orth = &sadtarrow->orth;
-  Object *obj = (Object *) sadtarrow;
-  
+  NewOrthConnBBExtras *extra = &orth->extra_spacing;
+
   neworthconn_update_data(&sadtarrow->orth);
-    
-  neworthconn_update_boundingbox(orth);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= ARROW_LINE_WIDTH/2;
-  obj->bounding_box.left -= ARROW_LINE_WIDTH/2;
-  obj->bounding_box.bottom += ARROW_LINE_WIDTH/2;
-  obj->bounding_box.right += ARROW_LINE_WIDTH/2;
 
-  /* Fix boundingbox for arrowheads (gcc should optimise most of this away) */
-
-  arrow_width = MAX(ARROW_HEAD_WIDTH,ARROW_HEAD_LENGTH);
-  if (arrow_width > 0.0) {
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
+  extra->start_long = 
+    extra->middle_trans = ARROW_LINE_WIDTH / 2.0;
+  
+  extra->end_long = MAX(ARROW_HEAD_LENGTH,ARROW_LINE_WIDTH/2.0);
+  
+  extra->start_trans = ARROW_LINE_WIDTH / 2.0;
+  extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,ARROW_HEAD_WIDTH/2.0);
+  
+  switch(sadtarrow->style) {
+  case SADT_ARROW_IMPORTED:
+    extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,ARROW_PARENS_WOFFSET);
+    break;
+  case SADT_ARROW_IMPLIED:
+    extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,
+                             MAX(ARROW_PARENS_WOFFSET,
+                                 ARROW_HEAD_WIDTH/2.0));
+    break;
+  case SADT_ARROW_DOTTED:
+    extra->start_long = extra->end_long;
+    extra->end_trans = 
+      extra->start_trans = MAX(MAX(MAX(ARROW_HEAD_WIDTH,ARROW_HEAD_LENGTH),
+                                   ARROW_LINE_WIDTH/2.0),
+                               ARROW_DOT_WOFFSET+ARROW_DOT_RADIUS);
+    break;
+  default: 
+    break;
   }
+  neworthconn_update_boundingbox(orth);
 }
 
 static ObjectChange *
@@ -688,8 +698,8 @@ sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
   sadtarrow = g_malloc0(sizeof(Sadtarrow));
 
   orth = &sadtarrow->orth;
-  obj = (Object *) sadtarrow;
-  
+  obj = &orth->object;
+
   obj->type = &sadtarrow_type;
   obj->ops = &sadtarrow_ops;
 
@@ -700,7 +710,7 @@ sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
 
   sadtarrow_update_data(sadtarrow);
 
-  return (Object *)sadtarrow;
+  return &sadtarrow->orth.object;
 }
 
 

@@ -128,8 +128,8 @@ static void action_save(Action *action, ObjectNode obj_node,
 static Object *action_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-static GtkWidget *action_get_defaults();
-static void action_apply_defaults();
+static GtkWidget *action_get_defaults(void);
+static void action_apply_defaults(void);
 
 static ObjectTypeOps action_type_ops =
 {
@@ -179,7 +179,7 @@ action_apply_properties(Action *action)
   PROPDLG_APPLY_BOOL(dlg,macro_call);
   
   action_update_data(action);
-  return new_object_state_change((Object *)action, old_state, 
+  return new_object_state_change(&action->connection.object, old_state, 
 				 (GetStateFunc)action_get_state,
 				 (SetStateFunc)action_set_state);
 }
@@ -202,7 +202,7 @@ action_get_properties(Action *action)
 }
 
 static void 
-action_apply_defaults()
+action_apply_defaults(void)
 {
   ActionDefaultsDialog *dlg = action_defaults_dialog;  
 
@@ -212,7 +212,7 @@ action_apply_defaults()
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
   
   if (!defaults_initialized) {
@@ -225,7 +225,7 @@ init_default_values() {
 }
 
 static PROPDLG_TYPE
-action_get_defaults()
+action_get_defaults(void)
 {
   ActionDefaultsDialog *dlg = action_defaults_dialog;
   init_default_values();
@@ -263,7 +263,7 @@ action_select(Action *action, Point *clicked_point,
 		  Renderer *interactive_renderer)
 {
   action_update_data(action);
-  text_grab_focus(action->text, (Object *)action);
+  text_grab_focus(action->text, &action->connection.object);
 }
 
 static void
@@ -314,15 +314,10 @@ action_update_data(Action *action)
   int i;
   real chunksize;
   Connection *conn = &action->connection;
-  Object *obj = (Object *) action;
+  Object *obj = &conn->object;
 
   obj->position = conn->endpoints[0];
   connection_update_boundingbox(conn);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= ACTION_LINE_WIDTH/2;
-  obj->bounding_box.left -= ACTION_LINE_WIDTH/2;
-  obj->bounding_box.bottom += ACTION_LINE_WIDTH/2;
-  obj->bounding_box.right += ACTION_LINE_WIDTH/2;
 
   /* compute the label's width and bounding box */
   action->space_width = action_text_spacewidth(action->text);
@@ -461,12 +456,13 @@ action_create(Point *startpoint,
   Action *action;
   Connection *conn;
   Object *obj;
+  ConnectionBBExtras *extra;
   Point defaultlen  = {1.0,0.0}, pos;
 
   init_default_values();
   action = g_malloc0(sizeof(Action));
   conn = &action->connection;
-  obj = (Object *) action;
+  obj = &conn->object;
   
   obj->type = &action_type;
   obj->ops = &action_ops;
@@ -484,6 +480,11 @@ action_create(Point *startpoint,
 			  &defaults.font_color, ALIGN_LEFT);
   action->macro_call = FALSE;
 
+  extra->start_long =
+    extra->start_trans = 
+    extra->end_trans =
+    extra->end_long = ACTION_LINE_WIDTH/2.0;
+
   action_update_data(action);
 
   conn->endpoint_handles[1].connect_type = HANDLE_NONCONNECTABLE;
@@ -491,7 +492,7 @@ action_create(Point *startpoint,
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
 
-  return (Object *)action;
+  return &action->connection.object;
 }
 
 static void
@@ -514,7 +515,7 @@ action_copy(Action *action)
  
   newaction = g_malloc0(sizeof(Action));
   newconn = &newaction->connection;
-  newobj = (Object *) newaction;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -525,7 +526,7 @@ action_copy(Action *action)
   newaction->text = text_copy(action->text);
   newaction->macro_call = action->macro_call;
 
-  return (Object *)newaction;
+  return &newaction->connection.object;
 }
 
 static ActionState *
@@ -568,13 +569,15 @@ action_load(ObjectNode obj_node, int version, const char *filename)
   Action *action;
   Connection *conn;
   Object *obj;
+  ConnectionBBExtras *extra;
 
   init_default_values();
   action = g_malloc0(sizeof(Action));
 
   conn = &action->connection;
-  obj = (Object *) action;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &action_type;
   obj->ops = &action_ops;
 
@@ -590,9 +593,14 @@ action_load(ObjectNode obj_node, int version, const char *filename)
   }
   action->macro_call = load_boolean(obj_node,"macro_call",FALSE);
 
+  extra->start_long =
+    extra->start_trans = 
+    extra->end_trans =
+    extra->end_long = ACTION_LINE_WIDTH/2.0;
+
   action_update_data(action);
 
-  return (Object *)action;
+  return &action->connection.object;
 }
 
 

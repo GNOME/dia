@@ -216,8 +216,8 @@ static void chronoline_set_state(Chronoline *chronoline, ChronolineState *state)
 
 static void chronoline_save(Chronoline *chronoline, ObjectNode obj_node, const char *filename);
 static Object *chronoline_load(ObjectNode obj_node, int version, const char *filename);
-static PROPDLG_TYPE chronoline_get_defaults();
-static void chronoline_apply_defaults();
+static PROPDLG_TYPE chronoline_get_defaults(void);
+static void chronoline_apply_defaults(void);
 
 /*static DiaMenu *chronoline_get_object_menu(Chronoline *chronoline, Point *clickedpoint); */
 
@@ -286,7 +286,8 @@ chronoline_apply_properties(Chronoline *chronoline)
      is sovereign. */
   chronoline_update_data(chronoline);
 
-  return new_object_state_change((Object *)chronoline, old_state, 
+  return new_object_state_change(&chronoline->element.object, 
+                                 old_state, 
 				 (GetStateFunc)chronoline_get_state,
 				 (SetStateFunc)chronoline_set_state);
 }
@@ -344,7 +345,7 @@ chronoline_get_properties(Chronoline *chronoline)
   PROPDLG_RETURN(dlg);
 }
 static void
-chronoline_apply_defaults()
+chronoline_apply_defaults(void)
 {
   ChronolineDefaultsDialog *dlg = chronoline_defaults_dialog;
 
@@ -367,7 +368,7 @@ chronoline_apply_defaults()
 }
 
 static void
-chronoline_init_defaults() {
+chronoline_init_defaults(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -394,7 +395,7 @@ chronoline_init_defaults() {
 }
 
 static GtkWidget *
-chronoline_get_defaults()
+chronoline_get_defaults(void)
 {
   ChronolineDefaultsDialog *dlg = chronoline_defaults_dialog;
 
@@ -437,7 +438,7 @@ chronoline_get_defaults()
 static real
 chronoline_distance_from(Chronoline *chronoline, Point *point)
 {
-  Object *obj = (Object *)chronoline;
+  Object *obj = &chronoline->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -746,7 +747,7 @@ static void
 chronoline_update_data(Chronoline *chronoline)
 {
   Element *elem = &chronoline->element;
-  Object *obj = (Object *) chronoline;
+  Object *obj = &elem->object;
   real time_span;
   Point ur_corner;
   int shouldbe,i;
@@ -754,6 +755,7 @@ chronoline_update_data(Chronoline *chronoline)
   CLEventList *lst;
   CLEvent *evt;  
   GSList *conn_elem;
+  ElementBBExtras *extra = &elem->extra_spacing;
 
   grayify(&chronoline->datagray,&chronoline->data_color);
   grayify(&chronoline->gray,&chronoline->color);
@@ -776,18 +778,16 @@ chronoline_update_data(Chronoline *chronoline)
     chronoline->end_time = chronoline->start_time + time_span;
   }
 
+  extra->border_trans = chronoline->main_lwidth / 2;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
+
+  /* fix boundingbox for special extras: */
   realheight = obj->bounding_box.bottom - obj->bounding_box.top;
   realheight = MAX(realheight,chronoline->font_size);
   
-  obj->bounding_box.top -= chronoline->main_lwidth/2;
-  obj->bounding_box.left -= (chronoline->main_lwidth + chronoline->labelwidth);
-
-
+  obj->bounding_box.left -= chronoline->labelwidth;
   obj->bounding_box.bottom = obj->bounding_box.top + realheight + 
     chronoline->main_lwidth;
-  obj->bounding_box.right += (chronoline->main_lwidth)/2;
   
   obj->position = elem->corner;
   
@@ -863,7 +863,7 @@ static void chronoline_alloc(Chronoline **chronoline,
   *chronoline = g_new0(Chronoline,1);
   *elem = &((*chronoline)->element);
 
-  *obj = (Object *) *chronoline;
+  *obj = &((*chronoline)->element.object);
   (*obj)->type = &chronoline_type;
   (*obj)->ops = &chronoline_ops;
 }
@@ -913,7 +913,7 @@ chronoline_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)chronoline;
+  return &chronoline->element.object;
 }
 
 static void
@@ -932,7 +932,8 @@ chronoline_copy(Chronoline *chronoline)
   Object *newobj, *obj;
   int rcc = 0;
 
-  elem = &chronoline->element; obj = (Object *)chronoline;
+  elem = &chronoline->element; 
+  obj = &elem->object;
   chronoline_alloc(&newchronoline,&newelem,&newobj);
   element_copy(elem, newelem);
 
@@ -964,7 +965,7 @@ chronoline_copy(Chronoline *chronoline)
 
   chronoline_update_data(newchronoline);
 
-  return (Object *)newchronoline;
+  return &newchronoline->element.object;
 }
 
 
@@ -1029,5 +1030,5 @@ chronoline_load(ObjectNode obj_node, int version, const char *filename)
 
   chronoline_update_data(chronoline);
 
-  return (Object *)chronoline;
+  return &chronoline->element.object;
 }

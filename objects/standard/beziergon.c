@@ -167,14 +167,14 @@ static PropOffset beziergon_offsets[] = {
 static void
 beziergon_get_props(Beziergon *beziergon, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)beziergon, beziergon_offsets,
+  object_get_props_from_offsets(&beziergon->bezier.object, beziergon_offsets,
 				props, nprops);
 }
 
 static void
 beziergon_set_props(Beziergon *beziergon, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)beziergon, beziergon_offsets,
+  object_set_props_from_offsets(&beziergon->bezier.object, beziergon_offsets,
 				props, nprops);
   beziergon_update_data(beziergon);
 }
@@ -325,7 +325,7 @@ beziergon_create(Point *startpoint,
   /*beziergon_init_defaults();*/
   beziergon = g_new(Beziergon, 1);
   bezier = &beziergon->bezier;
-  obj = (Object *) beziergon;
+  obj = &bezier->object;
 
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
@@ -359,7 +359,7 @@ beziergon_create(Point *startpoint,
 
   *handle1 = bezier->object.handles[5];
   *handle2 = bezier->object.handles[2];
-  return (Object *)beziergon;
+  return &beziergon->bezier.object;
 }
 
 static void
@@ -379,7 +379,7 @@ beziergon_copy(Beziergon *beziergon)
  
   newbeziergon = g_malloc(sizeof(Beziergon));
   newbezier = &newbeziergon->bezier;
-  newobj = (Object *) newbeziergon;
+  newobj = &newbezier->object;
 
   beziershape_copy(bezier, newbezier);
 
@@ -390,24 +390,20 @@ beziergon_copy(Beziergon *beziergon)
   newbeziergon->inner_color = beziergon->inner_color;
   newbeziergon->show_background = beziergon->show_background;
 
-  return (Object *)newbeziergon;
+  return &newbeziergon->bezier.object;
 }
-
 
 static void
 beziergon_update_data(Beziergon *beziergon)
 {
   BezierShape *bezier = &beziergon->bezier;
-  Object *obj = (Object *) beziergon;
-
+  Object *obj = &bezier->object;
+  BezierShapeBBExtras *extra = &bezier->extra_spacing;
+  
   beziershape_update_data(bezier);
   
+  extra->border_trans = beziergon->line_width / 2.0;
   beziershape_update_boundingbox(bezier);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= beziergon->line_width/2;
-  obj->bounding_box.left -= beziergon->line_width/2;
-  obj->bounding_box.bottom += beziergon->line_width/2;
-  obj->bounding_box.right += beziergon->line_width/2;
 
   obj->position = bezier->points[0].p1;
 }
@@ -455,7 +451,7 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   beziergon = g_malloc(sizeof(Beziergon));
 
   bezier = &beziergon->bezier;
-  obj = (Object *) beziergon;
+  obj = &bezier->object;
   
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
@@ -494,7 +490,7 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
 
   beziergon_update_data(beziergon);
 
-  return (Object *)beziergon;
+  return &beziergon->bezier.object;
 }
 
 static ObjectChange *

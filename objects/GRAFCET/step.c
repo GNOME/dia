@@ -151,8 +151,10 @@ static Object *step_load(ObjectNode obj_node, int version,
 			   const char *filename);
 static StepState *step_get_state(Step *step);
 static void step_set_state(Step *step, StepState *state);
-static PROPDLG_TYPE step_get_defaults();
-static void step_apply_defaults();
+static PROPDLG_TYPE step_get_defaults(void);
+static void step_apply_defaults(void);
+static void step_init_defaults(void);
+
 
 
 static ObjectTypeOps step_type_ops =
@@ -242,7 +244,8 @@ step_apply_properties(Step *step)
 
   step_been_renamed(step->id);
   step_update_data(step);
-  return new_object_state_change((Object *)step, old_state,
+  return new_object_state_change(&step->element.object, 
+                                 old_state,
 				 (GetStateFunc)step_get_state,
 				 (SetStateFunc)step_set_state);
 }
@@ -277,7 +280,7 @@ step_get_properties(Step *step)
 static Color color_red = { 1.0f, 0.0f, 0.0f };
 
 static void 
-step_init_defaults()
+step_init_defaults(void)
 {
   static int defaults_initialised = 0;
   if (!defaults_initialised) {
@@ -289,7 +292,7 @@ step_init_defaults()
 }
 
 static void 
-step_apply_defaults()
+step_apply_defaults(void)
 {
   StepDefaultsDialog *dlg = step_defaults_dialog;  
 
@@ -299,7 +302,7 @@ step_apply_defaults()
 }
 
 static PROPDLG_TYPE
-step_get_defaults()
+step_get_defaults(void)
 {
   StepDefaultsDialog *dlg = step_defaults_dialog;
 
@@ -445,7 +448,8 @@ static void
 step_update_data(Step *step)
 {
   Element *elem = &step->element;
-  Object *obj = (Object *) step;
+  Object *obj = &elem->object;
+  ElementBBExtras *extra = &elem->extra_spacing;
   Point *p,ulc;
 
   ulc = elem->corner;
@@ -528,21 +532,15 @@ step_update_data(Step *step)
   step->connections[3].pos = step->H;
 
   /* recalc the bounding box : */
+  if ((step->type == STEP_INITIAL) || (step->type == STEP_SUBPCALL)) {
+    extra->border_trans = 2.5 * STEP_LINE_WIDTH;
+  } else {
+    extra->border_trans = STEP_LINE_WIDTH / 2;
+  }
   
   element_update_boundingbox(elem);
   rectangle_add_point(&obj->bounding_box,&step->north.pos);
   rectangle_add_point(&obj->bounding_box,&step->south.pos);
-
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= STEP_LINE_WIDTH/2;
-  obj->bounding_box.left -= STEP_LINE_WIDTH/2 ;
-  obj->bounding_box.bottom += STEP_LINE_WIDTH/2;
-  obj->bounding_box.right += STEP_LINE_WIDTH/2;
-
-  if ((step->type == STEP_INITIAL) || (step->type == STEP_SUBPCALL)) {
-    obj->bounding_box.left -= 2*STEP_LINE_WIDTH;
-    obj->bounding_box.right += 2*STEP_LINE_WIDTH;
-  }  
 
   obj->position = elem->corner;
   
@@ -597,7 +595,7 @@ step_create(Point *startpoint,
 
   step = g_new0(Step,1);
   elem = &step->element;
-  obj = (Object *) step;
+  obj = &elem->object;
   
   obj->type = &step_type;
   obj->ops = &step_ops;
@@ -652,7 +650,7 @@ step_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
-  return (Object *)step;
+  return &step->element.object;
 }
 
 static void
@@ -674,7 +672,7 @@ step_copy(Step *step)
   
   newstep = g_new0(Step,1);
   newelem = &newstep->element;
-  newobj = (Object *) newstep;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -705,7 +703,7 @@ step_copy(Step *step)
 
   step_update_data(newstep);
 
-  return (Object *)newstep;
+  return &newstep->element.object;
 }
 
 static void
@@ -736,7 +734,7 @@ step_load(ObjectNode obj_node, int version, const char *filename)
 
   step = g_new0(Step,1);
   elem = &step->element;
-  obj = (Object *)step;
+  obj = &elem->object;
   
   obj->type = &step_type;
   obj->ops = &step_ops;
@@ -777,7 +775,7 @@ step_load(ObjectNode obj_node, int version, const char *filename)
   obj->handles[8] = &step->north;
   obj->handles[9] = &step->south;
 
-  return (Object *)step;
+  return &step->element.object;
 }
 
 

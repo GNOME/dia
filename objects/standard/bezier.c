@@ -149,14 +149,14 @@ static PropOffset bezierline_offsets[] = {
 static void
 bezierline_get_props(Bezierline *bezierline, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)bezierline, bezierline_offsets,
+  object_get_props_from_offsets(&bezierline->bez.object, bezierline_offsets,
 				props, nprops);
 }
 
 static void
 bezierline_set_props(Bezierline *bezierline, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)bezierline, bezierline_offsets,
+  object_set_props_from_offsets(&bezierline->bez.object, bezierline_offsets,
 				props, nprops);
   bezierline_update_data(bezierline);
 }
@@ -274,7 +274,7 @@ bezierline_create(Point *startpoint,
   /*bezierline_init_defaults();*/
   bezierline = g_new(Bezierline, 1);
   bez = &bezierline->bez;
-  obj = (Object *) bezierline;
+  obj = &bez->object;
   
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
@@ -300,7 +300,7 @@ bezierline_create(Point *startpoint,
 
   *handle1 = bez->object.handles[0];
   *handle2 = bez->object.handles[3];
-  return (Object *)bezierline;
+  return &bezierline->bez.object;
 }
 
 static void
@@ -320,7 +320,7 @@ bezierline_copy(Bezierline *bezierline)
  
   newbezierline = g_new(Bezierline, 1);
   newbez = &newbezierline->bez;
-  newobj = (Object *) newbezierline;
+  newobj = &bez->object;
 
   bezierconn_copy(bez, newbez);
 
@@ -331,7 +331,7 @@ bezierline_copy(Bezierline *bezierline)
   newbezierline->start_arrow = bezierline->start_arrow;
   newbezierline->end_arrow = bezierline->end_arrow;
 
-  return (Object *)newbezierline;
+  return &newbezierline->bez.object;
 }
 
 
@@ -339,31 +339,24 @@ static void
 bezierline_update_data(Bezierline *bezierline)
 {
   BezierConn *bez = &bezierline->bez;
-  Object *obj = (Object *) bezierline;
+  Object *obj = &bez->object;
+  BezierConnBBExtras *extra = &bez->extra_spacing;
 
   bezierconn_update_data(bez);
     
+  extra->start_trans =  (bezierline->line_width / 2.0);
+  extra->end_trans =     (bezierline->line_width / 2.0);
+  extra->middle_trans = (bezierline->line_width / 2.0);
+    
+  if (bezierline->start_arrow.type != ARROW_NONE) 
+    extra->start_trans = MAX(extra->start_trans,bezierline->start_arrow.width);
+  if (bezierline->end_arrow.type != ARROW_NONE) 
+    extra->end_trans = MAX(extra->end_trans,bezierline->end_arrow.width);
+
+  extra->start_long = (bezierline->line_width / 2.0);
+  extra->end_long   = (bezierline->line_width / 2.0);
+
   bezierconn_update_boundingbox(bez);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= bezierline->line_width/2;
-  obj->bounding_box.left -= bezierline->line_width/2;
-  obj->bounding_box.bottom += bezierline->line_width/2;
-  obj->bounding_box.right += bezierline->line_width/2;
-
-  /* Fix boundingbox for arrowheads */
-  if (bezierline->start_arrow.type != ARROW_NONE ||
-      bezierline->end_arrow.type != ARROW_NONE) {
-    real arrow_width = 0.0;
-    if (bezierline->start_arrow.type != ARROW_NONE)
-      arrow_width = bezierline->start_arrow.width;
-    if (bezierline->end_arrow.type != ARROW_NONE)
-      arrow_width = MAX(arrow_width, bezierline->start_arrow.width);
-
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
-  }
 
   obj->position = bez->points[0].p1;
 }
@@ -421,7 +414,7 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   bezierline = g_new(Bezierline, 1);
 
   bez = &bezierline->bez;
-  obj = (Object *) bezierline;
+  obj = &bez->object;
   
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
@@ -476,7 +469,7 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
 
   bezierline_update_data(bezierline);
 
-  return (Object *)bezierline;
+  return &bezierline->bez.object;
 }
 
 static ObjectChange *

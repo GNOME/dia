@@ -1,3 +1,24 @@
+2001-02-22  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/geometry.h:
+	* lib/connection.[ch]:
+	* lib/poly_conn.[ch]:
+	* lib/polyshape.[ch]:
+	* lib/bezier_conn.[ch]:
+	* lib/beziershape.[ch]:
+	* lib/orth_conn.[ch]:
+	* lib/neworth_conn.[ch]:
+	* lib/element.[ch]: Changed a bit the _update_boundingbox()
+	interface. Now the parent elements have an extra_spacing
+	structure, which child objects just need to fill, to take care of
+	most arrow & line width extra space needs.
+
+	* objects/**/*.c: updated all objects to the new interface.
+	While at it, killed all instances of (Object *) downcasts (phew !)
+
+	* objects/GRAFCET/condition.c: removed the arrowhead, which IEC848
+	doesn't speak about.
+	
 2001-02-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* sheets/Logic.sheet: New sheet for Logic symbols.

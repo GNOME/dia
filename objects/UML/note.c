@@ -138,7 +138,8 @@ note_get_props(Note * note, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)note, note_offsets, props, nprops))
+  if (object_get_props_from_offsets(&note->element.object, 
+                                    note_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -167,8 +168,8 @@ note_get_props(Note * note, Property *props, guint nprops)
 static void
 note_set_props(Note *note, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)note, note_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&note->element.object, 
+                                     note_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -204,7 +205,7 @@ note_select(Note *note, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(note->text, clicked_point, interactive_renderer);
-  text_grab_focus(note->text, (Object *)note);
+  text_grab_focus(note->text, &note->element.object);
   element_update_handles(&note->element);
 }
 
@@ -283,7 +284,7 @@ static void
 note_update_data(Note *note)
 {
   Element *elem = &note->element;
-  Object *obj = (Object *) note;
+  Object *obj = &elem->object;
   Point p;
 
   elem->width = note->text->max_width + NOTE_MARGIN_X + NOTE_CORNER;
@@ -313,14 +314,8 @@ note_update_data(Note *note)
   note->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingnote for line_width: */
-  obj->bounding_box.top -= NOTE_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= NOTE_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += NOTE_BORDERWIDTH/2.0;
-  obj->bounding_box.right += NOTE_BORDERWIDTH/2.0;
 
   obj->position = elem->corner;
-
   element_update_handles(elem);
 }
 
@@ -339,7 +334,7 @@ note_create(Point *startpoint,
   
   note = g_malloc(sizeof(Note));
   elem = &note->element;
-  obj = (Object *) note;
+  obj = &elem->object;
   
   obj->type = &note_type;
 
@@ -361,6 +356,7 @@ note_create(Point *startpoint,
     note->connections[i].object = obj;
     note->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = NOTE_BORDERWIDTH/2.0;
   note_update_data(note);
 
   for (i=0;i<8;i++) {
@@ -369,7 +365,7 @@ note_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)note;
+  return &note->element.object;
 }
 
 static void
@@ -392,7 +388,7 @@ note_copy(Note *note)
   
   newnote = g_malloc(sizeof(Note));
   newelem = &newnote->element;
-  newobj = (Object *) newnote;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -405,10 +401,9 @@ note_copy(Note *note)
     newnote->connections[i].pos = note->connections[i].pos;
     newnote->connections[i].last_pos = note->connections[i].last_pos;
   }
-
   note_update_data(newnote);
   
-  return (Object *)newnote;
+  return &newnote->element.object;
 }
 
 
@@ -432,7 +427,7 @@ note_load(ObjectNode obj_node, int version, const char *filename)
   
   note = g_malloc(sizeof(Note));
   elem = &note->element;
-  obj = (Object *) note;
+  obj = &elem->object;
   
   obj->type = &note_type;
   obj->ops = &note_ops;
@@ -451,13 +446,14 @@ note_load(ObjectNode obj_node, int version, const char *filename)
     note->connections[i].object = obj;
     note->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = NOTE_BORDERWIDTH/2.0;
   note_update_data(note);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)note;
+  return &note->element.object;
 }
 
 

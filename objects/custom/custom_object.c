@@ -235,8 +235,8 @@ custom_get_props(Custom *custom, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)custom, custom_offsets,
-				    props, nprops) ||
+  if (object_get_props_from_offsets(&custom->element.object, 
+                                    custom_offsets, props, nprops) ||
       !custom->info->has_text)
     return;
   if (quarks[0].q == 0)
@@ -269,8 +269,8 @@ custom_get_props(Custom *custom, Property *props, guint nprops)
 static void
 custom_set_props(Custom *custom, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)custom, custom_offsets,
-                                     props, nprops) &&
+  if (!object_set_props_from_offsets(&custom->element.object, 
+                                     custom_offsets, props, nprops) &&
       custom->info->has_text) {
     guint i;
 
@@ -598,7 +598,7 @@ custom_select(Custom *custom, Point *clicked_point,
 {
   if (custom->info->has_text) {
     text_set_cursor(custom->text, clicked_point, interactive_renderer);
-    text_grab_focus(custom->text, (Object *)custom);
+    text_grab_focus(custom->text, &custom->element.object);
   }
 
   element_update_handles(&custom->element);
@@ -861,10 +861,11 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &custom->element;
   ShapeInfo *info = custom->info;
-  Object *obj = (Object *) custom;
+  Object *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   Rectangle tb;
+  ElementBBExtras *extra = &elem->extra_spacing;
   int i;
 
   /* save starting points */
@@ -997,12 +998,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   for (i = 0; i < info->nconnections; i++)
     transform_coord(custom, &info->connections[i],&custom->connections[i].pos);
 
+
+  extra->border_trans = custom->border_width/2;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= custom->border_width/2;
-  obj->bounding_box.left -= custom->border_width/2;
-  obj->bounding_box.bottom += custom->border_width/2;
-  obj->bounding_box.right += custom->border_width/2;
 
   /* extend bouding box to include text bounds ... */
   if (info->has_text) {
@@ -1042,7 +1040,7 @@ custom_create(Point *startpoint,
 
   custom = g_new0(Custom, 1);
   elem = &custom->element;
-  obj = (Object *) custom;
+  obj = &elem->object;
   
   obj->type = info->object_type;
 
@@ -1086,7 +1084,7 @@ custom_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)custom;
+  return &custom->element.object;
 }
 
 static void
@@ -1112,7 +1110,7 @@ custom_copy(Custom *custom)
   
   newcustom = g_new0(Custom, 1);
   newelem = &newcustom->element;
-  newobj = (Object *) newcustom;
+  newobj = &newcustom->element.object;
 
   element_copy(elem, newelem);
 
@@ -1142,7 +1140,7 @@ custom_copy(Custom *custom)
     newcustom->connections[i].last_pos = custom->connections[i].last_pos;
   }
 
-  return (Object *)newcustom;
+  return &newcustom->element.object;
 }
 
 static void
@@ -1193,7 +1191,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
 
   custom = g_new0(Custom, 1);
   elem = &custom->element;
-  obj = (Object *) custom;
+  obj = &elem->object;
   
   /* find out what type of object this is ... */
   custom->info = shape_info_get(obj_node);
@@ -1266,7 +1264,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
 
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)custom;
+  return &custom->element.object;
 }
 
 struct CustomObjectChange {

@@ -160,7 +160,7 @@ vergent_apply_properties(Vergent *vergent)
   PROPDLG_APPLY_ENUM(dlg,type);
   
   vergent_update_data(vergent);
-  return new_object_state_change((Object *)vergent, old_state, 
+  return new_object_state_change(&vergent->connection.object, old_state, 
 				 (GetStateFunc)vergent_get_state,
 				 (SetStateFunc)vergent_set_state);
 }
@@ -339,7 +339,8 @@ static void
 vergent_update_data(Vergent *vergent)
 {
   Connection *conn = &vergent->connection;
-  Object *obj = (Object *) vergent;
+  ConnectionBBExtras *extra = &conn->extra_spacing;
+  Object *obj = &conn->object;
   Point p0,p1;
   
   conn->endpoints[1].y = conn->endpoints[0].y;
@@ -347,7 +348,6 @@ vergent_update_data(Vergent *vergent)
     conn->endpoints[1].x = conn->endpoints[0].x + 3.0;
 
   obj->position = conn->endpoints[0];
-  connection_update_boundingbox(conn);
 
   p0.x = conn->endpoints[0].x + 1.0;
   p1.x = conn->endpoints[1].x - 1.0;
@@ -355,13 +355,13 @@ vergent_update_data(Vergent *vergent)
 
   switch(vergent->type) {
   case VERGENT_OR:
-    /* fix boundingbox for line_width: */
-    obj->bounding_box.top -= VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.left -= VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.bottom += VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.right += VERGENT_LINE_WIDTH/2;
-    
-    /* place the CPLs */
+    extra->start_trans = 
+      extra->start_long = 
+      extra->end_trans =
+      extra->end_long = VERGENT_LINE_WIDTH/2.0;
+    connection_update_boundingbox(conn);
+
+    /* place the connection point lines */
     connpointline_update(vergent->north);
     connpointline_putonaline(vergent->north,&p0,&p1);
     vergent->northwest.pos = p0;
@@ -372,13 +372,14 @@ vergent_update_data(Vergent *vergent)
     vergent->southeast.pos = p1;    
     break;
   case VERGENT_AND:
-    /* fix boundingbox for line_width: */
-    obj->bounding_box.top -= 3*VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.left -= 3*VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.bottom += 3*VERGENT_LINE_WIDTH/2;
-    obj->bounding_box.right += 3*VERGENT_LINE_WIDTH/2;
+    extra->start_trans = 
+      extra->end_trans = (3 * VERGENT_LINE_WIDTH)/2.0;
+    extra->start_long = 
+      extra->end_long = VERGENT_LINE_WIDTH/2.0;
+    connection_update_boundingbox(conn);
+    connection_update_boundingbox(conn);
     
-    /* place the connection points */
+    /* place the connection point lines */
     p0.y = p1.y = p0.y - VERGENT_LINE_WIDTH;
     connpointline_update(vergent->north);
     connpointline_putonaline(vergent->north,&p0,&p1);
@@ -496,7 +497,7 @@ vergent_create(Point *startpoint,
   init_default_values();
   vergent = g_malloc0(sizeof(Vergent));
   conn = &vergent->connection;
-  obj = (Object *) vergent;
+  obj = &conn->object;
   
   obj->type = &vergent_type;
   obj->ops = &vergent_ops;
@@ -535,7 +536,7 @@ vergent_create(Point *startpoint,
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
 
-  return (Object *)vergent;
+  return &vergent->connection.object;
 }
 
 static void
@@ -558,7 +559,7 @@ vergent_copy(Vergent *vergent)
  
   newvergent = g_malloc0(sizeof(Vergent));
   newconn = &newvergent->connection;
-  newobj = (Object *) newvergent;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -579,7 +580,7 @@ vergent_copy(Vergent *vergent)
 
   vergent_update_data(newvergent); 
 
-  return (Object *)newvergent;
+  return &newvergent->connection.object;
 }
 
 
@@ -606,7 +607,7 @@ vergent_load(ObjectNode obj_node, int version, const char *filename)
   vergent = g_malloc0(sizeof(Vergent));
 
   conn = &vergent->connection;
-  obj = (Object *) vergent;
+  obj = &conn->object;
   
   obj->type = &vergent_type;
   obj->ops = &vergent_ops;
@@ -637,7 +638,7 @@ vergent_load(ObjectNode obj_node, int version, const char *filename)
 
   vergent_update_data(vergent);
 
-  return (Object *)vergent;
+  return &vergent->connection.object;
 }
 
 

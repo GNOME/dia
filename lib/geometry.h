@@ -207,6 +207,32 @@ point_copy_add_scaled(Point *dst, Point *src, Point *vct, real alpha)
 }
 #endif
 
+G_INLINE_FUNC void check_bb_x( Rectangle *bb, real val, real check );
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+check_bb_x( Rectangle *bb, real val, real check )
+{
+  /* if x is outside the bounding box, and check is real, adjust the bb */
+  if (finite(check)) { 
+    if (bb->left > val) bb->left = val; 
+    if (bb->right < val) bb->right = val; 
+  }
+}
+#endif
+
+G_INLINE_FUNC void check_bb_y( Rectangle *bb, real val, real check );
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+check_bb_y( Rectangle *bb, real val, real check )
+{
+  /* if y is outside the bounding box, and check is real, adjust the bb */
+  if (finite(check)) { 
+    if (bb->top > val) bb->top = val; 
+    if (bb->bottom < val) bb->bottom = (val); 
+  } 
+}
+#endif
+
 void rectangle_union(Rectangle *r1, Rectangle *r2);
 void int_rectangle_union(IntRectangle *r1, IntRectangle *r2);
 void rectangle_intersection(Rectangle *r1, Rectangle *r2);

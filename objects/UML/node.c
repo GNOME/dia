@@ -136,15 +136,15 @@ node_get_props(Node * node, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)node, node_offsets, props, nprops))
+  if (object_get_props_from_offsets(&node->element.object, node_offsets, props, nprops))
     return;
 }
 
 static void
 node_set_props(Node *node, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)node, node_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&node->element.object, 
+                                     node_offsets, props, nprops)) {
   }
   node_update_data(node);
 }
@@ -162,7 +162,7 @@ node_select(Node *node, Point *clicked_point,
 		    Renderer *interactive_renderer)
 {
   text_set_cursor(node->name, clicked_point, interactive_renderer);
-  text_grab_focus(node->name, (Object *)node);
+  text_grab_focus(node->name, &node->element.object);
   element_update_handles(&node->element);
 }
 
@@ -246,7 +246,7 @@ static void node_draw(Node *node, Renderer *renderer)
 static void node_update_data(Node *node)
 {
   Element *elem = &node->element;
-  Object *obj = (Object *) node;
+  Object *obj = &node->element.object;
   Font *font;
   Point p1;
   real h, w = 0;
@@ -281,11 +281,9 @@ static void node_update_data(Node *node)
   node->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingnode for line width and depth: */
-  obj->bounding_box.top -= NODE_BORDERWIDTH/2.0 + NODE_DEPTH;
-  obj->bounding_box.left -= NODE_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += NODE_BORDERWIDTH/2.0;
-  obj->bounding_box.right += NODE_BORDERWIDTH/2.0 + NODE_DEPTH;
+  /* fix boundingbox for depth: */
+  obj->bounding_box.top -= NODE_DEPTH;
+  obj->bounding_box.right += NODE_DEPTH;
 
   obj->position = elem->corner;
 
@@ -303,7 +301,7 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   
   node = g_malloc(sizeof(Node));
   elem = &node->element;
-  obj = (Object *) node;
+  obj = &elem->object;
   
   obj->type = &node_type;
 
@@ -318,17 +316,17 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
 
   element_init(elem, 8, 8);
 
-  for (i=0;i<8;i++)
-    {
-      obj->connections[i] = &node->connections[i];
-      node->connections[i].object = obj;
-      node->connections[i].connected = NULL;
-    }
+  for (i=0;i<8;i++) {
+    obj->connections[i] = &node->connections[i];
+    node->connections[i].object = obj;
+    node->connections[i].connected = NULL;
+  }
+  elem->extra_spacing.border_trans = NODE_BORDERWIDTH/2.0;
   node_update_data(node);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  return (Object *)node;
+  return &node->element.object;
 }
 
 static void node_destroy(Node *node)
@@ -348,7 +346,7 @@ static Object *node_copy(Node *node)
   
   newnode = g_malloc(sizeof(Node));
   newelem = &newnode->element;
-  newobj = (Object *) newnode;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
   newnode->name = text_copy(node->name);
@@ -363,7 +361,7 @@ static Object *node_copy(Node *node)
     }
 
   node_update_data(newnode);
-  return (Object *)newnode;
+  return &newnode->element.object;
 }
 
 static void node_save(Node *node, ObjectNode obj_node, const char *filename)
@@ -382,8 +380,8 @@ static Object *node_load(ObjectNode obj_node, int version, const char *filename)
   
   node = g_malloc(sizeof(Node));
   elem = &node->element;
-  obj = (Object *) node;
-  
+  obj = &elem->object;
+
   obj->type = &node_type;
   obj->ops = &node_ops;
 
@@ -401,6 +399,7 @@ static Object *node_load(ObjectNode obj_node, int version, const char *filename)
       node->connections[i].object = obj;
       node->connections[i].connected = NULL;
     }
+  elem->extra_spacing.border_trans = NODE_BORDERWIDTH/2.0;
   node_update_data(node);
-  return (Object *) node;
+  return &node->element.object;
 }

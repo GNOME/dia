@@ -181,7 +181,8 @@ classicon_get_props(Classicon * classicon, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)classicon, classicon_offsets, props, nprops))
+  if (object_get_props_from_offsets(&classicon->element.object, 
+                                    classicon_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -210,8 +211,8 @@ classicon_get_props(Classicon * classicon, Property *props, guint nprops)
 static void
 classicon_set_props(Classicon *classicon, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)classicon, classicon_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&classicon->element.object, 
+                                     classicon_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -247,7 +248,7 @@ classicon_select(Classicon *cicon, Point *clicked_point,
 		 Renderer *interactive_renderer)
 {
   text_set_cursor(cicon->text, clicked_point, interactive_renderer);
-  text_grab_focus(cicon->text, (Object *)cicon);
+  text_grab_focus(cicon->text, &cicon->element.object);
   element_update_handles(&cicon->element);
 }
 
@@ -381,7 +382,7 @@ static void
 classicon_update_data(Classicon *cicon)
 {
   Element *elem = &cicon->element;
-  Object *obj = (Object *) cicon;
+  Object *obj = &elem->object;
   Font *font;
   Point p1;
   real h, wt, w = 0;
@@ -441,12 +442,6 @@ classicon_update_data(Classicon *cicon)
   
   element_update_boundingbox(elem);
 
-  /* fix boundingclassicon for line width and top rectangle: */
-  /*  obj->bounding_box.top -= CLASSICON_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= CLASSICON_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += CLASSICON_BORDERWIDTH/2.0;
-  obj->bounding_box.right += CLASSICON_BORDERWIDTH/2.0;
-  */
   obj->position = elem->corner;
   obj->position.x += (elem->width + ((is_boundary)?CLASSICON_RADIOUS:0))/2.0;
   obj->position.y += CLASSICON_RADIOUS + CLASSICON_ARROW;
@@ -469,7 +464,7 @@ classicon_create(Point *startpoint,
   
   cicon = g_malloc(sizeof(Classicon));
   elem = &cicon->element;
-  obj = (Object *) cicon;
+  obj = &elem->object;
   
   obj->type = &classicon_type;
 
@@ -494,6 +489,7 @@ classicon_create(Point *startpoint,
     cicon->connections[i].object = obj;
     cicon->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   classicon_update_data(cicon);
 
   for (i=0;i<8;i++) {
@@ -503,7 +499,7 @@ classicon_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = NULL;
 
-  return (Object *)cicon;
+  return &cicon->element.object;
 }
 
 static void
@@ -525,7 +521,7 @@ classicon_copy(Classicon *cicon)
   
   newcicon = g_malloc(sizeof(Classicon));
   newelem = &newcicon->element;
-  newobj = (Object *) newcicon;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -544,7 +540,7 @@ classicon_copy(Classicon *cicon)
 
   classicon_update_data(newcicon);
   
-  return (Object *)newcicon;
+  return &newcicon->element.object;
 }
 
 static ClassiconState *
@@ -597,7 +593,7 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   
   cicon = g_malloc(sizeof(Classicon));
   elem = &cicon->element;
-  obj = (Object *) cicon;
+  obj = &elem->object;
   
   obj->type = &classicon_type;
   obj->ops = &classicon_ops;
@@ -626,13 +622,14 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
     cicon->connections[i].object = obj;
     cicon->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   classicon_update_data(cicon);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *) cicon;
+  return &cicon->element.object;
 }
 
 
@@ -659,7 +656,7 @@ classicon_apply_properties(Classicon *cicon)
 
   classicon_update_data(cicon);
 
-  return new_object_state_change((Object *)cicon, old_state, 
+  return new_object_state_change(&cicon->element.object, old_state, 
 				 (GetStateFunc)classicon_get_state,
 				 (SetStateFunc)classicon_set_state);
 }

@@ -233,7 +233,7 @@ orthflow_select(Orthflow *orthflow, Point *clicked_point,
 		Renderer *interactive_renderer)
 {
   text_set_cursor(orthflow->text, clicked_point, interactive_renderer);
-  text_grab_focus(orthflow->text, (Object *)orthflow);
+  text_grab_focus(orthflow->text, &orthflow->orth.object);
 
   orthconn_update_data(&orthflow->orth);
 }
@@ -338,13 +338,14 @@ orthflow_create(Point *startpoint,
   OrthConn *orth;
   Object *obj;
   Point p;
-
+  OrthConnBBExtras *extra;
   orthflow = g_new(Orthflow,1);
 
   orth = &orthflow->orth ;
   orthconn_init( orth, startpoint ) ;
  
-  obj = (Object *) orthflow;
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
   
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
@@ -385,13 +386,19 @@ orthflow_create(Point *startpoint,
   orthflow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   orthflow->text_handle.connected_to = NULL;
   object_add_handle( obj, &orthflow->text_handle ) ;
-  
+
+  extra->start_long = 
+    extra->start_trans = 
+    extra->middle_trans = ORTHFLOW_WIDTH/2.0;
+  extra->end_long = 
+    extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
+    
   orthflow_update_data(orthflow);
 
   /*obj->handles[1] = orth->handles[2] ;*/
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[2];
-  return (Object *)orthflow;
+  return &orthflow->orth.object;
 }
 
 
@@ -413,7 +420,7 @@ orthflow_copy(Orthflow *orthflow)
   
   neworthflow = g_malloc(sizeof(Orthflow));
   neworth = &neworthflow->orth;
-  newobj = (Object *) neworthflow;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -423,7 +430,7 @@ orthflow_copy(Orthflow *orthflow)
   neworthflow->text = text_copy(orthflow->text);
   neworthflow->type = orthflow->type;
 
-  return (Object *)neworthflow;
+  return &neworthflow->orth.object;
 }
 
 
@@ -431,7 +438,7 @@ static void
 orthflow_update_data(Orthflow *orthflow)
 {
   OrthConn *orth = &orthflow->orth ;
-  Object *obj = (Object *) orthflow;
+  Object *obj = &orth->object;
   Rectangle rect;
   Color* color = &orthflow_color_signal;
   
@@ -459,12 +466,6 @@ orthflow_update_data(Orthflow *orthflow)
   /* Add boundingbox for text: */
   text_calc_boundingbox(orthflow->text, &rect) ;
   rectangle_union(&obj->bounding_box, &rect);
-
-  /* fix boundingbox for orthflow_width and arrow: */
-  obj->bounding_box.top -= ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  obj->bounding_box.left -= ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  obj->bounding_box.bottom += ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  obj->bounding_box.right += ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
 }
 
 
@@ -486,6 +487,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
+  OrthConnBBExtras *extra;
 
   if (orthflow_font == NULL)
     orthflow_font = font_getfont("Helvetica-Oblique");
@@ -493,8 +495,9 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   orthflow = g_malloc(sizeof(Orthflow));
 
   orth = &orthflow->orth;
-  obj = (Object *) orthflow;
-
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
+  
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
 
@@ -514,10 +517,16 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   orthflow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   orthflow->text_handle.connected_to = NULL;
   obj->handles[2] = &orthflow->text_handle;
+
+  extra->start_long = 
+    extra->start_trans = 
+    extra->middle_trans = ORTHFLOW_WIDTH/2.0;
+  extra->end_long = 
+    extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
   
   orthflow_update_data(orthflow);
   
-  return (Object *)orthflow;
+  return &orthflow->orth.object;
 }
 
 

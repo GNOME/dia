@@ -255,7 +255,6 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
       renderer->ops->draw_rect(renderer, 
 			       &p1, &p2,
 			       &color_black);
-
   }
     
   if (lifeline->draw_cross) {      
@@ -295,7 +294,7 @@ lifeline_create(Point *startpoint,
   conn->endpoints[1] = conn->endpoints[0];
   conn->endpoints[1].y += LIFELINE_HEIGHT; 
  
-  obj = (Object *) lifeline;
+  obj = &conn->object;
   
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
@@ -334,7 +333,7 @@ lifeline_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  return (Object *)lifeline;
+  return &lifeline->connection.object;
 }
 
 
@@ -356,7 +355,7 @@ lifeline_copy(Lifeline *lifeline)
   
   newlifeline = g_malloc(sizeof(Lifeline));
   newconn = &newlifeline->connection;
-  newobj = (Object *) newlifeline;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -379,7 +378,7 @@ lifeline_copy(Lifeline *lifeline)
    newlifeline->draw_focuscontrol = lifeline->draw_focuscontrol;
    newlifeline->draw_cross = lifeline->draw_cross;
 
-  return (Object *)newlifeline;
+  return &newlifeline->connection.object;
 }
 
 static LifelineState *
@@ -410,7 +409,8 @@ static void
 lifeline_update_data(Lifeline *lifeline)
 {
   Connection *conn = &lifeline->connection;
-  Object *obj = (Object *) lifeline;
+  Object *obj = &conn->object;
+  ConnectionBBExtras *extra = &conn->extra_spacing;
   Point p1, p2;
   real r;
   int i;
@@ -428,15 +428,20 @@ lifeline_update_data(Lifeline *lifeline)
   connection_update_handles(conn);
 
   /* Boundingbox: */
+  extra->start_trans =
+    extra->start_long = 
+    extra->end_long =
+    extra->end_trans = LIFELINE_LINEWIDTH/2.0;
+  if (lifeline->draw_focuscontrol) {
+    extra->start_trans =
+      extra->end_trans = MAX(LIFELINE_LINEWIDTH/2,LIFELINE_WIDTH/2);
+  }
+  if (lifeline->draw_cross) {
+    extra->end_trans = LIFELINE_CROSSLEN;
+  }
   connection_update_boundingbox(conn);
 
   if (lifeline->draw_focuscontrol) {  
-      /* fix boundingbox for lifeline_width: */
-      obj->bounding_box.top -= LIFELINE_LINEWIDTH/2;
-      obj->bounding_box.left -= LIFELINE_WIDTH;
-      obj->bounding_box.bottom += LIFELINE_LINEWIDTH/2;
-      obj->bounding_box.right += LIFELINE_WIDTH;
-
       p1.x -= LIFELINE_WIDTH/2.0;
       p2.x += LIFELINE_WIDTH/2.0; 
       /* Update connections: */      
@@ -452,18 +457,12 @@ lifeline_update_data(Lifeline *lifeline)
       lifeline->connections[5].pos.x = p1.x;
       lifeline->connections[5].pos.y = p2.y;
   } else {     
-      /* without focus of control, the points are over the line */
-      r = (p2.y - p1.y)/5.0; 
-      for (i = 0; i < 6; i++) {
-	  lifeline->connections[i].pos.x = p1.x;
-	  lifeline->connections[i].pos.y = p1.y + i*r;
-      }
-  }
-
-  if (lifeline->draw_cross) {
-      obj->bounding_box.bottom += LIFELINE_CROSSLEN;
-      obj->bounding_box.left -= LIFELINE_CROSSLEN;
-      obj->bounding_box.right += LIFELINE_CROSSLEN;
+    /* without focus of control, the points are over the line */
+    r = (p2.y - p1.y)/5.0; 
+    for (i = 0; i < 6; i++) {
+      lifeline->connections[i].pos.x = p1.x;
+      lifeline->connections[i].pos.y = p1.y + i*r;
+    }
   }
 }
 
@@ -496,7 +495,7 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
   lifeline = g_malloc(sizeof(Lifeline));
 
   conn = &lifeline->connection;
-  obj = (Object *) lifeline;
+  obj = &conn->object;
 
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
@@ -550,7 +549,7 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
   
   lifeline_update_data(lifeline);
   
-  return (Object *)lifeline;
+  return &lifeline->connection.object;
 }
 
 
@@ -570,7 +569,7 @@ lifeline_apply_properties(Lifeline *lif)
   lif->draw_cross = prop_dialog->draw_cross->active;
   
   lifeline_update_data(lif);
-  return new_object_state_change((Object *)lif, old_state, 
+  return new_object_state_change(&lif->connection.object, old_state, 
 				 (GetStateFunc)lifeline_get_state,
 				 (SetStateFunc)lifeline_set_state);
 }

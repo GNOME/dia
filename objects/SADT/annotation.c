@@ -172,7 +172,7 @@ annotation_select(Annotation *annotation, Point *clicked_point,
 	    Renderer *interactive_renderer)
 {
   text_set_cursor(annotation->text, clicked_point, interactive_renderer);
-  text_grab_focus(annotation->text, (Object *)annotation);
+  text_grab_focus(annotation->text, &annotation->connection.object);
   
   connection_update_handles(&annotation->connection);
 }
@@ -289,6 +289,7 @@ annotation_create(Point *startpoint,
 {
   Annotation *annotation;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj; 
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
@@ -302,8 +303,9 @@ annotation_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) annotation;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &sadtannotation_type;
   obj->ops = &annotation_ops;
   
@@ -326,12 +328,16 @@ annotation_create(Point *startpoint,
   annotation->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   annotation->text_handle.connected_to = NULL;
   obj->handles[2] = &annotation->text_handle;
-  
+
+  extra->start_trans = 
+    extra->end_trans = ANNOTATION_ZLEN;
+  extra->start_long = 
+    extra->end_long = ANNOTATION_LINE_WIDTH/2.0;
   annotation_update_data(annotation);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)annotation;
+  return &annotation->connection.object;
 }
 
 
@@ -354,7 +360,7 @@ annotation_copy(Annotation *annotation)
   
   newannotation = g_malloc(sizeof(Annotation));
   newconn = &newannotation->connection;
-  newobj = (Object *) newannotation;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -364,7 +370,7 @@ annotation_copy(Annotation *annotation)
 
   newannotation->text = text_copy(annotation->text);
 
-  return (Object *)newannotation;
+  return &newannotation->connection.object;
 }
 
 static AnnotationState *
@@ -391,7 +397,7 @@ static void
 annotation_update_data(Annotation *annotation)
 {
   Connection *conn = &annotation->connection;
-  Object *obj = (Object *) annotation;
+  Object *obj = &conn->object;
   Rectangle textrect;
   
   obj->position = conn->endpoints[0];
@@ -400,23 +406,8 @@ annotation_update_data(Annotation *annotation)
 
   connection_update_handles(conn);
 
-  /* Boundingbox: */
   connection_update_boundingbox(conn);
-
-  /* fix boundingbox for ANNOTATION_LINE_WIDTH: */
-  obj->bounding_box.top -= ANNOTATION_BORDER/2;
-  obj->bounding_box.left -= ANNOTATION_BORDER/2;
-  obj->bounding_box.bottom += ANNOTATION_BORDER/2;
-  obj->bounding_box.right += ANNOTATION_BORDER/2;
-
-  /* Add boundingbox for text: */
-
   text_calc_boundingbox(annotation->text,&textrect);
-  textrect.top -= ANNOTATION_BORDER/2;
-  textrect.left -= ANNOTATION_BORDER/2;
-  textrect.bottom += ANNOTATION_BORDER/2;
-  textrect.right += ANNOTATION_BORDER/2;
-
   rectangle_union(&obj->bounding_box, &textrect);
 }
 
@@ -436,6 +427,7 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
 {
   Annotation *annotation;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
 
   annotation_init_defaults();
@@ -443,7 +435,8 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
   annotation = g_malloc(sizeof(Annotation));
 
   conn = &annotation->connection;
-  obj = (Object *) annotation;
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
 
   obj->type = &sadtannotation_type;
   obj->ops = &annotation_ops;
@@ -467,9 +460,13 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
   annotation->text_handle.connected_to = NULL;
   obj->handles[2] = &annotation->text_handle;
   
+  extra->start_trans = 
+    extra->end_trans = ANNOTATION_ZLEN;
+  extra->start_long = 
+    extra->end_long = ANNOTATION_LINE_WIDTH/2.0;
   annotation_update_data(annotation);
   
-  return (Object *)annotation;
+  return &annotation->connection.object;
 }
 
 static void 
@@ -522,7 +519,7 @@ annotation_apply_properties(Annotation *annotation)
   PROPDLG_APPLY_TEXTCOLOR(dlg,text);
 
   annotation_update_data(annotation);
-  return new_object_state_change((Object *)annotation, old_state, 
+  return new_object_state_change(&annotation->connection.object, old_state, 
 				 (GetStateFunc)annotation_get_state,
 				 (SetStateFunc)annotation_set_state);
 }

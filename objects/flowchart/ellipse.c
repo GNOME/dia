@@ -199,8 +199,8 @@ ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)ellipse, ellipse_offsets,
-                                    props, nprops))
+  if (object_get_props_from_offsets(&ellipse->element.object,
+                                    ellipse_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -229,8 +229,8 @@ ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
 static void
 ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)ellipse, ellipse_offsets,
-                                     props, nprops)) {
+  if (!object_set_props_from_offsets(&ellipse->element.object, 
+                                     ellipse_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -412,7 +412,7 @@ ellipse_select(Ellipse *ellipse, Point *clicked_point,
 	   Renderer *interactive_renderer)
 {
   text_set_cursor(ellipse->text, clicked_point, interactive_renderer);
-  text_grab_focus(ellipse->text, (Object *)ellipse);
+  text_grab_focus(ellipse->text, &ellipse->element.object);
 
   element_update_handles(&ellipse->element);
 }
@@ -499,7 +499,8 @@ static void
 ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &ellipse->element;
-  Object *obj = (Object *) ellipse;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   Point center, bottom_right;
   Point p, c;
   real dw, dh;
@@ -572,13 +573,9 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
     ellipse->connections[i].pos.y = c.y - dh * sin(theta);
   }
 
+  extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= ellipse->border_width/2;
-  obj->bounding_box.left -= ellipse->border_width/2;
-  obj->bounding_box.bottom += ellipse->border_width/2;
-  obj->bounding_box.right += ellipse->border_width/2;
-  
+
   obj->position = elem->corner;
   
   element_update_handles(elem);
@@ -602,7 +599,7 @@ ellipse_create(Point *startpoint,
 
   ellipse = g_malloc(sizeof(Ellipse));
   elem = &ellipse->element;
-  obj = (Object *) ellipse;
+  obj = &elem->object;
   
   obj->type = &fc_ellipse_type;
 
@@ -639,7 +636,7 @@ ellipse_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)ellipse;
+  return &ellipse->element.object;
 }
 
 static void
@@ -662,7 +659,7 @@ ellipse_copy(Ellipse *ellipse)
   
   newellipse = g_malloc(sizeof(Ellipse));
   newelem = &newellipse->element;
-  newobj = (Object *) newellipse;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -684,7 +681,7 @@ ellipse_copy(Ellipse *ellipse)
     newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
   }
 
-  return (Object *)newellipse;
+  return &newellipse->element.object;
 }
 
 static void
@@ -731,7 +728,7 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
 
   ellipse = g_malloc(sizeof(Ellipse));
   elem = &ellipse->element;
-  obj = (Object *) ellipse;
+  obj = &elem->object;
   
   obj->type = &fc_ellipse_type;
   obj->ops = &ellipse_ops;
@@ -788,5 +785,5 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
 
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)ellipse;
+  return &ellipse->element.object;
 }

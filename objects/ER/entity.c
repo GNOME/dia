@@ -158,7 +158,8 @@ entity_apply_properties(Entity *entity)
   
   entity_update_data(entity);
 
-  return new_object_state_change((Object *)entity, old_state,
+  return new_object_state_change(&entity->element.object,
+                                 old_state,
 				 (GetStateFunc)entity_get_state,
 				 (SetStateFunc)entity_set_state);
 }
@@ -341,8 +342,9 @@ static void
 entity_update_data(Entity *entity)
 {
   Element *elem = &entity->element;
-  Object *obj = (Object *) entity;
-  
+  Object *obj = &elem->object;
+  ElementBBExtras *extra = &elem->extra_spacing;
+
   elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
 
@@ -363,12 +365,8 @@ entity_update_data(Entity *entity)
   entity->connections[7].pos.x = elem->corner.x + elem->width;
   entity->connections[7].pos.y = elem->corner.y + elem->height;
 
+  extra->border_trans = entity->border_width/2.0;
   element_update_boundingbox(elem);
-  /* fix boundingentity for line_width: */
-  obj->bounding_box.top -= entity->border_width/2;
-  obj->bounding_box.left -= entity->border_width/2;
-  obj->bounding_box.bottom += entity->border_width/2;
-  obj->bounding_box.right += entity->border_width/2;
   
   obj->position = elem->corner;
   
@@ -421,7 +419,7 @@ entity_create(Point *startpoint,
 
   entity = g_malloc(sizeof(Entity));
   elem = &entity->element;
-  obj = (Object *) entity;
+  obj = &elem->object;
   
   obj->type = &entity_type;
 
@@ -460,7 +458,7 @@ entity_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
-  return (Object *)entity;
+  return &entity->element.object;
 }
 
 static void
@@ -486,7 +484,7 @@ entity_copy(Entity *entity)
   
   newentity = g_malloc(sizeof(Entity));
   newelem = &newentity->element;
-  newobj = (Object *) newentity;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -510,7 +508,7 @@ entity_copy(Entity *entity)
 
   newentity->properties_dialog = NULL;
 
-  return (Object *)newentity;
+  return &newentity->element.object;
 }
 
 static void
@@ -541,7 +539,7 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
 
   entity = g_malloc(sizeof(Entity));
   elem = &entity->element;
-  obj = (Object *) entity;
+  obj = &elem->object;
   
   obj->type = &entity_type;
   obj->ops = &entity_ops;
@@ -593,5 +591,5 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)entity;
+  return &entity->element.object;
 }

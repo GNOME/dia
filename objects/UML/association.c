@@ -421,20 +421,26 @@ static void
 association_update_data(Association *assoc)
 {
   OrthConn *orth = &assoc->orth;
-  Object *obj = (Object *) assoc;
+  Object *obj = &orth->object;
+  OrthConnBBExtras *extra = &orth->extra_spacing;
   int num_segm, i, n;
   Point *points;
   Rectangle rect;
   AssociationEnd *end;
   
-  orthconn_update_data(orth);
+  orthconn_update_data(orth);  
   
+  extra->start_trans = 
+    extra->start_long = (assoc->end[0].aggregate == AGGREGATE_NONE?
+                         ASSOCIATION_WIDTH/2.0:
+                         (ASSOCIATION_WIDTH + ASSOCIATION_DIAMONDLEN)/2.0);
+  extra->middle_trans = ASSOCIATION_WIDTH/2.0;
+  extra->end_trans = 
+    extra->end_long = (assoc->end[1].aggregate == AGGREGATE_NONE?
+                         ASSOCIATION_WIDTH/2.0:
+                         (ASSOCIATION_WIDTH + ASSOCIATION_DIAMONDLEN)/2.0);
+
   orthconn_update_boundingbox(orth);
-  /* fix boundingassociation for linewidth and triangle: */
-  obj->bounding_box.top -= ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
-  obj->bounding_box.left -= ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
-  obj->bounding_box.bottom += ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
-  obj->bounding_box.right += ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
   
   /* Calc text pos: */
   num_segm = assoc->orth.numpoints - 1;
@@ -519,7 +525,7 @@ association_update_data(Association *assoc)
     end->text_align = ALIGN_LEFT;
     break;
   }
-  /* Add the text recangle to the bounding box: */
+  /* Add the text rectangle to the bounding box: */
   rect.left = end->text_pos.x;
   rect.right = rect.left + end->text_width;
   rect.top = end->text_pos.y - font_ascent(assoc_font, ASSOCIATION_FONTHEIGHT);
@@ -546,8 +552,8 @@ association_create(Point *startpoint,
   
   assoc = g_malloc(sizeof(Association));
   orth = &assoc->orth;
-  obj = (Object *) assoc;
-  
+  obj = &orth->object;
+
   obj->type = &association_type;
 
   obj->ops = &association_ops;
@@ -582,7 +588,7 @@ association_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)assoc;
+  return &assoc->orth.object;
 }
 
 static ObjectChange *
@@ -660,7 +666,7 @@ association_copy(Association *assoc)
   
   newassoc = g_malloc(sizeof(Association));
   neworth = &newassoc->orth;
-  newobj = (Object *) newassoc;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -679,7 +685,7 @@ association_copy(Association *assoc)
   
   association_update_data(newassoc);
   
-  return (Object *)newassoc;
+  return &newassoc->orth.object;
 }
 
 
@@ -730,7 +736,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   assoc = g_new(Association, 1);
 
   orth = &assoc->orth;
-  obj = (Object *) assoc;
+  obj = &orth->object;
 
   obj->type = &association_type;
   obj->ops = &association_ops;
@@ -796,7 +802,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   
   association_update_data(assoc);
 
-  return (Object *)assoc;
+  return &assoc->orth.object;
 }
 
 static ObjectChange *
@@ -872,7 +878,7 @@ association_apply_properties(Association *assoc)
   }
 
   association_update_data(assoc);
-  return new_object_state_change((Object *)assoc, old_state, 
+  return new_object_state_change(&assoc->orth.object, old_state, 
 				 (GetStateFunc)association_get_state,
 				 (SetStateFunc)association_set_state);
 }

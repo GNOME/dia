@@ -528,7 +528,7 @@ attributes_read_from_dialog(UMLClass *umlclass,
   GList *clear_list;
   Object *obj;
 
-  obj = (Object *) umlclass;
+  obj = &umlclass->element.object;
 
   attributes_get_current_values(prop_dialog); /* if changed, update from widgets */
   /* Free current attributes: */
@@ -1400,7 +1400,7 @@ operations_read_from_dialog(UMLClass *umlclass,
   GList *clear_list;
   Object *obj;
 
-  obj = (Object *) umlclass;
+  obj = &umlclass->element.object;
 
   operations_get_current_values(prop_dialog); /* if changed, update from widgets */
   /* Free current operations: */
@@ -2312,7 +2312,7 @@ umlclass_apply_properties(UMLClass *umlclass)
     num_ops = g_list_length(prop_dialog->operations_list->children);
   else
     num_ops = 0;
-  obj = (Object *) umlclass;
+  obj = &umlclass->element.object;
   obj->num_connections = 8 + num_attrib*2 + num_ops*2;
   obj->connections =
     g_realloc(obj->connections,
@@ -2525,7 +2525,7 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
   else
     num_ops = 0;
   
-  obj = (Object *) umlclass;
+  obj = &umlclass->element.object;
   obj->num_connections = 8 + num_attrib*2 + num_ops*2;
   obj->connections =
     g_realloc(obj->connections,

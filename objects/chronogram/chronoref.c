@@ -229,7 +229,8 @@ chronoref_apply_properties(Chronoref *chronoref)
   /* time_lstep should probably be a multiplier of time_step, but the user
      is sovereign. */
   chronoref_update_data(chronoref);
-  return new_object_state_change((Object *)chronoref, old_state, 
+  return new_object_state_change(&chronoref->element.object, 
+                                 old_state, 
 				 (GetStateFunc)chronoref_get_state,
 				 (SetStateFunc)chronoref_set_state);
 }
@@ -329,7 +330,7 @@ chronoref_get_defaults()
 static real
 chronoref_distance_from(Chronoref *chronoref, Point *point)
 {
-  Object *obj = (Object *)chronoref;
+  Object *obj = &chronoref->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -479,13 +480,14 @@ static void
 chronoref_update_data(Chronoref *chronoref)
 {
   Element *elem = &chronoref->element;
-  Object *obj = (Object *) chronoref;
+  Object *obj = &elem->object;
   real time_span,t;
   Point p1,p2;
   Point ur_corner;
   int shouldbe,i;
   real labelwidth;
   char biglabel[10];
+  ElementBBExtras *extra = &elem->extra_spacing;
 
   chronoref->majgrad_height = elem->height;
   chronoref->mingrad_height = elem->height / 3.0;
@@ -531,15 +533,14 @@ chronoref_update_data(Chronoref *chronoref)
     elem->width*((chronoref->firstmin-chronoref->start_time)/time_span);
   chronoref->majgrad = (chronoref->time_step * elem->width) / time_span;
   chronoref->mingrad = (chronoref->time_lstep * elem->width) / time_span;
-   
+
+  extra->border_trans = chronoref->main_lwidth/2;
   element_update_boundingbox(elem);
-  /* fix boundingchronoref for line_width: */
-  obj->bounding_box.top -= chronoref->main_lwidth/2;
-  obj->bounding_box.left -= (chronoref->main_lwidth +
-			     chronoref->font_size + labelwidth)/2;
-  obj->bounding_box.bottom += chronoref->main_lwidth/2 + chronoref->font_size;
-  obj->bounding_box.right += (chronoref->main_lwidth + 
-			      chronoref->font_size + labelwidth)/2;
+
+  /* fix boundingbox for special extras: */
+  obj->bounding_box.left -= (chronoref->font_size + labelwidth)/2;
+  obj->bounding_box.bottom += chronoref->font_size;
+  obj->bounding_box.right += (chronoref->font_size + labelwidth)/2;
   
   obj->position = elem->corner;
   
@@ -573,7 +574,7 @@ static void chronoref_alloc(Chronoref **chronoref,
   *chronoref = g_new0(Chronoref,1);
   *elem = &((*chronoref)->element);
 
-  *obj = (Object *) *chronoref;
+  *obj =  &((*chronoref)->element.object);
   (*obj)->type = &chronoref_type;
   (*obj)->ops = &chronoref_ops;
 }
@@ -613,7 +614,7 @@ chronoref_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)chronoref;
+  return &chronoref->element.object;
 }
 
 static void
@@ -631,7 +632,8 @@ chronoref_copy(Chronoref *chronoref)
   Object *newobj, *obj;
   int rcc = 0;
 
-  elem = &chronoref->element; obj = (Object *)chronoref;
+  elem = &chronoref->element; 
+  obj = &elem->object;
   chronoref_alloc(&newchronoref,&newelem,&newobj);
   element_copy(elem, newelem);
 
@@ -651,7 +653,7 @@ chronoref_copy(Chronoref *chronoref)
   
   chronoref_update_data(newchronoref);
 
-  return (Object *)newchronoref;
+  return &newchronoref->element.object;
 }
 
 
@@ -698,5 +700,5 @@ chronoref_load(ObjectNode obj_node, int version, const char *filename)
 
   chronoref_update_data(chronoref);
 
-  return (Object *)chronoref;
+  return &chronoref->element.object;
 }

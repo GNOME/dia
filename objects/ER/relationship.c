@@ -185,7 +185,8 @@ relationship_apply_properties(Relationship *relationship)
 
   relationship_update_data(relationship);
 
-  return new_object_state_change((Object *)relationship, old_state,
+  return new_object_state_change(&relationship->element.object, 
+                                 old_state,
 				 (GetStateFunc)relationship_get_state,
 				 (SetStateFunc)relationship_set_state);
 }
@@ -462,7 +463,8 @@ static void
 relationship_update_data(Relationship *relationship)
 {
   Element *elem = &relationship->element;
-  Object *obj = (Object *) relationship;
+  Object *obj = &elem->object;
+  ElementBBExtras *extra = &elem->extra_spacing;
 
   elem->width = relationship->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = elem->width * DIAMOND_RATIO;
@@ -506,24 +508,17 @@ relationship_update_data(Relationship *relationship)
   relationship->connections[7].pos.x = elem->corner.x + elem->width / 4.0;
   relationship->connections[7].pos.y = elem->corner.y + 3.0 * elem->height / 4.0;
 
+  extra->border_trans = relationship->border_width / 2.0;
   element_update_boundingbox(elem);
   
   /* fix boundingrelationship for line_width: */
   if(relationship->rotate) {
-    obj->bounding_box.top -= relationship->border_width / 2
-      + FONT_HEIGHT + CARDINALITY_DISTANCE;
-    obj->bounding_box.left -= relationship->border_width / 2;
-    obj->bounding_box.bottom += relationship->border_width / 2
-      + FONT_HEIGHT + CARDINALITY_DISTANCE;
-    obj->bounding_box.right += relationship->border_width / 2;
+    obj->bounding_box.top -= FONT_HEIGHT + CARDINALITY_DISTANCE;
+    obj->bounding_box.bottom += FONT_HEIGHT + CARDINALITY_DISTANCE;
   }
   else {
-    obj->bounding_box.top -= relationship->border_width / 2;
-    obj->bounding_box.left -= relationship->border_width / 2
-      + CARDINALITY_DISTANCE + relationship->left_card_width;
-    obj->bounding_box.bottom += relationship->border_width / 2;
-    obj->bounding_box.right += relationship->border_width / 2
-      + CARDINALITY_DISTANCE + relationship->right_card_width;
+    obj->bounding_box.left -= CARDINALITY_DISTANCE + relationship->left_card_width;
+    obj->bounding_box.right += CARDINALITY_DISTANCE + relationship->right_card_width;
   }
   obj->position = elem->corner;
   
@@ -543,7 +538,7 @@ relationship_create(Point *startpoint,
 
   relationship = g_malloc(sizeof(Relationship));
   elem = &relationship->element;
-  obj = (Object *) relationship;
+  obj = &elem->object;
   
   obj->type = &relationship_type;
   obj->ops = &relationship_ops;
@@ -588,7 +583,7 @@ relationship_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
-  return (Object *)relationship;
+  return &relationship->element.object;
 }
 
 static void
@@ -616,7 +611,7 @@ relationship_copy(Relationship *relationship)
   
   newrelationship = g_malloc(sizeof(Relationship));
   newelem = &newrelationship->element;
-  newobj = (Object *) newrelationship;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -647,7 +642,7 @@ relationship_copy(Relationship *relationship)
   
   newrelationship->properties_dialog = NULL;
 
-  return (Object *)newrelationship;
+  return &newrelationship->element.object;
 }
 
 static void
@@ -685,7 +680,7 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
 
   relationship = g_malloc(sizeof(Relationship));
   elem = &relationship->element;
-  obj = (Object *) relationship;
+  obj = &elem->object;
   
   obj->type = &relationship_type;
   obj->ops = &relationship_ops;
@@ -755,5 +750,5 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)relationship;
+  return &relationship->element.object;
 }

@@ -199,7 +199,7 @@ function_select(Function *pkg, Point *clicked_point,
 		Renderer *interactive_renderer)
 {
   text_set_cursor(pkg->text, clicked_point, interactive_renderer);
-  text_grab_focus(pkg->text, (Object *)pkg);
+  text_grab_focus(pkg->text, &pkg->element.object);
   element_update_handles(&pkg->element);
 }
 
@@ -276,7 +276,7 @@ static void
 function_update_data(Function *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = (Object *) pkg;
+  Object *obj = &elem->object;
   Font *font;
   Point p1;
   real h, w = 0;
@@ -325,11 +325,6 @@ function_update_data(Function *pkg)
   pkg->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingfunction for line width and top rectangle: */
-  obj->bounding_box.top -= FUNCTION_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= FUNCTION_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += FUNCTION_BORDERWIDTH/2.0;
-  obj->bounding_box.right += FUNCTION_BORDERWIDTH/2.0;
 
   obj->position = elem->corner;
 
@@ -351,7 +346,7 @@ function_create(Point *startpoint,
   
   pkg = g_malloc(sizeof(Function));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &function_type;
 
@@ -376,16 +371,18 @@ function_create(Point *startpoint,
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
+
   *handle1 = NULL;
   *handle2 = NULL;
 
-  return (Object *)pkg;
+  return &pkg->element.object;
 }
 
 static void
@@ -408,7 +405,7 @@ function_copy(Function *pkg)
   
   newpkg = g_malloc(sizeof(Function));
   newelem = &newpkg->element;
-  newobj = (Object *) newpkg;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -424,9 +421,11 @@ function_copy(Function *pkg)
   newpkg->is_wish = pkg->is_wish ;
   newpkg->is_user = pkg->is_user ;
 
+  newpkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
+
   function_update_data(newpkg);
   
-  return (Object *)newpkg;
+  return &newpkg->element.object;
 }
 
 
@@ -456,7 +455,7 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   
   pkg = g_malloc(sizeof(Function));
   elem = &pkg->element;
-  obj = (Object *) pkg;
+  obj = &elem->object;
   
   obj->type = &function_type;
   obj->ops = &function_ops;
@@ -487,13 +486,14 @@ function_load(ObjectNode obj_node, int version, const char *filename)
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->element.extra_spacing.border_trans = FUNCTION_BORDERWIDTH/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *) pkg;
+  return &pkg->element.object;
 }
 
 

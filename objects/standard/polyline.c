@@ -143,14 +143,14 @@ static PropOffset polyline_offsets[] = {
 static void
 polyline_get_props(Polyline *polyline, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)polyline, polyline_offsets,
+  object_get_props_from_offsets(&polyline->poly.object, polyline_offsets,
 				props, nprops);
 }
 
 static void
 polyline_set_props(Polyline *polyline, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)polyline, polyline_offsets,
+  object_set_props_from_offsets(&polyline->poly.object, polyline_offsets,
 				props, nprops);
   polyline_update_data(polyline);
 }
@@ -246,7 +246,7 @@ polyline_create(Point *startpoint,
   /*polyline_init_defaults();*/
   polyline = g_malloc(sizeof(Polyline));
   poly = &polyline->poly;
-  obj = (Object *) polyline;
+  obj = &poly->object;
   
   obj->type = &polyline_type;
   obj->ops = &polyline_ops;
@@ -268,7 +268,7 @@ polyline_create(Point *startpoint,
 
   *handle1 = poly->object.handles[0];
   *handle2 = poly->object.handles[1];
-  return (Object *)polyline;
+  return &polyline->poly.object;
 }
 
 static void
@@ -288,7 +288,7 @@ polyline_copy(Polyline *polyline)
  
   newpolyline = g_malloc(sizeof(Polyline));
   newpoly = &newpolyline->poly;
-  newobj = (Object *) newpolyline;
+  newobj = &newpoly->object;
 
   polyconn_copy(poly, newpoly);
 
@@ -299,39 +299,31 @@ polyline_copy(Polyline *polyline)
   newpolyline->start_arrow = polyline->start_arrow;
   newpolyline->end_arrow = polyline->end_arrow;
 
-  return (Object *)newpolyline;
+  return &newpolyline->poly.object;
 }
-
 
 static void
 polyline_update_data(Polyline *polyline)
 {
   PolyConn *poly = &polyline->poly;
-  Object *obj = (Object *) polyline;
+  Object *obj = &poly->object;
+  PolyConnBBExtras *extra = &poly->extra_spacing;
 
   polyconn_update_data(&polyline->poly);
+
+  extra->start_trans =  (polyline->line_width / 2.0);
+  extra->end_trans =     (polyline->line_width / 2.0);
+  extra->middle_trans = (polyline->line_width / 2.0);
     
+  if (polyline->start_arrow.type != ARROW_NONE) 
+    extra->start_trans = MAX(extra->start_trans,polyline->start_arrow.width);
+  if (polyline->end_arrow.type != ARROW_NONE) 
+    extra->end_trans = MAX(extra->end_trans,polyline->end_arrow.width);
+
+  extra->start_long = (polyline->line_width / 2.0);
+  extra->end_long   = (polyline->line_width / 2.0);
+
   polyconn_update_boundingbox(poly);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= polyline->line_width/2;
-  obj->bounding_box.left -= polyline->line_width/2;
-  obj->bounding_box.bottom += polyline->line_width/2;
-  obj->bounding_box.right += polyline->line_width/2;
-
-  /* Fix boundingbox for arrowheads */
-  if (polyline->start_arrow.type != ARROW_NONE ||
-      polyline->end_arrow.type != ARROW_NONE) {
-    real arrow_width = 0.0;
-    if (polyline->start_arrow.type != ARROW_NONE)
-      arrow_width = polyline->start_arrow.width;
-    if (polyline->end_arrow.type != ARROW_NONE)
-      arrow_width = MAX(arrow_width, polyline->start_arrow.width);
-
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
-  }
 
   obj->position = poly->points[0];
 }
@@ -389,7 +381,7 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   polyline = g_malloc(sizeof(Polyline));
 
   poly = &polyline->poly;
-  obj = (Object *) polyline;
+  obj = &poly->object;
   
   obj->type = &polyline_type;
   obj->ops = &polyline_ops;
@@ -444,7 +436,7 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
 
   polyline_update_data(polyline);
 
-  return (Object *)polyline;
+  return &polyline->poly.object;
 }
 
 static ObjectChange *

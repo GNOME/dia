@@ -246,7 +246,7 @@ bus_move(Bus *bus, Point *to)
 {
   Point delta;
   Point *endpoints = &bus->connection.endpoints[0]; 
-  Object *obj = (Object *) bus;
+  Object *obj = &bus->connection.object;
   int i;
   
   delta = *to;
@@ -301,6 +301,7 @@ bus_create(Point *startpoint,
 {
   Bus *bus;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
   Point defaultlen = { 5.0, 0.0 };
   int i;
@@ -312,8 +313,9 @@ bus_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) bus;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &bus_type;
   obj->ops = &bus_ops;
 
@@ -336,12 +338,16 @@ bus_create(Point *startpoint,
   }
 
   bus->properties_dialog = NULL;
-  
+
+  extra->start_trans = 
+    extra->end_trans = 
+    extra->start_long =
+    extra->end_long = LINE_WIDTH/2.0;  
   bus_update_data(bus);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)bus;
+  return &bus->connection.object;
 }
 
 static void
@@ -371,7 +377,7 @@ bus_copy(Bus *bus)
   
   newbus = g_malloc(sizeof(Bus));
   newconn = &newbus->connection;
-  newobj = (Object *) newbus;
+  newobj = &newconn->object;
   
   connection_copy(conn, newconn);
 
@@ -393,7 +399,7 @@ bus_copy(Bus *bus)
 
   newbus->properties_dialog = NULL;
 
-  return (Object *)newbus;
+  return &newbus->connection.object;
 }
 
 
@@ -401,7 +407,7 @@ static void
 bus_update_data(Bus *bus)
 {
   Connection *conn = &bus->connection;
-  Object *obj = (Object *) bus;
+  Object *obj = &conn->object;
   int i;
   Point u, v, vhat;
   Point *endpoints;
@@ -447,11 +453,6 @@ bus_update_data(Bus *bus)
   for (i=0;i<bus->num_handles;i++) {
     rectangle_add_point(&obj->bounding_box, &bus->handles[i]->pos);
   }
-  /* fix boundingbox for bus_width: */
-  obj->bounding_box.top -= LINE_WIDTH/2;
-  obj->bounding_box.left -= LINE_WIDTH/2;
-  obj->bounding_box.bottom += LINE_WIDTH/2;
-  obj->bounding_box.right += LINE_WIDTH/2;
 
   connection_update_handles(conn);
 }
@@ -477,7 +478,7 @@ bus_add_handle(Bus *bus, Point *p, Handle *handle)
   bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
   bus->handles[i]->connected_to = NULL;
   bus->handles[i]->pos = *p;
-  object_add_handle((Object *) bus, bus->handles[i]);
+  object_add_handle(&bus->connection.object, bus->handles[i]);
 }
 
 static void
@@ -487,7 +488,7 @@ bus_remove_handle(Bus *bus, Handle *handle)
   
   for (i=0;i<bus->num_handles;i++) {
     if (bus->handles[i] == handle) {
-      object_remove_handle((Object *) bus, handle);
+      object_remove_handle(&bus->connection.object, handle);
 
       for (j=i;j<bus->num_handles-1;j++) {
 	bus->handles[j] = bus->handles[j+1];
@@ -606,6 +607,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bus *bus;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
   AttributeNode attr;
   DataNode data;
@@ -614,7 +616,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   bus = g_malloc(sizeof(Bus));
 
   conn = &bus->connection;
-  obj = (Object *) bus;
+  obj = &conn->object;
 
   obj->type = &bus_type;
   obj->ops = &bus_ops;
@@ -646,9 +648,13 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
     data = data_next(data);
   }
 
+  extra->start_trans = 
+    extra->end_trans = 
+    extra->start_long =
+    extra->end_long = LINE_WIDTH/2.0;  
   bus_update_data(bus);
 
-  return (Object *)bus;
+  return &bus->connection.object;
 }
 
 static void

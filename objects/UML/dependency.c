@@ -216,19 +216,26 @@ static void
 dependency_update_data(Dependency *dep)
 {
   OrthConn *orth = &dep->orth;
-  Object *obj = (Object *) dep;
+  Object *obj = &orth->object;
+  OrthConnBBExtras *extra = &orth->extra_spacing;
+
   int num_segm, i;
   Point *points;
   Rectangle rect;
   
   orthconn_update_data(orth);
+
   
+  extra->start_trans = 
+    extra->start_long = 
+    extra->middle_trans = DEPENDENCY_WIDTH/2.0;
+  
+  extra->end_trans = 
+    extra->end_long = (dep->draw_arrow?
+                       (DEPENDENCY_WIDTH + DEPENDENCY_ARROWLEN)/2.0:
+                       DEPENDENCY_WIDTH/2.0);
+
   orthconn_update_boundingbox(orth);
-  /* fix boundingdependency for linewidth and arrow: */
-  obj->bounding_box.top -= DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
-  obj->bounding_box.left -= DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
-  obj->bounding_box.bottom += DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
-  obj->bounding_box.right += DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
   
   /* Calc text pos: */
   num_segm = dep->orth.numpoints - 1;
@@ -324,7 +331,7 @@ dependency_create(Point *startpoint,
   
   dep = g_malloc(sizeof(Dependency));
   orth = &dep->orth;
-  obj = (Object *) dep;
+  obj = &orth->object;
   
   obj->type = &dependency_type;
 
@@ -343,7 +350,7 @@ dependency_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)dep;
+  return &dep->orth.object;
 }
 
 static void
@@ -374,7 +381,7 @@ dependency_copy(Dependency *dep)
   
   newdep = g_malloc(sizeof(Dependency));
   neworth = &newdep->orth;
-  newobj = (Object *) newdep;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -386,7 +393,7 @@ dependency_copy(Dependency *dep)
   
   dependency_update_data(newdep);
   
-  return (Object *)newdep;
+  return &newdep->orth.object;
 }
 
 static void
@@ -464,7 +471,7 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   dep = g_new(Dependency, 1);
 
   orth = &dep->orth;
-  obj = (Object *) dep;
+  obj = &orth->object;
 
   obj->type = &dependency_type;
   obj->ops = &dependency_ops;
@@ -501,7 +508,7 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
 
   dependency_update_data(dep);
 
-  return (Object *)dep;
+  return &dep->orth.object;
 }
 
 
@@ -555,7 +562,7 @@ dependency_apply_properties(Dependency *dep)
   }
   
   dependency_update_data(dep);
-  return new_object_state_change((Object *)dep, old_state, 
+  return new_object_state_change(&dep->orth.object, old_state, 
 				 (GetStateFunc)dependency_get_state,
 				 (SetStateFunc)dependency_set_state);
 }

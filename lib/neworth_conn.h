@@ -35,6 +35,13 @@ typedef enum {
 
 
 typedef struct _NewOrthConn NewOrthConn;
+typedef struct _NewOrthConnBBExtras NewOrthConnBBExtras;
+
+struct _NewOrthConnBBExtras {
+  real start_long, start_trans;
+  real middle_trans;
+  real end_long, end_trans;
+};
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.
@@ -54,6 +61,7 @@ struct _NewOrthConn {
    * The array of pointers is ordered in segment order.
    */
   ConnPointLine *midpoints;
+  NewOrthConnBBExtras extra_spacing;
 };
 
 void neworthconn_update_data(NewOrthConn *orth);

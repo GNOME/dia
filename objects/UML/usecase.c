@@ -168,7 +168,8 @@ usecase_get_props(Usecase * usecase, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)usecase, usecase_offsets, props, nprops))
+  if (object_get_props_from_offsets(&usecase->element.object, 
+                                    usecase_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -197,8 +198,8 @@ usecase_get_props(Usecase * usecase, Property *props, guint nprops)
 static void
 usecase_set_props(Usecase *usecase, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)usecase, usecase_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&usecase->element.object, 
+                                     usecase_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -234,7 +235,7 @@ usecase_select(Usecase *usecase, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(usecase->text, clicked_point, interactive_renderer);
-  text_grab_focus(usecase->text, (Object *)usecase);
+  text_grab_focus(usecase->text, &usecase->element.object);
   element_update_handles(&usecase->element);
 }
 
@@ -325,7 +326,7 @@ usecase_update_data(Usecase *usecase)
   Point c, half, r;
   
   Element *elem = &usecase->element;
-  Object *obj = (Object *) usecase;
+  Object *obj = &elem->object;
   
   w = usecase->text->max_width;
   h = usecase->text->height*usecase->text->numlines;
@@ -418,7 +419,7 @@ usecase_create(Point *startpoint,
   
   usecase = g_malloc(sizeof(Usecase));
   elem = &usecase->element;
-  obj = (Object *) usecase;
+  obj = &elem->object;
   
   obj->type = &usecase_type;
   obj->ops = &usecase_ops;
@@ -441,6 +442,7 @@ usecase_create(Point *startpoint,
     usecase->connections[i].object = obj;
     usecase->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   usecase_update_data(usecase);
 
   for (i=0;i<8;i++) {
@@ -449,7 +451,7 @@ usecase_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)usecase;
+  return &usecase->element.object;
 }
 
 static void
@@ -472,7 +474,7 @@ usecase_copy(Usecase *usecase)
   
   newusecase = g_malloc(sizeof(Usecase));
   newelem = &newusecase->element;
-  newobj = (Object *) newusecase;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -492,7 +494,7 @@ usecase_copy(Usecase *usecase)
   newusecase->collaboration = usecase->collaboration;
   usecase_update_data(newusecase);
   
-  return (Object *)newusecase;
+  return &newusecase->element.object;
 }
 
 static UsecaseState *
@@ -545,7 +547,7 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
 
   usecase = g_malloc(sizeof(Usecase));
   elem = &usecase->element;
-  obj = (Object *) usecase;
+  obj = &elem->object;
   
   obj->type = &usecase_type;
   obj->ops = &usecase_ops;
@@ -575,13 +577,14 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
     usecase->connections[i].object = obj;
     usecase->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = 0.0;
   usecase_update_data(usecase);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)usecase;
+  return &usecase->element.object;
 }
 
 static ObjectChange *
@@ -609,7 +612,7 @@ usecase_apply_properties(Usecase *usecase)
       p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
   }
   text_set_position(usecase->text, &p);
-  return new_object_state_change((Object *)usecase, old_state, 
+  return new_object_state_change(&usecase->element.object, old_state, 
 				 (GetStateFunc)usecase_get_state,
 				 (SetStateFunc)usecase_set_state);
 }
@@ -621,8 +624,6 @@ fill_in_dialog(Usecase *usecase)
   prop_dialog = properties_dialog;
   gtk_toggle_button_set_active(prop_dialog->text_out, usecase->text_outside);
   gtk_toggle_button_set_active(prop_dialog->collaboration, usecase->collaboration);
-
-
 }
 
 static GtkWidget *

@@ -127,7 +127,8 @@ static PropOffset branch_offsets[] = {
 static void
 branch_get_props(Branch * branch, Property *props, guint nprops)
 {
-  if (object_get_props_from_offsets((Object *)branch, branch_offsets, props, nprops))
+  if (object_get_props_from_offsets(&branch->element.object, 
+                                    branch_offsets, props, nprops))
     return;
   /* none yet */
 }
@@ -135,8 +136,8 @@ branch_get_props(Branch * branch, Property *props, guint nprops)
 static void
 branch_set_props(Branch *branch, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)branch, branch_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&branch->element.object, 
+                                     branch_offsets, props, nprops)) {
     /* none yet */
   }
   branch_update_data(branch);
@@ -204,7 +205,7 @@ static void branch_draw(Branch *branch, Renderer *renderer)
 static void branch_update_data(Branch *branch)
 {
   Element *elem = &branch->element;
-  Object *obj = (Object *) branch;
+  Object *obj = &elem->object;
  
   elem->width = BRANCH_WIDTH;
   elem->height = BRANCH_HEIGHT;
@@ -220,12 +221,6 @@ static void branch_update_data(Branch *branch)
   branch->connections[3].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingbranch for line width and depth: */
-  obj->bounding_box.top -= BRANCH_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= BRANCH_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += BRANCH_BORDERWIDTH/2.0;
-  obj->bounding_box.right += BRANCH_BORDERWIDTH/2.0;
-
   obj->position = elem->corner;
 
   element_update_handles(elem);
@@ -240,7 +235,7 @@ static Object *branch_create(Point *startpoint, void *user_data, Handle **handle
   
   branch = g_malloc(sizeof(Branch));
   elem = &branch->element;
-  obj = (Object *) branch;
+  obj = &elem->object;
   
   obj->type = &branch_type;
 
@@ -255,11 +250,12 @@ static Object *branch_create(Point *startpoint, void *user_data, Handle **handle
       branch->connections[i].object = obj;
       branch->connections[i].connected = NULL;
     }
+  elem->extra_spacing.border_trans = BRANCH_BORDERWIDTH / 2.0;
   branch_update_data(branch);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  return (Object *)branch;
+  return &branch->element.object;
 }
 
 static void branch_destroy(Branch *branch)
@@ -278,7 +274,7 @@ static Object *branch_copy(Branch *branch)
   
   newbranch = g_malloc(sizeof(Branch));
   newelem = &newbranch->element;
-  newobj = (Object *) newbranch;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
   for (i=0;i<8;i++)
@@ -289,9 +285,8 @@ static Object *branch_copy(Branch *branch)
       newbranch->connections[i].pos = branch->connections[i].pos;
       newbranch->connections[i].last_pos = branch->connections[i].last_pos;
     }
-
   branch_update_data(newbranch);
-  return (Object *)newbranch;
+  return &newbranch->element.object;
 }
 
 static void branch_save(Branch *branch, ObjectNode obj_node, const char *filename)
@@ -308,7 +303,7 @@ static Object *branch_load(ObjectNode obj_node, int version, const char *filenam
   
   branch = g_malloc(sizeof(Branch));
   elem = &branch->element;
-  obj = (Object *) branch;
+  obj = &elem->object;
   
   obj->type = &branch_type;
   obj->ops = &branch_ops;
@@ -323,6 +318,7 @@ static Object *branch_load(ObjectNode obj_node, int version, const char *filenam
       branch->connections[i].object = obj;
       branch->connections[i].connected = NULL;
     }
+  elem->extra_spacing.border_trans = BRANCH_BORDERWIDTH / 2.0;
   branch_update_data(branch);
-  return (Object *) branch;
+  return &branch->element.object;
 }

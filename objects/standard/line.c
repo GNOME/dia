@@ -145,13 +145,15 @@ static PropOffset line_offsets[] = {
 static void
 line_get_props(Line *line, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)line, line_offsets, props, nprops);
+  object_get_props_from_offsets(&line->connection.object, 
+                                line_offsets, props, nprops);
 }
 
 static void
 line_set_props(Line *line, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)line, line_offsets, props, nprops);
+  object_set_props_from_offsets(&line->connection.object, 
+                                line_offsets, props, nprops);
   line_update_data(line);
 }
 
@@ -303,7 +305,7 @@ line_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) line;
+  obj = &conn->object;
   
   obj->type = &line_type;
   obj->ops = &line_ops;
@@ -319,7 +321,7 @@ line_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)line;
+  return &line->connection.object;
 }
 
 static void
@@ -340,7 +342,7 @@ line_copy(Line *line)
   
   newline = g_malloc(sizeof(Line));
   newconn = &newline->connection;
-  newobj = (Object *) newline;
+  newobj = &newconn->object;
   
   connection_copy(conn, newconn);
 
@@ -355,36 +357,23 @@ line_copy(Line *line)
 
   line_update_data(line);
 
-  return (Object *)newline;
+  return &newline->connection.object;
 }
 
 static void
 line_update_data(Line *line)
 {
   Connection *conn = &line->connection;
-  Object *obj = (Object *) line;
-  
+  Object *obj = &conn->object;
+  ConnectionBBExtras *extra = &conn->extra_spacing;
+
+  extra->start_trans =  (line->line_width / 2.0);
+  extra->end_trans =     (line->line_width / 2.0);
+  if (line->start_arrow.type != ARROW_NONE) 
+    extra->start_trans = MAX(extra->start_trans,line->start_arrow.width);
+  if (line->end_arrow.type != ARROW_NONE) 
+    extra->end_trans = MAX(extra->end_trans,line->end_arrow.width);
   connection_update_boundingbox(conn);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= line->line_width/2;
-  obj->bounding_box.left -= line->line_width/2;
-  obj->bounding_box.bottom += line->line_width/2;
-  obj->bounding_box.right += line->line_width/2;
-
-  /* Fix boundingbox for arrowheads */
-  if (line->start_arrow.type != ARROW_NONE ||
-      line->end_arrow.type != ARROW_NONE) {
-    real arrow_width = 0.0;
-    if (line->start_arrow.type != ARROW_NONE)
-      arrow_width = line->start_arrow.width;
-    if (line->end_arrow.type != ARROW_NONE)
-      arrow_width = MAX(arrow_width, line->start_arrow.width);
-
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
-  }
 
   obj->position = conn->endpoints[0];
 
@@ -448,7 +437,7 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   line = g_malloc(sizeof(Line));
 
   conn = &line->connection;
-  obj = (Object *) line;
+  obj = &conn->object;
 
   obj->type = &line_type;
   obj->ops = &line_ops;
@@ -506,5 +495,5 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   line->cpl = connpointline_load(obj,obj_node,"numcp",1,NULL);
   line_update_data(line);
 
-  return (Object *)line;
+  return &line->connection.object;
 }

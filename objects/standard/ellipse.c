@@ -164,15 +164,15 @@ static PropOffset ellipse_offsets[] = {
 static void
 ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)ellipse, ellipse_offsets,
-				props, nprops);
+  object_get_props_from_offsets(&ellipse->element.object, 
+                                ellipse_offsets, props, nprops);
 }
 
 static void
 ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)ellipse, ellipse_offsets,
-				props, nprops);
+  object_set_props_from_offsets(&ellipse->element.object, 
+                                ellipse_offsets, props, nprops);
   ellipse_update_data(ellipse);
 }
 
@@ -301,7 +301,8 @@ static void
 ellipse_update_data(Ellipse *ellipse)
 {
   Element *elem = &ellipse->element;
-  Object *obj = (Object *) ellipse;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   Point center;
   real half_x, half_y;
 
@@ -329,12 +330,8 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[7].pos.x = center.x + half_x;
   ellipse->connections[7].pos.y = center.y + half_y;
 
+  extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingellipse for line_width: */
-  obj->bounding_box.top -= ellipse->border_width/2;
-  obj->bounding_box.left -= ellipse->border_width/2;
-  obj->bounding_box.bottom += ellipse->border_width/2;
-  obj->bounding_box.right += ellipse->border_width/2;
 
   obj->position = elem->corner;
 
@@ -357,7 +354,7 @@ ellipse_create(Point *startpoint,
 
   ellipse = g_malloc(sizeof(Ellipse));
   elem = &ellipse->element;
-  obj = (Object *) ellipse;
+  obj = &elem->object;
   
   obj->type = &ellipse_type;
 
@@ -385,7 +382,7 @@ ellipse_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];
-  return (Object *)ellipse;
+  return &ellipse->element.object;
 }
 
 static void
@@ -406,7 +403,7 @@ ellipse_copy(Ellipse *ellipse)
   
   newellipse = g_malloc(sizeof(Ellipse));
   newelem = &newellipse->element;
-  newobj = (Object *) newellipse;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -425,7 +422,7 @@ ellipse_copy(Ellipse *ellipse)
     newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
   }
 
-  return (Object *)newellipse;
+  return &newellipse->element.object;
 }
 
 
@@ -470,7 +467,7 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
 
   ellipse = g_malloc(sizeof(Ellipse));
   elem = &ellipse->element;
-  obj = (Object *) ellipse;
+  obj = &elem->object;
   
   obj->type = &ellipse_type;
   obj->ops = &ellipse_ops;
@@ -516,5 +513,5 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   }
   ellipse_update_data(ellipse);
 
-  return (Object *)ellipse;
+  return &ellipse->element.object;
 }

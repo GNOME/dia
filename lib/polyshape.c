@@ -266,6 +266,8 @@ polyshape_update_boundingbox(PolyShape *poly)
   Rectangle *bb;
   Point *points;
   int i;
+  Point pt1,pt0;
+  PolyShapeBBExtras *extra = &poly->extra_spacing;
   
   assert(poly != NULL);
 
@@ -274,15 +276,40 @@ polyshape_update_boundingbox(PolyShape *poly)
 
   bb->right = bb->left = points[0].x;
   bb->top = bb->bottom = points[0].y;
-  for (i=1;i<poly->numpoints;i++) {
-    if (points[i].x < bb->left)
-      bb->left = points[i].x;
-    if (points[i].x > bb->right)
-      bb->right = points[i].x;
-    if (points[i].y < bb->top)
-      bb->top = points[i].y;
-    if (points[i].y > bb->bottom)
-      bb->bottom = points[i].y;
+
+  for (i=0;i<=(poly->numpoints);i++) {
+    int imod = i % poly->numpoints;
+    int ipomod = (i+1) % poly->numpoints;
+    pt1 = points[imod];
+    point_sub(&pt1,&(points[ipomod]));
+    point_normalize(&pt1);
+
+    if (i!=0) {
+      real co = point_dot(&pt1,&pt0);
+
+      check_bb_x(bb, points[imod].x + (extra->border_trans * pt1.y),pt1.y);
+      check_bb_x(bb, points[imod].x - (extra->border_trans * pt1.y),pt1.y);
+      check_bb_y(bb, points[imod].y + (extra->border_trans * pt1.x),pt1.x);
+      check_bb_y(bb, points[imod].y - (extra->border_trans * pt1.x),pt1.x);
+
+      if (co > -0.9816) { /* 0.9816 == cos(11deg) */
+        real alpha = fabs(acos(-co));
+        real overshoot = extra->border_trans / (sin(alpha/2.0));
+        Point pts;
+
+        pts = pt1; point_sub(&pts,&pt0);
+        point_normalize(&pts);
+
+        check_bb_x(bb,points[imod].x + (overshoot * pts.x),pts.x);
+        check_bb_y(bb,points[imod].y + (overshoot * pts.y),pts.y);
+      } else { 
+          check_bb_x(bb, points[imod].x + (extra->border_trans * pt0.y),pt0.y);
+          check_bb_x(bb, points[imod].x - (extra->border_trans * pt0.y),pt0.y);
+          check_bb_y(bb, points[imod].y + (extra->border_trans * pt0.x),pt0.x);
+          check_bb_y(bb, points[imod].y - (extra->border_trans * pt0.x),pt0.x);
+      } 
+    }
+    pt0=pt1;
   }
 }
 
@@ -382,6 +409,7 @@ polyshape_copy(PolyShape *from, PolyShape *to)
     to->object.connections[2*i+1]->object = &to->object;
   }
 
+  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
   polyshape_update_data(to);
 }
 

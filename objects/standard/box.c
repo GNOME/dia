@@ -173,13 +173,15 @@ static PropOffset box_offsets[] = {
 static void
 box_get_props(Box *box, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)box, box_offsets, props, nprops);
+  object_get_props_from_offsets(&box->element.object, 
+                                box_offsets, props, nprops);
 }
 
 static void
 box_set_props(Box *box, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)box, box_offsets, props, nprops);
+  object_set_props_from_offsets(&box->element.object, 
+                                box_offsets, props, nprops);
   box_update_data(box);
 }
 
@@ -434,7 +436,8 @@ static void
 box_update_data(Box *box)
 {
   Element *elem = &box->element;
-  Object *obj = (Object *) box;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   real radius;
   
   radius = box->corner_radius;
@@ -460,12 +463,8 @@ box_update_data(Box *box)
   box->connections[7].pos.x = elem->corner.x + elem->width - radius;
   box->connections[7].pos.y = elem->corner.y + elem->height - radius;
 
+  extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= box->border_width/2;
-  obj->bounding_box.left -= box->border_width/2;
-  obj->bounding_box.bottom += box->border_width/2;
-  obj->bounding_box.right += box->border_width/2;
   
   obj->position = elem->corner;
   
@@ -499,7 +498,7 @@ box_create(Point *startpoint,
 
   box = g_malloc(sizeof(Box));
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &box_type;
 
@@ -528,7 +527,7 @@ box_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)box;
+  return &box->element.object;
 }
 
 static void
@@ -549,7 +548,7 @@ box_copy(Box *box)
   
   newbox = g_malloc(sizeof(Box));
   newelem = &newbox->element;
-  newobj = (Object *) newbox;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -569,7 +568,7 @@ box_copy(Box *box)
     newbox->connections[i].last_pos = box->connections[i].last_pos;
   }
 
-  return (Object *)newbox;
+  return &newbox->element.object;
 }
 
 static void
@@ -616,7 +615,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
 
   box = g_malloc(sizeof(Box));
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &box_type;
   obj->ops = &box_ops;
@@ -668,5 +667,5 @@ box_load(ObjectNode obj_node, int version, const char *filename)
 
   box_update_data(box);
 
-  return (Object *)box;
+  return &box->element.object;
 }

@@ -231,6 +231,7 @@ constraint_create(Point *startpoint,
 {
   Constraint *constraint;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
@@ -244,8 +245,9 @@ constraint_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) constraint;
-  
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
+
   obj->type = &constraint_type;
   obj->ops = &constraint_ops;
   
@@ -266,11 +268,16 @@ constraint_create(Point *startpoint,
   
   constraint->properties_dialog = NULL;
   
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = CONSTRAINT_WIDTH/2.0;
+  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
+  
   constraint_update_data(constraint);
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)constraint;
+  return &constraint->connection.object;
 }
 
 
@@ -298,7 +305,7 @@ constraint_copy(Constraint *constraint)
   
   newconstraint = g_malloc(sizeof(Constraint));
   newconn = &newconstraint->connection;
-  newobj = (Object *) newconstraint;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -311,7 +318,7 @@ constraint_copy(Constraint *constraint)
 
   newconstraint->properties_dialog = NULL;
 
-  return (Object *)newconstraint;
+  return &newconstraint->connection.object;
 }
 
 static void
@@ -354,7 +361,7 @@ static void
 constraint_update_data(Constraint *constraint)
 {
   Connection *conn = &constraint->connection;
-  Object *obj = (Object *) constraint;
+  Object *obj = &conn->object;
   Rectangle rect;
   
   obj->position = conn->endpoints[0];
@@ -372,12 +379,6 @@ constraint_update_data(Constraint *constraint)
   rect.top = constraint->text_pos.y - font_ascent(constraint_font, CONSTRAINT_FONTHEIGHT);
   rect.bottom = rect.top + CONSTRAINT_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
-
-  /* fix boundingbox for constraint_width and arrow: */
-  obj->bounding_box.top -= CONSTRAINT_WIDTH/2 + CONSTRAINT_ARROWLEN;
-  obj->bounding_box.left -= CONSTRAINT_WIDTH/2 + CONSTRAINT_ARROWLEN;
-  obj->bounding_box.bottom += CONSTRAINT_WIDTH/2 + CONSTRAINT_ARROWLEN;
-  obj->bounding_box.right += CONSTRAINT_WIDTH/2 + CONSTRAINT_ARROWLEN;
 }
 
 
@@ -399,6 +400,7 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   Constraint *constraint;
   AttributeNode attr;
   Connection *conn;
+  ConnectionBBExtras *extra;
   Object *obj;
 
   if (constraint_font == NULL)
@@ -407,7 +409,8 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   constraint = g_malloc(sizeof(Constraint));
 
   conn = &constraint->connection;
-  obj = (Object *) constraint;
+  obj = &conn->object;
+  extra = &conn->extra_spacing;
 
   obj->type = &constraint_type;
   obj->ops = &constraint_ops;
@@ -435,10 +438,15 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   obj->handles[2] = &constraint->text_handle;
   
   constraint->properties_dialog = NULL;
+
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = CONSTRAINT_WIDTH/2.0;
+  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
   
   constraint_update_data(constraint);
   
-  return (Object *)constraint;
+  return &constraint->connection.object;
 }
 
 
@@ -466,7 +474,7 @@ constraint_apply_properties(Constraint *constraint)
 			CONSTRAINT_FONTHEIGHT);
   
   constraint_update_data(constraint);
-  return new_object_state_change((Object *)constraint, old_state, 
+  return new_object_state_change(&constraint->connection.object, old_state, 
 				 (GetStateFunc)constraint_get_state,
 				 (SetStateFunc)constraint_set_state);
 

@@ -26,15 +26,16 @@ void
 element_update_boundingbox(Element *elem) {
   Rectangle *bb;
   Point *corner;
+  ElementBBExtras *extra = &elem->extra_spacing;
 
   assert(elem != NULL);
 
   bb = &elem->object.bounding_box;
   corner = &elem->corner;
-  bb->left = corner->x;
-  bb->right = corner->x + elem->width;
-  bb->top = corner->y;
-  bb->bottom = corner->y + elem->height;
+  bb->left = corner->x - extra->border_trans;
+  bb->right = corner->x + elem->width + extra->border_trans;
+  bb->top = corner->y - extra->border_trans;
+  bb->bottom = corner->y + elem->height + extra->border_trans;
 }
 
 void
@@ -282,6 +283,7 @@ element_copy(Element *from, Element *to)
     to->resize_handles[i].connected_to = NULL;
     toobj->handles[i] = &to->resize_handles[i];
   }
+  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
 }
 
 void

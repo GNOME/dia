@@ -211,7 +211,7 @@ static void
 realizes_update_data(Realizes *realize)
 {
   OrthConn *orth = &realize->orth;
-  Object *obj = (Object *) realize;
+  Object *obj = &orth->object;
   int num_segm, i;
   Point *points;
   Rectangle rect;
@@ -219,11 +219,6 @@ realizes_update_data(Realizes *realize)
   orthconn_update_data(orth);
   
   orthconn_update_boundingbox(orth);
-  /* fix boundingrealizes for linewidth and triangle: */
-  obj->bounding_box.top -= REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
-  obj->bounding_box.left -= REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
-  obj->bounding_box.bottom += REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
-  obj->bounding_box.right += REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
   
   /* Calc text pos: */
   num_segm = realize->orth.numpoints - 1;
@@ -312,6 +307,7 @@ realizes_create(Point *startpoint,
   Realizes *realize;
   OrthConn *orth;
   Object *obj;
+  OrthConnBBExtras *extra;
 
   if (realize_font == NULL) {
     realize_font = font_getfont("Courier");
@@ -319,8 +315,9 @@ realizes_create(Point *startpoint,
   
   realize = g_malloc(sizeof(Realizes));
   orth = &realize->orth;
-  obj = (Object *) realize;
-  
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
+
   obj->type = &realizes_type;
 
   obj->ops = &realizes_ops;
@@ -332,11 +329,17 @@ realizes_create(Point *startpoint,
   realize->text_width = 0;
   realize->properties_dialog = NULL;
 
+  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = REALIZES_WIDTH/2.0;
+
   realizes_update_data(realize);
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
-  return (Object *)realize;
+  return &realize->orth.object;
 }
 
 static void
@@ -370,7 +373,7 @@ realizes_copy(Realizes *realize)
   
   realizes_update_data(newrealize);
   
-  return (Object *)newrealize;
+  return &newrealize->orth.object;
 }
 
 static void
@@ -435,6 +438,7 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
+  OrthConnBBExtras *extra;
 
   if (realize_font == NULL) {
     realize_font = font_getfont("Courier");
@@ -443,7 +447,8 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   realize = g_new(Realizes, 1);
 
   orth = &realize->orth;
-  obj = (Object *) realize;
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
 
   obj->type = &realizes_type;
   obj->ops = &realizes_ops;
@@ -473,9 +478,15 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
 			  font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
   }
 
+  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = REALIZES_WIDTH/2.0;
+
   realizes_update_data(realize);
 
-  return (Object *)realize;
+  return &realize->orth.object;
 }
 
 static ObjectChange *
@@ -526,7 +537,7 @@ realizes_apply_properties(Realizes *realize)
   }
   
   realizes_update_data(realize);
-  return new_object_state_change((Object *)realize, old_state, 
+  return new_object_state_change(&realize->orth.object, old_state, 
 				 (GetStateFunc)realizes_get_state,
 				 (SetStateFunc)realizes_set_state);
 }

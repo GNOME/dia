@@ -141,7 +141,8 @@ actor_get_props(Actor * actor, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)actor, actor_offsets, props, nprops))
+  if (object_get_props_from_offsets(&actor->element.object, 
+                                    actor_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -170,8 +171,8 @@ actor_get_props(Actor * actor, Property *props, guint nprops)
 static void
 actor_set_props(Actor *actor, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)actor, actor_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&actor->element.object, 
+                                     actor_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -207,7 +208,7 @@ actor_select(Actor *actor, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(actor->text, clicked_point, interactive_renderer);
-  text_grab_focus(actor->text, (Object *)actor);
+  text_grab_focus(actor->text, &actor->element.object);
   element_update_handles(&actor->element);
 }
 
@@ -306,7 +307,7 @@ static void
 actor_update_data(Actor *actor)
 {
   Element *elem = &actor->element;
-  Object *obj = (Object *) actor;
+  Object *obj = &elem->object;
   Rectangle text_box;
   Point p;
   
@@ -364,7 +365,7 @@ actor_create(Point *startpoint,
   
   actor = g_malloc(sizeof(Actor));
   elem = &actor->element;
-  obj = (Object *) actor;
+  obj = &elem->object;
   
   obj->type = &actor_type;
   obj->ops = &actor_ops;
@@ -386,6 +387,7 @@ actor_create(Point *startpoint,
     actor->connections[i].object = obj;
     actor->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = ACTOR_LINEWIDTH/2.0;
   actor_update_data(actor);
 
   for (i=0;i<8;i++) {
@@ -394,7 +396,7 @@ actor_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)actor;
+  return &actor->element.object;
 }
 
 static void
@@ -417,7 +419,7 @@ actor_copy(Actor *actor)
   
   newactor = g_malloc(sizeof(Actor));
   newelem = &newactor->element;
-  newobj = (Object *) newactor;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -430,10 +432,9 @@ actor_copy(Actor *actor)
     newactor->connections[i].pos = actor->connections[i].pos;
     newactor->connections[i].last_pos = actor->connections[i].last_pos;
   }
-
   actor_update_data(newactor);
   
-  return (Object *)newactor;
+  return &newactor->element.object;
 }
 
 
@@ -457,7 +458,7 @@ actor_load(ObjectNode obj_node, int version, const char *filename)
   
   actor = g_malloc(sizeof(Actor));
   elem = &actor->element;
-  obj = (Object *) actor;
+  obj = &elem->object;
   
   obj->type = &actor_type;
   obj->ops = &actor_ops;
@@ -475,12 +476,13 @@ actor_load(ObjectNode obj_node, int version, const char *filename)
     actor->connections[i].object = obj;
     actor->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = ACTOR_LINEWIDTH/2.0;
   actor_update_data(actor);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *)actor;
+  return &actor->element.object;
 }
 

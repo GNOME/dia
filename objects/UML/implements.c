@@ -258,8 +258,8 @@ implements_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) implements;
-  
+  obj = &conn->object;
+
   obj->type = &implements_type;
   obj->ops = &implements_ops;
   
@@ -289,7 +289,7 @@ implements_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)implements;
+  return &implements->connection.object;
 }
 
 
@@ -316,7 +316,7 @@ implements_copy(Implements *implements)
   
   newimplements = g_malloc(sizeof(Implements));
   newconn = &newimplements->connection;
-  newobj = (Object *) newimplements;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -334,7 +334,7 @@ implements_copy(Implements *implements)
 
   newimplements->properties_dialog = NULL;
 
-  return (Object *)newimplements;
+  return &newimplements->connection.object;
 }
 
 static void
@@ -371,7 +371,8 @@ static void
 implements_update_data(Implements *implements)
 {
   Connection *conn = &implements->connection;
-  Object *obj = (Object *) implements;
+  Object *obj = &conn->object;
+  ConnectionBBExtras *extra = &conn->extra_spacing;
   Point delta;
   Point point;
   real len;
@@ -401,14 +402,12 @@ implements_update_data(Implements *implements)
   connection_update_handles(conn);
 
   /* Boundingbox: */
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = IMPLEMENTS_WIDTH/2.0;
+  extra->end_trans = (IMPLEMENTS_WIDTH + implements->circle_diameter)/2.0;
+  
   connection_update_boundingbox(conn);
-
-  /* Add boundingbox for circle: */
-  rect.left = implements->circle_center.x - implements->circle_diameter/2.0;
-  rect.right = implements->circle_center.x + implements->circle_diameter/2.0;
-  rect.top = implements->circle_center.y - implements->circle_diameter/2.0;
-  rect.bottom = implements->circle_center.y + implements->circle_diameter/2.0;
-  rectangle_union(&obj->bounding_box, &rect);
 
   /* Add boundingbox for text: */
   rect.left = implements->text_pos.x;
@@ -416,13 +415,6 @@ implements_update_data(Implements *implements)
   rect.top = implements->text_pos.y - font_ascent(implements_font, IMPLEMENTS_FONTHEIGHT);
   rect.bottom = rect.top + IMPLEMENTS_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
-
-  /* fix boundingbox for implements_width: */
-  obj->bounding_box.top -= IMPLEMENTS_WIDTH/2;
-  obj->bounding_box.left -= IMPLEMENTS_WIDTH/2;
-  obj->bounding_box.bottom += IMPLEMENTS_WIDTH/2;
-  obj->bounding_box.right += IMPLEMENTS_WIDTH/2;
-
 }
 
 
@@ -454,7 +446,7 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   implements = g_malloc(sizeof(Implements));
 
   conn = &implements->connection;
-  obj = (Object *) implements;
+  obj = &conn->object;
 
   obj->type = &implements_type;
   obj->ops = &implements_ops;
@@ -498,7 +490,7 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   
   implements_update_data(implements);
   
-  return (Object *)implements;
+  return &implements->connection.object;
 }
 
 
@@ -522,7 +514,7 @@ implements_apply_properties(Implements *implements)
   
   implements_update_data(implements);
 
-  return new_object_state_change((Object *)implements, old_state, 
+  return new_object_state_change(&implements->connection.object, old_state, 
 				 (GetStateFunc)implements_get_state,
 				 (SetStateFunc)implements_set_state);
 }

@@ -160,7 +160,7 @@ textobj_get_props(Textobj *textobj, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)textobj, textobj_offsets,
+  if (object_get_props_from_offsets(&textobj->object, textobj_offsets,
 				    props, nprops))
     return;
   if (quarks[0].q == 0)
@@ -193,7 +193,7 @@ textobj_get_props(Textobj *textobj, Property *props, guint nprops)
 static void
 textobj_set_props(Textobj *textobj, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)textobj, textobj_offsets,
+  if (!object_set_props_from_offsets(&textobj->object, textobj_offsets,
                                      props, nprops)) {
     guint i;
 
@@ -309,7 +309,7 @@ textobj_select(Textobj *textobj, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(textobj->text, clicked_point, interactive_renderer);
-  text_grab_focus(textobj->text, (Object *)textobj);
+  text_grab_focus(textobj->text, &textobj->object);
 }
 
 static void
@@ -392,7 +392,7 @@ textobj_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
-  return (Object *)textobj;
+  return &textobj->object;
 }
 
 static void
@@ -422,7 +422,7 @@ textobj_copy(Textobj *textobj)
   newtext->text_handle = textobj->text_handle;
   newtext->text_handle.connected_to = NULL;
 
-  return (Object *)newtext;
+  return &newtext->object;
 }
 
 static void
@@ -467,5 +467,5 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   textobj_update_data(textobj);
 
-  return (Object *)textobj;
+  return &textobj->object;
 }

@@ -204,7 +204,8 @@ box_get_props(Box *box, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)box, box_offsets, props, nprops))
+  if (object_get_props_from_offsets(&box->element.object, 
+                                    box_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -233,8 +234,8 @@ box_get_props(Box *box, Property *props, guint nprops)
 static void
 box_set_props(Box *box, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)box, box_offsets,
-				     props, nprops)) {
+  if (!object_set_props_from_offsets(&box->element.object, 
+                                     box_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -407,7 +408,7 @@ box_select(Box *box, Point *clicked_point,
   real radius;
 
   text_set_cursor(box->text, clicked_point, interactive_renderer);
-  text_grab_focus(box->text, (Object *)box);
+  text_grab_focus(box->text, &box->element.object);
 
   element_update_handles(&box->element);
 
@@ -591,7 +592,8 @@ static void
 box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
-  Object *obj = (Object *) box;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real radius;
@@ -674,12 +676,8 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   box->connections[15].pos.x = elem->corner.x + elem->width - radius;
   box->connections[15].pos.y = elem->corner.y + elem->height - radius;
 
+  extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= box->border_width/2;
-  obj->bounding_box.left -= box->border_width/2;
-  obj->bounding_box.bottom += box->border_width/2;
-  obj->bounding_box.right += box->border_width/2;
   
   obj->position = elem->corner;
   
@@ -716,7 +714,7 @@ box_create(Point *startpoint,
 
   box = g_malloc(sizeof(Box));
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &fc_box_type;
 
@@ -754,7 +752,7 @@ box_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)box;
+  return &box->element.object;
 }
 
 static void
@@ -777,7 +775,7 @@ box_copy(Box *box)
   
   newbox = g_malloc(sizeof(Box));
   newelem = &newbox->element;
-  newobj = (Object *) newbox;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -800,7 +798,7 @@ box_copy(Box *box)
     newbox->connections[i].last_pos = box->connections[i].last_pos;
   }
 
-  return (Object *)newbox;
+  return &newbox->element.object;
 }
 
 static void
@@ -850,7 +848,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
 
   box = g_new(Box, 1);
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &fc_box_type;
   obj->ops = &box_ops;
@@ -912,5 +910,5 @@ box_load(ObjectNode obj_node, int version, const char *filename)
 
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)box;
+  return &box->element.object;
 }

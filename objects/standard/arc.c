@@ -153,13 +153,15 @@ static PropOffset arc_offsets[] = {
 static void
 arc_get_props(Arc *arc, Property *props, guint nprops)
 {
-  object_get_props_from_offsets((Object *)arc, arc_offsets, props, nprops);
+  object_get_props_from_offsets(&arc->connection.object, 
+                                arc_offsets, props, nprops);
 }
 
 static void
 arc_set_props(Arc *arc, Property *props, guint nprops)
 {
-  object_set_props_from_offsets((Object *)arc, arc_offsets, props, nprops);
+  object_set_props_from_offsets(&arc->connection.object, 
+                                arc_offsets, props, nprops);
   arc_update_data(arc);
 }
 
@@ -376,8 +378,6 @@ arc_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  /*arc_init_defaults();*/
-
   arc = g_malloc(sizeof(Arc));
 
   arc->line_width =  attributes_get_default_linewidth();
@@ -392,7 +392,7 @@ arc_create(Point *startpoint,
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
  
-  obj = (Object *) arc;
+  obj = &conn->object;
   
   obj->type = &arc_type;;
   obj->ops = &arc_ops;
@@ -409,7 +409,7 @@ arc_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  return (Object *)arc;
+  return &arc->connection.object;
 }
 
 static void
@@ -429,7 +429,7 @@ arc_copy(Arc *arc)
   
   newarc = g_malloc(sizeof(Arc));
   newconn = &newarc->connection;
-  newobj = (Object *) newarc;
+  newobj = &newconn->object;
 
   connection_copy(conn, newconn);
 
@@ -449,14 +449,15 @@ arc_copy(Arc *arc)
   
   newarc->middle_handle = arc->middle_handle;
 
-  return (Object *)newarc;
+  return &newarc->connection.object;
 }
 
 static void
 arc_update_data(Arc *arc)
 {
   Connection *conn = &arc->connection;
-  Object *obj = (Object *) arc;
+  ConnectionBBExtras *extra =&conn->extra_spacing;
+  Object *obj = &conn->object;
   Point *endpoints;
   real x1,y1,x2,y2,xc,yc;
   real lensq, alpha, radius;
@@ -495,40 +496,31 @@ arc_update_data(Arc *arc)
   arc->center.x = xc; arc->center.y = yc;
   arc->angle1 = angle1;
   arc->angle2 = angle2;
-  
+
+  extra->start_trans =  (arc->line_width / 2.0);
+  extra->end_trans =     (arc->line_width / 2.0);
+  if (arc->start_arrow.type != ARROW_NONE) 
+    extra->start_trans = MAX(extra->start_trans,arc->start_arrow.width);
+  if (arc->end_arrow.type != ARROW_NONE) 
+    extra->end_trans = MAX(extra->end_trans,arc->end_arrow.width);
   connection_update_boundingbox(conn);
-  /* fix boundingbox for line_width: */
+  /* fix boundingbox for arc's special shape XXX find a more elegant way: */
   if (in_angle(0, arc->angle1, arc->angle2)) {
-    obj->bounding_box.right = arc->center.x + arc->radius;
+    obj->bounding_box.right = arc->center.x + arc->radius 
+      + (arc->line_width / 2.0);
   }
   if (in_angle(90, arc->angle1, arc->angle2)) {
-    obj->bounding_box.top = arc->center.y - arc->radius;
+    obj->bounding_box.top = arc->center.y - arc->radius
+      - (arc->line_width / 2.0);
   }
   if (in_angle(180, arc->angle1, arc->angle2)) {
-    obj->bounding_box.left = arc->center.x - arc->radius;
+    obj->bounding_box.left = arc->center.x - arc->radius
+      - (arc->line_width / 2.0);
   }
   if (in_angle(270, arc->angle1, arc->angle2)) {
-    obj->bounding_box.bottom = arc->center.y + arc->radius;
+    obj->bounding_box.bottom = arc->center.y + arc->radius
+      + (arc->line_width / 2.0);
   }
-  
-  /* Fix boundingbox for arrowheads */
-  if (arc->start_arrow.type != ARROW_NONE ||
-      arc->end_arrow.type != ARROW_NONE) {
-    real arrow_width = 0.0;
-    if (arc->start_arrow.type != ARROW_NONE)
-      arrow_width = arc->start_arrow.width;
-    if (arc->end_arrow.type != ARROW_NONE)
-      arrow_width = MAX(arrow_width, arc->start_arrow.width);
-
-    obj->bounding_box.top -= arrow_width;
-    obj->bounding_box.left -= arrow_width;
-    obj->bounding_box.bottom += arrow_width;
-    obj->bounding_box.right += arrow_width;
-  }
-  obj->bounding_box.top -= arc->line_width/2;
-  obj->bounding_box.left -= arc->line_width/2;
-  obj->bounding_box.bottom += arc->line_width/2;
-  obj->bounding_box.right += arc->line_width/2;
 
   obj->position = conn->endpoints[0];
   
@@ -590,9 +582,9 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   arc = g_malloc(sizeof(Arc));
 
   conn = &arc->connection;
-  obj = (Object *) arc;
+  obj = &conn->object;
 
-  obj->type = &arc_type;;
+  obj->type = &arc_type;
   obj->ops = &arc_ops;
 
   connection_load(conn, obj_node);
@@ -659,7 +651,7 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
 
   arc_update_data(arc);
 
-  return (Object *)arc;
+  return &arc->connection.object;
 }
 
 

@@ -146,7 +146,8 @@ component_get_props(Component * component, Property *props, guint nprops)
 {
   guint i;
 
-  if (object_get_props_from_offsets((Object *)component, component_offsets, props, nprops))
+  if (object_get_props_from_offsets(&component->element.object, 
+                                    component_offsets, props, nprops))
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
@@ -175,8 +176,8 @@ component_get_props(Component * component, Property *props, guint nprops)
 static void
 component_set_props(Component *component, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets((Object *)component, component_offsets,
-		     props, nprops)) {
+  if (!object_set_props_from_offsets(&component->element.object, 
+                                     component_offsets, props, nprops)) {
     guint i;
 
     if (quarks[0].q == 0)
@@ -212,7 +213,7 @@ component_select(Component *cmp, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
   text_set_cursor(cmp->text, clicked_point, interactive_renderer);
-  text_grab_focus(cmp->text, (Object *)cmp);
+  text_grab_focus(cmp->text, &cmp->element.object);
   element_update_handles(&cmp->element);
 }
 
@@ -305,7 +306,7 @@ static void
 component_update_data(Component *cmp)
 {
   Element *elem = &cmp->element;
-  Object *obj = (Object *) cmp;
+  Object *obj = &elem->object;
   
   elem->width = cmp->text->max_width + 2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH;
   elem->width = MAX(elem->width, 2*COMPONENT_CWIDTH);
@@ -331,11 +332,6 @@ component_update_data(Component *cmp)
   cmp->connections[7].pos.y = elem->corner.y + elem->height;
   
   element_update_boundingbox(elem);
-  /* fix boundingcomponent for line width and top rectangle: */
-  obj->bounding_box.top -= COMPONENT_BORDERWIDTH/2.0;
-  obj->bounding_box.left -= COMPONENT_BORDERWIDTH/2.0;
-  obj->bounding_box.bottom += COMPONENT_BORDERWIDTH/2.0;
-  obj->bounding_box.right += COMPONENT_BORDERWIDTH/2.0;
 
   obj->position = elem->corner;
 
@@ -357,7 +353,7 @@ component_create(Point *startpoint,
   
   cmp = g_malloc(sizeof(Component));
   elem = &cmp->element;
-  obj = (Object *) cmp;
+  obj = &elem->object;
   
   obj->type = &component_type;
 
@@ -379,6 +375,7 @@ component_create(Point *startpoint,
     cmp->connections[i].object = obj;
     cmp->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = COMPONENT_BORDERWIDTH/2.0;
   component_update_data(cmp);
 
   for (i=0;i<8;i++) {
@@ -387,7 +384,7 @@ component_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-  return (Object *)cmp;
+  return &cmp->element.object;
 }
 
 static void
@@ -410,7 +407,7 @@ component_copy(Component *cmp)
   
   newcmp = g_malloc(sizeof(Component));
   newelem = &newcmp->element;
-  newobj = (Object *) newcmp;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
 
@@ -423,10 +420,9 @@ component_copy(Component *cmp)
     newcmp->connections[i].pos = cmp->connections[i].pos;
     newcmp->connections[i].last_pos = cmp->connections[i].last_pos;
   }
-
   component_update_data(newcmp);
   
-  return (Object *)newcmp;
+  return &newcmp->element.object;
 }
 
 
@@ -451,7 +447,7 @@ component_load(ObjectNode obj_node, int version, const char *filename)
   
   cmp = g_malloc(sizeof(Component));
   elem = &cmp->element;
-  obj = (Object *) cmp;
+  obj = &elem->object;
   
   obj->type = &component_type;
   obj->ops = &component_ops;
@@ -470,13 +466,14 @@ component_load(ObjectNode obj_node, int version, const char *filename)
     cmp->connections[i].object = obj;
     cmp->connections[i].connected = NULL;
   }
+  elem->extra_spacing.border_trans = COMPONENT_BORDERWIDTH/2.0;
   component_update_data(cmp);
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
-  return (Object *) cmp;
+  return &cmp->element.object;
 }
 
 

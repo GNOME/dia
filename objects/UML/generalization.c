@@ -208,7 +208,7 @@ static void
 generalization_update_data(Generalization *genlz)
 {
   OrthConn *orth = &genlz->orth;
-  Object *obj = (Object *) genlz;
+  Object *obj = &orth->object;
   int num_segm, i;
   Point *points;
   Rectangle rect;
@@ -309,6 +309,7 @@ generalization_create(Point *startpoint,
   Generalization *genlz;
   OrthConn *orth;
   Object *obj;
+  OrthConnBBExtras *extra;
 
   if (genlz_font == NULL) {
     genlz_font = font_getfont("Courier");
@@ -316,8 +317,9 @@ generalization_create(Point *startpoint,
   
   genlz = g_malloc(sizeof(Generalization));
   orth = &genlz->orth;
-  obj = (Object *) genlz;
-  
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
+
   obj->type = &generalization_type;
 
   obj->ops = &generalization_ops;
@@ -329,12 +331,18 @@ generalization_create(Point *startpoint,
   genlz->text_width = 0;
   genlz->properties_dialog = NULL;
 
+  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = GENERALIZATION_WIDTH/2.0;
+  
   generalization_update_data(genlz);
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)genlz;
+  return &genlz->orth.object;
 }
 
 static void
@@ -359,7 +367,7 @@ generalization_copy(Generalization *genlz)
   
   newgenlz = g_malloc(sizeof(Generalization));
   neworth = &newgenlz->orth;
-  newobj = (Object *) newgenlz;
+  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
@@ -370,7 +378,7 @@ generalization_copy(Generalization *genlz)
   
   generalization_update_data(newgenlz);
   
-  return (Object *)newgenlz;
+  return &newgenlz->orth.object;
 }
 
 static void
@@ -437,6 +445,7 @@ generalization_load(ObjectNode obj_node, int version,
   AttributeNode attr;
   OrthConn *orth;
   Object *obj;
+  OrthConnBBExtras *extra;
 
   if (genlz_font == NULL) {
     genlz_font = font_getfont("Courier");
@@ -445,7 +454,8 @@ generalization_load(ObjectNode obj_node, int version,
   genlz = g_new(Generalization, 1);
 
   orth = &genlz->orth;
-  obj = (Object *) genlz;
+  obj = &orth->object;
+  extra = &orth->extra_spacing;
 
   obj->type = &generalization_type;
   obj->ops = &generalization_ops;
@@ -474,10 +484,16 @@ generalization_load(ObjectNode obj_node, int version,
     genlz->text_width = MAX(genlz->text_width,
 			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
   }
+
+  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = GENERALIZATION_WIDTH/2.0;
   
   generalization_update_data(genlz);
 
-  return (Object *)genlz;
+  return &genlz->orth.object;
 }
 
 static ObjectChange *
@@ -528,7 +544,7 @@ generalization_apply_properties(Generalization *genlz)
   }
   
   generalization_update_data(genlz);
-  return new_object_state_change((Object *)genlz, old_state, 
+  return new_object_state_change(&genlz->orth.object, old_state, 
 				 (GetStateFunc)generalization_get_state,
 				 (SetStateFunc)generalization_set_state);
 }

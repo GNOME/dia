@@ -136,8 +136,8 @@ static void sadtbox_set_state(Box *box, BoxState *state);
 
 static void sadtbox_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *sadtbox_load(ObjectNode obj_node, int version, const char *filename);
-static PROPDLG_TYPE sadtbox_get_defaults();
-static void sadtbox_apply_defaults();
+static PROPDLG_TYPE sadtbox_get_defaults(void);
+static void sadtbox_apply_defaults(void);
 
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
 
@@ -189,7 +189,8 @@ sadtbox_apply_properties(Box *box)
   PROPDLG_APPLY_STRING(dlg,id);
 
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)box, old_state, 
+  return new_object_state_change(&box->element.object, 
+                                 old_state, 
 				 (GetStateFunc)sadtbox_get_state,
 				 (SetStateFunc)sadtbox_set_state);
 }
@@ -213,7 +214,7 @@ sadtbox_get_properties(Box *box)
   PROPDLG_RETURN(dlg);
 }
 static void
-sadtbox_apply_defaults()
+sadtbox_apply_defaults(void)
 {
   BoxDefaultsDialog *dlg = sadtbox_defaults_dialog;
 
@@ -224,7 +225,7 @@ sadtbox_apply_defaults()
 }
 
 static void
-init_default_values() {
+init_default_values(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -237,7 +238,7 @@ init_default_values() {
 }
 
 static GtkWidget *
-sadtbox_get_defaults()
+sadtbox_get_defaults(void)
 {
   BoxDefaultsDialog *dlg = sadtbox_defaults_dialog;
 
@@ -271,7 +272,7 @@ sadtbox_select(Box *box, Point *clicked_point,
 	   Renderer *interactive_renderer)
 {
   text_set_cursor(box->text, clicked_point, interactive_renderer);
-  text_grab_focus(box->text, (Object *)box);
+  text_grab_focus(box->text, &box->element.object);
   element_update_handles(&box->element);
 }
 
@@ -402,7 +403,8 @@ static void
 sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
-  Object *obj = (Object *) box;
+  ElementBBExtras *extra = &elem->extra_spacing;
+  Object *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   real width, height;
@@ -447,11 +449,6 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   text_set_position(box->text, &p);
 
   element_update_boundingbox(elem);
-  /* fix boundingbox for line_width: */
-  obj->bounding_box.top -= SADTBOX_LINE_WIDTH/2;
-  obj->bounding_box.left -= SADTBOX_LINE_WIDTH/2;
-  obj->bounding_box.bottom += SADTBOX_LINE_WIDTH/2;
-  obj->bounding_box.right += SADTBOX_LINE_WIDTH/2;
   
   obj->position = elem->corner;
   
@@ -575,7 +572,7 @@ sadtbox_create(Point *startpoint,
 
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &sadtbox_type;
 
@@ -604,11 +601,12 @@ sadtbox_create(Point *startpoint,
   box->south = connpointline_create(obj,1); 
   box->east = connpointline_create(obj,3);
 
+  box->element.extra_spacing.border_trans = SADTBOX_LINE_WIDTH/2.0;
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
-  return (Object *)box;
+  return &box->element.object;
 }
 
 static void
@@ -638,7 +636,7 @@ sadtbox_copy(Box *box)
   
   newbox = g_malloc(sizeof(Box));
   newelem = &newbox->element;
-  newobj = (Object *) newbox;
+  newobj = &newelem->object;
 
   element_copy(elem, newelem);
   rcc = 0;
@@ -650,10 +648,9 @@ sadtbox_copy(Box *box)
   
   newbox->id = g_strdup(box->id);
   newbox->padding = box->padding;
-  newbox->text = text_copy(box->text);
-  
+  newbox->text = text_copy(box->text);  
 
-  return (Object *)newbox;
+  return &newbox->element.object;
 }
 
 
@@ -682,7 +679,7 @@ sadtbox_load(ObjectNode obj_node, int version, const char *filename)
 
   box = g_malloc(sizeof(Box));
   elem = &box->element;
-  obj = (Object *) box;
+  obj = &elem->object;
   
   obj->type = &sadtbox_type;
   obj->ops = &sadtbox_ops;
@@ -708,9 +705,10 @@ sadtbox_load(ObjectNode obj_node, int version, const char *filename)
   box->id = load_string(obj_node,"id",NULL);
   if (!box->id) box->id = g_strdup("A0");
   
+  box->element.extra_spacing.border_trans = SADTBOX_LINE_WIDTH/2.0;
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return (Object *)box;
+  return &box->element.object;
 }
 
 
