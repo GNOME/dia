@@ -304,7 +304,7 @@ handle_initial_diagram(const char *in_file_name,
     if (ef == NULL) {
       ef = filter_get_by_name(export_file_format);
       if (ef == NULL) {
-	g_error(_("Can't find output format/filer %s\n"), export_file_format);
+	g_error(_("Can't find output format/filter %s\n"), export_file_format);
 	return FALSE;
       }
       g_free (export_file_name);
@@ -499,6 +499,11 @@ app_init (int argc, char **argv)
 
   if (!dia_is_interactive)
     log_to_stderr = TRUE;
+  else {
+#ifdef G_OS_WIN32
+    dia_redirect_console ();
+#endif
+  }
   
   if (log_to_stderr)
     set_message_func(stderr_message_internal);
@@ -696,9 +701,11 @@ app_exit(void)
   dia_pluginrc_write();
 
   gtk_main_quit();
+#ifndef G_OS_WIN32
   /* This printf seems to prevent a race condition with unrefs. */
   /* Yuck.  -Lars */
   g_print(_("Thank you for using Dia.\n"));
+#endif
   app_exit_once = TRUE;
 
   return TRUE;

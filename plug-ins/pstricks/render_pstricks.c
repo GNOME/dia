@@ -50,6 +50,7 @@ NOT WORKING (exporting macros):
 #include <unistd.h>
 #endif
 #include <errno.h>
+#include <locale.h>
 
 #include "intl.h"
 #include "render_pstricks.h"

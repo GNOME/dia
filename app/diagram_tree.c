@@ -311,6 +311,7 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 		 DiagramTreeSortType dia_sort,
 		 DiagramTreeSortType obj_sort)
 {
+  GList *tmplist;
   DiagramTree *result = g_new(DiagramTree, 1);
   result->tree = GTK_CTREE(gtk_ctree_new(1, 0));
   result->last = NULL;
@@ -328,7 +329,7 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
   diagram_tree_set_object_sort_type(result, obj_sort);
   result->menus = diagram_tree_menus_new(result, window);
   /* Set up menu items for the list of hidden types */
-  GList *tmplist = persistent_list_get_glist(HIDDEN_TYPES_NAME);
+  tmplist = persistent_list_get_glist(HIDDEN_TYPES_NAME);
   for (; tmplist != NULL; tmplist = g_list_next(tmplist)) {
     diagram_tree_menus_add_hidden_type(result->menus, tmplist->data);
   }

@@ -42,4 +42,6 @@ gboolean app_is_interactive(void);
    two long values width and height. */
 void parse_size(gchar *size, long *width, long *height);
 
+void dia_redirect_console (void);
+
 #endif /* APP_PROCS_H */

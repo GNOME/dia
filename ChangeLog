@@ -1,5 +1,18 @@
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
+	* app/diagram_tree.c : still no C99 everwhere ...
+	* lib/libdia.def : update externals
+	* plug-ins/pstricks/render_pstricks.c : #include <locale.h>
+
+	* app/app_procs.[hc] : declare, use ...
+	   app/winmain.c : ... and implement dia_redirect_console().
+	Even though newer Gtk version don't popup a console window
+	anymore redirecting the error messages to a file in $TEMP appears
+	to be much more reasonable than just ignoring it. Fixes bug #150777
+	based on a patch from Steffen Macke
+
+2004-11-06  Hans Breuer  <hans@breuer.org>
+
         * plug-ins/wmf/wmf.cpp plug-ins/wmf/wmf_gdi.* : added/used
         RoundRect() for high level renderer api implementation thus
         fixing bug #138744 reported by Lars Clausen
