@@ -170,7 +170,12 @@ dia_get_canonical_path (gchar *path)
     i = 0;
     while (list[i] != NULL) {
       if (strlen(list[i]) > 0) {
-        g_string_append (str, G_DIR_SEPARATOR_S);
+
+        /* win32 filenames usually don't start with a dir separator but
+         * with <drive>:\ 
+         */
+	if (i != 0 || list[i][1] != ':')
+          g_string_append (str, G_DIR_SEPARATOR_S);
         g_string_append (str, list[i]);
       }
       i++;

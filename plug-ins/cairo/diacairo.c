@@ -812,6 +812,7 @@ fill_rounded_rect (DiaRenderer *renderer,
 }
 
 /* gobject boiler plate */
+static void cairo_renderer_init (DiaCairoRenderer *r, void *p);
 static void cairo_renderer_class_init (DiaCairoRendererClass *klass);
 
 static gpointer parent_class = NULL;
@@ -833,7 +834,7 @@ dia_cairo_renderer_get_type (void)
         NULL,           /* class_data */
         sizeof (DiaCairoRenderer),
         0,              /* n_preallocs */
-	NULL            /* init */
+	(GInstanceInitFunc)cairo_renderer_init /* init */
       };
 
       object_type = g_type_register_static (DIA_TYPE_RENDERER,
@@ -842,6 +843,19 @@ dia_cairo_renderer_get_type (void)
     }
   
   return object_type;
+}
+
+static void
+cairo_renderer_init (DiaCairoRenderer *renderer, void *p)
+{
+  /*
+   * Initialize fields where 0 init isn't good enough. Bug #151716
+   * appears to show that we are sometimes called to render a line
+   * without setting the linstyle first. Probably a bug elsewhere
+   * but it's this plug-in which hangs ;)
+   */
+  renderer->dash_length = 1.0;
+  renderer->scale = 1.0;
 }
 
 static void

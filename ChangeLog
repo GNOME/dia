@@ -1,3 +1,13 @@
+2004-01-15  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : initialized the renderers default dash_length
+	to something differnt than 0. Apparently there are case where Dia misses
+	to appropriately set it before requesting a dashed line (simple line with
+	arrow as described in bug #151716)
+
+	* lib/dia_dirs.c : special casing for drive letters which I broke with
+	the previous change
+
 2005-01-13  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c(create_sheet_page) : remved dead long time code
