@@ -1,3 +1,10 @@
+1999-11-23  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/preferences.[ch]:
+	* app/display.c:
+	Added snap to grid preference.
+	Patch from Michael Leslie <mles@springboardwireless.com>
+
 1999-11-21  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/load_save.c:

@@ -98,7 +98,7 @@ new_display(Diagram *dia)
   ddisp->diagram = dia;
 
   ddisp->grid.visible = prefs.grid.visible;
-  ddisp->grid.snap = FALSE;
+  ddisp->grid.snap = prefs.grid.snap;
   ddisp->grid.width_x = prefs.grid.x;
   ddisp->grid.width_y = prefs.grid.y;
   ddisp->grid.gc = NULL;

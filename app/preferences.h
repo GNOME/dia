@@ -31,6 +31,7 @@
 struct DiaPreferences {
   struct {
     int visible;
+    int snap;
     real x;
     real y;
     Color colour;

@@ -83,6 +83,7 @@ struct DiaPrefsData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Grid:") },
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 1, N_("Visible:") },
+  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 1, N_("Snap to:") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 1, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 1, N_("Y Size:") },
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 1, N_("Colour") },
