@@ -7,8 +7,6 @@ libcustom_objects_a_SOURCES = \
 			custom_object.c \
 			custom_util.c \
 			custom_util.h \
-			load_sheet.c \
-			load_sheet.h \
 			custom.c
 
 shapedir = $(pkgdatadir)/shapes

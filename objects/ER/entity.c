@@ -28,10 +28,8 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
-#include "sheet.h"
 
 #include "pixmaps/entity.xpm"
-#include "pixmaps/weakentity.xpm"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
@@ -121,24 +119,6 @@ ObjectType entity_type =
   (char **) entity_xpm, /* pixmap */
 
   &entity_type_ops      /* ops */
-};
-
-SheetObject entity_sheetobj =
-{
-  "ER - Entity",  /* type */
-  N_("Entity"),      /* description */
-  (char **) entity_xpm, /* pixmap */
-
-  GINT_TO_POINTER(FALSE)                /* user_data */
-};
-
-SheetObject weakentity_sheetobj =
-{
-  "ER - Entity",  /* type */
-  N_("Weak Entity"),      /* description */
-  (char **) weakentity_xpm, /* pixmap */
-
-  GINT_TO_POINTER(TRUE)                /* user_data */
 };
 
 ObjectType *_entity_type = (ObjectType *) &entity_type;

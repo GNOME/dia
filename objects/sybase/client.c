@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType client_type =
   (char **) client_xpm,    /* pixmap */
 
   &client_type_ops         /* ops */
-};
-
-SheetObject client_sheetobj =
-{
-  "Sybase - Client Application",             /* type */
-  N_("A Sybase Client Application."),  /* description */
-  (char **) client_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define CLIENT_LINE SYBASE_GENERAL_LINEWIDTH

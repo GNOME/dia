@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType computer_type =
   (char **) computer_xpm, /* pixmap */
 
   &computer_type_ops      /* ops */
-};
-
-SheetObject computer_sheetobj =
-{
-  "Network - General Computer (Tower)",             /* type */
-  N_("A Computer with a tower case."), /* description */
-  (char **) computer_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 #define COMPUTER_WIDTH 1.5

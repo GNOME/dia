@@ -1,3 +1,136 @@
+1999-11-11  Alexander Larsson  <alla@lysator.liu.se>
+
+        Changed all sheets to be specified in xml.
+	All sheet objects removed from the C code.
+	Patch from Cyrille Chepelov <chepelov@rmcnet.fr>
+	
+        * Makefile.am:
+        * configure.in:
+	Adding shapes dir.
+	Updated version to 0.81cvs.
+	
+        * app/Makefile.am:
+	Update run_dia.sh with sheet-dir.
+	
+	* app/app_procs.c:
+	Load all sheets on startup.
+	Create sheet directory first time.
+	Don't call custom_register_sheets().
+
+	* lib/Makefile.am:
+	Add sheetdir define
+
+	* lib/custom.h:
+	Remove custom_register_sheets().
+
+	* lib/sheet.[ch]:
+	Add sheet loading code.
+
+	* sheet/Circuit.sheet:
+	* sheet/ER.sheet:
+	* sheet/FS.sheet:
+	* sheet/Flowchart.sheet:
+	* sheet/UML.sheet:
+	* sheet/network.sheet:
+	* sheet/sybase.sheet:
+	Added sheet files.
+
+	* sheet/ER/weakentity.xpm:
+	* sheet/UML/aggregation.xpm
+	* sheet/UML/umlclass_template.xpm
+	Added sheet pixmaps.
+	These are moved from their old places.
+
+	* sheet/.cvsignore:
+	Shut up cvs.
+
+	* objects/*/*.c:
+	Removed sheet objects and sheet registration.
+	
+	* objects/ER/Makefile.am:
+	* objects/ER/pixmaps/weakentity.xpm:
+	* objects/UML/Makefile.am:
+	* objects/UML/pixmaps/aggregation.xpm:
+	* objects/UML/pixmaps/umlclass_template.xpm:
+	Removed alternative pixmaps. (Moved to sheet).
+
+	* objects/custom/Makefile.am:
+	* objects/custom/load_sheet.[ch]:
+	Removed old sheet loading code.
+	
+	* objects/custom/custom.c:
+	Load all shapes instead of sheets.
+	Removed custom_register_sheets().
+
+	* objects/custom/custom_object.c:
+	Added debug code.
+
+	* objects/custom/shape_info.[ch]:
+	Added shape_info_getbyname().
+
+	* objects/flowchart/Makefile.am:
+	* objects/flowchart/collate.shape            
+	* objects/flowchart/delay.shape              
+	* objects/flowchart/display.shape            
+	* objects/flowchart/document.shape           
+	* objects/flowchart/extract.shape            
+	* objects/flowchart/flowchart.c              
+	* objects/flowchart/intstorage.shape         
+	* objects/flowchart/magdisk.shape            
+	* objects/flowchart/magdrum.shape            
+	* objects/flowchart/magtape.shape            
+	* objects/flowchart/manualinput.shape        
+	* objects/flowchart/manualop.shape           
+	* objects/flowchart/merge.shape              
+	* objects/flowchart/offlinestore.shape       
+	* objects/flowchart/offpageconn.shape        
+	* objects/flowchart/or.shape                 
+	* objects/flowchart/predefdproc.shape        
+	* objects/flowchart/preparation.shape        
+	* objects/flowchart/punchedcard.shape        
+	* objects/flowchart/punchedtape.shape        
+	* objects/flowchart/sort.shape               
+	* objects/flowchart/sumjunction.shape        
+	* objects/flowchart/terminal.shape           
+	* objects/flowchart/transaction.shape        
+	* objects/flowchart/transmittape.shape       
+	* objects/flowchart/pixmaps/collate.xpm      
+	* objects/flowchart/pixmaps/delay.xpm        
+	* objects/flowchart/pixmaps/display.xpm      
+	* objects/flowchart/pixmaps/document.xpm     
+	* objects/flowchart/pixmaps/extract.xpm      
+	* objects/flowchart/pixmaps/intstorage.xpm   
+	* objects/flowchart/pixmaps/magdisk.xpm      
+	* objects/flowchart/pixmaps/magdrum.xpm      
+	* objects/flowchart/pixmaps/magtape.xpm      
+	* objects/flowchart/pixmaps/manualinput.xpm  
+	* objects/flowchart/pixmaps/manualop.xpm     
+	* objects/flowchart/pixmaps/merge.xpm        
+	* objects/flowchart/pixmaps/offlinestore.xpm 
+	* objects/flowchart/pixmaps/offpageconn.xpm  
+	* objects/flowchart/pixmaps/or.xpm           
+	* objects/flowchart/pixmaps/predefdproc.xpm  
+	* objects/flowchart/pixmaps/preparation.xpm  
+	* objects/flowchart/pixmaps/punchedcard.xpm  
+	* objects/flowchart/pixmaps/punchedtape.xpm  
+	* objects/flowchart/pixmaps/sort.xpm         
+	* objects/flowchart/pixmaps/sumjunction.xpm  
+	* objects/flowchart/pixmaps/terminal.xpm     
+	* objects/flowchart/pixmaps/transaction.xpm  
+	* objects/flowchart/pixmaps/transmittape.xpm 
+	Moved shapes and their pixmaps to shapes/flowchart
+
+	* shapes/Circuit/Makefile.am:
+	* shapes/Circuit/index.sheet:
+	Removed index.sheet.
+	
+	* shapes/Makefile.am:
+	* shapes/flowchart/Makefile.am:
+	* shapes/flowchart/*.shape:
+	* shapes/flowchart/*.xpm:
+	Added flowchart shapes. (Moved from objects/flowchart)
+	
+
 1999-11-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/app_procs.c: Fixed popt stuff.

@@ -26,13 +26,11 @@
 #include "orth_conn.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "arrows.h"
 
 #include "uml.h"
 
 #include "pixmaps/association.xpm"
-#include "pixmaps/aggregation.xpm"
 
 typedef struct _Association Association;
 typedef struct _AssociationState AssociationState;
@@ -157,26 +155,6 @@ ObjectType association_type =
   (char **) association_xpm,  /* pixmap */
   
   &association_type_ops       /* ops */
-};
-
-SheetObject association_sheetobj =
-{
-  "UML - Association",             /* type */
-  N_("Association, two classes are associated."),
-                              /* description */
-  (char **) association_xpm,     /* pixmap */
-
-  GINT_TO_POINTER(0)                        /* user_data */
-};
-
-SheetObject aggregation_sheetobj =
-{
-  "UML - Association",             /* type */
-  N_("Aggregation, one class is part of another."),
-                              /* description */
-  (char **) aggregation_xpm,     /* pixmap */
-
-  GINT_TO_POINTER(1)                        /* user_data */
 };
 
 static ObjectOps association_ops = {

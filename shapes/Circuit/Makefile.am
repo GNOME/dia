@@ -4,7 +4,6 @@ shapedir = $(pkgdatadir)/shapes
 circuitdir = $(shapedir)/Circuit
 
 SHAPES = \
-        index.sheet \
 	ground.shape \
 	ground.xpm \
 	hcapacitor.shape \

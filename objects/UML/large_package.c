@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "uml.h"
@@ -111,15 +110,6 @@ ObjectType largepackage_type =
   (char **) largepackage_xpm,  /* pixmap */
   
   &largepackage_type_ops       /* ops */
-};
-
-SheetObject largepackage_sheetobj =
-{
-  "UML - LargePackage",             /* type */
-  N_("Create a (large) package"),           /* description */
-  (char **) largepackage_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps largepackage_ops = {

@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/case.xpm"
@@ -107,15 +106,6 @@ ObjectType usecase_type =
   (char **) case_xpm,  /* pixmap */
   
   &usecase_type_ops       /* ops */
-};
-
-SheetObject usecase_sheetobj =
-{
-  "UML - Usecase",             /* type */
-  N_("Create a use case"),           /* description */
-  (char **) case_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 static ObjectOps usecase_ops = {

@@ -34,22 +34,9 @@ void register_objects(void) {
   object_register_type(&orthflow_type);  
 }
 
-extern SheetObject function_sheetobj;
-extern SheetObject flow_sheetobj;
-extern SheetObject orthflow_sheetobj;
-
 int get_version(void) {
   return 0;
 }
 
 void register_sheets(void) {
-  Sheet *sheet;
-  
-  sheet = new_sheet(_("FS"),
-		    _("Editor for Function Structure Diagrams."));
-  sheet_append_sheet_obj(sheet, &function_sheetobj);
-  sheet_append_sheet_obj(sheet, &flow_sheetobj);
-  sheet_append_sheet_obj(sheet, &orthflow_sheetobj);
-
-  register_sheet(sheet);
 }

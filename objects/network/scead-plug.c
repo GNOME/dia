@@ -20,7 +20,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -49,15 +48,6 @@ ObjectType sceadplug_type =
   (char **) sceadplug_xpm, /* pixmap */
 
   &sceadplug_type_ops      /* ops */
-};
-
-SheetObject sceadplug_sheetobj =
-{
-  "Network - scEAD Wall-Plug",             /* type */
-  N_("A Wall-Plug for the scEAD Cabling System"), /* description */
-  (char **) sceadplug_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define SCEADPLUG_LINE NETWORK_GENERAL_LINEWIDTH

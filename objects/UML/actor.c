@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/actor.xpm"
@@ -83,15 +82,6 @@ ObjectType actor_type =
   (char **) actor_xpm,  /* pixmap */
   
   &actor_type_ops       /* ops */
-};
-
-SheetObject actor_sheetobj =
-{
-  "UML - Actor",             /* type */
-  N_("Create an actor"),           /* description */
-  (char **) actor_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 static ObjectOps actor_ops = {

@@ -15,9 +15,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <glib.h>
+#include <tree.h>
+#include <parser.h>
+
 #include "sheet.h"
 #include "message.h"
 #include "object.h"
+#include "../objects/custom/shape_info.h" /* shouldn't custom go into lib/ ? */
 
 static GSList *sheets = NULL;
 
@@ -74,4 +83,296 @@ GSList *
 get_sheets_list(void)
 {
   return sheets;
+}
+
+/* Sheet file management */
+
+static void load_sheets_from_dir(const gchar *directory);
+static void load_register_sheet(const gchar *directory,const gchar *filename);
+
+void load_all_sheets(void) {
+  char *sheet_path;
+  char *home_dir;
+
+  home_dir = g_get_home_dir();
+  if (home_dir) {
+    home_dir = g_strconcat(home_dir,G_DIR_SEPARATOR_S,".dia",
+			   G_DIR_SEPARATOR_S,"sheets",NULL);
+    load_sheets_from_dir(home_dir);
+    g_free(home_dir);
+  }
+
+  sheet_path = getenv("DIA_SHEET_PATH");
+  if (sheet_path) {
+    char **dirs = g_strsplit(sheet_path,G_SEARCHPATH_SEPARATOR_S,0);
+    int i;
+
+    for (i=0; dirs[i] != NULL; i++) 
+      load_sheets_from_dir(dirs[i]);
+    g_strfreev(dirs);
+  } else {
+    load_sheets_from_dir(DIA_SHEETDIR);
+  }
+}
+
+static void 
+load_sheets_from_dir(const gchar *directory)
+{
+  DIR *dp;
+  struct dirent *dirp;
+  struct stat statbuf;
+  gchar *p;
+
+  dp = opendir(directory);
+  if (!dp) return;
+
+  while ( (dirp = readdir(dp)) ) {
+    gchar *filename = g_strconcat(directory,G_DIR_SEPARATOR_S,
+				  dirp->d_name,NULL);
+
+    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
+      g_free(filename);
+      continue;
+    }
+    /* filter out non-files */
+    if (stat(filename, &statbuf) < 0) {
+      g_free(filename);
+      continue;
+    }
+    if (!S_ISREG(statbuf.st_mode)) {
+      g_free(filename);
+      continue;
+    }
+
+    /* take only .sheet files */
+    p = filename + strlen(filename) - 6 /* strlen(".sheet") */;
+    if (0!=strncmp(p,".sheet",6)) {
+      g_free(filename);
+      continue;
+    }
+
+    load_register_sheet(directory,filename);
+    g_free(filename);
+				
+  }
+
+  closedir(dp);
+}
+
+static void 
+load_register_sheet(const gchar *dirname, const gchar *filename)
+{
+  xmlDocPtr doc;
+  xmlNsPtr ns;
+  xmlNodePtr node, contents,subnode,root;
+  char *tmp;
+  gchar *name = NULL, *description = NULL;
+  int name_score = -1;
+  int descr_score = -1;
+  Sheet *sheet = NULL;
+  GSList *sheetp;
+
+  /* the XML fun begins here. */
+
+  doc = xmlParseFile(filename);
+  if (!doc) return;
+  root = doc->root;
+  while (root && (root->type != XML_ELEMENT_NODE)) root=root->next;
+  if (!root) return;
+
+  if (ns = xmlSearchNsByHref(doc,root,
+	   "http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns")) {
+    g_warning("sheet namespace http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns is \ndeprecated, please upgrade");
+   
+  } else if (!(ns = xmlSearchNsByHref(doc,root,
+	   "http://www.lysator.liu.se/~alla/dia/dia-sheet-ns"))) {
+    g_warning("could not find sheet namespace");
+    xmlFreeDoc(doc); 
+    return;
+  }
+  
+  if ((root->ns != ns) || (strcmp(root->name,"sheet"))) {
+    g_warning("root element was %s -- expecting sheet", doc->root->name);
+    xmlFreeDoc(doc);
+    return;
+  }
+  for (node = root->childs; node != NULL; node = node->next) {
+    if (node->type != XML_ELEMENT_NODE)
+      continue;
+
+    if (node->ns == ns && !strcmp(node->name, "name")) {
+      gint score;
+      
+      /* compare the xml:lang property on this element to see if we get a
+       * better language match.  LibXML seems to throw away attribute
+       * namespaces, so we use "lang" instead of "xml:lang" */
+      tmp = xmlGetProp(node, "xml:lang");
+      if (!tmp) tmp = xmlGetProp(node, "lang");
+      score = intl_score_locale(tmp);
+      if (tmp) free(tmp);
+
+      if (name_score < 0 || score < name_score) {
+        name_score = score;
+        tmp = xmlNodeGetContent(node);
+        g_free(name);
+        name = g_strdup(tmp);
+        free(tmp);
+      }      
+    } else if (node->ns == ns && !strcmp(node->name, "description")) {
+      gint score;
+
+      /* compare the xml:lang property on this element to see if we get a
+       * better language match.  LibXML seems to throw away attribute
+       * namespaces, so we use "lang" instead of "xml:lang" */
+      tmp = xmlGetProp(node, "xml:lang");
+      if (!tmp) tmp = xmlGetProp(node, "lang");
+      score = intl_score_locale(tmp);
+      if (tmp) free(tmp);
+
+      if (descr_score < 0 || score < descr_score) {
+        descr_score = score;
+        tmp = xmlNodeGetContent(node);
+        g_free(description);
+        description = g_strdup(tmp);
+        free(tmp);
+      }
+      
+    } else if (node->ns == ns && !strcmp(node->name, "contents")) {
+      contents = node;
+    }
+  }
+  
+  if (!contents) {
+    g_warning("no contents in sheet %s.", filename);
+    xmlFreeDoc(doc);
+    g_free(name);
+    g_free(description);
+    return;
+  }
+
+  sheetp = get_sheets_list();
+  while (sheetp) {
+    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name,name)) {
+      sheet = sheetp->data;
+      break;
+    }
+    sheetp = sheetp->next;
+  }
+  
+  if (!sheet)
+    sheet = new_sheet(name,description);
+  
+  for (node = contents->childs ; node != NULL; node = node->next) {
+    ObjectType *obj_type;
+    SheetObject *sheet_obj;
+    gboolean isobject = FALSE,isshape = FALSE;
+    gchar *iconname = NULL;
+
+    int subdesc_score = -1;
+    gchar *objdesc = NULL, *objicon = NULL;
+
+    gint intdata = 0;
+    gchar *chardata = NULL;
+
+    if (node->type != XML_ELEMENT_NODE) 
+      continue;
+    if (node->ns != ns) continue;
+    if (!strcmp(node->name,"object")) {
+      isobject = TRUE;
+    } else if (!strcmp(node->name,"shape")) {
+      isshape = TRUE;
+    }
+    
+    if (isobject) {
+      tmp = xmlGetProp(node,"intdata");
+      if (tmp) { 
+	char *p;
+	intdata = (gint)strtol(tmp,&p,0);
+	if (*p != 0) intdata = 0;
+      }
+      tmp = xmlGetProp(node,"chardata");
+      if (tmp) {
+	chardata = g_strdup(tmp);
+      }
+    }
+    
+    if (isobject || isshape) {
+      for (subnode = node->childs; subnode != NULL ; subnode = subnode->next) {
+	if (subnode->ns == ns && !strcmp(subnode->name, "description")) {
+	  gint score;
+
+	  /* compare the xml:lang property on this element to see if we get a
+	   * better language match.  LibXML seems to throw away attribute
+	   * namespaces, so we use "lang" instead of "xml:lang" */
+	  
+	  tmp = xmlGetProp(subnode, "xml:lang");
+	  if (!tmp) tmp = xmlGetProp(subnode, "lang");
+	  score = intl_score_locale(tmp);
+	  if (tmp) free(tmp);
+
+	  if (subdesc_score < 0 || score < subdesc_score) {
+	    subdesc_score = score;
+	    tmp = xmlNodeGetContent(subnode);
+	    g_free(objdesc);
+	    objdesc = g_strdup(tmp);
+	    free(tmp);
+	  }
+	  
+	} else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
+	  tmp = xmlNodeGetContent(subnode);
+	  iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
+	  g_free(tmp);
+	}
+      }
+
+      tmp = xmlGetProp(node,"name");
+
+      sheet_obj = g_new(SheetObject,1);
+      sheet_obj->object_type = g_strdup(tmp);
+      sheet_obj->description = objdesc;
+      sheet_obj->pixmap = NULL;
+      sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
+      sheet_obj->pixmap_file = iconname; 
+
+      
+      if (isshape) {
+	ShapeInfo *info = shape_info_getbyname(tmp);
+	if (info) {
+	  if (!sheet_obj->description) 
+	    sheet_obj->description = g_strdup(info->description);
+	  if (!sheet_obj->pixmap_file && !sheet_obj->pixmap)
+	    sheet_obj->pixmap_file = info->icon;
+	  sheet_obj->user_data = (void *)info;
+	} else {
+	  /* Somehow, this shape is unknown */
+	  g_free(sheet_obj->description);
+	  g_free(sheet_obj->pixmap_file);
+	  g_free(sheet_obj->object_type);
+	  g_free(sheet_obj);
+	  continue; 
+	}
+      } else {
+	if (shape_info_getbyname(tmp)) {
+	  g_warning("Object_type(%s) is really a shape, not an object..",tmp);
+	  /* maybe I should listen to what others say, after all, and dump
+	     this shape/object distinction ? */
+	}
+	if (!object_get_type(tmp)) {
+	  g_free(sheet_obj->description);
+	  g_free(sheet_obj->pixmap_file);
+	  g_free(sheet_obj->object_type);
+	  g_free(sheet_obj);
+	  continue; 
+	}	  
+      }
+      
+      /* we don't need to fix up the icon and descriptions for simple objects,
+	 since they don't have their own description, and their icon is 
+	 already automatically handled. */
+      sheet_append_sheet_obj(sheet,sheet_obj);
+    }
+  }
+  
+  if (sheet) register_sheet(sheet);
+  xmlFreeDoc(doc);
 }

@@ -38,11 +38,13 @@ extern ObjectType sceadplug_type;
 extern ObjectType modem_type;
 extern ObjectType antenna_type;
 
-int get_version(void) {
+int get_version(void)
+{
   return 0;
 }
 
-void register_objects(void) {
+void register_objects(void)
+{
   object_register_type(&computer_type);
   object_register_type(&monitor_type);
   object_register_type(&disc_type);
@@ -58,38 +60,6 @@ void register_objects(void) {
   object_register_type(&antenna_type);
 }
 
-extern SheetObject computer_sheetobj;
-extern SheetObject monitor_sheetobj;
-extern SheetObject disc_sheetobj;
-extern SheetObject bus_sheetobj;
-extern SheetObject printer_sheetobj;
-extern SheetObject flash_sheetobj;
-extern SheetObject hub_sheetobj;
-extern SheetObject modularswitch_sheetobj;
-extern SheetObject rj45plug_sheetobj;
-extern SheetObject sceadplug_sheetobj;
-extern SheetObject modem_sheetobj;
-extern SheetObject antenna_sheetobj;
-
-void register_sheets(void) {
-  Sheet *sheet;
-
-  sheet = new_sheet(_("Network"),
-		    _("Objects to design network diagrams with"));
-  sheet_append_sheet_obj(sheet, &computer_sheetobj);
-  sheet_append_sheet_obj(sheet, &monitor_sheetobj);
-  sheet_append_sheet_obj(sheet, &disc_sheetobj);
-  sheet_append_sheet_obj(sheet, &bus_sheetobj);
-  sheet_append_sheet_obj(sheet, &printer_sheetobj);
-  sheet_append_sheet_obj(sheet, &flash_sheetobj);
-  sheet_append_sheet_obj(sheet, &hub_sheetobj);
-  sheet_append_sheet_obj(sheet, &modularswitch_sheetobj);
-  sheet_append_sheet_obj(sheet, &rj45plug_sheetobj);
-  sheet_append_sheet_obj(sheet, &sceadplug_sheetobj);
-  sheet_append_sheet_obj(sheet, &modem_sheetobj);
-  sheet_append_sheet_obj(sheet, &antenna_sheetobj);
-
-  register_sheet(sheet);
-
+void register_sheets(void)
+{
 }
-

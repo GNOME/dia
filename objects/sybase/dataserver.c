@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType dataserver_type =
   (char **) dataserver_xpm,    /* pixmap */
 
   &dataserver_type_ops         /* ops */
-};
-
-SheetObject dataserver_sheetobj =
-{
-  "Sybase - Dataserver",             /* type */
-  N_("A Sybase Dataserver."),  /* description */
-  (char **) dataserver_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define DATASERVER_LINE SYBASE_GENERAL_LINEWIDTH

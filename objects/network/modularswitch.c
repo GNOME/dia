@@ -22,7 +22,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -51,15 +50,6 @@ ObjectType modularswitch_type =
   (char **) modularswitch_xpm, /* pixmap */
 
   &modularswitch_type_ops      /* ops */
-};
-
-SheetObject modularswitch_sheetobj =
-{
-  "Network - Modular Switch",             /* type */
-  N_("A modular switching system"), /* description */
-  (char **) modularswitch_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define MODULARSWITCH_LINE NETWORK_GENERAL_LINEWIDTH

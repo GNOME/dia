@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType monitor_type =
   (char **) monitor_xpm, /* pixmap */
 
   &monitor_type_ops      /* ops */
-};
-
-SheetObject monitor_sheetobj =
-{
-  "Network - General Monitor (With Stand)",             /* type */
-  N_("A monitor, with a stand"), /* description */
-  (char **) monitor_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define MONITOR_LINE NETWORK_GENERAL_LINEWIDTH

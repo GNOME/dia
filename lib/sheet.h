@@ -48,4 +48,6 @@ extern void sheet_append_sheet_obj(Sheet *sheet, SheetObject *type);
 extern void register_sheet(Sheet *sheet);
 extern GSList *get_sheets_list(void);
 
+extern void load_all_sheets(void);
+
 #endif /* SHEET_H */

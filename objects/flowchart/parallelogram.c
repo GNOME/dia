@@ -32,7 +32,6 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
-#include "sheet.h"
 
 #include "pixmaps/pgram.xpm"
 
@@ -172,14 +171,6 @@ ObjectType pgram_type =
   (char **) pgram_xpm, /* pixmap */
 
   &pgram_type_ops      /* ops */
-};
-
-SheetObject pgram_sheetobj =
-{
-  "Flowchart - Parallelogram",
-  N_("A parallelogram with text inside."),
-  (char **)pgram_xpm,
-  NULL
 };
 
 static ObjectOps pgram_ops = {

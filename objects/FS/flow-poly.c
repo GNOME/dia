@@ -26,7 +26,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
@@ -125,14 +124,6 @@ ObjectType flow_type =
   0,                   /* version */
   (char **) flow_xpm,  /* pixmap */
   &flow_type_ops       /* ops */
-};
-
-SheetObject flow_sheetobj =
-{
-  "FS - Flow",            /* type */
-  N_("Create a flow"),    /* description */
-  (char **) flow_xpm,     /* pixmap */
-  NULL                    /* user_data */
 };
 
 static ObjectOps flow_ops = {

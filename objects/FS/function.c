@@ -28,7 +28,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/function.xpm"
@@ -102,15 +101,6 @@ ObjectType function_type =
   (char **) function_xpm,  /* pixmap */
   
   &function_type_ops       /* ops */
-};
-
-SheetObject function_sheetobj =
-{
-  "FS - Function",             /* type */
-  N_("Create a function"),           /* description */
-  (char **) function_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps function_ops = {

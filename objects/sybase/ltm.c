@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType ltm_type =
   (char **) ltm_xpm,    /* pixmap */
 
   &ltm_type_ops         /* ops */
-};
-
-SheetObject ltm_sheetobj =
-{
-  "Sybase - Log Transfer Manager/Rep Agent",             /* type */
-  N_("Log Transfer Manager or Rep Agent."),  /* description */
-  (char **) ltm_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define LTM_LINE SYBASE_GENERAL_LINEWIDTH

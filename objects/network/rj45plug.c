@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType rj45plug_type =
   (char **) rj45plug_xpm, /* pixmap */
 
   &rj45plug_type_ops      /* ops */
-};
-
-SheetObject rj45plug_sheetobj =
-{
-  "Network - RJ45 Wall-Plug",             /* type */
-  N_("A RJ45 Wall-Plug"), /* description */
-  (char **) rj45plug_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define RJ45PLUG_LINE NETWORK_GENERAL_LINEWIDTH

@@ -26,7 +26,6 @@
 #include "orth_conn.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "arrows.h"
 
 #include "uml.h"
@@ -119,15 +118,6 @@ ObjectType dependency_type =
   (char **) dependency_xpm,  /* pixmap */
   
   &dependency_type_ops       /* ops */
-};
-
-SheetObject dependency_sheetobj =
-{
-  "UML - Dependency",             /* type */
-  N_("Create a dependency"),           /* description */
-  (char **) dependency_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps dependency_ops = {

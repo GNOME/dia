@@ -26,7 +26,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
@@ -126,14 +125,6 @@ ObjectType orthflow_type =
   0,                   /* version */
   (char **) orthflow_xpm,  /* pixmap */
   &orthflow_type_ops       /* ops */
-};
-
-SheetObject orthflow_sheetobj =
-{
-  "FS - Orthflow",            /* type */
-  N_("Create an orthogonal polyline flow"),    /* description */
-  (char **) orthflow_xpm,     /* pixmap */
-  NULL                    /* user_data */
 };
 
 static ObjectOps orthflow_ops = {

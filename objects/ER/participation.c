@@ -26,7 +26,6 @@
 #include "orth_conn.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "arrows.h"
 
 #include "pixmaps/participation.xpm"
@@ -99,15 +98,6 @@ ObjectType participation_type =
   (char **) participation_xpm,  /* pixmap */
   
   &participation_type_ops       /* ops */
-};
-
-SheetObject participation_sheetobj =
-{
-  "ER - Participation",             /* type */
-  N_("Create a participation"),           /* description */
-  (char **) participation_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps participation_ops = {

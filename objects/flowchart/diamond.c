@@ -32,7 +32,6 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
-#include "sheet.h"
 
 #include "pixmaps/diamond.xpm"
 
@@ -167,14 +166,6 @@ ObjectType diamond_type =
   (char **) diamond_xpm, /* pixmap */
 
   &diamond_type_ops      /* ops */
-};
-
-SheetObject diamond_sheetobj =
-{
-  "Flowchart - Diamond",
-  N_("A diamond with text inside."),
-  (char **)diamond_xpm,
-  NULL
 };
 
 static ObjectOps diamond_ops = {

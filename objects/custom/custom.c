@@ -26,18 +26,16 @@
 #include <dirent.h>
 #include <glib.h>
 
-#include "load_sheet.h"
+#include "sheet.h"
 #include "shape_info.h"
 
-static GList *sheets = NULL;
 
-static void
-load_sheets_from_dir(const gchar *directory)
+static void load_shapes_from_tree(const gchar *directory)
 {
   DIR *dp;
   struct dirent *dirp;
   struct stat statbuf;
-  
+
   dp = opendir(directory);
   if (dp == NULL) {
     return;
@@ -45,28 +43,49 @@ load_sheets_from_dir(const gchar *directory)
   while ( (dirp = readdir(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
 				  dirp->d_name, NULL);
-    Sheet *sheet = NULL;
-  
+    gchar *p;
+
     if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
       g_free(filename);
       continue;
     }
-    /* filter out non directories ... */
+
     if (stat(filename, &statbuf) < 0) {
       g_free(filename);
       continue;
     }
-    if (!S_ISDIR(statbuf.st_mode)) {
+    if (S_ISDIR(statbuf.st_mode)) {
+      load_shapes_from_tree(filename);
       g_free(filename);
       continue;
     }
-    sheet = custom_sheet_load(filename, dirp->d_name);
+    /* if it's not a directory, then it must be a .shape file */
+    if (!S_ISREG(statbuf.st_mode) || (strlen(dirp->d_name) < 6)) {
+      g_free(filename);
+      continue;
+    }
+    
+
+    p = dirp->d_name + strlen(dirp->d_name) - 6;
+    if (0==strcmp(".shape",p)) {
+      ObjectType *ot;
+      SheetObject *so;
+
+      if (!custom_object_load(filename,&ot,&so)) {
+	g_warning("could not load shape file %s",filename);
+      }
+      g_assert(ot); 
+      g_assert(so); 
+      g_assert(so->user_data);
+      /* maybe we ought to save so->user_data somewhere ? */
+      g_free(so); /* that's a bit unfortunate, because 
+		     we'll rebuild one soon */
+      object_register_type(ot);
+    }
     g_free(filename);
-    if (sheet)
-      sheets = g_list_append(sheets, sheet);
-  }
-  closedir(dp);
+  }  
 }
+
 
 void
 custom_register_objects(void)
@@ -78,7 +97,8 @@ custom_register_objects(void)
   if (home_dir) {
     home_dir = g_strconcat(home_dir, G_DIR_SEPARATOR_S, ".dia",
 			   G_DIR_SEPARATOR_S, "shapes", NULL);
-    load_sheets_from_dir(home_dir);
+    
+    load_shapes_from_tree(home_dir);
     g_free(home_dir);
   }
 
@@ -88,25 +108,18 @@ custom_register_objects(void)
     int i;
 
     for (i = 0; dirs[i] != NULL; i++)
-      load_sheets_from_dir(dirs[i]);
+      load_shapes_from_tree(dirs[i]);
     g_strfreev(dirs);
   } else {
-    load_sheets_from_dir(DIA_SHAPEDIR);
+    load_shapes_from_tree(DIA_SHAPEDIR);
   }
-}
-
-void
-custom_register_sheets(void)
-{
-  GList *tmp;
-
-  for (tmp = sheets; tmp; tmp = tmp->next)
-    register_sheet((Sheet *)tmp->data);
 }
 
 void custom_object_new (ShapeInfo *info,
                         ObjectType **otype,
                         SheetObject **sheetobj);
+
+
 
 static gchar *findintshape(gchar *filename) {
   gchar *ret;
@@ -132,18 +145,21 @@ static gchar *findintshape(gchar *filename) {
   return NULL;
 }
 
+
 gboolean
 custom_object_load(gchar *filename, ObjectType **otype,
 		   SheetObject **sheetobj)
 {
-  gchar *file = findintshape(filename);
+  /*  gchar *file = findintshape(filename); */
+  /* XXX : we want to get rid of findintshape above -- replace by g_strdup.
+   But only when the libraries loose knoweldge of internal shapes. */
+
   ShapeInfo *info;
 
-  if (!file)
+  if (!filename)
     return FALSE;
-  info = shape_info_load(file);
-  g_free(file);
-
+  info = shape_info_load(filename);
+  g_assert(info);
   if (!info)
     return FALSE;
   custom_object_new(info, otype, sheetobj);

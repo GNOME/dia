@@ -1,0 +1,33 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>Sybase</name>
+  <description xml:lang="fr">Diagrammes pour la conception de réplication de domaines Sybase</description>
+  <description>Objects to design Sybase replication domain diagrams with.</description>
+  <contents>
+    <object name="Sybase - Dataserver">
+      <description xml:lang="fr">Un serveur de données Sybase</description>
+      <description>A Sybase Dataserver.</description>
+    </object>
+    <object name="Sybase - Replication Server">
+      <description xml:lang="fr">Serveur de Réplication Sybase</description>
+      <description>Sybase Replication Server.</description>
+    </object>
+    <object name="Sybase - Log Transfer Manager/Rep Agent">
+      <description xml:lang="fr">Gestionnaire de transfert de journaux ou agent de réplication.</description>
+      <description>Log Transfer Manager or Rep Agent.</description>
+    </object>
+    <object name="Sybase - Stable Queue">
+      <description xml:lang="fr">Périphérique Disque stable</description>
+      <description>Stable Disk Device.</description>
+    </object>
+    <object name="Sybase - Client Application">
+      <description xml:lang="fr">Une application cliente Sybase</description>
+      <description>A Sybase Client Application.</description>
+    </object>
+    <object name="Sybase - Replication Server Manager">
+      <description xml:lang="fr">Gestionnaire de Serveur de Réplication</description>
+      <description>Replication Server Manager.</description>
+    </object>
+  </contents>
+</sheet>

@@ -1080,6 +1080,8 @@ custom_create(Point *startpoint,
   Point p;
   int i;
 
+  g_return_val_if_fail(info!=NULL,NULL);
+
   init_default_values();
 
   custom = g_malloc(sizeof(Custom));

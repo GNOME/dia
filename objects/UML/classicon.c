@@ -27,7 +27,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "uml.h"
@@ -119,15 +118,6 @@ ObjectType classicon_type =
   (char **) classicon_xpm,  /* pixmap */
   
   &classicon_type_ops       /* ops */
-};
-
-SheetObject classicon_sheetobj =
-{
-  "UML - Classicon",             /* type */
-  N_("Create a class stereotype icon"),           /* description */
-  (char **) classicon_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps classicon_ops = {

@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType stableq_type =
   (char **) stableq_xpm,    /* pixmap */
 
   &stableq_type_ops         /* ops */
-};
-
-SheetObject stableq_sheetobj =
-{
-  "Sybase - Stable Queue",             /* type */
-  N_("Stable Disk Device."),  /* description */
-  (char **) stableq_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define STABLEQ_LINE SYBASE_GENERAL_LINEWIDTH

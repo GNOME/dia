@@ -27,7 +27,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "uml.h"
@@ -136,15 +135,6 @@ ObjectType umlobject_type =
   (char **) object_xpm,  /* pixmap */
   
   &objet_type_ops       /* ops */
-};
-
-SheetObject objet_sheetobj =
-{
-  "UML - Object",             /* type */
-  N_("Create an object"),           /* description */
-  (char **) object_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps objet_ops = {

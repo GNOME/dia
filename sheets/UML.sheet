@@ -1,0 +1,92 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>UML</name>
+  <description xml:lang="fr">Editeur de diagrammes de structures statiques UML.
+  </description>
+  <description>Editor for UML Static Structure Diagrams.</description>
+  <contents>
+    <object name="UML - Class" intdata="0">
+      <description xml:lang="fr">Créer une classe</description>
+      <description>Create a class</description>
+    </object>
+    <object name="UML - Class" intdata="1">
+      <description xml:lang="fr">Créer une classe-gabarit</description>
+      <description>Create a template class</description>
+      <icon>UML/umlclass_template.xpm</icon>
+    </object>
+    <object name="UML - Note">
+      <description xml:lang="fr">Créer une note</description>
+      <description>Create a note</description>
+    </object>
+    <object name="UML - Dependency">
+      <description xml:lang="fr">Créer une dépendance</description>
+      <description>Create a dependency</description>
+    </object>
+    <object name="UML - Realizes">
+      <description xml:lang="fr">Réalise, implémente une interface spécifique.</description>
+      <description>Realizes, implements a specific interface.</description>
+    </object>
+    <object name="UML - Generalization">
+      <description xml:lang="fr">Généralisation, héritage de classe.</description>
+      <description>Generalization, class inheritance.</description>
+    </object>
+    <object name="UML - Association" intdata="0">
+      <description xml:lang="fr">Association, deux classes sont associées.</description>
+      <description>Association, two classes are associated.</description>
+    </object>
+    <object name="UML - Association" intdata="1">
+      <description xml:lang="fr">Agrégation, une classe est une partie d'une autre.</description>
+      <description>Aggregation, one class is part of another.</description>
+      <icon>UML/aggregation.xpm</icon>
+    </object>
+    <object name="UML - Implements">
+      <description xml:lang="fr">Implémente, une classe implémente une interface spécifique.</description>
+      <description>Implements, class implements a specific interface.</description>
+    </object>
+    <object name="UML - Constraint">
+      <description xml:lang="fr">Placer une contrainte sur quelque chose.</description>
+      <description>Constraint, place a constraint on something.</description>
+    </object>
+    <object name="UML - SmallPackage">
+      <description xml:lang="fr">Créer un (petit) paquetage</description>
+      <description>Create a (small) package</description>
+    </object>
+    <object name="UML - LargePackage">
+      <description xml:lang="fr">Créer un (gros) paquetage</description>
+      <description>Create a (large) package</description>
+    </object>
+    <object name="UML - Actor">
+      <description xml:lang="fr">Créer un acteur</description>
+      <description>Create an actor</description>
+    </object>
+    <object name="UML - Usecase">
+      <description xml:lang="fr">Créer un cas d'usage</description>
+      <description>Create a use case</description>
+    </object>
+    <object name="UML - Lifeline">
+      <description xml:lang="fr">Créer une ligne de vie</description> <!-- XXX beurk ! -->
+      <description>Create a lifeline</description>
+    </object>
+    <object name="UML - Object">
+      <description xml:lang="fr">Créer un objet</description>
+      <description>Create an object</description>
+    </object>
+    <object name="UML - Message">
+      <description xml:lang="fr">Créer un message</description>
+      <description>Create a message</description>
+    </object>
+    <object name="UML - Component">
+      <description xml:lang="fr">Créer un composant</description>
+      <description>Create a component</description>
+    </object>
+    <object name="UML - Classicon">
+      <description xml:lang="fr">Créer une icône de classe-stéréotype</description>
+      <description>Create a class stereotype icon</description>
+    </object>
+    <object name="UML - State">
+      <description xml:lang="fr">Créer une machine à état</description>
+      <description>Create a state machine</description>
+    </object>
+  </contents>
+</sheet>

@@ -25,7 +25,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 #include "arrows.h"
 
@@ -109,15 +108,6 @@ ObjectType constraint_type =
   0,                         /* version */
   (char **) constraint_xpm,  /* pixmap */
   &constraint_type_ops       /* ops */
-};
-
-SheetObject constraint_sheetobj =
-{
-  "UML - Constraint",             /* type */
-  N_("Constraint, place a constraint on something."),
-                                /* description */
-  (char **) constraint_xpm,     /* pixmap */
-  NULL                          /* user_data */
 };
 
 static ObjectOps constraint_ops = {

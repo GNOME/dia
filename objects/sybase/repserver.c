@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType repserver_type =
   (char **) repserver_xpm,    /* pixmap */
 
   &repserver_type_ops         /* ops */
-};
-
-SheetObject repserver_sheetobj =
-{
-  "Sybase - Replication Server",             /* type */
-  N_("Sybase Replication Server."),  /* description */
-  (char **) repserver_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define REPSERVER_LINE SYBASE_GENERAL_LINEWIDTH

@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType antenna_type =
   (char **) antenna_xpm, /* pixmap */
 
   &antenna_type_ops      /* ops */
-};
-
-SheetObject antenna_sheetobj =
-{
-  "Network - Antenna",             /* type */
-  N_("A Antenna for wireless transmissions"), /* description */
-  (char **) antenna_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define ANTENNA_LINE NETWORK_GENERAL_LINEWIDTH

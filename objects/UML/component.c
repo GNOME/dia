@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/component.xpm"
@@ -83,15 +82,6 @@ ObjectType component_type =
   (char **) component_xpm,  /* pixmap */
   
   &component_type_ops       /* ops */
-};
-
-SheetObject component_sheetobj =
-{
-  "UML - Component",             /* type */
-  N_("Create a component"),           /* description */
-  (char **) component_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps component_ops = {

@@ -26,7 +26,6 @@
 #include "orth_conn.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "arrows.h"
 
 #include "uml.h"
@@ -112,16 +111,6 @@ ObjectType generalization_type =
   (char **) generalization_xpm,  /* pixmap */
   
   &generalization_type_ops       /* ops */
-};
-
-SheetObject generalization_sheetobj =
-{
-  "UML - Generalization",             /* type */
-  N_("Generalization, class inheritance."),
-                              /* description */
-  (char **) generalization_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps generalization_ops = {

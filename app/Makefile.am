@@ -121,7 +121,7 @@ EXTRA_DIST = \
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
-	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH" >> run_dia.sh
+	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH" >> run_dia.sh
 	echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/UML/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/ER/.libs >> run_dia.sh
@@ -131,6 +131,7 @@ run_dia.sh: Makefile.am
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
 	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
+	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh
 	echo >> run_dia.sh
 	echo "`pwd`/dia \$$*" >> run_dia.sh
 	chmod a+x run_dia.sh

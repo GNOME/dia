@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/note.xpm"
@@ -81,15 +80,6 @@ ObjectType note_type =
   (char **) note_xpm,  /* pixmap */
   
   &note_type_ops       /* ops */
-};
-
-SheetObject note_sheetobj =
-{
-  "UML - Note",             /* type */
-  N_("Create a note"),           /* description */
-  (char **) note_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps note_ops = {

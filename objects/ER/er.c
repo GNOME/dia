@@ -40,22 +40,5 @@ void register_objects(void) {
   object_register_type(&participation_type);
 }
 
-extern SheetObject entity_sheetobj;
-extern SheetObject weakentity_sheetobj;
-extern SheetObject relationship_sheetobj;
-extern SheetObject attribute_sheetobj;
-extern SheetObject participation_sheetobj;
-
 void register_sheets(void) {
-  Sheet *sheet;
-  
-  sheet = new_sheet(_("ER"),
-		    _("Editor for Entity Relations Diagrams."));
-  sheet_append_sheet_obj(sheet, &entity_sheetobj);
-  sheet_append_sheet_obj(sheet, &weakentity_sheetobj);
-  sheet_append_sheet_obj(sheet, &relationship_sheetobj);
-  sheet_append_sheet_obj(sheet, &attribute_sheetobj);
-  sheet_append_sheet_obj(sheet, &participation_sheetobj);
-
-  register_sheet(sheet);
 }

@@ -28,7 +28,6 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
-#include "sheet.h"
 
 #include "pixmaps/relationship.xpm"
 
@@ -136,14 +135,6 @@ ObjectType relationship_type =
   (char **) relationship_xpm, /* pixmap */
 
   &relationship_type_ops      /* ops */
-};
-
-SheetObject relationship_sheetobj =
-{
-  "ER - Relationship",  /* type */
-  N_("Relationship"),      /* description */
-  (char **) relationship_xpm, /* pixmap */
-  NULL                /* user_data */
 };
 
 ObjectType *_relationship_type = (ObjectType *) &relationship_type;

@@ -17,5 +17,4 @@ EXTRA_DIST = \
 	pixmaps/attribute.xpm \
 	pixmaps/entity.xpm \
 	pixmaps/participation.xpm \
-	pixmaps/relationship.xpm \
-	pixmaps/weakentity.xpm
+	pixmaps/relationship.xpm

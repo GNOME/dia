@@ -32,7 +32,6 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
-#include "sheet.h"
 
 #include "pixmaps/ellipse.xpm"
 
@@ -167,14 +166,6 @@ ObjectType fc_ellipse_type =
   (char **) ellipse_xpm, /* pixmap */
 
   &ellipse_type_ops      /* ops */
-};
-
-SheetObject ellipse_sheetobj =
-{
-  "Flowchart - Ellipse",
-  N_("A ellipse with text inside."),
-  (char **)ellipse_xpm,
-  NULL
 };
 
 static ObjectOps ellipse_ops = {

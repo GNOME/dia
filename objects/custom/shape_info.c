@@ -42,6 +42,7 @@ shape_info_load(const gchar *filename)
   if (!name_to_info)
     name_to_info = g_hash_table_new(g_str_hash, g_str_equal);
   g_hash_table_insert(name_to_info, info->name, info);
+  g_assert(shape_info_getbyname(info->name)==info);
   return info;
 }
 
@@ -57,6 +58,14 @@ shape_info_get(ObjectNode obj_node)
     free(str);
   }
   return info;
+}
+
+ShapeInfo *shape_info_getbyname(const gchar *name)
+{
+  if (name && name_to_info) {
+    return g_hash_table_lookup(name_to_info,name);
+  }
+  return NULL;
 }
 
 static void

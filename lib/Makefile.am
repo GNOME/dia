@@ -56,7 +56,9 @@ libdia_a_SOURCES =  \
 		custom.h \
 		dummy_dep.h
 
-INCLUDES = -I$(top_srcdir)/intl @GDK_IMLIB_CFLAGS@ @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@
+sheetdir = $(pkgdatadir)/sheets
+
+INCLUDES = -I$(top_srcdir)/intl @GDK_IMLIB_CFLAGS@ @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@ -DDIA_SHEETDIR=\"$(sheetdir)\"
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm

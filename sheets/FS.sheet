@@ -1,0 +1,22 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>FS</name>
+  <description xml:lang="fr">Editeur de Diagrammes de Structures Fonctionnelles.</description>
+  <description>Editor for Function Structure Diagrams.</description>
+  <contents>
+    <object name="FS - Flow">
+      <description xml:lang="fr">Créer un flux</description>
+      <description>Create a flow</description>
+    </object>
+    <object name="FS - Orthflow">
+      <description xml:lang="fr">Tracer un segment orthogonal de flux
+      </description>
+      <description>Create an orthogonal polyline flow</description>
+    </object>
+    <object name="FS - Function">
+      <description xml:lang="fr">Créer une fonction</description>
+      <description>Create a function</description>
+    </object>
+  </contents>
+</sheet>

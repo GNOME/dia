@@ -32,7 +32,6 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
-#include "sheet.h"
 
 #include "pixmaps/box.xpm"
 
@@ -171,14 +170,6 @@ ObjectType fc_box_type =
   (char **) box_xpm, /* pixmap */
 
   &box_type_ops      /* ops */
-};
-
-SheetObject box_sheetobj =
-{
-  "Flowchart - Box",
-  N_("A box with text inside."),
-  (char **)box_xpm,
-  NULL
 };
 
 static ObjectOps box_ops = {

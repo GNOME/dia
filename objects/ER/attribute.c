@@ -28,7 +28,6 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
-#include "sheet.h"
 
 #include "pixmaps/attribute.xpm"
 
@@ -133,15 +132,6 @@ ObjectType attribute_type =
   (char **) attribute_xpm,  /* pixmap */
   
   &attribute_type_ops       /* ops */
-};
-
-SheetObject attribute_sheetobj =
-{
-  "ER - Attribute",  /* type */
-  N_("Attribute"),      /* description */
-  (char **) attribute_xpm, /* pixmap */
-
-  NULL                /* user_data */
 };
 
 ObjectType *_attribute_type = (ObjectType *) &attribute_type;

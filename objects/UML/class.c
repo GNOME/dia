@@ -24,12 +24,10 @@
 #include "intl.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 
 #include "class.h"
 
 #include "pixmaps/umlclass.xpm"
-#include "pixmaps/umlclass_template.xpm"
 
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
@@ -67,24 +65,6 @@ ObjectType umlclass_type =
   (char **) umlclass_xpm,  /* pixmap */
   
   &umlclass_type_ops       /* ops */
-};
-
-SheetObject umlclass_sheetobj =
-{
-  "UML - Class",             /* type */
-  N_("Create a class"),           /* description */
-  (char **) umlclass_xpm,     /* pixmap */
-
-  GINT_TO_POINTER(0)          /* user_data */
-};
-
-SheetObject umlclass_template_sheetobj =
-{
-  "UML - Class",             /* type */
-  N_("Create a template class"),  /* description */
-  (char **) umlclass_template_xpm,     /* pixmap */
-
-  GINT_TO_POINTER(1)          /* user_data */
 };
 
 static ObjectOps umlclass_ops = {

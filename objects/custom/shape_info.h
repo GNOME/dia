@@ -146,6 +146,7 @@ struct _ShapeInfo {
 
 ShapeInfo *shape_info_load(const gchar *filename);
 ShapeInfo *shape_info_get(ObjectNode obj_node);
+ShapeInfo *shape_info_getbyname(const gchar *name);
 void shape_info_print(ShapeInfo *info);
 
 

@@ -25,7 +25,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 
 #include "pixmaps/implements.xpm"
@@ -112,15 +111,6 @@ ObjectType implements_type =
   0,                   /* version */
   (char **) implements_xpm,  /* pixmap */
   &implements_type_ops       /* ops */
-};
-
-SheetObject implements_sheetobj =
-{
-  "UML - Implements",             /* type */
-  N_("Implements, class implements a specific interface."),
-                                /* description */
-  (char **) implements_xpm, /* pixmap */
-  NULL                          /* user_data */
 };
 
 static ObjectOps implements_ops = {

@@ -22,7 +22,6 @@
 #include "config.h"
 #include "intl.h"
 #include "object.h"
-#include "sheet.h"
 
 #include "uml.h"
 
@@ -68,58 +67,11 @@ void register_objects(void) {
   object_register_type(&state_type);    
 }
 
-extern SheetObject umlclass_sheetobj;
-extern SheetObject umlclass_template_sheetobj;
-extern SheetObject note_sheetobj;
-extern SheetObject dependency_sheetobj;
-extern SheetObject realizes_sheetobj;
-extern SheetObject generalization_sheetobj;
-extern SheetObject association_sheetobj;
-extern SheetObject aggregation_sheetobj;
-extern SheetObject implements_sheetobj;
-extern SheetObject constraint_sheetobj;
-extern SheetObject smallpackage_sheetobj;
-extern SheetObject largepackage_sheetobj;
-extern SheetObject actor_sheetobj;
-extern SheetObject usecase_sheetobj;
-extern SheetObject lifeline_sheetobj;
-extern SheetObject objet_sheetobj;
-extern SheetObject message_sheetobj;
-extern SheetObject component_sheetobj;
-extern SheetObject classicon_sheetobj;
-extern SheetObject state_sheetobj;
-
 int get_version(void) {
   return 0;
 }
 
 void register_sheets(void) {
-  Sheet *sheet;
-  
-  sheet = new_sheet(_("UML"),
-		    _("Editor for UML Static Structure Diagrams."));
-  sheet_append_sheet_obj(sheet, &umlclass_sheetobj);
-  sheet_append_sheet_obj(sheet, &umlclass_template_sheetobj);
-  sheet_append_sheet_obj(sheet, &note_sheetobj);
-  sheet_append_sheet_obj(sheet, &dependency_sheetobj);
-  sheet_append_sheet_obj(sheet, &realizes_sheetobj);
-  sheet_append_sheet_obj(sheet, &generalization_sheetobj);
-  sheet_append_sheet_obj(sheet, &association_sheetobj);
-  sheet_append_sheet_obj(sheet, &aggregation_sheetobj);
-  sheet_append_sheet_obj(sheet, &implements_sheetobj);
-  sheet_append_sheet_obj(sheet, &constraint_sheetobj);
-  sheet_append_sheet_obj(sheet, &smallpackage_sheetobj);
-  sheet_append_sheet_obj(sheet, &largepackage_sheetobj);
-  sheet_append_sheet_obj(sheet, &actor_sheetobj);
-  sheet_append_sheet_obj(sheet, &usecase_sheetobj);
-  sheet_append_sheet_obj(sheet, &lifeline_sheetobj);
-  sheet_append_sheet_obj(sheet, &objet_sheetobj);
-  sheet_append_sheet_obj(sheet, &message_sheetobj);
-  sheet_append_sheet_obj(sheet, &component_sheetobj);
-  sheet_append_sheet_obj(sheet, &classicon_sheetobj);
-  sheet_append_sheet_obj(sheet, &state_sheetobj);
-
-  register_sheet(sheet);
 }
 
 char visible_char[] = { '+', '-', '#', ' ' };

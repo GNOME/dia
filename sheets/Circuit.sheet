@@ -1,0 +1,107 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>Circuit</name>
+  <description xml:lang="fr">Composants de circuits</description>
+  <description>Components for circuit diagrams.</description>
+  <contents>
+    <shape name="Circuit - Vertical Resistor">
+      <description xml:lang="fr">Une résistance alignée verticalement</description>
+      <description>A Vertically aligned resistor</description>
+    </shape>
+    <shape name="Circuit - Horizontal Inductor">
+      <description xml:lang="fr">Une inductance alignée horizontalement</description>
+      <description>A Horizontally aligned inductor</description>
+    </shape>
+    <shape name="Circuit - Vertical Inductor">
+      <description xml:lang="fr">Une inductance alignée verticalement</description>
+      <description>A Vertically aligned inductor</description>
+    </shape>
+    <shape name="Circuit - Horizontal Resistor">
+      <description xml:lang="fr">Une résistance alignée horizontalement</description>
+      <description>A Horizontally aligned resistor</description>
+    </shape>
+
+    <shape name="Circuit - Vertical Resistor (European)">
+      <description xml:lang="fr">Une résistance alignée verticalement (européenne)</description>
+      <description>A Vertically aligned resistor (European)</description>
+    </shape>
+    <shape name="Circuit - Horizontal Inductor (European)">
+      <description xml:lang="fr">Une inductance alignée horizontalement (européenne)</description>
+      <description>A Horizontally aligned inductor (European)</description>
+    </shape>
+    <shape name="Circuit - Vertical Inductor (European)">
+      <description xml:lang="fr">Une inductance alignée verticalement (européenne)</description>
+      <description>A Vertically aligned inductor (European)</description>
+    </shape>
+    <shape name="Circuit - Horizontal Resistor (European)">
+      <description xml:lang="fr">Une résistance alignée horizontalement (europénne)</description>
+      <description>A Horizontally aligned resistor (European)</description>
+    </shape>
+
+    <shape name="Circuit - Horizontal Capacitor">
+      <description xml:lang="fr">Un condensateur aligné horizontalement</description>
+      <description>A horizontally aligned capacitor</description>
+    </shape>
+    <shape name="Circuit - Vertical Capacitor">
+      <description xml:lang="fr">Un condensateur aligné verticalement</description>
+      <description>A vertically aligned capacitor</description>
+    </shape>
+     <shape name="Circuit - NPN Transistor">
+      <description xml:lang="en@layman">Small black plastic thing</description>
+      <description xml:lang="fr">Un transistor NPN bipolaire</description>
+      <description>A npn bipolar transistor</description>
+    </shape>
+    <shape name="Circuit - PNP Transistor">
+      <description xml:lang="en@layman">Small black plastic thing</description>
+      <description xml:lang="fr">Un transistor PNP bipolaire</description>
+      <description>A pnp bipolar transistor</description>
+    </shape>
+    
+    <shape name="Circuit - Horizontal Diode">
+      <description>A horizontally aligned diode</description>
+    </shape>
+    <shape name="Circuit - Vertical Diode">
+      <description>A vertically aligned diode</description>
+    </shape>
+    <shape name="Circuit - Horizontal Zener Diode">
+      <description>A horizontally aligned zener diode</description>
+    </shape>
+    <shape name="Circuit - Vertical Zener Diode">
+      <description>A vertically aligned zener diode</description>
+    </shape>
+
+    <shape name="Circuit - Ground">
+      <description>A ground point</description>
+    </shape>
+    <shape name="Circuit - Op Amp">
+      <description>An operational amplifier</description>
+    </shape>
+    <shape name="Circuit - Horizontal Fuse (European)">
+      <description>A horizontally aligned fuse</description>
+    </shape>
+    <shape name="Circuit - Vertical Fuse (European)">
+      <description>A vertically aligned fuse</description>
+    </shape>
+
+    <shape name="Circuit - Horizontal Powersource (European)">
+      <description>A horizontally aligned powersource</description>
+    </shape>
+    <shape name="Circuit - Vertical Powersource (European)">
+      <description>A vertically aligned powersource</description>
+    </shape>
+    <shape name="Circuit - Lamp (European)">
+      <description>A lamp</description>
+    </shape>
+    <shape name="Circuit - Speaker (European)">
+      <description>A Speaker</description>
+    </shape>
+    
+    <shape name="Circuit - Horizontal Led (European)">
+      <description>A horizontally aligned led</description>
+    </shape>
+    <shape name="Circuit - Vertical Led (European)">
+      <description>A vertically aligned led</description>
+    </shape>
+ </contents>
+</sheet>

@@ -21,7 +21,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -50,15 +49,6 @@ ObjectType hub_type =
   (char **) hub_xpm, /* pixmap */
 
   &hub_type_ops      /* ops */
-};
-
-SheetObject hub_sheetobj =
-{
-  "Network - Hub",             /* type */
-  N_("A stackable hub or switch"), /* description */
-  (char **) hub_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define HUB_LINE NETWORK_GENERAL_LINEWIDTH

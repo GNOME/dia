@@ -1,3 +1,3 @@
 
-SUBDIRS = Circuit
+SUBDIRS = Circuit flowchart
 

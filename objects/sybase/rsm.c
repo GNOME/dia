@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType rsm_type =
   (char **) rsm_xpm,    /* pixmap */
 
   &rsm_type_ops         /* ops */
-};
-
-SheetObject rsm_sheetobj =
-{
-  "Sybase - Replication Server Manager",             /* type */
-  N_("Replication Server Manager."),  /* description */
-  (char **) rsm_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define RSM_LINE SYBASE_GENERAL_LINEWIDTH

@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType modem_type =
   (char **) modem_xpm, /* pixmap */
 
   &modem_type_ops      /* ops */
-};
-
-SheetObject modem_sheetobj =
-{
-  "Network - Modem",             /* type */
-  N_("A simple Modem"), /* description */
-  (char **) modem_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define MODEM_LINE NETWORK_GENERAL_LINEWIDTH

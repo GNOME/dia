@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/smallpackage.xpm"
@@ -83,15 +82,6 @@ ObjectType smallpackage_type =
   (char **) smallpackage_xpm,  /* pixmap */
   
   &smallpackage_type_ops       /* ops */
-};
-
-SheetObject smallpackage_sheetobj =
-{
-  "UML - SmallPackage",             /* type */
-  N_("Create a (small) package"),           /* description */
-  (char **) smallpackage_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps smallpackage_ops = {

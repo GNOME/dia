@@ -82,4 +82,3 @@ objects/flowchart/ellipse.c
 objects/flowchart/flowchart.c
 objects/flowchart/parallelogram.c
 objects/custom/custom_object.c
-objects/custom/load_sheet.c

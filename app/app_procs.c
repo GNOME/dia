@@ -192,7 +192,9 @@ app_init (int argc, char **argv)
   object_registry_init();
 
   register_all_objects();
-  register_all_sheets();
+  load_all_sheets();     /* new mechanism */
+  register_all_sheets(); /* old mechanism (to be disabled) */
+
   debug_break();
 
   if (object_get_type("Standard - Box") == NULL) {
@@ -337,6 +339,9 @@ static void create_user_dirs(void)
   mkdir(subdir, 0755);
   g_free(subdir);
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "shapes", NULL);
+  mkdir(subdir, 0755);
+  g_free(subdir);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "sheets", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
 
@@ -492,6 +497,7 @@ register_all_sheets(void)
   GModule *libhandle;
   const gchar *error;
 
+  /* XXX This will disappear, yek yek yek... */
   for (list = modules_list; list != NULL; list = g_list_next(list)) {
     libhandle = (GModule *) list->data;
 
@@ -506,6 +512,5 @@ register_all_sheets(void)
     (*register_func)();
   } 
 
-  custom_register_sheets();
 }
 

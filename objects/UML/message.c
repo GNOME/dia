@@ -26,7 +26,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 #include "arrows.h"
 
@@ -133,15 +132,6 @@ ObjectType message_type =
   0,                         /* version */
   (char **) message_xpm,  /* pixmap */
   &message_type_ops       /* ops */
-};
-
-SheetObject message_sheetobj =
-{
-  "UML - Message",             /* type */
-  N_("Create a message"),
-                                /* description */
-  (char **) message_xpm,     /* pixmap */
-  NULL                          /* user_data */
 };
 
 static ObjectOps message_ops = {

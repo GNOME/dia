@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "render_object.h"
-#include "sheet.h"
 
 #include "config.h"
 #include "intl.h"
@@ -47,15 +46,6 @@ ObjectType disc_type =
   (char **) disc_xpm,    /* pixmap */
 
   &disc_type_ops         /* ops */
-};
-
-SheetObject disc_sheetobj =
-{
-  "Network - Storage",             /* type */
-  N_("The symbol for storage. Disc or database."),  /* description */
-  (char **) disc_xpm,     /* pixmap */
-
-  NULL                    /* user_data */
 };
 
 #define DISC_LINE NETWORK_GENERAL_LINEWIDTH

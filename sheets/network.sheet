@@ -1,0 +1,74 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>Network</name>
+  <description xml:lang="fr">Objets pour dessiner des diagrammes réseau.</description>
+  <description>Objects to design network diagrams with.</description>
+  <contents>
+    <object name="Network - General Computer (Tower)">
+      <description xml:lang="fr">Un ordinateur en boîtier tour.</description>
+      <description>A Computer with a tower case.</description>
+    </object>
+    <object name="Network - General Monitor (With Stand)">
+      <description xml:lang="fr">Un moniteur, sur support</description>
+      <description>A monitor, with a stand</description>
+    </object>
+    <object name="Network - Storage">
+      <description xml:lang="fr">Stockage (disque ou base de données)</description>
+      <description>The symbol for storage. Disc or database.</description>
+    </object>
+    <object name="Network - Bus">
+      <description xml:lang="fr">Un bus Ethernet</description>
+      <description>Ethernet bus.</description>
+    </object>
+    <object name="Network - General Printer">
+      <description xml:lang="fr">Une imprimante simple</description>
+      <description>A simple printer</description>
+    </object>
+    <object name="Network - WAN Connection">
+      <description xml:lang="fr">Une connexion WAN</description>
+      <description>A WAN Connection</description>
+    </object>
+    <object name="Network - Hub">
+      <description xml:lang="fr">Un hub ou commutateur empilable</description>
+      <description>A stackable hub or switch</description>
+    </object>
+    <object name="Network - Modular Switch">
+      <description xml:lang="fr">Un système de commutation modulaire</description>
+      <description>A modular switching system</description>
+    </object>
+    <object name="Network - RJ45 Wall-Plug">
+      <description xml:lang="fr">Une prise murale RJ45</description>
+      <description>A RJ45 Wall-Plug</description>
+    </object>
+    <object name="Network - scEAD Wall-Plug">
+      <description xml:lang="fr">Une prise murale pour le système de câblage scEAD</description>
+      <description>A Wall-Plug for the scEAD Cabling System</description>
+    </object>
+    <object name="Network - Modem">
+      <description xml:lang="fr">Un modem simple</description>
+      <description>A simple Modem</description>
+    </object>
+    <object name="Network - Antenna">
+      <description xml:lang="fr">Une antenne pour transmissions sans fil</description>
+      <description>A Antenna for wireless transmissions</description>
+    </object>
+    <object name="">
+      <description xml:lang="fr"></description>
+      <description></description>
+    </object>
+    <object name="">
+      <description xml:lang="fr"></description>
+      <description></description>
+    </object>
+    <object name="">
+      <description xml:lang="fr"></description>
+      <description></description>
+    </object>
+    <object name="">
+      <description xml:lang="fr"></description>
+      <description></description>
+    </object>
+
+  </contents>
+</sheet>

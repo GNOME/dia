@@ -26,7 +26,6 @@
 #include "connectionpoint.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "diamenu.h"
 
 #include "pixmaps/bus.xpm"
@@ -120,14 +119,6 @@ ObjectType bus_type_std = /* Old mistake, left for backwards compatibility */
   0,                  /* version */
   (char **) bus_xpm,  /* pixmap */
   &bus_type_ops       /* ops */
-};
-
-SheetObject bus_sheetobj =
-{
-  "Network - Bus",             /* type */
-  N_("Ethernet bus."),        /* description */
-  (char **) bus_xpm,     /* pixmap */
-  NULL                   /* user_data */
 };
 
 static ObjectOps bus_ops = {

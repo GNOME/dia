@@ -26,7 +26,6 @@
 #include "element.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "text.h"
 
 #include "pixmaps/state.xpm"
@@ -120,15 +119,6 @@ ObjectType state_type =
   (char **) state_xpm,  /* pixmap */
   
   &state_type_ops       /* ops */
-};
-
-SheetObject state_sheetobj =
-{
-  "UML - State",             /* type */
-  N_("Create a state machine"),    /* description */
-  (char **) state_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 static ObjectOps state_ops = {

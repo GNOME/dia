@@ -32,7 +32,6 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNO
 
 EXTRA_DIST = \
 	pixmaps/actor.xpm \
-	pixmaps/aggregation.xpm \
 	pixmaps/association.xpm \
 	pixmaps/case.xpm \
 	pixmaps/classicon.xpm \
@@ -49,5 +48,4 @@ EXTRA_DIST = \
 	pixmaps/realizes.xpm \
 	pixmaps/smallpackage.xpm \
 	pixmaps/state.xpm \
-	pixmaps/umlclass.xpm \
-	pixmaps/umlclass_template.xpm
+	pixmaps/umlclass.xpm

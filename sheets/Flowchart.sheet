@@ -1,0 +1,124 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.crans.ens-cachan.fr/~chepelov/dia-sheet-ns">
+  <name>Flowchart</name>
+  <description xml:lang="fr">Objets pour dessiner des graphes de flux.</description>
+  <description>Objects to draw flowcharts.</description>
+  <contents>
+    <object name="Flowchart - Box">
+      <description xml:lang="fr">Une boîte contenant du texte.</description>
+      <description>A box with text inside</description>
+    </object>
+    <object name="Flowchart - Parallelogram">
+      <description xml:lang="fr">Un parallélogramme contenant du texte.</description>
+      <description>A parallelogram with text inside.</description>
+    </object>
+    <object name="Flowchart - Diamond">
+      <description xml:lang="fr">Un diamant contenant texte</description>
+      <description>A diamond with text inside</description>
+    </object>
+    <object name="Flowchart - Ellipse">
+      <description xml:lang="fr">Une ellipse contenant du texte</description>
+      <description>A ellipse with text inside.</description>
+    </object>
+    <shape name="Flowchart - Display">
+      <description xml:lang="fr">Affichage</description>
+      <description>Display</description>
+    </shape>
+    <shape name="Flowchart - Transaction File">
+      <description xml:lang="fr">Fichier de transaction</description>
+      <description>Transaction File</description>
+    </shape>
+    <shape name="Flowchart - Off Page Connector">
+      <description xml:lang="fr">Connecteur Hors Ligne (?)</description>
+      <!-- XXX -->
+      <description>Off Page Connector</description>
+    </shape>
+    <shape name="Flowchart - Document">
+      <description xml:lang="fr">Document</description>
+      <description>Document</description>
+    </shape>
+    <shape name="Flowchart - Manual Operation">
+      <description xml:lang="fr">Opération Manuelle</description>
+      <description>Manual Operation</description>
+    </shape>
+    <shape name="Flowchart - Preparation">
+      <description xml:lang="fr">Préparation</description>
+      <description>Preparation</description>
+    </shape>
+    <shape name="Flowchart - Manual Input">
+      <description xml:lang="fr">Entrée Manuelle</description>
+      <description>Manual Input</description>
+    </shape>
+    <shape name="Flowchart - Predefined Process">
+      <description xml:lang="fr">Processus prédéfini</description>
+      <description>Predefined Process</description>
+    </shape>
+    <shape name="Flowchart - Terminal">
+      <description xml:lang="fr">Terminal</description>
+      <description>Terminal</description>
+    </shape>
+    <shape name="Flowchart - Magnetic Disk">
+      <description xml:lang="fr">Disque Magnétique</description>
+      <description>Magnetic Disk</description>
+    </shape>
+    <shape name="Flowchart - Magnetic Drum">
+      <description xml:lang="fr">Tambour Magnétique</description>
+      <description>Magnetic Drum</description>
+    </shape>
+    <shape name="Flowchart - Magnetic Tape">
+      <description xml:lang="fr">Bande Magnétique</description>
+      <description>Magnetic Tape</description>
+    </shape>
+    <shape name="Flowchart - Internal Storage">
+      <description xml:lang="fr">Stockage Interne</description>
+      <description>Internal Storage</description>
+    </shape>
+    <shape name="Flowchart - Merge">
+      <description xml:lang="fr">Fusion</description>
+      <description>Merge</description>
+    </shape>
+    <shape name="Flowchart - Extract">
+      <description xml:lang="fr">Extraction</description>
+      <description>Extract</description>
+    </shape>
+    <shape name="Flowchart - Delay">
+      <description xml:lang="fr">Délai</description>
+      <description>Delay</description>
+    </shape>
+    <shape name="Flowchart - Summing Junction">
+      <description xml:lang="fr">Jonction sommante</description>
+      <!-- XXX -->
+      <description>Summing Junction</description>
+    </shape>
+    <shape name="Flowchart - Collate">
+      <description xml:lang="fr">Rassembler</description>
+      <!-- XXX -->
+      <description>Collate</description>
+    </shape>
+    <shape name="Flowchart - Sort">
+      <description xml:lang="fr">Tri</description>
+      <description>Sort</description>
+    </shape>
+    <shape name="Flowchart - Or">
+      <description xml:lang="fr">Ou</description>
+      <description>Or</description>
+    </shape>
+    <shape name="Flowchart - Punched Card">
+      <description xml:lang="fr">Carte perforée</description>
+      <description>Punched Card</description>
+    </shape>
+    <shape name="Flowchart - Punched Tape">
+      <description xml:lang="fr">Bande perforée</description>
+      <description>Punched Tape</description>
+    </shape>
+    <shape name="Flowchart - Transmittal Tape">
+      <description xml:lang="fr">Bande de transmission</description>
+      <description>Transmittal Tape</description>
+    </shape>
+    <shape name="Flowchart - Offline Storage">
+      <description xml:lang="fr">Stockage hors-ligne</description>
+      <description>Offline Storage</description>
+    </shape>
+ </contents>
+</sheet>

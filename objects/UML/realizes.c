@@ -26,7 +26,6 @@
 #include "orth_conn.h"
 #include "render.h"
 #include "attributes.h"
-#include "sheet.h"
 #include "arrows.h"
 
 #include "uml.h"
@@ -115,16 +114,6 @@ ObjectType realizes_type =
   (char **) realizes_xpm,  /* pixmap */
   
   &realizes_type_ops       /* ops */
-};
-
-SheetObject realizes_sheetobj =
-{
-  "UML - Realizes",             /* type */
-  N_("Realizes, implements a specific interface."),
-                              /* description */
-  (char **) realizes_xpm,     /* pixmap */
-
-  NULL                        /* user_data */
 };
 
 static ObjectOps realizes_ops = {

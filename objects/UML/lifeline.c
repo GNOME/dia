@@ -26,7 +26,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "sheet.h"
 #include "handle.h"
 
 #include "pixmaps/lifeline.xpm"
@@ -116,15 +115,6 @@ ObjectType lifeline_type =
   0,                   /* version */
   (char **) lifeline_xpm,  /* pixmap */
   &lifeline_type_ops       /* ops */
-};
-
-SheetObject lifeline_sheetobj =
-{
-  "UML - Lifeline",             /* type */
-  N_("Create a lifeline"),
-                                /* description */
-  (char **) lifeline_xpm, /* pixmap */
-  NULL                          /* user_data */
 };
 
 static ObjectOps lifeline_ops = {

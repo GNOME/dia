@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType printer_type =
   (char **) printer_xpm, /* pixmap */
 
   &printer_type_ops      /* ops */
-};
-
-SheetObject printer_sheetobj =
-{
-  "Network - General Printer",             /* type */
-  N_("A simple Printer"), /* description */
-  (char **) printer_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define PRINTER_LINE NETWORK_GENERAL_LINEWIDTH

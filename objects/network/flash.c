@@ -19,7 +19,6 @@
 #include "config.h"
 #include "intl.h"
 #include "render_object.h"
-#include "sheet.h"
 
 #include "network.h"
 
@@ -48,15 +47,6 @@ ObjectType flash_type =
   (char **) flash_xpm, /* pixmap */
 
   &flash_type_ops      /* ops */
-};
-
-SheetObject flash_sheetobj =
-{
-  "Network - WAN Connection",             /* type */
-  N_("A WAN Connection"), /* description */
-  (char **) flash_xpm,     /* pixmap */
-
-  NULL                       /* user_data */
 };
 
 #define FLASH_LINE NETWORK_GENERAL_LINEWIDTH
