@@ -642,7 +642,7 @@ draw_string (DiaRenderer *object,
 
   {
     int height_pixels = dia_transform_length(renderer->transform, object->font_height);
-    if (height_pixels < 2) {
+    if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
       int width_pixels = dia_transform_length(
                             renderer->transform, 
                             dia_font_string_width(text, object->font, object->font_height));

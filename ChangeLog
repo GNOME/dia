@@ -1,5 +1,12 @@
 2004-07-25  Lars Clausen  <lars@raeder.dk>
 
+	* dia.spec (Release): 
+	* configure.in: 
+	* NEWS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: Pre3 coming out.
+
 	* lib/diarenderer.c (draw_polygon): 
 	* plug-ins/dxf/dxf-export.c (export_dxf): Two fixes by Takeshi
 	Hamasaki <hma@syd.odn.ne.jp>: Correct header to be a 0 (zero)
