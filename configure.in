@@ -352,7 +352,6 @@ objects/custom/Makefile
 objects/GRAFCET/Makefile
 objects/chronogram/Makefile
 objects/SADT/Makefile
-objects/Specware/Makefile
 shapes/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
