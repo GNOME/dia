@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include <locale.h>
 #include <string.h> /* strlen */
+#include <signal.h>
+
 #include "intl.h"
 #include "message.h"
 #include "diagram.h"
@@ -172,6 +174,14 @@ ok_pressed(GtkButton *button, gboolean *flag)
   gtk_main_quit();
 }
 
+static gboolean sigpipe_received = FALSE;
+static void
+pipe_handler(int signum)
+{
+  sigpipe_received = TRUE;
+}
+
+
 void
 diagram_print_ps(Diagram *dia)
 {
@@ -184,6 +194,7 @@ diagram_print_ps(Diagram *dia)
 
   FILE *file;
   gboolean is_pipe;
+  struct sigaction pipe_action, old_action;
 
   ddisp = ddisplay_active();
   dia = ddisp->diagram;
@@ -300,17 +311,28 @@ diagram_print_ps(Diagram *dia)
   
   if (!file) {
     if (is_pipe)
-      message_warning("Could not run command '%s'",
+      message_warning(_("Could not run command '%s'"),
 		      gtk_entry_get_text(GTK_ENTRY(cmd)));
     else
-      message_warning("Could not open '%s' for writing",
+      message_warning(_("Could not open '%s' for writing"),
 		      gtk_entry_get_text(GTK_ENTRY(ofile)));
     return;
   }
+
+  /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
+  memset(&pipe_action, '\0', sizeof(pipe_action));
+  sigpipe_received = FALSE;
+  pipe_action.sa_handler = pipe_handler;
+  sigaction(SIGPIPE, &pipe_action, &old_action);
+
   paginate_psprint(dia, file);
   gtk_widget_destroy(dialog);
   if (is_pipe)
     pclose(file);
   else
     fclose(file);
+
+  sigaction(SIGPIPE, &old_action, NULL);
+  if (sigpipe_received)
+    message_error(_("Error occured while printing"));
 }

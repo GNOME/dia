@@ -55,6 +55,8 @@ make
 rm -fr $RPM_BUILD_ROOT
 make prefix=$RPM_BUILD_ROOT%{prefix} install-strip
 
+gzip --best $RPM_BUILD_ROOT%{prefix}/man/man1/dia.1
+
 %clean
 rm -fr $RPM_BUILD_ROOT
 
@@ -63,7 +65,7 @@ rm -fr $RPM_BUILD_ROOT
 %doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS doc
 %{prefix}/bin/dia
 %{prefix}/lib/dia
-%{prefix}/man/man1/dia.1
+%{prefix}/man/man1/dia.1.gz
 %{prefix}/share/dia
 %{prefix}/share/gnome/apps/Applications/dia.desktop
 %{prefix}/share/locale/*/*/*

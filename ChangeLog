@@ -1,5 +1,11 @@
 2001-03-17  James Henstridge  <james@daa.com.au>
 
+	* app/paginate_psprint.c (diagram_print_ps): add code that traps
+	SIGPIPEs during printing.  This gets rid of a number of crashes
+	caused by printing (eg. typing an incorrect print command).
+
+	* dia.spec (%install): gzip the manpage.
+
 	* lib/beziershape.c (beziershape_save): fix off by one error in
 	beziershape save code, which was adding an extra segment to the
 	object on save.
