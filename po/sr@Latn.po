@@ -9,105 +9,105 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-14 13:34+0100\n"
-"PO-Revision-Date: 2003-12-14 13:35+0100\n"
+"POT-Creation-Date: 2004-01-05 23:33+0100\n"
+"PO-Revision-Date: 2004-01-05 23:36+0100\n"
 "Last-Translator: Dejan Matijević <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:179
+#: app/app_procs.c:183
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s greška: nezna kako da izveze u %s\n"
 
-#: app/app_procs.c:189
+#: app/app_procs.c:193
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s greška: ulazno i izlazno ime datoteke su isti: %s"
 
-#: app/app_procs.c:197
+#: app/app_procs.c:201
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s graška: treba ispravan ulazni tip %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:206
+#: app/app_procs.c:210
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s —> %s\n"
 
-#: app/app_procs.c:254
+#: app/app_procs.c:258
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Ne mogu da nađem vrstu izlaza %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:340
+#: app/app_procs.c:344
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Izvezi u vrstu datoteke i izađi. Podržane vrste su: %s"
 
 #. &export_file_name
-#: app/app_procs.c:349
+#: app/app_procs.c:353
 msgid "Export loaded file and exit"
 msgstr "Izvezi učitanu datoteku i izađi"
 
-#: app/app_procs.c:349 app/diaconv.c:94
+#: app/app_procs.c:353 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "IZLAZ"
 
 #. &export_file_format
-#: app/app_procs.c:351
+#: app/app_procs.c:355
 msgid "FORMAT"
 msgstr "VRSTA"
 
-#: app/app_procs.c:354
+#: app/app_procs.c:358
 msgid "Export graphics size"
 msgstr "Veličina izvozne slike"
 
-#: app/app_procs.c:354
+#: app/app_procs.c:358
 msgid "WxH"
 msgstr "ŠxV"
 
-#: app/app_procs.c:356
+#: app/app_procs.c:360
 msgid "Don't show the splash screen"
 msgstr "Ne prikazuj naslovni ekran"
 
-#: app/app_procs.c:358
+#: app/app_procs.c:362
 msgid "Display credits list and exit"
 msgstr "Prikaži zasluge i izađi"
 
-#: app/app_procs.c:360
+#: app/app_procs.c:364
 msgid "Display version and exit"
 msgstr "Pokaži verziju i izađi"
 
-#: app/app_procs.c:362 app/diaconv.c:95
+#: app/app_procs.c:366 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Prikaži ovaj pomoćni tekst"
 
-#: app/app_procs.c:397
+#: app/app_procs.c:407
 msgid "Can't connect to session manager!\n"
 msgstr "Ne može se povezati sa upravnikom sesije!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:420
+#: app/app_procs.c:430
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzija %s, prevedena %s %s\n"
 
-#: app/app_procs.c:422
+#: app/app_procs.c:432
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzija %s\n"
 
-#: app/app_procs.c:468 app/app_procs.c:470 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:478 app/app_procs.c:480 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nemože da nađe standardane objekte kada traži object-libs, izlazi...\n"
 
-#: app/app_procs.c:533
+#: app/app_procs.c:543
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -116,7 +116,7 @@ msgstr ""
 "opisujući se greška može izazvati.\n"
 
 #. no standard buttons
-#: app/app_procs.c:545
+#: app/app_procs.c:555
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -126,21 +126,21 @@ msgstr ""
 "Da li ste sigurni da želite da završite Dia\n"
 "bez prethodnog snimanja?"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:559
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:604
+#: app/app_procs.c:614
 msgid "Thank you for using Dia.\n"
 msgstr "Hvala vam što koristite Diu.\n"
 
-#: app/app_procs.c:618 app/app_procs.c:625
+#: app/app_procs.c:628 app/app_procs.c:635
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika"
 
-#: app/app_procs.c:627
+#: app/app_procs.c:637
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -148,15 +148,15 @@ msgstr ""
 "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika. Proverite "
 "da li promenljiva okruženja HOME pokazuje na postojeći direktorijum."
 
-#: app/app_procs.c:649 app/diaconv.c:249
+#: app/app_procs.c:659 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekti i filteri interni za diu"
 
-#: app/app_procs.c:688 app/diaconv.c:119
+#: app/app_procs.c:698 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIJA...] [DATOTEKA...]"
 
-#: app/app_procs.c:692 app/diaconv.c:126
+#: app/app_procs.c:702 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -559,11 +559,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Dijagram izmenjen!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<bez imena>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -572,20 +572,20 @@ msgstr ""
 "Dijagram „%s“\n"
 "nije sačuvan. Da sačuvam izmene sada?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Zatvori dijagram"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Odbaci promene"
 
 #: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:816
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
+#: plug-ins/xfig/xfig-export.c:1086 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Nemože da otvori izlaznu datoteku %s: %s\n"
@@ -697,101 +697,101 @@ msgstr "Izvezi dijagram"
 msgid "Export Options"
 msgstr "Opcije izvoza"
 
-#: app/interface.c:45
+#: app/interface.c:49
 msgid "Modify object(s)"
 msgstr "Izmeni objekat(e)"
 
-#: app/interface.c:46 app/menus.c:221
+#: app/interface.c:50 app/menus.c:221
 msgid "Modify"
 msgstr "Izmeni"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:50 app/interface.c:51 app/menus.c:222
+#: app/interface.c:54 app/interface.c:55 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Uveličaj"
 
-#: app/interface.c:55
+#: app/interface.c:59
 msgid "Scroll around the diagram"
 msgstr "Uspravno pomeranje oko dijagrama"
 
-#: app/interface.c:56 app/menus.c:223
+#: app/interface.c:60 app/menus.c:223
 msgid "Scroll"
 msgstr "Pomeranje teksta"
 
-#. PROP_STD_TEXT_ALIGNMENT,
-#. PROP_STD_TEXT_FONT,
-#. PROP_STD_TEXT_HEIGHT,
-#. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
-#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
-#: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:154
-#: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
-#: objects/UML/small_package.c:121 objects/UML/state.c:134
-#: objects/UML/usecase.c:131
+#: app/interface.c:64 app/interface.c:65 app/menus.c:224 lib/properties.c:77
+#: lib/properties.h:508 lib/properties.h:511 objects/UML/activity.c:122
+#: objects/UML/actor.c:120 objects/UML/classicon.c:141
+#: objects/UML/component.c:126 objects/UML/component_feature.c:154
+#: objects/UML/node.c:125 objects/UML/note.c:119 objects/UML/object.c:145
+#: objects/UML/small_package.c:126 objects/UML/state.c:139
+#: objects/UML/usecase.c:136
 msgid "Text"
 msgstr "Tekst"
 
-#: app/interface.c:65 app/interface.c:66 app/menus.c:225
+#: app/interface.c:69 app/interface.c:70 app/menus.c:225
 msgid "Box"
 msgstr "Kućica"
 
-#: app/interface.c:70 app/interface.c:71 app/menus.c:226
+#: app/interface.c:74 app/interface.c:75 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:75 app/interface.c:76 app/menus.c:227
+#: app/interface.c:79 app/interface.c:80 app/menus.c:227
 msgid "Polygon"
 msgstr "Poligon"
 
 # Ovo je sklop od „bezierov“ i „poligon“, pa može i kod nas
-#: app/interface.c:80 app/interface.c:81 app/menus.c:228
+#: app/interface.c:84 app/interface.c:85 app/menus.c:228
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:85 app/interface.c:86 app/menus.c:230
+#: app/interface.c:89 app/interface.c:90 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Linija"
 
-#: app/interface.c:90 app/interface.c:91 app/menus.c:231
+#: app/interface.c:94 app/interface.c:95 app/menus.c:231
 msgid "Arc"
 msgstr "Luk"
 
-#: app/interface.c:95 app/interface.c:96 app/menus.c:232
+#: app/interface.c:99 app/interface.c:100 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Cik-cak linija"
 
-#: app/interface.c:100 app/interface.c:101 app/menus.c:233
+#: app/interface.c:104 app/interface.c:105 app/menus.c:233
 msgid "Polyline"
 msgstr "Izlomljena linija"
 
-#: app/interface.c:105 app/interface.c:106 app/menus.c:234
+#: app/interface.c:109 app/interface.c:110 app/menus.c:234
 msgid "Bezierline"
 msgstr "Bezierova linija"
 
-#: app/interface.c:110 app/interface.c:111 app/menus.c:236
+#: app/interface.c:114 app/interface.c:115 app/menus.c:236
 msgid "Image"
 msgstr "Slika"
 
-#: app/interface.c:373
+#: app/interface.c:386
 msgid "Diagram menu."
 msgstr "Meni dijagrama."
 
-#: app/interface.c:482
+#: app/interface.c:424
+msgid "Pops up the Navigation window."
+msgstr "Izbacuje prozor za upravljanje."
+
+#: app/interface.c:504
 msgid "Zoom"
 msgstr "Uvećaj"
 
-#: app/interface.c:496
+#: app/interface.c:518
 msgid "Toggles snap-to-grid for this window."
 msgstr "Isključuje ili uključuje prijanjanje uz mrežu za ovaj prozor."
 
-#: app/interface.c:540
+#: app/interface.c:562
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata u tool_select_update"
 
-#: app/interface.c:1023
+#: app/interface.c:1045
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -800,7 +800,7 @@ msgstr ""
 "Boja i boja pozadine za nove objekte. Mali crni i beli kvadrati vraćaju "
 "stare boje. Male strelice razmenjuju boje. Dvostrukim klikom menjate boje."
 
-#: app/interface.c:1038
+#: app/interface.c:1060
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -809,7 +809,7 @@ msgstr ""
 "novih objekata. Kliknite dva puta da postavite debljinu linije pnešto "
 "preciznije."
 
-#: app/interface.c:1070
+#: app/interface.c:1092
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -817,7 +817,7 @@ msgstr ""
 "Stil strelica za početak novih linija. Kliknite da izaberete strelicu, ili "
 "postavite osobine strelica pomoću „Detalja“..."
 
-#: app/interface.c:1075
+#: app/interface.c:1097
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -825,7 +825,7 @@ msgstr ""
 "Stil linija za nove linije. Kliknite da izaberete stil linija, ili postavite "
 "osobine stila linija pomoću „Detalja“..."
 
-#: app/interface.c:1080
+#: app/interface.c:1102
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -833,7 +833,7 @@ msgstr ""
 "Stil strelica za krajeve linija. Kliknite da izaberete strelicu, ili "
 "postavite osobine strelica pomoću „Detalja“..."
 
-#: app/interface.c:1188
+#: app/interface.c:1211
 msgid "Diagram Editor"
 msgstr "Uređivać Dijagrama"
 
@@ -898,7 +898,7 @@ msgstr "Detalji..."
 msgid "Line Style Properties"
 msgstr "Postavke Stila Linija"
 
-#: app/linewidth_area.c:239 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:478
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Širina linije"
@@ -1139,15 +1139,15 @@ msgstr "Prelazni"
 msgid "Same Type"
 msgstr "Isti tip"
 
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
+#: app/menus.c:181 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:587
 msgid "Left"
 msgstr "Levo"
 
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
+#: app/menus.c:182 lib/properties.c:63 lib/properties.h:467 lib/widgets.c:593
 msgid "Center"
 msgstr "Centar"
 
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
+#: app/menus.c:183 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:599
 msgid "Right"
 msgstr "Desno"
 
@@ -1751,8 +1751,8 @@ msgstr "Dodaci"
 msgid "Loaded"
 msgstr "Učitano"
 
-#: app/plugin-manager.c:263 objects/UML/class.c:106
-#: objects/UML/large_package.c:121
+#: app/plugin-manager.c:263 objects/UML/class.c:107
+#: objects/UML/large_package.c:128
 msgid "Name"
 msgstr "Ime"
 
@@ -1902,12 +1902,12 @@ msgstr "Snimi tipove sakrivenih objekata"
 msgid "Could not open `%s' for writing"
 msgstr "Ne može da otvori '%s' radi upisa"
 
-#: app/preferences.c:586 lib/prop_inttypes.c:151
+#: app/preferences.c:586 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Da"
 
-#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:153
-#: lib/prop_inttypes.c:179
+#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:160
+#: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ne"
 
@@ -1937,11 +1937,11 @@ msgstr "Osobine objekta:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Kutija za alat>/Datoteka/Dodaci..."
 
-#: app/recent_files.c:259
+#: app/recent_files.c:265
 msgid "<Toolbox>/File/Quit"
 msgstr "<Kutija za alat>/Datoteka/Završi..."
 
-#: app/recent_files.c:295
+#: app/recent_files.c:301
 msgid "Can't open history file for writing."
 msgstr "Nemože da otvori datoteku istorije za pisanje."
 
@@ -2028,9 +2028,9 @@ msgstr "Uredi"
 msgid "Revert"
 msgstr "Povrati"
 
-#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:829
-#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1981
-#: objects/UML/class_dialog.c:2500
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:840
+#: objects/UML/class_dialog.c:1767 objects/UML/class_dialog.c:1995
+#: objects/UML/class_dialog.c:2514
 msgid "New"
 msgstr "Novo"
 
@@ -2072,8 +2072,8 @@ msgid "Description:"
 msgstr "Opis:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
+#: objects/UML/class_dialog.c:889 objects/UML/class_dialog.c:1819
+#: objects/UML/class_dialog.c:2049 objects/UML/class_dialog.c:2563
 msgid "Type:"
 msgstr "Vrsta:"
 
@@ -2083,10 +2083,10 @@ msgstr "Strana"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
-#: objects/UML/association.c:1112 objects/UML/class_dialog.c:866
-#: objects/UML/class_dialog.c:1793 objects/UML/class_dialog.c:2023
-#: objects/UML/class_dialog.c:2537 objects/UML/dependency.c:128
-#: objects/UML/generalization.c:124 objects/UML/realizes.c:125
+#: objects/UML/association.c:1112 objects/UML/class_dialog.c:877
+#: objects/UML/class_dialog.c:1807 objects/UML/class_dialog.c:2037
+#: objects/UML/class_dialog.c:2551 objects/UML/dependency.c:133
+#: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Ime:"
 
@@ -2411,7 +2411,7 @@ msgstr "Izbor pisma"
 msgid "Multiple export filters with unique name %s"
 msgstr "Više izvoznih filtera sa jedinstvenim imenom %s"
 
-#: lib/font.c:87
+#: lib/font.c:88
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Ne može da učita pismo %s.\n"
@@ -2495,110 +2495,111 @@ msgstr ""
 "Ne mogu da otvorim „%s“\n"
 "„%s“"
 
-#: lib/properties.c:71 lib/properties.h:478
+#: lib/properties.c:71 lib/properties.h:481 lib/properties.h:484
 msgid "Line colour"
 msgstr "Boja linije"
 
-#: lib/properties.c:72 lib/properties.h:481
+#: lib/properties.c:72 lib/properties.h:487
 msgid "Line style"
 msgstr "Stil Linije"
 
-#: lib/properties.c:73 lib/properties.h:485
+#: lib/properties.c:73 lib/properties.h:491 lib/properties.h:494
 msgid "Fill colour"
 msgstr "Boja ispune"
 
-#: lib/properties.c:74 lib/properties.h:488
+#: lib/properties.c:74 lib/properties.h:497
 msgid "Draw background"
 msgstr "Iscrtaj pozadinu radne površine"
 
-#: lib/properties.c:75 lib/properties.h:492
+#: lib/properties.c:75 lib/properties.h:501
 msgid "Start arrow"
 msgstr "Početna strelica"
 
-#: lib/properties.c:76 lib/properties.h:495
+#: lib/properties.c:76 lib/properties.h:504
 msgid "End arrow"
 msgstr "Krajnja strelica"
 
-#: lib/properties.c:78 lib/properties.h:505
+#: lib/properties.c:78 lib/properties.h:514
 msgid "Text alignment"
 msgstr "Poravnanje teksta"
 
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:517 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
+#: objects/UML/class_dialog.c:331 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Pismo"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:520 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Veličina pisma"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:169
-#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+#: lib/properties.c:81 lib/properties.h:523 lib/properties.h:526
+#: objects/GRAFCET/step.c:169 objects/chronogram/chronoline.c:187
+#: objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Boja Teksta"
 
-#: lib/widgets.c:197
+#: lib/widgets.c:218
 msgid "Other fonts..."
 msgstr "Drugi fontovi..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:321
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Ne mogu da nađem porodicu fonta za %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:342
+#: lib/widgets.c:384
 msgid "Select font"
 msgstr "Izaberite font"
 
 # bug: "Solid material" is waaay different from "solid line" in Serbian
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:652 objects/FS/function.c:1063
+#: lib/widgets.c:724 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Puna"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:730
 msgid "Dashed"
 msgstr "Crtkano"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:736
 msgid "Dash-Dot"
 msgstr "Crta-Tačka"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:742
 msgid "Dash-Dot-Dot"
 msgstr "Crta-Tačka-Tačka"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:748
 msgid "Dotted"
 msgstr "Tačkasto"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:694
+#: lib/widgets.c:766
 msgid "Dash length: "
 msgstr "Dužina crte:"
 
-#: lib/widgets.c:848
+#: lib/widgets.c:920
 msgid "Select color"
 msgstr "Izaberi boju"
 
-#: lib/widgets.c:1046
+#: lib/widgets.c:1136
 msgid "Length: "
 msgstr "Dužina:"
 
-#: lib/widgets.c:1059
+#: lib/widgets.c:1149
 msgid "Width: "
 msgstr "Širina:"
 
-#: lib/widgets.c:1187
+#: lib/widgets.c:1277
 msgid "Select image file"
 msgstr "Odaberite datoteku sa slikom"
 
-#: lib/widgets.c:1221
+#: lib/widgets.c:1311
 msgid "Browse"
 msgstr "Pretraži"
 
@@ -2626,7 +2627,7 @@ msgstr "Osobine:"
 msgid "Weak:"
 msgstr "Slab:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:372 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entitet"
 
@@ -2640,17 +2641,17 @@ msgstr "Ukupno:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:177
-#: objects/UML/dependency.c:365 objects/UML/generalization.c:361
-#: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
+#: objects/UML/association.c:747 objects/UML/component_feature.c:183
+#: objects/UML/dependency.c:372 objects/UML/generalization.c:368
+#: objects/UML/realizes.c:359 objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Dodaj segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:178
-#: objects/UML/dependency.c:366 objects/UML/generalization.c:362
-#: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
+#: objects/UML/association.c:748 objects/UML/component_feature.c:184
+#: objects/UML/dependency.c:373 objects/UML/generalization.c:369
+#: objects/UML/realizes.c:360 objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Obriši segment"
 
@@ -3239,7 +3240,7 @@ msgstr "Reguliši"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: objects/FS/function.c:949 objects/FS/function.c:1167
-#: objects/UML/classicon.c:122
+#: objects/UML/classicon.c:124
 msgid "Control"
 msgstr "Kontroliši"
 
@@ -3875,7 +3876,7 @@ msgid "Miscellaneous objects"
 msgstr "Razni objekti"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:334
+#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:337
 msgid "Normal"
 msgstr "Običan"
 
@@ -3943,15 +3944,15 @@ msgstr "SADT dijagram objekata"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:317
+#: objects/UML/activity.c:315
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: objects/UML/actor.c:349 objects/UML/actor.c:351 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:359 objects/UML/actor.c:361 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Glumac"
 
-#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2071
+#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2085
 msgid "Direction:"
 msgstr "Pravac:"
 
@@ -3994,350 +3995,354 @@ msgstr "Sakupljeno"
 msgid "Composition"
 msgstr "Slaganje"
 
-#: objects/UML/class.c:108 objects/UML/classicon.c:131
-#: objects/UML/component.c:117 objects/UML/large_package.c:119
-#: objects/UML/object.c:144 objects/UML/small_package.c:117
+#: objects/UML/class.c:109 objects/UML/classicon.c:135
+#: objects/UML/component.c:122 objects/UML/large_package.c:126
+#: objects/UML/object.c:147 objects/UML/small_package.c:122
 msgid "Stereotype"
 msgstr "Stereotip"
 
-#: objects/UML/class.c:110 objects/UML/class_dialog.c:359
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:362
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Napomena"
 
-#: objects/UML/class.c:112 objects/UML/class_dialog.c:291
-#: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
+#: objects/UML/class.c:113 objects/UML/class_dialog.c:294
+#: objects/UML/class_dialog.c:347 objects/UML/class_dialog.c:1908
 msgid "Abstract"
 msgstr "Apstrakt"
 
-#: objects/UML/class.c:114 objects/UML/class_dialog.c:300
+#: objects/UML/class.c:115 objects/UML/class_dialog.c:303
 msgid "Suppress Attributes"
 msgstr "Zanemari atribute"
 
-#: objects/UML/class.c:116
+#: objects/UML/class.c:117
 msgid "Suppress Operations"
 msgstr "Zanemari operacije"
 
-#: objects/UML/class.c:118
+#: objects/UML/class.c:119
 msgid "Visible Attributes"
 msgstr "Vidljive Osobine"
 
-#: objects/UML/class.c:120
+#: objects/UML/class.c:121
 msgid "Visible Operations"
 msgstr "Vidljive Operacije"
 
-#: objects/UML/class.c:122
+#: objects/UML/class.c:123
 msgid "Visible Comments"
 msgstr "Vidljivi Komentari"
 
 #  Attributes page:
 #. Attributes page:
-#: objects/UML/class.c:125 objects/UML/class_dialog.c:801
-#: objects/UML/object.c:148
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:812
+#: objects/UML/object.c:151
 msgid "Attributes"
 msgstr "Osobine"
 
 #  Operations page:
 #. Operations page:
-#: objects/UML/class.c:127 objects/UML/class_dialog.c:1725
+#: objects/UML/class.c:128 objects/UML/class_dialog.c:1739
 msgid "Operations"
 msgstr "Operacije"
 
-#: objects/UML/class.c:130
+#: objects/UML/class.c:131
 msgid "Template"
 msgstr "Šablon"
 
 #  Class page:
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:938
-#: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
+#: objects/UML/class.c:179 objects/UML/class.c:939
+#: objects/UML/class_dialog.c:258 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klasa"
 
-#: objects/UML/class.c:184
+#: objects/UML/class.c:185
 msgid "Show comments"
 msgstr "Prikaži napomene"
 
-#: objects/UML/class_dialog.c:261
+#: objects/UML/class_dialog.c:264
 msgid "Class name:"
 msgstr "Ime klase:"
 
-#: objects/UML/class_dialog.c:273 objects/UML/class_dialog.c:1817
-#: objects/UML/dependency.c:130 objects/UML/generalization.c:126
-#: objects/UML/realizes.c:127
+#: objects/UML/class_dialog.c:276 objects/UML/class_dialog.c:1831
+#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Stereotip:"
 
-#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:902
-#: objects/UML/class_dialog.c:1935 objects/UML/class_dialog.c:2059
+#: objects/UML/class_dialog.c:285 objects/UML/class_dialog.c:913
+#: objects/UML/class_dialog.c:1949 objects/UML/class_dialog.c:2073
 msgid "Comment:"
 msgstr "Napomena:"
 
-#: objects/UML/class_dialog.c:297
+#: objects/UML/class_dialog.c:300
 msgid "Attributes visible"
 msgstr "Osobine vidljive"
 
-#: objects/UML/class_dialog.c:306
+#: objects/UML/class_dialog.c:309
 msgid "Operations visible"
 msgstr "Operacije vidljive"
 
-#: objects/UML/class_dialog.c:309
+#: objects/UML/class_dialog.c:312
 msgid "Suppress operations"
 msgstr "Zanemari operacije"
 
-#: objects/UML/class_dialog.c:315
+#: objects/UML/class_dialog.c:318
 msgid "Comments visible"
 msgstr "Napomene su prikazane"
 
 #. head line
-#: objects/UML/class_dialog.c:325
+#: objects/UML/class_dialog.c:328
 msgid "Kind"
 msgstr "Vrsta"
 
-#: objects/UML/class_dialog.c:330
+#: objects/UML/class_dialog.c:333
 msgid "Size"
 msgstr "Veličina"
 
-#: objects/UML/class_dialog.c:339
+#: objects/UML/class_dialog.c:342
 msgid "Polymorphic"
 msgstr "Polimorfna"
 
-#: objects/UML/class_dialog.c:349
+#: objects/UML/class_dialog.c:352
 msgid "Class Name"
 msgstr "Ime klase"
 
-#: objects/UML/class_dialog.c:354
+#: objects/UML/class_dialog.c:357
 msgid "Abstract Class"
 msgstr "Apstraktna klasa"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:371
+#: objects/UML/class_dialog.c:374
+msgid "Text Color"
+msgstr "Boja teksta"
+
+#: objects/UML/class_dialog.c:382
 msgid "Foreground Color"
-msgstr "Boja Iscrtavanja"
+msgstr "Boja iscrtavanja"
 
-#: objects/UML/class_dialog.c:379
+#: objects/UML/class_dialog.c:390
 msgid "Background Color"
-msgstr "Boja Pozadine"
+msgstr "Boja pozadine"
 
-#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1759
-#: objects/UML/class_dialog.c:1988 objects/UML/class_dialog.c:2506
+#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1773
+#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2520
 msgid "Delete"
 msgstr "Obriši"
 
-#: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
-#: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
+#: objects/UML/class_dialog.c:852 objects/UML/class_dialog.c:1779
+#: objects/UML/class_dialog.c:2009 objects/UML/class_dialog.c:2526
 msgid "Move up"
 msgstr "Pomeri naviše"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
-#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
+#: objects/UML/class_dialog.c:858 objects/UML/class_dialog.c:1785
+#: objects/UML/class_dialog.c:2016 objects/UML/class_dialog.c:2532
 msgid "Move down"
 msgstr "Pomeri naniže"
 
-#: objects/UML/class_dialog.c:858
+#: objects/UML/class_dialog.c:869
 msgid "Attribute data"
 msgstr "Podaci osobina"
 
-#: objects/UML/class_dialog.c:890
+#: objects/UML/class_dialog.c:901
 msgid "Value:"
 msgstr "Vrednost:"
 
-#: objects/UML/class_dialog.c:915 objects/UML/class_dialog.c:1830
+#: objects/UML/class_dialog.c:926 objects/UML/class_dialog.c:1844
 msgid "Visibility:"
 msgstr "Vidljivost:"
 
-#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1839
+#: objects/UML/class_dialog.c:935 objects/UML/class_dialog.c:1853
 msgid "Public"
 msgstr "Javno"
 
-#: objects/UML/class_dialog.c:932 objects/UML/class_dialog.c:1847
+#: objects/UML/class_dialog.c:943 objects/UML/class_dialog.c:1861
 msgid "Private"
 msgstr "Privatno"
 
-#: objects/UML/class_dialog.c:940 objects/UML/class_dialog.c:1855
+#: objects/UML/class_dialog.c:951 objects/UML/class_dialog.c:1869
 msgid "Protected"
 msgstr "Zaštićen"
 
-#: objects/UML/class_dialog.c:948 objects/UML/class_dialog.c:1863
+#: objects/UML/class_dialog.c:959 objects/UML/class_dialog.c:1877
 msgid "Implementation"
 msgstr "Izvedba"
 
-#: objects/UML/class_dialog.c:964 objects/UML/class_dialog.c:1879
+#: objects/UML/class_dialog.c:975 objects/UML/class_dialog.c:1893
 msgid "Class scope"
 msgstr "Domet klase"
 
-#: objects/UML/class_dialog.c:1783
+#: objects/UML/class_dialog.c:1797
 msgid "Operation data"
 msgstr "Podaci operacija"
 
-#: objects/UML/class_dialog.c:1885
+#: objects/UML/class_dialog.c:1899
 msgid "Inheritance type:"
 msgstr "Nasledni tip"
 
-#: objects/UML/class_dialog.c:1902
+#: objects/UML/class_dialog.c:1916
 msgid "Polymorphic (virtual)"
 msgstr "Polimorfna (virtuelna)"
 
-#: objects/UML/class_dialog.c:1910
+#: objects/UML/class_dialog.c:1924
 msgid "Leaf (final)"
 msgstr "List (krajnji)"
 
-#: objects/UML/class_dialog.c:1928
+#: objects/UML/class_dialog.c:1942
 msgid "Query"
 msgstr "Upit"
 
-#: objects/UML/class_dialog.c:1952
+#: objects/UML/class_dialog.c:1966
 msgid "Parameters:"
 msgstr "Parametri:"
 
-#: objects/UML/class_dialog.c:2014
+#: objects/UML/class_dialog.c:2028
 msgid "Parameter data"
 msgstr "Podaci parametara"
 
-#: objects/UML/class_dialog.c:2047
+#: objects/UML/class_dialog.c:2061
 msgid "Def. value:"
 msgstr "Podr. vrednost:"
 
-#: objects/UML/class_dialog.c:2080
+#: objects/UML/class_dialog.c:2094
 msgid "Undefined"
 msgstr "Nedefinisano"
 
-#: objects/UML/class_dialog.c:2088
+#: objects/UML/class_dialog.c:2102
 msgid "In"
 msgstr "Unutra"
 
-#: objects/UML/class_dialog.c:2097
+#: objects/UML/class_dialog.c:2111
 msgid "Out"
 msgstr "Napolje"
 
-#: objects/UML/class_dialog.c:2106
+#: objects/UML/class_dialog.c:2120
 msgid "In & Out"
 msgstr "Unutra i napolje"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2466
+#: objects/UML/class_dialog.c:2480
 msgid "Templates"
 msgstr "Šabloni"
 
-#: objects/UML/class_dialog.c:2472 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2486 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Šablonska klasa"
 
-#: objects/UML/class_dialog.c:2529
+#: objects/UML/class_dialog.c:2543
 msgid "Formal parameter data"
 msgstr "Formalni podaci parametara"
 
-#: objects/UML/classicon.c:123
+#: objects/UML/classicon.c:125
 msgid "Boundary"
 msgstr "Ograničenje"
 
-#: objects/UML/classicon.c:133
+#: objects/UML/classicon.c:137
 msgid "Is object"
 msgstr "Objekat je"
 
-#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Pljosan"
 
-#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Priključak"
 
-#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Izvor događaja"
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Odredište događaja"
 
-#: objects/UML/constraint.c:121
+#: objects/UML/constraint.c:125
 msgid "Constraint:"
 msgstr "Ograničenje:"
 
-#: objects/UML/dependency.c:132
+#: objects/UML/dependency.c:137
 msgid "Show arrow:"
 msgstr "Pokaži strelice:"
 
-#: objects/UML/implements.c:122
+#: objects/UML/implements.c:128
 msgid "Interface:"
 msgstr "Interfejs"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:144
 msgid "Draw focus of control:"
 msgstr "Iscrtaj fokus elementa:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:146
 msgid "Draw destruction mark:"
 msgstr "Iscrtaj oznaku za uništenje:"
 
-#: objects/UML/lifeline.c:409
+#: objects/UML/lifeline.c:417
 msgid "Add connection points"
 msgstr "Dodaj vezivne tačke"
 
-#: objects/UML/lifeline.c:410
+#: objects/UML/lifeline.c:418
 msgid "Remove connection points"
 msgstr "Ukloni vezivne tačke"
 
-#: objects/UML/lifeline.c:414
+#: objects/UML/lifeline.c:422
 msgid "UML Lifeline"
 msgstr "UML linija života"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:135
 msgid "Call"
 msgstr "Poziv"
 
-#: objects/UML/message.c:132
+#: objects/UML/message.c:136
 msgid "Create"
 msgstr "Kreiraj"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:137
 msgid "Destroy"
 msgstr "Uništi"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:138
 msgid "Simple"
 msgstr "Jednostavno"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:139
 msgid "Return"
 msgstr "Povrati"
 
-#: objects/UML/message.c:136
+#: objects/UML/message.c:140
 msgid "Send"
 msgstr "Pošalji"
 
-#: objects/UML/message.c:137
+#: objects/UML/message.c:141
 msgid "Recursive"
 msgstr "Rekurzivno"
 
-#: objects/UML/message.c:144
+#: objects/UML/message.c:150
 msgid "Message:"
 msgstr "Poruka:"
 
-#: objects/UML/message.c:146
+#: objects/UML/message.c:152
 msgid "Message type:"
 msgstr "Vrsta poruka:"
 
-#: objects/UML/object.c:146
+#: objects/UML/object.c:149
 msgid "Explicit state"
 msgstr "Izričito stanje"
 
-#: objects/UML/object.c:151
+#: objects/UML/object.c:154
 msgid "Active object"
 msgstr "Aktivni objekat"
 
-#: objects/UML/object.c:153
+#: objects/UML/object.c:156
 msgid "Show attributes"
 msgstr "Prikaži osobine"
 
-#: objects/UML/object.c:155
+#: objects/UML/object.c:158
 msgid "Multiple instance"
 msgstr "Višesruke instance"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:400
+#: objects/UML/state.c:410
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4355,11 +4360,11 @@ msgstr "Jeste završno"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language (UML) dijagramski objekti"
 
-#: objects/UML/usecase.c:125
+#: objects/UML/usecase.c:130
 msgid "Text outside"
 msgstr "Tekst napolju"
 
-#: objects/UML/usecase.c:127
+#: objects/UML/usecase.c:132
 msgid "Collaboration"
 msgstr "Saradnja"
 
@@ -4473,15 +4478,15 @@ msgstr "Obrni vodoravno"
 msgid "Flip vertical"
 msgstr "Obrni uspravno"
 
-#: objects/custom/custom_object.c:1328
+#: objects/custom/custom_object.c:1384
 msgid "Flip Horizontal"
 msgstr "Obrni Vodoravno"
 
-#: objects/custom/custom_object.c:1329
+#: objects/custom/custom_object.c:1385
 msgid "Flip Vertical"
 msgstr "Obrni Uspravno"
 
-#: objects/custom/custom_object.c:1366
+#: objects/custom/custom_object.c:1422
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nemože otvoriti datoteku ikone %s za objekat tipa '%s'."
@@ -4514,24 +4519,24 @@ msgstr "Mrežni dijagram objekata"
 msgid "Curve distance"
 msgstr "Rastojanje krive"
 
-#: objects/standard/bezier.c:542 objects/standard/beziergon.c:500
+#: objects/standard/bezier.c:545 objects/standard/beziergon.c:500
 msgid "Add Segment"
 msgstr "Dodaj Segment"
 
-#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
+#: objects/standard/bezier.c:546 objects/standard/beziergon.c:501
 msgid "Delete Segment"
 msgstr "Obriši Segment"
 
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:503
+#: objects/standard/bezier.c:548 objects/standard/beziergon.c:503
 msgid "Symmetric control"
 msgstr "Kontrola jednakosti"
 
-#: objects/standard/bezier.c:547 objects/standard/beziergon.c:505
+#: objects/standard/bezier.c:550 objects/standard/beziergon.c:505
 msgid "Smooth control"
 msgstr "Kontrola glatkosti"
 
 # Ovo nisam siguran imamo li mi bolji naziv
-#: objects/standard/bezier.c:549 objects/standard/beziergon.c:507
+#: objects/standard/bezier.c:552 objects/standard/beziergon.c:507
 msgid "Cusp control"
 msgstr "Kontrola lokalnih ekstremuma"
 
@@ -4642,7 +4647,7 @@ msgstr "Izvozni filter za HPGL"
 msgid "TeX Metapost export filter"
 msgstr "Izvozni filter za Metapost"
 
-#: plug-ins/metapost/render_metapost.c:867
+#: plug-ins/metapost/render_metapost.c:876
 msgid "TeX Metapost macros"
 msgstr "Metapost makroi"
 
@@ -4754,20 +4759,16 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "Izvozni filter za WPG"
 
-#: plug-ins/xfig/xfig-export.c:428
-msgid "Arrow type none -- shouldn't happen\n"
-msgstr "Vrsta strelice je ništa — ne sme se dogoditi\n"
-
-#: plug-ins/xfig/xfig-export.c:442
+#: plug-ins/xfig/xfig-export.c:441
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr "FIG zapis ne omogućava strelice stila %s, koristi običnu strelicu.\n"
 
-#: plug-ins/xfig/xfig-export.c:463
+#: plug-ins/xfig/xfig-export.c:462
 msgid "No more user-definable colors - using black"
 msgstr "Nema više boja postavljenih od strane korisnika — koristim crnu"
 
-#: plug-ins/xfig/xfig-export.c:1136
+#: plug-ins/xfig/xfig-export.c:1135
 msgid "XFig format"
 msgstr "XFig format"
 
@@ -7234,6 +7235,9 @@ msgstr "Sybase srver podataka"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replikacioni server"
+
+#~ msgid "Arrow type none -- shouldn't happen\n"
+#~ msgstr "Vrsta strelice je ništa — ne sme se dogoditi\n"
 
 #~ msgid "fig, mp, plt, hpgl, "
 #~ msgstr "fig, mp, plt, hpgl, "
