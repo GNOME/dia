@@ -40,8 +40,25 @@
 #define TEXT_BORDER_WIDTH_X 1.0
 #define TEXT_BORDER_WIDTH_Y 0.5
 
+typedef struct _AttributeState AttributeState;
 typedef struct _Attribute Attribute;
 typedef struct _AttributePropertiesDialog AttributePropertiesDialog;
+
+struct _AttributeState {
+  ObjectState obj_state;
+
+  gchar *name;
+  real name_width;
+
+  gboolean key;
+  gboolean weakkey;
+  gboolean derived;
+  gboolean multivalue;
+
+  real border_width;
+  Color border_color;
+  Color inner_color;
+};
 
 struct _Attribute {
   Element element;
@@ -93,12 +110,14 @@ static Object *attribute_create(Point *startpoint,
 static void attribute_destroy(Attribute *attribute);
 static Object *attribute_copy(Attribute *attribute);
 static GtkWidget *attribute_get_properties(Attribute *attribute);
-static void attribute_apply_properties(Attribute *attribute);
+static ObjectChange *attribute_apply_properties(Attribute *attribute);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
 			   const char *filename);
 static Object *attribute_load(ObjectNode obj_node, int version,
 			      const char *filename);
+static AttributeState *attribute_get_state(Attribute *Attribute);
+static void attribute_set_state(Attribute *Attribute, AttributeState *state);
 
 static ObjectTypeOps attribute_type_ops =
 {
@@ -140,12 +159,15 @@ static ObjectOps attribute_ops = {
   (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 attribute_apply_properties(Attribute *attribute)
 {
+  ObjectState *old_state;
   AttributePropertiesDialog *prop_dialog;
 
   prop_dialog = attribute->properties_dialog;
+
+  old_state = (ObjectState *)attribute_get_state(attribute);
 
   attribute->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
   dia_color_selector_get_color(prop_dialog->fg_color, &attribute->border_color);
@@ -161,6 +183,10 @@ attribute_apply_properties(Attribute *attribute)
     font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
 
   attribute_update_data(attribute);
+
+  return new_object_state_change((Object *)attribute, old_state,
+				 (GetStateFunc)attribute_get_state,
+				 (SetStateFunc)attribute_set_state);
 }
 
 static GtkWidget *
@@ -408,6 +434,43 @@ attribute_update_data(Attribute *attribute)
 
   element_update_handles(elem);
   
+}
+
+static AttributeState *attribute_get_state(Attribute *attribute)
+{
+  AttributeState *state = g_new(AttributeState, 1);
+
+  state->obj_state.free = NULL;
+
+  state->name = g_strdup(attribute->name);
+  state->name_width = attribute->name_width;
+  state->key = attribute->key;
+  state->weakkey = attribute->weakkey;
+  state->derived = attribute->derived;
+  state->multivalue = attribute->multivalue;
+  state->border_width = attribute->border_width;
+  state->border_color = attribute->border_color;
+  state->inner_color = attribute->inner_color;
+
+  return state;
+}
+
+static void attribute_set_state(Attribute *attribute, AttributeState *state)
+{
+  g_free(attribute->name);
+  attribute->name = g_strdup(state->name);
+  attribute->name_width = state->name_width;
+  attribute->key = state->key;
+  attribute->weakkey = state->weakkey;
+  attribute->derived = state->derived;
+  attribute->multivalue = state->multivalue;
+  attribute->border_width = state->border_width;
+  attribute->border_color = state->border_color;
+  attribute->inner_color = state->inner_color;
+
+  g_free(state);
+
+  attribute_update_data(attribute);
 }
 
 static Object *

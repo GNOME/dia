@@ -32,7 +32,14 @@
 #include "pixmaps/participation.xpm"
 
 typedef struct _Participation Participation;
+typedef struct _ParticipationState ParticipationState;
 typedef struct _ParticipationPropertiesDialog ParticipationPropertiesDialog;
+
+struct _ParticipationState {
+  ObjectState obj_state;
+
+  gboolean total;  
+};
 
 struct _Participation {
   OrthConn orth;
@@ -67,13 +74,16 @@ static Object *participation_create(Point *startpoint,
 static void participation_destroy(Participation *dep);
 static Object *participation_copy(Participation *dep);
 static GtkWidget *participation_get_properties(Participation *dep);
-static void participation_apply_properties(Participation *dep);
+static ObjectChange *participation_apply_properties(Participation *dep);
 static void participation_save(Participation *dep, ObjectNode obj_node,
 			       const char *filename);
 static Object *participation_load(ObjectNode obj_node, int version,
 				  const char *filename);
-
 static void participation_update_data(Participation *dep);
+static ParticipationState *participation_get_state(Participation *participation);
+static void participation_set_state(Participation *participation, ParticipationState *state);
+static DiaMenu *participation_get_object_menu(Participation *participation,
+					      Point *clickedpoint);
 
 static ObjectTypeOps participation_type_ops =
 {
@@ -110,7 +120,7 @@ static ObjectOps participation_ops = {
   (MoveHandleFunc)      participation_move_handle,
   (GetPropertiesFunc)   participation_get_properties,
   (ApplyPropertiesFunc) participation_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      participation_get_object_menu
 };
 
 static real
@@ -356,19 +366,45 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)participation;
 }
 
+static ParticipationState *
+participation_get_state(Participation *participation)
+{
+  ParticipationState *state = g_new(ParticipationState, 1);
 
-static void
+  state->total = participation->total;
+
+  return state;
+}
+
+static void 
+participation_set_state(Participation *participation, ParticipationState *state)
+{
+  participation->total = state->total;
+
+  g_free(state);
+
+  participation_update_data(participation);
+}
+
+static ObjectChange *
 participation_apply_properties(Participation *participation)
 {
+  ObjectState *old_state;
   ParticipationPropertiesDialog *prop_dialog;
 
   prop_dialog = participation->properties_dialog;
+
+  old_state = (ObjectState *)participation_get_state(participation);
 
   /* Read from dialog and put in object: */
   
   participation->total = prop_dialog->total->active;
 
   participation_update_data(participation);
+
+  return new_object_state_change((Object *)participation, old_state,
+				 (GetStateFunc)participation_get_state,
+				 (SetStateFunc)participation_set_state);
 }
 
 static GtkWidget *
@@ -401,6 +437,44 @@ participation_get_properties(Participation *participation)
   return prop_dialog->vbox;
 }
 
+static ObjectChange *
+participation_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
+  participation_update_data((Participation *)obj);
+  return change;
+}
 
+static ObjectChange *
+participation_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
+  participation_update_data((Participation *)obj);
+  return change;
+}
 
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), participation_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), participation_delete_segment_callback, NULL, 1 },
+};
 
+static DiaMenu object_menu = {
+  "Participation",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+participation_get_object_menu(Participation *participation, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &participation->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}

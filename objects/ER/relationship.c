@@ -41,7 +41,26 @@
 #define CARDINALITY_DISTANCE 0.3
 
 typedef struct _Relationship Relationship;
+typedef struct _RelationshipState RelationshipState;
 typedef struct _RelationshipPropertiesDialog RelationshipPropertiesDialog;
+
+struct _RelationshipState {
+  ObjectState obj_state;
+
+  gchar *name;
+  gchar *left_cardinality;
+  gchar *right_cardinality;
+  real name_width;
+  real left_card_width;
+  real right_card_width;
+
+  gboolean identifying;
+  gboolean rotate;
+
+  real border_width;
+  Color border_color;
+  Color inner_color;
+};
 
 struct _Relationship {
   Element element;
@@ -94,12 +113,14 @@ static Object *relationship_create(Point *startpoint,
 static void relationship_destroy(Relationship *relationship);
 static Object *relationship_copy(Relationship *relationship);
 static GtkWidget *relationship_get_properties(Relationship *relationship);
-static void relationship_apply_properties(Relationship *relationship);
+static ObjectChange *relationship_apply_properties(Relationship *relationship);
 
 static void relationship_save(Relationship *relationship,
 			      ObjectNode obj_node, const char *filename);
 static Object *relationship_load(ObjectNode obj_node, int version,
 				 const char *filename);
+static RelationshipState *relationship_get_state(Relationship *relationship);
+static void relationship_set_state(Relationship *relationship, RelationshipState *state);
 
 static ObjectTypeOps relationship_type_ops =
 {
@@ -140,12 +161,15 @@ static ObjectOps relationship_ops = {
   (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 relationship_apply_properties(Relationship *relationship)
 {
+  ObjectState *old_state;
   RelationshipPropertiesDialog *prop_dialog;
 
   prop_dialog = relationship->properties_dialog;
+
+  old_state = (ObjectState *)relationship_get_state(relationship);
 
   relationship->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
   dia_color_selector_get_color(prop_dialog->fg_color, &relationship->border_color);
@@ -167,6 +191,53 @@ relationship_apply_properties(Relationship *relationship)
     font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
   relationship->right_card_width =
     font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
+
+  relationship_update_data(relationship);
+
+  return new_object_state_change((Object *)relationship, old_state,
+				 (GetStateFunc)relationship_get_state,
+				 (SetStateFunc)relationship_set_state);
+}
+
+static RelationshipState *
+relationship_get_state(Relationship *relationship)
+{
+  RelationshipState *state = g_new(RelationshipState, 1);
+  
+  state->obj_state.free = NULL;
+
+  state->name = g_strdup(relationship->name);
+  state->left_cardinality = relationship->left_cardinality;
+  state->right_cardinality = relationship->right_cardinality;
+  state->name_width = relationship->name_width;
+  state->left_card_width = relationship->left_card_width;
+  state->right_card_width = relationship->right_card_width;
+  state->identifying = relationship->identifying;
+  state->rotate = relationship->rotate;
+  state->border_width = relationship->border_width;
+  state->border_color = relationship->border_color;
+  state->inner_color = relationship->inner_color;
+
+  return state;
+}
+
+static void
+relationship_set_state(Relationship *relationship, RelationshipState *state)
+{
+  g_free(relationship->name);
+  relationship->name = g_strdup(state->name);
+  relationship->left_cardinality = state->left_cardinality;
+  relationship->right_cardinality = state->right_cardinality;
+  relationship->name_width = state->name_width;
+  relationship->left_card_width = state->left_card_width;
+  relationship->right_card_width = state->right_card_width;
+  relationship->identifying = state->identifying;
+  relationship->rotate = state->rotate;
+  relationship->border_width = state->border_width;
+  relationship->border_color = state->border_color;
+  relationship->inner_color = state->inner_color;
+
+  g_free(state);
 
   relationship_update_data(relationship);
 }

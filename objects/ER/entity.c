@@ -42,6 +42,18 @@
 
 typedef struct _Entity Entity;
 typedef struct _EntityPropertiesDialog EntityPropertiesDialog;
+typedef struct _EntityState EntityState;
+
+struct _EntityState {
+  ObjectState obj_state;
+
+  real border_width;
+  Color border_color;
+  Color inner_color;
+  char *name;
+  real name_width;  
+  int weak;
+};  
 
 struct _Entity {
   Element element;
@@ -86,12 +98,14 @@ static Object *entity_create(Point *startpoint,
 static void entity_destroy(Entity *entity);
 static Object *entity_copy(Entity *entity);
 static GtkWidget *entity_get_properties(Entity *entity);
-static void entity_apply_properties(Entity *entity);
+static ObjectChange *entity_apply_properties(Entity *entity);
 
 static void entity_save(Entity *entity, ObjectNode obj_node,
 			const char *filename);
 static Object *entity_load(ObjectNode obj_node, int version,
 			   const char *filename);
+static EntityState *entity_get_state(Entity *Entity);
+static void entity_set_state(Entity *Entity, EntityState *state);
 
 static ObjectTypeOps entity_type_ops =
 {
@@ -142,12 +156,15 @@ static ObjectOps entity_ops = {
   (ObjectMenuFunc)      NULL
 };
 
-static void
+static ObjectChange *
 entity_apply_properties(Entity *entity)
 {
+  ObjectState *old_state;
   EntityPropertiesDialog *prop_dialog;
 
   prop_dialog = entity->properties_dialog;
+
+  old_state = (ObjectState *)entity_get_state(entity);
 
   entity->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
   dia_color_selector_get_color(prop_dialog->fg_color, &entity->border_color);
@@ -160,6 +177,10 @@ entity_apply_properties(Entity *entity)
     font_string_width(entity->name, entity->font, FONT_HEIGHT);
   
   entity_update_data(entity);
+
+  return new_object_state_change((Object *)entity, old_state,
+				 (GetStateFunc)entity_get_state,
+				 (SetStateFunc)entity_set_state);
 }
 
 static GtkWidget *
@@ -370,6 +391,39 @@ entity_update_data(Entity *entity)
   obj->position = elem->corner;
   
   element_update_handles(elem);
+}
+
+static EntityState *
+entity_get_state(Entity *entity)
+{
+  EntityState *state = g_new(EntityState, 1);
+  
+  state->obj_state.free = NULL;
+
+  state->border_width = entity->border_width;
+  state->border_color = entity->border_color;
+  state->inner_color = entity->inner_color;
+  state->name = g_strdup(entity->name);
+  state->name_width = entity->name_width;
+  state->weak = entity->weak;
+
+  return state;
+}
+
+static void 
+entity_set_state(Entity *entity, EntityState *state)
+{
+  entity->border_width = state->border_width;
+  entity->border_color = state->border_color;
+  entity->inner_color = state->inner_color;
+  g_free(entity->name);
+  entity->name = g_strdup(state->name);
+  entity->name_width = state->name_width;
+  entity->weak = state->weak;
+
+  g_free(state);
+
+  entity_update_data(entity);
 }
 
 static Object *
