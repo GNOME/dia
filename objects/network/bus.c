@@ -393,7 +393,7 @@ bus_create(Point *startpoint,
   bus->num_handles = DEFAULT_NUMHANDLES;
 
   connection_init(conn, 2+bus->num_handles, 0);
-
+  
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
   for (i=0;i<bus->num_handles;i++) {
@@ -408,6 +408,8 @@ bus_create(Point *startpoint,
     obj->handles[2+i] = bus->handles[i];
   }
 
+  bus->properties_dialog = NULL;
+  
   bus_update_data(bus);
 
   *handle1 = obj->handles[0];
@@ -419,6 +421,10 @@ static void
 bus_destroy(Bus *bus)
 {
   int i;
+  if (bus->properties_dialog != NULL) {
+    gtk_widget_destroy(bus->properties_dialog->dialog);
+    g_free(bus->properties_dialog);
+  }
   connection_destroy(&bus->connection);
   for (i=0;i<bus->num_handles;i++)
     g_free(bus->handles[i]);
@@ -457,6 +463,8 @@ bus_copy(Bus *bus)
 
   newbus->real_ends[0] = bus->real_ends[0];
   newbus->real_ends[1] = bus->real_ends[1];
+
+  newbus->properties_dialog = NULL;
 
   return (Object *)newbus;
 }
@@ -555,6 +563,8 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &bus_type;
   obj->ops = &bus_ops;
 
+  bus->properties_dialog = NULL;
+  
   connection_load(conn, obj_node);
 
   attr = object_find_attribute(obj_node, "bus_handles");

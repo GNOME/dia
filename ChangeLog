@@ -1,5 +1,19 @@
 1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/network/bus.c:
+	Added initialization of properties dialog to NULL.
+
+	* app/commands.c (edit_cut_callback):
+	Update menu sensitivity when cut object.
+
+	* app/modify_tool.c (click_select_object):
+	* app/modify_tool.c (modify_button_release): 
+	Call diagram_update_menu_sensitivity() when
+	selecting objects to update stuff that depends
+	on selected/not selected.
+
+1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
+
 	* Makefile.am:
 	Change order of subdir so that libintl.a builds.
 	Now passed make distcheck.

@@ -449,6 +449,7 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
   destroy_object_list(cut_list); /* Have to destroy it so that any attribut
 				    dialogs open are closed. */
   
+  diagram_update_menu_sensitivity(ddisp->diagram);
   diagram_flush(ddisp->diagram);
 }
 
