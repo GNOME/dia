@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-01-27 19:12+0100\n"
-"PO-Revision-Date: 2002-01-27 19:13+0100\n"
+"POT-Creation-Date: 2002-01-30 01:27+0100\n"
+"PO-Revision-Date: 2002-01-30 01:27+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -593,7 +593,7 @@ msgstr "Skapa text"
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
 #: app/interface.c:59 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
 #: objects/UML/state.c:137 objects/UML/usecase.c:130
@@ -785,7 +785,7 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningshandtaget finns inte."
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -949,7 +949,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:162 lib/widgets.c:660 objects/UML/association.c:1001
+#: app/menus.c:162 lib/widgets.c:660 objects/UML/association.c:1040
 msgid "None"
 msgstr "Ingen"
 
@@ -1506,9 +1506,9 @@ msgstr "Insticksmoduler"
 
 #: app/plugin-manager.c:181 objects/EML/process_dialog.c:637
 #: objects/ER/attribute.c:149 objects/ER/entity.c:126
-#: objects/ER/relationship.c:135 objects/UML/association.c:979
-#: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
-#: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
+#: objects/ER/relationship.c:135 objects/UML/association.c:1018
+#: objects/UML/class_dialog.c:811 objects/UML/class_dialog.c:1781
+#: objects/UML/class_dialog.c:1943 objects/UML/class_dialog.c:2444
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
@@ -1730,6 +1730,34 @@ msgstr "En diagramredigerare"
 #: dia.desktop.in.h:2
 msgid "Dia"
 msgstr "Dia"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c. if "Courier" works for you, it would be better.
+#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:968
+#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
+#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
+#: objects/EML/interaction.c:496 objects/EML/process.c:511
+#: objects/ER/attribute.c:390 objects/ER/attribute.c:543
+#: objects/ER/entity.c:341 objects/ER/entity.c:471
+#: objects/ER/relationship.c:419 objects/ER/relationship.c:587
+#: objects/UML/association.c:556 objects/UML/association.c:741
+#: objects/UML/class.c:665 objects/UML/constraint.c:269
+#: objects/UML/dependency.c:371 objects/UML/generalization.c:364
+#: objects/UML/implements.c:284 objects/UML/large_package.c:333
+#: objects/UML/note.c:301 objects/UML/realizes.c:367
+#: objects/UML/small_package.c:341 objects/custom/shape_info.h:67
+#: objects/network/antenna.c:91 objects/network/computer.c:92
+#: objects/network/disc.c:92 objects/network/flash.c:88
+#: objects/network/hub.c:92 objects/network/modem.c:90
+#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
+#: objects/network/printer.c:91 objects/network/rj45plug.c:90
+#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
+#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
+#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
+#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
+#: plug-ins/dxf/dxf-import.c:545
+msgid "Courier"
+msgstr "Courier"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2030,7 +2058,7 @@ msgstr "Event Modelling Language-diagram"
 msgid "Number of processes:"
 msgstr "Antal processer:"
 
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:543
+#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
 msgid "multiple"
 msgstr "flera"
 
@@ -2042,19 +2070,19 @@ msgstr "Ensam"
 msgid "Multiple"
 msgstr "Flera"
 
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:287
+#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:618 objects/UML/dependency.c:335
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
 #: objects/UML/generalization.c:327 objects/UML/realizes.c:330
 #: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Lägg till segment"
 
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:288
+#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:619 objects/UML/dependency.c:336
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
 #: objects/UML/generalization.c:328 objects/UML/realizes.c:331
 #: objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -2064,43 +2092,50 @@ msgstr "Ta bort segment"
 msgid "Instantiation"
 msgstr "Instantiering"
 
-#: objects/EML/interaction-ortho.c:285 objects/EML/interaction.c:450
+#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
 msgid "Unidirectional"
 msgstr "Enkelriktad"
 
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:451
+#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
 msgid "Bidirectional"
 msgstr "Tvåriktad"
 
-#: objects/EML/interaction.c:605
+#: objects/EML/interaction.c:612
 msgid "Interaction name:"
 msgstr "Interaktionsnamn:"
 
-#: objects/EML/interaction.c:616
+#: objects/EML/interaction.c:623
 msgid "bidirectional"
 msgstr "tvåriktad"
 
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:697
-#: objects/UML/class_dialog.c:1570 objects/UML/class_dialog.c:1730
-#: objects/UML/class_dialog.c:2191
+#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:774
+#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:1901
+#: objects/UML/class_dialog.c:2407
 msgid "New"
 msgstr "Ny"
 
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:703
-#: objects/UML/class_dialog.c:1576 objects/UML/class_dialog.c:1737
-#: objects/UML/class_dialog.c:2197
+#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:780
+#: objects/UML/class_dialog.c:1747 objects/UML/class_dialog.c:1908
+#: objects/UML/class_dialog.c:2413
 msgid "Delete"
 msgstr "Ta bort"
 
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:709
-#: objects/UML/class_dialog.c:1582 objects/UML/class_dialog.c:1744
-#: objects/UML/class_dialog.c:2203
+#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:786
+#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1915
+#: objects/UML/class_dialog.c:2419
 msgid "Move up"
 msgstr "Flytta upp"
 
 #: objects/EML/nlist.c:52
 msgid "Move Down"
 msgstr "Flytta ned"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/EML/process.c:514 objects/EML/process.c:515
+#: objects/EML/process.c:516 objects/EML/process.c:517
+msgid "Helvetica"
+msgstr "Helvetica"
 
 #: objects/EML/process_dialog.c:625
 msgid "relation"
@@ -2210,7 +2245,7 @@ msgstr "Härledd:"
 msgid "Multivalue:"
 msgstr "Multivärde:"
 
-#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:391 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -2218,7 +2253,7 @@ msgstr "Attribut"
 msgid "Weak:"
 msgstr "Svag:"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:342 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Enhet"
 
@@ -2246,7 +2281,7 @@ msgstr "Rotera:"
 msgid "Identifying:"
 msgstr "Identifierar:"
 
-#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:420 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Förhållande"
 
@@ -2277,8 +2312,8 @@ msgid "Signal"
 msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:186 objects/FS/flow.c:163
-#: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
-#: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
+#: objects/UML/class_dialog.c:823 objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:1955 objects/UML/class_dialog.c:2456
 msgid "Type:"
 msgstr "Typ:"
 
@@ -3304,198 +3339,217 @@ msgstr "SADT-rektangel"
 msgid "SADT diagram objects"
 msgstr "SADT-diagramobjekt"
 
-#: objects/UML/actor.c:332
+#: objects/UML/actor.c:335 objects/UML/actor.c:337
 msgid "Actor"
 msgstr "Skådespelare"
 
-#: objects/UML/association.c:991
+#: objects/UML/association.c:1030
 msgid "Direction:"
 msgstr "Riktning:"
 
-#: objects/UML/association.c:1008
+#: objects/UML/association.c:1047
 msgid "From A to B"
 msgstr "Från A till B"
 
-#: objects/UML/association.c:1015
+#: objects/UML/association.c:1054
 msgid "From B to A"
 msgstr "Från B till A"
 
-#: objects/UML/association.c:1039 objects/UML/association.c:1047
+#: objects/UML/association.c:1078 objects/UML/association.c:1086
 msgid "Side A"
 msgstr "Sida A"
 
-#: objects/UML/association.c:1041 objects/UML/association.c:1049
+#: objects/UML/association.c:1080 objects/UML/association.c:1088
 msgid "Side B"
 msgstr "Sida B"
 
-#: objects/UML/association.c:1055
+#: objects/UML/association.c:1094
 msgid "Role:"
 msgstr "Funktion:"
 
-#: objects/UML/association.c:1067
+#: objects/UML/association.c:1106
 msgid "Multiplicity:"
 msgstr "Multiplicitet:"
 
 #. Show arrow:
-#: objects/UML/association.c:1078
+#: objects/UML/association.c:1117
 msgid "Show arrow"
 msgstr "Visa pil"
 
 #. Aggregate
-#: objects/UML/association.c:1084
+#: objects/UML/association.c:1123
 msgid "Aggregate"
 msgstr "Aggregat"
 
 #. Composition
-#: objects/UML/association.c:1092
+#: objects/UML/association.c:1131
 msgid "Composition"
 msgstr "Komposition"
 
-#: objects/UML/class.c:105 objects/UML/large_package.c:120
+#: objects/UML/class.c:102 objects/UML/large_package.c:120
 msgid "Name"
 msgstr "Namn"
 
-#: objects/UML/class.c:107 objects/UML/classicon.c:131
+#: objects/UML/class.c:104 objects/UML/classicon.c:131
 #: objects/UML/component.c:116 objects/UML/large_package.c:118
 #: objects/UML/object.c:144 objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:109 objects/UML/class_dialog.c:208
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:233
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: objects/UML/class.c:111 objects/UML/class_dialog.c:220
+#: objects/UML/class.c:108 objects/UML/class_dialog.c:245
 msgid "Suppress Attributes"
 msgstr "Undertryck i attribut"
 
-#: objects/UML/class.c:113
+#: objects/UML/class.c:110
 msgid "Suppress Operations"
 msgstr "Undertryck operationer"
 
-#: objects/UML/class.c:115
+#: objects/UML/class.c:112
 msgid "Visible Attributes"
 msgstr "Synliga attribut"
 
-#: objects/UML/class.c:117
+#: objects/UML/class.c:114
 msgid "Visible Operations"
 msgstr "Synliga operationer"
 
-#: objects/UML/class.c:123
+#: objects/UML/class.c:120
 msgid "Template"
 msgstr "Mall"
 
+#. choose default font name for abstract for your locale. see also font_data
+#. structure in lib/font.c.
+#: objects/UML/class.c:668
+msgid "Courier-Oblique"
+msgstr "Courier-Oblique"
+
+#. choose default font name for class name font for your locale. see also font_data
+#. structure in lib/font.c.
+#: objects/UML/class.c:671
+msgid "Helvetica-Bold"
+msgstr "Helvetica-Bold"
+
+#. choose default font name for abstract class name for your locale. see also font_data
+#. structure in lib/font.c.
+#: objects/UML/class.c:674
+msgid "Helvetica-BoldOblique"
+msgstr "Helvetica-BoldOblique"
+
 #. Class page:
-#: objects/UML/class.c:689 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:704 objects/UML/class.c:706
+#: objects/UML/class_dialog.c:205
 msgid "Class"
 msgstr "Klass"
 
-#: objects/UML/class_dialog.c:186
+#: objects/UML/class_dialog.c:211
 msgid "Class name:"
 msgstr "Klassnamn:"
 
-#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:127
+#: objects/UML/class_dialog.c:222 objects/UML/dependency.c:127
 #: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:216
+#: objects/UML/class_dialog.c:241
 msgid "Attributes visible"
 msgstr "Attribut synliga"
 
-#: objects/UML/class_dialog.c:228
+#: objects/UML/class_dialog.c:253
 msgid "Operations visible"
 msgstr "Operationer synliga"
 
-#: objects/UML/class_dialog.c:232
+#: objects/UML/class_dialog.c:257
 msgid "Suppress operations"
 msgstr "Undertryck operationer"
 
-#: objects/UML/class_dialog.c:240
+#: objects/UML/class_dialog.c:265
 msgid "Foreground Color"
 msgstr "Förgrundsfärg"
 
-#: objects/UML/class_dialog.c:250
+#: objects/UML/class_dialog.c:275
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:669 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:746 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Attribut"
 
-#: objects/UML/class_dialog.c:715 objects/UML/class_dialog.c:1588
-#: objects/UML/class_dialog.c:1751 objects/UML/class_dialog.c:2209
+#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1759
+#: objects/UML/class_dialog.c:1922 objects/UML/class_dialog.c:2425
 msgid "Move down"
 msgstr "Flytta ned"
 
-#: objects/UML/class_dialog.c:726
+#: objects/UML/class_dialog.c:803
 msgid "Attribute data"
 msgstr "Attributdata"
 
-#: objects/UML/class_dialog.c:758
+#: objects/UML/class_dialog.c:835
 msgid "Value:"
 msgstr "Värde:"
 
-#: objects/UML/class_dialog.c:770 objects/UML/class_dialog.c:1634
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1805
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: objects/UML/class_dialog.c:779 objects/UML/class_dialog.c:1643
+#: objects/UML/class_dialog.c:856 objects/UML/class_dialog.c:1814
 msgid "Public"
 msgstr "Allmän"
 
-#: objects/UML/class_dialog.c:787 objects/UML/class_dialog.c:1651
+#: objects/UML/class_dialog.c:864 objects/UML/class_dialog.c:1822
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:795 objects/UML/class_dialog.c:1659
+#: objects/UML/class_dialog.c:872 objects/UML/class_dialog.c:1830
 msgid "Protected"
 msgstr "Skyddad"
 
-#: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1838
 msgid "Implementation"
 msgstr "Implementation"
 
-#: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
+#: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1854
 msgid "Class scope"
 msgstr "Klassräckvidd"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1542
+#: objects/UML/class_dialog.c:1713
 msgid "Operations"
 msgstr "Operationer"
 
-#: objects/UML/class_dialog.c:1600
+#: objects/UML/class_dialog.c:1771
 msgid "Operation data"
 msgstr "Operationsdata"
 
-#: objects/UML/class_dialog.c:1689
+#: objects/UML/class_dialog.c:1860
 msgid "abstract"
 msgstr "abstrakt"
 
-#: objects/UML/class_dialog.c:1701
+#: objects/UML/class_dialog.c:1872
 msgid "Parameters:"
 msgstr "Parametrar:"
 
-#: objects/UML/class_dialog.c:1763
+#: objects/UML/class_dialog.c:1934
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: objects/UML/class_dialog.c:1796
+#: objects/UML/class_dialog.c:1967
 msgid "Def. value:"
 msgstr "Standardvärde:"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2157
+#: objects/UML/class_dialog.c:2373
 msgid "Templates"
 msgstr "Mallar"
 
-#: objects/UML/class_dialog.c:2163
+#: objects/UML/class_dialog.c:2379
 msgid "Template class"
 msgstr "Mallklass"
 
-#: objects/UML/class_dialog.c:2220
+#: objects/UML/class_dialog.c:2436
 msgid "Formal parameter data"
 msgstr "Formell parameterdata"
 
@@ -3539,39 +3593,39 @@ msgstr "Ta bort anslutningspunkter"
 msgid "UML Lifeline"
 msgstr "UML-livlina"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:129
 msgid "Call"
 msgstr "Anrop"
 
-#: objects/UML/message.c:136
+#: objects/UML/message.c:130
 msgid "Create"
 msgstr "Skapa"
 
-#: objects/UML/message.c:137
+#: objects/UML/message.c:131
 msgid "Destroy"
 msgstr "Förstör"
 
-#: objects/UML/message.c:138
+#: objects/UML/message.c:132
 msgid "Simple"
 msgstr "Enkel"
 
-#: objects/UML/message.c:139
+#: objects/UML/message.c:133
 msgid "Return"
 msgstr "Retunera"
 
-#: objects/UML/message.c:140
+#: objects/UML/message.c:134
 msgid "Send"
 msgstr "Skicka"
 
-#: objects/UML/message.c:141
+#: objects/UML/message.c:135
 msgid "Recursive"
 msgstr "Rekursivt"
 
-#: objects/UML/message.c:148
+#: objects/UML/message.c:142
 msgid "Message:"
 msgstr "Meddelande:"
 
-#: objects/UML/message.c:150
+#: objects/UML/message.c:144
 msgid "Message type:"
 msgstr "Meddelandetyp:"
 
@@ -3606,6 +3660,17 @@ msgstr "Tillståndstyp"
 #: objects/UML/uml.c:60
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language-diagramobjekt"
+
+#. Characters used to start/end stereotypes:
+#. start stereotype symbol(like \xab) for local locale
+#: objects/UML/uml.h:83
+msgid "<<"
+msgstr "«"
+
+#. end stereotype symbol(like \xbb) for local locale
+#: objects/UML/uml.h:85
+msgid ">>"
+msgstr "»"
 
 #: objects/UML/usecase.c:124
 msgid "Text outside"
@@ -3897,7 +3962,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Exportfilter till Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
+#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:683
 msgid "Drawing Interchange File"
 msgstr "Ritar Interchange-fil"
 
