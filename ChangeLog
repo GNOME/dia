@@ -1,4 +1,9 @@
-2002-12-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-12-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/standard/textobj.c (textobj_load): Get the handle type
+	right, at least to be the same as when created.
+
+2002-12-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/dialibartrenderer.c (draw_string): Removed extra 'is'.
 
@@ -23,7 +28,7 @@
 	* objects/makefile.msc : only UML needs to link against
 	$(GTK2_LIBS) and only custom against $(LIBXML2_LIBS)
 
-2002-12-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-12-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/ellipse.c (ellipse_distance_from): 
 	* lib/geometry.c (distance_ellipse_point): Ellipse now uses the

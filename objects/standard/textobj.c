@@ -298,7 +298,7 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   obj->handles[0] = &textobj->text_handle;
   textobj->text_handle.id = HANDLE_TEXT;
-  textobj->text_handle.type = HANDLE_MINOR_CONTROL;
+  textobj->text_handle.type = HANDLE_MAJOR_CONTROL;
   textobj->text_handle.connect_type = HANDLE_CONNECTABLE;
   textobj->text_handle.connected_to = NULL;
 
