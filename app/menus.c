@@ -311,7 +311,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/50%"),          NULL,         view_zoom_set_callback,   500},
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
-  {N_("/View/Diagram Properties"),NULL,         view_diagram_properties_callback, 0},
+  {N_("/View/Diagram Properties..."),NULL,         view_diagram_properties_callback, 0},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
 #endif

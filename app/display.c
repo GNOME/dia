@@ -43,6 +43,7 @@
 #include "app_procs.h"
 #include "layer_dialog.h"
 #include "load_save.h"
+#include "dia-props.h"
 
 #ifdef THIS_IS_PROBABLY_DEAD_CODE
 #include "pixmaps/snap-to-grid.xpm"
@@ -1152,6 +1153,8 @@ display_set_active(DDisplay *ddisp)
 
     /* perform notification here (such as switch layers dialog) */
     layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+    diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
+
     if (ddisp)
       display_update_menu_state(ddisp);
   }

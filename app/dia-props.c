@@ -203,23 +203,33 @@ create_diagram_properties_dialog(void)
   gtk_widget_show(label);
 }
 
+/* diagram_properties_retrieve
+ * Retrieves properties of a diagram *dia and sets the values in the
+ * diagram properties dialog.
+ */
+static void diagram_properties_retrieve(Diagram *dia)
+{
+  g_return_if_fail(dia != NULL);
+
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
+			      dia->data->grid.width_x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),
+			      dia->data->grid.width_y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_x_entry),
+			      dia->data->grid.visible_x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_y_entry),
+			      dia->data->grid.visible_y);
+  dia_color_selector_set_color(DIACOLORSELECTOR(bg_colour), &dia->data->bg_color);
+
+}
 void
 diagram_properties_show(Diagram *dia)
 {
   if (!dialog)
     create_diagram_properties_dialog();
-  if (ddisplay_active_diagram() != dia) {
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
-			      dia->data->grid.width_x);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),
-			      dia->data->grid.width_y);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_x_entry),
-			      dia->data->grid.visible_x);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_y_entry),
-			      dia->data->grid.visible_y);
-    dia_color_selector_set_color(DIACOLORSELECTOR(bg_colour),
-				 &dia->data->bg_color);
-  }
+ 
+  diagram_properties_retrieve(dia);
+  
   gtk_widget_show(dialog);
 }
 
@@ -256,3 +266,17 @@ diagram_properties_hide(GtkWidget *dialog)
 {
   gtk_widget_hide(dialog);
 }
+
+/* diagram_properties_set_diagram
+ * Called when the active diagram is changed. It updates the contents
+ * of the diagram properties dialog
+ */
+void
+diagram_properties_set_diagram(Diagram *dia)
+{
+  if (dialog && dia != NULL)
+  {
+    diagram_properties_retrieve(dia);
+  }
+}
+

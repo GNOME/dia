@@ -3,6 +3,16 @@
 	* app/load_save.c:
 	* dia/lib/plug-ins.c: use g_strdup() instead of strdup(). Patch
 	from <robert.young@dsto.defence.gov.au>. Fixes #59591.
+
+	* app/menu.c: added ellipsis(...) to diagram properties menu item.
+	* app/dia-props.c: diagram properties dialog contents did not
+	represent current diagram settings.
+	* app/dia-props.[ch]:
+	* app/display.c: diagram properties contents now follows currently
+	selected diagram.
+	Patch also from <robert.young@dsto.defence.gov.au>, fixes #59409.
+
+	* AUTHORS: added Robert Young.
 	
 2001-08-27  Cyrille Chepelov  <chepelov@calixo.net>
 

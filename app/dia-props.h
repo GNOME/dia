@@ -24,5 +24,6 @@
 #include "diagram.h"
 
 void diagram_properties_show(Diagram *dia);
+void diagram_properties_set_diagram(Diagram *dia);
 
 #endif
