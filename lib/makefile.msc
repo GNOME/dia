@@ -1,0 +1,101 @@
+PRJ_TOP = ..
+PACKAGE = libdia
+!INCLUDE "..\..\gtk_cfg.inc"
+
+PKG_CFLAGS = -I.. -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GMODULE) \
+	-I$(LIBXML) -I$(GDKPIXBUF)\.. \
+	-DLIBDIA_COMPILATION
+
+PKG_LINK = $(GTK)\gtk\gtk-$(GTK_VER).lib $(GTK)\$(GDKSUB)\gdk-$(GTK_VER).lib \
+	$(GLIB)\glib-$(GLIB_VER).lib $(GLIB)\gmodule-$(GLIB_VER).lib \
+	$(LIBXML)\libxml.lib $(GDKPIXBUF)\gdk-pixbuf.lib \
+#	..\objects\custom\libcustom_objects.lib 
+
+OBJECTS = \
+	diagramdata.obj \
+	geometry.obj \
+	color.obj \
+	dia_xml.obj \
+	attributes.obj \
+	render_store.obj \
+	render_object.obj \
+	text.obj \
+	font.obj \
+	utils.obj \
+	arrows.obj \
+	message.obj \
+	focus.obj \
+	sheet.obj \
+	object.obj \
+	connection.obj \
+	orth_conn.obj \
+	poly_conn.obj \
+	bezier_conn.obj \
+	element.obj \
+	objchange.obj \
+	widgets.obj \
+	dia_image.obj \
+	intl.obj \
+	dia_dirs.obj \
+	neworth_conn.obj \
+	connpoint_line.obj \
+	lazyprops.obj \
+	filter.obj \
+	properties.obj \
+	plug-ins.obj \
+	polyshape.obj \
+	beziershape.obj \
+	paper.obj
+
+## common stuff
+## compiler and linker switches
+!IFNDEF DEBUG
+# Full optimization:
+OPTIMIZE = -Ox -Zi -MD
+LINKDEBUG =
+!ELSE
+# Debugging:
+OPTIMIZE = -Zi -MDd
+LINKDEBUG = /debug
+!ENDIF
+
+# cl -? describes the options
+CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
+
+# No general LDFLAGS needed
+LDFLAGS = /link $(LINKDEBUG)
+INSTALL = copy
+
+CFLAGS = -I. -DHAVE_CONFIG_H
+
+## targets
+all : \
+	$(PRJ_TOP)\config.h \
+	$(PACKAGE).dll
+
+$(PACKAGE).lib : $(OBJECTS)
+	lib /out:$(PACKAGE).lib $(OBJECTS)
+
+$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+
+$(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+
+.c.obj :
+	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+
+clean:
+	del config.h
+	del *.exe
+	del *.obj
+	del *.dll
+	del *.lib
+	del *.err
+	del *.map
+	del *.sym
+	del *.exp
+	del *.lk1
+	del *.mk1
+	del *.pdb
+	del *.ilk

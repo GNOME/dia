@@ -1,0 +1,122 @@
+!IFNDEF PACKAGE
+
+PLUGINS = cgm dummy dxf hpgl pstricks shape svg wmf wpg
+
+# The main target
+all : sub-all
+
+sub-all: 
+	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-one THIS=%d
+
+sub-one:
+	cd $(THIS)
+	nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
+	cd ..
+
+!ELSE
+
+PRJ_TOP = ..\..
+PKG_DEF = ..\objects.def
+
+!INCLUDE $(PRJ_TOP)\..\gtk_cfg.inc
+
+PKG_CFLAGS = -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GMODULE) \
+	-I$(LIBXML) -I$(PRJ_TOP)\lib \
+	-DVERSION=\"0.86\"
+
+PKG_LINK = $(GTK)\gtk\gtk-$(GTK_VER).lib $(GTK)\$(GDKSUB)\gdk-$(GTK_VER).lib \
+	$(GLIB)\glib-$(GLIB_VER).lib $(LIBXML)\libxml.lib \
+	$(PRJ_TOP)\lib\libdia.lib
+
+#
+# Special object definitions for the various plugins, if needed
+#
+
+!IFDEF OBJ_dxf
+OBJECTS = \
+  dxf.obj \
+  dxf-export.obj \
+  dxf-import.obj
+!ENDIF
+
+!IFDEF OBJ_pstricks
+OBJECTS = \
+  pstricks.obj \
+  render_pstricks.obj
+!ENDIF
+
+!IFDEF OBJ_shape
+OBJECTS = \
+  shape.obj \
+  shape-export.obj
+!ENDIF
+
+!IFDEF OBJ_svg
+OBJECTS = \
+  svg.obj \
+  render_svg.obj
+!ENDIF
+
+!IFDEF OBJ_wmf
+OBJECTS = \
+  wmf.obj \
+  wmf_gdi.obj
+!ENDIF
+
+# just one file ...
+!IFNDEF OBJECTS
+OBJECTS = $(PACKAGE).obj
+!ENDIF
+
+## common stuff
+## compiler and linker switches
+!IFNDEF DEBUG
+# Full optimization:
+OPTIMIZE = -Ox -MD
+LINKDEBUG =
+!ELSE
+# Debugging:
+OPTIMIZE = -Zi -MDd
+LINKDEBUG = /debug
+!ENDIF
+
+# cl -? describes the options
+CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
+
+# No general LDFLAGS needed
+LDFLAGS = /link $(LINKDEBUG)
+INSTALL = copy
+
+CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
+
+$(PACKAGE).lib : $(OBJECTS)
+	lib /out:$(PACKAGE).lib $(OBJECTS)
+
+$(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
+$(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+
+.cpp.obj :
+	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+
+.c.obj :
+	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+
+clean:
+	del config.h
+	del *.exe
+	del *.obj
+	del *.dll
+	del *.lib
+	del *.err
+	del *.map
+	del *.sym
+	del *.exp
+	del *.lk1
+	del *.mk1
+	del *.pdb
+	del *.ilk
+
+!ENDIF
+

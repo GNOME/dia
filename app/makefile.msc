@@ -1,0 +1,124 @@
+PRJ_TOP = ..
+PACKAGE = dia
+!INCLUDE "..\..\gtk_cfg.inc"
+
+PKG_CFLAGS = -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GMODULE) \
+	-I$(LIBXML) -I$(PNG) -I$(ZLIB) -I$(GDKPIXBUF)\.. \
+	-I$(PRJ_TOP)\lib -I$(LIBART)\.. -DHAVE_LIBART -DHAVE_LIBPNG \
+	-DVERSION=\"0.86\"
+
+PKG_LINK = $(GTK)\gtk\gtk-$(GTK_VER).lib $(GTK)\$(GDKSUB)\gdk-$(GTK_VER).lib $(GLIB)\gmodule-$(GLIB_VER).lib $(GLIB)\glib-$(GLIB_VER).lib \
+	$(LIBXML)\libxml.lib $(GDKPIXBUF)\gdk-pixbuf.lib \
+	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
+	$(PNG)\libpng.lib $(ZLIB)\zlib.lib \
+	$(GDKPIXBUF)\gdk-pixbuf.lib
+
+OBJECTS = \
+	app_procs.obj \
+	color_area.obj \
+	commands.obj \
+	connectionpoint_ops.obj \
+	create_object.obj \
+	cut_n_paste.obj \
+	cursor.obj \
+	defaults.obj \
+	diagram.obj \
+	diapagelayout.obj \
+	dia-props.obj \
+	diaunitspinner.obj \
+	disp_callbacks.obj \
+	display.obj \
+	export_png.obj \
+	filedlg.obj \
+	grid.obj \
+	group.obj \
+	gtkhwrapbox.obj \
+	gtkvwrapbox.obj \
+	gtkwrapbox.obj \
+	handle_ops.obj \
+	interface.obj \
+	layer_dialog.obj \
+	lineprops_area.obj \
+	linewidth_area.obj \
+	load_save.obj \
+	magnify.obj \
+	main.obj \
+	menus.obj \
+	modify_tool.obj \
+	object_ops.obj \
+	pagesetup.obj \
+	paginate_psprint.obj \
+	plugin-manager.obj \
+	preferences.obj \
+	properties.obj \
+	render_eps.obj \
+	render_gdk.obj \
+	render_libart.obj \
+	scroll_tool.obj \
+	select.obj \
+	splash.obj \
+	tool.obj \
+	undo.obj \
+	winmain.obj
+
+
+## common stuff
+## compiler and linker switches
+!IFNDEF DEBUG
+# Full optimization:
+OPTIMIZE = -Ox -Zi -MD
+LINKDEBUG =
+!ELSE
+# Debugging:
+OPTIMIZE = -Zi -MDd
+LINKDEBUG = /debug
+!ENDIF
+
+# cl -? describes the options
+CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
+
+# No general LDFLAGS needed
+LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
+INSTALL = copy
+
+CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
+
+## targets
+all : \
+	$(PRJ_TOP)\config.h \
+	$(PACKAGE).exe
+
+$(PACKAGE).res : $(PACKAGE).rc $(PACKAGE).ico
+	rc -r -fo $(PACKAGE).res $(PACKAGE).rc
+
+RESOURCE = $(PACKAGE).res
+
+$(PACKAGE).lib : $(OBJECTS)
+	lib /out:$(PACKAGE).lib $(OBJECTS)
+
+$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+
+$(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def
+	$(CC) $(CFLAGS) -MD -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+
+$(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+
+.c.obj :
+	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+
+clean:
+	del config.h
+	del *.exe
+	del *.obj
+	del *.dll
+	del *.lib
+	del *.err
+	del *.map
+	del *.sym
+	del *.exp
+	del *.lk1
+	del *.mk1
+	del *.pdb
+	del *.ilk

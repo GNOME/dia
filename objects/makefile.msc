@@ -1,0 +1,225 @@
+!IFNDEF PACKAGE
+
+PLUGINS = chronogram custom er flowchart fs grafcet labels \
+		network sadt standard sybase uml 
+
+# The main target
+all : sub-all
+
+sub-all: 
+	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-one THIS=%d
+
+sub-one:
+	cd $(THIS)
+	nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
+	cd ..
+
+!ELSE
+
+PRJ_TOP = ..\..
+PKG_DEF = ..\objects.def
+
+!INCLUDE $(PRJ_TOP)\..\gtk_cfg.inc
+
+PKG_CFLAGS = -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GMODULE) \
+	-I$(LIBXML) -I$(PRJ_TOP)\lib \
+
+PKG_LINK = $(GTK)\gtk\gtk-$(GTK_VER).lib $(GTK)\$(GDKSUB)\gdk-$(GTK_VER).lib \
+	$(GLIB)\glib-$(GLIB_VER).lib $(LIBXML)\libxml.lib \
+	$(PRJ_TOP)\lib\libdia.lib
+
+#
+# Object definitions for the various plugins
+#
+
+!IFDEF OBJ_chronogram
+OBJECTS = \
+	chronogram.obj \
+	chronoline.obj \
+	chronoline_event.obj \
+	chronoref.obj \
+!ENDIF
+
+!IFDEF OBJ_custom
+OBJECTS = \
+	shape_info.obj \
+	custom_object.obj \
+	custom_util.obj \
+	custom.obj
+!ENDIF
+
+!IFDEF OBJ_er
+OBJECTS = \
+	entity.obj \
+	relationship.obj \
+	attribute.obj \
+	participation.obj \
+	er.obj
+!ENDIF
+
+!IFDEF OBJ_flowchart
+OBJECTS = \
+	box.obj \
+	parallelogram.obj \
+	diamond.obj \
+	ellipse.obj \
+	flowchart.obj
+!ENDIF
+
+!IFDEF OBJ_fs
+OBJECTS = \
+	fs.obj \
+	flow.obj \
+	flow-ortho.obj \
+	function.obj
+!ENDIF
+
+!IFDEF OBJ_grafcet
+OBJECTS = \
+	action.obj \
+	action_text_draw.obj \
+	grafcet.obj \
+	step.obj \
+	transition.obj \
+	vector.obj \
+	vergent.obj \
+	boolequation.obj \
+	condition.obj \
+!ENDIF
+
+!IFDEF OBJ_labels
+OBJECTS = \
+	labels.obj \
+	labeltextobj.obj \
+	labelline.obj
+!ENDIF
+
+!IFDEF OBJ_network
+OBJECTS = \
+      computer.obj \
+      disc.obj \
+      monitor.obj \
+      printer.obj \
+      bus.obj \
+      network.obj \
+      antenna.obj \
+      modem.obj \
+      flash.obj \
+      hub.obj \
+      modularswitch.obj \
+      rj45plug.obj \
+      scead-plug.obj
+!ENDIF
+
+!IFDEF OBJ_sadt
+OBJECTS = \
+	annotation.obj \
+	arrow.obj \
+	box.obj \
+	sadt.obj \
+
+!ENDIF
+
+!IFDEF OBJ_standard
+OBJECTS = \
+	arc.obj \
+	beziergon.obj \
+	box.obj \
+	ellipse.obj \
+	textobj.obj \
+	line.obj \
+	zigzagline.obj \
+	polyline.obj \
+	bezier.obj \
+	standard.obj \
+	image.obj \
+	polygon.obj
+!ENDIF
+
+!IFDEF OBJ_sybase
+OBJECTS = \
+	dataserver.obj \
+	repserver.obj \
+	ltm.obj \
+	client.obj \
+	stableq.obj \
+	rsm.obj \
+	sybase.obj
+!ENDIF
+
+!IFDEF OBJ_uml
+OBJECTS = \
+	uml.obj \
+	class.obj \
+	class_dialog.obj \
+	note.obj \
+	actor.obj \
+	usecase.obj \
+	realizes.obj \
+	constraint.obj \
+	small_package.obj \
+	large_package.obj \
+	implements.obj \
+	generalization.obj \
+	association.obj \
+	dependency.obj \
+	message.obj \
+	object.obj \
+	lifeline.obj \
+	component.obj \
+	classicon.obj \
+	state.obj \
+	branch.obj \
+	node.obj
+
+!ENDIF
+
+## common stuff
+## compiler and linker switches
+!IFNDEF DEBUG
+# Full optimization:
+OPTIMIZE = -Ox -MD
+LINKDEBUG =
+!ELSE
+# Debugging:
+OPTIMIZE = -Zi -MDd
+LINKDEBUG = /debug
+!ENDIF
+
+# cl -? describes the options
+CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
+
+# No general LDFLAGS needed
+LDFLAGS = /link $(LINKDEBUG)
+INSTALL = copy
+
+CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
+
+$(PACKAGE).lib : $(OBJECTS)
+	lib /out:$(PACKAGE).lib $(OBJECTS)
+
+$(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
+$(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+
+.c.obj :
+	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+
+clean:
+	del config.h
+	del *.exe
+	del *.obj
+	del *.dll
+	del *.lib
+	del *.err
+	del *.map
+	del *.sym
+	del *.exp
+	del *.lk1
+	del *.mk1
+	del *.pdb
+	del *.ilk
+
+!ENDIF
+
