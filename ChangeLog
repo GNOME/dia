@@ -1,7 +1,8 @@
 2003-01-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/color_area.c (color_area_edit): 
-	* lib/widgets.c (dia_file_selector_browse_pressed): 
+	* lib/widgets.c (dia_file_selector_browse_pressed) 
+	(dia_color_selector_pressed): 
 	* app/plugin-manager.c (get_plugin_manager): 
 	* app/filedlg.c (file_open_callback, file_save_as_callback) 
 	(file_export_callback):

@@ -879,6 +879,9 @@ dia_color_selector_pressed(GtkWidget *widget)
     gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
 			(GtkSignalFunc) dia_color_selector_ok,
 			cs);
+    gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
+			(GtkSignalFunc) gtk_widget_destroyed,
+			&cs->col_sel);
     
     gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
 			      (GtkSignalFunc) gtk_widget_hide,
