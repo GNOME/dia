@@ -1,5 +1,8 @@
 2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/SADT/annotation.c: Don't run the event test (but leave
+	it here for inspiration).
+
 	* lib/widgets.c: 
 	* lib/widgets.h: Allowing setting preview text for fonts.
 
