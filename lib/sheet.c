@@ -420,7 +420,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     set_line_break = FALSE;
 
     if ((otype = object_get_type(tmp)) == NULL) {
-      g_warning("object_get_type(%s) returned NULL", tmp);
+      /* Don't complain. This does happen when disabling plug-ins too.
+      g_warning("object_get_type(%s) returned NULL", tmp); */
       if (sheet_obj->description) g_free(sheet_obj->description);
       g_free(sheet_obj->pixmap_file);
       g_free(sheet_obj->object_type);

@@ -38,22 +38,6 @@ typedef PluginInitResult (*PluginInitFunc) (PluginInfo *info);
 typedef gboolean (*PluginCanUnloadFunc) (PluginInfo *info);
 typedef void (*PluginUnloadFunc) (PluginInfo *info);
 
-struct _PluginInfo {
-  GModule *module;
-  gchar *filename;      /* plugin filename */
-  gchar *real_filename; /* not a .la file */
-
-  gboolean is_loaded;
-  gboolean inhibit_load;
-
-  gchar *name;
-  gchar *description;
-
-  PluginInitFunc init_func;
-  PluginCanUnloadFunc can_unload_func;
-  PluginUnloadFunc unload_func;
-};
-
 /* functions for use by plugins ... */
 
 gboolean dia_plugin_info_init(PluginInfo *info, gchar *name,
@@ -68,6 +52,8 @@ gchar *dia_plugin_check_version(gint version);
 const gchar *dia_plugin_get_filename    (PluginInfo *info);
 const gchar *dia_plugin_get_name        (PluginInfo *info);
 const gchar *dia_plugin_get_description (PluginInfo *info);
+const gpointer *dia_plugin_get_symbol   (PluginInfo *info, const gchar *name);
+
 gboolean dia_plugin_can_unload       (PluginInfo *info);
 gboolean dia_plugin_is_loaded        (PluginInfo *info);
 gboolean dia_plugin_get_inhibit_load (PluginInfo *info);

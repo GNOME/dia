@@ -1,3 +1,24 @@
+2002-06-16  Hans Breuer  <hans@breuer.org>
+
+	* lib/plug-in.[hc] : make PlugInInfo opaque again in the 
+	good tradition of information hiding. Add new function
+	dia_plugin_get_symbol()
+	* app/sheets.c app/sheets_dialog_callbacks.c : use it
+
+	* app/sheets.c : stop complaining about object_get_type() 
+	returning NULL. This is a consequence of e.g. disabling 
+	plug-ins at runtime _and_ it was and is gracefully handled. 
+	Spitting out g_warning for it isn't appropriate. 
+
+	* lib/object.[ch] : removed dead code
+
+	* app/plugin-mangager.c : almost complete rewrite for gtk2
+	using GtkListStore/GtkTreeView
+
+	* lib/libdia.def : updated externals
+
+	* todo.gtk2 : updated, that is removed already done steps
+
 2002-06-15  Hans Breuer  <hans@breuer.org>
 
 	* objects/uml/class_dialog.c : clean some left-over

@@ -4,31 +4,16 @@ app/interface.c:123 /*static*/
 app/interface.c:839 static void fill_sheet_menu
 app/render_libart.c probably broken on X11
 app/sheet.c:207 move message_notice out of loop
-app/ps_utf8.c : not yet build on win32
-app/render_eps.c : some further utf8 cleaning needed
 
 The current plan is:
-- merge all Gtk2 specific changes done on TARGET_GTK2_0 into HEAD.
-  (it would be much simpler if I haven't tried to keep both trunks
-   in sync, see the other ChangeLog.)
-- merge in utf8-ness (my branch apperas to be almost clean)
-- do one large commit, which allows to build with GTK2
-  (some of Akira's changes probably will vanish by this, at least
-   the reformatting which IMHO should never had happen [Dia's tab
-   size is 8 not 2!] and some of the XIM stuff which I neither can 
-   test nor does it seem to be not applicable with GTK2)
-
+[..., done]
 - add a file 'todo.gtk2' which is an extract from the todo.hb
   with some additional steps to be taken. Probably also post
   it to the mailing list. All this should happen at the 
   upcoming weekend, if all works well, i.e. there are not too 
-  much (new) conflicts
+  much (new) conflicts [done 2002-06-08]
 
 [the following tasks could easy be shared]
-- let someone else do the auto-break stuff
-  - no more: libunicode, separte gdk-pixbuf, charconv.[hc], HAVE_DIRENT
-  - require: gtk2, libxml2
-
 - convert Renderer interface to GObject
   - change init_*_*ops() to *_class_init, virtual function support 
     (should be done by/with the help of GObject)
@@ -37,12 +22,6 @@ The current plan is:
     app/renderer_gdk.c : has a bezier by line approximation
   - try to involve original plug-in authors (to at least 
     take a look if something got broken during the transition)
-
-- make PlugInInfo opaque again in the good tradition of information 
-  hiding and clean-up some other global vars which where intoduced 
-  by the shape editor patch
-  - try to move object_types_detect_nosheet() etc out of object.h ...
-  - (see fixmes above)
 
 - split out HAVE_FREETYPE stuff in own files *_ft2.c to keep 
   the know-how for later possible reintegration

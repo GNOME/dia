@@ -278,10 +278,8 @@ void object_unconnect_all(Object *connected_obj);
 void object_registry_init(void);
 void object_register_type(ObjectType *type);
 void object_registry_foreach(GHFunc func, gpointer  user_data);
-GSList *object_types_detect_nosheet(void);
-gchar *object_type_get_sheet_name(ObjectType *type);
-gchar *object_type_strip_sheet_from_name(ObjectType *type);
 ObjectType *object_get_type(char *name);
+
 int object_return_false(Object *obj); /* Just returns FALSE */
 void *object_return_null(Object *obj); /* Just returns NULL */
 void object_return_void(Object *obj); /* Just an empty function */

@@ -110,7 +110,8 @@ sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list,
      if the active button is a linebreak AND is 2nd in the wrapbox
      THEN set the 'Up' button to insensitive */
 
-  if (GTK_TOGGLE_BUTTON(g_list_first(wrapbox_button_list)->data) == togglebutton
+  if (!wrapbox_button_list
+      || GTK_TOGGLE_BUTTON(g_list_first(wrapbox_button_list)->data) == togglebutton
       || (!gtk_object_get_data(GTK_OBJECT(togglebutton), "sheet_object_mod")
           && g_list_nth(wrapbox_button_list, 1)
           && GTK_TOGGLE_BUTTON(g_list_nth(wrapbox_button_list, 1)->data)
@@ -120,7 +121,8 @@ sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list,
     gtk_widget_set_sensitive(button, TRUE);
 
   button = lookup_widget(sheets_dialog, "button_move_down");
-  if (GTK_TOGGLE_BUTTON(g_list_last(wrapbox_button_list)->data) == togglebutton
+  if (!wrapbox_button_list
+      || GTK_TOGGLE_BUTTON(g_list_last(wrapbox_button_list)->data) == togglebutton
       || (!gtk_object_get_data(GTK_OBJECT(togglebutton), "sheet_object_mod")
           && g_list_previous(g_list_last(wrapbox_button_list))
           && GTK_TOGGLE_BUTTON(g_list_previous(g_list_last(wrapbox_button_list))
@@ -778,7 +780,8 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     struct stat stat_buf;
     GList *plugin_list;
     ObjectType *ot;
-    gboolean (*custom_object_load_fn)();
+    typedef gboolean (*CustomObjectLoadFunc) (gchar*, ObjectType **);
+    CustomObjectLoadFunc custom_object_load_fn;
     gint pos;
     GtkWidget *active_button;
     GList *button_list;
@@ -814,13 +817,11 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     for (plugin_list = dia_list_plugins(); plugin_list != NULL;
          plugin_list = g_list_next(plugin_list))
     {
-       GModule *module = ((PluginInfo *)(plugin_list->data))->module;
+       PluginInfo *info = plugin_list->data;
 
-       if (module == NULL)
-         continue;
-
-       if (g_module_symbol(module, "custom_object_load",
-                           (gpointer)&custom_object_load_fn) == TRUE)
+       custom_object_load_fn = 
+         (CustomObjectLoadFunc)dia_plugin_get_symbol (info, "custom_object_load");
+       if (custom_object_load_fn)
          break;
     }
     g_assert(custom_object_load_fn);

@@ -172,6 +172,7 @@ EXPORTS
  dia_plugin_get_filename
  dia_plugin_get_inhibit_load
  dia_plugin_get_name
+ dia_plugin_get_symbol
  dia_plugin_info_init
  dia_plugin_is_loaded
  dia_plugin_load
@@ -246,6 +247,7 @@ EXPORTS
  load_all_sheets
  message_error
  message_warning
+ message_notice
  new_attribute
  new_diagram_data
  new_layer

@@ -228,12 +228,10 @@ sheets_dialog_create(void)
     for (plugin_list = dia_list_plugins(); plugin_list != NULL;
          plugin_list = g_list_next(plugin_list))
     {
-       GModule *module = ((PluginInfo *)(plugin_list->data))->module;
+       PluginInfo *info = plugin_list->data;
 
-       if (module == NULL)
-         continue;
-
-       if (g_module_symbol(module, "custom_type", &custom_type_symbol) == TRUE)
+       custom_type_symbol = dia_plugin_get_symbol (info, "custom_type");
+       if (custom_type_symbol)
          break;
     }
 

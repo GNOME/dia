@@ -1,9 +1,11 @@
 /* Dia -- a diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * plugin-manager.h: the dia plugin manager.
+ * plugin-manager.c: the dia plugin manager.
  * Copyright (C) 2000 James Henstridge
- *
+ * almost complete rewrite for gtk2
+ * Copyright (C) 2002 Hans Breuer
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -23,266 +25,277 @@
 #  include <config.h>
 #endif
 
+#include <string.h>
+
 #include <gtk/gtk.h>
-#ifdef GNOME
-#  include <gnome.h>
-#endif
 
 #include "plugin-manager.h"
 #include "intl.h"
 #include "plug-ins.h"
+#include "message.h"
 
-typedef struct {
-  GtkWidget *window;
-  GtkWidget *list;
-  GtkWidget *name_label;
-  GtkWidget *file_label;
-  GtkWidget *description_label;
-  GtkWidget *loaded_label;
-  GtkWidget *autoload_cbutton;
-  GtkWidget *load_button;
-  GtkWidget *unload_button;
+static gint
+pm_respond(GtkWidget *widget, gint response_id, gpointer data)
+{
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_hide(widget);
+  return 0;
+}
 
+enum
+{
+  LOADED_COLUMN,
+  NAME_COLUMN,
+  DESC_COLUMN,
+  FILENAME_COLUMN,
+  AUTOLOAD_COLUMN,
+  PLUGIN_COLUMN,
+  NUM_COLUMNS
+};
+
+static void
+toggle_loaded_callback (GtkCellRendererToggle *celltoggle,
+                        gchar                 *path_string,
+                        GtkTreeView           *tree_view)
+{
+  GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+  GtkTreePath *path;
+  GtkTreeIter iter;
+  gboolean loaded;
   PluginInfo *info;
-} PluginManager;
 
-static void
-clist_select_row (GtkCList *clist, gint row, gint col, GdkEvent *event,
-		  PluginManager *pm)
-{
-	pm->info = gtk_clist_get_row_data(clist, row);
-
-	gtk_label_set_text (GTK_LABEL (pm->name_label),
-			    dia_plugin_get_name (pm->info));
-	gtk_label_set_text( GTK_LABEL(pm->file_label),
-			    dia_plugin_get_filename (pm->info));
-	gtk_label_set_text (GTK_LABEL (pm->description_label),
-			    dia_plugin_get_description (pm->info));
-	gtk_label_set_text (GTK_LABEL (pm->loaded_label),
-			    dia_plugin_is_loaded (pm->info) ? _("yes") : _("no"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pm->autoload_cbutton),
-				      !dia_plugin_get_inhibit_load (pm->info));
-	gtk_widget_set_sensitive (pm->autoload_cbutton, TRUE);
-
-	if (dia_plugin_is_loaded (pm->info)) {
-		gtk_widget_set_sensitive (pm->load_button, FALSE);
-		if (dia_plugin_can_unload (pm->info))
-			gtk_widget_set_sensitive (pm->unload_button, TRUE);
-		else
-			gtk_widget_set_sensitive (pm->unload_button, FALSE);
-	} else {
-		gtk_widget_set_sensitive (pm->load_button, TRUE);
-		gtk_widget_set_sensitive (pm->unload_button, FALSE);
-	}
-}
-
-static void
-autoload_toggled(GtkToggleButton *toggle, PluginManager *pm)
-{
-  if (pm->info) {
-    dia_plugin_set_inhibit_load(pm->info,
-				!gtk_toggle_button_get_active(toggle));
-  }
-}
-
-static void
-load_clicked(GtkButton *button, PluginManager *pm)
-{
-  if (pm->info) {
-    dia_plugin_load(pm->info);
-    if (dia_plugin_is_loaded(pm->info)) {
-      gtk_widget_set_sensitive(pm->load_button, FALSE);
-      if (dia_plugin_can_unload(pm->info))
-	gtk_widget_set_sensitive(pm->unload_button, TRUE);
-      else
-	gtk_widget_set_sensitive(pm->unload_button, FALSE);
+  path = gtk_tree_path_new_from_string (path_string);
+  if (!gtk_tree_model_get_iter (model, &iter, path))
+    {
+      g_warning ("%s: bad path?", G_STRLOC);
+      return;
     }
+  gtk_tree_path_free (path);
+
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+                      LOADED_COLUMN, &loaded, -1);
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+                      PLUGIN_COLUMN, &info, -1);
+
+  if (loaded && dia_plugin_can_unload(info))
+    {
+      dia_plugin_unload(info);
+      loaded = FALSE;
+    }
+  else if (!loaded)
+    {
+      dia_plugin_load(info);
+      loaded = TRUE;
+    }
+  else
+    message_notice("Can't unload plug-in '%s'!", dia_plugin_get_name(info));
+  gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
+                      LOADED_COLUMN, loaded, -1);
+}
+
+static void
+can_unload (GtkTreeViewColumn *tree_column,
+	    GtkCellRenderer   *cell,
+	    GtkTreeModel      *tree_model,
+	    GtkTreeIter       *iter,
+	    gpointer           data)
+{
+  PluginInfo *info;
+  gboolean loaded;
+
+  gtk_tree_model_get(tree_model, iter, 
+                     PLUGIN_COLUMN, &info, -1);
+  gtk_tree_model_get(tree_model, iter, 
+                     LOADED_COLUMN, &loaded, -1);
+  if (!loaded || (loaded && dia_plugin_can_unload(info)))
+    {
+      cell->mode = GTK_CELL_RENDERER_MODE_ACTIVATABLE;
+      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = TRUE;
+    }
+  else
+    {
+      cell->mode = GTK_CELL_RENDERER_MODE_INERT;
+      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = FALSE;
+    }
+}
+
+static void
+toggle_autoload_callback (GtkCellRendererToggle *celltoggle,
+                          gchar                 *path_string,
+                          GtkTreeView           *tree_view)
+{
+  GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+  GtkTreePath *path;
+  GtkTreeIter iter;
+  gboolean load;
+  PluginInfo *info;
+
+  path = gtk_tree_path_new_from_string (path_string);
+  if (!gtk_tree_model_get_iter (model, &iter, path))
+    {
+      g_warning ("%s: bad path?", G_STRLOC);
+      return;
+    }
+  gtk_tree_path_free (path);
+
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+                      AUTOLOAD_COLUMN, &load, -1);
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+                      PLUGIN_COLUMN, &info, -1);
+
+  /* Disabling 'Standard' is fatal at next startup, while
+   * disabling 'Internal' is simply impossible
+   */
+  if (   0 == strcmp(dia_plugin_get_name(info), "Standard")
+      || 0 == strcmp(dia_plugin_get_name(info), "Internal"))
+    message_notice("You don't want to inhibit loading\n"
+                   "of plug-in '%s'!", dia_plugin_get_name(info));
+  else {
+    dia_plugin_set_inhibit_load(info, load);
+    gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
+                        AUTOLOAD_COLUMN, !load, -1);
   }
 }
 
 static void
-unload_clicked(GtkButton *button, PluginManager *pm)
+can_inhibit (GtkTreeViewColumn *tree_column,
+	     GtkCellRenderer   *cell,
+	     GtkTreeModel      *tree_model,
+	     GtkTreeIter       *iter,
+	     gpointer           data)
 {
-  if (pm->info) {
-    dia_plugin_unload(pm->info);
-    if (!dia_plugin_is_loaded(pm->info)) {
-      gtk_widget_set_sensitive(pm->load_button, TRUE);
-      gtk_widget_set_sensitive(pm->unload_button, FALSE);
+  PluginInfo *info;
+
+  gtk_tree_model_get(tree_model, iter, 
+                     PLUGIN_COLUMN, &info, -1);
+  if (   0 == strcmp(dia_plugin_get_name(info), "Standard")
+      || 0 == strcmp(dia_plugin_get_name(info), "Internal"))
+    {
+      cell->mode = GTK_CELL_RENDERER_MODE_INERT;
+      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = FALSE;
     }
-  }
+  else
+    {
+      cell->mode = GTK_CELL_RENDERER_MODE_ACTIVATABLE;
+      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = TRUE;
+    }
 }
 
-static PluginManager *
+static GtkWidget *
 get_plugin_manager(void)
 {
-  static gboolean initialised = FALSE;
-  static PluginManager pm;
-  GtkWidget *vbox, *hbox, *table, *label, *wid;
+  static GtkWidget *dialog = NULL;
+  GtkWidget *vbox, *scrolled_window, *tree_view;
+  GtkListStore *store;
+  GtkCellRenderer *renderer;
+  GtkTreeViewColumn *col;
+  GtkTreeIter iter;
   GList *tmp;
 
-  if (initialised)
-    return &pm;
-  initialised = TRUE;
+  if (dialog)
+    return dialog;
 
   /* build up the user interface */
-#ifdef GNOME
-  pm.window = gnome_dialog_new(_("Plug-ins"), GNOME_STOCK_BUTTON_CLOSE, NULL);
-  gnome_dialog_close_hides(GNOME_DIALOG(pm.window), TRUE);
-  gnome_dialog_set_close(GNOME_DIALOG(pm.window), TRUE);
-  vbox = GNOME_DIALOG(pm.window)->vbox;
-#else
-  pm.window = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW(pm.window), _("Plug-ins"));
-  gtk_container_set_border_width(GTK_CONTAINER(pm.window), 2);
-  gtk_window_set_policy(GTK_WINDOW(pm.window), FALSE, TRUE, FALSE);
-  vbox = GTK_DIALOG(pm.window)->vbox;
+  dialog = gtk_dialog_new_with_buttons(
+		_("Plug-ins"),
+		NULL, 0,
+		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+		NULL);
+
+  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CLOSE);
+
+  vbox = GTK_DIALOG(dialog)->vbox;
 
   /* don't destroy dialog when window manager close button pressed */
-  gtk_signal_connect(GTK_OBJECT(pm.window), "delete_event",
-                     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-  gtk_signal_connect(GTK_OBJECT(pm.window), "delete_event",
+  g_signal_connect(G_OBJECT (dialog), "response",
+		   G_CALLBACK(pm_respond), NULL);
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_widget_hide), NULL);
+  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		     GTK_SIGNAL_FUNC(gtk_true), NULL);
 
-  wid = gtk_button_new_with_label(_("Close"));
-  GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(pm.window)->action_area), wid,
-		     TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_hide),
-			    GTK_OBJECT(pm.window));
-#endif
+  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_ETCHED_IN);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_box_pack_start (GTK_BOX (vbox), scrolled_window, TRUE, TRUE, 0);
 
-  gtk_window_set_policy(GTK_WINDOW(pm.window), FALSE, TRUE, FALSE);
-
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-  gtk_widget_show(hbox);
-
-  wid = gtk_scrolled_window_new(NULL, NULL);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(wid),
-				 GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start(GTK_BOX(hbox), wid, TRUE, TRUE, 0);
-  gtk_widget_show(wid);
-
-  /* create a clist that acts like a list */
-  pm.list = gtk_clist_new(1);
-  gtk_clist_set_column_auto_resize(GTK_CLIST(pm.list), 0, TRUE);
-  gtk_clist_set_selection_mode(GTK_CLIST(pm.list), GTK_SELECTION_BROWSE);
-  gtk_clist_set_sort_column(GTK_CLIST(pm.list), 0);
-  gtk_clist_set_auto_sort(GTK_CLIST(pm.list), TRUE);
-  gtk_container_add(GTK_CONTAINER(wid), pm.list);
-  gtk_widget_show(pm.list);
-
-  table = gtk_table_new(6, 2, FALSE);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 3);
-  gtk_box_pack_start(GTK_BOX(hbox), table, TRUE, TRUE, 0);
-  gtk_widget_show(table);
-
-  label = gtk_label_new(_("Name:"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(label);
-
-  pm.name_label = gtk_label_new("");
-  gtk_misc_set_alignment(GTK_MISC(pm.name_label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), pm.name_label, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(pm.name_label);
-
-  label = gtk_label_new(_("File name:"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(label);
-
-  pm.file_label = gtk_label_new("");
-  gtk_misc_set_alignment(GTK_MISC(pm.file_label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), pm.file_label, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(pm.file_label);
-
-  label = gtk_label_new(_("Description:"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(label);
-
-  pm.description_label = gtk_label_new("");
-  gtk_misc_set_alignment(GTK_MISC(pm.description_label), 0.0, 0.5);
-  gtk_label_set_justify(GTK_LABEL(pm.description_label), GTK_JUSTIFY_LEFT);
-  gtk_label_set_line_wrap(GTK_LABEL(pm.description_label), TRUE);
-  gtk_table_attach(GTK_TABLE(table), pm.description_label, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(pm.description_label);
-
-  label = gtk_label_new(_("Loaded:"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 3,4,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(label);
-
-  pm.loaded_label = gtk_label_new("");
-  gtk_misc_set_alignment(GTK_MISC(pm.loaded_label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), pm.loaded_label, 1,2, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(pm.loaded_label);
-
-  pm.autoload_cbutton = gtk_check_button_new_with_label(
-					_("Autoload at startup"));
-  gtk_widget_set_sensitive(pm.autoload_cbutton, FALSE);
-  gtk_table_attach(GTK_TABLE(table), pm.autoload_cbutton, 0,2, 4,5,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(pm.autoload_cbutton);
-
-  hbox = gtk_hbox_new(TRUE, 3);
-  gtk_table_attach(GTK_TABLE(table), hbox, 0,2, 5,6,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(hbox);
-
-  pm.load_button = gtk_button_new_with_label(_("Load"));
-  gtk_widget_set_sensitive(pm.load_button, FALSE);
-  gtk_box_pack_start(GTK_BOX(hbox), pm.load_button, TRUE, TRUE, 0);
-  gtk_widget_show(pm.load_button);
-
-  pm.unload_button = gtk_button_new_with_label(_("Unload"));
-  gtk_widget_set_sensitive(pm.unload_button, FALSE);
-  gtk_box_pack_start(GTK_BOX(hbox), pm.unload_button, TRUE, TRUE, 0);
-  gtk_widget_show(pm.unload_button);
-
-  pm.info = NULL;
+  /* create the TreeStore */
+  store = gtk_list_store_new (NUM_COLUMNS,
+                              G_TYPE_BOOLEAN, 
+                              G_TYPE_STRING, 
+                              G_TYPE_STRING,
+                              G_TYPE_STRING,
+                              G_TYPE_BOOLEAN,
+                              G_TYPE_POINTER);
+  tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+  gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
+  //gtk_tree_selection_set_select_function (gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view)), select_func, NULL, NULL);
 
   /* fill list */
   for (tmp = dia_list_plugins(); tmp != NULL; tmp = tmp->next) {
-    gchar *row[1];
-    gint num;
     PluginInfo *info = tmp->data;
 
-    row[0] = (gchar *)dia_plugin_get_name(info);
-    num = gtk_clist_append(GTK_CLIST(pm.list), row);
-    gtk_clist_set_row_data(GTK_CLIST(pm.list), num, info);
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        LOADED_COLUMN, dia_plugin_is_loaded(info),
+			NAME_COLUMN, dia_plugin_get_name(info),
+			DESC_COLUMN, dia_plugin_get_description(info),
+			FILENAME_COLUMN, dia_plugin_get_filename(info),
+                        AUTOLOAD_COLUMN, !dia_plugin_get_inhibit_load(info),
+                        PLUGIN_COLUMN, info,
+			-1);
   }
-  gtk_widget_set_usize(pm.list->parent, 150, -1);
-  /* setup callbacks */
-  gtk_signal_connect(GTK_OBJECT(pm.list), "select_row",
-		     GTK_SIGNAL_FUNC(clist_select_row), &pm);
-  if (dia_list_plugins())
-    gtk_clist_select_row(GTK_CLIST(pm.list), 0, 0);
 
-  gtk_signal_connect(GTK_OBJECT(pm.autoload_cbutton), "toggled",
-		     GTK_SIGNAL_FUNC(autoload_toggled), &pm);
-  gtk_signal_connect(GTK_OBJECT(pm.load_button), "clicked",
-		     GTK_SIGNAL_FUNC(load_clicked), &pm);
-  gtk_signal_connect(GTK_OBJECT(pm.unload_button), "clicked",
-		     GTK_SIGNAL_FUNC(unload_clicked), &pm);
+  /* setup renderers and view */
+  renderer = gtk_cell_renderer_toggle_new ();
+  g_signal_connect(G_OBJECT (renderer), "toggled",
+		   GTK_SIGNAL_FUNC (toggle_loaded_callback), tree_view);
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("Loaded"), renderer,
+		   "active", LOADED_COLUMN, NULL);
+  gtk_tree_view_column_set_cell_data_func (
+  		   col, renderer, can_unload, NULL, NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
 
-  return &pm;
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("Name"), gtk_cell_renderer_text_new (),
+		   "text", NAME_COLUMN, NULL);
+  gtk_tree_view_column_set_sort_column_id (col, NAME_COLUMN);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("Description"), gtk_cell_renderer_text_new (),
+		   "text", DESC_COLUMN, NULL);
+  gtk_tree_view_column_set_sort_column_id (col, DESC_COLUMN);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+
+  renderer = gtk_cell_renderer_toggle_new ();
+  g_signal_connect(G_OBJECT (renderer), "toggled",
+		   GTK_SIGNAL_FUNC (toggle_autoload_callback), tree_view);
+  col = gtk_tree_view_column_new_with_attributes(
+	      _("Load at Startup"), renderer,
+	      "active", AUTOLOAD_COLUMN, NULL);
+  gtk_tree_view_column_set_cell_data_func (
+  		   col, renderer, can_inhibit, NULL, NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("File Name"), gtk_cell_renderer_text_new (),
+		   "text", FILENAME_COLUMN, NULL);
+  gtk_tree_view_column_set_sort_column_id (col, FILENAME_COLUMN);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+
+  gtk_container_add (GTK_CONTAINER (scrolled_window), tree_view);
+  gtk_window_set_default_size (GTK_WINDOW (dialog), 480, 400);
+  gtk_widget_show_all (dialog);
+
+  return dialog;
 }
 
 void
 file_plugins_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  PluginManager *pm = get_plugin_manager();
+  GtkWidget *pm = get_plugin_manager();
 
-  gtk_widget_show(pm->window);
+  gtk_widget_show(pm);
 }

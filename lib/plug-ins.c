@@ -57,6 +57,23 @@
 #  define USING_LIBTOOL 1
 #endif
 
+struct _PluginInfo {
+  GModule *module;
+  gchar *filename;      /* plugin filename */
+  gchar *real_filename; /* not a .la file */
+
+  gboolean is_loaded;
+  gboolean inhibit_load;
+
+  gchar *name;
+  gchar *description;
+
+  PluginInitFunc init_func;
+  PluginCanUnloadFunc can_unload_func;
+  PluginUnloadFunc unload_func;
+};
+
+
 static GList *plugins = NULL;
 
 static void     ensure_pluginrc(void);
@@ -107,6 +124,20 @@ const gchar *
 dia_plugin_get_description(PluginInfo *info)
 {
   return info->description;
+}
+
+const gpointer *
+dia_plugin_get_symbol(PluginInfo *info, const gchar* name)
+{
+  gpointer symbol;
+
+  if (!info->module)
+    return NULL;
+
+  if (g_module_symbol (info->module, name, &symbol))
+    return symbol;
+
+  return NULL;
 }
 
 gboolean
