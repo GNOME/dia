@@ -82,7 +82,7 @@ void
 prop_list_free(GPtrArray *plist)
 {
   int i;
-  g_return_if_fail(plist != NULL);
+  if (!plist) return;
 
   for (i = 0; i < plist->len; i++) {
     Property *prop = g_ptr_array_index(plist,i);
@@ -189,4 +189,11 @@ prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd)
 
     g_ptr_array_add(props,prop->ops->copy(prop));
   }
+}
+
+GPtrArray *
+prop_list_singleton(Property *prop) {
+  GPtrArray *plist = g_ptr_array_new();
+  g_ptr_array_add(plist,prop);
+  return plist;
 }

@@ -37,6 +37,7 @@ libdia_a_SOURCES =  \
 		color.c \
 		dia_xml.c \
 		dia_xml.h \
+		dia_xml_libxml.h \
 		attributes.h \
 		attributes.c \
 		text.c \

@@ -236,6 +236,42 @@ object_save_props(Object *obj, ObjectNode obj_node)
   prop_list_free(props);
 }
 
+Property *
+object_prop_by_name_type(Object *obj, const char *name, 
+                         const char *type, guint flags)
+{
+  const PropDescription *pdesc;
+  GQuark name_quark = g_quark_from_string(name);
+
+  if (!object_complies_with_stdprop(obj)) return NULL;
+
+  for (pdesc = object_get_prop_descriptions(obj);
+       pdesc->name != NULL;
+       pdesc++) {
+    if ((pdesc->quark == name_quark)) {
+      Property *prop;
+      static GPtrArray *plist = NULL;
+      
+      if (type && (0 != strcmp(pdesc->type,type))) continue;
+      
+      if (!plist) {
+        plist = g_ptr_array_new();
+        g_ptr_array_set_size(plist,1);
+      }
+      prop = make_new_prop(pdesc->name,pdesc->type,flags);
+      g_ptr_array_index(plist,0) = prop;
+      obj->ops->get_props(obj,plist);
+      return prop;
+    }    
+  }
+  return NULL;
+}
+
+Property *
+object_prop_by_name(Object *obj, const char *name, guint flags)
+{
+  return object_prop_by_name_type(obj,name,NULL,flags);
+}
 
 
 

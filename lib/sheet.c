@@ -28,9 +28,10 @@
 #include <dirent.h>
 #endif
 #include <glib.h>
-#include <libxml/tree.h>
-#include <libxml/parser.h>
-#include <libxml/xmlmemory.h>
+#include <tree.h>
+#include <parser.h>
+#include <xmlmemory.h>
+#include "dia_xml_libxml.h"
 #include <string.h>
 
 #include "intl.h"

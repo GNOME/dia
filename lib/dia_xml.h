@@ -22,8 +22,6 @@
 #include "geometry.h"
 #include "color.h"
 #include "font.h"
-#include <tree.h>
-#include <parser.h>
 #include "charconv.h"
 
 #ifdef __XML_TREE_H__
@@ -81,13 +79,6 @@ void data_add_string(AttributeNode attr, const char *str);
 void data_add_font(AttributeNode attr, const DiaFont *font);
 DataNode data_add_composite(AttributeNode attr, 
                             const char *type); /* can be NULL */
-
-xmlDocPtr xmlDiaParseFile(const char *filename); 
-/* for potentially broken files */
-xmlDocPtr xmlDoParseFile(const char *filename); 
-/* use this one instead of xmlParseFile */
-
-void warn_about_broken_libxml1(void);
 
 #endif /* DIA_XML_H */
 

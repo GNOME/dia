@@ -27,6 +27,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <locale.h>
+#include "dia_xml_libxml.h"
 #include "shape_info.h"
 #include "custom_util.h"
 #include "intl.h"

@@ -36,13 +36,14 @@
 
 #include <parser.h>
 #include <tree.h>
+#include "dia_xml_libxml.h"
+#include "dia_xml.h"
 
 #include "charconv.h"
 #include "plug-ins.h"
 #include "intl.h"
 #include "message.h"
 #include "dia_dirs.h"
-#include "dia_xml.h"
 
 #if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
 #define XML2
