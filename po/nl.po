@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2003-02-23 11:42+0100\n"
+"POT-Creation-Date: 2003-04-25 03:32+0200\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -13,70 +13,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:160
+#: app/app_procs.c:162
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s fout: de invoer en uitvoer bestandsnamen zijn hetzelfde: %s"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:173
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s fout: Geldig invoer bestand nodig %s\n"
 
-#: app/app_procs.c:178
+#: app/app_procs.c:180
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s fout: weet niet hoe te exporteren in %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:184
+#: app/app_procs.c:186
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:242
+#: app/app_procs.c:244
 msgid "Export loaded file and exit"
 msgstr "Exporteer geladen bestand en sluit af"
 
-#: app/app_procs.c:242 app/diaconv.c:94
+#: app/app_procs.c:244 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UITVOER"
 
 #. &export_file_format
-#: app/app_procs.c:244
+#: app/app_procs.c:246
 msgid "Export to file format and exit"
 msgstr "Exporteer naar bestandsformaat en stop"
 
-#: app/app_procs.c:244 app/diaconv.c:92
+#: app/app_procs.c:246 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:246
+#: app/app_procs.c:248
 msgid "Don't show the splash screen"
 msgstr "Laat het opstartscherm niet zien"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:250
 msgid "Display credits list and exit"
 msgstr "Beeld de lijst ontwikkelaars af, en sluit af"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:252
 msgid "Display version and exit"
 msgstr "Laat versienummer zien en sluit af"
 
-#: app/app_procs.c:252 app/diaconv.c:95
+#: app/app_procs.c:254 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Laat dit help bericht zien"
 
-#: app/app_procs.c:283
+#: app/app_procs.c:285
 msgid "Can't connect to session manager!\n"
 msgstr "Kan niet verbinden met sessie manager!\n"
 
-#: app/app_procs.c:298 app/diaconv.c:119
+#: app/app_procs.c:300 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTIE...] [BESTAND...]"
 
-#: app/app_procs.c:302 app/diaconv.c:126
+#: app/app_procs.c:304 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -86,23 +86,23 @@ msgstr ""
 "Start '%s --help' om een volledige lijst van beschikbare commandoregel "
 "opties te zien.\n"
 
-#: app/app_procs.c:315
+#: app/app_procs.c:317
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s fout: kan slechts één van -f of -o uitvoeren."
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:328
+#: app/app_procs.c:330
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versie %s, gecompiled %s %s\n"
 
-#: app/app_procs.c:330
+#: app/app_procs.c:332
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versie %s\n"
 
-#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:418 app/app_procs.c:420 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -110,7 +110,7 @@ msgstr ""
 "gestopt...\n"
 
 #. no standard buttons
-#: app/app_procs.c:546
+#: app/app_procs.c:558
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -119,15 +119,15 @@ msgstr ""
 "Diagram zijn aangepast.\n"
 "Weet je zeker dat je wilt stoppen zonder ze op te slaan?"
 
-#: app/app_procs.c:550
+#: app/app_procs.c:562
 msgid "Quit Dia"
 msgstr "Dia afsluiten"
 
-#: app/app_procs.c:612 app/app_procs.c:619
+#: app/app_procs.c:626 app/app_procs.c:633
 msgid "Could not create per-user Dia config directory"
 msgstr "Kan per-gebruiker Dia configuratie map niet maken"
 
-#: app/app_procs.c:621
+#: app/app_procs.c:635
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -135,7 +135,7 @@ msgstr ""
 "Kan per-gebruiker Dia configuratie map niet maken. Zorg aub dat de "
 "omgevingsvariabele HOME naar een bestaande map wijst."
 
-#: app/app_procs.c:643 app/diaconv.c:249
+#: app/app_procs.c:657 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
@@ -374,7 +374,7 @@ msgstr "/_Eigenschappen"
 msgid "/_Hide this type"
 msgstr "/_Verberg dit type"
 
-#: app/diagram_tree_window.c:87
+#: app/diagram_tree_window.c:76
 msgid "Diagram tree"
 msgstr "Diagram boom"
 
@@ -382,8 +382,8 @@ msgstr "Diagram boom"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/dialogs.c:52 app/layer_dialog.c:1008 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:257
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Annuleren"
@@ -485,19 +485,19 @@ msgstr ""
 "Dit object ondersteund geen Ongedaan Maken/Herhalen.\n"
 "Ongedaan Maak informatie verwijdert."
 
-#: app/disp_callbacks.c:213
+#: app/disp_callbacks.c:218
 msgid "No object menu"
 msgstr "Geen object menu"
 
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram gewijzigd!"
 
-#: app/display.c:890
+#: app/display.c:960
 msgid "<unnamed>"
 msgstr "<geennaam>"
 
-#: app/display.c:892
+#: app/display.c:962
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -506,16 +506,16 @@ msgstr ""
 "Het diagram '%s'\n"
 "is niet opgeslagen. Aanpassingen nu opslaan?"
 
-#: app/display.c:903
+#: app/display.c:973
 msgid "Close Diagram"
 msgstr "Diagram sluiten"
 
-#: app/display.c:908
+#: app/display.c:978
 msgid "Discard Changes"
 msgstr "Aanpassingen verwerpen"
 
 #: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
 #: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
@@ -751,73 +751,114 @@ msgstr "Maak Plaatje"
 msgid "Image"
 msgstr "Plaatje"
 
-#: app/interface.c:470
+#: app/interface.c:370
+msgid "Diagram menu."
+msgstr "Diagram menu."
+
+#: app/interface.c:479
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:514
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr "Schakel uitlijnen-op-raster in voor dit venster."
+
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:975
+#: app/interface.c:999
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
 msgstr ""
-"Voorgrond & achtergrond kleuren. De kleine zwarte en witte vierkantjes\n"
-"resetten de kleuren. De kleine pijlen wisselen de kleuren. Dubbelklikken om "
-"de kleuren te wijzigen."
+"Voorgrond en achtergrond kleuren voor nieuwe objecten. De kleine zwarte en "
+"witte vierkantjes resetten de kleuren. De kleine pijlen verwisselen de "
+"kleuren.Dubbelklik om de kleuren te wijzigen."
 
-#: app/interface.c:1124
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+"Lijndikte. Klik op een lijn om de standaard lijndikte in te stellen voor "
+"nieuwe objecten. Dubbelklik om de lijndikte meer precies in te stellen."
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Pijl stijl aan het begin van nieuwe lijnen. Klik om een pijl te kiezen, of "
+"stel de pijl-parameters in met Details..."
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+"Lijn stijl voor nieuwe lijnen. Klik om een lijn stijl te kiezen, of stel de "
+"lijn-parameters in met Details..."
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+"Pijl stijl aan het einde van nieuwe lijnen. Klik om een pijl te kiezen, of "
+"stel pijl-parameters in met Details..."
+
+#: app/interface.c:1152
 msgid "Diagram Editor"
 msgstr "Diagram Bewerken"
 
-#: app/layer_dialog.c:69
+#: app/layer_dialog.c:70
 msgid "New Layer"
 msgstr "Nieuwe Laag"
 
-#: app/layer_dialog.c:70
+#: app/layer_dialog.c:71
 msgid "Raise Layer"
 msgstr "Verplaats Laag naar Boven"
 
-#: app/layer_dialog.c:71
+#: app/layer_dialog.c:72
 msgid "Lower Layer"
 msgstr "Verplaats Laag naar Onder"
 
-#: app/layer_dialog.c:72
+#: app/layer_dialog.c:73
 msgid "Delete Layer"
 msgstr "Verwijder Laag"
 
-#: app/layer_dialog.c:213
+#: app/layer_dialog.c:214
 msgid "Layers"
 msgstr "Lagen"
 
-#: app/layer_dialog.c:227
+#: app/layer_dialog.c:228
 msgid "Diagrams:"
 msgstr "Diagrammen:"
 
-#: app/layer_dialog.c:272
+#: app/layer_dialog.c:273
 msgid "Close"
 msgstr "Sluiten"
 
-#: app/layer_dialog.c:317
+#: app/layer_dialog.c:319
 msgid "New layer"
 msgstr "Nieuwe Laag"
 
-#: app/layer_dialog.c:520
+#: app/layer_dialog.c:522
 msgid "none"
 msgstr "geen"
 
-#: app/layer_dialog.c:968
+#: app/layer_dialog.c:970
 msgid "Edit Layer Attributes"
 msgstr "Bewerk Laag Attributen"
 
-#: app/layer_dialog.c:987
+#: app/layer_dialog.c:989
 msgid "Layer name:"
 msgstr "Laag naam:"
 
-#: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+#: app/layer_dialog.c:998 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:248 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -833,12 +874,12 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
-#: app/linewidth_area.c:224 lib/properties.h:473
+#: app/linewidth_area.c:229 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lijn breedte"
 
-#: app/linewidth_area.c:230
+#: app/linewidth_area.c:235
 msgid "Line width:"
 msgstr "Lijn breedte:"
 
@@ -1040,7 +1081,7 @@ msgid "Intersect"
 msgstr "Snijden"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:780 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:784 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Verwijderen"
@@ -1053,7 +1094,7 @@ msgstr "Inverteren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1076
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1078
 msgid "None"
 msgstr "Geen"
 
@@ -1669,39 +1710,39 @@ msgstr "Laden bij opstarten"
 msgid "File Name"
 msgstr "Bestandnaam"
 
-#: app/preferences.c:100
+#: app/preferences.c:98
 msgid "User Interface"
 msgstr "Gebruikersinterface"
 
-#: app/preferences.c:101
+#: app/preferences.c:99
 msgid "Diagram Defaults"
 msgstr "Diagram standaardwaarden"
 
-#: app/preferences.c:102
+#: app/preferences.c:100
 msgid "View Defaults"
-msgstr "Bekijk standaardwaarden"
+msgstr "Weergave standaardwaarden"
 
-#: app/preferences.c:103
+#: app/preferences.c:101
 msgid "Grid Lines"
 msgstr "Rooster Lijnen"
 
-#: app/preferences.c:104
+#: app/preferences.c:102
 msgid "Diagram Tree"
 msgstr "Diagram Boom"
 
-#: app/preferences.c:118
+#: app/preferences.c:116
 msgid "Reset tools after create:"
-msgstr "Reset hulpmiddelen na maken:"
+msgstr "Reset hulpmiddelen na aanmaken:"
 
-#: app/preferences.c:119
+#: app/preferences.c:117
 msgid "Compress saved files:"
 msgstr "Opgeslagen bestanden comprimeren:"
 
-#: app/preferences.c:120
+#: app/preferences.c:118
 msgid "Number of undo levels:"
 msgstr "Aantal 'ongedaan maken' niveaus:"
 
-#: app/preferences.c:121
+#: app/preferences.c:119
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1709,118 +1750,102 @@ msgstr ""
 "Omgekeerd slepen selecteert\n"
 "snijdende objecten:"
 
-#: app/preferences.c:122
+#: app/preferences.c:120
 msgid "Recent documents list size:"
 msgstr "Recente documentenlijst grootte:"
 
-#: app/preferences.c:123
+#: app/preferences.c:121
 msgid "Use menu bar:"
 msgstr "Gebruik menubalk:"
 
-#: app/preferences.c:125
+#: app/preferences.c:123
 msgid "Keep tool box on top of diagram windows:"
 msgstr "De hulpmiddelen bovenaan diagramvensters laten staan:"
 
-#: app/preferences.c:127
+#: app/preferences.c:125
 msgid "New diagram:"
 msgstr "Nieuwe diagrammen:"
 
-#: app/preferences.c:128
+#: app/preferences.c:126
 msgid "Portrait:"
 msgstr "Portrait:"
 
-#: app/preferences.c:130
+#: app/preferences.c:128
 msgid "Paper type:"
 msgstr "Papiersoort:"
 
-#: app/preferences.c:133
+#: app/preferences.c:131
 msgid "New window:"
 msgstr "Nieuw venster:"
 
-#: app/preferences.c:134
+#: app/preferences.c:132
 msgid "Width:"
 msgstr "Breedte:"
 
-#: app/preferences.c:135
+#: app/preferences.c:133
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: app/preferences.c:136
+#: app/preferences.c:134
 msgid "Magnify:"
 msgstr "Vergroting:"
 
-#: app/preferences.c:138
+#: app/preferences.c:136
 msgid "Connection Points:"
 msgstr "Verbindingspunten:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:139 app/preferences.c:142 app/preferences.c:147
+#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
 msgid "Visible:"
 msgstr "Zichtbaar:"
 
-#: app/preferences.c:141
+#: app/preferences.c:139
 msgid "Page breaks:"
 msgstr "Pagina scheiding:"
 
-#: app/preferences.c:143 app/preferences.c:151
+#: app/preferences.c:141 app/preferences.c:149
 msgid "Colour:"
 msgstr "Kleur:"
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:142 app/preferences.c:150
 msgid "Solid lines:"
 msgstr "Massieve lijnen:"
 
-#: app/preferences.c:148
+#: app/preferences.c:146
 msgid "Snap to:"
 msgstr "Hecht aan:"
 
-#: app/preferences.c:149
+#: app/preferences.c:147
 msgid "X Size:"
 msgstr "X Grootte:"
 
-#: app/preferences.c:150
+#: app/preferences.c:148
 msgid "Y Size:"
 msgstr "Y Grootte:"
 
-#: app/preferences.c:163
+#: app/preferences.c:161
 msgid "Diagram tree window:"
 msgstr "Diagram boom venster:"
 
-#: app/preferences.c:165
-msgid "Show at startup:"
-msgstr "Weergeven bij opstarten:"
-
-#: app/preferences.c:167
-msgid "Default width:"
-msgstr "Standaard breedte:"
-
-#: app/preferences.c:169
-msgid "Default height:"
-msgstr "Standaard hoogte:"
-
-#: app/preferences.c:171
-msgid "Remember last size:"
-msgstr "Onthoud laatste grootte:"
-
-#: app/preferences.c:173
+#: app/preferences.c:163
 msgid "Save hidden object types:"
 msgstr "Bewaar verborgen object typen:"
 
-#: app/preferences.c:300
+#: app/preferences.c:290
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kon `%s' niet openen voor schrijven"
 
-#: app/preferences.c:575 lib/prop_inttypes.c:151
+#: app/preferences.c:565 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:575 app/preferences.c:586 lib/prop_inttypes.c:153
+#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nee"
 
-#: app/preferences.c:686
+#: app/preferences.c:676
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1901,93 +1926,93 @@ msgstr "SVG Vorm"
 msgid "Programmed Object"
 msgstr "Geprogrammeerd Object"
 
-#: app/sheets_dialog.c:81
+#: app/sheets_dialog.c:83
 msgid "Sheets and Objects"
 msgstr "Sheets en Objecten"
 
-#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:177
+#: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
 msgstr "<- Kopiëren"
 
-#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:179
+#: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
 msgstr "<- Alles kopiëren"
 
-#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:181
+#: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
 msgstr "<- Verplaatsen"
 
-#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:183
+#: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
 msgstr "<- Alles verplaatsen"
 
-#: app/sheets_dialog.c:231
+#: app/sheets_dialog.c:233
 msgid "Edit"
 msgstr "Bewerken"
 
-#: app/sheets_dialog.c:233
+#: app/sheets_dialog.c:235
 msgid "_Edit"
 msgstr "_Bewerken"
 
-#: app/sheets_dialog.c:264
+#: app/sheets_dialog.c:266
 msgid "Revert"
 msgstr "Inverteren"
 
-#: app/sheets_dialog.c:350 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Nieuw"
 
-#: app/sheets_dialog.c:358 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
 msgid "Type"
 msgstr "Type"
 
-#: app/sheets_dialog.c:373
+#: app/sheets_dialog.c:377
 msgid "Browse..."
 msgstr "Bladeren..."
 
-#: app/sheets_dialog.c:382
+#: app/sheets_dialog.c:386
 msgid "SVG Shape:"
 msgstr "SVG Vorm:"
 
-#: app/sheets_dialog.c:409 app/sheets_dialog.c:472
+#: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
 msgstr "beschrijving:"
 
-#: app/sheets_dialog.c:421
+#: app/sheets_dialog.c:425
 msgid "Sheet name:"
 msgstr "Sheet naam:"
 
-#: app/sheets_dialog.c:442 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
 #: app/sheets_dialog_callbacks.c:1085
 msgid "Line Break"
 msgstr "Lijn Afbreking"
 
-#: app/sheets_dialog.c:564
+#: app/sheets_dialog.c:568
 msgid "Edit Attributes"
 msgstr "Bewerk Attributen"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:583
 msgid "Object"
 msgstr "Object"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:618 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Type:"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:656
 msgid "Sheet"
 msgstr "Sheet"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1054
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:1056
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
@@ -1995,15 +2020,15 @@ msgstr "Sheet"
 msgid "Name:"
 msgstr "Naam:"
 
-#: app/sheets_dialog.c:805
+#: app/sheets_dialog.c:809
 msgid "Object:"
 msgstr "Object:"
 
-#: app/sheets_dialog.c:832
+#: app/sheets_dialog.c:836
 msgid "Sheet:"
 msgstr "Sheet:"
 
-#: app/sheets_dialog.c:916
+#: app/sheets_dialog.c:920
 msgid "Select SVG Shape File"
 msgstr "Selecteer SVG vorm bestand"
 
@@ -2206,6 +2231,10 @@ msgstr "Opgevulde uitholling"
 #: lib/arrows.c:61
 msgid "Blanked Concave"
 msgstr "Lege uitholling"
+
+#: lib/arrows.c:62
+msgid "Round"
+msgstr "Rond"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2413,21 +2442,21 @@ msgstr "Tekst uitlijning"
 
 #: lib/properties.c:79 lib/properties.h:506
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
-#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Lettertype"
 
 #: lib/properties.c:80 lib/properties.h:509
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
-#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
 #: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Lettergrootte"
 
 #: lib/properties.c:81 lib/properties.h:512
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
-#: objects/GRAFCET/step.c:166
+#: objects/GRAFCET/step.c:168
 msgid "Text colour"
 msgstr "Tekst kleur"
 
@@ -2649,7 +2678,7 @@ msgstr "Totaal:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
-#: objects/standard/zigzagline.c:495 objects/UML/association.c:691
+#: objects/standard/zigzagline.c:329 objects/UML/association.c:691
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
 msgid "Add segment"
@@ -2657,7 +2686,7 @@ msgstr "Segment toevoegen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
-#: objects/standard/zigzagline.c:496 objects/UML/association.c:692
+#: objects/standard/zigzagline.c:330 objects/UML/association.c:692
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
 msgid "Delete segment"
@@ -3768,27 +3797,27 @@ msgstr "Macro aanroep stap"
 msgid "Subprogram call step"
 msgstr "Subprogramma aanroep stap"
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
 msgstr "Stap naam"
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:157
 msgid "The name of the step"
 msgstr "De naam van de stap"
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:160
 msgid "Step type"
 msgstr "Stap type"
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:160
 msgid "The kind of step"
 msgstr "Het soort stap"
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:162
 msgid "Active"
 msgstr "Actief"
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:162
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Laat een rode stip zien om de activiteit van de stap te laten zien"
 
@@ -3922,7 +3951,7 @@ msgstr ""
 "Om de leesbaarheid te verbeteren, kunnen stromingen die verticaal beginnen "
 "en eindigen grijs worden gemaakt"
 
-#: objects/SADT/arrow.c:561
+#: objects/SADT/arrow.c:562
 msgid "SADT Arrow"
 msgstr "SADT Pijl"
 
@@ -4032,46 +4061,46 @@ msgstr "Helvetica"
 msgid "Actor"
 msgstr "Acteur"
 
-#: objects/UML/association.c:1066 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1068 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "Richting:"
 
-#: objects/UML/association.c:1083
+#: objects/UML/association.c:1085
 msgid "From A to B"
 msgstr "Van A naar B"
 
-#: objects/UML/association.c:1090
+#: objects/UML/association.c:1092
 msgid "From B to A"
 msgstr "Van B naar A"
 
-#: objects/UML/association.c:1114 objects/UML/association.c:1122
+#: objects/UML/association.c:1116 objects/UML/association.c:1124
 msgid "Side A"
 msgstr "Zijde A"
 
-#: objects/UML/association.c:1116 objects/UML/association.c:1124
+#: objects/UML/association.c:1118 objects/UML/association.c:1126
 msgid "Side B"
 msgstr "Zijde B"
 
-#: objects/UML/association.c:1130
+#: objects/UML/association.c:1132
 msgid "Role:"
 msgstr "Rol:"
 
-#: objects/UML/association.c:1142
+#: objects/UML/association.c:1144
 msgid "Multiplicity:"
 msgstr "Verscheidenheid:"
 
 #. Show arrow:
-#: objects/UML/association.c:1153
+#: objects/UML/association.c:1155
 msgid "Show arrow"
 msgstr "Pijl laten zien"
 
 #. Aggregate
-#: objects/UML/association.c:1159
+#: objects/UML/association.c:1161
 msgid "Aggregate"
 msgstr "Aggregraat"
 
 #. Composition
-#: objects/UML/association.c:1167
+#: objects/UML/association.c:1169
 msgid "Composition"
 msgstr "Compositie"
 
@@ -4445,7 +4474,7 @@ msgstr "Computer Graphics Metafile export filter"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import en export filters"
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4793,12 +4822,7 @@ msgstr "Fout tijdens toepassen stylesheet: %s\n"
 msgid "XSL Transformation filter"
 msgstr "XSL transformatie filter"
 
-#: plug-ins/xslt/xslt.c:298
-#, c-format
-msgid "Could not load XSLT library (%s) : %s"
-msgstr "Kan XSLT bibliotheek (%s) niet laden : %s"
-
-#: plug-ins/xslt/xslt.c:326
+#: plug-ins/xslt/xslt.c:311
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Geen geldige configuratiebestanden gevonden voor de XSLT plugin, laden "
@@ -6192,6 +6216,21 @@ msgstr "Realiseert, implementeert een bepaalde interface"
 msgid "UML"
 msgstr "UML"
 
+#~ msgid "Show at startup:"
+#~ msgstr "Weergeven bij opstarten:"
+
+#~ msgid "Default width:"
+#~ msgstr "Standaard breedte:"
+
+#~ msgid "Default height:"
+#~ msgstr "Standaard hoogte:"
+
+#~ msgid "Remember last size:"
+#~ msgstr "Onthoud laatste grootte:"
+
+#~ msgid "Could not load XSLT library (%s) : %s"
+#~ msgstr "Kan XSLT bibliotheek (%s) niet laden : %s"
+
 #~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
 #~ msgstr "DIA_PLUGIN_PATH niet aktief. Sylesheets niet beschikbaar.\n"
 
@@ -6213,7 +6252,6 @@ msgstr "UML"
 #~ msgid "Apply"
 #~ msgstr "Toepassen"
 
-#, fuzzy
 #~ msgid "Line gaps"
 #~ msgstr "Regelafstanden"
 
