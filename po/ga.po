@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 03:10+0100\n"
-"PO-Revision-Date: 2004-01-08 07:10 :40+0000\n"
+"PO-Revision-Date: 2004-01-16 07:10 :40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
-"Language-Team: Irish <ga@li.org>\n"
+"Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -735,7 +735,7 @@ msgstr "Roghchlár léaráid."
 
 #: app/interface.c:482
 msgid "Zoom"
-msgstr ""
+msgstr "Súmáil"
 
 #: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
@@ -960,35 +960,35 @@ msgstr "_Dealaigh"
 
 #: app/menus.c:103
 msgid "Copy Text"
-msgstr ""
+msgstr "Cóip Teacs"
 
 #: app/menus.c:104
 msgid "Cut Text"
-msgstr ""
+msgstr "Gearr Teacs"
 
 #: app/menus.c:105
 msgid "Paste _Text"
-msgstr ""
+msgstr "Greamagh _Teacs"
 
 #: app/menus.c:129
 msgid "Zoom _In"
-msgstr ""
+msgstr "Súmáil _Isteach"
 
 #: app/menus.c:129
 msgid "Zoom in 50%"
-msgstr ""
+msgstr "Súmáil isteach 50%"
 
 #: app/menus.c:130
 msgid "Zoom _Out"
-msgstr ""
+msgstr "Súmáil _Amach"
 
 #: app/menus.c:130
 msgid "Zoom out 50%"
-msgstr ""
+msgstr "Súmáil amach 50%"
 
 #: app/menus.c:131
 msgid "_Zoom"
-msgstr ""
+msgstr "_Súmáil"
 
 #: app/menus.c:133
 msgid "Diagram Properties..."
@@ -1305,63 +1305,63 @@ msgstr "/Eagar/Greamaigh _Teacs"
 
 #: app/menus.c:358
 msgid "/_View"
-msgstr "/_Radharc"
+msgstr "/_Amharc"
 
 #: app/menus.c:360
 msgid "/View/Zoom _In"
-msgstr "/Radharc/Zoom _In"
+msgstr "/Amharc/Súmáil _Isteach"
 
 #: app/menus.c:362
 msgid "/View/Zoom _Out"
-msgstr "/Radharc/Zoom _Out"
+msgstr "/Amharc/Súmáil _Out"
 
 #: app/menus.c:364
 msgid "/View/_Zoom"
-msgstr "/Radharc/_Zoom"
+msgstr "/Amharc/_Súmáil"
 
 #: app/menus.c:366
 msgid "/View/Zoom/400%"
-msgstr "/Radharc/Zoom/400%"
+msgstr "/Amharc/Súmáil/400%"
 
 #: app/menus.c:367
 msgid "/View/Zoom/283%"
-msgstr "/Radharc/Zoom/283%"
+msgstr "/Amharc/Súmáil/283%"
 
 #: app/menus.c:368
 msgid "/View/Zoom/200%"
-msgstr "/Radharc/Zoom/200%"
+msgstr "/Amharc/Súmáil/200%"
 
 #: app/menus.c:369
 msgid "/View/Zoom/141%"
-msgstr "/Radharc/Zoom/141%"
+msgstr "/Amharc/Súmáil/141%"
 
 #: app/menus.c:370
 msgid "/View/Zoom/100%"
-msgstr "/Radharc/Zoom/100%"
+msgstr "/Amharc/Súmáil/100%"
 
 #: app/menus.c:372
 msgid "/View/Zoom/85%"
-msgstr "/Radharc/Zoom/85%"
+msgstr "/Amharc/Súmáil/85%"
 
 #: app/menus.c:373
 msgid "/View/Zoom/70.7%"
-msgstr "/Radharc/Zoom/70.7%"
+msgstr "/Amharc/Súmáil/70.7%"
 
 #: app/menus.c:374
 msgid "/View/Zoom/50%"
-msgstr "/Radharc/Zoom/50%"
+msgstr "/Amharc/Súmáil/50%"
 
 #: app/menus.c:375
 msgid "/View/Zoom/35.4%"
-msgstr "/Radharc/Zoom/35.4%"
+msgstr "/Amharc/Súmáil/35.4%"
 
 #: app/menus.c:376
 msgid "/View/Zoom/25%"
-msgstr "/Radharc/Zoom/25%"
+msgstr "/Amharc/Súmáil/25%"
 
 #: app/menus.c:377 app/menus.c:386
 msgid "/View/---"
-msgstr "/Radharc/---"
+msgstr "/Amharc/---"
 
 #: app/menus.c:378
 msgid "/View/Diagram Properties..."
@@ -1369,7 +1369,7 @@ msgstr ""
 
 #: app/menus.c:380
 msgid "/View/_AntiAliased"
-msgstr "/Radharc/_AntiAliased"
+msgstr "/Amharc/_AntiAliased"
 
 #: app/menus.c:382
 msgid "/View/Show _Grid"
@@ -1377,24 +1377,24 @@ msgstr ""
 
 #: app/menus.c:383
 msgid "/View/_Snap To Grid"
-msgstr "/Radharc/_Snap To Grid"
+msgstr ""
 
 #: app/menus.c:384
 msgid "/View/Show _Rulers"
-msgstr "/Radharc/Show _Rulers"
+msgstr ""
 
 #: app/menus.c:385
 msgid "/View/Show _Connection Points"
-msgstr "/Radharc/Show _Connection Points"
+msgstr ""
 
 #: app/menus.c:387
 msgid "/View/New _View"
-msgstr "/Radharc/Radharc _Nua"
+msgstr "/Amharc/Amharc _Nua"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:389
 msgid "/View/Show _All"
-msgstr ""
+msgstr "/Amharc/Táispeán _Gach rud"
 
 #: app/menus.c:390
 msgid "/View/Re_draw"
