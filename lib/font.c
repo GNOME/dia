@@ -1258,7 +1258,9 @@ font_string_width(const char *string, DiaFont *font, real height)
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length);
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  wclength = mbstowcs (wcstr, str, length);
+  mbstr = g_strdup(str);
+  wclength = mbstowcs (wcstr, mbstr, length);
+  g_free (mbstr);
 #else
   wclength = gdk_mbstowcs (wcstr, str, length);
 #endif
