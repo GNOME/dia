@@ -147,6 +147,228 @@ static const PropertyOps realprop_ops = {
   (PropertyType_GetDataSize) realprop_get_data_size
 };
 
+/****************************/
+/* The LENGTH property type.  */
+/****************************/
+
+static LengthProperty *
+lengthprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
+{
+  LengthProperty *prop = g_new0(LengthProperty,1);
+  initialize_property(&prop->common, pdesc, reason);
+  prop->length_data = 0.0;
+  return prop;
+}
+
+static LengthProperty *
+lengthprop_copy(LengthProperty *src) 
+{
+  LengthProperty *prop = 
+    (LengthProperty *)src->common.ops->new_prop(src->common.descr,
+                                               src->common.reason);
+  copy_init_property(&prop->common,&src->common);
+  prop->length_data = src->length_data;
+  return prop;
+}
+
+static WIDGET *
+lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog) 
+{ 
+  GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
+                                                         G_MINFLOAT, 
+                                                         G_MAXFLOAT,
+                                                         0.1, 1.0, 1.0));
+  GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
+  prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
+  
+  return ret;
+}
+
+static void 
+lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
+{
+  GtkAdjustment *adj;
+  if (prop->common.extra_data) {
+    PropNumData *numdata = prop->common.extra_data;
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
+                                            numdata->min, numdata->max,
+                                            numdata->step, 
+                                            10.0 * numdata->step,
+                                            10.0 * numdata->step));
+  } else {
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
+                                            G_MINFLOAT, G_MAXFLOAT,
+                                            0.1, 1.0, 1.0));
+  }
+  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+}
+
+static void 
+lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget) 
+{
+  prop->length_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
+}
+
+static void 
+lengthprop_load(LengthProperty *prop, AttributeNode attr, DataNode data)
+{
+  prop->length_data = data_real(data);
+}
+
+static void 
+lengthprop_save(LengthProperty *prop, AttributeNode attr) 
+{
+  data_add_real(attr, prop->length_data);
+}
+
+static void 
+lengthprop_get_from_offset(LengthProperty *prop,
+                         void *base, guint offset, guint offset2) 
+{
+  prop->length_data = struct_member(base,offset,real);
+}
+
+static void 
+lengthprop_set_from_offset(LengthProperty *prop,
+                         void *base, guint offset, guint offset2)
+{
+  struct_member(base,offset,real) = prop->length_data;
+}
+
+static int 
+lengthprop_get_data_size(LengthProperty *prop)
+{
+  return sizeof (prop->length_data);
+}
+
+static const PropertyOps lengthprop_ops = {
+  (PropertyType_New) lengthprop_new,
+  (PropertyType_Free) noopprop_free,
+  (PropertyType_Copy) lengthprop_copy,
+  (PropertyType_Load) lengthprop_load,
+  (PropertyType_Save) lengthprop_save,
+  (PropertyType_GetWidget) lengthprop_get_widget,
+  (PropertyType_ResetWidget) lengthprop_reset_widget,
+  (PropertyType_SetFromWidget) lengthprop_set_from_widget,
+
+  (PropertyType_CanMerge) noopprop_can_merge,
+  (PropertyType_GetFromOffset) lengthprop_get_from_offset,
+  (PropertyType_SetFromOffset) lengthprop_set_from_offset,
+  (PropertyType_GetDataSize) lengthprop_get_data_size
+};
+
+/****************************/
+/* The FONTSIZE property type.  */
+/****************************/
+
+static FontsizeProperty *
+fontsizeprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
+{
+  FontsizeProperty *prop = g_new0(FontsizeProperty,1);
+  initialize_property(&prop->common, pdesc, reason);
+  prop->fontsize_data = 0.0;
+  return prop;
+}
+
+static FontsizeProperty *
+fontsizeprop_copy(FontsizeProperty *src) 
+{
+  FontsizeProperty *prop = 
+    (FontsizeProperty *)src->common.ops->new_prop(src->common.descr,
+                                               src->common.reason);
+  copy_init_property(&prop->common,&src->common);
+  prop->fontsize_data = src->fontsize_data;
+  return prop;
+}
+
+static WIDGET *
+fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog) 
+{ 
+  GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
+                                                         G_MINFLOAT, 
+                                                         G_MAXFLOAT,
+                                                         0.1, 1.0, 1.0));
+  GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
+  prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
+  
+  return ret;
+}
+
+static void 
+fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
+{
+  GtkAdjustment *adj;
+  if (prop->common.extra_data) {
+    PropNumData *numdata = prop->common.extra_data;
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
+                                            numdata->min, numdata->max,
+                                            numdata->step, 
+                                            10.0 * numdata->step,
+                                            10.0 * numdata->step));
+  } else {
+    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
+                                            G_MINFLOAT, G_MAXFLOAT,
+                                            0.1, 1.0, 1.0));
+  }
+  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
+}
+
+static void 
+fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget) 
+{
+  prop->fontsize_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
+}
+
+static void 
+fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data)
+{
+  prop->fontsize_data = data_real(data);
+}
+
+static void 
+fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr) 
+{
+  data_add_real(attr, prop->fontsize_data);
+}
+
+static void 
+fontsizeprop_get_from_offset(FontsizeProperty *prop,
+                         void *base, guint offset, guint offset2) 
+{
+  prop->fontsize_data = struct_member(base,offset,real);
+}
+
+static void 
+fontsizeprop_set_from_offset(FontsizeProperty *prop,
+                         void *base, guint offset, guint offset2)
+{
+  struct_member(base,offset,real) = prop->fontsize_data;
+}
+
+static int 
+fontsizeprop_get_data_size(FontsizeProperty *prop)
+{
+  return sizeof (prop->fontsize_data);
+}
+
+static const PropertyOps fontsizeprop_ops = {
+  (PropertyType_New) fontsizeprop_new,
+  (PropertyType_Free) noopprop_free,
+  (PropertyType_Copy) fontsizeprop_copy,
+  (PropertyType_Load) fontsizeprop_load,
+  (PropertyType_Save) fontsizeprop_save,
+  (PropertyType_GetWidget) fontsizeprop_get_widget,
+  (PropertyType_ResetWidget) fontsizeprop_reset_widget,
+  (PropertyType_SetFromWidget) fontsizeprop_set_from_widget,
+
+  (PropertyType_CanMerge) noopprop_can_merge,
+  (PropertyType_GetFromOffset) fontsizeprop_get_from_offset,
+  (PropertyType_SetFromOffset) fontsizeprop_set_from_offset,
+  (PropertyType_GetDataSize) fontsizeprop_get_data_size
+};
+
 /*****************************/
 /* The POINT property type.  */
 /*****************************/
@@ -711,6 +933,8 @@ void
 prop_geomtypes_register(void)
 {
   prop_type_register(PROP_TYPE_REAL,&realprop_ops);
+  prop_type_register(PROP_TYPE_LENGTH,&realprop_ops);
+  prop_type_register(PROP_TYPE_FONTSIZE,&realprop_ops);
   prop_type_register(PROP_TYPE_POINT,&pointprop_ops);
   prop_type_register(PROP_TYPE_POINTARRAY,&pointarrayprop_ops);
   prop_type_register(PROP_TYPE_BEZPOINTARRAY,&bezpointarrayprop_ops);

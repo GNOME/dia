@@ -1,3 +1,27 @@
+2004-06-12  Lars Clausen  <lars@raeder.dk>
+
+	* lib/properties.h: 
+	* lib/prop_geomtypes.[ch]: Preparation for selectable units.
+
+	* lib/font.h: Toning down comments a bit:)
+
+	* lib/font.c (dia_font_build_layout): Playing around with DPI 
+
+	* objects/UML/association.c (association_load): Avoid crashes on
+	strcmp with NULL.
+
+	* objects/UML/association.c: Patch from kimmidi@novell.com:
+	Improve placement of labels when vertical.  Part fix of #118313
+
+	* lib/object.c (dia_object_is_selected): Grouped objects are not
+	selected, only the group itself.  Thus, don't crash when grouping
+	beziers. #143681
+
+	* objects/UML/association.c: Patch from kimmidi@novell.com:  Agree
+	on how to represent empty strings.  Fixes #143639.
+
+	* lib/object.c (dia_object_is_selected): Added comment answer.
+
 2004-06-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagramdata.c lib/object.c : deal with grouped objects
@@ -9,7 +33,7 @@
 	transformation="translate(...)" and <style/> handling. Also
 	use some other completely bogus values for em/ex scaling
 	
-2004-06-08  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-06-08  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/cairo/.cvsignore: CVS-ignore generated makefiles.
 

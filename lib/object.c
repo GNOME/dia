@@ -474,6 +474,8 @@ Layer *dia_object_get_parent_layer(DiaObject *obj) {
 /** Returns true if `obj' is currently selected.
  * Note that this takes time proportional to the number of selected
  * objects, so don't use it frivolously.
+ * Note that if the objects is not in a layer (e.g. grouped), it is never
+ * considered selected.
  */
 gboolean
 dia_object_is_selected (const DiaObject *obj)
@@ -482,8 +484,11 @@ dia_object_is_selected (const DiaObject *obj)
   DiagramData *diagram = layer ? layer->parent_diagram : NULL;
 
   /* although this is a little bogus, it is better than crashing
-      * It appears as if neither group members nor "parented" objects do have their 
-      * parent_layer set (but they aren't slected either, are they ? --hb */
+   * It appears as if neither group members nor "parented" objects do have their 
+   * parent_layer set (but they aren't slected either, are they ? --hb
+   * No, grouped objects at least aren't selectable, but they may need
+   * to test selectedness when rendering beziers.  Parented objects are
+   * a different thing, though. */
   if (!diagram)
     return FALSE;
   

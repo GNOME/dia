@@ -33,7 +33,7 @@
 #define BASIC_MONOSPACE_FONT "courier new, courier, monospace, fixed"
 
 
-/** The Pango people don't seem to encounter the real world much.
+/** 
  * In a goodly selection of fonts, 500 is very common, yet they don't name it.
  * I am calling 500 'medium' and 600 'demibold'.
  * We should really have a more flexible system where 300 or 400 is normal, 

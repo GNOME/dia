@@ -1,3 +1,4 @@
+
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -520,6 +521,14 @@ app_init (int argc, char **argv)
     color_init();
     default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
     ddisplay_set_all_cursor(default_cursor);
+  }
+
+  {
+    GdkScreen *screen = gdk_screen_get_default();
+    printf("Screen pixels %d screen size %d DPI %f\n",
+	   gdk_screen_get_width(screen),
+	   gdk_screen_get_width_mm(screen),
+	   gdk_screen_get_width(screen)/(gdk_screen_get_width_mm(screen)/25.4));
   }
 
   object_registry_init();

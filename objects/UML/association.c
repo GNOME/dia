@@ -121,6 +121,7 @@ struct _AssociationPropertiesDialog {
 #define ASSOCIATION_WIDTH 0.1
 #define ASSOCIATION_TRIANGLESIZE 0.8
 #define ASSOCIATION_DIAMONDLEN 1.4
+#define ASSOCIATION_DIAMONDWIDTH 0.7
 #define ASSOCIATION_FONTHEIGHT 0.8
 
 static DiaFont *assoc_font = NULL;
@@ -592,6 +593,8 @@ association_update_data(Association *assoc)
     break;
   case VERTICAL:
     end->text_pos.y += end->role_ascent;
+    end->text_pos.y += ASSOCIATION_FONTHEIGHT;
+    end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
     if (points[0].y > points[1].y) {
       if (end->role!=NULL)
           end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
@@ -629,6 +632,8 @@ association_update_data(Association *assoc)
     break;
   case VERTICAL:
     end->text_pos.y += end->role_ascent;
+    end->text_pos.y += ASSOCIATION_FONTHEIGHT;
+    end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
     if (points[n].y > points[n-1].y) {
       if (end->role!=NULL)
 	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
@@ -901,13 +906,22 @@ association_load(ObjectNode obj_node, int version, const char *filename)
 
     assoc->end[i].role = NULL;
     attr = composite_find_attribute(composite, "role");
-    if (attr != NULL)
+    if (attr != NULL) {
       assoc->end[i].role = data_string(attribute_first_data(attr));
+    }
+    if (assoc->end[i].role != NULL && !strcmp(assoc->end[i].role, "")) {
+      assoc->end[i].role = NULL;
+    }
     
     assoc->end[i].multiplicity = NULL;
     attr = composite_find_attribute(composite, "multiplicity");
-    if (attr != NULL)
+    if (attr != NULL) {
       assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
+    }
+    if (assoc->end[i].multiplicity != NULL &&
+	!strcmp(assoc->end[i].multiplicity, "")) {
+      assoc->end[i].multiplicity = NULL;
+    }
     
     assoc->end[i].arrow = FALSE;
     attr = composite_find_attribute(composite, "arrow");

@@ -37,6 +37,16 @@ typedef struct {
 
 typedef struct {
   Property common;
+  real length_data;
+} LengthProperty;
+
+typedef struct {
+  Property common;
+  real fontsize_data;
+} FontsizeProperty;
+
+typedef struct {
+  Property common;
   Point point_data;
 } PointProperty;
 

@@ -329,7 +329,7 @@ fill_polygon(DiaRenderer *self,
 	  points[i].x, points[i].y);
   }
 
-  fprintf(renderer->file, "f\n");
+  fprintf(renderer->file, "ef\n");
 }
 
 static void
@@ -500,7 +500,7 @@ fill_bezier(DiaRenderer *self,
       break;
     }
 
-  fprintf(renderer->file, " f\n");
+  fprintf(renderer->file, " ef\n");
 }
 
 static void

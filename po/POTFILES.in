@@ -7,6 +7,7 @@ app/commands.c
 app/defaults.c
 app/dia-props.c
 app/dia_embedd.c
+app/diacanvas.c
 app/diaconv.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
@@ -115,8 +116,10 @@ objects/flowchart/diamond.c
 objects/flowchart/ellipse.c
 objects/flowchart/flowchart.c
 objects/flowchart/parallelogram.c
+objects/network/basestation.c
 objects/network/bus.c
 objects/network/network.c
+objects/network/radiocell.c
 objects/standard/arc.c
 objects/standard/bezier.c
 objects/standard/beziergon.c
@@ -129,6 +132,7 @@ objects/standard/polyline.c
 objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
+plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c
 plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c

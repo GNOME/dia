@@ -162,6 +162,8 @@ typedef const gchar *PropertyType;
 
 /* Geometric types : */
 #define PROP_TYPE_REAL "real"                /* RealProperty */
+#define PROP_TYPE_LENGTH "length"            /* LengthProperty */
+#define PROP_TYPE_FONTSIZE "fontsize"        /* FontsizeProperty */
 #define PROP_TYPE_POINT "point"              /* PointProperty */
 #define PROP_TYPE_POINTARRAY "pointarray"    /* PointarrayProperty */
 #define PROP_TYPE_BEZPOINT "bezpoint"        /* BezPointProperty */
