@@ -1,3 +1,8 @@
+2002-06-23  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* objects/FS/*.c:
+	using dia_font_new_from_style()
+
 2002-06-23  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c : giving some love to

@@ -427,7 +427,8 @@ flow_create(Point *startpoint,
     Color* color = NULL;
 
     if (flow_font == NULL) {
-	    flow_font = dia_font_new (BASIC_SANS_FONT,STYLE_ITALIC,FLOW_FONTHEIGHT);
+	    flow_font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                           FLOW_FONTHEIGHT);
     }
 
     switch (flow->type) {
@@ -554,7 +555,8 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   LineBBExtras *extra;
 
   if (flow_font == NULL) {
-	  flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
+	  flow_font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                         FLOW_FONTHEIGHT);
   }
 
   flow = g_malloc0(sizeof(Flow));
@@ -764,7 +766,8 @@ flow_apply_defaults(void)
     Point p ;
 
     if (flow_font == NULL) {
-	    flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
+	    flow_font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                           FLOW_FONTHEIGHT);
     }
     flow_default_label =
       new_text(

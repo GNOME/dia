@@ -433,7 +433,8 @@ orthflow_create(Point *startpoint,
     Color* color = &orthflow_color_signal;
 
     if (orthflow_font == NULL) {
-	    orthflow_font = dia_font_new(BASIC_SANS_FONT,STYLE_ITALIC,1.0);
+	    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                              1.0);
     }
 
     switch (orthflow->type) {
@@ -561,7 +562,8 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   PolyBBExtras *extra;
 
   if (orthflow_font == NULL) {
-    orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
+    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                            1.0);
   }
 
   orthflow = g_malloc0(sizeof(Orthflow));
@@ -918,7 +920,8 @@ orthflow_apply_defaults(void)
     Point p ;
 
     if (orthflow_font == NULL) {
-      orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
+	    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
+                                              1.0);
     }
     orthflow_default_label =
       new_text(
