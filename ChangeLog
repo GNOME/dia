@@ -1,5 +1,8 @@
 2002-05-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/commands.c (help_manual_callback): Check return value of
+	opendir.
+
 	* plug-ins/xfig/Makefile.am (INCLUDES): Added DEBUG_FLAGS
 
 	* plug-ins/xfig/xfig-import.c: Fixed misspelled Poly_L_ine, added

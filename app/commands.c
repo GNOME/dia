@@ -475,6 +475,12 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 
   /* search through helpdir for the helpfile that matches the user's locale */
   dp = opendir(helpdir);
+  if (dp == NULL) {
+    g_free(helpdir);
+    message_warning(_("Could not find help directory"));
+    return;
+  }
+
   while ((dirp = readdir(dp)) != NULL) {
     guint score;
 
