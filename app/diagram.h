@@ -98,6 +98,8 @@ int diagram_modified_exists(void);
 
 void diagram_redraw_all(void);
 
+void diagram_object_modified(Diagram *dia, Object *object);
+
 #endif /* DIAGRAM_H */
 
 

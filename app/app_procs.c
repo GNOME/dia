@@ -336,6 +336,8 @@ app_init (int argc, char **argv)
   /*fill recent file menu */
   recent_file_history_init();
 
+  create_tree_window();
+
   if (argv) {
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {

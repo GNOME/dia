@@ -82,6 +82,7 @@ ShellExecuteA (long        hwnd,
 #include "gdk/gdkkeysyms.h"
 #include "lib/properties.h"
 #include "dia-props.h"
+#include "diagram_tree_window.h"
 
 GdkPixbuf *logo;
 
@@ -130,6 +131,7 @@ file_new_callback(gpointer data, guint action, GtkWidget *widget)
   
   dia = new_diagram(buffer);
   ddisp = new_display(dia);
+  diagram_tree_add(diagram_tree(), dia);
 }
 
 void

@@ -166,6 +166,8 @@ properties_apply(GtkWidget *canvas, gpointer data)
   
   diagram_modified(current_dia);
 
+  diagram_object_modified(current_dia, current_obj);
+
   diagram_update_extents(current_dia);
     
   if (obj_change != NULL) {

@@ -30,6 +30,7 @@
 #include "preferences.h"
 #include "commands.h"
 #include "dia_dirs.h"
+#include "diagram_tree_window.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 static const GtkTargetEntry create_object_targets[] = {
@@ -1169,4 +1170,15 @@ void
 toolbox_hide(void)
 {
   gtk_widget_hide(toolbox_shell);
+}
+
+void
+create_tree_window(void)
+{
+  if (prefs.show_diagram_tree) {
+    GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM
+      (menus_get_item_from_path("<Toolbox>/File/Diagram tree", NULL));
+    if (item) item->active = TRUE;
+    gtk_widget_show(diagram_tree_window());
+  }
 }

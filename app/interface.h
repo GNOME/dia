@@ -47,6 +47,8 @@ void toolbox_hide(void);
 
 void tool_select_callback(GtkWidget *widget, gpointer data);
 
+void create_tree_window(void);
+
 GtkWidget *popup_shell;
 GtkWidget *modify_tool_button;
 

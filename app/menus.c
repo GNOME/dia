@@ -37,15 +37,20 @@
 #include "plugin-manager.h"
 #include "select.h"
 #include "dia_dirs.h"
+#include "diagram_tree_window.h"
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
 #ifdef GNOME
+
 static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
+  GNOMEUIINFO_TOGGLEITEM(N_("_Diagram tree"), N_("Show diagram tree"),
+			 diagtree_show_callback, NULL),
   GNOMEUIINFO_ITEM_NONE(N_("Plug-ins"), NULL, file_plugins_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
@@ -252,6 +257,9 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/Open _Recent"),   NULL,         NULL,       0,    "<Branch>" },
   {N_("/File/Open Recent/---"),
                                NULL,         NULL,       0, "<Separator>" },
+  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
+  {N_("/File/_Diagram tree"),  NULL,         diagtree_show_callback,    0,
+   "<ToggleItem>" },
   {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },

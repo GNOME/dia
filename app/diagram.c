@@ -37,6 +37,7 @@
 #include "dia_dirs.h"
 #include "load_save.h"
 #include "recent_files.h"
+#include "diagram_tree_window.h"
 
 GList *open_diagrams = NULL;
 
@@ -82,6 +83,7 @@ diagram_load_into(Diagram         *diagram,
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
     recent_file_history_add(filename, ifilter);
+    diagram_tree_add(diagram_tree(), diagram);
     return TRUE;
   } else
     return FALSE;
@@ -143,6 +145,8 @@ diagram_destroy(Diagram *dia)
   layer_dialog_update_diagram_list();
 
   undo_destroy(dia->undo);
+  
+  diagram_tree_remove(diagram_tree(), dia);
   
   g_free(dia);
 }
@@ -262,6 +266,8 @@ diagram_add_object(Diagram *dia, Object *obj)
   layer_add_object(dia->data->active_layer, obj);
 
   diagram_modified(dia);
+
+  diagram_tree_add_object(diagram_tree(), dia, obj);
 }
 
 void
@@ -270,6 +276,8 @@ diagram_add_object_list(Diagram *dia, GList *list)
   layer_add_objects(dia->data->active_layer, list);
 
   diagram_modified(dia);
+
+  diagram_tree_add_objects(diagram_tree(), dia, list);
 }
 
 void
@@ -332,7 +340,7 @@ diagram_selected_break_external(Diagram *dia)
 	connected_list = g_list_next(connected_list);
       }
     }
-    
+    diagram_tree_remove_object(diagram_tree(), obj);
     list = g_list_next(list);
   }
 }
@@ -437,6 +445,7 @@ diagram_add_update_all(Diagram *dia)
     l = g_slist_next(l);
   }
 }
+
 void
 diagram_add_update(Diagram *dia, Rectangle *update)
 {
@@ -475,7 +484,6 @@ diagram_flush(Diagram *dia)
 {
   GSList *l;
   DDisplay *ddisp;
-
   l = dia->displays;
   while(l!=NULL) {
     ddisp = (DDisplay *) l->data;
@@ -764,6 +772,8 @@ diagram_set_filename(Diagram *dia, char *filename)
 
   layer_dialog_update_diagram_list();
   recent_file_history_add((const char *)filename, NULL);
+
+  diagram_tree_update_name(diagram_tree(), dia);
 }
 
 int diagram_modified_exists(void)
@@ -782,4 +792,9 @@ int diagram_modified_exists(void)
     list = g_list_next(list);
   }
   return FALSE;
+}
+
+void diagram_object_modified(Diagram *dia, Object *object)
+{
+  diagram_tree_update_object(diagram_tree(), dia, object);
 }

@@ -1,5 +1,100 @@
+2001-10-31  Jose A Ortega Ruiz  <jaortega@acm.org>
+	[slightly modified and applied from Hans Breuer <hans@breuer.org>]
+
+	* app/diagram_tree_window.[hc] : (new files) implementation of 
+	the diagram tree window, a container for a diagram tree. [Removed
+	the horizontal scroll bar glitch by disableing it]
+
+	* app/diagram_tree.[hc] : (new files) implementation of the 
+	diagram tree widget. [Don't rely on the layers GPtrArray to be
+	NULL terminated, but use its ->len field] 
+
+	* app/Makefile.am (dia_core_files): added new files
+	diagram_tree.[hc] and diagram_tree_window.[hc]
+
+	* app/interface.[hc] : (create_tree_window): this function 
+	creates the new diagram tree window widget
+
+	* app/undo.c (delete_objects_apply) (delete_objects_revert) 
+	(insert_objects_apply) (insert_objects_revert) (group_objects_apply) 
+	(ungroup_objects_apply) (ungroup_objects_revert): 
+	every time that an undoable command modifies a diagram 
+	adding/removing/(un)grouping objects, a diagram_tree_something() is 
+	invoked to keep the diagram tree window in sync
+
+	* app/properties.c (properties_apply): call to
+	diagram_object_modified(), which updates the diagram tree window
+	when the properties of an object are modified
+
+	* app/preferences.[hc] : new "show_diagram_tree" configuration option 
+	(whether the diagram tree window should be shown on dia startup)
+
+	* app/menus.c : added '<Toolbox>/File/Diagram Tree' entry
+
+	* app/diagram.h (diagram_object_modified): callback notifying of a
+	diagram object modification
+
+	* app/diagram.c (diagram_load_into): added call to
+	diagram_tree_add() to add newly loaded diagrams to the diagram
+	tree window
+	(diagram_destroy): call to diagram_tree_remove() to remove a
+	destroyed diagram from the diagram tree window
+	(diagram_add_object): call to diagram_tree_add_object() to add an
+	object to the diagram tree window
+	(diagram_add_object_list): as above, but with an object list
+	(diagram_selected_break_external): deletion of objects from the
+	diagram is detected here, and diagram_tree_remove_object() is
+	invoked to remove the object from the diagram tree window (it
+	would be nice to have a diagram_remove_object() in the Diagram
+	interface)
+	(diagram_set_filename): update the diagram tree window when a
+	diagram's filename changes
+
+	* app/commands.c (file_new_callback): added call to
+	diagram_tree_add() to add newly created diagrams to the diagram
+	tree window
+
+	* app/app_procs.c (app_init): added call to create_tree_window()
+
+	* app/makefile.msc : updated
+
 2001-10-28  Hans Breuer  <hans@breuer.org>
 
+	* app/preferences.h (DiaPreferences): 
+	* app/preferences.c (prefs_data): new "show_diagram_tree"
+	configuration option (whether the diagram tree window should be
+	shown on dia startup)
+
+	* app/menus.c: added the new "<Toolbox>/View/Diagram tree" menu
+	entry (both for GNOME and gtk)
+
+	* app/diagram.h (diagram_object_modified): callback notifying of a
+	diagram object modification
+
+	* app/diagram.c (diagram_load_into): added call to
+	diagram_tree_add() to add newly loaded diagrams to the diagram
+	tree window
+	(diagram_destroy): call to diagram_tree_remove() to remove a
+	destroyed diagram from the diagram tree window
+	(diagram_add_object): call to diagram_tree_add_object() to add an
+	object to the diagram tree window
+	(diagram_add_object_list): as above, but with an object list
+	(diagram_selected_break_external): deletion of objects from the
+	diagram is detected here, and diagram_tree_remove_object() is
+	invoked to remove the object from the diagram tree window (it
+	would be nice to have a diagram_remove_object() in the Diagram
+	interface)
+	(diagram_set_filename): update the diagram tree window when a
+	diagram's filename changes
+
+	* app/commands.c (file_new_callback): added call to
+	diagram_tree_add() to add newly created diagrams to the diagram
+	tree window
+
+	* app/app_procs.c (app_init): added call to create_tree_window()
+
+2001-10-28  Hans Breuer  <hans@breuer.org>
+ 
 	* plug-ins/python/pydia-property.c : apparently I missed
 	to commit this last time. Now it has some more SetAttr
 	support (apply from property)

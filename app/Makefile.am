@@ -134,6 +134,10 @@ dia_core_files = \
 	    splash.c \
 	    recent_files.h \
 	    recent_files.c \
+	    diagram_tree.h \
+	    diagram_tree.c \
+	    diagram_tree_window.h \
+	    diagram_tree_window.c \
 	    $(print_files)
 
 dia_SOURCES = \
