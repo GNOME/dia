@@ -307,7 +307,7 @@ constraint_create(Point *startpoint,
   constraint->line_color = attributes_get_foreground();
   constraint->text = g_strdup("");
   constraint->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
-  constraint->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
+  constraint->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y) - 0.2;
 
   constraint->text_handle.id = HANDLE_MOVE_TEXT;
   constraint->text_handle.type = HANDLE_MINOR_CONTROL;

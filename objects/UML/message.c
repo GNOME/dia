@@ -384,7 +384,7 @@ message_create(Point *startpoint,
   message->text = g_strdup("");
   message->text_width = 0.0;
   message->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
-  message->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
+  message->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y) + 0.5;
 
   message->text_handle.id = HANDLE_MOVE_TEXT;
   message->text_handle.type = HANDLE_MINOR_CONTROL;

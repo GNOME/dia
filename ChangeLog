@@ -1,3 +1,12 @@
+2004-12-07  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/message.c : better default for initial text placement
+	a suggested in bug #154306, Henning Mersch
+	* objects/UML/constraint.c : doing the same
+
+	* app/filedlg.c : include persistence.h for persistence_get_integer
+	* lib/libdia.def export it
+
 2004-12-05  Hans Breuer  <hans@breuer.org>
 
 	* app/grid.c : respect dynamic grid during snap-to, fixes 

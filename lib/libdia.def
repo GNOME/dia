@@ -514,6 +514,8 @@ EXPORTS
  persistence_set_string
  persistent_list_remove_all
  persistence_get_string
+ persistence_get_integer
+ persistence_get_real
 
  point_add
  point_convex
