@@ -1,3 +1,8 @@
+Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
+
+	* app/commands.c: Add <sys/types.h> before <sys/stat.h> to
+	remove warning (OS/2 version).
+
 1999-10-17  Alexander Larsson  <alla@lysator.liu.se>
 
 	* README:
