@@ -606,7 +606,9 @@ chronoline_create(Point *startpoint,
 
   chronoline->name = g_strdup("");
   chronoline->events = g_strdup("");
-  chronoline->font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  chronoline->font = font_getfont (_("Helvetica"));
   chronoline->font_size = 1.0;
   chronoline->font_color = color_black;
   chronoline->start_time = 0.0;

@@ -360,8 +360,11 @@ flow_create(Point *startpoint,
   } else {
     Color* color ;
 
-    if (flow_font == NULL)
-      flow_font = font_getfont("Helvetica-Oblique");
+    if (flow_font == NULL) {
+	    /* choose default font name for your locale. see also font_data structure
+	       in lib/font.c. */
+	    flow_font = font_getfont (_("Helvetica-Oblique"));
+    }
 
     switch (flow->type) {
     case FLOW_ENERGY:
@@ -486,8 +489,11 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   ConnectionBBExtras *extra;
 
-  if (flow_font == NULL)
-    flow_font = font_getfont("Helvetica-Oblique");
+  if (flow_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. */
+	  flow_font = font_getfont (_("Helvetica-Oblique"));
+  }
 
   flow = g_malloc0(sizeof(Flow));
 
@@ -826,8 +832,11 @@ flow_apply_defaults()
   if ( ! flow_default_label ) {
     Point p ;
 
-    if (flow_font == NULL)
-      flow_font = font_getfont("Helvetica-Oblique");
+    if (flow_font == NULL) {
+	    /* choose default font name for your locale. see also font_data structure
+	       in lib/font.c. */
+	    flow_font = font_getfont (_("Helvetica-Oblique"));
+    }
     flow_default_label =
       new_text(
 	       gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),0,-1), 

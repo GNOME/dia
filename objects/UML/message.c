@@ -352,8 +352,11 @@ message_create(Point *startpoint,
   LineBBExtras *extra;
   Object *obj;
 
-  if (message_font == NULL)
-    message_font = font_getfont("Helvetica");
+  if (message_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. */
+	  message_font = font_getfont (_("Helvetica"));
+  }
   
   message = g_malloc0(sizeof(Message));
 

@@ -429,7 +429,9 @@ chronoref_create(Point *startpoint,
 
   element_init(elem, 8, 0);
 
-  chronoref->font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  chronoref->font = font_getfont (_("Helvetica"));
   chronoref->font_size = 1.0;
   chronoref->font_color = color_black;
   chronoref->start_time = 0.0;

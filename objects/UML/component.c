@@ -342,7 +342,9 @@ component_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   p = *startpoint;
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;

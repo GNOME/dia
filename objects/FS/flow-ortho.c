@@ -418,8 +418,11 @@ orthflow_create(Point *startpoint,
   } else {
     Color* color = &orthflow_color_signal;
 
-    if (orthflow_font == NULL)
-      orthflow_font = font_getfont("Helvetica-Oblique");
+    if (orthflow_font == NULL) {
+	    /* choose default font name for your locale. see also font_data structure
+	       in lib/font.c. */
+	    orthflow_font = font_getfont(_("Helvetica-Oblique"));
+    }
 
     switch (orthflow->type) {
     case ORTHFLOW_ENERGY:
@@ -545,8 +548,11 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   PolyBBExtras *extra;
 
-  if (orthflow_font == NULL)
-    orthflow_font = font_getfont("Helvetica-Oblique");
+  if (orthflow_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. */
+	  orthflow_font = font_getfont(_("Helvetica-Oblique"));
+  }
 
   orthflow = g_malloc0(sizeof(Orthflow));
 
@@ -901,8 +907,11 @@ orthflow_apply_defaults(void)
   if ( ! orthflow_default_label ) {
     Point p ;
 
-    if (orthflow_font == NULL)
-      orthflow_font = font_getfont("Helvetica-Oblique");
+    if (orthflow_font == NULL) {
+	    /* choose default font name for your locale. see also font_data structure
+	       in lib/font.c. */
+	    orthflow_font = font_getfont(_("Helvetica-Oblique"));
+    }
     orthflow_default_label =
       new_text(
 	       gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),0,-1), 

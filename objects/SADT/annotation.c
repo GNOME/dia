@@ -352,7 +352,9 @@ annotation_create(Point *startpoint,
 			      &annotation_defaults.text_color,
 			      ALIGN_CENTER);
 #else
-  annotation->text = new_text("", font_getfont("Helvetica"),
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  annotation->text = new_text("", font_getfont (_("Helvetica")),
 			      ANNOTATION_FONTHEIGHT,
 			      &conn->endpoints[1],
 			      &color_black,

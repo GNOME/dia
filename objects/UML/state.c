@@ -334,7 +334,9 @@ state_create(Point *startpoint,
   elem->width = STATE_WIDTH;
   elem->height = STATE_HEIGHT;
 
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;

@@ -494,7 +494,10 @@ sadtbox_create(Point *startpoint,
 		       &SADTBOX_FG_COLOR,
 		       ALIGN_CENTER);
   */
-  box->text = new_text("", font_getfont("Helvetica-Bold"),
+
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  box->text = new_text("", font_getfont (_("Helvetica-Bold")),
 		       0.8, &p, 
 		       &color_black,
 		       ALIGN_CENTER);

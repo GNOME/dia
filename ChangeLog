@@ -1,5 +1,54 @@
 2002-01-30  Akira TAGOH  <tagoh@redhat.com>
 
+	* objects/chronogram/chronoref.c (chronoref_create): missing gettextize
+	for font.
+
+	* objects/chronogram/chronoline.c (chronoline_create): ditto.
+
+	* objects/UML/usecase.c (usecase_create): ditto.
+
+	* objects/UML/state.c (state_create): ditto.
+
+	* objects/UML/object.c (objet_create): ditto.
+
+	* objects/UML/node.c (node_create): ditto.
+
+	* objects/UML/message.c (message_create): ditto.
+
+	* objects/UML/component.c (component_create): ditto.
+
+	* objects/UML/classicon.c (classicon_create): ditto.
+
+	* objects/UML/actor.c (actor_create): ditto.
+
+	* objects/SADT/box.c (sadtbox_create): ditto.
+
+	* objects/SADT/annotation.c (annotation_create): ditto.
+
+	* objects/GRAFCET/transition.c (TRANSITION_FONT): ditto.
+
+	* objects/GRAFCET/step.c (STEP_FONT):
+	* (step_create): ditto.
+
+	* objects/GRAFCET/condition.c (CONDITION_FONT): ditto.
+
+	* objects/GRAFCET/action.c (ACTION_FONT):
+	(action_create): ditto.
+
+	* objects/FS/function.c (function_create): ditto.
+
+	* objects/FS/flow.c (flow_create):
+	(flow_load): 
+	(flow_apply_defaults): ditto.
+
+	* objects/FS/flow-poly.c (flow_create):
+	(flow_load):
+	(flow_apply_defaults): ditto.
+
+	* objects/FS/flow-ortho.c (orthflow_create):
+	(orthflow_load):
+	(orthflow_apply_defaults): ditto.
+
 	* objects/ER/relationship.c: use utfchar instead of char for structure.
 	(relationship_create): name needs to convert to UTF-8.
 

@@ -47,7 +47,9 @@
 #include "pixmaps/action.xpm"
 
 #define ACTION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-#define ACTION_FONT "Helvetica-Bold"
+/* choose default font name for your locale. see also font_data structure
+   in lib/font.c. */
+#define ACTION_FONT N_("Helvetica-Bold")
 #define ACTION_FONT_HEIGHT 0.8
 #define ACTION_HEIGHT (2.0)
 
@@ -411,7 +413,7 @@ action_create(Point *startpoint,
 			  &pos, /* never used */
 			  &defaults.font_color, ALIGN_LEFT);
 #else
-  action->text = new_text("",font_getfont(ACTION_FONT),ACTION_FONT_HEIGHT,
+  action->text = new_text("",font_getfont (_(ACTION_FONT)),ACTION_FONT_HEIGHT,
 			  &pos, /* never used */
 			  &color_black, ALIGN_LEFT);
 #endif

@@ -46,7 +46,9 @@
 #include "pixmaps/condition.xpm"
 
 #define CONDITION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-#define CONDITION_FONT "Helvetica-Bold"
+/* choose default font name for your locale. see also font_data structure
+   in lib/font.c. */
+#define CONDITION_FONT N_("Helvetica-Bold")
 #define CONDITION_FONT_HEIGHT 0.8
 #define CONDITION_LENGTH (1.5)
 #define CONDITION_ARROW_SIZE 0.0 /* XXX The norm says there's no arrow head.

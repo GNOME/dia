@@ -381,7 +381,9 @@ usecase_create(Point *startpoint,
   elem->width = USECASE_WIDTH;
   elem->height = USECASE_HEIGHT;
 
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   p = *startpoint;
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;

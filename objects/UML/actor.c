@@ -326,7 +326,9 @@ actor_create(Point *startpoint,
   elem->width = ACTOR_WIDTH;
   elem->height = ACTOR_HEIGHT;
 
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   p = *startpoint;
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - font_descent(font, 0.8);

@@ -400,7 +400,9 @@ function_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   
   pkg->is_wish = FALSE;
   pkg->is_user = FALSE;

@@ -50,7 +50,9 @@
 
 
 #define TRANSITION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-#define TRANSITION_FONT "Helvetica-Bold"
+/* choose default font name for your locale. see also font_data structure
+   in lib/font.c. */
+#define TRANSITION_FONT N_("Helvetica-Bold")
 #define TRANSITION_FONT_HEIGHT 0.8
 #define TRANSITION_DECLAREDHEIGHT 2.0
 #define TRANSITION_DECLAREDWIDTH 2.0

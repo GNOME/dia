@@ -320,7 +320,9 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   obj->ops = &node_ops;
 
   elem->corner = *startpoint;
-  font = font_getfont("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  font = font_getfont (_("Helvetica"));
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
