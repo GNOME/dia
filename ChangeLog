@@ -1,3 +1,11 @@
+2003-09-09  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/pl/graphics/*.png:
+	* doc/pl/Makefile.am: Added graphics to distro, avoiding empty
+	loop (bug #121817).  PL translator may want to change the
+	home_network png to be in Polish.  If the docs get translated into
+	more languages, we'll want to find out how to share these things.
+
 2003-09-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/splash.c (app_splash_init): Patch from Sébastien Tricaud

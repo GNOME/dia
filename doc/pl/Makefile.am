@@ -23,10 +23,10 @@ SGML_FILES = \
 
 #	usage-objects-basic.sgml
 
-GRAPHICS =
-#	graphics/greendots.png \
-#	graphics/home_network.png \
-#	graphics/line_props.png
+GRAPHICS = \
+	graphics/greendots.png \
+	graphics/line_props.png \
+	graphics/home_network.png
 
 EXTRA_DIST = \
 	topic.dat \
