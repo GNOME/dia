@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-05 03:15+0200\n"
+"POT-Creation-Date: 2004-07-10 03:19+0200\n"
 "PO-Revision-Date: 2004-01-12 15:23+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -2606,7 +2606,6 @@ msgstr ""
 msgid "Translate"
 msgstr ""
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:735 objects/FS/function.c:737
@@ -2695,11 +2694,12 @@ msgstr ""
 msgid "Secure"
 msgstr "I sigurtë"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:779 objects/FS/function.c:811
 msgid "Attach"
-msgstr ""
+msgstr "Bashkangjit"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: objects/FS/function.c:781
@@ -3852,7 +3852,6 @@ msgstr "Klasa"
 msgid "Abstract Classname"
 msgstr "Abstract"
 
-#. GRUT modified this item
 #: objects/UML/class.c:157 objects/UML/class.c:159 objects/UML/class.c:161
 #: objects/UML/class.c:163 objects/UML/class.c:165 objects/UML/class.c:167
 msgid " "
@@ -4142,7 +4141,6 @@ msgstr "E thjeshtë"
 msgid "Return"
 msgstr ""
 
-#. GRUT modified this item
 #: objects/UML/message.c:140
 msgid "Send"
 msgstr "Dërgo"
@@ -4384,7 +4382,6 @@ msgstr ""
 msgid "Resource"
 msgstr "Burimi"
 
-#. GRUT modified this item
 #: objects/Istar/other.c:74
 msgid "Task"
 msgstr "Aktiviteti"
@@ -4803,7 +4800,7 @@ msgstr ""
 msgid "TeX PSTricks macros"
 msgstr ""
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1140
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr ""
@@ -4858,11 +4855,11 @@ msgstr ""
 msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:1204
+#: plug-ins/wmf/wmf.cpp:1207
 msgid "Windows Meta File"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:1220
+#: plug-ins/wmf/wmf.cpp:1223
 msgid "WMF export filter"
 msgstr ""
 
@@ -5397,12 +5394,10 @@ msgstr ""
 msgid "Knock-out Drum (with demister pad)"
 msgstr ""
 
-#. GRUT modified this item
 #: sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
 msgstr "Matja"
 
-#. GRUT modified this item
 #: sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
 msgstr "Miksues"
@@ -6827,12 +6822,10 @@ msgstr ""
 msgid "IPTV broadcast server"
 msgstr ""
 
-#. GRUT modified this item
 #: sheets/ciscocomputer.sheet.in.h:17
 msgid "Laptop"
 msgstr "Laptop"
 
-#. GRUT modified this item
 #: sheets/ciscocomputer.sheet.in.h:18
 msgid "Macintosh"
 msgstr "Macintosh"
