@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-11-22 21:53+0100\n"
+"POT-Creation-Date: 2002-12-05 21:05-0600\n"
 "PO-Revision-Date: 2002-11-22 21:56+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -151,7 +151,7 @@ msgstr ""
 "Autolagrede filer eksisterer.\n"
 "Vennligst velg hvilke du ønsker å gjenopprette."
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "Velg farge"
 
@@ -160,15 +160,15 @@ msgstr "Velg farge"
 msgid "Untitled-%d"
 msgstr "Uten navn-%d"
 
-#: app/commands.c:197
+#: app/commands.c:198
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "Kunne ikke finne hjelp-katalog"
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -182,19 +182,19 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: app/commands.c:549 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:551
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Opphavsrett © 1998-2002 Free Software Foundation og programmererene"
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -202,30 +202,30 @@ msgstr ""
 "Dia er et program for tegning av strukturerte diagram.\n"
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:591
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:634
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:640
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Ansvarlige: Lars Clausen og Cyrille Chepelov"
 
-#: app/commands.c:644
+#: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:649
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Hjelpere:"
 
-#: app/commands.c:761
+#: app/commands.c:762
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -570,7 +570,7 @@ msgstr "Bildehøyde:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "På etternavn"
 
@@ -582,15 +582,21 @@ msgstr "Åpne diagram"
 msgid "Open Options"
 msgstr "Alternativer for åpning"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "Filen eksisterer allerede"
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -599,27 +605,27 @@ msgstr ""
 "Filen «%s» eksisterer allerede.\n"
 "Vil du overskrive den?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nei"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "Lagre diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "Komprimer diagramfiler"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -628,7 +634,7 @@ msgstr ""
 "og gjør lasting og lagring raskere. Noen tekstprogrammer har problemer med å "
 "manipulere komprimerte filer."
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -637,11 +643,11 @@ msgstr ""
 "Kunne ikke bestemme hvilket eksportfilter\n"
 "som skulle brukes til å lagre «%s»"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "Alternativer for eksport"
 
@@ -720,7 +726,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Lag linje"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
 msgid "Line"
 msgstr "Linje"
 
@@ -1069,7 +1075,7 @@ msgstr "Inverter"
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "Ingen"
 
@@ -1085,15 +1091,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "Høyre"
 
@@ -1623,7 +1629,7 @@ msgstr "NULL verktøydata i tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/menus.c:1168
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1871,7 +1877,7 @@ msgstr "Kunne ikke åpne historikkfil for skriving."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postskript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Ugyldig fyllmodus spesifisert!\n"
 
@@ -2160,7 +2166,7 @@ msgstr "Feil ved lesing av punkt."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Ukorrekt punktverdi for y, «%s» %f; forkaster den."
 
-#: lib/dia_xml.c:854
+#: lib/dia_xml.c:880
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2169,6 +2175,60 @@ msgstr ""
 "Ditt lokale tegnsett er UTF-8. Pga problemer med libxml1 og støtte for filer "
 "generert med forrige versjon av dia vil du oppleve problemer. Vennligst "
 "rapporter til dia-list@gnome.org hvis du ser denne meldingen."
+
+#: lib/font.c:81
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr ""
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: lib/diagtkfontsel.c:207
+#, fuzzy
+msgid "Font name"
+msgstr "Funksjonsnavn:"
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:214
+#, fuzzy
+msgid "Preview text"
+msgstr "Forhindre"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr ""
+
+#: lib/diagtkfontsel.c:325
+#, fuzzy
+msgid "_Style:"
+msgstr "Skala:"
+
+#: lib/diagtkfontsel.c:331
+#, fuzzy
+msgid "Si_ze:"
+msgstr "Størrelse"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+#, fuzzy
+msgid "_Preview:"
+msgstr "Forhindre"
+
+#: lib/diagtkfontsel.c:1250
+#, fuzzy
+msgid "Font Selection"
+msgstr "Konveksjon"
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2295,149 +2355,154 @@ msgstr "Størrelse på skrifttype"
 msgid "Text colour"
 msgstr "Tekstfarge"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr "Andre skrifter..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:319
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunne ikke finne skriftfamilie for %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:362
 msgid "Select font"
 msgstr "Velg skrift"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Helfylt"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "Streket"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "Prikket"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:979
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "Hult triangel"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "Fylt triangel"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "Triangel uten fyll"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "Fylt diamant"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "Streket kryss"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "Fylt elipse"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "Hul elipse"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "Fylt punkt"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "Opprinnelse for dimensjon"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "Blankt punkt"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "Dobbelt hult triangel"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "Dobbelt fylt triangel"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "Fylt boks"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "Blank boks"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "Streket"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "Itegraltegn"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr "Kråkefot"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "Kryss"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1030
 msgid "Filled Concave"
 msgstr "Fylt konkav"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1031
 msgid "Blanked Concave"
 msgstr "Tom konkav"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "Bla gjennom"
+
+#: objects/bondgraph/bondgraph.c:39
+#, fuzzy
+msgid "Bond graph objects"
+msgstr "Standard objekter"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2546,15 +2611,15 @@ msgstr "Vend horisontalt"
 msgid "Flip vertical"
 msgstr "Vend vertikalt"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan ikke åpne ikonfil %s for objekttype '%s'."
@@ -2599,7 +2664,7 @@ msgstr "Total:"
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
 #: objects/UML/association.c:686 objects/UML/dependency.c:351
 #: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:429
+#: objects/standard/zigzagline.c:495
 msgid "Add segment"
 msgstr "Legg til segment"
 
@@ -2607,7 +2672,7 @@ msgstr "Legg til segment"
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
 #: objects/UML/association.c:687 objects/UML/dependency.c:352
 #: objects/UML/generalization.c:348 objects/UML/realizes.c:341
-#: objects/standard/zigzagline.c:430
+#: objects/standard/zigzagline.c:496
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -3785,7 +3850,7 @@ msgid "Vergent type:"
 msgstr "Vergenttype:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:236
 msgid "Add connection point"
 msgstr "Legg til forbindelsespunkt"
 
@@ -3882,7 +3947,7 @@ msgstr "Identifikator for aktivitet/data"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifikator som vises i nedre venstre hjørne av boksen"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:237
 msgid "Delete connection point"
 msgstr "Slett forbindelsespunkt"
 
@@ -3946,13 +4011,48 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Bildefilen '%s' ble ikke funnet.\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:135
+#, fuzzy
+msgid "Arrows"
+msgstr "Pil opp"
+
+#: objects/standard/line.c:140
 msgid "Start point"
 msgstr "Startpunkt"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:142
 msgid "End point"
 msgstr "Endepunkt"
+
+#: objects/standard/line.c:143
+#, fuzzy
+msgid "Line gaps"
+msgstr "Linjer"
+
+#: objects/standard/line.c:145
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/line.c:147
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/line.c:149
+msgid "Fractional start gap"
+msgstr ""
+
+#: objects/standard/line.c:151
+msgid "Fractional end gap"
+msgstr ""
+
+#: objects/standard/line.c:153
+#, fuzzy
+msgid "Start at object edge"
+msgstr "Standard objekter"
+
+#: objects/standard/line.c:155
+msgid "End at object edge"
+msgstr ""
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -6357,9 +6457,6 @@ msgstr "UML"
 
 #~ msgid "Function module:"
 #~ msgstr "Funksjonsmodul:"
-
-#~ msgid "Function name:"
-#~ msgstr "Funksjonsnavn:"
 
 #~ msgid "Interfaces"
 #~ msgstr "Grensesnitt"

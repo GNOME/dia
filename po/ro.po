@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
+"POT-Creation-Date: 2002-12-05 21:05-0600\n"
 "PO-Revision-Date: 2002-08-22 16:49GMT+2\n"
 "Last-Translator: Harald Ersch <hersch@romatsa.ro>\n"
 "Language-Team: romanian <ro@li.org>\n"
@@ -150,7 +150,7 @@ msgstr ""
 "Existã fiºiere autosalvate.\n"
 "Vã rog sã le selectaþi pe cele dorite a le reface."
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "Selecteazã culoarea"
 
@@ -159,15 +159,15 @@ msgstr "Selecteazã culoarea"
 msgid "Untitled-%d"
 msgstr "Fãrã titlu-%d"
 
-#: app/commands.c:197
+#: app/commands.c:198
 msgid "No existing object to paste.\n"
 msgstr "Nu existã obiect de lipit.\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "Nu gãsesc directorul de help."
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -181,19 +181,19 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Tradus de Harald Ersch <hersch@romatsa.ro> , 2002"
 
-#: app/commands.c:549 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:551
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation ºi autorii"
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -201,31 +201,31 @@ msgstr ""
 "Dia este un program de desenare de diagrame structurate.\n"
 "Vizitaþi http://www.lysator.liu.se/~alla/dia pentru informaþii suplimentare."
 
-#: app/commands.c:591
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Despre Dia"
 
-#: app/commands.c:634
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s de Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:640
+#: app/commands.c:641
 #, fuzzy
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Menþinut de: Lars Clausen ºi Cyrille Chépélov"
 
-#: app/commands.c:644
+#: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr ""
 "Vizitaþi http://www.lysator.liu.se/~alla/dia pentru informaþii suplimentare."
 
-#: app/commands.c:649
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Au contribuit:"
 
-#: app/commands.c:761
+#: app/commands.c:762
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -501,11 +501,11 @@ msgstr "Nu existã meniu pt. obiect."
 msgid "Diagram modified!"
 msgstr "Diagramã modificatã!"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<fãrã_nume>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -514,11 +514,11 @@ msgstr ""
 "Diagrama '%s' NU a fost salvatã.\n"
 "Doriþi sã salvez modificãrile?"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "Închid diagrama?"
 
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "Renunþã la modificãri"
 
@@ -567,7 +567,7 @@ msgstr "Înãlþime imagine:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "Dupã extensie"
 
@@ -579,15 +579,21 @@ msgstr "Deschide diagrama"
 msgid "Open Options"
 msgstr "Opþiuni deschidere"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "Stabileºte tip fiºier:"
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "Fiºierul existã deja."
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -596,27 +602,27 @@ msgstr ""
 "Fiºierul '%s' existã deja.\n"
 "Doriþi suprascrierea lui?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Da"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nu"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "Salveazã diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "Comprimã fiºierele diagramã"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -625,7 +631,7 @@ msgstr ""
 "viteza de încãrcare ºi salvare. Unele programe text nu pot manipula "
 "fiºierele comprimate."
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -634,11 +640,11 @@ msgstr ""
 "Nu am putut stabili ce filtru de export\n"
 "sã folosesc pt. a salva '%s'"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "Exportã diagrama"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "Opþiuni export"
 
@@ -717,7 +723,7 @@ msgstr "Poligon Bezier"
 msgid "Create Line"
 msgstr "Creeazã linie"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
 msgid "Line"
 msgstr "Linie"
 
@@ -986,6 +992,7 @@ msgid "Zoom _In"
 msgstr "Mãr_ire"
 
 #: app/menus.c:130
+#, c-format
 msgid "Zoom in 50%"
 msgstr "Mãrire cu 50%"
 
@@ -994,6 +1001,7 @@ msgid "Zoom _Out"
 msgstr "Micº_orare"
 
 #: app/menus.c:131
+#, c-format
 msgid "Zoom out 50%"
 msgstr "Micºorare cu 50%"
 
@@ -1065,7 +1073,7 @@ msgstr "Inverseazã"
 msgid "All"
 msgstr "Toate"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "Nimic"
 
@@ -1081,15 +1089,15 @@ msgstr "Tranzitive"
 msgid "Same Type"
 msgstr "Acelaºi tip"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "Stânga"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "Centrat"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "Dreapta"
 
@@ -1314,42 +1322,52 @@ msgid "/View/_Zoom"
 msgstr "/Vizualizare/_Mãrire"
 
 #: app/menus.c:361
+#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vizualizare/Mãrire/400%"
 
 #: app/menus.c:362
+#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vizualizare/Mãrire/283%"
 
 #: app/menus.c:363
+#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vizualizare/Mãrire/200%"
 
 #: app/menus.c:364
+#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vizualizare/Mãrire/141%"
 
 #: app/menus.c:365
+#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vizualizare/Mãrire/100%"
 
 #: app/menus.c:367
+#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vizualizare/Mãrire/85%"
 
 #: app/menus.c:368
+#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vizualizare/Mãrire/70.7%"
 
 #: app/menus.c:369
+#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vizualizare/Mãrire/50%"
 
 #: app/menus.c:370
+#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vizualizare/Mãrire/35,4%"
 
 #: app/menus.c:371
+#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vizualizare/Mãrire/25%"
 
@@ -1614,7 +1632,7 @@ msgstr "Date NULL în tool_menu_select."
 msgid "Diagram Menu"
 msgstr "Meniu diagramã"
 
-#: app/menus.c:1164
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1849,11 +1867,11 @@ msgstr "Proprietãþi obiect:"
 msgid "<Toolbox>/File/Plugins"
 msgstr "<Unelte>/Fiºier/Plug-in-uri"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<Unelte>/Fiºier/_Ieºire"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "Nu pot deschide fiºierul istoric pentru scriere."
 
@@ -1861,7 +1879,7 @@ msgstr "Nu pot deschide fiºierul istoric pentru scriere."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:320 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Mod de umplere nesusþinut!\n"
 
@@ -1979,7 +1997,7 @@ msgstr "Obiect"
 msgid "Description:"
 msgstr "Descriere:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2150,7 +2168,7 @@ msgstr "Eroare parsare punct."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valoare punct y incorectã \"%s\" %f, renunþ la ea."
 
-#: lib/dia_xml.c:854
+#: lib/dia_xml.c:880
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2159,6 +2177,60 @@ msgstr ""
 "Setul de caractere local este UTF-8. Datoritã incompatibilitãþilor cu "
 "libxml1 ºi a fiºierelor generate cu versiunile anterioare Dia, veþi avea "
 "probleme. Dacã vedeþi acest mesaj, raportaþi la  dia-list@gnome.org"
+
+#: lib/font.c:81
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr ""
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: lib/diagtkfontsel.c:207
+#, fuzzy
+msgid "Font name"
+msgstr "Nume pas:"
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:214
+#, fuzzy
+msgid "Preview text"
+msgstr "Prevenire"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr ""
+
+#: lib/diagtkfontsel.c:325
+#, fuzzy
+msgid "_Style:"
+msgstr "Scara:"
+
+#: lib/diagtkfontsel.c:331
+#, fuzzy
+msgid "Si_ze:"
+msgstr "Mãrime"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+#, fuzzy
+msgid "_Preview:"
+msgstr "Prevenire"
+
+#: lib/diagtkfontsel.c:1250
+#, fuzzy
+msgid "Font Selection"
+msgstr "Convecþie"
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2267,169 +2339,172 @@ msgstr "Sfârºit sãgeatã"
 msgid "Text alignment"
 msgstr "Aliniere text"
 
-#: lib/properties.c:79 lib/properties.h:504
-#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
-#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
-#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
+#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
+#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoref.c:163
 msgid "Font"
 msgstr "Font"
 
-#: lib/properties.c:80 lib/properties.h:507
+#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
-#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Mãrime font"
 
-#: lib/properties.c:81 lib/properties.h:510
+#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
-#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "Culoare text"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr "Alte fonturi..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:319
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nu gãsesc familia fontului: %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:362
 msgid "Select font"
 msgstr "Selectare font"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "Haºurat"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "Linie-punct"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "Linie-punct-punct"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "Puncte-Puncte"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "Lungime liniuþã:"
 
-#: lib/widgets.c:979
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "Linii"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "Triunghi gol"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "Triunghi plin"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "Triunghi transparent"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "Diamant plin"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "Semi-vârf"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "Cruce tãiatã"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "Elipsã plinã"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "Elipsã goalã"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "Punct plin"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "Origine dimensiune"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "Punct golit"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "Triunghi dublu gol"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "Triunghi dublu plin"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "Dreptunghi plin"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "Dreptunghi gol"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "Tãiat"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "Simbol integralã"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr "Picior de cioarã"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "Cruce"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1030
 msgid "Filled Concave"
 msgstr "Concavitate plinã"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1031
 msgid "Blanked Concave"
 msgstr "Concavitate goalã"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "Lungime:"
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "Lãþime:"
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "Selectare fiºier imagine"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "Rãsfoieºte"
+
+#: objects/bondgraph/bondgraph.c:39
+#, fuzzy
+msgid "Bond graph objects"
+msgstr "Obiecte standard"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2537,15 +2612,15 @@ msgstr "Întoarce pe orizontalã"
 msgid "Flip vertical"
 msgstr "Rãstoarnã pe verticalã"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "Întoarce pe orizontalã"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "Rãstoarnã pe verticalã"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nu pot deschide iconiþa %s pt. obiectul tip '%s'."
@@ -2588,17 +2663,17 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
-#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
-#: objects/UML/realizes.c:340
+#: objects/UML/association.c:686 objects/UML/dependency.c:351
+#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:495
 msgid "Add segment"
 msgstr "Adaugã segment"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
-#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
-#: objects/UML/realizes.c:341
+#: objects/UML/association.c:687 objects/UML/dependency.c:352
+#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
+#: objects/standard/zigzagline.c:496
 msgid "Delete segment"
 msgstr "ªterge segment"
 
@@ -2626,9 +2701,9 @@ msgstr "Relaþie:"
 msgid "Corner radius"
 msgstr "Razã colþ:"
 
-#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
-#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
-#: objects/SADT/box.c:136
+#: objects/SADT/box.c:136 objects/flowchart/box.c:149
+#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
+#: objects/flowchart/parallelogram.c:151
 msgid "Text padding"
 msgstr "Umplere text:"
 
@@ -2641,20 +2716,20 @@ msgid "Shear angle"
 msgstr "Unghi ascuþit"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
+#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
+#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
+#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3776,7 +3851,7 @@ msgid "Vergent type:"
 msgstr "Tip vergent:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:236
 msgid "Add connection point"
 msgstr "Adaugã punct de conectare"
 
@@ -3878,7 +3953,7 @@ msgstr "Identificator Date/Activitãþi"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identificatorul ce apare în colþul dreapta-jos al chenarului"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:237
 msgid "Delete connection point"
 msgstr "ªterge punct de conectare"
 
@@ -3942,13 +4017,48 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Fiºierul imagine '%s' nu a fost gãsit.\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:135
+#, fuzzy
+msgid "Arrows"
+msgstr "Sãgeatã în sus"
+
+#: objects/standard/line.c:140
 msgid "Start point"
 msgstr "Punct de început"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:142
 msgid "End point"
 msgstr "Punct final"
+
+#: objects/standard/line.c:143
+#, fuzzy
+msgid "Line gaps"
+msgstr "Linii"
+
+#: objects/standard/line.c:145
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/line.c:147
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/line.c:149
+msgid "Fractional start gap"
+msgstr ""
+
+#: objects/standard/line.c:151
+msgid "Fractional end gap"
+msgstr ""
+
+#: objects/standard/line.c:153
+#, fuzzy
+msgid "Start at object edge"
+msgstr "Obiecte standard"
+
+#: objects/standard/line.c:155
+msgid "End at object edge"
+msgstr ""
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"

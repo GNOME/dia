@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
+"POT-Creation-Date: 2002-12-05 21:05-0600\n"
 "PO-Revision-Date: 2002-06-20 00:46+0800\n"
 "Last-Translator: Wen Shaohua <nadwsh@sbell.com.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -147,7 +147,7 @@ msgid ""
 "Please select those you wish to recover."
 msgstr ""
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "选择颜色"
 
@@ -156,15 +156,15 @@ msgstr "选择颜色"
 msgid "Untitled-%d"
 msgstr "未命名－%d"
 
-#: app/commands.c:197
+#: app/commands.c:198
 msgid "No existing object to paste.\n"
 msgstr "没有要粘贴的对象。\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "无法找到帮助目录"
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -178,49 +178,49 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: app/commands.c:549 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr ""
 
-#: app/commands.c:551
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr ""
 
-#: app/commands.c:552
+#: app/commands.c:553
 #, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr "请访问 http://www.lysator.liu.se/~alla/dia 获取更多信息"
 
-#: app/commands.c:591
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "关于 Dia"
 
-#: app/commands.c:634
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s，作者 Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:640
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr ""
 
-#: app/commands.c:644
+#: app/commands.c:645
 #, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "请访问 http://www.lysator.liu.se/~alla/dia 获取更多信息"
 
-#: app/commands.c:649
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "贡献者："
 
-#: app/commands.c:761
+#: app/commands.c:762
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -497,11 +497,11 @@ msgstr "没有对象菜单"
 msgid "Diagram modified!"
 msgstr "图表已修改！"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<未命名>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -510,11 +510,11 @@ msgstr ""
 "图表 “%s”\n"
 "未保存过。现在保存吗？"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "关闭图表"
 
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "放弃所作修改"
 
@@ -563,7 +563,7 @@ msgstr "图象高度："
 msgid "Portable Network Graphics"
 msgstr "可移植网络图"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "按扩展名"
 
@@ -575,15 +575,21 @@ msgstr "打开图表"
 msgid "Open Options"
 msgstr "打开选项"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "确定文件类型："
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "文件已存在"
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -592,27 +598,27 @@ msgstr ""
 "文件“%s”已存在。\n"
 "您要覆盖它吗？"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "是"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "否"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "保存图表"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "压缩图表文件"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -620,7 +626,7 @@ msgstr ""
 "压缩文件大小到小于1/10，可以加快载入和保存的速度。但某些文本程序无法处理压缩"
 "过的文件。"
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -629,11 +635,11 @@ msgstr ""
 "无法确定使用哪个导出过滤器来保存\n"
 "“%s”"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "导出图表"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "导出选项"
 
@@ -712,7 +718,7 @@ msgstr "贝塞尔曲线封闭线"
 msgid "Create Line"
 msgstr "创建直线"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
 msgid "Line"
 msgstr "直线"
 
@@ -979,6 +985,7 @@ msgid "Zoom _In"
 msgstr "放大(_I)"
 
 #: app/menus.c:130
+#, c-format
 msgid "Zoom in 50%"
 msgstr "放大 50%"
 
@@ -987,6 +994,7 @@ msgid "Zoom _Out"
 msgstr "缩小(_O)"
 
 #: app/menus.c:131
+#, c-format
 msgid "Zoom out 50%"
 msgstr "缩小 50%"
 
@@ -1058,7 +1066,7 @@ msgstr "插入"
 msgid "All"
 msgstr "全部"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "无"
 
@@ -1074,15 +1082,15 @@ msgstr "触及的"
 msgid "Same Type"
 msgstr "相同类型"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "左"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "中"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "右"
 
@@ -1308,42 +1316,52 @@ msgid "/View/_Zoom"
 msgstr "/查看/缩放(_Z)"
 
 #: app/menus.c:361
+#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/查看/缩放/400%"
 
 #: app/menus.c:362
+#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/查看/缩放/283%"
 
 #: app/menus.c:363
+#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/查看/缩放/200%"
 
 #: app/menus.c:364
+#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/查看/缩放/141%"
 
 #: app/menus.c:365
+#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/查看/缩放/100%"
 
 #: app/menus.c:367
+#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/查看/缩放/85%"
 
 #: app/menus.c:368
+#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/查看/缩放/70.7%"
 
 #: app/menus.c:369
+#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/查看/缩放/50%"
 
 #: app/menus.c:370
+#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/查看/缩放/35.4%"
 
 #: app/menus.c:371
+#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/查看/缩放/25%"
 
@@ -1611,7 +1629,7 @@ msgstr "工具选单选择中的空工具资料"
 msgid "Diagram Menu"
 msgstr "图表菜单"
 
-#: app/menus.c:1164
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1847,11 +1865,11 @@ msgstr "对象属性："
 msgid "<Toolbox>/File/Plugins"
 msgstr "<工具箱>/文件/插件"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<工具箱>/文件/退出"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "无法以写方式打开历史文件。"
 
@@ -1859,7 +1877,7 @@ msgstr "无法以写方式打开历史文件。"
 msgid "Encapsulated Postscript"
 msgstr "已封装的 Postscript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:320 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk 汇报器：指定了不支持的填充模式！\n"
 
@@ -1975,7 +1993,7 @@ msgstr "对象"
 msgid "Description:"
 msgstr "描述："
 
-#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2141,7 +2159,7 @@ msgstr "分析点时出错。"
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "不正确的 y 点值“%s” %f；放弃。"
 
-#: lib/dia_xml.c:854
+#: lib/dia_xml.c:880
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2149,6 +2167,60 @@ msgid ""
 msgstr ""
 "您本机字符集是 UTF-8。因为libxml1的一些问题，而且支持文件是由旧版本的dia生成"
 "的，您可能会碰到一些问题。如果您看到此信息请电至 dia-list@gnome.org报告。"
+
+#: lib/font.c:81
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr ""
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: lib/diagtkfontsel.c:207
+#, fuzzy
+msgid "Font name"
+msgstr "步骤名称："
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:214
+#, fuzzy
+msgid "Preview text"
+msgstr "阻止"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr ""
+
+#: lib/diagtkfontsel.c:325
+#, fuzzy
+msgid "_Style:"
+msgstr "比例："
+
+#: lib/diagtkfontsel.c:331
+#, fuzzy
+msgid "Si_ze:"
+msgstr "尺寸"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+#, fuzzy
+msgid "_Preview:"
+msgstr "阻止"
+
+#: lib/diagtkfontsel.c:1250
+#, fuzzy
+msgid "Font Selection"
+msgstr "热对流"
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2258,172 +2330,175 @@ msgstr "终止箭头"
 msgid "Text alignment"
 msgstr "文本对齐"
 
-#: lib/properties.c:79 lib/properties.h:504
-#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
-#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
-#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
+#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
+#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoref.c:163
 msgid "Font"
 msgstr "字体"
 
-#: lib/properties.c:80 lib/properties.h:507
+#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
-#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "字体大小"
 
-#: lib/properties.c:81 lib/properties.h:510
+#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
-#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "文本颜色"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr ""
 
-#: lib/widgets.c:299
+#: lib/widgets.c:319
 #, fuzzy, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "无法读颜色： %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:362
 #, fuzzy
 msgid "Select font"
 msgstr "选择打印机"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "实心"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "划线"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "点划线"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "双点划线"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "虚线"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "划长度："
 
-#: lib/widgets.c:979
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "直线"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "空心三角形"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "实心三角形"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "空心三角形"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "实心菱形"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "半个头"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "交叉线"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "实心椭圆"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "空心椭圆"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "实心点"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "坐标原点"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "空心点"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "双空心三角形"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "双实心三角形"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "实心方框"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "空心方框"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "斜线"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "积分符号"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr ""
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "十字"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1030
 #, fuzzy
 msgid "Filled Concave"
 msgstr "实心方框"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1031
 #, fuzzy
 msgid "Blanked Concave"
 msgstr "空心方框"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "长度："
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "宽度："
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "选择图像文件"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "浏览"
+
+#: objects/bondgraph/bondgraph.c:39
+#, fuzzy
+msgid "Bond graph objects"
+msgstr "标准对象"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2531,15 +2606,15 @@ msgstr "水平翻转"
 msgid "Flip vertical"
 msgstr "垂直翻转"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "水平翻转"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "垂直翻转"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "无法为“%2$s”类型的对象打开图标文件%1$s。"
@@ -2582,17 +2657,17 @@ msgstr "总共："
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
-#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
-#: objects/UML/realizes.c:340
+#: objects/UML/association.c:686 objects/UML/dependency.c:351
+#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:495
 msgid "Add segment"
 msgstr "添加图段"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
-#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
-#: objects/UML/realizes.c:341
+#: objects/UML/association.c:687 objects/UML/dependency.c:352
+#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
+#: objects/standard/zigzagline.c:496
 msgid "Delete segment"
 msgstr "删除图段"
 
@@ -2620,9 +2695,9 @@ msgstr "关系"
 msgid "Corner radius"
 msgstr "圆角半径"
 
-#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
-#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
-#: objects/SADT/box.c:136
+#: objects/SADT/box.c:136 objects/flowchart/box.c:149
+#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
+#: objects/flowchart/parallelogram.c:151
 msgid "Text padding"
 msgstr "文本填充"
 
@@ -2635,20 +2710,20 @@ msgid "Shear angle"
 msgstr "圆角"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
+#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "能量"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
+#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
 msgid "Material"
 msgstr "物质"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
+#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3770,7 +3845,7 @@ msgid "Vergent type:"
 msgstr "Vergent 种类："
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:236
 msgid "Add connection point"
 msgstr "添加联接点"
 
@@ -3870,7 +3945,7 @@ msgstr "活动/资料 识别"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "出现在框右下角的标识符"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:237
 msgid "Delete connection point"
 msgstr "删除连接点"
 
@@ -3934,13 +4009,48 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "未找到名为“%s”的图形文件。\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:135
+#, fuzzy
+msgid "Arrows"
+msgstr "SADT 箭头"
+
+#: objects/standard/line.c:140
 msgid "Start point"
 msgstr "起始点"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:142
 msgid "End point"
 msgstr "终止点"
+
+#: objects/standard/line.c:143
+#, fuzzy
+msgid "Line gaps"
+msgstr "直线"
+
+#: objects/standard/line.c:145
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/line.c:147
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/line.c:149
+msgid "Fractional start gap"
+msgstr ""
+
+#: objects/standard/line.c:151
+msgid "Fractional end gap"
+msgstr ""
+
+#: objects/standard/line.c:153
+#, fuzzy
+msgid "Start at object edge"
+msgstr "标准对象"
+
+#: objects/standard/line.c:155
+msgid "End at object edge"
+msgstr ""
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
+"POT-Creation-Date: 2002-12-05 21:05-0600\n"
 "PO-Revision-Date: 2002-10-15 18:27+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -150,7 +150,7 @@ msgstr ""
 "Automatisch opgeslagen bestanden gevonden.\n"
 "Selecteer aub degenen die u wilt herstellen."
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "Selecteer kleur"
 
@@ -159,15 +159,15 @@ msgstr "Selecteer kleur"
 msgid "Untitled-%d"
 msgstr "Naamloos-%d"
 
-#: app/commands.c:197
+#: app/commands.c:198
 msgid "No existing object to paste.\n"
 msgstr "Geen bestaande objecten om te plakken.\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "Kan hulp map niet vinden"
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -181,19 +181,19 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Jan-Willem Harmanny <jwharmanny@hotmail.com>"
 
-#: app/commands.c:549 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:551
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation en de auteurs"
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -201,29 +201,29 @@ msgstr ""
 "Dia is een programma om gestructureerde diagrammen mee te tekenen.\n"
 "Bezoek http://www.lysator.liu.se/~alla/dia voor meer informatie."
 
-#: app/commands.c:591
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Over Dia"
 
-#: app/commands.c:634
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia versie %s door Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:640
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Beheerders: Lars Clausen and Cyrille Chépélov"
 
-#: app/commands.c:644
+#: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Bezoek http://www.lysator.liu.se/~alla/dia voor meer informatie"
 
-#: app/commands.c:649
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Bijdragers:"
 
-#: app/commands.c:761
+#: app/commands.c:762
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -502,11 +502,11 @@ msgstr "Geen object menu"
 msgid "Diagram modified!"
 msgstr "Diagram gewijzigd!"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<geennaam>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -515,11 +515,11 @@ msgstr ""
 "Het diagram '%s'\n"
 "is niet opgeslagen. Aanpassingen nu opslaan?"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "Diagram sluiten"
 
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "Aanpassingen verwerpen"
 
@@ -568,7 +568,7 @@ msgstr "Afbeelding hoogte:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "Op extensie"
 
@@ -580,15 +580,21 @@ msgstr "Open Diagram"
 msgid "Open Options"
 msgstr "Open Opties"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "Bepaals bestandtype:"
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "Bestand bestaat al"
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -597,27 +603,27 @@ msgstr ""
 "Het bestand '%s' bestaat al.\n"
 "Wil je het overschrijven?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nee"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "Diagram opslaan"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "Diagrambestanden comprimeren"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -626,7 +632,7 @@ msgstr ""
 "oorspronkelijke formaat, en versnelt het laden en opslaan. Sommige tekst "
 "bewerkers kunnen gecomprimeerde bestanden niet veranderen."
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -635,11 +641,11 @@ msgstr ""
 "Kon niet bepalen welk export filter\n"
 "te gebruiken om '%s' op te slaan"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "Export Opties"
 
@@ -718,7 +724,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Maak Lijn"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
 msgid "Line"
 msgstr "Lijn"
 
@@ -988,6 +994,7 @@ msgid "Zoom _In"
 msgstr "_Inzoomen"
 
 #: app/menus.c:130
+#, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom in (50%)"
 
@@ -996,6 +1003,7 @@ msgid "Zoom _Out"
 msgstr "_Uitzoomen"
 
 #: app/menus.c:131
+#, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom uit (50%)"
 
@@ -1066,7 +1074,7 @@ msgstr "Inverteren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "Geen"
 
@@ -1082,15 +1090,15 @@ msgstr "Overgankelijk"
 msgid "Same Type"
 msgstr "Zelfde Type"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "Midden"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "Rechts"
 
@@ -1313,42 +1321,52 @@ msgid "/View/_Zoom"
 msgstr "/Beeld/_Zoomen"
 
 #: app/menus.c:361
+#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Beeld/Zoom/400%"
 
 #: app/menus.c:362
+#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Beeld/Zoom/283%"
 
 #: app/menus.c:363
+#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Beeld/Zoom/200%"
 
 #: app/menus.c:364
+#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Beeld/Zoom/141%"
 
 #: app/menus.c:365
+#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Beeld/Zoom/100%"
 
 #: app/menus.c:367
+#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Beeld/Zoom/85%"
 
 #: app/menus.c:368
+#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Beeld/Zoom/70.7%"
 
 #: app/menus.c:369
+#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Beeld/Zoom/50%"
 
 #: app/menus.c:370
+#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Beeld/Zoom/35.4%"
 
 #: app/menus.c:371
+#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Beeld/Zoom/25%"
 
@@ -1610,7 +1628,7 @@ msgstr "NULL tooldata in tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagram Menu"
 
-#: app/menus.c:1164
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1847,11 +1865,11 @@ msgstr "Object eigenschappen:"
 msgid "<Toolbox>/File/Plugins"
 msgstr "<Toolbox>/Bestand/Plugins"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Bestand/_Afsluiten"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "Kan geschiedenis bestand niet openen voor schrijven."
 
@@ -1859,7 +1877,7 @@ msgstr "Kan geschiedenis bestand niet openen voor schrijven."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:320 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr ""
 
@@ -1977,7 +1995,7 @@ msgstr "Object"
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2148,7 +2166,7 @@ msgstr "Fout bij ontleden van punt."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Incorrecte y Punt waarde \"%s\" %f; wordt verworpen."
 
-#: lib/dia_xml.c:854
+#: lib/dia_xml.c:880
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2158,6 +2176,60 @@ msgstr ""
 "openen van bestanden die door eerdere versies van dia zijn gemaakt, zult u "
 "er problemen mee krijgen. Stuur een bericht naar dia-list@gnome.org als u u "
 "deze melding krijgt."
+
+#: lib/font.c:81
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr ""
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: lib/diagtkfontsel.c:207
+#, fuzzy
+msgid "Font name"
+msgstr "Functie naam:"
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:214
+#, fuzzy
+msgid "Preview text"
+msgstr "Voorkomen"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr ""
+
+#: lib/diagtkfontsel.c:325
+#, fuzzy
+msgid "_Style:"
+msgstr "Schaal:"
+
+#: lib/diagtkfontsel.c:331
+#, fuzzy
+msgid "Si_ze:"
+msgstr "Formaat"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+#, fuzzy
+msgid "_Preview:"
+msgstr "Voorkomen"
+
+#: lib/diagtkfontsel.c:1250
+#, fuzzy
+msgid "Font Selection"
+msgstr "Verwijdering"
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2266,169 +2338,172 @@ msgstr "Eind pijl"
 msgid "Text alignment"
 msgstr "Tekst uitlijning"
 
-#: lib/properties.c:79 lib/properties.h:504
-#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
-#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
-#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
+#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
+#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoref.c:163
 msgid "Font"
 msgstr "Lettertype"
 
-#: lib/properties.c:80 lib/properties.h:507
+#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
-#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Lettergrootte"
 
-#: lib/properties.c:81 lib/properties.h:510
+#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
-#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "Tekst kleur"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr "Andere lettertypen..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:319
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kan lettertype familie niet vinden voor %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:362
 msgid "Select font"
 msgstr "Selecteer lettertype"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Massief"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "Gestreept"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "Streep-Stippel"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "Streep-Stippel-Stippel"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "Gestippeld"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "Streep lengte:"
 
-#: lib/widgets.c:979
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "Lijnen"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "Holle Driehoek"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "Opgevulde Driehoek"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "Niet opgevulde Driehoek"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "Opgevulde Diamand"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "Half Hoofd"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "Gestreept Kruis"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "Opgevulde Ellips"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "Holle Ellips"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "Opgevulde stippel"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "Originele dimensie"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "Lege stippel"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "Dubbele holle driehoek"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "Dubbele opgevulde driehoek"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "Opgevulde rechthoek"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "Lege rechthoek"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "Schuin gestreept"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "Integraal symbool"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr "Kraaiepoot"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "Kruis"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1030
 msgid "Filled Concave"
 msgstr "Opgevulde uitholling"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1031
 msgid "Blanked Concave"
 msgstr "Lege uitholling"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "Lengte:"
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "Breedte:"
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "Selecteer plaatje"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "Bladeren"
+
+#: objects/bondgraph/bondgraph.c:39
+#, fuzzy
+msgid "Bond graph objects"
+msgstr "Standaard objecten"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2537,15 +2612,15 @@ msgstr "Horizontaal kantelen"
 msgid "Flip vertical"
 msgstr "Verticaal kantelen"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "Horizontaal Kantelen"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "Verticaal Kantelen"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan pictogram bestand %s voor object type '%s' niet openen."
@@ -2588,17 +2663,17 @@ msgstr "Totaal:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
-#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
-#: objects/UML/realizes.c:340
+#: objects/UML/association.c:686 objects/UML/dependency.c:351
+#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:495
 msgid "Add segment"
 msgstr "Segment toevoegen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
-#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
-#: objects/UML/realizes.c:341
+#: objects/UML/association.c:687 objects/UML/dependency.c:352
+#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
+#: objects/standard/zigzagline.c:496
 msgid "Delete segment"
 msgstr "Segment verwijderen"
 
@@ -2626,9 +2701,9 @@ msgstr "Relatie"
 msgid "Corner radius"
 msgstr "Hoek radius"
 
-#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
-#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
-#: objects/SADT/box.c:136
+#: objects/SADT/box.c:136 objects/flowchart/box.c:149
+#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
+#: objects/flowchart/parallelogram.c:151
 msgid "Text padding"
 msgstr "Tekst opvulling"
 
@@ -2641,20 +2716,20 @@ msgid "Shear angle"
 msgstr "Scheer hoek"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
+#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
+#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Materiaal"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
+#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3776,7 +3851,7 @@ msgid "Vergent type:"
 msgstr "Type begrenzing:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:236
 msgid "Add connection point"
 msgstr "Verbindingspunt toevoegen"
 
@@ -3878,7 +3953,7 @@ msgstr "Activiteit/Gegevens identificatie"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "De identificatie die verschijnt in de rechtsonderhoek van de rechthoek"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:237
 msgid "Delete connection point"
 msgstr "Verwijder verbindingspunt"
 
@@ -3942,13 +4017,48 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "De afbeelding '%s' kon niet gevonden worden.\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:135
+#, fuzzy
+msgid "Arrows"
+msgstr "Pijl omhoog"
+
+#: objects/standard/line.c:140
 msgid "Start point"
 msgstr "Start punt"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:142
 msgid "End point"
 msgstr "Eind punt"
+
+#: objects/standard/line.c:143
+#, fuzzy
+msgid "Line gaps"
+msgstr "Lijnen"
+
+#: objects/standard/line.c:145
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/line.c:147
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/line.c:149
+msgid "Fractional start gap"
+msgstr ""
+
+#: objects/standard/line.c:151
+msgid "Fractional end gap"
+msgstr ""
+
+#: objects/standard/line.c:153
+#, fuzzy
+msgid "Start at object edge"
+msgstr "Standaard objecten"
+
+#: objects/standard/line.c:155
+msgid "End at object edge"
+msgstr ""
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -6283,9 +6393,6 @@ msgstr "UML"
 
 #~ msgid "Function module:"
 #~ msgstr "Functie module:"
-
-#~ msgid "Function name:"
-#~ msgstr "Functie naam:"
 
 #~ msgid "Interfaces"
 #~ msgstr "Interfaces"
