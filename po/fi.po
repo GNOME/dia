@@ -181,7 +181,7 @@ msgstr "Tiedoston '%s' avaus ei onnistunut"
 #.
 #: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "Sami Gerdt, 2000\n\nhttp://gnome-fi.org/"
 
 #: app/commands.c:550 dia.desktop.in.h:1
 #, fuzzy
