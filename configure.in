@@ -123,8 +123,11 @@ PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 if test "$have_xslt" = "true"; then
   XSLT_DIR="xslt"
+
 fi
 AC_SUBST(XSLT_DIR)
+AC_SUBST(XSLT_LIBS)
+AC_SUBST(XSLT_CFLAGS)
 
 # Figure out a prefix for where to find libxslt at runtime.
 AC_ARG_WITH(xslt-prefix, 

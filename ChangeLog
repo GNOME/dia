@@ -15,6 +15,7 @@
 	* lib/dia_svg.c (dia_svg_parse_style): Added case to set center
 	alignment. 
 
+	* configure.in: 
 	* plug-ins/Makefile.am: 
 	* plug-ins/xslt/Makefile.am: 
 	* plug-ins/xslt/xslt.c (dia_plugin_init): 
