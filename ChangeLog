@@ -1,3 +1,10 @@
+2001-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/FS/function.c: 
+	* objects/FS/flow.c: 
+	* objects/FS/flow-ortho.c: 
+	Updated to use properties.
+
 2001-03-03  James Henstridge  <james@daa.com.au>
 
 	* lib/lazyprops.c (__propdlg_build_enum): translate the radio
