@@ -103,7 +103,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     diagram_remove_all_selected(ddisp->diagram, TRUE);
   }
   diagram_select(ddisp->diagram, obj);
-  textedit_activate_object(ddisp, obj, NULL);
 
   tool->obj = obj;
 
@@ -144,6 +143,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 			     DDisplay *ddisp)
 {
   GList *list = NULL;
+  DiaObject *obj = tool->obj;
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
 
@@ -170,6 +170,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   }
   
   highlight_reset_all(ddisp->diagram);
+  textedit_activate_object(ddisp, obj, NULL);
   diagram_update_extents(ddisp->diagram);
   diagram_modified(ddisp->diagram);
 

@@ -1,3 +1,9 @@
+2005-04-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/create_object.c (create_object_button_release): 
+	* app/modify_tool.c (modify_button_release): Correct activations
+	of text edits.
+
 2005-04-05  Simon Kågström  <ska@bth.se>
 
 	* app/app_procs.c: the --show-layers option can now handle numeric

@@ -562,6 +562,30 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   tool->auto_scrolled = auto_scroll;
 }
 
+/** Find the list of objects selected by current rubberbanding. 
+ * The list should be freed after use. */
+static GList *
+find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
+{
+  Rectangle r;
+  r.left = MIN(tool->start_box.x, tool->end_box.x);
+  r.right = MAX(tool->start_box.x, tool->end_box.x);
+  r.top = MIN(tool->start_box.y, tool->end_box.y);
+  r.bottom = MAX(tool->start_box.y, tool->end_box.y);
+  
+  if (prefs.reverse_rubberbanding_intersects) {
+    if (tool->start_box.x > tool->end_box.x) {
+      return
+	layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
+    } else {
+      return
+	layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+    }
+  } else {
+    return
+      layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+  }
+}
 
 static void
 modify_button_release(ModifyTool *tool, GdkEventButton *event,
@@ -667,27 +691,9 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     }
 
     {
-      Rectangle r;
       GList *list, *list_to_free;
-      DiaObject *obj;
 
-      r.left = MIN(tool->start_box.x, tool->end_box.x);
-      r.right = MAX(tool->start_box.x, tool->end_box.x);
-      r.top = MIN(tool->start_box.y, tool->end_box.y);
-      r.bottom = MAX(tool->start_box.y, tool->end_box.y);
-
-      if (prefs.reverse_rubberbanding_intersects) {
-	if (tool->start_box.x > tool->end_box.x) {
-	  list = list_to_free =
-	    layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
-	} else {
-	  list = list_to_free =
-	    layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
-	}
-      } else {
-	list = list_to_free =
-	  layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
-      }
+      list = list_to_free = find_selected_objects(ddisp, tool);
       
       if (selection_style == SELECT_REPLACE &&
           !(event->state & GDK_SHIFT_MASK)) {
@@ -746,8 +752,9 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 	diagram_is_selected(ddisp->diagram, active_obj)) {
       textedit_activate_object(ddisp, obj, NULL);
     } else {
-      if (diagram_get_sorted_selected(ddisp->diagram) != NULL) {
-	textedit_activate_object(ddisp, (DiaObject*)(diagram_get_sorted_selected(ddisp->diagram)->data), NULL);
+      GList *selected = diagram_get_sorted_selected(ddisp->diagram);
+      if (selected != NULL) {
+	textedit_activate_object(ddisp, (DiaObject*)(selected->data), NULL);
       }
     }
     ddisplay_do_update_menu_sensitivity(ddisp);
