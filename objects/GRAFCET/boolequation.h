@@ -26,10 +26,11 @@
 #define __BOOLEQUATION_H
 
 #include <glib.h>
+#include <tree.h>
+#include "dia_xml.h"
 #include "geometry.h"
 #include "render.h"
 #include "charconv.h"
-#include "lazyprops.h"
 
 typedef struct _Block Block;
 typedef struct {
@@ -39,7 +40,7 @@ typedef struct {
 
   Point pos;
 
-  const gchar *value;
+  const utfchar *value;
   
   Block *rootblock;
 
@@ -54,8 +55,10 @@ extern Boolequation *boolequation_create(const utfchar *value, Font *font,
 				       real fontheight, Color *color);
 extern void boolequation_destroy(Boolequation *rcep);
 extern void boolequation_set_value(Boolequation *rcep, const utfchar *value);
+
 extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
 			     Boolequation *rcep);
+
 extern Boolequation *load_boolequation(ObjectNode *obj_node,
 				     const gchar *attrname,
 				     const utfchar *defaultvalue,

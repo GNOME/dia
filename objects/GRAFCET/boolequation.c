@@ -586,7 +586,7 @@ boolequation_destroy(Boolequation *booleq)
 extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
 			     Boolequation *booleq)
 {
-  save_string(obj_node,attrname,(utfchar *)booleq->value);
+  data_add_string(new_attribute(obj_node,attrname),(utfchar *)booleq->value);
 }
 
 Boolequation *
@@ -598,13 +598,17 @@ load_boolequation(ObjectNode *obj_node,
 {
   const utfchar *value = NULL;
   Boolequation *booleq;
+  AttributeNode attr;
 
   init_symbolfont();
 
   booleq = boolequation_create(NULL,font,fontheight,color);
-  value = load_string(obj_node,attrname,(utfchar *)defaultvalue);
+  attr = object_find_attribute(obj_node,attrname);
+  if (attr) value = data_string(attribute_first_data(attr));
+  else value = (utfchar *)defaultvalue;
   if (value) boolequation_set_value(booleq,value);
   g_free((utfchar *)value);
+
   return booleq;
 }
  

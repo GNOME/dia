@@ -107,7 +107,6 @@ ObjectType action_type =
   &action_type_ops       /* ops */
 };
 
-
 static ObjectOps action_ops = {
   (DestroyFunc)         action_destroy,
   (DrawFunc)            action_draw,

@@ -203,6 +203,14 @@ prop_copy(Property *dest, Property *src)
     PROP_VALUE_POINTARRAY(*dest).pts =g_memdup(PROP_VALUE_POINTARRAY(*src).pts,
 			sizeof(Point) * PROP_VALUE_POINTARRAY(*src).npts);
     break;
+  case PROP_TYPE_ENUMARRAY:
+  case PROP_TYPE_INTARRAY:
+    g_free(PROP_VALUE_INTARRAY(*dest).vals);
+    PROP_VALUE_INTARRAY(*dest).nvals = PROP_VALUE_INTARRAY(*src).nvals;
+    PROP_VALUE_INTARRAY(*dest).vals =
+      g_memdup(PROP_VALUE_INTARRAY(*src).vals,
+               sizeof(gint) * PROP_VALUE_INTARRAY(*src).nvals);
+    break;
   case PROP_TYPE_BEZPOINTARRAY:
     g_free(PROP_VALUE_BEZPOINTARRAY(*dest).pts);
     PROP_VALUE_BEZPOINTARRAY(*dest).npts = PROP_VALUE_BEZPOINTARRAY(*src).npts;
@@ -265,6 +273,10 @@ prop_free(Property *prop)
     break;
   case PROP_TYPE_POINTARRAY:
     g_free(PROP_VALUE_POINTARRAY(*prop).pts);
+    break;
+  case PROP_TYPE_INTARRAY:
+  case PROP_TYPE_ENUMARRAY:
+    g_free(PROP_VALUE_INTARRAY(*prop).vals);
     break;
   case PROP_TYPE_BEZPOINTARRAY:
     g_free(PROP_VALUE_BEZPOINTARRAY(*prop).pts);
@@ -392,6 +404,8 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
+  case PROP_TYPE_INTARRAY:
+  case PROP_TYPE_ENUMARRAY:
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_ENDPOINTS:
@@ -473,6 +487,8 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     break;
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
+  case PROP_TYPE_INTARRAY:
+  case PROP_TYPE_ENUMARRAY:
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_ENDPOINTS:
@@ -596,6 +612,17 @@ prop_load(Property *prop, ObjectNode obj_node)
     PROP_VALUE_TEXT(*prop).string = text_get_string_copy(text);
     text_destroy(text);
     PROP_VALUE_TEXT(*prop).enabled = TRUE;
+    break;
+  case PROP_TYPE_INTARRAY:
+  case PROP_TYPE_ENUMARRAY:
+    PROP_VALUE_INTARRAY(*prop).nvals = attribute_num_data(attr);
+    g_free(PROP_VALUE_INTARRAY(*prop).vals);
+    PROP_VALUE_INTARRAY(*prop).vals = g_new(gint,
+                                            PROP_VALUE_INTARRAY(*prop).nvals);
+    for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++) {
+      PROP_VALUE_INTARRAY(*prop).vals[i] = data_int(data);
+      data = data_next(data);
+    }
     break;
   case PROP_TYPE_POINTARRAY:
     PROP_VALUE_POINTARRAY(*prop).npts = attribute_num_data(attr);
@@ -742,6 +769,11 @@ prop_save(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_POINT:
     data_add_point(attr, &PROP_VALUE_POINT(*prop));
+    break;
+  case PROP_TYPE_ENUMARRAY:
+  case PROP_TYPE_INTARRAY:
+    for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++)
+      data_add_int(attr, &PROP_VALUE_INTARRAY(*prop).vals[i]);
     break;
   case PROP_TYPE_POINTARRAY:
     for (i = 0; i < PROP_VALUE_POINTARRAY(*prop).npts; i++)
@@ -937,6 +969,15 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
              &struct_member(obj,offsets[j].offset,Point),
              sizeof(PROP_VALUE_ENDPOINTS(props[i])));
       break;
+    case PROP_TYPE_INTARRAY:
+    case PROP_TYPE_ENUMARRAY:
+      g_free(PROP_VALUE_INTARRAY(props[i]).vals);
+      PROP_VALUE_INTARRAY(props[i]).nvals =
+	struct_member(obj, offsets[j].offset2, gint);
+      PROP_VALUE_INTARRAY(props[i]).vals =
+	g_memdup(struct_member(obj, offsets[j].offset, gint *),
+		 sizeof(gint) * PROP_VALUE_INTARRAY(props[i]).nvals);
+      break;
     case PROP_TYPE_POINTARRAY:
       g_free(PROP_VALUE_POINTARRAY(props[i]).pts);
       PROP_VALUE_POINTARRAY(props[i]).npts =
@@ -1060,6 +1101,15 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
       memcpy(&struct_member(obj,offsets[j].offset,Point),
              &PROP_VALUE_ENDPOINTS(props[i]),
              sizeof(PROP_VALUE_ENDPOINTS(props[i])));
+      break;
+    case PROP_TYPE_ENUMARRAY:
+    case PROP_TYPE_INTARRAY:
+      g_free(struct_member(obj, offsets[j].offset, gint *));
+      struct_member(obj, offsets[j].offset, gint *) =
+	g_memdup(PROP_VALUE_INTARRAY(props[i]).vals,
+		 sizeof(Point) * PROP_VALUE_INTARRAY(props[i]).nvals);
+      struct_member(obj, offsets[j].offset2, gint) =
+	PROP_VALUE_INTARRAY(props[i]).nvals;
       break;
     case PROP_TYPE_POINTARRAY:
       g_free(struct_member(obj, offsets[j].offset, Point *));

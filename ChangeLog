@@ -1,5 +1,11 @@
 2001-06-11  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* objects/GRAFCET/boolequation.[ch]: zap lazyprops.
+	* objects/GRAFCET/step.c: ditto.
+
+	* lib/properties.[ch]: two more non-visible types
+	(PROP_TYPE_ENUMARRAY and PROP_TYPE_INTARRAY).
+	
 	* charconv.[ch]: more functions from unicode.h.
 	get_local_charset() wasn't working properly, fixed now.
 	A subtle crashbug in charconv_utf8_to_local8() nailed (thanks to 

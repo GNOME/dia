@@ -49,7 +49,10 @@ typedef enum {
   PROP_TYPE_CHAR,
   PROP_TYPE_BOOL,
   PROP_TYPE_INT,
+  PROP_TYPE_INTARRAY,
   PROP_TYPE_ENUM,
+  PROP_TYPE_ENUMARRAY,
+  PROP_TYPE_HANDLEARRAY,
   PROP_TYPE_REAL,
   PROP_TYPE_STRING,
   PROP_TYPE_POINT,
@@ -99,6 +102,10 @@ struct _Property {
     gchar char_data;
     gboolean bool_data;
     gint int_data;
+    struct {
+      gint *vals;
+      guint nvals;
+    } intarray_data;
     real real_data;
     gchar *string_data; /* malloc'd string owned by Property structure */
     Point point_data;
@@ -146,7 +153,9 @@ struct _PropEnumData {
 #define PROP_VALUE_CHAR(prop)          ((prop).d.char_data)
 #define PROP_VALUE_BOOL(prop)          ((prop).d.bool_data)
 #define PROP_VALUE_INT(prop)           ((prop).d.int_data)
+#define PROP_VALUE_INTARRAY(prop)      ((prop).d.intarray_data)
 #define PROP_VALUE_ENUM(prop)          ((prop).d.int_data)
+#define PROP_VALUE_ENUMARRAY(prop)     ((prop).d.intarray_data)
 #define PROP_VALUE_REAL(prop)          ((prop).d.real_data)
 #define PROP_VALUE_STRING(prop)        ((prop).d.string_data)
 #define PROP_VALUE_POINT(prop)         ((prop).d.point_data)
