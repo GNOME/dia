@@ -1,3 +1,7 @@
+1999-08-11  Robert Brady  <rwb197@ecs.soton.ac.uk>
+
+	* configure.in: Added "en_GB" to ALL_LINGUAS.
+
 1999-08-04  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* menus.c
