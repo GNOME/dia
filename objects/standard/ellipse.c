@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -41,7 +40,6 @@
 #define DEFAULT_BORDER 0.15
 
 typedef struct _Ellipse Ellipse;
-typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
 
 struct _Ellipse {
   Element element;
@@ -66,16 +64,6 @@ typedef struct _EllipseProperties {
   real dashlength;
 } EllipseProperties;
 
-struct _EllipseDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-};
-
- 
-static EllipseDefaultsDialog *ellipse_defaults_dialog;
-static EllipseProperties default_properties;
-
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
 			   Renderer *interactive_renderer);
@@ -97,16 +85,14 @@ static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *ellipse_get_defaults(void);
-static void ellipse_apply_defaults(void);
 
 static ObjectTypeOps ellipse_type_ops =
 {
   (CreateFunc) ellipse_create,
   (LoadFunc)   ellipse_load,
   (SaveFunc)   ellipse_save,
-  (GetDefaultsFunc)   ellipse_get_defaults,
-  (ApplyDefaultsFunc) ellipse_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType ellipse_type =
@@ -178,60 +164,6 @@ ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
   object_set_props_from_offsets(&ellipse->element.object, 
                                 ellipse_offsets, props);
   ellipse_update_data(ellipse);
-}
-
-static void
-ellipse_apply_defaults(void)
-{
-  default_properties.show_background = 
-    gtk_toggle_button_get_active(ellipse_defaults_dialog->show_background);
-}
- 
-static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.show_background = 1;
-    defaults_initialized = 1;
-  }
-}
-
-static GtkWidget *
-ellipse_get_defaults(void)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *checkbox;
- 
-  if (ellipse_defaults_dialog == NULL) {
-
-    init_default_values();
- 
-    ellipse_defaults_dialog = g_new(EllipseDefaultsDialog, 1);
- 
-    vbox = gtk_vbox_new(FALSE, 5);
-    ellipse_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    ellipse_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
- 
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
- 
-  gtk_toggle_button_set_active(ellipse_defaults_dialog->show_background, 
-			       default_properties.show_background);
- 
-  return ellipse_defaults_dialog->vbox;
 }
 
 static real
@@ -364,8 +296,6 @@ ellipse_create(Point *startpoint,
   Object *obj;
   int i;
 
-  init_default_values();
-
   ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
@@ -381,7 +311,6 @@ ellipse_create(Point *startpoint,
   ellipse->border_width =  attributes_get_default_linewidth();
   ellipse->border_color = attributes_get_foreground();
   ellipse->inner_color = attributes_get_background();
-  ellipse->show_background = default_properties.show_background;
   attributes_get_default_line_style(&ellipse->line_style,
 				    &ellipse->dashlength);
 

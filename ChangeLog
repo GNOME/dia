@@ -1,5 +1,15 @@
 2002-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/standard/image.c: 
+	* objects/standard/arc.c: 
+	* objects/standard/box.c: 
+	* objects/standard/zigzagline.c: 
+	* objects/standard/polyline.c: 
+	* objects/standard/line.c: 
+	* objects/standard/ellipse.c: 
+	* objects/standard/polygon.c: 
+	* objects/standard/beziergon.c: Removing vestigal GTK stuff.
+
 	* lib/object_defaults.c (dia_object_default_create): 
 	* lib/proplist.c: 
 	* lib/properties.h: 

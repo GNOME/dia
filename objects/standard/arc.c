@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -83,16 +82,14 @@ static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
-/* static GtkWidget *arc_get_defaults();
-   static void arc_apply_defaults(); */
 
 static ObjectTypeOps arc_type_ops =
 {
   (CreateFunc) arc_create,
   (LoadFunc)   arc_load,
   (SaveFunc)   arc_save,
-  (GetDefaultsFunc)   NULL /*arc_get_defaults*/,
-  (ApplyDefaultsFunc) NULL /*arc_apply_defaults*/
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType arc_type =

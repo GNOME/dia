@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -76,8 +75,6 @@ static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
 static Object *zigzagline_load(ObjectNode obj_node, int version,
 			       const char *filename);
-/* static GtkWidget *zigzagline_get_defaults();
-   static void zigzagline_apply_defaults(); */
 
 static ObjectTypeOps zigzagline_type_ops =
 {

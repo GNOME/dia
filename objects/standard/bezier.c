@@ -79,8 +79,6 @@ static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 static Object *bezierline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
-/* static GtkWidget *bezierline_get_defaults();
-   static void bezierline_apply_defaults(); */
 
 static ObjectTypeOps bezierline_type_ops =
 {
@@ -281,7 +279,6 @@ bezierline_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { .3, .3 };
 
-  /*bezierline_init_defaults();*/
   bezierline = g_new0(Bezierline, 1);
   bez = &bezierline->bez;
   obj = &bez->object;

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -42,7 +41,6 @@
 
 typedef struct _Box Box;
 typedef struct _BoxProperties BoxProperties;
-typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
 
 struct _Box {
   Element element;
@@ -68,17 +66,6 @@ struct _BoxProperties {
   real corner_radius;
 };
 
-struct _BoxDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-  GtkSpinButton *corner_radius;
-};
-
-
-static BoxDefaultsDialog *box_defaults_dialog;
-static BoxProperties default_properties;
-
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
 		       Renderer *interactive_renderer);
@@ -101,16 +88,13 @@ static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *box_get_defaults(void);
-static void box_apply_defaults(void);
-
 static ObjectTypeOps box_type_ops =
 {
   (CreateFunc) box_create,
   (LoadFunc)   box_load,
   (SaveFunc)   box_save,
-  (GetDefaultsFunc)   box_get_defaults,
-  (ApplyDefaultsFunc) box_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType box_type =
@@ -187,78 +171,6 @@ box_set_props(Box *box, GPtrArray *props)
   object_set_props_from_offsets(&box->element.object, 
                                 box_offsets, props);
   box_update_data(box);
-}
-
-static void
-box_apply_defaults()
-{
-  default_properties.corner_radius = gtk_spin_button_get_value_as_float(box_defaults_dialog->corner_radius);
-  default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
-}
-
-static void
-init_default_values() {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.show_background = 1;
-    defaults_initialized = 1;
-  }
-}
-
-static GtkWidget *
-box_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *checkbox;
-  GtkWidget *corner_radius;
-  GtkAdjustment *adj;
-
-  if (box_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    box_defaults_dialog = g_new(BoxDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    box_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    box_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Corner rounding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    corner_radius = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(corner_radius), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(corner_radius), TRUE);
-    box_defaults_dialog->corner_radius = GTK_SPIN_BUTTON(corner_radius);
-    gtk_box_pack_start(GTK_BOX (hbox), corner_radius, TRUE, TRUE, 0);
-    gtk_widget_show (corner_radius);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(box_defaults_dialog->show_background, 
-			       default_properties.show_background);
-  gtk_spin_button_set_value(box_defaults_dialog->corner_radius, 
-			    default_properties.corner_radius);
-
-  return box_defaults_dialog->vbox;
 }
 
 static real
@@ -341,50 +253,11 @@ box_draw(Box *box, Renderer *renderer)
   
     /* Problem:  How do we make the fill with rounded corners? */
     if (box->corner_radius > 0) {
-      /* Not including until people have had a chance to change any renderers*/
-#ifdef NEW_RENDER_OPS
       renderer->ops->fill_rounded_rect(renderer,
 				       &elem->corner,
 				       &lr_corner,
 				       &box->inner_color,
 				       box->corner_radius);
-#else
-	Point start, end, center;
-
-	radius = box->corner_radius;
-	radius = MIN(radius, elem->width/2);
-	radius = MIN(radius, elem->height/2);
-	start.x = center.x = elem->corner.x+radius;
-	end.x = lr_corner.x-radius;
-	start.y = elem->corner.y;
-	end.y = lr_corner.y;
-	renderer->ops->fill_rect(renderer, &start, &end, &box->inner_color);
-
-	center.y = elem->corner.y+radius;
-	renderer->ops->fill_arc(renderer, &center, 
-	2.0*radius, 2.0*radius,
-	90.0, 180.0, &box->inner_color);
-	center.x = end.x;
-	renderer->ops->fill_arc(renderer, &center, 
-	2.0*radius, 2.0*radius,
-	0.0, 90.0, &box->inner_color);
-
-	start.x = elem->corner.x;
-	start.y = elem->corner.y+radius;
-	end.x = lr_corner.x;
-	end.y = center.y = lr_corner.y-radius;
-	renderer->ops->fill_rect(renderer, &start, &end, &box->inner_color);
-
-	center.y = lr_corner.y-radius;
-	center.x = elem->corner.x+radius;
-	renderer->ops->fill_arc(renderer, &center, 
-	2.0*radius, 2.0*radius,
-	180.0, 270.0, &box->inner_color);
-	center.x = lr_corner.x-radius;
-	renderer->ops->fill_arc(renderer, &center, 
-	2.0*radius, 2.0*radius,
-	270.0, 360.0, &box->inner_color);
-#endif
     } else {
       renderer->ops->fill_rect(renderer, 
 			       &elem->corner,
@@ -404,45 +277,6 @@ box_draw(Box *box, Renderer *renderer)
 			     &lr_corner, 
 			     &box->border_color,
 			     box->corner_radius);
-    /*
-      Point start, end, center;
-
-      radius = box->corner_radius;
-      radius = MIN(radius, elem->width/2);
-      radius = MIN(radius, elem->height/2);
-      start.x = center.x = elem->corner.x+radius;
-      end.x = lr_corner.x-radius;
-      start.y = end.y = elem->corner.y;
-      renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
-      start.y = end.y = lr_corner.y;
-      renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
-
-      center.y = elem->corner.y+radius;
-      renderer->ops->draw_arc(renderer, &center, 
-      2.0*radius, 2.0*radius,
-      90.0, 180.0, &box->border_color);
-      center.x = end.x;
-      renderer->ops->draw_arc(renderer, &center, 
-      2.0*radius, 2.0*radius,
-      0.0, 90.0, &box->border_color);
-
-      start.y = elem->corner.y+radius;
-      start.x = end.x = elem->corner.x;
-      end.y = center.y = lr_corner.y-radius;
-      renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
-      start.x = end.x = lr_corner.x;
-      renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
-
-      center.y = lr_corner.y-radius;
-      center.x = elem->corner.x+radius;
-      renderer->ops->draw_arc(renderer, &center, 
-      2.0*radius, 2.0*radius,
-      180.0, 270.0, &box->border_color);
-      center.x = lr_corner.x-radius;
-      renderer->ops->draw_arc(renderer, &center, 
-      2.0*radius, 2.0*radius,
-      270.0, 360.0, &box->border_color);
-    */
   } else {
     renderer->ops->draw_rect(renderer, 
 			     &elem->corner,
@@ -523,7 +357,7 @@ box_create(Point *startpoint,
   Object *obj;
   int i;
 
-  init_default_values();
+  //  init_default_values();
 
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
@@ -540,10 +374,8 @@ box_create(Point *startpoint,
   box->border_width =  attributes_get_default_linewidth();
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
-  box->show_background = default_properties.show_background;
   attributes_get_default_line_style(&box->line_style, &box->dashlength);
-  box->corner_radius = default_properties.corner_radius;
-  
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {

@@ -24,7 +24,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -44,7 +43,6 @@
 #define DEFAULT_WIDTH 0.15
 
 typedef struct _BeziergonProperties BeziergonProperties;
-typedef struct _BeziergonDefaultsDialog BeziergonDefaultsDialog;
 
 typedef struct _Beziergon {
   BezierShape bezier;
@@ -60,17 +58,6 @@ typedef struct _Beziergon {
 struct _BeziergonProperties {
   gboolean show_background;
 };
-
-struct _BeziergonDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-};
-
-
-static BeziergonDefaultsDialog *beziergon_defaults_dialog;
-static BeziergonProperties default_properties;
-
 
 static void beziergon_move_handle(Beziergon *beziergon, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -98,16 +85,13 @@ static Object *beziergon_load(ObjectNode obj_node, int version,
 static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
 					  Point *clickedpoint);
 
-static GtkWidget *beziergon_get_defaults(void);
-static void beziergon_apply_defaults(void);
-
 static ObjectTypeOps beziergon_type_ops =
 {
   (CreateFunc)beziergon_create,   /* create */
   (LoadFunc)  beziergon_load,     /* load */
   (SaveFunc)  beziergon_save,      /* save */
-  (GetDefaultsFunc)   beziergon_get_defaults,
-  (ApplyDefaultsFunc) beziergon_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 static ObjectType beziergon_type =
@@ -181,60 +165,6 @@ beziergon_set_props(Beziergon *beziergon, GPtrArray *props)
 				props);
   beziergon_update_data(beziergon);
 }
-
-static void
-beziergon_apply_defaults(void)
-{
-  default_properties.show_background = 
-    gtk_toggle_button_get_active(beziergon_defaults_dialog->show_background);
-}
-
-static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.show_background = 1;
-    defaults_initialized = 1;
-  }
-}
-
-static GtkWidget *
-beziergon_get_defaults(void)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *checkbox;
-
-  if (beziergon_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    beziergon_defaults_dialog = g_new(BeziergonDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    beziergon_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    beziergon_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(beziergon_defaults_dialog->show_background, 
-			       default_properties.show_background);
-
-  return beziergon_defaults_dialog->vbox;
-}
-
 
 static real
 beziergon_distance_from(Beziergon *beziergon, Point *point)
@@ -324,9 +254,6 @@ beziergon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
-  init_default_values();
-
-  /*beziergon_init_defaults();*/
   beziergon = g_new0(Beziergon, 1);
   bezier = &beziergon->bezier;
   obj = &bezier->object;
@@ -363,7 +290,6 @@ beziergon_create(Point *startpoint,
   beziergon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&beziergon->line_style,
 				    &beziergon->dashlength);
-  beziergon->show_background = default_properties.show_background;
 
   beziergon_update_data(beziergon);
 

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -50,7 +49,6 @@ Fix crashes:)
 #define DEFAULT_WIDTH 0.15
 
 typedef struct _PolygonProperties PolygonProperties;
-typedef struct _PolygonDefaultsDialog PolygonDefaultsDialog;
 
 typedef struct _Polygon {
   PolyShape poly;
@@ -67,14 +65,6 @@ struct _PolygonProperties {
   gboolean show_background;
 };
 
-struct _PolygonDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-};
-
-
-static PolygonDefaultsDialog *polygon_defaults_dialog;
 static PolygonProperties default_properties;
 
 
@@ -103,16 +93,13 @@ static Object *polygon_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polygon_get_object_menu(Polygon *polygon, Point *clickedpoint);
 
-static GtkWidget *polygon_get_defaults(void);
-static void polygon_apply_defaults(void);
-
 static ObjectTypeOps polygon_type_ops =
 {
   (CreateFunc)polygon_create,   /* create */
   (LoadFunc)  polygon_load,     /* load */
   (SaveFunc)  polygon_save,      /* save */
-  (GetDefaultsFunc)   polygon_get_defaults,
-  (ApplyDefaultsFunc) polygon_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL,
 };
 
 static ObjectType polygon_type =
@@ -185,59 +172,6 @@ polygon_set_props(Polygon *polygon, GPtrArray *props)
   object_set_props_from_offsets(&polygon->poly.object, 
                                 polygon_offsets, props);
   polygon_update_data(polygon);
-}
-
-static void
-polygon_apply_defaults()
-{
-  default_properties.show_background = 
-    gtk_toggle_button_get_active(polygon_defaults_dialog->show_background);
-}
-
-static void
-init_default_values() {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.show_background = 1;
-    defaults_initialized = 1;
-  }
-}
-
-static GtkWidget *
-polygon_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *checkbox;
-
-  if (polygon_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    polygon_defaults_dialog = g_new(PolygonDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    polygon_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    polygon_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(polygon_defaults_dialog->show_background, 
-			       default_properties.show_background);
-
-  return polygon_defaults_dialog->vbox;
 }
 
 
@@ -316,8 +250,6 @@ polygon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
-  init_default_values();
-
   /*polygon_init_defaults();*/
   polygon = g_new0(Polygon, 1);
   poly = &polygon->poly;
@@ -346,7 +278,6 @@ polygon_create(Point *startpoint,
   polygon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&polygon->line_style,
 				    &polygon->dashlength);
-  polygon->show_background = default_properties.show_background;
 
   polygon_update_data(polygon);
 

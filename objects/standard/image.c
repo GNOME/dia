@@ -19,7 +19,6 @@
 
 #include <assert.h>
 #include <string.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #ifdef HAVE_UNIST_H
 #include <unistd.h>
@@ -43,7 +42,6 @@
 #define DEFAULT_HEIGHT 2.0
 
 typedef struct _Image Image;
-typedef struct _ImageDefaultsDialog ImageDefaultsDialog;
 
 struct _Image {
   Element element;
@@ -73,33 +71,6 @@ typedef struct _ImageProperties {
   gboolean keep_aspect;
 } ImageProperties;
 
-struct _ImagePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaLineStyleSelector *line_style;
-
-  DiaFileSelector *file;
-
-  GtkToggleButton *draw_border;
-  GtkToggleButton *keep_aspect;
-
-  Image *image;
-};
-
-struct _ImageDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-
-  DiaFileSelector *file;
-
-  GtkToggleButton *draw_border;
-  GtkToggleButton *keep_aspect;
-};
-
-static ImageDefaultsDialog *image_defaults_dialog;
 static ImageProperties default_properties;
 
 static real image_distance_from(Image *image, Point *point);
@@ -123,16 +94,14 @@ static void image_set_props(Image *image, GPtrArray *props);
 
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
 static Object *image_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *image_get_defaults(void);
-static void image_apply_defaults(void);
 
 static ObjectTypeOps image_type_ops =
 {
   (CreateFunc) image_create,
   (LoadFunc)   image_load,
   (SaveFunc)   image_save,
-  (GetDefaultsFunc)   image_get_defaults,
-  (ApplyDefaultsFunc) image_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType image_type =
@@ -237,73 +206,6 @@ image_init_defaults(void) {
   default_properties.draw_border = 0;
   default_properties.keep_aspect = 1;
   defaults_initialized = 1;
-}
-
-static void
-image_apply_defaults(void)
-{
-/*  default_properties.file = (dia_file_selector_get_file(image_defaults_dialog->file); */
-  default_properties.draw_border = gtk_toggle_button_get_active(image_defaults_dialog->draw_border);
-  default_properties.keep_aspect = gtk_toggle_button_get_active(image_defaults_dialog->keep_aspect);
-}
-
-static GtkWidget *
-image_get_defaults(void)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *file;
-  GtkWidget *checkbox;
-
-  if (image_defaults_dialog == NULL) {
-    image_init_defaults();
-
-    image_defaults_dialog = g_new(ImageDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    image_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Image file:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    file = dia_file_selector_new();
-    image_defaults_dialog->file = DIAFILESELECTOR(file);
-    gtk_box_pack_start (GTK_BOX (hbox), file, TRUE, TRUE, 0);
-    gtk_widget_show (file);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Keep aspect ratio:"));
-    image_defaults_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Show border:"));
-    image_defaults_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_file_selector_set_file(image_defaults_dialog->file, default_properties.file);
-  gtk_toggle_button_set_active(image_defaults_dialog->draw_border, 
-			       default_properties.draw_border);
-  gtk_toggle_button_set_active(image_defaults_dialog->keep_aspect, 
-			       default_properties.keep_aspect);
-
-  return image_defaults_dialog->vbox;
 }
 
 static real
@@ -500,61 +402,6 @@ image_update_data(Image *image)
   element_update_handles(elem);
 }
 
-#ifdef INITIAL_IMAGE
-/* It really should block the creation of the image object.  But then how
-   would you stretch it, you can't grab hold of it when the dialog closes.
-   Also, I'd like to get the path from the diagram.  Oh, and have the 
-   image actually change.
-*/
-static GtkFileSelection *dialog;
-  
-static void
-image_browse_ok(GtkWidget *widget, gpointer data) {
-  Image *image = (Image *)data;
-  Element *elem = &image->element;
-
-  image->file = gtk_file_selection_get_filename(dialog);
-  image->image = dia_image_load(image->file);
-
-  if (image->image) {
-    elem->width = (elem->width*(float)dia_image_width(image->image))/
-      (float)dia_image_height(image->image);
-  }
-
-  message_warning(image->file);
-
-  image_update_data(image);
-
-  gtk_widget_hide(GTK_WIDGET(dialog));
-}
-
-static void
-image_browse_initial(Image *image)
-{
-  if (dialog == NULL) {
-    dialog =
-      GTK_FILE_SELECTION(gtk_file_selection_new(_("Select image file")));
-
-    if (dialog->help_button != NULL)
-      gtk_widget_hide(dialog->help_button);
-    
-    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
-			(GtkSignalFunc) image_browse_ok,
-			image);
-    
-    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
-			      (GtkSignalFunc) gtk_widget_hide,
-			      GTK_OBJECT(dialog));
-  }
-
-  /*
-  gtk_file_selection_set_filename(dialog,
-				  gtk_entry_get_text(fs->entry));
-  */
-  
-  gtk_widget_show(GTK_WIDGET(dialog));
-}
-#endif
 
 static Object *
 image_create(Point *startpoint,
@@ -604,9 +451,6 @@ image_create(Point *startpoint,
   } else {
     image->file = g_strdup("");
     image->image = NULL;
-#ifdef INITIAL_IMAGE
-    image_browse_initial(image);
-#endif
   }
 
   image->draw_border = default_properties.draw_border;
