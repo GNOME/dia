@@ -546,18 +546,18 @@ help_about_callback(GtkWidget *widget, gpointer data)
   if (!logo) {
       g_snprintf(str, sizeof(str), "%s/dia_logo.png", DATADIR);
       logo = gdk_imlib_load_image(str);
-      gdk_imlib_render(logo, logo->rgb_width, logo->rgb_height);
   }
 
   if (logo) {
-    frame = gtk_frame_new (NULL);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-    gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
-    gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
+      gdk_imlib_render(logo, logo->rgb_width, logo->rgb_height);
+      frame = gtk_frame_new (NULL);
+      gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+      gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
+      gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
-    gpixmap = gtk_pixmap_new(logo->pixmap, logo->shape_mask);
+      gpixmap = gtk_pixmap_new(logo->pixmap, logo->shape_mask);
 
-    gtk_container_add (GTK_CONTAINER(frame), gpixmap);
+      gtk_container_add (GTK_CONTAINER(frame), gpixmap);
   }
 
   frame = gtk_frame_new (NULL);

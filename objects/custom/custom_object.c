@@ -1084,7 +1084,7 @@ custom_create(Point *startpoint,
 
   init_default_values();
 
-  custom = g_malloc(sizeof(Custom));
+  custom = g_new0(Custom, 1);
   elem = &custom->element;
   obj = (Object *) custom;
   
@@ -1155,7 +1155,7 @@ custom_copy(Custom *custom)
   
   elem = &custom->element;
   
-  newcustom = g_malloc(sizeof(Custom));
+  newcustom = g_new0(Custom, 1);
   newelem = &newcustom->element;
   newobj = (Object *) newcustom;
 
@@ -1236,7 +1236,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  custom = g_malloc(sizeof(Custom));
+  custom = g_new0(Custom, 1);
   elem = &custom->element;
   obj = (Object *) custom;
   

@@ -709,6 +709,11 @@ draw_string(RendererCGM *renderer,
     const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
     const gint maxappendchunk = 255 - 2 - 1;
 
+    /* write a text colour element ... */
+    write_elhead(renderer->file, 5, 14, 3);
+    write_colour(renderer->file, colour);
+    putc(0, renderer->file);
+
     switch (alignment) {
     case ALIGN_LEFT:
 	break;

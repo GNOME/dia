@@ -699,6 +699,10 @@ bezier_add_lines(DDisplay *ddisp,
   point_sub(&v, &points[0]);
   y = v;
   v_len_sq = point_dot(&v,&v);
+  if (isnan(v_len_sq)) {
+    g_warning("v_len_sq is NaN while calculating bezier curve!");
+    return;
+  }
   if (v_len_sq < 0.000001)
     v_len_sq = 0.000001;
   point_scale(&y, point_dot(&u,&v)/v_len_sq);

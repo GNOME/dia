@@ -1,3 +1,22 @@
+2000-01-23  James Henstridge  <james@daa.com.au>
+
+	* app/commands.c (help_about_callback): don't die if can't load
+	logo image.
+
+	* app/render_gdk.c (bezier_add_lines): sanity check to try to weed
+	out NaN's when performing bezier curve subdivision.
+
+	* objects/custom/custom_object.c: initialise memory of Custom structs
+	to zero.
+
+	* app/render_svg.c (draw_image): added image support to the XML
+	output filter.  The image is just referenced, rather than being
+	included inline, so if you copy the SVG file somewhere else, you
+	may need to move the images or fix up the links.
+
+	* plug-ins/cgm/cgm.c (draw_string): output a text colour element,
+	so the text is not just displayed in black all the time.
+
 2000-01-15  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in: fixed libpopt test so we wont try to build with

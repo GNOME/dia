@@ -751,72 +751,21 @@ draw_image(RendererSVG *renderer,
 	   real width, real height,
 	   DiaImage image)
 {
-  g_warning("haven't done images yet ...");
-  /*
-  int img_width, img_height;
-  int v;
-  int                 x, y;
-  unsigned char      *ptr;
-  real ratio;
-  guint8 *rgb_data;
+  xmlNodePtr node;
+  char buf[512];
 
-  img_width = dia_image_width(image);
-  img_height = dia_image_height(image);
 
-  rgb_data = dia_image_rgb_data(image);
-  
-  ratio = height/width;
+  node = xmlNewChild(renderer->root, NULL, "image", NULL);
 
-  fprintf(renderer->file, "gs\n");
-  if (1) { / * Color output * /
-    fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
-    fprintf(renderer->file, "/grays %i string def\n", img_width);
-    fprintf(renderer->file, "/npixls 0 def\n");
-    fprintf(renderer->file, "/rgbindx 0 def\n");
-    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
-    fprintf(renderer->file, "%f %f sc\n", width, height);
-    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
-    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
-    fprintf(renderer->file, "false 3 colorimage\n");
-    fprintf(renderer->file, "\n");
-    ptr = rgb_data;
-    for (y = 0; y < img_width; y++) {
-      for (x = 0; x < img_height; x++) {
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
-      }
-      fprintf(renderer->file, "\n");
-    }
-  } else { / * Grayscale * /
-    fprintf(renderer->file, "/pix %i string def\n", img_width);
-    fprintf(renderer->file, "/grays %i string def\n", img_width);
-    fprintf(renderer->file, "/npixls 0 def\n");
-    fprintf(renderer->file, "/rgbindx 0 def\n");
-    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
-    fprintf(renderer->file, "%f %f sc\n", width, height);
-    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
-    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
-    fprintf(renderer->file, "image\n");
-    fprintf(renderer->file, "\n");
-    ptr = rgb_data;
-    for (y = 0; y < img_height; y++) {
-      for (x = 0; x < img_width; x++) {
-	v = (int)(*ptr++);
-	v += (int)(*ptr++);
-	v += (int)(*ptr++);
-	v /= 3;
-	fprintf(renderer->file, "%02x", v);
-      }
-      fprintf(renderer->file, "\n");
-    }
-  }
-  / *  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);* /
-  fprintf(renderer->file, "gr\n");
-  fprintf(renderer->file, "\n");
-  */
+  g_snprintf(buf, sizeof(buf), "%g", point->x);
+  xmlSetProp(node, "x", buf);
+  g_snprintf(buf, sizeof(buf), "%g", point->y);
+  xmlSetProp(node, "y", buf);
+  g_snprintf(buf, sizeof(buf), "%g", width);
+  xmlSetProp(node, "width", buf);
+  g_snprintf(buf, sizeof(buf), "%g", height);
+  xmlSetProp(node, "height", buf);
+  xmlSetProp(node, "xlink:href", dia_image_filename(image));
 }
 
 static void
