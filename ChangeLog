@@ -1,5 +1,10 @@
 2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
 
+	* objects/custom/custom_object.c: (custom_copy): don't call
+	text_get_attrbutes if the shape has no text...
+
+2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
+
 	* lib/properties.h: added comments next to the PROP_TYPEs to tell
 	which C Property subclass to use.
 	

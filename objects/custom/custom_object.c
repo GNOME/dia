@@ -1284,10 +1284,10 @@ custom_copy(Custom *custom)
   newcustom->flip_h = custom->flip_h;
   newcustom->flip_v = custom->flip_v;
 
-  if (custom->info->has_text)
+  if (custom->info->has_text) {
     newcustom->text = text_copy(custom->text);
-  text_get_attributes(newcustom->text,&newcustom->attrs);
-
+    text_get_attributes(newcustom->text,&newcustom->attrs);
+  } 
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
 
   for (i = 0; i < custom->info->nconnections; i++) {
