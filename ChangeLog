@@ -1,5 +1,10 @@
 2002-07-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/font.c (dia_font_scaled_ascent, dia_font_scaled_descent):
+	Kludge to make ascent and descent work for empty strings.  Won't
+	work when using non-ASCII fonts.  Better would be to get a
+	PangoFont and ask directly.
+
 	* configure.in: Simple define of GETTEXT_PACKAGE, and some updates
 	of the init stuff.
 

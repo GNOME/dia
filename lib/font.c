@@ -103,13 +103,13 @@ static void
 dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) {
   switch (fam) {
   case DIA_FONT_SANS :
-    pango_font_description_set_family(pfd, "sans");
+    pango_font_description_set_family(pfd, "Sans");
     break;
   case DIA_FONT_SERIF :
-    pango_font_description_set_family(pfd, "serif");
+    pango_font_description_set_family(pfd, "Serif");
     break;
   case DIA_FONT_MONOSPACE :
-    pango_font_description_set_family(pfd, "monospace");
+    pango_font_description_set_family(pfd, "Monospace");
     break;
   default :
           /* Pango does allow fonts without a name */
@@ -509,23 +509,32 @@ real
 dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
                       real zoom_factor)
 {
-    real top,bline,bottom;
-
+  real top,bline,bottom;
+  if (string[0] == '\0') {
+    /* This hack won't work for fonts that don't cover ASCII */
+    dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
+			      0,&top,&bline,&bottom);
+  } else {
     dia_font_vertical_extents(string,font,height,zoom_factor,
-                              0,&top,&bline,&bottom);
-
-    return bline-top;
+			      0,&top,&bline,&bottom);
+  }
+  return bline-top;
 }
 
 real dia_font_scaled_descent(const char* string, DiaFont* font,
                             real height, real zoom_factor)
 {
-    real top,bline,bottom;
+  real top,bline,bottom;
 
+  if (string[0] == '\0') {
+    /* This hack won't work for fonts that don't cover ASCII */
+    dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
+			      0,&top,&bline,&bottom);
+  } else {
     dia_font_vertical_extents(string,font,height,zoom_factor,
                               0,&top,&bline,&bottom);
-
-    return bottom-bline;
+  }
+  return bottom-bline;
 }
 
 PangoLayout*
