@@ -24,6 +24,8 @@
 
 	* configure.in: Slightly more informative error message for isinf.
 
+	* dia.spec (Requires): Require libxml2 rather than libxml.
+
 2003-02-28  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Circuit/hjumper.png:

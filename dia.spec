@@ -11,7 +11,7 @@ Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
 URL: http://www.lysator.liu.se/~alla/dia/dia.html
 BuildRoot: /var/tmp/%{name}-%{ver}-root
 
-Requires: libxml >= 2.3.9 gtk2 pango >= 1.1.5 freetype >= 2.0.9
+Requires: libxml2 >= 2.3.9 gtk2 pango >= 1.1.5 freetype >= 2.0.9
 BuildRequires: libxml2-devel >= 2.3.9 gtk2-devel pango-devel >= 1.1.5 
 BuildRequires: freetype-devel >= 2.0.9 intltool > 0.21
 
