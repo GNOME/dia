@@ -97,6 +97,9 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
   
 }
 
+/** Select objects that are directly connected to the currently selected
+ * objects, but only in the active layer.
+ */
 void
 select_connected_callback(gpointer data, guint action, GtkWidget *widget)
 {
@@ -116,7 +119,8 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
     for (i = 0; i < obj->num_handles; i++) {
       Handle *handle = obj->handles[i];
       
-      if (handle->connected_to != NULL) {
+      if (handle->connected_to != NULL &&
+	handle->connected_to->object->parent_layer == dia->data->active_layer) {
 	if (!diagram_is_selected(dia, handle->connected_to->object)) {
           diagram_select(dia, handle->connected_to->object);
 	}
@@ -135,7 +139,8 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
       for (; conns != NULL; conns = g_list_next(conns)) {
         DiaObject *obj2 = (DiaObject *)conns->data;
 
-	if (!diagram_is_selected(dia, obj2)) {
+	if (obj2->parent_layer == dia->data->active_layer
+	    && !diagram_is_selected(dia, obj2)) {
           diagram_select(dia, obj2);
 	}
       }      
@@ -157,7 +162,8 @@ select_transitively(Diagram *dia, DiaObject *obj)
   for (i = 0; i < obj->num_handles; i++) {
     Handle *handle = obj->handles[i];
     
-    if (handle->connected_to != NULL) {
+    if (handle->connected_to != NULL &&
+	handle->connected_to->object->parent_layer == dia->data->active_layer) {
       if (!diagram_is_selected(dia, handle->connected_to->object)) {
 	diagram_select(dia, handle->connected_to->object);
 	newly_selected = g_list_prepend(newly_selected, handle->connected_to->object);
@@ -172,7 +178,8 @@ select_transitively(Diagram *dia, DiaObject *obj)
     for (; conns != NULL; conns = g_list_next(conns)) {
       DiaObject *obj2 = (DiaObject *)conns->data;
 
-      if (!diagram_is_selected(dia, obj2)) {
+      if (obj2->parent_layer == dia->data->active_layer
+	  && !diagram_is_selected(dia, obj2)) {
 	diagram_select(dia, obj2);
 	newly_selected = g_list_prepend(newly_selected, obj2);
       }
@@ -185,6 +192,9 @@ select_transitively(Diagram *dia, DiaObject *obj)
   }
 }
 
+/** Select objects that are in any way connected with a currently selected
+ * object, but only in the active layer.
+ */
 void
 select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
 {

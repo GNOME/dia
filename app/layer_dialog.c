@@ -287,17 +287,29 @@ dia_layer_select_callback(GtkWidget *widget, gpointer data)
 {
   DiaLayerWidget *lw;
   lw = DIA_LAYER_WIDGET(widget);
+  printf("Selecting layer %s off = %d\n", lw->layer->name, lw->connect_off);
 
   diagram_remove_all_selected(lw->dia, TRUE);
   diagram_update_extents(lw->dia);
   data_set_active_layer(lw->dia->data, lw->layer);
   diagram_add_update_all(lw->dia);
   diagram_flush(lw->dia);
+
+  if (lw->connect_off) { /* If the user wants this off, it becomes so */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), FALSE);
+  } else {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), TRUE);
+  }
 }
 
 static void
 dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
 {
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
+  printf("Deselecting layer %s on = %d\n", lw->layer->name, lw->connect_on);
+  /** Set to on if the user has requested so. */
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), 
+			       lw->connect_on);
 }
 
 
@@ -599,6 +611,14 @@ layer_dialog_set_diagram(Diagram *dia)
 
 /******* DiaLayerWidget: *****/
 
+/* The connectability buttons don't quite behave the way they should.
+ * The shift-click behaviour messes up the active layer.
+ * To fix this, we need to rework the code so that the setting of
+ * connect_on and connect_off is not tied to the button toggling,
+ * but determined by what caused it (creation, user selection,
+ * shift-selection).
+ */
+
 static void
 dia_layer_widget_unrealize(GtkWidget *widget)
 {
@@ -720,14 +740,22 @@ dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
 				     gpointer userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
-  printf("Shifted: %d\n", shifted);
   if (shifted) {
     shifted = FALSE;
     dia_layer_widget_exclusive_connectable(lw);
   } else {
     lw->layer->connectable = gtk_toggle_button_get_active(widget);
   }
+  if (lw->layer == lw->dia->data->active_layer) {
+    lw->connect_off = !gtk_toggle_button_get_active(widget);
+    if (lw->connect_off) lw->connect_on = FALSE;
+  } else {
+    lw->connect_on = gtk_toggle_button_get_active(widget);
+    if (lw->connect_on) lw->connect_off = FALSE;
+  }
   gtk_widget_queue_draw(GTK_WIDGET(lw));
+  diagram_add_update_all(lw->dia);
+  diagram_flush(lw->dia);
 }
 
 static void
@@ -735,7 +763,6 @@ dia_layer_widget_visible_toggled(GtkToggleButton *widget,
 				 gpointer userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
-  printf("Shifted: %d\n", shifted);
   if (shifted) {
     shifted = FALSE;
     dia_layer_widget_exclusive_visible(lw);
@@ -761,6 +788,9 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->dia = NULL;
   lw->layer = NULL;
   lw->edit_dialog = NULL;
+
+  lw->connect_on = FALSE;
+  lw->connect_off = FALSE;
  
   lw->visible = visible = 
     dia_toggle_button_new_with_images("visible.png",
@@ -774,7 +804,6 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 		   dia_layer_widget_visible_toggled, lw);
   gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
   gtk_widget_show(visible);
-
 
   lw->connectable = connectable = 
     dia_toggle_button_new_with_images("connectable.png", 
@@ -837,7 +866,12 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
   
   widget = GTK_WIDGET ( gtk_type_new (dia_layer_widget_get_type ()));
   dia_layer_set_layer(DIA_LAYER_WIDGET(widget), dia, layer);
-  
+
+  /* These may get toggled when the button is set without the widget being
+   * selected first. */
+  DIA_LAYER_WIDGET(widget)->connect_on = FALSE;
+  DIA_LAYER_WIDGET(widget)->connect_off = FALSE;
+
   return widget;
 }
 
@@ -845,7 +879,6 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
 void
 dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 {
-
   widget->dia = dia;
   widget->layer = layer;
 

@@ -1675,7 +1675,6 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
   g_value_init(prop, G_TYPE_INT);
   gtk_widget_style_get_property(GTK_WIDGET(button), "focus-padding", prop);
   i = g_value_get_int(prop);
-  printf("focus-padding %d\n", i);
   g_value_set_int(prop, 0);
 
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);

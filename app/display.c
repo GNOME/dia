@@ -517,7 +517,8 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
   int i;
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
-  if (active_layer && ddisp->show_cx_pts) {
+  if (ddisp->show_cx_pts && 
+      obj->parent_layer != NULL && obj->parent_layer->connectable) {
     for (i=0;i<obj->num_connections;i++) {
       connectionpoint_draw(obj->connections[i], ddisp);
     }

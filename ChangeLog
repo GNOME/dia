@@ -1,3 +1,21 @@
+2004-06-07  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.c (dia_toggle_button_new_with_images): Remove
+	debugging info.
+
+	* lib/diagramdata.c (new_layer): Initialize connectibility.
+
+	* app/display.c (ddisplay_obj_render): 
+	* app/diagram.c (diagram_find_closest_connectionpoint): Take
+	connectibility into account.
+
+	* app/layer_dialog.h (struct _DiaLayerWidget): 
+	* app/layer_dialog.c:
+	Connectible toggle updates, now works fairly well.
+
+	* app/select.c (select_transitive_callback): Make sure we're only
+	selecting in the same layer.
+
 2004-06-04  Lars Clausen  <lars@raeder.dk>
 
 	* app/pixmaps/Makefile.am: Also install connectable images.

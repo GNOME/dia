@@ -62,6 +62,15 @@ struct _DiaLayerWidget
   GtkWidget *label;
 
   EditLayerDialog *edit_dialog;
+
+  /** If true, the user has set this layers connectivity to on
+   * while it was not selected.
+   */
+  gboolean connect_on; 
+  /** If true, the user has set this layers connectivity to off
+   * while it was selected.
+   */
+  gboolean connect_off;
 };
 
 struct _EditLayerDialog {

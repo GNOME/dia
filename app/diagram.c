@@ -772,8 +772,22 @@ diagram_find_closest_connectionpoint(Diagram *dia,
 				     Point *pos,
 				     DiaObject *notthis)
 {
-  return layer_find_closest_connectionpoint(dia->data->active_layer,
-					    closest, pos, notthis);
+  real dist = 100000000.0;
+  int i;
+  for (i=0;i<dia->data->layers->len;i++) {
+    Layer *layer = (Layer*)g_ptr_array_index(dia->data->layers, i);
+    ConnectionPoint *this_cp;
+    real this_dist;
+    if (layer->connectable) {
+      this_dist = layer_find_closest_connectionpoint(layer,
+						     &this_cp, pos, notthis);
+      if (this_dist < dist) {
+	dist = this_dist;
+	*closest = this_cp;
+      }
+    }
+  }
+  return dist;
 }
 
 void
