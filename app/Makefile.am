@@ -209,12 +209,14 @@ run_dia.sh: Makefile.am
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/cgm/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/pstricks/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/dxf/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/xfig/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/svg/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/shape/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/wmf/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/python/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/wpg/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../plug-ins/hpgl/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/EML/.libs >> run_dia.sh
 	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
 	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh

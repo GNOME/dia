@@ -1,3 +1,14 @@
+2001-05-08  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xfig/xfig-export.c: 
+	* plug-ins/xfig/xfig-common.c: 
+	* plug-ins/xfig/xfig-import.c: 
+	* plug-ins/xfig/xfig.c: 
+	* plug-ins/xfig/xfig.h: 
+	* app/Makefile.am: Added support for exporting to Fig format
+	(except splits, which are less powerful in Fig).  Some refactoring
+	along the way.
+
 2001-05-02  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/debug_objects.py : added another
