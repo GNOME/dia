@@ -1,12 +1,12 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Slovenian translation file for Dia.
+# Copyright (C) 2000 Free Software Foundation, Inc.
 # Andraz Tori <andraz.tori1@guest.arnes.si>, 2000.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.84\n"
-"POT-Creation-Date: 2000-06-13 03:14+0200\n"
-"PO-Revision-Date: 2000-05-14 21:35+0200\n"
+"Project-Id-Version: dia 0.86\n"
+"POT-Creation-Date: 2000-06-25 19:28+0200\n"
+"PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -269,8 +269,7 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Predmeti/Poravnaj Navpièno/Skupaj"
 
 #. paper size
-#: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
-#: app/paginate_gnomeprint.c:202
+#: app/diapagelayout.c:133
 msgid "Paper Size"
 msgstr "Velikost papirja"
 
@@ -301,8 +300,7 @@ msgid "Right:"
 msgstr "Desno:"
 
 #. Scaling
-#: app/diapagelayout.c:266 app/paginate_gnomeprint.c:178
-#: app/paginate_gnomeprint.c:183
+#: app/diapagelayout.c:266
 msgid "Scaling"
 msgstr "Poveèava"
 
@@ -1343,17 +1341,17 @@ msgstr "/Orodja/"
 msgid "Diagram Menu"
 msgstr "Menu Diagramov"
 
-#: app/paginate_gnomeprint.c:158
+#: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Natisni Diagram"
-
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
-msgid "Printer"
-msgstr "Tiskalnik"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Izberi Tiskalnik"
+
+#: app/paginate_psprint.c:206
+msgid "Printer"
+msgstr "Tiskalnik"
 
 #: app/paginate_psprint.c:219
 msgid "File"
@@ -1545,12 +1543,12 @@ msgstr "Opozorilo"
 msgid "Error"
 msgstr "Napaka"
 
-#: lib/plug-ins.c:192
+#: lib/plug-ins.c:201
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Ne morem sklepati o pravilni poti za `%s'"
 
-#: lib/plug-ins.c:197
+#: lib/plug-ins.c:206
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1559,22 +1557,22 @@ msgstr ""
 "Vtièa `%s' nisem uspel nalo¾iti\n"
 "%s"
 
-#: lib/plug-ins.c:208
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Nisem na¹el inicializacijske funkcije v `%s'"
 
-#: lib/plug-ins.c:235
+#: lib/plug-ins.c:244
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Vtièa %s ni mogoèe odstraniti"
 
-#: lib/plug-ins.c:288
+#: lib/plug-ins.c:297
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' ni imenik"
 
-#: lib/plug-ins.c:294
+#: lib/plug-ins.c:303
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Ne morem odpreti `%s'"
@@ -1677,20 +1675,17 @@ msgid "Multivalue"
 msgstr "Veè vrednosti"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
-#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
+#: objects/ER/relationship.c:296
 msgid "Border width:"
 msgstr "©irina roba:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
-#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
+#: objects/ER/relationship.c:307
 msgid "Foreground color:"
 msgstr "Barva ospredja:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
-#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
+#: objects/ER/relationship.c:315
 msgid "Background color:"
 msgstr "Barva ozadja:"
 
@@ -1961,11 +1956,9 @@ msgstr "   Izmeri"
 #: objects/SADT/box.c:205 objects/SADT/box.c:247
 #: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 #: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
-#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
-#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
-#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
-#: objects/standard/textobj.c:271
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:345
+#: objects/flowchart/diamond.c:325 objects/flowchart/ellipse.c:325
+#: objects/flowchart/parallelogram.c:350 objects/standard/textobj.c:263
 msgid "Font:"
 msgstr "Pisava:"
 
@@ -1977,10 +1970,9 @@ msgstr "Pisava:"
 #: objects/SADT/box.c:206 objects/SADT/box.c:248
 #: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
-#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
-#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
-#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:394 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:361
 msgid "Font size:"
 msgstr "Velikost pisave:"
 
@@ -2080,8 +2072,6 @@ msgstr "GRAFCET ALI/IN vergent"
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
 #: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
 #: objects/chronogram/chronoref.c:256 objects/chronogram/chronoref.c:321
-#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
-#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Barva pisave:"
 
@@ -2118,10 +2108,9 @@ msgid "SADT Arrow"
 msgstr "SADT Pu¹èica"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
-#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
-#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:331
+#: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
+#: objects/flowchart/parallelogram.c:336
 msgid "Text padding:"
 msgstr "Polnjenje besedila:"
 
@@ -2226,7 +2215,7 @@ msgstr "Prepreèi operacije"
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
 msgid "Attributes"
-msgstr "Lastnosti"
+msgstr "Atributi"
 
 #: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
 #: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
@@ -2535,49 +2524,47 @@ msgstr "Prevrni vodoravno"
 msgid "Flip vertical"
 msgstr "Prevrni navpièno"
 
-#: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
-#: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
-#: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
-#: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:219
+#: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
+#: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
+#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
+#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Ri¹i ozadje"
 
-#: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
+#: objects/custom/custom_object.c:372 objects/standard/textobj.c:252
 msgid "Alignment:"
 msgstr "Poravnava:"
 
-#: objects/custom/custom_object.c:1337
+#: objects/custom/custom_object.c:1338
 msgid "Flip Horizontal"
 msgstr "Prevrni Vodoravno"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1339
 msgid "Flip Vertical"
 msgstr "Prevrni NavpièNo"
 
-#: objects/flowchart/box.c:165 objects/standard/box.c:149
+#: objects/flowchart/box.c:163 objects/standard/box.c:149
 msgid "Corner radius"
 msgstr "Radij vogla"
 
-#: objects/flowchart/box.c:167
+#: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
+#: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
 msgid "Text padding"
 msgstr "Polnjenje besedila"
 
-#: objects/flowchart/box.c:318 objects/standard/box.c:231
+#: objects/flowchart/box.c:317 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Zaokro¾anje vogalov:"
-
-#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
-#: objects/flowchart/parallelogram.c:296
-msgid "Line style:"
-msgstr "Stil èrte:"
 
 #: objects/flowchart/flowchart.c:32
 msgid "Flowchart objects"
 msgstr "Predmeti pretoènega diagrama"
 
-#: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
+#: objects/flowchart/parallelogram.c:165
+msgid "Shear angle"
+msgstr "Mejni kot"
+
+#: objects/flowchart/parallelogram.c:322
 msgid "Shear angle:"
 msgstr "Mejni kot:"
 
@@ -2661,11 +2648,11 @@ msgstr "Zaèeta toèka"
 msgid "End point"
 msgstr "Konèna toèka"
 
-#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Dodaj Vogal"
 
-#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:515 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Zbri¹i Vogal"
 
@@ -2673,7 +2660,7 @@ msgstr "Zbri¹i Vogal"
 msgid "Standard objects"
 msgstr "Obièajni objekti"
 
-#: objects/standard/textobj.c:282
+#: objects/standard/textobj.c:274
 msgid "Fontsize:"
 msgstr "Velikost pisave:"
 
@@ -2712,6 +2699,9 @@ msgstr "Izvozni filter za TeX Pstricks"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makri"
+
+#~ msgid "Line style:"
+#~ msgstr "Stil èrte:"
 
 #~ msgid ""
 #~ "Could not determine which import filter\n"
