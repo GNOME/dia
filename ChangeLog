@@ -10,7 +10,6 @@
 	
 	* app/Makefile.am:
 	Remove custom lib from DIA_LIB_PATH.
-	
 
 1999-10-14  James Henstridge  <james@daa.com.au>
 
