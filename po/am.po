@@ -1,14 +1,14 @@
 # Translations into the Amharic Language.
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# This file is distributed under the same license as the dia package.
+# This file is distributed under the same license as the atomix package.
 # Ge'ez Frontier Foundation <locales@geez.org>, 2002.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia\n"
+"Project-Id-Version: atomix\n"
 "POT-Creation-Date: 2003-01-06 05:49+0100\n"
-"PO-Revision-Date: 2003-01-31 13:43+EDT\n"
+"PO-Revision-Date: 2003-02-03 10:16+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -4292,11 +4292,11 @@ msgstr ""
 
 #: objects/UML/message.c:143
 msgid "Message:"
-msgstr "መልእክት፦"
+msgstr "መልዕክት፦"
 
 #: objects/UML/message.c:145
 msgid "Message type:"
-msgstr "መልእክት ዓይነት፦"
+msgstr "መልዕክት ዓይነት፦"
 
 #: objects/UML/object.c:145
 msgid "Explicit state"
@@ -5942,7 +5942,7 @@ msgstr "ሁኔታን ስቀምጥ"
 
 #: sheets/SDL.sheet.in.h:15
 msgid "Send message"
-msgstr "መልእክትን ላክ"
+msgstr "መልዕክትን ላክ"
 
 #: sheets/SDL.sheet.in.h:16
 msgid "Service Type Reference"
