@@ -31,11 +31,7 @@
 #endif
 #include <locale.h>
 
-#ifdef GNOME
-#  include <gnome.h>
-#else
-#  include <gtk/gtk.h>
-#endif
+#include <gtk/gtk.h>
 
 #include "intl.h"
 #include "widgets.h"
@@ -45,6 +41,7 @@
 #include "dia_dirs.h"
 #include "diagramdata.h"
 #include "paper.h"
+#include "interface.h"
 
 #ifdef G_OS_WIN32
 #include <io.h> /* open, close */
@@ -493,23 +490,6 @@ prefs_load(void)
   pretty_formated_xml = prefs.pretty_formated_xml;
 }
 
-static gint
-prefs_okay(GtkWidget *widget, gpointer data)
-{
-  gint ret = prefs_apply(widget,data);
-  gtk_widget_hide(widget);
-  return ret;
-}
-
-static gint
-prefs_apply(GtkWidget *widget, gpointer data)
-{
-  prefs_update_prefs_from_dialog();
-  prefs_save();
-  diagram_redraw_all();
-  return 1;
-}
-
 static void
 prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			  char *ptr)
@@ -671,14 +651,29 @@ prefs_get_property_widget(DiaPrefData *data)
   return widget;
 }
 
+static gint
+prefs_respond(GtkWidget *widget, 
+                   gint       response_id,
+                   gpointer   data)
+{
+  if (   response_id == GTK_RESPONSE_APPLY 
+      || response_id == GTK_RESPONSE_OK) {
+    prefs_update_prefs_from_dialog();
+    prefs_save();
+    diagram_redraw_all();
+  }
+
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_hide(widget);
+
+  return 0;
+}
+
 static void
 prefs_create_dialog(void)
 {
   GtkWidget *notebook_page;
   GtkWidget *label;
-#ifndef GNOME
-  GtkWidget *button;
-#endif
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
   GtkWidget *table;
@@ -687,65 +682,23 @@ prefs_create_dialog(void)
   if (prefs_dialog != NULL)
     return;
 
-#ifdef GNOME
-  prefs_dialog = gnome_dialog_new(_("Preferences"),
-				  GNOME_STOCK_BUTTON_OK,
-				  GNOME_STOCK_BUTTON_APPLY,
-				  GNOME_STOCK_BUTTON_CLOSE, NULL);
-  gnome_dialog_set_default(GNOME_DIALOG(prefs_dialog), 1);
-
-  dialog_vbox = GNOME_DIALOG(prefs_dialog)->vbox;
-#else
-  prefs_dialog = gtk_dialog_new();
-  gtk_window_set_title (GTK_WINDOW (prefs_dialog), _("Preferences"));
-  gtk_container_set_border_width (GTK_CONTAINER (prefs_dialog), 2);
+  prefs_dialog = gtk_dialog_new_with_buttons(
+			_("Preferences"),
+			GTK_WINDOW(interface_get_toolbox_shell()),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+			GTK_STOCK_OK, GTK_RESPONSE_OK,
+			NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG(prefs_dialog), GTK_RESPONSE_OK);
   gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);
 
   dialog_vbox = GTK_DIALOG (prefs_dialog)->vbox;
-#endif
   
   gtk_window_set_role (GTK_WINDOW (prefs_dialog), "preferences_window");
 
-
-#ifdef GNOME
-  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 0,
-				     GTK_SIGNAL_FUNC(prefs_okay),
-				     GTK_OBJECT(prefs_dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 1,
-				     GTK_SIGNAL_FUNC(prefs_apply),
-				     GTK_OBJECT(prefs_dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 2,
-				     GTK_SIGNAL_FUNC(gtk_widget_hide),
-				     GTK_OBJECT(prefs_dialog));
-#else
-  button = gtk_button_new_with_label( _("OK") );
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			     GTK_SIGNAL_FUNC(prefs_okay),
-			     GTK_OBJECT(prefs_dialog));
-  gtk_widget_show (button);
-
-  button = gtk_button_new_with_label( _("Apply") );
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(prefs_apply),
-		      NULL);
-  gtk_widget_show (button);
-
-  button = gtk_button_new_with_label( _("Close") );
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			     GTK_SIGNAL_FUNC(gtk_widget_hide),
-			     GTK_OBJECT(prefs_dialog));
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
-#endif
+  g_signal_connect(G_OBJECT (prefs_dialog), "response",
+                   G_CALLBACK (prefs_respond), NULL);
 
   gtk_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);

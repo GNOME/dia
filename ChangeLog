@@ -1,5 +1,12 @@
 2003-02-01  Hans Breuer  <hans@breuer.org>
 
+	* app/preferences.c app/pagesetup.c :
+	the last two dialogs with 'old' button order finally
+	are converted to gtk2, no GnomeDialog in all of Dia 
+	anymore :-) 
+
+2003-02-01  Hans Breuer  <hans@breuer.org>
+
 	* app/filedlg.c : don't try to use a button as
 	'overwrite-file-dialog'-parent, use the FileSelDialog
 	instead

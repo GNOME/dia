@@ -23,11 +23,7 @@
 #include <config.h>
 #endif
 
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
 
 #include <math.h>
 
@@ -40,13 +36,30 @@ struct _PageSetup {
   Diagram *dia;
   GtkWidget *window;
   GtkWidget *paper;
-  GtkWidget *ok, *apply, *close;
+  gboolean changed;
 };
 
 static void pagesetup_changed  (GtkWidget *wid, PageSetup *ps);
-static void pagesetup_ok       (GtkWidget *wid, PageSetup *ps);
 static void pagesetup_apply    (GtkWidget *wid, PageSetup *ps);
-static void pagesetup_close    (GtkWidget *wid, PageSetup *ps);
+
+static gint
+pagesetup_respond(GtkWidget *widget, 
+                   gint       response_id,
+                   gpointer   data)
+{
+  PageSetup *ps = (PageSetup *)data;
+
+  if (   response_id == GTK_RESPONSE_APPLY 
+      || response_id == GTK_RESPONSE_OK) {
+    if (ps->changed)
+      pagesetup_apply(widget, ps);
+  }
+
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_destroy(ps->window);
+
+  return 0;
+}
 
 void
 create_page_setup_dlg(Diagram *dia)
@@ -56,37 +69,21 @@ create_page_setup_dlg(Diagram *dia)
 
   ps = g_new(PageSetup, 1);
   ps->dia = dia;
-#ifdef GNOME
-  ps->window = gnome_dialog_new(_("Page Setup"), GNOME_STOCK_BUTTON_OK,
-				GNOME_STOCK_BUTTON_APPLY,
-				GNOME_STOCK_BUTTON_CLOSE, NULL);
-  vbox = GNOME_DIALOG(ps->window)->vbox;
-  gnome_dialog_set_sensitive(GNOME_DIALOG(ps->window), 1, FALSE);
-  gnome_dialog_set_default(GNOME_DIALOG(ps->window), 2);
-#else
-  ps->window = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW(ps->window), _("Page Setup"));
+  ps->window = gtk_dialog_new_with_buttons(
+			_("Page Setup"),
+			GTK_WINDOW (ddisplay_active()->shell),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+			GTK_STOCK_OK, GTK_RESPONSE_OK,
+			NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG(ps->window), GTK_RESPONSE_OK);
   vbox = GTK_DIALOG(ps->window)->vbox;
+  gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
+  ps->changed = FALSE;
 
-  /* setup buttons */
-  ps->ok = gtk_button_new_with_label(_("OK"));
-  GTK_WIDGET_SET_FLAGS(ps->ok, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(ps->window)->action_area),
-		    ps->ok);
-  gtk_widget_show(ps->ok);
-  ps->apply = gtk_button_new_with_label(_("Apply"));
-  GTK_WIDGET_SET_FLAGS(ps->apply, GTK_CAN_DEFAULT);
-  gtk_widget_set_sensitive(ps->apply, FALSE);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(ps->window)->action_area),
-		    ps->apply);
-  gtk_widget_show(ps->apply);
-  ps->close = gtk_button_new_with_label(_("Close"));
-  GTK_WIDGET_SET_FLAGS(ps->close, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(ps->window)->action_area),
-		    ps->close);
-  gtk_widget_grab_default(ps->close);
-  gtk_widget_show(ps->close);
-#endif
+  g_signal_connect(G_OBJECT (ps->window), "response",
+                   G_CALLBACK (pagesetup_respond), ps);
 
   /* destroy ps when the dialog is closed */
   gtk_object_set_data_full(GTK_OBJECT(ps->window), "pagesetup", ps,
@@ -116,21 +113,6 @@ create_page_setup_dlg(Diagram *dia)
 
   gtk_signal_connect(GTK_OBJECT(ps->paper), "changed",
 		     GTK_SIGNAL_FUNC(pagesetup_changed), ps);
-#ifdef GNOME
-  gnome_dialog_button_connect(GNOME_DIALOG(ps->window), 0,
-			      GTK_SIGNAL_FUNC(pagesetup_ok), ps);
-  gnome_dialog_button_connect(GNOME_DIALOG(ps->window), 1,
-			      GTK_SIGNAL_FUNC(pagesetup_apply), ps);
-  gnome_dialog_button_connect(GNOME_DIALOG(ps->window), 2,
-			      GTK_SIGNAL_FUNC(pagesetup_close), ps);
-#else
-  gtk_signal_connect(GTK_OBJECT(ps->ok), "clicked",
-		     GTK_SIGNAL_FUNC(pagesetup_ok), ps);
-  gtk_signal_connect(GTK_OBJECT(ps->apply), "clicked",
-		     GTK_SIGNAL_FUNC(pagesetup_apply), ps);
-  gtk_signal_connect(GTK_OBJECT(ps->close), "clicked",
-		     GTK_SIGNAL_FUNC(pagesetup_close), ps);
-#endif
 
   gtk_widget_show(ps->window);
 }
@@ -145,11 +127,8 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
   gfloat cur_scaling;
 
   /* set sensitivity on apply button */
-#ifdef GNOME
-  gnome_dialog_set_sensitive(GNOME_DIALOG(ps->window), 1, TRUE);
-#else
-  gtk_widget_set_sensitive(ps->apply, TRUE);
-#endif
+  gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, TRUE);
+  ps->changed = TRUE;
 
   dwidth  = ps->dia->data->extents.right - ps->dia->data->extents.left;
   dheight = ps->dia->data->extents.bottom - ps->dia->data->extents.top;
@@ -178,21 +157,6 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
   }
 
   DIA_PAGE_LAYOUT(ps->paper)->block_changed = FALSE;
-}
-
-static void
-pagesetup_ok(GtkWidget *wid, PageSetup *ps)
-{
-#ifdef GNOME
-  /* Can't easily get to the widget:( */
-  /* Always apply for Gnome till we have a better system */
-  /*  if (gnome_dialog_get_sensitive(GNOME_DIALOG(ps->window), 1))*/
-    pagesetup_apply(wid, ps);
-#else
-  if (GTK_WIDGET_SENSITIVE(ps->apply))
-    pagesetup_apply(wid, ps);
-#endif
-  pagesetup_close(wid, ps);
 }
 
 /* This affects the actual setup.  It should only be called when
@@ -228,19 +192,11 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 				     &ps->dia->data->paper.height);
 
   /* set sensitivity on apply button */
-#ifdef GNOME
-  gnome_dialog_set_sensitive(GNOME_DIALOG(ps->window), 1, FALSE);
-#else
-  gtk_widget_set_sensitive(ps->apply, FALSE);
-#endif
+  gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
+  ps->changed = FALSE;
+
   /* update diagram -- this is needed to reposition page boundaries */
   diagram_set_modified(ps->dia, TRUE);
   diagram_add_update_all(ps->dia);
   diagram_flush(ps->dia);
-}
-
-static void
-pagesetup_close(GtkWidget *wid, PageSetup *ps)
-{
-  gtk_widget_destroy(ps->window);
 }
