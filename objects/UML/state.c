@@ -31,6 +31,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "message.h"
 
 #include "pixmaps/state.xpm"
 
@@ -118,17 +119,8 @@ static ObjectOps state_ops = {
   (SetPropsFunc)        state_set_props
 };
 
-static PropEnumData prop_state_type_data[] = {
-  { N_("Normal"), STATE_NORMAL },
-  { N_("Begin"), STATE_BEGIN },
-  { N_("End"), STATE_END },
-  { NULL, 0 }
-};
-
 static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "state_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-  N_("State Type"), NULL, prop_state_type_data },
       /* see below for the next field.
 
       Warning: break this and you'll get angry UML users after you. */
@@ -155,7 +147,6 @@ static PropOffset state_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
-  { "state_type", PROP_TYPE_ENUM, offsetof(State, state_type) },
   
       /* HACK: this is to recover files from 0.88.1 and older.
       if sizeof(enum) != sizeof(int), we're toast.             -- CC
@@ -382,8 +373,14 @@ state_destroy(State *state)
 static Object *
 state_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&state_type,
-                                      obj_node,version,filename);
+  State *obj = (State*)object_load_using_properties(&state_type,
+					     obj_node,version,filename);
+  if (obj->state_type != STATE_NORMAL) {
+    /* Would like to create a state_term instead, but making the connections
+     * is a pain */
+    message_warning(_("This diagram uses the State object for initial/final states.\nThat option will go away in future versions.\nPlease use the Initial/Final State object instead\n"));
+  }
+  return (Object *)obj;
 }
 
 

@@ -1,5 +1,8 @@
 2002-08-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/state.c (state_load): Warnings about using State
+	object for initial/final states.
+
 	* plug-ins/cgm/cgm.c (init_fonts): Proper Pango interfacing.
 
 2002-08-12  Lars Clausen  <lrclause@cs.uiuc.edu>
