@@ -1,3 +1,8 @@
+2004-02-18  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/disp_callbacks.c (popup_object_menu): append a menu item to 
+	display properties.
+
 2004-02-17  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/app_procs.c: declare rc properly with the proper #ifdef

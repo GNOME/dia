@@ -43,6 +43,7 @@
 #include "diamenu.h"
 #include "preferences.h"
 #include "scroll_tool.h"
+#include "commands.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -157,6 +158,31 @@ create_object_menu(DiaMenu *dia_menu)
   dia_menu->app_data_free = dia_menu_free;
 }
 
+/*
+  This add a Properties... menu item to the GtkMenu passed, at the
+  end and set the callback to raise de properties dialog
+
+  pass TRUE in separator if you want to insert a separator before the poperty
+  menu item.
+*/
+static void 
+add_properties_menu_item (GtkMenu *menu, gboolean separator) 
+{
+  GtkWidget *menu_item = NULL;
+
+  if (separator) {
+    menu_item = gtk_menu_item_new();
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+    gtk_widget_show(menu_item);
+  }
+
+  menu_item = gtk_menu_item_new_with_label(_("Properties..."));
+  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+  gtk_widget_show(menu_item);
+}
+
+
 static void
 popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 {
@@ -164,7 +190,6 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   Object *obj;
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
-  GtkWidget *menu_item;
   GList *selected_list;
   static GtkWidget *no_menu = NULL;
   int i;
@@ -194,9 +219,10 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   }
 
   if (dia_menu != NULL) {
-    if (dia_menu->app_data == NULL)
+    if (dia_menu->app_data == NULL) {
       create_object_menu(dia_menu);
-    
+      add_properties_menu_item(GTK_MENU(dia_menu->app_data), TRUE);
+    }
     /* Update active/nonactive menuitems */
     for (i=0;i<dia_menu->num_items;i++) {
       DiaMenuItem *item = &dia_menu->items[i];
@@ -216,14 +242,11 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   } else {
     if (no_menu == NULL) {
       no_menu = gtk_menu_new();
-
-      menu_item = gtk_menu_item_new_with_label(_("No object menu"));
-      gtk_menu_shell_append (GTK_MENU_SHELL (no_menu), menu_item);
-      gtk_widget_show(menu_item);
-      gtk_widget_set_sensitive(menu_item, FALSE);
+      add_properties_menu_item(GTK_MENU(no_menu), FALSE);
     }
     menu = GTK_MENU(no_menu);
   }
+  /* add the properties menu item to raise the properties from the contextual menu */
   
   popup_shell = ddisp->shell;
   gtk_menu_popup(menu, NULL, NULL, NULL, NULL, bevent->button, bevent->time);
