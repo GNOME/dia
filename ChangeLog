@@ -1,0 +1,8 @@
+1998-09-12  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* Added call setlocale(LC_NUMERIC, "C") so that formating of
+	  floating-point numbers in postscript output will be correct.
+	* Did some cleanup of generated postscript files. 
+	
+	
+

@@ -23,6 +23,7 @@
 #include <string.h>
 #include <dlfcn.h>
 #include <signal.h>
+#include <locale.h>
 
 #include <gtk/gtk.h>
 
@@ -57,6 +58,7 @@ app_init (int    argc,
            char **argv)
 {
   gtk_set_locale ();
+  setlocale(LC_NUMERIC, "C");
 
   gtk_init (&argc, &argv);
 

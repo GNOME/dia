@@ -17,7 +17,9 @@
  */
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
+#include "config.h"
 #include "render_eps.h"
 #include "message.h"
 
@@ -121,7 +123,8 @@ new_eps_renderer(Diagram *dia, char *filename)
   time_t time_now;
   double scale;
   Rectangle *extent;
-  
+  char *name;
+ 
   file = fopen(filename, "w");
 
   if (file==NULL) {
@@ -145,10 +148,14 @@ new_eps_renderer(Diagram *dia, char *filename)
   
   scale = 28.346;
   
+  name = getlogin();
+  if (name==NULL)
+    name = "a user";
+  
   fprintf(file,
 	  "%%!PS-Adobe-2.0 EPSF-2.0\n"
 	  "%%%%Title: %s\n"
-	  "%%%%Creator: dia pre-alpha...\n"
+	  "%%%%Creator: Dia v%s\n"
 	  "%%%%CreationDate: %s"
 	  "%%%%For: %s\n"
 	  "%%%%Orientation: Portrait\n"
@@ -159,8 +166,9 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  "%%%%Magnification: 1.0000\n"
 	  "%%%%EndComments\n",
 	  dia->filename,
+	  VERSION,
 	  ctime(&time_now),
-	  "a user",
+	  name,
 	  (extent->right - extent->left)*scale,
 	  (extent->bottom - extent->top)*scale);
 
@@ -574,8 +582,7 @@ draw_string(RendererEPS *renderer,
 	  (double) color->red, (double) color->green, (double) color->blue);
 
 
-  /* TODO: Escape all '(' and ')' !!!!!!!*/
-
+  /* Escape all '(' and ')':  */
   buffer = g_malloc(2*strlen(text)+1);
   *buffer = 0;
   str = text;
