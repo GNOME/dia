@@ -186,6 +186,8 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,           0},
   {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,         0},
   {N_("/Edit/_Delete"),           "<control>D", edit_delete_callback,        0},
+  {N_("/Edit/_undo"),             "<control>Z", edit_undo_callback,        0},
+  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,        0},
   {N_("/_View"),                  NULL,         NULL,                        0, "<Branch>"},
   /*  {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
   {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,       0},

@@ -55,6 +55,8 @@ create_modify_tool(void)
   tool->state = STATE_NONE;
   tool->break_connections = 0;
 
+  tool->orig_pos = NULL;
+  
   return (Tool *)tool;
 }
 
@@ -284,9 +286,24 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
+
+    if (tool->orig_pos == NULL) {
+      GList *list;
+      int i;
+      Object *obj;
+      
+      list = ddisp->diagram->data->selected;
+      tool->orig_pos = g_new(Point, g_list_length(list));
+      i=0;
+      while (list != NULL) {
+	obj = (Object *)  list->data;
+	tool->orig_pos[i] = obj->position;
+	list = g_list_next(list); i++;
+      }
+    }
     
     if (tool->break_connections)
-      diagram_unconnect_selected(ddisp->diagram);
+      diagram_unconnect_selected(ddisp->diagram); /* Pushes UNDO info */
   
     if (event->state & GDK_CONTROL_MASK) {
       full_delta = to;
@@ -353,6 +370,11 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       }
     }
 
+    if (tool->orig_pos == NULL) {
+      tool->orig_pos = g_new(Point, 1);
+      *tool->orig_pos = tool->handle->pos;
+    }
+
     object_add_updates(tool->object, ddisp->diagram);
     tool->object->ops->move_handle(tool->object, tool->handle, &to,
 				   HANDLE_MOVE_USER,0);
@@ -408,19 +430,50 @@ static void
 modify_button_release(ModifyTool *tool, GdkEventButton *event,
 		      DDisplay *ddisp)
 {
+  Point *dest_pos;
+  GList *list;
+  int i;
+  Object *obj;
+  
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
     gdk_pointer_ungrab (event->time);
-    ddisplay_connect_selected(ddisp);
     diagram_update_connections_selection(ddisp->diagram);
+
+    if (tool->orig_pos != NULL) {
+      list = ddisp->diagram->data->selected;
+      dest_pos = g_new(Point, g_list_length(list));
+      i=0;
+      while (list != NULL) {
+	obj = (Object *)  list->data;
+	dest_pos[i] = obj->position;
+	list = g_list_next(list); i++;
+      }
+      
+      undo_move_objects(ddisp->diagram, tool->orig_pos, dest_pos,
+			g_list_copy(ddisp->diagram->data->selected));
+    }
+    
+    ddisplay_connect_selected(ddisp); /* pushes UNDO info */
     diagram_update_extents(ddisp->diagram);
     diagram_modified(ddisp->diagram);
     diagram_flush(ddisp->diagram);
+
+    undo_set_transactionpoint(ddisp->diagram->undo);
+
+    tool->orig_pos = NULL;
     tool->state = STATE_NONE;
     break;
   case STATE_MOVE_HANDLE:
     gdk_pointer_ungrab (event->time);
 
+    if (tool->orig_pos != NULL) {
+      dest_pos = g_new(Point, 1);
+      
+      undo_move_handle(ddisp->diagram, tool->handle, tool->object,
+		       *tool->orig_pos, tool->last_to);
+    }
+    
     /* Final move: */
     object_add_updates(tool->object, ddisp->diagram);
     tool->object->ops->move_handle(tool->object, tool->handle,
@@ -430,7 +483,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     /* Connect if possible: */
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-      object_connect_display(ddisp, tool->object, tool->handle);
+      object_connect_display(ddisp, tool->object, tool->handle); /* pushes UNDO info */
       diagram_update_connections_selection(ddisp->diagram);
     }
     
@@ -438,6 +491,16 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     
     diagram_modified(ddisp->diagram);
     diagram_update_extents(ddisp->diagram);
+
+    undo_set_transactionpoint(ddisp->diagram->undo);
+
+    if (tool->orig_pos != NULL) {
+      g_free(tool->orig_pos);
+      tool->orig_pos = NULL;
+    }
+
+
+    
     tool->state = STATE_NONE;
     break;
   case STATE_BOX_SELECT:

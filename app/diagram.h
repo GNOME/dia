@@ -28,6 +28,7 @@ typedef struct _Diagram Diagram;
 #include "connectionpoint.h"
 #include "display.h"
 #include "diagramdata.h"
+#include "undo.h"
 
 struct _Diagram {
   char *filename;
@@ -38,6 +39,8 @@ struct _Diagram {
   
   guint display_count;
   GSList *displays;       /* List of all displays showing this diagram */
+
+  UndoStack *undo;
 };
 
 extern GList *open_diagrams; /* Read only! */
@@ -50,6 +53,7 @@ extern void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
 extern void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
 extern void diagram_add_object(Diagram *dia, Object *obj);
 extern void diagram_add_object_list(Diagram *dia, GList *list);
+extern void diagram_selected_break_external(Diagram *dia);
 extern void diagram_remove_all_selected(Diagram *diagram, int delete_empty);
 extern void diagram_remove_selected(Diagram *diagram, Object *obj);
 extern void diagram_add_selected(Diagram *diagram, Object *obj);

@@ -371,6 +371,20 @@ layer_remove_object(Layer *layer, Object *obj)
   layer->objects = g_list_remove(layer->objects, obj);
 }
 
+void
+layer_remove_objects(Layer *layer, GList *obj_list)
+{
+  Object *obj;
+  while (obj_list != NULL) {
+    obj = (Object *) obj_list->data;
+    
+    layer->objects = g_list_remove(layer->objects, obj);
+    
+    obj_list = g_list_next(obj_list);
+  }
+}
+
+
 GList *
 layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
 {

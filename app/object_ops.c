@@ -73,6 +73,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos)
   return NULL;
 }
 
+/* pushes undo info */
 void
 object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
 {
@@ -85,12 +86,9 @@ object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
     connectionpoint = object_find_connectpoint_display(ddisp, &handle->pos);
   
     if (connectionpoint != NULL) {
-      object_connect(obj, handle, connectionpoint);
-      
-      object_add_updates(obj, ddisp->diagram);
-      obj->ops->move_handle(obj, handle , &connectionpoint->pos,
-			    HANDLE_MOVE_CONNECTED,0);
-      object_add_updates(obj, ddisp->diagram);
+      Change *change = undo_connect(ddisp->diagram, obj, handle,
+				    connectionpoint);
+      (change->apply)(change, ddisp->diagram);
     }
   }
 }

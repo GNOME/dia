@@ -36,6 +36,8 @@ void edit_copy_callback(GtkWidget *widget, gpointer data);
 void edit_cut_callback(GtkWidget *widget, gpointer data);
 void edit_paste_callback(GtkWidget *widget, gpointer data);
 void edit_delete_callback(GtkWidget *widget, gpointer data);
+void edit_undo_callback(GtkWidget *widget, gpointer data);
+void edit_redo_callback(GtkWidget *widget, gpointer data);
 
 extern void view_zoom_in_callback(GtkWidget *widget, gpointer data);
 extern void view_zoom_out_callback(GtkWidget *widget, gpointer data);

@@ -43,6 +43,7 @@
 #include "preferences.h"
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
+#include "undo.h"
 
 GdkImlibImage *logo;
 
@@ -495,6 +496,10 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
+
+  /* Test: */
+  diagram_selected_break_external(ddisp->diagram);
+
   cut_list = diagram_get_sorted_selected_remove(ddisp->diagram);
   diagram_remove_all_selected(ddisp->diagram, FALSE);
 
@@ -502,11 +507,15 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
 
   cnp_store_objects(object_copy_list(cut_list));
 
-  destroy_object_list(cut_list); /* Have to destroy it so that any attribut
-				    dialogs open are closed. */
+  undo_delete_objects(ddisp->diagram, cut_list);
+  
+  /* Have to close any open properties dialog
+     if it contains some object in cut_list */
+  /* TODO: ^^^^ */
   
   diagram_update_menu_sensitivity(ddisp->diagram);
   diagram_flush(ddisp->diagram);
+  undo_set_transactionpoint(ddisp->diagram->undo);
 }
 
 void
@@ -562,6 +571,34 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
   destroy_object_list(delete_list);
 
   diagram_flush(ddisp->diagram);
+} 
+
+void
+edit_undo_callback(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp;
+  Diagram *dia;
+  
+  ddisp = ddisplay_active();
+  dia = ddisp->diagram;
+
+  undo_revert_to_last_tp(dia->undo);
+
+  diagram_flush(dia);
+} 
+
+void
+edit_redo_callback(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp;
+  Diagram *dia;
+  
+  ddisp = ddisplay_active();
+  dia = ddisp->diagram;
+
+  undo_apply_to_next_tp(dia->undo);
+
+  diagram_flush(dia);
 } 
 
 void

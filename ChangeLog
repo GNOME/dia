@@ -1,3 +1,27 @@
+1999-06-13  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/undo.[ch]:
+	* app/Makefile.am:
+	Undo functions.
+	
+	* app/commands.[ch]
+	* app/modify_tool.[ch]
+	* app/object_ops.[ch]
+	* app/connectionpoint_ops.c
+	* app/menus.c
+	Use undo functions.
+	WARNING: Not finished. Will break.
+	Finished: move object, move handle.
+
+	* app/diagram.[ch]
+	Added diagram_selected_break_external() function.
+	It removes all connections between selected objects
+	and non-selected.
+	Add undo stack to Diagram.
+	
+	* lib/diagramdata.[ch]
+	Added layer_remove_objects() function
+	
 1999-06-11  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* objects/FS/Makefile.am

@@ -48,6 +48,8 @@ new_diagram(char *filename)  /* Note: filename is copied */
   dia->display_count = 0;
   dia->displays = NULL;
 
+  dia->undo = new_undo_stack(dia);
+  
   open_diagrams = g_list_prepend(open_diagrams, dia);
   layer_dialog_update_diagram_list();
   return dia;
@@ -64,6 +66,8 @@ diagram_destroy(Diagram *dia)
 
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();
+
+  undo_destroy(dia->undo);
   
   g_free(dia);
 }
@@ -206,6 +210,71 @@ diagram_add_object_list(Diagram *dia, GList *list)
   layer_add_objects(dia->data->active_layer, list);
 
   diagram_modified(dia);
+}
+
+void
+diagram_selected_break_external(Diagram *dia)
+{
+  GList *list;
+  GList *connected_list;
+  Object *obj;
+  Object *other_obj;
+  int i,j;
+
+  list = dia->data->selected;
+  while (list != NULL) {
+    obj = (Object *)list->data;
+    
+    /* Break connections between this object and objects not selected: */
+    for (i=0;i<obj->num_handles;i++) {
+      ConnectionPoint *con_point;
+      con_point = obj->handles[i]->connected_to;
+      
+      if ( con_point == NULL )
+	break; /* Not connected */
+      
+      other_obj = con_point->object;
+      if (g_list_find(dia->data->selected, other_obj) == NULL) {
+	/* other_obj is not selected, break connection */
+	Change *change = undo_unconnect(dia, obj, obj->handles[i]);
+	(change->apply)(change, dia);
+	object_add_updates(obj, dia);
+      }
+    }
+    
+    /* Break connections from non selected objects to this object: */
+    for (i=0;i<obj->num_connections;i++) {
+      connected_list = obj->connections[i]->connected;
+      
+      while (connected_list != NULL) {
+	other_obj = (Object *)connected_list->data;
+	
+	if (g_list_find(dia->data->selected, other_obj) == NULL) {
+	  /* other_obj is not in list, break all connections
+	     to obj from other_obj */
+	  
+	  for (j=0;j<other_obj->num_handles;j++) {
+	    ConnectionPoint *con_point;
+	    con_point = other_obj->handles[j]->connected_to;
+
+	    if (con_point && (con_point->object == obj)) {
+	      Change *change;
+	      connected_list = g_list_previous(connected_list);
+	      change = undo_unconnect(dia, other_obj,
+					      other_obj->handles[j]);
+	      (change->apply)(change, dia);
+	      if (connected_list == NULL)
+		connected_list = obj->connections[i]->connected;
+	    }
+	  }
+	}
+	
+	connected_list = g_list_next(connected_list);
+      }
+    }
+    
+    list = g_list_next(list);
+  }
 }
 
 void

@@ -46,6 +46,9 @@ struct _ModifyTool {
   int x1, y1, x2, y2;
   Point start_box;
   Point end_box;
+
+  /* Undo info: */
+  Point *orig_pos;
 };
 
 extern Tool *create_modify_tool(void);
