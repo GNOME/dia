@@ -1,0 +1,45 @@
+Simply unzip dia-bin-YYYY-MM-DD.zip with it's directory structure 
+into a directory of your choice. If you don't already
+have the GTK+ libraries, get them on the Dia Win32 website.
+
+Additional the dia-extra-libs-YYYY-MM-DD.zip are required. These
+are libraries which Dia depends on, but they aren't changed
+with every Dia version.
+
+The libraries have to be found by DIA, so put them in the same 
+directory as DIA.EXE, please DON'T interchange them with the 
+versions provided with The Gimp until you aren't *absolutely*
+positive about what you are doing.
+
+--
+
+If you installed Dia as told above and on the website,
+most things shoud work mostly without problems. 
+If not, please read and understand the following
+directory diagram before bothering me with questions
+about installation.
+
+<Directory of your choice, but avoid blanks>
++ dia                       (main directory, may be named 
+                             as you like as well)
+  + bin
+      dia.exe
+      libdia.dll
+      (additional libraries like libxml, libart, ...)
+  + dia                     (plug-in directory)
+      cgm.dl
+      chronogram.dll
+      (...)
+      (DON'T place *non* plug-in dlls here, or you'll get warnings
+       while the plug-ins are initialized)
+  + samples                (guess what)
+      (...)
+  + shapes                 (shape description files for various plug-ins)
+    + Circuit
+    + (...)
+  + sheets                 (control files for various plug-ins)
+    + Er
+    + (...)
+    (...)
+
+--Hans Breuer <Hans Breuer.Org>

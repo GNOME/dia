@@ -107,11 +107,14 @@ static W32::HGDIOBJ
 UsePen(MyRenderer* renderer, Color* colour)
 {
     W32::HPEN hOldPen;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    renderer->hPen = W32::CreatePen( renderer->fnPenStyle, 
-						 renderer->nLineWidth,
-						 rgb);
+    if (colour) {
+	W32::COLORREF rgb = W32COLOR(colour);
+	renderer->hPen = W32::CreatePen(renderer->fnPenStyle, 
+					renderer->nLineWidth,
+					rgb);
+    } else {
+	renderer->hPen = W32::GetStockObject(NULL_PEN);
+    }
     hOldPen = W32::SelectObject(renderer->hFileDC, renderer->hPen);
     return hOldPen;
 }
@@ -431,7 +434,7 @@ fill_polygon(MyRenderer *renderer,
      hBrush = W32::CreateSolidBrush(rgb);
      hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-     draw_polygon(renderer, points, num_points, colour);
+     draw_polygon(renderer, points, num_points, NULL);
 
      W32::SelectObject(renderer->hFileDC, 
                        W32::GetStockObject(HOLLOW_BRUSH) );
@@ -471,7 +474,7 @@ fill_rect(MyRenderer *renderer,
     hBrush = W32::CreateSolidBrush(rgb);
     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    draw_rect(renderer, ul_corner, lr_corner, colour);
+    draw_rect(renderer, ul_corner, lr_corner, NULL);
 
     W32::SelectObject(renderer->hFileDC, 
                     W32::GetStockObject (HOLLOW_BRUSH) );
@@ -518,14 +521,33 @@ fill_arc(MyRenderer *renderer,
 	 Color *colour)
 {
     W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::POINT ptStart, ptEnd;
+    W32::COLORREF rgb = W32COLOR(colour);
 
     DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n", 
               width, height, angle1, angle2, center->x, center->y);
 
-    hPen = UsePen(renderer, colour);
+    /* calculate start and end points of arc */
+    ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
+    ptStart.y = SCX(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
+    ptEnd.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle2));
+    ptEnd.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle2));
 
-    /* FIXME: draw it, but Dia doesn't use this anyway ... */
+    hPen = UsePen(renderer, NULL); /* no border */
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
+    W32::Pie(renderer->hFileDC,
+             SCX(center->x - width / 2), /* bbox corners */
+             SCY(center->y - height / 2),
+             SCX(center->x + width / 2), 
+             SCY(center->y + height / 2),
+             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y); 
+
+    W32::SelectObject(renderer->hFileDC, 
+                    W32::GetStockObject (HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
     DonePen(renderer, hPen);
 }
 
@@ -567,7 +589,7 @@ fill_ellipse(MyRenderer *renderer,
     hBrush = W32::CreateSolidBrush(rgb);
     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    draw_ellipse(renderer, center, width, height, colour);
+    draw_ellipse(renderer, center, width, height, NULL);
 
     W32::SelectObject(renderer->hFileDC, 
                       W32::GetStockObject (HOLLOW_BRUSH) );
@@ -624,7 +646,7 @@ draw_bezier(MyRenderer *renderer,
     hPen = UsePen(renderer, colour);
 
     W32::PolyBezier(renderer->hFileDC,
-	              pts, (numpoints-1)*3+1);
+		    pts, (numpoints-1)*3+1);
 
     DonePen(renderer, hPen);
 
@@ -637,10 +659,23 @@ fill_bezier(MyRenderer *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-    W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::COLORREF rgb = W32COLOR(colour);
 
     DIAG_NOTE(renderer, "fill_bezier n:%d %fx%f ...\n", 
               numpoints, points->p1.x, points->p1.y);
+
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+
+    W32::BeginPath (renderer->hFileDC);
+    draw_bezier(renderer, points, numpoints, NULL);
+    W32::EndPath (renderer->hFileDC);
+    W32::FillPath (renderer->hFileDC);
+
+    W32::SelectObject(renderer->hFileDC, 
+                      W32::GetStockObject (HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
 }
 
 static void
@@ -664,7 +699,7 @@ draw_string(MyRenderer *renderer,
     break;
     case ALIGN_CENTER:
         W32::SetTextAlign(renderer->hFileDC, TA_CENTER+TA_BASELINE);
-        break;
+    break;
     case ALIGN_RIGHT:
         W32::SetTextAlign(renderer->hFileDC, TA_RIGHT+TA_BASELINE);
     break;
