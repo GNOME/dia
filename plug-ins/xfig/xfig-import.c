@@ -31,7 +31,7 @@
    <URL:http://www.xfig.org/userman/fig-format.html>
    Some items left unspecified in the specifications are taken from the
    XFig source v. 3.2.3c
- */
+*/
 
 #include <string.h>
 #include <math.h>
@@ -58,31 +58,42 @@ static Color fig_colors[FIG_MAX_USER_COLORS];
 
 gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
+/** Eats the rest of the line.
+ */
+static void
+eat_line(FILE *file) {
+    char buf[BUFLEN];
+
+    do {
+	if (fgets(buf, BUFLEN, file) == NULL) {
+	    return;
+	}
+	if (buf[strlen(buf)-1] == '\n') return;
+    } while (!feof(file));
+}
+
+/** Skip past FIG comments (lines starting with #) and empty lines.
+ * Returns TRUE if there is more in the file to read.
+ */
 static int
 skip_comments(FILE *file) {
-  int ch;
-  char buf[BUFLEN];
+    int ch;
 
-  while (!feof(file)) {
-    if ((ch = fgetc(file)) == EOF) {
-      return FALSE;
-    }
-    
-    if (ch == '\n') continue;
-    else if (ch == '#') {
-      do {
-	if (fgets(buf, BUFLEN, file) == NULL) {
-	  return FALSE;
+    while (!feof(file)) {
+	if ((ch = fgetc(file)) == EOF) {
+	    return FALSE;
 	}
-	if (buf[strlen(buf)-1] == '\n') return TRUE;
-      } while (!feof(file));
-      return FALSE;
-    } else {
-      ungetc(ch, file);
-      return TRUE;
+    
+	if (ch == '\n') continue;
+	else if (ch == '#') {
+	    eat_line(file);
+	    continue;
+	} else {
+	    ungetc(ch, file);
+	    return TRUE;
+	}
     }
-  }
-  return TRUE;
+    return FALSE;
 }
 
 static Object *
@@ -167,29 +178,29 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 static Object *
 create_standard_box(real xpos, real ypos, real width, real height,
 		    DiagramData *dia) {
-  ObjectType *otype = object_get_type("Standard - Box");
-  Object *new_obj;
-  Handle *h1, *h2;
-  Point point;
-  GPtrArray *props;
+    ObjectType *otype = object_get_type("Standard - Box");
+    Object *new_obj;
+    Handle *h1, *h2;
+    Point point;
+    GPtrArray *props;
 
-  if (otype == NULL){
-      message_error(_("Can't find standard object"));
-      return NULL;
-  }
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
+    }
 
-  point.x = xpos;
-  point.y = ypos;
+    point.x = xpos;
+    point.y = ypos;
 
-  new_obj = otype->ops->create(&point, otype->default_user_data,
-			       &h1, &h2);
-  /*  layer_add_object(dia->active_layer, new_obj); */
+    new_obj = otype->ops->create(&point, otype->default_user_data,
+				 &h1, &h2);
+    /*  layer_add_object(dia->active_layer, new_obj); */
   
-  props = make_element_props(xpos,ypos,width,height);
-  new_obj->ops->set_props(new_obj, props);
-  prop_list_free(props);
+    props = make_element_props(xpos,ypos,width,height);
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
 
-  return new_obj;
+    return new_obj;
 }
 
 static PropDescription xfig_line_prop_descs[] = {
@@ -551,25 +562,25 @@ fig_simple_properties(Object *obj,
 
 static int
 fig_read_n_points(FILE *file, int n, Point **points) {
-  int i;
-  Point *new_points;
+    int i;
+    Point *new_points;
 
-  new_points = (Point*)g_malloc(sizeof(Point)*n);
+    new_points = (Point*)g_malloc(sizeof(Point)*n);
 
-  for (i = 0; i < n; i++) {
-      int x,y;
-      if (fscanf(file, " %d %d ", &x, &y) != 2) {
-	  message_error(_("Error while reading %dth of %d points: %s\n"),
-			i, n, strerror(errno));
-	  free(new_points);
-	  return FALSE;
-      }
-      new_points[i].x = x/FIG_UNIT;
-      new_points[i].y = y/FIG_UNIT;
-  }
-  fscanf(file, "\n");
-  *points = new_points;
-  return TRUE;
+    for (i = 0; i < n; i++) {
+	int x,y;
+	if (fscanf(file, " %d %d ", &x, &y) != 2) {
+	    message_error(_("Error while reading %dth of %d points: %s\n"),
+			  i, n, strerror(errno));
+	    free(new_points);
+	    return FALSE;
+	}
+	new_points[i].x = x/FIG_UNIT;
+	new_points[i].y = y/FIG_UNIT;
+    }
+    fscanf(file, "\n");
+    *points = new_points;
+    return TRUE;
 }
 
 static Arrow *
@@ -1184,7 +1195,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 }
 
 static PropDescription xfig_text_descs[] = {
-   { "text", PROP_TYPE_TEXT },
+    { "text", PROP_TYPE_TEXT },
     PROP_DESC_END
     /* Can't do the angle */
     /* Height and length are ignored */
@@ -1259,303 +1270,311 @@ fig_read_text(FILE *file, DiagramData *dia) {
 
 static gboolean
 fig_read_object(FILE *file, DiagramData *dia) {
-  int objecttype;
-  Object *item = NULL;
+    int objecttype;
+    Object *item = NULL;
 
-  if (fscanf(file, "%d ", &objecttype) != 1) {
-      if (!feof(file))
-	  message_error(_("Couldn't identify FIG object: %s\n"), strerror(errno));
-      return FALSE;
-  }
-
-  switch (objecttype) {
-  case -6: { /* End of compound */
-      if (compound_stack == NULL) {
-	  message_error(_("Compound end outside compound\n"));
-	  return FALSE;
-      }
-
-      /* Make group item with these items */
-      item = create_standard_group((GList*)compound_stack->data, dia);
-      compound_stack = g_slist_remove(compound_stack, compound_stack->data);
-      if (compound_stack == NULL) {
-	  depths[compound_depth] = g_list_prepend(depths[compound_depth],
-						  item);
-      }
-      break;
-  }
-  case 0: { /* Color pseudo-object. */
-    int colornumber;
-    int colorvalues;
-    Color color;
-
-    if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
-	message_error(_("Couldn't read color: %s\n"), strerror(errno));
+    if (fscanf(file, "%d ", &objecttype) != 1) {
+	if (!feof(file)) {
+	    message_error(_("Couldn't identify FIG object: %s\n"), strerror(errno));
+	}
 	return FALSE;
     }
 
-    color.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
-    color.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
-    color.blue = (colorvalues & 0x000000ff) / 255.0;
+    switch (objecttype) {
+    case -6: { /* End of compound */
+	if (compound_stack == NULL) {
+	    message_error(_("Compound end outside compound\n"));
+	    return FALSE;
+	}
 
-    fig_colors[colornumber-32] = color;
-    break;
-  }
-  case 1: { /* Ellipse which is a generalization of circle. */
-      item = fig_read_ellipse(file, dia);
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
-  }
-  case 2: /* Polyline which includes polygon and box. */
-      item = fig_read_polyline(file, dia);
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
-  case 3: /* Spline which includes closed/open control/interpolated spline. */
-      item = fig_read_spline(file, dia);
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
-  case 4: /* Text. */
-      item = fig_read_text(file, dia);
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
-  case 5: /* Arc. */
-      item = fig_read_arc(file, dia);
-      if (item == NULL) {
-	  return FALSE;
-      }
-      break;
-  case 6: {/* Compound object which is composed of one or more objects. */
-      int dummy;
-      if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
-	  message_error(_("Couldn't read group extend: %s\n"), strerror(errno));
-	  return FALSE;
-      }
-      /* Group extends don't really matter */
-      if (compound_stack == NULL)
-	  compound_depth = 999;
-      compound_stack = g_slist_prepend(compound_stack, NULL);
-      return TRUE;
-      break;
-  }
-  default:
-      message_error(_("Unknown object type %d\n"), objecttype);
-      return FALSE;
-      break;
-  }
-  if (compound_stack != NULL && item != NULL) { /* We're building a compound */
-      GList *compound = (GList *)compound_stack->data;
-      compound = g_list_prepend(compound, item);
-      compound_stack->data = compound;
-  }
-  return TRUE;
+	/* Make group item with these items */
+	item = create_standard_group((GList*)compound_stack->data, dia);
+	compound_stack = g_slist_remove(compound_stack, compound_stack->data);
+	if (compound_stack == NULL) {
+	    depths[compound_depth] = g_list_prepend(depths[compound_depth],
+						    item);
+	}
+	break;
+    }
+    case 0: { /* Color pseudo-object. */
+	int colornumber;
+	int colorvalues;
+	Color color;
+
+	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
+	    message_error(_("Couldn't read color: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+
+	color.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
+	color.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
+	color.blue = (colorvalues & 0x000000ff) / 255.0;
+
+	fig_colors[colornumber-32] = color;
+	break;
+    }
+    case 1: { /* Ellipse which is a generalization of circle. */
+	item = fig_read_ellipse(file, dia);
+	if (item == NULL) {
+	    return FALSE;
+	}
+	break;
+    }
+    case 2: /* Polyline which includes polygon and box. */
+	item = fig_read_polyline(file, dia);
+	if (item == NULL) {
+	    return FALSE;
+	}
+	break;
+    case 3: /* Spline which includes closed/open control/interpolated spline. */
+	item = fig_read_spline(file, dia);
+	if (item == NULL) {
+	    return FALSE;
+	}
+	break;
+    case 4: /* Text. */
+	item = fig_read_text(file, dia);
+	if (item == NULL) {
+	    return FALSE;
+	}
+	break;
+    case 5: /* Arc. */
+	item = fig_read_arc(file, dia);
+	if (item == NULL) {
+	    return FALSE;
+	}
+	break;
+    case 6: {/* Compound object which is composed of one or more objects. */
+	int dummy;
+	if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
+	    message_error(_("Couldn't read group extend: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+	/* Group extends don't really matter */
+	if (compound_stack == NULL)
+	    compound_depth = 999;
+	compound_stack = g_slist_prepend(compound_stack, NULL);
+	return TRUE;
+	break;
+    }
+    default:
+	message_error(_("Unknown object type %d\n"), objecttype);
+	return FALSE;
+	break;
+    }
+    if (compound_stack != NULL && item != NULL) { /* We're building a compound */
+	GList *compound = (GList *)compound_stack->data;
+	compound = g_list_prepend(compound, item);
+	compound_stack->data = compound;
+    }
+    return TRUE;
 }
 
 static int
 fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
-  char buf[BUFLEN];
+    char buf[BUFLEN];
 
-  if (!fgets(buf, BUFLEN, file)) {
-    return -1;
-  }
+    if (!fgets(buf, BUFLEN, file)) {
+	return -1;
+    }
 
-  buf[strlen(buf)-1] = 0; /* Remove trailing newline */
-  if (!strcmp(buf, choice1)) return 0;
-  if (!strcmp(buf, choice2)) return 1;
-  message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
-  return 0;
+    buf[strlen(buf)-1] = 0; /* Remove trailing newline */
+    if (!strcmp(buf, choice1)) return 0;
+    if (!strcmp(buf, choice2)) return 1;
+    message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
+    return 0;
 }
 
 static int
 fig_read_paper_size(FILE *file, DiagramData *dia) {
-  char buf[BUFLEN];
-  int paper;
+    char buf[BUFLEN];
+    int paper;
 
-  if (!fgets(buf, BUFLEN, file)) {
-    message_error(_("Error reading paper size: %s\n"), strerror(errno));
-    return FALSE;
-  }
+    if (!fgets(buf, BUFLEN, file)) {
+	message_error(_("Error reading paper size: %s\n"), strerror(errno));
+	return FALSE;
+    }
 
-  buf[strlen(buf)-1] = 0; /* Remove trailing newline */
-  if ((paper = find_paper(buf)) != -1) {
-    get_paper_info(&dia->paper, paper, NULL);
+    buf[strlen(buf)-1] = 0; /* Remove trailing newline */
+    if ((paper = find_paper(buf)) != -1) {
+	get_paper_info(&dia->paper, paper, NULL);
+	return TRUE;
+    }
+
+    message_warning(_("Unknown paper size `%s', using default\n"), buf);
     return TRUE;
-  }
-
-  message_warning(_("Unknown paper size `%s', using default\n"), buf);
-  return TRUE;
 }
 
 int figversion;
 
 static int
 fig_read_meta_data(FILE *file, DiagramData *dia) {
-  if (figversion >= 300) { /* Might exist earlier */
-    int portrait;
+    if (figversion >= 300) { /* Might exist earlier */
+	int portrait;
 
-    if ((portrait = fig_read_line_choice(file, "Portrait", "Landscape")) == -1) {
-      message_error(_("Error reading paper orientation: %s\n"), strerror(errno));
-      return FALSE;
+	if ((portrait = fig_read_line_choice(file, "Portrait", "Landscape")) == -1) {
+	    message_error(_("Error reading paper orientation: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+	dia->paper.is_portrait = portrait;
     }
-    dia->paper.is_portrait = portrait;
-  }
 
-  if (figversion >= 300) { /* Might exist earlier */
-    int justify;
+    if (figversion >= 300) { /* Might exist earlier */
+	int justify;
 
-    if ((justify = fig_read_line_choice(file, "Center", "Flush Left")) == -1) {
-      message_error(_("Error reading justification: %s\n"), strerror(errno));
-      return FALSE;
+	if ((justify = fig_read_line_choice(file, "Center", "Flush Left")) == -1) {
+	    message_error(_("Error reading justification: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+	/* Don't know what to do with this */
     }
-    /* Don't know what to do with this */
-  }
 
-  if (figversion >= 300) { /* Might exist earlier */
-    int units;
+    if (figversion >= 300) { /* Might exist earlier */
+	int units;
 
-    if ((units = fig_read_line_choice(file, "Metric", "Inches")) == -1) {
-      message_error(_("Error reading units: %s\n"), strerror(errno));
-      return FALSE;
+	if ((units = fig_read_line_choice(file, "Metric", "Inches")) == -1) {
+	    message_error(_("Error reading units: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+	/* Don't know what to do with this */
     }
-    /* Don't know what to do with this */
-  }
 
-  if (figversion >= 302) {
-    if (!fig_read_paper_size(file, dia)) return FALSE;
-  }
-
-  {
-    real mag;
-
-    if (fscanf(file, "%lf\n", &mag) != 1) {
-      message_error(_("Error reading magnification: %s\n"), strerror(errno));
-      return FALSE;
+    if (figversion >= 302) {
+	if (!fig_read_paper_size(file, dia)) return FALSE;
     }
+
+    {
+	real mag;
+
+	if (fscanf(file, "%lf\n", &mag) != 1) {
+	    message_error(_("Error reading magnification: %s\n"), strerror(errno));
+	    return FALSE;
+	}
     
-    dia->paper.scaling = mag/100;
-  }
-
-  if (figversion >= 302) {
-    int multiple;
-
-    if ((multiple = fig_read_line_choice(file, "Single", "Multiple")) == -1) {
-      message_error(_("Error reading multipage indicator: %s\n"), strerror(errno));
-      return FALSE;
+	dia->paper.scaling = mag/100;
     }
 
-    /* Don't know what to do with this */
-  }
+    if (figversion >= 302) {
+	int multiple;
 
-  {
-    int transparent;
+	if ((multiple = fig_read_line_choice(file, "Single", "Multiple")) == -1) {
+	    message_error(_("Error reading multipage indicator: %s\n"), strerror(errno));
+	    return FALSE;
+	}
 
-    if (fscanf(file, "%d\n", &transparent) != 1) {
-      message_error(_("Error reading transparent color: %s\n"), strerror(errno));
-      return FALSE;
+	/* Don't know what to do with this */
     }
+
+    {
+	int transparent;
+
+	if (fscanf(file, "%d\n", &transparent) != 1) {
+	    message_error(_("Error reading transparent color: %s\n"), strerror(errno));
+	    return FALSE;
+	}
     
-    /* Don't know what to do with this */
-  }
-
-  if (!skip_comments(file)) {
-    if (!feof(file)) {
-      message_error(_("Error reading FIG file: %s\n"), strerror(errno));
-    } else {
-      message_error(_("Premature end of FIG file\n"), strerror(errno));
+	/* Don't know what to do with this */
     }
-    return FALSE;
-  }
 
-  {
-    int resolution, coord_system;
-
-    if (fscanf(file, "%d %d\n", &resolution, &coord_system) != 2) {
-      message_error(_("Error reading resolution: %s\n"), strerror(errno));
-      return FALSE;
+    if (!skip_comments(file)) {
+	if (!feof(file)) {
+	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+	} else {
+	    message_error(_("Premature end of FIG file\n"), strerror(errno));
+	}
+	return FALSE;
     }
+
+    {
+	int resolution, coord_system;
+
+	if (fscanf(file, "%d %d\n", &resolution, &coord_system) != 2) {
+	    message_error(_("Error reading resolution: %s\n"), strerror(errno));
+	    return FALSE;
+	}
     
-    /* Don't know what to do with this */
-  }
-  return TRUE;
+	/* Don't know what to do with this */
+    }
+    return TRUE;
 }
 
 /* imports the given fig-file, returns TRUE if successful */
 gboolean 
 import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
-  FILE *figfile;
-  int figmajor, figminor;	
-  int i;
+    FILE *figfile;
+    int figmajor, figminor;	
+    int i;
 
-  for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
-    fig_colors[i] = color_black;
-  }
-  for (i = 0; i < 1000; i++) {
-      depths[i] = NULL;
-  }
-
-  figfile = fopen(filename,"r");
-  if(figfile == NULL){
-    message_error(_("Couldn't open: '%s' for reading.\n"), filename);
-    return FALSE;
-  }
-  
-  /* First check magic bytes */
-  if (fscanf(figfile, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
-    message_error(_("Doesn't look like a Fig file: %s\n"), strerror(errno));
-    fclose(figfile);
-    return FALSE;
-  }
-	
-  if (figmajor != 3 || figminor != 2) {
-    message_warning(_("This is a FIG version %d.%d file, I may not understand it\n"), figmajor, figminor);
-  }
-
-  figversion = figmajor*100+figminor;
-
-  if (!skip_comments(figfile)) {
-    if (!feof(figfile)) {
-      message_error(_("Error reading FIG file: %s\n"), strerror(errno));
-    } else {
-      message_error(_("Premature end of FIG file\n"), strerror(errno));
+    for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
+	fig_colors[i] = color_black;
     }
-    fclose(figfile);
-    return FALSE;
-  }
+    for (i = 0; i < 1000; i++) {
+	depths[i] = NULL;
+    }
 
-  if (!fig_read_meta_data(figfile, dia)) {
-    fclose(figfile);
-    return FALSE;
-  }
+    figfile = fopen(filename,"r");
+    if(figfile == NULL){
+	message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+	return FALSE;
+    }
   
-  compound_stack = NULL;
+    /* First check magic bytes */
+    if (fscanf(figfile, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
+	message_error(_("Doesn't look like a Fig file: %s\n"), strerror(errno));
+	fclose(figfile);
+	return FALSE;
+    }
+	
+    if (figmajor != 3 || figminor != 2) {
+	message_warning(_("This is a FIG version %d.%d file, I may not understand it\n"), figmajor, figminor);
+    }
 
-  do {
-      if (! fig_read_object(figfile, dia)) {
-	  fclose(figfile);
-	  break;
-      }
-  } while (TRUE);
+    figversion = figmajor*100+figminor;
 
-  /* Now we can reorder for the depth fields */
-  for (i = 999; i >= 0; i--) {
-      if (depths[i] != NULL)
-	  layer_add_objects_first(dia->active_layer, depths[i]);
-  }
-  return TRUE;
+    if (!skip_comments(figfile)) {
+	if (!feof(figfile)) {
+	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+	} else {
+	    message_error(_("Premature end of FIG file\n"), strerror(errno));
+	}
+	fclose(figfile);
+	return FALSE;
+    }
+
+    if (!fig_read_meta_data(figfile, dia)) {
+	fclose(figfile);
+	return FALSE;
+    }
+  
+    compound_stack = NULL;
+
+    do {
+	if (!skip_comments(figfile)) {
+	    if (!feof(figfile)) {
+		message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+	    } else {
+		break;
+	    }
+	}
+	if (! fig_read_object(figfile, dia)) {
+	    fclose(figfile);
+	    break;
+	}
+    } while (TRUE);
+
+    /* Now we can reorder for the depth fields */
+    for (i = 999; i >= 0; i--) {
+	if (depths[i] != NULL)
+	    layer_add_objects_first(dia->active_layer, depths[i]);
+    }
+    return TRUE;
 }
 
 /* interface from filter.h */
 
 static const gchar *extensions[] = {"fig", NULL };
 DiaImportFilter xfig_import_filter = {
-	N_("XFig File Format"),
-	extensions,
-	import_fig
+    N_("XFig File Format"),
+    extensions,
+    import_fig
 };

@@ -1,3 +1,9 @@
+2003-09-07  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xfig/xfig-import.c: Skip XFig comments to make certain
+	comment-filled files readable.  Once we have a 'generic data'
+	system, we can put comments in there.
+
 2003-09-06  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/pstricks/render_pstricks.c(tex_escape_string): using
