@@ -1,3 +1,8 @@
+2002-10-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/plug-ins.c (dia_register_plugin): Don't try to load libdia
+	as a plugin (thanks to Torben Nielsen).
+
 2002-10-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diaepsrenderer.h: 

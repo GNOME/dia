@@ -301,6 +301,11 @@ dia_register_plugin(const gchar *filename)
       return;
   }
 
+  /* If trying to load libdia, abort */
+  if (strstr(filename, "libdia.")) {
+    return;
+  }
+
   /* set up plugin info structure */
   info = g_new0(PluginInfo, 1);
   info->filename = g_strdup(filename);
