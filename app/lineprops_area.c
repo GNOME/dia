@@ -420,7 +420,7 @@ dia_arrow_chooser_init (DiaArrowChooser *arrow)
 
 /* Creating the dialog separately so we can handle destroy */
 void
-dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
+dia_arrow_chooser_dialog_new(GtkWidget *widget, gpointer userdata)
 {
   DiaArrowChooser *chooser = DIA_ARROW_CHOOSER(userdata);
   if (chooser->dialog == NULL) {
@@ -439,6 +439,7 @@ dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
 		       TRUE, TRUE, 0);
     gtk_widget_show(wid);
     chooser->selector = DIAARROWSELECTOR(wid);
+    dia_arrow_selector_set_arrow(chooser->selector, chooser->arrow);
 
     wid = gtk_button_new_with_label(_("OK"));
     GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
@@ -457,7 +458,15 @@ dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
 			      GTK_OBJECT(chooser));
     gtk_widget_show(wid);
   }
-  gtk_widget_show(chooser->dialog);
+}
+
+void
+dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
+{
+     DiaArrowChooser *chooser = DIA_ARROW_CHOOSER(userdata);
+     dia_arrow_chooser_dialog_new(widget, chooser);
+     dia_arrow_selector_set_arrow(chooser->selector, chooser->arrow);
+     gtk_widget_show(chooser->dialog);
 }
 
 GtkWidget *
@@ -472,6 +481,8 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   dia_arrow_preview_set(chooser->preview, chooser->preview->atype, left);
   chooser->callback = callback;
   chooser->user_data = user_data;
+
+  dia_arrow_chooser_dialog_new(NULL, chooser);
 
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
@@ -529,7 +540,8 @@ dia_arrow_chooser_dialog_ok  (DiaArrowChooser *arrow)
 static void
 dia_arrow_chooser_dialog_cancel (DiaArrowChooser *arrow)
 {
-  dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
+  if (arrow->dialog != NULL)
+    dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
   gtk_widget_hide(arrow->dialog);
 }
 
@@ -550,7 +562,8 @@ dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *arrow)
   if (arrow->arrow.type != atype) {
     dia_arrow_preview_set(arrow->preview, atype, arrow->left);
     arrow->arrow.type = atype;
-    dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
+    if (arrow->dialog != NULL)
+      dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
     if (arrow->callback)
       (* arrow->callback)(arrow->arrow, arrow->user_data);
   }

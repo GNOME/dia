@@ -1,5 +1,9 @@
 2003-01-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/lineprops_area.c (dia_arrow_chooser_dialog_show): Correct
+	arrow updating in dialog.  Was broken due to changes from destroy
+	fix:(
+
 	* app/commands.c (view_aa_callback): AA warning only for Windows
 	-- I trust the Unix side well enough.
 
