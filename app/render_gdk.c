@@ -18,6 +18,9 @@
 
 #include <config.h>
 
+#define PANGO_ENABLE_ENGINE
+#include "pango/pango-engine.h"
+
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -909,6 +912,79 @@ fill_bezier(RendererGdk *renderer,
 		   bezier.gdk_points, bezier.currpoint);
 }
 
+
+static void
+abuse_layout_object(PangoLayout* layout, const char* text)
+{
+    PangoLayoutIter* iter;
+    guint i = 0;
+
+    g_message("*** START OF abuse_layout_object for %s",text);
+    iter = pango_layout_get_iter(layout);
+
+    
+    do {
+        PangoLayoutRun* run = pango_layout_iter_get_run(iter);
+        PangoFontDescription* pfd = NULL;
+        const char *fname = NULL;
+        const gchar* gs = NULL;
+        gint j = 0;
+        
+        g_message("Run #%u. Got %p",i++,run);
+        if (!run) continue;
+
+        if (run->item->analysis.font) {
+            pfd = pango_font_describe(run->item->analysis.font);
+            fname = pango_font_description_to_string(pfd);
+        };
+        g_message("   Analysis: shape_engine:%s/%s; lang_engine:%s/%s "
+                  "font:%s level:%u lang:%s",
+                  run->item->analysis.shape_engine ?
+                  run->item->analysis.shape_engine->engine.id : "NULL",
+                  run->item->analysis.shape_engine ?
+                  run->item->analysis.shape_engine->engine.type : "NULL",
+
+                  run->item->analysis.lang_engine ?
+                  run->item->analysis.lang_engine->engine.id : "NULL",
+                  run->item->analysis.lang_engine ?
+                  run->item->analysis.lang_engine->engine.type : "NULL",
+
+                  fname ? fname : "NULL",
+                  run->item->analysis.level,
+
+                  run->item->analysis.language ?
+                  pango_language_to_string(run->item->analysis.language):
+                  "NULL");
+
+        gs = g_strdup_printf("Glyphs: num_glyphs=%u ",run->glyphs->num_glyphs);
+        
+        for (j = 0; j < run->glyphs->num_glyphs; ++j) {
+            char *tmp = g_strdup_printf("%s (%08x %d)", gs,
+                                        run->glyphs->glyphs[j].glyph,
+                                        run->glyphs->glyphs[j].geometry.width);
+            g_free(gs);
+            gs = tmp;
+        }
+        g_message(gs);
+        
+        g_free(fname);
+        g_free(gs);
+                  
+    } while (pango_layout_iter_next_run(iter));
+
+
+    pango_layout_iter_free(layout);
+    
+    g_message("*** END OF abuse_layout_object for %s",text);
+}
+
+static gint get_layout_first_baseline(PangoLayout* layout) {
+    PangoLayoutIter* iter = pango_layout_get_iter(layout);
+    gint result = pango_layout_iter_get_baseline(iter) / PANGO_SCALE;
+    pango_layout_iter_free(iter);
+    return result;
+}
+
 static void
 draw_string (RendererGdk *renderer,
 	    const char *text,
@@ -950,6 +1026,9 @@ draw_string (RendererGdk *renderer,
                                         ddisp->zoom_factor);
   y -= get_layout_first_baseline(layout);  
   gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+
+      /* abuse_layout_object(layout,text); */
+  
   g_object_unref(G_OBJECT(layout));
 
   {
