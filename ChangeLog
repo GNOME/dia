@@ -1,3 +1,10 @@
+2005-03-31  Lars Clausen  <lars@raeder.dk>
+
+	* lib/orth_conn.c (orthconn_update_data): Handle autogap while not
+	autorouting.  
+
+	* objects/network/basestation.c: Main points.
+
 2005-03-27  Hans Breuer  <hans@breuer.org>
 
 	* app/Makefile.am : removed some pixmap/*.xpm from EXTRA_DIST

@@ -231,6 +231,7 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
 						  &zigzagline->start_arrow,
 						  &zigzagline->end_arrow,
 						  zigzagline->corner_radius);
+
 }
 
 static DiaObject *

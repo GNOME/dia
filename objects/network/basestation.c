@@ -37,11 +37,13 @@
 
 #include "pixmaps/basestation.xpm"
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Basestation Basestation;
 struct _Basestation {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   Color line_colour;
   Color fill_colour;
@@ -341,6 +343,9 @@ basestation_update_data(Basestation *basestation)
   basestation->connections[7].pos.x = elem->corner.x + elem->width;
   basestation->connections[7].pos.y = elem->corner.y + elem->height;
   basestation->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  basestation->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
+  basestation->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
+  basestation->connections[8].directions = DIR_ALL;
 
   element_update_boundingbox(elem);
 
@@ -395,13 +400,16 @@ basestation_create(Point *startpoint,
   basestation->fill_colour = color_white;
   basestation->sectors = 3;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0; i<8; i++) {
+  for (i=0; i<NUM_CONNECTIONS; i++) {
     obj->connections[i] = &basestation->connections[i];
     basestation->connections[i].object = obj;
     basestation->connections[i].connected = NULL;
+    basestation->connections[i].flags = 0;
   }
+  basestation->connections[8].flags = CP_FLAGS_MAIN;
+
   elem->extra_spacing.border_trans = BASESTATION_LINEWIDTH/2.0;
   basestation_update_data(basestation);
 
