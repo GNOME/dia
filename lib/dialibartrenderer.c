@@ -1108,11 +1108,34 @@ draw_string (DiaRenderer *self,
    g_free(graybitmap.buffer);
  }
 #else
+ /* gdk does not like 0x0 sized (it does not make much sense with the others as well,
+  * but they don't complain ;) */
+ if (width * height > 0)
  {
-   static int warned_no_text = 0;
-   if (!warned_no_text) {
-     message_warning(_("This Dia version is compiled without libart/text support."));
-     warned_no_text = 1;
+   GdkPixmap *pixmap = gdk_pixmap_new (NULL, width, height, 24);
+   GdkGC     *gc = gdk_gc_new (pixmap);
+   GdkImage  *image;
+
+   rowstride = 32*((width+31)/31);
+#if 0 /* with 8 bit pixmap we would probably need to set the whole gray palette */
+   gdk_gc_set_foreground (gc, &color_gdk_white);
+   gdk_gc_set_background (gc, &color_gdk_white);
+   gdk_draw_rectangle (GDK_DRAWABLE (pixmap), gc, TRUE, 0, 0, width, height); 
+#endif
+   gdk_gc_set_foreground (gc, &color_gdk_black);
+   gdk_gc_set_background (gc, &color_gdk_white);
+   gdk_draw_layout (GDK_DRAWABLE (pixmap), gc, 0, 0, layout);
+   image = gdk_drawable_get_image (GDK_DRAWABLE (pixmap), 0, 0, width, height);
+   g_object_unref (G_OBJECT (gc));
+   g_object_unref (G_OBJECT (pixmap));
+   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
+   for (i = 0; i < height; i++) {
+     for (j = 0; j < width; j++) {
+       bitmap[DEPTH*(i*rowstride+j)] = color->red*255;
+       bitmap[DEPTH*(i*rowstride+j)+1] = color->green*255;
+       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
+       bitmap[DEPTH*(i*rowstride+j)+3] = gdk_image_get_pixel (image, j, i) ? 255 : 0;
+     }
    }
  }
 #endif

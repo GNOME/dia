@@ -1,3 +1,14 @@
+2003-08-03  Hans Breuer  <hans@breuer.org>
+
+	* config.h.win32 : close the version string
+
+	* lib/libdia.def : with color_white, color_black being static
+	on win32 they can not be exported anymore either
+
+	* lib/dialibartrenderer.c : text rendering is back on win32,
+	only by Gdk though; almost a year seems to be enough to
+	wait for my patch at bug #94791 to be accepted ...
+
 2003-09-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* shapes/network/{digitizing_board.png,plotter.png,

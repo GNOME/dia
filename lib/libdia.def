@@ -1,8 +1,6 @@
 EXPORTS
 ;
  render_bounding_boxes
- color_black
- color_white
  color_gdk_black
  color_gdk_white
 
