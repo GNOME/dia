@@ -415,8 +415,10 @@ flow_create(Point *startpoint,
     point_normalize( &n ) ;
   }
   point_scale( &n, 0.5*FLOW_FONTHEIGHT ) ;
+  printf("p = %f, %f, n = %f, %f\n", p.x, p.y, n.x, n.y);
   point_add( &p, &n ) ;
   point_add( &p, &conn->endpoints[0] ) ;
+  printf("p = %f, %f\n", p.x, p.y);
 
   if ( flow_default_label ) {
     flow->text = text_copy( flow_default_label ) ;
@@ -449,6 +451,7 @@ flow_create(Point *startpoint,
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
   flow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   flow->text_handle.connected_to = NULL;
+  flow->text_handle.pos = p;
   obj->handles[2] = &flow->text_handle;
 
   extra->start_long = 
