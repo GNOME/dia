@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-10 03:12+0100\n"
-"PO-Revision-Date: 2004-03-10 14:23+0100\n"
+"POT-Creation-Date: 2004-03-16 03:11+0100\n"
+"PO-Revision-Date: 2004-03-16 12:23+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4287,7 +4287,7 @@ msgstr "Převrátit svisle"
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu '%s'."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:148 objects/standard/box.c:148
 msgid "Corner radius"
 msgstr "Poloměr rohu"
 
@@ -4334,6 +4334,36 @@ msgstr "Hladké ovládání"
 #: objects/standard/bezier.c:552 objects/standard/beziergon.c:507
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
+
+#: objects/standard/box.c:135 objects/standard/ellipse.c:131
+#: objects/standard/ellipse.c:659
+msgid "Free"
+msgstr "Volné"
+
+#: objects/standard/box.c:136 objects/standard/ellipse.c:132
+#: objects/standard/ellipse.c:661
+msgid "Fixed"
+msgstr "Pevné"
+
+#: objects/standard/box.c:137 objects/standard/box.c:687
+msgid "Square"
+msgstr "Čtverec"
+
+#: objects/standard/box.c:150 objects/standard/ellipse.c:144
+msgid "Aspect ratio"
+msgstr "Poměr stran"
+
+#: objects/standard/box.c:683
+msgid "Free aspect"
+msgstr "Volný poměr stran"
+
+#: objects/standard/box.c:685
+msgid "Fixed aspect"
+msgstr "Pevný poměr stran"
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:663
+msgid "Circle"
+msgstr "Kruh"
 
 #: objects/standard/image.c:130
 msgid "Image file"
