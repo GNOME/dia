@@ -203,6 +203,8 @@ EXPORTS
  dia_font_set_any_family
  dia_font_set_weight_from_string
  dia_font_set_slant_from_string
+ dia_font_set_height
+ dia_font_copy
  dia_font_string_width
 
  dia_font_unref
@@ -615,8 +617,3 @@ EXPORTS
  xmlDiaParseFile
  xmlDiaSaveFile
  xmlDoParseFile
-
- dia_marshal_VOID__VOID
- dia_marshal_VOID__INT
- dia_marshal_VOID__OBJECT
- 

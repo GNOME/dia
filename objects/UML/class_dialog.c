@@ -154,9 +154,10 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
-  umlclass->text_color = prop_dialog->text_color->col;
-  umlclass->line_color = prop_dialog->line_color->col;
-  umlclass->fill_color = prop_dialog->fill_color->col;
+  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
+  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
+  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->fill_color), &umlclass->fill_color);
+
   umlclass->normal_font = dia_font_selector_get_font (prop_dialog->normal_font);
   umlclass->polymorphic_font = dia_font_selector_get_font (prop_dialog->polymorphic_font);
   umlclass->abstract_font = dia_font_selector_get_font (prop_dialog->abstract_font);
@@ -170,7 +171,6 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->classname_font_height);
   umlclass->abstract_classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_classname_font_height);
   umlclass->comment_font_height = gtk_spin_button_get_value_as_float (prop_dialog->comment_font_height);
-
 }
 
 static void
@@ -2660,7 +2660,7 @@ fill_in_dialog(UMLClass *umlclass)
 }
 
 ObjectChange *
-umlclass_apply_properties(UMLClass *umlclass)
+umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 {
   UMLClassDialog *prop_dialog;
   DiaObject *obj;
@@ -2716,7 +2716,7 @@ umlclass_apply_properties(UMLClass *umlclass)
     
   disconnected = prop_dialog->disconnected_connections;
   prop_dialog->disconnected_connections = NULL;
-    
+
   /* Update data: */
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);

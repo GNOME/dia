@@ -92,7 +92,7 @@ static ObjectOps umlclass_ops = {
   (MoveFunc)            umlclass_move,
   (MoveHandleFunc)      umlclass_move_handle,
   (GetPropertiesFunc)   umlclass_get_properties,
-  (ApplyPropertiesFunc) umlclass_apply_properties,
+  (ApplyPropertiesFunc) umlclass_apply_props_from_dialog,
   (ObjectMenuFunc)      umlclass_object_menu,
   (DescribePropsFunc)   umlclass_describe_props,
   (GetPropsFunc)        umlclass_get_props,
@@ -188,6 +188,7 @@ umlclass_describe_props(UMLClass *umlclass)
 static PropOffset umlclass_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
 
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, text_color) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(UMLClass, name) },

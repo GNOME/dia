@@ -96,7 +96,6 @@ struct _DiaColorSelector
 
   GtkWidget *area;
   GdkGC *gc;
-  Color col;
 
   GtkWidget *col_sel;
   

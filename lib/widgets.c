@@ -204,7 +204,7 @@ dia_size_selector_get_type (void)
   static GtkType dss_type = 0;
 
   if (!dss_type) {
-    GtkTypeInfo dss_info = {
+    static const GtkTypeInfo dss_info = {
       "DiaSizeSelector",
       sizeof (DiaSizeSelector),
       sizeof (DiaSizeSelectorClass),
@@ -384,7 +384,7 @@ dia_font_selector_get_type        (void)
   static GtkType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
+    static const GtkTypeInfo dfs_info = {
       "DiaFontSelector",
       sizeof (DiaFontSelector),
       sizeof (DiaFontSelectorClass),
@@ -566,7 +566,10 @@ dia_font_selector_get_font(DiaFontSelector *fs)
 
   fontname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(fs->font_omenu));
   menuitem = gtk_menu_get_active(fs->style_menu);
-  style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
+  if (!menuitem) /* FIXME: should not happen ??? (but does if we don't have added a style) */
+    style = 0;
+  else
+    style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
   font = dia_font_new(fontname, style, 1.0);
   g_free(fontname);
   return font;
@@ -634,7 +637,7 @@ dia_alignment_selector_get_type        (void)
   static GtkType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
+    static const GtkTypeInfo dfs_info = {
       "DiaAlignmentSelector",
       sizeof (DiaAlignmentSelector),
       sizeof (DiaAlignmentSelectorClass),
@@ -822,7 +825,7 @@ dia_line_style_selector_get_type        (void)
   static GtkType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
+    static const GtkTypeInfo dfs_info = {
       "DiaLineStyleSelector",
       sizeof (DiaLineStyleSelector),
       sizeof (DiaLineStyleSelectorClass),
@@ -1287,7 +1290,7 @@ dia_file_selector_get_type (void)
   static GtkType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
+    static const GtkTypeInfo dfs_info = {
       "DiaFileSelector",
       sizeof (DiaFileSelector),
       sizeof (DiaFileSelectorClass),
@@ -1374,7 +1377,7 @@ dia_unit_spinner_get_type(void)
   static GtkType us_type = 0;
 
   if (!us_type) {
-    GtkTypeInfo us_info = {
+    static const GtkTypeInfo us_info = {
       "DiaUnitSpinner",
       sizeof(DiaUnitSpinner),
       sizeof(DiaUnitSpinnerClass),
@@ -1576,7 +1579,7 @@ dia_dynamic_menu_get_type(void)
   static GtkType us_type = 0;
 
   if (!us_type) {
-    GtkTypeInfo us_info = {
+    static const GtkTypeInfo us_info = {
       "DiaDynamicMenu",
       sizeof(DiaDynamicMenu),
       sizeof(DiaDynamicMenuClass),

@@ -1,3 +1,27 @@
+2004-01-03  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdia.def : removed dia_marshal_*, they are implemented as macros.
+	added dia_font_set_height, dia_font_copy (note to self: don't try to
+	maintain these from the *NIX side ;)
+
+	* lib/widgets.h : removed DiaColorSelector::col, it is not maintained by
+	the new color selection anymore
+	* objects/UML/class_dialog.c : with the above change it would have been more 
+	easy to fix the color loss bug #156996 which had nothing to do with 'a pointer
+	problem' but only was an unfinished usage of dia_color_slector(get|set)_color
+
+	*  objects/UML/class_dialog.c  objects/UML/class.[ch] : uml_apply_properties
+	(used in object vtable) and make its prototype match
+
+	* lib/widgets.c : made all the GtkTypeInfo 'static const'. I can't directly
+	correlate any of these strange crashing bug with it, but assume bad things to 
+	happen when one passes stack allocated stuff to gtk_type_unique()
+
+	* lib/widgets.c(dia_font_selector_get_font) : don't access menuitem if it is
+	not there. Fixes most of the warnings from bug #156996
+
+	* lib/makefile.msc : rules to generate diamarshal.[ch]
+
 2004-11-29  Hans Breuer  <hans@breuer.org>
 
 	* app/disp_callbacks.c : reenable so-called preedit

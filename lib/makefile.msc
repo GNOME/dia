@@ -94,6 +94,25 @@ OBJECTS = \
 	text.obj \
 	utils.obj \
 	widgets.obj \
+	diamarshal.obj \
+
+#
+# rules to generate built sources
+#
+# setup autogeneration dependancies
+gen_sources = xgen-gwmh xgen-gwmc
+CLEANFILES = $(gen_sources)
+
+diamarshal.h: diamarshal.list
+	$(GLIB)\gobject\glib-genmarshal --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \
+	&& copy /y xgen-gwmh diamarshal.h \
+	&& del xgen-gwmh xgen-gwmh~
+
+diamarshal.c: diamarshal.h
+	echo #include "diamarshal.h" >> xgen-gwmc \
+	&& $(GLIB)\gobject\glib-genmarshal --prefix=dia_marshal diamarshal.list --body >> xgen-gwmc \
+	&& copy xgen-gwmc diamarshal.c \
+	&& del xgen-gwmc xgen-gwmc~
 
 
 ## common stuff
@@ -120,6 +139,7 @@ CFLAGS = -I. -DHAVE_CONFIG_H
 ## targets
 all : \
 	$(PRJ_TOP)\config.h \
+	diamarshal.c \
 	$(PACKAGE).dll
 
 $(PACKAGE).lib : $(OBJECTS)
@@ -148,3 +168,4 @@ clean::
 	del *.mk1
 	del *.pdb
 	del *.ilk
+	del $(gen_sources)
