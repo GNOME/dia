@@ -350,17 +350,13 @@ dia_page_layout_get_margins(DiaPageLayout *self,
 			    gfloat *lmargin, gfloat *rmargin)
 {
   if (tmargin)
-    *tmargin = gtk_spin_button_get_value_as_float(
-			GTK_SPIN_BUTTON(self->tmargin));
+    *tmargin = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
   if (bmargin)
-    *bmargin = gtk_spin_button_get_value_as_float(
-			GTK_SPIN_BUTTON(self->bmargin));
+    *bmargin = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
   if (lmargin)
-    *lmargin = gtk_spin_button_get_value_as_float(
-			GTK_SPIN_BUTTON(self->lmargin));
+    *lmargin = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
   if (rmargin)
-    *rmargin = gtk_spin_button_get_value_as_float(
-			GTK_SPIN_BUTTON(self->rmargin));
+    *rmargin = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
 }
 
 void
@@ -369,10 +365,10 @@ dia_page_layout_set_margins(DiaPageLayout *self,
 			    gfloat lmargin, gfloat rmargin)
 {
   self->block_changed = TRUE;
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->tmargin), tmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->bmargin), bmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->lmargin), lmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->rmargin), rmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->tmargin), tmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->bmargin), bmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->lmargin), lmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->rmargin), rmargin);
   self->block_changed = FALSE;
 
   gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
@@ -509,38 +505,38 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
 
   /* draw margins */
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->tmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
     num = self->y + val * self->height /paper_metrics[self->papernum].psheight;
     gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->bmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
     num = self->y + self->height -
       val * self->height / paper_metrics[self->papernum].psheight;
     gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->lmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
     num = self->x + val * self->width / paper_metrics[self->papernum].pswidth;
     gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->rmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
     num = self->x + self->width -
       val * self->width / paper_metrics[self->papernum].pswidth;
     gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
   } else {
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->tmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
     num = self->y + val * self->height /paper_metrics[self->papernum].pswidth;
     gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->bmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
     num = self->y + self->height -
       val * self->height / paper_metrics[self->papernum].pswidth;
     gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->lmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
     num = self->x + val * self->width / paper_metrics[self->papernum].psheight;
     gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
 
-    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->rmargin));
+    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
     num = self->x + self->width -
       val * self->width / paper_metrics[self->papernum].psheight;
     gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
@@ -559,14 +555,14 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
   gtk_widget_queue_draw(self->darea);
 
   self->block_changed = TRUE;
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->tmargin),
-			    paper_metrics[self->papernum].tmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->bmargin),
-			    paper_metrics[self->papernum].bmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->lmargin),
-			    paper_metrics[self->papernum].lmargin);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->rmargin),
-			    paper_metrics[self->papernum].rmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->tmargin),
+			     paper_metrics[self->papernum].tmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->bmargin),
+			     paper_metrics[self->papernum].bmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->lmargin),
+			     paper_metrics[self->papernum].lmargin);
+  dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->rmargin),
+			     paper_metrics[self->papernum].rmargin);
 
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =

@@ -31,9 +31,11 @@ struct _DiaUnitSpinnerClass {
 
 };
 
-GtkType    dia_unit_spinner_get_type (void);
-GtkWidget *dia_unit_spinner_new      (GtkAdjustment *adjustment,
-				      guint digits,
-				      DiaUnit adj_unit);
+GtkType    dia_unit_spinner_get_type  (void);
+GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
+				       guint digits,
+				       DiaUnit adj_unit);
+void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gfloat val);
+gfloat     dia_unit_spinner_get_value (DiaUnitSpinner *self);
 
 #endif

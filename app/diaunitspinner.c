@@ -125,6 +125,29 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
   return GTK_WIDGET(self);
 }
 
+void
+dia_unit_spinner_set_value(DiaUnitSpinner *self, gfloat val)
+{
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+
+  if (val < sbutton->adjustment->lower)
+    val = sbutton->adjustment->lower;
+  else if (val > sbutton->adjustment->upper)
+    val = sbutton->adjustment->upper;
+  if (val != sbutton->adjustment->value) {
+    sbutton->adjustment->value = val;
+    gtk_adjustment_value_changed(sbutton->adjustment);
+  }
+}
+
+gfloat
+dia_unit_spinner_get_value(DiaUnitSpinner *self)
+{
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+
+  return sbutton->adjustment->value;
+}
+
 static void
 dia_unit_spinner_update(DiaUnitSpinner *self)
 {
