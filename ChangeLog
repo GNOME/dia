@@ -1,3 +1,9 @@
+2001-07-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lots of files: Changed Font to DiaFont
+	* */Makefile.am: Added FREETYPE_LIBS
+	* plug-ins/xfig/xfig-export.c: Improved (working:) color handling
+
 2001-07-13  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Added "nn" to ALL_LINGUAS.
