@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-01-10 16:03+0100\n"
-"PO-Revision-Date: 2001-01-10 16:03+0100\n"
+"POT-Creation-Date: 2001-02-16 16:33+0100\n"
+"PO-Revision-Date: 2001-02-16 16:21+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Erreur sur l'option %s: %s.\n"
-"Tapez '%s --help' pour voir une liste complète des options en ligne "
+"Tapez « %s --help » pour voir une liste complète des options en ligne "
 "decommande.\n"
 
 #: app/app_procs.c:230 app/app_procs.c:232
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:355 app/display.c:892 app/layer_dialog.c:986
+#: app/app_procs.c:355 app/display.c:905 app/layer_dialog.c:986
 #: app/lineprops_area.c:549 app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:243
 msgid "Cancel"
@@ -169,7 +169,7 @@ msgstr "Fermer"
 msgid "This object has no defaults."
 msgstr "Cet objet n'a pas de caractéristiques par défaut."
 
-#: app/dia_embedd.c:236
+#: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "Ne peut initialiser Bonobo !"
 
@@ -282,15 +282,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagramme modifié !"
 
-#: app/display.c:842
+#: app/display.c:855
 msgid "Close Diagram?"
 msgstr "Fermer le diagramme ?"
 
-#: app/display.c:848
+#: app/display.c:861
 msgid "Really close?"
 msgstr "Vraiment fermer ?"
 
-#: app/display.c:853
+#: app/display.c:866
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -298,12 +298,12 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:871 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
+#: app/display.c:884 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:881 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
+#: app/display.c:894 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
 #: app/preferences.c:505 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Non"
@@ -315,7 +315,7 @@ msgstr "Non"
 #: plug-ins/wpg/wpg.c:932
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Ne peut ouvrir '%s' en écriture.\n"
+msgstr "Ne peut ouvrir « %s » en écriture.\n"
 
 #: app/export_png.c:87
 msgid "Could not create PNG write structure"
@@ -347,7 +347,7 @@ msgstr "Ouvrir les options"
 
 #: app/filedlg.c:192 app/filedlg.c:532
 msgid "Determine file type:"
-msgstr "Type de fichier :"
+msgstr "Déterminer le type du fichier :"
 
 #: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
@@ -359,7 +359,7 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Le fichier '%s' existe déjà.\n"
+"Le fichier « %s » existe déjà.\n"
 "Voulez-vous l'écraser ?"
 
 #: app/filedlg.c:300
@@ -373,7 +373,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "Ne peut déterminer quelle filtre d'exportation\n"
-"utiliser pour enregistrer '%s'"
+"utiliser pour enregistrer « %s »"
 
 #: app/filedlg.c:497
 msgid "Export Diagram"
@@ -514,7 +514,7 @@ msgstr "Nouveau calque"
 
 #: app/layer_dialog.c:67
 msgid "Raise Layer"
-msgstr "Calque en avant-plan"
+msgstr "Calque au premier  plan"
 
 #: app/layer_dialog.c:68
 msgid "Lower Layer"
@@ -601,7 +601,7 @@ msgstr ""
 #: app/load_save.c:230 plug-ins/dxf/dxf-import.c:490 plug-ins/wpg/wpg.c:1038
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Ne peut ouvrir '%s' en lecture.\n"
+msgstr "Ne peut ouvrir « %s » en lecture.\n"
 
 #: app/load_save.c:236
 msgid "You must specify a file, not a directory.\n"
@@ -628,7 +628,7 @@ msgstr ""
 #: app/load_save.c:702
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "Échec lors de l'enregistrement dans le fichier '%s'.\n"
+msgstr "Échec lors de l'enregistrement dans le fichier « %s ».\n"
 
 #: app/load_save.c:722 app/load_save.c:727
 msgid "Native Dia Diagram"
@@ -785,7 +785,7 @@ msgstr "Droite"
 
 #: app/menus.c:156 app/menus.c:165
 msgid "Equal Distance"
-msgstr "Equidistance"
+msgstr "Équidistance"
 
 #: app/menus.c:157 app/menus.c:166
 msgid "Adjacent"
@@ -897,7 +897,7 @@ msgstr "/Fichier/Enregi_strer"
 
 #: app/menus.c:258
 msgid "/File/Save _As..."
-msgstr "/Fichier/Enregistre_r sous..."
+msgstr "/Fichier/Enregistrer _sous..."
 
 #: app/menus.c:259
 msgid "/File/_Export..."
@@ -1147,7 +1147,7 @@ msgstr "/Objets/Alignement horizontal/Droite"
 
 #: app/menus.c:326
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objets/Alignement horizontal/Equidistance"
+msgstr "/Objets/Alignement horizontal/Équidistance"
 
 #: app/menus.c:327
 msgid "/Objects/Align Horizontal/Adjacent"
@@ -1207,7 +1207,7 @@ msgstr "/Outils/Ellipse"
 
 #: app/menus.c:342
 msgid "/Tools/Polygon"
-msgstr "/Outils/Polygon"
+msgstr "/Outils/Polygone"
 
 #: app/menus.c:343
 msgid "/Tools/Beziergon"
@@ -1405,7 +1405,7 @@ msgstr "Sauts de page :"
 #: app/preferences.c:237
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Ne peut ouvrir `%s' en écriture"
+msgstr "Ne peut ouvrir « %s » en écriture"
 
 #: app/preferences.c:570 app/preferences.c:579
 msgid "Preferences"
@@ -1422,6 +1422,33 @@ msgstr "Cet objet n'a pas de propriétés."
 #: app/render_eps.c:1142
 msgid "Encapsulated Postscript"
 msgstr "Postscript encapsulé"
+
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+msgid "/File/Plugins"
+msgstr "/Fichier/Greffons"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+msgid "/File/Open Recent/"
+msgstr "/Fichier/Ouvrir récents/"
+
+#: app/recent_files.c:153
+msgid "Can't open history file for writing."
+msgstr "Ne peut ouvrir le fichier d'historique en écriture."
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr "Chargement..."
+
+#: app/splash.c:67
+#, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr ""
+"Dia v %s\n"
+" par Alexander Larsson"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -1456,7 +1483,7 @@ msgstr "Erreur"
 #: lib/plug-ins.c:211
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "Ne peut déduire le chemin correct pour `%s'"
+msgstr "Ne peut déduire le chemin correct pour « %s »"
 
 #: lib/plug-ins.c:216
 #, c-format
@@ -1464,13 +1491,13 @@ msgid ""
 "Could not load plugin `%s'\n"
 "%s"
 msgstr ""
-"Ne peut charger le greffon `%s'\n"
+"Ne peut charger le greffon « %s »\n"
 "%s"
 
 #: lib/plug-ins.c:227
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "Ne peut trouver la fonction d'initialisation de greffon dans `%s'"
+msgstr "Ne peut trouver la fonction d'initialisation de greffon dans « %s »"
 
 #: lib/plug-ins.c:254
 #, c-format
@@ -1480,12 +1507,12 @@ msgstr "Le greffon %s ne peut être déchargé"
 #: lib/plug-ins.c:307
 #, c-format
 msgid "`%s' is not a directory"
-msgstr "`%s' n'est pas un répertoire"
+msgstr "« %s » n'est pas un répertoire"
 
 #: lib/plug-ins.c:313
 #, c-format
 msgid "Could not open `%s'"
-msgstr "Ne peut ouvrir `%s'"
+msgstr "Ne peut ouvrir « %s »"
 
 #: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
@@ -1623,7 +1650,7 @@ msgstr "Total :"
 #: objects/GRAFCET/vector.c:400 objects/SADT/arrow.c:646
 #: objects/UML/association.c:608 objects/UML/dependency.c:288
 #: objects/UML/generalization.c:280 objects/UML/realizes.c:283
-#: objects/standard/zigzagline.c:343
+#: objects/standard/zigzagline.c:344
 msgid "Add segment"
 msgstr "Ajouter segment"
 
@@ -1631,7 +1658,7 @@ msgstr "Ajouter segment"
 #: objects/GRAFCET/vector.c:401 objects/SADT/arrow.c:647
 #: objects/UML/association.c:609 objects/UML/dependency.c:289
 #: objects/UML/generalization.c:281 objects/UML/realizes.c:284
-#: objects/standard/zigzagline.c:344
+#: objects/standard/zigzagline.c:345
 msgid "Delete segment"
 msgstr "Supprimer segment"
 
@@ -2087,11 +2114,14 @@ msgstr "Agréger"
 msgid "Composition"
 msgstr "Composition"
 
-#: objects/UML/class.c:96
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
 msgid "Name"
 msgstr "Nom"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146 objects/UML/object.c:164
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
 msgid "Stereotype"
 msgstr "Stéréotype"
 
@@ -2351,6 +2381,10 @@ msgstr "Activer l'objet"
 msgid "multiple instance"
 msgstr "instance multiple"
 
+#: objects/UML/node.c:115
+msgid "Node name"
+msgstr "Nom du noeud"
+
 #: objects/UML/state.c:147
 msgid "State Type"
 msgstr "Type d'état"
@@ -2365,7 +2399,7 @@ msgstr "Fin"
 
 #: objects/UML/uml.c:56
 msgid "Unified Modelling Language diagram objects"
-msgstr "Objets de diagrammes 'Unified Modelling Language'"
+msgstr "Objets de diagrammes « Unified Modelling Language »"
 
 #: objects/UML/usecase.c:133
 msgid "Text outside"
@@ -2414,9 +2448,9 @@ msgid ""
 msgstr ""
 "Spécification d'événement :\n"
 "@ date   définit le pointeur à une date absolue.\n"
-"( durée  définit la montée du signal, puis attend 'durée'.\n"
-") durée  définit la descente du signal, puis attend 'durée'.\n"
-"u durée  définit the signal dans l'état \"inconnu\", puis attend 'durée'.\n"
+"( durée  définit la montée du signal, puis attend « durée ».\n"
+") durée  définit la descente du signal, puis attend « durée ».\n"
+"u durée  définit the signal dans l'état « inconnu », puis attend 'durée'.\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
@@ -2594,14 +2628,14 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"L'image '%s' n'a pas été trouvé dans ce répertoire.\n"
-"Utilisation du fichier image '%s' à la place\n"
+"L'image « %s » n'a pas été trouvé dans ce répertoire.\n"
+"Utilisation du fichier image « %s » à la place\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:873 objects/standard/image.c:899
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "Le fichier image '%s' n'a pas été trouvé.\n"
+msgstr "Le fichier image « %s » n'a pas été trouvé.\n"
 
 #: objects/standard/line.c:118
 msgid "Start point"
@@ -2702,44 +2736,38 @@ msgstr "Filtre d'export WordPerfect"
 #~ msgid "Windows Meta File"
 #~ msgstr "Windows Meta File"
 
-#, fuzzy
 #~ msgid "File/New diagram"
-#~ msgstr "_Nouveau diagramme"
+#~ msgstr "Fichier/Nouveau diagramme"
 
-#, fuzzy
 #~ msgid "File/Open..."
-#~ msgstr "/Fichier/_Ouvrir"
+#~ msgstr "Fichier/Ouvrir..."
 
-#, fuzzy
 #~ msgid "File/Save As..."
-#~ msgstr "/Fichier/Enregistre_r sous..."
+#~ msgstr "Fichier/Enregistrer sous..."
 
-#, fuzzy
 #~ msgid "File/Close"
-#~ msgstr "/Fichier/_Fermer"
+#~ msgstr "Fichier/Fermer"
 
-#, fuzzy
 #~ msgid "File/Exit"
-#~ msgstr "/Fichier/_Quitter"
+#~ msgstr "Fichier/Quitter"
 
-#, fuzzy
 #~ msgid "View/New View"
-#~ msgstr "/Vue/Nouvelle _Vue"
+#~ msgstr "Vue/Nouvelle vue"
 
 #~ msgid "/Edit/Copy"
-#~ msgstr "/Edition/Copier"
+#~ msgstr "/Édition/Copier"
 
 #~ msgid "/Edit/Cut"
-#~ msgstr "/Edition/Couper"
+#~ msgstr "/Édition/Couper"
 
 #~ msgid "/Edit/Paste"
-#~ msgstr "/Edition/Coller"
+#~ msgstr "/Édition/Coller"
 
 #~ msgid "/Edit/Delete"
-#~ msgstr "/Edition/Supprimer"
+#~ msgstr "/Édition/Supprimer"
 
 #~ msgid "/Edit/Paste Text"
-#~ msgstr "/Edition/Coller Texte"
+#~ msgstr "/Édition/Coller Texte"
 
 #~ msgid "/Objects/Send to Back"
 #~ msgstr "/Objets/Placer au Fond"
@@ -2771,57 +2799,47 @@ msgstr "Filtre d'export WordPerfect"
 #~ msgid "/File/sep1"
 #~ msgstr "/Fichier/sep1"
 
-#, fuzzy
 #~ msgid "/File/tearoff"
-#~ msgstr "/Fichier/_Nouveau"
+#~ msgstr "/Fichier/tearoff"
 
 #~ msgid "/File/sep2"
 #~ msgstr "/Fichier/sep2"
 
-#, fuzzy
 #~ msgid "/Edit/tearoff"
-#~ msgstr "/Edition/Coller"
+#~ msgstr "/Édition/tearoff"
 
-#, fuzzy
 #~ msgid "/View/tearoff"
-#~ msgstr "/Vue/sep1"
+#~ msgstr "/Vue/tearoff"
 
-#, fuzzy
 #~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Vue/_Zoom"
+#~ msgstr "/Vue/Zoom/tearoff"
 
 #~ msgid "/View/sep1"
 #~ msgstr "/Vue/sep1"
 
-#, fuzzy
 #~ msgid "/Select/tearoff"
-#~ msgstr "/Selection/Inverse"
+#~ msgstr "/Sélection/tearoff"
 
 #~ msgid "/Select/sep1"
-#~ msgstr "/Selection/sep1"
+#~ msgstr "/Sélection/sep1"
 
-#, fuzzy
 #~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objets/sep1"
+#~ msgstr "/Objets/tearoff1"
 
 #~ msgid "/Objects/sep1"
 #~ msgstr "/Objets/sep1"
 
-#, fuzzy
 #~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objets/Alignement Horizontal/Centre"
+#~ msgstr "/Objets/Alignement horizontal/tearoff"
 
-#, fuzzy
 #~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objets/Alignement Vertical/Centre"
+#~ msgstr "/Objets/Alignement vertical/tearoff"
 
-#, fuzzy
 #~ msgid "/Tools/tearoff"
-#~ msgstr "/Outils/Modifier"
+#~ msgstr "/Outils/tearoff"
 
-#, fuzzy
 #~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Dialogues/_Couches"
+#~ msgstr "/Dialogues/tearoff"
 
 #~ msgid "/Tools/"
 #~ msgstr "/Outils/"
@@ -2872,7 +2890,7 @@ msgstr "Filtre d'export WordPerfect"
 #~ " %s\n"
 
 #~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "Le fichier \"%s\" n'est pas une bibliothèque d'objets Dia.\n"
+#~ msgstr "Le fichier « %s » n'est pas une bibliothèque d'objets Dia.\n"
 
 #~ msgid ""
 #~ "The object library \"%s\" is from an older version of Dia and cannot be "
