@@ -1,3 +1,7 @@
+dia-0.94-pre5: 2-Aug-2004
+
+Finally fixed memory leak from layout cache.
+
 dia-0.94-pre4: 1-Aug-2004
 
 Important fix for export filters.  Still some leaking from layout cache,

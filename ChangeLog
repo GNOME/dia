@@ -1,5 +1,11 @@
 2004-08-02  Lars Clausen  <lars@raeder.dk>
 
+	* config.h.win32: 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: 
+	* dia.spec (Release): 
+	* NEWS: Pre5 with leak fix.
+
 	* lib/font.c (dia_font_build_layout): Don't try to save an
 	allocation of LayoutCacheItem if it breaks layout cache hash.
 	Also make hash function correct, remove explicit height entry

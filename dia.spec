@@ -6,7 +6,7 @@ Summary: A gtk+ based diagram creation program.
 Name: %name
 Version: %ver
 # This indicates changes to the spec file after last time %ver has changed.
-Release: pre4
+Release: pre5
 Copyright: GPL
 Group: Applications/
 Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
