@@ -46,7 +46,7 @@
       <description xml:lang="fr">Agrégation, une classe est une partie d'une autre</description>
       <description xml:lang="de">Aggregation, eine Klasse ist Teil einer Anderen</description>
       <description>Aggregation, one class is part of another</description>
-      <icon>UML/aggregationxpm</icon>
+      <icon>UML/aggregation.xpm</icon>
     </object>
     <object name="UML - Implements">
       <description xml:lang="fr">Implémente, une classe implémente une interface spécifique</description>

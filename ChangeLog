@@ -1,5 +1,7 @@
 2000-10-04  James Henstridge  <james@daa.com.au>
 
+	* sheets/UML.sheet: fix typo.
+
 	* objects/custom/shape_info.c: use strtod instead of g_strtod.
 	(parse_path): actually call setlocale around strtod calls.
 
