@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-20 03:09+0100\n"
+"POT-Creation-Date: 2004-05-03 14:07+0200\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -141,11 +141,11 @@ msgstr "Dia afsluiten"
 msgid "Thank you for using Dia.\n"
 msgstr "Dank u voor uw gebruik van Dia.\n"
 
-#: app/app_procs.c:676 app/app_procs.c:683
+#: app/app_procs.c:678 app/app_procs.c:685
 msgid "Could not create per-user Dia config directory"
 msgstr "Kan per-gebruiker Dia configuratie map niet maken"
 
-#: app/app_procs.c:685
+#: app/app_procs.c:687
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -153,15 +153,15 @@ msgstr ""
 "Kan per-gebruiker Dia configuratie map niet maken. Zorg aub dat de "
 "omgevingsvariabele HOME naar een bestaande map wijst."
 
-#: app/app_procs.c:707 app/diaconv.c:251
+#: app/app_procs.c:709 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
-#: app/app_procs.c:746 app/diaconv.c:121
+#: app/app_procs.c:748 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTIE...] [BESTAND...]"
 
-#: app/app_procs.c:750 app/diaconv.c:128
+#: app/app_procs.c:752 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -473,7 +473,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
-#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -830,7 +830,7 @@ msgstr ""
 "Pijl stijl aan het einde van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel pijl-parameters in met Details..."
 
-#: app/interface.c:1235
+#: app/interface.c:1236
 msgid "Diagram Editor"
 msgstr "Diagram Bewerken"
 
@@ -879,7 +879,6 @@ msgid "Layer name:"
 msgstr "Laag naam:"
 
 #: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
-#: lib/dialinechooser.c:254
 msgid "OK"
 msgstr "OK"
 
@@ -1446,22 +1445,22 @@ msgstr "Printer"
 msgid "File"
 msgstr "Bestand"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:358
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Kan commando '%s' niet uitvoeren: %s"
 
-#: app/paginate_psprint.c:359
+#: app/paginate_psprint.c:361
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Kan '%s' niet openen voor schrijven: %s"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:380
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Afdrukfout: commando '%s' geeft %d\n"
 
-#: app/paginate_psprint.c:388
+#: app/paginate_psprint.c:390
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Afdrukfout: commando '%s' veroorzaakt een sigpipe."
@@ -2118,7 +2117,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Pijl Eigenschappen"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
 msgid "Details..."
 msgstr "Details..."
 
@@ -2167,7 +2166,7 @@ msgstr "_Voorbeeld:"
 msgid "Font Selection"
 msgstr "Lettertype-selectie"
 
-#: lib/dialinechooser.c:243
+#: lib/dialinechooser.c:287
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
@@ -4374,15 +4373,15 @@ msgstr "Vierkant"
 msgid "Aspect ratio"
 msgstr "Aspecten verhouding"
 
-#: objects/standard/box.c:683 objects/standard/ellipse.c:659
+#: objects/standard/box.c:683 objects/standard/ellipse.c:666
 msgid "Free aspect"
 msgstr "Vrije aspecten"
 
-#: objects/standard/box.c:685 objects/standard/ellipse.c:661
+#: objects/standard/box.c:685 objects/standard/ellipse.c:668
 msgid "Fixed aspect"
 msgstr "Vaste aspecten"
 
-#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:663
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:670
 msgid "Circle"
 msgstr "Cirkel"
 
@@ -5427,7 +5426,7 @@ msgstr "Relais (vertikaal)"
 msgid "The command organ of a relay (horizontal)"
 msgstr "Besturingsorgaan van een relais (horizontaal)"
 
-#: sheets/Electric.sheet.in.h:1
+#: sheets/Electric.sheet.in.h:17
 msgid "The command organ of a relay (vertical)"
 msgstr "Besturingsorgaan van een relais (vertikaal)"
 
@@ -6557,7 +6556,7 @@ msgstr "15200"
 
 #: sheets/cisconetwork.sheet.in.h:3
 msgid "3174 (desktop) cluster controller"
-msgstr "3174 (desktop) cluster controller"
+msgstr "3174 (bureaublad) cluster controller"
 
 #: sheets/cisconetwork.sheet.in.h:4
 msgid "3X74 (floor) cluster controller"
