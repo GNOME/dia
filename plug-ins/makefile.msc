@@ -23,7 +23,7 @@ PKG_DEF = ..\objects.def
 
 PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
 	-I. -I$(LIBXML) -I$(PRJ_TOP)\lib \
-	-DVERSION=\"0.86\"
+	-DVERSION=\"0.88\"
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
 	$(LIBXML)\libxml.lib \
@@ -67,6 +67,8 @@ OBJECTS = \
 !IFDEF OBJ_xfig
 OBJECTS = \
   xfig.obj \
+  xfig-common.obj \
+  xfig-export.obj \
   xfig-import.obj
 # this plug-in imports group_create () from dia.exe 
 PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib

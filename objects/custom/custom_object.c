@@ -246,7 +246,7 @@ custom_get_props(Custom *custom, Property *props, guint nprops)
       !custom->info->has_text)
     return;
   if (quarks[0].q == 0)
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
  
   for (i = 0; i < nprops; i++) {
@@ -281,7 +281,7 @@ custom_set_props(Custom *custom, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
         quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {

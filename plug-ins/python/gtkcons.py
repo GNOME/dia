@@ -173,8 +173,14 @@ class Console(GtkVBox):
 		# set up hooks for standard output.
 		self.stdout = gtkoutfile(self.text, sys.stdout.fileno(),
 					self.normal)
-		self.stderr = gtkoutfile(self.text, sys.stderr.fileno(),
-					self.error)
+		try :
+			# this will mostly fail on win32 ...
+			self.stderr = gtkoutfile(self.text, sys.stderr.fileno(),
+						self.error)
+		except :
+			# ... but gtkoutfile is not using the fileno anyway
+			self.stderr = gtkoutfile(self.text, -1,
+						self.error)
 
 		# set up command history
 		self.history = ['']

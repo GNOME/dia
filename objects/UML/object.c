@@ -164,9 +164,13 @@ static ObjectOps objet_ops = {
 
 static PropDescription objet_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype"), NULL, NULL },
-  PROP_STD_TEXT,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Class name"), NULL, NULL },
 
@@ -192,20 +196,49 @@ static PropOffset objet_offsets[] = {
   { NULL, 0, 0 },
 };
 
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
 static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "name" },
-  { "stereotype" } 
+  { "text_alignment" },
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
 };
-#endif
 
 static void
 objet_get_props(Objet * objet, Property *props, guint nprops)
 {
+  guint i;
+
   if (object_get_props_from_offsets(&objet->element.object, 
                                     objet_offsets, props, nprops))
     return;
-  /* XXX ? */
+
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+ 
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_ENUM;
+      PROP_VALUE_ENUM(props[i]) = objet->text->alignment;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = objet->text->font;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = objet->text->height;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = objet->text->color;
+    } else if (pquark == quarks[4].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(objet->text);
+    }
+  }
+
 }
 
 static void
@@ -213,7 +246,27 @@ objet_set_props(Objet *objet, Property *props, guint nprops)
 {
   if (!object_set_props_from_offsets(&objet->element.object, objet_offsets,
 		     props, nprops)) {
-    /* XXX ? */
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
+	text_set_alignment(objet->text, PROP_VALUE_ENUM(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(objet->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(objet->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(objet->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(objet->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
   }
   objet_update_data(objet);
 }

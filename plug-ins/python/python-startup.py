@@ -1,5 +1,5 @@
 import sys, os
-import gtk, dia
+import dia
 
 # find system python plugin dir
 curdir = os.path.dirname(__file__)

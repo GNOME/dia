@@ -1,3 +1,5 @@
+#include <string.h> /* strcmp */
+
 #include "nlist.h"
 #include "intl.h"
 

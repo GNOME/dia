@@ -402,7 +402,7 @@ struct _ObjectType {
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \
   { "obj_pos", PROP_TYPE_POINT, offsetof(Object, position) }, \
-  { "obj_bb", PROP_TYPE_POINT, offsetof(Object, bounding_box) }
+  { "obj_bb", PROP_TYPE_RECT, offsetof(Object, bounding_box) }
 
    
 #endif /* OBJECT_H */

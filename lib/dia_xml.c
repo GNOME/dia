@@ -279,7 +279,10 @@ data_point(DataNode data, Point *point)
   point->x = strtod(val, &str);
   ax = fabs(point->x);
   if ((ax > 1e9) || ((ax < 1e-9) && (ax != 0.0)) || isnan(ax) || isinf(ax)) {
-    g_warning(_("Incorrect x Point value %f; discarding it."),point->x);
+    /* there is no provision to keep values larger when saving, 
+     * so do this 'reduction' silent */
+    if (!(ax < 1e-9)) 
+      g_warning(_("Incorrect x Point value \"\" %f; discarding it."),val,point->x);
     point->x = 0.0;
   }
   while ((*str != ',') && (*str!=0))
@@ -294,7 +297,8 @@ data_point(DataNode data, Point *point)
   point->y = strtod(str+1, NULL);
   ay = fabs(point->y);
   if ((ay > 1e9) || ((ay < 1e-9) && (ay != 0.0)) || isnan(ay) || isinf(ay)) {
-    g_warning(_("Incorrect y Point value %f; discarding it."),point->y);
+    if (!(ay < 1e-9)) /* don't bother with useless warnings (see above) */
+      g_warning(_("Incorrect y Point value \"%s\" %f; discarding it."),str+1,point->y);
     point->y = 0.0;
   }
   setlocale(LC_NUMERIC, old_locale);

@@ -276,7 +276,7 @@ static PyObject *
 PyDiaPoint_Str(PyDiaPoint *self)
 {
     PyObject* py_s;
-#if 0 /* gives crashes with nan */
+#ifndef _DEBUG /* gives crashes with nan */
     gchar* s = g_strdup_printf ("(%f,%f)",
                                 (float)(self->pt.x), (float)(self->pt.y));
 #else
@@ -298,7 +298,7 @@ PyDiaRectangle_Str(PyDiaRectangle *self)
                            (self->r.ri.left), (self->r.ri.top),
                            (self->r.ri.right), (self->r.ri.bottom));
     else
-#if 0 /* gives crashes with nan */
+#ifndef _DEBUG /* gives crashes with nan */
       s = g_strdup_printf ("((%f,%f),(%f,%f))",
                            (float)(self->r.rf.left), (float)(self->r.rf.top),
                            (float)(self->r.rf.right), (float)(self->r.rf.bottom));
@@ -316,7 +316,8 @@ static PyObject *
 PyDiaBezPoint_Str(PyDiaBezPoint *self)
 {
     PyObject* py_s;
-#if 0 /* FIXME: this is causing bad crashes. Probably a glib and a Dia problem ... */
+#if 0 /* FIXME: this is causing bad crashes with unintialized points. 
+       * Probably a glib and a Dia problem ... */
     gchar* s = g_strdup_printf ("((%f,%f),(%f,%f),(%f,%f),%s)",
                                 (float)(self->bpn.p1.x), (float)(self->bpn.p1.y),
                                 (float)(self->bpn.p2.x), (float)(self->bpn.p2.y),

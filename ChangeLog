@@ -1,3 +1,50 @@
+2001-05-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/object.h : OBJECT_COMMON_PROPERTIES_OFFSETS correct type 
+	of 'obj_bb' to PROP_TYPE_RECT
+
+	* objects/custom/custom_object.c : take all quarks into account, 
+	not only 4 as copy&paste suggests
+
+	* objects/uml/objects.c : completed the implementation of the
+	property api to avoid reading of totally bogus data. Removed
+	the PROBABLY_DEAD_CODE. It actually was dead code, but not because
+	there was too much but too less ...
+  
+	The above changes removed all known crashes (mentioned below) 
+	from the Property API. Property access is still incomplete though.
+
+	* objects/flowchart/box.c :
+	* objects/flowchart/diamond.c :
+	* objects/flowchart/ellipse.c :
+	* objects/flowchart/parallelogram.c :
+	* objects/uml/classicon.c :
+	* objects/uml/state.c : calculate number of quarks from quark array 
+	size instead of using hardcoded values for consistence and to avoid 
+	future bugs like the above
+	
+	* objects/eml/nlist.c : include <string.h> for strcmp()
+
+	* lib/dia_xml.c : relax g_warning for values, which
+	appear to be too small. There is nothing which prevents
+	them while saving
+
+	* plug-ins/python/pydia-geometry.c : changed stringifying of
+	geometry objects accept BezPoint back to %f, which does not
+	crash anymore, because all the data is intialized now and it
+	simply is more readable than %e ...
+
+	* plug-ins/python/python-startup.py : removed dependency
+	to PyGtk, because it isn't required here and probably won't
+	in i.e.: export filters.
+
+	* plug-ins/python/gtkcons.py : create the gtkoutfile even
+	if sys.stderr.fileno() isn't supported
+
+	* app/makefile.msc : make version 0.88
+	* plug-ins/makefile.msc : make version 0.88 an added new
+	xfig files to build
+
 2001-05-11  James Henstridge  <james@daa.com.au>
 
 	* NEWS: remember to add news items this time.
