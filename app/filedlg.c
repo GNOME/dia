@@ -632,6 +632,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     omenu = create_export_menu();
     gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 0);
     gtk_widget_show(omenu);
+    g_object_set_data(G_OBJECT(exportdlg), "export-menu", omenu);
 
     gtk_widget_show(options);
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(exportdlg), options);
@@ -652,7 +653,6 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
 		     "response", G_CALLBACK(file_export_response_callback), omenu);
   }
- 
   if (gtk_object_get_user_data(GTK_OBJECT(exportdlg)))
     g_object_unref (gtk_object_get_user_data(GTK_OBJECT(exportdlg)));
   g_object_ref(dia); 
@@ -669,6 +669,8 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     g_free(fnabs);
     g_free(filename);
   }
+  export_set_extension(GTK_WIDGET(g_object_get_data(G_OBJECT(exportdlg), 
+						    "export-menu")));
 
   gtk_widget_show(exportdlg);
 }

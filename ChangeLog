@@ -1,11 +1,14 @@
 2005-02-06  Lars Clausen  <lars@raeder.dk>
 
+	* app/filedlg.c (file_export_callback): Set correct extension as
+	soon every time the dialog is shown.  Fixes bug #162535.
+
 	* app/display.c (ddisplay_set_origo): Use more standard
 	transformations.
 
 	* app/modify_tool.c (modify_motion): 
 	* app/create_object.c (create_object_motion): Put coordinates of
-	handle/object in status bar while moving.
+	handle/object in status bar while moving. Fixes bug #163164.
 
 2005-02-03  Lars Clausen  <lars@raeder.dk>
 
