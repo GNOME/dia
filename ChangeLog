@@ -1,3 +1,8 @@
+2003-12-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagdkrenderer.c (get_cached_text): Stupid bugs replaced by
+	smarter ones.
+
 2003-11-30  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/diasvg.py : initialize self.dash_length

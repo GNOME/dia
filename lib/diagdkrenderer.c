@@ -512,7 +512,7 @@ get_layout_first_baseline(PangoLayout* layout)
 }
 
 /** Used as elements in a hash table caching rendered text. */
-struct {
+typedef struct {
   const gchar *text;
   DiaFont *font;
   real font_height;
@@ -530,20 +530,16 @@ struct {
 static GHashTable *text_cache;
 
 static gboolean
-text_cache_equals(gpointer e1, gpointer e2) 
+text_cache_equals(gconstpointer e1, gconstpointer e2) 
 {
   return FALSE;
 }
 
 
-static gint
-text_cache_hash(StringCacheElement *el) 
+static guint
+text_cache_hash(gconstpointer el) 
 {
   StringCacheElement *sce;
-
-  if (text_cache == NULL) {
-    text_cache = g_hash_table_new(sce_hash, sce_equals);
-  }
 
   return 0;
 }
@@ -552,6 +548,7 @@ static StringCacheElement *
 get_cached_text(DiaRenderer *object, const gchar *text, Color *color)
 {
   StringCacheElement sce;
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
 
   if (text_cache == NULL) return NULL;
 
@@ -569,13 +566,19 @@ static void
 cache_text(DiaRenderer *object, const gchar *text, Color *color,
 	   guchar* pixels, gint width, gint height) 
 {
-  
+  if (text_cache == NULL) {
+    text_cache = g_hash_table_new(text_cache_hash, text_cache_equals);
+  }
+
 }
 #else
 static void
 cache_text(DiaRenderer *object, const gchar *text, Color *color,
 	   PangoLayout *layout)
 {
+  if (text_cache == NULL) {
+    text_cache = g_hash_table_new(text_cache_hash, text_cache_equals);
+  }
   
 }
 #endif
