@@ -40,6 +40,7 @@
 #include "message.h"
 #include "intl.h"
 #include "magnify.h"
+#include "diamenu.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -111,29 +112,40 @@ create_object_menu(DiaMenu *dia_menu)
   gtk_widget_show(menu_item);
 
   for (i=0;i<dia_menu->num_items;i++) {
-    gchar *label = dia_menu->items[i].text;
+    DiaMenuItem *item = &dia_menu->items[i];
 
-    if (label)
-      menu_item = gtk_menu_item_new_with_label(gettext(label));
-    else
-      menu_item = gtk_menu_item_new();
+    if (item->active & DIAMENU_TOGGLE) {
+      if (item->text)
+	menu_item = gtk_check_menu_item_new_with_label(gettext(item->text));
+      else
+	menu_item = gtk_check_menu_item_new();
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item),
+				     item->active & DIAMENU_TOGGLE_ON);
+      gtk_check_menu_item_set_show_toggle(GTK_CHECK_MENU_ITEM(menu_item),
+					  TRUE);
+    } else {
+      if (item->text)
+	menu_item = gtk_menu_item_new_with_label(gettext(item->text));
+      else
+	menu_item = gtk_menu_item_new();
+    }
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
-    dia_menu->items[i].app_data = menu_item;
+    item->app_data = menu_item;
     if ( dia_menu->items[i].callback ) {
     /* only connect signal handler if there is actually a callback */
       gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
 			 object_menu_proxy, &dia_menu->items[i]);
     } else { 
-      if ( dia_menu->items[i].callback_data ) { 
+      if ( item->callback_data ) { 
         /* This menu item is a submenu if it has no callback, but does
 	 * Have callback_data. In this case the callback_data is a
 	 * DiaMenu pointer for the submenu. */
-        if ( ((DiaMenu*)dia_menu->items[i].callback_data)->app_data == NULL ) {
+        if ( ((DiaMenu*)item->callback_data)->app_data == NULL ) {
 	  /* Create the popup menu items for the submenu. */
-          create_object_menu( (DiaMenu*)(dia_menu->items[i].callback_data) ) ;
+          create_object_menu( (DiaMenu*)(item->callback_data) ) ;
           gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
-      GTK_WIDGET(((DiaMenu*)(dia_menu->items[i].callback_data))->app_data));
+              GTK_WIDGET(((DiaMenu*)(item->callback_data))->app_data));
 	}
       }
     }
@@ -184,8 +196,12 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     
     /* Update active/nonactive menuitems */
     for (i=0;i<dia_menu->num_items;i++) {
-      gtk_widget_set_sensitive((GtkWidget *)dia_menu->items[i].app_data,
-			       dia_menu->items[i].active);
+      DiaMenuItem *item = &dia_menu->items[i];
+      gtk_widget_set_sensitive(GTK_WIDGET(item->app_data),
+			       item->active & DIAMENU_ACTIVE);
+      if (item->active & DIAMENU_TOGGLE)
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->app_data),
+				       item->active & DIAMENU_TOGGLE_ON);
     }
 
     menu = GTK_MENU(dia_menu->app_data);

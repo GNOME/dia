@@ -23,6 +23,11 @@
 typedef struct _DiaMenuItem DiaMenuItem;
 typedef struct _DiaMenu DiaMenu;
 
+/* Flags for DiaMenuItem->active */
+#define DIAMENU_ACTIVE (1<<0)
+#define DIAMENU_TOGGLE (1<<1)
+#define DIAMENU_TOGGLE_ON (1<<2)
+
 /* Note: The returned change is already applied. */
 typedef ObjectChange *(*DiaMenuCallback)(Object *obj, Point *pos, gpointer data);
 
@@ -30,7 +35,7 @@ struct _DiaMenuItem {
   char *text;
   DiaMenuCallback callback;
   gpointer callback_data;
-  int active;
+  int active; /* Actually flags now, but keeps name for compatibility */
   /* Private for app:  */
   void *app_data; /* init to NULL */
 };

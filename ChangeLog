@@ -1,3 +1,9 @@
+2002-07-12  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/disp_callbacks.c: 
+	* lib/diamenu.h: 
+	Addition to the object menus allows check menu items.
+
 2002-07-11  Andrew Ferrier  <andrew@new-destiny.co.uk>
 
        * HACKING: completely changed to bring up-to-date.
