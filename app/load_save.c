@@ -150,6 +150,7 @@ diagram_load(char *filename)
   xmlNodePtr layer_node;
   AttributeNode attr;
   Layer *layer;
+  xmlNsPtr namespace;
   
   fd = open(filename, O_RDONLY);
 
@@ -160,7 +161,7 @@ diagram_load(char *filename)
 
   fstat(fd, &stat_buf);
   if (S_ISDIR(stat_buf.st_mode)) {
-    message_error("You must specify a filename.\n");
+    message_error("You must specify a file, not a directory.\n");
     return NULL;
   }
   
@@ -169,7 +170,20 @@ diagram_load(char *filename)
   doc = xmlParseFile(filename);
 
   if (doc == NULL){
-    message_error("Error loading diagram.\n");
+    message_error("Error loading diagram %s.\nUnknown file type.", filename);
+    return NULL;
+  }
+  
+  if (doc->root == NULL) {
+    message_error("Error loading diagram %s.\nUnknown file type.", filename);
+    xmlFreeDoc (doc);
+    return NULL;
+  }
+
+  namespace = xmlSearchNs(doc, doc->root, "dia");
+  if (strcmp (doc->root->name, "diagram") || (namespace == NULL)){
+    message_error("Error loading diagram %s.\nNot a Dia file.", filename);
+    xmlFreeDoc (doc);
     return NULL;
   }
   

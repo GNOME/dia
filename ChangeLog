@@ -1,4 +1,10 @@
-1999-01-21  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1999-01-21  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/load_save.c (diagram_load):
+	Be somewhat more robust when loading files that
+	are not diagrams.
+	
+1999-01-21  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/app_procs.c:
 	* objects/ER/er.c:
