@@ -1,11 +1,17 @@
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* objects/Istar/goal.c: 
+	* objects/Istar/actor.c: 
+	* objects/FS/function.c: 
 	* object/standard/box.c:
 	* objects/ER/entity.c: 
 	* objects/ER/relationship.c: 
 	* objects/ER/attribute.c: Main points added.   Distance_from fixed
-	in attribute, broken in relationship.
+	in attribute, broken in relationship, I* goal
 
+	* app/menus.c: Change Help/Manual to Help/Contents to follow
+	standard.
+	
 	* objects/standard/line.c:
 	* lib/geometry.[ch]: 
 	* objects/standard/bezier.c: Patch from Grégoire Dooms

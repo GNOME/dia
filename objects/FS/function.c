@@ -41,10 +41,12 @@
 typedef struct _Function Function;
 typedef struct _FunctionChange FunctionChange;
 
+#define NUM_CONNECTIONS 9
+
 struct _Function {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   
   Text *text;
   TextAttributes attrs;
@@ -407,6 +409,10 @@ function_update_data(Function *pkg)
 		   elem->corner.x + elem->width,
 		   elem->corner.y + elem->height,
 		   DIR_SOUTHEAST);
+  connpoint_update(&pkg->connections[8],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_SOUTHEAST);
   
   element_update_boundingbox(elem);
 
@@ -450,13 +456,15 @@ function_create(Point *startpoint,
                        ALIGN_CENTER);
   dia_font_unref(font);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->connections[8].flags = CP_FLAGS_MAIN;
+
   pkg->element.extra_spacing.border_trans = FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 
@@ -497,12 +505,13 @@ function_copy(Function *pkg)
 
   newpkg->text = text_copy(pkg->text);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newpkg->connections[i];
     newpkg->connections[i].object = newobj;
     newpkg->connections[i].connected = NULL;
     newpkg->connections[i].pos = pkg->connections[i].pos;
     newpkg->connections[i].last_pos = pkg->connections[i].last_pos;
+    newpkg->connections[i].flags = pkg->connections[i].flags;
   }
   newpkg->is_wish = pkg->is_wish ;
   newpkg->is_user = pkg->is_user ;
@@ -565,13 +574,15 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   else
     pkg->is_user = FALSE;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->connections[8].flags = CP_FLAGS_MAIN;
+
   pkg->element.extra_spacing.border_trans = pkg->text ? pkg->text->height : FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 

@@ -48,6 +48,8 @@
 #define ACTOR_BORDER_WIDTH 0.12
 #define ACTOR_FONT 0.7
 
+#define NUM_CONNECTIONS 17
+
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -75,7 +77,7 @@ typedef struct _Actor Actor;
 struct _Actor {
   Element element;
   ActorType type;
-  ConnectionPoint connections[16];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   Text *text;
   TextAttributes attrs;
   int init;
@@ -412,11 +414,14 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   c.y = elem->corner.y + elem->height / 2;
   dw = elem->width  / 2.0;
   dh = elem->height / 2.0;
-  for (i = 0; i < 16; i++) {
+  for (i = 0; i < NUM_CONNECTIONS-1; i++) {
     real theta = M_PI / 8.0 * i;
+    /* TODO: Set up directions for autorouting */
     actor->connections[i].pos.x = c.x + dw * cos(theta);
     actor->connections[i].pos.y = c.y - dh * sin(theta);
   }
+  actor->connections[16].pos.x = c.x;
+  actor->connections[16].pos.y = c.y;
 
   extra->border_trans = ACTOR_BORDER_WIDTH / 2.0;
   element_update_boundingbox(elem);
@@ -460,13 +465,14 @@ static DiaObject
   text_get_attributes(actor->text,&actor->attrs);
   dia_font_unref(font);
 
-  element_init(elem, 8, 16);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<16;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &actor->connections[i];
     actor->connections[i].object = obj;
     actor->connections[i].connected = NULL;
   }
+  actor->connections[16].flags = CP_FLAGS_MAIN;
 
   /* init */
   switch (GPOINTER_TO_INT(user_data)) {

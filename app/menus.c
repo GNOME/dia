@@ -71,7 +71,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
       "<StockItem>", GTK_STOCK_QUIT },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
+  {N_("/Help/_Contents"),        "F1",         help_manual_callback,      0,
       "<StockItem>", GTK_STOCK_HELP },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About..."),      NULL,         help_about_callback,       0 }
@@ -256,7 +256,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
+  {N_("/Help/_Contents"),        "F1",         help_manual_callback,      0,
       "<StockItem>", GTK_STOCK_HELP },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About..."),      NULL,         help_about_callback,       0,

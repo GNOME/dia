@@ -59,6 +59,8 @@
 #define GOAL_BG_COLOR color_white
 #define GOAL_OFFSET 0.5
 
+#define NUM_CONNECTIONS 9
+
 typedef enum {
   ANCHOR_MIDDLE,
   ANCHOR_START,
@@ -78,7 +80,7 @@ static PropEnumData prop_goal_type_data[] = {
 
 typedef struct _Goal {
   Element element;
-  ConnectionPoint connector[8];
+  ConnectionPoint connector[NUM_CONNECTIONS];
 
   Text *text;
   real padding;
@@ -441,6 +443,9 @@ static void update_softgoal_connectors(ConnectionPoint *c, Point p, double w, do
   c[7].pos.x=p.x+5*w/6;
   c[7].pos.y=p.y+h;
   c[7].directions = DIR_SOUTH;
+  c[8].pos.x=p.x+w/2;
+  c[8].pos.y=p.y+h/2;
+  c[8].directions = DIR_ALL;
 }
 
 static void update_goal_connectors(ConnectionPoint *c, Point p, double w, double h) {
@@ -471,6 +476,9 @@ static void update_goal_connectors(ConnectionPoint *c, Point p, double w, double
   c[7].pos.x=p.x+5*w/6;
   c[7].pos.y=p.y+h;
   c[7].directions = DIR_SOUTH;
+  c[8].pos.x=p.x+w/2;
+  c[8].pos.y=p.y+h/2;
+  c[8].directions = DIR_ALL;
 }
 
 inline static ObjectChange *
@@ -518,13 +526,14 @@ goal_create(Point *startpoint,
                        ALIGN_CENTER);
   dia_font_unref(font);
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for(i=0; i<8; i++) {
+  for(i=0; i<NUM_CONNECTIONS; i++) {
     obj->connections[i] = &goal->connector[i];
     goal->connector[i].object = obj;
     goal->connector[i].connected = NULL;
   }
+  goal->connector[8].flags = CP_FLAGS_MAIN;
 
   goal->element.extra_spacing.border_trans = GOAL_LINE_WIDTH/2.0;
   goal_update_data(goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
