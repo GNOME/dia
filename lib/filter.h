@@ -25,7 +25,8 @@
 #include <diagramdata.h>
 
 typedef struct _DiaExportFilter DiaExportFilter;
-typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename);
+typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
+				const gchar *diafilename);
 
 struct _DiaExportFilter {
   const gchar *description;

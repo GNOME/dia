@@ -1,5 +1,27 @@
 1999-12-20  James Henstridge  <james@daa.com.au>
 
+	* app/app_procs.c (app_init): don't use diagram_export_to_eps to
+	export the files.  Instead, use filter_guess_export_filter to
+	guess the correct format to save in and use the appropriate filter.
+	It defaults to postscript for compatibility.
+
+	* app/diagram.[ch] (diagram_export_to_eps): removed export to eps
+	function.
+
+	* app/commands.[ch]: removed export to eps functions.
+
+	* app/menus.c: removed export to eps menu items.
+
+	* app/app_procs.c: register new export filters.
+
+	* app/load_save.[ch]: define dia native export filter.
+
+	* app/render_eps.[ch]: define eps export filter.
+
+	* lib/filter.h: added diafilename argument to the DiaExportFunc
+	prototype.  This is useful for putting the source of the diagram
+	into the output file for instance.
+
 	* app/app_procs.c (app_init): register the SVG export filter.  Have
 	to get EPS code converted to this API, and maybe also allow saving in
 	DIA's native format from the export dialog.  In fact, it is now
