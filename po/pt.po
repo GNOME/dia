@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2002-02-28 00:30+0000\n"
-"PO-Revision-Date: 2002-02-28 00:40+0000\n"
+"POT-Creation-Date: 2002-03-28 00:40+0000\n"
+"PO-Revision-Date: 2002-03-28 00:48+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"Language-Team: Portuguese <none@none.org>\n"
+"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -108,7 +108,7 @@ msgstr "Sair"
 
 #: app/app_procs.c:493 app/display.c:966 app/export_png.c:253
 #: app/layer_dialog.c:1015 app/lineprops_area.c:771 app/lineprops_area.c:971
-#: app/linewidth_area.c:246 app/paginate_psprint.c:264
+#: app/linewidth_area.c:246 app/paginate_psprint.c:268
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -170,7 +170,7 @@ msgstr "Contribuições:"
 #. setup buttons
 #: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:1005
 #: app/lineprops_area.c:762 app/lineprops_area.c:961 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:717
+#: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
 #: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "OK"
@@ -232,7 +232,7 @@ msgstr "Grelha"
 msgid "Background Colour"
 msgstr "Cor de Fundo"
 
-#: app/dia-props.c:200 lib/diagramdata.c:62 lib/diagramdata.c:64
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
 msgid "Background"
 msgstr "Fundo"
 
@@ -479,13 +479,13 @@ msgstr "Sim"
 msgid "No"
 msgstr "Não"
 
-#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:212
-#: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
-#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:199
-#: plug-ins/pstricks/render_pstricks.c:188 plug-ins/python/pydia-render.c:671
-#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
+#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:748
+#: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
+#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
+#: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
+#: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
 #: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
-#: plug-ins/xfig/xfig-export.c:743
+#: plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Incapaz de abrir: '%s' para escrita.\n"
@@ -799,7 +799,7 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Gestor de ligação não existe."
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -889,7 +889,6 @@ msgid "Zoom _In"
 msgstr "_Aumentar Zoom"
 
 #: app/menus.c:124
-#, c-format
 msgid "Zoom in 50%"
 msgstr "Aumentar Zoom 50%"
 
@@ -898,7 +897,6 @@ msgid "Zoom _Out"
 msgstr "_Diminuir Zoom"
 
 #: app/menus.c:125
-#, c-format
 msgid "Zoom out 50%"
 msgstr "Diminir Zoom 50%"
 
@@ -1187,52 +1185,42 @@ msgid "/View/_Zoom"
 msgstr "/Ver/_Zoom"
 
 #: app/menus.c:315
-#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Ver/Zoom/400%"
 
 #: app/menus.c:316
-#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Ver/Zoom/283%"
 
 #: app/menus.c:317
-#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Ver/Zoom/200%"
 
 #: app/menus.c:318
-#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Ver/Zoom/141%"
 
 #: app/menus.c:319
-#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Ver/Zoom/100%"
 
 #: app/menus.c:320
-#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Ver/Zoom/85%"
 
 #: app/menus.c:321
-#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Ver/Zoom/70.7%"
 
 #: app/menus.c:322
-#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Ver/Zoom/50%"
 
 #: app/menus.c:323
-#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Ver/Zoom/35.4%"
 
 #: app/menus.c:324
-#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Ver/Zoom/25%"
 
@@ -1480,29 +1468,29 @@ msgstr "Imprimir Diagrama"
 msgid "An error occured while creating the print context"
 msgstr "Ocorreu um erro durante a criação do contexto de impressão"
 
-#: app/paginate_psprint.c:216
+#: app/paginate_psprint.c:220
 msgid "Select Printer"
 msgstr "Seleccionar Impressora"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:232
 msgid "Printer"
 msgstr "Impressora"
 
-#: app/paginate_psprint.c:241
+#: app/paginate_psprint.c:245
 msgid "File"
 msgstr "Ficheiro"
 
-#: app/paginate_psprint.c:330
+#: app/paginate_psprint.c:334
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Incapaz de executar comando '%s'"
 
-#: app/paginate_psprint.c:333
+#: app/paginate_psprint.c:337
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Incapaz de abrir '%s' para escrita"
 
-#: app/paginate_psprint.c:357
+#: app/paginate_psprint.c:361
 msgid "Error occured while printing"
 msgstr "Ocorreu um erro durante a impressão"
 
@@ -1521,8 +1509,8 @@ msgstr "Plug-ins"
 #: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
 #: objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
-#: objects/UML/class_dialog.c:817 objects/UML/class_dialog.c:1832
-#: objects/UML/class_dialog.c:2051 objects/UML/class_dialog.c:2610
+#: objects/UML/class_dialog.c:907 objects/UML/class_dialog.c:1922
+#: objects/UML/class_dialog.c:2141 objects/UML/class_dialog.c:2700
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
@@ -1724,7 +1712,7 @@ msgstr "<CaixaFerramentas>/Ficheiro/_Sair"
 msgid "Can't open history file for writing."
 msgstr "Incapaz de abrir ficheiro de histórioco para escrita."
 
-#: app/render_eps.c:1651
+#: app/render_eps.c:1835
 msgid "Encapsulated Postscript"
 msgstr "Postscript Encapsulado"
 
@@ -1751,11 +1739,11 @@ msgstr "Dia"
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
 #: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:548
-#: objects/ER/entity.c:343 objects/ER/entity.c:477
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:593
+#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
+#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
-#: objects/UML/class.c:666 objects/UML/constraint.c:269
+#: objects/UML/class.c:674 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:301 objects/UML/realizes.c:367
@@ -1816,7 +1804,7 @@ msgstr ""
 "deparar-se com problemas. Envie um relatório para dia-list@gnome.org caso "
 "veja esta mensagem."
 
-#: lib/font.c:512
+#: lib/font.c:517
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1825,26 +1813,30 @@ msgstr ""
 "Aviso: nenhuma Fonte X encontrada para %s, \n"
 "a utilizar %s como substituta.\n"
 
-#: lib/font.c:619
+#: lib/font.c:626
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 "Aviso: Seleccionado FreeType, mas biblioteca não pode ser carregada: %d\n"
 
-#: lib/font.c:628
+#: lib/font.c:635
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Aviso: Nenhuma fonte X encontrada. O mundo está a acabar."
 
-#: lib/font.c:912
+#: lib/font.c:644
+msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
+msgstr "Aviso: Nenhumas fontes carregadas. Existem ficheiros de fontes no caminho de fontes X?"
+
+#: lib/font.c:927
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Erro, incapaz de localizar fonte. Não deveria acontecer.\n"
 
-#: lib/font.c:914 lib/font.c:948
+#: lib/font.c:929 lib/font.c:963
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fonte %s não encontrada, a utilizar Courier em substituição.\n"
 
-#: lib/font.c:924
+#: lib/font.c:939
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Fonte %s não tem o estilo %s, a utilizar %s\n"
@@ -2123,21 +2115,21 @@ msgstr "Nome interacção:"
 msgid "bidirectional"
 msgstr "bidireccional"
 
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:780
-#: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2009
-#: objects/UML/class_dialog.c:2573
+#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:870
+#: objects/UML/class_dialog.c:1882 objects/UML/class_dialog.c:2099
+#: objects/UML/class_dialog.c:2663
 msgid "New"
 msgstr "Novo"
 
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:786
-#: objects/UML/class_dialog.c:1798 objects/UML/class_dialog.c:2016
-#: objects/UML/class_dialog.c:2579
+#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:876
+#: objects/UML/class_dialog.c:1888 objects/UML/class_dialog.c:2106
+#: objects/UML/class_dialog.c:2669
 msgid "Delete"
 msgstr "Apagar"
 
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:792
-#: objects/UML/class_dialog.c:1804 objects/UML/class_dialog.c:2023
-#: objects/UML/class_dialog.c:2585
+#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:882
+#: objects/UML/class_dialog.c:1894 objects/UML/class_dialog.c:2113
+#: objects/UML/class_dialog.c:2675
 msgid "Move up"
 msgstr "Subir"
 
@@ -2336,8 +2328,8 @@ msgid "Signal"
 msgstr "Sinal"
 
 #: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
-#: objects/UML/class_dialog.c:829 objects/UML/class_dialog.c:1844
-#: objects/UML/class_dialog.c:2063 objects/UML/class_dialog.c:2622
+#: objects/UML/class_dialog.c:919 objects/UML/class_dialog.c:1934
+#: objects/UML/class_dialog.c:2153 objects/UML/class_dialog.c:2712
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -3163,7 +3155,7 @@ msgstr "Função Desejada"
 #. in lib/font.c.
 #: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
 #: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
-#: objects/SADT/box.c:500 objects/UML/class.c:672
+#: objects/SADT/box.c:500 objects/UML/class.c:686
 msgid "Helvetica-Bold"
 msgstr "Helvética-Negrito"
 
@@ -3378,7 +3370,7 @@ msgstr "Objectos de diagrama SADT"
 msgid "Actor"
 msgstr "Actor"
 
-#: objects/UML/association.c:1030 objects/UML/class_dialog.c:2087
+#: objects/UML/association.c:1030 objects/UML/class_dialog.c:2177
 msgid "Direction:"
 msgstr "Direcção:"
 
@@ -3431,12 +3423,12 @@ msgstr "Nome"
 msgid "Stereotype"
 msgstr "Estereotipo"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:235
-#: objects/UML/class_dialog.c:1933
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:257
+#: objects/UML/class_dialog.c:2023
 msgid "Abstract"
 msgstr "Abstracta"
 
-#: objects/UML/class.c:108 objects/UML/class_dialog.c:247
+#: objects/UML/class.c:108 objects/UML/class_dialog.c:269
 msgid "Suppress Attributes"
 msgstr "Suprimir Attributos"
 
@@ -3458,157 +3450,189 @@ msgstr "Modelo"
 
 #. choose default font name for abstract for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:669
+#: objects/UML/class.c:680
 msgid "Courier-Oblique"
 msgstr "Courier-Oblíqua"
 
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:675
+#: objects/UML/class.c:692
 msgid "Helvetica-BoldOblique"
 msgstr "Helvética-Negrito-Oblíquo"
 
 #. Class page:
-#: objects/UML/class.c:705 objects/UML/class.c:707
-#: objects/UML/class_dialog.c:207
+#: objects/UML/class.c:723 objects/UML/class.c:725
+#: objects/UML/class_dialog.c:229
 msgid "Class"
 msgstr "Classe"
 
-#: objects/UML/class_dialog.c:213
+#: objects/UML/class_dialog.c:235
 msgid "Class name:"
 msgstr "Nome da classe:"
 
-#: objects/UML/class_dialog.c:224 objects/UML/class_dialog.c:1856
+#: objects/UML/class_dialog.c:246 objects/UML/class_dialog.c:1946
 #: objects/UML/dependency.c:127 objects/UML/generalization.c:123
 #: objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "Esterotipo"
 
-#: objects/UML/class_dialog.c:243
+#: objects/UML/class_dialog.c:265
 msgid "Attributes visible"
 msgstr "Atributos visíveis"
 
-#: objects/UML/class_dialog.c:255
+#: objects/UML/class_dialog.c:277
 msgid "Operations visible"
 msgstr "Operações visíveis"
 
-#: objects/UML/class_dialog.c:259
+#: objects/UML/class_dialog.c:281
 msgid "Suppress operations"
 msgstr "Suprimir operações"
 
-#: objects/UML/class_dialog.c:267
+#: objects/UML/class_dialog.c:292
+msgid "Normal Font"
+msgstr "Fonte Normal"
+
+#: objects/UML/class_dialog.c:300
+msgid "Normal Font Size"
+msgstr "Tamanho Fonte Normal"
+
+#: objects/UML/class_dialog.c:309
+msgid "Abstract Font"
+msgstr "Fonte Abstracta"
+
+#: objects/UML/class_dialog.c:317
+msgid "Abstract Font Size"
+msgstr "Tamanho Fonte Abstracta"
+
+#: objects/UML/class_dialog.c:326
+msgid "Class name Font"
+msgstr "Fonte Nome da Classe"
+
+#: objects/UML/class_dialog.c:334
+msgid "Class name Font Size"
+msgstr "Tamanho Fonte Nome da Classe"
+
+#: objects/UML/class_dialog.c:343
+msgid "Abstract Class name Font"
+msgstr "Fonte Nome da Classe Abstracta"
+
+#: objects/UML/class_dialog.c:351
+msgid "Abstract Class name Font Size"
+msgstr "Tamanho Fonte Nome da Classe Abstracta"
+
+#: objects/UML/class_dialog.c:360
 msgid "Foreground Color"
 msgstr "Cor de Primeiro Plano"
 
-#: objects/UML/class_dialog.c:277
+#: objects/UML/class_dialog.c:368
 msgid "Background Color"
 msgstr "Cor de Fundo"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:752 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:842 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Atributos"
 
-#: objects/UML/class_dialog.c:798 objects/UML/class_dialog.c:1810
-#: objects/UML/class_dialog.c:2030 objects/UML/class_dialog.c:2591
+#: objects/UML/class_dialog.c:888 objects/UML/class_dialog.c:1900
+#: objects/UML/class_dialog.c:2120 objects/UML/class_dialog.c:2681
 msgid "Move down"
 msgstr "Descer"
 
-#: objects/UML/class_dialog.c:809
+#: objects/UML/class_dialog.c:899
 msgid "Attribute data"
 msgstr "Dados do atributo"
 
-#: objects/UML/class_dialog.c:841
+#: objects/UML/class_dialog.c:931
 msgid "Value:"
 msgstr "Valor:"
 
-#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1869
+#: objects/UML/class_dialog.c:943 objects/UML/class_dialog.c:1959
 msgid "Visibility:"
 msgstr "Visibilidade:"
 
-#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1878
+#: objects/UML/class_dialog.c:952 objects/UML/class_dialog.c:1968
 msgid "Public"
 msgstr "Público"
 
-#: objects/UML/class_dialog.c:870 objects/UML/class_dialog.c:1886
+#: objects/UML/class_dialog.c:960 objects/UML/class_dialog.c:1976
 msgid "Private"
 msgstr "Privado"
 
-#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1894
+#: objects/UML/class_dialog.c:968 objects/UML/class_dialog.c:1984
 msgid "Protected"
 msgstr "Protegido"
 
-#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1902
+#: objects/UML/class_dialog.c:976 objects/UML/class_dialog.c:1992
 msgid "Implementation"
 msgstr "Implementação"
 
-#: objects/UML/class_dialog.c:902 objects/UML/class_dialog.c:1918
+#: objects/UML/class_dialog.c:992 objects/UML/class_dialog.c:2008
 msgid "Class scope"
 msgstr "Âmbito da classe"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1764
+#: objects/UML/class_dialog.c:1854
 msgid "Operations"
 msgstr "Operações"
 
-#: objects/UML/class_dialog.c:1822
+#: objects/UML/class_dialog.c:1912
 msgid "Operation data"
 msgstr "Dados da operação"
 
-#: objects/UML/class_dialog.c:1924
+#: objects/UML/class_dialog.c:2014
 msgid "Inheritance type:"
 msgstr "Tipo hereditariedade:"
 
-#: objects/UML/class_dialog.c:1941
+#: objects/UML/class_dialog.c:2031
 msgid "Polymorphic (virtual)"
 msgstr "Polimórfica (virtual)"
 
-#: objects/UML/class_dialog.c:1949
+#: objects/UML/class_dialog.c:2039
 msgid "Leaf (final)"
 msgstr "Folha (final)"
 
-#: objects/UML/class_dialog.c:1967
+#: objects/UML/class_dialog.c:2057
 msgid "Query"
 msgstr "Query"
 
-#: objects/UML/class_dialog.c:1980
+#: objects/UML/class_dialog.c:2070
 msgid "Parameters:"
 msgstr "Parâmetros:"
 
-#: objects/UML/class_dialog.c:2042
+#: objects/UML/class_dialog.c:2132
 msgid "Parameter data"
 msgstr "Dados do parâmetro"
 
-#: objects/UML/class_dialog.c:2075
+#: objects/UML/class_dialog.c:2165
 msgid "Def. value:"
 msgstr "Valor por defeito:"
 
-#: objects/UML/class_dialog.c:2096
+#: objects/UML/class_dialog.c:2186
 msgid "Undefined"
 msgstr "Indefinido"
 
-#: objects/UML/class_dialog.c:2104
+#: objects/UML/class_dialog.c:2194
 msgid "In"
 msgstr "Dentro"
 
-#: objects/UML/class_dialog.c:2113
+#: objects/UML/class_dialog.c:2203
 msgid "Out"
 msgstr "Fora"
 
-#: objects/UML/class_dialog.c:2122
+#: objects/UML/class_dialog.c:2212
 msgid "In & Out"
 msgstr "Dentro & Fora"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2539
+#: objects/UML/class_dialog.c:2629
 msgid "Templates"
 msgstr "Modelos"
 
-#: objects/UML/class_dialog.c:2545
+#: objects/UML/class_dialog.c:2635
 msgid "Template class"
 msgstr "Classe modelo"
 
-#: objects/UML/class_dialog.c:2602
+#: objects/UML/class_dialog.c:2692
 msgid "Formal parameter data"
 msgstr "Dado de paramêtro formal"
 
@@ -4005,7 +4029,7 @@ msgstr "Tamanho Fonte:"
 msgid "Sybase replication domain diagram objects"
 msgstr "Objectos de diagramas de domínios de replicação Sybase"
 
-#: plug-ins/cgm/cgm.c:1086
+#: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -4013,15 +4037,15 @@ msgstr ""
 "Tamanho das linhas da imagem maior que o máximo das células da matriz.\n"
 "Imagem não foi exportada para o CGM."
 
-#: plug-ins/cgm/cgm.c:1261
+#: plug-ins/cgm/cgm.c:1270
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1275
+#: plug-ins/cgm/cgm.c:1284
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportação Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:683
+#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:683
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4029,7 +4053,7 @@ msgstr "Drawing Interchange File"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filtros de importação e exportação Drawing Interchange File"
 
-#: plug-ins/hpgl/hpgl.c:616
+#: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportação HP Graphics Language"
 
@@ -4037,7 +4061,7 @@ msgstr "Filtro de exportação HP Graphics Language"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportação TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:726
+#: plug-ins/metapost/render_metapost.c:735
 msgid "TeX Metapost macros"
 msgstr "Macros TeX Metapost"
 
@@ -4045,7 +4069,7 @@ msgstr "Macros TeX Metapost"
 msgid "TeX Pstricks export filter"
 msgstr "Filtro de exportação TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:763
+#: plug-ins/pstricks/render_pstricks.c:773
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX Pstricks"
 
@@ -4053,11 +4077,11 @@ msgstr "Macros TeX Pstricks"
 msgid "Python scripting support"
 msgstr "Suporte de scripting Python"
 
-#: plug-ins/shape/shape-export.c:937
+#: plug-ins/shape/shape-export.c:945
 msgid "Can't export png without libart!"
 msgstr "Incapaz de exportar png sem a libart!"
 
-#: plug-ins/shape/shape-export.c:964
+#: plug-ins/shape/shape-export.c:972
 msgid "dia shape file"
 msgstr "Ficheiro de formas dia"
 
@@ -4065,7 +4089,7 @@ msgstr "Ficheiro de formas dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportação de forma dia"
 
-#: plug-ins/svg/render_svg.c:860
+#: plug-ins/svg/render_svg.c:870
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4073,28 +4097,28 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Filtro de exportação Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:959
+#: plug-ins/wmf/wmf.cpp:962
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:973
+#: plug-ins/wmf/wmf.cpp:976
 msgid "WMF export filter"
 msgstr "Filtro de exportação WMF"
 
-#: plug-ins/wpg/wpg.c:1048
+#: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Ficheiro: tipo/versão de %s não suportado.\n"
 
-#: plug-ins/wpg/wpg.c:1197
+#: plug-ins/wpg/wpg.c:1200
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportação WordPerfect Graphics"
 
-#: plug-ins/xfig/xfig-export.c:369
+#: plug-ins/xfig/xfig-export.c:365
 msgid "No more user-definable colors - using black"
 msgstr "Mais nenhuma cor definível pelo utilizador - a utilizar preto"
 
-#: plug-ins/xfig/xfig-export.c:794
+#: plug-ins/xfig/xfig-export.c:792
 msgid "XFig format"
 msgstr "Formato XFig"
 
@@ -5466,9 +5490,6 @@ msgstr "Sybase"
 
 #~ msgid "Font color:"
 #~ msgstr "Cor da fonte:"
-
-#~ msgid "Class name"
-#~ msgstr "Nome da classe"
 
 #~ msgid "Attributes:"
 #~ msgstr "Atributos:"
