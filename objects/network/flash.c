@@ -92,8 +92,6 @@ static void render_to_store(void)
   RenderStore *store;
   Point *points;
   Point poly[7];
-  gint a, b;
-  Color col;
 
   flash_desc.initial_font = font_getfont("Courier");
   

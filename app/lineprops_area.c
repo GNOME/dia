@@ -482,8 +482,6 @@ dia_arrow_chooser_init (DiaArrowChooser *arrow)
 {
   GtkWidget *wid;
   
-  gint i;
-
   arrow->left = FALSE;
   arrow->arrow.type = ARROW_NONE;
   arrow->arrow.length = DEFAULT_ARROW_LENGTH;

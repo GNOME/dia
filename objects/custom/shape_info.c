@@ -183,7 +183,6 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
   Point last_point = {0.0, 0.0};
   Point last_control = {0.0, 0.0};
   gboolean last_relative = FALSE;
-  real x1, y1, x2, y2, x3, y3;
   static GArray *points = NULL;
   BezPoint bez;
   gchar *path = (gchar *)path_str;

@@ -100,7 +100,7 @@ static void flow_update_data(Flow *flow);
 static void flow_destroy(Flow *flow);
 static Object *flow_copy(Flow *flow);
 static GtkWidget *flow_get_properties(Flow *flow);
-static void flow_apply_properties(Flow *flow);
+static ObjectChange *flow_apply_properties(Flow *flow);
 static GtkWidget *flow_get_defaults();
 static void flow_apply_defaults();
 static void flow_save(Flow *flow, ObjectNode obj_node,
@@ -520,7 +520,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 flow_apply_properties(Flow *flow)
 {
   FlowDialog *prop_dialog;
@@ -539,6 +539,8 @@ flow_apply_properties(Flow *flow)
       flow->type = FLOW_SIGNAL;
 
   flow_update_data(flow);
+
+  return NULL;
 }
 
 static void
@@ -691,7 +693,7 @@ flow_update_defaults( Flow* flow, char update_text )
   }
 }
 
-static void
+static ObjectChange *
 flow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 {
   ((Flow*)obj)->type = (int) data ;
@@ -699,6 +701,8 @@ flow_set_type_callback (Object* obj, Point* clicked, gpointer data)
   if ( defaults_dialog )
     fill_in_defaults_dialog() ;
   flow_update_data((Flow*)obj);
+
+  return NULL;
 }
 
 static DiaMenuItem flow_menu_items[] = {

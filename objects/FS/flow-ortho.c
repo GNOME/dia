@@ -101,7 +101,7 @@ static void orthflow_update_data(Orthflow *orthflow);
 static void orthflow_destroy(Orthflow *orthflow);
 static Object *orthflow_copy(Orthflow *orthflow);
 static GtkWidget *orthflow_get_properties(Orthflow *orthflow);
-static void orthflow_apply_properties(Orthflow *orthflow);
+static ObjectChange *orthflow_apply_properties(Orthflow *orthflow);
 static GtkWidget *orthflow_get_defaults();
 static void orthflow_apply_defaults();
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
@@ -456,7 +456,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 orthflow_apply_properties(Orthflow *orthflow)
 {
   OrthflowDialog *prop_dialog;
@@ -475,6 +475,8 @@ orthflow_apply_properties(Orthflow *orthflow)
     orthflow->type = ORTHFLOW_SIGNAL;
 
   orthflow_update_data(orthflow);
+
+  return NULL;
 }
 
 static void
@@ -614,8 +616,6 @@ orthflow_get_properties(Orthflow *orthflow)
 static void
 orthflow_update_defaults( Orthflow* orthflow, char update_text )
 {
-  OrthflowDialog *prop_dialog = defaults_dialog ;
-
   orthflow_most_recent_type = orthflow->type ;
 
   if (update_text) {
@@ -625,7 +625,7 @@ orthflow_update_defaults( Orthflow* orthflow, char update_text )
   }
 }
 
-static void
+static ObjectChange *
 orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 {
   ((Orthflow*)obj)->type = (int) data ;
@@ -633,6 +633,8 @@ orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
   if ( defaults_dialog )
     fill_in_defaults_dialog() ;
   orthflow_update_data((Orthflow*)obj);
+
+  return NULL;
 }
 
 static DiaMenuItem orthflow_menu_items[] = {

@@ -246,7 +246,6 @@ pgram_get_properties(Pgram *pgram)
   GtkWidget *padding;
   GtkWidget *font;
   GtkWidget *font_size;
-  GtkWidget *font_color;
   GtkAdjustment *adj;
 
   if (pgram_properties_dialog == NULL) {
@@ -746,12 +745,16 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
     elem->corner.x = center.x - elem->width/2; break;
   case ANCHOR_END:
     elem->corner.x = bottom_right.x - elem->width; break;
+  default:
+    break;
   }
   switch (vert) {
   case ANCHOR_MIDDLE:
     elem->corner.y = center.y - elem->height/2; break;
   case ANCHOR_END:
     elem->corner.y = bottom_right.y - elem->height; break;
+  default:
+    break;
   }
 
   p = elem->corner;
@@ -849,7 +852,6 @@ pgram_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
   int i;
 
   init_default_values();

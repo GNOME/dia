@@ -1,5 +1,31 @@
 1999-10-10  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/lineprops_area.c:
+	* app/render_svg.c:
+	* lib/objchange.c:
+	* objects/custom/shape_info.c:
+	* objects/flowchart/box.c:
+	* objects/flowchart/diamond.c:
+	* objects/flowchart/ellipse.c:
+	* objects/flowchart/parallelogram.c:
+	* objects/network/flash.c:
+	* objects/network/scead-plug.c:
+	* objects/sybase/client.c:
+	Removed -Wall warnings.
+	
+	* objects/network/bus.c:
+	Removed unused functions.
+
+	* objects/FS/flow-ortho.c:
+	* objects/FS/flow-poly.c:
+	* objects/FS/flow.c:
+	* objects/FS/function.c:
+	
+	Implemented "non-implemented" undo for FS objects.
+	Now at least it won't crash.
+	
+1999-10-10  Alexander Larsson  <alla@lysator.liu.se>
+
 	* objects/network/bus.c:
 	Implemented undo.
 	Handles are now added and removed using the object menu.

@@ -87,7 +87,7 @@ RenderObjectDescriptor client_desc = {
 static void render_to_store(void)
 {
   RenderStore *store;
-  Point p1, p2;
+  Point p1;
   Point *points;
   Point *poly;
 

@@ -144,104 +144,10 @@ static ObjectOps bus_ops = {
   (ObjectMenuFunc)      bus_get_object_menu
 };
 
-
-static void
-bus_apply_properties(Bus *bus)
-{
-  BusPropertiesDialog *prop_dialog;
-  int new_num_handles;
-  int i;
-
-  prop_dialog = bus->properties_dialog;
-
-  new_num_handles = gtk_spin_button_get_value_as_int(prop_dialog->num_handles_spinner);
-
-  if (new_num_handles != bus->num_handles) {
-    if (new_num_handles > bus->num_handles) {
-      /* Allocate more handles */
-      bus->handles = g_realloc(bus->handles,
-			       sizeof(Handle *)*new_num_handles);
-      bus->parallel_points = g_realloc(bus->parallel_points,
-				       sizeof(Point)*new_num_handles);
-
-      for (i=bus->num_handles;i<new_num_handles;i++) {
-	bus->handles[i] = g_new(Handle,1);
-	bus->handles[i]->id = HANDLE_BUS;
-	bus->handles[i]->type = HANDLE_MINOR_CONTROL;
-	bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
-	bus->handles[i]->connected_to = NULL;
-	bus->handles[i]->pos.x =
-	  0.5 * bus->connection.endpoints[0].x +
-	  0.5 * bus->connection.endpoints[1].x;
-	bus->handles[i]->pos.y =
-	  0.5 * bus->connection.endpoints[0].y +
-	  0.5 * bus->connection.endpoints[1].y;
-	bus->handles[i]->pos.x += 0.5;
-	bus->handles[i]->pos.y += 0.5;
-	object_add_handle((Object *) bus, bus->handles[i]);
-      }
-
-      bus->num_handles = new_num_handles;
-    } else {
-      /* Delete old handles */
-      for (i=new_num_handles;i<bus->num_handles;i++) {
-	object_remove_handle((Object *) bus, bus->handles[i]);
-	g_free(bus->handles[i]);
-      }
-      
-      bus->handles = g_realloc(bus->handles,
-			       sizeof(Handle *)*new_num_handles);
-      bus->parallel_points = g_realloc(bus->parallel_points,
-				       sizeof(Point)*new_num_handles);
-      bus->num_handles = new_num_handles;
-    }
-  }
-  bus_update_data(bus);
-}
-
 static GtkWidget *
 bus_get_properties(Bus *bus)
 {
-  BusPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *label;
-  GtkWidget *spinner;
-  GtkWidget *hbox;
-  GtkAdjustment *adj;
-
-  if (bus->properties_dialog == NULL) {
-  
-    prop_dialog = g_new(BusPropertiesDialog, 1);
-    bus->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
-
-    hbox = gtk_hbox_new(FALSE, 0);
-    label = gtk_label_new (_("Number of handles:"));
-    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-
-    adj = (GtkAdjustment *)
-      gtk_adjustment_new(10.0, 1.0, 99.0, 1.0, 0.0, 0.0);
-    spinner = gtk_spin_button_new(adj, 1.0, 0);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinner), FALSE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(spinner), TRUE);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner),
-			      (float) bus->num_handles);
-    prop_dialog->num_handles_spinner = GTK_SPIN_BUTTON(spinner);
-    gtk_box_pack_start(GTK_BOX (hbox), spinner, FALSE, TRUE, 0);
-    gtk_widget_show (spinner);
-
-    gtk_box_pack_start(GTK_BOX (dialog), hbox, FALSE, TRUE, 0);
-    gtk_widget_show (hbox);
-
-    gtk_widget_show (dialog);
-  }
-
   return NULL;
-  return bus->properties_dialog->dialog;
 }
 
 static real

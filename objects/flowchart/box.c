@@ -243,7 +243,6 @@ box_get_properties(Box *box)
   GtkWidget *padding;
   GtkWidget *font;
   GtkWidget *font_size;
-  GtkWidget *font_color;
   GtkAdjustment *adj;
 
   if (box_properties_dialog == NULL) {
@@ -796,12 +795,16 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
     elem->corner.x = center.x - elem->width/2; break;
   case ANCHOR_END:
     elem->corner.x = bottom_right.x - elem->width; break;
+  default:
+    break;
   }
   switch (vert) {
   case ANCHOR_MIDDLE:
     elem->corner.y = center.y - elem->height/2; break;
   case ANCHOR_END:
     elem->corner.y = bottom_right.y - elem->height; break;
+  default:
+    break;
   }
   
   p = elem->corner;
@@ -883,7 +886,6 @@ box_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
   int i;
 
   init_default_values();

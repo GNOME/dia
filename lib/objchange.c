@@ -36,7 +36,6 @@ static void
 object_state_change_apply_revert(ObjectStateChange *change, Object *obj)
 {
   ObjectState *old_state;
-  printf("object_state_change_apply/revert()\n");
   
   old_state = change->get_state(change->obj);
 
@@ -48,7 +47,6 @@ object_state_change_apply_revert(ObjectStateChange *change, Object *obj)
 static void
 object_state_change_free(ObjectStateChange *change)
 {
-  printf("object_state_change_free()\n");
   if (change->saved_state->free)
     (*change->saved_state->free)(change->saved_state);
   g_free(change->saved_state);

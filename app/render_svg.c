@@ -134,7 +134,6 @@ new_svg_renderer(Diagram *dia, char *filename)
   RendererSVG *renderer;
   FILE *file;
   gchar buf[512];
-  xmlNodePtr node;
   time_t time_now;
   Rectangle *extent;
   char *name;
@@ -193,7 +192,7 @@ new_svg_renderer(Diagram *dia, char *filename)
   xmlAddChild(renderer->root, xmlNewComment(buf));
   xmlAddChild(renderer->root, xmlNewText("\n"));
   g_snprintf(buf, sizeof(buf), "Date: %s", ctime(&time_now));
-  buf[strlen(buf)-1] = '\0'; /* remove the trailing new line * /
+  buf[strlen(buf)-1] = '\0'; / * remove the trailing new line * /
   xmlAddChild(renderer->root, xmlNewComment(buf));
   xmlAddChild(renderer->root, xmlNewText("\n"));
   g_snprintf(buf, sizeof(buf), "For: %s", name);
@@ -258,8 +257,6 @@ set_linecaps(RendererSVG *renderer, LineCaps mode)
 static void
 set_linejoin(RendererSVG *renderer, LineJoin mode)
 {
-  int ps_mode;
-  
   switch(mode) {
   case LINEJOIN_MITER:
     renderer->linejoin = "miter";
@@ -765,7 +762,7 @@ draw_image(RendererSVG *renderer,
   ratio = height/width;
 
   fprintf(renderer->file, "gs\n");
-  if (1) { /* Color output * /
+  if (1) { / * Color output * /
     fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
     fprintf(renderer->file, "/grays %i string def\n", img_width);
     fprintf(renderer->file, "/npixls 0 def\n");
@@ -786,7 +783,7 @@ draw_image(RendererSVG *renderer,
       }
       fprintf(renderer->file, "\n");
     }
-  } else { /* Grayscale * /
+  } else { / * Grayscale * /
     fprintf(renderer->file, "/pix %i string def\n", img_width);
     fprintf(renderer->file, "/grays %i string def\n", img_width);
     fprintf(renderer->file, "/npixls 0 def\n");
@@ -810,7 +807,7 @@ draw_image(RendererSVG *renderer,
       fprintf(renderer->file, "\n");
     }
   }
-  /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);* /
+  / *  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);* /
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
   */

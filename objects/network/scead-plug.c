@@ -93,8 +93,6 @@ static void render_to_store(void)
   RenderStore *store;
   Point p1, p2;
   Point *points;
-  gint a, b;
-  Color col;
 
   sceadplug_desc.initial_font = font_getfont("Courier");
   

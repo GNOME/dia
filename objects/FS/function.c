@@ -85,7 +85,7 @@ static Object *function_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static void function_update_data(Function *pkg);
 static GtkWidget *function_get_properties(Function *dep);
-static void function_apply_properties(Function *dep);
+static ObjectChange *function_apply_properties(Function *dep);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
 
 static ObjectTypeOps function_type_ops =
@@ -436,7 +436,7 @@ function_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 function_apply_properties(Function *dep)
 {
   FunctionPropertiesDialog *prop_dialog;
@@ -459,9 +459,10 @@ function_apply_properties(Function *dep)
       dep->element.corner.y += FUNCTION_MARGIN_M ;
     }
   }
-
   
   function_update_data(dep);
+
+  return NULL;
 }
 
 static void
@@ -535,7 +536,7 @@ function_get_properties(Function *dep)
   return properties_dialog->dialog;
 }
 
-static void
+static ObjectChange *
 function_insert_word( Object* obj, Point* clicked, gpointer data)
 {
   Function* func = (Function*)obj ;
@@ -548,6 +549,8 @@ function_insert_word( Object* obj, Point* clicked, gpointer data)
   free( old_chars ) ;
   function_update_data( func ) ;
   text_set_cursor_at_end( func->text ) ;
+
+  return NULL;
 }
 
 struct _IndentedWords {
