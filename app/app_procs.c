@@ -223,7 +223,10 @@ set_true_callback(GtkWidget *w, int *data)
 
 void
 app_exit(void)
-{  
+{
+  GList *list;
+  GSList *slist;
+  
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
     GtkWidget *label;
@@ -282,6 +285,24 @@ app_exit(void)
   }
   
   /* Free loads of stuff (toolbox) */
+
+  list = open_diagrams;
+  while (list!=NULL) {
+    Diagram *dia = (Diagram *)list->data;
+    list = g_list_next(list);
+
+    slist = dia->displays;
+    while (slist!=NULL) {
+      DDisplay *ddisp = (DDisplay *)slist->data;
+      slist = g_slist_next(slist);
+
+      gtk_widget_destroy(ddisp->shell);
+
+    }
+    /* The diagram is freed when the last display is destroyed */
+
+  }
+  
 
   gtk_main_quit();
 }

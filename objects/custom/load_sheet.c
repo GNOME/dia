@@ -166,6 +166,7 @@ load_from_index(const gchar *directory)
     g_free(name);
     g_free(description);
   }
+  xmlFreeDoc(doc);
   g_free(index);
   return sheet;
 }

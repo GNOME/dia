@@ -97,6 +97,7 @@ new_layer(char *name)
 void
 layer_destroy(Layer *layer)
 {
+  g_free(layer->name);
   destroy_object_list(layer->objects);
   g_free(layer);
 }

@@ -1,3 +1,28 @@
+1999-10-30  Alexander Larsson  <alla@lysator.liu.se>
+
+	This plugs some leaks. Thanks to
+	Bruce Mitchener <bruce@cybersight.com> for running
+	Dia through purify for me.
+	
+        * app/app_procs.c:
+	Free displays and diagrams on exit.
+
+	* app/modify_tool.c:
+	Free gc when freeing tool.
+
+	* lib/diagramdata.c:
+	Free layer name.
+	
+	* app/display.c:
+	Free update and display lists when destroying display.
+	
+	* lib/diagramdata.c:
+	Don't leak layer name.
+
+	* objects/custom/load_sheet.c: 
+	* objects/custom/shape_info.c:
+	Free loaded xml documents.
+
 1999-10-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/commands.c:

@@ -297,7 +297,7 @@ ddisplay_flush(DDisplay *ddisp)
   IRectangle *ir;
   Rectangle *r, totrect;
   Renderer *renderer;
-
+  
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
 
   renderer = &ddisp->renderer->renderer;
@@ -319,7 +319,12 @@ ddisplay_flush(DDisplay *ddisp)
     l = g_slist_next(l);
   }
   
-  /* Free list: */
+  /* Free update_areas list: */
+  l = ddisp->update_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
   g_slist_free(ddisp->update_areas);
   ddisp->update_areas = NULL;
 
@@ -340,7 +345,13 @@ ddisplay_flush(DDisplay *ddisp)
     
     l = g_slist_next(l);
   }
- 
+
+  /* Free display_areas list */
+  l = ddisp->display_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
   g_slist_free(ddisp->display_areas);
   ddisp->display_areas = NULL;
 }
@@ -805,7 +816,8 @@ void
 ddisplay_really_destroy(DDisplay *ddisp)
 {
   Diagram *dia;
-  
+  GSList *l;
+
   dia = ddisp->diagram;
   
   diagram_remove_ddisplay(dia, ddisp);
@@ -817,6 +829,22 @@ ddisplay_really_destroy(DDisplay *ddisp)
   g_hash_table_remove(display_ht, ddisp->shell);
   g_hash_table_remove(display_ht, ddisp->canvas);
 
+  /* Free update_areas list: */
+  l = ddisp->update_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
+  g_slist_free(ddisp->update_areas);
+  /* Free display_areas list */
+  l = ddisp->display_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
+  g_slist_free(ddisp->display_areas);
+
+  
   g_free(ddisp);
 }
 

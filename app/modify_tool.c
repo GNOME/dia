@@ -64,6 +64,8 @@ create_modify_tool(void)
 void
 free_modify_tool(Tool *tool)
 {
+  if (tool->gc)
+    gdk_gc_unref(tool->gc);
   g_free(tool);
 }
 

@@ -871,6 +871,7 @@ load_shape_info(const gchar *filename)
       update_bounds(info);
     }
   }
+  xmlFreeDoc(doc);
   return info;
 }
 
