@@ -1,3 +1,20 @@
+1999-05-08  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* dia.xpm
+	* dia_gnome_icon.png
+	* dia_gnome_menu_icon.png
+	* dia_logo.png
+	Graphics by Toussaint Frédéric <ftoussin@club-internet.fr>.
+
+	* app/commands.c
+	About dialog shows dia_logo.png. Removed the GNOME about dialog.
+
+	* Makefile.am
+	Distribute the icons and install logo in pkgdatadir.
+	
+	* app/Makefile.am
+	Added DATADIR-define.
+	
 1999-04-28  Alexander Larsson  <alla@lysator.liu.se>
 	Patches from Enrico Scholz <enrico.scholz@wirtschaft.tu-chemnitz.de>
 
