@@ -1,3 +1,7 @@
+2002-02-11  Steffen Macke <sdteffen@yahoo.com>
+
+	* app/Makefile.am: added plug-ins to DIA_LIB_PATH in run_dia.sh
+	
 2002-02-10  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/text.c (text_draw): fixed XIM transaction.

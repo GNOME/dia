@@ -222,7 +222,7 @@ EXTRA_DIST = \
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
 	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH" >> run_dia.sh
-	echo DIA_LIB_PATH=`pwd`/../objects// >> run_dia.sh
+	echo DIA_LIB_PATH=`pwd`/../objects//:`pwd`/../plug-ins// >> run_dia.sh
 	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
 	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh
