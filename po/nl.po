@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-10-15 05:25+0200\n"
+"POT-Creation-Date: 2002-11-17 17:27+0100\n"
 "PO-Revision-Date: 2002-10-15 18:27+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -101,7 +101,7 @@ msgstr "Dia versie %s, gecompiled %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia versie %s\n"
 
-#: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -109,7 +109,7 @@ msgstr ""
 "gestopt...\n"
 
 #. no standard buttons
-#: app/app_procs.c:538
+#: app/app_procs.c:542
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -118,15 +118,15 @@ msgstr ""
 "Diagram zijn aangepast.\n"
 "Weet je zeker dat je wilt stoppen zonder ze op te slaan?"
 
-#: app/app_procs.c:542
+#: app/app_procs.c:546
 msgid "Quit Dia"
 msgstr "Dia afsluiten"
 
-#: app/app_procs.c:604 app/app_procs.c:611
+#: app/app_procs.c:608 app/app_procs.c:615
 msgid "Could not create per-user Dia config directory"
 msgstr "Kan per-gebruiker Dia configuratie map niet maken"
 
-#: app/app_procs.c:613
+#: app/app_procs.c:617
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -134,7 +134,7 @@ msgstr ""
 "Kan per-gebruiker Dia configuratie map niet maken. Zorg aub dat de "
 "omgevingsvariabele HOME naar een bestaande map wijst."
 
-#: app/app_procs.c:635 app/diaconv.c:249
+#: app/app_procs.c:639 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
@@ -233,15 +233,15 @@ msgstr ""
 "vastlopers veroorzaken. We weten dat er fouten in\n"
 "zitten, dus stuur geen bug report als hij vastloopt."
 
-#: app/defaults.c:43 app/defaults.c:140
+#: app/defaults.c:43 app/defaults.c:139
 msgid "Object defaults"
 msgstr "Object standaardwaarden"
 
-#: app/defaults.c:62
+#: app/defaults.c:61
 msgid "This object has no defaults."
 msgstr "Dit object heeft geen standaardwaarden."
 
-#: app/defaults.c:111
+#: app/defaults.c:110
 msgid "Defaults: "
 msgstr "Standaardwaarden: "
 
@@ -391,9 +391,9 @@ msgstr "Diagram boom"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:246
-#: app/paginate_psprint.c:277
+#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
+#: app/lineprops_area.c:638 app/linewidth_area.c:244
+#: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -486,7 +486,7 @@ msgstr "Achtergrondkleur"
 msgid "Background"
 msgstr "Achtergrond"
 
-#: app/disp_callbacks.c:76 app/properties.c:122
+#: app/disp_callbacks.c:76 app/properties.c:121
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -502,11 +502,11 @@ msgstr "Geen object menu"
 msgid "Diagram modified!"
 msgstr "Diagram gewijzigd!"
 
-#: app/display.c:858
+#: app/display.c:867
 msgid "<unnamed>"
 msgstr "<geennaam>"
 
-#: app/display.c:860
+#: app/display.c:869
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -515,15 +515,15 @@ msgstr ""
 "Het diagram '%s'\n"
 "is niet opgeslagen. Aanpassingen nu opslaan?"
 
-#: app/display.c:871
+#: app/display.c:880
 msgid "Close Diagram"
 msgstr "Diagram sluiten"
 
-#: app/display.c:876
+#: app/display.c:885
 msgid "Discard Changes"
 msgstr "Aanpassingen verwerpen"
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:534
+#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
 #: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
 #: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
@@ -547,24 +547,24 @@ msgid "Error occurred while writing PNG"
 msgstr "Fout bij het schrijven van PNG"
 
 #. Create a dialog
-#: app/export_png.c:251
+#: app/export_png.c:258
 msgid "PNG Export Options"
 msgstr "PNG Export Opties"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:252 objects/FS/function.c:662 objects/FS/function.c:664
+#: app/export_png.c:259 objects/FS/function.c:661 objects/FS/function.c:663
 msgid "Export"
 msgstr "Exporteren"
 
-#: app/export_png.c:257
+#: app/export_png.c:264
 msgid "Image width:"
 msgstr "Afbeelding breedte:"
 
-#: app/export_png.c:260
+#: app/export_png.c:267
 msgid "Image height:"
 msgstr "Afbeelding hoogte:"
 
-#: app/export_png.c:305
+#: app/export_png.c:312
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -597,13 +597,13 @@ msgstr ""
 "Het bestand '%s' bestaat al.\n"
 "Wil je het overschrijven?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:593
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:593
-#: app/preferences.c:604 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nee"
 
@@ -653,7 +653,7 @@ msgstr "Wijzig"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: app/interface.c:48 app/interface.c:49 app/menus.c:217
-#: objects/FS/function.c:952
+#: objects/FS/function.c:951
 msgid "Magnify"
 msgstr "Vergroten"
 
@@ -803,33 +803,33 @@ msgstr "Verwijder Laag"
 msgid "Layers"
 msgstr "Lagen"
 
-#: app/layer_dialog.c:219
+#: app/layer_dialog.c:218
 msgid "Diagrams:"
 msgstr "Diagrammen:"
 
-#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "Sluiten"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:308
 msgid "New layer"
 msgstr "Nieuwe Laag"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:511
 msgid "none"
 msgstr "geen"
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:953
 msgid "Edit Layer Attributes"
 msgstr "Bewerk Laag Attributen"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:969
 msgid "Layer name:"
 msgstr "Laag naam:"
 
 #. setup buttons
-#: app/layer_dialog.c:979 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:269
+#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
+#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "OK"
@@ -851,7 +851,7 @@ msgstr "Lijn Stijl Eigenschappen"
 msgid "Line width"
 msgstr "Lijn breedte"
 
-#: app/linewidth_area.c:224
+#: app/linewidth_area.c:222
 msgid "Line width:"
 msgstr "Lijn breedte:"
 
@@ -1053,8 +1053,8 @@ msgid "Intersect"
 msgstr "Snijden"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:779 objects/FS/function.c:672
-#: objects/FS/function.c:824 objects/FS/function.c:826
+#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
+#: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -1610,7 +1610,7 @@ msgstr "NULL tooldata in tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagram Menu"
 
-#: app/menus.c:1167
+#: app/menus.c:1164
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1619,39 +1619,40 @@ msgstr ""
 "Kan menu ingang '%s' niet vinden!\n"
 "Dit is waarschijnlijk een vertaalprobleem (probeer LANG=C)."
 
+#: app/modify_tool.c:315
+#, fuzzy
+msgid "Couldn't get GTK settings"
+msgstr "Kan tekst informatie niet lezen: %s\n"
+
 #: app/pagesetup.c:77 app/preferences.c:730
 msgid "Apply"
 msgstr "Toepassen"
 
-#: app/paginate_psprint.c:229
+#: app/paginate_psprint.c:226
 msgid "Select Printer"
 msgstr "Selecteer Printer"
 
-#: app/paginate_psprint.c:241
+#: app/paginate_psprint.c:238
 msgid "Printer"
 msgstr "Printer"
 
-#: app/paginate_psprint.c:254
+#: app/paginate_psprint.c:251
 msgid "File"
 msgstr "Bestand"
 
-#: app/paginate_psprint.c:344
+#: app/paginate_psprint.c:340
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Kan commando `%s' niet uitvoeren"
 
-#: app/paginate_psprint.c:347
+#: app/paginate_psprint.c:343
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Kan `%s' niet openen voor schrijven"
 
-#: app/paginate_psprint.c:371
+#: app/paginate_psprint.c:367
 msgid "Error occured while printing"
 msgstr "Fout opgetreden tijdens afdrukken"
-
-#: app/paginate_psprint.c:377 app/paginate_psprint.c:383
-msgid "PS printing not yet converted"
-msgstr "PS afdrukken nog niet geconverteerd"
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1727,96 +1728,100 @@ msgid "Use menu bar:"
 msgstr "Gebruik menubalk:"
 
 #: app/preferences.c:128
+msgid "Keep tool box on top of diagram windows:"
+msgstr ""
+
+#: app/preferences.c:130
 msgid "New diagram:"
 msgstr "Nieuwe diagrammen:"
 
-#: app/preferences.c:129
+#: app/preferences.c:131
 msgid "Portrait:"
 msgstr "Portrait:"
 
-#: app/preferences.c:131
+#: app/preferences.c:133
 msgid "Paper type:"
 msgstr "Papiersoort:"
 
-#: app/preferences.c:134
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "Nieuw venster:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "Breedte:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr "Vergroting:"
 
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Connection Points:"
 msgstr "Verbindingspunten:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:140 app/preferences.c:143 app/preferences.c:148
+#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
 msgid "Visible:"
 msgstr "Zichtbaar:"
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Page breaks:"
 msgstr "Pagina scheiding:"
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:146 app/preferences.c:154
 msgid "Colour:"
 msgstr "Kleur:"
 
-#: app/preferences.c:145 app/preferences.c:153
+#: app/preferences.c:147 app/preferences.c:155
 msgid "Solid lines:"
 msgstr "Massieve lijnen:"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Snap to:"
 msgstr "Hecht aan:"
 
-#: app/preferences.c:150
+#: app/preferences.c:152
 msgid "X Size:"
 msgstr "X Grootte:"
 
-#: app/preferences.c:151
+#: app/preferences.c:153
 msgid "Y Size:"
 msgstr "Y Grootte:"
 
-#: app/preferences.c:164
+#: app/preferences.c:166
 msgid "Diagram tree window:"
 msgstr "Diagram boom venster:"
 
-#: app/preferences.c:166
+#: app/preferences.c:168
 msgid "Show at startup:"
 msgstr "Weergeven bij opstarten:"
 
-#: app/preferences.c:168
+#: app/preferences.c:170
 msgid "Default width:"
 msgstr "Standaard breedte:"
 
-#: app/preferences.c:170
+#: app/preferences.c:172
 msgid "Default height:"
 msgstr "Standaard hoogte:"
 
-#: app/preferences.c:172
+#: app/preferences.c:174
 msgid "Remember last size:"
 msgstr "Onthoud laatste grootte:"
 
-#: app/preferences.c:174
+#: app/preferences.c:176
 msgid "Save hidden object types:"
 msgstr "Bewaar verborgen object typen:"
 
-#: app/preferences.c:301
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kon `%s' niet openen voor schrijven"
 
-#: app/preferences.c:689 app/preferences.c:698
+#: app/preferences.c:691 app/preferences.c:700
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1824,15 +1829,15 @@ msgstr "Voorkeuren"
 msgid "Object properties"
 msgstr "Object eigenschappen"
 
-#: app/properties.c:69
+#: app/properties.c:68
 msgid "This object has no properties."
 msgstr "Dit object heeft geen eigenschappen."
 
-#: app/properties.c:166
+#: app/properties.c:165
 msgid "Properties: "
 msgstr "Eigenschappen:"
 
-#: app/properties.c:170
+#: app/properties.c:169
 msgid "Object properties:"
 msgstr "Object eigenschappen:"
 
@@ -1850,9 +1855,13 @@ msgstr "<Toolbox>/Bestand/_Afsluiten"
 msgid "Can't open history file for writing."
 msgstr "Kan geschiedenis bestand niet openen voor schrijven."
 
-#: app/render_eps.c:1724
+#: app/render_eps.c:975
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
+
+#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr ""
 
 #: app/sheets.c:154
 #, c-format
@@ -1897,88 +1906,88 @@ msgstr "Geprogrammeerd Object"
 msgid "Sheets and Objects"
 msgstr "Sheets en Objecten"
 
-#: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
 msgid "<- Copy"
 msgstr "<- Kopiëren"
 
-#: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
 msgid "<- Copy All"
 msgstr "<- Alles kopiëren"
 
-#: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
 msgid "<- Move"
 msgstr "<- Verplaatsen"
 
-#: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
 msgid "<- Move All"
 msgstr "<- Alles verplaatsen"
 
-#: app/sheets_dialog.c:230
+#: app/sheets_dialog.c:231
 msgid "Edit"
 msgstr "Bewerken"
 
-#: app/sheets_dialog.c:232
+#: app/sheets_dialog.c:233
 msgid "_Edit"
 msgstr "_Bewerken"
 
-#: app/sheets_dialog.c:263
+#: app/sheets_dialog.c:264
 msgid "Revert"
 msgstr "Inverteren"
 
-#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Nieuw"
 
-#: app/sheets_dialog.c:359 app/sheets_dialog.c:787
+#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
 msgid "Type"
 msgstr "Type"
 
-#: app/sheets_dialog.c:374
+#: app/sheets_dialog.c:376
 msgid "Browse..."
 msgstr "Bladeren..."
 
-#: app/sheets_dialog.c:383
+#: app/sheets_dialog.c:385
 msgid "SVG Shape:"
 msgstr "SVG Vorm:"
 
-#: app/sheets_dialog.c:410 app/sheets_dialog.c:473
+#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
 msgid "description:"
 msgstr "beschrijving:"
 
-#: app/sheets_dialog.c:422
+#: app/sheets_dialog.c:424
 msgid "Sheet name:"
 msgstr "Sheet naam:"
 
-#: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
+#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
 #: app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
 msgstr "Lijn Afbreking"
 
-#: app/sheets_dialog.c:565
+#: app/sheets_dialog.c:567
 msgid "Edit Attributes"
 msgstr "Bewerk Attributen"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:582
 msgid "Object"
 msgstr "Object"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Type:"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:655
 msgid "Sheet"
 msgstr "Sheet"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
 #: objects/ER/relationship.c:137 objects/UML/association.c:1049
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
@@ -1987,15 +1996,15 @@ msgstr "Sheet"
 msgid "Name:"
 msgstr "Naam:"
 
-#: app/sheets_dialog.c:802
+#: app/sheets_dialog.c:808
 msgid "Object:"
 msgstr "Object:"
 
-#: app/sheets_dialog.c:829
+#: app/sheets_dialog.c:835
 msgid "Sheet:"
 msgstr "Sheet:"
 
-#: app/sheets_dialog.c:913
+#: app/sheets_dialog.c:919
 msgid "Select SVG Shape File"
 msgstr "Selecteer SVG vorm bestand"
 
@@ -2034,10 +2043,10 @@ msgstr ""
 "Object"
 
 #: app/sheets_dialog_callbacks.c:318
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s\n"
-"Unasigned type"
+"Unassigned type"
 msgstr ""
 "%s\n"
 "Onbekend type"
@@ -2147,8 +2156,8 @@ msgid ""
 msgstr ""
 "Uw lokale tekenset is UTF-8. Omdat dit problemen geeft met libxml1 en het "
 "openen van bestanden die door eerdere versies van dia zijn gemaakt, zult u "
-"er problemen mee krijgen. Stuur een bericht naar dia-list@gnome.org als u "
-"u deze melding krijgt."
+"er problemen mee krijgen. Stuur een bericht naar dia-list@gnome.org als u u "
+"deze melding krijgt."
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2220,7 +2229,7 @@ msgstr "dia_plugin_init() aanroep mislukt"
 msgid "%s Plugin could not be unloaded"
 msgstr "%s Plugin kon niet ontladen worden"
 
-#: lib/plug-ins.c:359
+#: lib/plug-ins.c:364
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2260,14 +2269,14 @@ msgstr "Tekst uitlijning"
 #: lib/properties.c:79 lib/properties.h:504
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
-#: objects/GRAFCET/transition.c:142 objects/UML/class_dialog.c:327
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Lettertype"
 
 #: lib/properties.c:80 lib/properties.h:507
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Lettergrootte"
 
@@ -2292,7 +2301,7 @@ msgid "Select font"
 msgstr "Selecteer lettertype"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1040
+#: lib/widgets.c:641 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Massief"
 
@@ -2452,7 +2461,8 @@ msgstr ""
 "@ tijd    zet de wijzer op een absolute tijd.\n"
 "( tijdsduur  zet het signaal omhoog, wacht daarna 'tijdsduur'.\n"
 ") tijdsduur  zet het signaal omlaag, wacht daarna 'tijdsduur'.\n"
-"u tijdsduur  zet het signaal op \"onbekend\" status, wacht daarna 'tijdsduur'.\n"
+"u tijdsduur  zet het signaal op \"onbekend\" status, wacht daarna "
+"'tijdsduur'.\n"
 "voorbeeld: @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:161
@@ -2632,21 +2642,21 @@ msgstr "Scheer hoek"
 
 #. Translators: Menu item Noun/Energy
 #: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1062
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1038
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Materiaal"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:632 objects/FS/function.c:1000
-#: objects/FS/function.c:1002 objects/FS/function.c:1138
-#: objects/FS/function.c:1140
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
+#: objects/FS/function.c:1001 objects/FS/function.c:1137
+#: objects/FS/function.c:1139
 msgid "Signal"
 msgstr "Signaal"
 
@@ -2654,986 +2664,986 @@ msgstr "Signaal"
 msgid "Function structure diagram objects"
 msgstr "Functie structuur diagram objecten"
 
-#: objects/FS/function.c:139
+#: objects/FS/function.c:138
 msgid "Wish function"
 msgstr "Wens functie"
 
-#: objects/FS/function.c:141
+#: objects/FS/function.c:140
 msgid "User function"
 msgstr "Gebruikersfunctie"
 
 #. Translators: Menu item Verb
-#: objects/FS/function.c:642
+#: objects/FS/function.c:641
 msgid "Verb"
 msgstr "Werkwoord"
 
 #. Translators: Menu item Verb/Channel
-#: objects/FS/function.c:644 objects/FS/function.c:646
-#: objects/FS/function.c:686
+#: objects/FS/function.c:643 objects/FS/function.c:645
+#: objects/FS/function.c:685
 msgid "Channel"
 msgstr "Kanaal"
 
 #. Translators: Menu item Verb/Channel/Import
-#: objects/FS/function.c:648 objects/FS/function.c:650
+#: objects/FS/function.c:647 objects/FS/function.c:649
 msgid "Import"
 msgstr "Importeren"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:652
+#: objects/FS/function.c:651
 msgid "Input"
 msgstr "Invoer"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: objects/FS/function.c:654
+#: objects/FS/function.c:653
 msgid "Receive"
 msgstr "Ontvangen"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#: objects/FS/function.c:656 objects/FS/function.c:928
+#: objects/FS/function.c:655 objects/FS/function.c:927
 msgid "Allow"
 msgstr "Toestaan"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: objects/FS/function.c:658
+#: objects/FS/function.c:657
 msgid "Form Entrance"
 msgstr "Formulier ingang"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#: objects/FS/function.c:660 objects/FS/function.c:894
+#: objects/FS/function.c:659 objects/FS/function.c:893
 msgid "Capture"
 msgstr "Opvangen"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: objects/FS/function.c:666
+#: objects/FS/function.c:665
 msgid "Discharge"
 msgstr "Ontladen"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: objects/FS/function.c:668
+#: objects/FS/function.c:667
 msgid "Eject"
 msgstr "Openen"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: objects/FS/function.c:670
+#: objects/FS/function.c:669
 msgid "Dispose"
 msgstr "Verwerpen"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#: objects/FS/function.c:674 objects/FS/function.c:676
-#: objects/FS/function.c:694
+#: objects/FS/function.c:673 objects/FS/function.c:675
+#: objects/FS/function.c:693
 msgid "Transfer"
 msgstr "Overdragen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#: objects/FS/function.c:678 objects/FS/function.c:680
+#: objects/FS/function.c:677 objects/FS/function.c:679
 msgid "Transport"
 msgstr "Transporteren"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: objects/FS/function.c:682
+#: objects/FS/function.c:681
 msgid "Lift"
 msgstr "Optillen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: objects/FS/function.c:684
+#: objects/FS/function.c:683
 msgid "Move"
 msgstr "Verplaatsen"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#: objects/FS/function.c:688 objects/FS/function.c:690
+#: objects/FS/function.c:687 objects/FS/function.c:689
 msgid "Transmit"
 msgstr "Verzenden"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: objects/FS/function.c:692
+#: objects/FS/function.c:691
 msgid "Conduct"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: objects/FS/function.c:696
+#: objects/FS/function.c:695
 msgid "Convey"
 msgstr "Toevoeren"
 
 #. Translators: Menu item Verb/Channel/Guide
-#: objects/FS/function.c:698 objects/FS/function.c:700
-#: objects/FS/function.c:702
+#: objects/FS/function.c:697 objects/FS/function.c:699
+#: objects/FS/function.c:701
 msgid "Guide"
 msgstr "Gids"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: objects/FS/function.c:704
+#: objects/FS/function.c:703
 msgid "Direct"
 msgstr "Richting"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: objects/FS/function.c:706
+#: objects/FS/function.c:705
 msgid "Straighten"
 msgstr "Recht vooruit"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: objects/FS/function.c:708
+#: objects/FS/function.c:707
 msgid "Steer"
 msgstr "Sturen"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: objects/FS/function.c:710
+#: objects/FS/function.c:709
 msgid "Translate"
 msgstr "Vertalen"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#: objects/FS/function.c:712 objects/FS/function.c:714
+#: objects/FS/function.c:711 objects/FS/function.c:713
 msgid "Rotate"
 msgstr "Draaien"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: objects/FS/function.c:716
+#: objects/FS/function.c:715
 msgid "Turn"
 msgstr "Draaien"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: objects/FS/function.c:718
+#: objects/FS/function.c:717
 msgid "Spin"
 msgstr "Omwentelen"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#: objects/FS/function.c:720 objects/FS/function.c:722
+#: objects/FS/function.c:719 objects/FS/function.c:721
 msgid "Allow DOF"
 msgstr "Sta DOF toe"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: objects/FS/function.c:724
+#: objects/FS/function.c:723
 msgid "Constrain"
 msgstr "Beperken"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: objects/FS/function.c:726
+#: objects/FS/function.c:725
 msgid "Unlock"
 msgstr "Ontsluiten"
 
 #. Translators: Menu item Verb/Support
-#: objects/FS/function.c:728 objects/FS/function.c:730
+#: objects/FS/function.c:727 objects/FS/function.c:729
 msgid "Support"
 msgstr "Ondersteuning"
 
 #. Translators: Menu item Verb/Support/Stop
-#: objects/FS/function.c:732 objects/FS/function.c:734
+#: objects/FS/function.c:731 objects/FS/function.c:733
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Stoppen"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: objects/FS/function.c:736
+#: objects/FS/function.c:735
 msgid "Insulate"
 msgstr "Afzonderen"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: objects/FS/function.c:738
+#: objects/FS/function.c:737
 msgid "Protect"
 msgstr "Beschermen"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#: objects/FS/function.c:740 objects/FS/function.c:930
+#: objects/FS/function.c:739 objects/FS/function.c:929
 msgid "Prevent"
 msgstr "Voorkomen"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: objects/FS/function.c:742
+#: objects/FS/function.c:741
 msgid "Shield"
 msgstr "Afschermen"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: objects/FS/function.c:744
+#: objects/FS/function.c:743
 msgid "Inhibit"
 msgstr "Verhinderen"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#: objects/FS/function.c:746 objects/FS/function.c:748
+#: objects/FS/function.c:745 objects/FS/function.c:747
 msgid "Stabilize"
 msgstr "Stabiliseren"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: objects/FS/function.c:750
+#: objects/FS/function.c:749
 msgid "Steady"
 msgstr "Constant"
 
 #. Translators: Menu item Verb/Support/Secure
-#: objects/FS/function.c:752 objects/FS/function.c:754
+#: objects/FS/function.c:751 objects/FS/function.c:753
 msgid "Secure"
 msgstr "Beveiligen"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#: objects/FS/function.c:756 objects/FS/function.c:788
+#: objects/FS/function.c:755 objects/FS/function.c:787
 msgid "Attach"
 msgstr "Bijvoegen"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: objects/FS/function.c:758
+#: objects/FS/function.c:757
 msgid "Mount"
 msgstr "Monteren"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:760
+#: objects/FS/function.c:759
 msgid "Lock"
 msgstr "Sluiten"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: objects/FS/function.c:762
+#: objects/FS/function.c:761
 msgid "Fasten"
 msgstr "Vastmaken"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: objects/FS/function.c:764
+#: objects/FS/function.c:763
 msgid "Hold"
 msgstr "Vasthouden"
 
 #. Translators: Menu item Verb/Support/Position
-#: objects/FS/function.c:766 objects/FS/function.c:768
+#: objects/FS/function.c:765 objects/FS/function.c:767
 msgid "Position"
 msgstr "Situeren"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: objects/FS/function.c:770
+#: objects/FS/function.c:769
 msgid "Orient"
 msgstr "Orienteren"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: objects/FS/function.c:772
+#: objects/FS/function.c:771
 msgid "Align"
 msgstr "Uitlijnen"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#: objects/FS/function.c:774 objects/FS/function.c:1016
+#: objects/FS/function.c:773 objects/FS/function.c:1015
 msgid "Locate"
 msgstr "Lokaliseren"
 
 #. Translators: Menu item Verb/Connect
-#: objects/FS/function.c:776 objects/FS/function.c:778
+#: objects/FS/function.c:775 objects/FS/function.c:777
 msgid "Connect"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Connect/Couple
-#: objects/FS/function.c:780 objects/FS/function.c:782
+#: objects/FS/function.c:779 objects/FS/function.c:781
 msgid "Couple"
 msgstr "Koppelen"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: objects/FS/function.c:784
+#: objects/FS/function.c:783
 msgid "Join"
 msgstr "Verbinden"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: objects/FS/function.c:786
+#: objects/FS/function.c:785
 msgid "Assemble"
 msgstr "Assembleren"
 
 #. Translators: Menu item Verb/Connect/Mix
-#: objects/FS/function.c:790 objects/FS/function.c:792
+#: objects/FS/function.c:789 objects/FS/function.c:791
 msgid "Mix"
 msgstr "Mengen"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: objects/FS/function.c:794
+#: objects/FS/function.c:793
 msgid "Combine"
 msgstr "Combineren"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: objects/FS/function.c:796
+#: objects/FS/function.c:795
 msgid "Blend"
 msgstr "Mengelen"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: objects/FS/function.c:798
+#: objects/FS/function.c:797
 msgid "Add"
 msgstr "Toevoegen"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: objects/FS/function.c:800
+#: objects/FS/function.c:799
 msgid "Pack"
 msgstr "Inpakken"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: objects/FS/function.c:802
+#: objects/FS/function.c:801
 msgid "Coalesce"
 msgstr "Aaneensluiten"
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:804 objects/FS/function.c:806
+#: objects/FS/function.c:803 objects/FS/function.c:805
 msgid "Branch"
 msgstr "Vertakken"
 
 #. Translators: Menu item Verb/Branch/Separate
-#: objects/FS/function.c:808 objects/FS/function.c:810
-#: objects/FS/function.c:812
+#: objects/FS/function.c:807 objects/FS/function.c:809
+#: objects/FS/function.c:811
 msgid "Separate"
 msgstr "Scheiden"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: objects/FS/function.c:814
+#: objects/FS/function.c:813
 msgid "Switch"
 msgstr "Schakelen"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: objects/FS/function.c:816
+#: objects/FS/function.c:815
 msgid "Divide"
 msgstr "Verdelen"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: objects/FS/function.c:818
+#: objects/FS/function.c:817
 msgid "Release"
 msgstr "Loslaten"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: objects/FS/function.c:820
+#: objects/FS/function.c:819
 msgid "Detach"
 msgstr "Losmaken"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: objects/FS/function.c:822
+#: objects/FS/function.c:821
 msgid "Disconnect"
 msgstr "Verbinding verbreken"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: objects/FS/function.c:828
+#: objects/FS/function.c:827
 msgid "Cut"
 msgstr "Knippen"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: objects/FS/function.c:830
+#: objects/FS/function.c:829
 msgid "Polish"
 msgstr "Uitvlakken"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: objects/FS/function.c:832
+#: objects/FS/function.c:831
 msgid "Sand"
 msgstr "Verzanden"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: objects/FS/function.c:834
+#: objects/FS/function.c:833
 msgid "Drill"
 msgstr "Boren"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: objects/FS/function.c:836
+#: objects/FS/function.c:835
 msgid "Lathe"
 msgstr "Ronddraaien"
 
 #. Translators: Menu item Verb/Branch/Refine
-#: objects/FS/function.c:838 objects/FS/function.c:840
+#: objects/FS/function.c:837 objects/FS/function.c:839
 msgid "Refine"
 msgstr "Verfijnen"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: objects/FS/function.c:842
+#: objects/FS/function.c:841
 msgid "Purify"
 msgstr "Louteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: objects/FS/function.c:844
+#: objects/FS/function.c:843
 msgid "Strain"
 msgstr "Aaneenschakelen"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: objects/FS/function.c:846
+#: objects/FS/function.c:845
 msgid "Filter"
 msgstr "Filteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: objects/FS/function.c:848
+#: objects/FS/function.c:847
 msgid "Percolate"
 msgstr "Filteren"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: objects/FS/function.c:850
+#: objects/FS/function.c:849
 msgid "Clear"
 msgstr "Schoonmaken"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#: objects/FS/function.c:852 objects/FS/function.c:854
+#: objects/FS/function.c:851 objects/FS/function.c:853
 msgid "Distribute"
 msgstr "Distribueren"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: objects/FS/function.c:856
+#: objects/FS/function.c:855
 msgid "Diverge"
 msgstr "Afwijken"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: objects/FS/function.c:858
+#: objects/FS/function.c:857
 msgid "Scatter"
 msgstr "Verspreiden"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: objects/FS/function.c:860
+#: objects/FS/function.c:859
 msgid "Disperse"
 msgstr "Verstrooien"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#: objects/FS/function.c:862 objects/FS/function.c:876
+#: objects/FS/function.c:861 objects/FS/function.c:875
 msgid "Diffuse"
 msgstr "Vermengen"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: objects/FS/function.c:864
+#: objects/FS/function.c:863
 msgid "Empty"
 msgstr "Legen"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#: objects/FS/function.c:866 objects/FS/function.c:868
+#: objects/FS/function.c:865 objects/FS/function.c:867
 msgid "Dissipate"
 msgstr "Verdwijnen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: objects/FS/function.c:870
+#: objects/FS/function.c:869
 msgid "Absorb"
 msgstr "Absorberen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: objects/FS/function.c:872
+#: objects/FS/function.c:871
 msgid "Dampen"
 msgstr "Dempen"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: objects/FS/function.c:874
+#: objects/FS/function.c:873
 msgid "Dispel"
 msgstr "Verdrijven"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: objects/FS/function.c:878
+#: objects/FS/function.c:877
 msgid "Resist"
 msgstr "Weerstaan"
 
 #. Translators: Menu item Verb/Provision
-#: objects/FS/function.c:880 objects/FS/function.c:882
+#: objects/FS/function.c:879 objects/FS/function.c:881
 msgid "Provision"
 msgstr "Bevoorrading"
 
 #. Translators: Menu item Verb/Provision/Store
-#: objects/FS/function.c:884 objects/FS/function.c:886
+#: objects/FS/function.c:883 objects/FS/function.c:885
 msgid "Store"
 msgstr "Opslaan"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: objects/FS/function.c:888
+#: objects/FS/function.c:887
 msgid "Contain"
 msgstr "Bevatten"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: objects/FS/function.c:890
+#: objects/FS/function.c:889
 msgid "Collect"
 msgstr "Verzamelen"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: objects/FS/function.c:892
+#: objects/FS/function.c:891
 msgid "Reserve"
 msgstr "Reserveren"
 
 #. Translators: Menu item Verb/Provision/Supply
-#: objects/FS/function.c:896 objects/FS/function.c:898
+#: objects/FS/function.c:895 objects/FS/function.c:897
 msgid "Supply"
 msgstr "Aanvoeren"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: objects/FS/function.c:900
+#: objects/FS/function.c:899
 msgid "Fill"
 msgstr "Vullen"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: objects/FS/function.c:902
+#: objects/FS/function.c:901
 msgid "Provide"
 msgstr "Voorzien van"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: objects/FS/function.c:904
+#: objects/FS/function.c:903
 msgid "Replenish"
 msgstr "Bijvullen"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: objects/FS/function.c:906
+#: objects/FS/function.c:905
 msgid "Expose"
 msgstr "Tentoonstellen"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:908 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Afleiden"
 
 #. Translators: Menu item Verb/Control Magnitude
-#: objects/FS/function.c:910 objects/FS/function.c:912
+#: objects/FS/function.c:909 objects/FS/function.c:911
 msgid "Control Magnitude"
 msgstr "Controle Grootte"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#: objects/FS/function.c:914 objects/FS/function.c:916
+#: objects/FS/function.c:913 objects/FS/function.c:915
 msgid "Actuate"
 msgstr "Aandrijven"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: objects/FS/function.c:918
+#: objects/FS/function.c:917
 msgid "Start"
 msgstr "Starten"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: objects/FS/function.c:920
+#: objects/FS/function.c:919
 msgid "Initiate"
 msgstr "Beginnen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#: objects/FS/function.c:922 objects/FS/function.c:924
+#: objects/FS/function.c:921 objects/FS/function.c:923
 msgid "Regulate"
 msgstr "Reguleren"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#: objects/FS/function.c:926 objects/FS/function.c:1144
+#: objects/FS/function.c:925 objects/FS/function.c:1143
 #: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "Besturen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: objects/FS/function.c:932
+#: objects/FS/function.c:931
 msgid "Enable"
 msgstr "Aanzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: objects/FS/function.c:934
+#: objects/FS/function.c:933
 msgid "Disable"
 msgstr "Stopzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: objects/FS/function.c:936
+#: objects/FS/function.c:935
 msgid "Limit"
 msgstr "Begrenzen"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: objects/FS/function.c:938
+#: objects/FS/function.c:937
 msgid "Interrupt"
 msgstr "Onderbreken"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#: objects/FS/function.c:940 objects/FS/function.c:942
+#: objects/FS/function.c:939 objects/FS/function.c:941
 msgid "Change"
 msgstr "Veranderen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: objects/FS/function.c:944
+#: objects/FS/function.c:943
 msgid "Increase"
 msgstr "Toenemen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: objects/FS/function.c:946
+#: objects/FS/function.c:945
 msgid "Decrease"
 msgstr "Afnemen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: objects/FS/function.c:948
+#: objects/FS/function.c:947
 msgid "Amplify"
 msgstr "Uitbreiden"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: objects/FS/function.c:950
+#: objects/FS/function.c:949
 msgid "Reduce"
 msgstr "Reduceren"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: objects/FS/function.c:954
+#: objects/FS/function.c:953
 msgid "Normalize"
 msgstr "Normaliseren"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: objects/FS/function.c:956
+#: objects/FS/function.c:955
 msgid "Multiply"
 msgstr "Vermenigvuldigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
-#: objects/FS/function.c:958
+#: objects/FS/function.c:957
 msgid "Scale"
 msgstr "Schalen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: objects/FS/function.c:960
+#: objects/FS/function.c:959
 msgid "Rectify"
 msgstr "Rechtzetten"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: objects/FS/function.c:962
+#: objects/FS/function.c:961
 msgid "Adjust"
 msgstr "Afstemmen"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#: objects/FS/function.c:964 objects/FS/function.c:966
+#: objects/FS/function.c:963 objects/FS/function.c:965
 msgid "Form"
 msgstr "Grondvesten"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: objects/FS/function.c:968
+#: objects/FS/function.c:967
 msgid "Compact"
 msgstr "Compact"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: objects/FS/function.c:970
+#: objects/FS/function.c:969
 msgid "Crush"
 msgstr "Verpletteren"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: objects/FS/function.c:972
+#: objects/FS/function.c:971
 msgid "Shape"
 msgstr "Vormen"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: objects/FS/function.c:974
+#: objects/FS/function.c:973
 msgid "Compress"
 msgstr "Comprimeren"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: objects/FS/function.c:976
+#: objects/FS/function.c:975
 msgid "Pierce"
 msgstr "Doorsteken"
 
 #. Translators: Menu item Verb/Convert
-#: objects/FS/function.c:978 objects/FS/function.c:980
+#: objects/FS/function.c:977 objects/FS/function.c:979
 msgid "Convert"
 msgstr "Converteren"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: objects/FS/function.c:982
+#: objects/FS/function.c:981
 msgid "Transform"
 msgstr "Transformeren"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: objects/FS/function.c:984
+#: objects/FS/function.c:983
 msgid "Liquefy"
 msgstr "Vloeibaar maken"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: objects/FS/function.c:986
+#: objects/FS/function.c:985
 msgid "Solidify"
 msgstr "Solide maken"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: objects/FS/function.c:988
+#: objects/FS/function.c:987
 msgid "Evaporate"
 msgstr "Verdampen"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: objects/FS/function.c:990
+#: objects/FS/function.c:989
 msgid "Sublimate"
 msgstr "Zuiveren"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: objects/FS/function.c:992
+#: objects/FS/function.c:991
 msgid "Condense"
 msgstr "Condenseren"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: objects/FS/function.c:994
+#: objects/FS/function.c:993
 msgid "Integrate"
 msgstr "Integreren"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: objects/FS/function.c:996
+#: objects/FS/function.c:995
 msgid "Differentiate"
 msgstr "Differentiëren"
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:998
+#: objects/FS/function.c:997
 msgid "Process"
 msgstr "Verwerken"
 
 #. Translators: Menu item Verb/Signal/Sense
-#: objects/FS/function.c:1004 objects/FS/function.c:1006
+#: objects/FS/function.c:1003 objects/FS/function.c:1005
 msgid "Sense"
 msgstr "Gewaarworden"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: objects/FS/function.c:1008
+#: objects/FS/function.c:1007
 msgid "Perceive"
 msgstr "Bespeuren"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: objects/FS/function.c:1010
+#: objects/FS/function.c:1009
 msgid "Recognize"
 msgstr "Erkennen"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: objects/FS/function.c:1012
+#: objects/FS/function.c:1011
 msgid "Discern"
 msgstr "Onderscheiden"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: objects/FS/function.c:1014
+#: objects/FS/function.c:1013
 msgid "Check"
 msgstr "Checken"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: objects/FS/function.c:1018
+#: objects/FS/function.c:1017
 msgid "Verify"
 msgstr "Verifiëren"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#: objects/FS/function.c:1020 objects/FS/function.c:1022
+#: objects/FS/function.c:1019 objects/FS/function.c:1021
 msgid "Indicate"
 msgstr "Aangeven"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: objects/FS/function.c:1024
+#: objects/FS/function.c:1023
 msgid "Mark"
 msgstr "Markeren"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1026 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Weergeven"
 
 #. Translators: Menu item Verb/Signal/Measure
-#: objects/FS/function.c:1028 objects/FS/function.c:1030
+#: objects/FS/function.c:1027 objects/FS/function.c:1029
 msgid "Measure"
 msgstr "Meten"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: objects/FS/function.c:1032
+#: objects/FS/function.c:1031
 msgid "Calculate"
 msgstr "Berekenen"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: objects/FS/function.c:1034
+#: objects/FS/function.c:1033
 msgid "Represent"
 msgstr "Representeren"
 
 #. Translators: Menu item Noun
-#: objects/FS/function.c:1036
+#: objects/FS/function.c:1035
 msgid "Noun"
 msgstr "Zelfstandig naamwoord"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: objects/FS/function.c:1042
+#: objects/FS/function.c:1041
 msgid "Liquid"
 msgstr "Vloeibaar"
 
 #. Translators: Menu item Noun/Material/Gas
-#: objects/FS/function.c:1044
+#: objects/FS/function.c:1043
 msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#: objects/FS/function.c:1046 objects/FS/function.c:1048
-#: objects/FS/function.c:1132
+#: objects/FS/function.c:1045 objects/FS/function.c:1047
+#: objects/FS/function.c:1131
 msgid "Human"
 msgstr "Menselijk"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: objects/FS/function.c:1050
+#: objects/FS/function.c:1049
 msgid "Hand"
 msgstr "Hand"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: objects/FS/function.c:1052
+#: objects/FS/function.c:1051
 msgid "Foot"
 msgstr "Voet"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: objects/FS/function.c:1054
+#: objects/FS/function.c:1053
 msgid "Head"
 msgstr "Hoofd"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: objects/FS/function.c:1056
+#: objects/FS/function.c:1055
 msgid "Finger"
 msgstr "Vinger"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: objects/FS/function.c:1058
+#: objects/FS/function.c:1057
 msgid "Toe"
 msgstr "Teen"
 
 #. Translators: Menu item Noun/Material/Biological
-#: objects/FS/function.c:1060
+#: objects/FS/function.c:1059
 msgid "Biological"
 msgstr "Biologisch"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: objects/FS/function.c:1064
+#: objects/FS/function.c:1063
 msgid "Mechanical"
 msgstr "Meganisch"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: objects/FS/function.c:1066
+#: objects/FS/function.c:1065
 msgid "Mech. Energy"
 msgstr "Meganische energie"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: objects/FS/function.c:1068
+#: objects/FS/function.c:1067
 msgid "Translation"
 msgstr "Overzetting"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: objects/FS/function.c:1070
+#: objects/FS/function.c:1069
 msgid "Force"
 msgstr "Kracht"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: objects/FS/function.c:1072
+#: objects/FS/function.c:1071
 msgid "Rotation"
 msgstr "Draaien"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: objects/FS/function.c:1074
+#: objects/FS/function.c:1073
 msgid "Torque"
 msgstr "Koppel"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: objects/FS/function.c:1076
+#: objects/FS/function.c:1075
 msgid "Random Motion"
 msgstr "Willekeurige beweging"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: objects/FS/function.c:1078
+#: objects/FS/function.c:1077
 msgid "Vibration"
 msgstr "Trilling"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: objects/FS/function.c:1080
+#: objects/FS/function.c:1079
 msgid "Rotational Energy"
 msgstr "Middelpuntvliedende kracht"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: objects/FS/function.c:1082
+#: objects/FS/function.c:1081
 msgid "Translational Energy"
 msgstr "Overzettings energie"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: objects/FS/function.c:1084
+#: objects/FS/function.c:1083
 msgid "Electrical"
 msgstr "Electrisch"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: objects/FS/function.c:1086
+#: objects/FS/function.c:1085
 msgid "Electricity"
 msgstr "Electriciteit"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: objects/FS/function.c:1088
+#: objects/FS/function.c:1087
 msgid "Voltage"
 msgstr "Voltage"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: objects/FS/function.c:1090
+#: objects/FS/function.c:1089
 msgid "Current"
 msgstr "Stroom"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: objects/FS/function.c:1092
+#: objects/FS/function.c:1091
 msgid "Hydraulic"
 msgstr "Hydrolisch"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: objects/FS/function.c:1094
+#: objects/FS/function.c:1093
 msgid "Pressure"
 msgstr "Druk"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: objects/FS/function.c:1096
+#: objects/FS/function.c:1095
 msgid "Volumetric Flow"
 msgstr "Volumetrische stroom"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: objects/FS/function.c:1098
+#: objects/FS/function.c:1097
 msgid "Thermal"
 msgstr "Thermisch"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: objects/FS/function.c:1100
+#: objects/FS/function.c:1099
 msgid "Heat"
 msgstr "Hitte"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: objects/FS/function.c:1102
+#: objects/FS/function.c:1101
 msgid "Conduction"
 msgstr "Geleiding"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: objects/FS/function.c:1104
+#: objects/FS/function.c:1103
 msgid "Convection"
 msgstr "Verwijdering"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#: objects/FS/function.c:1106 objects/FS/function.c:1114
+#: objects/FS/function.c:1105 objects/FS/function.c:1113
 msgid "Radiation"
 msgstr "Straling"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: objects/FS/function.c:1108
+#: objects/FS/function.c:1107
 msgid "Pneumatic"
 msgstr "Pneumatisch"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: objects/FS/function.c:1110
+#: objects/FS/function.c:1109
 msgid "Chemical"
 msgstr "Chemisch"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: objects/FS/function.c:1112
+#: objects/FS/function.c:1111
 msgid "Radioactive"
 msgstr "Radioactief"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: objects/FS/function.c:1116
+#: objects/FS/function.c:1115
 msgid "Microwaves"
 msgstr "Microgolven"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: objects/FS/function.c:1118
+#: objects/FS/function.c:1117
 msgid "Radio waves"
 msgstr "Radiogolven"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: objects/FS/function.c:1120
+#: objects/FS/function.c:1119
 msgid "X-Rays"
 msgstr "X-straling"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: objects/FS/function.c:1122
+#: objects/FS/function.c:1121
 msgid "Gamma Rays"
 msgstr "Gamma straling"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: objects/FS/function.c:1124
+#: objects/FS/function.c:1123
 msgid "Acoustic Energy"
 msgstr "Akoustische energie"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: objects/FS/function.c:1126
+#: objects/FS/function.c:1125
 msgid "Optical Energy"
 msgstr "Optische energie"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: objects/FS/function.c:1128
+#: objects/FS/function.c:1127
 msgid "Solar Energy"
 msgstr "Zonne energie"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: objects/FS/function.c:1130
+#: objects/FS/function.c:1129
 msgid "Magnetic Energy"
 msgstr "Magnetische energie"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: objects/FS/function.c:1134
+#: objects/FS/function.c:1133
 msgid "Human Motion"
 msgstr "Menselijke beweging"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: objects/FS/function.c:1136
+#: objects/FS/function.c:1135
 msgid "Human Force"
 msgstr "Menselijke kracht"
 
 #. Translators: Menu item Noun/Signal/Status
-#: objects/FS/function.c:1142
+#: objects/FS/function.c:1141
 msgid "Status"
 msgstr "Status"
 
-#: objects/FS/function.c:1146
+#: objects/FS/function.c:1145
 msgid "User/Device Fn"
 msgstr "Gebruiker/Apparaat Fn"
 
-#: objects/FS/function.c:1147
+#: objects/FS/function.c:1146
 msgid "Wish Fn"
 msgstr "Wens Fn"
 
@@ -3661,7 +3671,7 @@ msgstr "Lettertype van de vergelijking"
 msgid "The condition's font size"
 msgstr "Lettergrootte van de vergelijking"
 
-#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:146
 msgid "Color"
 msgstr "Kleur"
 
@@ -3721,31 +3731,31 @@ msgstr "Actief"
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Laat een rode stip zien om de activiteit van de stap te laten zien"
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:139
 msgid "Receptivity"
 msgstr "Ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:139
 msgid "The boolean equation of the receptivity"
 msgstr "De booleaanse vergelijking van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:142
+#: objects/GRAFCET/transition.c:141
 msgid "The receptivity's font"
 msgstr "Lettertype van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/transition.c:143
 msgid "The receptivity's font size"
 msgstr "Lettergrootte van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/transition.c:146
 msgid "The receptivity's color"
 msgstr "Kleur van de ontvankelijkheid"
 
-#: objects/GRAFCET/transition.c:148
+#: objects/GRAFCET/transition.c:147
 msgid "North point"
 msgstr "Noordelijk punt"
 
-#: objects/GRAFCET/transition.c:149
+#: objects/GRAFCET/transition.c:148
 msgid "South point"
 msgstr "Zuidelijk punt"
 
@@ -3777,6 +3787,35 @@ msgstr "Verwijder  verbindingspunt"
 #: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET EN/OR begrenzing"
+
+#: objects/Misc/analog_clock.c:136
+#, fuzzy
+msgid "Arrow colour"
+msgstr "Lijn kleur"
+
+#: objects/Misc/analog_clock.c:138
+#, fuzzy
+msgid "Arrow line width"
+msgstr "Gegevens lijn breedte"
+
+#: objects/Misc/analog_clock.c:140
+msgid "Seconds arrow colour"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:142
+#, fuzzy
+msgid "Seconds arrow line width"
+msgstr "Gegevens lijn breedte"
+
+#: objects/Misc/analog_clock.c:144
+#, fuzzy
+msgid "Show hours"
+msgstr "_Linialen"
+
+#: objects/Misc/libmisc.c:38
+#, fuzzy
+msgid "Miscellaneous objects"
+msgstr "Allerlei vormen"
 
 #: objects/network/bus.c:592
 msgid "Add Handle"
@@ -3824,8 +3863,8 @@ msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr ""
-"Om de leesbaarheid te verbeteren, kunnen stromingen die verticaal beginnen en "
-"eindigen grijs worden gemaakt"
+"Om de leesbaarheid te verbeteren, kunnen stromingen die verticaal beginnen "
+"en eindigen grijs worden gemaakt"
 
 #: objects/SADT/arrow.c:557
 msgid "SADT Arrow"
@@ -4383,6 +4422,24 @@ msgstr "TeX Metapost export filter"
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost macro's"
 
+#: plug-ins/pixbuf/pixbuf.c:90
+#, fuzzy, c-format
+msgid ""
+"Could not save file:\n"
+"%s\n"
+"%s"
+msgstr ""
+"Kan '%s' niet openen\n"
+"'%s'"
+
+#: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
+msgid "GdkPixbuf bitmap"
+msgstr ""
+
+#: plug-ins/pixbuf/pixbuf.c:175
+msgid "gdk-pixbuf based bitmap export/import"
+msgstr ""
+
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks export filter"
@@ -4480,7 +4537,9 @@ msgstr "Patronen worden niet ondersteund door Dia"
 
 #: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Drie-stippen lijnen worden niet ondersteund door Dia, twee-stippen worden gebruikt"
+msgstr ""
+"Drie-stippen lijnen worden niet ondersteund door Dia, twee-stippen worden "
+"gebruikt"
 
 #: plug-ins/xfig/xfig-import.c:450
 #, c-format
@@ -6067,6 +6126,9 @@ msgstr "Realiseert, implementeert een bepaalde interface"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "PS printing not yet converted"
+#~ msgstr "PS afdrukken nog niet geconverteerd"
 
 #~ msgid "_Visible Grid"
 #~ msgstr "_Zichtbaar Rooster"

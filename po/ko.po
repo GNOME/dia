@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2002-09-23 22:41+0200\n"
+"POT-Creation-Date: 2002-11-17 17:27+0100\n"
 "PO-Revision-Date: 2000-05-31 10:16:35+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@dacome.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -100,13 +100,13 @@ msgstr ""
 msgid "Dia version %s\n"
 msgstr ""
 
-#: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "object-libs는 찾았지만 표준 객체는 찾지 못하였습니다, 종료합니다...\n"
 
 #. no standard buttons
-#: app/app_procs.c:536
+#: app/app_procs.c:542
 #, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
@@ -116,22 +116,22 @@ msgstr ""
 "변경된 도표가 있습니다.\n"
 "정말로 종료하시겠습니까?"
 
-#: app/app_procs.c:540
+#: app/app_procs.c:546
 #, fuzzy
 msgid "Quit Dia"
 msgstr "이 프로그램은"
 
-#: app/app_procs.c:600 app/app_procs.c:607
+#: app/app_procs.c:608 app/app_procs.c:615
 msgid "Could not create per-user Dia config directory"
 msgstr "다른 사용자의 Dia 설정 디렉토리를 생성할수 없습니다"
 
-#: app/app_procs.c:609
+#: app/app_procs.c:617
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:631 app/diaconv.c:249
+#: app/app_procs.c:639 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Dia의 내부 객체와 필터"
 
@@ -228,15 +228,15 @@ msgid ""
 "bother submitting another report if it crashes"
 msgstr ""
 
-#: app/defaults.c:43 app/defaults.c:140
+#: app/defaults.c:43 app/defaults.c:139
 msgid "Object defaults"
 msgstr "기본 객체"
 
-#: app/defaults.c:62
+#: app/defaults.c:61
 msgid "This object has no defaults."
 msgstr "이 객체는 기본설정이 없습니다."
 
-#: app/defaults.c:111
+#: app/defaults.c:110
 #, fuzzy
 msgid "Defaults: "
 msgstr "기본 보기"
@@ -395,8 +395,8 @@ msgstr "도표 편집기"
 msgid "Ok"
 msgstr ""
 
-#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:436
-#: app/lineprops_area.c:636 app/linewidth_area.c:246
+#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
+#: app/lineprops_area.c:638 app/linewidth_area.c:244
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "취소"
@@ -491,11 +491,11 @@ msgstr "격자:"
 msgid "Background Colour"
 msgstr "배경 색상:"
 
-#: app/dia-props.c:157 lib/diagramdata.c:60
+#: app/dia-props.c:157 lib/diagramdata.c:58
 msgid "Background"
 msgstr "배경"
 
-#: app/disp_callbacks.c:76 app/properties.c:122
+#: app/disp_callbacks.c:76 app/properties.c:121
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -507,15 +507,15 @@ msgstr ""
 msgid "No object menu"
 msgstr "객체 메뉴 없슴"
 
-#: app/display.c:88
+#: app/display.c:90
 msgid "Diagram modified!"
 msgstr "도표가 변경되었습니다!"
 
-#: app/display.c:860
+#: app/display.c:867
 msgid "<unnamed>"
 msgstr ""
 
-#: app/display.c:862
+#: app/display.c:869
 #, fuzzy, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -524,60 +524,60 @@ msgstr ""
 "도표가 저장되지 않았습니다.\n"
 "정말로 이 창을 닫겠습니까?"
 
-#: app/display.c:873
+#: app/display.c:880
 #, fuzzy
 msgid "Close Diagram"
 msgstr "도표 열기"
 
-#: app/display.c:878
+#: app/display.c:885
 msgid "Discard Changes"
 msgstr ""
 
-#: app/export_png.c:115 app/load_save.c:740 app/render_eps.c:532
-#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:521
-#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
-#: plug-ins/pstricks/render_pstricks.c:196 plug-ins/python/pydia-render.c:671
-#: plug-ins/shape/shape-export.c:200 plug-ins/svg/render_svg.c:200
-#: plug-ins/wmf/wmf.cpp:892 plug-ins/wpg/wpg.c:935
-#: plug-ins/xfig/xfig-export.c:753 plug-ins/xslt/xslt.c:90
+#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
+#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
+#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
+#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
+#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "열수 업습니다: '%s'  쓸수없슴.\n"
 
-#: app/export_png.c:123
+#: app/export_png.c:122
 msgid "Could not create PNG write structure"
 msgstr "PNG 쓰기 구조를 생성할수 없습니다"
 
-#: app/export_png.c:132
+#: app/export_png.c:131
 msgid "Could not create PNG header info structure"
 msgstr "PNG헤더정보 구조를 생성할수 없습니다"
 
-#: app/export_png.c:140
+#: app/export_png.c:139
 msgid "Error occurred while writing PNG"
 msgstr "PNG를 쓰는중 오류가 발생했습니다"
 
 #. Create a dialog
-#: app/export_png.c:252
+#: app/export_png.c:258
 #, fuzzy
 msgid "PNG Export Options"
 msgstr "격자 설정"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:253 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:259 objects/FS/function.c:661 objects/FS/function.c:663
 msgid "Export"
 msgstr ""
 
-#: app/export_png.c:258
+#: app/export_png.c:264
 #, fuzzy
 msgid "Image width:"
 msgstr "그림 파일:"
 
-#: app/export_png.c:261
+#: app/export_png.c:267
 #, fuzzy
 msgid "Image height:"
 msgstr "그림 파일:"
 
-#: app/export_png.c:306
+#: app/export_png.c:312
 msgid "Portable Network Graphics"
 msgstr ""
 
@@ -610,13 +610,13 @@ msgstr ""
 "파일 '%s'가 있습니다.\n"
 "덮어 쓰겠습니까?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:593
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "예"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:593
-#: app/preferences.c:604 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "아니오"
 
@@ -656,12 +656,12 @@ msgstr ""
 msgid "Modify object(s)"
 msgstr "객체 변경"
 
-#: app/interface.c:44 app/menus.c:211
+#: app/interface.c:44 app/menus.c:216
 msgid "Modify"
 msgstr "변경"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:212
+#: app/interface.c:48 app/interface.c:49 app/menus.c:217
 #: objects/FS/function.c:951
 msgid "Magnify"
 msgstr "확대"
@@ -670,7 +670,7 @@ msgstr "확대"
 msgid "Scroll around the diagram"
 msgstr "도표 "
 
-#: app/interface.c:54 app/menus.c:213
+#: app/interface.c:54 app/menus.c:218
 msgid "Scroll"
 msgstr ""
 
@@ -682,8 +682,8 @@ msgstr "문자열 만듦"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:214 lib/properties.c:77 lib/properties.h:508
-#: lib/properties.h:511 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
+#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
 #: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:133
@@ -695,7 +695,7 @@ msgstr "문자열"
 msgid "Create Box"
 msgstr "상자 만듦"
 
-#: app/interface.c:64 app/menus.c:215
+#: app/interface.c:64 app/menus.c:220
 msgid "Box"
 msgstr "상자"
 
@@ -703,7 +703,7 @@ msgstr "상자"
 msgid "Create Ellipse"
 msgstr "타원 만듦"
 
-#: app/interface.c:69 app/menus.c:216
+#: app/interface.c:69 app/menus.c:221
 msgid "Ellipse"
 msgstr "타원"
 
@@ -711,7 +711,7 @@ msgstr "타원"
 msgid "Create Polygon"
 msgstr "다각형 만듦"
 
-#: app/interface.c:74 app/menus.c:217
+#: app/interface.c:74 app/menus.c:222
 msgid "Polygon"
 msgstr "다각형"
 
@@ -720,7 +720,7 @@ msgstr "다각형"
 msgid "Create Beziergon"
 msgstr "베지어선 만듦"
 
-#: app/interface.c:79 app/menus.c:218
+#: app/interface.c:79 app/menus.c:223
 #, fuzzy
 msgid "Beziergon"
 msgstr "베지어"
@@ -729,7 +729,7 @@ msgstr "베지어"
 msgid "Create Line"
 msgstr "선 만듦"
 
-#: app/interface.c:84 app/menus.c:219 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
 msgid "Line"
 msgstr "선"
 
@@ -737,7 +737,7 @@ msgstr "선"
 msgid "Create Arc"
 msgstr "호 만듦"
 
-#: app/interface.c:89 app/menus.c:220
+#: app/interface.c:89 app/menus.c:226
 msgid "Arc"
 msgstr "호"
 
@@ -745,7 +745,7 @@ msgstr "호"
 msgid "Create Zigzagline"
 msgstr "지그재그 만듦"
 
-#: app/interface.c:94 app/menus.c:221
+#: app/interface.c:94 app/menus.c:227
 msgid "Zigzagline"
 msgstr "지그재그"
 
@@ -753,7 +753,7 @@ msgstr "지그재그"
 msgid "Create Polyline"
 msgstr "연결선 만듦"
 
-#: app/interface.c:99 app/menus.c:222
+#: app/interface.c:99 app/menus.c:228
 msgid "Polyline"
 msgstr "연결선"
 
@@ -761,7 +761,7 @@ msgstr "연결선"
 msgid "Create Bezierline"
 msgstr "베지어선 만듦"
 
-#: app/interface.c:104 app/menus.c:223
+#: app/interface.c:104 app/menus.c:229
 msgid "Bezierline"
 msgstr "베지어"
 
@@ -769,7 +769,7 @@ msgstr "베지어"
 msgid "Create Image"
 msgstr "그림 만듦"
 
-#: app/interface.c:109 app/menus.c:224
+#: app/interface.c:109 app/menus.c:231
 msgid "Image"
 msgstr "그림"
 
@@ -781,13 +781,13 @@ msgstr "확대"
 msgid "NULL tooldata in tool_select_update"
 msgstr ""
 
-#: app/interface.c:967
+#: app/interface.c:973
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
 
-#: app/interface.c:1116
+#: app/interface.c:1122
 msgid "Diagram Editor"
 msgstr "도표 편집기"
 
@@ -811,59 +811,59 @@ msgstr "계층 지움"
 msgid "Layers"
 msgstr "게층"
 
-#: app/layer_dialog.c:219
+#: app/layer_dialog.c:218
 msgid "Diagrams:"
 msgstr "도표:"
 
-#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "닫기"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:308
 msgid "New layer"
 msgstr "새 계층"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:511
 msgid "none"
 msgstr ""
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:953
 msgid "Edit Layer Attributes"
 msgstr "계층 속성 편집"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:969
 msgid "Layer name:"
 msgstr "계층 이름:"
 
 #. setup buttons
-#: app/layer_dialog.c:979 app/lineprops_area.c:427 app/lineprops_area.c:626
-#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:266
+#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
+#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "확인"
 
-#: app/lineprops_area.c:416
+#: app/lineprops_area.c:418
 msgid "Arrow Properties"
 msgstr "화살표 속성"
 
-#: app/lineprops_area.c:473 app/lineprops_area.c:659
+#: app/lineprops_area.c:475 app/lineprops_area.c:661
 msgid "Details..."
 msgstr "자세히..."
 
-#: app/lineprops_area.c:615
+#: app/lineprops_area.c:617
 msgid "Line Style Properties"
 msgstr "선 형태 속성"
 
-#: app/linewidth_area.c:216 lib/properties.h:484
+#: app/linewidth_area.c:216 lib/properties.h:471
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "선 굵기"
 
-#: app/linewidth_area.c:224
+#: app/linewidth_area.c:222
 msgid "Line width:"
 msgstr "선 굵기:"
 
-#: app/load_save.c:194
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -871,7 +871,7 @@ msgstr ""
 "도표 읽는중 오류.\n"
 "문서에서 연결된 객체를 찾을수 없습니다."
 
-#: app/load_save.c:197
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -879,37 +879,37 @@ msgstr ""
 "도표 읽는중 오류.\n"
 "연결점이 없습니다."
 
-#: app/load_save.c:200
+#: app/load_save.c:206
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 
-#: app/load_save.c:249
+#: app/load_save.c:255
 msgid "You must specify a file, not a directory.\n"
 msgstr ""
 
-#: app/load_save.c:256 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1044
-#: plug-ins/xfig/xfig-import.c:1345 plug-ins/xslt/xslt.c:81
+#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
+#: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
 
-#: app/load_save.c:265 app/load_save.c:270
+#: app/load_save.c:271 app/load_save.c:276
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 
-#: app/load_save.c:277
+#: app/load_save.c:283
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 
-#: app/load_save.c:463
+#: app/load_save.c:469
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -917,12 +917,12 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 
-#: app/load_save.c:773
+#: app/load_save.c:779
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr ""
 
-#: app/load_save.c:843 app/load_save.c:848
+#: app/load_save.c:849 app/load_save.c:854
 msgid "Native Dia Diagram"
 msgstr ""
 
@@ -986,643 +986,667 @@ msgstr "문자열 자름"
 msgid "Paste _Text"
 msgstr "문자열 붙임(_T)"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "Zoom _In"
 msgstr "확대(_I)"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "Zoom in 50%"
 msgstr "2배 확대"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "Zoom _Out"
 msgstr "축소(_O)"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "Zoom out 50%"
 msgstr "2배 축소"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "_Zoom"
 msgstr "확대(_Z)"
 
-#: app/menus.c:132
+#: app/menus.c:134
 #, fuzzy
 msgid "Diagram Properties..."
 msgstr "/대화상자/속성(_P)"
 
-#: app/menus.c:134
+#: app/menus.c:136
 msgid "_AntiAliased"
 msgstr "안티얼라이싱(_A)"
 
-#: app/menus.c:137
-msgid "_Visible Grid"
-msgstr "격자 보기(_V)"
+#. TODO: Show Menu Bar  F9.  Hub's cool code.
+#: app/menus.c:140
+#, fuzzy
+msgid "Show _Grid"
+msgstr "가장자리 보임:"
 
-#: app/menus.c:139
+#: app/menus.c:142
 msgid "_Snap To Grid"
 msgstr "끊긴 격자(_S)"
 
-#: app/menus.c:141
+#: app/menus.c:144
 msgid "Show _Rulers"
 msgstr "눈금자 보기(_R)"
 
-#: app/menus.c:143
+#: app/menus.c:146
 msgid "Show _Connection Points"
 msgstr "연결점 보기(_C)"
 
-#: app/menus.c:146
+#: app/menus.c:149
 msgid "New _View"
 msgstr ""
 
-#: app/menus.c:147
+#: app/menus.c:150
 msgid "Show _All"
 msgstr ""
 
-#: app/menus.c:148
+#: app/menus.c:151
 msgid "Redraw"
 msgstr ""
 
-#: app/menus.c:153
+#: app/menus.c:156
 msgid "Replace"
 msgstr ""
 
-#: app/menus.c:155
+#: app/menus.c:158
 msgid "Union"
 msgstr ""
 
-#: app/menus.c:157
+#: app/menus.c:160
 msgid "Intersect"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:159 app/sheets_dialog.c:779 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "삭제"
 
-#: app/menus.c:161 app/menus.c:169
+#: app/menus.c:164 app/menus.c:172
 msgid "Invert"
 msgstr ""
 
-#: app/menus.c:167
+#: app/menus.c:170
 msgid "All"
 msgstr ""
 
-#: app/menus.c:168 lib/widgets.c:978 objects/UML/association.c:1070
+#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
 msgid "None"
 msgstr ""
 
-#: app/menus.c:170
+#: app/menus.c:173
 msgid "Connected"
 msgstr ""
 
-#: app/menus.c:171
+#: app/menus.c:174
 msgid "Transitive"
 msgstr ""
 
-#: app/menus.c:172
+#: app/menus.c:175
 msgid "Same Type"
 msgstr ""
 
-#: app/menus.c:179 lib/properties.c:62 lib/properties.h:472 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
 msgid "Left"
 msgstr "왼쪽"
 
-#: app/menus.c:180 app/menus.c:189 lib/properties.c:63 lib/properties.h:473
-#: lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
 msgid "Center"
 msgstr "중간"
 
-#: app/menus.c:181 lib/properties.c:64 lib/properties.h:474 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
 msgid "Right"
 msgstr "오른쪽"
 
-#: app/menus.c:182 app/menus.c:191
+#: app/menus.c:186 app/menus.c:196
 msgid "Equal Distance"
 msgstr ""
 
-#: app/menus.c:183 app/menus.c:192
+#: app/menus.c:187 app/menus.c:197
 msgid "Adjacent"
 msgstr ""
 
-#: app/menus.c:188
+#: app/menus.c:192
 msgid "Top"
 msgstr "위"
 
-#: app/menus.c:190
+#: app/menus.c:193
+#, fuzzy
+msgid "Middle"
+msgstr "파일"
+
+#: app/menus.c:194
 msgid "Bottom"
 msgstr "아래"
 
-#: app/menus.c:197
+#: app/menus.c:202
 msgid "Send to _Back"
 msgstr "뒤로 보냄(_B)"
 
-#: app/menus.c:198
+#: app/menus.c:203
 msgid "Bring to _Front"
 msgstr "앞으로 보냄(_F)"
 
-#: app/menus.c:199
+#: app/menus.c:204
 #, fuzzy
 msgid "Send Backwards"
 msgstr "뒤로 보냄(_B)"
 
-#: app/menus.c:200
+#: app/menus.c:205
 msgid "Bring Forwards"
 msgstr ""
 
-#: app/menus.c:202
+#: app/menus.c:207
 msgid "_Group"
 msgstr "묶기(_G)"
 
-#: app/menus.c:203
+#: app/menus.c:208
 msgid "_Ungroup"
 msgstr "풀기(_U)"
 
-#: app/menus.c:205
+#: app/menus.c:210
 msgid "Align _Horizontal"
 msgstr "가로 정렬(_H)"
 
-#: app/menus.c:206
+#: app/menus.c:211
 msgid "Align _Vertical"
 msgstr "세로 정렬(_V)"
 
-#: app/menus.c:229
+#: app/menus.c:236
 msgid "_Properties"
 msgstr "설정(_P)"
 
-#: app/menus.c:230
+#: app/menus.c:237
 msgid "_Layers"
 msgstr "계층(_L)"
 
-#: app/menus.c:256
+#: app/menus.c:263
 #, fuzzy
 msgid "_Select"
 msgstr "선택"
 
-#: app/menus.c:257
+#: app/menus.c:264
 #, fuzzy
 msgid "_Objects"
 msgstr "/객체(_O)"
 
-#: app/menus.c:258
+#: app/menus.c:265
 #, fuzzy
 msgid "_Tools"
 msgstr "도구"
 
-#: app/menus.c:259
+#: app/menus.c:266
 #, fuzzy
 msgid "_Dialogs"
 msgstr "/대화상자(_D)"
 
-#: app/menus.c:260
+#: app/menus.c:267
 msgid "_Input Methods"
 msgstr ""
 
-#: app/menus.c:271 app/menus.c:306
+#: app/menus.c:278 app/menus.c:313
 msgid "/_File"
 msgstr "/파일(_F)"
 
-#: app/menus.c:273 app/menus.c:308
+#: app/menus.c:280 app/menus.c:315
 msgid "/File/_New"
 msgstr ""
 
-#: app/menus.c:275 app/menus.c:310
+#: app/menus.c:282 app/menus.c:317
 msgid "/File/_Open"
 msgstr ""
 
 #. recent file list is dynamically inserted here
-#: app/menus.c:277 app/menus.c:282 app/menus.c:286 app/menus.c:288
-#: app/menus.c:317 app/menus.c:321
+#: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
+#: app/menus.c:324 app/menus.c:328
 #, fuzzy
 msgid "/File/---"
 msgstr "/파일(_F)"
 
-#: app/menus.c:278
+#: app/menus.c:285
 #, fuzzy
 msgid "/File/_Diagram tree"
 msgstr "/파일/도표 인쇄(_P)..."
 
-#: app/menus.c:280
+#: app/menus.c:287
 msgid "/File/Sheets and Objects..."
 msgstr ""
 
-#: app/menus.c:283
+#: app/menus.c:290
 msgid "/File/_Preferences..."
 msgstr ""
 
-#: app/menus.c:285
+#: app/menus.c:292
 msgid "/File/P_lugins"
 msgstr ""
 
-#: app/menus.c:289 app/menus.c:325
+#: app/menus.c:296 app/menus.c:332
 msgid "/File/_Quit"
 msgstr ""
 
-#: app/menus.c:291
+#: app/menus.c:298
 msgid "/_Help"
 msgstr ""
 
-#: app/menus.c:293
+#: app/menus.c:300
 msgid "/Help/_Manual"
 msgstr ""
 
-#: app/menus.c:295
+#: app/menus.c:302
 msgid "/Help/---"
 msgstr ""
 
-#: app/menus.c:296
+#: app/menus.c:303
 msgid "/Help/_About"
 msgstr ""
 
-#: app/menus.c:312
+#: app/menus.c:319
 msgid "/File/_Save"
 msgstr ""
 
-#: app/menus.c:314
+#: app/menus.c:321
 msgid "/File/Save _As..."
 msgstr ""
 
-#: app/menus.c:316
+#: app/menus.c:323
 msgid "/File/_Export..."
 msgstr ""
 
-#: app/menus.c:318
+#: app/menus.c:325
 msgid "/File/Page Set_up..."
 msgstr "/파일/쪽 설정(_u)..."
 
-#: app/menus.c:319
+#: app/menus.c:326
 msgid "/File/_Print Diagram..."
 msgstr "/파일/도표 인쇄(_P)..."
 
-#: app/menus.c:322
+#: app/menus.c:329
 msgid "/File/_Close"
 msgstr "/파일/닫기(_C)"
 
-#: app/menus.c:327
+#: app/menus.c:334
 msgid "/_Edit"
 msgstr "/편집(_E)"
 
-#: app/menus.c:329
-msgid "/Edit/_Copy"
-msgstr "/편집/복사(_C)"
-
-#: app/menus.c:331
-msgid "/Edit/C_ut"
-msgstr "/편집/자르기(_u)"
-
-#: app/menus.c:333
-msgid "/Edit/_Paste"
-msgstr "/편집/붙이기(_P)"
-
-#: app/menus.c:335
-msgid "/Edit/_Delete"
-msgstr "/편집/지우기(_D)"
-
-#: app/menus.c:337
+#: app/menus.c:336
 msgid "/Edit/_Undo"
 msgstr "/편집/취소(_U)"
 
-#: app/menus.c:339
+#: app/menus.c:338
 msgid "/Edit/_Redo"
 msgstr "/편집/재실행(_R)"
 
+#: app/menus.c:340 app/menus.c:349
+#, fuzzy
+msgid "/Edit/---"
+msgstr "/편집/자르기"
+
 #: app/menus.c:341
+msgid "/Edit/_Copy"
+msgstr "/편집/복사(_C)"
+
+#: app/menus.c:343
+msgid "/Edit/C_ut"
+msgstr "/편집/자르기(_u)"
+
+#: app/menus.c:345
+msgid "/Edit/_Paste"
+msgstr "/편집/붙이기(_P)"
+
+#: app/menus.c:347
+msgid "/Edit/_Delete"
+msgstr "/편집/지우기(_D)"
+
+#: app/menus.c:350
 msgid "/Edit/Copy Text"
 msgstr "/편집/문자열 복사"
 
-#: app/menus.c:342
+#: app/menus.c:351
 msgid "/Edit/Cut Text"
 msgstr "/편집/문자열 자르기"
 
-#: app/menus.c:343
+#: app/menus.c:352
 msgid "/Edit/Paste _Text"
 msgstr "/편집/문자열 붙이기(_T)"
 
-#: app/menus.c:344
+#: app/menus.c:353
 msgid "/_View"
 msgstr "/보기(_V)"
 
-#: app/menus.c:346
+#: app/menus.c:355
 msgid "/View/Zoom _In"
 msgstr "/보기/확대(_I)"
 
-#: app/menus.c:348
+#: app/menus.c:357
 msgid "/View/Zoom _Out"
 msgstr "/보기/축소(_O)"
 
-#: app/menus.c:350
+#: app/menus.c:359
 msgid "/View/_Zoom"
 msgstr "/보기/확대(_Z)"
 
-#: app/menus.c:352
+#: app/menus.c:361
 msgid "/View/Zoom/400%"
 msgstr "/보기/확대/400%"
 
-#: app/menus.c:353
+#: app/menus.c:362
 msgid "/View/Zoom/283%"
 msgstr "/보기/확대/283%"
 
-#: app/menus.c:354
+#: app/menus.c:363
 msgid "/View/Zoom/200%"
 msgstr "/보기/확대/200%"
 
-#: app/menus.c:355
+#: app/menus.c:364
 msgid "/View/Zoom/141%"
 msgstr "/보기/확대/141%"
 
-#: app/menus.c:356
+#: app/menus.c:365
 msgid "/View/Zoom/100%"
 msgstr "/보기/확대/100%"
 
-#: app/menus.c:358
+#: app/menus.c:367
 msgid "/View/Zoom/85%"
 msgstr "/보기/축소/85%"
 
-#: app/menus.c:359
+#: app/menus.c:368
 msgid "/View/Zoom/70.7%"
 msgstr "/보기/축소/70.7%"
 
-#: app/menus.c:360
+#: app/menus.c:369
 msgid "/View/Zoom/50%"
 msgstr "/보기/축소/50%"
 
-#: app/menus.c:361
+#: app/menus.c:370
 msgid "/View/Zoom/35.4%"
 msgstr "/보기/축소/35.4%"
 
-#: app/menus.c:362
+#: app/menus.c:371
 msgid "/View/Zoom/25%"
 msgstr "/보기/축소/25%"
 
-#: app/menus.c:363
-#, fuzzy
-msgid "/View/Diagram Properties..."
-msgstr "/대화상자/속성(_P)"
-
-#: app/menus.c:365
-msgid "/View/_AntiAliased"
-msgstr "/보기/안티얼라이싱(_A)"
-
-#: app/menus.c:367
-msgid "/View/_Visible Grid"
-msgstr "/보기/격자 보기"
-
-#: app/menus.c:368
-msgid "/View/_Snap To Grid"
-msgstr "/보기/끊긴 격자"
-
-#: app/menus.c:369
-msgid "/View/Show _Rulers"
-msgstr "/보기/눈금자 보기(_R)"
-
-#: app/menus.c:370
-msgid "/View/Show _Connection Points"
-msgstr "/보기/연결점 보기(_C)"
-
-#: app/menus.c:371
+#: app/menus.c:372 app/menus.c:381
 #, fuzzy
 msgid "/View/---"
 msgstr "/보기(_V)"
 
-#: app/menus.c:372
+#: app/menus.c:373
+#, fuzzy
+msgid "/View/Diagram Properties..."
+msgstr "/대화상자/속성(_P)"
+
+#: app/menus.c:375
+msgid "/View/_AntiAliased"
+msgstr "/보기/안티얼라이싱(_A)"
+
+#: app/menus.c:377
+#, fuzzy
+msgid "/View/Show _Grid"
+msgstr "/보기/모두 보기(_A)"
+
+#: app/menus.c:378
+msgid "/View/_Snap To Grid"
+msgstr "/보기/끊긴 격자"
+
+#: app/menus.c:379
+msgid "/View/Show _Rulers"
+msgstr "/보기/눈금자 보기(_R)"
+
+#: app/menus.c:380
+msgid "/View/Show _Connection Points"
+msgstr "/보기/연결점 보기(_C)"
+
+#: app/menus.c:382
 msgid "/View/New _View"
 msgstr "/보기/새 보기(_V)"
 
-#: app/menus.c:373
+#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
+#: app/menus.c:384
 msgid "/View/Show _All"
 msgstr "/보기/모두 보기(_A)"
 
-#: app/menus.c:374
+#: app/menus.c:385
 #, fuzzy
 msgid "/View/Re_draw"
 msgstr "/보기/새 보기(_V)"
 
-#: app/menus.c:375
+#: app/menus.c:386
 #, fuzzy
 msgid "/_Select"
 msgstr "선택"
 
-#: app/menus.c:377
+#: app/menus.c:388
 msgid "/Select/All"
 msgstr "/선택/모두"
 
-#: app/menus.c:378
+#: app/menus.c:389
 msgid "/Select/None"
 msgstr "/선택/않음"
 
-#: app/menus.c:379 app/menus.c:392
+#: app/menus.c:390 app/menus.c:403
 msgid "/Select/Invert"
 msgstr "/선택/반대"
 
-#: app/menus.c:380
+#: app/menus.c:391
 msgid "/Select/Connected"
 msgstr "/선택/연결"
 
-#: app/menus.c:381
+#: app/menus.c:392
 msgid "/Select/Transitive"
 msgstr ""
 
-#: app/menus.c:382
+#: app/menus.c:393
 msgid "/Select/Same Type"
 msgstr "/선택/같은 형태"
 
-#: app/menus.c:383
+#: app/menus.c:394
 #, fuzzy
 msgid "/Select/---"
 msgstr "선택"
 
-#: app/menus.c:384
+#: app/menus.c:395
 msgid "/Select/Replace"
 msgstr ""
 
-#: app/menus.c:386
+#: app/menus.c:397
 msgid "/Select/Union"
 msgstr ""
 
-#: app/menus.c:388
+#: app/menus.c:399
 msgid "/Select/Intersect"
 msgstr ""
 
-#: app/menus.c:390
+#: app/menus.c:401
 msgid "/Select/Remove"
 msgstr "/선택/지움"
 
-#: app/menus.c:394
+#: app/menus.c:405
 msgid "/_Objects"
 msgstr "/객체(_O)"
 
-#: app/menus.c:396
+#: app/menus.c:407
 msgid "/Objects/Send to _Back"
 msgstr "/객체/뒤로 보내기(_B)"
 
-#: app/menus.c:397
+#: app/menus.c:408
 msgid "/Objects/Bring to _Front"
 msgstr "/객체/앞으로 보내기(_F)"
 
-#: app/menus.c:398
+#: app/menus.c:409
 #, fuzzy
 msgid "/Objects/Send Backwards"
 msgstr "/객체/뒤로 보냄"
 
-#: app/menus.c:399
+#: app/menus.c:410
 #, fuzzy
 msgid "/Objects/Bring Forwards"
 msgstr "/객체/앞으로 보냄"
 
-#: app/menus.c:400 app/menus.c:403
+#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
 #, fuzzy
 msgid "/Objects/---"
 msgstr "/객체(_O)"
 
-#: app/menus.c:401
+#: app/menus.c:412
 msgid "/Objects/_Group"
 msgstr "/객체/묶기(_G)"
 
-#: app/menus.c:402
+#. deliberately not using Ctrl+U for Ungroup
+#: app/menus.c:414
 msgid "/Objects/_Ungroup"
 msgstr "/객체/풀기(_U)"
 
-#: app/menus.c:404
+#: app/menus.c:416
 msgid "/Objects/Align _Horizontal"
 msgstr "/객체/수평 정렬(_H)"
 
-#: app/menus.c:406
+#: app/menus.c:418
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/객체/수평 정렬/왼쪽"
 
-#: app/menus.c:407
+#: app/menus.c:419
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/객체/수평 정렬/중간"
 
-#: app/menus.c:408
+#: app/menus.c:420
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/객체/수평 정렬/오른쪽"
 
-#: app/menus.c:409
+#: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/객체/수평 정렬/"
 
-#: app/menus.c:410
+#: app/menus.c:423
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/객체/수평 정렬/"
 
-#: app/menus.c:411
+#: app/menus.c:424
 msgid "/Objects/Align _Vertical"
 msgstr "/객체/수직 정렬(_V)"
 
-#: app/menus.c:413
+#: app/menus.c:426
 msgid "/Objects/Align Vertical/Top"
 msgstr "/객체/수직 정렬/위"
 
-#: app/menus.c:414
-msgid "/Objects/Align Vertical/Center"
-msgstr "/객체/수직 정렬/중간"
+#: app/menus.c:427
+#, fuzzy
+msgid "/Objects/Align Vertical/Middle"
+msgstr "/객체/수직 정렬(_V)"
 
-#: app/menus.c:415
+#: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/객체/수직 정렬/아래"
 
-#: app/menus.c:416
+#: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr ""
 
-#: app/menus.c:417
+#: app/menus.c:431
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr ""
 
-#: app/menus.c:419
+#: app/menus.c:433
 #, fuzzy
 msgid "/_Tools"
 msgstr "/도구/"
 
-#: app/menus.c:421
+#: app/menus.c:435
 msgid "/Tools/Modify"
 msgstr ""
 
-#: app/menus.c:422
+#: app/menus.c:436
 msgid "/Tools/Magnify"
 msgstr ""
 
-#: app/menus.c:423
+#: app/menus.c:437
 msgid "/Tools/Scroll"
 msgstr ""
 
-#: app/menus.c:424
+#: app/menus.c:438
 msgid "/Tools/Text"
 msgstr "/도구/문자열"
 
-#: app/menus.c:425
+#: app/menus.c:439
 msgid "/Tools/Box"
 msgstr "/도구/상자"
 
-#: app/menus.c:426
+#: app/menus.c:440
 msgid "/Tools/Ellipse"
 msgstr "/도구/타원"
 
-#: app/menus.c:427
+#: app/menus.c:441
 msgid "/Tools/Polygon"
 msgstr "/도구/다각형"
 
-#: app/menus.c:428
+#: app/menus.c:442
 #, fuzzy
 msgid "/Tools/Beziergon"
 msgstr "/도구/베지어곡선"
 
-#: app/menus.c:429
+#: app/menus.c:443 app/menus.c:449
+#, fuzzy
+msgid "/Tools/---"
+msgstr "/도구/"
+
+#: app/menus.c:444
 msgid "/Tools/Line"
 msgstr "/도구/선"
 
-#: app/menus.c:430
+#: app/menus.c:445
 msgid "/Tools/Arc"
 msgstr "/도구/호"
 
-#: app/menus.c:431
+#: app/menus.c:446
 msgid "/Tools/Zigzagline"
 msgstr "/도구/지그재그"
 
-#: app/menus.c:432
+#: app/menus.c:447
 msgid "/Tools/Polyline"
 msgstr "/도구/다형선"
 
-#: app/menus.c:433
+#: app/menus.c:448
 msgid "/Tools/Bezierline"
 msgstr "/도구/베지어곡선"
 
-#: app/menus.c:434
+#: app/menus.c:450
 msgid "/Tools/Image"
 msgstr "/도구/그림"
 
-#: app/menus.c:436
+#: app/menus.c:451
 msgid "/_Dialogs"
 msgstr "/대화상자(_D)"
 
-#: app/menus.c:438
+#: app/menus.c:453
 msgid "/Dialogs/_Properties"
 msgstr "/대화상자/속성(_P)"
 
-#: app/menus.c:439
+#: app/menus.c:454
 msgid "/Dialogs/_Layers"
 msgstr "/대화상자/계층(_L)"
 
-#: app/menus.c:441
+#: app/menus.c:456
 msgid "/_Input Methods"
 msgstr ""
 
-#: app/menus.c:614
+#: app/menus.c:629
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: app/menus.c:781
+#: app/menus.c:796
 #, fuzzy
 msgid "Diagram Menu"
 msgstr "도표:"
 
-#: app/menus.c:1152
+#: app/menus.c:1164
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
+msgstr ""
+
+#: app/modify_tool.c:315
+msgid "Couldn't get GTK settings"
 msgstr ""
 
 #: app/pagesetup.c:77 app/preferences.c:730
@@ -1641,17 +1665,17 @@ msgstr "프린터"
 msgid "File"
 msgstr "파일"
 
-#: app/paginate_psprint.c:341
+#: app/paginate_psprint.c:340
 #, fuzzy, c-format
 msgid "Could not run command '%s'"
 msgstr "`%s'를 열수 없습니다"
 
-#: app/paginate_psprint.c:344
+#: app/paginate_psprint.c:343
 #, fuzzy, c-format
 msgid "Could not open '%s' for writing"
 msgstr "열수 업습니다: '%s'  쓸수없슴.\n"
 
-#: app/paginate_psprint.c:368
+#: app/paginate_psprint.c:367
 #, fuzzy
 msgid "Error occured while printing"
 msgstr "PNG를 쓰는중 오류가 발생했습니다"
@@ -1735,102 +1759,106 @@ msgid "Use menu bar:"
 msgstr ""
 
 #: app/preferences.c:128
+msgid "Keep tool box on top of diagram windows:"
+msgstr ""
+
+#: app/preferences.c:130
 #, fuzzy
 msgid "New diagram:"
 msgstr "새 도표(_N)"
 
-#: app/preferences.c:129
+#: app/preferences.c:131
 #, fuzzy
 msgid "Portrait:"
 msgstr "역할:"
 
-#: app/preferences.c:131
+#: app/preferences.c:133
 #, fuzzy
 msgid "Paper type:"
 msgstr "종이 크기"
 
-#: app/preferences.c:134
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "새 창:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "폭:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "높이:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr ""
 
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Connection Points:"
 msgstr "연결점:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:140 app/preferences.c:143 app/preferences.c:148
+#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
 msgid "Visible:"
 msgstr ""
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Page breaks:"
 msgstr ""
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:146 app/preferences.c:154
 msgid "Colour:"
 msgstr ""
 
-#: app/preferences.c:145 app/preferences.c:153
+#: app/preferences.c:147 app/preferences.c:155
 msgid "Solid lines:"
 msgstr ""
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Snap to:"
 msgstr ""
 
-#: app/preferences.c:150
+#: app/preferences.c:152
 msgid "X Size:"
 msgstr ""
 
-#: app/preferences.c:151
+#: app/preferences.c:153
 msgid "Y Size:"
 msgstr ""
 
-#: app/preferences.c:164
+#: app/preferences.c:166
 #, fuzzy
 msgid "Diagram tree window:"
 msgstr "도표:"
 
-#: app/preferences.c:166
+#: app/preferences.c:168
 #, fuzzy
 msgid "Show at startup:"
 msgstr "시작할때 자동 읽기"
 
-#: app/preferences.c:168
+#: app/preferences.c:170
 #, fuzzy
 msgid "Default width:"
 msgstr "선 굵기:"
 
-#: app/preferences.c:170
+#: app/preferences.c:172
 msgid "Default height:"
 msgstr ""
 
-#: app/preferences.c:172
+#: app/preferences.c:174
 msgid "Remember last size:"
 msgstr ""
 
-#: app/preferences.c:174
+#: app/preferences.c:176
 msgid "Save hidden object types:"
 msgstr ""
 
-#: app/preferences.c:301
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr ""
 
-#: app/preferences.c:689 app/preferences.c:698
+#: app/preferences.c:691 app/preferences.c:700
 msgid "Preferences"
 msgstr "설정"
 
@@ -1838,16 +1866,16 @@ msgstr "설정"
 msgid "Object properties"
 msgstr "객체 속성"
 
-#: app/properties.c:69
+#: app/properties.c:68
 msgid "This object has no properties."
 msgstr "이 객체는 속성이 없습니다"
 
-#: app/properties.c:166
+#: app/properties.c:165
 #, fuzzy
 msgid "Properties: "
 msgstr "설정(_P)"
 
-#: app/properties.c:170
+#: app/properties.c:169
 #, fuzzy
 msgid "Object properties:"
 msgstr "객체 속성"
@@ -1868,11 +1896,11 @@ msgstr ""
 msgid "Can't open history file for writing."
 msgstr "열수 업습니다: '%s'  쓸수없슴.\n"
 
-#: app/render_eps.c:1714
+#: app/render_eps.c:975
 msgid "Encapsulated Postscript"
 msgstr ""
 
-#: app/render_libart.c:440
+#: app/render_libart.c:319 lib/dialibartrenderer.c:263
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr ""
 
@@ -1914,100 +1942,100 @@ msgstr ""
 msgid "Sheets and Objects"
 msgstr "표준 객체"
 
-#: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
 msgid "<- Copy"
 msgstr ""
 
-#: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
 msgid "<- Copy All"
 msgstr ""
 
-#: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
 #, fuzzy
 msgid "<- Move"
 msgstr "위로 이동"
 
-#: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
 msgid "<- Move All"
 msgstr ""
 
-#: app/sheets_dialog.c:230
+#: app/sheets_dialog.c:231
 #, fuzzy
 msgid "Edit"
 msgstr "/편집(_E)"
 
-#: app/sheets_dialog.c:232
+#: app/sheets_dialog.c:233
 #, fuzzy
 msgid "_Edit"
 msgstr "/편집(_E)"
 
-#: app/sheets_dialog.c:263
+#: app/sheets_dialog.c:264
 #, fuzzy
 msgid "Revert"
 msgstr "삭제"
 
-#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr ""
 
-#: app/sheets_dialog.c:359 app/sheets_dialog.c:787
+#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
 #, fuzzy
 msgid "Type"
 msgstr "형식:"
 
-#: app/sheets_dialog.c:374
+#: app/sheets_dialog.c:376
 msgid "Browse..."
 msgstr ""
 
-#: app/sheets_dialog.c:383
+#: app/sheets_dialog.c:385
 msgid "SVG Shape:"
 msgstr ""
 
-#: app/sheets_dialog.c:410 app/sheets_dialog.c:473
+#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
 #, fuzzy
 msgid "description:"
 msgstr "설명:"
 
-#: app/sheets_dialog.c:422
+#: app/sheets_dialog.c:424
 #, fuzzy
 msgid "Sheet name:"
 msgstr "파일 이름:"
 
-#: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
+#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
 #: app/sheets_dialog_callbacks.c:1093
 #, fuzzy
 msgid "Line Break"
 msgstr "선 색상:"
 
-#: app/sheets_dialog.c:565
+#: app/sheets_dialog.c:567
 #, fuzzy
 msgid "Edit Attributes"
 msgstr "계층 속성 편집"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:582
 #, fuzzy
 msgid "Object"
 msgstr "/객체(_O)"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
 msgid "Description:"
 msgstr "설명:"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "형식:"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:655
 #, fuzzy
 msgid "Sheet"
 msgstr "선택"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1048
+#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:1049
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
@@ -2015,17 +2043,17 @@ msgstr "선택"
 msgid "Name:"
 msgstr "이름:"
 
-#: app/sheets_dialog.c:802
+#: app/sheets_dialog.c:808
 #, fuzzy
 msgid "Object:"
 msgstr "/객체(_O)"
 
-#: app/sheets_dialog.c:829
+#: app/sheets_dialog.c:835
 #, fuzzy
 msgid "Sheet:"
 msgstr "선택"
 
-#: app/sheets_dialog.c:913
+#: app/sheets_dialog.c:919
 msgid "Select SVG Shape File"
 msgstr ""
 
@@ -2065,7 +2093,7 @@ msgstr "/객체(_O)"
 #, c-format
 msgid ""
 "%s\n"
-"Unasigned type"
+"Unassigned type"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:808
@@ -2164,23 +2192,23 @@ msgstr ""
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:850
+#: lib/dia_xml.c:854
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
-#: lib/message.c:87
+#: lib/message.c:86
 msgid "There is one similar message."
 msgstr ""
 
-#: lib/message.c:92
+#: lib/message.c:91
 #, fuzzy
 msgid "Show repeated messages"
 msgstr "그림 만듦"
 
-#: lib/message.c:105
+#: lib/message.c:104
 #, fuzzy, c-format
 msgid "There are %d similar messages."
 msgstr "그림 만듦"
@@ -2213,91 +2241,91 @@ msgstr ""
 msgid "Could not deduce correct path for `%s'"
 msgstr ""
 
-#: lib/plug-ins.c:233
-#, c-format
+#: lib/plug-ins.c:234
+#, fuzzy, c-format
 msgid ""
-"Could not load plugin `%s'\n"
+"Could not load plugin '%s'\n"
 "%s"
 msgstr ""
 "플러그인 `%s'를 읽을수 없습니다\n"
 "%s"
 
-#: lib/plug-ins.c:245
+#: lib/plug-ins.c:247
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "플러그인 초기함수에서 `%s'를 찾을수 업습니다"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr ""
 
-#: lib/plug-ins.c:255
+#: lib/plug-ins.c:257
 msgid "dia_pluin_init() call failed"
 msgstr ""
 
-#: lib/plug-ins.c:274
+#: lib/plug-ins.c:276
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "플러그인 %s를 제거할수 없습니다"
 
-#: lib/plug-ins.c:357
+#: lib/plug-ins.c:364
 #, fuzzy, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr "`%s'를 열수 없습니다"
 
-#: lib/properties.c:71 lib/properties.h:487
+#: lib/properties.c:71 lib/properties.h:474
 #, fuzzy
 msgid "Line colour"
 msgstr "선 색상:"
 
-#: lib/properties.c:72 lib/properties.h:490
+#: lib/properties.c:72 lib/properties.h:477
 #, fuzzy
 msgid "Line style"
 msgstr "선 형태:"
 
-#: lib/properties.c:73 lib/properties.h:494
+#: lib/properties.c:73 lib/properties.h:481
 #, fuzzy
 msgid "Fill colour"
 msgstr "선 색상:"
 
-#: lib/properties.c:74 lib/properties.h:497
+#: lib/properties.c:74 lib/properties.h:484
 msgid "Draw background"
 msgstr "배경 그림"
 
-#: lib/properties.c:75 lib/properties.h:501
+#: lib/properties.c:75 lib/properties.h:488
 #, fuzzy
 msgid "Start arrow"
 msgstr "화살표 보임"
 
-#: lib/properties.c:76 lib/properties.h:504
+#: lib/properties.c:76 lib/properties.h:491
 #, fuzzy
 msgid "End arrow"
 msgstr "화살표 보임"
 
-#: lib/properties.c:78 lib/properties.h:514
+#: lib/properties.c:78 lib/properties.h:501
 #, fuzzy
 msgid "Text alignment"
 msgstr "정렬:"
 
-#: lib/properties.c:79 lib/properties.h:517
+#: lib/properties.c:79 lib/properties.h:504
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
-#: objects/GRAFCET/transition.c:142 objects/UML/class_dialog.c:327
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 #, fuzzy
 msgid "Font"
 msgstr "글꼴 크기:"
 
-#: lib/properties.c:80 lib/properties.h:520
+#: lib/properties.c:80 lib/properties.h:507
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
-#: objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/transition.c:143
 #, fuzzy
 msgid "Font size"
 msgstr "글꼴 크기:"
 
-#: lib/properties.c:81 lib/properties.h:523
+#: lib/properties.c:81 lib/properties.h:510
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:166
 #, fuzzy
@@ -2563,15 +2591,15 @@ msgstr "위아래 바꿈"
 msgid "Flip vertical"
 msgstr "좌우 바꿈"
 
-#: objects/custom/custom_object.c:1403
+#: objects/custom/custom_object.c:1391
 msgid "Flip Horizontal"
 msgstr "위아래 바꿈"
 
-#: objects/custom/custom_object.c:1404
+#: objects/custom/custom_object.c:1392
 msgid "Flip Vertical"
 msgstr "좌우 바꿈"
 
-#: objects/custom/custom_object.c:1441
+#: objects/custom/custom_object.c:1429
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -2593,7 +2621,7 @@ msgstr "격자:"
 msgid "Multivalue:"
 msgstr ""
 
-#: objects/ER/attribute.c:398 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr ""
 
@@ -2601,7 +2629,7 @@ msgstr ""
 msgid "Weak:"
 msgstr ""
 
-#: objects/ER/entity.c:347 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr ""
 
@@ -2613,19 +2641,19 @@ msgstr ""
 msgid "Total:"
 msgstr ""
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:632
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:549
-#: objects/standard/zigzagline.c:428 objects/UML/association.c:685
-#: objects/UML/dependency.c:350 objects/UML/generalization.c:346
-#: objects/UML/realizes.c:339
-msgid "Add segment"
-msgstr ""
-
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:550
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
 #: objects/standard/zigzagline.c:429 objects/UML/association.c:686
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
+msgid "Add segment"
+msgstr ""
+
+#: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
 msgid "Delete segment"
 msgstr ""
 
@@ -2646,7 +2674,7 @@ msgstr "역할:"
 msgid "Identifying:"
 msgstr ""
 
-#: objects/ER/relationship.c:426 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr ""
 
@@ -2670,20 +2698,20 @@ msgid "Shear angle"
 msgstr "각도 변경:"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:567 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:629 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr ""
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:568 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:569 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:999
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -2693,11 +2721,11 @@ msgstr ""
 msgid "Function structure diagram objects"
 msgstr ""
 
-#: objects/FS/function.c:139
+#: objects/FS/function.c:138
 msgid "Wish function"
 msgstr ""
 
-#: objects/FS/function.c:141
+#: objects/FS/function.c:140
 msgid "User function"
 msgstr ""
 
@@ -3757,7 +3785,7 @@ msgstr ""
 msgid "The condition's font size"
 msgstr ""
 
-#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:146
 #, fuzzy
 msgid "Color"
 msgstr "닫기"
@@ -3818,31 +3846,31 @@ msgstr ""
 msgid "Shows a red dot to figure the step's activity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:139
 msgid "Receptivity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:140
+#: objects/GRAFCET/transition.c:139
 msgid "The boolean equation of the receptivity"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:142
+#: objects/GRAFCET/transition.c:141
 msgid "The receptivity's font"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/transition.c:143
 msgid "The receptivity's font size"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/transition.c:146
 msgid "The receptivity's color"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:148
+#: objects/GRAFCET/transition.c:147
 msgid "North point"
 msgstr ""
 
-#: objects/GRAFCET/transition.c:149
+#: objects/GRAFCET/transition.c:148
 #, fuzzy
 msgid "South point"
 msgstr "부드러운 조절"
@@ -3863,24 +3891,52 @@ msgstr ""
 msgid "Vergent type:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:389 objects/SADT/box.c:438
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
 #: objects/standard/line.c:181
 msgid "Add connection point"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:390
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:394
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
-#: objects/network/bus.c:591
+#: objects/Misc/analog_clock.c:136
+#, fuzzy
+msgid "Arrow colour"
+msgstr "선 색상:"
+
+#: objects/Misc/analog_clock.c:138
+#, fuzzy
+msgid "Arrow line width"
+msgstr "선 굵기"
+
+#: objects/Misc/analog_clock.c:140
+msgid "Seconds arrow colour"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:142
+#, fuzzy
+msgid "Seconds arrow line width"
+msgstr "선 굵기"
+
+#: objects/Misc/analog_clock.c:144
+#, fuzzy
+msgid "Show hours"
+msgstr "눈금자 보기(_R)"
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr ""
+
+#: objects/network/bus.c:592
 msgid "Add Handle"
 msgstr "핸들 추가"
 
-#: objects/network/bus.c:592
+#: objects/network/bus.c:593
 msgid "Delete Handle"
 msgstr "핸들 제거"
 
@@ -3923,7 +3979,7 @@ msgid ""
 "rendered gray"
 msgstr ""
 
-#: objects/SADT/arrow.c:554
+#: objects/SADT/arrow.c:557
 msgid "SADT Arrow"
 msgstr ""
 
@@ -3935,11 +3991,11 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: objects/SADT/box.c:439 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:182
 msgid "Delete connection point"
 msgstr ""
 
-#: objects/SADT/box.c:444
+#: objects/SADT/box.c:445
 msgid "SADT box"
 msgstr ""
 
@@ -3951,23 +4007,23 @@ msgstr ""
 msgid "Curve distance"
 msgstr ""
 
-#: objects/standard/bezier.c:533 objects/standard/beziergon.c:490
+#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
 msgid "Add Segment"
 msgstr "부분 추가"
 
-#: objects/standard/bezier.c:534 objects/standard/beziergon.c:491
+#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
 msgid "Delete Segment"
 msgstr "부분 제거"
 
-#: objects/standard/bezier.c:536 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
 msgid "Symmetric control"
 msgstr "대칭 조절"
 
-#: objects/standard/bezier.c:538 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
 msgid "Smooth control"
 msgstr "부드러운 조절"
 
-#: objects/standard/bezier.c:540 objects/standard/beziergon.c:497
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
 msgid "Cusp control"
 msgstr "뾰족한 조절"
 
@@ -3984,7 +4040,7 @@ msgid "Keep aspect ratio"
 msgstr "비율 유지"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:662 objects/standard/image.c:673
+#: objects/standard/image.c:663 objects/standard/image.c:674
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -3994,7 +4050,7 @@ msgstr ""
 "대신에 '%s'파일을 이용합니다\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:679 objects/standard/image.c:705
+#: objects/standard/image.c:680 objects/standard/image.c:706
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "그림 파일 '%s' 를 찾을수 없습니다.\n"
@@ -4007,11 +4063,11 @@ msgstr ""
 msgid "End point"
 msgstr ""
 
-#: objects/standard/polygon.c:451 objects/standard/polyline.c:487
+#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
 msgstr "가장자리 더하기"
 
-#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
 msgid "Delete Corner"
 msgstr "가장자리 지우기"
 
@@ -4021,55 +4077,55 @@ msgstr "표준 객체"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:298
+#: objects/UML/activity.c:299
 #, fuzzy
 msgid "Helvetica"
 msgstr "좌우 바꿈"
 
-#: objects/UML/actor.c:331 objects/UML/actor.c:333
+#: objects/UML/actor.c:332 objects/UML/actor.c:334
 msgid "Actor"
 msgstr ""
 
-#: objects/UML/association.c:1060 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1061 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr ""
 
-#: objects/UML/association.c:1077
+#: objects/UML/association.c:1078
 msgid "From A to B"
 msgstr "A에서 B로"
 
-#: objects/UML/association.c:1084
+#: objects/UML/association.c:1085
 msgid "From B to A"
 msgstr "B에서 A로"
 
-#: objects/UML/association.c:1108 objects/UML/association.c:1116
+#: objects/UML/association.c:1109 objects/UML/association.c:1117
 msgid "Side A"
 msgstr "A 쪽"
 
-#: objects/UML/association.c:1110 objects/UML/association.c:1118
+#: objects/UML/association.c:1111 objects/UML/association.c:1119
 msgid "Side B"
 msgstr "B 쪽"
 
-#: objects/UML/association.c:1124
+#: objects/UML/association.c:1125
 msgid "Role:"
 msgstr "역할:"
 
-#: objects/UML/association.c:1136
+#: objects/UML/association.c:1137
 msgid "Multiplicity:"
 msgstr "중복"
 
 #. Show arrow:
-#: objects/UML/association.c:1147
+#: objects/UML/association.c:1148
 msgid "Show arrow"
 msgstr "화살표 보임"
 
 #. Aggregate
-#: objects/UML/association.c:1153
+#: objects/UML/association.c:1154
 msgid "Aggregate"
 msgstr "집합"
 
 #. Composition
-#: objects/UML/association.c:1161
+#: objects/UML/association.c:1162
 msgid "Composition"
 msgstr "합성"
 
@@ -4120,7 +4176,7 @@ msgid "Template"
 msgstr "템플릿"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:918
+#: objects/UML/class.c:172 objects/UML/class.c:919
 #: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "클래스"
@@ -4346,17 +4402,17 @@ msgstr ""
 msgid "Draw destruction mark:"
 msgstr ""
 
-#: objects/UML/lifeline.c:402
+#: objects/UML/lifeline.c:403
 #, fuzzy
 msgid "Add connection points"
 msgstr "연결점:"
 
-#: objects/UML/lifeline.c:403
+#: objects/UML/lifeline.c:404
 #, fuzzy
 msgid "Remove connection points"
 msgstr "연결점 보기(_C)"
 
-#: objects/UML/lifeline.c:407
+#: objects/UML/lifeline.c:408
 msgid "UML Lifeline"
 msgstr ""
 
@@ -4415,7 +4471,7 @@ msgstr "중복"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:381
+#: objects/UML/state.c:382
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4438,7 +4494,7 @@ msgstr ""
 msgid "Collaboration"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1106
+#: plug-ins/cgm/cgm.c:1108
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -4446,11 +4502,11 @@ msgstr ""
 "그림의 길이가 최대 셀수를 넘어갔습니다.\n"
 "그림을 CGM으로 저장할수 없습니다."
 
-#: plug-ins/cgm/cgm.c:1285
+#: plug-ins/cgm/cgm.c:1364
 msgid "Computer Graphics Metafile"
 msgstr "컴퓨터 그래픽 메타파일"
 
-#: plug-ins/cgm/cgm.c:1299
+#: plug-ins/cgm/cgm.c:1378
 msgid "Computer Graphics Metafile export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
@@ -4458,7 +4514,7 @@ msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 msgid "Drawing Interchange File import and export filters"
 msgstr ""
 
-#: plug-ins/dxf/dxf-export.c:569 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr ""
 
@@ -4480,7 +4536,12 @@ msgstr ""
 msgid "Unknown dxf code %d\n"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:619
+#: plug-ins/hpgl/hpgl.c:771
+#, fuzzy
+msgid "HP Graphics Language"
+msgstr "컴퓨터 그래픽 메타파일 저장 필터"
+
+#: plug-ins/hpgl/hpgl.c:785
 #, fuzzy
 msgid "HP Graphics Language export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
@@ -4490,8 +4551,24 @@ msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 msgid "TeX Metapost export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/metapost/render_metapost.c:733
+#: plug-ins/metapost/render_metapost.c:793
 msgid "TeX Metapost macros"
+msgstr ""
+
+#: plug-ins/pixbuf/pixbuf.c:90
+#, fuzzy, c-format
+msgid ""
+"Could not save file:\n"
+"%s\n"
+"%s"
+msgstr "`%s'를 열수 없습니다"
+
+#: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
+msgid "GdkPixbuf bitmap"
+msgstr ""
+
+#: plug-ins/pixbuf/pixbuf.c:175
+msgid "gdk-pixbuf based bitmap export/import"
 msgstr ""
 
 #: plug-ins/pstricks/pstricks.c:14
@@ -4499,11 +4576,11 @@ msgstr ""
 msgid "TeX Pstricks export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/pstricks/render_pstricks.c:773
+#: plug-ins/pstricks/render_pstricks.c:827
 msgid "TeX PSTricks macros"
 msgstr ""
 
-#: plug-ins/python/python.c:73
+#: plug-ins/python/python.c:92
 msgid "Python scripting support"
 msgstr ""
 
@@ -4512,65 +4589,69 @@ msgstr ""
 msgid "dia shape export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/shape/shape-export.c:949
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:976
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
 msgstr ""
 
-#: plug-ins/svg/render_svg.c:959 plug-ins/svg/svg-import.c:633
+#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr ""
 
-#: plug-ins/svg/svg.c:39
+#: plug-ins/svg/svg.c:37
 #, fuzzy
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/svg/svg-import.c:200 plug-ins/svg/svg-import.c:214
-#: plug-ins/xfig/xfig-import.c:98 plug-ins/xfig/xfig-import.c:149
-#: plug-ins/xfig/xfig-import.c:178 plug-ins/xfig/xfig-import.c:206
-#: plug-ins/xfig/xfig-import.c:232 plug-ins/xfig/xfig-import.c:257
-#: plug-ins/xfig/xfig-import.c:283 plug-ins/xfig/xfig-import.c:314
-#: plug-ins/xfig/xfig-import.c:350
+#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
+#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
+#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:205
+#: plug-ins/xfig/xfig-import.c:231 plug-ins/xfig/xfig-import.c:256
+#: plug-ins/xfig/xfig-import.c:282 plug-ins/xfig/xfig-import.c:313
+#: plug-ins/xfig/xfig-import.c:349
 #, fuzzy
 msgid "Can't find standard object"
 msgstr "표준 객체"
 
-#: plug-ins/svg/svg-import.c:226
+#: plug-ins/svg/svg-import.c:230
 msgid "Unexpected SVG path element"
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:281
+#: plug-ins/svg/svg-import.c:288
 msgid "Courier"
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:582
+#: plug-ins/svg/svg-import.c:591
 msgid "Could not find SVG namespace."
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:588
+#: plug-ins/svg/svg-import.c:597
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:957
+#: plug-ins/wmf/wmf.cpp:1089
 msgid "Windows Meta File"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:971
+#: plug-ins/wmf/wmf.cpp:1103
 #, fuzzy
 msgid "WMF export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/wpg/wpg.c:1056
+#: plug-ins/wpg/wpg.c:1180
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1205
+#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+msgid "WPG"
+msgstr ""
+
+#: plug-ins/wpg/wpg.c:1331
 #, fuzzy
 msgid "WordPerfect Graphics export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
@@ -4580,66 +4661,66 @@ msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 msgid "Fig Format import and export filter"
 msgstr "컴퓨터 그래픽 메타파일 저장 필터"
 
-#: plug-ins/xfig/xfig-export.c:372
+#: plug-ins/xfig/xfig-export.c:399
 msgid "No more user-definable colors - using black"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:806
+#: plug-ins/xfig/xfig-export.c:918
 msgid "XFig format"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:416
+#: plug-ins/xfig/xfig-import.c:418
 msgid "Patterns are not supported by Dia"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:444
+#: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:448
+#: plug-ins/xfig/xfig-import.c:450
 #, fuzzy, c-format
 msgid "Line style %d should not appear\n"
 msgstr "선 형태 속성"
 
-#: plug-ins/xfig/xfig-import.c:516
+#: plug-ins/xfig/xfig-import.c:518
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:535
+#: plug-ins/xfig/xfig-import.c:537
 #, fuzzy
 msgid "Error while reading arrowhead\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:626
+#: plug-ins/xfig/xfig-import.c:628
 #, fuzzy, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr ""
 "플러그인 `%s'를 읽을수 없습니다\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:694
+#: plug-ins/xfig/xfig-import.c:696
 #, fuzzy, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr ""
 "플러그인 `%s'를 읽을수 없습니다\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:709
+#: plug-ins/xfig/xfig-import.c:711
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:727
+#: plug-ins/xfig/xfig-import.c:729
 msgid "Negative corner radius, negating"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:1005
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:863 plug-ins/xfig/xfig-import.c:895
+#: plug-ins/xfig/xfig-import.c:865 plug-ins/xfig/xfig-import.c:897
 #, fuzzy, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr ""
@@ -4648,123 +4729,123 @@ msgstr ""
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:882 plug-ins/xfig/xfig-import.c:900
+#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:902
 msgid "Cannot convert approximated spline yet."
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:921
+#: plug-ins/xfig/xfig-import.c:923
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:982
+#: plug-ins/xfig/xfig-import.c:984
 #, fuzzy, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr ""
 "플러그인 `%s'를 읽을수 없습니다\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:1066
+#: plug-ins/xfig/xfig-import.c:1068
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1107
+#: plug-ins/xfig/xfig-import.c:1109
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1114
+#: plug-ins/xfig/xfig-import.c:1116
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1133
+#: plug-ins/xfig/xfig-import.c:1135
 #, fuzzy, c-format
 msgid "Couldn't read color: %s\n"
 msgstr ""
 "플러그인 `%s'를 읽을수 없습니다\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:1178
+#: plug-ins/xfig/xfig-import.c:1180
 #, fuzzy, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "`%s'를 열수 없습니다"
 
-#: plug-ins/xfig/xfig-import.c:1189
+#: plug-ins/xfig/xfig-import.c:1191
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1212
+#: plug-ins/xfig/xfig-import.c:1214
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1222
+#: plug-ins/xfig/xfig-import.c:1224
 #, fuzzy, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1232
+#: plug-ins/xfig/xfig-import.c:1234
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1244
+#: plug-ins/xfig/xfig-import.c:1246
 #, fuzzy, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1254
+#: plug-ins/xfig/xfig-import.c:1256
 #, fuzzy, c-format
 msgid "Error reading justification: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1264
+#: plug-ins/xfig/xfig-import.c:1266
 #, fuzzy, c-format
 msgid "Error reading units: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1278
+#: plug-ins/xfig/xfig-import.c:1280
 #, fuzzy, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1289
+#: plug-ins/xfig/xfig-import.c:1291
 #, fuzzy, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1300
+#: plug-ins/xfig/xfig-import.c:1302
 #, fuzzy, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1309 plug-ins/xfig/xfig-import.c:1364
+#: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
+#: plug-ins/xfig/xfig-import.c:1313 plug-ins/xfig/xfig-import.c:1368
 msgid "Premature end of FIG file\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1320
+#: plug-ins/xfig/xfig-import.c:1322
 #, fuzzy, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "도표 파일 읽는중 오류\n"
 
-#: plug-ins/xfig/xfig-import.c:1351
+#: plug-ins/xfig/xfig-import.c:1353
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1357
+#: plug-ins/xfig/xfig-import.c:1359
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1398
+#: plug-ins/xfig/xfig-import.c:1400
 msgid "XFig File Format"
 msgstr ""
 
@@ -5795,10 +5876,15 @@ msgid "A Folder"
 msgstr ""
 
 #: sheets/Misc.sheet.in.h:3
+#, fuzzy
+msgid "A traditional clock"
+msgstr "방향"
+
+#: sheets/Misc.sheet.in.h:4
 msgid "Misc"
 msgstr ""
 
-#: sheets/Misc.sheet.in.h:4
+#: sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
 msgstr ""
 
@@ -6336,6 +6422,15 @@ msgstr ""
 msgid "UML"
 msgstr ""
 
+#~ msgid "_Visible Grid"
+#~ msgstr "격자 보기(_V)"
+
+#~ msgid "/View/_Visible Grid"
+#~ msgstr "/보기/격자 보기"
+
+#~ msgid "/Objects/Align Vertical/Center"
+#~ msgstr "/객체/수직 정렬/중간"
+
 #~ msgid "Alignment:"
 #~ msgstr "정렬:"
 
@@ -6364,9 +6459,6 @@ msgstr ""
 
 #~ msgid "Keep aspect ratio:"
 #~ msgstr "비율 유지:"
-
-#~ msgid "Show border:"
-#~ msgstr "가장자리 보임:"
 
 #~ msgid "Maintainer: James Henstridge"
 #~ msgstr "관리자: James Henstridge"
@@ -6562,9 +6654,6 @@ msgstr ""
 #~ msgid "/Edit/Copy"
 #~ msgstr "/편집/복사"
 
-#~ msgid "/Edit/Cut"
-#~ msgstr "/편집/자르기"
-
 #~ msgid "/Edit/Paste"
 #~ msgstr "/편집/붙이기"
 
@@ -6639,9 +6728,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "/Dialogs/tearoff"
 #~ msgstr "/대화상자/계층(_L)"
-
-#~ msgid "/Tools/"
-#~ msgstr "/도구/"
 
 #~ msgid "Asynchronous"
 #~ msgstr "비동기"

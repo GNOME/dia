@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.90\n"
-"POT-Creation-Date: 2002-11-17 15:58+0100\n"
-"PO-Revision-Date: 2002-11-17 16:04+0100\n"
+"POT-Creation-Date: 2002-11-17 17:27+0100\n"
+"PO-Revision-Date: 2002-11-17 17:29+0100\n"
 "Last-Translator: Cyrille Chépélov <cyrille@chepelov.org>\n"
 "Language-Team: Gnome French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -241,15 +241,15 @@ msgstr ""
 "provoquer des plantages. Nous le savons, ne vous fatiguez pas à faire\n"
 "un rapport de plus si vous rencontrez un plantage."
 
-#: app/defaults.c:43 app/defaults.c:140
+#: app/defaults.c:43 app/defaults.c:139
 msgid "Object defaults"
 msgstr "Caractéristiques d'un nouvel objet."
 
-#: app/defaults.c:62
+#: app/defaults.c:61
 msgid "This object has no defaults."
 msgstr "Cet objet n'a pas de paramètres."
 
-#: app/defaults.c:111
+#: app/defaults.c:110
 msgid "Defaults: "
 msgstr "Par défaut : "
 
@@ -400,8 +400,8 @@ msgstr "Arborescence du _diagramme"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:246
+#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
+#: app/lineprops_area.c:638 app/linewidth_area.c:244
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Annuler"
@@ -495,7 +495,7 @@ msgstr "Couleur d'arrière-plan"
 msgid "Background"
 msgstr "Arrière-plan"
 
-#: app/disp_callbacks.c:76 app/properties.c:122
+#: app/disp_callbacks.c:76 app/properties.c:121
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -606,13 +606,13 @@ msgstr ""
 "Le fichier « %s » existe déjà.\n"
 "Voulez-vous l'écraser ?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:593
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Oui"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:593
-#: app/preferences.c:604 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Non"
 
@@ -812,33 +812,33 @@ msgstr "Supprimer le calque"
 msgid "Layers"
 msgstr "Calques"
 
-#: app/layer_dialog.c:219
+#: app/layer_dialog.c:218
 msgid "Diagrams:"
 msgstr "Diagrammes :"
 
-#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "Fermer"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:308
 msgid "New layer"
 msgstr "Nouveau calque"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:511
 msgid "none"
 msgstr "aucun"
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:953
 msgid "Edit Layer Attributes"
 msgstr "Éditer les attributs du calque"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:969
 msgid "Layer name:"
 msgstr "Nom du calque :"
 
 #. setup buttons
-#: app/layer_dialog.c:979 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:266
+#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
+#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "Valider"
@@ -860,7 +860,7 @@ msgstr "Propriétés du style de ligne"
 msgid "Line width"
 msgstr "Largeur de ligne"
 
-#: app/linewidth_area.c:224
+#: app/linewidth_area.c:222
 msgid "Line width:"
 msgstr "Largeur de ligne :"
 
@@ -1062,7 +1062,7 @@ msgid "Intersect"
 msgstr "Intersection"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:779 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Supprimer"
@@ -1737,96 +1737,100 @@ msgid "Use menu bar:"
 msgstr "Utiliser la barre de menus :"
 
 #: app/preferences.c:128
+msgid "Keep tool box on top of diagram windows:"
+msgstr "Maintenir la boîte à outils par dessus les diagrammes :"
+
+#: app/preferences.c:130
 msgid "New diagram:"
 msgstr "Nouveau diagramme :"
 
-#: app/preferences.c:129
+#: app/preferences.c:131
 msgid "Portrait:"
 msgstr "Portrait :"
 
-#: app/preferences.c:131
+#: app/preferences.c:133
 msgid "Paper type:"
 msgstr "Type de message :"
 
-#: app/preferences.c:134
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "Pour une nouvelle fenêtre :"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "Largeur :"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr "Grossissement :"
 
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Connection Points:"
 msgstr "Points de connexion :"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:140 app/preferences.c:143 app/preferences.c:148
+#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
 msgid "Visible:"
 msgstr "Visibles :"
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Page breaks:"
 msgstr "Sauts de page :"
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:146 app/preferences.c:154
 msgid "Colour:"
 msgstr "Couleur :"
 
-#: app/preferences.c:145 app/preferences.c:153
+#: app/preferences.c:147 app/preferences.c:155
 msgid "Solid lines:"
 msgstr "Lignes pleines :"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Snap to:"
 msgstr "Magnétisme :"
 
-#: app/preferences.c:150
+#: app/preferences.c:152
 msgid "X Size:"
 msgstr "Largeur du pas :"
 
-#: app/preferences.c:151
+#: app/preferences.c:153
 msgid "Y Size:"
 msgstr "Hauteur du pas :"
 
-#: app/preferences.c:164
+#: app/preferences.c:166
 msgid "Diagram tree window:"
 msgstr "Fenêtre de l'arborescense du diagramme :"
 
-#: app/preferences.c:166
+#: app/preferences.c:168
 msgid "Show at startup:"
 msgstr "Afficher au démarrage :"
 
-#: app/preferences.c:168
+#: app/preferences.c:170
 msgid "Default width:"
 msgstr "Largeur par défaut :"
 
-#: app/preferences.c:170
+#: app/preferences.c:172
 msgid "Default height:"
 msgstr "Hauteur par défaut :"
 
-#: app/preferences.c:172
+#: app/preferences.c:174
 msgid "Remember last size:"
 msgstr "Se souvenir de la dernière taille :"
 
-#: app/preferences.c:174
+#: app/preferences.c:176
 msgid "Save hidden object types:"
 msgstr "Enregistrer les types d'objets cachés :"
 
-#: app/preferences.c:301
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Ne peut ouvrir « %s » pour y écrire"
 
-#: app/preferences.c:689 app/preferences.c:698
+#: app/preferences.c:691 app/preferences.c:700
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -1834,15 +1838,15 @@ msgstr "Préférences"
 msgid "Object properties"
 msgstr "Propriétés de l'objet"
 
-#: app/properties.c:69
+#: app/properties.c:68
 msgid "This object has no properties."
 msgstr "Cet objet n'a pas de propriétés."
 
-#: app/properties.c:166
+#: app/properties.c:165
 msgid "Properties: "
 msgstr "Propriétés : "
 
-#: app/properties.c:170
+#: app/properties.c:169
 msgid "Object properties:"
 msgstr "Propriétés de l'objet :"
 
@@ -1911,88 +1915,88 @@ msgstr "Objet programmé"
 msgid "Sheets and Objects"
 msgstr "Feuilles et Objets"
 
-#: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
 msgid "<- Copy"
 msgstr "<- Copier"
 
-#: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
 msgid "<- Copy All"
 msgstr "<- Copier Tous"
 
-#: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
 msgid "<- Move"
 msgstr "<- Déplacer"
 
-#: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
 msgid "<- Move All"
 msgstr "<- Déplacer Tous"
 
-#: app/sheets_dialog.c:230
+#: app/sheets_dialog.c:231
 msgid "Edit"
 msgstr "Édition"
 
-#: app/sheets_dialog.c:232
+#: app/sheets_dialog.c:233
 msgid "_Edit"
 msgstr "_Édition"
 
-#: app/sheets_dialog.c:263
+#: app/sheets_dialog.c:264
 msgid "Revert"
 msgstr "Défaire"
 
-#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Nouveau"
 
-#: app/sheets_dialog.c:359 app/sheets_dialog.c:787
+#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
 msgid "Type"
 msgstr "Type"
 
-#: app/sheets_dialog.c:374
+#: app/sheets_dialog.c:376
 msgid "Browse..."
 msgstr "Parcourir..."
 
-#: app/sheets_dialog.c:383
+#: app/sheets_dialog.c:385
 msgid "SVG Shape:"
 msgstr "Forme SVG :"
 
-#: app/sheets_dialog.c:410 app/sheets_dialog.c:473
+#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
 msgid "description:"
 msgstr "description :"
 
-#: app/sheets_dialog.c:422
+#: app/sheets_dialog.c:424
 msgid "Sheet name:"
 msgstr "Nom de la feuille :"
 
-#: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
+#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
 #: app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
 msgstr "Rupture de ligne"
 
-#: app/sheets_dialog.c:565
+#: app/sheets_dialog.c:567
 msgid "Edit Attributes"
 msgstr "Éditer les attributs"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:582
 msgid "Object"
 msgstr "Objet"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
 msgid "Description:"
 msgstr "Description :"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Type :"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:655
 msgid "Sheet"
 msgstr "Feuille"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
 #: objects/ER/relationship.c:137 objects/UML/association.c:1049
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
@@ -2001,15 +2005,15 @@ msgstr "Feuille"
 msgid "Name:"
 msgstr "Nom :"
 
-#: app/sheets_dialog.c:802
+#: app/sheets_dialog.c:808
 msgid "Object:"
 msgstr "Objet :"
 
-#: app/sheets_dialog.c:829
+#: app/sheets_dialog.c:835
 msgid "Sheet:"
 msgstr "Feuille :"
 
-#: app/sheets_dialog.c:913
+#: app/sheets_dialog.c:919
 msgid "Select SVG Shape File"
 msgstr "Sélectionner un fichier de forme SVG"
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 2\n"
-"POT-Creation-Date: 2002-10-25 05:35+0200\n"
+"POT-Creation-Date: 2002-11-17 17:27+0100\n"
 "PO-Revision-Date: 2002-10-25 12:39GMT\n"
 "Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -103,12 +103,13 @@ msgstr "Dia verze %s, sestavená %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
 #. no standard buttons
-#: app/app_procs.c:538
+#: app/app_procs.c:542
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -118,15 +119,15 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:542
+#: app/app_procs.c:546
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
-#: app/app_procs.c:604 app/app_procs.c:611
+#: app/app_procs.c:608 app/app_procs.c:615
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:613
+#: app/app_procs.c:617
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -134,7 +135,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:635 app/diaconv.c:249
+#: app/app_procs.c:639 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -217,7 +218,8 @@ msgstr "Udržují: Lars Clausen a Cyrille Chépélov"
 
 #: app/commands.c:644
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr "Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
+msgstr ""
+"Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:649
 msgid "Contributors:"
@@ -233,15 +235,15 @@ msgstr ""
 "způsobit havárie. O těchto chybách víme, takže se\n"
 "prosíme neobtěžujte hlásit, pokud k havárii dojde."
 
-#: app/defaults.c:43 app/defaults.c:140
+#: app/defaults.c:43 app/defaults.c:139
 msgid "Object defaults"
 msgstr "Výchozí atributy objektu"
 
-#: app/defaults.c:62
+#: app/defaults.c:61
 msgid "This object has no defaults."
 msgstr "Tento objekt nemá žádné výchozí atributy."
 
-#: app/defaults.c:111
+#: app/defaults.c:110
 msgid "Defaults: "
 msgstr "Výchozí: "
 
@@ -391,8 +393,8 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:246
+#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
+#: app/lineprops_area.c:638 app/linewidth_area.c:244
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Zrušit"
@@ -486,7 +488,7 @@ msgstr "Barva pozadí"
 msgid "Background"
 msgstr "Pozadí"
 
-#: app/disp_callbacks.c:76 app/properties.c:122
+#: app/disp_callbacks.c:76 app/properties.c:121
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -502,11 +504,11 @@ msgstr "Žádné menu k objektu"
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:863
+#: app/display.c:867
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:865
+#: app/display.c:869
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -515,11 +517,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:876
+#: app/display.c:880
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:881
+#: app/display.c:885
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -597,13 +599,13 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:593
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ano"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:593
-#: app/preferences.c:604 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Ne"
 
@@ -802,33 +804,33 @@ msgstr "Odstranit vrstvu"
 msgid "Layers"
 msgstr "Vrstvy"
 
-#: app/layer_dialog.c:219
+#: app/layer_dialog.c:218
 msgid "Diagrams:"
 msgstr "Diagramy:"
 
-#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "Zavřít"
 
-#: app/layer_dialog.c:309
+#: app/layer_dialog.c:308
 msgid "New layer"
 msgstr "Nová vrstva"
 
-#: app/layer_dialog.c:512
+#: app/layer_dialog.c:511
 msgid "none"
 msgstr "nic"
 
-#: app/layer_dialog.c:954
+#: app/layer_dialog.c:953
 msgid "Edit Layer Attributes"
 msgstr "Upravit vlastnosti vrstvy"
 
-#: app/layer_dialog.c:970
+#: app/layer_dialog.c:969
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #. setup buttons
-#: app/layer_dialog.c:979 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:266
+#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
+#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "OK"
@@ -850,7 +852,7 @@ msgstr "Vlastnosti stylu čáry"
 msgid "Line width"
 msgstr "Šířka čáry"
 
-#: app/linewidth_area.c:224
+#: app/linewidth_area.c:222
 msgid "Line width:"
 msgstr "Šířka čáry:"
 
@@ -1052,7 +1054,7 @@ msgid "Intersect"
 msgstr "Průnik"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:779 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Odstranit"
@@ -1609,7 +1611,7 @@ msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Menu diagramu"
 
-#: app/menus.c:1167
+#: app/menus.c:1164
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1726,96 +1728,100 @@ msgid "Use menu bar:"
 msgstr "Používat lištu s menu:"
 
 #: app/preferences.c:128
+msgid "Keep tool box on top of diagram windows:"
+msgstr ""
+
+#: app/preferences.c:130
 msgid "New diagram:"
 msgstr "Nový diagram:"
 
-#: app/preferences.c:129
+#: app/preferences.c:131
 msgid "Portrait:"
 msgstr "Na výšku:"
 
-#: app/preferences.c:131
+#: app/preferences.c:133
 msgid "Paper type:"
 msgstr "Typ papíru:"
 
-#: app/preferences.c:134
+#: app/preferences.c:136
 msgid "New window:"
 msgstr "Nové okno:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Width:"
 msgstr "Šířka:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "Height:"
 msgstr "Výška:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Magnify:"
 msgstr "Zvětšení:"
 
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Connection Points:"
 msgstr "Přípojné body:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:140 app/preferences.c:143 app/preferences.c:148
+#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
 msgid "Visible:"
 msgstr "Viditelné:"
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Page breaks:"
 msgstr "Zalomení stránky:"
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:146 app/preferences.c:154
 msgid "Colour:"
 msgstr "Barva:"
 
-#: app/preferences.c:145 app/preferences.c:153
+#: app/preferences.c:147 app/preferences.c:155
 msgid "Solid lines:"
 msgstr "Nepřerušené linie:"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Snap to:"
 msgstr "Lnout k:"
 
-#: app/preferences.c:150
+#: app/preferences.c:152
 msgid "X Size:"
 msgstr "Velikost X:"
 
-#: app/preferences.c:151
+#: app/preferences.c:153
 msgid "Y Size:"
 msgstr "Velikost Y:"
 
-#: app/preferences.c:164
+#: app/preferences.c:166
 msgid "Diagram tree window:"
 msgstr "Okno se stromem diagramů:"
 
-#: app/preferences.c:166
+#: app/preferences.c:168
 msgid "Show at startup:"
 msgstr "Ukázat při startu:"
 
-#: app/preferences.c:168
+#: app/preferences.c:170
 msgid "Default width:"
 msgstr "Výchozí šířka:"
 
-#: app/preferences.c:170
+#: app/preferences.c:172
 msgid "Default height:"
 msgstr "Výchozí výška:"
 
-#: app/preferences.c:172
+#: app/preferences.c:174
 msgid "Remember last size:"
 msgstr "Zapamatovat si poslední velikost:"
 
-#: app/preferences.c:174
+#: app/preferences.c:176
 msgid "Save hidden object types:"
 msgstr "Ukládat skryté typy souborů:"
 
-#: app/preferences.c:301
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Nelze otevřít `%s' pro zápis"
 
-#: app/preferences.c:689 app/preferences.c:698
+#: app/preferences.c:691 app/preferences.c:700
 msgid "Preferences"
 msgstr "Nastavení"
 
@@ -1823,15 +1829,15 @@ msgstr "Nastavení"
 msgid "Object properties"
 msgstr "Vlastnosti objektu"
 
-#: app/properties.c:69
+#: app/properties.c:68
 msgid "This object has no properties."
 msgstr "Tento objekt nemá žádné vlastnosti."
 
-#: app/properties.c:166
+#: app/properties.c:165
 msgid "Properties: "
 msgstr "Vlastnosti:"
 
-#: app/properties.c:170
+#: app/properties.c:169
 msgid "Object properties:"
 msgstr "Vlastnosti objektu:"
 
@@ -1852,6 +1858,10 @@ msgstr "Nelze otevřít soubor s historií pro zápis."
 #: app/render_eps.c:975
 msgid "Encapsulated Postscript"
 msgstr "Zapouzdřený PostScript"
+
+#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
 #: app/sheets.c:154
 #, c-format
@@ -1896,88 +1906,88 @@ msgstr "Naprogramovaný objekt"
 msgid "Sheets and Objects"
 msgstr "Listy a objekty"
 
-#: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
 msgid "<- Copy"
 msgstr "<- Kopírovat"
 
-#: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
 msgid "<- Copy All"
 msgstr "<- Kopírovat vše"
 
-#: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
 msgid "<- Move"
 msgstr "<- Přesunout"
 
-#: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
 msgid "<- Move All"
 msgstr "<- Přesunout vše"
 
-#: app/sheets_dialog.c:230
+#: app/sheets_dialog.c:231
 msgid "Edit"
 msgstr "Úpravy"
 
-#: app/sheets_dialog.c:232
+#: app/sheets_dialog.c:233
 msgid "_Edit"
 msgstr "Ú_pravy"
 
-#: app/sheets_dialog.c:263
+#: app/sheets_dialog.c:264
 msgid "Revert"
 msgstr "Vrátit"
 
-#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Nový"
 
-#: app/sheets_dialog.c:359 app/sheets_dialog.c:787
+#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
 msgid "Type"
 msgstr "Typ"
 
-#: app/sheets_dialog.c:374
+#: app/sheets_dialog.c:376
 msgid "Browse..."
 msgstr "Probírat..."
 
-#: app/sheets_dialog.c:383
+#: app/sheets_dialog.c:385
 msgid "SVG Shape:"
 msgstr "Tvar SVG:"
 
-#: app/sheets_dialog.c:410 app/sheets_dialog.c:473
+#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
 msgid "description:"
 msgstr "popis:"
 
-#: app/sheets_dialog.c:422
+#: app/sheets_dialog.c:424
 msgid "Sheet name:"
 msgstr "Název listu:"
 
-#: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
+#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
 #: app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
 msgstr "Konec řádky"
 
-#: app/sheets_dialog.c:565
+#: app/sheets_dialog.c:567
 msgid "Edit Attributes"
 msgstr "Upravit vlastnosti"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:582
 msgid "Object"
 msgstr "Objekt"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
 msgid "Description:"
 msgstr "Popis:"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Typ:"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:655
 msgid "Sheet"
 msgstr "List"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
 #: objects/ER/relationship.c:137 objects/UML/association.c:1049
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
@@ -1986,15 +1996,15 @@ msgstr "List"
 msgid "Name:"
 msgstr "Název:"
 
-#: app/sheets_dialog.c:802
+#: app/sheets_dialog.c:808
 msgid "Object:"
 msgstr "Objekt:"
 
-#: app/sheets_dialog.c:829
+#: app/sheets_dialog.c:835
 msgid "Sheet:"
 msgstr "List:"
 
-#: app/sheets_dialog.c:913
+#: app/sheets_dialog.c:919
 msgid "Select SVG Shape File"
 msgstr "Vyberte soubor s tvarem SVG"
 
@@ -2108,11 +2118,8 @@ msgstr "Editor diagramů"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Interní chyba: Nastavení rohového typu koncového bodu u Bézierovy křivky"
-
-#: lib/dialibartrenderer.c:263
-msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
+msgstr ""
+"Interní chyba: Nastavení rohového typu koncového bodu u Bézierovy křivky"
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -4514,7 +4521,8 @@ msgstr "Importní a exportní filtr formátu Fig"
 
 #: plug-ins/xfig/xfig-export.c:399
 msgid "No more user-definable colors - using black"
-msgstr "Není k dispozici více uživatelsky definovaných barev - použije se černá"
+msgstr ""
+"Není k dispozici více uživatelsky definovaných barev - použije se černá"
 
 #: plug-ins/xfig/xfig-export.c:918
 msgid "XFig format"
@@ -4726,7 +4734,8 @@ msgstr "Nelze načíst knihovnu XSLT (%s): %s"
 
 #: plug-ins/xslt/xslt.c:211
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-msgstr "Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
+msgstr ""
+"Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6115,4 +6124,3 @@ msgstr "Realizuje, implementuje specifické rozhraní"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
-
