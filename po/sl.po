@@ -731,7 +731,7 @@ msgstr "Vse"
 
 #: app/menus.c:133 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
-msgstr "Brez"
+msgstr "brez"
 
 #: app/menus.c:134 app/menus.c:147
 msgid "Invert"
@@ -1517,23 +1517,23 @@ msgstr "Ni urejevalnega gradnika"
 
 #: lib/widgets.c:296
 msgid "Solid"
-msgstr "Polna"
+msgstr "polna"
 
 #: lib/widgets.c:302
 msgid "Dashed"
-msgstr "Èrtasta"
+msgstr "èrtasta"
 
 #: lib/widgets.c:308
 msgid "Dash-Dot"
-msgstr "Èrtica-Pika"
+msgstr "èrtica-pika"
 
 #: lib/widgets.c:314
 msgid "Dash-Dot-Dot"
-msgstr "Èrtica-Pika-Pika"
+msgstr "èrtica-pika-pika"
 
 #: lib/widgets.c:320
 msgid "Dotted"
-msgstr "Pikèasta"
+msgstr "pikèasta"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
@@ -1542,39 +1542,39 @@ msgstr "Dol¾ina èrtic: "
 
 #: lib/widgets.c:660
 msgid "Lines"
-msgstr "Èrte"
+msgstr "èrte"
 
 #: lib/widgets.c:666
 msgid "Hollow Triangle"
-msgstr "Prazen Trikotnik"
+msgstr "prazen trikotnik"
 
 #: lib/widgets.c:672
 msgid "Filled Triangle"
-msgstr "Zapolnjen Trikotnik"
+msgstr "zapolnjen trikotnik"
 
 #: lib/widgets.c:678
 msgid "Hollow Diamond"
-msgstr "Prazen Karo"
+msgstr "prazen karo"
 
 #: lib/widgets.c:684
 msgid "Filled Diamond"
-msgstr "Zapolnjen Karo"
+msgstr "zapolnjen karo"
 
 #: lib/widgets.c:690
 msgid "Half Head"
-msgstr "Polovica pu¹èice"
+msgstr "polovica pu¹èice"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr "Po¹even kri¾ec"
+msgstr "po¹even kri¾ec"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
-msgstr "Zapolnjena Elipsa"
+msgstr "zapolnjena elipsa"
 
 #: lib/widgets.c:709
 msgid "Hollow Ellipse"
-msgstr "Prazna Elipsa"
+msgstr "prazna elipsa"
 
 #: lib/widgets.c:725
 msgid "Length: "
@@ -2499,11 +2499,11 @@ msgstr "©irina malega kazalca èasa:"
 
 #: objects/custom/custom.c:124
 msgid "Custom"
-msgstr "Po meri"
+msgstr "Prikrojeno"
 
 #: objects/custom/custom.c:124
 msgid "Custom XML shapes loader"
-msgstr "Nalagalnik XML oblik po meri"
+msgstr "Nalagalnik prikrojenih oblik XML"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
