@@ -9,80 +9,85 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-04 14:07+0200\n"
-"PO-Revision-Date: 2003-10-08 22:58+0200\n"
+"POT-Creation-Date: 2003-10-13 23:42+0200\n"
+"PO-Revision-Date: 2003-10-13 23:45+0200\n"
 "Last-Translator: Dejan Matijević <dejan@ns.sympatico.ca>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:162
-#, c-format
-msgid "%s error: input and output file name is identical: %s"
-msgstr "%s greška: ulazno i izlazno ime datoteke su isti: %s"
-
 #: app/app_procs.c:173
-#, c-format
-msgid "%s error: need valid input file %s\n"
-msgstr "%s graška: treba ispravan ulazni tip %s\n"
-
-#: app/app_procs.c:180
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s greška: nezna kako da izveze u %s\n"
 
+#: app/app_procs.c:183
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s greška: ulazno i izlazno ime datoteke su isti: %s"
+
+#: app/app_procs.c:191
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s graška: treba ispravan ulazni tip %s\n"
+
 #  if (!quiet)
 #. if (!quiet)
-#: app/app_procs.c:186
+#: app/app_procs.c:197
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
+#: app/app_procs.c:239
+#, c-format
+msgid "Can't find output format %s\n"
+msgstr "Ne mogu da nađem vrstu izlaza %s\n"
+
 #. &export_file_name
-#: app/app_procs.c:244
+#: app/app_procs.c:302
 msgid "Export loaded file and exit"
 msgstr "Izvezi učitanu datoteku i izađi"
 
-#: app/app_procs.c:244 app/diaconv.c:94
+#: app/app_procs.c:302 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "IZLAZ"
 
 #  &export_file_format
 #. &export_file_format
-#: app/app_procs.c:246
+#: app/app_procs.c:304
 msgid "Export to file format and exit"
 msgstr "Izvezi u format datoteke i izađi"
 
-#: app/app_procs.c:246 app/diaconv.c:92
+#: app/app_procs.c:304 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:306
 msgid "Don't show the splash screen"
-msgstr "Nemoj prikazѕti poprskani ekran"
+msgstr "Ne prikazuj uvodni ekran"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:308
 msgid "Display credits list and exit"
-msgstr "Prikaži HHH i izađi"
+msgstr "Prikaži zasluge i izađi"
 
-#: app/app_procs.c:252
+#: app/app_procs.c:310
 msgid "Display version and exit"
 msgstr "Pokaži verziju i izađi"
 
-#: app/app_procs.c:254 app/diaconv.c:95
+#: app/app_procs.c:312 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Prikaži ovaj pomoćni tekst"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:344
 msgid "Can't connect to session manager!\n"
 msgstr "Ne može se povezati sa upravnikom sesije!\n"
 
-#: app/app_procs.c:301 app/diaconv.c:119
+#: app/app_procs.c:359 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIJA...] [DATOTEKA...]"
 
-#: app/app_procs.c:305 app/diaconv.c:126
+#: app/app_procs.c:363 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -92,37 +97,32 @@ msgstr ""
 "Pokrenite '%s --help' da biste videli celu listu dostupnih opcija komandne "
 "linije.\n"
 
-#: app/app_procs.c:318
-#, c-format
-msgid "%s error: can specify only one of -f or -o."
-msgstr "%s greška: može da odredi samo jedno od -f ili -o."
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:331
+#: app/app_procs.c:382
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzija %s, kompilovana %s %s\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:384
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzija %s\n"
 
-#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:464 app/app_procs.c:466 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nemože da nađe standardane objekte kada traži object-libs, izlazi...\n"
 
-#: app/app_procs.c:543
+#: app/app_procs.c:558
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
-"Ovo nije trebalo da se desi. Reportujte grešku na bugzilla.gnome.org\n"
-"opisujući kako možete napraviti da se dogodi greška.\n"
+"Ovo nije trebalo da se desi. Prijavite grešku na bugzilla.gnome.org\n"
+"opisujući se greška može izazvati.\n"
 
 #. no standard buttons
-#: app/app_procs.c:555
+#: app/app_procs.c:570
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -132,21 +132,21 @@ msgstr ""
 "Da li ste sigurni da želite da završite Dia\n"
 "bez prethodnog snimanja?"
 
-#: app/app_procs.c:559
+#: app/app_procs.c:574
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:614
+#: app/app_procs.c:629
 msgid "Thank you for using Dia.\n"
 msgstr "Hvala vam što koristite Diu.\n"
 
-#: app/app_procs.c:628 app/app_procs.c:635
+#: app/app_procs.c:643 app/app_procs.c:650
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika"
 
-#: app/app_procs.c:637
+#: app/app_procs.c:652
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,7 +154,7 @@ msgstr ""
 "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika. Proverite "
 "da li promenljiva okruženja HOME pokazuje na postojeći direktorijum."
 
-#: app/app_procs.c:659 app/diaconv.c:249
+#: app/app_procs.c:674 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekti i filteri interni za diu"
 
@@ -782,31 +782,42 @@ msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
-msgstr "Boja i boja pozadine za nove objekte. Mali crni i beli kvadrati vraćaju stare boje. Male strelice razmenjuju boje. Dvostrukim klikom menjate boje."
+msgstr ""
+"Boja i boja pozadine za nove objekte. Mali crni i beli kvadrati vraćaju "
+"stare boje. Male strelice razmenjuju boje. Dvostrukim klikom menjate boje."
 
 #: app/interface.c:1035
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-msgstr "Debljine linija. Kliknite na liniju da postavite podrazumevanu debljinu linija novih objekata. Kliknite dva puta da postavite debljinu linije pnešto preciznije."
+msgstr ""
+"Debljine linija. Kliknite na liniju da postavite podrazumevanu debljinu linija "
+"novih objekata. Kliknite dva puta da postavite debljinu linije pnešto "
+"preciznije."
 
 #: app/interface.c:1067
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
-msgstr "Stil strelica za početak novih linija. Kliknite da izaberete strelicu, ili postavite osobine strelica pomoću „Detalja“..."
+msgstr ""
+"Stil strelica za početak novih linija. Kliknite da izaberete strelicu, ili "
+"postavite osobine strelica pomoću „Detalja“..."
 
 #: app/interface.c:1072
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr "Stil linija za nove linije. Kliknite da izaberete stil linija, ili postavite osobine stila linija pomoću „Detalja“..."
+msgstr ""
+"Stil linija za nove linije. Kliknite da izaberete stil linija, ili postavite "
+"osobine stila linija pomoću „Detalja“..."
 
 #: app/interface.c:1077
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
-msgstr "Stil strelica za krajeve linija. Kliknite da izaberete strelicu, ili postavite osobine strelica pomoću „Detalja“..."
+msgstr ""
+"Stil strelica za krajeve linija. Kliknite da izaberete strelicu, ili "
+"postavite osobine strelica pomoću „Detalja“..."
 
 #: app/interface.c:1185
 msgid "Diagram Editor"
@@ -1919,9 +1930,9 @@ msgstr "Nemože da otvori datoteku istorije za pisanje."
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Ugnježdeni Postskript (EPS — koristi Pango fontove)"
 
-#: app/render_eps.c:147
-msgid "Encapsulated Postscript (using builtin PS fonts)"
-msgstr "Ugnježdeni Postskript (EPS — koristi ugrađene Postskript fontove)"
+#: app/render_eps.c:149
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "Ugnježdeni Postskript (EPS — koristi ISO 8859-1 fontove)"
 
 #: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
@@ -2178,7 +2189,7 @@ msgstr "Dia v %s"
 
 #: dia.desktop.in.h:2
 msgid "Diagram editor"
-msgstr "Uređivać Dijagrama"
+msgstr "Uređivač dijagrama"
 
 #: lib/arrows.c:39
 msgid "Lines"
@@ -2322,7 +2333,10 @@ msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
-msgstr "Vaš lokalni skup znakova je UTF-8. Zbog problema sa libxml1-om i podrškom datoteka iz prethodnog izdanja Die, naići ćete na neprilike. Molim prijavite na dia-list@gnome.org ukoliko ugledate ovu poruku."
+msgstr ""
+"Vaš lokalni skup znakova je UTF-8. Zbog problema sa libxml1-om i podrškom "
+"datoteka iz prethodnog izdanja Die, naići ćete na neprilike. Molim prijavite "
+"na dia-list@gnome.org ukoliko ugledate ovu poruku."
 
 #  This is the default text shown in the preview entry, though the user
 #  can set it. Remember that some fonts only have capital letters.
@@ -2368,6 +2382,11 @@ msgstr "Pregled:"
 #: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Izbor pisma"
+
+#: lib/filter.c:120
+#, c-format
+msgid "Multiple export filters with unique name %s"
+msgstr ""
 
 #: lib/font.c:87
 #, c-format
@@ -3865,7 +3884,9 @@ msgstr "Automatski posivi uspravni protok:"
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr "Da se olakša čitanje, tokovi koji počinju i završavaju se uspravno se mogu iscrtati sivom bojom"
+msgstr ""
+"Da se olakša čitanje, tokovi koji počinju i završavaju se uspravno se mogu "
+"iscrtati sivom bojom"
 
 #: objects/SADT/arrow.c:572
 msgid "SADT Arrow"
@@ -4613,11 +4634,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
 msgid "GdkPixbuf bitmap"
 msgstr "GdkPixbuf bitmapa"
 
-#: plug-ins/pixbuf/pixbuf.c:185
+#: plug-ins/pixbuf/pixbuf.c:187
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "Izvoz/uvoz bitmapa zasnovan na gdk-pixbuf-u"
 
@@ -7179,3 +7200,9 @@ msgstr "Sybase srver podataka"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replikacioni server"
+
+#~ msgid "%s error: can specify only one of -f or -o."
+#~ msgstr "%s greška: može da odredi samo jedno od -f ili -o."
+
+#~ msgid "Encapsulated Postscript (using builtin PS fonts)"
+#~ msgstr "Ugnježdeni Postskript (EPS — koristi ugrađene Postskript fontove)"
