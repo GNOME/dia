@@ -69,7 +69,6 @@ lib/ps-utf8.c
 lib/render_object.c
 lib/render_store.c
 lib/sheet.c
-lib/string_prerenderer.c
 lib/text.c
 lib/utils.c
 lib/widgets.c
