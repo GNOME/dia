@@ -1,3 +1,8 @@
+2002-11-18  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/menus.c (menus_get_item_from_path): Non-gnome version now
+	gets menu_item rather than widget, which works better.
+
 2002-11-17  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/display.c: (new_display):

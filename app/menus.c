@@ -1148,15 +1148,15 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 # else
 
   if (display_item_factory) {
-    widget = gtk_item_factory_get_widget(display_item_factory, path);
+    widget = gtk_item_factory_get_item(display_item_factory, path);
   }
   
   if ((widget == NULL) && (item_factory)) {
-      widget = gtk_item_factory_get_widget(item_factory, path);
+      widget = gtk_item_factory_get_item(item_factory, path);
   }
   
   if (widget == NULL) {
-    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+    widget = gtk_item_factory_get_item(toolbox_item_factory, path);
   }
 # endif
 
