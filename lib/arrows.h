@@ -64,4 +64,8 @@ void arrow_draw(Renderer *renderer, ArrowType type,
 		real length, real width, real linewidth,
 		Color *fg_color, Color *bg_color);
 
+void
+calculate_arrow_point(Point *to, Point *from, Point *move,
+		      real length, real width, real linewidth);
+
 #endif /* ARROWS_H */

@@ -244,7 +244,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   real top, bottom, freespc;
   int nobjs;
   int i;
-  gboolean sort_alloc = TRUE;
+  gboolean sort_alloc = FALSE;
 
   if (objects==NULL)
     return;

@@ -1404,7 +1404,7 @@ draw_string(RendererEPS *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  const char *buffer;
+  char *buffer;
   const char *str;
   int len;
 

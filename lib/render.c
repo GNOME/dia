@@ -205,7 +205,7 @@ static void draw_rect(Renderer *renderer,
   renderer->ops->draw_line(renderer, ul_corner, &ur_corner, color);
   renderer->ops->draw_line(renderer, &ur_corner, lr_corner, color);
   renderer->ops->draw_line(renderer, lr_corner, &ll_corner, color);
-  renderer->ops->draw_line(renderer, &ll_corner, &ul_corner, color);
+  renderer->ops->draw_line(renderer, &ll_corner, ul_corner, color);
 }
 static void fill_rect(Renderer *renderer, 
 		      Point *ul_corner, Point *lr_corner,

@@ -432,3 +432,11 @@ EXPORTS
 ; custom_register_objects
 
  suck_font_free
+
+ create_renderops_table
+;?? inherit_renderer
+
+ calculate_arrow_point
+ arrow_draw
+ data_font
+

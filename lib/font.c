@@ -1121,17 +1121,10 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 
 	gdk_gc_set_foreground (gc, &black);
 
-#ifndef GTK_TALKS_UTF8
 	gdk_draw_string (pixmap, font, gc,
 			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
 			 font->ascent + 1,
 			 str);
-#else
-	gdk_draw_string (pixmap, font, gc,
-			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
-			 font->ascent + 1,
-			 str);
-#endif
 	g_free (str);
 
 	/* The handling of the image leaves me with distinct unease.  But this

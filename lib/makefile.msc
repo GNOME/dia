@@ -65,9 +65,9 @@ OBJECTS = \
 	polyshape.obj \
 	beziershape.obj \
 	paper.obj \
-	string_prerenderer.obj \
 	boundingbox.obj \
-	charconv.obj
+	charconv.obj \
+	render.obj
 
 ## common stuff
 ## compiler and linker switches

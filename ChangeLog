@@ -1,3 +1,30 @@
+2002-04-07  Hans Breuer  <hans@breuer.org>
+
+	* app/object_ops.c (object_list_align_v): Fix the 'Leak fix'
+	from 2002-01-22 to not destroy diagram->data->selected. 
+	Avoids to crash on Objects/Align/Vertical/Top
+
+	* app/render_eps.c (draw_string) : un-const buffer
+	It isn't at all const (g_malloc(), assignment, g_free()).
+	Doesn't gcc catch such ?
+
+	* lib/arrows.h : prototype calculate_arrow_point()
+
+	* lib/font.c (font_get_suckfont) : no need to
+	special case gdk_draw_string() with GTK_TALKS_UTF8,
+	cause all the parameter differences are handled above
+
+	* lib/libdia.def : updated externals
+
+	* lib/makefile.msc : removed string_prerenderer, added render
+
+	* lib/render.c (draw_rect) : don't pass a Point** if a Point*
+	is expected. [Sometimes it's good to read compiler warnings.]
+
+	* objects/standard/image.c : simplified by use of g_strconcat()
+
+	* plug-ins/python/makefile.msc : updated for Python 2.2
+
 2002-04-03  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/standard/zigzagline.c (zigzagline_draw): Fixed
