@@ -22,6 +22,8 @@
 #include <string.h>
 
 #include "config.h"
+#include "object.h"
+#include "objchange.h"
 #include "intl.h"
 #include "class.h"
 
@@ -2216,7 +2218,7 @@ umlclass_apply_properties(UMLClass *umlclass)
 
   /* Fill in class with the new data: */
   fill_in_dialog(umlclass);
-  retrun (ObjectChange *)NULL; /* Temporary. */
+  return (ObjectChange *)NULL; /* Temporary. */
 }
 
 static void
