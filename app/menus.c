@@ -400,10 +400,8 @@ static GtkAccelGroup *toolbox_accels = NULL;
 static GtkWidget *display_menus = NULL;
 static GtkAccelGroup *display_accels = NULL;
 
-#ifndef GNOME
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
-#endif
 
 #ifndef GNOME
 #ifdef ENABLE_NLS
