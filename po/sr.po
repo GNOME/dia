@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 05:52+0100\n"
-"PO-Revision-Date: 2004-03-09 06:02+0100\n"
+"POT-Creation-Date: 2004-03-24 23:23+0100\n"
+"PO-Revision-Date: 2004-03-24 23:26+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +77,9 @@ msgstr "Не приказуј насловни екран"
 
 #: app/app_procs.c:399
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr "Пошаљи поруке о грешкама на стандардни излаз за грешке уместо приказивања прозорчета."
+msgstr ""
+"Пошаљи поруке о грешкама на стандардни излаз за грешке уместо приказивања "
+"прозорчета."
 
 #: app/app_procs.c:401
 msgid "Display credits list and exit"
@@ -478,8 +480,8 @@ msgstr "Дрво дијаграма"
 msgid "Ok"
 msgstr "U Redu"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
-#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Поништи"
 
@@ -886,8 +888,7 @@ msgstr "Измени својства слоја"
 msgid "Layer name:"
 msgstr "Назив слоја:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:268 lib/diaarrowchooser.c:248
-#: lib/dialinechooser.c:254
+#: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "У реду"
 
@@ -1443,31 +1444,37 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Не може да преузме GTK подешавања"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:230
 msgid "Select Printer"
 msgstr "Одреди штампач"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:242 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Штампач"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:255 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Датотека"
 
-#: app/paginate_psprint.c:353
+#: app/paginate_psprint.c:358
 #, c-format
-msgid "Could not run command '%s'"
-msgstr "Не може да обради наредбу '%s'"
+msgid "Could not run command '%s': %s"
+msgstr "Не могу да покренем наредбу „%s“: %s"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:361
 #, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Не може да отвори '%s' ради уписа"
+msgid "Could not open '%s' for writing: %s"
+msgstr "Не могу да отворим „%s“ ради уписа: %s"
 
-#: app/paginate_psprint.c:381
-msgid "Error occured while printing"
-msgstr "Дошло је до грешке приликом штампања"
+#: app/paginate_psprint.c:380
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Грешка при штампи: наредба „%s“ је вратила %d\n"
+
+#: app/paginate_psprint.c:390
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Грешка при штампи: наредба „%s“ је изазвала SIGPIPE."
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1783,7 +1790,7 @@ msgid "Sheet name:"
 msgstr "Име стране:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Прелом линије"
 
@@ -1809,7 +1816,7 @@ msgstr "Врста:"
 msgid "Sheet"
 msgstr "Страна"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
 #: objects/UML/association.c:1112 objects/UML/class_dialog.c:879
 #: objects/UML/class_dialog.c:1813 objects/UML/class_dialog.c:2042
@@ -1881,55 +1888,55 @@ msgstr ""
 "%s\n"
 "Тип неодређеног предзнака"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Датотека се мора завршити са '%s': '%s'"
 
-#: app/sheets_dialog_callbacks.c:807
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Грешка испитујући %s: %s"
 
-#: app/sheets_dialog_callbacks.c:827
+#: app/sheets_dialog_callbacks.c:828
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Не могу превести облик датотеке: '%s'"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
 msgstr "Страна мора имати име"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Не може да отвори '%s': %s"
 
-#: app/sheets_dialog_callbacks.c:1643
+#: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Не може да отвори: '%s' за писање"
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
 msgstr "корисник"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "Датотека: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Датум: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr "За: %s"
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
 msgstr "додај облик овде"
 
@@ -2043,18 +2050,34 @@ msgid "Cross"
 msgstr "Унакрсно"
 
 #: lib/arrows.c:62
+msgid "1-or-many"
+msgstr "1-или-више"
+
+#: lib/arrows.c:63
+msgid "0-or-many"
+msgstr "0-или-више"
+
+#: lib/arrows.c:64
+msgid "1-or-0"
+msgstr "1-или-0"
+
+#: lib/arrows.c:65
+msgid "1 exactly"
+msgstr "тачно 1"
+
+#: lib/arrows.c:66
 msgid "Filled Concave"
 msgstr "Испуњено конкавно"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:67
 msgid "Blanked Concave"
 msgstr "Испражњено конкавно"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:68
 msgid "Round"
 msgstr "Округла"
 
-#: lib/arrows.c:65
+#: lib/arrows.c:69
 msgid "Open Round"
 msgstr "Отворена округла"
 
@@ -2105,7 +2128,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Поставке стрелица"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
 msgid "Details..."
 msgstr "Детаљи..."
 
@@ -2154,7 +2177,7 @@ msgstr "Преглед:"
 msgid "Font Selection"
 msgstr "Избор писма"
 
-#: lib/dialinechooser.c:243
+#: lib/dialinechooser.c:287
 msgid "Line Style Properties"
 msgstr "Поставке Стила Линија"
 
@@ -2395,11 +2418,16 @@ msgstr "Вишевредносни:"
 msgid "Attribute"
 msgstr "Особине:"
 
-#: objects/ER/entity.c:132
+#: objects/ER/entity.c:135
 msgid "Weak:"
 msgstr "Слаб:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
+# Повезујуће? Повезано? Везујуће?
+#: objects/ER/entity.c:137
+msgid "Associative:"
+msgstr "Асоцијативно:"
+
+#: objects/ER/entity.c:406 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Ентитет"
 
@@ -4314,20 +4342,20 @@ msgstr "Обрни водоравно"
 msgid "Flip vertical"
 msgstr "Обрни усправно"
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1422
 msgid "Flip Horizontal"
 msgstr "Обрни Водоравно"
 
-#: objects/custom/custom_object.c:1424
+#: objects/custom/custom_object.c:1423
 msgid "Flip Vertical"
 msgstr "Обрни Усправно"
 
-#: objects/custom/custom_object.c:1461
+#: objects/custom/custom_object.c:1460
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Неможе отворити датотеку иконе %s за објекат типа '%s'."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:148 objects/standard/box.c:148
 msgid "Corner radius"
 msgstr "Угао радијуса"
 
@@ -4375,6 +4403,35 @@ msgstr "Контрола глаткости"
 #: objects/standard/bezier.c:552 objects/standard/beziergon.c:507
 msgid "Cusp control"
 msgstr "Контрола локалних екстремума"
+
+#: objects/standard/box.c:135 objects/standard/ellipse.c:131
+msgid "Free"
+msgstr "Слободно"
+
+#: objects/standard/box.c:136 objects/standard/ellipse.c:132
+msgid "Fixed"
+msgstr "Везано"
+
+#  Translators: Menu item Verb/Support/Secure
+#: objects/standard/box.c:137 objects/standard/box.c:687
+msgid "Square"
+msgstr "Квадрат"
+
+#: objects/standard/box.c:150 objects/standard/ellipse.c:144
+msgid "Aspect ratio"
+msgstr "Однос ширине и висине"
+
+#: objects/standard/box.c:683 objects/standard/ellipse.c:661
+msgid "Free aspect"
+msgstr "Слободан однос"
+
+#: objects/standard/box.c:685 objects/standard/ellipse.c:663
+msgid "Fixed aspect"
+msgstr "Утврђен однос"
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:665
+msgid "Circle"
+msgstr "Круг"
 
 #: objects/standard/image.c:130
 msgid "Image file"
@@ -7333,6 +7390,9 @@ msgstr "Sybase срвер података"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase репликациони сервер"
+
+#~ msgid "Error occured while printing"
+#~ msgstr "Дошло је до грешке приликом штампања"
 
 #~ msgid "_New diagram"
 #~ msgstr "Нови дијаграм"
