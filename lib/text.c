@@ -466,13 +466,20 @@ text_draw(Text *text, Renderer *renderer)
     if (gdk_im_ready () && ddisp->ic &&
 	(gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
 	    gint x, y, width, height, ascent, descent;
+	    gint mwidth = 0, mheight = 0;
 
+	    if (ddisp->menu_bar && GTK_IS_MENU_BAR (ddisp->menu_bar)) {
+		    gdk_window_get_size (GTK_WIDGET (ddisp->menu_bar)->window, &mwidth, &mheight);
+	    }
+	    /* FIXME: ascent and descent are used to adjust XIM position.
+	       it should uses *kanjiFont size on Xresources instead of.
+	    */
 	    ascent = ddisp->canvas->style->font->ascent;
 	    descent = ddisp->canvas->style->font->descent;
 	    gdk_window_get_size (ddisp->canvas->window, &width, &height);
 	    ddisplay_transform_coords (ddisp, p2.x, p2.y, &x, &y);
 	    ddisp->ic_attr->spot_location.x = x + ((ascent + descent) * 2);
-	    ddisp->ic_attr->spot_location.y = y + ((ascent - descent) * 2);
+	    ddisp->ic_attr->spot_location.y = y + ((ascent - descent) * 2) + mheight;
 	    ddisp->ic_attr->preedit_area.width = width;
 	    ddisp->ic_attr->preedit_area.height = height;
 	    gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,

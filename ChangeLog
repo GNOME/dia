@@ -1,3 +1,8 @@
+2002-02-12  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_draw): fixed XIM position, when menubar is shown for
+	diagram window.
+
 2002-02-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/group.c (group_copy): Made new object properly initialized
