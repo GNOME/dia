@@ -22,6 +22,9 @@
 #include <string.h> /* strlen */
 #include <gdk/gdk.h>
 
+/* Bug in libart: art_rgb.h uses art_config stuff without including it
+ * first. */
+#include <libart_lgpl/art_config.h>
 
 #include <libart_lgpl/art_rgb.h>
 

@@ -68,7 +68,7 @@ if test "$have_pangoft2" = "true"; then
     dnl do it like this.
     AC_MSG_CHECKING([if FreeType version is 2.0.9 or higher])
     old_CPPFLAGS="$CPPFLAGS"
-    CPPFLAGS=`freetype-config --cflags`
+    CPPFLAGS=`$CPPFLAGS freetype-config --cflags`
     AC_TRY_CPP([#include <freetype/freetype.h>
 #if (FREETYPE_MAJOR*1000+FREETYPE_MINOR)*1000+FREETYPE_PATCH < 2000009
 #error Freetype version too low.
@@ -77,17 +77,21 @@ if test "$have_pangoft2" = "true"; then
         [AC_MSG_RESULT(yes)
 	 FREETYPE_LIBS=`freetype-config --libs`
 	 AC_SUBST(FREETYPE_LIBS)
+	 FREETYPE_CFLAGS=`freetype-config --cflags`
+	 AC_SUBST(FREETYPE_CFLAGS)
 	 GTK_MODULES="$GTK_MODULES pangoft2"
-	 AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])
-	 CPPFLAGS="$old_CPPFLAGS"]
+	 AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])]
     ,
 	[AC_MSG_ERROR([Need FreeType library version 2.0.9 or higher])])
+    CPPFLAGS="$old_CPPFLAGS"
   else
    AC_MSG_ERROR(Can't find FreeType library)
   fi
 else
    AC_MSG_ERROR(Can't find PangoFT2 library)
 fi
+
+CFLAGS="$FREETYPE_CFLAGS $CFLAGS"
 
 dnl Try for libart
 PKG_CHECK_MODULES(LIBART,libart-2.0,have_libart=yes,have_libart=no)
