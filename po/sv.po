@@ -19,7 +19,7 @@ msgstr "Exportera fil till Postscript och avsluta"
 
 #: app/app_procs.c:118
 msgid "OUTPUT"
-msgstr ""
+msgstr "UTFIL"
 
 #: app/app_procs.c:135
 msgid "Can't connect to session manager!\n"
@@ -44,7 +44,7 @@ msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
-"Det finns diagram som inte är sparade.\\n\n"
+"Det finns diagram som inte är sparade.\n"
 "Är du säker på att du vill avsluta?"
 
 #: app/app_procs.c:253 app/commands.c:200 app/commands.c:318 app/display.c:720
@@ -63,7 +63,7 @@ msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
-"Kunde inte några objektbibliotek.\n"
+"Kunde inte hitta några objektbibliotek.\n"
 "%s är inte en filkatalog.\n"
 
 #: app/app_procs.c:333
@@ -155,7 +155,7 @@ msgstr "Finns inget objekt att klistra in.\n"
 
 #: app/commands.c:526
 msgid "Copyright (C) 1999"
-msgstr ""
+msgstr "Copyright (C) 1999"
 
 #: app/commands.c:528 app/commands.c:555
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -172,7 +172,7 @@ msgstr "Dia v %s av Alexander Larsson"
 
 #: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: app/diagram.c:126
 msgid "<Display>/Edit/Copy"
@@ -188,7 +188,7 @@ msgstr "<Display>/Redigera/Klistra in"
 
 #: app/diagram.c:130
 msgid "<Display>/Edit/Delete"
-msgstr "<Display>/Redigera/Ta bort"
+msgstr "<Display>/Redigera/Radera"
 
 #: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
@@ -204,7 +204,7 @@ msgstr "<Display>/Objekt/Gruppera"
 
 #: app/diagram.c:137
 msgid "<Display>/Objects/Ungroup"
-msgstr "<Display>/Objet/Avgruppera"
+msgstr "<Display>/Objekt/Avgruppera"
 
 #: app/diagram.c:139
 msgid "<Display>/Objects/Align Horizontal/Left"
@@ -257,25 +257,27 @@ msgstr ""
 
 #: app/disp_callbacks.c:140
 msgid "No object menu"
-msgstr ""
+msgstr "Ingen objektmeny"
 
 #: app/display.c:59 app/display.c:60
 msgid "Zoom"
-msgstr ""
+msgstr "Zooma"
 
 #: app/display.c:79
 msgid "Diagram modified!"
-msgstr ""
+msgstr "Diagrammet är ändrat!"
 
 #: app/display.c:708
 msgid "Really close?"
-msgstr ""
+msgstr "Är du säker på att du vill stänga?"
 
 #: app/display.c:711
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
 msgstr ""
+"Detta diagram har inte sparats.\n"
+"Är du säker på att du vill stänga detta fönster?"
 
 #: app/display.c:760
 msgid "<Display>/View/Toggle Rulers"
@@ -291,23 +293,23 @@ msgstr "<Display>/Visa/Följ rutnät"
 
 #: app/grid.c:141
 msgid "Grid options"
-msgstr ""
+msgstr "Inställningar för rutnät"
 
 #: app/grid.c:150
 msgid "Grid x size:"
-msgstr ""
+msgstr "Rutnät x storlek:"
 
 #: app/grid.c:168
 msgid "Grid y size:"
-msgstr ""
+msgstr "Rutnät y storlek:"
 
 #: app/interface.c:57
 msgid "Modify object(s)"
-msgstr ""
+msgstr "Modifiera objekt"
 
 #: app/interface.c:61
 msgid "Magnify"
-msgstr ""
+msgstr "Förstora"
 
 #: app/interface.c:65
 msgid "Scroll around the diagram"
@@ -315,41 +317,43 @@ msgstr ""
 
 #: app/interface.c:69
 msgid "Create Text"
-msgstr ""
+msgstr "Skapa text"
 
 #: app/interface.c:73
 msgid "Create Box"
-msgstr ""
+msgstr "Skapa rektangel"
 
 #: app/interface.c:77
 msgid "Create Ellipse"
-msgstr ""
+msgstr "Skapa ellips"
 
 #: app/interface.c:81
 msgid "Create Line"
-msgstr ""
+msgstr "Skapa linje"
 
 #: app/interface.c:85
 msgid "Create Arc"
-msgstr ""
+msgstr "Skapa båge"
 
 #: app/interface.c:89
 msgid "Create Zigzagline"
-msgstr ""
+msgstr "Skapa zik-zak-linje"
 
 #: app/interface.c:93
 msgid "Create Polyline"
-msgstr ""
+msgstr "Skapa linje med flera noder"
 
 #: app/interface.c:97
 msgid "Create Image"
-msgstr ""
+msgstr "Skapa bild"
 
 #: app/interface.c:544
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
+"För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer\n"
+"färgerna.  Pilarna byter färger.  Dubbleklicka för att ändra färger."
 
 #: app/interface.c:590
 msgid "Diagram Editor"
@@ -413,15 +417,17 @@ msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
+"Fel vid laddning av diagram.\n"
+"Refererat objekt finns inte i dokumentet."
 
 #: app/load_save.c:159
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr ""
+msgstr "Kunde inte öppna: '%s' för läsning.\n"
 
 #: app/load_save.c:165
 msgid "You must specify a file, not a directory.\n"
-msgstr ""
+msgstr "Du måste specificera en fil, inte en katalog.\n"
 
 #: app/load_save.c:174 app/load_save.c:179
 #, c-format
@@ -429,6 +435,8 @@ msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
+"Fel vid laddning av diagrammet %s.\n"
+"Okänd filtyp."
 
 #: app/load_save.c:186
 #, c-format
@@ -436,6 +444,8 @@ msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
+"Fel vid laddning av diagrammet %s.\n"
+"Dia känner inte igen denna fil."
 
 #: app/load_save.c:328
 msgid ""
@@ -446,7 +456,7 @@ msgstr ""
 #: app/load_save.c:377 app/render_eps.c:139
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr ""
+msgstr "Kunde inte öppna: '%s' för skrivning.\n"
 
 #: app/menus.c:34 app/menus.c:44
 msgid "_New diagram"
@@ -496,7 +506,7 @@ msgstr "_Följ rutnät"
 
 #: app/menus.c:94
 msgid "Toggle _Rulers"
-msgstr "Aktivera _linjaler"
+msgstr "Aktivera linjaler"
 
 #: app/menus.c:97
 msgid "New _View"
@@ -556,7 +566,7 @@ msgstr ""
 
 #: app/menus.c:131
 msgid "_Properties"
-msgstr ""
+msgstr "Egenskaper"
 
 #: app/menus.c:132
 msgid "_Layers"
@@ -638,7 +648,7 @@ msgstr "/Redigera/_Kopiera"
 
 #: app/menus.c:184
 msgid "/Edit/C_ut"
-msgstr "/Redigera/K_opiera"
+msgstr "/Redigera/Klipp ut"
 
 #: app/menus.c:185
 msgid "/Edit/_Paste"
@@ -729,7 +739,7 @@ msgstr "/Visa/Följ rutnät"
 
 #: app/menus.c:205
 msgid "/View/Toggle _Rulers"
-msgstr "/Visa/Aktivera rutnät"
+msgstr "/Visa/Aktivera linjaler"
 
 #: app/menus.c:206
 msgid "/View/sep1"
@@ -847,11 +857,11 @@ msgstr "Användargränssnitt"
 
 #: app/preferences.c:69
 msgid "View Defaults"
-msgstr "Visa standardvärden"
+msgstr "Standardvärden för vyer"
 
 #: app/preferences.c:76
 msgid "Reset tools after create:"
-msgstr "Nollställ verktyg efter att nytt objekt skapats"
+msgstr "Nollställ verktyg när objekt har skapats:"
 
 #: app/preferences.c:78
 msgid "Grid:"
@@ -898,7 +908,9 @@ msgstr "Bakgrund"
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
-msgstr "Varning: Inget X-typsnitt för %s hittat, använder Fixed \n"
+msgstr ""
+"Varning: Inget X-typsnitt för %s hittat, \n"
+"använder %s istället.\n"
 
 #: lib/font.c:398
 #, c-format
