@@ -46,8 +46,8 @@ msgstr ""
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"Nisem mogel najti standardnih objektov, ko sem iskal za knji¾nicami "
-"objektov, konèujem...\n"
+"Nisem mogel najti standardnih premetov, ko sem iskal za knji¾nicami "
+"predmetov, konèujem...\n"
 
 #: app/app_procs.c:232
 msgid "Need valid input file\n"
@@ -107,7 +107,7 @@ msgstr "Neimenovan-%d"
 
 #: app/commands.c:228
 msgid "No existing object to paste.\n"
-msgstr "Obstojeèi objekt, ki naj se prilepi, ne obstaja.\n"
+msgstr "Obstojeèi predmet, ki naj se prilepi, ne obstaja.\n"
 
 #: app/commands.c:462
 msgid "About Dia"
@@ -140,7 +140,7 @@ msgstr "V redu"
 
 #: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
-msgstr "Privzete nastavitve objekta"
+msgstr "Privzete nastavitve predmeta"
 
 #: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
@@ -154,7 +154,7 @@ msgstr "Zapri"
 
 #: app/defaults.c:95
 msgid "This object has no defaults."
-msgstr "Ta objekt nima privzetih nastavitev."
+msgstr "Ta predmet nima privzetih nastavitev."
 
 #: app/dia_embedd.c:176
 msgid "File/New diagram"
@@ -330,12 +330,12 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Ta objekt ne podpira Razveljavi/Obnovi\n"
+"Ta predmet ne podpira Razveljavi/Obnovi\n"
 "Podatki o razveljavitvi so zbrisani."
 
 #: app/disp_callbacks.c:166
 msgid "No object menu"
-msgstr "Menuja objektov ni"
+msgstr "Menuja predmetov ni"
 
 #: app/display.c:68 app/display.c:69
 msgid "Zoom"
@@ -475,7 +475,7 @@ msgstr "Vi¹ina mre¾e:"
 
 #: app/interface.c:35
 msgid "Modify object(s)"
-msgstr "Spremeni objekt(e)"
+msgstr "Spremeni predmet(e)"
 
 #: app/interface.c:36 app/menus.c:193
 msgid "Modify"
@@ -669,7 +669,7 @@ msgid ""
 "Linked object not found in document."
 msgstr ""
 "Napaka pri nalaganju diagrama.\n"
-"Povezan objekt ni bil najden v dokumentu."
+"Povezan predmet ni bil najden v dokumentu."
 
 #: app/load_save.c:146
 msgid ""
@@ -1429,7 +1429,7 @@ msgid ""
 "intersecting objects:"
 msgstr ""
 "Obrnjeno vleèenje izbere\n"
-"sekajoèe se objekte:"
+"sekajoèe se predmete:"
 
 #: app/preferences.c:105
 msgid "New window:"
@@ -1494,11 +1494,11 @@ msgstr "Nastavitve"
 
 #: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
-msgstr "Lastnosti objekta"
+msgstr "Lastnosti predmeta"
 
 #: app/properties.c:114
 msgid "This object has no properties."
-msgstr "Ta objekt nima lastnosti."
+msgstr "Ta predmet nima lastnosti."
 
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
@@ -1704,7 +1704,7 @@ msgstr "Entiteta"
 
 #: objects/ER/er.c:40
 msgid "Entity/Relationship diagram objects"
-msgstr "Diagramski objekt Entitete/Relacije"
+msgstr "Diagramski predmet Entitete/Relacije"
 
 #: objects/ER/participation.c:418
 msgid "Total:"
@@ -1783,7 +1783,7 @@ msgstr "Tip ortogonalnega toka:"
 
 #: objects/FS/fs.c:39
 msgid "Function structure diagram objects"
-msgstr "Diagramski objekti Funkcijske strukture"
+msgstr "Diagramski predmeti Funkcijske strukture"
 
 #: objects/FS/function.c:572
 msgid "Function:"
@@ -1994,7 +1994,7 @@ msgstr "Pogoj:"
 
 #: objects/GRAFCET/grafcet.c:40
 msgid "GRAFCET diagram objects"
-msgstr "Diagramski objekti GRAFCET"
+msgstr "Diagramski predmeti GRAFCET"
 
 #: objects/GRAFCET/step.c:251
 msgid "Regular step"
@@ -2129,7 +2129,7 @@ msgstr "SADT ¹katla"
 
 #: objects/SADT/sadt.c:37
 msgid "SADT diagram objects"
-msgstr "Diagramski objekti SADT"
+msgstr "Diagramski predmeti SADT"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -2323,7 +2323,7 @@ msgstr "Meja"
 
 #: objects/UML/classicon.c:627
 msgid "Is an object"
-msgstr "Je objekt"
+msgstr "Je predmet"
 
 #: objects/UML/constraint.c:511
 msgid "Constraint:"
@@ -2396,7 +2396,7 @@ msgstr "Ka¾i atribute"
 
 #: objects/UML/object.c:791
 msgid "Active object"
-msgstr "Dejaven objekt"
+msgstr "Dejaven predmet"
 
 #: objects/UML/object.c:796
 msgid "multiple instance"
@@ -2412,7 +2412,7 @@ msgstr "Konec"
 
 #: objects/UML/uml.c:56
 msgid "Unified Modelling Language diagram objects"
-msgstr "Diagramski objekti Unificiranga Jezika za Modeliranje (UML)"
+msgstr "Diagramski predmeti Unificiranga Jezika za Modeliranje (UML)"
 
 #: objects/UML/usecase.c:544
 msgid "Text outside:"
@@ -2424,7 +2424,7 @@ msgstr "Sodelovanje"
 
 #: objects/chronogram/chronogram.c:36
 msgid "Chronogram diagram objects"
-msgstr "Diagramski objekti Kronograma"
+msgstr "Diagramski predmeti Kronograma"
 
 #: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
 msgid "Aspect"
@@ -2579,7 +2579,7 @@ msgstr "Zbri¹i Roèico"
 
 #: objects/network/network.c:47
 msgid "Network diagram objects"
-msgstr "Diagramski objekti Mre¾e"
+msgstr "Diagramski predmeti Mre¾e"
 
 #: objects/standard/bezier.c:526
 msgid "Add Segment"
@@ -2663,7 +2663,7 @@ msgstr "Zbri¹i Vogal"
 
 #: objects/standard/standard.c:40
 msgid "Standard objects"
-msgstr "Obièajni objekti"
+msgstr "Obièajni predmeti"
 
 #: objects/standard/textobj.c:274
 msgid "Fontsize:"
@@ -2671,7 +2671,7 @@ msgstr "Velikost pisave:"
 
 #: objects/sybase/sybase.c:40
 msgid "Sybase replication domain diagram objects"
-msgstr "Diagramski objekti Sybase"
+msgstr "Diagramski predmeti Sybase"
 
 #: plug-ins/cgm/cgm.c:1083
 msgid ""
