@@ -32,6 +32,7 @@
 #include "display.h"
 #include "message.h"
 #include "app_procs.h"
+#include "dialogs.h"
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -227,56 +228,6 @@ export_png_ratio(GtkAdjustment *limits, gpointer userdata) {
 			      (int)((real)gtk_spin_button_get_value_as_int(export_png_height_entry))*export_png_aspect_ratio);
   }
   in_progress = FALSE;
-}
-
-/* Functions to create dialog widgets.  These should, if used in other
-   dialogs, go into a separate file.  They are intended for fairly small
-   transient dialogs such as parameters for exports.  The functions are
-   meant to be transparent in that they don't make their own structures,
-   they're just collections of common actions.
-*/
-/** Creates a new dialog with a title and Ok and Cancel buttons.
-    Default texts are supplied for Ok and Cancel buttons if NULL.
-    Returns the created dialog and sets the two widget pointers.
-    This function does not call gtk_widget_show(), do
-    gtk_widget_show_all() when all has been added.
- */
-static GtkWidget *
-dialog_make(char *title, char *okay_text, char *cancel_text,
-	    GtkWidget **okay_button, GtkWidget **cancel_button) {
-  GtkWidget *dialog = gtk_dialog_new();
-  GtkWidget *label = gtk_label_new(title);
-
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
-
-  *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("Ok")));
-  *cancel_button = gtk_button_new_with_label((cancel_text!=NULL?cancel_text:_("Cancel")));
-
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area), 
-		    *okay_button);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area), 
-		    *cancel_button);
-
-  return dialog;
-}
-
-/** Adds a spinbutton with an attached label to a dialog.
-    To get an integer spinbutton, give decimals as 0.
- */
-static GtkSpinButton *
-dialog_add_spinbutton(GtkWidget *dialog, char *title,
-		      real min, real max, real decimals) {
-    GtkAdjustment *limits =
-      GTK_ADJUSTMENT(gtk_adjustment_new(10.0, min, max, 1.0, 10.0, 100.0));
-    GtkWidget *box = gtk_hbox_new(FALSE, 10);
-    GtkWidget *label = gtk_label_new(title);
-    GtkWidget *entry = gtk_spin_button_new(limits, 10.0, decimals);
-
-    gtk_box_pack_start_defaults(GTK_BOX(box), label);
-    gtk_box_pack_start_defaults(GTK_BOX(box), entry);
-    gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
-
-    return GTK_SPIN_BUTTON(entry);
 }
 
 static void

@@ -802,6 +802,7 @@ dia_color_selector_set_color (DiaColorSelector *cs,
 
 
 /************* DiaArrowSelector: ***************/
+
 static void
 dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
 {
@@ -852,6 +853,7 @@ static struct menudesc arrow_types[] =
  {N_("Crow Foot"),ARROW_CROW_FOOT},
  {N_("Cross"),ARROW_CROSS},
  {NULL,0}};
+
 
 static void
 dia_arrow_selector_init (DiaArrowSelector *as)

@@ -169,6 +169,7 @@ void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
 void       dia_color_selector_set_color (DiaColorSelector *cs,
 					 const Color *color);
 
+
 /* DiaArrowSelector */
 #define DIAARROWSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector)
 #define DIAARROWSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass)
@@ -202,9 +203,9 @@ struct _DiaArrowSelectorClass
 
 guint      dia_arrow_selector_get_type      (void);
 GtkWidget* dia_arrow_selector_new           (void);
-Arrow  dia_arrow_selector_get_arrow (DiaArrowSelector *as);
-void       dia_arrow_selector_set_arrow (DiaArrowSelector *as,
-					 Arrow arrow);
+Arrow      dia_arrow_selector_get_arrow     (DiaArrowSelector *as);
+void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
+					     Arrow arrow);
 
 
 /* DiaFileSelector: */

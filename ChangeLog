@@ -1,3 +1,10 @@
+2002-04-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/export_png.c: Moved dialog functions to their own file.
+	* app/dialogs.[ch]: New files with standard functions for creating
+	small, transient dialogs (e.g. export options).
+	* app/Makefile.am: Added dialogs.[ch]
+
 2002-04-19  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Misc/folder.*:

@@ -31,7 +31,6 @@
 #include <gtk/gtk.h>
 
 /* --------------- DiaArrowPreview -------------------------------- */
-
 typedef struct _DiaArrowPreview DiaArrowPreview;
 typedef struct _DiaArrowPreviewClass DiaArrowPreviewClass;
 
@@ -164,7 +163,6 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   }
   return TRUE;
 }
-
 
 /* --------------- DiaLinePreview -------------------------------- */
 typedef struct _DiaLinePreview DiaLinePreview;
