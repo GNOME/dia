@@ -1,18 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of dia.HEAD.ml.po to Malayalam
 # This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # FSF-India <locale@gnu.org.in>, 2003.
+# Suresh VP <mvpsuresh@yahoo.com>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:dia.HEAD\n"
+"Project-Id-Version: dia.HEAD.ml\n"
 "POT-Creation-Date: 2003-06-06 03:48+0200\n"
-"PO-Revision-Date: 2003-07-05 10:29+0530\n"
-"Last-Translator: FSF-India <locale@gnu.org.in>\n"
-"Language-Team: Malayalam <locale@gnu.org.in>\n"
+"PO-Revision-Date: 2003-06-12 17:29-0600\n"
+"Last-Translator: Suresh VP <mvpsuresh@yahoo.com>\n"
+"Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
 
 #: app/app_procs.c:162
 #, c-format
@@ -101,8 +103,7 @@ msgid "Dia version %s\n"
 msgstr ""
 
 #: app/app_procs.c:418 app/app_procs.c:420 app/diaconv.c:199 app/diaconv.c:201
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
 #. no standard buttons
@@ -180,7 +181,7 @@ msgstr ""
 
 #: app/commands.c:548 dia.desktop.in.h:1
 msgid "Dia"
-msgstr ""
+msgstr "Dia"
 
 #: app/commands.c:550
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
@@ -191,6 +192,8 @@ msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr ""
+"Dia is a program for drawing structured diagrams.\n"
+"കൂടുതല് വിവരങ്ങള്ക്ക് http://www.lysator.liu.se/~alla/dia  "
 
 #: app/commands.c:590
 msgid "About Dia"
@@ -6036,3 +6039,4 @@ msgstr ""
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr ""
+
