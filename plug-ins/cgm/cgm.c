@@ -37,88 +37,6 @@ static const gchar *dia_version_string = "Dia-" VERSION;
 
 /* --- routines to write various quantities to the CGM stream. --- */
 
-#define REALSIZE 8
-
-static int
-write_real(FILE *fp, double x)
-{
-    int s;
-    int e;
-    double f;
-    long fhi, flo;
-
-    if (x < 0) {
-	s = 1;
-	x = -x;
-    }
-    else
-	s = 0;
-
-    f = frexp(x, &e);
-
-    /* Normalize f to be in the range [1.0, 2.0) */
-    if (0.5 <= f && f < 1.0) {
-	f *= 2.0;
-	e--;
-    }
-    else if (f == 0.0) {
-	e = 0;
-    }
-    else {
-	g_warning("frexp() result out of range");
-	return -1;
-    }
-
-    if (e >= 1024) {
-	/* XXX 1024 itself is reserved for Inf/NaN */
-	g_warning("float too large to pack with d format");
-	return -1;
-    }
-    else if (e < -1022) {
-	/* Gradual underflow */
-	f = ldexp(f, 1022 + e);
-	e = 0;
-    }
-    else if (!(e == 0 && f == 0.0)) {
-	e += 1023;
-	f -= 1.0; /* Get rid of leading 1 */
-    }
-
-    /* fhi receives the high 28 bits; flo the low 24 bits (== 52 bits) */
-    f *= 268435456.0; /* 2**28 */
-    fhi = (long) floor(f); /* Truncate */
-    f -= (double)fhi;
-    f *= 16777216.0; /* 2**24 */
-    flo = (long) floor(f + 0.5); /* Round */
-
-    /* First byte */
-    putc( (s<<7) | (e>>4), fp);
-
-    /* Second byte */
-    putc( (char) (((e&0xF)<<4) | (fhi>>24)), fp);
-
-    /* Third byte */
-    putc( (fhi>>16) & 0xFF, fp);
-
-    /* Fourth byte */
-    putc( (fhi>>8) & 0xFF, fp);
-
-    /* Fifth byte */
-    putc( fhi & 0xFF, fp);
-
-    /* Sixth byte */
-    putc( (flo>>16) & 0xFF, fp);
-
-    /* Seventh byte */
-    putc( (flo>>8) & 0xFF, fp);
-
-    /* Eighth byte */
-    putc( flo & 0xFF, fp);
-
-    /* Done */
-    return 0;
-}
-
 static void
 write_int16(FILE *fp, gint16 n)
 {
@@ -165,6 +83,14 @@ write_colour(FILE *fp, Color *c)
     putc((int) c->red   * 255, fp);
     putc((int) c->green * 255, fp);
     putc((int) c->blue  * 255, fp);
+}
+
+#define REALSIZE 4
+/* 32 bit fixed point real number */
+static void
+write_real(FILE *fp, double x)
+{
+    write_int32(fp, (gint32) (x * (1 << 16)));
 }
 
 static void
@@ -228,6 +154,7 @@ struct _RendererCGM {
     FILE *file;
 
     Font *font;
+    real font_height;
 };
 
 static void begin_render(RendererCGM *renderer, DiagramData *data);
@@ -443,6 +370,9 @@ set_font(RendererCGM *renderer, Font *font, real height)
 
     write_elhead(renderer->file, 5, 15, REALSIZE);
     write_real(renderer->file, height);
+
+    renderer->font = font;
+    renderer->font_height = height;
 }
 
 static void
@@ -774,45 +704,48 @@ draw_string(RendererCGM *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-#if 0
-    CHAR *enc;
-    xmlNodePtr node;
-    char buf[512], *style, *tmp;
-    real saved_width;
+    double x = pos->x, y = pos->y;
+    gint len, chunk;
+    const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
+    const gint maxappendchunk = 255 - 2 - 1;
 
-    enc = xmlEncodeEntities(renderer->doc, text);
-    node = xmlNewChild(renderer->root, NULL, "text", enc);
-    /*free(enc); */ /* Not used, because i don't call xmlEncodeEntitiesReentrant() */
-
-    saved_width = renderer->linewidth;
-    renderer->linewidth = 0.001;
-    style = get_fill_style(renderer, colour);
-    renderer->linewidth = saved_width;
     switch (alignment) {
     case ALIGN_LEFT:
-	style = g_strconcat(style, "; text-align: left", NULL);
 	break;
     case ALIGN_CENTER:
-	style = g_strconcat(style, "; text-align: center", NULL);
+	y -= font_string_width(text, renderer->font, renderer->font_height)/2;
 	break;
     case ALIGN_RIGHT:
-	style = g_strconcat(style, "; text-align: right", NULL);
+	y -= font_string_width(text, renderer->font, renderer->font_height);
 	break;
     }
-    tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
-    g_free(style);
-    style = tmp;
+    /* work out size of first chunk of text */
+    len = strlen(text);
+    chunk = MIN(maxfirstchunk, len);
+    write_elhead(renderer->file, 4, 4, 2 * REALSIZE + 2 + 1 + chunk);
+    write_real(renderer->file, x);
+    write_real(renderer->file, y);
+    write_int16(renderer->file, (len == chunk)); /* last chunk? */
+    putc(chunk, renderer->file);
+    fwrite(text, sizeof(char), chunk, renderer->file);
+    if (!IS_ODD(chunk))
+	putc(0, renderer->file);
 
-    /* have to do something about fonts here ... */
+    len -= chunk;
+    text += chunk;
+    while (len > 0) {
+	/* append text */
+	chunk = MIN(maxappendchunk, len);
+	write_elhead(renderer->file, 4, 6, 2 + 1 + chunk);
+	write_int16(renderer->file, (len == chunk));
+	putc(chunk, renderer->file);
+	fwrite(text, sizeof(char), chunk, renderer->file);
+	if (!IS_ODD(chunk))
+	    putc(0, renderer->file);
 
-    xmlSetProp(node, "style", style);
-    g_free(style);
-
-    g_snprintf(buf, sizeof(buf), "%g", pos->x);
-    xmlSetProp(node, "x", buf);
-    g_snprintf(buf, sizeof(buf), "%g", pos->y);
-    xmlSetProp(node, "y", buf);
-#endif
+	len -= chunk;
+	text += chunk;
+    }
 }
 
 static void
@@ -938,12 +871,6 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     write_elhead(file, 1, 4, 2);
     write_int16(file, 16);
 
-    /* set real precision */
-    write_elhead(file, 1, 5, 6);
-    write_int16(file, 0); /* floating point */
-    write_int16(file, 64); /* 64 bit (double) precision */
-    write_int16(file, 0); /* ralcgm seems to read this  */
-
     /* write element virtual device unit type */
     write_elhead(file, 1, 3, 2);
     write_int16(file, 1); /* real number */
@@ -964,19 +891,11 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     fwrite(fontlist, sizeof(char), fontlistlen, file);
     if (IS_ODD(fontlistlen))
 	putc(0, file);
-
+ 
     /* begin picture */
     write_elhead(file, 0, 3, 1);
     putc(0, file);
     putc(0, file);
-
-#if 0
-    /* set virtual device unit real precision */
-    write_elhead(file, 3, 2, 6);
-    write_int16(file, 0); /* floating point */
-    write_int16(file, 64); /* 64 bit (double) precision */
-    write_int16(file, 0); /* ralcgm seems to read this  */
-#endif
 
     /* write the colour mode string */
     write_elhead(file, 2, 2, 2);
@@ -984,11 +903,11 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
 
     /* write edge width mode */
     write_elhead(file, 2, 5, 2);
-    write_int16(file, 1); /* relative to virtual device coordinates */
+    write_int16(file, 0); /* relative to virtual device coordinates */
 
     /* write line width mode */
     write_elhead(file, 2, 3, 2);
-    write_int16(file, 1); /* relative to virtual device coordinates */
+    write_int16(file, 0); /* relative to virtual device coordinates */
 
     extent = &data->extents;
 
@@ -1007,19 +926,12 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     /* begin the picture body */
     write_elhead(file, 0, 4, 0);
 
-    /* set virtual device unit real precision */
-    write_elhead(file, 3, 2, 6);
-    write_int16(file, 0); /* floating point */
-    write_int16(file, 64); /* 64 bit (double) precision */
-    write_int16(file, 0); /* ralcgm seems to read this */
-
     /* make text be the right way up */
     write_elhead(file, 5, 16, 4 * REALSIZE);
     write_real(file,  0);
     write_real(file, -1);
     write_real(file,  1);
     write_real(file,  0);
-   
 
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
 

@@ -1,5 +1,11 @@
 1999-12-22  James Henstridge  <james@daa.com.au>
 
+	* plug-ins/cgm/cgm.c: added support for text.  Now only images and
+	beziers are left to do.  The text seems to be the wrong way up
+	still.  I don't know if this is a ralcgm bug or a bug in my output
+	code.  Other than this, the CGMs dia produces are readable (and
+	displayable) by ralcgm and corel draw.
+
 	* plug-ins/cgm/cgm.c: a few fixups for the output.  Use REALSIZE as
 	the size of a real number, and changed name of write_double to
 	write_real.  Consider changing to fixed real encoding.  Also, now
