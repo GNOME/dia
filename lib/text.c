@@ -103,7 +103,7 @@ set_string(Text *text, const char *string)
   int len;
   const char *s,*s2;
   
-   s = string;
+  s = string;
   
   numlines = 1;
   if (s != NULL) 

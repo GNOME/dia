@@ -1,3 +1,22 @@
+1999-09-19  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/text.c:
+	Indentation fix.
+
+	* objects/UML/classicon.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/object.c:
+	* objects/UML/realizes.c:
+	* objects/UML/state.c:
+	* objects/UML/usecase.c:
+	Update to new undo (w. get/set_state).
+	Add object menu to add/delete segments.
+
 1999-09-17  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/menus.c:

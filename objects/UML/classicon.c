@@ -35,8 +35,15 @@
 #include "pixmaps/classicon.xpm"
 
 typedef struct _Classicon Classicon;
+typedef struct _ClassiconState ClassiconState;
 typedef struct _ClassiconPropertiesDialog ClassiconPropertiesDialog;
 
+struct _ClassiconState {
+  ObjectState obj_state;
+  
+  int stereotype;
+  int is_object;
+};
 
 struct _Classicon {
   Element element;
@@ -73,26 +80,30 @@ enum CLassIconStereotype {
 
 static ClassiconPropertiesDialog* properties_dialog = NULL;
 
-static real classicon_distance_from(Classicon *pkg, Point *point);
-static void classicon_select(Classicon *pkg, Point *clicked_point,
-				Renderer *interactive_renderer);
-static void classicon_move_handle(Classicon *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void classicon_move(Classicon *pkg, Point *to);
-static void classicon_draw(Classicon *pkg, Renderer *renderer);
+static real classicon_distance_from(Classicon *cicon, Point *point);
+static void classicon_select(Classicon *cicon, Point *clicked_point,
+			     Renderer *interactive_renderer);
+static void classicon_move_handle(Classicon *cicon, Handle *handle,
+				  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static void classicon_move(Classicon *cicon, Point *to);
+static void classicon_draw(Classicon *cicon, Renderer *renderer);
 static Object *classicon_create(Point *startpoint,
-				   void *user_data,
-				   Handle **handle1,
-				   Handle **handle2);
-static void classicon_destroy(Classicon *pkg);
-static Object *classicon_copy(Classicon *pkg);
-static void classicon_save(Classicon *pkg, ObjectNode obj_node,
-		       const char *filename);
+				void *user_data,
+				Handle **handle1,
+				Handle **handle2);
+static void classicon_destroy(Classicon *cicon);
+static Object *classicon_copy(Classicon *cicon);
+static void classicon_save(Classicon *cicon, ObjectNode obj_node,
+			   const char *filename);
 static Object *classicon_load(ObjectNode obj_node, int version,
-			  const char *filename);
-static void classicon_update_data(Classicon *pkg);
-static GtkWidget *classicon_get_properties(Classicon *dep);
-static void classicon_apply_properties(Classicon *dep);
+			      const char *filename);
+static void classicon_update_data(Classicon *cicon);
+static GtkWidget *classicon_get_properties(Classicon *cicon);
+static ObjectChange *classicon_apply_properties(Classicon *cicon);
+static ClassiconState *classicon_get_state(Classicon *cicon);
+static void classicon_set_state(Classicon *cicon,
+				ClassiconState *state);
+
 
 static ObjectTypeOps classicon_type_ops =
 {
@@ -133,26 +144,26 @@ static ObjectOps classicon_ops = {
 };
 
 static real
-classicon_distance_from(Classicon *pkg, Point *point)
+classicon_distance_from(Classicon *cicon, Point *point)
 {
-  Object *obj = &pkg->element.object;
+  Object *obj = &cicon->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
 static void
-classicon_select(Classicon *pkg, Point *clicked_point,
+classicon_select(Classicon *cicon, Point *clicked_point,
 		 Renderer *interactive_renderer)
 {
-  text_set_cursor(pkg->text, clicked_point, interactive_renderer);
-  text_grab_focus(pkg->text, (Object *)pkg);
-  element_update_handles(&pkg->element);
+  text_set_cursor(cicon->text, clicked_point, interactive_renderer);
+  text_grab_focus(cicon->text, (Object *)cicon);
+  element_update_handles(&cicon->element);
 }
 
 static void
-classicon_move_handle(Classicon *pkg, Handle *handle,
+classicon_move_handle(Classicon *cicon, Handle *handle,
 		      Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
-  assert(pkg!=NULL);
+  assert(cicon!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
@@ -444,6 +455,32 @@ classicon_copy(Classicon *cicon)
   return (Object *)newcicon;
 }
 
+static ClassiconState *
+classicon_get_state(Classicon *cicon)
+{
+  int i;
+  ClassiconState *state = g_new(ClassiconState, 1);
+
+  state->obj_state.free = NULL;
+
+  state->stereotype = cicon->stereotype;
+  state->is_object = cicon->is_object;
+
+  return state;
+}
+
+static void
+classicon_set_state(Classicon *cicon, ClassiconState *state)
+{
+  int i;
+  
+  cicon->stereotype = state->stereotype;
+  cicon->is_object = state->is_object;
+  
+  g_free(state);
+  
+  classicon_update_data(cicon);
+}
 
 static void
 classicon_save(Classicon *cicon, ObjectNode obj_node, const char *filename)
@@ -510,12 +547,15 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 classicon_apply_properties(Classicon *cicon)
 {
   ClassiconPropertiesDialog *prop_dialog;
+  ObjectState *old_state;
 
   prop_dialog = properties_dialog;
+
+  old_state = (ObjectState *)classicon_get_state(cicon);
 
   cicon->is_object = GTK_TOGGLE_BUTTON(prop_dialog->is_object)->active;
 
@@ -529,6 +569,10 @@ classicon_apply_properties(Classicon *cicon)
   }
 
   classicon_update_data(cicon);
+
+  return new_object_state_change((Object *)cicon, old_state, 
+				 (GetStateFunc)classicon_get_state,
+				 (SetStateFunc)classicon_set_state);
 }
 
 static void
@@ -557,7 +601,7 @@ fill_in_dialog(Classicon *cicon)
 }
 
 static GtkWidget *
-classicon_get_properties(Classicon *dep)
+classicon_get_properties(Classicon *cicon)
 {
   ClassiconPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
@@ -596,7 +640,7 @@ classicon_get_properties(Classicon *dep)
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->is_object, TRUE, TRUE, 0);
   }
   
-  fill_in_dialog(dep);
+  fill_in_dialog(cicon);
   gtk_widget_show (properties_dialog->dialog);
 
   return properties_dialog->dialog;

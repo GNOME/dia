@@ -33,6 +33,7 @@
 #include "pixmaps/message.xpm"
 
 typedef struct _Message Message;
+typedef struct _MessageState MessageState;
 typedef struct _MessageDialog MessageDialog;
 
 typedef enum {
@@ -44,6 +45,13 @@ typedef enum {
     MESSAGE_SEND, /* Asynchronous */
     MESSAGE_RECURSIVE
 } MessageType;
+
+struct _MessageState {
+  ObjectState obj_state;
+
+  char *text;
+  MessageType type;
+};
 
 struct _Message {
   Connection connection;
@@ -100,7 +108,12 @@ static void message_update_data(Message *message);
 static void message_destroy(Message *message);
 static Object *message_copy(Message *message);
 static GtkWidget *message_get_properties(Message *message);
-static void message_apply_properties(Message *message);
+static ObjectChange *message_apply_properties(Message *message);
+
+static MessageState *message_get_state(Message *message);
+static void message_set_state(Message *message,
+			      MessageState *state);
+
 static void message_save(Message *message, ObjectNode obj_node,
 			 const char *filename);
 static Object *message_load(ObjectNode obj_node, int version,
@@ -372,6 +385,42 @@ message_copy(Message *message)
   return (Object *)newmessage;
 }
 
+static void
+message_state_free(ObjectState *ostate)
+{
+  MessageState *state = (MessageState *)ostate;
+  int i;
+  g_free(state->text);
+}
+
+static MessageState *
+message_get_state(Message *message)
+{
+  int i;
+  MessageState *state = g_new(MessageState, 1);
+
+  state->obj_state.free = message_state_free;
+
+  state->text = g_strdup(message->text);
+  state->type = message->type;
+
+  return state;
+}
+
+static void
+message_set_state(Message *message, MessageState *state)
+{
+  int i;
+  
+  g_free(message->text);
+  message->text = state->text;
+  message->type = state->type;
+  
+  g_free(state);
+  
+  message_update_data(message);
+}
+
 
 static void
 message_update_data(Message *message)
@@ -471,12 +520,15 @@ message_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 message_apply_properties(Message *message)
 {
   MessageDialog *prop_dialog;
+  ObjectState *old_state;
   
   prop_dialog = properties_dialog;
+
+  old_state = (ObjectState *)message_get_state(message);
 
   /* Read from dialog and put in object: */
   g_free(message->text);
@@ -503,6 +555,10 @@ message_apply_properties(Message *message)
       message->type = MESSAGE_RECURSIVE;
   
   message_update_data(message);
+
+  return new_object_state_change((Object *)message, old_state, 
+				 (GetStateFunc)message_get_state,
+				 (SetStateFunc)message_set_state);
 }
 
 static void

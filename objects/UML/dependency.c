@@ -34,8 +34,17 @@
 #include "pixmaps/dependency.xpm"
 
 typedef struct _Dependency Dependency;
+typedef struct _DependencyState DependencyState;
 typedef struct _DependencyPropertiesDialog DependencyPropertiesDialog;
 
+struct _DependencyState {
+  ObjectState obj_state;
+  
+  char *name;
+  char *stereotype;
+
+  int draw_arrow;
+};
 
 struct _Dependency {
   OrthConn orth;
@@ -81,7 +90,14 @@ static Object *dependency_create(Point *startpoint,
 static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
 static GtkWidget *dependency_get_properties(Dependency *dep);
-static void dependency_apply_properties(Dependency *dep);
+static ObjectChange *dependency_apply_properties(Dependency *dep);
+static DiaMenu *dependency_get_object_menu(Dependency *dep,
+					   Point *clickedpoint);
+
+static DependencyState *dependency_get_state(Dependency *dep);
+static void dependency_set_state(Dependency *dep,
+				  DependencyState *state);
+
 static void dependency_save(Dependency *dep, ObjectNode obj_node,
 			    const char *filename);
 static Object *dependency_load(ObjectNode obj_node, int version,
@@ -124,7 +140,7 @@ static ObjectOps dependency_ops = {
   (MoveHandleFunc)      dependency_move_handle,
   (GetPropertiesFunc)   dependency_get_properties,
   (ApplyPropertiesFunc) dependency_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      dependency_get_object_menu
 };
 
 static real
@@ -259,6 +275,49 @@ dependency_update_data(Dependency *dep)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
+static ObjectChange *
+dependency_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
+  dependency_update_data((Dependency *)obj);
+  return change;
+}
+
+static ObjectChange *
+dependency_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
+  dependency_update_data((Dependency *)obj);
+  return change;
+}
+
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), dependency_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), dependency_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  "Dependency",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+dependency_get_object_menu(Dependency *dep, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &dep->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}
+
 static Object *
 dependency_create(Point *startpoint,
 	       void *user_data,
@@ -340,6 +399,57 @@ dependency_copy(Dependency *dep)
   return (Object *)newdep;
 }
 
+static void
+dependency_state_free(ObjectState *ostate)
+{
+  DependencyState *state = (DependencyState *)ostate;
+  int i;
+  g_free(state->name);
+  g_free(state->stereotype);
+}
+
+static DependencyState *
+dependency_get_state(Dependency *dep)
+{
+  int i;
+
+  DependencyState *state = g_new(DependencyState, 1);
+
+  state->obj_state.free = dependency_state_free;
+
+  state->name = g_strdup(dep->name);
+  state->stereotype = g_strdup(dep->stereotype);
+  state->draw_arrow = dep->draw_arrow;
+  
+  return state;
+}
+
+static void
+dependency_set_state(Dependency *dep, DependencyState *state)
+{
+  int i;
+  
+  g_free(dep->name);
+  g_free(dep->stereotype);
+  dep->name = state->name;
+  dep->stereotype = state->stereotype;
+  
+  dep->text_width = 0.0;
+  if (dep->name != NULL) {
+    dep->text_width =
+      font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
+  }
+  if (dep->stereotype != NULL) {
+    dep->text_width = MAX(dep->text_width,
+			  font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
+  }
+  
+  dep->draw_arrow = state->draw_arrow;
+
+  g_free(state);
+  
+  dependency_update_data(dep);
+}
 
 static void
 dependency_save(Dependency *dep, ObjectNode obj_node, const char *filename)
@@ -410,13 +520,16 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 dependency_apply_properties(Dependency *dep)
 {
   DependencyPropertiesDialog *prop_dialog;
+  ObjectState *old_state;
   char *str;
 
   prop_dialog = dep->properties_dialog;
+
+  old_state = (ObjectState *)dependency_get_state(dep);
 
   /* Read from dialog and put in object: */
   if (dep->name != NULL)
@@ -457,6 +570,9 @@ dependency_apply_properties(Dependency *dep)
   }
   
   dependency_update_data(dep);
+  return new_object_state_change((Object *)dep, old_state, 
+				 (GetStateFunc)dependency_get_state,
+				 (SetStateFunc)dependency_set_state);
 }
 
 static void

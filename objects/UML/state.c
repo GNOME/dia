@@ -33,12 +33,19 @@
 
 typedef struct _StatePropertiesDialog StatePropertiesDialog;
 typedef struct _State State;
+typedef struct _StateState StateState;
 
 
 enum {
   STATE_NORMAL,
   STATE_BEGIN,
   STATE_END
+};
+
+struct _StateState {
+  ObjectState obj_state;
+
+  int state_type;
 };
 
 struct _State {
@@ -89,8 +96,12 @@ static void state_save(State *state, ObjectNode obj_node,
 static Object *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void state_update_data(State *state);
-static void state_apply_properties(State *state);
+static ObjectChange *state_apply_properties(State *state);
 static GtkWidget *state_get_properties(State *state);
+
+static StateState *state_get_state(State *state);
+static void state_set_state(State *state, StateState *sstate);
+
 
 void
 draw_rounded_rectangle(Renderer *renderer, Point p1, Point p2, real radio);
@@ -363,6 +374,30 @@ state_copy(State *state)
   return (Object *)newstate;
 }
 
+static StateState *
+state_get_state(State *state)
+{
+  int i;
+  StateState *sstate = g_new(StateState, 1);
+
+  sstate->obj_state.free = NULL;
+
+  sstate->state_type = state->state_type;
+  
+  return sstate;
+}
+
+static void
+state_set_state(State *state, StateState *sstate)
+{
+  int i;
+  
+  state->state_type = sstate->state_type;
+  
+  g_free(sstate);
+  
+  state_update_data(state);
+}
 
 static void
 state_save(State *state, ObjectNode obj_node, const char *filename)
@@ -419,12 +454,15 @@ state_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 state_apply_properties(State *state)
 {
   StatePropertiesDialog *prop_dialog;
+  ObjectState *old_state;
 
   prop_dialog = properties_dialog;
+
+  old_state = (ObjectState *)state_get_state(state);
 
   if (GTK_TOGGLE_BUTTON(prop_dialog->normal)->active) 
       state->state_type = STATE_NORMAL;
@@ -434,6 +472,9 @@ state_apply_properties(State *state)
       state->state_type = STATE_END;
 
   state_update_data(state);
+  return new_object_state_change((Object *)state, old_state, 
+				 (GetStateFunc)state_get_state,
+				 (SetStateFunc)state_set_state);
 }
 
 static void

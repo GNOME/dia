@@ -33,6 +33,14 @@
 
 typedef struct _UsecasePropertiesDialog UsecasePropertiesDialog;
 typedef struct _Usecase Usecase;
+typedef struct _UsecaseState UsecaseState;
+
+struct _UsecaseState {
+  ObjectState obj_state;
+  
+  int text_outside;
+  int collaboration;
+};
 
 struct _Usecase {
   Element element;
@@ -64,15 +72,15 @@ static UsecasePropertiesDialog *properties_dialog;
 
 static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
-			Renderer *interactive_renderer);
+			   Renderer *interactive_renderer);
 static void usecase_move_handle(Usecase *usecase, Handle *handle,
-			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+				Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void usecase_move(Usecase *usecase, Point *to);
 static void usecase_draw(Usecase *usecase, Renderer *renderer);
 static Object *usecase_create(Point *startpoint,
-			   void *user_data,
-			   Handle **handle1,
-			   Handle **handle2);
+			      void *user_data,
+			      Handle **handle1,
+			      Handle **handle2);
 static void usecase_destroy(Usecase *usecase);
 static Object *usecase_copy(Usecase *usecase);
 
@@ -81,7 +89,7 @@ static void usecase_save(Usecase *usecase, ObjectNode obj_node,
 static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
-static void usecase_apply_properties(Usecase *usecase);
+static ObjectChange *usecase_apply_properties(Usecase *usecase);
 static GtkWidget *usecase_get_properties(Usecase *dep);
 
 
@@ -396,6 +404,32 @@ usecase_copy(Usecase *usecase)
   return (Object *)newusecase;
 }
 
+static UsecaseState *
+usecase_get_state(Usecase *usecase)
+{
+  int i;
+  UsecaseState *state = g_new(UsecaseState, 1);
+
+  state->obj_state.free = NULL;
+
+  state->text_outside = usecase->text_outside;
+  state->collaboration = usecase->collaboration;
+
+  return state;
+}
+
+static void
+usecase_set_state(Usecase *usecase, UsecaseState *state)
+{
+  int i;
+  
+  usecase->text_outside = state->text_outside;
+  usecase->collaboration = state->collaboration;
+  
+  g_free(state);
+  
+  usecase_update_data(usecase);
+}
 
 static void
 usecase_save(Usecase *usecase, ObjectNode obj_node, const char *filename)
@@ -462,18 +496,18 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)usecase;
 }
 
-
-
-
-
-static void
+static ObjectChange *
 usecase_apply_properties(Usecase *usecase)
 {
   UsecasePropertiesDialog *prop_dialog;
+  ObjectState *old_state;
   real h;
   Point p;
 
   prop_dialog = properties_dialog;
+
+  old_state = (ObjectState *)usecase_get_state(usecase);
+
   usecase->text_outside = prop_dialog->text_out->active;
   usecase->collaboration = prop_dialog->collaboration->active;
   usecase_update_data(usecase);
@@ -487,6 +521,9 @@ usecase_apply_properties(Usecase *usecase)
       p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
   }
   text_set_position(usecase->text, &p);
+  return new_object_state_change((Object *)usecase, old_state, 
+				 (GetStateFunc)usecase_get_state,
+				 (SetStateFunc)usecase_set_state);
 }
 
 static void

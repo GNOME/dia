@@ -34,7 +34,15 @@
 #include "pixmaps/largepackage.xpm"
 
 typedef struct _LargePackage LargePackage;
+typedef struct _LargePackageState LargePackageState;
 typedef struct _PackagePropertiesDialog PackagePropertiesDialog;
+
+struct _LargePackageState {
+  ObjectState obj_state;
+  
+  char *name;
+  char *stereotype; /* Can be NULL, including << and >> */
+};
 
 struct _LargePackage {
   Element element;
@@ -83,7 +91,11 @@ static Object *largepackage_load(ObjectNode obj_node, int version,
 
 static void largepackage_update_data(LargePackage *pkg);
 static GtkWidget *largepackage_get_properties(LargePackage *pkg);
-static void largepackage_apply_properties(LargePackage *pkg);
+static ObjectChange *largepackage_apply_properties(LargePackage *pkg);
+
+static LargePackageState *constraint_get_state(LargePackage *pkg);
+static void implements_set_state(LargePackage *pkg,
+				 LargePackageState *state);
 
 static ObjectTypeOps largepackage_type_ops =
 {
@@ -366,6 +378,43 @@ largepackage_copy(LargePackage *pkg)
   return (Object *)newpkg;
 }
 
+static void
+largepackage_state_free(ObjectState *ostate)
+{
+  LargePackageState *state = (LargePackageState *)ostate;
+  int i;
+  g_free(state->name);
+  g_free(state->stereotype);
+}
+
+static LargePackageState *
+largepackage_get_state(LargePackage *pkg)
+{
+  int i;
+  LargePackageState *state = g_new(LargePackageState, 1);
+
+  state->obj_state.free = largepackage_state_free;
+
+  state->name = g_strdup(pkg->name);
+  state->stereotype = g_strdup(pkg->stereotype);
+
+  return state;
+}
+
+static void
+largepackage_set_state(LargePackage *pkg, LargePackageState *state)
+{
+  int i;
+  
+  g_free(pkg->name);
+  pkg->name = state->name;
+  g_free(pkg->stereotype);
+  pkg->stereotype = state->stereotype;
+  
+  g_free(state);
+  
+  largepackage_update_data(pkg);
+}
 
 static void
 largepackage_save(LargePackage *pkg, ObjectNode obj_node,
@@ -434,13 +483,16 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *) pkg;
 }
 
-static void
+static ObjectChange *
 largepackage_apply_properties(LargePackage *pkg)
 {
   PackagePropertiesDialog *prop_dialog;
+  ObjectState *old_state;
   char *str;
 
   prop_dialog = pkg->properties_dialog;
+
+  old_state = (ObjectState *)largepackage_get_state(pkg);
 
   /* Read from dialog and put in object: */
   g_free(pkg->name);
@@ -475,6 +527,9 @@ largepackage_apply_properties(LargePackage *pkg)
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
 
   largepackage_update_data(pkg);
+  return new_object_state_change((Object *)pkg, old_state, 
+				 (GetStateFunc)largepackage_get_state,
+				 (SetStateFunc)largepackage_set_state);
 }
 
 static void

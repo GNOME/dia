@@ -32,7 +32,15 @@
 #include "pixmaps/lifeline.xpm"
 
 typedef struct _Lifeline Lifeline;
+typedef struct _LifelineState LifelineState;
 typedef struct _LifelineDialog LifelineDialog;
+
+struct _LifelineState {
+  ObjectState obj_state;
+  
+  int draw_focuscontrol;
+  int draw_cross;
+};
 
 struct _Lifeline {
   Connection connection;  
@@ -87,8 +95,12 @@ static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
 			  const char *filename);
 static Object *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
-static void lifeline_apply_properties(Lifeline *lif);
+static ObjectChange *lifeline_apply_properties(Lifeline *lif);
 static GtkWidget *lifeline_get_properties(Lifeline *lif);
+
+static LifelineState *lifeline_get_state(Lifeline *lif);
+static void lifeline_set_state(Lifeline *lif,
+			       LifelineState *state);
 
 
 static ObjectTypeOps lifeline_type_ops =
@@ -380,6 +392,32 @@ lifeline_copy(Lifeline *lifeline)
   return (Object *)newlifeline;
 }
 
+static LifelineState *
+lifeline_get_state(Lifeline *lif)
+{
+  int i;
+  LifelineState *state = g_new(LifelineState, 1);
+
+  state->obj_state.free = NULL;
+
+  state->draw_focuscontrol = lif->draw_focuscontrol;
+  state->draw_cross = lif->draw_cross;
+
+  return state;
+}
+
+static void
+lifeline_set_state(Lifeline *lif, LifelineState *state)
+{
+  int i;
+  
+  lif->draw_focuscontrol = state->draw_focuscontrol;
+  lif->draw_cross = state->draw_cross;
+  
+  g_free(state);
+  
+  lifeline_update_data(lif);
+}
 
 static void
 lifeline_update_data(Lifeline *lifeline)
@@ -529,10 +567,11 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 lifeline_apply_properties(Lifeline *lif)
 {
   LifelineDialog *prop_dialog;
+  ObjectState *old_state;
 
   prop_dialog = properties_dialog;
 
@@ -542,6 +581,9 @@ lifeline_apply_properties(Lifeline *lif)
   lif->draw_cross = prop_dialog->draw_cross->active;
   
   lifeline_update_data(lif);
+  return new_object_state_change((Object *)lif, old_state, 
+				 (GetStateFunc)lifeline_get_state,
+				 (SetStateFunc)lifeline_set_state);
 }
 
 static void

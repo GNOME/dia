@@ -34,8 +34,15 @@
 #include "pixmaps/generalization.xpm"
 
 typedef struct _Generalization Generalization;
+typedef struct _GeneralizationState GeneralizationState;
 typedef struct _GeneralizationPropertiesDialog GeneralizationPropertiesDialog;
 
+struct _GeneralizationState {
+  ObjectState obj_state;
+
+  char *name;
+  char *stereotype; 
+};
 struct _Generalization {
   OrthConn orth;
 
@@ -76,7 +83,13 @@ static Object *generalization_create(Point *startpoint,
 static void generalization_destroy(Generalization *genlz);
 static Object *generalization_copy(Generalization *genlz);
 static GtkWidget *generalization_get_properties(Generalization *genlz);
-static void generalization_apply_properties(Generalization *genlz);
+static ObjectChange *generalization_apply_properties(Generalization *genlz);
+static DiaMenu *generalization_get_object_menu(Generalization *genlz,
+						Point *clickedpoint);
+
+static GeneralizationState *generalization_get_state(Generalization *genlz);
+static void generalization_set_state(Generalization *genlz,
+				     GeneralizationState *state);
 
 static void generalization_save(Generalization *genlz, ObjectNode obj_node,
 				const char *filename);
@@ -121,7 +134,7 @@ static ObjectOps generalization_ops = {
   (MoveHandleFunc)      generalization_move_handle,
   (GetPropertiesFunc)   generalization_get_properties,
   (ApplyPropertiesFunc) generalization_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      generalization_get_object_menu
 };
 
 static real
@@ -255,6 +268,49 @@ generalization_update_data(Generalization *genlz)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
+static ObjectChange *
+generalization_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
+  generalization_update_data((Generalization *)obj);
+  return change;
+}
+
+static ObjectChange *
+generalization_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
+  generalization_update_data((Generalization *)obj);
+  return change;
+}
+
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), generalization_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), generalization_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  "Generalization",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+generalization_get_object_menu(Generalization *genlz, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &genlz->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}
+
 static Object *
 generalization_create(Point *startpoint,
 	       void *user_data,
@@ -328,6 +384,54 @@ generalization_copy(Generalization *genlz)
   return (Object *)newgenlz;
 }
 
+static void
+generalization_state_free(ObjectState *ostate)
+{
+  GeneralizationState *state = (GeneralizationState *)ostate;
+  int i;
+  g_free(state->name);
+  g_free(state->stereotype);
+}
+
+static GeneralizationState *
+generalization_get_state(Generalization *genlz)
+{
+  int i;
+
+  GeneralizationState *state = g_new(GeneralizationState, 1);
+
+  state->obj_state.free = generalization_state_free;
+
+  state->name = g_strdup(genlz->name);
+  state->stereotype = g_strdup(genlz->stereotype);
+  
+  return state;
+}
+
+static void
+generalization_set_state(Generalization *genlz, GeneralizationState *state)
+{
+  int i;
+  
+  g_free(genlz->name);
+  g_free(genlz->stereotype);
+  genlz->name = state->name;
+  genlz->stereotype = state->stereotype;
+  
+  genlz->text_width = 0.0;
+  if (genlz->name != NULL) {
+    genlz->text_width =
+      font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
+  }
+  if (genlz->stereotype != NULL) {
+    genlz->text_width = MAX(genlz->text_width,
+			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
+  }
+  
+  g_free(state);
+  
+  generalization_update_data(genlz);
+}
 
 static void
 generalization_save(Generalization *genlz, ObjectNode obj_node,
@@ -392,13 +496,16 @@ generalization_load(ObjectNode obj_node, int version,
   return (Object *)genlz;
 }
 
-static void
+static ObjectChange *
 generalization_apply_properties(Generalization *genlz)
 {
   GeneralizationPropertiesDialog *prop_dialog;
+  ObjectState *old_state;
   char *str;
 
   prop_dialog = genlz->properties_dialog;
+
+  old_state = (ObjectState *)generalization_get_state(genlz);
 
   /* Read from dialog and put in object: */
   if (genlz->name != NULL)
@@ -437,6 +544,9 @@ generalization_apply_properties(Generalization *genlz)
   }
   
   generalization_update_data(genlz);
+  return new_object_state_change((Object *)genlz, old_state, 
+				 (GetStateFunc)generalization_get_state,
+				 (SetStateFunc)generalization_set_state);
 }
 
 static void

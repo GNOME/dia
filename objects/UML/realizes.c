@@ -34,7 +34,16 @@
 #include "pixmaps/realizes.xpm"
 
 typedef struct _Realizes Realizes;
+typedef struct _RealizesState RealizesState;
 typedef struct _RealizesPropertiesDialog RealizesPropertiesDialog;
+
+struct _RealizesState {
+  ObjectState obj_state;
+
+  char *name;
+  char *stereotype; 
+
+};
 
 struct _Realizes {
   OrthConn orth;
@@ -77,7 +86,14 @@ static Object *realizes_create(Point *startpoint,
 static void realizes_destroy(Realizes *realize);
 static Object *realizes_copy(Realizes *realize);
 static GtkWidget *realizes_get_properties(Realizes *realize);
-static void realizes_apply_properties(Realizes *realize);
+static ObjectChange *realizes_apply_properties(Realizes *realize);
+static DiaMenu *realizes_get_object_menu(Realizes *realize,
+					 Point *clickedpoint);
+
+static RealizesState *realizes_get_state(Realizes *realize);
+static void realizes_set_state(Realizes *realize,
+			       RealizesState *state);
+
 static void realizes_save(Realizes *realize, ObjectNode obj_node,
 			  const char *filename);
 static Object *realizes_load(ObjectNode obj_node, int version,
@@ -121,7 +137,7 @@ static ObjectOps realizes_ops = {
   (MoveHandleFunc)      realizes_move_handle,
   (GetPropertiesFunc)   realizes_get_properties,
   (ApplyPropertiesFunc) realizes_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      realizes_get_object_menu
 };
 
 static real
@@ -255,6 +271,49 @@ realizes_update_data(Realizes *realize)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
+static ObjectChange *
+realizes_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
+  realizes_update_data((Realizes *)obj);
+  return change;
+}
+
+static ObjectChange *
+realizes_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
+  realizes_update_data((Realizes *)obj);
+  return change;
+}
+
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), realizes_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), realizes_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  "Realizes",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+realizes_get_object_menu(Realizes *realize, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &realize->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}
+
 static Object *
 realizes_create(Point *startpoint,
 	       void *user_data,
@@ -325,6 +384,54 @@ realizes_copy(Realizes *realize)
   return (Object *)newrealize;
 }
 
+static void
+realizes_state_free(ObjectState *ostate)
+{
+  RealizesState *state = (RealizesState *)ostate;
+  int i;
+  g_free(state->name);
+  g_free(state->stereotype);
+}
+
+static RealizesState *
+realizes_get_state(Realizes *realize)
+{
+  int i;
+
+  RealizesState *state = g_new(RealizesState, 1);
+
+  state->obj_state.free = realizes_state_free;
+
+  state->name = g_strdup(realize->name);
+  state->stereotype = g_strdup(realize->stereotype);
+  
+  return state;
+}
+
+static void
+realizes_set_state(Realizes *realize, RealizesState *state)
+{
+  int i;
+  
+  g_free(realize->name);
+  g_free(realize->stereotype);
+  realize->name = state->name;
+  realize->stereotype = state->stereotype;
+  
+  realize->text_width = 0.0;
+  if (realize->name != NULL) {
+    realize->text_width =
+      font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
+  }
+  if (realize->stereotype != NULL) {
+    realize->text_width = MAX(realize->text_width,
+			  font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
+  }
+  
+  g_free(state);
+  
+  realizes_update_data(realize);
+}
 
 static void
 realizes_save(Realizes *realize, ObjectNode obj_node, const char *filename)
@@ -387,13 +494,16 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)realize;
 }
 
-static void
+static ObjectChange *
 realizes_apply_properties(Realizes *realize)
 {
   RealizesPropertiesDialog *prop_dialog;
+  ObjectState *old_state;
   char *str;
 
   prop_dialog = realize->properties_dialog;
+
+  old_state = (ObjectState *)realizes_get_state(realize);
 
   /* Read from dialog and put in object: */
   if (realize->name != NULL)
@@ -432,6 +542,9 @@ realizes_apply_properties(Realizes *realize)
   }
   
   realizes_update_data(realize);
+  return new_object_state_change((Object *)realize, old_state, 
+				 (GetStateFunc)realizes_get_state,
+				 (SetStateFunc)realizes_set_state);
 }
 
 static void

@@ -31,7 +31,14 @@
 #include "pixmaps/implements.xpm"
 
 typedef struct _Implements Implements;
+typedef struct _ImplementsState ImplementsState;
 typedef struct _ImplementsDialog ImplementsDialog;
+
+struct _ImplementsState {
+  ObjectState obj_state;
+  
+  char *text;
+};
 
 struct _Implements {
   Connection connection;
@@ -80,7 +87,12 @@ static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
 static GtkWidget *implements_get_properties(Implements *implements);
-static void implements_apply_properties(Implements *implements);
+static ObjectChange *implements_apply_properties(Implements *implements);
+
+static ImplementsState *implements_get_state(Implements *implements);
+static void implements_set_state(Implements *implements,
+				 ImplementsState *state);
+
 static void implements_save(Implements *implements, ObjectNode obj_node,
 			    const char *filename);
 static Object *implements_load(ObjectNode obj_node, int version,
@@ -335,6 +347,39 @@ implements_copy(Implements *implements)
   return (Object *)newimplements;
 }
 
+static void
+implements_state_free(ObjectState *ostate)
+{
+  ImplementsState *state = (ImplementsState *)ostate;
+  int i;
+  g_free(state->text);
+}
+
+static ImplementsState *
+implements_get_state(Implements *implements)
+{
+  int i;
+  ImplementsState *state = g_new(ImplementsState, 1);
+
+  state->obj_state.free = implements_state_free;
+
+  state->text = g_strdup(implements->text);
+
+  return state;
+}
+
+static void
+implements_set_state(Implements *implements, ImplementsState *state)
+{
+  int i;
+  
+  g_free(implements->text);
+  implements->text = state->text;
+  
+  g_free(state);
+  
+  implements_update_data(implements);
+}
 
 static void
 implements_update_data(Implements *implements)
@@ -471,13 +516,16 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 implements_apply_properties(Implements *implements)
 {
   ImplementsDialog *prop_dialog;
+  ObjectState *old_state;
 
   prop_dialog = implements->properties_dialog;
 
+  old_state = (ObjectState *)implements_get_state(implements);
+  
   /* Read from dialog and put in object: */
   g_free(implements->text);
   implements->text = strdup(gtk_entry_get_text(prop_dialog->text));
@@ -487,6 +535,10 @@ implements_apply_properties(Implements *implements)
 			IMPLEMENTS_FONTHEIGHT);
   
   implements_update_data(implements);
+
+  return new_object_state_change((Object *)implements, old_state, 
+				 (GetStateFunc)implements_get_state,
+				 (SetStateFunc)implements_set_state);
 }
 
 static void
