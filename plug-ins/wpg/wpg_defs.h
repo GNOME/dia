@@ -9,6 +9,19 @@
 
 typedef struct
 {
+  guchar  fid[4];
+  guint32 DataOffset;
+  guint8  ProductType;
+  guint8  FileType;
+  guint8  MajorVersion;
+  guint8  MinorVersion;
+  guint16 EncryptionKey;
+  guint16 Reserved;
+}
+WPGFileHead;
+
+typedef struct
+{
   guint8  Type;
   guint8  Color;
   guint16  Width;
@@ -114,6 +127,14 @@ typedef struct
 }
 WPGPoint;
 
+typedef struct
+{
+  guint8 r;
+  guint8 g;
+  guint8 b;
+}
+WPGColorRGB;
+
 typedef enum 
 {
   WPG_FILLATTR = 1,
@@ -136,8 +157,12 @@ typedef enum
   WPG_POLYCURVE = 19,
   WPG_BITMAP2 = 20,
   WPG_STARTFIGURE = 21,
-  WPG_STARTCHART = 22
-  /* ... */
+  WPG_STARTCHART = 22,
+  WPG_PLANPERFECT = 23,
+  WPG_GRAPHICSTEXT2 = 24,
+  WPG_STARTWPG2 = 25,
+  WPG_GRAPHICSTEXT3 = 26,
+  WPG_POSTSCRIPT2 = 27
 } WPG_Type;
 
 typedef enum

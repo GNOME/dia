@@ -26,6 +26,11 @@
  *   their clipping produces unpredictable results 
  * - the font setting needs improvement (maybe on Dia's side)
  * - bezier curves are not correctly converted to WPG's poly curve
+ *   (two point beziers are)
+ *
+ * MayBe:
+ * - full featured import (IMO Dia's import support should be improved
+ *   before / on the way ...)
  */
 
 #include <stdio.h>
@@ -43,6 +48,14 @@
 
 /* format specific */
 #include "wpg_defs.h"
+
+/* Import is not yet finished but only implemented to check the
+ * export capabilities and to investigate other programs WPG
+ * formats. 
+ * The following is not the reason for <en/dis>abling import, 
+ * but it should do it for now ...
+ */
+#define WPG_WITH_IMPORT defined (_MSC_VER)
 
 /*
  * helper macros
@@ -66,12 +79,14 @@ struct _MyRenderer {
   WPGFillAttr  FillAttr;
   WPGLineAttr  LineAttr;
   WPGTextStyle TextStyle;
+
+  WPGColorRGB* pPal;
 };
 
 /* include function declares and render object "vtable" */
 #include "../renderer.inc"
 
-#define DIAG_NOTE /* my_log */
+#define DIAG_NOTE my_log /* */
 void
 my_log(MyRenderer* renderer, char* format, ...)
 {
@@ -88,6 +103,46 @@ my_log(MyRenderer* renderer, char* format, ...)
 
     g_free(string);
 }
+
+#if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
+/* shortcut if testing of indirection isn't needed anymore */
+#pragma message("LITTLE_ENDIAN: disabling fwrite_le")
+#define fwrite_le(a,b,c,d) fwrite(a,b,c,d)
+#else
+static size_t
+fwrite_le(void* buf, size_t size, size_t count, FILE* f)
+{
+  size_t n = 0;
+  guint i;
+
+  g_assert((1 == size) || (2 == size) || (4 == size));
+
+  if (4 == size)
+  {
+    gint32 i32;
+
+    for (i = 0; i < count; i++)
+    {
+      i32 = GINT32_TO_LE(((gint32*)buf)[i]);
+      n += fwrite(&i32, sizeof(gint32), 1, f);
+    }
+  }
+  else if (2 == size)
+  {
+    gint16 i16;
+
+    for (i = 0; i < count; i++)
+    {
+      i16 = GINT16_TO_LE(((gint16*)buf)[i]);
+      n += fwrite(&i16, sizeof(gint16), 1, f);
+    }
+  }
+  else
+    n = fwrite(buf, size, count, f);
+
+  return n;
+}
+#endif
 
 /* 
  * color cube len, WPG is limited to 256 colors. To get simple
@@ -132,7 +187,7 @@ WriteRecHead(MyRenderer *renderer, WPG_Type Type, guint32 Size)
     WPGHead8 rh;
     rh.Type = (guint8)Type;
     rh.Size = (guint8)Size;
-    fwrite(&rh, sizeof(rh), 1, renderer->file);
+    fwrite(&rh, sizeof(guint8), 2, renderer->file);
   }
   else if (Size < 32768)
   {
@@ -140,7 +195,8 @@ WriteRecHead(MyRenderer *renderer, WPG_Type Type, guint32 Size)
     rh.Type  = (guint8)Type;
     rh.Dummy = 0xFF;
     rh.Size  = (guint16)Size;
-    fwrite(&rh, sizeof(rh), 1, renderer->file);
+    fwrite(&rh, sizeof(guint8), 2, renderer->file);
+    fwrite_le(&(rh.Size), sizeof(guint16), 1, renderer->file);
   }
   else
   {
@@ -148,21 +204,31 @@ WriteRecHead(MyRenderer *renderer, WPG_Type Type, guint32 Size)
     rh.Type  = (guint8)Type;
     rh.Dummy = 0xFF;
     rh.Size  = Size;
-    fwrite(&rh, sizeof(rh), 1, renderer->file);
+
+    /* To avoid problems with stucture packing this struct
+     * is written in parts ...
+     */
+    fwrite(&rh, sizeof(guint8), 2, renderer->file);
+    fwrite_le(&rh.Size, sizeof(guint32), 1, renderer->file);
   }
 }
 
 void
 WriteLineAttr(MyRenderer *renderer, Color* colour)
 {
+  g_assert(4 == sizeof(WPGLineAttr));
+
   WriteRecHead(renderer, WPG_LINEATTR, sizeof(WPGLineAttr));
   renderer->LineAttr.Color = LookupColor(renderer, colour);
-  fwrite(&renderer->LineAttr, sizeof(WPGLineAttr), 1, renderer->file);
+  fwrite(&renderer->LineAttr, sizeof(guint8), 2, renderer->file);
+  fwrite_le(&renderer->LineAttr.Width, sizeof(guint16), 1, renderer->file);
 }
 
 void
 WriteFillAttr(MyRenderer *renderer, Color* colour, gboolean bFill)
 {
+  g_assert(2 == sizeof(WPGFillAttr));
+
   WriteRecHead(renderer, WPG_FILLATTR, sizeof(WPGFillAttr));
   if (bFill)
   {
@@ -184,20 +250,34 @@ WriteFillAttr(MyRenderer *renderer, Color* colour, gboolean bFill)
 static void
 begin_render(MyRenderer *renderer, DiagramData *data)
 {
-  const char WPGHead[16] = {255, 'W', 'P', 'C', 16, 0, 0, 0, 
-                              1, 22, 1, 0, 0, 0, 0, 0};
+#if 0
+  const WPGFileHead wpgFileHead = { "\377WPC", 16, 
+                                   1, 22,
+                                   1, 0, /* Version */ 
+                                   0, 0};
+#else
+  /* static conversion to little endian */
+  const char wpgFileHead[16] = {255, 'W', 'P', 'C', 16, 0, 0, 0, 
+                                1, 22, 1, 0, 0, 0, 0, 0};
+#endif
+
   gint16 i;
   guint8* pPal;
   Color color = {1, 1, 1};
 
   DIAG_NOTE(renderer, "begin_render\n");
 
-  fwrite(WPGHead, 1, sizeof(WPGHead), renderer->file);
+  fwrite(&wpgFileHead, 1, 16, renderer->file);
 
   /* bounding box */
   WriteRecHead(renderer, WPG_START, sizeof(WPGStartData));
+#if 0
   fwrite(&renderer->Box, sizeof(WPGStartData), 1, renderer->file);
-
+#else
+  g_assert(6 == sizeof(WPGStartData));
+  fwrite(&renderer->Box, sizeof(guint8), 2, renderer->file);
+  fwrite_le(&renderer->Box.Width, sizeof(guint16), 2, renderer->file);
+#endif
   /* initialize a well known colormap, see LookupColor */
   pPal = g_new(gint8, CC_LEN*CC_LEN*CC_LEN*3);
   for (i = 0; i < CC_LEN * CC_LEN * CC_LEN; i++)
@@ -210,11 +290,11 @@ begin_render(MyRenderer *renderer, DiagramData *data)
      */
   } 
 
-  WriteRecHead(renderer, WPG_COLORMAP, CC_LEN*CC_LEN*CC_LEN*3+1*sizeof(guint16));
+  WriteRecHead(renderer, WPG_COLORMAP, CC_LEN*CC_LEN*CC_LEN*3 + 2*sizeof(guint16));
   i = WPG_NUM_DEF_COLORS; /* start color */
-  fwrite(&i, sizeof(gint16), 1, renderer->file);
+  fwrite_le(&i, sizeof(gint16), 1, renderer->file);
   i = CC_LEN*CC_LEN*CC_LEN;
-  fwrite(&i, sizeof(gint16), 1, renderer->file);
+  fwrite_le(&i, sizeof(gint16), 1, renderer->file);
   fwrite(pPal, 1, CC_LEN*CC_LEN*CC_LEN*3, renderer->file);
 
   /* FIXME: following 3 lines needed to make filling work !? */
@@ -368,7 +448,7 @@ draw_line(MyRenderer *renderer,
   pData[2] = SC(end->x);
   pData[3] = SC(-end->y);
 
-  fwrite(pData, sizeof(gint16), 4, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 4, renderer->file);
 }
 
 static void
@@ -391,7 +471,7 @@ draw_polyline(MyRenderer *renderer,
 
   /* number of points */
   pData[0] = num_points;
-  fwrite(pData, sizeof(gint16), 1, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 1, renderer->file);
 
   /* point data */
   for (i = 0; i < num_points; i++)
@@ -400,7 +480,7 @@ draw_polyline(MyRenderer *renderer,
     pData[2*i+1] = SC(-points[i].y);
   }
 
-  fwrite(pData, sizeof(gint16), num_points*2, renderer->file);
+  fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
 
   g_free(pData);
 }
@@ -423,7 +503,7 @@ draw_polygon(MyRenderer *renderer,
 
   /* number of vertices */
   pData[0] = num_points;
-  fwrite(pData, sizeof(gint16), 1, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 1, renderer->file);
 
   /* point data */
   for (i = 0; i < num_points; i++)
@@ -432,7 +512,7 @@ draw_polygon(MyRenderer *renderer,
     pData[2*i+1] = SC(-points[i].y);
   }
 
-  fwrite(pData, sizeof(gint16), num_points*2, renderer->file);
+  fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
 
   g_free(pData);
 }
@@ -468,7 +548,7 @@ draw_rect(MyRenderer *renderer,
   pData[2] = SC(lr_corner->x - ul_corner->x); /* width */
   pData[3] = SC(lr_corner->y - ul_corner->y); /* height */
 
-  fwrite(pData, sizeof(gint16), 4, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 4, renderer->file);
 
   g_free(pData);
 }
@@ -510,7 +590,9 @@ draw_arc(MyRenderer *renderer,
 
   WriteLineAttr(renderer, colour);
   WriteRecHead(renderer, WPG_ELLIPSE, sizeof(WPGEllipse));
-  fwrite(&ell, sizeof(WPGEllipse), 1, renderer->file);
+
+  g_assert(16 == sizeof(WPGEllipse));
+  fwrite_le(&ell, sizeof(guint16), sizeof(WPGEllipse) / sizeof(guint16), renderer->file);
 }
 
 static void
@@ -538,7 +620,9 @@ fill_arc(MyRenderer *renderer,
   WriteLineAttr(renderer, colour);
   WriteFillAttr(renderer, colour, TRUE);
   WriteRecHead(renderer, WPG_ELLIPSE, sizeof(WPGEllipse));
-  fwrite(&ell, sizeof(WPGEllipse), 1, renderer->file);
+
+  g_assert(16 == sizeof(WPGEllipse));
+  fwrite_le(&ell, sizeof(guint16), sizeof(WPGEllipse) / sizeof(guint16), renderer->file);
   WriteFillAttr(renderer, colour, FALSE);
 }
 
@@ -565,7 +649,9 @@ draw_ellipse(MyRenderer *renderer,
 
   WriteLineAttr(renderer, colour);
   WriteRecHead(renderer, WPG_ELLIPSE, sizeof(WPGEllipse));
-  fwrite(&ell, sizeof(WPGEllipse), 1, renderer->file);
+
+  g_assert(16 == sizeof(WPGEllipse));
+  fwrite_le(&ell, sizeof(guint16), sizeof(WPGEllipse) / sizeof(guint16), renderer->file);
 }
 
 static void
@@ -607,10 +693,10 @@ draw_bezier(MyRenderer *renderer,
   pData[0] = SC(points[0].p1.x);
   pData[1] = SC(-points[0].p1.y);
 #endif
-  fwrite(pData, sizeof(gint16), 2, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 2, renderer->file);
 
   pData[0] = numpoints * 2;
-  fwrite(pData, sizeof(gint16), 1, renderer->file);
+  fwrite_le(pData, sizeof(gint16), 1, renderer->file);
 
   /* WPG's Poly Curve is not quite the same as DIA's Bezier.
    * There is only one Control Point per Point and I can't 
@@ -622,27 +708,44 @@ draw_bezier(MyRenderer *renderer,
     {
     case BEZ_MOVE_TO:
     case BEZ_LINE_TO:
-      pData[4*i  ] =
-      pData[4*i+2] = SC(points[i].p1.x);
+      /* real point */
+      pData[4*i  ] = SC( points[i].p1.x);
+      pData[4*i+1] = SC(-points[i].p1.y);
 
-      pData[4*i+1] =
-      pData[4*i+3] = SC(-points[i].p1.y);
+      /* control point (1st from next point) */
+      if (i+1 < numpoints) {
+        pData[4*i+2] = SC( points[i+1].p1.x);
+        pData[4*i+3] = SC(-points[i+1].p1.y);
+      }
+      else {
+        pData[4*i+2] = SC( points[i].p1.x);
+        pData[4*i+3] = SC(-points[i].p1.y);
+      }
       break;
     case BEZ_CURVE_TO:
-      /* real point */
-      pData[4*i  ] = SC( points[i].p3.x);
-      pData[4*i+1] = SC(-points[i].p3.y);
-      /* first control point ? */
-      pData[4*i+2] = SC( points[i].p1.x);
-      pData[4*i+3] = SC(-points[i].p1.y);
-      /* second control point ? */
-      pData[4*i+2] = SC( points[i].p2.x);
-      pData[4*i+3] = SC(-points[i].p2.y);
+      if (0 && (i+1 < numpoints)) {
+        /* real point ?? */
+        pData[4*i  ] = SC( points[i].p3.x);
+        pData[4*i+1] = SC(-points[i].p3.y);
+        /* control point (1st from next point) */
+        pData[4*i+2] = SC( points[i+1].p1.x);
+        pData[4*i+3] = SC(-points[i+1].p1.y);
+      }
+      else {
+        /* need to swap these ?? */
+        /* real point ?? */
+        pData[4*i  ] = SC( points[i].p2.x);
+        pData[4*i+1] = SC(-points[i].p2.y);
+
+        /* control point ?? */
+        pData[4*i+2] = SC( points[i].p3.x);
+        pData[4*i+3] = SC(-points[i].p3.y);
+      }
       break;
     }
   }
 
-  fwrite(pData, sizeof(gint16), numpoints*4, renderer->file);
+  fwrite_le(pData, sizeof(gint16), numpoints*4, renderer->file);
   g_free(pData);
 }
 
@@ -693,14 +796,28 @@ draw_string(MyRenderer *renderer,
   renderer->TextStyle.Width = renderer->TextStyle.Height * 0.6; /* ??? */
 
   WriteRecHead(renderer, WPG_TEXTSTYLE, sizeof(WPGTextStyle));
-  fwrite(&renderer->TextStyle, sizeof(WPGTextStyle), 1, renderer->file);
 
+#if 0
+  fwrite(&renderer->TextStyle, sizeof(WPGTextStyle), 1, renderer->file);
+#else
+  g_assert(22 == sizeof(WPGTextStyle));
+  fwrite_le(&renderer->TextStyle.Width, sizeof(guint16), 1, renderer->file);
+  fwrite_le(&renderer->TextStyle.Height, sizeof(guint16), 1, renderer->file);
+  fwrite(&renderer->TextStyle.Reserved, 1, sizeof(renderer->TextStyle.Reserved), renderer->file);
+  fwrite_le(&renderer->TextStyle.Font, sizeof(guint16), 1, renderer->file);
+  fwrite(&renderer->TextStyle.Reserved2, sizeof(guint8), 1, renderer->file);
+  fwrite(&renderer->TextStyle.XAlign, 1, 1, renderer->file);
+  fwrite(&renderer->TextStyle.YAlign, 1, 1, renderer->file);
+  fwrite(&renderer->TextStyle.Color, 1, 1, renderer->file);
+  fwrite_le(&renderer->TextStyle.Angle, sizeof(guint16), 1, renderer->file);
+#endif
   pt.x = SC(pos->x);
   pt.y = SC(-pos->y);
 
   WriteRecHead(renderer, WPG_TEXT, 3*sizeof(gint16) + len);
-  fwrite(&len, sizeof(gint16), 1, renderer->file);
-  fwrite(&pt,  sizeof(WPGPoint), 1, renderer->file);
+  fwrite_le(&len, sizeof(gint16), 1, renderer->file);
+  fwrite_le(&pt.x,  sizeof(guint16), 1, renderer->file);
+  fwrite_le(&pt.y,  sizeof(guint16), 1, renderer->file);
   fwrite(text, 1, len, renderer->file);
 }
 
@@ -711,12 +828,9 @@ draw_image(MyRenderer *renderer,
            DiaImage image)
 {
   WPGBitmap2 bmp;
-  guint8* pOut = NULL, * pIn = NULL, * p = NULL;
+  guint8 * pDiaImg = NULL, * pOut = NULL, * pIn = NULL, * p = NULL;
   guint8 b_1, b, cnt;
   int x, y;
-
-  DIAG_NOTE(renderer, "draw_image %fx%f @%f,%f\n", 
-            width, height, point->x, point->y);
 
   bmp.Angle  = 0;
   bmp.Left   = SC(point->x);
@@ -731,7 +845,10 @@ draw_image(MyRenderer *renderer,
   bmp.Xdpi = 72; /* ??? */
   bmp.Ydpi = 72;
 
-  pIn = dia_image_rgb_data(image);
+  DIAG_NOTE(renderer, "draw_image %fx%f [%d,%d] @%f,%f\n", 
+            width, height, bmp.Width, bmp.Height, point->x, point->y);
+
+  pDiaImg = pIn = dia_image_rgb_data(image);
   pOut = g_new(guint8, bmp.Width * bmp.Height * 2); /* space for worst case RLE */
   p = pOut;
 
@@ -772,11 +889,21 @@ draw_image(MyRenderer *renderer,
     pIn -= (3 * bmp.Width * 2); /* start of previous line */
   }
   DIAG_NOTE(renderer, "Width x Height: %d RLE: %d\n", bmp.Width * bmp.Height, p - pOut);
-  WriteRecHead(renderer, WPG_BITMAP2, sizeof(WPGBitmap2) + (p - pOut));
-  fwrite(&bmp, sizeof(WPGBitmap2), 1, renderer->file);
-  fwrite(pOut, sizeof(guint8), p - pOut, renderer->file);
 
+  if ((p - pOut) > 32767) {
+    g_warning(MY_RENDERER_NAME ": Bitmap size exceeds blocksize. Ignored.");
+  }
+  else {
+    WriteRecHead(renderer, WPG_BITMAP2, sizeof(WPGBitmap2) + (p - pOut));
 #if 0
+    fwrite(&bmp, sizeof(WPGBitmap2), 1, renderer->file);
+#else
+    g_assert(20 == sizeof(WPGBitmap2));
+    fwrite(&bmp, sizeof(guint16), sizeof(WPGBitmap2) / sizeof(guint16), renderer->file);
+#endif
+    fwrite(pOut, sizeof(guint8), p - pOut, renderer->file);
+  }
+#if 1
   /* RLE diagnose */
   {
     FILE* f;
@@ -791,6 +918,7 @@ draw_image(MyRenderer *renderer,
     fclose(f);
   }
 #endif
+  g_free(pDiaImg);
   g_free(pOut);
 }
 
@@ -841,6 +969,203 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
   g_free(renderer);
 }
 
+#if WPG_WITH_IMPORT
+/*
+ * Import (under construction)
+ */
+static void
+import_object(MyRenderer* renderer, DiagramData *dia,
+              WPG_Type type, int iSize, guchar* pData)
+{
+  WPGPoint* pts = NULL;
+  gint16* pInt16 = NULL;
+  int    iNum = 0;
+  gint32 iPre51 = 0;
+
+  switch (type) {
+  case WPG_LINE:
+    iNum = 2;
+    pts = (WPGPoint*)pData;
+    break;
+  case WPG_POLYLINE:
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[0];
+    pts = (WPGPoint*)(pData + sizeof(gint16));
+    break;
+  case WPG_RECTANGLE:
+    iNum = 2;
+    pts = (WPGPoint*)pData;
+    break;
+  case WPG_POLYGON:
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[0];
+    pts = (WPGPoint*)(pData + sizeof(gint16));
+    break;
+  case WPG_ELLIPSE:
+    {
+      WPGEllipse* pEll;
+      pEll = (WPGEllipse*)pData;
+    }
+    break;
+  case WPG_POLYCURVE:
+    iPre51 = *((gint32*)pData);
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[2];
+    pts = (WPGPoint*)(pData + 3*sizeof(gint16));
+    DIAG_NOTE(renderer, "POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51);
+    break;
+  } /* switch */
+  DIAG_NOTE(renderer, "Type %d Num pts %d Size %d\n", type, iNum, iSize);
+} 
+
+static gboolean
+import_data (const gchar *filename, DiagramData *dia)
+{
+  FILE* f;
+  gboolean bRet;
+  WPGHead8 rh;
+
+  f = fopen(filename, "rb");
+
+  if (NULL == f) {
+    message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+    bRet = FALSE;
+  }
+  
+  /* check header */
+  if (bRet) {
+    WPGFileHead fhead;
+    bRet = ( (1 == fread(&fhead, sizeof(WPGFileHead), 1, f))
+            && fhead.fid[0] == 255 && fhead.fid[1] == 'W'
+            && fhead.fid[2] == 'P' && fhead.fid[3] == 'C'
+            && (1 == fhead.MajorVersion) && (0 == fhead.MinorVersion));
+    if (!bRet)
+      message_error(_("File: %s type/version unsupported.\n"), filename);
+  }
+
+  if (bRet) {
+    int iSize;
+    gint16 i16, iNum16;
+    guint8 i8;
+    MyRenderer ren;
+
+    ren.pPal = g_new0(WPGColorRGB, 256);
+
+    DIAG_NOTE(&ren, "Parsing: %s \n", filename);
+
+    do {
+      if (1 == fread(&rh, sizeof(WPGHead8), 1, f)) {
+        if (rh.Size < 0xFF)
+          iSize = rh.Size;
+        else {
+          bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
+          if (0x8000 & i16) {
+            DIAG_NOTE(&ren, "Large Object: hi:lo %04X", (int)i16);
+            iSize = i16 << 16;
+            /* Reading large objects involves major uglyness. Instead of getting 
+             * one size, as implied by "Encyclopedia of Graphics File Formats",
+             * it would require putting together small chunks of data to one large 
+             * object. The criteria when to stop isn't absolutely clear.
+             */
+            iSize = 0;
+            bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
+            DIAG_NOTE(&ren, "Large Object: %d\n", (int)i16);
+            iSize += i16;
+#if 1
+            /* Ignore this large objec part */
+            fseek(f, iSize, SEEK_CUR);
+            continue;
+#endif
+          }
+          else
+            iSize = i16; 
+        }
+      } else
+        iSize = 0;
+
+      //DIAG_NOTE(&ren, "Type %d Size %d\n", rh.Type, iSize);
+      if (iSize > 0) {
+        switch (rh.Type) {
+        case WPG_FILLATTR:
+          bRet = (1 == fread(&ren.FillAttr, sizeof(WPGFillAttr), 1, f));
+          break;
+        case WPG_LINEATTR:
+          bRet = (1 == fread(&ren.LineAttr, sizeof(WPGLineAttr), 1, f));
+          break;
+        case WPG_START:
+          bRet = (1 == fread(&ren.Box, sizeof(WPGStartData), 1, f));
+          break;
+        case WPG_STARTWPG2:
+          /* not sure if this is the right thing to do */
+          bRet &= (1 == fread(&i8, sizeof(gint8), 1, f));
+          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
+          DIAG_NOTE(&ren, "Ignoring tag WPG_STARTWPG2, Size %d\n Type? %d Size? %d\n", 
+                    iSize, (int)i8, i16);
+          fseek(f, iSize - 3, SEEK_CUR);
+          break;
+        case WPG_LINE:
+        case WPG_POLYLINE:
+        case WPG_RECTANGLE:
+        case WPG_POLYGON:
+        case WPG_POLYCURVE:
+        case WPG_ELLIPSE:
+          {
+            guchar* pData;
+
+            pData = g_new(guchar, iSize);
+            bRet = (iSize == (int)fread(pData, 1, iSize, f));
+            import_object(&ren, dia, rh.Type, iSize, pData);
+            g_free(pData);
+          }
+          break;
+        case WPG_COLORMAP:
+          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
+          bRet &= (1 == fread(&iNum16, sizeof(gint16), 1, f));
+          if (iNum16 != (gint16)((iSize - 2) / sizeof(WPGColorRGB)))
+            g_warning(MY_RENDERER_NAME ": colormap size/header mismatch.");
+          if (i16 >= 0 && i16 <= iSize) {
+            bRet &= (iNum16 == (int)fread(&ren.pPal[i16], sizeof(WPGColorRGB), iNum16, f));
+          }
+          else {
+            g_warning(MY_RENDERER_NAME ": start color map index out of range.");
+            bRet &= (iNum16 == (int)fread(ren.pPal, sizeof(WPGColorRGB), iNum16, f));
+          }
+          break;
+        case WPG_BITMAP2:
+          {
+            WPGBitmap2 bmp;
+
+            fread(&bmp, sizeof(WPGBitmap2), 1, f);
+            DIAG_NOTE(&ren, "Bitmap %dx%d %d bits @%d,%d %d,%d.\n", 
+                      bmp.Width, bmp.Height, bmp.Depth, 
+                      bmp.Left, bmp.Top, bmp.Right, bmp.Bottom);
+            fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
+          }
+          break;
+        default:
+          fseek(f, iSize, SEEK_CUR);
+          g_warning ("Unknown Type %d Size %d.", (int)rh.Type, iSize);
+        } /* switch */
+      } /* if iSize */
+      else {
+        if (WPG_END != rh.Type)
+          g_warning("Size 0 on Type %d, expecting WPG_END\n", (int)rh.Type);
+      }
+    }
+    while ((iSize > 0) && (bRet));
+
+    if (!bRet)
+      g_warning(MY_RENDERER_NAME ": unexpected eof. Type %d, Size %d.\n",
+                rh.Type, iSize);
+    if (ren.pPal) g_free(ren.pPal);
+  } /* bRet */
+
+  if (f) fclose(f);
+  return bRet;
+}
+
+#endif /* WPG_WITH_IMPORT */
+
 static const gchar *extensions[] = { "wpg", NULL };
 static DiaExportFilter my_export_filter = {
     N_(MY_RENDERER_NAME),
@@ -848,6 +1173,13 @@ static DiaExportFilter my_export_filter = {
     export_data
 };
 
+#if WPG_WITH_IMPORT
+DiaImportFilter my_import_filter = {
+    N_(MY_RENDERER_NAME),
+    extensions,
+    import_data
+};
+#endif /* WPG_WITH_IMPORT */
 
 /* --- dia plug-in interface --- */
 
@@ -856,12 +1188,15 @@ DIA_PLUGIN_CHECK_INIT
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
-    if (!dia_plugin_info_init(info, "WPG",
-			      _("WordPerfect Graphics export filter"),
-			      NULL, NULL))
-	return DIA_PLUGIN_INIT_ERROR;
+  if (!dia_plugin_info_init(info, "WPG",
+			          _("WordPerfect Graphics export filter"),
+			          NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
 
-    filter_register_export(&my_export_filter);
+  filter_register_export(&my_export_filter);
+#if WPG_WITH_IMPORT
+  filter_register_import(&my_import_filter);
+#endif
 
-    return DIA_PLUGIN_INIT_OK;
+  return DIA_PLUGIN_INIT_OK;
 }
