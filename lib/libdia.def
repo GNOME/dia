@@ -414,8 +414,10 @@ EXPORTS
  orthconn_move
  orthconn_move_handle
  orthconn_save
+ orthconn_toggle_autorouting_callback
  orthconn_update_boundingbox
  orthconn_update_data
+ orthconn_update_object_menu
 
  pdtpp_true
 

@@ -433,7 +433,6 @@ app_init (int argc, char **argv)
 
   persistence_register_window_create("layer_window",
 				     (NullaryFunc*)&create_layer_dialog);
-  /*  create_layer_dialog();*/
 
   /*fill recent file menu */
   recent_file_history_init();

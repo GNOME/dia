@@ -484,7 +484,10 @@ layer_dialog_update_diagram_list(void)
   char *filename;
   int i;
   int current_nr;
-    
+
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
+    create_layer_dialog();
+        
   new_menu = gtk_menu_new();
 
   current_nr = -1;
@@ -548,7 +551,7 @@ layer_dialog_update_diagram_list(void)
 void
 layer_dialog_show()
 {
-  if (layer_dialog->dialog == NULL)
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
     create_layer_dialog();
   gtk_widget_show(layer_dialog->dialog);
 }
@@ -566,11 +569,9 @@ layer_dialog_set_diagram(Diagram *dia)
   if (dia!=NULL)
     active_layer = dia->data->active_layer;
 
-  if (layer_dialog == NULL) 
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
     create_layer_dialog(); /* May have been destroyed */
-  
-  if (layer_dialog->dialog == NULL)
-    create_layer_dialog();
+
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
   if (dia != NULL) {

@@ -501,9 +501,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
   ShellExecuteA (0, NULL, helpindex, NULL, helpdir, 0); 
 #else
   command = getenv("BROWSER");
-  if (command == NULL)
-    command = g_strdup_printf("netscape");
-  command = g_strdup_printf("%s 'file://%s' &", command, helpindex);
+  command = g_strdup_printf("%s 'file://%s' &", command ? command : "netscape", helpindex);
   system(command);
   g_free(command);
 #endif

@@ -20,6 +20,7 @@ PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 	$(INTL_LIBS)
 
 OBJECTS = \
+	autoroute.obj \
 	arrows.obj \
 	attributes.obj \
 	bezier_conn.obj \

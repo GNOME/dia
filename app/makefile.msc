@@ -63,6 +63,7 @@ OBJECTS = \
 	pagesetup.obj \
 	paginate_gdiprint.obj \
 	paginate_psprint.obj \
+	persistence.obj \
 	plugin-manager.obj \
 	preferences.obj \
 	properties.obj \

@@ -27,7 +27,8 @@
 
 #include "persistence.h"
 #include "dia_dirs.h"
-#include <dia_xml.h>
+#include "dia_xml_libxml.h"
+#include "dia_xml.h"
 
 #include <gtk/gtk.h>
 #include <libxml/tree.h>

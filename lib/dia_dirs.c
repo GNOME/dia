@@ -23,6 +23,8 @@
 #include "dia_dirs.h"
 #ifdef G_OS_WIN32
 #include <windows.h>
+#include <direct.h>
+#define mkdir(s,a) _mkdir(s)
 #endif
 
 gchar*
@@ -109,7 +111,7 @@ dia_config_ensure_dir(const gchar *filename)
       exists = TRUE;
     } else {
       if (dia_config_ensure_dir(dir)) {
-	exists = (mkdir(dir) == 0);
+	exists = (mkdir(dir, 0755) == 0);
       } else {
 	exists = FALSE;
       }

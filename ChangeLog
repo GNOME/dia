@@ -1,3 +1,28 @@
+2003-04-25  Hans Breuer  <hans@breuer.org>
+
+	* app/config.h.win32 : bump version to 0.91+cvs
+
+	* app/makefile.msc lib/makefile.msc lib/libdia.def : updated
+
+	* lib/dia_dirs.c : G_OS_WIN32: #define mkdir(s,a) _mkdir(s)
+
+	* app/commands.c : don't leak "netscape" if getenv("BROWSER")
+	returns NULL
+
+	* app/presistence.c : need to #include "dia_xml_libxml.h"
+	for xmlDiaParseFile
+
+	* app/layer_dialog.c : make delayed creation work by protecting
+	all non static layer_dialog_*() with :
+	   if (layer_dialog == NULL || layer_dialog->dialog == NULL)
+	     create_layer_dialog();
+	* app/app_procs.c : removed /* create_layer_dialog(); */
+
+	* objects/uml/association.c : give it a minimal StdProp
+	implementation to fix bug #108896
+	* lib/object_defaults.c : don't try to copy props if there
+	is no obj->ops->describe_props
+
 2003-04-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/image.c (image_create): 

@@ -271,7 +271,7 @@ dia_object_default_create (const ObjectType *type,
   g_return_val_if_fail (type != NULL, NULL);
 
   def_obj = dia_object_default_get (type);
-  if (def_obj)
+  if (def_obj && def_obj->ops->describe_props)
     {
       /* copy properties to new object, but keep position */
       obj = type->ops->create (startpoint, user_data, handle1, handle2);

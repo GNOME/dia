@@ -35,6 +35,8 @@
 #include "arrows.h"
 #include "uml.h"
 
+#include "properties.h"
+
 #include "pixmaps/association.xpm"
 
 typedef struct _Association Association;
@@ -140,6 +142,9 @@ static GtkWidget *association_get_properties(Association *assoc, gboolean is_def
 static ObjectChange *association_apply_properties(Association *assoc);
 static DiaMenu *association_get_object_menu(Association *assoc,
 					    Point *clickedpoint);
+static PropDescription *association_describe_props(Association *assoc);
+static void association_get_props(Association *assoc, GPtrArray *props);
+static void association_set_props(Association *assoc, GPtrArray *props);
 
 static AssociationState *association_get_state(Association *assoc);
 static void association_set_state(Association *assoc,
@@ -179,8 +184,45 @@ static ObjectOps association_ops = {
   (MoveHandleFunc)      association_move_handle,
   (GetPropertiesFunc)   association_get_properties,
   (ApplyPropertiesFunc) association_apply_properties,
-  (ObjectMenuFunc)      association_get_object_menu
+  (ObjectMenuFunc)      association_get_object_menu,
+  (DescribePropsFunc)   association_describe_props,
+  (GetPropsFunc)        association_get_props,
+  (SetPropsFunc)        association_set_props
 };
+
+static PropDescription association_props[] = {
+  ORTHCONN_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+association_describe_props(Association *assoc)
+{
+  return association_props;
+}
+
+static PropOffset association_offsets[] = {
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Association, name) },
+  { NULL, 0, 0 }
+};
+
+static void
+association_get_props(Association *assoc, GPtrArray *props)
+{
+  object_get_props_from_offsets(&assoc->orth.object,
+                                association_offsets,props);
+}
+
+static void
+association_set_props(Association *assoc, GPtrArray *props)
+{
+  object_set_props_from_offsets(&assoc->orth.object, 
+                                association_offsets, props);
+  association_update_data(assoc);
+}
 
 static real
 association_distance_from(Association *assoc, Point *point)
