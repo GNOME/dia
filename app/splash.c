@@ -51,7 +51,7 @@ app_splash_init (const gchar* fname)
   GtkWidget *label;
   GtkWidget *frame;
   gchar str[256];
-  guint signal_id;
+  gulong signal_id;
 
   splash = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_role (GTK_WINDOW (splash), "start_dialog");
@@ -79,12 +79,12 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
-  signal_id = gtk_signal_connect_after(GTK_OBJECT(splash), "expose_event",
+  signal_id = g_signal_connect_after(GTK_OBJECT(splash), "expose_event",
 				       GTK_SIGNAL_FUNC(splash_expose), NULL);
 
   /* splash_expose gets us out of this */
   gtk_main();
-  gtk_signal_disconnect(GTK_OBJECT(splash), signal_id);
+  g_signal_handler_disconnect(GTK_OBJECT(splash), signal_id);
 }
 
 void
