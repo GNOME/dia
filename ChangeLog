@@ -1,3 +1,10 @@
+2002-01-04  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Patch from Martin Cracauer <cracauer@cons.org>:
+	
+	* app/menus.c: add missing #include <gdk/gdkkeysyms.h> (useful in the
+	non-GNOME case ?)
+
 2002-01-01  Hans Breuer  <hans@breuer.org>
 
 	* app/command.c : optional use GDI printing on windoze
