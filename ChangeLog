@@ -2,6 +2,9 @@
 
 	* objects/FS/*.c:
 	* objects/GRAFCET/*.c:
+	* objects/SADT/*.c:
+	* objects/UML/association.c: (one instance forgotten)
+	* objects/UML/large_package.c: 
 	using dia_font_new_from_style()
 
 2002-06-23  Hans Breuer  <hans@breuer.org>

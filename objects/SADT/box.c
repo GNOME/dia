@@ -491,7 +491,7 @@ sadtbox_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
 
-  font = dia_font_new(BASIC_SANS_FONT,STYLE_BOLD,0.8);
+  font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD ,0.8);
   
   box->text = new_text("", font,
                        0.8, &p, 

@@ -798,8 +798,8 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   
   if (assoc_font == NULL) {
-	  assoc_font = dia_font_new("Monospace",STYLE_NORMAL,
-                              ASSOCIATION_FONTHEIGHT);
+	  assoc_font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
+                                         ASSOCIATION_FONTHEIGHT);
   }
 
   assoc = g_new0(Association, 1);
