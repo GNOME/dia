@@ -458,7 +458,6 @@ classicon_copy(Classicon *cicon)
 static ClassiconState *
 classicon_get_state(Classicon *cicon)
 {
-  int i;
   ClassiconState *state = g_new(ClassiconState, 1);
 
   state->obj_state.free = NULL;
@@ -472,8 +471,6 @@ classicon_get_state(Classicon *cicon)
 static void
 classicon_set_state(Classicon *cicon, ClassiconState *state)
 {
-  int i;
-  
   cicon->stereotype = state->stereotype;
   cicon->is_object = state->is_object;
   

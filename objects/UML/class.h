@@ -92,6 +92,8 @@ struct _UMLClassDialog {
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
 
+  GList *disconnected_connections;
+  GList *added_connections; 
   GList *deleted_connections; 
 
   GtkList *attributes_list;

@@ -32,7 +32,7 @@ struct _ConnectionPoint {
   Point pos;         /* position of this connection point */
   Point last_pos;    /* Used by update_connections_xxx only. */
   Object *object;    /* pointer to the object having this point */
-  GList *connected;  /* list of 'Object *' conencted to this point*/
+  GList *connected;  /* list of 'Object *' connected to this point*/
 };
 
 #endif /* CONNECTIONPOINT_H */

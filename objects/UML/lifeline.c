@@ -395,7 +395,6 @@ lifeline_copy(Lifeline *lifeline)
 static LifelineState *
 lifeline_get_state(Lifeline *lif)
 {
-  int i;
   LifelineState *state = g_new(LifelineState, 1);
 
   state->obj_state.free = NULL;
@@ -409,8 +408,6 @@ lifeline_get_state(Lifeline *lif)
 static void
 lifeline_set_state(Lifeline *lif, LifelineState *state)
 {
-  int i;
-  
   lif->draw_focuscontrol = state->draw_focuscontrol;
   lif->draw_cross = state->draw_cross;
   

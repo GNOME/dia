@@ -389,14 +389,12 @@ static void
 message_state_free(ObjectState *ostate)
 {
   MessageState *state = (MessageState *)ostate;
-  int i;
   g_free(state->text);
 }
 
 static MessageState *
 message_get_state(Message *message)
 {
-  int i;
   MessageState *state = g_new(MessageState, 1);
 
   state->obj_state.free = message_state_free;
@@ -410,8 +408,6 @@ message_get_state(Message *message)
 static void
 message_set_state(Message *message, MessageState *state)
 {
-  int i;
-  
   g_free(message->text);
   message->text = state->text;
   message->type = state->type;

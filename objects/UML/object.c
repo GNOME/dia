@@ -503,7 +503,6 @@ static void
 objet_state_free(ObjectState *ostate)
 {
   ObjetState *state = (ObjetState *)ostate;
-  int i;
   g_free(state->stereotype);
   g_free(state->exstate);
   g_free(state->attributes);
@@ -512,7 +511,6 @@ objet_state_free(ObjectState *ostate)
 static ObjetState *
 objet_get_state(Objet *ob)
 {
-  int i;
   ObjetState *state = g_new(ObjetState, 1);
 
   state->obj_state.free = objet_state_free;
@@ -531,8 +529,6 @@ objet_get_state(Objet *ob)
 static void
 objet_set_state(Objet *ob, ObjetState *state)
 {
-  int i;
-  
   g_free(ob->stereotype);
   ob->stereotype = state->stereotype;
   g_free(ob->exstate);

@@ -403,7 +403,6 @@ static void
 dependency_state_free(ObjectState *ostate)
 {
   DependencyState *state = (DependencyState *)ostate;
-  int i;
   g_free(state->name);
   g_free(state->stereotype);
 }
@@ -411,8 +410,6 @@ dependency_state_free(ObjectState *ostate)
 static DependencyState *
 dependency_get_state(Dependency *dep)
 {
-  int i;
-
   DependencyState *state = g_new(DependencyState, 1);
 
   state->obj_state.free = dependency_state_free;
@@ -427,8 +424,6 @@ dependency_get_state(Dependency *dep)
 static void
 dependency_set_state(Dependency *dep, DependencyState *state)
 {
-  int i;
-  
   g_free(dep->name);
   g_free(dep->stereotype);
   dep->name = state->name;

@@ -351,14 +351,12 @@ static void
 implements_state_free(ObjectState *ostate)
 {
   ImplementsState *state = (ImplementsState *)ostate;
-  int i;
   g_free(state->text);
 }
 
 static ImplementsState *
 implements_get_state(Implements *implements)
 {
-  int i;
   ImplementsState *state = g_new(ImplementsState, 1);
 
   state->obj_state.free = implements_state_free;
@@ -371,8 +369,6 @@ implements_get_state(Implements *implements)
 static void
 implements_set_state(Implements *implements, ImplementsState *state)
 {
-  int i;
-  
   g_free(implements->text);
   implements->text = state->text;
   

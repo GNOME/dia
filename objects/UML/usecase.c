@@ -407,7 +407,6 @@ usecase_copy(Usecase *usecase)
 static UsecaseState *
 usecase_get_state(Usecase *usecase)
 {
-  int i;
   UsecaseState *state = g_new(UsecaseState, 1);
 
   state->obj_state.free = NULL;
@@ -421,8 +420,6 @@ usecase_get_state(Usecase *usecase)
 static void
 usecase_set_state(Usecase *usecase, UsecaseState *state)
 {
-  int i;
-  
   usecase->text_outside = state->text_outside;
   usecase->collaboration = state->collaboration;
   

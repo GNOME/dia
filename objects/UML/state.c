@@ -174,8 +174,6 @@ state_move_handle(State *state, Handle *handle,
 static void
 state_move(State *state, Point *to)
 {
-  real h;
-  
   state->element.corner = *to;
   state_update_data(state);
 }
@@ -377,7 +375,6 @@ state_copy(State *state)
 static StateState *
 state_get_state(State *state)
 {
-  int i;
   StateState *sstate = g_new(StateState, 1);
 
   sstate->obj_state.free = NULL;
@@ -390,8 +387,6 @@ state_get_state(State *state)
 static void
 state_set_state(State *state, StateState *sstate)
 {
-  int i;
-  
   state->state_type = sstate->state_type;
   
   g_free(sstate);

@@ -1,3 +1,27 @@
+1999-10-09  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/class_dialog.c:
+	* objects/UML/class.h:
+	Implemented undo for "UML - Class" objects.
+	Not 100% tested yet.
+
+	* objects/UML/classicon.c:
+	* objects/UML/constraint.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/object.c:
+	* objects/UML/realizes.c:
+	* objects/UML/state.c:
+	* objects/UML/usecase.c:
+	Removed warnings.
+	
+	* lib/connectionpoint.h:
+	Fixed typo.
+	
 1999-10-09  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/*.[ch]: added copyright notices to custom object

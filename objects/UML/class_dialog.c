@@ -28,6 +28,85 @@
 #include "class.h"
 
 
+typedef struct _Disconnect {
+  ConnectionPoint *cp;
+  Object *other_object;
+  Handle *other_handle;
+} Disconnect;
+
+typedef struct _UMLClassState UMLClassState;
+
+struct _UMLClassState {
+  char *name;
+  char *stereotype;
+  int abstract;
+  int suppress_attributes;
+  int suppress_operations;
+  int visible_attributes;
+  int visible_operations;
+
+  /* Attributes: */
+  GList *attributes;
+
+  /* Operators: */
+  GList *operations;
+
+  /* Template: */
+  int template;
+  GList *formal_params;
+};
+
+
+typedef struct _UMLClassChange UMLClassChange;
+
+struct _UMLClassChange {
+  ObjectChange obj_change;
+  
+  UMLClass *obj;
+
+  GList *added_cp;
+  GList *deleted_cp;
+  GList *disconnected;
+
+  int applied;
+  
+  UMLClassState *saved_state;
+};
+
+static UMLClassState *umlclass_get_state(UMLClass *umlclass);
+static ObjectChange *new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
+					 GList *added, GList *deleted,
+					 GList *disconnected);
+
+/**** Utility functions ******/
+static void
+umlclass_store_disconnects(UMLClassDialog *prop_dialog,
+			   ConnectionPoint *cp)
+{
+  Disconnect *dis;
+  Object *connected_obj;
+  GList *list;
+  int i;
+  
+  list = cp->connected;
+  while (list != NULL) {
+    connected_obj = (Object *)list->data;
+    
+    for (i=0;i<connected_obj->num_handles;i++) {
+      if (connected_obj->handles[i]->connected_to == cp) {
+	dis = g_new(Disconnect, 1);
+	dis->cp = cp;
+	dis->other_object = connected_obj;
+	dis->other_handle = connected_obj->handles[i];
+
+	prop_dialog->disconnected_connections =
+	  g_list_prepend(prop_dialog->disconnected_connections, dis);
+      }
+    }
+    list = g_list_next(list);
+  }
+}
+
 /********************************************************
  ******************** CLASS *****************************
  ********************************************************/
@@ -456,6 +535,13 @@ attributes_read_from_dialog(UMLClass *umlclass,
       attr->right_connection = g_new(ConnectionPoint,1);
       attr->right_connection->object = obj;
       attr->right_connection->connected = NULL;
+
+      prop_dialog->added_connections =
+	g_list_prepend(prop_dialog->added_connections,
+		       attr->left_connection);
+      prop_dialog->added_connections =
+	g_list_prepend(prop_dialog->added_connections,
+		       attr->right_connection);
     } 
 
     if ( (prop_dialog->attr_vis->active) &&
@@ -463,7 +549,9 @@ attributes_read_from_dialog(UMLClass *umlclass,
       obj->connections[connection_index++] = attr->left_connection;
       obj->connections[connection_index++] = attr->right_connection;
     } else {
+      umlclass_store_disconnects(prop_dialog, attr->left_connection);
       object_remove_connections_to(attr->left_connection);
+      umlclass_store_disconnects(prop_dialog, attr->right_connection);
       object_remove_connections_to(attr->right_connection);
     }
 
@@ -1319,6 +1407,13 @@ operations_read_from_dialog(UMLClass *umlclass,
       op->right_connection = g_new(ConnectionPoint,1);
       op->right_connection->object = obj;
       op->right_connection->connected = NULL;
+      
+      prop_dialog->added_connections =
+	g_list_prepend(prop_dialog->added_connections,
+		       op->left_connection);
+      prop_dialog->added_connections =
+	g_list_prepend(prop_dialog->added_connections,
+		       op->right_connection);
     }
     
     if ( (prop_dialog->op_vis->active) &&
@@ -1326,7 +1421,9 @@ operations_read_from_dialog(UMLClass *umlclass,
       obj->connections[connection_index++] = op->left_connection;
       obj->connections[connection_index++] = op->right_connection;
     } else {
+      umlclass_store_disconnects(prop_dialog, op->left_connection);
       object_remove_connections_to(op->left_connection);
+      umlclass_store_disconnects(prop_dialog, op->right_connection);
       object_remove_connections_to(op->right_connection);
     }
     
@@ -2170,11 +2267,15 @@ umlclass_apply_properties(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   Object *obj;
-  int num_attrib, num_ops;
   GList *list;
+  int num_attrib, num_ops;
+  GList *added, *deleted, *disconnected;
+  UMLClassState *old_state = NULL;
   
   prop_dialog = umlclass->properties_dialog;
 
+  old_state = umlclass_get_state(umlclass);
+  
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
   if ( (prop_dialog->attr_vis->active) && (!prop_dialog->attr_supp->active))
@@ -2199,18 +2300,27 @@ umlclass_apply_properties(UMLClass *umlclass)
   operations_read_from_dialog(umlclass, prop_dialog, 8+num_attrib*2);
   templates_read_from_dialog(umlclass, prop_dialog);
 
-  /* Delete and unconnect from all deleted connectionpoints. */
+  /* unconnect from all deleted connectionpoints. */
   list = prop_dialog->deleted_connections;
   while (list != NULL) {
     ConnectionPoint *connection = (ConnectionPoint *) list->data;
 
+    umlclass_store_disconnects(prop_dialog, connection);
     object_remove_connections_to(connection);
-    g_free(connection);
+    printf("removed all connections from connection.\n");
+    g_assert(connection->connected == NULL); /* Paranoid */
     
     list = g_list_next(list);
   }
-  g_list_free(prop_dialog->deleted_connections);
+  
+  deleted = prop_dialog->deleted_connections;
   prop_dialog->deleted_connections = NULL;
+  
+  added = prop_dialog->added_connections;
+  prop_dialog->added_connections = NULL;
+    
+  disconnected = prop_dialog->disconnected_connections;
+  prop_dialog->disconnected_connections = NULL;
     
   /* Update data: */
   umlclass_calculate_data(umlclass);
@@ -2218,7 +2328,7 @@ umlclass_apply_properties(UMLClass *umlclass)
 
   /* Fill in class with the new data: */
   fill_in_dialog(umlclass);
-  return (ObjectChange *)NULL; /* Temporary. */
+  return  new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
 }
 
 static void
@@ -2249,6 +2359,8 @@ umlclass_get_properties(UMLClass *umlclass)
     prop_dialog->current_param = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
+    prop_dialog->added_connections = NULL;
+    prop_dialog->disconnected_connections = NULL;
     
     notebook = gtk_notebook_new ();
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
@@ -2274,3 +2386,282 @@ umlclass_get_properties(UMLClass *umlclass)
 }
 
 
+/****************** UNDO stuff: ******************/
+
+static void
+umlclass_free_state(UMLClassState *state)
+{
+  GList *list;
+
+  g_free(state->name);
+  g_free(state->stereotype);
+
+  list = state->attributes;
+  while (list) {
+    uml_attribute_destroy((UMLAttribute *) list->data);
+    list = g_list_next(list);
+  }
+  g_list_free(state->attributes);
+
+  list = state->operations;
+  while (list) {
+    uml_operation_destroy((UMLOperation *) list->data);
+    list = g_list_next(list);
+  }
+  g_list_free(state->operations);
+
+  list = state->formal_params;
+  while (list) {
+    uml_formalparameter_destroy((UMLFormalParameter *) list->data);
+    list = g_list_next(list);
+  }
+  g_list_free(state->formal_params);
+}
+
+static UMLClassState *
+umlclass_get_state(UMLClass *umlclass)
+{
+  UMLClassState *state = g_new(UMLClassState, 1);
+  GList *list;
+
+  state->name = g_strdup(umlclass->name);
+  state->stereotype = g_strdup(umlclass->stereotype);
+
+  state->abstract = umlclass->abstract;
+  state->suppress_attributes = umlclass->suppress_attributes;
+  state->suppress_operations = umlclass->suppress_operations;
+  state->visible_attributes = umlclass->visible_attributes;
+  state->visible_operations = umlclass->visible_operations;
+
+  
+  state->attributes = NULL;
+  list = umlclass->attributes;
+  while (list != NULL) {
+    UMLAttribute *attr = (UMLAttribute *)list->data;
+    UMLAttribute *attr_copy;
+      
+    attr_copy = uml_attribute_copy(attr);
+
+    state->attributes = g_list_append(state->attributes, attr_copy);
+    list = g_list_next(list);
+  }
+
+  
+  state->operations = NULL;
+  list = umlclass->operations;
+  while (list != NULL) {
+    UMLOperation *op = (UMLOperation *)list->data;
+    UMLOperation *op_copy;
+      
+    op_copy = uml_operation_copy(op);
+
+    state->operations = g_list_append(state->operations, op_copy);
+    list = g_list_next(list);
+  }
+
+
+  state->template = umlclass->template;
+  
+  state->formal_params = NULL;
+  list = umlclass->formal_params;
+  while (list != NULL) {
+    UMLFormalParameter *param = (UMLFormalParameter *)list->data;
+    UMLFormalParameter *param_copy;
+    
+    param_copy = uml_formalparameter_copy(param);
+    state->formal_params = g_list_append(state->formal_params, param_copy);
+    
+    list = g_list_next(list);
+  }
+
+  return state;
+}
+
+static void
+umlclass_update_connectionpoints(UMLClass *umlclass)
+{
+  int num_attrib, num_ops;
+  Object *obj;
+  GList *list;
+  int connection_index;
+  UMLClassDialog *prop_dialog;
+
+  prop_dialog = umlclass->properties_dialog;
+  
+  /* Allocate enought connection points for attributes and operations. */
+  /* (two per op/attr) */
+  if ( (umlclass->visible_attributes) && (!umlclass->suppress_attributes))
+    num_attrib = g_list_length(umlclass->attributes);
+  else
+    num_attrib = 0;
+  if ( (umlclass->visible_operations) && (!umlclass->suppress_operations))
+    num_ops = g_list_length(umlclass->operations);
+  else
+    num_ops = 0;
+  
+  obj = (Object *) umlclass;
+  obj->num_connections = 8 + num_attrib*2 + num_ops*2;
+  obj->connections =
+    g_realloc(obj->connections,
+	      obj->num_connections*sizeof(ConnectionPoint *));
+
+  connection_index = 8;
+  
+  list = umlclass->attributes;
+  while (list != NULL) {
+    UMLAttribute *attr = (UMLAttribute *) list->data;
+    
+    if ( (umlclass->visible_attributes) &&
+	 (!umlclass->suppress_attributes)) {
+      obj->connections[connection_index++] = attr->left_connection;
+      obj->connections[connection_index++] = attr->right_connection;
+    }
+    
+    list = g_list_next(list);
+  }
+  
+  gtk_list_clear_items (GTK_LIST (prop_dialog->attributes_list), 0, -1);
+
+  list = umlclass->operations;
+  while (list != NULL) {
+    UMLOperation *op = (UMLOperation *) list->data;
+    
+    if ( (umlclass->visible_operations) &&
+	 (!umlclass->suppress_operations)) {
+      obj->connections[connection_index++] = op->left_connection;
+      obj->connections[connection_index++] = op->right_connection;
+    }
+    
+    list = g_list_next(list);
+  }
+  gtk_list_clear_items (GTK_LIST (prop_dialog->operations_list), 0, -1);
+  
+}
+
+static void
+umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
+{
+  umlclass->name = state->name;
+  umlclass->stereotype = state->stereotype;
+
+  umlclass->abstract = state->abstract;
+  umlclass->suppress_attributes = state->suppress_attributes;
+  umlclass->suppress_operations = state->suppress_operations;
+  umlclass->visible_attributes = state->visible_attributes;
+  umlclass->visible_operations = state->visible_operations;
+
+  umlclass->attributes = state->attributes;
+  umlclass->operations = state->operations;
+  umlclass->template = state->template;
+  umlclass->formal_params = state->formal_params;
+
+  g_free(state);
+
+  umlclass_update_connectionpoints(umlclass);
+
+  umlclass_calculate_data(umlclass);
+  umlclass_update_data(umlclass);
+}
+
+static void
+umlclass_change_apply(UMLClassChange *change, Object *obj)
+{
+  UMLClassState *old_state;
+  GList *list;
+  printf("umlclass_change_apply()\n");
+  
+  old_state = umlclass_get_state(change->obj);
+
+  umlclass_set_state(change->obj, change->saved_state);
+
+  list = change->disconnected;
+  while (list) {
+    Disconnect *dis = (Disconnect *)list->data;
+
+    object_unconnect(dis->other_object, dis->other_handle);
+
+    list = g_list_next(list);
+  }
+
+  change->saved_state = old_state;
+  change->applied = 1;
+}
+
+static void
+umlclass_change_revert(UMLClassChange *change, Object *obj)
+{
+  UMLClassState *old_state;
+  GList *list;
+  printf("umlclass_change_revert()\n");
+  
+  old_state = umlclass_get_state(change->obj);
+
+  umlclass_set_state(change->obj, change->saved_state);
+  
+  list = change->disconnected;
+  while (list) {
+    Disconnect *dis = (Disconnect *)list->data;
+
+    object_connect(dis->other_object, dis->other_handle, dis->cp);
+
+    list = g_list_next(list);
+  }
+  
+  change->saved_state = old_state;
+  change->applied = 0;
+}
+
+static void
+umlclass_change_free(UMLClassChange *change)
+{
+  GList *list, *free_list;
+  printf("umlclass_change_free()\n");
+
+  umlclass_free_state(change->saved_state);
+  g_free(change->saved_state);
+
+  if (change->applied) 
+    free_list = change->deleted_cp;
+  else
+    free_list = change->added_cp;
+
+  list = free_list;
+  while (list != NULL) {
+    ConnectionPoint *connection = (ConnectionPoint *) list->data;
+    
+    g_assert(connection->connected == NULL); /* Paranoid */
+    object_remove_connections_to(connection); /* Shouldn't be needed */
+    g_free(connection);
+      
+    list = g_list_next(list);
+  }
+
+  g_list_free(free_list);
+  
+}
+
+static ObjectChange *
+new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
+		    GList *added, GList *deleted, GList *disconnected)
+{
+  UMLClassChange *change;
+
+  change = g_new(UMLClassChange, 1);
+  
+  change->obj_change.apply =
+    (ObjectChangeApplyFunc) umlclass_change_apply;
+  change->obj_change.revert =
+    (ObjectChangeRevertFunc) umlclass_change_revert;
+  change->obj_change.free =
+    (ObjectChangeFreeFunc) umlclass_change_free;
+
+  change->obj = obj;
+  change->saved_state = saved_state;
+  change->applied = 1;
+
+  change->added_cp = added;
+  change->deleted_cp = deleted;
+  change->disconnected = disconnected;
+
+  return (ObjectChange *)change;
+}

@@ -328,14 +328,12 @@ static void
 constraint_state_free(ObjectState *ostate)
 {
   ConstraintState *state = (ConstraintState *)ostate;
-  int i;
   g_free(state->text);
 }
 
 static ConstraintState *
 constraint_get_state(Constraint *constraint)
 {
-  int i;
   ConstraintState *state = g_new(ConstraintState, 1);
 
   state->obj_state.free = constraint_state_free;
@@ -348,8 +346,6 @@ constraint_get_state(Constraint *constraint)
 static void
 constraint_set_state(Constraint *constraint, ConstraintState *state)
 {
-  int i;
-  
   g_free(constraint->text);
   constraint->text = state->text;
   constraint->text_width = 0.0;

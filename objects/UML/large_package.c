@@ -93,8 +93,8 @@ static void largepackage_update_data(LargePackage *pkg);
 static GtkWidget *largepackage_get_properties(LargePackage *pkg);
 static ObjectChange *largepackage_apply_properties(LargePackage *pkg);
 
-static LargePackageState *constraint_get_state(LargePackage *pkg);
-static void implements_set_state(LargePackage *pkg,
+static LargePackageState *largepackage_get_state(LargePackage *pkg);
+static void largepackage_set_state(LargePackage *pkg,
 				 LargePackageState *state);
 
 static ObjectTypeOps largepackage_type_ops =
@@ -382,7 +382,6 @@ static void
 largepackage_state_free(ObjectState *ostate)
 {
   LargePackageState *state = (LargePackageState *)ostate;
-  int i;
   g_free(state->name);
   g_free(state->stereotype);
 }
@@ -390,7 +389,6 @@ largepackage_state_free(ObjectState *ostate)
 static LargePackageState *
 largepackage_get_state(LargePackage *pkg)
 {
-  int i;
   LargePackageState *state = g_new(LargePackageState, 1);
 
   state->obj_state.free = largepackage_state_free;
@@ -404,8 +402,6 @@ largepackage_get_state(LargePackage *pkg)
 static void
 largepackage_set_state(LargePackage *pkg, LargePackageState *state)
 {
-  int i;
-  
   g_free(pkg->name);
   pkg->name = state->name;
   g_free(pkg->stereotype);

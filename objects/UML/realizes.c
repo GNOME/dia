@@ -388,7 +388,6 @@ static void
 realizes_state_free(ObjectState *ostate)
 {
   RealizesState *state = (RealizesState *)ostate;
-  int i;
   g_free(state->name);
   g_free(state->stereotype);
 }
@@ -396,8 +395,6 @@ realizes_state_free(ObjectState *ostate)
 static RealizesState *
 realizes_get_state(Realizes *realize)
 {
-  int i;
-
   RealizesState *state = g_new(RealizesState, 1);
 
   state->obj_state.free = realizes_state_free;
@@ -411,8 +408,6 @@ realizes_get_state(Realizes *realize)
 static void
 realizes_set_state(Realizes *realize, RealizesState *state)
 {
-  int i;
-  
   g_free(realize->name);
   g_free(realize->stereotype);
   realize->name = state->name;

@@ -388,7 +388,6 @@ static void
 generalization_state_free(ObjectState *ostate)
 {
   GeneralizationState *state = (GeneralizationState *)ostate;
-  int i;
   g_free(state->name);
   g_free(state->stereotype);
 }
@@ -396,8 +395,6 @@ generalization_state_free(ObjectState *ostate)
 static GeneralizationState *
 generalization_get_state(Generalization *genlz)
 {
-  int i;
-
   GeneralizationState *state = g_new(GeneralizationState, 1);
 
   state->obj_state.free = generalization_state_free;
@@ -411,8 +408,6 @@ generalization_get_state(Generalization *genlz)
 static void
 generalization_set_state(Generalization *genlz, GeneralizationState *state)
 {
-  int i;
-  
   g_free(genlz->name);
   g_free(genlz->stereotype);
   genlz->name = state->name;
