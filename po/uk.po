@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2000-02-09 13:31+0200\n"
+"POT-Creation-Date: 2000-02-29 09:57+0800\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -13,27 +13,27 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-u\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:132
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Экспортувати завантажений файл та вийти"
 
-#: app/app_procs.c:133
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "ВИВ╤Д"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Показати цю дов╕дку"
 
-#: app/app_procs.c:154
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Не вдалось встановити з'╓днання з менеджером сеансу!\n"
 
-#: app/app_procs.c:165
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[ПАРАМЕТРИ...] [ФАЙЛ...]"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -43,22 +43,22 @@ msgstr ""
 "Запуст╕ть \"%s --help\", щоб продивиться повний список наявних параметр╕в "
 "командного рядка.\n"
 
-#: app/app_procs.c:213 app/app_procs.c:215
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Не вдалось знайти стандартн╕ об'╓кти при пошуку object-libs, завершення "
 "роботи...\n"
 
-#: app/app_procs.c:231
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Потр╕бний в╕рний файл вводу\n"
 
-#: app/app_procs.c:291
+#: app/app_procs.c:294 app/app_procs.c:300
 msgid "Quit, are you sure?"
 msgstr "Ви впевнен╕, що хочете вийти?"
 
-#: app/app_procs.c:293
+#: app/app_procs.c:307
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -66,20 +66,20 @@ msgstr ""
 "╢ зм╕нен╕ д╕аграми.\n"
 "Ви впевнен╕, що хочете вийти?"
 
-#: app/app_procs.c:302
+#: app/app_procs.c:317 app/app_procs.c:322
 msgid "Quit"
 msgstr "Вих╕д"
 
-#: app/app_procs.c:314 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:334 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "В╕дм╕на"
 
-#: app/app_procs.c:366
+#: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
 msgstr "Неможливо створити користувацький каталог конф╕гурац╕╖ Dia"
 
-#: app/app_procs.c:423
+#: app/app_procs.c:444
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -88,13 +88,13 @@ msgstr ""
 "Не вдалось знайти жодних б╕бл╕отек для завантаження.\n"
 "%s не ╓ каталогом.\n"
 
-#: app/app_procs.c:430
+#: app/app_procs.c:451
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Неможливо в╕дкрити \"%s\".\n"
 
-#: app/app_procs.c:443 app/app_procs.c:444 app/app_procs.c:471
-#: app/app_procs.c:472
+#: app/app_procs.c:464 app/app_procs.c:465 app/app_procs.c:492
+#: app/app_procs.c:493
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -103,12 +103,12 @@ msgstr ""
 "Помилка завантаження б╕бл╕отеки: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:449 app/app_procs.c:450
+#: app/app_procs.c:470 app/app_procs.c:471
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Файл \"%s\" не ╓ б╕бл╕отекою об'╓кт╕в Dia.\n"
 
-#: app/app_procs.c:456 app/app_procs.c:457
+#: app/app_procs.c:477 app/app_procs.c:478
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -118,7 +118,7 @@ msgstr ""
 "Б╕бл╕отека об'╓кт╕в \"%s\" ╕з старо╖ верс╕╖ Dia ╕ не може бути використана.\n"
 "Будь ласка, онов╕ть ╖╖."
 
-#: app/app_procs.c:463 app/app_procs.c:464
+#: app/app_procs.c:484 app/app_procs.c:485
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -127,7 +127,7 @@ msgstr ""
 "Б╕бл╕отека об'╓кт╕в \"%s\" ╕з нов╕шою верс╕╖ Dia.\n"
 "Вам ннобх╕дно оновити Dia, щоб використовувати ╖╖."
 
-#: app/app_procs.c:540
+#: app/app_procs.c:559
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -178,8 +178,8 @@ msgstr ""
 "http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/preferences.c:545 app/properties.c:54
-#: lib/message.c:72
+#: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
+#: lib/message.c:85
 msgid "OK"
 msgstr "Гаразд"
 
@@ -255,7 +255,7 @@ msgstr "/Об'╓кти/Вир╕внювання вертикальне/Р╕вн╕ в╕дстан╕"
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Сум╕жне"
 
-#: app/disp_callbacks.c:69 app/properties.c:135
+#: app/disp_callbacks.c:69 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -267,19 +267,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "Нема╓ меню об╓'кту"
 
-#: app/display.c:59 app/display.c:60
+#: app/display.c:63 app/display.c:64
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: app/display.c:79
+#: app/display.c:83
 msgid "Diagram modified!"
 msgstr "Д╕аграму зм╕нено!"
 
-#: app/display.c:780
+#: app/display.c:779 app/display.c:785
 msgid "Really close?"
 msgstr "Дейсно закрити?"
 
-#: app/display.c:783
+#: app/display.c:790
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -287,27 +287,28 @@ msgstr ""
 "Цю д╕аграму не було збережено.\n"
 "Ви впевнен╕, що хочете закрити це в╕кно?"
 
-#: app/display.c:792 app/preferences.c:461
+#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
 msgid "Yes"
 msgstr "Так"
 
-#: app/display.c:803 app/preferences.c:461 app/preferences.c:472
+#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
+#: lib/properties.c:258 lib/properties.c:279
 msgid "No"
 msgstr "Н╕"
 
-#: app/display.c:836
+#: app/display.c:851
 msgid "/View/Show Rulers"
 msgstr "/Вигляд/Показувати л╕н╕йки"
 
-#: app/display.c:838
+#: app/display.c:853
 msgid "/View/Visible Grid"
 msgstr "/Вигляд/Показувати с╕тку"
 
-#: app/display.c:840
+#: app/display.c:855
 msgid "/View/Snap To Grid"
 msgstr "/Вигляд/При╓днувати до с╕тки"
 
-#: app/display.c:842
+#: app/display.c:857
 msgid "/View/Show Connection Points"
 msgstr "/Вигляд/Показувати точки з'╓днання"
 
@@ -323,55 +324,55 @@ msgstr "Розм╕р с╕тки по X:"
 msgid "Grid y size:"
 msgstr "Розм╕р с╕тки по Y:"
 
-#: app/interface.c:60
+#: app/interface.c:65
 msgid "Modify object(s)"
 msgstr "Зм╕нити об'╓кт(и)"
 
-#: app/interface.c:64
+#: app/interface.c:69
 msgid "Magnify"
 msgstr "Зб╕льшити"
 
-#: app/interface.c:68
+#: app/interface.c:73
 msgid "Scroll around the diagram"
 msgstr "Прокрутити в╕кно д╕аграми"
 
-#: app/interface.c:72
+#: app/interface.c:77
 msgid "Create Text"
 msgstr "Створити блок тексту"
 
-#: app/interface.c:76
+#: app/interface.c:81
 msgid "Create Box"
 msgstr "Створити прямокутник"
 
-#: app/interface.c:80
+#: app/interface.c:85
 msgid "Create Ellipse"
 msgstr "Створити ел╕пс"
 
-#: app/interface.c:84
+#: app/interface.c:89
 msgid "Create Line"
 msgstr "Створити л╕н╕ю"
 
-#: app/interface.c:88
+#: app/interface.c:93
 msgid "Create Arc"
 msgstr "Створити дугу"
 
-#: app/interface.c:92
+#: app/interface.c:97
 msgid "Create Zigzagline"
 msgstr "Створити згин"
 
-#: app/interface.c:96
+#: app/interface.c:101
 msgid "Create Polyline"
 msgstr "Створити ламану"
 
-#: app/interface.c:100
+#: app/interface.c:105
 msgid "Create Bezierline"
 msgstr "Створити криву Без'╓"
 
-#: app/interface.c:104
+#: app/interface.c:109
 msgid "Create Image"
 msgstr "Створити зображення"
 
-#: app/interface.c:563
+#: app/interface.c:608
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -380,7 +381,7 @@ msgstr ""
 "кольори. Маленька стр╕лка м╕ня╓ ╖х м╕сцями. Подв╕йне клацання дозволя╓ "
 "вибрати кол╕р."
 
-#: app/interface.c:647
+#: app/interface.c:711
 msgid "Diagram Editor"
 msgstr "Редактор д╕аграм"
 
@@ -408,8 +409,8 @@ msgstr "Шари"
 msgid "Diagrams:"
 msgstr "Д╕аграми:"
 
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:565
-#: app/properties.c:73
+#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:606
+#: app/properties.c:101
 msgid "Close"
 msgstr "Закрити"
 
@@ -485,7 +486,7 @@ msgstr ""
 "Це файл не Dia."
 
 #: app/load_save.c:506 app/render_eps.c:161 app/render_svg.c:144
-#: plug-ins/cgm/cgm.c:815
+#: plug-ins/cgm/cgm.c:1127
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для записування.\n"
@@ -577,15 +578,17 @@ msgstr "Нове в╕кно"
 msgid "Show _All"
 msgstr "Показати все"
 
-#: app/menus.c:124 lib/widgets.c:176 objects/UML/association.c:1005
+#: app/menus.c:124 lib/properties.c:1102 lib/widgets.c:176
+#: objects/UML/association.c:1005
 msgid "Left"
 msgstr "Л╕воруч"
 
-#: app/menus.c:125 app/menus.c:134 lib/widgets.c:182
+#: app/menus.c:125 app/menus.c:134 lib/properties.c:1103 lib/widgets.c:182
 msgid "Center"
 msgstr "В центр"
 
-#: app/menus.c:126 lib/widgets.c:188 objects/UML/association.c:998
+#: app/menus.c:126 lib/properties.c:1104 lib/widgets.c:188
+#: objects/UML/association.c:998
 msgid "Right"
 msgstr "Праворуч"
 
@@ -884,15 +887,15 @@ msgstr "/Д╕алоги/Властивост╕"
 msgid "/Dialogs/_Layers"
 msgstr "/Д╕алоги/Шари"
 
-#: app/properties.c:45
+#: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
 msgstr "Властивост╕ об'╓кта"
 
-#: app/defaults.c:61 app/preferences.c:555 app/properties.c:63
+#: app/defaults.c:72 app/preferences.c:597 app/properties.c:91
 msgid "Apply"
 msgstr "Застосувати"
 
-#: app/properties.c:85
+#: app/properties.c:114
 msgid "This object has no properties."
 msgstr "В цього об'╓кта нема╓ властивостей."
 
@@ -900,83 +903,94 @@ msgstr "В цього об'╓кта нема╓ властивостей."
 msgid "Encapsulated Postscript"
 msgstr "Вбудований Postscript"
 
-#: app/defaults.c:43
+#: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
 msgstr "Типов╕ властивост╕ об'╓кту"
 
-#: app/defaults.c:73
+#: app/defaults.c:95
 msgid "This object has no defaults."
 msgstr "Цей об'╓кт не ма╓ типових властивостей."
 
-#: app/preferences.c:73
+#: app/preferences.c:82
 msgid "User Interface"
 msgstr "╤нтерфейс користувача"
 
-#: app/preferences.c:74
+#: app/preferences.c:83
 msgid "View Defaults"
 msgstr "Типовий вигляд"
 
-#: app/preferences.c:81
+#: app/preferences.c:84
+#, fuzzy
+msgid "Grid Lines"
+msgstr "Параметри с╕тки"
+
+#: app/preferences.c:98
 msgid "Reset tools after create:"
 msgstr "Скидати ╕нстумент п╕сля використання:"
 
-#: app/preferences.c:82
+#: app/preferences.c:99
 msgid "Compress saved files:"
 msgstr "Стискувати файли, що збер╕гаються:"
 
-#: app/preferences.c:83
+#: app/preferences.c:100
 msgid "Number of undo levels:"
 msgstr "К╕льк╕сть р╕вн╕в в╕дкату:"
 
-#: app/preferences.c:85
-msgid "Grid:"
-msgstr "С╕тка:"
-
-#: app/preferences.c:86 app/preferences.c:99
-msgid "Visible:"
-msgstr "Видим╕сть:"
-
-#: app/preferences.c:87
-msgid "Snap to:"
-msgstr "При╓днувати до:"
-
-#: app/preferences.c:88
-msgid "X Size:"
-msgstr "Розм╕р X:"
-
-#: app/preferences.c:89
-msgid "Y Size:"
-msgstr "Розм╕р Y:"
-
-#: app/preferences.c:90
-msgid "Colour"
-msgstr "Кол╕р"
-
-#: app/preferences.c:91
-msgid "Solid lines"
-msgstr "Суц╕льн╕ л╕н╕╖"
-
-#: app/preferences.c:93
+#: app/preferences.c:102
 msgid "New window:"
 msgstr "Нове в╕кно:"
 
-#: app/preferences.c:94
+#: app/preferences.c:103
 msgid "Width:"
 msgstr "Ширина:"
 
-#: app/preferences.c:95
+#: app/preferences.c:104
 msgid "Height:"
 msgstr "Висота:"
 
-#: app/preferences.c:96
+#: app/preferences.c:105
 msgid "Magnify:"
 msgstr "Зб╕льшення:"
 
-#: app/preferences.c:98
+#: app/preferences.c:107
 msgid "Connection Points:"
 msgstr "Точки з'╓днання:"
 
-#: app/preferences.c:536
+#: app/preferences.c:108 app/preferences.c:111 app/preferences.c:119
+msgid "Visible:"
+msgstr "Видим╕сть:"
+
+#: app/preferences.c:110
+msgid "Grid:"
+msgstr "С╕тка:"
+
+#: app/preferences.c:112
+msgid "Snap to:"
+msgstr "При╓днувати до:"
+
+#: app/preferences.c:113
+msgid "X Size:"
+msgstr "Розм╕р X:"
+
+#: app/preferences.c:114
+msgid "Y Size:"
+msgstr "Розм╕р Y:"
+
+#: app/preferences.c:115 app/preferences.c:120
+#, fuzzy
+msgid "Colour:"
+msgstr "Кол╕р"
+
+#: app/preferences.c:116 app/preferences.c:121
+#, fuzzy
+msgid "Solid lines:"
+msgstr "Суц╕льн╕ л╕н╕╖"
+
+#: app/preferences.c:118
+msgid "Page breaks:"
+msgstr ""
+
+#: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
 msgstr "Установки"
 
@@ -1014,15 +1028,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Шрифт %s не знайдено, буде використано шрифт Courier.\n"
 
-#: lib/message.c:104
+#: lib/message.c:118
 msgid "Notice"
 msgstr "Нотатка"
 
-#: lib/message.c:115
+#: lib/message.c:129
 msgid "Warning"
 msgstr "Увага"
 
-#: lib/message.c:127
+#: lib/message.c:141
 msgid "Error"
 msgstr "Помилка"
 
@@ -1107,19 +1121,23 @@ msgstr "Вибрати файл зображення"
 msgid "Browse"
 msgstr "Переглянути"
 
+#: lib/properties.c:346 lib/properties.c:378
+msgid "No edit widget"
+msgstr ""
+
 #: objects/UML/actor.c:282
 msgid "Actor"
 msgstr "Агент"
 
 #: objects/ER/participation.c:451 objects/UML/association.c:608
 #: objects/UML/dependency.c:288 objects/UML/generalization.c:280
-#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:601
+#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:343
 msgid "Add segment"
 msgstr "Додати сегмент"
 
 #: objects/ER/participation.c:452 objects/UML/association.c:609
 #: objects/UML/dependency.c:289 objects/UML/generalization.c:281
-#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:602
+#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:344
 msgid "Delete segment"
 msgstr "Видалити сегмент"
 
@@ -1432,26 +1450,20 @@ msgid "Multivalue"
 msgstr "Багатозначний"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/custom/custom_object.c:273
-#: objects/flowchart/diamond.c:243 objects/flowchart/ellipse.c:243
-#: objects/flowchart/parallelogram.c:251 objects/standard/box.c:209
-#: objects/standard/ellipse.c:206 objects/standard/image.c:264
+#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
+#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
 msgid "Border width:"
 msgstr "Ширина рамки:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/custom/custom_object.c:288
-#: objects/flowchart/diamond.c:258 objects/flowchart/ellipse.c:258
-#: objects/flowchart/parallelogram.c:266 objects/standard/box.c:224
-#: objects/standard/ellipse.c:221 objects/standard/image.c:279
+#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
+#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
 msgid "Foreground color:"
 msgstr "Кол╕р переднього плану:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/custom/custom_object.c:299
-#: objects/flowchart/diamond.c:269 objects/flowchart/ellipse.c:269
-#: objects/flowchart/parallelogram.c:277 objects/standard/box.c:235
-#: objects/standard/ellipse.c:232
+#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
+#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
 msgid "Background color:"
 msgstr "Кол╕р тла:"
 
@@ -1495,103 +1507,78 @@ msgstr ""
 msgid "Delete Handle"
 msgstr ""
 
-#: objects/standard/arc.c:207 objects/standard/line.c:206
-#: objects/standard/polyline.c:209 objects/standard/zigzagline.c:209
-msgid "Line width:"
-msgstr "Ширина л╕н╕╖:"
+#: objects/flowchart/box.c:165 objects/standard/box.c:149
+msgid "Corner radius"
+msgstr "Л╕мб"
 
-#: objects/standard/arc.c:221 objects/standard/line.c:220
-#: objects/standard/polyline.c:223 objects/standard/textobj.c:236
-#: objects/standard/zigzagline.c:223
-msgid "Color:"
-msgstr "Кол╕р:"
-
-#: objects/custom/custom_object.c:318 objects/flowchart/diamond.c:288
-#: objects/flowchart/ellipse.c:288 objects/flowchart/parallelogram.c:296
-#: objects/standard/arc.c:232 objects/standard/box.c:254
-#: objects/standard/ellipse.c:251 objects/standard/image.c:290
-#: objects/standard/image.c:385 objects/standard/line.c:231
-#: objects/standard/polyline.c:234 objects/standard/zigzagline.c:234
-msgid "Line style:"
-msgstr "Стиль л╕н╕╖:"
-
-#: objects/standard/arc.c:243 objects/standard/line.c:242
-#: objects/standard/polyline.c:245 objects/standard/zigzagline.c:248
-msgid "Start arrow:"
-msgstr "Стр╕лка на початку:"
-
-#: objects/standard/arc.c:257 objects/standard/line.c:256
-#: objects/standard/polyline.c:259 objects/standard/zigzagline.c:262
-msgid "End arrow:"
-msgstr "Стр╕лка на к╕нц╕:"
-
-#: objects/custom/custom_object.c:310 objects/custom/custom_object.c:474
-#: objects/flowchart/box.c:202 objects/flowchart/box.c:365
+#: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:246 objects/standard/box.c:334
-#: objects/standard/ellipse.c:243 objects/standard/ellipse.c:315
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
 msgid "Draw background"
 msgstr "Намалювати тло"
 
-#: objects/flowchart/box.c:373 objects/standard/box.c:265
-#: objects/standard/box.c:342
+#: objects/flowchart/box.c:318 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Заокруглен╕ кути:"
 
-#: objects/standard/line.c:402
+#: objects/standard/line.c:171
 msgid "Add connection point"
 msgstr "Додати точку з'╓днання"
 
-#: objects/standard/line.c:403
+#: objects/standard/line.c:172
 msgid "Delete connection point"
 msgstr "Стерти точку з'╓днання"
 
-#: objects/standard/line.c:408
+#: objects/standard/line.c:177
 msgid "Line"
 msgstr "Л╕н╕я"
 
-#: objects/custom/custom_object.c:349 objects/custom/custom_object.c:497
-#: objects/standard/textobj.c:200 objects/standard/textobj.c:294
+#: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
 msgid "Alignment:"
 msgstr "Вир╕внювання:"
 
-#: objects/custom/custom_object.c:360 objects/custom/custom_object.c:508
-#: objects/flowchart/box.c:401 objects/flowchart/diamond.c:313
-#: objects/flowchart/diamond.c:442 objects/flowchart/ellipse.c:313
-#: objects/flowchart/ellipse.c:442 objects/flowchart/parallelogram.c:336
-#: objects/flowchart/parallelogram.c:483 objects/standard/textobj.c:211
-#: objects/standard/textobj.c:305
+#: objects/custom/custom_object.c:380 objects/flowchart/box.c:346
+#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
+#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
+#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
+#: objects/standard/textobj.c:271
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: objects/standard/textobj.c:222 objects/standard/textobj.c:316
+#: objects/standard/textobj.c:282
 msgid "Fontsize:"
 msgstr "Розм╕р шрифту:"
 
-#: objects/standard/image.c:237 objects/standard/image.c:358
-msgid "Image file:"
+#: objects/standard/image.c:165
+#, fuzzy
+msgid "Image file"
 msgstr "Файл зображення:"
 
-#: objects/standard/image.c:248
+#: objects/standard/image.c:167
+#, fuzzy
+msgid "Draw border"
+msgstr "Показати рамку"
+
+#: objects/standard/image.c:169
 msgid "Keep aspect ratio"
 msgstr "Збер╕гати пропорц╕╖"
 
 #: objects/standard/image.c:256
-msgid "Show border"
-msgstr "Показати рамку"
+msgid "Image file:"
+msgstr "Файл зображення:"
 
-#: objects/standard/image.c:369
+#: objects/standard/image.c:267
 msgid "Keep aspect ratio:"
 msgstr "Збер╕гати пропорц╕╖:"
 
-#: objects/standard/image.c:377
+#: objects/standard/image.c:275
 msgid "Show border:"
 msgstr "Показати рамку:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:941 objects/standard/image.c:952
+#: objects/standard/image.c:780 objects/standard/image.c:791
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1601,16 +1588,16 @@ msgstr ""
 "Зам╕сть нього використову╓ться файл \"%s\"\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:958 objects/standard/image.c:984
+#: objects/standard/image.c:797 objects/standard/image.c:823
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Файл зображення \"%s\" не знайдено.\n"
 
-#: objects/standard/polyline.c:744
+#: objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Додати кут"
 
-#: objects/standard/polyline.c:745
+#: objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Видалити кут"
 
@@ -1813,64 +1800,31 @@ msgstr ""
 msgid "   Measure"
 msgstr ""
 
-#: objects/flowchart/box.c:196
-msgid "Border width"
-msgstr "Ширина рамки"
-
-#: objects/flowchart/box.c:198
-msgid "Border colour"
-msgstr "Кол╕р рамки"
-
-#: objects/flowchart/box.c:200
-msgid "Inner colour"
-msgstr "Внутр╕шн╕й кол╕р"
-
-#: objects/flowchart/box.c:204
-msgid "Line style"
-msgstr "Стиль л╕н╕╖"
-
-#: objects/flowchart/box.c:206
-msgid "Corner radius"
-msgstr "Л╕мб"
-
-#: objects/flowchart/box.c:208
+#: objects/flowchart/box.c:167
 msgid "Text padding"
 msgstr "В╕дступи тексту"
 
-#: objects/flowchart/box.c:210
-msgid "Font"
-msgstr "Шрифт"
-
-#: objects/flowchart/box.c:212
-msgid "Font size"
-msgstr "Розм╕р шрифту"
-
-#: objects/flowchart/box.c:214
-msgid "Font colour"
-msgstr "Кол╕р шрифту"
-
-#: objects/flowchart/box.c:216
-msgid "Text"
-msgstr "Текст"
-
-#: objects/custom/custom_object.c:335 objects/custom/custom_object.c:483
-#: objects/flowchart/box.c:387 objects/flowchart/diamond.c:299
-#: objects/flowchart/diamond.c:428 objects/flowchart/ellipse.c:299
-#: objects/flowchart/ellipse.c:428 objects/flowchart/parallelogram.c:322
-#: objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
+#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
+#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
+#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
 msgid "Text padding:"
 msgstr "В╕дступи тексту:"
 
-#: objects/custom/custom_object.c:371 objects/custom/custom_object.c:519
-#: objects/flowchart/box.c:412 objects/flowchart/diamond.c:324
-#: objects/flowchart/diamond.c:453 objects/flowchart/ellipse.c:324
-#: objects/flowchart/ellipse.c:453 objects/flowchart/parallelogram.c:347
-#: objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:391 objects/flowchart/box.c:357
+#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
+#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
+#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
 msgid "Font size:"
 msgstr "Розм╕р шрифту:"
 
-#: objects/custom/custom_object.c:385 objects/flowchart/diamond.c:338
-#: objects/flowchart/ellipse.c:338 objects/flowchart/parallelogram.c:361
+#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
+#: objects/flowchart/parallelogram.c:296
+msgid "Line style:"
+msgstr "Стиль л╕н╕╖:"
+
+#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
+#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Кол╕р шрифту:"
 
@@ -1878,19 +1832,25 @@ msgstr "Кол╕р шрифту:"
 msgid "Shear angle:"
 msgstr "Кут нахилу:"
 
-#: objects/custom/custom_object.c:190
-msgid "A custom with text inside."
-msgstr "Дов╕льний об'╓кт з написом всередин╕"
+#: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
+#, fuzzy
+msgid "Flip horizontal"
+msgstr "В╕дзеркалити горизонтально"
 
-#: objects/custom/custom_object.c:1388
+#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#, fuzzy
+msgid "Flip vertical"
+msgstr "В╕дзеркалити вертикально"
+
+#: objects/custom/custom_object.c:1218
 msgid "Flip Horizontal"
 msgstr "В╕дзеркалити горизонтально"
 
-#: objects/custom/custom_object.c:1389
+#: objects/custom/custom_object.c:1219
 msgid "Flip Vertical"
 msgstr "В╕дзеркалити вертикально"
 
-#: plug-ins/cgm/cgm.c:770
+#: plug-ins/cgm/cgm.c:1082
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -1898,9 +1858,48 @@ msgstr ""
 "Довжина рядка зображення б╕льши максимальною╖ к╕лькост╕ ком╕рок масиву.\n"
 "Зображення не ехпортовано в CGM."
 
-#: plug-ins/cgm/cgm.c:924
+#: plug-ins/cgm/cgm.c:1251
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
+
+#~ msgid "Line width:"
+#~ msgstr "Ширина л╕н╕╖:"
+
+#~ msgid "Color:"
+#~ msgstr "Кол╕р:"
+
+#~ msgid "Start arrow:"
+#~ msgstr "Стр╕лка на початку:"
+
+#~ msgid "End arrow:"
+#~ msgstr "Стр╕лка на к╕нц╕:"
+
+#~ msgid "Border width"
+#~ msgstr "Ширина рамки"
+
+#~ msgid "Border colour"
+#~ msgstr "Кол╕р рамки"
+
+#~ msgid "Inner colour"
+#~ msgstr "Внутр╕шн╕й кол╕р"
+
+#~ msgid "Line style"
+#~ msgstr "Стиль л╕н╕╖"
+
+#~ msgid "Font"
+#~ msgstr "Шрифт"
+
+#~ msgid "Font size"
+#~ msgstr "Розм╕р шрифту"
+
+#~ msgid "Font colour"
+#~ msgstr "Кол╕р шрифту"
+
+#~ msgid "Text"
+#~ msgstr "Текст"
+
+#~ msgid "A custom with text inside."
+#~ msgstr "Дов╕льний об'╓кт з написом всередин╕"
 
 #~ msgid "Open diagram"
 #~ msgstr "В╕дкрити д╕аграму"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 2000-02-15 16:29+0100\n"
+"POT-Creation-Date: 2000-02-29 09:57+0800\n"
 "PO-Revision-Date: 1999-04-26 19:58+0200\n"
 "Last-Translator: Vincent Renardias <vincent@ldsol.com>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -15,27 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Exporter le fichier en postscript et sortir"
 
-#: app/app_procs.c:132
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "SORTIE"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Afficher ce message d'aide"
 
-#: app/app_procs.c:153
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Impossible de se connecter au gestionnaire de session!\n"
 
-#: app/app_procs.c:164
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FICHIER...]"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -45,21 +45,21 @@ msgstr ""
 "Tapez '%s --help' pour voir une liste complète des options en ligne "
 "decommande.\n"
 
-#: app/app_procs.c:212 app/app_procs.c:214
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Impossible de trouver les objets standards dans object-libs, terminé...\n"
 
-#: app/app_procs.c:230
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Nécessite un fichier d'entrée valide\n"
 
-#: app/app_procs.c:290
+#: app/app_procs.c:294 app/app_procs.c:300
 msgid "Quit, are you sure?"
 msgstr "Etes-vous sur de vouloir quitter?"
 
-#: app/app_procs.c:292
+#: app/app_procs.c:307
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -67,20 +67,20 @@ msgstr ""
 "Des diagrammes ont été modifies.\n"
 "Voulez-vous vraiment quitter?"
 
-#: app/app_procs.c:301
+#: app/app_procs.c:317 app/app_procs.c:322
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:313 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:334 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/app_procs.c:365
+#: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
 msgstr "Impossible de créer le répertoire de configuration personnel deDia"
 
-#: app/app_procs.c:422
+#: app/app_procs.c:444
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -89,13 +89,13 @@ msgstr ""
 "Impossible de trouver les bibliothèques à charger.\n"
 "%s n'est pas un répertoire.\n"
 
-#: app/app_procs.c:429
+#: app/app_procs.c:451
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Impossible d'ouvrir \"%s\".\n"
 
-#: app/app_procs.c:442 app/app_procs.c:443 app/app_procs.c:470
-#: app/app_procs.c:471
+#: app/app_procs.c:464 app/app_procs.c:465 app/app_procs.c:492
+#: app/app_procs.c:493
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -104,12 +104,12 @@ msgstr ""
 "Erreur au chargement de la bibliothèque : \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:448 app/app_procs.c:449
+#: app/app_procs.c:470 app/app_procs.c:471
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Le fichier \"%s\" n'est pas une bibliothèque d'objets Dia.\n"
 
-#: app/app_procs.c:455 app/app_procs.c:456
+#: app/app_procs.c:477 app/app_procs.c:478
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -120,7 +120,7 @@ msgstr ""
 "peut pas être utilisée.\n"
 "Il faut mettre à jour la bibliothèque."
 
-#: app/app_procs.c:462 app/app_procs.c:463
+#: app/app_procs.c:484 app/app_procs.c:485
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -129,7 +129,7 @@ msgstr ""
 "La bibliothèque d'objets \"%s\" provient d'une version plus récente de Dia.\n"
 "Il faut mettre à jour Dia pour utiliser cette bibliothèque."
 
-#: app/app_procs.c:537
+#: app/app_procs.c:559
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -176,8 +176,8 @@ msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visitez http://www.lysator.liu.se/~alla/dia pour plus d'informations"
 
 #: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/preferences.c:545 app/properties.c:54
-#: lib/message.c:72
+#: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
+#: lib/message.c:85
 msgid "OK"
 msgstr "OK"
 
@@ -253,7 +253,7 @@ msgstr "/Objets/Alignement Vertical/Equidistance"
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objets/Alignement Vertical/Adjacent"
 
-#: app/disp_callbacks.c:69 app/properties.c:135
+#: app/disp_callbacks.c:69 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -265,19 +265,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "Pas de menu pour cet objet"
 
-#: app/display.c:59 app/display.c:60
+#: app/display.c:63 app/display.c:64
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:79
+#: app/display.c:83
 msgid "Diagram modified!"
 msgstr "Diagramme modifié!"
 
-#: app/display.c:780
+#: app/display.c:779 app/display.c:785
 msgid "Really close?"
 msgstr "Vraiment fermer?"
 
-#: app/display.c:783
+#: app/display.c:790
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -285,27 +285,28 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Voulez-vous vraiment fermer cette fenêtre?"
 
-#: app/display.c:792 app/preferences.c:461
+#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:803 app/preferences.c:461 app/preferences.c:472
+#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
+#: lib/properties.c:258 lib/properties.c:279
 msgid "No"
 msgstr "Non"
 
-#: app/display.c:836
+#: app/display.c:851
 msgid "/View/Show Rulers"
 msgstr "/Vue/Avec les Réglets"
 
-#: app/display.c:838
+#: app/display.c:853
 msgid "/View/Visible Grid"
 msgstr "/Vue/Grille Visible"
 
-#: app/display.c:840
+#: app/display.c:855
 msgid "/View/Snap To Grid"
 msgstr "/Vue/Grille Magnétique"
 
-#: app/display.c:842
+#: app/display.c:857
 msgid "/View/Show Connection Points"
 msgstr "/Vue/Avec les Points de Connexion"
 
@@ -321,55 +322,55 @@ msgstr "Taille horizontale de la grille:"
 msgid "Grid y size:"
 msgstr "Taille verticale de la grille:"
 
-#: app/interface.c:60
+#: app/interface.c:65
 msgid "Modify object(s)"
 msgstr "Modifier objet(s)"
 
-#: app/interface.c:64
+#: app/interface.c:69
 msgid "Magnify"
 msgstr "Grossir"
 
-#: app/interface.c:68
+#: app/interface.c:73
 msgid "Scroll around the diagram"
 msgstr "Déplacer la zone d'affichage"
 
-#: app/interface.c:72
+#: app/interface.c:77
 msgid "Create Text"
 msgstr "Créer Texte"
 
-#: app/interface.c:76
+#: app/interface.c:81
 msgid "Create Box"
 msgstr "Créer Boîte"
 
-#: app/interface.c:80
+#: app/interface.c:85
 msgid "Create Ellipse"
 msgstr "Créer Ellipse"
 
-#: app/interface.c:84
+#: app/interface.c:89
 msgid "Create Line"
 msgstr "Créer Ligne"
 
-#: app/interface.c:88
+#: app/interface.c:93
 msgid "Create Arc"
 msgstr "Créer Arc"
 
-#: app/interface.c:92
+#: app/interface.c:97
 msgid "Create Zigzagline"
 msgstr "Créer ligne ZigZag"
 
-#: app/interface.c:96
+#: app/interface.c:101
 msgid "Create Polyline"
 msgstr "Créer Polyligne"
 
-#: app/interface.c:100
+#: app/interface.c:105
 msgid "Create Bezierline"
 msgstr "Créer une ligne de Bézier"
 
-#: app/interface.c:104
+#: app/interface.c:109
 msgid "Create Image"
 msgstr "Créer Image"
 
-#: app/interface.c:563
+#: app/interface.c:608
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -378,7 +379,7 @@ msgstr ""
 "couleurs. La flèche permutte ces couleurs. Un double clic permet de les "
 "changer."
 
-#: app/interface.c:647
+#: app/interface.c:711
 msgid "Diagram Editor"
 msgstr "Editor de diagramme"
 
@@ -406,8 +407,8 @@ msgstr "Calques"
 msgid "Diagrams:"
 msgstr "Diagrammes:"
 
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:565
-#: app/properties.c:73
+#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:606
+#: app/properties.c:101
 msgid "Close"
 msgstr "Fermer"
 
@@ -483,7 +484,7 @@ msgstr ""
 "Il ne s'agit pas d'un fichier créé par Dia."
 
 #: app/load_save.c:506 app/render_eps.c:161 app/render_svg.c:144
-#: plug-ins/cgm/cgm.c:815
+#: plug-ins/cgm/cgm.c:1127
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Impossible d'ouvrir '%s' en écriture.\n"
@@ -575,15 +576,17 @@ msgstr "Nouvelle _Vue"
 msgid "Show _All"
 msgstr "C_adrer au mieux"
 
-#: app/menus.c:124 lib/widgets.c:176 objects/UML/association.c:1005
+#: app/menus.c:124 lib/properties.c:1102 lib/widgets.c:176
+#: objects/UML/association.c:1005
 msgid "Left"
 msgstr "Gauche"
 
-#: app/menus.c:125 app/menus.c:134 lib/widgets.c:182
+#: app/menus.c:125 app/menus.c:134 lib/properties.c:1103 lib/widgets.c:182
 msgid "Center"
 msgstr "Centre"
 
-#: app/menus.c:126 lib/widgets.c:188 objects/UML/association.c:998
+#: app/menus.c:126 lib/properties.c:1104 lib/widgets.c:188
+#: objects/UML/association.c:998
 msgid "Right"
 msgstr "Droite"
 
@@ -882,15 +885,15 @@ msgstr "/Dialogues/Propriétés"
 msgid "/Dialogs/_Layers"
 msgstr "/Dialogues/_Couches"
 
-#: app/properties.c:45
+#: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
 msgstr "Propriétés de l'objet"
 
-#: app/defaults.c:61 app/preferences.c:555 app/properties.c:63
+#: app/defaults.c:72 app/preferences.c:597 app/properties.c:91
 msgid "Apply"
 msgstr "Appliquer"
 
-#: app/properties.c:85
+#: app/properties.c:114
 msgid "This object has no properties."
 msgstr "Cet objet n'a pas de propriétés."
 
@@ -898,83 +901,94 @@ msgstr "Cet objet n'a pas de propriétés."
 msgid "Encapsulated Postscript"
 msgstr "Postscript Encapsulé"
 
-#: app/defaults.c:43
+#: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
 msgstr "Caractéristiques de l'objet par défaut."
 
-#: app/defaults.c:73
+#: app/defaults.c:95
 msgid "This object has no defaults."
 msgstr "Cet objet n'a pas de caractéristiques par défaut."
 
-#: app/preferences.c:73
+#: app/preferences.c:82
 msgid "User Interface"
 msgstr "Interface Utilisateur"
 
-#: app/preferences.c:74
+#: app/preferences.c:83
 msgid "View Defaults"
 msgstr "Caractéristiques de la vue"
 
-#: app/preferences.c:81
+#: app/preferences.c:84
+#, fuzzy
+msgid "Grid Lines"
+msgstr "Options de la grille"
+
+#: app/preferences.c:98
 msgid "Reset tools after create:"
 msgstr "Réinitialiser après la création:"
 
-#: app/preferences.c:82
+#: app/preferences.c:99
 msgid "Compress saved files:"
 msgstr "Compresser les fichiers enregistrés :"
 
-#: app/preferences.c:83
+#: app/preferences.c:100
 msgid "Number of undo levels:"
 msgstr "Nombre de niveaux d'annulation :"
 
-#: app/preferences.c:85
-msgid "Grid:"
-msgstr "Grille :"
-
-#: app/preferences.c:86 app/preferences.c:99
-msgid "Visible:"
-msgstr "Visible :"
-
-#: app/preferences.c:87
-msgid "Snap to:"
-msgstr "Coller à :"
-
-#: app/preferences.c:88
-msgid "X Size:"
-msgstr "Taille X :"
-
-#: app/preferences.c:89
-msgid "Y Size:"
-msgstr "Taille Y :"
-
-#: app/preferences.c:90
-msgid "Colour"
-msgstr "Couleur"
-
-#: app/preferences.c:91
-msgid "Solid lines"
-msgstr "Lignes pleines"
-
-#: app/preferences.c:93
+#: app/preferences.c:102
 msgid "New window:"
 msgstr "Nouvelle fenêtre :"
 
-#: app/preferences.c:94
+#: app/preferences.c:103
 msgid "Width:"
 msgstr "Largeur :"
 
-#: app/preferences.c:95
+#: app/preferences.c:104
 msgid "Height:"
 msgstr "Hauteur :"
 
-#: app/preferences.c:96
+#: app/preferences.c:105
 msgid "Magnify:"
 msgstr "Grossissement :"
 
-#: app/preferences.c:98
+#: app/preferences.c:107
 msgid "Connection Points:"
 msgstr "Points de Connexion :"
 
-#: app/preferences.c:536
+#: app/preferences.c:108 app/preferences.c:111 app/preferences.c:119
+msgid "Visible:"
+msgstr "Visible :"
+
+#: app/preferences.c:110
+msgid "Grid:"
+msgstr "Grille :"
+
+#: app/preferences.c:112
+msgid "Snap to:"
+msgstr "Coller à :"
+
+#: app/preferences.c:113
+msgid "X Size:"
+msgstr "Taille X :"
+
+#: app/preferences.c:114
+msgid "Y Size:"
+msgstr "Taille Y :"
+
+#: app/preferences.c:115 app/preferences.c:120
+#, fuzzy
+msgid "Colour:"
+msgstr "Couleur"
+
+#: app/preferences.c:116 app/preferences.c:121
+#, fuzzy
+msgid "Solid lines:"
+msgstr "Lignes pleines"
+
+#: app/preferences.c:118
+msgid "Page breaks:"
+msgstr ""
+
+#: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -1012,15 +1026,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvé, utilisation de la police Courier à la place.\n"
 
-#: lib/message.c:104
+#: lib/message.c:118
 msgid "Notice"
 msgstr "Note"
 
-#: lib/message.c:115
+#: lib/message.c:129
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/message.c:127
+#: lib/message.c:141
 msgid "Error"
 msgstr "Erreur"
 
@@ -1105,19 +1119,23 @@ msgstr "Sélectionner un fichier image"
 msgid "Browse"
 msgstr "Parcourir"
 
+#: lib/properties.c:346 lib/properties.c:378
+msgid "No edit widget"
+msgstr ""
+
 #: objects/UML/actor.c:282
 msgid "Actor"
 msgstr "Acteur"
 
 #: objects/ER/participation.c:451 objects/UML/association.c:608
 #: objects/UML/dependency.c:288 objects/UML/generalization.c:280
-#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:601
+#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:343
 msgid "Add segment"
 msgstr "Ajouter segment"
 
 #: objects/ER/participation.c:452 objects/UML/association.c:609
 #: objects/UML/dependency.c:289 objects/UML/generalization.c:281
-#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:602
+#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:344
 msgid "Delete segment"
 msgstr "Effacer segment"
 
@@ -1430,26 +1448,20 @@ msgid "Multivalue"
 msgstr "Multivalué"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/custom/custom_object.c:275
-#: objects/flowchart/diamond.c:243 objects/flowchart/ellipse.c:243
-#: objects/flowchart/parallelogram.c:251 objects/standard/box.c:209
-#: objects/standard/ellipse.c:206 objects/standard/image.c:264
+#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
+#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
 msgid "Border width:"
 msgstr "Largeur du bord :"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/custom/custom_object.c:290
-#: objects/flowchart/diamond.c:258 objects/flowchart/ellipse.c:258
-#: objects/flowchart/parallelogram.c:266 objects/standard/box.c:224
-#: objects/standard/ellipse.c:221 objects/standard/image.c:279
+#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
+#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
 msgid "Foreground color:"
 msgstr "Couleur du trait :"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/custom/custom_object.c:301
-#: objects/flowchart/diamond.c:269 objects/flowchart/ellipse.c:269
-#: objects/flowchart/parallelogram.c:277 objects/standard/box.c:235
-#: objects/standard/ellipse.c:232
+#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
+#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
 msgid "Background color:"
 msgstr "Couleur du fond :"
 
@@ -1493,103 +1505,78 @@ msgstr "Ajouter une Poignée"
 msgid "Delete Handle"
 msgstr "Effacer la poignée"
 
-#: objects/standard/arc.c:207 objects/standard/line.c:206
-#: objects/standard/polyline.c:209 objects/standard/zigzagline.c:209
-msgid "Line width:"
-msgstr "Largeur de ligne :"
+#: objects/flowchart/box.c:165 objects/standard/box.c:149
+msgid "Corner radius"
+msgstr "Arrondir les coins"
 
-#: objects/standard/arc.c:221 objects/standard/line.c:220
-#: objects/standard/polyline.c:223 objects/standard/textobj.c:236
-#: objects/standard/zigzagline.c:223
-msgid "Color:"
-msgstr "Couleur :"
-
-#: objects/custom/custom_object.c:320 objects/flowchart/diamond.c:288
-#: objects/flowchart/ellipse.c:288 objects/flowchart/parallelogram.c:296
-#: objects/standard/arc.c:232 objects/standard/box.c:254
-#: objects/standard/ellipse.c:251 objects/standard/image.c:290
-#: objects/standard/image.c:385 objects/standard/line.c:231
-#: objects/standard/polyline.c:234 objects/standard/zigzagline.c:234
-msgid "Line style:"
-msgstr "Style de ligne :"
-
-#: objects/standard/arc.c:243 objects/standard/line.c:242
-#: objects/standard/polyline.c:245 objects/standard/zigzagline.c:248
-msgid "Start arrow:"
-msgstr "Début de la flèche :"
-
-#: objects/standard/arc.c:257 objects/standard/line.c:256
-#: objects/standard/polyline.c:259 objects/standard/zigzagline.c:262
-msgid "End arrow:"
-msgstr "Fin de la flèche :"
-
-#: objects/custom/custom_object.c:312 objects/custom/custom_object.c:476
-#: objects/flowchart/box.c:164 objects/flowchart/box.c:317
+#: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:246 objects/standard/box.c:334
-#: objects/standard/ellipse.c:243 objects/standard/ellipse.c:315
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
 msgid "Draw background"
 msgstr "Tracer le fond"
 
-#: objects/flowchart/box.c:325 objects/standard/box.c:265
-#: objects/standard/box.c:342
+#: objects/flowchart/box.c:318 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Arrondir les coins :"
 
-#: objects/standard/line.c:402
+#: objects/standard/line.c:171
 msgid "Add connection point"
 msgstr "Ajouter un point de connexion"
 
-#: objects/standard/line.c:403
+#: objects/standard/line.c:172
 msgid "Delete connection point"
 msgstr "Effacer un point de connexion"
 
-#: objects/standard/line.c:408
+#: objects/standard/line.c:177
 msgid "Line"
 msgstr "Ligne"
 
-#: objects/custom/custom_object.c:351 objects/custom/custom_object.c:499
-#: objects/standard/textobj.c:200 objects/standard/textobj.c:294
+#: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
 msgid "Alignment:"
 msgstr "Alignement :"
 
-#: objects/custom/custom_object.c:362 objects/custom/custom_object.c:510
-#: objects/flowchart/box.c:353 objects/flowchart/diamond.c:313
-#: objects/flowchart/diamond.c:442 objects/flowchart/ellipse.c:313
-#: objects/flowchart/ellipse.c:442 objects/flowchart/parallelogram.c:336
-#: objects/flowchart/parallelogram.c:483 objects/standard/textobj.c:211
-#: objects/standard/textobj.c:305
+#: objects/custom/custom_object.c:380 objects/flowchart/box.c:346
+#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
+#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
+#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
+#: objects/standard/textobj.c:271
 msgid "Font:"
 msgstr "Police :"
 
-#: objects/standard/textobj.c:222 objects/standard/textobj.c:316
+#: objects/standard/textobj.c:282
 msgid "Fontsize:"
 msgstr "Taille de police :"
 
-#: objects/standard/image.c:237 objects/standard/image.c:358
-msgid "Image file:"
+#: objects/standard/image.c:165
+#, fuzzy
+msgid "Image file"
 msgstr "Fichier image :"
 
-#: objects/standard/image.c:248
+#: objects/standard/image.c:167
+#, fuzzy
+msgid "Draw border"
+msgstr "Montrer la bordure"
+
+#: objects/standard/image.c:169
 msgid "Keep aspect ratio"
 msgstr "Conserver les proportions"
 
 #: objects/standard/image.c:256
-msgid "Show border"
-msgstr "Montrer la bordure"
+msgid "Image file:"
+msgstr "Fichier image :"
 
-#: objects/standard/image.c:369
+#: objects/standard/image.c:267
 msgid "Keep aspect ratio:"
 msgstr "Conserver les proportions :"
 
-#: objects/standard/image.c:377
+#: objects/standard/image.c:275
 msgid "Show border:"
 msgstr "Montrer la bordure :"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:941 objects/standard/image.c:952
+#: objects/standard/image.c:780 objects/standard/image.c:791
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1599,16 +1586,16 @@ msgstr ""
 "Utilisation du fichier image '%s' à la place\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:958 objects/standard/image.c:984
+#: objects/standard/image.c:797 objects/standard/image.c:823
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Le fichier image '%s' n'a pas été trouvé.\n"
 
-#: objects/standard/polyline.c:744
+#: objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Ajouter un Coin"
 
-#: objects/standard/polyline.c:745
+#: objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Effacer un Coin"
 
@@ -1812,64 +1799,31 @@ msgstr "   Affiche"
 msgid "   Measure"
 msgstr "   Mesure"
 
-#: objects/flowchart/box.c:158
-msgid "Border width"
-msgstr "Largeur du bord"
-
-#: objects/flowchart/box.c:160
-msgid "Border colour"
-msgstr "Couleur du bord"
-
-#: objects/flowchart/box.c:162
-msgid "Inner colour"
-msgstr "Couleur intérieure"
-
-#: objects/flowchart/box.c:166
-msgid "Line style"
-msgstr "Style de ligne"
-
-#: objects/flowchart/box.c:168
-msgid "Corner radius"
-msgstr "Arrondir les coins"
-
-#: objects/flowchart/box.c:170
+#: objects/flowchart/box.c:167
 msgid "Text padding"
 msgstr "Remplissage du texte"
 
-#: objects/flowchart/box.c:172
-msgid "Font"
-msgstr "Police"
-
-#: objects/flowchart/box.c:174
-msgid "Font size"
-msgstr "Taille de police"
-
-#: objects/flowchart/box.c:176
-msgid "Font colour"
-msgstr "Couleur de la police"
-
-#: objects/flowchart/box.c:178
-msgid "Text"
-msgstr "Texte"
-
-#: objects/custom/custom_object.c:337 objects/custom/custom_object.c:485
-#: objects/flowchart/box.c:339 objects/flowchart/diamond.c:299
-#: objects/flowchart/diamond.c:428 objects/flowchart/ellipse.c:299
-#: objects/flowchart/ellipse.c:428 objects/flowchart/parallelogram.c:322
-#: objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
+#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
+#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
+#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
 msgid "Text padding:"
 msgstr "Remplissage du texte :"
 
-#: objects/custom/custom_object.c:373 objects/custom/custom_object.c:521
-#: objects/flowchart/box.c:364 objects/flowchart/diamond.c:324
-#: objects/flowchart/diamond.c:453 objects/flowchart/ellipse.c:324
-#: objects/flowchart/ellipse.c:453 objects/flowchart/parallelogram.c:347
-#: objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:391 objects/flowchart/box.c:357
+#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
+#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
+#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
 msgid "Font size:"
 msgstr "Taille de police :"
 
-#: objects/custom/custom_object.c:387 objects/flowchart/diamond.c:338
-#: objects/flowchart/ellipse.c:338 objects/flowchart/parallelogram.c:361
+#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
+#: objects/flowchart/parallelogram.c:296
+msgid "Line style:"
+msgstr "Style de ligne :"
+
+#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
+#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Couleur de la police :"
 
@@ -1877,27 +1831,72 @@ msgstr "Couleur de la police :"
 msgid "Shear angle:"
 msgstr "Angle de torsion :"
 
-#: objects/custom/custom_object.c:191
-msgid "A custom with text inside."
-msgstr "Personnalisé contenant du texte."
+#: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
+#, fuzzy
+msgid "Flip horizontal"
+msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1390
+#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#, fuzzy
+msgid "Flip vertical"
+msgstr "Retourner verticalement"
+
+#: objects/custom/custom_object.c:1218
 msgid "Flip Horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1219
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
-#: plug-ins/cgm/cgm.c:770
+#: plug-ins/cgm/cgm.c:1082
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:924
+#: plug-ins/cgm/cgm.c:1251
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
+
+#~ msgid "Line width:"
+#~ msgstr "Largeur de ligne :"
+
+#~ msgid "Color:"
+#~ msgstr "Couleur :"
+
+#~ msgid "Start arrow:"
+#~ msgstr "Début de la flèche :"
+
+#~ msgid "End arrow:"
+#~ msgstr "Fin de la flèche :"
+
+#~ msgid "Border width"
+#~ msgstr "Largeur du bord"
+
+#~ msgid "Border colour"
+#~ msgstr "Couleur du bord"
+
+#~ msgid "Inner colour"
+#~ msgstr "Couleur intérieure"
+
+#~ msgid "Line style"
+#~ msgstr "Style de ligne"
+
+#~ msgid "Font"
+#~ msgstr "Police"
+
+#~ msgid "Font size"
+#~ msgstr "Taille de police"
+
+#~ msgid "Font colour"
+#~ msgstr "Couleur de la police"
+
+#~ msgid "Text"
+#~ msgstr "Texte"
+
+#~ msgid "A custom with text inside."
+#~ msgstr "Personnalisé contenant du texte."
 
 #~ msgid "Open diagram"
 #~ msgstr "Ouvrir le diagramme"

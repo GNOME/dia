@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
-"POT-Creation-Date: 1999-12-24 22:20+0800\n"
+"POT-Creation-Date: 2000-02-29 09:57+0800\n"
 "PO-Revision-Date: 2000-02-12 14:03+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@FreeBSD.org>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -13,51 +13,53 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:130
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "ÆÉ¤ß¹þ¤ó¤À¥Õ¥¡¥¤¥ë¤ò¥¨¥¯¥¹¥Ý¡¼¥È¤·¤Æ½ªÎ»¤¹¤ë"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:133
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "¤³¤Î¥Ø¥ë¥×¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤¹¤ë"
 
-#: app/app_procs.c:152
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "¥»¥Ã¥·¥ç¥ó¥Þ¥Í¡¼¥¸¥ã¤ËÀÜÂ³¤Ç¤­¤Þ¤»¤ó!\n"
 
-#: app/app_procs.c:163
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr ""
 
-#: app/app_procs.c:166
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "¥ª¥×¥·¥ç¥ó%s¤Ë¥¨¥é¡¼¤¬¤¢¤ê¤Þ¤¹: %s.\n"
-"'%s --help'¤ò¼Â¹Ô¤·¤Æ»ÈÍÑ¤Ç¤­¤ë¥³¥Þ¥ó¥É¥é¥¤¥ó¥ª¥×¥·¥ç¥ó¤Î°ìÍ÷¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+"'%s "
+"--help'¤ò¼Â¹Ô¤·¤Æ»ÈÍÑ¤Ç¤­¤ë¥³¥Þ¥ó¥É¥é¥¤¥ó¥ª¥×¥·¥ç¥ó¤Î°ìÍ÷¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"\n"
 
-#: app/app_procs.c:209 app/app_procs.c:211
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "object-libs¤òÃµ¤·¤Þ¤·¤¿¤¬¡¢É¸½à¥ª¥Ö¥¸¥§¥¯¥È¤ò¸«¤Ä¤±¤é¤ì¤Ê¤«¤Ã¤¿¤Î¤Ç¡¢½ªÎ»¤·¤Þ"
 "¤¹...\n"
 
-#: app/app_procs.c:227
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Í­¸ú¤ÊÆþÎÏ¥Õ¥¡¥¤¥ë¤¬É¬Í×¤Ç¤¹\n"
 
-#: app/app_procs.c:287
+#: app/app_procs.c:294 app/app_procs.c:300
 msgid "Quit, are you sure?"
 msgstr "½ªÎ»¤·¤Þ¤¹¡£¤è¤í¤·¤¤¤Ç¤¹¤«?"
 
-#: app/app_procs.c:289
+#: app/app_procs.c:307
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -65,20 +67,20 @@ msgstr ""
 "ÊÑ¹¹¤µ¤ì¤¿¥À¥¤¥¢¥°¥é¥à¤¬¤¢¤ê¤Þ¤¹¡£\n"
 "½ªÎ»¤·¤Æ¤â¤è¤í¤·¤¤¤Ç¤¹¤«?"
 
-#: app/app_procs.c:298
+#: app/app_procs.c:317 app/app_procs.c:322
 msgid "Quit"
 msgstr "½ªÎ»"
 
-#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
-#: app/lineprops_area.c:714
+#: app/app_procs.c:334 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "¥­¥ã¥ó¥»¥ë"
 
-#: app/app_procs.c:362
+#: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
 msgstr "¥æ¡¼¥¶¡¼ÊÌ¤ÎDiaÀßÄê¥Ç¥£¥ì¥¯¥È¥ê¤òºîÀ®¤Ç¤­¤Þ¤»¤ó"
 
-#: app/app_procs.c:419
+#: app/app_procs.c:444
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -87,13 +89,13 @@ msgstr ""
 "ÆÉ¤ß¹þ¤à¥é¥¤¥Ö¥é¥ê¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£\n"
 "%s¤Ï¥Ç¥£¥ì¥¯¥È¥ê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:426
+#: app/app_procs.c:451
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "\"%s\"¤ò³«¤±¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:439 app/app_procs.c:440 app/app_procs.c:467
-#: app/app_procs.c:468
+#: app/app_procs.c:464 app/app_procs.c:465 app/app_procs.c:492
+#: app/app_procs.c:493
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -102,12 +104,12 @@ msgstr ""
 "¥é¥¤¥Ö¥é¥ê¤ÎÆÉ¤ß¹þ¤ß¤Ë¼ºÇÔ¤·¤Þ¤·¤¿: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:445 app/app_procs.c:446
+#: app/app_procs.c:470 app/app_procs.c:471
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "¥Õ¥¡¥¤¥ë\"%s\"¤ÏDia¥ª¥Ö¥¸¥§¥¯¥È¥é¥¤¥Ö¥é¥ê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£\n"
 
-#: app/app_procs.c:452 app/app_procs.c:453
+#: app/app_procs.c:477 app/app_procs.c:478
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -118,7 +120,7 @@ msgstr ""
 "¤­¤Þ¤»¤ó¡£\n"
 "¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: app/app_procs.c:459 app/app_procs.c:460
+#: app/app_procs.c:484 app/app_procs.c:485
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -127,7 +129,7 @@ msgstr ""
 "¥ª¥Ö¥¸¥§¥¯¥È¥é¥¤¥Ö¥é¥ê\"%s\"¤Ï¡¢¿·¤·¤¤¥Ð¡¼¥¸¥ç¥ó¤ÎDia¤Î¤â¤Î¤Ç¤¹¡£\n"
 "¤³¤ì¤ò»È¤¦¾ì¹ç¤Ë¤Ï¡¢Dia¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: app/app_procs.c:534
+#: app/app_procs.c:559
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -140,37 +142,7 @@ msgstr ""
 msgid "Select color"
 msgstr "¿§¤ÎÁªÂò"
 
-#: app/commands.c:137
-msgid "Open diagram"
-msgstr "¥À¥¤¥¢¥°¥é¥à¤ò³«¤¯"
-
-#: app/commands.c:198
-msgid "File already exists"
-msgstr "¥Õ¥¡¥¤¥ë¤¬¤¹¤Ç¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
-
-#: app/commands.c:201
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to overwrite it?"
-msgstr ""
-"¥Õ¥¡¥¤¥ë'%s'¤Ï¤¹¤Ç¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹¡£\n"
-"¾å½ñ¤­¤·¤Þ¤¹¤«?"
-
-#: app/commands.c:213 app/display.c:743 app/preferences.c:460
-msgid "Yes"
-msgstr "¤Ï¤¤"
-
-#: app/commands.c:226 app/display.c:754 app/preferences.c:460
-#: app/preferences.c:471
-msgid "No"
-msgstr "¤¤¤¤¤¨"
-
-#: app/commands.c:269
-msgid "Save diagram"
-msgstr "¥À¥¤¥¢¥°¥é¥à¤òÊÝÂ¸¤¹¤ë"
-
-#: app/commands.c:304
+#: app/commands.c:78
 #, c-format
 msgid ""
 "No such file found\n"
@@ -179,36 +151,36 @@ msgstr ""
 "¥Õ¥¡¥¤¥ë¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿\n"
 "%s\n"
 
-#: app/commands.c:324
+#: app/commands.c:98
 msgid "Import from XFig"
 msgstr "XFig¤«¤é¥¤¥ó¥Ý¡¼¥È¤¹¤ë"
 
-#: app/commands.c:380
+#: app/commands.c:154
 #, c-format
 msgid "Untitled-%d"
 msgstr "ÌµÂê-%d"
 
-#: app/commands.c:441
+#: app/commands.c:215
 msgid "No existing object to paste.\n"
 msgstr "Å½¤êÉÕ¤±¤ë¥ª¥Ö¥¸¥§¥¯¥È¤¬Â¸ºß¤·¤Þ¤»¤ó¡£\n"
 
-#: app/commands.c:535
+#: app/commands.c:309
 msgid "About Dia"
 msgstr "Dia¤Ë¤Ä¤¤¤Æ"
 
-#: app/commands.c:572
+#: app/commands.c:348
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s by Alexander Larsson"
 
-#: app/commands.c:576
+#: app/commands.c:352
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "¾ÜºÙ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï http://www.lysator.liu.se/~alla/dia ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤"
 
-#: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
-#: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
-#: lib/message.c:72
+#: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
+#: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
+#: lib/message.c:85
 msgid "OK"
 msgstr "Î»²ò"
 
@@ -244,47 +216,47 @@ msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¥°¥ë¡¼¥×²½(_G)"
 msgid "/Objects/Ungroup"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¥°¥ë¡¼¥×²ò½ü(_U)"
 
-#: app/diagram.c:157 app/menus.c:243
+#: app/diagram.c:157 app/menus.c:250
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)/º¸"
 
-#: app/diagram.c:159 app/menus.c:244
+#: app/diagram.c:159 app/menus.c:251
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)/Ãæ±û"
 
-#: app/diagram.c:161 app/menus.c:245
+#: app/diagram.c:161 app/menus.c:252
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)/±¦"
 
-#: app/diagram.c:163 app/menus.c:246
+#: app/diagram.c:163 app/menus.c:253
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)/Åù´Ö³Ö"
 
-#: app/diagram.c:165 app/menus.c:247
+#: app/diagram.c:165 app/menus.c:254
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)/ÎÙÀÜ"
 
-#: app/diagram.c:167 app/menus.c:249
+#: app/diagram.c:167 app/menus.c:256
 msgid "/Objects/Align Vertical/Top"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)/¾å"
 
-#: app/diagram.c:169 app/menus.c:250
+#: app/diagram.c:169 app/menus.c:257
 msgid "/Objects/Align Vertical/Center"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)/Ãæ±û"
 
-#: app/diagram.c:171 app/menus.c:251
+#: app/diagram.c:171 app/menus.c:258
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)/²¼"
 
-#: app/diagram.c:173 app/menus.c:252
+#: app/diagram.c:173 app/menus.c:259
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)/Åù´Ö³Ö"
 
-#: app/diagram.c:175 app/menus.c:253
+#: app/diagram.c:175 app/menus.c:260
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)/ÎÙÀÜ"
 
-#: app/disp_callbacks.c:69 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -296,19 +268,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¥á¥Ë¥å¡¼¤Ï¤¢¤ê¤Þ¤»¤ó"
 
-#: app/display.c:59 app/display.c:60
+#: app/display.c:63 app/display.c:64
 msgid "Zoom"
 msgstr "¥º¡¼¥à"
 
-#: app/display.c:79
+#: app/display.c:83
 msgid "Diagram modified!"
 msgstr "¥À¥¤¥¢¥°¥é¥à¤¬ÊÑ¹¹¤µ¤ì¤Þ¤·¤¿!"
 
-#: app/display.c:731
+#: app/display.c:779 app/display.c:785
 msgid "Really close?"
 msgstr "ËÜÅö¤ËÊÄ¤¸¤Þ¤¹¤«?"
 
-#: app/display.c:734
+#: app/display.c:790
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -316,83 +288,92 @@ msgstr ""
 "¤³¤Î¥À¥¤¥¢¥°¥é¥à¤Ï¤Þ¤ÀÊÝÂ¸¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£\n"
 "¤³¤Î¥¦¥£¥ó¥É¥¦¤òÊÄ¤¸¤Þ¤¹¤«?"
 
-#: app/display.c:787
+#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
+msgid "Yes"
+msgstr "¤Ï¤¤"
+
+#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
+#: lib/properties.c:258 lib/properties.c:279
+msgid "No"
+msgstr "¤¤¤¤¤¨"
+
+#: app/display.c:851
 msgid "/View/Show Rulers"
 msgstr "/É½¼¨(_V)/ÌÜÀ¹¤ê¤ÎÉ½¼¨(_R)"
 
-#: app/display.c:789
+#: app/display.c:853
 msgid "/View/Visible Grid"
 msgstr "/É½¼¨(_V)/¥°¥ê¥Ã¥É¤ÎÉ½¼¨(_V)"
 
-#: app/display.c:791
+#: app/display.c:855
 msgid "/View/Snap To Grid"
 msgstr "/É½¼¨(_V)/¥°¥ê¥Ã¥É¤Ë¤¢¤ï¤»¤ë(_S)"
 
-#: app/display.c:793
+#: app/display.c:857
 msgid "/View/Show Connection Points"
 msgstr "/É½¼¨(_V)/ÀÜÂ³ÅÀ¤ÎÉ½¼¨(_C)"
 
-#: app/grid.c:148
+#: app/grid.c:190
 msgid "Grid options"
 msgstr "¥°¥ê¥Ã¥É¥ª¥×¥·¥ç¥ó"
 
-#: app/grid.c:157
+#: app/grid.c:199
 msgid "Grid x size:"
 msgstr "¥°¥ê¥Ã¥É¤Î²£Éý :"
 
-#: app/grid.c:175
+#: app/grid.c:217
 msgid "Grid y size:"
 msgstr "¥°¥ê¥Ã¥É¤Î½ÄÉý :"
 
-#: app/interface.c:59
+#: app/interface.c:65
 msgid "Modify object(s)"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤ÎÊÑ¹¹"
 
-#: app/interface.c:63
+#: app/interface.c:69
 msgid "Magnify"
 msgstr "³ÈÂç"
 
-#: app/interface.c:67
+#: app/interface.c:73
 msgid "Scroll around the diagram"
 msgstr "¥À¥¤¥¢¥°¥é¥à¤Ë±è¤Ã¤¿¥¹¥¯¥í¡¼¥ë"
 
-#: app/interface.c:71
+#: app/interface.c:77
 msgid "Create Text"
 msgstr "¥Æ¥­¥¹¥È¤ÎÀ¸À®"
 
-#: app/interface.c:75
+#: app/interface.c:81
 msgid "Create Box"
 msgstr "¥Ü¥Ã¥¯¥¹¤ÎÀ¸À®"
 
-#: app/interface.c:79
+#: app/interface.c:85
 msgid "Create Ellipse"
 msgstr "ÂÊ±ß¤ÎÀ¸À®"
 
-#: app/interface.c:83
+#: app/interface.c:89
 msgid "Create Line"
 msgstr "Àþ¤ÎÀ¸À®"
 
-#: app/interface.c:87
+#: app/interface.c:93
 msgid "Create Arc"
 msgstr "¸Ì¤ÎÀ¸À®"
 
-#: app/interface.c:91
+#: app/interface.c:97
 msgid "Create Zigzagline"
 msgstr "¥¸¥°¥¶¥°Àþ¤ÎÀ¸À®"
 
-#: app/interface.c:95
+#: app/interface.c:101
 msgid "Create Polyline"
 msgstr "Ï¢Â³Àþ¤ÎÀ¸À®"
 
-#: app/interface.c:99
+#: app/interface.c:105
 msgid "Create Bezierline"
 msgstr "¥Ù¥¸¥¨¶ÊÀþ¤ÎºîÀ®"
 
-#: app/interface.c:103
+#: app/interface.c:109
 msgid "Create Image"
 msgstr "¥¤¥á¡¼¥¸¤ÎÀ¸À®"
 
-#: app/interface.c:562
+#: app/interface.c:608
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -400,7 +381,7 @@ msgstr ""
 "Ê¸»ú¤ÈÇØ·Ê¤Î¿§¤Ç¤¹¡£¹õ¤ÈÇò¤Î¾®¤µ¤Ê»Í³Ñ¤Ï¡¢¿§¤ò¥ê¥»¥Ã¥È¤·¤Þ¤¹¡£¾®¤µ¤ÊÌð°õ¤Ï¿§ò"
 "¸ò´¹¤·¤Þ¤¹¡£¥À¥Ö¥ë¥¯¥ê¥Ã¥¯¤¹¤ë¤È¿§¤òÊÑ¹¹¤·¤Þ¤¹¡"
 
-#: app/interface.c:646
+#: app/interface.c:711
 msgid "Diagram Editor"
 msgstr "¥À¥¤¥¢¥°¥é¥à¥¨¥Ç¥£¥¿"
 
@@ -428,8 +409,8 @@ msgstr "¥ì¥¤¥ä"
 msgid "Diagrams:"
 msgstr "¥À¥¤¥¢¥°¥é¥à :"
 
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:564
-#: app/properties.c:73
+#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:606
+#: app/properties.c:101
 msgid "Close"
 msgstr "ÊÄ¤¸¤ë"
 
@@ -449,11 +430,11 @@ msgstr "¥ì¥¤¥ä¤ÎÂ°À­¤òÊÔ½¸¤¹¤ë"
 msgid "Layer name:"
 msgstr "¥ì¥¤¥äÌ¾ :"
 
-#: app/load_save.c:82
+#: app/load_save.c:88
 msgid "Error reading diagram file\n"
 msgstr "¥À¥¤¥¢¥°¥é¥à¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿\n"
 
-#: app/load_save.c:133
+#: app/load_save.c:139
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -461,7 +442,7 @@ msgstr ""
 "¥À¥¤¥¢¥°¥é¥à¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿¡£\n"
 "¥ê¥ó¥¯¤µ¤ì¤¿¥ª¥Ö¥¸¥§¥¯¥È¤Ï¥É¥­¥å¥á¥ó¥È¤Ë¤Ï¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿¡£"
 
-#: app/load_save.c:136
+#: app/load_save.c:142
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -469,7 +450,7 @@ msgstr ""
 "¥À¥¤¥¢¥°¥é¥à¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿¡£\n"
 "ÀÜÂ³ÅÀ¤¬Â¸ºß¤·¤Þ¤»¤ó¡£"
 
-#: app/load_save.c:139
+#: app/load_save.c:145
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -477,16 +458,16 @@ msgstr ""
 "¥À¥¤¥¢¥°¥é¥à¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿¡£\n"
 "ÀÜÂ³¥Ï¥ó¥É¥ë¤¬Â¸ºß¤·¤Þ¤»¤ó¡£"
 
-#: app/load_save.c:184
+#: app/load_save.c:190
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "³«¤±¤Ê¤¤¤Î¤ÇÆÉ¤á¤Þ¤»¤ó: '%s'\n"
 
-#: app/load_save.c:190
+#: app/load_save.c:196
 msgid "You must specify a file, not a directory.\n"
 msgstr "¥Ç¥£¥ì¥¯¥È¥ê¤Ç¤Ï¤Ê¤¯¡¢¥Õ¥¡¥¤¥ë¤ò»ØÄê¤·¤Ê¤¯¤Æ¤Ï¤Ê¤ê¤Þ¤»¤ó¡£\n"
 
-#: app/load_save.c:199 app/load_save.c:204
+#: app/load_save.c:205 app/load_save.c:210
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -495,7 +476,7 @@ msgstr ""
 "¥À¥¤¥¢¥°¥é¥à %s ¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿¡£\n"
 "ÉÔÌÀ¤Ê¥Õ¥¡¥¤¥ë¥¿¥¤¥×¤Ç¤¹¡£"
 
-#: app/load_save.c:211
+#: app/load_save.c:217
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -504,18 +485,18 @@ msgstr ""
 "¥À¥¤¥¢¥°¥é¥à %s ¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬µ¯¤³¤ê¤Þ¤·¤¿¡£\n"
 "Dia¥Õ¥¡¥¤¥ë¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: app/load_save.c:485 app/render_eps.c:161 app/render_svg.c:144
-#: plug-ins/cgm/cgm.c:815
+#: app/load_save.c:506 app/render_eps.c:161 app/render_svg.c:144
+#: plug-ins/cgm/cgm.c:1127
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "³«¤±¤Ê¤¤¤Î¤Ç½ñ¤­¹þ¤á¤Þ¤»¤ó: '%s'\n"
 
-#: app/load_save.c:575
+#: app/load_save.c:604
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr ""
 
-#: app/load_save.c:595
+#: app/load_save.c:624
 msgid "Native Dia Diagram"
 msgstr "¥Í¥¤¥Æ¥£¥Ö¤ÊDia¥À¥¤¥¢¥°¥é¥à"
 
@@ -569,342 +550,352 @@ msgstr "¥º¡¼¥à(_Z)"
 msgid "Edit Grid..."
 msgstr "¥°¥ê¥Ã¥É¤ÎÊÔ½¸..."
 
-#: app/menus.c:105
+#: app/menus.c:106
+msgid "_AntiAliased"
+msgstr ""
+
+#: app/menus.c:109
 msgid "_Visible Grid"
 msgstr "¥°¥ê¥Ã¥É¤ÎÉ½¼¨(_V)"
 
-#: app/menus.c:107
+#: app/menus.c:111
 msgid "_Snap To Grid"
 msgstr "¥°¥ê¥Ã¥É¤Ë¤¢¤ï¤»¤ë(_S)"
 
-#: app/menus.c:109
+#: app/menus.c:113
 msgid "Show _Rulers"
 msgstr "ÌÜÀ¹¤ê¤ÎÉ½¼¨(_R)"
 
-#: app/menus.c:111
+#: app/menus.c:115
 msgid "Show _Connection Points"
 msgstr "ÀÜÂ³ÅÀ¤ÎÉ½¼¨(_C)"
 
-#: app/menus.c:114
+#: app/menus.c:118
 msgid "New _View"
 msgstr "¿·µ¬¥Ó¥å¡¼(_V)"
 
-#: app/menus.c:115
+#: app/menus.c:119
 msgid "Show _All"
 msgstr "¤¹¤Ù¤ÆÉ½¼¨(_A)"
 
-#: app/menus.c:120 lib/widgets.c:176 objects/UML/association.c:1003
+#: app/menus.c:124 lib/properties.c:1102 lib/widgets.c:176
+#: objects/UML/association.c:1005
 msgid "Left"
 msgstr "º¸"
 
-#: app/menus.c:121 app/menus.c:130 lib/widgets.c:182
+#: app/menus.c:125 app/menus.c:134 lib/properties.c:1103 lib/widgets.c:182
 msgid "Center"
 msgstr "Ãæ±û"
 
-#: app/menus.c:122 lib/widgets.c:188 objects/UML/association.c:996
+#: app/menus.c:126 lib/properties.c:1104 lib/widgets.c:188
+#: objects/UML/association.c:998
 msgid "Right"
 msgstr "±¦"
 
-#: app/menus.c:123 app/menus.c:132
+#: app/menus.c:127 app/menus.c:136
 msgid "Equal Distance"
 msgstr "Åù´Ö³Ö"
 
-#: app/menus.c:124 app/menus.c:133
+#: app/menus.c:128 app/menus.c:137
 msgid "Adjacent"
 msgstr "ÎÙÀÜ"
 
-#: app/menus.c:129
+#: app/menus.c:133
 msgid "Top"
 msgstr "¾å"
 
-#: app/menus.c:131
+#: app/menus.c:135
 msgid "Bottom"
 msgstr "²¼"
 
-#: app/menus.c:138
+#: app/menus.c:142
 msgid "Send to _Back"
 msgstr "ÇØÌÌ¤ËÁ÷¤ë(_B)"
 
-#: app/menus.c:139
+#: app/menus.c:143
 msgid "Bring to _Front"
 msgstr "Á°ÌÌ¤ËÁ÷¤ë(_F)"
 
-#: app/menus.c:141
+#: app/menus.c:145
 msgid "_Group"
 msgstr "¥°¥ë¡¼¥×²½(_G)"
 
-#: app/menus.c:142
+#: app/menus.c:146
 msgid "_Ungroup"
 msgstr "¥°¥ë¡¼¥×²ò½ü(_U)"
 
-#: app/menus.c:144
+#: app/menus.c:148
 msgid "Align _Horizontal"
 msgstr "¿åÊ¿°ÌÃÖ(_H)"
 
-#: app/menus.c:145
+#: app/menus.c:149
 msgid "Align _Vertical"
 msgstr "¿âÄ¾°ÌÃÖ(_V)"
 
-#: app/menus.c:150
+#: app/menus.c:154
 msgid "_Properties"
 msgstr "¥×¥í¥Ñ¥Æ¥£(_P)"
 
-#: app/menus.c:151
+#: app/menus.c:155
 msgid "_Layers"
 msgstr "¥ì¥¤¥ä(_L)"
 
-#: app/menus.c:170
+#: app/menus.c:174
 msgid "Objects"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È(_O)"
 
-#: app/menus.c:171
+#: app/menus.c:175
 msgid "Dialogs"
 msgstr "¥À¥¤¥¢¥í¥°(_D)"
 
-#: app/menus.c:178 app/menus.c:190
+#: app/menus.c:182 app/menus.c:194
 msgid "/_File"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:179 app/menus.c:192
+#: app/menus.c:183 app/menus.c:196
 msgid "/File/_New"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/¿·µ¬(_N)"
 
-#: app/menus.c:180 app/menus.c:193
+#: app/menus.c:184 app/menus.c:197
 msgid "/File/_Open"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/³«¤¯(_O)"
 
-#: app/menus.c:181
+#: app/menus.c:185
 msgid "/File/_Preferences..."
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/ÀßÄê(_P)..."
 
-#: app/menus.c:182 app/menus.c:197
+#: app/menus.c:186 app/menus.c:201
 msgid "/File/sep1"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/sep1"
 
-#: app/menus.c:183 app/menus.c:202
+#: app/menus.c:187 app/menus.c:206
 msgid "/File/_Quit"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/½ªÎ»(_Q)"
 
-#: app/menus.c:184
+#: app/menus.c:188
 msgid "/_Help"
 msgstr "/¥Ø¥ë¥×(_H)"
 
-#: app/menus.c:185
+#: app/menus.c:189
 msgid "/Help/_About"
 msgstr "/¥Ø¥ë¥×(_H)/¾ðÊó(_A)"
 
-#: app/menus.c:194
+#: app/menus.c:198
 msgid "/File/_Save"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/ÊÝÂ¸(_S)"
 
-#: app/menus.c:195
+#: app/menus.c:199
 msgid "/File/Save _As..."
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/Ì¾Á°¤ò¤Ä¤±¤ÆÊÝÂ¸(_A)"
 
-#: app/menus.c:196
+#: app/menus.c:200
 msgid "/File/_Export..."
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/¥¨¥¯¥¹¥Ý¡¼¥È(_E)..."
 
-#: app/menus.c:198
+#: app/menus.c:202
 msgid "/File/Page Set_up..."
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/¥Ú¡¼¥¸ÀßÄê(_U)..."
 
-#: app/menus.c:199
+#: app/menus.c:203
 msgid "/File/_Print Diagram..."
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/¥À¥¤¥¢¥°¥é¥à¤ò°õºþ(_P)..."
 
-#: app/menus.c:200
+#: app/menus.c:204
 msgid "/File/sep2"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/sep2"
 
-#: app/menus.c:201
+#: app/menus.c:205
 msgid "/File/_Close"
 msgstr "/¥Õ¥¡¥¤¥ë(_F)/ÊÄ¤¸¤ë(_C)"
 
-#: app/menus.c:203
+#: app/menus.c:207
 msgid "/_Edit"
 msgstr "/ÊÔ½¸(_E)"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:205
+#: app/menus.c:209
 msgid "/Edit/_Copy"
 msgstr "/ÊÔ½¸(_E)/¥³¥Ô¡¼(_C)"
 
-#: app/menus.c:206
+#: app/menus.c:210
 msgid "/Edit/C_ut"
 msgstr "/ÊÔ½¸(_E)/ÀÚ¤ê¼è¤ê(_U)"
 
-#: app/menus.c:207
+#: app/menus.c:211
 msgid "/Edit/_Paste"
 msgstr "/ÊÔ½¸(_E)/Å½¤êÉÕ¤±(_P)"
 
-#: app/menus.c:208
+#: app/menus.c:212
 msgid "/Edit/_Delete"
 msgstr "/ÊÔ½¸(_E)/ºï½ü(_D)"
 
-#: app/menus.c:209
+#: app/menus.c:213
 msgid "/Edit/_Undo"
 msgstr "/ÊÔ½¸(_E)/¸µ¤ËÌá¤¹(_U)"
 
-#: app/menus.c:210
+#: app/menus.c:214
 msgid "/Edit/_Redo"
 msgstr "/ÊÔ½¸(_E)/¤ä¤êÄ¾¤·(_R)"
 
-#: app/menus.c:211
+#: app/menus.c:215
 msgid "/_View"
 msgstr "/É½¼¨(_V)"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:213
+#: app/menus.c:217
 msgid "/View/Zoom _In"
 msgstr "/É½¼¨(_V)/³ÈÂç(_I)"
 
-#: app/menus.c:214
+#: app/menus.c:218
 msgid "/View/Zoom _Out"
 msgstr "/É½¼¨(_V)/½Ì¾®(_O)"
 
-#: app/menus.c:215
+#: app/menus.c:219
 msgid "/View/_Zoom"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)"
 
-#: app/menus.c:216
+#: app/menus.c:220
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/400%"
 
-#: app/menus.c:217
+#: app/menus.c:221
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/283%"
 
-#: app/menus.c:218
+#: app/menus.c:222
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/200%"
 
-#: app/menus.c:219
+#: app/menus.c:223
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/141%"
 
-#: app/menus.c:220
+#: app/menus.c:224
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/100%"
 
-#: app/menus.c:221
+#: app/menus.c:225
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/85%"
 
-#: app/menus.c:222
+#: app/menus.c:226
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/70.7%"
 
-#: app/menus.c:223
+#: app/menus.c:227
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/50%"
 
-#: app/menus.c:224
+#: app/menus.c:228
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/35.4%"
 
-#: app/menus.c:225
+#: app/menus.c:229
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/É½¼¨(_V)/¥º¡¼¥à(_Z)/25%"
 
-#: app/menus.c:226
+#: app/menus.c:230
 msgid "/View/Edit Grid..."
 msgstr "/É½¼¨(_V)/¥°¥ê¥Ã¥É¤ÎÊÔ½¸..."
 
-#: app/menus.c:227
+#: app/menus.c:232
+msgid "/View/_AntiAliased"
+msgstr ""
+
+#: app/menus.c:234
 msgid "/View/_Visible Grid"
 msgstr "/É½¼¨(_V)/¥°¥ê¥Ã¥É¤ÎÉ½¼¨(_V)"
 
-#: app/menus.c:228
+#: app/menus.c:235
 msgid "/View/_Snap To Grid"
 msgstr "/É½¼¨(_V)/¥°¥ê¥Ã¥É¤Ë¤¢¤ï¤»¤ë(_S)"
 
-#: app/menus.c:229
+#: app/menus.c:236
 msgid "/View/Show _Rulers"
 msgstr "/É½¼¨(_V)/ÌÜÀ¹¤ê¤ÎÉ½¼¨(_R)"
 
-#: app/menus.c:230
+#: app/menus.c:237
 msgid "/View/Show _Connection Points"
 msgstr "/É½¼¨(_V)/ÀÜÂ³ÅÀ¤ÎÉ½¼¨(_C)"
 
-#: app/menus.c:231
+#: app/menus.c:238
 msgid "/View/sep1"
 msgstr "/É½¼¨(_V)/sep1"
 
-#: app/menus.c:232
+#: app/menus.c:239
 msgid "/View/New _View"
 msgstr "/É½¼¨(_V)/¿·µ¬¥Ó¥å¡¼(_V)"
 
-#: app/menus.c:233
+#: app/menus.c:240
 msgid "/View/Show _All"
 msgstr "/É½¼¨(_V)/¤¹¤Ù¤ÆÉ½¼¨(_A)"
 
-#: app/menus.c:234
+#: app/menus.c:241
 msgid "/_Objects"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:236
+#: app/menus.c:243
 msgid "/Objects/Send to _Back"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/ÇØÌÌ¤ËÁ÷¤ë(_B)"
 
-#: app/menus.c:237
+#: app/menus.c:244
 msgid "/Objects/Bring to _Front"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/Á°ÌÌ¤ËÁ÷¤ë(_F)"
 
-#: app/menus.c:238 app/menus.c:241
+#: app/menus.c:245 app/menus.c:248
 msgid "/Objects/sep1"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/sep1"
 
-#: app/menus.c:239
+#: app/menus.c:246
 msgid "/Objects/_Group"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¥°¥ë¡¼¥×²½(_G)"
 
-#: app/menus.c:240
+#: app/menus.c:247
 msgid "/Objects/_Ungroup"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¥°¥ë¡¼¥×²ò½ü(_U)"
 
-#: app/menus.c:242
+#: app/menus.c:249
 msgid "/Objects/Align _Horizontal"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿åÊ¿°ÌÃÖ(_H)"
 
-#: app/menus.c:248
+#: app/menus.c:255
 msgid "/Objects/Align _Vertical"
 msgstr "/¥ª¥Ö¥¸¥§¥¯¥È(_O)/¿âÄ¾°ÌÃÖ(_V)"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:256
+#: app/menus.c:263
 msgid "/_Dialogs"
 msgstr "/¥À¥¤¥¢¥í¥°(_D)"
 
-#: app/menus.c:257
+#: app/menus.c:264
 msgid "/Dialogs/_Properties"
 msgstr "/¥À¥¤¥¢¥í¥°(_D)/¥×¥í¥Ñ¥Æ¥£(_P)"
 
-#: app/menus.c:258
+#: app/menus.c:265
 msgid "/Dialogs/_Layers"
 msgstr "/¥À¥¤¥¢¥í¥°(_D)/¥ì¥¤¥ä(_L)"
 
-#: app/properties.c:45
+#: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤Î¥×¥í¥Ñ¥Æ¥£"
 
-#: app/defaults.c:61 app/preferences.c:554 app/properties.c:63
+#: app/defaults.c:72 app/preferences.c:597 app/properties.c:91
 msgid "Apply"
 msgstr "Å¬ÍÑ"
 
-#: app/properties.c:85
+#: app/properties.c:114
 msgid "This object has no properties."
 msgstr "¤³¤Î¥ª¥Ö¥¸¥§¥¯¥È¤Ë¤Ï¥×¥í¥Ñ¥Æ¥£¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
@@ -912,83 +903,94 @@ msgstr "¤³¤Î¥ª¥Ö¥¸¥§¥¯¥È¤Ë¤Ï¥×¥í¥Ñ¥Æ¥£¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/defaults.c:43
+#: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤Î¥Ç¥Õ¥©¥ë¥È"
 
-#: app/defaults.c:73
+#: app/defaults.c:95
 msgid "This object has no defaults."
 msgstr "¤³¤Î¥ª¥Ö¥¸¥§¥¯¥È¤Ë¤Ï¥Ç¥Õ¥©¥ë¥È¤Ï¤¢¤ê¤Þ¤»¤ó"
 
-#: app/preferences.c:72
+#: app/preferences.c:82
 msgid "User Interface"
 msgstr "¥æ¡¼¥¶¥¤¥ó¥¿¡¼¥Õ¥§¡¼¥¹"
 
-#: app/preferences.c:73
+#: app/preferences.c:83
 msgid "View Defaults"
 msgstr "¥Ó¥å¡¼¤Î¥Ç¥Õ¥©¥ë¥È"
 
-#: app/preferences.c:80
+#: app/preferences.c:84
+#, fuzzy
+msgid "Grid Lines"
+msgstr "¥°¥ê¥Ã¥É¥ª¥×¥·¥ç¥ó"
+
+#: app/preferences.c:98
 msgid "Reset tools after create:"
 msgstr "À¸À®¸å¤Ë¥Ä¡¼¥ë¤ò¥ê¥»¥Ã¥È¤¹¤ë :"
 
-#: app/preferences.c:81
+#: app/preferences.c:99
 msgid "Compress saved files:"
 msgstr "ÊÝÂ¸¤¹¤ë¥Õ¥¡¥¤¥ë¤ò°µ½Ì¤¹¤ë :"
 
-#: app/preferences.c:82
+#: app/preferences.c:100
 msgid "Number of undo levels:"
 msgstr "¸µ¤ËÌá¤»¤ë²ó¿ô :"
 
-#: app/preferences.c:84
-msgid "Grid:"
-msgstr "¥°¥ê¥Ã¥É :"
-
-#: app/preferences.c:85 app/preferences.c:98
-msgid "Visible:"
-msgstr "É½¼¨ :"
-
-#: app/preferences.c:86
-msgid "Snap to:"
-msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤ò¤¢¤ï¤»¤ë :"
-
-#: app/preferences.c:87
-msgid "X Size:"
-msgstr "X¥µ¥¤¥º :"
-
-#: app/preferences.c:88
-msgid "Y Size:"
-msgstr "Y¥µ¥¤¥º :"
-
-#: app/preferences.c:89
-msgid "Colour"
-msgstr "¿§ :"
-
-#: app/preferences.c:90
-msgid "Solid lines"
-msgstr "¼ÂÀþ¤ÇÉÁ²è¤¹¤ë"
-
-#: app/preferences.c:92
+#: app/preferences.c:102
 msgid "New window:"
 msgstr "¿·µ¬¥¦¥£¥ó¥É¥¦ :"
 
-#: app/preferences.c:93
+#: app/preferences.c:103
 msgid "Width:"
 msgstr "Éý :"
 
-#: app/preferences.c:94
+#: app/preferences.c:104
 msgid "Height:"
 msgstr "¹â¤µ :"
 
-#: app/preferences.c:95
+#: app/preferences.c:105
 msgid "Magnify:"
 msgstr "¥º¡¼¥à :"
 
-#: app/preferences.c:97
+#: app/preferences.c:107
 msgid "Connection Points:"
 msgstr "ÀÜÂ³ÅÀ :"
 
-#: app/preferences.c:535
+#: app/preferences.c:108 app/preferences.c:111 app/preferences.c:119
+msgid "Visible:"
+msgstr "É½¼¨ :"
+
+#: app/preferences.c:110
+msgid "Grid:"
+msgstr "¥°¥ê¥Ã¥É :"
+
+#: app/preferences.c:112
+msgid "Snap to:"
+msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤ò¤¢¤ï¤»¤ë :"
+
+#: app/preferences.c:113
+msgid "X Size:"
+msgstr "X¥µ¥¤¥º :"
+
+#: app/preferences.c:114
+msgid "Y Size:"
+msgstr "Y¥µ¥¤¥º :"
+
+#: app/preferences.c:115 app/preferences.c:120
+#, fuzzy
+msgid "Colour:"
+msgstr "¿§ :"
+
+#: app/preferences.c:116 app/preferences.c:121
+#, fuzzy
+msgid "Solid lines:"
+msgstr "¼ÂÀþ¤ÇÉÁ²è¤¹¤ë"
+
+#: app/preferences.c:118
+msgid "Page breaks:"
+msgstr ""
+
+#: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
 msgstr "ÀßÄê"
 
@@ -996,23 +998,23 @@ msgstr "ÀßÄê"
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vecor Graphics"
 
-#: app/lineprops_area.c:496
+#: app/lineprops_area.c:529
 msgid "Arrow Properties"
 msgstr "Ìð°õ¤Î¥×¥í¥Ñ¥Æ¥£"
 
-#: app/lineprops_area.c:553 app/lineprops_area.c:737
+#: app/lineprops_area.c:586 app/lineprops_area.c:770
 msgid "Details..."
 msgstr "¾ÜºÙ..."
 
-#: app/lineprops_area.c:693
+#: app/lineprops_area.c:726
 msgid "Line Style Properties"
 msgstr "Àþ¼ï¤Î¥×¥í¥Ñ¥Æ¥£"
 
-#: lib/diagramdata.c:47
+#: lib/diagramdata.c:50
 msgid "Background"
 msgstr "ÇØ·Ê"
 
-#: lib/font.c:344
+#: lib/font.c:355
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1021,20 +1023,20 @@ msgstr ""
 "·Ù¹ð¡§%s¤ÎX¥Õ¥©¥ó¥È¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£\n"
 "Âå¤ï¤ê¤Ë%s¤ò»È¤Ã¤Æ¤¤¤Þ¤¹¡£\n"
 
-#: lib/font.c:398
+#: lib/font.c:409
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "¥Õ¥©¥ó¥È%s¤Ï¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£Âå¤ï¤ê¤ËCourier¤ò»È¤Ã¤Æ¤¤¤Þ¤¹¡£\n"
 
-#: lib/message.c:104
+#: lib/message.c:118
 msgid "Notice"
 msgstr "Ãí°Õ"
 
-#: lib/message.c:115
+#: lib/message.c:129
 msgid "Warning"
 msgstr "·Ù¹ð"
 
-#: lib/message.c:127
+#: lib/message.c:141
 msgid "Error"
 msgstr "¥¨¥é¡¼"
 
@@ -1063,7 +1065,7 @@ msgstr "ÅÀÀþ"
 msgid "Dash length: "
 msgstr "º¿Àþ¤ÎÄ¹¤µ¡§"
 
-#: lib/widgets.c:654 objects/UML/association.c:989
+#: lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
 msgstr "¤Ê¤·"
 
@@ -1091,79 +1093,97 @@ msgstr "É©·Á (ÅÉ¤ê¤Ä¤Ö¤·)"
 msgid "Half Head"
 msgstr "Àþ (ÊÒÂ¦)"
 
-#: lib/widgets.c:706
+#: lib/widgets.c:696
+msgid "Slashed Cross"
+msgstr ""
+
+#: lib/widgets.c:703
+#, fuzzy
+msgid "Filled Ellipse"
+msgstr "ÂÊ±ß¤ÎÀ¸À®"
+
+#: lib/widgets.c:709
+#, fuzzy
+msgid "Hollow Ellipse"
+msgstr "»°³Ñ·Á (Ãæ¶õ)"
+
+#: lib/widgets.c:725
 msgid "Length: "
 msgstr "Ä¹¤µ :"
 
-#: lib/widgets.c:719
+#: lib/widgets.c:738
 msgid "Width: "
 msgstr "Éý :"
 
-#: lib/widgets.c:835
+#: lib/widgets.c:854
 msgid "Select image file"
 msgstr "¥¤¥á¡¼¥¸¥Õ¥¡¥¤¥ë¤ÎÁªÂò"
 
-#: lib/widgets.c:865
+#: lib/widgets.c:884
 msgid "Browse"
 msgstr "°ìÍ÷"
+
+#: lib/properties.c:346 lib/properties.c:378
+msgid "No edit widget"
+msgstr ""
 
 #: objects/UML/actor.c:282
 msgid "Actor"
 msgstr "¥¢¥¯¥¿¡¼"
 
-#: objects/ER/participation.c:449 objects/UML/association.c:608
+#: objects/ER/participation.c:451 objects/UML/association.c:608
 #: objects/UML/dependency.c:288 objects/UML/generalization.c:280
-#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:599
+#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:343
 msgid "Add segment"
 msgstr "¥»¥°¥á¥ó¥È¤ÎÄÉ²Ã"
 
-#: objects/ER/participation.c:450 objects/UML/association.c:609
+#: objects/ER/participation.c:452 objects/UML/association.c:609
 #: objects/UML/dependency.c:289 objects/UML/generalization.c:281
-#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:600
+#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:344
 msgid "Delete segment"
 msgstr "¥»¥°¥á¥ó¥È¤Îºï½ü"
 
-#: objects/ER/attribute.c:204 objects/ER/entity.c:188
-#: objects/ER/relationship.c:258 objects/UML/association.c:967
+#: objects/ER/attribute.c:206 objects/ER/entity.c:190
+#: objects/ER/relationship.c:260 objects/UML/association.c:969
 #: objects/UML/class_dialog.c:705 objects/UML/class_dialog.c:1581
 #: objects/UML/class_dialog.c:1743 objects/UML/class_dialog.c:2199
-#: objects/UML/dependency.c:610 objects/UML/generalization.c:580
-#: objects/UML/large_package.c:560 objects/UML/realizes.c:578
+#: objects/UML/dependency.c:612 objects/UML/generalization.c:582
+#: objects/UML/large_package.c:562 objects/UML/realizes.c:580
 msgid "Name:"
 msgstr "Ì¾Á° :"
 
-#: objects/UML/association.c:979
+#: objects/UML/association.c:981
 msgid "Direction:"
 msgstr "Êý¸þ :"
 
-#: objects/UML/association.c:1027 objects/UML/association.c:1035
+#: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side A"
 msgstr "¥µ¥¤¥ÉA"
 
-#: objects/UML/association.c:1029 objects/UML/association.c:1037
+#: objects/UML/association.c:1031 objects/UML/association.c:1039
 msgid "Side B"
 msgstr "¥µ¥¤¥ÉB"
 
-#: objects/UML/association.c:1043
+#: objects/UML/association.c:1045
 msgid "Role:"
 msgstr "Ìò³ä :"
 
-#: objects/UML/association.c:1055
+#: objects/UML/association.c:1057
 msgid "Multiplicity:"
 msgstr "¥Þ¥ë¥Á¥×¥ê¥·¥Æ¥£ :"
 
 #. Show arrow:
-#: objects/UML/association.c:1066
+#: objects/UML/association.c:1068
 msgid "Show arrow"
 msgstr "Ìð°õ¤ÎÉ½¼¨"
 
 #. Aggregate
-#: objects/UML/association.c:1072
+#: objects/UML/association.c:1074
 msgid "Aggregate"
 msgstr "¥¢¥°¥ê¥²¡¼¥È"
 
 #. Composition
-#: objects/UML/association.c:1080
+#: objects/UML/association.c:1082
 msgid "Composition"
 msgstr "¥³¥ó¥Ý¥¸¥·¥ç¥ó"
 
@@ -1176,9 +1196,9 @@ msgstr "¥¯¥é¥¹"
 msgid "Class name:"
 msgstr "¥¯¥é¥¹Ì¾ :"
 
-#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:622
-#: objects/UML/generalization.c:592 objects/UML/large_package.c:572
-#: objects/UML/object.c:765 objects/UML/realizes.c:590
+#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:624
+#: objects/UML/generalization.c:594 objects/UML/large_package.c:574
+#: objects/UML/object.c:767 objects/UML/realizes.c:592
 msgid "Stereotype:"
 msgstr "¥¹¥Æ¥ì¥ª¥¿¥¤¥× :"
 
@@ -1302,190 +1322,182 @@ msgstr "¥Æ¥ó¥×¥ì¡¼¥È¥¯¥é¥¹"
 msgid "Formal parameter data"
 msgstr "¥Õ¥©¡¼¥Þ¥ë¥Ñ¥é¥á¡¼¥¿¥Ç¡¼¥¿"
 
-#: objects/UML/constraint.c:509
+#: objects/UML/constraint.c:511
 msgid "Constraint:"
 msgstr "¥³¥ó¥¹¥È¥ì¥¤¥ó¥È :"
 
-#: objects/UML/dependency.c:634
+#: objects/UML/dependency.c:636
 msgid "Show arrow:"
 msgstr "Ìð°õ¤ÎÉ½¼¨ :"
 
-#: objects/UML/implements.c:559
+#: objects/UML/implements.c:561
 msgid "Interface:"
 msgstr "¥¤¥ó¥¿¡¼¥Õ¥§¡¼¥¹ :"
 
-#: objects/UML/usecase.c:542
+#: objects/UML/usecase.c:544
 msgid "Text outside:"
 msgstr "Íó³°¤Î¥Æ¥­¥¹¥È :"
 
-#: objects/UML/usecase.c:547
+#: objects/UML/usecase.c:549
 msgid "Collaboration"
 msgstr "¥³¥é¥Ü¥ì¡¼¥·¥ç¥ó"
 
-#: objects/UML/object.c:753
+#: objects/UML/object.c:755
 msgid "Explicit state:"
 msgstr "¥¨¥¯¥¹¥×¥ê¥·¥Ã¥È¥¹¥Æ¡¼¥È :"
 
-#: objects/UML/object.c:775
+#: objects/UML/object.c:777
 msgid "Attributes:"
 msgstr "Â°À­ :"
 
-#: objects/UML/object.c:785
+#: objects/UML/object.c:787
 msgid "Show attributes"
 msgstr "Â°À­¤ÎÉ½¼¨"
 
-#: objects/UML/object.c:789
+#: objects/UML/object.c:791
 msgid "Active object"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤Î¥¢¥¯¥Æ¥£¥Ö²½"
 
-#: objects/UML/object.c:794
+#: objects/UML/object.c:796
 msgid "multiple instance"
 msgstr "Ê£¿ô¥¤¥ó¥¹¥¿¥ó¥¹"
 
-#: objects/UML/lifeline.c:603
+#: objects/UML/lifeline.c:605
 msgid "Show focus of control:"
 msgstr "¥³¥ó¥È¥í¡¼¥ë¤Î¥Õ¥©¡¼¥«¥¹¤ÎÉ½¼¨ :"
 
-#: objects/UML/lifeline.c:608
+#: objects/UML/lifeline.c:610
 msgid "Show destruction mark:"
 msgstr "¥Ç¥¹¥È¥é¥¯¥·¥ç¥ó¥Þ¡¼¥¯¤ÎÉ½¼¨ :"
 
-#: objects/UML/message.c:614
+#: objects/UML/message.c:616
 msgid "Message:"
 msgstr "¥á¥Ã¥»¡¼¥¸ :"
 
-#: objects/UML/message.c:628
+#: objects/UML/message.c:630
 msgid "Message type:"
 msgstr "¥á¥Ã¥»¡¼¥¸¥¿¥¤¥× :"
 
 #.
-#: objects/UML/message.c:633
+#: objects/UML/message.c:635
 msgid "Call"
 msgstr "¥³¡¼¥ë"
 
-#: objects/UML/message.c:638
+#: objects/UML/message.c:640
 msgid "Return"
 msgstr "¥ê¥¿¡¼¥ó"
 
-#: objects/UML/message.c:643
+#: objects/UML/message.c:645
 msgid "Asynchronous"
 msgstr "ÈóÆ±´ü"
 
-#: objects/UML/message.c:648
+#: objects/UML/message.c:650
 msgid "Create"
 msgstr "ºîÀ®"
 
-#: objects/UML/message.c:653
+#: objects/UML/message.c:655
 msgid "Destroy"
 msgstr "ºï½ü"
 
-#: objects/UML/message.c:658
+#: objects/UML/message.c:660
 msgid "Simple"
 msgstr "¥·¥ó¥×¥ë"
 
-#: objects/UML/message.c:663
+#: objects/UML/message.c:665
 msgid "Recursive"
 msgstr "·«¤êÊÖ¤·"
 
-#: objects/UML/state.c:501
+#: objects/UML/state.c:503
 msgid "Normal"
 msgstr "¥Î¡¼¥Þ¥ë"
 
-#: objects/UML/state.c:506
+#: objects/UML/state.c:508
 msgid "Begin"
 msgstr "³«»Ï"
 
-#: objects/UML/state.c:511
+#: objects/UML/state.c:513
 msgid "End"
 msgstr "½ªÎ»"
 
-#: objects/UML/classicon.c:606
+#: objects/UML/classicon.c:608
 msgid "Control"
 msgstr "¥³¥ó¥È¥í¡¼¥ë"
 
-#: objects/UML/classicon.c:612
+#: objects/UML/classicon.c:614
 msgid "Boundary"
 msgstr "¶­³¦"
 
-#: objects/ER/entity.c:448 objects/UML/classicon.c:617
+#: objects/ER/entity.c:450 objects/UML/classicon.c:619
 msgid "Entity"
 msgstr "¥¨¥ó¥Æ¥£¥Æ¥£"
 
-#: objects/UML/classicon.c:625
+#: objects/UML/classicon.c:627
 msgid "Is an object"
 msgstr "¥ª¥Ö¥¸¥§¥¯¥È"
 
-#: objects/ER/attribute.c:212
+#: objects/ER/attribute.c:214
 msgid "Key"
 msgstr "¥­¡¼"
 
-#: objects/ER/attribute.c:218
+#: objects/ER/attribute.c:220
 msgid "Weak key"
 msgstr "¥¦¥£¡¼¥¯¥­¡¼"
 
-#: objects/ER/attribute.c:224
+#: objects/ER/attribute.c:226
 msgid "Derived"
 msgstr "ÇÉÀ¸"
 
-#: objects/ER/attribute.c:230
+#: objects/ER/attribute.c:232
 msgid "Multivalue"
 msgstr "Ê£¿ôÃÍ"
 
-#: objects/ER/attribute.c:236 objects/ER/entity.c:202
-#: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
-#: objects/flowchart/box.c:246 objects/flowchart/diamond.c:241
-#: objects/flowchart/ellipse.c:241 objects/flowchart/parallelogram.c:249
-#: objects/standard/box.c:207 objects/standard/ellipse.c:204
-#: objects/standard/image.c:262
+#: objects/ER/attribute.c:238 objects/ER/entity.c:204
+#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
+#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
 msgid "Border width:"
 msgstr "¶­³¦ÀþÉý :"
 
-#: objects/ER/attribute.c:247 objects/ER/entity.c:213
-#: objects/ER/relationship.c:305 objects/custom/custom_object.c:286
-#: objects/flowchart/box.c:261 objects/flowchart/diamond.c:256
-#: objects/flowchart/ellipse.c:256 objects/flowchart/parallelogram.c:264
-#: objects/standard/box.c:222 objects/standard/ellipse.c:219
-#: objects/standard/image.c:277
+#: objects/ER/attribute.c:249 objects/ER/entity.c:215
+#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
+#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
 msgid "Foreground color:"
 msgstr "Á°·Ê¿§ :"
 
-#: objects/ER/attribute.c:255 objects/ER/entity.c:221
-#: objects/ER/relationship.c:313 objects/custom/custom_object.c:297
-#: objects/flowchart/box.c:272 objects/flowchart/diamond.c:267
-#: objects/flowchart/ellipse.c:267 objects/flowchart/parallelogram.c:275
-#: objects/standard/box.c:233 objects/standard/ellipse.c:230
+#: objects/ER/attribute.c:257 objects/ER/entity.c:223
+#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
+#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
 msgid "Background color:"
 msgstr "ÇØ·Ê¿§ :"
 
-#: objects/ER/attribute.c:507
+#: objects/ER/attribute.c:509
 msgid "Attribute"
 msgstr "Â°À­"
 
-#: objects/ER/entity.c:196
+#: objects/ER/entity.c:198
 msgid "Weak"
 msgstr "¥¦¥£¡¼¥¯"
 
-#: objects/ER/participation.c:416
+#: objects/ER/participation.c:418
 msgid "Total:"
 msgstr "¥È¡¼¥¿¥ë :"
 
-#: objects/ER/relationship.c:266
+#: objects/ER/relationship.c:268
 msgid "Left Cardinality:"
 msgstr "º¸È¿Å¾ :"
 
-#: objects/ER/relationship.c:274
+#: objects/ER/relationship.c:276
 msgid "Right Cardinality:"
 msgstr "±¦È¿Å¾ :"
 
-#: objects/ER/relationship.c:282
+#: objects/ER/relationship.c:284
 msgid "Rotate"
 msgstr "²óÅ¾"
 
-#: objects/ER/relationship.c:288
+#: objects/ER/relationship.c:290
 msgid "Identifying"
 msgstr "¥¢¥¤¥Ç¥ó¥Æ¥£¥Õ¥¡¥¤"
 
-#: objects/ER/relationship.c:568
+#: objects/ER/relationship.c:570
 msgid "Relationship"
 msgstr "´ØÏ¢"
 
@@ -1497,92 +1509,82 @@ msgstr "¥Ï¥ó¥É¥ë¤ÎÄÉ²Ã"
 msgid "Delete Handle"
 msgstr "¥Ï¥ó¥É¥ë¤Îºï½ü"
 
-#: objects/standard/arc.c:205 objects/standard/line.c:202
-#: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
-msgid "Line width:"
-msgstr "Àþ¤ÎÉý :"
+#: objects/flowchart/box.c:165 objects/standard/box.c:149
+#, fuzzy
+msgid "Corner radius"
+msgstr "¥³¡¼¥Ê¡¼¤Î´Ý¤ßÉÕ¤± :"
 
-#: objects/standard/arc.c:219 objects/standard/line.c:216
-#: objects/standard/polyline.c:221 objects/standard/textobj.c:234
-#: objects/standard/zigzagline.c:221
-msgid "Color:"
-msgstr "¿§ :"
-
-#: objects/custom/custom_object.c:316 objects/flowchart/box.c:291
-#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
-#: objects/flowchart/parallelogram.c:294 objects/standard/arc.c:230
-#: objects/standard/box.c:252 objects/standard/ellipse.c:249
-#: objects/standard/image.c:288 objects/standard/image.c:383
-#: objects/standard/line.c:227 objects/standard/polyline.c:232
-#: objects/standard/zigzagline.c:232
-msgid "Line style:"
-msgstr "Àþ¼ï :"
-
-#: objects/standard/arc.c:241 objects/standard/line.c:238
-#: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
-msgid "Start arrow:"
-msgstr "»ÏÅÀ¤ÎÌð°õ :"
-
-#: objects/standard/arc.c:255 objects/standard/line.c:252
-#: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
-msgid "End arrow:"
-msgstr "½ªÅÀ¤ÎÌð°õ :"
-
-#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
-#: objects/flowchart/box.c:283 objects/flowchart/box.c:441
-#: objects/flowchart/diamond.c:278 objects/flowchart/diamond.c:418
-#: objects/flowchart/ellipse.c:278 objects/flowchart/ellipse.c:418
-#: objects/flowchart/parallelogram.c:286 objects/flowchart/parallelogram.c:445
-#: objects/standard/box.c:244 objects/standard/box.c:332
-#: objects/standard/ellipse.c:241 objects/standard/ellipse.c:313
+#: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
+#: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
+#: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
+#: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
 msgid "Draw background"
 msgstr "ÇØ·Ê¤ÎÉÁ²è"
 
-#: objects/flowchart/box.c:302 objects/flowchart/box.c:449
-#: objects/standard/box.c:263 objects/standard/box.c:340
+#: objects/flowchart/box.c:318 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "¥³¡¼¥Ê¡¼¤Î´Ý¤ßÉÕ¤± :"
 
-#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
-#: objects/standard/textobj.c:198 objects/standard/textobj.c:292
+#: objects/standard/line.c:171
+#, fuzzy
+msgid "Add connection point"
+msgstr "ÀÜÂ³ÅÀ :"
+
+#: objects/standard/line.c:172
+#, fuzzy
+msgid "Delete connection point"
+msgstr "ÀÜÂ³ÅÀ :"
+
+#: objects/standard/line.c:177
+#, fuzzy
+msgid "Line"
+msgstr "Àþ (Î¾Â¦)"
+
+#: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
 msgid "Alignment:"
 msgstr "¥¢¥é¥¤¥ó¥á¥ó¥È :"
 
-#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
-#: objects/flowchart/box.c:331 objects/flowchart/box.c:477
-#: objects/flowchart/diamond.c:311 objects/flowchart/diamond.c:440
-#: objects/flowchart/ellipse.c:311 objects/flowchart/ellipse.c:440
-#: objects/flowchart/parallelogram.c:334 objects/flowchart/parallelogram.c:481
-#: objects/standard/textobj.c:209 objects/standard/textobj.c:303
+#: objects/custom/custom_object.c:380 objects/flowchart/box.c:346
+#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
+#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
+#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
+#: objects/standard/textobj.c:271
 msgid "Font:"
 msgstr "¥Õ¥©¥ó¥È :"
 
-#: objects/standard/textobj.c:220 objects/standard/textobj.c:314
+#: objects/standard/textobj.c:282
 msgid "Fontsize:"
 msgstr "¥Õ¥©¥ó¥È¥µ¥¤¥º :"
 
-#: objects/standard/image.c:235 objects/standard/image.c:356
-msgid "Image file:"
+#: objects/standard/image.c:165
+#, fuzzy
+msgid "Image file"
 msgstr "¥¤¥á¡¼¥¸¥Õ¥¡¥¤¥ë :"
 
-#: objects/standard/image.c:246
+#: objects/standard/image.c:167
+#, fuzzy
+msgid "Draw border"
+msgstr "¶­³¦Àþ¤ÎÉ½¼¨"
+
+#: objects/standard/image.c:169
 msgid "Keep aspect ratio"
 msgstr "¥¢¥¹¥Ú¥¯¥ÈÈæ°ìÄê"
 
-#: objects/standard/image.c:254
-msgid "Show border"
-msgstr "¶­³¦Àþ¤ÎÉ½¼¨"
+#: objects/standard/image.c:256
+msgid "Image file:"
+msgstr "¥¤¥á¡¼¥¸¥Õ¥¡¥¤¥ë :"
 
-#: objects/standard/image.c:367
+#: objects/standard/image.c:267
 msgid "Keep aspect ratio:"
 msgstr "¥¢¥¹¥Ú¥¯¥ÈÈæ°ìÄê :"
 
-#: objects/standard/image.c:375
+#: objects/standard/image.c:275
 msgid "Show border:"
 msgstr "¶­³¦Àþ¤ÎÉ½¼¨ :"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:939 objects/standard/image.c:950
+#: objects/standard/image.c:780 objects/standard/image.c:791
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -1592,257 +1594,270 @@ msgstr ""
 "Âå¤ï¤ê¤Ë¥Õ¥¡¥¤¥ë'%s'¤ò»È¤Ã¤Æ¤¤¤Þ¤¹¡£\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:956 objects/standard/image.c:982
+#: objects/standard/image.c:797 objects/standard/image.c:823
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "¥¤¥á¡¼¥¸¥Õ¥¡¥¤¥ë'%s'¤Ï¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿¡£\n"
 
-#: objects/standard/polyline.c:742
+#: objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "¥³¡¼¥Ê¡¼¤ÎÄÉ²Ã"
 
-#: objects/standard/polyline.c:743
+#: objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "¥³¡¼¥Ê¡¼¤Îºï½ü"
 
-#: objects/FS/flow-ortho.c:559 objects/FS/flow.c:622 objects/FS/flow.c:737
+#: objects/FS/flow-ortho.c:561 objects/FS/flow.c:624 objects/FS/flow.c:739
 msgid "Flow:"
 msgstr "¥Õ¥í¡¼ :"
 
-#: objects/FS/flow-ortho.c:574 objects/FS/flow.c:637 objects/FS/flow.c:753
+#: objects/FS/flow-ortho.c:576 objects/FS/flow.c:639 objects/FS/flow.c:755
 msgid "Flow type:"
 msgstr "¥Õ¥í¡¼¤Î·¿ :"
 
 #.
-#: objects/FS/flow-ortho.c:579 objects/FS/flow-ortho.c:632
-#: objects/FS/flow-ortho.c:692 objects/FS/flow.c:642 objects/FS/flow.c:697
-#: objects/FS/flow.c:758
+#: objects/FS/flow-ortho.c:581 objects/FS/flow-ortho.c:634
+#: objects/FS/flow-ortho.c:694 objects/FS/flow.c:644 objects/FS/flow.c:699
+#: objects/FS/flow.c:760
 msgid "Energy"
 msgstr "¥¨¥Ê¥¸¡¼"
 
-#: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:633
-#: objects/FS/flow-ortho.c:699 objects/FS/flow.c:649 objects/FS/flow.c:698
-#: objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:635
+#: objects/FS/flow-ortho.c:701 objects/FS/flow.c:651 objects/FS/flow.c:700
+#: objects/FS/flow.c:767
 msgid "Material"
 msgstr "ºàÎÁ"
 
-#: objects/FS/flow-ortho.c:592 objects/FS/flow-ortho.c:634
-#: objects/FS/flow-ortho.c:705 objects/FS/flow.c:655 objects/FS/flow.c:699
-#: objects/FS/flow.c:771 objects/FS/function.c:586
+#: objects/FS/flow-ortho.c:594 objects/FS/flow-ortho.c:636
+#: objects/FS/flow-ortho.c:707 objects/FS/flow.c:657 objects/FS/flow.c:701
+#: objects/FS/flow.c:773 objects/FS/function.c:588
 msgid "Signal"
 msgstr "¥·¥°¥Ê¥ë"
 
-#: objects/FS/flow-ortho.c:671
+#: objects/FS/flow-ortho.c:673
 msgid "Orthflow:"
 msgstr "Orthflow:"
 
-#: objects/FS/flow-ortho.c:687
+#: objects/FS/flow-ortho.c:689
 msgid "Orthflow type:"
 msgstr "Orthflow¤Î·¿:"
 
-#: objects/FS/function.c:498
+#: objects/FS/function.c:500
 msgid "Function:"
 msgstr "´Ø¿ô :"
 
-#: objects/FS/function.c:508
+#: objects/FS/function.c:510
 msgid "Wish function"
 msgstr "´õË¾¤¹¤ë´Ø¿ô"
 
-#: objects/FS/function.c:513
+#: objects/FS/function.c:515
 msgid "User function"
 msgstr "¥æ¡¼¥¶´Ø¿ô"
 
-#: objects/FS/function.c:552
+#: objects/FS/function.c:554
 msgid "Channel"
 msgstr "¥Á¥ã¥Í¥ë"
 
-#: objects/FS/function.c:553
+#: objects/FS/function.c:555
 msgid "   Import"
 msgstr "   ¥¤¥ó¥Ý¡¼¥È"
 
-#: objects/FS/function.c:554
+#: objects/FS/function.c:556
 msgid "   Export"
 msgstr "   ¥¨¥¯¥¹¥Ý¡¼¥È"
 
-#: objects/FS/function.c:555
+#: objects/FS/function.c:557
 msgid "   Transfer"
 msgstr "   ¥È¥é¥ó¥¹¥Õ¥¡¡¼"
 
-#: objects/FS/function.c:556
+#: objects/FS/function.c:558
 msgid "      Transport"
 msgstr "      ¥È¥é¥ó¥¹¥Ý¡¼¥È"
 
-#: objects/FS/function.c:557
+#: objects/FS/function.c:559
 msgid "      Transmit"
 msgstr "      ¥È¥é¥ó¥¹¥ß¥Ã¥È"
 
-#: objects/FS/function.c:558
+#: objects/FS/function.c:560
 msgid "   Guide"
 msgstr "   ¥¬¥¤¥É"
 
-#: objects/FS/function.c:559
+#: objects/FS/function.c:561
 msgid "      Translate"
 msgstr "      ¥È¥é¥ó¥¹¥ì¡¼¥È"
 
-#: objects/FS/function.c:560
+#: objects/FS/function.c:562
 msgid "      Rotate"
 msgstr "      ²óÅ¾"
 
-#: objects/FS/function.c:561
+#: objects/FS/function.c:563
 msgid "      Allow DOF"
 msgstr "      DOF¤òµö¤¹"
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:564
 msgid "Support"
 msgstr "¥µ¥Ý¡¼¥È"
 
-#: objects/FS/function.c:563
+#: objects/FS/function.c:565
 msgid "   Stop"
 msgstr "   ¥¹¥È¥Ã¥×"
 
-#: objects/FS/function.c:564
+#: objects/FS/function.c:566
 msgid "   Stabilize"
 msgstr "   ¥¹¥¿¥Ó¥é¥¤¥º"
 
-#: objects/FS/function.c:565
+#: objects/FS/function.c:567
 msgid "   Secure"
 msgstr "   ¥»¥­¥å¥¢"
 
-#: objects/FS/function.c:566
+#: objects/FS/function.c:568
 msgid "   Position"
 msgstr "   °ÌÃÖ"
 
-#: objects/FS/function.c:567
+#: objects/FS/function.c:569
 msgid "Connect"
 msgstr "ÀÜÂ³"
 
-#: objects/FS/function.c:568
+#: objects/FS/function.c:570
 msgid "   Couple"
 msgstr "   ¥«¥Ã¥×¥ë"
 
-#: objects/FS/function.c:569
+#: objects/FS/function.c:571
 msgid "   Mix"
 msgstr "   ¥ß¥Ã¥¯¥¹"
 
-#: objects/FS/function.c:570
+#: objects/FS/function.c:572
 msgid "Branch"
 msgstr "Ê¬´ô"
 
-#: objects/FS/function.c:571
+#: objects/FS/function.c:573
 msgid "   Separate"
 msgstr "   Ê¬³ä"
 
-#: objects/FS/function.c:572
+#: objects/FS/function.c:574
 msgid "      Remove"
 msgstr "      ºï½ü"
 
-#: objects/FS/function.c:573
+#: objects/FS/function.c:575
 msgid "   Refine"
 msgstr "   ¥ê¥Õ¥¡¥¤¥ó"
 
-#: objects/FS/function.c:574
+#: objects/FS/function.c:576
 msgid "   Distribute"
 msgstr "   ÇÛÉÛ"
 
-#: objects/FS/function.c:575
+#: objects/FS/function.c:577
 msgid "   Dissipate"
 msgstr "   ¥Ç¥£¥·¥Ú¡¼¥È"
 
-#: objects/FS/function.c:576
+#: objects/FS/function.c:578
 msgid "Provision"
 msgstr "¥×¥í¥Ó¥¸¥ç¥ó"
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:579
 msgid "   Store"
 msgstr "   ¥¹¥È¥¢"
 
-#: objects/FS/function.c:578
+#: objects/FS/function.c:580
 msgid "   Supply"
 msgstr "   ¥µ¥×¥é¥¤"
 
-#: objects/FS/function.c:579
+#: objects/FS/function.c:581
 msgid "   Extract"
 msgstr "   Å¸³«"
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:582
 msgid "Control Magnitude"
 msgstr "¥³¥ó¥È¥í¡¼¥ëÇÜÎ¨"
 
-#: objects/FS/function.c:581
+#: objects/FS/function.c:583
 msgid "   Actuate"
 msgstr "   ¥¢¥¯¥Á¥å¥¨¡¼¥È"
 
-#: objects/FS/function.c:582
+#: objects/FS/function.c:584
 msgid "   Regulate"
 msgstr "   ¥ì¥®¥å¥ì¡¼¥È"
 
-#: objects/FS/function.c:583
+#: objects/FS/function.c:585
 msgid "   Change"
 msgstr "   ÊÑ¹¹"
 
-#: objects/FS/function.c:584
+#: objects/FS/function.c:586
 msgid "   Form"
 msgstr "   ¥Õ¥©¡¼¥à"
 
-#: objects/FS/function.c:585
+#: objects/FS/function.c:587
 msgid "Convert"
 msgstr "¥³¥ó¥Ð¡¼¥È"
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:589
 msgid "   Sense"
 msgstr "   ¥»¥ó¥¹"
 
-#: objects/FS/function.c:588
+#: objects/FS/function.c:590
 msgid "   Indicate"
 msgstr "   ¥¤¥ó¥Ç¥£¥±¡¼¥È"
 
-#: objects/FS/function.c:589
+#: objects/FS/function.c:591
 msgid "   Display"
 msgstr "   É½¼¨"
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:592
 msgid "   Measure"
 msgstr "   ¥á¥¸¥ã¡¼"
 
-#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
-#: objects/flowchart/box.c:317 objects/flowchart/box.c:463
-#: objects/flowchart/diamond.c:297 objects/flowchart/diamond.c:426
-#: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
-#: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
+#: objects/flowchart/box.c:167
+#, fuzzy
+msgid "Text padding"
+msgstr "¥Ñ¥Ç¥£¥ó¥°:"
+
+#: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
+#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
+#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
+#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
 msgid "Text padding:"
 msgstr "¥Ñ¥Ç¥£¥ó¥°:"
 
-#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
-#: objects/flowchart/box.c:342 objects/flowchart/box.c:488
-#: objects/flowchart/diamond.c:322 objects/flowchart/diamond.c:451
-#: objects/flowchart/ellipse.c:322 objects/flowchart/ellipse.c:451
-#: objects/flowchart/parallelogram.c:345 objects/flowchart/parallelogram.c:492
+#: objects/custom/custom_object.c:391 objects/flowchart/box.c:357
+#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
+#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
+#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
 msgid "Font size:"
 msgstr "¥Õ¥©¥ó¥È¥µ¥¤¥º :"
 
-#: objects/custom/custom_object.c:383 objects/flowchart/box.c:356
-#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
-#: objects/flowchart/parallelogram.c:359
+#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
+#: objects/flowchart/parallelogram.c:296
+msgid "Line style:"
+msgstr "Àþ¼ï :"
+
+#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
+#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Ê¸»ú¿§ :"
 
-#: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
+#: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
 msgid "Shear angle:"
 msgstr "¥·¥¢¡¼¤Î³ÑÅÙ:"
 
-#: objects/custom/custom_object.c:190
-msgid "A custom with text inside."
-msgstr "¥Æ¥­¥¹¥È¤¬Ãæ¤Ë¤¢¤ê¤Þ¤¹¡£"
+#: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
+#, fuzzy
+msgid "Flip horizontal"
+msgstr "¿åÊ¿°ÌÃÖ"
 
-#: objects/custom/custom_object.c:1386
+#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#, fuzzy
+msgid "Flip vertical"
+msgstr "¿âÄ¾°ÌÃÖ"
+
+#: objects/custom/custom_object.c:1218
 msgid "Flip Horizontal"
 msgstr "¿åÊ¿°ÌÃÖ"
 
-#: objects/custom/custom_object.c:1387
+#: objects/custom/custom_object.c:1219
 msgid "Flip Vertical"
 msgstr "¿âÄ¾°ÌÃÖ"
 
-#: plug-ins/cgm/cgm.c:770
+#: plug-ins/cgm/cgm.c:1082
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -1850,6 +1865,37 @@ msgstr ""
 "¥¤¥á¡¼¥¸¤Î¹Ô¤ÎÄ¹¤µ¤¬¥»¥ë¤ÎºÇÂç¿ô¤ò±Û¤¨¤Æ¤¤¤Þ¤¹¡£\n"
 "¥¤¥á¡¼¥¸¤ÏCGM¤Ë¥¨¥¯¥¹¥Ý¡¼¥È¤Ç¤­¤Þ¤»¤ó¡£"
 
-#: plug-ins/cgm/cgm.c:924
+#: plug-ins/cgm/cgm.c:1251
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
+
+#~ msgid "Open diagram"
+#~ msgstr "¥À¥¤¥¢¥°¥é¥à¤ò³«¤¯"
+
+#~ msgid "File already exists"
+#~ msgstr "¥Õ¥¡¥¤¥ë¤¬¤¹¤Ç¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹"
+
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "¥Õ¥¡¥¤¥ë'%s'¤Ï¤¹¤Ç¤ËÂ¸ºß¤·¤Æ¤¤¤Þ¤¹¡£\n"
+#~ "¾å½ñ¤­¤·¤Þ¤¹¤«?"
+
+#~ msgid "Save diagram"
+#~ msgstr "¥À¥¤¥¢¥°¥é¥à¤òÊÝÂ¸¤¹¤ë"
+
+#~ msgid "Line width:"
+#~ msgstr "Àþ¤ÎÉý :"
+
+#~ msgid "Color:"
+#~ msgstr "¿§ :"
+
+#~ msgid "Start arrow:"
+#~ msgstr "»ÏÅÀ¤ÎÌð°õ :"
+
+#~ msgid "End arrow:"
+#~ msgstr "½ªÅÀ¤ÎÌð°õ :"
+
+#~ msgid "A custom with text inside."
+#~ msgstr "¥Æ¥­¥¹¥È¤¬Ãæ¤Ë¤¢¤ê¤Þ¤¹¡£"

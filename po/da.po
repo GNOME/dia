@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 2000-02-27 05:02+0100\n"
+"POT-Creation-Date: 2000-02-29 09:57+0800\n"
 "PO-Revision-Date: 2000-02-27 05:53+01:00\n"
 "Last-Translator: Kenneth Christiansen <kenneth@ripen.dk>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -14,47 +14,47 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Eksportér den indlæste fil og afslut"
 
-#: app/app_procs.c:132
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Vis denne hjælpemeddelelse"
 
-#: app/app_procs.c:153
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke kontakte sessionshåndteringen!\n"
 
-#: app/app_procs.c:164
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAG...] [FIL...]"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 
-#: app/app_procs.c:212 app/app_procs.c:214
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
-#: app/app_procs.c:230
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Kræver gyldig inddatafil\n"
 
-#: app/app_procs.c:287 app/app_procs.c:293
+#: app/app_procs.c:294 app/app_procs.c:300
 msgid "Quit, are you sure?"
 msgstr "Afslut, er du sikker?"
 
-#: app/app_procs.c:300
+#: app/app_procs.c:307
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -62,20 +62,20 @@ msgstr ""
 "Der er ændrede diagrammer.\n"
 "Er du sikker på at du vil afslutte?"
 
-#: app/app_procs.c:310 app/app_procs.c:315
+#: app/app_procs.c:317 app/app_procs.c:322
 msgid "Quit"
 msgstr "Afslut"
 
-#: app/app_procs.c:327 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:334 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "Annullér"
 
-#: app/app_procs.c:380
+#: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:437
+#: app/app_procs.c:444
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -84,13 +84,13 @@ msgstr ""
 "Kunne ikke finde mapper at indlæse.\n"
 "%s er ikke en mappe.\n"
 
-#: app/app_procs.c:444
+#: app/app_procs.c:451
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Kunne ikke åbne \"%s\".\n"
 
-#: app/app_procs.c:457 app/app_procs.c:458 app/app_procs.c:485
-#: app/app_procs.c:486
+#: app/app_procs.c:464 app/app_procs.c:465 app/app_procs.c:492
+#: app/app_procs.c:493
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -99,12 +99,12 @@ msgstr ""
 "Fejl under indlæsning af bibliotek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:463 app/app_procs.c:464
+#: app/app_procs.c:470 app/app_procs.c:471
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Filen \"%s\" er ikke et Dia objektbibliotek.\n"
 
-#: app/app_procs.c:470 app/app_procs.c:471
+#: app/app_procs.c:477 app/app_procs.c:478
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -114,7 +114,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en ældre version af Dia og kan ikke bruges.\n"
 "Vær venlig at opgradere det."
 
-#: app/app_procs.c:477 app/app_procs.c:478
+#: app/app_procs.c:484 app/app_procs.c:485
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -123,7 +123,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en nyere version af Dia.\n"
 "Du er nødt til opgradere Dia for at kunne bruge det."
 
-#: app/app_procs.c:552
+#: app/app_procs.c:559
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -169,11 +169,12 @@ msgstr "Dia version %s af Alexander Larsson"
 
 #: app/commands.c:352
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
+msgstr ""
+"Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
 #: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
-#: lib/message.c:72
+#: lib/message.c:85
 msgid "OK"
 msgstr "Ok"
 
@@ -259,19 +260,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmenu"
 
-#: app/display.c:59 app/display.c:60
+#: app/display.c:63 app/display.c:64
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:79
+#: app/display.c:83
 msgid "Diagram modified!"
 msgstr "Diagrammet er ændret!"
 
-#: app/display.c:780
+#: app/display.c:779 app/display.c:785
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:783
+#: app/display.c:790
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -279,29 +280,29 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:792 app/preferences.c:482 lib/properties.c:256
+#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:803 app/preferences.c:482 app/preferences.c:493
+#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
 #: lib/properties.c:258 lib/properties.c:279
 msgid "No"
 msgstr "Nej"
 
-#: app/display.c:836
+#: app/display.c:851
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis _linealer"
 
-#: app/display.c:838
+#: app/display.c:853
 msgid "/View/Visible Grid"
 msgstr "/Vis/_Synligt gitter"
 
 # FIXME:  Fast til?
-#: app/display.c:840
+#: app/display.c:855
 msgid "/View/Snap To Grid"
 msgstr "/Vis/_Fast til gitter"
 
-#: app/display.c:842
+#: app/display.c:857
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
@@ -1030,15 +1031,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fandt ikke skrifttype %s, bruger Courier i stedet.\n"
 
-#: lib/message.c:104
+#: lib/message.c:118
 msgid "Notice"
 msgstr "Bemærk"
 
-#: lib/message.c:115
+#: lib/message.c:129
 msgid "Warning"
 msgstr "Advarsel"
 
-#: lib/message.c:127
+#: lib/message.c:141
 msgid "Error"
 msgstr "Fejl"
 

@@ -1,3 +1,21 @@
+2000-02-29  James Henstridge  <james@daa.com.au>
+
+	* app/render_svg.c (draw_string): call xmlEncodeEntitiesReentrant,
+	as we are now requiring a new version of libxml.
+
+	* dia.spec: updated version number.  Added requirement for
+	libxml >= 1.8.5
+
+	* configure.in: incremented version number to 0.84.
+	Added check for libxml >= 1.8.5.  This will prevent some of the
+	problems people have had with broken libxml versions.
+
+	* NEWS: added news items.
+
+	* app/interface.c (create_color_area): removed call to realize parent
+	widget.  Segg <segg@infonet.ca> reported that it caused a warning,
+	but I haven't seen it on my copy of dia.
+
 2000-02-28  James Henstridge  <james@daa.com.au>
 
 	* app/export_png.c: added copyright notice, and made the band height

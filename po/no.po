@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-02-26 12:39+0100\n"
+"POT-Creation-Date: 2000-02-29 09:57+0800\n"
 "PO-Revision-Date: 2000-02-26 12:41+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -13,27 +13,27 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Eksporter innlest fil og avslutt"
 
-#: app/app_procs.c:132
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "UTSKRIFT"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Vis denne hjelpeteksten"
 
-#: app/app_procs.c:153
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke koble til sesjonsbehandleren!\n"
 
-#: app/app_procs.c:164
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGG...] [FIL...]"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -43,22 +43,22 @@ msgstr ""
 "Kjør '%s --help' for å se en full liste over tilgjengelige "
 "kommandolinjeflagg.\n"
 
-#: app/app_procs.c:212 app/app_procs.c:214
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek, "
 "avslutter...\n"
 
-#: app/app_procs.c:230
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Trenger gyldig innfil\n"
 
-#: app/app_procs.c:290
+#: app/app_procs.c:294 app/app_procs.c:300
 msgid "Quit, are you sure?"
 msgstr "Avslutt, er du sikker?"
 
-#: app/app_procs.c:292
+#: app/app_procs.c:307
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -66,20 +66,20 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:301
+#: app/app_procs.c:317 app/app_procs.c:322
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:313 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:334 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:365
+#: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:422
+#: app/app_procs.c:444
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -88,13 +88,13 @@ msgstr ""
 "Kunne ikke finne biblioteker for lasting.\n"
 "%s er ikke en katalog.\n"
 
-#: app/app_procs.c:429
+#: app/app_procs.c:451
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Kunne ikke åpne \"%s\".\n"
 
-#: app/app_procs.c:442 app/app_procs.c:443 app/app_procs.c:470
-#: app/app_procs.c:471
+#: app/app_procs.c:464 app/app_procs.c:465 app/app_procs.c:492
+#: app/app_procs.c:493
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -103,12 +103,12 @@ msgstr ""
 "Feil under lasting av bibliotek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:448 app/app_procs.c:449
+#: app/app_procs.c:470 app/app_procs.c:471
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Filen \"%s\" er ikke et Dia objektbibliotek.\n"
 
-#: app/app_procs.c:455 app/app_procs.c:456
+#: app/app_procs.c:477 app/app_procs.c:478
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -118,7 +118,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en eldre versjon av Dia og kan ikke brukes.\n"
 "Vennligst oppgrader det."
 
-#: app/app_procs.c:462 app/app_procs.c:463
+#: app/app_procs.c:484 app/app_procs.c:485
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -127,7 +127,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en nyere versjon av Dia.\n"
 "Du må oppgradere Dia for å bruke det."
 
-#: app/app_procs.c:537
+#: app/app_procs.c:559
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -177,8 +177,8 @@ msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
 #: app/commands.c:361 app/layer_dialog.c:970 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/preferences.c:545 app/properties.c:82
-#: lib/message.c:72
+#: app/lineprops_area.c:737 app/preferences.c:588 app/properties.c:82
+#: lib/message.c:85
 msgid "OK"
 msgstr "OK"
 
@@ -266,19 +266,19 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:59 app/display.c:60
+#: app/display.c:63 app/display.c:64
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:79
+#: app/display.c:83
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:780
+#: app/display.c:779 app/display.c:785
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:783
+#: app/display.c:790
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -286,28 +286,28 @@ msgstr ""
 "Dette diagrammet har ikke blitt lagret.\n"
 "Er du sikker på at du vil lukke dette vinduet?"
 
-#: app/display.c:792 app/preferences.c:461 lib/properties.c:256
+#: app/display.c:808 app/preferences.c:482 lib/properties.c:256
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:803 app/preferences.c:461 app/preferences.c:472
+#: app/display.c:818 app/preferences.c:482 app/preferences.c:493
 #: lib/properties.c:258 lib/properties.c:279
 msgid "No"
 msgstr "Nei"
 
-#: app/display.c:836
+#: app/display.c:851
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis linjaler"
 
-#: app/display.c:838
+#: app/display.c:853
 msgid "/View/Visible Grid"
 msgstr "/Vis/Synlig rutenett"
 
-#: app/display.c:840
+#: app/display.c:855
 msgid "/View/Snap To Grid"
 msgstr "/Vis/Fest til rutenett"
 
-#: app/display.c:842
+#: app/display.c:857
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
@@ -407,7 +407,7 @@ msgstr "Lag"
 msgid "Diagrams:"
 msgstr "Diagrammer:"
 
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:565
+#: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:606
 #: app/properties.c:101
 msgid "Close"
 msgstr "Lukk"
@@ -889,7 +889,7 @@ msgstr "/Dialoger/_Lag"
 msgid "Object properties"
 msgstr "Egenskaper for objekt"
 
-#: app/defaults.c:61 app/preferences.c:555 app/properties.c:91
+#: app/defaults.c:72 app/preferences.c:597 app/properties.c:91
 msgid "Apply"
 msgstr "Bruk"
 
@@ -901,83 +901,94 @@ msgstr "Dette objektet har ingen egenskaper."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postskript"
 
-#: app/defaults.c:43
+#: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
 msgstr "Standardverdier for objekt"
 
-#: app/defaults.c:73
+#: app/defaults.c:95
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: app/preferences.c:73
+#: app/preferences.c:82
 msgid "User Interface"
 msgstr "Grensesnitt"
 
-#: app/preferences.c:74
+#: app/preferences.c:83
 msgid "View Defaults"
 msgstr "Vis standardverdier"
 
-#: app/preferences.c:81
+#: app/preferences.c:84
+#, fuzzy
+msgid "Grid Lines"
+msgstr "Alternativer for rutenett"
+
+#: app/preferences.c:98
 msgid "Reset tools after create:"
 msgstr "Nullstill verktøy etter opprett:"
 
-#: app/preferences.c:82
+#: app/preferences.c:99
 msgid "Compress saved files:"
 msgstr "Komprimer lagrede filer:"
 
-#: app/preferences.c:83
+#: app/preferences.c:100
 msgid "Number of undo levels:"
 msgstr "Antall angrenivåer:"
 
-#: app/preferences.c:85
-msgid "Grid:"
-msgstr "Rutenett:"
-
-#: app/preferences.c:86 app/preferences.c:99
-msgid "Visible:"
-msgstr "Synlig:"
-
-#: app/preferences.c:87
-msgid "Snap to:"
-msgstr "Fest til:"
-
-#: app/preferences.c:88
-msgid "X Size:"
-msgstr "X-størrelse:"
-
-#: app/preferences.c:89
-msgid "Y Size:"
-msgstr "Y-størrelse:"
-
-#: app/preferences.c:90
-msgid "Colour"
-msgstr "Farge"
-
-#: app/preferences.c:91
-msgid "Solid lines"
-msgstr "Helfylte linjer"
-
-#: app/preferences.c:93
+#: app/preferences.c:102
 msgid "New window:"
 msgstr "Nytt vindu:"
 
-#: app/preferences.c:94
+#: app/preferences.c:103
 msgid "Width:"
 msgstr "Bredde:"
 
-#: app/preferences.c:95
+#: app/preferences.c:104
 msgid "Height:"
 msgstr "Høyde:"
 
-#: app/preferences.c:96
+#: app/preferences.c:105
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: app/preferences.c:98
+#: app/preferences.c:107
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:536
+#: app/preferences.c:108 app/preferences.c:111 app/preferences.c:119
+msgid "Visible:"
+msgstr "Synlig:"
+
+#: app/preferences.c:110
+msgid "Grid:"
+msgstr "Rutenett:"
+
+#: app/preferences.c:112
+msgid "Snap to:"
+msgstr "Fest til:"
+
+#: app/preferences.c:113
+msgid "X Size:"
+msgstr "X-størrelse:"
+
+#: app/preferences.c:114
+msgid "Y Size:"
+msgstr "Y-størrelse:"
+
+#: app/preferences.c:115 app/preferences.c:120
+#, fuzzy
+msgid "Colour:"
+msgstr "Farge"
+
+#: app/preferences.c:116 app/preferences.c:121
+#, fuzzy
+msgid "Solid lines:"
+msgstr "Helfylte linjer"
+
+#: app/preferences.c:118
+msgid "Page breaks:"
+msgstr ""
+
+#: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1015,15 +1026,15 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Skrifttype %s ikke funnet, bruker Courier i stedet.\n"
 
-#: lib/message.c:104
+#: lib/message.c:118
 msgid "Notice"
 msgstr "Melding"
 
-#: lib/message.c:115
+#: lib/message.c:129
 msgid "Warning"
 msgstr "Advarsel"
 
-#: lib/message.c:127
+#: lib/message.c:141
 msgid "Error"
 msgstr "Feil"
 

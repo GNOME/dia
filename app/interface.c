@@ -569,7 +569,7 @@ create_color_area (GtkWidget *parent)
   GtkStyle *style;
   GtkWidget *hbox;
 
-  gtk_widget_realize(parent);
+  gtk_widget_ensure_style(parent);
   style = gtk_widget_get_style(parent);
 
   default_pixmap =

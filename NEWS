@@ -1,3 +1,27 @@
+dia-0.84:  29-February-2000
+* Bug fixes in sheet loading and object initialisation code -- this fixes
+  some of the seg faults in 0.83.
+* Lots of new shapes (GRAFCET, SADT, chronogram and Contact from Cyrille)
+* Fixed up fit to page so that it adjusts the scaling as you change the
+  size of the diagram.  Also allow fit to multiple pages.
+* Show page breaks on diagram (this can be disabled in the preferences).
+* CGM export filter fixes (most of this work was by Henk Jan Priester).
+* SVG export filter fixes -- now it handles images as well.
+* EPS filter now uses scaling factor set in page setup dialog.  This was
+  added because some apps do not allow scaling of an EPS file after importing
+  it.
+* High quality anti aliased libart based renderer (Alex).
+* PNG export filter (requires libpng and libart).
+* toolbox is resizable kind of like the gimp-1.1 toolbox.
+* Win32 port by Hans Breuer -- see http://hans.breuer.org/dia/
+* Start of support for properties code.  THIS IS NOT FINISHED AND THE
+  INTERFACES ARE LIKELY TO CHANGE IN THE NEXT RELEASE.  DON'T WRITE NEW
+  OBJECTS AGAINST THESE NEW INTERFACES UNLESS YOU ARE PREPARED FOR THEM TO
+  BREAK WITH THE NEXT RELEASE.  That said, this adds a number of nice
+  features for users.  You can now group a number of properties supporting
+  objects (currently the `standard' objects, custom objects and the
+  flowchart box), and change some of the properties as a group.
+
 dia-0.83:
 * Copying/pasting of bezier and image objects should work correctly.
 * New export filter interface, which allows export filters to be

@@ -107,8 +107,9 @@ CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
 
 INCLUDES = \
+	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \
-	-I$(srcdir)/../lib \
+	-I$(top_srcdir)/lib \
 	@DEBUG_FLAGS@ \
 	@XML_CFLAGS@ \
 	@GTK_CFLAGS@ \

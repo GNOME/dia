@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(app/diagram.c)
 
-AM_INIT_AUTOMAKE(dia, 0.83)
+AM_INIT_AUTOMAKE(dia, 0.84)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -141,10 +141,17 @@ dnl
 AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
 if test "$XML_CONFIG" != "" 
 then
+  AC_MSG_CHECKING(for libxml >= 1.8.5)
+  vers=`$XML_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  if test "$vers" -ge 1008005; then
+    AC_MSG_RESULT(found)
+  else
+    AC_MSG_ERROR(you need libxml >= 1.8.5 for this version of dia)
+  fi
   XML_LIBS="`$XML_CONFIG --libs`"
   XML_CFLAGS="`$XML_CONFIG --cflags`"
 else
-  AC_MSG_ERROR(Can't find gnome-xml library.)
+  AC_MSG_ERROR(Can't find libxml library.)
 fi
 AC_SUBST(XML_LIBS)
 AC_SUBST(XML_CFLAGS)
