@@ -514,78 +514,6 @@ get_layout_first_baseline(PangoLayout* layout)
   return result;
 }
 
-/** Used as elements in a hash table caching rendered text. */
-typedef struct {
-  const gchar *text;
-  DiaFont *font;
-  real font_height;
-  real zoom;
-  Color *color;
-  real align_adjust;
-#ifdef HAVE_FREETYPE
-  guchar* pixels;
-  gint width, height;
-#else
-  PangoLayout *layout;
-#endif
-} StringCacheElement;
-
-static GHashTable *text_cache;
-
-static gboolean
-text_cache_equals(gconstpointer e1, gconstpointer e2) 
-{
-  return FALSE;
-}
-
-
-static guint
-text_cache_hash(gconstpointer el) 
-{
-  StringCacheElement *sce;
-
-  return 0;
-}
-
-static StringCacheElement *
-get_cached_text(DiaRenderer *object, const gchar *text, Color *color)
-{
-  StringCacheElement sce;
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
-  if (text_cache == NULL) return NULL;
-
-  sce.text = text;
-  sce.font = object->font;
-  sce.font_height = object->font_height;
-  sce.zoom = dia_transform_length(renderer->transform, 10.0)/10.0;
-  sce.color = color;
-
-  return (StringCacheElement *)g_hash_table_lookup(text_cache, &sce);
-}
-
-#ifdef HAVE_FREETYPE
-static void
-cache_text(DiaRenderer *object, const gchar *text, Color *color,
-	   guchar* pixels, gint width, gint height) 
-{
-  if (text_cache == NULL) {
-    text_cache = g_hash_table_new(text_cache_hash, text_cache_equals);
-  }
-
-}
-#else
-static void
-cache_text(DiaRenderer *object, const gchar *text, Color *color,
-	   PangoLayout *layout)
-{
-  if (text_cache == NULL) {
-    text_cache = g_hash_table_new(text_cache_hash, text_cache_equals);
-  }
-  
-}
-#endif
-
 /** Return the x adjustment needed for this text and alignment */
 static real
 get_alignment_adjustment(DiaRenderer *object, 
@@ -624,17 +552,13 @@ draw_string (DiaRenderer *object,
 
   int x,y;
   Point start_pos;
-  PangoLayout* layout;
+  PangoLayout* layout = NULL;
   
-  long t1, t2;
-
   if(renderer->rendertext == FALSE) return;/* renderer do not want to render text */
 
   point_copy(&start_pos,pos);
 
   color_convert(color, &gdkcolor);
-
-  
 
   start_pos.x -= get_alignment_adjustment(object, text, alignment);
    
@@ -648,6 +572,8 @@ draw_string (DiaRenderer *object,
    int width, height;
    int rowstride;
    double font_height;
+   GdkPixbuf *rgba = NULL;
+
 
    start_pos.y -= 
      dia_font_scaled_ascent(text, object->font,
@@ -657,45 +583,50 @@ draw_string (DiaRenderer *object,
    dia_transform_coords(renderer->transform, 
 			start_pos.x, start_pos.y, &x, &y);
    
-   layout = dia_font_scaled_build_layout(text, object->font,
-					 object->font_height,
-					 dia_transform_length(renderer->transform, 1.0));
-   /*   y -= get_layout_first_baseline(layout);  */
-   pango_layout_get_pixel_size(layout, &width, &height);
-   
-   if (width > 0) {
-      rowstride = 32*((width+31)/31);
+     layout = dia_font_scaled_build_layout(text, object->font,
+					   object->font_height,
+					   dia_transform_length(renderer->transform, 1.0));
+     /*   y -= get_layout_first_baseline(layout);  */
+     pango_layout_get_pixel_size(layout, &width, &height);
      
-     graybitmap = (guint8*)g_new0(guint8, height*rowstride);
-     
-     ftbitmap.rows = height;
-     ftbitmap.width = width;
-     ftbitmap.pitch = rowstride;
-     ftbitmap.buffer = graybitmap;
-     ftbitmap.num_grays = 256;
-     ftbitmap.pixel_mode = ft_pixel_mode_grays;
-     ftbitmap.palette_mode = 0;
-     ftbitmap.palette = 0;
-     pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-
-     {
-       GdkPixbuf *rgba = 
-	 gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-       int stride = gdk_pixbuf_get_rowstride(rgba);
-       guchar* pixels = gdk_pixbuf_get_pixels(rgba);
-       int i,j;
-       for (i = 0; i < height; i++) {
-	 for (j = 0; j < width; j++) {
-	   pixels[i*stride+j*4] = gdkcolor.red>>8;
-	   pixels[i*stride+j*4+1] = gdkcolor.green>>8;
-	   pixels[i*stride+j*4+2] = gdkcolor.blue>>8;
-	   pixels[i*stride+j*4+3] = graybitmap[i*rowstride+j];
+     if (width > 0) {
+       rowstride = 32*((width+31)/31);
+       
+       graybitmap = (guint8*)g_new0(guint8, height*rowstride);
+       
+       ftbitmap.rows = height;
+       ftbitmap.width = width;
+       ftbitmap.pitch = rowstride;
+       ftbitmap.buffer = graybitmap;
+       ftbitmap.num_grays = 256;
+       ftbitmap.pixel_mode = ft_pixel_mode_grays;
+       ftbitmap.palette_mode = 0;
+       ftbitmap.palette = 0;
+       pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+       
+       {
+	 int stride;
+	 guchar* pixels;
+	 int i,j;
+	 rgba = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
+	 stride = gdk_pixbuf_get_rowstride(rgba);
+	 pixels = gdk_pixbuf_get_pixels(rgba);
+	 for (i = 0; i < height; i++) {
+	   for (j = 0; j < width; j++) {
+	     pixels[i*stride+j*4] = gdkcolor.red>>8;
+	     pixels[i*stride+j*4+1] = gdkcolor.green>>8;
+	     pixels[i*stride+j*4+2] = gdkcolor.blue>>8;
+	     pixels[i*stride+j*4+3] = graybitmap[i*rowstride+j];
+	   }
 	 }
+	 g_free(graybitmap);
        }
-       /*
-	 gdk_draw_pixbuf(renderer->pixmap, gc, rgba, 0, 0, x, y, width, height,
-	 GDK_RGB_DITHER_NONE, 0, 0);
-       */
+     }
+     /*
+       gdk_draw_pixbuf(renderer->pixmap, gc, rgba, 0, 0, x, y, width, height,
+       GDK_RGB_DITHER_NONE, 0, 0);
+     */
+     if (rgba != NULL) { /* Non-null width */
        gdk_pixbuf_render_to_drawable_alpha(rgba, 
 					   renderer->pixmap,
 					   0, 0,
@@ -705,17 +636,14 @@ draw_string (DiaRenderer *object,
 					   128,
 					   GDK_RGB_DITHER_NONE,
 					   0, 0);
-       g_object_unref(G_OBJECT(rgba));
-       g_free(graybitmap);
      }
-   }
-   /*
-   gdk_gc_set_function(gc, GDK_COPY_INVERT);
-   gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
-		       GDK_RGB_DITHER_NONE, graybitmap, rowstride);
-   gdk_gc_set_function(gc, GDK_COPY);
-   */
- }
+     /*
+       gdk_gc_set_function(gc, GDK_COPY_INVERT);
+       gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
+       GDK_RGB_DITHER_NONE, graybitmap, rowstride);
+       gdk_gc_set_function(gc, GDK_COPY);
+     */
+  }
 #else
   gdk_gc_set_foreground(gc, &gdkcolor);
   dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);

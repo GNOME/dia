@@ -501,6 +501,37 @@ real dia_font_descent(const char* string, DiaFont* font, real height)
     return dia_font_scaled_descent(string,font,height,global_zoom_factor);
 }
 
+typedef struct {
+  gchar *string;
+  DiaFont *font;
+  real height;
+  PangoLayout *layout;
+  int lastused;
+} LayoutCacheItem;
+
+static GHashTable *layoutcache;
+
+static gboolean
+layout_cache_equals(gconstpointer e1, gconstpointer e2) 
+{
+  LayoutCacheItem *i1 = (LayoutCacheItem*)e1,
+    *i2 = (LayoutCacheItem*)e2;
+
+  return strcmp(i1->string, i2->string) == 0 &&
+    fabs(i1->height - i2->height) < 0.00001 &&
+    i1->font == i2->font;
+}
+
+static guint
+layout_cache_hash(gconstpointer el) 
+{
+  LayoutCacheItem *item = (LayoutCacheItem*)el;
+
+  return g_str_hash(item->string) ^
+    (int)(item->height*1000) ^
+    (int)(item->font);
+}
+
 PangoLayout*
 dia_font_build_layout(const char* string, DiaFont* font, real height)
 {
@@ -508,6 +539,29 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     PangoAttrList* list;
     PangoAttribute* attr;
     guint length;
+
+    LayoutCacheItem *cached;
+
+    if (layoutcache == NULL) {
+      layoutcache = g_hash_table_new(layout_cache_hash, layout_cache_equals);
+    } else {
+      LayoutCacheItem item;
+      item.string = string;
+      item.font = font;
+      item.height = height;
+      cached = g_hash_table_lookup(layoutcache, &item);
+      if (cached != NULL) {
+	g_object_ref(cached->layout);
+	cached->lastused = time(0);
+	return cached->layout;
+      }
+    }
+
+    cached = g_new0(LayoutCacheItem,1);
+    cached->string = g_strdup(string);
+    cached->font = font;
+    g_object_ref(font);
+    cached->height = height;
 
     height *= 0.7;
 
@@ -531,6 +585,11 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_justify(layout,FALSE);
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
   
+    cached->layout = layout;
+    g_object_ref(layout);
+    cached->lastused = time(0);
+    g_hash_table_insert(layoutcache, cached, cached);
+
     return layout;
 }
 

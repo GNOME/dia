@@ -421,7 +421,7 @@ ddisplay_update_handler(DDisplay *ddisp)
   IRectangle *ir;
   Rectangle *r, totrect;
   DiaInteractiveRendererInterface *renderer;
-  
+
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
   renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
 
@@ -471,6 +471,7 @@ ddisplay_update_handler(DDisplay *ddisp)
   ddisplay_free_display_areas(ddisp);
 
   ddisp->update_id = 0;
+
   return FALSE;
 }
 

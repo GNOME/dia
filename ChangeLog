@@ -1,3 +1,9 @@
+2003-12-31  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagdkrenderer.c (draw_string): Remove poorly placed caching.
+
+	* lib/font.c: Caching PangoLayout for better rendering speed.
+
 2003-12-30  Lars Clausen  <lc@pc770>
 
 	* lib/dia_dirs.[ch] (dia_get_absolute_filename): New function to
