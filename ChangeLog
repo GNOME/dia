@@ -1,3 +1,18 @@
+2000-04-09  Anders Carlsson  <andersca@gnu.org>
+
+	* app/preferences.h: Add reverse_rubberbanding_intersects preference variable.
+
+	* app/preferences.c (prefs_data): Add reverse_rubberbanding_intersects preference data.
+
+	* app/modify_tool.c (modify_button_release): If rubberbanding is done from 
+	right to left, select objects that intersect the rubberbanding rectangle
+	instead of selecting objects that are in the rectangle.
+
+	* lib/diagramdata.c (layer_find_objects_intersecting_rectangle): Add function.
+
+	* lib/diagramdata.h: Likewise.
+
+
 2000-04-09  James Henstridge  <james@daa.com.au>
 
 	* lib/plug-ins.[ch]: add copyright messages to files.

@@ -103,6 +103,7 @@ extern void layer_add_objects(Layer *layer, GList *obj_list);
 extern void layer_add_objects_first(Layer *layer, GList *obj_list);
 extern void layer_remove_object(Layer *layer, Object *obj);
 extern void layer_remove_objects(Layer *layer, GList *obj_list);
+extern GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect);
 extern GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
 extern Object *layer_find_closest_object(Layer *layer, Point *pos,
 					 real maxdist);

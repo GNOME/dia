@@ -426,6 +426,28 @@ layer_remove_objects(Layer *layer, GList *obj_list)
 
 
 GList *
+layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
+{
+  GList *list;
+  GList *selected_list;
+  Object *obj;
+
+  selected_list = NULL;
+  list = layer->objects;
+  while (list != NULL) {
+    obj = (Object *)list->data;
+
+    if (rectangle_intersects(rect, &obj->bounding_box)) {
+      selected_list = g_list_prepend(selected_list, obj);
+    }
+
+    list = g_list_next(list);
+  }
+
+  return selected_list;
+}
+
+GList *
 layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
 {
   GList *list;

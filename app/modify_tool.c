@@ -26,6 +26,7 @@
 #include "properties.h"
 #include "render_gdk.h"
 #include "select.h"
+#include "preferences.h"
 
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -514,8 +515,18 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       r.top = MIN(tool->start_box.y, tool->end_box.y);
       r.bottom = MAX(tool->start_box.y, tool->end_box.y);
 
-      list = list_to_free =
-	layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+      if (prefs.reverse_rubberbanding_intersects) {
+	if (tool->start_box.x > tool->end_box.x) {
+	  list = list_to_free =
+	    layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
+	} else {
+	  list = list_to_free =
+	    layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+	}
+      } else {
+	list = list_to_free =
+	  layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+      }
       
       if (selection_style == SELECT_REPLACE &&
           !(event->state & GDK_SHIFT_MASK)) {

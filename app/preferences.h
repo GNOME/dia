@@ -41,7 +41,8 @@ struct DiaPreferences {
   int reset_tools_after_create;
   int compress_save;
   int undo_depth;
-
+  int reverse_rubberbanding_intersects;
+  
   struct {
     int visible;
     Color colour;
