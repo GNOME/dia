@@ -1,8 +1,13 @@
 2003-01-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/interface.c (create_display_shell): Fixed menu name for Show
-	Grid.  Thanks to Hubert Figuiere <hfiguiere@teaser.fr> for finding
-	this.
+	* app/interface.c (create_display_shell):
+	* app/display.h: Patching from Hubert Figuiere
+	<hfiguiere@teaser.fr>:  Better types for menu bar widgets, and
+	correct menu items.
+
+	* lib/diarenderer.h (struct _DiaRendererClass): New renderer
+	functions save_context() and restore_context() to handle local
+	changes of line attributes and similar.
 
 2003-01-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 

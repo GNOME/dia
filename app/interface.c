@@ -451,6 +451,11 @@ create_display_shell(DDisplay *ddisp,
     g_string_append (g_string_assign(path, display),"/View/Show Connection Points");
     ddisp->show_cx_pts_mitem  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
 
+#ifdef HAVE_LIBART
+    g_string_append (g_string_assign(path, display),"/View/AntiAliased");
+    ddisp->antialiased  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+#endif
+
     menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->mbar_item_factory, display);
     g_string_free (path,FALSE);
   }

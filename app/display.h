@@ -45,12 +45,12 @@ struct _DDisplay {
   GtkItemFactory *mbar_item_factory; /* item factory used to create the menu bar */
 
   /* menu bar widgets */
-  GtkWidget *rulers;
-  GtkWidget *visible_grid;
-  GtkWidget *snap_to_grid;
-  GtkWidget *show_cx_pts_mitem;
+  GtkMenuItem *rulers;
+  GtkMenuItem *visible_grid;
+  GtkMenuItem *snap_to_grid;
+  GtkMenuItem *show_cx_pts_mitem;
 #ifdef HAVE_LIBART
-  GtkWidget *antialiased;
+  GtkMenuItem *antialiased;
 #endif
   UpdatableMenuItems updatable_menu_items;
     
