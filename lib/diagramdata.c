@@ -23,6 +23,8 @@
 
 #include "paper.h"
 
+#define RENDER_BOUNDING_BOXES 0
+
 DiagramData *
 new_diagram_data(void)
 {
@@ -236,11 +238,21 @@ data_update_extents(DiagramData *data)
 
   extents = &data->extents;
 
-  layer = (Layer *) g_ptr_array_index(data->layers, 0);
-  new_extents = layer->extents;
-  for (i=1;i<data->layers->len;i++) {
+  for (i = 0; i < data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    rectangle_union(&new_extents, &layer->extents);
+    if (layer->visible) {
+      new_extents = layer->extents;
+      break;
+    }
+  }
+  if (i == data->layers->len) { /* No visible layers */
+    layer = (Layer *) g_ptr_array_index(data->layers, 0);
+    new_extents = layer->extents;
+  }
+  for ( ; i<data->layers->len; i++) {
+    layer = (Layer *) g_ptr_array_index(data->layers, i);
+    if (layer->visible)
+      rectangle_union(&new_extents, &layer->extents);
   }
 
   changed =  ( (new_extents.left != extents->left) ||
@@ -334,7 +346,7 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
   int i;
   int active_layer;
 
-  (renderer->ops->begin_render)(renderer);
+  if (!renderer->is_interactive) (renderer->ops->begin_render)(renderer);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
@@ -343,7 +355,7 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
       layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
   }
   
-  (renderer->ops->end_render)(renderer);
+  if (!renderer->is_interactive) (renderer->ops->end_render)(renderer);
 }
 
 static void
@@ -372,8 +384,22 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
   while (list!=NULL) {
     obj = (Object *) list->data;
 
-    if (update==NULL || rectangle_intersects(update, &obj->bounding_box))
-	(*obj_renderer)(obj, renderer, active_layer, data);
+    if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
+      if (RENDER_BOUNDING_BOXES) {
+	Point p1, p2;
+	Color col;
+	p1.x = obj->bounding_box.left;
+	p1.y = obj->bounding_box.top;
+	p2.x = obj->bounding_box.right;
+	p2.y = obj->bounding_box.bottom;
+	col.red = 0xff;
+	col.green = 0x00;
+	col.blue = 0xff;
+
+	renderer->ops->draw_rect(renderer, &p1, &p2, &col);
+      }
+      (*obj_renderer)(obj, renderer, active_layer, data);
+    }
     
     list = g_list_next(list);
   }
