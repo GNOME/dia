@@ -41,9 +41,11 @@ lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c
 lib/dia_xml.c
+lib/diaarrowchooser.c
 lib/diagramdata.c
 lib/diagtkfontsel.c
 lib/dialibartrenderer.c
+lib/dialinechooser.c
 lib/filter.c
 lib/font.c
 lib/message.c
@@ -154,12 +156,14 @@ plug-ins/xslt/xsltdialog.c
 sheets/Assorted.sheet.in
 sheets/Circuit.sheet.in
 sheets/Contact.sheet.in
+sheets/Cybernetics.sheet.in
 sheets/EML.sheet.in
 sheets/ER.sheet.in
 sheets/Electric.sheet.in
 sheets/FS.sheet.in
 sheets/Flowchart.sheet.in
 sheets/GRAFCET.sheet.in
+sheets/IsometricMap.sheet.in
 sheets/Logic.sheet.in
 sheets/MSE.sheet.in
 sheets/Misc.sheet.in
