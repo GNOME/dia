@@ -43,6 +43,7 @@ struct DiaPreferences {
   int show_cx_pts;
   int reset_tools_after_create;
   int compress_save;
+  int undo_depth;
 };
 
 extern struct DiaPreferences prefs;

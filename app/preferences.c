@@ -56,6 +56,7 @@ static real default_real_one = 1.0;
 static real default_real_zoom = 100.0;
 static int default_int_w = 500;
 static int default_int_h = 400;
+static int default_undo_depth = 15;
 
 struct DiaPrefsTab {
   char *title;
@@ -75,6 +76,7 @@ struct DiaPrefsData prefs_data[] =
 {
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_false, 0, N_("Reset tools after create:") },
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
+  { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Grid:") },
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 1, N_("Visible:") },

@@ -1,5 +1,15 @@
 1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
 
+        * app/preferences.[hc]:
+	Added undo_depth pref.
+	
+	* app/undo.[ch]:
+	Never grow stack larger than pref.undo_depth.
+	undo_depth == 0 means unlimited.
+	Converted printfs to conditionally compiled DEBUG_PRINTFs.
+	
+1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
+
         * app/diagram.c:
 	* app/group.c:
 	* lib/object.h:

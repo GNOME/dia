@@ -42,6 +42,7 @@ struct _UndoStack {
   Diagram *dia;
   Change *last_change; /* Points to the object on the top of stack. */
   Change *current_change; /* Points to the last object currently applied */
+  int depth;
 };
 
 extern UndoStack *new_undo_stack(Diagram *dia);

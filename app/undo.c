@@ -22,10 +22,18 @@
 #include "connectionpoint_ops.h"
 #include "focus.h"
 #include "group.h"
+#include "preferences.h"
+
+#if 0
+#define DEBUG_PRINTF(args) printf args
+#else
+#define DEBUG_PRINTF(args)
+#endif
 
 static void
 transaction_point_pointer(Change *change, Diagram *dia)
 {
+  /* Empty function used to track transactionpoints. */
 }
 
 static int
@@ -61,7 +69,7 @@ new_undo_stack(Diagram *dia)
     transaction->next = transaction->prev = NULL;
     stack->last_change = transaction;
     stack->current_change = transaction;
-    
+    stack->depth = 0;
   }
   return stack;
 }
@@ -82,7 +90,7 @@ undo_remove_redo_info(UndoStack *stack)
   Change *change;
   Change *next_change;
 
-  printf("UNDO: Removing redo info\n");
+  DEBUG_PRINTF(("UNDO: Removing redo info\n"));
   
   change = stack->current_change->next;
   stack->current_change->next = NULL;
@@ -118,13 +126,48 @@ undo_push_change(UndoStack *stack, Change *change)
   if (stack->current_change != stack->last_change)
     undo_remove_redo_info(stack);
 
-  printf("UNDO: Push new change at %d\n", depth(stack));
+  DEBUG_PRINTF(("UNDO: Push new change at %d\n", depth(stack)));
   
   change->prev = stack->last_change;
   change->next = NULL;
   stack->last_change->next = change;
   stack->last_change = change;
   stack->current_change = change;
+}
+
+void
+undo_delete_lowest_transaction(UndoStack *stack)
+{
+  Change *change;
+  Change *next_change;
+
+  /* Find the lowest change: */
+  change = stack->current_change;
+  while (change->prev != NULL) {
+    change = change->prev;
+  }
+
+  /* Remove changes from the bottom until (and including)
+   * the first transactionpoint.
+   * Stop if we reach current_change or NULL.
+   */
+  do {
+    if ( (change == NULL) || (change == stack->current_change))
+      break;
+
+    next_change = change->next;
+    DEBUG_PRINTF(("freeing one change from the bottom.\n"));
+    if (change->free)
+      (change->free)(change);
+    g_free(change);
+    change = next_change;
+  } while (!is_transactionpoint(change));
+  
+  if (is_transactionpoint(change)) {
+    stack->depth--;
+    DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
+  }
+  change->prev = NULL;
 }
 
 void
@@ -135,11 +178,19 @@ undo_set_transactionpoint(UndoStack *stack)
   if (is_transactionpoint(stack->current_change))
     return;
 
-  printf("UNDO: Push new transactionpoint at %d\n", depth(stack));
+  DEBUG_PRINTF(("UNDO: Push new transactionpoint at %d\n", depth(stack)));
 
   transaction = new_transactionpoint();
 
   undo_push_change(stack, transaction);
+  stack->depth++;
+  DEBUG_PRINTF(("Increasing stack depth to: %d\n", stack->depth));
+
+  if (prefs.undo_depth > 0) {
+    while (stack->depth > prefs.undo_depth){
+      undo_delete_lowest_transaction(stack);
+    }
+  }
 }
 
 void
@@ -158,6 +209,8 @@ undo_revert_to_last_tp(UndoStack *stack)
     change = prev_change;
   } while (!is_transactionpoint(change));
   stack->current_change  = change;
+  stack->depth--;
+  DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
 }
 
 void
@@ -167,6 +220,10 @@ undo_apply_to_next_tp(UndoStack *stack)
   Change *next_change;
   
   change = stack->current_change;
+
+  if (change->next == NULL)
+    return /* Already at top. */;
+  
   do {
     next_change = change->next;
     (change->apply)(change, stack->dia);
@@ -176,6 +233,8 @@ undo_apply_to_next_tp(UndoStack *stack)
   if (change == NULL)
     change = stack->last_change;
   stack->current_change = change;
+  stack->depth++;
+  DEBUG_PRINTF(("Increasing stack depth to: %d\n", stack->depth));
 }
 
 
@@ -300,7 +359,7 @@ undo_move_objects(Diagram *dia, Point *orig_pos, Point *dest_pos,
   change->dest_pos = dest_pos;
   change->obj_list = obj_list;
 
-  printf("UNDO: Push new move objects at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new move objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -362,7 +421,7 @@ undo_move_handle(Diagram *dia,
   change->handle = handle;
   change->obj = obj;
 
-  printf("UNDO: Push new move handle at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new move handle at %d\n", depth(dia->undo)));
 
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
@@ -427,7 +486,7 @@ undo_connect(Diagram *dia, Object *obj, Handle *handle,
   change->handle_pos = handle->pos;
   change->connectionpoint = connectionpoint;
 
-  printf("UNDO: Push new connect at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new connect at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -478,7 +537,7 @@ undo_unconnect(Diagram *dia, Object *obj, Handle *handle)
   change->handle = handle;
   change->connectionpoint = handle->connected_to;
 
-  printf("UNDO: Push new unconnect at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new unconnect at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -499,7 +558,7 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 {
   GList *list;
   
-  printf("delete_objects_apply()\n");
+  DEBUG_PRINTF(("delete_objects_apply()\n"));
   change->applied = 1;
   diagram_unselect_objects(dia, change->obj_list);
   layer_remove_objects(change->layer, change->obj_list);
@@ -526,7 +585,7 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 static void
 delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 {
-  printf("delete_objects_revert()\n");
+  DEBUG_PRINTF(("delete_objects_revert()\n"));
   change->applied = 0;
   layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
@@ -535,7 +594,7 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 static void
 delete_objects_free(struct DeleteObjectsChange *change)
 {
-  printf("delete_objects_free()\n");
+  DEBUG_PRINTF(("delete_objects_free()\n"));
   if (change->applied)
     destroy_object_list(change->obj_list);
   else
@@ -557,7 +616,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
   change->obj_list = obj_list;
   change->applied = 0;
 
-  printf("UNDO: Push new delete objects at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new delete objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -575,7 +634,7 @@ struct InsertObjectsChange {
 static void
 insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
 {
-  printf("insert_objects_revert()\n");
+  DEBUG_PRINTF(("insert_objects_revert()\n"));
   change->applied = 1;
   layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
@@ -586,7 +645,7 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
 {
   GList *list;
   
-  printf("insert_objects_apply()\n");
+  DEBUG_PRINTF(("insert_objects_apply()\n"));
   change->applied = 0;
   diagram_unselect_objects(dia, change->obj_list);
   layer_remove_objects(change->layer, change->obj_list);
@@ -612,7 +671,7 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
 static void
 insert_objects_free(struct InsertObjectsChange *change)
 {
-  printf("insert_objects_free()\n");
+  DEBUG_PRINTF(("insert_objects_free()\n"));
   if (!change->applied)
     destroy_object_list(change->obj_list);
   else
@@ -634,7 +693,7 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
   change->obj_list = obj_list;
   change->applied = applied;
 
-  printf("UNDO: Push new insert objects at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new insert objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -682,7 +741,7 @@ object_change_revert(struct ObjectChangeChange *change,
 static void
 object_change_free(struct ObjectChangeChange *change)
 {
-  printf("state_change_free()\n");
+  DEBUG_PRINTF(("state_change_free()\n"));
   if (change->obj_change->free)
     (*change->obj_change->free)(change->obj_change);
   g_free(change->obj_change);
@@ -703,7 +762,7 @@ undo_object_change(Diagram *dia, Object *obj,
   change->obj = obj;
   change->obj_change = obj_change;
 
-  printf("UNDO: Push new obj_change at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new obj_change at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -725,7 +784,7 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
 {
   GList *list;
 
-  printf("group_objects_apply()\n");
+  DEBUG_PRINTF(("group_objects_apply()\n"));
   
   change->applied = 1;
   
@@ -756,7 +815,7 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
 {
   GList *old_list;
   
-  printf("group_objects_revert()\n");
+  DEBUG_PRINTF(("group_objects_revert()\n"));
   change->applied = 0;
   
   diagram_unselect_object(dia, change->group);
@@ -774,7 +833,7 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
 static void
 group_objects_free(struct GroupObjectsChange *change)
 {
-  printf("group_objects_free()\n");
+  DEBUG_PRINTF(("group_objects_free()\n"));
   if (!change->applied) {
     group_destroy_shallow(change->group);
     change->group = NULL;
@@ -801,7 +860,7 @@ undo_group_objects(Diagram *dia, GList *obj_list, Object *group,
   change->orig_list = orig_list;
   change->applied = 1;
 
-  printf("UNDO: Push new group objects at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new group objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
@@ -821,7 +880,7 @@ struct UngroupObjectsChange {
 static void
 ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
 {
-  printf("ungroup_objects_apply()\n");
+  DEBUG_PRINTF(("ungroup_objects_apply()\n"));
   
   change->applied = 1;
   
@@ -839,7 +898,7 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
 {
   GList *list;
   
-  printf("ungroup_objects_revert()\n");
+  DEBUG_PRINTF(("ungroup_objects_revert()\n"));
   change->applied = 0;
   
 
@@ -868,7 +927,7 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
 static void
 ungroup_objects_free(struct UngroupObjectsChange *change)
 {
-  printf("ungroup_objects_free()\n");
+  DEBUG_PRINTF(("ungroup_objects_free()\n"));
   if (change->applied) {
     group_destroy_shallow(change->group);
     change->group = NULL;
@@ -894,7 +953,7 @@ undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
   change->group_index = group_index;
   change->applied = 1;
 
-  printf("UNDO: Push new ungroup objects at %d\n", depth(dia->undo));
+  DEBUG_PRINTF(("UNDO: Push new ungroup objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
