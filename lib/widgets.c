@@ -518,7 +518,7 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   menuitem = gtk_menu_get_active(fs->font_menu);
   fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(menuitem));
   lowername = g_utf8_strdown(fontname, -1);
-  fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
+  fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
   g_free(lowername);
   fse->last_select = time(0);
   menuitem = gtk_menu_get_active(fs->style_menu);

@@ -1,5 +1,10 @@
 2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/pixmaps/delete.xpm: Trashcan stolen from Gimp.
+
+	* lib/widgets.c (dia_font_selector_get_font): Fixed wrong name
+	passing to font hash.
+
 	* app/filedlg.c (file_save_as_ok_callback): Check that filename is
 	utf-8 or locale-convertible before adding to dialog text.  This
 	probably needs done in a number of places where we get text from
