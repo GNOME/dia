@@ -1,3 +1,7 @@
+2002-05-05  Steffen Macke <sdteffen@web.de>
+
+	* app/Makefile.am: added $(UNICODE_CFLAGS)
+	
 2002-05-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/commands.c (help_manual_callback): Check return value of

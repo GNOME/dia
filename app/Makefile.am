@@ -10,6 +10,7 @@ INCLUDES = \
         $(GNOME_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	$(GDK_PIXBUF_CFLAGS) \
+	$(UNICODE_CFLAGS) \
 	$(FREETYPE_CFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\"
 
