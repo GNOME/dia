@@ -514,7 +514,7 @@ bezierline_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
   Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
   
-  closest = bezierconn_closest_handle(&bezierline->bez, clicked);
+  closest = bezierconn_closest_major_handle(&bezierline->bez, clicked);
   change = bezierconn_set_corner_type(&bezierline->bez, closest, 
 				      GPOINTER_TO_INT(data));
   
@@ -546,7 +546,7 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
   Handle *closest;
   gboolean closest_is_endpoint;
 
-  closest = bezierconn_closest_handle(&bezierline->bez, clickedpoint);
+  closest = bezierconn_closest_major_handle(&bezierline->bez, clickedpoint);
   if (closest->id == HANDLE_MOVE_STARTPOINT ||
       closest->id == HANDLE_MOVE_ENDPOINT)
     closest_is_endpoint = TRUE;

@@ -7,6 +7,11 @@
 	bezier points.  Only one minor problem known:  Menus are active
 	for endpoints minor handles.
 	11:28: Save and load now works, too.
+	(bezierconn_closest_major_handle): 12:03: New function to get the
+	non-control point handle associated with the nearest control
+	point.  
+	Also fixed the menu activation problem, and made remove_segment
+	not remove the endpoint.
 
 2000-04-15  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 

@@ -94,6 +94,7 @@ static int get_handle_nr(BezierConn *bez, Handle *handle)
 }
 
 #define get_comp_nr(hnum) (((int)(hnum)+2)/3)
+#define get_major_nr(hnum) (((int)(hnum)+1)/3)
 
 void
 bezierconn_move_handle(BezierConn *bez, Handle *handle,
@@ -263,6 +264,14 @@ bezierconn_closest_handle(BezierConn *bez, Point *point)
   return closest;
 }
 
+Handle *
+bezierconn_closest_major_handle(BezierConn *bez, Point *point)
+{
+  Handle *closest = bezierconn_closest_handle(bez, point);
+
+  return bez->object.handles[3*get_major_nr(get_handle_nr(bez, closest))];
+}
+
 real
 bezierconn_distance_from(BezierConn *bez, Point *point, real line_width)
 {
@@ -388,6 +397,9 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   BezPoint old_point;
 
   assert(pos > 0);
+  assert(bez->numpoints > 2);
+
+  if (pos == bez->numpoints-1) pos--;
 
   old_handle1 = bez->object.handles[3*pos-2];
   old_handle2 = bez->object.handles[3*pos-1];
@@ -493,7 +505,7 @@ bezierconn_set_corner_type(BezierConn *bez, Handle *handle, int corner_type)
     return NULL;
   }
 
-  comp_nr = get_comp_nr(handle_nr);
+  comp_nr = get_major_nr(handle_nr);
 
   old_type = bez->points[comp_nr].corner_type;
   old_left = bez->points[comp_nr].p2;
@@ -882,7 +894,7 @@ bezierconn_corner_change_apply(struct CornerChange *change,
 			       Object *obj) {
   BezierConn *bez = (BezierConn *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);
-  int comp_nr = get_comp_nr(handle_nr);
+  int comp_nr = get_major_nr(handle_nr);
 
   bezierconn_straighten_corner(bez, comp_nr);
 
@@ -896,7 +908,7 @@ bezierconn_corner_change_revert(struct CornerChange *change,
 				Object *obj) {
   BezierConn *bez = (BezierConn *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);
-  int comp_nr = get_comp_nr(handle_nr);
+  int comp_nr = get_major_nr(handle_nr);
 
   bez->points[comp_nr].p2 = change->point_left;
   bez->points[comp_nr+1].p1 = change->point_right;

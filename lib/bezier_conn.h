@@ -54,6 +54,7 @@ extern void bezierconn_move(BezierConn *bez, Point *to);
 extern real bezierconn_distance_from(BezierConn *bez, Point *point,
 				   real line_width);
 extern Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
+extern Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
 extern int bezierconn_closest_segment(BezierConn *bez, Point *point,
 				    real line_width);
 #endif /* BEZIER_CONN_H */
