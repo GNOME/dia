@@ -254,14 +254,7 @@ recent_file_history_init() {
 		CLAMP(prefs.recent_documents_list_size, 0, 16);
 	recent_files_length = prefs.recent_documents_list_size;
 
-	/* Grey magic to determine where in the File
-	   menu to put the recently used filenames */
-
-#ifdef GNOME
-	menu_item = menus_get_item_from_path(N_("<Toolbox>/File/Exit"), NULL);
-#else
 	menu_item = menus_get_item_from_path(N_("<Toolbox>/File/Quit"), NULL);
-#endif
 
 	file_menu = recent_file_filemenu_get();
 
