@@ -28,6 +28,7 @@ app/recent_files.c
 app/select.c
 app/splash.c
 lib/bezier_conn.c
+lib/dia_xml.c
 lib/diagramdata.c
 lib/filter.c
 lib/font.c

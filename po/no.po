@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-03-28 00:48-0500\n"
-"PO-Revision-Date: 2001-03-28 00:52-05:00\n"
+"POT-Creation-Date: 2001-04-07 13:12-0400\n"
+"PO-Revision-Date: 2001-04-07 13:14-04:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgid "Quit"
 msgstr "Avslutt"
 
 #: app/app_procs.c:358 app/display.c:918 app/layer_dialog.c:989
-#: app/lineprops_area.c:611 app/lineprops_area.c:809 app/linewidth_area.c:246
+#: app/lineprops_area.c:731 app/lineprops_area.c:929 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Avbryt"
@@ -88,13 +88,15 @@ msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog. Vennligst sjekk at miljøvariabelen $HOME peker til en eksisterende katalog."
+msgstr ""
+"Kunne ikke opprette per-bruker konfigurasjonskatalog. Vennligst sjekk at "
+"miljøvariabelen $HOME peker til en eksisterende katalog."
 
 #: app/app_procs.c:463
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
-#: app/color_area.c:264 lib/widgets.c:492
+#: app/color_area.c:264 lib/widgets.c:515
 msgid "Select color"
 msgstr "Velg farge"
 
@@ -148,7 +150,7 @@ msgstr "Hjelpere:"
 
 #. setup buttons
 #: app/commands.c:643 app/dia-props.c:86 app/layer_dialog.c:979
-#: app/lineprops_area.c:602 app/lineprops_area.c:799 app/linewidth_area.c:237
+#: app/lineprops_area.c:722 app/lineprops_area.c:919 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
 #: app/properties.c:82 lib/message.c:87
 msgid "OK"
@@ -322,7 +324,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nei"
 
-#: app/export_png.c:79 app/load_save.c:583 app/render_eps.c:201
+#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:201
 #: plug-ins/cgm/cgm.c:1135 plug-ins/dxf/dxf-export.c:516
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:194 plug-ins/svg/render_svg.c:180
@@ -561,15 +563,15 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: app/lineprops_area.c:591
+#: app/lineprops_area.c:711
 msgid "Arrow Properties"
 msgstr "Egenskaper for pil"
 
-#: app/lineprops_area.c:648 app/lineprops_area.c:832
+#: app/lineprops_area.c:768 app/lineprops_area.c:952
 msgid "Details..."
 msgstr "Detaljer..."
 
-#: app/lineprops_area.c:788
+#: app/lineprops_area.c:908
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
@@ -583,11 +585,11 @@ msgstr "Linjebredde"
 msgid "Line width:"
 msgstr "Linjebredde::"
 
-#: app/load_save.c:119
+#: app/load_save.c:120
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:180
+#: app/load_save.c:181
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -595,7 +597,7 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:183
+#: app/load_save.c:184
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -603,7 +605,7 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Punkt for forbindelse eksisterer ikke."
 
-#: app/load_save.c:186
+#: app/load_save.c:187
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -611,17 +613,17 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:230 plug-ins/dxf/dxf-import.c:493 plug-ins/wpg/wpg.c:1038
-#: plug-ins/xfig/xfig-import.c:1391
+#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1038
+#: plug-ins/xfig/xfig-import.c:949
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:236
+#: app/load_save.c:237
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:245 app/load_save.c:250
+#: app/load_save.c:246 app/load_save.c:251
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -630,7 +632,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:257
+#: app/load_save.c:258
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -639,12 +641,12 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:702
+#: app/load_save.c:703
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Klarte ikke å lagre file '%s'.\n"
 
-#: app/load_save.c:722 app/load_save.c:727
+#: app/load_save.c:723 app/load_save.c:728
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
@@ -766,7 +768,7 @@ msgstr "Inverter"
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:151 lib/widgets.c:654 objects/UML/association.c:1001
+#: app/menus.c:151 lib/widgets.c:656 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
@@ -783,17 +785,17 @@ msgid "Same Type"
 msgstr "Samme type"
 
 #: app/menus.c:162 lib/properties.c:1184 lib/properties.h:323
-#: lib/widgets.c:176
+#: lib/widgets.c:199
 msgid "Left"
 msgstr "Venstre"
 
 #: app/menus.c:163 app/menus.c:172 lib/properties.c:1185 lib/properties.h:324
-#: lib/widgets.c:182
+#: lib/widgets.c:205
 msgid "Center"
 msgstr "Senter"
 
 #: app/menus.c:164 lib/properties.c:1186 lib/properties.h:325
-#: lib/widgets.c:188
+#: lib/widgets.c:211
 msgid "Right"
 msgstr "Høyre"
 
@@ -1486,6 +1488,24 @@ msgstr "Dia v %s"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
+#: lib/dia_xml.c:267
+msgid "Taking point value of non-point node."
+msgstr "Tar punktverdi for node som ikke er et punkt."
+
+#: lib/dia_xml.c:276
+#, c-format
+msgid "Incorrect x Point value %f; discarding it."
+msgstr "Ukorrekt punktverdi for x, %f; forkaster den."
+
+#: lib/dia_xml.c:284
+msgid "Error parsing point."
+msgstr "Feil ved lesing av punkt."
+
+#: lib/dia_xml.c:291
+#, c-format
+msgid "Incorrect y Point value %f; discarding it."
+msgstr "Ukorrekt punktverdi for y, %f; forkaster den."
+
 #: lib/font.c:389
 #, c-format
 msgid ""
@@ -1594,88 +1614,116 @@ msgstr "Størrelse på skrifttype"
 msgid "Text colour"
 msgstr "Tekstfarge"
 
-#: lib/widgets.c:296
+#: lib/widgets.c:319
 msgid "Solid"
 msgstr "Helfylt"
 
-#: lib/widgets.c:302
+#: lib/widgets.c:325
 msgid "Dashed"
 msgstr "Streket"
 
-#: lib/widgets.c:308
+#: lib/widgets.c:331
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: lib/widgets.c:314
+#: lib/widgets.c:337
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: lib/widgets.c:320
+#: lib/widgets.c:343
 msgid "Dotted"
 msgstr "Prikket"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:338
+#: lib/widgets.c:361
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:660
+#: lib/widgets.c:657
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:658
 msgid "Hollow Triangle"
 msgstr "Hult triangel"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:659
 msgid "Filled Triangle"
 msgstr "Fylt triangel"
 
-#: lib/widgets.c:678
-msgid "Hollow Diamond"
-msgstr "Hul diamant"
+#: lib/widgets.c:660
+msgid "Unfilled Triangle"
+msgstr "Triangel uten fyll"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:661
 msgid "Filled Diamond"
 msgstr "Fylt diamant"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:662
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:663
 msgid "Slashed Cross"
 msgstr "Streket kryss"
 
-#: lib/widgets.c:703
+#: lib/widgets.c:664
 msgid "Filled Ellipse"
 msgstr "Fylt elipse"
 
-#: lib/widgets.c:709
+#: lib/widgets.c:665
 msgid "Hollow Ellipse"
 msgstr "Hul elipse"
 
-#: lib/widgets.c:715
-msgid "Double Hollow Triangle"
+#: lib/widgets.c:666
+msgid "Filled Dot"
+msgstr "Fylt punkt"
+
+#: lib/widgets.c:667
+msgid "Dimension Origin"
+msgstr "Opprinnelse for dimensjon"
+
+#: lib/widgets.c:668
+msgid "Blanked Dot"
+msgstr "Blankt punkt"
+
+#: lib/widgets.c:669
+msgid "Double Hollow triangle"
 msgstr "Dobbelt hult triangel"
 
-#: lib/widgets.c:721
-msgid "Double Filled Triangle"
+#: lib/widgets.c:670
+msgid "Double Filled triangle"
 msgstr "Dobbelt fylt triangel"
 
-#: lib/widgets.c:737
+#: lib/widgets.c:671
+msgid "Filled Box"
+msgstr "Fylt boks"
+
+#: lib/widgets.c:672
+msgid "Blanked Box"
+msgstr "Blank boks"
+
+#: lib/widgets.c:673
+msgid "Slashed"
+msgstr "Streket"
+
+#: lib/widgets.c:674
+msgid "Integral Symbol"
+msgstr "Itegraltegn"
+
+#: lib/widgets.c:710
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:750
+#: lib/widgets.c:723
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:866 objects/standard/image.c:538
+#: lib/widgets.c:849 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:896
+#: lib/widgets.c:879
 msgid "Browse"
 msgstr "Bla gjennom"
 
@@ -1715,16 +1763,16 @@ msgstr "Diagramobjekter for entitet/relasjon"
 msgid "Total:"
 msgstr "Total:"
 
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:798
-#: objects/GRAFCET/vector.c:403 objects/SADT/arrow.c:660
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:800
+#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
 #: objects/UML/association.c:618 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Legg til segment"
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:799
-#: objects/GRAFCET/vector.c:404 objects/SADT/arrow.c:661
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:801
+#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
 #: objects/UML/association.c:619 objects/UML/dependency.c:377
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:338
@@ -1752,22 +1800,22 @@ msgid "Relationship"
 msgstr "Forhold"
 
 #.
-#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:729
-#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:860
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:731
+#: objects/FS/flow-ortho.c:797 objects/FS/flow-ortho.c:862
 #: objects/FS/flow.c:157 objects/FS/flow.c:720 objects/FS/flow.c:773
 #: objects/FS/flow.c:837
 msgid "Energy"
 msgstr "Energi"
 
-#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:736
-#: objects/FS/flow-ortho.c:796 objects/FS/flow-ortho.c:867
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:738
+#: objects/FS/flow-ortho.c:798 objects/FS/flow-ortho.c:869
 #: objects/FS/flow.c:158 objects/FS/flow.c:727 objects/FS/flow.c:774
 #: objects/FS/flow.c:844
 msgid "Material"
 msgstr "Materiale"
 
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:742
-#: objects/FS/flow-ortho.c:797 objects/FS/flow-ortho.c:873
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:744
+#: objects/FS/flow-ortho.c:799 objects/FS/flow-ortho.c:875
 #: objects/FS/flow.c:159 objects/FS/flow.c:733 objects/FS/flow.c:775
 #: objects/FS/flow.c:850 objects/FS/function.c:718
 msgid "Signal"
@@ -1779,19 +1827,19 @@ msgstr "Signal"
 msgid "Type:"
 msgstr "Type:"
 
-#: objects/FS/flow-ortho.c:709 objects/FS/flow.c:700 objects/FS/flow.c:816
+#: objects/FS/flow-ortho.c:711 objects/FS/flow.c:700 objects/FS/flow.c:816
 msgid "Flow:"
 msgstr "Flyt:"
 
-#: objects/FS/flow-ortho.c:724 objects/FS/flow.c:715 objects/FS/flow.c:832
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:715 objects/FS/flow.c:832
 msgid "Flow type:"
 msgstr "Flyttype:"
 
-#: objects/FS/flow-ortho.c:839
+#: objects/FS/flow-ortho.c:841
 msgid "Orthflow:"
 msgstr "Ortflyt:"
 
-#: objects/FS/flow-ortho.c:855
+#: objects/FS/flow-ortho.c:857
 msgid "Orthflow type:"
 msgstr "Ortflyt type:"
 
@@ -2006,7 +2054,7 @@ msgstr "Makrokall"
 msgid "Condition:"
 msgstr "Betingelse:"
 
-#: objects/GRAFCET/grafcet.c:44
+#: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET diagramobjekter"
 
@@ -2054,7 +2102,7 @@ msgstr "Farge:"
 msgid "Receptivity:"
 msgstr "Mottagelighet:"
 
-#: objects/GRAFCET/vector.c:176 objects/GRAFCET/vector.c:210
+#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Tegn pilhoder på oppoverpekende buer:"
 
@@ -2580,11 +2628,11 @@ msgstr "Vend vertikalt"
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1352
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1339
+#: objects/custom/custom_object.c:1353
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
@@ -2621,7 +2669,7 @@ msgstr "Legg til håndtak"
 msgid "Delete Handle"
 msgstr "Slett håndtak"
 
-#: objects/network/network.c:51
+#: objects/network/network.c:52
 msgid "Network diagram objects"
 msgstr "Objekter for nettverksdiagram"
 
@@ -2674,7 +2722,7 @@ msgid "Show border:"
 msgstr "Vis kant:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:853 objects/standard/image.c:864
+#: objects/standard/image.c:851 objects/standard/image.c:862
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2684,7 +2732,7 @@ msgstr ""
 "Bruker filen '%s' i stedet\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:870 objects/standard/image.c:896
+#: objects/standard/image.c:868 objects/standard/image.c:894
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Bildefilen '%s' ble ikke funnet.\n"
@@ -2733,7 +2781,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile eksportfilter"
 
-#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:547
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:631
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2786,147 +2834,150 @@ msgstr "WordPerfect Graphics Metafile eksportfilter"
 msgid "Fig Format import filter"
 msgstr "Fig format importfilter"
 
-#: plug-ins/xfig/xfig-import.c:712
+#: plug-ins/xfig/xfig-import.c:270
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Feil under lesing %de av %d punkter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:731
+#: plug-ins/xfig/xfig-import.c:289
 msgid "Error while reading arrowhead\n"
 msgstr "Feil under lesing av pilhodet\n"
 
-#: plug-ins/xfig/xfig-import.c:805
+#: plug-ins/xfig/xfig-import.c:363
 msgid "Patterns are not implemented\n"
 msgstr "Mønstre er ikke implementert\n"
 
-#: plug-ins/xfig/xfig-import.c:850
+#: plug-ins/xfig/xfig-import.c:408
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Kunne ikke lese informasjon om elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:1045
+#: plug-ins/xfig/xfig-import.c:442 plug-ins/xfig/xfig-import.c:603
 #, c-format
 msgid "Line style %d not supported\n"
 msgstr "Linjestil %d ikke støttet\n"
 
-#: plug-ins/xfig/xfig-import.c:961
+#: plug-ins/xfig/xfig-import.c:519
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Kunne ikke lese info om polilinje: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:976
+#: plug-ins/xfig/xfig-import.c:534
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Kunne ikke lese vendt bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1019
+#: plug-ins/xfig/xfig-import.c:577
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Ukjent undertype for polilinje: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1113
+#: plug-ins/xfig/xfig-import.c:671
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Kunne ikke lese tekstinfo: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1159
+#: plug-ins/xfig/xfig-import.c:717
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Kunne ikke identifiserte FIG-objekt: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1173
+#: plug-ins/xfig/xfig-import.c:731
 msgid "Compound end outside compound\n"
 msgstr "Sammensatt ende utenfor sammensatt objekt\n"
 
-#: plug-ins/xfig/xfig-import.c:1196
+#: plug-ins/xfig/xfig-import.c:754
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Kunne ikke lese farge: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1225
+#: plug-ins/xfig/xfig-import.c:783
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Kunne ikke lese gruppeutvidelse: %s\n"
 
 #. Arc.
 #. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:1235
+#: plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Object type %d not implemented yet\n"
 msgstr "Objekttype %d er ikke implementert ennå\n"
 
-#: plug-ins/xfig/xfig-import.c:1238
+#: plug-ins/xfig/xfig-import.c:796
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Ukjent objekttype %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1257
+#: plug-ins/xfig/xfig-import.c:815
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' er ikke en av `%s' eller `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1267
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Feil under lesing av papirstørrelse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1289
+#: plug-ins/xfig/xfig-import.c:847
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Feil under lesing av papirorientering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1299
+#: plug-ins/xfig/xfig-import.c:857
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Feil under lesing av justering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1309
+#: plug-ins/xfig/xfig-import.c:867
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Feil under lesing av enheter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1323
+#: plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Feil under lesing av forstørrelse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1334
+#: plug-ins/xfig/xfig-import.c:892
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Feil under lesing av indikator for flere sider: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:903
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Feil under lesing av gjennomsiktig farge: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1354 plug-ins/xfig/xfig-import.c:1410
+#: plug-ins/xfig/xfig-import.c:912 plug-ins/xfig/xfig-import.c:968
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Feil under lesing av FIG-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1356 plug-ins/xfig/xfig-import.c:1412
+#: plug-ins/xfig/xfig-import.c:914 plug-ins/xfig/xfig-import.c:970
 msgid "Premature end of FIG file\n"
 msgstr "For tidlig slutt på FIG-fil\n"
 
-#: plug-ins/xfig/xfig-import.c:1365
+#: plug-ins/xfig/xfig-import.c:923
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Feil under lesing av oppløsning: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1397
+#: plug-ins/xfig/xfig-import.c:955
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ser ikke ut som en Fig-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1403
+#: plug-ins/xfig/xfig-import.c:961
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Dette er en fil i FIG-versjon %d.%d, forstår den ikke\n"
 
-#: plug-ins/xfig/xfig-import.c:1456
+#: plug-ins/xfig/xfig-import.c:1014
 msgid "XFig File Format"
 msgstr "XFig filformat"
+
+#~ msgid "Hollow Diamond"
+#~ msgstr "Hul diamant"
 
 #~ msgid ""
 #~ "Dia v %s\n"
