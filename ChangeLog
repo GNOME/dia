@@ -1,5 +1,26 @@
 2002-05-16  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* plug-ins/wpg/Makefile.am (INCLUDES): 
+	* plug-ins/shape/Makefile.am (INCLUDES): 
+	* plug-ins/svg/Makefile.am (INCLUDES): 
+	* plug-ins/pstricks/Makefile.am (INCLUDES): 
+	* plug-ins/metapost/Makefile.am (INCLUDES): Added UNICODE_CFLAGS
+	and DEBUG_CFLAGS in some missing places.
+
+	* MAINTAINERS: New file containing list of known package
+	maintainers. 
+
+	* lib/charconv.h: 
+	* lib/charconv.c: Charconv versions of some common gtk calls.
+
+	* app/sheets_dialog_callbacks.c
+	(on_sheets_new_dialog_button_ok_clicked),
+	(on_sheets_dialog_button_edit_clicked),
+	(on_sheets_dialog_button_remove_clicked),
+	(on_sheets_edit_dialog_button_ok_clicked):
+	* app/sheets.c (sheets_optionmenu_create),
+	(sheets_optionmenu_create): Added utf8 translations.
+
 	* app/sheets_dialog.c: 
 	* app/sheets.c: 
 	* app/sheets_dialog_callbacks.c: Added some missing _()'s.

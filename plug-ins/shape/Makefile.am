@@ -9,4 +9,5 @@ libshape_filter_la_SOURCES = \
 libshape_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) \
-	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(UNICODE_CFLAGS) $(XML_CFLAGS)
+	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(UNICODE_CFLAGS) $(XML_CFLAGS) \
+	$(DEBUG_CFLAGS)

@@ -153,7 +153,6 @@ new_pixmap_renderer(GdkWindow *window, int width, int height)
 
   renderer->pixmap = gdk_pixmap_new(window, width, height, -1);
   renderer->render_gc = gdk_gc_new(window);
-  renderer_pixmap_set_linestyle(renderer);
 
   gdk_color_white(gdk_colormap_get_system(), &color);
   gdk_gc_set_foreground(renderer->render_gc, &color);
@@ -168,6 +167,8 @@ new_pixmap_renderer(GdkWindow *window, int width, int height)
   renderer->line_style = GDK_LINE_SOLID;
   renderer->cap_style = GDK_CAP_BUTT;
   renderer->join_style = GDK_JOIN_MITER;
+
+  renderer_pixmap_set_linestyle(renderer);
   
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
