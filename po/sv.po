@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-08-22 12:06+0200\n"
-"PO-Revision-Date: 2003-08-22 12:07+0200\n"
+"POT-Creation-Date: 2003-09-02 21:56+0200\n"
+"PO-Revision-Date: 2003-09-02 21:57+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Diagram%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Det finns inget existerande objekt att klistra in.\n"
 
-#: app/commands.c:470 app/commands.c:498
+#: app/commands.c:470 app/commands.c:508
 msgid "Could not find help directory"
 msgstr "Kunde inte hitta hjälpkatalogen"
 
@@ -207,7 +207,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:536
+#: app/commands.c:547
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Christian Rose\n"
@@ -217,15 +217,15 @@ msgstr ""
 "Fredrik Hallenberg\n"
 "Skicka synpunkter på översättningen till sv@li.org"
 
-#: app/commands.c:550 dia.desktop.in.h:1
+#: app/commands.c:561 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:552
+#: app/commands.c:563
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002 The Free Software Foundation och författarna"
 
-#: app/commands.c:553
+#: app/commands.c:564
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -233,25 +233,25 @@ msgstr ""
 "Dia är ett program för skapande av strukturerade diagram.\n"
 "Besök http://www.lysator.liu.se/~alla/dia för mer information."
 
-#: app/commands.c:592
+#: app/commands.c:603
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:635
+#: app/commands.c:646
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:641
+#: app/commands.c:652
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Ansvariga: Lars Clausen och Cyrille Chépélov"
 
-#: app/commands.c:645
+#: app/commands.c:656
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:650
+#: app/commands.c:661
 msgid "Contributors:"
 msgstr "Bidragsgivare:"
 
@@ -295,7 +295,7 @@ msgstr "Synliga mellanrum"
 msgid "Grid"
 msgstr "Rutnät"
 
-#: app/dia-props.c:178 lib/diagramdata.c:61
+#: app/dia-props.c:178 lib/diagramdata.c:62
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -525,7 +525,7 @@ msgstr "%0.3gcm × %0.3gcm"
 msgid "Page Setup"
 msgstr "Sidinställningar"
 
-#: app/disp_callbacks.c:78 app/properties.c:141
+#: app/disp_callbacks.c:78 app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -570,10 +570,10 @@ msgstr "Stäng diagram"
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
-#: app/export_png.c:116 app/load_save.c:797 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -614,23 +614,23 @@ msgstr "Bildhöjd:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:370
+#: app/filedlg.c:113 app/filedlg.c:383
 msgid "By extension"
 msgstr "Efter filändelse"
 
-#: app/filedlg.c:161
+#: app/filedlg.c:172
 msgid "Open Diagram"
 msgstr "Öppna diagram"
 
-#: app/filedlg.c:189
+#: app/filedlg.c:200
 msgid "Open Options"
 msgstr "Öppningsalternativ"
 
-#: app/filedlg.c:197 app/filedlg.c:485
+#: app/filedlg.c:208 app/filedlg.c:498
 msgid "Determine file type:"
 msgstr "Fastställ filtyp:"
 
-#: app/filedlg.c:234
+#: app/filedlg.c:245
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -638,7 +638,7 @@ msgstr ""
 "En del tecken i filnamnet är varken i UTF-8 eller i din lokalkodning.\n"
 "En del saker kommer inte att fungera."
 
-#: app/filedlg.c:240 app/filedlg.c:412
+#: app/filedlg.c:251 app/filedlg.c:425
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -647,21 +647,21 @@ msgstr ""
 "Filen \"%s\" finns redan redan.\n"
 "Vill du skriva över den?"
 
-#: app/filedlg.c:248 app/filedlg.c:418
+#: app/filedlg.c:259 app/filedlg.c:431
 msgid "File already exists"
 msgstr "Filen finns redan"
 
-#: app/filedlg.c:283
+#: app/filedlg.c:292
 msgid "Save Diagram"
 msgstr "Spara diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:291
+#: app/filedlg.c:300
 msgid "Compress diagram files"
 msgstr "Komprimera diagramfiler"
 
-#: app/filedlg.c:298
+#: app/filedlg.c:309
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -670,7 +670,7 @@ msgstr ""
 "inläsning och sparande. En del textprogram kan inte behandla komprimerade "
 "filer."
 
-#: app/filedlg.c:437
+#: app/filedlg.c:450
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -679,11 +679,11 @@ msgstr ""
 "Kunde inte avgöra vilket exportfilter\n"
 "att använda för att spara \"%s\""
 
-#: app/filedlg.c:455
+#: app/filedlg.c:468
 msgid "Export Diagram"
 msgstr "Exportera diagram"
 
-#: app/filedlg.c:477
+#: app/filedlg.c:490
 msgid "Export Options"
 msgstr "Exportalternativ"
 
@@ -920,17 +920,17 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningshandtaget finns inte."
 
-#: app/load_save.c:275
+#: app/load_save.c:276
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste ange en fil, inte en katalog.\n"
 
-#: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1505 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: \"%s\" för läsning.\n"
 
-#: app/load_save.c:291 app/load_save.c:296
+#: app/load_save.c:300 app/load_save.c:305
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -939,7 +939,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Okänd filtyp."
 
-#: app/load_save.c:303
+#: app/load_save.c:312
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -948,7 +948,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Inte en Dia-fil."
 
-#: app/load_save.c:500
+#: app/load_save.c:509
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -959,12 +959,12 @@ msgstr ""
 "%s.\n"
 "En giltig Dia-fil anger minst ett lager."
 
-#: app/load_save.c:830
+#: app/load_save.c:839
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades med att spara filen \"%s\".\n"
 
-#: app/load_save.c:900 app/load_save.c:905
+#: app/load_save.c:909 app/load_save.c:914
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
@@ -1107,7 +1107,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1134
+#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1135
 msgid "None"
 msgstr "Ingen"
 
@@ -1874,45 +1874,45 @@ msgstr "Y-storlek:"
 msgid "Lines per major line"
 msgstr "Linjer per huvudlinje"
 
-#: app/preferences.c:174
+#: app/preferences.c:177
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:176
+#: app/preferences.c:179
 msgid "Save hidden object types"
 msgstr "Spara dolda objekttyper"
 
-#: app/preferences.c:305
+#: app/preferences.c:308
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:585 lib/prop_inttypes.c:151
+#: app/preferences.c:586 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:585 app/preferences.c:596 lib/prop_inttypes.c:153
+#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/preferences.c:698
+#: app/preferences.c:699
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: app/properties.c:52
+#: app/properties.c:55
 msgid "Object properties"
 msgstr "Objektegenskaper"
 
-#: app/properties.c:78
+#: app/properties.c:81
 msgid "This object has no properties."
 msgstr "Detta objekt har inga egenskaper."
 
-#: app/properties.c:191
+#: app/properties.c:203
 msgid "Properties: "
 msgstr "Egenskaper: "
 
-#: app/properties.c:195
+#: app/properties.c:207
 msgid "Object properties:"
 msgstr "Objektegenskaper:"
 
@@ -2009,9 +2009,9 @@ msgstr "_Redigera"
 msgid "Revert"
 msgstr "Återställ"
 
-#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:828
-#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
-#: objects/UML/class_dialog.c:2499
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:829
+#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1981
+#: objects/UML/class_dialog.c:2500
 msgid "New"
 msgstr "Ny"
 
@@ -2053,8 +2053,8 @@ msgid "Description:"
 msgstr "Beskrivning:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
+#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
 msgid "Type:"
 msgstr "Typ:"
 
@@ -2064,9 +2064,9 @@ msgstr "Blad"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
-#: objects/UML/association.c:1112 objects/UML/class_dialog.c:865
-#: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2022
-#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:128
+#: objects/UML/association.c:1112 objects/UML/class_dialog.c:866
+#: objects/UML/class_dialog.c:1793 objects/UML/class_dialog.c:2023
+#: objects/UML/class_dialog.c:2537 objects/UML/dependency.c:128
 #: objects/UML/generalization.c:124 objects/UML/realizes.c:125
 msgid "Name:"
 msgstr "Namn:"
@@ -2491,7 +2491,7 @@ msgstr "Textjustering"
 
 #: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:183
+#: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Typsnitt"
@@ -3814,7 +3814,7 @@ msgid "Miscellaneous objects"
 msgstr "Diverse objekt"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:333
+#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:334
 msgid "Normal"
 msgstr "Normal"
 
@@ -3890,46 +3890,46 @@ msgstr "Helvetica"
 msgid "Actor"
 msgstr "Aktör"
 
-#: objects/UML/association.c:1124 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2071
 msgid "Direction:"
 msgstr "Riktning:"
 
-#: objects/UML/association.c:1141
+#: objects/UML/association.c:1142
 msgid "From A to B"
 msgstr "Från A till B"
 
-#: objects/UML/association.c:1148
+#: objects/UML/association.c:1149
 msgid "From B to A"
 msgstr "Från B till A"
 
-#: objects/UML/association.c:1172 objects/UML/association.c:1180
+#: objects/UML/association.c:1173 objects/UML/association.c:1181
 msgid "Side A"
 msgstr "Sida A"
 
-#: objects/UML/association.c:1174 objects/UML/association.c:1182
+#: objects/UML/association.c:1175 objects/UML/association.c:1183
 msgid "Side B"
 msgstr "Sida B"
 
-#: objects/UML/association.c:1188
+#: objects/UML/association.c:1189
 msgid "Role:"
 msgstr "Roll:"
 
-#: objects/UML/association.c:1200
+#: objects/UML/association.c:1201
 msgid "Multiplicity:"
 msgstr "Multiplicitet:"
 
 #. Show arrow:
-#: objects/UML/association.c:1211
+#: objects/UML/association.c:1212
 msgid "Show arrow"
 msgstr "Visa pil"
 
 #. Aggregate
-#: objects/UML/association.c:1217
+#: objects/UML/association.c:1218
 msgid "Aggregate"
 msgstr "Aggregat"
 
 #. Composition
-#: objects/UML/association.c:1225
+#: objects/UML/association.c:1226
 msgid "Composition"
 msgstr "Komposition"
 
@@ -3939,17 +3939,17 @@ msgstr "Komposition"
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:110 objects/UML/class_dialog.c:358
+#: objects/UML/class.c:110 objects/UML/class_dialog.c:359
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Kommentar"
 
-#: objects/UML/class.c:112 objects/UML/class_dialog.c:290
-#: objects/UML/class_dialog.c:343 objects/UML/class_dialog.c:1893
+#: objects/UML/class.c:112 objects/UML/class_dialog.c:291
+#: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: objects/UML/class.c:114 objects/UML/class_dialog.c:299
+#: objects/UML/class.c:114 objects/UML/class_dialog.c:300
 msgid "Suppress Attributes"
 msgstr "Undertryck i attribut"
 
@@ -3970,13 +3970,13 @@ msgid "Visible Comments"
 msgstr "Synliga kommentarer"
 
 #. Attributes page:
-#: objects/UML/class.c:125 objects/UML/class_dialog.c:800
+#: objects/UML/class.c:125 objects/UML/class_dialog.c:801
 #: objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Attribut"
 
 #. Operations page:
-#: objects/UML/class.c:127 objects/UML/class_dialog.c:1724
+#: objects/UML/class.c:127 objects/UML/class_dialog.c:1725
 msgid "Operations"
 msgstr "Operationer"
 
@@ -3998,168 +3998,168 @@ msgstr "Visa kommentarer"
 msgid "Class name:"
 msgstr "Klassnamn:"
 
-#: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
+#: objects/UML/class_dialog.c:273 objects/UML/class_dialog.c:1817
 #: objects/UML/dependency.c:130 objects/UML/generalization.c:126
 #: objects/UML/realizes.c:127
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
-#: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:902
+#: objects/UML/class_dialog.c:1935 objects/UML/class_dialog.c:2059
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: objects/UML/class_dialog.c:296
+#: objects/UML/class_dialog.c:297
 msgid "Attributes visible"
 msgstr "Attribut synliga"
 
-#: objects/UML/class_dialog.c:305
+#: objects/UML/class_dialog.c:306
 msgid "Operations visible"
 msgstr "Operationer synliga"
 
-#: objects/UML/class_dialog.c:308
+#: objects/UML/class_dialog.c:309
 msgid "Suppress operations"
 msgstr "Undertryck operationer"
 
-#: objects/UML/class_dialog.c:314
+#: objects/UML/class_dialog.c:315
 msgid "Comments visible"
 msgstr "Kommentarer synliga"
 
 #. head line
-#: objects/UML/class_dialog.c:324
+#: objects/UML/class_dialog.c:325
 msgid "Kind"
 msgstr "Sort"
 
-#: objects/UML/class_dialog.c:329
+#: objects/UML/class_dialog.c:330
 msgid "Size"
 msgstr "Storlek"
 
-#: objects/UML/class_dialog.c:338
+#: objects/UML/class_dialog.c:339
 msgid "Polymorphic"
 msgstr "Polymorfisk"
 
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:349
 msgid "Class Name"
 msgstr "Klassnamn"
 
-#: objects/UML/class_dialog.c:353
+#: objects/UML/class_dialog.c:354
 msgid "Abstract Class"
 msgstr "Abstrakt klass"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:370
+#: objects/UML/class_dialog.c:371
 msgid "Foreground Color"
 msgstr "Förgrundsfärg"
 
-#: objects/UML/class_dialog.c:378
+#: objects/UML/class_dialog.c:379
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
-#: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
-#: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
+#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1759
+#: objects/UML/class_dialog.c:1988 objects/UML/class_dialog.c:2506
 msgid "Delete"
 msgstr "Ta bort"
 
-#: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1764
-#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2511
+#: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
+#: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
 msgid "Move up"
 msgstr "Flytta upp"
 
-#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1770
-#: objects/UML/class_dialog.c:2001 objects/UML/class_dialog.c:2517
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
 msgid "Move down"
 msgstr "Flytta ned"
 
-#: objects/UML/class_dialog.c:857
+#: objects/UML/class_dialog.c:858
 msgid "Attribute data"
 msgstr "Attributdata"
 
-#: objects/UML/class_dialog.c:889
+#: objects/UML/class_dialog.c:890
 msgid "Value:"
 msgstr "Värde:"
 
-#: objects/UML/class_dialog.c:914 objects/UML/class_dialog.c:1829
+#: objects/UML/class_dialog.c:915 objects/UML/class_dialog.c:1830
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
+#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1839
 msgid "Public"
 msgstr "Allmän"
 
-#: objects/UML/class_dialog.c:931 objects/UML/class_dialog.c:1846
+#: objects/UML/class_dialog.c:932 objects/UML/class_dialog.c:1847
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
+#: objects/UML/class_dialog.c:940 objects/UML/class_dialog.c:1855
 msgid "Protected"
 msgstr "Skyddad"
 
-#: objects/UML/class_dialog.c:947 objects/UML/class_dialog.c:1862
+#: objects/UML/class_dialog.c:948 objects/UML/class_dialog.c:1863
 msgid "Implementation"
 msgstr "Implementation"
 
-#: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
+#: objects/UML/class_dialog.c:964 objects/UML/class_dialog.c:1879
 msgid "Class scope"
 msgstr "Klassräckvidd"
 
-#: objects/UML/class_dialog.c:1782
+#: objects/UML/class_dialog.c:1783
 msgid "Operation data"
 msgstr "Operationsdata"
 
-#: objects/UML/class_dialog.c:1884
+#: objects/UML/class_dialog.c:1885
 msgid "Inheritance type:"
 msgstr "Ärvningstyp:"
 
-#: objects/UML/class_dialog.c:1901
+#: objects/UML/class_dialog.c:1902
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfisk (virtuell)"
 
-#: objects/UML/class_dialog.c:1909
+#: objects/UML/class_dialog.c:1910
 msgid "Leaf (final)"
 msgstr "Löv (slutgiltig)"
 
-#: objects/UML/class_dialog.c:1927
+#: objects/UML/class_dialog.c:1928
 msgid "Query"
 msgstr "Fråga"
 
-#: objects/UML/class_dialog.c:1951
+#: objects/UML/class_dialog.c:1952
 msgid "Parameters:"
 msgstr "Parametrar:"
 
-#: objects/UML/class_dialog.c:2013
+#: objects/UML/class_dialog.c:2014
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: objects/UML/class_dialog.c:2046
+#: objects/UML/class_dialog.c:2047
 msgid "Def. value:"
 msgstr "Standardvärde:"
 
-#: objects/UML/class_dialog.c:2079
+#: objects/UML/class_dialog.c:2080
 msgid "Undefined"
 msgstr "Odefinierad"
 
-#: objects/UML/class_dialog.c:2087
+#: objects/UML/class_dialog.c:2088
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2096
+#: objects/UML/class_dialog.c:2097
 msgid "Out"
 msgstr "Ut"
 
-#: objects/UML/class_dialog.c:2105
+#: objects/UML/class_dialog.c:2106
 msgid "In & Out"
 msgstr "In och ut"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2465
+#: objects/UML/class_dialog.c:2466
 msgid "Templates"
 msgstr "Mallar"
 
-#: objects/UML/class_dialog.c:2471 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2472 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Mallklass"
 
-#: objects/UML/class_dialog.c:2528
+#: objects/UML/class_dialog.c:2529
 msgid "Formal parameter data"
 msgstr "Formell parameterdata"
 
@@ -4606,7 +4606,11 @@ msgstr "export/import av gdk-pixbuf-baserade bitmappsbilder"
 msgid "TeX Pstricks export filter"
 msgstr "Exportfilter för TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:828
+#: plug-ins/pstricks/render_pstricks.c:650
+msgid "Not valid UTF8"
+msgstr "Inte giltig UTF8"
+
+#: plug-ins/pstricks/render_pstricks.c:868
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks-makron"
 
@@ -5322,7 +5326,7 @@ msgstr "Verksamma delen i ett relä"
 msgid "Components for electric circuits"
 msgstr "Komponenter för elektriska kretsar"
 
-#: sheets/Electric.sheet.in.h:3
+#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Anslutningspunkt"
 
@@ -5640,14 +5644,10 @@ msgid "5/3 distributor"
 msgstr "5/3-distributör"
 
 #: sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "En anslutningspunkt"
-
-#: sheets/Pneumatic.sheet.in.h:8
 msgid "Air exhaust orifice"
 msgstr "Luftutblåsöppning"
 
-#: sheets/Pneumatic.sheet.in.h:9
+#: sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Komponenter för pneumatiska och hydrauliska kretsar"
 
@@ -7162,6 +7162,12 @@ msgstr "Sybase-dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-replikationsserver"
+
+#~ msgid "Not valid UTF-8"
+#~ msgstr "Inte giltig UTF-8"
+
+#~ msgid "A connection point"
+#~ msgstr "En anslutningspunkt"
 
 #~ msgid "Page Breaks:"
 #~ msgstr "Sidbrytningar:"
