@@ -733,7 +733,7 @@ msgstr "Ustvari nov diagram"
 
 #: app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
-msgstr "Vtièi"
+msgstr "Vtièniki"
 
 #: app/menus.c:57
 msgid "_Export..."
@@ -1555,18 +1555,18 @@ msgid ""
 "Could not load plugin `%s'\n"
 "%s"
 msgstr ""
-"Vtièa `%s' nisem uspel nalo¾iti\n"
+"Vtiènika `%s' nisem uspel nalo¾iti\n"
 "%s"
 
 #: lib/plug-ins.c:217
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "Nisem na¹el inicializacijske funkcije v `%s'"
+msgstr "Nisem na¹el inicializacijske funkcije v vtièniku `%s'"
 
 #: lib/plug-ins.c:244
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "Vtièa %s ni mogoèe odstraniti"
+msgstr "Vtiènika %s ni mogoèe odstraniti"
 
 #: lib/plug-ins.c:297
 #, c-format
