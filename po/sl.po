@@ -1408,7 +1408,7 @@ msgstr "Poveèaj:"
 
 #: app/preferences.c:113
 msgid "Use menu bar:"
-msgstr ""
+msgstr "Uporabi menujsko vrstico:"
 
 #: app/preferences.c:115
 msgid "Connection Points:"
@@ -2670,7 +2670,7 @@ msgstr "Klic makra"
 
 #: objects/GRAFCET/action.c:134
 msgid "This action is a call to a macro-step"
-msgstr ""
+msgstr "To dejanje je klic koraka makra"
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
@@ -2730,7 +2730,7 @@ msgstr "Ime koraka"
 
 #: objects/GRAFCET/step.c:157
 msgid "The name of the step"
-msgstr ""
+msgstr "Ime koraka"
 
 #: objects/GRAFCET/step.c:159
 msgid "Step type"
@@ -2738,7 +2738,7 @@ msgstr "Tip koraka"
 
 #: objects/GRAFCET/step.c:159
 msgid "The kind of step"
-msgstr ""
+msgstr "Vrsta koraka"
 
 #: objects/GRAFCET/step.c:161
 msgid "Active"
@@ -2746,7 +2746,7 @@ msgstr "Aktivno"
 
 #: objects/GRAFCET/step.c:161
 msgid "Shows a red dot to figure the step's activity"
-msgstr ""
+msgstr "Ka¾e rdeèo piko za prikaz aktivnosti koraka"
 
 #: objects/GRAFCET/transition.c:138
 msgid "Receptivity"
@@ -2838,6 +2838,7 @@ msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr ""
+"Za la¾je branje so lahko tokovi, ki se zaènejo in konèajo navpi¹no narisani sivo"
 
 #: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
@@ -2855,7 +2856,7 @@ msgstr "Aktivnost/Podatek identifikator"
 
 #: objects/SADT/box.c:147
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
+msgstr "Identifikator, ki se pojavlja v spodnjem desnem kotu ¹katle"
 
 #: objects/SADT/box.c:455 objects/standard/line.c:183
 msgid "Delete connection point"
@@ -3343,7 +3344,7 @@ msgstr "Prevrni Navpièno"
 #: objects/custom/custom_object.c:1596
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
+msgstr "Ne morem odpreti datoteke z ikono %s za vrsto predmeta '%s'."
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
@@ -3574,7 +3575,7 @@ msgid "Couldn't read ellipse info: %s\n"
 msgstr "Nisem mogel prebrati podatkov o elipsi: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:574
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Nisem mogel prebrati podatkov o poligonski èrti: %s\n"
 
@@ -3607,7 +3608,7 @@ msgid "Compound end outside compound\n"
 msgstr "Konec komponente izven komponente\n"
 
 #: plug-ins/xfig/xfig-import.c:854
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Nisem mogel prebrati brave: %s\n"
 
