@@ -77,6 +77,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   int len;
   gchar *tmp,*res;
   int uf;
+  gboolean well_formed_utf8;
 
   static char magic_xml[] = 
   {0x3c,0x3f,0x78,0x6d,0x6c,0x00}; /* "<?xml" in ASCII */
@@ -125,6 +126,22 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
     gzclose(zf); /* this file has an encoding string. Good. */
     return filename;
   }
+  /* now let's read the whole file, to see if there are offending bits.
+   * We can call it well formed UTF-8 if the highest isn't used
+   */
+  well_formed_utf8 = TRUE;
+  do {
+    int i;
+    for (i = 0; i < len; i++)
+      if (buf[i] & 0x80)
+        well_formed_utf8 = FALSE;
+    len = gzread(zf,buf,BUFLEN);
+  } while (len > 0 && well_formed_utf8);
+  if (well_formed_utf8) {
+    gzclose(zf); /* this file is utf-8 compatible  */
+    return filename;
+  }
+
   if (0 != strcmp(default_enc,"UTF-8")) {
     message_warning(_("The file %s has no encoding specification;\n"
                       "assuming it is encoded in %s"),filename,default_enc);

@@ -73,7 +73,11 @@ int get_local_charset(char **charset)
 #ifdef HAVE_UNICODE 
   local_is_utf8 = unicode_get_charset(charset);
 #else
+# if GLIB_CHECK_VERSION(1,3,0)
+  local_is_utf8 = g_get_charset (charset);
+# else
   *charset = NULL;
+# endif
 #endif
   if (local_is_utf8) {
       this_charset = *charset;
@@ -255,13 +259,21 @@ charconv_unichar_to_utf8(guint uc)
 extern utfchar *
 charconv_local8_to_utf8(const gchar *local)
 {
+#if GLIB_CHECK_VERSION(1,3,1)
+  return g_locale_to_utf8 (local, -1, NULL, NULL, NULL);
+#else
   return g_strdup(local);
+#endif
 }
 
 extern gchar *
 charconv_utf8_to_local8(const utfchar *utf)
 {
-  return g_strdup(utf);
+#if GLIB_CHECK_VERSION(1,3,1)
+  return g_locale_from_utf8 (utf, -1, NULL, NULL, NULL);
+#else
+  return g_strdup(local);
+#endif
 }
 
 

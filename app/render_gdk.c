@@ -938,7 +938,15 @@ draw_string(RendererGdk *renderer,
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
   
+# if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
+    g_free(utfbuf);
+  }
+# else
   iwidth = gdk_string_width(renderer->gdk_font, text);
+# endif
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -954,9 +962,19 @@ draw_string(RendererGdk *renderer,
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
       
+# if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    gdk_draw_string(renderer->pixmap,
+		    renderer->gdk_font, gc,
+		    x,y, utfbuf);
+    g_free(utfbuf);
+  }
+# else
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
+# endif
 #endif
 }
 
@@ -985,7 +1003,15 @@ get_text_width(RendererGdk *renderer,
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length);
 #else
+# if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
+    g_free(utfbuf);
+  }
+# else
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
+# endif
 #endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);

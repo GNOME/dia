@@ -1127,8 +1127,16 @@ draw_string(RendererLibart *renderer,
 
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
-  
+
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
+    g_free(utfbuf);
+  }
+#else
   iwidth = gdk_string_width(renderer->gdk_font, text);
+#endif
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1245,7 +1253,15 @@ get_text_width(RendererLibart *renderer,
 {
   int iwidth;
   
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
+    g_free(utfbuf);
+  }
+#else
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
+#endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }

@@ -1088,7 +1088,7 @@ suck_font (GdkFont *font)
 #if defined (GTK_TALKS_UTF8_WE_DONT)
 		text[1] = 0;
 		utfbuf = charconv_local8_to_utf8(text);
-		gdk_text_extents (font, utfbuf, strlen(utfbuf),
+		gdk_text_extents (font, utfbuf, 1, /* broken in gdk/win32 ? */
 				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
 		g_free(utfbuf);
 #elif defined(GTK_TALKS_UTF8)
