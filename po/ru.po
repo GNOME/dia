@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-07-15 22:49+0000\n"
-"PO-Revision-Date: 2000-07-15 22:50+00:00\n"
+"POT-Creation-Date: 2000-07-17 10:26+0000\n"
+"PO-Revision-Date: 2000-07-17 10:27+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -392,7 +392,7 @@ msgstr "/Вид/Сглаженный"
 #: app/export_png.c:78 app/load_save.c:504 app/render_eps.c:162
 #: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/wmf/wmf.cpp:741 plug-ins/wpg/wpg.c:937
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -1747,35 +1747,30 @@ msgstr "Идентификация"
 msgid "Relationship"
 msgstr "Отношение"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:747 objects/FS/flow.c:629 objects/FS/flow.c:744
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:744
 msgid "Flow:"
 msgstr "Поток:"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:763 objects/FS/flow.c:644 objects/FS/flow.c:760
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:760
 msgid "Flow type:"
 msgstr "Тип потока:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:785 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:768 objects/FS/flow.c:649
-#: objects/FS/flow.c:704 objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:649 objects/FS/flow.c:704
+#: objects/FS/flow.c:765
 msgid "Energy"
 msgstr "Энергия"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:792 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:708 objects/FS/flow-poly.c:775 objects/FS/flow.c:656
-#: objects/FS/flow.c:705 objects/FS/flow.c:772
+#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:656 objects/FS/flow.c:705
+#: objects/FS/flow.c:772
 msgid "Material"
 msgstr "Материал"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:798 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:781 objects/FS/flow.c:662
-#: objects/FS/flow.c:706 objects/FS/flow.c:778 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:662 objects/FS/flow.c:706
+#: objects/FS/flow.c:778 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Сигнал"
 
@@ -2060,7 +2055,7 @@ msgstr "И"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
 msgid "Vergent type:"
-msgstr ""
+msgstr "Тип хребта:"
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
 #: objects/standard/line.c:177
@@ -2073,7 +2068,7 @@ msgstr "Удалить соединительную точку"
 
 #: objects/GRAFCET/vergent.c:463
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "GRAFCET И/ИЛИ хребет"
 
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
@@ -2092,7 +2087,7 @@ msgstr "Импорт ресурса (не показывать звездочки)"
 
 #: objects/SADT/arrow.c:189
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Подразумевать ресурс (не показывать звездочки)"
 
 #: objects/SADT/arrow.c:190
 msgid "Dotted arrow"
@@ -2716,14 +2711,6 @@ msgstr "Фильтр экспорта файлов TeX Pstricks"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "Макрос TeX Pstricks"
-
-#: plug-ins/wmf/wmf.cpp:767
-msgid "Windows Meta File"
-msgstr "Метафайл Windows (WMF)"
-
-#: plug-ins/wmf/wmf.cpp:781
-msgid "WMF export filter"
-msgstr "Фильтр экспорта файлов WMF"
 
 #: plug-ins/wpg/wpg.c:1043
 #, c-format
