@@ -1,83 +1,12 @@
+figdir=graphics
+docname=dia-manual
+lang=en
+omffile=
+entities=
 
-if HAVE_GNOME
-helpdir = $(datadir)/gnome/help/dia/en
-else
-helpdir = $(pkgdatadir)/help/en
-endif
+include $(top_srcdir)/xmldocs.make
+dist-hook: app-dist-hook
 
-help_DATA = topic.dat
-
-XML_FILES = \
-	dia-manual.xml \
-	authors.xml \
-	intro.xml \
-	license.xml \
-	usage-canvas.xml \
-	usage-customization.xml \
-	usage-layers.xml \
-	usage-loadsave.xml \
-	usage-objects-basic.xml \
-	usage-objects-selecting.xml \
-	usage-objects-special.xml \
-	usage-objects.xml \
-	usage-quickstart.xml
-
-GRAPHICS = \
-	graphics/greendots.png \
-	graphics/home_network.png \
-	graphics/line_props.png \
-	graphics/line_icon.png
-
-EXTRA_DIST = \
-	topic.dat \
-	$(GRAPHICS) \
-	$(XML_FILES) \
-	dia.1
+EXTRA_DIST = dia.1 dia-manual.xml
 
 man_MANS = dia.1
-
-# This is NOT tested yet.  Convert by hand until then.
-#DB2MAN=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl
-#
-#dia.1: dia.dbk
-#	xsltproc --nonet --novalid $(DB2MAN) dia.dbk
-
-if HAVE_DB2HTML
-stamp-doc: $(XML_FILES)
-	cd $(srcdir) && $(DB2HTML) dia-manual.xml && touch stamp-doc
-else
-stamp-doc:
-	touch stamp-doc
-endif
-
-distclean-local:
-	rm -f stamp-doc
-	rm -rf $(srcdir)/dia-manual $(srcdir)/dia-manual.junk
-
-# dist and install the html documentation ...
-dist-hook:
-if HAVE_DB2HTML
-	mkdir $(distdir)/dia-manual
-	-cp $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css $(distdir)/dia-manual
-	mkdir $(distdir)/dia-manual/stylesheet-images
-	-cp $(srcdir)/dia-manual/stylesheet-images/*.gif $(distdir)/dia-manual/stylesheet-images
-endif
-
-install-data-hook: stamp-doc
-if HAVE_DB2HTML
-	$(mkinstalldirs) $(DESTDIR)$(helpdir)
-	for file in $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css; do\
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/`basename $$file`||true;\
-	done
-	$(mkinstalldirs) $(DESTDIR)$(helpdir)/stylesheet-images
-	for file in $(srcdir)/dia-manual/stylesheet-images/*.gif; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file` || true; \
-	done
-	$(mkinstalldirs) $(DESTDIR)$(helpdir)/graphics
-	cd $(srcdir) && for file in $(GRAPHICS); do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/graphics; \
-	done
-endif
-
-uninstall-local:
-	rm -rf $(DESTDIR)$(helpdir)
