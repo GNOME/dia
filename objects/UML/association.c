@@ -471,8 +471,6 @@ association_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
-  association_update_data(assoc);
-
   assoc->name = NULL;
   assoc->direction = ASSOC_NODIR;
   for (i=0;i<2;i++) {
@@ -495,6 +493,8 @@ association_create(Point *startpoint,
     assoc->end[1].aggregate = AGGREGATE_NORMAL;
     break;
   }
+
+  association_update_data(assoc);
   
   *handle1 = &orth->endpoint_handles[0];
   *handle2 = &orth->endpoint_handles[1];

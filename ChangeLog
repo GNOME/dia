@@ -1,3 +1,9 @@
+1999-02-27  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* objects/UML/association.c (association_create):
+	Fixed usage of not initialized variable.
+	Pointed out by Seth Alves <alves@hungry.com>.
+
 1999-02-24  Alexander Larsson  <alex@c125.ryd.student.liu.se>
 
 	* configure.in:
