@@ -1,5 +1,7 @@
 2004-05-23  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/Makefile.am : initial attempt
+
 	* plug-ins/cairo/diacairo.c : a new exporter based on
 	Cairo http://cairographics.org rendering api. Currently
 	it just can export PNG and PS but one day it might get
