@@ -24,6 +24,9 @@ flowchart and others.  The native file format for Dia is XML (optionally
 gzip compressed).  It has print support, and can export to a number of formats such as EPS, SVG, CGM and PNG.
 
 %changelog
+* Thu Feb 4 2003 Lars Clausen <lrclause@cs.uiuc.edu>
+- update requirements.
+- update prerelease number, move to release field.
 * Thu Jan 30 2003 Lars Clausen <lrclause@cs.uiuc.edu>
 - update version number.
 * Sat Jun 1 2002  Cyrille Chepelov <cyrille@chepelov.org>
