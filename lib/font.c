@@ -1091,6 +1091,8 @@ suck_font (GdkFont *font)
 		gdk_text_extents (font, utfbuf, strlen(utfbuf),
 				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
 		g_free(utfbuf);
+#elif defined(GTK_TALKS_UTF8)
+#error IMPERATIVE FIXME: this whole function is broken in an Unicode context !
 #else
 		gdk_text_extents (font, text, 1,
 				  &lbearing, &rbearing, &ch_width, &ascent, &descent);

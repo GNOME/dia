@@ -1,3 +1,11 @@
+2001-09-13  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/charconv.c: (get_local_charset): at least please try to not 
+	silently change the logic, while avoiding crashes. 
+
+	* lib/font.c: (suck_font): put a #error, we have a nasty something
+	to fix there before we switch to Gtk 2.0.
+	
 2001-09-09  Hans Breuer  <hans@breuer.org>
 
 	* **/makefile.mingw : Approach to compile Dia with mingw.
