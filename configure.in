@@ -2,10 +2,11 @@ dnl Process this -*- autoconf -*- file with autoconf to produce a
 dnl configure script.
 AC_INIT(app/diagram.c)
 
+dnl GTK2: I'm very tempted to do this too.
 dnl AC_PREREQ(2.50)
 dnl AC_REVISION($Revision$)
 
-AM_INIT_AUTOMAKE(dia, 0.90)
+AM_INIT_AUTOMAKE(dia, 0.90+cvs)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -30,15 +31,28 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_ISC_POSIX
 
-dnl stuff for xml-i18n-tools
-AC_PROG_INTLTOOL(0.12) 
-dnl we will update this to 0.21 soon.
+dnl stuff for intltool
+AC_PROG_INTLTOOL(0.21) 
 
 dnl Checks for libraries.
 dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)
 AM_PATH_GTK(1.2.0)
+dnl GTK2: soon: AM_PATH_GTK_2_0(2.0.3)
+dnl GTK2: this will give us GTK_CFLAGS and GTK_LIBS.
+dnl GTK2: Before we invoke AM_PATH_GTK_2_0 we will need to figure out the 
+dnl GTK2: list of modules we'll need, and ask them all at the same time.
+dnl GTK2: likely extra modules to add:
+dnl GTK2:     libxml-2.0 
+dnl GTK2:     libart-2.0 conditional?
+dnl GTK2:     libgnome-2.0 conditional
+dnl GTK2:     libgnomecanvas-2.0 ?
+dnl GTK2:     gdk-pixbuf-2.0 
+
+
+
 
 dnl XIM support (on by default)
+dnl GTK2: assuming this is still relevant.
 AC_ARG_ENABLE(xim,
 [  --disable-xim           enable gnome code],,enable_xim=yes)
 AC_MSG_CHECKING([whether to enable XIM support])
@@ -54,15 +68,27 @@ dnl
 dnl GNOME
 dnl
 
+dnl GTK2: We should check the --enable-gnome before checking for GTK, and if 
+dnl enable-gnome has been asked, then we should supplement the MODULES 
+dnl (fourth) parameter of AM_PATH_GTK_2_0.
+
 AC_MSG_CHECKING([whether GNOME specific code should be used])
 AC_ARG_ENABLE(gnome,
 [  --enable-gnome          enable gnome code],
     GNOME=$enableval,
     GNOME=no)
+
+dnl GTK2: we should remove support for GNOME-Print. When someone is interested 
+dnl in redoing it after the DiaRenderer rework, we'll do.
+
 AC_ARG_ENABLE(gnome-print,
 [  --enable-gnome-print    enable gnome-print support],,enable_gnome_print=no)
+
+
+dnl GTK2: I think bonobo support as it is will not work. 
 AC_ARG_ENABLE(bonobo,
 [  --enable-bonobo         enable bonobo support],,enable_bonobo=no)
+
 AC_MSG_RESULT($GNOME)
 GNOME_CFLAGS=""
 GNOME_LIBS=""
@@ -118,11 +144,16 @@ AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 AC_SUBST(BONOBO_LIBS)
 
+dnl GTK2: these variables go away, all merged into GTK_CFLAGS and GTK_LIBS.
+
+dnl GTK2: rip this out.
 dnl Check if this Gnome has Bonobo
 OLDCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
 
 dnl This is required to play character set games
+dnl GTK2: We will still need this to reload pre-0.90 files.
+
 AM_LANGINFO_CODESET
 AM_ICONV
 
@@ -150,6 +181,8 @@ AM_CONDITIONAL(HAVE_UNICODE,$have_unicode)
 
 CPPFLAGS=$OLDCPPFLAGS
 
+dnl GTK2: rip this out. It comes free with AM_PATH_GTK_2_0.
+
 dnl check for libfreetype
 AC_ARG_ENABLE(freetype, 
 [  --enable-freetype       enable (LIMITED, EXPERIMENTAL) freetype support],,
@@ -176,13 +209,16 @@ CPPFLAGS=$OLDCPPFLAGS
 dnl
 dnl Popt
 dnl
+dnl GTK2: we keep it.
 
 AC_CHECK_LIB(popt, poptSetOtherOptionHelp, [AC_DEFINE(HAVE_LIBPOPT)
 		   APP_LIBS="$APP_LIBS -lpopt"])
 AC_CHECK_HEADERS(popt.h)
+
 dnl
 dnl libart_lgpl
 dnl
+dnl GTK2: put this in the MODULES arg of AM_PATH_GTK_2_0
 
 AM_PATH_LIBART(2.1.0,dnl
  [have_libart=yes
@@ -192,13 +228,13 @@ AM_PATH_LIBART(2.1.0,dnl
 dnl
 dnl gdk_pixbuf
 dnl
-
+dnl GTK2: put this in the MODULES arg of AM_PATH_GTK_2_0
 AM_PATH_GDK_PIXBUF(0.7.0,,AC_MSG_ERROR([gdk-pixbuf >= 0.7.0 is required]))
 
 dnl
 dnl libpng
 dnl
-
+dnl GTK2: keep?
 png_ok=no
 AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no)
 AC_CHECK_LIB(png, png_read_info, ,png_ok=no, -lz -lm)
@@ -220,7 +256,7 @@ LIBS="${LIBS} ${PNG_LIBS}"
 dnl
 dnl Debugging
 dnl
-
+dnl GTK2: keep.
 AC_ARG_ENABLE(debug, 
 [  --enable-debug=[no/minimum/yes] turn on debugging [default=minimum]],
   ,
@@ -251,6 +287,8 @@ AC_SUBST(localedir)
 dnl	
 dnl Locate the gnome-xml library
 dnl
+dnl GTK2: remove support for libxml1. move check for libxml2 in 
+dnl AM_PATH_GTK_2_0's fourth argument (module is libxml-2.0)
 
 found_libxml=false
 AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
@@ -307,7 +345,7 @@ AC_SUBST(XML_CFLAGS)
 CFLAGS="$XML_CFLAGS $CFLAGS"
 
 dnl LibZ
-
+dnl GTK2: keep.
 AC_CHECK_HEADERS(zlib.h,
     AC_CHECK_LIB(z, gzread,[
         AC_DEFINE(HAVE_LIBZ,, we have the libz compression library)
@@ -332,6 +370,9 @@ dnl Checks for library functions.
 AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 
 dnl Set some variables we'll need for the UTF-8 transition.
+dnl GTK2: rip that out. Manually compile in the case where we have:
+dnl       GTK_TALKS_UTF8 and UNICODE_WORK_IN_PROGRESS
+
 gtk_advancement=dia_talks_utf8
 
 if test "$gtk_advancement" = "initial"; then
@@ -354,6 +395,8 @@ elif test "$gtk_advancement" = "gtk2"; then
    dnl the latter shouldn't appear anymore by then (manually compiled)
 fi
 
+dnl Platform-specific fixes.
+dnl 
 dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h
 have_isinf=no
 AC_CHECK_HEADERS(math.h,
@@ -429,7 +472,7 @@ AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
 AC_OUTPUT(
 Makefile
 lib/Makefile
- po/Makefile.in intl/Makefile
+po/Makefile.in intl/Makefile
 objects/Makefile
 objects/standard/Makefile
 objects/network/Makefile
@@ -479,6 +522,7 @@ doc/en/Makefile
 doc/pl/Makefile
 )
 
+dnl GTK2: simplify this, we will have much less options.
 echo "
 
 Configuration:
