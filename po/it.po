@@ -1,12 +1,12 @@
 # dia it.po
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Salvo Isaja <salvois@libero.it>, 2000.
+# Salvo Isaja <salvois@it.gnome.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-07-30 00:48+0200\n"
-"PO-Revision-Date: 2000-07-07 00:15+0200\n"
+"POT-Creation-Date: 2000-07-30 00:50+0200\n"
+"PO-Revision-Date: 2000-07-27 11:55+0200\n"
 "Last-Translator: Salvo Isaja <salvois@it.gnome.org>\n"
 "Language-Team: ITALIAN <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Errore nell'opzione %s: %s.\n"
 "Eseguire '%s --help' per una lista completa delle opzioni disponibili dalla "
-"linea di comando.\n"
+"riga di comando.\n"
 
 #: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
@@ -76,7 +76,6 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: app/app_procs.c:405
-#, fuzzy
 msgid "Could not create per-user Dia config directory"
 msgstr "Impossibile creare la directory di configurazione di Dia per l'utente"
 
@@ -140,9 +139,8 @@ msgid "OK"
 msgstr "Ok"
 
 #: app/defaults.c:47 app/defaults.c:55
-#, fuzzy
 msgid "Object defaults"
-msgstr "Oggetti predefiniti"
+msgstr "Valori predefiniti dell'oggetto"
 
 #: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
@@ -186,7 +184,7 @@ msgstr "/File/_Esci"
 #: app/dia_embedd.c:205
 #, fuzzy
 msgid "View/New View"
-msgstr "/Visualizza/Nuova _vista"
+msgstr "/Visualizza/Nuova _visuale"
 
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
@@ -234,7 +232,7 @@ msgstr "/Oggetti/Raggruppa"
 
 #: app/diagram.c:204
 msgid "/Objects/Ungroup"
-msgstr "/Oggetti/Dividi"
+msgstr "/Oggetti/Separa"
 
 #: app/diagram.c:207 app/menus.c:331
 msgid "/Objects/Align Horizontal/Left"
@@ -321,7 +319,6 @@ msgid "Fit to:"
 msgstr "Adatta a:"
 
 #: app/diapagelayout.c:301
-#, fuzzy
 msgid "by"
 msgstr "di"
 
@@ -486,11 +483,11 @@ msgstr "Ingrandisci"
 
 #: app/interface.c:45
 msgid "Scroll around the diagram"
-msgstr ""
+msgstr "Sposta il diagramma"
 
 #: app/interface.c:46 app/menus.c:195
 msgid "Scroll"
-msgstr ""
+msgstr "Sposta"
 
 #: app/interface.c:50
 msgid "Create Text"
@@ -584,7 +581,7 @@ msgstr "Immagine"
 
 #: app/interface.c:312
 msgid "NULL tooldata in tool_select_update"
-msgstr "valore di tooldata NULL in tool_select_update"
+msgstr "Valore di tooldata NULL in tool_select_update"
 
 #: app/interface.c:714
 msgid ""
@@ -597,7 +594,7 @@ msgstr ""
 
 #: app/interface.c:795
 msgid "Diagram Editor"
-msgstr "Editor del diagramma"
+msgstr "Editor di diagramma"
 
 #: app/layer_dialog.c:66
 msgid "New Layer"
@@ -813,9 +810,8 @@ msgid "Show _Connection Points"
 msgstr "Mostra i punti di _connessione"
 
 #: app/menus.c:126
-#, fuzzy
 msgid "New _View"
-msgstr "Nuova _vista"
+msgstr "Nuova _visuale"
 
 #: app/menus.c:127
 msgid "Show _All"
@@ -835,15 +831,15 @@ msgstr "Inverti"
 
 #: app/menus.c:135
 msgid "Connected"
-msgstr "Connesso"
+msgstr "Oggetti connessi"
 
 #: app/menus.c:136
 msgid "Transitive"
-msgstr "Transitivo"
+msgstr "Transitiva"
 
 #: app/menus.c:137
 msgid "Same Type"
-msgstr "Stesso tipo"
+msgstr "Oggetti dello stesso tipo"
 
 #: app/menus.c:139
 msgid "Replace"
@@ -1098,7 +1094,7 @@ msgstr "/Visualizza/Zoom/200%"
 #: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/141%"
-msgstr "/Visualizza/Zoom/100%"
+msgstr "/Visualizza/Zoom/141%"
 
 #: app/menus.c:290
 #, c-format
@@ -1144,9 +1140,8 @@ msgid "/View/_Visible Grid"
 msgstr "/Visualizza/Griglia _visibile"
 
 #: app/menus.c:301
-#, fuzzy
 msgid "/View/_Snap To Grid"
-msgstr "/Visualizza/_Snap alla griglia"
+msgstr "/Visualizza/_Aggancia alla griglia"
 
 #: app/menus.c:302
 msgid "/View/Show _Rulers"
@@ -1161,9 +1156,8 @@ msgid "/View/sep1"
 msgstr "/Visualizza/sep1"
 
 #: app/menus.c:305
-#, fuzzy
 msgid "/View/New _View"
-msgstr "/Visualizza/Nuova _vista"
+msgstr "/Visualizza/Nuova _visuale"
 
 #: app/menus.c:306
 msgid "/View/Show _All"
@@ -1193,15 +1187,15 @@ msgstr "/Seleziona/Inverti"
 
 #: app/menus.c:312
 msgid "/Select/Connected"
-msgstr "/Seleziona/Connesso"
+msgstr "/Seleziona/Oggetti connessi"
 
 #: app/menus.c:313
 msgid "/Select/Transitive"
-msgstr "/Seleziona/Transitivo"
+msgstr "/Seleziona/Transitiva"
 
 #: app/menus.c:314
 msgid "/Select/Same Type"
-msgstr "/Seleziona/Stesso tipo"
+msgstr "/Seleziona/Oggetti dello stesso tipo"
 
 #: app/menus.c:315
 msgid "/Select/sep1"
@@ -1290,7 +1284,7 @@ msgstr "/Strumenti/Ingrandisci"
 
 #: app/menus.c:348
 msgid "/Tools/Scroll"
-msgstr ""
+msgstr "/Strumenti/Sposta"
 
 #: app/menus.c:349
 msgid "/Tools/Text"
@@ -1356,7 +1350,7 @@ msgstr "/Finestre di dialogo/_Livelli"
 
 #: app/menus.c:423
 msgid "NULL tooldata in tool_menu_select"
-msgstr "valore di tooldata NULL in tool_menu_select"
+msgstr "Valore di tooldata NULL in tool_menu_select"
 
 #: app/menus.c:500
 msgid "/Tools/"
@@ -1502,7 +1496,7 @@ msgstr "Colore:"
 
 #: app/preferences.c:119 app/preferences.c:124
 msgid "Solid lines:"
-msgstr "Linee solide:"
+msgstr "Linee continue:"
 
 #: app/preferences.c:121
 msgid "Page breaks:"
@@ -1511,7 +1505,7 @@ msgstr "Interruzioni di pagina:"
 #: app/preferences.c:235
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Impossibile aprire '%s' in lettura"
+msgstr "Impossibile aprire '%s' in scrittura"
 
 #: app/preferences.c:566 app/preferences.c:575
 msgid "Preferences"
@@ -1609,7 +1603,7 @@ msgstr "Nessun widget di modifica"
 
 #: lib/widgets.c:296
 msgid "Solid"
-msgstr "Solida"
+msgstr "Continua"
 
 #: lib/widgets.c:302
 msgid "Dashed"
@@ -1653,13 +1647,12 @@ msgid "Filled Diamond"
 msgstr "Diamante pieno"
 
 #: lib/widgets.c:690
-#, fuzzy
 msgid "Half Head"
-msgstr "Mezza testa"
+msgstr "Mezza punta"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Croce barrata"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
@@ -1686,13 +1679,12 @@ msgid "Browse"
 msgstr "Sfoglia"
 
 #: objects/ER/attribute.c:214
-#, fuzzy
 msgid "Key"
-msgstr "Tasto"
+msgstr "Chiave"
 
 #: objects/ER/attribute.c:220
 msgid "Weak key"
-msgstr ""
+msgstr "Chiave debole"
 
 #: objects/ER/attribute.c:226
 msgid "Derived"
@@ -1767,7 +1759,7 @@ msgstr "Ruota"
 
 #: objects/ER/relationship.c:290
 msgid "Identifying"
-msgstr ""
+msgstr "Identificatrice"
 
 #: objects/ER/relationship.c:570
 msgid "Relationship"
@@ -1802,11 +1794,11 @@ msgstr "Segnale"
 
 #: objects/FS/flow-ortho.c:764
 msgid "Orthflow:"
-msgstr ""
+msgstr "Flusso ortogonale:"
 
 #: objects/FS/flow-ortho.c:780
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Tipo di flusso ortogonale:"
 
 #: objects/FS/fs.c:39
 msgid "Function structure diagram objects"
@@ -1864,7 +1856,7 @@ msgstr "      Ruota"
 
 #: objects/FS/function.c:636
 msgid "      Allow DOF"
-msgstr "      Permetti DOF"
+msgstr "      Consenti DOF"
 
 #: objects/FS/function.c:637
 msgid "Support"
@@ -1929,11 +1921,11 @@ msgstr ""
 
 #: objects/FS/function.c:652
 msgid "   Store"
-msgstr ""
+msgstr "   Immagazzina"
 
 #: objects/FS/function.c:653
 msgid "   Supply"
-msgstr ""
+msgstr "   Fornisci"
 
 #: objects/FS/function.c:654
 msgid "   Extract"
@@ -1941,7 +1933,7 @@ msgstr "   Estrai"
 
 #: objects/FS/function.c:655
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Magnitudine di controllo"
 
 #: objects/FS/function.c:656
 msgid "   Actuate"
@@ -1956,16 +1948,18 @@ msgid "   Change"
 msgstr "   Cambia"
 
 #: objects/FS/function.c:659
+#, fuzzy
 msgid "   Form"
-msgstr ""
+msgstr "   Modulo"
 
 #: objects/FS/function.c:660
 msgid "Convert"
 msgstr "Converti"
 
 #: objects/FS/function.c:662
+#, fuzzy
 msgid "   Sense"
-msgstr ""
+msgstr "   Sensibilità"
 
 #: objects/FS/function.c:663
 msgid "   Indicate"
@@ -2084,7 +2078,7 @@ msgstr "AND"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
 msgid "Vergent type:"
-msgstr ""
+msgstr "Tipo di vergent:"
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
 #: objects/standard/line.c:177
@@ -2097,7 +2091,7 @@ msgstr "Elimina un punto di connessione"
 
 #: objects/GRAFCET/vergent.c:463
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "Vergent OR/AND di GRAFCET"
 
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
@@ -2132,7 +2126,7 @@ msgstr "Stile di flusso:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "Disegna i flussi verticali in grigio automaticamente:"
 
 #: objects/SADT/arrow.c:651
 msgid "SADT Arrow"
@@ -2143,7 +2137,7 @@ msgstr "Freccia SADT"
 #: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
 #: objects/flowchart/parallelogram.c:336
 msgid "Text padding:"
-msgstr ""
+msgstr "Margini del testo:"
 
 #: objects/SADT/box.c:208
 msgid "Activity/Data identifier"
@@ -2163,7 +2157,7 @@ msgstr "Oggetti di diagramma SADT"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
-msgstr ""
+msgstr "Attore"
 
 #: objects/UML/association.c:981
 msgid "Direction:"
@@ -2225,7 +2219,7 @@ msgstr "Stereotipo:"
 
 #: objects/UML/class_dialog.c:199
 msgid "Abstract"
-msgstr "Astratto"
+msgstr "Astratta"
 
 #: objects/UML/class_dialog.c:207
 msgid "Attributes visible"
@@ -2287,15 +2281,15 @@ msgstr "Visibilità:"
 
 #: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
 msgid "Public"
-msgstr "Pubblico"
+msgstr "Pubblica"
 
 #: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
 msgid "Private"
-msgstr "Privato"
+msgstr "Privata"
 
 #: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
 msgid "Protected"
-msgstr "Protetto"
+msgstr "Protetta"
 
 #: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
 msgid "Implementation"
@@ -2446,7 +2440,7 @@ msgstr "Oggetti di diagramma di Linguaggio di Modellizzazione Unificato (UML)"
 
 #: objects/UML/usecase.c:544
 msgid "Text outside:"
-msgstr ""
+msgstr "Testo esterno:"
 
 #: objects/UML/usecase.c:549
 #, fuzzy
@@ -2455,7 +2449,7 @@ msgstr "Collaborazione"
 
 #: objects/chronogram/chronogram.c:36
 msgid "Chronogram diagram objects"
-msgstr ""
+msgstr "Oggetti di diagramma Chronogram"
 
 #: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
 msgid "Aspect"
@@ -2531,15 +2525,15 @@ msgstr "Colore della linea:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
-msgstr ""
+msgstr "Suddivisione principale:"
 
 #: objects/chronogram/chronoref.c:248 objects/chronogram/chronoref.c:313
 msgid "Minor time step:"
-msgstr ""
+msgstr "Suddivisione secondaria:"
 
 #: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Minor step line width:"
-msgstr ""
+msgstr "Spessore della suddivisione secondaria:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
@@ -2584,7 +2578,7 @@ msgstr "Raggio dell'angolo"
 #: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
 #: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
 msgid "Text padding"
-msgstr ""
+msgstr "Margini del testo"
 
 #: objects/flowchart/box.c:317 objects/standard/box.c:231
 msgid "Corner rounding:"
@@ -2595,20 +2589,21 @@ msgid "Flowchart objects"
 msgstr "Oggetti del diagramma di flusso:"
 
 #: objects/flowchart/parallelogram.c:165
+#, fuzzy
 msgid "Shear angle"
-msgstr ""
+msgstr "Inclinazione:"
 
 #: objects/flowchart/parallelogram.c:322
 msgid "Shear angle:"
-msgstr ""
+msgstr "Inclinazione:"
 
 #: objects/network/bus.c:569
 msgid "Add Handle"
-msgstr ""
+msgstr "Aggiungi handle"
 
 #: objects/network/bus.c:570
 msgid "Delete Handle"
-msgstr ""
+msgstr "Elimina handle"
 
 #: objects/network/network.c:47
 msgid "Network diagram objects"
@@ -2706,7 +2701,7 @@ msgstr "Dimensione del font:"
 
 #: objects/sybase/sybase.c:40
 msgid "Sybase replication domain diagram objects"
-msgstr ""
+msgstr "Oggetti di diagramma Dominio di replicazione Sybase"
 
 #: plug-ins/cgm/cgm.c:1083
 msgid ""
