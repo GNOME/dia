@@ -1,4 +1,14 @@
-1999-02-28  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1999-02-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* TODO:
+	Some updates to the todo file.
+	
+	* app/menus.c:
+	* app/display.c:
+	Place over/place over => sent to back/bring to front.
+	Added some keyboard shortcuts to menus.
+	
+1999-02-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/dia_xml.c:
 	Changed string saving/loading to a new method. This should

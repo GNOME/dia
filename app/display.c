@@ -745,9 +745,9 @@ display_set_menu_sensitivity(DDisplay *ddisp)
 		      dia->data->selected_count > 0);
 # endif
 
-  menus_set_sensitive(_("<Display>/Objects/Place Under"),
+  menus_set_sensitive(_("<Display>/Objects/Send to Back"),
 		      dia->data->selected_count > 0);
-  menus_set_sensitive(_("<Display>/Objects/Place Over"),
+  menus_set_sensitive(_("<Display>/Objects/Bring to Front"),
 		      dia->data->selected_count > 0);
   
   menus_set_sensitive(_("<Display>/Objects/Group"),

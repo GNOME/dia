@@ -21,28 +21,20 @@ general:
 
 functions:
 * undo, see event model later in this file.
- 
-renderer:
-* images
+
+Preferences:
+* general preferences handling. Load and save ~/.diarc
+* Default Grid on/off
+* Default grid size
+* Reset tools after create (on/off)
 
 objects:
 * finish the network objects
-* add new object-lib: Entity-Relationship modeling.
 * render_object: better distance_from that can be specified by the object programmer.
-* Bitmapped image object
 * Vector image object (for maps and stuff). CGM?
 
 UML:
- Class: * class can be object => underlined name
-          (Is this really in UML? Can't find it in specs?)
  Aggregate: * Has some problems laying out the text at the ends.
- Lifeline: * add properties dialog.
-           * make optional both the focus of control rectangle and  
-	     the possiblity to add a recursion rectangle.
-	   * add connection points to the focus of control rectangle
-	   * add destruction mark (optional)
- Object:   * Add prop. dialog
-           * add attributes and explicit state
  All:   * Change some entries to comboboxes with pre-selectable texts.
           (Mostly stereotypes)
 
@@ -59,7 +51,7 @@ Big stuff:
 
 BUGS:
 =====
-* gnome-xml sometimes have problems saving empty strings.
+* Strings with only spaces in them seems to get zero width. Most visible on an "UML - Note".
 
 * Sometimes (dunno when it happens) menu shortcuts don't work in a view
   until the menu is pulled down.
