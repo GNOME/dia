@@ -1,0 +1,707 @@
+<!DOCTYPE Article PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
+<!ENTITY VERSION "0.86">
+        <!-- replace with actual application version number-->
+]>
+
+<!-- =============Document Header ============================= -->
+
+<article id="index"> <!-- please do not change the id -->
+
+ <artheader>
+  <title>Dia</title>
+  <copyright>
+   <year>2000</year>
+   <holder>Kevin Breit </holder>
+   <holder>Henry House </holder>
+   <holder>Judith Samson </holder>
+  </copyright>
+
+  <!-- translators: uncomment this:
+
+  <copyright>
+   <year>2000</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+NOTE: Lets see if we can get some translators to do this document for us
+when we do the 1.0 release of this.  It's an important document, and should
+be translated ASAP.  Lets start talking to some people.
+   -->
+
+  <!-- do not put authorname in the header except in copyright - use
+  section "authors" below -->
+
+  <legalnotice>
+   <para>
+    Permission is granted to copy, distribute and/or modify this
+    document under the terms of the <citetitle>GNU Free Documentation
+    License</citetitle>, Version 1.1 or any later version published
+    by the Free Software Foundation with no Invariant Sections, no
+    Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy
+    of the <citetitle>GNU Free Documentation License</citetitle> from
+    the Free Software Foundation by visiting <ulink type="http"
+    url="http://www.fsf.org">their Web site</ulink> or by writing to:
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+   </para>
+   <para>
+    Many of the names used by companies to distinguish their products and
+    services are claimed as trademarks. Where those names appear in any
+    GNOME documentation, and those trademarks are made aware to the members
+    of the GNOME Documentation Project, the names have been printed in caps
+    or initial caps.
+   </para>
+  </legalnotice>
+
+  <!-- this is the version of manual, not application --> 
+  <releaseinfo>
+   This is version 0.1 of the Dia manual.
+  </releaseinfo>
+
+ </artheader>
+
+ <!-- ============= Document Body ============================= -->
+
+ <!-- ============= Introduction ============================== -->
+ <sect1 id="intro">
+  <title>Introduction</title>
+  <para>
+   <application>Dia</application> is an application for creating technical diagrams. Its interface and features are loosely patterned after 
+the Windows program Visio. Features of Dia include multiple-page printing, export to many formats (EPS, SVG, CGM and PNG), and the ability 
+to use custom shaped created by the user as simple XML descriptions. Dia is useful for drawing UML diagrams, network maps, and flowcharts.
+  </para>
+<!--
+   I don't think it is in any official package
+   <application>Dia</application> is included in the
+   <filename>GNOME-PACKAGE</filename> package, which is part of the
+   GNOME desktop environment.
+--> 
+  <para>
+   This document describes version &VERSION; of <application>Dia</application>.
+  </para>
+ </sect1>
+ <sect1 id="quickstart">
+ <title>Quickstart</title>
+  <sect2 id="starting-dia">
+  <title>Starting Dia</title>
+   <para>
+    You can start Dia by going into the Applications section on the Main Menu
+    and clicking on the Dia icon.  Or, you can type <command>dia</command> in
+    a xterm window.
+   </para>
+  </sect2>
+  <sect2 id="quickstart-intro">
+  <title>Quickstart Introduction</title>
+   <para>
+    The Dia Quickstart is meant for the user who doesn't want to read a whole
+    manual to make a basic diagram.  It will also hold a few screenshots for
+    those who are unsure of if this program will do what they want.
+   </para>
+  </sect2>
+  <sect2 id="creating-canvas">
+  <title>Creating a Canvas</title>
+   <para>
+    All diagrams are drawn in their own <emphasis>canvas</emphasis>.  To 
+    create a new canvas, select 
+    <menuchoice>
+     <guimenu>File</guimenu>
+     <guimenuitem>New Diagram</guimenuitem>
+    </menuchoice>
+    .  A new canvas window will appear.
+   </para>
+  </sect2>
+  <sect2 id="making-diagram">
+  <title>Making a Diagram</title>
+   <para>
+    A diagram is made up of objects.  Objects are shapes that can be different
+    colors, shapes, and sizes.  They include everything from 2-bit images to
+    full color pictures to text.
+   </para>
+   <para>
+    To an object to the canvas, click on an object in the toolbar and click
+    on the canvas.  The selected object will appear.  The object can be
+    manipulated mainly by clicking and dragging on the green corner buttons.
+   </para>
+   <para>
+    In the toolbar, you can double-click on any object to view its advanced
+    properties.  This allows you to customize the stock shape more to your
+    liking.  
+   </para>
+   <para>
+    Layers are a way of creating multiple-images so that they are one image.
+    By doing this, a user can edit one layer without worrying about affecting
+    any of the other layers.
+   </para>
+   <para>
+    Transparency is hard at work in Dia.  Transparency allows objects to have
+    transparent parts of an object, so that anything behind the transparent
+    section shows through.
+   </para>
+   <para>
+    Plug-ins allow the average user to easily add new object types to Dia, to
+    help extend its functionability.
+   </para>
+  </sect2>
+  <sect2 id="save-print-diagram">
+  <title>Saving and Printing Your Diagram</title>
+   <para>
+    Saving your diagram and printing your diagram is as easy as creating and
+    modifying your document.
+   </para>
+   <para>
+    Dia supports saving and printing to printers.  If you have gnome-print
+    installed, the printing is very easy!
+   </para>
+   <para>
+    The print command can be found in the File menu when clicked on the canvas.
+   </para>
+   <para>
+    Dia supports exporting to numerous formats for excellent web publishing.
+    Some of them include:
+    <itemizedlist>
+     <listitem>
+      <para>
+       Computer Graphics Metafile (.cgm)
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Encapsulated Postscript (.eps)
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Native Dia Format (.dia)
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Portable Network Graphics (.png)
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Scalable Vector Graphics  (.svg)
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   </sect2>
+   <sect2 id="who-appeal-too">
+   <title>Who Does Dia Appeal To?</title>
+    <para>
+     Dia can appeal to many people in a variety of industries.
+     <itemizedlist>
+      <listitem>
+       <para>
+        An electrical engineer may use <application>Dia</application> to 
+        create a diagram to show how their circuit works.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        A computer programmer may use a flow chart to show the execution path
+        of their program.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        A network administrator is able to create a diagram to show how their
+        company network is layed out.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect2>
+ </sect1>
+ <sect1 id="canvas">
+ <title>The Canvas</title>
+  <sect2 id="canvas-introduction">
+  <title>Canvas Introduction</title>
+   <para>
+    The canvas is the main part of Dia.  The Dia canvas is the window where all
+    the user's objects will be placed on the screen and arranged.  When the
+    diagram is printed or saved, the contents of the canvas will be saved.
+   </para>
+  </sect2>
+  <sect2 id="gridlines">
+  <title>Gridlines</title>
+   <para>
+    Gridlines are similar to the lines on graph paper.  They allow the user
+    to easily align objects on the canvas.  The gridlines can be hidden by
+    going into File->Preferences->Grid Lines and clicking on the Visible button
+    to make it say No.
+   </para>
+  </sect2>
+  <sect2 id="Rulers">
+  <title>Rulers</title>
+   <para> 
+    Rulers appear on the top and the left of the <application>Dia</application>
+    canvas.  They show, in centimeters how large your canvas is.
+    <!-- Discuss the arrows which show where the cursor is -->
+   </para>
+   <para>
+    Rulers, unlike gridlines, cannot be removed.
+   </para>
+  </sect2>
+  <sect2 id="background-color">
+  <title>Background Color</title>
+   <para>
+    The background color option allows you to change what the background looks
+    like in the canvas.  By default, the color is white.  However, the color
+    can be changed by going into View->Diagram Properties->Background and
+    clicking on the bar.  The bar displays what your background color is.
+    The gridlines will change their color automatically to stay visible if
+    the background color is changed to black.
+   </para>
+  </sect2>
+  <sect2 id="zooming">
+  <title>Zooming</title>
+   <para>
+    The canvas can be zoomed up to 400%.  Zoom can be done by clicking on the
+    magnifying glass on the toolbox and clicking on the canvas.  To zoom out,
+    hold the shift button and click again on the canvas.
+   </para>
+  </sect2>
+ </sect1>
+ <sect1 id="objects">
+ <title>Objects</title>
+  <sect2 id="objects-introduction">
+  <title>Objects Introduction</title>
+   <para>
+    Objects are what makes up a diagram.  Objects are shapes which are either
+    pre-defined or user-defined.
+   </para>
+  </sect2>
+  <sect2 id="using-objects">
+  <title>Using Objects</title>
+   <sect3 id="adding-objects">
+   <title>Adding Objects</title>
+    <para>
+     Adding objects to the <application>Dia</application> canvas can be
+     accomplished by clicking on the desired object in the toolbox to select
+     what you want placed on the canvas.  Clicking on the canvas will then
+     place the object on the canvas.
+    </para>
+    <para>
+     <application>Dia</application> provides two types of objects:
+      <itemizedlist>
+       <listitem>
+        <para>
+         User-defined objects allow a user to create their own objects, 
+         which are based off of a prefabricated template.
+        </para>
+        <para>
+         For example, clicking on the square object and placing it on the
+         canvas, creates a square.  However, the dimensions of the object can
+         be changed.  See the Resizing Objects section for more information.
+         <!-- Add link to resizing objects -->
+        </para>
+       </listitem>
+       <listitem>
+        <para>
+         Pre-defined objects are mostly designs which cannot be edited.
+         They can be resized, but the object itself cannot be edited.
+        </para>
+       </listitem>
+      </itemizedlist>
+    </para>
+   </sect3>
+   <sect3 id="moving-objects">
+   <title>Moving Objects</title>
+    <para>
+     When an object is inserted into the canvas, the desired object will appear
+     with small green boxes defining the borders.  <!-- Insert Graphic -->
+     The area inside the boxes is the object area.  Click and hold on the
+     object area.  Then move the mouse around, inside the canvas, to move
+     the object to another place on the canvas.
+    </para>
+   </sect3>
+   <sect3 id="resizing-objects">
+   <title>Resizing Objects</title>
+    <para>
+     In the previous paragraph, is explained the concept of the green boxes.
+     These are used to manipulate the size of the object.  To change the size,
+     click and hold on a green button.  Drag to the respective size, then let
+     go.
+    </para>
+    <para>
+     The corner green buttons will change both height and width.  The four in
+     the middle will edit the respective property.  So, the boxes on the side
+     will edit the width while the two on the top edit the height.
+    </para>
+    <tip>
+     <para>
+      To drag with the corner buttons, but keep perportions, hold the shift key
+      while resizing.  This only applies to the special objects, not regular
+      shapes.
+     </para>
+    </tip>
+   </sect3>
+   <sect3 id="deleting-objects">
+   <title>Deleting Objects</title>
+    <para>
+     To delete an object, click on the object to select it. The green boxes
+     will appear.  Hit Ctrl+D and the object will disappear.
+    </para>
+   </sect3>
+   <!--
+   <sect3 id="aligning-objects">
+   <title>Aligning Objects</title>
+    <para>
+     Add this when you feel like explaining.
+    </para>
+   </sect3>
+   <sect3 id="grouping-objects">
+   <title>Grouping Objects</title>
+    <para>
+     Add this when you feel like explaining.
+    </para>
+   </sect3>
+   -->
+  </sect2>
+  <sect2 id="line-properties">
+  <title>Line Properties</title>
+   <para>
+    One of <application>Dia</application>'s objects is the line.  The line
+    object is symbolized by the following icon:
+    <!-- Add graphic later -->
+   </para>
+   <sect3 id="line-styles">
+   <title>Line Styles</title>
+    <para>
+     Lines can be easily edited to easily create items such as arrows.  At the
+     bottom of the toolbox is 3 buttons with lines through them.  Clicking
+     and holding will open up a menu which demos what the change will look
+     like.
+    </para>
+    <para>
+     Lines can employ different style types such as:
+     <itemizedlist>
+      <listitem>
+       <para>
+        Solid
+       </para>
+      </listitem>
+      <listitem>
+      <para>
+       Dashed
+      </para>
+      </listitem>
+      <listitem>
+       <para>
+        Dash-Dot 
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Dash-Dot-Dot 
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Dotted 
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect3>
+   <sect3 id="line-thickness">
+   <title>Line Thickness</title>
+    <para>
+     The thickness of lines can be edited by clicking on the five thicknesses
+     to the right of the color selector.
+    </para>
+   </sect3>
+   <sect3 id="arrows">
+   <title>Arrows</title>
+    <para>
+     The line tool can be used to create arrows.  By clicking on the two side
+     buttons on the bottom of the toolbox, a menu pulls out showing the possible
+     beginning and end designs for the arrows.
+    </para>
+   </sect3>
+   <sect3 id="line-colors">
+   <title>Line Colors</title>
+    <para>
+     The line color can be edited by double-clicking on the line once it has
+     been placed on the canvas.  A window will show up.  The second line is
+     labeled as "Line Colour" with a bar demonstrating the selected color.  By
+     clicking on the bar, you can change the color of the line.
+    </para>
+   </sect3>
+  </sect2>
+  <sect2 id="object-properties">
+  <title>Object Properties</title>
+   <para>
+    Each object has its own properties assigned to it.  They can be accessed
+    by double-clicking on an object already on the canvas.  A window will appear
+    that allows you to edit numerous properties including:
+    <itemizedlist>
+     <listitem>
+      <para>
+       Line width
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Line color
+      </para>
+     </listitem>
+    </itemizedlist>
+    among others.
+   </para>
+  </sect2>
+  <sect2 id="colors">
+  <title>Colors</title>
+   <para>
+    All the objects can be colored in different ways, according to a user
+    defined setting.
+   </para>
+   <para>
+    The color control is located near the bottom of the toolbox. There are two
+    squares that make up the control.  The one on the top left is the
+    foreground color.  The one in the bottom right is the background color.
+    To edit the colors, click on the desired box and select the color in the
+    color window that appears.
+   <note>
+    <para>
+     This control will only allow the selection of colors of objects which have
+     not yet been placed on the canvas.
+    </para>
+   </note>
+   <tip>
+    <para>
+     To inverse the colors, click on the little arrow to the top right of the
+     two boxes.
+    </para>
+   </tip>
+   <tip>
+    <para>
+     To set the colors back to the default, click on the black and white box
+     to the bottom left of the color selector.
+    </para>
+   </tip>
+  </para>
+  </sect2>
+ </sect1>
+ <sect1 id="basic-objects">
+ <title>Basic Objects</title>
+  <para>
+   The first, and most common type of object is the basic object.  Basic objects normally are geometric shapes, which can be customized.  <application>Dia</application> offers the user numerous basic objects.
+  </para>
+  <sect2 id="text">
+  <title>Text</title>
+   <para>
+    <application>Dia</application> supports the use of text as its own type of
+    object.  Text can be placed on the canvas by clicking on the text button on
+    the toolbox.
+   </para>
+   <note>
+    <para>
+     Text in <application>Dia</application> can use any font available to Gnome.
+    </para>
+   </note>
+   </sect2>
+   <sect2 id="box">
+   <title>Box</title>
+    <para>
+     The boxes in <application>Dia</application> can be customized to be any
+     size desired by the user.  The properties available are:
+     <itemizedlist>
+      <listitem>
+       <para>
+        Corner Rounding - Causes the corners to be rounded instead of hard
+	edges.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Draw Background - Keeps the center clear or fills with the background
+	color.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="ellipse">
+   <title>Ellipse</title>
+    <para>
+     An ellipse is a shape which has all rounded sides, such as a circle or an
+     oval.
+    </para>
+   </sect2>
+   <sect2 id="polygon">
+   <title>Polygon</title>
+    <para>
+     A polygon is any closed shape that is made up of straight lines.  The
+     polygon tool, allows the user to draw any shape with all straight lines.
+    </para>
+   </sect2>
+   <sect2 id="beziergon">
+   <title>Beziergon</title>
+    <para>
+     A beziergon is similar to the polygon as the user defines the shape. 
+     However, it differs in that it allows curves to exist in the shape.
+    </para>
+   </sect2>
+   <sect2 id="line">
+   <title>Line</title>
+    <para>
+     A line simply...a line.  <!--fix this wording...it sucks--> Refer to the
+     customizing a line section to find more information about a line.
+    </para>
+   </sect2>
+   <sect2 id="arc">
+   <title>Arc</title>
+    <para>
+     An arc is a line which has been bent to create a semi-circle shape.
+    </para>
+   </sect2>
+   <sect2 id="zigzagline">
+   <title>Zigzag Line</title>
+    <para>
+     A zigzag line is a line which has sharp, 90 degree turns in it.  They hold
+     visual similarities to staircases.
+    </para>
+   </sect2>
+   <sect2 id="polyline">
+   <title>Poly Line</title>
+    <para>
+     A poly-line is like a zigzagline, but does not necessarily have to have
+     90 degree turns to it.  The angles can be customized.
+    </para>
+   </sect2>
+   <sect2 id="bezier">
+   <title>Bezier Line</title>
+    <para>
+     A bezier line is a line which has curves in it.  The bezier line tool is
+     edited by clicking and dragging the green and orange dots.  The green dots
+     customize the size while the orange dots customize the angles at which the
+     line curves at.
+    </para>
+   </sect2>
+   <sect2 id="image">
+   <title>Images</title>
+    <para>
+     The <application>Dia</application> canvas can have pictures inside of it,
+     as well as shapes.
+    </para>
+    <para>
+     To add an image, click on the image button and then add it to the canvas.
+     An object that says "Broken Image" will appear.  Double-click on that to
+     open the properties.  Click on "Browse" and select your file.  Click "OK"
+     after that and then the image will be updated accordingly.
+    </para>
+   </sect2>
+  </sect1>
+ <!-- Henry House -->
+ <sect1 id="prefs">
+ <title>Customization</title>
+ <para>
+  To change the behavior settings, select
+  <menuchoice>
+   <guimenu>File</guimenu> <guimenuitem>Preferences...</guimenuitem>
+   </menuchoice> from the <interface>Main Menu Bar</interface>.  This opens the    <interface>Preferences</interface> dialog, shown in [TODO: add
+   screenshot]. <!-- <xref linkend="preferences-fig">. -->
+ </para>
+ <para>
+  The configurable properties in the <guilabel>User Interface</guilabel> tab 
+  are:
+  <itemizedlist>
+   <listitem>
+    <para>
+     Reset tools after create &mdash; If this button is checked&hellip;[TODO:
+     find out what this does]
+    </para>
+   </listitem>
+  </itemizedlist>
+  </para> 
+  <para>
+   After you have made all the changes you want, click on
+   <guibutton>OK</guibutton> to apply the changes and close the
+   <interface>Preferences</interface> dialog. To cancel the changes and return
+   to previous values, click the <guibutton>Close</guibutton> button. You may
+   preview the effect of your changes using the Apply
+   button.
+  </para>
+ </sect1>
+<!-- End Henry House -->                                                                        
+<!-- ============= Authors ================================ -->
+
+ <sect1 id="authors">
+  <title>Authors</title>
+  <para>
+   <application>Dia</application> was written by Alexander Larsson and is 
+   currently maintained by James Henstridge. To find more information about
+   <application>Dia</application>, please visit the official web page, <ulink
+   url="http://www.lysator.liu.se/~alla/dia" type="http">
+   www.lysator.liu.se/~alla/dia</ulink>.  Please send all comments, 
+   suggestions, and bug reports to the <ulink url="http://bugs.gnome.org" 
+   type="http">GNOME bug tracking database</ulink>. (Instructions for 
+   submitting bug reports can be found <ulink 
+   url="http://bugs.gnome.org/Reporting.html" type="http">on-line</ulink>.) 
+   If you are using GNOME 1.1 or later, you can also use <application>Bug 
+   Report Tool</application> (<command>bug-buddy</command>), available in the
+   <guisubmenu>Utilities</guisubmenu> submenu of <guimenu>Main Menu</guimenu>, 
+   for submitting bug reports.
+  </para>
+
+  <para>
+   This manual was written by Henry House (<email>hajhouse@houseag.com</email>)
+   , Judith Samson (<email>judith@samsonsource.com</email>), and Kevin Breit 
+   (<email>battery841@mypad.com</email>).
+   Please send all comments and suggestions regarding this manual to the 
+   <ulink type="http" url="http://www.gnome.org/gdp">GNOME Documentation 
+   Project</ulink> by sending an email to <email>docs@gnome.org</email>. You 
+   can also add your comments online by using the <ulink type="http"
+   url="http://www.gnome.org/gdp/doctable/">GNOME Documentation Status
+   Table</ulink>.
+  </para>
+
+  <!-- For translations: uncomment this:
+
+  <para>
+   Latin translation was done by ME
+   (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+   suggestions regarding this translation to SOMEWHERE.
+  </para>
+
+  -->
+
+ </sect1>
+
+
+ <!-- ============= Application License ============================= -->
+
+ <sect1 id="license">
+  <title>License</title>
+  <para>
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the <citetitle>GNU General Public
+   License</citetitle> as published by the Free Software Foundation;
+   either version 2 of the License, or (at your option) any later
+   version.
+  </para>
+  <para>
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   <citetitle>GNU General Public License</citetitle> for more details.
+  </para>
+  <para>
+   A copy of the <citetitle>GNU General Public License</citetitle> is
+   included as an appendix to the <citetitle>GNOME Users
+   Guide</citetitle>.  You may also obtain a copy of the
+   <citetitle>GNU General Public License</citetitle> from the Free
+   Software Foundation by visiting <ulink type="http"
+   url="http://www.fsf.org">their Web site</ulink> or by writing to
+   <address>
+    Free Software Foundation, Inc.
+    <street>59 Temple Place</street> - Suite 330
+    <city>Boston</city>, <state>MA</state> <postcode>02111-1307</postcode>
+    <country>USA</country>
+   </address>
+  </para>
+ </sect1>
+</article>
