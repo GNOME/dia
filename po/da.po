@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 1999-03-29 20:04+0200\n"
+"POT-Creation-Date: 1999-04-08 17:01+0200\n"
 "PO-Revision-Date: 1999-03-19 01:21-0600\n"
 "Last-Translator: Lars Clausen <lrclause@cs.uiuc.edu>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -28,20 +28,21 @@ msgstr "UDDATA"
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
-#: app/app_procs.c:171 app/app_procs.c:173
+#: app/app_procs.c:169 app/app_procs.c:171
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
-#: app/app_procs.c:201
-msgid "need valid input file for --export-file-to-ps\n"
+#: app/app_procs.c:199
+#, fuzzy
+msgid "Need valid input file\n"
 msgstr "en gyldig ind-fil kræves for --export-file-to-ps\n"
 
-#: app/app_procs.c:242
+#: app/app_procs.c:240
 msgid "Quit, are you sure?"
 msgstr "Afslut, er du sikker?"
 
-#: app/app_procs.c:244
+#: app/app_procs.c:242
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -49,17 +50,17 @@ msgstr ""
 "Der er ændrede diagrammer.\n"
 "Er du sikker på at du vil afslutte?"
 
-#: app/app_procs.c:253 app/commands.c:200 app/commands.c:318 app/display.c:720
+#: app/app_procs.c:251 app/commands.c:200 app/commands.c:318 app/display.c:720
 #: app/preferences.c:404
 msgid "Yes"
 msgstr "Ja"
 
-#: app/app_procs.c:266 app/commands.c:213 app/commands.c:331 app/display.c:731
+#: app/app_procs.c:264 app/commands.c:213 app/commands.c:331 app/display.c:731
 #: app/preferences.c:404 app/preferences.c:415
 msgid "No"
 msgstr "Nej"
 
-#: app/app_procs.c:326
+#: app/app_procs.c:324
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -68,13 +69,13 @@ msgstr ""
 "Kunne ikke finde biblioteker at indlæse.\n"
 "%s er ikke et katalog.\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:331
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Kunne ikke åbne \"%s\".\n"
 
-#: app/app_procs.c:346 app/app_procs.c:347 app/app_procs.c:382
-#: app/app_procs.c:383
+#: app/app_procs.c:344 app/app_procs.c:345 app/app_procs.c:380
+#: app/app_procs.c:381
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -83,12 +84,12 @@ msgstr ""
 "Fejl under indlæsning af bibliotek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:357 app/app_procs.c:358
+#: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Filen \"%s\" er ikke et Dia objektbibliotek.\n"
 
-#: app/app_procs.c:363 app/app_procs.c:364
+#: app/app_procs.c:361 app/app_procs.c:362
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -98,7 +99,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en ældre version af Dia og kan ikke bruges.\n"
 "Vær venlig at opgradere det."
 
-#: app/app_procs.c:369 app/app_procs.c:370
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -107,7 +108,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en nyere version af Dia.\n"
 "Du er nødt til opgradere Dia for at kunne bruge det."
 
-#: app/app_procs.c:451
+#: app/app_procs.c:449
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -239,24 +240,6 @@ msgstr "<Display>/Objekter/Justér vertikalt/Bund"
 #: app/diagram.c:146
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr "<Display>/Objekter/Justér vertikalt/Samme afstand"
-
-#: app/diagram.c:475
-msgid "Trying to ungroup with more or less that one selected object."
-msgstr ""
-"Du har forsøgt at afgruppere med flere eller færre end et objekt valgt."
-
-#: app/disp_callbacks.c:105
-#, c-format
-msgid "Selected list is %s while selected_count is %d\n"
-msgstr "Den valgte liste er %s, men selected_count er %d\n"
-
-#: app/disp_callbacks.c:106
-msgid "long"
-msgstr "lang"
-
-#: app/disp_callbacks.c:106
-msgid "empty"
-msgstr "tom"
 
 #: app/disp_callbacks.c:140
 msgid "No object menu"
@@ -455,14 +438,6 @@ msgstr ""
 "Fejl under indlæsning af diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:328
-msgid ""
-"Internal error saving diagram\n"
-" con_point_nr >= other_obj->num_connections\n"
-msgstr ""
-"Intern fejl under lagring af diagrammet\n"
-" con_point_nr >= other_obj->num_connections\n"
-
 #: app/load_save.c:377 app/render_eps.c:139
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -582,14 +557,6 @@ msgstr "_Egenskaber"
 #: app/menus.c:132
 msgid "_Layers"
 msgstr "_Lag"
-
-#: app/menus.c:142
-msgid "File"
-msgstr "Fil"
-
-#: app/menus.c:143
-msgid "Help"
-msgstr "Hjælp"
 
 #: app/menus.c:151
 msgid "Objects"
@@ -1583,3 +1550,29 @@ msgstr "Tilføj hjørne"
 #: objects/standard/polyline.c:666
 msgid "Delete Corner"
 msgstr "Slet hjørne"
+
+#~ msgid "Trying to ungroup with more or less that one selected object."
+#~ msgstr ""
+#~ "Du har forsøgt at afgruppere med flere eller færre end et objekt valgt."
+
+#~ msgid "Selected list is %s while selected_count is %d\n"
+#~ msgstr "Den valgte liste er %s, men selected_count er %d\n"
+
+#~ msgid "long"
+#~ msgstr "lang"
+
+#~ msgid "empty"
+#~ msgstr "tom"
+
+#~ msgid ""
+#~ "Internal error saving diagram\n"
+#~ " con_point_nr >= other_obj->num_connections\n"
+#~ msgstr ""
+#~ "Intern fejl under lagring af diagrammet\n"
+#~ " con_point_nr >= other_obj->num_connections\n"
+
+#~ msgid "File"
+#~ msgstr "Fil"
+
+#~ msgid "Help"
+#~ msgstr "Hjælp"

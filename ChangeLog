@@ -1,3 +1,11 @@
+1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in:
+	Updated version number to 0.41
+
+	* po/*.po:
+	Update po-files
+
 1999-04-04  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/app_procs.c

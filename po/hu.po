@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia ?\n"
-"POT-Creation-Date: 1999-04-05 23:15+0200\n"
+"POT-Creation-Date: 1999-04-08 17:01+0200\n"
 "PO-Revision-Date: 1999-03-22 19:03+MET\n"
 "Last-Translator: Shooby Ban <bansz@szif.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -76,8 +76,7 @@ msgstr "Nem tudom megnyitni \"%s\"-t.\n"
 msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
-msgstr ""
-"Nem tudom betölteni a libet: \"%s\":\n"
+msgstr "Nem tudom betölteni a libet: \"%s\":\n"
 
 #: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
@@ -91,8 +90,7 @@ msgid ""
 "used.\n"
 "Please upgrade it."
 msgstr ""
-"Az objektumkönyvtár \"%s\" egy régebbi verziójú Dia része, "
-"nem használható.\n"
+"Az objektumkönyvtár \"%s\" egy régebbi verziójú Dia része, nem használható.\n"
 "Upgrade-lj egy újabbra."
 
 #: app/app_procs.c:367 app/app_procs.c:368
@@ -876,7 +874,6 @@ msgid ""
 msgstr ""
 "Figyelem! %s-hez nincs X font, \n"
 "%s-t használok.\n"
-
 
 #: lib/font.c:398
 #, c-format

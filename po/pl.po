@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.30\n"
-"POT-Creation-Date: 1999-03-29 20:04+0200\n"
+"POT-Creation-Date: 1999-04-08 17:01+0200\n"
 "PO-Revision-Date: 1999-03-26 01:43+0100\n"
 "Last-Translator: Tomasz K³oczko <kloczek@pld.org.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -25,61 +25,61 @@ msgstr ""
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
-#: app/app_procs.c:171 app/app_procs.c:173
+#: app/app_procs.c:169 app/app_procs.c:171
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
-#: app/app_procs.c:201
-msgid "need valid input file for --export-file-to-ps\n"
+#: app/app_procs.c:199
+msgid "Need valid input file\n"
 msgstr ""
 
-#: app/app_procs.c:242
+#: app/app_procs.c:240
 msgid "Quit, are you sure?"
 msgstr ""
 
-#: app/app_procs.c:244
+#: app/app_procs.c:242
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
 
-#: app/app_procs.c:253 app/commands.c:200 app/commands.c:318 app/display.c:720
+#: app/app_procs.c:251 app/commands.c:200 app/commands.c:318 app/display.c:720
 #: app/preferences.c:404
 msgid "Yes"
 msgstr ""
 
-#: app/app_procs.c:266 app/commands.c:213 app/commands.c:331 app/display.c:731
+#: app/app_procs.c:264 app/commands.c:213 app/commands.c:331 app/display.c:731
 #: app/preferences.c:404 app/preferences.c:415
 msgid "No"
 msgstr "Nie"
 
-#: app/app_procs.c:326
+#: app/app_procs.c:324
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
 
-#: app/app_procs.c:333
+#: app/app_procs.c:331
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr ""
 
-#: app/app_procs.c:346 app/app_procs.c:347 app/app_procs.c:382
-#: app/app_procs.c:383
+#: app/app_procs.c:344 app/app_procs.c:345 app/app_procs.c:380
+#: app/app_procs.c:381
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
 msgstr ""
 
-#: app/app_procs.c:357 app/app_procs.c:358
+#: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr ""
 
-#: app/app_procs.c:363 app/app_procs.c:364
+#: app/app_procs.c:361 app/app_procs.c:362
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -87,14 +87,14 @@ msgid ""
 "Please upgrade it."
 msgstr ""
 
-#: app/app_procs.c:369 app/app_procs.c:370
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
 "You need to upgrade Dia to use it."
 msgstr ""
 
-#: app/app_procs.c:451
+#: app/app_procs.c:449
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -223,23 +223,6 @@ msgstr ""
 
 #: app/diagram.c:146
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr ""
-
-#: app/diagram.c:475
-msgid "Trying to ungroup with more or less that one selected object."
-msgstr ""
-
-#: app/disp_callbacks.c:105
-#, c-format
-msgid "Selected list is %s while selected_count is %d\n"
-msgstr ""
-
-#: app/disp_callbacks.c:106
-msgid "long"
-msgstr ""
-
-#: app/disp_callbacks.c:106
-msgid "empty"
 msgstr ""
 
 #: app/disp_callbacks.c:140
@@ -424,12 +407,6 @@ msgid ""
 "Not a Dia file."
 msgstr ""
 
-#: app/load_save.c:328
-msgid ""
-"Internal error saving diagram\n"
-" con_point_nr >= other_obj->num_connections\n"
-msgstr ""
-
 #: app/load_save.c:377 app/render_eps.c:139
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -548,14 +525,6 @@ msgstr ""
 #: app/menus.c:132
 msgid "_Layers"
 msgstr ""
-
-#: app/menus.c:142
-msgid "File"
-msgstr ""
-
-#: app/menus.c:143
-msgid "Help"
-msgstr "Pomoc"
 
 #: app/menus.c:151
 msgid "Objects"
@@ -1546,3 +1515,6 @@ msgstr ""
 #: objects/standard/polyline.c:666
 msgid "Delete Corner"
 msgstr ""
+
+#~ msgid "Help"
+#~ msgstr "Pomoc"

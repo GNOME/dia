@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.40\n"
-"POT-Creation-Date: 1999-04-04 01:27+0200\n"
+"POT-Creation-Date: 1999-04-08 17:01+0200\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -24,21 +24,21 @@ msgstr "UTFIL"
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:171 app/app_procs.c:173
+#: app/app_procs.c:169 app/app_procs.c:171
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standard objekt bland objektbiblioteken, avslutar...\n"
 
-#: app/app_procs.c:201
+#: app/app_procs.c:199
 msgid "Need valid input file\n"
 msgstr "Behöver en korrekt diagramfil för --export-file-to-ps\n"
 
-#: app/app_procs.c:242
+#: app/app_procs.c:240
 msgid "Quit, are you sure?"
 msgstr "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:244
+#: app/app_procs.c:242
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -46,17 +46,17 @@ msgstr ""
 "Det finns diagram som inte är sparade.\n"
 "Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:253 app/commands.c:200 app/commands.c:318 app/display.c:720
+#: app/app_procs.c:251 app/commands.c:200 app/commands.c:318 app/display.c:720
 #: app/preferences.c:404
 msgid "Yes"
 msgstr "Ja"
 
-#: app/app_procs.c:266 app/commands.c:213 app/commands.c:331 app/display.c:731
+#: app/app_procs.c:264 app/commands.c:213 app/commands.c:331 app/display.c:731
 #: app/preferences.c:404 app/preferences.c:415
 msgid "No"
 msgstr "Nej"
 
-#: app/app_procs.c:326
+#: app/app_procs.c:324
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -65,13 +65,13 @@ msgstr ""
 "Kunde inte hitta några objektbibliotek.\n"
 "%s är inte en filkatalog.\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:331
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Kunde inte öppna \"%s\".\n"
 
-#: app/app_procs.c:346 app/app_procs.c:347 app/app_procs.c:382
-#: app/app_procs.c:383
+#: app/app_procs.c:344 app/app_procs.c:345 app/app_procs.c:380
+#: app/app_procs.c:381
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -80,12 +80,12 @@ msgstr ""
 "Fel vid laddning av bibliotek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:357 app/app_procs.c:358
+#: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Filen \"%s\" är inte ett Dia objektbibliotek.\n"
 
-#: app/app_procs.c:363 app/app_procs.c:364
+#: app/app_procs.c:361 app/app_procs.c:362
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -96,7 +96,7 @@ msgstr ""
 "användas.\n"
 "Var vänlig och uppgradera."
 
-#: app/app_procs.c:369 app/app_procs.c:370
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -105,7 +105,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" är från en senare version av Dia.\n"
 "Du måste uppgradera Dia för att kunna använda det."
 
-#: app/app_procs.c:451
+#: app/app_procs.c:449
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -880,7 +880,7 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittat, \n"
 "använder %s istället.\n"
 
-#: lib/font.c:399
+#: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
@@ -1541,4 +1541,3 @@ msgstr "Lägg till nod"
 #: objects/standard/polyline.c:666
 msgid "Delete Corner"
 msgstr "Ta bort nod"
-
