@@ -40,7 +40,9 @@
     </object>
     <object name="Logic - Connector">
       <description>A crossconnector</description>
-      <description>Une connexion de croisement</description>
+      <description xml:lang="fr">Une connexion de croisement</description>
     </object>
   </contents>
 </sheet>
+
+

@@ -6,3 +6,6 @@ toolbox.
 You need to add extra <description> elements with the appropriate
 xml:lang attribute for your language to the file.  Once those are
 added, the names of objects in the toolbox should be translated.
+
+Also, you can have a look at the file "sheet-translation-report" in
+the sheets directory.

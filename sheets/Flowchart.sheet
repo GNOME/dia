@@ -30,7 +30,7 @@
       <description xml:lang="no">En diamant med tekstinnhold</description>
       <description xml:lang="fr">Un diamant contenant du texte</description>
       <description xml:lang="de">Ein Diamant mit Textinhalt</description>
-      <description xml:lang="de">Rombusz szövegdoboz</description>
+      <description xml:lang="hu">Rombusz szövegdoboz</description>
       <description>A diamond with text inside</description>
     </object>
     <object name="Flowchart - Ellipse">
@@ -129,7 +129,7 @@
       <description xml:lang="no">Intern lagring</description>
       <description xml:lang="fr">Stockage Interne</description>
       <description xml:lang="de">Interner Speicher</description>
-      <description xml:lang="de">Belsõ tároló</description>
+      <description xml:lang="hu">Belsõ tároló</description>
       <description>Internal Storage</description>
     </object>
     <object name="Flowchart - Merge">

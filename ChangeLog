@@ -1,5 +1,21 @@
 2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* sheets/Flowchart.sheet: translations in probably Hungarian were
+	a victim of cut-n-paste from the German one. Fixed (hopefully).
+	* sheet/UML.sheet: translation in probably Norwegian was a victim
+	of cut-n-paste from the French one. Fixed (hopefully).
+	* sheets/Logic.sheet: French translation not tagged with
+	xml:lang="fr".
+	
+	* sheets/checktrans.py:
+	* sheets/Makefile.am: new file, sheet-translation-report, to be
+	installed along the sheets, show how much of them has been
+	translated into which language (I wish the result was prettier...)
+
+	* po/README: most translators don't read this file, but anyway...
+	
+2001-03-30  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* sheets/*.sheet: French translations
 
 2001-03-28  Cyrille Chepelov  <chepelov@calixo.net>

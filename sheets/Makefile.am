@@ -22,6 +22,18 @@ SHEETS = \
 	SDL.sheet \
         Logic.sheet
 
-EXTRA_DIST = $(SHEETS)
+CLEANFILES = sheet-translation-report
 
-sheet_DATA = $(SHEETS)
+sheet-translation-report: $(SHEETS)
+	echo "*** Sheet translation report : ***" >sheet-translation-report
+	echo "(Absence of a language code means 0% translation for that language)" >>sheet-translation-report
+	echo "(Help for translations (and/or much more) is of course welcome !)" >>sheet-translation-report
+	-(./checktrans.py $(SHEETS) || \
+	   echo "E:checktrans failed to run. Check that python and python-xml are installed on the build system.") \
+		 >> sheet-translation-report
+	cat sheet-translation-report
+
+# EXTRA_DIST = $(SHEETS) 
+
+sheet_DATA = $(SHEETS) sheet-translation-report
+

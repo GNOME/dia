@@ -63,7 +63,7 @@
       <description>Implements, class implements a specific interface</description>
     </object>
     <object name="UML - Constraint">
-      <description xml:lang="fr">Begrensning, sett en begrensning på noe</description>
+      <description xml:lang="no">Begrensning, sett en begrensning på noe</description>
       <description xml:lang="fr">Placer une contrainte sur quelque chose</description>
       <description xml:lang="de">Einschränkung, schränkt etwas ein</description>
       <description>Constraint, place a constraint on something</description>
