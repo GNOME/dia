@@ -1,3 +1,8 @@
+2001-09-02  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/interface.c: (create_zoom_widget): connected one more signal
+	to the Zoom selector combo's list. Fixes #59879.
+
 2001-09-01  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Rename zh_TW.Big5 -> zh_TW in ALL_LINGUAS.

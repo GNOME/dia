@@ -165,6 +165,7 @@ zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   }
 }
 
+
 static GtkWidget*
 create_zoom_widget(DDisplay *ddisp) { 
   GtkWidget *combo = NULL;
@@ -190,6 +191,10 @@ create_zoom_widget(DDisplay *ddisp) {
 		      ddisp);
 
   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "unmap",
+		      (GtkSignalFunc) zoom_activate_callback,
+		      ddisp);
+
+  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "selection-changed",
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
 
