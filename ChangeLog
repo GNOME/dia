@@ -35,6 +35,9 @@
 	
 	Killed most gcc-3.2 warnings (const-correctness and derived warnings, 
 	unused variables, mostly)
+
+	* app/display.c:
+	* app/menus.c: enabled GTK Input Methods.
 	
 2002-09-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 

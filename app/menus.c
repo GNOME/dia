@@ -244,6 +244,11 @@ static GnomeUIInfo toolbox_menu[] = {
   GNOMEUIINFO_END
 };
 
+static GnomeUIInfo inputmethod_menu[] = {
+  GNOMEUIINFO_END
+};
+
+
 static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_MENU_FILE_TREE(filemenu),
   GNOMEUIINFO_MENU_EDIT_TREE(editmenu),
@@ -252,6 +257,7 @@ static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_SUBTREE(N_("_Objects"), objectsmenu),
   GNOMEUIINFO_SUBTREE(N_("_Tools"), toolsmenu),
   GNOMEUIINFO_SUBTREE(N_("_Dialogs"), dialogsmenu),
+  GNOMEUIINFO_SUBTREE(N_("_Input Methods"), inputmethod_menu),
   GNOMEUIINFO_END
 };
 
@@ -431,6 +437,9 @@ static GtkItemFactoryEntry display_menu_items[] =
   {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Dialogs/_Properties"),    NULL,     dialogs_properties_callback,    0},
   {N_("/Dialogs/_Layers"),        NULL,     dialogs_layers_callback,        0},
+
+  {N_("/_Input Methods"),         NULL,     NULL,               0, "<Branch>"},
+  {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },
 };
 
 static int display_nmenu_items = (sizeof(display_menu_items) /
@@ -1140,8 +1149,8 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 # endif
 
   if (! widget) {
-    g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
-	       "(try LANG=C).", path);
+    g_warning(_("Can't find menu entry '%s'!\nThis is probably a i18n problem "
+                "(try LANG=C)."), path);
   }
 
   return widget;
