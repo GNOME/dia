@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-08 19:34+0200\n"
-"PO-Revision-Date: 2003-09-09 22:06+0200\n"
+"POT-Creation-Date: 2003-09-14 11:21+0200\n"
+"PO-Revision-Date: 2003-09-14 19:48+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,12 +105,12 @@ msgstr "Dia verze %s, sestavená %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:423 app/app_procs.c:425 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:553
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -119,7 +119,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:561
+#: app/app_procs.c:565
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -129,21 +129,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:565
+#: app/app_procs.c:569
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:620
+#: app/app_procs.c:624
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:634 app/app_procs.c:641
+#: app/app_procs.c:638 app/app_procs.c:645
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:643
+#: app/app_procs.c:647
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -151,7 +151,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:665 app/diaconv.c:249
+#: app/app_procs.c:669 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -604,7 +604,7 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:113 app/filedlg.c:383
+#: app/filedlg.c:113 app/filedlg.c:380
 msgid "By extension"
 msgstr "Podle přípony"
 
@@ -616,7 +616,7 @@ msgstr "Otevřít diagram"
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:208 app/filedlg.c:498
+#: app/filedlg.c:208 app/filedlg.c:495
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
@@ -629,7 +629,7 @@ msgstr ""
 "kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:251 app/filedlg.c:425
+#: app/filedlg.c:251 app/filedlg.c:422
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -638,7 +638,7 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:259 app/filedlg.c:431
+#: app/filedlg.c:259 app/filedlg.c:428
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
@@ -648,11 +648,11 @@ msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:300
+#: app/filedlg.c:297
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:309
+#: app/filedlg.c:306
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -661,7 +661,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:450
+#: app/filedlg.c:447
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -670,11 +670,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:468
+#: app/filedlg.c:465
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:490
+#: app/filedlg.c:487
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -707,7 +707,7 @@ msgstr "Posunovat"
 #: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:146
+#: objects/UML/component.c:121 objects/UML/component_feature.c:154
 #: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
 #: objects/UML/small_package.c:121 objects/UML/state.c:134
 #: objects/UML/usecase.c:131
@@ -1702,17 +1702,17 @@ msgstr "Tiskárna"
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:342
+#: app/paginate_psprint.c:353
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Nelze spustit příkaz '%s'"
 
-#: app/paginate_psprint.c:345
+#: app/paginate_psprint.c:356
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Nelze otevřít soubor '%s' pro zápis"
 
-#: app/paginate_psprint.c:370
+#: app/paginate_psprint.c:381
 msgid "Error occured while printing"
 msgstr "Při tisku nastala chyba"
 
@@ -1922,7 +1922,7 @@ msgstr "Nelze otevřít soubor s historií pro zápis."
 msgid "Encapsulated Postscript"
 msgstr "Zapouzdřený PostScript"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:269
+#: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
@@ -2204,76 +2204,84 @@ msgid "Filled Diamond"
 msgstr "Plný diamant"
 
 #: lib/arrows.c:45
+msgid "Half Diamond"
+msgstr "Polovina diamantu"
+
+#: lib/arrows.c:46
 msgid "Half Head"
 msgstr "Půl hlavy"
 
-#: lib/arrows.c:46
+#: lib/arrows.c:47
 msgid "Slashed Cross"
 msgstr "Přeškrtnutý křížek"
 
-#: lib/arrows.c:47
+#: lib/arrows.c:48
 msgid "Filled Ellipse"
 msgstr "Plná elipsa"
 
-#: lib/arrows.c:48
+#: lib/arrows.c:49
 msgid "Hollow Ellipse"
 msgstr "Dutá elipsa"
 
-#: lib/arrows.c:49
+#: lib/arrows.c:50
 msgid "Filled Dot"
 msgstr "Plná tečka"
 
-#: lib/arrows.c:50
+#: lib/arrows.c:51
 msgid "Dimension Origin"
 msgstr "Původ rozměru"
 
-#: lib/arrows.c:51
+#: lib/arrows.c:52
 msgid "Blanked Dot"
 msgstr "Prázdná tečka"
 
-#: lib/arrows.c:52
+#: lib/arrows.c:53
 msgid "Double Hollow triangle"
 msgstr "Dvojitý dutý trojúhelník"
 
-#: lib/arrows.c:53
+#: lib/arrows.c:54
 msgid "Double Filled triangle"
 msgstr "Dvojitý plný trojúhelník"
 
-#: lib/arrows.c:54
+#: lib/arrows.c:55
 msgid "Filled Box"
 msgstr "Plný čtyřúhelník"
 
-#: lib/arrows.c:55
+#: lib/arrows.c:56
 msgid "Blanked Box"
 msgstr "Prázdný čtyřúhelník"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Slashed"
 msgstr "Přeškrtnutý"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Integral Symbol"
 msgstr "Symbol integrálu"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Crow Foot"
 msgstr "Vraní stopa"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Cross"
 msgstr "Křížek"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Filled Concave"
 msgstr "Plná konkáva"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Round"
 msgstr "Kulatý"
+
+#: lib/arrows.c:64
+msgid "Open Round"
+msgstr "Otevřený kulatý"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2362,7 +2370,7 @@ msgstr "_Náhled:"
 msgid "Font Selection"
 msgstr "Výběr písma"
 
-#: lib/dialibartrenderer.c:1115
+#: lib/dialibartrenderer.c:1114
 msgid "This Dia version is compiled without libart/text support."
 msgstr "Tato verze Dia je zkompilována bez podpory libart/text."
 
@@ -2594,7 +2602,7 @@ msgstr "Celkem:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:169
+#: objects/UML/association.c:747 objects/UML/component_feature.c:177
 #: objects/UML/dependency.c:365 objects/UML/generalization.c:361
 #: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
@@ -2602,7 +2610,7 @@ msgstr "Přidat segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:170
+#: objects/UML/association.c:748 objects/UML/component_feature.c:178
 #: objects/UML/dependency.c:366 objects/UML/generalization.c:362
 #: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -4158,19 +4166,19 @@ msgstr "Hranice"
 msgid "Is object"
 msgstr "Je objekt"
 
-#: objects/UML/component_feature.c:133 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Aspekt"
 
-#: objects/UML/component_feature.c:134 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Objímka"
 
-#: objects/UML/component_feature.c:135 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Zdroj události"
 
-#: objects/UML/component_feature.c:136 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Cíl události"
 
