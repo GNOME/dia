@@ -283,40 +283,46 @@ static void draw_image(RendererCGM *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps CgmRenderOps = {
-    (BeginRenderFunc) begin_render,
-    (EndRenderFunc) end_render,
+static RenderOps *CgmRenderOps;
 
-    (SetLineWidthFunc) set_linewidth,
-    (SetLineCapsFunc) set_linecaps,
-    (SetLineJoinFunc) set_linejoin,
-    (SetLineStyleFunc) set_linestyle,
-    (SetDashLengthFunc) set_dashlength,
-    (SetFillStyleFunc) set_fillstyle,
-    (SetFontFunc) set_font,
+static void
+init_cgm_renderops()
+{
+    CgmRenderOps = create_renderops_table();
+
+    CgmRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    CgmRenderOps->end_render = (EndRenderFunc) end_render;
+
+    CgmRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    CgmRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    CgmRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    CgmRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    CgmRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    CgmRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    CgmRenderOps->set_font = (SetFontFunc) set_font;
   
-    (DrawLineFunc) draw_line,
-    (DrawPolyLineFunc) draw_polyline,
+    CgmRenderOps->draw_line = (DrawLineFunc) draw_line;
+    CgmRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-    (DrawPolygonFunc) draw_polygon,
-    (FillPolygonFunc) fill_polygon,
+    CgmRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    CgmRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-    (DrawRectangleFunc) draw_rect,
-    (FillRectangleFunc) fill_rect,
+    CgmRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    CgmRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-    (DrawArcFunc) draw_arc,
-    (FillArcFunc) fill_arc,
+    CgmRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    CgmRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-    (DrawEllipseFunc) draw_ellipse,
-    (FillEllipseFunc) fill_ellipse,
+    CgmRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    CgmRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-    (DrawBezierFunc) draw_bezier,
-    (FillBezierFunc) fill_bezier,
+    CgmRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    CgmRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-    (DrawStringFunc) draw_string,
+    CgmRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-    (DrawImageFunc) draw_image,
-};
+    CgmRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 
 static void
@@ -1138,8 +1144,11 @@ export_cgm(DiagramData *data, const gchar *filename,
 	return;
     }
 
+    if (CgmRenderOps == NULL)
+	init_cgm_renderops();
+
     renderer = g_new(RendererCGM, 1);
-    renderer->renderer.ops = &CgmRenderOps;
+    renderer->renderer.ops = CgmRenderOps;
     renderer->renderer.is_interactive = 0;
     renderer->renderer.interactive_ops = NULL;
 

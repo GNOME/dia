@@ -118,40 +118,46 @@ static void draw_image(RendererMETAPOST *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps MetapostRenderOps = {
-    (BeginRenderFunc) begin_render,
-    (EndRenderFunc) end_render,
+static RenderOps *MetapostRenderOps;
 
-    (SetLineWidthFunc) set_linewidth,
-    (SetLineCapsFunc) set_linecaps,
-    (SetLineJoinFunc) set_linejoin,
-    (SetLineStyleFunc) set_linestyle,
-    (SetDashLengthFunc) set_dashlength,
-    (SetFillStyleFunc) set_fillstyle,
-    (SetFontFunc) set_font,
+
+static void
+init_metapost_renderops() {
+    MetapostRenderOps = create_renderops_table();
+
+    MetapostRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    MetapostRenderOps->end_render = (EndRenderFunc) end_render;
+
+    MetapostRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    MetapostRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    MetapostRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    MetapostRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    MetapostRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    MetapostRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    MetapostRenderOps->set_font = (SetFontFunc) set_font;
   
-    (DrawLineFunc) draw_line,
-    (DrawPolyLineFunc) draw_polyline,
+    MetapostRenderOps->draw_line = (DrawLineFunc) draw_line;
+    MetapostRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-    (DrawPolygonFunc) draw_polygon,
-    (FillPolygonFunc) fill_polygon,
+    MetapostRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    MetapostRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-    (DrawRectangleFunc) draw_rect,
-    (FillRectangleFunc) fill_rect,
+    MetapostRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    MetapostRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-    (DrawArcFunc) draw_arc,
-    (FillArcFunc) fill_arc,
+    MetapostRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    MetapostRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-    (DrawEllipseFunc) draw_ellipse,
-    (FillEllipseFunc) fill_ellipse,
+    MetapostRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    MetapostRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-    (DrawBezierFunc) draw_bezier,
-    (FillBezierFunc) fill_bezier,
+    MetapostRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    MetapostRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-    (DrawStringFunc) draw_string,
+    MetapostRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-    (DrawImageFunc) draw_image,
-};
+    MetapostRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 
 static void
@@ -200,8 +206,11 @@ new_metapost_renderer(DiagramData *data, const char *filename,
 	return NULL;
     }
 
+    if (MetapostRenderOps == NULL)
+	init_metapost_renderops();
+
     renderer = g_new(RendererMETAPOST, 1);
-    renderer->renderer.ops = &MetapostRenderOps;
+    renderer->renderer.ops = MetapostRenderOps;
     renderer->renderer.is_interactive = 0;
     renderer->renderer.interactive_ops = NULL;
 

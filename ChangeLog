@@ -1,3 +1,8 @@
+2002-03-15  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/render.c, all renderers: Binary incompatibility, change to
+	expandable renderops structure.
+
 2002-03-15  Steffen Macke <sdteffen@yahoo.com>
 
 	* objects/standard/Makefile.am:

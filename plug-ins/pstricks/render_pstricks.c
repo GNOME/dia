@@ -118,40 +118,47 @@ static void draw_image(RendererPSTRICKS *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps PstricksRenderOps = {
-    (BeginRenderFunc) begin_render,
-    (EndRenderFunc) end_render,
+static RenderOps *PstricksRenderOps;
 
-    (SetLineWidthFunc) set_linewidth,
-    (SetLineCapsFunc) set_linecaps,
-    (SetLineJoinFunc) set_linejoin,
-    (SetLineStyleFunc) set_linestyle,
-    (SetDashLengthFunc) set_dashlength,
-    (SetFillStyleFunc) set_fillstyle,
-    (SetFontFunc) set_font,
+static void
+init_pstricks_renderops() 
+{
+    PstricksRenderOps = create_renderops_table();
+
+    PstricksRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    PstricksRenderOps->end_render = (EndRenderFunc) end_render;
+
+    PstricksRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    PstricksRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    PstricksRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    PstricksRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    PstricksRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    PstricksRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    PstricksRenderOps->set_font = (SetFontFunc) set_font;
   
-    (DrawLineFunc) draw_line,
-    (DrawPolyLineFunc) draw_polyline,
+    PstricksRenderOps->draw_line = (DrawLineFunc) draw_line;
+    PstricksRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-    (DrawPolygonFunc) draw_polygon,
-    (FillPolygonFunc) fill_polygon,
+    PstricksRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    PstricksRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-    (DrawRectangleFunc) draw_rect,
-    (FillRectangleFunc) fill_rect,
+    PstricksRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    PstricksRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-    (DrawArcFunc) draw_arc,
-    (FillArcFunc) fill_arc,
+    PstricksRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    PstricksRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-    (DrawEllipseFunc) draw_ellipse,
-    (FillEllipseFunc) fill_ellipse,
+    PstricksRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    PstricksRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-    (DrawBezierFunc) draw_bezier,
-    (FillBezierFunc) fill_bezier,
+    PstricksRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    PstricksRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-    (DrawStringFunc) draw_string,
+    PstricksRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-    (DrawImageFunc) draw_image,
-};
+    PstricksRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
+
 
 static void 
 set_line_color(RendererPSTRICKS *renderer,Color *color)
@@ -189,8 +196,11 @@ new_pstricks_renderer(DiagramData *data, const char *filename,
 	return NULL;
     }
 
+    if (PstricksRenderOps == NULL)
+	init_pstricks_renderops();
+
     renderer = g_new(RendererPSTRICKS, 1);
-    renderer->renderer.ops = &PstricksRenderOps;
+    renderer->renderer.ops = PstricksRenderOps;
     renderer->renderer.is_interactive = 0;
     renderer->renderer.interactive_ops = NULL;
 

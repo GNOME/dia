@@ -93,48 +93,57 @@ static void draw_image(RendererGPrint *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps GPrintRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
+static RenderOps *GPrintRenderOps;
 
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
+static void
+init_gnomeprint_renderops()
+{
+  GPrintRenderOps = create_renderops_table();
+
+  GPrintRenderOps->begin_render = (BeginRenderFunc) begin_render;
+  GPrintRenderOps->end_render = (EndRenderFunc) end_render;
+
+  GPrintRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+  GPrintRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+  GPrintRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+  GPrintRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+  GPrintRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+  GPrintRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+  GPrintRenderOps->set_font = (SetFontFunc) set_font;
   
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
+  GPrintRenderOps->draw_line = (DrawLineFunc) draw_line;
+  GPrintRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
+  GPrintRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+  GPrintRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
+  GPrintRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+  GPrintRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
+  GPrintRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+  GPrintRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
+  GPrintRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+  GPrintRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
+  GPrintRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+  GPrintRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-  (DrawStringFunc) draw_string,
+  GPrintRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-  (DrawImageFunc) draw_image,
-};
+  GPrintRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 RendererGPrint *
 new_gnomeprint_renderer(Diagram *dia, GnomePrintContext *ctx)
 {
   RendererGPrint *renderer;
  
+  if (GPrintRenderOps == NULL)
+    init_gnomeprint_renderops();
+
   renderer = g_new(RendererGPrint, 1);
-  renderer->renderer.ops = &GPrintRenderOps;
+  renderer->renderer.ops = GPrintRenderOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 

@@ -16,6 +16,21 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* The eps_dump_truetype_body function and much inspiration for font dumping
+ * came from ttfps, which bears the following license notice:
+
+ Copyright (c) 1997 by Juliusz Chroboczek 
+
+ Copying
+ *******
+
+ This software is provided with no guarantee, not even of any kind.
+
+ Feel free to do whatever you wish with it as long as you don't ask me
+ to maintain it.
+
+*/
+
 /* The Document Structure Definitions used for the output is available at
  * http://www-cdf.fnal.gov/offline/PostScript/psstruct.ps
  * (Appendix G of the Red and White Book)
@@ -127,78 +142,86 @@ static void prolog_check_string(RendererEPS *renderer,
 				Point *pos, Alignment alignment,
 				Color *color);
 
-static RenderOps EpsRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
-
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
-  
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
-  
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
-
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
-
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
-
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
-
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
-
-  (DrawStringFunc) draw_string,
-
-  (DrawImageFunc) draw_image  
-};
+static void init_eps_renderer();
 
 static void null_func() {}
 
-static  RenderOps EpsPrologOps = {
-  (BeginRenderFunc) begin_prolog,
-  (EndRenderFunc) end_prolog,
+static RenderOps *EpsRenderOps;
+static RenderOps *EpsPrologOps;
 
-  (SetLineWidthFunc) null_func,
-  (SetLineCapsFunc) null_func,
-  (SetLineJoinFunc) null_func,
-  (SetLineStyleFunc) null_func,
-  (SetDashLengthFunc) null_func,
-  (SetFillStyleFunc) null_func,
-  (SetFontFunc) prolog_define_font,
+static void
+init_eps_renderer() {
+  EpsRenderOps = create_renderops_table();
+
+  EpsRenderOps->begin_render = (BeginRenderFunc) begin_render;
+  EpsRenderOps->end_render = (EndRenderFunc) end_render;
+
+  EpsRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+  EpsRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+  EpsRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+  EpsRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+  EpsRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+  EpsRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+  EpsRenderOps->set_font = (SetFontFunc) set_font;
   
-  (DrawLineFunc) null_func,
-  (DrawPolyLineFunc) null_func,
+  EpsRenderOps->draw_line = (DrawLineFunc) draw_line;
+  EpsRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-  (DrawPolygonFunc) null_func,
-  (FillPolygonFunc) null_func,
+  EpsRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+  EpsRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-  (DrawRectangleFunc) null_func,
-  (FillRectangleFunc) null_func,
+  EpsRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+  EpsRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-  (DrawArcFunc) null_func,
-  (FillArcFunc) null_func,
+  EpsRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+  EpsRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-  (DrawEllipseFunc) null_func,
-  (FillEllipseFunc) null_func,
+  EpsRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+  EpsRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-  (DrawBezierFunc) null_func,
-  (FillBezierFunc) null_func,
+  EpsRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+  EpsRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-  (DrawStringFunc) prolog_check_string,
+  EpsRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-  (DrawImageFunc) null_func
+  EpsRenderOps->draw_image = (DrawImageFunc) draw_image;
+
+
+  EpsPrologOps = create_renderops_table();
+
+  EpsPrologOps->begin_render = (BeginRenderFunc) begin_prolog;
+  EpsPrologOps->end_render = (EndRenderFunc) end_prolog;
+
+  EpsPrologOps->set_linewidth = (SetLineWidthFunc) null_func;
+  EpsPrologOps->set_linecaps = (SetLineCapsFunc) null_func;
+  EpsPrologOps->set_linejoin = (SetLineJoinFunc) null_func;
+  EpsPrologOps->set_linestyle = (SetLineStyleFunc) null_func;
+  EpsPrologOps->set_dashlength = (SetDashLengthFunc) null_func;
+  EpsPrologOps->set_fillstyle = (SetFillStyleFunc) null_func;
+  EpsPrologOps->set_font = (SetFontFunc) prolog_define_font;
+  
+  EpsPrologOps->draw_line = (DrawLineFunc) null_func;
+  EpsPrologOps->draw_polyline = (DrawPolyLineFunc) null_func;
+  
+  EpsPrologOps->draw_polygon = (DrawPolygonFunc) null_func;
+  EpsPrologOps->fill_polygon = (FillPolygonFunc) null_func;
+
+  EpsPrologOps->draw_rect = (DrawRectangleFunc) null_func;
+  EpsPrologOps->fill_rect = (FillRectangleFunc) null_func;
+
+  EpsPrologOps->draw_arc = (DrawArcFunc) null_func;
+  EpsPrologOps->fill_arc = (FillArcFunc) null_func;
+
+  EpsPrologOps->draw_ellipse = (DrawEllipseFunc) null_func;
+  EpsPrologOps->fill_ellipse = (FillEllipseFunc) null_func;
+
+  EpsPrologOps->draw_bezier = (DrawBezierFunc) null_func;
+  EpsPrologOps->fill_bezier = (FillBezierFunc) null_func;
+
+  EpsPrologOps->draw_string = (DrawStringFunc) prolog_check_string;
+
+  EpsPrologOps->draw_image = (DrawImageFunc) null_func;
 };
-
 
 
 #ifdef HAVE_UNICODE
@@ -686,7 +709,7 @@ eps_renderer_prolog_done(RendererEPS *renderer) {
 	  "%%%%EndProlog\n\n"
 	  "%%%%BeginSetup\n"
 	  "%%%%EndSetup\n");
-  renderer->renderer.ops = &EpsRenderOps;
+  renderer->renderer.ops = EpsRenderOps;
 }
 
 static void
@@ -726,11 +749,13 @@ create_eps_renderer(DiagramData *data, const char *filename,
     return NULL;
   }
 
+  if (EpsPrologOps == NULL)
+    init_eps_renderer();
+
   renderer = g_new(RendererEPS, 1);
-  renderer->renderer.ops = &EpsPrologOps;
+  renderer->renderer.ops = EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
-  inherit_renderer(&renderer->renderer);
 
   renderer->is_ps = 0;
   renderer->pagenum = 1;
@@ -798,8 +823,11 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   time_t time_now;
   char *name;
 
+  if (EpsPrologOps == NULL)
+    init_eps_renderer();
+
   renderer = g_new(RendererEPS, 1);
-  renderer->renderer.ops = &EpsPrologOps;
+  renderer->renderer.ops = EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 

@@ -931,8 +931,11 @@ export_data(DiagramData *data, const gchar *filename,
     return;
   }
 
+  if (MyRenderOps == NULL)
+    init_my_renderops();
+
   renderer = g_new0(MyRenderer, 1);
-  renderer->renderer.ops = &MyRenderOps;
+  renderer->renderer.ops = MyRenderOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 

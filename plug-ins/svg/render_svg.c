@@ -129,40 +129,47 @@ static void draw_image(RendererSVG *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps SvgRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
+static RenderOps *SvgRenderOps;
 
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
+static void
+init_svg_renderops() 
+{
+    SvgRenderOps = create_renderops_table();
+
+    SvgRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    SvgRenderOps->end_render = (EndRenderFunc) end_render;
+
+    SvgRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    SvgRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    SvgRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    SvgRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    SvgRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    SvgRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    SvgRenderOps->set_font = (SetFontFunc) set_font;
   
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
+    SvgRenderOps->draw_line = (DrawLineFunc) draw_line;
+    SvgRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
+    SvgRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    SvgRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
+    SvgRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    SvgRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
+    SvgRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    SvgRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
+    SvgRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    SvgRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
+    SvgRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    SvgRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-  (DrawStringFunc) draw_string,
+    SvgRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-  (DrawImageFunc) draw_image,
-};
+    SvgRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
+
 
 static RendererSVG *
 new_svg_renderer(DiagramData *data, const char *filename)
@@ -182,8 +189,11 @@ new_svg_renderer(DiagramData *data, const char *filename)
   }
   fclose(file);
 
+  if (SvgRenderOps == NULL)
+    init_svg_renderops();
+
   renderer = g_new(RendererSVG, 1);
-  renderer->renderer.ops = &SvgRenderOps;
+  renderer->renderer.ops = SvgRenderOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 

@@ -169,76 +169,72 @@ static void color_draw_image(Rendererfig *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps figRenderColorOps = {
-  (BeginRenderFunc) color_begin_render,
-  (EndRenderFunc) end_render,
-
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
+static RenderOps *figRenderColorOps;
+static RenderOps *figRenderOps;
+static void
+init_fig_renderops()
+{
+  figRenderColorOps = create_renderops_table();
+  /* Note that some ops aren't defined for the color prepass. */
+  figRenderColorOps->begin_render = (BeginRenderFunc) color_begin_render;
   
-  (DrawLineFunc) color_draw_line,
-  (DrawPolyLineFunc) color_draw_polyline,
+  figRenderColorOps->draw_line = (DrawLineFunc) color_draw_line;
+  figRenderColorOps->draw_polyline = (DrawPolyLineFunc) color_draw_polyline;
   
-  (DrawPolygonFunc) color_draw_polygon,
-  (FillPolygonFunc) color_fill_polygon,
+  figRenderColorOps->draw_polygon = (DrawPolygonFunc) color_draw_polygon;
+  figRenderColorOps->fill_polygon = (FillPolygonFunc) color_fill_polygon;
 
-  (DrawRectangleFunc) color_draw_rect,
-  (FillRectangleFunc) color_fill_rect,
+  figRenderColorOps->draw_rect = (DrawRectangleFunc) color_draw_rect;
+  figRenderColorOps->fill_rect = (FillRectangleFunc) color_fill_rect;
 
-  (DrawArcFunc) color_draw_arc,
-  (FillArcFunc) color_fill_arc,
+  figRenderColorOps->draw_arc = (DrawArcFunc) color_draw_arc;
+  figRenderColorOps->fill_arc = (FillArcFunc) color_fill_arc;
 
-  (DrawEllipseFunc) color_draw_ellipse,
-  (FillEllipseFunc) color_fill_ellipse,
+  figRenderColorOps->draw_ellipse = (DrawEllipseFunc) color_draw_ellipse;
+  figRenderColorOps->fill_ellipse = (FillEllipseFunc) color_fill_ellipse;
 
-  (DrawBezierFunc) color_draw_bezier,
-  (FillBezierFunc) color_fill_bezier,
+  figRenderColorOps->draw_bezier = (DrawBezierFunc) color_draw_bezier;
+  figRenderColorOps->fill_bezier = (FillBezierFunc) color_fill_bezier;
 
-  (DrawStringFunc) color_draw_string,
+  figRenderColorOps->draw_string = (DrawStringFunc) color_draw_string;
 
-  (DrawImageFunc) color_draw_image,
-};
+  figRenderColorOps->draw_image = (DrawImageFunc) color_draw_image;
 
-static RenderOps figRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
+  figRenderOps = create_renderops_table();
 
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
+  figRenderOps->begin_render = (BeginRenderFunc) begin_render;
+  figRenderOps->end_render = (EndRenderFunc) end_render;
+
+  figRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+  figRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+  figRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+  figRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+  figRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+  figRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+  figRenderOps->set_font = (SetFontFunc) set_font;
   
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
+  figRenderOps->draw_line = (DrawLineFunc) draw_line;
+  figRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
+  figRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+  figRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
+  figRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+  figRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
+  figRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+  figRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
+  figRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+  figRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
+  figRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+  figRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-  (DrawStringFunc) draw_string,
+  figRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-  (DrawImageFunc) draw_image,
-};
-
+  figRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 static void figWarn(Rendererfig *renderer, int warning) {
   if (renderer->warnings[warning]) {
@@ -744,6 +740,8 @@ export_fig(DiagramData *data, const gchar *filename,
     return;
   }
 
+if (figRenderColorOps == NULL)
+     init_fig_renderops();
   renderer = g_new(Rendererfig, 1);
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
@@ -760,7 +758,7 @@ export_fig(DiagramData *data, const gchar *filename,
   fprintf(file, "-2\n");
   fprintf(file, "1200 2\n");
 
-  renderer->renderer.ops = &figRenderColorOps;
+  renderer->renderer.ops = figRenderColorOps;
 
   (((Renderer *)renderer)->ops->begin_render)((Renderer *)renderer);
   
@@ -772,7 +770,7 @@ export_fig(DiagramData *data, const gchar *filename,
   
   (((Renderer *)renderer)->ops->end_render)((Renderer *)renderer);
 
-  renderer->renderer.ops = &figRenderOps;
+  renderer->renderer.ops = figRenderOps;
 
   (((Renderer *)renderer)->ops->begin_render)((Renderer *)renderer);
   

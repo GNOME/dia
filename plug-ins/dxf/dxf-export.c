@@ -175,40 +175,47 @@ static void draw_image(Rendererdxf *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps dxfRenderOps = {
-    (BeginRenderFunc) begin_render,
-    (EndRenderFunc) end_render,
+static RenderOps *dxfRenderOps;
 
-    (SetLineWidthFunc) set_linewidth,
-    (SetLineCapsFunc) set_linecaps,
-    (SetLineJoinFunc) set_linejoin,
-    (SetLineStyleFunc) set_linestyle,
-    (SetDashLengthFunc) set_dashlength,
-    (SetFillStyleFunc) set_fillstyle,
-    (SetFontFunc) set_font,
+static void
+init_dxf_renderops()
+{
+    dxfRenderOps = create_renderops_table();
+
+    dxfRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    dxfRenderOps->end_render = (EndRenderFunc) end_render;
+
+    dxfRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    dxfRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    dxfRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    dxfRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    dxfRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    dxfRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    dxfRenderOps->set_font = (SetFontFunc) set_font;
   
-    (DrawLineFunc) draw_line,
-    (DrawPolyLineFunc) draw_polyline,
+    dxfRenderOps->draw_line = (DrawLineFunc) draw_line;
+    dxfRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-    (DrawPolygonFunc) draw_polygon,
-    (FillPolygonFunc) fill_polygon,
+    dxfRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    dxfRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-    (DrawRectangleFunc) draw_rect,
-    (FillRectangleFunc) fill_rect,
+    dxfRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    dxfRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-    (DrawArcFunc) draw_arc,
-    (FillArcFunc) fill_arc,
+    dxfRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    dxfRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-    (DrawEllipseFunc) draw_ellipse,
-    (FillEllipseFunc) fill_ellipse,
+    dxfRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    dxfRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-    (DrawBezierFunc) draw_bezier,
-    (FillBezierFunc) fill_bezier,
+    dxfRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    dxfRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-    (DrawStringFunc) draw_string,
+    dxfRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-    (DrawImageFunc) draw_image,
-};
+    dxfRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
+
 
 static void
 init_attributes( Rendererdxf *renderer )
@@ -520,8 +527,11 @@ export_dxf(DiagramData *data, const gchar *filename,
 	  return;
     }
 
+    if (dxfRenderOps == NULL)
+	init_dxf_renderops();
+
     renderer = g_new(Rendererdxf, 1);
-    renderer->renderer.ops = &dxfRenderOps;
+    renderer->renderer.ops = dxfRenderOps;
     renderer->renderer.is_interactive = 0;
     renderer->renderer.interactive_ops = NULL;
 

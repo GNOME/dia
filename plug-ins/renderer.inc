@@ -75,40 +75,46 @@ static void draw_image(MyRenderer *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps MyRenderOps = {
-    (BeginRenderFunc) begin_render,
-    (EndRenderFunc) end_render,
+static RenderOps *MyRenderOps;
 
-    (SetLineWidthFunc) set_linewidth,
-    (SetLineCapsFunc) set_linecaps,
-    (SetLineJoinFunc) set_linejoin,
-    (SetLineStyleFunc) set_linestyle,
-    (SetDashLengthFunc) set_dashlength,
-    (SetFillStyleFunc) set_fillstyle,
-    (SetFontFunc) set_font,
+static void
+init_my_renderops() 
+{
+    MyRenderOps = create_renderops_table();
+
+    MyRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    MyRenderOps->end_render = (EndRenderFunc) end_render;
+
+    MyRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    MyRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    MyRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    MyRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    MyRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    MyRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    MyRenderOps->set_font = (SetFontFunc) set_font;
   
-    (DrawLineFunc) draw_line,
-    (DrawPolyLineFunc) draw_polyline,
+    MyRenderOps->draw_line = (DrawLineFunc) draw_line;
+    MyRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-    (DrawPolygonFunc) draw_polygon,
-    (FillPolygonFunc) fill_polygon,
+    MyRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    MyRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-    (DrawRectangleFunc) draw_rect,
-    (FillRectangleFunc) fill_rect,
+    MyRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    MyRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-    (DrawArcFunc) draw_arc,
-    (FillArcFunc) fill_arc,
+    MyRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    MyRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-    (DrawEllipseFunc) draw_ellipse,
-    (FillEllipseFunc) fill_ellipse,
+    MyRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    MyRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-    (DrawBezierFunc) draw_bezier,
-    (FillBezierFunc) fill_bezier,
+    MyRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    MyRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-    (DrawStringFunc) draw_string,
+    MyRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-    (DrawImageFunc) draw_image,
-};
+    MyRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 /* Draw an ellipse approximation consisting out of
  * four arcs. 

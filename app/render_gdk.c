@@ -107,40 +107,7 @@ static void fill_pixel_rect(RendererGdk *renderer,
 				 int width, int height,
 				 Color *color);
 
-static RenderOps GdkRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
-
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
-  
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
-  
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
-
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
-
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
-
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
-
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
-
-  (DrawStringFunc) draw_string,
-
-  (DrawImageFunc) draw_image,
-};
+static void init_gdk_renderops();
 
 static InteractiveRenderOps GdkInteractiveRenderOps = {
   (GetTextWidthFunc) get_text_width,
@@ -153,13 +120,56 @@ static InteractiveRenderOps GdkInteractiveRenderOps = {
   (FillPixelRectangleFunc) fill_pixel_rect,
 };
 
+static RenderOps *GdkRenderOps;
+
+static void
+init_gdk_renderops() {
+  GdkRenderOps = create_renderops_table();
+
+  GdkRenderOps->begin_render = (BeginRenderFunc) begin_render;
+  GdkRenderOps->end_render = (EndRenderFunc) end_render;
+
+  GdkRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+  GdkRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+  GdkRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+  GdkRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+  GdkRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+  GdkRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+  GdkRenderOps->set_font = (SetFontFunc) set_font;
+  
+  GdkRenderOps->draw_line = (DrawLineFunc) draw_line;
+  GdkRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
+  
+  GdkRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+  GdkRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
+
+  GdkRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+  GdkRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
+
+  GdkRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+  GdkRenderOps->fill_arc = (FillArcFunc) fill_arc;
+
+  GdkRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+  GdkRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
+
+  GdkRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+  GdkRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
+
+  GdkRenderOps->draw_string = (DrawStringFunc) draw_string;
+
+  GdkRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
+
 RendererGdk *
 new_gdk_renderer(DDisplay *ddisp)
 {
   RendererGdk *renderer;
 
+  if (GdkRenderOps == NULL)
+    init_gdk_renderops();
+
   renderer = g_new(RendererGdk, 1);
-  renderer->renderer.ops = &GdkRenderOps;
+  renderer->renderer.ops = GdkRenderOps;
   renderer->renderer.is_interactive = 1;
   renderer->renderer.interactive_ops = &GdkInteractiveRenderOps;
   renderer->ddisp = ddisp;

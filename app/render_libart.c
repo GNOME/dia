@@ -122,40 +122,7 @@ static void fill_pixel_rect(RendererLibart *renderer,
 				 int width, int height,
 				 Color *color);
 
-static RenderOps LibartRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
-
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
-  
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
-  
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
-
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
-
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
-
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
-
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
-
-  (DrawStringFunc) draw_string,
-
-  (DrawImageFunc) draw_image,
-};
+static void init_libart_renderer();
 
 static InteractiveRenderOps LibartInteractiveRenderOps = {
   (GetTextWidthFunc) get_text_width,
@@ -168,13 +135,57 @@ static InteractiveRenderOps LibartInteractiveRenderOps = {
   (FillPixelRectangleFunc) fill_pixel_rect,
 };
 
+static RenderOps *LibartRenderOps;
+
+/* Here we set the functions that we define for this renderer. */
+static void
+init_libart_renderer() {
+  LibartRenderOps = create_renderops_table();
+  
+  LibartRenderOps->begin_render = (BeginRenderFunc) begin_render;
+  LibartRenderOps->end_render = (EndRenderFunc) end_render;
+
+  LibartRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+  LibartRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+  LibartRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+  LibartRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+  LibartRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+  LibartRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+  LibartRenderOps->set_font = (SetFontFunc) set_font;
+  
+  LibartRenderOps->draw_line = (DrawLineFunc) draw_line;
+  LibartRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
+  
+  LibartRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+  LibartRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
+
+  LibartRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+  LibartRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
+
+  LibartRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+  LibartRenderOps->fill_arc = (FillArcFunc) fill_arc;
+
+  LibartRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+  LibartRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
+
+  LibartRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+  LibartRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
+
+  LibartRenderOps->draw_string = (DrawStringFunc) draw_string;
+
+  LibartRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
+
 RendererLibart *
 new_libart_renderer(DDisplay *ddisp, int interactive)
 {
   RendererLibart *renderer;
 
+  if (LibartRenderOps == NULL)
+    init_libart_renderer();
+
   renderer = g_new(RendererLibart, 1);
-  renderer->renderer.ops = &LibartRenderOps;
+  renderer->renderer.ops = LibartRenderOps;
   renderer->renderer.is_interactive = interactive;
   renderer->renderer.interactive_ops = &LibartInteractiveRenderOps;
   renderer->ddisp = ddisp;

@@ -66,6 +66,25 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
   point_add(&poly[2], &orth_delta);
 }
 
+void
+calculate_arrow_point(Point *to, Point *from, Point *move,
+		      real length, real width, real linewidth)
+{
+  real add_len;
+  real angle;
+
+
+  if (width < 0.0000001) return;
+  angle = atan(length/(width/2));
+  add_len = .5*linewidth/cos(angle);
+
+  *move = *to;
+  point_sub(move, from);
+  point_normalize(move);
+  
+  point_scale(move, add_len);
+}
+
 static void
 calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
 		real length, real width)

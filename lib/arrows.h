@@ -19,7 +19,6 @@
 #define ARROWS_H
 
 #include "geometry.h"
-#include "render.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
@@ -56,6 +55,9 @@ typedef struct {
   real length;
   real width;
 } Arrow;
+
+/* Can't include it earlier as it uses the Arrow def */
+#include "render.h"
 
 void arrow_draw(Renderer *renderer, ArrowType type,
 		Point *to, Point *from,

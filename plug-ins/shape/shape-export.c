@@ -140,40 +140,45 @@ static void add_rectangle_connection_points(RendererShape *renderer,
 static void add_ellipse_connection_points(RendererShape *renderer,
       Point *center, real width, real height);      
 
-static RenderOps ShapeRenderOps = {
-  (BeginRenderFunc) begin_render,
-  (EndRenderFunc) end_render,
+static RenderOps *ShapeRenderOps;
 
-  (SetLineWidthFunc) set_linewidth,
-  (SetLineCapsFunc) set_linecaps,
-  (SetLineJoinFunc) set_linejoin,
-  (SetLineStyleFunc) set_linestyle,
-  (SetDashLengthFunc) set_dashlength,
-  (SetFillStyleFunc) set_fillstyle,
-  (SetFontFunc) set_font,
+static void
+init_shape_renderops() {
+    ShapeRenderOps = create_renderops_table();
+
+    ShapeRenderOps->begin_render = (BeginRenderFunc) begin_render;
+    ShapeRenderOps->end_render = (EndRenderFunc) end_render;
+
+    ShapeRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
+    ShapeRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
+    ShapeRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
+    ShapeRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
+    ShapeRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
+    ShapeRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
+    ShapeRenderOps->set_font = (SetFontFunc) set_font;
   
-  (DrawLineFunc) draw_line,
-  (DrawPolyLineFunc) draw_polyline,
+    ShapeRenderOps->draw_line = (DrawLineFunc) draw_line;
+    ShapeRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
   
-  (DrawPolygonFunc) draw_polygon,
-  (FillPolygonFunc) fill_polygon,
+    ShapeRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
+    ShapeRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
 
-  (DrawRectangleFunc) draw_rect,
-  (FillRectangleFunc) fill_rect,
+    ShapeRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
+    ShapeRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
 
-  (DrawArcFunc) draw_arc,
-  (FillArcFunc) fill_arc,
+    ShapeRenderOps->draw_arc = (DrawArcFunc) draw_arc;
+    ShapeRenderOps->fill_arc = (FillArcFunc) fill_arc;
 
-  (DrawEllipseFunc) draw_ellipse,
-  (FillEllipseFunc) fill_ellipse,
+    ShapeRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
+    ShapeRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
 
-  (DrawBezierFunc) draw_bezier,
-  (FillBezierFunc) fill_bezier,
+    ShapeRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
+    ShapeRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
 
-  (DrawStringFunc) draw_string,
+    ShapeRenderOps->draw_string = (DrawStringFunc) draw_string;
 
-  (DrawImageFunc) draw_image,
-};
+    ShapeRenderOps->draw_image = (DrawImageFunc) draw_image;
+}
 
 static RendererShape *
 new_shape_renderer(DiagramData *data, const char *filename)
@@ -195,8 +200,11 @@ new_shape_renderer(DiagramData *data, const char *filename)
   }
   fclose(file);
 
+  if (ShapeRenderOps == NULL)
+      init_shape_renderops();
+
   renderer = g_new(RendererShape, 1);
-  renderer->renderer.ops = &ShapeRenderOps;
+  renderer->renderer.ops = ShapeRenderOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 

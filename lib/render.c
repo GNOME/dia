@@ -86,9 +86,21 @@ static void draw_image(Renderer *renderer,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
+static void draw_rounded_rect(Renderer *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *color, real rounding);
+static void fill_rounded_rect(Renderer *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *color, real rounding);
+static void draw_bezier_with_arrows(Renderer *renderer, 
+				    BezPoint *points,
+				    int num_points,
+				    real line_width,
+				    Color *color,
+				    Arrow *start_arrow,
+				    Arrow *end_arrow);
 
-
-RenderOps AbstractRenderOps = {
+static RenderOps AbstractRenderOps = {
   begin_render,
   end_render,
   
@@ -131,77 +143,20 @@ RenderOps AbstractRenderOps = {
   draw_string,
 
   /* Images: */
-  draw_image
+  draw_image,
+
+  /* Later additions, down here for binary combatability */
+  draw_rounded_rect,
+  fill_rounded_rect,
+
+  draw_bezier_with_arrows,
 };
 
-void
-inherit_renderer(RenderOps *child_ops) {
-  if (child_ops->begin_render != NULL)
-    child_ops->begin_render = AbstractRenderOps.begin_render;
-  if (child_ops->end_render != NULL)
-    child_ops->end_render = AbstractRenderOps.end_render;
-  
-  /* Line attributes: */
-  if (child_ops->set_linewidth != NULL)
-    child_ops->set_linewidth = AbstractRenderOps.set_linewidth;
-  if (child_ops->set_linecaps != NULL)
-    child_ops->set_linecaps = AbstractRenderOps.set_linecaps;
-  if (child_ops->set_linejoin != NULL)
-    child_ops->set_linejoin = AbstractRenderOps.set_linejoin;
-  if (child_ops->set_linestyle != NULL)
-    child_ops->set_linestyle = AbstractRenderOps.set_linestyle;
-  if (child_ops->set_dashlength != NULL)
-    child_ops->set_dashlength = AbstractRenderOps.set_dashlength;
-  /* Fill attributes: */
-  if (child_ops->set_fillstyle != NULL)
-    child_ops->set_fillstyle = AbstractRenderOps.set_fillstyle;
-  /* DiaFont stuff: */
-  if (child_ops->set_font != NULL)
-    child_ops->set_font = AbstractRenderOps.set_font;
-  
-  /* Lines: */
-  if (child_ops->draw_line != NULL)
-    child_ops->draw_line = AbstractRenderOps.draw_line;
-  if (child_ops->draw_polyline != NULL)
-    child_ops->draw_polyline = AbstractRenderOps.draw_polyline;
-
-  /* Polygons: */
-  if (child_ops->draw_polygon != NULL)
-    child_ops->draw_polygon = AbstractRenderOps.draw_polygon;
-  if (child_ops->fill_polygon != NULL)
-    child_ops->fill_polygon = AbstractRenderOps.fill_polygon;
-
-  /* Rectangles: */
-  if (child_ops->draw_rect != NULL)
-    child_ops->draw_rect = AbstractRenderOps.draw_rect;
-  if (child_ops->fill_rect != NULL)
-    child_ops->fill_rect = AbstractRenderOps.fill_rect;
-  
-  /* Arcs: */
-  if (child_ops->draw_arc != NULL)
-    child_ops->draw_arc = AbstractRenderOps.draw_arc;
-  if (child_ops->fill_arc != NULL)
-    child_ops->fill_arc = AbstractRenderOps.fill_arc;
-  
-  /* Ellipses: */
-  if (child_ops->draw_ellipse != NULL)
-    child_ops->draw_ellipse = AbstractRenderOps.draw_ellipse;
-  if (child_ops->fill_ellipse != NULL)
-    child_ops->fill_ellipse = AbstractRenderOps.fill_ellipse;
-
-  /* Bezier curves: */
-  if (child_ops->draw_bezier != NULL)
-    child_ops->draw_bezier = AbstractRenderOps.draw_bezier;
-  if (child_ops->fill_bezier != NULL)
-    child_ops->fill_bezier = AbstractRenderOps.fill_bezier;
-  
-  /* Text: */
-  if (child_ops->draw_string != NULL)
-    child_ops->draw_string = AbstractRenderOps.draw_string;
-
-  /* Images: */
-  if (child_ops->draw_image != NULL)
-    child_ops->draw_image = AbstractRenderOps.draw_image;
+RenderOps *
+create_renderops_table() {
+  RenderOps *table = g_new(RenderOps, 1);
+  *table = AbstractRenderOps;
+  return table;
 }
 
 static void begin_render(Renderer *renderer){}
@@ -216,18 +171,42 @@ static void set_font(Renderer *renderer, DiaFont *font, real height){}
 static void draw_line(Renderer *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color){}
+/* Interim draw_polyline.  Doesn't draw nice corners. */
 static void draw_polyline(Renderer *renderer, 
 			  Point *points, int num_points, 
-			  Color *line_color){}/* Call draw_line */
+			  Color *line_color) {
+  int i;
+  for (i = 0; i < num_points-1; i++) {
+    renderer->ops->draw_line(renderer, &points[i], &points[i+1], line_color);
+  }
+}
+/* Interim draw_polyline.  Doesn't draw nice corners. */
 static void draw_polygon(Renderer *renderer, 
 			 Point *points, int num_points, 
-			 Color *line_color){}/* Call draw_line */
+			 Color *line_color) {
+  int i;
+  for (i = 0; i < num_points-1; i++) {
+    renderer->ops->draw_line(renderer, &points[i], &points[i+1], line_color);
+  }
+  renderer->ops->draw_line(renderer, &points[i], &points[0], line_color);
+}
 static void fill_polygon(Renderer *renderer, 
 			 Point *points, int num_points, 
 			 Color *line_color){}
+/* Simple draw_rect.  Draws, but loses info about rectangularity. */
 static void draw_rect(Renderer *renderer, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *color){}/* Call draw_line */
+		      Color *color) {
+  Point ur_corner, ll_corner;
+  ur_corner.x = lr_corner->x;
+  ur_corner.y = ul_corner->y;
+  ur_corner.x = ul_corner->x;
+  ur_corner.y = lr_corner->y;
+  renderer->ops->draw_line(renderer, ul_corner, &ur_corner, color);
+  renderer->ops->draw_line(renderer, &ur_corner, lr_corner, color);
+  renderer->ops->draw_line(renderer, lr_corner, &ll_corner, color);
+  renderer->ops->draw_line(renderer, &ll_corner, &ul_corner, color);
+}
 static void fill_rect(Renderer *renderer, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color){}
@@ -265,3 +244,129 @@ static void draw_image(Renderer *renderer,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image){}
+static void draw_rounded_rect(Renderer *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *color, real radius) {
+  Point start, end, center;
+
+  radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
+  radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
+  start.x = center.x = ul_corner->x+radius;
+  end.x = lr_corner->x-radius;
+  start.y = end.y = ul_corner->y;
+  renderer->ops->draw_line(renderer, &start, &end, color);
+  start.y = end.y = lr_corner->y;
+  renderer->ops->draw_line(renderer, &start, &end, color);
+
+  center.y = ul_corner->y+radius;
+  renderer->ops->draw_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  90.0, 180.0, color);
+  center.x = end.x;
+  renderer->ops->draw_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  0.0, 90.0, color);
+
+  start.y = ul_corner->y+radius;
+  start.x = end.x = ul_corner->x;
+  end.y = center.y = lr_corner->y-radius;
+  renderer->ops->draw_line(renderer, &start, &end, color);
+  start.x = end.x = lr_corner->x;
+  renderer->ops->draw_line(renderer, &start, &end, color);
+
+  center.y = lr_corner->y-radius;
+  center.x = ul_corner->x+radius;
+  renderer->ops->draw_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  180.0, 270.0, color);
+  center.x = lr_corner->x-radius;
+  renderer->ops->draw_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  270.0, 360.0, color);
+}
+static void fill_rounded_rect(Renderer *renderer, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *color, real radius) {
+  Point start, end, center;
+
+  radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
+  radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
+  start.x = center.x = ul_corner->x+radius;
+  end.x = lr_corner->x-radius;
+  start.y = ul_corner->y;
+  end.y = lr_corner->y;
+  renderer->ops->fill_rect(renderer, &start, &end, color);
+
+  center.y = ul_corner->y+radius;
+  renderer->ops->fill_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  90.0, 180.0, color);
+  center.x = end.x;
+  renderer->ops->fill_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  0.0, 90.0, color);
+
+  start.x = ul_corner->x;
+  start.y = ul_corner->y+radius;
+  end.x = lr_corner->x;
+  end.y = center.y = lr_corner->y-radius;
+  renderer->ops->fill_rect(renderer, &start, &end, color);
+
+  center.y = lr_corner->y-radius;
+  center.x = ul_corner->x+radius;
+  renderer->ops->fill_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  180.0, 270.0, color);
+  center.x = lr_corner->x-radius;
+  renderer->ops->fill_arc(renderer, &center, 
+			  2.0*radius, 2.0*radius,
+			  270.0, 360.0, color);
+}
+
+static void
+draw_bezier_with_arrows(Renderer *renderer, 
+			BezPoint *points,
+			int num_points,
+			real line_width,
+			Color *color,
+			Arrow *start_arrow,
+			Arrow *end_arrow)
+{
+  Point startpoint, endpoint;
+
+  startpoint = points[0].p1;
+  endpoint = points[num_points-1].p3;
+
+  if (start_arrow->type != ARROW_NONE) {
+    Point move;
+    Point arrow_head;
+    calculate_arrow_point(&points[0].p1, &points[1].p1, &move,
+			  start_arrow->length, start_arrow->width,
+			  line_width);
+    point_sub(&points[0].p1, &move);
+    arrow_head = points[0].p1;
+    point_sub(&points[0].p1, &move);
+    arrow_draw(renderer, start_arrow->type,
+	       &arrow_head, &points[1].p1,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       &color_black, &color_white);
+    renderer->ops->draw_line(renderer, &arrow_head, &points[0].p1,
+			     &color_white);
+    if (0) {
+      Point line_start = points[0].p1;
+      points[0].p1 = arrow_head;
+      point_normalize(&move);
+      point_scale(&move, start_arrow->length);
+      point_sub(&points[0].p1, &move);
+      renderer->ops->draw_line(renderer, &line_start, &points[0].p1, color);
+    }
+  }
+  if (end_arrow->type != ARROW_NONE) {
+  }
+  renderer->ops->draw_bezier(renderer, points, num_points, color);
+
+  points[0].p1 = startpoint;
+  points[num_points-1].p3 = endpoint;
+  
+}

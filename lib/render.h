@@ -27,6 +27,7 @@ typedef struct _Renderer Renderer;
 #include "font.h"
 #include "dia_image.h"
 #include "charconv.h"
+#include "arrows.h"
 
 typedef enum {
   LINECAPS_BUTT,
@@ -122,6 +123,17 @@ typedef void (*DrawRectangleFunc) (Renderer *renderer,
 typedef void (*FillRectangleFunc) (Renderer *renderer,
 				   Point *ul_corner, Point *lr_corner,
 				   Color *color);
+
+/* Draw a rounded rectangle, given its upper-left and lower-right corners */
+typedef void (*DrawRoundedRectangleFunc) (Renderer *renderer,
+					  Point *ul_corner, Point *lr_corner,
+					  Color *color, real rounding);
+
+/* Same a DrawRoundedRectangleFunc, except the rectangle is filled using the
+   current fill style */
+typedef void (*FillRoundedRectangleFunc) (Renderer *renderer,
+					  Point *ul_corner, Point *lr_corner,
+					  Color *color, real rounding);
 
 /* Draw an arc, given its center, the bounding box (widget, height),
    the start angle and the end angle */
@@ -227,6 +239,15 @@ typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
 					int width, int height,
 					Color *color);
 
+typedef void (*DrawBezierWithArrowsFunc) (Renderer *renderer, 
+					  BezPoint *points,
+					  int num_points,
+					  real line_width,
+					  Color *color,
+					  Arrow *start_arrow,
+					  Arrow *end_arrow);
+
+
 struct _RenderOps {
   /* Control ops: */
   BeginRenderFunc   begin_render;
@@ -272,6 +293,11 @@ struct _RenderOps {
 
   /* Images: */
   DrawImageFunc     draw_image; /* Not really supported yet */
+
+  DrawRoundedRectangleFunc draw_rounded_rect;
+  FillRoundedRectangleFunc fill_rounded_rect;
+
+  DrawBezierWithArrowsFunc draw_bezier_with_arrows;
 };
 
 struct _InteractiveRenderOps {
@@ -293,5 +319,9 @@ struct _Renderer {
   int pixel_width; /* Only needed for interactive renderers.*/
   int pixel_height; /* Only needed for interactive renderers.*/
 };
+
+/* Use this function to initialize all empty ops slots */
+void inherit_renderer(Renderer *child_ops);
+RenderOps *create_renderops_table();
 
 #endif /* RENDER_H */
