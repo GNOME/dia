@@ -1,3 +1,9 @@
+2002-09-01  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* plug-ins/svg/render_svg.c: Applied (reversed...) patch from
+	Mike Sowka <msowka@rogers.com>. This fixes a problem with the
+	sweep flag in arcs.
+
 2002-08-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/class.c: Fixed showing of empty stereotypes and got

@@ -664,7 +664,16 @@ draw_arc(RendererSVG *renderer,
   real x2=center->x + rx*cos(angle2*M_PI/180);
   real y2=center->y - ry*sin(angle2*M_PI/180);
   int swp = sweep(x1,y1,x2,y2,center->x,center->y);
-  int l_arc = (angle2 - angle1) > 180;
+  int l_arc;
+
+  if (angle2 > angle1) {
+    l_arc = (angle2 - angle1) > 180;
+  } else {
+    l_arc = (360 - angle2 + angle1) > 180;
+  }
+  
+  if (l_arc)
+      swp = !swp;
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
@@ -694,7 +703,16 @@ fill_arc(RendererSVG *renderer,
   real x2=center->x + rx*cos(angle2*M_PI/180);
   real y2=center->y - ry*sin(angle2*M_PI/180);
   int swp = sweep(x1,y1,x2,y2,center->x,center->y);
-  int l_arc = (angle2 - angle1) > 180;
+  int l_arc;
+
+  if (angle2 > angle1) {
+    l_arc = (angle2 - angle1) > 180;
+  } else {
+    l_arc = (360 - angle2 + angle1) > 180;
+  }
+
+  if (l_arc)
+      swp = !swp;
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
