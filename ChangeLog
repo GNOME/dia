@@ -1,3 +1,9 @@
+2002-08-05  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): Now translates
+	key events according to locale.  No clue if this works for
+	advanced stuff.
+
 2002-08-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/text.c: Various UTF8 related fixes, in particular in
