@@ -1,3 +1,10 @@
+1999-11-12  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in:
+	* po/pt.po:
+	Added portugese translation from Pedro Morais
+	<pmmm@rnl.ist.utl.pt>
+
 1999-11-11  Alexander Larsson  <alla@lysator.liu.se>
 
         Changed all sheets to be specified in xml.
