@@ -75,6 +75,17 @@ if test "$GNOME" = "yes"; then
     fi
     AC_MSG_RESULT($using_oaf)
     AM_CONDITIONAL(USING_OAF, test x"$using_oaf" = xyes)
+
+    AC_MSG_CHECKING(if bonobo uses bonobox)
+    using_bonobox="no"
+    if ( gnome-config --libs bonobox ) > /dev/null 2>&1 ; then
+      using_bonobox="yes"
+      AC_DEFINE(USE_BONOBOX)
+      BONOBO_LIBS=`gnome-config bonobo bonobox $components --libs`
+    fi
+    AC_MSG_RESULT($using_bonobox)
+    AM_CONDITIONAL(USING_BONOBOX, test x"$using_bonobox" = xyes)
+    hcomponents="$hcomponents bonobox"
   fi
   GNOME_CFLAGS=`gnome-config $hcomponents $components --cflags`
   GNOME_LIBS=`gnome-config $components --libs`
