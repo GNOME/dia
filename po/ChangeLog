@@ -1,3 +1,7 @@
+2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* POTFILES.in: Added lib/arrows.c (now has arrow names).
+
 2003-02-03  Daniel Yacob  <locales@geez.org>
 
 	* am.po: Updated Amharic translation.
