@@ -1,5 +1,12 @@
 2004-05-05  Lars Clausen  <lars@raeder.dk>
 
+	* app/pagesetup.c (pagesetup_respond): Do not free ps twice.
+	Notify takes care.  Should maybe use that more.
+
+	* lib/diagramdata.[ch]: 
+	* app/filedlg.c (file_export_ok_callback): 
+	* app/diagram.c (diagram_finalize): DiagramData now a GObject.
+
 	* app/dia-props.c (diagram_properties_respond): 
 	* app/diagram.c (diagram_set_modified): 
 	* app/undo.c: 

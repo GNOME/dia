@@ -84,7 +84,8 @@ diagram_finalize(GObject *object)
 
   assert(dia->displays==NULL);
 
-  diagram_data_destroy(dia->data);
+  g_object_unref(dia->data);
+  dia->data = NULL;
   
   g_free(dia->filename);
 
@@ -112,6 +113,7 @@ diagram_class_init (DiagramClass *klass)
 Diagram *
 diagram_new() {
   Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
+  g_object_ref(dia);
   return dia;
 }
 

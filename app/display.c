@@ -961,6 +961,7 @@ ddisp_destroy(DDisplay *ddisp)
 
   ddisplay_im_context_preedit_reset(ddisp, active_focus());
 
+  /* This calls ddisplay_really_destroy */
   gtk_widget_destroy (ddisp->shell);
 }
 

@@ -47,7 +47,7 @@ static int
 file_dialog_hide (GtkWidget *filesel)
 {
   gtk_widget_hide (filesel);
-  g_object_unref(gtk_object_get_user_data(GTK_OBJECT(filesel)));
+  g_object_unref(gtk_object_get_user_data(GTK_OBJECT(filesel))); 
   gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
 
 #if 0
@@ -333,7 +333,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 				  dia->filename ? dia->filename
 				  : "." G_DIR_SEPARATOR_S);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
-  g_object_ref(dia);
+  g_object_ref(dia); 
   gtk_widget_show(savedlg);
 }
 
@@ -449,11 +449,12 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 					   ->menu_item));
   if (!ef)
     ef = filter_guess_export_filter(filename);
-  if (ef)
-      ef->export(dia->data, filename, dia->filename, ef->user_data);
-  else
-      message_error(_("Could not determine which export filter\n"
-		      "to use to save '%s'"), filename);
+  if (ef) {
+    g_object_ref(dia->data); 
+    ef->export(dia->data, filename, dia->filename, ef->user_data);
+  } else
+    message_error(_("Could not determine which export filter\n"
+		    "to use to save '%s'"), filename);
 
   file_dialog_hide(exportdlg);
 }
@@ -515,7 +516,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   }
  
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
-  g_object_ref(dia);
+  g_object_ref(dia); 
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;

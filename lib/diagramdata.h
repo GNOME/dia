@@ -38,6 +38,16 @@ struct _NewDiagramData {
   int compress_save;
 };
 
+GType diagram_data_get_type (void) G_GNUC_CONST;
+
+#define DIA_TYPE_DIAGRAM_DATA           (diagram_data_get_type ())
+#define DIA_DIAGRAM_DATA(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramData))
+#define DIA_DIAGRAM_DATA_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
+#define DIA_IS_DIAGRAM_DATA(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_DIAGRAM_DATA))
+#define DIA_DIAGRAM_DATA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
+
+
+
 struct _DiagramData {
   GObject parent_instance;
 
@@ -86,6 +96,10 @@ struct _DiagramData {
    *  Updated by text_register_focusable. */
   GList *text_edits;
 };
+
+typedef struct _DiagramDataClass {
+  GObjectClass parent_class;
+} DiagramDataClass;
 
 struct _Layer {
   char *name;

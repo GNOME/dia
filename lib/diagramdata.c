@@ -29,53 +29,43 @@
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
 
-DiagramData *
-new_diagram_data (NewDiagramData *prefs)
+static void diagram_data_class_init (DiagramDataClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+diagram_data_get_type (void)
 {
-	DiagramData *data;
-	Layer *first_layer;
-   
-	data = g_new (DiagramData, 1);
-   
-	data->extents.left = 0.0; 
-	data->extents.right = 10.0; 
-	data->extents.top = 0.0; 
-	data->extents.bottom = 10.0; 
- 
-	data->bg_color = prefs->bg_color;
-	data->pagebreak_color = prefs->pagebreak_color;
+  static GType object_type = 0;
 
-	get_paper_info (&data->paper, -1, prefs);
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (DiagramDataClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) diagram_data_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (DiagramData),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
 
-	data->grid.dynamic = TRUE;
-	data->grid.width_x = 1.0;
-	data->grid.width_y = 1.0;
-	data->grid.visible_x = 1;
-	data->grid.visible_y = 1;
-	data->grid.colour = prefs->grid_color;
-
-	data->guides.nhguides = 0;
-	data->guides.hguides = NULL;
-	data->guides.nvguides = 0;
-	data->guides.vguides = NULL;
-
-	first_layer = new_layer(g_strdup(_("Background")),data);
+      object_type = g_type_register_static (G_TYPE_OBJECT,
+                                            "DiagramData",
+                                            &object_info, 0);
+    }
   
-	data->layers = g_ptr_array_new ();
-	g_ptr_array_add (data->layers, first_layer);
-	data->active_layer = first_layer;
-
-	data->selected_count = 0;
-	data->selected = NULL;
-  
-	data->is_compressed = prefs->compress_save; // Overridden by doc
-
-	return data;
+  return object_type;
 }
 
-void
-diagram_data_destroy(DiagramData *data)
+static void
+diagram_data_finalize(GObject *object) 
 {
+  DiagramData *data = DIA_DIAGRAM_DATA(object);
+
   int i;
 
   g_free(data->paper.name);
@@ -89,7 +79,65 @@ diagram_data_destroy(DiagramData *data)
   g_list_free(data->selected);
   data->selected = NULL; /* for safety */
   data->selected_count = 0;
-  g_free(data);
+}
+
+static void
+diagram_data_class_init (DiagramDataClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = diagram_data_finalize;
+}
+
+DiagramData *
+new_diagram_data (NewDiagramData *prefs)
+{
+  DiagramData *data;
+  Layer *first_layer;
+   
+  data = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+   
+  data->extents.left = 0.0; 
+  data->extents.right = 10.0; 
+  data->extents.top = 0.0; 
+  data->extents.bottom = 10.0; 
+ 
+  data->bg_color = prefs->bg_color;
+  data->pagebreak_color = prefs->pagebreak_color;
+
+  get_paper_info (&data->paper, -1, prefs);
+
+  data->grid.dynamic = TRUE;
+  data->grid.width_x = 1.0;
+  data->grid.width_y = 1.0;
+  data->grid.visible_x = 1;
+  data->grid.visible_y = 1;
+  data->grid.colour = prefs->grid_color;
+
+  data->guides.nhguides = 0;
+  data->guides.hguides = NULL;
+  data->guides.nvguides = 0;
+  data->guides.vguides = NULL;
+
+  first_layer = new_layer(g_strdup(_("Background")),data);
+  
+  data->layers = g_ptr_array_new ();
+  g_ptr_array_add (data->layers, first_layer);
+  data->active_layer = first_layer;
+
+  data->selected_count = 0;
+  data->selected = NULL;
+  
+  data->is_compressed = prefs->compress_save; // Overridden by doc
+
+  return data;
+}
+
+void
+diagram_data_destroy(DiagramData *data) {
+  g_object_unref(data);
 }
 
 Layer *

@@ -57,7 +57,6 @@ pagesetup_respond(GtkWidget *widget,
 
   if (response_id != GTK_RESPONSE_APPLY) {
     g_object_unref(ps->dia);
-    g_free(ps);
     gtk_widget_destroy(ps->window);
   }
 
