@@ -1,0 +1,5917 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-07-01 15:16+0200\n"
+"PO-Revision-Date: 2002-08-06 10:39GMT+2\n"
+"Last-Translator: Harald Ersch <hersch@romatsa.ro>\n"
+"Language-Team: romanian <ro@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: app/app_procs.c:158
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "Eroare %s: numele fiºierelor de intrare ºi ieºire sunt identice: %s."
+
+#: app/app_procs.c:169
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "Eroare %s: Am nevoie de un fiºier de intrare corect %s.\n"
+
+#: app/app_procs.c:176
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr "Eroare %s: nu ºtiu cum sã export în %s.\n"
+
+#. if (!quiet)
+#: app/app_procs.c:182
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
+
+#. &export_file_name
+#: app/app_procs.c:236
+msgid "Export loaded file and exit"
+msgstr "Export fiºierul încãrcat, apoi ieºire"
+
+#: app/app_procs.c:236 app/diaconv.c:94
+msgid "OUTPUT"
+msgstr "OUTPUT"
+
+#. &export_file_format
+#: app/app_procs.c:238
+msgid "Export to file format and exit"
+msgstr "Export în format fiºier, apoi ieºire"
+
+#: app/app_procs.c:238 app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
+
+#: app/app_procs.c:240
+msgid "Don't show the splash screen"
+msgstr "Nu afiºa logo la pornire"
+
+#: app/app_procs.c:242 app/diaconv.c:95
+msgid "Show this help message"
+msgstr "Afiºeazã acest mesaj de ajutor"
+
+#: app/app_procs.c:271
+msgid "Can't connect to session manager!\n"
+msgstr "Nu pot contacta managerul de sesiuni!\n"
+
+#: app/app_procs.c:282 app/diaconv.c:119
+msgid "[OPTION...] [FILE...]"
+msgstr "[OPÞIUNI...] [FIªIERE...]"
+
+#: app/app_procs.c:286 app/diaconv.c:126
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Eroare în opþiunea %s: %s.\n"
+"Rulaþi '%s --help' pentru a obþine lista completã a opþiunilor liniei de comandã\n"
+
+#: app/app_procs.c:299
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr "Eroare %s:  puteþi specifica numai una dintre -f sau -o."
+
+#: app/app_procs.c:350 app/app_procs.c:352 app/diaconv.c:199 app/diaconv.c:201
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "Nu gãsesc obiectele standard în bibliotecile de obiecte, ies...\n"
+
+#. no standard buttons
+#: app/app_procs.c:473
+msgid ""
+"Modified diagrams exist.\n"
+"Are you sure you want to quit Dia\n"
+"without saving them?"
+msgstr ""
+"Existã diagrame modificate.\n"
+"Chiar doriþi sã ieºiþi din Dia\n"
+"fãrã sã le salvaþi?"
+
+#: app/app_procs.c:477
+msgid "Quit Dia"
+msgstr "Terminare Dia"
+
+#: app/app_procs.c:537 app/app_procs.c:544
+msgid "Could not create per-user Dia config directory"
+msgstr "Nu pot creea directorul de configurare per utilizator."
+
+#: app/app_procs.c:546
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+"Nu pot creea directorul de configurare per utilizator. Asiguraþi-vã cã "
+"variabila de mediu HOME indicã un director existent."
+
+#: app/app_procs.c:568 app/diaconv.c:249
+msgid "Objects and filters internal to dia"
+msgstr "Obiecte ºi filtre interne pentru Dia"
+
+#: app/color_area.c:301 lib/widgets.c:825
+msgid "Select color"
+msgstr "Selecteazã culoarea"
+
+#: app/commands.c:130
+#, c-format
+msgid "Untitled-%d"
+msgstr "Fãrã titlu-%d"
+
+#: app/commands.c:195
+msgid "No existing object to paste.\n"
+msgstr "Nu existã obiect de lipit.\n"
+
+#: app/commands.c:467 app/commands.c:495
+msgid "Could not find help directory"
+msgstr "Nu gãsesc directorul de help."
+
+#: app/commands.c:474
+#, c-format
+msgid ""
+"Could not open help directory:\n"
+"%s"
+msgstr ""
+"Nu gãsesc directorul de help:\n"
+"%s"
+
+#.
+#. * Translators should localize the following string
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
+#.
+#: app/commands.c:568
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Tradus de Harald Ersch <hersch@romatsa.ro> , 2002"
+
+#: app/commands.c:582 dia.desktop.in.h:2
+msgid "Dia"
+msgstr "Dia"
+
+#: app/commands.c:584
+msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+msgstr "Copyright (C) 1998-2002 The Free Software Foundation ºi autorii"
+
+#: app/commands.c:585
+msgid ""
+"Dia is a program for drawing structured diagrams.\n"
+"Please visit http://www.lysator.liu.se/~alla/dia for more information."
+msgstr ""
+"Dia este un program de desenare de diagrame structurate.\n"
+"Vizitaþi http://www.lysator.liu.se/~alla/dia pentru informaþii suplimentare."
+
+#: app/commands.c:624
+msgid "About Dia"
+msgstr "Despre Dia"
+
+#: app/commands.c:667
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "Dia v %s de Alexander Larsson"
+
+#. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
+#: app/commands.c:673
+msgid "Maintainers: Lars Clausen and Cyrille ChÃ©pÃ©lov"
+msgstr "Menþinut de: Lars Clausen and Cyrille Chépélov"
+
+#: app/commands.c:677
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
+msgstr "Vizitaþi http://www.lysator.liu.se/~alla/dia pentru informaþii suplimentare."
+
+#: app/commands.c:682
+msgid "Contributors:"
+msgstr "Au contribuit:"
+
+#: app/commands.c:794
+msgid ""
+"The anti aliased renderer is buggy, and may cause\n"
+"crashes.  We know there are bugs in it, so don't\n"
+"bother submitting another report if it crashes"
+msgstr ""
+"Renderizarea antialias funcþioneazã cu erori.\n"
+"Nu trimiteþi rapoarte de erori referitoare la \n"
+"acest subiect, se lucreazã oricum la el."
+
+#: app/defaults.c:43 app/defaults.c:140
+msgid "Object defaults"
+msgstr "Implicit pt. obiecte"
+
+#: app/defaults.c:62
+msgid "This object has no defaults."
+msgstr "Acest obiect nu are proprietãþi implicite."
+
+#: app/defaults.c:111
+msgid "Defaults: "
+msgstr "Valori implicite:"
+
+#. &export_file_format
+#: app/diaconv.c:92
+msgid "Export format to use"
+msgstr "Formatul de export folosit"
+
+#. &export_file_name
+#: app/diaconv.c:94
+msgid "Export file name to use"
+msgstr "Nume fiºier export folosit"
+
+#: app/diaconv.c:96
+msgid "Quiet operation"
+msgstr "Operare silenþioasã"
+
+#: app/diaconv.c:147
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Eroare: Nu am gãsit argumente.\n"
+"Rulaþi '%s --help' pentru a obþine lista completã a opþiunilor liniei de comandã.\n"
+
+#: app/diaconv.c:157
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr "Eroare %s:  puteþi specifica numai una dintre -t sau -o."
+
+#: app/diaconv.c:163
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Eroare %s: Trebuie sã specificaþi numai una dintre -t sau -o.\n"
+"Rulaþi '%s --help' pentru a obþine lista completã a opþiunilor liniei de comandã.\n"
+
+#: app/diaconv.c:172
+#, c-format
+msgid "%s error: no input file."
+msgstr "Eroare %s: nu existã fiºier de intrare."
+
+#: app/diaconv.c:225
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr "Eroare %s: Este aºteptat doar un singur fiºier de intrare."
+
+#: app/diaconv.c:238
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr "Eroare %s: biblioteca popt nu este disponibilã în acest sistem."
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Nu pot iniþializa Bonobo!"
+
+#: app/diagram_tree_menu.c:45
+msgid "/_Sort objects"
+msgstr "/_Sortare obiecte"
+
+#: app/diagram_tree_menu.c:46
+msgid "/Sort objects/by _name"
+msgstr "/Sortare obiecte/Dupã _nume"
+
+#: app/diagram_tree_menu.c:48
+msgid "/Sort objects/by _type"
+msgstr "/Sortare obiecte/Dupã _tip"
+
+#: app/diagram_tree_menu.c:50
+msgid "/Sort objects/as _inserted"
+msgstr "/Sortare obiecte/Dupã _inserþie"
+
+#: app/diagram_tree_menu.c:53
+msgid "/Sort objects/All by name"
+msgstr "/Sortare obiecte/Toate dupã nume"
+
+#: app/diagram_tree_menu.c:55
+msgid "/Sort objects/All by type"
+msgstr "/Sortare obiecte/Toate dupã tip"
+
+#: app/diagram_tree_menu.c:57
+msgid "/Sort objects/All as inserted"
+msgstr "/Sortare obiecte/Toate dupã inserþie"
+
+#: app/diagram_tree_menu.c:59
+msgid "/Sort objects/_Default"
+msgstr "/Sortare obiecte/Implicitã"
+
+#: app/diagram_tree_menu.c:60
+msgid "/Sort objects/Default/by _name"
+msgstr "/Sortare obiecte/Implicitã/Dupã _nume"
+
+#: app/diagram_tree_menu.c:62
+msgid "/Sort objects/Default/by _type"
+msgstr "/Sortare obiecte/Implicitã/Dupã _tip"
+
+#: app/diagram_tree_menu.c:64
+msgid "/Sort objects/Default/as _inserted"
+msgstr "/Sortare obiecte/Implicitã/Dupã _inserþie"
+
+#: app/diagram_tree_menu.c:66
+msgid "/Sort _diagrams"
+msgstr "/Sortare _diagrame"
+
+#: app/diagram_tree_menu.c:67
+msgid "/Sort _diagrams/by _name"
+msgstr "/Sortare _diagrame/Dupã _nume"
+
+#: app/diagram_tree_menu.c:69
+msgid "/Sort _diagrams/as _inserted"
+msgstr "/Sortare _diagrame/Dupã _inserþie"
+
+#: app/diagram_tree_menu.c:71
+msgid "/Sort diagrams/_Default"
+msgstr "/Sortare diagrame/Implicitã"
+
+#: app/diagram_tree_menu.c:72
+msgid "/Sort diagrams/Default/by _name"
+msgstr "/Sortare diagrame/Implicitã/Dupã _nume"
+
+#: app/diagram_tree_menu.c:74
+msgid "/Sort diagrams/Default/as _inserted"
+msgstr "/Sortare diagrame/Implicitã/Dupã _inserþie"
+
+#: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
+msgid "/_Locate"
+msgstr "/_Localizeazã"
+
+#: app/diagram_tree_menu.c:83
+msgid "/_Properties"
+msgstr "/_Proprietãþi"
+
+#: app/diagram_tree_menu.c:84
+msgid "/_Hide this type"
+msgstr "/Ascunde acest tip"
+
+#: app/diagram_tree_window.c:77
+msgid "Diagram tree"
+msgstr "Arbore Diagrame"
+
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr "OK"
+
+#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:436
+#: app/lineprops_area.c:636 app/linewidth_area.c:246
+#: app/paginate_psprint.c:268
+msgid "Cancel"
+msgstr "Renunþã"
+
+#. paper size
+#: app/diapagelayout.c:115
+msgid "Paper Size"
+msgstr "Mãrime hârtie"
+
+#. orientation
+#: app/diapagelayout.c:148
+msgid "Orientation"
+msgstr "Orientare"
+
+#. margins
+#: app/diapagelayout.c:186
+msgid "Margins"
+msgstr "Margini"
+
+#: app/diapagelayout.c:198
+msgid "Top:"
+msgstr "Sus:"
+
+#: app/diapagelayout.c:211
+msgid "Bottom:"
+msgstr "Jos:"
+
+#: app/diapagelayout.c:224
+msgid "Left:"
+msgstr "Stânga:"
+
+#: app/diapagelayout.c:237
+msgid "Right:"
+msgstr "Dreapta:"
+
+#. Scaling
+#: app/diapagelayout.c:251
+msgid "Scaling"
+msgstr "Scalare"
+
+#: app/diapagelayout.c:262
+msgid "Scale:"
+msgstr "Scara:"
+
+#: app/diapagelayout.c:274
+msgid "Fit to:"
+msgstr "Sã umple:"
+
+#: app/diapagelayout.c:286
+msgid "by"
+msgstr "pe"
+
+#: app/diapagelayout.c:681
+#, c-format
+msgid "%0.3gcm x %0.3gcm"
+msgstr "%0.3gcm x %0.3gcm"
+
+#: app/diapagelayout.c:785 app/pagesetup.c:60 app/pagesetup.c:68
+msgid "Page Setup"
+msgstr "Configurare paginã"
+
+#: app/dia-props.c:54
+msgid "Diagram Properties"
+msgstr "Proprietãþi diagramã"
+
+#: app/dia-props.c:87
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:91
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:96
+msgid "Spacing"
+msgstr "Spaþiere:"
+
+#: app/dia-props.c:116
+msgid "Visible spacing"
+msgstr "Spaþiere vizibilã:"
+
+#: app/dia-props.c:136
+msgid "Grid"
+msgstr "Grilã"
+
+#: app/dia-props.c:146
+msgid "Background Colour"
+msgstr "Culoare fundal:"
+
+#: app/dia-props.c:157 lib/diagramdata.c:59
+msgid "Background"
+msgstr "Fundal"
+
+#: app/disp_callbacks.c:75 app/properties.c:122
+msgid ""
+"This object doesn't support Undo/Redo.\n"
+"Undo information erased."
+msgstr ""
+"Acest obiect nu permite Anuleazã/Re-face.\n"
+"Informaþia despre Re-face a fost ºtearsã."
+
+#: app/disp_callbacks.c:196
+msgid "No object menu"
+msgstr "Nu existã meniu pt. obiect."
+
+#: app/display.c:88 app/display.c:89 app/interface.c:452
+msgid "Zoom"
+msgstr "Mãrire"
+
+#: app/display.c:109
+msgid "Diagram modified!"
+msgstr "Diagramã modificatã!"
+
+#: app/display.c:856
+msgid "<unnamed>"
+msgstr "<fãrã_nume>"
+
+#: app/display.c:858
+#, c-format
+msgid ""
+"The diagram '%s'\n"
+"has not been saved. Save changes now?"
+msgstr ""
+"Diagrama '%s' NU a fost salvatã.\n"
+"Doriþi sã salvez modificãrile?"
+
+#: app/display.c:869
+msgid "Close Diagram"
+msgstr "Închid diagrama?"
+
+#: app/display.c:874
+msgid "Discard Changes"
+msgstr "Renunþã la modificãri"
+
+#: app/export_png.c:115 app/load_save.c:625 app/render_eps.c:446
+#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:521
+#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
+#: plug-ins/pstricks/render_pstricks.c:196 plug-ins/python/pydia-render.c:671
+#: plug-ins/shape/shape-export.c:199 plug-ins/svg/render_svg.c:187
+#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:935
+#: plug-ins/xfig/xfig-export.c:742 plug-ins/xslt/xslt.c:84
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Nu pot deschide '%s' pentru scriere.\n"
+
+#: app/export_png.c:123
+msgid "Could not create PNG write structure"
+msgstr "Nu pot creea structura PNG pt. scriere."
+
+#: app/export_png.c:132
+msgid "Could not create PNG header info structure"
+msgstr "Nu pot creea structura antet informaþie PNG."
+
+#: app/export_png.c:140
+msgid "Error occurred while writing PNG"
+msgstr "Eroare la scrierea PNG."
+
+#. Create a dialog
+#: app/export_png.c:252
+msgid "PNG Export Options"
+msgstr "Opþiuni export PNG"
+
+#. Translators: Menu item Verb/Channel/Export
+#: app/export_png.c:253 objects/FS/function.c:661 objects/FS/function.c:663
+msgid "Export"
+msgstr "Exportã"
+
+#: app/export_png.c:258
+msgid "Image width:"
+msgstr "Lãþime imagine:"
+
+#: app/export_png.c:261
+msgid "Image height:"
+msgstr "Înãlþime imagine:"
+
+#: app/export_png.c:306
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: app/filedlg.c:102 app/filedlg.c:392
+msgid "By extension"
+msgstr "Dupã extensie"
+
+#: app/filedlg.c:161
+msgid "Open Diagram"
+msgstr "Deschide diagrama"
+
+#: app/filedlg.c:187
+msgid "Open Options"
+msgstr "Opþiuni deschidere"
+
+#: app/filedlg.c:195 app/filedlg.c:545
+msgid "Determine file type:"
+msgstr "Stabileºte tip fiºier:"
+
+#: app/filedlg.c:235 app/filedlg.c:439
+msgid "File already exists"
+msgstr "Fiºierul existã deja."
+
+#: app/filedlg.c:239 app/filedlg.c:442
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Fiºierul '%s' existã deja.\n"
+"Doriþi suprascrierea lui?"
+
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:604
+#: lib/prop_inttypes.c:151
+msgid "Yes"
+msgstr "Da"
+
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:604
+#: app/preferences.c:615 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+msgid "No"
+msgstr "Nu"
+
+#: app/filedlg.c:307
+msgid "Save Diagram"
+msgstr "Salveazã diagrama"
+
+#. Need better way to make it a reasonable size.  Isn't there some
+#. standard look for them (or is that just Gnome?)
+#: app/filedlg.c:315
+msgid "Compress diagram files"
+msgstr "Comprimã fiºierele diagramã"
+
+#: app/filedlg.c:322
+msgid ""
+"Compression reduces file size to less than 1/10th size and speeds up loading "
+"and saving.  Some text programs cannot manipulate compressed files."
+msgstr ""
+"Compresia reduce mãrimea fiºierelor la mai puþin de o zecime, ºi mãreºte viteza de încãrcare ºi salvare. "
+"Unele programe text nu pot manipula fiºierele comprimate."
+
+#: app/filedlg.c:499
+#, c-format
+msgid ""
+"Could not determine which export filter\n"
+"to use to save '%s'"
+msgstr ""
+"Nu am putut stabili ce filtru de export\n"
+"sã folosesc pt. a salva '%s'"
+
+#: app/filedlg.c:517
+msgid "Export Diagram"
+msgstr "Exportã diagrama"
+
+#: app/filedlg.c:537
+msgid "Export Options"
+msgstr "Opþiuni export"
+
+#: app/interface.c:43
+msgid "Modify object(s)"
+msgstr "Modificã obiect(e)"
+
+#: app/interface.c:44 app/menus.c:208
+msgid "Modify"
+msgstr "Modificã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Magnify
+#: app/interface.c:48 app/interface.c:49 app/menus.c:209
+#: objects/FS/function.c:951
+msgid "Magnify"
+msgstr "Mãreºte"
+
+#: app/interface.c:53
+msgid "Scroll around the diagram"
+msgstr "Derulare pe diagramã"
+
+#: app/interface.c:54 app/menus.c:210
+msgid "Scroll"
+msgstr "Deruleazã"
+
+#: app/interface.c:58
+msgid "Create Text"
+msgstr "Creeazã text"
+
+#. PROP_STD_TEXT_ALIGNMENT,
+#. PROP_STD_TEXT_FONT,
+#. PROP_STD_TEXT_HEIGHT,
+#. PROP_STD_TEXT_COLOUR,
+#: app/interface.c:59 app/menus.c:211 lib/properties.c:77 lib/properties.h:502
+#: lib/properties.h:505 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
+#: objects/UML/object.c:142 objects/UML/small_package.c:120
+#: objects/UML/state.c:143 objects/UML/usecase.c:130
+msgid "Text"
+msgstr "Text"
+
+#: app/interface.c:63
+msgid "Create Box"
+msgstr "Creeazã chenar"
+
+#: app/interface.c:64 app/menus.c:212
+msgid "Box"
+msgstr "Chenar"
+
+#: app/interface.c:68
+msgid "Create Ellipse"
+msgstr "Creeazã elipsã"
+
+#: app/interface.c:69 app/menus.c:213
+msgid "Ellipse"
+msgstr "Elipsã"
+
+#: app/interface.c:73
+msgid "Create Polygon"
+msgstr "Creeazã poligon"
+
+#: app/interface.c:74 app/menus.c:214
+msgid "Polygon"
+msgstr "Poligon"
+
+#: app/interface.c:78
+msgid "Create Beziergon"
+msgstr "Creeazã poligon Bezier"
+
+#: app/interface.c:79 app/menus.c:215
+msgid "Beziergon"
+msgstr "Poligon Bezier"
+
+#: app/interface.c:83
+msgid "Create Line"
+msgstr "Creeazã linie"
+
+#: app/interface.c:84 app/menus.c:216 objects/standard/line.c:188
+msgid "Line"
+msgstr "Linie"
+
+#: app/interface.c:88
+msgid "Create Arc"
+msgstr "Creeazã arc"
+
+#: app/interface.c:89 app/menus.c:217
+msgid "Arc"
+msgstr "Arc"
+
+#: app/interface.c:93
+msgid "Create Zigzagline"
+msgstr "Creeazã Zigzag"
+
+#: app/interface.c:94 app/menus.c:218
+msgid "Zigzagline"
+msgstr "Linie frântã cu unghiuri de 90 grade"
+
+#: app/interface.c:98
+msgid "Create Polyline"
+msgstr "Creeazã linie frântã"
+
+#: app/interface.c:99 app/menus.c:219
+msgid "Polyline"
+msgstr "Linie frântã"
+
+#: app/interface.c:103
+msgid "Create Bezierline"
+msgstr "Creeazã linie Bezier"
+
+#: app/interface.c:104 app/menus.c:220
+msgid "Bezierline"
+msgstr "Linie Bezier"
+
+#: app/interface.c:108
+msgid "Create Image"
+msgstr "Creeazã imagine"
+
+#: app/interface.c:109 app/menus.c:221
+msgid "Image"
+msgstr "Imagine"
+
+#: app/interface.c:499
+msgid "NULL tooldata in tool_select_update"
+msgstr "Date NULL în tool_select_update."
+
+#: app/interface.c:945
+msgid ""
+"Foreground & background colors.  The small black and white squares reset "
+"colors.  The small arrows swap colors.  Double click to change colors."
+msgstr ""
+"Culorile de fundal ºi de prim plan. Pãtrãþelele alb ºi negru reseteazã culorile. "
+"Sãgeþelele schimbã culorile. Dublu click pentru a schimba culorile."
+
+#: app/interface.c:1094
+msgid "Diagram Editor"
+msgstr "Editor de diagrame"
+
+#: app/layer_dialog.c:69
+msgid "New Layer"
+msgstr "Strat nou"
+
+#: app/layer_dialog.c:70
+msgid "Raise Layer"
+msgstr "Ridicã strat"
+
+#: app/layer_dialog.c:71
+msgid "Lower Layer"
+msgstr "Coboarã strat"
+
+#: app/layer_dialog.c:72
+msgid "Delete Layer"
+msgstr "ªterge strat"
+
+#: app/layer_dialog.c:206
+msgid "Layers"
+msgstr "Straturi"
+
+#: app/layer_dialog.c:219
+msgid "Diagrams:"
+msgstr "Diagrame:"
+
+#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:732
+msgid "Close"
+msgstr "Închide"
+
+#: app/layer_dialog.c:309
+msgid "New layer"
+msgstr "Strat nou"
+
+#: app/layer_dialog.c:512
+msgid "none"
+msgstr "nimic"
+
+#: app/layer_dialog.c:954
+msgid "Edit Layer Attributes"
+msgstr "Editeazã atribute strat"
+
+#: app/layer_dialog.c:970
+msgid "Layer name:"
+msgstr "Nume strat:"
+
+#. setup buttons
+#: app/layer_dialog.c:979 app/lineprops_area.c:427 app/lineprops_area.c:626
+#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:260
+#: app/preferences.c:714
+msgid "OK"
+msgstr "OK"
+
+#: app/lineprops_area.c:416
+msgid "Arrow Properties"
+msgstr "Proprietãþi sãgeþi"
+
+#: app/lineprops_area.c:473 app/lineprops_area.c:659
+msgid "Details..."
+msgstr "Detalii..."
+
+#: app/lineprops_area.c:615
+msgid "Line Style Properties"
+msgstr "Proprietãþi stil linie"
+
+#: app/linewidth_area.c:216 lib/properties.h:478
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+msgid "Line width"
+msgstr "Lãþime linie"
+
+#: app/linewidth_area.c:224
+msgid "Line width:"
+msgstr "Lãþime linie:"
+
+#: app/load_save.c:193
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+"Eroare la încãrcarea diagramei.\n"
+"Obiectul legat nu a fost gãsit în document."
+
+#: app/load_save.c:196
+msgid ""
+"Error loading diagram.\n"
+"connection point does not exist."
+msgstr ""
+"Eroare la încãrcarea diagramei.\n"
+"Nu existã punctul de conexiune."
+
+#: app/load_save.c:199
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+"Eroare la încãrcarea diagramei.\n"
+"Nu existã manipulatorul de conectare."
+
+#: app/load_save.c:248
+msgid "You must specify a file, not a directory.\n"
+msgstr "Specificaþi un fiºier, nu un director.\n"
+
+#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1044
+#: plug-ins/xfig/xfig-import.c:1168 plug-ins/xslt/xslt.c:75
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Nu pot deschide '%s' pentru citire.\n"
+
+#: app/load_save.c:264 app/load_save.c:269
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+"Eroare la încãrcarea diagramei %s.\n"
+"Tip fiºier necunoscut."
+
+#: app/load_save.c:276
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+"Eroare la încãrcarea diagramei %s.\n"
+"Nu e un fiºier Dia."
+
+#: app/load_save.c:462
+#, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"Eroare la încãrcarea diagramei: \n"
+"%s.\n"
+"Un fiºier Dia are cel puþin un strat."
+
+#: app/load_save.c:746
+#, c-format
+msgid "Failed to save file '%s'.\n"
+msgstr "Nu am putut salva fiºierul '%s'.\n"
+
+#: app/load_save.c:766 app/load_save.c:771
+msgid "Native Dia Diagram"
+msgstr "Diagramã Dia nativã"
+
+#: app/menus.c:50 app/menus.c:70
+msgid "_New diagram"
+msgstr "Diagramã _nouã"
+
+#: app/menus.c:50 app/menus.c:70
+msgid "Create new diagram"
+msgstr "Creeazã o diagramã nouã"
+
+#: app/menus.c:54
+msgid "_Diagram tree"
+msgstr "Arborescenþã _Diagrame"
+
+#: app/menus.c:54
+msgid "Show diagram tree"
+msgstr "Aratã arborescenþã diagramã"
+
+#: app/menus.c:56
+msgid "_Sheets and Objects..."
+msgstr "Foi ºi obiecte"
+
+#: app/menus.c:57
+msgid "Modify sheets and their objects"
+msgstr "Modificã foile ºi obiectele lor"
+
+#: app/menus.c:61
+msgid "P_lugins"
+msgstr "P_lug-in-uri"
+
+#: app/menus.c:77
+msgid "_Export..."
+msgstr "_Exportare..."
+
+#: app/menus.c:81
+msgid "Page Set_up..."
+msgstr "Config_urare paginã..."
+
+#: app/menus.c:83
+msgid "_Print Diagram..."
+msgstr "Im_primã diagrama"
+
+#: app/menus.c:98
+msgid "_Delete"
+msgstr "ªterge"
+
+#: app/menus.c:104
+msgid "Copy Text"
+msgstr "Copiazã text"
+
+#: app/menus.c:105
+msgid "Cut Text"
+msgstr "Decupeazã text"
+
+#: app/menus.c:106
+msgid "Paste _Text"
+msgstr "Lipeºte text"
+
+#: app/menus.c:129
+msgid "Zoom _In"
+msgstr "Mãr_ire"
+
+#: app/menus.c:129
+#, c-format
+msgid "Zoom in 50%"
+msgstr "Mãrire cu 50%"
+
+#: app/menus.c:130
+msgid "Zoom _Out"
+msgstr "Micº_orare"
+
+#: app/menus.c:130
+#, c-format
+msgid "Zoom out 50%"
+msgstr "Micºorare cu 50%"
+
+#: app/menus.c:131
+msgid "_Zoom"
+msgstr "Mãrire"
+
+#: app/menus.c:132
+msgid "Diagram Properties..."
+msgstr "Proprietãþi diagramã..."
+
+#: app/menus.c:134
+msgid "_AntiAliased"
+msgstr "_AntiAlias"
+
+#: app/menus.c:137
+msgid "_Visible Grid"
+msgstr "Grila _vizibilã"
+
+#: app/menus.c:139
+msgid "_Snap To Grid"
+msgstr "Aliniazã la grilã"
+
+#: app/menus.c:141
+msgid "Show _Rulers"
+msgstr "Aratã _rigle"
+
+#: app/menus.c:143
+msgid "Show _Connection Points"
+msgstr "Aratã punctele de _conectare"
+
+#: app/menus.c:146
+msgid "New _View"
+msgstr "_Vedere nouã"
+
+#: app/menus.c:147
+msgid "Show _All"
+msgstr "_Aratã tot"
+
+#: app/menus.c:152
+msgid "Replace"
+msgstr "Înlocuieºte"
+
+#: app/menus.c:154
+msgid "Union"
+msgstr "Uniune"
+
+#: app/menus.c:156
+msgid "Intersect"
+msgstr "Intersecþie"
+
+#. Translators: Menu item Verb/Channel/Export/Remove
+#: app/menus.c:158 app/sheets_dialog.c:779 objects/FS/function.c:671
+#: objects/FS/function.c:823 objects/FS/function.c:825
+msgid "Remove"
+msgstr "ªterge"
+
+#: app/menus.c:160 app/menus.c:168
+msgid "Invert"
+msgstr "Inverseazã"
+
+#: app/menus.c:166
+msgid "All"
+msgstr "Toate"
+
+#: app/menus.c:167 lib/widgets.c:967 objects/UML/association.c:1067
+msgid "None"
+msgstr "Nimic"
+
+#: app/menus.c:169
+msgid "Connected"
+msgstr "Conectate"
+
+#: app/menus.c:170
+msgid "Transitive"
+msgstr "Tranzitive"
+
+#: app/menus.c:171
+msgid "Same Type"
+msgstr "Acelaºi tip"
+
+#: app/menus.c:178 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:509
+msgid "Left"
+msgstr "Stânga"
+
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:467
+#: lib/widgets.c:515
+msgid "Center"
+msgstr "Centrat"
+
+#: app/menus.c:180 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:521
+msgid "Right"
+msgstr "Dreapta"
+
+#: app/menus.c:181 app/menus.c:190
+msgid "Equal Distance"
+msgstr "Echidistant"
+
+#: app/menus.c:182 app/menus.c:191
+msgid "Adjacent"
+msgstr "Adiacent"
+
+#: app/menus.c:187
+msgid "Top"
+msgstr "Sus"
+
+#: app/menus.c:189
+msgid "Bottom"
+msgstr "Jos"
+
+#: app/menus.c:196
+msgid "Send to _Back"
+msgstr "Co_boarã"
+
+#: app/menus.c:197
+msgid "Bring to _Front"
+msgstr "Ridicã"
+
+#: app/menus.c:199
+msgid "_Group"
+msgstr "_Grupeazã"
+
+#: app/menus.c:200
+msgid "_Ungroup"
+msgstr "Degr_upeazã"
+
+#: app/menus.c:202
+msgid "Align _Horizontal"
+msgstr "Aliniere orizontalã"
+
+#: app/menus.c:203
+msgid "Align _Vertical"
+msgstr "Aliniere _verticalã"
+
+#: app/menus.c:226
+msgid "_Properties"
+msgstr "_Proprietãþi"
+
+#: app/menus.c:227
+msgid "_Layers"
+msgstr "Straturi"
+
+#: app/menus.c:248
+msgid "_Select"
+msgstr "_Selectare"
+
+#: app/menus.c:249
+msgid "_Objects"
+msgstr "_Obiecte"
+
+#: app/menus.c:250
+msgid "_Tools"
+msgstr "Unel_te"
+
+#: app/menus.c:251
+msgid "_Dialogs"
+msgstr "_Dialoguri"
+
+#: app/menus.c:262 app/menus.c:297
+msgid "/_File"
+msgstr "/_Fiºier"
+
+#: app/menus.c:264 app/menus.c:299
+msgid "/File/_New"
+msgstr "/Fiºier/_Nou"
+
+#: app/menus.c:266 app/menus.c:301
+msgid "/File/_Open"
+msgstr "/Fiºier/Deschide"
+
+#. recent file list is dynamically inserted here
+#: app/menus.c:268 app/menus.c:273 app/menus.c:277 app/menus.c:279
+#: app/menus.c:308 app/menus.c:312
+msgid "/File/---"
+msgstr "/Fiºier/---"
+
+#: app/menus.c:269
+msgid "/File/_Diagram tree"
+msgstr "/Fiºier/Arborescenþã _Diagrame"
+
+#: app/menus.c:271
+msgid "/File/Sheets and Objects..."
+msgstr "/Fiºier/Foi ºi obiecte..."
+
+#: app/menus.c:274
+msgid "/File/_Preferences..."
+msgstr "/Fiºier/_Preferinþe..."
+
+#: app/menus.c:276
+msgid "/File/P_lugins"
+msgstr "/Fiºier/Plug-in-uri"
+
+#: app/menus.c:280 app/menus.c:316
+msgid "/File/_Quit"
+msgstr "/Fiºier/_Ieºire"
+
+#: app/menus.c:282
+msgid "/_Help"
+msgstr "/_Ajutor"
+
+#: app/menus.c:284
+msgid "/Help/_Manual"
+msgstr "/Ajutor/_Manual"
+
+#: app/menus.c:286
+msgid "/Help/---"
+msgstr "/Ajutor/---"
+
+#: app/menus.c:287
+msgid "/Help/_About"
+msgstr "/Ajutor/_Despre"
+
+#: app/menus.c:303
+msgid "/File/_Save"
+msgstr "/Fiºier/_Salveazã"
+
+#: app/menus.c:305
+msgid "/File/Save _As..."
+msgstr "/Fiºier/S_alveazã ca..."
+
+#: app/menus.c:307
+msgid "/File/_Export..."
+msgstr "/Fiºier/_Exportã..."
+
+#: app/menus.c:309
+msgid "/File/Page Set_up..."
+msgstr "/Fiºier/Config_urare paginã..."
+
+#: app/menus.c:310
+msgid "/File/_Print Diagram..."
+msgstr "/Fiºier/Im_primã diagrama..."
+
+#: app/menus.c:313
+msgid "/File/_Close"
+msgstr "/Fiºier/În_chide"
+
+#: app/menus.c:318
+msgid "/_Edit"
+msgstr "/_Editare"
+
+#: app/menus.c:320
+msgid "/Edit/_Copy"
+msgstr "/Editare/_Copiazã"
+
+#: app/menus.c:322
+msgid "/Edit/C_ut"
+msgstr "/Editare/Dec_upeazã"
+
+#: app/menus.c:324
+msgid "/Edit/_Paste"
+msgstr "/Editare/Li_peºte"
+
+#: app/menus.c:326
+msgid "/Edit/_Delete"
+msgstr "/Editare/ªterge"
+
+#: app/menus.c:328
+msgid "/Edit/_Undo"
+msgstr "/Editare/An_uleazã"
+
+#: app/menus.c:330
+msgid "/Edit/_Redo"
+msgstr "/Editare/_Re-face"
+
+#: app/menus.c:332
+msgid "/Edit/Copy Text"
+msgstr "/Editare/Copiazã text"
+
+#: app/menus.c:333
+msgid "/Edit/Cut Text"
+msgstr "/Editare/Decupeazã text"
+
+#: app/menus.c:334
+msgid "/Edit/Paste _Text"
+msgstr "/Editare/Lipeºte _text"
+
+#: app/menus.c:335
+msgid "/_View"
+msgstr "/_Vizualizare"
+
+#: app/menus.c:337
+msgid "/View/Zoom _In"
+msgstr "/Vizualizare/Mãr_ire"
+
+#: app/menus.c:339
+msgid "/View/Zoom _Out"
+msgstr "/Vizualizare/Micº_orare"
+
+#: app/menus.c:341
+msgid "/View/_Zoom"
+msgstr "/Vizualizare/_Mãrire"
+
+#: app/menus.c:343
+#, c-format
+msgid "/View/Zoom/400%"
+msgstr "/Vizualizare/Mãrire/400%"
+
+#: app/menus.c:344
+#, c-format
+msgid "/View/Zoom/283%"
+msgstr "/Vizualizare/Mãrire/283%"
+
+#: app/menus.c:345
+#, c-format
+msgid "/View/Zoom/200%"
+msgstr "/Vizualizare/Mãrire/200%"
+
+#: app/menus.c:346
+#, c-format
+msgid "/View/Zoom/141%"
+msgstr "/Vizualizare/Mãrire/141%"
+
+#: app/menus.c:347
+#, c-format
+msgid "/View/Zoom/100%"
+msgstr "/Vizualizare/Mãrire/100%"
+
+#: app/menus.c:349
+#, c-format
+msgid "/View/Zoom/85%"
+msgstr "/Vizualizare/Mãrire/85%"
+
+#: app/menus.c:350
+#, c-format
+msgid "/View/Zoom/70.7%"
+msgstr "/Vizualizare/Mãrire/70.7%"
+
+#: app/menus.c:351
+#, c-format
+msgid "/View/Zoom/50%"
+msgstr "/Vizualizare/Mãrire/50%"
+
+#: app/menus.c:352
+#, c-format
+msgid "/View/Zoom/35.4%"
+msgstr "/Vizualizare/Mãrire/35,4%"
+
+#: app/menus.c:353
+#, c-format
+msgid "/View/Zoom/25%"
+msgstr "/Vizualizare/Mãrire/25%"
+
+#: app/menus.c:354
+msgid "/View/Diagram Properties..."
+msgstr "/Vizualizare/Proprietãþi diagramã..."
+
+#: app/menus.c:356
+msgid "/View/_AntiAliased"
+msgstr "/Vizualizare/Cu _AntiAlias"
+
+#: app/menus.c:358
+msgid "/View/_Visible Grid"
+msgstr "/Vizualizare/Grila _vizibilã"
+
+#: app/menus.c:359
+msgid "/View/_Snap To Grid"
+msgstr "/Vizualizare/Aliniazã la grilã"
+
+#: app/menus.c:360
+msgid "/View/Show _Rulers"
+msgstr "/Vizualizare/Aratã _rigle"
+
+#: app/menus.c:361
+msgid "/View/Show _Connection Points"
+msgstr "/Vizualizare/Aratã punctele de _conectare"
+
+#: app/menus.c:362
+msgid "/View/---"
+msgstr "/Vizualizare/---"
+
+#: app/menus.c:363
+msgid "/View/New _View"
+msgstr "/Vizualizare/_Vedere nouã"
+
+#: app/menus.c:364
+msgid "/View/Show _All"
+msgstr "/Vizualizare/_Aratã tot"
+
+#: app/menus.c:365
+msgid "/_Select"
+msgstr "/_Selectare"
+
+#: app/menus.c:367
+msgid "/Select/All"
+msgstr "/Selectare/Toate"
+
+#: app/menus.c:368
+msgid "/Select/None"
+msgstr "/Selectare/Nimic"
+
+#: app/menus.c:369 app/menus.c:382
+msgid "/Select/Invert"
+msgstr "/Selectare/Inverseazã"
+
+#: app/menus.c:370
+msgid "/Select/Connected"
+msgstr "/Selectare/Conectate"
+
+#: app/menus.c:371
+msgid "/Select/Transitive"
+msgstr "/Selectare/Tranzitive"
+
+#: app/menus.c:372
+msgid "/Select/Same Type"
+msgstr "/Selectare/Acelaºi tip"
+
+#: app/menus.c:373
+msgid "/Select/---"
+msgstr "/Selectare/---"
+
+#: app/menus.c:374
+msgid "/Select/Replace"
+msgstr "/Selectare/Înlocuieºte"
+
+#: app/menus.c:376
+msgid "/Select/Union"
+msgstr "/Selectare/Uniune"
+
+#: app/menus.c:378
+msgid "/Select/Intersect"
+msgstr "/Selectare/Intersecþie"
+
+#: app/menus.c:380
+msgid "/Select/Remove"
+msgstr "/Selectare/ªterge"
+
+#: app/menus.c:384
+msgid "/_Objects"
+msgstr "/_Obiecte"
+
+#: app/menus.c:386
+msgid "/Objects/Send to _Back"
+msgstr "/Obiecte/Co_boarã"
+
+#: app/menus.c:387
+msgid "/Objects/Bring to _Front"
+msgstr "/Obiecte/Ridicã"
+
+#: app/menus.c:388 app/menus.c:391
+msgid "/Objects/---"
+msgstr "/Obiecte/---"
+
+#: app/menus.c:389
+msgid "/Objects/_Group"
+msgstr "/Obiecte/_Grupeazã"
+
+#: app/menus.c:390
+msgid "/Objects/_Ungroup"
+msgstr "/Obiecte/Degr_upeazã"
+
+#: app/menus.c:392
+msgid "/Objects/Align _Horizontal"
+msgstr "/Obiecte/Aliniazã orizontal"
+
+#: app/menus.c:394
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Obiecte/Aliniazã orizontal/Stânga"
+
+#: app/menus.c:395
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Obiecte/Aliniazã orizontal/Centru"
+
+#: app/menus.c:396
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Obiecte/Aliniazã orizontal/Dreapta"
+
+#: app/menus.c:397
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Obiecte/Aliniazã orizontal/Echidistant"
+
+#: app/menus.c:398
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Obiecte/Aliniazã orizontal/Adiacent"
+
+#: app/menus.c:399
+msgid "/Objects/Align _Vertical"
+msgstr "/Obiecte/Aliniazã _vertical"
+
+#: app/menus.c:401
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Obiecte/Aliniazã vertical/Sus"
+
+#: app/menus.c:402
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Obiecte/Aliniazã vertical/Centru"
+
+#: app/menus.c:403
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Obiecte/Aliniazã vertical/Jos"
+
+#: app/menus.c:404
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Obiecte/Aliniazã vertical/Echidistant"
+
+#: app/menus.c:405
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Obiecte/Aliniazã vertical/Adiacent"
+
+#: app/menus.c:407
+msgid "/_Tools"
+msgstr "/Unel_te"
+
+#: app/menus.c:409
+msgid "/Tools/Modify"
+msgstr "/Unelte/Modificare"
+
+#: app/menus.c:410
+msgid "/Tools/Magnify"
+msgstr "/Unelte/Mãrire"
+
+#: app/menus.c:411
+msgid "/Tools/Scroll"
+msgstr "/Unelte/Derulare"
+
+#: app/menus.c:412
+msgid "/Tools/Text"
+msgstr "/Unelte/Text"
+
+#: app/menus.c:413
+msgid "/Tools/Box"
+msgstr "/Unelte/Chenar"
+
+#: app/menus.c:414
+msgid "/Tools/Ellipse"
+msgstr "/Unelte/Elipsã"
+
+#: app/menus.c:415
+msgid "/Tools/Polygon"
+msgstr "/Unelte/Poligon"
+
+#: app/menus.c:416
+msgid "/Tools/Beziergon"
+msgstr "/Unelte/Poligon Bezier"
+
+#: app/menus.c:417
+msgid "/Tools/Line"
+msgstr "/Unelte/Linie"
+
+#: app/menus.c:418
+msgid "/Tools/Arc"
+msgstr "/Unelte/Arc"
+
+#: app/menus.c:419
+msgid "/Tools/Zigzagline"
+msgstr "/Unelte/Zigzag"
+
+#: app/menus.c:420
+msgid "/Tools/Polyline"
+msgstr "/Unelte/Poli-linie"
+
+#: app/menus.c:421
+msgid "/Tools/Bezierline"
+msgstr "/Unelte/Linie Bezier"
+
+#: app/menus.c:422
+msgid "/Tools/Image"
+msgstr "/Unelte/Imagine"
+
+#: app/menus.c:424
+msgid "/_Dialogs"
+msgstr "/_Dialoguri"
+
+#: app/menus.c:426
+msgid "/Dialogs/_Properties"
+msgstr "/Dialoguri/_Proprietãþi"
+
+#: app/menus.c:427
+msgid "/Dialogs/_Layers"
+msgstr "/Dialoguri/Straturi"
+
+#: app/menus.c:599
+msgid "NULL tooldata in tool_menu_select"
+msgstr "Date NULL în tool_menu_select."
+
+#: app/menus.c:766
+msgid "Diagram Menu"
+msgstr "Meniu diagramã"
+
+#: app/pagesetup.c:77 app/preferences.c:723
+msgid "Apply"
+msgstr "Aplicã"
+
+#: app/paginate_psprint.c:220
+msgid "Select Printer"
+msgstr "Selectare imprimantã"
+
+#: app/paginate_psprint.c:232
+msgid "Printer"
+msgstr "Imprimantã"
+
+#: app/paginate_psprint.c:245
+msgid "File"
+msgstr "Fiºier"
+
+#: app/paginate_psprint.c:334
+#, c-format
+msgid "Could not run command '%s'"
+msgstr "Nu pot executa comanda '%s'"
+
+#: app/paginate_psprint.c:337
+#, c-format
+msgid "Could not open '%s' for writing"
+msgstr "Nu pot deschide '%s' pentru scriere."
+
+#: app/paginate_psprint.c:361
+msgid "Error occured while printing"
+msgstr "Eroare la tipãrire."
+
+#: app/plugin-manager.c:200
+msgid "Plug-ins"
+msgstr "Plug-in-uri"
+
+#: app/plugin-manager.c:254
+msgid "Loaded"
+msgstr "Încãrcat:"
+
+#: app/plugin-manager.c:261 objects/UML/class.c:101
+#: objects/UML/large_package.c:120
+msgid "Name"
+msgstr "Nume:"
+
+#: app/plugin-manager.c:267
+msgid "Description"
+msgstr "Descriere:"
+
+#: app/plugin-manager.c:276
+msgid "Load at Startup"
+msgstr "Încãrcare la pornire"
+
+#: app/plugin-manager.c:283
+msgid "File Name"
+msgstr "Nume fiºier"
+
+#: app/preferences.c:125
+msgid "User Interface"
+msgstr "Interfaþã utilizator"
+
+#: app/preferences.c:126
+msgid "Diagram Defaults"
+msgstr "Valori implicite pt. diagramã:"
+
+#: app/preferences.c:127
+msgid "View Defaults"
+msgstr "Vizualizare implicitã"
+
+#: app/preferences.c:128
+msgid "Grid Lines"
+msgstr "Linii grilã"
+
+#: app/preferences.c:129
+msgid "Diagram Tree"
+msgstr "Arborescenþã Diagrame"
+
+#: app/preferences.c:143
+msgid "Reset tools after create:"
+msgstr "Reset unelte dupã creare:"
+
+#: app/preferences.c:144
+msgid "Compress saved files:"
+msgstr "Comprimã fiºierele salvate:"
+
+#: app/preferences.c:145
+msgid "Number of undo levels:"
+msgstr "Numãr niveluri Anuleazã:"
+
+#: app/preferences.c:146
+msgid ""
+"Reverse dragging selects\n"
+"intersecting objects:"
+msgstr ""
+"Tragerea inversã selecteazã\n"
+"obiectele intersectate:"
+
+#: app/preferences.c:147
+msgid "Recent documents list size:"
+msgstr "Mãrime listã documente recente:"
+
+#: app/preferences.c:150
+msgid "New diagram:"
+msgstr "Diagramã nouã:"
+
+#: app/preferences.c:151
+msgid "Paper type:"
+msgstr "Tip hârtie:"
+
+#: app/preferences.c:154
+msgid "New window:"
+msgstr "Pentru fereastra nouã:"
+
+#: app/preferences.c:155
+msgid "Width:"
+msgstr "Lãþime:"
+
+#: app/preferences.c:156
+msgid "Height:"
+msgstr "Înãlþime:"
+
+#: app/preferences.c:157
+msgid "Magnify:"
+msgstr "Mãrire:"
+
+#: app/preferences.c:158
+msgid "Use menu bar:"
+msgstr "Foloseºte bara meniu:"
+
+#: app/preferences.c:160
+msgid "Connection Points:"
+msgstr "Punctele de conectare:"
+
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:161 app/preferences.c:164 app/preferences.c:169
+msgid "Visible:"
+msgstr "Vizibile:"
+
+#: app/preferences.c:163
+msgid "Page breaks:"
+msgstr "Întrerupere pagini:"
+
+#: app/preferences.c:165 app/preferences.c:173
+msgid "Colour:"
+msgstr "Culoare:"
+
+#: app/preferences.c:166 app/preferences.c:174
+msgid "Solid lines:"
+msgstr "Linii pline:"
+
+#: app/preferences.c:170
+msgid "Snap to:"
+msgstr "Aliniere la grilã:"
+
+#: app/preferences.c:171
+msgid "X Size:"
+msgstr "Mãrime X:"
+
+#: app/preferences.c:172
+msgid "Y Size:"
+msgstr "Mãrime Y:"
+
+#: app/preferences.c:185
+msgid "Diagram tree window:"
+msgstr "Fereastra arbore diagrame:"
+
+#: app/preferences.c:187
+msgid "Show at startup:"
+msgstr "Aratã la pornire:"
+
+#: app/preferences.c:189
+msgid "Default width:"
+msgstr "Lãþime implicitã:"
+
+#: app/preferences.c:191
+msgid "Default height:"
+msgstr "Înãlþime implicitã:"
+
+#: app/preferences.c:193
+msgid "Remember last size:"
+msgstr "Memoreazã ultima mãrime:"
+
+#: app/preferences.c:195
+msgid "Save hidden object types:"
+msgstr "Salveazã tipuri obiecte ascunse:"
+
+#: app/preferences.c:318
+#, c-format
+msgid "Could not open `%s' for writing"
+msgstr "Nu pot deschide '%s' pentru scriere."
+
+#: app/preferences.c:682 app/preferences.c:691
+msgid "Preferences"
+msgstr "Opþiuni"
+
+#: app/properties.c:48
+msgid "Object properties"
+msgstr "Proprietãþi obiect"
+
+#: app/properties.c:69
+msgid "This object has no properties."
+msgstr "Acest obiect nu are proprietãþi."
+
+#: app/properties.c:166
+msgid "Properties: "
+msgstr "Proprietãþi: "
+
+#: app/properties.c:170
+msgid "Object properties:"
+msgstr "Proprietãþi obiect:"
+
+#. Use the Plugins menu item to get a pointer to the File menu,
+#. but any item on the File menu will do
+#: app/recent_files.c:137
+msgid "<Toolbox>/File/Plugins"
+msgstr "<Unelte>/Fiºier/Plug-in-uri"
+
+#: app/recent_files.c:258
+msgid "<Toolbox>/File/Quit"
+msgstr "<Unelte>/Fiºier/_Ieºire"
+
+#: app/recent_files.c:294
+msgid "Can't open history file for writing."
+msgstr "Nu pot deschide fiºierul istoric pentru scriere."
+
+#: app/render_eps.c:1454
+msgid "Encapsulated Postscript"
+msgstr "Encapsulated Postscript"
+
+#: app/render_libart.c:429
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: Mod de umplere nesusþinut!\n"
+
+#: app/render_libart.c:441
+#, c-format
+msgid "Can't find font '%s' in height %d\n"
+msgstr "Nu gãsesc fontul '%s' în mãrimea %d.\n"
+
+#: app/sheets.c:154 app/sheets_dialog_callbacks.c:311
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+"%s\n"
+"Foaie sistem"
+
+#: app/sheets.c:156 app/sheets_dialog_callbacks.c:314
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+"%s\n"
+"Foaie utilizator"
+
+#: app/sheets.c:260
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+"Nu pot prelua simbolul 'custom_type' din nici un modul.\n"
+"Editarea formelor va fi dezactivatã."
+
+#: app/sheets.c:362
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Widget-ul %s nu a fost gãsit."
+
+#: app/sheets.c:438
+msgid "SVG Shape"
+msgstr "Formã SVG"
+
+#: app/sheets.c:440
+msgid "Programmed Object"
+msgstr "Obiect programabil"
+
+#: app/sheets_dialog.c:81
+msgid "Sheets and Objects"
+msgstr "Foi ºi obiecte"
+
+#: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
+msgid "<- Copy"
+msgstr "<- Copiazã"
+
+#: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
+msgid "<- Copy All"
+msgstr "<- Copiazã tot"
+
+#: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
+msgid "<- Move"
+msgstr "<- Mutã"
+
+#: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
+msgid "<- Move All"
+msgstr "<- Mutã tot"
+
+#: app/sheets_dialog.c:230
+msgid "Edit"
+msgstr "Editeazã"
+
+#: app/sheets_dialog.c:232
+msgid "_Edit"
+msgstr "_Editeazã"
+
+#: app/sheets_dialog.c:263
+msgid "Revert"
+msgstr "Revenire"
+
+#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:798
+#: objects/UML/class_dialog.c:1720 objects/UML/class_dialog.c:1948
+#: objects/UML/class_dialog.c:2467
+msgid "New"
+msgstr "Nou"
+
+#: app/sheets_dialog.c:359 app/sheets_dialog.c:787
+msgid "Type"
+msgstr "Tip"
+
+#: app/sheets_dialog.c:374
+msgid "Browse..."
+msgstr "Rãsfoieºte..."
+
+#: app/sheets_dialog.c:383
+msgid "SVG Shape:"
+msgstr "Formã SVG:"
+
+#: app/sheets_dialog.c:410 app/sheets_dialog.c:473
+msgid "description:"
+msgstr "Descriere:"
+
+#: app/sheets_dialog.c:422
+msgid "Sheet name:"
+msgstr "Nume foaie:"
+
+#: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
+#: app/sheets_dialog_callbacks.c:1087
+msgid "Line Break"
+msgstr "Pauzã linie"
+
+#: app/sheets_dialog.c:565
+msgid "Edit Attributes"
+msgstr "Editeazã atribute"
+
+#: app/sheets_dialog.c:579
+msgid "Object"
+msgstr "Obiect"
+
+#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+msgid "Description:"
+msgstr "Descriere:"
+
+#: app/sheets_dialog.c:614 objects/FS/flow-ortho.c:188 objects/FS/flow.c:167
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1772
+#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2516
+msgid "Type:"
+msgstr "Tip:"
+
+#: app/sheets_dialog.c:652
+msgid "Sheet"
+msgstr "Foaie"
+
+#: app/sheets_dialog.c:668 objects/ER/attribute.c:151 objects/ER/entity.c:129
+#: objects/ER/relationship.c:138 objects/UML/association.c:1045
+#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1760
+#: objects/UML/class_dialog.c:1990 objects/UML/class_dialog.c:2504
+#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
+#: objects/UML/realizes.c:122
+msgid "Name:"
+msgstr "Nume:"
+
+#: app/sheets_dialog.c:802
+msgid "Object:"
+msgstr "Obiect:"
+
+#: app/sheets_dialog.c:829
+msgid "Sheet:"
+msgstr "Foaie:"
+
+#: app/sheets_dialog.c:913
+msgid "Select SVG Shape File"
+msgstr "Selectare fiºier formã SVG"
+
+#: app/sheets_dialog_callbacks.c:173
+msgid "Copy ->"
+msgstr "Copiazã ->"
+
+#: app/sheets_dialog_callbacks.c:175
+msgid "Copy All ->"
+msgstr "Copiazã tot ->"
+
+#: app/sheets_dialog_callbacks.c:177
+msgid "Move ->"
+msgstr "Mutã ->"
+
+#: app/sheets_dialog_callbacks.c:179
+msgid "Move All ->"
+msgstr "Mutã tot ->"
+
+#: app/sheets_dialog_callbacks.c:803
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr "Numele fiºierului trebuie sã se termine cu '%s': '%s'"
+
+#: app/sheets_dialog_callbacks.c:811
+#, c-format
+msgid "Error examining %s: %s"
+msgstr "Eroare examinare: %s: %s"
+
+#: app/sheets_dialog_callbacks.c:831
+#, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "Nu pot interpreta fiºierul formã: '%s'"
+
+#: app/sheets_dialog_callbacks.c:900
+msgid "Sheet must have a Name"
+msgstr "Foaia trebuie sã aibã un nume."
+
+#: app/sheets_dialog_callbacks.c:1588 app/sheets_dialog_callbacks.c:1594
+#, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "Nu pot deschide '%s':%s"
+
+#: app/sheets_dialog_callbacks.c:1645
+#, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "Nu pot deschide: '%s' pentru scriere."
+
+#: app/sheets_dialog_callbacks.c:1654
+msgid "a user"
+msgstr "un utilizator"
+
+#: app/sheets_dialog_callbacks.c:1667
+#, c-format
+msgid "File: %s"
+msgstr "Fiºier: %s"
+
+#: app/sheets_dialog_callbacks.c:1670
+#, c-format
+msgid "Date: %s"
+msgstr "Data: %s"
+
+#: app/sheets_dialog_callbacks.c:1674
+#, c-format
+msgid "For: %s"
+msgstr "Pentru: %s"
+
+#: app/sheets_dialog_callbacks.c:1691
+msgid "add shapes here"
+msgstr "Adaugã forme aici"
+
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "Se încarcã ..."
+
+#: app/splash.c:75
+#, c-format
+msgid "Dia v %s"
+msgstr "Dia v %s"
+
+#: dia.desktop.in.h:1
+msgid "A Diagram Editor"
+msgstr "Un editor de diagrame"
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "Eroare internã: tip colþ punct final Bezier incorect."
+
+#: lib/dia_xml.c:147
+#, c-format
+msgid ""
+"The file %s has no encoding specification;\n"
+"assuming it is encoded in %s"
+msgstr ""
+"Fiºierul %s nu are specificatã codarea;\n"
+"Presupun cã este codat în %s."
+
+#: lib/dia_xml.c:466
+msgid "Taking point value of non-point node."
+msgstr "Iau valoarea punctualã pentru un nod non-punctual."
+
+#: lib/dia_xml.c:478
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "Valoare punct x incorectã \"%s\" %f, renunþ la ea."
+
+#: lib/dia_xml.c:486
+msgid "Error parsing point."
+msgstr "Eroare parsare punct."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:494
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Valoare punct y incorectã \"%s\" %f, renunþ la ea."
+
+#: lib/dia_xml.c:850
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
+msgstr ""
+"Setul de caractere local este UTF-8. Datoritã incompatibilitãþilor cu libxml1 ºi a "
+"fiºierelor generate cu versiunile anterioare Dia, veþi avea probleme. "
+"Dacã vedeþi acest mesaj, raportaþi la  dia-list@gnome.org"
+
+#: lib/message.c:87
+msgid "There is one similar message."
+msgstr "Existã un mesaj similar."
+
+#: lib/message.c:92
+msgid "Show repeated messages"
+msgstr "Afiºeazã mesajele repetate"
+
+#: lib/message.c:105
+#, c-format
+msgid "There are %d similar messages."
+msgstr "Existã %d mesaje similare."
+
+#: lib/message.c:114 lib/message.c:193
+msgid "Error"
+msgstr "Eroare"
+
+#: lib/message.c:116 lib/message.c:181
+msgid "Warning"
+msgstr "Avertisment"
+
+#: lib/message.c:170
+msgid "Notice"
+msgstr "Notificare"
+
+#: lib/object_defaults.c:124
+#, c-format
+msgid ""
+"Error loading defaults '%s'.\n"
+"Not a Dia diagram file."
+msgstr ""
+"Eroare la încãrcarea implicitã '%s'.\n"
+"Nu e un fiºier diagramã Dia."
+
+#: lib/plug-ins.c:120
+msgid "???"
+msgstr "???"
+
+#: lib/plug-ins.c:228
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "Nu pot deduce calea corectã pentru '%s'"
+
+#: lib/plug-ins.c:233
+#, c-format
+msgid ""
+"Could not load plugin `%s'\n"
+"%s"
+msgstr ""
+"Nu pot încãrca plug-in-ul '%s'\n"
+"%s"
+
+#: lib/plug-ins.c:245
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "Nu gãsesc funcþia de iniþializare a plug-in-ului în '%s'"
+
+#: lib/plug-ins.c:247
+msgid "Missing symbol 'dia_plugin_init'"
+msgstr "Lipseºte simbolul 'dia_plugin_init'."
+
+#: lib/plug-ins.c:255
+msgid "dia_pluin_init() call failed"
+msgstr "Apel dia_plugin_init() eºuat."
+
+#: lib/plug-ins.c:274
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s Plug-in-ul nu a putut fi descãrcat."
+
+#: lib/plug-ins.c:357
+#, c-format
+msgid ""
+"Could not open `%s'\n"
+"`%s'"
+msgstr ""
+"Nu pot deschide `%s'\n"
+"`%s'"
+
+#: lib/properties.c:71 lib/properties.h:481
+msgid "Line colour"
+msgstr "Culoare linie"
+
+#: lib/properties.c:72 lib/properties.h:484
+msgid "Line style"
+msgstr "Stil linie"
+
+#: lib/properties.c:73 lib/properties.h:488
+msgid "Fill colour"
+msgstr "Culoare umplere"
+
+#: lib/properties.c:74 lib/properties.h:491 objects/custom/custom_object.c:317
+#: objects/flowchart/box.c:273 objects/flowchart/diamond.c:266
+#: objects/flowchart/ellipse.c:266 objects/flowchart/parallelogram.c:276
+#: objects/standard/beziergon.c:221 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
+msgid "Draw background"
+msgstr "Desen fundal"
+
+#: lib/properties.c:75 lib/properties.h:495
+msgid "Start arrow"
+msgstr "Început sãgeatã"
+
+#: lib/properties.c:76 lib/properties.h:498
+msgid "End arrow"
+msgstr "Sfârºit sãgeatã"
+
+#: lib/properties.c:78 lib/properties.h:508
+msgid "Text alignment"
+msgstr "Aliniere text"
+
+#: lib/properties.c:79 lib/properties.h:511 objects/GRAFCET/condition.c:132
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:142
+#: objects/UML/class_dialog.c:309 objects/chronogram/chronoline.c:183
+#: objects/chronogram/chronoref.c:164
+msgid "Font"
+msgstr "Font"
+
+#: lib/properties.c:80 lib/properties.h:514 objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+msgid "Font size"
+msgstr "Mãrime font"
+
+#: lib/properties.c:81 lib/properties.h:517 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+msgid "Text colour"
+msgstr "Culoare text"
+
+#: lib/widgets.c:203
+msgid "Other fonts..."
+msgstr "Alte fonturi..."
+
+#: lib/widgets.c:291
+#, c-format
+msgid "Couldn't find font family for %s\n"
+msgstr "Nu gãsesc familia fontului: %s\n"
+
+#. We hit the Other fonts... entry
+#: lib/widgets.c:337
+msgid "Select font"
+msgstr "Selectare font"
+
+#. Translators: Menu item Noun/Material/Solid
+#: lib/widgets.c:630 objects/FS/function.c:1039
+msgid "Solid"
+msgstr "Solid"
+
+#: lib/widgets.c:636
+msgid "Dashed"
+msgstr "Haºurat"
+
+#: lib/widgets.c:642
+msgid "Dash-Dot"
+msgstr "Linie-punct"
+
+#: lib/widgets.c:648
+msgid "Dash-Dot-Dot"
+msgstr "Linie-punct-punct"
+
+#: lib/widgets.c:654
+msgid "Dotted"
+msgstr "Puncte-Puncte"
+
+#. fs->sizebox = GTK_HBOX(box);
+#: lib/widgets.c:672
+msgid "Dash length: "
+msgstr "Lungime liniuþã:"
+
+#: lib/widgets.c:968
+msgid "Lines"
+msgstr "Linii"
+
+#: lib/widgets.c:969
+msgid "Hollow Triangle"
+msgstr "Triunghi gol"
+
+#: lib/widgets.c:970
+msgid "Filled Triangle"
+msgstr "Triunghi plin"
+
+#: lib/widgets.c:971
+msgid "Unfilled Triangle"
+msgstr "Triunghi transparent"
+
+#: lib/widgets.c:972
+msgid "Filled Diamond"
+msgstr "Diamant plin"
+
+#: lib/widgets.c:973
+msgid "Half Head"
+msgstr "Semi-vârf"
+
+#: lib/widgets.c:974
+msgid "Slashed Cross"
+msgstr "Cruce tãiatã"
+
+#: lib/widgets.c:975
+msgid "Filled Ellipse"
+msgstr "Elipsã plinã"
+
+#: lib/widgets.c:976
+msgid "Hollow Ellipse"
+msgstr "Elipsã goalã"
+
+#: lib/widgets.c:977
+msgid "Filled Dot"
+msgstr "Punct plin"
+
+#: lib/widgets.c:978
+msgid "Dimension Origin"
+msgstr "Origine dimensiune"
+
+#: lib/widgets.c:979
+msgid "Blanked Dot"
+msgstr "Punct golit"
+
+#: lib/widgets.c:980
+msgid "Double Hollow triangle"
+msgstr "Triunghi dublu gol"
+
+#: lib/widgets.c:981
+msgid "Double Filled triangle"
+msgstr "Triunghi dublu plin"
+
+#: lib/widgets.c:982
+msgid "Filled Box"
+msgstr "Dreptunghi plin"
+
+#: lib/widgets.c:983
+msgid "Blanked Box"
+msgstr "Dreptunghi gol"
+
+#: lib/widgets.c:984
+msgid "Slashed"
+msgstr "Tãiat"
+
+#: lib/widgets.c:985
+msgid "Integral Symbol"
+msgstr "Simbol integralã"
+
+#: lib/widgets.c:986
+msgid "Crow Foot"
+msgstr "Picior de cioarã"
+
+#: lib/widgets.c:987
+msgid "Cross"
+msgstr "Cruce"
+
+#: lib/widgets.c:1024
+msgid "Length: "
+msgstr "Lungime:"
+
+#: lib/widgets.c:1037
+msgid "Width: "
+msgstr "Lãþime:"
+
+#: lib/widgets.c:1164 objects/standard/image.c:536
+msgid "Select image file"
+msgstr "Selectare fiºier imagine"
+
+#: lib/widgets.c:1194
+msgid "Browse"
+msgstr "Rãsfoieºte"
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Obiecte diagramã Cronogramã"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Date"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "Nume datã:"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Evenimente:"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "Specificare eveniment:"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"@ timp    pune indicatorul la o valoare absolutã.\n"
+"( duratã  pune semnalul în starea \"sus\", apoi aºteptã 'duratã'.\n"
+") duratã  pune semnalul în starea \"jos\", apoi aºteptã 'duratã'.\n"
+"u duratã  pune semnalul în starea \"necunoscut\", apoi aºteptã 'duratã'.\n"
+"exemplu : @ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parametri"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Timp start:"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Timp stop:"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "Timp creºtere:"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "Timp cãdere:"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Date multi-bit"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Aspect"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Culoare data:"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "Lãþime linie datã:"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Culoare linie:"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Date timp"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr "Pas major timp:"
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr "Pas minor timp:"
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr "Lãþime linie pas minor:"
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr "Personalizat"
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr "Încãrcãtor de forme XML personalizate"
+
+#: objects/custom/custom_object.c:194 objects/custom/custom_object.c:213
+msgid "Flip horizontal"
+msgstr "Întoarce pe orizontalã"
+
+#: objects/custom/custom_object.c:196 objects/custom/custom_object.c:215
+msgid "Flip vertical"
+msgstr "Rãstoarnã pe verticalã"
+
+#: objects/custom/custom_object.c:326 objects/flowchart/box.c:295
+#: objects/flowchart/diamond.c:274 objects/flowchart/ellipse.c:274
+#: objects/flowchart/parallelogram.c:298
+msgid "Text padding:"
+msgstr "Umplere text:"
+
+#: objects/custom/custom_object.c:340
+msgid "Alignment:"
+msgstr "Aliniere:"
+
+#: objects/custom/custom_object.c:351 objects/flowchart/box.c:309
+#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
+#: objects/flowchart/parallelogram.c:312
+msgid "Font:"
+msgstr "Font:"
+
+#: objects/custom/custom_object.c:362 objects/flowchart/box.c:320
+#: objects/flowchart/diamond.c:299 objects/flowchart/ellipse.c:299
+#: objects/flowchart/parallelogram.c:323
+msgid "Font size:"
+msgstr "Mãrime font:"
+
+#: objects/custom/custom_object.c:1534
+msgid "Flip Horizontal"
+msgstr "Întoarce pe orizontalã"
+
+#: objects/custom/custom_object.c:1535
+msgid "Flip Vertical"
+msgstr "Rãstoarnã pe verticalã"
+
+#: objects/custom/custom_object.c:1572
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Nu pot deschide iconiþa %s pt. obiectul tip '%s'."
+
+#: objects/ER/attribute.c:153
+msgid "Key:"
+msgstr "Cheie:"
+
+#: objects/ER/attribute.c:155
+msgid "Weak key:"
+msgstr "Cheie slabã:"
+
+#: objects/ER/attribute.c:157
+msgid "Derived:"
+msgstr "Derivatã:"
+
+#: objects/ER/attribute.c:159
+msgid "Multivalue:"
+msgstr "Multivaloare:"
+
+#: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
+msgid "Attribute"
+msgstr "Atribut"
+
+#: objects/ER/entity.c:131
+msgid "Weak:"
+msgstr "Slabã:"
+
+#: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+msgid "Entity"
+msgstr "Entitate"
+
+#: objects/ER/er.c:44
+msgid "Entity/Relationship diagram objects"
+msgstr "Obiecte diagramã Entitate/Relaþie"
+
+#: objects/ER/participation.c:115
+msgid "Total:"
+msgstr "Total:"
+
+#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:814
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:682 objects/UML/dependency.c:341
+#: objects/UML/generalization.c:343 objects/UML/realizes.c:332
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Adaugã segment"
+
+#: objects/ER/participation.c:396 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:683 objects/UML/dependency.c:342
+#: objects/UML/generalization.c:344 objects/UML/realizes.c:333
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "ªterge segment"
+
+#: objects/ER/relationship.c:140
+msgid "Left Cardinality:"
+msgstr "Cardinalitate stânga:"
+
+#: objects/ER/relationship.c:142
+msgid "Right Cardinality:"
+msgstr "Cardinalitate dreapta:"
+
+#: objects/ER/relationship.c:144
+msgid "Rotate:"
+msgstr "Rotire:"
+
+#: objects/ER/relationship.c:146
+msgid "Identifying:"
+msgstr "Identificare:"
+
+#: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
+msgid "Relationship"
+msgstr "Relaþie:"
+
+#: objects/flowchart/box.c:169 objects/standard/box.c:153
+msgid "Corner radius"
+msgstr "Razã colþ:"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:171
+#: objects/flowchart/diamond.c:167 objects/flowchart/ellipse.c:167
+#: objects/flowchart/parallelogram.c:173
+msgid "Text padding"
+msgstr "Umplere text:"
+
+#: objects/flowchart/box.c:281 objects/standard/box.c:240
+msgid "Corner rounding:"
+msgstr "Rotunjire colþ:"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Obiecte organigramã"
+
+#: objects/flowchart/parallelogram.c:171
+msgid "Shear angle"
+msgstr "Unghi ascuþit"
+
+#: objects/flowchart/parallelogram.c:284
+msgid "Shear angle:"
+msgstr "Unghi ascuþit:"
+
+#.
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:745
+#: objects/FS/flow-ortho.c:811 objects/FS/flow-ortho.c:876
+#: objects/FS/flow.c:158 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1061
+msgid "Energy"
+msgstr "Energie"
+
+#. Translators: Menu item Noun/Material
+#: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:752
+#: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:883
+#: objects/FS/flow.c:159 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1037
+msgid "Material"
+msgstr "Material"
+
+#. Translators: Menu item Verb/Signal
+#: objects/FS/flow-ortho.c:181 objects/FS/flow-ortho.c:758
+#: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:889
+#: objects/FS/flow.c:160 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:999 objects/FS/function.c:1001
+#: objects/FS/function.c:1137 objects/FS/function.c:1139
+msgid "Signal"
+msgstr "Semnal"
+
+#: objects/FS/flow-ortho.c:725 objects/FS/flow.c:701
+msgid "Flow:"
+msgstr "Flux:"
+
+#: objects/FS/flow-ortho.c:740 objects/FS/flow.c:717
+msgid "Flow type:"
+msgstr "Tip flux:"
+
+#: objects/FS/flow-ortho.c:855
+msgid "Orthflow:"
+msgstr "Ortoflux:"
+
+#: objects/FS/flow-ortho.c:871
+msgid "Orthflow type:"
+msgstr "Tip ortoflux:"
+
+#: objects/FS/fs.c:43
+msgid "Function structure diagram objects"
+msgstr "Obiecte diagramã structurã-funcþie"
+
+#: objects/FS/function.c:139
+msgid "Wish function"
+msgstr "Funcþie Wish"
+
+#: objects/FS/function.c:141
+msgid "User function"
+msgstr "Funcþie utilizator:"
+
+#. Translators: Menu item Verb
+#: objects/FS/function.c:641
+msgid "Verb"
+msgstr "Verb"
+
+#. Translators: Menu item Verb/Channel
+#: objects/FS/function.c:643 objects/FS/function.c:645
+#: objects/FS/function.c:685
+msgid "Channel"
+msgstr "Canal"
+
+#. Translators: Menu item Verb/Channel/Import
+#: objects/FS/function.c:647 objects/FS/function.c:649
+msgid "Import"
+msgstr "Import"
+
+#. Translators: Menu item Verb/Channel/Import/Input
+#: objects/FS/function.c:651
+msgid "Input"
+msgstr "Intrare"
+
+#. Translators: Menu item Verb/Channel/Import/Receive
+#: objects/FS/function.c:653
+msgid "Receive"
+msgstr "Recepþioneazã"
+
+#. Translators: Menu item Verb/Channel/Import/Allow
+#: objects/FS/function.c:655 objects/FS/function.c:927
+msgid "Allow"
+msgstr "Permite"
+
+#. Translators: Menu item Verb/Channel/Import/Form Entrance
+#: objects/FS/function.c:657
+msgid "Form Entrance"
+msgstr "Intrare Formã"
+
+#. Translators: Menu item Verb/Channel/Import/Capture
+#: objects/FS/function.c:659 objects/FS/function.c:893
+msgid "Capture"
+msgstr "Captureazã"
+
+#. Translators: Menu item Verb/Channel/Export/Discharge
+#: objects/FS/function.c:665
+msgid "Discharge"
+msgstr "Descarcã"
+
+#. Translators: Menu item Verb/Channel/Export/Eject
+#: objects/FS/function.c:667
+msgid "Eject"
+msgstr "Ejecteazã"
+
+#. Translators: Menu item Verb/Channel/Export/Dispose
+#: objects/FS/function.c:669
+msgid "Dispose"
+msgstr "Dispune"
+
+#. Translators: Menu item Verb/Channel/Transfer
+#: objects/FS/function.c:673 objects/FS/function.c:675
+#: objects/FS/function.c:693
+msgid "Transfer"
+msgstr "Transferã"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport
+#: objects/FS/function.c:677 objects/FS/function.c:679
+msgid "Transport"
+msgstr "Transportã"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
+#: objects/FS/function.c:681
+msgid "Lift"
+msgstr "Ridicã"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Move
+#: objects/FS/function.c:683
+msgid "Move"
+msgstr "Mutã"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit
+#: objects/FS/function.c:687 objects/FS/function.c:689
+msgid "Transmit"
+msgstr "Transmite"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
+#: objects/FS/function.c:691
+msgid "Conduct"
+msgstr "Conduce"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
+#: objects/FS/function.c:695
+msgid "Convey"
+msgstr "Propagã"
+
+#. Translators: Menu item Verb/Channel/Guide
+#: objects/FS/function.c:697 objects/FS/function.c:699
+#: objects/FS/function.c:701
+msgid "Guide"
+msgstr "Ghideazã"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Direct
+#: objects/FS/function.c:703
+msgid "Direct"
+msgstr "Direcþioneazã"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
+#: objects/FS/function.c:705
+msgid "Straighten"
+msgstr "Întãreºte"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Steer
+#: objects/FS/function.c:707
+msgid "Steer"
+msgstr "Piloteazã"
+
+#. Translators: Menu item Verb/Channel/Guide/Translate
+#: objects/FS/function.c:709
+msgid "Translate"
+msgstr "Translateazã"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#: objects/FS/function.c:711 objects/FS/function.c:713
+msgid "Rotate"
+msgstr "Roteºte"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
+#: objects/FS/function.c:715
+msgid "Turn"
+msgstr "Întoarce"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
+#: objects/FS/function.c:717
+msgid "Spin"
+msgstr "Rãsuceºte"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF
+#: objects/FS/function.c:719 objects/FS/function.c:721
+msgid "Allow DOF"
+msgstr "Permite DOF"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
+#: objects/FS/function.c:723
+msgid "Constrain"
+msgstr "Constrânge"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
+#: objects/FS/function.c:725
+msgid "Unlock"
+msgstr "Deblocheazã"
+
+#. Translators: Menu item Verb/Support
+#: objects/FS/function.c:727 objects/FS/function.c:729
+msgid "Support"
+msgstr "Sprijinã"
+
+#. Translators: Menu item Verb/Support/Stop
+#: objects/FS/function.c:731 objects/FS/function.c:733
+#: sheets/SDL.sheet.in.h:19
+msgid "Stop"
+msgstr "Opreºte"
+
+#. Translators: Menu item Verb/Support/Stop/Insulate
+#: objects/FS/function.c:735
+msgid "Insulate"
+msgstr "Izoleazã"
+
+#. Translators: Menu item Verb/Support/Stop/Protect
+#: objects/FS/function.c:737
+msgid "Protect"
+msgstr "Protejeazã"
+
+#. Translators: Menu item Verb/Support/Stop/Prevent
+#: objects/FS/function.c:739 objects/FS/function.c:929
+msgid "Prevent"
+msgstr "Prevenire"
+
+#. Translators: Menu item Verb/Support/Stop/Shield
+#: objects/FS/function.c:741
+msgid "Shield"
+msgstr "Ecraneazã"
+
+#. Translators: Menu item Verb/Support/Stop/Inhibit
+#: objects/FS/function.c:743
+msgid "Inhibit"
+msgstr "Inhibã"
+
+#. Translators: Menu item Verb/Support/Stabilize
+#: objects/FS/function.c:745 objects/FS/function.c:747
+msgid "Stabilize"
+msgstr "Stabilizeazã"
+
+#. Translators: Menu item Verb/Support/Stabilize/Steady
+#: objects/FS/function.c:749
+msgid "Steady"
+msgstr "Consolideazã"
+
+#. Translators: Menu item Verb/Support/Secure
+#: objects/FS/function.c:751 objects/FS/function.c:753
+msgid "Secure"
+msgstr "Securizeazã"
+
+#. Translators: Menu item Verb/Support/Secure/Attach
+#: objects/FS/function.c:755 objects/FS/function.c:787
+msgid "Attach"
+msgstr "Ataºeazã"
+
+#. Translators: Menu item Verb/Support/Secure/Mount
+#: objects/FS/function.c:757
+msgid "Mount"
+msgstr "Monteazã"
+
+#. Translators: Menu item Verb/Support/Secure/Lock
+#: objects/FS/function.c:759
+msgid "Lock"
+msgstr "Blocheazã"
+
+#. Translators: Menu item Verb/Support/Secure/Fasten
+#: objects/FS/function.c:761
+msgid "Fasten"
+msgstr "Grãbeºte"
+
+#. Translators: Menu item Verb/Support/Secure/Hold
+#: objects/FS/function.c:763
+msgid "Hold"
+msgstr "Þine"
+
+#. Translators: Menu item Verb/Support/Position
+#: objects/FS/function.c:765 objects/FS/function.c:767
+msgid "Position"
+msgstr "Poziþioneazã"
+
+#. Translators: Menu item Verb/Support/Position/Orient
+#: objects/FS/function.c:769
+msgid "Orient"
+msgstr "Orienteazã"
+
+#. Translators: Menu item Verb/Support/Position/Align
+#: objects/FS/function.c:771
+msgid "Align"
+msgstr "Aliniazã"
+
+#. Translators: Menu item Verb/Support/Position/Locate
+#: objects/FS/function.c:773 objects/FS/function.c:1015
+msgid "Locate"
+msgstr "Localizeazã"
+
+#. Translators: Menu item Verb/Connect
+#: objects/FS/function.c:775 objects/FS/function.c:777
+msgid "Connect"
+msgstr "Conecteazã"
+
+#. Translators: Menu item Verb/Connect/Couple
+#: objects/FS/function.c:779 objects/FS/function.c:781
+msgid "Couple"
+msgstr "Cupleazã"
+
+#. Translators: Menu item Verb/Connect/Couple/Join
+#: objects/FS/function.c:783
+msgid "Join"
+msgstr "Uneºte"
+
+#. Translators: Menu item Verb/Connect/Couple/Assemble
+#: objects/FS/function.c:785
+msgid "Assemble"
+msgstr "Asambleazã"
+
+#. Translators: Menu item Verb/Connect/Mix
+#: objects/FS/function.c:789 objects/FS/function.c:791
+msgid "Mix"
+msgstr "Mixeazã"
+
+#. Translators: Menu item Verb/Connect/Mix/Combine
+#: objects/FS/function.c:793
+msgid "Combine"
+msgstr "Combinã"
+
+#. Translators: Menu item Verb/Connect/Mix/Blend
+#: objects/FS/function.c:795
+msgid "Blend"
+msgstr "Amestecã"
+
+#. Translators: Menu item Verb/Connect/Mix/Add
+#: objects/FS/function.c:797
+msgid "Add"
+msgstr "Adaugã"
+
+#. Translators: Menu item Verb/Connect/Mix/Pack
+#: objects/FS/function.c:799
+msgid "Pack"
+msgstr "Împacheteazã"
+
+#. Translators: Menu item Verb/Connect/Mix/Coalesce
+#: objects/FS/function.c:801
+msgid "Coalesce"
+msgstr "Fuzioneazã"
+
+#. Translators: Menu item Verb/Branch
+#: objects/FS/function.c:803 objects/FS/function.c:805
+msgid "Branch"
+msgstr "Ramificã"
+
+#. Translators: Menu item Verb/Branch/Separate
+#: objects/FS/function.c:807 objects/FS/function.c:809
+#: objects/FS/function.c:811
+msgid "Separate"
+msgstr "Separã"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Switch
+#: objects/FS/function.c:813
+msgid "Switch"
+msgstr "Comutã"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Divide
+#: objects/FS/function.c:815
+msgid "Divide"
+msgstr "Împarte"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Release
+#: objects/FS/function.c:817
+msgid "Release"
+msgstr "Lanseazã"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Detach
+#: objects/FS/function.c:819
+msgid "Detach"
+msgstr "Detaºeazã"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
+#: objects/FS/function.c:821
+msgid "Disconnect"
+msgstr "Deconecteazã"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Cut
+#: objects/FS/function.c:827
+msgid "Cut"
+msgstr "Taie"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Polish
+#: objects/FS/function.c:829
+msgid "Polish"
+msgstr "Lustruieºte"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Sand
+#: objects/FS/function.c:831
+msgid "Sand"
+msgstr "Sableazã"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Drill
+#: objects/FS/function.c:833
+msgid "Drill"
+msgstr "Gãureºte"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
+#: objects/FS/function.c:835
+msgid "Lathe"
+msgstr "Strunjeºte"
+
+#. Translators: Menu item Verb/Branch/Refine
+#: objects/FS/function.c:837 objects/FS/function.c:839
+msgid "Refine"
+msgstr "Rafineazã"
+
+#. Translators: Menu item Verb/Branch/Refine/Purify
+#: objects/FS/function.c:841
+msgid "Purify"
+msgstr "Purificã"
+
+#. Translators: Menu item Verb/Branch/Refine/Strain
+#: objects/FS/function.c:843
+msgid "Strain"
+msgstr "Filtreazã sub presiune"
+
+#. Translators: Menu item Verb/Branch/Refine/Filter
+#: objects/FS/function.c:845
+msgid "Filter"
+msgstr "Filtreazã"
+
+#. Translators: Menu item Verb/Branch/Refine/Percolate
+#: objects/FS/function.c:847
+msgid "Percolate"
+msgstr "Strecoarã"
+
+#. Translators: Menu item Verb/Branch/Refine/Clear
+#: objects/FS/function.c:849
+msgid "Clear"
+msgstr "ªterge"
+
+#. Translators: Menu item Verb/Branch/Distribute
+#: objects/FS/function.c:851 objects/FS/function.c:853
+msgid "Distribute"
+msgstr "Distribuie"
+
+#. Translators: Menu item Verb/Branch/Distribute/Diverge
+#: objects/FS/function.c:855
+msgid "Diverge"
+msgstr "Deviazã"
+
+#. Translators: Menu item Verb/Branch/Distribute/Scatter
+#: objects/FS/function.c:857
+msgid "Scatter"
+msgstr "Împrãºtie"
+
+#. Translators: Menu item Verb/Branch/Distribute/Disperse
+#: objects/FS/function.c:859
+msgid "Disperse"
+msgstr "Disperseazã"
+
+#. Translators: Menu item Verb/Branch/Distribute/Diffuse
+#: objects/FS/function.c:861 objects/FS/function.c:875
+msgid "Diffuse"
+msgstr "Difuzeazã"
+
+#. Translators: Menu item Verb/Branch/Distribute/Empty
+#: objects/FS/function.c:863
+msgid "Empty"
+msgstr "Goleºte"
+
+#. Translators: Menu item Verb/Branch/Dissipate
+#: objects/FS/function.c:865 objects/FS/function.c:867
+msgid "Dissipate"
+msgstr "Disipã"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Absorb
+#: objects/FS/function.c:869
+msgid "Absorb"
+msgstr "Absoarbe"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dampen
+#: objects/FS/function.c:871
+msgid "Dampen"
+msgstr "Umidificã"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dispel
+#: objects/FS/function.c:873
+msgid "Dispel"
+msgstr "Împrãºtie"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Resist
+#: objects/FS/function.c:877
+msgid "Resist"
+msgstr "Rezistã"
+
+#. Translators: Menu item Verb/Provision
+#: objects/FS/function.c:879 objects/FS/function.c:881
+msgid "Provision"
+msgstr "Procurã"
+
+#. Translators: Menu item Verb/Provision/Store
+#: objects/FS/function.c:883 objects/FS/function.c:885
+msgid "Store"
+msgstr "Înmagazineazã"
+
+#. Translators: Menu item Verb/Provision/Store/Contain
+#: objects/FS/function.c:887
+msgid "Contain"
+msgstr "Conþine"
+
+#. Translators: Menu item Verb/Provision/Store/Collect
+#: objects/FS/function.c:889
+msgid "Collect"
+msgstr "Colecteazã"
+
+#. Translators: Menu item Verb/Provision/Store/Reserve
+#: objects/FS/function.c:891
+msgid "Reserve"
+msgstr "Rezervã"
+
+#. Translators: Menu item Verb/Provision/Supply
+#: objects/FS/function.c:895 objects/FS/function.c:897
+msgid "Supply"
+msgstr "Furnizeazã"
+
+#. Translators: Menu item Verb/Provision/Supply/Fill
+#: objects/FS/function.c:899
+msgid "Fill"
+msgstr "Umple"
+
+#. Translators: Menu item Verb/Provision/Supply/Provide
+#: objects/FS/function.c:901
+msgid "Provide"
+msgstr "Aprovizioneazã"
+
+#. Translators: Menu item Verb/Provision/Supply/Replenish
+#: objects/FS/function.c:903
+msgid "Replenish"
+msgstr "Completeazã"
+
+#. Translators: Menu item Verb/Provision/Supply/Expose
+#: objects/FS/function.c:905
+msgid "Expose"
+msgstr "Expune"
+
+#. Translators: Menu item Verb/Provision/Extract
+#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
+msgid "Extract"
+msgstr "Extrage"
+
+#. Translators: Menu item Verb/Control Magnitude
+#: objects/FS/function.c:909 objects/FS/function.c:911
+msgid "Control Magnitude"
+msgstr "Control mãrime"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate
+#: objects/FS/function.c:913 objects/FS/function.c:915
+msgid "Actuate"
+msgstr "Acþioneazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Start
+#: objects/FS/function.c:917
+msgid "Start"
+msgstr "Porneºte"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
+#: objects/FS/function.c:919
+msgid "Initiate"
+msgstr "Iniþiazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate
+#: objects/FS/function.c:921 objects/FS/function.c:923
+msgid "Regulate"
+msgstr "Regleazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Control
+#: objects/FS/function.c:925 objects/FS/function.c:1143
+#: objects/UML/classicon.c:122
+msgid "Control"
+msgstr "Controleazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
+#: objects/FS/function.c:931
+msgid "Enable"
+msgstr "Activeazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
+#: objects/FS/function.c:933
+msgid "Disable"
+msgstr "Dezactiveazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
+#: objects/FS/function.c:935
+msgid "Limit"
+msgstr "Limiteazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
+#: objects/FS/function.c:937
+msgid "Interrupt"
+msgstr "Întrerupe"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#: objects/FS/function.c:939 objects/FS/function.c:941
+msgid "Change"
+msgstr "Schimbã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Increase
+#: objects/FS/function.c:943
+msgid "Increase"
+msgstr "Mãreºte"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Decrease
+#: objects/FS/function.c:945
+msgid "Decrease"
+msgstr "Micºoreazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Amplify
+#: objects/FS/function.c:947
+msgid "Amplify"
+msgstr "Amplificã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Reduce
+#: objects/FS/function.c:949
+msgid "Reduce"
+msgstr "Reduce"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Normalize
+#: objects/FS/function.c:953
+msgid "Normalize"
+msgstr "Normalizeazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Multiply
+#: objects/FS/function.c:955
+msgid "Multiply"
+msgstr "Înmulþeºte"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Scale
+#: objects/FS/function.c:957
+msgid "Scale"
+msgstr "Scaleazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Rectify
+#: objects/FS/function.c:959
+msgid "Rectify"
+msgstr "Rectificã"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Adjust
+#: objects/FS/function.c:961
+msgid "Adjust"
+msgstr "Ajusteazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Form
+#: objects/FS/function.c:963 objects/FS/function.c:965
+msgid "Form"
+msgstr "Formeazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compact
+#: objects/FS/function.c:967
+msgid "Compact"
+msgstr "Compacteazã"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Crush
+#: objects/FS/function.c:969
+msgid "Crush"
+msgstr "Zdrobeºte"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Shape
+#: objects/FS/function.c:971
+msgid "Shape"
+msgstr "Dã formã"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compress
+#: objects/FS/function.c:973
+msgid "Compress"
+msgstr "Comprimã"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Pierce
+#: objects/FS/function.c:975
+msgid "Pierce"
+msgstr "Strãpunge"
+
+#. Translators: Menu item Verb/Convert
+#: objects/FS/function.c:977 objects/FS/function.c:979
+msgid "Convert"
+msgstr "Converteºte"
+
+#. Translators: Menu item Verb/Convert/Transform
+#: objects/FS/function.c:981
+msgid "Transform"
+msgstr "Transformã"
+
+#. Translators: Menu item Verb/Convert/Liquefy
+#: objects/FS/function.c:983
+msgid "Liquefy"
+msgstr "Lichefiazã"
+
+#. Translators: Menu item Verb/Convert/Solidify
+#: objects/FS/function.c:985
+msgid "Solidify"
+msgstr "Solidificã"
+
+#. Translators: Menu item Verb/Convert/Evaporate
+#: objects/FS/function.c:987
+msgid "Evaporate"
+msgstr "Evaporeazã"
+
+#. Translators: Menu item Verb/Convert/Sublimate
+#: objects/FS/function.c:989
+msgid "Sublimate"
+msgstr "Sublimeazã"
+
+#. Translators: Menu item Verb/Convert/Condense
+#: objects/FS/function.c:991
+msgid "Condense"
+msgstr "Condenseazã"
+
+#. Translators: Menu item Verb/Convert/Integrate
+#: objects/FS/function.c:993
+msgid "Integrate"
+msgstr "Integreazã"
+
+#. Translators: Menu item Verb/Convert/Differentiate
+#: objects/FS/function.c:995
+msgid "Differentiate"
+msgstr "Diferenþiazã"
+
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:997
+msgid "Process"
+msgstr "Proceseazã"
+
+#. Translators: Menu item Verb/Signal/Sense
+#: objects/FS/function.c:1003 objects/FS/function.c:1005
+msgid "Sense"
+msgstr "Simte"
+
+#. Translators: Menu item Verb/Signal/Sense/Perceive
+#: objects/FS/function.c:1007
+msgid "Perceive"
+msgstr "Percepe"
+
+#. Translators: Menu item Verb/Signal/Sense/Recognize
+#: objects/FS/function.c:1009
+msgid "Recognize"
+msgstr "Recunoaºte"
+
+#. Translators: Menu item Verb/Signal/Sense/Discern
+#: objects/FS/function.c:1011
+msgid "Discern"
+msgstr "Discerne"
+
+#. Translators: Menu item Verb/Signal/Sense/Check
+#: objects/FS/function.c:1013
+msgid "Check"
+msgstr "Revizuieºte"
+
+#. Translators: Menu item Verb/Signal/Sense/Verify
+#: objects/FS/function.c:1017
+msgid "Verify"
+msgstr "Verificã"
+
+#. Translators: Menu item Verb/Signal/Indicate
+#: objects/FS/function.c:1019 objects/FS/function.c:1021
+msgid "Indicate"
+msgstr "Indicã"
+
+#. Translators: Menu item Verb/Signal/Indicate/Mark
+#: objects/FS/function.c:1023
+msgid "Mark"
+msgstr "Marcheazã"
+
+#. Translators: Menu item Verb/Signal/Display
+#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
+msgid "Display"
+msgstr "Afiºeazã"
+
+#. Translators: Menu item Verb/Signal/Measure
+#: objects/FS/function.c:1027 objects/FS/function.c:1029
+msgid "Measure"
+msgstr "Mãsoarã"
+
+#. Translators: Menu item Verb/Signal/Measure/Calculate
+#: objects/FS/function.c:1031
+msgid "Calculate"
+msgstr "Calculeazã"
+
+#. Translators: Menu item Verb/Signal/Represent
+#: objects/FS/function.c:1033
+msgid "Represent"
+msgstr "Reprezintã"
+
+#. Translators: Menu item Noun
+#: objects/FS/function.c:1035
+msgid "Noun"
+msgstr "Substantiv"
+
+#. Translators: Menu item Noun/Material/Liquid
+#: objects/FS/function.c:1041
+msgid "Liquid"
+msgstr "Lichid"
+
+#. Translators: Menu item Noun/Material/Gas
+#: objects/FS/function.c:1043
+msgid "Gas"
+msgstr "Gaz"
+
+#. Translators: Menu item Noun/Material/Human
+#: objects/FS/function.c:1045 objects/FS/function.c:1047
+#: objects/FS/function.c:1131
+msgid "Human"
+msgstr "Om"
+
+#. Translators: Menu item Noun/Material/Human/Hand
+#: objects/FS/function.c:1049
+msgid "Hand"
+msgstr "Mînã"
+
+#. Translators: Menu item Noun/Material/Human/Foot
+#: objects/FS/function.c:1051
+msgid "Foot"
+msgstr "Picior"
+
+#. Translators: Menu item Noun/Material/Human/Head
+#: objects/FS/function.c:1053
+msgid "Head"
+msgstr "Cap"
+
+#. Translators: Menu item Noun/Material/Human/Finger
+#: objects/FS/function.c:1055
+msgid "Finger"
+msgstr "Deget de la mânã"
+
+#. Translators: Menu item Noun/Material/Human/Toe
+#: objects/FS/function.c:1057
+msgid "Toe"
+msgstr "Deget de la picior"
+
+#. Translators: Menu item Noun/Material/Biological
+#: objects/FS/function.c:1059
+msgid "Biological"
+msgstr "Biologic"
+
+#. Translators: Menu item Noun/Energy/Mechanical
+#: objects/FS/function.c:1063
+msgid "Mechanical"
+msgstr "Mecanic"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
+#: objects/FS/function.c:1065
+msgid "Mech. Energy"
+msgstr "Energie mecanicã"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translation
+#: objects/FS/function.c:1067
+msgid "Translation"
+msgstr "Translatare"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Force
+#: objects/FS/function.c:1069
+msgid "Force"
+msgstr "Forþã"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotation
+#: objects/FS/function.c:1071
+msgid "Rotation"
+msgstr "Rotaþie"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Torque
+#: objects/FS/function.c:1073
+msgid "Torque"
+msgstr "Cuplu"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Random Motion
+#: objects/FS/function.c:1075
+msgid "Random Motion"
+msgstr "Miºcare aleatoare"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Vibration
+#: objects/FS/function.c:1077
+msgid "Vibration"
+msgstr "Vibraþie"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
+#: objects/FS/function.c:1079
+msgid "Rotational Energy"
+msgstr "Energie de rotaþie"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
+#: objects/FS/function.c:1081
+msgid "Translational Energy"
+msgstr "Energie de translaþie"
+
+#. Translators: Menu item Noun/Energy/Electricity
+#: objects/FS/function.c:1083
+msgid "Electrical"
+msgstr "Electric"
+
+#. Translators: Menu item Noun/Energy/Electricity/Electricity
+#: objects/FS/function.c:1085
+msgid "Electricity"
+msgstr "Electricitate"
+
+#. Translators: Menu item Noun/Energy/Electricity/Voltage
+#: objects/FS/function.c:1087
+msgid "Voltage"
+msgstr "Tensiune"
+
+#. Translators: Menu item Noun/Energy/Electricity/Current
+#: objects/FS/function.c:1089
+msgid "Current"
+msgstr "Curent"
+
+#. Translators: Menu item Noun/Energy/Hydraulic
+#: objects/FS/function.c:1091
+msgid "Hydraulic"
+msgstr "Hidraulic"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Pressure
+#: objects/FS/function.c:1093
+msgid "Pressure"
+msgstr "Presiune"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
+#: objects/FS/function.c:1095
+msgid "Volumetric Flow"
+msgstr "Curgere volumetricã"
+
+#. Translators: Menu item Noun/Energy/Thermal
+#: objects/FS/function.c:1097
+msgid "Thermal"
+msgstr "Termic"
+
+#. Translators: Menu item Noun/Energy/Thermal/Heat
+#: objects/FS/function.c:1099
+msgid "Heat"
+msgstr "Cãldurã"
+
+#. Translators: Menu item Noun/Energy/Thermal/Conduction
+#: objects/FS/function.c:1101
+msgid "Conduction"
+msgstr "Conductibilitate"
+
+#. Translators: Menu item Noun/Energy/Thermal/Convection
+#: objects/FS/function.c:1103
+msgid "Convection"
+msgstr "Convecþie"
+
+#. Translators: Menu item Noun/Energy/Thermal/Radiation
+#: objects/FS/function.c:1105 objects/FS/function.c:1113
+msgid "Radiation"
+msgstr "Radiaþie"
+
+#. Translators: Menu item Noun/Energy/Pneumatic
+#: objects/FS/function.c:1107
+msgid "Pneumatic"
+msgstr "Pneumatic"
+
+#. Translators: Menu item Noun/Energy/Chemical
+#: objects/FS/function.c:1109
+msgid "Chemical"
+msgstr "Chimic"
+
+#. Translators: Menu item Noun/Energy/Radioactive
+#: objects/FS/function.c:1111
+msgid "Radioactive"
+msgstr "Radioactivitate"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Microwaves
+#: objects/FS/function.c:1115
+msgid "Microwaves"
+msgstr "Microunde"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Radio waves
+#: objects/FS/function.c:1117
+msgid "Radio waves"
+msgstr "Unde radio"
+
+#. Translators: Menu item Noun/Energy/Radioactive/X-Rays
+#: objects/FS/function.c:1119
+msgid "X-Rays"
+msgstr "Raze X"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
+#: objects/FS/function.c:1121
+msgid "Gamma Rays"
+msgstr "Raze Gamma"
+
+#. Translators: Menu item Noun/Energy/Acoustic Energy
+#: objects/FS/function.c:1123
+msgid "Acoustic Energy"
+msgstr "Energie acusticã"
+
+#. Translators: Menu item Noun/Energy/Optical Energy
+#: objects/FS/function.c:1125
+msgid "Optical Energy"
+msgstr "Energie opticã"
+
+#. Translators: Menu item Noun/Energy/Solar Energy
+#: objects/FS/function.c:1127
+msgid "Solar Energy"
+msgstr "Energie solarã"
+
+#. Translators: Menu item Noun/Energy/Magnetic Energy
+#: objects/FS/function.c:1129
+msgid "Magnetic Energy"
+msgstr "Energie magneticã"
+
+#. Translators: Menu item Noun/Energy/Human/Human Motion
+#: objects/FS/function.c:1133
+msgid "Human Motion"
+msgstr "Miºcare umanã"
+
+#. Translators: Menu item Noun/Energy/Human/Human Force
+#: objects/FS/function.c:1135
+msgid "Human Force"
+msgstr "Forþã umanã"
+
+#. Translators: Menu item Noun/Signal/Status
+#: objects/FS/function.c:1141
+msgid "Status"
+msgstr "Stare"
+
+#: objects/FS/function.c:1145
+msgid "User/Device Fn"
+msgstr "Funcþie utilizator/dispozitiv"
+
+#: objects/FS/function.c:1146
+msgid "Wish Fn"
+msgstr "Fn. Wish"
+
+#: objects/GRAFCET/action.c:135 sheets/SDL.sheet.in.h:9
+msgid "Macro call"
+msgstr "Apel macro"
+
+#: objects/GRAFCET/action.c:135
+msgid "This action is a call to a macro-step"
+msgstr "Aceastã acþiune este un apel la un pas macro"
+
+#: objects/GRAFCET/condition.c:130
+msgid "Condition"
+msgstr "Condiþie"
+
+#: objects/GRAFCET/condition.c:130
+msgid "The boolean equation of the condition"
+msgstr "Ecuaþia booleanã a condiþiei"
+
+#: objects/GRAFCET/condition.c:132
+msgid "The condition's font"
+msgstr "Fontul condiþiei:"
+
+#: objects/GRAFCET/condition.c:134
+msgid "The condition's font size"
+msgstr "Mãrime font condiþie:"
+
+#: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
+msgid "Color"
+msgstr "Culoare:"
+
+#: objects/GRAFCET/condition.c:137
+msgid "The condition's color"
+msgstr "Culoarea condiþiei"
+
+#: objects/GRAFCET/grafcet.c:45
+msgid "GRAFCET diagram objects"
+msgstr "Obiecte diagrama GRAFCET"
+
+#: objects/GRAFCET/step.c:146
+msgid "Regular step"
+msgstr "Pas normal"
+
+#: objects/GRAFCET/step.c:147
+msgid "Initial step"
+msgstr "Pas iniþial"
+
+#: objects/GRAFCET/step.c:148
+msgid "Macro entry step"
+msgstr "Pas intrare macro"
+
+#: objects/GRAFCET/step.c:149
+msgid "Macro exit step"
+msgstr "Pas ieºire macro"
+
+#: objects/GRAFCET/step.c:150
+msgid "Macro call step"
+msgstr "Pas apel macro"
+
+#: objects/GRAFCET/step.c:151
+msgid "Subprogram call step"
+msgstr "Pas apel subprogram"
+
+#: objects/GRAFCET/step.c:157
+msgid "Step name"
+msgstr "Nume pas:"
+
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
+msgstr "Numele pasului"
+
+#: objects/GRAFCET/step.c:159
+msgid "Step type"
+msgstr "Tip pas:"
+
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr "Felul pasului"
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr "Activ(ã)"
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr "Aratã un punct roºu pt. a determina activitatea pasului"
+
+#: objects/GRAFCET/transition.c:140
+msgid "Receptivity"
+msgstr "Receptivitate:"
+
+#: objects/GRAFCET/transition.c:140
+msgid "The boolean equation of the receptivity"
+msgstr "Ecuaþia booleanã a receptivitãþii"
+
+#: objects/GRAFCET/transition.c:142
+msgid "The receptivity's font"
+msgstr "Font receptivitate:"
+
+#: objects/GRAFCET/transition.c:144
+msgid "The receptivity's font size"
+msgstr "Mãrime font receptivitate"
+
+#: objects/GRAFCET/transition.c:147
+msgid "The receptivity's color"
+msgstr "Culoare receptivitate:"
+
+#: objects/GRAFCET/transition.c:148
+msgid "North point"
+msgstr "Pol nord"
+
+#: objects/GRAFCET/transition.c:149
+msgid "South point"
+msgstr "Pol sud"
+
+#: objects/GRAFCET/vector.c:128
+msgid "Draw arrow heads on upward arcs:"
+msgstr "Deseneazã cap sãgeþi pe arcele în sus:"
+
+#: objects/GRAFCET/vergent.c:122
+msgid "OR"
+msgstr "SAU"
+
+#: objects/GRAFCET/vergent.c:123
+msgid "AND"
+msgstr "ªI"
+
+#: objects/GRAFCET/vergent.c:134
+msgid "Vergent type:"
+msgstr "Tip vergent:"
+
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
+#: objects/standard/line.c:182
+msgid "Add connection point"
+msgstr "Adaugã punct de conectare"
+
+#: objects/GRAFCET/vergent.c:391
+msgid "Delete  connection point"
+msgstr "ªterge punct de conectare"
+
+#: objects/GRAFCET/vergent.c:395
+msgid "GRAFCET OR/AND vergent"
+msgstr "Vergent GRAFCET SAU/ªI"
+
+#: objects/network/bus.c:574
+msgid "Add Handle"
+msgstr "Adaugã mâner"
+
+#: objects/network/bus.c:575
+msgid "Delete Handle"
+msgstr "ªterge mâner"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Obiecte diagramã reþea"
+
+#. property rows
+#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:315
+#: objects/UML/state.c:124
+msgid "Normal"
+msgstr "Normal"
+
+#: objects/SADT/arrow.c:135
+msgid "Import resource (not shown upstairs)"
+msgstr "Import resursã (neafiºatã mai sus)"
+
+#: objects/SADT/arrow.c:136
+msgid "Imply resource (not shown downstairs)"
+msgstr "Implicã resursã (neafiºatã mai jos)"
+
+#: objects/SADT/arrow.c:137
+msgid "Dotted arrow"
+msgstr "Sãgeatã punctatã"
+
+#: objects/SADT/arrow.c:138
+msgid "disable arrow heads"
+msgstr "Dezactiveazã capete sãgeatã"
+
+#: objects/SADT/arrow.c:144
+msgid "Flow style:"
+msgstr "Stil flux:"
+
+#: objects/SADT/arrow.c:146
+msgid "Automatically gray vertical flows:"
+msgstr "Flux vertical automat în gri:"
+
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+"Pentru uºurarea citirii, fluxurile ce încep ºi se terminã vertical "
+"pot fi afiºate în gri."
+
+#: objects/SADT/arrow.c:555
+msgid "SADT Arrow"
+msgstr "Sãgeatã SADT"
+
+#: objects/SADT/box.c:144
+msgid "Activity/Data identifier"
+msgstr "Identificator Date/Activitãþi"
+
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr "Identificatorul ce apare în colþul dreapta-jos al chenarului"
+
+#: objects/SADT/box.c:440 objects/standard/line.c:183
+msgid "Delete connection point"
+msgstr "ªterge punct de conectare"
+
+#: objects/SADT/box.c:445
+msgid "SADT box"
+msgstr "Chenar SADT"
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr "Obiecte diagramã SADT"
+
+#: objects/standard/arc.c:133
+msgid "Curve distance"
+msgstr "Distanþã curbã"
+
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+msgid "Add Segment"
+msgstr "Adaugã segment"
+
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+msgid "Delete Segment"
+msgstr "ªterge segment"
+
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+msgid "Symmetric control"
+msgstr "Control simetric"
+
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+msgid "Smooth control"
+msgstr "Control fin"
+
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+msgid "Cusp control"
+msgstr "Control vârf"
+
+#: objects/standard/image.c:168
+msgid "Image file"
+msgstr "Fiºier imagine"
+
+#: objects/standard/image.c:170
+msgid "Draw border"
+msgstr "Deseneazã marginea"
+
+#: objects/standard/image.c:172
+msgid "Keep aspect ratio"
+msgstr "Pãstreazã factorul de aspect"
+
+#: objects/standard/image.c:271
+msgid "Image file:"
+msgstr "Fiºier imagine:"
+
+#: objects/standard/image.c:282
+msgid "Keep aspect ratio:"
+msgstr "Pãstreazã factorul de aspect:"
+
+#: objects/standard/image.c:290
+msgid "Show border:"
+msgstr "Aratã marginea:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:841 objects/standard/image.c:852
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"Fiºierul imagine '%s' nu a fost gãsit în acel director.\n"
+"Folosesc în loc '%s'\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:858 objects/standard/image.c:884
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "Fiºierul imagine '%s' nu a fost gãsit.\n"
+
+#: objects/standard/line.c:121
+msgid "Start point"
+msgstr "Punct de început"
+
+#: objects/standard/line.c:123
+msgid "End point"
+msgstr "Punct final"
+
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+msgid "Add Corner"
+msgstr "Adaugã colþ"
+
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+msgid "Delete Corner"
+msgstr "ªterge colþ"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Obiecte standard"
+
+#: objects/UML/actor.c:331 objects/UML/actor.c:333
+msgid "Actor"
+msgstr "Actor"
+
+#: objects/UML/association.c:1057 objects/UML/class_dialog.c:2038
+msgid "Direction:"
+msgstr "Direcþie:"
+
+#: objects/UML/association.c:1074
+msgid "From A to B"
+msgstr "De la A la B"
+
+#: objects/UML/association.c:1081
+msgid "From B to A"
+msgstr "De la B la A"
+
+#: objects/UML/association.c:1105 objects/UML/association.c:1113
+msgid "Side A"
+msgstr "Faþa A"
+
+#: objects/UML/association.c:1107 objects/UML/association.c:1115
+msgid "Side B"
+msgstr "Faþa B"
+
+#: objects/UML/association.c:1121
+msgid "Role:"
+msgstr "Rol:"
+
+#: objects/UML/association.c:1133
+msgid "Multiplicity:"
+msgstr "Multiplicitate:"
+
+#. Show arrow:
+#: objects/UML/association.c:1144
+msgid "Show arrow"
+msgstr "Aratã sãgeatã"
+
+#. Aggregate
+#: objects/UML/association.c:1150
+msgid "Aggregate"
+msgstr "Agregare"
+
+#. Composition
+#: objects/UML/association.c:1158
+msgid "Composition"
+msgstr "Compunere"
+
+#: objects/UML/class.c:103 objects/UML/classicon.c:131
+#: objects/UML/component.c:116 objects/UML/large_package.c:118
+#: objects/UML/object.c:144 objects/UML/small_package.c:116
+msgid "Stereotype"
+msgstr "Stereotip"
+
+#: objects/UML/class.c:105 objects/UML/class_dialog.c:278
+#: objects/UML/class_dialog.c:320 objects/UML/class_dialog.c:1861
+msgid "Abstract"
+msgstr "Abstract"
+
+#: objects/UML/class.c:107 objects/UML/class_dialog.c:287
+msgid "Suppress Attributes"
+msgstr "Eliminã atribute"
+
+#: objects/UML/class.c:109
+msgid "Suppress Operations"
+msgstr "Eliminã operaþii"
+
+#: objects/UML/class.c:111
+msgid "Visible Attributes"
+msgstr "Atribute vizibile"
+
+#: objects/UML/class.c:113
+msgid "Visible Operations"
+msgstr "Operaþii vizibile"
+
+#: objects/UML/class.c:119
+msgid "Template"
+msgstr "Model"
+
+#. Class page:
+#: objects/UML/class.c:778 objects/UML/class_dialog.c:243
+msgid "Class"
+msgstr "Clasã"
+
+#: objects/UML/class_dialog.c:249
+msgid "Class name:"
+msgstr "Nume clasã:"
+
+#: objects/UML/class_dialog.c:260 objects/UML/class_dialog.c:1784
+#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
+#: objects/UML/realizes.c:124
+msgid "Stereotype:"
+msgstr "Stereotip:"
+
+#: objects/UML/class_dialog.c:269 objects/UML/class_dialog.c:871
+#: objects/UML/class_dialog.c:1902 objects/UML/class_dialog.c:2026
+msgid "Comment:"
+msgstr "Comentariu:"
+
+#: objects/UML/class_dialog.c:284
+msgid "Attributes visible"
+msgstr "Atribute vizibile"
+
+#: objects/UML/class_dialog.c:293
+msgid "Operations visible"
+msgstr "Operaþii vizibile"
+
+#: objects/UML/class_dialog.c:296
+msgid "Suppress operations"
+msgstr "Eliminã operaþii"
+
+#. head line
+#: objects/UML/class_dialog.c:306
+msgid "Kind"
+msgstr "Fel"
+
+#: objects/UML/class_dialog.c:311
+msgid "Size"
+msgstr "Mãrime"
+
+#: objects/UML/class_dialog.c:325
+msgid "Class Name"
+msgstr "Nume clasã"
+
+#: objects/UML/class_dialog.c:330
+msgid "Abstract Class"
+msgstr "Clasã abstractã"
+
+#. should probably be refactored too.
+#: objects/UML/class_dialog.c:340
+msgid "Foreground Color"
+msgstr "Culoare prim plan"
+
+#: objects/UML/class_dialog.c:348
+msgid "Background Color"
+msgstr "Culoare fundal"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:770 objects/UML/object.c:148
+msgid "Attributes"
+msgstr "Atribute"
+
+#: objects/UML/class_dialog.c:804 objects/UML/class_dialog.c:1726
+#: objects/UML/class_dialog.c:1955 objects/UML/class_dialog.c:2473
+msgid "Delete"
+msgstr "ªterge"
+
+#: objects/UML/class_dialog.c:810 objects/UML/class_dialog.c:1732
+#: objects/UML/class_dialog.c:1962 objects/UML/class_dialog.c:2479
+msgid "Move up"
+msgstr "Mutã în sus"
+
+#: objects/UML/class_dialog.c:816 objects/UML/class_dialog.c:1738
+#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2485
+msgid "Move down"
+msgstr "Mutã în jos"
+
+#: objects/UML/class_dialog.c:827
+msgid "Attribute data"
+msgstr "Date atribut"
+
+#: objects/UML/class_dialog.c:859
+msgid "Value:"
+msgstr "Valoare:"
+
+#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1797
+msgid "Visibility:"
+msgstr "Vizibilitate:"
+
+#: objects/UML/class_dialog.c:893 objects/UML/class_dialog.c:1806
+msgid "Public"
+msgstr "Public"
+
+#: objects/UML/class_dialog.c:901 objects/UML/class_dialog.c:1814
+msgid "Private"
+msgstr "Privat"
+
+#: objects/UML/class_dialog.c:909 objects/UML/class_dialog.c:1822
+msgid "Protected"
+msgstr "Protejat"
+
+#: objects/UML/class_dialog.c:917 objects/UML/class_dialog.c:1830
+msgid "Implementation"
+msgstr "Implementare"
+
+#: objects/UML/class_dialog.c:933 objects/UML/class_dialog.c:1846
+msgid "Class scope"
+msgstr "Domeniu clasã"
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1692
+msgid "Operations"
+msgstr "Operaþii"
+
+#: objects/UML/class_dialog.c:1750
+msgid "Operation data"
+msgstr "Date operaþii"
+
+#: objects/UML/class_dialog.c:1852
+msgid "Inheritance type:"
+msgstr "Tip moºtenire:"
+
+#: objects/UML/class_dialog.c:1869
+msgid "Polymorphic (virtual)"
+msgstr "Polimorfic (virtual)"
+
+#: objects/UML/class_dialog.c:1877
+msgid "Leaf (final)"
+msgstr "Filã (finalã)"
+
+#: objects/UML/class_dialog.c:1895
+msgid "Query"
+msgstr "Interogare"
+
+#: objects/UML/class_dialog.c:1919
+msgid "Parameters:"
+msgstr "Parametri:"
+
+#: objects/UML/class_dialog.c:1981
+msgid "Parameter data"
+msgstr "Date parametri"
+
+#: objects/UML/class_dialog.c:2014
+msgid "Def. value:"
+msgstr "Valoare implicitã:"
+
+#: objects/UML/class_dialog.c:2047
+msgid "Undefined"
+msgstr "Nedefinit"
+
+#: objects/UML/class_dialog.c:2055
+msgid "In"
+msgstr "Intrare"
+
+#: objects/UML/class_dialog.c:2064
+msgid "Out"
+msgstr "Ieºire"
+
+#: objects/UML/class_dialog.c:2073
+msgid "In & Out"
+msgstr "Intrare ºi ieºire"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2433
+msgid "Templates"
+msgstr "Modele"
+
+#: objects/UML/class_dialog.c:2439
+msgid "Template class"
+msgstr "Clasã model"
+
+#: objects/UML/class_dialog.c:2496
+msgid "Formal parameter data"
+msgstr "Date parametri formali"
+
+#: objects/UML/classicon.c:123
+msgid "Boundary"
+msgstr "Graniþe"
+
+#: objects/UML/classicon.c:133
+msgid "Is object"
+msgstr "Obiect Is"
+
+#: objects/UML/constraint.c:120
+msgid "Constraint:"
+msgstr "Restricþie:"
+
+#: objects/UML/dependency.c:129
+msgid "Show arrow:"
+msgstr "Aratã sãgeatã:"
+
+#: objects/UML/implements.c:121
+msgid "Interface:"
+msgstr "Interfaþã:"
+
+#: objects/UML/lifeline.c:138
+msgid "Draw focus of control:"
+msgstr "Deseneazã focusul controlului:"
+
+#: objects/UML/lifeline.c:140
+msgid "Draw destruction mark:"
+msgstr "Deseneazã semnul de distrugere:"
+
+#: objects/UML/lifeline.c:403
+msgid "Add connection points"
+msgstr "Adaugã puncte de conectare"
+
+#: objects/UML/lifeline.c:404
+msgid "Remove connection points"
+msgstr "ªterge puncte de conectare"
+
+#: objects/UML/lifeline.c:408
+msgid "UML Lifeline"
+msgstr "Linie de viaþã UML"
+
+#: objects/UML/message.c:130
+msgid "Call"
+msgstr "Apeleazã"
+
+#: objects/UML/message.c:131
+msgid "Create"
+msgstr "Creeazã"
+
+#: objects/UML/message.c:132
+msgid "Destroy"
+msgstr "Distruge"
+
+#: objects/UML/message.c:133
+msgid "Simple"
+msgstr "Simplu"
+
+#: objects/UML/message.c:134
+msgid "Return"
+msgstr "Întoarce"
+
+#: objects/UML/message.c:135
+msgid "Send"
+msgstr "Trimite"
+
+#: objects/UML/message.c:136
+msgid "Recursive"
+msgstr "Recursiv"
+
+#: objects/UML/message.c:143
+msgid "Message:"
+msgstr "Mesaj:"
+
+#: objects/UML/message.c:145
+msgid "Message type:"
+msgstr "Tip mesaj:"
+
+#: objects/UML/object.c:146
+msgid "Explicit state"
+msgstr "Stare explicitã"
+
+#: objects/UML/object.c:151
+msgid "Active object"
+msgstr "Obiect activ"
+
+#: objects/UML/object.c:153
+msgid "Show attributes"
+msgstr "Afiºeazã atribute"
+
+#: objects/UML/object.c:155
+msgid "Multiple instance"
+msgstr "Instanþã multiplã"
+
+#: objects/UML/state.c:125
+msgid "Begin"
+msgstr "Început"
+
+#: objects/UML/state.c:126
+msgid "End"
+msgstr "Sfîrºit"
+
+#: objects/UML/state.c:133
+msgid "State Type"
+msgstr "Tip Stare"
+
+#: objects/UML/uml.c:60
+msgid "Unified Modelling Language diagram objects"
+msgstr "Obiecte diagramã UML (Unified Modelling Language)"
+
+#: objects/UML/usecase.c:124
+msgid "Text outside"
+msgstr "Text exterior"
+
+#: objects/UML/usecase.c:126
+msgid "Collaboration"
+msgstr "Colaborare"
+
+#: plug-ins/cgm/cgm.c:1105
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+"Lungime rând imagine mai mare decât matricea maximã a celulei.\n"
+"Imaginea nu a fost exportatã în CGM."
+
+#: plug-ins/cgm/cgm.c:1284
+msgid "Computer Graphics Metafile"
+msgstr "Computer Graphics Metafile"
+
+#: plug-ins/cgm/cgm.c:1298
+msgid "Computer Graphics Metafile export filter"
+msgstr "Filtru export Computer Graphics Metafile"
+
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Filtre import/export Drawing Interchange File"
+
+#: plug-ins/dxf/dxf-export.c:569 plug-ins/dxf/dxf-import.c:669
+msgid "Drawing Interchange File"
+msgstr "Drawing Interchange File"
+
+#: plug-ins/hpgl/hpgl.c:619
+msgid "HP Graphics Language export filter"
+msgstr "Filtru export HP Graphics Language"
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr "Filtru export TeX Metapost "
+
+#: plug-ins/metapost/render_metapost.c:733
+msgid "TeX Metapost macros"
+msgstr "Macro TeX Metapost"
+
+#: plug-ins/pstricks/pstricks.c:14
+msgid "TeX Pstricks export filter"
+msgstr "Filtru export TeX Pstricks "
+
+#: plug-ins/pstricks/render_pstricks.c:773
+msgid "TeX PSTricks macros"
+msgstr "Macro TeX PSTricks "
+
+#: plug-ins/python/python.c:76
+msgid "Python scripting support"
+msgstr "Sprijin scripting Python"
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "Filtru export forme Dia"
+
+#: plug-ins/shape/shape-export.c:949
+msgid "Can't export png without libart!"
+msgstr "Nu pot exporta PNG fãrã libart!"
+
+#: plug-ins/shape/shape-export.c:976
+msgid "dia shape file"
+msgstr "Fiºier forme Dia"
+
+#: plug-ins/svg/render_svg.c:871
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Filtru export Scalable Vector Graphics"
+
+#: plug-ins/wmf/wmf.cpp:962
+msgid "Windows Meta File"
+msgstr "Windows Meta File"
+
+#: plug-ins/wmf/wmf.cpp:976
+msgid "WMF export filter"
+msgstr "Filtru export WMF"
+
+#: plug-ins/wpg/wpg.c:1056
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Fiºier: versiune/tip %s nesusþinut.\n"
+
+#: plug-ins/wpg/wpg.c:1205
+msgid "WordPerfect Graphics export filter"
+msgstr "Filtru export WordPerfect Graphics"
+
+#: plug-ins/xfig/xfig.c:39
+msgid "Fig Format import and export filter"
+msgstr "Filtre export/import Fig Format"
+
+#: plug-ins/xfig/xfig-export.c:368
+msgid "No more user-definable colors - using black"
+msgstr "Nu mai sunt culori definite de utilizator - folosesc negru."
+
+#: plug-ins/xfig/xfig-export.c:795
+msgid "XFig format"
+msgstr "Format XFig"
+
+#: plug-ins/xfig/xfig-import.c:76
+msgid "Polygon import is not implemented yet"
+msgstr "Importul de poligoane nu este implementat încã."
+
+#: plug-ins/xfig/xfig-import.c:77
+msgid "Patterns are not supported by Dia"
+msgstr "Tiparele nu sunt compatibile cu Dia."
+
+#: plug-ins/xfig/xfig-import.c:78
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr "Liniile cu puncte triple nu sunt susþinute de Dia, folosesc puncte duble."
+
+#: plug-ins/xfig/xfig-import.c:80
+msgid "Negative corner radius, negating"
+msgstr "Razã colþ negativã, inversez."
+
+#: plug-ins/xfig/xfig-import.c:81
+msgid "Spline import is not implemented yet"
+msgstr "Importul curbelor Spline nu este încã implementat."
+
+#: plug-ins/xfig/xfig-import.c:82
+msgid "Can't find standard object"
+msgstr "Nu gãsesc obiectele standard."
+
+#: plug-ins/xfig/xfig-import.c:424
+#, c-format
+msgid "Line style %d should not appear\n"
+msgstr "Stilul de linie %d nu ar trebui sã aparã.\n"
+
+#: plug-ins/xfig/xfig-import.c:492
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr "Eroare la citirea punctului %d din %d: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:511
+msgid "Error while reading arrowhead\n"
+msgstr "Eroarea la citirea capãtului sãgeþii.\n"
+
+#: plug-ins/xfig/xfig-import.c:602
+#, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr "Nu pot citi informaþia despre elipsã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:670
+#, c-format
+msgid "Couldn't read polyline info: %s\n"
+msgstr "Nu pot citi informaþia despre linia poligonalã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:685
+#, c-format
+msgid "Couldn't read flipped bit: %s\n"
+msgstr "Nu pot citi informaþia despre biþii întorºi: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:744 plug-ins/xfig/xfig-import.c:830
+#, c-format
+msgid "Unknown polyline subtype: %d\n"
+msgstr "Subtip linie poligonalã necunoscut: %d\n"
+
+#: plug-ins/xfig/xfig-import.c:807
+#, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr "Nu pot citi informaþia despre arc: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:891
+#, c-format
+msgid "Couldn't read text info: %s\n"
+msgstr "Nu pot citi informaþia despre text: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:933
+#, c-format
+msgid "Couldn't identify FIG object: %s\n"
+msgstr "Nu pot identifica obiectul FIG: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:940
+msgid "Compound end outside compound\n"
+msgstr "Sfârºit compus în afara compunerii.\n"
+
+#: plug-ins/xfig/xfig-import.c:959
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr "Nu pot citi culoarea: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1001
+#, c-format
+msgid "Couldn't read group extend: %s\n"
+msgstr "Nu pot citi extensia de grup: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1012
+#, c-format
+msgid "Unknown object type %d\n"
+msgstr "Tip obiect necunoscut %d\n"
+
+#: plug-ins/xfig/xfig-import.c:1035
+#, c-format
+msgid "`%s' is not one of `%s' or `%s'\n"
+msgstr "'%s' nu este unul din '%s' sau '%s'\n"
+
+#: plug-ins/xfig/xfig-import.c:1045
+#, c-format
+msgid "Error reading paper size: %s\n"
+msgstr "Eroare la citire dimensiune paginã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1055
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr "Dimensiune paginã necunoscutã ('%s'), folosesc valoarea implicitã.\n"
+
+#: plug-ins/xfig/xfig-import.c:1067
+#, c-format
+msgid "Error reading paper orientation: %s\n"
+msgstr "Eroare citire orientare paginã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1077
+#, c-format
+msgid "Error reading justification: %s\n"
+msgstr "Eroare citire aliniere: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1087
+#, c-format
+msgid "Error reading units: %s\n"
+msgstr "Eroare citire unitãþi: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1101
+#, c-format
+msgid "Error reading magnification: %s\n"
+msgstr "Eroare citire mãrire: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1112
+#, c-format
+msgid "Error reading multipage indicator: %s\n"
+msgstr "Eroare citire indicator multipaginã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1123
+#, c-format
+msgid "Error reading transparent color: %s\n"
+msgstr "Eroare citire culoare transparentã: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1132 plug-ins/xfig/xfig-import.c:1187
+#, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr "Eroare citire fisier FIG: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1134 plug-ins/xfig/xfig-import.c:1189
+msgid "Premature end of FIG file\n"
+msgstr "Sfârºit prematur fiºier FIG.\n"
+
+#: plug-ins/xfig/xfig-import.c:1143
+#, c-format
+msgid "Error reading resolution: %s\n"
+msgstr "Eroare citire rezoluþie: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1174
+#, c-format
+msgid "Doesn't look like a Fig file: %s\n"
+msgstr "Nu seamãnã cu un fiºier FIG: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1180
+#, c-format
+msgid "This is a FIG version %d.%d file, I may not understand it\n"
+msgstr "Acest fiºier are versiunea FIG %d.%d, s-ar putea sã nu îl înþeleg.\n"
+
+#: plug-ins/xfig/xfig-import.c:1221
+msgid "XFig File Format"
+msgstr "Format fiºier XFig"
+
+#: plug-ins/xslt/xslt.c:92
+#, c-format
+msgid "Error while parsing %s\n"
+msgstr "Eroarea la parsarea %s\n"
+
+#: plug-ins/xslt/xslt.c:102 plug-ins/xslt/xslt.c:108
+#, c-format
+msgid "Error while parsing stylesheet %s\n"
+msgstr "Eroare la parsarea foii de stil %s\n"
+
+#: plug-ins/xslt/xslt.c:120
+#, c-format
+msgid "Error while parsing stylesheet: %s\n"
+msgstr "Eroare la parsarea foii de stil: %s\n"
+
+#: plug-ins/xslt/xslt.c:128
+#, c-format
+msgid "Error while applying stylesheet: %s\n"
+msgstr "Eroare la aplicarea foii de stil: %s\n"
+
+#: plug-ins/xslt/xslt.c:176
+msgid "XSL Transformation filter"
+msgstr "Filtru transformare XSL"
+
+#: plug-ins/xslt/xslt.c:191
+#, c-format
+msgid "Could not load XSLT library (%s) : %s"
+msgstr "Nu pot încãrca biblioteca XSLT (%s) : %s"
+
+#: plug-ins/xslt/xslt.c:205
+msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+msgstr "Nu pot încãrca plug-in-ul, DIA_PLUGIN_PATH nu este setat."
+
+#: plug-ins/xslt/xsltdialog.c:99
+msgid "Export through XSLT"
+msgstr "Export prin XSLT"
+
+#: plug-ins/xslt/xsltdialog.c:114
+msgid "From:"
+msgstr "De la:"
+
+#: plug-ins/xslt/xsltdialog.c:149
+msgid "To:"
+msgstr "La:"
+
+#: sheets/Assorted.sheet.in.h:1
+msgid ""
+"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
+"Geometric Shapes"
+msgstr ""
+"O colecþie asortatã de poligoane simple, Bezier ºi alte forme geometrice "
+"diverse."
+
+#: sheets/Assorted.sheet.in.h:2
+msgid "Assorted"
+msgstr "Asortate"
+
+#: sheets/Assorted.sheet.in.h:3
+msgid "Chevron"
+msgstr "Blazon"
+
+#: sheets/Assorted.sheet.in.h:4
+msgid "Curved Eight Point Star"
+msgstr "Stea cu opt puncte curbatã"
+
+#: sheets/Assorted.sheet.in.h:5
+msgid "Curved Four Point Star"
+msgstr "Stea cu patru puncte curbatã"
+
+#: sheets/Assorted.sheet.in.h:6
+msgid "Diamond"
+msgstr "Diamant"
+
+#: sheets/Assorted.sheet.in.h:7
+msgid "Down Arrow"
+msgstr "Sãgeatã în jos"
+
+#: sheets/Assorted.sheet.in.h:8
+msgid "Eight Point Star"
+msgstr "Stea cu opt puncte"
+
+#: sheets/Assorted.sheet.in.h:9
+msgid "Four Point Star"
+msgstr "Stea cu patru puncte"
+
+#: sheets/Assorted.sheet.in.h:10
+msgid "Heart"
+msgstr "Inimã"
+
+#: sheets/Assorted.sheet.in.h:11
+msgid "Heptagon. Seven Sided Shape"
+msgstr "Heptagon. Formã cu 7 laturi"
+
+#: sheets/Assorted.sheet.in.h:12
+msgid "Hexagon. Six Sided Shape"
+msgstr "Hexagon. Formã cu 6 laturi"
+
+#: sheets/Assorted.sheet.in.h:13
+msgid "Horizontal Parallelogram"
+msgstr "Paralelogram orizontal"
+
+#: sheets/Assorted.sheet.in.h:14
+msgid "Isoceles Triangle"
+msgstr "Triunghi isoscel"
+
+#: sheets/Assorted.sheet.in.h:15
+msgid "Left Arrow"
+msgstr "Sãgeatã stânga"
+
+#: sheets/Assorted.sheet.in.h:16
+msgid "Left-Right Arrow"
+msgstr "Sãgeatã stânga-dreapta"
+
+#: sheets/Assorted.sheet.in.h:17
+msgid "Left-Right-Up Arrow"
+msgstr "Sãgeatã stânga-dreapta-sus"
+
+#: sheets/Assorted.sheet.in.h:18
+msgid "Left-Up Arrow"
+msgstr "Sãgeatã stânga-sus"
+
+#: sheets/Assorted.sheet.in.h:19
+msgid "Maltese Cross"
+msgstr "Cruce maltezã"
+
+#: sheets/Assorted.sheet.in.h:20
+msgid "Notched Left Arrow"
+msgstr "Sãgeatã stãnga cu clemã"
+
+#: sheets/Assorted.sheet.in.h:21
+msgid "Notched Right Arrow"
+msgstr "Sãgeatã dreapta cu clemã"
+
+#: sheets/Assorted.sheet.in.h:22
+msgid "Octogon. Eight Sided Shape"
+msgstr "Octogon. Formã cu opt laturi"
+
+#: sheets/Assorted.sheet.in.h:23
+msgid "Pentagon Block Arrow"
+msgstr "Sãgeatã cu bloc pentagonal"
+
+#: sheets/Assorted.sheet.in.h:24
+msgid "Pentagon. Five Sided Shape"
+msgstr "Pentagon. Formã cu cinci laturi"
+
+#: sheets/Assorted.sheet.in.h:25
+msgid "Perfect Circle"
+msgstr "Cerc perfect"
+
+#: sheets/Assorted.sheet.in.h:26
+msgid "Perfect Square, Height equals Width"
+msgstr "Pãtrat perfect, (laturi egale)"
+
+#: sheets/Assorted.sheet.in.h:27
+msgid "Quad Arrow"
+msgstr "Sãgeatã cvadruplã"
+
+#: sheets/Assorted.sheet.in.h:28
+msgid "Quarter Circle"
+msgstr "Sfert de cerc"
+
+#: sheets/Assorted.sheet.in.h:29
+msgid "Quarter Moon"
+msgstr "Pãtrar de lunã"
+
+#: sheets/Assorted.sheet.in.h:30
+msgid "Right Angle Triangle"
+msgstr "Triunghi dreptunghic"
+
+#: sheets/Assorted.sheet.in.h:31
+msgid "Right Arrow"
+msgstr "Sãgeatã dreapta"
+
+#: sheets/Assorted.sheet.in.h:32
+msgid "Seven Point Star"
+msgstr "Stea cu ºapte puncte"
+
+#: sheets/Assorted.sheet.in.h:33
+msgid "Sharp Eight Point Star"
+msgstr "Stea cu opt puncte ascuþitã"
+
+#: sheets/Assorted.sheet.in.h:34
+msgid "Six Point Star"
+msgstr "Stea cu ºase puncte"
+
+#: sheets/Assorted.sheet.in.h:35
+msgid "Sun"
+msgstr "Soare"
+
+#: sheets/Assorted.sheet.in.h:36
+msgid "Swiss Cross"
+msgstr "Cruce elveþianã"
+
+#: sheets/Assorted.sheet.in.h:37
+msgid "Trapezoid"
+msgstr "Trapez"
+
+#: sheets/Assorted.sheet.in.h:38
+msgid "Up Arrow"
+msgstr "Sãgeatã în sus"
+
+#: sheets/Assorted.sheet.in.h:39
+msgid "Up-Down Arrow"
+msgstr "Sãgeatã sus-jos"
+
+#: sheets/Assorted.sheet.in.h:40
+msgid "Up-Down-Left Arrow"
+msgstr "Sãgeatã în sus-jos-stânga"
+
+#: sheets/Assorted.sheet.in.h:41
+msgid "Vertical Parallelogram"
+msgstr "Paralelogram vertical"
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr "O linie de datã"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr "Riglã de timp"
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr "Diagramã temporalã"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr "Obiecte diagramã hãrþi temporale"
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "A Horizontal Jumper"
+msgstr "Trecere aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "A Horizontally aligned inductor"
+msgstr "Bobinã aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr "Bobinã aliniatã orizontal (European)"
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "A Horizontally aligned resistor"
+msgstr "Rezistor aliniat orizontal"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr "Rezistor aliniat orizontal (European)"
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "A Microphone"
+msgstr "Microfon"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A PMOS transistor"
+msgstr "Tranzistor PMOS"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Speaker"
+msgstr "Difuzor"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor"
+msgstr "Bobinã aliniatã vertical"
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned inductor (European)"
+msgstr "Bobinã aliniatã vertical (European)"
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor"
+msgstr "Rezistor aliniat vertical"
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "A Vertically aligned resistor (European)"
+msgstr "Rezistor aliniat vertical (European)"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A ground point"
+msgstr "Punct de masã"
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned LED"
+msgstr "LED aliniat orizontal"
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned capacitor"
+msgstr "Condensator aliniat orizontal"
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "A horizontally aligned diode"
+msgstr "Diodã aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned fuse"
+msgstr "Siguranþã aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned powersource"
+msgstr "Sursã de putere aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A horizontally aligned zener diode"
+msgstr "Diodã Zener aliniatã orizontal"
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A lamp"
+msgstr "Lampã"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A npn bipolar transistor"
+msgstr "Tranzistor bipolar NPN"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A pnp bipolar transistor"
+msgstr "Tranzistor bipolar PNP"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned LED"
+msgstr "LED aliniat vertical"
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned capacitor"
+msgstr "Condensator aliniat vertical"
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned diode"
+msgstr "Diodã aliniatã vertical"
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned fuse"
+msgstr "Siguranþã aliniatã vertical"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned powersource"
+msgstr "Sursã de putere aliniatã vertical"
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "A vertically aligned zener diode"
+msgstr "Diodã Zener aliniatã vertical"
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "An NMOS transistor"
+msgstr "Tranzistor NMOS"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "An operational amplifier"
+msgstr "Amplificator operaþional"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Circuit"
+msgstr "Circuit"
+
+#: sheets/Circuit.sheet.in.h:32
+msgid "Components for circuit diagrams"
+msgstr "Componente pentru diagrame circuit"
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr "Dispozitiv de siguranþã pt. reversia de flux"
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr "Bazin"
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "Container"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "Convertor de frecvenþã"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr "Butelie cu gaz"
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr "Motor"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr "Rezervor de limpezire preliminar"
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "Rotor"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr "Bazin de finalizare"
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr "Linie limitatoare orizontalã"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr "Sãgeatã aliniatã orizontal"
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr "Linie limitatoare verticalã"
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr "Sãgeatã aliniatã vertical"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr "Aerisitor cu bule"
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr "Refugiu vertical bivalent"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr "Civil"
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr "Componente de inginerie civilã"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr "Refugiu orizontal"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr "Valvã aliniatã orizontal"
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr "Compresor aliniat orizontal"
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr "Pompã aliniatã orizontal"
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr "Linie de referinþã"
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr "Sol"
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr "Refugiu vertical"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr "Propulsor aliniat vertical"
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr "Valvã aliniatã vertical"
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr "Compresor aliniat vertical"
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr "Pompã aliniatã vertical"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr "Nivel apã"
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr "Contact scarã (normal închis) 'dacã-nu'"
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr "Contact scarã (normal deschis) 'dacã'"
+
+#: sheets/Contact.sheet.in.h:3
+msgid "A 'jump' output variable"
+msgstr "Variabilã ieºire 'jump'"
+
+#: sheets/Contact.sheet.in.h:4
+msgid "A 'reset' output variable"
+msgstr "Variabilã ieºire 'reset'"
+
+#: sheets/Contact.sheet.in.h:5
+msgid "A 'set' output variable"
+msgstr "Variabilã ieºire 'set'"
+
+#: sheets/Contact.sheet.in.h:6
+msgid "A negative output variable"
+msgstr "Variabilã ieºire negativã"
+
+#: sheets/Contact.sheet.in.h:7
+msgid "A power-saved 'reset' output variable"
+msgstr "Variabilã ieºire 'power saved reset'"
+
+#: sheets/Contact.sheet.in.h:8
+msgid "A power-saved 'set' output variable"
+msgstr "Variabilã ieºire 'power saved set'"
+
+#: sheets/Contact.sheet.in.h:9
+msgid "A power-saved negative output variable"
+msgstr "Variabilã ieºire 'power saved negativã'"
+
+#: sheets/Contact.sheet.in.h:10
+msgid "A power-saved simple output variable"
+msgstr "Variabilã ieºire 'power saved simplã'"
+
+#: sheets/Contact.sheet.in.h:11
+msgid "A receptivity output variable"
+msgstr "Variabilã ieºire 'receptivitate'"
+
+#: sheets/Contact.sheet.in.h:12
+msgid "A simple output variable"
+msgstr "Variabilã ieºire 'simplã'"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr "Componente pt. circuite scarã (LADDER)"
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Ladder"
+msgstr "Scarã"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "Punct de conectare"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr "Luminã indicatoare"
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr "Contact normal închis"
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr "Comutator poz. normal închis"
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr "Contact normal deschis"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr "Comutator poz. normal deschis"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr "Releu"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr "Componente pentru circuite electrice"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Electric"
+msgstr "Electric"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr "Dispozitiv comandã pt. releu"
+
+#: sheets/EML.sheet.in.h:1
+msgid "Create a process"
+msgstr "Creeazã proces"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr "EML"
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Editor diagrame structuri statice EML"
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr "Instanþiere. Un proces creeazã altele"
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr "Interacþiune între procese."
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr "ER"
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Editor pt. obiecte diagramã Entitate-Relaþie"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Participare"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr "Entitate slabã"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr "Text cu chenar"
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr "Diamant cu text interior"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr "Elipsã cu text interior"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr "Paralelogram cu text interior"
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Collate"
+msgstr "Colaþioneazã"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr "Întârzie"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Document"
+msgstr "Document"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Flowchart"
+msgstr "Organigramã"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal Storage"
+msgstr "Stocare internã"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr "Disc magnetic"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr "Tambur magnetic"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr "Bandã magneticã"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual Input"
+msgstr "Intrare manualã"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual Operation"
+msgstr "Operare manualã"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr "Fuzioneazã"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr "Obiecte pentru desenare organigrame"
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr "Conector inter-pagini"
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Offline Storage"
+msgstr "Stocare offline"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr "Sau"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Predefined Process"
+msgstr "Proces predefinit"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Preparation"
+msgstr "Pregãtire"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr "Cartelã perforatã"
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr "Bandã perforatã"
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Sortare"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr "Conexiune sumatoare"
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr "Terminal"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction File"
+msgstr "Fiºier Tranzacþii"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr "Bandã Transmisie"
+
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Creeazã flux"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Creeazã o funcþie"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr "Creeazã un flux ortogonal poli-linie"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr "Editor pt. diagramã structurã-funcþie"
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr "FS"
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "A AND vergent"
+msgstr "Vergent ªI"
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "A OR vergent"
+msgstr "Vergent SAU"
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr "Condiþie (pt. o acþiune)"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr "Pas apel macro"
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "A macro entry step"
+msgstr "Pas intrare macro"
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr "Pas ieºire macro"
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr "Pas apel subprogram macro"
+
+#: sheets/GRAFCET.sheet.in.h:8
+msgid "A regular step"
+msgstr "Pas normal"
+
+#: sheets/GRAFCET.sheet.in.h:9
+msgid "A transition"
+msgstr "Tranziþie"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr "Acþiune asociatã unui pas"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr "Arc ascendent"
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr "Pas iniþial"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr "GRAFCET"
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr "Obiecte diagrama GRAFCET"
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr "Puzzle"
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr "Puzzle - partea_iiii"
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr "Puzzle - partea_iiio"
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr "Puzzle - partea_iioi"
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr "Puzzle - partea_iioo"
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr "Puzzle - partea_ioii"
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr "Puzzle - partea_ioio"
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr "Puzzle - partea_iooi"
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr "Puzzle - partea_iooo"
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr "Puzzle - partea_oiii"
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr "Puzzle - partea_oiio"
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr "Puzzle - partea_oioi"
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr "Puzzle - partea_oioo"
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr "Puzzle - partea_ooii"
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr "Puzzle - partea_ooio"
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr "Puzzle - partea_oooi"
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr "Puzzle - partea_oooo"
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr "Piese de puzzle"
+
+#: sheets/Logic.sheet.in.h:1
+msgid "A Nand gate"
+msgstr "Poartã NAND"
+
+#: sheets/Logic.sheet.in.h:2
+msgid "A Nor gate"
+msgstr "Poartã NOR"
+
+#: sheets/Logic.sheet.in.h:3
+msgid "A Not"
+msgstr "Poartã NU"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "A Xor gate"
+msgstr "Poartã XOR"
+
+#: sheets/Logic.sheet.in.h:5
+msgid "A crossconnector"
+msgstr "Conector trecere"
+
+#: sheets/Logic.sheet.in.h:6
+msgid "A simple Buffer"
+msgstr "Buffer simplu"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "An And gate"
+msgstr "Poartã ªI (AND)"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "An Inverter"
+msgstr "Inversor"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "An Or gate"
+msgstr "Poartã SAU (OR)"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr "Logicã booleanã"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr "Logicã"
+
+#: sheets/Misc.sheet.in.h:1
+msgid "A File"
+msgstr "Fiºier"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "A Folder"
+msgstr "Director"
+
+#: sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr "Diverse"
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr "Diverse forme"
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr "Demultiplexor"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr "Nod extensie mare"
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr "MSE"
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr "Multiplexor"
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node Center"
+msgstr "Nod central"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr "Nod extensie mic"
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr "Terminal comunicaþii tactice satelitare"
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr "Componente pt. echipamente mobile ale U.S Army"
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "Dischetã 3 1/2 inch"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "PC turn mare"
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "Calculator"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "PC Desktop"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Digitizing Board"
+msgstr "Tablã digitizoare"
+
+#: sheets/network.sheet.in.h:6
+msgid "A Firewall router"
+msgstr "Router Firewall"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Laptop PC"
+msgstr "PC laptop"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Miditower PC"
+msgstr "PC turn mediu"
+
+#: sheets/network.sheet.in.h:9
+msgid "A Minitower PC"
+msgstr "PC turn mic"
+
+#: sheets/network.sheet.in.h:10
+msgid "A Mobile Phone"
+msgstr "Telefon mobil"
+
+#: sheets/network.sheet.in.h:11
+msgid "A Plotter"
+msgstr "Plotter"
+
+#: sheets/network.sheet.in.h:12
+msgid "A RJ45 Wall-Plug"
+msgstr "Prizã perete RJ45"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Telephone"
+msgstr "Telefon"
+
+#: sheets/network.sheet.in.h:14
+msgid "A UNIX Workstation"
+msgstr "Staþie de lucru UNIX"
+
+#: sheets/network.sheet.in.h:15
+msgid "A WAN Connection"
+msgstr "Conexiune WAN"
+
+#: sheets/network.sheet.in.h:16
+msgid "A WAN Link"
+msgstr "Legãturã WAN"
+
+#: sheets/network.sheet.in.h:17
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "Prizã perete pt. sistemul de cablare scEAD"
+
+#: sheets/network.sheet.in.h:18
+msgid "A Workstation Monitor"
+msgstr "Monitor staþie de lucru"
+
+#: sheets/network.sheet.in.h:19
+msgid "A ZIP Disk"
+msgstr "Disc ZIP"
+
+#: sheets/network.sheet.in.h:20
+msgid "A modular switching system"
+msgstr "Sistem modular de comutare"
+
+#: sheets/network.sheet.in.h:21
+msgid "A monitor"
+msgstr "Monitor"
+
+#: sheets/network.sheet.in.h:22
+msgid "A simple Modem"
+msgstr "Modem simplu"
+
+#: sheets/network.sheet.in.h:23
+msgid "A simple printer"
+msgstr "Imprimantã simplã"
+
+#: sheets/network.sheet.in.h:24
+msgid "A speaker with integrated amplifier"
+msgstr "Difuzor cu amplif. integrat"
+
+#: sheets/network.sheet.in.h:25
+msgid "A speaker without amplifier"
+msgstr "Difuzor fãrã amplificator"
+
+#: sheets/network.sheet.in.h:26
+msgid "A stackable hub or switch"
+msgstr "Hub sau Switch extensibil"
+
+#: sheets/network.sheet.in.h:27
+msgid "ATM Switch Symbol"
+msgstr "Simbol Switch ATM"
+
+#: sheets/network.sheet.in.h:28
+msgid "An Ethernet bus"
+msgstr "Magistralã Ethernet"
+
+#: sheets/network.sheet.in.h:29
+msgid "An antenna for wireless transmission"
+msgstr "Antenã pt transmisii Wireless"
+
+#: sheets/network.sheet.in.h:30
+msgid "An external DAT drive"
+msgstr "Unitate DAT externã"
+
+#: sheets/network.sheet.in.h:31
+msgid "Network"
+msgstr "Reþea"
+
+#: sheets/network.sheet.in.h:32
+msgid "Network Cloud"
+msgstr "Nor Reþea"
+
+#: sheets/network.sheet.in.h:33
+msgid "Objects to design network diagrams with"
+msgstr "Obiecte pentru desenarea diagramelor de reþea"
+
+#: sheets/network.sheet.in.h:34
+msgid "Router Symbol"
+msgstr "Simbol Router"
+
+#: sheets/network.sheet.in.h:35
+msgid "Storage"
+msgstr "Stocare"
+
+#: sheets/network.sheet.in.h:36
+msgid "Switch Symbol"
+msgstr "Simbol Switch"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr "Distribitor 2/2"
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr "Distribitor 3/2"
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr "Distribitor 3/3"
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr "Distribitor 4/2"
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr "Distribitor 5/2"
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr "Distribitor 5/3"
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr "Piston cu efect dublu"
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr "Sursã generalã de presiune "
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr "Sursã de presiune hidraulicã"
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr "Piston simplu cu efect de intrare"
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr "Piston simplu cu efect de ieºire"
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr "Sursã de presiune pneumaticã"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr "Orificiu de eliminare a aerului"
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Componente pentru circuite hidraulica ºi pneumatice"
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr "Comandã electricã (bobinã dublã)"
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr "Comandã electricã (o bobinã)"
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr "Comandã indirectã hidraulicã"
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr "Comandã indirectã pneumaticã"
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr "Comandã mecanicã cu arc"
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr "Comandã mecanicã cu manivelã"
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr "Comandã muscularã"
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr "Pneumatic/Hidraulic"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr "Comandã prin apãsare buton"
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr "Sãgeatã flux Date/Activitãþi"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr "Etichetã flux"
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr "Cutie activitate/date"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr "Obiecte pentru desenarea diagramelor SADT"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr "SADT/IDEF0"
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr "Acþiunea în execuþie"
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block Type Reference"
+msgstr "Referinþã tip bloc"
+
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Comentariu"
+
+#: sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Decizie"
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function Header"
+msgstr "Antet funcþie"
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function call"
+msgstr "Apel funcþie"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr "Notiþã text genericã"
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out Connector"
+msgstr "Conector intrare/ieºire"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr "Întoarcere procedurã"
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process Type Reference"
+msgstr "Referinþã tip proces"
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr "Recepþioneazã mesaj"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr "SDL"
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save State"
+msgstr "Salveazã starea"
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr "Trimite mesaj"
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service Type Reference"
+msgstr "Referinþã tip serviciu"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr "Limbaj de descriere ºi specificare (SDL)"
+
+#: sheets/SDL.sheet.in.h:18
+msgid "State"
+msgstr "Stare"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr "Aplicaþie client Sybase"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr "Server Sybase"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr "Server replicare Sybase"
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr "Agent Rep sau Administrator transfer log"
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Obiecte diagramã domeniu de replicare Sybase"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr "Administrator server replicare"
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr "Dispozitiv stocare stabil"
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase"
+msgstr "Sybase"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr "Agregare, o clasã este parte a alteia"
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr "Asociere, douã clase sunt asociate"
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr "Constrângere, plaseazã o restricþie asupra ceva"
+
+#: sheets/UML.sheet.in.h:4
+msgid "Create a (large) package"
+msgstr "Creeazã un pachet (mare)"
+
+#: sheets/UML.sheet.in.h:5
+msgid "Create a (small) package"
+msgstr "Creeazã un pachet (mic)"
+
+#: sheets/UML.sheet.in.h:6
+msgid "Create a branch"
+msgstr "Creeazã o ramificaþie"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Create a class"
+msgstr "Creeazã o clasã"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Create a class stereotype icon"
+msgstr "Creeazã o iconiþã stereotip clasã"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Create a component"
+msgstr "Creeazã o componentã"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Create a dependency"
+msgstr "Creeazã o dependenþã"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Create a lifeline"
+msgstr "Creeazã linie de viaþã"
+
+#: sheets/UML.sheet.in.h:12
+msgid "Create a message"
+msgstr "Creeazã un mesaj"
+
+#: sheets/UML.sheet.in.h:13
+msgid "Create a node"
+msgstr "Creeazã un nod"
+
+#: sheets/UML.sheet.in.h:14
+msgid "Create a note"
+msgstr "Creeazã o notiþã"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Create a state machine"
+msgstr "Creeazã o stare maºinã"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Create a template class"
+msgstr "Creeazã o clasã model"
+
+#: sheets/UML.sheet.in.h:17
+msgid "Create a use case"
+msgstr "Creeazã un caz de folosire"
+
+#: sheets/UML.sheet.in.h:18
+msgid "Create an actor"
+msgstr "Creeazã un actor"
+
+#: sheets/UML.sheet.in.h:19
+msgid "Create an object"
+msgstr "Creeazã un obiect"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Editor pt. diagrame structuri statice UML"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr "Generalizare, moºtenire clase"
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr "Implementeazã, clasa implementeazã o interfaþã specificã"
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr "Realizeazã, implementeazã o interfaþã specificã"
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr "UML"
+

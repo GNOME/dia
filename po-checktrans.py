@@ -39,19 +39,29 @@ def slurp_po(fname):
     
     st = ""
     id = ""
+
+    fuzzy = 0
+    prev_fuzzy = 0
+    fuzzies = 0
     
     fd = open(fname,"r")
     while 1:
         s = fd.readline()
         if not s: break
 
+        if s[0] == '#':
+            if s.find('fuzzy') >= 0:
+                fuzzy = 1
+                
         s = string.strip(string.split(s,'#')[0])
-        if not s: continue # empty line.
+        if not s: continue # empty or comment line.
         
         sl = string.split(s)
         if sl[0] == "msgid":
             #print "id",id,"st",st
             if st:
+                if prev_fuzzy:
+                    fuzzies = fuzzies + 1
                 translations = translations + 1
             id = sl[0]
             st = ""
@@ -63,12 +73,14 @@ def slurp_po(fname):
             id = sl[0]
             st = ""
             del sl[0]
+            prev_fuzzy = fuzzy
+            fuzzy = 0
             
         for k in sl:
             if k != '""':
                 st = st + k
     #print "translations:",translations,"idents:",idents
-    return (language_name, idents, translations)
+    return (language_name, idents, translations,fuzzies)
 
 if len(sys.argv)<3:
     print "Usage: %s <package.pot> <lang.po> ..." % sys.argv[0]
@@ -82,14 +94,14 @@ def maxlen(a,b):
         return a
     return b
 
-(t,idents,n) = slurp_po(sys.argv[1])
-del t,n
+(t,idents,n,f) = slurp_po(sys.argv[1])
+del t,n,f
 
 translations = map(slurp_po,sys.argv[2:])
-trans = map(lambda (l,i,t),ti=idents:
-            "%s:%3d%%(%d/%d)%s"%(l,
+trans = map(lambda (l,i,t,f),ti=idents:
+            "%s:%3d%%(%d/%d/%d)%s"%(l,
                                  100*float(t)/idents,
-                                 t,idents,
+                                 t,f,idents,
                                  "*" * (idents != i)),
             translations)
 maxlanglen = len(reduce(maxlen,trans,""))

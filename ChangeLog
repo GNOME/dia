@@ -1,3 +1,12 @@
+2002-08-05  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* configure.in: added ro to ALL_LINGUAS
+
+	* po-checktrans:
+	* po-checktrans.py:
+	* ../translation-graphs/transgraph.py: added support for fuzzy
+	translations. Enlarged the graphs.
+
 2002-08-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events): Now translates

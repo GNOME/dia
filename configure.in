@@ -7,8 +7,6 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 AC_PREREQ(2.50)
 AC_REVISION($Revision$)
 
-dnl AM_INIT_AUTOMAKE(dia, 0.90+cvs)
-
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
 
@@ -159,7 +157,7 @@ dnl
 GETTEXT_PACKAGE=dia
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Needed for glib gettext])
-ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko nl nn no pl pt pt_BR ru sk sl sv tr uk vi zh_CN zh_TW"
+ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko nl nn no pl pt pt_BR ro ru sk sl sv tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 localedir='${prefix}/${DATADIRNAME}/locale'
