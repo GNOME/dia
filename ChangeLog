@@ -2,6 +2,7 @@
 
 	* objects/FS/flow-ortho.c: 
 	* objects/FS/flow.c: Made the label behave again.
+	Also removed GTK refs.
 
 2002-08-05  Cyrille Chepelov  <cyrille@chepelov.org>
 

@@ -25,8 +25,6 @@
 #endif
 
 #include <assert.h>
-#define GTK_ENABLE_BROKEN /* GtkText */ 
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -48,7 +46,6 @@
 
 
 typedef struct _Orthflow Orthflow;
-typedef struct _OrthflowDialog OrthflowDialog;
 typedef struct _OrthflowChange OrthflowChange;
 
 typedef enum {
@@ -66,16 +63,6 @@ struct _Orthflow {
   TextAttributes attrs;
   OrthflowType type;
   Point textpos; /* This is the master position, only overridden in load */
-};
-
-struct _OrthflowDialog {
-  GtkWidget *dialog;
-  
-  GtkWidget *text;
-
-  GtkWidget *m_energy;
-  GtkWidget *m_material;
-  GtkWidget *m_signal;
 };
 
 enum OrthflowChangeType {
@@ -106,8 +93,6 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 static DiaFont *orthflow_font = NULL;
 
-static OrthflowDialog *defaults_dialog;
-
 /* Remember the most recently applied orthflow type and use it to
    set the type for any newly created orthflows
  */
@@ -128,8 +113,6 @@ static real orthflow_distance_from(Orthflow *orthflow, Point *point);
 static void orthflow_update_data(Orthflow *orthflow);
 static void orthflow_destroy(Orthflow *orthflow);
 static Object *orthflow_copy(Orthflow *orthflow);
-static GtkWidget *orthflow_get_defaults(void);
-static void orthflow_apply_defaults(void);
 static PropDescription *orthflow_describe_props(Orthflow *mes);
 static void
 orthflow_get_props(Orthflow * orthflow, GPtrArray *props);
@@ -147,8 +130,8 @@ static ObjectTypeOps orthflow_type_ops =
   (CreateFunc)		orthflow_create,
   (LoadFunc)		orthflow_load,
   (SaveFunc)		orthflow_save,
-  (GetDefaultsFunc)	orthflow_get_defaults,
-  (ApplyDefaultsFunc)	orthflow_apply_defaults
+  (GetDefaultsFunc)	NULL,
+  (ApplyDefaultsFunc)	NULL,
   
 } ;
 
@@ -616,184 +599,6 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   return &orthflow->orth.object;
 }
 
-
-
-static void
-fill_in_defaults_dialog()
-{
-  OrthflowDialog *prop_dialog;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = defaults_dialog;
-
-  if ( orthflow_default_label ) {
-    gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-    gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			     gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-    gtk_text_insert( GTK_TEXT(prop_dialog->text),
-		     NULL, NULL, NULL,
-		     text_get_string_copy(orthflow_default_label),
-		     -1) ;
-  }
-
-  switch (orthflow_most_recent_type) {
-  case ORTHFLOW_ENERGY:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
-    break;
-  case ORTHFLOW_MATERIAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
-    break;
-  case ORTHFLOW_SIGNAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
-    break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
-
-#if 0
-static ObjectChange *
-orthflow_apply_properties(Orthflow *orthflow)
-{
-  OrthflowDialog *prop_dialog;
-  ObjectChange* change ;
-  
-  prop_dialog = properties_dialog;
-
-  change = orthflow_create_change( BOTH,
-				   orthflow->type, orthflow->text ) ;
-  text_set_string(orthflow->text,
-                  gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
-					  0, -1));
-
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_energy)->active)
-    orthflow->type = ORTHFLOW_ENERGY;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_material )->active) 
-    orthflow->type = ORTHFLOW_MATERIAL;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_signal )->active) 
-    orthflow->type = ORTHFLOW_SIGNAL;
-
-  orthflow_update_data(orthflow);
-
-  return change ;
-}
-
-static void
-fill_in_dialog(Orthflow *orthflow)
-{
-  OrthflowDialog *prop_dialog;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = properties_dialog;
-
-  gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-  gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			   gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-  gtk_text_insert( GTK_TEXT(prop_dialog->text),
-                   NULL, NULL, NULL,
-                   text_get_string_copy(orthflow->text),
-                   -1);
-
-  switch (orthflow->type) {
-  case ORTHFLOW_ENERGY:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
-    break;
-  case ORTHFLOW_MATERIAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
-    break;
-  case ORTHFLOW_SIGNAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
-    break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
-
-
-
-static GtkWidget *
-orthflow_get_properties(Orthflow *orthflow)
-{
-  OrthflowDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GSList *group;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(OrthflowDialog, 1);
-    properties_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Flow:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->text = entry ;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    label = gtk_label_new(_("Flow type:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    /* */
-    prop_dialog->m_energy = gtk_radio_button_new_with_label (NULL, _("Energy"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_energy, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_energy);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_energy), TRUE);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_energy));
-
-    prop_dialog->m_material = gtk_radio_button_new_with_label(group, _("Material"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_material, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_material);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_material));
-
-    prop_dialog->m_signal = gtk_radio_button_new_with_label(group, _("Signal"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_signal, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_signal);
-
-#if 0
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_signal));
-#endif
-  }
-  
-  fill_in_dialog(orthflow);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
-}
-#endif
-
-static void
-orthflow_update_defaults( Orthflow* orthflow, char update_text )
-{
-  orthflow_most_recent_type = orthflow->type ;
-
-  if (update_text) {
-    if ( orthflow_default_label )
-      text_destroy( orthflow_default_label ) ;
-    orthflow_default_label = text_copy( orthflow->text ) ;
-  }
-}
-
 static ObjectChange *
 orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 {
@@ -801,9 +606,6 @@ orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
   change = orthflow_create_change( FLOW_TYPE, ((Orthflow*)obj)->type, 0 ) ;
 
   ((Orthflow*)obj)->type = (int) data ;
-  orthflow_update_defaults( (Orthflow*) obj, 1 ) ;
-  if ( defaults_dialog )
-    fill_in_defaults_dialog() ;
   orthflow_update_data((Orthflow*)obj);
 
   return change;
@@ -840,109 +642,3 @@ orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint)
   return &orthflow_menu;
 }
 
-static GtkWidget *
-orthflow_get_defaults(void)
-{
-  OrthflowDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GSList *group;
-
-  if (defaults_dialog == NULL) {
-
-    prop_dialog = g_new(OrthflowDialog, 1);
-    defaults_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
-
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Orthflow:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->text = entry ;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_widget_set_usize( GTK_WIDGET(entry), 100, 50 ) ;
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    label = gtk_label_new(_("Orthflow type:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    /* */
-    prop_dialog->m_energy = gtk_radio_button_new_with_label (NULL, _("Energy"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_energy, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_energy);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_energy), TRUE);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_energy));
-
-    prop_dialog->m_material = gtk_radio_button_new_with_label(group, _("Material"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_material, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_material);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_material));
-
-    prop_dialog->m_signal = gtk_radio_button_new_with_label(group, _("Signal"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_signal, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_signal);
-  }
-  
-  fill_in_defaults_dialog();
-  gtk_widget_show (defaults_dialog->dialog);
-
-  return defaults_dialog->dialog;
-}
-
-static void
-orthflow_apply_defaults(void)
-{
-  OrthflowDialog *prop_dialog;
-  Color* color = 0 ;
-
-  prop_dialog = defaults_dialog;
-
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_energy)->active) {
-    orthflow_most_recent_type = ORTHFLOW_ENERGY;
-    color = &orthflow_color_energy ;
-  } else if (GTK_TOGGLE_BUTTON( prop_dialog->m_material )->active) {
-    orthflow_most_recent_type = ORTHFLOW_MATERIAL;
-    color = &orthflow_color_material ;
-  } else if (GTK_TOGGLE_BUTTON( prop_dialog->m_signal )->active) {
-    orthflow_most_recent_type = ORTHFLOW_SIGNAL;
-    color = &orthflow_color_signal ;
-  }
-
-  if ( ! orthflow_default_label ) {
-    Point p ;
-
-    if (orthflow_font == NULL) {
-	    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
-                                              1.0);
-    }
-    orthflow_default_label =
-      new_text(
-	       gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),0,-1), 
-	       orthflow_font, ORTHFLOW_FONTHEIGHT, &p, color, ALIGN_CENTER
-	       ) ;
-  } else {
-    text_set_string(orthflow_default_label,
-		    gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
-					    0, -1));
-    text_set_color( orthflow_default_label, color ) ;
-  }
-}
