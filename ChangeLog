@@ -1,5 +1,7 @@
 2002-05-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* autogen.sh (DIE): Added conditional --force to gettextize.
+
 	* app/pagesetup.c (pagesetup_ok): Commented out missing Gnome
 	function call.
 

@@ -70,7 +70,12 @@ echo "Running gettextize...  Ignore non-fatal messages."
 #echo "no" | gettextize --copy --force
 # finally, no, we don't try to force. Otherwise gettextize spends its time 
 # telling its life in po/ChangeLog.
-gettextize --copy
+## It has to run with --force to make po/Makefile.in.in, though
+if [ -f po/Makefile.in.in ]; then
+  gettextize --copy
+else
+  gettextize --copy --force
+fi
 
 echo "Running intltoolize"
 intltoolize --copy --force --automake
