@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 03:10+0100\n"
-"PO-Revision-Date: 2004-03-08 07:10 :40+0000\n"
+"PO-Revision-Date: 2004-02-03 07:10 :40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -594,11 +594,11 @@ msgstr ""
 
 #: app/filedlg.c:172
 msgid "Open Diagram"
-msgstr ""
+msgstr "Oscail Léaráid"
 
 #: app/filedlg.c:200
 msgid "Open Options"
-msgstr ""
+msgstr "Roghnachais Oscail"
 
 #: app/filedlg.c:208 app/filedlg.c:495
 msgid "Determine file type:"
@@ -802,7 +802,7 @@ msgstr ""
 
 #: app/layer_dialog.c:228
 msgid "Diagrams:"
-msgstr ""
+msgstr "Léaráideanna:"
 
 #: app/layer_dialog.c:273
 msgid "Close"
@@ -908,19 +908,19 @@ msgstr ""
 #: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr ""
+msgstr "Teip ag sábháil comhad '%s'.\n"
 
 #: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
-msgstr ""
+msgstr "Léaráid Dia"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "_New diagram"
-msgstr ""
+msgstr "Léarádi Nua"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "Create new diagram"
-msgstr ""
+msgstr "Cruthaigh léaráid nua"
 
 #: app/menus.c:54
 msgid "_Diagram tree"
@@ -948,11 +948,11 @@ msgstr ""
 
 #: app/menus.c:80
 msgid "Page Set_up..."
-msgstr ""
+msgstr "_Socrú Leathanach..."
 
 #: app/menus.c:82
 msgid "_Print Diagram..."
-msgstr ""
+msgstr "Clódáil Léaráid..."
 
 #: app/menus.c:97
 msgid "_Delete"
@@ -992,7 +992,7 @@ msgstr "_Súmáil"
 
 #: app/menus.c:133
 msgid "Diagram Properties..."
-msgstr ""
+msgstr "Álbachtaí do Léaráid..."
 
 #: app/menus.c:135
 msgid "_AntiAliased"
@@ -1017,7 +1017,7 @@ msgstr ""
 
 #: app/menus.c:148
 msgid "New _View"
-msgstr ""
+msgstr "_Amharc Nua"
 
 #: app/menus.c:149
 msgid "Show _All"
@@ -1163,7 +1163,7 @@ msgstr ""
 
 #: app/menus.c:269
 msgid "_Tools"
-msgstr ""
+msgstr "_Uirlísí"
 
 #: app/menus.c:270
 msgid "_Dialogs"
@@ -1175,7 +1175,7 @@ msgstr ""
 
 #: app/menus.c:272
 msgid "_Help"
-msgstr "C_uidiú"
+msgstr "Cab_hair"
 
 #: app/menus.c:283 app/menus.c:318
 msgid "/_File"
@@ -1218,19 +1218,19 @@ msgstr "/Comhad/_Éirigh As"
 
 #: app/menus.c:303 app/menus.c:467
 msgid "/_Help"
-msgstr "/C_uidiú"
+msgstr "/Cab_hair"
 
 #: app/menus.c:305 app/menus.c:469
 msgid "/Help/_Manual"
-msgstr "/Cuidiú/_Lábhleabhar"
+msgstr "/Cabhair/_Lábhleabhar"
 
 #: app/menus.c:307 app/menus.c:471
 msgid "/Help/---"
-msgstr "/Cuidiú/---"
+msgstr "/Cabhair/---"
 
 #: app/menus.c:308 app/menus.c:472
 msgid "/Help/_About..."
-msgstr "/Cuidiú/_Faoi..."
+msgstr "/Cabhair/_Faoi..."
 
 #: app/menus.c:324
 msgid "/File/_Save"
@@ -1365,7 +1365,7 @@ msgstr "/Amharc/---"
 
 #: app/menus.c:378
 msgid "/View/Diagram Properties..."
-msgstr ""
+msgstr "/Amharc/Álbachtaí do Léaráid..."
 
 #: app/menus.c:380
 msgid "/View/_AntiAliased"
@@ -1555,7 +1555,7 @@ msgstr ""
 
 #: app/menus.c:443
 msgid "/_Tools"
-msgstr ""
+msgstr "/_Úirlísí"
 
 #: app/menus.c:445
 msgid "/Tools/Modify"
@@ -1591,11 +1591,11 @@ msgstr ""
 
 #: app/menus.c:453 app/menus.c:459
 msgid "/Tools/---"
-msgstr ""
+msgstr "/Uirlísí/---"
 
 #: app/menus.c:454
 msgid "/Tools/Line"
-msgstr ""
+msgstr "/Urlísí/Líne"
 
 #: app/menus.c:455
 msgid "/Tools/Arc"
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: app/menus.c:460
 msgid "/Tools/Image"
-msgstr ""
+msgstr "/Uirlísí/Íomha"
 
 #: app/menus.c:461
 msgid "/_Dialogs"
@@ -1635,7 +1635,7 @@ msgstr ""
 
 #: app/menus.c:811
 msgid "Diagram Menu"
-msgstr ""
+msgstr "Chlár Léaráid"
 
 #: app/menus.c:1187
 #, c-format
@@ -1933,11 +1933,11 @@ msgstr "<- Cóip Gach rud"
 
 #: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
-msgstr "<- Bóg"
+msgstr "<- Bog"
 
 #: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
-msgstr "<- Bóg Gach rud"
+msgstr "<- Bog Gach rud"
 
 #: app/sheets_dialog.c:233
 msgid "Edit"
@@ -2035,11 +2035,11 @@ msgstr "Cóip Gach rud ->"
 
 #: app/sheets_dialog_callbacks.c:168
 msgid "Move ->"
-msgstr "Bóg ->"
+msgstr "Bog ->"
 
 #: app/sheets_dialog_callbacks.c:170
 msgid "Move All ->"
-msgstr "Bóg Gach rud ->"
+msgstr "Bog Gach rud ->"
 
 #: app/sheets_dialog_callbacks.c:303
 #, c-format
@@ -2108,7 +2108,7 @@ msgstr "Dáta: %s"
 #: app/sheets_dialog_callbacks.c:1672
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "Do: %s"
 
 #: app/sheets_dialog_callbacks.c:1689
 msgid "add shapes here"
@@ -2348,7 +2348,7 @@ msgstr ""
 
 #: lib/message.c:215
 msgid "Notice"
-msgstr ""
+msgstr "Fógra"
 
 #: lib/object_defaults.c:123
 #, c-format
@@ -2412,7 +2412,7 @@ msgstr ""
 
 #: lib/properties.c:74 lib/properties.h:490
 msgid "Draw background"
-msgstr ""
+msgstr "Taispeán chúlra"
 
 #: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
@@ -2456,7 +2456,7 @@ msgstr ""
 #. We hit the Other fonts... entry
 #: lib/widgets.c:342
 msgid "Select font"
-msgstr ""
+msgstr "Tóg chló"
 
 #. Translators: Menu item Noun/Material/Solid
 #: lib/widgets.c:652 objects/FS/function.c:1063
@@ -2494,15 +2494,15 @@ msgstr ""
 
 #: lib/widgets.c:1059
 msgid "Width: "
-msgstr ""
+msgstr "Leitheid: "
 
 #: lib/widgets.c:1187
 msgid "Select image file"
-msgstr ""
+msgstr "Tóg comhad d'íomha"
 
 #: lib/widgets.c:1221
 msgid "Browse"
-msgstr ""
+msgstr "Brábhsáil"
 
 #: objects/ER/attribute.c:153
 msgid "Key:"
@@ -2683,7 +2683,7 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
 #: objects/FS/function.c:707
 msgid "Move"
-msgstr "Bóg"
+msgstr "Bog"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #: objects/FS/function.c:711 objects/FS/function.c:713
@@ -3996,12 +3996,12 @@ msgstr "Dealaigh"
 #: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
 #: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
 msgid "Move up"
-msgstr "Bóg suas"
+msgstr "Bog suas"
 
 #: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
 #: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
 msgid "Move down"
-msgstr "Bóg síos"
+msgstr "Bog síos"
 
 #: objects/UML/class_dialog.c:858
 msgid "Attribute data"
