@@ -1,3 +1,13 @@
+1999-02-24  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* configure.in:
+	Fixed detection of gnome-xml.
+	From Valtteri Vuorikoski <vuori@k.notcom.org>.
+	
+	* app/app_procs.c:
+	Fixed error detection on dlsym calls. 
+	From Valtteri Vuorikoski <vuori@k.notcom.org>.
+
 1999-02-23  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/message.c (fill_in_dialog):

@@ -329,7 +329,7 @@ register_objects_in(char *directory)
 #else
       version_func = dlsym(libhandle, "get_version");
 #endif
-      if ((error = dlerror()) != NULL)  {
+      if (version_func == NULL)  {
 	message_warning(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	printf(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	continue;
@@ -353,7 +353,8 @@ register_objects_in(char *directory)
 #else
       register_func = dlsym(libhandle, "register_objects");
 #endif
-      if ((error = dlerror()) != NULL)  {
+      if (register_func == NULL)  {
+	error = dlerror();
 	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	continue;
@@ -421,7 +422,8 @@ register_all_sheets(void)
     register_func = dlsym(libhandle, "register_sheets");
 #endif
 
-    if ((error = dlerror()) != NULL)  {
+    if (register_func == NULL)  {
+      error = dlerror();
       message_warning(_("Unable to find register_sheets in library:\n%s"), error);
       list = g_list_next(list);
       continue;

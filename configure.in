@@ -95,8 +95,8 @@ dnl
 AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
 if test "$XML_CONFIG" != "" 
 then
-  XML_LIBS="`xml-config --libs`"
-  XML_CFLAGS="`xml-config --cflags`"
+  XML_LIBS="`$XML_CONFIG --libs`"
+  XML_CFLAGS="`$XML_CONFIG --cflags`"
 else
   AC_MSG_ERROR(Can't find gnome-xml library.)
 fi
