@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-12-06 10:03+0100\n"
-"PO-Revision-Date: 2002-12-06 10:07+0100\n"
+"POT-Creation-Date: 2002-12-13 04:15+0100\n"
+"PO-Revision-Date: 2002-12-13 04:16+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,15 +166,15 @@ msgstr "Välj färg"
 msgid "Untitled-%d"
 msgstr "Namnlös-%d"
 
-#: app/commands.c:197
+#: app/commands.c:198
 msgid "No existing object to paste.\n"
 msgstr "Det finns inget existerande objekt att klistra in.\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "Kunde inte hitta hjälpkatalogen"
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -188,7 +188,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Christian Rose\n"
@@ -198,15 +198,15 @@ msgstr ""
 "Fredrik Hallenberg\n"
 "Skicka synpunkter på översättningen till sv@li.org"
 
-#: app/commands.c:549 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:551
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002 The Free Software Foundation och författarna"
 
-#: app/commands.c:552
+#: app/commands.c:553
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -214,29 +214,29 @@ msgstr ""
 "Dia är ett program för skapande av strukturerade diagram.\n"
 "Besök http://www.lysator.liu.se/~alla/dia för mer information."
 
-#: app/commands.c:591
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:634
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:640
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Ansvariga: Lars Clausen och Cyrille Chépélov"
 
-#: app/commands.c:644
+#: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:649
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Bidragsgivare:"
 
-#: app/commands.c:761
+#: app/commands.c:762
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -247,7 +247,7 @@ msgstr ""
 "inte nödvändigt att skicka in fler felrapporter om den\n"
 "kraschar"
 
-#: app/defaults.c:43 app/defaults.c:139
+#: app/defaults.c:43 app/defaults.c:145
 msgid "Object defaults"
 msgstr "Standardvärden för objekt"
 
@@ -537,9 +537,9 @@ msgstr "Stäng diagram"
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
-#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
-#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
+#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
@@ -740,7 +740,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
 msgid "Line"
 msgstr "Linje"
 
@@ -1875,11 +1875,11 @@ msgstr "<Toolbox>/Arkiv/Avsluta"
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
-#: app/render_eps.c:975
+#: app/render_eps.c:114
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
@@ -2127,7 +2127,7 @@ msgstr "lägg till figurer här"
 msgid "Loading ..."
 msgstr "Läser in..."
 
-#: app/splash.c:75
+#: app/splash.c:76
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v. %s"
@@ -2139,6 +2139,10 @@ msgstr "Diagramredigerare"
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
+
+#: lib/dialibartrenderer.c:1117
+msgid "This is Dia version is compiled without libart/text support."
+msgstr "Denna är version av Dia är kompilerad utan stöd för libart/text."
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2168,7 +2172,7 @@ msgstr "Fel vid tolkning av punkt."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Ogiltigt y-punktvärde \"%s\" %f; kastar det."
 
-#: lib/dia_xml.c:880
+#: lib/dia_xml.c:856
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2179,51 +2183,51 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
-#: lib/font.c:81
+#: lib/font.c:86
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Kan inte läsa in typsnittet %s.\n"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: lib/diagtkfontsel.c:72
+#: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijklmnopqrstuvxyzåäö ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ"
 
-#: lib/diagtkfontsel.c:207
+#: lib/diagtkfontsel.c:209
 msgid "Font name"
 msgstr "Typsnittsnamn"
 
-#: lib/diagtkfontsel.c:208
+#: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
 msgstr "X-strängen som representerar detta typsnitt."
 
-#: lib/diagtkfontsel.c:214
+#: lib/diagtkfontsel.c:216
 msgid "Preview text"
 msgstr "Förhandsvisningstext"
 
-#: lib/diagtkfontsel.c:215
+#: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
 msgstr "Texten att visa för att demonstrera det valda typsnittet."
 
-#: lib/diagtkfontsel.c:319
+#: lib/diagtkfontsel.c:321
 msgid "_Family:"
 msgstr "_Familj:"
 
-#: lib/diagtkfontsel.c:325
+#: lib/diagtkfontsel.c:327
 msgid "_Style:"
 msgstr "_Stil:"
 
-#: lib/diagtkfontsel.c:331
+#: lib/diagtkfontsel.c:333
 msgid "Si_ze:"
 msgstr "Sto_rlek:"
 
 #. create the text entry widget
-#: lib/diagtkfontsel.c:460
+#: lib/diagtkfontsel.c:462
 msgid "_Preview:"
 msgstr "Förhands_visning:"
 
-#: lib/diagtkfontsel.c:1250
+#: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Typsnittsval"
 
@@ -3851,7 +3855,7 @@ msgid "Vergent type:"
 msgstr "Kanttyp:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:236
+#: objects/standard/line.c:240
 msgid "Add connection point"
 msgstr "Lägg till anslutningspunkt"
 
@@ -3948,7 +3952,7 @@ msgstr "Aktivitet/Dataidentifierare"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifieraren som visas i nedre högra hörnet i rutan"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:237
+#: objects/SADT/box.c:440 objects/standard/line.c:241
 msgid "Delete connection point"
 msgstr "Ta bort anslutningsspunkt"
 
@@ -4023,34 +4027,6 @@ msgstr "Startpunkt"
 #: objects/standard/line.c:142
 msgid "End point"
 msgstr "Slutpunkt"
-
-#: objects/standard/line.c:143
-msgid "Line gaps"
-msgstr "Linjeavstånd"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr "Absolut startavstånd"
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr "Absolut slutavstånd"
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr "Delstartavstånd"
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr "Delslutavstånd"
-
-#: objects/standard/line.c:153
-msgid "Start at object edge"
-msgstr "Starta vid objektkant"
-
-#: objects/standard/line.c:155
-msgid "End at object edge"
-msgstr "Sluta vid objektkant"
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -6230,6 +6206,30 @@ msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "This Dia version is compiled without libart/text support."
+#~ msgstr "Denna version av Dia är kompilerad utan stöd för libart/text."
+
+#~ msgid "Line gaps"
+#~ msgstr "Linjeavstånd"
+
+#~ msgid "Absolute start gap"
+#~ msgstr "Absolut startavstånd"
+
+#~ msgid "Absolute end gap"
+#~ msgstr "Absolut slutavstånd"
+
+#~ msgid "Fractional start gap"
+#~ msgstr "Delstartavstånd"
+
+#~ msgid "Fractional end gap"
+#~ msgstr "Delslutavstånd"
+
+#~ msgid "Start at object edge"
+#~ msgstr "Starta vid objektkant"
+
+#~ msgid "End at object edge"
+#~ msgstr "Sluta vid objektkant"
 
 #~ msgid "Arrow"
 #~ msgstr "Pil"
