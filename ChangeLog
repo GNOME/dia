@@ -1,3 +1,32 @@
+2001-09-07  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/dia_xml_libxml.h:
+	* lib/dia_xml.c: (data_add_string), (xmlDiaSaveFile): Duplicated
+	libxml1's code, to rework the output file before it gets committed
+	to disk. This is rubbish, and will be removed when libxml2
+	switches from discouraged to mandatory. 
+	All in all, this fixes #60152. 
+	
+	* lib/charconv.h: 
+	* lib/charconv.c: (charconv_unichar_to_utf8):
+	made the type of the input parameter explicitly an unsigned long.
+
+	* configure.in: Added a check for libz (we must now include it
+	explicitly, for xmlDiaSaveFile).
+	
+	* app/load_save.c: (diagram_data_save):
+	* lib/plug-ins.c: (ensure_pluginrc), (info_fill_from_pluginrc),
+	(dia_pluginrc_write):
+	* plug-ins/shape/shape-export.c: (new_shape_renderer),
+	(end_render), (draw_string):
+	* plug-ins/svg/render_svg.c: (new_svg_renderer), (end_render),
+	(draw_string):
+
+	Made sure we always write UTF-8 XML files, and through
+	xmlDiaSaveFile().
+
+	* NEWS: documented that fact.
+	
 2001-09-07  James Henstridge  <james@daa.com.au>
 
 	* configure.in (found_libxml): refactor the check for libxml a

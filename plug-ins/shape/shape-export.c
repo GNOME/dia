@@ -29,7 +29,6 @@
 #include <unistd.h>
 #endif
 #include <locale.h>
-
 #include <entities.h>
 
 /* the dots per centimetre to render this diagram at */
@@ -37,6 +36,7 @@
 #define DPCM 20
 
 #include <tree.h>
+#include <xmlmemory.h>
 #include "geometry.h"
 #include "render.h"
 #include "filter.h"
@@ -206,6 +206,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
 
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
+  renderer->doc->encoding = xmlStrdup("UTF-8");
   name_space = xmlNewGlobalNs(renderer->doc, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
   renderer->root = xmlNewDocNode(renderer->doc, name_space, "shape", NULL);
   renderer->svg_name_space = xmlNewNs(renderer->root, "http://www.w3.org/2000/svg", "svg");
@@ -250,10 +251,12 @@ static void
 end_render(RendererShape *renderer)
 {
   g_free(renderer->linestyle);
-
+  renderer->linestyle = NULL;
+  
   xmlSetDocCompressMode(renderer->doc, 0);
-  xmlSaveFile(renderer->filename, renderer->doc);
+  xmlDiaSaveFile(renderer->filename, renderer->doc);
   g_free(renderer->filename);
+  renderer->filename = NULL;
   xmlFreeDoc(renderer->doc);
 }
 
@@ -831,16 +834,27 @@ draw_string(RendererShape *renderer,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
-{
-  xmlChar *enc;
+{    
   xmlNodePtr node;
   char buf[512], *style, *tmp;
   real saved_width;
 
-  enc = xmlEncodeEntitiesReentrant(renderer->doc, text);
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", enc);
-  free(enc);
-
+#ifdef UNICODE_WORK_IN_PROGRESS
+  {
+      xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc,text);
+      node = xmlNewChild(renderer->root, renderer->svg_name_space,
+                         "text", enc);
+  }
+#else
+ {
+     utfchar *utf = charconv_local8_to_utf8(text);
+     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc,utf);     
+     g_free(utf);
+     node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", enc);
+     xmlFree(enc);
+ }
+#endif
+ 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
   style = get_fill_style(renderer, colour);

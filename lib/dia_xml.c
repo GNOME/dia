@@ -23,6 +23,7 @@
 #include <string.h>
 #include <locale.h>
 #include <math.h>
+#include <fcntl.h>
 
 #include <parser.h>
 #include <parserInternals.h>
@@ -785,111 +786,40 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 
 }
 
-static int
-escaped_str_len(const utfchar *str)
-{
-  int len;
-  unichar c;
-  
-  if (str==NULL)
-    return 0;
-  
-  len = 0;
-  
-  while (*str) {
-    str = uni_get_utf8(str,&c);
-    switch (c) {
-    case '&':
-      len += 5; /* "&amp;" */
-      break;
-    case '<':
-    case '>':
-      len += 4; /* "&lt;" or "&gt;" */
-      break;
-    default:
-      len++;
-    }
-  }
-  
-  return len;
-}
-
-static void
-escape_string(utfchar *buffer, const utfchar *str)
-{
-  int len;
-  unichar c;
-  const utfchar *nxtstr;
-  
-  *buffer = 0;
-  
-  if (str==NULL) 
-    return;
-  
-  len = 0;
-
-  while (*str) {
-#ifdef XML2
-    nxtstr = uni_get_utf8(str,&c);
-#else
-    c = *str;
-    nxtstr = str + 1;
-#endif
-    switch (c) {
-    case '&':
-      strcpy(buffer, "&amp;");
-      buffer += 5;
-      break;
-    case '<':
-      strcpy(buffer, "&lt;");
-      buffer += 4;
-      break;
-    case '>':
-      strcpy(buffer, "&gt;");
-      buffer += 4;
-     break;
-    default:
-#ifdef XML2
-      uni_strncpy(buffer,str,1);
-      buffer = uni_next(buffer);
-#else
-      *buffer++ = *str++;
-#endif
-    }
-    str = nxtstr;
-  }
-  *buffer = 0;
-}
-
 void
-data_add_string(AttributeNode attr, const utfchar *str)
+data_add_string(AttributeNode attr, const char *str)
 {
-  DataNode data_node;
-  utfchar *escaped_str;
-  int len;
+    DataNode data_node;
+    xmlChar *escaped_str;
+    xmlChar *sharped_str;
+    int len;
 
-#if (defined(XML2) && !defined(UNICODE_WORK_IN_PROGRESS))
-  str = charconv_local8_to_utf8(str);
-  /* IF WE'RE STILL USING LIBXML1, WE'RE STILL STORING AS LOCAL CHARSET */
+    if (str==NULL) {
+        data_node = xmlNewChild(attr, NULL, "string", NULL);
+        return;
+    } 
+
+#ifndef UNICODE_WORK_IN_PROGRESS
+    {
+        utfchar *utfstr = charconv_local8_to_utf8(str);
+        escaped_str = xmlEncodeEntitiesReentrant(attr->doc,utfstr);
+        g_free(utfstr);
+    }
+#else
+    escaped_str = xmlEncodeEntitiesReentrant(attr->node,str);
 #endif
+    
+    len = 2+strlen(escaped_str);
+    sharped_str = g_malloc0(len+1);
+    *sharped_str='#';
+    strcpy(sharped_str+1,escaped_str);
+    strcat(sharped_str, "#");
 
-  if (str==NULL) {
-    data_node = xmlNewChild(attr, NULL, "string", NULL);
-  } else {
-    len = 2+escaped_str_len(str);
-    escaped_str = g_malloc0(len+1);
-    *escaped_str='#';
-    escape_string(escaped_str+1, str);
-    strcat(escaped_str, "#");
-
-#if (defined(XML2) && !defined(UNICODE_WORK_IN_PROGRESS))
-    g_free(str);
-#endif
-
-    data_node = xmlNewChild(attr, NULL, "string", escaped_str);
+    xmlFree(escaped_str);
+    
+    data_node = xmlNewChild(attr, NULL, "string", sharped_str);
   
-    g_free(escaped_str);
-  }
+    g_free(sharped_str);
 }
 
 void
@@ -924,3 +854,187 @@ warn_about_broken_libxml1(void)
                     " see this message."));
 }
 
+#define BUFSIZE 2048
+#define OVERRUN_SAFETY 16
+
+int xmlDiaSaveFile(const char *filename,
+                   xmlDocPtr cur)
+{
+#ifdef XML2
+    return xmlSaveFileEnc(filename,cur, "UTF-8");
+#else
+        /* non-XML2 case. Let's have fun working around libxml1's
+           brokenness.
+
+           Here, we're basically using the code from libxml1's xmlSaveFile
+           routine (Copyright 1998 Daniel.Veillard@w3.org, MIT, INRIA.
+           License is LGPL).
+
+           I've savagely modified it, so that it doesn't output too broken
+           UTF-8 data. -- CC
+        */ 
+    
+#ifdef HAVE_ZLIB_H
+    gzFile zoutput = NULL;
+    char mode[15];
+#endif
+    FILE *output = NULL;    
+    int ret = 0;
+
+    xmlChar tempbuf[BUFSIZE+OVERRUN_SAFETY];
+    xmlChar *b, *bmax, *tb, *tbmax;
+    gboolean done_encoding = FALSE;
+    gboolean has_encoding = FALSE;
+
+    xmlChar *buf;
+    int buf_size;
+    
+
+#ifdef HAVE_ZLIB_H
+    if (cur->compression < 0) cur->compression = 0;
+    if ((cur->compression > 0) && (cur->compression <= 9)) {
+        sprintf(mode, "w%d", cur->compression);
+        if (!strcmp(filename, "-")) 
+            zoutput = gzdopen(1, mode);
+        else
+            zoutput = gzopen(filename, mode);
+    }
+    if (zoutput == NULL) {
+#endif
+#ifdef WIN32
+        output = fopen(filename, "wb");
+#else
+        output = fopen(filename, "w");
+#endif
+        if (output == NULL) {
+            return(-1);
+        }
+#ifdef HAVE_ZLIB_H
+    }
+#endif
+        /* This is not code from libxml1 */
+
+    buf = NULL; buf_size = 0;
+    xmlDocDumpMemory(cur, &buf, &buf_size);
+    
+    if ((!buf) || (!buf_size)) {
+#ifdef HAVE_ZLIB_H
+        if (zoutput != NULL) {
+            gzclose(zoutput);
+        } else {
+#endif
+            fclose(output);
+#ifdef HAVE_ZLIB_H
+        }
+#endif
+        return -1;
+    }
+        
+    
+    b = buf; bmax = buf + buf_size;
+    tb = tempbuf; tbmax = tempbuf + BUFSIZE;
+
+    while ((b < bmax)) {
+        gboolean skip = FALSE;
+        if (!done_encoding) {
+                /* Begin of the file. For the moment, we'll look for
+                   the EncodingDecl. If we don't find it, we'll provide it. */
+            if ((b[0] == 'e') && (b[1] == 'n') && (b[2] == 'c') &&
+                (b[3] == 'o') && (b[4] == 'd') && (b[5] == 'i') &&
+                (b[6] == 'n') && (b[7] == 'g')) has_encoding = TRUE;
+            if ((b[0] == '?') && (b[1] == '>')) {
+                if (!has_encoding) {
+                        /* We're writing UTF-8 ; and libxml1 thinks that
+                           "implicit is better than explicit". Sorry, I'm more
+                           in a Python mood -- CC */
+                    *(tb++) = ' ';
+                    *(tb++) = 'e';
+                    *(tb++) = 'n';
+                    *(tb++) = 'c';
+                    *(tb++) = 'o';
+                    *(tb++) = 'd';
+                    *(tb++) = 'i';
+                    *(tb++) = 'n';
+                    *(tb++) = 'g';
+                    *(tb++) = '=';
+                    *(tb++) = '"';
+                    *(tb++) = 'U';
+                    *(tb++) = 'T';
+                    *(tb++) = 'F';
+                    *(tb++) = '-';
+                    *(tb++) = '8';
+                    *(tb++) = '"';
+                        /* Yes, this sucks, but xmlChar could be different
+                           from (char), so I prefer avoid strcpy. */
+                }
+                
+                done_encoding = TRUE;
+            }
+        } else {
+            if ((b[0] == '&') && (b[1] == '#')) {
+                xmlChar *be = b + 2;
+                xmlChar *newbe = be;
+                long unsigned charnum = strtoul(be,(char **)&newbe,0);
+                
+                if (((*newbe) == ';') && (charnum > 127)) {
+                    utfchar *frag = charconv_unichar_to_utf8(charnum);
+                    while (*frag) *(tb++) = *(frag++);
+
+                    b = newbe + 1;
+                    skip = TRUE;
+                }
+            }
+        }
+        if (!skip) {
+                /* do the actual copy... */
+            *(tb++) = *(b++);
+        }
+
+        if ((tb >= tbmax) || (b >= bmax)) {
+                /* flush the temp. buffer */
+            size_t count_to_write = sizeof(xmlChar)*(tb-tempbuf);
+#ifdef HAVE_ZLIB_H            
+            if (zoutput != NULL) {
+                ret += gzwrite(zoutput, tempbuf, count_to_write);
+            } else {
+#endif
+                ret += fwrite(tempbuf,1,count_to_write,output);
+#ifdef HAVE_ZLIB_H
+            }
+#endif
+            tb = tempbuf;
+        }
+    }
+
+#ifdef HAVE_ZLIB_H
+    if (zoutput != NULL) {
+        gzclose(zoutput);
+    } else {
+#endif
+        fclose(output);
+#ifdef HAVE_ZLIB_H
+    }
+#endif
+    xmlFree(buf);
+    
+    return(ret * sizeof(xmlChar));     
+#endif /* XML2 */
+
+
+        /* We have to do this, because if the character encoding set is set to 
+           UTF-8, libxml1 will NOT put an encoding declaration in the XML
+           header. This sucks, because we have to support older non-standard
+           files dia was generating, where files were stored encoded in the
+           local charset *without* writing an encoding header. So, we store in
+           local encoding and let libxml{1|2} handle the problem.
+
+           The libxml folks, Daniel Veillard in particular, declared that
+           libxml1 is totally obsolete, and have expressed no intention in
+           helping us solve cleanly the issue (despite the fact that it's
+           libxml1's brokenness which brought the problem in the first place).
+           Well, their help will stop at letting us touch the libxml1 CVS
+           branch. 
+
+           As of this writing, several other libraries prevent us from going
+           to libxml2, which is the proper way to do. */
+}

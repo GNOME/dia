@@ -619,7 +619,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   fclose(file);
 
   doc = xmlNewDoc("1.0");
-
+  doc->encoding = xmlStrdup("UTF-8");
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
 
   name_space = xmlNewNs(doc->xmlRootNode, 
@@ -684,7 +684,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   for (i = 0; i < data->layers->len; i++) {
     layer_node = xmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-#if ((!defined(UNICODE_WORK_IN_PROGRESS)) && (defined(XML2)))
+#ifndef UNICODE_WORK_IN_PROGRESS
     { gchar *layername = charconv_local8_to_utf8(layer->name);
     xmlSetProp(layer_node, "name", layername);
     g_free(layername);
@@ -711,35 +711,8 @@ diagram_data_save(DiagramData *data, const char *filename)
     xmlSetDocCompressMode(doc, 9);
   else
     xmlSetDocCompressMode(doc, 0);
-    
-#ifdef XML2
-  ret = xmlSaveFileEnc (tmpname, doc, "UTF-8");
-#else
-  { 
-    char *local_encoding = NULL;
-    if (get_local_charset(&local_encoding)) {
-      warn_about_broken_libxml1();
-    }
-    doc->encoding = g_strdup(local_encoding);
-    /* We have to do this, because if the character encoding set is set to 
-       UTF-8, libxml1 will NOT put an encoding declaration in the XML header.
-       This sucks, because we have to support older non-standard files dia
-       was generating, where files were stored encoded in the local charset
-       *without* writing an encoding header. So, we store in local encoding
-       and let libxml{1|2} handle the problem.
 
-    The libxml folks, Daniel Veillard in particular, declared that libxml1 is 
-    totally obsolete, and have expressed no intention in helping us solve
-    cleanly the issue (despite the fact that it's libxml1's brokenness which 
-    brought the problem in the first place). Well, their help will stop at 
-    letting us touch the libxml1 CVS branch. 
-
-    As of this writing, several other libraries prevent us from going to 
-    libxml2, which is the proper way to do. */
-  }
-  ret = xmlSaveFile (tmpname, doc);
-#endif
-
+  ret = xmlDiaSaveFile (tmpname, doc);
   xmlFreeDoc(doc);
 
   if (ret < 0) {

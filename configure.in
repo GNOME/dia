@@ -322,6 +322,20 @@ AC_SUBST(XML_CFLAGS)
 
 CFLAGS="$XML_CFLAGS $CFLAGS"
 
+dnl LibZ
+
+AC_CHECK_HEADERS(zlib.h,
+    AC_CHECK_LIB(z, gzread,[
+        AC_DEFINE(HAVE_LIBZ,, we have the libz compression library)
+        if test "x${Z_DIR}" != "x"; then
+            Z_CFLAGS="-I${Z_DIR}/include"
+            Z_LIBS="-L${Z_DIR}/lib -lz"
+        else
+            Z_LIBS="-lz"
+        fi]))
+CFLAGS="${CPPFLAGS} ${Z_CFLAGS}"
+LIBS="${LIBS} ${Z_LIBS}"
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC

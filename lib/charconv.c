@@ -208,7 +208,7 @@ charconv_utf8_to_local8(const utfchar *utf)
 
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *
-charconv_unichar_to_utf8(unichar uc)
+charconv_unichar_to_utf8(guint uc)
 {
   /* algorithm taken from Tom Tromey's libunicode utf8_write() routine
      Copyright (C) 1999 Tom Tromey. 
@@ -266,11 +266,11 @@ charconv_utf8_to_local8(const utfchar *utf)
 
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *
-charconv_unichar_to_utf8(unichar uc)
+charconv_unichar_to_utf8(guint uc)
 {
   static char outbuf[2];
 
-  outbuf[0] = uc;
+  outbuf[0] = (uc & 0xFF);
   outbuf[1] = 0;
   
   return outbuf;

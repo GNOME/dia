@@ -24,6 +24,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <glib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -32,12 +33,15 @@
 #include <entities.h>
 
 #include <tree.h>
+#include <xmlmemory.h>
+
 #include "geometry.h"
 #include "render.h"
 #include "filter.h"
 #include "intl.h"
 #include "message.h"
 #include "diagramdata.h"
+#include "dia_xml_libxml.h"
 
 typedef struct _RendererSVG RendererSVG;
 struct _RendererSVG {
@@ -191,6 +195,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
 
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
+  renderer->doc->encoding = xmlStrdup("UTF-8");
   renderer->doc->standalone = FALSE;
   xmlCreateIntSubset(renderer->doc, "svg",
 		     "-//W3C//DTD SVG 1.0//EN",
@@ -255,7 +260,7 @@ end_render(RendererSVG *renderer)
   g_free(renderer->linestyle);
 
   xmlSetDocCompressMode(renderer->doc, 0);
-  xmlSaveFile(renderer->filename, renderer->doc);
+  xmlDiaSaveFile(renderer->filename, renderer->doc);
   g_free(renderer->filename);
   xmlFreeDoc(renderer->doc);
 }
@@ -739,14 +744,23 @@ draw_string(RendererSVG *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-  xmlChar *enc;
   xmlNodePtr node;
   char buf[512], *style, *tmp;
   real saved_width;
 
-  enc = xmlEncodeEntitiesReentrant(renderer->doc, text);
+#ifdef UNICODE_WORK_IN_PROGRESS
+  xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, text);
   node = xmlNewChild(renderer->root, NULL, "text", enc);
-  free(enc);
+  xmlFree(enc);
+#else
+ {
+     utfchar *utf = charconv_local8_to_utf8(text);
+     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, utf);     
+     g_free(utf);
+     node = xmlNewChild(renderer->root, NULL, "text", enc);
+     xmlFree(enc);
+ }
+#endif
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;

@@ -1,5 +1,10 @@
 dia-0.89:  XX-XXX-2001
 
+* from now on, all XML files produced by dia will be encoded as UTF-8.
+  This version of dia is also capable of reading dia file encoded with
+  any other encoding the libxml2 parser embedded in libxml1 is able to
+  understand. One exception: the encoding declaration >must< be present.
+
 * all previously generated XML files (.pluginrc and .dia files,
   mostly) will now cause a warning about a missing encoding, and the
   default dia will take. If you have properly compiled dia, it should
@@ -45,7 +50,8 @@ dia-0.89:  XX-XXX-2001
   The exact names of the packages vary from system to system; this
   list is only a starting point! If compiling the documentation fails,
   please report on dia-list@gnome.org once you've found which packages 
-  to install. 
+  to install. However, you can disable the compilation of
+  documentation if it's too much trouble to fix.
 * a few new shapes have been added.
 * crashes in the right-click menu have been nailed.
 

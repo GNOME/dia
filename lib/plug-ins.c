@@ -496,6 +496,7 @@ ensure_pluginrc(void)
 
   if (!pluginrc) {
     pluginrc = xmlNewDoc("1.0");
+    pluginrc->encoding = xmlStrdup("UTF-8");
     xmlDocSetRootElement(pluginrc,
 			 xmlNewDocNode(pluginrc, NULL, "plugins", NULL));
   }
@@ -593,7 +594,7 @@ info_fill_from_pluginrc(PluginInfo *info)
 #ifdef UNICODE_WORK_IN_PROGRESS
 	  info->description = g_strdup(content);
 #else
-          info->description = charconv_utf8_to_local8(content);
+    info->description = charconv_utf8_to_local8(content);
 #endif
 	}
 	xmlFree(content);
@@ -621,12 +622,21 @@ dia_pluginrc_write(void)
 
     pluginnode = xmlNewNode(NULL, "plugin");
     datanode = xmlNewChild(pluginnode, NULL, "name", info->name);
-#if (!defined(XML2) || defined(UNICODE_WORK_IN_PROGRESS))
-    datanode = xmlNewChild(pluginnode, NULL, "description", info->description);
+#ifdef UNICODE_WORK_IN_PROGRESS
+ {
+     xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,
+                                               info->description);
+     datanode = xmlNewChild(pluginnode, NULL, "description", enc);
+     xmlFree(enc);
+ }
 #else
-    {gchar *desc = charconv_local8_to_utf8(info->description);
-    datanode = xmlNewChild(pluginnode, NULL, "description", desc);
-    g_free(desc);}
+ {
+     gchar *utf = charconv_local8_to_utf8(info->description);
+     xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,utf);
+     g_free(utf);
+     datanode = xmlNewChild(pluginnode, NULL, "description", enc);
+     xmlFree(enc);
+ }    
 #endif
     if (info->inhibit_load)
       datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
@@ -657,18 +667,9 @@ dia_pluginrc_write(void)
   }
 
   filename = dia_config_filename("pluginrc");
-#ifdef XML2
-  xmlSaveFileEnc(filename, pluginrc,"UTF-8");
-#else
-  {
-    char *local_encoding = NULL;
-    if (get_local_charset(&local_encoding)) {
-      warn_about_broken_libxml1();
-    }
-    pluginrc->encoding = g_strdup(local_encoding);
-  }
-  xmlSaveFile(filename, pluginrc);
-#endif
+  
+  xmlDiaSaveFile(filename,pluginrc);
+  
   g_free(filename);
   free_pluginrc();
 }
