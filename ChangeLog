@@ -1,3 +1,7 @@
+2001-02-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* sheets/Logic.sheet: New sheet for Logic symbols.
+
 2001-02-21  James Henstridge  <james@daa.com.au>
 
 	* app/menus.c (dia_gnome_menu_get_widget): new function to find a
