@@ -32,7 +32,7 @@
 #include "object.h"
 #include "orth_conn.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -58,8 +58,8 @@ static void arc_move_handle(Arc *arc, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void arc_draw(Arc *arc, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void arc_draw(Arc *arc, DiaRenderer *renderer);
 static Object *arc_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -167,7 +167,7 @@ arc_distance_from(Arc *arc, Point *point)
 
 static void
 arc_select(Arc *arc, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&arc->orth);
 }
@@ -189,8 +189,9 @@ arc_move(Arc *arc, Point *to)
 }
 
 static void
-arc_draw(Arc *arc, Renderer *renderer)
+arc_draw(Arc *arc, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &arc->orth;
   Point *points;
   int n,i;
@@ -198,12 +199,12 @@ arc_draw(Arc *arc, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, ARC_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, ARC_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, n, &color_black);
+  renderer_ops->draw_polyline(renderer, points, n, &color_black);
 
   if (arc->uparrow) {
     for (i=0;i<n-1; i++) {

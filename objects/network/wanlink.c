@@ -27,6 +27,7 @@
 #include "config.h"
 #include "intl.h"
 #include "connection.h"
+#include "diarenderer.h"
 #include "network.h"
 
 #ifndef M_PI_2
@@ -50,10 +51,10 @@ static Object *wanlink_create(Point *startpoint,
 			      Handle **handle1,
 			      Handle **handle2);
 static void wanlink_destroy(WanLink *wanlink);
-static void wanlink_draw (WanLink *wanlink, Renderer *renderer);
+static void wanlink_draw (WanLink *wanlink, DiaRenderer *renderer);
 static real wanlink_distance_from(WanLink *wanlink, Point *point);
 static void wanlink_select(WanLink *wanlink, Point *clicked_point,
-			 Renderer *interactive_renderer);
+			 DiaRenderer *interactive_renderer);
 static Object *wanlink_copy(WanLink *wanlink);
 static void wanlink_move(WanLink *wanlink, Point *to);
 static void wanlink_move_handle(WanLink *wanlink, Handle *handle,
@@ -195,19 +196,20 @@ wanlink_destroy(WanLink *wanlink)
 
 
 static void 
-wanlink_draw (WanLink *wanlink, Renderer *renderer)
+wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 {
+    DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
         
     assert (wanlink != NULL);
     assert (renderer != NULL);
     
-    renderer->ops->set_linewidth(renderer, FLASH_LINE);
-    renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linewidth(renderer, FLASH_LINE);
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     
     
-    renderer->ops->fill_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
-    renderer->ops->draw_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
+    renderer_ops->fill_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
+    renderer_ops->draw_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
 }
 
 static real
@@ -225,7 +227,7 @@ wanlink_distance_from(WanLink *wanlink, Point *point)
 
 static void
 wanlink_select(WanLink *wanlink, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&wanlink->connection);
 }

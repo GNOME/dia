@@ -27,7 +27,7 @@
 #include "object.h"
 #include "polyshape.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "diamenu.h"
@@ -67,8 +67,8 @@ static void polygon_move_handle(Polygon *polygon, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void polygon_move(Polygon *polygon, Point *to);
 static void polygon_select(Polygon *polygon, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void polygon_draw(Polygon *polygon, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void polygon_draw(Polygon *polygon, DiaRenderer *renderer);
 static Object *polygon_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -185,7 +185,7 @@ static int polygon_closest_segment(Polygon *polygon, Point *point) {
 
 static void
 polygon_select(Polygon *polygon, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   polyshape_update_data(&polygon->poly);
 }
@@ -211,8 +211,9 @@ polygon_move(Polygon *polygon, Point *to)
 }
 
 static void
-polygon_draw(Polygon *polygon, Renderer *renderer)
+polygon_draw(Polygon *polygon, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyShape *poly = &polygon->poly;
   Point *points;
   int n;
@@ -220,16 +221,16 @@ polygon_draw(Polygon *polygon, Renderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
 
-  renderer->ops->set_linewidth(renderer, polygon->line_width);
-  renderer->ops->set_linestyle(renderer, polygon->line_style);
-  renderer->ops->set_dashlength(renderer, polygon->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, polygon->line_width);
+  renderer_ops->set_linestyle(renderer, polygon->line_style);
+  renderer_ops->set_dashlength(renderer, polygon->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (polygon->show_background)
-    renderer->ops->fill_polygon(renderer, points, n, &polygon->inner_color);
+    renderer_ops->fill_polygon(renderer, points, n, &polygon->inner_color);
 
-  renderer->ops->draw_polygon(renderer, points, n, &polygon->line_color);
+  renderer_ops->draw_polygon(renderer, points, n, &polygon->line_color);
 }
 
 static Object *

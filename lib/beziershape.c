@@ -23,12 +23,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 
 #include "beziershape.h"
 #include "message.h"
+#include "diarenderer.h"
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
 #define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
@@ -635,7 +635,7 @@ beziershape_update_boundingbox(BezierShape *bezier)
   ElementBBExtras *extra;
   PolyBBExtras pextra;
 
-  assert(bezier != NULL);
+  g_assert(bezier != NULL);
 
   extra = &bezier->extra_spacing;
   pextra.start_trans = pextra.end_trans = 
@@ -649,43 +649,43 @@ beziershape_update_boundingbox(BezierShape *bezier)
 }
 
 void
-beziershape_simple_draw(BezierShape *bezier, Renderer *renderer, real width)
+beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer, real width)
 {
   BezPoint *points;
   
-  assert(bezier != NULL);
-  assert(renderer != NULL);
+  g_assert(bezier != NULL);
+  g_assert(renderer != NULL);
 
   points = &bezier->points[0];
   
-  renderer->ops->set_linewidth(renderer, width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->fill_bezier(renderer, points, bezier->numpoints,&color_white);
-  renderer->ops->draw_bezier(renderer, points, bezier->numpoints,&color_black);
+  DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer, points, bezier->numpoints,&color_white);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bezier->numpoints,&color_black);
 }
 
 void
-beziershape_draw_control_lines(BezierShape *bez, Renderer *renderer)
+beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer)
 {
   Color line_colour = {0.0, 0.0, 0.6};
   Point startpoint;
   int i;
   
   /* setup renderer ... */
-  renderer->ops->set_linewidth(renderer, 0);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DOTTED);
-  renderer->ops->set_dashlength(renderer, 1);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+  DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   startpoint = bez->points[0].p1;
   for (i = 1; i < bez->numpoints; i++) {
-    renderer->ops->draw_line(renderer, &startpoint, &bez->points[i].p1,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bez->points[i].p1,
                              &line_colour);
-    renderer->ops->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
                              &line_colour);
     startpoint = bez->points[i].p3;
   }

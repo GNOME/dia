@@ -27,7 +27,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "arrows.h"
@@ -64,8 +64,8 @@ static void arc_move_handle(Arc *arc, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
-		       Renderer *interactive_renderer);
-static void arc_draw(Arc *arc, Renderer *renderer);
+		       DiaRenderer *interactive_renderer);
+static void arc_draw(Arc *arc, DiaRenderer *renderer);
 static Object *arc_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -212,7 +212,7 @@ arc_distance_from(Arc *arc, Point *point)
 
 static void
 arc_select(Arc *arc, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   arc_update_handles(arc);
 }
@@ -290,8 +290,9 @@ arc_move(Arc *arc, Point *to)
 }
 
 static void
-arc_draw(Arc *arc, Renderer *renderer)
+arc_draw(Arc *arc, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   real width;
     
@@ -300,14 +301,14 @@ arc_draw(Arc *arc, Renderer *renderer)
 
   endpoints = &arc->connection.endpoints[0];
 
-  renderer->ops->set_linewidth(renderer, arc->line_width);
-  renderer->ops->set_linestyle(renderer, arc->line_style);
-  renderer->ops->set_dashlength(renderer, arc->dashlength);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, arc->line_width);
+  renderer_ops->set_linestyle(renderer, arc->line_style);
+  renderer_ops->set_dashlength(renderer, arc->dashlength);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   /* Special case when almost line: */
   if (fabs(arc->curve_distance) <= 0.0001) {
-    renderer->ops->draw_line_with_arrows(renderer,
+    renderer_ops->draw_line_with_arrows(renderer,
 					 &endpoints[0], &endpoints[1],
 					 arc->line_width,
 					 &arc->arc_color,
@@ -316,7 +317,7 @@ arc_draw(Arc *arc, Renderer *renderer)
     return;
   }
 
-  renderer->ops->draw_arc_with_arrows(renderer,
+  renderer_ops->draw_arc_with_arrows(renderer,
 				      &arc->connection.endpoints[0],
 				      &arc->connection.endpoints[1],
 				      &arc->middle_handle.pos,
@@ -327,8 +328,8 @@ arc_draw(Arc *arc, Renderer *renderer)
   width = 2*arc->radius;
   
 #if 0  
-  renderer->ops->set_linewidth(renderer, 0);
-  renderer->ops->draw_arc(renderer,
+  renderer_ops->set_linewidth(renderer, 0);
+  renderer_ops->draw_arc(renderer,
 			  &arc->center,
 			  width, width,
 			  arc->angle1, arc->angle2,

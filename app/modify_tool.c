@@ -26,7 +26,6 @@
 #include "connectionpoint_ops.h"
 #include "message.h"
 #include "properties.h"
-#include "render_gdk.h"
 #include "select.h"
 #include "preferences.h"
 #include "cursor.h"
@@ -132,7 +131,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       
       diagram_select(diagram, obj);
       obj->ops->selectf(obj, clickedpoint,
-		       (Renderer *)ddisp->renderer);
+		        ddisp->renderer);
 
       /*
 	This stuff is buggy, fix it later.
@@ -149,7 +148,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
     } else { /* Clicked on already selected. */
       /*printf("Already selected\n");*/
       obj->ops->selectf(obj, clickedpoint,
-		       (Renderer *)ddisp->renderer);
+		       ddisp->renderer);
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
       

@@ -1,3 +1,60 @@
+2002-10-06  Hans Breuer  <hans@breuer.org>
+
+	See also: 
+	http://mail.gnome.org/archives/dia-list/2002-October/msg00027.html
+
+	* lib/dia-enums.h lib/diatransform.[hc]
+	  lib/diarenderer.[hc] lib/diainteractiverenderer.c
+	  lib/diagdkrenderer.[hc] lib/diasvgrenderer.[hc]
+	: new files 
+
+	* lib/makefile.msc lib/makefile.am : added new files
+
+	* lib/plug-ins.c : g_module_error() returns a locale
+	string, convert to utf8 before further usage 
+
+	* lib/render.h : #error out. Everything including this
+	needs porting
+	* lib/*.[hc] : ported to new renderer api
+
+	* app/diaepsrenderer.h : unfinished DiaEpsRenderer interface
+	just to make the rest compile
+	* app/render_eps.c : temporary disabled all of this
+	* app/render_eps.h : removed RendererEPS
+
+	* app/render_gdk.[hc] : a small wrapper around the new
+	DiaGdkRenderer form lib/*
+
+	* app/render_libart.h : removed RenderLibart definition
+	* app/render_libart.c : not yet ported to new DiaRenderer
+	but having an implementation to untie form FT2 dependency
+	at least on win32. It is using new Pango api form bug #94791
+
+	* app/render_pixmap.[hc] : a small wrapper around the new
+	DiaGdkRenderer form lib/*
+
+	* app/display.h : removed render_*.h includes
+	* app/display.c : the only place where specific 
+	renderers need to be known
+
+	* app/connectionpoint_ops.c app/grid.c app/handle_ops.c
+	use new DiaInteractiveRenderer interface
+
+	* app/*.c : ported to new renderer api
+	* object/*/*.c : ported to new renderer api
+	s/render.h/diarenderer.h/
+	s/Renderer/DiaRenderer/
+	s/renderer->ops/renderer_ops/
+	add in every draw method:
+  	DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+
+	* plug-ins/hpgl/hpgl.c : 
+	  plug-ins/wmf/wmf.cpp 
+	  plug-ins/wpg/wpg.c : ported to be DiaRenderer based
+	* plug-ins/shape/shape-export.c
+	  plug-ins/svg/render_svg.c : ported to be DiaSvgRenderer based
+	  (nice how small these files became :-)
+
 2002-09-28  Hans Breuer  <hans@breuer.org>
 
 	* */makefile.msc : updated

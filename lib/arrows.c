@@ -31,6 +31,7 @@
 #endif
 
 #include "arrows.h"
+#include "diarenderer.h"
 
 static void
 calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
@@ -221,7 +222,7 @@ calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
 }
 
 static void 
-draw_crow_foot(Renderer *renderer, Point *to, Point *from,
+draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
 	     Color *fg_color,Color *bg_color)
 {
@@ -230,16 +231,16 @@ draw_crow_foot(Renderer *renderer, Point *to, Point *from,
 
   calculate_crow(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_line(renderer,&poly[0],&poly[1],fg_color);
-  renderer->ops->draw_line(renderer,&poly[0],&poly[2],fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&poly[0],&poly[1],fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&poly[0],&poly[2],fg_color);
 }
 
 static void
-draw_lines(Renderer *renderer, Point *to, Point *from,
+draw_lines(DiaRenderer *renderer, Point *to, Point *from,
 	              real length, real width, real linewidth,
 	              Color *color)
 {
@@ -247,26 +248,26 @@ draw_lines(Renderer *renderer, Point *to, Point *from,
     
       calculate_arrow(poly, to, from, length, width);
     
-      renderer->ops->set_linewidth(renderer, linewidth);
-      renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-      renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-      renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
     
-      renderer->ops->draw_polyline(renderer, poly, 3, color);
+      DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly, 3, color);
 }
 
 static void 
-draw_fill_ellipse(Renderer *renderer, Point *to, Point *from,
+draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
 	     Color *fg_color,Color *bg_color)
 {
   BezPoint bp[5];
   Point vl,vt;
 
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (!bg_color) {
     /* no bg_color means filled ellipse ; we then compensate for the line width
@@ -305,15 +306,15 @@ draw_fill_ellipse(Renderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&bp[2].p1,&bp[1].p3,&vl,length / 4.0);
   point_copy_add_scaled(&bp[3].p2,&bp[3].p3,&vl,length / 4.0);
   if (bg_color) {
-    renderer->ops->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
-    renderer->ops->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
   } else {
-    renderer->ops->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
   }
 }
 
 static void 
-draw_fill_box(Renderer *renderer, Point *to, Point *from,
+draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
 	     Color *fg_color,Color *bg_color)
 {
@@ -322,10 +323,10 @@ draw_fill_box(Renderer *renderer, Point *to, Point *from,
   Point poly[4];
   real lw_factor,clength,cwidth;
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (fg_color == bg_color) {
     /* Filled dot */
@@ -360,16 +361,16 @@ draw_fill_box(Renderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&poly[3],&poly[0],&vl,clength/2.0);
 
   if (fg_color == bg_color) {
-    renderer->ops->fill_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, fg_color);
   } else {
-    renderer->ops->fill_polygon(renderer, poly, 4, bg_color);
-    renderer->ops->draw_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, bg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color);
   }
-  renderer->ops->draw_line(renderer,&bs,&be,fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
 }
 
 static void 
-draw_fill_dot(Renderer *renderer, Point *to, Point *from,
+draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
 	     Color *fg_color,Color *bg_color)
 {
@@ -378,10 +379,10 @@ draw_fill_dot(Renderer *renderer, Point *to, Point *from,
   Point bs,be;
   real lw_factor,clength,cwidth;
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (fg_color == bg_color) {
     /* Filled dot */
@@ -434,28 +435,28 @@ draw_fill_dot(Renderer *renderer, Point *to, Point *from,
     point_copy_add_scaled(&doe,to,&vl,length);
     point_copy_add_scaled(&dos,to,&vl,length/2);
     
-    renderer->ops->draw_line(renderer,&dos,&doe,fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&dos,&doe,fg_color);
   } else {
-    renderer->ops->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
   }
   if (fg_color != bg_color) {
-    renderer->ops->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
   }
-  renderer->ops->draw_line(renderer,&bs,&be,fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
 }
 
 static void
-draw_integral(Renderer *renderer, Point *to, Point *from,
+draw_integral(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
 	   Color *fg_color, Color *bg_color)
 {
   BezPoint bp[2];
   Point vl,vt;
   Point bs,be, bs2,be2;
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   point_copy(&vl,from); point_sub(&vl,to);
   if (point_len(&vl) > 0)
@@ -484,24 +485,24 @@ draw_integral(Renderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&bp[1].p1,&bp[0].p1,&vl,.35*length);
   point_copy_add_scaled(&bp[1].p2,&bp[1].p3,&vl,-.35*length);
 
-  renderer->ops->draw_line(renderer, to, &bs2, bg_color); /* kludge */
-  renderer->ops->draw_line(renderer, &bs2, &be2, fg_color);
-  renderer->ops->draw_line(renderer, &bs, &be, fg_color);
-  renderer->ops->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, to, &bs2, bg_color); /* kludge */
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs2, &be2, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs, &be, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
 }
 
 static void
-draw_slashed(Renderer *renderer, Point *to, Point *from,
+draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
 	   Color *fg_color, Color *bg_color)
 {
   Point vl,vt;
   Point bs,be, bs2,be2, bs3,be3;
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   point_copy(&vl,from); point_sub(&vl,to);
   if (point_len(&vl) > 0)
@@ -526,15 +527,15 @@ draw_slashed(Renderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&be3,to,&vl,.9*length);
   point_add_scaled(&be3,&vt,-.4*width);
 
-  renderer->ops->draw_line(renderer, to, &bs2, bg_color);
-  renderer->ops->draw_line(renderer, &bs2, &be2, fg_color);
-  renderer->ops->draw_line(renderer, &bs, &be, fg_color);
-  renderer->ops->draw_line(renderer, &bs3, &be3, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, to, &bs2, bg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs2, &be2, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs, &be, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs3, &be3, fg_color);
 }
 
 /* Only draw the upper part of the arrow */
 static void
-draw_halfhead(Renderer *renderer, Point *to, Point *from,
+draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
 	   Color *color)
 {
@@ -542,19 +543,19 @@ draw_halfhead(Renderer *renderer, Point *to, Point *from,
 
   calculate_arrow(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (poly[0].y > poly[2].y) 
       poly[0] = poly[2];
     
-  renderer->ops->draw_line(renderer, &poly[0], &poly[1], color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0], &poly[1], color);
 }
 
 static void
-draw_triangle(Renderer *renderer, Point *to, Point *from,
+draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
 		     Color *color)
 {
@@ -562,25 +563,25 @@ draw_triangle(Renderer *renderer, Point *to, Point *from,
 
   calculate_arrow(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_polygon(renderer, poly, 3, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, color);
 }
 
 static void
-fill_triangle(Renderer *renderer, Point *to, Point *from,
+fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, Color *color)
 {
   Point poly[3];
 
   calculate_arrow(poly, to, from, length, width);
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->fill_polygon(renderer, poly, 3, color);
+  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, color);
 }
 
 static void
@@ -622,7 +623,7 @@ calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
 
 
 static void
-draw_diamond(Renderer *renderer, Point *to, Point *from,
+draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
 	     Color *color)
 {
@@ -630,16 +631,16 @@ draw_diamond(Renderer *renderer, Point *to, Point *from,
 
   calculate_diamond(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polygon(renderer, poly, 4, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, color);
 }
 
 static void
-fill_diamond(Renderer *renderer, Point *to, Point *from,
+fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width,
 	     Color *color)
 {
@@ -647,11 +648,11 @@ fill_diamond(Renderer *renderer, Point *to, Point *from,
 
   calculate_diamond(poly, to, from, length, width);
   
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->fill_polygon(renderer, poly, 4, color);
+  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, color);
 }
 
 static void
@@ -695,38 +696,38 @@ calculate_slashed_cross(Point *poly/*[6]*/, Point *to, Point *from,
 }
 
 static void
-draw_slashed_cross(Renderer *renderer, Point *to, Point *from,
+draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
      real length, real width, real linewidth, Color *color)
 {
   Point poly[6];
   
   calculate_slashed_cross(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
-  renderer->ops->draw_line(renderer, &poly[0],&poly[1], color);
-  renderer->ops->draw_line(renderer, &poly[2],&poly[3], color);                   
-  renderer->ops->draw_line(renderer, &poly[4],&poly[5], color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0],&poly[1], color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[2],&poly[3], color);                   
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[4],&poly[5], color);
 }
 
 static void
-draw_cross(Renderer *renderer, Point *to, Point *from,
+draw_cross(DiaRenderer *renderer, Point *to, Point *from,
      real length, real width, real linewidth, Color *color)
 {
   Point poly[6];
   
   calculate_arrow(poly, to, from, length, width);
   
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
-  renderer->ops->draw_line(renderer, &poly[0],&poly[2], color);
-  /*renderer->ops->draw_line(renderer, &poly[4],&poly[5], color); */
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0],&poly[2], color);
+  /*DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[4],&poly[5], color); */
 }
 
 static void 
@@ -758,7 +759,7 @@ calculate_double_arrow(Point *second_to, Point *second_from,
 }
 
 static void 
-draw_double_triangle(Renderer *renderer, Point *to, Point *from,
+draw_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
       real length, real width, real linewidth, Color *color)
 {
   Point second_from, second_to;
@@ -769,7 +770,7 @@ draw_double_triangle(Renderer *renderer, Point *to, Point *from,
 }
 
 static void 
-fill_double_triangle(Renderer *renderer, Point *to, Point *from,
+fill_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
        real length, real width, Color *color)
 {
   Point second_from, second_to;
@@ -825,7 +826,7 @@ calculate_concave(Point *poly/*[4]*/, Point *to, Point *from,
 
 
 static void
-draw_concave_triangle(Renderer *renderer, Point *to, Point *from,
+draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
 		      Color *fg_color, Color *bg_color)
 {
@@ -833,17 +834,17 @@ draw_concave_triangle(Renderer *renderer, Point *to, Point *from,
 
   calculate_concave(poly, to, from, length, width);
   
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (fg_color == bg_color)
-    renderer->ops->fill_polygon(renderer, poly, 4, bg_color);
-  renderer->ops->draw_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, bg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color);
 }
 
 void
-arrow_draw(Renderer *renderer, ArrowType type,
+arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
 	   real length, real width, real linewidth,
 	   Color *fg_color, Color *bg_color)

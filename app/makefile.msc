@@ -3,19 +3,16 @@ PRJ_TOP = ..
 PACKAGE = dia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-LIBART = $(TOP)/libart_lgpl
-#temporary disabled: -DHAVE_LIBART 
 # -DWIN32 for newer libxml versions
-
+# not yet -DHAVE_LIBART -DHAVE_LIBPNG
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DWIN32  -DHAVE_LIBART \
+	-DWIN32  \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
-	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBPNG \
-	-DWITHOUT_ZOOM_COMBO
+	-I$(PRJ_TOP)\lib $(LIBART_CFLAGS)
 
-PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
-	$(LIBXML2_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PANGOWIN32_LIBS) \
+	$(LIBXML2_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib
 
 OBJECTS = \

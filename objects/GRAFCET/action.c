@@ -30,7 +30,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -71,8 +71,8 @@ static void action_move_handle(Action *action, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void action_move(Action *action, Point *to);
 static void action_select(Action *action, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void action_draw(Action *action, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void action_draw(Action *action, DiaRenderer *renderer);
 static Object *action_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -191,7 +191,7 @@ action_distance_from(Action *action, Point *point)
 
 static void
 action_select(Action *action, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   action_update_data(action);
   text_grab_focus(action->text, &action->connection.object);
@@ -316,22 +316,23 @@ action_update_data(Action *action)
 
 
 static void 
-action_draw(Action *action, Renderer *renderer)
+action_draw(Action *action, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Connection *conn = &action->connection;
   Point ul,br,p1,p2;
   int i;
   real chunksize;
   Color cl;
 
-  renderer->ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   /* first, draw the line or polyline from the step to the action label */
   if (conn->endpoints[0].y == conn->endpoints[1].y) {
     /* simpler case */
-    renderer->ops->draw_line(renderer,
+    renderer_ops->draw_line(renderer,
 			     &conn->endpoints[0],&conn->endpoints[1],
 			     &color_black);
   } else {
@@ -342,7 +343,7 @@ action_draw(Action *action, Renderer *renderer)
     pts[2].y = pts[3].y;
     pts[1].x = pts[2].x = .5 * (pts[0].x + pts[3].x);
     
-    renderer->ops->draw_polyline(renderer,
+    renderer_ops->draw_polyline(renderer,
 				 pts,sizeof(pts)/sizeof(pts[0]),
 				 &color_black);
   }
@@ -353,7 +354,7 @@ action_draw(Action *action, Renderer *renderer)
   br.x = ul.x + action->label_width;
   br.y = ul.y + ACTION_HEIGHT;
 
-  renderer->ops->fill_rect(renderer,&ul,&br,&color_white);
+  renderer_ops->fill_rect(renderer,&ul,&br,&color_white);
 
   action_text_draw(action->text,renderer);
 
@@ -365,18 +366,18 @@ action_draw(Action *action, Renderer *renderer)
                                       action->text->font,
                                       action->text->height);
     p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
-    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
   }
 
   if (action->macro_call) {
     p1.x = p2.x = ul.x + 2.0 * action->space_width;
-    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
     p1.x = p2.x = br.x - 2.0 * action->space_width;
-    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
   }
 
   cl.red = 1.0; cl.blue = cl.green = .2; 
-  renderer->ops->draw_rect(renderer,&ul,&br,&color_black);
+  renderer_ops->draw_rect(renderer,&ul,&br,&color_black);
 }
 
 static Object *

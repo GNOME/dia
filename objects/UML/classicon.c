@@ -28,7 +28,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -66,11 +66,11 @@ enum CLassIconStereotype {
 
 static real classicon_distance_from(Classicon *cicon, Point *point);
 static void classicon_select(Classicon *cicon, Point *clicked_point,
-			     Renderer *interactive_renderer);
+			     DiaRenderer *interactive_renderer);
 static void classicon_move_handle(Classicon *cicon, Handle *handle,
 				  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void classicon_move(Classicon *cicon, Point *to);
-static void classicon_draw(Classicon *cicon, Renderer *renderer);
+static void classicon_draw(Classicon *cicon, DiaRenderer *renderer);
 static Object *classicon_create(Point *startpoint,
 				void *user_data,
 				Handle **handle1,
@@ -182,7 +182,7 @@ classicon_distance_from(Classicon *cicon, Point *point)
 
 static void
 classicon_select(Classicon *cicon, Point *clicked_point,
-		 Renderer *interactive_renderer)
+		 DiaRenderer *interactive_renderer)
 {
   text_set_cursor(cicon->text, clicked_point, interactive_renderer);
   text_grab_focus(cicon->text, &cicon->element.object);
@@ -216,8 +216,9 @@ classicon_move(Classicon *cicon, Point *to)
 }
 
 static void
-classicon_draw(Classicon *icon, Renderer *renderer)
+classicon_draw(Classicon *icon, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real r, x, y, w, h;
   Point center, p1, p2;
@@ -240,17 +241,17 @@ classicon_draw(Classicon *icon, Renderer *renderer)
   if (icon->stereotype==CLASSICON_BOUNDARY)
       center.x += r/2.0;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-  renderer->ops->fill_ellipse(renderer,
+  renderer_ops->fill_ellipse(renderer,
 			      &center,
 			      2*r, 2*r,
 			      &color_white);
 
-  renderer->ops->set_linewidth(renderer, CLASSICON_LINEWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, CLASSICON_LINEWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer->ops->draw_ellipse(renderer,
+  renderer_ops->draw_ellipse(renderer,
 			      &center,
 			      2*r, 2*r,
 			      &color_black);
@@ -263,12 +264,12 @@ classicon_draw(Classicon *icon, Renderer *renderer)
 
       p2.x = p1.x + CLASSICON_ARROW;
       p2.y = p1.y + CLASSICON_ARROW/1.5;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       p2.x = p1.x + CLASSICON_ARROW;
       p2.y = p1.y - CLASSICON_ARROW/1.5;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       break;
@@ -277,13 +278,13 @@ classicon_draw(Classicon *icon, Renderer *renderer)
       p1.x = center.x - r;
       p2.x = p1.x - r;
       p1.y = p2.y = center.y;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       p1.x = p2.x;
       p1.y = center.y - r;
       p2.y = center.y + r;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       break;
@@ -291,7 +292,7 @@ classicon_draw(Classicon *icon, Renderer *renderer)
       p1.x = center.x - r;
       p2.x = center.x + r;
       p1.y = p2.y = center.y + r;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       break;
@@ -300,14 +301,14 @@ classicon_draw(Classicon *icon, Renderer *renderer)
   text_draw(icon->text, renderer);
 
   if (icon->is_object) {
-    renderer->ops->set_linewidth(renderer, 0.01);
+    renderer_ops->set_linewidth(renderer, 0.01);
     if (icon->stereotype==CLASSICON_BOUNDARY)
       x += r/2.0;
     p1.y = p2.y = icon->text->position.y + icon->text->descent;
     for (i=0; i<icon->text->numlines; i++) { 
       p1.x = x + (w - icon->text->row_width[i])/2;
       p2.x = p1.x + icon->text->row_width[i];
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       p1.y = p2.y += icon->text->height;

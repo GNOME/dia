@@ -46,7 +46,6 @@ typedef struct _PropWidgetAssoc PropWidgetAssoc;
 #include <glib.h>
 
 #include "geometry.h"
-#include "render.h"
 #include "arrows.h"
 #include "color.h"
 #include "font.h"

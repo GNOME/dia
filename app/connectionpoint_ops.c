@@ -33,23 +33,25 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 {
   int x,y;
   Point *point = &conpoint->pos;
-  Renderer *renderer = ddisp->renderer;
+  DiaRenderer *renderer = ddisp->renderer;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
-  (renderer->ops->set_linewidth)(renderer, 0.0);
-  (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linewidth (renderer, 0.0);
+  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
 
-  (renderer->interactive_ops->draw_pixel_line)(renderer,
-					       x-CP_SZ,y-CP_SZ,
-					       x+CP_SZ,y+CP_SZ,
-					       &connectionpoint_color);
+  irenderer->draw_pixel_line (renderer,
+			x-CP_SZ,y-CP_SZ,
+			x+CP_SZ,y+CP_SZ,
+			&connectionpoint_color);
 
-  (renderer->interactive_ops->draw_pixel_line)(renderer,
-					       x+CP_SZ,y-CP_SZ,
-					       x-CP_SZ,y+CP_SZ,
-					       &connectionpoint_color);
-
+  irenderer->draw_pixel_line (renderer,
+			x+CP_SZ,y-CP_SZ,
+			x-CP_SZ,y+CP_SZ,
+			&connectionpoint_color);
 }
 
 void

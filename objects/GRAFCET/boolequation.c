@@ -35,7 +35,7 @@ typedef void (*BlockGetBBFunc)(Block *block, Point *relpos, Boolequation *booleq
 			       Rectangle *rect);
 typedef void (*BlockDrawFunc)(Block *block, 
 			      Boolequation *booleq, 
-			      Renderer *render);
+			      DiaRenderer *render);
 typedef void (*BlockDestroyFunc)(Block *block);
 
 typedef struct {
@@ -103,11 +103,12 @@ textblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-textblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
+textblock_draw(Block *block,Boolequation *booleq,DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   g_assert(block); g_assert(block->type == BLOCK_TEXT);
-  renderer->ops->set_font(renderer,booleq->font,booleq->fontheight);
-  renderer->ops->draw_string(renderer,block->d.text,
+  renderer_ops->set_font(renderer,booleq->font,booleq->fontheight);
+  renderer_ops->draw_string(renderer,block->d.text,
 			     &block->pos,ALIGN_LEFT,&booleq->color);
 }
 
@@ -199,10 +200,11 @@ opblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-opblock_draw(Block *block, Boolequation *booleq,Renderer *renderer)
+opblock_draw(Block *block, Boolequation *booleq,DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
-  renderer->ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
+  renderer_ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
 			     ALIGN_LEFT,&booleq->color);
 }
     
@@ -284,13 +286,14 @@ overlineblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-overlineblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
+overlineblock_draw(Block *block,Boolequation *booleq,DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul,ur;
   g_assert(block); g_assert(block->type == BLOCK_OVERLINE);
   block->d.inside->ops->draw(block->d.inside,booleq,renderer);
-  renderer->ops->set_linestyle(renderer,LINESTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer,booleq->fontheight * OVERLINE_RATIO);
+  renderer_ops->set_linestyle(renderer,LINESTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer,booleq->fontheight * OVERLINE_RATIO);
   ul.x = block->bl.x;
   ur.y = ul.y = block->ur.y;
 
@@ -298,7 +301,7 @@ overlineblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
   ur.x = block->ur.x -
       (dia_font_string_width("_", booleq->font,booleq->fontheight) / 2);
   
-  renderer->ops->draw_line(renderer,&ul,&ur,&booleq->color);
+  renderer_ops->draw_line(renderer,&ul,&ur,&booleq->color);
 }
 
 static void
@@ -355,8 +358,9 @@ parensblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-parensblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
+parensblock_draw(Block *block,Boolequation *booleq,DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pt;
   real pheight;
 
@@ -365,12 +369,12 @@ parensblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
   pheight = block->d.inside->bl.y - block->d.inside->ur.y;
   block->d.inside->ops->draw(block->d.inside,booleq,renderer);
 
-  renderer->ops->set_font(renderer,booleq->font,pheight);
+  renderer_ops->set_font(renderer,booleq->font,pheight);
   pt.y = block->pos.y;
   pt.x = block->d.inside->ur.x;
 
-  renderer->ops->draw_string(renderer,"(",&block->pos,ALIGN_LEFT,&booleq->color);
-  renderer->ops->draw_string(renderer,")",&pt,ALIGN_LEFT,&booleq->color);
+  renderer_ops->draw_string(renderer,"(",&block->pos,ALIGN_LEFT,&booleq->color);
+  renderer_ops->draw_string(renderer,")",&pt,ALIGN_LEFT,&booleq->color);
 }
  
 static void
@@ -438,7 +442,7 @@ compoundblock_get_boundingbox(Block *block, Point *relpos,
 
 static void compoundblock_draw(Block *block,
 			       Boolequation *booleq,
-			       Renderer *renderer)
+			       DiaRenderer *renderer)
 {
   GSList *elem;
   Block *inblk;
@@ -610,7 +614,7 @@ load_boolequation(ObjectNode obj_node,
 }
  
 void 
-boolequation_draw(Boolequation *booleq, Renderer *renderer)
+boolequation_draw(Boolequation *booleq, DiaRenderer *renderer)
 {
   if (booleq->rootblock) {
     booleq->rootblock->ops->draw(booleq->rootblock,booleq,renderer);

@@ -35,7 +35,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -74,12 +74,12 @@ typedef struct _Box {
 
 static real sadtbox_distance_from(Box *box, Point *point);
 static void sadtbox_select(Box *box, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void sadtbox_move_handle(Box *box, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void sadtbox_move(Box *box, Point *to);
-static void sadtbox_draw(Box *box, Renderer *renderer);
+static void sadtbox_draw(Box *box, DiaRenderer *renderer);
 static void sadtbox_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static Object *sadtbox_create(Point *startpoint,
 			  void *user_data,
@@ -206,7 +206,7 @@ sadtbox_distance_from(Box *box, Point *point)
 
 static void
 sadtbox_select(Box *box, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   text_set_cursor(box->text, clicked_point, interactive_renderer);
   text_grab_focus(box->text, &box->element.object);
@@ -257,8 +257,9 @@ sadtbox_move(Box *box, Point *to)
 }
 
 static void
-sadtbox_draw(Box *box, Renderer *renderer)
+sadtbox_draw(Box *box, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point lr_corner,pos;
   Element *elem;
   real idfontheight;
@@ -271,18 +272,18 @@ sadtbox_draw(Box *box, Renderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->fill_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
 			   &SADTBOX_BG_COLOR);
 
 
-  renderer->ops->set_linewidth(renderer, SADTBOX_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, SADTBOX_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
 			   &SADTBOX_FG_COLOR);
@@ -291,11 +292,11 @@ sadtbox_draw(Box *box, Renderer *renderer)
   text_draw(box->text, renderer);
 
   idfontheight = .75 * box->text->height;
-  renderer->ops->set_font(renderer, box->text->font, idfontheight);
+  renderer_ops->set_font(renderer, box->text->font, idfontheight);
   pos = lr_corner;
   pos.x -= .3 * idfontheight;
   pos.y -= .3 * idfontheight;
-  renderer->ops->draw_string(renderer,
+  renderer_ops->draw_string(renderer,
 			     box->id,
 			     &pos, ALIGN_RIGHT,
 			     &box->text->color);

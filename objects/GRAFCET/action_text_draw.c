@@ -28,7 +28,7 @@
 #include <math.h>
 
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "text.h"
 #include "action_text_draw.h"
 #include "message.h"
@@ -37,20 +37,21 @@
    Now it's just a code fork. */
 
 void
-action_text_draw(Text *text, Renderer *renderer)
+action_text_draw(Text *text, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pos;
   int i;
   real space_width;
 
-  renderer->ops->set_font(renderer, text->font, text->height);
+  renderer_ops->set_font(renderer, text->font, text->height);
   
   pos = text->position;
 
   space_width = action_text_spacewidth(text);
 
   for (i=0;i<text->numlines;i++) {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       text->line[i],
 			       &pos, text->alignment,
 			       &text->color);
@@ -66,13 +67,13 @@ action_text_draw(Text *text, Renderer *renderer)
 
 
     str_width_first =
-      renderer->interactive_ops->get_text_width(renderer,
-						text->line[text->cursor_row],
-						text->cursor_pos);
+      renderer_ops->get_text_width(renderer,
+                                   text->line[text->cursor_row],
+                                   text->cursor_pos);
     str_width_whole =
-      renderer->interactive_ops->get_text_width(renderer,
-						text->line[text->cursor_row],
-						text->strlen[text->cursor_row]);
+      renderer_ops->get_text_width(renderer,
+                                   text->line[text->cursor_row],
+                                   text->strlen[text->cursor_row]);
 
     curs_x = text->position.x + str_width_first;
     for (i=0;i<text->cursor_row;i++) {
@@ -97,9 +98,9 @@ action_text_draw(Text *text, Renderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + text->height;
     
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-    renderer->ops->set_linewidth(renderer, 0.1);
-    renderer->ops->draw_line(renderer, &p1, &p2, &color_black);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linewidth(renderer, 0.1);
+    renderer_ops->draw_line(renderer, &p1, &p2, &color_black);
   }
 }
 

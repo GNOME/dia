@@ -29,7 +29,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "dia_image.h"
@@ -67,11 +67,11 @@ static struct _ImageProperties {
 
 static real image_distance_from(Image *image, Point *point);
 static void image_select(Image *image, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void image_move_handle(Image *image, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void image_move(Image *image, Point *to);
-static void image_draw(Image *image, Renderer *renderer);
+static void image_draw(Image *image, DiaRenderer *renderer);
 static void image_update_data(Image *image);
 static Object *image_create(Point *startpoint,
 			  void *user_data,
@@ -202,7 +202,7 @@ image_distance_from(Image *image, Point *point)
 
 static void
 image_select(Image *image, Point *clicked_point,
-	     Renderer *interactive_renderer)
+	     DiaRenderer *interactive_renderer)
 {
   element_update_handles(&image->element);
 }
@@ -311,8 +311,9 @@ image_move(Image *image, Point *to)
 }
 
 static void
-image_draw(Image *image, Renderer *renderer)
+image_draw(Image *image, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul_corner, lr_corner;
   Element *elem;
   
@@ -328,23 +329,23 @@ image_draw(Image *image, Renderer *renderer)
   ul_corner.y = elem->corner.y - image->border_width/2;
 
   if (image->draw_border) {
-    renderer->ops->set_linewidth(renderer, image->border_width);
-    renderer->ops->set_linestyle(renderer, image->line_style);
-    renderer->ops->set_dashlength(renderer, image->dashlength);
-    renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+    renderer_ops->set_linewidth(renderer, image->border_width);
+    renderer_ops->set_linestyle(renderer, image->line_style);
+    renderer_ops->set_dashlength(renderer, image->dashlength);
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &ul_corner,
 			     &lr_corner, 
 			     &image->border_color);
   }
   /* Draw the image */
   if (image->image) {
-    renderer->ops->draw_image(renderer, &elem->corner, elem->width,
+    renderer_ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, image->image);
   } else {
     DiaImage broken = dia_image_get_broken();
-    renderer->ops->draw_image(renderer, &elem->corner, elem->width,
+    renderer_ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, broken);
   }
 }

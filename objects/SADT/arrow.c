@@ -30,7 +30,7 @@
 #include "object.h"
 #include "neworth_conn.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -73,8 +73,8 @@ static void sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
 static void sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer);
 static Object *sadtarrow_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -189,7 +189,7 @@ sadtarrow_distance_from(Sadtarrow *sadtarrow, Point *point)
 
 static void
 sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   neworthconn_update_data(&sadtarrow->orth);
 }
@@ -214,19 +214,20 @@ sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
   sadtarrow_update_data(sadtarrow);
 }
 
-static void draw_arrowhead(Renderer *renderer,
+static void draw_arrowhead(DiaRenderer *renderer,
 			   Point *end, Point *vect, Color *col);
-static void draw_dot(Renderer *renderer,
+static void draw_dot(DiaRenderer *renderer,
 		     Point *end, Point *vect, Color *col);
-static void draw_tunnel(Renderer *renderer,
+static void draw_tunnel(DiaRenderer *renderer,
 			     Point *end, Point *vect, Color *col);
 
 #define GBASE .45
 #define GMULT .55
 
 static void
-sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
+sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   NewOrthConn *orth = &sadtarrow->orth;
   Point *points;
   int n;
@@ -238,9 +239,9 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, ARROW_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, ARROW_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   col = ARROW_COLOR;
   if (sadtarrow->autogray && 
@@ -280,8 +281,8 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
       
       if (rr < .01) {
 	/* too small corner : we do it a bit faster */
-	renderer->ops->draw_line(renderer,&m1,&M,&col);
-	renderer->ops->draw_line(renderer,&M,&m2,&col);
+	renderer_ops->draw_line(renderer,&m1,&M,&col);
+	renderer_ops->draw_line(renderer,&M,&m2,&col);
        } else {
          /* full rendering. We know len1 and len2 are nonzero. */
          v1.x = (M.x - X.x) / len1;
@@ -291,10 +292,10 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
        
          A.x = M.x - (v1.x * rr);
          A.y = M.y - (v1.y * rr);
-         renderer->ops->draw_line(renderer,&m1,&A,&col);
+         renderer_ops->draw_line(renderer,&m1,&A,&col);
          B.x = M.x + (v2.x * rr);
          B.y = M.y + (v2.y * rr);
-         renderer->ops->draw_line(renderer,&B,&m2,&col);
+         renderer_ops->draw_line(renderer,&B,&m2,&col);
          C.x = A.x + (v2.x * rr); /* (or B.x - v1.x*rr) */
          C.y = A.y + (v2.y * rr);
          
@@ -334,7 +335,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
 	     alpha = tau;
 	   }
 	   
-	   renderer->ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
+	   renderer_ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
 				   &col);
 	 }
        }
@@ -370,7 +371,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
     break;
   }
 }
-static void draw_arrowhead(Renderer *renderer,
+static void draw_arrowhead(DiaRenderer *renderer,
 		       Point *end, Point *vect, Color *col)
 {
     arrow_draw(renderer, ARROW_HEAD_TYPE,
@@ -379,9 +380,10 @@ static void draw_arrowhead(Renderer *renderer,
 	       ARROW_LINE_WIDTH,
 	       col, &color_white);
 }
-static void draw_dot(Renderer *renderer,
+static void draw_dot(DiaRenderer *renderer,
 		     Point *end, Point *vect, Color *col)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt,pt;
   real vlen;
   vv = *end;
@@ -401,15 +403,16 @@ static void draw_dot(Renderer *renderer,
   point_scale(&vt,-ARROW_DOT_LOFFSET);
   point_add(&pt,&vt);
   
-  renderer->ops->set_fillstyle(renderer,FILLSTYLE_SOLID);
-  renderer->ops->fill_ellipse(renderer,&pt,
+  renderer_ops->set_fillstyle(renderer,FILLSTYLE_SOLID);
+  renderer_ops->fill_ellipse(renderer,&pt,
 			 ARROW_DOT_RADIUS,ARROW_DOT_RADIUS,
 			 col);
 }
 
-static void draw_tunnel(Renderer *renderer,
+static void draw_tunnel(DiaRenderer *renderer,
 			     Point *end, Point *vect, Color *col)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt1,vt2;
   BezPoint curve1[2];
   BezPoint curve2[2];
@@ -447,8 +450,8 @@ static void draw_tunnel(Renderer *renderer,
   point_add(&curve1[1].p3,&vt1);  point_add(&curve2[1].p3,&vt1); 
   point_sub(&curve1[1].p3,&vt2);  point_add(&curve2[1].p3,&vt2); 
 
-  renderer->ops->draw_bezier(renderer,curve1,2,col);
-  renderer->ops->draw_bezier(renderer,curve2,2,col);
+  renderer_ops->draw_bezier(renderer,curve1,2,col);
+  renderer_ops->draw_bezier(renderer,curve2,2,col);
 }
 
 

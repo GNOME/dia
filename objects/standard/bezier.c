@@ -30,7 +30,7 @@
 #include "object.h"
 #include "bezier_conn.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "diamenu.h"
@@ -59,8 +59,8 @@ static void bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void bezierline_move(Bezierline *bezierline, Point *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void bezierline_draw(Bezierline *bezierline, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer);
 static Object *bezierline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -179,7 +179,7 @@ static int bezierline_closest_segment(Bezierline *bezierline, Point *point) {
 
 static void
 bezierline_select(Bezierline *bezierline, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   bezierconn_update_data(&bezierline->bez);
 }
@@ -223,24 +223,25 @@ bezierline_move(Bezierline *bezierline, Point *to)
 }
 
 static void
-bezierline_draw(Bezierline *bezierline, Renderer *renderer)
+bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
 {
   BezierConn *bez = &bezierline->bez;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   
-  renderer->ops->set_linewidth(renderer, bezierline->line_width);
-  renderer->ops->set_linestyle(renderer, bezierline->line_style);
-  renderer->ops->set_dashlength(renderer, bezierline->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, bezierline->line_width);
+  renderer_ops->set_linestyle(renderer, bezierline->line_style);
+  renderer_ops->set_dashlength(renderer, bezierline->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_bezier_with_arrows(renderer, bez->points, bez->numpoints,
+  renderer_ops->draw_bezier_with_arrows(renderer, bez->points, bez->numpoints,
 					 bezierline->line_width,
 					 &bezierline->line_color,
 					 &bezierline->start_arrow,
 					 &bezierline->end_arrow);
 
 #if 0
-  renderer->ops->draw_bezier(renderer, bez->points, bez->numpoints,
+  renderer_ops->draw_bezier(renderer, bez->points, bez->numpoints,
 			     &bezierline->line_color);
 
   if (bezierline->start_arrow.type != ARROW_NONE) {

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -67,11 +67,11 @@ struct _UsecasePropertiesDialog {
 
 static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
-			   Renderer *interactive_renderer);
+			   DiaRenderer *interactive_renderer);
 static void usecase_move_handle(Usecase *usecase, Handle *handle,
 				Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void usecase_move(Usecase *usecase, Point *to);
-static void usecase_draw(Usecase *usecase, Renderer *renderer);
+static void usecase_draw(Usecase *usecase, DiaRenderer *renderer);
 static Object *usecase_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
@@ -175,7 +175,7 @@ usecase_distance_from(Usecase *usecase, Point *point)
 
 static void
 usecase_select(Usecase *usecase, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(usecase->text, clicked_point, interactive_renderer);
   text_grab_focus(usecase->text, &usecase->element.object);
@@ -214,8 +214,9 @@ usecase_move(Usecase *usecase, Point *to)
 }
 
 static void
-usecase_draw(Usecase *usecase, Renderer *renderer)
+usecase_draw(Usecase *usecase, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point c;
@@ -241,19 +242,19 @@ usecase_draw(Usecase *usecase, Renderer *renderer)
   }
 
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, USECASE_LINEWIDTH);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, USECASE_LINEWIDTH);
 
   if (usecase->collaboration)
-	  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+	  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
   else 
-	  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+	  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer->ops->fill_ellipse(renderer, 
+  renderer_ops->fill_ellipse(renderer, 
 			     &c,
 			     w, h,
 			     &color_white);
-  renderer->ops->draw_ellipse(renderer, 
+  renderer_ops->draw_ellipse(renderer, 
 			     &c,
 			     w, h,
 			     &color_black);  

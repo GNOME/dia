@@ -30,7 +30,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "properties.h"
@@ -85,12 +85,12 @@ struct _Attribute {
 
 static real attribute_distance_from(Attribute *attribute, Point *point);
 static void attribute_select(Attribute *attribute, Point *clicked_point,
-			   Renderer *interactive_renderer);
+			   DiaRenderer *interactive_renderer);
 static void attribute_move_handle(Attribute *attribute, Handle *handle,
 				  Point *to, HandleMoveReason reason, 
 				  ModifierKeys modifiers);
 static void attribute_move(Attribute *attribute, Point *to);
-static void attribute_draw(Attribute *attribute, Renderer *renderer);
+static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
 static void attribute_update_data(Attribute *attribute);
 static Object *attribute_create(Point *startpoint,
 			      void *user_data,
@@ -212,7 +212,7 @@ attribute_distance_from(Attribute *attribute, Point *point)
 
 static void
 attribute_select(Attribute *attribute, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   element_update_handles(&attribute->element);
 }
@@ -239,8 +239,9 @@ attribute_move(Attribute *attribute, Point *to)
 }
 
 static void
-attribute_draw(Attribute *attribute, Renderer *renderer)
+attribute_draw(Attribute *attribute, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point center;
   Point start, end;
   Point p;
@@ -255,25 +256,25 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->fill_ellipse(renderer, &center,
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->fill_ellipse(renderer, &center,
 			      elem->width, elem->height,
 			      &attribute->inner_color);
 
-  renderer->ops->set_linewidth(renderer, attribute->border_width);
+  renderer_ops->set_linewidth(renderer, attribute->border_width);
   if (attribute->derived) {
-    renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-    renderer->ops->set_dashlength(renderer, 0.3);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_dashlength(renderer, 0.3);
   } else {
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   }
 
-  renderer->ops->draw_ellipse(renderer, &center,
+  renderer_ops->draw_ellipse(renderer, &center,
 			      elem->width, elem->height,
 			      &attribute->border_color);
 
   if(attribute->multivalue) {
-    renderer->ops->draw_ellipse(renderer, &center,
+    renderer_ops->draw_ellipse(renderer, &center,
 				elem->width - 2*MULTIVALUE_BORDER_WIDTH_X,
 				elem->height - 2*MULTIVALUE_BORDER_WIDTH_Y,
 				&attribute->border_color);
@@ -284,17 +285,17 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
          dia_font_ascent(attribute->name,
                          attribute->font, attribute->font_height);
 
-  renderer->ops->set_font(renderer,  attribute->font, attribute->font_height);
-  renderer->ops->draw_string(renderer, attribute->name, 
+  renderer_ops->set_font(renderer,  attribute->font, attribute->font_height);
+  renderer_ops->draw_string(renderer, attribute->name, 
 			     &p, ALIGN_CENTER, 
 			     &color_black);
 
   if (attribute->key || attribute->weakkey) {
     if (attribute->weakkey) {
-      renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-      renderer->ops->set_dashlength(renderer, 0.3);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+      renderer_ops->set_dashlength(renderer, 0.3);
     } else {
-      renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     }
     width = dia_font_string_width(attribute->name,
                                   attribute->font, attribute->font_height);
@@ -302,7 +303,7 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
     start.y = center.y + 0.4;
     end.x = center.x + width / 2;
     end.y = center.y + 0.4;
-    renderer->ops->draw_line(renderer, &start, &end, &color_black);
+    renderer_ops->draw_line(renderer, &start, &end, &color_black);
   }
 }
 

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -59,11 +59,11 @@ struct _LargePackage {
 
 static real largepackage_distance_from(LargePackage *pkg, Point *point);
 static void largepackage_select(LargePackage *pkg, Point *clicked_point,
-				Renderer *interactive_renderer);
+				DiaRenderer *interactive_renderer);
 static void largepackage_move_handle(LargePackage *pkg, Handle *handle,
 				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void largepackage_move(LargePackage *pkg, Point *to);
-static void largepackage_draw(LargePackage *pkg, Renderer *renderer);
+static void largepackage_draw(LargePackage *pkg, DiaRenderer *renderer);
 static Object *largepackage_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
@@ -161,7 +161,7 @@ largepackage_distance_from(LargePackage *pkg, Point *point)
 
 static void
 largepackage_select(LargePackage *pkg, Point *clicked_point,
-		    Renderer *interactive_renderer)
+		    DiaRenderer *interactive_renderer)
 {
   element_update_handles(&pkg->element);
 }
@@ -189,8 +189,9 @@ largepackage_move(LargePackage *pkg, Point *to)
 }
 
 static void
-largepackage_draw(LargePackage *pkg, Renderer *renderer)
+largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -205,34 +206,34 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, LARGEPACKAGE_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, LARGEPACKAGE_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
   p1.x= x; p1.y = y - pkg->topheight;
   p2.x = x + pkg->topwidth; p2.y = y;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
   
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
 
-  renderer->ops->set_font(renderer, pkg->font, LARGEPACKAGE_FONTHEIGHT);
+  renderer_ops->set_font(renderer, pkg->font, LARGEPACKAGE_FONTHEIGHT);
 
   p1.x = x + 0.1;
   p1.y = y - LARGEPACKAGE_FONTHEIGHT -
@@ -242,13 +243,13 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
 
 
   if (pkg->st_stereotype) {
-    renderer->ops->draw_string(renderer, pkg->st_stereotype, &p1,
+    renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
 			       ALIGN_LEFT, &color_black);
   }
   p1.y += LARGEPACKAGE_FONTHEIGHT;
 
   if (pkg->name)
-    renderer->ops->draw_string(renderer, pkg->name, &p1,
+    renderer_ops->draw_string(renderer, pkg->name, &p1,
 			       ALIGN_LEFT, &color_black);
 }
 

@@ -26,6 +26,7 @@
 
 #include "polyshape.h"
 #include "message.h"
+#include "diarenderer.h"
 
 enum change_type {
   TYPE_ADD_POINT,
@@ -283,7 +284,7 @@ polyshape_update_boundingbox(PolyShape *poly)
 }
 
 void
-polyshape_simple_draw(PolyShape *poly, Renderer *renderer, real width)
+polyshape_simple_draw(PolyShape *poly, DiaRenderer *renderer, real width)
 {
   Point *points;
   
@@ -292,12 +293,12 @@ polyshape_simple_draw(PolyShape *poly, Renderer *renderer, real width)
 
   points = &poly->points[0];
   
-  renderer->ops->set_linewidth(renderer, width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polygon(renderer, points, poly->numpoints,
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, points, poly->numpoints,
 			       &color_black);
 }
 

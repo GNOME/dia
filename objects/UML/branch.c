@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -52,11 +52,11 @@ static const double BRANCH_WIDTH = 2.0;
 static const double BRANCH_HEIGHT = 2.0;
 
 static real branch_distance_from(Branch *branch, Point *point);
-static void branch_select(Branch *branch, Point *clicked_point, Renderer *interactive_renderer);
+static void branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
 static void branch_move_handle(Branch *branch, Handle *handle,
 			       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void branch_move(Branch *branch, Point *to);
-static void branch_draw(Branch *branch, Renderer *renderer);
+static void branch_draw(Branch *branch, DiaRenderer *renderer);
 static Object *branch_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
@@ -146,7 +146,7 @@ branch_distance_from(Branch *branch, Point *point)
 }
 
 static void
-branch_select(Branch *branch, Point *clicked_point, Renderer *interactive_renderer)
+branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_renderer)
 {
   element_update_handles(&branch->element);
 }
@@ -172,8 +172,9 @@ branch_move(Branch *branch, Point *to)
   branch_update_data(branch);
 }
 
-static void branch_draw(Branch *branch, Renderer *renderer)
+static void branch_draw(Branch *branch, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real w, h;
   Point points[4];
@@ -189,12 +190,12 @@ static void branch_draw(Branch *branch, Renderer *renderer)
   points[2].x = elem->corner.x + 2*w, points[2].y = elem->corner.y + h;
   points[3].x = elem->corner.x + w,   points[3].y = elem->corner.y + 2*h;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer->ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer->ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
+  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
 }
 
 static void branch_update_data(Branch *branch)

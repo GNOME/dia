@@ -19,6 +19,7 @@
 #define ARROWS_H
 
 #include "geometry.h"
+#include "color.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
@@ -52,16 +53,16 @@ typedef enum {
   ARROW_BLANKED_CONCAVE,
 } ArrowType;
 
-typedef struct {
+typedef struct _Arrow Arrow;
+struct _Arrow {
   ArrowType type;
   real length;
   real width;
-} Arrow;
+};
 
-/* Can't include it earlier as it uses the Arrow def */
-#include "render.h"
+typedef struct _DiaRenderer DiaRenderer;
 
-void arrow_draw(Renderer *renderer, ArrowType type,
+void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		Point *to, Point *from,
 		real length, real width, real linewidth,
 		Color *fg_color, Color *bg_color);

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -57,11 +57,11 @@ struct _SmallPackage {
 
 static real smallpackage_distance_from(SmallPackage *pkg, Point *point);
 static void smallpackage_select(SmallPackage *pkg, Point *clicked_point,
-				Renderer *interactive_renderer);
+				DiaRenderer *interactive_renderer);
 static void smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
 				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void smallpackage_move(SmallPackage *pkg, Point *to);
-static void smallpackage_draw(SmallPackage *pkg, Renderer *renderer);
+static void smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer);
 static Object *smallpackage_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
@@ -168,7 +168,7 @@ smallpackage_distance_from(SmallPackage *pkg, Point *point)
 
 static void
 smallpackage_select(SmallPackage *pkg, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(pkg->text, clicked_point, interactive_renderer);
   text_grab_focus(pkg->text, &pkg->element.object);
@@ -202,8 +202,9 @@ smallpackage_move(SmallPackage *pkg, Point *to)
 }
 
 static void
-smallpackage_draw(SmallPackage *pkg, Renderer *renderer)
+smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -218,29 +219,29 @@ smallpackage_draw(SmallPackage *pkg, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, SMALLPACKAGE_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, SMALLPACKAGE_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
   p1.x= x; p1.y = y-SMALLPACKAGE_TOPHEIGHT;
   p2.x = x+SMALLPACKAGE_TOPWIDTH; p2.y = y;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
   
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
@@ -249,7 +250,7 @@ smallpackage_draw(SmallPackage *pkg, Renderer *renderer)
   if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
-    renderer->ops->draw_string(renderer, pkg->st_stereotype, &p1, 
+    renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1, 
 			       ALIGN_LEFT, &color_black);
   }
 }

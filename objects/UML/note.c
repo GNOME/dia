@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -52,11 +52,11 @@ struct _Note {
 
 static real note_distance_from(Note *note, Point *point);
 static void note_select(Note *note, Point *clicked_point,
-			Renderer *interactive_renderer);
+			DiaRenderer *interactive_renderer);
 static void note_move_handle(Note *note, Handle *handle,
 			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void note_move(Note *note, Point *to);
-static void note_draw(Note *note, Renderer *renderer);
+static void note_draw(Note *note, DiaRenderer *renderer);
 static Object *note_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -156,7 +156,7 @@ note_distance_from(Note *note, Point *point)
 
 static void
 note_select(Note *note, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(note->text, clicked_point, interactive_renderer);
   text_grab_focus(note->text, &note->element.object);
@@ -183,8 +183,9 @@ note_move(Note *note, Point *to)
 }
 
 static void
-note_draw(Note *note, Renderer *renderer)
+note_draw(Note *note, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point poly[5];
@@ -199,9 +200,9 @@ note_draw(Note *note, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, NOTE_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, NOTE_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   poly[0].x = x;
   poly[0].y = y;
@@ -214,10 +215,10 @@ note_draw(Note *note, Renderer *renderer)
   poly[4].x = x;
   poly[4].y = y+h;
 
-  renderer->ops->fill_polygon(renderer, 
+  renderer_ops->fill_polygon(renderer, 
 			      poly, 5,
 			      &color_white);
-  renderer->ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon(renderer, 
 			      poly, 5,
 			      &color_black);
 
@@ -226,8 +227,8 @@ note_draw(Note *note, Renderer *renderer)
   poly[1].y = y + NOTE_CORNER;
   poly[2] = poly[2];
  
-  renderer->ops->set_linewidth(renderer, NOTE_CORNERWIDTH);
-  renderer->ops->draw_polyline(renderer, 
+  renderer_ops->set_linewidth(renderer, NOTE_CORNERWIDTH);
+  renderer_ops->draw_polyline(renderer, 
 			   poly, 3,
 			   &color_black);
 

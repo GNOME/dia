@@ -33,7 +33,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "properties.h"
@@ -85,11 +85,11 @@ typedef struct _Step {
 
 static real step_distance_from(Step *step, Point *point);
 static void step_select(Step *step, Point *clicked_point,
-			Renderer *interactive_renderer);
+			DiaRenderer *interactive_renderer);
 static void step_move_handle(Step *step, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void step_move(Step *step, Point *to);
-static void step_draw(Step *step, Renderer *renderer);
+static void step_draw(Step *step, DiaRenderer *renderer);
 static void step_update_data(Step *step);
 static Object *step_create(Point *startpoint,
 			     void *user_data,
@@ -271,7 +271,7 @@ step_distance_from(Step *step, Point *point)
 
 static void
 step_select(Step *step, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   element_update_handles(&step->element);
 }
@@ -314,53 +314,54 @@ step_move(Step *step, Point *to)
 
 
 static void
-step_draw(Step *step, Renderer *renderer)
+step_draw(Step *step, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   assert(step != NULL);
   assert(renderer != NULL);
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, STEP_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, STEP_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   pts[0] = step->north.pos;
   pts[1] = step->NU1;
   pts[2] = step->NU2;
   pts[3] = step->A;
-  renderer->ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 			       &color_black);
   pts[0] = step->D;
   pts[1] = step->SD1;
   pts[2] = step->SD2;
   pts[3] = step->south.pos;
-  renderer->ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 			       &color_black);
 
   if ((step->type == STEP_INITIAL) ||
       (step->type == STEP_MACROCALL) ||
       (step->type == STEP_SUBPCALL)) {
-    renderer->ops->fill_rect(renderer, &step->I, &step->J, &color_white);
-    renderer->ops->draw_rect(renderer, &step->I, &step->J, &color_black);
+    renderer_ops->fill_rect(renderer, &step->I, &step->J, &color_white);
+    renderer_ops->draw_rect(renderer, &step->I, &step->J, &color_black);
   } else {
-    renderer->ops->fill_rect(renderer, &step->E, &step->F, &color_white);
+    renderer_ops->fill_rect(renderer, &step->E, &step->F, &color_white);
   }
-  renderer->ops->draw_rect(renderer, &step->E, &step->F, &color_black);
+  renderer_ops->draw_rect(renderer, &step->E, &step->F, &color_black);
   
   if (step->type != STEP_MACROENTRY)
-    renderer->ops->draw_line(renderer,&step->A,&step->B,&color_black);
+    renderer_ops->draw_line(renderer,&step->A,&step->B,&color_black);
   if (step->type != STEP_MACROEXIT)
-    renderer->ops->draw_line(renderer,&step->C,&step->D,&color_black);
+    renderer_ops->draw_line(renderer,&step->C,&step->D,&color_black);
   
-  renderer->ops->set_font(renderer, step->font, step->font_size);
+  renderer_ops->set_font(renderer, step->font, step->font_size);
 
-  renderer->ops->draw_string(renderer, 
+  renderer_ops->draw_string(renderer, 
 			     step->id, 
 			     &step->G, ALIGN_CENTER, 
 			     &step->font_color);
   if (step->active) 
-    renderer->ops->fill_ellipse(renderer,
+    renderer_ops->fill_ellipse(renderer,
 			       &step->H,
 			       STEP_DOT_RADIUS,STEP_DOT_RADIUS,
 			       &color_red);

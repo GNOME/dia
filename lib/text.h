@@ -69,9 +69,9 @@ void text_set_color(Text *text, Color *col);
 void text_set_alignment(Text *text, Alignment align);
 real text_distance_from(Text *text, Point *point);
 void text_calc_boundingbox(Text *text, Rectangle *box);
-void text_draw(Text *text, Renderer *renderer);
+void text_draw(Text *text, DiaRenderer *renderer);
 void text_set_cursor(Text *text, Point *clicked_point,
-		     Renderer *interactive_renderer);
+		     DiaRenderer *interactive_renderer);
 void text_set_cursor_at_end( Text* text );
 void text_grab_focus(Text *text, Object *object);
 int text_is_empty(Text *text);

@@ -26,7 +26,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -53,11 +53,11 @@ struct _Actor {
 
 static real actor_distance_from(Actor *actor, Point *point);
 static void actor_select(Actor *actor, Point *clicked_point,
-			Renderer *interactive_renderer);
+			DiaRenderer *interactive_renderer);
 static void actor_move_handle(Actor *actor, Handle *handle,
 			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void actor_move(Actor *actor, Point *to);
-static void actor_draw(Actor *actor, Renderer *renderer);
+static void actor_draw(Actor *actor, DiaRenderer *renderer);
 static Object *actor_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -156,7 +156,7 @@ actor_distance_from(Actor *actor, Point *point)
 
 static void
 actor_select(Actor *actor, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(actor->text, clicked_point, interactive_renderer);
   text_grab_focus(actor->text, &actor->element.object);
@@ -187,8 +187,9 @@ actor_move(Actor *actor, Point *to)
 }
 
 static void
-actor_draw(Actor *actor, Renderer *renderer)
+actor_draw(Actor *actor, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   real r, r1;  
@@ -204,9 +205,9 @@ actor_draw(Actor *actor, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, ACTOR_LINEWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, ACTOR_LINEWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   r = ACTOR_HEAD;
   r1 = 2*r;
@@ -216,11 +217,11 @@ actor_draw(Actor *actor, Renderer *renderer)
   cb.y = ch.y + r1 + r;
   
   /* head */
-  renderer->ops->fill_ellipse(renderer, 
+  renderer_ops->fill_ellipse(renderer, 
 			     &ch,
 			     r, r,
 			     &color_white);
-  renderer->ops->draw_ellipse(renderer, 
+  renderer_ops->draw_ellipse(renderer, 
 			     &ch,
 			     r, r,
 			     &color_black);  
@@ -229,25 +230,25 @@ actor_draw(Actor *actor, Renderer *renderer)
   p1.x = ch.x - r1;
   p2.x = ch.x + r1;
   p1.y = p2.y = ch.y + r;
-  renderer->ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
   p1.x = ch.x;
   p1.y = ch.y + r*0.5;
   /* body & legs  */
-  renderer->ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer, 
 			   &p1, &cb,
 			   &color_black);
 
   p2.x = ch.x - r1;
   p2.y = y + ACTOR_BODY;
-  renderer->ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer, 
 			   &cb, &p2,
 			   &color_black);
   
   p2.x =  ch.x + r1;
-  renderer->ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer, 
 			   &cb, &p2,
 			   &color_black);
   

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 
@@ -64,11 +64,11 @@ static DiaFont *dep_font = NULL;
 
 static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,
-			      Renderer *interactive_renderer);
+			      DiaRenderer *interactive_renderer);
 static void dependency_move_handle(Dependency *dep, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void dependency_move(Dependency *dep, Point *to);
-static void dependency_draw(Dependency *dep, Renderer *renderer);
+static void dependency_draw(Dependency *dep, DiaRenderer *renderer);
 static Object *dependency_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -170,7 +170,7 @@ dependency_distance_from(Dependency *dep, Point *point)
 
 static void
 dependency_select(Dependency *dep, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&dep->orth);
 }
@@ -195,8 +195,9 @@ dependency_move(Dependency *dep, Point *to)
 }
 
 static void
-dependency_draw(Dependency *dep, Renderer *renderer)
+dependency_draw(Dependency *dep, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &dep->orth;
   Point *points;
   int n;
@@ -206,27 +207,27 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, DEPENDENCY_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer->ops->set_dashlength(renderer, DEPENDENCY_DASHLEN);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, DEPENDENCY_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_dashlength(renderer, DEPENDENCY_DASHLEN);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_LINES;
   arrow.length = DEPENDENCY_ARROWLEN;
   arrow.width = DEPENDENCY_ARROWWIDTH;
 
-  renderer->ops->draw_polyline_with_arrows(renderer,
+  renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   DEPENDENCY_WIDTH,
 					   &color_black,
 					   NULL, &arrow);
 
-  renderer->ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
+  renderer_ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
   pos = dep->text_pos;
   
   if (dep->st_stereotype != NULL && dep->st_stereotype[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       dep->st_stereotype,
 			       &pos, dep->text_align,
 			       &color_black);
@@ -235,7 +236,7 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   }
   
   if (dep->name != NULL && dep->name[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       dep->name,
 			       &pos, dep->text_align,
 			       &color_black);

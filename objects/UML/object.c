@@ -28,7 +28,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -70,11 +70,11 @@ struct _Objet {
 
 static real objet_distance_from(Objet *ob, Point *point);
 static void objet_select(Objet *ob, Point *clicked_point,
-			 Renderer *interactive_renderer);
+			 DiaRenderer *interactive_renderer);
 static void objet_move_handle(Objet *ob, Handle *handle,
 			      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void objet_move(Objet *ob, Point *to);
-static void objet_draw(Objet *ob, Renderer *renderer);
+static void objet_draw(Objet *ob, DiaRenderer *renderer);
 static Object *objet_create(Point *startpoint,
 			    void *user_data,
 			    Handle **handle1,
@@ -205,7 +205,7 @@ objet_distance_from(Objet *ob, Point *point)
 
 static void
 objet_select(Objet *ob, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(ob->text, clicked_point, interactive_renderer);
   text_grab_focus(ob->text, &ob->element.object);
@@ -231,8 +231,9 @@ objet_move(Objet *ob, Point *to)
 }
 
 static void
-objet_draw(Objet *ob, Renderer *renderer)
+objet_draw(Objet *ob, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real bw, x, y, w, h;
   Point p1, p2;
@@ -250,9 +251,9 @@ objet_draw(Objet *ob, Renderer *renderer)
   
   bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: OBJET_BORDERWIDTH;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, bw);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, bw);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
 
   p1.x = x; p1.y = y;
@@ -261,10 +262,10 @@ objet_draw(Objet *ob, Renderer *renderer)
   if (ob->is_multiple) {
     p1.x += OBJET_MARGIN_M;
     p2.y -= OBJET_MARGIN_M;
-    renderer->ops->fill_rect(renderer, 
+    renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
 			     &color_white); 
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
 			     &color_black);
     p1.x -= OBJET_MARGIN_M;
@@ -274,10 +275,10 @@ objet_draw(Objet *ob, Renderer *renderer)
     y += OBJET_MARGIN_M;
   }
     
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
@@ -285,14 +286,14 @@ objet_draw(Objet *ob, Renderer *renderer)
   text_draw(ob->text, renderer);
 
   if ((ob->st_stereotype != NULL) && (ob->st_stereotype[0] != '\0')) {
-      renderer->ops->draw_string(renderer,
+      renderer_ops->draw_string(renderer,
 				 ob->st_stereotype,
 				 &ob->st_pos, ALIGN_CENTER,
 				 &color_black);
   }
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
-      renderer->ops->draw_string(renderer,
+      renderer_ops->draw_string(renderer,
 				 ob->exstate,
 				 &ob->ex_pos, ALIGN_CENTER,
 				 &color_black);
@@ -304,12 +305,12 @@ objet_draw(Objet *ob, Renderer *renderer)
   p2.x = p1.x + ob->text->max_width;
   p2.y = p1.y;
   
-  renderer->ops->set_linewidth(renderer, OBJET_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, OBJET_LINEWIDTH);
     
   for (i=0; i<ob->text->numlines; i++) { 
     p1.x = x + (w - ob->text->row_width[i])/2;
     p2.x = p1.x + ob->text->row_width[i];
-    renderer->ops->draw_line(renderer,
+    renderer_ops->draw_line(renderer,
 			     &p1, &p2,
 			     &color_black);
     p1.y = p2.y += ob->text->height;
@@ -319,8 +320,8 @@ objet_draw(Objet *ob, Renderer *renderer)
       p1.x = x; p2.x = x + w;
       p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y;
       
-      renderer->ops->set_linewidth(renderer, bw);
-      renderer->ops->draw_line(renderer,
+      renderer_ops->set_linewidth(renderer, bw);
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
 

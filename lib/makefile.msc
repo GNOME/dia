@@ -26,10 +26,15 @@ OBJECTS = \
 	color.obj \
 	connection.obj \
 	connpoint_line.obj \
+	diatransform.obj \
 	dia_dirs.obj \
 	dia_image.obj \
 	dia_xml.obj \
 	diagramdata.obj \
+	diagdkrenderer.obj \
+	diainteractiverenderer.obj \
+	diarenderer.obj \
+	diasvgrenderer.obj \
 	dynamic_obj.obj \
 	element.obj \
 	filter.obj \
@@ -62,7 +67,7 @@ OBJECTS = \
 	propoffsets.obj \
 	propregistry.obj \
 	ps-utf8.obj \
-	render.obj \
+#	render.obj \
 	sheet.obj \
 	text.obj \
 	utils.obj \

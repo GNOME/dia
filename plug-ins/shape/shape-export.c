@@ -5,6 +5,9 @@
  * shape-export.c: shape export filter for dia
  * Copyright (C) 2000 Steffen Macke
  *
+ * Major refactoring while porting to use DiaSvgRenderer 
+ * Copyright (C) 2002 Hans Breuer
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,6 +21,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+/*
+ * TODO:
+ *   - While porting to use DiaSvgRenderer I removved all connection point
+       adding to fill_* methods with the assumption that they always have
+       a corresponding draw_* method call where the connection points are 
+       already added. Correct me if I'm wrong ...                    --hb 
  */
 #include <config.h>
 
@@ -40,151 +50,75 @@
 #include <libxml/parser.h> /* xmlStrdup */
 #include "dia_xml_libxml.h"
 #include "geometry.h"
-#include "render.h"
+#include "diasvgrenderer.h"
 #include "filter.h"
 #include "intl.h"
 #include "message.h"
 #include "diagramdata.h"
 
-typedef struct _RendererShape RendererShape;
-struct _RendererShape {
-  Renderer renderer;
+G_BEGIN_DECLS
 
-  char *filename;
+#define SHAPE_TYPE_RENDERER           (shape_renderer_get_type ())
+#define SHAPE_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), SHAPE_TYPE_RENDERER, ShapeRenderer))
+#define SHAPE_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), SHAPE_TYPE_RENDERER, ShapeRendererClass))
+#define SHAPE_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SHAPE_TYPE_RENDERER))
+#define SHAPE_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SHAPE_TYPE_RENDERER, ShapeRendererClass))
 
-  xmlDocPtr doc;
-  xmlNodePtr root;
+GType shape_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _ShapeRenderer ShapeRenderer;
+typedef struct _ShapeRendererClass ShapeRendererClass;
+
+struct _ShapeRenderer
+{
+  DiaSvgRenderer parent_instance;
+
   xmlNodePtr connection_root;
-  xmlNsPtr svg_name_space;
-
-  LineStyle saved_line_style;
-  real dash_length;
-  real dot_length;
-
-  real linewidth;
-  const char *linecap;
-  const char *linejoin;
-  char *linestyle; /* not const -- must free */
-
-  DiaFont* font;
-  real fontsize;
 };
 
-static RendererShape *new_shape_renderer(DiagramData *data, const char *filename);
-static void destroy_shape_renderer(RendererShape *renderer);
+struct _ShapeRendererClass
+{
+  DiaSvgRendererClass parent_class;
+};
 
-static void begin_render(RendererShape *renderer, DiagramData *data);
-static void end_render(RendererShape *renderer);
-static void set_linewidth(RendererShape *renderer, real linewidth);
-static void set_linecaps(RendererShape *renderer, LineCaps mode);
-static void set_linejoin(RendererShape *renderer, LineJoin mode);
-static void set_linestyle(RendererShape *renderer, LineStyle mode);
-static void set_dashlength(RendererShape *renderer, real length);
-static void set_fillstyle(RendererShape *renderer, FillStyle mode);
-static void set_font(RendererShape *renderer, DiaFont *font, real height);
-static void draw_line(RendererShape *renderer, 
+G_END_DECLS
+
+static DiaSvgRenderer *new_shape_renderer(DiagramData *data, const char *filename);
+
+/* DiaSvgRenderer members */
+static void end_render(DiaRenderer *self);
+
+static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
-static void draw_polyline(RendererShape *renderer, 
+static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *line_colour);
-static void draw_polygon(RendererShape *renderer, 
+static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *line_colour);
-static void fill_polygon(RendererShape *renderer, 
-			 Point *points, int num_points, 
-			 Color *line_colour);
-static void draw_rect(RendererShape *renderer, 
+static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
-static void fill_rect(RendererShape *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void draw_arc(RendererShape *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void fill_arc(RendererShape *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void draw_ellipse(RendererShape *renderer, 
+static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void fill_ellipse(RendererShape *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
-static void draw_bezier(RendererShape *renderer, 
-			BezPoint *points,
-			int numpoints,
-			Color *colour);
-static void fill_bezier(RendererShape *renderer, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour);
-static void draw_string(RendererShape *renderer,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *colour);
-static void draw_image(RendererShape *renderer,
-		  Point *point,
-		  real width, real height,
-		  DiaImage image);
-static void add_connection_point(RendererShape *renderer, 
-      Point *point);
-static void add_rectangle_connection_points(RendererShape *renderer,
-      Point *ul_corner, Point *lr_corner);
-static void add_ellipse_connection_points(RendererShape *renderer,
-      Point *center, real width, real height);      
 
-static RenderOps *ShapeRenderOps;
+/* helper functions */
+static void add_connection_point(ShapeRenderer *renderer, 
+                                 Point *point);
+static void add_rectangle_connection_points(ShapeRenderer *renderer,
+                                            Point *ul_corner, Point *lr_corner);
+static void add_ellipse_connection_points(ShapeRenderer *renderer,
+                                          Point *center,
+                                          real width, real height);      
 
-static void
-init_shape_renderops() {
-    ShapeRenderOps = create_renderops_table();
-
-    ShapeRenderOps->begin_render = (BeginRenderFunc) begin_render;
-    ShapeRenderOps->end_render = (EndRenderFunc) end_render;
-
-    ShapeRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-    ShapeRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-    ShapeRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-    ShapeRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-    ShapeRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-    ShapeRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-    ShapeRenderOps->set_font = (SetFontFunc) set_font;
-  
-    ShapeRenderOps->draw_line = (DrawLineFunc) draw_line;
-    ShapeRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
-  
-    ShapeRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-    ShapeRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
-
-    ShapeRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-    ShapeRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
-
-    ShapeRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-    ShapeRenderOps->fill_arc = (FillArcFunc) fill_arc;
-
-    ShapeRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-    ShapeRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
-
-    ShapeRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-    ShapeRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
-
-    ShapeRenderOps->draw_string = (DrawStringFunc) draw_string;
-
-    ShapeRenderOps->draw_image = (DrawImageFunc) draw_image;
-}
-
-static RendererShape *
+static DiaSvgRenderer *
 new_shape_renderer(DiagramData *data, const char *filename)
 {
-  RendererShape *renderer;
+  ShapeRenderer *shape_renderer;
+  DiaSvgRenderer *renderer;
   FILE *file;
   char *point;
   xmlNsPtr name_space;
@@ -202,13 +136,8 @@ new_shape_renderer(DiagramData *data, const char *filename)
   }
   fclose(file);
 
-  if (ShapeRenderOps == NULL)
-      init_shape_renderops();
-
-  renderer = g_new(RendererShape, 1);
-  renderer->renderer.ops = ShapeRenderOps;
-  renderer->renderer.is_interactive = 0;
-  renderer->renderer.interactive_ops = NULL;
+  shape_renderer = g_object_new(SHAPE_TYPE_RENDERER, NULL);
+  renderer = DIA_SVG_RENDERER (shape_renderer);
 
   renderer->filename = g_strdup(filename);
 
@@ -245,7 +174,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   g_free(point);
   xmlNewChild(renderer->root, NULL, "icon", g_basename(png_filename));
   g_free(png_filename);
-  renderer->connection_root = xmlNewChild(renderer->root, NULL, "connections", NULL);
+  shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, "connections", NULL);
   xml_node_ptr = xmlNewChild(renderer->root, NULL, "aspectratio",NULL);
   xmlSetProp(xml_node_ptr, "type","fixed");
   renderer->root = xmlNewChild(renderer->root, renderer->svg_name_space, "svg", NULL);
@@ -253,19 +182,72 @@ new_shape_renderer(DiagramData *data, const char *filename)
   return renderer;
 }
 
-static void
-begin_render(RendererShape *renderer, DiagramData *data)
+/* GObject stuff */
+static void shape_renderer_class_init (ShapeRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+shape_renderer_get_type (void)
 {
-  renderer->linewidth = 0;
-  renderer->fontsize = 1.0;
-  renderer->linecap = "butt";
-  renderer->linejoin = "miter";
-  renderer->linestyle = NULL;
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (ShapeRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) shape_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (ShapeRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_SVG_RENDERER,
+                                            "ShapeRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
 }
 
 static void
-end_render(RendererShape *renderer)
+shape_renderer_finalize (GObject *object)
 {
+  ShapeRenderer *shape_renderer = SHAPE_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+shape_renderer_class_init (ShapeRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = shape_renderer_finalize;
+
+  /* dia svg renderer overwrites */
+  renderer_class->end_render = end_render;
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
+  renderer_class->draw_polygon = draw_polygon;
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_ellipse = draw_ellipse;
+}
+
+/* member implementations */
+/* full overwrite */
+static void
+end_render(DiaRenderer *self)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int old_blanks_default = pretty_formated_xml;
 
   /* FIXME HACK: we always want nice readable shape files,
@@ -284,15 +266,10 @@ end_render(RendererShape *renderer)
   pretty_formated_xml = old_blanks_default;
 }
 
-static void 
-destroy_shape_renderer(RendererShape *renderer)
-{
-  if (renderer->font) dia_font_unref(renderer->font);  
-  g_free(renderer);
-}
-
 static void
-add_connection_point(RendererShape *renderer, Point *point) {
+add_connection_point (ShapeRenderer *renderer, 
+                      Point *point) 
+{
   xmlNodePtr node;
   char buf[512];
   
@@ -304,184 +281,19 @@ add_connection_point(RendererShape *renderer, Point *point) {
 }
 
 static void
-set_linewidth(RendererShape *renderer, real linewidth)
-{  /* 0 == hairline **/
-
-  if (linewidth == 0)
-    renderer->linewidth = 0.001;
-  else
-    renderer->linewidth = linewidth;
-}
-
-static void
-set_linecaps(RendererShape *renderer, LineCaps mode)
-{
-  switch(mode) {
-  case LINECAPS_BUTT:
-    renderer->linecap = "butt";
-    break;
-  case LINECAPS_ROUND:
-    renderer->linecap = "round";
-    break;
-  case LINECAPS_PROJECTING:
-    renderer->linecap = "square";
-    break;
-  default:
-    renderer->linecap = "butt";
-  }
-}
-
-static void
-set_linejoin(RendererShape *renderer, LineJoin mode)
-{
-  switch(mode) {
-  case LINEJOIN_MITER:
-    renderer->linejoin = "miter";
-    break;
-  case LINEJOIN_ROUND:
-    renderer->linejoin = "round";
-    break;
-  case LINEJOIN_BEVEL:
-    renderer->linejoin = "bevel";
-    break;
-  default:
-    renderer->linejoin = "miter";
-  }
-}
-
-static void
-set_linestyle(RendererShape *renderer, LineStyle mode)
-{
-  real hole_width;
-
-  renderer->saved_line_style = mode;
-
-  g_free(renderer->linestyle);
-  switch(mode) {
-  case LINESTYLE_SOLID:
-    renderer->linestyle = NULL;
-    break;
-  case LINESTYLE_DASHED:
-    renderer->linestyle = g_strdup_printf("%g", renderer->dash_length);
-    break;
-  case LINESTYLE_DASH_DOT:
-    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-    renderer->linestyle = g_strdup_printf("%g %g %g %g",
-					  renderer->dash_length,
-					  hole_width,
-					  renderer->dot_length,
-					  hole_width);
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
-    renderer->linestyle = g_strdup_printf("%g %g %g %g %g %g",
-					  renderer->dash_length,
-					  hole_width,
-					  renderer->dot_length,
-					  hole_width,
-					  renderer->dot_length,
-					  hole_width );
-    break;
-  case LINESTYLE_DOTTED:
-    renderer->linestyle = g_strdup_printf("%g", renderer->dot_length);
-    break;
-  default:
-    renderer->linestyle = NULL;
-  }
-}
-
-static void
-set_dashlength(RendererShape *renderer, real length)
-{  /* dot = 20% of len */
-  if (length<0.001)
-    length = 0.001;
-  
-  renderer->dash_length = length;
-  renderer->dot_length = length*0.2;
-  
-  set_linestyle(renderer, renderer->saved_line_style);
-}
-
-static void
-set_fillstyle(RendererShape *renderer, FillStyle mode)
-{
-  switch(mode) {
-  case FILLSTYLE_SOLID:
-    break;
-  default:
-    message_error("svg_renderer: Unsupported fill mode specified!\n");
-  }
-}
-
-static void
-set_font(RendererShape *renderer, DiaFont *font, real height)
-{
-  renderer->fontsize = height;
-  renderer->font = dia_font_ref(font);
-}
-
-/* the return value of this function should not be saved anywhere */
-static gchar *
-get_draw_style(RendererShape *renderer,
-	       Color *colour)
-{
-  static GString *str = NULL;
-
-  if (!str) str = g_string_new(NULL);
-  g_string_truncate(str, 0);
-
-  g_string_sprintf(str, "stroke-width: %g", renderer->linewidth);
-  if (strcmp(renderer->linecap, "butt"))
-    g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
-  if (strcmp(renderer->linejoin, "miter"))
-    g_string_sprintfa(str, "; stroke-linejoin: %s", renderer->linejoin);
-  if (renderer->linestyle)
-    g_string_sprintfa(str, "; stroke-dasharray: %s", renderer->linestyle);
-
-  if (colour)
-    g_string_sprintfa(str, "; stroke: #%02x%02x%02x",
-		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
-		      (int)ceil(255*colour->blue));
-
-  return str->str;
-}
-/* the return value of this function should not be saved anywhere */
-static gchar *
-get_fill_style(RendererShape *renderer,
-	       Color *colour)
-{
-  static GString *str = NULL;
-
-  if (!str) str = g_string_new(NULL);
-
-  g_string_sprintf(str, "fill: #%02x%02x%02x",
-		   (int)ceil(255*colour->red), (int)ceil(255*colour->green),
-		   (int)ceil(255*colour->blue));
-
-  return str->str;
-}
-
-static void
-draw_line(RendererShape *renderer, 
+draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
-  xmlNodePtr node;
-  char buf[512];
   Point center;
+  ShapeRenderer *renderer = SHAPE_RENDERER(self);
+  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
+  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "line", NULL);
+  /* use base class implementation */
+  base_class->draw_line (self, start, end, line_colour);
 
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
-
-  g_snprintf(buf, sizeof(buf), "%g", start->x);
-  xmlSetProp(node, "x1", buf);
-  g_snprintf(buf, sizeof(buf), "%g", start->y);
-  xmlSetProp(node, "y1", buf);
-  g_snprintf(buf, sizeof(buf), "%g", end->x);
-  xmlSetProp(node, "x2", buf);
-  g_snprintf(buf, sizeof(buf), "%g", end->y);
-  xmlSetProp(node, "y2", buf);
+  /* do our own stuff */
   add_connection_point(renderer, start);
   add_connection_point(renderer, end);
   center.x = (start->x + end->x)/2;
@@ -490,11 +302,13 @@ draw_line(RendererShape *renderer,
 
 }
 
+/* complete overwrite, code duplication with base class */
 static void
-draw_polyline(RendererShape *renderer, 
+draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
   xmlNodePtr node;
   GString *str;
@@ -502,27 +316,31 @@ draw_polyline(RendererShape *renderer,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
+  xmlSetProp(node, "style", 
+             DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
     g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
-    add_connection_point(renderer, &points[i]);
+    add_connection_point(SHAPE_RENDERER(self), &points[i]);
   }
   xmlSetProp(node, "points", str->str);
   g_string_free(str, TRUE);
   for(i = 1; i < num_points; i++) {
     center.x = (points[i].x + points[i-1].x)/2;
     center.y = (points[i].y + points[i-1].y)/2;
-    add_connection_point(renderer, &center);
+    add_connection_point(SHAPE_RENDERER(renderer), &center);
   }
 }
 
+
+/* complete overwrite, necessary code duplication */
 static void
-draw_polygon(RendererShape *renderer, 
+draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
   xmlNodePtr node;
   GString *str;
@@ -530,53 +348,27 @@ draw_polygon(RendererShape *renderer,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
+  xmlSetProp(node, "style", 
+             DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
     g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
-    add_connection_point(renderer, &points[i]);
+    add_connection_point(SHAPE_RENDERER(self), &points[i]);
   }
   for(i = 1; i < num_points; i++) {
     center.x = (points[i].x + points[i-1].x)/2;
     center.y = (points[i].y + points[i-1].y)/2;
-    add_connection_point(renderer, &center);
+    add_connection_point(SHAPE_RENDERER(self), &center);
   }
   xmlSetProp(node, "points", str->str);
   g_string_free(str, TRUE);
 }
 
 static void
-fill_polygon(RendererShape *renderer, 
-	      Point *points, int num_points, 
-	      Color *colour)
+add_rectangle_connection_points (ShapeRenderer *renderer,
+                                 Point *ul_corner, Point *lr_corner) 
 {
-  int i;
-  xmlNodePtr node;
-  GString *str;
-  Point center;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
-  
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
-
-  str = g_string_new(NULL);
-  for (i = 0; i < num_points; i++) {
-    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
-    add_connection_point(renderer, &points[i]);
-  }
-  for(i = 1; i < num_points; i++) {
-    center.x = (points[i].x + points[i-1].x)/2;
-    center.y = (points[i].y + points[i-1].y)/2;
-    add_connection_point(renderer, &center);
-  }
-  xmlSetProp(node, "points", str->str);
-  g_string_free(str, TRUE);
-}
-
-static void
-add_rectangle_connection_points(RendererShape *renderer,
-    Point *ul_corner, Point *lr_corner) {
   Point connection;
   coord center_x, center_y;
  
@@ -606,102 +398,26 @@ add_rectangle_connection_points(RendererShape *renderer,
     
 
 static void
-draw_rect(RendererShape *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour) {
-  xmlNodePtr node;
-  char buf[512];
-  
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "rect", NULL);
+draw_rect (DiaRenderer *self, 
+           Point *ul_corner, Point *lr_corner,
+           Color *colour) 
+{
+  Point center;
+  ShapeRenderer *renderer = SHAPE_RENDERER(self);
+  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
+  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
-
-  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
-  xmlSetProp(node, "x", buf);
-  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
-  xmlSetProp(node, "y", buf);
-  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
-  xmlSetProp(node, "width", buf);
-  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
-  xmlSetProp(node, "height", buf);
+  /* use base class implementation */
+  base_class->draw_rect (self, ul_corner, lr_corner, colour);
+  /* do our own stuff */
   add_rectangle_connection_points(renderer, ul_corner, lr_corner);
-}
-
-static void
-fill_rect(RendererShape *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-  xmlNodePtr node;
-  char buf[512];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "rect", NULL);
-
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
-
-  g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
-  xmlSetProp(node, "x", buf);
-  g_snprintf(buf, sizeof(buf), "%g", ul_corner->y);
-  xmlSetProp(node, "y", buf);
-  g_snprintf(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
-  xmlSetProp(node, "width", buf);
-  g_snprintf(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
-  xmlSetProp(node, "height", buf);
-  add_rectangle_connection_points(renderer, ul_corner, lr_corner);
-}
-
-static void
-draw_arc(RendererShape *renderer, 
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
-{
-  xmlNodePtr node;
-  char buf[512];
-  real rx = width / 2, ry = height / 2;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
-  
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
-
-  /* this path might be incorrect ... */
-  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g",
-	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
-	     rx, ry, (angle2 - angle1 > 0),
-	     center->x + rx*cos(angle2), center->y + ry * sin(angle2));
-
-  xmlSetProp(node, "d", buf);
-}
-
-static void
-fill_arc(RendererShape *renderer, 
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
-{
-  xmlNodePtr node;
-  char buf[512];
-  real rx = width / 2, ry = height / 2;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
-  
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
-
-  /* this path might be incorrect ... */
-  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g L %g,%g z",
-	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
-	     rx, ry, (angle2 - angle1 > 0),
-	     center->x + rx*cos(angle2), center->y + ry * sin(angle2),
-	     center->x, center->y);
-
-  xmlSetProp(node, "d", buf);
 }
 
 static void 
-add_ellipse_connection_points(RendererShape *renderer,
-      Point *center, real width, real height) {
+add_ellipse_connection_points (ShapeRenderer *renderer,
+                               Point *center, 
+                               real width, real height) 
+{
   Point connection;
   
   connection.x = center->x;
@@ -718,216 +434,27 @@ add_ellipse_connection_points(RendererShape *renderer,
 }
 
 static void
-draw_ellipse(RendererShape *renderer, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
+draw_ellipse(DiaRenderer *self, 
+             Point *center,
+             real width, real height,
+             Color *colour)
 {
-  xmlNodePtr node;
-  char buf[512];
+  ShapeRenderer *renderer = SHAPE_RENDERER(self);
+  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
+  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
+  /* use base class implementation */
+  base_class->draw_ellipse (self, center, width, height, colour);
 
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
-
-  g_snprintf(buf, sizeof(buf), "%g", center->x);
-  xmlSetProp(node, "cx", buf);
-  g_snprintf(buf, sizeof(buf), "%g", center->y);
-  xmlSetProp(node, "cy", buf);
-  g_snprintf(buf, sizeof(buf), "%g", width / 2);
-  xmlSetProp(node, "rx", buf);
-  g_snprintf(buf, sizeof(buf), "%g", height / 2);
-  xmlSetProp(node, "ry", buf);
+  /* do our own stuff */
   add_ellipse_connection_points(renderer, center, width, height);
-}
-
-static void
-fill_ellipse(RendererShape *renderer, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-  xmlNodePtr node;
-  char buf[512];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
-
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
-
-  g_snprintf(buf, sizeof(buf), "%g", center->x);
-  xmlSetProp(node, "cx", buf);
-  g_snprintf(buf, sizeof(buf), "%g", center->y);
-  xmlSetProp(node, "cy", buf);
-  g_snprintf(buf, sizeof(buf), "%g", width / 2);
-  xmlSetProp(node, "rx", buf);
-  g_snprintf(buf, sizeof(buf), "%g", height / 2);
-  xmlSetProp(node, "ry", buf);
-  add_ellipse_connection_points(renderer, center, width, height);
-}
-
-static void
-draw_bezier(RendererShape *renderer, 
-	    BezPoint *points,
-	    int numpoints,
-	    Color *colour)
-{
-  int i;
-  xmlNodePtr node;
-  GString *str;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
-  
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
-
-  str = g_string_new(NULL);
-
-  if (points[0].type != BEZ_MOVE_TO)
-    g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-  g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
-		   (double)points[0].p1.y);
-
-  for (i = 1; i < numpoints; i++)
-    switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-      break;
-    case BEZ_LINE_TO:
-      g_string_sprintfa(str, " L %g,%g",
-			(double) points[i].p1.x, (double) points[i].p1.y);
-      break;
-    case BEZ_CURVE_TO:
-      g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-			(double) points[i].p1.x, (double) points[i].p1.y,
-			(double) points[i].p2.x, (double) points[i].p2.y,
-			(double) points[i].p3.x, (double) points[i].p3.y );
-      break;
-    }
-  xmlSetProp(node, "d", str->str);
-  g_string_free(str, TRUE);
-}
-
-static void
-fill_bezier(RendererShape *renderer, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
-{
-  int i;
-  xmlNodePtr node;
-  GString *str;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
-  
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
-
-  str = g_string_new(NULL);
-
-  if (points[0].type != BEZ_MOVE_TO)
-    g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-  g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
-		   (double)points[0].p1.y);
- 
-  for (i = 1; i < numpoints; i++)
-    switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-      break;
-    case BEZ_LINE_TO:
-      g_string_sprintfa(str, " L %g,%g",
-			(double) points[i].p1.x, (double) points[i].p1.y);
-      break;
-    case BEZ_CURVE_TO:
-      g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-			(double) points[i].p1.x, (double) points[i].p1.y,
-			(double) points[i].p2.x, (double) points[i].p2.y,
-			(double) points[i].p3.x, (double) points[i].p3.y );
-      break;
-    }
-  g_string_append(str, "z");
-  xmlSetProp(node, "d", str->str);
-  g_string_free(str, TRUE);
-}
-
-static void
-draw_string(RendererShape *renderer,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
-{    
-  xmlNodePtr node;
-  char buf[512], *style, *tmp;
-  real saved_width;
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
- 
-  saved_width = renderer->linewidth;
-  renderer->linewidth = 0.001;
-  style = get_fill_style(renderer, colour);
-  renderer->linewidth = saved_width;
-  switch (alignment) {
-  case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-align: left", NULL);
-    break;
-  case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-align: center", NULL);
-    break;
-  case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-align: right", NULL);
-    break;
-  }
-  tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
-  g_free(style);
-  style = tmp;
-
-  if (renderer->font) {
-     tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
-                           "font-weight: %s",style,
-                           dia_font_get_family(renderer->font),
-                           dia_font_get_slant_string(renderer->font),
-                           dia_font_get_weight_string(renderer->font));
-     g_free(style);
-     style = tmp;
-  }
-
-  xmlSetProp(node, "style", style);
-  g_free(style);
-
-  g_snprintf(buf, sizeof(buf), "%g", pos->x);
-  xmlSetProp(node, "x", buf);
-  g_snprintf(buf, sizeof(buf), "%g", pos->y);
-  xmlSetProp(node, "y", buf);
-}
-
-static void
-draw_image(RendererShape *renderer,
-	   Point *point,
-	   real width, real height,
-	   DiaImage image)
-{
-  xmlNodePtr node;
-  char buf[512];
-
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "image", NULL);
-
-  g_snprintf(buf, sizeof(buf), "%g", point->x);
-  xmlSetProp(node, "x", buf);
-  g_snprintf(buf, sizeof(buf), "%g", point->y);
-  xmlSetProp(node, "y", buf);
-  g_snprintf(buf, sizeof(buf), "%g", width);
-  xmlSetProp(node, "width", buf);
-  g_snprintf(buf, sizeof(buf), "%g", height);
-  xmlSetProp(node, "height", buf);
-  xmlSetProp(node, "xlink:href", dia_image_filename(image));
 }
 
 static void
 export_shape(DiagramData *data, const gchar *filename, 
              const gchar *diafilename, void* user_data)
 {
-    RendererShape *renderer;
+    DiaSvgRenderer *renderer;
     int i;
     gchar *point;
     gchar *png_filename = NULL;
@@ -960,8 +487,8 @@ export_shape(DiagramData *data, const gchar *filename,
     /* create the shape */
     old_locale = setlocale(LC_NUMERIC, "C");
     if((renderer = new_shape_renderer(data, filename))) {
-      data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
-      destroy_shape_renderer(renderer);
+      data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+      g_object_unref (renderer);
     }
 
     /* Create a sheet entry if applicable (../../sheets exists) */

@@ -20,11 +20,9 @@
 #include <config.h>
 #endif
 
-#include <assert.h>
-
 #include "intl.h"
 #include "diagramdata.h"
-
+#include "diarenderer.h"
 #include "paper.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
@@ -130,7 +128,7 @@ data_raise_layer(DiagramData *data, Layer *layer)
       layer_nr = i;
   }
 
-  assert(layer_nr>=0);
+  g_assert(layer_nr>=0);
 
   if (layer_nr < data->layers->len-1) {
     tmp = g_ptr_array_index(data->layers, layer_nr+1);
@@ -152,7 +150,7 @@ data_lower_layer(DiagramData *data, Layer *layer)
       layer_nr = i;
   }
 
-  assert(layer_nr>=0);
+  g_assert(layer_nr>=0);
 
   if (layer_nr > 0) {
     tmp = g_ptr_array_index(data->layers, layer_nr-1);
@@ -385,7 +383,7 @@ data_get_sorted_selected_remove(DiagramData *data)
 }
 
 void
-data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
+data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 	    ObjectRenderer obj_renderer /* Can be NULL */,
 	    gpointer gdata)
 {
@@ -393,7 +391,7 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
   int i;
   int active_layer;
 
-  if (!renderer->is_interactive) (renderer->ops->begin_render)(renderer);
+  if (!renderer->is_interactive) (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
@@ -402,15 +400,15 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
       layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
   }
   
-  if (!renderer->is_interactive) (renderer->ops->end_render)(renderer);
+  if (!renderer->is_interactive) (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
 }
 
 static void
-normal_render(Object *obj, Renderer *renderer,
+normal_render(Object *obj, DiaRenderer *renderer,
 	      int active_layer,
 	      gpointer data)
 {
-  renderer->ops->draw_object(renderer, obj);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
 }
 
 
@@ -418,7 +416,7 @@ int render_bounding_boxes = FALSE;
 
 /* If obj_renderer is NULL normal_render is used. */
 void
-layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
+layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 	     ObjectRenderer obj_renderer,
 	     gpointer data,
 	     int active_layer)
@@ -446,8 +444,8 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
 	col.green = 0.0;
 	col.blue = 1.0;
 
-        renderer->ops->set_linewidth(renderer,0.01);
-	renderer->ops->draw_rect(renderer, &p1, &p2, &col);
+        DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer,0.01);
+	DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, &col);
       }
       (*obj_renderer)(obj, renderer, active_layer, data);
     }
@@ -657,7 +655,7 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
 
   list = g_list_find(layer->objects, remove_obj);
 
-  assert(list!=NULL);
+  g_assert(list!=NULL);
   set_parent_layer(remove_obj, NULL);
   g_list_foreach(insert_list, set_parent_layer, layer);
 

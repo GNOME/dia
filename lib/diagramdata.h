@@ -23,6 +23,7 @@
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;
 typedef struct _NewDiagramData NewDiagramData;
+typedef struct _DiaRenderer DiaRenderer;
 
 /* #include "object.h" later after declaring types */
 #include "color.h"
@@ -108,13 +109,13 @@ gboolean data_update_extents(DiagramData *data); /* returns true if changed. */
 GList *data_get_sorted_selected(DiagramData *data);
 GList *data_get_sorted_selected_remove(DiagramData *data);
 
-typedef void (*ObjectRenderer)(Object *obj, Renderer *renderer,
+typedef void (*ObjectRenderer)(Object *obj, DiaRenderer *renderer,
 			       int active_layer,
 			       gpointer data);
-void data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
+void data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 		 ObjectRenderer obj_renderer /* Can be NULL */,
 		 gpointer gdata);  
-void layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
+void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 		  ObjectRenderer obj_renderer /* Can be NULL */,
 		  gpointer data,
 		  int active_layer);

@@ -29,7 +29,7 @@
 #include <libxml/tree.h>
 #include "dia_xml.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 
 typedef struct _Block Block;
 typedef struct {
@@ -67,7 +67,7 @@ extern Boolequation *load_boolequation(ObjectNode obj_node,
 				     real fontheight,
 				     Color *color);
 extern void boolequation_set_pos(Boolequation *rcep, Point *pos);
-extern void boolequation_draw(Boolequation *rcep, Renderer *renderer);
+extern void boolequation_draw(Boolequation *rcep, DiaRenderer *renderer);
 extern void boolequation_calc_boundingbox(Boolequation *rcep, Rectangle *box);
  
 #endif /* __BOOLEQUATION_H */

@@ -24,7 +24,6 @@
 #include "object.h"
 #include "object_ops.h"
 #include "connectionpoint.h"
-#include "render.h"
 #include "group.h"
 #include "object_ops.h"
 #include "lib/properties.h"
@@ -46,7 +45,7 @@ static real group_distance_from(Group *group, Point *point);
 static void group_select(Group *group);
 static void group_move_handle(Group *group, Handle *handle, Point *to);
 static void group_move(Group *group, Point *to);
-static void group_draw(Group *group, Renderer *renderer);
+static void group_draw(Group *group, DiaRenderer *renderer);
 static void group_update_data(Group *group);
 static void group_update_handles(Group *group);
 static void group_destroy(Group *group);
@@ -162,7 +161,7 @@ group_move(Group *group, Point *to)
 }
 
 static void
-group_draw(Group *group, Renderer *renderer)
+group_draw(Group *group, DiaRenderer *renderer)
 {
   GList *list;
   Object *obj;
@@ -171,7 +170,7 @@ group_draw(Group *group, Renderer *renderer)
   while (list != NULL) {
     obj = (Object *) list->data;
     
-    renderer->ops->draw_object(renderer, obj);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
 
     list = g_list_next(list);
   }

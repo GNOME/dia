@@ -436,8 +436,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
       case GDK_CONFIGURE:
         if (ddisp->renderer != NULL) {
-          width = ddisp->renderer->pixel_width;
-          height = ddisp->renderer->pixel_height;
+	  width = dia_renderer_get_width_pixels (ddisp->renderer);
+	  height = dia_renderer_get_height_pixels (ddisp->renderer);
           new_size = ((width != ddisp->canvas->allocation.width) ||
                       (height != ddisp->canvas->allocation.height));
         } else {
@@ -732,7 +732,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
   diagram_add_object(ddisp->diagram, obj);
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
   diagram_select(ddisp->diagram, obj);
-  obj->ops->selectf(obj, &droppoint, (Renderer *)ddisp->renderer);
+  obj->ops->selectf(obj, &droppoint, ddisp->renderer);
 
   /* Connect first handle if possible: */
   if ((handle1 != NULL) &&

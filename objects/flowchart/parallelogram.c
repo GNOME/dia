@@ -32,7 +32,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -81,12 +81,12 @@ static PgramProperties default_properties;
 
 static real pgram_distance_from(Pgram *pgram, Point *point);
 static void pgram_select(Pgram *pgram, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void pgram_move_handle(Pgram *pgram, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void pgram_move(Pgram *pgram, Point *to);
-static void pgram_draw(Pgram *pgram, Renderer *renderer);
+static void pgram_draw(Pgram *pgram, DiaRenderer *renderer);
 static void pgram_update_data(Pgram *pgram, AnchorShape h, AnchorShape v);
 static Object *pgram_create(Point *startpoint,
 			  void *user_data,
@@ -254,7 +254,7 @@ pgram_distance_from(Pgram *pgram, Point *point)
 
 static void
 pgram_select(Pgram *pgram, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   text_set_cursor(pgram->text, clicked_point, interactive_renderer);
   text_grab_focus(pgram->text, &pgram->element.object);
@@ -306,8 +306,9 @@ pgram_move(Pgram *pgram, Point *to)
 }
 
 static void
-pgram_draw(Pgram *pgram, Renderer *renderer)
+pgram_draw(Pgram *pgram, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   Element *elem;
   real offs;
@@ -333,19 +334,19 @@ pgram_draw(Pgram *pgram, Renderer *renderer)
   }
 
   if (pgram->show_background) {
-    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
-    renderer->ops->fill_polygon(renderer, 
+    renderer_ops->fill_polygon(renderer, 
 				pts, 4,
 				&pgram->inner_color);
   }
 
-  renderer->ops->set_linewidth(renderer, pgram->border_width);
-  renderer->ops->set_linestyle(renderer, pgram->line_style);
-  renderer->ops->set_dashlength(renderer, pgram->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, pgram->border_width);
+  renderer_ops->set_linestyle(renderer, pgram->line_style);
+  renderer_ops->set_dashlength(renderer, pgram->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon(renderer, 
 			      pts, 4,
 			      &pgram->border_color);
 

@@ -62,7 +62,7 @@ struct _NewOrthConn {
 
 void neworthconn_update_data(NewOrthConn *orth);
 void neworthconn_update_boundingbox(NewOrthConn *orth);
-void neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer,
+void neworthconn_simple_draw(NewOrthConn *orth, DiaRenderer *renderer,
 			     real width);
 void neworthconn_init(NewOrthConn *orth, Point *startpoint);
 void neworthconn_destroy(NewOrthConn *orth);

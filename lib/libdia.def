@@ -105,8 +105,6 @@ EXPORTS
  connpointline_save
  connpointline_update
 
- create_renderops_table
-
  data_add_boolean
  data_add_color
  data_add_composite
@@ -166,6 +164,7 @@ EXPORTS
  dia_font_build_layout
  dia_font_descent
  dia_font_get_family
+ dia_font_get_height
  dia_font_get_legacy_name
  dia_font_get_psfontname
  dia_font_get_slant_string
@@ -182,13 +181,14 @@ EXPORTS
  dia_font_set_weight_from_string
  dia_font_set_slant_from_string
  dia_font_string_width
+
  dia_font_unref
-
-
  dia_font_selector_get_font
  dia_font_selector_get_type
  dia_font_selector_new
  dia_font_selector_set_font
+
+ dia_gdk_renderer_get_type
 
  dia_get_data_directory
  dia_get_lib_directory
@@ -205,6 +205,8 @@ EXPORTS
  dia_image_rgb_data
  dia_image_rowstride
  dia_image_width
+
+ dia_interactive_renderer_interface_get_type
 
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
@@ -236,6 +238,17 @@ EXPORTS
  dia_pluginrc_write
  dia_register_builtin_plugin
  dia_register_plugins
+
+ dia_renderer_get_type
+ dia_renderer_get_width_pixels
+ dia_renderer_get_height_pixels
+ dia_renderer_set_size
+
+ dia_svg_renderer_get_type
+
+ dia_transform_new
+ dia_transform_length
+ dia_transform_coords
 
  dia_sort_sheets
  get_sheets_list

@@ -18,40 +18,18 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#error "The old Renderer is dead."
 typedef struct _RenderOps RenderOps;
 typedef struct _InteractiveRenderOps InteractiveRenderOps;
 typedef struct _Renderer Renderer;
 
+#include "dia-enums.h"
 #include "geometry.h"
-#include "color.h"
-#include "font.h"
-#include "dia_image.h"
+typedef struct _DiaFont DiaFont;
+typedef struct _Color Color;
+typedef struct _DiaImage* DiaImage;
 #include "arrows.h"
 #include "object.h"
-
-typedef enum {
-  LINECAPS_BUTT,
-  LINECAPS_ROUND,
-  LINECAPS_PROJECTING
-} LineCaps;
-
-typedef enum {
-  LINEJOIN_MITER,
-  LINEJOIN_ROUND,
-  LINEJOIN_BEVEL
-} LineJoin;
-
-typedef enum {
-  LINESTYLE_SOLID,
-  LINESTYLE_DASHED,
-  LINESTYLE_DASH_DOT,
-  LINESTYLE_DASH_DOT_DOT,
-  LINESTYLE_DOTTED
-} LineStyle;
-
-typedef enum {
-  FILLSTYLE_SOLID
-} FillStyle;
 
 /******************************************************
  **  Functions defined for every Renderer

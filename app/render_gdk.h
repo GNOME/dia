@@ -18,44 +18,14 @@
 #ifndef RENDER_GDK_H
 #define RENDER_GDK_H
 
-
-typedef struct _RendererGdk RendererGdk;
-
-#include "geometry.h"
-#include "render.h"
 #include "display.h"
 
-struct _RendererGdk {
-  Renderer renderer;
-
-  DDisplay *ddisp;
-  GdkPixmap *pixmap;              /* The pixmap shown in this display  */
-  guint32 width;                  /* The width of the pixmap in pixels */
-  guint32 height;                 /* The height of the pixmap in pixels */
-  GdkGC *render_gc;
-  GdkRegion *clip_region;
-
-  /* line attributes: */
-  int line_width;
-  GdkLineStyle line_style;
-  GdkCapStyle cap_style;
-  GdkJoinStyle join_style;
-
-  LineStyle saved_line_style;
-  int dash_length;
-  int dot_length;
-
-  DiaFont *font;
-  real font_height;
-};
-
-RendererGdk *new_gdk_renderer(DDisplay *ddisp);
-void destroy_gdk_renderer(RendererGdk *renderer);
-void gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
-			   int width, int height);
-void renderer_gdk_copy_to_window(RendererGdk *renderer,
-				 GdkWindow *window,
-				 int x, int y,
-				 int width, int height);
+DiaRenderer *new_gdk_renderer(DDisplay *ddisp);
+void gdk_renderer_set_size(DiaRenderer *renderer, GdkWindow *window,
+                           int width, int height);
+void renderer_gdk_copy_to_window(DiaRenderer *renderer,
+                                 GdkWindow *window,
+                                 int x, int y,
+                                 int width, int height);
 
 #endif /* RENDER_GDK_H */

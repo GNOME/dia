@@ -28,7 +28,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "properties.h"
 #include "connpoint_line.h"
@@ -78,8 +78,8 @@ static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
                                  ModifierKeys modifiers);
 static void lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
-                            Renderer *interactive_renderer);
-static void lifeline_draw(Lifeline *lifeline, Renderer *renderer);
+                            DiaRenderer *interactive_renderer);
+static void lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer);
 static Object *lifeline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -196,7 +196,7 @@ lifeline_distance_from(Lifeline *lifeline, Point *point)
 
 static void
 lifeline_select(Lifeline *lifeline, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&lifeline->connection);
 }
@@ -271,8 +271,9 @@ lifeline_move(Lifeline *lifeline, Point *to)
 }
 
 static void
-lifeline_draw(Lifeline *lifeline, Renderer *renderer)
+lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
   
   assert(lifeline != NULL);
@@ -280,17 +281,17 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
 
   endpoints = &lifeline->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);    
-  renderer->ops->set_dashlength(renderer, LIFELINE_DASHLEN);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);    
+  renderer_ops->set_dashlength(renderer, LIFELINE_DASHLEN);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
 
-  renderer->ops->draw_line(renderer,
+  renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
 			   &color_black);
 
 
-  renderer->ops->set_linewidth(renderer, LIFELINE_BOXWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, LIFELINE_BOXWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   p1.x = endpoints[0].x - LIFELINE_WIDTH/2.0;
   p1.y = endpoints[0].y + lifeline->rtop;
@@ -298,27 +299,27 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
   p2.y = endpoints[0].y + lifeline->rbot;
 
   if (lifeline->draw_focuscontrol) {  
-      renderer->ops->fill_rect(renderer, 
+      renderer_ops->fill_rect(renderer, 
 			       &p1, &p2,
 			       &color_white);
   
-      renderer->ops->draw_rect(renderer, 
+      renderer_ops->draw_rect(renderer, 
 			       &p1, &p2,
 			       &color_black);
   }
     
   if (lifeline->draw_cross) {      
-      renderer->ops->set_linewidth(renderer, LIFELINE_CROSSWIDTH);
+      renderer_ops->set_linewidth(renderer, LIFELINE_CROSSWIDTH);
       p1.x = endpoints[1].x + LIFELINE_CROSSLEN;
       p2.x = endpoints[1].x - LIFELINE_CROSSLEN;
       p1.y = endpoints[1].y + LIFELINE_CROSSLEN;
       p2.y = endpoints[1].y - LIFELINE_CROSSLEN;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       p1.y = p2.y;
       p2.y = endpoints[1].y + LIFELINE_CROSSLEN;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &color_black);
       

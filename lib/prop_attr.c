@@ -31,7 +31,6 @@
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "render.h"
 
 /***************************/
 /* The LINESTYLE property type.  */

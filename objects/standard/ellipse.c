@@ -27,7 +27,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -60,11 +60,11 @@ static struct _EllipseProperties {
 
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
-			   Renderer *interactive_renderer);
+			   DiaRenderer *interactive_renderer);
 static void ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 				Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void ellipse_move(Ellipse *ellipse, Point *to);
-static void ellipse_draw(Ellipse *ellipse, Renderer *renderer);
+static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse);
 static Object *ellipse_create(Point *startpoint,
 			      void *user_data,
@@ -169,7 +169,7 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
 
 static void
 ellipse_select(Ellipse *ellipse, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   element_update_handles(&ellipse->element);
 }
@@ -195,8 +195,9 @@ ellipse_move(Ellipse *ellipse, Point *to)
 }
 
 static void
-ellipse_draw(Ellipse *ellipse, Renderer *renderer)
+ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point center;
   Element *elem;
   
@@ -209,19 +210,19 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   if (ellipse->show_background) {
-    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-    renderer->ops->fill_ellipse(renderer, 
+    renderer_ops->fill_ellipse(renderer, 
 				&center,
 				elem->width, elem->height,
 				&ellipse->inner_color);
   }
 
-  renderer->ops->set_linewidth(renderer, ellipse->border_width);
-  renderer->ops->set_linestyle(renderer, ellipse->line_style);
-  renderer->ops->set_dashlength(renderer, ellipse->dashlength);
+  renderer_ops->set_linewidth(renderer, ellipse->border_width);
+  renderer_ops->set_linestyle(renderer, ellipse->line_style);
+  renderer_ops->set_dashlength(renderer, ellipse->dashlength);
 
-  renderer->ops->draw_ellipse(renderer, 
+  renderer_ops->draw_ellipse(renderer, 
 			  &center,
 			  elem->width, elem->height,
 			  &ellipse->border_color);

@@ -18,9 +18,9 @@
 #ifndef DIA_IMAGE_H
 #define DIA_IMAGE_H
 
-#include "geometry.h"
-#include "render.h"
+#include <gdk/gdktypes.h>
 
+#include "geometry.h"
 
 typedef struct _DiaImage *DiaImage;
 

@@ -33,7 +33,7 @@
 #include "object.h"
 #include "objchange.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
@@ -97,8 +97,8 @@ static void orthflow_move_handle(Orthflow *orthflow, Handle *handle,
 				 Point *to, HandleMoveReason reason);
 static void orthflow_move(Orthflow *orthflow, Point *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
-			    Renderer *interactive_renderer);
-static void orthflow_draw(Orthflow *orthflow, Renderer *renderer);
+			    DiaRenderer *interactive_renderer);
+static void orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer);
 static Object *orthflow_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
@@ -279,7 +279,7 @@ orthflow_distance_from(Orthflow *orthflow, Point *point)
 
 static void
 orthflow_select(Orthflow *orthflow, Point *clicked_point,
-		Renderer *interactive_renderer)
+		DiaRenderer *interactive_renderer)
 {
   text_set_cursor(orthflow->text, clicked_point, interactive_renderer);
   text_grab_focus(orthflow->text, &orthflow->orth.object);
@@ -329,8 +329,9 @@ orthflow_move(Orthflow *orthflow, Point *to)
 }
 
 static void
-orthflow_draw(Orthflow *orthflow, Renderer *renderer)
+orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   int n = orthflow->orth.numpoints ;
   Color* render_color = &orthflow_color_signal;
   Point *points;
@@ -346,23 +347,23 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
  
   points = &orthflow->orth.points[0];
 
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   switch (orthflow->type) {
   case ORTHFLOW_SIGNAL:
     linewidth = ORTHFLOW_WIDTH;
-    renderer->ops->set_dashlength(renderer, ORTHFLOW_DASHLEN);
-    renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_dashlength(renderer, ORTHFLOW_DASHLEN);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
     render_color = &orthflow_color_signal ;
     break ;
   case ORTHFLOW_MATERIAL:
     linewidth = ORTHFLOW_MATERIAL_WIDTH;
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &orthflow_color_material ;
     break ;
   case ORTHFLOW_ENERGY:
     linewidth = ORTHFLOW_WIDTH;
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &orthflow_color_energy ;
     break ;
   default:
@@ -370,8 +371,8 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
     break;
   }
 
-  renderer->ops->set_linewidth(renderer, linewidth);
-  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+  renderer_ops->set_linewidth(renderer, linewidth);
+  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   ORTHFLOW_WIDTH,
 					   render_color,
 					   &arrow, NULL); 
@@ -382,7 +383,7 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
 	     render_color, &color_white);
 #endif
 
-  renderer->ops->set_font(renderer, orthflow_font,
+  renderer_ops->set_font(renderer, orthflow_font,
                           ORTHFLOW_FONTHEIGHT);
 
   text_draw(orthflow->text, renderer);

@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -53,11 +53,11 @@ static const double FORK_HEIGHT = 0.4;
 static const double FORK_MARGIN = 0.125;
 
 static real fork_distance_from(Fork *branch, Point *point);
-static void fork_select(Fork *branch, Point *clicked_point, Renderer *interactive_renderer);
+static void fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
 static void fork_move_handle(Fork *branch, Handle *handle,
 			       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void fork_move(Fork *branch, Point *to);
-static void fork_draw(Fork *branch, Renderer *renderer);
+static void fork_draw(Fork *branch, DiaRenderer *renderer);
 static Object *fork_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
@@ -147,7 +147,7 @@ fork_distance_from(Fork *branch, Point *point)
 }
 
 static void
-fork_select(Fork *branch, Point *clicked_point, Renderer *interactive_renderer)
+fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_renderer)
 {
   element_update_handles(&branch->element);
 }
@@ -185,8 +185,9 @@ fork_move(Fork *branch, Point *to)
   fork_update_data(branch);
 }
 
-static void fork_draw(Fork *branch, Renderer *renderer)
+static void fork_draw(Fork *branch, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real w, h;
   Point p1, p2;
@@ -198,16 +199,16 @@ static void fork_draw(Fork *branch, Renderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, FORK_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, FORK_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   p1.x = elem->corner.x;
   p1.y = elem->corner.y;
   p2.x = elem->corner.x + w;
   p2.y = elem->corner.y + h;
    
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 }

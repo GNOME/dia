@@ -30,7 +30,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -70,8 +70,8 @@ static void condition_move_handle(Condition *condition, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void condition_move(Condition *condition, Point *to);
 static void condition_select(Condition *condition, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void condition_draw(Condition *condition, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void condition_draw(Condition *condition, DiaRenderer *renderer);
 static Object *condition_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -190,7 +190,7 @@ condition_distance_from(Condition *condition, Point *point)
 
 static void
 condition_select(Condition *condition, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   condition_update_data(condition);
 }
@@ -283,26 +283,27 @@ condition_update_data(Condition *condition)
 
 
 static void 
-condition_draw(Condition *condition, Renderer *renderer)
+condition_draw(Condition *condition, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Connection *conn = &condition->connection;
 
-  renderer->ops->set_linewidth(renderer, CONDITION_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, CONDITION_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (CONDITION_ARROW_SIZE > (CONDITION_LINE_WIDTH/2.0)) {
     Arrow arrow;
     arrow.type = ARROW_FILLED_TRIANGLE;
     arrow.width = CONDITION_ARROW_SIZE;
     arrow.length = CONDITION_ARROW_SIZE/2;
-    renderer->ops->draw_line_with_arrows(renderer,
+    renderer_ops->draw_line_with_arrows(renderer,
 					 &conn->endpoints[0],&conn->endpoints[1],
 					 CONDITION_LINE_WIDTH,
 					 &color_black,
 					 &arrow, NULL);
   } else {
-    renderer->ops->draw_line(renderer,
+    renderer_ops->draw_line(renderer,
 			     &conn->endpoints[0],&conn->endpoints[1],
 			     &color_black);
   }

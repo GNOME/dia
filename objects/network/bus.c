@@ -27,7 +27,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "diamenu.h"
 
@@ -70,8 +70,8 @@ static void bus_move_handle(Bus *bus, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void bus_move(Bus *bus, Point *to);
 static void bus_select(Bus *bus, Point *clicked_point,
-		       Renderer *interactive_renderer);
-static void bus_draw(Bus *bus, Renderer *renderer);
+		       DiaRenderer *interactive_renderer);
+static void bus_draw(Bus *bus, DiaRenderer *renderer);
 static Object *bus_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -190,7 +190,7 @@ bus_distance_from(Bus *bus, Point *point)
 
 static void
 bus_select(Bus *bus, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&bus->connection);
 }
@@ -296,8 +296,9 @@ bus_move(Bus *bus, Point *to)
 }
 
 static void
-bus_draw(Bus *bus, Renderer *renderer)
+bus_draw(Bus *bus, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   int i;
   
@@ -306,16 +307,16 @@ bus_draw(Bus *bus, Renderer *renderer)
 
   endpoints = &bus->real_ends[0];
   
-  renderer->ops->set_linewidth(renderer, LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_line(renderer,
+  renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
 			   &color_black);
 
   for (i=0;i<bus->num_handles;i++) {
-    renderer->ops->draw_line(renderer,
+    renderer_ops->draw_line(renderer,
 			     &bus->parallel_points[i],
 			     &bus->handles[i]->pos,
 			     &color_black);

@@ -44,6 +44,8 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "dia-props.h"
+#include "render_gdk.h"
+#include "render_libart.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -132,7 +134,7 @@ new_display(Diagram *dia)
   ddisp->autoscroll = TRUE;
 
   ddisp->aa_renderer = 0;
-  ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
+  ddisp->renderer = new_gdk_renderer(ddisp);
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
@@ -219,8 +221,8 @@ ddisplay_transform_coords_double(DDisplay *ddisp,
 				 double *xi, double *yi)
 {
   Rectangle *visible = &ddisp->visible;
-  double width = ddisp->renderer->pixel_width;
-  double height = ddisp->renderer->pixel_height;
+  double width = dia_renderer_get_width_pixels (ddisp->renderer);
+  double height = dia_renderer_get_height_pixels (ddisp->renderer);
   
   *xi = (x - visible->left)  * (real)width / (visible->right - visible->left);
   *yi = (y - visible->top)  * (real)height / (visible->bottom - visible->top);
@@ -233,8 +235,8 @@ ddisplay_transform_coords(DDisplay *ddisp,
 			  int *xi, int *yi)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->pixel_width;
-  int height = ddisp->renderer->pixel_height;
+  int width = dia_renderer_get_width_pixels (ddisp->renderer);
+  int height = dia_renderer_get_height_pixels (ddisp->renderer);
   
   *xi = ROUND ( (x - visible->left)  * (real)width /
 		(visible->right - visible->left) );
@@ -263,8 +265,8 @@ ddisplay_untransform_coords(DDisplay *ddisp,
 			    coord *x, coord *y)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->pixel_width;
-  int height = ddisp->renderer->pixel_height;
+  int width = dia_renderer_get_width_pixels (ddisp->renderer);
+  int height = dia_renderer_get_height_pixels (ddisp->renderer);
   
   *x = visible->left + xi*(visible->right - visible->left) / (real)width;
   *y = visible->top +  yi*(visible->bottom - visible->top) / (real)height;
@@ -301,8 +303,8 @@ ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
   Rectangle *r;
   int top,bottom,left,right;
   Rectangle *visible;
-  int width = ddisp->renderer->pixel_width;
-  int height = ddisp->renderer->pixel_height;
+  int width = dia_renderer_get_width_pixels (ddisp->renderer);
+  int height = dia_renderer_get_height_pixels (ddisp->renderer);
 
   if (!rectangle_intersects(rect, &ddisp->visible))
     return;
@@ -345,10 +347,10 @@ ddisplay_add_display_area(DDisplay *ddisp,
     left = 0;
   if (top < 0)
     top = 0;
-  if (right > ddisp->renderer->pixel_width)
-    right = ddisp->renderer->pixel_width; 
-  if (bottom > ddisp->renderer->pixel_height)
-    bottom = ddisp->renderer->pixel_height; 
+  if (right > dia_renderer_get_width_pixels (ddisp->renderer))
+    right = dia_renderer_get_width_pixels (ddisp->renderer); 
+  if (bottom > dia_renderer_get_height_pixels (ddisp->renderer))
+    bottom = dia_renderer_get_height_pixels (ddisp->renderer); 
   
   /* draw some rectangles to show where updates are...*/
   /*  gdk_draw_rectangle(ddisp->canvas->window, ddisp->canvas->style->black_gc, TRUE, left, top, right-left,bottom-top); */
@@ -375,9 +377,10 @@ ddisplay_update_handler(DDisplay *ddisp)
   GSList *l;
   IRectangle *ir;
   Rectangle *r, totrect;
-  Renderer *renderer;
+  DiaInteractiveRendererInterface *renderer;
   
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
+  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
 
   /* Only update if update_areas exist */
   l = ddisp->update_areas;
@@ -385,15 +388,16 @@ ddisplay_update_handler(DDisplay *ddisp)
   {
     totrect = *(Rectangle *) l->data;
   
-    renderer = ddisp->renderer;
+    g_return_val_if_fail (   renderer->clip_region_clear != NULL
+                          && renderer->clip_region_add_rect != NULL, 0);
 
-    (renderer->interactive_ops->clip_region_clear)(renderer);
+    renderer->clip_region_clear (ddisp->renderer);
 
     while(l!=NULL) {
       r = (Rectangle *) l->data;
 
       rectangle_union(&totrect, r);
-      (renderer->interactive_ops->clip_region_add_rect)(renderer,  r);
+      renderer->clip_region_add_rect (ddisp->renderer, r);
       
       l = g_slist_next(l);
     }
@@ -419,14 +423,11 @@ ddisplay_update_handler(DDisplay *ddisp)
   while(l!=NULL) {
     ir = (IRectangle *) l->data;
 
-    if (ddisp->aa_renderer)
-      renderer_libart_copy_to_window((RendererLibart *)ddisp->renderer, ddisp->canvas->window,
-				     ir->left, ir->top,
-				     ir->right - ir->left, ir->bottom - ir->top);
-    else 
-      renderer_gdk_copy_to_window((RendererGdk *)ddisp->renderer, ddisp->canvas->window,
-				  ir->left, ir->top,
-				  ir->right - ir->left, ir->bottom - ir->top);
+    g_return_val_if_fail (renderer->copy_to_window, 0);
+    renderer->copy_to_window(ddisp->renderer, 
+                             ddisp->canvas->window,
+                             ir->left, ir->top,
+                             ir->right - ir->left, ir->bottom - ir->top);
     
     l = g_slist_next(l);
   }
@@ -454,14 +455,14 @@ ddisplay_flush(DDisplay *ddisp)
 }
 
 static void
-ddisplay_obj_render(Object *obj, Renderer *renderer,
+ddisplay_obj_render(Object *obj, DiaRenderer *renderer,
 		    int active_layer,
 		    gpointer data)
 {
   DDisplay *ddisp = (DDisplay *)data;
   int i;
 
-  renderer->ops->draw_object(renderer, obj);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
   if (active_layer && ddisp->show_cx_pts) {
     for (i=0;i<obj->num_connections;i++) {
       connectionpoint_draw(obj->connections[i], ddisp);
@@ -475,26 +476,27 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   GList *list;
   Object *obj;
   int i;
-  Renderer *renderer;
+  DiaInteractiveRendererInterface *renderer;
   
   if (ddisp->renderer==NULL) {
     printf("ERROR! Renderer was NULL!!\n");
     return;
   }
 
-  renderer = ddisp->renderer;
+  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
 
   /* Erase background */
-  (renderer->interactive_ops->fill_pixel_rect)(renderer,
-					       0, 0,
-					       renderer->pixel_width,
-					       renderer->pixel_height,
-					       &ddisp->diagram->data->bg_color);
+  g_return_if_fail (renderer->fill_pixel_rect != NULL);
+  renderer->fill_pixel_rect (ddisp->renderer,
+			     0, 0,
+		             dia_renderer_get_width_pixels (ddisp->renderer),
+			     dia_renderer_get_height_pixels (ddisp->renderer),
+			     &ddisp->diagram->data->bg_color);
 
   /* Draw grid */
   grid_draw(ddisp, update);
 
-  data_render(ddisp->diagram->data, (Renderer *)ddisp->renderer, update,
+  data_render(ddisp->diagram->data, ddisp->renderer, update,
 	      ddisplay_obj_render, (gpointer) ddisp);
   
   /* Draw handles for all selected objects */
@@ -558,8 +560,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM)
     ddisp->zoom_factor = DDISPLAY_MAX_ZOOM;
 
-  width = ddisp->renderer->pixel_width;
-  height = ddisp->renderer->pixel_height;
+  width = dia_renderer_get_width_pixels (ddisp->renderer);
+  height = dia_renderer_get_height_pixels (ddisp->renderer);
   
   visible->left = ddisp->origo.x;
   visible->top = ddisp->origo.y;
@@ -737,13 +739,8 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
 
-  if (ddisp->aa_renderer) {
-    if (ddisp->renderer)
-      destroy_libart_renderer((RendererLibart *)ddisp->renderer);
-  } else {
-    if (ddisp->renderer)
-      destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
-  }
+  if (ddisp->renderer)
+    g_object_unref (ddisp->renderer);
 
   ddisp->aa_renderer = aa_renderer;
 
@@ -751,12 +748,11 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   height = ddisp->canvas->allocation.height;
 
   if (ddisp->aa_renderer){
-    ddisp->renderer = (Renderer *)new_libart_renderer(ddisp, 1);
-    libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
+    ddisp->renderer = new_libart_renderer(ddisp, 1);
   } else {
-    ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
-    gdk_renderer_set_size((RendererGdk *)ddisp->renderer, ddisp->canvas->window, width, height);
+    ddisp->renderer = new_gdk_renderer(ddisp);
   }
+  dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
 }
 
 void
@@ -765,15 +761,12 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 {
   if (ddisp->renderer==NULL) {
     if (ddisp->aa_renderer)
-      ddisp->renderer = (Renderer *)new_libart_renderer(ddisp, 1);
+      ddisp->renderer = new_libart_renderer(ddisp, 1);
     else
-      ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
+      ddisp->renderer = new_gdk_renderer(ddisp);
   }
 
-  if (ddisp->aa_renderer)
-    libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
-  else
-    gdk_renderer_set_size((RendererGdk *)ddisp->renderer, ddisp->canvas->window, width, height);
+  dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
 
   ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
 
@@ -979,11 +972,7 @@ ddisplay_really_destroy(DDisplay *ddisp)
   
   diagram_remove_ddisplay(dia, ddisp);
 
-  if (ddisp->aa_renderer)
-    destroy_libart_renderer((RendererLibart *)ddisp->renderer);
-  else
-    destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
-
+  g_object_unref (ddisp->renderer);
   ddisp->renderer = NULL;
   
   g_hash_table_remove(display_ht, ddisp->shell);

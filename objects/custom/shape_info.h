@@ -24,7 +24,6 @@
 #include <glib.h>
 
 #include "geometry.h"
-#include "render.h"
 #include "dia_xml.h"
 #include "object.h"
 #include "text.h"

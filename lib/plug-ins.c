@@ -230,9 +230,11 @@ dia_plugin_load(PluginInfo *info)
   }
   info->module = g_module_open(info->real_filename, G_MODULE_BIND_LAZY);
   if (!info->module) {
-    message_error(_("Could not load plugin `%s'\n%s"), info->filename,
-		  g_module_error());
-    info->description = g_strdup(g_module_error());
+    gchar *msg_utf8 = g_locale_to_utf8 (g_module_error(), -1, NULL, NULL, NULL);
+    message_error(_("Could not load plugin '%s'\n%s"), 
+                  info->filename, msg_utf8);
+    /* this is eating the conversion */
+    info->description = msg_utf8;
     return;
   }
 

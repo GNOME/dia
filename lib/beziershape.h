@@ -44,7 +44,7 @@ struct _BezierShape {
 
 void beziershape_update_data(BezierShape *bezier);
 void beziershape_update_boundingbox(BezierShape *bezier);
-void beziershape_simple_draw(BezierShape *bezier, Renderer *renderer,
+void beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer,
 			     real width);
 void beziershape_init(BezierShape *bezier, int num_points);
 void beziershape_set_points(BezierShape *bezier, int num_points, BezPoint *points);
@@ -67,5 +67,5 @@ Handle *beziershape_closest_handle(BezierShape *bezier, Point *point);
 Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
 int beziershape_closest_segment(BezierShape *bezier, Point *point,
 				real line_width);
-void beziershape_draw_control_lines(BezierShape *bez, Renderer *renderer);
+void beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer);
 #endif /* BEZIER_SHAPE_H */

@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -57,11 +57,11 @@ static const double NODE_TEXT_MARGIN = 0.5;
 
 static real node_distance_from(Node *node, Point *point);
 static void node_select(Node *node, Point *clicked_point,
-				Renderer *interactive_renderer);
+				DiaRenderer *interactive_renderer);
 static void node_move_handle(Node *node, Handle *handle,
 				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void node_move(Node *node, Point *to);
-static void node_draw(Node *node, Renderer *renderer);
+static void node_draw(Node *node, DiaRenderer *renderer);
 static Object *node_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
@@ -164,7 +164,7 @@ node_distance_from(Node *node, Point *point)
 
 static void
 node_select(Node *node, Point *clicked_point,
-		    Renderer *interactive_renderer)
+		    DiaRenderer *interactive_renderer)
 {
   text_set_cursor(node->name, clicked_point, interactive_renderer);
   text_grab_focus(node->name, &node->element.object);
@@ -200,8 +200,9 @@ node_move(Node *node, Point *to)
   node_update_data(node);
 }
 
-static void node_draw(Node *node, Renderer *renderer)
+static void node_draw(Node *node, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point points[4];
@@ -217,40 +218,40 @@ static void node_draw(Node *node, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, NODE_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, NODE_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   points[0].x = x;     points[0].y = y;
   points[1].x = x + w; points[1].y = y + h;
 
-  renderer->ops->fill_rect(renderer, points, points + 1, &color_white);
-  renderer->ops->draw_rect(renderer, points, points + 1, &color_black);
+  renderer_ops->fill_rect(renderer, points, points + 1, &color_white);
+  renderer_ops->draw_rect(renderer, points, points + 1, &color_black);
 
   points[1].x = x + NODE_DEPTH, points[1].y = y - NODE_DEPTH;
   points[2].x = x + w + NODE_DEPTH, points[2].y = y - NODE_DEPTH;
   points[3].x = x + w, points[3].y = y;
 
-  renderer->ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer->ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
+  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
 
   points[0].x = points[3].x, points[0].y = points[3].y;
   points[1].x = points[0].x + NODE_DEPTH, points[1].y = points[0].y - NODE_DEPTH;
   points[2].x = points[0].x + NODE_DEPTH, points[2].y = points[0].y - NODE_DEPTH + h;
   points[3].x = points[0].x, points[3].y = points[0].y + h;
 
-  renderer->ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer->ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
+  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
 
   text_draw(node->name, renderer);
   
-  renderer->ops->set_linewidth(renderer, NODE_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, NODE_LINEWIDTH);
   points[0].x = node->name->position.x;
   points[0].y = points[1].y = node->name->position.y + node->name->descent;
   for (i = 0; i < node->name->numlines; i++)
     { 
       points[1].x = points[0].x + node->name->row_width[i];
-      renderer->ops->draw_line(renderer, points, points + 1, &color_black);
+      renderer_ops->draw_line(renderer, points, points + 1, &color_black);
       points[0].y = points[1].y += node->name->height;
     }
 }

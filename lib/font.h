@@ -21,6 +21,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <pango/pango.h>
+#include "dia-enums.h"
 #include "geometry.h"
 #include "diavar.h"
 
@@ -29,12 +30,6 @@
 #define BASIC_SANS_FONT "arial, helvetica, helv, sans"
 #define BASIC_SERIF_FONT "times new roman, times, serif"
 #define BASIC_MONOSPACE_FONT "courier new, courier, monospace, fixed"
-
-typedef enum {
-  ALIGN_LEFT,
-  ALIGN_CENTER,
-  ALIGN_RIGHT
-} Alignment;
 
 
 /** The Pango people don't seem to encounter the real world much.

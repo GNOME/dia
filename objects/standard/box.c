@@ -27,7 +27,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -62,12 +62,12 @@ static struct _BoxProperties {
 
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void box_move_handle(Box *box, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void box_move(Box *box, Point *to);
-static void box_draw(Box *box, Renderer *renderer);
+static void box_draw(Box *box, DiaRenderer *renderer);
 static void box_update_data(Box *box);
 static Object *box_create(Point *startpoint,
 			  void *user_data,
@@ -182,7 +182,7 @@ box_distance_from(Box *box, Point *point)
 
 static void
 box_select(Box *box, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   real radius;
 
@@ -228,10 +228,12 @@ box_move(Box *box, Point *to)
 }
 
 static void
-box_draw(Box *box, Renderer *renderer)
+box_draw(Box *box, DiaRenderer *renderer)
 {
   Point lr_corner;
   Element *elem;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+
   
   assert(box != NULL);
   assert(renderer != NULL);
@@ -242,36 +244,36 @@ box_draw(Box *box, Renderer *renderer)
   lr_corner.y = elem->corner.y + elem->height;
 
   if (box->show_background) {
-    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
     /* Problem:  How do we make the fill with rounded corners? */
     if (box->corner_radius > 0) {
-      renderer->ops->fill_rounded_rect(renderer,
+      renderer_ops->fill_rounded_rect(renderer,
 				       &elem->corner,
 				       &lr_corner,
 				       &box->inner_color,
 				       box->corner_radius);
     } else {
-      renderer->ops->fill_rect(renderer, 
+      renderer_ops->fill_rect(renderer, 
 			       &elem->corner,
 			       &lr_corner, 
 			       &box->inner_color);
     }
   }
 
-  renderer->ops->set_linewidth(renderer, box->border_width);
-  renderer->ops->set_linestyle(renderer, box->line_style);
-  renderer->ops->set_dashlength(renderer, box->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, box->border_width);
+  renderer_ops->set_linestyle(renderer, box->line_style);
+  renderer_ops->set_dashlength(renderer, box->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   if (box->corner_radius > 0) {
-    renderer->ops->draw_rounded_rect(renderer, 
+    renderer_ops->draw_rounded_rect(renderer, 
 			     &elem->corner,
 			     &lr_corner, 
 			     &box->border_color,
 			     box->corner_radius);
   } else {
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &elem->corner,
 			     &lr_corner, 
 			     &box->border_color);

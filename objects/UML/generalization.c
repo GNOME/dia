@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 #include "properties.h"
@@ -59,11 +59,11 @@ static DiaFont *genlz_font = NULL;
 
 static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
-			      Renderer *interactive_renderer);
+			      DiaRenderer *interactive_renderer);
 static void generalization_move_handle(Generalization *genlz, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void generalization_move(Generalization *genlz, Point *to);
-static void generalization_draw(Generalization *genlz, Renderer *renderer);
+static void generalization_draw(Generalization *genlz, DiaRenderer *renderer);
 static Object *generalization_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -163,7 +163,7 @@ generalization_distance_from(Generalization *genlz, Point *point)
 
 static void
 generalization_select(Generalization *genlz, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&genlz->orth);
 }
@@ -188,8 +188,9 @@ generalization_move(Generalization *genlz, Point *to)
 }
 
 static void
-generalization_draw(Generalization *genlz, Renderer *renderer)
+generalization_draw(Generalization *genlz, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &genlz->orth;
   Point *points;
   int n;
@@ -199,26 +200,26 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, GENERALIZATION_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, GENERALIZATION_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_HOLLOW_TRIANGLE;
   arrow.length = GENERALIZATION_TRIANGLESIZE;
   arrow.width = GENERALIZATION_TRIANGLESIZE;
 
-  renderer->ops->draw_polyline_with_arrows(renderer,
+  renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   GENERALIZATION_WIDTH,
 					   &color_black,
 					   &arrow, NULL);
 
-  renderer->ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
+  renderer_ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
   pos = genlz->text_pos;
   
   if (genlz->st_stereotype != NULL && genlz->st_stereotype[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       genlz->st_stereotype,
 			       &pos, genlz->text_align,
 			       &color_black);
@@ -227,7 +228,7 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   }
   
   if (genlz->name != NULL && genlz->name[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       genlz->name,
 			       &pos, genlz->text_align,
 			       &color_black);

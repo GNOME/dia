@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
@@ -76,8 +76,8 @@ static void flow_move_handle(Flow *flow, Handle *handle,
 			     Point *to, HandleMoveReason reason);
 static void flow_move(Flow *flow, Point *to);
 static void flow_select(Flow *flow, Point *clicked_point,
-			Renderer *interactive_renderer);
-static void flow_draw(Flow *flow, Renderer *renderer);
+			DiaRenderer *interactive_renderer);
+static void flow_draw(Flow *flow, DiaRenderer *renderer);
 static Object *flow_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -208,7 +208,7 @@ flow_distance_from(Flow *flow, Point *point)
 
 static void
 flow_select(Flow *flow, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   text_set_cursor(flow->text, clicked_point, interactive_renderer);
   text_grab_focus(flow->text, &flow->connection.object);
@@ -301,8 +301,9 @@ flow_move(Flow *flow, Point *to)
 }
 
 static void
-flow_draw(Flow *flow, Renderer *renderer)
+flow_draw(Flow *flow, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
@@ -317,36 +318,36 @@ flow_draw(Flow *flow, Renderer *renderer)
  
   endpoints = &flow->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, FLOW_WIDTH);
+  renderer_ops->set_linewidth(renderer, FLOW_WIDTH);
 
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   switch (flow->type) {
   case FLOW_SIGNAL:
-    renderer->ops->set_dashlength(renderer, FLOW_DASHLEN);
-    renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_dashlength(renderer, FLOW_DASHLEN);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
     render_color = &flow_color_signal ;
     break ;
   case FLOW_MATERIAL:
-    renderer->ops->set_linewidth(renderer, FLOW_MATERIAL_WIDTH ) ;
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linewidth(renderer, FLOW_MATERIAL_WIDTH ) ;
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &flow_color_material ;
     break ;
   case FLOW_ENERGY:
     render_color = &flow_color_energy ;
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   }
 
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
-  renderer->ops->draw_line_with_arrows(renderer,
+  renderer_ops->draw_line_with_arrows(renderer,
 				       &p1, &p2,
 				       FLOW_WIDTH,
 				       render_color,
 				       &arrow, NULL); 
 
-  renderer->ops->set_font(renderer, flow_font,FLOW_FONTHEIGHT);
+  renderer_ops->set_font(renderer, flow_font,FLOW_FONTHEIGHT);
 
   text_draw(flow->text, renderer);
 }

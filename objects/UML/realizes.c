@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 #include "properties.h"
@@ -60,11 +60,11 @@ static DiaFont *realize_font = NULL;
 
 static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
-			      Renderer *interactive_renderer);
+			      DiaRenderer *interactive_renderer);
 static void realizes_move_handle(Realizes *realize, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void realizes_move(Realizes *realize, Point *to);
-static void realizes_draw(Realizes *realize, Renderer *renderer);
+static void realizes_draw(Realizes *realize, DiaRenderer *renderer);
 static Object *realizes_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -165,7 +165,7 @@ realizes_distance_from(Realizes *realize, Point *point)
 
 static void
 realizes_select(Realizes *realize, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&realize->orth);
 }
@@ -190,8 +190,9 @@ realizes_move(Realizes *realize, Point *to)
 }
 
 static void
-realizes_draw(Realizes *realize, Renderer *renderer)
+realizes_draw(Realizes *realize, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &realize->orth;
   Point *points;
   int n;
@@ -201,25 +202,25 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, REALIZES_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer->ops->set_dashlength(renderer, REALIZES_DASHLEN);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, REALIZES_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_dashlength(renderer, REALIZES_DASHLEN);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_HOLLOW_TRIANGLE;
   arrow.width = REALIZES_TRIANGLESIZE;
   arrow.length = REALIZES_TRIANGLESIZE;
-  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   REALIZES_WIDTH,
 					   &color_black,
 					   &arrow, NULL);
 
-  renderer->ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
+  renderer_ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
   pos = realize->text_pos;
   
   if (realize->st_stereotype != NULL && realize->st_stereotype[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       realize->st_stereotype,
 			       &pos, realize->text_align,
 			       &color_black);
@@ -228,7 +229,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   }
   
   if (realize->name != NULL && realize->name[0] != '\0') {
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       realize->name,
 			       &pos, realize->text_align,
 			       &color_black);

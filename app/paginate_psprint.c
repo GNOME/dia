@@ -33,6 +33,7 @@
 #include "diagram.h"
 #include "diagramdata.h"
 #include "render_eps.h"
+#include "diaepsrenderer.h"
 #include "paginate_psprint.h"
 #include "diapagelayout.h"
 
@@ -57,13 +58,13 @@ static dia_print_options last_print_options =
 };
 
 static void
-count_objs(Object *obj, Renderer *renderer, int active_layer, guint *nobjs)
+count_objs(Object *obj, DiaRenderer *renderer, int active_layer, guint *nobjs)
 {
   (*nobjs)++;
 }
 
 static guint
-print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
+print_page(DiagramData *data, DiaEpsRenderer *rend, Rectangle *bounds)
 {
   guint nobjs = 0;
   gfloat tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
@@ -71,7 +72,7 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
   gfloat scale = data->paper.scaling;
 
   /* count the number of objects in this region */
-  data_render(data, (Renderer *)rend, bounds,
+  data_render(data, DIA_RENDERER (rend), bounds,
               (ObjectRenderer) count_objs, &nobjs);
 
   if (nobjs == 0)
@@ -107,7 +108,7 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
   fprintf(rend->file, "clip n\n"); 
 
   /* render the region */
-  data_render(data, (Renderer *)rend, bounds, NULL, NULL);
+  data_render(data, DIA_RENDERER (rend), bounds, NULL, NULL);
 
   /* restore print context */
   fprintf(rend->file, "gr\n");
@@ -121,7 +122,7 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
 void
 paginate_psprint(Diagram *dia, FILE *file)
 {
-  RendererEPS *rend;
+  DiaEpsRenderer *rend;
   Rectangle *extents;
   gfloat width, height;
   gfloat x, y, initx, inity;

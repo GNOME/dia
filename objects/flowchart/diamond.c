@@ -32,7 +32,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -80,12 +80,12 @@ static DiamondProperties default_properties;
 
 static real diamond_distance_from(Diamond *diamond, Point *point);
 static void diamond_select(Diamond *diamond, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void diamond_move_handle(Diamond *diamond, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void diamond_move(Diamond *diamond, Point *to);
-static void diamond_draw(Diamond *diamond, Renderer *renderer);
+static void diamond_draw(Diamond *diamond, DiaRenderer *renderer);
 static void diamond_update_data(Diamond *diamond, AnchorShape h,AnchorShape v);
 static Object *diamond_create(Point *startpoint,
 			  void *user_data,
@@ -251,7 +251,7 @@ diamond_distance_from(Diamond *diamond, Point *point)
 
 static void
 diamond_select(Diamond *diamond, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   text_set_cursor(diamond->text, clicked_point, interactive_renderer);
   text_grab_focus(diamond->text, &diamond->element.object);
@@ -303,8 +303,9 @@ diamond_move(Diamond *diamond, Point *to)
 }
 
 static void
-diamond_draw(Diamond *diamond, Renderer *renderer)
+diamond_draw(Diamond *diamond, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   Element *elem;
   
@@ -322,19 +323,19 @@ diamond_draw(Diamond *diamond, Renderer *renderer)
   pts[3].y += elem->height / 2.0;
 
   if (diamond->show_background) {
-    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
-    renderer->ops->fill_polygon(renderer, 
+    renderer_ops->fill_polygon(renderer, 
 				pts, 4,
 				&diamond->inner_color);
   }
 
-  renderer->ops->set_linewidth(renderer, diamond->border_width);
-  renderer->ops->set_linestyle(renderer, diamond->line_style);
-  renderer->ops->set_dashlength(renderer, diamond->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, diamond->border_width);
+  renderer_ops->set_linestyle(renderer, diamond->line_style);
+  renderer_ops->set_dashlength(renderer, diamond->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon(renderer, 
 			      pts, 4,
 			      &diamond->border_color);
 

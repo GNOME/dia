@@ -126,13 +126,14 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 {
   if (GTK_WIDGET_DRAWABLE(widget)) {
     Point from, to;
-    Renderer *renderer;
+    DiaRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW(widget);
     GtkMisc *misc = GTK_MISC(widget);
     gint width, height;
     gint x, y;
     GdkWindow *win;
-    int linewidth = 1;
+    int linewidth = 2;
+    DiaRendererClass *renderer_ops;
 
     width = widget->allocation.width - misc->xpad * 2;
     height = widget->allocation.height - misc->ypad * 2;
@@ -149,18 +150,19 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       from.x = 0;
       to.x = width-linewidth;
     }
-    renderer = (Renderer *)new_pixmap_renderer(win, width, height);
-    renderer_pixmap_set_pixmap((RendererPixmap*)renderer, win, x, y, 
-                               width, height);
-    renderer->ops->begin_render(renderer);
-    renderer->ops->set_linewidth(renderer, linewidth);
-    renderer->ops->draw_line(renderer, &to, &from, &color_black);
-    arrow_draw(renderer, arrow->atype, 
-	       &to, &from, (real)height-linewidth, (real)height-linewidth,
-	       linewidth, &color_black, &color_white);
-    renderer->ops->end_render(renderer);
-    destroy_pixmap_renderer((RendererPixmap*)renderer);
+    renderer = new_pixmap_renderer(win, width, height);
+    renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+    renderer_pixmap_set_pixmap(renderer, win, x, y, width, height);
+    renderer_ops->begin_render(renderer);
+    renderer_ops->set_linewidth(renderer, linewidth);
+    renderer_ops->draw_line(renderer, &to, &from, &color_black);
+    arrow_draw (renderer, arrow->atype, 
+                &to, &from, (real)height-linewidth, (real)height-linewidth,
+                linewidth, &color_black, &color_white);
+    renderer_ops->end_render(renderer);
+    g_object_unref(renderer);
   }
+
   return TRUE;
 }
 
@@ -226,7 +228,7 @@ dia_line_preview_init (DiaLinePreview *line)
   GTK_WIDGET_SET_FLAGS (line, GTK_NO_WINDOW);
 
   GTK_WIDGET (line)->requisition.width = 40 + GTK_MISC (line)->xpad * 2;
-  GTK_WIDGET (line)->requisition.height = 20 + GTK_MISC (line)->ypad * 2;
+  GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
 
   
   line->lstyle = LINESTYLE_SOLID;

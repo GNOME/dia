@@ -32,9 +32,10 @@ extern "C" {
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "dia_image.h"
 
 #ifdef __cplusplus
 }
@@ -51,9 +52,6 @@ namespace W32 {
 
 // #define SAVE_EMF
 
-/* --- the renderer --- */
-#define MY_RENDERER_NAME "WMF"
-
 typedef struct _PlaceableMetaHeader
 {
   guint32 Key;           /* Magic number (always 9AC6CDD7h) */
@@ -67,9 +65,23 @@ typedef struct _PlaceableMetaHeader
   guint16 Checksum;      /* Checksum value for previous 10 WORDs */
 } PLACEABLEMETAHEADER;
 
-typedef struct _MyRenderer MyRenderer;
-struct _MyRenderer {
-    Renderer renderer;
+/* --- the renderer --- */
+G_BEGIN_DECLS
+
+#define WMF_TYPE_RENDERER           (wmf_renderer_get_type ())
+#define WMF_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), WMF_TYPE_RENDERER, WmfRenderer))
+#define WMF_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), WMF_TYPE_RENDERER, WmfRendererClass))
+#define WMF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), WMF_TYPE_RENDERER))
+#define WMF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), WMF_TYPE_RENDERER, WmfRendererClass))
+
+GType wmf_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _WmfRenderer WmfRenderer;
+typedef struct _WmfRendererClass WmfRendererClass;
+
+struct _WmfRenderer
+{
+    DiaRenderer parent_instance;
 
     W32::HDC  hFileDC;
     gchar*    sFileName;
@@ -87,8 +99,12 @@ struct _MyRenderer {
     double scale;
 };
 
-/* include function declares and render object "vtable" */
-#include "../renderer.inc"
+struct _WmfRendererClass
+{
+  DiaRendererClass parent_class;
+};
+
+G_END_DECLS
 
 /*
  * helper macros
@@ -106,7 +122,7 @@ struct _MyRenderer {
  * helper functions
  */
 static W32::HGDIOBJ
-UsePen(MyRenderer* renderer, Color* colour)
+UsePen(WmfRenderer* renderer, Color* colour)
 {
     W32::HPEN hOldPen;
     if (colour) {
@@ -122,7 +138,7 @@ UsePen(MyRenderer* renderer, Color* colour)
 }
 
 static void
-DonePen(MyRenderer* renderer, W32::HPEN hPen)
+DonePen(WmfRenderer* renderer, W32::HPEN hPen)
 {
     /* restore the OLD one ... */
     if (hPen) W32::SelectObject(renderer->hFileDC, hPen);
@@ -136,7 +152,7 @@ DonePen(MyRenderer* renderer, W32::HPEN hPen)
 
 #define DIAG_NOTE /* my_log */
 void
-my_log(MyRenderer* renderer, char* format, ...)
+my_log(WmfRenderer* renderer, char* format, ...)
 {
     gchar *string;
     va_list args;
@@ -157,8 +173,10 @@ my_log(MyRenderer* renderer, char* format, ...)
  * renderer interface implementation
  */
 static void
-begin_render(MyRenderer *renderer, DiagramData *data)
+begin_render(DiaRenderer *self)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "begin_render\n");
 
     /* make unfilled the default */
@@ -167,8 +185,9 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 }
 
 static void
-end_render(MyRenderer *renderer)
+end_render(DiaRenderer *self)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HENHMETAFILE hEmf;
     W32::UINT nSize;
     W32::BYTE* pData = NULL;
@@ -218,16 +237,20 @@ end_render(MyRenderer *renderer)
 }
 
 static void
-set_linewidth(MyRenderer *renderer, real linewidth)
+set_linewidth(DiaRenderer *self, real linewidth)
 {  
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_linewidth %f\n", linewidth);
 
     renderer->nLineWidth = SC(linewidth);
 }
 
 static void
-set_linecaps(MyRenderer *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
 
     switch(mode) {
@@ -238,13 +261,15 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
     case LINECAPS_PROJECTING:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_linejoin(MyRenderer *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_join %d\n", mode);
 
     switch(mode) {
@@ -255,13 +280,15 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
     case LINEJOIN_BEVEL:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_linestyle(MyRenderer *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
 
     /* line type */
@@ -282,34 +309,40 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
       renderer->fnPenStyle = PS_DOT;
       break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_dashlength(MyRenderer *renderer, real length)
+set_dashlength(DiaRenderer *self, real length)
 {  
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_dashlength %f\n", length);
 
     /* dot = 20% of len */
 }
 
 static void
-set_fillstyle(MyRenderer *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     DIAG_NOTE(renderer, "set_fillstyle %d\n", mode);
 
     switch(mode) {
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_font(MyRenderer *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     W32::LPCTSTR sFace;
     W32::DWORD dwItalic = 0;
     W32::DWORD dwWeight = FW_DONTCARE;
@@ -354,10 +387,12 @@ set_font(MyRenderer *renderer, DiaFont *font, real height)
 }
 
 static void
-draw_line(MyRenderer *renderer, 
+draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     W32::HGDIOBJ hPen;
 
     DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n", 
@@ -372,10 +407,12 @@ draw_line(MyRenderer *renderer,
 }
 
 static void
-draw_polyline(MyRenderer *renderer, 
+draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     W32::HGDIOBJ hPen;
     W32::POINT*  pts;
     int	    i;
@@ -400,10 +437,12 @@ draw_polyline(MyRenderer *renderer,
 }
 
 static void
-draw_polygon(MyRenderer *renderer, 
+draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     W32::HGDIOBJ hPen;
     W32::POINT*  pts;
     int          i;
@@ -430,31 +469,35 @@ draw_polygon(MyRenderer *renderer,
 }
 
 static void
-fill_polygon(MyRenderer *renderer, 
+fill_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *colour)
 {
-     W32::HBRUSH  hBrush, hBrOld;
-     W32::COLORREF rgb = W32COLOR(colour);
+    WmfRenderer *renderer = WMF_RENDERER (self);
 
-     DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
-               num_points, points->x, points->y);
+    W32::HBRUSH  hBrush, hBrOld;
+    W32::COLORREF rgb = W32COLOR(colour);
 
-     hBrush = W32::CreateSolidBrush(rgb);
-     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
+              num_points, points->x, points->y);
 
-     draw_polygon(renderer, points, num_points, NULL);
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-     W32::SelectObject(renderer->hFileDC, 
-                       W32::GetStockObject(HOLLOW_BRUSH) );
-     W32::DeleteObject(hBrush);
+    draw_polygon(self, points, num_points, NULL);
+
+    W32::SelectObject(renderer->hFileDC, 
+                      W32::GetStockObject(HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
 }
 
 static void
-draw_rect(MyRenderer *renderer, 
+draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
     W32::HGDIOBJ hPen;
 
     DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
@@ -470,10 +513,11 @@ draw_rect(MyRenderer *renderer,
 }
 
 static void
-fill_rect(MyRenderer *renderer, 
+fill_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hBrush, hBrOld;
     W32::COLORREF rgb = W32COLOR(colour);
 
@@ -483,7 +527,7 @@ fill_rect(MyRenderer *renderer,
     hBrush = W32::CreateSolidBrush(rgb);
     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    draw_rect(renderer, ul_corner, lr_corner, NULL);
+    draw_rect(self, ul_corner, lr_corner, NULL);
 
     W32::SelectObject(renderer->hFileDC, 
                     W32::GetStockObject (HOLLOW_BRUSH) );
@@ -491,12 +535,13 @@ fill_rect(MyRenderer *renderer,
 }
 
 static void
-draw_arc(MyRenderer *renderer, 
+draw_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hPen;
     W32::POINT ptStart, ptEnd;
 
@@ -523,12 +568,13 @@ draw_arc(MyRenderer *renderer,
 }
 
 static void
-fill_arc(MyRenderer *renderer, 
+fill_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hPen;
     W32::HGDIOBJ hBrush, hBrOld;
     W32::POINT ptStart, ptEnd;
@@ -561,11 +607,12 @@ fill_arc(MyRenderer *renderer,
 }
 
 static void
-draw_ellipse(MyRenderer *renderer, 
+draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hPen;
 
     DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
@@ -583,11 +630,12 @@ draw_ellipse(MyRenderer *renderer,
 }
 
 static void
-fill_ellipse(MyRenderer *renderer, 
+fill_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hPen;
     W32::HGDIOBJ hBrush, hBrOld;
     W32::COLORREF rgb = W32COLOR(colour);
@@ -598,7 +646,7 @@ fill_ellipse(MyRenderer *renderer,
     hBrush = W32::CreateSolidBrush(rgb);
     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    draw_ellipse(renderer, center, width, height, NULL);
+    draw_ellipse(self, center, width, height, NULL);
 
     W32::SelectObject(renderer->hFileDC, 
                       W32::GetStockObject (HOLLOW_BRUSH) );
@@ -606,11 +654,12 @@ fill_ellipse(MyRenderer *renderer,
 }
 
 static void
-draw_bezier(MyRenderer *renderer, 
+draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
 	    Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hPen;
     W32::POINT * pts;
     int i;
@@ -663,11 +712,12 @@ draw_bezier(MyRenderer *renderer,
 }
 
 static void
-fill_bezier(MyRenderer *renderer, 
+fill_bezier(DiaRenderer *self, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints,
 	    Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hBrush, hBrOld;
     W32::COLORREF rgb = W32COLOR(colour);
 
@@ -678,7 +728,7 @@ fill_bezier(MyRenderer *renderer,
     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
     W32::BeginPath (renderer->hFileDC);
-    draw_bezier(renderer, points, numpoints, NULL);
+    draw_bezier(self, points, numpoints, NULL);
     W32::EndPath (renderer->hFileDC);
     W32::FillPath (renderer->hFileDC);
 
@@ -688,11 +738,12 @@ fill_bezier(MyRenderer *renderer,
 }
 
 static void
-draw_string(MyRenderer *renderer,
+draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     int len;
     W32::HGDIOBJ hOld;
     W32::COLORREF rgb = W32COLOR(colour);
@@ -753,11 +804,12 @@ draw_string(MyRenderer *renderer,
 }
 
 static void
-draw_image(MyRenderer *renderer,
+draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
 {
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HBITMAP hBmp;
     int iWidth, iHeight;
     unsigned char* pData = NULL;
@@ -853,11 +905,95 @@ draw_image(MyRenderer *renderer,
         g_free (pImg);
 }
 
+/* GObject boiler plate */
+static void wmf_renderer_class_init (WmfRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+wmf_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (WmfRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) wmf_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (WmfRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "WmfRenderer",
+                                            &object_info, (GTypeFlags)0);
+    }
+  
+  return object_type;
+}
+
+static void
+wmf_renderer_finalize (GObject *object)
+{
+  WmfRenderer *wmf_renderer = WMF_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+wmf_renderer_class_init (WmfRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = wmf_renderer_finalize;
+
+  /* renderer members */
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render   = end_render;
+
+  renderer_class->set_linewidth  = set_linewidth;
+  renderer_class->set_linecaps   = set_linecaps;
+  renderer_class->set_linejoin   = set_linejoin;
+  renderer_class->set_linestyle  = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle  = set_fillstyle;
+
+  renderer_class->draw_line    = draw_line;
+  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_rect    = draw_rect;
+  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_arc     = draw_arc;
+  renderer_class->fill_arc     = fill_arc;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+
+  renderer_class->draw_string  = draw_string;
+  renderer_class->draw_image   = draw_image;
+
+  /* medium level functions */
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_polyline  = draw_polyline;
+  renderer_class->draw_polygon   = draw_polygon;
+
+  renderer_class->draw_bezier   = draw_bezier;
+  renderer_class->fill_bezier   = fill_bezier;
+}
+
+/* plug-in export api */
 static void
 export_data(DiagramData *data, const gchar *filename, 
             const gchar *diafilename, void* user_data)
 {
-    MyRenderer *renderer;
+    WmfRenderer *renderer;
     W32::HDC  file;
     Rectangle *extent;
     gint len;
@@ -893,13 +1029,7 @@ export_data(DiagramData *data, const gchar *filename,
         return;
     }
 
-    if (MyRenderOps == NULL)
-      init_my_renderops();
-
-    renderer = g_new(MyRenderer, 1);
-    renderer->renderer.ops = MyRenderOps;
-    renderer->renderer.is_interactive = 0;
-    renderer->renderer.interactive_ops = NULL;
+    renderer = (WmfRenderer*)g_object_new(WMF_TYPE_RENDERER, NULL);
 
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
@@ -947,9 +1077,9 @@ export_data(DiagramData *data, const gchar *filename,
     DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
               extent->left, extent->top, extent->right, extent->bottom);
 
-    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-    g_free(renderer);
+    g_object_unref(renderer);
 }
 
 static const gchar *extensions[] = { "wmf", NULL };
@@ -968,9 +1098,9 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
     if (!dia_plugin_info_init(info, "WMF",
-			      _("WMF export filter"),
-			      NULL, NULL))
-	return DIA_PLUGIN_INIT_ERROR;
+                              _("WMF export filter"),
+                              NULL, NULL))
+        return DIA_PLUGIN_INIT_ERROR;
 
     filter_register_export(&my_export_filter);
 

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
@@ -64,8 +64,8 @@ static void constraint_move_handle(Constraint *constraint, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void constraint_draw(Constraint *constraint, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void constraint_draw(Constraint *constraint, DiaRenderer *renderer);
 static Object *constraint_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -167,7 +167,7 @@ constraint_distance_from(Constraint *constraint, Point *point)
 
 static void
 constraint_select(Constraint *constraint, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&constraint->connection);
 }
@@ -221,8 +221,9 @@ constraint_move(Constraint *constraint, Point *to)
 }
 
 static void
-constraint_draw(Constraint *constraint, Renderer *renderer)
+constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   Arrow arrow;
 
@@ -231,24 +232,24 @@ constraint_draw(Constraint *constraint, Renderer *renderer)
 
   endpoints = &constraint->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, CONSTRAINT_WIDTH);
-  renderer->ops->set_dashlength(renderer, CONSTRAINT_DASHLEN);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, CONSTRAINT_WIDTH);
+  renderer_ops->set_dashlength(renderer, CONSTRAINT_DASHLEN);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_LINES;
   arrow.length = CONSTRAINT_ARROWLEN;
   arrow.width = CONSTRAINT_ARROWWIDTH;
 
-  renderer->ops->draw_line_with_arrows(renderer,
+  renderer_ops->draw_line_with_arrows(renderer,
 				       &endpoints[0], &endpoints[1],
 				       CONSTRAINT_WIDTH,
 				       &color_black,
 				       NULL, &arrow);
   
-  renderer->ops->set_font(renderer, constraint_font,
+  renderer_ops->set_font(renderer, constraint_font,
 			  CONSTRAINT_FONTHEIGHT);
-  renderer->ops->draw_string(renderer,
+  renderer_ops->draw_string(renderer,
 			     constraint->brtext,
 			     &constraint->text_pos, ALIGN_LEFT,
 			     &color_black);

@@ -32,7 +32,6 @@
 #include <gtk/gtkcolorseldialog.h>
 
 #include "font.h"
-#include "render.h"
 #include "color.h"
 #include "arrows.h"
 

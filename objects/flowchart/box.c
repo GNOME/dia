@@ -32,7 +32,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -80,12 +80,12 @@ static BoxProperties default_properties;
 
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void box_move_handle(Box *box, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void box_move(Box *box, Point *to);
-static void box_draw(Box *box, Renderer *renderer);
+static void box_draw(Box *box, DiaRenderer *renderer);
 static void box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static Object *box_create(Point *startpoint,
 			  void *user_data,
@@ -223,7 +223,7 @@ box_distance_from(Box *box, Point *point)
 
 static void
 box_select(Box *box, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   real radius;
 
@@ -294,8 +294,9 @@ box_move(Box *box, Point *to)
 }
 
 static void
-box_draw(Box *box, Renderer *renderer)
+box_draw(Box *box, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point lr_corner;
   Element *elem;
   real radius;
@@ -308,7 +309,7 @@ box_draw(Box *box, Renderer *renderer)
   lr_corner.y = elem->corner.y + elem->height;
 
   if (box->show_background) {
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
   /* Problem:  How do we make the fill with rounded corners? */
   if (box->corner_radius > 0) {
@@ -321,14 +322,14 @@ box_draw(Box *box, Renderer *renderer)
     end.x = lr_corner.x-radius;
     start.y = elem->corner.y;
     end.y = lr_corner.y;
-    renderer->ops->fill_rect(renderer, &start, &end, &box->inner_color);
+    renderer_ops->fill_rect(renderer, &start, &end, &box->inner_color);
 
     center.y = elem->corner.y+radius;
-    renderer->ops->fill_arc(renderer, &center, 
+    renderer_ops->fill_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    90.0, 180.0, &box->inner_color);
     center.x = end.x;
-    renderer->ops->fill_arc(renderer, &center, 
+    renderer_ops->fill_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    0.0, 90.0, &box->inner_color);
 
@@ -336,29 +337,29 @@ box_draw(Box *box, Renderer *renderer)
     start.y = elem->corner.y+radius;
     end.x = lr_corner.x;
     end.y = center.y = lr_corner.y-radius;
-    renderer->ops->fill_rect(renderer, &start, &end, &box->inner_color);
+    renderer_ops->fill_rect(renderer, &start, &end, &box->inner_color);
 
     center.y = lr_corner.y-radius;
     center.x = elem->corner.x+radius;
-    renderer->ops->fill_arc(renderer, &center, 
+    renderer_ops->fill_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    180.0, 270.0, &box->inner_color);
     center.x = lr_corner.x-radius;
-    renderer->ops->fill_arc(renderer, &center, 
+    renderer_ops->fill_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    270.0, 360.0, &box->inner_color);
   } else {
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
 			   &box->inner_color);
   }
   }
 
-  renderer->ops->set_linewidth(renderer, box->border_width);
-  renderer->ops->set_linestyle(renderer, box->line_style);
-  renderer->ops->set_dashlength(renderer, box->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, box->border_width);
+  renderer_ops->set_linestyle(renderer, box->line_style);
+  renderer_ops->set_dashlength(renderer, box->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   if (box->corner_radius > 0) {
     Point start, end, center;
@@ -369,37 +370,37 @@ box_draw(Box *box, Renderer *renderer)
     start.x = center.x = elem->corner.x+radius;
     end.x = lr_corner.x-radius;
     start.y = end.y = elem->corner.y;
-    renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
+    renderer_ops->draw_line(renderer, &start, &end, &box->border_color);
     start.y = end.y = lr_corner.y;
-    renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
+    renderer_ops->draw_line(renderer, &start, &end, &box->border_color);
 
     center.y = elem->corner.y+radius;
-    renderer->ops->draw_arc(renderer, &center, 
+    renderer_ops->draw_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    90.0, 180.0, &box->border_color);
     center.x = end.x;
-    renderer->ops->draw_arc(renderer, &center, 
+    renderer_ops->draw_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    0.0, 90.0, &box->border_color);
 
     start.y = elem->corner.y+radius;
     start.x = end.x = elem->corner.x;
     end.y = center.y = lr_corner.y-radius;
-    renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
+    renderer_ops->draw_line(renderer, &start, &end, &box->border_color);
     start.x = end.x = lr_corner.x;
-    renderer->ops->draw_line(renderer, &start, &end, &box->border_color);
+    renderer_ops->draw_line(renderer, &start, &end, &box->border_color);
 
     center.y = lr_corner.y-radius;
     center.x = elem->corner.x+radius;
-    renderer->ops->draw_arc(renderer, &center, 
+    renderer_ops->draw_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    180.0, 270.0, &box->border_color);
     center.x = lr_corner.x-radius;
-    renderer->ops->draw_arc(renderer, &center, 
+    renderer_ops->draw_arc(renderer, &center, 
 			    2.0*radius, 2.0*radius,
 			    270.0, 360.0, &box->border_color);
   } else {
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
 			   &box->border_color);

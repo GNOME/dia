@@ -30,7 +30,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "properties.h"
@@ -66,11 +66,11 @@ struct _Entity {
 
 static real entity_distance_from(Entity *entity, Point *point);
 static void entity_select(Entity *entity, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void entity_move_handle(Entity *entity, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void entity_move(Entity *entity, Point *to);
-static void entity_draw(Entity *entity, Renderer *renderer);
+static void entity_draw(Entity *entity, DiaRenderer *renderer);
 static void entity_update_data(Entity *entity);
 static Object *entity_create(Point *startpoint,
 			     void *user_data,
@@ -187,7 +187,7 @@ entity_distance_from(Entity *entity, Point *point)
 
 static void
 entity_select(Entity *entity, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   element_update_handles(&entity->element);
 }
@@ -214,8 +214,9 @@ entity_move(Entity *entity, Point *to)
 }
 
 static void
-entity_draw(Entity *entity, Renderer *renderer)
+entity_draw(Entity *entity, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul_corner, lr_corner;
   Point p;
   Element *elem;
@@ -231,18 +232,18 @@ entity_draw(Entity *entity, Renderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &ul_corner,
 			   &lr_corner, 
 			   &entity->inner_color);
 
-  renderer->ops->set_linewidth(renderer, entity->border_width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linewidth(renderer, entity->border_width);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &ul_corner,
 			   &lr_corner, 
 			   &entity->border_color);
@@ -253,7 +254,7 @@ entity_draw(Entity *entity, Renderer *renderer)
     ul_corner.y += diff;
     lr_corner.x -= diff;
     lr_corner.y -= diff;
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &ul_corner, &lr_corner,
 			     &entity->border_color);
   }
@@ -261,8 +262,8 @@ entity_draw(Entity *entity, Renderer *renderer)
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 +
       dia_font_ascent(entity->name,entity->font, entity->font_height);
-  renderer->ops->set_font(renderer, entity->font, entity->font_height);
-  renderer->ops->draw_string(renderer, 
+  renderer_ops->set_font(renderer, entity->font, entity->font_height);
+  renderer_ops->draw_string(renderer, 
                              entity->name, 
                              &p, ALIGN_CENTER, 
                              &color_black);

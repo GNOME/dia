@@ -41,7 +41,9 @@ void
 handle_draw(Handle *handle, DDisplay *ddisp)
 {
   int x,y;
-  Renderer *renderer = ddisp->renderer;
+  DiaRenderer *renderer = ddisp->renderer;
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   Color *color;
 
   ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
@@ -52,33 +54,33 @@ handle_draw(Handle *handle, DDisplay *ddisp)
     color = &handle_color[handle->type];
   }
 
-  (renderer->ops->set_linewidth)(renderer, 0.0);
-  (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
-  (renderer->ops->set_linejoin)(renderer, LINEJOIN_MITER);
-  (renderer->ops->set_fillstyle)(renderer, FILLSTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
 
-  (renderer->interactive_ops->fill_pixel_rect)(renderer,
-					       x - HANDLE_SIZE/2 + 1,
-					       y - HANDLE_SIZE/2 + 1,
-					       HANDLE_SIZE-2, HANDLE_SIZE-2,
-					       color);
+  irenderer->fill_pixel_rect(renderer,
+			     x - HANDLE_SIZE/2 + 1,
+			     y - HANDLE_SIZE/2 + 1,
+			     HANDLE_SIZE-2, HANDLE_SIZE-2,
+			     color);
   
-  (renderer->interactive_ops->draw_pixel_rect)(renderer,
-					       x - HANDLE_SIZE/2,
-					       y - HANDLE_SIZE/2,
-					       HANDLE_SIZE-1, HANDLE_SIZE-1,
-					       &color_black);
+  irenderer->draw_pixel_rect(renderer,
+			     x - HANDLE_SIZE/2,
+			     y - HANDLE_SIZE/2,
+			     HANDLE_SIZE-1, HANDLE_SIZE-1,
+			     &color_black);
 
     
   
   if (handle->connect_type != HANDLE_NONCONNECTABLE) {
-    (renderer->interactive_ops->draw_pixel_line)
+    irenderer->draw_pixel_line
                          (renderer,
 			  x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,
 			  x + HANDLE_SIZE/2, y + HANDLE_SIZE/2,
 			  &color_black);
-    (renderer->interactive_ops->draw_pixel_line)
+    irenderer->draw_pixel_line
                          (renderer,
 			  x - HANDLE_SIZE/2, y + HANDLE_SIZE/2,
 			  x + HANDLE_SIZE/2, y - HANDLE_SIZE/2,

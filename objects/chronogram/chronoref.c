@@ -35,7 +35,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -75,12 +75,12 @@ typedef struct _Chronoref {
 
 static real chronoref_distance_from(Chronoref *chronoref, Point *point);
 static void chronoref_select(Chronoref *chronoref, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void chronoref_move_handle(Chronoref *chronoref, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void chronoref_move(Chronoref *chronoref, Point *to);
-static void chronoref_draw(Chronoref *chronoref, Renderer *renderer);
+static void chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer);
 static void chronoref_update_data(Chronoref *chronoref);
 static Object *chronoref_create(Point *startpoint,
 			  void *user_data,
@@ -230,7 +230,7 @@ chronoref_distance_from(Chronoref *chronoref, Point *point)
 
 static void
 chronoref_select(Chronoref *chronoref, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   element_update_handles(&chronoref->element);
 }
@@ -255,8 +255,9 @@ chronoref_move(Chronoref *chronoref, Point *to)
 }
 
 static void
-chronoref_draw(Chronoref *chronoref, Renderer *renderer)
+chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point lr_corner;
   real t;
@@ -266,8 +267,8 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
 
   elem = &chronoref->element;
   
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
 
   lr_corner.x = elem->corner.x + elem->width;
@@ -275,11 +276,11 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
 
   p1.y = p2.y = elem->corner.y;
 
-  renderer->ops->set_font(renderer, chronoref->font, chronoref->font_size);
+  renderer_ops->set_font(renderer, chronoref->font, chronoref->font_size);
   p3.y = p2.y + chronoref->majgrad_height + 
     dia_font_ascent("1",chronoref->font, chronoref->font_size);
 
-  renderer->ops->set_linewidth(renderer, chronoref->light_lwidth);
+  renderer_ops->set_linewidth(renderer, chronoref->light_lwidth);
   if (chronoref->time_lstep > 0.0) {
     p2.y = p1.y + chronoref->mingrad_height;
     for (t = chronoref->firstmaj, p1.x = chronoref->firstmin_x; 
@@ -287,11 +288,11 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
 	 t += chronoref->time_lstep, p1.x += chronoref->mingrad) {
       p2.x = p1.x;
     
-      renderer->ops->draw_line(renderer,&p1,&p2,&chronoref->color);
+      renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
     }
   }
 
-  renderer->ops->set_linewidth(renderer, chronoref->main_lwidth);
+  renderer_ops->set_linewidth(renderer, chronoref->main_lwidth);
   if (chronoref->time_step > 0.0) {
     p2.y = p1.y + chronoref->majgrad_height;
 
@@ -301,9 +302,9 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
       char time[10];
       p3.x = p2.x = p1.x;
     
-      renderer->ops->draw_line(renderer,&p1,&p2,&chronoref->color);
+      renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
       g_snprintf(time,sizeof(time),chronoref->spec,t);
-      renderer->ops->draw_string(renderer,time,&p3,ALIGN_CENTER,
+      renderer_ops->draw_string(renderer,time,&p3,ALIGN_CENTER,
 				 &chronoref->font_color);
     }
   }
@@ -311,7 +312,7 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
   p2.x = lr_corner.x;
   p1.y = p2.y = elem->corner.y;
 
-  renderer->ops->draw_line(renderer,&p1,&p2,&chronoref->color);
+  renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
 }
 
 static void

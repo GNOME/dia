@@ -27,7 +27,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "arrows.h"
@@ -55,8 +55,8 @@ static void line_move_handle(Line *line, Handle *handle,
 			     ModifierKeys modifiers);
 static void line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
-			Renderer *interactive_renderer);
-static void line_draw(Line *line, Renderer *renderer);
+			DiaRenderer *interactive_renderer);
+static void line_draw(Line *line, DiaRenderer *renderer);
 static Object *line_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -216,7 +216,7 @@ line_distance_from(Line *line, Point *point)
 
 static void
 line_select(Line *line, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&line->connection);
 }
@@ -250,8 +250,9 @@ line_move(Line *line, Point *to)
 }
 
 static void
-line_draw(Line *line, Renderer *renderer)
+line_draw(Line *line, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   
   assert(line != NULL);
@@ -259,12 +260,12 @@ line_draw(Line *line, Renderer *renderer)
 
   endpoints = &line->connection.endpoints[0];
 
-  renderer->ops->set_linewidth(renderer, line->line_width);
-  renderer->ops->set_linestyle(renderer, line->line_style);
-  renderer->ops->set_dashlength(renderer, line->dashlength);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, line->line_width);
+  renderer_ops->set_linestyle(renderer, line->line_style);
+  renderer_ops->set_dashlength(renderer, line->dashlength);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_line_with_arrows(renderer,
+  renderer_ops->draw_line_with_arrows(renderer,
 				       &endpoints[0], &endpoints[1],
 				       line->line_width,
 				       &line->line_color,

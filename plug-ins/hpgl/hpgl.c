@@ -23,8 +23,8 @@
 
 /*
  * ToDo:
- * - provide more rendering functions like "render_draw_ellipse_by_arc" 
- *   to be used by simple format renderers; move them to libdia?
+ * - move draw_ellipse_by_arc into libdia to make it available for other
+ *   interested renderers ?
  */
 
 #ifdef HAVE_CONFIG_H
@@ -39,7 +39,7 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
 
@@ -48,37 +48,48 @@
 /* format specific */
 #define HPGL_MAX_PENS 8
 
-/* --- the renderer --- */
-#define MY_RENDERER_NAME "HPGL"
-
 #define PEN_HAS_COLOR (1 << 0) 
 #define PEN_HAS_WIDTH (1 << 1) 
 
-typedef struct _MyRenderer MyRenderer;
-struct _MyRenderer {
-    Renderer renderer;
+/* GObject boiler plate */
+#define HPGL_TYPE_RENDERER           (hpgl_renderer_get_type ())
+#define HPGL_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), HPGL_TYPE_RENDERER, HpglRenderer))
+#define HPGL_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), HPGL_TYPE_RENDERER, HpglRendererClass))
+#define HPGL_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HPGL_TYPE_RENDERER))
+#define HPGL_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), HPGL_TYPE_RENDERER, HpglRendererClass))
 
-    FILE *file;
+GType hpgl_renderer_get_type (void) G_GNUC_CONST;
 
-    /*
-     * The number of pens is limited. This is used to select one.
-     */
-    struct {
-        Color color;
-        float width;
-        int   has_it;
-    } pen[HPGL_MAX_PENS];
-    int last_pen;
-    real dash_length;
-    real font_height;
+typedef struct _HpglRenderer HpglRenderer;
+typedef struct _HpglRendererClass HpglRendererClass;
 
-    Point size;  /* extent size */
-    real scale;
-    real offset; /* in dia units */
+struct _HpglRenderer
+{
+  DiaRenderer parent_instance;
+
+  FILE *file;
+
+  /*
+   * The number of pens is limited. This is used to select one.
+   */
+  struct {
+    Color color;
+    float width;
+    int   has_it;
+  } pen[HPGL_MAX_PENS];
+  int last_pen;
+  real dash_length;
+  real font_height;
+
+  Point size;  /* extent size */
+  real scale;
+  real offset; /* in dia units */
 };
 
-/* include function declares and render object "vtable" */
-#include "../renderer.inc"
+struct _HpglRendererClass
+{
+  DiaRendererClass parent_class;
+};
 
 #ifdef DEBUG_HPGL
 #  define DIAG_NOTE(action) action
@@ -88,7 +99,7 @@ struct _MyRenderer {
 
 /* hpgl helpers */
 static void
-hpgl_select_pen(MyRenderer* renderer, Color* color, real width)
+hpgl_select_pen(HpglRenderer* renderer, Color* color, real width)
 {
     int nPen = 0;
     int i;
@@ -143,15 +154,16 @@ hpgl_select_pen(MyRenderer* renderer, Color* color, real width)
 }
 
 static int
-hpgl_scale(MyRenderer *renderer, real val)
+hpgl_scale(HpglRenderer *renderer, real val)
 {
     return (int)((val + renderer->offset) * renderer->scale);
 }
 
 /* render functions */ 
 static void
-begin_render(MyRenderer *renderer, DiagramData *data)
+begin_render(DiaRenderer *object)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;
 
     DIAG_NOTE(g_message("begin_render"));
@@ -167,23 +179,29 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 }
 
 static void
-end_render(MyRenderer *renderer)
+end_render(DiaRenderer *object)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("end_render"));
     fclose(renderer->file);
 }
 
 static void
-set_linewidth(MyRenderer *renderer, real linewidth)
+set_linewidth(DiaRenderer *object, real linewidth)
 {  
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_linewidth %f", linewidth));
 
     hpgl_select_pen(renderer, NULL, linewidth);
 }
 
 static void
-set_linecaps(MyRenderer *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *object, LineCaps mode)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_linecaps %d", mode));
 
     switch(mode) {
@@ -194,13 +212,15 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
     case LINECAPS_PROJECTING:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("HpglRenderer: Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_linejoin(MyRenderer *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *object, LineJoin mode)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_join %d", mode));
 
     switch(mode) {
@@ -211,13 +231,15 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
     case LINEJOIN_BEVEL:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("HpglRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_linestyle(MyRenderer *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *object, LineStyle mode)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_linestyle %d", mode));
 
     /* line type */
@@ -241,13 +263,15 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
       fprintf(renderer->file, "LT1;\n");
       break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("HpglRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_dashlength(MyRenderer *renderer, real length)
+set_dashlength(DiaRenderer *object, real length)
 {  
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(diag_note("set_dashlength %f", length));
 
     /* dot = 20% of len */
@@ -255,21 +279,25 @@ set_dashlength(MyRenderer *renderer, real length)
 }
 
 static void
-set_fillstyle(MyRenderer *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *object, FillStyle mode)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
     switch(mode) {
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error(MY_RENDERER_NAME ": Unsupported fill mode specified!\n");
+	message_error("HpglRenderer : Unsupported fill mode specified!\n");
     }
 }
 
 static void
-set_font(MyRenderer *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *object, DiaFont *font, real height)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("set_font %f", height));
     renderer->font_height = height;
 }
@@ -281,10 +309,12 @@ set_font(MyRenderer *renderer, DiaFont *font, real height)
  * doing it before scaling.
  */
 static void
-draw_line(MyRenderer *renderer, 
-	  Point *start, Point *end, 
-	  Color *line_colour)
+draw_line(DiaRenderer *object, 
+          Point *start, Point *end, 
+          Color *line_colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
               start->x, start->y, end->x, end->y));
     hpgl_select_pen(renderer, line_colour, 0.0);
@@ -295,10 +325,11 @@ draw_line(MyRenderer *renderer,
 }
 
 static void
-draw_polyline(MyRenderer *renderer, 
+draw_polyline(DiaRenderer *object, 
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;
 
     DIAG_NOTE(g_message("draw_polyline n:%d %f,%f ...", 
@@ -322,32 +353,38 @@ draw_polyline(MyRenderer *renderer,
 }
 
 static void
-draw_polygon(MyRenderer *renderer, 
+draw_polygon(DiaRenderer *object, 
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
-    draw_polyline(renderer,points,num_points,line_colour);
+    draw_polyline(object,points,num_points,line_colour);
     /* last to first */
-    draw_line(renderer, &points[num_points-1], &points[0], line_colour);
+    draw_line(object, &points[num_points-1], &points[0], line_colour);
 }
 
 static void
-fill_polygon(MyRenderer *renderer, 
+fill_polygon(DiaRenderer *object, 
 	     Point *points, int num_points, 
 	     Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
-    draw_polyline(renderer,points,num_points,colour);
+    draw_polyline(object,points,num_points,colour);
 }
 
 static void
-draw_rect(MyRenderer *renderer, 
+draw_rect(DiaRenderer *object, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
     hpgl_select_pen(renderer, colour, 0.0);
@@ -359,10 +396,12 @@ draw_rect(MyRenderer *renderer,
 }
 
 static void
-fill_rect(MyRenderer *renderer, 
+fill_rect(DiaRenderer *object, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 #if 0
@@ -374,17 +413,18 @@ fill_rect(MyRenderer *renderer,
              hpgl_scale(renderer, -lr_corner->y));
 #else
     /* the fill modes aren't really compatible ... */
-   draw_rect(renderer, ul_corner, lr_corner, colour);
+   draw_rect(object, ul_corner, lr_corner, colour);
 #endif
 }
 
 static void
-draw_arc(MyRenderer *renderer, 
+draw_arc(DiaRenderer *object, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
     Point start;
 
     DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
@@ -405,12 +445,14 @@ draw_arc(MyRenderer *renderer,
 }
 
 static void
-fill_arc(MyRenderer *renderer, 
+fill_arc(DiaRenderer *object, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
               width, height, angle1, angle2));
     g_assert (width == height);
@@ -425,71 +467,116 @@ fill_arc(MyRenderer *renderer,
              (int)angle1, (int)(angle2-angle1));
 }
 
+/* may go into lib/diarenderer.c if another renderer would be interested */
+/* Draw an ellipse approximation consisting out of
+ * four arcs. 
+ */
 static void
-draw_ellipse(MyRenderer *renderer, 
+draw_ellipse_by_arc (DiaRenderer *renderer, 
+                     Point *center,
+                     real width, real height,
+                     Color *colour)
+{
+  real a, b, e, d, alpha, c, x, y;
+  real g, gamma, r;
+  Point pt;
+  real angle;
+
+  a = width / 2;
+  b = height / 2;
+  e = sqrt(a*a - b*b);
+
+  alpha = 0.25*M_PI - asin((e/a) * sin(0.75*M_PI));
+  d = 2*a*sin(alpha);
+
+  c = (sin(0.25*M_PI) * (2*e + d)) / sin(0.75*M_PI - alpha);
+
+  y = c * sin (alpha);
+  x = c * cos (alpha) - e;
+
+  /* draw arcs */
+  g = sqrt((a-x)*(a-x) + y*y);
+  gamma = acos((a-x)/g);
+  r = (sin(gamma) * g) / sin(M_PI-2*gamma);
+
+  pt.y = center->y;
+  angle = (180 * (M_PI-2*gamma)) / M_PI;
+  pt.x = center->x + a - r; /* right */
+  draw_arc(renderer, &pt, 2*r, 2*r, 360-angle, angle, colour);
+  pt.x = center->x - a + r; /* left */
+  draw_arc(renderer, &pt, 2*r, 2*r, 180-angle, 180+angle, colour);
+
+
+  g = sqrt((b-y)*(b-y) + x*x);
+  gamma = acos((b-y)/g);
+  r = (sin(gamma) * g) / sin(M_PI-2*gamma);
+
+  pt.x = center->x;
+  angle = (180 * (M_PI-2*gamma)) / M_PI;
+  pt.y = center->y - b + r; /* top */
+  draw_arc(renderer, &pt, 2*r, 2*r, 90-angle, 90+angle, colour);
+  pt.y = center->y + b - r; /* bottom */
+  draw_arc(renderer, &pt, 2*r, 2*r, 270-angle, 270+angle, colour);
+}
+
+static void
+draw_ellipse(DiaRenderer *object, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
+  HpglRenderer *renderer = HPGL_RENDERER (object);
+
   DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
             width, height, center->x, center->y));
 
   if (width != height)
-  {
-    renderer_draw_ellipse_by_arc(renderer, center, width, height, colour);
-  }  
+    {
+      draw_ellipse_by_arc(object, center, width, height, colour);
+    }  
   else
-  {
-    hpgl_select_pen(renderer, colour, 0.0);
+    {
+      hpgl_select_pen(renderer, colour, 0.0);
 
-    fprintf (renderer->file, "PU%d,%d;CI%d;\n",
-             hpgl_scale(renderer, center->x),
-             hpgl_scale(renderer, -center->y),
-		 hpgl_scale(renderer, width / 2.0));
-  }
+      fprintf (renderer->file, "PU%d,%d;CI%d;\n",
+               hpgl_scale(renderer, center->x),
+               hpgl_scale(renderer, -center->y),
+               hpgl_scale(renderer, width / 2.0));
+    }
 }
 
 static void
-fill_ellipse(MyRenderer *renderer, 
+fill_ellipse(DiaRenderer *object, 
 	     Point *center,
 	     real width, real height,
 	     Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
               width, height, center->x, center->y));
 }
 
 static void
-draw_bezier(MyRenderer *renderer, 
-	    BezPoint *points,
-	    int numpoints,
-	    Color *colour)
-{
-    DIAG_NOTE(g_message("draw_bezier n:%d %fx%f ...", 
-              numpoints, points->p1.x, points->p1.y));
-
-    /* @todo: provide bezier rendering by simple render function callback like:
-     *
-     *  renderer_draw_bezier_by_line(renderer, points, numpoints, colour);
-     */
-}
-
-static void
-fill_bezier(MyRenderer *renderer, 
+fill_bezier(DiaRenderer *object, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints,
 	    Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("fill_bezier n:%d %fx%f ...", 
               numpoints, points->p1.x, points->p1.y));
 }
 
 static void
-draw_string(MyRenderer *renderer,
+draw_string(DiaRenderer *object,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("draw_string %f,%f %s", 
               pos->x, pos->y, text));
 
@@ -534,21 +621,104 @@ draw_string(MyRenderer *renderer,
 }
 
 static void
-draw_image(MyRenderer *renderer,
+draw_image(DiaRenderer *object,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
 {
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     DIAG_NOTE(g_message("draw_image %fx%f @%f,%f", 
               width, height, point->x, point->y));
     g_warning("HPGL: images unsupported!");
 }
 
+/* overwrite vtable */
+static void hpgl_renderer_class_init (HpglRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+hpgl_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (HpglRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) hpgl_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (HpglRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "HpglRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
+
+static void
+hpgl_renderer_finalize (GObject *object)
+{
+  HpglRenderer *renderer = HPGL_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+hpgl_renderer_class_init (HpglRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = hpgl_renderer_finalize;
+
+  /* renderer members */
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render   = end_render;
+
+  renderer_class->set_linewidth  = set_linewidth;
+  renderer_class->set_linecaps   = set_linecaps;
+  renderer_class->set_linejoin   = set_linejoin;
+  renderer_class->set_linestyle  = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle  = set_fillstyle;
+
+  renderer_class->draw_line    = draw_line;
+  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_rect    = draw_rect;
+  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_arc     = draw_arc;
+  renderer_class->fill_arc     = fill_arc;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+
+  renderer_class->draw_string  = draw_string;
+  renderer_class->draw_image   = draw_image;
+
+  /* medium level functions */
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_polyline  = draw_polyline;
+  renderer_class->draw_polygon   = draw_polygon;
+}
+
+/* plug-in interface : export function */
 static void
 export_data(DiagramData *data, const gchar *filename, 
             const gchar *diafilename, void* user_data)
 {
-    MyRenderer *renderer;
+    HpglRenderer *renderer;
     FILE *file;
     Rectangle *extent;
     real width, height;
@@ -560,13 +730,7 @@ export_data(DiagramData *data, const gchar *filename,
 	return;
     }
 
-    if (MyRenderOps == NULL)
-      init_my_renderops();
-
-    renderer = g_new(MyRenderer, 1);
-    renderer->renderer.ops = MyRenderOps;
-    renderer->renderer.is_interactive = 0;
-    renderer->renderer.interactive_ops = NULL;
+    renderer = g_object_new(HPGL_TYPE_RENDERER, NULL);
 
     renderer->file = file;
 
@@ -595,14 +759,14 @@ export_data(DiagramData *data, const gchar *filename,
             hpgl_scale(renderer, extent->bottom),
             hpgl_scale(renderer, extent->top));
 #endif
-    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-    g_free(renderer);
+    g_object_unref(renderer);
 }
 
 static const gchar *extensions[] = { "plt", "hpgl", NULL };
 static DiaExportFilter my_export_filter = {
-    N_(MY_RENDERER_NAME),
+    N_("HP Graphics Language"),
     extensions,
     export_data
 };
@@ -616,8 +780,8 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
     if (!dia_plugin_info_init(info, "HPGL",
-			      _("HP Graphics Language export filter"),
-			      NULL, NULL))
+                              _("HP Graphics Language export filter"),
+			NULL, NULL))
 	return DIA_PLUGIN_INIT_ERROR;
 
     filter_register_export(&my_export_filter);

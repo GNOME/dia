@@ -57,8 +57,6 @@ libdia_la_SOURCES =  \
 		sheet.h \
 		connectionpoint.h \
 		handle.h \
-		render.h \
-		render.c \
 		object.h \
 		object.c \
 		object_defaults.c \
@@ -106,10 +104,22 @@ libdia_la_SOURCES =  \
 		boundingbox.h \
 		dynamic_obj.c \
 		dynamic_obj.h \
-		create.h
+		create.h \
+		dia-enums.h \
+		diatransform.h \
+		diatransform.c \
+		diarenderer.h \
+		diarenderer.c \
+		diainteractiverenderer.c \
+		diagdkrenderer.h \
+		diagdkrenderer.c \
+		diasvgrenderer.h \
+		diasvgrenderer.c \
 
 #		charconv.c \
 #		charconv.h 
+#		render.h \
+#		render.c \
 
 libdia_la_LDFLAGS = -export-dynamic -module -avoid-version
 

@@ -38,7 +38,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -106,12 +106,12 @@ static CustomProperties default_properties;
 
 static real custom_distance_from(Custom *custom, Point *point);
 static void custom_select(Custom *custom, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void custom_move_handle(Custom *custom, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void custom_move(Custom *custom, Point *to);
-static void custom_draw(Custom *custom, Renderer *renderer);
+static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static Object *custom_create(Point *startpoint,
@@ -433,7 +433,7 @@ custom_distance_from(Custom *custom, Point *point)
 
 static void
 custom_select(Custom *custom, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   if (custom->info->has_text) {
     text_set_cursor(custom->text, clicked_point, interactive_renderer);
@@ -510,8 +510,9 @@ get_colour(Custom *custom, Color *colour, gint32 c)
 }
 
 static void
-custom_draw(Custom *custom, Renderer *renderer)
+custom_draw(Custom *custom, DiaRenderer *renderer)
 {
+    DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
     static GArray *arr = NULL, *barr = NULL;
     Point p1, p2;
     real coord;
@@ -533,12 +534,12 @@ custom_draw(Custom *custom, Renderer *renderer)
 
     elem = &custom->element;
 
-    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer->ops->set_linewidth(renderer, custom->border_width);
-    renderer->ops->set_linestyle(renderer, cur_style);
-    renderer->ops->set_dashlength(renderer, custom->dashlength);
-    renderer->ops->set_linecaps(renderer, cur_caps);
-    renderer->ops->set_linejoin(renderer, cur_join);
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer_ops->set_linewidth(renderer, custom->border_width);
+    renderer_ops->set_linestyle(renderer, cur_style);
+    renderer_ops->set_dashlength(renderer, custom->dashlength);
+    renderer_ops->set_linecaps(renderer, cur_caps);
+    renderer_ops->set_linejoin(renderer, cur_join);
 
     for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
         GraphicElement *el = tmp->data;
@@ -546,31 +547,31 @@ custom_draw(Custom *custom, Renderer *renderer)
 
         if (el->any.s.line_width != cur_line) {
             cur_line = el->any.s.line_width;
-            renderer->ops->set_linewidth(renderer,
+            renderer_ops->set_linewidth(renderer,
                                          custom->border_width*cur_line);
         }
         if ((el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
             el->any.s.linecap != cur_caps) {
             cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
                 el->any.s.linecap : LINECAPS_BUTT;
-            renderer->ops->set_linecaps(renderer, cur_caps);
+            renderer_ops->set_linecaps(renderer, cur_caps);
         }
         if ((el->any.s.linejoin==LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
             el->any.s.linejoin != cur_join) {
             cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
                 el->any.s.linejoin : LINEJOIN_MITER;
-            renderer->ops->set_linejoin(renderer, cur_join);
+            renderer_ops->set_linejoin(renderer, cur_join);
         }
         if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
              cur_style != custom->line_style) ||
             el->any.s.linestyle != cur_style) {
             cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
                 el->any.s.linestyle : custom->line_style;
-            renderer->ops->set_linestyle(renderer, cur_style);
+            renderer_ops->set_linestyle(renderer, cur_style);
         }
         if (el->any.s.dashlength != cur_dash) {
             cur_dash = el->any.s.dashlength;
-            renderer->ops->set_dashlength(renderer,
+            renderer_ops->set_dashlength(renderer,
                                           custom->dashlength*cur_dash);
         }
       
@@ -582,7 +583,7 @@ custom_draw(Custom *custom, Renderer *renderer)
                 transform_coord(custom, &el->line.p1, &p1);
                 transform_coord(custom, &el->line.p2, &p2);
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_line(renderer, &p1, &p2, &fg);
+                    renderer_ops->draw_line(renderer, &p1, &p2, &fg);
                 break;
             case GE_POLYLINE:
                 g_array_set_size(arr, el->polyline.npoints);
@@ -590,7 +591,7 @@ custom_draw(Custom *custom, Renderer *renderer)
                     transform_coord(custom, &el->polyline.points[i],
                                     &g_array_index(arr, Point, i));
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_polyline(renderer,
+                    renderer_ops->draw_polyline(renderer,
                                                  (Point *)arr->data, el->polyline.npoints,
                                                  &fg);
                 break;
@@ -600,11 +601,11 @@ custom_draw(Custom *custom, Renderer *renderer)
                     transform_coord(custom, &el->polygon.points[i],
                                     &g_array_index(arr, Point, i));
                 if (custom->show_background && el->any.s.fill != COLOUR_NONE) 
-                    renderer->ops->fill_polygon(renderer,
+                    renderer_ops->fill_polygon(renderer,
                                                 (Point *)arr->data, el->polygon.npoints,
                                                 &bg);
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_polygon(renderer,
+                    renderer_ops->draw_polygon(renderer,
                                                 (Point *)arr->data, el->polygon.npoints,
                                                 &fg);
                 break;
@@ -622,9 +623,9 @@ custom_draw(Custom *custom, Renderer *renderer)
                     p2.y = coord;
                 }
                 if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-                    renderer->ops->fill_rect(renderer, &p1, &p2, &bg);
+                    renderer_ops->fill_rect(renderer, &p1, &p2, &bg);
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_rect(renderer, &p1, &p2, &fg);
+                    renderer_ops->draw_rect(renderer, &p1, &p2, &fg);
                 break;
             case GE_TEXT:
                 custom_reposition_text(custom, &el->text);
@@ -634,12 +635,12 @@ custom_draw(Custom *custom, Renderer *renderer)
             case GE_ELLIPSE:
                 transform_coord(custom, &el->ellipse.center, &p1);
                 if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-                    renderer->ops->fill_ellipse(renderer, &p1,
+                    renderer_ops->fill_ellipse(renderer, &p1,
                                                 el->ellipse.width * fabs(custom->xscale),
                                                 el->ellipse.height * fabs(custom->yscale),
                                                 &bg);
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_ellipse(renderer, &p1,
+                    renderer_ops->draw_ellipse(renderer, &p1,
                                                 el->ellipse.width * fabs(custom->xscale),
                                                 el->ellipse.height * fabs(custom->yscale),
                                                 &fg);
@@ -659,7 +660,7 @@ custom_draw(Custom *custom, Renderer *renderer)
                                             &g_array_index(barr, BezPoint, i).p1);
                     }
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+                    renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &fg);
                 break;
             case GE_SHAPE:
@@ -677,10 +678,10 @@ custom_draw(Custom *custom, Renderer *renderer)
                                             &g_array_index(barr, BezPoint, i).p1);
                     }
                 if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-                    renderer->ops->fill_bezier(renderer, (BezPoint *)barr->data,
+                    renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &bg);
                 if (el->any.s.stroke != COLOUR_NONE)
-                    renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+                    renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
                                                el->path.npoints, &fg);
                 break;
         }
@@ -693,7 +694,7 @@ custom_draw(Custom *custom, Renderer *renderer)
             transform_rect(custom, &custom->info->text_bounds, &tb);
             p1.x = tb.left;  p1.y = tb.top;
             p2.x = tb.right; p2.y = tb.bottom;
-            renderer->ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
+            renderer_ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
             }*/
         text_draw(custom->text, renderer);
     }

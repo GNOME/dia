@@ -33,7 +33,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
@@ -63,8 +63,8 @@ static void annotation_move_handle(Annotation *annotation, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void annotation_move(Annotation *annotation, Point *to);
 static void annotation_select(Annotation *annotation, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void annotation_draw(Annotation *annotation, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void annotation_draw(Annotation *annotation, DiaRenderer *renderer);
 static Object *annotation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -203,7 +203,7 @@ annotation_distance_from(Annotation *annotation, Point *point)
 
 static void
 annotation_select(Annotation *annotation, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   text_set_cursor(annotation->text, clicked_point, interactive_renderer);
   text_grab_focus(annotation->text, &annotation->connection.object);
@@ -268,21 +268,22 @@ annotation_move(Annotation *annotation, Point *to)
 }
 
 static void
-annotation_draw(Annotation *annotation, Renderer *renderer)
+annotation_draw(Annotation *annotation, DiaRenderer *renderer)
 {
   Point *endpoints;
   Point vect,rvect,v1,v2;
   Point pts[4];
   real vlen;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
   assert(annotation != NULL);
   assert(renderer != NULL);
 
   endpoints = &annotation->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, ANNOTATION_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, ANNOTATION_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   vect = annotation->connection.endpoints[1];
   point_sub(&vect,&annotation->connection.endpoints[0]);
@@ -309,7 +310,7 @@ annotation_draw(Annotation *annotation, Renderer *renderer)
     point_add(&pts[1],&v1);
     point_sub(&pts[2],&v1);
     pts[3] = annotation->connection.endpoints[1];
-    renderer->ops->draw_polyline(renderer,
+    renderer_ops->draw_polyline(renderer,
 			     pts, sizeof(pts) / sizeof(pts[0]),
 			     &color_black);
   }

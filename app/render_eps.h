@@ -20,40 +20,18 @@
 
 #include <stdio.h>
 
-typedef struct _RendererEPS RendererEPS;
+typedef struct _DiaEpsRenderer DiaEpsRenderer;
 
 #include "geometry.h"
-#include "render.h"
 #include "display.h"
 #include "filter.h"
 #include "ps-utf8.h"
 
 
-struct _RendererEPS {
-  Renderer renderer;
-
-  FILE *file;
-  int is_ps;
-  int pagenum;
-
-  LineStyle saved_line_style;
-  real dash_length;
-  real dot_length;
-  Color lcolor;
-
-  real scale;
-
-#ifdef HAVE_FREETYPE
-  DiaFont *current_font;
-  real current_height;
-  PangoContext *context;
-#endif
-};
-
-RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
-RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
-void eps_renderer_prolog_done(RendererEPS *renderer);
-void destroy_eps_renderer(RendererEPS *renderer);
+DiaEpsRenderer *new_eps_renderer(Diagram *dia, char *filename);
+DiaEpsRenderer *new_psprint_renderer(Diagram *dia, FILE *file);
+void eps_renderer_prolog_done(DiaEpsRenderer *renderer);
+void destroy_eps_renderer(DiaEpsRenderer *renderer);
 
 extern DiaExportFilter eps_export_filter;
 

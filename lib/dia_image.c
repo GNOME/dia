@@ -20,7 +20,6 @@
 #include <string.h> /* memmove */
 
 #include "geometry.h"
-#include "render.h"
 #include "dia_image.h"
 #include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>

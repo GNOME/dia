@@ -27,7 +27,7 @@
 #include "object.h"
 #include "orth_conn.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -54,8 +54,8 @@ static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer);
 static Object *zigzagline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -166,7 +166,7 @@ zigzagline_distance_from(Zigzagline *zigzagline, Point *point)
 
 static void
 zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&zigzagline->orth);
 }
@@ -294,8 +294,9 @@ zigzagline_move(Zigzagline *zigzagline, Point *to)
 }
 
 static void
-zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
+zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &zigzagline->orth;
   Point *points;
   int n;
@@ -303,13 +304,13 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, zigzagline->line_width);
-  renderer->ops->set_linestyle(renderer, zigzagline->line_style);
-  renderer->ops->set_dashlength(renderer, zigzagline->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, zigzagline->line_width);
+  renderer_ops->set_linestyle(renderer, zigzagline->line_style);
+  renderer_ops->set_dashlength(renderer, zigzagline->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline_with_arrows(renderer,
+  renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   zigzagline->line_width,
 					   &zigzagline->line_color,

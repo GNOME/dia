@@ -26,7 +26,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "font.h"
 #include "text.h"
 #include "attributes.h"
@@ -53,11 +53,11 @@ static struct _TextobjProperties {
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
-			   Renderer *interactive_renderer);
+			   DiaRenderer *interactive_renderer);
 static void textobj_move_handle(Textobj *textobj, Handle *handle,
 				Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void textobj_move(Textobj *textobj, Point *to);
-static void textobj_draw(Textobj *textobj, Renderer *renderer);
+static void textobj_draw(Textobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(Textobj *textobj);
 static Object *textobj_create(Point *startpoint,
 			      void *user_data,
@@ -161,7 +161,7 @@ textobj_distance_from(Textobj *textobj, Point *point)
 
 static void
 textobj_select(Textobj *textobj, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(textobj->text, clicked_point, interactive_renderer);
   text_grab_focus(textobj->text, &textobj->object);
@@ -191,7 +191,7 @@ textobj_move(Textobj *textobj, Point *to)
 }
 
 static void
-textobj_draw(Textobj *textobj, Renderer *renderer)
+textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 {
   assert(textobj != NULL);
   assert(renderer != NULL);

@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -57,11 +57,11 @@ struct _Component {
 
 static real component_distance_from(Component *cmp, Point *point);
 static void component_select(Component *cmp, Point *clicked_point,
-				Renderer *interactive_renderer);
+				DiaRenderer *interactive_renderer);
 static void component_move_handle(Component *cmp, Handle *handle,
 				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void component_move(Component *cmp, Point *to);
-static void component_draw(Component *cmp, Renderer *renderer);
+static void component_draw(Component *cmp, DiaRenderer *renderer);
 static Object *component_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
@@ -166,7 +166,7 @@ component_distance_from(Component *cmp, Point *point)
 
 static void
 component_select(Component *cmp, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(cmp->text, clicked_point, interactive_renderer);
   text_grab_focus(cmp->text, &cmp->element.object);
@@ -193,8 +193,9 @@ component_move(Component *cmp, Point *to)
 }
 
 static void
-component_draw(Component *cmp, Renderer *renderer)
+component_draw(Component *cmp, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -209,39 +210,39 @@ component_draw(Component *cmp, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, COMPONENT_BORDERWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, COMPONENT_BORDERWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   p1.x = x + COMPONENT_CWIDTH/2; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
   p1.x= x; p1.y = y +(h - 3*COMPONENT_CHEIGHT)/2.0;
   p2.x = x+COMPONENT_CWIDTH; p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
   
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
   
   p1.y = p2.y + COMPONENT_CHEIGHT;
   p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
   
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 
@@ -249,8 +250,8 @@ component_draw(Component *cmp, Renderer *renderer)
       cmp->st_stereotype[0] != '\0') {
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
-    renderer->ops->set_font(renderer, cmp->text->font, cmp->text->height);
-    renderer->ops->draw_string(renderer, cmp->st_stereotype, &p1, 
+    renderer_ops->set_font(renderer, cmp->text->font, cmp->text->height);
+    renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1, 
 			       ALIGN_LEFT, &color_black);
   }
 

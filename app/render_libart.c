@@ -31,6 +31,9 @@
 #ifdef HAVE_FREETYPE
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
+#elif defined G_OS_WIN32
+#include <pango/pango.h>
+#include <pango/pangowin32.h>
 #endif
 
 #include <libart_lgpl/art_point.h>
@@ -296,7 +299,15 @@ static void
 begin_render(RendererLibart *renderer, DiagramData *data)
 {
 #ifdef HAVE_FREETYPE
+  /* pango_ft2_get_context API docs :
+   * ... Use of this function is discouraged, ...
+   */
   dia_font_init(pango_ft2_get_context(10, 10));
+# define FONT_SCALE (1.0)
+#elif defined G_OS_WIN32
+  dia_font_init(pango_win32_get_context());
+  /* we need to scale but can't as simple as with ft2 */
+# define FONT_SCALE (1.0 / 22.0)
 #endif
 }
 
@@ -444,7 +455,7 @@ set_fillstyle(RendererLibart *renderer, FillStyle mode)
 static void
 set_font(RendererLibart *renderer, DiaFont *font, real height)
 {
-  renderer->font_height = height;
+  renderer->font_height = height * FONT_SCALE;
   //    ddisplay_transform_length(renderer->ddisp, height);
 
   if (renderer->font)
@@ -1229,7 +1240,7 @@ draw_string (RendererLibart *renderer,
    ftbitmap.pixel_mode = ft_pixel_mode_grays;
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
-   printf("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
+   g_print("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
 #define DEPTH 4
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
@@ -1244,31 +1255,33 @@ draw_string (RendererLibart *renderer,
    }
    g_free(graybitmap);
  }
-#else
-  /* Gdk version -- but we shouldn't need Gdk, dammit! */
-  /* IMHO using Gdk for text rendering is appreciated,
-   * at least if we use it every where else too, as 
-   * is on win32 ...     --hb
-   */
-  {
-    static gboolean warned = FALSE;
-
-    if (!warned) {
-      g_warning ("No AA text rendering yet ..");
-      warned = TRUE;
-    }
-    g_object_unref(G_OBJECT(layout));
-    return;
-  }
-
+#elif defined G_OS_WIN32
+ /* duplicating from above, please let extending Pango be allowed, bug 94791 */
+ {
+   PangoBitmap graybitmap;
+   rowstride = 32*((width+31)/31);
+   
+   graybitmap.rows = height;
+   graybitmap.width = width;
+   graybitmap.pitch = rowstride;
+   graybitmap.buffer = (guint8*)g_new0(guint8, height*rowstride);
+   graybitmap.num_grays = 256;
+   printf("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
+   pango_win32_render_layout_to_bitmap(&graybitmap, layout, 0, 0);
 #define DEPTH 4
-  bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
-  memset (bitmap, 0xAA, height*rowstride*DEPTH);
-  /*
-  GdkPixmap *pixmap = gdk_pixmap_new (NULL, rowstride, height, 32);
-  gdk_draw_layout (pixmap, gc, 0, 0, layout);
-   */
+   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
+   for (i = 0; i < height; i++) {
+     for (j = 0; j < width; j++) {
+       bitmap[DEPTH*(i*rowstride+j)] = color->red;
+       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
+       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
+       bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap.buffer[i*rowstride+j];
+     }
+   }
+   g_free(graybitmap.buffer);
+ }
 #endif
+
   /* abuse_layout_object(layout,text); */
   
   g_object_unref(G_OBJECT(layout));
@@ -1713,27 +1726,10 @@ fill_pixel_rect(RendererLibart *renderer,
 
 #else
 
-RendererLibart *
+DiaRenderer *
 new_libart_renderer(DDisplay *ddisp, int interactive)
 {
   return NULL;
-}
-
-void
-destroy_libart_renderer(RendererLibart *renderer)
-{
-}
-
-void
-libart_renderer_set_size(RendererLibart *renderer, GdkWindow *window,
-			 int width, int height)
-{
-}
-
-extern void
-renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
-			       int x, int y, int width, int height)
-{
 }
 
 #endif

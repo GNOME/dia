@@ -32,7 +32,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -78,11 +78,11 @@ struct _FunctionChange {
 
 static real function_distance_from(Function *pkg, Point *point);
 static void function_select(Function *pkg, Point *clicked_point,
-			    Renderer *interactive_renderer);
+			    DiaRenderer *interactive_renderer);
 static void function_move_handle(Function *pkg, Handle *handle,
 				 Point *to, HandleMoveReason reason);
 static void function_move(Function *pkg, Point *to);
-static void function_draw(Function *pkg, Renderer *renderer);
+static void function_draw(Function *pkg, DiaRenderer *renderer);
 static Object *function_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
@@ -248,7 +248,7 @@ function_distance_from(Function *pkg, Point *point)
 
 static void
 function_select(Function *pkg, Point *clicked_point,
-		Renderer *interactive_renderer)
+		DiaRenderer *interactive_renderer)
 {
   text_set_cursor(pkg->text, clicked_point, interactive_renderer);
   text_grab_focus(pkg->text, &pkg->element.object);
@@ -274,8 +274,9 @@ function_move(Function *pkg, Point *to)
 }
 
 static void
-function_draw(Function *pkg, Renderer *renderer)
+function_draw(Function *pkg, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -294,21 +295,21 @@ function_draw(Function *pkg, Renderer *renderer)
 
   font_height = pkg->text->height ;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, font_height / FUNCTION_BORDERWIDTH_SCALE );
-  renderer->ops->set_linestyle(renderer, pkg->is_wish ? LINESTYLE_DASHED : LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, font_height / FUNCTION_BORDERWIDTH_SCALE );
+  renderer_ops->set_linestyle(renderer, pkg->is_wish ? LINESTYLE_DASHED : LINESTYLE_SOLID);
   if ( pkg->is_wish )
-    renderer->ops->set_dashlength( renderer, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
+    renderer_ops->set_dashlength( renderer, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
 
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
   if (pkg->is_user) {
-    renderer->ops->fill_rect(renderer, 
+    renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
 			     &color_white); 
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
 			     &color_black);
     p1.x += font_height / FUNCTION_MARGIN_SCALE;
@@ -318,10 +319,10 @@ function_draw(Function *pkg, Renderer *renderer)
     /* y += FUNCTION_MARGIN_M; */
   }
     
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
 			   &color_black);
 

@@ -26,9 +26,8 @@ typedef struct _DDisplay DDisplay;
 #include "geometry.h"
 #include "diagram.h"
 #include "grid.h"
-#include "render_gdk.h"
-#include "render_libart.h"
 #include "menus.h"
+#include "diarenderer.h"
 
 #define DDISPLAY_MAX_ZOOM 500.0
 #define DDISPLAY_NORMAL_ZOOM 20.0
@@ -74,7 +73,7 @@ struct _DDisplay {
   gboolean autoscroll;
 
   int aa_renderer;
-  Renderer *renderer;
+  DiaRenderer *renderer;
   
   GSList *update_areas;           /* Update areas list                 */
   GSList *display_areas;          /* Display areas list                */

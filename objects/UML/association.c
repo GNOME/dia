@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 #include "uml.h"
@@ -125,11 +125,11 @@ static DiaFont *assoc_font = NULL;
 
 static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,
-			       Renderer *interactive_renderer);
+			       DiaRenderer *interactive_renderer);
 static void association_move_handle(Association *assoc, Handle *handle,
 				    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void association_move(Association *assoc, Point *to);
-static void association_draw(Association *assoc, Renderer *renderer);
+static void association_draw(Association *assoc, DiaRenderer *renderer);
 static Object *association_create(Point *startpoint,
 				  void *user_data,
 				  Handle **handle1,
@@ -191,7 +191,7 @@ association_distance_from(Association *assoc, Point *point)
 
 static void
 association_select(Association *assoc, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&assoc->orth);
 }
@@ -216,8 +216,9 @@ association_move(Association *assoc, Point *to)
 }
 
 static void
-association_draw(Association *assoc, Renderer *renderer)
+association_draw(Association *assoc, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &assoc->orth;
   Point *points;
   Point poly[3];
@@ -228,10 +229,10 @@ association_draw(Association *assoc, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, ASSOCIATION_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, ASSOCIATION_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   if (assoc->end[0].arrow) {
     startarrow.type = ARROW_LINES;
@@ -247,7 +248,7 @@ association_draw(Association *assoc, Renderer *renderer)
   startarrow.width = ASSOCIATION_TRIANGLESIZE;
   endarrow.length = ASSOCIATION_TRIANGLESIZE;
   endarrow.width = ASSOCIATION_TRIANGLESIZE;
-  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   ASSOCIATION_WIDTH,
 					   &color_black,
 					   &startarrow, &endarrow);
@@ -294,17 +295,17 @@ association_draw(Association *assoc, Renderer *renderer)
   }
 
   /* Name: */
-  renderer->ops->set_font(renderer, assoc_font, ASSOCIATION_FONTHEIGHT);
+  renderer_ops->set_font(renderer, assoc_font, ASSOCIATION_FONTHEIGHT);
  
   if (assoc->name != NULL) {
     pos = assoc->text_pos;
-    renderer->ops->draw_string(renderer, assoc->name,
+    renderer_ops->draw_string(renderer, assoc->name,
 			       &pos, assoc->text_align,
 			       &color_black);
   }
 
   /* Direction: */
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
   switch (assoc->direction) {
   case ASSOC_NODIR:
@@ -318,7 +319,7 @@ association_draw(Association *assoc, Renderer *renderer)
     poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer->ops->fill_polygon(renderer, poly, 3, &color_black);
+    renderer_ops->fill_polygon(renderer, poly, 3, &color_black);
     break;
   case ASSOC_LEFT:
     poly[0].x = assoc->text_pos.x - 0.2;
@@ -329,7 +330,7 @@ association_draw(Association *assoc, Renderer *renderer)
     poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer->ops->fill_polygon(renderer, poly, 3, &color_black);
+    renderer_ops->fill_polygon(renderer, poly, 3, &color_black);
     break;
   }
 
@@ -339,13 +340,13 @@ association_draw(Association *assoc, Renderer *renderer)
     pos = end->text_pos;
 
     if (end->role != NULL) {
-      renderer->ops->draw_string(renderer, end->role,
+      renderer_ops->draw_string(renderer, end->role,
 				 &pos, end->text_align,
 				 &color_black);
       pos.y += ASSOCIATION_FONTHEIGHT;
     }
     if (end->multiplicity != NULL) {
-      renderer->ops->draw_string(renderer, end->multiplicity,
+      renderer_ops->draw_string(renderer, end->multiplicity,
 				 &pos, end->text_align,
 				 &color_black);
     }

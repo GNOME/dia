@@ -33,7 +33,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -69,13 +69,13 @@ static real analog_clock_distance_from(Analog_Clock *analog_clock,
 
 static void analog_clock_select(Analog_Clock *analog_clock,
                                 Point *clicked_point,
-                                Renderer *interactive_renderer);
+                                DiaRenderer *interactive_renderer);
 static void analog_clock_move_handle(Analog_Clock *analog_clock,
                                      Handle *handle,
                                      Point *to, HandleMoveReason reason, 
                                      ModifierKeys modifiers);
 static void analog_clock_move(Analog_Clock *analog_clock, Point *to);
-static void analog_clock_draw(Analog_Clock *analog_clock, Renderer *renderer);
+static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
 static void analog_clock_update_data(Analog_Clock *analog_clock);
 static Object *analog_clock_create(Point *startpoint,
                                    void *user_data,
@@ -199,7 +199,7 @@ analog_clock_distance_from(Analog_Clock *analog_clock, Point *point)
 
 static void
 analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   element_update_handles(&analog_clock->element);
 }
@@ -299,8 +299,9 @@ analog_clock_update_data(Analog_Clock *analog_clock)
 }  
 
 static void
-analog_clock_draw(Analog_Clock *analog_clock, Renderer *renderer)
+analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   
   g_assert(analog_clock != NULL);
@@ -308,15 +309,15 @@ analog_clock_draw(Analog_Clock *analog_clock, Renderer *renderer)
 
   elem = &analog_clock->element;
 
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, analog_clock->border_line_width);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, analog_clock->border_line_width);
 
   if (analog_clock->show_background)
-    renderer->ops->fill_ellipse(renderer,&analog_clock->centre,
+    renderer_ops->fill_ellipse(renderer,&analog_clock->centre,
                                 2*analog_clock->radius,2*analog_clock->radius,
                                 &analog_clock->inner_color);
-  renderer->ops->draw_ellipse(renderer,&analog_clock->centre,
+  renderer_ops->draw_ellipse(renderer,&analog_clock->centre,
                               2*analog_clock->radius,2*analog_clock->radius,
                               &analog_clock->border_color);
   if (analog_clock->show_ticks)
@@ -338,25 +339,25 @@ analog_clock_draw(Analog_Clock *analog_clock, Renderer *renderer)
                  analog_clock->radius, &out);
       make_hours(&analog_clock->centre, i,
                  analog_clock->radius-ticklen, &in);
-      renderer->ops->draw_line(renderer,&out,&in,&analog_clock->border_color);
+      renderer_ops->draw_line(renderer,&out,&in,&analog_clock->border_color);
     }
   }
 
   analog_clock_update_arrow_tips(analog_clock);
   
-  renderer->ops->set_linewidth(renderer, analog_clock->arrow_line_width);
-  renderer->ops->draw_line(renderer,
+  renderer_ops->set_linewidth(renderer, analog_clock->arrow_line_width);
+  renderer_ops->draw_line(renderer,
                            &analog_clock->hour_tip.pos, &analog_clock->centre,
                            &analog_clock->arrow_color);
-  renderer->ops->draw_line(renderer,
+  renderer_ops->draw_line(renderer,
                            &analog_clock->min_tip.pos, &analog_clock->centre,
                            &analog_clock->arrow_color);
   
-  renderer->ops->set_linewidth(renderer, analog_clock->sec_arrow_line_width);
-  renderer->ops->draw_line(renderer,
+  renderer_ops->set_linewidth(renderer, analog_clock->sec_arrow_line_width);
+  renderer_ops->draw_line(renderer,
                            &analog_clock->sec_tip.pos, &analog_clock->centre,
                            &analog_clock->sec_arrow_color);
-  renderer->ops->fill_ellipse(renderer,&analog_clock->centre,
+  renderer_ops->fill_ellipse(renderer,&analog_clock->centre,
                               analog_clock->arrow_line_width*2.25,
                               analog_clock->arrow_line_width*2.25,
                               &analog_clock->sec_arrow_color);

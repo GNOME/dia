@@ -27,7 +27,6 @@ typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
 
 #include "geometry.h"
-#include "render.h"
 #include "connectionpoint.h"
 #include "handle.h"
 #include "objchange.h"
@@ -115,7 +114,7 @@ typedef void (*DestroyFunc) (Object* obj);
   Every drawing must be done through the use of the Renderer, so that we
   can render the picture on screen, in an eps file, ...
 */
-typedef void (*DrawFunc) (Object* obj, Renderer* ddisp);
+typedef void (*DrawFunc) (Object* obj, DiaRenderer* ddisp);
 
 
 /*
@@ -139,7 +138,7 @@ typedef real (*DistanceFunc) (Object* obj, Point* point);
 */
 typedef void (*SelectFunc) (Object*   obj,
 			    Point*    clicked_point,
-			    Renderer* interactive_renderer);
+			    DiaRenderer* interactive_renderer);
 
 /*
   Returns a copy of Object.

@@ -29,7 +29,7 @@
 #include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 #include "properties.h"
@@ -52,11 +52,11 @@ struct _Participation {
 
 static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
-			      Renderer *interactive_renderer);
+			      DiaRenderer *interactive_renderer);
 static void participation_move_handle(Participation *dep, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void participation_move(Participation *dep, Point *to);
-static void participation_draw(Participation *dep, Renderer *renderer);
+static void participation_draw(Participation *dep, DiaRenderer *renderer);
 static Object *participation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -155,7 +155,7 @@ participation_distance_from(Participation *participation, Point *point)
 
 static void
 participation_select(Participation *participation, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   orthconn_update_data(&participation->orth);
 }
@@ -180,8 +180,9 @@ participation_move(Participation *participation, Point *to)
 }
 
 static void
-participation_draw(Participation *participation, Renderer *renderer)
+participation_draw(Participation *participation, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &participation->orth;
   Point *points;
   Point *left_points;
@@ -195,10 +196,10 @@ participation_draw(Participation *participation, Renderer *renderer)
   last_left = 0.0;
   last_right = 0.0;
   
-  renderer->ops->set_linewidth(renderer, PARTICIPATION_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, PARTICIPATION_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (participation->total) {
     left_points = g_new0(Point, n);
@@ -250,12 +251,12 @@ participation_draw(Participation *participation, Renderer *renderer)
       right_points[i].y = points[i].y;
     }
     
-    renderer->ops->draw_polyline(renderer, left_points, n, &color_black);
-    renderer->ops->draw_polyline(renderer, right_points, n, &color_black);
+    renderer_ops->draw_polyline(renderer, left_points, n, &color_black);
+    renderer_ops->draw_polyline(renderer, right_points, n, &color_black);
     g_free(left_points);
     g_free(right_points);
   }  else {
-    renderer->ops->draw_polyline(renderer, points, n, &color_black);
+    renderer_ops->draw_polyline(renderer, points, n, &color_black);
   }
 }
 

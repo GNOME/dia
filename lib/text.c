@@ -28,6 +28,7 @@
 #include "propinternals.h"
 #include "text.h"
 #include "message.h"
+#include "diarenderer.h"
 
 static int text_key_event(Focus *focus, guint keysym,
 			  const gchar *str, int strlen,
@@ -411,17 +412,17 @@ text_distance_from(Text *text, Point *point)
 }
 
 void
-text_draw(Text *text, Renderer *renderer)
+text_draw(Text *text, DiaRenderer *renderer)
 {
   Point pos;
   int i;
   
-  renderer->ops->set_font(renderer, text->font, text->height);
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
   
   pos = text->position;
   
   for (i=0;i<text->numlines;i++) {
-    renderer->ops->draw_string(renderer,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
 			       text->line[i],
 			       &pos, text->alignment,
 			       &text->color);
@@ -437,11 +438,11 @@ text_draw(Text *text, Renderer *renderer)
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height; 
 
     str_width_first =
-      renderer->interactive_ops->get_text_width(renderer,
+      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
 						text->line[text->cursor_row],
 						text->cursor_pos);
     str_width_whole =
-      renderer->interactive_ops->get_text_width(renderer,
+      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
 						text->line[text->cursor_row],
 						text->strlen[text->cursor_row]);
     curs_x = text->position.x + str_width_first;
@@ -462,9 +463,9 @@ text_draw(Text *text, Renderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + text->height;
     
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-    renderer->ops->set_linewidth(renderer, 0.1);
-    renderer->ops->draw_line(renderer, &p1, &p2, &color_black);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.1);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p1, &p2, &color_black);
   }
 }
 
@@ -484,7 +485,7 @@ text_set_cursor_at_end( Text* text )
 
 void
 text_set_cursor(Text *text, Point *clicked_point,
-		Renderer *renderer)
+		DiaRenderer *renderer)
 {
   real str_width_whole;
   real str_width_first;
@@ -512,9 +513,9 @@ text_set_cursor(Text *text, Point *clicked_point,
     return;
   }
 
-  renderer->ops->set_font(renderer, text->font, text->height);
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
   str_width_whole =
-    renderer->interactive_ops->get_text_width(renderer,
+    DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
 					      text->line[row],
 					      text->strlen[row]);
   start_x = text->position.x;
@@ -534,7 +535,7 @@ text_set_cursor(Text *text, Point *clicked_point,
   
   for (i=0;i<=text->strlen[row];i++) {
     str_width_first =
-      renderer->interactive_ops->get_text_width(renderer, text->line[row], i);
+      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text->line[row], i);
     if (clicked_point->x - start_x >= str_width_first) {
       text->cursor_pos = i;
     } else {

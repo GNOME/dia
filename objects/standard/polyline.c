@@ -27,7 +27,7 @@
 #include "object.h"
 #include "poly_conn.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "diamenu.h"
@@ -55,8 +55,8 @@ static void polyline_move_handle(Polyline *polyline, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void polyline_move(Polyline *polyline, Point *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void polyline_draw(Polyline *polyline, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void polyline_draw(Polyline *polyline, DiaRenderer *renderer);
 static Object *polyline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -175,7 +175,7 @@ static int polyline_closest_segment(Polyline *polyline, Point *point) {
 
 static void
 polyline_select(Polyline *polyline, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   polyconn_update_data(&polyline->poly);
 }
@@ -201,8 +201,9 @@ polyline_move(Polyline *polyline, Point *to)
 }
 
 static void
-polyline_draw(Polyline *polyline, Renderer *renderer)
+polyline_draw(Polyline *polyline, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyConn *poly = &polyline->poly;
   Point *points;
   int n;
@@ -210,13 +211,13 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
 
-  renderer->ops->set_linewidth(renderer, polyline->line_width);
-  renderer->ops->set_linestyle(renderer, polyline->line_style);
-  renderer->ops->set_dashlength(renderer, polyline->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, polyline->line_width);
+  renderer_ops->set_linestyle(renderer, polyline->line_style);
+  renderer_ops->set_dashlength(renderer, polyline->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline_with_arrows(renderer,
+  renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   polyline->line_width,
 					   &polyline->line_color,

@@ -61,6 +61,8 @@
 #include "diagramdata.h"
 #include "font.h"
 
+#ifdef EPS_RENDERER_USING_DIA_RENDERER
+
 /* Using FT2 with Pango is currently broken on win32 
  * as a result the whole eps renderer vanishes
  */
@@ -84,64 +86,64 @@ http://www.founder.com.cn/fontweb/chanpinzl/CP_chaoda.htm
 http://www.founder.com.cn/fontweb/chanpinzl/FA_chaoda.htm
  */
 
-static void begin_render(RendererEPS *renderer);
-static void end_render(RendererEPS *renderer);
-static void set_linewidth(RendererEPS *renderer, real linewidth);
-static void set_linecaps(RendererEPS *renderer, LineCaps mode);
-static void set_linejoin(RendererEPS *renderer, LineJoin mode);
-static void set_linestyle(RendererEPS *renderer, LineStyle mode);
-static void set_dashlength(RendererEPS *renderer, real length);
-static void set_fillstyle(RendererEPS *renderer, FillStyle mode);
-static void set_font(RendererEPS *renderer, DiaFont *font, real height);
-static void draw_line(RendererEPS *renderer, 
+static void begin_render(DiaRenderer *renderer);
+static void end_render(DiaRenderer *renderer);
+static void set_linewidth(DiaRenderer *renderer, real linewidth);
+static void set_linecaps(DiaRenderer *renderer, LineCaps mode);
+static void set_linejoin(DiaRenderer *renderer, LineJoin mode);
+static void set_linestyle(DiaRenderer *renderer, LineStyle mode);
+static void set_dashlength(DiaRenderer *renderer, real length);
+static void set_fillstyle(DiaRenderer *renderer, FillStyle mode);
+static void set_font(DiaRenderer *renderer, DiaFont *font, real height);
+static void draw_line(DiaRenderer *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
-static void draw_polyline(RendererEPS *renderer, 
+static void draw_polyline(DiaRenderer *renderer, 
 			  Point *points, int num_points, 
 			  Color *line_color);
-static void draw_polygon(RendererEPS *renderer, 
+static void draw_polygon(DiaRenderer *renderer, 
 			 Point *points, int num_points, 
 			 Color *line_color);
-static void fill_polygon(RendererEPS *renderer, 
+static void fill_polygon(DiaRenderer *renderer, 
 			 Point *points, int num_points, 
 			 Color *line_color);
-static void draw_rect(RendererEPS *renderer, 
+static void draw_rect(DiaRenderer *renderer, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
-static void fill_rect(RendererEPS *renderer, 
+static void fill_rect(DiaRenderer *renderer, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
-static void draw_arc(RendererEPS *renderer, 
+static void draw_arc(DiaRenderer *renderer, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void fill_arc(RendererEPS *renderer, 
+static void fill_arc(DiaRenderer *renderer, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void draw_ellipse(RendererEPS *renderer, 
+static void draw_ellipse(DiaRenderer *renderer, 
 			 Point *center,
 			 real width, real height,
 			 Color *color);
-static void fill_ellipse(RendererEPS *renderer, 
+static void fill_ellipse(DiaRenderer *renderer, 
 			 Point *center,
 			 real width, real height,
 			 Color *color);
-static void draw_bezier(RendererEPS *renderer, 
+static void draw_bezier(DiaRenderer *renderer, 
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void fill_bezier(RendererEPS *renderer, 
+static void fill_bezier(DiaRenderer *renderer, 
 			BezPoint *points, /* Last point must be same as first point */
 			int numpoints,
 			Color *color);
-static void draw_string(RendererEPS *renderer,
+static void draw_string(DiaRenderer *renderer,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *color);
-static void draw_image(RendererEPS *renderer,
+static void draw_image(DiaRenderer *renderer,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
@@ -149,11 +151,11 @@ static void draw_image(RendererEPS *renderer,
 /* These functions are used to create the prolog.  Currently takes care
  * of defining necessary fonts.
  */
-static void begin_prolog(RendererEPS *renderer);
-static void end_prolog(RendererEPS *renderer);
-static void prolog_define_font(RendererEPS *renderer,
+static void begin_prolog(DiaRenderer *renderer);
+static void end_prolog(DiaRenderer *renderer);
+static void prolog_define_font(DiaRenderer *renderer,
 			       DiaFont *font, real height);
-static void prolog_check_string(RendererEPS *renderer,
+static void prolog_check_string(DiaRenderer *renderer,
 				const char *text,
 				Point *pos, Alignment alignment,
 				Color *color);
@@ -175,13 +177,13 @@ struct _OutlineInfo {
 };
 
 void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y);
-void postscript_draw_contour(RendererEPS *renderer,
+void postscript_draw_contour(DiaRenderer *renderer,
 			     int dpi_x,
 			     PangoLayoutLine *pango_line,
 			     double x_pos,
 			     double y_pos
 			     );
-void draw_bezier_outline(RendererEPS *renderer,
+void draw_bezier_outline(DiaRenderer *renderer,
 			 int dpi_x,
 			 FT_Face face,
 			 FT_UInt glyph_index,
@@ -298,7 +300,7 @@ static void print_define_font(gpointer key, gpointer value,
 static GHashTable *font_table;
 
 void
-begin_prolog(RendererEPS *renderer)
+begin_prolog(DiaRenderer *renderer)
 {
   font_table = g_hash_table_new(g_str_hash, g_str_equal);
   fprintf(renderer->file, "%%%%BeginProlog\n");
@@ -399,11 +401,11 @@ begin_prolog(RendererEPS *renderer)
 }
 
 static void
-end_prolog(RendererEPS *renderer)
+end_prolog(DiaRenderer *renderer)
 {}
 
 static void
-prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
+prolog_define_font(DiaRenderer *renderer, DiaFont *font, real height)
 {
         /* FIXME: check the lifetime of the return value of
          dia_font_get_psfontname(). If needed, copy it (and
@@ -412,7 +414,7 @@ prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
 }
 
 static void
-prolog_check_string(RendererEPS *renderer,
+prolog_check_string(DiaRenderer *renderer,
                     const char *text,
                     Point *pos, Alignment alignment,
                     Color *color)
@@ -437,9 +439,9 @@ prolog_check_string(RendererEPS *renderer,
     
 }
 
-/* This function switches the RendererEPS into render mode */
+/* This function switches the DiaRenderer into render mode */
 void
-eps_renderer_prolog_done(RendererEPS *renderer) {
+eps_renderer_prolog_done(DiaRenderer *renderer) {
   g_hash_table_foreach(font_table, print_define_font, renderer->file);
 
   fprintf(renderer->file, 
@@ -450,7 +452,7 @@ eps_renderer_prolog_done(RendererEPS *renderer) {
 }
 
 static void
-eps_renderer_set_scale(DiagramData *data, RendererEPS *renderer)
+eps_renderer_set_scale(DiagramData *data, DiaRenderer *renderer)
 {
   double scale;
   Rectangle *extent;
@@ -469,17 +471,17 @@ eps_renderer_set_scale(DiagramData *data, RendererEPS *renderer)
 
   /*** PROLOG STUFF ENDS HERE ***/
 
-static RendererEPS *
+static DiaRenderer *
 create_common_renderer(DiagramData *data, FILE *file)
 {
-  RendererEPS *renderer;
+  DiaRenderer *renderer;
   double scale;
   PangoFontDescription *font_description;
 
   if (EpsPrologOps == NULL)
     init_eps_renderer();
 
-  renderer = g_new(RendererEPS, 1);
+  renderer = g_new(DiaRenderer, 1);
   renderer->renderer.ops = EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
@@ -516,11 +518,11 @@ create_common_renderer(DiagramData *data, FILE *file)
   return renderer;
 }
 
-static RendererEPS *
+static DiaRenderer *
 create_eps_renderer(DiagramData *data, const char *filename,
 		    const char *diafilename)
 {
-  RendererEPS *renderer;
+  DiaRenderer *renderer;
   FILE *file;
   Rectangle *extent;
   char *name;
@@ -565,23 +567,23 @@ create_eps_renderer(DiagramData *data, const char *filename,
   return renderer;
 }
 
-RendererEPS *
+DiaRenderer *
 new_eps_renderer(Diagram *dia, gchar *filename)
 {
   return create_eps_renderer(dia->data, filename, dia->filename);
 }
 
 void
-destroy_eps_renderer(RendererEPS *renderer)
+destroy_eps_renderer(DiaRenderer *renderer)
 {
   g_free(renderer);
 }
 
 
-RendererEPS *
+DiaRenderer *
 new_psprint_renderer(Diagram *dia, FILE *file)
 {
-  RendererEPS *renderer;
+  DiaRenderer *renderer;
   gchar *name;
   time_t time_now;
 
@@ -614,12 +616,12 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 }
 
 static void
-begin_render(RendererEPS *renderer)
+begin_render(DiaRenderer *renderer)
 {
 }
 
 static void
-end_render(RendererEPS *renderer)
+end_render(DiaRenderer *renderer)
 {
   if (!renderer->is_ps) {
     fprintf(renderer->file, "showpage\n");
@@ -628,7 +630,7 @@ end_render(RendererEPS *renderer)
 }
 
 static void
-lazy_setcolor(RendererEPS *renderer,
+lazy_setcolor(DiaRenderer *renderer,
               Color *color)
 {
   if (!color_equals(color, &(renderer->lcolor))) {
@@ -642,14 +644,14 @@ lazy_setcolor(RendererEPS *renderer,
 
 
 static void
-set_linewidth(RendererEPS *renderer, real linewidth)
+set_linewidth(DiaRenderer *renderer, real linewidth)
 {  /* 0 == hairline **/
   if (linewidth == 0.0) linewidth=.1; /* Adobe's advice */
   fprintf(renderer->file, "%f slw\n", (double) linewidth);
 }
 
 static void
-set_linecaps(RendererEPS *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *renderer, LineCaps mode)
 {
   int ps_mode;
   
@@ -671,7 +673,7 @@ set_linecaps(RendererEPS *renderer, LineCaps mode)
 }
 
 static void
-set_linejoin(RendererEPS *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *renderer, LineJoin mode)
 {
   int ps_mode;
   
@@ -693,7 +695,7 @@ set_linejoin(RendererEPS *renderer, LineJoin mode)
 }
 
 static void
-set_linestyle(RendererEPS *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *renderer, LineStyle mode)
 {
   real hole_width;
 
@@ -731,7 +733,7 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
 }
 
 static void
-set_dashlength(RendererEPS *renderer, real length)
+set_dashlength(DiaRenderer *renderer, real length)
 {  /* dot = 20% of len */
   if (length<0.001)
     length = 0.001;
@@ -743,7 +745,7 @@ set_dashlength(RendererEPS *renderer, real length)
 }
 
 static void
-set_fillstyle(RendererEPS *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *renderer, FillStyle mode)
 {
   switch(mode) {
   case FILLSTYLE_SOLID:
@@ -754,7 +756,7 @@ set_fillstyle(RendererEPS *renderer, FillStyle mode)
 }
 
 static void
-draw_line(RendererEPS *renderer, 
+draw_line(DiaRenderer *renderer, 
 	  Point *start, Point *end, 
 	  Color *line_color)
 {
@@ -765,7 +767,7 @@ draw_line(RendererEPS *renderer,
 }
 
 static void
-draw_polyline(RendererEPS *renderer, 
+draw_polyline(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
 	      Color *line_color)
 {
@@ -785,7 +787,7 @@ draw_polyline(RendererEPS *renderer,
 }
 
 static void
-draw_polygon(RendererEPS *renderer, 
+draw_polygon(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
 	      Color *line_color)
 {
@@ -805,7 +807,7 @@ draw_polygon(RendererEPS *renderer,
 }
 
 static void
-fill_polygon(RendererEPS *renderer, 
+fill_polygon(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
 	      Color *fill_color)
 {
@@ -825,7 +827,7 @@ fill_polygon(RendererEPS *renderer,
 }
 
 static void
-draw_rect(RendererEPS *renderer, 
+draw_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
@@ -839,7 +841,7 @@ draw_rect(RendererEPS *renderer,
 }
 
 static void
-fill_rect(RendererEPS *renderer, 
+fill_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
@@ -853,7 +855,7 @@ fill_rect(RendererEPS *renderer,
 }
 
 static void
-draw_arc(RendererEPS *renderer, 
+draw_arc(DiaRenderer *renderer, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -868,7 +870,7 @@ draw_arc(RendererEPS *renderer,
 }
 
 static void
-fill_arc(RendererEPS *renderer, 
+fill_arc(DiaRenderer *renderer, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -884,7 +886,7 @@ fill_arc(RendererEPS *renderer,
 }
 
 static void
-draw_ellipse(RendererEPS *renderer, 
+draw_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
 	     Color *color)
@@ -897,7 +899,7 @@ draw_ellipse(RendererEPS *renderer,
 }
 
 static void
-fill_ellipse(RendererEPS *renderer, 
+fill_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
 	     Color *color)
@@ -910,7 +912,7 @@ fill_ellipse(RendererEPS *renderer,
 }
 
 static void
-draw_bezier(RendererEPS *renderer, 
+draw_bezier(DiaRenderer *renderer, 
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
@@ -946,7 +948,7 @@ draw_bezier(RendererEPS *renderer,
 }
 
 static void
-fill_bezier(RendererEPS *renderer, 
+fill_bezier(DiaRenderer *renderer, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints,
 	    Color *color)
@@ -1072,7 +1074,7 @@ void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y)
 /* postscript_draw_contour() dumps out the information of a line. It shows how
    to access the ft font information out of the pango font info.
  */
-void postscript_draw_contour(RendererEPS *renderer,
+void postscript_draw_contour(DiaRenderer *renderer,
 			     int dpi_x,
 			     PangoLayoutLine *pango_line,
 			     double line_start_pos_x,
@@ -1163,7 +1165,7 @@ void postscript_draw_contour(RendererEPS *renderer,
   
 }
 
-void draw_bezier_outline(RendererEPS *renderer,
+void draw_bezier_outline(DiaRenderer *renderer,
 			 int dpi_x,
 			 FT_Face face,
 			 FT_UInt glyph_index,
@@ -1211,7 +1213,7 @@ void draw_bezier_outline(RendererEPS *renderer,
 
 
 static void
-set_font(RendererEPS *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *renderer, DiaFont *font, real height)
 {
   renderer->current_font = font;
   /* Where did this 1.8 come from? */
@@ -1225,7 +1227,7 @@ set_font(RendererEPS *renderer, DiaFont *font, real height)
 }
 
 static void
-draw_string(RendererEPS *renderer,
+draw_string(DiaRenderer *renderer,
 	    const gchar *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
@@ -1306,13 +1308,13 @@ draw_string(RendererEPS *renderer,
 }
 #else
 static void
-set_font(RendererEPS *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *renderer, DiaFont *font, real height)
 {
   message_error("Can't get Postscript names for Pango fonts.  Sorry, no text in PS files\n");
 }
 
 static void
-draw_string(RendererEPS *renderer,
+draw_string(DiaRenderer *renderer,
 	    const gchar *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
@@ -1491,7 +1493,7 @@ extract_channel(guchar *src, int srclen, enum color_channel chan, int *len)
 #endif
 
 static void
-draw_image(RendererEPS *renderer,
+draw_image(DiaRenderer *renderer,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
@@ -1695,7 +1697,7 @@ static void
 export_eps(DiagramData *data, const gchar *filename, 
            const gchar *diafilename, void* user_data)
 {
-  RendererEPS *renderer;
+  DiaRenderer *renderer;
   char *old_locale;
 
   old_locale = setlocale(LC_NUMERIC, "C");
@@ -1708,6 +1710,14 @@ export_eps(DiagramData *data, const gchar *filename,
   }
   setlocale(LC_NUMERIC, old_locale);
 }
+#else
+static void
+export_eps(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
+{
+  message_error ("EPS renderer not yet ported");
+}
+#endif
 
 static const gchar *extensions[] = { "eps", "epsi", NULL };
 DiaExportFilter eps_export_filter = {

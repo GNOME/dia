@@ -18,10 +18,11 @@
 #ifndef ATTRIBUTES_H
 #define ATTRIBUTES_H
 
+#include "dia-enums.h"
 #include "geometry.h"
 #include "color.h"
 #include "arrows.h"
-#include "render.h"
+#include "font.h"
 
 Color attributes_get_foreground(void);
 Color attributes_get_background(void);

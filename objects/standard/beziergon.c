@@ -30,7 +30,7 @@
 #include "object.h"
 #include "beziershape.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "diamenu.h"
@@ -63,8 +63,8 @@ static void beziergon_move_handle(Beziergon *beziergon, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void beziergon_move(Beziergon *beziergon, Point *to);
 static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
-			     Renderer *interactive_renderer);
-static void beziergon_draw(Beziergon *beziergon, Renderer *renderer);
+			     DiaRenderer *interactive_renderer);
+static void beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer);
 static Object *beziergon_create(Point *startpoint,
 				void *user_data,
 				Handle **handle1,
@@ -199,7 +199,7 @@ beziergon_closest_segment(Beziergon *beziergon, Point *point)
 
 static void
 beziergon_select(Beziergon *beziergon, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   beziershape_update_data(&beziergon->bezier);
 }
@@ -225,8 +225,10 @@ beziergon_move(Beziergon *beziergon, Point *to)
 }
 
 static void
-beziergon_draw(Beziergon *beziergon, Renderer *renderer)
+beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+
   BezierShape *bezier = &beziergon->bezier;
   BezPoint *points;
   int n;
@@ -234,16 +236,16 @@ beziergon_draw(Beziergon *beziergon, Renderer *renderer)
   points = &bezier->points[0];
   n = bezier->numpoints;
 
-  renderer->ops->set_linewidth(renderer, beziergon->line_width);
-  renderer->ops->set_linestyle(renderer, beziergon->line_style);
-  renderer->ops->set_dashlength(renderer, beziergon->dashlength);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, beziergon->line_width);
+  renderer_ops->set_linestyle(renderer, beziergon->line_style);
+  renderer_ops->set_dashlength(renderer, beziergon->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (beziergon->show_background)
-    renderer->ops->fill_bezier(renderer, points, n, &beziergon->inner_color);
+    renderer_ops->fill_bezier(renderer, points, n, &beziergon->inner_color);
 
-  renderer->ops->draw_bezier(renderer, points, n, &beziergon->line_color);
+  renderer_ops->draw_bezier(renderer, points, n, &beziergon->line_color);
 
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected

@@ -21,7 +21,6 @@
 #define LINEPROPS_AREA_H
 
 #include "arrows.h"
-#include "render.h"
 
 #include <gtk/gtk.h>
 

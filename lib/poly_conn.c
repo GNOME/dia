@@ -26,6 +26,7 @@
 
 #include "poly_conn.h"
 #include "message.h"
+#include "diarenderer.h"
 
 enum change_type {
   TYPE_ADD_POINT,
@@ -290,7 +291,7 @@ polyconn_update_boundingbox(PolyConn *poly)
 }
 
 void
-polyconn_simple_draw(PolyConn *poly, Renderer *renderer, real width)
+polyconn_simple_draw(PolyConn *poly, DiaRenderer *renderer, real width)
 {
   Point *points;
   
@@ -299,12 +300,12 @@ polyconn_simple_draw(PolyConn *poly, Renderer *renderer, real width)
 
   points = &poly->points[0];
   
-  renderer->ops->set_linewidth(renderer, width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, poly->numpoints,
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, points, poly->numpoints,
 			       &color_black);
 }
 

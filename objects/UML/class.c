@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "intl.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
@@ -41,11 +41,11 @@
 
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
-			    Renderer *interactive_renderer);
+			    DiaRenderer *interactive_renderer);
 static void umlclass_move_handle(UMLClass *umlclass, Handle *handle,
 				 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void umlclass_move(UMLClass *umlclass, Point *to);
-static void umlclass_draw(UMLClass *umlclass, Renderer *renderer);
+static void umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer);
 static Object *umlclass_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
@@ -209,7 +209,7 @@ umlclass_distance_from(UMLClass *umlclass, Point *point)
 
 static void
 umlclass_select(UMLClass *umlclass, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   element_update_handles(&umlclass->element);
 }
@@ -233,7 +233,7 @@ umlclass_move(UMLClass *umlclass, Point *to)
 }
 
 static void
-umlclass_draw(UMLClass *umlclass, Renderer *renderer)
+umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 {
             /* Most of this crap could be rendered much more efficiently
                (and probably much cleaner as well) using marked-up
@@ -242,6 +242,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
             Breaking this function up into smaller, manageable and indented
             pieces would not hurt either -- cc */
 
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x,y;
   Point p, p1, p2, p3;
@@ -258,9 +259,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   x = elem->corner.x;
   y = elem->corner.y;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   p1.x = x;
   p2.x = x + elem->width;
@@ -268,10 +269,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   y += umlclass->namebox_height;
   p2.y = y;
   
-  renderer->ops->fill_rect(renderer, 
+  renderer_ops->fill_rect(renderer, 
                            &p1, &p2,
                            &umlclass->color_background);
-  renderer->ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
                            &p1, &p2,
                            &umlclass->color_foreground);
 
@@ -284,9 +285,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
                                  umlclass->normal_font,
                                  umlclass->font_height);
     
-    renderer->ops->set_font(renderer,
+    renderer_ops->set_font(renderer,
                             umlclass->normal_font, umlclass->font_height);
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
                                umlclass->stereotype_string,
                                &p, ALIGN_CENTER, 
                                &umlclass->color_foreground);
@@ -302,8 +303,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   }
   p.y += font_height;
 
-  renderer->ops->set_font(renderer, font, font_height);
-  renderer->ops->draw_string(renderer,
+  renderer_ops->set_font(renderer, font, font_height);
+  renderer_ops->draw_string(renderer,
                              umlclass->name,
                              &p, ALIGN_CENTER, 
                              &umlclass->color_foreground);
@@ -314,10 +315,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     font = umlclass->comment_font;
     font_height = umlclass->comment_font_height;
 
-    renderer->ops->set_font(renderer, font, font_height);
+    renderer_ops->set_font(renderer, font, font_height);
     p.y += font_height;
        
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
                                umlclass->comment,
                                &p, ALIGN_CENTER,
                                &umlclass->color_foreground);
@@ -329,10 +330,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     y += umlclass->attributesbox_height;
     p2.y = y;
   
-    renderer->ops->fill_rect(renderer, 
+    renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
 			     &umlclass->color_background);
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
 			     &umlclass->color_foreground);
 
@@ -357,8 +358,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
                                   font,font_height);     
          p.y += ascent;
          
-         renderer->ops->set_font (renderer, font, font_height);
-         renderer->ops->draw_string(renderer,
+         renderer_ops->set_font (renderer, font, font_height);
+         renderer_ops->draw_string(renderer,
                                     umlclass->attributes_strings[i],
                                     &p, ALIGN_LEFT, 
                                     &umlclass->color_foreground);
@@ -370,10 +371,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
            p3 = p1;
            p3.x += dia_font_string_width(umlclass->attributes_strings[i],
                                          font, font_height);
-           renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-           renderer->ops->draw_line(renderer,
+           renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
+           renderer_ops->draw_line(renderer,
                                     &p1, &p3, &umlclass->color_foreground);
-           renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
+           renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
          }    
          
          p.y += font_height - ascent;
@@ -387,9 +388,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
            
            p1.y += ascent;
 
-           renderer->ops->set_font(renderer, font, font_height);
+           renderer_ops->set_font(renderer, font, font_height);
                        
-           renderer->ops->draw_string(renderer,
+           renderer_ops->draw_string(renderer,
                                       attr->comment,
                                       &p1, ALIGN_LEFT,
                                       &umlclass->color_foreground);
@@ -410,10 +411,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     y += umlclass->operationsbox_height;
     p2.y = y;
     
-    renderer->ops->fill_rect(renderer, 
+    renderer_ops->fill_rect(renderer, 
                              &p1, &p2,
                              &umlclass->color_background);
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
                              &p1, &p2,
                              &umlclass->color_foreground);
     if (!umlclass->suppress_operations) {
@@ -442,8 +443,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
                                  font,font_height);     
         p.y += ascent;
 
-        renderer->ops->set_font(renderer, font, font_height);
-        renderer->ops->draw_string(renderer,
+        renderer_ops->set_font(renderer, font, font_height);
+        renderer_ops->draw_string(renderer,
                                    umlclass->operations_strings[i],
                                    &p, ALIGN_LEFT, 
                                    &umlclass->color_foreground);
@@ -454,10 +455,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
           p3 = p1;
           p3.x += dia_font_string_width(umlclass->operations_strings[i],
                                         font, font_height);
-          renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-          renderer->ops->draw_line(renderer, &p1, &p3,
+          renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
+          renderer_ops->draw_line(renderer, &p1, &p3,
                                    &umlclass->color_foreground);
-          renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
+          renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
         }
 
         p.y += font_height - ascent;
@@ -471,9 +472,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
           font = umlclass->comment_font;
           font_height = umlclass->comment_font_height;
           
-          renderer->ops->set_font(renderer, font, font_height);
+          renderer_ops->set_font(renderer, font, font_height);
           
-          renderer->ops->draw_string(renderer,
+          renderer_ops->draw_string(renderer,
                                      op->comment,
                                      &p1, ALIGN_LEFT, 
                                      &umlclass->color_foreground);
@@ -497,20 +498,20 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     p2.x = x + umlclass->templates_width;
     p2.y = y + umlclass->templates_height;
     
-    renderer->ops->fill_rect(renderer, 
+    renderer_ops->fill_rect(renderer, 
                              &p1, &p2,
                              &umlclass->color_background);
 
-    renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
-    renderer->ops->set_dashlength(renderer, 0.3);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_dashlength(renderer, 0.3);
     
-    renderer->ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer, 
                              &p1, &p2,
                              &umlclass->color_foreground);
 
     p.x = x + 0.3;
 
-    renderer->ops->set_font(renderer, umlclass->normal_font,
+    renderer_ops->set_font(renderer, umlclass->normal_font,
                             umlclass->font_height);
     i = 0;
     list = umlclass->formal_params;
@@ -520,7 +521,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
               dia_font_ascent(umlclass->templates_strings[i],
                               umlclass->normal_font, umlclass->font_height);
 
-      renderer->ops->draw_string(renderer,
+      renderer_ops->draw_string(renderer,
                                  umlclass->templates_strings[i],
                                  &p, ALIGN_LEFT, 
                                  &umlclass->color_foreground);      

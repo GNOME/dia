@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -61,11 +61,11 @@ struct _State {
 
 static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
-			Renderer *interactive_renderer);
+			DiaRenderer *interactive_renderer);
 static void state_move_handle(State *state, Handle *handle,
 			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void state_move(State *state, Point *to);
-static void state_draw(State *state, Renderer *renderer);
+static void state_draw(State *state, DiaRenderer *renderer);
 static Object *state_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -79,7 +79,7 @@ static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
 
 void
-draw_rounded_rectangle(Renderer *renderer, Point p1, Point p2, real radio);
+draw_rounded_rectangle(DiaRenderer *renderer, Point p1, Point p2, real radio);
 
 static ObjectTypeOps state_type_ops =
 {
@@ -159,7 +159,7 @@ state_distance_from(State *state, Point *point)
 
 static void
 state_select(State *state, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   element_update_handles(&state->element);
 }
@@ -183,8 +183,9 @@ state_move(State *state, Point *to)
 }
 
 static void
-state_draw(State *state, Renderer *renderer)
+state_draw(State *state, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h, r;
   Point p1;
@@ -199,26 +200,26 @@ state_draw(State *state, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, STATE_LINEWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
    p1.x = x + w/2;
    p1.y = y + h/2;
    if (state->is_final==1) {
       r = STATE_ENDRATIO;
-      renderer->ops->fill_ellipse(renderer, 
+      renderer_ops->fill_ellipse(renderer, 
 				  &p1,
 				  r, r,
 				  &color_white);
       
-      renderer->ops->draw_ellipse(renderer, 
+      renderer_ops->draw_ellipse(renderer, 
 				  &p1,
 				  r, r,
 				  &color_black);
    }  
    r = STATE_RATIO;
-   renderer->ops->fill_ellipse(renderer, 
+   renderer_ops->fill_ellipse(renderer, 
 			       &p1,
 			       r, r,
 			       &color_black);

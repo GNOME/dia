@@ -31,7 +31,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -81,8 +81,8 @@ static void transition_move_handle(Transition *transition, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void transition_move(Transition *transition, Point *to);
 static void transition_select(Transition *transition, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void transition_draw(Transition *transition, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void transition_draw(Transition *transition, DiaRenderer *renderer);
 static Object *transition_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -282,7 +282,7 @@ transition_distance_from(Transition *transition, Point *point)
 
 static void
 transition_select(Transition *transition, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   transition_update_data(transition);
 }
@@ -331,12 +331,13 @@ transition_move(Transition *transition, Point *to)
 
 
 static void 
-transition_draw(Transition *transition, Renderer *renderer)
+transition_draw(Transition *transition, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[6];
-  renderer->ops->set_linewidth(renderer, TRANSITION_LINE_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, TRANSITION_LINE_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   pts[0] = transition->north.pos;
   pts[1] = transition->NU1;
@@ -344,10 +345,10 @@ transition_draw(Transition *transition, Renderer *renderer)
   pts[3] = transition->SD1;
   pts[4] = transition->SD2;
   pts[5] = transition->south.pos;
-  renderer->ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 			       &color_black);
 
-  renderer->ops->draw_line(renderer,
+  renderer_ops->draw_line(renderer,
 			     &transition->C,&transition->D,
 			     &color_black);
   

@@ -78,12 +78,11 @@
 #include "authors.h"
 #include "autosave.h"
 #include "dynamic_refresh.h"
+#include "dia_image.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
 #endif
-
-extern DiaExportFilter eps_export_filter;
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);

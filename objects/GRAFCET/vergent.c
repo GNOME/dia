@@ -30,7 +30,7 @@
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
@@ -61,8 +61,8 @@ static void vergent_move_handle(Vergent *vergent, Handle *handle,
                                 ModifierKeys modifiers);
 static void vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void vergent_draw(Vergent *vergent, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void vergent_draw(Vergent *vergent, DiaRenderer *renderer);
 static Object *vergent_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -191,7 +191,7 @@ vergent_distance_from(Vergent *vergent, Point *point)
 
 static void
 vergent_select(Vergent *vergent, Point *clicked_point,
-		  Renderer *interactive_renderer)
+		  DiaRenderer *interactive_renderer)
 {
   vergent_update_data(vergent);
 }
@@ -234,32 +234,33 @@ vergent_move(Vergent *vergent, Point *to)
 
 
 static void 
-vergent_draw(Vergent *vergent, Renderer *renderer)
+vergent_draw(Vergent *vergent, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Connection *conn = &vergent->connection;
   Point p1,p2;
 
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   
   switch(vergent->type) {
   case VERGENT_OR:
-    renderer->ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
-    renderer->ops->draw_line(renderer,
+    renderer_ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
+    renderer_ops->draw_line(renderer,
 			     &conn->endpoints[0],&conn->endpoints[1],
 			     &color_black);
     break;
   case VERGENT_AND:
-    renderer->ops->set_linewidth(renderer, 2.0 * VERGENT_LINE_WIDTH);
-    renderer->ops->draw_line(renderer,
+    renderer_ops->set_linewidth(renderer, 2.0 * VERGENT_LINE_WIDTH);
+    renderer_ops->draw_line(renderer,
 			     &conn->endpoints[0],&conn->endpoints[1],
 			     &color_white);
-    renderer->ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
+    renderer_ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
     p1.x = conn->endpoints[0].x;
     p2.x = conn->endpoints[1].x;
     p1.y = p2.y = conn->endpoints[0].y - VERGENT_LINE_WIDTH;
-    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
     p1.y = p2.y = conn->endpoints[0].y + VERGENT_LINE_WIDTH;
-    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
     break;
   }
 }

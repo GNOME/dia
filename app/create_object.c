@@ -76,7 +76,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   diagram_select(ddisp->diagram, obj);
 
   obj->ops->selectf(obj, &clickedpoint,
-		   (Renderer *)ddisp->renderer);
+		ddisp->renderer);
 
   tool->obj = obj;
 

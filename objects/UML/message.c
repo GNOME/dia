@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
@@ -77,8 +77,8 @@ static void message_move_handle(Message *message, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void message_draw(Message *message, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void message_draw(Message *message, DiaRenderer *renderer);
 static Object *message_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -196,7 +196,7 @@ message_distance_from(Message *message, Point *point)
 
 static void
 message_select(Message *message, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&message->connection);
 }
@@ -250,8 +250,9 @@ message_move(Message *message, Point *to)
 }
 
 static void
-message_draw(Message *message, Renderer *renderer)
+message_draw(Message *message, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2, px;
   Arrow arrow;
   int n1 = 1, n2 = 0;
@@ -271,9 +272,9 @@ message_draw(Message *message, Renderer *renderer)
 
   endpoints = &message->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, MESSAGE_WIDTH);
+  renderer_ops->set_linewidth(renderer, MESSAGE_WIDTH);
 
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (message->type==MESSAGE_RECURSIVE) {
       n1 = 0;
@@ -281,12 +282,12 @@ message_draw(Message *message, Renderer *renderer)
   }
 
   if (message->type==MESSAGE_RETURN) {
-      renderer->ops->set_dashlength(renderer, MESSAGE_DASHLEN);
-      renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+      renderer_ops->set_dashlength(renderer, MESSAGE_DASHLEN);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
       n1 = 0;
       n2 = 1;
   } else 
-      renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   p1 = endpoints[n1];
   p2 = endpoints[n2];
@@ -294,23 +295,23 @@ message_draw(Message *message, Renderer *renderer)
   if (message->type==MESSAGE_RECURSIVE) {
       px.x = p2.x;
       px.y = p1.y;
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			       &p1, &px,
 			       &color_black);
 
-      renderer->ops->draw_line(renderer,
+      renderer_ops->draw_line(renderer,
 			   &px, &p2,
 			   &color_black);
       p1.y = p2.y;
   } 
 
-  renderer->ops->draw_line_with_arrows(renderer,
+  renderer_ops->draw_line_with_arrows(renderer,
 				       &p1, &p2,
 				       MESSAGE_WIDTH,
 				       &color_black,
 				       &arrow, NULL); 
 
-  renderer->ops->set_font(renderer, message_font,
+  renderer_ops->set_font(renderer, message_font,
 			  MESSAGE_FONTHEIGHT);
 
   if (message->type==MESSAGE_CREATE)
@@ -321,7 +322,7 @@ message_draw(Message *message, Renderer *renderer)
 	  mname = message->text;
 
   if (mname && strlen(mname) != 0) 
-      renderer->ops->draw_string(renderer,
+      renderer_ops->draw_string(renderer,
 				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
 				 &color_black);

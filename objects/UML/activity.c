@@ -30,7 +30,7 @@
 #include "intl.h"
 #include "object.h"
 #include "element.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
@@ -60,11 +60,11 @@ struct _State {
 
 static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
-			Renderer *interactive_renderer);
+			DiaRenderer *interactive_renderer);
 static void state_move_handle(State *state, Handle *handle,
 			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void state_move(State *state, Point *to);
-static void state_draw(State *state, Renderer *renderer);
+static void state_draw(State *state, DiaRenderer *renderer);
 static Object *state_create_activity(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
@@ -166,7 +166,7 @@ state_distance_from(State *state, Point *point)
 
 static void
 state_select(State *state, Point *clicked_point,
-	       Renderer *interactive_renderer)
+	       DiaRenderer *interactive_renderer)
 {
   text_set_cursor(state->text, clicked_point, interactive_renderer);
   text_grab_focus(state->text, &state->element.object);
@@ -192,8 +192,9 @@ state_move(State *state, Point *to)
 }
 
 static void
-state_draw(State *state, Renderer *renderer)
+state_draw(State *state, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -208,16 +209,16 @@ state_draw(State *state, Renderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, STATE_LINEWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
    p1.x = x;
    p1.y = y;
    p2.x = x + w;
    p2.y = y + h;
-   renderer->ops->fill_rounded_rect(renderer, &p1, &p2, &color_white, 1.0);
-   renderer->ops->draw_rounded_rect(renderer, &p1, &p2, &color_black, 1.0);
+   renderer_ops->fill_rounded_rect(renderer, &p1, &p2, &color_white, 1.0);
+   renderer_ops->draw_rounded_rect(renderer, &p1, &p2, &color_black, 1.0);
    
    text_draw(state->text, renderer);
 }

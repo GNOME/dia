@@ -47,7 +47,6 @@ extern "C" {
 #include "diagram.h"
 #include "diagramdata.h"
 
-#include "render.h"
 #include "filter.h"
 
 #include "message.h"

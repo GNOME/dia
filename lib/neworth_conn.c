@@ -31,6 +31,7 @@
 #include "message.h"
 #include "diamenu.h"
 #include "handle.h"
+#include "diarenderer.h"
 
 static void place_handle_by_swapping(NewOrthConn *orth, 
                                      int index, Handle *handle);
@@ -337,7 +338,7 @@ neworthconn_update_boundingbox(NewOrthConn *orth)
 }
 
 void
-neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer, real width)
+neworthconn_simple_draw(NewOrthConn *orth, DiaRenderer *renderer, real width)
 {
   Point *points;
   
@@ -351,12 +352,12 @@ neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer, real width)
 
   points = &orth->points[0];
   
-  renderer->ops->set_linewidth(renderer, width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, orth->numpoints,
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, points, orth->numpoints,
 			       &color_black);
 }
 

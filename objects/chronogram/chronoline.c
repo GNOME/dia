@@ -35,7 +35,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
 #include "widgets.h"
@@ -84,12 +84,12 @@ typedef struct _Chronoline {
 
 static real chronoline_distance_from(Chronoline *chronoline, Point *point);
 static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
-		       Renderer *interactive_renderer);
+		       DiaRenderer *interactive_renderer);
 static void chronoline_move_handle(Chronoline *chronoline, Handle *handle,
 			    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
 static void chronoline_move(Chronoline *chronoline, Point *to);
-static void chronoline_draw(Chronoline *chronoline, Renderer *renderer);
+static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
 static void chronoline_update_data(Chronoline *chronoline);
 static Object *chronoline_create(Point *startpoint,
 			  void *user_data,
@@ -251,7 +251,7 @@ chronoline_distance_from(Chronoline *chronoline, Point *point)
 
 static void
 chronoline_select(Chronoline *chronoline, Point *clicked_point,
-	   Renderer *interactive_renderer)
+	   DiaRenderer *interactive_renderer)
 {
   element_update_handles(&chronoline->element);
 }
@@ -277,11 +277,12 @@ chronoline_move(Chronoline *chronoline, Point *to)
 
 static void 
 cld_onebit(Chronoline *chronoline,
-	   Renderer *renderer,
+	   DiaRenderer *renderer,
 	   real x1,CLEventType s1,
 	   real x2,CLEventType s2,
 	   gboolean fill)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   real y_down = chronoline->y_down;
   real y_up = chronoline->y_up;
@@ -295,14 +296,14 @@ cld_onebit(Chronoline *chronoline,
 
   if (fill) {
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
-      renderer->ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				  &chronoline->datagray);
     } else {
-      renderer->ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				  &color_white);
     }    
   } else {
-    renderer->ops->draw_line(renderer,&pts[1],&pts[2],
+    renderer_ops->draw_line(renderer,&pts[1],&pts[2],
 			     &chronoline->data_color);
   }
 }
@@ -310,11 +311,12 @@ cld_onebit(Chronoline *chronoline,
 
 static void 
 cld_multibit(Chronoline *chronoline,
-	     Renderer *renderer,
+	     DiaRenderer *renderer,
 	     real x1,CLEventType s1,
 	     real x2,CLEventType s2,
 	     gboolean fill)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   real ymid = .5 * (chronoline->y_down + chronoline->y_up);
   real y_down = chronoline->y_down;
@@ -338,16 +340,16 @@ cld_multibit(Chronoline *chronoline,
 
   if (fill) { 
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
-      renderer->ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				  &chronoline->datagray);
     } else {
-      renderer->ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				  &color_white);
     }    
   } else {
-    renderer->ops->draw_line(renderer,&pts[1],&pts[2],
+    renderer_ops->draw_line(renderer,&pts[1],&pts[2],
 			     &chronoline->data_color);
-    renderer->ops->draw_line(renderer,&pts[0],&pts[3],
+    renderer_ops->draw_line(renderer,&pts[0],&pts[3],
 			     &chronoline->data_color);
   }
 }
@@ -355,9 +357,10 @@ cld_multibit(Chronoline *chronoline,
 
 
 inline static void
-chronoline_draw_really(Chronoline *chronoline, Renderer *renderer, 
+chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer, 
 		       gboolean fill)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem = &chronoline->element;
   real oldx,newx;
 
@@ -372,9 +375,9 @@ chronoline_draw_really(Chronoline *chronoline, Renderer *renderer,
   oldx = elem->corner.x;
 
   lst = chronoline->evtlist;
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer,chronoline->data_lwidth);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer,chronoline->data_lwidth);
 
   while (lst) {
     evt = (CLEvent *)lst->data;
@@ -413,8 +416,9 @@ chronoline_draw_really(Chronoline *chronoline, Renderer *renderer,
 }
 
 static void
-chronoline_draw(Chronoline *chronoline, Renderer *renderer)
+chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point lr_corner;
   Point p1,p2,p3;
@@ -424,17 +428,17 @@ chronoline_draw(Chronoline *chronoline, Renderer *renderer)
 
   elem = &chronoline->element;
 
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DOTTED);
-  renderer->ops->set_linewidth(renderer, chronoline->main_lwidth);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED);
+  renderer_ops->set_linewidth(renderer, chronoline->main_lwidth);
   p1.x = elem->corner.x + elem->width;
   p1.y = elem->corner.y;
-  renderer->ops->draw_line(renderer,&elem->corner,&p1,&chronoline->gray);
+  renderer_ops->draw_line(renderer,&elem->corner,&p1,&chronoline->gray);
 
   chronoline_draw_really(chronoline,renderer,TRUE);
   chronoline_draw_really(chronoline,renderer,FALSE);
 
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
@@ -443,20 +447,20 @@ chronoline_draw(Chronoline *chronoline, Renderer *renderer)
   p2.x = lr_corner.x;
   p1.y = p2.y = chronoline->y_down;
 
-  renderer->ops->set_linewidth(renderer, chronoline->main_lwidth);
-  renderer->ops->draw_line(renderer,&p1,&p2,&chronoline->color);
+  renderer_ops->set_linewidth(renderer, chronoline->main_lwidth);
+  renderer_ops->draw_line(renderer,&p1,&p2,&chronoline->color);
   p2.x = p1.x = elem->corner.x;
   p1.y = chronoline->y_down;
   p2.y = chronoline->y_up;
-  renderer->ops->draw_line(renderer,&p1,&p2,&chronoline->color);
+  renderer_ops->draw_line(renderer,&p1,&p2,&chronoline->color);
 
-  renderer->ops->set_font(renderer, chronoline->font, 
+  renderer_ops->set_font(renderer, chronoline->font, 
                           chronoline->font_size);
   p3.y = lr_corner.y - chronoline->font_size 
       + dia_font_ascent(chronoline->name,
                         chronoline->font,chronoline->font_size);
   p3.x = p1.x - chronoline->main_lwidth;
-  renderer->ops->draw_string(renderer,chronoline->name,&p3,ALIGN_RIGHT,
+  renderer_ops->draw_string(renderer,chronoline->name,&p3,ALIGN_RIGHT,
 			     &chronoline->color);
 }
 

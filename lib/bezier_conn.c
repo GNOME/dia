@@ -22,13 +22,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 
 #include "bezier_conn.h"
 #include "intl.h"
 #include "message.h"
+#include "diarenderer.h"
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
 #define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
@@ -297,7 +297,7 @@ add_handles(BezierConn *bez, int pos, BezPoint *point,
   int i;
   Object *obj;
 
-  assert(pos > 0);
+  g_assert(pos > 0);
   
   obj = (Object *)bez;
   bez->numpoints++;
@@ -331,7 +331,7 @@ remove_handles(BezierConn *bez, int pos)
   Handle *old_handle1, *old_handle2, *old_handle3;
   Point tmppoint;
 
-  assert(pos > 0);
+  g_assert(pos > 0);
 
   obj = (Object *)bez;
 
@@ -416,8 +416,8 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   BezPoint old_point;
   BezCornerType old_ctype;
 
-  assert(pos > 0);
-  assert(bez->numpoints > 2);
+  g_assert(pos > 0);
+  g_assert(bez->numpoints > 2);
 
   if (pos == bez->numpoints-1) pos--;
 
@@ -560,7 +560,7 @@ bezierconn_update_data(BezierConn *bez)
 void
 bezierconn_update_boundingbox(BezierConn *bez)
 {
-  assert(bez != NULL);
+  g_assert(bez != NULL);
 
   polybezier_bbox(&bez->points[0],
                   bez->numpoints,
@@ -569,42 +569,42 @@ bezierconn_update_boundingbox(BezierConn *bez)
 }
 
 void
-bezierconn_simple_draw(BezierConn *bez, Renderer *renderer, real width)
+bezierconn_simple_draw(BezierConn *bez, DiaRenderer *renderer, real width)
 {
   BezPoint *points;
   
-  assert(bez != NULL);
-  assert(renderer != NULL);
+  g_assert(bez != NULL);
+  g_assert(renderer != NULL);
 
   points = &bez->points[0];
   
-  renderer->ops->set_linewidth(renderer, width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_bezier(renderer, points, bez->numpoints, &color_black);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bez->numpoints, &color_black);
 }
 
 void
-bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer)
+bezierconn_draw_control_lines(BezierConn *bez, DiaRenderer *renderer)
 {
   Color line_colour = {0.0, 0.0, 0.6};
   Point startpoint;
   int i;
   
-  /* setup renderer ... */
-  renderer->ops->set_linewidth(renderer, 0);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_DOTTED);
-  renderer->ops->set_dashlength(renderer, 1);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  /* setup DiaRenderer ... */
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+  DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   startpoint = bez->points[0].p1;
   for (i = 1; i < bez->numpoints; i++) {
-    renderer->ops->draw_line(renderer, &startpoint, &bez->points[i].p1,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bez->points[i].p1,
 			     &line_colour);
-    renderer->ops->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
 			     &line_colour);
     startpoint = bez->points[i].p3;
   }

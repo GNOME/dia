@@ -27,7 +27,7 @@
 #include "intl.h"
 #include "object.h"
 #include "connection.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "handle.h"
 #include "properties.h"
 
@@ -64,8 +64,8 @@ static void implements_move_handle(Implements *implements, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
-			      Renderer *interactive_renderer);
-static void implements_draw(Implements *implements, Renderer *renderer);
+			      DiaRenderer *interactive_renderer);
+static void implements_draw(Implements *implements, DiaRenderer *renderer);
 static Object *implements_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
@@ -174,7 +174,7 @@ implements_distance_from(Implements *implements, Point *point)
 
 static void
 implements_select(Implements *implements, Point *clicked_point,
-	    Renderer *interactive_renderer)
+	    DiaRenderer *interactive_renderer)
 {
   connection_update_handles(&implements->connection);
 }
@@ -232,8 +232,9 @@ implements_move(Implements *implements, Point *to)
 }
 
 static void
-implements_draw(Implements *implements, Renderer *renderer)
+implements_draw(Implements *implements, DiaRenderer *renderer)
 {
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   
   assert(implements != NULL);
@@ -241,27 +242,27 @@ implements_draw(Implements *implements, Renderer *renderer)
 
   endpoints = &implements->connection.endpoints[0];
   
-  renderer->ops->set_linewidth(renderer, IMPLEMENTS_WIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linewidth(renderer, IMPLEMENTS_WIDTH);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_line(renderer,
+  renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
 			   &color_black);
 
-  renderer->ops->fill_ellipse(renderer, &implements->circle_center,
+  renderer_ops->fill_ellipse(renderer, &implements->circle_center,
 			      implements->circle_diameter,
 			      implements->circle_diameter,
 			      &color_white);
-  renderer->ops->draw_ellipse(renderer, &implements->circle_center,
+  renderer_ops->draw_ellipse(renderer, &implements->circle_center,
 			      implements->circle_diameter,
 			      implements->circle_diameter,
 			      &color_black);
 
 
-  renderer->ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
+  renderer_ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
   if (implements->text)
-    renderer->ops->draw_string(renderer,
+    renderer_ops->draw_string(renderer,
 			       implements->text,
 			       &implements->text_pos, ALIGN_LEFT,
 			       &color_black);
