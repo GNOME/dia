@@ -1,3 +1,135 @@
+2002-06-08  Hans Breuer  <hans@breuer.org>
+
+	*/*.c */*/*.c : remove all the #ifdef *_UTF8_* hell,
+	only keep the utf-8 clean code cause Dia+Gtk2 now talk it.
+	Also use g_strdup()'s handling of NULL by returning NULL
+	again at all places I found (remove unnecessary if's)
+
+	* todo.gtk2 : new file to keep notes about gtk2 porting,
+	further issues and thoughts and some status information.
+	Also sent to dia-list ('Dia goes Gtk2 ...').
+	
+	[make it compile with GTK+ 2.0]
+
+	* config.h.win32 : #undef GTK_TALKS_UTF8_WE_DONT,
+	removed definition of S_ISDIR, S_ISREG and getlogin
+
+	* */makefile.msc : Use GTK2 and libxml2
+	BEWARE: makefile.am, configure.in not yet ported !
+ 
+	* app/app_procs.c app/diagram.c : remove 
+	gtk_item_factory_dump_rc code, (it wasn't read in again anyway) 
+	but set use gtk_menu_set_accel_path() on menu creation
+
+	* app/color_area.c lib/widgets.c : 
+	make use of gtk_color_selection_set_has_palette ()
+
+	* app/commands.c : gdk_pixbuf_new_from_file wants an 
+	extra argument. Convert from DIR to GDir usage.
+
+	* app/diagram_tree.c(button_press_callback) : need to return 
+	FALSE in the signal handler to let gtk process it further.
+	(get_object_name) : don't leak 'prop'
+	
+	* app/diapagelayout.c : adapt to GtkTypeInfo changes and handle 
+	dia_page_layout_destroy() getting called more than once
+
+	* app/diaunitspinner.c : GtkEditable -> GtkEntry, 
+	GtkTypeInfo changes
+
+	* app/disp_callbacks.c : gtk_menu_append() -> gtk_menu_shell_append()
+
+	* app/display.h : wrap input contexts declarations into #ifdef USE_XIM.
+	IIRC this code will not compile unchanged when USE_XIM is defined ...
+
+	* app/gtk[hv]wrapbox.[hc] : use already ported version from The GIMP 1.3.x
+
+	* app/interface.c : there is no widget->klass anymore in Gtk, 
+	use GTK_WIDGET_GET_CLASS instead. gdk_pixbuf_new_from_file() extra
+	parameter. Some tweaking of GtkWrapBox usage to get four tools in
+	a row again.
+	switch off GTK's double buffering on Dia's canvas. Otherwise we would 
+	get triple buffering and flicker.
+	Replace call to GTK private function _gtk_accel_group_attach()
+	with public gtk_window_add_accel_group()
+
+	* app/layer_dialog.c : adapt to GtkTypeInfo changes
+
+	* app/load_save.c lib/plug-ins.c lib/sheet.c 
+	  objects/custom/custom.c : 
+	simplified by using g_file_test()
+
+	* app/menus.c : convert from gtk_item_factory_<dump|parse>_rc 
+	to gtk_accel_map_<save|load>. Also added common stock-icons
+	to the menu.
+	
+	* app/preferences.c : use gtk_button_set_label() instead
+	of button->child which is gone. Also removed GLIB_CHECK_VERSION.
+
+	* app/preferences.c lib/dia_xml.c lib/plug-ins.c :
+	#ifdef G_OS_WIN32 #include <io.h>, this was formerly done
+	in config.h.win32
+
+	* app/recent_files.c : removed GLIB_CHECK_VERSION
+
+	* app/render_eps.c 
+	  plug-ins/metapost/render_metapost.c
+	  plug-ins/pstricks/render_pstricks.c
+	  plug-ins/svg/render_svg.c :
+	replace getlogin() with g_get_user_name() which always
+	returns non NULL
+
+	* app/render_gdk.c : gdk_region_union_with_rect() modifies
+	inplace now and returns nothing, also less #hell
+
+	* app/render_libart.c : some initial #hell cleaning, SuckFont
+	still needs to vanish
+
+	* app/splash.c : gdk_pixbuf_new_from_file() second arg and
+	GTK_WINDOW_DIALOG -> GTK_WINDOW_TOPLEVEL
+
+	* app/render_pixbuf.c app/sheets.c : plain #hell cleaning
+	* app/sheets_dialog_callbacks.c : some #hell and adaptions
+	needed to GtkWrapBox api changes
+
+
+	* lib/charconv.[hc] : removed from build
+	[changed appropriate]
+	* lib/prop_inttypes.c lib/prop_text.c : 
+	all utf-8 cleaning 
+	* lib/text.c : ported from HEAD but keep original indent
+	intact. Original was done by Akira TAGOH.
+
+	* lib/color.c : GdkColorContext is gone, use GdkColormap instead.
+
+	* lib/dia_image.c : gdk_pixbuf_new_from_file() second arg
+
+	* lib/dia_xml.c : remove #ifdef GLIB_CHECK_VERSION, it's the
+	same on all platforms now!
+
+	* lib/font.c : still using SuckFont which was an IMPERATIVE FIXME!
+
+	* lib/message.c : remove "charconv.h"
+
+	* lib/prop_text.c : #define GTK_ENABLE_BROKEN to use GtkText
+
+	* lib/plug-in.c :
+	* lib/sheet.c : convert from DIR to GDir usage
+
+	* lib/widgets.c : gtk_menu_(shell_)append and GtkTypeInfo
+
+	* lib/widgets.h : include gtk<label|colorseldialog>.h
+
+
+	* objects/fs/flow.c :
+	* objects/fs/flow-ortho.c : GTK_ENABLE_BROKEN to use GtkText
+
+	* objects/custom/custom.c : convert from DIR to GDir usage
+
+
+	* plug-ins/python/makefile.msc : updated for GTK2/Python2.2
+
+
 2002-05-03  Hams Breuer  <hans@breuer.org>
 
 	* lib/dia_xml.c : make the well formed utf8 check
