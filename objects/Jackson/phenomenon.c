@@ -1,5 +1,14 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998, 1999 Alexander Larsson
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * Jackson diagram -  adapted by Christophe Ponsard
+ * This class captures all kind of domains (given, designed, machine)
+ * both for generic problems and for problem frames (ie. with domain kinds)
+ *
+ * based on SADT diagrams copyright (C) 2000, 2001 Cyrille Chepelov
+ *
+ * Forked from Flowchart toolbox -- objects for drawing flowcharts.
+ * Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,10 +76,10 @@ struct _Message {
 
 static DiaFont *message_font = NULL;
 
-static void message_move_handle(Message *message, Handle *handle,
+static ObjectChange* message_move_handle(Message *message, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static void message_move(Message *message, Point *to);
+static ObjectChange* message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void message_draw(Message *message, DiaRenderer *renderer);
@@ -192,7 +201,7 @@ message_select(Message *message, Point *clicked_point,
   connection_update_handles(&message->connection);
 }
 
-static void
+static ObjectChange*
 message_move_handle(Message *message, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -218,9 +227,10 @@ message_move_handle(Message *message, Handle *handle,
   }
 
   message_update_data(message);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 message_move(Message *message, Point *to)
 {
   Point start_to_end;
@@ -239,6 +249,7 @@ message_move(Message *message, Point *to)
   point_add(&message->text_pos, &delta);
 
   message_update_data(message);
+  return NULL;
 }
 
 /* drawing here -- TBD inverse flow ??  */

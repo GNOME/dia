@@ -1,20 +1,3 @@
-/***************************************************************************
-                          domain.c  -  description
-                             -------------------
-    begin                : Sat Nov 23 2002
-    copyright            : (C) 2002 by cp
-    email                : cp@cetic.be
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -134,10 +117,10 @@ typedef struct _Box {
 static real jackson_box_distance_from(Box *box, Point *point);
 static void jackson_box_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void jackson_box_move_handle(Box *box, Handle *handle,
+static ObjectChange* jackson_box_move_handle(Box *box, Handle *handle,
 			    Point *to, ConnectionPoint *cp,
 			    HandleMoveReason reason, ModifierKeys modifiers);
-static void jackson_box_move(Box *box, Point *to);
+static ObjectChange* jackson_box_move(Box *box, Point *to);
 static void jackson_box_draw(Box *box, DiaRenderer *renderer);
 static void jackson_box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static DiaObject *jackson_box_create(Point *startpoint,
@@ -293,7 +276,7 @@ jackson_box_select(Box *box, Point *clicked_point,
   element_update_handles(&box->element);
 }
 
-static void
+static ObjectChange*
 jackson_box_move_handle(Box *box, Handle *handle,
 		Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -327,14 +310,16 @@ jackson_box_move_handle(Box *box, Handle *handle,
     break;
   }
   jackson_box_update_data(box, horiz, vert);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 jackson_box_move(Box *box, Point *to)
 {
   box->element.corner = *to;
 
   jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return NULL;
 }
 
 /* draw method */

@@ -1,5 +1,15 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998, 1999 Alexander Larsson
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * Objects for drawing KAOS goal diagrams.
+ * This class supports the whole goal specialization hierarchy
+ * Copyright (C) 2002 Christophe Ponsard
+ *
+ * Based on SADT box object
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
+ *
+ * Forked from Flowchart toolbox -- objects for drawing flowcharts.
+ * Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,10 +100,10 @@ static Color color_red = { 1.0f, 0.0f, 0.0f };
 
 static DiaFont *mbr_font = NULL;
 
-static void mbr_move_handle(Mbr *mbr, Handle *handle,
+static ObjectChange* mbr_move_handle(Mbr *mbr, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static void mbr_move(Mbr *mbr, Point *to);
+static ObjectChange* mbr_move(Mbr *mbr, Point *to);
 static void mbr_select(Mbr *mbr, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void mbr_draw(Mbr *mbr, DiaRenderer *renderer);
@@ -220,7 +230,7 @@ mbr_select(Mbr *mbr, Point *clicked_point,
   connection_update_handles(&mbr->connection);
 }
 
-static void
+static ObjectChange*
 mbr_move_handle(Mbr *mbr, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -246,9 +256,10 @@ mbr_move_handle(Mbr *mbr, Handle *handle,
   }
 
   mbr_update_data(mbr);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 mbr_move(Mbr *mbr, Point *to)
 {
   Point start_to_end;
@@ -267,6 +278,7 @@ mbr_move(Mbr *mbr, Point *to)
   point_add(&mbr->pm, &delta);
 
   mbr_update_data(mbr);
+  return NULL;
 }
 
 /* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */

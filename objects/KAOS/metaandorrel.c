@@ -1,5 +1,15 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998, 1999 Alexander Larsson
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * Objects for drawing KAOS goal diagrams.
+ * This class supports the whole goal specialization hierarchy
+ * Copyright (C) 2002 Christophe Ponsard
+ *
+ * Based on SADT box object
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
+ *
+ * Forked from Flowchart toolbox -- objects for drawing flowcharts.
+ * Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,10 +87,10 @@ struct _Maor {
 
 static DiaFont *maor_font = NULL;
 
-static void maor_move_handle(Maor *maor, Handle *handle,
+static ObjectChange* maor_move_handle(Maor *maor, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static void maor_move(Maor *maor, Point *to);
+static ObjectChange* maor_move(Maor *maor, Point *to);
 static void maor_select(Maor *maor, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void maor_draw(Maor *maor, DiaRenderer *renderer);
@@ -211,7 +221,7 @@ maor_select(Maor *maor, Point *clicked_point,
   connection_update_handles(&maor->connection);
 }
 
-static void
+static ObjectChange*
 maor_move_handle(Maor *maor, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -237,9 +247,10 @@ maor_move_handle(Maor *maor, Handle *handle,
   }
 
   maor_update_data(maor);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 maor_move(Maor *maor, Point *to)
 {
   Point start_to_end;
@@ -258,6 +269,7 @@ maor_move(Maor *maor, Point *to)
   point_add(&maor->text_pos, &delta);
 
   maor_update_data(maor);
+  return NULL;
 }
 
 /* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */

@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998, 1999 Alexander Larsson
  *
- * Objects for drawing
+ * Objects for drawing i* diagrams
  * This class supports all i* links as decoraterd bezier curves
  * Copyright (C) 2002-2003 Christophe Ponsard
  *
@@ -85,10 +85,10 @@ struct _Link {
 
 static DiaFont *link_font = NULL;
 
-static void link_move_handle(Link *link, Handle *handle,
+static ObjectChange* link_move_handle(Link *link, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static void link_move(Link *link, Point *to);
+static ObjectChange* link_move(Link *link, Point *to);
 static void link_select(Link *link, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void link_draw(Link *link, DiaRenderer *renderer);
@@ -216,7 +216,7 @@ link_select(Link *link, Point *clicked_point,
   connection_update_handles(&link->connection);
 }
 
-static void
+static ObjectChange*
 link_move_handle(Link *link, Handle *handle,
 		 Point *to, ConnectionPoint *cp, 
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -242,9 +242,10 @@ link_move_handle(Link *link, Handle *handle,
   }
 
   link_update_data(link);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 link_move(Link *link, Point *to)
 {
   Point start_to_end;
@@ -263,6 +264,7 @@ link_move(Link *link, Point *to)
   point_add(&link->pm, &delta);
 
   link_update_data(link);
+  return NULL;
 }
 
 /* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */

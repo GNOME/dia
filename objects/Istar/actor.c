@@ -84,10 +84,10 @@ struct _Actor {
 static real actor_distance_from(Actor *actor, Point *point);
 static void actor_select(Actor *actor, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void actor_move_handle(Actor *actor, Handle *handle,
+static ObjectChange* actor_move_handle(Actor *actor, Handle *handle,
 			    Point *to, ConnectionPoint *cp,
 			    HandleMoveReason reason, ModifierKeys modifiers);
-static void actor_move(Actor *actor, Point *to);
+static ObjectChange* actor_move(Actor *actor, Point *to);
 static void actor_draw(Actor *actor, DiaRenderer *renderer);
 static void actor_update_data(Actor *actor, AnchorShape h,AnchorShape v);
 static DiaObject *actor_create(Point *startpoint,
@@ -239,7 +239,7 @@ actor_select(Actor *actor, Point *clicked_point,
   element_update_handles(&actor->element);
 }
 
-static void
+static ObjectChange*
 actor_move_handle(Actor *actor, Handle *handle,
 		Point *to, ConnectionPoint *cp, 
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -273,14 +273,16 @@ actor_move_handle(Actor *actor, Handle *handle,
     break;
   }
   actor_update_data(actor, horiz, vert);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 actor_move(Actor *actor, Point *to)
 {
   actor->element.corner = *to;
 
   actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return NULL;
 }
 
 // drawing stuff */

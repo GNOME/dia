@@ -1,6 +1,15 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
+ * Jackson diagram -  adapted by Christophe Ponsard
+ * This class captures all kind of domains (given, designed, machine)
+ * both for generic problems and for problem frames (ie. with domain kinds)
+ *
+ * based on SADT diagrams copyright (C) 2000, 2001 Cyrille Chepelov
+ *
+ * Forked from Flowchart toolbox -- objects for drawing flowcharts.
+ * Copyright (C) 1999 James Henstridge.
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -72,10 +81,10 @@ struct _RequirementPropertiesDialog {
 static real req_distance_from(Requirement *req, Point *point);
 static void req_select(Requirement *req, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static void req_move_handle(Requirement *req, Handle *handle,
+static ObjectChange* req_move_handle(Requirement *req, Handle *handle,
 				Point *to, ConnectionPoint *cp,
 				HandleMoveReason reason, ModifierKeys modifiers);
-static void req_move(Requirement *req, Point *to);
+static ObjectChange* req_move(Requirement *req, Point *to);
 static void req_draw(Requirement *req, DiaRenderer *renderer);
 static DiaObject *req_create(Point *startpoint,
 			      void *user_data,
@@ -189,7 +198,7 @@ req_select(Requirement *req, Point *clicked_point,
   element_update_handles(&req->element);
 }
 
-static void
+static ObjectChange* 
 req_move_handle(Requirement *req, Handle *handle,
                 Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -199,9 +208,10 @@ req_move_handle(Requirement *req, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 req_move(Requirement *req, Point *to)
 {
   real h;
@@ -219,6 +229,7 @@ req_move(Requirement *req, Point *to)
   }
   text_set_position(req->text, &p);
   req_update_data(req);
+  return NULL;
 }
 
 /** draw is here */

@@ -1,26 +1,8 @@
-/***************************************************************************
-                          other.c  -  description
-                             -------------------
-    begin                : Sat Nov 23 2002
-    copyright            : (C) 2002 by cp
-    email                : cp@cetic.be
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * Objects for drawing KAOS other diagrams.
- * This class supports all other concepts than goals
- * Actually this only codes an AGENT
+ * Objects for drawing KAOS goal diagrams.
+ * This class supports the whole goal specialization hierarchy
  * Copyright (C) 2002 Christophe Ponsard
  *
  * Based on SADT box object
@@ -109,10 +91,10 @@ typedef struct _Other {
 static real other_distance_from(Other *other, Point *point);
 static void other_select(Other *other, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void other_move_handle(Other *other, Handle *handle,
+static ObjectChange* other_move_handle(Other *other, Handle *handle,
 			    Point *to, ConnectionPoint *cp,
 			    HandleMoveReason reason, ModifierKeys modifiers);
-static void other_move(Other *other, Point *to);
+static ObjectChange* other_move(Other *other, Point *to);
 static void other_draw(Other *other, DiaRenderer *renderer);
 static void other_update_data(Other *other, AnchorShape horix, AnchorShape vert);
 static DiaObject *other_create(Point *startpoint,
@@ -251,7 +233,7 @@ other_select(Other *other, Point *clicked_point,
   element_update_handles(&other->element);
 }
 
-static void
+static ObjectChange*
 other_move_handle(Other *other, Handle *handle,
 		Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -285,14 +267,16 @@ other_move_handle(Other *other, Handle *handle,
     break;
   }
   other_update_data(other, horiz, vert);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 other_move(Other *other, Point *to)
 {
   other->element.corner = *to;
 
   other_update_data(other, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return NULL;
 }
 
 static void compute_agent(Other *other, Point *pl) {

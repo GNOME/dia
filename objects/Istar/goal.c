@@ -1,20 +1,3 @@
-/***************************************************************************
-                          goal.c  -  description
-                             -------------------
-    begin                : Sat Nov 23 2002
-    copyright            : (C) 2002 by cp
-    email                : cp@cetic.be
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -108,10 +91,10 @@ typedef struct _Goal {
 static real goal_distance_from(Goal *goal, Point *point);
 static void goal_select(Goal *goal, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void goal_move_handle(Goal *goal, Handle *handle,
+static ObjectChange* goal_move_handle(Goal *goal, Handle *handle,
 			    Point *to, ConnectionPoint *cp,
 			    HandleMoveReason reason, ModifierKeys modifiers);
-static void goal_move(Goal *goal, Point *to);
+static ObjectChange* goal_move(Goal *goal, Point *to);
 static void goal_draw(Goal *goal, DiaRenderer *renderer);
 static void goal_update_data(Goal *goal, AnchorShape horix, AnchorShape vert);
 static DiaObject *goal_create(Point *startpoint,
@@ -243,7 +226,7 @@ goal_select(Goal *goal, Point *clicked_point,
   element_update_handles(&goal->element);
 }
 
-static void
+static ObjectChange*
 goal_move_handle(Goal *goal, Handle *handle,
 		Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -277,14 +260,16 @@ goal_move_handle(Goal *goal, Handle *handle,
     break;
   }
   goal_update_data(goal, horiz, vert);
+  return NULL;
 }
 
-static void
+static ObjectChange*
 goal_move(Goal *goal, Point *to)
 {
   goal->element.corner = *to;
 
   goal_update_data(goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return NULL;
 }
 
 static void compute_cloud(Goal *goal, BezPoint* bpl) {

@@ -1,3 +1,29 @@
+2004-06-23  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.c (dia_toggle_button_new_with_images): Sink the
+	images at the right place.
+
+	* objects/Istar/actor.c
+	* objects/Istar/goal.c
+	* objects/Istar/istar.c
+	* objects/Istar/istar.h
+	* objects/Istar/link.c
+	* objects/Istar/other.c
+	* objects/Jackson/domain.c
+	* objects/Jackson/jackson.c
+	* objects/Jackson/jackson.h
+	* objects/Jackson/phenomenon.c
+	* objects/Jackson/requirement.c
+	* objects/KAOS/goal.c
+	* objects/KAOS/kaos.c
+	* objects/KAOS/kaos.h
+	* objects/KAOS/metaandorrel.c
+	* objects/KAOS/metabinrel.c
+	* objects/KAOS/other.c: Patch from Patch from Christophe Ponsard
+	<cp@cetic.be>: Fix instability issues caused by not returning NULL
+	in *_move_handle and *_move.  Also improved the headers with
+	correct (c) information.
+
 2004-06-22  Lars Clausen  <lars@raeder.dk>
 
 	* objects/KAOS/goal.c:
@@ -6,7 +32,7 @@
 	* objects/Istar/goal.c:
 	* objects/Istar/other.c:
 	* objects/Jackson/domain.c:
-	* objects/Jackson/phenomenon.c: Patch from "Christophe Ponsard"
+	* objects/Jackson/phenomenon.c: Patch from Christophe Ponsard
 	<cp@cetic.be>: Fix resize issues.
 
 	* app/filedlg.c (file_dialog_hide): Patch from Kiran

@@ -1633,10 +1633,6 @@ static void
 dia_toggle_button_destroy(GtkWidget *widget, gpointer data)
 {
   struct image_pair *images = (struct image_pair *)data;
-  /* Since these may not have been added at any point, make sure to
-   * sink them. */
-  gtk_object_sink(images->on);
-  gtk_object_sink(images->off);
   g_object_unref(images->on);
   g_object_unref(images->off);
   g_free(images);
@@ -1653,12 +1649,16 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
   GValue *prop;
   gint i;
 
+  /* Since these may not be added at any point, make sure to
+   * sink them. */
   images->on = dia_get_image_from_file(on_image);
-  g_object_ref(images->on);
+  g_object_ref(G_OBJECT(images->on));
+  gtk_object_sink(GTK_OBJECT(images->on));
   gtk_widget_show(images->on);
 
   images->off = dia_get_image_from_file(off_image);
-  g_object_ref(images->off);
+  g_object_ref(G_OBJECT(images->off));
+  gtk_object_sink(GTK_OBJECT(images->off));
   gtk_widget_show(images->off);
 
   /* Make border as small as possible */
@@ -1669,7 +1669,7 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
 
   rcstyle = gtk_rc_style_new ();  
   rcstyle->xthickness = rcstyle->ythickness = 0;       
-  gtk_widget_modify_style (button, rcstyle);   
+  gtk_widget_modify_style (button, rcstyle);
   gtk_rc_style_unref (rcstyle);
 
   //style = gtk_widget_get_style(button);
