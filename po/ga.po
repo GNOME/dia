@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 03:10+0100\n"
-"PO-Revision-Date: 2004-02-03 07:10 :40+0000\n"
+"PO-Revision-Date: 2004-03-08 07:10 :40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1021,7 +1021,7 @@ msgstr ""
 
 #: app/menus.c:149
 msgid "Show _All"
-msgstr ""
+msgstr "Taispeán _Gach rud"
 
 #: app/menus.c:150
 msgid "Redraw"
@@ -1029,7 +1029,7 @@ msgstr ""
 
 #: app/menus.c:155
 msgid "Replace"
-msgstr ""
+msgstr "Glac áit"
 
 #: app/menus.c:157
 msgid "Union"
@@ -1434,7 +1434,7 @@ msgstr "Roghnaigh/---"
 
 #: app/menus.c:400
 msgid "/Select/Replace"
-msgstr "/Roghnaigh/Replace"
+msgstr "/Roghnaigh/Glac Áit"
 
 #: app/menus.c:402
 msgid "/Select/Union"
