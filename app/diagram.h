@@ -90,8 +90,6 @@ extern void diagram_set_filename(Diagram *dia, char *filename);
 
 extern void diagram_import_from_xfig(Diagram *dia, char *filename);
 
-extern void diagram_export_to_eps(Diagram *dia, char *filename);
-
 extern int diagram_modified_exists(void);
 
 #endif /* DIAGRAM_H */
