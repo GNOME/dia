@@ -153,6 +153,10 @@ void       dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked);
 void       dia_size_selector_set_size        (DiaSizeSelector *ss, real width, real height);
 gboolean dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, real *height);
 
+/* **** Util functions for Gtk stuff **** */
+/** Gets the image name 'filename' out of the shared data dir */
+GtkWidget *dia_get_image_from_file(gchar *filename);
+
 /* Other common defaults */
 
 #define DEFAULT_ALIGNMENT ALIGN_LEFT

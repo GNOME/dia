@@ -1,3 +1,10 @@
+2004-03-02  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* lib/widgets.h: 
+	* lib/widgets.c (dia_size_selector_init): Add images to the size
+	selector chain widget.  Also new function to load installed images
+	from files (better than from included XPM, IMHO).
+
 2004-03-02  Lars Clausen  <lars@raeder.dk>
 
 	* lib/libdia.def: 

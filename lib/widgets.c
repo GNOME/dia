@@ -27,9 +27,6 @@
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
 
-#include "pixmaps/broken-chain.xpm"
-#include "pixmaps/unbroken-chain.xpm"
-
 #include <stdlib.h>
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -51,6 +48,7 @@ struct _DiaSizeSelector
   GtkToggleButton *aspect_locked;
   real ratio;
   GtkAdjustment *last_adjusted;
+  GtkWidget *unbroken_link, *broken_link;
 };
 
 struct _DiaSizeSelectorClass
@@ -118,9 +116,16 @@ static void
 dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
-  
+
+  if (gtk_bin_get_child(GTK_BIN(ss->aspect_locked)))
+    gtk_container_remove(GTK_CONTAINER(ss->aspect_locked), 
+    gtk_bin_get_child(GTK_BIN(ss->aspect_locked)));
+
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))) {
+    gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->unbroken_link);
     dia_size_selector_ratio_callback(ss->last_adjusted, (gpointer)ss);
+  } else {
+    gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->broken_link);
   }
 }
 
@@ -149,16 +154,21 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_widget_show(GTK_WIDGET(ss->height));
 
   /* Replace label with images */
-  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label("X"));
-  
-  /*
-  pixmap = gdk_pixmap_create_from_data(drawable, unlinked_xpm, 9, 24, 24, gdk_color_black, gdk_color_white);
-  bitmap = gdk_pitmap_create_from_data(drawable, unlinked_xpm, 9, 24);
-  image = gtk_image_new_from_pixmap(pixmap, bitmap);
-  g_object_unref(pixmap);
-  g_object_unref(bitmap);
-  gtk_container_add(GTK_CONTAINER(ss->aspect_locked), image);
-  */
+  /* should make sure they're both unallocated when the widget dies. 
+  * That should happen in the "destroy" handler, where both should
+  * be unref'd */
+  ss->broken_link = dia_get_image_from_file("broken-chain.xpm");
+  g_object_ref(ss->broken_link);
+  gtk_misc_set_padding(GTK_MISC(ss->broken_link), 0, 0);
+  gtk_widget_show(ss->broken_link);
+  ss->unbroken_link = dia_get_image_from_file("unbroken-chain.xpm");
+  g_object_ref(ss->unbroken_link);
+  gtk_misc_set_padding(GTK_MISC(ss->unbroken_link), 0, 0);
+  gtk_widget_show(ss->unbroken_link);
+
+  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new());
+  gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->unbroken_link);
+  gtk_container_set_border_width(GTK_CONTAINER(ss->aspect_locked), 0);
 
   gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), TRUE);
@@ -1593,3 +1603,17 @@ dia_file_selector_get_file(DiaFileSelector *fs)
   return fs->sys_filename;
 }
 
+/* **** Misc. util functions **** */
+/** Get a GtkImage from the data in Dia data file filename.
+ * On Unix, this could be /usr/local/share/dia/image/<filename>
+ */
+GtkWidget *
+dia_get_image_from_file(gchar *filename)
+{
+  gchar *datadir = dia_get_data_directory("images");
+  gchar *imagefile = g_strconcat(datadir, G_DIR_SEPARATOR_S, filename, NULL);
+  GtkWidget *image = gtk_image_new_from_file(imagefile);
+  g_free(imagefile);
+  g_free(datadir);
+  return image;
+}
