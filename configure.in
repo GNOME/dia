@@ -113,6 +113,14 @@ AC_ARG_ENABLE(gdk_pixbuf,
 AC_MSG_RESULT($GDK_PIXBUF)
 if test "$GDK_PIXBUF" = "yes"; then
   AC_PATH_PROG(GDK_PIXBUF_CONFIG,gdk-pixbuf-config,no)
+  AC_MSG_CHECKING(for gdk-pixbuf >= 0.7.0)
+  vers=`$GDK_PIXBUF_CONFIG --version | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  if test "$vers" -ge 7000; then
+    AC_MSG_RESULT(found)
+  else
+    AC_MSG_RESULT(not found)
+    GDK_PIXBUF_CONFIG=no
+  fi
   if test x$GDK_PIXBUF_CONFIG != xno; then
      echo "Using installed gdk_pixbuf"
      GDK_PIXBUF_LIBS=`$GDK_PIXBUF_CONFIG --libs`
