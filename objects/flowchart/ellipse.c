@@ -160,7 +160,7 @@ static ObjectTypeOps ellipse_type_ops =
   (ApplyDefaultsFunc) ellipse_apply_defaults
 };
 
-ObjectType ellipse_type =
+ObjectType fc_ellipse_type =
 {
   "Flowchart - Ellipse",  /* name */
   0,                 /* version */
@@ -758,7 +758,7 @@ ellipse_create(Point *startpoint,
   elem = &ellipse->element;
   obj = (Object *) ellipse;
   
-  obj->type = &ellipse_type;
+  obj->type = &fc_ellipse_type;
 
   obj->ops = &ellipse_ops;
 
@@ -885,7 +885,7 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   elem = &ellipse->element;
   obj = (Object *) ellipse;
   
-  obj->type = &ellipse_type;
+  obj->type = &fc_ellipse_type;
   obj->ops = &ellipse_ops;
 
   element_load(elem, obj_node);

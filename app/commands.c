@@ -754,6 +754,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog;
   GtkWidget *vbox;
+  GtkWidget *bbox;
   GtkWidget *frame;
   GtkWidget *label;
   GtkWidget *button;
@@ -808,9 +809,13 @@ help_about_callback(GtkWidget *widget, gpointer data)
 			   "for more info"));
   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
 
+  bbox = gtk_hbutton_box_new();
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), bbox, TRUE, TRUE, 5);
+  gtk_button_box_set_child_size(GTK_BUTTON_BOX(bbox), 80, 0);
+  gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 10);
+
   button = gtk_button_new_with_label(_("OK"));
-  gtk_box_pack_start(GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		     button, TRUE, TRUE, 5);
+  gtk_container_add(GTK_CONTAINER(bbox), button);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
 			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			    GTK_OBJECT(dialog));

@@ -1,3 +1,19 @@
+1999-10-10  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* configure.in:
+	* app_procs.c:
+	* objects/flowchart/box.c
+	* objects/flowchart/ellipse.c
+	* objects/flowchart/flowchart.c	
+	Use gmodule for dynamic linking. As gmodule is using
+	RTLD_GLOBAL i had to change flowchart box and ellipse
+	so the typenames doesn't conflict with the standard
+	box and ellipse.
+
+	* message.c
+	* commands.c
+	Use button box to make dialogs look better.
+
 1999-10-09  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/class_dialog.c:

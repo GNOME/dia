@@ -19,10 +19,10 @@
 #include "object.h"
 #include "sheet.h"
 
-extern ObjectType box_type;
+extern ObjectType fc_box_type;
 extern ObjectType pgram_type;
 extern ObjectType diamond_type;
-extern ObjectType ellipse_type;
+extern ObjectType fc_ellipse_type;
 
 extern SheetObject box_sheetobj;
 extern SheetObject pgram_sheetobj;
@@ -34,10 +34,10 @@ int get_version(void) {
 }
 
 void register_objects(void) {
-  object_register_type(&box_type);
+  object_register_type(&fc_box_type);
   object_register_type(&pgram_type);
   object_register_type(&diamond_type);
-  object_register_type(&ellipse_type);
+  object_register_type(&fc_ellipse_type);
 }
 
 void register_sheets(void) {

@@ -27,6 +27,7 @@
 #include <locale.h>
 
 #include <gtk/gtk.h>
+#include <gmodule.h>
 
 #include "config.h"
 
@@ -55,16 +56,6 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
-
-#ifdef RTLD_LAZY        /* Solaris 2. */
-# define DLOPEN_MODE   RTLD_LAZY
-#else
-# ifdef RTLD_NOW
-#  define DLOPEN_MODE   RTLD_NOW
-# else
-#  define DLOPEN_MODE   1  /* Thats what it says in the man page. */
-# endif
-#endif
 
 static void register_all_objects(void);
 static void register_all_sheets(void);
@@ -310,8 +301,8 @@ register_objects_in(char *directory)
   char file_name[256];
   struct dirent *dirp;
   DIR *dp;
-  const char *error;
-  void *libhandle;
+  const gchar *error;
+  GModule *libhandle;
   void (*register_func)(void);
   int (*version_func)(void);
   
@@ -339,21 +330,16 @@ register_objects_in(char *directory)
       strncpy(file_name, directory, 256);
       strncat(file_name, "/", 256);
       strncat(file_name, dirp->d_name, 256);
-      
-      libhandle = dlopen(file_name, DLOPEN_MODE);
+
+      libhandle = g_module_open(file_name, G_MODULE_BIND_LAZY);
       if (libhandle==NULL) {
-	error = dlerror();
+	error = g_module_error();
 	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	continue;
       }
 
-#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
-      version_func = dlsym(libhandle, "_get_version");
-#else
-      version_func = dlsym(libhandle, "get_version");
-#endif
-      if (version_func == NULL)  {
+      if (!g_module_symbol(libhandle, "get_version", (gpointer)&version_func)) {
 	message_warning(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	printf(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	continue;
@@ -371,14 +357,8 @@ register_objects_in(char *directory)
 	continue;
       }
 
-      
-#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
-      register_func = dlsym(libhandle, "_register_objects");
-#else
-      register_func = dlsym(libhandle, "register_objects");
-#endif
-      if (register_func == NULL)  {
-	error = dlerror();
+      if (!g_module_symbol(libhandle, "register_objects", (gpointer)&register_func)) {
+	error = g_module_error();
 	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	continue;
@@ -387,7 +367,6 @@ register_objects_in(char *directory)
       (*register_func)();
 
       modules_list = g_list_append(modules_list, libhandle);
-
     } 
   }
 
@@ -433,21 +412,15 @@ register_all_sheets(void)
 {
   GList *list;
   void (*register_func)(void);
-  void *libhandle;
-  const char *error;
+  GModule *libhandle;
+  const gchar *error;
 
   list = modules_list;
   while (list != NULL) {
-    libhandle = (void *) list->data;
+    libhandle = (GModule *) list->data;
 
-#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
-    register_func = dlsym(libhandle, "_register_sheets");
-#else
-    register_func = dlsym(libhandle, "register_sheets");
-#endif
-
-    if (register_func == NULL)  {
-      error = dlerror();
+    if (!g_module_symbol(libhandle, "register_sheets", (gpointer)&register_func)) {
+      error = g_module_error();
       message_warning(_("Unable to find register_sheets in library:\n%s"), error);
       list = g_list_next(list);
       continue;
@@ -457,6 +430,5 @@ register_all_sheets(void)
     
     list = g_list_next(list);
   } 
-
 }
 

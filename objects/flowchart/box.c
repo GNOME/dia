@@ -164,7 +164,7 @@ static ObjectTypeOps box_type_ops =
   (ApplyDefaultsFunc) box_apply_defaults
 };
 
-ObjectType box_type =
+ObjectType fc_box_type =
 {
   "Flowchart - Box",  /* name */
   0,                 /* version */
@@ -892,7 +892,7 @@ box_create(Point *startpoint,
   elem = &box->element;
   obj = (Object *) box;
   
-  obj->type = &box_type;
+  obj->type = &fc_box_type;
 
   obj->ops = &box_ops;
 
@@ -1025,7 +1025,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   elem = &box->element;
   obj = (Object *) box;
   
-  obj->type = &box_type;
+  obj->type = &fc_box_type;
   obj->ops = &box_ops;
 
   element_load(elem, obj_node);

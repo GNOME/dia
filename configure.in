@@ -29,17 +29,6 @@ AM_PATH_GTK(1.2.0)
 APP_LIBS=""
 AC_SUBST(APP_LIBS)
 
-dnl Checks for dynamic linking
-AC_CHECK_LIB(dl,dlopen, [APP_LIBS="$APP_LIBS -ldl"] )
-if test "$ac_cv_lib_dl_dlopen" = "no"; then
- AC_CHECK_FUNCS(dlopen)
- if test "$ac_cv_func_dlopen" = "no"; then
-  AC_MSG_ERROR(Can't find dlopen.)
- fi
-fi
-
-DIA_DLSYM_USCORE
-
 dnl
 dnl GNOME
 dnl

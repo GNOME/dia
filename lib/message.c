@@ -34,6 +34,8 @@ message_internal(char *title, const char *fmt,
   GtkWidget *dialog_window = NULL;
   GtkWidget *label;
   GtkWidget *button;
+  GtkWidget *bbox;
+
   gint len;
 
   len = format_string_length_upper_bound (fmt, args);
@@ -59,11 +61,17 @@ message_internal(char *title, const char *fmt,
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog_window)->vbox), 
 		      label, TRUE, TRUE, 0);
   gtk_widget_show (label);
+
+  bbox = gtk_hbutton_box_new();
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog_window)->action_area), 
+		     bbox, TRUE, TRUE, 0);
+  gtk_button_box_set_child_size(GTK_BUTTON_BOX(bbox), 80, 0);
+  gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 10);
+  gtk_widget_show(bbox);
   
   button = gtk_button_new_with_label (_("OK"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog_window)->action_area), 
-		      button, TRUE, TRUE, 0);
+  gtk_container_add(GTK_CONTAINER(bbox), button);
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
