@@ -65,26 +65,18 @@
       <description xml:lang="fr">Une antenne pour transmissions sans fil</description>
       <description>En antenne for trådløs overføring</description>
     </object>
-    <object name="">
-      <description xml:lang="no"></description>
-      <description xml:lang="fr"></description>
-      <description></description>
+    <object name="Network - Cloud">
+      <description>Network Cloud</description>
+      <description xml:lang="de">Netzwerkwolke</description>
     </object>
-    <object name="">
-      <description xml:lang="no"></description>
-      <description xml:lang="fr"></description>
-      <description></description>
+    <object name="Network - Router Symbol">
+      <description>Router Symbol</description>
     </object>
-    <object name="">
-      <description xml:lang="no"></description>
-      <description xml:lang="fr"></description>
-      <description></description>
+    <object name="Network - Switch Symbol">
+      <description>Switch Symbol</description>
     </object>
-    <object name="">
-      <description xml:lang="no"></description>
-      <description xml:lang="fr"></description>
-      <description></description>
+    <object name="Network - Switch ATM Symbol">
+      <description>ATM Switch Symbol</description>
     </object>
-
   </contents>
 </sheet>

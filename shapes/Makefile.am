@@ -1,4 +1,4 @@
 
-SUBDIRS = Circuit flowchart Contact
+SUBDIRS = Circuit flowchart Contact network
 
 

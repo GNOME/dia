@@ -191,6 +191,7 @@ shapes/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
 shapes/Contact/Makefile
+shapes/network/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile
