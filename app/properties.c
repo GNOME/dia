@@ -21,6 +21,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "intl.h"
 #include "properties.h"
@@ -41,6 +42,9 @@ static GtkWidget *no_properties_dialog = NULL;
 static gint properties_respond(GtkWidget *widget, 
                                gint       response_id,
                                gpointer   data);
+static gboolean properties_key_event(GtkWidget *widget,
+				     GdkEventKey *event,
+				     gpointer data);
 
 static void create_dialog()
 {
@@ -68,6 +72,8 @@ static void create_dialog()
 		   G_CALLBACK(gtk_widget_destroyed), &dialog);
   g_signal_connect(G_OBJECT (dialog), "destroy",
 		   G_CALLBACK(gtk_widget_destroyed), &dialog_vbox);
+  g_signal_connect(G_OBJECT (dialog), "key-release-event",
+		   G_CALLBACK(properties_key_event), NULL);
 
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
@@ -91,6 +97,16 @@ properties_dialog_destroyed(GtkWidget *widget, gpointer data)
 {
   dialog = NULL;
   return 0;
+}
+
+static gboolean
+properties_key_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+  if (event->keyval == GDK_Escape) {
+    gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_CANCEL);
+    return TRUE;
+  }
+  return FALSE;
 }
 
 static gint

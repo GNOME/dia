@@ -1,3 +1,7 @@
+2003-04-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/properties.c: Escape now closes properties dialogs.
+
 2003-04-25  Hans Breuer  <hans@breuer.org>
 
 	* app/config.h.win32 : bump version to 0.91+cvs
