@@ -22,6 +22,8 @@
 #include <sys/stat.h>
 #include <math.h>
 
+#include <gdk_imlib.h>
+
 #include "config.h"
 #ifdef GNOME
 #include <gnome.h>
@@ -42,6 +44,7 @@
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
 
+GdkImlibImage *logo;
 
 /* if user already has a diagram open, then start out in that directory */
 static void set_default_file_selection_directory (GtkWidget *fs)
@@ -562,6 +565,15 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
 } 
 
 void
+logo_expose_callback(GtkWidget *widget, GdkEventExpose *event)
+{
+  if (logo) {
+    gdk_imlib_paste_image(logo, widget->window, event->area.x, event->area.y, 
+			  event->area.width, event->area.height);
+  }
+}
+
+void
 help_about_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog;
@@ -571,18 +583,8 @@ help_about_callback(GtkWidget *widget, gpointer data)
   GtkWidget *button;
   char str[100];
 
-#ifdef GNOME
-  const gchar *authors[] = { "Alexander Larsson", NULL };
+  GtkWidget *drawarea;
 
-  GtkWidget *about = 
-    gnome_about_new (PACKAGE, VERSION,
-		     _("Copyright (C) 1999"),
-		     authors,
-		     _("Please visit http://www.lysator.liu.se/~alla/dia "
-		       "for more info"),
-		     NULL);
-  gtk_widget_show(about);
-#else
   dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
   gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
@@ -592,10 +594,31 @@ help_about_callback(GtkWidget *widget, gpointer data)
 		      GTK_SIGNAL_FUNC (gtk_widget_destroy), 
 		      GTK_OBJECT (dialog));
 
+  vbox = gtk_vbox_new (FALSE, 1);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
+  gtk_container_add (GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), vbox);
+
+  g_snprintf(str, sizeof(str), "%s/dia_logo.png", DATADIR);
+  logo = gdk_imlib_load_image(str);
+
+  if (logo) {
+    frame = gtk_frame_new (NULL);
+    gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+    gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
+    gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
+
+    drawarea = gtk_drawing_area_new();
+    gtk_container_add (GTK_CONTAINER(frame), drawarea);
+    gtk_signal_connect (GTK_OBJECT (drawarea), "expose_event",
+			(GtkSignalFunc) logo_expose_callback, NULL);
+    
+    gtk_drawing_area_size(GTK_DRAWING_AREA(drawarea), logo->rgb_width, logo->rgb_height);
+  }
+
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-  gtk_container_set_border_width (GTK_CONTAINER (frame), 5);
-  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
+  gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
+  gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
   vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 1);
@@ -609,15 +632,14 @@ help_about_callback(GtkWidget *widget, gpointer data)
 			   "for more info"));
   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
 
-  button = gtk_button_new_with_label (_("OK"));
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, FALSE, FALSE, 0);
+  button = gtk_button_new_with_label(_("OK"));
+  gtk_box_pack_start(GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+		     button, TRUE, TRUE, 5);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
 			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			    GTK_OBJECT(dialog));
 
   gtk_widget_show_all (dialog);
-#endif
 }
 
 void
