@@ -535,7 +535,6 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->origin);
   gtk_widget_show (ddisp->hrule);
   gtk_widget_show (ddisp->vrule);
-  gtk_widget_show (ddisp->canvas);
   gtk_widget_show (ddisp->zoom_status);
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
@@ -549,6 +548,26 @@ create_display_shell(DDisplay *ddisp,
       gtk_widget_show (root_vbox);
   }
   gtk_widget_show (ddisp->shell);
+
+  /* before showing up, checking canvas's REAL size */
+  if (use_mbar && ddisp->hrule->allocation.width > width) 
+  {
+    /* The menubar is not shrinkable, so the shell will have at least
+     * the menubar's width. If the diagram's requested width is smaller,
+     * the canvas will be enlarged to fit the place. In this case, we
+     * need to adjust the horizontal scrollbar according to the size
+     * that will be allocated, which the same as the hrule got.
+     */
+
+    width = ddisp->hrule->allocation.width;
+
+    ddisp->hsbdata->upper          = width;
+    ddisp->hsbdata->page_increment = (width - 1) / 4;
+    ddisp->hsbdata->page_size      = width - 1;
+
+    gtk_adjustment_changed (GTK_ADJUSTMENT(ddisp->hsbdata));
+  }
+  gtk_widget_show (ddisp->canvas);
 
   /*  set the focus to the canvas area  */
   gtk_widget_grab_focus (ddisp->canvas);

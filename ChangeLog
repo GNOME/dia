@@ -1,3 +1,8 @@
+2004-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/interface.c: Patch #130100 from luc@handhelds.org:  Make
+	sure the initial diagram size is correct.
+
 2004-02-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/Makefile.am (AM_CPPFLAGS): Override AM_CPPFLAGS instead of
