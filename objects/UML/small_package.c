@@ -246,7 +246,7 @@ smallpackage_draw(SmallPackage *pkg, Renderer *renderer)
 
   text_draw(pkg->text, renderer);
 
-  if (pkg->st_stereotype != NULL) {
+  if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
     renderer->ops->draw_string(renderer, pkg->st_stereotype, &p1, 
@@ -277,7 +277,7 @@ smallpackage_update_data(SmallPackage *pkg)
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y + pkg->text->ascent;
 
-  if (pkg->stereotype != NULL) {
+  if ((pkg->stereotype != NULL) && (pkg->stereotype[0] != '\0')) {
     font = pkg->text->font;
     elem->height += pkg->text->height;
     elem->width = MAX(elem->width, font_string_width(pkg->st_stereotype,

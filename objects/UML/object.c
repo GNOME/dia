@@ -285,14 +285,14 @@ objet_draw(Objet *ob, Renderer *renderer)
   
   text_draw(ob->text, renderer);
 
-  if (ob->st_stereotype != NULL) {
+  if ((ob->st_stereotype != NULL) && (ob->st_stereotype[0] != '\0')) {
       renderer->ops->draw_string(renderer,
 				 ob->st_stereotype,
 				 &ob->st_pos, ALIGN_CENTER,
 				 &color_black);
   }
 
-  if (ob->exstate != NULL) {
+  if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
       renderer->ops->draw_string(renderer,
 				 ob->exstate,
 				 &ob->ex_pos, ALIGN_CENTER,
@@ -351,7 +351,7 @@ objet_update_data(Objet *ob)
     h += OBJET_MARGIN_M;
   }
     
-  if (ob->st_stereotype != NULL) {
+  if ((ob->stereotype != NULL) && (ob->stereotype[0] != '\0')) {
       w = font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT);
       h += OBJET_FONTHEIGHT;
       ob->st_pos.y = h;
@@ -363,7 +363,7 @@ objet_update_data(Objet *ob)
 
   h += ob->text->height*ob->text->numlines;
 
-  if (ob->exstate != NULL) {
+  if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
       w = MAX(w, font_string_width(ob->exstate, font, OBJET_FONTHEIGHT));
       h += OBJET_FONTHEIGHT;
       ob->ex_pos.y = h;
