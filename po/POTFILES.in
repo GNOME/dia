@@ -116,3 +116,5 @@ plug-ins/svg/render_svg.c
 plug-ins/svg/svg.c
 #plug-ins/wmf/wmf.cpp		: not in Makefile.am
 plug-ins/wpg/wpg.c
+plug-ins/xfig/xfig.c
+plug-ins/xfig/xfig-import.c
