@@ -1,3 +1,8 @@
+2002-06-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/widgets.c: Total rehash of font selector, with font dialog
+	option, expanding list (not LRU yet), and stuff.
+
 2002-06-25  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* lib/font.h:
