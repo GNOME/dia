@@ -70,9 +70,10 @@ def slurp_po(fname):
     #print "translations:",translations,"idents:",idents
     return (language_name, idents, translations)
 
-if len(sys.argv)<2:
-    print "Usage: %s <lang.po>" % sys.argv[0]
+if len(sys.argv)<3:
+    print "Usage: %s <package.pot> <lang.po> ..." % sys.argv[0]
     print
+    print " <package.pot>: file name of the identifier reference to check."
     print " <lang.po>: file name of the translation to check"
     sys.exit(1)
 
@@ -81,8 +82,14 @@ def maxlen(a,b):
         return a
     return b
 
-translations = map(slurp_po,sys.argv[1:])
-trans = map(lambda (l,i,t): "%s:%3d%%(%d/%d)"%(l,100*float(t)/i,t,i),
+(t,idents,n) = slurp_po(sys.argv[1])
+del t,n
+
+translations = map(slurp_po,sys.argv[2:])
+trans = map(lambda (l,i,t),ti=idents: "%s:%3d%%(%d/%d)%s"%(l,
+                                                           100*float(t)/idents,
+                                                           t,idents,
+                                                           "*" * (idents != i)),
             translations)
 maxlanglen = len(reduce(maxlen,trans,""))
 trans = map(lambda s,mll=maxlanglen: string.ljust(s,mll),trans)
@@ -90,7 +97,7 @@ lt = len(trans)
 
 collen = maxlanglen + len("  ")
 
-numcols = int(80 / collen)
+numcols = int(79 / collen)
 ltnc = int(lt/numcols)
 cols = []
 while trans:

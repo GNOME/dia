@@ -5,6 +5,8 @@ cat <<__EOF__ >$str
 *** PO/core/gettext translation report: ***
 (Absence of a language code means 0% translation for that language)
 (Help for translations (and/or much more) is of course welcome !)
+(star after a language's statistics means that the translation file isn't)
+ up to date with the POT (original messages) file)
 
 (Please note that 100% doesn't mean that the work is complete: have you 
  checked the sheet translations for your language too ?)

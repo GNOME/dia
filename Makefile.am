@@ -12,8 +12,8 @@ pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
 CLEANFILES = core-translation-report
 
-core-translation-report: po/*.po
-	-./po-checktrans po/*.po
+core-translation-report: po/dia.pot po/*.po
+	-./po-checktrans po/dia.pot po/*.po
 
 Applicationsdir = $(gnomedatadir)/gnome/apps/Applications
 Applications_DATA = dia.desktop 
