@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2002-06-14 22:46+0200\n"
+"POT-Creation-Date: 2002-10-03 06:08+0200\n"
 "PO-Revision-Date: 2002-03-09 17:36+0100\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Nederlands <nl@li.org>\n"
@@ -2526,7 +2526,7 @@ msgstr "Pak in"
 
 #: objects/FS/function.c:688
 msgid "Coalesce"
-msgstr ""
+msgstr "Combineren"
 
 #: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
@@ -2595,7 +2595,7 @@ msgstr "Filter"
 
 #: objects/FS/function.c:711
 msgid "Percolate"
-msgstr ""
+msgstr "Filtreren"
 
 #: objects/FS/function.c:712
 msgid "Clear"
@@ -2627,7 +2627,7 @@ msgstr "Leeg"
 
 #: objects/FS/function.c:720 objects/FS/function.c:721
 msgid "Dissipate"
-msgstr ""
+msgstr "Demonteren"
 
 #: objects/FS/function.c:722
 msgid "Absorb"
@@ -2639,7 +2639,7 @@ msgstr "Demp"
 
 #: objects/FS/function.c:724
 msgid "Dispel"
-msgstr ""
+msgstr "Verjagen"
 
 #: objects/FS/function.c:726
 msgid "Resist"
@@ -2679,7 +2679,7 @@ msgstr "Verzorgen"
 
 #: objects/FS/function.c:739
 msgid "Replenish"
-msgstr ""
+msgstr "Aanvullen"
 
 #: objects/FS/function.c:740
 msgid "Expose"
@@ -2695,7 +2695,7 @@ msgstr "Controle Grootte"
 
 #: objects/FS/function.c:744 objects/FS/function.c:745
 msgid "Actuate"
-msgstr ""
+msgstr "Actualiseren"
 
 #: objects/FS/function.c:746
 msgid "Start"
@@ -2820,7 +2820,7 @@ msgstr "Sublimeren"
 
 #: objects/FS/function.c:783
 msgid "Condense"
-msgstr ""
+msgstr "Verdichten"
 
 #: objects/FS/function.c:784
 msgid "Integrate"
@@ -2844,7 +2844,7 @@ msgstr "Herken"
 
 #: objects/FS/function.c:793
 msgid "Discern"
-msgstr ""
+msgstr "Onderscheiden"
 
 #: objects/FS/function.c:794
 msgid "Check"
@@ -3001,7 +3001,7 @@ msgstr "Geleiding"
 
 #: objects/FS/function.c:839
 msgid "Convection"
-msgstr ""
+msgstr "Verwijdering"
 
 #: objects/FS/function.c:840 objects/FS/function.c:844
 msgid "Radiation"
@@ -3197,7 +3197,7 @@ msgstr "EN"
 
 #: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
-msgstr ""
+msgstr "Afsluiting type:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:438
 #: objects/standard/line.c:182
@@ -4009,7 +4009,7 @@ msgstr "Kon FIG object '%s' niet indentificeren\n"
 
 #: plug-ins/xfig/xfig-import.c:924
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Einde samenstelling buiten samenstelling\n"
 
 #: plug-ins/xfig/xfig-import.c:943
 #, c-format
@@ -4618,11 +4618,11 @@ msgstr "Kleine Extensie Node"
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Tactische Satelliet Communicatie Terminal"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "V.S. Militair Mobiel Abonnee Uitrusting Stukken"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -4674,7 +4674,7 @@ msgstr "Een pneumatische drukbron"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
-msgstr ""
+msgstr "Een luchtafvoer opening"
 
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
@@ -4702,7 +4702,7 @@ msgstr "Mechanisch commando d.m.v. een veer"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Mechanisch commando door tikken"
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
@@ -4942,7 +4942,7 @@ msgstr "Een motor"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
-msgstr ""
+msgstr "Een voorafgaande verklaring tank"
 
 #: sheets/civil.sheet.in.h:8
 msgid "A Rotor"
@@ -4950,7 +4950,7 @@ msgstr "Een rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "Een bassin eindelijk op zijn plek"
 
 #: sheets/civil.sheet.in.h:10
 msgid "A horizontal limiting line"
@@ -4970,7 +4970,7 @@ msgstr "Een vertikaal uitgelijnde Pijl"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
-msgstr ""
+msgstr "Een ventilator met bubbels"
 
 #: sheets/civil.sheet.in.h:15
 msgid "Bivalent Vertical Rest"
@@ -4982,7 +4982,7 @@ msgstr "Burger"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Civiele technische componenten"
 
 #: sheets/civil.sheet.in.h:18
 msgid "Horizontal Rest"
