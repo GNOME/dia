@@ -57,6 +57,31 @@ static Color fig_colors[FIG_MAX_USER_COLORS];
 
 gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
+static char **warnings;
+
+#define WARNING_NO_POLYGONS 0
+#define WARNING_NO_PATTERNS 1
+#define WARNING_NO_TRIPLE_DOTS 2
+#define WARNING_NEGATIVE_CORNER_RADIUS 3
+#define WARNING_NO_SPLINES 4
+#define MAX_WARNING 5
+
+static void
+fig_warn(int warning) {
+    if (warnings == NULL) {
+	warnings = g_malloc(sizeof(char*)*MAX_WARNING);
+	warnings[0] = _("Polygon import is not implemented yes");
+	warnings[1] = _("Patterns are not supported by Dia");
+	warnings[2] = _("Triple-dotted lines are not supported by Dia, using double-dotted");
+	warnings[3] = _("Negative corner radius, negating");
+	warnings[4] = _("Spline import is not implemented yet");
+    }
+    if (warning >= MAX_WARNING) return;
+    if (warnings[warning] != NULL) {
+	message_warning(warnings[warning]);
+	warnings[warning] = NULL;
+    }
+}
 
 static int
 skip_comments(FILE *file) {
@@ -249,6 +274,17 @@ create_standard_image(real xpos, real ypos, real width, real height,
     return new_obj;
 }
 
+static Object *
+create_standard_group(GList *items, DiagramData *dia) {
+    Object *new_obj;
+
+    new_obj = group_create((GList*)items);
+
+    layer_add_object(dia->active_layer, new_obj);
+
+    return new_obj;
+}
+
 static Color
 fig_color(int color_index) {
     if (color_index == -1) return color_black; /* Default color */
@@ -277,7 +313,7 @@ fig_area_fill_color(int area_fill, int color_index) {
 	col.green += (0xff-col.green)*(area_fill-20)/20;
 	col.blue += (0xff-col.blue)*(area_fill-20)/20;
     } else {
-	message_warning(_("Patterns are not implemented\n"));
+	fig_warn(WARNING_NO_PATTERNS);
     }
     
     return col;
@@ -314,8 +350,11 @@ fig_simple_properties(Object *obj,
 	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
 	    break;
 	case 5:
+	    fig_warn(WARNING_NO_TRIPLE_DOTS);
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
+	    break;
 	default:
-	    message_error(_("Line style %d not supported\n"), line_style);
+	    message_error(_("Line style %d should not appear\n"), line_style);
 	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
 	}
 	num_props++;
@@ -438,6 +477,8 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int start_x, start_y;
     int end_x, end_y;
     Object *newobj = NULL;
+    int num_props = 0;
+    Property props[5];
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
@@ -454,7 +495,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 	       &center_x, &center_y,
 	       &radius_x, &radius_y,
 	       &start_x, &start_y,
-	       &end_x, &end_y) != 19) {
+	       &end_x, &end_y) < 19) {
 	message_error(_("Couldn't read ellipse info: %s\n"), strerror(errno));
 	return NULL;
     }
@@ -552,7 +593,11 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      switch (sub_type) {
      case 4:
 	 if (radius < 0) {
-	     message_warning("Negative corner radius %lf\n", radius);
+	     fig_warn(WARNING_NEGATIVE_CORNER_RADIUS);
+  	     props[0].name = "corner_radius";
+	     props[0].type = PROP_TYPE_REAL;
+	     PROP_VALUE_REAL(props[0]) = -radius/FIG_ALT_UNIT;
+	     num_props++;
 	 } else {
 	     props[0].name = "corner_radius";
 	     props[0].type = PROP_TYPE_REAL;
@@ -591,7 +636,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
        message_error(_("Unknown polyline subtype: %d\n"), sub_type);
        return NULL;
      }
-     g_free(image_file);
+     if (image_file != NULL)
+	 g_free(image_file);
 
      fig_simple_properties(newobj, line_style, thickness,
 			   pen_color, fill_color, area_fill);
@@ -757,12 +803,12 @@ fig_read_text(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
+static GSList *compound_stack = NULL;
+/* Returns TRUE if there were no unrecoverable errors */
 static int
 fig_read_object(FILE *file, DiagramData *dia) {
   int objecttype;
-  static GSList *compound_stack = NULL;
   Object *item = NULL;
-  Layer *layer = dia->active_layer;
 
   if (fscanf(file, "%d ", &objecttype) != 1) {
     if (!feof(file)) {
@@ -771,29 +817,18 @@ fig_read_object(FILE *file, DiagramData *dia) {
     return FALSE;
   }
 
-  
-
   switch (objecttype) {
   case -6: { /* End of compound */
-      /* Pop off compound_stack till we reach a null */
-      Object *subitem;
-      GList *items = NULL;
-
       if (compound_stack == NULL) {
 	  message_error(_("Compound end outside compound\n"));
 	  return FALSE;
       }
 
+      message_warning("Creating compound with %d objects\n", g_list_length(compound_stack->data));
+
       /* Make group item with these items */
-      do {
-	  subitem = (Object *)compound_stack->data;
-	  compound_stack = g_slist_next(compound_stack);
-	  if (subitem != NULL) { /* Add object to group */
-	      items = g_list_prepend(items, subitem);
-	  }
-      } while (subitem != NULL);
-      item = group_create(items);
-      layer_add_object(layer, item);
+      item = create_standard_group((GList*)compound_stack->data, dia);
+      compound_stack = g_slist_remove(compound_stack, compound_stack->data);
       break;
   }
   case 0: { /* Color pseudo-object. */
@@ -817,16 +852,35 @@ fig_read_object(FILE *file, DiagramData *dia) {
   }
   case 1: { /* Ellipse which is a generalization of circle. */
       item = fig_read_ellipse(file, dia);
-      if (item == NULL) return FALSE;
+      if (item == NULL) {
+	  return FALSE;
+      }
       break;
   }
   case 2: /* Polyline which includes polygon and box. */
       item = fig_read_polyline(file, dia);
-      /*      if (item == NULL) return FALSE;*/
+      if (item == NULL) {
+	  return FALSE;
+      }
+      break;
+  case 3: /* Spline which includes closed/open control/interpolated spline. */
+      fig_warn(WARNING_NO_SPLINES);
+      item = NULL;
+      if (item == NULL) {
+	  return FALSE;
+      }
       break;
   case 4: /* Text. */
       item = fig_read_text(file, dia);
-      /*      if (item == NULL) return FALSE;*/
+      if (item == NULL) {
+	  return FALSE;
+      }
+      break;
+  case 5: /* Arc. */
+      item = fig_read_arc(file, dia);
+      if (item == NULL) {
+	  return FALSE;
+      }
       break;
   case 6: {/* Compound object which is composed of one or more objects. */
       int dummy;
@@ -840,18 +894,19 @@ fig_read_object(FILE *file, DiagramData *dia) {
       compound_stack = g_slist_prepend(compound_stack, NULL);
       break;
   }
-  case 5: /* Arc. */
-      item = fig_read_arc(file, dia);
-      break;
-  case 3: /* Spline which includes closed/open control/interpolated spline. */
-    message_warning(_("Object type %d not implemented yet\n"), objecttype);
-    return FALSE;
   default:
-    message_error(_("Unknown object type %d\n"), objecttype);
-    return FALSE;
+      message_error(_("Unknown object type %d\n"), objecttype);
+      item = NULL;
+      if (item == NULL) {
+	  return FALSE;
+      }
+      break;
   }
-  if (compound_stack != NULL && item != NULL) /* We're building a compound */
-    compound_stack = g_slist_prepend(compound_stack, item);
+  if (compound_stack != NULL && item != NULL) { /* We're building a compound */
+      GList *compound = (GList *)compound_stack->data;
+      compound = g_list_prepend(compound, item);
+      compound_stack->data = compound;
+  }
   return TRUE;
 }
 
@@ -1031,15 +1086,12 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     return FALSE;
   }
   
+  compound_stack = NULL;
+
   do {
     if (!fig_read_object(figfile, dia)) {
-      if (!feof(figfile)) {
-	  fclose(figfile);
-	  return FALSE;
-      } else {
-	  fclose(figfile);
-	  break;
-      }
+	fclose(figfile);
+	break;
     }
   } while (TRUE);
 
