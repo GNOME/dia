@@ -21,7 +21,7 @@ msgstr ""
 #: app/app_procs.c:153
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s erreur: les noms de fichiers d'entrée et de sortie sont identiques. "
+msgstr "%s erreur: les noms de fichiers d'entrée et de sortie sont identiques: %s"
 
 #: app/app_procs.c:164
 #, c-format

@@ -1,3 +1,8 @@
+2001-09-10  Pablo Saratxaga <pablo@mandrakesoft.com>
+
+	* es.po: Updated Spanish file
+	* fr.po: Fixed syntax error
+
 2001-09-08  Wang Jian <lark@linux.net.cn>
 
 	* zh_CN.po: Renamed from zh_CN.GB2312.po.
