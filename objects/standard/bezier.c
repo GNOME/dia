@@ -24,7 +24,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -37,6 +36,7 @@
 #include "diamenu.h"
 #include "message.h"
 #include "properties.h"
+#include "create.h"
 
 #include "pixmaps/bezier.xpm"
 
@@ -87,8 +87,8 @@ static ObjectTypeOps bezierline_type_ops =
   (CreateFunc)bezierline_create,   /* create */
   (LoadFunc)  bezierline_load,     /* load */
   (SaveFunc)  bezierline_save,      /* save */
-  (GetDefaultsFunc)   NULL /*bezierline_get_defaults*/,
-  (ApplyDefaultsFunc) NULL /*bezierline_apply_defaults*/
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 static ObjectType bezierline_type =
@@ -292,6 +292,10 @@ bezierline_create(Point *startpoint,
     bez->points[1].p3 = bez->points[1].p2;
     point_add(&bez->points[1].p3, &defaultlen);
   } else {
+    BezierlineCreateData *bcd = (BezierlineCreateData*)user_data;
+
+    bezierconn_init(bez, bcd->num_points);
+    bezierconn_set_points(bez, bcd->num_points, bcd->points);
   }
 
   bezierline_update_data(bezierline);
