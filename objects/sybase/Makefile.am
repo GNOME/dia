@@ -15,6 +15,4 @@ libsybase_objects_la_SOURCES = \
 
 libsybase_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 
-CPPFLAGS = @GTK_CFLAGS@
-INCLUDES = -I$(srcdir)/../../lib
-CFLAGS = @CFLAGS@
+INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
