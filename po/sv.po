@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-09-04 03:44+0200\n"
-"PO-Revision-Date: 2001-09-04 04:03+0200\n"
+"POT-Creation-Date: 2001-09-19 16:00+0200\n"
+"PO-Revision-Date: 2001-09-19 17:21+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -351,7 +351,7 @@ msgstr "Nej"
 #: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
+#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -452,8 +452,8 @@ msgstr "Skapa text"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77
-#: objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
+#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
@@ -518,7 +518,7 @@ msgstr "Sicksacklinje"
 
 #: app/interface.c:97
 msgid "Create Polyline"
-msgstr "Skapa linje med flera noder"
+msgstr "Skapa polylinje"
 
 #: app/interface.c:98 app/menus.c:205
 msgid "Polyline"
@@ -608,8 +608,8 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
-#: objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 lib/properties.h:475
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -673,12 +673,12 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Inte en Dia-fil."
 
-#: app/load_save.c:771
+#: app/load_save.c:744
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades med att spara filen \"%s\".\n"
 
-#: app/load_save.c:791 app/load_save.c:796
+#: app/load_save.c:764 app/load_save.c:769
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
@@ -1536,6 +1536,55 @@ msgstr "Läser in..."
 msgid "Dia v %s"
 msgstr "Dia v. %s"
 
+#: lib/properties.c:71 lib/properties.h:478
+msgid "Line colour"
+msgstr "Linjefärg"
+
+#: lib/properties.c:72 lib/properties.h:481
+msgid "Line style"
+msgstr "Linjetyp"
+
+#: lib/properties.c:73 lib/properties.h:485
+msgid "Fill colour"
+msgstr "Fyllningsfärg"
+
+#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
+#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
+#: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
+#: objects/standard/beziergon.c:221 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
+msgid "Draw background"
+msgstr "Rita bakgrund"
+
+#: lib/properties.c:75 lib/properties.h:492
+msgid "Start arrow"
+msgstr "Startpil"
+
+#: lib/properties.c:76 lib/properties.h:495
+msgid "End arrow"
+msgstr "Slutpil"
+
+#: lib/properties.c:78 lib/properties.h:505
+msgid "Text alignment"
+msgstr "Textjustering"
+
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
+msgid "Font"
+msgstr "Typsnitt"
+
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+msgid "Font size"
+msgstr "Typsnittsstorlek"
+
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+msgid "Text colour"
+msgstr "Textfärg"
+
 #: lib/plug-ins.c:217
 #, c-format
 msgid "Could not deduce correct path for `%s'"
@@ -1574,7 +1623,7 @@ msgstr "Kunde inte öppna \"%s\""
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
 
-#: lib/font.c:427
+#: lib/font.c:428
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1583,77 +1632,28 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:532
+#: lib/font.c:533
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:541
+#: lib/font.c:542
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:848
+#: lib/font.c:849
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:850 lib/font.c:851 lib/font.c:884
+#: lib/font.c:851 lib/font.c:852 lib/font.c:885
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:861
+#: lib/font.c:862
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
-
-#: lib/properties.c:71
-msgid "Line colour"
-msgstr "Linjefärg"
-
-#: lib/properties.c:72
-msgid "Line style"
-msgstr "Linjetyp"
-
-#: lib/properties.c:73
-msgid "Fill colour"
-msgstr "Fyllningsfärg"
-
-#: lib/properties.c:74 objects/custom/custom_object.c:311
-#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
-#: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
-#: objects/standard/beziergon.c:221 objects/standard/box.c:232
-#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
-msgid "Draw background"
-msgstr "Rita bakgrund"
-
-#: lib/properties.c:75
-msgid "Start arrow"
-msgstr "Startpil"
-
-#: lib/properties.c:76
-msgid "End arrow"
-msgstr "Slutpil"
-
-#: lib/properties.c:78
-msgid "Text alignment"
-msgstr "Textjustering"
-
-#: lib/properties.c:79 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
-#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
-msgid "Font"
-msgstr "Typsnitt"
-
-#: lib/properties.c:80 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
-msgid "Font size"
-msgstr "Typsnittsstorlek"
-
-#: lib/properties.c:81 objects/GRAFCET/step.c:167
-#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
-msgid "Text colour"
-msgstr "Textfärg"
 
 #: lib/message.c:149
 msgid "Notice"
@@ -1780,7 +1780,7 @@ msgstr "Välj bildfil"
 msgid "Browse"
 msgstr "Bläddra"
 
-#: lib/dia_xml.c:128
+#: lib/dia_xml.c:146
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -1789,26 +1789,26 @@ msgstr ""
 "Filen %s har ingen kodningsspecifikation;\n"
 "antar att den är kodad i %s"
 
-#: lib/dia_xml.c:458
+#: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
 msgstr "Tar punktvärde hos nod som inte är en punkt."
 
-#: lib/dia_xml.c:470
+#: lib/dia_xml.c:488
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Ogiltigt x-punktvärde \"%s\" %f; kastar det."
 
-#: lib/dia_xml.c:478
+#: lib/dia_xml.c:496
 msgid "Error parsing point."
 msgstr "Fel vid tolkning av punkt."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:486
+#: lib/dia_xml.c:504
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Ogiltigt y-punktvärde \"%s\" %f; kastar det."
 
-#: lib/dia_xml.c:920
+#: lib/dia_xml.c:867
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -1835,7 +1835,7 @@ msgstr "Härledd:"
 msgid "Multivalue:"
 msgstr "Multivärde:"
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -1843,7 +1843,7 @@ msgstr "Attribut"
 msgid "Weak:"
 msgstr "Svag:"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Enhet"
 
@@ -1887,7 +1887,7 @@ msgstr "Rotera:"
 msgid "Identifying:"
 msgstr "Identifierar:"
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Förhållande"
 
@@ -2076,6 +2076,7 @@ msgid "Support"
 msgstr "Stöd"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Stoppa"
 
@@ -2345,7 +2346,7 @@ msgstr "Fyll på"
 msgid "Expose"
 msgstr "Exponera"
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Extrahera"
 
@@ -2526,7 +2527,7 @@ msgstr "Indikera"
 msgid "Mark"
 msgstr "Markera"
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Visa"
 
@@ -2736,7 +2737,7 @@ msgstr "Användar-/enhetsfunktion"
 msgid "Wish Fn"
 msgstr "Önskad funktion"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makroanrop"
 
@@ -3567,11 +3568,11 @@ msgstr "Exportfilter till TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks-makron"
 
-#: plug-ins/shape/shape-export.c:921
+#: plug-ins/shape/shape-export.c:937
 msgid "Can't export png without libart!"
 msgstr "Kan inte exportera png utan libart!"
 
-#: plug-ins/shape/shape-export.c:948
+#: plug-ins/shape/shape-export.c:964
 msgid "dia shape file"
 msgstr "dia-formfil"
 
@@ -3579,7 +3580,7 @@ msgstr "dia-formfil"
 msgid "dia shape export filter"
 msgstr "exportfilter för dia-former"
 
-#: plug-ins/svg/render_svg.c:821
+#: plug-ins/svg/render_svg.c:835
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -3761,6 +3762,1166 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 #: plug-ins/xfig/xfig-import.c:1205
 msgid "XFig File Format"
 msgstr "XFig-filformat"
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr "En datalinje"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr "En tidsskala"
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr "Kronogram"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr "Objekt för att skapa kronogramdiagram"
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "A Horizontal Jumper"
+msgstr "En horisontell hoppare"
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "A Horizontally aligned inductor"
+msgstr "En horisontellt justerad induktor"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr "En horisontellt justerad induktor (Europeisk)"
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "A Horizontally aligned resistor"
+msgstr "Ett horisontellt justerat motstånd"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr "Ett horisontell justerat motstånd (Europeisk)"
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "A PMOS transistor"
+msgstr "En PMOS-transistor"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr "En högtalare"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Vertically aligned inductor"
+msgstr "En vertikalt justerad induktor"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor (European)"
+msgstr "En vertikalt justerad induktor (Europeisk)"
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned resistor"
+msgstr "Ett vertikalt justerat motstånd"
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor (European)"
+msgstr "Ett vertikalt justerat motstånd (Europeisk)"
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "A ground point"
+msgstr "En jordpunkt"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A horizontally aligned LED"
+msgstr "En horisontellt justerad lysdiod"
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned capacitor"
+msgstr "En horisontellt justerad kapacitans"
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned diode"
+msgstr "En horisontellt justerad diod"
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "A horizontally aligned fuse"
+msgstr "En horisontellt justerad säkring"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned powersource"
+msgstr "En horisontellt justerad spänningskälla"
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned zener diode"
+msgstr "En horisontellt justerad zenerdiod"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A lamp"
+msgstr "En lampa"
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A npn bipolar transistor"
+msgstr "En bipolär npn-transistor"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A pnp bipolar transistor"
+msgstr "En bipolär pnp-transistor"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A vertically aligned LED"
+msgstr "En vertikalt justerad lysdiod"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned capacitor"
+msgstr "En vertikalt justerad kapacitans"
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned diode"
+msgstr "En vertikalt justerad diod"
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned fuse"
+msgstr "En vertikalt justerad säkring"
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned powersource"
+msgstr "En vertikalt justerad spänningskälla"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned zener diode"
+msgstr "En vertikalt justerad zenerdiod"
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "An NMOS transistor"
+msgstr "En NMOS-transistor"
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "An operational amplifier"
+msgstr "En operationsförstärkare"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "Circuit"
+msgstr "Krets"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr "Komponenter för kretsscheman"
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr "En bakflödesspärr"
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr "En bassäng"
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "En container"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "En frekvensomriktare"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr "En gasflaska"
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr "En motor"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr "En preliminär separationstank"
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "En rotor"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr "En sjunkbassäng"
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr "En horisontell begränsningslinje"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr "En horisontellt justerad pil"
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr "En vertikal begränsningslinje"
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr "En vertikalt justerad pil"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr "En luftningsenhet med bubblor"
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr "Bivalent vertikalt stöd"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr "Civil"
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr "Civilingenjörskomponenter"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr "Horisontellt stöd"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr "Horisontellt justerad ventil"
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr "Horisontellt justerad kompressor"
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr "Horisontellt justerad pump"
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr "Referenslinje"
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr "Mark"
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr "Vertikalt stöd"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr "Vertikalt justerad propeller"
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr "Vertikalt justerad ventil"
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr "Vertikalt justerad kompressor"
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr "Vertikalt justerad pump"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr "Vattennivå"
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr "En \"if not\"-stegkontakt (normalt stängd)"
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr "En \"if\"-stegkontakt (normalt öppen)"
+
+#: sheets/Contact.sheet.in.h:3
+msgid "A 'jump' output variable"
+msgstr "En \"jump\"-utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:4
+msgid "A 'reset' output variable"
+msgstr "En \"reset\"-utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:5
+msgid "A 'set' output variable"
+msgstr "En \"set\"-utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:6
+msgid "A negative output variable"
+msgstr "En negativ utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:7
+msgid "A power-saved 'reset' output variable"
+msgstr "En strömsparad \"reset\"-utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:8
+msgid "A power-saved 'set' output variable"
+msgstr "En strömsparad \"set\"-utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:9
+msgid "A power-saved negative output variable"
+msgstr "En strömsparad negativ utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:10
+msgid "A power-saved simple output variable"
+msgstr "En strömsparad enkel utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:11
+msgid "A receptivity output variable"
+msgstr "En känslighetsutdatavariabel"
+
+#: sheets/Contact.sheet.in.h:12
+msgid "A simple output variable"
+msgstr "En enkel utdatavariabel"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr "Komponenter för STEG-kretsar"
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Ladder"
+msgstr "Stege"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "En anslutningspunkt"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr "En lampa eller indikationsljus"
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr "En normalt stängd kontakt"
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr "En normalt stängd poitionsbrytare"
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr "En normalt öppen kontakt"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr "En normalt öppen positionsbrytare"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr "Ett relä"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr "Komponenter för elektriska kretsar"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Electric"
+msgstr "Elektriskt"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr "Den verksamma delen i ett relä"
+
+#: sheets/EML.sheet.in.h:1
+msgid "Create a process"
+msgstr "Skapa en process"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr "EML"
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Redigerare för statiska EML-strukturdiagram."
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr "Instantiering. En process skapar andra"
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr "Samverkan mellan processer."
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr "ER"
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Redigerare för enhetsrelationsdiagram"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Deltagande"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr "Svag enhet"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr "En ruta med text inuti"
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr "En romb med text inuti"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr "En ellips med text inuti"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr "Ett parallellogram med text inuti"
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Collate"
+msgstr "Beräkna"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr "Fördröjning"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Document"
+msgstr "Dokument"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Flowchart"
+msgstr "Flödesschema"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal Storage"
+msgstr "Intern lagring"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr "Magnetisk disk"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr "Magnetisk trumma"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr "Magnetiskt band"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual Input"
+msgstr "Manuell inmatning"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual Operation"
+msgstr "Manuell betjäning"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr "Slå samman"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr "Objekt för att rita flödesdiagram"
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr "Anslutning utanför sidan"
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Offline Storage"
+msgstr "Inte ansluten lagring"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr "Eller"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Predefined Process"
+msgstr "Fördefinierad process"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Preparation"
+msgstr "Förberedelse"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr "Hålkort"
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr "Hålband"
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Sortera"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr "Summerande koppling"
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr "Terminal"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction File"
+msgstr "Transaktionsfil"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr "Överförningsband"
+
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Skapa ett flöde"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Skapa en funktion"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr "Skapa ett ortogonalt polylinjeflöde"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr "Redigerare för funktionsstrukturdiagram."
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr "FS"
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "A AND vergent"
+msgstr "En OCH-kant"
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "A OR vergent"
+msgstr "En ELLER-kant"
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr "Ett villkor (för en åtgärd)"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr "Ett makroanropssteg"
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "A macro entry step"
+msgstr "Ett makroingångssteg"
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr "Ett makroavslutningssteg"
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr "Ett makro-subprogramsanropssteg"
+
+#: sheets/GRAFCET.sheet.in.h:8
+msgid "A regular step"
+msgstr "Ett vanligt steg"
+
+#: sheets/GRAFCET.sheet.in.h:9
+msgid "A transition"
+msgstr "En omvandling"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr "En åtgärd att associera till ett steg"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr "En båge (uppåt)"
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr "Ett begynnelsesteg"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr "GRAFCET"
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr "Objekt för att skapa GRAFCET-diagram"
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr "Sicksack"
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr "Sicksack - part_iiii"
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr "Sicksack - part_iiio"
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr "Sicksack - part_iioi"
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr "Sicksack - part_iioo"
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr "Sicksack - part_ioii"
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr "Sicksack - part_ioio"
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr "Sicksack - part_iooi"
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr "Sicksack - part_iooo"
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr "Sicksack - part_oiii"
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr "Sicksack - part_oiio"
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr "Sicksack - part_oioi"
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr "Sicksack - part_oioo"
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr "Sicksack - part_ooii"
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr "Sicksack - part_ooio"
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr "Jigsaw - part_oooi"
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr "Jigsaw - part_oooo"
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr "Delar av sicksackmönster"
+
+#: sheets/Logic.sheet.in.h:1
+msgid "A Nand gate"
+msgstr "En NAND-grind"
+
+#: sheets/Logic.sheet.in.h:2
+msgid "A Nor gate"
+msgstr "En NOR-grind"
+
+#: sheets/Logic.sheet.in.h:3
+msgid "A Not"
+msgstr "En NOT"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "A Xor gate"
+msgstr "En XOR-grind"
+
+#: sheets/Logic.sheet.in.h:5
+msgid "A crossconnector"
+msgstr "En korsanslutning"
+
+#: sheets/Logic.sheet.in.h:6
+msgid "A simple Buffer"
+msgstr "En enkel buffert"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "An And gate"
+msgstr "En AND-grind"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "An Inverter"
+msgstr "En inverterare"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "An Or gate"
+msgstr "En OR-grind"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr "Boolesk logik"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr "Logik"
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr "Demultiplexor"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr "Stor utökningsnod"
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr "MSE"
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr "Multiplexor"
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node Center"
+msgstr "Nodcenter"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr "Liten utökningsnod"
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr "Taktisk satellitkommunikationsterminal"
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr "Mobila prenumerationsutrustningskomponenter från amerikanska försvaret"
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "En 3,5-tumsdiskett"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "En bigtower-PC"
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "En dator"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "En skrivbordsdator"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr "En brandväggsrouter"
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr "En miditower-PC"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr "En minitower-PC"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr "En mobiltelefon"
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr "Ett RJ45-vägguttag"
+
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr "En UNIX-arbetsstation"
+
+#: sheets/network.sheet.in.h:11
+msgid "A WAN Connection"
+msgstr "En WAN-anslutning"
+
+#: sheets/network.sheet.in.h:12
+msgid "A WAN Link"
+msgstr "En WAN-länk"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "Ett vägguttag för scEAD-kablingssystem"
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr "En arbetsstationsbildskärm"
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr "En ZIP-disk"
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr "Ett modulärt växlingssystem"
+
+#: sheets/network.sheet.in.h:17
+msgid "A monitor"
+msgstr "En bildskärm"
+
+#: sheets/network.sheet.in.h:18
+msgid "A simple Modem"
+msgstr "Ett enkelt modem"
+
+#: sheets/network.sheet.in.h:19
+msgid "A simple printer"
+msgstr "En enkel skrivare"
+
+#: sheets/network.sheet.in.h:20
+msgid "A speaker with integrated amplifier"
+msgstr "En högtalare med inbyggd förstärkare"
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker without amplifier"
+msgstr "En högtalare utan förstärkare"
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr "Ett staplingsbart nätnav eller växel"
+
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr "ATM-växelsymbol"
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr "En Ethernet-buss"
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr "En antenn för trådlös överföring"
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr "En extern DAT-enhet"
+
+#: sheets/network.sheet.in.h:27
+msgid "Network"
+msgstr "Nätverk"
+
+#: sheets/network.sheet.in.h:28
+msgid "Network Cloud"
+msgstr "Nätverksmoln"
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr "Objekt att skapa nätverksdiagram med"
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr "Routersymbol"
+
+#: sheets/network.sheet.in.h:31
+msgid "Storage"
+msgstr "Lagring"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr "Växelsymbol"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr "En 2/2-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr "En 3/2-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr "En 3/3-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr "En 4/2-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr "En 5/2-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr "En 5/3-distributör"
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr "Ett dubbeleffektsjack"
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr "En allmän tryckkälla"
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr "En hydraulisk tryckkälla"
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr "Ett normalt-in enkeleffektsjack"
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr "Ett normalt-ut enkeleffektsjack"
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr "En pneumatisk tryckkälla"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr "En luftutblåsöppning"
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Komponenter för pneumatiska och hydrauliska kretsar"
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr "Elektrisk styrning (dubbel slinga)"
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr "Elektrisk styrning (enkel slinga)"
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr "Indirekt styrning med hydraulisk drivning"
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr "Indirekt styrning med pneumatisk drivning"
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr "Mekanisk styrning med fjäder"
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr "Mekanisk styrning med ventillyftare"
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr "Muskelkraft"
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr "Pneumatisk/Hydraulisk"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr "Tryckknappsstyrning"
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr "En aktivitets-/dataflödespil"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr "En flödesetikett"
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr "En aktivitets-/dataruta"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr "Objekt för att skapa SADT-diagram"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr "SADT/IDEFO"
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr "Åtgärd som körs"
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block Type Reference"
+msgstr "Blocktypsreferens"
+
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Kommentar"
+
+#: sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Beslut"
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function Header"
+msgstr "Funktionshuvud"
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function call"
+msgstr "Funktionsanrop"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr "Allmän textanteckning"
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out Connector"
+msgstr "In-/utanslutning"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr "Proceduråtervändo"
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process Type Reference"
+msgstr "Processtypreferens"
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr "Ta emot meddelande"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr "SDL"
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save State"
+msgstr "Spara tillstånd"
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr "Skicka meddelande"
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service Type Reference"
+msgstr "Tjänstetypsreferens"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr "Specification and Description Language (SDL)."
+
+#: sheets/SDL.sheet.in.h:18
+msgid "State"
+msgstr "Tillstånd"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr "Ett Sybase-klientprogram"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr "En Sybase-dataserver"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr "En Sybase-replikationsserver"
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr "Loggöverföringshanterare eller replikationsagent"
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objekt för att skapa Sybase-replikationsdomändiagram med"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr "Replikationsserverhanterare"
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr "Stabil lagringsenhet"
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase"
+msgstr "Sybase"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr "Aggregation, en klass är del av en annan"
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr "Association, två klasser är associerade"
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr "Begränsning, skapa en begränsning på någonting"
+
+#: sheets/UML.sheet.in.h:4
+msgid "Create a (large) package"
+msgstr "Skapa ett (stort) paket"
+
+#: sheets/UML.sheet.in.h:5
+msgid "Create a (small) package"
+msgstr "Skapa ett (litet) paket"
+
+#: sheets/UML.sheet.in.h:6
+msgid "Create a branch"
+msgstr "Skapa en gren"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Create a class"
+msgstr "Skapa en klass"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Create a class stereotype icon"
+msgstr "Skapa en sterotypisk klassikon"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Create a component"
+msgstr "Skapa en komponent"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Create a dependency"
+msgstr "Skapa ett beroende"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Create a lifeline"
+msgstr "Skapa en livslinje"
+
+#: sheets/UML.sheet.in.h:12
+msgid "Create a message"
+msgstr "Skapa ett meddelande"
+
+#: sheets/UML.sheet.in.h:13
+msgid "Create a node"
+msgstr "Skapa en nod"
+
+#: sheets/UML.sheet.in.h:14
+msgid "Create a note"
+msgstr "Skapa en anteckning"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Create a state machine"
+msgstr "Skapa en tillståndsmaskin"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Create a template class"
+msgstr "Skapa en mallklass"
+
+#: sheets/UML.sheet.in.h:17
+msgid "Create a use case"
+msgstr "Skapa ett användningsexempel"
+
+#: sheets/UML.sheet.in.h:18
+msgid "Create an actor"
+msgstr "Skapa en skådespelare"
+
+#: sheets/UML.sheet.in.h:19
+msgid "Create an object"
+msgstr "Skapa ett objekt"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Redigerare för statiska UML-strukturdiagram"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr "Generalisering, klassärvning"
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr "Implementerar, klassen implementerar ett specifikt gränssnitt"
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr "Realiserar, implementerar ett specifikt gränssnitt"
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr "UML"
 
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
