@@ -120,7 +120,6 @@ run_dia.sh: Makefile.am
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/FS/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
-	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/custom/.libs >> run_dia.sh
 	 echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	 echo >> run_dia.sh
 	 echo "`pwd`/dia \$$*" >> run_dia.sh

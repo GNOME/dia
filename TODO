@@ -53,7 +53,7 @@ Big stuff:
 
 BUGS:
 =====
-* Dia breaks on solaris 7 (sparc). Fix that!
+* Entering an erronous command as print command crashes dia.
 
 * Strings with only spaces in them seems to get zero width. Most visible on an "UML - Note".
 

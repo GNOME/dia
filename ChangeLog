@@ -1,3 +1,17 @@
+1999-10-15  Alexander Larsson  <alla@lysator.liu.se>
+
+	* TODO (BUGS):
+	Added bug:
+	Entering an erronous command as print command
+	crashes dia.
+
+	* app/paginate_psprint.c:
+	Save all print dialog values for next time.
+	
+	* app/Makefile.am:
+	Remove custom lib from DIA_LIB_PATH.
+	
+
 1999-10-14  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/flowchart.c: add new shapes to flowchart sheet.
