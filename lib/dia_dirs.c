@@ -94,3 +94,29 @@ dia_config_filename(const gchar *subfile)
   return g_strconcat(homedir, G_DIR_SEPARATOR_S ".dia" G_DIR_SEPARATOR_S,
 		     subfile, NULL);
 }
+
+/** Ensure that the directory part of `filename' exists.
+ * Returns TRUE if the directory existed or has been created.
+ */
+gboolean
+dia_config_ensure_dir(const gchar *filename)
+{
+  gchar *dir = g_path_get_dirname(filename);
+  gboolean exists;
+  if (dir == NULL) return FALSE;
+  if (strcmp(dir, ".")) {
+    if (g_file_test(dir, G_FILE_TEST_IS_DIR)) {
+      exists = TRUE;
+    } else {
+      if (dia_config_ensure_dir(dir)) {
+	exists = (mkdir(dir) == 0);
+      } else {
+	exists = FALSE;
+      }
+    }
+  } else {
+    exists = FALSE;
+  }
+  g_free(dir);
+  return exists;
+}

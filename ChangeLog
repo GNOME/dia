@@ -1,3 +1,20 @@
+2003-04-08  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/Makefile.am (dia_core_files): Added persistence files.
+
+	* lib/dia_dirs.h: 
+	* lib/dia_dirs.c (dia_config_ensure_dir): New function to ensure
+	that dirs are present.
+
+	* app/app_procs.c (app_init): Loads persistent values on startup.
+	(app_exit): Saves persistent values on exit.
+
+	* app/layer_dialog.c (create_layer_dialog): Registers the layer
+	window for persistence.
+
+	* app/persistence.[ch]: New files handling various kinds of
+	persistence.
+
 2003-04-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/arrows.c: Adjusted arrow head spacing, more systematic arrow
@@ -5,6 +22,11 @@
 	Sozeau <mattam@netcourrier.com> 
 
 2003-04-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Moved layer dialog init to allow
+	tooltips to be initialized.
+
+	* app/interface.c (create_display_shell): More tooltips.
 
 	* app/linewidth_area.c (linewidth_area_create) 
 	(linewidth_area_events): 

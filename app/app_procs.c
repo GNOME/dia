@@ -423,12 +423,14 @@ app_init (int argc, char **argv)
 
   prefs_load();
 
-  create_layer_dialog();
+  persistence_load();
 
   /* further initialization *before* reading files */  
   active_tool = create_modify_tool();
 
   create_toolbox();
+
+  create_layer_dialog();
 
   /*fill recent file menu */
   recent_file_history_init();
@@ -569,6 +571,8 @@ app_exit(void)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK)
       return;
   }
+
+  persistence_save();
 
   dynobj_refresh_finish();
     

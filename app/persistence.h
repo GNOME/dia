@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 2003 Lars Clausen
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,26 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef DIA_DIRS_H
-#define DIA_DIRS_H
+/* persistence.h -- definitions for persistent storage.
+ */
 
-#include <glib.h>
+#ifndef PERSISTENCE_H
+#define PERSISTENCE_H
+#include "config.h"
 
-#ifdef G_OS_WIN32
-#define DIA_SHEETDIR "sheets"
-#define DIA_SHAPEDIR "shapes"
-#define DIA_INT_SHAPEDIR DIA_SHEETDIR G_DIR_SEPARATOR_S "int"
+#include <gtk/gtk.h>
+
+typedef struct {
+  int x, y;
+  int width, height;
+  gboolean isopen;
+  GtkWindow *window;
+} PersistentWindow;
+
+void persistence_load();
+void persistence_restore_window(GtkWindow *window);
+void persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data);
+void persistence_save();
+void persistence_register_window(GtkWindow *window);
+
 #endif
-
-gchar *dia_get_data_directory (const gchar* subdir);
-gchar *dia_get_lib_directory  (const gchar* subdir);
-gchar *dia_config_filename    (const gchar* file);
-gboolean dia_config_ensure_dir  (const gchar* filename);
-#endif /* DIA_DIRS_H */

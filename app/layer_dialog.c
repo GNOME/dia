@@ -33,6 +33,7 @@
 #include "intl.h"
 
 #include "layer_dialog.h"
+#include "persistence.h"
 
 #include "pixmaps/eye.xbm"
 #include "pixmaps/new.xpm"
@@ -214,12 +215,17 @@ create_layer_dialog(void)
   gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
   gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
+  persistence_register_window(GTK_WINDOW(dialog));
+
   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       GTK_SIGNAL_FUNC(layer_dialog_delete), NULL);
   gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
                       GTK_SIGNAL_FUNC(gtk_widget_destroyed), 
 		      &(layer_dialog->dialog));
-  
+
+  gtk_signal_connect(GTK_OBJECT(dialog), "configure-event",
+		     GTK_SIGNAL_FUNC(persistence_update_window), NULL);
+
   vbox = GTK_DIALOG(dialog)->vbox;
 
   hbox = gtk_hbox_new(FALSE, 1);
