@@ -99,10 +99,10 @@ create_object_menu(DiaMenu *dia_menu)
   gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
   if ( dia_menu->title ) {
-  menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
-  gtk_widget_set_sensitive(menu_item, FALSE);
-  gtk_menu_append(GTK_MENU(menu), menu_item);
-  gtk_widget_show(menu_item);
+    menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
+    gtk_widget_set_sensitive(menu_item, FALSE);
+    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_widget_show(menu_item);
   }
 
   menu_item = gtk_menu_item_new();

@@ -9,11 +9,24 @@ dia-XXXX:  XX-XXX-2001
   instead. Lazyprop support code removed.
 * Shapes can now have a <svg:text> element.
 * polybeziers and beziergons now have their bounding box properly computed.
-* autoconf-2.50 is now mandatory if you want to call ./autogen.sh.
+* autoconf-2.50 is strongly recommended (2.13 should still be fine) if
+  you want to call ./autogen.sh.
+* You now need libtool-1.4 to build the package.
+* automake-1.4-p4 is probably needed as well.
 * gettext-0.10.38 is now mandatory if you want to call ./autogen.sh.
+
   In general, don't call ./autogen.sh at all if your system is not on
   the bleeding edge.
-* a few new shapes.
+
+* You need recent versions of the packages {jade, docbook,
+  docbook-utils, docbook-dsssl, docbook-stylesheets,
+  cygnus-stylesheets, etc.} of the whole DocBook rendering system. The
+  exact names of the packages vary from system to system; this list is
+  only a starting point! If compiling the documentation fails, please
+  report on dia-list@gnome.org once you've found which packages to
+  install.
+
+* a few new shapes have been added.
 * crashes in the right-click menu have been nailed.
  
 dia-0.88:  11-May-2001
