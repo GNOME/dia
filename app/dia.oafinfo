@@ -1,0 +1,28 @@
+<oaf_info>
+    <oaf_server
+	    iid="OAFIID:dia-diagram-factory:31cb6c0f-e1f5-4c54-8824-8f49fd7e50e7"
+	    type="exe" location="dia-embedd">
+	<oaf_attribute name="repo_ids" type="stringv">
+	    <item value="IDL:Bonobo/GenericFactory:1.0"/>
+	</oaf_attribute>
+        <oaf_attribute name="name" type="string"
+		       value="Dia Diagram embeddable factory"/>
+	<oaf_attribute name="description" type="string"
+		       value="dia embeddable factory"/>
+    </oaf_server>
+
+    <oaf_server
+	    iid="OAFIID:dia-diagram:10aac381-d349-460b-8a9f-e905de80acb9"
+	    type="factory"
+	    location="OAFIID:dia-diagram-factory:31cb6c0f-e1f5-4c54-8824-8f49fd7e50e7">
+	<oaf_attribute name="repo_ids" type="stringv">
+	    <item value="IDL:Bonobo/Unknown:1.0"/>
+	    <item value="IDL:Bonobo/Embeddable:1.0"/>
+	</oaf_attribute>
+        <oaf_attribute name="name" type="string"
+		       value="Dia Diagram embeddable"/>
+	<oaf_attribute name="description" type="string"
+		       value="A Dia diagram"/>
+    </oaf_server>
+
+</oaf_info>
