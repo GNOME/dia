@@ -1,0 +1,11 @@
+.cvsignore
+.deps
+.libs
+Makefile
+Makefile.in
+attribute.lo
+entity.lo
+er.lo
+participation.lo
+relationship.lo
+liber_objects.la

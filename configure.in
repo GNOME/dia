@@ -71,6 +71,8 @@ objects/network/Makefile
 objects/network/pixmaps/Makefile
 objects/UML/Makefile
 objects/UML/pixmaps/Makefile
+objects/ER/Makefile
+objects/ER/pixmaps/Makefile
 app/Makefile
 app/pixmaps/Makefile
 )

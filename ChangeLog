@@ -1,5 +1,25 @@
 1999-01-14  Alexander Larsson  <alla@lysator.liu.se>
 
+	* configure.in:
+	* app/Makefile.am:
+	* objects/Makefile.am:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/er.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	* objects/ER/pixmaps/Makefile.am:
+	* objects/ER/pixmaps/attribute.xpm:
+	* objects/ER/pixmaps/entity.xpm:
+	* objects/ER/pixmaps/participation.xpm:
+	* objects/ER/pixmaps/relationship.xpm:
+	* objects/ER/pixmaps/weakentity.xpm:
+	First commit of entity relationship objects.
+	These were done by hallon@lysator.liu.se.
+	There are still stuff to do on these.
+	
+1999-01-14  Alexander Larsson  <alla@lysator.liu.se>
+
 	* TODO:
 	Updates.
 

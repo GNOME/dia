@@ -1,3 +1,3 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = standard network UML
+SUBDIRS = standard network UML ER
