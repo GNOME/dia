@@ -902,6 +902,7 @@ struct gdk_freetype_user_data {
   GdkGC *gc;
 };
 
+#ifdef HAVE_FREETYPE
 void
 gdk_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
 			gpointer userdata)
@@ -927,6 +928,7 @@ gdk_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
 			buffer, rowstride);
   }
 }
+#endif
 
 static void
 draw_string (RendererGdk *renderer,
