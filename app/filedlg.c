@@ -85,9 +85,19 @@ void
 file_open_callback(GtkWidget *widget, gpointer user_data)
 {
   if (!opendlg) {
+    DDisplay *ddisp;
+    Diagram *dia = NULL;
+    
+    ddisp = ddisplay_active();
+    if (ddisp) {
+      dia = ddisp->diagram;
+    }
     opendlg = gtk_file_selection_new(_("Open Diagram"));
     gtk_window_set_wmclass(GTK_WINDOW(opendlg), "open_diagram", "Dia");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
+				    dia && dia->filename ? dia->filename
+				    : "." G_DIR_SEPARATOR_S);
     gtk_signal_connect_object(
 		GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->cancel_button),
 		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),

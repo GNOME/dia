@@ -170,9 +170,14 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
-  
+  DDisplay *ddisp;
+  Diagram *dia;
+
   FILE *file;
   gboolean is_pipe;
+
+  ddisp = ddisplay_active();
+  dia = ddisp->diagram;
 
   /* create the dialog */
   dialog = gtk_dialog_new();
@@ -241,6 +246,7 @@ diagram_print_ps(Diagram *dia)
   gtk_entry_set_text(GTK_ENTRY(cmd), 
 		     last_print_options.command 
 		     ? last_print_options.command : "lpr");
+  /* Ought to use filename+extension here */
   gtk_entry_set_text(GTK_ENTRY(ofile), 
 		     last_print_options.output 
 		     ? last_print_options.output : "output.ps");
@@ -260,7 +266,19 @@ diagram_print_ps(Diagram *dia)
     file = popen(gtk_entry_get_text(GTK_ENTRY(cmd)), "w");
     is_pipe = TRUE;
   } else {
-    file = fopen(gtk_entry_get_text(GTK_ENTRY(ofile)), "w");
+    gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
+    if (filename[0] != '/') {
+      char *diagram_dir;
+      char *full_filename;
+
+      diagram_dir = dirname(dia->filename);
+      full_filename = g_malloc(strlen(diagram_dir)+strlen(filename)+2);
+      sprintf(full_filename, "%s/%s", diagram_dir, filename);
+      file = fopen(full_filename, "w");
+      g_free(full_filename);
+    } else {
+      file = fopen(filename, "w");
+    }
     is_pipe = FALSE;
   }
 
