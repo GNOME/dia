@@ -49,8 +49,7 @@ struct PointChange {
   /* owning ref when not applied for ADD_POINT
    * owning ref when applied for REMOVE_POINT */
   Handle *handle1, *handle2, *handle3;
-  /* NULL if not connected */
-  ConnectionPoint *connected_to1, *connected_to2, *connected_to3;
+  ConnectionPoint *cp1, *cp2;
 };
 
 struct CornerChange {
@@ -68,9 +67,8 @@ static ObjectChange *
 beziershape_create_point_change(BezierShape *bezier, enum change_type type,
 			BezPoint *point, BezCornerType corner_type,
 			int segment,
-			Handle *handle1, ConnectionPoint *connected_to1,
-			Handle *handle2, ConnectionPoint *connected_to2,
-			Handle *handle3, ConnectionPoint *connected_to3);
+			Handle *handle1, Handle *handle2, Handle *handle3,
+			ConnectionPoint *cp1, ConnectionPoint *cp2);
 static ObjectChange *
 beziershape_create_corner_change(BezierShape *bezier, Handle *handle,
 			Point *point_left, Point *point_right,
@@ -303,7 +301,8 @@ beziershape_distance_from(BezierShape *bezier, Point *point, real line_width)
 static void
 add_handles(BezierShape *bezier, int pos, BezPoint *point,
 	    BezCornerType corner_type, Handle *handle1,
-	    Handle *handle2, Handle *handle3)
+	    Handle *handle2, Handle *handle3,
+	    ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i, next;
   Object *obj;
@@ -333,6 +332,8 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   object_add_handle_at((Object*)bezier, handle1, 3*pos-2);
   object_add_handle_at((Object*)bezier, handle2, 3*pos-1);
   object_add_handle_at((Object*)bezier, handle3, 3*pos);
+  object_add_connectionpoint_at((Object *)bezier, cp1, 2*pos);
+  object_add_connectionpoint_at((Object *)bezier, cp2, 2*pos+1);
 }
 
 static void
@@ -341,6 +342,7 @@ remove_handles(BezierShape *bezier, int pos)
   int i;
   Object *obj;
   Handle *old_handle1, *old_handle2, *old_handle3;
+  ConnectionPoint *old_cp1, *old_cp2;
   Point tmppoint;
 
   assert(pos > 0);
@@ -366,6 +368,10 @@ remove_handles(BezierShape *bezier, int pos)
   object_remove_handle(&bezier->object, old_handle1);
   object_remove_handle(&bezier->object, old_handle2);
   object_remove_handle(&bezier->object, old_handle3);
+  old_cp1 = obj->connections[2*pos];
+  old_cp2 = obj->connections[2*pos+1];
+  object_remove_connectionpoint(&bezier->object, old_cp1);
+  object_remove_connectionpoint(&bezier->object, old_cp2);
 }
 
 
@@ -377,6 +383,7 @@ beziershape_add_segment(BezierShape *bezier, int segment, Point *point)
   BezPoint realpoint;
   BezCornerType corner_type = BEZ_CORNER_SYMMETRIC;
   Handle *new_handle1, *new_handle2, *new_handle3;
+  ConnectionPoint *new_cp1, *new_cp2;
   Point startpoint;
 
   startpoint = bezier->points[segment].p3;
@@ -403,20 +410,23 @@ beziershape_add_segment(BezierShape *bezier, int segment, Point *point)
   setup_handle(new_handle1, HANDLE_RIGHTCTRL);
   setup_handle(new_handle2, HANDLE_LEFTCTRL);
   setup_handle(new_handle3, HANDLE_BEZMAJOR);
+  new_cp1 = g_new0(ConnectionPoint, 1);
+  new_cp2 = g_new0(ConnectionPoint, 1);
+  new_cp1->object = &bezier->object;
+  new_cp2->object = &bezier->object;
   add_handles(bezier, segment+1, &realpoint, corner_type,
-	      new_handle1, new_handle2, new_handle3);
+	      new_handle1, new_handle2, new_handle3, new_cp1, new_cp2);
   return beziershape_create_point_change(bezier, TYPE_ADD_POINT,
 					 &realpoint, corner_type, segment+1,
-					 new_handle1, NULL,
-					 new_handle2, NULL,
-					 new_handle3, NULL);
+					 new_handle1, new_handle2, new_handle3,
+					 new_cp1, new_cp2);
 }
 
 ObjectChange *
 beziershape_remove_segment(BezierShape *bezier, int pos)
 {
   Handle *old_handle1, *old_handle2, *old_handle3;
-  ConnectionPoint *cpt1, *cpt2, *cpt3;
+  ConnectionPoint *old_cp1, *old_cp2;
   BezPoint old_point;
   BezCornerType old_ctype;
 
@@ -431,9 +441,8 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   old_point = bezier->points[pos];
   old_ctype = bezier->corner_types[pos];
 
-  cpt1 = old_handle1->connected_to;
-  cpt2 = old_handle2->connected_to;
-  cpt3 = old_handle3->connected_to;
+  old_cp1 = bezier->object.connections[2*pos];
+  old_cp2 = bezier->object.connections[2*pos+1];
   
   object_unconnect((Object *)bezier, old_handle1);
   object_unconnect((Object *)bezier, old_handle2);
@@ -445,9 +454,8 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   
   return beziershape_create_point_change(bezier, TYPE_REMOVE_POINT,
 					 &old_point, old_ctype, pos,
-					 old_handle1, cpt1,
-					 old_handle2, cpt2,
-					 old_handle3, cpt3);
+					 old_handle1, old_handle2, old_handle3,
+					 old_cp1, old_cp2);
 }
 
 static void
@@ -571,6 +579,7 @@ void
 beziershape_update_data(BezierShape *bezier)
 {
   int i;
+  Point last;
   
   /* Update handles: */
   bezier->object.handles[0]->pos = bezier->points[0].p1;
@@ -580,6 +589,19 @@ beziershape_update_data(BezierShape *bezier)
     bezier->object.handles[3*i-1]->pos = bezier->points[i].p2;
     if (i < bezier->numpoints - 1)
       bezier->object.handles[3*i]->pos = bezier->points[i].p3;
+  }
+
+  /* Update connection points: */
+  last = bezier->points[0].p1;
+  for (i = 1; i < bezier->numpoints; i++) {
+    bezier->object.connections[2*i-2]->pos = last;
+    bezier->object.connections[2*i-1]->pos.x =
+      (last.x + 3*bezier->points[i].p1.x + 3*bezier->points[i].p2.x +
+       bezier->points[i].p3.x)/8;
+    bezier->object.connections[2*i-1]->pos.y =
+      (last.y + 3*bezier->points[i].p1.y + 3*bezier->points[i].p2.y +
+       bezier->points[i].p3.y)/8;
+    last = bezier->points[i].p3;
   }
 }
 
@@ -677,7 +699,7 @@ beziershape_init(BezierShape *bezier)
 
   obj = &bezier->object;
 
-  object_init(obj, 6, 0);
+  object_init(obj, 6, 4);
   
   bezier->numpoints = 3;
 
@@ -728,6 +750,15 @@ beziershape_init(BezierShape *bezier)
   obj->handles[5]->type = HANDLE_MINOR_CONTROL;
   obj->handles[5]->id = HANDLE_LEFTCTRL;
 
+  obj->connections[0] = g_new0(ConnectionPoint, 1);
+  obj->connections[1] = g_new0(ConnectionPoint, 1);
+  obj->connections[2] = g_new0(ConnectionPoint, 1);
+  obj->connections[3] = g_new0(ConnectionPoint, 1);
+  obj->connections[0]->object = obj;
+  obj->connections[1]->object = obj;
+  obj->connections[2]->object = obj;
+  obj->connections[3]->object = obj;
+
   beziershape_update_data(bezier);
 }
 
@@ -756,6 +787,10 @@ beziershape_copy(BezierShape *from, BezierShape *to)
     to->object.handles[i] = g_new(Handle, 1);
     setup_handle(to->object.handles[i], from->object.handles[i]->id);
   }
+  for (i = 0; i < to->object.num_connections; i++) {
+    to->object.connections[i] = g_new0(ConnectionPoint, 1);
+    to->object.connections[i]->object = &to->object;
+  }
 
   beziershape_update_data(to);
 }
@@ -765,18 +800,27 @@ beziershape_destroy(BezierShape *bezier)
 {
   int i;
   Handle **temp_handles;
+  ConnectionPoint **temp_cps;
 
   /* Need to store these temporary since object.handles is
      freed by object_destroy() */
   temp_handles = g_new(Handle *, bezier->object.num_handles);
-  for (i = 0; i < bezier->object.num_handles;i++)
+  for (i = 0; i < bezier->object.num_handles; i++)
     temp_handles[i] = bezier->object.handles[i];
 
+  temp_cps = g_new(ConnectionPoint *, bezier->object.num_connections);
+  for (i = 0; i < bezier->object.num_connections; i++)
+    temp_cps[i] = bezier->object.connections[i];
+  
   object_destroy(&bezier->object);
 
-  for (i=0;i<bezier->numpoints;i++)
+  for (i = 0; i < bezier->object.num_handles; i++)
     g_free(temp_handles[i]);
   g_free(temp_handles);
+
+  for (i = 0; i < bezier->object.num_connections; i++)
+    g_free(temp_cps[i]);
+  g_free(temp_cps);
   
   g_free(bezier->points);
   g_free(bezier->corner_types);
@@ -824,7 +868,7 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   else
     bezier->numpoints = 0;
 
-  object_init(obj, 3 * (bezier->numpoints - 1), 0);
+  object_init(obj, 3 * (bezier->numpoints - 1), 2 * (bezier->numpoints - 1));
 
   data = attribute_first_data(attr);
   if (bezier->numpoints != 0) {
@@ -869,6 +913,10 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
     obj->handles[3*i]   = g_new(Handle, 1);
     setup_handle(obj->handles[3*i+2], HANDLE_LEFTCTRL);
   }
+  for (i = 0; i < bezier->object.num_connections; i++) {
+    obj->connections[i] = g_new0(ConnectionPoint, 1);
+    obj->connections[i]->object = obj;
+  }
 
   beziershape_update_data(bezier);
 }
@@ -881,9 +929,13 @@ beziershape_point_change_free(struct PointChange *change)
     g_free(change->handle1);
     g_free(change->handle2);
     g_free(change->handle3);
+    g_free(change->cp1);
+    g_free(change->cp2);
     change->handle1 = NULL;
     change->handle2 = NULL;
     change->handle3 = NULL;
+    change->cp1 = NULL;
+    change->cp2 = NULL;
   }
 }
 
@@ -895,7 +947,8 @@ beziershape_point_change_apply(struct PointChange *change, Object *obj)
   case TYPE_ADD_POINT:
     add_handles((BezierShape *)obj, change->pos, &change->point,
 		change->corner_type,
-		change->handle1, change->handle2, change->handle3);
+		change->handle1, change->handle2, change->handle3,
+		change->cp1, change->cp2);
     break;
   case TYPE_REMOVE_POINT:
     object_unconnect(obj, change->handle1);
@@ -916,14 +969,8 @@ beziershape_point_change_revert(struct PointChange *change, Object *obj)
   case TYPE_REMOVE_POINT:
     add_handles((BezierShape *)obj, change->pos, &change->point,
 		change->corner_type,
-		change->handle1, change->handle2, change->handle3);
-    if (change->connected_to1)
-      object_connect(obj, change->handle1, change->connected_to1);
-    if (change->connected_to2)
-      object_connect(obj, change->handle2, change->connected_to2);
-    if (change->connected_to3)
-      object_connect(obj, change->handle3, change->connected_to3);
-      
+		change->handle1, change->handle2, change->handle3,
+		change->cp1, change->cp2);
     break;
   }
   change->applied = 0;
@@ -933,9 +980,9 @@ static ObjectChange *
 beziershape_create_point_change(BezierShape *bezier, enum change_type type,
 				BezPoint *point, BezCornerType corner_type,
 				int pos,
-				Handle *handle1,ConnectionPoint *connected_to1,
-				Handle *handle2,ConnectionPoint *connected_to2,
-				Handle *handle3,ConnectionPoint *connected_to3)
+				Handle *handle1, Handle *handle2,
+				Handle *handle3,
+				ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   struct PointChange *change;
 
@@ -954,11 +1001,10 @@ beziershape_create_point_change(BezierShape *bezier, enum change_type type,
   change->corner_type = corner_type;
   change->pos = pos;
   change->handle1 = handle1;
-  change->connected_to1 = connected_to1;
   change->handle2 = handle2;
-  change->connected_to2 = connected_to2;
   change->handle3 = handle3;
-  change->connected_to3 = connected_to3;
+  change->cp1 = cp1;
+  change->cp2 = cp2;
 
   return (ObjectChange *)change;
 }

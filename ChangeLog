@@ -1,3 +1,12 @@
+2000-05-31  James Henstridge  <james@daa.com.au>
+
+	* objects/standard/beziergon.c: remove connection point handling.
+	There is still a bit of work to be done to get adding and removing
+	of segments working correctly.
+
+	* lib/beziershape.c: add connection point handling to beziershape.
+	I set it for two connection points per segment.
+
 2000-05-30  James Henstridge  <james@daa.com.au>
 
 	* objects/standard/polygon.c: don't do connectionpoint handling.

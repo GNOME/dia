@@ -36,14 +36,6 @@
 
 #include "pixmaps/beziergon.xpm"
 
-/*
-TODO:
-Have connections be remembered across delete corner
-Move connections correctly on delete corner
-Add/remove connection points
-Fix crashes:)
-*/
-
 #define DEFAULT_WIDTH 0.15
 
 typedef struct _BeziergonProperties BeziergonProperties;
@@ -51,10 +43,6 @@ typedef struct _BeziergonDefaultsDialog BeziergonDefaultsDialog;
 
 typedef struct _Beziergon {
   BezierShape bezier;
-
-  /* This is purely to be able to correctly free ConnectionPoints.
-     See what a GC would get you? */
-  GList *connections;
 
   Color line_color;
   LineStyle line_style;
@@ -328,7 +316,6 @@ beziergon_create(Point *startpoint,
   Object *obj;
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
-  int i;
 
   init_default_values();
 
@@ -365,16 +352,6 @@ beziergon_create(Point *startpoint,
 				    &beziergon->dashlength);
   beziergon->show_background = default_properties.show_background;
 
-  beziergon->connections = NULL;
-
-  for (i=0; i<2; i++) {
-    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
-    object_add_connectionpoint(obj, newconn);
-    newconn->object = obj;
-    newconn->connected = NULL;
-    beziergon->connections = g_list_prepend(beziergon->connections, newconn);
-  }
-
   beziergon_update_data(beziergon);
 
   *handle1 = bezier->object.handles[0];
@@ -385,13 +362,7 @@ beziergon_create(Point *startpoint,
 static void
 beziergon_destroy(Beziergon *beziergon)
 {
-  GList *connlist;
-
   beziershape_destroy(&beziergon->bezier);
-  for (connlist = beziergon->connections; connlist != NULL; connlist = g_list_next(connlist)) {
-    g_free(connlist->data);
-  }
-  g_list_free(beziergon->connections);
 }
 
 static Object *
@@ -400,7 +371,6 @@ beziergon_copy(Beziergon *beziergon)
   Beziergon *newbeziergon;
   BezierShape *bezier, *newbezier;
   Object *newobj;
-  int i;
 
   bezier = &beziergon->bezier;
  
@@ -416,16 +386,6 @@ beziergon_copy(Beziergon *beziergon)
   newbeziergon->dashlength = beziergon->dashlength;
   newbeziergon->show_background = beziergon->show_background;
 
-  newbeziergon->connections = NULL;
-
-  for (i = 0; i < bezier->numpoints - 1; i++) {
-    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
-    /* Shouldn't this be a function in object.c? */
-    newobj->connections[i] = newconn;
-    *newconn = *(bezier->object.connections[i]);
-    newbeziergon->connections = g_list_prepend(newbeziergon->connections, newconn);
-  }
-
   return (Object *)newbeziergon;
 }
 
@@ -435,7 +395,6 @@ beziergon_update_data(Beziergon *beziergon)
 {
   BezierShape *bezier = &beziergon->bezier;
   Object *obj = (Object *) beziergon;
-  int i;
 
   beziershape_update_data(bezier);
   
@@ -447,10 +406,6 @@ beziergon_update_data(Beziergon *beziergon)
   obj->bounding_box.right += beziergon->line_width/2;
 
   obj->position = bezier->points[0].p1;
-
-  for (i = 0; i < bezier->numpoints - 1; i++) {
-    obj->connections[i]->pos = bezier->points[i].p3;
-  }
 }
 
 static void
@@ -492,7 +447,6 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   BezierShape *bezier;
   Object *obj;
   AttributeNode attr;
-  int i;
 
   beziergon = g_malloc(sizeof(Beziergon));
 
@@ -534,42 +488,10 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     beziergon->dashlength = data_real(attribute_first_data(attr));
 
-  beziergon->connections = NULL;
-
-  for (i=0; i<beziergon->bezier.numpoints; i++) {
-    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
-    object_add_connectionpoint(obj, newconn);
-    newconn->object = obj;
-    newconn->connected = NULL;
-    beziergon->connections = g_list_prepend(beziergon->connections, newconn);
-  }
-
   beziergon_update_data(beziergon);
 
   return (Object *)beziergon;
 }
-
-#if 0
-/* Have to have BezierShape have its own pointchange */
-static void
-beziergon_change_free(struct PointChange *change)
-{
-}
-
-static void beziergon_change_apply(struct PointChange *change, Object *obj)
-{
-}
-
-static void beziergon_change_revert(struct PointChange *change, Object *obj)
-{
-}
-
-static ObjectChange *
-beziergon_create_change (Beziergon *beziergon)
-{
-  return NULL;
-}
-#endif
 
 static ObjectChange *
 beziergon_add_segment_callback (Object *obj, Point *clicked, gpointer data)
@@ -577,15 +499,9 @@ beziergon_add_segment_callback (Object *obj, Point *clicked, gpointer data)
   Beziergon *bezier = (Beziergon*) obj;
   int segment;
   ObjectChange *change;
-  ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
   
   segment = beziergon_closest_segment(bezier, clicked);
   change = beziershape_add_segment(&bezier->bezier, segment, clicked);
-
-  object_add_connectionpoint(obj, newconn);
-  newconn->object = obj;
-  newconn->connected = NULL;
-  bezier->connections = g_list_prepend(bezier->connections, newconn);
 
   beziergon_update_data(bezier);
   return change;
@@ -597,15 +513,9 @@ beziergon_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
   int seg_nr;
   Beziergon *bezier = (Beziergon*) obj;
   ObjectChange *change;
-  ConnectionPoint *oldconn;
   
   seg_nr = beziergon_closest_segment(bezier, clicked);
   change = beziershape_remove_segment(&bezier->bezier, seg_nr);
-
-  oldconn = obj->connections[seg_nr];
-  object_remove_connectionpoint(obj, oldconn);
-  bezier->connections = g_list_remove(bezier->connections, oldconn);
-  g_free(oldconn);
 
   beziergon_update_data(bezier);
   return change;
