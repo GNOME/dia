@@ -460,6 +460,8 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
 static void
 set_dashlength(RendererEPS *renderer, real length)
 {  /* dot = 20% of len */
+  if (length<0.001)
+    length = 0.001;
   
   renderer->dash_length = length;
   renderer->dot_length = length*0.2;
