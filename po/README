@@ -1,0 +1,8 @@
+As well as updating the .po files for translations, you should also
+update the .sheet files in the sheets directory.  These are simple XML
+files that hold the descriptions of the objects in the sheets in the
+toolbox.
+
+You need to add extra <description> elements with the appropriate
+xml:lang attribute for your language to the file.  Once those are
+added, the names of objects in the toolbox should be translated.

@@ -496,7 +496,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
       gdk_pixbuf_render_pixmap_and_mask(logo, &pixmap, &bitmap, 128);
       gpixmap = gtk_pixmap_new(pixmap, bitmap);
       gdk_pixmap_unref(pixmap);
-      gdk_bitmap_unref(bitmap);
+      if (bitmap) gdk_bitmap_unref(bitmap);
 #else
       gdk_imlib_render(logo, logo->rgb_width, logo->rgb_height);
       frame = gtk_frame_new (NULL);

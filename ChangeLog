@@ -1,3 +1,12 @@
+2000-08-08  James Henstridge  <james@daa.com.au>
+
+	* po/README: added a readme file to tell translators to translate
+	the .sheet files as well.
+
+	* app/commands.c (help_about_callback): fix small bug where we tried
+	to gdk_bitmap_unref() the mask for the about box image, even though
+	it was NULL.  Now check for a NULL mask.
+
 2000-08-07  Daniel Egger  <egger@suse.de>
 
 	* sheets/*.sheet: Added translations for the name
