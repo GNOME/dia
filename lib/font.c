@@ -636,9 +636,7 @@ freetype_add_font(char *dirname, char *filename) {
       g_free(new_face);
     }
 
-#ifdef HAVE_UNICODE
     FT_Select_Charmap(face, ft_encoding_unicode);
-#endif
 
     if (facenum == 0) first_face = face;
   }

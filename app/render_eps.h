@@ -26,9 +26,7 @@ typedef struct _RendererEPS RendererEPS;
 #include "render.h"
 #include "display.h"
 #include "filter.h"
-#ifdef HAVE_UNICODE
 #include "ps-utf8.h"
-#endif
 
 
 struct _RendererEPS {
@@ -41,9 +39,7 @@ struct _RendererEPS {
   LineStyle saved_line_style;
   real dash_length;
   real dot_length;
-#ifdef HAVE_UNICODE
   PSUnicoder *psu;
-#endif
   Color lcolor;
 };
 

@@ -27,7 +27,6 @@
 #define PROP_BASIC_H
 
 #include "properties.h"
-#include "tree.h"
 #include "dia_xml.h"
 
 void initialize_property(Property *prop, const PropDescription *pdesc,

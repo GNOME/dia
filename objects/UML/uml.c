@@ -89,13 +89,13 @@ dia_plugin_init(PluginInfo *info)
 /* Warning, the following *must* be strictly ASCII characters (or fix the 
    following code for UTF-8 cleanliness */
 
-utfchar visible_char[] = { '+', '-', '#', ' ' };
+char visible_char[] = { '+', '-', '#', ' ' };
 
-utfchar *
+char *
 uml_get_attribute_string (UMLAttribute *attribute)
 {
   int len;
-  utfchar *str;
+  char *str;
 
   len = 1 + strlen (attribute->name) + strlen (attribute->type);
   if (attribute->name[0] && attribute->type[0]) {
@@ -105,7 +105,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
     len += 3 + strlen (attribute->value);
   }
   
-  str = g_malloc (sizeof (utfchar) * (len + 1));
+  str = g_malloc (sizeof (char) * (len + 1));
 
   str[0] = visible_char[(int) attribute->visibility];
   str[1] = 0;
@@ -125,11 +125,11 @@ uml_get_attribute_string (UMLAttribute *attribute)
   return str;
 }
 
-utfchar *
+char *
 uml_get_operation_string (UMLOperation *operation)
 {
   int len;
-  utfchar *str;
+  char *str;
   GList *list;
   UMLParameter *param;
 
@@ -180,7 +180,7 @@ uml_get_operation_string (UMLOperation *operation)
   }
 
   /* generate string: */
-  str = g_malloc (sizeof (utfchar) * (len + 1));
+  str = g_malloc (sizeof (char) * (len + 1));
 
   str[0] = visible_char[(int) operation->visibility];
   str[1] = 0;
@@ -245,11 +245,11 @@ uml_get_operation_string (UMLOperation *operation)
   return str;
 }
 
-utfchar *
+char *
 uml_get_parameter_string (UMLParameter *param)
 {
   int len;
-  utfchar *str;
+  char *str;
 
   /* Calculate length: */
   len = strlen (param->name) + 1 + strlen (param->type);
@@ -274,7 +274,7 @@ uml_get_parameter_string (UMLParameter *param)
     }
 
   /* Generate string: */
-  str = g_malloc (sizeof (utfchar) * (len + 1));
+  str = g_malloc (sizeof (char) * (len + 1));
 
   strcpy(str, "");
 
@@ -307,11 +307,11 @@ uml_get_parameter_string (UMLParameter *param)
   return str;
 }
 
-utfchar *
+char *
 uml_get_formalparameter_string (UMLFormalParameter *parameter)
 {
   int len;
-  utfchar *str;
+  char *str;
 
   /* Calculate length: */
   len = strlen (parameter->name);
@@ -321,7 +321,7 @@ uml_get_formalparameter_string (UMLFormalParameter *parameter)
   }
 
   /* Generate string: */
-  str = g_malloc (sizeof (utfchar) * (len + 1));
+  str = g_malloc (sizeof (char) * (len + 1));
   strcpy (str, parameter->name);
   if (parameter->type != NULL) {
     strcat (str, ":");

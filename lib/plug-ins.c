@@ -31,9 +31,9 @@
 #include <unistd.h>
 #endif
 
-#include <xmlmemory.h>
-#include <parser.h>
-#include <tree.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 
@@ -44,10 +44,6 @@
 
 #ifdef G_OS_WIN32
 #include <io.h> /* open, close */
-#endif
-
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define XML2
 #endif
 
 #if defined(G_OS_WIN32) || defined(__EMX__)

@@ -22,7 +22,6 @@
 #include <glib.h>
 #include "intl.h"
 #include "connectionpoint.h"
-#include "charconv.h"
 
 typedef struct _UMLAttribute UMLAttribute;
 typedef struct _UMLOperation UMLOperation;

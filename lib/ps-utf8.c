@@ -23,15 +23,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include "ps-utf8.h"
 
-#define UNICODE_WORK_IN_PROGRESS /* here, it's mandatory or we break. */
 #include <config.h>
-#ifdef HAVE_UNICODE
 #include <stdlib.h>
 #include <glib.h>
-#include <unicode.h>
-#include "charconv.h"
-#include "ps-utf8.h"
 
 /* forward prototypes */
 static gchar *make_font_descriptor_name(const gchar *face,
@@ -46,11 +42,11 @@ static void use_font(PSUnicoder *psu, PSFontDescriptor *fd);
 static PSEncodingPage *encoding_page_new(int num);
 static void encoding_page_destroy(PSEncodingPage *ep);
 static int encoding_page_add_unichar(PSEncodingPage *ep, 
-                                     unichar uchar);
+                                     gunichar uchar);
 
 static void use_encoding(PSUnicoder *psu, PSEncodingPage *ep);
  
-static void psu_add_encoding(PSUnicoder *psu, unichar uchar);
+static void psu_add_encoding(PSUnicoder *psu, gunichar uchar);
 static void psu_make_new_encoding_page(PSUnicoder *psu);
 /* Unicoder functions */
 
@@ -121,7 +117,7 @@ static void psu_make_new_encoding_page(PSUnicoder *psu)
   }
 }
 
-static void psu_add_encoding(PSUnicoder *psu, unichar uchar)
+static void psu_add_encoding(PSUnicoder *psu, gunichar uchar)
 {
   if (g_hash_table_lookup(psu->unicode_to_page,
                           GINT_TO_POINTER(uchar))) {
@@ -143,17 +139,14 @@ static void psu_add_encoding(PSUnicoder *psu, unichar uchar)
 
 extern void 
 psu_check_string_encodings(PSUnicoder *psu, 
-                           const utfchar *utf8_string)
+                           const char *utf8_string)
 {
-  unichar uchar;
-  const utfchar *p = utf8_string;
+  gunichar uchar;
+  const char *p = utf8_string;
 
   while (p && (*p)) {
-    p = uni_get_utf8(p,&uchar);
-    if (!p) {
-      g_warning("malformed string.");
-      return; /* malformed string. */
-    }
+    uchar = g_utf8_get_char(p);
+    p = g_utf8_next_char(p);
 
     psu_add_encoding(psu,uchar);
     if ((uchar > 32) && (uchar < 2048)) {
@@ -181,23 +174,20 @@ static void psu_show_flush_buffer(const PSUnicoder *psu,
 
 static void 
 encoded_psu_show_string(PSUnicoder *psu,
-                        const utfchar *utf8_string,
+                        const char *utf8_string,
                         FlushFunc flushfunc)
 {
-  unichar uchar;
+  gunichar uchar;
   gchar c;
   gchar buf[BUFSIZE];
   int bufu = 0;
   gboolean first = TRUE;
   size_t len = 0;
-  const utfchar *p = utf8_string;
+  const char *p = utf8_string;
 
   while (p && (*p)) {
-    p = uni_get_utf8(p,&uchar);
-    if (!p) {
-      g_warning("malformed utf8 string in encoded_psu_show_string.");      
-      return; /* malformed string. */
-    }
+    uchar = g_utf8_get_char(p);
+    p = g_utf8_next_char(p);
     len++;
 
     if (psu->current_encoding) {
@@ -266,17 +256,17 @@ encoded_psu_show_string(PSUnicoder *psu,
 
 static void 
 symbol_psu_show_string(PSUnicoder *psu,
-                        const utfchar *utf8_string,
+                        const char *utf8_string,
                         FlushFunc flushfunc)
 {
   /* Special case with Symbol fonts: */
-  unichar uchar;
+  gunichar uchar;
   gchar c;
   gchar buf[BUFSIZE];
   int bufu = 0;
   gboolean first = TRUE;
   size_t len = 0;
-  const utfchar *p = utf8_string;
+  const char *p = utf8_string;
   PSFontDescriptor *fd;
   const gchar *font_name = "Symbol";
 
@@ -297,11 +287,8 @@ symbol_psu_show_string(PSUnicoder *psu,
   /* We have the Symbol font loaded. */
 
   while (p && (*p)) {
-    p = uni_get_utf8(p,&uchar);
-    if (!p) {
-      g_warning("malformed utf8 string in symbol_show_string.");      
-      return; /* malformed string. */
-    }
+    uchar = g_utf8_get_char(p);
+    p = g_utf8_next_char(p);
     len++;
 
     if (uchar < 256) c = uchar;
@@ -338,7 +325,7 @@ flush_show_string(const PSUnicoder *psu,
 
 extern void 
 psu_show_string(PSUnicoder *psu,
-                const utfchar *utf8_string)
+                const char *utf8_string)
 {
   if (0==strcmp(psu->face,"Symbol")) {
     symbol_psu_show_string(psu,utf8_string,&flush_show_string);
@@ -350,7 +337,7 @@ psu_show_string(PSUnicoder *psu,
 
 static void 
 flush_get_string_width(const PSUnicoder *psu,
-                            const utfchar *buf,
+                            const char *buf,
                             gboolean first)
 {
   psu->callbacks->get_string_width(psu->usrdata,buf,first);
@@ -358,7 +345,7 @@ flush_get_string_width(const PSUnicoder *psu,
 
 extern void 
 psu_get_string_width(PSUnicoder *psu,
-                     const utfchar *utf8_string)
+                     const char *utf8_string)
 {
   if (0==strcmp(psu->face,"Symbol")) {
     symbol_psu_show_string(psu,utf8_string,&flush_get_string_width);
@@ -392,7 +379,7 @@ static void encoding_page_destroy(PSEncodingPage *ep)
 }
 
 static int 
-encoding_page_add_unichar(PSEncodingPage *ep, unichar uchar)
+encoding_page_add_unichar(PSEncodingPage *ep, gunichar uchar)
 {
   int res;
   if (ep->entries >= PSEPAGE_SIZE) return 0; /* page is full. */
@@ -1787,7 +1774,7 @@ new_uni_to_adobe_hash(void)
 }
 
 extern const char *
-unicode_to_ps_name (unichar val)
+unicode_to_ps_name (gunichar val)
 {
 	static GHashTable *std2ps = NULL;
 	char *ps;
@@ -1807,5 +1794,4 @@ unicode_to_ps_name (unichar val)
 	return ps;
 }
 
-#endif /* HAVE_UNICODE */
 

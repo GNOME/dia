@@ -30,10 +30,9 @@
 #endif
 #include <locale.h>
 
-#include <entities.h>
-
-#include <tree.h>
-#include <xmlmemory.h>
+#include <libxml/entities.h>
+#include <libxml/tree.h>
+#include <libxml/xmlmemory.h>
 
 #include "geometry.h"
 #include "render.h"

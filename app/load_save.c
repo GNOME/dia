@@ -30,9 +30,9 @@
 
 #include "intl.h"
 
-#include <tree.h>
-#include <parser.h>
-#include <xmlmemory.h>
+#include <libxml/tree.h>
+#include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 
@@ -41,10 +41,6 @@
 #include "message.h"
 #include "preferences.h"
 #include "diapagelayout.h"
-
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define XML2
-#endif
 
 #ifdef G_OS_WIN32
 #include <io.h>

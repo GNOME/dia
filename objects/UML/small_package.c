@@ -42,10 +42,10 @@ struct _SmallPackage {
 
   ConnectionPoint connections[8];
 
-  utfchar *stereotype;
+  char *stereotype;
   Text *text;
   
-  utfchar *st_stereotype;
+  char *st_stereotype;
   TextAttributes attrs;
 };
 

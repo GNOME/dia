@@ -26,7 +26,6 @@
 #define PROP_INTTYPES_H
 
 #include "properties.h"
-#include "tree.h"
 #include "dia_xml.h"
 
 

@@ -20,13 +20,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
-#ifdef HAVE_UNICODE
 #ifndef PS_UTF8_H
+#define PS_UTF8_H
 
+#include <config.h>
 #include <glib.h>
-#include <unicode.h>
-#include "charconv.h"
 
 #define PSEPAGE_BEGIN 32
 #define PSEPAGE_SIZE (256-PSEPAGE_BEGIN)
@@ -57,7 +55,7 @@ struct _PSEncodingPage {
   int last_realized;
   int entries;
   GHashTable *backpage; /* LE(unichar -> char) */
-  unicode_char_t page[PSEPAGE_SIZE];
+  gunichar page[PSEPAGE_SIZE];
 };
 
 struct _PSUnicoder {
@@ -79,7 +77,7 @@ struct _PSUnicoder {
 typedef void (*DestroyPSFontFunc)(gpointer usrdata, const gchar *fontname);
 typedef void (*BuildPSEncodingFunc)(gpointer usrdata, 
                                     const gchar *name,
-                                    const unicode_char_t table[PSEPAGE_SIZE]);
+                                    const gunichar table[PSEPAGE_SIZE]);
 /* note: the first $PSEPAGE_BEGIN will always be /.notdef, likewise 
    for ( and ) */
 typedef void (*BuildPSFontFunc)(gpointer usrdata, 
@@ -118,23 +116,21 @@ extern void psu_set_font_face(PSUnicoder *psu, const gchar *face, float size);
 /* just stores the font face and size we'll later use */
 
 extern void psu_check_string_encodings(PSUnicoder *psu, 
-                                       const utfchar *utf8_string);
+                                       const char *utf8_string);
 /* appends what's going to be needed in the encoding tables */
 
 extern void psu_show_string(PSUnicoder *psu,
-                           const utfchar *utf8_string);
+                           const char *utf8_string);
 /* shows the string, asking back for as many font and encoding manipulations
    as necessary. */
 extern void psu_get_string_width(PSUnicoder *psu,
-                                 const utfchar *utf8_string);
+                                 const char *utf8_string);
 /* puts the string width on the PS stack. */
 
-extern const char *unicode_to_ps_name(unicode_char_t val);
+extern const char *unicode_to_ps_name(gunichar val);
 /* returns "uni1234", or a special Adobe entity name. */
  
 
-#define PS_UTF8_H
 #endif /* !PS_UTF8_H */
 
-#endif /* HAVE_UNICODE */
 

@@ -21,9 +21,9 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include <tree.h>
-#include <parser.h>
-#include <xmlmemory.h>
+#include <libxml/tree.h>
+#include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
 #include <float.h>
 #include <ctype.h>
 #include <string.h>

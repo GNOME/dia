@@ -29,15 +29,15 @@
 #include <unistd.h>
 #endif
 #include <locale.h>
-#include <entities.h>
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
 #define DPCM 20
 
-#include <tree.h>
-#include <xmlmemory.h>
-#include <parser.h> /* xmlStrdup */
+#include <libxml/entities.h>
+#include <libxml/tree.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h> /* xmlStrdup */
 #include "dia_xml_libxml.h"
 #include "geometry.h"
 #include "render.h"

@@ -26,7 +26,7 @@
 #define __BOOLEQUATION_H
 
 #include <glib.h>
-#include <tree.h>
+#include <libxml/tree.h>
 #include "dia_xml.h"
 #include "geometry.h"
 #include "render.h"

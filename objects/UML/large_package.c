@@ -44,9 +44,9 @@ struct _LargePackage {
 
   ConnectionPoint connections[8];
 
-  utfchar *name;
-  utfchar *stereotype; /* Can be NULL, including << and >> */
-  utfchar *st_stereotype; 
+  char *name;
+  char *stereotype; /* Can be NULL, including << and >> */
+  char *st_stereotype; 
 
   DiaFont *font;
   

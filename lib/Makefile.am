@@ -98,13 +98,13 @@ libdia_a_SOURCES =  \
 		dummy_dep.h \
 		paper.c \
 		paper.h \
-		charconv.c \
-		charconv.h \
 		ps-utf8.c \
 		ps-utf8.h \
 		boundingbox.c \
 		boundingbox.h
 
+#		charconv.c \
+#		charconv.h \
 
 CPPFLAGS = \
 	$(LIBART_CFLAGS) \

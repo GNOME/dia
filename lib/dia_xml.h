@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program
+/* dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,14 +23,11 @@
 #include "color.h"
 #include "font.h"
 #include "diavar.h"
+#include <libxml/tree.h>
 
 DIAVAR int pretty_formated_xml;
 
-#ifdef __XML_TREE_H__
 typedef xmlNodePtr XML_NODE;
-#else
-typedef void * XML_NODE;
-#endif
 
 typedef XML_NODE ObjectNode;
 typedef XML_NODE AttributeNode;

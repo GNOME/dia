@@ -28,7 +28,6 @@
 #define PROP_SDARRAY_H
 
 #include "properties.h"
-#include "tree.h"
 #include "dia_xml.h"
 
 typedef struct {

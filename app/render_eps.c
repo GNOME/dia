@@ -61,10 +61,7 @@
 #include "diagramdata.h"
 #include "font.h"
 
-#ifdef HAVE_UNICODE
-#include <unicode.h>
 #include "ps-utf8.h"
-#endif
 
 static void begin_render(RendererEPS *renderer);
 static void end_render(RendererEPS *renderer);
@@ -223,12 +220,11 @@ init_eps_renderer() {
 };
 
 
-#ifdef HAVE_UNICODE
 /* callback functions used by the PSUnicoder: */ 
 static void eps_destroy_ps_font(gpointer usrdata, const gchar *fontname);
 static void eps_build_ps_encoding(gpointer usrdata, 
                                   const gchar *name,
-                                  const unicode_char_t table[PSEPAGE_SIZE]);
+                                  const gunichar table[PSEPAGE_SIZE]);
 static void eps_build_ps_font(gpointer usrdata, 
                               const gchar *name,
                               const gchar *face,
@@ -248,7 +244,6 @@ static PSUnicoderCallbacks eps_unicoder_callbacks = {
   eps_show_string,
   eps_get_string_width,
 };
-#endif
 
 #ifdef HAVE_FREETYPE
 /* Dumps a PFB style chunk into a file as ASCII.
@@ -495,24 +490,6 @@ static void print_define_font(gpointer key, gpointer value,
   eps_add_font(file, font);
 #endif
 
-#ifndef HAVE_UNICODE
-  /* Don't reencode the Symbol font, as it doesn't work in latin1 encoding.
-   * Instead, just define Symbol-latin1 to be the same as Symbol. */
-  if (!strcmp(fontname, "Symbol"))
-    fprintf(file,
-	    "/%s-latin1\n"
-	    "    /%s findfont\n"
-	    "definefont pop\n", fontname, fontname);
-  else
-    fprintf(file,
-	    "/%s-latin1\n"
-	    "    /%s findfont\n"
-	    "    dup length dict begin\n"
-	    "	{1 index /FID ne {def} {pop pop} ifelse} forall\n"
-	    "	/Encoding isolatin1encoding def\n"
-	    "    currentdict end\n"
-	    "definefont pop\n", fontname, fontname);
-#endif
 }
 
 /* This hashtable keeps track of the fonts used in the diagram.
@@ -526,36 +503,6 @@ begin_prolog(RendererEPS *renderer)
   font_table = g_hash_table_new(g_str_hash, g_str_equal);
   fprintf(renderer->file, "%%%%BeginProlog\n");
 
-#ifndef HAVE_UNICODE
-  fprintf(renderer->file,
-	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
-	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
-	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
-	  "/less /equal /greater /question /at /A /B /C /D /E\n"
-	  "/F /G /H /I /J /K /L /M /N /O\n"
-	  "/P /Q /R /S /T /U /V /W /X /Y\n"
-	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
-	  "/d /e /f /g /h /i /j /k /l /m\n"
-	  "/n /o /p /q /r /s /t /u /v /w\n"
-	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
-	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
-	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
-	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
-	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
-	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
-	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
-	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
-	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
-	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
-
-#endif /* !HAVE_UNICODE */
   fprintf(renderer->file,
 	  "/cp {closepath} bind def\n"
 	  "/c {curveto} bind def\n"
@@ -664,31 +611,18 @@ prolog_check_string(RendererEPS *renderer,
                     Point *pos, Alignment alignment,
                     Color *color)
 {
-#ifdef HAVE_UNICODE    
     const char *utf8_buffer;
     int utf8_len;
 
     if ((renderer->psu) && (text) && (text != (const char *)(1))) {
 
-#ifndef UNICODE_WORK_IN_PROGRESS
-  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
-     talks UTF-8. We do a quick-and-dirty translation for now. */
-        utf8_buffer = charconv_local8_to_utf8(text);
-            /* </FIXME> */
-#else
         utf8_buffer=text;
-#endif
-
         utf8_len = strlen(utf8_buffer); /* deliberate */
 
         if (utf8_len > 0) {
             psu_check_string_encodings(renderer->psu,utf8_buffer);
-#ifndef UNICODE_WORK_IN_PROGRESS
-            g_free(utf8_buffer);
-#endif
         }
     }
-#endif /* HAVE_UNICODE */
     
   /* In here we can grab all the chars needed, to allow incremental
    * font defs (or even just partial font defs).
@@ -791,9 +725,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  (int) ceil((extent->right - extent->left)*scale),
 	  (int) ceil((extent->bottom - extent->top)*scale) );
 
-#ifdef HAVE_UNICODE
   renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
-#endif 
 
   return renderer;
 }
@@ -807,9 +739,7 @@ new_eps_renderer(Diagram *dia, gchar *filename)
 void
 destroy_eps_renderer(RendererEPS *renderer)
 {
-#ifdef HAVE_UNICODE
   ps_unicoder_destroy(renderer->psu);
-#endif
   g_free(renderer);
 }
 
@@ -860,9 +790,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  dia->data->paper.name,
 	  dia->data->paper.is_portrait ? "Portrait" : "Landscape");
   
-#ifdef HAVE_UNICODE
   renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
-#endif 
   return renderer;
 }
 
@@ -1234,7 +1162,6 @@ fill_bezier(RendererEPS *renderer,
   fprintf(renderer->file, " f\n");
 }
 
-#ifdef HAVE_UNICODE
 
 /* Note: we don't need to play with LC_NUMERIC locale settings in the 
    PSUnicoder callback functions ; the locale is set to "C" once, by 
@@ -1250,7 +1177,7 @@ eps_destroy_ps_font(gpointer usrdata, const gchar *fontname)
 
 static void eps_build_ps_encoding(gpointer usrdata, 
                                   const gchar *name,
-                                  const unicode_char_t table[PSEPAGE_SIZE])
+                                  const gunichar table[PSEPAGE_SIZE])
 {
   /* the table starts at PSEPAGE_BEGIN. Before that, we'll emit
      /xi (just as /notdef's) */
@@ -1337,21 +1264,11 @@ draw_string(RendererEPS *renderer,
 
   lazy_setcolor(renderer,color);
 
-#ifndef UNICODE_WORK_IN_PROGRESS
-  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
-     talks UTF-8. We do a quick-and-dirty translation for now. */
-  utf8_buffer = charconv_local8_to_utf8(text);
-  /* </FIXME> */
-#else
   utf8_buffer=text;
-#endif
-
   utf8_len = strlen(utf8_buffer); /* deliberate */
   
   if (utf8_len <= 0) {
-#ifndef UNICODE_WORK_IN_PROGRESS
     g_free(utf8_buffer);
-#endif
     return; /* null string -> we won't display anything 
                and we will crash the Postscript stack. */
   }
@@ -1379,72 +1296,10 @@ draw_string(RendererEPS *renderer,
   }
 
   psu_show_string(renderer->psu,utf8_buffer);
-  
-#ifndef UNICODE_WORK_IN_PROGRESS
-  g_free(utf8_buffer);
-#endif
-  
+   
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
 }
 
-#else /* !HAVE_UNICODE*/
-
-static void
-set_font(RendererEPS *renderer, DiaFont *font, real height)
-{
-  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
-	  font_get_psfontname(font), (double)height);
-}
-
-static void
-draw_string(RendererEPS *renderer,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
-{
-  char *buffer;
-  const char *str;
-  int len;
-
-  /* TODO: Use latin-1 encoding */
-
-  lazy_setcolor(renderer,color);
-
-  /* Escape all '(' and ')':  */
-  buffer = g_malloc(2*strlen(text)+1);
-  *buffer = 0;
-  str = text;
-  while (*str != 0) {
-    len = strcspn(str,"()\\");
-    strncat(buffer, str, len);
-    str += len;
-    if (*str != 0) {
-      strcat(buffer,"\\");
-      strncat(buffer, str, 1);
-      str++;
-    }
-  }
-  fprintf(renderer->file, "(%s) ", buffer);
-  g_free(buffer);
-  
-  switch (alignment) {
-  case ALIGN_LEFT:
-    fprintf(renderer->file, "%f %f m", pos->x, pos->y);
-    break;
-  case ALIGN_CENTER:
-    fprintf(renderer->file, "dup sw 2 div %f ex sub %f m",
-	    pos->x, pos->y);
-    break;
-  case ALIGN_RIGHT:
-    fprintf(renderer->file, "dup sw %f ex sub %f m",
-	    pos->x, pos->y);
-    break;
-  }
-  
-  fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
-}
-
-#endif /* HAVE_UNICODE */
 
 #define RLE 0
 #if RLE

@@ -5,30 +5,15 @@ INCLUDES = \
 	-I$(top_srcdir)/intl \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
-	$(XML_CFLAGS) \
 	$(GTK_CFLAGS) \
-        $(GNOME_CFLAGS) \
-	$(LIBART_CFLAGS) \
-	$(GDK_PIXBUF_CFLAGS) \
-	$(UNICODE_CFLAGS) \
-	$(FREETYPE_CFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\"
 
-if HAVE_GNOME_PRINT
-print_files = \
-	render_gnomeprint.c \
-	render_gnomeprint.h \
-	paginate_gnomeprint.c \
-	paginate_gnomeprint.h
-embed_extra_print_files =
-else
 print_files = \
 	paginate_psprint.c \
 	paginate_psprint.h
 embed_extra_print_files = \
 	render_gnomeprint.c \
 	render_gnomeprint.h
-endif
 
 noinst_PROGRAMS = run_dia.sh run_diaconv.sh diaconv
 run_dia_sh_SOURCES = 
@@ -167,15 +152,11 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(GNOME_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
-	$(UNICODE_LIBS)  $(INTLLIBS) $(INTLOBJS)
+	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
 diaconv_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(GNOME_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
-	$(UNICODE_LIBS) $(INTLLIBS) $(INTLOBJS)
+	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
@@ -187,9 +168,8 @@ dia_embedd_SOURCES = \
 
 dia_embedd_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
-	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS) \
-	$(FREETYPE_LIBS) $(UNICODE_LIBS)
+	$(APP_LIBS) $(PNG_LIBS) $(GTK_LIBS) $(INTLLIBS) 
+#$(BONOBO_LIBS)
 
 LDFLAGS = -export-dynamic
 

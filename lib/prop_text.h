@@ -26,7 +26,6 @@
 #define PROP_TEXT_H
 
 #include "properties.h"
-#include "tree.h"
 #include "dia_xml.h"
 #include "text.h"
 

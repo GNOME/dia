@@ -42,8 +42,8 @@ struct _Constraint {
 
   Handle text_handle;
 
-  utfchar *text;
-  utfchar *brtext;
+  char *text;
+  char *brtext;
   Point text_pos;
   real text_width;
 };

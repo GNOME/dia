@@ -29,9 +29,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_UNICODE
-#include <unicode.h>
-#endif 
 
 #include <gtk/gtk.h>
 #include <gmodule.h>
@@ -48,8 +45,8 @@
 #endif
 #endif
 
-#include <parser.h>
-#include <xmlerror.h>
+#include <libxml/parser.h>
+#include <libxml/xmlerror.h>
 
 #ifdef G_OS_WIN32
 #include <direct.h>
@@ -74,6 +71,8 @@
 #include "sheet.h"
 #include "plug-ins.h"
 #include "recent_files.h"
+
+#define GETTEXT_PACKAGE "dia"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -252,10 +251,6 @@ app_init (int argc, char **argv)
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
-#ifdef HAVE_UNICODE
-  unicode_init();
-#endif 
-
   bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
 #if defined ENABLE_NLS
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  

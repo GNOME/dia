@@ -1,3 +1,20 @@
+2002-06-08  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* configure.in:
+	* Makefile.am:  Adapted for gtk2.
+	Removed dependencies on libunicode, on iconv(), on langinfo().
+
+	* acconfig.h: removed (now obsolete)
+
+	* lib/charconv.[ch]: removed (superceded by glib)
+	* lib/ps-utf8.[ch]: removed dependency on charconv.[ch]
+
+	* **/*.[ch]: removed (utfchar *), (unichar) and other charconv or
+	libunicode types for their glib counterparts. Fixed the include
+	paths for libxml2. Removed all traces of libxml1 or non-UTF8
+	support (there were remains in objects/uml).
+
+	
 2002-06-08  Hans Breuer  <hans@breuer.org>
 
 	*/*.c */*/*.c : remove all the #ifdef *_UTF8_* hell,

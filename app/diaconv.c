@@ -33,12 +33,9 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_UNICODE
-#include <unicode.h>
-#endif 
 #include <gmodule.h>
 
-#include <parser.h>
+#include <libxml/parser.h>
 
 #ifdef G_OS_WIN32
 #include <direct.h>
@@ -110,13 +107,9 @@ main(int argc, char **argv)
 
   set_message_func(stderr_message_internal);
   setlocale(LC_NUMERIC,"C");
-#ifdef HAVE_UNICODE
-  unicode_init();
-#endif 
+
   bindtextdomain(PACKAGE, LOCALEDIR);
-#ifdef UNICODE_WORK_IN_PROGRESS
   /*  bind_textdomain_codeset(PACKAGE,"UTF-8"); */ /* only for GTK2 -- CC */
-#endif
   textdomain(PACKAGE);
 
   printf("hi !\n");

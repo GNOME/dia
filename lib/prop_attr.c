@@ -27,7 +27,6 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <tree.h>
 #include "dia_xml.h"
 #include "widgets.h"
 #include "properties.h"

@@ -21,8 +21,8 @@
 #ifndef DIA_XML_LIBXML_H
 #define DIA_XML_LIBXML_H
 
-#include <tree.h>
-#include <parser.h>
+#include <libxml/tree.h>
+#include <libxml/parser.h>
 #include "dia_xml.h"
 
 /* for potentially broken files */

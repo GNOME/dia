@@ -37,7 +37,7 @@ bracketted_to_string (gchar *bracketted,
 		      const char *end_bracket)
 {
   gchar *utfstart, *utfend, *utfstr;
-  utfchar *retval;
+  char *retval;
   int start_len, end_len, str_len;
 
   if (!bracketted) return NULL;
@@ -73,7 +73,7 @@ gchar *
 remove_stereotype_from_string (gchar *stereotype)
 {
   if (stereotype) { 
-    utfchar *tmp = bracketted_to_string (stereotype, 
+    char *tmp = bracketted_to_string (stereotype, 
 					 UML_STEREOTYPE_START, UML_STEREOTYPE_END);
     g_free(stereotype);
     return tmp;
