@@ -37,18 +37,12 @@
 #include "intl.h"
 
 static PangoContext* pango_context = NULL;
-/*
- * Our font size is defined in cm, now we need points
- * A point is 1/72 inch.
- *
- * 20 pixels ^= 1 cm
- * 1 inch = 2.54 cm
- * 
- * 72 / 2.54 = 28.35 (^= font size 1cm in points)
- *
- * ATTENTIATION: the real magic tweaking is in dia_font_build_layout() below
+
+/* This is the global factor that says what zoom factor is 100%.  It's
+ * normally 20.0 (and likely to stay that way).  It has nothing to do with
+ * units at all.
  */
-static real global_size_one = 28.35;
+static real global_zoom_factor = 20.0;
 
 static int
 compare(const void *p1, const void *p2) {
@@ -126,10 +120,10 @@ dia_font_get_context() {
 
     /* dia centimetres to pango device units */
 static gint
-dcm_to_pdu(real dcm) { return dcm * global_size_one * PANGO_SCALE; }
+dcm_to_pdu(real dcm) { return dcm * global_zoom_factor * PANGO_SCALE; }
     /* pango device units to dia centimetres */
 static real
-pdu_to_dcm(gint pdu) { return (real)pdu / (global_size_one * PANGO_SCALE); }
+pdu_to_dcm(gint pdu) { return (real)pdu / (global_zoom_factor * PANGO_SCALE); }
 
 static void dia_font_class_init(DiaFontClass* class);
 static void dia_font_finalize(GObject* object);
@@ -476,18 +470,18 @@ void dia_font_set_slant_from_string(DiaFont* font, const char* obli) {
 real
 dia_font_string_width(const char* string, DiaFont *font, real height)
 {
-    return dia_font_scaled_string_width(string,font,height,global_size_one);
+    return dia_font_scaled_string_width(string,font,height,global_zoom_factor);
 }
 
 real
 dia_font_ascent(const char* string, DiaFont* font, real height)
 {
-    return dia_font_scaled_ascent(string,font,height,global_size_one);
+    return dia_font_scaled_ascent(string,font,height,global_zoom_factor);
 }
 
 real dia_font_descent(const char* string, DiaFont* font, real height)
 {
-    return dia_font_scaled_descent(string,font,height,global_size_one);
+    return dia_font_scaled_descent(string,font,height,global_zoom_factor);
 }
 
 PangoLayout*
@@ -499,7 +493,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     guint length;
 
 #ifdef HAVE_FREETYPE
-    height *= global_size_one;
+    height *= 1.0;
 #elif defined G_OS_WIN32
     height *= 0.7;
 #endif
@@ -532,7 +526,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 
 void
 dia_font_set_nominal_zoom_factor(real size_one)
-{ global_size_one = size_one; }
+{ global_zoom_factor = size_one; }
 
 
 
@@ -549,7 +543,7 @@ dia_font_scaled_string_width(const char* string, DiaFont *font, real height,
     
     result = pdu_to_dcm(lw);
     /* Scale the result back for the zoom factor */
-    result /= (zoom_factor/global_size_one);
+    result /= (zoom_factor/global_zoom_factor);
     return result;
 }
 
@@ -601,7 +595,7 @@ dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
     dia_font_vertical_extents(string,font,height,zoom_factor,
 			      0,&top,&bline,&bottom);
   }
-  return (bline-top)/(zoom_factor/global_size_one);
+  return (bline-top)/(zoom_factor/global_zoom_factor);
 }
 
 real dia_font_scaled_descent(const char* string, DiaFont* font,
@@ -617,7 +611,7 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
     dia_font_vertical_extents(string,font,height,zoom_factor,
                               0,&top,&bline,&bottom);
   }
-  return (bottom-bline)/(zoom_factor/global_size_one);
+  return (bottom-bline)/(zoom_factor/global_zoom_factor);
 }
 
 PangoLayout*
@@ -632,7 +626,7 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     real altered_scaling;
     real real_width;
 
-    scaling = zoom_factor / global_size_one;
+    scaling = zoom_factor / global_zoom_factor;
     if (fabs(1.0 - scaling) < 1E-7) {
         return dia_font_build_layout(string,font,height);
     }
