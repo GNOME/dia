@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2000-05-18 11:20+0800\n"
+"POT-Creation-Date: 2000-06-24 10:30+0800\n"
 "PO-Revision-Date: 2000-06-04 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -134,7 +134,7 @@ msgstr "Bidragsydere:"
 #. setup buttons
 #: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
+#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "Ok"
@@ -143,13 +143,13 @@ msgstr "Ok"
 msgid "Object defaults"
 msgstr "Standardindstillinger for objekt"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:610
+#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
 msgid "Apply"
 msgstr "Anvend"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:619 app/properties.c:101
+#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
 msgid "Close"
 msgstr "Luk"
 
@@ -360,13 +360,13 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
+#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
-#: app/preferences.c:506 lib/properties.c:281 lib/properties.c:302
+#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nej"
 
@@ -1493,7 +1493,7 @@ msgstr "Sideskift:"
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikke åbne '%s' for skriving"
 
-#: app/preferences.c:569 app/preferences.c:578
+#: app/preferences.c:566 app/preferences.c:575
 msgid "Preferences"
 msgstr "Indstillinger"
 

@@ -47,9 +47,46 @@ typedef struct _DxfData
 gboolean import_dxf(gchar *filename, DiagramData *dia);
 gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
 void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 void read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+Layer *layer_find_by_name(char *layername, DiagramData *dia);
+LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
+
+/* returns the layer with the given name */
+/* TODO: merge this with other layer code? */
+Layer *layer_find_by_name(char *layername, DiagramData *dia) {
+	  Layer *matching_layer, *layer;
+	  int i;
+	
+	  matching_layer = dia->active_layer;
+    for (i=0; i<dia->layers->len; i++) {
+      layer = (Layer *)g_ptr_array_index(dia->layers, i);
+      if(strcmp(layer->name, layername) == 0) {
+      	matching_layer = layer;
+      	break;
+      }
+    }
+    return matching_layer;
+}
+
+/* returns the matching dia linestyle for a given dxf linestyle */
+/* if no matching style is found, LINESTYLE solid is returned as a default */
+LineStyle get_dia_linestyle_dxf(char *dxflinestyle) {
+	if(strcmp(dxflinestyle, "DASH") == 0) {
+		return LINESTYLE_DASHED;
+	}
+	if(strcmp(dxflinestyle, "DASHDOT") == 0){
+		return LINESTYLE_DASH_DOT;
+	}
+	if(strcmp(dxflinestyle, "DOT") == 0){
+		return LINESTYLE_DOTTED;
+	}
+	return LINESTYLE_SOLID;
+}
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
 void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
@@ -62,9 +99,11 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	Handle *h1, *h2;
   
 	Object *line_obj;
-	Color line_colour = { 1.0, 0.0, 0.0 };
-	Property props[4];
-
+	Color line_colour = { 0.0, 0.0, 0.0 };
+	Property props[5];
+	real line_width = 0.1;
+	LineStyle style = LINESTYLE_SOLID;
+	Layer *layer = NULL;
 		
 	do {
 		if(read_dxf_codes(filedxf, data) == FALSE){
@@ -72,22 +111,28 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 		}
 		codedxf = atoi(data->code);
 		switch(codedxf){
-			case 10: start.x = atof(data->value);
+			case 6:	 style = get_dia_linestyle_dxf(data->value);
+					 break;		
+ 			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
-			case 20: start.y = atof(data->value);
+			case 10: start.x = atof(data->value);
 					 break;
 			case 11: end.x = atof(data->value);
 					 break;
-			case 21: end.y = atof(data->value);
-					 break;		 		 
+			case 20: start.y = (-1)*atof(data->value);
+					 break;
+			case 21: end.y = (-1)*atof(data->value);
+					 break;
+			case 39: line_width = atof(data->value)/10.0;		 		 		 
+					 break;
 		}
 		
 	}while(codedxf != 0);
 
 	line_obj = otype->ops->create(&start, otype->default_user_data,
 				      &h1, &h2);
-	layer_add_object(dia->active_layer, line_obj);
-
+	layer_add_object(layer, line_obj);
+		
 	props[0].name = "start_point";
 	props[0].type = PROP_TYPE_POINT;
 	PROP_VALUE_POINT(props[0]).x = start.x;
@@ -102,9 +147,212 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	PROP_VALUE_COLOUR(props[2]) = line_colour;
 	props[3].name = "line_width";
 	props[3].type = PROP_TYPE_REAL;
-	PROP_VALUE_REAL(props[3]) = 0.4;
+	PROP_VALUE_REAL(props[3]) = line_width;
+	props[4].name = "line_style";
+	props[4].type = PROP_TYPE_LINESTYLE;
+	PROP_VALUE_LINESTYLE(props[4]).style = style;
+	PROP_VALUE_LINESTYLE(props[4]).dash = 1.0;
 
-	line_obj->ops->set_props(line_obj, props, 4);
+	line_obj->ops->set_props(line_obj, props, 5);
+}
+
+/* reads a circle entity from the dxf file and creates a circle object in dia*/
+void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+	int codedxf;
+	
+	/* circle data */
+	Point center;
+	real radius = 1.0;
+
+	ObjectType *otype = object_get_type("Standard - Ellipse");  
+	Handle *h1, *h2;
+  
+	Object *ellipse_obj;
+	Color line_colour = { 0.0, 0.0, 0.0 };
+	Property props[5];
+	real line_width = 0.1;
+  Layer *layer = NULL;
+		
+	do {
+		if(read_dxf_codes(filedxf, data) == FALSE){
+			return;
+		}
+		codedxf = atoi(data->code);
+		switch(codedxf){
+			case  8: layer = layer_find_by_name(data->value, dia);
+					 break;
+			case 10: center.x = atof(data->value);
+					 break;
+			case 20: center.y = (-1)*atof(data->value);
+					 break;
+			case 39: line_width = atof(data->value)/10.0;		 		 		
+					 break;
+			case 40: radius = atof(data->value);
+					 break;
+		}
+		
+	}while(codedxf != 0);
+
+	center.x -= radius;
+	center.y -= radius;
+	ellipse_obj = otype->ops->create(&center, otype->default_user_data,
+				      &h1, &h2);
+	layer_add_object(layer, ellipse_obj);
+	
+	props[0].name = "elem_corner";
+	props[0].type = PROP_TYPE_POINT;
+	PROP_VALUE_POINT(props[0]).x = center.x;
+	PROP_VALUE_POINT(props[0]).y = center.y;
+	props[1].name = "elem_width";
+	props[1].type = PROP_TYPE_REAL;
+	PROP_VALUE_REAL(props[1]) = radius * 2.0;
+    props[2].name = "elem_height";
+    props[2].type = PROP_TYPE_REAL;
+    PROP_VALUE_REAL(props[2]) = radius * 2.0;
+	props[3].name = "line_colour";
+	props[3].type = PROP_TYPE_COLOUR;
+	PROP_VALUE_COLOUR(props[3]) = line_colour;
+	props[4].name = "line_width";
+	props[4].type = PROP_TYPE_REAL;
+	PROP_VALUE_REAL(props[4]) = line_width;
+
+	ellipse_obj->ops->set_props(ellipse_obj, props, 5);
+}
+
+/* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
+void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+	int codedxf;
+	
+	/* ellipse data */
+	Point center;
+	real width = 1.0;
+	real ratio_width_height = 1.0;
+
+	ObjectType *otype = object_get_type("Standard - Ellipse");
+	Handle *h1, *h2;
+
+	Object *ellipse_obj;
+	Color line_colour = { 0.0, 0.0, 0.0 };
+	Property props[5];
+	real line_width = 0.1;
+  Layer *layer = NULL;
+		
+	do {
+		if(read_dxf_codes(filedxf, data) == FALSE){
+			return;
+		}
+		codedxf = atoi(data->code);
+		switch(codedxf){
+			case  8: layer = layer_find_by_name(data->value, dia);
+					 break;
+			case 10: center.x = atof(data->value);
+					 break;
+			case 11: ratio_width_height = atof(data->value);		
+					 break;
+			case 20: center.y = (-1)*atof(data->value);
+					 break;
+			case 39: line_width = atof(data->value)/10.0;		 		 		
+					 break;
+			case 40: width = atof(data->value) * 2;
+					 break;
+		}
+		
+	}while(codedxf != 0);
+
+	center.x -= width;
+	center.y -= (width*ratio_width_height);
+	ellipse_obj = otype->ops->create(&center, otype->default_user_data,
+				      &h1, &h2);
+	layer_add_object(layer, ellipse_obj);
+	
+	props[0].name = "elem_corner";
+	props[0].type = PROP_TYPE_POINT;
+	PROP_VALUE_POINT(props[0]).x = center.x;
+	PROP_VALUE_POINT(props[0]).y = center.y;
+	props[1].name = "elem_width";
+	props[1].type = PROP_TYPE_REAL;
+	PROP_VALUE_REAL(props[1]) = width;
+  props[2].name = "elem_height";
+  props[2].type = PROP_TYPE_REAL;
+  PROP_VALUE_REAL(props[2]) = width * ratio_width_height;
+	props[3].name = "line_colour";
+	props[3].type = PROP_TYPE_COLOUR;
+	PROP_VALUE_COLOUR(props[3]) = line_colour;
+	props[4].name = "line_width";
+	props[4].type = PROP_TYPE_REAL;
+	PROP_VALUE_REAL(props[4]) = line_width;
+
+	ellipse_obj->ops->set_props(ellipse_obj, props, 5);
+}
+
+void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
+  int codedxf;
+
+	/* text data */
+	Point location;
+	real height = 10.0;
+	Alignment textalignment = ALIGN_LEFT;
+	char *textvalue = NULL;
+
+	ObjectType *otype = object_get_type("Standard - Text");
+	Handle *h1, *h2;
+
+	Object *text_obj;
+	Color text_colour = { 0.0, 0.0, 0.0 };
+	Property props[5];
+  Layer *layer = NULL;
+		
+	do {
+		if(read_dxf_codes(filedxf, data) == FALSE){
+			return;
+		}
+		codedxf = atoi(data->code);
+		switch(codedxf){
+			case  1: textvalue = g_strdup(data->value);
+					 break;
+			case  8: layer = layer_find_by_name(data->value, dia);
+					 break;
+			case 10: location.x = atof(data->value);
+					 break;
+			case 20: location.y = (-1)*atof(data->value);
+					 break;
+		  case 40: height = atof(data->value);
+		 			 break;
+		  case 72: switch(atoi(data->value)){
+		  				  	case 0: textalignment = ALIGN_LEFT;
+		  				  		break;
+		  				  	case 1: textalignment = ALIGN_CENTER;
+		  				  		break;
+		  				    case 2: textalignment = ALIGN_RIGHT;
+		  				    	break;
+		  					} 			
+		}
+		
+	}while(codedxf != 0);
+
+	text_obj = otype->ops->create(&location, otype->default_user_data,
+				      &h1, &h2);
+	layer_add_object(layer, text_obj);
+	
+	props[0].name = "text_alignment";
+	props[0].type = PROP_TYPE_ENUM;
+	PROP_VALUE_ENUM(props[0]) = textalignment;
+	props[1].name = "text_height";
+	props[1].type = PROP_TYPE_REAL;
+	PROP_VALUE_REAL(props[1]) = height;
+  props[2].name = "text";
+  props[2].type = PROP_TYPE_STRING;
+  PROP_VALUE_STRING(props[2]) = textvalue;
+	props[3].name = "text_colour";
+	props[3].type = PROP_TYPE_COLOUR;
+	PROP_VALUE_COLOUR(props[3]) = text_colour;
+	props[4].name="text_font";
+	props[4].type = PROP_TYPE_FONT;
+	PROP_VALUE_FONT(props[4]) = font_getfont("Courier");
+
+
+	text_obj->ops->set_props(text_obj, props, 5);
+
 }
 
 /* reads the layer table from the dxf file and creates the layers */
@@ -149,17 +397,32 @@ void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 /* reads the entities section of the dxf file */
 void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 	int codedxf;
-	printf("entering entities section\n");
+	
+	if(read_dxf_codes(filedxf, data) == FALSE){
+			return;		
+	}
+	codedxf = atoi(data->code);
 	do {
-		if(read_dxf_codes(filedxf, data) == FALSE){
-			return;
-		}
-		else {
-			 codedxf = atoi(data->code);
-			 if((codedxf == 0) && (strcmp(data->value, "LINE") == 0)) {
-			 	read_entity_line_dxf(filedxf, data, dia);
-			 }
-		}
+
+   		if((codedxf == 0) && (strcmp(data->value, "LINE") == 0)) {
+   			read_entity_line_dxf(filedxf, data, dia);
+   		}
+   		else if((codedxf == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
+   			read_entity_circle_dxf(filedxf, data, dia);
+   		}
+   		else if((codedxf == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
+   			read_entity_ellipse_dxf(filedxf, data, dia);
+   		}
+   		else if((codedxf == 0) && (strcmp(data->value, "TEXT") == 0)) {
+   			read_entity_text_dxf(filedxf, data, dia);
+   		}
+
+   		else {
+   			if(read_dxf_codes(filedxf, data) == FALSE) {
+   				return;
+   			}
+   		}
+		codedxf = atoi(data->code);		
 	}while((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
@@ -213,7 +476,7 @@ gboolean read_dxf_codes(FILE *filedxf, DxfData *data){
 	}
     c=data->value;
 	for(i=0; i < DXF_LINE_LENGTH; i++){		
-		if(c[i] == '\n'){
+		if((c[i] == '\n')||(c[i] == '\r')){
 			c[i] = 0;
 			break;
 		}

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-06-01 17:37+0000\n"
+"POT-Creation-Date: 2000-06-24 10:30+0800\n"
 "PO-Revision-Date: 2000-06-01 17:38+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -135,7 +135,7 @@ msgstr "Разработчики:"
 #. setup buttons
 #: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
+#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "ОК"
@@ -144,13 +144,13 @@ msgstr "ОК"
 msgid "Object defaults"
 msgstr "Исх. свойства объекта"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:610
+#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
 msgid "Apply"
 msgstr "Применить"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:619 app/properties.c:101
+#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
 msgid "Close"
 msgstr "Закрыть"
 
@@ -361,13 +361,13 @@ msgstr ""
 "Эта диаграмма не была сохранена.\n"
 "Вы уверены, что хотите закрыть это окно?"
 
-#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
-#: lib/properties.c:267
+#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: lib/properties.c:279
 msgid "Yes"
 msgstr "Да"
 
-#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
-#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
+#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Нет"
 
@@ -861,17 +861,17 @@ msgstr "Пересечь"
 msgid "Remove"
 msgstr "Удалить"
 
-#: app/menus.c:153 lib/properties.c:1118 lib/properties.h:313
+#: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
 #: lib/widgets.c:176
 msgid "Left"
 msgstr "Влево"
 
-#: app/menus.c:155 app/menus.c:169 lib/properties.c:1119 lib/properties.h:314
+#: app/menus.c:155 app/menus.c:169 lib/properties.c:1177 lib/properties.h:325
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "По центру"
 
-#: app/menus.c:157 lib/properties.c:1120 lib/properties.h:315
+#: app/menus.c:157 lib/properties.c:1178 lib/properties.h:326
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Вправо"
@@ -1492,7 +1492,7 @@ msgstr "Разрывы страницы:"
 msgid "Could not open `%s' for writing"
 msgstr "Не удалось открыть: '%s' для записи."
 
-#: app/preferences.c:569 app/preferences.c:578
+#: app/preferences.c:566 app/preferences.c:575
 msgid "Preferences"
 msgstr "Настройки"
 
@@ -1580,7 +1580,7 @@ msgstr "'%s' не является каталогом"
 msgid "Could not open `%s'"
 msgstr "Не удалось открыть '%s'"
 
-#: lib/properties.c:357 lib/properties.c:389
+#: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
 msgstr ""
 

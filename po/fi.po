@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-05-29 19:13+0300\n"
+"POT-Creation-Date: 2000-06-24 10:30+0800\n"
 "PO-Revision-Date: 2000-05-30 09:00+0300\n"
 "Last-Translator: Sami Gerdt <sgerdt@cs.joensuu.fi>\n"
 "Language-Team: finnish <fi@li.org>\n"
@@ -59,7 +59,8 @@ msgstr ""
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"Etsittäessä objekti-kirjastoja standardi-objekteja ei löytynyt, poistutaan...\n"
+"Etsittäessä objekti-kirjastoja standardi-objekteja ei löytynyt, "
+"poistutaan...\n"
 
 #: app/app_procs.c:232
 msgid "Need valid input file\n"
@@ -81,7 +82,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Lopetus"
 
-#: app/app_procs.c:331 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/app_procs.c:331 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
@@ -91,7 +92,7 @@ msgstr "Peru"
 msgid "Could not create per-user Dia config directory"
 msgstr "Ei voinut luoda käyttäjäkohtaista DIA-configurointi-tiedostoa"
 
-#: app/app_procs.c:422
+#: app/app_procs.c:419
 msgid "Objects and filters internal to dia"
 msgstr "Objektit ja filtterit DIAn sisäisiä"
 
@@ -125,27 +126,27 @@ msgstr "Ei objekteja liimattavaksi.\n"
 msgid "About Dia"
 msgstr "Tietoja DIAsta"
 
-#: app/commands.c:518
+#: app/commands.c:520
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "DIA v %s tekijänä Alexander Larsson"
 
-#: app/commands.c:523
+#: app/commands.c:525
 msgid "Maintainer: James Henstridge"
 msgstr "Ylläpitäjä: James Henstridge"
 
-#: app/commands.c:527
+#: app/commands.c:529
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Käy hakemassa http://www.lysator.liu.se/~alla/dia :sta lisää tietoa"
 
-#: app/commands.c:532
+#: app/commands.c:534
 msgid "Contributors:"
 msgstr "Myötävaikuttajat:"
 
 #. setup buttons
-#: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
+#: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
+#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr ""
@@ -154,13 +155,13 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Objektin oletusarvot"
 
-#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:610
+#: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
 msgid "Apply"
 msgstr ""
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:619 app/properties.c:101
+#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
 msgid "Close"
 msgstr "Sulje"
 
@@ -168,7 +169,37 @@ msgstr "Sulje"
 msgid "This object has no defaults."
 msgstr "Tällä objektilla ei ole oletusarvoja."
 
-#: app/dia_embedd.c:276
+#: app/dia_embedd.c:176
+#, fuzzy
+msgid "File/New diagram"
+msgstr "_Uusi diagrammi"
+
+#: app/dia_embedd.c:180
+#, fuzzy
+msgid "File/Open..."
+msgstr "/Tiedosto/_Avaa"
+
+#: app/dia_embedd.c:184
+#, fuzzy
+msgid "File/Save As..."
+msgstr "/Tiedosto/Tallenna _nimellä..."
+
+#: app/dia_embedd.c:188
+#, fuzzy
+msgid "File/Close"
+msgstr "/Tiedosto/_Sulje"
+
+#: app/dia_embedd.c:192
+#, fuzzy
+msgid "File/Exit"
+msgstr "/Tiedosto/_Poistu"
+
+#: app/dia_embedd.c:196
+#, fuzzy
+msgid "View/New View"
+msgstr "/Näytä/Uusi _näkymä"
+
+#: app/dia_embedd.c:261
 msgid "Could not initialize Bonobo!"
 msgstr "Ei pystynyt initialisoimaan Bonobo:ta!"
 
@@ -216,43 +247,43 @@ msgstr "/Objektit/Kokoa ryhmäksi"
 msgid "/Objects/Ungroup"
 msgstr "/Objektit/Pura ryhmä"
 
-#: app/diagram.c:204 app/menus.c:327
+#: app/diagram.c:204 app/menus.c:331
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objektit/Tasaa vaakasuoraan/Vasemmalle"
 
-#: app/diagram.c:206 app/menus.c:328
+#: app/diagram.c:206 app/menus.c:332
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objektit/Tasaa vaakasuoraan/Keskelle"
 
-#: app/diagram.c:208 app/menus.c:329
+#: app/diagram.c:208 app/menus.c:333
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objektit/Tasaa vaakasuoraan/Oikealle"
 
-#: app/diagram.c:210 app/menus.c:330
+#: app/diagram.c:210 app/menus.c:334
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objektit/Tasaa vaakasuoraan/Yhtä etäälle"
 
-#: app/diagram.c:212 app/menus.c:331
+#: app/diagram.c:212 app/menus.c:335
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objektit/Tasaa vaakasuoraan/Vierekkäin"
 
-#: app/diagram.c:214 app/menus.c:333
+#: app/diagram.c:214 app/menus.c:338
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objektit/Tasaa pystysuoraan/Ylös"
 
-#: app/diagram.c:216 app/menus.c:334
+#: app/diagram.c:216 app/menus.c:339
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objektit/Tasaa pystysuoraan/Keskelle"
 
-#: app/diagram.c:218 app/menus.c:335
+#: app/diagram.c:218 app/menus.c:340
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objektit/Tasaa pystysuoraan/Alas"
 
-#: app/diagram.c:220 app/menus.c:336
+#: app/diagram.c:220 app/menus.c:341
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objektit/Tasaa pystysuoraan/Yhtä etäälle"
 
-#: app/diagram.c:222 app/menus.c:337
+#: app/diagram.c:222 app/menus.c:342
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objektit/Tasaa pystysuoraan/Vierekkäin"
 
@@ -325,19 +356,19 @@ msgstr "Tämä objekti ei tue Peru/Tee uudestaan -toimintoja."
 msgid "No object menu"
 msgstr "Ei objekti valikkoa"
 
-#: app/display.c:64 app/display.c:65
+#: app/display.c:68 app/display.c:69
 msgid "Zoom"
 msgstr "Zoomaus"
 
-#: app/display.c:84
+#: app/display.c:88
 msgid "Diagram modified!"
 msgstr "Diagrammia muokattu!"
 
-#: app/display.c:789 app/display.c:795
+#: app/display.c:762 app/display.c:768
 msgid "Really close?"
 msgstr "Todella lähelle?"
 
-#: app/display.c:800
+#: app/display.c:773
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -345,33 +376,33 @@ msgstr ""
 "Tätä diagrammia ei ole tallennettu.\n"
 "Oletko varma että haluat sulkea tämän ikkunan?"
 
-#: app/display.c:818 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
-#: lib/properties.c:267
+#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: lib/properties.c:279
 msgid "Yes"
 msgstr "Kyllä"
 
-#: app/display.c:828 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
-#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
+#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Ei"
 
-#: app/display.c:864
+#: app/display.c:837
 msgid "/View/Show Rulers"
 msgstr "/Näytä/Näytä sarkaimet"
 
-#: app/display.c:866
+#: app/display.c:839
 msgid "/View/Visible Grid"
 msgstr "/Näytä/Näkyvä ruudukko"
 
-#: app/display.c:868
+#: app/display.c:841
 msgid "/View/Snap To Grid"
 msgstr "/Näytä/Kiinnitä ruudukkoon"
 
-#: app/display.c:870
+#: app/display.c:843
 msgid "/View/Show Connection Points"
 msgstr "/Näytä/Näytä liitoskohdat"
 
-#: app/display.c:873
+#: app/display.c:846
 msgid "/View/AntiAliased"
 msgstr "/Näytä/VastaAliassoidut"
 
@@ -438,7 +469,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "Ei pystynyt määrittelemään mitä vientifiltteriä\n"
-"tulisi käyttää tallennettaessa tiedostoa '%s'" 
+"tulisi käyttää tallennettaessa tiedostoa '%s'"
 
 #: app/filedlg.c:492
 msgid "Export Diagram"
@@ -464,11 +495,11 @@ msgstr "Ruudukon y-koko:"
 msgid "Modify object(s)"
 msgstr "Muunna objekt(ia)eja"
 
-#: app/interface.c:36 app/menus.c:192
+#: app/interface.c:36 app/menus.c:193
 msgid "Modify"
 msgstr "Muunna"
 
-#: app/interface.c:40 app/interface.c:41 app/menus.c:193
+#: app/interface.c:40 app/interface.c:41 app/menus.c:194
 msgid "Magnify"
 msgstr "Suurenna"
 
@@ -476,7 +507,7 @@ msgstr "Suurenna"
 msgid "Scroll around the diagram"
 msgstr "Vieritä diagrammin ympärillä"
 
-#: app/interface.c:46 app/menus.c:194
+#: app/interface.c:46 app/menus.c:195
 msgid "Scroll"
 msgstr "Vieritä"
 
@@ -484,7 +515,7 @@ msgstr "Vieritä"
 msgid "Create Text"
 msgstr "Luo tekstiä"
 
-#: app/interface.c:51 app/menus.c:195
+#: app/interface.c:51 app/menus.c:196
 msgid "Text"
 msgstr "Teksti"
 
@@ -492,7 +523,7 @@ msgstr "Teksti"
 msgid "Create Box"
 msgstr "Lue boksi"
 
-#: app/interface.c:56 app/menus.c:196
+#: app/interface.c:56 app/menus.c:197
 msgid "Box"
 msgstr "Boksi"
 
@@ -500,7 +531,7 @@ msgstr "Boksi"
 msgid "Create Ellipse"
 msgstr "Luo ellipsi"
 
-#: app/interface.c:61 app/menus.c:197
+#: app/interface.c:61 app/menus.c:198
 msgid "Ellipse"
 msgstr "Ellipsi"
 
@@ -508,71 +539,82 @@ msgstr "Ellipsi"
 msgid "Create Polygon"
 msgstr "Luo monikulmio"
 
-#: app/interface.c:66 app/menus.c:198
+#: app/interface.c:66 app/menus.c:199
 msgid "Polygon"
 msgstr "Monikulmio"
 
 #: app/interface.c:70
+#, fuzzy
+msgid "Create Beziergon"
+msgstr "Luo Bezier-viiva"
+
+#: app/interface.c:71 app/menus.c:200
+#, fuzzy
+msgid "Beziergon"
+msgstr "Bezier-viiva"
+
+#: app/interface.c:75
 msgid "Create Line"
 msgstr "Luo viiva"
 
-#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:183
+#: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
 msgid "Line"
 msgstr "Viiva"
 
-#: app/interface.c:75
+#: app/interface.c:80
 msgid "Create Arc"
 msgstr "Luo kaari"
 
-#: app/interface.c:76 app/menus.c:200
+#: app/interface.c:81 app/menus.c:202
 msgid "Arc"
 msgstr "Kaari"
 
-#: app/interface.c:80
+#: app/interface.c:85
 msgid "Create Zigzagline"
 msgstr "Luo siksakkiviiva"
 
-#: app/interface.c:81 app/menus.c:201
+#: app/interface.c:86 app/menus.c:203
 msgid "Zigzagline"
 msgstr "Siksakkiviiva"
 
-#: app/interface.c:85
+#: app/interface.c:90
 msgid "Create Polyline"
 msgstr "Luo Moniviiva"
 
-#: app/interface.c:86 app/menus.c:202
+#: app/interface.c:91 app/menus.c:204
 msgid "Polyline"
 msgstr "Moniviiva"
 
-#: app/interface.c:90
+#: app/interface.c:95
 msgid "Create Bezierline"
 msgstr "Luo Bezier-viiva"
 
-#: app/interface.c:91 app/menus.c:203
+#: app/interface.c:96 app/menus.c:205
 msgid "Bezierline"
 msgstr "Bezier-viiva"
 
-#: app/interface.c:95
+#: app/interface.c:100
 msgid "Create Image"
 msgstr "Luo kuva"
 
-#: app/interface.c:96 app/menus.c:204
+#: app/interface.c:101 app/menus.c:206
 msgid "Image"
 msgstr "Kuva"
 
-#: app/interface.c:301
+#: app/interface.c:320
 msgid "NULL tooldata in tool_select_update"
 msgstr "TYHJÄ työvälinetieto työväline_valinta_päivityksessä"
 
-#: app/interface.c:657
+#: app/interface.c:627
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
 "Etualan & taka-alan värit. Pienet mustavalkoiset neliöt palauttaa värit "
-"alkutilaan. Pienet nuolet vaihtavat värejä. Tuplaklikkaus vaihtaaksesi värejä."
+"alkutilaan. Pienet nuolet vaihtavat värejä. Tuplaklikkaus vaihtaaksesi "
+"värejä."
 
-#: app/interface.c:762
+#: app/interface.c:708
 msgid "Diagram Editor"
 msgstr "Diagrammi-editori"
 
@@ -608,11 +650,11 @@ msgstr "Uusi taso"
 msgid "none"
 msgstr "ei mitään"
 
-#: app/layer_dialog.c:945
+#: app/layer_dialog.c:951
 msgid "Edit Layer Attributes"
 msgstr "Muokkaa tason ominaisuuksia"
 
-#: app/layer_dialog.c:961
+#: app/layer_dialog.c:967
 msgid "Layer name:"
 msgstr "Tason nimi:"
 
@@ -702,255 +744,267 @@ msgstr "Tiedoston '%s' tallennus epäonnistui.\n"
 msgid "Native Dia Diagram"
 msgstr "Alkuperäinen DIAn diagrammi"
 
-#: app/menus.c:38 app/menus.c:49
+#: app/menus.c:39 app/menus.c:50
 msgid "_New diagram"
 msgstr "_Uusi diagrammi"
 
-#: app/menus.c:38 app/menus.c:49
+#: app/menus.c:39 app/menus.c:50
 msgid "Create new diagram"
 msgstr "Luo uusi diagrammi"
 
-#: app/menus.c:42 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Liitännäiset"
 
-#: app/menus.c:56
+#: app/menus.c:57
 msgid "_Export..."
 msgstr "_Vienti..."
 
-#: app/menus.c:60
+#: app/menus.c:61
 msgid "Page Set_up..."
 msgstr "Sivun asetukset..."
 
-#: app/menus.c:62
+#: app/menus.c:63
 msgid "_Print Diagram..."
 msgstr "_Tulosta diagrammi..."
 
-#: app/menus.c:77
+#: app/menus.c:78
 msgid "_Delete"
 msgstr "_Tuhoa"
 
-#: app/menus.c:83
+#: app/menus.c:84
 msgid "Copy Text"
 msgstr "Kopioi teksti"
 
-#: app/menus.c:84
+#: app/menus.c:85
 msgid "Cut Text"
 msgstr "Leikkaa teksti"
 
-#: app/menus.c:85
+#: app/menus.c:86
 msgid "Paste _Text"
 msgstr "Liimaa _teksti"
 
-#: app/menus.c:108
+#: app/menus.c:109
 msgid "Zoom _In"
 msgstr "Zoomaa sisään"
 
-#: app/menus.c:108
+#: app/menus.c:109
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Zoomaa sisään 50%"
 
-#: app/menus.c:109
+#: app/menus.c:110
 msgid "Zoom _Out"
 msgstr "Zoomaa _ulos"
 
-#: app/menus.c:109
+#: app/menus.c:110
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Zoomaa ulos 50%"
 
-#: app/menus.c:110
+#: app/menus.c:111
 msgid "_Zoom"
 msgstr "_Zoomaus"
 
-#: app/menus.c:111
+#: app/menus.c:112
 msgid "Edit Grid..."
 msgstr "Muokkaa ruudukkoa..."
 
-#: app/menus.c:113
+#: app/menus.c:114
 msgid "_AntiAliased"
 msgstr "_VastaAliassoitu"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "_Visible Grid"
 msgstr "_Näkyvä ruudukko"
 
-#: app/menus.c:118
+#: app/menus.c:119
 msgid "_Snap To Grid"
 msgstr "_Kiinnitä ruudukkoon"
 
-#: app/menus.c:120
+#: app/menus.c:121
 msgid "Show _Rulers"
 msgstr "Näytä _Sarkaimet"
 
-#: app/menus.c:122
+#: app/menus.c:123
 msgid "Show _Connection Points"
 msgstr "Näytä _Liitoskohdat"
 
-#: app/menus.c:125
+#: app/menus.c:126
 msgid "New _View"
 msgstr "Uusi _näkymä"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "Show _All"
 msgstr "Näytä _kaikki"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "All"
 msgstr "Kaikki"
 
-#: app/menus.c:132 lib/widgets.c:654 objects/UML/association.c:991
+#: app/menus.c:133 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
 msgstr "Ei mitään"
 
-#: app/menus.c:133 app/menus.c:146
+#: app/menus.c:134 app/menus.c:147
 msgid "Invert"
 msgstr "Invertoi"
 
-#: app/menus.c:134
+#: app/menus.c:135
 msgid "Connected"
 msgstr "Yhdistetty"
 
-#: app/menus.c:135
+#: app/menus.c:136
 msgid "Transitive"
 msgstr "Transitiivinen"
 
-#: app/menus.c:136
+#: app/menus.c:137
 msgid "Same Type"
 msgstr "Saman tyyppinen"
 
-#: app/menus.c:138
+#: app/menus.c:139
 msgid "Replace"
 msgstr "Korvaa"
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "Union"
 msgstr "Liitos"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "Intersect"
 msgstr "Leikkaus"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "Remove"
 msgstr "Poista"
 
-#: app/menus.c:152 lib/properties.c:1118 lib/properties.h:313
+#: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
 #: lib/widgets.c:176
 msgid "Left"
 msgstr "Vasen"
 
-#: app/menus.c:154 app/menus.c:168 lib/properties.c:1119 lib/properties.h:314
+#: app/menus.c:155 app/menus.c:169 lib/properties.c:1177 lib/properties.h:325
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "Keskus"
 
-#: app/menus.c:156 lib/properties.c:1120 lib/properties.h:315
+#: app/menus.c:157 lib/properties.c:1178 lib/properties.h:326
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Oikea"
 
-#: app/menus.c:158 app/menus.c:172
+#: app/menus.c:159 app/menus.c:173
 msgid "Equal Distance"
 msgstr "Yhtä etäällä"
 
-#: app/menus.c:160 app/menus.c:174
+#: app/menus.c:161 app/menus.c:175
 msgid "Adjacent"
 msgstr "Vierekkäin"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "Top"
 msgstr "Päällä"
 
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "Bottom"
 msgstr "Alla "
 
-#: app/menus.c:180
+#: app/menus.c:181
 msgid "Send to _Back"
 msgstr "Lähetä _taakse"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "Bring to _Front"
 msgstr "Tuo _eteen"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "_Group"
 msgstr "Kasaa ryhmään"
 
-#: app/menus.c:184
+#: app/menus.c:185
 msgid "_Ungroup"
 msgstr "Pura ryhmä"
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "Align _Horizontal"
 msgstr "Tasaa _vaakasuoraan"
 
-#: app/menus.c:187
+#: app/menus.c:188
 msgid "Align _Vertical"
 msgstr "Tasaa _pystysuoraan"
 
-#: app/menus.c:209
+#: app/menus.c:211
 msgid "_Properties"
 msgstr "_Ominaisuudet"
 
-#: app/menus.c:210
+#: app/menus.c:212
 msgid "_Layers"
 msgstr "_Tasot"
 
-#: app/menus.c:229
-msgid "Select"
+#: app/menus.c:231
+#, fuzzy
+msgid "_Select"
 msgstr "Valitse"
 
-#: app/menus.c:230
-msgid "Objects"
-msgstr "Objektit"
+#: app/menus.c:232
+#, fuzzy
+msgid "_Objects"
+msgstr "/_Objektit"
 
-#: app/menus.c:231
-msgid "Tools"
+#: app/menus.c:233
+#, fuzzy
+msgid "_Tools"
 msgstr "Työkalut"
 
-#: app/menus.c:232
-msgid "Dialogs"
-msgstr "Dialogit"
+#: app/menus.c:234
+#, fuzzy
+msgid "_Dialogs"
+msgstr "/_Dialogit"
 
-#: app/menus.c:243 app/menus.c:256
+#: app/menus.c:242 app/menus.c:256
 msgid "/_File"
 msgstr "/_Tiedosto"
 
-#. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:244 app/menus.c:258
+#: app/menus.c:243 app/menus.c:258
 msgid "/File/_New"
 msgstr "/Tiedosto/_Uusi"
 
-#: app/menus.c:245 app/menus.c:259
+#: app/menus.c:244 app/menus.c:259
 msgid "/File/_Open"
 msgstr "/Tiedosto/_Avaa"
 
-#: app/menus.c:246
+#: app/menus.c:245
 msgid "/File/_Preferences..."
 msgstr "/Tiedosto/_Ominaisuudet..."
 
-#: app/menus.c:247
+#: app/menus.c:246
 msgid "/File/P_lugins"
 msgstr ""
 
-#: app/menus.c:248 app/menus.c:263
+#: app/menus.c:247 app/menus.c:263
 msgid "/File/sep1"
 msgstr "/Tiedosto/sep1"
 
-#: app/menus.c:249 app/menus.c:268
+#: app/menus.c:248 app/menus.c:268
 msgid "/File/_Quit"
 msgstr "/Tiedosto/_Poistu"
 
-#: app/menus.c:250
+#: app/menus.c:249
 msgid "/_Help"
 msgstr ""
 
-#: app/menus.c:251
+#: app/menus.c:250
 msgid "/Help/_About"
 msgstr "/Help/_Tietoja"
+
+#: app/menus.c:255
+msgid "/tearoff"
+msgstr ""
+
+#: app/menus.c:257
+#, fuzzy
+msgid "/File/tearoff"
+msgstr "/Tiedosto/_Uusi"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -984,7 +1038,11 @@ msgstr "/Tiedosto/_Sulje"
 msgid "/_Edit"
 msgstr "/_Muokkaa"
 
-#. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
+#: app/menus.c:270
+#, fuzzy
+msgid "/Edit/tearoff"
+msgstr "/Muokkaa/Liimaa"
+
 #: app/menus.c:271
 msgid "/Edit/_Copy"
 msgstr "/Muokkaa/_Kopioi"
@@ -1017,7 +1075,11 @@ msgstr "/Muokkaa/Liimaa _teksti"
 msgid "/_View"
 msgstr "/_Näytä"
 
-#. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:281
+#, fuzzy
+msgid "/View/tearoff"
+msgstr "/Näytä/sep1"
+
 #: app/menus.c:282
 msgid "/View/Zoom _In"
 msgstr "/Näytä/Zoomaa _sisään"
@@ -1031,240 +1093,293 @@ msgid "/View/_Zoom"
 msgstr "/Näytä/_Zoomaus"
 
 #: app/menus.c:285
+#, fuzzy
+msgid "/View/Zoom/tearoff"
+msgstr "/Näytä/_Zoomaus"
+
+#: app/menus.c:286
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "Näytä/Zoomaus/400%"
 
-#: app/menus.c:286
+#: app/menus.c:287
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "Näytä/Zoomaus/283%"
 
-#: app/menus.c:287
+#: app/menus.c:288
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Näytä/Zoomaus/200%"
 
-#: app/menus.c:288
+#: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Näytä/Zoomaus/141%"
 
-#: app/menus.c:289
+#: app/menus.c:290
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Näytä/Zoomaus/100%"
 
-#: app/menus.c:290
+#: app/menus.c:291
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Näytä/Zoomaus/85%"
 
-#: app/menus.c:291
+#: app/menus.c:292
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Näytä/Zoomaus/70,7%"
 
-#: app/menus.c:292
+#: app/menus.c:293
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Näytä/Zoomaus/50%"
 
-#: app/menus.c:293
+#: app/menus.c:294
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Näytä/Zoomaus/35,4%"
 
-#: app/menus.c:294
+#: app/menus.c:295
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Näytä/Zoomaus/25%"
 
-#: app/menus.c:295
+#: app/menus.c:296
 msgid "/View/Edit Grid..."
 msgstr "/Näytä/Muokkaa ruudukkoa..."
 
-#: app/menus.c:297
+#: app/menus.c:298
 msgid "/View/_AntiAliased"
 msgstr "/Näytä/_VastaAliassoutu"
 
-#: app/menus.c:299
+#: app/menus.c:300
 msgid "/View/_Visible Grid"
 msgstr "/Näytä/_Näkyvä ruudukko"
 
-#: app/menus.c:300
+#: app/menus.c:301
 msgid "/View/_Snap To Grid"
 msgstr "/Näytä/_Kiinnitä ruudukkoon"
 
-#: app/menus.c:301
+#: app/menus.c:302
 msgid "/View/Show _Rulers"
 msgstr "/Näytä/Näytä _sarkaimet"
 
-#: app/menus.c:302
+#: app/menus.c:303
 msgid "/View/Show _Connection Points"
 msgstr "/Näytä/Näytä _liitoskohdat"
 
-#: app/menus.c:303
+#: app/menus.c:304
 msgid "/View/sep1"
 msgstr "/Näytä/sep1"
 
-#: app/menus.c:304
+#: app/menus.c:305
 msgid "/View/New _View"
 msgstr "/Näytä/Uusi _näkymä"
 
-#: app/menus.c:305
+#: app/menus.c:306
 msgid "/View/Show _All"
 msgstr "/Näytä/Näytä _kaikki"
 
-#: app/menus.c:306
-msgid "/Select/All"
-msgstr "/Valitse/Kaikki"
-
 #: app/menus.c:307
-msgid "/Select/None"
-msgstr "/Valitse/Ei mitään"
+#, fuzzy
+msgid "/_Select"
+msgstr "Valitse"
 
-#: app/menus.c:308 app/menus.c:317 app/select.c:254
-msgid "/Select/Invert"
+#: app/menus.c:308
+#, fuzzy
+msgid "/Select/tearoff"
 msgstr "/Valitse/Invertoi"
 
 #: app/menus.c:309
+msgid "/Select/All"
+msgstr "/Valitse/Kaikki"
+
+#: app/menus.c:310
+msgid "/Select/None"
+msgstr "/Valitse/Ei mitään"
+
+#: app/menus.c:311 app/menus.c:320 app/select.c:254
+msgid "/Select/Invert"
+msgstr "/Valitse/Invertoi"
+
+#: app/menus.c:312
 msgid "/Select/Connected"
 msgstr "/Valitse/Yhdistetty"
 
-#: app/menus.c:310
+#: app/menus.c:313
 msgid "/Select/Transitive"
 msgstr "/Valitse/Transitiivinen"
 
-#: app/menus.c:311
+#: app/menus.c:314
 msgid "/Select/Same Type"
 msgstr "/Valitse/Sama tyyppi"
 
-#: app/menus.c:312
+#: app/menus.c:315
 msgid "/Select/sep1"
 msgstr "/Valitse/sep1"
 
-#: app/menus.c:313 app/select.c:246
+#: app/menus.c:316 app/select.c:246
 msgid "/Select/Replace"
 msgstr "/Valitse/Korvaa"
 
-#: app/menus.c:314 app/select.c:248
+#: app/menus.c:317 app/select.c:248
 msgid "/Select/Union"
 msgstr "/Valitse/Yhdiste"
 
-#: app/menus.c:315 app/select.c:250
+#: app/menus.c:318 app/select.c:250
 msgid "/Select/Intersect"
 msgstr "/Valitse/Leikkaus"
 
-#: app/menus.c:316 app/select.c:252
+#: app/menus.c:319 app/select.c:252
 msgid "/Select/Remove"
 msgstr "/Valitse/Poista"
 
-#: app/menus.c:318
+#: app/menus.c:321
 msgid "/_Objects"
 msgstr "/_Objektit"
 
-#. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:320
-msgid "/Objects/Send to _Back"
-msgstr "/Objektit/Lähetä _taakse"
-
-#: app/menus.c:321
-msgid "/Objects/Bring to _Front"
-msgstr "/Objektit/Tuo _eteen"
-
-#: app/menus.c:322 app/menus.c:325
-msgid "/Objects/sep1"
+#: app/menus.c:322
+#, fuzzy
+msgid "/Objects/tearoff1"
 msgstr "/Objektit/sep1"
 
 #: app/menus.c:323
+msgid "/Objects/Send to _Back"
+msgstr "/Objektit/Lähetä _taakse"
+
+#: app/menus.c:324
+msgid "/Objects/Bring to _Front"
+msgstr "/Objektit/Tuo _eteen"
+
+#: app/menus.c:325 app/menus.c:328
+msgid "/Objects/sep1"
+msgstr "/Objektit/sep1"
+
+#: app/menus.c:326
 msgid "/Objects/_Group"
 msgstr "/Objektit/_Kokoa ryhmäksi"
 
-#: app/menus.c:324
+#: app/menus.c:327
 msgid "/Objects/_Ungroup"
 msgstr "/Objektit/_Pura ryhmä"
 
-#: app/menus.c:326
+#: app/menus.c:329
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objektit/Tasaus _vaakasuoraan"
 
-#: app/menus.c:332
+#: app/menus.c:330
+#, fuzzy
+msgid "/Objects/Align Horizontal/tearoff"
+msgstr "/Objektit/Tasaa vaakasuoraan/Keskelle"
+
+#: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/Objektit/Tasaus _pystysuoraan"
 
-#: app/menus.c:339
+#: app/menus.c:337
+#, fuzzy
+msgid "/Objects/Align Vertical/tearoff"
+msgstr "/Objektit/Tasaa pystysuoraan/Keskelle"
+
+#: app/menus.c:344
+#, fuzzy
+msgid "/_Tools"
+msgstr "/Työkalut/"
+
+#: app/menus.c:345
+#, fuzzy
+msgid "/Tools/tearoff"
+msgstr "/Työkalut/Muokkaa"
+
+#: app/menus.c:346
 msgid "/Tools/Modify"
 msgstr "/Työkalut/Muokkaa"
 
-#: app/menus.c:340
+#: app/menus.c:347
 msgid "/Tools/Magnify"
 msgstr "/Työkalut/Suurenna"
 
-#: app/menus.c:341
+#: app/menus.c:348
 msgid "/Tools/Scroll"
 msgstr "/Työkalut/Vieritä"
 
-#: app/menus.c:342
+#: app/menus.c:349
 msgid "/Tools/Text"
 msgstr "/Työkalut/Teksti"
 
-#: app/menus.c:343
+#: app/menus.c:350
 msgid "/Tools/Box"
 msgstr "/Työkalut/Boksi"
 
-#: app/menus.c:344
+#: app/menus.c:351
 msgid "/Tools/Ellipse"
 msgstr "/Työkalut/Ellipsi"
 
-#: app/menus.c:345
+#: app/menus.c:352
 msgid "/Tools/Polygon"
 msgstr "/Työkalut/Monikulmio"
 
-#: app/menus.c:346
+#: app/menus.c:353
+#, fuzzy
+msgid "/Tools/Beziergon"
+msgstr "/Työkalut/Bezier-viiva"
+
+#: app/menus.c:354
 msgid "/Tools/Line"
 msgstr "/Työkalut/Viiva"
 
-#: app/menus.c:347
+#: app/menus.c:355
 msgid "/Tools/Arc"
 msgstr "/Työkalut/Kaari"
 
-#: app/menus.c:348
+#: app/menus.c:356
 msgid "/Tools/Zigzagline"
 msgstr "/Työkalut/Siksakkiviiva"
 
-#: app/menus.c:349
+#: app/menus.c:357
 msgid "/Tools/Polyline"
 msgstr "/Työkalut/Moniviiva"
 
-#: app/menus.c:350
+#: app/menus.c:358
 msgid "/Tools/Bezierline"
 msgstr "/Työkalut/Bezier-viiva"
 
-#: app/menus.c:351
+#: app/menus.c:359
 msgid "/Tools/Image"
 msgstr "/Työkalut/Kuva"
 
-#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:354
+#: app/menus.c:361
 msgid "/_Dialogs"
 msgstr "/_Dialogit"
 
-#: app/menus.c:355
+#: app/menus.c:362
+#, fuzzy
+msgid "/Dialogs/tearoff"
+msgstr "/Dialogit/_Tasot"
+
+#: app/menus.c:363
 msgid "/Dialogs/_Properties"
 msgstr "/Dialogit/_Ominaisuudet"
 
-#: app/menus.c:356
+#: app/menus.c:364
 msgid "/Dialogs/_Layers"
 msgstr "/Dialogit/_Tasot"
 
-#: app/menus.c:374
+#: app/menus.c:423
 msgid "NULL tooldata in tool_menu_select"
 msgstr "TYHJÄ työkalutieto työkalu_valinta_valikossa"
 
-#: app/menus.c:405 app/menus.c:510
+#: app/menus.c:500
 msgid "/Tools/"
 msgstr "/Työkalut/"
+
+#: app/menus.c:513
+#, fuzzy
+msgid "Diagram Menu"
+msgstr "Diagrammit:"
 
 #: app/paginate_gnomeprint.c:158
 msgid "Print Diagram"
@@ -1412,7 +1527,7 @@ msgstr "Sivun vaihtoja:"
 msgid "Could not open `%s' for writing"
 msgstr "Ei voinut avata '%s' kirjoittamista varten"
 
-#: app/preferences.c:569 app/preferences.c:578
+#: app/preferences.c:566 app/preferences.c:575
 msgid "Preferences"
 msgstr "Ominaisuudet"
 
@@ -1447,7 +1562,7 @@ msgid ""
 "using %s instead.\n"
 msgstr ""
 "Varoitus ei löytynyt X kirjasinlajia  %s :lle, \n"
-"käytetään %s.\n" 
+"käytetään %s.\n"
 
 #: lib/font.c:440
 #, c-format
@@ -1476,8 +1591,9 @@ msgstr "Ei pystynyt vähentämään oikeata polkua tiedostolle '%s'"
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
-msgstr "Liitännäisen '%s' lataaminen ei onnistunut\n%s"
-
+msgstr ""
+"Liitännäisen '%s' lataaminen ei onnistunut\n"
+"%s"
 
 #: lib/plug-ins.c:208
 #, c-format
@@ -1499,7 +1615,7 @@ msgstr "'%s' ei ole hakemisto"
 msgid "Could not open `%s'"
 msgstr "Tiedoston '%s' avaus ei onnistunut"
 
-#: lib/properties.c:357 lib/properties.c:389
+#: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
 msgstr ""
 
@@ -2460,7 +2576,7 @@ msgstr "Pyöräytä Pystytasossa"
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
 #: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:226
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Piirrä tausta"
 
@@ -2581,15 +2697,15 @@ msgstr "Aloituspiste"
 msgid "End point"
 msgstr "Lopetuspiste"
 
-#: objects/standard/polygon.c:597 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Lisää kulma"
 
-#: objects/standard/polygon.c:598 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Tuhoa kulma"
 
-#: objects/standard/standard.c:39
+#: objects/standard/standard.c:40
 msgid "Standard objects"
 msgstr "Standardi-objektit"
 
@@ -2633,9 +2749,8 @@ msgstr "TeX PsTricks vientifiltteri"
 msgid "TeX PSTricks macros"
 msgstr "TeX PsTricks makrot"
 
+#~ msgid "Objects"
+#~ msgstr "Objektit"
 
-
-
-
-
-
+#~ msgid "Dialogs"
+#~ msgstr "Dialogit"
