@@ -8,111 +8,105 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-10 03:09+0100\n"
-"PO-Revision-Date: 2003-11-10 14:18+0100\n"
+"POT-Creation-Date: 2003-12-14 03:07+0100\n"
+"PO-Revision-Date: 2003-12-14 16:27+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:173
+#: app/app_procs.c:179
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "Chyba %s: není známo, jak exportovat do %s\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:189
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "Chyba %s: názvy vstupního a výstupního souboru jsou shodné: %s"
 
-#: app/app_procs.c:191
+#: app/app_procs.c:197
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Chyba %s: je třeba platný vstupní soubor %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:197
+#: app/app_procs.c:206
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:239
+#: app/app_procs.c:254
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Nemohu najít výstupní formát %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:323
+#: app/app_procs.c:340
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Exportovat do formátu souboru a skončit. Podporované formáty jsou: %s"
 
 #. &export_file_name
-#: app/app_procs.c:332
+#: app/app_procs.c:349
 msgid "Export loaded file and exit"
 msgstr "Exportovat načtený soubor a skončit"
 
-#: app/app_procs.c:332 app/diaconv.c:94
+#: app/app_procs.c:349 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
-#: app/app_procs.c:334
+#: app/app_procs.c:351
 msgid "FORMAT"
 msgstr "FORMÁT"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:354
+msgid "Export graphics size"
+msgstr "Velikost exportované grafiky"
+
+#: app/app_procs.c:354
+msgid "WxH"
+msgstr "Š×V"
+
+#: app/app_procs.c:356
 msgid "Don't show the splash screen"
 msgstr "Nezobrazovat titulní obrazovku (splashscreen)"
 
-#: app/app_procs.c:339
+#: app/app_procs.c:358
 msgid "Display credits list and exit"
 msgstr "Zobrazit seznam kreditů a skončit"
 
-#: app/app_procs.c:341
+#: app/app_procs.c:360
 msgid "Display version and exit"
 msgstr "Zobrazit verzi a skončit"
 
-#: app/app_procs.c:343 app/diaconv.c:95
+#: app/app_procs.c:362 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Zobrazit tuto nápovědu"
 
-#: app/app_procs.c:375
+#: app/app_procs.c:397
 msgid "Can't connect to session manager!\n"
 msgstr "Nelze se připojit ke správci sezení!\n"
 
-#: app/app_procs.c:390 app/diaconv.c:119
-msgid "[OPTION...] [FILE...]"
-msgstr "[VOLBA...] [SOUBOR...]"
-
-#: app/app_procs.c:394 app/diaconv.c:126
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Chyba u volby %s: %s.\n"
-"Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
-"příkazové řádky.\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:413
+#: app/app_procs.c:420
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verze %s, sestavená %s %s\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:422
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:468 app/app_procs.c:470 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:589
+#: app/app_procs.c:533
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -121,7 +115,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:601
+#: app/app_procs.c:545
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -131,21 +125,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:605
+#: app/app_procs.c:549
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:660
+#: app/app_procs.c:604
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:674 app/app_procs.c:681
+#: app/app_procs.c:618 app/app_procs.c:625
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:683
+#: app/app_procs.c:627
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -153,9 +147,23 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:705 app/diaconv.c:249
+#: app/app_procs.c:649 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
+
+#: app/app_procs.c:688 app/diaconv.c:119
+msgid "[OPTION...] [FILE...]"
+msgstr "[VOLBA...] [SOUBOR...]"
+
+#: app/app_procs.c:692 app/diaconv.c:126
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Chyba u volby %s: %s.\n"
+"Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
+"příkazové řádky.\n"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -461,8 +469,8 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:455
+#: app/lineprops_area.c:681 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -547,11 +555,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:992
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:994
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -560,15 +568,15 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:1005
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:1010
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
-#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -578,37 +586,37 @@ msgstr "Zahodit změny"
 msgid "Can't open output file %s: %s\n"
 msgstr "Nelze otevřít výstupní soubor %s: %s\n"
 
-#: app/export_png.c:124
+#: app/export_png.c:142
 msgid "Could not create PNG write structure"
 msgstr "Nelze vytvořit zapisovatelnou strukturu PNG"
 
-#: app/export_png.c:133
+#: app/export_png.c:151
 msgid "Could not create PNG header info structure"
 msgstr "Nelze vytvořit strukturu s informacemi o hlavičce PNG"
 
-#: app/export_png.c:141
+#: app/export_png.c:159
 msgid "Error occurred while writing PNG"
 msgstr "Vyskytla se chyba při zápisu formátu PNG"
 
 #. Create a dialog
-#: app/export_png.c:265
+#: app/export_png.c:299
 msgid "PNG Export Options"
 msgstr "Volby exportu do formátu PNG"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
+#: app/export_png.c:300 objects/FS/function.c:685 objects/FS/function.c:687
 msgid "Export"
 msgstr "Export"
 
-#: app/export_png.c:271
+#: app/export_png.c:305
 msgid "Image width:"
 msgstr "Šířka obrázku:"
 
-#: app/export_png.c:274
+#: app/export_png.c:308
 msgid "Image height:"
 msgstr "Výška obrázku:"
 
-#: app/export_png.c:319
+#: app/export_png.c:354
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -686,25 +694,25 @@ msgstr "Exportovat diagram"
 msgid "Export Options"
 msgstr "Volby exportu"
 
-#: app/interface.c:43
+#: app/interface.c:45
 msgid "Modify object(s)"
 msgstr "Upravit objekt(y)"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:46 app/menus.c:221
 msgid "Modify"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:50 app/interface.c:51 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Zvětšit"
 
-#: app/interface.c:53
+#: app/interface.c:55
 msgid "Scroll around the diagram"
 msgstr "Posunovat okolo diagramu"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:56 app/menus.c:223
 msgid "Scroll"
 msgstr "Posunovat"
 
@@ -712,7 +720,7 @@ msgstr "Posunovat"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -722,64 +730,64 @@ msgstr "Posunovat"
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:65 app/interface.c:66 app/menus.c:225
 msgid "Box"
 msgstr "Čtyřúhelník"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:70 app/interface.c:71 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:75 app/interface.c:76 app/menus.c:227
 msgid "Polygon"
 msgstr "Mnohoúhelník"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:80 app/interface.c:81 app/menus.c:228
 msgid "Beziergon"
 msgstr "Beziérův útvar"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:85 app/interface.c:86 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Čára"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:90 app/interface.c:91 app/menus.c:231
 msgid "Arc"
 msgstr "Oblouk"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:95 app/interface.c:96 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Klikatice"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:100 app/interface.c:101 app/menus.c:233
 msgid "Polyline"
 msgstr "Lomená čára"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:105 app/interface.c:106 app/menus.c:234
 msgid "Bezierline"
 msgstr "Beziérova čára"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:110 app/interface.c:111 app/menus.c:236
 msgid "Image"
 msgstr "Obrázek"
 
-#: app/interface.c:371
+#: app/interface.c:373
 msgid "Diagram menu."
 msgstr "Menu diagramu."
 
-#: app/interface.c:480
+#: app/interface.c:482
 msgid "Zoom"
 msgstr "Zvětšit"
 
-#: app/interface.c:494
+#: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne lnutí k mřížce pro toto okno."
 
-#: app/interface.c:538
+#: app/interface.c:540
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:1020
+#: app/interface.c:1023
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -788,7 +796,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1035
+#: app/interface.c:1038
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -796,7 +804,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: app/interface.c:1067
+#: app/interface.c:1070
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -804,7 +812,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1072
+#: app/interface.c:1075
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -812,7 +820,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: app/interface.c:1077
+#: app/interface.c:1080
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -820,7 +828,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1185
+#: app/interface.c:1188
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -868,20 +876,20 @@ msgstr "Upravit vlastnosti vrstvy"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/layer_dialog.c:999 app/lineprops_area.c:446 app/lineprops_area.c:671
 #: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:429
+#: app/lineprops_area.c:431
 msgid "Arrow Properties"
 msgstr "Vlastnosti šipky"
 
-#: app/lineprops_area.c:505 app/lineprops_area.c:702
+#: app/lineprops_area.c:507 app/lineprops_area.c:704
 msgid "Details..."
 msgstr "Podrobnosti..."
 
-#: app/lineprops_area.c:658
+#: app/lineprops_area.c:660
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
@@ -2253,50 +2261,55 @@ msgid "Blanked Dot"
 msgstr "Prázdná tečka"
 
 #: lib/arrows.c:53
-msgid "Double Hollow triangle"
+msgid "Double Hollow Triangle"
 msgstr "Dvojitý dutý trojúhelník"
 
 #: lib/arrows.c:54
-msgid "Double Filled triangle"
+msgid "Double Filled Triangle"
 msgstr "Dvojitý plný trojúhelník"
 
 #: lib/arrows.c:55
+#, fuzzy
+msgid "Filled Dot and Triangle"
+msgstr "Plný trojúhelník"
+
+#: lib/arrows.c:56
 msgid "Filled Box"
 msgstr "Plný čtyřúhelník"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Blanked Box"
 msgstr "Prázdný čtyřúhelník"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Slashed"
 msgstr "Přeškrtnutý"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Integral Symbol"
 msgstr "Symbol integrálu"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Crow Foot"
 msgstr "Vraní stopa"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Cross"
 msgstr "Křížek"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Filled Concave"
 msgstr "Plná konkáva"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:64
 msgid "Round"
 msgstr "Kulatý"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:65
 msgid "Open Round"
 msgstr "Otevřený kulatý"
 
@@ -3998,7 +4011,7 @@ msgid "Template"
 msgstr "Šablona"
 
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
+#: objects/UML/class.c:178 objects/UML/class.c:938
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Třída"
@@ -4414,23 +4427,23 @@ msgstr "Vlastní"
 msgid "Custom XML shapes loader"
 msgstr "Vlastní načítač XML tvarů"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
 msgid "Flip horizontal"
 msgstr "Převrátit vodorovně"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
 msgid "Flip vertical"
 msgstr "Převrátit svisle"
 
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1328
 msgid "Flip Horizontal"
 msgstr "Převrátit vodorovně"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1329
 msgid "Flip Vertical"
 msgstr "Převrátit svisle"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1366
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu '%s'."
@@ -4633,11 +4646,11 @@ msgstr "Nelze otevřít '%s' pro zápis.\n"
 msgid "Python scripting support"
 msgstr "Podpora skriptování v jazyce Python"
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr "Nelze exportovat do formátu PNG bez knihovny libart!"
 
-#: plug-ins/shape/shape-export.c:498
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
 msgstr "soubor s tvary Dia"
 
@@ -4645,7 +4658,7 @@ msgstr "soubor s tvary Dia"
 msgid "dia shape export filter"
 msgstr "Exportní filtr tvarů Dia"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:299 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5099,18 +5112,23 @@ msgid "Trapezoid"
 msgstr "Trapézoid"
 
 #: sheets/Assorted.sheet.in.h:38
+#, fuzzy
+msgid "Turn-up arrow"
+msgstr "Šipka doleva-nahoru"
+
+#: sheets/Assorted.sheet.in.h:39
 msgid "Up arrow"
 msgstr "Šipka nahoru"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up-down arrow"
 msgstr "Šipka nahoru-dolů"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down-left arrow"
 msgstr "Šipka nahoru-dolů-doleva"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Vertical parallelogram"
 msgstr "Svislý rovnoběžník"
 
