@@ -1,5 +1,10 @@
 2004-12-11  Hans Breuer  <hans@breuer.org>
 
+	* lib/widgets.c(set_size_sensitivity) : revert inverted
+	logic for arrorw size selections, fixes bug #160527
+
+2004-12-11  Hans Breuer  <hans@breuer.org>
+
 	* lib/widgets.c(dia_font_selector_set_font) : initialize
 	the font style widget, too. Gets rid of empty font
 	style and thus default broken font style, e.g. UML::class_name

@@ -1087,7 +1087,7 @@ set_size_sensitivity(DiaArrowSelector *as)
   int state;
   gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
 
-  state = (entryname != NULL) && (!g_strcasecmp(entryname, "None"));
+  state = (entryname != NULL) && (0 != g_strcasecmp(entryname, "None"));
   g_free(entryname);
 
   gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
