@@ -590,10 +590,10 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
     zigzagline->start_arrow.type = data_enum(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "start_arrow_length");
   if (attr != NULL)
-    zigzagline->start_arrow.type = data_real(attribute_first_data(attr));
+    zigzagline->start_arrow.length = data_real(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "start_arrow_width");
   if (attr != NULL)
-    zigzagline->start_arrow.type = data_real(attribute_first_data(attr));
+    zigzagline->start_arrow.width = data_real(attribute_first_data(attr));
 
   zigzagline->end_arrow.type = ARROW_NONE;
   zigzagline->end_arrow.length = 0.8;
@@ -603,10 +603,10 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
     zigzagline->end_arrow.type = data_enum(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "end_arrow_length");
   if (attr != NULL)
-    zigzagline->end_arrow.type = data_real(attribute_first_data(attr));
+    zigzagline->end_arrow.length = data_real(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
-    zigzagline->end_arrow.type = data_real(attribute_first_data(attr));
+    zigzagline->end_arrow.width = data_real(attribute_first_data(attr));
 
   zigzagline_update_data(zigzagline);
 

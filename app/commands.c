@@ -415,6 +415,13 @@ file_new_callback(GtkWidget *widget, gpointer data)
 }
 
 void
+file_preferences_callback(GtkWidget *widget, gpointer data)
+{
+  prefs_show();
+}
+
+
+void
 edit_copy_callback(GtkWidget *widget, gpointer data)
 {
   GList *copy_list;

@@ -19,6 +19,7 @@
 #include "connectionpoint_ops.h"
 #include "handle_ops.h"
 #include "object_ops.h"
+#include "preferences.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);
@@ -66,7 +67,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   object_add_updates(obj, ddisp->diagram);
   diagram_flush(ddisp->diagram);
-
+  
   if (handle2 != NULL) {
     tool->obj = obj;
     tool->handle = handle2;
@@ -77,6 +78,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 		      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		      NULL, NULL, event->time);
   } else {
+    diagram_update_extents(ddisp->diagram);
     tool->moving = FALSE;
   }
 }
@@ -110,7 +112,8 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     tool->obj = NULL;
   }
   diagram_update_extents(ddisp->diagram);
-  /*  tool_reset(); */
+  if (prefs.reset_tools_after_create)
+      tool_reset();
 }
 static void
 create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,

@@ -14,6 +14,8 @@ dia_SOURCES = \
 	    commands.h \
 	    app_procs.c \
 	    app_procs.h \
+	    preferences.c \
+	    preferences.h \
 	    load_save.c \
 	    load_save.h \
 	    disp_callbacks.c \

@@ -1,3 +1,35 @@
+1999-03-14  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/preferences.[ch]:
+	New files. Implements the preferences dialog and
+	loading/saving of ~/.diarc.
+
+	* app/Makefile.am:
+	Added preferences.[ch].
+
+	* app/app_procs.c:
+	Load preferences on startup.
+
+	* app/commands.[ch]:
+	Added file_preferences_callback to show the preferences dialog.
+
+	* app/create_object.c:
+	Update extents when creating object.
+	Use the reset_tools_after_create preferences setting.
+
+	* app/display.c:
+	Use preferences when creating new display.
+
+	* app/menus.c:
+	Add preferences to menu.
+
+	* app/defaults.c:
+	* app/layer_dialog.c:
+	* app/properties.c:
+	Don't allow shrinking of dialog.
+	Add i18n of some strings.
+
+	
 1999-03-11  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/standard/line.c: 

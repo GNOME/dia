@@ -44,6 +44,7 @@ static GnomeUIInfo filemenu[] = {
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_ITEM(file_save_callback, NULL),
+  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
 
   { GNOME_APP_UI_ITEM, "_Export To EPS", NULL,
@@ -156,13 +157,14 @@ static GnomeUIInfo display_menu[] = {
 
 static GtkItemFactoryEntry toolbox_menu_items[] =
 {
-  {N_("/_File"),        NULL,         NULL,               0, "<Branch>"},
-  {N_("/File/_New"),    "<control>N", file_new_callback,  0 },
-  {N_("/File/_Open"),   "<control>O", file_open_callback, 0 },
-  {N_("/File/sep1"),    NULL,         NULL,               0, "<Separator>"},
-  {N_("/File/_Quit"),   "<control>Q", file_quit_callback, 0 },
-  {N_("/_Help"),        NULL,         NULL,               0, "<LastBranch>" },
-  {N_("/Help/_About"),  NULL,         help_about_callback,0 },
+  {N_("/_File"),               NULL,         NULL,                      0, "<Branch>"},
+  {N_("/File/_New"),           "<control>N", file_new_callback,         0 },
+  {N_("/File/_Open"),          "<control>O", file_open_callback,        0 },
+  {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
+  {N_("/File/sep1"),           NULL,         NULL,                      0, "<Separator>"},
+  {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
+  {N_("/_Help"),               NULL,         NULL,                      0, "<LastBranch>" },
+  {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
 
 static GtkItemFactoryEntry display_menu_items[] =

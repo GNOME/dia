@@ -610,10 +610,10 @@ line_load(ObjectNode obj_node, int version, const char *filename)
     line->start_arrow.type = data_enum(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "start_arrow_length");
   if (attr != NULL)
-    line->start_arrow.type = data_real(attribute_first_data(attr));
+    line->start_arrow.length = data_real(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "start_arrow_width");
   if (attr != NULL)
-    line->start_arrow.type = data_real(attribute_first_data(attr));
+    line->start_arrow.width = data_real(attribute_first_data(attr));
 
   line->end_arrow.type = ARROW_NONE;
   line->end_arrow.length = 0.8;
@@ -623,10 +623,10 @@ line_load(ObjectNode obj_node, int version, const char *filename)
     line->end_arrow.type = data_enum(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "end_arrow_length");
   if (attr != NULL)
-    line->end_arrow.type = data_real(attribute_first_data(attr));
+    line->end_arrow.length = data_real(attribute_first_data(attr));
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
-    line->end_arrow.type = data_real(attribute_first_data(attr));
+    line->end_arrow.width = data_real(attribute_first_data(attr));
 
   connection_init(conn, 2, 1);
 

@@ -43,6 +43,7 @@
 #include "display.h"
 #include "layer_dialog.h"
 #include "load_save.h"
+#include "preferences.h"
 
 #ifdef RTLD_LAZY        /* Solaris 2. */
 # define DLOPEN_MODE   RTLD_LAZY
@@ -173,6 +174,8 @@ app_init (int argc, char **argv)
 	    "object-libs, exiting...\n"));
     exit(1);
   }
+
+  prefs_load();
 
   active_tool = create_modify_tool();
 

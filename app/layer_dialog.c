@@ -194,7 +194,7 @@ create_layer_dialog(void)
   gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
   gtk_window_set_wmclass (GTK_WINDOW (dialog),
 			  "layer_window", "Dia");
-  gtk_window_set_policy (GTK_WINDOW (dialog), TRUE, TRUE, TRUE);
+  gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, TRUE);
 
   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);

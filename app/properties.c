@@ -18,6 +18,7 @@
 
 #include <gtk/gtk.h>
 
+#include "intl.h"
 #include "properties.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
@@ -38,28 +39,38 @@ static void create_dialog()
 
   dialog = gtk_dialog_new();
   
-  gtk_window_set_title (GTK_WINDOW (dialog), "Object properties");
-  gtk_window_set_wmclass (GTK_WINDOW (dialog),
+  gtk_window_set_title(GTK_WINDOW (dialog), _("Object properties"));
+  gtk_window_set_wmclass(GTK_WINDOW (dialog),
 			  "properties_window", "Dia");
-  gtk_window_set_policy (GTK_WINDOW (dialog),
-			 TRUE, TRUE, TRUE);
-  gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+  gtk_window_set_policy(GTK_WINDOW (dialog),
+			FALSE, TRUE, TRUE);
+  gtk_container_set_border_width(GTK_CONTAINER (dialog), 2);
 
-  dialog_vbox = GTK_DIALOG (dialog)->vbox;
-    
-  button = gtk_button_new_with_label ("Apply");
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(properties_apply),
-		      NULL);
-  gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-  gtk_widget_grab_default (button);
+  dialog_vbox = GTK_DIALOG(dialog)->vbox;
+
+  button = gtk_button_new_with_label( _("Close") );
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
+		     button, TRUE, TRUE, 0);
+  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
+			    GTK_SIGNAL_FUNC(gtk_widget_hide),
+			    GTK_OBJECT(dialog));
   gtk_widget_show (button);
 
-  no_properties_dialog = gtk_label_new("This object has no properties.");
+  button = gtk_button_new_with_label(_("Apply"));
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+		     button, TRUE, TRUE, 0);
+  gtk_signal_connect(GTK_OBJECT (button), "clicked",
+		     GTK_SIGNAL_FUNC(properties_apply),
+		     NULL);
+  gtk_widget_grab_default(button);
+  gtk_widget_show(button);
+
+  gtk_signal_connect(GTK_OBJECT (dialog), "delete_event",
+		     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+
+  no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
 }
 

@@ -31,7 +31,7 @@
 #include "menus.h"
 #include "cut_n_paste.h"
 #include "message.h"
-
+#include "preferences.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -57,8 +57,8 @@ update_zoom_status(DDisplay *ddisp)
   
   gtk_statusbar_pop (statusbar, context_id); 
   zoom_text = g_malloc (sizeof (guchar) * (strlen (gettext ("Zoom")) + 1 + 8 + 1));
-  sprintf (zoom_text, "%s % 7.1f%c", gettext ("Zoom"), ddisp->zoom_factor * 100.0 / 
-	   DDISPLAY_NORMAL_ZOOM, '%');
+  sprintf (zoom_text, "%s % 7.1f%c", gettext ("Zoom"),
+	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM, '%');
   gtk_statusbar_push (statusbar, context_id, zoom_text);
 
   g_free (zoom_text);
@@ -99,12 +99,12 @@ new_display(Diagram *dia)
 
   ddisp->origo.x = 0.0;
   ddisp->origo.y = 0.0;
-  ddisp->zoom_factor = DDISPLAY_NORMAL_ZOOM;
+  ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
 
-  ddisp->grid.visible = TRUE;
+  ddisp->grid.visible = prefs.grid.visible;
   ddisp->grid.snap = FALSE;
-  ddisp->grid.width_x = 1.0;
-  ddisp->grid.width_y = 1.0;
+  ddisp->grid.width_x = prefs.grid.x;
+  ddisp->grid.width_y = prefs.grid.y;
   ddisp->grid.gc = NULL;
   ddisp->grid.dialog = NULL;
   ddisp->grid.entry_x = NULL;
@@ -124,7 +124,8 @@ new_display(Diagram *dia)
     filename++;
   }
   
-  create_display_shell(ddisp, 500, 400, filename);
+  create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
+		       filename);
 
   ddisplay_update_statusbar (ddisp);
 
