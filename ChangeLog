@@ -1,3 +1,12 @@
+2004-12-11  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-diagram.c : hold a reference
+	to the diagram in PyDiaDiagram, avoids bug #159080
+	[another way to avoid is to detroy the dialog by
+	clsoing it. But now there is still a diagram to
+	apply the changes to, even if it's thrwon away just
+	afterwards]
+
 2004-12-10  Hans Breuer  <hans@breuer.org>
 
 	* **/*.c : fixed a bunch of warnings, not only for -ansi

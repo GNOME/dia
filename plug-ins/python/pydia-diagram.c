@@ -40,14 +40,16 @@ PyDiaDiagram_New(Diagram *dia)
     self = PyObject_NEW(PyDiaDiagram, &PyDiaDiagram_Type);
 
     if (!self) return NULL;
-    self->dia = dia;;
+    g_object_ref(dia);
+    self->dia = dia;
     return (PyObject *)self;
 }
 
 static void
 PyDiaDiagram_Dealloc(PyDiaDiagram *self)
 {
-     PyMem_DEL(self);
+    g_object_unref(self->dia);
+    PyMem_DEL(self);
 }
 
 static int
