@@ -569,6 +569,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   DiaObject *obj;
   int i;
   DiaInteractiveRendererInterface *renderer;
+  GTimer *timer;
   
   if (ddisp->renderer==NULL) {
     printf("ERROR! Renderer was NULL!!\n");
@@ -589,9 +590,11 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   grid_draw(ddisp, update);
   pagebreak_draw(ddisp, update);
 
+  timer = g_timer_new();
   data_render(ddisp->diagram->data, ddisp->renderer, update,
 	      ddisplay_obj_render, (gpointer) ddisp);
-  
+  g_print ("data_render(%g%%) took %g seconds\n", ddisp->zoom_factor * 5.0, g_timer_elapsed (timer, NULL));
+  g_timer_destroy (timer);
   /* Draw handles for all selected objects */
   list = ddisp->diagram->data->selected;
   while (list!=NULL) {

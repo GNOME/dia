@@ -1,3 +1,16 @@
+2004-12-22  Hans Breuer  <hans@breuer.org>
+
+	* lib/widgets.c : destroy handlers can be called more than once, 
+	see http://developer.gnome.org/doc/API/2.0/gtk/gtk-changes-2-0.html
+
+	* app/app_procs.c : #ifdef GLIB(2.6.0) but GTK(2.4.x)
+	
+	* app/display.c : temporary debug code showing the
+	timing the rendering
+
+	* app/dialibartrenderer.c(draw_string) : removed dead
+	code loading and leaking font and face
+
 2004-12-15  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c : actually use the selction-changed signal for something

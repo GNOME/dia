@@ -119,8 +119,12 @@ dia_size_selector_destroy_callback(GtkWidget *widget)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(widget);
 
-  g_object_unref(ss->broken_link);
-  g_object_unref(ss->unbroken_link);
+  if (ss->broken_link)
+    g_object_unref(ss->broken_link);
+  ss->broken_link = NULL;
+  if (ss->unbroken_link)
+    g_object_unref(ss->unbroken_link);
+  ss->unbroken_link = NULL;
 }
 
 static void
@@ -1997,9 +2001,16 @@ static void
 dia_toggle_button_destroy(GtkWidget *widget, gpointer data)
 {
   struct image_pair *images = (struct image_pair *)data;
-  g_object_unref(images->on);
-  g_object_unref(images->off);
-  g_free(images);
+
+  if (images->on)
+    g_object_unref(images->on);
+  images->on = NULL;
+  if (images->off)
+    g_object_unref(images->off);
+  images->off = NULL;
+  if (images)
+    g_free(images);
+  images = NULL;
 }
 
 /** Create a toggle button with two images switching (on and off) */

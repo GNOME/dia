@@ -1135,15 +1135,9 @@ draw_string (DiaRenderer *self,
  {
    FT_Bitmap ftbitmap;
    guint8 *graybitmap;
-   FT_Face *face;
-   PangoFont *font;
 
    rowstride = 32*((width+31)/31);
    
-   font = pango_context_load_font(pango_ft2_get_context(75, 75),
-				  self->font->pfd);
-   face = (FT_Face *)pango_ft2_font_get_face(font);
-
    graybitmap = (guint8*)g_new0(guint8, height*rowstride);
 
    ftbitmap.rows = height;

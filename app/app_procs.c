@@ -856,7 +856,12 @@ process_opts(int argc, char **argv,
       
       context = g_option_context_new(_("[FILE...]"));
       g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+#if GTK_CHECK_VERSION(2,5,7)
+      /* at least Gentoo is providing GLib-2.6 but Gtk+-2.4.14 */
       g_option_context_add_group (context, gtk_get_option_group (TRUE));
+#elif defined GLIB_HAS_A_DEFAULT_OPTION_GROUP
+      g_option_context_add_group (context, glib_get_option_group (TRUE));
+#endif
       if (!g_option_context_parse (context, &argc, &argv, &error)) {
 	g_print (error->message);
 	g_error_free (error);
