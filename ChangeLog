@@ -1,3 +1,9 @@
+2003-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/custom/shape_info.[ch]: 
+	* objects/custom/custom_object.[ch]: 
+	Support for extra attributes in custom objects.
+	
 2003-11-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram.c (diagram_update_menu_sensitivity): More

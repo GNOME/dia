@@ -5,6 +5,7 @@ libcustom_objects_la_SOURCES = \
 	shape_info.c \
 	shape_info.h \
 	custom_object.c \
+	custom_object.h \
 	custom_util.c \
 	custom_util.h \
 	custom.c

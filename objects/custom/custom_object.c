@@ -45,14 +45,13 @@
 #include "message.h"
 #include "sheet.h"
 #include "properties.h"
+#include "custom_object.h"
 
 #include "pixmaps/custom.xpm"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
-
-#define CORRECT_DISTANCE
 
 void custom_object_new(ShapeInfo *info, ObjectType **otype);
 
@@ -127,14 +126,13 @@ static PropDescription *custom_describe_props(Custom *custom);
 static void custom_get_props(Custom *custom, GPtrArray *props);
 static void custom_set_props(Custom *custom, GPtrArray *props);
 
-static void custom_save(Custom *custom, ObjectNode obj_node, const char *filename);
-static Object *custom_load(ObjectNode obj_node, int version, const char *filename);
+static Object *custom_load_using_properties(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps custom_type_ops =
 {
   (CreateFunc) custom_create,
-  (LoadFunc)   custom_load,
-  (SaveFunc)   custom_save,
+  (LoadFunc)   custom_load_using_properties,
+  (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
@@ -201,22 +199,20 @@ static PropDescription custom_props_text[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-custom_describe_props(Custom *custom)
-{
-  if (custom->info->has_text) {
-    if (custom_props_text[0].quark == 0)
-      prop_desc_list_calculate_quarks(custom_props_text);
-    return custom_props_text;
-  }
-  else {
-    if (custom_props[0].quark == 0)
-      prop_desc_list_calculate_quarks(custom_props);
-    return custom_props;
-  }
-}
-
 static PropOffset custom_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Custom, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Custom, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Custom, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Custom, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Custom, line_style), offsetof(Custom, dashlength) },
+  { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
+  { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
+  { NULL, 0, 0 }
+};
+
+static PropOffset custom_offsets_text[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Custom, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Custom, border_color) },
@@ -234,20 +230,75 @@ static PropOffset custom_offsets[] = {
   { NULL, 0, 0 }
 };
 
+void
+custom_setup_properties(ShapeInfo *info)
+{
+  /* need to initialize tables... */
+  int n_props, n_props_text, offs;
+  int i;
+  GList *tmp;
+
+  if (info->has_text) {
+    n_props = sizeof (custom_props_text) / sizeof (PropDescription);
+    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+    memcpy (info->props, custom_props_text, sizeof (custom_props_text));
+    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+    memcpy (info->prop_offsets, custom_offsets_text, sizeof (custom_offsets_text));
+  } else {
+    n_props = sizeof (custom_props) / sizeof (PropDescription);
+    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+    memcpy (info->props, custom_props, sizeof (custom_props));
+    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+    memcpy (info->prop_offsets, custom_offsets, sizeof (custom_offsets));
+  }
+
+  offs = sizeof (Custom);
+  for (i = n_props-1, tmp = info->ext_attr_list; tmp; i++, tmp = tmp->next)
+  {
+    ExtAttribute *el = tmp->data;
+    gchar *custom_name = g_strdup_printf("custom:%s", el->name);
+    GQuark quark = g_quark_from_string(el->type);
+    info->props[i].name = custom_name;
+    info->props[i].type = el->type;
+    info->props[i].flags = PROP_FLAG_VISIBLE;
+    info->props[i].description = el->name;
+    info->prop_offsets[i].name = custom_name;
+    info->prop_offsets[i].type = el->type;
+    info->prop_offsets[i].offset = offs;
+    if (quark == g_quark_from_string(PROP_TYPE_INT))
+      offs += sizeof (int);
+    else if (quark == g_quark_from_string(PROP_TYPE_BOOL))
+      offs += sizeof (gboolean);
+    else if (quark == g_quark_from_string(PROP_TYPE_REAL))
+      offs += sizeof (real);
+    else if (quark == g_quark_from_string(PROP_TYPE_STRING))
+      offs += sizeof (char *);
+  }
+}
+
+static PropDescription *
+custom_describe_props(Custom *custom)
+{
+  if (!custom->info->props) {
+    prop_desc_list_calculate_quarks (custom->info->props);
+  }
+  return custom->info->props;
+}
+
 static void
 custom_get_props(Custom *custom, GPtrArray *props)
 {
   if (custom->info->has_text)
     text_get_attributes(custom->text,&custom->attrs);
   object_get_props_from_offsets(&custom->element.object,
-                                custom_offsets,props);
+                                custom->info->prop_offsets,props);
 }
 
 static void
 custom_set_props(Custom *custom, GPtrArray *props)
 {
   object_set_props_from_offsets(&custom->element.object,
-                                custom_offsets,props);
+                                custom->info->prop_offsets,props);
   if (custom->info->has_text)
     apply_textattr_properties(props,custom->text,"text",&custom->attrs);
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -294,7 +345,6 @@ transform_rect(Custom *custom, const Rectangle *r1, Rectangle *out)
   }
 }
 
-#ifdef CORRECT_DISTANCE
 static real
 custom_distance_from(Custom *custom, Point *point)
 {
@@ -414,29 +464,6 @@ custom_distance_from(Custom *custom, Point *point)
   }
   return min_dist;
 }
-#else
-static real
-custom_distance_from(Custom *custom, Point *point)
-{
-  Element *elem = &custom->element;
-  Rectangle rect;
-  /*Point p;*/
-  real dist1, dist2;
-
-  rect.left = elem->corner.x - custom->border_width/2;
-  rect.right = elem->corner.x + elem->width + custom->border_width/2;
-  rect.top = elem->corner.y - custom->border_width/2;
-  rect.bottom = elem->corner.y + elem->height + custom->border_width/2;
-
-  dist1 = distance_rectangle_point(&rect, point);
-  if (custom->info->has_text) {
-    dist2 = text_distance_from(custom->text, point);
-    if (dist2 < dist1)
-      return dist2;
-  }
-  return dist1;
-}
-#endif
 
 static void
 custom_select(Custom *custom, Point *clicked_point,
@@ -1089,7 +1116,7 @@ custom_create(Point *startpoint,
 
   init_default_values();
 
-  custom = g_new0(Custom, 1);
+  custom = g_new0_ext (Custom, info->ext_attr_size);
   elem = &custom->element;
   obj = &elem->object;
   
@@ -1153,6 +1180,7 @@ custom_destroy(Custom *custom)
        GraphicElement *el = tmp->data;
        if (el->type == GE_TEXT) text_destroy(el->text.object);
   }
+  /* TODO: free allocated ext props (string, etc.) */
 
   element_destroy(&custom->element);
   
@@ -1169,7 +1197,7 @@ custom_copy(Custom *custom)
   
   elem = &custom->element;
   
-  newcustom = g_new0(Custom, 1);
+  newcustom = g_new0_ext (Custom, custom->info->ext_attr_size);
   newelem = &newcustom->element;
   newobj = &newcustom->element.object;
 
@@ -1192,6 +1220,10 @@ custom_copy(Custom *custom)
     newcustom->text = text_copy(custom->text);
     text_get_attributes(newcustom->text,&newcustom->attrs);
   } 
+  
+  if (custom->info->ext_attr_size) /* copy ext area past end */
+    memcpy (newcustom + 1, custom + 1, custom->info->ext_attr_size);
+
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
 
   for (i = 0; i < custom->info->nconnections; i++) {
@@ -1206,144 +1238,22 @@ custom_copy(Custom *custom)
   return &newcustom->element.object;
 }
 
-static void
-custom_save(Custom *custom, ObjectNode obj_node, const char *filename)
-{
-  element_save(&custom->element, obj_node);
-
-  if (custom->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  custom->border_width);
-  
-  if (!color_equals(&custom->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &custom->border_color);
-  
-  if (!color_equals(&custom->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &custom->inner_color);
-  
-  data_add_boolean(new_attribute(obj_node, "show_background"), custom->show_background);
-
-  if (custom->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  custom->line_style);
-
-  if (custom->line_style != LINESTYLE_SOLID &&
-      custom->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-                  custom->dashlength);
-
-  data_add_boolean(new_attribute(obj_node, "flip_horizontal"), custom->flip_h);
-  data_add_boolean(new_attribute(obj_node, "flip_vertical"), custom->flip_v);
-
-  data_add_real(new_attribute(obj_node, "padding"), custom->padding);
-  
-  if (custom->info->has_text)
-    data_add_text(new_attribute(obj_node, "text"), custom->text);
-}
-
 static Object *
-custom_load(ObjectNode obj_node, int version, const char *filename)
+custom_load_using_properties(ObjectNode obj_node, int version, const char *filename)
 {
   Custom *custom;
-  Element *elem;
   Object *obj;
-  int i;
-  AttributeNode attr;
-
-  custom = g_new0(Custom, 1);
-  elem = &custom->element;
-  obj = &elem->object;
+  Point startpoint = {0.0,0.0};
+  Handle *handle1,*handle2;
+  Text *init_text;
   
-  /* find out what type of object this is ... */
-  custom->info = shape_info_get(obj_node);
+  obj = custom_type.ops->create(&startpoint, shape_info_get(obj_node), &handle1, &handle2);
+  custom = (Custom*)obj;
+  object_load_props(obj,obj_node);
   
-  obj->type = custom->info->object_type;;
-  obj->ops = &custom_ops;
-
-  element_load(elem, obj_node);
-
-  custom->border_width = 0.1;
-  attr = object_find_attribute(obj_node, "border_width");
-  if (attr != NULL)
-    custom->border_width =  data_real( attribute_first_data(attr) );
-
-  custom->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &custom->border_color);
-  
-  custom->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &custom->inner_color);
-  
-  custom->show_background = TRUE;
-  attr = object_find_attribute(obj_node, "show_background");
-  if (attr != NULL)
-    custom->show_background = data_boolean( attribute_first_data(attr) );
-
-  custom->line_style = LINESTYLE_SOLID;
-  attr = object_find_attribute(obj_node, "line_style");
-  if (attr != NULL)
-    custom->line_style =  data_enum( attribute_first_data(attr) );
-
-  custom->dashlength = DEFAULT_LINESTYLE_DASHLEN;
-  attr = object_find_attribute(obj_node, "dashlength");
-  if (attr != NULL)
-    custom->dashlength = data_real(attribute_first_data(attr));
-
-  custom->flip_h = FALSE;
-  attr = object_find_attribute(obj_node, "flip_horizontal");
-  if (attr != NULL)
-    custom->flip_h = data_boolean(attribute_first_data(attr));
- 
-  custom->flip_v = FALSE;
-  attr = object_find_attribute(obj_node, "flip_vertical");
-  if (attr != NULL)
-    custom->flip_v = data_boolean(attribute_first_data(attr));
-
-  custom->padding = default_properties.padding;
-  attr = object_find_attribute(obj_node, "padding");
-  if (attr != NULL)
-    custom->padding =  data_real( attribute_first_data(attr) );
-  
-  if (custom->info->has_text) {
-    custom->text = NULL;
-    attr = object_find_attribute(obj_node, "text");
-    if (attr != NULL)
-      custom->text = data_text(attribute_first_data(attr));
-    else {
-      /* initialize as empty text or handle all the NULL pointer 
-         access elsewhere */
-      DiaFont *font = NULL;
-      real font_height;
-      Point pt;
-
-      attributes_get_default_font(&font, &font_height);
-      pt = elem->corner;
-      pt.x += elem->width / 2.0;
-      pt.y += elem->height / 2.0 + font_height / 2;
-      custom->text = new_text("", font, font_height, &pt, &custom->border_color,
-                              default_properties.alignment);
-      dia_font_unref(font);
-    }
-  }
-  shape_info_realise(custom->info);
-  
-  element_init(elem, 8, custom->info->nconnections);
-
-  custom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
-  for (i = 0; i < custom->info->nconnections; i++) {
-    obj->connections[i] = &custom->connections[i];
-    custom->connections[i].object = obj;
-    custom->connections[i].connected = NULL;
-  }
-
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return &custom->element.object;
+  return obj;
 }
 
 struct CustomObjectChange {

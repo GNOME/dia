@@ -109,6 +109,12 @@ union _GraphicElement {
   GraphicElementText text;
 };
 
+typedef struct _ExtAttribute {
+  char *name;
+  PropertyType type;
+  gpointer extra_data;
+} ExtAttribute;
+
 typedef enum {
   SHAPE_ASPECT_FREE,
   SHAPE_ASPECT_FIXED,
@@ -137,6 +143,14 @@ struct _ShapeInfo {
   GList *display_list;
 
   ObjectType *object_type; /* back link so we can find the correct type */
+  
+  /*MC 11/03 added */
+  GList *ext_attr_list;
+  int n_ext_attr;
+  int ext_attr_size;
+
+  PropDescription *props;
+  PropOffset *prop_offsets;
 };
 
 /* there is no destructor for ShapeInfo at the moment */
@@ -147,6 +161,10 @@ ShapeInfo *shape_info_getbyname(const gchar *name);
 void shape_info_realise(ShapeInfo* info);
 void shape_info_print(ShapeInfo *info);
 void parse_path(ShapeInfo *info, const char *path_str, DiaSvgGraphicStyle *s);
+
+/*MC 11/03 handy g_new0 variant for struct with variable size */
+#define g_new0_ext(struct_type, ext_size)		\
+    ((struct_type *) g_malloc0 ((gsize) (sizeof (struct_type) + ext_size)))
 
 #endif
 
