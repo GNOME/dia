@@ -19,8 +19,11 @@
 #define LOAD_SAVE_H
 
 #include "diagram.h"
+#include "filter.h"
 
-extern int diagram_save(Diagram *dia, char *filename);
+extern int diagram_save(Diagram *dia, const char *filename);
 extern Diagram *diagram_load(char *filename);
+
+extern DiaExportFilter dia_export_filter;
 
 #endif /* LOAD_SAVE_H */
