@@ -430,6 +430,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_FOCUS_CHANGE:
+      display_set_active (ddisp);
       ddisplay_do_update_menu_sensitivity(ddisp);
       break;
       

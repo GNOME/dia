@@ -1,5 +1,9 @@
 2002-02-02  Akira TAGOH  <tagoh@redhat.com>
 
+	* app/disp_callbacks.c (ddisplay_canvas_events): fixed crashes,
+	when doing the operation like invert the objects after active view is
+	destroyed. when changes focus, it needs to set active_display.
+
 	* app/layer_dialog.c (dia_layer_update_from_layer):
 	(layer_dialog_edit_layer): need to convert to locale encoding
 	if GTK_DOESNT_TALK_UTF8_WE_DO is defined.
