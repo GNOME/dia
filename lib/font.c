@@ -638,8 +638,8 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
     font->public.family = diafonts;
 
     if (face->ascender > 0 || face->descender > 0) {
-      font->ascent_ratio = face->ascender/(face->ascender+face->descender);
-      font->descent_ratio = face->descender/(face->ascender+face->descender);
+      font->ascent_ratio = ((real)face->ascender)/(face->ascender+face->descender);
+      font->descent_ratio = ((real)face->descender)/(face->ascender+face->descender);
     }
 
     for (j=0;j<FONTCACHE_SIZE;j++) {
@@ -722,7 +722,6 @@ freetype_load_string(const char *string, FT_Face face, int len)
   fts->width = 0.0;
 
   for (i = 0; i < len; i++) {
-    LC_DEBUG (fprintf(stderr, "Glyph #%d: %c\n", i, string[i]));
     // convert character code to glyph index
     glyph_index = FT_Get_Char_Index( face, string[i] );
                               
@@ -787,8 +786,6 @@ freetype_copy_glyph_bitmap(GdkPixmap *pixmap, GdkGC *gc,
   int width = bitmap->width;
   int height = bitmap->rows;
 
-  LC_DEBUG (fprintf(stderr, "freetype_copy_glyph_bitmap: pen_x %d, wxh = %dx%d, rowstride = %d, pixelmode = %d, num_grays=%d\n", pen_x, width, height, rowstride, bitmap->pixel_mode, bitmap->num_grays));
-  
   if (rowstride < 0) { // Cartesian bitmap
     buffer = buffer+rowstride*(bitmap->rows-1);
   }
@@ -826,8 +823,6 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     // convert character code to glyph index
     int glyph_index = FT_Get_Char_Index( face, string[i] );
     int error;
-
-    LC_DEBUG (fprintf(stderr, "Rendering for %c: %d\n", string[i], glyph_index));
 
     if (glyph_index == 0) {
       LC_DEBUG (fprintf(stderr, "FT_Get_Char_Index: Couldn't find glyph\n"));
@@ -1147,8 +1142,8 @@ real
 font_ascent(DiaFont *font, real height)
 {
   FontPrivate *fontprivate;
+  LC_DEBUG (fprintf(stderr, "font_ascent %f\n", height));
 
-  LC_DEBUG (fprintf(stderr, "font_ascent\n"));
   fontprivate = (FontPrivate *)font;
   return height*fontprivate->ascent_ratio;
 }
