@@ -424,7 +424,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
   {   "/Objects/Align Vertical/tearoff",   NULL, NULL,        0, "<Tearoff>" },
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
-  {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
+  {N_("/Objects/Align Vertical/Middle"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
   {N_("/Objects/---"),             NULL,         NULL,        0, "<Separator>"}, 
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
@@ -679,7 +679,7 @@ dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
 }
 
 static GnomeUIBuilderData dia_menu_uibdata = {
-  (GtkSignalFunc)dia_menu_signal_connect_func, /* connect_func */
+  (GnomeUISignalConnectFunc)dia_menu_signal_connect_func, /* connect_func */
   NULL,                         /* data */
   FALSE,                        /* is_interp */
   (GtkCallbackMarshal) 0,       /* relay_func */
@@ -1226,7 +1226,7 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->align_h_a = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Top");
     items->align_v_t = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Center");
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Middle");
     items->align_v_c = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Bottom");
     items->align_v_b = menus_get_item_from_path(path->str, factory);

@@ -906,7 +906,7 @@ display_update_menu_state(DDisplay *ddisp)
 
   if ((!initialized) && (ddisp->menu_bar == NULL)) {
     rulers       = menus_get_item_from_path("<Display>/View/Show Rulers", NULL);
-    visible_grid = menus_get_item_from_path("<Display>/View/Visible Grid", NULL);
+    visible_grid = menus_get_item_from_path("<Display>/View/Show Grid", NULL);
     snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid", NULL);
     show_cx_pts  = 
       menus_get_item_from_path("<Display>/View/Show Connection Points", NULL);
