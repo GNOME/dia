@@ -1,3 +1,7 @@
+2002-10-23  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation.
+
 2002-10-22  Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>
 
 	* nl.po: Dutch translation updated by Jan-Willem Harmanny.
@@ -50,9 +54,7 @@
 2002-08-05  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* fr.po: updated French translation.
-	
 	* *.po: refreshed all .po files.	
-	
 	* ro.po: Added Romanian translation contributed by Harald Ersch
 	<hersch@romatsa.ro>
 	
