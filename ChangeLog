@@ -1,5 +1,10 @@
 2000-03-30  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
+	* lib/text.c (text_insert_char): 
+	* lib/render_store.c (add_data): 
+	Made realloc double the alloced space rather than add
+	a fixed amount, to reduce memory stress.
+
 	* app/select.c: Added new select method 'Transitive'
 	that select every reachable (by connections) object.
 

@@ -93,7 +93,7 @@ add_data(RenderStore *store, Data *data)
     store->data = g_malloc(store->max_num_data * sizeof(Data));
   }
   if (store->num_data >= store->max_num_data) {
-    store->max_num_data += 30;
+    store->max_num_data *= 2;
     store->data = g_realloc(store->data, store->max_num_data * sizeof(Data));
   }
 

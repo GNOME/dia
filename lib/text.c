@@ -695,7 +695,7 @@ text_insert_char(Text *text, char c)
   row = text->cursor_row;
 
   if ( text->strlen[row]+2 > text->alloclen[row] ) {
-    text->alloclen[row] = text->strlen[row]+2;
+    text->alloclen[row] = text->strlen[row]*2+2;
     text->line[row] =
       g_realloc( text->line[row], sizeof(char)*text->alloclen[row] );
   }
