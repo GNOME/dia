@@ -121,6 +121,16 @@ point_normalize(Point *p)
 }
 #endif
 
+G_INLINE_FUNC void point_rotate(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_rotate(Point *p1, Point *p2)
+{
+  p1->x = p1->x*p2->x - p1->y*p2->y;
+  p1->y = p1->x*p2->y + p1->y*p2->x;
+}
+#endif
+
 G_INLINE_FUNC void point_get_normed(Point *dst, Point *src);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void

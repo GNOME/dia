@@ -43,6 +43,7 @@ static const DiaUnitDef units[] =
   { "Point",      "pt", 1. },
   { "Centimeter", "cm", 28.346457 },
   { "Inch",       "in", 72 },
+  { "Pica",       "pi", 12 },
   { 0 }
 };
 
