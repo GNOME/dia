@@ -8,24 +8,25 @@ endif
 help_DATA = topic.dat
 
 SGML_FILES = \
-	dia-manual.sgml \
-	authors.sgml \
-	intro.sgml \
-	license.sgml \
-	usage-canvas.sgml \
-	usage-customization.sgml \
-	usage-layers.sgml \
-	usage-loadsave.sgml \
-	usage-objects-basic.sgml \
-	usage-objects-selecting.sgml \
-	usage-objects-special.sgml \
-	usage-objects.sgml \
-	usage-quickstart.sgml
+	dia-manual.xml \
+	authors.xml \
+	intro.xml \
+	license.xml \
+	usage-canvas.xml \
+	usage-customization.xml \
+	usage-layers.xml \
+	usage-loadsave.xml \
+	usage-objects-basic.xml \
+	usage-objects-selecting.xml \
+	usage-objects-special.xml \
+	usage-objects.xml \
+	usage-quickstart.xml
 
 GRAPHICS = \
 	graphics/greendots.png \
 	graphics/home_network.png \
-	graphics/line_props.png
+	graphics/line_props.png \
+	graphics/line_icon.png
 
 EXTRA_DIST = \
 	topic.dat \
@@ -34,7 +35,7 @@ EXTRA_DIST = \
 
 if HAVE_DB2HTML
 stamp-doc: $(SGML_FILES)
-	cd $(srcdir) && $(DB2HTML) dia-manual.sgml && touch stamp-doc
+	cd $(srcdir) && $(DB2HTML) dia-manual.xml && touch stamp-doc
 else
 stamp-doc:
 	touch stamp-doc

@@ -1,0 +1,87 @@
+<chapter label="2" id="canvas-chapter">
+<title>The Canvas</title>
+ <sect1 id="canvas">
+  <title>Canvas Introduction</title>
+   <para>
+    The canvas is the main part of Dia.  The Dia canvas is the window where all
+    the user's objects will be placed on the screen and arranged.  When the
+    diagram is printed or saved, the contents of the canvas will be saved.
+   </para>
+  </sect1>
+  <sect1 id="gridlines">
+  <title>Gridlines</title>
+   <para>
+    Gridlines are similar to the lines on graph paper.  They allow the user
+    to easily align objects on the canvas.  The gridlines can be hidden by
+    going into
+    <menuchoice>
+     <guimenu>
+      File
+     </guimenu>
+     <guimenuitem>
+      Preferences
+     </guimenuitem>
+    </menuchoice>.
+    In the Grid Lines tab, the user should click on the Visible button so it says No.
+   </para>
+  </sect1>
+  <sect1 id="Rulers">
+  <title>Rulers</title>
+   <para>
+    Rulers appear on the top and the left of the <application>Dia</application>
+    canvas.  They show, in centimeters, how large your canvas is.
+   </para>
+   <para>
+    On each ruler exists an arrow.  The arrow moves on the ruler in coordination
+    with where the mouse pointer is.  For example, if the user moves the mouse
+    up, the vertical ruler's arrow will move up, indicating the change.  These
+    arrows become useful when an object needs to line up exactly at a certain
+    measurement point.
+	</para>
+   <para>
+    Rulers, unlike gridlines, cannot be removed.
+   </para>
+  </sect1>
+  <sect1 id="background-color">
+  <title>Background Color</title>
+   <para>
+    The background color option allows you to change what the background looks
+    like in the canvas.  By default, the color is white.  However, the color
+    can be changed by going into
+    <menuchoice>
+      <guimenu>
+        View
+      </guimenu>
+      <guimenu>
+        Diagram Properties
+      </guimenu>
+      <guimenuitem>
+        Background
+      </guimenuitem>
+    </menuchoice>
+    and
+    clicking on the bar.  The bar displays what your background color is.
+    The gridlines will change their color automatically to stay visible if
+    the background color is changed to black.
+   </para>
+  </sect1>
+  <sect1 id="zooming">
+  <title>Zooming</title>
+   <para>
+    Zooming allows the user to get up closer to their diagram.  This helps to
+    let the user make precision drawings.
+   </para>
+   <para>
+    The canvas can be zoomed up to 400%.  Zoom can be done by clicking on the
+    magnifying glass on the toolbox and clicking on the canvas.  To zoom out,
+    hold the shift button and click again on the canvas.
+   </para>
+  </sect1>
+</chapter>
+
+
+<!--
+Local Variables:
+sgml-parent-document: "dia-manual.sgml"
+End:
+-->

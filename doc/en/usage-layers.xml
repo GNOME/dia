@@ -1,0 +1,132 @@
+<chapter label="9" id="layers-chapter">
+<title>Managing Layers</title> 
+  <!-- (introductory info...)  --> 
+  <sect1 id="layers-introduction">
+  <title>Introduction to Layers</title>
+   <para>
+     In <application>Dia</application>, <emphasis>layers</emphasis> are managed through the <interface>Layers Dialog</interface> and all layers related operations can be achieved from this dialog.
+   </para>
+   <para>
+     As a general purpose, layers aim at being a shortcut for grouping related objects within a diagram. They allow you to isolate the different parts of a diagram, in the way which you can decide to show only certain parts of it and not some others will stay hidden even when exporting or printing the diagram.
+   </para>
+   <para>
+     Inside a layer, any operation you would like to perform on objects are possible through the <interface>Main Popup Menu</interface>, then you can act on objects just the way you use to.
+   </para>
+   <note>
+     <para>
+        Only objects present in the current layer can be selected. If an object doesn't want to be selected, you should check if it is laying in the current layer or not.
+     </para>
+    </note>
+    <para>
+      By default, each new diagram comes with the default layer which it's called the <emphasis>Background</emphasis> layer. Of course you can change its name and settings to customize it to your needs as you can do with any other layer.   
+    </para>
+    <para>
+      You can create as many layers as you want, <application>Dia</application> will put a new layer on top of all the layers have been already created. <emphasis>Layers</emphasis> can be thought as a stack of transparent papers. Meaning you will be able to change their stack order, decide whether or not to show them, draw any number of objects onto them and so on.
+     </para>
+     <para>
+       All this can be manage through the <interface>Layers Dialog</interface>.
+    </para>
+  </sect1>
+  
+  <sect1 id="layers-basics">
+  <title>Managing Layers Basics</title>
+  <!-- we should probably drop the related icons in front of each 
+        subsection, that way we won't have to describe them and 
+        the user to find them into the dialog box faster, what 
+        do you think ?   -->
+    <sect2 id="create-layers">
+    <title>Create a New Layer</title>
+     <para>
+       Creating a new layer is possible by clicking on the <guibutton>New Layer</guibutton> button at the bottom left of the dialog. Since the <interface>Layers Dialog</interface> is not diagram specific but application specific, you will have to choose in wich diagram the new layer must go in. To do so, at the top of the <interface>Layers Dialog</interface>, select the diagram you wanted to receive the new layer and then add this new layer to the selected diagram.
+     </para>
+     <para>
+       The newly created layer will be placed on top of the stack and will become the current layer of the selected diagram.
+     </para>
+     <para>
+       Then it's possible to edit any new object of your choice, copy and paste from any other layer or diagram as you could do it in single layer diagram.
+     </para>   
+    </sect2>
+
+    <sect2 id="selecting-layers">
+    <title>Selecting Layers</title>
+     <para>
+       A layer is said as being activated when it is selected in the <interface>Layers Dialog</interface>. To select a layer simply click on its name in the dialog, that will highlight it. From now, any changes you will make to the diagram will affect this layer and only this one.
+     </para>
+     <note>
+      <para>
+       You'll be able to select only one layer at the time. That way you can do anything you like in this selected layer without affecting other layers on your diagram.
+      </para>
+     </note>
+    </sect2>
+
+    <sect2 id="ordering-layers">
+    <title>Ordering Layers</title>
+     <para>
+       Next to the <guibutton>New Layer</guibutton> button at the bottom of the <interface>Layers Dialog</interface>, are two useful buttons which allow you to set the stack order of each layer you created.
+     </para>
+     <para>
+       Those two buttons are used to raise and lower layers in the hierarchy of layers. The button with the up arrow is used to raise the active layer while the other is for lower the position within the hierarchy.
+     </para>
+     <para>
+       Ordering layers can be useful when you want hide some parts of an object with another one.
+     </para>
+    </sect2>
+    
+    <sect2 id="deleting-layers">
+    <title>Deleting Layers</title>
+     <para>
+       When a layer is not needed anymore you can delete it and all the objects
+it contains by clicking on the <guibutton>Delete Layer</guibutton> button. Of course this will only affect the currently selected layer.
+     </para>
+     <para>
+       Doing so on regular basis is the better way to keep your diagram clean and light for when you want to export it to another format than the native <application>Dia</application> format.
+     </para>
+     <para>
+       Note you should be aware of any diagram you created must at least contains one layer, only because a diagram is built of layer, so a diagram doesn't contain any layer should be considered as a corrupted diagram and won't be suitable to export nor even save in the native <application>Dia</application> format.
+     </para>  
+    </sect2>
+   </sect1>
+   <sect1 id="viewing-layers">
+    <title>Viewing Layers</title>
+     <para>
+       Now that you've seen what are the basics of manipulating layers, you will more easely understand why <emphasis>layers</emphasis> are such a powerful tool when you are building a diagram with <application>Dia</application>.
+     </para>
+     <para>
+      Understanding what layers are for can dramaticaly improve the quality and the visual effect your diagrams will produce.
+     </para>  
+     <para>
+       For instance, imagine you are building a diagram with lots of objects in it, like an Electrical or UML diagram, if you drop all of your objects in the same layer, meaning the background, after a while you will get a huge unmanageable draft you won't be able to do anything with it. It will be a pain to change anything in it, you will waste time trying to remenber what object is connected to that object which seems to take all the place in the middle of the mixed up objects you already put there.
+     </para>
+     <para>
+       Since <application>Dia</application> is a <emphasis>Structured Diagram Builder</emphasis>, all the diagrams you will build with it will be naturaly structured and broken down in many little pieces you will manage with more ease and efficiency than you could do it with a single monolythic block of objects.
+     </para>
+    <note>
+     <para>
+       By definition, a diagram should be structured, so breaking it down in several logical parts won't be as hard as it seems to be. That's where <emphasis>layers</emphasis> becomes of first use. They allow you to isolate each of these parts in separated slides, so it becomes a real pleasure to manipulate them in any way you like.
+    </para>
+   </note>
+    <para>
+       First, <emphasis>layers</emphasis> can be renamed to express the part of the diagram they represent, giving them the ability to be rapidely located among others. And most importantly, <emphasis>layers</emphasis> can be shown or hidden depending on what part of the diagram you would like to show.
+    </para>
+    <para>
+       To rename a layer, at any moment during the construction of the diagram, double-click on the name of the layer in the <interface>Layers Dialog</interface>. This will bring up the <interface>Layer Attributs</interface> pop up dialog where you'll be able to change the name of the layer.
+    </para>
+   <tip>
+    <para>
+       Try to find some name which matches the purpose of the layer is a useful way to remember what it is for. Don't hesitate to create many different layers in your diagram, <application>Dia</application> doesn't constrain you on the number of layers you've created, so feel free to adjust your own hierarchy to your needs.
+    </para>
+   </tip>
+    <para>
+       The <guibutton>Eye Icon</guibutton> on the left of the layer's name is what make layers so useful, it aims at hiding or showing the corresponding layer. Meaning if for any reason you decided to not show a particular layer, simply click on the <guibutton>Eye Icon</guibutton> and the layer and everything it contains will disappear from the Canvas.
+    </para>
+    <para>
+       Viewing only certain layers is really useful when you want manipulate a small part of your diagram without affecting the rest. You can also work that way if you want to print your diagram on different pages or testing different settings which can affect the layout of that part. Again, feel free to experiment with layers, if set up properly they can make your diagram looks pretty much better.
+    </para>
+   <note>
+    <para>
+       In <application>Dia</application>, <emphasis>Layers</emphasis> creation and manipulation are as common as drawing or selecting objects in the diagram. You must get your hands on them, because you will probably have to use them anytime you will want to creat a new diagram.
+    </para>
+   </note>
+</sect1>  <!-- end of id="layers"  -->
+
+</chapter>

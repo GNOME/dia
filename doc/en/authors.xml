@@ -1,0 +1,41 @@
+<chapter label="10" id="authors-chap">
+<title>Authors</title>
+  <para>
+   <application>Dia</application> was written by Alexander Larsson and is
+   currently maintained by James Henstridge. To find more information about
+   <application>Dia</application>, please visit the official web page, <ulink
+   url="http://www.lysator.liu.se/~alla/dia" type="http">
+   www.lysator.liu.se/~alla/dia</ulink>.  Please send all comments,
+   suggestions, and bug reports to the <ulink url="http://bugs.gnome.org"
+   type="http">GNOME bug tracking database</ulink>. (Instructions for
+   submitting bug reports can be found <ulink
+   url="http://bugs.gnome.org/Reporting.html" type="http">on-line</ulink>.)
+   If you are using GNOME 1.1 or later, you can also use <application>Bug
+   Report Tool</application> (<command>bug-buddy</command>), available in the
+   <guisubmenu>Utilities</guisubmenu> submenu of <guimenu>Main Menu</guimenu>,
+   for submitting bug reports.
+  </para>
+ 
+  <para>
+   This manual was written by Henry House (<email>hajhouse@houseag.com</email>)
+   , Judith Samson (<email>judith@samsonsource.com</email>), and Kevin Breit
+   (<email>battery841@mypad.com</email>).
+   Please send all comments and suggestions regarding this manual to the
+   <ulink type="http" url="http://www.gnome.org/gdp">GNOME Documentation
+   Project</ulink> by sending an email to <email>docs@gnome.org</email>. You
+   can also add your comments online by using the <ulink type="http"
+   url="http://www.gnome.org/gdp/doctable/">GNOME Documentation Status
+   Table</ulink>.
+  </para>
+ 
+  <!-- For translations: uncomment this:
+ 
+  <para>
+   Latin translation was done by ME
+   (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+   suggestions regarding this translation to SOMEWHERE.
+  </para>
+ 
+  -->
+ 
+</chapter>

@@ -1,0 +1,114 @@
+<chapter label="4" id="basic-objects-chapter">
+<title>Basic Objects</title>
+<sect1 id="basic-objects-introduction">
+<title>Basic Objects Introduction</title>
+  <para>
+   The first, and most common type of object is the basic object.  Basic objects normally are geometric shapes, which can be customized.  <application>Dia</application> offers
+the user numerous basic objects.
+  </para>
+  <sect2 id="text">
+  <title>Text</title>
+   <para>
+    <application>Dia</application> supports the use of text as its own type of
+    object.  Text can be placed on the canvas by clicking on the text button on
+    the toolbox.
+   </para>
+   <note>
+    <para>
+     Text in <application>Dia</application> can use any font available to Gnome.
+    </para>
+   </note>
+   </sect2>
+   <sect2 id="box">
+   <title>Box</title>
+    <para>
+     The boxes in <application>Dia</application> can be customized to be any
+     size desired by the user.  The properties available are:
+     <itemizedlist>
+      <listitem>
+       <para>
+        Corner Rounding - Causes the corners to be rounded instead of hard
+        edges.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Draw Background - Keeps the center clear or fills with the background
+        color.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="ellipse">
+   <title>Ellipse</title>
+    <para>
+     An ellipse is a shape which has all rounded sides, such as a circle or an
+     oval.
+    </para>
+   </sect2>
+   <sect2 id="polygon">
+   <title>Polygon</title>
+    <para>
+     A polygon is any closed shape made up of straight lines.  The
+     polygon tool, allows the user to draw any shape with all straight lines.
+    </para>
+   </sect2>
+   <sect2 id="beziergon">
+   <title>Beziergon</title>
+    <para>
+     A beziergon is similar to the polygon as the user defines the shape.
+     However, it differs in that it allows curves to exist in the shape.
+    </para>
+   </sect2>
+   <sect2 id="line">
+   <title>Line</title> 
+    <para>
+     A line simply...a line.  <!--fix this wording...it sucks--> Refer to the
+     customizing a line section to find more information about a line.
+    </para>
+   </sect2>
+   <sect2 id="arc">
+   <title>Arc</title>
+    <para>
+     An arc is a line which has been bent to create a semi-circle shape.
+    </para>
+   </sect2>
+   <sect2 id="zigzagline">
+   <title>Zigzag Line</title>
+    <para>
+     A zigzag line is a line which has sharp, 90 degree turns in it.  They hold
+     visual similarities to staircases.
+    </para>
+   </sect2>
+   <sect2 id="polyline">
+   <title>Poly Line</title>
+    <para>
+     A poly-line is like a zigzagline, but does not necessarily have to have
+     90 degree turns to it.  The angles can be customized.
+    </para>
+   </sect2>
+   <sect2 id="bezier">
+   <title>Bezier Line</title>
+    <para>
+     A bezier line is a line which has curves in it.  The bezier line tool is
+     edited by clicking and dragging the green and orange dots.  The green dots
+     customize the size while the orange dots customize the angles at which the
+     line curves at.
+    </para>
+   </sect2>
+   <sect2 id="image">
+   <title>Images</title>
+    <para>
+     The <application>Dia</application> canvas can have pictures inside of it,
+     as well as shapes.
+    </para>
+    <para>
+     To add an image, click on the image button and then add it to the canvas.
+     An object that says "Broken Image" will appear.  Double-click to
+     open the properties.  Click on "Browse" and select your file.  Click "OK"
+     and then the image will be updated accordingly.
+    </para>
+   </sect2>
+  </sect1>
+</chapter>
