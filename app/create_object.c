@@ -102,9 +102,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     diagram_remove_all_selected(ddisp->diagram, TRUE);
   }
   diagram_select(ddisp->diagram, obj);
-
-  obj->ops->selectf(obj, &clickedpoint,
-		ddisp->renderer);
+  textedit_activate_object(ddisp, obj, NULL);
 
   tool->obj = obj;
 

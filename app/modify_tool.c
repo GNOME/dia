@@ -139,8 +139,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       }
       
       diagram_select(diagram, obj);
-      obj->ops->selectf(obj, clickedpoint,
-		        ddisp->renderer);
+      textedit_activate_object(ddisp, obj, clickedpoint);
 
       /*
 	This stuff is buggy, fix it later.
@@ -156,8 +155,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       return obj;
     } else { /* Clicked on already selected. */
       /*printf("Already selected\n");*/
-      obj->ops->selectf(obj, clickedpoint,
-		       ddisp->renderer);
+      textedit_activate_object(ddisp, obj, clickedpoint);
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
       
@@ -536,7 +534,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   Point *dest_pos, to;
   GList *list;
   int i;
-  DiaObject *obj;
+  DiaObject *obj, *active_obj;
   ObjectChange *objchange;
   
   tool->break_connections = FALSE;
@@ -623,6 +621,8 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     break;
   case STATE_BOX_SELECT:
     gdk_pointer_ungrab (event->time);
+    /* Remember the currently active object for reactivating. */
+    active_obj = active_focus()!=NULL?active_focus()->obj:NULL;
     /* Remove last box: */
     if (!tool->auto_scrolled) {
       gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
@@ -706,6 +706,14 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       
     }
     
+    if (active_obj != NULL &&
+	diagram_is_selected(ddisp->diagram, active_obj)) {
+      textedit_activate_object(ddisp, obj, NULL);
+    } else {
+      if (diagram_get_sorted_selected(ddisp->diagram) != NULL) {
+	textedit_activate_object(ddisp, (DiaObject*)(diagram_get_sorted_selected(ddisp->diagram)->data), NULL);
+      }
+    }
     ddisplay_do_update_menu_sensitivity(ddisp);
     ddisplay_flush(ddisp);
 

@@ -83,8 +83,8 @@ calc_ascent_descent(Text *text)
   guint i;
     
   for ( i = 0; i < text->numlines; i++) {
-      sig_a += dia_font_ascent(text->line[i], text->font, text->height);
-      sig_d += dia_font_descent(text->line[i], text->font, text->height);
+    sig_a += dia_font_ascent(text->line[i], text->font, text->height);
+    sig_d += dia_font_descent(text->line[i], text->font, text->height);
   }
   
   text->ascent = sig_a / (real)text->numlines;
@@ -432,12 +432,12 @@ text_draw(Text *text, DiaRenderer *renderer)
 
     str_width_first =
       DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-						text->line[text->cursor_row],
-						text->cursor_pos);
+						       text->line[text->cursor_row],
+						       text->cursor_pos);
     str_width_whole =
       DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-						text->line[text->cursor_row],
-						text->strlen[text->cursor_row]);
+						       text->line[text->cursor_row],
+						       text->strlen[text->cursor_row]);
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {
@@ -499,6 +499,8 @@ text_set_cursor_at_end( Text* text )
   text->cursor_pos = text->strlen[text->cursor_row] ;
 }
 
+/* The renderer is only used to determine where the click is, so is not
+ * required when no point is given. */
 void
 text_set_cursor(Text *text, Point *clicked_point,
 		DiaRenderer *renderer)
@@ -510,55 +512,60 @@ text_set_cursor(Text *text, Point *clicked_point,
   int row;
   int i;
 
-  top = text->position.y - text->ascent;
+  if (clicked_point != NULL) {
+    top = text->position.y - text->ascent;
   
-  row = (int)floor((clicked_point->y - top) / text->height);
+    row = (int)floor((clicked_point->y - top) / text->height);
 
-  if (row < 0)
-    row = 0;
+    if (row < 0)
+      row = 0;
 
-  if (row >= text->numlines)
-    row = text->numlines - 1;
+    if (row >= text->numlines)
+      row = text->numlines - 1;
     
-  text->cursor_row = row;
-  text->cursor_pos = 0;
+    text->cursor_row = row;
+    text->cursor_pos = 0;
 
-  if (!renderer->is_interactive) {
-    message_error("Internal error: Select gives non interactive renderer!\n"
-		  "val: %d\n", renderer->is_interactive);
-    return;
-  }
-
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
-  str_width_whole =
-    DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-					      text->line[row],
-					      text->strlen[row]);
-  start_x = text->position.x;
-  switch (text->alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    start_x -= str_width_whole / 2.0;
-    break;
-  case ALIGN_RIGHT:
-    start_x -= str_width_whole;
-    break;
-  }
-
-  /* Do an ugly linear search for the cursor index:
-     TODO: Change to binary search */
-  
-  for (i=0;i<=text->strlen[row];i++) {
-    str_width_first =
-      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text->line[row], i);
-    if (clicked_point->x - start_x >= str_width_first) {
-      text->cursor_pos = i;
-    } else {
+    if (!renderer->is_interactive) {
+      message_error("Internal error: Select gives non interactive renderer!\n"
+		    "val: %d\n", renderer->is_interactive);
       return;
     }
+
+
+    DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+    str_width_whole =
+      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
+						       text->line[row],
+						       text->strlen[row]);
+    start_x = text->position.x;
+    switch (text->alignment) {
+    case ALIGN_LEFT:
+      break;
+    case ALIGN_CENTER:
+      start_x -= str_width_whole / 2.0;
+      break;
+    case ALIGN_RIGHT:
+      start_x -= str_width_whole;
+      break;
+    }
+
+    /* Do an ugly linear search for the cursor index:
+       TODO: Change to binary search */
+  
+    for (i=0;i<=text->strlen[row];i++) {
+      str_width_first =
+	DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text->line[row], i);
+      if (clicked_point->x - start_x >= str_width_first) {
+	text->cursor_pos = i;
+      } else {
+	return;
+      }
+    }
+    text->cursor_pos = text->strlen[row];
+  } else {
+    /* No clicked point, leave cursor where it is */
   }
-  text->cursor_pos = text->strlen[row];
 }
 
 static void

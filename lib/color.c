@@ -48,6 +48,17 @@ color_init(void)
   }
 }
 
+/** Allocate a new color object wtih the given values */
+Color *
+color_new_rgb(float r, float g, float b) 
+{
+  Color *col = g_new(Color, 1);
+  col->red = r;
+  col->green = g;
+  col->blue = b;
+  return col;
+}
+
 void
 color_convert(Color *color, GdkColor *gdkcolor)
 {

@@ -1,3 +1,18 @@
+2004-08-30  Lars Clausen  <lars@raeder.dk>
+
+	* lib/color.[ch]: 
+	* app/undo.c: 
+	* app/disp_callbacks.c: 
+	* app/Makefile.am: 
+	* app/create_object.c: 
+	* app/textedit.[ch]: 
+	* app/modify_tool.c: 
+	* app/diagram.c: 
+	* lib/text.c: 
+	* lib/focus.[ch]: Change in focus mechanism to allow highlight of
+	current input object, multiple inputs per object, and tabbing
+	between objects.
+
 2004-08-28  Steffen Macke <sdteffen@web.de>
 
 	* makefile.msc: added bs to ALL_LINGUAS; adjusted .mo file creation to

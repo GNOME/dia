@@ -40,6 +40,7 @@
 #include "diagram_tree_window.h"
 #include "autosave.h"
 #include "dynamic_refresh.h"
+#include "textedit.h"
 
 static GList *open_diagrams = NULL;
 
@@ -547,23 +548,18 @@ diagram_selected_break_external(Diagram *dia)
 void
 diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 {
+printf("Removing all selections\n");
   object_add_updates_list(diagram->data->selected, diagram);
-	
+  textedit_remove_focus_all(diagram);
   data_remove_all_selected(diagram->data);
-  
-  remove_focus();
 }
 
 void
 diagram_unselect_object(Diagram *diagram, DiaObject *obj)
 {
   object_add_updates(obj, diagram);
-  
+  textedit_remove_focus(obj, diagram);
   data_unselect(diagram->data, obj);
-  
-  if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-    remove_focus();
-  }
 }
 
 void
@@ -588,6 +584,7 @@ void
 diagram_select(Diagram *diagram, DiaObject *obj)
 {
   data_select(diagram->data, obj);
+  obj->ops->selectf(obj, NULL, NULL);
   object_add_updates(obj, diagram);
 }
 
@@ -1027,9 +1024,8 @@ void diagram_group_selected(Diagram *dia)
 
     /* Remove focus if active */
     /* Now handled by undo apply
-    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-      remove_focus();
-    }
+       textedit_remove_focus(obj);
+
     */
 
     /* Now handled by the undo apply
@@ -1039,6 +1035,7 @@ void diagram_group_selected(Diagram *dia)
   }
 
   /* Remove list of selected objects */
+  textedit_remove_focus_all(dia);
   data_remove_all_selected(dia->data);
   
   group = group_create(group_list);

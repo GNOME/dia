@@ -44,6 +44,7 @@
 #include "preferences.h"
 #include "scroll_tool.h"
 #include "commands.h"
+#include "highlight.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -355,7 +356,6 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
 		 event->button, event->time);
 }
-
 static void 
 handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
                  const gchar *str, int strlen) 
@@ -683,11 +683,17 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	    if (!gtk_im_context_filter_keypress(
 		  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
 	      
-		  /*! key event not swallowed by the input method ? */
-	      handle_key_event(ddisp, focus, kevent->keyval,
-			       kevent->string, kevent->length);
-
-	      diagram_flush(ddisp->diagram);
+	      if (kevent->keyval == GDK_Tab) {
+		focus = textedit_move_focus(ddisp, focus,
+					    (state & GDK_SHIFT_MASK) == 0);
+		obj = focus->obj;
+	      } else {
+		/*! key event not swallowed by the input method ? */
+		handle_key_event(ddisp, focus, kevent->keyval,
+				 kevent->string, kevent->length);
+		
+		diagram_flush(ddisp->diagram);
+	      }
 
 	      return_val = key_handled = im_context_used = TRUE;
 	    }
@@ -934,6 +940,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
   diagram_select(ddisp->diagram, obj);
   obj->ops->selectf(obj, &droppoint, ddisp->renderer);
+  textedit_activate_object(ddisp, obj, NULL);
 
   /* Connect first handle if possible: */
   if ((handle1 != NULL) &&

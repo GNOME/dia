@@ -26,6 +26,7 @@
 #include "group.h"
 #include "preferences.h"
 #include "diagram_tree_window.h"
+#include "textedit.h"
 
 #if 0
 #define DEBUG_PRINTF(args) printf args
@@ -598,11 +599,6 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
 
-    /* Remove focus if active */
-    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-      remove_focus();
-    }
-    
     if (obj->parent) /* Lose references to deleted object */
       obj->parent->children = g_list_remove(obj->parent->children, obj);
 
@@ -717,11 +713,6 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
 
-    /* Remove focus if active */
-    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-      remove_focus();
-    }
-    
     list = g_list_next(list);
   }
 
@@ -933,11 +924,6 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
 
-    /* Remove focus if active */
-    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-      remove_focus();
-    }
-    
     object_add_updates(obj, dia);
 
     list = g_list_next(list);
@@ -1056,13 +1042,6 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
-
-    /* Remove focus if active */
-    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
-      remove_focus();
-    }
-    
-    object_add_updates(obj, dia);
 
     list = g_list_next(list);
   }

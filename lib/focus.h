@@ -34,7 +34,13 @@ struct _Focus {
 
 void request_focus(Focus *focus);
 Focus *active_focus(void);
+void give_focus(Focus *focus);
+gboolean give_focus_to_object(DiaObject *obj);
+void focus_next(void);
+void focus_previous(void);
 void remove_focus(void);
+gboolean remove_focus_object(DiaObject *obj);
+void reset_foci(void);
 
 #endif /* FOCUS_H */
 

@@ -153,6 +153,8 @@ dia_core_files = \
 	    diacanvas.h \
 	    highlight.c \
 	    highlight.h \
+	    textedit.c \
+	    textedit.h \
 	    $(print_files)
 
 dia_SOURCES = \

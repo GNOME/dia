@@ -29,6 +29,7 @@ struct _Color {
 };
 
 void color_init(void);
+Color *color_new_rgb(float r, float g, float b);
 void color_convert(Color *color, GdkColor *gdkcolor);
 gboolean color_equals(Color *color1, Color *color2);
 
