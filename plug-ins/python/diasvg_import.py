@@ -85,6 +85,23 @@ class Object :
 		self.props["fill"] = s
 	def fill_rule(self,s) :
 		self.props["fill-rule"] = s
+	def stroke_dasharray(self,s) :
+		# just an approximation
+		sp = string.split(s,",")
+		n = len(sp)
+		if n > 0 :
+			dlen = Scaled(sp[0])
+  		if n == 0 : # can't really happen
+			self.props["line-style"] = (0, 1.0) # LINESTYLE_SOLID,
+		elif n == 2 : 
+			if dlen > 0.1 : # FIXME:  
+				self.props["line-style"] = (1, dlen) # LINESTYLE_DASHED,
+			else :
+				self.props["line-style"] = (4, dlen) # LINESTYLE_DOTTED
+		elif n == 4 :  
+			self.props["line-style"] = (2, dlen) # LINESTYLE_DASH_DOT,
+		elif n == 6 : 
+			self.props["line-style"] = (3, dlen) # LINESTYLE_DASH_DOT_DOT,
 	def id(self, s) :
 		# just to handle/ignore it
 		self.props["id"] = s
@@ -125,6 +142,8 @@ class Object :
 					# rgb(192,27,38) handled by Color() but ...
 					# o.properties["fill_colour"] =self.props["fill"]
 					pass
+		if self.props.has_key("line-style") and o.properties.has_key("line_style") :
+			o.properties["line_style"] = self.props["line-style"]
 		self.ApplyProps(o)
 		return o
 

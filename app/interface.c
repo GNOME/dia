@@ -34,6 +34,7 @@
 #include "diagram_tree_window.h"
 #include "intl.h"
 #include "navigation.h"
+#include "persistence.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
@@ -1282,6 +1283,7 @@ create_toolbox ()
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
   gtk_widget_show (menubar);
 #endif
+  persistence_register_window(GTK_WINDOW(window));
 
   toolbox_shell = window;
 }

@@ -133,7 +133,14 @@ static PyObject * PyDia_get_IntArray (IntarrayProperty *prop)
 static PyObject * PyDia_get_Enum (EnumProperty *prop) 
 { return PyInt_FromLong(prop->enum_data); }
 static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop) 
-{ Py_INCREF(Py_None); return Py_None; }
+{ 
+  PyObject *ret;
+
+  ret = PyTuple_New (2);
+  PyTuple_SetItem(ret, 0, PyInt_FromLong(prop->style));
+  PyTuple_SetItem(ret, 1, PyFloat_FromDouble(prop->dash));
+  return ret;
+}
 static PyObject * PyDia_get_Real (RealProperty *prop) 
 { return PyFloat_FromDouble(prop->real_data); }
 static PyObject * PyDia_get_String (StringProperty *prop) 
@@ -382,7 +389,14 @@ int PyDiaProperty_ApplyToObject (Object   *object,
              p[i] = 0.0;
            }
       }
-    if (2 >= len && 0 == strcmp (PROP_TYPE_POINT, prop->type))
+    if (2 == len && 0 == strcmp (PROP_TYPE_LINESTYLE, prop->type))
+      {
+        LinestyleProperty *ptp = (LinestyleProperty*)prop;
+        ptp->style = (int)p[0];
+        ptp->dash  = p[1];
+        ret = 0;
+      }
+    else if (2 >= len && 0 == strcmp (PROP_TYPE_POINT, prop->type))
       {
         PointProperty *ptp = (PointProperty*)prop;
         ptp->point_data.x = p[0];

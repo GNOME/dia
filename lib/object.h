@@ -25,8 +25,6 @@
 #include "diatypes.h"
 #include <gtk/gtk.h>
 
-typedef guint16 ObjectId; /** The id of an objecttype */
-
 #include "geometry.h"
 #include "connectionpoint.h"
 #include "handle.h"
