@@ -20,6 +20,7 @@
  */
 
 #include <stdio.h>
+#include <locale.h>
 #include "intl.h"
 #include "message.h"
 #include "diagram.h"

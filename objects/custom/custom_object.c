@@ -516,8 +516,8 @@ custom_distance_from(Custom *custom, Point *point)
     case GE_ELLIPSE:
       transform_coord(custom, &el->ellipse.center, &p1);
       dist = distance_ellipse_point(&p1,
-				    el->ellipse.width * abs(custom->xscale),
-				    el->ellipse.height * abs(custom->yscale),
+				    el->ellipse.width * fabs(custom->xscale),
+				    el->ellipse.height * fabs(custom->yscale),
 				    line_width, point);
       break;
     case GE_PATH:
@@ -788,13 +788,13 @@ custom_draw(Custom *custom, Renderer *renderer)
       transform_coord(custom, &el->ellipse.center, &p1);
       if (custom->show_background && el->any.s.fill != COLOUR_NONE)
 	renderer->ops->fill_ellipse(renderer, &p1,
-				    el->ellipse.width * abs(custom->xscale),
-				    el->ellipse.height * abs(custom->yscale),
+				    el->ellipse.width * fabs(custom->xscale),
+				    el->ellipse.height * fabs(custom->yscale),
 				    &bg);
       if (el->any.s.stroke != COLOUR_NONE)
 	renderer->ops->draw_ellipse(renderer, &p1,
-				    el->ellipse.width * abs(custom->xscale),
-				    el->ellipse.height * abs(custom->yscale),
+				    el->ellipse.width * fabs(custom->xscale),
+				    el->ellipse.height * fabs(custom->yscale),
 				    &fg);
       break;
     case GE_PATH:

@@ -1,3 +1,13 @@
+2000-05-21  James Henstridge  <james@daa.com.au>
+
+	* app/paginate_psprint.c: added missing include of locale.h.
+
+	* objects/custom/custom_object.c (custom_draw): use fabs rather than
+	abs for scaling factors.
+	(custom_distance_from): same here.
+
+	* dia.spec: make sure rpm doesn't bomb out when LINGUAS isn't set.
+
 2000-05-18  James Henstridge  <james@daa.com.au>
 
 	* po/POTFILES.in: updated POTFILES.in.
