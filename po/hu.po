@@ -3,7 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.91\n"
-"POT-Creation-Date: 2003-11-16 20:46+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-04-13 22:11+0200\n"
 "PO-Revision-Date: 2003-07-07 17:32+0200\n"
 "Last-Translator: Emese Kovacs <emese@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -11,80 +12,159 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:173
+#: app/app_procs.c:219
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
+msgstr "%s hiba: nem tudok exportálni ebbe: %s\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:229
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
+msgstr "%s hiba, a bemeneti és kimeneti fájlok neve azonos: %s"
 
-#: app/app_procs.c:191
-#, fuzzy, c-format
+#: app/app_procs.c:237
+#, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "Érvényes bemeneti fájl kell\n"
+msgstr "%s hiba: %s érvényes bemeneti fájl kell\n"
 
 #. if (!quiet)
-#: app/app_procs.c:197
+#: app/app_procs.c:246
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:239
-#, fuzzy, c-format
+#: app/app_procs.c:294
+#, c-format
 msgid "Can't find output format %s\n"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+msgstr "Nem található a(z) %s kimeneti formátum\n"
 
-#. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:323
-#, fuzzy, c-format
+#  Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:381
+#, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
-msgstr "Betöltött fájl exportálása és kilépés"
+msgstr "Exportálás adott formátumban és kilépés. A támogatott formátumok: %s"
 
 #. &export_file_name
-#: app/app_procs.c:332
+#: app/app_procs.c:390
 msgid "Export loaded file and exit"
 msgstr "Betöltött fájl exportálása és kilépés"
 
-#: app/app_procs.c:332 app/diaconv.c:94
+#: app/app_procs.c:390
+#: app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "KIMENET"
 
 #. &export_file_format
-#: app/app_procs.c:334
+#: app/app_procs.c:392
 msgid "FORMAT"
-msgstr ""
+msgstr "FORMÁTUM"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:395
+#, fuzzy
+msgid "Export graphics size"
+msgstr "Betöltött fájl exportálása és kilépés"
+
+#: app/app_procs.c:395
+msgid "WxH"
+msgstr "WxH"
+
+#: app/app_procs.c:397
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "Ne mutassa az üdvözlő képernyőt"
 
-#: app/app_procs.c:339
+#: app/app_procs.c:399
+msgid "Send error messages to stderr instead of showing dialogs."
+msgstr "Hibaüzenetek küldése stderr-re felugró ablakok helyett."
+
+#: app/app_procs.c:401
 msgid "Display credits list and exit"
-msgstr ""
+msgstr "Közreműködők listája megjelenítése, majd kilépés"
 
-#: app/app_procs.c:341
+#: app/app_procs.c:403
 msgid "Display version and exit"
-msgstr ""
+msgstr "Verzió megjelenítése és kilépés"
 
-#: app/app_procs.c:343 app/diaconv.c:95
+#: app/app_procs.c:405
+#: app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Megjeleníti ezt a segítő szöveget"
 
 # app/app_procs.c:167
-#: app/app_procs.c:375
+#: app/app_procs.c:444
 msgid "Can't connect to session manager!\n"
 msgstr "A munkafolyamat-kezelő nem elérhető!\n"
 
+#  TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:472
+#, c-format
+msgid "Dia version %s, compiled %s %s\n"
+msgstr "Dia %s verzió, fordítva %s %s\n"
+
+#: app/app_procs.c:474
+#, c-format
+msgid "Dia version %s\n"
+msgstr "Dia %s verzió\n"
+
+# app/app_procs.c:229 app/app_procs.c:231
+#: app/app_procs.c:526
+#: app/app_procs.c:528
+#: app/diaconv.c:201
+#: app/diaconv.c:203
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "Objektum könyvtár keresése... Nem találom az általános objektumokat, kilépek...\n"
+
+#: app/app_procs.c:591
+msgid ""
+"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"describing how you can cause this message to appear.\n"
+msgstr ""
+"Ez nem történhetne meg.  Kérem, küldjön hibajelentést a bugzilla.gnome.org-ra.\n"
+"leírva azt, hogyan tudja ezt a hibaüzenetet előcsalni.\n"
+
+#. no standard buttons
+#: app/app_procs.c:603
+msgid ""
+"Modified diagrams exist.\n"
+"Are you sure you want to quit Dia\n"
+"without saving them?"
+msgstr ""
+"Módosított diagram van a rajztáblán.\n"
+"Tényleg ki akar lépni a Dia-ból\n"
+"mentés nélkül?"
+
+#: app/app_procs.c:607
+msgid "Quit Dia"
+msgstr "Kilépés a Dia-ból"
+
+#. This printf seems to prevent a race condition with unrefs.
+#. Yuck.  -Lars
+#: app/app_procs.c:662
+msgid "Thank you for using Dia.\n"
+msgstr "Köszönjük, hogy a Dia-t használta.\n"
+
+#: app/app_procs.c:678
+#: app/app_procs.c:685
+msgid "Could not create per-user Dia config directory"
+msgstr "Nem tudtam a felhasználónak Dia konfigurációs könyvtárat létrehozni"
+
+#: app/app_procs.c:687
+msgid "Could not create per-user Dia config directory. Please make sure that the environment variable HOME points to an existing directory."
+msgstr "Nem tudtam a felhasználónak Dia konfigurációs könyvtárat létrehozni. Bizonyosodjon meg arról, hogy a HOME környezeti változó egy létező könyvtárra mutat."
+
+#: app/app_procs.c:709
+#: app/diaconv.c:251
+msgid "Objects and filters internal to dia"
+msgstr "A dia saját objektumai és szűrői"
+
 # app/app_procs.c:178
-#: app/app_procs.c:390 app/diaconv.c:119
+#: app/app_procs.c:748
+#: app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[KAPCSOLÓ...] [FÁJL...]"
 
 # app/app_procs.c:181
-#: app/app_procs.c:394 app/diaconv.c:126
+#: app/app_procs.c:752
+#: app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -93,170 +173,116 @@ msgstr ""
 "Hiba a %s kapcsolónál: %s\n"
 "Az elérhető parancssori kapcsolók megtekintéséhez futtasd a '%s --help'-et.\n"
 
-#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:413
-#, c-format
-msgid "Dia version %s, compiled %s %s\n"
-msgstr ""
-
-#: app/app_procs.c:415
-#, c-format
-msgid "Dia version %s\n"
-msgstr ""
-
-# app/app_procs.c:229 app/app_procs.c:231
-#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr ""
-"Objektum könyvtár keresése... Nem találom az általános objektumokat, "
-"kilépek...\n"
-
-#: app/app_procs.c:589
-msgid ""
-"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
-"describing how you can cause this message to appear.\n"
-msgstr ""
-
-#. no standard buttons
-#: app/app_procs.c:601
-#, fuzzy
-msgid ""
-"Modified diagrams exist.\n"
-"Are you sure you want to quit Dia\n"
-"without saving them?"
-msgstr ""
-"Módosított diagram van a rajztáblán.\n"
-"Tényleg ki akarsz lépni?"
-
-#: app/app_procs.c:605
-#, fuzzy
-msgid "Quit Dia"
-msgstr "Dia névjegye"
-
-#. This printf seems to prevent a race condition with unrefs.
-#. Yuck.  -Lars
-#: app/app_procs.c:660
-msgid "Thank you for using Dia.\n"
-msgstr ""
-
-#: app/app_procs.c:674 app/app_procs.c:681
-msgid "Could not create per-user Dia config directory"
-msgstr "Nem tudtam a felhasználónak Dia konfigurációs könyvtárat létrehozni"
-
-#: app/app_procs.c:683
-msgid ""
-"Could not create per-user Dia config directory. Please make sure that the "
-"environment variable HOME points to an existing directory."
-msgstr ""
-
-#: app/app_procs.c:705 app/diaconv.c:249
-msgid "Objects and filters internal to dia"
-msgstr "A dia saját objektumai és szűrői"
-
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
-msgstr ""
+msgstr "Az automatikusan mentett diagramok visszaállítása"
 
 #: app/autosave.c:101
 msgid ""
 "Autosaved files exist.\n"
 "Please select those you wish to recover."
 msgstr ""
+"Létezik automatikusan mentett fájl.\n"
+"Válassza ki azokat, amelyeket vissza akar állítani."
 
-#: app/color_area.c:316 app/color_area.c:363
-#, fuzzy
+#: app/color_area.c:316
+#: app/color_area.c:363
 msgid "Select foreground color"
-msgstr "Előtér szín:"
+msgstr "Előtér szín kiválasztása"
 
-#: app/color_area.c:317 app/color_area.c:364
-#, fuzzy
+#: app/color_area.c:317
+#: app/color_area.c:364
 msgid "Select background color"
-msgstr "Háttér szín:"
+msgstr "Háttér szín kiválasztása"
 
 #: app/commands.c:132
-#, fuzzy, c-format
+#, c-format
 msgid "Diagram%d.dia"
-msgstr "Ábraszerkesztő"
+msgstr "Diagram%d.dia"
 
 #: app/commands.c:200
 msgid "No existing object to paste.\n"
 msgstr "Nincs beillesztendő objektum.\n"
 
-#: app/commands.c:470 app/commands.c:508
+#: app/commands.c:515
+#: app/commands.c:553
 msgid "Could not find help directory"
-msgstr ""
+msgstr "Nem található a súgó könyvtára"
 
-#: app/commands.c:477
-#, fuzzy, c-format
+#: app/commands.c:522
+#, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+msgstr ""
+"Nem tudom megnyitni a súgó könyvtárat:\n"
+"%s"
 
 #.
 #. * Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:547
+#: app/commands.c:592
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Kovács Emese <emese@gnome.hu>\n"
-"Tímár András <timar@gnome.hu>"
+"Tímár András <timar@gnome.hu>\n"
+"Kmetykó Gábor aka kilo <kg_kilo@freemail.hu>"
 
-#: app/commands.c:561 dia.desktop.in.h:1
+#: app/commands.c:606
+#: dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:563
+#: app/commands.c:608
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002 The Free Software Foundation és a szerzők"
 
-#: app/commands.c:564
-#, fuzzy
+#: app/commands.c:609
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
-msgstr "Látogass el a http://www.lysator.liu.se/~alla/dia lapra"
+msgstr ""
+"A Dia egy strukturált ábrák rajzolására szolgáló program. "
+"Látogass el a http://www.lysator.liu.se/~alla/dia lapra további információkért."
 
-#: app/commands.c:603
+#: app/commands.c:648
 msgid "About Dia"
 msgstr "A Dia névjegye"
 
-#: app/commands.c:646
+#: app/commands.c:691
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s. Szerző: Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:652
+#: app/commands.c:697
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Karbantartók: Lars Clausen és Cyrille Chépélov"
 
-#: app/commands.c:656
-#, fuzzy
+#: app/commands.c:701
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr "Látogass el a http://www.lysator.liu.se/~alla/dia lapra"
+msgstr "Látogass el a http://www.lysator.liu.se/~alla/dia lapra további információkért"
 
-#: app/commands.c:661
+#: app/commands.c:706
 msgid "Contributors:"
 msgstr "Köszönet illeti még:"
 
-#: app/defaults.c:43 app/defaults.c:146
+#: app/defaults.c:43
+#: app/defaults.c:146
 msgid "Object defaults"
 msgstr "Objektum alapértékek"
 
 # app/defaults.c:96
 #: app/defaults.c:61
 msgid "This object has no defaults."
-msgstr "Nincs alapértéke az objektumnak."
+msgstr "Ennek az objektumnak nincs alapértéke."
 
 # app/preferences.c:88
 #: app/defaults.c:111
-#, fuzzy
 msgid "Defaults: "
-msgstr "Alapbeállítások"
+msgstr "Alapbeállítások:"
 
 # app/dia-props.c:60 app/dia-props.c:67
 #: app/dia-props.c:75
@@ -265,7 +291,7 @@ msgstr "Ábra tulajdonságai"
 
 #: app/dia-props.c:110
 msgid "Dynamic grid"
-msgstr ""
+msgstr "Dinamikus rács"
 
 #: app/dia-props.c:118
 msgid "x"
@@ -276,207 +302,198 @@ msgid "y"
 msgstr "y"
 
 #: app/dia-props.c:127
-#, fuzzy
 msgid "Spacing"
 msgstr "Méretezés"
 
 #: app/dia-props.c:147
-#, fuzzy
 msgid "Visible spacing"
-msgstr "_Látható rács"
+msgstr "Látható méretezés"
 
 #: app/dia-props.c:167
 msgid "Grid"
 msgstr "Rács"
 
-#: app/dia-props.c:178 lib/diagramdata.c:62
+#: app/dia-props.c:178
+#: lib/diagramdata.c:62
 msgid "Background"
 msgstr "Háttér"
 
-#: app/dia-props.c:189 app/preferences.c:103
+#: app/dia-props.c:189
+#: app/preferences.c:103
 msgid "Grid Lines"
 msgstr "Rácsvonalak"
 
 #: app/dia-props.c:200
-#, fuzzy
 msgid "Page Breaks"
-msgstr "Laptörés:"
+msgstr "Laptörés"
 
 #: app/dia-props.c:211
-#, fuzzy
-msgid "Colours"
-msgstr "Szín:"
+msgid "Colors"
+msgstr "Színek"
 
 # app/dia-props.c:60 app/dia-props.c:67
-#. Can we be sure that the filename is the 'proper title'?
+#  Can we be sure that the filename is the 'proper title'?
 #: app/dia-props.c:230
-#, fuzzy, c-format
+#, c-format
 msgid "Diagram Properties: %s"
-msgstr "Ábra tulajdonságai"
+msgstr "Ábra tulajdonságai: %s"
 
 # app/dia_embedd.c:352
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "A Bonobo inicializálása nem sikerült!"
 
-#. &export_file_format
+#  &export_file_format
 #: app/diaconv.c:92
-#, fuzzy
 msgid "Export format to use"
-msgstr "Betöltött fájl exportálása és kilépés"
+msgstr "Exportáláskor használandó formátum"
 
 #: app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr ""
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
-#, fuzzy
 msgid "Export file name to use"
-msgstr "Betöltött fájl exportálása és kilépés"
+msgstr "Exportáláskor használandó fájlnév"
 
 #: app/diaconv.c:96
-#, fuzzy
 msgid "Quiet operation"
-msgstr "Elnyomott attribútumok"
+msgstr "Csendes működés"
 
 # app/app_procs.c:181
-#: app/diaconv.c:147
-#, fuzzy, c-format
+#: app/diaconv.c:149
+#, c-format
 msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s kapcsolónál: %s\n"
+"Hiba: nem található kapcsoló.\n"
 "Az elérhető parancssori kapcsolók megtekintéséhez futtasd a '%s --help'-et.\n"
 
-#: app/diaconv.c:157
+#: app/diaconv.c:159
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
-msgstr ""
+msgstr "%s hiba: a -t vagy -o kapcsolók közül egyszerre csak egyet lehet használni."
 
 # app/app_procs.c:181
-#: app/diaconv.c:163
-#, fuzzy, c-format
+#: app/diaconv.c:165
+#, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s kapcsolónál: %s\n"
+"%s hiba: a -t vagy -o kapcsolók közül egyszerre csak egyet szabad használni.\n"
 "Az elérhető parancssori kapcsolók megtekintéséhez futtasd a '%s --help'-et.\n"
 
-#: app/diaconv.c:172
-#, fuzzy, c-format
+#: app/diaconv.c:174
+#, c-format
 msgid "%s error: no input file."
-msgstr "Érvényes bemeneti fájl kell\n"
+msgstr "%s hiba: nincs bemeneti fájl."
 
-#: app/diaconv.c:225
-#, fuzzy, c-format
+#: app/diaconv.c:227
+#, c-format
 msgid "%s error: only one input file expected."
-msgstr "Érvényes bemeneti fájl kell\n"
+msgstr "%s hiba: csak egy bemeneti fájl szükséges."
 
-#: app/diaconv.c:238
+#: app/diaconv.c:240
 #, c-format
 msgid "%s error: popt library not available on this system"
-msgstr ""
+msgstr "%s hiba: a popt könyvtár nem található ezen a rendszeren"
 
 #: app/diagram_tree_menu.c:45
-#, fuzzy
 msgid "/_Sort objects"
-msgstr "Aktív objektumok"
+msgstr "/Objektumok rendezé_se"
 
 #: app/diagram_tree_menu.c:46
-#, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "Nincs objektum-menü"
+msgstr "/Objektumok rendezése/_név alapján"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr ""
+msgstr "/Objektumok rendezése/_típus alapján"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/Objektumok rendezése/be_illesztés sorrendje alapján"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr ""
+msgstr "/Objektumok rendezése/Azonos név"
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr ""
+msgstr "/Objektumok rendezése/Azonos típus"
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/Objektumok rendezése/Azonos beillesztés"
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
-msgstr ""
+msgstr "/Objektumok rendezése/Alapértelmezett"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr ""
+msgstr "/Objektumok rendezése/Alapértelmezett/_név alapján"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr ""
+msgstr "/Objektumok rendezése/Alapértelmezett/_típus alapján"
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
-msgstr ""
+msgstr "/Objektumok rendezése/Alapértelmezett/be_illesztés alapján"
 
 #: app/diagram_tree_menu.c:66
-#, fuzzy
 msgid "/Sort _diagrams"
-msgstr "Ábra exportálása"
+msgstr "/_Diagram rendezése"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
-msgstr ""
+msgstr "/_Diagram rendezése/név alapján"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr ""
+msgstr "/_Diagram rendezése/be_illesztés alapján"
 
 #: app/diagram_tree_menu.c:71
-#, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "Ábramenü"
+msgstr "/Diagram rendezése/Alapértelmezett"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr ""
+msgstr "/Diagram rendezése/Alapértelmezett/_név alapján"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr ""
+msgstr "/Diagram rendezése/Alapértelmezett/be_illesztés alapján"
 
-#: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
-#, fuzzy
+#: app/diagram_tree_menu.c:82
+#: app/diagram_tree_menu.c:93
 msgid "/_Locate"
-msgstr "Betöltve:"
+msgstr "/Keresés"
 
 #: app/diagram_tree_menu.c:83
-#, fuzzy
 msgid "/_Properties"
-msgstr "_Tulajdonságok"
+msgstr "/_Tulajdonságok"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
-msgstr ""
+msgstr "/Ilyen típus elrejtése"
 
 #: app/diagram_tree_window.c:76
-#, fuzzy
 msgid "Diagram tree"
-msgstr "Ábraszerkesztő"
+msgstr "Ábra hierarchia"
 
 #: app/dialogs.c:51
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/paginate_psprint.c:276
+#: app/dialogs.c:52
+#: app/layer_dialog.c:1009
+#: app/paginate_psprint.c:278
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Mégsem"
 
@@ -533,11 +550,13 @@ msgstr "*"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:786 app/pagesetup.c:73
+#: app/diapagelayout.c:786
+#: app/pagesetup.c:73
 msgid "Page Setup"
 msgstr "Oldalbeállítás"
 
-#: app/disp_callbacks.c:78 app/properties.c:153
+#: app/disp_callbacks.c:79
+#: app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -545,115 +564,127 @@ msgstr ""
 "Ez az objektum nem támogatja a Visszavonás/Újra funkciókat.\n"
 "Visszavonásra vonatkozó információk törölve."
 
-#: app/disp_callbacks.c:220
-msgid "No object menu"
-msgstr "Nincs objektum-menü"
+#: app/disp_callbacks.c:114
+msgid "Properties..."
+msgstr "Tulajdonságok..."
 
-#: app/disp_callbacks.c:856
+#: app/disp_callbacks.c:907
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
+"Az ide ejtett objektum nem illeszthető a szülőhöz.\n"
+"Vagy bontsd ki a szülő objektumot, vagy máshova ejtsd az objektumot"
 
-#: app/display.c:93
+#: app/display.c:95
 msgid "Diagram modified!"
 msgstr "Az ábra módosítva lett!"
 
-#: app/display.c:992
+#: app/display.c:998
 msgid "<unnamed>"
 msgstr "<névtelen>"
 
-#: app/display.c:994
-#, fuzzy, c-format
+#: app/display.c:1000
+#, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"Módosított ábra van a rajztáblán.\n"
-"Tényleg be akarod zárni?"
+"A '%s' ábra\n"
+"nem került elmentésre. Változások mentése most?"
 
-#: app/display.c:1005
+#: app/display.c:1011
 msgid "Close Diagram"
 msgstr "Ábra bezárása"
 
-#: app/display.c:1010
+#: app/display.c:1016
 msgid "Discard Changes"
-msgstr ""
+msgstr "Változások elvetése"
 
-#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
-#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
-#, fuzzy, c-format
+#: app/export_png.c:134
+#: app/load_save.c:867
+#: app/render_eps.c:103
+#: plug-ins/cgm/cgm.c:1157
+#: plug-ins/dxf/dxf-export.c:505
+#: plug-ins/hpgl/hpgl.c:732
+#: plug-ins/metapost/render_metapost.c:964
+#: plug-ins/pstricks/render_pstricks.c:800
+#: plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:152
+#: plug-ins/wpg/wpg.c:1065
+#: plug-ins/xfig/xfig-export.c:1100
+#: plug-ins/xslt/xslt.c:94
+#, c-format
 msgid "Can't open output file %s: %s\n"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+msgstr "Nem tudom megnyitni a %s kimeneti fájlt '%s'\n"
 
-#: app/export_png.c:124
+#: app/export_png.c:142
 msgid "Could not create PNG write structure"
 msgstr "Nem tudtam írható PNG struktúrát létrehozni"
 
-#: app/export_png.c:133
+#: app/export_png.c:151
 msgid "Could not create PNG header info structure"
 msgstr "Nem tudtam létrehozni a PNG fejléc info struktúrát"
 
-#: app/export_png.c:141
+#: app/export_png.c:159
 msgid "Error occurred while writing PNG"
 msgstr "A PNG írásakor hiba lépett fel"
 
 # app/filedlg.c:524
-#. Create a dialog
-#: app/export_png.c:265
-#, fuzzy
+#  Create a dialog
+#: app/export_png.c:299
 msgid "PNG Export Options"
-msgstr "Exportálás beállításai"
+msgstr "PNG export tulajdonságok"
 
-#. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
-#, fuzzy
+#  Translators: Menu item Verb/Channel/Export
+#: app/export_png.c:300
+#: objects/FS/function.c:685
+#: objects/FS/function.c:687
 msgid "Export"
-msgstr "   Export"
+msgstr "Exportálás"
 
-#: app/export_png.c:271
-#, fuzzy
+#: app/export_png.c:305
 msgid "Image width:"
-msgstr "Képfájl:"
+msgstr "Kép szélessége:"
 
-#: app/export_png.c:274
-#, fuzzy
+#: app/export_png.c:308
 msgid "Image height:"
-msgstr "Képfájl:"
+msgstr "Kép magassága:"
 
-#: app/export_png.c:319
+#: app/export_png.c:354
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:113 app/filedlg.c:380
+#: app/filedlg.c:114
+#: app/filedlg.c:382
 msgid "By extension"
 msgstr "Kiterjesztés szerint"
 
-#: app/filedlg.c:172
+#: app/filedlg.c:175
 msgid "Open Diagram"
 msgstr "Ábra megnyitása"
 
 # app/filedlg.c:184
-#: app/filedlg.c:200
+#: app/filedlg.c:203
 msgid "Open Options"
 msgstr "Megnyitás beállításai"
 
 # app/filedlg.c:192 app/filedlg.c:532
-#: app/filedlg.c:208 app/filedlg.c:495
+#: app/filedlg.c:211
+#: app/filedlg.c:500
 msgid "Determine file type:"
 msgstr "Fájltípus meghatározása:"
 
-#: app/filedlg.c:245
+#: app/filedlg.c:248
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
+"A fájlnévben valamely karakter sem UTF-8, sem a helyi beállításoknak megfelelő kódolású.\n"
+"Néhány dolog elromolhat."
 
-#: app/filedlg.c:251 app/filedlg.c:422
+#: app/filedlg.c:254
+#: app/filedlg.c:427
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -662,28 +693,26 @@ msgstr ""
 "A %s nevű fájl már létezik.\n"
 "Fölül szeretnéd írni?"
 
-#: app/filedlg.c:259 app/filedlg.c:428
+#: app/filedlg.c:262
+#: app/filedlg.c:434
 msgid "File already exists"
 msgstr "A fájl már létezik"
 
-#: app/filedlg.c:292
+#: app/filedlg.c:294
 msgid "Save Diagram"
 msgstr "Ábra mentése"
 
-#. Need better way to make it a reasonable size.  Isn't there some
-#. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:297
-#, fuzzy
+#  Need better way to make it a reasonable size.  Isn't there some
+#  standard look for them (or is that just Gnome?)
+#: app/filedlg.c:299
 msgid "Compress diagram files"
-msgstr "Elmentett fájlok tömörítése:"
+msgstr "Diagram fájlok tömörítése"
 
-#: app/filedlg.c:306
-msgid ""
-"Compression reduces file size to less than 1/10th size and speeds up loading "
-"and saving.  Some text programs cannot manipulate compressed files."
-msgstr ""
+#: app/filedlg.c:308
+msgid "Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."
+msgstr "A tömörítés a fájl méretét kevesebb, mint 1/10-re csökkenti, valamint felgyorsítja a betöltést és a mentést.  Néhány szövegkezelő program nem képes tömörített fájlokat kezelni."
 
-#: app/filedlg.c:447
+#: app/filedlg.c:452
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -692,145 +721,150 @@ msgstr ""
 "Nem tudtam megállapítani, hogy melyik export szűrőt használjam\n"
 "'%s' mentéséhez"
 
-#: app/filedlg.c:465
+#: app/filedlg.c:470
 msgid "Export Diagram"
 msgstr "Ábra exportálása"
 
 # app/filedlg.c:524
-#: app/filedlg.c:487
+#: app/filedlg.c:492
 msgid "Export Options"
 msgstr "Exportálás beállításai"
 
 # app/interface.c:37
-#: app/interface.c:43
+#: app/interface.c:52
 msgid "Modify object(s)"
 msgstr "Objektum(ok) módosítása"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:53
 msgid "Modify"
 msgstr "Módosítás"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:57
+#: app/interface.c:58
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Nagyítás"
 
-#: app/interface.c:53
+#: app/interface.c:62
 msgid "Scroll around the diagram"
 msgstr "Körbegörget a diagramon"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:63
 msgid "Scroll"
 msgstr "Görgetés"
 
-#. PROP_STD_TEXT_ALIGNMENT,
-#. PROP_STD_TEXT_FONT,
-#. PROP_STD_TEXT_HEIGHT,
-#. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
-#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
-#: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:154
-#: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
-#: objects/UML/small_package.c:121 objects/UML/state.c:134
-#: objects/UML/usecase.c:131
+#: app/interface.c:67
+#: app/interface.c:68
+#: lib/properties.c:77
+#: lib/properties.h:514
+#: lib/properties.h:517
+#: objects/UML/activity.c:122
+#: objects/UML/actor.c:120
+#: objects/UML/classicon.c:141
+#: objects/UML/component.c:126
+#: objects/UML/component_feature.c:154
+#: objects/UML/node.c:125
+#: objects/UML/note.c:119
+#: objects/UML/object.c:145
+#: objects/UML/small_package.c:126
+#: objects/UML/state.c:139
+#: objects/UML/usecase.c:136
 msgid "Text"
 msgstr "Szöveg"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:72
+#: app/interface.c:73
 msgid "Box"
 msgstr "Doboz"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:77
+#: app/interface.c:78
 msgid "Ellipse"
 msgstr "Ellipszis"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:82
+#: app/interface.c:83
 msgid "Polygon"
 msgstr "Sokszög"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:87
+#: app/interface.c:88
 msgid "Beziergon"
 msgstr "Bezier-síkidom"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:92
+#: app/interface.c:93
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Vonal"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:97
+#: app/interface.c:98
 msgid "Arc"
 msgstr "Körív"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:102
+#: app/interface.c:103
 msgid "Zigzagline"
 msgstr "Cikkcakkvonal"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:107
+#: app/interface.c:108
 msgid "Polyline"
 msgstr "Töröttvonal"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:112
+#: app/interface.c:113
 msgid "Bezierline"
 msgstr "Bezier-görbe"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:117
+#: app/interface.c:118
 msgid "Image"
 msgstr "Kép"
 
-#: app/interface.c:371
-#, fuzzy
+#: app/interface.c:390
 msgid "Diagram menu."
 msgstr "Ábramenü"
 
-#: app/interface.c:480
+#: app/interface.c:428
+msgid "Pops up the Navigation window."
+msgstr "Megjeleníti a Navigáció ablakot."
+
+#: app/interface.c:508
 msgid "Zoom"
 msgstr "Közelítés"
 
-#: app/interface.c:494
+#: app/interface.c:522
 msgid "Toggles snap-to-grid for this window."
-msgstr ""
+msgstr "Ki/bekapcsolja ebben az ablakban a rácshoz igazítást."
 
-#: app/interface.c:538
+#: app/interface.c:585
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:1020
-#, fuzzy
-msgid ""
-"Foreground & background colors for new objects.  The small black and white "
-"squares reset colors.  The small arrows swap colors.  Double click to change "
-"colors."
-msgstr ""
-"Elő- és háttérszínek. A kis fekete és fehér négyzetek alapbeállítást "
-"nyújtanak. A kis nyilak felcserélik a színeket. Dupla klikkel szerkesztheted."
+#: app/interface.c:1068
+msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
+msgstr "Új objektumok elő- és háttérszíne. A kis fekete és fehér négyzetek alapbeállítást nyújtanak. A kis nyilak felcserélik a színeket. Dupla klikkel szerkesztheted."
 
-#: app/interface.c:1035
-msgid ""
-"Line widths.  Click on a line to set the default line width for new "
-"objects.  Double-click to set the line width more precisely."
-msgstr ""
+#: app/interface.c:1083
+msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
+msgstr "Vonalvastagságok.  A vonalra kattintással beállítható az új objektumok alapértelmezett vonalvastagsága.  Dupla kattintásra a vonalvastagság sokkal pontosabban megadható."
 
-#: app/interface.c:1067
-msgid ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details..."
-msgstr ""
+#: app/interface.c:1115
+msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
+msgstr "Nyíl típusa új vonalak kezdeténél.  Válassz ki egy nyilat, vagy a Részletek...-ben add meg a nyil paramétereit."
 
-#: app/interface.c:1072
-msgid ""
-"Line style for new lines.  Click to pick a line style, or set line style "
-"parameters with Details..."
-msgstr ""
+#: app/interface.c:1120
+msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
+msgstr "Vonal típusa új vonalak rajzolásánál.  Válassz ki egy vonaltípust, vagy a Részletek...-ben add meg a vonal paramétereit."
 
-#: app/interface.c:1077
-msgid ""
-"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
-"parameters with Details..."
-msgstr ""
+#: app/interface.c:1126
+msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
+msgstr "Nyíl típusa új vonalak végénél.  Válassz ki egy nyilat, vagy a Részletek...-ben add meg a nyil paramétereit."
 
-#: app/interface.c:1185
+#: app/interface.c:1236
 msgid "Diagram Editor"
 msgstr "Ábraszerkesztő"
 
@@ -878,25 +912,17 @@ msgstr "Réteg tulajdonságainak szerkesztése"
 msgid "Layer name:"
 msgstr "Réteg neve:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/paginate_psprint.c:268
+#: app/layer_dialog.c:999
+#: app/paginate_psprint.c:270
+#: lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:429
-msgid "Arrow Properties"
-msgstr "Nyíl tulajdonságai"
-
-#: app/lineprops_area.c:505 app/lineprops_area.c:702
-msgid "Details..."
-msgstr "Részletek..."
-
-#: app/lineprops_area.c:658
-msgid "Line Style Properties"
-msgstr "Vonalstílus tulajdonságai"
-
-#: app/linewidth_area.c:239 lib/properties.h:475
-#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:239
+#: lib/properties.h:478
+#: lib/properties.h:481
+#: objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Vonal szélessége"
 
@@ -929,21 +955,25 @@ msgstr ""
 "A csatlakozási \"handle\" nem létezik."
 
 #: app/load_save.c:273
-#, fuzzy, c-format
+#, c-format
 msgid "Can't find parent %s of %s object\n"
-msgstr "Vonal készítése"
+msgstr "Nem találom %s objektum %s szülőjét.\n"
 
 #: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Fájlt kell megadnod, nem könyvtárat.\n"
 
-#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
+#: app/load_save.c:325
+#: plug-ins/dxf/dxf-import.c:1304
+#: plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1517
+#: plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nem tudom megnyitni: '%s' nem olvasható.\n"
 
-#: app/load_save.c:342 app/load_save.c:347
+#: app/load_save.c:342
+#: app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -962,804 +992,546 @@ msgstr ""
 "Nem Dia fájl."
 
 #: app/load_save.c:551
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"Nem tudom betölteni a következő ábrát: %s.\n"
-"Nem Dia fájl."
+"Nem tudom betölteni az alábbi ábrát:\n"
+"%s.\n"
+"Az érvényes Dia fájl legalább egy réteget tartalmaz."
 
 #: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "'%s' fájl mentése sikertelen\n"
 
-#: app/load_save.c:970 app/load_save.c:975
+#: app/load_save.c:971
+#: app/load_save.c:976
 msgid "Native Dia Diagram"
 msgstr "Eredeti Dia ábra"
 
-#: app/menus.c:50 app/menus.c:70
-msgid "_New diagram"
-msgstr "Ú_j diagram"
-
-#: app/menus.c:50 app/menus.c:70
-msgid "Create new diagram"
-msgstr "Új ábra készítése"
-
-#: app/menus.c:54
-#, fuzzy
-msgid "_Diagram tree"
-msgstr "Ábraszerkesztő"
-
-#: app/menus.c:54
-#, fuzzy
-msgid "Show diagram tree"
-msgstr "Ú_j diagram"
-
-#: app/menus.c:56
-msgid "_Sheets and Objects..."
-msgstr ""
-
-#: app/menus.c:57
-msgid "Modify sheets and their objects"
-msgstr ""
-
-# app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
-#: app/menus.c:61
-msgid "P_lugins..."
-msgstr "_Bővítmények..."
-
-# app/menus.c:57
-#: app/menus.c:76
-msgid "_Export..."
-msgstr "_Exportálás..."
-
-#: app/menus.c:80
-msgid "Page Set_up..."
-msgstr "_Oldalbeállítás..."
-
-#: app/menus.c:82
-msgid "_Print Diagram..."
-msgstr "Ábra _nyomtatása..."
-
-#: app/menus.c:97
-msgid "_Delete"
-msgstr "_Törlés"
-
-#: app/menus.c:103
-msgid "Copy Text"
-msgstr "Szöveg másolása"
-
-#: app/menus.c:104
-msgid "Cut Text"
-msgstr "Szöveg kivágása"
-
-#: app/menus.c:105
-msgid "Paste _Text"
-msgstr "Szöveg _beillesztése"
-
-#: app/menus.c:129
-msgid "Zoom _In"
-msgstr "_Nagyítás"
-
-#: app/menus.c:129
-msgid "Zoom in 50%"
-msgstr "50%-os nagyítás"
-
-#: app/menus.c:130
-msgid "Zoom _Out"
-msgstr "_Kicsinyítés"
-
-#: app/menus.c:130
-msgid "Zoom out 50%"
-msgstr "50%-os kicsinyítés"
-
-#: app/menus.c:131
-msgid "_Zoom"
-msgstr "_Nagyítás"
-
-#: app/menus.c:133
-msgid "Diagram Properties..."
-msgstr "Ábra tulajdonságai..."
-
-#: app/menus.c:135
-msgid "_AntiAliased"
-msgstr "É_lsimított"
-
-#. TODO: Show Menu Bar  F9.  Hub's cool code.
-#: app/menus.c:139
-msgid "Show _Grid"
-msgstr "_Rács megjelenítése"
-
-#: app/menus.c:141
-msgid "_Snap To Grid"
-msgstr "_Rácsra illesztés"
-
-#: app/menus.c:143
-msgid "Show _Rulers"
-msgstr "_Vonalzók megjelenítése"
-
-#: app/menus.c:145
-msgid "Show _Connection Points"
-msgstr "_Csatlakozási pontok megjelenítése"
-
-#: app/menus.c:148
-msgid "New _View"
-msgstr "Új _nézet"
-
-#: app/menus.c:149
-msgid "Show _All"
-msgstr "_Mindent mutat"
-
-#: app/menus.c:150
-msgid "Redraw"
-msgstr "Újrarajzolás"
-
-#: app/menus.c:155
-msgid "Replace"
-msgstr "Csere"
-
-#: app/menus.c:157
-msgid "Union"
-msgstr "Unió"
-
-#: app/menus.c:159
-msgid "Intersect"
-msgstr "Metszet"
-
-#. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:161 app/sheets_dialog.c:784 objects/FS/function.c:695
-#: objects/FS/function.c:847 objects/FS/function.c:849
-msgid "Remove"
-msgstr "Eltávolítás"
-
-#: app/menus.c:163 app/menus.c:171
-msgid "Invert"
-msgstr "Invertálás"
-
-#: app/menus.c:169
-msgid "All"
-msgstr "Mindent"
-
-#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1135
-msgid "None"
-msgstr "Nincs"
-
-#: app/menus.c:172
-msgid "Connected"
-msgstr "Összekötött"
-
-#: app/menus.c:173
-msgid "Transitive"
-msgstr "Tranzitív"
-
-#: app/menus.c:174
-msgid "Same Type"
-msgstr "Azonos típus"
-
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
-msgid "Left"
-msgstr "Balra"
-
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
-msgid "Center"
-msgstr "Középre"
-
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
-msgid "Right"
-msgstr "Jobbra"
-
-#: app/menus.c:185 app/menus.c:195
-msgid "Equal Distance"
-msgstr "Egyenlő távolság"
-
-#: app/menus.c:186 app/menus.c:196
-msgid "Adjacent"
-msgstr "Egymás mellé"
-
-#: app/menus.c:191
-msgid "Top"
-msgstr "Fent"
-
-#: app/menus.c:192
-msgid "Middle"
-msgstr "Középen"
-
-#: app/menus.c:193
-msgid "Bottom"
-msgstr "Lent"
-
-#: app/menus.c:201
-msgid "Send to _Back"
-msgstr "_Háttérbe küld"
-
-#: app/menus.c:202
-msgid "Bring to _Front"
-msgstr "_Előtérbe hoz"
-
-#: app/menus.c:203
-#, fuzzy
-msgid "Send Backwards"
-msgstr "_Háttérbe küld"
-
-#: app/menus.c:204
-msgid "Bring Forwards"
-msgstr ""
-
-#: app/menus.c:206
-msgid "_Group"
-msgstr "_Csoportosít"
-
-#: app/menus.c:207
-msgid "_Ungroup"
-msgstr "Cso_port felbonása"
-
-#: app/menus.c:209
-#, fuzzy
-msgid "_Parent"
-msgstr "Paraméterek:"
-
-#: app/menus.c:210
-msgid "_Unparent"
-msgstr ""
-
-#: app/menus.c:211
-msgid "_Unparent Children"
-msgstr ""
-
-#: app/menus.c:213
-msgid "Align _Horizontal"
-msgstr "_Vizszintes"
-
-#: app/menus.c:214
-msgid "Align _Vertical"
-msgstr "_Függőleges"
-
-#: app/menus.c:216
-#, fuzzy
-msgid "_Properties..."
-msgstr "_Tulajdonságok"
-
-#: app/menus.c:241
-msgid "_Layers"
-msgstr "_Rétegek"
-
-#: app/menus.c:267
-msgid "_Select"
-msgstr "_Kijelölés"
-
-#: app/menus.c:268
-msgid "_Objects"
-msgstr "_Objektumok"
-
-#: app/menus.c:269
-msgid "_Tools"
-msgstr "_Eszközök"
-
-#: app/menus.c:270
-msgid "_Dialogs"
-msgstr "_Dialógusok"
-
-#: app/menus.c:271
-msgid "_Input Methods"
-msgstr ""
-
-#: app/menus.c:272
-msgid "_Help"
-msgstr "_Súgó"
-
-#: app/menus.c:283 app/menus.c:318
+#: app/menus.c:49
+#: app/menus.c:84
 msgid "/_File"
 msgstr "/_Fájl"
 
-#: app/menus.c:285 app/menus.c:320
+#: app/menus.c:51
+#: app/menus.c:86
 msgid "/File/_New"
 msgstr "/Fájl/Ú_j"
 
-#: app/menus.c:287 app/menus.c:322
+#: app/menus.c:53
+#: app/menus.c:88
 msgid "/File/_Open..."
 msgstr "/Fájl/_Megnyitás..."
 
 # app/menus.c:253 app/menus.c:267 app/menus.c:270
 #. recent file list is dynamically inserted here
-#: app/menus.c:289 app/menus.c:294 app/menus.c:298 app/menus.c:300
-#: app/menus.c:329 app/menus.c:333
+#: app/menus.c:55
+#: app/menus.c:60
+#: app/menus.c:64
+#: app/menus.c:66
+#: app/menus.c:95
+#: app/menus.c:99
 msgid "/File/---"
 msgstr "/Fájl/---"
 
-#: app/menus.c:290
-#, fuzzy
+#: app/menus.c:56
 msgid "/File/_Diagram tree"
-msgstr "/Fájl/Ábra _nyomtatása..."
+msgstr "/Fájl/Ábra hierarchia"
 
-#: app/menus.c:292
+#: app/menus.c:58
 msgid "/File/Sheets and Objects..."
-msgstr ""
+msgstr "/Fájl/Munkalapok és objektumok..."
 
-#: app/menus.c:295
+#: app/menus.c:61
 msgid "/File/_Preferences..."
 msgstr "/Fájl/_Tulajdonságok..."
 
 # app/menus.c:252
-#: app/menus.c:297
+#: app/menus.c:63
 msgid "/File/P_lugins..."
 msgstr "/Fájl/_Bővítmények..."
 
-#: app/menus.c:301 app/menus.c:337
+#: app/menus.c:67
+#: app/menus.c:103
 msgid "/File/_Quit"
 msgstr "/Fájl/_Kilépés"
 
-#: app/menus.c:303 app/menus.c:467
+#: app/menus.c:69
+#: app/menus.c:230
 msgid "/_Help"
 msgstr "/_Súgó"
 
-#: app/menus.c:305 app/menus.c:469
+#: app/menus.c:71
+#: app/menus.c:232
 msgid "/Help/_Manual"
 msgstr "/Súgó/_Kézikönyv"
 
-#: app/menus.c:307 app/menus.c:471
+#: app/menus.c:73
+#: app/menus.c:234
 msgid "/Help/---"
 msgstr "/Súgó/---"
 
-#: app/menus.c:308 app/menus.c:472
+#: app/menus.c:74
+#: app/menus.c:235
 msgid "/Help/_About..."
 msgstr "/Súgó/_Névjegy..."
 
-#: app/menus.c:324
+#: app/menus.c:90
 msgid "/File/_Save"
 msgstr "/Fájl/Me_ntés"
 
-#: app/menus.c:326
+#: app/menus.c:92
 msgid "/File/Save _As..."
 msgstr "/Fájl/Mentés máskén_t..."
 
-#: app/menus.c:328
+#: app/menus.c:94
 msgid "/File/_Export..."
 msgstr "/Fájl/_Exportálás..."
 
-#: app/menus.c:330
+#: app/menus.c:96
 msgid "/File/Page Set_up..."
 msgstr "/Fájl/_Oldalbeállítás..."
 
-#: app/menus.c:331
+#: app/menus.c:97
 msgid "/File/_Print Diagram..."
 msgstr "/Fájl/Ábra _nyomtatása..."
 
-#: app/menus.c:334
+#: app/menus.c:100
 msgid "/File/_Close"
 msgstr "/Fájl/_Bezárás"
 
-#: app/menus.c:339
+#: app/menus.c:105
 msgid "/_Edit"
 msgstr "/S_zerkesztés"
 
-#: app/menus.c:341
+#: app/menus.c:107
 msgid "/Edit/_Undo"
 msgstr "/Szerkesztés/_Visszavonás"
 
-#: app/menus.c:343
+#: app/menus.c:109
 msgid "/Edit/_Redo"
 msgstr "/Szerkesztés/_Újra"
 
-#: app/menus.c:345 app/menus.c:354
+#: app/menus.c:111
+#: app/menus.c:121
 msgid "/Edit/---"
 msgstr "/Szerkesztés/---"
 
-#: app/menus.c:346
+#: app/menus.c:112
 msgid "/Edit/_Copy"
 msgstr "/Szerkesztés/_Másolás"
 
-#: app/menus.c:348
+#: app/menus.c:114
 msgid "/Edit/C_ut"
 msgstr "/Szerkesztés/_Kivágás"
 
-#: app/menus.c:350
+#: app/menus.c:116
 msgid "/Edit/_Paste"
 msgstr "/Szerkesztés/_Beillesztés"
 
-#: app/menus.c:352
+#: app/menus.c:118
+msgid "/Edit/_Duplicate"
+msgstr "/Szerkesztés/_Másolat"
+
+#: app/menus.c:119
 msgid "/Edit/_Delete"
 msgstr "/Szerkesztés/_Törlés"
 
-#: app/menus.c:355
+#: app/menus.c:122
 msgid "/Edit/Copy Text"
 msgstr "/Szerkesztés/Szöveg másolása"
 
-#: app/menus.c:356
+#: app/menus.c:123
 msgid "/Edit/Cut Text"
 msgstr "/Szerkesztés/Szöveg kivágása"
 
-#: app/menus.c:357
+#: app/menus.c:124
 msgid "/Edit/Paste _Text"
 msgstr "/Szerkesztés/Szöveg beillesztése"
 
-#: app/menus.c:358
+#: app/menus.c:125
+msgid "/_Diagram"
+msgstr "/Ábra"
+
+#: app/menus.c:127
+msgid "/Diagram/_Properties..."
+msgstr "/Ábra/_Tulajdonságok..."
+
+#: app/menus.c:128
+msgid "/Diagram/_Layers..."
+msgstr "/Ábra/Rétegek..."
+
+#: app/menus.c:129
 msgid "/_View"
 msgstr "/_Nézet"
 
-#: app/menus.c:360
+#: app/menus.c:131
 msgid "/View/Zoom _In"
 msgstr "/Nézet/_Nagyítás"
 
-#: app/menus.c:362
+#: app/menus.c:133
 msgid "/View/Zoom _Out"
 msgstr "/Nézet/_Kicsinyítés"
 
-#: app/menus.c:364
+#: app/menus.c:135
 msgid "/View/_Zoom"
 msgstr "/Nézet/_Nagyítás"
 
-#: app/menus.c:366
+#: app/menus.c:137
 msgid "/View/Zoom/400%"
 msgstr "/Nézet/Nagyítás/400%"
 
-#: app/menus.c:367
+#: app/menus.c:138
 msgid "/View/Zoom/283%"
 msgstr "/Nézet/Nagyítás/283%"
 
-#: app/menus.c:368
+#: app/menus.c:139
 msgid "/View/Zoom/200%"
 msgstr "/Nézet/Nagyítás/200%"
 
-#: app/menus.c:369
+#: app/menus.c:140
 msgid "/View/Zoom/141%"
 msgstr "/Nézet/Nagyítás/141%"
 
-#: app/menus.c:370
+#: app/menus.c:141
 msgid "/View/Zoom/100%"
 msgstr "/Nézet/Nagyítás/100%"
 
-#: app/menus.c:372
+#: app/menus.c:143
 msgid "/View/Zoom/85%"
 msgstr "/Nézet/Nagyítás/85%"
 
-#: app/menus.c:373
+#: app/menus.c:144
 msgid "/View/Zoom/70.7%"
 msgstr "/Nézet/Nagyítás/70.7%"
 
-#: app/menus.c:374
+#: app/menus.c:145
 msgid "/View/Zoom/50%"
 msgstr "/Nézet/Nagyítás/50%"
 
-#: app/menus.c:375
+#: app/menus.c:146
 msgid "/View/Zoom/35.4%"
 msgstr "/Nézet/Nagyítás/35.4%"
 
-#: app/menus.c:376
+#: app/menus.c:147
 msgid "/View/Zoom/25%"
 msgstr "/Nézet/Nagyítás/25%"
 
-#: app/menus.c:377 app/menus.c:386
+#: app/menus.c:148
+#: app/menus.c:156
 msgid "/View/---"
 msgstr "/Nézet/---"
 
-#: app/menus.c:378
-#, fuzzy
-msgid "/View/Diagram Properties..."
-msgstr "/Nézet/Ábra _tulajdonságai"
-
-#: app/menus.c:380
+#: app/menus.c:150
 msgid "/View/_AntiAliased"
 msgstr "/Nézet/Él_simított"
 
-#: app/menus.c:382
-#, fuzzy
+#: app/menus.c:152
 msgid "/View/Show _Grid"
-msgstr "/Nézet/Mutat _Mindent"
+msgstr "/Nézet/Rácsot Mutat"
 
-#: app/menus.c:383
+#: app/menus.c:153
 msgid "/View/_Snap To Grid"
 msgstr "/Nézet/_Rácsra illeszt"
 
-#: app/menus.c:384
+#: app/menus.c:154
 msgid "/View/Show _Rulers"
 msgstr "/Nézet/_Vonalzók"
 
-#: app/menus.c:385
+#: app/menus.c:155
 msgid "/View/Show _Connection Points"
 msgstr "/Nézet/_Csatlakozási pontok"
 
-#: app/menus.c:387
+#: app/menus.c:157
 msgid "/View/New _View"
 msgstr "/Nézet/Új _nézet"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:389
+#: app/menus.c:159
 msgid "/View/Show _All"
 msgstr "/Nézet/Mutat _Mindent"
 
-#: app/menus.c:390
-#, fuzzy
+#: app/menus.c:160
 msgid "/View/Re_draw"
-msgstr "/Nézet/Új _nézet"
+msgstr "/Nézet/Újrarajzolás"
 
-#: app/menus.c:391
-msgid "/_Select"
-msgstr "/_Kijelölés"
-
-#: app/menus.c:393
-msgid "/Select/All"
-msgstr "/Kijelölés/Mindent"
-
-#: app/menus.c:394
-msgid "/Select/None"
-msgstr "/Kijelölés/Semmit"
-
-#: app/menus.c:395 app/menus.c:408
-msgid "/Select/Invert"
-msgstr "/Kijelölés/Invertál"
-
-#: app/menus.c:396
-msgid "/Select/Connected"
-msgstr "/Kijelölés/Összekötött"
-
-#: app/menus.c:397
-msgid "/Select/Transitive"
-msgstr "/Kijelöl/Tranzitív"
-
-#: app/menus.c:398
-msgid "/Select/Same Type"
-msgstr "/Kijelölés/Azonos típus"
-
-#: app/menus.c:399
-msgid "/Select/---"
-msgstr "/Kijelölés/---"
-
-#: app/menus.c:400
-msgid "/Select/Replace"
-msgstr "/Kijelölés/Cserél"
-
-#: app/menus.c:402
-msgid "/Select/Union"
-msgstr "/Kijelölés/Únió"
-
-#: app/menus.c:404
-msgid "/Select/Intersect"
-msgstr "/Kijelölés/Metszet"
-
-#: app/menus.c:406
-msgid "/Select/Remove"
-msgstr "/Kijelölés/Töröl"
-
-#: app/menus.c:410
+#: app/menus.c:161
 msgid "/_Objects"
 msgstr "/_Objektumok"
 
-#: app/menus.c:412
+#: app/menus.c:163
 msgid "/Objects/Send to _Back"
 msgstr "/Objektumok/_Háttérbe tesz"
 
-#: app/menus.c:413
+#: app/menus.c:164
 msgid "/Objects/Bring to _Front"
 msgstr "/Objektumok/_Előtérbe hoz"
 
-#: app/menus.c:414
-#, fuzzy
+#: app/menus.c:165
 msgid "/Objects/Send Backwards"
 msgstr "/Objektumok/Háttérbe küld"
 
-#: app/menus.c:415
-#, fuzzy
+#: app/menus.c:166
 msgid "/Objects/Bring Forwards"
 msgstr "/Objektumok/Előtérbe hoz"
 
-#: app/menus.c:416 app/menus.c:420 app/menus.c:424 app/menus.c:441
+#: app/menus.c:167
+#: app/menus.c:171
+#: app/menus.c:175
+#: app/menus.c:189
 msgid "/Objects/---"
 msgstr "/Objektumok/---"
 
-#: app/menus.c:417
+#: app/menus.c:168
 msgid "/Objects/_Group"
 msgstr "/Objektumok/_Csoportosít"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:419
+#: app/menus.c:170
 msgid "/Objects/_Ungroup"
-msgstr "/Objektumok/Csoport f_elbonása"
+msgstr "/Objektumok/Csoport f_elbontása"
 
-#: app/menus.c:421
-#, fuzzy
+#: app/menus.c:172
 msgid "/Objects/_Parent"
-msgstr "Objektum tulajdonságok"
+msgstr "/Objektumok/_Szülőhöz köt"
 
-#: app/menus.c:422
-#, fuzzy
+#: app/menus.c:173
 msgid "/Objects/_Unparent"
-msgstr "/Objektumok/Csoport f_elbonása"
+msgstr "/Objektumok/Szülőtől elválaszt"
 
-#: app/menus.c:423
-#, fuzzy
+#: app/menus.c:174
 msgid "/Objects/_Unparent Children"
-msgstr "Objektum tulajdonságok"
+msgstr "/Objektumok/Gyermekek leválasztása"
 
-#: app/menus.c:425
-msgid "/Objects/Align _Horizontal"
-msgstr "/Objektumok/_Vizszintes igazítás"
+#: app/menus.c:176
+msgid "/Objects/Align"
+msgstr "/Objektumok/Igazítás"
 
-#: app/menus.c:427
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes igazítás/Balra"
+#: app/menus.c:178
+msgid "/Objects/Align/Left"
+msgstr "/Objektumok/Igazítás/Balra"
 
-#: app/menus.c:428
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objektumok/Vizszintes igazítás/Középre"
+#: app/menus.c:179
+msgid "/Objects/Align/Center"
+msgstr "/Objektumok/Igazítás/Középre"
 
-#: app/menus.c:429
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/Vizszintes igazítás/Jobbra"
+#: app/menus.c:180
+msgid "/Objects/Align/Right"
+msgstr "/Objektumok/Igazítás/Jobbra"
 
-#: app/menus.c:430
+#: app/menus.c:181
+msgid "/Objects/Align/Top"
+msgstr "/Objektumok/Igazítás/Felülre"
+
+#: app/menus.c:182
+msgid "/Objects/Align/Middle"
+msgstr "/Objektumok/Igazítás/Függőlegesen középre"
+
+#: app/menus.c:183
+msgid "/Objects/Align/Bottom"
+msgstr "/Objektumok/Igazítás/Lentre"
+
+#: app/menus.c:184
+msgid "/Objects/Align/---"
+msgstr "/Objektumok/Igazítás/---"
+
+#: app/menus.c:185
+msgid "/Objects/Align/Spread Out Horizontally"
+msgstr "/Objektumok/Igazítás/Vízszintes elosztás"
+
+#: app/menus.c:186
+msgid "/Objects/Align/Spread Out Vertically"
+msgstr "/Objektumok/Igazítás/Függőleges elosztás"
+
+#: app/menus.c:187
+msgid "/Objects/Align/Adjacent"
+msgstr "/Objektumok/Igazítás/Egymás mellé"
+
+#: app/menus.c:188
 #, fuzzy
-msgid "/Objects/Align Horizontal/---"
-msgstr "/Objektumok/_Vizszintes igazítás"
+msgid "/Objects/Align/Stacked"
+msgstr "/Objektumok/Igazítás"
 
-#: app/menus.c:431
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objektumok/Vizszintes igazítás/Egyenlő távolság"
-
-#: app/menus.c:432
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objektumok/Vizszintes igazítás/Egymás mellé"
-
-#: app/menus.c:433
-msgid "/Objects/Align _Vertical"
-msgstr "/Objektumok/_Függőleges igazítás"
-
-#: app/menus.c:435
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Objektumok/Függőleges igazítás/Fent"
-
-#: app/menus.c:436
-#, fuzzy
-msgid "/Objects/Align Vertical/Middle"
-msgstr "/Objektumok/_Függőleges igazítás"
-
-#: app/menus.c:437
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/Függőleges igazítás/Lent"
-
-#: app/menus.c:438
-#, fuzzy
-msgid "/Objects/Align Vertical/---"
-msgstr "/Objektumok/_Függőleges igazítás"
-
-#: app/menus.c:439
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/Függőleges igazítás/Egyenlő távolság"
-
-#: app/menus.c:440
-msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objektumok/Függőleges igazítás/Egymás mellé"
-
-#: app/menus.c:442
-#, fuzzy
+#: app/menus.c:190
 msgid "/Objects/_Properties..."
-msgstr "Objektum tulajdonságok"
+msgstr "/Objektum/_Tulajdonságok..."
 
-#: app/menus.c:443
+#: app/menus.c:191
+msgid "/_Select"
+msgstr "/_Kijelölés"
+
+#: app/menus.c:193
+msgid "/Select/All"
+msgstr "/Kijelölés/Mindent"
+
+#: app/menus.c:194
+msgid "/Select/None"
+msgstr "/Kijelölés/Semmit"
+
+#: app/menus.c:195
+#: app/menus.c:208
+msgid "/Select/Invert"
+msgstr "/Kijelölés/Invertál"
+
+#: app/menus.c:196
+msgid "/Select/Connected"
+msgstr "/Kijelölés/Összekötött"
+
+#: app/menus.c:197
+msgid "/Select/Transitive"
+msgstr "/Kijelöl/Tranzitív"
+
+#: app/menus.c:198
+msgid "/Select/Same Type"
+msgstr "/Kijelölés/Azonos típus"
+
+#: app/menus.c:199
+msgid "/Select/---"
+msgstr "/Kijelölés/---"
+
+#: app/menus.c:200
+msgid "/Select/Replace"
+msgstr "/Kijelölés/Cserél"
+
+#: app/menus.c:202
+msgid "/Select/Union"
+msgstr "/Kijelölés/Únió"
+
+#: app/menus.c:204
+msgid "/Select/Intersect"
+msgstr "/Kijelölés/Metszet"
+
+#: app/menus.c:206
+msgid "/Select/Remove"
+msgstr "/Kijelölés/Töröl"
+
+#: app/menus.c:210
 msgid "/_Tools"
 msgstr "/_Eszközök"
 
-#: app/menus.c:445
+#: app/menus.c:212
 msgid "/Tools/Modify"
 msgstr "/Eszközök/Módosítás"
 
-#: app/menus.c:446
+#: app/menus.c:213
 msgid "/Tools/Magnify"
 msgstr "/Eszközök/Nagyítás"
 
-#: app/menus.c:447
+#: app/menus.c:214
 msgid "/Tools/Scroll"
 msgstr "/Eszközök/Görgetés"
 
-#: app/menus.c:448
+#: app/menus.c:215
 msgid "/Tools/Text"
 msgstr "/Eszközök/Szöveg"
 
-#: app/menus.c:449
+#: app/menus.c:216
 msgid "/Tools/Box"
 msgstr "/Eszközök/Doboz"
 
-#: app/menus.c:450
+#: app/menus.c:217
 msgid "/Tools/Ellipse"
 msgstr "/Eszközök/Ellipszis"
 
-#: app/menus.c:451
+#: app/menus.c:218
 msgid "/Tools/Polygon"
 msgstr "/Eszközök/Sokszög"
 
-#: app/menus.c:452
+#: app/menus.c:219
 msgid "/Tools/Beziergon"
 msgstr "/Eszközök/Bezier-síkidom"
 
-#: app/menus.c:453 app/menus.c:459
-#, fuzzy
+#: app/menus.c:220
+#: app/menus.c:226
 msgid "/Tools/---"
-msgstr "/Eszközök/"
+msgstr "/Eszközök/---"
 
-#: app/menus.c:454
+#: app/menus.c:221
 msgid "/Tools/Line"
 msgstr "/Eszközök/Vonal"
 
-#: app/menus.c:455
+#: app/menus.c:222
 msgid "/Tools/Arc"
 msgstr "/Eszközök/Körív"
 
-#: app/menus.c:456
+#: app/menus.c:223
 msgid "/Tools/Zigzagline"
 msgstr "/Eszközök/Cikkcakkvonal"
 
-#: app/menus.c:457
+#: app/menus.c:224
 msgid "/Tools/Polyline"
 msgstr "/Eszközök/Töröttvonal"
 
-#: app/menus.c:458
+#: app/menus.c:225
 msgid "/Tools/Bezierline"
 msgstr "/Eszközök/Bezier-görbe"
 
-#: app/menus.c:460
+#: app/menus.c:227
 msgid "/Tools/Image"
 msgstr "/Eszközök/Kép"
 
-#: app/menus.c:461
-msgid "/_Dialogs"
-msgstr "/_Párbeszédek"
-
-#: app/menus.c:463
-#, fuzzy
-msgid "/Dialogs/_Layers..."
-msgstr "/Párbeszédek/_Rétegek"
-
-#: app/menus.c:465
+#: app/menus.c:228
 msgid "/_Input Methods"
-msgstr ""
+msgstr "/_Beviteli eljárások"
 
-#: app/menus.c:644
+#: app/menus.c:399
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: app/menus.c:811
+#: app/menus.c:497
 msgid "Diagram Menu"
 msgstr "Ábramenü"
 
-#: app/menus.c:1187
+#: app/menus.c:632
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
+"Nem található a %s menübejegyzés!. "
+"Ez feltehetően i18m probléma lehet (próbálja ki a LANG=C beállítást)."
 
 #: app/modify_tool.c:315
 msgid "Couldn't get GTK settings"
-msgstr ""
+msgstr "Nem tudtam kiolvasni a GTK beállításokat"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:230
 msgid "Select Printer"
 msgstr "Nyomtató kiválasztása"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:242
+#: sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Nyomtató"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:255
+#: sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Fájl"
 
-#: app/paginate_psprint.c:353
-#, fuzzy, c-format
-msgid "Could not run command '%s'"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+#: app/paginate_psprint.c:358
+#, c-format
+msgid "Could not run command '%s': %s"
+msgstr "Nem tudom futtatni a '%s' parancsot: %s"
 
-#: app/paginate_psprint.c:356
-#, fuzzy, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem írható"
+#: app/paginate_psprint.c:361
+#, c-format
+msgid "Could not open '%s' for writing: %s"
+msgstr "Nem tudom megnyitni: '%s' nem írható: %s"
 
-#: app/paginate_psprint.c:381
-#, fuzzy
-msgid "Error occured while printing"
-msgstr "A PNG írásakor hiba lépett fel"
+#: app/paginate_psprint.c:380
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Nyomtatási hiba: a '%s' parancs %d-t adott vissza\n"
+
+#: app/paginate_psprint.c:390
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Nyomtatási hiba: a '%s' parancs sigpipe-ot okozott."
 
 # app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 #: app/plugin-manager.c:200
@@ -1767,30 +1539,26 @@ msgid "Plug-ins"
 msgstr "Bővítmények"
 
 #: app/plugin-manager.c:256
-#, fuzzy
 msgid "Loaded"
-msgstr "Betöltve:"
+msgstr "Betöltve"
 
-#: app/plugin-manager.c:263 objects/UML/class.c:106
-#: objects/UML/large_package.c:121
-#, fuzzy
+#: app/plugin-manager.c:263
+#: objects/UML/class.c:107
+#: objects/UML/large_package.c:128
 msgid "Name"
-msgstr "Név:"
+msgstr "Név"
 
 #: app/plugin-manager.c:269
-#, fuzzy
 msgid "Description"
-msgstr "Leírás:"
+msgstr "Leírás"
 
 #: app/plugin-manager.c:278
-#, fuzzy
 msgid "Load at Startup"
 msgstr "Automatikus betöltés induláskor"
 
 #: app/plugin-manager.c:285
-#, fuzzy
 msgid "File Name"
-msgstr "Fájl neve:"
+msgstr "Fájlnév"
 
 # app/preferences.c:87
 #: app/preferences.c:100
@@ -1798,71 +1566,65 @@ msgid "User Interface"
 msgstr "Felhasználói felület"
 
 #: app/preferences.c:101
-#, fuzzy
 msgid "Diagram Defaults"
-msgstr "Ábramenü"
+msgstr "Diagram alapértelmezések"
 
 # app/preferences.c:88
 #: app/preferences.c:102
 msgid "View Defaults"
-msgstr "Alapbeállítások"
+msgstr "Alapbeállítások megtekintése"
 
 #: app/preferences.c:104
-#, fuzzy
 msgid "Diagram Tree"
-msgstr "Ábramenü"
+msgstr "Diagram fa"
 
 #: app/preferences.c:118
-#, fuzzy
 msgid "Reset tools after create"
-msgstr "Létrehozás után eszközök beállítása:"
+msgstr "Létrehozás után eszközök alaphelyzetbe állítása"
 
 #: app/preferences.c:119
-#, fuzzy
 msgid "Compress saved files"
-msgstr "Elmentett fájlok tömörítése:"
+msgstr "Elmentett fájlok tömörítése"
 
 #: app/preferences.c:120
 msgid "Number of undo levels:"
-msgstr "Visszavonások száma:"
+msgstr "Visszavonások száma"
 
 #: app/preferences.c:121
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
 msgstr ""
+"Fordított egérhúzás kiválasztja\n"
+"a metszett objektumokat"
 
 #: app/preferences.c:122
 msgid "Recent documents list size:"
-msgstr ""
+msgstr "Legutóbbi dokumentumok listájának mérete:"
 
 #: app/preferences.c:123
 msgid "Use menu bar"
-msgstr ""
+msgstr "Menü panel használata"
 
 #: app/preferences.c:125
 msgid "Keep tool box on top of diagram windows"
-msgstr ""
+msgstr "Eszköztár mindig a diagram ablakok fölött marad"
 
 #: app/preferences.c:127
-#, fuzzy
 msgid "New diagram:"
-msgstr "Ú_j diagram"
+msgstr "Új diagram:"
 
 #: app/preferences.c:128
-#, fuzzy
 msgid "Portrait"
-msgstr "Konstans:"
+msgstr "Portré"
 
 #: app/preferences.c:130
-#, fuzzy
 msgid "Paper type:"
-msgstr "Üzenet típusa:"
+msgstr "Papír típusa:"
 
 #: app/preferences.c:133
-#, fuzzy
-msgid "Background Colour:"
-msgstr "Háttér Szín"
+msgid "Background Color:"
+msgstr "Háttérszín:"
 
 #: app/preferences.c:136
 msgid "New window:"
@@ -1884,33 +1646,33 @@ msgstr "Nagyítás:"
 msgid "Connection Points:"
 msgstr "Csatlakozási pontok:"
 
-#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
-#, fuzzy
+#  { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:143
+#: app/preferences.c:147
+#: app/preferences.c:153
 msgid "Visible"
-msgstr "Látható:"
+msgstr "Látható"
 
 #: app/preferences.c:146
 msgid "Page breaks:"
 msgstr "Laptörés:"
 
-#: app/preferences.c:148 app/preferences.c:158
-msgid "Colour:"
+#: app/preferences.c:148
+#: app/preferences.c:158
+msgid "Color:"
 msgstr "Szín:"
 
 #: app/preferences.c:149
-#, fuzzy
 msgid "Solid lines"
-msgstr "Teli vonalak:"
+msgstr "Folyamatos vonalak"
 
 #: app/preferences.c:154
-#, fuzzy
 msgid "Snap to"
-msgstr "Rácsra ugrik:"
+msgstr "Rácsra ugrik"
 
 #: app/preferences.c:155
 msgid "Dynamic grid resizing"
-msgstr ""
+msgstr "Dinamikus rács átméretezés"
 
 #: app/preferences.c:156
 msgid "X Size:"
@@ -1922,28 +1684,30 @@ msgstr "Y méret:"
 
 #: app/preferences.c:159
 msgid "Lines per major line"
-msgstr ""
+msgstr "Fő vonalak kiemelése"
 
 #: app/preferences.c:177
-#, fuzzy
 msgid "Diagram tree window:"
-msgstr "Ábramenü"
+msgstr "Diagram fa ablak:"
 
 #: app/preferences.c:179
 msgid "Save hidden object types"
-msgstr ""
+msgstr "Rejtett objektumtípusok mentése"
 
 #: app/preferences.c:308
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Nem tudom megnyitni: '%s' nem írható"
 
-#: app/preferences.c:586 lib/prop_inttypes.c:151
+#: app/preferences.c:586
+#: lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Igen"
 
-#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:153
-#: lib/prop_inttypes.c:179
+#: app/preferences.c:586
+#: app/preferences.c:597
+#: lib/prop_inttypes.c:160
+#: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Nem"
 
@@ -1957,7 +1721,7 @@ msgstr "Objektum tulajdonságai"
 
 #: app/properties.c:81
 msgid "This object has no properties."
-msgstr "Nincsenek tulajdonságai az objektumnak."
+msgstr "Ennek az objektumnak nincsenek tulajdonságai."
 
 #: app/properties.c:203
 msgid "Properties: "
@@ -1970,33 +1734,34 @@ msgstr "Objektum tulajdonságai:"
 # app/menus.c:252
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
-#: app/recent_files.c:137
-#, fuzzy
+#: app/recent_files.c:139
 msgid "<Toolbox>/File/Plugins..."
-msgstr "/Fájl/_Bővítmények"
+msgstr "<Toolbox>/Fájl/_Bővítmények..."
 
-#: app/recent_files.c:259
-#, fuzzy
+#: app/recent_files.c:267
 msgid "<Toolbox>/File/Quit"
-msgstr "/Fájl/_Kilépés"
+msgstr "<Toolbox>/Fájl/Kilépés"
 
-#: app/recent_files.c:295
-#, fuzzy
+#: app/recent_files.c:303
 msgid "Can't open history file for writing."
-msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
+msgstr "Nem tudom megnyitni a töténet fájlt írásra."
 
-#: app/render_eps.c:140
-#, fuzzy
+#: app/render_eps.c:145
 msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Encapsulated Postscript"
+msgstr "Encapsulated Postscript (Pango fontok használatával)"
 
-#: app/render_eps.c:149
+#: app/render_eps.c:154
+msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgstr "Encapsulated Postscript előnézettel (Pango fontok használatával)"
+
+#: app/render_eps.c:164
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr ""
+msgstr "Encapsulated Postscript (PostScript Latin-1 fontok használatával)"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:268
+#: app/render_libart.c:318
+#: lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr ""
+msgstr "gdk_renderer: Nem támogatott kitöltési mód van meghatározva!\n"
 
 #: app/sheets.c:154
 #, c-format
@@ -2004,6 +1769,8 @@ msgid ""
 "%s\n"
 "System sheet"
 msgstr ""
+"%s\n"
+"Rendszer munkalap"
 
 #: app/sheets.c:156
 #, c-format
@@ -2011,6 +1778,8 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
+"%s\n"
+"Felhasználói munkalap"
 
 #: app/sheets.c:271
 msgid ""
@@ -2021,38 +1790,39 @@ msgstr ""
 #: app/sheets.c:373
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "Nem találom a %s widget-et"
 
 #: app/sheets.c:448
-#, fuzzy
 msgid "SVG Shape"
-msgstr "Válassz ki egy képfájlt"
+msgstr "SVG kép"
 
 #: app/sheets.c:450
 msgid "Programmed Object"
-msgstr ""
+msgstr "Programozott objektum"
 
 #: app/sheets_dialog.c:83
-#, fuzzy
 msgid "Sheets and Objects"
-msgstr "Vonal készítése"
+msgstr "Munkalapok és objektumok"
 
-#: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
+#: app/sheets_dialog.c:109
+#: app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
-msgstr ""
+msgstr "<- Másolás"
 
-#: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
+#: app/sheets_dialog.c:119
+#: app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
-msgstr ""
+msgstr "<- Összes másolása"
 
-#: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
-#, fuzzy
+#: app/sheets_dialog.c:126
+#: app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
-msgstr "Felmozgat"
+msgstr "<- Mozgatás"
 
-#: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
+#: app/sheets_dialog.c:136
+#: app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
-msgstr ""
+msgstr "<- Összes mozgatása"
 
 #: app/sheets_dialog.c:233
 msgid "Edit"
@@ -2063,17 +1833,15 @@ msgid "_Edit"
 msgstr "S_zerkesztés"
 
 #: app/sheets_dialog.c:266
-#, fuzzy
 msgid "Revert"
-msgstr "Invertál"
+msgstr "Megfordít"
 
-#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:829
-#: objects/UML/class_dialog.c:1753 objects/UML/class_dialog.c:1981
-#: objects/UML/class_dialog.c:2500
+#: app/sheets_dialog.c:354
 msgid "New"
 msgstr "Új"
 
-#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
+#: app/sheets_dialog.c:362
+#: app/sheets_dialog.c:794
 msgid "Type"
 msgstr "Típus"
 
@@ -2083,9 +1851,10 @@ msgstr "Tallózás..."
 
 #: app/sheets_dialog.c:386
 msgid "SVG Shape:"
-msgstr ""
+msgstr "SVG ábra:"
 
-#: app/sheets_dialog.c:413 app/sheets_dialog.c:476
+#: app/sheets_dialog.c:413
+#: app/sheets_dialog.c:476
 msgid "description:"
 msgstr "leírás:"
 
@@ -2093,8 +1862,9 @@ msgstr "leírás:"
 msgid "Sheet name:"
 msgstr "Munkalap neve:"
 
-#: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog.c:446
+#: app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Sortörés"
 
@@ -2102,17 +1872,23 @@ msgstr "Sortörés"
 msgid "Edit Attributes"
 msgstr "Attribútumok szerkesztése"
 
-#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:24
+#: app/sheets_dialog.c:583
+#: sheets/UML.sheet.in.h:24
 msgid "Object"
 msgstr "Objektum"
 
-#: app/sheets_dialog.c:599 app/sheets_dialog.c:692
+#: app/sheets_dialog.c:599
+#: app/sheets_dialog.c:692
 msgid "Description:"
 msgstr "Leírás:"
 
-#: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:878 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2035 objects/UML/class_dialog.c:2549
+#: app/sheets_dialog.c:618
+#: objects/FS/flow-ortho.c:168
+#: objects/FS/flow.c:146
+#: objects/UML/class_dialog.c:890
+#: objects/UML/class_dialog.c:1824
+#: objects/UML/class_dialog.c:2053
+#: objects/UML/class_dialog.c:2569
 msgid "Type:"
 msgstr "Típus:"
 
@@ -2120,14 +1896,29 @@ msgstr "Típus:"
 msgid "Sheet"
 msgstr "Munkalap"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
-#: objects/ER/relationship.c:138 objects/UML/association.c:199
-#: objects/UML/association.c:1112 objects/UML/class_dialog.c:866
-#: objects/UML/class_dialog.c:1793 objects/UML/class_dialog.c:2023
-#: objects/UML/class_dialog.c:2537 objects/UML/dependency.c:128
-#: objects/UML/generalization.c:124 objects/UML/realizes.c:125
+#: app/sheets_dialog.c:672
+#: objects/ER/attribute.c:151
+#: objects/ER/entity.c:133
+#: objects/ER/relationship.c:138
+#: objects/UML/association.c:199
+#: objects/UML/association.c:1112
+#: objects/UML/class_dialog.c:879
+#: objects/UML/class_dialog.c:1813
+#: objects/UML/class_dialog.c:2042
+#: objects/UML/class_dialog.c:2558
+#: objects/UML/dependency.c:133
+#: objects/UML/generalization.c:129
+#: objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Név:"
+
+#. Translators: Menu item Verb/Channel/Export/Remove
+#: app/sheets_dialog.c:784
+#: objects/FS/function.c:695
+#: objects/FS/function.c:847
+#: objects/FS/function.c:849
+msgid "Remove"
+msgstr "Eltávolítás"
 
 #: app/sheets_dialog.c:809
 msgid "Object:"
@@ -2138,9 +1929,8 @@ msgid "Sheet:"
 msgstr "Munkalap:"
 
 #: app/sheets_dialog.c:920
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "Válassz ki egy képfájlt"
+msgstr "Válassz ki egy SVG képfájlt"
 
 #: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
@@ -2148,7 +1938,7 @@ msgstr "Másolás ->"
 
 #: app/sheets_dialog_callbacks.c:166
 msgid "Copy All ->"
-msgstr ""
+msgstr "Összes másolása ->"
 
 #: app/sheets_dialog_callbacks.c:168
 msgid "Move ->"
@@ -2156,7 +1946,7 @@ msgstr "Áthelyezés ->"
 
 #: app/sheets_dialog_callbacks.c:170
 msgid "Move All ->"
-msgstr ""
+msgstr "Összes áthelyezése ->"
 
 #: app/sheets_dialog_callbacks.c:303
 #, c-format
@@ -2177,63 +1967,66 @@ msgstr ""
 "Objektum"
 
 #: app/sheets_dialog_callbacks.c:309
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "Unassigned type"
-msgstr "Üzenet típusa:"
+msgstr ""
+"%s\n"
+"Hozzárendelés nélküli típus"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "A fájlnév '%s' végű kell legyen: %s"
 
-#: app/sheets_dialog_callbacks.c:807
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:808
+#, c-format
 msgid "Error examining %s: %s"
-msgstr "Ábrafájl beolvasási hiba\n"
+msgstr "Hiba %s vizsgálatánál: %s"
 
-#: app/sheets_dialog_callbacks.c:827
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:828
+#, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Nem tudtam megállapítani a megfelelő útvonalat `%s'-hez"
+msgstr "Nem tudtam értelmezni ezt a shape fájlt: '%s'"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
-msgstr ""
+msgstr "A munkalapnak kell legyen neve"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:1594
+#: app/sheets_dialog_callbacks.c:1600
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+msgstr "Nem tudom megnyitni a következőt: '%s' :%s"
 
-#: app/sheets_dialog_callbacks.c:1643
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:1651
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
+msgstr "Nem tudom írásra megnyitni: '%s'"
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
-msgstr ""
+msgstr "egy felhasználó"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "Fájl: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Dátum: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
-msgstr ""
+msgstr "ábrák hozzáadása itt"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2248,6 +2041,11 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "Ábraszerkesztő"
 
+#: lib/arrows.c:38
+#: objects/UML/association.c:1135
+msgid "None"
+msgstr "Nincs"
+
 #: lib/arrows.c:39
 msgid "Lines"
 msgstr "Vonalak"
@@ -2261,23 +2059,20 @@ msgid "Filled Triangle"
 msgstr "Kitöltött háromszög"
 
 #: lib/arrows.c:42
-#, fuzzy
 msgid "Unfilled Triangle"
-msgstr "Kitöltött háromszög"
+msgstr "Üres háromszög"
 
 #: lib/arrows.c:43
-#, fuzzy
 msgid "Hollow Diamond"
-msgstr "Kitöltött gyémánt"
+msgstr "Üres gyémánt"
 
 #: lib/arrows.c:44
 msgid "Filled Diamond"
 msgstr "Kitöltött gyémánt"
 
 #: lib/arrows.c:45
-#, fuzzy
 msgid "Half Diamond"
-msgstr "Kitöltött gyémánt"
+msgstr "Fél gyémánt"
 
 #: lib/arrows.c:46
 msgid "Half Head"
@@ -2296,9 +2091,8 @@ msgid "Hollow Ellipse"
 msgstr "Lyukas ellipszis"
 
 #: lib/arrows.c:50
-#, fuzzy
 msgid "Filled Dot"
-msgstr "Kitöltött gyémánt"
+msgstr "Kitöltött pont"
 
 #: lib/arrows.c:51
 msgid "Dimension Origin"
@@ -2309,113 +2103,131 @@ msgid "Blanked Dot"
 msgstr ""
 
 #: lib/arrows.c:53
-#, fuzzy
-msgid "Double Hollow triangle"
-msgstr "Lyukas háromszög"
+msgid "Double Hollow Triangle"
+msgstr "Dupla lyukas háromszög"
 
 #: lib/arrows.c:54
-#, fuzzy
-msgid "Double Filled triangle"
-msgstr "Kitöltött háromszög"
+msgid "Double Filled Triangle"
+msgstr "Duple kitöltött háromszög"
 
 #: lib/arrows.c:55
-#, fuzzy
-msgid "Filled Box"
-msgstr "Kitöltött gyémánt"
+msgid "Filled Dot and Triangle"
+msgstr "Kitöltött pont és háromszög"
 
 #: lib/arrows.c:56
+msgid "Filled Box"
+msgstr "Kitöltött négyszög"
+
+#: lib/arrows.c:57
 msgid "Blanked Box"
 msgstr ""
 
-#: lib/arrows.c:57
-#, fuzzy
+#: lib/arrows.c:58
 msgid "Slashed"
 msgstr "Szaggatott"
 
-#: lib/arrows.c:58
-msgid "Integral Symbol"
-msgstr ""
-
 #: lib/arrows.c:59
-#, fuzzy
-msgid "Crow Foot"
-msgstr "Betűtípus:"
+msgid "Integral Symbol"
+msgstr "Belső jel"
 
 #: lib/arrows.c:60
-#, fuzzy
-msgid "Cross"
-msgstr "Védett"
+msgid "Crow Foot"
+msgstr "Madárláb"
 
 #: lib/arrows.c:61
-#, fuzzy
-msgid "Filled Concave"
-msgstr "Kitöltött gyémánt"
+msgid "Cross"
+msgstr "Kereszt"
 
 #: lib/arrows.c:62
+msgid "1-or-many"
+msgstr "1-vagy-több"
+
+#: lib/arrows.c:63
+msgid "0-or-many"
+msgstr "0-vagy-több"
+
+#: lib/arrows.c:64
+msgid "1-or-0"
+msgstr "1-vagy-0"
+
+#: lib/arrows.c:65
+msgid "1 exactly"
+msgstr "pont 1"
+
+#: lib/arrows.c:66
+msgid "Filled Concave"
+msgstr "Kitöltött konkáv"
+
+#: lib/arrows.c:67
 msgid "Blanked Concave"
 msgstr ""
 
-#: lib/arrows.c:63
-#, fuzzy
+#: lib/arrows.c:68
 msgid "Round"
-msgstr "Nincs"
+msgstr "Kerek"
 
-#: lib/arrows.c:64
-#, fuzzy
+#: lib/arrows.c:69
 msgid "Open Round"
-msgstr "Nincs"
+msgstr "Félkör"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Belső hiba: Setting corner type of endpoint of bezier"
 
-#: lib/dia_xml.c:147
+#: lib/dia_xml.c:154
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
+"A %s fájlban nincs kódolás megadva,\n"
+"feltételezem, hogy kódolása %s"
 
-#: lib/dia_xml.c:466
+#: lib/dia_xml.c:475
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:478
+#: lib/dia_xml.c:487
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:486
+#: lib/dia_xml.c:495
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:494
+#: lib/dia_xml.c:503
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:856
-msgid ""
-"Your local character set is UTF-8. Because of issues with libxml1 and the "
-"support of files generated by previous versions of dia, you will encounter  "
-"problems. Please report to dia-list@gnome.org if you see this message."
+#: lib/dia_xml.c:884
+msgid "Your local character set is UTF-8. Because of issues with libxml1 and the support of files generated by previous versions of dia, you will encounter  problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
+
+#: lib/diaarrowchooser.c:233
+msgid "Arrow Properties"
+msgstr "Nyíl tulajdonságai"
+
+#: lib/diaarrowchooser.c:311
+#: lib/dialinechooser.c:321
+msgid "Details..."
+msgstr "Részletek..."
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
 #: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "abcdefghijk ABCDEFGHIJK"
 
 #: lib/diagtkfontsel.c:209
-#, fuzzy
 msgid "Font name"
-msgstr "Függvény:"
+msgstr "Font neve"
 
 #: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
-msgstr ""
+msgstr "Az X karakterlánc, amely ezt a betűtípust írja le."
 
 #: lib/diagtkfontsel.c:216
 msgid "Preview text"
@@ -2427,60 +2239,61 @@ msgstr ""
 
 #: lib/diagtkfontsel.c:321
 msgid "_Family:"
-msgstr ""
+msgstr "_Család:"
 
 #: lib/diagtkfontsel.c:327
-#, fuzzy
 msgid "_Style:"
-msgstr "Lépték:"
+msgstr "_Stílus:"
 
 #: lib/diagtkfontsel.c:333
-#, fuzzy
 msgid "Si_ze:"
-msgstr "X méret:"
+msgstr "Mé_ret:"
 
 #. create the text entry widget
 #: lib/diagtkfontsel.c:462
-#, fuzzy
 msgid "_Preview:"
-msgstr "_Tulajdonságok"
+msgstr "Előnézeti ké_p:"
 
 #: lib/diagtkfontsel.c:1252
-#, fuzzy
 msgid "Font Selection"
-msgstr "Összekötött"
+msgstr "Fontválasztás"
+
+#: lib/dialinechooser.c:287
+msgid "Line Style Properties"
+msgstr "Vonalstílus tulajdonságai"
 
 #: lib/filter.c:120
 #, c-format
 msgid "Multiple export filters with unique name %s"
-msgstr ""
+msgstr "Több exportszűrő egy azonos névvel: %s"
 
-#: lib/font.c:87
+#: lib/font.c:88
 #, c-format
 msgid "Can't load font %s.\n"
-msgstr ""
+msgstr "Nem tudom betölteni a %s fontot.\n"
 
-#: lib/message.c:78 lib/message.c:238
+#: lib/message.c:78
+#: lib/message.c:238
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/message.c:80 lib/message.c:226
+#: lib/message.c:80
+#: lib/message.c:226
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
 #: lib/message.c:106
 msgid "There is one similar message."
-msgstr ""
+msgstr "Van egy hasonló üzenet."
 
 #: lib/message.c:111
-#, fuzzy
 msgid "Show repeated messages"
-msgstr "Kép készítése"
+msgstr "Ismétlődő üzenetek megmutatása"
 
 #: lib/message.c:170
-#, fuzzy, c-format
+#, c-format
 msgid "There are %d similar messages."
-msgstr "Kép készítése"
+msgstr "%d hasonló üzenet van."
 
 # lib/message.c:120
 #: lib/message.c:215
@@ -2488,17 +2301,17 @@ msgid "Notice"
 msgstr "Megjegyzés"
 
 #: lib/object_defaults.c:123
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Nem tudom betölteni a következő ábrát: %s.\n"
+"Nem tudom betölteni a '%s' alapértelmezést..\n"
 "Nem Dia fájl."
 
 #: lib/plug-ins.c:120
 msgid "???"
-msgstr ""
+msgstr "???"
 
 #: lib/plug-ins.c:228
 #, c-format
@@ -2506,12 +2319,12 @@ msgid "Could not deduce correct path for `%s'"
 msgstr "Nem tudtam megállapítani a megfelelő útvonalat `%s'-hez"
 
 #: lib/plug-ins.c:234
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"%s bővítmény betöltése sikertlen\n"
+"'%s' bővítmény betöltése sikertelen\n"
 "%s"
 
 # lib/plug-ins.c:227
@@ -2522,9 +2335,10 @@ msgstr "A bővítmény inicializáló függvénye nem található `%s'-ben"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr ""
+msgstr "'dia_plugin_init' szimbólum hiányzik"
 
-#: lib/plug-ins.c:257 lib/plug-ins.c:265
+#: lib/plug-ins.c:257
+#: lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
 msgstr ""
 
@@ -2535,162 +2349,202 @@ msgid "%s Plugin could not be unloaded"
 msgstr "%s bővítményt nem tudtam eltávolítani"
 
 #: lib/plug-ins.c:372
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
-msgstr "Nem tudom megnyitni a következőt: '%s' "
+msgstr ""
+"Nem tudom megnyitni a következőt: `%s'\n"
+"`%s' "
 
-#: lib/properties.c:71 lib/properties.h:478
-#, fuzzy
-msgid "Line colour"
-msgstr "Válassz ki egy színt"
+#: lib/properties.c:62
+#: lib/properties.h:466
+#: lib/widgets.c:806
+msgid "Left"
+msgstr "Balra"
 
-#: lib/properties.c:72 lib/properties.h:481
-#, fuzzy
+#: lib/properties.c:63
+#: lib/properties.h:467
+#: lib/widgets.c:812
+msgid "Center"
+msgstr "Középre"
+
+#: lib/properties.c:64
+#: lib/properties.h:468
+#: lib/widgets.c:818
+msgid "Right"
+msgstr "Jobbra"
+
+#: lib/properties.c:71
+#: objects/chronogram/chronoline.c:179
+#: objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Vonal színe"
+
+#: lib/properties.c:72
+#: lib/properties.h:490
+#: lib/properties.h:493
 msgid "Line style"
-msgstr "Vonalak"
+msgstr "Vonal stílusa"
 
-#: lib/properties.c:73 lib/properties.h:485
-#, fuzzy
-msgid "Fill colour"
-msgstr "Előtér szín:"
+#: lib/properties.c:73
+msgid "Fill color"
+msgstr "Kitöltési szín"
 
-#: lib/properties.c:74 lib/properties.h:488
+#: lib/properties.c:74
+#: lib/properties.h:503
 msgid "Draw background"
 msgstr "Háttér rajzolása"
 
-#: lib/properties.c:75 lib/properties.h:492
-#, fuzzy
+#: lib/properties.c:75
+#: lib/properties.h:507
 msgid "Start arrow"
-msgstr "Pontozott"
+msgstr "Kezdő nyíl"
 
-#: lib/properties.c:76 lib/properties.h:495
-#, fuzzy
+#: lib/properties.c:76
+#: lib/properties.h:510
 msgid "End arrow"
-msgstr "Pontozott"
+msgstr "Bezáró nyíl"
 
-#: lib/properties.c:78 lib/properties.h:505
-#, fuzzy
+#: lib/properties.c:78
+#: lib/properties.h:520
 msgid "Text alignment"
-msgstr "Elhelyezkedés:"
+msgstr "Szöveg elhelyezkedése"
 
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
+#: lib/properties.c:79
+#: lib/properties.h:523
+#: objects/GRAFCET/condition.c:132
+#: objects/GRAFCET/step.c:165
+#: objects/GRAFCET/transition.c:142
+#: objects/UML/class_dialog.c:330
+#: objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
-#, fuzzy
 msgid "Font"
-msgstr "Betűtípus:"
+msgstr "Betűtípus"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:134
-#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
-#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
-#, fuzzy
+#: lib/properties.c:80
+#: lib/properties.h:526
+#: objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/step.c:167
+#: objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185
+#: objects/chronogram/chronoref.c:166
 msgid "Font size"
-msgstr "Betűméret:"
+msgstr "Betűméret"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:169
-#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
-#, fuzzy
+#: lib/properties.c:81
+#: objects/GRAFCET/step.c:169
+#: objects/chronogram/chronoline.c:187
+#: objects/chronogram/chronoref.c:168
+msgid "Text color"
+msgstr "Szövegszín"
+
+#: lib/properties.h:484
+#: lib/properties.h:487
+msgid "Line colour"
+msgstr "Vonal színe"
+
+#: lib/properties.h:497
+#: lib/properties.h:500
+msgid "Fill colour"
+msgstr "Előtér szín"
+
+#: lib/properties.h:529
+#: lib/properties.h:532
 msgid "Text colour"
-msgstr "Válassz ki egy színt"
+msgstr "Szöveg szín"
 
-#: lib/widgets.c:197
+#: lib/widgets.c:438
 msgid "Other fonts..."
-msgstr ""
+msgstr "További betűtípusok..."
 
-#: lib/widgets.c:299
-#, fuzzy, c-format
+#: lib/widgets.c:541
+#, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr ""
-"%s bővítmény betöltése sikertlen\n"
-"%s"
+msgstr "%s betűtípus családot nem találom\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:342
-#, fuzzy
+#: lib/widgets.c:605
 msgid "Select font"
-msgstr "Nyomtató kiválasztása"
+msgstr "Betűtípus kiválasztása"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:652 objects/FS/function.c:1063
+#: lib/widgets.c:954
+#: objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Teli"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:960
 msgid "Dashed"
 msgstr "Szaggatott"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:966
 msgid "Dash-Dot"
 msgstr "Vonal-Pont"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:972
 msgid "Dash-Dot-Dot"
 msgstr "Vonal-Pont-Pont"
 
-#: lib/widgets.c:676
+#: lib/widgets.c:978
 msgid "Dotted"
 msgstr "Pontozott"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:694
+#: lib/widgets.c:997
 msgid "Dash length: "
 msgstr "Vonal hossza: "
 
-#: lib/widgets.c:848
+#: lib/widgets.c:1152
 msgid "Select color"
 msgstr "Szín kiválasztása"
 
-#: lib/widgets.c:1046
-msgid "Length: "
-msgstr "Hossz: "
+#: lib/widgets.c:1369
+msgid "Size: "
+msgstr "Méret: "
 
-#: lib/widgets.c:1059
-msgid "Width: "
-msgstr "Szélesség: "
-
-#: lib/widgets.c:1187
+#: lib/widgets.c:1516
 msgid "Select image file"
 msgstr "Válassz ki egy képfájlt"
 
-#: lib/widgets.c:1221
+#: lib/widgets.c:1552
 msgid "Browse"
 msgstr "Keresés"
 
 #: objects/ER/attribute.c:153
-#, fuzzy
 msgid "Key:"
-msgstr "Kulcs"
+msgstr "Kulcs:"
 
 #: objects/ER/attribute.c:155
-#, fuzzy
 msgid "Weak key:"
-msgstr "Gyenge kulcs"
+msgstr "Gyenge kulcs:"
 
 #: objects/ER/attribute.c:157
-#, fuzzy
 msgid "Derived:"
-msgstr "Származtatott"
+msgstr "Származtatott:"
 
 #: objects/ER/attribute.c:159
-#, fuzzy
 msgid "Multivalue:"
-msgstr "Többértékű"
+msgstr "Többértékű:"
 
-#: objects/ER/attribute.c:421 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:421
+#: sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribútum"
 
-#: objects/ER/entity.c:132
-#, fuzzy
+#: objects/ER/entity.c:135
 msgid "Weak:"
-msgstr "Gyenge"
+msgstr "Gyenge:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:137
+msgid "Associative:"
+msgstr "Társított:"
+
+#: objects/ER/entity.c:406
+#: objects/UML/classicon.c:126
+#: sheets/ER.sheet.in.h:4
 msgid "Entity"
-msgstr "Megjelenés"
+msgstr "Entitás"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
@@ -2700,19 +2554,29 @@ msgstr "Egyed-kapcsolat diagram objektumok"
 msgid "Total:"
 msgstr "Teljes:"
 
-#: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
-#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:177
-#: objects/UML/dependency.c:365 objects/UML/generalization.c:361
-#: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
+#: objects/ER/participation.c:405
+#: objects/FS/flow-ortho.c:644
+#: objects/GRAFCET/vector.c:311
+#: objects/SADT/arrow.c:566
+#: objects/UML/association.c:747
+#: objects/UML/component_feature.c:183
+#: objects/UML/dependency.c:372
+#: objects/UML/generalization.c:368
+#: objects/UML/realizes.c:359
+#: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Szegmens hozzáadása"
 
-#: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
-#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:178
-#: objects/UML/dependency.c:366 objects/UML/generalization.c:362
-#: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
+#: objects/ER/participation.c:406
+#: objects/FS/flow-ortho.c:645
+#: objects/GRAFCET/vector.c:312
+#: objects/SADT/arrow.c:567
+#: objects/UML/association.c:748
+#: objects/UML/component_feature.c:184
+#: objects/UML/dependency.c:373
+#: objects/UML/generalization.c:369
+#: objects/UML/realizes.c:360
+#: objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Szegmens törlése"
 
@@ -2725,35 +2589,44 @@ msgid "Right Cardinality:"
 msgstr "Jobb tő:"
 
 #: objects/ER/relationship.c:144
-#, fuzzy
 msgid "Rotate:"
-msgstr "Forgatás"
+msgstr "Forgatás:"
 
 #: objects/ER/relationship.c:146
-#, fuzzy
 msgid "Identifying:"
-msgstr "Meghatározás"
+msgstr "Meghatározó:"
 
-#: objects/ER/relationship.c:449 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:449
+#: sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Rokonság"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
-#: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1085
+#: objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:641
+#: objects/FS/flow.c:137
+#: objects/FS/flow.c:576
+#: objects/FS/function.c:1085
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
-#: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1061
+#: objects/FS/flow-ortho.c:160
+#: objects/FS/flow-ortho.c:642
+#: objects/FS/flow.c:138
+#: objects/FS/flow.c:577
+#: objects/FS/function.c:1061
 msgid "Material"
 msgstr "Anyag"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
-#: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1023
-#: objects/FS/function.c:1025 objects/FS/function.c:1161
+#: objects/FS/flow-ortho.c:161
+#: objects/FS/flow-ortho.c:643
+#: objects/FS/flow.c:139
+#: objects/FS/flow.c:578
+#: objects/FS/function.c:1023
+#: objects/FS/function.c:1025
+#: objects/FS/function.c:1161
 #: objects/FS/function.c:1163
 msgid "Signal"
 msgstr "Jel"
@@ -2770,47 +2643,48 @@ msgstr "Whish függvény"
 msgid "User function"
 msgstr "Felhasználói függvény"
 
-#. Translators: Menu item Verb
+#  Translators: Menu item Verb
 #: objects/FS/function.c:665
 msgid "Verb"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel
-#: objects/FS/function.c:667 objects/FS/function.c:669
+#: objects/FS/function.c:667
+#: objects/FS/function.c:669
 #: objects/FS/function.c:709
 msgid "Channel"
 msgstr "Csatorna"
 
-#. Translators: Menu item Verb/Channel/Import
-#: objects/FS/function.c:671 objects/FS/function.c:673
-#, fuzzy
+#  Translators: Menu item Verb/Channel/Import
+#: objects/FS/function.c:671
+#: objects/FS/function.c:673
 msgid "Import"
-msgstr "   Import"
+msgstr "Import"
 
-#. Translators: Menu item Verb/Channel/Import/Input
+#  Translators: Menu item Verb/Channel/Import/Input
 #: objects/FS/function.c:675
 msgid "Input"
 msgstr ""
 
-#. Translators: Menu item Verb/Channel/Import/Receive
+#  Translators: Menu item Verb/Channel/Import/Receive
 #: objects/FS/function.c:677
-#, fuzzy
 msgid "Receive"
-msgstr "Rekurzív"
+msgstr "Fogad"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#: objects/FS/function.c:679 objects/FS/function.c:951
-#, fuzzy
+#: objects/FS/function.c:679
+#: objects/FS/function.c:951
 msgid "Allow"
-msgstr "Mindent"
+msgstr "Engedélyez"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
 #: objects/FS/function.c:681
 msgid "Form Entrance"
-msgstr ""
+msgstr "Adatlap belépési pont"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#: objects/FS/function.c:683 objects/FS/function.c:917
+#: objects/FS/function.c:683
+#: objects/FS/function.c:917
 #, fuzzy
 msgid "Capture"
 msgstr "Létrehozás"
@@ -2832,35 +2706,33 @@ msgid "Dispose"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Transfer
-#: objects/FS/function.c:697 objects/FS/function.c:699
+#: objects/FS/function.c:697
+#: objects/FS/function.c:699
 #: objects/FS/function.c:717
-#, fuzzy
 msgid "Transfer"
-msgstr "Tranzitív"
+msgstr "Transzfer"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#: objects/FS/function.c:701 objects/FS/function.c:703
-#, fuzzy
+#: objects/FS/function.c:701
+#: objects/FS/function.c:703
 msgid "Transport"
-msgstr "Tranzitív"
+msgstr "Transzport"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: objects/FS/function.c:705
-#, fuzzy
 msgid "Lift"
-msgstr "Balra"
+msgstr "Emel"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
 #: objects/FS/function.c:707
-#, fuzzy
 msgid "Move"
-msgstr "Felmozgat"
+msgstr "Mozgat"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#: objects/FS/function.c:711 objects/FS/function.c:713
-#, fuzzy
+#: objects/FS/function.c:711
+#: objects/FS/function.c:713
 msgid "Transmit"
-msgstr "Tranzitív"
+msgstr "Sugároz"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
 #: objects/FS/function.c:715
@@ -2875,7 +2747,8 @@ msgid "Convey"
 msgstr "Invertál"
 
 #. Translators: Menu item Verb/Channel/Guide
-#: objects/FS/function.c:721 objects/FS/function.c:723
+#: objects/FS/function.c:721
+#: objects/FS/function.c:723
 #: objects/FS/function.c:725
 #, fuzzy
 msgid "Guide"
@@ -2890,7 +2763,7 @@ msgstr "Irány:"
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: objects/FS/function.c:729
 msgid "Straighten"
-msgstr ""
+msgstr "Egyenesít"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
 #: objects/FS/function.c:731
@@ -2899,12 +2772,12 @@ msgstr ""
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
 #: objects/FS/function.c:733
-#, fuzzy
 msgid "Translate"
-msgstr "Tranzitív"
+msgstr "Lefordít"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#: objects/FS/function.c:735 objects/FS/function.c:737
+#: objects/FS/function.c:735
+#: objects/FS/function.c:737
 #, fuzzy
 msgid "Rotate"
 msgstr "Forgatás"
@@ -2922,15 +2795,15 @@ msgid "Spin"
 msgstr "Méretezés"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#: objects/FS/function.c:743 objects/FS/function.c:745
+#: objects/FS/function.c:743
+#: objects/FS/function.c:745
 msgid "Allow DOF"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: objects/FS/function.c:747
-#, fuzzy
 msgid "Constrain"
-msgstr "Konstans:"
+msgstr "Feltétel"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
 #: objects/FS/function.c:749
@@ -2939,15 +2812,17 @@ msgid "Unlock"
 msgstr "Eltávolít"
 
 #. Translators: Menu item Verb/Support
-#: objects/FS/function.c:751 objects/FS/function.c:753
+#: objects/FS/function.c:751
+#: objects/FS/function.c:753
 msgid "Support"
-msgstr ""
+msgstr "Támogatás"
 
 #. Translators: Menu item Verb/Support/Stop
-#: objects/FS/function.c:755 objects/FS/function.c:757
+#: objects/FS/function.c:755
+#: objects/FS/function.c:757
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
-msgstr ""
+msgstr "Megáll"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
 #: objects/FS/function.c:759
@@ -2956,19 +2831,19 @@ msgstr ""
 
 #. Translators: Menu item Verb/Support/Stop/Protect
 #: objects/FS/function.c:761
-#, fuzzy
 msgid "Protect"
-msgstr "Védett"
+msgstr "Véd"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#: objects/FS/function.c:763 objects/FS/function.c:953
+#: objects/FS/function.c:763
+#: objects/FS/function.c:953
 msgid "Prevent"
-msgstr ""
+msgstr "Megelőzés"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
 #: objects/FS/function.c:765
 msgid "Shield"
-msgstr ""
+msgstr "Pajzs"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
 #: objects/FS/function.c:767
@@ -2976,7 +2851,8 @@ msgid "Inhibit"
 msgstr ""
 
 #. Translators: Menu item Verb/Support/Stabilize
-#: objects/FS/function.c:769 objects/FS/function.c:771
+#: objects/FS/function.c:769
+#: objects/FS/function.c:771
 msgid "Stabilize"
 msgstr ""
 
@@ -2986,47 +2862,46 @@ msgid "Steady"
 msgstr ""
 
 #. Translators: Menu item Verb/Support/Secure
-#: objects/FS/function.c:775 objects/FS/function.c:777
-#, fuzzy
+#: objects/FS/function.c:775
+#: objects/FS/function.c:777
 msgid "Secure"
-msgstr "Rekurzív"
+msgstr "Biztonságos"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#: objects/FS/function.c:779 objects/FS/function.c:811
+#: objects/FS/function.c:779
+#: objects/FS/function.c:811
 msgid "Attach"
-msgstr ""
+msgstr "Csatol"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: objects/FS/function.c:781
-#, fuzzy
 msgid "Mount"
-msgstr "Betűtípus:"
+msgstr ""
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:783 sheets/ciscomisc.sheet.in.h:21
+#: objects/FS/function.c:783
+#: sheets/ciscomisc.sheet.in.h:21
 msgid "Lock"
-msgstr ""
+msgstr "Zárol"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: objects/FS/function.c:785
 msgid "Fasten"
-msgstr ""
+msgstr "Megerősít"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
 #: objects/FS/function.c:787
-#, fuzzy
 msgid "Hold"
-msgstr "Teli"
+msgstr ""
 
 #. Translators: Menu item Verb/Support/Position
-#: objects/FS/function.c:789 objects/FS/function.c:791
-#, fuzzy
+#: objects/FS/function.c:789
+#: objects/FS/function.c:791
 msgid "Position"
-msgstr "Kompozíció"
+msgstr "Helyzet"
 
 #. Translators: Menu item Verb/Support/Position/Orient
 #: objects/FS/function.c:793
-#, fuzzy
 msgid "Orient"
 msgstr "Irány"
 
@@ -3037,26 +2912,29 @@ msgid "Align"
 msgstr "Elhelyezkedés:"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#: objects/FS/function.c:797 objects/FS/function.c:1039
+#: objects/FS/function.c:797
+#: objects/FS/function.c:1039
 #, fuzzy
 msgid "Locate"
 msgstr "Betöltve:"
 
 #. Translators: Menu item Verb/Connect
-#: objects/FS/function.c:799 objects/FS/function.c:801
+#: objects/FS/function.c:799
+#: objects/FS/function.c:801
 #, fuzzy
 msgid "Connect"
 msgstr "Összekötött"
 
 #. Translators: Menu item Verb/Connect/Couple
-#: objects/FS/function.c:803 objects/FS/function.c:805
+#: objects/FS/function.c:803
+#: objects/FS/function.c:805
 msgid "Couple"
-msgstr ""
+msgstr "Pár"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: objects/FS/function.c:807
 msgid "Join"
-msgstr ""
+msgstr "Egyesít"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: objects/FS/function.c:809
@@ -3064,14 +2942,15 @@ msgid "Assemble"
 msgstr ""
 
 #. Translators: Menu item Verb/Connect/Mix
-#: objects/FS/function.c:813 objects/FS/function.c:815
+#: objects/FS/function.c:813
+#: objects/FS/function.c:815
 msgid "Mix"
-msgstr ""
+msgstr "Kever"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
 #: objects/FS/function.c:817
 msgid "Combine"
-msgstr ""
+msgstr "Kombinál"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: objects/FS/function.c:819
@@ -3081,7 +2960,7 @@ msgstr ""
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: objects/FS/function.c:821
 msgid "Add"
-msgstr ""
+msgstr "Hozzáad"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
 #: objects/FS/function.c:823
@@ -3095,16 +2974,18 @@ msgid "Coalesce"
 msgstr "Bezárás"
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:827 objects/FS/function.c:829 sheets/UML.sheet.in.h:5
+#: objects/FS/function.c:827
+#: objects/FS/function.c:829
+#: sheets/UML.sheet.in.h:5
 msgid "Branch"
-msgstr ""
+msgstr "Ág"
 
 #. Translators: Menu item Verb/Branch/Separate
-#: objects/FS/function.c:831 objects/FS/function.c:833
+#: objects/FS/function.c:831
+#: objects/FS/function.c:833
 #: objects/FS/function.c:835
-#, fuzzy
 msgid "Separate"
-msgstr "Sablonok"
+msgstr "Különálló"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
 #: objects/FS/function.c:837
@@ -3114,24 +2995,22 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
 #: objects/FS/function.c:839
 msgid "Divide"
-msgstr ""
+msgstr "Oszt"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: objects/FS/function.c:841
-#, fuzzy
 msgid "Release"
-msgstr "Cserél"
+msgstr "Elenged"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:843
 msgid "Detach"
-msgstr ""
+msgstr "Leválaszt"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: objects/FS/function.c:845
-#, fuzzy
 msgid "Disconnect"
-msgstr "Összekötött"
+msgstr ""
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: objects/FS/function.c:851
@@ -3146,12 +3025,12 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
 #: objects/FS/function.c:855
 msgid "Sand"
-msgstr ""
+msgstr "Homok"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
 #: objects/FS/function.c:857
 msgid "Drill"
-msgstr ""
+msgstr "Fúró"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
 #: objects/FS/function.c:859
@@ -3159,7 +3038,8 @@ msgid "Lathe"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine
-#: objects/FS/function.c:861 objects/FS/function.c:863
+#: objects/FS/function.c:861
+#: objects/FS/function.c:863
 #, fuzzy
 msgid "Refine"
 msgstr "Vonal"
@@ -3177,9 +3057,8 @@ msgstr "Méretezés"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: objects/FS/function.c:869
-#, fuzzy
 msgid "Filter"
-msgstr "Fájl"
+msgstr "Szűrő"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: objects/FS/function.c:871
@@ -3194,10 +3073,10 @@ msgid "Clear"
 msgstr "Bezárás"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#: objects/FS/function.c:875 objects/FS/function.c:877
-#, fuzzy
+#: objects/FS/function.c:875
+#: objects/FS/function.c:877
 msgid "Distribute"
-msgstr "Attribútum"
+msgstr "Terjeszt"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: objects/FS/function.c:879
@@ -3216,30 +3095,31 @@ msgid "Disperse"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#: objects/FS/function.c:885 objects/FS/function.c:899
+#: objects/FS/function.c:885
+#: objects/FS/function.c:899
 msgid "Diffuse"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: objects/FS/function.c:887
 msgid "Empty"
-msgstr ""
+msgstr "Üres"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#: objects/FS/function.c:889 objects/FS/function.c:891
+#: objects/FS/function.c:889
+#: objects/FS/function.c:891
 msgid "Dissipate"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
 #: objects/FS/function.c:893
 msgid "Absorb"
-msgstr ""
+msgstr "Elnyel"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
 #: objects/FS/function.c:895
-#, fuzzy
 msgid "Dampen"
-msgstr "Név:"
+msgstr "Tompít"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
 #: objects/FS/function.c:897
@@ -3249,53 +3129,51 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
 #: objects/FS/function.c:901
 msgid "Resist"
-msgstr ""
+msgstr "Ellenáll"
 
 #. Translators: Menu item Verb/Provision
-#: objects/FS/function.c:903 objects/FS/function.c:905
+#: objects/FS/function.c:903
+#: objects/FS/function.c:905
 msgid "Provision"
 msgstr ""
 
 #. Translators: Menu item Verb/Provision/Store
-#: objects/FS/function.c:907 objects/FS/function.c:909
-#, fuzzy
+#: objects/FS/function.c:907
+#: objects/FS/function.c:909
 msgid "Store"
-msgstr "Szereplő"
+msgstr "Tárol"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: objects/FS/function.c:911
-#, fuzzy
 msgid "Contain"
-msgstr "Konstans:"
+msgstr "Tartalmaz"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: objects/FS/function.c:913
-#, fuzzy
 msgid "Collect"
-msgstr "Összekötött"
+msgstr "Összegyűjt"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: objects/FS/function.c:915
-#, fuzzy
 msgid "Reserve"
-msgstr "Rekurzív"
+msgstr "Lefoglal"
 
 #. Translators: Menu item Verb/Provision/Supply
-#: objects/FS/function.c:919 objects/FS/function.c:921
+#: objects/FS/function.c:919
+#: objects/FS/function.c:921
 #, fuzzy
 msgid "Supply"
 msgstr "Alkalmaz"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: objects/FS/function.c:923
-#, fuzzy
 msgid "Fill"
-msgstr "Fájl"
+msgstr "Feltölt"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: objects/FS/function.c:925
 msgid "Provide"
-msgstr ""
+msgstr "Biztosít"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
 #: objects/FS/function.c:927
@@ -3310,27 +3188,28 @@ msgid "Expose"
 msgstr "Ellipszis"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
-#, fuzzy
+#: objects/FS/function.c:931
+#: sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
-msgstr "Absztrakt"
+msgstr "Kivon"
 
 #. Translators: Menu item Verb/Control Magnitude
-#: objects/FS/function.c:933 objects/FS/function.c:935
+#: objects/FS/function.c:933
+#: objects/FS/function.c:935
 msgid "Control Magnitude"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#: objects/FS/function.c:937 objects/FS/function.c:939
+#: objects/FS/function.c:937
+#: objects/FS/function.c:939
 #, fuzzy
 msgid "Actuate"
 msgstr "Attribútum"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
 #: objects/FS/function.c:941
-#, fuzzy
 msgid "Start"
-msgstr "Pontozott"
+msgstr "Kezd"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
 #: objects/FS/function.c:943
@@ -3338,14 +3217,15 @@ msgid "Initiate"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#: objects/FS/function.c:945 objects/FS/function.c:947
-#, fuzzy
+#: objects/FS/function.c:945
+#: objects/FS/function.c:947
 msgid "Regulate"
-msgstr "Cserél"
+msgstr "Szabályoz"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#: objects/FS/function.c:949 objects/FS/function.c:1167
-#: objects/UML/classicon.c:122
+#: objects/FS/function.c:949
+#: objects/FS/function.c:1167
+#: objects/UML/classicon.c:124
 #, fuzzy
 msgid "Control"
 msgstr "Középre"
@@ -3353,13 +3233,12 @@ msgstr "Középre"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: objects/FS/function.c:955
 msgid "Enable"
-msgstr ""
+msgstr "Engedélyez"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
 #: objects/FS/function.c:957
-#, fuzzy
 msgid "Disable"
-msgstr "Látható:"
+msgstr "Letiltott:"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: objects/FS/function.c:959
@@ -3368,12 +3247,12 @@ msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: objects/FS/function.c:961
-#, fuzzy
 msgid "Interrupt"
-msgstr "Metszet"
+msgstr "Megszakítás"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#: objects/FS/function.c:963 objects/FS/function.c:965
+#: objects/FS/function.c:963
+#: objects/FS/function.c:965
 #, fuzzy
 msgid "Change"
 msgstr "Csatorna"
@@ -3381,41 +3260,37 @@ msgstr "Csatorna"
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: objects/FS/function.c:967
 msgid "Increase"
-msgstr ""
+msgstr "Növel"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
 #: objects/FS/function.c:969
 msgid "Decrease"
-msgstr ""
+msgstr "Csökkent"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
 #: objects/FS/function.c:971
-#, fuzzy
 msgid "Amplify"
-msgstr "Alkalmaz"
+msgstr "Erősít"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
 #: objects/FS/function.c:973
-#, fuzzy
 msgid "Reduce"
-msgstr "Cserél"
+msgstr "Visszafog"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: objects/FS/function.c:977
 msgid "Normalize"
-msgstr ""
+msgstr "Normalizál"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
 #: objects/FS/function.c:979
-#, fuzzy
 msgid "Multiply"
-msgstr "Multiplicitás:"
+msgstr "Szoroz"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #: objects/FS/function.c:981
-#, fuzzy
 msgid "Scale"
-msgstr "Lépték:"
+msgstr "Lépték"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: objects/FS/function.c:983
@@ -3428,9 +3303,10 @@ msgid "Adjust"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#: objects/FS/function.c:987 objects/FS/function.c:989
+#: objects/FS/function.c:987
+#: objects/FS/function.c:989
 msgid "Form"
-msgstr ""
+msgstr "Űrlap"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: objects/FS/function.c:991
@@ -3450,19 +3326,18 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: objects/FS/function.c:997
 msgid "Compress"
-msgstr ""
+msgstr "Tömörít"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
 #: objects/FS/function.c:999
-#, fuzzy
 msgid "Pierce"
-msgstr "Nyomtató"
+msgstr ""
 
 #. Translators: Menu item Verb/Convert
-#: objects/FS/function.c:1001 objects/FS/function.c:1003
-#, fuzzy
+#: objects/FS/function.c:1001
+#: objects/FS/function.c:1003
 msgid "Convert"
-msgstr "Invertál"
+msgstr "Átalakít"
 
 #. Translators: Menu item Verb/Convert/Transform
 #: objects/FS/function.c:1005
@@ -3506,16 +3381,17 @@ msgstr "Felület:"
 #. Translators: Menu item Verb/Convert/Differentiate
 #: objects/FS/function.c:1019
 msgid "Differentiate"
-msgstr ""
+msgstr "Megkülönböztet"
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:1021 sheets/EML.sheet.in.h:5
-#, fuzzy
+#: objects/FS/function.c:1021
+#: sheets/EML.sheet.in.h:5
 msgid "Process"
-msgstr "Védett"
+msgstr "Folyamat"
 
 #. Translators: Menu item Verb/Signal/Sense
-#: objects/FS/function.c:1027 objects/FS/function.c:1029
+#: objects/FS/function.c:1027
+#: objects/FS/function.c:1029
 msgid "Sense"
 msgstr ""
 
@@ -3528,7 +3404,7 @@ msgstr "Saját"
 #. Translators: Menu item Verb/Signal/Sense/Recognize
 #: objects/FS/function.c:1033
 msgid "Recognize"
-msgstr ""
+msgstr "Flismer"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
 #: objects/FS/function.c:1035
@@ -3543,10 +3419,11 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: objects/FS/function.c:1041
 msgid "Verify"
-msgstr ""
+msgstr "Ellenőríz"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#: objects/FS/function.c:1043 objects/FS/function.c:1045
+#: objects/FS/function.c:1043
+#: objects/FS/function.c:1045
 msgid "Indicate"
 msgstr ""
 
@@ -3556,20 +3433,21 @@ msgid "Mark"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:5
+#: objects/FS/function.c:1049
+#: sheets/Flowchart.sheet.in.h:5
 msgid "Display"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Measure
-#: objects/FS/function.c:1051 objects/FS/function.c:1053
+#: objects/FS/function.c:1051
+#: objects/FS/function.c:1053
 msgid "Measure"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
 #: objects/FS/function.c:1055
-#, fuzzy
 msgid "Calculate"
-msgstr "Hívás"
+msgstr "Számít"
 
 #. Translators: Menu item Verb/Signal/Represent
 #: objects/FS/function.c:1057
@@ -3578,64 +3456,60 @@ msgstr ""
 
 #. Translators: Menu item Noun
 #: objects/FS/function.c:1059
-#, fuzzy
 msgid "Noun"
-msgstr "Nincs"
+msgstr "Főnév"
 
 #. Translators: Menu item Noun/Material/Liquid
 #: objects/FS/function.c:1065
 msgid "Liquid"
-msgstr ""
+msgstr "Folyadék"
 
 #. Translators: Menu item Noun/Material/Gas
 #: objects/FS/function.c:1067
 msgid "Gas"
-msgstr ""
+msgstr "Gáz"
 
 #. Translators: Menu item Noun/Material/Human
-#: objects/FS/function.c:1069 objects/FS/function.c:1071
+#: objects/FS/function.c:1069
+#: objects/FS/function.c:1071
 #: objects/FS/function.c:1155
 msgid "Human"
-msgstr ""
+msgstr "Emberi"
 
 #. Translators: Menu item Noun/Material/Human/Hand
 #: objects/FS/function.c:1073
 msgid "Hand"
-msgstr ""
+msgstr "Kéz"
 
 #. Translators: Menu item Noun/Material/Human/Foot
 #: objects/FS/function.c:1075
-#, fuzzy
 msgid "Foot"
-msgstr "Betűtípus:"
+msgstr "Láb"
 
 #. Translators: Menu item Noun/Material/Human/Head
 #: objects/FS/function.c:1077
-#, fuzzy
 msgid "Head"
-msgstr "Fél fej"
+msgstr "Fej"
 
 #. Translators: Menu item Noun/Material/Human/Finger
 #: objects/FS/function.c:1079
-#, fuzzy
 msgid "Finger"
-msgstr "Nyomtató"
+msgstr "Ujj"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: objects/FS/function.c:1081
-#, fuzzy
 msgid "Toe"
-msgstr "Fent"
+msgstr "Lábujj"
 
 #. Translators: Menu item Noun/Material/Biological
 #: objects/FS/function.c:1083
 msgid "Biological"
-msgstr ""
+msgstr "Biológiai"
 
 #. Translators: Menu item Noun/Energy/Mechanical
 #: objects/FS/function.c:1087
 msgid "Mechanical"
-msgstr ""
+msgstr "Mechnaikai"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: objects/FS/function.c:1089
@@ -3668,13 +3542,12 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
 #: objects/FS/function.c:1099
 msgid "Random Motion"
-msgstr ""
+msgstr "Véletlen mozgás"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
 #: objects/FS/function.c:1101
-#, fuzzy
 msgid "Vibration"
-msgstr "_Látható rács"
+msgstr "Remegés"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
 #: objects/FS/function.c:1103
@@ -3688,35 +3561,33 @@ msgstr ""
 
 #. Translators: Menu item Noun/Energy/Electricity
 #: objects/FS/function.c:1107
-#, fuzzy
 msgid "Electrical"
-msgstr "_Függőleges"
+msgstr "Elektromos"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
 #: objects/FS/function.c:1109
 msgid "Electricity"
-msgstr ""
+msgstr "Elektromosság"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
 #: objects/FS/function.c:1111
 msgid "Voltage"
-msgstr ""
+msgstr "Feszültség"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
 #: objects/FS/function.c:1113
-#, fuzzy
 msgid "Current"
-msgstr "Középre"
+msgstr "Jelenleg"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
 #: objects/FS/function.c:1115
 msgid "Hydraulic"
-msgstr ""
+msgstr "Hidraulikus:"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: objects/FS/function.c:1117
 msgid "Pressure"
-msgstr ""
+msgstr "Nyomás"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #: objects/FS/function.c:1119
@@ -3746,11 +3617,11 @@ msgstr "Kompozíció"
 msgid "Convection"
 msgstr "Összekötött"
 
-#. Translators: Menu item Noun/Energy/Thermal/Radiation
-#: objects/FS/function.c:1129 objects/FS/function.c:1137
-#, fuzzy
+#  Translators: Menu item Noun/Energy/Thermal/Radiation
+#: objects/FS/function.c:1129
+#: objects/FS/function.c:1137
 msgid "Radiation"
-msgstr "Kompozíció"
+msgstr "Sugárzás"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
 #: objects/FS/function.c:1131
@@ -3798,11 +3669,10 @@ msgstr ""
 msgid "Optical Energy"
 msgstr "Energia"
 
-#. Translators: Menu item Noun/Energy/Solar Energy
+#  Translators: Menu item Noun/Energy/Solar Energy
 #: objects/FS/function.c:1151
-#, fuzzy
 msgid "Solar Energy"
-msgstr "Energia"
+msgstr "Napenergia"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
 #: objects/FS/function.c:1153
@@ -3829,23 +3699,21 @@ msgid "User/Device Fn"
 msgstr ""
 
 #: objects/FS/function.c:1170
-#, fuzzy
 msgid "Wish Fn"
-msgstr "Whish függvény"
+msgstr "Wish függvény"
 
-#: objects/GRAFCET/action.c:135 sheets/SDL.sheet.in.h:9
-#, fuzzy
+#: objects/GRAFCET/action.c:135
+#: sheets/SDL.sheet.in.h:9
 msgid "Macro call"
-msgstr "Görget"
+msgstr "Makrű hívás"
 
 #: objects/GRAFCET/action.c:135
 msgid "This action is a call to a macro-step"
 msgstr ""
 
 #: objects/GRAFCET/condition.c:130
-#, fuzzy
 msgid "Condition"
-msgstr "Kompozíció"
+msgstr "Feltétel"
 
 #: objects/GRAFCET/condition.c:130
 msgid "The boolean equation of the condition"
@@ -3860,10 +3728,10 @@ msgstr "_Csatlakozási pontokat mutat"
 msgid "The condition's font size"
 msgstr ""
 
-#: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
-#, fuzzy
+#: objects/GRAFCET/condition.c:137
+#: objects/GRAFCET/transition.c:147
 msgid "Color"
-msgstr "Szín:"
+msgstr "Szín"
 
 #: objects/GRAFCET/condition.c:137
 msgid "The condition's color"
@@ -3873,23 +3741,28 @@ msgstr ""
 msgid "GRAFCET diagram objects"
 msgstr ""
 
-#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:13
+#: objects/GRAFCET/step.c:146
+#: sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:6
+#: objects/GRAFCET/step.c:147
+#: sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:8
+#: objects/GRAFCET/step.c:148
+#: sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:9
+#: objects/GRAFCET/step.c:149
+#: sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:150 sheets/GRAFCET.sheet.in.h:7
+#: objects/GRAFCET/step.c:150
+#: sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr ""
 
@@ -3916,9 +3789,8 @@ msgid "The kind of step"
 msgstr ""
 
 #: objects/GRAFCET/step.c:163
-#, fuzzy
 msgid "Active"
-msgstr "Aktív objektumok"
+msgstr "Aktív"
 
 #: objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
@@ -3959,7 +3831,7 @@ msgstr ""
 
 #: objects/GRAFCET/vergent.c:122
 msgid "OR"
-msgstr ""
+msgstr "VAGY"
 
 #: objects/GRAFCET/vergent.c:123
 msgid "AND"
@@ -3970,7 +3842,8 @@ msgstr ""
 msgid "Vergent type:"
 msgstr "Üzenet típusa:"
 
-#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
+#: objects/GRAFCET/vergent.c:405
+#: objects/SADT/box.c:445
 #: objects/standard/line.c:241
 #, fuzzy
 msgid "Add connection point"
@@ -3986,9 +3859,8 @@ msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
 #: objects/Misc/analog_clock.c:136
-#, fuzzy
-msgid "Arrow colour"
-msgstr "Előtér szín:"
+msgid "Arrow color"
+msgstr "Nyíl színe"
 
 #: objects/Misc/analog_clock.c:138
 #, fuzzy
@@ -3996,8 +3868,9 @@ msgid "Arrow line width"
 msgstr "Vonal szélessége"
 
 #: objects/Misc/analog_clock.c:140
-msgid "Seconds arrow colour"
-msgstr ""
+#, fuzzy
+msgid "Seconds arrow color"
+msgstr "Vonal szélessége"
 
 #: objects/Misc/analog_clock.c:142
 #, fuzzy
@@ -4013,10 +3886,11 @@ msgstr "Vonalzók"
 msgid "Miscellaneous objects"
 msgstr ""
 
-#. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:334
+#  property rows
+#: objects/SADT/arrow.c:134
+#: objects/UML/class_dialog.c:336
 msgid "Normal"
-msgstr ""
+msgstr "Normál"
 
 #: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
@@ -4027,9 +3901,8 @@ msgid "Imply resource (not shown downstairs)"
 msgstr ""
 
 #: objects/SADT/arrow.c:137
-#, fuzzy
 msgid "Dotted arrow"
-msgstr "Pontozott"
+msgstr "Pontozott nyíl"
 
 #: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
@@ -4044,9 +3917,7 @@ msgid "Automatically gray vertical flows:"
 msgstr ""
 
 #: objects/SADT/arrow.c:147
-msgid ""
-"To improve the ease of reading, flows which begin and end vertically can be "
-"rendered gray"
+msgid "To improve the ease of reading, flows which begin and end vertically can be rendered gray"
 msgstr ""
 
 #: objects/SADT/arrow.c:572
@@ -4054,8 +3925,10 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "Nyíl mutatása"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:150
-#: objects/flowchart/diamond.c:148 objects/flowchart/ellipse.c:147
+#: objects/SADT/box.c:137
+#: objects/flowchart/box.c:150
+#: objects/flowchart/diamond.c:148
+#: objects/flowchart/ellipse.c:147
 #: objects/flowchart/parallelogram.c:152
 msgid "Text padding"
 msgstr ""
@@ -4068,7 +3941,8 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: objects/SADT/box.c:446 objects/standard/line.c:242
+#: objects/SADT/box.c:446
+#: objects/standard/line.c:242
 #, fuzzy
 msgid "Delete connection point"
 msgstr "_Csatlakozási pontokat mutat"
@@ -4081,40 +3955,44 @@ msgstr ""
 msgid "SADT diagram objects"
 msgstr ""
 
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/UML/activity.c:317
-#, fuzzy
+#  choose default font name for your locale. see also font_data structure
+#  in lib/font.c.
+#: objects/UML/activity.c:315
 msgid "Helvetica"
-msgstr "_Függőleges"
+msgstr "Sans"
 
-#: objects/UML/actor.c:349 objects/UML/actor.c:351 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:359
+#: objects/UML/actor.c:361
+#: sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Szereplő"
 
-#: objects/UML/association.c:1125 objects/UML/class_dialog.c:2071
+#: objects/UML/association.c:1125
+#: objects/UML/class_dialog.c:2086
 msgid "Direction:"
 msgstr "Irány:"
 
 #: objects/UML/association.c:1142
 msgid "From A to B"
-msgstr ""
+msgstr "A-ból B-be"
 
 #: objects/UML/association.c:1149
 msgid "From B to A"
-msgstr ""
+msgstr "B-ből A-ba"
 
-#: objects/UML/association.c:1173 objects/UML/association.c:1181
+#: objects/UML/association.c:1173
+#: objects/UML/association.c:1181
 msgid "Side A"
 msgstr "A oldal"
 
-#: objects/UML/association.c:1175 objects/UML/association.c:1183
+#: objects/UML/association.c:1175
+#: objects/UML/association.c:1183
 msgid "Side B"
 msgstr "B oldal"
 
 #: objects/UML/association.c:1189
 msgid "Role:"
-msgstr "Feladat:"
+msgstr "Szerep:"
 
 #: objects/UML/association.c:1201
 msgid "Multiplicity:"
@@ -4135,393 +4013,427 @@ msgstr "Aggregál"
 msgid "Composition"
 msgstr "Kompozíció"
 
-#: objects/UML/class.c:108 objects/UML/classicon.c:131
-#: objects/UML/component.c:117 objects/UML/large_package.c:119
-#: objects/UML/object.c:144 objects/UML/small_package.c:117
-#, fuzzy
+#: objects/UML/class.c:109
+#: objects/UML/classicon.c:135
+#: objects/UML/component.c:122
+#: objects/UML/large_package.c:126
+#: objects/UML/object.c:147
+#: objects/UML/small_package.c:122
 msgid "Stereotype"
-msgstr "Sztereotípia:"
+msgstr "Sztereotípia"
 
-#: objects/UML/class.c:110 objects/UML/class_dialog.c:359
+#: objects/UML/class.c:111
+#: objects/UML/class_dialog.c:361
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "Dokumentum"
+msgstr "Megjegyzés"
 
-#: objects/UML/class.c:112 objects/UML/class_dialog.c:291
-#: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
+#: objects/UML/class.c:113
+#: objects/UML/class_dialog.c:290
+#: objects/UML/class_dialog.c:346
+#: objects/UML/class_dialog.c:1912
 msgid "Abstract"
 msgstr "Absztrakt"
 
-#: objects/UML/class.c:114 objects/UML/class_dialog.c:300
+#: objects/UML/class.c:115
+#: objects/UML/class_dialog.c:299
 msgid "Suppress Attributes"
 msgstr "Elnyomott attribútumok"
 
-#: objects/UML/class.c:116
-#, fuzzy
+#: objects/UML/class.c:117
 msgid "Suppress Operations"
-msgstr "Elnyomott attribútumok"
+msgstr "Elnyomott műveletek"
 
-#: objects/UML/class.c:118
-#, fuzzy
+#: objects/UML/class.c:119
 msgid "Visible Attributes"
-msgstr "Attribútumok"
+msgstr "Attribútumok láthatóak"
 
-#: objects/UML/class.c:120
-#, fuzzy
+#: objects/UML/class.c:121
 msgid "Visible Operations"
-msgstr "_Látható rács"
+msgstr "Műveletek láthatóak"
 
-#: objects/UML/class.c:122
-#, fuzzy
+#: objects/UML/class.c:123
 msgid "Visible Comments"
-msgstr "_Látható rács"
+msgstr "Megjegyzések láthatóak"
 
-#. Attributes page:
-#: objects/UML/class.c:125 objects/UML/class_dialog.c:801
-#: objects/UML/object.c:148
+#: objects/UML/class.c:126
+#: objects/UML/object.c:151
 msgid "Attributes"
 msgstr "Attribútumok"
 
-#. Operations page:
-#: objects/UML/class.c:127 objects/UML/class_dialog.c:1725
+#: objects/UML/class.c:128
 msgid "Operations"
 msgstr "Műveletek"
 
-#: objects/UML/class.c:130
-#, fuzzy
+#: objects/UML/class.c:131
 msgid "Template"
-msgstr "Sablonok"
+msgstr "Sablon"
 
-#. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
-#: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
+#: objects/UML/class.c:179
+#: objects/UML/class.c:943
+#: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Osztály"
 
-#: objects/UML/class.c:184
-#, fuzzy
+#: objects/UML/class.c:185
 msgid "Show comments"
-msgstr "Dokumentum"
+msgstr "Megjegyzések kijelzése"
 
-#: objects/UML/class_dialog.c:261
+#  Class page:
+#: objects/UML/class_dialog.c:259
+msgid "_Class"
+msgstr "Osztály"
+
+#: objects/UML/class_dialog.c:267
 msgid "Class name:"
 msgstr "Osztály neve:"
 
-#: objects/UML/class_dialog.c:273 objects/UML/class_dialog.c:1817
-#: objects/UML/dependency.c:130 objects/UML/generalization.c:126
-#: objects/UML/realizes.c:127
+#: objects/UML/class_dialog.c:275
+#: objects/UML/class_dialog.c:1835
+#: objects/UML/dependency.c:135
+#: objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Sztereotípia:"
 
-#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:902
-#: objects/UML/class_dialog.c:1935 objects/UML/class_dialog.c:2059
-#, fuzzy
+#: objects/UML/class_dialog.c:282
+#: objects/UML/class_dialog.c:912
+#: objects/UML/class_dialog.c:1953
+#: objects/UML/class_dialog.c:2075
 msgid "Comment:"
-msgstr "Dokumentum"
+msgstr "Megjegyzés:"
 
-#: objects/UML/class_dialog.c:297
+#: objects/UML/class_dialog.c:296
 msgid "Attributes visible"
-msgstr "Attribútumok láthatók"
+msgstr "Attribútumok láthatóak"
 
-#: objects/UML/class_dialog.c:306
+#: objects/UML/class_dialog.c:305
 msgid "Operations visible"
 msgstr "Műveletek láthatóak"
 
-#: objects/UML/class_dialog.c:309
-#, fuzzy
+#: objects/UML/class_dialog.c:308
 msgid "Suppress operations"
-msgstr "Elnyomott attribútumok"
+msgstr "Elnyomott műveletek"
 
-#: objects/UML/class_dialog.c:315
-#, fuzzy
+#: objects/UML/class_dialog.c:314
 msgid "Comments visible"
-msgstr "Műveletek láthatóak"
+msgstr "Megjegyzések láthatóak"
 
 #. head line
-#: objects/UML/class_dialog.c:325
+#: objects/UML/class_dialog.c:327
 msgid "Kind"
 msgstr "Fajta"
 
-#: objects/UML/class_dialog.c:330
+#: objects/UML/class_dialog.c:332
 msgid "Size"
 msgstr "Méret"
 
-#: objects/UML/class_dialog.c:339
+#: objects/UML/class_dialog.c:341
 msgid "Polymorphic"
 msgstr "Polimorf"
 
-#: objects/UML/class_dialog.c:349
+#: objects/UML/class_dialog.c:351
 msgid "Class Name"
 msgstr "Osztály neve"
 
-#: objects/UML/class_dialog.c:354
+#: objects/UML/class_dialog.c:356
 msgid "Abstract Class"
 msgstr "Absztrakt osztály"
 
-#. should probably be refactored too.
-#: objects/UML/class_dialog.c:371
+#  should probably be refactored too.
+#: objects/UML/class_dialog.c:373
+msgid "Text Color"
+msgstr "Szöveg színe"
+
+#: objects/UML/class_dialog.c:381
 msgid "Foreground Color"
 msgstr "Előtérszín"
 
-#: objects/UML/class_dialog.c:379
+#: objects/UML/class_dialog.c:389
 msgid "Background Color"
 msgstr "Háttérszín"
 
-#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1759
-#: objects/UML/class_dialog.c:1988 objects/UML/class_dialog.c:2506
-msgid "Delete"
-msgstr "Törlés"
+#  Attributes page:
+#: objects/UML/class_dialog.c:812
+msgid "_Attributes"
+msgstr "_Attribútumok"
 
-#: objects/UML/class_dialog.c:841 objects/UML/class_dialog.c:1765
-#: objects/UML/class_dialog.c:1995 objects/UML/class_dialog.c:2512
+#: objects/UML/class_dialog.c:840
+#: objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:1999
+#: objects/UML/class_dialog.c:2519
+msgid "_New"
+msgstr "Ú_j"
+
+#: objects/UML/class_dialog.c:846
+#: objects/UML/class_dialog.c:1777
+#: objects/UML/class_dialog.c:2006
+#: objects/UML/class_dialog.c:2525
+msgid "_Delete"
+msgstr "_Törlés"
+
+#: objects/UML/class_dialog.c:852
+#: objects/UML/class_dialog.c:1783
+#: objects/UML/class_dialog.c:2013
+#: objects/UML/class_dialog.c:2531
 msgid "Move up"
 msgstr "Fel"
 
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1771
-#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2518
+#: objects/UML/class_dialog.c:858
+#: objects/UML/class_dialog.c:1789
+#: objects/UML/class_dialog.c:2020
+#: objects/UML/class_dialog.c:2537
 msgid "Move down"
 msgstr "Le"
 
-#: objects/UML/class_dialog.c:858
+#: objects/UML/class_dialog.c:869
 msgid "Attribute data"
-msgstr "Attribútum érték"
+msgstr "Attribútum adat"
 
-#: objects/UML/class_dialog.c:890
+#: objects/UML/class_dialog.c:901
 msgid "Value:"
 msgstr "Érték:"
 
-#: objects/UML/class_dialog.c:915 objects/UML/class_dialog.c:1830
+#: objects/UML/class_dialog.c:924
+#: objects/UML/class_dialog.c:1848
 msgid "Visibility:"
 msgstr "Láthatóság:"
 
-#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1839
+#: objects/UML/class_dialog.c:933
+#: objects/UML/class_dialog.c:1857
 msgid "Public"
-msgstr "Nyilvános"
+msgstr "Publikus"
 
-#: objects/UML/class_dialog.c:932 objects/UML/class_dialog.c:1847
+#: objects/UML/class_dialog.c:941
+#: objects/UML/class_dialog.c:1865
 msgid "Private"
-msgstr "Személyes"
+msgstr "Privát"
 
-#: objects/UML/class_dialog.c:940 objects/UML/class_dialog.c:1855
+#: objects/UML/class_dialog.c:949
+#: objects/UML/class_dialog.c:1873
 msgid "Protected"
 msgstr "Védett"
 
-#: objects/UML/class_dialog.c:948 objects/UML/class_dialog.c:1863
+#: objects/UML/class_dialog.c:957
+#: objects/UML/class_dialog.c:1881
 msgid "Implementation"
-msgstr "Implementation"
+msgstr "Megvalósítás"
 
-#: objects/UML/class_dialog.c:964 objects/UML/class_dialog.c:1879
+#: objects/UML/class_dialog.c:978
+#: objects/UML/class_dialog.c:1897
 msgid "Class scope"
-msgstr "Osztálynézet"
+msgstr "Osztály hatókör"
 
-#: objects/UML/class_dialog.c:1783
+#  Operations page:
+#: objects/UML/class_dialog.c:1743
+msgid "_Operations"
+msgstr "_Műveletek"
+
+#: objects/UML/class_dialog.c:1801
 msgid "Operation data"
 msgstr "Műveletek adatai"
 
-#: objects/UML/class_dialog.c:1885
-#, fuzzy
+#: objects/UML/class_dialog.c:1903
 msgid "Inheritance type:"
-msgstr "Üzenet típusa:"
+msgstr "Öröklés típusa:"
 
-#: objects/UML/class_dialog.c:1902
+#: objects/UML/class_dialog.c:1920
 msgid "Polymorphic (virtual)"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1910
-msgid "Leaf (final)"
-msgstr ""
+msgstr "Polimorf (virtuális)"
 
 #: objects/UML/class_dialog.c:1928
-msgid "Query"
-msgstr ""
+msgid "Leaf (final)"
+msgstr "Ág (végső)"
 
-#: objects/UML/class_dialog.c:1952
+#: objects/UML/class_dialog.c:1946
+msgid "Query"
+msgstr "Lekérdezés"
+
+#: objects/UML/class_dialog.c:1970
 msgid "Parameters:"
 msgstr "Paraméterek:"
 
-#: objects/UML/class_dialog.c:2014
+#: objects/UML/class_dialog.c:2032
 msgid "Parameter data"
 msgstr "Paraméterek adatai"
 
-#: objects/UML/class_dialog.c:2047
+#: objects/UML/class_dialog.c:2064
 msgid "Def. value:"
-msgstr "Def. értékek:"
+msgstr "Alapért. érték:"
 
-#: objects/UML/class_dialog.c:2080
-#, fuzzy
+#: objects/UML/class_dialog.c:2095
 msgid "Undefined"
-msgstr "Vonal"
+msgstr "Nem definiált"
 
-#: objects/UML/class_dialog.c:2088
+#: objects/UML/class_dialog.c:2103
 msgid "In"
-msgstr ""
+msgstr "Be"
 
-#: objects/UML/class_dialog.c:2097
+#: objects/UML/class_dialog.c:2112
 msgid "Out"
-msgstr ""
+msgstr "Ki"
 
-#: objects/UML/class_dialog.c:2106
+#: objects/UML/class_dialog.c:2121
 msgid "In & Out"
-msgstr ""
+msgstr "Be & Ki"
 
-#. Templates page:
-#: objects/UML/class_dialog.c:2466
-msgid "Templates"
-msgstr "Sablonok"
+#  Templates page:
+#: objects/UML/class_dialog.c:2485
+msgid "_Templates"
+msgstr "_Sablonok"
 
-#: objects/UML/class_dialog.c:2472 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2491
+#: sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Sablon osztály"
 
-#: objects/UML/class_dialog.c:2529
+#: objects/UML/class_dialog.c:2548
 msgid "Formal parameter data"
 msgstr "Formális paraméter-adat"
 
-#: objects/UML/classicon.c:123
+#: objects/UML/classicon.c:125
 msgid "Boundary"
-msgstr ""
+msgstr "Határ"
 
-#: objects/UML/classicon.c:133
-#, fuzzy
+#: objects/UML/classicon.c:137
 msgid "Is object"
-msgstr "Aktív objektumok"
+msgstr "Objektum?"
 
-#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
-#, fuzzy
+#: objects/UML/component_feature.c:144
+#: sheets/UML.sheet.in.h:14
 msgid "Facet"
-msgstr "Egymás mellé"
-
-#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
-#, fuzzy
-msgid "Receptacle"
-msgstr "Csere"
-
-#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
-msgid "Event Source"
 msgstr ""
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
-#, fuzzy
+#: objects/UML/component_feature.c:145
+#: sheets/UML.sheet.in.h:26
+msgid "Receptacle"
+msgstr "Gyűjtő"
+
+#: objects/UML/component_feature.c:146
+#: sheets/UML.sheet.in.h:13
+msgid "Event Source"
+msgstr "Eseményforrás"
+
+#: objects/UML/component_feature.c:147
+#: sheets/UML.sheet.in.h:12
 msgid "Event Sink"
-msgstr "Események"
+msgstr "Esemény gyűjtő"
 
-#: objects/UML/constraint.c:121
+#: objects/UML/constraint.c:125
 msgid "Constraint:"
-msgstr "Konstans:"
+msgstr "Kikötés:"
 
-#: objects/UML/dependency.c:132
+#: objects/UML/dependency.c:137
 msgid "Show arrow:"
 msgstr "Nyíl mutatása:"
 
 # objects/UML/implements.c:561
-#: objects/UML/implements.c:122
+#: objects/UML/implements.c:128
 msgid "Interface:"
 msgstr "Felület:"
 
 # objects/UML/lifeline.c:607
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:144
 #, fuzzy
 msgid "Draw focus of control:"
 msgstr "Mutasd a vezérlés fókuszát:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:146
 #, fuzzy
 msgid "Draw destruction mark:"
 msgstr "Mutasd a megsemmisítési kijelölést:"
 
-#: objects/UML/lifeline.c:409
-#, fuzzy
+#: objects/UML/lifeline.c:417
 msgid "Add connection points"
-msgstr "_Csatlakozási pontokat mutat"
+msgstr "Csatlakozási pontok hozzáadása"
 
-#: objects/UML/lifeline.c:410
-#, fuzzy
+#: objects/UML/lifeline.c:418
 msgid "Remove connection points"
-msgstr "_Csatlakozási pontokat mutat"
+msgstr "Csatlakozási pontok törlése"
 
-#: objects/UML/lifeline.c:414
+#: objects/UML/lifeline.c:422
 msgid "UML Lifeline"
-msgstr ""
+msgstr "UML életciklus"
 
-#: objects/UML/message.c:131
+#: objects/UML/message.c:135
 msgid "Call"
 msgstr "Hívás"
 
-#: objects/UML/message.c:132
+#: objects/UML/message.c:136
 msgid "Create"
 msgstr "Létrehozás"
 
-#: objects/UML/message.c:133
+#: objects/UML/message.c:137
 msgid "Destroy"
 msgstr "Megsemmisítés"
 
-#: objects/UML/message.c:134
+#: objects/UML/message.c:138
 msgid "Simple"
 msgstr "Egyszerű"
 
-#: objects/UML/message.c:135
+#: objects/UML/message.c:139
 msgid "Return"
 msgstr "Visszatérés"
 
-#: objects/UML/message.c:136
+#: objects/UML/message.c:140
 msgid "Send"
-msgstr ""
+msgstr "Küldés"
 
-#: objects/UML/message.c:137
+#: objects/UML/message.c:141
 msgid "Recursive"
 msgstr "Rekurzív"
 
-#: objects/UML/message.c:144
+#: objects/UML/message.c:150
 msgid "Message:"
 msgstr "Üzenet:"
 
-#: objects/UML/message.c:146
+#: objects/UML/message.c:152
 msgid "Message type:"
 msgstr "Üzenet típusa:"
 
-#: objects/UML/object.c:146
-#, fuzzy
+#: objects/UML/object.c:149
 msgid "Explicit state"
-msgstr "Meghetározott státusz:"
+msgstr "Meghatározott állapot:"
 
-#: objects/UML/object.c:151
+#: objects/UML/object.c:154
 msgid "Active object"
-msgstr "Aktív objektumok"
+msgstr "Aktív objektum"
 
-#: objects/UML/object.c:153
+#: objects/UML/object.c:156
 msgid "Show attributes"
 msgstr "Attribútumok mutatása"
 
-#: objects/UML/object.c:155
-#, fuzzy
+#: objects/UML/object.c:158
 msgid "Multiple instance"
-msgstr "többszörös előfordulás"
+msgstr "Több példány"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:400
+#: objects/UML/state.c:410
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
+"Ez az ábra az Állapot objektumot használha a kezdő/befejező állapothoz.\n"
+"Ez a jövőbeni verziókban már nem lesz elérhető.\n"
+"Kérlek, használd inkább a Kezdő/Befejező Állapot objektumot.\n"
 
 #: objects/UML/state_term.c:122
 msgid "Is final"
-msgstr ""
+msgstr "Befejezés?"
 
 #: objects/UML/uml.c:64
 msgid "Unified Modelling Language diagram objects"
-msgstr ""
+msgstr "Egyesített Modellező Nyelv (UML) ábra objektumok"
 
-#: objects/UML/usecase.c:125
+#: objects/UML/usecase.c:130
 msgid "Text outside"
-msgstr ""
+msgstr "Szöveg kívül"
 
-#: objects/UML/usecase.c:127
+#: objects/UML/usecase.c:132
 msgid "Collaboration"
-msgstr ""
+msgstr "Együttműködés"
 
 #: objects/bondgraph/bondgraph.c:39
 #, fuzzy
@@ -4534,7 +4446,7 @@ msgstr ""
 
 #: objects/chronogram/chronoline.c:148
 msgid "Data"
-msgstr ""
+msgstr "Adat"
 
 #: objects/chronogram/chronoline.c:150
 #, fuzzy
@@ -4562,12 +4474,14 @@ msgstr ""
 msgid "Parameters"
 msgstr "Paraméterek"
 
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#: objects/chronogram/chronoline.c:164
+#: objects/chronogram/chronoref.c:146
 #, fuzzy
 msgid "Start time"
 msgstr "Pontozott"
 
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+#: objects/chronogram/chronoline.c:166
+#: objects/chronogram/chronoref.c:148
 msgid "End time"
 msgstr ""
 
@@ -4585,7 +4499,8 @@ msgstr ""
 msgid "Multi-bit data"
 msgstr "Attribútum érték"
 
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+#: objects/chronogram/chronoline.c:173
+#: objects/chronogram/chronoref.c:156
 msgid "Aspect"
 msgstr ""
 
@@ -4598,11 +4513,6 @@ msgstr "Válassz ki egy színt"
 #, fuzzy
 msgid "Data line width"
 msgstr "Vonal szélessége"
-
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
-#, fuzzy
-msgid "Line color"
-msgstr "Válassz ki egy színt"
 
 #: objects/chronogram/chronoref.c:144
 #, fuzzy
@@ -4624,38 +4534,41 @@ msgstr "Vonal szélessége"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
-msgstr ""
+msgstr "Egyedi"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
 msgstr ""
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:178
+#: objects/custom/custom_object.c:197
 #, fuzzy
 msgid "Flip horizontal"
 msgstr "_Vizszintes"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:180
+#: objects/custom/custom_object.c:199
 #, fuzzy
 msgid "Flip vertical"
 msgstr "_Függőleges"
 
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1422
 #, fuzzy
 msgid "Flip Horizontal"
 msgstr "_Vizszintes"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1423
 #, fuzzy
 msgid "Flip Vertical"
 msgstr "_Függőleges"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1460
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:148
+#: objects/standard/box.c:148
 #, fuzzy
 msgid "Corner radius"
 msgstr "Saroklekerekítés:"
@@ -4689,32 +4602,73 @@ msgstr "Ú_j diagram"
 msgid "Curve distance"
 msgstr "többszörös előfordulás"
 
-#: objects/standard/bezier.c:542 objects/standard/beziergon.c:500
+#: objects/standard/bezier.c:545
+#: objects/standard/beziergon.c:500
 msgid "Add Segment"
 msgstr ""
 
-#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
-#, fuzzy
+#: objects/standard/bezier.c:546
+#: objects/standard/beziergon.c:501
 msgid "Delete Segment"
-msgstr "Réteget töröl"
+msgstr "Szakaszt töröl"
 
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:503
+#: objects/standard/bezier.c:548
+#: objects/standard/beziergon.c:503
 msgid "Symmetric control"
 msgstr ""
 
-#: objects/standard/bezier.c:547 objects/standard/beziergon.c:505
+#: objects/standard/bezier.c:550
+#: objects/standard/beziergon.c:505
 #, fuzzy
 msgid "Smooth control"
 msgstr "Mutasd a vezérlés fókuszát:"
 
-#: objects/standard/bezier.c:549 objects/standard/beziergon.c:507
+#: objects/standard/bezier.c:552
+#: objects/standard/beziergon.c:507
 msgid "Cusp control"
 msgstr ""
 
-#: objects/standard/image.c:130
+#: objects/standard/box.c:135
+#: objects/standard/ellipse.c:131
 #, fuzzy
+msgid "Free"
+msgstr "Létrehozás"
+
+#: objects/standard/box.c:136
+#: objects/standard/ellipse.c:132
+msgid "Fixed"
+msgstr "Rögzített"
+
+#: objects/standard/box.c:137
+#: objects/standard/box.c:687
+msgid "Square"
+msgstr "Négyzet"
+
+#: objects/standard/box.c:150
+#: objects/standard/ellipse.c:144
+#, fuzzy
+msgid "Aspect ratio"
+msgstr "Felbontási arányok megtartása"
+
+#: objects/standard/box.c:683
+#: objects/standard/ellipse.c:666
+#, fuzzy
+msgid "Free aspect"
+msgstr "Felbontási arányok megtartása"
+
+#: objects/standard/box.c:685
+#: objects/standard/ellipse.c:668
+msgid "Fixed aspect"
+msgstr ""
+
+#: objects/standard/ellipse.c:133
+#: objects/standard/ellipse.c:670
+msgid "Circle"
+msgstr "Kör"
+
+#: objects/standard/image.c:130
 msgid "Image file"
-msgstr "Képfájl:"
+msgstr "Képfájl"
 
 #: objects/standard/image.c:132
 #, fuzzy
@@ -4726,7 +4680,8 @@ msgid "Keep aspect ratio"
 msgstr "Felbontási arányok megtartása"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:669 objects/standard/image.c:680
+#: objects/standard/image.c:669
+#: objects/standard/image.c:680
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -4736,29 +4691,31 @@ msgstr ""
 "'%s'-t használtam helyette\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:712
+#: objects/standard/image.c:686
+#: objects/standard/image.c:712
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "A '%s' nevű fájlt nem találtam meg.\n"
 
 #: objects/standard/line.c:136
-#, fuzzy
 msgid "Arrows"
-msgstr "Nyíl mutatása"
+msgstr "Nyílak"
 
 #: objects/standard/line.c:141
 msgid "Start point"
-msgstr ""
+msgstr "Kezdőpont"
 
 #: objects/standard/line.c:143
 msgid "End point"
-msgstr ""
+msgstr "Végpont"
 
-#: objects/standard/polygon.c:460 objects/standard/polyline.c:496
+#: objects/standard/polygon.c:460
+#: objects/standard/polyline.c:496
 msgid "Add Corner"
 msgstr "Sarok hozzáadása"
 
-#: objects/standard/polygon.c:461 objects/standard/polyline.c:497
+#: objects/standard/polygon.c:461
+#: objects/standard/polyline.c:497
 msgid "Delete Corner"
 msgstr "Sarok törlése"
 
@@ -4780,18 +4737,20 @@ msgstr ""
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
-#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:547
+#: plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr ""
 
-#: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
+#: plug-ins/dxf/dxf-import.c:481
+#: plug-ins/dxf/dxf-import.c:498
 msgid "Bad vertex bulge\n"
 msgstr ""
 
 #: plug-ins/dxf/dxf-import.c:1051
-#, fuzzy, c-format
+#, c-format
 msgid "Scale: %f\n"
-msgstr "Lépték:"
+msgstr "Lépték: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
@@ -4818,7 +4777,7 @@ msgstr ""
 msgid "TeX Metapost export filter"
 msgstr ""
 
-#: plug-ins/metapost/render_metapost.c:867
+#: plug-ins/metapost/render_metapost.c:1033
 msgid "TeX Metapost macros"
 msgstr ""
 
@@ -4830,7 +4789,8 @@ msgid ""
 "%s"
 msgstr "Nem tudom megnyitni a következőt: '%s' "
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
+#: plug-ins/pixbuf/pixbuf.c:163
+#: plug-ins/pixbuf/pixbuf.c:174
 msgid "GdkPixbuf bitmap"
 msgstr ""
 
@@ -4850,7 +4810,8 @@ msgstr ""
 msgid "TeX PSTricks macros"
 msgstr ""
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
+#: plug-ins/python/pydia-render.c:711
+#: plug-ins/wmf/wmf.cpp:1041
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
@@ -4859,11 +4820,11 @@ msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
 msgid "Python scripting support"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:498
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
 msgstr ""
 
@@ -4871,16 +4832,22 @@ msgstr ""
 msgid "dia shape export filter"
 msgstr ""
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301
+#: plug-ins/svg/svg-import.c:642
 #, fuzzy
 msgid "Scalable Vector Graphics"
 msgstr "Portable Network Graphics"
 
-#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
-#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
-#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
-#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
-#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
+#: plug-ins/svg/svg-import.c:204
+#: plug-ins/svg/svg-import.c:218
+#: plug-ins/xfig/xfig-import.c:108
+#: plug-ins/xfig/xfig-import.c:159
+#: plug-ins/xfig/xfig-import.c:188
+#: plug-ins/xfig/xfig-import.c:224
+#: plug-ins/xfig/xfig-import.c:261
+#: plug-ins/xfig/xfig-import.c:289
+#: plug-ins/xfig/xfig-import.c:326
+#: plug-ins/xfig/xfig-import.c:362
 #: plug-ins/xfig/xfig-import.c:403
 #, fuzzy
 msgid "Can't find standard object"
@@ -4921,28 +4888,25 @@ msgstr ""
 msgid "File: %s type/version unsupported.\n"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1311 plug-ins/wpg/wpg.c:1318
+#: plug-ins/wpg/wpg.c:1311
+#: plug-ins/wpg/wpg.c:1318
 msgid "WPG"
-msgstr ""
+msgstr "WPG"
 
 #: plug-ins/wpg/wpg.c:1332
 msgid "WordPerfect Graphics export filter"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:428
-msgid "Arrow type none -- shouldn't happen\n"
-msgstr ""
-
-#: plug-ins/xfig/xfig-export.c:442
+#: plug-ins/xfig/xfig-export.c:454
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:463
+#: plug-ins/xfig/xfig-export.c:475
 msgid "No more user-definable colors - using black"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:1136
+#: plug-ins/xfig/xfig-export.c:1149
 msgid "XFig format"
 msgstr ""
 
@@ -4997,12 +4961,14 @@ msgstr ""
 msgid "Negative corner radius, negating"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
+#: plug-ins/xfig/xfig-import.c:857
+#: plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
+#: plug-ins/xfig/xfig-import.c:1007
+#: plug-ins/xfig/xfig-import.c:1039
 #, fuzzy, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr ""
@@ -5011,7 +4977,8 @@ msgstr ""
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
+#: plug-ins/xfig/xfig-import.c:1026
+#: plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
 msgstr ""
 
@@ -5103,13 +5070,15 @@ msgstr "Ábrafájl beolvasási hiba\n"
 msgid "Error reading transparent color: %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
+#: plug-ins/xfig/xfig-import.c:1481
+#: plug-ins/xfig/xfig-import.c:1536
 #: plug-ins/xfig/xfig-import.c:1554
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
+#: plug-ins/xfig/xfig-import.c:1483
+#: plug-ins/xfig/xfig-import.c:1538
 msgid "Premature end of FIG file\n"
 msgstr ""
 
@@ -5136,37 +5105,37 @@ msgstr ""
 msgid "Fig Format import and export filter"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:93
+#: plug-ins/xslt/xslt.c:102
 #, fuzzy, c-format
 msgid "Error while parsing %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xslt/xslt.c:101
+#: plug-ins/xslt/xslt.c:110
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xslt/xslt.c:107
+#: plug-ins/xslt/xslt.c:116
 #, fuzzy, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xslt/xslt.c:115
+#: plug-ins/xslt/xslt.c:124
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xslt/xslt.c:123
+#: plug-ins/xslt/xslt.c:132
 #, fuzzy, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: plug-ins/xslt/xslt.c:303
+#: plug-ins/xslt/xslt.c:312
 #, fuzzy
 msgid "XSL Transformation filter"
 msgstr "Tranzakciófájl"
 
-#: plug-ins/xslt/xslt.c:327
+#: plug-ins/xslt/xslt.c:336
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 
@@ -5185,9 +5154,7 @@ msgid "To:"
 msgstr "Fent:"
 
 #: sheets/Assorted.sheet.in.h:1
-msgid ""
-"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
-"Geometric Shapes"
+msgid "An Assorted Collection of Polygons, Beziergons and other Miscellaneous Geometric Shapes"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:2
@@ -5207,9 +5174,8 @@ msgid "Curved four point star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:6
-#, fuzzy
 msgid "Diamond"
-msgstr "Lyukas gyémánt"
+msgstr "Gyémánt"
 
 #: sheets/Assorted.sheet.in.h:7
 #, fuzzy
@@ -5226,9 +5192,8 @@ msgid "Four point star"
 msgstr "Mutasd a vezérlés fókuszát:"
 
 #: sheets/Assorted.sheet.in.h:10
-#, fuzzy
 msgid "Heart"
-msgstr "Létrehozás"
+msgstr "Szív"
 
 #: sheets/Assorted.sheet.in.h:11
 msgid "Heptagon. Seven sided shape"
@@ -5270,7 +5235,7 @@ msgstr "Nyíl mutatása"
 
 #: sheets/Assorted.sheet.in.h:19
 msgid "Maltese cross"
-msgstr ""
+msgstr "Máltai kereszt"
 
 #: sheets/Assorted.sheet.in.h:20
 #, fuzzy
@@ -5296,7 +5261,7 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:25
 msgid "Perfect circle"
-msgstr ""
+msgstr "Teljes kör"
 
 #: sheets/Assorted.sheet.in.h:26
 msgid "Perfect square, height equals width"
@@ -5309,11 +5274,11 @@ msgstr "Pontozott"
 
 #: sheets/Assorted.sheet.in.h:28
 msgid "Quarter circle"
-msgstr ""
+msgstr "Negyed kör"
 
 #: sheets/Assorted.sheet.in.h:29
 msgid "Quarter moon"
-msgstr ""
+msgstr "Negye hold"
 
 #: sheets/Assorted.sheet.in.h:30
 #, fuzzy
@@ -5341,7 +5306,7 @@ msgstr "Nyomtató kiválasztása"
 
 #: sheets/Assorted.sheet.in.h:35
 msgid "Sun"
-msgstr ""
+msgstr "Nap"
 
 #: sheets/Assorted.sheet.in.h:36
 #, fuzzy
@@ -5354,38 +5319,40 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:38
 #, fuzzy
-msgid "Up arrow"
+msgid "Turn-up arrow"
 msgstr "Nyíl mutatása"
 
 #: sheets/Assorted.sheet.in.h:39
 #, fuzzy
-msgid "Up-down arrow"
+msgid "Up arrow"
 msgstr "Nyíl mutatása"
 
 #: sheets/Assorted.sheet.in.h:40
 #, fuzzy
-msgid "Up-down-left arrow"
+msgid "Up-down arrow"
 msgstr "Nyíl mutatása"
 
 #: sheets/Assorted.sheet.in.h:41
+#, fuzzy
+msgid "Up-down-left arrow"
+msgstr "Nyíl mutatása"
+
+#: sheets/Assorted.sheet.in.h:42
 #, fuzzy
 msgid "Vertical parallelogram"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:1
-#, fuzzy
 msgid "Circuit"
-msgstr "Irány:"
+msgstr "Áramkör"
 
 #: sheets/Circuit.sheet.in.h:2
-#, fuzzy
 msgid "Components for circuit diagrams"
 msgstr "Elektomos áramköri elemek"
 
 #: sheets/Circuit.sheet.in.h:3
-#, fuzzy
 msgid "Ground point"
-msgstr "Mutasd a vezérlés fókuszát:"
+msgstr "Földelési pont"
 
 #: sheets/Circuit.sheet.in.h:4
 #, fuzzy
@@ -5446,39 +5413,35 @@ msgstr "_Vizszintes"
 msgid "Lamp"
 msgstr ""
 
-#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
-#, fuzzy
+#: sheets/Circuit.sheet.in.h:16
+#: sheets/ciscomisc.sheet.in.h:26
 msgid "Microphone"
-msgstr "Egyszerű rádiótelefon"
+msgstr "Mikrofon"
 
 #: sheets/Circuit.sheet.in.h:17
-#, fuzzy
 msgid "NMOS transistor"
-msgstr "Tranzitív"
+msgstr "NMOS tranzisztor"
 
 #: sheets/Circuit.sheet.in.h:18
-#, fuzzy
 msgid "NPN bipolar transistor"
-msgstr "Tranzitív"
+msgstr "NPN tranzisztor"
 
 #: sheets/Circuit.sheet.in.h:19
-#, fuzzy
 msgid "Operational amplifier"
-msgstr "Multimédia hangszóró erősítő nélkül"
+msgstr "Műveleti erősítő"
 
 #: sheets/Circuit.sheet.in.h:20
-#, fuzzy
 msgid "PMOS transistor"
-msgstr "Tranzitív"
+msgstr "PMOS tranzisztor"
 
 #: sheets/Circuit.sheet.in.h:21
-#, fuzzy
 msgid "PNP bipolar transistor"
-msgstr "Tranzitív"
+msgstr "PNP tranzisztor"
 
-#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:22
+#: sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
-msgstr ""
+msgstr "Hangfal"
 
 #: sheets/Circuit.sheet.in.h:23
 #, fuzzy
@@ -5598,6 +5561,137 @@ msgstr "Egyszerű nyomtató"
 msgid "Simple output variable"
 msgstr "Egyszerű nyomtató"
 
+#: sheets/Cybernetics.sheet.in.h:1
+msgid "Constant factor below -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:2
+msgid "Constant factor between 0 and -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:3
+msgid "Constant factor between 0 and 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:4
+msgid "Constant factor greater 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:5
+msgid "Constant negative shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:6
+msgid "Constant positive shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:7
+msgid "Cybernetics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:8
+#, fuzzy
+msgid "Elements of cybernetic circuits"
+msgstr "Elektomos áramköri elemek"
+
+#: sheets/Cybernetics.sheet.in.h:9
+msgid "Full wave rectifier (absolute value)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:10
+msgid "Half wave rectifier or ramp input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:11
+msgid "High pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:12
+msgid "Integrator - input bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:13
+msgid "Integrator - input left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:14
+msgid "Integrator - input right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:15
+msgid "Integrator - input top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:16
+msgid "Low pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:17
+#, fuzzy
+msgid "Product"
+msgstr "Összekötött"
+
+#: sheets/Cybernetics.sheet.in.h:18
+msgid "Relay characteristic (sigma)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:19
+msgid "Saturation characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:20
+msgid "Sensor - bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:21
+msgid "Sensor - left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:22
+msgid "Sensor - right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:23
+msgid "Sensor - top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:24
+msgid "Sigmoid characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:25
+msgid "Sine characteristic or input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:26
+msgid "Sum"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:27
+msgid "Sum, subtracting bottom input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:28
+msgid "Sum, subtracting left input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:29
+msgid "Sum, subtracting right input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:30
+msgid "Sum, subtracting top input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:31
+msgid "Template for custom characteristics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:32
+#, fuzzy
+msgid "Time delay"
+msgstr "Attribútum érték"
+
 #: sheets/EML.sheet.in.h:1
 msgid "EML"
 msgstr ""
@@ -5635,46 +5729,76 @@ msgid "Weak entity"
 msgstr "Megjelenés"
 
 #: sheets/Electric.sheet.in.h:1
-msgid "Command organ of a relay"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:2
 msgid "Components for electric circuits"
 msgstr "Elektomos áramköri elemek"
 
-#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
+#: sheets/Electric.sheet.in.h:2
+#: sheets/Pneumatic.sheet.in.h:9
 #, fuzzy
 msgid "Connection point"
 msgstr "Csatlakozási pontok:"
 
-#: sheets/Electric.sheet.in.h:4
+#: sheets/Electric.sheet.in.h:3
 msgid "Electric"
 msgstr "Elektromos áramkörök"
 
+#: sheets/Electric.sheet.in.h:4
+msgid "Lamp or indicator light (horizontal)"
+msgstr ""
+
 #: sheets/Electric.sheet.in.h:5
-msgid "Lamp or indicator light"
+msgid "Lamp or indicator light (vertical)"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:6
-msgid "Normally closed contact"
+msgid "Normally closed contact (horizontal)"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:7
-msgid "Normally closed position switch"
+msgid "Normally closed contact (vertical)"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:8
-msgid "Normally open contact"
+msgid "Normally closed position switch (horizontal)"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:9
-msgid "Normally open position switch"
+msgid "Normally closed position switch (vertical)"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:10
+msgid "Normally open contact (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:11
+msgid "Normally open contact (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:12
+msgid "Normally open position switch (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:13
+msgid "Normally open position switch (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:14
 #, fuzzy
-msgid "Relay"
-msgstr "Késleltetés"
+msgid "Relay (horizontal)"
+msgstr "_Vizszintes"
+
+#: sheets/Electric.sheet.in.h:15
+#, fuzzy
+msgid "Relay (vertical)"
+msgstr "_Függőleges"
+
+#: sheets/Electric.sheet.in.h:16
+msgid "The command organ of a relay (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:17
+msgid "The command organ of a relay (vertical)"
+msgstr ""
 
 #: sheets/FS.sheet.in.h:1
 #, fuzzy
@@ -5709,7 +5833,8 @@ msgstr "Hívás"
 msgid "Connector"
 msgstr "Összekötött"
 
-#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:3
+#: sheets/SDL.sheet.in.h:4
 #, fuzzy
 msgid "Decision"
 msgstr "Leírás:"
@@ -5736,22 +5861,18 @@ msgid "Internal storage"
 msgstr "Belső tároló"
 
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Magnetic disk"
-msgstr "Mágneses lemez"
+msgstr "Mágneslemez"
 
 #: sheets/Flowchart.sheet.in.h:12
-#, fuzzy
 msgid "Magnetic drum"
-msgstr "Mágneses dob"
+msgstr "Mágnesdob"
 
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic tape"
-msgstr "Mágneses szallag"
+msgstr "Mágnesszalag"
 
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Manual input"
 msgstr "Kézi bevitel"
 
@@ -5798,11 +5919,11 @@ msgstr "Elnyomott attribútumok"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched card"
-msgstr ""
+msgstr "Lyukkártya"
 
 #: sheets/Flowchart.sheet.in.h:25
 msgid "Punched tape"
-msgstr ""
+msgstr "Lyukszalag"
 
 #: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
@@ -5848,7 +5969,7 @@ msgstr "_Csatlakozási pontokat mutat"
 
 #: sheets/GRAFCET.sheet.in.h:5
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:10
 #, fuzzy
@@ -5870,10 +5991,118 @@ msgstr "Objektumok folymatábrák rajzolásához"
 msgid "Transition"
 msgstr "Tranzitív"
 
-#: sheets/Logic.sheet.in.h:1
+#: sheets/IsometricMap.sheet.in.h:1
+msgid "Block 1, 2:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:2
+msgid "Block 2, 2:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:3
+msgid "Block 3, 4:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:4
+msgid "Block 4, 4:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:5
+msgid "Block 5, 3:3"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:6
+msgid "Block 6, 4:6"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:7
 #, fuzzy
+msgid "Block 7"
+msgstr "Eltávolít"
+
+#: sheets/IsometricMap.sheet.in.h:8
+msgid "Car 1, Front View"
+msgstr "Autó 1, előlnézet"
+
+#: sheets/IsometricMap.sheet.in.h:9
+msgid "Car 2, Rear View"
+msgstr "Autó 2, hátulnézet"
+
+#: sheets/IsometricMap.sheet.in.h:10
+#, fuzzy
+msgid "Corner 1"
+msgstr "Sarok hozzáadása"
+
+#: sheets/IsometricMap.sheet.in.h:11
+#, fuzzy
+msgid "Corner 2"
+msgstr "Sarok hozzáadása"
+
+#: sheets/IsometricMap.sheet.in.h:12
+#, fuzzy
+msgid "Crossroads"
+msgstr "Védett"
+
+#: sheets/IsometricMap.sheet.in.h:13
+msgid "Elevated Road"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:14
+msgid "Factory"
+msgstr "Üzem"
+
+#: sheets/IsometricMap.sheet.in.h:15
+msgid "Footbridge, Pedestrian Bridge"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:16
+msgid "Isometric Directional Map Shapes"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:17
+msgid "Long Straight Road Section"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:18
+msgid "Map, Isometric"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:19
+msgid "One Way Road Sign"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:20
+msgid "River"
+msgstr "Folyó"
+
+#: sheets/IsometricMap.sheet.in.h:21
+#, fuzzy
+msgid "Road Section"
+msgstr "Forgatás"
+
+#: sheets/IsometricMap.sheet.in.h:22
+msgid "Roof1"
+msgstr "Tető1"
+
+#: sheets/IsometricMap.sheet.in.h:23
+msgid "T-Junction"
+msgstr "T elágazás"
+
+#: sheets/IsometricMap.sheet.in.h:24
+msgid "Train 1, angled downward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:25
+msgid "Train 2, angled upward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:26
+msgid "Tree 1"
+msgstr "Fa 1"
+
+#: sheets/Logic.sheet.in.h:1
 msgid "AND gate"
-msgstr "Aggregál"
+msgstr "AND kapu"
 
 #: sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
@@ -5885,42 +6114,36 @@ msgid "Crossconnector"
 msgstr "Összekötött"
 
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "Inverter"
-msgstr "Invertál"
+msgstr "Inverter"
 
 #: sheets/Logic.sheet.in.h:5
 msgid "Logic"
-msgstr ""
+msgstr "Logika"
 
 #: sheets/Logic.sheet.in.h:6
-#, fuzzy
 msgid "NAND gate"
-msgstr "Aggregál"
+msgstr "NAND kapu"
 
 #: sheets/Logic.sheet.in.h:7
-#, fuzzy
 msgid "NOR gate"
-msgstr "Aggregál"
+msgstr "NOR kapu"
 
 #: sheets/Logic.sheet.in.h:8
 msgid "NOT"
-msgstr ""
+msgstr "NEM"
 
 #: sheets/Logic.sheet.in.h:9
-#, fuzzy
 msgid "OR gate"
-msgstr "Aggregál"
+msgstr "OR kapu"
 
 #: sheets/Logic.sheet.in.h:10
-#, fuzzy
 msgid "Simple buffer"
-msgstr "Egyszerű nyomtató"
+msgstr "Egyszerű tároló"
 
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "XOR gate"
-msgstr "Aggregál"
+msgstr "XOR kapu"
 
 #: sheets/MSE.sheet.in.h:1
 #, fuzzy
@@ -5960,9 +6183,8 @@ msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr ""
 
 #: sheets/Misc.sheet.in.h:2
-#, fuzzy
 msgid "Folder"
-msgstr "Fájl"
+msgstr "Mappa"
 
 #: sheets/Misc.sheet.in.h:3
 msgid "Misc"
@@ -5970,12 +6192,11 @@ msgstr ""
 
 #: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "Egyéb formák"
 
 #: sheets/Misc.sheet.in.h:5
-#, fuzzy
 msgid "Traditional clock"
-msgstr "Tranzitív"
+msgstr "Hagyományos óra"
 
 #: sheets/Pneumatic.sheet.in.h:1
 #, fuzzy
@@ -6141,7 +6362,7 @@ msgstr "Rekurzív"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 #, fuzzy
@@ -6162,117 +6383,103 @@ msgstr "Tulajdonságok"
 msgid "Specification and Description Language."
 msgstr ""
 
-#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:28
-#, fuzzy
+#: sheets/SDL.sheet.in.h:18
+#: sheets/UML.sheet.in.h:28
 msgid "State"
-msgstr "Pontozott"
+msgstr "Állapot"
 
 #: sheets/UML.sheet.in.h:1
-#, fuzzy
 msgid "Activity"
-msgstr "Aktív objektumok"
+msgstr "Tevékenység"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Aggregáció, egy osztály része a másiknak"
 
 #: sheets/UML.sheet.in.h:4
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Asszociáció, két osztály kapcsolatban van"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Class stereotype icon"
-msgstr "Sablon osztály"
+msgstr "Osztály sztereotípus ikon"
 
 #: sheets/UML.sheet.in.h:8
-#, fuzzy
 msgid "Component"
-msgstr "Dokumentum"
+msgstr "Komponens"
 
 #: sheets/UML.sheet.in.h:9
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Megkötés, megszorítást alkalmaz valamire"
 
 #: sheets/UML.sheet.in.h:10
-#, fuzzy
 msgid "Dependency"
-msgstr "Bezier-görbe készítése"
+msgstr "Függőség"
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Egyed-kapcsolat diagram objektumok"
+msgstr "UML statikus struktúra ábrák szerkesztője"
 
 #: sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Fork/union"
-msgstr "Függvény:"
+msgstr "Elágazás/egyesítés"
 
 #: sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Generalizáció, osztály öröklődés"
 
 #: sheets/UML.sheet.in.h:17
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Megvalósít, az osztály megvalósít egy bizonyos felületet"
 
 #: sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Initial/end state"
-msgstr "Vonal készítése"
+msgstr "Kezdő/vég állapot"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Large package"
-msgstr "Kép készítése"
+msgstr "Nagy csomag"
 
 #: sheets/UML.sheet.in.h:20
-#, fuzzy
 msgid "Lifeline"
-msgstr "Vonal"
+msgstr "Életvonal"
 
 #: sheets/UML.sheet.in.h:21
-#, fuzzy
 msgid "Message"
-msgstr "Üzenet:"
+msgstr "Üzenet"
 
 #: sheets/UML.sheet.in.h:22
-#, fuzzy
 msgid "Node"
-msgstr "Nincs"
+msgstr "Csomópont"
 
 # lib/message.c:120
 #: sheets/UML.sheet.in.h:23
-#, fuzzy
 msgid "Note"
 msgstr "Megjegyzés"
 
 #: sheets/UML.sheet.in.h:25
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Megvalósít egy bizonyos interfészt"
 
 #: sheets/UML.sheet.in.h:27
-#, fuzzy
 msgid "Small package"
-msgstr "Kép készítése"
+msgstr "Kis csomag"
 
 #: sheets/UML.sheet.in.h:30
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: sheets/UML.sheet.in.h:31
 msgid "Use case"
-msgstr ""
+msgstr "Használati eset"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
 msgstr ""
 
 #: sheets/chronogram.sheet.in.h:2
-#, fuzzy
 msgid "Data line"
-msgstr "Vonal szélessége"
+msgstr "Adatvonal"
 
 #: sheets/chronogram.sheet.in.h:3
 #, fuzzy
@@ -6280,14 +6487,12 @@ msgid "Objects to design chronogram charts"
 msgstr "Objektumok hálózati diagramokhoz"
 
 #: sheets/chronogram.sheet.in.h:4
-#, fuzzy
 msgid "Time scale"
-msgstr "Attribútum érték"
+msgstr "Időskála"
 
 #: sheets/ciscocomputer.sheet.in.h:1
-#, fuzzy
 msgid "Cisco - Computer"
-msgstr "Számítógép"
+msgstr "Cisco - Számítógépek"
 
 #: sheets/ciscocomputer.sheet.in.h:2
 msgid "Cisco CA"
@@ -6310,36 +6515,35 @@ msgstr "Függvény:"
 
 #: sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
-msgstr ""
+msgstr "Számítógépes formák a Cisco-tól"
 
 #: sheets/ciscocomputer.sheet.in.h:7
 msgid "Directory Server"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:8
-#, fuzzy
 msgid "File Server"
-msgstr "/Fájl/Me_ntés"
+msgstr "Fájlszerver"
 
 #: sheets/ciscocomputer.sheet.in.h:9
 msgid "HP Mini"
-msgstr ""
+msgstr "HP Mini"
 
 #: sheets/ciscocomputer.sheet.in.h:10
 msgid "Handheld"
-msgstr ""
+msgstr "Kézi számítógép"
 
 #: sheets/ciscocomputer.sheet.in.h:11
 msgid "Host"
-msgstr ""
+msgstr "Gazda"
 
 #: sheets/ciscocomputer.sheet.in.h:12
 msgid "IBM Mini (AS400)"
-msgstr ""
+msgstr "IBM Mini (AS400)"
 
 #: sheets/ciscocomputer.sheet.in.h:13
 msgid "IBM Tower"
-msgstr ""
+msgstr "IBM torony"
 
 #: sheets/ciscocomputer.sheet.in.h:14
 msgid "IBM mainframe"
@@ -6354,14 +6558,12 @@ msgid "IPTV broadcast server"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:17
-#, fuzzy
 msgid "Laptop"
-msgstr "Asztali PC"
+msgstr "Hordozható PC"
 
 #: sheets/ciscocomputer.sheet.in.h:18
-#, fuzzy
 msgid "Macintosh"
-msgstr "Margók"
+msgstr "Macintosh"
 
 #: sheets/ciscocomputer.sheet.in.h:19
 msgid "MicroWebserver"
@@ -6369,7 +6571,7 @@ msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:20
 msgid "Mini VAX"
-msgstr ""
+msgstr "Mini VAX"
 
 #: sheets/ciscocomputer.sheet.in.h:21
 msgid "MoH server (Music on Hold)"
@@ -6377,7 +6579,7 @@ msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:22
 msgid "PC"
-msgstr ""
+msgstr "PC"
 
 #: sheets/ciscocomputer.sheet.in.h:23
 msgid "PC Video"
@@ -6385,12 +6587,11 @@ msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:24
 msgid "PDA"
-msgstr ""
+msgstr "PDA"
 
 #: sheets/ciscocomputer.sheet.in.h:26
-#, fuzzy
 msgid "Relational Database"
-msgstr "Műveletek adatai"
+msgstr "Relációs adatbázis"
 
 #: sheets/ciscocomputer.sheet.in.h:27
 msgid "SC2200/VSC3000 host"
@@ -6405,14 +6606,12 @@ msgid "STB (set top box)"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:30
-#, fuzzy
 msgid "SUN workstation"
-msgstr "UNIX Munkaállomás"
+msgstr "SUN munkaállomás"
 
 #: sheets/ciscocomputer.sheet.in.h:31
-#, fuzzy
 msgid "Scanner"
-msgstr "Lépték:"
+msgstr "Szkenner"
 
 #: sheets/ciscocomputer.sheet.in.h:32
 #, fuzzy
@@ -6440,7 +6639,7 @@ msgstr "Számítógép"
 
 #: sheets/ciscocomputer.sheet.in.h:37
 msgid "TV"
-msgstr ""
+msgstr "TV"
 
 #: sheets/ciscocomputer.sheet.in.h:38
 msgid "Terminal"
@@ -6461,11 +6660,11 @@ msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:42
 msgid "WWW server"
-msgstr ""
+msgstr "WWW kiszolgáló"
 
 #: sheets/ciscocomputer.sheet.in.h:43
 msgid "Web browser"
-msgstr ""
+msgstr "Web böngésző"
 
 #: sheets/ciscocomputer.sheet.in.h:44
 msgid "Web cluster"
@@ -6473,16 +6672,15 @@ msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:45
 msgid "Wireless"
-msgstr ""
+msgstr "Drótnélküli"
 
 #: sheets/ciscocomputer.sheet.in.h:46
 msgid "Workgroup director"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:47
-#, fuzzy
 msgid "Workstation"
-msgstr "UNIX Munkaállomás"
+msgstr "Munkaállomás"
 
 #: sheets/ciscohub.sheet.in.h:1
 msgid "100BaseT hub"
@@ -6535,7 +6733,7 @@ msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:13
 msgid "ISDN switch"
-msgstr ""
+msgstr "ISDN kapcsoló"
 
 #: sheets/ciscohub.sheet.in.h:14
 #, fuzzy
@@ -6544,24 +6742,23 @@ msgstr "Rétegek"
 
 #: sheets/ciscohub.sheet.in.h:15
 msgid "MGX 8220 switch"
-msgstr ""
+msgstr "MGX 8220 kapcsoló"
 
 #: sheets/ciscohub.sheet.in.h:16
 msgid "MGX 8240 switch"
-msgstr ""
+msgstr "MGX 8240 kapcsoló"
 
 #: sheets/ciscohub.sheet.in.h:17
 msgid "MGX 8260 switch"
-msgstr ""
+msgstr "MGX 8260 kapcsoló"
 
 #: sheets/ciscohub.sheet.in.h:18
 msgid "MultiSwitch device"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:19
-#, fuzzy
 msgid "Multilayer switch"
-msgstr "többszörös előfordulás"
+msgstr "többszörös kapcsoló"
 
 #: sheets/ciscohub.sheet.in.h:20
 msgid "PBX switch"
@@ -6599,7 +6796,7 @@ msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:1
 msgid "BBFW"
-msgstr ""
+msgstr "BBFW"
 
 #: sheets/ciscomisc.sheet.in.h:2
 msgid "BBFW media"
@@ -6615,28 +6812,24 @@ msgid "Breakout box"
 msgstr "Doboz készítése"
 
 #: sheets/ciscomisc.sheet.in.h:5
-#, fuzzy
 msgid "Car"
-msgstr "Bezárás"
+msgstr "Autó"
 
 #: sheets/ciscomisc.sheet.in.h:6
-#, fuzzy
 msgid "Cellular phone"
-msgstr "Egyszerű rádiótelefon"
+msgstr "Rádiótelefon"
 
 #: sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
-msgstr ""
+msgstr "Cisco - Egyéb"
 
 #: sheets/ciscomisc.sheet.in.h:8
-#, fuzzy
 msgid "Diskette"
-msgstr "Attribútum"
+msgstr "Floppy"
 
 #: sheets/ciscomisc.sheet.in.h:9
-#, fuzzy
 msgid "Dot-Dot"
-msgstr "Vonal-Pont-Pont"
+msgstr "Pont-Pont"
 
 #: sheets/ciscomisc.sheet.in.h:10
 msgid "End office"
@@ -6644,7 +6837,7 @@ msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:11
 msgid "Fax"
-msgstr ""
+msgstr "Fax"
 
 #: sheets/ciscomisc.sheet.in.h:12
 #, fuzzy
@@ -6653,113 +6846,107 @@ msgstr "Fájl neve:"
 
 #: sheets/ciscomisc.sheet.in.h:13
 msgid "Generic building"
-msgstr ""
+msgstr "Általános épület"
 
 #: sheets/ciscomisc.sheet.in.h:14
 msgid "Government building"
-msgstr ""
+msgstr "Kormányzati épület"
 
 #: sheets/ciscomisc.sheet.in.h:15
 msgid "H.323"
-msgstr ""
+msgstr "H.323"
 
 #: sheets/ciscomisc.sheet.in.h:16
 msgid "HootPhone"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:17
-#, fuzzy
 msgid "IP phone"
-msgstr "Egyszerű rádiótelefon"
+msgstr "IP telefon"
 
 #: sheets/ciscomisc.sheet.in.h:18
 msgid "ITP"
-msgstr ""
+msgstr "ITP"
 
 #: sheets/ciscomisc.sheet.in.h:19
-#, fuzzy
 msgid "Key"
 msgstr "Kulcs"
 
 #: sheets/ciscomisc.sheet.in.h:20
 msgid "LAN to LAN"
-msgstr ""
+msgstr "LAN to LAN"
 
 #: sheets/ciscomisc.sheet.in.h:22
 msgid "MAU"
-msgstr ""
+msgstr "MAU"
 
 #: sheets/ciscomisc.sheet.in.h:23
 msgid "MDU"
-msgstr ""
+msgstr "MDU"
 
 #: sheets/ciscomisc.sheet.in.h:24
 msgid "Mac woman"
-msgstr ""
+msgstr "MacIntosh-os nő"
 
 #: sheets/ciscomisc.sheet.in.h:25
 msgid "Man/Woman"
-msgstr ""
+msgstr "Férfi/Nő"
 
 #: sheets/ciscomisc.sheet.in.h:27
 msgid "Miscellaneous shapes by Cisco"
-msgstr ""
+msgstr "Egyéb jelek a Cisco-tól"
 
 #: sheets/ciscomisc.sheet.in.h:28
 msgid "PC man"
-msgstr ""
+msgstr "PC-s férfi"
 
 #: sheets/ciscomisc.sheet.in.h:29
-#, fuzzy
 msgid "Phone"
-msgstr "Nincs"
+msgstr "Telefon"
 
 #: sheets/ciscomisc.sheet.in.h:30
 msgid "Phone/Fax"
-msgstr ""
+msgstr "Telefon/Fax"
 
 #: sheets/ciscomisc.sheet.in.h:31
 msgid "RPS"
-msgstr ""
+msgstr "RPS"
 
 #: sheets/ciscomisc.sheet.in.h:32
-#, fuzzy
 msgid "Radio tower"
-msgstr "Monitor"
+msgstr "Rádiótorony"
 
 #: sheets/ciscomisc.sheet.in.h:33
 msgid "Running man"
-msgstr ""
+msgstr "Futó ember"
 
 #: sheets/ciscomisc.sheet.in.h:34
 msgid "SVX (interchangeable with End office)"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:35
-#, fuzzy
 msgid "Satellite"
-msgstr "Lépték:"
+msgstr "Műhold"
 
 #: sheets/ciscomisc.sheet.in.h:36
 msgid "Satellite dish"
-msgstr ""
+msgstr "Műholdvevő antenna"
 
 #: sheets/ciscomisc.sheet.in.h:37
 msgid "Sitting woman"
-msgstr ""
+msgstr "Ülő nő"
 
 #: sheets/ciscomisc.sheet.in.h:38
 msgid "Small business"
-msgstr ""
+msgstr "Kisvállalkozás"
 
 #: sheets/ciscomisc.sheet.in.h:40
 msgid "Standing man"
-msgstr ""
+msgstr "Álló férfi"
 
 #: sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
 msgid "Tablet"
-msgstr "Látható:"
+msgstr "Tábla"
 
 #: sheets/ciscomisc.sheet.in.h:42
 #, fuzzy
@@ -6776,36 +6963,35 @@ msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:45
 msgid "TokenRing"
-msgstr ""
+msgstr "TokenRing"
 
 #: sheets/ciscomisc.sheet.in.h:46
 msgid "Truck"
-msgstr ""
+msgstr "Kamion"
 
 #: sheets/ciscomisc.sheet.in.h:47
 msgid "UPS"
-msgstr ""
+msgstr "UPS"
 
 #: sheets/ciscomisc.sheet.in.h:48
-#, fuzzy
 msgid "University"
-msgstr "Invertálás"
+msgstr "Egyetem"
 
 #: sheets/ciscomisc.sheet.in.h:49
 msgid "Video camera"
-msgstr ""
+msgstr "Videókamera"
 
 #: sheets/ciscomisc.sheet.in.h:50
 msgid "Wireless transport"
-msgstr ""
+msgstr "Drótnélküli adatátvitel"
 
 #: sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
-msgstr ""
+msgstr "10700"
 
 #: sheets/cisconetwork.sheet.in.h:2
 msgid "15200"
-msgstr ""
+msgstr "15200"
 
 #: sheets/cisconetwork.sheet.in.h:3
 msgid "3174 (desktop) cluster controller"
@@ -6817,7 +7003,7 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:5
 msgid "6701"
-msgstr ""
+msgstr "6701"
 
 #: sheets/cisconetwork.sheet.in.h:6
 msgid "6705 Integrated access device"
@@ -6829,20 +7015,19 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:8
 msgid "ADM"
-msgstr ""
+msgstr "ADM"
 
 #: sheets/cisconetwork.sheet.in.h:9
-#, fuzzy
 msgid "ASIC processor"
-msgstr "Körív készítése"
+msgstr "ASIC processzor"
 
 #: sheets/cisconetwork.sheet.in.h:10
 msgid "ATA"
-msgstr ""
+msgstr "ATA"
 
 #: sheets/cisconetwork.sheet.in.h:11
 msgid "ATM 3800"
-msgstr ""
+msgstr "ATM 3800"
 
 #: sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
@@ -6850,11 +7035,11 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:13
 msgid "BBSM"
-msgstr ""
+msgstr "BBSM"
 
 #: sheets/cisconetwork.sheet.in.h:14
 msgid "BTS 10200"
-msgstr ""
+msgstr "BTS 10200"
 
 #: sheets/cisconetwork.sheet.in.h:15
 #, fuzzy
@@ -6863,7 +7048,7 @@ msgstr "Rács"
 
 #: sheets/cisconetwork.sheet.in.h:16
 msgid "CDDI-FDDI"
-msgstr ""
+msgstr "CDDI-FDDI"
 
 #: sheets/cisconetwork.sheet.in.h:17
 msgid "CDM Content distribution manager"
@@ -6871,17 +7056,15 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:18
 msgid "CSU/DSU"
-msgstr ""
+msgstr "CSU/DSU"
 
 #: sheets/cisconetwork.sheet.in.h:19
-#, fuzzy
 msgid "Cable modem"
-msgstr "Egyszerű modem"
+msgstr "Kábelmodem"
 
 #: sheets/cisconetwork.sheet.in.h:20
-#, fuzzy
 msgid "CallManager"
-msgstr "Hívás"
+msgstr "Híváskezelő"
 
 #: sheets/cisconetwork.sheet.in.h:21
 msgid "Catalyst access gateway"
@@ -6889,17 +7072,15 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:22
 msgid "Centri firewall"
-msgstr ""
+msgstr "Centri tűzfal"
 
 #: sheets/cisconetwork.sheet.in.h:23
-#, fuzzy
 msgid "Cisco - Network"
-msgstr "Hálózatok"
+msgstr "Cisco - Hálózatok"
 
 #: sheets/cisconetwork.sheet.in.h:24
-#, fuzzy
 msgid "Cloud"
-msgstr "Szín:"
+msgstr "Felhő"
 
 #: sheets/cisconetwork.sheet.in.h:25
 msgid "Content engine (Cache director)"
@@ -6911,34 +7092,31 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:27
 msgid "DPT"
-msgstr ""
+msgstr "DPT"
 
 #: sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
-msgstr ""
+msgstr "DSLAM"
 
 #: sheets/cisconetwork.sheet.in.h:29
 msgid "DWDM filter"
-msgstr ""
+msgstr "DWDM szűrő"
 
 #: sheets/cisconetwork.sheet.in.h:30
-#, fuzzy
 msgid "Distributed director"
-msgstr "Attribútum"
+msgstr "Elosztott vezérlő"
 
 #: sheets/cisconetwork.sheet.in.h:31
-#, fuzzy
 msgid "FC storage"
-msgstr "Tároló"
+msgstr "FC tároló"
 
 #: sheets/cisconetwork.sheet.in.h:32
 msgid "FDDI ring"
-msgstr ""
+msgstr "FDDI gyűrű"
 
 #: sheets/cisconetwork.sheet.in.h:33
-#, fuzzy
 msgid "Firewall"
-msgstr "Előtér szín:"
+msgstr "Tűzfal"
 
 #: sheets/cisconetwork.sheet.in.h:34
 #, fuzzy
@@ -6947,44 +7125,43 @@ msgstr "Előredefiniált procedúra"
 
 #: sheets/cisconetwork.sheet.in.h:35
 msgid "General appliance"
-msgstr ""
+msgstr "Általános berendezés"
 
 #: sheets/cisconetwork.sheet.in.h:36
 msgid "Generic gateway"
-msgstr ""
+msgstr "Általános átjáró"
 
 #: sheets/cisconetwork.sheet.in.h:37
-#, fuzzy
 msgid "Generic processor"
-msgstr "Előredefiniált procedúra"
+msgstr "Általános feldolgozó"
 
 #: sheets/cisconetwork.sheet.in.h:38
 msgid "ICM"
-msgstr ""
+msgstr "ICM"
 
 #: sheets/cisconetwork.sheet.in.h:39
 msgid "ICS"
-msgstr ""
+msgstr "ICS"
 
 #: sheets/cisconetwork.sheet.in.h:40
 msgid "IOS firewall"
-msgstr ""
+msgstr "IOS tűzfal"
 
 #: sheets/cisconetwork.sheet.in.h:41
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: sheets/cisconetwork.sheet.in.h:42
 msgid "IP DSL"
-msgstr ""
+msgstr "IP DSL"
 
 #: sheets/cisconetwork.sheet.in.h:43
 msgid "IPTC"
-msgstr ""
+msgstr "IPTC"
 
 #: sheets/cisconetwork.sheet.in.h:44
 msgid "IPTV content manager"
-msgstr ""
+msgstr "IPTV tartalomvezérlő"
 
 #: sheets/cisconetwork.sheet.in.h:45
 #, fuzzy
@@ -6993,29 +7170,27 @@ msgstr "Irány:"
 
 #: sheets/cisconetwork.sheet.in.h:46
 msgid "LongReach CPE"
-msgstr ""
+msgstr "LongReach CPE"
 
 #: sheets/cisconetwork.sheet.in.h:47
-#, fuzzy
 msgid "MAS gateway"
-msgstr "Aggregál"
+msgstr "MAS átjáró"
 
 #: sheets/cisconetwork.sheet.in.h:48
 msgid "ME 1100"
-msgstr ""
+msgstr "ME 1100"
 
 #: sheets/cisconetwork.sheet.in.h:49
 msgid "MUX"
-msgstr ""
+msgstr "MUX"
 
 #: sheets/cisconetwork.sheet.in.h:50
 msgid "Metro 1500"
-msgstr ""
+msgstr "Metro 1500"
 
 #: sheets/cisconetwork.sheet.in.h:51
-#, fuzzy
 msgid "Modem"
-msgstr "Nincs"
+msgstr "Modem"
 
 #: sheets/cisconetwork.sheet.in.h:52
 msgid "NetRanger intrusion detection system"
@@ -7023,67 +7198,63 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:53
 msgid "NetSonar security scanner"
-msgstr ""
+msgstr "NetSonar biztonsági szkenner"
 
 #: sheets/cisconetwork.sheet.in.h:54
-#, fuzzy
 msgid "Network management"
-msgstr "Ú_j diagram"
+msgstr "Hálózat felügyelet"
 
 #: sheets/cisconetwork.sheet.in.h:55
 msgid "Network shapes by Cisco"
-msgstr ""
+msgstr "Hálózati jelek a Cisco-tól"
 
 #: sheets/cisconetwork.sheet.in.h:56
 msgid "ONS15500 DWDM platform"
-msgstr ""
+msgstr "ONS15500 DWDM platform"
 
 #: sheets/cisconetwork.sheet.in.h:57
 msgid "Octel"
-msgstr ""
+msgstr "Octel"
 
 #: sheets/cisconetwork.sheet.in.h:58
-#, fuzzy
 msgid "Optical amplifier"
-msgstr "Multimédia hangszóró erősítő nélkül"
+msgstr "Optikai erősítő"
 
 #: sheets/cisconetwork.sheet.in.h:59
-#, fuzzy
 msgid "Optical transport"
-msgstr "Energia"
+msgstr "Optikai átvitel"
 
 #: sheets/cisconetwork.sheet.in.h:60
 msgid "PAD"
-msgstr ""
+msgstr "PAD"
 
 #: sheets/cisconetwork.sheet.in.h:61
 msgid "PAD X.28"
-msgstr ""
+msgstr "PAD X.28"
 
 #: sheets/cisconetwork.sheet.in.h:62
 msgid "PBX"
-msgstr ""
+msgstr "PBX"
 
 #: sheets/cisconetwork.sheet.in.h:63
 msgid "PC adapter card"
-msgstr ""
+msgstr "PC csatlakozókártya"
 
 #: sheets/cisconetwork.sheet.in.h:64
-#, fuzzy
 msgid "PC router card"
-msgstr "Védett"
+msgstr "PC útválasztó kártya"
 
 #: sheets/cisconetwork.sheet.in.h:65
 msgid "PIX firewall"
-msgstr ""
+msgstr "PIX tűzfal"
 
 #: sheets/cisconetwork.sheet.in.h:66
 msgid "PXF"
-msgstr ""
+msgstr "PXF"
 
 #: sheets/cisconetwork.sheet.in.h:67
 msgid "Protocol translator"
-msgstr ""
+msgstr "Protokolfordító"
 
 #: sheets/cisconetwork.sheet.in.h:68
 #, fuzzy
@@ -7091,22 +7262,20 @@ msgid "RateMUX"
 msgstr "Forgatás"
 
 #: sheets/cisconetwork.sheet.in.h:69
-#, fuzzy
 msgid "Repeater"
-msgstr "Cserél"
+msgstr "Erősítő"
 
 #: sheets/cisconetwork.sheet.in.h:70
 msgid "SC2200 (Signalling controller)"
-msgstr ""
+msgstr "SC2200 (Jelzéses vezérlő)"
 
 #: sheets/cisconetwork.sheet.in.h:71
 msgid "STP"
-msgstr ""
+msgstr "STP"
 
 #: sheets/cisconetwork.sheet.in.h:72
-#, fuzzy
 msgid "System controller"
-msgstr "Mutasd a vezérlés fókuszát:"
+msgstr "Rendszervezérlő"
 
 #: sheets/cisconetwork.sheet.in.h:73
 #, fuzzy
@@ -7115,44 +7284,43 @@ msgstr "Tranzitív"
 
 #: sheets/cisconetwork.sheet.in.h:74
 msgid "Universal gateway"
-msgstr ""
+msgstr "Általános átjáró"
 
 #: sheets/cisconetwork.sheet.in.h:75
 msgid "VIP"
-msgstr ""
+msgstr "VIP"
 
 #: sheets/cisconetwork.sheet.in.h:76
 msgid "VPN concentrator"
-msgstr ""
+msgstr "VPN gyűjtő"
 
 #: sheets/cisconetwork.sheet.in.h:77
-#, fuzzy
 msgid "VPN gateway"
-msgstr "Aggregál"
+msgstr "VPN átjáró"
 
 #: sheets/cisconetwork.sheet.in.h:78
 msgid "Virtual switch controller (VSC 3000)"
-msgstr ""
+msgstr "Virtuális kapcsolóvezérő VSC 3000()"
 
 #: sheets/cisconetwork.sheet.in.h:79
 msgid "Wireless bridge"
-msgstr ""
+msgstr "Vezetéknélküli híd"
 
 #: sheets/ciscorouter.sheet.in.h:1
 msgid "7500ARS (7513)"
-msgstr ""
+msgstr "7500ARS (7513)"
 
 #: sheets/ciscorouter.sheet.in.h:2
 msgid "7505"
-msgstr ""
+msgstr "7505"
 
 #: sheets/ciscorouter.sheet.in.h:3
 msgid "7507"
-msgstr ""
+msgstr "7507"
 
 #: sheets/ciscorouter.sheet.in.h:4
 msgid "ATM router"
-msgstr ""
+msgstr "ATM útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:5
 msgid "ATM tag sw gigabit router"
@@ -7165,15 +7333,15 @@ msgstr "ATM-switch jele"
 
 #: sheets/ciscorouter.sheet.in.h:7
 msgid "Broadband router"
-msgstr ""
+msgstr "Szélessávú útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:8
 msgid "Cisco - Router"
-msgstr ""
+msgstr "Cisco - Útválaszyók"
 
 #: sheets/ciscorouter.sheet.in.h:9
 msgid "Cisco 1000"
-msgstr ""
+msgstr "Cisco 1000"
 
 #: sheets/ciscorouter.sheet.in.h:10
 msgid "Content service router"
@@ -7185,11 +7353,11 @@ msgstr ""
 
 #: sheets/ciscorouter.sheet.in.h:12
 msgid "IAD router"
-msgstr ""
+msgstr "IAD útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:13
 msgid "IP telephony router"
-msgstr ""
+msgstr "IP-telefon útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:14
 #, fuzzy
@@ -7201,39 +7369,36 @@ msgid "Optical services router"
 msgstr ""
 
 #: sheets/ciscorouter.sheet.in.h:16
-#, fuzzy
 msgid "Router"
-msgstr "Monitor"
+msgstr "Útvonalválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:17
 msgid "Router in building"
-msgstr ""
+msgstr "Útválasztó épületben"
 
 #: sheets/ciscorouter.sheet.in.h:18
 msgid "Router shapes by Cisco"
-msgstr ""
+msgstr "Útválasztó formák a Cisco-tól"
 
 #: sheets/ciscorouter.sheet.in.h:19
 msgid "Router with firewall"
-msgstr ""
+msgstr "Útválasztó tűzfallal együtt"
 
 #: sheets/ciscorouter.sheet.in.h:20
 msgid "Router with silicon switch"
-msgstr ""
+msgstr "Útválasztó szilícium kapcsolóval"
 
 #: sheets/ciscorouter.sheet.in.h:21
-#, fuzzy
 msgid "Storage router"
-msgstr "Tároló"
+msgstr "Tároló útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:22
 msgid "TDM router"
-msgstr ""
+msgstr "TDM útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:23
-#, fuzzy
 msgid "Voice router"
-msgstr "Előtér szín:"
+msgstr "Hang útválasztó"
 
 #: sheets/ciscorouter.sheet.in.h:24
 msgid "Wavelength router"
@@ -7253,7 +7418,7 @@ msgstr ""
 
 #: sheets/ciscorouter.sheet.in.h:28
 msgid "uBR910"
-msgstr ""
+msgstr "uBR910"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
@@ -7261,7 +7426,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:2
 msgid "Backflow preventer"
-msgstr ""
+msgstr "Visszafolyásgátló"
 
 #: sheets/civil.sheet.in.h:3
 #, fuzzy
@@ -7275,122 +7440,103 @@ msgstr "_Függőleges"
 
 #: sheets/civil.sheet.in.h:5
 msgid "Civil"
-msgstr ""
+msgstr "Közüzemi"
 
 #: sheets/civil.sheet.in.h:6
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Közüzemi tervezés részegységek"
 
 #: sheets/civil.sheet.in.h:7
-#, fuzzy
 msgid "Container"
-msgstr "Konstans:"
+msgstr "Tároló"
 
 #: sheets/civil.sheet.in.h:8
 msgid "Final-settling basin"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:9
-#, fuzzy
 msgid "Frequency converter"
-msgstr "Invertál"
+msgstr "Frekvencia-váltó"
 
 #: sheets/civil.sheet.in.h:10
 msgid "Gas bottle"
-msgstr ""
+msgstr "Gáztartály"
 
 #: sheets/civil.sheet.in.h:11
-#, fuzzy
 msgid "Horizontal limiting line"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen határolóvonal"
 
 #: sheets/civil.sheet.in.h:12
-#, fuzzy
 msgid "Horizontal rest"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen pihenő"
 
 #: sheets/civil.sheet.in.h:13
-#, fuzzy
 msgid "Horizontally aligned arrow"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen elrendezett nyíl"
 
 #: sheets/civil.sheet.in.h:14
-#, fuzzy
 msgid "Horizontally aligned compressor"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen elrendezett kompresszor"
 
 #: sheets/civil.sheet.in.h:15
-#, fuzzy
 msgid "Horizontally aligned pump"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen elrendezett pumpa"
 
 #: sheets/civil.sheet.in.h:16
-#, fuzzy
 msgid "Horizontally aligned valve"
-msgstr "_Vizszintes"
+msgstr "Vízszintesen elrendezett szelep"
 
 #: sheets/civil.sheet.in.h:17
-#, fuzzy
 msgid "Motor"
-msgstr "Monitor"
+msgstr "Motor"
 
 #: sheets/civil.sheet.in.h:18
 msgid "Preliminary clarification tank"
-msgstr ""
+msgstr "Előzetes tisztítótartály"
 
 #: sheets/civil.sheet.in.h:19
-#, fuzzy
 msgid "Reference line"
-msgstr "Vonal készítése"
+msgstr "Mintavonal"
 
 #: sheets/civil.sheet.in.h:20
-#, fuzzy
 msgid "Rotor"
-msgstr "Monitor"
+msgstr "Forgórész"
 
 #: sheets/civil.sheet.in.h:21
-#, fuzzy
 msgid "Soil"
-msgstr "Teli"
+msgstr "Tekercs"
 
 #: sheets/civil.sheet.in.h:22
-#, fuzzy
 msgid "Vertical limiting line"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen határolóvonal"
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Vertical rest"
-msgstr "_Függőleges"
+msgstr "Függőlegesen pihenő"
 
 #: sheets/civil.sheet.in.h:24
-#, fuzzy
 msgid "Vertically aligned arrow"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen elrendezett nyíl"
 
 #: sheets/civil.sheet.in.h:25
-#, fuzzy
 msgid "Vertically aligned compressor"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen elrendezett kompresszor"
 
 #: sheets/civil.sheet.in.h:26
-#, fuzzy
 msgid "Vertically aligned propeller"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen elrendezett propeller"
 
 #: sheets/civil.sheet.in.h:27
-#, fuzzy
 msgid "Vertically aligned pump"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen elrendezett pumpa"
 
 #: sheets/civil.sheet.in.h:28
-#, fuzzy
 msgid "Vertically aligned valve"
-msgstr "_Vizszintes"
+msgstr "Függőlegesen elrendezett szelep"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water level"
-msgstr ""
+msgstr "Vízszint"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -7465,81 +7611,66 @@ msgid "Pieces of a jigsaw"
 msgstr ""
 
 #: sheets/network.sheet.in.h:1
-#, fuzzy
 msgid "3 1/2 inch diskette"
 msgstr "3 1/2-es hajlékonylemez"
 
 #: sheets/network.sheet.in.h:2
-#, fuzzy
 msgid "ATM switch symbol"
 msgstr "ATM-switch jele"
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "Antenna for wireless transmission"
 msgstr "Antenna, drótnélküli átvitelhez"
 
 #: sheets/network.sheet.in.h:4
-#, fuzzy
 msgid "Bigtower PC"
 msgstr "PC (nagy torony)"
 
 #: sheets/network.sheet.in.h:5
-#, fuzzy
 msgid "Computer"
 msgstr "Számítógép"
 
 #: sheets/network.sheet.in.h:6
-#, fuzzy
 msgid "Desktop PC"
 msgstr "Asztali PC"
 
 #: sheets/network.sheet.in.h:7
 msgid "Digitizing board"
-msgstr ""
+msgstr "Digitalizáló tábla"
 
 #: sheets/network.sheet.in.h:8
-#, fuzzy
 msgid "Ethernet bus"
 msgstr "Ethernet sín"
 
 #: sheets/network.sheet.in.h:9
-#, fuzzy
 msgid "External DAT drive"
 msgstr "Külső DAT meghajtó"
 
 #: sheets/network.sheet.in.h:10
-#, fuzzy
 msgid "Firewall router"
-msgstr "Előtér szín:"
+msgstr "Tűzfal útvonalválasztó"
 
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "Laptop PC"
-msgstr "Asztali PC"
+msgstr "Hordozható PC"
 
 #: sheets/network.sheet.in.h:12
-#, fuzzy
 msgid "Miditower PC"
 msgstr "PC (midi torony)"
 
 #: sheets/network.sheet.in.h:13
-#, fuzzy
 msgid "Minitower PC"
 msgstr "PC (mini torony)"
 
 #: sheets/network.sheet.in.h:14
-#, fuzzy
 msgid "Mobile phone"
-msgstr "Egyszerű rádiótelefon"
+msgstr "Rádiótelefon"
 
 #: sheets/network.sheet.in.h:15
-#, fuzzy
 msgid "Modular switching system"
-msgstr "Moduláris Switch"
+msgstr "Moduláris kapcsolórendszer"
 
 #: sheets/network.sheet.in.h:16
-#, fuzzy
 msgid "Monitor"
 msgstr "Monitor"
 
@@ -7548,51 +7679,42 @@ msgid "Network"
 msgstr "Hálózatok"
 
 #: sheets/network.sheet.in.h:18
-#, fuzzy
 msgid "Network cloud"
-msgstr "Hálozat felhő"
+msgstr "Hálózat felhő"
 
 #: sheets/network.sheet.in.h:19
 msgid "Objects to design network diagrams with"
 msgstr "Objektumok hálózati diagramokhoz"
 
 #: sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "Plotter"
-msgstr "Számítógép"
+msgstr "Plotter"
 
 #: sheets/network.sheet.in.h:21
-#, fuzzy
 msgid "RJ45 wall-plug"
 msgstr "RJ45 falicsatlakozó"
 
 #: sheets/network.sheet.in.h:22
-#, fuzzy
 msgid "Router symbol"
 msgstr "Útválasztó jele"
 
 #: sheets/network.sheet.in.h:23
-#, fuzzy
 msgid "Simple modem"
 msgstr "Egyszerű modem"
 
 #: sheets/network.sheet.in.h:24
-#, fuzzy
 msgid "Simple printer"
 msgstr "Egyszerű nyomtató"
 
 #: sheets/network.sheet.in.h:25
-#, fuzzy
 msgid "Speaker with integrated amplifier"
-msgstr "Multimédia hangszóró erősítővel"
+msgstr "Hangfal beépített erősítővel"
 
 #: sheets/network.sheet.in.h:26
-#, fuzzy
 msgid "Speaker without amplifier"
-msgstr "Multimédia hangszóró erősítő nélkül"
+msgstr "Hangfal erősítő nélkül"
 
 #: sheets/network.sheet.in.h:27
-#, fuzzy
 msgid "Stackable hub or switch"
 msgstr "Bővíthető hub vagy switch"
 
@@ -7601,32 +7723,26 @@ msgid "Storage"
 msgstr "Tároló"
 
 #: sheets/network.sheet.in.h:29
-#, fuzzy
 msgid "Switch symbol"
 msgstr "Switch jele"
 
 #: sheets/network.sheet.in.h:30
-#, fuzzy
 msgid "Telephone"
-msgstr "Egyszerű rádiótelefon"
+msgstr "Telefon"
 
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "UNIX workstation"
-msgstr "UNIX Munkaállomás"
+msgstr "UNIX munkaállomás"
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "WAN connection"
 msgstr "WAN kapcsolat"
 
 #: sheets/network.sheet.in.h:33
-#, fuzzy
 msgid "WAN link"
 msgstr "WAN kapcsolat"
 
 #: sheets/network.sheet.in.h:34
-#, fuzzy
 msgid "Wall-plug for the scEAD cabling system"
 msgstr "Falicsatlakozó scEAD kábelezéshez"
 
@@ -7636,7 +7752,6 @@ msgid "Workstation monitor"
 msgstr "Munkaállomás monitora"
 
 #: sheets/network.sheet.in.h:36
-#, fuzzy
 msgid "ZIP disk"
 msgstr "ZIP lemez"
 
@@ -7659,588 +7774,18 @@ msgid "Stable storage device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:5
-#, fuzzy
 msgid "Sybase"
-msgstr "Szaggatott"
+msgstr "Sybase"
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Sybase client application"
-msgstr ""
+msgstr "Sybase kliens alkalmazás"
 
 #: sheets/sybase.sheet.in.h:7
 msgid "Sybase dataserver"
-msgstr ""
+msgstr "Sybase adatkiszolgáló"
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase replication server"
-msgstr "Objektumok hálózati diagramokhoz"
+msgstr "Sybase replikációs kiszolgáló"
 
-#, fuzzy
-#~ msgid "Box with text inside"
-#~ msgstr "Szövegdoboz"
-
-#, fuzzy
-#~ msgid "Diamond with text inside"
-#~ msgstr "Rombusz szövegdoboz"
-
-#, fuzzy
-#~ msgid "Ellipse with text inside"
-#~ msgstr "Ellipszis alakú szövegdoboz"
-
-#, fuzzy
-#~ msgid "Parallelogram with text inside"
-#~ msgstr "Parallelogramma szövegdoboz"
-
-#, fuzzy
-#~ msgid "A connection point"
-#~ msgstr "_Csatlakozási pontokat mutat"
-
-#~ msgid "Untitled-%d"
-#~ msgstr "Névtelen-%d"
-
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "Az élsimítást használó megjelenítő rutin hibás,\n"
-#~ "ezért a program összeomolhat. Tudjunk a hibáról, ezért\n"
-#~ "erről kérünk ne küldj hibajelentést."
-
-#~ msgid "Create Text"
-#~ msgstr "Szöveg készítése"
-
-#~ msgid "Create Ellipse"
-#~ msgstr "Ellipszis készítése"
-
-#~ msgid "Create Polygon"
-#~ msgstr "Sokszög készítése"
-
-#~ msgid "Create Beziergon"
-#~ msgstr "Bezier-síkidom készítése"
-
-#~ msgid "Create Line"
-#~ msgstr "Vonal készítése"
-
-#~ msgid "Create Arc"
-#~ msgstr "Körív készítése"
-
-#~ msgid "Create Zigzagline"
-#~ msgstr "Cikkcakkvonal készítése"
-
-#~ msgid "Create Polyline"
-#~ msgstr "Töröttvonal készítése"
-
-#~ msgid "Create Bezierline"
-#~ msgstr "Bezier-görbe készítése"
-
-#~ msgid "Create Image"
-#~ msgstr "Kép készítése"
-
-#~ msgid "/File/_Open"
-#~ msgstr "/Fájl/_Megnyit"
-
-#~ msgid "/Dialogs/_Properties"
-#~ msgstr "/Párbeszédek/_Tulajdonságok"
-
-#~ msgid "Apply"
-#~ msgstr "Alkalmaz"
-
-#, fuzzy
-#~ msgid "Show at startup:"
-#~ msgstr "Automatikus betöltés induláskor"
-
-#, fuzzy
-#~ msgid "Default width:"
-#~ msgstr "Vonal szélessége"
-
-#, fuzzy
-#~ msgid "Line gaps"
-#~ msgstr "Vonalak"
-
-#, fuzzy
-#~ msgid "Start at object edge"
-#~ msgstr "Vonal készítése"
-
-#, fuzzy
-#~ msgid "Could not load XSLT library (%s) : %s"
-#~ msgstr ""
-#~ "%s bővítmény betöltése sikertlen\n"
-#~ "%s"
-
-#, fuzzy
-#~ msgid "A lamp"
-#~ msgstr "Késleltetés"
-
-#, fuzzy
-#~ msgid "A pnp bipolar transistor"
-#~ msgstr "Tranzitív"
-
-#, fuzzy
-#~ msgid "A relay"
-#~ msgstr "Késleltetés"
-
-#, fuzzy
-#~ msgid "Create a flow"
-#~ msgstr "Doboz készítése"
-
-#, fuzzy
-#~ msgid "Create a function"
-#~ msgstr "Felhasználói függvény"
-
-#, fuzzy
-#~ msgid "A macro call step"
-#~ msgstr "Görget"
-
-#, fuzzy
-#~ msgid "A macro entry step"
-#~ msgstr "Görget"
-
-#, fuzzy
-#~ msgid "A macro exit step"
-#~ msgstr "Görget"
-
-#, fuzzy
-#~ msgid "A regular step"
-#~ msgstr "Cserél"
-
-#, fuzzy
-#~ msgid "A transition"
-#~ msgstr "Tranzitív"
-
-#, fuzzy
-#~ msgid "A Nand gate"
-#~ msgstr "Aggregál"
-
-#, fuzzy
-#~ msgid "A Not"
-#~ msgstr "Aggregál"
-
-#, fuzzy
-#~ msgid "An And gate"
-#~ msgstr "Aggregál"
-
-#, fuzzy
-#~ msgid "An Inverter"
-#~ msgstr "Invertál"
-
-#, fuzzy
-#~ msgid "A File"
-#~ msgstr "Fájl"
-
-#, fuzzy
-#~ msgid "Create a branch"
-#~ msgstr "Körív készítése"
-
-#, fuzzy
-#~ msgid "Create a class"
-#~ msgstr "Sablon osztály"
-
-#, fuzzy
-#~ msgid "Create a component"
-#~ msgstr "Sokszög készítése"
-
-#, fuzzy
-#~ msgid "Create a fork/union"
-#~ msgstr "Felhasználói függvény"
-
-#, fuzzy
-#~ msgid "Create a lifeline"
-#~ msgstr "Bezier-görbe készítése"
-
-#, fuzzy
-#~ msgid "Create a message"
-#~ msgstr "Kép készítése"
-
-#, fuzzy
-#~ msgid "Create a node"
-#~ msgstr "Vonal készítése"
-
-#, fuzzy
-#~ msgid "Create a note"
-#~ msgstr "Vonal készítése"
-
-#, fuzzy
-#~ msgid "Create a state"
-#~ msgstr "Vonal készítése"
-
-#, fuzzy
-#~ msgid "Create a template class"
-#~ msgstr "Sablon osztály"
-
-#, fuzzy
-#~ msgid "Create a use case"
-#~ msgstr "Kép készítése"
-
-#, fuzzy
-#~ msgid "Create an activity"
-#~ msgstr "Új ábra készítése"
-
-#, fuzzy
-#~ msgid "Create an actor"
-#~ msgstr "Új ábra készítése"
-
-#, fuzzy
-#~ msgid "Create an object"
-#~ msgstr "Vonal készítése"
-
-#~ msgid "_Visible Grid"
-#~ msgstr "_Látható rács"
-
-#~ msgid "/View/_Visible Grid"
-#~ msgstr "/Nézet/_Látható rács"
-
-#~ msgid "/Objects/Align Vertical/Center"
-#~ msgstr "/Objektumok/Függőleges igazítás/Középre"
-
-#~ msgid "Alignment:"
-#~ msgstr "Elhelyezkedés:"
-
-#~ msgid "Font:"
-#~ msgstr "Betűtípus:"
-
-#, fuzzy
-#~ msgid "Font size:"
-#~ msgstr "Betűméret:"
-
-#~ msgid "Corner rounding:"
-#~ msgstr "Saroklekerekítés:"
-
-#, fuzzy
-#~ msgid "State Type"
-#~ msgstr "Azonos típus"
-
-#~ msgid "A Diagram Editor"
-#~ msgstr "Ábraszerkesztő program"
-
-#~ msgid "Image file:"
-#~ msgstr "Képfájl:"
-
-#~ msgid "Keep aspect ratio:"
-#~ msgstr "Felbontási arány megtartása:"
-
-#~ msgid "Maintainer: James Henstridge"
-#~ msgstr "Karbantartó: James Henstridge"
-
-#~ msgid "Fontsize:"
-#~ msgstr "Betűméret:"
-
-#~ msgid "Print Diagram"
-#~ msgstr "Ábra nyomtatása"
-
-#, fuzzy
-#~ msgid "An error occured while creating the print context"
-#~ msgstr "A PNG írásakor hiba lépett fel"
-
-#~ msgid "yes"
-#~ msgstr "igen"
-
-#~ msgid "no"
-#~ msgstr "nem"
-
-#~ msgid "Load"
-#~ msgstr "Betölt"
-
-#~ msgid "Unload"
-#~ msgstr "Eltávolít"
-
-#, fuzzy
-#~ msgid "<Toolbox>/File/Exit"
-#~ msgstr "Fájl/Kilép"
-
-#~ msgid ""
-#~ "Warning no X Font for %s found, \n"
-#~ "using %s instead.\n"
-#~ msgstr ""
-#~ "Figyelem! %s-hez nincs X font, \n"
-#~ "%s-t használok.\n"
-
-#, fuzzy
-#~ msgid "Warning: No X fonts found.  The world is ending."
-#~ msgstr ""
-#~ "Figyelem! %s-hez nincs X font, \n"
-#~ "%s-t használok.\n"
-
-# lib/font.c:440
-#~ msgid "Font %s not found, using Courier instead.\n"
-#~ msgstr "%s betűkészlet nincs, Couriert használok helyette.\n"
-
-#~ msgid "Quit, are you sure?"
-#~ msgstr "Kilépsz, tényleg?"
-
-#~ msgid "Quit"
-#~ msgstr "Kilépés"
-
-#~ msgid "Really close?"
-#~ msgstr "Tényleg bezárod?"
-
-#, fuzzy
-#~ msgid "_New"
-#~ msgstr "Új"
-
-#, fuzzy
-#~ msgid "Down"
-#~ msgstr "Lemozgat"
-
-#, fuzzy
-#~ msgid "_Remove"
-#~ msgstr "Töröl"
-
-#~ msgid "`%s' is not a directory"
-#~ msgstr "`%s' nem könyvtár"
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "Ábrafájl beolvasási hiba\n"
-
-#, fuzzy
-#~ msgid "Number of processes:"
-#~ msgstr "Visszavonások száma:"
-
-#, fuzzy
-#~ msgid "multiple"
-#~ msgstr "Multiplicitás:"
-
-#, fuzzy
-#~ msgid "Single"
-#~ msgstr "Egyszerű"
-
-#, fuzzy
-#~ msgid "Multiple"
-#~ msgstr "Multiplicitás:"
-
-#, fuzzy
-#~ msgid "Instantiation"
-#~ msgstr "Tranzitív"
-
-#, fuzzy
-#~ msgid "Unidirectional"
-#~ msgstr "Irány:"
-
-#, fuzzy
-#~ msgid "Bidirectional"
-#~ msgstr "Irány:"
-
-# objects/UML/implements.c:561
-#, fuzzy
-#~ msgid "Interaction name:"
-#~ msgstr "Felület:"
-
-#, fuzzy
-#~ msgid "bidirectional"
-#~ msgstr "Irány:"
-
-#, fuzzy
-#~ msgid "relation"
-#~ msgstr "Előkészítés"
-
-#, fuzzy
-#~ msgid "Interface functions"
-#~ msgstr "Felhasználói függvény"
-
-#, fuzzy
-#~ msgid "Function module:"
-#~ msgstr "Függvény:"
-
-# objects/UML/implements.c:561
-#, fuzzy
-#~ msgid "Interfaces"
-#~ msgstr "Felület:"
-
-# objects/UML/implements.c:561
-#, fuzzy
-#~ msgid "Interface"
-#~ msgstr "Felület:"
-
-# objects/UML/implements.c:561
-#, fuzzy
-#~ msgid "Interface name:"
-#~ msgstr "Felület:"
-
-#, fuzzy
-#~ msgid "Interface messages"
-#~ msgstr "Rekurzív"
-
-#, fuzzy
-#~ msgid "Message parameters"
-#~ msgstr "Üzenet típusa:"
-
-#, fuzzy
-#~ msgid "Message parameter"
-#~ msgstr "Üzenet típusa:"
-
-#, fuzzy
-#~ msgid "Functions"
-#~ msgstr "Függvény:"
-
-#, fuzzy
-#~ msgid "Messages"
-#~ msgstr "Üzenet:"
-
-#, fuzzy
-#~ msgid "Process name:"
-#~ msgstr "Védett"
-
-#, fuzzy
-#~ msgid "Process reference name:"
-#~ msgstr "Tulajdonságok"
-
-#, fuzzy
-#~ msgid "Module name:"
-#~ msgstr "Réteg neve:"
-
-#, fuzzy
-#~ msgid "Function parameters"
-#~ msgstr "Függvény:"
-
-#, fuzzy
-#~ msgid "/File/Open _Recent"
-#~ msgstr "/Fájl/_Megnyit"
-
-#, fuzzy
-#~ msgid "/File/Open Recent/---"
-#~ msgstr "/Fájl/_Megnyit"
-
-#~ msgid "Grid:"
-#~ msgstr "Rács:"
-
-#, fuzzy
-#~ msgid "/File/Open Recent/"
-#~ msgstr "/Fájl/_Megnyit"
-
-#~ msgid "abstract"
-#~ msgstr "absztrakt"
-
-#~ msgid ""
-#~ "No such file found\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Nincs ilyen fájl\n"
-#~ "%s\n"
-
-#~ msgid "Import from XFig"
-#~ msgstr "Importálás Xfig-ből"
-
-#~ msgid "No edit widget"
-#~ msgstr "Nincs edit widget"
-
-#, fuzzy
-#~ msgid "Text color:"
-#~ msgstr "Válassz ki egy színt"
-
-#, fuzzy
-#~ msgid "Font color:"
-#~ msgstr "Előtér szín:"
-
-#~ msgid "Attributes:"
-#~ msgstr "Attribútumok:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr "Dia v %s. Szerző: Alexander Larsson"
-
-#, fuzzy
-#~ msgid "      Rotate"
-#~ msgstr "Forgatás"
-
-#, fuzzy
-#~ msgid "      Remove"
-#~ msgstr "Töröl"
-
-#~ msgid "Border width:"
-#~ msgstr "Keret szélesség:"
-
-#~ msgid "Asynchronous"
-#~ msgstr "Aszinkron"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Dialógusok/tearoff"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Szerkeszt/Másol"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Szerkeszt/Töröl"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Szerkeszt/Beilleszt"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Szerkeszt/Szöveget Beilleszt"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Szerkeszt/tearoff"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Fájl/sep1"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Fájl/sep2"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/Fájl/tearoff"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objektumok/Vizszintes/tearoff"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objektumok/Függőleges/tearoff"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objektumok/Csoportosít"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objektumok/Csoport felbonása"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Objektumok/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objektumok/tearoff1"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/Kijelöl/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Kijelöl/tearoff"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/Eszközök/tearoff"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Nézet/Csatlakozási pontokat mutat"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Nézet/Vonalzók"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Nézet/Rácsra illeszt"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Nézet/Látható rács"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Nézet/Nagyítás/tearoff"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Nézet/sep1"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/Nézet/tearoff"
-
-#~ msgid "/tearoff"
-#~ msgstr "/tearoff"
-
-#~ msgid "File/Close"
-#~ msgstr "Fájl/Bezár"
-
-#~ msgid "File/New diagram"
-#~ msgstr "Fájl/Új diagram"
-
-#~ msgid "File/Save As..."
-#~ msgstr "Fájl/Mentés másként..."
-
-#~ msgid "View/New View"
-#~ msgstr "Nézet/Új nézet"
