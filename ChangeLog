@@ -1,3 +1,8 @@
+2002-01-31  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/prop_text.c (stringprop_reset_widget): fixed crashes,
+	when prop->string_data is NULL.
+
 2002-01-30  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* lib/widgets.c: 
