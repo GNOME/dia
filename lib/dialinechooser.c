@@ -78,7 +78,7 @@ dia_line_preview_init (DiaLinePreview *line)
 {
   GTK_WIDGET_SET_FLAGS (line, GTK_NO_WINDOW);
 
-  GTK_WIDGET (line)->requisition.width = 40 + GTK_MISC (line)->xpad * 2;
+  GTK_WIDGET (line)->requisition.width = 30 + GTK_MISC (line)->xpad * 2;
   GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
 
   line->lstyle = LINESTYLE_SOLID;

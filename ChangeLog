@@ -1,3 +1,18 @@
+2005-03-13  Hans Breuer  <hans@breuer.org>
+
+	* configure.in : require Cairo 0.3.0
+	  plug-ins/cairo/diacairo.c : changed to match ;-)
+
+	* app/app_procs.c() : new function dump_dependencies()
+	which gets called by: dia --version --verbose
+	and may help to track version dependent problems in
+	our dependencies
+
+	* lib/font.c : reverted to previous version cause using
+	not implemented Pango API did not improve the issue.
+	See: http://bugzilla.gnome.org/show_bug.cgi?id=162034
+	for more information.
+
 2005-03-11  Lars Clausen  <lars@raeder.dk>
 
 	* app/textedit.c: Concentrate start/end editing in single functions.

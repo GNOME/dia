@@ -788,107 +788,6 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
   return (bottom-bline)/(zoom_factor/global_zoom_factor);
 }
 
-/** Create a PangoLayout of the string with the given font and basic
- * height, but scaled horizontally to match the given width.
- */
-PangoLayout*
-dia_font_build_layout_with_width(const char* string, DiaFont* font,
-				 real height, real width)
-{
-    PangoLayout* layout;
-    PangoAttrList* list;
-    PangoAttribute* attr;
-    guint length;
-    gchar *desc = NULL;
-
-#if 0
-    LayoutCacheItem *cached, *item;
-
-    layout_cache_last_use = time(0);
-    if (layoutcache == NULL) {
-      /** Note that key and value are the same -- it's a HashSet */
-      layoutcache = g_hash_table_new_full(layout_cache_hash,
-					  layout_cache_equals,
-					  layout_cache_free_key,
-					  NULL);
-      /** Check for cache cleanup every 10 seconds. */
-      /** This frequent a check is really a hack while we figure out the
-       *  exact problems with reffing the fonts.
-       *  Note to self:  The equals function should compare pfd's, but
-       *  then DiaFonts are freed too early. 
-       */
-      g_timeout_add(10*1000, layout_cache_cleanup, (gpointer)layoutcache);
-    }
-#endif
-
-    height *= 0.7;
-    dia_font_set_height(font, height);
-
-#if 0
-    item = g_new0(LayoutCacheItem,1);
-    item->string = g_strdup(string);
-    item->font = font;
-    
-    /* If it's in the cache, use that instead. */
-    cached = g_hash_table_lookup(layoutcache, item);
-    if (cached != NULL) {
-      g_object_ref(cached->layout);
-      g_free(item->string);
-      g_free(item);
-      cached->usecount ++;
-      return cached->layout;
-    }
-
-    item->font = dia_font_copy(font);
-    dia_font_ref(item->font);
-#endif
-
-    /* This could should account for DPI, but it doesn't do right.  Grrr...
-    {
-      GdkScreen *screen = gdk_screen_get_default();
-      real dpi = gdk_screen_get_width(screen)/
-		 (gdk_screen_get_width_mm(screen)/25.4);
-      printf("height = %f, dpi = %f, new height = %f\n",
-	     height, dpi, height * (dpi/100));
-      height *= dpi/100;
-    }
-    */
-
-    layout = pango_layout_new(dia_font_get_context());
-
-    length = string ? strlen(string) : 0;
-    pango_layout_set_text(layout, string, length);
-        
-    list = pango_attr_list_new();
-    desc = g_utf8_strdown(pango_font_description_get_family(font->pfd), -1);
-    pango_font_description_set_family(font->pfd, desc);
-    g_free(desc);
-    attr = pango_attr_font_desc_new(font->pfd);
-    attr->start_index = 0;
-    attr->end_index = length;
-    pango_attr_list_insert(list,attr); /* eats attr */
-    
-    pango_layout_set_attributes(layout,list);
-    pango_attr_list_unref(list);
-
-    pango_layout_set_indent(layout,0);
-    pango_layout_set_justify(layout,TRUE);
-    pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
-    pango_layout_set_width(layout,dcm_to_pdu(width));
-    pango_layout_set_wrap(layout,FALSE);
-
-#if 0  
-    item->layout = layout;
-    g_object_ref(layout);
-    item->usecount = 1;
-    g_hash_table_replace(layoutcache, item, item);
-#endif
-
-    return layout;
-
-}
-
-
 PangoLayout*
 dia_font_scaled_build_layout(const char* string, DiaFont* font,
                             real height, real zoom_factor)
@@ -909,11 +808,6 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     nozoom_width = dia_font_string_width(string,font,height);
     target_zoomed_width = nozoom_width * scaling;
 
-    printf("Calling with_width with %f height %f width\n",
-	   height*scaling, target_zoomed_width);
-    return dia_font_build_layout_with_width(string, font, height*scaling,
-					    target_zoomed_width);
-#if 0
         /* First try: no tweaks. */
     real_width = dia_font_string_width(string,font, height * scaling);
     if (real_width <= target_zoomed_width) {
@@ -942,7 +836,6 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     g_warning("Failed to appropriately tweak zoomed font for zoom factor %f.", zoom_factor);
     dia_font_unref(altered_font);
     return dia_font_build_layout(string,font,height*scaling);    
-#endif
 }
 
 /**

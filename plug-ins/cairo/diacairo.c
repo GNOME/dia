@@ -31,12 +31,16 @@
 
 /*
  * To me the following looks rather suspicious. Why do we need to compile
- * the Cairo plug-in at all if we don't have Cairo. As a result we'll
+ * the Cairo plug-in at all if we don't have Cairo? As a result we'll
  * show it in the menus/plugin details and the user expects something
  * although there isn't any functionality behind it. Urgh.  --hb 
  */
 #ifdef HAVE_CAIRO
 #include <cairo.h>
+/* some backend headers, win32 missing in official Cairo */
+#include <cairo-png.h>
+#include <cairo-ps.h>
+#include <cairo-pdf.h>
 #endif
 
 #include "intl.h"
@@ -851,7 +855,7 @@ cairo_renderer_init (DiaCairoRenderer *renderer, void *p)
   /*
    * Initialize fields where 0 init isn't good enough. Bug #151716
    * appears to show that we are sometimes called to render a line
-   * without setting the linstyle first. Probably a bug elsewhere
+   * without setting the linestyle first. Probably a bug elsewhere
    * but it's this plug-in which hangs ;)
    */
   renderer->dash_length = 1.0;

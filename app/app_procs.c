@@ -30,6 +30,11 @@
 #include <unistd.h>
 #endif
 
+/* wants to be included early to avoid complains about setjmp.h */
+#ifdef HAVE_LIBPNG
+#include <png.h> /* just for the version stuff */
+#endif
+
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
@@ -297,6 +302,99 @@ debug_break(void)
     debug_break_dont_optimize -= 1;
 }
 
+void
+dump_dependencies(void)
+{
+#ifdef __GNUC__
+  g_print ("Compiler: GCC " __VERSION__ "\n");
+#elif defined _MSC_VER
+  g_print ("Compiler: MSC %d\n", _MSC_VER);
+#else
+  g_print ("Compiler: unknown\n");
+#endif
+  /* some flags/defines which may be interesting */
+  g_print ("  with : "
+#ifdef G_THREADS_ENABLED
+  "threads "
+#endif
+#ifdef HAVE_CAIRO
+  "cairo "
+#endif
+#ifdef GNOME
+  "gnome "
+#endif
+#ifdef HAVE_GNOMEPRINT
+  "gnomeprint "
+#endif
+#ifdef HAVE_LIBART
+  "libart "
+#endif
+  "\n");
+
+  /* print out all those dependies, both compile and runtime if possible 
+   * Note: this is not meant to be complete but does only include libaries 
+   * which may or have cause(d) us trouble in some versions 
+   */
+  g_print ("Library versions\n");
+#ifdef HAVE_LIBPNG
+  g_print ("libpng  : %s (%s)\n", png_libpng_ver, PNG_LIBPNG_VER_STRING);
+#endif
+#ifdef HAVE_FREETYPE
+  {
+    FT_Library ft_library;
+    FT_Int     ft_major_version;
+    FT_Int     ft_minor_version;
+    FT_Int     ft_micro_version;
+
+    if (FT_Init_FreeType (&ft_library) == 0) {
+      FT_Library_Version (ft_library,
+                          &ft_major_version,
+                          &ft_minor_version,
+                          &ft_micro_version);
+
+      g_print ("freetype: %d.%d.%d\n", ft_major_version, ft_minor_version, ft_micro_version);
+      FT_Done_FreeType (ft_library);
+    }
+    else
+      g_print ("freetype: ?.?.?\n");
+  }
+#endif
+  {
+    gint   libxml_version   = atoi(xmlParserVersion);
+
+    g_print ("libxml  : %d.%d.%d (%s)\n", 
+             libxml_version / 100 / 100, libxml_version / 100 % 100, libxml_version % 100, LIBXML_DOTTED_VERSION);
+  }
+  g_print ("glib    : %d.%d.%d (%d.%d.%d)\n", 
+           glib_major_version, glib_minor_version, glib_micro_version,
+           GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
+  g_print ("pango   : version not available\n"); /* Pango does not provide such */
+#if 0
+  {
+    gchar  linkedname[1024];
+    gint   len = 0;
+
+    /* relying on PREFIX is wrong */
+    if ((len = readlink (PREFIX "/lib/libpango-1.0.so", linkedname, 1023)) > 0) {
+      /* man 2 readlink : does not append a  NUL  character */
+      linkedname[len] = '\0';
+      g_print ("%s/%s\n", PREFIX, linkedname);
+    }
+  }
+#endif
+  g_print ("gtk+    : %d.%d.%d (%d.%d.%d)\n",
+           gtk_major_version, gtk_minor_version, gtk_micro_version,
+           GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
+
+#if 0
+  /* we could read $PREFIX/share/gnome-about/gnome-version.xml 
+   * but is it worth the effort ? */
+  g_print ("gnome   : %d.%d.%d (%d.%d.%d)\n"
+           gnome_major_version, gnome_minor_version, gnome_micro_version,
+           GNOME_MAJOR_VERSION, GNOME_MINOR_VERSION, GNOME_MICRO_VERSION);
+#endif
+}
+
 gboolean
 app_is_interactive(void)
 {
@@ -408,6 +506,7 @@ app_init (int argc, char **argv)
   static gboolean nosplash = FALSE;
   static gboolean credits = FALSE;
   static gboolean version = FALSE;
+  static gboolean verbose = FALSE;
   static gboolean log_to_stderr = FALSE;
 #ifdef GNOME
   GnomeClient *client;
@@ -453,6 +552,8 @@ app_init (int argc, char **argv)
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
      N_("Display credits list and exit"), NULL },
+    {"verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
+     N_("Generate verbose output"), NULL },
     {"version", 'v', 0, G_OPTION_ARG_NONE, &version,
      N_("Display version and exit"), NULL },
     { NULL }
@@ -476,6 +577,8 @@ app_init (int argc, char **argv)
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
      N_("Display credits list and exit"), NULL },
+    {"verbose", 0, POPT_ARG_NONE, &verbose, 0,
+     N_("Generate verbose output"), NULL },
     {"version", 'v', POPT_ARG_NONE, &version, 0,
      N_("Display version and exit"), NULL },
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
@@ -562,6 +665,8 @@ app_init (int argc, char **argv)
 #else
     printf(g_locale_from_utf8(_("Dia version %s\n"), -1, NULL, NULL, NULL), VERSION);
 #endif
+    if (verbose)
+      dump_dependencies();
     exit(0);
   }
 
