@@ -541,7 +541,7 @@ static void
 parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	       GraphicStyle *style)
 {
-  CHAR *str;
+  xmlChar *str;
   char *old_locale;
 
   /* walk SVG node ... */
@@ -937,7 +937,7 @@ load_shape_info(const gchar *filename)
       for (pt_node = node->childs; pt_node != NULL; pt_node = pt_node->next) {
 	if (pt_node->ns == shape_ns && !strcmp(pt_node->name, "point")) {
 	  Point pt = { 0.0, 0.0 };
-	  CHAR *str;
+	  xmlChar *str;
 
 	  str = xmlGetProp(pt_node, "x");
 	  if (str) {
@@ -960,7 +960,7 @@ load_shape_info(const gchar *filename)
       info->connections = (Point *)arr->data;
       g_array_free(arr, FALSE);
     } else if (node->ns == shape_ns && !strcmp(node->name, "textbox")) {
-      CHAR *str;
+      xmlChar *str;
       
       str = xmlGetProp(node, "x1");
       if (str) {

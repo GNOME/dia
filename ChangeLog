@@ -1,3 +1,11 @@
+2001-06-04  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* lib/plug-ins.c: 
+	* objecs/custom/shape_info.c:
+	* plug-ins/shape/shape-export.c:
+	* plug-ins/svg/render_svg.c: patch from obecian <obecian@openbsd.org>
+	use xmlChar instead of obsolete CHAR.
+
 2001-06-03  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram.h : added prototype for diagram_update_menu_sensitivity()

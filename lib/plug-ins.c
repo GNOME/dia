@@ -435,7 +435,7 @@ plugin_load_inhibited(const gchar *filename)
 
   ensure_pluginrc();
   for (node = pluginrc->root->childs; node != NULL; node = node->next) {
-    CHAR *node_filename;
+    xmlChar *node_filename;
 
     if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
       continue;
@@ -472,7 +472,7 @@ info_fill_from_pluginrc(PluginInfo *info)
 
   ensure_pluginrc();
   for (node = pluginrc->root->childs; node != NULL; node = node->next) {
-    CHAR *node_filename;
+    xmlChar *node_filename;
 
     if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
       continue;
@@ -524,7 +524,7 @@ dia_pluginrc_write(void)
       datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
 
     for (node = pluginrc->root->childs; node != NULL; node = node->next) {
-      CHAR *node_filename;
+      xmlChar *node_filename;
 
       if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
 	continue;

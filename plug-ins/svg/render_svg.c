@@ -743,7 +743,7 @@ draw_string(RendererSVG *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-  CHAR *enc;
+  xmlChar *enc;
   xmlNodePtr node;
   char buf[512], *style, *tmp;
   real saved_width;
