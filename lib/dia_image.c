@@ -175,13 +175,13 @@ dia_image_rgb_data(DiaImage image)
   } else {
     int i;
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
-    
-    g_memmove(rgb_pixels, pixels, size);
-    /*
+
+    /* This needs to be copied a line at a time to remove the rowstride
+     * effect.  EPS export renders the other order, so it can't handle
+     * rowstride != width*bytesperpixel */
     for(i = 0; i < height; i++) {	
       g_memmove(&rgb_pixels[i*width*3], &pixels[i*rowstride], width*3);
     }
-    */
     return rgb_pixels;
   }
 }

@@ -3,6 +3,7 @@
 	* lib/dia_image.h: 
 	* lib/dia_image.c (dia_image_rgba_data): New function to get RGBA
 	data as one chunk.  Documentation for the RGB data getting funcs.
+	(dia_image_rgb_data): Added comment.
 
 	* lib/dialibartrenderer.c (draw_image): Correct rowstride handling
 	(bug #103565)
