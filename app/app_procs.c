@@ -55,6 +55,8 @@ static void register_all_objects(void);
 static void register_all_sheets(void);
 static int name_is_lib(char *name);
 
+static int current_version = 0;
+
 void
 app_init (int argc, char **argv)
 {
@@ -208,6 +210,7 @@ register_objects_in(char *directory)
   const char *error;
   void *libhandle;
   void (*register_func)(void);
+  int (*version_func)(void);
   
   if (stat(directory, &statbuf)<0) {
     /*
@@ -240,6 +243,27 @@ register_objects_in(char *directory)
 	message_warning("Error loading library: \"%s\":\n %s\n", file_name, dlerror());
 	continue;
       }
+
+#if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
+      version_func = dlsym(libhandle, "_get_version");
+#else
+      version_func = dlsym(libhandle, "get_version");
+#endif
+      if ((error = dlerror()) != NULL)  {
+	message_warning("The file \"%s\" is not a Dia object library.\n", file_name);
+	continue;
+      }
+
+      if ( (*version_func)() < current_version ) {
+	message_warning("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it.", file_name);
+	continue;
+      }
+      
+      if ( (*version_func)() > current_version ) {
+	message_warning("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it.", file_name);
+	continue;
+      }
+
       
 #if defined(USCORE) && !defined(DLSYM_ADDS_USCORE)
       register_func = dlsym(libhandle, "_register_objects");

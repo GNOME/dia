@@ -110,7 +110,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     tool->obj = NULL;
   }
   diagram_update_extents(ddisp->diagram);
-  tool_reset();
+  /*  tool_reset(); */
 }
 static void
 create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,

@@ -25,6 +25,10 @@ extern ObjectType *_line_type;
 extern ObjectType *_zigzagline_type;
 extern ObjectType *_textobj_type;
 
+int get_version(void) {
+  return 0;
+}
+
 void register_objects(void) {
   object_register_type(_arc_type);
   object_register_type(_box_type);

@@ -68,6 +68,10 @@ extern SheetObject largepackage_sheetobj;
 extern SheetObject actor_sheetobj;
 extern SheetObject usecase_sheetobj;
 
+int get_version(void) {
+  return 0;
+}
+
 void register_sheets(void) {
   Sheet *sheet;
   

@@ -27,6 +27,10 @@ extern ObjectType monitor_type;
 extern ObjectType disc_type;
 extern ObjectType bus_type;
 
+int get_version(void) {
+  return 0;
+}
+
 void register_objects(void) {
   object_register_type(&computer_type);
   object_register_type(&monitor_type);

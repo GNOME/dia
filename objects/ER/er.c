@@ -27,6 +27,10 @@ extern ObjectType relationship_type;
 extern ObjectType attribute_type;
 extern ObjectType participation_type;
 
+int get_version(void) {
+  return 0;
+}
+
 void register_objects(void) {
   object_register_type(&entity_type);
   object_register_type(&relationship_type);

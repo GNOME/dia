@@ -1,3 +1,20 @@
+1999-01-21  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* app/app_procs.c:
+	* objects/ER/er.c:
+	* objects/UML/uml.c:
+	* objects/network/network.c:
+	* objects/standard/standard.c:
+	Added versioning of object libraries.
+
+	* app/create_object.c:
+	Don't change tool when an object is created.
+	
+	* objects/network/network.c:
+
+	* TODO:
+	Update
+
 1999-01-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in:
