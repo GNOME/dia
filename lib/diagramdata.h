@@ -99,6 +99,7 @@ struct _Layer {
 };
 
 #include "object.h"
+#include "dynamic_obj.h"
 
 DIAVAR int render_bounding_boxes;
 
