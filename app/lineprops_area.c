@@ -366,6 +366,7 @@ static gint dia_arrow_chooser_event      (GtkWidget *widget,
 					  GdkEvent *event);
 static void dia_arrow_chooser_dialog_ok  (DiaArrowChooser *arrow);
 static void dia_arrow_chooser_dialog_cancel (DiaArrowChooser *arrow);
+static void dia_arrow_chooser_dialog_destroy (DiaArrowChooser *arrow);
 static void dia_arrow_chooser_change_arrow_type (GtkMenuItem *mi,
 						 DiaArrowChooser *arrow);
 
@@ -414,34 +415,48 @@ dia_arrow_chooser_init (DiaArrowChooser *arrow)
   gtk_widget_show(wid);
   arrow->preview = DIA_ARROW_PREVIEW(wid);
 
-  arrow->dialog = wid = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW(wid), _("Arrow Properties"));
-  gtk_signal_connect(GTK_OBJECT(wid), "delete_event",
-		     GTK_SIGNAL_FUNC(close_and_hide), NULL);
+  arrow->dialog = NULL;
+}
 
-  wid = dia_arrow_selector_new();
-  gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(arrow->dialog)->vbox), wid,
-		     TRUE, TRUE, 0);
-  gtk_widget_show(wid);
-  arrow->selector = DIAARROWSELECTOR(wid);
+/* Creating the dialog separately so we can handle destroy */
+void
+dia_arrow_chooser_dialog_show(GtkWidget *widget, gpointer userdata)
+{
+  DiaArrowChooser *chooser = DIA_ARROW_CHOOSER(userdata);
+  if (chooser->dialog == NULL) {
+    GtkWidget *wid;
+    chooser->dialog = wid = gtk_dialog_new();
+    gtk_window_set_title(GTK_WINDOW(wid), _("Arrow Properties"));
+    gtk_signal_connect(GTK_OBJECT(wid), "delete_event",
+		       GTK_SIGNAL_FUNC(close_and_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(wid), "destroy_event",
+		       GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_destroy), NULL);
 
-  wid = gtk_button_new_with_label(_("OK"));
-  GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(arrow->dialog)->action_area),wid);
-  gtk_widget_grab_default(wid);
-  gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			    GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_ok),
-			    GTK_OBJECT(arrow));
-  gtk_widget_show(wid);
+    wid = dia_arrow_selector_new();
+    gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(chooser->dialog)->vbox), wid,
+		       TRUE, TRUE, 0);
+    gtk_widget_show(wid);
+    chooser->selector = DIAARROWSELECTOR(wid);
 
-  wid = gtk_button_new_with_label(_("Cancel"));
-  GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(arrow->dialog)->action_area),wid);
-  gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			    GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_cancel),
-			    GTK_OBJECT(arrow));
-  gtk_widget_show(wid);
+    wid = gtk_button_new_with_label(_("OK"));
+    GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
+    gtk_container_add(GTK_CONTAINER(GTK_DIALOG(chooser->dialog)->action_area),wid);
+    gtk_widget_grab_default(wid);
+    gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
+			      GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_ok),
+			      GTK_OBJECT(chooser));
+    gtk_widget_show(wid);
+
+    wid = gtk_button_new_with_label(_("Cancel"));
+    GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
+    gtk_container_add(GTK_CONTAINER(GTK_DIALOG(chooser->dialog)->action_area),wid);
+    gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
+			      GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_cancel),
+			      GTK_OBJECT(chooser));
+    gtk_widget_show(wid);
+  }
+  gtk_widget_show(chooser->dialog);
 }
 
 GtkWidget *
@@ -473,9 +488,9 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     gtk_widget_show(mi);
   }
   mi = gtk_menu_item_new_with_label(_("Details..."));
-  gtk_signal_connect_object(GTK_OBJECT(mi), "activate",
-			    GTK_SIGNAL_FUNC(gtk_widget_show),
-			    GTK_OBJECT(chooser->dialog));
+  gtk_signal_connect(GTK_OBJECT(mi), "activate",
+		     GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_show),
+		     GTK_OBJECT(chooser));
   gtk_container_add(GTK_CONTAINER(menu), mi);
   gtk_widget_show(mi);
 
@@ -509,11 +524,20 @@ dia_arrow_chooser_dialog_ok  (DiaArrowChooser *arrow)
   }
   gtk_widget_hide(arrow->dialog);
 }
+
 static void
 dia_arrow_chooser_dialog_cancel (DiaArrowChooser *arrow)
 {
   dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
   gtk_widget_hide(arrow->dialog);
+}
+
+static void
+dia_arrow_chooser_dialog_destroy (DiaArrowChooser *chooser)
+{
+  /*  dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);*/
+  chooser->dialog = NULL;
+  chooser->selector = NULL;
 }
 
 static void

@@ -492,11 +492,8 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     PangoAttribute* attr;
     guint length;
 
-#ifdef HAVE_FREETYPE
-    height *= 1.0;
-#elif defined G_OS_WIN32
     height *= 0.7;
-#endif
+
     dia_font_set_height(font,height);
     layout = pango_layout_new(pango_context);
 

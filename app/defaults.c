@@ -73,6 +73,7 @@ defaults_dialog_destroyed(GtkWidget *widget, gpointer data)
     current_objtype = NULL;
     current_object = NULL;
   }
+  dialog = NULL;
   return 0;
 }
 

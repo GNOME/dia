@@ -70,6 +70,10 @@ static gint
 color_selection_delete (GtkWidget               *w,
 			GdkEvent                *event,
 			GtkColorSelectionDialog *cs);
+static gint
+color_selection_destroy (GtkWidget               *w,
+			 GdkEvent                *event,
+			 GtkColorSelectionDialog *cs);
 static void
 color_selection_changed (GtkWidget *w,
                          GtkColorSelectionDialog *cs);
@@ -239,7 +243,8 @@ static void
 color_selection_cancel (GtkWidget               *w,
 			GtkColorSelectionDialog *cs)
 {
-  gtk_widget_hide(color_select);
+  if (color_select != NULL)
+    gtk_widget_hide(color_select);
   color_select_active = 0;
   attributes_set_foreground(&stored_foreground);
   attributes_set_background(&stored_background);
@@ -252,6 +257,16 @@ color_selection_delete (GtkWidget               *w,
 			GdkEvent                *event,
 			GtkColorSelectionDialog *cs)
 {
+  color_selection_cancel(w,cs);
+  return TRUE;
+}
+
+static gint
+color_selection_destroy (GtkWidget               *w,
+			 GdkEvent                *event,
+			 GtkColorSelectionDialog *cs)
+{
+  color_select = NULL;
   color_selection_cancel(w,cs);
   return TRUE;
 }
@@ -313,6 +328,10 @@ color_area_edit (void)
     
     g_signal_connect (G_OBJECT (window), "delete_event",
 		      G_CALLBACK(color_selection_delete),
+			window);
+    
+    g_signal_connect (G_OBJECT (window), "destroy_event",
+		      G_CALLBACK(color_selection_destroy),
 			window);
     
     g_signal_connect (

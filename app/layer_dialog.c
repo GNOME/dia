@@ -182,6 +182,12 @@ layer_list_events (GtkWidget *widget,
   return FALSE;
 }
 
+/* Reset the cache when destroyed */
+static void
+layer_dialog_destroyed(GtkWidget *filesel, gpointer cache)
+{
+  *(GtkWidget **)cache = NULL;
+}
 
 void
 create_layer_dialog(void)
@@ -209,6 +215,8 @@ create_layer_dialog(void)
 
   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
                       GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+  gtk_signal_connect (GTK_OBJECT (dialog), "destroy_event",
+                      GTK_SIGNAL_FUNC(layer_dialog_destroyed), &layer_dialog);
 
   
   vbox = GTK_DIALOG(dialog)->vbox;
@@ -919,8 +927,8 @@ edit_layer_cancel_callback (GtkWidget *w,
   dialog = (EditLayerDialog *) client_data;
 
   dialog->layer_widget->edit_dialog = NULL;
-  dialog = (EditLayerDialog *) client_data;
-  gtk_widget_destroy (dialog->dialog);
+  if (dialog->dialog != NULL)
+    gtk_widget_destroy (dialog->dialog);
   g_free (dialog);
 }
 
@@ -929,6 +937,19 @@ edit_layer_delete_callback (GtkWidget *w,
 			    GdkEvent *e,
 			    gpointer client_data)
 {
+  edit_layer_cancel_callback (w, client_data);
+
+  return TRUE;
+}
+
+static gint
+edit_layer_destroy_callback (GtkWidget *w,
+			     gpointer client_data)
+{
+  EditLayerDialog *dialog;
+  /* In this case, the dialog is already destroyed */
+  dialog = (EditLayerDialog *) client_data;
+  dialog->dialog = NULL;
   edit_layer_cancel_callback (w, client_data);
 
   return TRUE;
@@ -957,7 +978,10 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
 		      GTK_SIGNAL_FUNC (edit_layer_delete_callback),
 		      dialog);
-
+  gtk_signal_connect (GTK_OBJECT (dialog->dialog), "destroy_event",
+		      GTK_SIGNAL_FUNC (edit_layer_delete_callback),
+		      dialog);
+  
   /*  the main vbox  */
   vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);

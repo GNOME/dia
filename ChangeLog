@@ -1,3 +1,27 @@
+2003-01-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diapsft2renderer.c (set_font): Adjust silly random factor
+	for change in font.c
+
+	* lib/widgets.c: Avoid warning when font menu file doesn't exist.
+
+	* lib/font.c (dia_font_build_layout): Let's all use the same weird
+	factor here.
+
+	* app/lineprops_area.c (dia_arrow_chooser_dialog_show): 
+	* app/layer_dialog.c (create_layer_dialog) 
+	(layer_dialog_edit_layer): 
+	* app/filedlg.c (file_open_callback, file_save_as_callback) 
+	(file_export_callback): 
+	* app/dia-props.c (create_diagram_properties_dialog): 
+	* app/defaults.c (defaults_dialog_destroyed): 
+	* app/color_area.c (color_area_edit): Dialog destroy event handling.
+
+2003-01-19  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/defaults.c (defaults_dialog_destroyed): Reset cache when
+	defaults dialog destroyed.
+
 2003-01-19  Steffen Macke <sdteffen@web.de>
 
 	* objects/makefile.msc: added bondgraph

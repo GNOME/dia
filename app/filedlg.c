@@ -62,6 +62,13 @@ file_dialog_hide (GtkWidget *filesel)
   return TRUE;
 }
 
+/* Reset the cache when destroyed */
+static void
+file_dialog_destroyed(GtkWidget *filesel, gpointer cache)
+{
+  *(GtkWidget **)cache = NULL;
+}
+
 static void
 set_true_callback(GtkWidget *w, int *data)
 {
@@ -170,6 +177,8 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 		GTK_OBJECT(opendlg));
     gtk_signal_connect(GTK_OBJECT(opendlg), "delete_event",
 		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(opendlg), "destroy_event",
+		       GTK_SIGNAL_FUNC(file_dialog_destroyed), &opendlg);
     gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->ok_button),
 		       "clicked", GTK_SIGNAL_FUNC(file_open_ok_callback),
 		       opendlg);
@@ -336,6 +345,8 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 		GTK_OBJECT(savedlg));
     gtk_signal_connect(GTK_OBJECT(savedlg), "delete_event",
 		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(savedlg), "destroy_event",
+		       GTK_SIGNAL_FUNC(file_dialog_destroyed), &savedlg);
     gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->ok_button),
 		       "clicked", GTK_SIGNAL_FUNC(file_save_as_ok_callback),
 		       savedlg);
@@ -536,6 +547,8 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 		GTK_OBJECT(exportdlg));
     gtk_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
 		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
+    gtk_signal_connect(GTK_OBJECT(exportdlg), "destroy_event",
+		       GTK_SIGNAL_FUNC(file_dialog_destroyed), &exportdlg);
     gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->ok_button),
 		       "clicked", GTK_SIGNAL_FUNC(file_export_ok_callback),
 		       exportdlg);

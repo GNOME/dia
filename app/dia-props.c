@@ -42,6 +42,13 @@ static void diagram_properties_respond(GtkWidget *widget,
                                        gpointer user_data);
 
 static void
+diagram_properties_dialog_destroyed(GtkWidget *widget, gpointer userdata)
+{
+  printf("Destroyed dialog\n");
+  dialog = NULL;
+}
+
+static void
 create_diagram_properties_dialog(void)
 {
   GtkWidget *dialog_vbox;
@@ -71,6 +78,8 @@ create_diagram_properties_dialog(void)
 		   NULL);
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
+  g_signal_connect(G_OBJECT(dialog), "destroy_event",
+		   G_CALLBACK(diagram_properties_dialog_destroyed), NULL);
 
   notebook = gtk_notebook_new();
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);

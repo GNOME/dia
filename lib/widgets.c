@@ -125,7 +125,7 @@ static void
 dia_font_selector_read_persistence_file() {
   gchar *file_contents;
   gchar *persistence_name;
-  GError *error;
+  GError *error = NULL;
 
   font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
 
@@ -134,7 +134,9 @@ dia_font_selector_read_persistence_file() {
   dia_font_selector_add_font("monospace", "Monospace", FALSE);
 
   persistence_name = dia_config_filename("font_menu");
-  if (g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
+  
+  if (g_file_test(persistence_name, G_FILE_TEST_EXISTS) &&
+      g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
     /* Should really use some macro for linebreak, but I can't find it */
     gchar **lines = g_strsplit(file_contents, "\n", -1); 
     int i;
@@ -147,6 +149,7 @@ dia_font_selector_read_persistence_file() {
     }
     g_free(file_contents);
   }
+  if (error) g_error_free(error);
   g_free(persistence_name);
 }
 

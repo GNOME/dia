@@ -79,13 +79,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
 
   renderer->current_font = font;
-  /* Where did this 1.8 come from? */
-  /* Used to be just as arbitrarily 1.6, but experimentation shows 1.8
-     is better.  This holds only when using Freetype, in other cases all
-     bets are really off, especially since some fonts may not be found.
-  */
-  /* 28.346 = 72.0 / 2.54 */
-  renderer->current_height = height*DPI/2.54; /* Account for default zoom? */
+  /* Dammit!  We have a random factor once again! */
+  renderer->current_height = height*4.3;
   pango_context_set_font_description(dia_font_get_context(), font->pfd);
 }
 
@@ -93,6 +88,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 /*		   String rendering using PangoFt2           */
 /* ********************************************************* */
 /* Such a big mark really is a sign that this should go in its own file:) */
+/* And so it did. */
 
 /*======================================================================
   outline traversing functions.
