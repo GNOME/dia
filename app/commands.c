@@ -110,7 +110,6 @@ file_open_dialog_ok_callback (GtkWidget        *w,
     diagram_update_extents(diagram);
   
     ddisp = new_display(diagram);
-    diagram_add_ddisplay(diagram, ddisp);
   }
   /* Error messages are done in diagram_load() */
 
@@ -411,7 +410,6 @@ file_new_callback(GtkWidget *widget, gpointer data)
   
   dia = new_diagram(buffer);
   ddisp = new_display(dia);
-  diagram_add_ddisplay(dia, ddisp);
 }
 
 void
@@ -730,7 +728,6 @@ view_new_view_callback(GtkWidget *widget, gpointer data)
   dia = ddisp->diagram;
   
   ddisp = new_display(dia);
-  diagram_add_ddisplay(dia, ddisp);
 }
 
 void

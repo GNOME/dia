@@ -191,7 +191,6 @@ app_init (int argc, char **argv)
       if (diagram != NULL) {
 	diagram_update_extents(diagram);
 	ddisp = new_display(diagram);
-	diagram_add_ddisplay(diagram, ddisp);
       }
     }
 
@@ -213,7 +212,6 @@ app_init (int argc, char **argv)
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       ddisp = new_display(diagram);
-      diagram_add_ddisplay(diagram, ddisp);
     }
     i++;
   }

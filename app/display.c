@@ -120,7 +120,15 @@ new_display(Diagram *dia)
     filename++;
   }
 
+  diagram_add_ddisplay(dia, ddisp);
+
+  ddisp->origo.x = 0.0;
+  ddisp->origo.y = 0.0;
   ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
+  ddisp->visible.left = 0.0;
+  ddisp->visible.top = 0.0;
+  ddisp->visible.right = prefs.new_view.width/ddisp->zoom_factor;
+  ddisp->visible.bottom = prefs.new_view.height/ddisp->zoom_factor;
 
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename);
@@ -347,7 +355,7 @@ ddisplay_render_pixmap(DDisplay *ddisp)
   Object *obj;
   int i;
   Renderer *renderer;
-  
+
   if (ddisp->renderer==NULL) {
     printf("ERROR! Renderer was NULL!!\n");
     return;
