@@ -1,5 +1,8 @@
 2003-01-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/lineprops_area.c (dia_arrow_chooser_new): Use menudesc list
+	to generate arrowheads as well as tooltips.
+
 	* lib/arrows.c: Added hollow diamond to menudesc list.
 
 	* lib/arrows.[ch]: 
