@@ -1,8 +1,18 @@
-2005-02-01  root  <lars@raeder.dk>
+2005-02-03  Lars Clausen  <lars@raeder.dk>
+
+	* lib/.cvsignore: Added generated files diamarshal.[ch]
+
+2005-02-02  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: Add GLIB_GENMARSHAL def as suggested in
+	http://ignore-your.tv/software/libgtcpsocket/docs/client-subclassing.html.
+	Now compiles on Linux.
+
+2005-02-01  Lars Clausen  <lars@raeder.dk>
 
 	* app/sheets.c (sheet_object_mod_get_type_string): We don't really
 	need to translate the empty string.  Especially not after
-	g_assert_not_reached(). 
+	g_assert_not_reached().  Fixes bug #165966.
 
 2005-01-07  Tim Olsen  <tolsen@alum.mit.edu>
 
