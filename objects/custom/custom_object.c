@@ -871,7 +871,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   Rectangle tb;
   ElementBBExtras *extra = &elem->extra_spacing;
   int i;
-
+  
   /* save starting points */
   center = bottom_right = elem->corner;
   center.x += elem->width/2;
@@ -1006,6 +1006,20 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
 
   extra->border_trans = custom->border_width/2;
+
+  {
+    /* FIXME: this block is a bad hack, see BugZilla #52912.
+     I want that crap to go away ASAP after 0.87 is released -- CC */
+    GList *tmp;
+    real worst_lw = 0.0;
+
+    for (tmp = info->display_list; tmp; tmp = tmp->next) {
+      GraphicElement *el = tmp->data;
+      if (el->any.s.line_width > worst_lw) worst_lw = el->any.s.line_width;
+    }
+    extra->border_trans += worst_lw * custom->border_width * 5.24  - custom->border_width/2; 
+  }
+
   element_update_boundingbox(elem);
 
   /* extend bouding box to include text bounds ... */

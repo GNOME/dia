@@ -1,3 +1,9 @@
+2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/custom/custom_object.c: temporary hack to fix the shape
+	bounding box reported by Ben A. Hetland. Proper fix isn't .87
+	material, see bugzilla #52912.
+
 2001-04-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/standard/image.c (get_directory): Now uses
