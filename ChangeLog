@@ -1,3 +1,8 @@
+2004-07-17  Lars Clausen  <lars@raeder.dk>
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from
+	Ambrose Li <a.c.li@ieee.org>:  Better IM context handling.
+
 2004-07-16  Steffen Macke <sdteffen@web.de>
 
 	* shapes/RDP/Makefile.am: Synchronized with 0_94_RELEASE branch

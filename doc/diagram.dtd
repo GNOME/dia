@@ -1,6 +1,6 @@
 <!ELEMENT dia:diagram (dia:diagramdata, (dia:layer)*) >
-<!ATLIST dia:diagram
-   xmlns CDATA #FIXED "http://www.lysator.liu.se/~alla/dia/"
+<!ATTLIST dia:diagram
+   xmlns CDATA #FIXED "http://www.gnome.org/projects/dia/"
 
 <!ELEMENT dia:diagramdata (dia:attribute)* >
 

@@ -452,7 +452,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int key_handled;
   int width, height;
   int new_size;
-
+  int im_context_used;
+  
   return_val = FALSE;
  
   if (!canvas->window) 
@@ -665,27 +666,31 @@ ddisplay_canvas_events (GtkWidget *canvas,
         kevent = (GdkEventKey *)event;
         state = kevent->state;
         key_handled = FALSE;
+        im_context_used = FALSE;
 
         focus = active_focus();
         if (focus != NULL) {
-	  if (gtk_im_context_filter_keypress(GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
-	    return_val = key_handled = TRUE;
-	  } else if (!(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
-	    /* Keys goes to the active focus. */
-	    obj = focus->obj;
-	    if (diagram_is_selected(ddisp->diagram, obj)) { 
-	      handle_key_event(ddisp, focus, kevent->keyval, 
-		  kevent->string, kevent->length); 
+	  /* Keys goes to the active focus. */
+	  obj = focus->obj;
+	  if (diagram_is_selected(ddisp->diagram, obj)) {
+
+	    if (!gtk_im_context_filter_keypress(
+		  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
+	      
+		  /*! key event not swallowed by the input method ? */
+	      handle_key_event(ddisp, focus, kevent->keyval,
+			       kevent->string, kevent->length);
+
 	      diagram_flush(ddisp->diagram);
+
+	      return_val = key_handled = im_context_used = TRUE;
 	    }
-	    return_val = key_handled = TRUE;
 	  }
 	}
 
-        if (!key_handled) {
-              /* No focus to receive keys, take care of it ourselves. */
+        if (!key_handled && (state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
+              /* IM doesn't need receive keys, take care of it ourselves. */
           return_val = TRUE;
-          gtk_im_context_reset(GTK_IM_CONTEXT(ddisp->im_context));
           
           switch(kevent->keyval) {
               case GDK_Up:
@@ -726,7 +731,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                   set_zoom_out(active_tool);
                 break;
               default:
-                if (kevent->string && 0 == strcmp(" ",kevent->string)) {
+                if (kevent->string && kevent->keyval == ' ') {
                   tool_select_former();
                 } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 && 
 			   kevent->length != 0) {
@@ -738,6 +743,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
                 }
           }
         }
+
+        if (!im_context_used)
+          gtk_im_context_reset(GTK_IM_CONTEXT(ddisp->im_context));
+        
         break;
 
       case GDK_KEY_RELEASE:
