@@ -196,7 +196,7 @@ app_init (int argc, char **argv)
 	    "object-libs, exiting...\n"));
     exit(1);
   }
-    
+
   active_tool = create_modify_tool();
 
   create_toolbox();
@@ -440,6 +440,7 @@ register_all_sheets(void)
 
     if ((error = dlerror()) != NULL)  {
       message_warning(_("Unable to find register_sheets in library:\n%s"), error);
+      list = g_list_next(list);
       continue;
     }
 

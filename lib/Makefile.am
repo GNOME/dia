@@ -39,6 +39,8 @@ libdia_a_SOURCES =  \
 		connection.h \
 		orth_conn.c \
 		orth_conn.h \
+		poly_conn.c \
+		poly_conn.h \
 		connection.h \
 		element.c \
 		element.h \

@@ -25,6 +25,105 @@
 #include "interface.h"
 #include "focus.h"
 #include "object_ops.h"
+#include "menus.h"
+#include "message.h"
+
+/* This contains the point that was clicked to get this menu */
+static Point object_menu_clicked_point;
+
+static void
+object_menu_proxy(GtkWidget *widget, gpointer data)
+{
+  DiaMenuItem *dia_menu_item;
+  DDisplay *ddisp = ddisplay_active();
+  Object *obj = (Object *)ddisp->diagram->data->selected->data;
+
+  dia_menu_item = (DiaMenuItem *) data;
+  
+  object_add_updates(obj, ddisp->diagram);
+  (dia_menu_item->callback)(obj, &object_menu_clicked_point,
+			    dia_menu_item->callback_data);
+  object_add_updates(obj, ddisp->diagram);
+  diagram_flush(ddisp->diagram);
+}
+
+static void
+create_object_menu(DiaMenu *dia_menu)
+{
+  int i;
+  GtkWidget *menu;
+  GtkWidget *menu_item;
+
+  menu = gtk_menu_new();
+
+  for (i=0;i<dia_menu->num_items;i++) {
+    menu_item = gtk_menu_item_new_with_label(dia_menu->items[i].text);
+    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_widget_show(menu_item);
+    dia_menu->items[i].app_data = menu_item;
+
+    gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
+		       object_menu_proxy, &dia_menu->items[i]);
+  }
+
+  dia_menu->app_data = menu;
+}
+
+static void
+popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
+{
+  Diagram *diagram;
+  Object *obj;
+  Point clickedpoint;
+  GtkMenu *menu = NULL;
+  DiaMenu *dia_menu = NULL;
+  GList *selected_list;
+  int i;
+  
+  diagram = ddisp->diagram;
+  if (diagram->data->selected_count != 1)
+    return;
+  
+  selected_list = diagram->data->selected;
+  
+  /* Have to have exactly one selected object */
+  if (selected_list == NULL || g_list_next(selected_list) != NULL) {
+    message_error("Selected list is %s while selected_count is %d\n",
+		  (selected_list?"long":"empty"), diagram->data->selected_count);
+    return;
+  }
+  
+  obj = (Object *)g_list_first(selected_list)->data;
+  if (obj->ops->get_object_menu == NULL)
+    return;
+  
+  ddisplay_untransform_coords(ddisp,
+			      (int)bevent->x, (int)bevent->y,
+			      &clickedpoint.x, &clickedpoint.y);
+  /* Possibly react differently at a handle? */
+  
+  /* Get its menu */
+  dia_menu = (obj->ops->get_object_menu)(obj, &clickedpoint);
+  
+  if (dia_menu == NULL)
+    return;
+
+  if (dia_menu->app_data == NULL)
+    create_object_menu(dia_menu);
+
+  /* Update active/nonactive menuitems */
+  for (i=0;i<dia_menu->num_items;i++) {
+    gtk_widget_set_sensitive((GtkWidget *)dia_menu->items[i].app_data,
+			     dia_menu->items[i].active);
+  }
+  
+  
+  menu = (GtkMenu *) dia_menu->app_data;
+  
+  object_menu_clicked_point = clickedpoint;
+  popup_shell = ddisp->shell;
+  gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 0, 0);
+}
 
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
@@ -117,6 +216,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  break;
 
 	case 2:
+	  popup_object_menu(bevent, ddisp);
 	  break;
 
 	case 3:
@@ -290,3 +390,5 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
 
   ddisplay_really_destroy(ddisp);
 }
+
+

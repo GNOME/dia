@@ -41,10 +41,6 @@
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
 
-static GtkWidget *about_dialog = NULL;
-static void about_dialog_destroy (void);
-static int  about_dialog_button (GtkWidget *widget, GdkEventButton *event);
-
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
   app_exit();
@@ -442,18 +438,6 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
   diagram_flush(ddisp->diagram);
 } 
 
-static void
-about_dialog_destroy ()
-{
-  about_dialog = NULL;
-}
-
-static int
-about_dialog_button (GtkWidget *widget, GdkEventButton *event)
-{
-  about_dialog = NULL;
-}
-
 void
 help_about_callback(GtkWidget *widget, gpointer data)
 {
@@ -461,7 +445,6 @@ help_about_callback(GtkWidget *widget, gpointer data)
   GtkWidget *vbox;
   GtkWidget *frame;
   GtkWidget *label;
-  GtkWidget *alignment;
   GtkWidget *button;
   
 #ifdef GNOME

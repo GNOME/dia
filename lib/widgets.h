@@ -27,6 +27,7 @@
 #include "font.h"
 #include "render.h"
 #include "color.h"
+#include "arrows.h"
 
 /* DiaFontSelector: */
 #define DIAFONTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
@@ -136,12 +137,31 @@ void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
 void       dia_color_selector_set_color (DiaColorSelector *cs,
 					 Color *color);
 
+/* DiaArrowTypeSelector */
+#define DIAARROWTYPESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_type_selector_get_type (), DiaArrowTypeSelector)
+#define DIAARROWTYPESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_type_selector_get_type (), DiaArrowTypeSelectorClass)
+#define IS_DIAARROWTYPESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_type_selector_get_type ())
+
+typedef struct _DiaArrowTypeSelector       DiaArrowTypeSelector;
+typedef struct _DiaArrowTypeSelectorClass  DiaArrowTypeSelectorClass;
+
+struct _DiaArrowTypeSelector
+{
+  GtkOptionMenu omenu;
+
+  GtkMenu *arrow_type_menu;
+};
+
+struct _DiaArrowTypeSelectorClass
+{
+  GtkOptionMenuClass parent_class;
+};
+
+guint      dia_arrow_type_selector_get_type      (void);
+GtkWidget* dia_arrow_type_selector_new           (void);
+ArrowType  dia_arrow_type_selector_get_arrow_type (DiaArrowTypeSelector *as);
+void       dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
+						   ArrowType arrow);
+
 
 #endif /* WIDGETS_H */
-
-
-
-
-
-
-

@@ -22,13 +22,13 @@
 #include "render.h"
 
 typedef enum {
+  ARROW_NONE,
   ARROW_LINES,
   ARROW_HOLLOW_TRIANGLE,
   ARROW_FILLED_TRIANGLE,
   ARROW_HOLLOW_DIAMOND,
   ARROW_FILLED_DIAMOND
 } ArrowType;
-
 
 extern void arrow_draw(Renderer *renderer, ArrowType type,
 		       Point *to, Point *from,

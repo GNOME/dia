@@ -21,6 +21,7 @@
 #include "modify_tool.h"
 #include "scroll_tool.h"
 #include "interface.h"
+#include "defaults.h"
 
 Tool *active_tool = NULL;
 
@@ -60,9 +61,62 @@ tool_select(ToolType type, gpointer extra_data, gpointer user_data)
 }
 
 void
+tool_options_dialog_show(ToolType type, gpointer extra_data, 
+			 gpointer user_data) 
+{
+  ObjectType *objtype;
+ 
+  if (active_tool->type != type) {
+    switch(active_tool->type) {
+    case MODIFY_TOOL:
+      free_modify_tool(active_tool);
+      break;
+    case CREATE_OBJECT_TOOL:
+      free_create_object_tool(active_tool);
+      break;
+    case MAGNIFY_TOOL:
+      free_magnify_tool(active_tool);
+      break;
+    case SCROLL_TOOL:
+      free_scroll_tool(active_tool);
+      break;
+    }
+    switch(type) {
+    case MODIFY_TOOL:
+      active_tool = create_modify_tool();
+      break;
+    case CREATE_OBJECT_TOOL:
+      active_tool =
+	create_create_object_tool(object_get_type((char *)extra_data),
+				  (void *) user_data);
+      break;
+    case MAGNIFY_TOOL:
+      active_tool = create_magnify_tool();
+      break;
+    case SCROLL_TOOL:
+      active_tool = create_scroll_tool();
+      break;
+    }
+  }
+  switch(type) {
+  case MODIFY_TOOL:
+      break;
+  case CREATE_OBJECT_TOOL:
+    objtype = object_get_type((char *)extra_data);
+    defaults_show(objtype);
+    break;
+  case MAGNIFY_TOOL:
+    break;
+  case SCROLL_TOOL:
+    break;
+  }
+}
+
+void
 tool_reset(void)
 {
   tool_select(MODIFY_TOOL, NULL, NULL); 
   gtk_signal_emit_by_name(GTK_OBJECT(modify_tool_button), "clicked",
 			  GTK_BUTTON(modify_tool_button), NULL);
 }
+

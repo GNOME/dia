@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1999 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,30 +15,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#ifndef DIAMENU_H
+#define DIAMENU_H
+
 #include "object.h"
-#include "sheet.h"
 
-extern ObjectType *_arc_type;
-extern ObjectType *_box_type;
-extern ObjectType *_ellipse_type;
-extern ObjectType *_line_type;
-extern ObjectType *_zigzagline_type;
-extern ObjectType *_polyline_type;
-extern ObjectType *_textobj_type;
+typedef struct _DiaMenuItem DiaMenuItem;
+typedef struct _DiaMenu DiaMenu;
 
-int get_version(void) {
-  return 0;
-}
+typedef void (*DiaMenuCallback)(Object *obj, Point *pos, gpointer data);
 
-void register_objects(void) {
-  object_register_type(_arc_type);
-  object_register_type(_box_type);
-  object_register_type(_ellipse_type);
-  object_register_type(_line_type);
-  object_register_type(_polyline_type);
-  object_register_type(_zigzagline_type);
-  object_register_type(_textobj_type);
-}
+struct _DiaMenuItem {
+  char *text;
+  DiaMenuCallback callback;
+  gpointer callback_data;
+  int active;
+  /* Private for app:  */
+  void *app_data; /* init to NULL */
+};
 
-void register_sheets(void) {
-}
+struct _DiaMenu {
+  int num_items;
+  DiaMenuItem *items;
+  /* Private for app:  */
+  void *app_data; /* init to NULL */
+};
+
+#endif /*DIAMENU_H*/

@@ -58,6 +58,8 @@ extern Tool *active_tool;
 
 extern void tool_select(ToolType type, gpointer extra_data, gpointer user_date);
 extern void tool_reset();
+extern void tool_options_dialog_show(ToolType type, gpointer extra_data, 
+				     gpointer user_data);
 
 #endif /* TOOL_H */
 

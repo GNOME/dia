@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include <stdio.h>
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
@@ -25,12 +26,21 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "arrows.h"
 
 #include "pixmaps/line.xpm"
 
 #define DEFAULT_WIDTH 0.25
 
 typedef struct _LinePropertiesDialog LinePropertiesDialog;
+typedef struct _LineDefaultsDialog LineDefaultsDialog;
+
+typedef struct _LineProperties {
+  Color line_color;
+  real line_width;
+  LineStyle line_style;
+  ArrowType start_arrow, end_arrow;
+} LineProperties;
 
 typedef struct _Line {
   Connection connection;
@@ -40,8 +50,7 @@ typedef struct _Line {
   Color line_color;
   real line_width;
   LineStyle line_style;
-
-  LinePropertiesDialog *properties_dialog;
+  ArrowType start_arrow, end_arrow;
 } Line;
 
 struct _LinePropertiesDialog {
@@ -50,7 +59,24 @@ struct _LinePropertiesDialog {
   GtkSpinButton *line_width;
   DiaColorSelector *color;
   DiaLineStyleSelector *line_style;
+
+  DiaArrowTypeSelector *start_arrow;
+  DiaArrowTypeSelector *end_arrow;
+
+  Line *line;
 };
+
+struct _LineDefaultsDialog {
+  GtkWidget *vbox;
+
+  DiaLineStyleSelector *line_style;
+  DiaArrowTypeSelector *start_arrow;
+  DiaArrowTypeSelector *end_arrow;
+};
+
+static LinePropertiesDialog *line_properties_dialog;
+static LineDefaultsDialog *line_defaults_dialog;
+static LineProperties default_properties;
 
 static void line_move_handle(Line *line, Handle *handle,
 			     Point *to, HandleMoveReason reason);
@@ -68,6 +94,8 @@ static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
 static GtkWidget *line_get_properties(Line *line);
 static void line_apply_properties(Line *line);
+static GtkWidget *line_get_defaults();
+static void line_apply_defaults();
 
 static void line_save(Line *line, ObjectNode obj_node);
 static Object *line_load(ObjectNode obj_node, int version);
@@ -76,7 +104,9 @@ static ObjectTypeOps line_type_ops =
 {
   (CreateFunc) line_create,
   (LoadFunc)   line_load,
-  (SaveFunc)   line_save
+  (SaveFunc)   line_save,
+  (GetDefaultsFunc)   line_get_defaults,
+  (ApplyDefaultsFunc) line_apply_defaults
 };
 
 ObjectType line_type =
@@ -105,13 +135,17 @@ static ObjectOps line_ops = {
 static void
 line_apply_properties(Line *line)
 {
-  LinePropertiesDialog *prop_dialog;
+  if (line != line_properties_dialog->line) {
+    printf("Dialog problem:  %p != %p\n", line, line_properties_dialog->line);
+    line = line_properties_dialog->line;
+  }
 
-  prop_dialog = line->properties_dialog;
+  line->line_width = gtk_spin_button_get_value_as_float(line_properties_dialog->line_width);
+  dia_color_selector_get_color(line_properties_dialog->color, &line->line_color);
+  line->line_style = dia_line_style_selector_get_linestyle(line_properties_dialog->line_style);
 
-  line->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
-  dia_color_selector_get_color(prop_dialog->color, &line->line_color);
-  line->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  line->start_arrow = dia_arrow_type_selector_get_arrow_type(line_properties_dialog->start_arrow);
+  line->end_arrow = dia_arrow_type_selector_get_arrow_type(line_properties_dialog->end_arrow);
   
   line_update_data(line);
 }
@@ -119,22 +153,21 @@ line_apply_properties(Line *line)
 static GtkWidget *
 line_get_properties(Line *line)
 {
-  LinePropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
   GtkWidget *color;
   GtkWidget *linestyle;
+  GtkWidget *arrow;
   GtkWidget *line_width;
   GtkAdjustment *adj;
 
-  if (line->properties_dialog == NULL) {
+  if (line_properties_dialog == NULL) {
   
-    prop_dialog = g_new(LinePropertiesDialog, 1);
-    line->properties_dialog = prop_dialog;
+    line_properties_dialog = g_new(LinePropertiesDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
-    prop_dialog->vbox = vbox;
+    line_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line width:");
@@ -144,7 +177,7 @@ line_get_properties(Line *line)
     line_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    line_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
     gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
     gtk_widget_show (line_width);
     gtk_widget_show(hbox);
@@ -155,7 +188,7 @@ line_get_properties(Line *line)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->color = DIACOLORSELECTOR(color);
+    line_properties_dialog->color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -166,23 +199,119 @@ line_get_properties(Line *line)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
-    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    line_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
     gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
     gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Start arrow:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    arrow = dia_arrow_type_selector_new();
+    line_properties_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
+    gtk_widget_show (arrow);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("End arrow:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    arrow = dia_arrow_type_selector_new();
+    line_properties_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
+    gtk_widget_show (arrow);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     gtk_widget_show (vbox);
   }
 
-  prop_dialog = line->properties_dialog;
-    
-  gtk_spin_button_set_value(prop_dialog->line_width, line->line_width);
-  dia_color_selector_set_color(prop_dialog->color, &line->line_color);
-  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+  line_properties_dialog->line = line;
+
+  gtk_spin_button_set_value(line_properties_dialog->line_width, line->line_width);
+  dia_color_selector_set_color(line_properties_dialog->color, &line->line_color);
+  dia_line_style_selector_set_linestyle(line_properties_dialog->line_style,
 					line->line_style);
+  dia_arrow_type_selector_set_arrow_type(line_properties_dialog->start_arrow,
+			       line->start_arrow);
+  dia_arrow_type_selector_set_arrow_type(line_properties_dialog->end_arrow,
+			       line->end_arrow);
   
-  return prop_dialog->vbox;
+  return line_properties_dialog->vbox;
+}
+
+static void
+line_apply_defaults()
+{
+  default_properties.line_style = dia_line_style_selector_get_linestyle(line_defaults_dialog->line_style);
+  default_properties.start_arrow = dia_arrow_type_selector_get_arrow_type(line_defaults_dialog->start_arrow);
+  default_properties.end_arrow = dia_arrow_type_selector_get_arrow_type(line_defaults_dialog->end_arrow);
+}
+
+static GtkWidget *
+line_get_defaults()
+{
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *arrow;
+  GtkWidget *linestyle;
+
+  if (line_defaults_dialog == NULL) {
+  
+    line_defaults_dialog = g_new(LineDefaultsDialog, 1);
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    line_defaults_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    line_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Start arrow:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    arrow = dia_arrow_type_selector_new();
+    line_defaults_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
+    gtk_widget_show (arrow);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("End arrow:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    arrow = dia_arrow_type_selector_new();
+    line_defaults_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
+    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
+    gtk_widget_show (arrow);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  dia_line_style_selector_set_linestyle(line_defaults_dialog->line_style,
+					default_properties.line_style);
+  dia_arrow_type_selector_set_arrow_type(line_defaults_dialog->start_arrow,
+					 default_properties.start_arrow);
+  dia_arrow_type_selector_set_arrow_type(line_defaults_dialog->end_arrow,
+					 default_properties.end_arrow);
+
+  return line_defaults_dialog->vbox;
 }
 
 static real
@@ -240,6 +369,19 @@ line_draw(Line *line, Renderer *renderer)
 
   endpoints = &line->connection.endpoints[0];
   
+  if (line->start_arrow != ARROW_NONE) {
+    arrow_draw(renderer, line->start_arrow,
+	       &endpoints[0], &endpoints[1],
+	       0.8, 0.8, line->line_width,
+	       &line->line_color, &color_white);
+  }
+  if (line->end_arrow != ARROW_NONE) {
+    arrow_draw(renderer, line->end_arrow,
+	       &endpoints[1], &endpoints[0],
+	       0.8, 0.8, line->line_width,
+	       &line->line_color, &color_white);
+  }
+
   renderer->ops->set_linewidth(renderer, line->line_width);
   renderer->ops->set_linestyle(renderer, line->line_style);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -275,14 +417,14 @@ line_create(Point *startpoint,
   obj->type = &line_type;
   obj->ops = &line_ops;
 
-  line->properties_dialog = NULL;
-  
   connection_init(conn, 2, 1);
 
   obj->connections[0] = &line->middle_point;
   line->middle_point.object = obj;
   line->middle_point.connected = NULL;
-  line->line_style = LINESTYLE_SOLID;
+  line->line_style = default_properties.line_style;
+  line->start_arrow = default_properties.start_arrow;
+  line->end_arrow = default_properties.end_arrow;
   line_update_data(line);
 
   *handle1 = obj->handles[0];
@@ -293,10 +435,6 @@ line_create(Point *startpoint,
 static void
 line_destroy(Line *line)
 {
-  if (line->properties_dialog != NULL) {
-    gtk_widget_destroy(line->properties_dialog->vbox);
-    g_free(line->properties_dialog);
-  }
   connection_destroy(&line->connection);
 }
 
@@ -324,8 +462,8 @@ line_copy(Line *line)
   newline->line_color = line->line_color;
   newline->line_width = line->line_width;
   newline->line_style = line->line_style;
-
-  newline->properties_dialog = NULL;
+  newline->start_arrow = line->start_arrow;
+  newline->end_arrow = line->end_arrow;
 
   return (Object *)newline;
 }
@@ -349,6 +487,15 @@ line_update_data(Line *line)
   obj->bounding_box.bottom += line->line_width/2;
   obj->bounding_box.right += line->line_width/2;
 
+  /* Fix boundingbox for arrowheads */
+  if (line->start_arrow != ARROW_NONE ||
+      line->end_arrow != ARROW_NONE) {
+    obj->bounding_box.top -= 0.8+line->line_width/2;
+    obj->bounding_box.left -= 0.8+line->line_width/2;
+    obj->bounding_box.bottom += 0.8+line->line_width/2;
+    obj->bounding_box.right += 0.8+line->line_width/2;
+  }
+
   obj->position = conn->endpoints[0];
   
   connection_update_handles(conn);
@@ -366,6 +513,10 @@ line_save(Line *line, ObjectNode obj_node)
 		line->line_width);
   data_add_enum(new_attribute(obj_node, "line_style"),
 		line->line_style);
+  data_add_enum(new_attribute(obj_node, "start_arrow"),
+		line->start_arrow);
+  data_add_enum(new_attribute(obj_node, "end_arrow"),
+		line->end_arrow);
 }
 
 static Object *
@@ -401,7 +552,15 @@ line_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr));
 
-  line->properties_dialog = NULL;
+  line->start_arrow = ARROW_NONE;
+  attr = object_find_attribute(obj_node, "start_arrow");
+  if (attr != NULL)
+    line->start_arrow = data_enum(attribute_first_data(attr));
+
+  line->end_arrow = ARROW_NONE;
+  attr = object_find_attribute(obj_node, "end_arrow");
+  if (attr != NULL)
+    line->end_arrow = data_enum(attribute_first_data(attr));
 
   connection_init(conn, 2, 1);
 

@@ -179,6 +179,8 @@ arrow_draw(Renderer *renderer, ArrowType type,
 	   Color *fg_color, Color *bg_color)
 {
   switch(type) {
+  case ARROW_NONE:
+    break;
   case ARROW_LINES:
     draw_lines(renderer, to, from, length, width, linewidth, fg_color);
     break;

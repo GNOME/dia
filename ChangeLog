@@ -1,3 +1,59 @@
+1999-01-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/defaults.[ch]:
+	New files, deals with default properties dialog.
+
+	* lib/diamenu.h:
+	New file. Contains definitions for the new object menu.
+
+	* lib/poly_conn.[ch]:
+	New file. Base class for poly-line like objects.
+
+	* objects/standard/polyline.c:
+	* objects/standard/pixmaps/polyline.xpm:
+	New files. Polyline object.
+
+	* app/app_procs.c:
+	Fixed bug with infinite loop when registering sheets.
+	
+	* app/commands.c:
+	Removed unneccesary stuff.
+
+	* app/disp_callbacks.c:
+	Support for object menus.
+
+	* app/interface.c:
+	Added polyline to toolbox.
+	Added call to tool_options_dialog_show() when double clicking on
+	tool.
+
+	* app/tool.[ch]:
+	New function tool_options_dialog_show() for tool properties.
+
+	* lib/arrows.[ch]:
+	Added ARROW_NONE.
+
+	* lib/object.h:
+	Added ObjectType methods for handling object default dialogs.
+	Added Object method for handling object_menu.
+	Added unused methods to ObjectTypeOps for future binary
+	compatibility.
+
+	* lib/widgets.[ch]:
+	Added DiaArrowTypeSelector widget.
+
+	* objects/standard/arc.c:
+	* objects/standard/zigzagline.c:
+	Added support for default properties.
+
+	* objects/standard/line.c:
+	Added support for default properties.
+	Just use one properties dialog for all line objects. NOTE: This
+	seems to have a bug. We're working on it.
+
+	* standard/standard.c:
+	Add the polyline object.
+
 1999-01-27  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/modify_tool.c:

@@ -41,6 +41,8 @@ dia_SOURCES = \
 	    scroll_tool.h \
 	    properties.c \
 	    properties.h \
+	    defaults.c \
+	    defaults.h \
 	    create_object.c \
 	    create_object.h \
 	    magnify.c \

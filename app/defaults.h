@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1999 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,30 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#ifndef DEFAULTS_H
+#define DEFAULTS_H
+
 #include "object.h"
-#include "sheet.h"
+#include "diagram.h"
 
-extern ObjectType *_arc_type;
-extern ObjectType *_box_type;
-extern ObjectType *_ellipse_type;
-extern ObjectType *_line_type;
-extern ObjectType *_zigzagline_type;
-extern ObjectType *_polyline_type;
-extern ObjectType *_textobj_type;
+extern void defaults_show(ObjectType *obj);
 
-int get_version(void) {
-  return 0;
-}
 
-void register_objects(void) {
-  object_register_type(_arc_type);
-  object_register_type(_box_type);
-  object_register_type(_ellipse_type);
-  object_register_type(_line_type);
-  object_register_type(_polyline_type);
-  object_register_type(_zigzagline_type);
-  object_register_type(_textobj_type);
-}
+#endif /* DEFAULTS_H */
 
-void register_sheets(void) {
-}
+

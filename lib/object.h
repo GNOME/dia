@@ -30,6 +30,7 @@ typedef struct _ObjectTypeOps ObjectTypeOps;
 #include "render.h"
 #include "connectionpoint.h"
 #include "handle.h"
+#include "diamenu.h"
 #include "dia_xml.h"
 
 
@@ -172,6 +173,22 @@ typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
 typedef void (*ApplyPropertiesFunc) (Object* obj);
 
 /*
+  Function called when the user has double clicked on an Tool.
+  This function should return a dialog to edit the defaults
+  of the tool.
+  When this function is called and the dialog already is created,
+  make sure to update the values in the widgets so that it
+  accurately describes the current state of the tool.
+*/
+typedef GtkWidget *(*GetDefaultsFunc) ();
+
+/*
+  Thiss function is called when the user clicks on
+  the "Apply" button.
+*/
+typedef void (*ApplyDefaultsFunc) ();
+
+/*
   Return TRUE if object does not contain anything
   (i.e. is empty on the screen)
   Then it will be removed, because the user cannot select it to
@@ -181,7 +198,10 @@ typedef void (*ApplyPropertiesFunc) (Object* obj);
 */
 typedef int  (*IsEmptyFunc) (Object* obj);
 
-
+/*
+  Return an object-specific menu with toggles etc. properly set.
+*/
+typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
 
 /*************************************
  **  The functions provided in object.c
@@ -232,14 +252,14 @@ struct _ObjectOps {
   GetPropertiesFunc   get_properties;
   ApplyPropertiesFunc apply_properties;
   IsEmptyFunc         is_empty;
-  
+  ObjectMenuFunc      get_object_menu;
   /*
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[10]))(Object *obj,...); 
+  void      (*(unused[9]))(Object *obj,...); 
 };
 
 /*
@@ -268,9 +288,18 @@ struct _Object {
 };
 
 struct _ObjectTypeOps {
-   CreateFunc create;
-   LoadFunc   load;
-   SaveFunc   save;
+  CreateFunc        create;
+  LoadFunc          load;
+  SaveFunc          save;
+  GetDefaultsFunc   get_defaults;
+  ApplyDefaultsFunc apply_defaults;
+  /*
+    Unused places (for extension).
+    These should be NULL for now. In the future they might be used.
+    Then an older object will be binary compatible, because all new code
+    checks if new ops are supported (!= NULL)
+  */
+  void      (*(unused[10]))(Object *obj,...); 
 };
 
 /*

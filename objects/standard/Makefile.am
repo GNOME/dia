@@ -9,6 +9,7 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			textobj.c \
 			line.c \
 			zigzagline.c \
+			polyline.c \
 			standard.c 
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0

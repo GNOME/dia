@@ -533,5 +533,113 @@ dia_color_selector_set_color (DiaColorSelector *cs,
 }
 
 
+/************* DiaArrowTypeSelector: ***************/
+static void
+dia_arrow_type_selector_class_init (DiaArrowTypeSelectorClass *class)
+{
+  GtkObjectClass *object_class;
+  
+  object_class = (GtkObjectClass*) class;
+}
+
+static void
+dia_arrow_type_selector_init (DiaArrowTypeSelector *fs)
+{
+  GtkWidget *menu;
+  GtkWidget *submenu;
+  GtkWidget *menuitem;
+  GSList *group;
+  
+  menu = gtk_menu_new ();
+  fs->arrow_type_menu = GTK_MENU(menu);
+  submenu = NULL;
+  group = NULL;
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, "None");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_NONE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Lines");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_LINES));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Hollow Triangle");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_TRIANGLE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Filled Triangle");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_TRIANGLE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Hollow Diamond");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_DIAMOND));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Filled Diamond");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_DIAMOND));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  
+  gtk_menu_set_active(GTK_MENU (menu), 0);
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
+}
+
+guint
+dia_arrow_type_selector_get_type        (void)
+{
+  static guint dfs_type = 0;
+
+  if (!dfs_type) {
+    GtkTypeInfo dfs_info = {
+      "DiaArrowTypeSelector",
+      sizeof (DiaArrowTypeSelector),
+      sizeof (DiaArrowTypeSelectorClass),
+      (GtkClassInitFunc) dia_arrow_type_selector_class_init,
+      (GtkObjectInitFunc) dia_arrow_type_selector_init,
+      (GtkArgSetFunc) NULL,
+      (GtkArgGetFunc) NULL
+    };
+    
+    dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
+  }
+  
+  return dfs_type;
+}
+
+GtkWidget *
+dia_arrow_type_selector_new ()
+{
+  return GTK_WIDGET ( gtk_type_new (dia_arrow_type_selector_get_type ()));
+}
 
 
+ArrowType 
+dia_arrow_type_selector_get_arrow_type(DiaArrowTypeSelector *fs)
+{
+  GtkWidget *menuitem;
+  void *align;
+  
+  menuitem = gtk_menu_get_active(fs->arrow_type_menu);
+  align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+
+  return GPOINTER_TO_INT(align);
+}
+
+void
+dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
+				       ArrowType arrow)
+{
+  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow);
+  gtk_option_menu_set_history (GTK_OPTION_MENU(as), arrow);
+}

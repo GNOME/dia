@@ -86,6 +86,10 @@ static ToolButton tool_data[] =
   { NULL,
     N_("Create Zigzagline"),
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
+  },
+  { NULL,
+    "Create Polyline",
+    { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   }
 };
 
@@ -236,12 +240,14 @@ tool_button_press (GtkWidget      *w,
 		    GdkEventButton *event,
 		    gpointer        data)
 {
-  /*
+  ToolButtonData *tooldata = (ToolButtonData *) data;
+
   if ((event->type == GDK_2BUTTON_PRESS) &&
-      (event->button == 1))
-    tools_options_dialog_show ();
-  */
-  
+      (event->button == 1)) {
+    tool_options_dialog_show (tooldata->type, tooldata->extra_data, tooldata->user_data);
+    return TRUE;
+  }
+
   return FALSE;
 }
 
