@@ -6,6 +6,8 @@
 	* objects/UML/association.c: (one instance forgotten)
 	* objects/UML/large_package.c: 
 	* objects/standard/textobj.c:
+	* lib/attributes.c:
+	* lib/text.c:
 	using dia_font_new_from_style()
 
 2002-06-23  Hans Breuer  <hans@breuer.org>

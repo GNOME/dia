@@ -125,7 +125,8 @@ void
 attributes_get_default_font(DiaFont **font, real *font_height)
 {
 	if (!attributes_font) {
-		attributes_font = dia_font_new("sans",STYLE_NORMAL,attributes_font_height);
+		attributes_font = dia_font_new_from_style(DIA_FONT_SANS,
+                                              attributes_font_height);
 	}
 	if (font)
 		*font = dia_font_ref(attributes_font);

@@ -984,7 +984,7 @@ data_text(AttributeNode text_attr)
   if (attr != NULL) {
     font = data_font(attribute_first_data(attr));
   } else {
-    font = dia_font_new("sans",STYLE_NORMAL,1.0);
+    font = dia_font_new_from_style(DIA_FONT_SANS,1.0);
   }
   
   attr = composite_find_attribute(text_attr, "pos");

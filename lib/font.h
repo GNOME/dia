@@ -141,7 +141,7 @@ void dia_font_init(PangoContext* pcontext);
     /* Get a font matching family,style,height. MUST be freed with
        dia_font_unref(). */
 DiaFont* dia_font_new(const char *family, Style style,
-                     real height);
+                      real height);
 
     /* Get a font matching style. This is the preferred method to
      * create default fonts within objects. */
