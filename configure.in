@@ -158,6 +158,12 @@ dnl
 dnl libpng
 dnl
 dnl this likely already comes from GTK
+
+dnl Something in here pollutes $LIBS with -lpng.  Make sure to
+dnl avoid that.
+
+old_LIBS="$LIBS"
+
 png_ok=no
 AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no)
 AC_CHECK_LIB(png, png_read_info, ,png_ok=no, -lz -lm)
@@ -177,7 +183,8 @@ if test "$png_ok" = yes; then
   fi
 fi
 AC_SUBST(PNG_LIBS)
-LIBS="${LIBS} ${PNG_LIBS}"
+
+LIBS="${old_LIBS} ${PNG_LIBS}"
 
 dnl
 dnl Debugging
