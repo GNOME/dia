@@ -28,6 +28,7 @@
 #include "message.h"
 /*#include "interface.h"*/
 #include "display.h"
+#include "tool.h"
 
 #if GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
@@ -253,6 +254,18 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/Adjacent"),   NULL, objects_align_v_callback,    5},
 
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {N_("/_Tools"),                 NULL,         NULL,                      0, "<Branch>"},
+  {N_("/Tools/_Modify Tool"),     "M",          tool_set_callback,  MODIFY_TOOL},
+  {N_("/Tools/M_agnify Tool"),    "Z",          tool_set_callback,  MAGNIFY_TOOL},
+  {N_("/Tools/_Scroll Tool"),     "S",          tool_set_callback,  SCROLL_TOOL},
+  {N_("/Tools/_Text Tool"),       "T",          tool_set_callback,  CREATE_TEXT_TOOL},
+  {N_("/Tools/_Box Tool"),        "B",          tool_set_callback,  CREATE_BOX_TOOL},
+  {N_("/Tools/_Ellipse Tool"),    "E",          tool_set_callback,  CREATE_ELLIPSE_TOOL},
+  {N_("/Tools/_Line Tool"),       "L",          tool_set_callback,  CREATE_LINE_TOOL},
+  {N_("/Tools/_Arc Tool"),        "A",          tool_set_callback,  CREATE_ARC_TOOL},
+  {N_("/Tools/_Zig-zag Tool"),    "O",          tool_set_callback,  CREATE_ZIGZAG_TOOL},
+  {N_("/Tools/_Poly-line Tool"),  "P",          tool_set_callback,  CREATE_POLYLINE_TOOL},
+  {N_("/Tools/_Image Tool"),      "I",          tool_set_callback,  CREATE_IMAGE_TOOL},
   {N_("/_Dialogs"),               NULL,         NULL,                       0, "<Branch>"},
   {N_("/Dialogs/_Properties"),    NULL,         dialogs_properties_callback,0},
   {N_("/Dialogs/_Layers"),        NULL,         dialogs_layers_callback,0},

@@ -1,5 +1,33 @@
 1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
 
+        Based on patch from Patrick Reynolds <reynolds@cs.duke.edu>
+	Adds tool menu and keyboard shortcuts.
+
+	* app/create_object.[ch]:
+	Use tool_set() instead of tool_reset().
+	create_create_object_tool() takes extra type argument
+
+	* menus.c:
+	Add tools menu.
+	
+	* tool.[ch]:
+	Moved tool_data here, export it.
+	Add separate tool type for all create objects tools.
+	new functions tool_set().
+
+	* commands.[ch]:
+	New callback tool_set_callback.
+
+	* pixmaps.h:
+	Moved some pixmaps to interface.c.
+	
+	* interface.[ch]:
+	Remove tool_data array (moved to tool.c).
+	Use the tool_data from tool.c.
+	Remove modify_tool_button global var.
+	
+1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
+
         Patch from Patrick Reynolds <reynolds@cs.duke.edu>
 	
 	* app/app_procs.c:

@@ -33,90 +33,23 @@
 #include "linewidth_area.h"
 #include "lineprops_area.h"
 
-#include "pixmaps.h"
 
-typedef struct _ToolButton ToolButton;
+#include "pixmaps/swap.xpm"
+#include "pixmaps/default.xpm"
 
-typedef struct _ToolButtonData ToolButtonData;
-
-struct _ToolButtonData
-{
-  ToolType type;
-  gpointer extra_data;
-  gpointer user_data; /* Used by create_object_tool */
-};
-
-struct _ToolButton
-{
-  gchar **icon_data;
-  char  *tool_desc;
-  ToolButtonData callback_data;
-};
-
-static ToolButton tool_data[] =
-{
-  { (char **) arrow_xpm,
-    N_("Modify object(s)"),
-    { MODIFY_TOOL, NULL, NULL}
-  },
-  { (char **) magnify_xpm,
-    N_("Magnify"),
-    { MAGNIFY_TOOL, NULL, NULL}
-  },
-  { (char **) scroll_xpm,
-    N_("Scroll around the diagram"),
-    { SCROLL_TOOL, NULL, NULL}
-  },
-  { NULL,
-    N_("Create Text"),
-    { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
-  },
-  { NULL,
-    N_("Create Box"),
-    { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
-  },
-  { NULL,
-    N_("Create Ellipse"),
-    { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
-  },
-  { NULL,
-    N_("Create Line"),
-    { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
-  },
-  { NULL,
-    N_("Create Arc"),
-    { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
-  },
-  { NULL,
-    N_("Create Zigzagline"),
-    { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
-  },
-  { NULL,
-    N_("Create Polyline"),
-    { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
-  },
-  { NULL,
-    N_("Create Image"),
-    { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
-  }
-};
-
-#define NUM_TOOLS (sizeof (tool_data) / sizeof (ToolButton))
 #define COLUMNS   4
 #define ROWS      3
 
 static GtkWidget *toolbox_shell = NULL;
-static GtkWidget *tool_widgets[NUM_TOOLS];
 static GtkTooltips *tool_tips;
 static GSList *tool_group = NULL;
-
-GtkWidget *modify_tool_button;
 
 /*  The popup shell is a pointer to the display shell that posted the latest
  *  popup menu.  When this is null, and a command is invoked, then the
  *  assumption is that the command was a result of a keyboard accelerator
  */
 GtkWidget *popup_shell = NULL;
+
 
 void
 create_display_shell(DDisplay *ddisp,
@@ -305,8 +238,8 @@ create_tools(GtkWidget *parent)
   gtk_box_pack_start (GTK_BOX (parent), table, FALSE, TRUE, 0);
   gtk_widget_realize (table);
 
-  for (i = 0; i < NUM_TOOLS; i++) {
-    tool_widgets[i] = button = gtk_radio_button_new (tool_group);
+  for (i = 0; i < num_tool_data; i++) {
+    tool_data[i].tool_widget = button = gtk_radio_button_new (tool_group);
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
@@ -318,10 +251,6 @@ create_tools(GtkWidget *parent)
 		      GTK_FILL,
 		      0, 0);
 
-    if (tool_data[i].callback_data.type == MODIFY_TOOL) {
-      modify_tool_button = GTK_WIDGET(button);
-    }
-    
     if (tool_data[i].icon_data==NULL) {
       ObjectType *type;
       type =
@@ -434,7 +363,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
        Doesn't matter much anyway... */
 
     data = g_new(ToolButtonData, 1);
-    data->type = CREATE_OBJECT_TOOL;
+    data->type = -1;    /*!!*/
     data->extra_data = sheet_obj->object_type;
     data->user_data = sheet_obj->user_data;
     

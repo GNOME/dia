@@ -37,7 +37,8 @@ struct _CreateObjectTool {
 };
 
 
-extern Tool *create_create_object_tool(ObjectType *objtype, void *user_date);
+extern Tool *create_create_object_tool(ObjectType *objtype, ToolType type,
+				       void *user_date);
 extern void free_create_object_tool(Tool *tool);
 
 #endif /* CREATE_OBJECT_H */

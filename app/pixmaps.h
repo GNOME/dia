@@ -16,11 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* This file is ONLY included in interface.c */
+/* This file is ONLY included in tool.c */
 
 #include "pixmaps/arrow.xpm"
-#include "pixmaps/swap.xpm"
-#include "pixmaps/default.xpm"
 #include "pixmaps/magnify.xpm"
 #include "pixmaps/scroll.xpm"
 

@@ -84,4 +84,6 @@ extern void dialogs_layers_callback(GtkWidget *widget, gpointer data);
 extern void objects_align_h_callback(GtkWidget *widget, gpointer data);
 extern void objects_align_v_callback(GtkWidget *widget, gpointer data);
 
+extern void tool_set_callback(GtkWidget *widget, gpointer data);
+
 #endif /* COMMANDS_H */

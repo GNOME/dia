@@ -45,6 +45,7 @@
 #include "utils.h"
 #include "message.h"
 #include "grid.h"
+#include "tool.h"
 #include "properties.h"
 #include "preferences.h"
 #include "layer_dialog.h"
@@ -1157,3 +1158,10 @@ objects_align_v_callback(GtkWidget *widget, gpointer data)
   undo_set_transactionpoint(dia->undo);
 }
 
+void
+tool_set_callback(GtkWidget *widget, gpointer data)
+{
+  ToolType type = GPOINTER_TO_INT(data);
+  
+  tool_set(type);
+}
