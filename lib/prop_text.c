@@ -33,6 +33,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "text.h"
+#include "group.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -447,4 +448,33 @@ prop_text_register(void)
   prop_type_register(PROP_TYPE_MULTISTRING,&multistringprop_ops);
   prop_type_register(PROP_TYPE_FILE,&fileprop_ops);
   prop_type_register(PROP_TYPE_TEXT,&textprop_ops);
+}
+
+/*!
+ * Return a diplayable name for the object
+ */
+gchar *
+object_get_displayname (DiaObject* object)
+{
+  gchar *name;
+  Property *prop = NULL;
+
+  if (!object)
+    return g_strdup ("<null>"); /* should not happen */
+  
+  if (IS_GROUP(object))
+    name = g_strdup_printf (_("Group with %d objects"), g_list_length(group_objects(object)));
+  else if ((prop = object_prop_by_name(object, "name")) != NULL)
+    name = g_strdup (((StringProperty *)prop)->string_data);
+  else if ((prop = object_prop_by_name(object, "text")) != NULL)
+    name = g_strdup (((TextProperty *)prop)->text_data);
+  else
+    name = g_strdup (object->type->name);
+
+  if (prop)
+    prop->ops->free(prop);
+
+  name = g_strdelimit (name, "\n", ' ');
+
+  return name;
 }

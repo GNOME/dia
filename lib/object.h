@@ -304,7 +304,8 @@ void object_registry_init(void);
 void object_register_type(DiaObjectType *type);
 void object_registry_foreach(GHFunc func, gpointer  user_data);
 DiaObjectType *object_get_type(char *name);
-
+gchar *object_get_displayname (DiaObject* obj);
+ 
 int object_return_false(DiaObject *obj); /* Just returns FALSE */
 void *object_return_null(DiaObject *obj); /* Just returns NULL */
 void object_return_void(DiaObject *obj); /* Just an empty function */

@@ -443,6 +443,7 @@ EXPORTS
  object_get_prop_descriptions
  object_get_props_from_offsets
  object_get_type
+ object_get_displayname
  object_init
  object_list_move_delta
  object_load

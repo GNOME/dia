@@ -106,7 +106,38 @@ update_modified_status(DDisplay *ddisp)
 void
 selection_changed (Diagram* dia, int n, DDisplay* ddisp)
 {
-  g_print ("Diagram 0x%08x  Display 0x%08x Selections %d\n", dia, ddisp, n);
+  GtkStatusbar *statusbar;
+  guint context_id;
+
+  statusbar = GTK_STATUSBAR (ddisp->modified_status);
+  context_id = gtk_statusbar_get_context_id (statusbar, "Selection");
+
+  if (n > 1)
+  {
+    gchar *msg;
+
+    msg = g_strdup_printf (_("Selection of %d objects"), n);
+    gtk_statusbar_pop (statusbar, context_id);
+    gtk_statusbar_push (statusbar, context_id, msg);
+    //g_free (msg);
+  }
+  else if (n == 1)
+  {
+    /* find the selected objects name - and display it */
+    DiaObject *object = (DiaObject *)ddisp->diagram->data->selected->data;
+    gchar *name = object_get_displayname (object);
+    gchar *msg = g_strdup_printf (_("Selected '%s'"), name);
+
+    gtk_statusbar_pop (statusbar, context_id);
+    gtk_statusbar_push (statusbar, context_id, msg);
+
+    g_free (name);
+    g_free (msg);
+  }
+  else
+  {
+    gtk_statusbar_pop (statusbar, context_id); 
+  }
 }
 
 DDisplay *

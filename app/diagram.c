@@ -112,6 +112,16 @@ diagram_finalize(GObject *object)
 }
 
 static void
+_diagram_removed (Diagram* dia)
+{
+}
+
+static void
+_diagram_selection_changed (Diagram* dia, int n)
+{
+}
+
+static void
 diagram_class_init (DiagramClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -137,8 +147,8 @@ diagram_class_init (DiagramClass *klass)
 		  G_TYPE_NONE, 1,
 		  G_TYPE_INT);
 
-  klass->removed = NULL;
-  klass->selection_changed = NULL;
+  klass->removed = _diagram_removed;
+  klass->selection_changed = _diagram_selection_changed;
 
   object_class->finalize = diagram_finalize;
 }
@@ -603,7 +613,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
   DiaObject *obj;
 
   /* otherwise we would signal objects step by step */
-  g_signal_handler_block (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_handlers_block_by_func (dia, _diagram_selection_changed, NULL);
   list = obj_list;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
@@ -614,7 +624,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
 
     list = g_list_next(list);
   }
-  g_signal_handler_unblock (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);
   g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }
 
@@ -630,9 +640,9 @@ diagram_select(Diagram *diagram, DiaObject *obj)
 void
 diagram_select_list(Diagram *dia, GList *list)
 {
-
+  g_return_if_fail (dia && list);
   /* otherwise we would signal objects step by step */
-  g_signal_handler_block (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_handlers_block_by_func (dia, _diagram_selection_changed, NULL);
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
 
@@ -640,7 +650,7 @@ diagram_select_list(Diagram *dia, GList *list)
 
     list = g_list_next(list);
   }
-  g_signal_handler_unblock (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);
   g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }
 

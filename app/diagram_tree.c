@@ -26,7 +26,6 @@
 #include <string.h>
 
 #include "properties.h"
-#include "prop_text.h"
 #include "diagram_tree_menu.h"
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree.h"
@@ -211,22 +210,7 @@ get_object_name(DiaObject *object)
   enum {SIZE = 31};
   static gchar BUFFER[SIZE];
   
-  Property *prop = NULL;
-  gchar *result = NULL;
-  g_assert(object);
-  prop = object_prop_by_name(object, "name");
-  if (prop) result = ((StringProperty *)prop)->string_data;
-  else {
-    prop = object_prop_by_name(object, "text");
-    if (prop) result = ((TextProperty *)prop)->text_data;
-  }
-  if (!result) result = object->type->name;
-
-  g_snprintf(BUFFER, SIZE, " %s", result);
-  (void)g_strdelimit(BUFFER, "\n", ' ');
-
-  if (prop)
-    prop->ops->free(prop);
+  g_snprintf(BUFFER, SIZE, " %s", object_get_displayname (object));
 
   return BUFFER;
 }

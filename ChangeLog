@@ -1,3 +1,13 @@
+2004-12-15  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c : actually use the selction-changed signal for something
+	useful. Show selections representation on statusbar.
+	* lib/object.h lib/prop_text.c lib/libdia.def : provide objet_get_displayname() 
+	* app/diagram_tree.c : use new function (as in app/display.c) and only
+	poke into property internals at one place
+	* app/diagram.c : use g_signal_handlers_block_by_func to avoid has-no-handler-
+	complains
+
 2004-12-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def app/dia.def : updated externals
@@ -6,7 +16,7 @@
 	It _must not_ destroy class stuff (ShapeInfo) cause it does not hold a 
 	reference to it. Fixes e.g. bug #158288, #160550, ...
 
-	* objects/UML/association.c(association_draw) : completed proting to
+	* objects/UML/association.c(association_draw) : completed porting to
 	draw_polyline_with_arrows()
 	(association_update_data_end) : fixed typo in point compare
 	(association_update_data) : for name placement take degenerated 
