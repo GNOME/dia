@@ -29,17 +29,6 @@
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
 #include <pango/pango.h>
-#if G_OS_WIN32
-#include <pango/pangowin32.h>
-#define pango_platform_font_map_for_display() \
-    pango_win32_font_map_for_display()
-#else
-#include <pango/pangoft2.h>
-#define pango_platform_font_map_for_display() \
-    pango_ft2_font_map_for_display()
-      /* Could have used X's font map ? */
-#endif
-
 
 void dia_font_selector_set_styles (DiaFontSelector *fs, DiaFont *font);
 guchar **dia_font_selector_get_sorted_names();
@@ -203,7 +192,6 @@ dia_font_selector_init (DiaFontSelector *fs)
   GtkWidget *menuitem;
   GSList *group;
   const char *familyname;
-  PangoFontMap *fmap;
   PangoFontFamily **families;
   int n_families,i;
       
@@ -212,9 +200,8 @@ dia_font_selector_init (DiaFontSelector *fs)
   submenu = NULL;
   group = NULL;
 
-  fmap = pango_platform_font_map_for_display();  
-  pango_font_map_list_families(fmap,&families,&n_families);
-
+  pango_context_list_families (gtk_widget_get_pango_context (GTK_WIDGET (menu)),
+			             &families, &n_families);
   for (i = 0; i < n_families; ++i) {
     familyname = pango_font_family_get_name(families[i]);
     menuitem = gtk_radio_menu_item_new_with_label (group, familyname);
@@ -278,8 +265,8 @@ dia_font_selector_get_type        (void)
 #else
     /* Notice adding 1, to be able to discern from NULL return value */
 
-    fmap = pango_platform_font_map_for_display();  
-    pango_font_map_list_families(fmap,&families,&n_families);
+    pango_context_list_families (gdk_pango_context_get(),
+			               &families, &n_families);
 
     for (i = 0; i < n_families; ++i) {
         fontname = (char *) pango_font_family_get_name(families[i]);

@@ -191,6 +191,7 @@ new_gdk_renderer(DDisplay *ddisp)
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
   renderer->dot_length = 2;
+  renderer->font = NULL;
   
   return renderer;
 }
