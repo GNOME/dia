@@ -409,7 +409,9 @@ text_draw(Text *text, Renderer *renderer)
 {
   Point pos;
   int i;
+#ifdef USE_XIM
   DDisplay *ddisp = ddisplay_active ();
+#endif
   
   renderer->ops->set_font(renderer, text->font, text->height);
   

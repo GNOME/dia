@@ -1044,12 +1044,19 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 
 	if (!font) return NULL;
 
+#ifndef GTK_TALKS_UTF8
 	str = charconv_utf8_to_local8 (text);
 	length = strlen (str);
 	mbstr = g_strdup (str);
 	wcstr = g_new0 (GdkWChar, length + 1);
 	wclength = mbstowcs (wcstr, mbstr, length);
 	g_free (mbstr);
+#else
+	str = charconv_local8_to_utf8 (text);
+	length = strlen (text);
+	wcstr = g_new0 (GdkWChar, length + 1);
+	wclength = gdk_mbstowcs (wcstr, str, length);
+#endif
 
 	if (wclength > 0) {
 		length = wclength;
@@ -1087,9 +1094,12 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 	gc = gdk_gc_new (pixmap);
 	gdk_gc_set_font (gc, font);
 
-	black_pixel = color_gdk_black.pixel;
+	/* the black and white pixel values need to be taken from a 1 bit 
+	 * colormap rather than the default colormap
+	 */
+	black_pixel = 0;
 	black.pixel = black_pixel;
-	white.pixel = color_gdk_white.pixel;
+	white.pixel = 1;
 	gdk_gc_set_foreground (gc, &white);
 	gdk_draw_rectangle (pixmap, gc, 1, 0, 0, suckfont->bitmap_width, suckfont->bitmap_height);
 
@@ -1104,7 +1114,7 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 	gdk_draw_string (pixmap, font, gc,
 			 suckfont->chars[0].bitmap_offset - suckfont->chars[0].left_sb,
 			 font->ascent + 1,
-			 text);
+			 str);
 #endif
 	g_free (str);
 
@@ -1180,14 +1190,20 @@ font_string_width(const char *string, DiaFont *font, real height)
   if (string[0] == 0) return 0.0;
 #ifdef UNICODE_WORK_IN_PROGRESS
   str = charconv_utf8_to_local8 (string);
-#else
+#elif !defined(GTK_TALKS_UTF8)
   str = g_strdup (string);
+#else
+  str = charconv_local8_to_utf8 (string);
 #endif
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length);
+#ifndef GTK_TALKS_UTF8
   mbstr = g_strdup (str);
   wclength = mbstowcs (wcstr, mbstr, length);
   g_free (mbstr);
+#else
+  wclength = gdk_mbstowcs (wcstr, str, length);
+#endif
 
   if (wclength > 0) {
 	  length = wclength;

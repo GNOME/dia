@@ -431,3 +431,4 @@ EXPORTS
 
 ; custom_register_objects
 
+ suck_font_free

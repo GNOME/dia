@@ -1,3 +1,17 @@
+2002-02-15  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c (font_get_suck_font): the black and white pixel values 
+	need to be taken from a 1 bit colormap rather than the default colormap.
+	(fixed again, last time was 2000-05-26)
+
+	Also handle the case where GTK_TALKS_UTF8 and expects all strings
+	passed in to be in this encoding.
+
+	* lib/libdia.def : export suck_font_free()
+
+	* lib/text.c (text_draw) : avoid circular dependency to ../app
+	at least for the !USE_XIM case, where it is unnecessary.
+
 2002-02-15  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Changes contributed by Matts Kivik <kivik@firstlinux.net>:
