@@ -37,6 +37,15 @@
       <description>A "if not" (normally closed) ladder contact
       </description>
     </object>
+    <object name="LADDER - outj">
+      <description xml:lang="fr">Une variable de sortie "saut"</description>
+      <description>A "jump" output variable</description>
+    </object>
+    <object name="LADDER - outrcep">
+      <description xml:lang="fr">Une variable de sortie "réceptivité"
+      </description>
+      <description>A receptivity output variable</description>
+    </object>
     <object name="LADDER - out">
       <description xml:lang="fr">Une variable de sortie simple</description>
       <description>A simple output variable</description>
@@ -46,12 +55,35 @@
       <description>A negative output variable</description>
     </object>
     <object name="LADDER - outs">
-      <description xml:lang="fr">Une variable de sortie "set"</description>
+      <description xml:lang="fr">Une variable de sortie "enclenchement"
+      </description>
       <description>A "set" output variable</description>
     </object>
     <object name="LADDER - outr">
-      <description xml:lang="fr">Une variable de sortie "reset"</description>
+      <description xml:lang="fr">Une variable de sortie "déclenchement"
+      </description>
       <description>A "reset" output variable</description>
     </object>
+    <object name="LADDER - sout">
+      <description xml:lang="fr">Une variable de sortie simple sauvegardée
+      </description>
+      <description>A power-saved simple output variable</description>
+    </object>
+    <object name="LADDER - soutnot">
+      <description xml:lang="fr">Une variable de sortie négative sauvegardée
+      </description>
+      <description>A power-saved negative output variable</description>
+    </object>
+    <object name="LADDER - souts">
+      <description xml:lang="fr">Une variable de sortie "enclenchement" 
+	sauvegardée</description>
+      <description>A power-saved "set" output variable</description>
+    </object>
+    <object name="LADDER - soutr">
+      <description xml:lang="fr">Une variable de sortie "déclenchement" 
+	sauvegardée</description>
+      <description>A power-saved "reset" output variable</description>
+    </object>
+
   </contents>
 </sheet>

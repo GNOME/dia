@@ -1,3 +1,13 @@
+2000-02-10  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheets/Circuit.sheet:
+	* shapes/l_sout* (NEW):
+	* shapes/l_outj.* (NEW): added new outputs : jump, and the power-saved
+	variants of simple, inverted, set and reset outputs.
+	Still to do: all Schneider/Telemecanique TSX *7 function blocks ; 
+	probably a split of Contact and Ladder sheets. And then a major 
+	revamping of the Contact sheet.
+
 2000-02-10  James Henstridge  <james@daa.com.au>
 
 	* app/Makefile.am (dia_LDADD): don't link with libcustom_objects.
