@@ -1,18 +1,20 @@
+# translation of cs.po to Czech
 # Dia 2 Czech translation.
 # Copyright (C) 2002 Free Software Foundation
 # This file is distributed under the same license as the Dia2 package.
-# Michal Bukovjan <bukm@centrum.cz>, 2002.
+# Michal Bukovjan <bukm@centrum.cz>, 2002,2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dia 2\n"
-"POT-Creation-Date: 2003-01-07 04:58+0100\n"
-"PO-Revision-Date: 2003-01-07 17:44+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"Project-Id-Version: cs\n"
+"POT-Creation-Date: 2003-01-10 20:18+0100\n"
+"PO-Revision-Date: 2003-01-10 20:18GMT\n"
+"Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
 
 #: app/app_procs.c:160
 #, c-format
@@ -103,8 +105,7 @@ msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
 #: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
 #. no standard buttons
@@ -217,8 +218,7 @@ msgstr "Udržují: Lars Clausen a Cyrille Chépélov"
 
 #: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr ""
-"Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
+msgstr "Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:650
 msgid "Contributors:"
@@ -594,7 +594,8 @@ msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Některé znaky ve jméně souboru nejsou ani v UTF-8 ani ve vašem místním kódování.\n"
+"Některé znaky ve jméně souboru nejsou ani v UTF-8 ani ve vašem místním "
+"kódování.\n"
 "Něco se pokazí."
 
 #: app/filedlg.c:248 app/filedlg.c:452
@@ -1657,7 +1658,7 @@ msgstr "Nelze spustit příkaz '%s'"
 msgid "Could not open '%s' for writing"
 msgstr "Nelze otevřít soubor '%s' pro zápis"
 
-#: app/paginate_psprint.c:367
+#: app/paginate_psprint.c:368
 msgid "Error occured while printing"
 msgstr "Při tisku nastala chyba"
 
@@ -2490,9 +2491,8 @@ msgid "Browse"
 msgstr "Probírat"
 
 #: objects/bondgraph/bondgraph.c:39
-#, fuzzy
 msgid "Bond graph objects"
-msgstr "Standardní objekty"
+msgstr "Objekty diagramu typu Bond"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -4588,8 +4588,7 @@ msgstr "Importní a exportní filtr formátu Fig"
 
 #: plug-ins/xfig/xfig-export.c:399
 msgid "No more user-definable colors - using black"
-msgstr ""
-"Není k dispozici více uživatelsky definovaných barev - použije se černá"
+msgstr "Není k dispozici více uživatelsky definovaných barev - použije se černá"
 
 #: plug-ins/xfig/xfig-export.c:918
 msgid "XFig format"
@@ -4801,8 +4800,7 @@ msgstr "Nelze načíst knihovnu XSLT (%s): %s"
 
 #: plug-ins/xslt/xslt.c:211
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-msgstr ""
-"Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
+msgstr "Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -4820,7 +4818,9 @@ msgstr "Do:"
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr "Vybraná sbírka mnohoúhelníků, Beziérových útvarů a jiných dalších geometrických tvarů"
+msgstr ""
+"Vybraná sbírka mnohoúhelníků, Beziérových útvarů a jiných dalších "
+"geometrických tvarů"
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
@@ -6189,3 +6189,4 @@ msgstr "Realizuje, implementuje specifické rozhraní"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
