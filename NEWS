@@ -1,3 +1,19 @@
+dia-XXXX:  XX-XXX-2001
+* Updated Python interface.
+* Faster Postscript files when using an Unicode-enabled build.
+* An optional menu bar can be added to each display window, in
+addition to the popup menu.
+* RenderObjects have been replaced by equivalent shapes.
+* Shapes can now have a <svg:text> element.
+* polybeziers and beziergons now have their bounding box properly
+computed.
+* all Lazyprop objects have been converted to Standard Properties
+instead.
+* gettext-0.10.38 is now mandatory if you want to call ./autogen.sh.
+In general, don't call ./autogen.sh at all if your system is not on
+the bleeding edge.
+* a few new shapes.
+
 dia-0.88:  11-May-2001
 * Input method support should work correctly now.
 * SVG shape files now use namespace from final W3C recommendation.

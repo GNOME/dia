@@ -1,6 +1,14 @@
 2001-07-29  Cyrille Chepelov  <chepelov@calixo.net>
-
+	
 	* objects/SADT/annotation.c: forgot to add a #include <stdlib.h>
+
+	* NEWS: updated with new stuff since 0.88
+
+	* shapes/network/antenna.shape: the text was misplaced ; fixed.
+
+	* shapes/network/firewall.(shape|xpm) (NEW): a brick-wall looking
+	firewall router (upon request from Cyril Lacoux
+	<clacoux@easter-eggs.com>)
 
 2001-07-27  Cyrille Chepelov  <chepelov@calixo.net>
 

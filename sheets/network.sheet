@@ -162,6 +162,10 @@
       <description xml:lang="nl">Een ATM switch</description>
       <description>ATM Switch Symbol</description>
     </object>
+    <object name="Network - Firewall">
+      <description xml:lang="fr">Un Routeur pare-feu</description>
+      <description>A Firewall router</description>
+    </object>
     <object name="Network - A Workstation Monitor">
       <description xml:lang="da">Skærm til arbejdsstation</description>
       <description xml:lang="de">Ein Workstation Monitor</description>
