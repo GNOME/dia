@@ -72,6 +72,7 @@
 #include <freetype/ftglyph.h>
 
 #define DPI 300
+#define TWIDDLE (2.54 * 1.1)
 #endif
 
 /*
@@ -1212,11 +1213,13 @@ static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   renderer->current_font = font;
-  /* Where did this 1.45 come from? */
-  /* Used to be just as arbitrarily 1.6, but experimentation shows 1.45 
-     is better */
+  /* Where did this 1.8 come from? */
+  /* Used to be just as arbitrarily 1.6, but experimentation shows 1.8
+     is better.  This holds only when using Freetype, in other cases all
+     bets are really off, especially since some fonts may not be found.
+  */
   /* 28.346 = 72.0 / 2.54 */
-  renderer->current_height = height*1.45;
+  renderer->current_height = height*1.8;
   pango_context_set_font_description(renderer->context, font->pfd);
 }
 

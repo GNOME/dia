@@ -1,3 +1,7 @@
+2002-09-16  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c (set_font): Re-tweaked font size for printing.
+
 2002-09-12  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch from Angus Ainslie <angusa@deltatee.com>:
