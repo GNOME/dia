@@ -62,6 +62,8 @@ libdia_a_SOURCES =  \
 		filter.h \
 		connpoint_line.c \
 		connpoint_line.h \
+		properties.c \
+		properties.h \
 		lazyprops.c \
 		lazyprops.h \
 		dummy_dep.h

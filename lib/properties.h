@@ -22,12 +22,19 @@
 #ifndef PROPERTIES_H
 #define PROPERTIES_H
 
-#include <glib.h>
+#include <gtk/gtk.h>
 
 #include "geometry.h"
-#include "arrow.h"
+#include "arrows.h"
 #include "color.h"
 #include "font.h"
+#include "object.h"
+
+#ifndef _prop_typedefs_defined
+#define _prop_typedefs_defined
+typedef struct _PropDescription PropDescription;
+typedef struct _Property Property;
+#endif
 
 typedef enum {
   PROP_TYPE_INVALID = 0,
@@ -36,10 +43,10 @@ typedef enum {
   PROP_TYPE_INT,
   PROP_TYPE_ENUM,
   PROP_TYPE_REAL,
-  PROP_TYPE_STRING
+  PROP_TYPE_STRING,
   PROP_TYPE_POINT,
   PROP_TYPE_POINTARRAY,
-  PROP_TYPE_RECTANGLE,
+  PROP_TYPE_RECT,
   PROP_TYPE_ARROW,
   PROP_TYPE_COLOUR,
   PROP_TYPE_FONT,
@@ -49,19 +56,27 @@ typedef enum {
 
 #define PROP_IS_OTHER(ptype) ((ptype) >= PROP_LAST)
 
-typedef struct _PropDescription PropDescription;
 struct _PropDescription {
   const gchar *name;
-  PropertyType type;
+  PropType type;
+  guint flags;
   const gchar *description;
+  const gchar *tooltip;
+
+  /* Holds some extra data whose meaning is dependent on the property type.
+   * For example, int or float may use bounds for a spin button, and enums
+   * may use a list of string names for enumeration values. */
+  gpointer extra_data;
 
   GQuark quark; /* quark for property name -- helps speed up lookups. */
 };
 
-typedef struct _Property Property;
+#define PROP_FLAG_VISIBLE 0x0001
+
 struct _Property {
   const gchar *name;
-  PropertyType type;
+  PropType type;
+  gpointer extra_data;
   union {
     gchar char_data;
     gboolean bool_data;
@@ -83,7 +98,7 @@ struct _Property {
 };
 
 #define PROP_VALUE_CHAR(prop)       ((prop).d.char_data)
-#define PROP_VALUE_BOOL(prop)       ((prop).d.bool_dat)
+#define PROP_VALUE_BOOL(prop)       ((prop).d.bool_data)
 #define PROP_VALUE_INT(prop)        ((prop).d.int_data)
 #define PROP_VALUE_ENUM(prop)       ((prop).d.int_data)
 #define PROP_VALUE_REAL(prop)       ((prop).d.real_data)
@@ -96,10 +111,25 @@ struct _Property {
 #define PROP_VALUE_FONT(prop)       ((prop).d.font_data)
 #define PROP_VALUE_OTHER(prop)      ((prop).d.other_data)
 
-G_INLINE_FUNC void prop_list_calculate_quarks(PropDescription *plist);
+/* Copy the data member of the property
+ * If NULL, then just copy data member straight */
+typedef void (* PropType_Copy)(Property *dest, Property *src);
+/* free the data member of the property -- must handle NULL values
+ * If NULL, don't do anything special to free value */
+typedef void (* PropType_Free)(Property *prop);
+/* Create a widget capable of editing the property */
+typedef GtkWidget *(* PropType_GetWidget)(Property *prop);
+/* Set the value of the property from the current value of the widget */
+typedef void (* PropType_SetProp)(Property *prop, GtkWidget *widget);
+
+PropType prop_type_register(const gchar *name, PropType_Copy cfunc,
+			    PropType_Free ffunc, PropType_GetWidget wfunc,
+			    PropType_SetProp sfunc);
+
+G_INLINE_FUNC void prop_desc_list_calculate_quarks(PropDescription *plist);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-prop_list_calculate_quarks(PropDescription *plist)
+prop_desc_list_calculate_quarks(PropDescription *plist)
 {
   gint i = 0;
   while (plist[i].name != NULL) {
@@ -111,14 +141,14 @@ prop_list_calculate_quarks(PropDescription *plist)
 #endif
 
 /* plist must have all quarks calculated in advance */
-G_INLINE_FUNC PropDescription *prop_list_find_prop(PropDescription *plist,
-						   const gchar *name);
-#define G_CAN_INLINE
-G_INLINE_FUNC PropDescription
-prop_list_find_prop(PropDescription *plist, const gchar *name)
+G_INLINE_FUNC PropDescription *prop_desc_list_find_prop(PropDescription *plist,
+							const gchar *name);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC PropDescription *
+prop_desc_list_find_prop(PropDescription *plist, const gchar *name)
 {
   gint i = 0;
-  GQuark *name_quark = g_quark_from_string(name);
+  GQuark name_quark = g_quark_from_string(name);
 
   while (plist[i].name != NULL) {
     if (plist[i].quark == name_quark)
@@ -129,7 +159,53 @@ prop_list_find_prop(PropDescription *plist, const gchar *name)
 }
 #endif
 
-PropDescription *prop_lists_union(GList *plists);
-PropDescription *prop_lists_intersection(GList *plists);
+/* operations on lists of property description lists */
+PropDescription *prop_desc_lists_union(GList *plists);
+PropDescription *prop_desc_lists_intersection(GList *plists);
+
+/* functions for manipulating an individual property structure */
+void       prop_copy(Property *dest, Property *src);
+void       prop_free(Property *prop);
+GtkWidget *prop_get_widget(Property *prop);
+void       prop_set_from_widget(Property *prop, GtkWidget *widget);
+
+G_INLINE_FUNC Property *prop_list_from_matching_descs(PropDescription *plist,
+						      guint flags);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC Property *
+prop_list_from_matching_descs(PropDescription *plist, guint flags)
+{
+  Property *ret;
+  gint count = 0, i;
+
+  for (i = 0; plist[i].name != NULL; i++)
+    if ((plist[i].flags & flags) == flags)
+      count++;
+
+  ret = g_new0(Property, count+1);
+  count = 0;
+  for (i = 0; plist[i].name != NULL; i++)
+    if ((plist[i].flags & flags) == flags) {
+      ret[count].name = plist[i].name;
+      ret[count].type = plist[i].type;
+      ret[count].extra_data = plist[i].extra_data;
+      count++;
+    }
+  return ret;
+}
+#endif
+
+G_INLINE_FUNC void prop_list_free(Property *props);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+prop_list_free(Property *props)
+{
+  int i;
+
+  for (i = 0; props[i].name != NULL; i++)
+    prop_free(&props[i]);
+  g_free(props);
+}
+#endif
 
 #endif

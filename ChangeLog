@@ -1,3 +1,13 @@
+2000-02-02  James Henstridge  <james@daa.com.au>
+
+	* lib/object.h: added object functions describe_props, get_props and
+	set_props.  Do type definitions so that object.h doesn't need to
+	include properties.h, since properties.h includes object.h.
+
+	* lib/properties.[ch]: more hacking.
+
+	* po/de.po: updated po file.
+
 2000-01-30  James Henstridge  <james@daa.com.au>
 
 	* configure.in: don't add flags to CFLAGS unconditionally.  Instead,

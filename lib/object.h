@@ -199,6 +199,34 @@ typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
 */
 typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj);
 
+/* properties interface functions */
+#ifndef _prop_typedefs_defined
+#define _prop_typedefs_defined
+typedef struct _PropDescription PropDescription;
+typedef struct _Property Property;
+#endif
+
+/*
+  This function is called to return a list of property
+  descriptions the object supports.  The list should be
+  NULL terminated.
+*/
+typedef const PropDescription *(* DescribePropsFunc) (Object *obj);
+
+/*
+  This function is called to return the current values
+  (and type information) for a number of properties of
+  the object.
+*/
+typedef void (* GetPropsFunc) (Property *props, gint nprops);
+
+/*
+  This function is called to set the value of a number
+  of properties of the object.
+*/
+typedef void (* SetPropsFunc) (Property *props, gint nprops);
+
+
 /*
   Function called when the user has double clicked on an Tool.
   This function should return a dialog to edit the defaults
@@ -273,13 +301,18 @@ struct _ObjectOps {
   GetPropertiesFunc   get_properties;
   ApplyPropertiesFunc apply_properties;
   ObjectMenuFunc      get_object_menu;
+
+  DescribePropsFunc   describe_props;
+  GetPropsFunc        get_props;
+  SetPropsFunc        set_props;
+
   /*
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[9]))(Object *obj,...); 
+  void      (*(unused[6]))(Object *obj,...); 
 };
 
 /*
