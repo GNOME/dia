@@ -1135,7 +1135,7 @@ toolbox_destroy (GtkWidget *widget, gpointer data)
   app_exit();
 }
 
-static void
+static gboolean
 toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
   if (!app_is_embedded()) {
@@ -1147,7 +1147,8 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
       g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
     prefs.recent_sheet = gtk_option_menu_get_history(GTK_OPTION_MENU(sheet_option_menu));
 
-    app_exit();
+    /** If the app didn't exit, don't close the window */
+    return (!app_exit());
   }
 }
 

@@ -1,3 +1,9 @@
+2004-04-13  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/interface.c (toolbox_delete): 
+	* app/app_procs.[ch] (app_exit): Stop the delete event if the user
+	cancels quit due to modified diagrams.
+
 2004-04-07  Samúel Jón Gunnarsson  <sammi@techattack.nu>
 
 	* is.po: Added "is" to ALL_LINGUAS.
