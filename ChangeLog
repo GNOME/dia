@@ -1,3 +1,8 @@
+2000-01-15  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* configure.in: fixed libpopt test so we wont try to build with
+	too old libpopt.
+
 1999-12-18  Yuri Syrota  <rasta@renome.rovno.ua>
 
 	* configure.in: Added "uk" to ALL_LINGUAS.
