@@ -11,7 +11,7 @@ liber_objects_la_SOURCES = \
 liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 liber_objects_la_LIBADD = @GTK_LIBS@
 
-INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
 
 EXTRA_DIST = \
 	pixmaps/attribute.xpm \

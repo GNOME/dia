@@ -89,7 +89,7 @@ CPPFLAGS = \
 	-DDATADIR=\"$(pkgdatadir)\"
 
 INCLUDES = \
-	-I../intl \
+	-I$(top_srcdir)/intl \
 	-I$(srcdir)/../lib \
 	@DEBUG_FLAGS@ \
 	@XML_CFLAGS@ \

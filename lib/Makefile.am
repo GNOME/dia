@@ -56,7 +56,7 @@ libdia_a_SOURCES =  \
 		custom.h \
 		dummy_dep.h
 
-INCLUDES = @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@
+INCLUDES = -I$(top_srcdir)/intl @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm

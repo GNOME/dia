@@ -14,8 +14,8 @@ libcustom_objects_a_SOURCES = \
 shapedir = $(pkgdatadir)/shapes
 
 # add -DDEBUG_CUSTOM here to get extra debugging info.
-INCLUDES = -I$(top_srcdir)/lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(XML_CFLAGS) \
-	-DDIA_SHAPEDIR=\""$(shapedir)"\"
+INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib $(GTK_CFLAGS) \
+	$(GNOME_CFLAGS) $(XML_CFLAGS) -DDIA_SHAPEDIR=\""$(shapedir)"\"
 
 EXTRA_DIST = \
 	pixmaps/custom.xpm

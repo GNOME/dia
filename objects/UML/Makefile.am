@@ -28,7 +28,7 @@ libuml_objects_la_SOURCES = \
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 libuml_objects_la_LIBADD = @GTK_LIBS@
 
-INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
 
 EXTRA_DIST = \
 	pixmaps/actor.xpm \
