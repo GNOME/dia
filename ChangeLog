@@ -1,3 +1,8 @@
+2005-03-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/layer_dialog.c (create_button_box): Use stock icons instead
+	of homemade onces.  Gets us rid of four more XPMs.
+
 2005-03-05  Sampo Kellomaki <sampo@iki.fi>
 
 	* app/app_procs.c: Implemented --show-layers=LAYER,LAYER,... option

@@ -36,11 +36,7 @@
 #include "layer_dialog.h"
 #include "persistence.h"
 #include "widgets.h"
-
-#include "pixmaps/new.xpm"
-#include "pixmaps/lower.xpm"
-#include "pixmaps/raise.xpm"
-#include "pixmaps/delete.xpm"
+#include "interface.h"
 
 #include "dia-app-icons.h"
 
@@ -49,7 +45,7 @@ static struct LayerDialog *layer_dialog = NULL;
 typedef struct _ButtonData ButtonData;
 
 struct _ButtonData {
-  gchar **xpm_data;
+  gchar *stock_name;
   gpointer callback;
   char *tooltip;
 };
@@ -70,10 +66,10 @@ static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget);
 
 static ButtonData buttons[] = {
-  { new_xpm, layer_dialog_new_callback, N_("New Layer") },
-  { raise_xpm, layer_dialog_raise_callback, N_("Raise Layer") },
-  { lower_xpm, layer_dialog_lower_callback, N_("Lower Layer") },
-  { delete_xpm, layer_dialog_delete_callback, N_("Delete Layer") },
+  { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
+  { GTK_STOCK_GO_UP, layer_dialog_raise_callback, N_("Raise Layer") },
+  { GTK_STOCK_GO_DOWN, layer_dialog_lower_callback, N_("Lower Layer") },
+  { GTK_STOCK_DELETE, layer_dialog_delete_callback, N_("Delete Layer") },
 };
 
 enum {
@@ -97,30 +93,12 @@ create_button_box(GtkWidget *parent)
 {
   GtkWidget *button;
   GtkWidget *button_box;
-  GtkWidget *pixmapwid;
-  GdkPixmap *pixmap;
-  GdkBitmap *mask;
-  GdkColormap *cmap;
-  GtkStyle *style;
   int i;
   
-  GtkTooltips *tool_tips = NULL; /* ARG */
-  
-  gtk_widget_ensure_style(parent);
-  style = gtk_widget_get_style(parent);
-  cmap = gtk_widget_get_colormap(parent);
-
   button_box = gtk_hbox_new (TRUE, 1);
 
   for (i=0;i<num_buttons;i++) {
-    pixmap = gdk_pixmap_colormap_create_from_xpm_d (NULL, cmap,
-		&mask, &style->bg[GTK_STATE_NORMAL], buttons[i].xpm_data);
-      
-    pixmapwid =  gtk_pixmap_new (pixmap, mask);
-    gtk_widget_show(pixmapwid);
-
-    button = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (button), pixmapwid);
+    button = gtk_button_new_from_stock(buttons[i].stock_name);
     g_signal_connect_swapped (GTK_OBJECT (button), "clicked",
 			     G_CALLBACK(buttons[i].callback),
 			       GTK_OBJECT (parent));
