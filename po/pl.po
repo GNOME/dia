@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-03 08:03+0200\n"
+"POT-Creation-Date: 2003-09-05 07:18+0200\n"
 "PO-Revision-Date: 2003-07-28 00:06+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -1761,14 +1761,12 @@ msgid "Diagram Tree"
 msgstr "Drzewo diagramu"
 
 #: app/preferences.c:118
-#, fuzzy
 msgid "Reset tools after create"
-msgstr "Modyfikacja po utworzeniu:"
+msgstr "Zerowanie narzędzi po utworzeniu"
 
 #: app/preferences.c:119
-#, fuzzy
 msgid "Compress saved files"
-msgstr "Kompresja zapisywanych plików:"
+msgstr "Kompresja zapisywanych plików"
 
 #: app/preferences.c:120
 msgid "Number of undo levels:"
@@ -1788,12 +1786,11 @@ msgstr "Rozmiar listy ostatnio otw. dokumentów:"
 
 #: app/preferences.c:123
 msgid "Use menu bar"
-msgstr ""
+msgstr "Używanie paska menu"
 
 #: app/preferences.c:125
-#, fuzzy
 msgid "Keep tool box on top of diagram windows"
-msgstr "Skrzynka narzędziowa nad oknami diagramu:"
+msgstr "Skrzynka narzędziowa nad oknami diagramu"
 
 #: app/preferences.c:127
 msgid "New diagram:"
@@ -1833,9 +1830,8 @@ msgstr "Punkty połączenia:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
 #: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
-#, fuzzy
 msgid "Visible"
-msgstr "Wyświetlanie:"
+msgstr "Widoczne"
 
 #: app/preferences.c:146
 msgid "Page breaks:"
@@ -6330,9 +6326,8 @@ msgid "Standing man"
 msgstr "Stojący człowiek"
 
 #: sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
 msgid "Tablet"
-msgstr "Umożliwianie"
+msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:42
 msgid "Telecommuter"
@@ -6396,7 +6391,7 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:7
 msgid "6732 Multiservice access platform"
-msgstr ""
+msgstr "Platforma dostępu wielousługowego 6732"
 
 #: sheets/cisconetwork.sheet.in.h:8
 msgid "ADM"
@@ -6436,7 +6431,7 @@ msgstr "CDDI-FDDI"
 
 #: sheets/cisconetwork.sheet.in.h:17
 msgid "CDM Content distribution manager"
-msgstr ""
+msgstr "Menedżer dystrybucji zawartości CDM"
 
 #: sheets/cisconetwork.sheet.in.h:18
 msgid "CSU/DSU"
@@ -6447,17 +6442,16 @@ msgid "Cable modem"
 msgstr "Modem kablowy"
 
 #: sheets/cisconetwork.sheet.in.h:20
-#, fuzzy
 msgid "CallManager"
-msgstr "Obliczanie"
+msgstr "Menedżer wywoływania"
 
 #: sheets/cisconetwork.sheet.in.h:21
 msgid "Catalyst access gateway"
-msgstr ""
+msgstr "Bramka dostępu Catalyst"
 
 #: sheets/cisconetwork.sheet.in.h:22
 msgid "Centri firewall"
-msgstr ""
+msgstr "Zapora sieciowa Centri"
 
 #: sheets/cisconetwork.sheet.in.h:23
 msgid "Cisco - Network"
@@ -6469,11 +6463,11 @@ msgstr "Chmura"
 
 #: sheets/cisconetwork.sheet.in.h:25
 msgid "Content engine (Cache director)"
-msgstr ""
+msgstr "Mechanizm zawartości (zarządca pamięci podręcznej)"
 
 #: sheets/cisconetwork.sheet.in.h:26
 msgid "Content transformation engine (CTE)"
-msgstr ""
+msgstr "Mechanizm przekształcania zawartości (CTE)"
 
 #: sheets/cisconetwork.sheet.in.h:27
 msgid "DPT"
@@ -6489,7 +6483,7 @@ msgstr "Filtr DWDM"
 
 #: sheets/cisconetwork.sheet.in.h:30
 msgid "Distributed director"
-msgstr ""
+msgstr "Zarządca dystrybucji"
 
 #: sheets/cisconetwork.sheet.in.h:31
 msgid "FC storage"
@@ -6497,17 +6491,15 @@ msgstr "Pamięć masowa FC"
 
 #: sheets/cisconetwork.sheet.in.h:32
 msgid "FDDI ring"
-msgstr ""
+msgstr "Pierścień FDDI"
 
 #: sheets/cisconetwork.sheet.in.h:33
-#, fuzzy
 msgid "Firewall"
-msgstr "Router firewall"
+msgstr "Zapora sieciowa"
 
 #: sheets/cisconetwork.sheet.in.h:34
-#, fuzzy
 msgid "Front end processor"
-msgstr "Wstępnie zdefiniowany proces"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:35
 msgid "General appliance"
@@ -6547,12 +6539,11 @@ msgstr "IPTC"
 
 #: sheets/cisconetwork.sheet.in.h:44
 msgid "IPTV content manager"
-msgstr ""
+msgstr "Menedżer zawartości IPTV"
 
 #: sheets/cisconetwork.sheet.in.h:45
-#, fuzzy
 msgid "LocalDirector"
-msgstr "Kierowanie"
+msgstr "Zarządca lokalny"
 
 #: sheets/cisconetwork.sheet.in.h:46
 msgid "LongReach CPE"
@@ -6603,14 +6594,12 @@ msgid "Octel"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:58
-#, fuzzy
 msgid "Optical amplifier"
-msgstr "Wzmacniacz operacyjny"
+msgstr "Wzmacniacz optyczny"
 
 #: sheets/cisconetwork.sheet.in.h:59
-#, fuzzy
 msgid "Optical transport"
-msgstr "Energia świetlna"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:60
 msgid "PAD"
@@ -6650,7 +6639,7 @@ msgstr "RateMUX"
 
 #: sheets/cisconetwork.sheet.in.h:69
 msgid "Repeater"
-msgstr ""
+msgstr "Powielacz"
 
 #: sheets/cisconetwork.sheet.in.h:70
 msgid "SC2200 (Signalling controller)"
@@ -6732,7 +6721,7 @@ msgstr "Cisco 1000"
 
 #: sheets/ciscorouter.sheet.in.h:10
 msgid "Content service router"
-msgstr ""
+msgstr "Router usługi zawartości"
 
 #: sheets/ciscorouter.sheet.in.h:11
 msgid "Gigabit switch router (ATM tag)"
@@ -6740,20 +6729,19 @@ msgstr ""
 
 #: sheets/ciscorouter.sheet.in.h:12
 msgid "IAD router"
-msgstr ""
+msgstr "Router IAD"
 
 #: sheets/ciscorouter.sheet.in.h:13
 msgid "IP telephony router"
-msgstr ""
+msgstr "Router telefonii IP"
 
 #: sheets/ciscorouter.sheet.in.h:14
-#, fuzzy
 msgid "NetFlow router"
-msgstr "Router firewall"
+msgstr "Router NetFlow"
 
 #: sheets/ciscorouter.sheet.in.h:15
 msgid "Optical services router"
-msgstr ""
+msgstr "Router usług optycznych"
 
 #: sheets/ciscorouter.sheet.in.h:16
 msgid "Router"
@@ -6773,12 +6761,11 @@ msgstr "Router z zaporą sieciową"
 
 #: sheets/ciscorouter.sheet.in.h:20
 msgid "Router with silicon switch"
-msgstr ""
+msgstr "Router z krzemowym switchem"
 
 #: sheets/ciscorouter.sheet.in.h:21
-#, fuzzy
 msgid "Storage router"
-msgstr "Zasób magazynowy, pamięć masowa (np. twardy dysk)"
+msgstr "Router zasobów"
 
 #: sheets/ciscorouter.sheet.in.h:22
 msgid "TDM router"
@@ -6790,23 +6777,23 @@ msgstr "Router głosowy"
 
 #: sheets/ciscorouter.sheet.in.h:24
 msgid "Wavelength router"
-msgstr ""
+msgstr "Router długości fali"
 
 #: sheets/ciscorouter.sheet.in.h:25
 msgid "Workgroup 5000 multilayer switch"
-msgstr ""
+msgstr "Switch wielowartstowy Workgroup 5000"
 
 #: sheets/ciscorouter.sheet.in.h:26
 msgid "Workgroup 5002 multilayer switch"
-msgstr ""
+msgstr "Switch wielowartstwowy Workgroup 5002"
 
 #: sheets/ciscorouter.sheet.in.h:27
 msgid "Workgroup 5500 multilayer switch"
-msgstr ""
+msgstr "Switch wielowarstwowy Workgroup 5500"
 
 #: sheets/ciscorouter.sheet.in.h:28
 msgid "uBR910"
-msgstr ""
+msgstr "uBR910"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
