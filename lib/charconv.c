@@ -33,7 +33,7 @@
 #include <langinfo.h>
 #else /* HAVE_LANGINFO_CODESET */
 #ifndef EFAULT_8BIT_CHARSET /* this is a hack until dia talks utf8 internally. */
-#define EFAULT_8BIT_CHARSET "ISO-8859-5" 
+#define EFAULT_8BIT_CHARSET "ISO-8859-1" 
 #endif /* !EFAULT_8BIT_CHARSET */
 #define CODESET
 static const char *nl_langinfo(void) {

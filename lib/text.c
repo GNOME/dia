@@ -304,6 +304,10 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   
   if (text->cursor_pos == 0) {
     box->left -= 0.05; /* Half the cursor width */
+  } else {
+    box->right += 0.05; /* Half the cursor width. Assume that
+                           if it isn't at position zero, it might be 
+                           at the last position possible. */
   }
 
   box->top = text->position.y - text->ascent;
