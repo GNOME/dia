@@ -1,3 +1,7 @@
+2002-11-28  Steffen Macke <sdteffen@web.de>
+	
+	* app/render_libart.c: art_config.h was included twice
+
 2002-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* sheets/.cvsignore: More ignorance.

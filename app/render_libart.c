@@ -23,7 +23,6 @@
 #include <gdk/gdk.h>
 
 
-#include <libart_lgpl/art_config.h>
 #include <libart_lgpl/art_rgb.h>
 
 #include "render_libart.h"
