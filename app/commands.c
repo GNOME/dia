@@ -81,6 +81,7 @@ ShellExecuteA (long        hwnd,
 #include "lib/properties.h"
 #include "dia-props.h"
 #include "diagram_tree_window.h"
+#include "authors.h"                /* master contributors data */
 
 GdkPixbuf *logo;
 
@@ -510,45 +511,6 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 void
 help_about_callback(gpointer data, guint action, GtkWidget *widget)
 {
-        /* Wouldn't it be neat to display (where applicable) the names
-           of the authors in their original (non-Roman) scripts, where
-           applicable ?  -- cc */
-    static const gchar *authors[] =		{
-    "Alexander Larsson <alexl@redhat.com>",
-    "James Henstridge <james@daa.com.au>",
-    "Jerome Abela <abela@solsoft.fr>",
-    "Hans Breuer <hans@breuer.org>",
-    "Emmanuel Briot <briot@volga.gnat.com>",
-    "Cyrille Chépélov <cyrille@chepelov.org>",
-    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
-    "Fredrik Hallenberg <hallon@debian.org>",
-    "Francis J. Lacoste <francis@contre.com>",
-    "Steffen Macke <sdteffen@web.de>",
-    "M. C. Nelson <mcn@mani.kobayashimaru.org>",
-    "Jacek Pliszka <Jacek@Pliszka.fuw.edu.pl>",
-    "Henk Jan Priester <hj@justcroft.com>",
-    "Alejandro Aguilar Sierra <asierra@servidor.unam.mx>",
-    "Hubert Figuière <hfiguiere@teaser.fr>",
-    "Alexey Novodvorsky <aen@logic.ru>",
-    "Patric Sung <phsung@ualberta.ca>",
-    "Robert Young <robert@young.dsto.defence.gov.au>",
-    "Akira TAGOH <tagoh@redhat.com>",
-    "Richard Rowell <rwrowell@bellsouth.net>",
-    "Frank Gevaerts <frank.gevaerts@fks.be>",
-    "M. C. Nelson <mcn@kobayashimaru.org>",
-    "Matthieu Sozeau <mattam@netcourrier.com>",
-    "Xing Wang <quixon@gnuchina.org>",
-    "Andrew Ferrier <andrew@new-destiny.co.uk>",
-    NULL
-  };
-  
-  static const gchar *documentors[] =	{
-    "Henry House <hajhouse@houseag.com>",
-    "Judith Samson <judith@samsonsource.com>",
-    "Kevin Breit <battery841@mypad.com>",
-    NULL
-  };
-  
 #ifdef GNOME
 
   /*  Take advantage of gnome_about_new(),

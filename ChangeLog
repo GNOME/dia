@@ -1,3 +1,11 @@
+2002-07-05  Andrew Ferrier  <andrew@new-destiny.co.uk>
+
+	* app/authors.h: Added file --- now master
+	location for contributors data.
+	* app/app_procs.c: Added --credits option.
+	* app/commands.c: Modified about box to use
+	app/authors.h.
+
 2002-07-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.c: First stab at EPS rendering using the contour

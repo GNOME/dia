@@ -75,6 +75,7 @@
 #include "sheet.h"
 #include "plug-ins.h"
 #include "recent_files.h"
+#include "authors.h"
 
 #define GETTEXT_PACKAGE "dia"
 
@@ -218,6 +219,7 @@ void
 app_init (int argc, char **argv)
 {
   gboolean nosplash = FALSE;
+  gboolean credits = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
@@ -238,6 +240,8 @@ app_init (int argc, char **argv)
      0, N_("Export to file format and exit"), N_("eps,png,wmf,cgm,dxf,fig")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
+    {"credits", 'c', POPT_ARG_NONE, &credits, 0,
+     N_("Display credits list"), NULL },
 #ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
 #endif
@@ -305,6 +309,31 @@ app_init (int argc, char **argv)
 #endif
     gtk_init (&argc, &argv);
 #endif
+  }
+
+  /* --credits option. Added by Andrew Ferrier.
+  
+     Hopefully we're not ignoring anything too crucial by
+     quitting directly after the credits. */
+
+  if (credits) {
+      int i;
+      const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
+      const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
+
+      printf("Dia was written by:\n\n");
+    
+      for (i = 0; i < nauthors; i++) {
+          printf(authors[i]); printf("\n");
+      }
+
+      printf("\nand documented by:\n\n");
+
+      for (i = 0; i < ndocumentors; i++) {
+          printf(documentors[i]); printf("\n");
+      }
+
+      exit(0);
   }
 
   LIBXML_TEST_VERSION;
