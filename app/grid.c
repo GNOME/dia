@@ -304,7 +304,7 @@ void
 snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
 {
   if (ddisp->grid.snap) {
-    if (prefs.grid.hex) {
+    if (ddisp->diagram->data->grid.hex) {
       real width_x = ddisp->diagram->data->grid.width_w;
       real x_mod = (*x - 1*width_x) - floor((*x - 1*width_x) / (3*width_x)) * 3 * width_x;
       real y_mod = (*y - 0.25*sqrt(3) * width_x) -

@@ -4,6 +4,12 @@
 
 2004-07-14  Lars Clausen  <lars@raeder.dk>
 
+	* doc/diagram.dtd: 
+	* doc/sheet.dtd: Move DTD namespace to new site, and syntactic fix.
+
+	* app/grid.c (snap_to_grid): Use diagrams grid setting to
+	determine hex grid snap.
+
 	* doc/pl/Makefile.am: Avoid error based on backslash in comment.
 	
 	* app/interface.h: Avoid multiply defined symbols (#147396)
