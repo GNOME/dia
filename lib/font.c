@@ -48,7 +48,7 @@ pdu_to_dcm(gint pdu) { return (real)pdu / (global_size_one * PANGO_SCALE); }
 
 static void dia_font_class_init(DiaFontClass* class);
 static void dia_font_finalize(GObject* object);
-
+static void dia_font_init_instance(DiaFont*);
 
 GType
 dia_font_get_type (void)
@@ -66,7 +66,7 @@ dia_font_get_type (void)
                 NULL,           /* class_data */
                 sizeof (DiaFont),
                 0,              /* n_preallocs */
-                NULL            /* init */
+                (GInstanceInitFunc)dia_font_init_instance
             };
         object_type = g_type_register_static (G_TYPE_OBJECT,
                                               "DiaFont",
@@ -84,6 +84,11 @@ dia_font_class_init(DiaFontClass* klass)
   object_class->finalize = dia_font_finalize;
 }
 
+static void 
+dia_font_init_instance(DiaFont* font)
+{
+  GObject *gobject = G_OBJECT(font);
+}
 
 /* Fills everything *BUT* family. */
 static DiaFont*
@@ -161,7 +166,9 @@ DiaFont* dia_font_ref(DiaFont* font)
 }
 
 void dia_font_unref(DiaFont* font)
-{ g_object_unref(G_OBJECT(font)); }
+{ 
+    g_object_unref(G_OBJECT(font));
+}
 
 Style dia_font_get_style(const DiaFont* font)
 {
@@ -291,7 +298,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     layout = pango_layout_new(pango_context);
 
     ranges[0] = 0;
-    ranges[1] = strlen(string);
+    ranges[1] = string ? strlen(string) : 0;
     pango_layout_set_text(layout,string,ranges[1]);
         
     list = pango_attr_list_new();

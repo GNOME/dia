@@ -1021,7 +1021,7 @@ void
 text_set_attributes(Text *text, TextAttributes *attr)
 {
   if (text->font != attr->font) {
-      dia_font_unref(attr->font);
+      dia_font_unref(text->font);
       text->font = dia_font_ref(attr->font);
   }
   text->height = attr->height;

@@ -322,9 +322,12 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   void *font_nr_ptr;
   int font_nr;
+  char *lower_name;
 
+  lower_name = g_ascii_strdown(dia_font_get_family(font), -1);
   font_nr_ptr = g_hash_table_lookup(font_nr_hashtable,
-                                    dia_font_get_family(font));
+                                    lower_name);
+  g_free(lower_name);
 
   if (font_nr_ptr==NULL) {
     message_error(_("Trying to set invalid font %s!\n"),

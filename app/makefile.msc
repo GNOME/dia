@@ -4,11 +4,14 @@ PACKAGE = dia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
 LIBART = $(TOP)/libart_lgpl
+#temporary disabled: -DHAVE_LIBART 
+# -DWIN32 for newer libxml versions
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-DWIN32 \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
-	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBART -DHAVE_LIBPNG \
+	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBPNG \
 	-DWITHOUT_ZOOM_COMBO
 
 PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \

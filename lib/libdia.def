@@ -1,6 +1,5 @@
 EXPORTS
 ;
- font_names
  render_bounding_boxes
  color_black
  color_white
@@ -11,8 +10,12 @@ EXPORTS
 
 ; exported functions
  active_focus
+ apply_textattr_properties
+ apply_textstr_properties
  arrow_draw
  arrow_draw
+ arrow_draw
+
  attribute_first_data
  attribute_num_data
  attributes_default_fgbg
@@ -31,9 +34,11 @@ EXPORTS
  attributes_set_default_start_arrow
  attributes_set_foreground
  attributes_swap_fgbg
+ new_attribute
+
  bezierconn_add_segment
- bezierconn_closest_major_handle
  bezierconn_closest_handle
+ bezierconn_closest_major_handle
  bezierconn_closest_segment
  bezierconn_copy
  bezierconn_destroy
@@ -48,6 +53,7 @@ EXPORTS
  bezierconn_set_corner_type
  bezierconn_update_boundingbox
  bezierconn_update_data
+
  beziershape_add_segment
  beziershape_closest_handle
  beziershape_closest_major_handle
@@ -65,15 +71,16 @@ EXPORTS
  beziershape_set_corner_type
  beziershape_update_boundingbox
  beziershape_update_data
- color_black
+
+ calculate_arrow_point
+
  color_convert
  color_equals
- color_gdk_black
- color_gdk_white
  color_init
- color_white
+
  composite_add_attribute
  composite_find_attribute
+
  connection_copy
  connection_destroy
  connection_init
@@ -82,6 +89,7 @@ EXPORTS
  connection_save
  connection_update_boundingbox
  connection_update_handles
+
  connpointline_add_points
  connpointline_adjust_count
  connpointline_can_add_point
@@ -94,6 +102,9 @@ EXPORTS
  connpointline_remove_points
  connpointline_save
  connpointline_update
+
+ create_renderops_table
+
  data_add_boolean
  data_add_color
  data_add_composite
@@ -110,6 +121,7 @@ EXPORTS
  data_color
  data_delete_layer
  data_enum
+ data_font
  data_get_sorted_selected
  data_get_sorted_selected_remove
  data_int
@@ -126,7 +138,9 @@ EXPORTS
  data_text
  data_unselect
  data_update_extents
+
  destroy_object_list
+
  dia_alignment_selector_get_alignment
  dia_alignment_selector_get_type
  dia_alignment_selector_new
@@ -140,16 +154,36 @@ EXPORTS
  dia_color_selector_new
  dia_color_selector_set_color
  dia_config_filename
+
  dia_file_selector_get_file
  dia_file_selector_get_type
  dia_file_selector_new
  dia_file_selector_set_file
+
+ dia_font_ascent
+ dia_font_build_layout
+ dia_font_descent
+ dia_font_get_family
+ dia_font_get_legacy_name
+ dia_font_get_psfontname
+ dia_font_init
+ dia_font_new
+ dia_font_new_from_legacy_name
+ dia_font_ref
+ dia_font_scaled_build_layout
+ dia_font_scaled_string_width
+ dia_font_string_width
+ dia_font_unref
+
+
  dia_font_selector_get_font
  dia_font_selector_get_type
  dia_font_selector_new
  dia_font_selector_set_font
+
  dia_get_data_directory
  dia_get_lib_directory
+
  dia_image_add_ref
  dia_image_draw
  dia_image_filename
@@ -161,11 +195,20 @@ EXPORTS
  dia_image_release
  dia_image_rgb_data
  dia_image_width
+
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
  dia_line_style_selector_new
  dia_line_style_selector_set_linestyle
+
  dia_list_plugins
+
+ dia_object_default_create
+ dia_object_default_get
+ dia_object_default_make
+ dia_object_defaults_load
+ dia_object_defaults_save
+
  dia_plugin_can_unload
  dia_plugin_check_version
  dia_plugin_get_description
@@ -181,7 +224,16 @@ EXPORTS
  dia_pluginrc_write
  dia_register_builtin_plugin
  dia_register_plugins
+
+ dia_sort_sheets
+ get_sheets_list
+ load_all_sheets
+ register_sheet
+ sheet_append_sheet_obj
+
  diagram_data_destroy
+ new_diagram_data
+
  distance_bez_line_point
  distance_bez_shape_point
  distance_ellipse_point
@@ -190,6 +242,7 @@ EXPORTS
  distance_point_point_manhattan
  distance_polygon_point
  distance_rectangle_point
+
  element_copy
  element_destroy
  element_init
@@ -198,25 +251,25 @@ EXPORTS
  element_save
  element_update_boundingbox
  element_update_handles
+
+ ellipse_bbox
+
+ filter_get_callbacks
  filter_get_export_filter_label
  filter_get_export_filters
  filter_get_import_filter_label
  filter_get_import_filters
  filter_guess_export_filter
  filter_guess_import_filter
+ filter_register_callback
  filter_register_export
  filter_register_import
+
  find_paper
- font_ascent
- font_descent
- font_get_gdkfont
- font_get_psfontname
- font_get_suckfont
- font_getfont
- font_init
- font_string_width
+
  get_default_paper
  get_paper_bmargin
+ get_paper_info
  get_paper_lmargin
  get_paper_name
  get_paper_name_list
@@ -224,9 +277,12 @@ EXPORTS
  get_paper_pswidth
  get_paper_rmargin
  get_paper_tmargin
- get_sheets_list
+
+ identity_matrix
  int_rectangle_union
+
  intl_score_locale
+
  layer_add_object
  layer_add_object_at
  layer_add_objects
@@ -243,16 +299,16 @@ EXPORTS
  layer_replace_object_with_list
  layer_set_object_list
  layer_update_extents
- load_all_sheets
- load_all_sheets
- message_error
- message_warning
- message_notice
- new_attribute
- new_diagram_data
  new_layer
+
+ line_bbox
+
+ message_error
+ message_notice
+ message_warning
+
  new_object_state_change
- new_text
+
  neworthconn_add_segment
  neworthconn_can_add_segment
  neworthconn_can_delete_segment
@@ -267,6 +323,7 @@ EXPORTS
  neworthconn_save
  neworthconn_update_boundingbox
  neworthconn_update_data
+
  object_add_connectionpoint
  object_add_handle
  object_apply_props
@@ -277,11 +334,14 @@ EXPORTS
  object_create_props_dialog
  object_destroy
  object_find_attribute
+ object_get_prop_descriptions
  object_get_props_from_offsets
  object_get_type
  object_init
  object_load
  object_load_using_properties
+ object_prop_by_name
+ object_prop_by_name_type
  object_register_type
  object_registry_foreach
  object_registry_init
@@ -294,6 +354,7 @@ EXPORTS
  object_save_using_properties
  object_set_props_from_offsets
  object_unconnect
+
  orthconn_add_segment
  orthconn_can_add_segment
  orthconn_can_delete_segment
@@ -309,6 +370,9 @@ EXPORTS
  orthconn_save
  orthconn_update_boundingbox
  orthconn_update_data
+
+ pdtpp_true
+
  point_add
  point_copy
  point_dot
@@ -316,6 +380,10 @@ EXPORTS
  point_normalize
  point_scale
  point_sub
+ transform_point
+
+ polybezier_bbox
+
  polyconn_add_point
  polyconn_closest_handle
  polyconn_closest_segment
@@ -328,8 +396,12 @@ EXPORTS
  polyconn_move_handle
  polyconn_remove_point
  polyconn_save
+ polyconn_set_points
  polyconn_update_boundingbox
  polyconn_update_data
+
+ polyline_bbox
+
  polyshape_add_point
  polyshape_closest_handle
  polyshape_closest_segment
@@ -342,28 +414,42 @@ EXPORTS
  polyshape_move_handle
  polyshape_remove_point
  polyshape_save
+ polyshape_set_points
  polyshape_update_boundingbox
  polyshape_update_data
- prop_desc_lists_intersection
-; prop_free
-; prop_copy
- object_get_prop_descriptions
- pdtpp_true
- prop_desc_find_real_handler
- prop_desc_insert_handler
- prop_desc_list_find_prop
- prop_desc_list_free_handler_chain
- prop_list_from_descs
+
  stdprops_init
  make_new_prop
+ prop_desc_find_real_handler
+ prop_desc_insert_handler
+ prop_desc_list_calculate_quarks
+ prop_desc_list_find_prop
+ prop_desc_list_free_handler_chain
+ prop_desc_lists_intersection
  prop_list_free
+ prop_list_from_descs
  prop_list_from_single
+
+ ps_unicoder_destroy
+ ps_unicoder_new
+ psu_check_string_encodings
+ psu_get_string_width
+ psu_set_font_face
+ psu_show_string
+ unicode_to_ps_name
+
  rectangle_add_point
+ rectangle_bbox
  rectangle_intersection
  rectangle_intersects
  rectangle_union
  rectangle_union
+
  remove_focus
+
+ rotate_matrix
+
+ new_text
  text_calc_boundingbox
  text_copy
  text_delete_all
@@ -382,63 +468,8 @@ EXPORTS
  text_set_height
  text_set_position
  text_set_string
- get_paper_info
-
- transform_point
- rotate_matrix
- identity_matrix
-
- filter_get_callbacks
- filter_register_callback
-
- ellipse_bbox
- line_bbox
- polybezier_bbox
- polyline_bbox
- rectangle_bbox
-
- apply_textattr_properties
- apply_textstr_properties
-; charconv_local8_to_utf8
-; charconv_utf8_to_local8
- polyconn_set_points
- polyshape_set_points
- prop_desc_list_calculate_quarks
-
- object_prop_by_name
- object_prop_by_name_type
 
  xmlDiaParseFile
- xmlDoParseFile
  xmlDiaSaveFile
+ xmlDoParseFile
 
-; uni_get_utf8
-
-; custom_register_objects
-
- suck_font_free
-
- create_renderops_table
-;?? inherit_renderer
-
- calculate_arrow_point
- arrow_draw
- data_font
-
- dia_sort_sheets
- sheet_append_sheet_obj
- register_sheet
-
- ps_unicoder_destroy
- ps_unicoder_new
- psu_check_string_encodings
- psu_get_string_width
- psu_set_font_face
- psu_show_string
- unicode_to_ps_name
-
- dia_object_defaults_load
- dia_object_default_make
- dia_object_default_get
- dia_object_default_create
- dia_object_defaults_save

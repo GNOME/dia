@@ -1,3 +1,24 @@
+2002-06-22  Hans Breuer  <hans@breuer.org>
+
+	* lib/widget.c : dont use backend specific functions
+	to get on the font_families. Including it would mean
+	including <windows.h> which breaks due to namespace
+	pollutions ...
+
+	* lib/libdia.def : updated externals
+
+	* app/makefile.msc : temporary disabled: -DHAVE_LIBART
+
+	* lib/font.c : added empty dia_font_init_instance function,
+	reformatting of dia_fon_unref to allow to set breakpoint,
+	dia_fon_build_layout() : dont crash on string==NULL
+
+	* lib/text.c (text_set_attributes) : don't unref the wrong font
+
+	* lib/widgets.c (dia_fon_selector_set_font) : our hashtable
+	stores lowercased font names, but dia_font_get_family()
+	returns mixed case 	
+
 2002-06-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/widgets.c: 
