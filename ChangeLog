@@ -2,6 +2,8 @@
 
 	* app/render_libart.c (draw_string): Bail out when no GDK font is
 	found.
+	(set_font): Give error when font not found.
+	(set_fillstyle): Intlized error msg.
 
 	* app/pagesetup.c (pagesetup_ok, pagesetup_apply): Sets diagram
 	modified when applied (and ok only does apply if apply is set

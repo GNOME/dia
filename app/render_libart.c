@@ -430,7 +430,7 @@ set_fillstyle(RendererLibart *renderer, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error("gdk_renderer: Unsupported fill mode specified!\n");
+    message_error(_("gdk_renderer: Unsupported fill mode specified!\n"));
   }
 }
 
@@ -444,6 +444,9 @@ set_font(RendererLibart *renderer, DiaFont *font, real height)
   renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
 #else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+  if (renderer->gdk_font == NULL)
+    message_error(_("Can't find font '%s' in height %d\n"),
+		  font->name, renderer->font_height);
 #endif
 }
 
