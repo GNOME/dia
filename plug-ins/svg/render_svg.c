@@ -228,9 +228,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   xmlSetProp(renderer->root, "viewBox", buf);
   
   time_now = time(NULL);
-  name = getlogin();
-  if (name==NULL)
-    name = "a user";
+  name = g_get_user_name();
 
 #if 0
   /* some comments at the top of the file ... */
@@ -783,19 +781,12 @@ draw_string(RendererSVG *renderer,
   char buf[512], *style, *tmp;
   real saved_width;
 
-#ifdef UNICODE_WORK_IN_PROGRESS
-  xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, text);
-  node = xmlNewChild(renderer->root, NULL, "text", enc);
-  xmlFree(enc);
-#else
- {
-     utfchar *utf = charconv_local8_to_utf8(text);
-     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, utf);
-     g_free(utf);
-     node = xmlNewChild(renderer->root, NULL, "text", enc);
-     xmlFree(enc);
- }
-#endif
+  /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
+  {
+    xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc, text);
+    node = xmlNewChild(renderer->root, NULL, "text", enc);
+    xmlFree(enc);
+  }
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;

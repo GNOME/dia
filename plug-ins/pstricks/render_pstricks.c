@@ -216,9 +216,7 @@ new_pstricks_renderer(DiagramData *data, const char *filename,
   
     scale = POINTS_in_INCH * data->paper.scaling;
   
-    name = getlogin();
-    if (name==NULL)
-	name = "a user";
+    name = g_get_user_name();
   
     fprintf(file,
 	"%% PSTricks TeX macro\n"

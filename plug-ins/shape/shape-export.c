@@ -866,21 +866,12 @@ draw_string(RendererShape *renderer,
   char buf[512], *style, *tmp;
   real saved_width;
 
-#ifdef UNICODE_WORK_IN_PROGRESS
+  /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
   {
       xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc,text);
       node = xmlNewChild(renderer->root, renderer->svg_name_space,
                          "text", enc);
   }
-#else
- {
-     utfchar *utf = charconv_local8_to_utf8(text);
-     xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc,utf);     
-     g_free(utf);
-     node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", enc);
-     xmlFree(enc);
- }
-#endif
  
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;

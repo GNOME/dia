@@ -24,10 +24,10 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	$(GLIB_CFLAGS) $(GTK_CFLAGS) \
-	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib
+	$(GLIB_CFLAGS) $(GTK2_CFLAGS) \
+	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
