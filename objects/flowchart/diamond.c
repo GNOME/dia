@@ -502,13 +502,13 @@ diamond_distance_from(Diamond *diamond, Point *point)
     return rect.top - point->y +
       fabs(point->x - elem->corner.x + elem->width / 2.0);
   else if (point->y > rect.bottom)
-    return rect.bottom-point->y +
+    return point->y - rect.bottom +
       fabs(point->x - elem->corner.x + elem->width / 2.0);
   else if (rect.left > point->x)
-    return rect.left - point->y +
+    return rect.left - point->x +
       fabs(point->y - elem->corner.y + elem->height / 2.0);
   else if (point->x > rect.right)
-    return point->y - rect.right +
+    return point->x - rect.right +
       fabs(point->y - elem->corner.y + elem->height / 2.0);
   else {
     /* inside the bounding box of diamond ... this is where it gets harder */

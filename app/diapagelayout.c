@@ -556,6 +556,26 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 			    paper_metrics[self->papernum].lmargin);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->rmargin),
 			    paper_metrics[self->papernum].rmargin);
+
+  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+  } else {
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+  }
   self->block_changed = FALSE;
 
   gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
@@ -566,6 +586,27 @@ orient_changed(DiaPageLayout *self)
 {
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
+
+  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+  } else {
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
+      paper_metrics[self->papernum].pswidth;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
+      paper_metrics[self->papernum].psheight;
+  }
+
   if (!self->block_changed)
     gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
 }

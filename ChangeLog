@@ -1,3 +1,12 @@
+1999-10-18  James Henstridge  <james@daa.com.au>
+
+	* app/diapagelayout.c (paper_size_change, orient_changed): set upper
+	bound on margin widths.  It is set to the paper width/height.
+
+	* objects/flowchart/diamond.c (diamond_distance_from): fixed distance
+	routine for the diamond.  This bug was found and fixed by Daniel Wang
+	<danwang@CS.Princeton.EDU>
+
 Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 
 	* app/commands.c: Add <sys/types.h> before <sys/stat.h> to
