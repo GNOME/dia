@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-08-19 21:10+0200\n"
+"POT-Creation-Date: 1999-08-19 21:49+0200\n"
 "PO-Revision-Date: 1999-08-19 21:27+02:00\n"
 "Last-Translator: Karsten Weiss <karsten@addx.au.s.shuttle.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -377,7 +377,7 @@ msgstr "Zickzacklinie erzeugen"
 
 #: app/interface.c:93
 msgid "Create Polyline"
-msgstr "Polygon erzeugen"
+msgstr "Linienzug erzeugen"
 
 #: app/interface.c:97
 msgid "Create Image"
@@ -1129,7 +1129,7 @@ msgstr "Identifizierend"
 #. type
 #: objects/FS/flow-ortho.c:134
 msgid "Create an orthogonal polyline flow"
-msgstr "Einen orthogonalen Polygon-Strom erzeugen"
+msgstr "Einen orthogonalen Linienzug-Strom erzeugen"
 
 #: objects/FS/flow-ortho.c:566 objects/FS/flow-poly.c:632
 #: objects/FS/flow-poly.c:745 objects/FS/flow.c:629 objects/FS/flow.c:742
@@ -1431,7 +1431,7 @@ msgstr "Eine Klasse erzeugen"
 #. type
 #: objects/UML/class.c:84
 msgid "Create a template class"
-msgstr "Eine Klassenschablone erzeugen"
+msgstr "Eine Template-Klasse erzeugen"
 
 #. Class page:
 #: objects/UML/class.c:628 objects/UML/class_dialog.c:90
@@ -1560,11 +1560,11 @@ msgstr "Std.-Wert:"
 #. Templates page:
 #: objects/UML/class_dialog.c:2029
 msgid "Templates"
-msgstr "Schablonen"
+msgstr "Templates"
 
 #: objects/UML/class_dialog.c:2035
 msgid "Template class"
-msgstr "Klassenschablone"
+msgstr "Template-Klasse"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Formal parameter data"
@@ -1828,11 +1828,11 @@ msgstr "Schriftfarbe:"
 msgid "A diamond with text inside."
 msgstr "Ein Diamant, der Text enth‰lt."
 
-#: objects/flowchart/flowchart.c:43
+#: objects/flowchart/flowchart.c:46
 msgid "Flowchart"
 msgstr "Fluﬂdiagramm"
 
-#: objects/flowchart/flowchart.c:44
+#: objects/flowchart/flowchart.c:47
 msgid "Objects to draw flowcharts"
 msgstr "Objekte mit denen man Fluﬂdiagramme zeichnen kann"
 
