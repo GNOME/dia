@@ -332,6 +332,9 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
 				 dia->data->is_compressed);
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
+    diagram_remove_related_dialog(gtk_object_get_user_data(GTK_OBJECT(savedlg)), savedlg);
+    gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+    diagram_add_related_dialog(dia, savedlg);
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
   }
@@ -524,6 +527,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
  
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
   g_object_ref(dia); 
+  diagram_add_related_dialog(dia, exportdlg);
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;

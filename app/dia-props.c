@@ -105,7 +105,7 @@ create_diagram_properties_dialog(Diagram *dia)
 		   NULL);
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect(G_OBJECT(dialog), "destroy_event",
+  g_signal_connect(G_OBJECT(dialog), "destroy",
 		   G_CALLBACK(diagram_properties_dialog_destroyed), NULL);
 
   notebook = gtk_notebook_new();

@@ -66,7 +66,7 @@ SHAPES = \
 	digitizing_board.shape \
 	digitizing_board.png \
 	patch-panel.shape  \
-	patch-panel.png
+	patch-panel.xpm
 
 EXTRA_DIST = $(SHAPES)
 

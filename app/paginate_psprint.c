@@ -193,6 +193,18 @@ pipe_handler(int signum)
   sigpipe_received = TRUE;
 }
 
+static gboolean
+diagram_print_destroy(GtkWidget *widget)
+{
+  Diagram **dia;
+
+  if ((dia = gtk_object_get_user_data(GTK_OBJECT(widget))) != NULL) {
+    diagram_remove_related_dialog(*dia, widget);
+    *dia = NULL;
+  }
+
+  return FALSE;
+}
 
 void
 diagram_print_ps(Diagram *dia)
@@ -217,6 +229,10 @@ diagram_print_ps(Diagram *dia)
 
   /* create the dialog */
   dialog = gtk_dialog_new();
+  diagram_add_related_dialog(dia, dialog);
+  gtk_object_set_user_data(GTK_OBJECT(dialog), &dia);
+  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(diagram_print_destroy), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_main_quit), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
@@ -312,6 +328,11 @@ diagram_print_ps(Diagram *dia)
   gtk_widget_show(dialog);
   gtk_main();
 
+  if(!dia) {
+    gtk_widget_destroy(dialog);
+    return;
+  }
+  
   if (!cont) {
     persistence_change_string_entry("printer-command", orig_command, cmd);
     persistence_change_string_entry("printer-file", orig_file, ofile);

@@ -46,10 +46,6 @@ struct _DiaLibartRenderer
   double dash_length;
   double dot_length;
   Color *highlight_color;
-  /** Stack of matrices of rotation/translation/scaling.
-   * Is a stack to allow groups to easily rotate.
-   */
-  GList *matrices;
 #endif
 };
 

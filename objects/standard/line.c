@@ -140,6 +140,7 @@ static PropDescription line_props[] = {
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
+  /*
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
   { "absolute_start_gap", PROP_TYPE_REAL, 0,
     N_("Absolute start gap"), NULL, &gap_range },
@@ -150,6 +151,7 @@ static PropDescription line_props[] = {
   { "fractional_end_gap", PROP_TYPE_REAL, 0,
     N_("Fractional end gap"), NULL, &gap_range },
   PROP_FRAME_END("gaps",0),
+  */
   PROP_DESC_END
 };
 
@@ -171,10 +173,12 @@ static PropOffset line_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
   { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
+  /*
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Line, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Line, absolute_end_gap) },
   { "fractional_start_gap", PROP_TYPE_REAL, offsetof(Line, fractional_start_gap) },
   { "fractional_end_gap", PROP_TYPE_REAL, offsetof(Line, fractional_end_gap) },
+  */
   { NULL, 0, 0 }
 };
 

@@ -1,4 +1,35 @@
+2004-07-22  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* dia.spec (Release): 
+	* configure.in: Update to version 0.94-pre2.
+
+	* app/load_save.c (diagram_data_write_doc): Use new namespace
+	here, too.
+
+	* lib/object.h (OBJECT_COMMON_PROPERTIES): Remove 'Dia' from
+	hidden objects properties.
+
+	* objects/standard/line.c: Remove halffinished line gap box from
+	properties list.
+
+	* app/paginate_psprint.c: 
+	* app/filedlg.c: Patch from kimmidi@novell.com (Kiran Kumar
+	Immidi): Close export and print dialog with diagram as well.
+	(#129520)
+	
+	* lib/diaarrowchooser.[ch]: Patch from pborelli@katamail.com (paolo
+	borelli):  Remove deprecated stuff (#137693)
+
+	* app/dia-props.c (create_diagram_properties_dialog): Patch from
+	kimmidi@novell.com (Kiran Kumar Immidi):  Close properties dialog
+	on destroy.
+
 2004-07-21  Ray Strode  <rstrode@redhat.com>
+
 	* dia/dia.desktop.in: Add MimeType line to desktop file
 	new mime sytem.
 
@@ -16,23 +47,17 @@
 	
 	* app/app_procs.c : make the --size hack even uglier, but work again
 	
-	* lib/libartrenderer.c (draw_line, draw_rect) : disable broken code
-	using art_vpath_affine_transform()
-	
 	* lib/dia_dirs.c(dia_get_absolute_filename) : must not free()
 	but g_free() what is returned by g_build_filename()
 	
-	* objects/custom_object.c(custom_destroy) : handle all enum values
-	in switch to get rid of the warning
+	* objects/custom/custom_object.c(custom_destroy) : handle all enum
+	values in switch to get rid of the warning
 	
 	* objects/custom/shape_info.c : use g_ascii_strtod(), get rid 
 	of setlocale()/strtod()
 	* lib/dia_svg.c : dito
 	* lib/dia_xml.c : almost
 
-	* lib/object.h : set PROP_FLAG_OPTIONAL for "obj_rotate" to stop
-	complaining on missing attribute
-	
 	* plug-ins/python/group_props.py : use the string representation of 
 	value to ensure "unique values". If the strings would not be different
 	the user cann't see the difference either
@@ -46,27 +71,23 @@
 
 	* lib/persistence.c (persistence_save_type): Small fixes (#142663)
 
-	* doc/diagram.dtd: Add closing > to dia:diagram to make it parsable!
-
 	* objects/standard/image.c (image_load): Use path of diagram
 	rather than running directory as base for image file place.
 
+	* doc/{diagram,sheet}.dtd: Move DTD namespace to new site, and
+	syntactic fixes. 
+	
 	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from
 	Ambrose Li <a.c.li@ieee.org>:  Better IM context handling.
+
+	* Re-added new sample diagrams binarily.
 
 2004-07-17 Sagar Rastogi <rastogi@students.iiit.net>
 
 	* app/disp_callbacks.c: Fixed #144962 (also in KNOWN_BUGS),
 	Disabled keyboard accels when dragging an object.	
 
-2004-07-16  Steffen Macke <sdteffen@web.de>
-
-	* shapes/RDP/Makefile.am: Synchronized with 0_94_RELEASE branch
-
 2004-07-14  Lars Clausen  <lars@raeder.dk>
-
-	* doc/diagram.dtd: 
-	* doc/sheet.dtd: Move DTD namespace to new site, and syntactic fix.
 
 	* app/grid.c (snap_to_grid): Use diagrams grid setting to
 	determine hex grid snap.
@@ -75,30 +96,8 @@
 	
 	* app/interface.h: Avoid multiply defined symbols (#147396)
 
-2004-07-13  Lars Clausen  <lars@raeder.dk>
-
-	* app/paginate_psprint.c (diagram_print_ps): Give usable type for
-	signal handler function -- Solaris uses a direct function type
-	that's different from what Linux has, but a void * will always
-	hold it.
-
-2004-07-13  Steffen Macke <sdteffen@web.de>
-
-	* samples/Istar.dia:
-	* samples/KAOS.dia:
-	* samples/Jackson.dia: re-added to the CVS as binary files
-
-2004-07-11  Lars Clausen  <lars@raeder.dk>
-
-	* lib/dialibartrenderer.c: 
-	* lib/dialibartrenderer.h (struct _DiaLibartRenderer): 
-	* lib/object.c: 
-	* lib/object.h (OBJECT_COMMON_PROPERTIES): First attempt at actual
-	rotation.  Very primitive interface, only rect can rotate, only in
-	libart, and there the box collapses:(  But it's progress.
-
 2004-07-10  Lars Clausen  <lars@raeder.dk>
- 
+
 	* app/sheets_dialog_callbacks.c (write_user_sheet): 
 	* lib/sheet.c (load_register_sheet): Don't introduce double
 	slashes in namespace.
@@ -106,15 +105,19 @@
 	* lib/dia_xml.h (DIA_XML_NAME_SPACE_BASE): Keep consistent with
 	old diagrams, or XSLT will barf all over.
 	
-2004-07-10  Steffen Macke <sdteffen@web.de>
+	* shapes/RDP/place.shape: 
+	* shapes/RDP/transition.shape: 
+	* shapes/RDP/Makefile.am: Added .png entries to SHAPES and changed
+	shapes to use those.
 
-	* makefile.msc: added doc target; updated for 0.94-pre1 release
-	* shapes/RDP/place.shape:
-	* shapes/RDP/transition.shape: use *.png instead of *.xpm
+2004-07-07  Lars Clausen <lars@raeder.dk>
 
-2004-07-08  Steffen Macke <sdteffen@web.de>
-
-	* plug-ins/wmf/wmf.cpp (UsePen): linewidth is now working for PS_SOLID  
+	* config.h.win32: 
+	* doc/{en,pl}/dia.xml: 
+	* dia.spec: 
+	* configure.in: 
+	* NEWS: First prerelease of version 0.94.  Now with release
+	versions in a branch and main devel in the trunk.
 
 2004-07-05  Hans Breuer  <hans@breuer.org>
 

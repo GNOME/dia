@@ -108,14 +108,6 @@ get_height_pixels (DiaRenderer *self)
 static void
 begin_render(DiaRenderer *self)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  double* transmatrix;
-
-  transmatrix = g_new0(double, 6);
-  transmatrix[0] = 1.0;
-  transmatrix[4] = 1.0;
-
-  renderer->matrices = g_list_prepend(renderer->matrices, transmatrix);
 #ifdef HAVE_FREETYPE
   /* pango_ft2_get_context API docs :
    * ... Use of this function is discouraged, ...
@@ -137,10 +129,6 @@ begin_render(DiaRenderer *self)
 static void
 end_render(DiaRenderer *self)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  double* transmatrix;
-  
-  g_free(renderer->matrices->data);
   dia_font_pop_context();
 }
 
@@ -317,7 +305,7 @@ draw_line(DiaRenderer *self,
 	  Color *line_color)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  ArtVpath *vpath, *vpath_dashed, *vpath_transformed;
+  ArtVpath *vpath, *vpath_dashed;
   ArtSVP *svp;
   guint32 rgba;
   double x,y;
@@ -346,24 +334,14 @@ draw_line(DiaRenderer *self,
     vpath = vpath_dashed;
   }
 
-#if 0 /* if only someone would initialized the matrices or is my liabrt broken ? --hb */  
-  vpath_transformed =
-    art_vpath_affine_transform(vpath, renderer->matrices->data);
-
-  art_free(vpath);
-#else
-  /* just to have minimal changes */
-  vpath_transformed = vpath;
-#endif
-
-  svp = art_svp_vpath_stroke (vpath_transformed,
+  svp = art_svp_vpath_stroke (vpath,
 			      renderer->join_style,
 			      renderer->cap_style,
 			      renderer->line_width,
 			      4,
 			      0.25);
   
-  art_free( vpath_transformed );
+  art_free( vpath );
   
   art_rgb_svp_alpha (svp,
 		     0, 0, 
@@ -545,11 +523,10 @@ draw_rect(DiaRenderer *self,
 	  Color *color)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  ArtVpath *vpath, *vpath_dashed, *vpath_transformed;
+  ArtVpath *vpath, *vpath_dashed;
   ArtSVP *svp;
   guint32 rgba;
   double top, bottom, left, right;
-  real translate[6];
     
   dia_transform_coords_double(renderer->transform,
                               ul_corner->x, ul_corner->y, &left, &top);
@@ -564,20 +541,20 @@ draw_rect(DiaRenderer *self,
   vpath = art_new (ArtVpath, 6);
 
   vpath[0].code = ART_MOVETO;
-  vpath[0].x = 0;
-  vpath[0].y = 0;
+  vpath[0].x = left;
+  vpath[0].y = top;
   vpath[1].code = ART_LINETO;
-  vpath[1].x = right-left;
-  vpath[1].y = 0;
+  vpath[1].x = right;
+  vpath[1].y = top;
   vpath[2].code = ART_LINETO;
-  vpath[2].x = right-left;
-  vpath[2].y = bottom-top;
+  vpath[2].x = right;
+  vpath[2].y = bottom;
   vpath[3].code = ART_LINETO;
-  vpath[3].x = 0;
-  vpath[3].y = bottom-top;
+  vpath[3].x = left;
+  vpath[3].y = bottom;
   vpath[4].code = ART_LINETO;
-  vpath[4].x = 0;
-  vpath[4].y = 0;
+  vpath[4].x = left;
+  vpath[4].y = top;
   vpath[5].code = ART_END;
   vpath[5].x = 0;
   vpath[5].y = 0;
@@ -588,22 +565,6 @@ draw_rect(DiaRenderer *self,
     vpath = vpath_dashed;
   }
 
-#if 0 /* if only someone would initialized the matrices or is my libart broken ? --hb */  
-  {
-    vpath_transformed =
-      art_vpath_affine_transform(vpath, renderer->matrices->data);
-    art_free(vpath);
-    vpath = vpath_transformed;
-  }
-#endif 
-  {
-    art_affine_translate(translate, left, top);
-    vpath_transformed =
-      art_vpath_affine_transform(vpath, translate);
-    art_free(vpath);
-    vpath = vpath_transformed;
-  }
-
   svp = art_svp_vpath_stroke (vpath,
 			      renderer->join_style,
 			      renderer->cap_style,
@@ -611,7 +572,7 @@ draw_rect(DiaRenderer *self,
 			      4,
 			      0.25);
   
-  art_free( vpath_transformed );
+  art_free( vpath );
   
   art_rgb_svp_alpha (svp,
 		     0, 0, 
@@ -634,8 +595,6 @@ fill_rect(DiaRenderer *self,
   ArtSVP *svp;
   guint32 rgba;
   double top, bottom, left, right;
-  ArtVpath *vpath_transformed;
-  double translate[6];
     
   dia_transform_coords_double(renderer->transform,
                               ul_corner->x, ul_corner->y, &left, &top);
@@ -650,38 +609,24 @@ fill_rect(DiaRenderer *self,
   vpath = art_new (ArtVpath, 6);
 
   vpath[0].code = ART_MOVETO;
-  vpath[0].x = 0;
-  vpath[0].y = 0;
+  vpath[0].x = left;
+  vpath[0].y = top;
   vpath[1].code = ART_LINETO;
-  vpath[1].x = right-left;
-  vpath[1].y = 0;
+  vpath[1].x = right;
+  vpath[1].y = top;
   vpath[2].code = ART_LINETO;
-  vpath[2].x = right-left;
-  vpath[2].y = bottom-top;
+  vpath[2].x = right;
+  vpath[2].y = bottom;
   vpath[3].code = ART_LINETO;
-  vpath[3].x = 0;
-  vpath[3].y = bottom-top;
+  vpath[3].x = left;
+  vpath[3].y = bottom;
   vpath[4].code = ART_LINETO;
-  vpath[4].x = 0;
-  vpath[4].y = 0;
+  vpath[4].x = left;
+  vpath[4].y = top;
   vpath[5].code = ART_END;
   vpath[5].x = 0;
   vpath[5].y = 0;
   
-  /*  {
-    vpath_transformed =
-      art_vpath_affine_transform(vpath, renderer->matrices->data);
-    art_free(vpath);
-    vpath = vpath_transformed;
-    }*/
-  {
-    art_affine_translate(translate, left, top);
-    vpath_transformed =
-      art_vpath_affine_transform(vpath, translate);
-    art_free(vpath);
-    vpath = vpath_transformed;
-  }
-
   svp = art_svp_from_vpath (vpath);
   
   art_free( vpath );
@@ -1412,27 +1357,13 @@ draw_image(DiaRenderer *self,
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object)
 {
-  DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);
-
   if (object->highlight_color != NULL) {
+    DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);
     libart_rend->highlight_color = object->highlight_color;
     object->ops->draw(object, renderer);
     libart_rend->highlight_color = NULL;
   }
-  if (object->affine.rotation != 0.0) {
-    double rotmatrix[6];
-    double* transmatrix = g_new0(double, 6);
-
-    art_affine_rotate(rotmatrix, object->affine.rotation);
-    art_affine_multiply(transmatrix, (double*)libart_rend->matrices->data, rotmatrix);
-    libart_rend->matrices = g_list_prepend(libart_rend->matrices, transmatrix);
-  }
   object->ops->draw(object, renderer);
-  if (object->affine.rotation != 0.0) {
-    g_free(libart_rend->matrices->data);
-    libart_rend->matrices = g_list_delete_link(libart_rend->matrices,
-					       libart_rend->matrices);
-  }
 }
 
 static void

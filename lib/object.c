@@ -27,8 +27,6 @@
 
 #include "dummy_dep.h"
 
-PropNumData rotation_data = {0.0, 360.0, 1.0 };
-
 void object_init(DiaObject *obj, int num_handles, int num_connections);
 
 void

@@ -129,7 +129,7 @@ read_objects(xmlNodePtr objects,
   list = NULL;
 
   obj_node = objects->xmlChildrenNode;
-  
+
   while ( obj_node != NULL) {
     if (xmlIsBlankNode(obj_node)) {
       obj_node = obj_node->next;
