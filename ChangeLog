@@ -1,3 +1,8 @@
+2003-09-02  Steffen Macke <sdteffen@web.de>
+
+	* app/commands.c(help_manual_callback): using dia-manual.chm instead of 
+	dia.chm
+
 2003-09-02  Christian Neumair  <chris@gnome-de.org>
 
 	* sheets/Pneumatic.sheet.in: Slight unification fix.

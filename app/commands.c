@@ -490,7 +490,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
       #ifdef G_OS_WIN32
       /* use HTML Help on win32 if available */
       helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
-			      G_DIR_SEPARATOR_S "dia.chm", NULL);
+			      G_DIR_SEPARATOR_S "dia-manual.chm", NULL);
       if (!g_file_test(helpindex, G_FILE_TEST_EXISTS)) {
 	helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "index.html", NULL);
