@@ -21,4 +21,7 @@ message.lo
 lifeline.lo
 object.lo
 component.lo
+classicon.lo
 libuml_objects.la
+
+

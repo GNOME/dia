@@ -1,3 +1,9 @@
+1999-03-29  Alexander Larsson  <alla@lysator.liu.se>
+
+	* Makefile.am:
+	Change order of subdir so that libintl.a builds.
+	Now passed make distcheck.
+
 1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/font.c (init_x11_font):

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.40\n"
-"POT-Creation-Date: 1999-03-29 00:37+0200\n"
+"POT-Creation-Date: 1999-03-28 23:43+0200\n"
 "PO-Revision-Date: 1999-03-29 00:38+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@fib.hl.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -848,7 +848,7 @@ msgstr "Dette objektet har ingen egenskaper."
 
 #: app/defaults.c:43
 msgid "Object defaults"
-msgstr "Standardverdier for objekt" 
+msgstr "Standardverdier for objekt"
 
 #: app/defaults.c:73
 msgid "This object has no defaults."
@@ -1576,4 +1576,3 @@ msgstr "Legg til hjørne"
 #: objects/standard/polyline.c:666
 msgid "Delete Corner"
 msgstr "Slett hjørne"
-
