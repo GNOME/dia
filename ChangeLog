@@ -1,3 +1,9 @@
+2001-02-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/UML/note.c: Fixed properties -- was missing
+	Get/ApplyPropertiesFunc.  Also improved update to recalculate text
+	position. 
+
 2001-02-19  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* plug-ins/xfig/xfig-import.c: 
