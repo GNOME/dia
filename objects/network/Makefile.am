@@ -3,6 +3,7 @@
 pkglib_LTLIBRARIES = 	libnetwork_objects.la
 libnetwork_objects_la_SOURCES = \
 			      network.h \
+			      network.c \
 			      bus.c \
 			      wanlink.c 
 
@@ -10,7 +11,6 @@ libnetwork_objects_la_SOURCES = \
 ##			      disc.c \
 ##			      monitor.c \
 ##			      printer.c \
-##			      network.c \
 ##			      antenna.c \
 ##			      modem.c \
 ##			      flash.c \
