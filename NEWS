@@ -1,3 +1,9 @@
+dia-0.92.2: 01-Nov-2003
+
+* Another Brown Bag release.  Parented objects lost all connections, now
+  retained.  Also fixed crash bug that tried to resize unresizable objects
+  and connections update for children.
+
 dia-0.92.1: 26-Oct-2003
 
 * Brown Bag release.  Fixes crashbug in the "Analog Clock" symbol, and bug

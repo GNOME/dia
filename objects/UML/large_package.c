@@ -374,7 +374,7 @@ largepackage_create(Point *startpoint,
   largepackage_update_data(pkg);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];
+  *handle2 = obj->handles[7];
   return &pkg->element.object;
 }
 

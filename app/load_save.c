@@ -55,6 +55,30 @@
 #define fchmod(f,m) (0)
 #endif
 
+static void read_connections(GList *objects, xmlNodePtr layer_node,
+			     GHashTable *objects_hash);
+static void GHFuncUnknownObjects(gpointer key,
+				 gpointer value,
+				 gpointer user_data);
+static GList *read_objects(xmlNodePtr objects, Layer *layer,
+			   GHashTable *objects_hash,
+			   const char *filename, Object *parent);
+static void hash_free_string(gpointer       key,
+			     gpointer       value,
+			     gpointer       user_data);
+static xmlNodePtr find_node_named (xmlNodePtr p, const char *name);
+static gboolean diagram_data_load(const char *filename, DiagramData *data,
+				  void* user_data);
+static gboolean write_objects(GList *objects, xmlNodePtr objects_node,
+			      GHashTable *objects_hash, int *obj_nr, 
+			      const char *filename);
+static gboolean write_connections(GList *objects, xmlNodePtr layer_node,
+				  GHashTable *objects_hash);
+static xmlDocPtr diagram_data_write_doc(DiagramData *data, const char *filename);
+static int diagram_data_raw_save(DiagramData *data, const char *filename);
+static int diagram_data_save(DiagramData *data, const char *filename);
+
+
 static void
 GHFuncUnknownObjects(gpointer key,
                      gpointer value,
@@ -134,7 +158,8 @@ read_objects(xmlNodePtr objects, Layer *layer,
         {
           if (strcmp(child_node->name, "children") == 0)
           {
-            list = g_list_concat(list, read_objects(child_node, layer, objects_hash, filename, obj));
+	    GList *children_read = read_objects(child_node, layer, objects_hash, filename, obj);
+            list = g_list_concat(list, children_read);
             break;
           }
           child_node = child_node->next;
@@ -185,7 +210,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
     Object *obj = (Object *) list->data;
-    
+
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
     
@@ -233,9 +258,26 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  connection = connection->next;
 	}
       }
-      
     }
     
+    /* Now set up parent relationships. */
+    connections = obj_node->xmlChildrenNode;
+    while ((connections!=NULL) &&
+	   (strcmp(connections->name, "childnode")!=0))
+      connections = connections->next;
+    if (connections != NULL) {
+      tostr = xmlGetProp(connections, "parent");
+      if (tostr) {
+	obj->parent = g_hash_table_lookup(objects_hash, tostr);
+	if (obj->parent == NULL) {
+	  message_error(_("Can't find parent %s of %s object\n"), 
+			tostr, obj->type->name);
+	} else {
+	  obj->parent->children = g_list_prepend(obj->parent->children, obj);
+	}
+      }
+    }
+
     list = g_list_next(list);
     obj_node = obj_node->next;
   }
@@ -515,14 +557,13 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   return TRUE;
 }
 
-static void
+static gboolean
 write_objects(GList *objects, xmlNodePtr objects_node,
 	      GHashTable *objects_hash, int *obj_nr, const char *filename)
 {
   char buffer[31];
   ObjectNode obj_node;
   xmlNodePtr group_node;
-  xmlNodePtr parent_node;
   GList *list;
 
   list = objects;
@@ -543,7 +584,6 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       obj_node = xmlNewChild(objects_node, NULL, "object", NULL);
     
       xmlSetProp(obj_node, "type", obj->type->name);
-      
       g_snprintf(buffer, 30, "%d", obj->type->version);
       xmlSetProp(obj_node, "version", buffer);
       
@@ -555,20 +595,29 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       /* Add object -> obj_nr to hash table */
       g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
       (*obj_nr)++;
-
+      
+      /*
       if (obj->can_parent && obj->children)
       {
+	int res;
+	xmlNodePtr parent_node;
         parent_node = xmlNewChild(obj_node, NULL, "children", NULL);
-        write_objects(obj->children, parent_node,
-      	  	objects_hash, obj_nr, filename);
+        res = write_objects(obj->children, parent_node, objects_hash, obj_nr, filename);
+	if (!res) return FALSE;
       }
+      */
     }
 
     list = g_list_next(list);
   }
+  return TRUE;
 }
 
-static int
+/* Parents broke assumption that both objects and xml nodes are laid out
+ * linearly.  
+ */
+
+static gboolean
 write_connections(GList *objects, xmlNodePtr layer_node,
 		  GHashTable *objects_hash)
 {
@@ -625,12 +674,24 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  g_snprintf(buffer, 30, "O%d",
 		     GPOINTER_TO_INT(g_hash_table_lookup(objects_hash,
 							 other_obj)));
+
 	  xmlSetProp(connection, "to", buffer);
 	  /* to what connection_point on that object */
 	  g_snprintf(buffer, 30, "%d", con_point_nr);
 	  xmlSetProp(connection, "connection", buffer);
+
+
 	}
       }
+    }
+
+    if (obj->parent) {
+      Object *other_obj = obj->parent;
+      xmlNodePtr parent;
+      g_snprintf(buffer, 30, "O%d",
+		 GPOINTER_TO_INT(g_hash_table_lookup(objects_hash, other_obj)));
+      parent = xmlNewChild(obj_node, NULL, "childnode", NULL);
+      xmlSetProp(parent, "parent", buffer);
     }
     
     list = g_list_next(list);
@@ -648,7 +709,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   xmlNodePtr pageinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
   GHashTable *objects_hash;
-  int res;
+  gboolean res;
   int obj_nr;
   int i;
   Layer *layer;

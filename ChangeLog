@@ -1,3 +1,40 @@
+2003-11-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* config.h.win32: 
+	* doc/en/dia-manual.xml: 
+	* dia.spec: 
+	* configure.in: 
+	* NEWS: Another Brown Bag release for parenting problems,
+	including a crash bug fix.
+
+	* app/connectionpoint_ops.c (diagram_update_connections_object):
+	Also update connections when moving children.  This can cause
+	move_handle to be called twice, so it must be idempotent.
+
+	* app/load_save.c: Loading and saving of children totally redone.
+	Now doesn't violate assumption that all objects in a layer are
+	placed in order in XML file.
+
+	* objects/UML/branch.c (branch_create): Don't lie about being
+	resizable. 
+
+	* objects/UML/node.c (node_create): 
+	* objects/UML/large_package.c (largepackage_create): Drag with
+	lower right-hand handle at creation like all other objects.
+
+2003-10-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/disp_callbacks.c (ddisplay_drop_object): Change initial
+	parenting drop to behave like a move inside, i.e. constrain place
+	instead of trying to resize.  'Cause, resizing cannot be done for
+	all objects (e.g. UML Class). Also simplified the algorithm a lot
+	at the same time.
+
+	* app/load_save.c: Saving and loading of connection points for
+	children added.  Prototypes for static functions added.
+
+	* lib/dynamic_obj.c: Removed debugging output.
+
 2003-10-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* doc/en/dia-manual.xml: 

@@ -119,9 +119,14 @@ diagram_update_connections_object(Diagram *dia, Object *obj,
 	
 	list = g_list_next(list);
       }
-      
     }
-    
+  }
+  if (obj->children) {
+    GList *child;
+    for (child = obj->children; child != NULL; child = child->next) {
+      Object *child_obj = (Object *)child->data;
+      diagram_update_connections_object(dia, child_obj, update_nonmoved);
+    }    
   }
 }
 

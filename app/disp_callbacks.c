@@ -799,19 +799,28 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 
   click_distance = ddisplay_untransform_length(ddisp, 3.0);
 
+  /* Notice that using diagram_find_clicked_object doesn't allow any object
+   * below the first to be a parent.  This should be fixed.
+   * -Lars
+   */
   p_obj = diagram_find_clicked_object(ddisp->diagram, &droppoint_orig,
 				    click_distance);
 
   if (p_obj && p_obj->can_parent) /* the tool was dropped inside an object that takes children*/
   {
     Rectangle *p_ext, *c_ext;
-    int new_height = 0, new_width = 0;
     real parent_height, child_height, parent_width, child_width;
+    real vadjust = 0.0, hadjust = 0.0;
     Point new_pos;
 
     obj->parent = p_obj;
     p_obj->children = g_list_append(p_obj->children, obj);
 
+    /* This is not really what we want.  We want the box containing all
+     * rendered parts of the object (not the bbox).  But it'll do for now,
+     * since we don't have the 'rendered bbox'.
+     * -Lars
+     */
     p_ext = parent_handle_extents(p_obj);
     c_ext = parent_handle_extents(obj);
 
@@ -821,64 +830,40 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
     parent_width = p_ext->right - p_ext->left;
     child_width = c_ext->right - c_ext->left;
 
-    /* we need the pre-snap position */
-    c_ext->left = droppoint_orig.x;
-    c_ext->top = droppoint_orig.y;
+    /* we need the pre-snap position, but must remember that handles can
+     * be to the left of the droppoint */
+    c_ext->left = droppoint_orig.x - (obj->position.x - c_ext->left);
+    c_ext->top  = droppoint_orig.y - (obj->position.y - c_ext->top);
     c_ext->right = c_ext->left + child_width;
     c_ext->bottom = c_ext->top + child_height;
 
-    /* check if the top of the child is inside the parent, but the bottom is not */
-    if (c_ext->top < p_ext->bottom && c_ext->bottom > p_ext->bottom)
-    {
-      /* check if child is smaller than parent height wise */
-      if (child_height < parent_height)
-        new_height = child_height;
-      /* check if parent is bigger than 1 in height */
-      else if (parent_height  > 1)
-        new_height = round_up(parent_height) - 1;
+    if (c_ext->left < p_ext->left) {
+      hadjust = p_ext->left - c_ext->left;
+    } else if (c_ext->right > p_ext->right) {
+      hadjust = p_ext->right - c_ext->right;
     }
-    else
-    {
-      new_height = child_height;
-    }
-    /* check if the left of the child is inside the partent, but the right is not */
-    if (c_ext->left < p_ext->right && c_ext->right > p_ext->right)
-    {
-      /* check if child is smaller than parent width wise */
-      if (child_width < parent_width)
-        new_width = child_width;
-      /* check if parent is bigger than 1 in width */
-      else if (parent_width > 1)
-        new_width = round_up(parent_width) - 1;
-    }
-    else
-    {
-      new_width = child_width;
+    if (c_ext->top < p_ext->top) {
+      vadjust = p_ext->top - c_ext->top;
+    } else if (c_ext->bottom > p_ext->bottom) {
+      vadjust = p_ext->bottom - c_ext->bottom;
     }
 
     g_free(p_ext);
     g_free(c_ext);
 
-    /* if we can't fit in both directions, produce an error */
-    if (!new_height && !new_width)
-    {
+    if (child_width > parent_width ||
+	child_height > parent_height) {
       message_error(_("The object you dropped cannot fit into its parent. \nEither expand the parent object, or drop the object elsewhere."));
       obj->parent->children = g_list_remove(obj->parent->children, obj);
       obj->ops->destroy (obj);
       return NULL;
     }
-    /* if we can't fit height wise, make height same as of the parent */
-    else if (!new_height)
-      new_height = parent_height;
-    /* if we can't fit width wise, make the width same as of the parent */
-    else if (!new_width)
-      new_width = parent_width;
 
-    new_pos.x = droppoint.x + new_width;
-    new_pos.y = droppoint.y + new_height;
-    obj->ops->move_handle(obj, handle2, &new_pos, NULL,
-			  HANDLE_MOVE_USER, 0);
-
+    if (hadjust || vadjust) {
+      new_pos.x = droppoint.x + hadjust;
+      new_pos.y = droppoint.y + vadjust;
+      obj->ops->move(obj, &new_pos);
+    }
   }
 
 

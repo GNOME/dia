@@ -166,8 +166,14 @@ branch_move_handle(Branch *branch, Handle *handle,
 
   assert(handle->id < 8);
   
+  /* It smashes size info in update_data anyway.  And none of its siblings
+   * resizable, so until that changes, this should be properly unresizable
+   */
+    
+  /*
   element_move_handle(&branch->element, handle->id, to, cp, reason, modifiers);
   branch_update_data(branch);
+  */
 
   return NULL;
 }
@@ -262,8 +268,12 @@ static Object *branch_create(Point *startpoint, void *user_data, Handle **handle
   elem->extra_spacing.border_trans = BRANCH_BORDERWIDTH / 2.0;
   branch_update_data(branch);
 
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
+
   *handle1 = NULL;
-  *handle2 = obj->handles[0];
+  *handle2 = NULL;
   return &branch->element.object;
 }
 
