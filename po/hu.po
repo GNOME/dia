@@ -606,7 +606,7 @@ msgid ""
 "Unknown file type."
 msgstr ""
 "Nem tudom betölteni a %s ábrát.\n"
-"Nem ismert fájltípus."
+"Ismeretlen fájltípus."
 
 #: app/load_save.c:223
 #, c-format
