@@ -1,3 +1,11 @@
+2000-02-07  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom.c (custom_register_objects): fix usage
+	of dia_get_data_directory again.
+
+	* lib/sheet.c: fix up use of dia_get_data_directory, so that we
+	actually read the sheets.
+
 2000-02-06  Alexander Larsson  <alla@lysator.liu.se>
 
 	Win32 port by Hans Breuer <Hans@Breuer.org>

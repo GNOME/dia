@@ -117,7 +117,7 @@ void load_all_sheets(void) {
       load_sheets_from_dir(dirs[i]);
     g_strfreev(dirs);
   } else {
-    char *thedir = dia_get_data_directory(DIA_SHEETDIR);
+    char *thedir = dia_get_data_directory("sheets");
     load_sheets_from_dir(thedir);
     g_free(thedir);
   }

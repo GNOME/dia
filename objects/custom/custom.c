@@ -114,7 +114,7 @@ custom_register_objects(void)
       load_shapes_from_tree(dirs[i]);
     g_strfreev(dirs);
   } else {
-    char *thedir = dia_get_data_directory(DIA_SHAPEDIR);
+    char *thedir = dia_get_data_directory("shapes");
     load_shapes_from_tree(thedir);
     g_free(thedir);
   }
@@ -125,33 +125,6 @@ void custom_object_new (ShapeInfo *info,
                         SheetObject **sheetobj);
 
 
-
-static gchar *findintshape(gchar *filename) {
-  gchar *ret;
-  static gchar *envvar = NULL;
-  static gboolean checked_env = FALSE;
-  gchar* thedir;
-
-  if (!checked_env)
-    envvar = getenv("DIA_INT_SHAPE_PATH");
-  checked_env = TRUE;
-
-  if (envvar) {
-    ret = g_strconcat(envvar, G_DIR_SEPARATOR_S, filename, NULL);
-    if (!access(ret, R_OK))
-      return ret;
-    g_free(ret);
-  }
-  thedir = dia_get_data_directory(DIA_INT_SHAPEDIR);
-  ret = g_strconcat(thedir, G_DIR_SEPARATOR_S, filename, NULL);
-  g_free(thedir);
-  if (!access(ret, R_OK))
-    return ret;
-  g_free(ret);
-  if (!access(filename, R_OK))
-    return g_strdup(filename);
-  return NULL;
-}
 
 
 gboolean
