@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-20 00:41+0200\n"
-"PO-Revision-Date: 2001-05-20 00:58+02:00\n"
+"POT-Creation-Date: 2001-05-20 22:39+0200\n"
+"PO-Revision-Date: 2001-05-20 22:53+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1658,7 +1658,7 @@ msgstr "Linjestil"
 msgid "Fill colour"
 msgstr "Fyllfarge"
 
-#: lib/properties.c:1259 objects/custom/custom_object.c:360
+#: lib/properties.c:1259 objects/custom/custom_object.c:362
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1973,7 +1973,7 @@ msgstr "Eksport"
 
 #: objects/FS/function.c:620
 msgid "Discharge"
-msgstr ""
+msgstr "Lad ut"
 
 #: objects/FS/function.c:621
 msgid "Eject"
@@ -1981,7 +1981,7 @@ msgstr "Løs ut"
 
 #: objects/FS/function.c:622
 msgid "Dispose"
-msgstr ""
+msgstr "Fjern"
 
 #: objects/FS/function.c:624 objects/FS/function.c:625
 #: objects/FS/function.c:634
@@ -2006,11 +2006,11 @@ msgstr "Send"
 
 #: objects/FS/function.c:633
 msgid "Conduct"
-msgstr ""
+msgstr "Utfør"
 
 #: objects/FS/function.c:635
 msgid "Convey"
-msgstr ""
+msgstr "Formidle"
 
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
@@ -2232,7 +2232,7 @@ msgstr "Rens"
 
 #: objects/FS/function.c:709
 msgid "Strain"
-msgstr ""
+msgstr "Press"
 
 #: objects/FS/function.c:710
 msgid "Filter"
@@ -2240,7 +2240,7 @@ msgstr "Filtrer"
 
 #: objects/FS/function.c:711
 msgid "Percolate"
-msgstr ""
+msgstr "Filtrer"
 
 #: objects/FS/function.c:712
 msgid "Clear"
@@ -2252,7 +2252,7 @@ msgstr "Distribuer"
 
 #: objects/FS/function.c:715
 msgid "Diverge"
-msgstr ""
+msgstr "Del"
 
 #: objects/FS/function.c:716
 msgid "Scatter"
@@ -2260,7 +2260,7 @@ msgstr "Spre"
 
 #: objects/FS/function.c:717
 msgid "Disperse"
-msgstr ""
+msgstr "Spre"
 
 #: objects/FS/function.c:718 objects/FS/function.c:725
 msgid "Diffuse"
@@ -2280,7 +2280,7 @@ msgstr "Ta opp"
 
 #: objects/FS/function.c:723
 msgid "Dampen"
-msgstr ""
+msgstr "Fukt"
 
 #: objects/FS/function.c:724
 msgid "Dispel"
@@ -2308,7 +2308,7 @@ msgstr "Samle"
 
 #: objects/FS/function.c:733
 msgid "Reserve"
-msgstr ""
+msgstr "Reserver"
 
 #: objects/FS/function.c:735 objects/FS/function.c:736
 msgid "Supply"
@@ -2361,7 +2361,7 @@ msgstr "Kontroll"
 
 #: objects/FS/function.c:753
 msgid "Enable"
-msgstr ""
+msgstr "Slå på"
 
 #: objects/FS/function.c:754
 msgid "Disable"
@@ -2421,7 +2421,7 @@ msgstr "Formgi"
 
 #: objects/FS/function.c:771
 msgid "Compact"
-msgstr ""
+msgstr "Trykk sammen"
 
 #: objects/FS/function.c:772
 msgid "Crush"
@@ -2449,7 +2449,7 @@ msgstr "Overfør"
 
 #: objects/FS/function.c:779
 msgid "Liquefy"
-msgstr ""
+msgstr "Likvifiser"
 
 #: objects/FS/function.c:780
 msgid "Solidify"
@@ -2457,11 +2457,11 @@ msgstr "Solidifiser"
 
 #: objects/FS/function.c:781
 msgid "Evaporate"
-msgstr ""
+msgstr "Fordamp"
 
 #: objects/FS/function.c:782
 msgid "Sublimate"
-msgstr ""
+msgstr "Sublimer"
 
 #: objects/FS/function.c:783
 msgid "Condense"
@@ -2493,7 +2493,7 @@ msgstr "Gjenkjenn"
 
 #: objects/FS/function.c:793
 msgid "Discern"
-msgstr ""
+msgstr "Tyd"
 
 #: objects/FS/function.c:794
 msgid "Check"
@@ -2529,7 +2529,7 @@ msgstr "Representer"
 
 #: objects/FS/function.c:805
 msgid "Noun"
-msgstr ""
+msgstr "Substantiv"
 
 #: objects/FS/function.c:808
 msgid "Liquid"
@@ -2646,11 +2646,11 @@ msgstr "Varme"
 
 #: objects/FS/function.c:838
 msgid "Conduction"
-msgstr ""
+msgstr "Konduksjon"
 
 #: objects/FS/function.c:839
 msgid "Convection"
-msgstr ""
+msgstr "Konveksjon"
 
 #: objects/FS/function.c:840 objects/FS/function.c:844
 msgid "Radiation"
@@ -2726,7 +2726,7 @@ msgstr "Wish-funksjon"
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
 #: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
 #: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:394 objects/flowchart/box.c:353
+#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
 #: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
 #: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
@@ -2738,7 +2738,7 @@ msgstr "Skrifttype:"
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
 #: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
 #: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:405 objects/flowchart/box.c:364
+#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
 #: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
 #: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
@@ -2759,16 +2759,15 @@ msgstr "Betingelse"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
-msgstr ""
+msgstr "Boolsk ligning for betingelsen"
 
 #: objects/GRAFCET/condition.c:131
-#, fuzzy
 msgid "The condition's font"
-msgstr "Slett forbindelsespunkt"
+msgstr "Betingelsens skrifttype"
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
-msgstr ""
+msgstr "Størrelse på skrifttype for betingelse"
 
 #: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
 msgid "Color"
@@ -2776,7 +2775,7 @@ msgstr "Farge"
 
 #: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
-msgstr ""
+msgstr "Farge for betingelse"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -2828,19 +2827,19 @@ msgstr "Mottagelighet"
 
 #: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
-msgstr ""
+msgstr "Boolsk ligning for mottakelighet"
 
 #: objects/GRAFCET/transition.c:140
 msgid "The receptivity's font"
-msgstr ""
+msgstr "Skrifttype for mottakelighet"
 
 #: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font size"
-msgstr ""
+msgstr "Størrelse på skrifttype for mottakelighet"
 
 #: objects/GRAFCET/transition.c:145
 msgid "The receptivity's color"
-msgstr ""
+msgstr "Farge for mottakelighet"
 
 #: objects/GRAFCET/transition.c:146
 msgid "North point"
@@ -2919,7 +2918,7 @@ msgid "SADT Arrow"
 msgstr "SADT pil"
 
 #: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:369 objects/flowchart/box.c:339
+#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
 #: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
 #: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
@@ -3360,25 +3359,30 @@ msgstr "Egendefinert"
 msgid "Custom XML shapes loader"
 msgstr "Egendefinert laster for XML-former"
 
-#: objects/custom/custom_object.c:183 objects/custom/custom_object.c:201
+#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Vend vertikalt"
 
-#: objects/custom/custom_object.c:383 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:1427
+#: objects/custom/custom_object.c:1429
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1428
+#: objects/custom/custom_object.c:1430
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
+
+#: objects/custom/custom_object.c:1463
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Kan ikke åpne ikonfil %s for objekttype '%s'."
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
@@ -3413,7 +3417,7 @@ msgstr "Legg til håndtak"
 msgid "Delete Handle"
 msgstr "Slett håndtak"
 
-#: objects/network/network.c:55
+#: objects/network/network.c:41
 msgid "Network diagram objects"
 msgstr "Objekter for nettverksdiagram"
 
@@ -3575,14 +3579,12 @@ msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics Metafile eksportfilter"
 
 #: plug-ins/xfig/xfig.c:39
-#, fuzzy
 msgid "Fig Format import and export filter"
-msgstr "Fig format importfilter"
+msgstr "Fig format import- og eksportfilter"
 
 #: plug-ins/xfig/xfig-import.c:73
-#, fuzzy
 msgid "Polygon import is not implemented yes"
-msgstr "Objekttype %d er ikke implementert ennå\n"
+msgstr "Polygon-import er ikke implementert ennå"
 
 #: plug-ins/xfig/xfig-import.c:74
 msgid "Patterns are not supported by Dia"
@@ -3590,21 +3592,20 @@ msgstr "Mønstre er ikke støttet av Dia"
 
 #: plug-ins/xfig/xfig-import.c:75
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
+msgstr "Trippel-prikkede linjer er ikke støttet av Dia, bruker dobbelt-prikket"
 
 #: plug-ins/xfig/xfig-import.c:76
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Negativ hjørneradius, negerer"
 
 #: plug-ins/xfig/xfig-import.c:77
-#, fuzzy
 msgid "Spline import is not implemented yet"
-msgstr "Objekttype %d er ikke implementert ennå\n"
+msgstr "Spline-import er ikke implementert ennå"
 
 #: plug-ins/xfig/xfig-import.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "Line style %d should not appear\n"
-msgstr "Linjestil %d ikke støttet\n"
+msgstr "Linjestil %d burde ikke kommet til syne\n"
 
 #: plug-ins/xfig/xfig-import.c:395
 #, c-format
@@ -3636,9 +3637,9 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Ukjent undertype for polilinje: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:707
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr "Kunne ikke lese tekstinfo: %s\n"
+msgstr "Kunne ikke lese informasjon om bue: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:781
 #, c-format
@@ -3682,7 +3683,7 @@ msgstr "Feil under lesing av papirstørrelse: %s\n"
 #: plug-ins/xfig/xfig-import.c:950
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "Ukjent papirstørrelse `%s', bruker forvalg\n"
 
 #: plug-ins/xfig/xfig-import.c:962
 #, c-format
