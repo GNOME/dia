@@ -44,5 +44,5 @@ libdia_a_SOURCES =  \
 
 CPPFLAGS = @GTK_CFLAGS@
 
-CFLAGS = -Wall -g
+CFLAGS = @CFLAGS@
 

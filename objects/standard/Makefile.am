@@ -15,4 +15,4 @@ libstandard_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 
 CPPFLAGS = @GTK_CFLAGS@
 INCLUDES = -I$(srcdir)/../../lib
-CFLAGS = -Wall -g
+CFLAGS = @CFLAGS@

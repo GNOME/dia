@@ -20,7 +20,8 @@ libuml_objects_la_SOURCES = \
 			dependency.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libuml_objects_la_LIBADD = @GTK_LIBS@
 
 CPPFLAGS = @GTK_CFLAGS@
 INCLUDES = -I$(srcdir)/../../lib
-CFLAGS = -Wall -g
+CFLAGS = @CFLAGS@

@@ -59,7 +59,7 @@ dia_SOURCES = \
 
 CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\"
 
-CFLAGS = -Wall -g 
+CFLAGS = @CFLAGS@
 
 INCLUDES = -I$(srcdir)/../lib
 

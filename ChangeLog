@@ -1,3 +1,13 @@
+1998-10-12  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/Makefile.am:
+	* lib/Makefile.am:
+	* objects/UML/Makefile.am:
+	* objects/network/Makefile.am:
+	* objects/standard/Makefile.am:
+	Changed "CFLAGS = -Wall -g" to "CFLAGS = @CFLAGS@"
+	in all Makefile.am.
+
 1998-10-03  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/handle_ops.c (handle_draw):
