@@ -1,5 +1,7 @@
 2005-03-31  Lars Clausen  <lars@raeder.dk>
 
+	* lib/neworth_conn.c (neworthconn_update_data): Handle autogap.
+
 	* lib/orth_conn.c (orthconn_update_data): Handle autogap while not
 	autorouting.  
 

@@ -307,11 +307,41 @@ neworthconn_update_data(NewOrthConn *orth)
 {
   int i;
   DiaObject *obj = (DiaObject *)orth;
+  Point *points;
+  ConnectionPoint *start_cp = orth->handles[0]->connected_to;
+  ConnectionPoint *end_cp = orth->handles[orth->numpoints-2]->connected_to;
 
   if (!orth->points) {
     g_warning("This NewOrthConn object is very sick !");
     return;
   }
+
+  points = orth->points;
+  if (connpoint_is_autogap(start_cp) || 
+      connpoint_is_autogap(end_cp)) {
+    Point* new_points = g_new(Point, orth->numpoints);
+    int i;
+    for (i = 0; i < orth->numpoints; i++) {
+      new_points[i] = points[i];
+    }
+
+    if (connpoint_is_autogap(start_cp)) {
+      new_points[0] = calculate_object_edge(&start_cp->pos, &new_points[1],
+					    start_cp->object);
+      printf("Moved start to %f, %f\n",
+	     new_points[0].x, new_points[0].y);
+    }
+    if (connpoint_is_autogap(end_cp)) {
+      new_points[orth->numpoints-1] =
+	calculate_object_edge(&end_cp->pos, &new_points[orth->numpoints-2],
+			      end_cp->object);
+      printf("Moved end to %f, %f\n",
+	     new_points[orth->numpoints-1].x, new_points[orth->numpoints-1].y);
+    }
+    g_free(points);
+    orth->points = new_points;
+  }
+
   obj->position = orth->points[0];
 
   adjust_handle_count_to(orth,orth->numpoints-1);
