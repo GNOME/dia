@@ -239,6 +239,31 @@ typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
 					int width, int height,
 					Color *color);
 
+/* Functions to draw lines with various arrows */
+/* All Draw*WithArrowsFuncs assume that any arrow transformation is included
+   in the points.  If a renderer wants to get the original points, it must
+   untransform the points.
+ */
+typedef void (*DrawLineWithArrowsFunc) (Renderer *renderer,
+					Point *from, Point *to,
+					Color color,
+					Arrow *start_arrow,
+					Arrow *end_arrow);
+
+typedef void (*DrawPolyLineWithArrowsFunc) (Renderer *renderer,
+					    Point *points, int num_points,
+					    Color color,
+					    Arrow *start_arrow,
+					    Arrow *end_arrow);
+
+typedef void (*DrawArcWithArrowsFunc) (Renderer *renderer,
+				       Point *center,
+				       real width, real height,
+				       real angle1, real angle2,
+				       Color color,
+				       Arrow *start_arrow,
+				       Arrow *end_arrow);
+
 typedef void (*DrawBezierWithArrowsFunc) (Renderer *renderer, 
 					  BezPoint *points,
 					  int num_points,
@@ -292,11 +317,14 @@ struct _RenderOps {
   DrawStringFunc    draw_string;
 
   /* Images: */
-  DrawImageFunc     draw_image; /* Not really supported yet */
+  DrawImageFunc     draw_image;
 
   DrawRoundedRectangleFunc draw_rounded_rect;
   FillRoundedRectangleFunc fill_rounded_rect;
 
+  DrawLineWithArrowsFunc draw_line_with_arrows;
+  DrawPolyLineWithArrowsFunc draw_polyline_with_arrows;
+  DrawArcWithArrowsFunc draw_arc_with_arrows;
   DrawBezierWithArrowsFunc draw_bezier_with_arrows;
 };
 

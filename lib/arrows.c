@@ -753,11 +753,58 @@ arrow_draw(Renderer *renderer, ArrowType type,
     draw_crow_foot(renderer,to,from,length,width,linewidth,fg_color,bg_color);
     break;
   case ARROW_CROSS:
-	draw_cross(renderer, to, from, length, width, linewidth, fg_color);
+    draw_cross(renderer, to, from, length, width, linewidth, fg_color);
   break;
 
   } 
 }
 
+/* ********************************************************************** 
+ * Transformation functions to move points to account for arrows.
+ * ********************************************************************** */
 
-
+/* Transforms 'start' to be at the back end of the arrow, and puts the
+ * tip of the arrow into 'arrowtip'.
+ */
+void
+arrow_transform_points(Arrow *arrow, Point *start, Point *to,
+		       int linewidth, Point *arrowtip) {
+  switch (arrow->type) {
+  case ARROW_NONE:
+  case ARROW_CROSS:
+  case ARROW_CROW_FOOT:
+    break;
+  case ARROW_LINES:
+    /* This is non-trivial */
+    break;
+  case ARROW_HALF_HEAD:
+    /* This one is tricky? */
+    break;
+  case ARROW_HOLLOW_TRIANGLE:
+  case ARROW_UNFILLED_TRIANGLE:
+  case ARROW_FILLED_TRIANGLE:
+    break;
+  case ARROW_HOLLOW_DIAMOND:
+  case ARROW_FILLED_DIAMOND:
+    /* This is non-trivial */
+    break;
+  case ARROW_FILLED_DOT:
+  case ARROW_BLANKED_DOT:
+  case ARROW_FILLED_ELLIPSE:
+  case ARROW_HOLLOW_ELLIPSE:
+    break;
+  case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+  case ARROW_DOUBLE_FILLED_TRIANGLE:
+    break;
+  case ARROW_SLASHED_CROSS:
+  case ARROW_INTEGRAL_SYMBOL:
+  case ARROW_SLASH_ARROW:
+    break;
+  case ARROW_DIMENSION_ORIGIN: /* Circle, vertline, unfilled */
+    break;
+  case ARROW_FILLED_BOX:
+  case ARROW_BLANKED_BOX:
+    break;
+  }
+}
+		       

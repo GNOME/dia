@@ -1,3 +1,9 @@
+2002-04-18  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/lineprops_area.c: Arrow selector in toolbox changed to use
+	standard arrowdraw code.  Line is thinner to make some arrowheads
+	distinguishable. 
+
 2002-04-18  Steffen Macke <sdteffen@web.de>
 
 	* sheets/network.sheet.in:

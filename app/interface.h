@@ -80,7 +80,8 @@ extern ToolButton tool_data[];
 extern gchar *interface_current_sheet_name;
 
 void tool_select_update (GtkWidget *w, gpointer   data);
-
 void fill_sheet_menu(void);
+
+extern GtkTooltips *tool_tips;
 
 #endif /* INTERFACE_H */

@@ -33,21 +33,21 @@ typedef enum {
   ARROW_HOLLOW_DIAMOND,    
   ARROW_FILLED_DIAMOND,
   ARROW_HALF_HEAD,
-  ARROW_SLASHED_CROSS,     
+  ARROW_SLASHED_CROSS,     /* Vertical + diagonal line */
   ARROW_FILLED_ELLIPSE,
   ARROW_HOLLOW_ELLIPSE,
   ARROW_DOUBLE_HOLLOW_TRIANGLE,
   ARROW_DOUBLE_FILLED_TRIANGLE,
   ARROW_UNFILLED_TRIANGLE,       /* {unfilled arrow} */
-  ARROW_FILLED_DOT,              /* {filled dot} */      
-  ARROW_DIMENSION_ORIGIN,        /* {dimension origin} */ 
-  ARROW_BLANKED_DOT,             /* {blanked dot} */       
-  ARROW_FILLED_BOX,              /* {filled box} */        
-  ARROW_BLANKED_BOX,             /* {blanked box} */       
-  ARROW_SLASH_ARROW,             /* {slash arrow} */
-  ARROW_INTEGRAL_SYMBOL,          /* {integral symbol} */   
+  ARROW_FILLED_DOT,              /* {filled dot} Ellipse + vertical line */ 
+  ARROW_DIMENSION_ORIGIN,        /* {dimension origin} Ellipse + vert line */ 
+  ARROW_BLANKED_DOT,             /* {blanked dot} Empty ellipse + vert line */
+  ARROW_FILLED_BOX,              /* {filled box} Box + vertical line */
+  ARROW_BLANKED_BOX,             /* {blanked box} Box + vertical line */
+  ARROW_SLASH_ARROW,             /* {slash arrow} Vertical + diagonal line*/
+  ARROW_INTEGRAL_SYMBOL,         /* {integral symbol} Vertical + integral */
   ARROW_CROW_FOOT,
-  ARROW_CROSS
+  ARROW_CROSS                    /* Vertical line */
 } ArrowType;
 
 typedef struct {

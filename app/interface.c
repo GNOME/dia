@@ -120,7 +120,7 @@ const int num_tools = NUM_TOOLS;
 
 static GtkWidget *toolbox_shell = NULL;
 static GtkWidget *tool_widgets[NUM_TOOLS];
-static GtkTooltips *tool_tips;
+/*static*/ GtkTooltips *tool_tips;
 static GSList *tool_group = NULL;
 
 GtkWidget *modify_tool_button;
