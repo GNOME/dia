@@ -1,3 +1,25 @@
+1999-04-22  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/network/antenna.c
+	* objects/network/flash.c
+	* objects/network/hub.c
+	* objects/network/modem.c
+	* objects/network/modularswitch.c
+	* objects/network/rj45plug.c
+	* objects/network/scead-plug.c
+	* objects/network/network.c
+	* objects/network/Makefile.am
+	* objects/network/pixmaps/antenna.xpm
+	* objects/network/pixmaps/flash.xpm
+	* objects/network/pixmaps/hub.xpm
+	* objects/network/pixmaps/modem.xpm
+	* objects/network/pixmaps/modularswitch.xpm
+	* objects/network/pixmaps/rj45plug.xpm
+	* objects/network/pixmaps/sceadplug.xpm
+	* objects/network/pixmaps/Makefile.am
+	Lots of new network objects from
+	Roland Steinbach <roland@support-system.com>.
+
 1999-04-15  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
  
         * objects/UML/classicon.c: 
