@@ -35,6 +35,7 @@
 #include "pixmaps/aggregation.xpm"
 
 typedef struct _Association Association;
+typedef struct _AssociationState AssociationState;
 typedef struct _AssociationPropertiesDialog AssociationPropertiesDialog;
 
 typedef enum {
@@ -59,6 +60,21 @@ typedef struct _AssociationEnd {
   int arrow;
   AggregateType aggregate; /* Note: Can only be != NONE on ONE side! */
 } AssociationEnd;
+
+struct _AssociationState {
+  ObjectState obj_state;
+
+  char *name;
+  AssociationDirection direction;
+
+  struct {
+    char *role;
+    char *multiplicity;
+    int arrow;
+    AggregateType aggregate;
+  } end[2];
+};
+
 
 struct _Association {
   OrthConn orth;
@@ -112,7 +128,14 @@ static Object *association_create(Point *startpoint,
 static void association_destroy(Association *assoc);
 static Object *association_copy(Association *assoc);
 static GtkWidget *association_get_properties(Association *assoc);
-static void association_apply_properties(Association *assoc);
+static ObjectChange *association_apply_properties(Association *assoc);
+static DiaMenu *association_get_object_menu(Association *assoc,
+					    Point *clickedpoint);
+
+static AssociationState *association_get_state(Association *assoc);
+static void association_set_state(Association *assoc,
+				  AssociationState *state);
+
 static void association_save(Association *assoc, ObjectNode obj_node,
 			     const char *filename);
 static Object *association_load(ObjectNode obj_node, int version,
@@ -166,7 +189,7 @@ static ObjectOps association_ops = {
   (MoveHandleFunc)      association_move_handle,
   (GetPropertiesFunc)   association_get_properties,
   (ApplyPropertiesFunc) association_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      association_get_object_menu
 };
 
 static real
@@ -337,6 +360,86 @@ association_draw(Association *assoc, Renderer *renderer)
 }
 
 static void
+association_state_free(ObjectState *ostate)
+{
+  AssociationState *state = (AssociationState *)ostate;
+  int i;
+  g_free(state->name);
+
+  for (i=0;i<2;i++) {
+    g_free(state->end[i].role);
+    g_free(state->end[i].multiplicity);
+  }
+}
+
+static AssociationState *
+association_get_state(Association *assoc)
+{
+  int i;
+  AssociationEnd *end;
+
+  AssociationState *state = g_new(AssociationState, 1);
+
+  state->obj_state.free = association_state_free;
+
+  state->name = g_strdup(assoc->name);
+  state->direction = assoc->direction;
+  
+  for (i=0;i<2;i++) {
+    end = &assoc->end[i];
+    state->end[i].role = g_strdup(end->role);
+    state->end[i].multiplicity = g_strdup(end->multiplicity);
+    state->end[i].arrow = end->arrow;
+    state->end[i].aggregate = end->aggregate;
+  }
+
+  return state;
+}
+
+static void
+association_set_state(Association *assoc, AssociationState *state)
+{
+  int i;
+  AssociationEnd *end;
+  
+  g_free(assoc->name);
+  assoc->name = state->name;
+  assoc->text_width = 0.0;
+  if (assoc->name != NULL) {
+    assoc->text_width =
+      font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+  } 
+  
+  assoc->direction = state->direction;
+  
+  for (i=0;i<2;i++) {
+    end = &assoc->end[i];
+    g_free(end->role);
+    g_free(end->multiplicity);
+    end->role = state->end[i].role;
+    end->multiplicity = state->end[i].multiplicity;
+    end->arrow = state->end[i].arrow;
+    end->aggregate = state->end[i].aggregate;
+
+    end->text_width = 0.0;
+    if (end->role != NULL) {
+      end->text_width = 
+	font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+    }
+    if (end->multiplicity != NULL) {
+      end->text_width =
+	MAX(end->text_width,
+	    font_string_width(end->multiplicity, assoc_font, ASSOCIATION_FONTHEIGHT) );
+    }
+  }
+
+  g_free(state);
+  
+  association_update_data(assoc);
+}
+
+
+static void
 association_update_data(Association *assoc)
 {
   OrthConn *orth = &assoc->orth;
@@ -504,6 +607,49 @@ association_create(Point *startpoint,
   return (Object *)assoc;
 }
 
+static ObjectChange *
+association_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
+  association_update_data((Association *)obj);
+  return change;
+}
+
+static ObjectChange *
+association_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
+  association_update_data((Association *)obj);
+  return change;
+}
+
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add segment"), association_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), association_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  "Association",
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+association_get_object_menu(Association *assoc, Point *clickedpoint)
+{
+  OrthConn *orth;
+
+  orth = &assoc->orth;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  return &object_menu;
+}
+
 static void
 association_destroy(Association *assoc)
 {
@@ -511,15 +657,11 @@ association_destroy(Association *assoc)
   
   orthconn_destroy(&assoc->orth);
 
-  if (assoc->name != NULL)
-    g_free(assoc->name);
+  g_free(assoc->name);
 
   for (i=0;i<2;i++) {
-    if (assoc->end[i].role != NULL)
-      g_free(assoc->end[i].role);
-    
-    if (assoc->end[i].multiplicity != NULL)
-      g_free(assoc->end[i].multiplicity);
+    g_free(assoc->end[i].role);
+    g_free(assoc->end[i].multiplicity);
   }
 
   if (assoc->properties_dialog != NULL) {
@@ -679,19 +821,21 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)assoc;
 }
 
-static void
+static ObjectChange *
 association_apply_properties(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
   char *str;
   GtkWidget *menuitem;
   int i;
+  ObjectState *old_state;
   
   prop_dialog = assoc->properties_dialog;
 
+  old_state = (ObjectState *)association_get_state(assoc);
+  
   /* Read from dialog and put in object: */
-  if (assoc->name != NULL)
-    g_free(assoc->name);
+  g_free(assoc->name);
   str = gtk_entry_get_text(prop_dialog->name);
   if (strlen(str) != 0)
     assoc->name = strdup(str);
@@ -712,8 +856,7 @@ association_apply_properties(Association *assoc)
   for (i=0;i<2;i++) {
     AssociationEnd *end = &assoc->end[i];
     /* Role: */
-    if (end->role != NULL)
-      g_free(end->role);
+    g_free(end->role);
     str = gtk_entry_get_text(prop_dialog->end[i].role);
     if (strlen(str) != 0)
       end->role = strdup(str);
@@ -721,8 +864,7 @@ association_apply_properties(Association *assoc)
       end->role = NULL;
 
     /* Multiplicity: */
-    if (end->multiplicity != NULL)
-      g_free(end->multiplicity);
+    g_free(end->multiplicity);
     str = gtk_entry_get_text(prop_dialog->end[i].multiplicity);
     if (strlen(str) != 0)
       end->multiplicity = strdup(str);
@@ -752,6 +894,9 @@ association_apply_properties(Association *assoc)
   }
 
   association_update_data(assoc);
+  return new_object_state_change((Object *)assoc, old_state, 
+				 (GetStateFunc)association_get_state,
+				 (SetStateFunc)association_set_state);
 }
 
 static void

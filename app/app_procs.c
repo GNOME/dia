@@ -111,6 +111,12 @@ save_state (GnomeClient        *client,
 static int current_version = 0;
 
 void
+debug_break(void)
+{
+  /* Break here. All symbols are loaded. */
+}
+
+void
 app_init (int argc, char **argv)
 {
   Diagram *diagram = NULL;
@@ -176,6 +182,7 @@ app_init (int argc, char **argv)
 
   register_all_objects();
   register_all_sheets();
+  debug_break();
 
   if (object_get_type("Standard - Box") == NULL) {
     message_error(_("Couldn't find standard objects when looking for "

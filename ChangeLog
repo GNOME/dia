@@ -1,3 +1,17 @@
+1999-09-14  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in:
+	Updated version string to 0.41cvs.
+
+	* objects/UML/assocition.c:
+	Update to new undo (w. get/set_state).
+	Add object menu to add/delete segments.
+
+	* app/app_procs.c:
+	Added function debug_break() and called it after all
+	objects and sheets are loaded. Place a breakpoint here if you
+	want to debug objects. All symbols should be loaded.
+
 1999-09-12  James Henstridge  <james@daa.com.au>
 
 	* app/menus.c (display_menu_items): added print menu item.
