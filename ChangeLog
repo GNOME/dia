@@ -1,3 +1,8 @@
+2005-03-21  Lars Clausen  <lars@raeder.dk>
+
+	* lib/autoroute.c (autoroute_layout_orthconn): Remember to
+	unnormalize from same point as you normalize, or else!
+
 2005-03-20  Lars Clausen  <lars@raeder.dk>
 
 	* app/app_procs.c (do_convert): Patch from crux@gorodmasterov.com:

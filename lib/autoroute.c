@@ -43,8 +43,7 @@ static real autoroute_layout_orthogonal(Point *to,
 					  guint *num_points, Point **points);
 static real autoroute_layout_opposite(Point *to, 
 					guint *num_points, Point **points);
-static Point autolayout_adjust_for_gap(Point *pos, int dir, OrthConn *conn,
-				       Point *otherpos, ConnectionPoint *cp);
+static Point autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp);
 static guint autolayout_normalize_points(guint startdir, guint enddir,
 					 Point start, Point end,
 					 Point *newend);
@@ -73,11 +72,15 @@ autoroute_layout_orthconn(OrthConn *conn,
 
   frompos = conn->points[0];
   topos = conn->points[conn->numpoints-1];
-  if (startconn != NULL) 
+  if (startconn != NULL) {
     fromdir = startconn->directions;
+    frompos = startconn->pos;
+  }
   else fromdir = DIR_NORTH|DIR_EAST|DIR_SOUTH|DIR_WEST;
-  if (endconn != NULL) 
+  if (endconn != NULL) {
     todir = endconn->directions;
+    topos = endconn->pos;
+  }
   else todir = DIR_NORTH|DIR_EAST|DIR_SOUTH|DIR_WEST;
 
   for (startdir = DIR_NORTH; startdir <= DIR_WEST; startdir *= 2) {
@@ -90,10 +93,14 @@ autoroute_layout_orthconn(OrthConn *conn,
 	guint normal_enddir;
 	Point startpoint, endpoint;
 	Point otherpoint;
-	startpoint = autolayout_adjust_for_gap(&frompos, startdir, conn,
-					       &topos, startconn);
-	endpoint = autolayout_adjust_for_gap(&topos, enddir, conn,
-					     &frompos, endconn);
+	startpoint = autolayout_adjust_for_gap(&frompos, startdir, startconn);
+	endpoint = autolayout_adjust_for_gap(&topos, enddir, endconn);
+	printf("Startdir %d enddir %d orgstart %.2f, %.2f orgend %.2f, %.2f start %.2f, %.2f end %.2f, %.2f\n",
+	       startdir, enddir,
+	       frompos.x, frompos.y,
+	       topos.x, topos.y,
+	       startpoint.x, startpoint.y,
+	       endpoint.x, endpoint.y);
 	normal_enddir = autolayout_normalize_points(startdir, enddir,
 						    startpoint, endpoint,
 						    &otherpoint);
@@ -119,7 +126,7 @@ autoroute_layout_orthconn(OrthConn *conn,
 	    */
 	    min_badness = this_badness;
 	    if (best_layout != NULL) g_free(best_layout);
-	    best_layout = autolayout_unnormalize_points(startdir, frompos,
+	    best_layout = autolayout_unnormalize_points(startdir, startpoint,
 							this_layout, 
 							this_num_points);
 	    best_num_points = this_num_points;
@@ -170,8 +177,7 @@ calculate_badness(Point *ps, guint num_points)
 
 /** Adjust one end of an orthconn for gaps */
 static Point
-autolayout_adjust_for_gap(Point *pos, int dir, OrthConn *conn,
-			  Point *otherpos, ConnectionPoint *cp)
+autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
 {
   DiaObject *object;
   Point dir_other;
