@@ -81,7 +81,7 @@ msgstr "Неможливо створити користувацький каталог конф╕гурац╕╖ Dia"
 
 #: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
-msgstr ""
+msgstr "Об'╓кти та ф╕льтри всередин╕ dia"
 
 #: app/color_area.c:260 lib/widgets.c:492
 msgid "Select color"
@@ -147,27 +147,24 @@ msgid "/Edit/Delete"
 msgstr "/Редагування/Видалити"
 
 #: app/diagram.c:167 app/menus.c:262
-#, fuzzy
 msgid "/Edit/Copy Text"
-msgstr "/Редагування/Скоп╕ювати"
+msgstr "/Редагування/Скоп╕ювати текст"
 
 #: app/diagram.c:169 app/menus.c:263
-#, fuzzy
 msgid "/Edit/Cut Text"
-msgstr "/Редагування/Вир╕зати"
+msgstr "/Редагування/Вир╕зати текст"
 
 #: app/diagram.c:171
-#, fuzzy
 msgid "/Edit/Paste Text"
-msgstr "/Редагування/Вставити"
+msgstr "/Редагування/Вставити текст"
 
 #: app/diagram.c:174
 msgid "/Objects/Send to Back"
-msgstr "/Об'╓кти/Перем╕стити вниз"
+msgstr "/Об'╓кти/Перем╕стити донизу"
 
 #: app/diagram.c:176
 msgid "/Objects/Bring to Front"
-msgstr "/Об'╓кти/Перем╕стити наверх"
+msgstr "/Об'╓кти/Перем╕стити нагори"
 
 #: app/diagram.c:179
 msgid "/Objects/Group"
@@ -275,7 +272,6 @@ msgid "/View/Show Connection Points"
 msgstr "/Вигляд/Показувати точки з'╓днання"
 
 #: app/display.c:873
-#, fuzzy
 msgid "/View/AntiAliased"
 msgstr "/Вигляд/Згладжування"
 
@@ -296,9 +292,8 @@ msgid "Modify object(s)"
 msgstr "Зм╕нити об'╓кт(и)"
 
 #: app/interface.c:36 app/menus.c:177
-#, fuzzy
 msgid "Modify"
-msgstr "Зб╕льшити"
+msgstr "Модиф╕кувати"
 
 #: app/interface.c:40 app/interface.c:41 app/menus.c:178
 msgid "Magnify"
@@ -310,7 +305,7 @@ msgstr "Прокрутити в╕кно д╕аграми"
 
 #: app/interface.c:46 app/menus.c:179
 msgid "Scroll"
-msgstr ""
+msgstr "Прокрутити"
 
 #: app/interface.c:50
 msgid "Create Text"
@@ -318,7 +313,7 @@ msgstr "Створити блок тексту"
 
 #: app/interface.c:51 app/menus.c:180
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: app/interface.c:55
 msgid "Create Box"
@@ -326,25 +321,23 @@ msgstr "Створити прямокутник"
 
 #: app/interface.c:56 app/menus.c:181
 msgid "Box"
-msgstr ""
+msgstr "Прямокутник"
 
 #: app/interface.c:60
 msgid "Create Ellipse"
 msgstr "Створити ел╕пс"
 
 #: app/interface.c:61 app/menus.c:182
-#, fuzzy
 msgid "Ellipse"
-msgstr "Створити ел╕пс"
+msgstr "Ел╕пс"
 
 #: app/interface.c:65
-#, fuzzy
 msgid "Create Polygon"
-msgstr "Створити ламану"
+msgstr "Створити многокутник"
 
 #: app/interface.c:66 app/menus.c:183
 msgid "Polygon"
-msgstr ""
+msgstr "Многокутник"
 
 #: app/interface.c:70
 msgid "Create Line"
@@ -360,43 +353,39 @@ msgstr "Створити дугу"
 
 #: app/interface.c:76 app/menus.c:185
 msgid "Arc"
-msgstr ""
+msgstr "Дуга"
 
 #: app/interface.c:80
 msgid "Create Zigzagline"
 msgstr "Створити згин"
 
 #: app/interface.c:81 app/menus.c:186
-#, fuzzy
 msgid "Zigzagline"
-msgstr "Створити згин"
+msgstr "Згин"
 
 #: app/interface.c:85
 msgid "Create Polyline"
 msgstr "Створити ламану"
 
 #: app/interface.c:86 app/menus.c:187
-#, fuzzy
 msgid "Polyline"
-msgstr "Створити ламану"
+msgstr "Ламана"
 
 #: app/interface.c:90
 msgid "Create Bezierline"
 msgstr "Створити криву Без'╓"
 
 #: app/interface.c:91 app/menus.c:188
-#, fuzzy
 msgid "Bezierline"
-msgstr "Створити криву Без'╓"
+msgstr "Крива Без'╓"
 
 #: app/interface.c:95
 msgid "Create Image"
 msgstr "Створити зображення"
 
 #: app/interface.c:96 app/menus.c:189
-#, fuzzy
 msgid "Image"
-msgstr "Файл зображення"
+msgstr "Зображення"
 
 #: app/interface.c:301
 msgid "NULL tooldata in tool_select_update"
@@ -540,7 +529,7 @@ msgstr "Створити нову д╕аграму"
 
 #: app/menus.c:42
 msgid "Plug-ins"
-msgstr ""
+msgstr "Доповнення"
 
 #: app/menus.c:56
 msgid "_Export..."
@@ -559,19 +548,16 @@ msgid "_Delete"
 msgstr "Видалити"
 
 #: app/menus.c:83
-#, fuzzy
 msgid "Copy Text"
-msgstr "Створити блок тексту"
+msgstr "Скоп╕ювати текст"
 
 #: app/menus.c:84
-#, fuzzy
 msgid "Cut Text"
-msgstr "Створити блок тексту"
+msgstr "Вир╕зати текст"
 
 #: app/menus.c:85
-#, fuzzy
 msgid "Paste _Text"
-msgstr "Створити блок тексту"
+msgstr "Вставити текст"
 
 #: app/menus.c:108
 msgid "Zoom _In"
@@ -629,49 +615,43 @@ msgstr "Показати все"
 
 #: app/menus.c:131
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: app/menus.c:132 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
-msgstr "Н╕який"
+msgstr "Нема╓"
 
 #: app/menus.c:133 app/menus.c:142
-#, fuzzy
 msgid "Invert"
-msgstr "Перетворити"
+msgstr "╤нвертувати"
 
 #: app/menus.c:134
-#, fuzzy
 msgid "Connected"
-msgstr "Зв'язок"
+msgstr "При╓днаний"
 
 #: app/menus.c:135
 msgid "Transitive"
-msgstr ""
+msgstr "Транзитивний"
 
 #: app/menus.c:136
 msgid "Same Type"
-msgstr ""
+msgstr "Того ж типу"
 
 #: app/menus.c:138
-#, fuzzy
 msgid "Replace"
-msgstr "Шаблони"
+msgstr "Зам╕нити"
 
 #: app/menus.c:139
-#, fuzzy
 msgid "Union"
-msgstr "нема╓"
+msgstr "Об'╓днання"
 
 #: app/menus.c:140
-#, fuzzy
 msgid "Intersect"
-msgstr "╤нтерфейс:"
+msgstr "Перетин"
 
 #: app/menus.c:141
-#, fuzzy
 msgid "Remove"
-msgstr "      Видалити"
+msgstr "Видалити"
 
 #: app/menus.c:147 lib/properties.c:1118 lib/properties.h:313
 #: lib/widgets.c:176
@@ -737,9 +717,8 @@ msgid "_Layers"
 msgstr "Шари"
 
 #: app/menus.c:214
-#, fuzzy
 msgid "Select"
-msgstr "Виб╕р кольору"
+msgstr "Вибрати"
 
 #: app/menus.c:215
 msgid "Objects"
@@ -747,7 +726,7 @@ msgstr "Об'╓кти"
 
 #: app/menus.c:216
 msgid "Tools"
-msgstr ""
+msgstr "╤нструменти"
 
 #: app/menus.c:217
 msgid "Dialogs"
@@ -771,9 +750,8 @@ msgid "/File/_Preferences..."
 msgstr "/Файл/Установки..."
 
 #: app/menus.c:232
-#, fuzzy
 msgid "/File/P_lugins"
-msgstr "/Файл/Вийти"
+msgstr "/Файл/Доповнення"
 
 #: app/menus.c:233 app/menus.c:248
 msgid "/File/sep1"
@@ -849,9 +827,8 @@ msgid "/Edit/_Redo"
 msgstr "/Редагування/Повернути"
 
 #: app/menus.c:264
-#, fuzzy
 msgid "/Edit/Paste _Text"
-msgstr "/Редагування/Вставити"
+msgstr "/Редагування/Вставити текст"
 
 #: app/menus.c:265
 msgid "/_View"
@@ -957,50 +934,48 @@ msgid "/View/Show _All"
 msgstr "/Вигляд/Показати все"
 
 #: app/menus.c:291
-#, fuzzy
 msgid "/Select/All"
-msgstr "Виб╕р кольору"
+msgstr "/Виб╕р/Все"
 
 #: app/menus.c:292
 msgid "/Select/None"
-msgstr ""
+msgstr "/Виб╕р/Н╕чого"
 
 #: app/menus.c:293 app/menus.c:302
 msgid "/Select/Invert"
-msgstr ""
+msgstr "/Виб╕р/╤нвертувати"
 
 #: app/menus.c:294
 msgid "/Select/Connected"
-msgstr ""
+msgstr "/Виб╕р/З'╓днаний"
 
 #: app/menus.c:295
 msgid "/Select/Transitive"
-msgstr ""
+msgstr "/Виб╕р/Транзитивний"
 
 #: app/menus.c:296
 msgid "/Select/Same Type"
-msgstr ""
+msgstr "/Виб╕р/Того ж типу"
 
 #: app/menus.c:297
-#, fuzzy
 msgid "/Select/sep1"
-msgstr "/Файл/sep1"
+msgstr "/Виб╕р/sep1"
 
 #: app/menus.c:298
 msgid "/Select/Replace"
-msgstr ""
+msgstr "/Виб╕р/Зам╕нити"
 
 #: app/menus.c:299
 msgid "/Select/Union"
-msgstr ""
+msgstr "/Виб╕р/Об'╓днання"
 
 #: app/menus.c:300
 msgid "/Select/Intersect"
-msgstr ""
+msgstr "/Виб╕р/Перетин"
 
 #: app/menus.c:301
 msgid "/Select/Remove"
-msgstr ""
+msgstr "/Виб╕р/Видалити"
 
 #: app/menus.c:303
 msgid "/_Objects"
@@ -1037,57 +1012,55 @@ msgstr "/Об'╓кти/Вир╕внювання вертикальне"
 
 #: app/menus.c:324
 msgid "/Tools/Modify"
-msgstr ""
+msgstr "/╤нструменти/Модиф╕кувати"
 
 #: app/menus.c:325
-#, fuzzy
 msgid "/Tools/Magnify"
-msgstr "Зб╕льшити"
+msgstr "/╤нструменти/Зб╕льшити"
 
 #: app/menus.c:326
 msgid "/Tools/Scroll"
-msgstr ""
+msgstr "/╤нструменти/Прокрутити"
 
 #: app/menus.c:327
 msgid "/Tools/Text"
-msgstr ""
+msgstr "/╤нструменти/Текст"
 
 #: app/menus.c:328
 msgid "/Tools/Box"
-msgstr ""
+msgstr "/╤нструменти/Прямокутник"
 
 #: app/menus.c:329
-#, fuzzy
 msgid "/Tools/Ellipse"
-msgstr "Порожн╕й ел╕пс"
+msgstr "/╤нструменти/Ел╕пс"
 
 #: app/menus.c:330
 msgid "/Tools/Polygon"
-msgstr ""
+msgstr "/╤нструменти/Многокутник"
 
 #: app/menus.c:331
 msgid "/Tools/Line"
-msgstr ""
+msgstr "/╤нструменти/Л╕н╕я"
 
 #: app/menus.c:332
 msgid "/Tools/Arc"
-msgstr ""
+msgstr "/╤нструменти/Дуга"
 
 #: app/menus.c:333
 msgid "/Tools/Zigzagline"
-msgstr ""
+msgstr "/╤нструменти/Згин"
 
 #: app/menus.c:334
 msgid "/Tools/Polyline"
-msgstr ""
+msgstr "/╤нструменти/Ламана"
 
 #: app/menus.c:335
 msgid "/Tools/Bezierline"
-msgstr ""
+msgstr "/╤нструменти/Крива Без'╓"
 
 #: app/menus.c:336
 msgid "/Tools/Image"
-msgstr ""
+msgstr "/╤нструменти/Зображення"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:339
@@ -1108,7 +1081,7 @@ msgstr ""
 
 #: app/menus.c:390 app/menus.c:495
 msgid "/Tools/"
-msgstr ""
+msgstr "/╤нструменти/"
 
 #: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
@@ -1215,9 +1188,9 @@ msgid "Page breaks:"
 msgstr "Розд╕лювач╕ стор╕нок:"
 
 #: app/preferences.c:233
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Не вдилось в╕дкрити: \"%s\" для записування.\n"
+msgstr "Не вдалось в╕дкрити: \"%s\" для записування"
 
 #: app/preferences.c:564 app/preferences.c:573
 msgid "Preferences"
@@ -1383,11 +1356,11 @@ msgstr "Напрямок:"
 
 #: objects/UML/association.c:998
 msgid "From A to B"
-msgstr ""
+msgstr "В╕д А до Б"
 
 #: objects/UML/association.c:1005
 msgid "From B to A"
-msgstr ""
+msgstr "В╕д Б до А"
 
 #: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side A"
@@ -1395,7 +1368,7 @@ msgstr "Сторона A"
 
 #: objects/UML/association.c:1031 objects/UML/association.c:1039
 msgid "Side B"
-msgstr "Сторона B"
+msgstr "Сторона Б"
 
 #: objects/UML/association.c:1045
 msgid "Role:"
@@ -1751,9 +1724,8 @@ msgid "Delete Handle"
 msgstr ""
 
 #: objects/network/network.c:47
-#, fuzzy
 msgid "Network diagram objects"
-msgstr "Нова д╕аграма"
+msgstr "Об'╓кти д╕аграми мереж╕"
 
 #: objects/flowchart/box.c:165 objects/standard/box.c:149
 msgid "Corner radius"
@@ -2079,9 +2051,8 @@ msgid "Font color:"
 msgstr "Кол╕р шрифту:"
 
 #: objects/flowchart/flowchart.c:32
-#, fuzzy
 msgid "Flowchart objects"
-msgstr "Активний об'╓кт"
+msgstr "Об'╓кти д╕аграми поток╕в"
 
 #: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
 msgid "Shear angle:"
@@ -2116,48 +2087,5 @@ msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
 #: plug-ins/cgm/cgm.c:1266
-#, fuzzy
 msgid "Computer Graphics Metafile export filter"
-msgstr "Computer Graphics Metafile"
-
-#~ msgid ""
-#~ "Couldn't find any libraries to load.\n"
-#~ "%s is not a directory.\n"
-#~ msgstr ""
-#~ "Не вдалось знайти жодних б╕бл╕отек для завантаження.\n"
-#~ "%s не ╓ каталогом.\n"
-
-#~ msgid "Couldn't open \"%s\".\n"
-#~ msgstr "Неможливо в╕дкрити \"%s\".\n"
-
-#~ msgid ""
-#~ "Error loading library: \"%s\":\n"
-#~ " %s\n"
-#~ msgstr ""
-#~ "Помилка завантаження б╕бл╕отеки: \"%s\":\n"
-#~ " %s\n"
-
-#~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "Файл \"%s\" не ╓ б╕бл╕отекою об'╓кт╕в Dia.\n"
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an older version of Dia and cannot be "
-#~ "used.\n"
-#~ "Please upgrade it."
-#~ msgstr ""
-#~ "Б╕бл╕отека об'╓кт╕в \"%s\" ╕з старо╖ верс╕╖ Dia ╕ не може бути використана.\n"
-#~ "Будь ласка, онов╕ть ╖╖."
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an later version of Dia.\n"
-#~ "You need to upgrade Dia to use it."
-#~ msgstr ""
-#~ "Б╕бл╕отека об'╓кт╕в \"%s\" ╕з нов╕шою верс╕╖ Dia.\n"
-#~ "Вам ннобх╕дно оновити Dia, щоб використовувати ╖╖."
-
-#~ msgid ""
-#~ "Unable to find register_sheets in library:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Не вдалось знайти register_sheets в б╕бл╕отец╕:\n"
-#~ "%s"
+msgstr "Ф╕льтр експорту в Computer Graphics Metafile"
