@@ -1,3 +1,9 @@
+2004-02-27  Lars Clausen  <lars@raeder.dk>
+
+	* app/menus.c (display_menu_items): 
+	* app/commands.[ch]: Added duplicate menu item from Alan Horkan
+	(bug #95546).
+
 2004-02-24  Adam Weinberger  <adamw@FreeBSD.org>
 
 	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.
@@ -10,7 +16,7 @@
 	* app/Makefile.am (run_dia.sh): Fixed a typo in wrapper that prevented
 	running with a debugger.
 
-2004-02-19  Lars Clausen  <lc@pc770>
+2004-02-19  Lars Clausen  <lars@raeder.dk>
 
 	* app/undo.[ch]: Adding last-saved information to undo to allow a
 	diagram with all changes since last save undo to be marked as
@@ -376,7 +382,7 @@
 
 	* lib/font.c: Caching PangoLayout for better rendering speed.
 
-2003-12-30  Lars Clausen  <lc@pc770>
+2003-12-30  Lars Clausen  <lars@raeder.dk>
 
 	* lib/dia_dirs.[ch] (dia_get_absolute_filename): New function to
 	get absolute file name from relative.

@@ -226,6 +226,51 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_flush(ddisp->diagram);
 }
 
+/*
+ * ALAN: Paste should probably paste to different position, feels
+ * wrong somehow.  ALAN: The offset should increase a little each time
+ * if you paste/duplicate several times in a row, because it is
+ * clearer what is happening than if you were to piling them all in
+ * one place.
+ *
+ * completely untested, basically it is copy+paste munged together
+ */
+void
+edit_duplicate_callback(gpointer data, guint action, GtkWidget *widget)
+{ 
+  GList *duplicate_list;
+  DDisplay *ddisp;
+  Point duplicate_corner;
+  Point delta;
+  Change *change;
+
+  ddisp = ddisplay_active();
+  duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
+  duplicate_corner = object_list_corner(duplicate_list);
+  
+  /* Move down some 10% of the visible area. */
+  delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;
+  delta.y = (ddisp->visible.bottom - ddisp->visible.top)*0.05;
+
+  object_list_move_delta(duplicate_list, &delta);
+
+  change = undo_insert_objects(ddisp->diagram, duplicate_list, 0);
+  (change->apply)(change, ddisp->diagram);
+
+  diagram_modified(ddisp->diagram);
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
+  diagram_remove_all_selected(ddisp->diagram, TRUE);
+  diagram_select_list(ddisp->diagram, duplicate_list);
+
+  diagram_flush(ddisp->diagram);
+  
+  ddisplay_do_update_menu_sensitivity(ddisp);
+}
+
+
+
+
 /* Signal handler for getting the clipboard contents */
 /* Note that the clipboard is for M$-style cut/copy/paste copying, while
    the selection is for Unix-style mark-and-copy.  We can't really do

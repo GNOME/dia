@@ -349,6 +349,7 @@ static GtkItemFactoryEntry display_menu_items[] =
       "<StockItem>", GTK_STOCK_CUT },
   {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0,
       "<StockItem>", GTK_STOCK_PASTE },
+  {N_("/Edit/_Duplicate"),        "<control>D", edit_duplicate_callback, 0, },
   {N_("/Edit/_Delete"),           "Delete", edit_delete_callback,       0,
       "<StockItem>", GTK_STOCK_DELETE },
   {N_("/Edit/---"),            NULL,         NULL,       0, "<Separator>" },

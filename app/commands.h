@@ -33,6 +33,7 @@ void help_about_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_copy_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_cut_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_paste_callback(gpointer data, guint action, GtkWidget *widget);
+void edit_duplicate_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_delete_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_undo_callback(gpointer data, guint action, GtkWidget *widget);
 void edit_redo_callback(gpointer data, guint action, GtkWidget *widget);
