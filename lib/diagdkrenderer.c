@@ -655,6 +655,7 @@ draw_string (DiaRenderer *object,
        GDK_RGB_DITHER_NONE, graybitmap, rowstride);
        gdk_gc_set_function(gc, GDK_COPY);
      */
+    g_object_unref(G_OBJECT(rgba));
   }
 #else
   gdk_gc_set_foreground(gc, &gdkcolor);

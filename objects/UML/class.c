@@ -673,7 +673,7 @@ umlclass_calculate_data(UMLClass *umlclass)
 {
   int i;
   GList *list;
-  real maxwidth;
+  real maxwidth = 0.0;
   real width;
   
 /*  umlclass->font_ascent =
@@ -685,15 +685,17 @@ umlclass_calculate_data(UMLClass *umlclass)
 */
   /* name box: */
 
-  if (umlclass->abstract) { 
-    maxwidth = dia_font_string_width(umlclass->name,
-                                     umlclass->abstract_classname_font,
-                                     umlclass->abstract_classname_font_height);
-  } else { 
-    maxwidth = dia_font_string_width(umlclass->name,
-                                     umlclass->classname_font,
-                                     umlclass->classname_font_height);
-  }  
+  if (umlclass->name != NULL && umlclass->name[0] != '\0') {
+    if (umlclass->abstract) { 
+      maxwidth = dia_font_string_width(umlclass->name,
+                                       umlclass->abstract_classname_font,
+                                       umlclass->abstract_classname_font_height);
+    } else { 
+      maxwidth = dia_font_string_width(umlclass->name,
+                                       umlclass->classname_font,
+                                       umlclass->classname_font_height);
+    }
+  }
 
   umlclass->namebox_height = umlclass->classname_font_height + 4*0.1;
   if (umlclass->stereotype_string != NULL) {

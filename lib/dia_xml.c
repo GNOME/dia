@@ -91,6 +91,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   /* first, we expect the magic <?xml string */
   if ((0 != strncmp(p,magic_xml,5)) || (len < 5)) {
     gzclose(zf);
+    g_free(buf);
     return filename; /* let libxml figure out what this is. */
   }
   /* now, we're sure we have some asciish XML file. */
@@ -99,16 +100,19 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
          && (p<pmax)) p++;
   if (p>=pmax) { /* whoops ? */
     gzclose(zf);
+    g_free(buf);
     return filename;
   }
   if (0 != strncmp(p,"version=\"",9)) {
     gzclose(zf); /* chicken out. */
+    g_free(buf);
     return filename;
   }
   p += 9;
   /* The header is rather well formed. */
   if (p>=pmax) { /* whoops ? */
     gzclose(zf);
+    g_free(buf);
     return filename;
   }
   while ((*p != '"') && (p < pmax)) p++;
@@ -117,10 +121,12 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
          && (p<pmax)) p++;
   if (p>=pmax) { /* whoops ? */
     gzclose(zf);
+    g_free(buf);
     return filename;
   }
   if (0 == strncmp(p,"encoding=\"",10)) {
     gzclose(zf); /* this file has an encoding string. Good. */
+    g_free(buf);
     return filename;
   }
   /* now let's read the whole file, to see if there are offending bits.
@@ -136,6 +142,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   } while (len > 0 && well_formed_utf8);
   if (well_formed_utf8) {
     gzclose(zf); /* this file is utf-8 compatible  */
+    g_free(buf);
     return filename;
   } else {
     gzclose(zf); /* poor man's fseek */
@@ -148,6 +155,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
                       "assuming it is encoded in %s"),filename,default_enc);
   } else {
     gzclose(zf); /* we apply the standard here. */
+    g_free(buf);
     return filename;
   }
 
@@ -170,6 +178,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   }
   gzclose(zf);
   close(uf);
+  g_free(buf);
   return res; /* caller frees the name and unlinks the file. */
 }
 
@@ -620,7 +629,7 @@ data_string(DataNode data)
     str[len]=0; /* For safety */
 
     str[strlen(str)-1] = 0; /* Remove last '#' */
-    
+    xmlFree(p);
     return str;
   }
     

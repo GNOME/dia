@@ -1,3 +1,25 @@
+2004-01-10  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c objects/UML/class_dialog.c : 
+	handle umlclass->name being empty to avoid, i.e. fix #127988
+
+	[plugging memleaks, thanks valgrind :-]
+	
+	* lib/dia_xml.c (data_string) : don't leak return value
+	of xmlNodeListGetString()
+	
+	* lib/dia_xml.c (xml_file_check_encoding) : g_free(buf)
+	before returning, maybe alloca() would be the better 
+	choice but anyway ;)
+
+	* objects/custom/custom_object.c:306 : adde xmlFree(str) below
+	
+	* lib/font.c (dia_font_build_layout) : don't leak result
+	of g_utf8_strdown()
+	
+	* lib/diagdkrenderer.c (draw_string) : don't leak rgba
+	(this is the one which got me started using valgrind, see #130816)
+	
 2004-01-07  Sanlig Badral  <badral@openmn.org>
 
 	* configure.in: Added "mn" to ALL_LINGUAS.

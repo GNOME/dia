@@ -540,6 +540,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     PangoAttrList* list;
     PangoAttribute* attr;
     guint length;
+    gchar *desc = NULL;
 
     LayoutCacheItem *cached;
 
@@ -573,7 +574,9 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_text(layout,string,length);
         
     list = pango_attr_list_new();
-    pango_font_description_set_family(font->pfd, g_utf8_strdown(pango_font_description_get_family(font->pfd), -1));
+    desc = g_utf8_strdown(pango_font_description_get_family(font->pfd), -1);
+    pango_font_description_set_family(font->pfd, desc);
+    g_free(desc);
     attr = pango_attr_font_desc_new(font->pfd);
     attr->start_index = 0;
     attr->end_index = length;

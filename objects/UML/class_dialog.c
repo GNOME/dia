@@ -178,7 +178,8 @@ class_fill_in_dialog(UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  gtk_entry_set_text(prop_dialog->classname, umlclass->name);
+  if (umlclass->name)
+    gtk_entry_set_text(prop_dialog->classname, umlclass->name);
   if (umlclass->stereotype != NULL)
     gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
   else

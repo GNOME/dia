@@ -308,6 +308,7 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 				{
 					g_free (pname);
 					pname = g_strdup(str);
+					xmlFree(str);
 				}
 				info->props[i++].description = pname;
 			}
