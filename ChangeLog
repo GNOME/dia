@@ -1,3 +1,9 @@
+2001-01-31  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/standard/ellipse.c (ellipse_copy): 
+	* objects/standard/zigzagline.c (zigzagline_copy): 
+	Fix of copying provided by Martin Hawlisch.
+
 2001-01-23  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/graphics/: added directory
