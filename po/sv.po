@@ -11,78 +11,78 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-02-16 16:16+0100\n"
-"PO-Revision-Date: 2003-02-16 16:17+0100\n"
+"POT-Creation-Date: 2003-04-12 04:07+0200\n"
+"PO-Revision-Date: 2003-04-12 04:09+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:160
+#: app/app_procs.c:162
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s-fel: indata- och utdatafilnamn är indentiska: %s"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:173
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s-fel: behöver en giltig indatafil %s\n"
 
-#: app/app_procs.c:178
+#: app/app_procs.c:180
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:184
+#: app/app_procs.c:186
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:242
+#: app/app_procs.c:244
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:242 app/diaconv.c:94
+#: app/app_procs.c:244 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: app/app_procs.c:244
+#: app/app_procs.c:246
 msgid "Export to file format and exit"
 msgstr "Exportera till filformat och avsluta"
 
-#: app/app_procs.c:244 app/diaconv.c:92
+#: app/app_procs.c:246 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:246
+#: app/app_procs.c:248
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:250
 msgid "Display credits list and exit"
 msgstr "Visa tacklista och avsluta"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:252
 msgid "Display version and exit"
 msgstr "Visa versionsnummer och avsluta"
 
-#: app/app_procs.c:252 app/diaconv.c:95
+#: app/app_procs.c:254 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:283
+#: app/app_procs.c:285
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:298 app/diaconv.c:119
+#: app/app_procs.c:300 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:302 app/diaconv.c:126
+#: app/app_procs.c:304 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -92,22 +92,23 @@ msgstr ""
 "Kör \"%s --help\" för att se en fullständig lista över tillgängliga "
 "kommandoradsalternativ.\n"
 
-#: app/app_procs.c:315
+#: app/app_procs.c:317
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s-fel: endast en av -f eller -o kan anges."
 
-#: app/app_procs.c:327
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:330
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, kompilerad %s %s\n"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:332
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:416 app/app_procs.c:418 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:418 app/app_procs.c:420 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -115,7 +116,7 @@ msgstr ""
 "avslutar...\n"
 
 #. no standard buttons
-#: app/app_procs.c:545
+#: app/app_procs.c:558
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -125,15 +126,15 @@ msgstr ""
 "Är du säker på att du vill avsluta\n"
 "Dia utan att spara dem?"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:562
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
-#: app/app_procs.c:611 app/app_procs.c:618
+#: app/app_procs.c:626 app/app_procs.c:633
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:620
+#: app/app_procs.c:635
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -141,7 +142,7 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:642 app/diaconv.c:249
+#: app/app_procs.c:657 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
@@ -386,7 +387,7 @@ msgstr "/_Egenskaper"
 msgid "/_Hide this type"
 msgstr "/_Dölj denna typ"
 
-#: app/diagram_tree_window.c:87
+#: app/diagram_tree_window.c:76
 msgid "Diagram tree"
 msgstr "Diagramträd"
 
@@ -394,8 +395,8 @@ msgstr "Diagramträd"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/dialogs.c:52 app/layer_dialog.c:1008 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:257
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Avbryt"
@@ -501,15 +502,15 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagrammet är ändrat!"
 
-#: app/display.c:890
+#: app/display.c:960
 msgid "<unnamed>"
 msgstr "<namnlös>"
 
-#: app/display.c:892
+#: app/display.c:962
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -518,16 +519,16 @@ msgstr ""
 "Diagrammet \"%s\"\n"
 "har inte sparats. Vill du spara ändringar nu?"
 
-#: app/display.c:903
+#: app/display.c:973
 msgid "Close Diagram"
 msgstr "Stäng diagram"
 
-#: app/display.c:908
+#: app/display.c:978
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
 #: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
 #: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
@@ -763,72 +764,114 @@ msgstr "Skapa bild"
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:470
+#: app/interface.c:370
+msgid "Diagram menu."
+msgstr "Diagrammeny."
+
+#: app/interface.c:479
 msgid "Zoom"
 msgstr "Zooma"
 
-#: app/interface.c:514
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr "Växlar fäst vid rutnät för detta fönster."
+
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL-tooldata i tool_select_update"
 
-#: app/interface.c:975
+#: app/interface.c:999
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
 msgstr ""
-"För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer "
-"färgerna. Pilarna byter färger. Dubbelklicka för att ändra färgerna."
+"För- och bakgrundsfärger för nya objekt. De små svarta och vita fyrkanterna "
+"återställer färger. De små pilarna byter färger. Dubbelklicka för att ändra "
+"färger."
 
-#: app/interface.c:1124
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+"Linjebredder. Klicka på en linje för att ställa in standardlinjebredden för "
+"nya objekt. Dubbelklicka för att ställa in linjebredden mer exakt."
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Pilstil vid början på nya linjer. Klicka för att välja en pil eller ställ in "
+"pilparametrar med Detaljer..."
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+"Linjestil för nya linjer. Klicka för att välja en linjestil eller ställ in "
+"linjeparametrar med Detaljer..."
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+"Pilstil vid slutet på nya linjer. Klicka för att välja en pil eller ställ in "
+"pilparametrar med Detaljer..."
+
+#: app/interface.c:1152
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
-#: app/layer_dialog.c:69
+#: app/layer_dialog.c:70
 msgid "New Layer"
 msgstr "Nytt lager"
 
-#: app/layer_dialog.c:70
+#: app/layer_dialog.c:71
 msgid "Raise Layer"
 msgstr "Höj lager"
 
-#: app/layer_dialog.c:71
+#: app/layer_dialog.c:72
 msgid "Lower Layer"
 msgstr "Sänk lager"
 
-#: app/layer_dialog.c:72
+#: app/layer_dialog.c:73
 msgid "Delete Layer"
 msgstr "Ta bort lager"
 
-#: app/layer_dialog.c:213
+#: app/layer_dialog.c:214
 msgid "Layers"
 msgstr "Lager"
 
-#: app/layer_dialog.c:227
+#: app/layer_dialog.c:228
 msgid "Diagrams:"
 msgstr "Diagram:"
 
-#: app/layer_dialog.c:272
+#: app/layer_dialog.c:273
 msgid "Close"
 msgstr "Stäng"
 
-#: app/layer_dialog.c:317
+#: app/layer_dialog.c:319
 msgid "New layer"
 msgstr "Nytt lager"
 
-#: app/layer_dialog.c:520
+#: app/layer_dialog.c:522
 msgid "none"
 msgstr "inget"
 
-#: app/layer_dialog.c:968
+#: app/layer_dialog.c:970
 msgid "Edit Layer Attributes"
 msgstr "Ändra lagerattribut"
 
-#: app/layer_dialog.c:987
+#: app/layer_dialog.c:989
 msgid "Layer name:"
 msgstr "Lagernamn:"
 
-#: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+#: app/layer_dialog.c:998 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:248 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -844,12 +887,12 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:224 lib/properties.h:473
+#: app/linewidth_area.c:229 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linjebredd"
 
-#: app/linewidth_area.c:230
+#: app/linewidth_area.c:235
 msgid "Line width:"
 msgstr "Linjebredd:"
 
@@ -1051,7 +1094,7 @@ msgid "Intersect"
 msgstr "Skär"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:780 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:784 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Ta bort"
@@ -1680,39 +1723,39 @@ msgstr "Läs in vid uppstart"
 msgid "File Name"
 msgstr "Filnamn"
 
-#: app/preferences.c:100
+#: app/preferences.c:98
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:101
+#: app/preferences.c:99
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:102
+#: app/preferences.c:100
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:103
+#: app/preferences.c:101
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:104
+#: app/preferences.c:102
 msgid "Diagram Tree"
 msgstr "Diagramträd"
 
-#: app/preferences.c:118
+#: app/preferences.c:116
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:119
+#: app/preferences.c:117
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:120
+#: app/preferences.c:118
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:121
+#: app/preferences.c:119
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1720,118 +1763,102 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:122
+#: app/preferences.c:120
 msgid "Recent documents list size:"
 msgstr "Storlek på lista över senaste dokument:"
 
-#: app/preferences.c:123
+#: app/preferences.c:121
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:125
+#: app/preferences.c:123
 msgid "Keep tool box on top of diagram windows:"
 msgstr "Behåll verktygslåda ovanför diagramfönster:"
 
-#: app/preferences.c:127
+#: app/preferences.c:125
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: app/preferences.c:128
+#: app/preferences.c:126
 msgid "Portrait:"
 msgstr "Stående:"
 
-#: app/preferences.c:130
+#: app/preferences.c:128
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:133
+#: app/preferences.c:131
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:134
+#: app/preferences.c:132
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:135
+#: app/preferences.c:133
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:136
+#: app/preferences.c:134
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:138
+#: app/preferences.c:136
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:139 app/preferences.c:142 app/preferences.c:147
+#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:141
+#: app/preferences.c:139
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:143 app/preferences.c:151
+#: app/preferences.c:141 app/preferences.c:149
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:144 app/preferences.c:152
+#: app/preferences.c:142 app/preferences.c:150
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:148
+#: app/preferences.c:146
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:149
+#: app/preferences.c:147
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:150
+#: app/preferences.c:148
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:163
+#: app/preferences.c:161
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:165
-msgid "Show at startup:"
-msgstr "Visa vid uppstart:"
-
-#: app/preferences.c:167
-msgid "Default width:"
-msgstr "Standardbredd:"
-
-#: app/preferences.c:169
-msgid "Default height:"
-msgstr "Standardhöjd:"
-
-#: app/preferences.c:171
-msgid "Remember last size:"
-msgstr "Kom ihåg senaste storlek:"
-
-#: app/preferences.c:173
+#: app/preferences.c:163
 msgid "Save hidden object types:"
 msgstr "Spara dolda objekttyper:"
 
-#: app/preferences.c:300
+#: app/preferences.c:290
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:575 lib/prop_inttypes.c:151
+#: app/preferences.c:565 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:575 app/preferences.c:586 lib/prop_inttypes.c:153
+#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/preferences.c:686
+#: app/preferences.c:676
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -1912,92 +1939,92 @@ msgstr "SVG-figur"
 msgid "Programmed Object"
 msgstr "Programmerat objekt"
 
-#: app/sheets_dialog.c:81
+#: app/sheets_dialog.c:83
 msgid "Sheets and Objects"
 msgstr "Blad och objekt"
 
-#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:177
+#: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
 msgstr "<- Kopiera"
 
-#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:179
+#: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
 msgstr "<- Kopiera alla"
 
-#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:181
+#: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
 msgstr "<- Flytta"
 
-#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:183
+#: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
 msgstr "<- Flytta alla"
 
-#: app/sheets_dialog.c:231
+#: app/sheets_dialog.c:233
 msgid "Edit"
 msgstr "Redigera"
 
-#: app/sheets_dialog.c:233
+#: app/sheets_dialog.c:235
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: app/sheets_dialog.c:264
+#: app/sheets_dialog.c:266
 msgid "Revert"
 msgstr "Återställ"
 
-#: app/sheets_dialog.c:350 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Ny"
 
-#: app/sheets_dialog.c:358 app/sheets_dialog.c:790
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
 msgid "Type"
 msgstr "Typ"
 
-#: app/sheets_dialog.c:373
+#: app/sheets_dialog.c:377
 msgid "Browse..."
 msgstr "Bläddra..."
 
-#: app/sheets_dialog.c:382
+#: app/sheets_dialog.c:386
 msgid "SVG Shape:"
 msgstr "SVG-figur:"
 
-#: app/sheets_dialog.c:409 app/sheets_dialog.c:472
+#: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
 msgstr "beskrivning:"
 
-#: app/sheets_dialog.c:421
+#: app/sheets_dialog.c:425
 msgid "Sheet name:"
 msgstr "Bladnamn:"
 
-#: app/sheets_dialog.c:442 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
 #: app/sheets_dialog_callbacks.c:1085
 msgid "Line Break"
 msgstr "Radbrytning"
 
-#: app/sheets_dialog.c:564
+#: app/sheets_dialog.c:568
 msgid "Edit Attributes"
 msgstr "Redigera attribut"
 
-#: app/sheets_dialog.c:579
+#: app/sheets_dialog.c:583
 msgid "Object"
 msgstr "Objekt"
 
-#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+#: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: app/sheets_dialog.c:618 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Typ:"
 
-#: app/sheets_dialog.c:652
+#: app/sheets_dialog.c:656
 msgid "Sheet"
 msgstr "Blad"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
 #: objects/ER/relationship.c:137 objects/UML/association.c:1054
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
@@ -2006,15 +2033,15 @@ msgstr "Blad"
 msgid "Name:"
 msgstr "Namn:"
 
-#: app/sheets_dialog.c:805
+#: app/sheets_dialog.c:809
 msgid "Object:"
 msgstr "Objekt:"
 
-#: app/sheets_dialog.c:832
+#: app/sheets_dialog.c:836
 msgid "Sheet:"
 msgstr "Blad:"
 
-#: app/sheets_dialog.c:916
+#: app/sheets_dialog.c:920
 msgid "Select SVG Shape File"
 msgstr "Välj SVG-figurfil"
 
@@ -2217,6 +2244,10 @@ msgstr "Fylld konkav"
 #: lib/arrows.c:61
 msgid "Blanked Concave"
 msgstr "Tom konkav"
+
+#: lib/arrows.c:62
+msgid "Round"
+msgstr "Runda"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -4458,7 +4489,7 @@ msgstr "Exportfilter för Computer Graphics Metafile"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Import- och exportfilter för att rita Interchange-filer"
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Ritar Interchange-fil"
 
@@ -6203,6 +6234,21 @@ msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Diagram menu"
+#~ msgstr "Diagrammeny"
+
+#~ msgid "Show at startup:"
+#~ msgstr "Visa vid uppstart:"
+
+#~ msgid "Default width:"
+#~ msgstr "Standardbredd:"
+
+#~ msgid "Default height:"
+#~ msgstr "Standardhöjd:"
+
+#~ msgid "Remember last size:"
+#~ msgstr "Kom ihåg senaste storlek:"
 
 #~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
 #~ msgstr ""
