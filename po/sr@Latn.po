@@ -9,111 +9,105 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-22 21:04+0100\n"
-"PO-Revision-Date: 2003-11-22 21:04+0100\n"
+"POT-Creation-Date: 2003-12-14 13:34+0100\n"
+"PO-Revision-Date: 2003-12-14 13:35+0100\n"
 "Last-Translator: Dejan Matijević <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:169
+#: app/app_procs.c:179
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s greška: nezna kako da izveze u %s\n"
 
-#: app/app_procs.c:179
+#: app/app_procs.c:189
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s greška: ulazno i izlazno ime datoteke su isti: %s"
 
-#: app/app_procs.c:187
+#: app/app_procs.c:197
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s graška: treba ispravan ulazni tip %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:193
+#: app/app_procs.c:206
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s —> %s\n"
 
-#: app/app_procs.c:235
+#: app/app_procs.c:254
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Ne mogu da nađem vrstu izlaza %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:319
+#: app/app_procs.c:340
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Izvezi u vrstu datoteke i izađi. Podržane vrste su: %s"
 
 #. &export_file_name
-#: app/app_procs.c:328
+#: app/app_procs.c:349
 msgid "Export loaded file and exit"
 msgstr "Izvezi učitanu datoteku i izađi"
 
-#: app/app_procs.c:328 app/diaconv.c:94
+#: app/app_procs.c:349 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "IZLAZ"
 
 #. &export_file_format
-#: app/app_procs.c:330
+#: app/app_procs.c:351
 msgid "FORMAT"
 msgstr "VRSTA"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:354
+msgid "Export graphics size"
+msgstr "Veličina izvozne slike"
+
+#: app/app_procs.c:354
+msgid "WxH"
+msgstr "ŠxV"
+
+#: app/app_procs.c:356
 msgid "Don't show the splash screen"
 msgstr "Ne prikazuj naslovni ekran"
 
-#: app/app_procs.c:335
+#: app/app_procs.c:358
 msgid "Display credits list and exit"
 msgstr "Prikaži zasluge i izađi"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:360
 msgid "Display version and exit"
 msgstr "Pokaži verziju i izađi"
 
-#: app/app_procs.c:339 app/diaconv.c:95
+#: app/app_procs.c:362 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Prikaži ovaj pomoćni tekst"
 
-#: app/app_procs.c:371
+#: app/app_procs.c:397
 msgid "Can't connect to session manager!\n"
 msgstr "Ne može se povezati sa upravnikom sesije!\n"
 
-#: app/app_procs.c:386 app/diaconv.c:119
-msgid "[OPTION...] [FILE...]"
-msgstr "[OPCIJA...] [DATOTEKA...]"
-
-#: app/app_procs.c:390 app/diaconv.c:126
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Greška u opciji %s: %s.\n"
-"Pokrenite '%s --help' da biste videli celu listu dostupnih opcija komandne "
-"linije.\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:409
+#: app/app_procs.c:420
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzija %s, prevedena %s %s\n"
 
-#: app/app_procs.c:411
+#: app/app_procs.c:422
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzija %s\n"
 
-#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:468 app/app_procs.c:470 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nemože da nađe standardane objekte kada traži object-libs, izlazi...\n"
 
-#: app/app_procs.c:585
+#: app/app_procs.c:533
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -122,7 +116,7 @@ msgstr ""
 "opisujući se greška može izazvati.\n"
 
 #. no standard buttons
-#: app/app_procs.c:597
+#: app/app_procs.c:545
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -132,21 +126,21 @@ msgstr ""
 "Da li ste sigurni da želite da završite Dia\n"
 "bez prethodnog snimanja?"
 
-#: app/app_procs.c:601
+#: app/app_procs.c:549
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:656
+#: app/app_procs.c:604
 msgid "Thank you for using Dia.\n"
 msgstr "Hvala vam što koristite Diu.\n"
 
-#: app/app_procs.c:670 app/app_procs.c:677
+#: app/app_procs.c:618 app/app_procs.c:625
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika"
 
-#: app/app_procs.c:679
+#: app/app_procs.c:627
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,9 +148,23 @@ msgstr ""
 "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika. Proverite "
 "da li promenljiva okruženja HOME pokazuje na postojeći direktorijum."
 
-#: app/app_procs.c:701 app/diaconv.c:249
+#: app/app_procs.c:649 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekti i filteri interni za diu"
+
+#: app/app_procs.c:688 app/diaconv.c:119
+msgid "[OPTION...] [FILE...]"
+msgstr "[OPCIJA...] [DATOTEKA...]"
+
+#: app/app_procs.c:692 app/diaconv.c:126
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Greška u opciji %s: %s.\n"
+"Pokrenite '%s --help' da biste videli celu listu dostupnih opcija komandne "
+"linije.\n"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -464,8 +472,8 @@ msgstr "Drvo dijagrama"
 msgid "Ok"
 msgstr "U Redu"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:455
+#: app/lineprops_area.c:681 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Poništi"
 
@@ -572,7 +580,7 @@ msgstr "Zatvori dijagram"
 msgid "Discard Changes"
 msgstr "Odbaci promene"
 
-#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -582,37 +590,37 @@ msgstr "Odbaci promene"
 msgid "Can't open output file %s: %s\n"
 msgstr "Nemože da otvori izlaznu datoteku %s: %s\n"
 
-#: app/export_png.c:124
+#: app/export_png.c:142
 msgid "Could not create PNG write structure"
 msgstr "Ne može da napravi PNG strukturu za upis"
 
-#: app/export_png.c:133
+#: app/export_png.c:151
 msgid "Could not create PNG header info structure"
 msgstr "Ne može da napravi strukturu PNG zaglavlja"
 
-#: app/export_png.c:141
+#: app/export_png.c:159
 msgid "Error occurred while writing PNG"
 msgstr "Greška pri pisanju PNG"
 
 #. Create a dialog
-#: app/export_png.c:265
+#: app/export_png.c:299
 msgid "PNG Export Options"
 msgstr "PNG izvozne opcije"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
+#: app/export_png.c:300 objects/FS/function.c:685 objects/FS/function.c:687
 msgid "Export"
 msgstr "Izvoz"
 
-#: app/export_png.c:271
+#: app/export_png.c:305
 msgid "Image width:"
 msgstr "Širina slike:"
 
-#: app/export_png.c:274
+#: app/export_png.c:308
 msgid "Image height:"
 msgstr "Visina slike:"
 
-#: app/export_png.c:319
+#: app/export_png.c:354
 msgid "Portable Network Graphics"
 msgstr "Prenosna Mrežna Grafika"
 
@@ -873,20 +881,20 @@ msgstr "Izmeni svojstva sloja"
 msgid "Layer name:"
 msgstr "Naziv sloja:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/layer_dialog.c:999 app/lineprops_area.c:446 app/lineprops_area.c:671
 #: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "U redu"
 
-#: app/lineprops_area.c:429
+#: app/lineprops_area.c:431
 msgid "Arrow Properties"
 msgstr "Postavke strelica"
 
-#: app/lineprops_area.c:505 app/lineprops_area.c:702
+#: app/lineprops_area.c:507 app/lineprops_area.c:704
 msgid "Details..."
 msgstr "Detalji..."
 
-#: app/lineprops_area.c:658
+#: app/lineprops_area.c:660
 msgid "Line Style Properties"
 msgstr "Postavke Stila Linija"
 
@@ -2259,50 +2267,54 @@ msgid "Blanked Dot"
 msgstr "Prazna tačka"
 
 #: lib/arrows.c:53
-msgid "Double Hollow triangle"
+msgid "Double Hollow Triangle"
 msgstr "Dvostruki uokvireni trougao"
 
 #: lib/arrows.c:54
-msgid "Double Filled triangle"
+msgid "Double Filled Triangle"
 msgstr "Dvostruki ispunjeni trougao"
 
 #: lib/arrows.c:55
+msgid "Filled Dot and Triangle"
+msgstr "Ispunjena tačka i trougao"
+
+#: lib/arrows.c:56
 msgid "Filled Box"
 msgstr "Ispunjena kućica"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Blanked Box"
 msgstr "Prazna kućica"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Slashed"
 msgstr "Precrtano"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Integral Symbol"
 msgstr "Integralni Simbol"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Crow Foot"
 msgstr "Noga vrane"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Cross"
 msgstr "Unakrsno"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Filled Concave"
 msgstr "Ispunjeno konkavno"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Blanked Concave"
 msgstr "Ispražnjeno konkavno"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:64
 msgid "Round"
 msgstr "Okrugla"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:65
 msgid "Open Round"
 msgstr "Otvorena okrugla"
 
@@ -4453,23 +4465,23 @@ msgstr "Proizvoljno"
 msgid "Custom XML shapes loader"
 msgstr "Proizvoljan XML oblik učitavaća"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
 msgid "Flip horizontal"
 msgstr "Obrni vodoravno"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
 msgid "Flip vertical"
 msgstr "Obrni uspravno"
 
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1328
 msgid "Flip Horizontal"
 msgstr "Obrni Vodoravno"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1329
 msgid "Flip Vertical"
 msgstr "Obrni Uspravno"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1366
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nemože otvoriti datoteku ikone %s za objekat tipa '%s'."
@@ -4675,11 +4687,11 @@ msgstr "Ne mogu da otvorim „%s“ radi upisa.\n"
 msgid "Python scripting support"
 msgstr "Podrška za Piton skripte"
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr "Ne mogu da izvezem PNG bez libart-a!"
 
-#: plug-ins/shape/shape-export.c:498
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
 msgstr "Datoteka Dia oblika (DSF)"
 
@@ -4687,7 +4699,7 @@ msgstr "Datoteka Dia oblika (DSF)"
 msgid "dia shape export filter"
 msgstr "Izvozni filter za DSF"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:299 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Skalabilna vektorska grafika (SVG)"
 
