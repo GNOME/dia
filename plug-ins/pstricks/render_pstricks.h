@@ -25,15 +25,31 @@
 
 #include <stdio.h>
 
-typedef struct _RendererPSTRICKS RendererPSTRICKS;
-
 #include "geometry.h"
-#include "render.h"
-#include "diagramdata.h"
-#include "filter.h"
 
-struct _RendererPSTRICKS {
-    Renderer renderer;
+#include "diarenderer.h"
+
+G_BEGIN_DECLS
+
+#define PSTRICKS_TYPE_RENDERER           (pstricks_renderer_get_type ())
+#define PSTRICKS_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), PSTRICKS_TYPE_RENDERER, PstricksRenderer))
+#define PSTRICKS_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), PSTRICKS_TYPE_RENDERER, PstricksRendererClass))
+#define PSTRICKS_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PSTRICKS_TYPE_RENDERER))
+#define PSTRICKS_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PSTRICKS_TYPE_RENDERER, PstricksRendererClass))
+
+GType pstricks_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _PstricksRenderer PstricksRenderer;
+typedef struct _PstricksRendererClass PstricksRendererClass;
+
+struct _PstricksRendererClass
+{
+    DiaRendererClass parent_class;
+};
+
+struct _PstricksRenderer
+{
+    DiaRenderer parent_instance;
 
     FILE *file;
     int is_ps;
@@ -44,12 +60,9 @@ struct _RendererPSTRICKS {
     real dot_length;
 };
 
-extern RendererPSTRICKS * new_pstricks_renderer(DiagramData *data,
-						const char *filename,
-						const char *diafilename);
-extern void destroy_pstricks_renderer(RendererPSTRICKS *renderer);
-
 extern DiaExportFilter pstricks_export_filter;
+
+G_END_DECLS
 
 #endif /* RENDER_PSTRICKS_H */
 

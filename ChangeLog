@@ -1,5 +1,11 @@
 2002-10-11  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/metapost/render_metapost.[hc] : ported
+
+	* plug-ins/pstricks/render_pstricks.[hc] : dito
+
+2002-10-11  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/cgm/cgm.c : ported, appears to work as before,
 	but graphic apps available to me can't import the generated 
 	files (the could not with Dia-0.90 cgm as well) ...

@@ -26,33 +26,45 @@
 
 #include <stdio.h>
 
-typedef struct _RendererMETAPOST RendererMETAPOST;
-
 #include "geometry.h"
-#include "render.h"
-#include "diagramdata.h"
-#include "filter.h"
+#include "diarenderer.h"
 
-struct _RendererMETAPOST {
-    Renderer renderer;
+G_BEGIN_DECLS
 
-    FILE *file;
+#define METAPOST_TYPE_RENDERER           (metapost_renderer_get_type ())
+#define METAPOST_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), METAPOST_TYPE_RENDERER, MetapostRenderer))
+#define METAPOST_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), METAPOST_TYPE_RENDERER, MetapostRendererClass))
+#define METAPOST_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), METAPOST_TYPE_RENDERER))
+#define METAPOST_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), METAPOST_TYPE_RENDERER, MetapostRendererClass))
+
+GType metapost_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _MetapostRenderer MetapostRenderer;
+typedef struct _MetapostRendererClass MetapostRendererClass;
+
+struct _MetapostRenderer
+{
+  DiaRenderer parent_instance;
+
+  FILE *file;
     
-    LineStyle saved_line_style;
-    LineCaps  saved_line_cap;
-    LineJoin  saved_line_join;
+  LineStyle saved_line_style;
+  LineCaps  saved_line_cap;
+  LineJoin  saved_line_join;
 
-    real line_width;
-    real dash_length;
-    real dot_length;
+  real line_width;
+  real dash_length;
+  real dot_length;
 };
 
-extern RendererMETAPOST * new_metapost_renderer(DiagramData *data,
-						const char *filename,
-						const char *diafilename);
-extern void destroy_metapost_renderer(RendererMETAPOST *renderer);
+struct _MetapostRendererClass
+{
+  DiaRendererClass parent_class;
+};
 
 extern DiaExportFilter metapost_export_filter;
+
+G_END_DECLS
 
 #endif /* RENDER_METAPOST_H */
 

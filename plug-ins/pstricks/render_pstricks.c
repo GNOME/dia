@@ -54,115 +54,160 @@ NOT WORKING (exporting macros):
 #include "render_pstricks.h"
 #include "message.h"
 #include "diagramdata.h"
+#include "dia_image.h"
+#include "filter.h"
 
 #define POINTS_in_INCH 28.346
 
-static void begin_render(RendererPSTRICKS *renderer, DiagramData *data);
-static void end_render(RendererPSTRICKS *renderer);
-static void set_linewidth(RendererPSTRICKS *renderer, real linewidth);
-static void set_linecaps(RendererPSTRICKS *renderer, LineCaps mode);
-static void set_linejoin(RendererPSTRICKS *renderer, LineJoin mode);
-static void set_linestyle(RendererPSTRICKS *renderer, LineStyle mode);
-static void set_dashlength(RendererPSTRICKS *renderer, real length);
-static void set_fillstyle(RendererPSTRICKS *renderer, FillStyle mode);
-static void set_font(RendererPSTRICKS *renderer, DiaFont *font, real height);
-static void draw_line(RendererPSTRICKS *renderer, 
+static void begin_render(DiaRenderer *self);
+static void end_render(DiaRenderer *self);
+static void set_linewidth(DiaRenderer *self, real linewidth);
+static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linejoin(DiaRenderer *self, LineJoin mode);
+static void set_linestyle(DiaRenderer *self, LineStyle mode);
+static void set_dashlength(DiaRenderer *self, real length);
+static void set_fillstyle(DiaRenderer *self, FillStyle mode);
+static void set_font(DiaRenderer *self, DiaFont *font, real height);
+static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_color);
-static void draw_polyline(RendererPSTRICKS *renderer, 
+static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *line_color);
-static void draw_polygon(RendererPSTRICKS *renderer, 
+static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *line_color);
-static void fill_polygon(RendererPSTRICKS *renderer, 
+static void fill_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *line_color);
-static void draw_rect(RendererPSTRICKS *renderer, 
+static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
-static void fill_rect(RendererPSTRICKS *renderer, 
+static void fill_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
-static void draw_arc(RendererPSTRICKS *renderer, 
+static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void fill_arc(RendererPSTRICKS *renderer, 
+static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void draw_ellipse(RendererPSTRICKS *renderer, 
+static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *color);
-static void fill_ellipse(RendererPSTRICKS *renderer, 
+static void fill_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *color);
-static void draw_bezier(RendererPSTRICKS *renderer, 
+static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void fill_bezier(RendererPSTRICKS *renderer, 
+static void fill_bezier(DiaRenderer *self, 
 			BezPoint *points, /* Last point must be same as first point */
 			int numpoints,
 			Color *color);
-static void draw_string(RendererPSTRICKS *renderer,
+static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *color);
-static void draw_image(RendererPSTRICKS *renderer,
+static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
 
-static RenderOps *PstricksRenderOps;
+static void pstricks_renderer_class_init (PstricksRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+pstricks_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (PstricksRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) pstricks_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (PstricksRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "PstricksRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
 
 static void
-init_pstricks_renderops() 
+pstricks_renderer_finalize (GObject *object)
 {
-    PstricksRenderOps = create_renderops_table();
+  PstricksRenderer *pstricks_renderer = PSTRICKS_RENDERER (object);
 
-    PstricksRenderOps->begin_render = (BeginRenderFunc) begin_render;
-    PstricksRenderOps->end_render = (EndRenderFunc) end_render;
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
 
-    PstricksRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-    PstricksRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-    PstricksRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-    PstricksRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-    PstricksRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-    PstricksRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-    PstricksRenderOps->set_font = (SetFontFunc) set_font;
+static void
+pstricks_renderer_class_init (PstricksRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = pstricks_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
   
-    PstricksRenderOps->draw_line = (DrawLineFunc) draw_line;
-    PstricksRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
   
-    PstricksRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-    PstricksRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
+  renderer_class->fill_polygon = fill_polygon;
 
-    PstricksRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-    PstricksRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->fill_rect = fill_rect;
 
-    PstricksRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-    PstricksRenderOps->fill_arc = (FillArcFunc) fill_arc;
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
 
-    PstricksRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-    PstricksRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
 
-    PstricksRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-    PstricksRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
+  renderer_class->draw_bezier = draw_bezier;
+  renderer_class->fill_bezier = fill_bezier;
 
-    PstricksRenderOps->draw_string = (DrawStringFunc) draw_string;
+  renderer_class->draw_string = draw_string;
 
-    PstricksRenderOps->draw_image = (DrawImageFunc) draw_image;
+  renderer_class->draw_image = draw_image;
 }
 
 
 static void 
-set_line_color(RendererPSTRICKS *renderer,Color *color)
+set_line_color(PstricksRenderer *renderer,Color *color)
 {
     fprintf(renderer->file, "\\newrgbcolor{dialinecolor}{%f %f %f}\n",
 	    (double) color->red, (double) color->green, (double) color->blue);
@@ -170,133 +215,39 @@ set_line_color(RendererPSTRICKS *renderer,Color *color)
 }
 
 static void 
-set_fill_color(RendererPSTRICKS *renderer,Color *color)
+set_fill_color(PstricksRenderer *renderer,Color *color)
 {
     fprintf(renderer->file, "\\newrgbcolor{diafillcolor}{%f %f %f}\n",
 	    (double) color->red, (double) color->green, (double) color->blue);
     fprintf(renderer->file,"\\psset{fillcolor=diafillcolor}\n");
 }
 
-RendererPSTRICKS *
-new_pstricks_renderer(DiagramData *data, const char *filename,
-		      const char *diafilename)
-{
-    RendererPSTRICKS *renderer;
-    FILE *file;
-    time_t time_now;
-    double scale;
-    Rectangle *extent;
-    const char *name;
-
-    Color initial_color;
- 
-    file = fopen(filename, "wb");
-
-    if (file==NULL) {
-      message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-      return NULL;
-    }
-
-    if (PstricksRenderOps == NULL)
-    init_pstricks_renderops();
-
-    renderer = g_new(RendererPSTRICKS, 1);
-    renderer->renderer.ops = PstricksRenderOps;
-    renderer->renderer.is_interactive = 0;
-    renderer->renderer.interactive_ops = NULL;
-
-    renderer->pagenum = 1;
-    renderer->file = file;
-
-    renderer->dash_length = 1.0;
-    renderer->dot_length = 0.2;
-    renderer->saved_line_style = LINESTYLE_SOLID;
-  
-    time_now  = time(NULL);
-    extent = &data->extents;
-  
-    scale = POINTS_in_INCH * data->paper.scaling;
-  
-    name = g_get_user_name();
-  
-    fprintf(file,
-	"%% PSTricks TeX macro\n"
-	"%% Title: %s\n"
-	"%% Creator: Dia v%s\n"
-	"%% CreationDate: %s"
-	"%% For: %s\n"
-	"%% \\usepackage{pstricks}\n"
-	"%% The following commands are not supported in PSTricks at present\n"
-	"%% We define them conditionally, so when they are implemented,\n"
-	"%% this pstricks file will use them.\n"
-	"\\ifx\\setlinejoinmode\\undefined\n"
-	"  \\newcommand{\\setlinejoinmode}[1]{}\n"
-	"\\fi\n"
-	"\\ifx\\setlinecaps\\undefined\n"
-	"  \\newcommand{\\setlinecaps}[1]{}\n"
-	"\\fi\n"
-	"%% This way define your own fonts mapping (for example with ifthen)\n"
-	"\\ifx\\setfont\\undefined\n"
-	"  \\newcommand{\\setfont}[2]{}\n"
-        "\\fi\n",
-	diafilename,
-	VERSION,
-	ctime(&time_now),
-	name);
-
-    fprintf(renderer->file,"\\pspicture(%f,%f)(%f,%f)\n",
-	    extent->left * data->paper.scaling,
-	    -extent->bottom * data->paper.scaling,
-	    extent->right * data->paper.scaling,
-	    -extent->top * data->paper.scaling
-	    );
-    fprintf(renderer->file,"\\scalebox{%f %f}{\n",
-	    data->paper.scaling,
-	    -data->paper.scaling);
-
-    initial_color.red=0.;
-    initial_color.green=0.;
-    initial_color.blue=0.;
-    set_line_color(renderer,&initial_color);
-
-    initial_color.red=1.;
-    initial_color.green=1.;
-    initial_color.blue=1.;
-    set_fill_color(renderer,&initial_color);
-
-    return renderer;
-}
-
-void
-destroy_pstricks_renderer(RendererPSTRICKS *renderer)
-{
-    g_free(renderer);
-}
-
-
 static void
-begin_render(RendererPSTRICKS *renderer, DiagramData *data)
+begin_render(DiaRenderer *self)
 {
 }
 
 static void
-end_render(RendererPSTRICKS *renderer)
+end_render(DiaRenderer *self)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
   
     fprintf(renderer->file,"}\\endpspicture");
     fclose(renderer->file);
 }
 
 static void
-set_linewidth(RendererPSTRICKS *renderer, real linewidth)
+set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
     fprintf(renderer->file, "\\psset{linewidth=%f}\n", (double) linewidth);
 }
 
 static void
-set_linecaps(RendererPSTRICKS *renderer, LineCaps mode)
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int ps_mode;
   
     switch(mode) {
@@ -317,8 +268,9 @@ set_linecaps(RendererPSTRICKS *renderer, LineCaps mode)
 }
 
 static void
-set_linejoin(RendererPSTRICKS *renderer, LineJoin mode)
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int ps_mode;
   
     switch(mode) {
@@ -339,8 +291,9 @@ set_linejoin(RendererPSTRICKS *renderer, LineJoin mode)
 }
 
 static void
-set_linestyle(RendererPSTRICKS *renderer, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     real hole_width;
 
     renderer->saved_line_style = mode;
@@ -379,20 +332,24 @@ set_linestyle(RendererPSTRICKS *renderer, LineStyle mode)
 }
 
 static void
-set_dashlength(RendererPSTRICKS *renderer, real length)
+set_dashlength(DiaRenderer *self, real length)
 {  /* dot = 20% of len */
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     if (length<0.001)
 	length = 0.001;
   
     renderer->dash_length = length;
     renderer->dot_length = length*0.2;
   
-    set_linestyle(renderer, renderer->saved_line_style);
+    set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
-set_fillstyle(RendererPSTRICKS *renderer, FillStyle mode)
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     switch(mode) {
     case FILLSTYLE_SOLID:
 	break;
@@ -402,18 +359,21 @@ set_fillstyle(RendererPSTRICKS *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererPSTRICKS *renderer, DiaFont *font, real height)
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
     fprintf(renderer->file, "\\setfont{%s}{%f}\n",
             dia_font_get_psfontname(font), (double)height);
 }
 
 static void
-draw_line(RendererPSTRICKS *renderer, 
+draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
 	  Color *line_color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,line_color);
 
     fprintf(renderer->file, "\\psline(%f,%f)(%f,%f)\n",
@@ -421,10 +381,11 @@ draw_line(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_polyline(RendererPSTRICKS *renderer, 
+draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *line_color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
   
     set_line_color(renderer,line_color);  
@@ -440,10 +401,11 @@ draw_polyline(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_polygon(RendererPSTRICKS *renderer, 
+draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *line_color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
 
     set_line_color(renderer,line_color);
@@ -459,10 +421,11 @@ draw_polygon(RendererPSTRICKS *renderer,
 }
 
 static void
-fill_polygon(RendererPSTRICKS *renderer, 
+fill_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
 	     Color *line_color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
   
     set_line_color(renderer,line_color);
@@ -478,10 +441,12 @@ fill_polygon(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_rect(RendererPSTRICKS *renderer, 
+draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,color);
   
     fprintf(renderer->file, "\\pspolygon(%f,%f)(%f,%f)(%f,%f)(%f,%f)\n",
@@ -493,10 +458,12 @@ draw_rect(RendererPSTRICKS *renderer,
 }
 
 static void
-fill_rect(RendererPSTRICKS *renderer, 
+fill_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,color);
 
     fprintf(renderer->file, 
@@ -508,7 +475,7 @@ fill_rect(RendererPSTRICKS *renderer,
 }
 
 static void
-pstricks_arc(RendererPSTRICKS *renderer, 
+pstricks_arc(PstricksRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
@@ -534,31 +501,37 @@ pstricks_arc(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_arc(RendererPSTRICKS *renderer, 
+draw_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     pstricks_arc(renderer,center,width,height,angle1,angle2,color,0);
 }
 
 static void
-fill_arc(RendererPSTRICKS *renderer, 
+fill_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     pstricks_arc(renderer,center,width,height,angle1,angle2,color,1);
 }
 
 static void
-draw_ellipse(RendererPSTRICKS *renderer, 
+draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,color);
 
     fprintf(renderer->file, "\\psellipse(%f,%f)(%f,%f)\n",
@@ -567,11 +540,13 @@ draw_ellipse(RendererPSTRICKS *renderer,
 }
 
 static void
-fill_ellipse(RendererPSTRICKS *renderer, 
+fill_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
 	     Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,color);
 
     fprintf(renderer->file, "\\psellipse*(%f,%f)(%f,%f)\n",
@@ -582,11 +557,12 @@ fill_ellipse(RendererPSTRICKS *renderer,
 
 
 static void
-draw_bezier(RendererPSTRICKS *renderer, 
+draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
 
     set_line_color(renderer,color);
@@ -622,11 +598,12 @@ draw_bezier(RendererPSTRICKS *renderer,
 
 
 static void
-fill_bezier(RendererPSTRICKS *renderer, 
+fill_bezier(DiaRenderer *self, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints,
 	    Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
 
     set_fill_color(renderer,color);
@@ -660,11 +637,13 @@ fill_bezier(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_string(RendererPSTRICKS *renderer,
+draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+
     set_line_color(renderer,color);
 
     fprintf(renderer->file,"\\rput");
@@ -682,11 +661,12 @@ draw_string(RendererPSTRICKS *renderer,
 }
 
 static void
-draw_image(RendererPSTRICKS *renderer,
+draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
 	   DiaImage image)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int img_width, img_height;
     int v;
     int                 x, y;
@@ -761,11 +741,85 @@ static void
 export_pstricks(DiagramData *data, const gchar *filename, 
                 const gchar *diafilename, void* user_data)
 {
-    RendererPSTRICKS *renderer;
+    PstricksRenderer *renderer;
+    FILE *file;
+    time_t time_now;
+    double scale;
+    Rectangle *extent;
+    const char *name;
 
-    renderer = new_pstricks_renderer(data, filename, diafilename);
-    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
-    destroy_pstricks_renderer(renderer);
+    Color initial_color;
+ 
+    file = fopen(filename, "wb");
+
+    if (file==NULL) {
+      message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    }
+
+    renderer = g_object_new(PSTRICKS_TYPE_RENDERER, NULL);
+
+    renderer->pagenum = 1;
+    renderer->file = file;
+
+    renderer->dash_length = 1.0;
+    renderer->dot_length = 0.2;
+    renderer->saved_line_style = LINESTYLE_SOLID;
+  
+    time_now  = time(NULL);
+    extent = &data->extents;
+  
+    scale = POINTS_in_INCH * data->paper.scaling;
+  
+    name = g_get_user_name();
+  
+    fprintf(file,
+	"%% PSTricks TeX macro\n"
+	"%% Title: %s\n"
+	"%% Creator: Dia v%s\n"
+	"%% CreationDate: %s"
+	"%% For: %s\n"
+	"%% \\usepackage{pstricks}\n"
+	"%% The following commands are not supported in PSTricks at present\n"
+	"%% We define them conditionally, so when they are implemented,\n"
+	"%% this pstricks file will use them.\n"
+	"\\ifx\\setlinejoinmode\\undefined\n"
+	"  \\newcommand{\\setlinejoinmode}[1]{}\n"
+	"\\fi\n"
+	"\\ifx\\setlinecaps\\undefined\n"
+	"  \\newcommand{\\setlinecaps}[1]{}\n"
+	"\\fi\n"
+	"%% This way define your own fonts mapping (for example with ifthen)\n"
+	"\\ifx\\setfont\\undefined\n"
+	"  \\newcommand{\\setfont}[2]{}\n"
+        "\\fi\n",
+	diafilename,
+	VERSION,
+	ctime(&time_now),
+	name);
+
+    fprintf(renderer->file,"\\pspicture(%f,%f)(%f,%f)\n",
+	    extent->left * data->paper.scaling,
+	    -extent->bottom * data->paper.scaling,
+	    extent->right * data->paper.scaling,
+	    -extent->top * data->paper.scaling
+	    );
+    fprintf(renderer->file,"\\scalebox{%f %f}{\n",
+	    data->paper.scaling,
+	    -data->paper.scaling);
+
+    initial_color.red=0.;
+    initial_color.green=0.;
+    initial_color.blue=0.;
+    set_line_color(renderer,&initial_color);
+
+    initial_color.red=1.;
+    initial_color.green=1.;
+    initial_color.blue=1.;
+    set_fill_color(renderer,&initial_color);
+
+    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+
+    g_object_unref(renderer);
 }
 
 static const gchar *extensions[] = { "tex", NULL };
