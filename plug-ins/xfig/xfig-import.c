@@ -66,7 +66,8 @@ static char **warnings;
 #define WARNING_NO_TRIPLE_DOTS 2
 #define WARNING_NEGATIVE_CORNER_RADIUS 3
 #define WARNING_NO_SPLINES 4
-#define MAX_WARNING 5
+#define WARNING_MISSING_STD_OBJECT 5
+#define MAX_WARNING 6
 
 static void
 fig_warn(int warning) {
@@ -78,6 +79,7 @@ fig_warn(int warning) {
                         "using double-dotted");
 	warnings[3] = _("Negative corner radius, negating");
 	warnings[4] = _("Spline import is not implemented yet");
+	warnings[5] = _("Can't find standard object");
     }
     if (warning >= MAX_WARNING) return;
     if (warnings[warning] != NULL) {
@@ -120,6 +122,11 @@ create_standard_text(real xpos, real ypos,
     Object *new_obj;
     Handle *h1, *h2;
     Point point;
+
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
 
     point.x = xpos;
     point.y = ypos;
@@ -167,6 +174,11 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
     GPtrArray *props;
     Point point;
 
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
+
     point.x = xpos;
     point.y = ypos;
 
@@ -191,6 +203,11 @@ create_standard_box(real xpos, real ypos, real width, real height,
   Point point;
   GPtrArray *props;
 
+  if (otype == NULL){
+      fig_warn(WARNING_MISSING_STD_OBJECT);
+      return NULL;
+  }
+
   point.x = xpos;
   point.y = ypos;
 
@@ -209,10 +226,15 @@ static Object *
 create_standard_polyline(int num_points, 
 			 Point *points,
 			 DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Polyline");
+    ObjectType *otype = object_get_type("Standard - PolyLine");
     Object *new_obj;
     Handle *h1, *h2;
     PolylineCreateData *pcd;
+
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
 
     pcd = g_new(PolylineCreateData, 1);
     pcd->num_points = num_points;
@@ -235,7 +257,11 @@ create_standard_polygon(int num_points,
     Handle *h1, *h2;
     PolylineCreateData *pcd;
 
-    pcd = g_new(PolygonCreateData, 1);
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
+
     pcd->num_points = num_points;
     pcd->points = points;
 
@@ -260,6 +286,11 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
+
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
 
     point.x = x1;
     point.y = y1;
@@ -291,6 +322,11 @@ create_standard_image(real xpos, real ypos, real width, real height,
     Point point;
     GPtrArray *props;
     StringProperty *sprop;
+
+    if (otype == NULL){
+	fig_warn(WARNING_MISSING_STD_OBJECT);
+	return NULL;
+    }
 
     point.x = xpos;
     point.y = ypos;
@@ -574,7 +610,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 				     (2*radius_x)/FIG_UNIT,
 				     (2*radius_y)/FIG_UNIT,
 				     dia);
-
+    if (newobj == NULL) return NULL;
     fig_simple_properties(newobj, line_style, thickness,
 			  pen_color, fill_color, area_fill);
 
@@ -686,6 +722,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 newobj = create_standard_box(points[0].x, points[0].y,
 				      points[2].x-points[0].x,
 				      points[2].y-points[0].y, dia);
+	 if (newobj == NULL) goto exit;
 	 newobj->ops->set_props(newobj, props);
 	 break;
      case 5: /* imported-picture bounding-box) */
@@ -693,9 +730,11 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 					points[2].x-points[0].x,
 					points[2].y-points[0].y,
 					image_file, dia);
+	 if (newobj == NULL) goto exit;
 	 break;
      case 1: /* polyline */
 	 newobj = create_standard_polyline(npoints, points, dia);
+	 if (newobj == NULL) goto exit;
 	 break;
      case 3: /* polygon */
 	 /*
@@ -703,12 +742,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 */
      default: 
        message_error(_("Unknown polyline subtype: %d\n"), sub_type);
-       return NULL;
+       goto exit;
      }
-     prop_list_free(props);
-
-     if (image_file != NULL)
-	 g_free(image_file);
 
      fig_simple_properties(newobj, line_style, thickness,
 			   pen_color, fill_color, area_fill);
@@ -722,7 +757,10 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 depths[depth] = g_list_prepend(depths[depth], newobj);
      else
 	 if (compound_depth > depth) compound_depth = depth;
-
+ exit:
+     prop_list_free(props);
+     if (image_file != NULL)
+	 g_free(image_file);
      return newobj;
 }
 
@@ -786,6 +824,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
 				     x3/FIG_UNIT, y3/FIG_UNIT,
 				     radius, dia);
+	if (newobj == NULL) return NULL;
 	break;
     default: 
 	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
@@ -819,7 +858,7 @@ static PropDescription xfig_text_descs[] = {
 
 static Object *
 fig_read_text(FILE *file, DiagramData *dia) {
-    GPtrArray *props;
+    GPtrArray *props = NULL;
     TextProperty *tprop;
 
     Object *newobj = NULL;
@@ -834,7 +873,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     real height;
     real length;
     int x, y;
-    char *text_buf;
+    char *text_buf = NULL;
 
     if (fscanf(file, " %d %d %d %d %d %lf %lf %d %lf %lf %d %d",
 	       &sub_type,
@@ -856,12 +895,13 @@ fig_read_text(FILE *file, DiagramData *dia) {
     text_buf = fig_read_text_line(file);
 
     newobj = create_standard_text(x, y, dia);
+    if (newobj == NULL) goto exit;
 
     props = prop_list_from_descs(xfig_text_descs,pdtpp_true);
     g_assert(props->len == 1);
 
     tprop = g_ptr_array_index(props,0);
-    tprop->text_data = text_buf;
+    tprop->text_data = g_strdup(text_buf);
     //g_free(text_buf);
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
@@ -871,14 +911,15 @@ fig_read_text(FILE *file, DiagramData *dia) {
     tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);
     
-    prop_list_free(props);
-
     /* Depth field */
     if (compound_stack == NULL)
 	depths[depth] = g_list_prepend(depths[depth], newobj);
     else
 	if (compound_depth > depth) compound_depth = depth;
 
+ exit:
+    if (text_buf != NULL) free(text_buf);
+    if (props != NULL) prop_list_free(props);
     return newobj;
 }
 

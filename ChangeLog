@@ -1,3 +1,10 @@
+2002-05-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* plug-ins/xfig/Makefile.am (INCLUDES): Added DEBUG_FLAGS
+
+	* plug-ins/xfig/xfig-import.c: Fixed misspelled Poly_L_ine, added
+	checks for errors.
+
 2002-04-30  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_gdk.c (draw_string): Extra free killed.  Thanks valgrind!
